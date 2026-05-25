@@ -14,6 +14,11 @@ import type { SessionFile } from "./types";
 export interface SimilarityEntry {
   mpId: number;
   topK: Array<{ mpId: number; score: number; overlap: number }>;
+  // Most-different peers (lowest cosine scores, ascending). Labelled "most
+  // different" rather than "most opposed" on the frontend because for MPs in
+  // mostly-unanimous parliaments these scores aren't always negative — they
+  // just sit at the low end of that MP's distribution.
+  bottomK: Array<{ mpId: number; score: number; overlap: number }>;
 }
 
 export interface SimilarityOutput {
@@ -89,7 +94,14 @@ export const computeSimilarity = (
       scored.push({ mpId: bId, score: dot / (aNorm * bNorm), overlap });
     }
     scored.sort((x, y) => y.score - x.score);
-    entries.push({ mpId: aId, topK: scored.slice(0, TOP_K) });
+    const topK = scored.slice(0, TOP_K);
+    // Bottom-K: ascending by score, take the K worst. Skip overlap-1 noise
+    // by requiring at least 5 overlapping votes — a single shared vote can
+    // produce a score of -1 that isn't actually meaningful.
+    const meaningful = scored.filter((s) => s.overlap >= 5);
+    const sortedAsc = [...meaningful].sort((x, y) => x.score - y.score);
+    const bottomK = sortedAsc.slice(0, TOP_K);
+    entries.push({ mpId: aId, topK, bottomK });
   }
 
   return {

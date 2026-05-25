@@ -1,0 +1,285 @@
+{
+  "mpId": 2064,
+  "ns": "49",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 473,
+    "withParty": 467,
+    "loyaltyPct": 0.9873150105708245,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 473,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2023-09-20",
+        "item": 50,
+        "slug": "50-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-pro",
+        "title": "Закон за противодействие на корупцията - второ гласуване - процедура от Стою Стоев за удължване на р.време до приемането на точката",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 31
+      },
+      {
+        "date": "2023-05-26",
+        "item": 33,
+        "slug": "33-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Наказателно - процесуалния кодекс - второ гласуване - параграф 16 (става параграф 8) - предложение за редакция от Цвета Рангелова по ал.4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 36
+      },
+      {
+        "date": "2023-05-25",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-25-i-26-may-20",
+        "title": "Програма за работата на Народното събрание за 25 и 26 май 2023 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 34
+      },
+      {
+        "date": "2023-05-19",
+        "item": 13,
+        "slug": "13-protsedura-ot-rosen-zhelyazkov-za-nova-tochka-v-dnevniya-red",
+        "title": "Процедура от Росен Желязков за нова точка в дневния ред - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 33
+      },
+      {
+        "date": "2023-05-03",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-3-5-may-2023-g",
+        "title": "Програма за работата на Народното събрание за 3 - 5 май 2023 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 33
+      },
+      {
+        "date": "2023-04-28",
+        "item": 10,
+        "slug": "10-reshenie-za-pravilnik-za-organizatsiyata-i-deynostta-na-naro",
+        "title": "Решение за Правилник за организацията и дейността на Народното събрание - член 105 - предложение от Павела Митова - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 34
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 810,
+        "score": 0.579260817056784,
+        "overlap": 224
+      },
+      {
+        "mpId": 524,
+        "score": 0.5117110837052267,
+        "overlap": 420
+      },
+      {
+        "mpId": 1297,
+        "score": 0.49974099036312275,
+        "overlap": 303
+      },
+      {
+        "mpId": 2411,
+        "score": 0.49336541209302354,
+        "overlap": 252
+      },
+      {
+        "mpId": 451,
+        "score": 0.4928845900790765,
+        "overlap": 390
+      },
+      {
+        "mpId": 2307,
+        "score": 0.4890096469218258,
+        "overlap": 458
+      },
+      {
+        "mpId": 1949,
+        "score": 0.4593699967900066,
+        "overlap": 196
+      },
+      {
+        "mpId": 398,
+        "score": 0.45341219409974337,
+        "overlap": 444
+      },
+      {
+        "mpId": 767,
+        "score": 0.45150206743446397,
+        "overlap": 354
+      },
+      {
+        "mpId": 663,
+        "score": 0.44759746388075816,
+        "overlap": 436
+      },
+      {
+        "mpId": 987,
+        "score": 0.4280639634923834,
+        "overlap": 446
+      },
+      {
+        "mpId": 2088,
+        "score": 0.42696406234153317,
+        "overlap": 413
+      },
+      {
+        "mpId": 1389,
+        "score": 0.42670581952983355,
+        "overlap": 457
+      },
+      {
+        "mpId": 1955,
+        "score": 0.4095122021995856,
+        "overlap": 387
+      },
+      {
+        "mpId": 1961,
+        "score": 0.40753046980276536,
+        "overlap": 423
+      },
+      {
+        "mpId": 960,
+        "score": 0.40123300847398763,
+        "overlap": 425
+      },
+      {
+        "mpId": 1691,
+        "score": 0.4012005208575069,
+        "overlap": 460
+      },
+      {
+        "mpId": 2458,
+        "score": 0.3987034283704406,
+        "overlap": 451
+      },
+      {
+        "mpId": 2360,
+        "score": 0.39558674171740843,
+        "overlap": 434
+      },
+      {
+        "mpId": 1703,
+        "score": 0.3954390452795884,
+        "overlap": 346
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2484,
+        "score": -0.07832690207805379,
+        "overlap": 133
+      },
+      {
+        "mpId": 2119,
+        "score": -0.0696622943496675,
+        "overlap": 315
+      },
+      {
+        "mpId": 2129,
+        "score": -0.0672144259897648,
+        "overlap": 332
+      },
+      {
+        "mpId": 2452,
+        "score": -0.06682910203335679,
+        "overlap": 320
+      },
+      {
+        "mpId": 2075,
+        "score": -0.06640991106984398,
+        "overlap": 292
+      },
+      {
+        "mpId": 2459,
+        "score": -0.06385347853639622,
+        "overlap": 331
+      },
+      {
+        "mpId": 2098,
+        "score": -0.06379547401379751,
+        "overlap": 336
+      },
+      {
+        "mpId": 2266,
+        "score": -0.063583222567977,
+        "overlap": 279
+      },
+      {
+        "mpId": 2317,
+        "score": -0.06309229527663592,
+        "overlap": 336
+      },
+      {
+        "mpId": 2439,
+        "score": -0.06304883249912804,
+        "overlap": 333
+      },
+      {
+        "mpId": 2442,
+        "score": -0.06257605578776833,
+        "overlap": 332
+      },
+      {
+        "mpId": 2445,
+        "score": -0.06252704203330636,
+        "overlap": 331
+      },
+      {
+        "mpId": 2318,
+        "score": -0.06169041260326392,
+        "overlap": 323
+      },
+      {
+        "mpId": 2309,
+        "score": -0.06132459082623197,
+        "overlap": 323
+      },
+      {
+        "mpId": 2451,
+        "score": -0.0612782302947155,
+        "overlap": 304
+      },
+      {
+        "mpId": 2061,
+        "score": -0.0609544304593249,
+        "overlap": 333
+      },
+      {
+        "mpId": 2100,
+        "score": -0.059853522834195795,
+        "overlap": 279
+      },
+      {
+        "mpId": 2422,
+        "score": -0.05952480254257211,
+        "overlap": 318
+      },
+      {
+        "mpId": 2446,
+        "score": -0.059386989104899035,
+        "overlap": 329
+      },
+      {
+        "mpId": 2363,
+        "score": -0.05912710094359518,
+        "overlap": 321
+      }
+    ]
+  }
+}

@@ -1,0 +1,323 @@
+{
+  "mpId": 1966,
+  "ns": "48",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 1269,
+    "withParty": 1259,
+    "loyaltyPct": 0.9921197793538219,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 1269,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2023-01-27",
+        "item": 59,
+        "slug": "59-zid-na-zakona-za-zashtita-ot-domashnoto-nasilie-parvo-glasuv",
+        "title": "ЗИД на Закона за защита от домашното насилие - първо гласуване - вносител Надежда Йорданова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 35
+      },
+      {
+        "date": "2023-01-27",
+        "item": 58,
+        "slug": "58-zid-na-zakona-za-zashtita-ot-domashnoto-nasilie-parvo-glasuv",
+        "title": "ЗИД на Закона за защита от домашното насилие - първо гласуване - процедура от Стоян Таслаков за пряко предаване по БНТ2 и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2023-01-27",
+        "item": 8,
+        "slug": "8-protsedura-ot-daniela-dasheva-za-nova-tochka-2",
+        "title": "Процедура от Даниела Дашева за нова точка 2",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 64
+      },
+      {
+        "date": "2023-01-12",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-energetikata-vtoro-glasuvane-paragraf-20-st",
+        "title": "ЗИД на Закона за енергетиката - второ гласуване - параграф 20 (става параграф 21) - предложение от Радослав Рибарски и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2023-01-11",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-lechebnite-zavedeniya-parvo-glasuvane-prots",
+        "title": "ЗИД на Закона за лечебните заведения - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 49
+      },
+      {
+        "date": "2022-12-09",
+        "item": 25,
+        "slug": "25-reshenie-za-okazvane-na-voenna-i-voenno-tehnicheska-podkrepa",
+        "title": "Решение за оказване на военна и военно-техническа подкрепа на Украйна - процедура от Вяра Емилова за пряко предаване по БНТ и БНР на т.1 и т. 2 от програмата - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2022-12-02",
+        "item": 178,
+        "slug": "178",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-11-08",
+        "item": 10,
+        "slug": "10-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 135 (става член 136) - предложение от Петър Петров и Цвета Рангелова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2022-11-02",
+        "item": 44,
+        "slug": "44-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 47 (става член 48) и 48 (става член 49) - предложение от Цвета Рангелова за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2022-10-19",
+        "item": 16,
+        "slug": "16-reshenie-za-izbor-na-predsedatel-na-48-to-narodno-sabranie-n",
+        "title": "Решение за избор на председател на 48-то Народно събрание на Република България - нова процедура - избира Никола Минчев",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1577,
+        "score": 0.9634604665683882,
+        "overlap": 1236
+      },
+      {
+        "mpId": 1951,
+        "score": 0.9575357191016524,
+        "overlap": 1233
+      },
+      {
+        "mpId": 2361,
+        "score": 0.9550574735944581,
+        "overlap": 1229
+      },
+      {
+        "mpId": 1628,
+        "score": 0.9514904112377464,
+        "overlap": 1245
+      },
+      {
+        "mpId": 2065,
+        "score": 0.9505612081582712,
+        "overlap": 1210
+      },
+      {
+        "mpId": 1695,
+        "score": 0.9490398816144405,
+        "overlap": 1224
+      },
+      {
+        "mpId": 1465,
+        "score": 0.9419685400654563,
+        "overlap": 1224
+      },
+      {
+        "mpId": 2073,
+        "score": 0.9394705097605125,
+        "overlap": 1229
+      },
+      {
+        "mpId": 2272,
+        "score": 0.93926006053014,
+        "overlap": 1219
+      },
+      {
+        "mpId": 2348,
+        "score": 0.9382822279208176,
+        "overlap": 1202
+      },
+      {
+        "mpId": 2074,
+        "score": 0.9341204773619864,
+        "overlap": 1212
+      },
+      {
+        "mpId": 2135,
+        "score": 0.9331155866164583,
+        "overlap": 1195
+      },
+      {
+        "mpId": 2281,
+        "score": 0.9290884444931127,
+        "overlap": 1216
+      },
+      {
+        "mpId": 2327,
+        "score": 0.9273164989212767,
+        "overlap": 1188
+      },
+      {
+        "mpId": 1934,
+        "score": 0.9261056493833424,
+        "overlap": 1180
+      },
+      {
+        "mpId": 1344,
+        "score": 0.9218224610459098,
+        "overlap": 1178
+      },
+      {
+        "mpId": 2340,
+        "score": 0.9215509364581523,
+        "overlap": 1175
+      },
+      {
+        "mpId": 2305,
+        "score": 0.9214829162724879,
+        "overlap": 1202
+      },
+      {
+        "mpId": 2344,
+        "score": 0.9209813821580942,
+        "overlap": 1175
+      },
+      {
+        "mpId": 2085,
+        "score": 0.9202525273458754,
+        "overlap": 1187
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2236,
+        "score": 0.042893632555415236,
+        "overlap": 595
+      },
+      {
+        "mpId": 2366,
+        "score": 0.05857689433539132,
+        "overlap": 822
+      },
+      {
+        "mpId": 1394,
+        "score": 0.06729265849104529,
+        "overlap": 123
+      },
+      {
+        "mpId": 2023,
+        "score": 0.08256335275512418,
+        "overlap": 844
+      },
+      {
+        "mpId": 2237,
+        "score": 0.08894991799933213,
+        "overlap": 557
+      },
+      {
+        "mpId": 2260,
+        "score": 0.09170051855044689,
+        "overlap": 745
+      },
+      {
+        "mpId": 2246,
+        "score": 0.1027966965743296,
+        "overlap": 768
+      },
+      {
+        "mpId": 2025,
+        "score": 0.10329372610623012,
+        "overlap": 952
+      },
+      {
+        "mpId": 2015,
+        "score": 0.11408347918894521,
+        "overlap": 1016
+      },
+      {
+        "mpId": 2093,
+        "score": 0.11687336509587924,
+        "overlap": 1014
+      },
+      {
+        "mpId": 2312,
+        "score": 0.12024672332143362,
+        "overlap": 993
+      },
+      {
+        "mpId": 2128,
+        "score": 0.12615460986732943,
+        "overlap": 1073
+      },
+      {
+        "mpId": 2271,
+        "score": 0.12640686323628036,
+        "overlap": 774
+      },
+      {
+        "mpId": 2126,
+        "score": 0.12945804898455116,
+        "overlap": 736
+      },
+      {
+        "mpId": 2258,
+        "score": 0.13309381640017676,
+        "overlap": 976
+      },
+      {
+        "mpId": 2104,
+        "score": 0.13572959339260735,
+        "overlap": 1056
+      },
+      {
+        "mpId": 2363,
+        "score": 0.14067287149927307,
+        "overlap": 1187
+      },
+      {
+        "mpId": 2084,
+        "score": 0.14146593349806585,
+        "overlap": 878
+      },
+      {
+        "mpId": 2063,
+        "score": 0.14769300683245631,
+        "overlap": 1143
+      },
+      {
+        "mpId": 2129,
+        "score": 0.14818175098608194,
+        "overlap": 1153
+      }
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "mpId": 4059,
+  "summary": {
+    "totalEur": 67362.70534760179,
+    "totalOther": {},
+    "contractCount": 2,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 67362.70534760179,
+    "rank": 40,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 4059,
+      "mpName": "Цветелина Калинова Симеонова-Заркин",
+      "contractorEik": "121125663",
+      "contractorName": "ЕКОТЕХПРОДУКТ ООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "15%",
+          "valueEur": 383.4689108971639,
+          "fiscalYear": 2021,
+          "declarationYear": 2022
+        }
+      ],
+      "totalEur": 67362.70534760179,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2022",
+          "contractCount": 1,
+          "totalEur": 28760.16831728729,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 38602.537030314495,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000670634",
+          "name": "ЛЕСОТЕХНИЧЕСКИ УНИВЕРСИТЕТ",
+          "contractCount": 1,
+          "totalEur": 38602.537030314495,
+          "totalOther": {}
+        },
+        {
+          "eik": "000776349",
+          "name": "ОБЩИНА КОСТЕНЕЦ",
+          "contractCount": 1,
+          "totalEur": 28760.16831728729,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

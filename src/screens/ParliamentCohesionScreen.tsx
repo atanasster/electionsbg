@@ -5,6 +5,7 @@ import { Title } from "@/ux/Title";
 import { useFactionCohesion } from "@/data/parliament/votes/useFactionCohesion";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { CohesionTrendChart } from "./components/charts/CohesionTrendChart";
+import { LoyaltyOutlierRibbon } from "./components/votes/LoyaltyOutlierRibbon";
 
 const formatPct = (frac: number, lang: string): string =>
   new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
@@ -87,6 +88,8 @@ export const ParliamentCohesionScreen: FC = () => {
           </div>
         ) : (
           <>
+            <LoyaltyOutlierRibbon />
+
             {series.length > 0 && (
               <section className="rounded-xl border bg-card p-4">
                 <h2 className="text-sm font-semibold uppercase tracking-wide mb-2">

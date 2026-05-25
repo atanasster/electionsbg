@@ -1,0 +1,315 @@
+{
+  "mpId": 398,
+  "ns": "46",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 304,
+    "withParty": 295,
+    "loyaltyPct": 0.9703947368421053,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 304,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodnoto-sabranie-na-15-09-2021-g-p",
+        "title": "Програма за работата на Народното събрание на 15.09.2021 г. - предложение за разместване на точките от Н. Хаджигенов - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 23
+      },
+      {
+        "date": "2021-09-10",
+        "item": 80,
+        "slug": "80-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф ... - предложение от Мая Манолова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-09-10",
+        "item": 43,
+        "slug": "43-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Иван Иванов и Хр.Гаджев за редакция на т.16 ал.5 - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 28
+      },
+      {
+        "date": "2021-09-10",
+        "item": 34,
+        "slug": "34-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Г.Ганев за редакция в.т.4 - буква д",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-09-10",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от М.Манолова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-09-10",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Велизар Шаламанов и група н.п. - до ал.9 - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2021-09-08",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-8-10-septemvri",
+        "title": "Програма за работата на Народното събрание за 8 - 10 септември 2021 г. - предложение от Мая Манолова за нова точка",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-09-01",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-1-3-septemvri-",
+        "title": "Програма за работата на Народното събрание за 1 - 3 септември 2021 г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-07-30",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1267,
+        "score": 0.8390161425334401,
+        "overlap": 288
+      },
+      {
+        "mpId": 1455,
+        "score": 0.8178140921155848,
+        "overlap": 286
+      },
+      {
+        "mpId": 1886,
+        "score": 0.813504380944642,
+        "overlap": 299
+      },
+      {
+        "mpId": 1319,
+        "score": 0.8101494549792845,
+        "overlap": 266
+      },
+      {
+        "mpId": 1388,
+        "score": 0.7981618828037028,
+        "overlap": 272
+      },
+      {
+        "mpId": 1961,
+        "score": 0.7976417032391916,
+        "overlap": 285
+      },
+      {
+        "mpId": 1615,
+        "score": 0.7823903481259389,
+        "overlap": 289
+      },
+      {
+        "mpId": 1062,
+        "score": 0.7687112527434612,
+        "overlap": 268
+      },
+      {
+        "mpId": 1316,
+        "score": 0.766725228947585,
+        "overlap": 254
+      },
+      {
+        "mpId": 1946,
+        "score": 0.7634653806362022,
+        "overlap": 279
+      },
+      {
+        "mpId": 1733,
+        "score": 0.7567719571933484,
+        "overlap": 276
+      },
+      {
+        "mpId": 1572,
+        "score": 0.7556177396387378,
+        "overlap": 274
+      },
+      {
+        "mpId": 1964,
+        "score": 0.7550386984516664,
+        "overlap": 253
+      },
+      {
+        "mpId": 1700,
+        "score": 0.7429453311533221,
+        "overlap": 266
+      },
+      {
+        "mpId": 1949,
+        "score": 0.7373625938405514,
+        "overlap": 251
+      },
+      {
+        "mpId": 987,
+        "score": 0.7302606819747036,
+        "overlap": 249
+      },
+      {
+        "mpId": 1389,
+        "score": 0.7156377943563512,
+        "overlap": 241
+      },
+      {
+        "mpId": 663,
+        "score": 0.7103241215636082,
+        "overlap": 250
+      },
+      {
+        "mpId": 1304,
+        "score": 0.7090361347894468,
+        "overlap": 256
+      },
+      {
+        "mpId": 1723,
+        "score": 0.6976280986481554,
+        "overlap": 218
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1589,
+        "score": 0.13799514186891565,
+        "overlap": 73
+      },
+      {
+        "mpId": 1678,
+        "score": 0.15138583542335587,
+        "overlap": 184
+      },
+      {
+        "mpId": 1642,
+        "score": 0.17443775492206112,
+        "overlap": 143
+      },
+      {
+        "mpId": 1595,
+        "score": 0.1789964553405466,
+        "overlap": 235
+      },
+      {
+        "mpId": 1584,
+        "score": 0.18136226636972605,
+        "overlap": 204
+      },
+      {
+        "mpId": 1663,
+        "score": 0.18850142409341608,
+        "overlap": 214
+      },
+      {
+        "mpId": 1466,
+        "score": 0.19854162773425654,
+        "overlap": 40
+      },
+      {
+        "mpId": 1591,
+        "score": 0.19996254954350434,
+        "overlap": 261
+      },
+      {
+        "mpId": 1891,
+        "score": 0.20192919815994595,
+        "overlap": 182
+      },
+      {
+        "mpId": 1943,
+        "score": 0.2071477403999602,
+        "overlap": 114
+      },
+      {
+        "mpId": 1963,
+        "score": 0.2089412607966482,
+        "overlap": 107
+      },
+      {
+        "mpId": 1874,
+        "score": 0.2114126992765658,
+        "overlap": 274
+      },
+      {
+        "mpId": 1576,
+        "score": 0.2166777968095163,
+        "overlap": 145
+      },
+      {
+        "mpId": 1640,
+        "score": 0.21685746306166068,
+        "overlap": 237
+      },
+      {
+        "mpId": 1879,
+        "score": 0.2182579912875164,
+        "overlap": 289
+      },
+      {
+        "mpId": 1681,
+        "score": 0.22268849079920192,
+        "overlap": 147
+      },
+      {
+        "mpId": 1673,
+        "score": 0.22766289917613797,
+        "overlap": 179
+      },
+      {
+        "mpId": 1892,
+        "score": 0.2325076594843207,
+        "overlap": 268
+      },
+      {
+        "mpId": 1693,
+        "score": 0.23328668066200164,
+        "overlap": 254
+      },
+      {
+        "mpId": 1597,
+        "score": 0.23486329707023507,
+        "overlap": 115
+      }
+    ]
+  }
+}

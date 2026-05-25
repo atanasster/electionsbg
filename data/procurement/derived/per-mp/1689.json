@@ -1,0 +1,99 @@
+{
+  "mpId": 1689,
+  "summary": {
+    "totalEur": 60996346.308216974,
+    "totalOther": {},
+    "contractCount": 19,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 60996346.308216974,
+    "rank": 4,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 1689,
+      "mpName": "Андон Петров Андонов",
+      "contractorEik": "833017552",
+      "contractorName": "МИНИ МАРИЦА - ИЗТОК ЕАД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 60996346.308216974,
+      "totalOther": {},
+      "contractCount": 19,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 1,
+          "totalEur": 153387.56435886555,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 2,
+          "totalEur": 423860.9695116651,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 7458777.092078555,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 327226.80396557983,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 4,
+          "totalEur": 930551.2237771177,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 15912057.79643425,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 4,
+          "totalEur": 19061165.847747505,
+          "totalOther": {}
+        },
+        {
+          "year": "2020",
+          "contractCount": 1,
+          "totalEur": 153387.56435886555,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 3,
+          "totalEur": 16575931.445984568,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "123531939",
+          "name": "ТЕЦ МАРИЦА ИЗТОК 2 ЕАД",
+          "contractCount": 19,
+          "totalEur": 60996346.308216974,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

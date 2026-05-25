@@ -1,0 +1,275 @@
+{
+  "mpId": 3153,
+  "ns": "51",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 579,
+    "withParty": 574,
+    "loyaltyPct": 0.9913644214162349,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 579,
+    "dissentCount": 5,
+    "recent": [
+      {
+        "date": "2025-01-23",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-22-24-yanuari-",
+        "title": "Програма за работата на Народното събрание за 22 – 24 януари 2025 г. - процедура от Станислав Анастасов за отпадане на точка 3 - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-12-18",
+        "item": 53,
+        "slug": "53-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 84 - предложение от Атанас Славов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-12-18",
+        "item": 52,
+        "slug": "52-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 81 - предложение от Атанас Славов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-12-18",
+        "item": 47,
+        "slug": "47-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 73 - предложение от Христо Гаджев за редакция в ал.2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-12-18",
+        "item": 20,
+        "slug": "20-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 41 - предложение от Константина Петрова - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3024,
+        "score": 0.9572187315323383,
+        "overlap": 566
+      },
+      {
+        "mpId": 3374,
+        "score": 0.9531139754325465,
+        "overlap": 557
+      },
+      {
+        "mpId": 3404,
+        "score": 0.6734217272736961,
+        "overlap": 519
+      },
+      {
+        "mpId": 3373,
+        "score": 0.6595913739204176,
+        "overlap": 559
+      },
+      {
+        "mpId": 3269,
+        "score": 0.6559231708744429,
+        "overlap": 266
+      },
+      {
+        "mpId": 3448,
+        "score": 0.6327578047066187,
+        "overlap": 275
+      },
+      {
+        "mpId": 3342,
+        "score": 0.6276538917967364,
+        "overlap": 500
+      },
+      {
+        "mpId": 3023,
+        "score": 0.61848387104819,
+        "overlap": 523
+      },
+      {
+        "mpId": 3365,
+        "score": 0.4873064463543164,
+        "overlap": 539
+      },
+      {
+        "mpId": 3347,
+        "score": 0.45274392471771285,
+        "overlap": 419
+      },
+      {
+        "mpId": 3144,
+        "score": 0.44849147592617983,
+        "overlap": 491
+      },
+      {
+        "mpId": 3031,
+        "score": 0.44063084143829173,
+        "overlap": 544
+      },
+      {
+        "mpId": 3413,
+        "score": 0.4257319581823705,
+        "overlap": 277
+      },
+      {
+        "mpId": 3340,
+        "score": 0.4177110771386244,
+        "overlap": 354
+      },
+      {
+        "mpId": 3280,
+        "score": 0.4164565699673851,
+        "overlap": 546
+      },
+      {
+        "mpId": 3066,
+        "score": 0.4162036013062772,
+        "overlap": 559
+      },
+      {
+        "mpId": 3344,
+        "score": 0.4150641525724675,
+        "overlap": 515
+      },
+      {
+        "mpId": 3349,
+        "score": 0.41500345477425243,
+        "overlap": 448
+      },
+      {
+        "mpId": 3383,
+        "score": 0.41496454671942634,
+        "overlap": 572
+      },
+      {
+        "mpId": 3396,
+        "score": 0.4124971393571378,
+        "overlap": 549
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3283,
+        "score": -0.15667780358034475,
+        "overlap": 76
+      },
+      {
+        "mpId": 3106,
+        "score": 0.01106471311519364,
+        "overlap": 153
+      },
+      {
+        "mpId": 3307,
+        "score": 0.05795192384552978,
+        "overlap": 515
+      },
+      {
+        "mpId": 3460,
+        "score": 0.059970274058516626,
+        "overlap": 88
+      },
+      {
+        "mpId": 3181,
+        "score": 0.07240449532124252,
+        "overlap": 463
+      },
+      {
+        "mpId": 3102,
+        "score": 0.0725959912793793,
+        "overlap": 98
+      },
+      {
+        "mpId": 3122,
+        "score": 0.07271567544085915,
+        "overlap": 548
+      },
+      {
+        "mpId": 3096,
+        "score": 0.07419146016384728,
+        "overlap": 526
+      },
+      {
+        "mpId": 3279,
+        "score": 0.07534310514759895,
+        "overlap": 537
+      },
+      {
+        "mpId": 3304,
+        "score": 0.07556675399395345,
+        "overlap": 481
+      },
+      {
+        "mpId": 3049,
+        "score": 0.0764040591211096,
+        "overlap": 113
+      },
+      {
+        "mpId": 3141,
+        "score": 0.07711351091681651,
+        "overlap": 572
+      },
+      {
+        "mpId": 3121,
+        "score": 0.07814968113420152,
+        "overlap": 561
+      },
+      {
+        "mpId": 3027,
+        "score": 0.07830319134638995,
+        "overlap": 552
+      },
+      {
+        "mpId": 3177,
+        "score": 0.07934186891643151,
+        "overlap": 574
+      },
+      {
+        "mpId": 3084,
+        "score": 0.08027850671636406,
+        "overlap": 568
+      },
+      {
+        "mpId": 3358,
+        "score": 0.08040370093952769,
+        "overlap": 574
+      },
+      {
+        "mpId": 3068,
+        "score": 0.08212716030000292,
+        "overlap": 567
+      },
+      {
+        "mpId": 3247,
+        "score": 0.08216732989951364,
+        "overlap": 492
+      },
+      {
+        "mpId": 3116,
+        "score": 0.0821964992952641,
+        "overlap": 565
+      }
+    ]
+  }
+}

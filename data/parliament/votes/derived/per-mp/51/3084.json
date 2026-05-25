@@ -1,0 +1,335 @@
+{
+  "mpId": 3084,
+  "ns": "51",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 3414,
+    "withParty": 3403,
+    "loyaltyPct": 0.9967779730521382,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 3414,
+    "dissentCount": 11,
+    "recent": [
+      {
+        "date": "2026-03-19",
+        "item": 36,
+        "slug": "36-zakon-za-prozrachnost-i-pochtenost-v-upravlenieto-vtoro-glas",
+        "title": "Закон за прозрачност и почтеност в управлението – второ гласуване - член 8 до член 11, Глава трета, член 12 до член 16",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2026-01-30",
+        "item": 2,
+        "slug": "2-zid-na-zakona-za-advokaturata-vtoro-glasuvane-protsedura-ot-",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - процедура от Костадин Ангелов за удължаване на законодателната част до приемане на точка 11",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2026-01-14",
+        "item": 8,
+        "slug": "8-programa-za-rabotata-na-narodnoto-sabranie-za-14-16-yanuari-",
+        "title": "Програма за работата на Народното събрание за 14 – 16 януари 2026 г. - предложение от Драгомир Стойнев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-12-18",
+        "item": 31,
+        "slug": "31-zid-na-semeyniya-kodeks-vtoro-glasuvane-paragraf-11-stava-pa",
+        "title": "ЗИД на Семейния кодекс - второ гласуване - параграф 11 (става параграф 13)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 32
+      },
+      {
+        "date": "2025-11-06",
+        "item": 36,
+        "slug": "36-zid-na-zakona-za-elektronnite-saobshteniya-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за електронните съобщения – второ гласуване - параграф 24 - предложение от Божидар Божанов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-10-29",
+        "item": 23,
+        "slug": "23-ratifikatsiya-na-usavarshenstvanoto-ramkovo-sporazumenie-mez",
+        "title": "Ратификация на Усъвършенстваното рамково споразумение между Европейския съюз и неговите държави членки, от една страна, и Република Чили, от друга страна, съставено в Брюксел на 13 декември 2023 г. - второ гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 29
+      },
+      {
+        "date": "2025-06-18",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-chuzhdentsite-v-republika-balgariya-vtoro-g",
+        "title": "ЗИД на Закона за чужденците в Република България – второ гласуване - параграф 4",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 29
+      },
+      {
+        "date": "2025-05-07",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-merkite-sreshtu-finansiraneto-na-terorizma-",
+        "title": "ЗИД на Закона за мерките срещу финансирането на тероризма - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 32
+      },
+      {
+        "date": "2025-04-09",
+        "item": 13,
+        "slug": "13-izslushvane-na-ministara-na-energetikata-zhecho-stankov-otno",
+        "title": "Изслушване на министъра на енергетиката Жечо Станков, относно сключените споразумения с турската компания Боташ, тяхното отражение върху Булгаргаз и необходимостта от предоговаряне на условията по тези споразумения - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 26
+      },
+      {
+        "date": "2025-02-05",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-energiyata-ot-vazobnovyaemi-iztochnitsi-par",
+        "title": "ЗИД на Закона за енергията от възобновяеми източници - първо гласуване - процедура за удължване не работното време",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2025-01-24",
+        "item": 12,
+        "slug": "12-reshenie-po-iskane-na-izpalnyavashtiya-funktsiite-glaven-pro",
+        "title": "Решение по искане на изпълняващия функциите главен прокурор на Република България, вх. № 51-427-00-1 от 13 ноември 2024 г., за даване на разрешение за възбуждане на наказателно преследване срещу Джейхан Хасанов Ибрямов, народен представител от 51-вото Народно събрание - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 30
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3129,
+        "score": 0.9455702693015047,
+        "overlap": 3314
+      },
+      {
+        "mpId": 3177,
+        "score": 0.9412420992677724,
+        "overlap": 3317
+      },
+      {
+        "mpId": 3090,
+        "score": 0.9403617496008623,
+        "overlap": 3328
+      },
+      {
+        "mpId": 3154,
+        "score": 0.9399724568681457,
+        "overlap": 3277
+      },
+      {
+        "mpId": 3141,
+        "score": 0.9394053364095665,
+        "overlap": 3293
+      },
+      {
+        "mpId": 3230,
+        "score": 0.9374996542760462,
+        "overlap": 3275
+      },
+      {
+        "mpId": 3068,
+        "score": 0.9351275623729879,
+        "overlap": 3291
+      },
+      {
+        "mpId": 3122,
+        "score": 0.935121911649525,
+        "overlap": 3258
+      },
+      {
+        "mpId": 3165,
+        "score": 0.9316330387694971,
+        "overlap": 3261
+      },
+      {
+        "mpId": 3205,
+        "score": 0.9295658798922328,
+        "overlap": 3260
+      },
+      {
+        "mpId": 3358,
+        "score": 0.9280225915790713,
+        "overlap": 3197
+      },
+      {
+        "mpId": 3304,
+        "score": 0.9244700559677935,
+        "overlap": 3218
+      },
+      {
+        "mpId": 3028,
+        "score": 0.9242547539815622,
+        "overlap": 3142
+      },
+      {
+        "mpId": 3121,
+        "score": 0.9173098559427386,
+        "overlap": 3160
+      },
+      {
+        "mpId": 3116,
+        "score": 0.9138790857381579,
+        "overlap": 3149
+      },
+      {
+        "mpId": 3027,
+        "score": 0.9128344084694162,
+        "overlap": 3096
+      },
+      {
+        "mpId": 3142,
+        "score": 0.9125222999487287,
+        "overlap": 3136
+      },
+      {
+        "mpId": 3072,
+        "score": 0.9108539510435749,
+        "overlap": 3152
+      },
+      {
+        "mpId": 3095,
+        "score": 0.9103229293458938,
+        "overlap": 3107
+      },
+      {
+        "mpId": 3050,
+        "score": 0.9047209190288962,
+        "overlap": 3102
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3493,
+        "score": -0.38333006493224775,
+        "overlap": 2156
+      },
+      {
+        "mpId": 3491,
+        "score": -0.37029451412351444,
+        "overlap": 2649
+      },
+      {
+        "mpId": 3415,
+        "score": -0.3550686770627372,
+        "overlap": 3141
+      },
+      {
+        "mpId": 3160,
+        "score": -0.34883104194579007,
+        "overlap": 2496
+      },
+      {
+        "mpId": 3452,
+        "score": -0.347826255947371,
+        "overlap": 2768
+      },
+      {
+        "mpId": 3447,
+        "score": -0.3448671984464588,
+        "overlap": 2820
+      },
+      {
+        "mpId": 3445,
+        "score": -0.3403019944724734,
+        "overlap": 2489
+      },
+      {
+        "mpId": 3450,
+        "score": -0.33929390377915836,
+        "overlap": 2720
+      },
+      {
+        "mpId": 3127,
+        "score": -0.3387315601904295,
+        "overlap": 3173
+      },
+      {
+        "mpId": 3231,
+        "score": -0.33651619343026684,
+        "overlap": 3064
+      },
+      {
+        "mpId": 3042,
+        "score": -0.33615965045142765,
+        "overlap": 3031
+      },
+      {
+        "mpId": 3308,
+        "score": -0.33536681395667917,
+        "overlap": 3238
+      },
+      {
+        "mpId": 3453,
+        "score": -0.3328292757808823,
+        "overlap": 2745
+      },
+      {
+        "mpId": 3449,
+        "score": -0.33269316380645697,
+        "overlap": 2555
+      },
+      {
+        "mpId": 3228,
+        "score": -0.3313990303150326,
+        "overlap": 3270
+      },
+      {
+        "mpId": 3302,
+        "score": -0.3311271046557225,
+        "overlap": 3120
+      },
+      {
+        "mpId": 3401,
+        "score": -0.3308814700275041,
+        "overlap": 3239
+      },
+      {
+        "mpId": 3363,
+        "score": -0.33033024272783446,
+        "overlap": 2994
+      },
+      {
+        "mpId": 3446,
+        "score": -0.33024086555857063,
+        "overlap": 2624
+      },
+      {
+        "mpId": 3156,
+        "score": -0.3295191798423001,
+        "overlap": 3247
+      }
+    ]
+  }
+}

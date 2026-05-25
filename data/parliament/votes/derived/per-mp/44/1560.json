@@ -1,0 +1,285 @@
+{
+  "mpId": 1560,
+  "ns": "44",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 31,
+    "withParty": 25,
+    "loyaltyPct": 0.8064516129032258,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 31,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2021-02-25",
+        "item": 11,
+        "slug": "11-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-energiynata-efe",
+        "title": "Закон за изменение и допълнение на Закона за енергийната ефективност - второ гласуване - параграф 24 - предложение за редакция от Димитър Бойчев Петров",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2021-02-17",
+        "item": 6,
+        "slug": "6-novo-obsazhdane-na-zd-na-nakazatelno-protsesualniya-kodeks-p",
+        "title": "Ново обсъждане на ЗД на Наказателно-процесуалния кодекс, приет от Народното събрание на 29 януари 2021 г., върнат за ново обсъждане с Указ № 41 от 10 февруари 2021 г. на Президента на Републиката по чл. 101 от Конституцията на Република България",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-02-11",
+        "item": 15,
+        "slug": "15-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-zashtita-na-kon",
+        "title": "Закон за изменение и допълнение на Закона за защита на конкуренцията - второ гласуване - параграф 18 (става параграф 19)",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 4
+      },
+      {
+        "date": "2021-01-29",
+        "item": 6,
+        "slug": "6-zd-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-para",
+        "title": "ЗД на Наказателно-процесуалния кодекс - второ гласуване - параграф 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 4
+      },
+      {
+        "date": "2020-11-24",
+        "item": 24,
+        "slug": "24-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 23 - нов, параграф 21 (става параграф 24)",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 2
+      },
+      {
+        "date": "2020-11-06",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-05-06-noemvri-",
+        "title": "Програма за работата на Народното събрание за 05 - 06 ноември 2020 г. - процедура за нови точки в дневния ред",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 9
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1556,
+        "score": 0.3494282789073061,
+        "overlap": 15
+      },
+      {
+        "mpId": 969,
+        "score": 0.2840954948635681,
+        "overlap": 14
+      },
+      {
+        "mpId": 1553,
+        "score": 0.2400480144048017,
+        "overlap": 18
+      },
+      {
+        "mpId": 1519,
+        "score": 0.2253744679276044,
+        "overlap": 11
+      },
+      {
+        "mpId": 1554,
+        "score": 0.1967604453669851,
+        "overlap": 18
+      },
+      {
+        "mpId": 1555,
+        "score": 0.1887032957820884,
+        "overlap": 22
+      },
+      {
+        "mpId": 1055,
+        "score": 0.1735912687073534,
+        "overlap": 19
+      },
+      {
+        "mpId": 1557,
+        "score": 0.17233844611640886,
+        "overlap": 20
+      },
+      {
+        "mpId": 1526,
+        "score": 0.17039954414774927,
+        "overlap": 13
+      },
+      {
+        "mpId": 398,
+        "score": 0.13957263155977062,
+        "overlap": 11
+      },
+      {
+        "mpId": 1347,
+        "score": 0.1336306209562122,
+        "overlap": 11
+      },
+      {
+        "mpId": 1250,
+        "score": 0.13280317881493264,
+        "overlap": 20
+      },
+      {
+        "mpId": 1314,
+        "score": 0.13093073414159545,
+        "overlap": 9
+      },
+      {
+        "mpId": 1520,
+        "score": 0.1251565435804397,
+        "overlap": 6
+      },
+      {
+        "mpId": 1534,
+        "score": 0.12427395320024001,
+        "overlap": 13
+      },
+      {
+        "mpId": 997,
+        "score": 0.1213375347182107,
+        "overlap": 11
+      },
+      {
+        "mpId": 1297,
+        "score": 0.11664236870396087,
+        "overlap": 3
+      },
+      {
+        "mpId": 1523,
+        "score": 0.11572751247156893,
+        "overlap": 6
+      },
+      {
+        "mpId": 1559,
+        "score": 0.11105399925377267,
+        "overlap": 11
+      },
+      {
+        "mpId": 1000,
+        "score": 0.109971479845643,
+        "overlap": 7
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1261,
+        "score": -0.04594768006447692,
+        "overlap": 13
+      },
+      {
+        "mpId": 1138,
+        "score": -0.028903665650804,
+        "overlap": 10
+      },
+      {
+        "mpId": 1476,
+        "score": -0.026511585608915544,
+        "overlap": 12
+      },
+      {
+        "mpId": 1511,
+        "score": -0.02593832282866296,
+        "overlap": 17
+      },
+      {
+        "mpId": 767,
+        "score": -0.01834476415400484,
+        "overlap": 14
+      },
+      {
+        "mpId": 774,
+        "score": -0.01831243855328779,
+        "overlap": 14
+      },
+      {
+        "mpId": 1302,
+        "score": -0.018059841095769247,
+        "overlap": 8
+      },
+      {
+        "mpId": 1320,
+        "score": -0.015586992159713743,
+        "overlap": 9
+      },
+      {
+        "mpId": 1563,
+        "score": -0.015353757178626857,
+        "overlap": 5
+      },
+      {
+        "mpId": 829,
+        "score": -0.012198750911856666,
+        "overlap": 16
+      },
+      {
+        "mpId": 762,
+        "score": -0.010803395392536073,
+        "overlap": 19
+      },
+      {
+        "mpId": 1323,
+        "score": -0.010622680691277189,
+        "overlap": 18
+      },
+      {
+        "mpId": 848,
+        "score": 0,
+        "overlap": 16
+      },
+      {
+        "mpId": 1062,
+        "score": 0,
+        "overlap": 17
+      },
+      {
+        "mpId": 1295,
+        "score": 0,
+        "overlap": 23
+      },
+      {
+        "mpId": 1318,
+        "score": 0,
+        "overlap": 17
+      },
+      {
+        "mpId": 1344,
+        "score": 0,
+        "overlap": 12
+      },
+      {
+        "mpId": 1349,
+        "score": 0,
+        "overlap": 12
+      },
+      {
+        "mpId": 1352,
+        "score": 0,
+        "overlap": 19
+      },
+      {
+        "mpId": 1363,
+        "score": 0,
+        "overlap": 8
+      }
+    ]
+  }
+}

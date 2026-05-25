@@ -1,0 +1,315 @@
+{
+  "mpId": 2990,
+  "ns": "50",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 123,
+    "withParty": 114,
+    "loyaltyPct": 0.926829268292683,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 123,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2024-09-26",
+        "item": 7,
+        "slug": "7-protsedura-ot-yordan-tsonev-za-udalzhavane-na-rabotnoto-vrem",
+        "title": "Процедура от Йордан Цонев за удължаване на работното време до приключване на всички точки",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-09-25",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodnoto-sabranie-za-25-26-septemvr",
+        "title": "Програма за работата на Народното събрание за 25 – 26 септември 2024 г. - процедура от Хамид Хамид , Атанас Илков да се яви в НС",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-25",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-25-26-septemvr",
+        "title": "Програма за работата на Народното събрание за 25 – 26 септември 2024 г. - процедура от Тошко Йорданов т.13 да стане т.1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-09-25",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodnoto-sabranie-za-25-26-septemvr",
+        "title": "Програма за работата на Народното събрание за 25 – 26 септември 2024 г. - процедура от Димо Дренчев точка 6 да отпадне",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-11",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-nov-p",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф - нов - предложение от Надежда Йорданова, по чл.6 - процедура за допустимост - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-08-01",
+        "item": 2,
+        "slug": "2-protsedura-ot-raya-nazaryan-za-dve-novi-tochki",
+        "title": "Процедура от Рая Назарян за две нови точки",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-07-17",
+        "item": 29,
+        "slug": "29-reshenie-za-izbirane-na-komisiya-po-truda-i-sotsialnata-poli",
+        "title": "Решение за избиране на Комисия по труда и социалната политика - ръководство и състав",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2024-07-12",
+        "item": 28,
+        "slug": "28-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 21",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-07-12",
+        "item": 14,
+        "slug": "14-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 15 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3000,
+        "score": 0.7404375649645414,
+        "overlap": 102
+      },
+      {
+        "mpId": 3001,
+        "score": 0.712703684183292,
+        "overlap": 85
+      },
+      {
+        "mpId": 2988,
+        "score": 0.6901347341841545,
+        "overlap": 89
+      },
+      {
+        "mpId": 2997,
+        "score": 0.6774310065588095,
+        "overlap": 80
+      },
+      {
+        "mpId": 2989,
+        "score": 0.6770380081172879,
+        "overlap": 94
+      },
+      {
+        "mpId": 2994,
+        "score": 0.6742553612995612,
+        "overlap": 103
+      },
+      {
+        "mpId": 2995,
+        "score": 0.667082431924034,
+        "overlap": 105
+      },
+      {
+        "mpId": 2992,
+        "score": 0.6616111645411848,
+        "overlap": 89
+      },
+      {
+        "mpId": 3003,
+        "score": 0.6597900535059077,
+        "overlap": 73
+      },
+      {
+        "mpId": 2999,
+        "score": 0.646768054627738,
+        "overlap": 81
+      },
+      {
+        "mpId": 3008,
+        "score": 0.6304701621557768,
+        "overlap": 86
+      },
+      {
+        "mpId": 3002,
+        "score": 0.6188000861589797,
+        "overlap": 94
+      },
+      {
+        "mpId": 3004,
+        "score": 0.6082504404801334,
+        "overlap": 85
+      },
+      {
+        "mpId": 2998,
+        "score": 0.6028723469220375,
+        "overlap": 58
+      },
+      {
+        "mpId": 2987,
+        "score": 0.5963461496407916,
+        "overlap": 79
+      },
+      {
+        "mpId": 2991,
+        "score": 0.5807464765367353,
+        "overlap": 57
+      },
+      {
+        "mpId": 2993,
+        "score": 0.5803802770983916,
+        "overlap": 70
+      },
+      {
+        "mpId": 3005,
+        "score": 0.5505152481347819,
+        "overlap": 58
+      },
+      {
+        "mpId": 3007,
+        "score": 0.5270665551148022,
+        "overlap": 44
+      },
+      {
+        "mpId": 2973,
+        "score": 0.4759712938469836,
+        "overlap": 38
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2685,
+        "score": -0.18242265100261004,
+        "overlap": 39
+      },
+      {
+        "mpId": 2609,
+        "score": -0.07241672621247577,
+        "overlap": 38
+      },
+      {
+        "mpId": 2670,
+        "score": -0.05488729658746616,
+        "overlap": 15
+      },
+      {
+        "mpId": 2933,
+        "score": -0.0329252303934259,
+        "overlap": 83
+      },
+      {
+        "mpId": 3015,
+        "score": -0.026908264647791603,
+        "overlap": 16
+      },
+      {
+        "mpId": 2914,
+        "score": -0.023115209430073516,
+        "overlap": 73
+      },
+      {
+        "mpId": 2859,
+        "score": -0.020185098256543865,
+        "overlap": 114
+      },
+      {
+        "mpId": 2711,
+        "score": -0.017604166656054583,
+        "overlap": 64
+      },
+      {
+        "mpId": 2702,
+        "score": -0.012189885832231021,
+        "overlap": 110
+      },
+      {
+        "mpId": 2669,
+        "score": -0.011557604715036758,
+        "overlap": 73
+      },
+      {
+        "mpId": 2692,
+        "score": -0.010028118151502742,
+        "overlap": 70
+      },
+      {
+        "mpId": 2739,
+        "score": -0.008456451734406973,
+        "overlap": 115
+      },
+      {
+        "mpId": 2623,
+        "score": -0.005342935499216395,
+        "overlap": 85
+      },
+      {
+        "mpId": 2827,
+        "score": -0.005234310929282701,
+        "overlap": 84
+      },
+      {
+        "mpId": 2931,
+        "score": 0,
+        "overlap": 21
+      },
+      {
+        "mpId": 2706,
+        "score": 0.003971726619356092,
+        "overlap": 121
+      },
+      {
+        "mpId": 2598,
+        "score": 0.004011247260601097,
+        "overlap": 117
+      },
+      {
+        "mpId": 2920,
+        "score": 0.00405573565174189,
+        "overlap": 120
+      },
+      {
+        "mpId": 2666,
+        "score": 0.004113485150154649,
+        "overlap": 119
+      },
+      {
+        "mpId": 2665,
+        "score": 0.004169671940406905,
+        "overlap": 121
+      }
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "mpId": 2642,
+  "summary": {
+    "totalEur": 74451.9615713022,
+    "totalOther": {},
+    "contractCount": 1,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 74451.9615713022,
+    "rank": 38,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 2642,
+      "mpName": "Никола Илиев Динков",
+      "contractorEik": "126736213",
+      "contractorName": "НИЛСТРОЙ ЕООД",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "stake",
+          "shareSize": "100",
+          "valueEur": 2556.4594059810925,
+          "fiscalYear": 2021,
+          "declarationYear": 2021
+        }
+      ],
+      "totalEur": 74451.9615713022,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 74451.9615713022,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000903825",
+          "name": "ОБЩИНА СВИЛЕНГРАД",
+          "contractCount": 1,
+          "totalEur": 74451.9615713022,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

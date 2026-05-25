@@ -1,0 +1,295 @@
+{
+  "mpId": 1582,
+  "ns": "46",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 464,
+    "withParty": 457,
+    "loyaltyPct": 0.9849137931034483,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 464,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 88,
+        "slug": "88-ratifikatsiya-na-tristranno-sporazumenie-za-darenie-na-vaksi",
+        "title": "Ратификация на Тристранно споразумение за дарение на ваксини срещу COVID-19, произведени от АстраЗенека, между Република България, Кралство Бутан и АстраЗенека и Двустранно споразумение за дарение на ваксини срещу COVID-19, произведени от АстраЗенека, между Република България и Кралство Бутан - второ гласуване - член 2 - предложение от Христо Гаджев",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 23
+      },
+      {
+        "date": "2021-09-15",
+        "item": 78,
+        "slug": "78-protsedura-ot-mariya-kapon-za-udalzhavane-na-rabotnoto-vreme",
+        "title": "Процедура от Мария Капон за удължаване на работното време - прегласуване - отменено",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2021-09-15",
+        "item": 65,
+        "slug": "65-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 25 - предложение от Хамид Хамид",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-09-10",
+        "item": 33,
+        "slug": "33-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от М.Карадайъ за отпадане на ал.8",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2021-09-10",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - предложение от К.Ангелов и група н.п. по чл.5",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-08-20",
+        "item": 4,
+        "slug": "4-reshenie-vav-vrazka-s-razikvaniya-po-pitane-ot-n-p-velizar-s",
+        "title": "Решение във връзка с разиквания по питане от н.п. Велизар Шаламанов и Калоян Янков към министъра на отбраната относно \"Реализация на Програма за развитие на отбранителните способности на Въоръжените сили на РБълария 2032 и оценка на изпълнението Програма за развитие на отбранителните способности на Въоръжените сили на РБълария 2020\" - т.2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 26
+      },
+      {
+        "date": "2021-08-05",
+        "item": 4,
+        "slug": "4-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава пета, член 16 - предложение от Р.Желязков",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1875,
+        "score": 0.9150425262088456,
+        "overlap": 447
+      },
+      {
+        "mpId": 1667,
+        "score": 0.8883596361537242,
+        "overlap": 421
+      },
+      {
+        "mpId": 1581,
+        "score": 0.8877340276248185,
+        "overlap": 416
+      },
+      {
+        "mpId": 761,
+        "score": 0.8818897637795274,
+        "overlap": 416
+      },
+      {
+        "mpId": 1385,
+        "score": 0.8738983648794477,
+        "overlap": 417
+      },
+      {
+        "mpId": 1974,
+        "score": 0.8641106132381948,
+        "overlap": 411
+      },
+      {
+        "mpId": 762,
+        "score": 0.855424654368674,
+        "overlap": 401
+      },
+      {
+        "mpId": 1625,
+        "score": 0.8507638097622752,
+        "overlap": 360
+      },
+      {
+        "mpId": 848,
+        "score": 0.840367632208131,
+        "overlap": 388
+      },
+      {
+        "mpId": 1312,
+        "score": 0.8360771578054923,
+        "overlap": 383
+      },
+      {
+        "mpId": 1253,
+        "score": 0.8333269039969217,
+        "overlap": 389
+      },
+      {
+        "mpId": 1660,
+        "score": 0.8291897541964058,
+        "overlap": 366
+      },
+      {
+        "mpId": 1873,
+        "score": 0.8258283310313171,
+        "overlap": 353
+      },
+      {
+        "mpId": 1275,
+        "score": 0.8250412404341854,
+        "overlap": 339
+      },
+      {
+        "mpId": 1336,
+        "score": 0.8171865309616885,
+        "overlap": 377
+      },
+      {
+        "mpId": 1889,
+        "score": 0.8061529510377762,
+        "overlap": 367
+      },
+      {
+        "mpId": 1277,
+        "score": 0.7891142253837956,
+        "overlap": 344
+      },
+      {
+        "mpId": 782,
+        "score": 0.7871049868633259,
+        "overlap": 321
+      },
+      {
+        "mpId": 1060,
+        "score": 0.7716186715184765,
+        "overlap": 345
+      },
+      {
+        "mpId": 1390,
+        "score": 0.7678278702798796,
+        "overlap": 342
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": 0.07487688363071261,
+        "overlap": 173
+      },
+      {
+        "mpId": 404,
+        "score": 0.08244998983996037,
+        "overlap": 272
+      },
+      {
+        "mpId": 1643,
+        "score": 0.10251645622545372,
+        "overlap": 234
+      },
+      {
+        "mpId": 388,
+        "score": 0.10561655004327976,
+        "overlap": 282
+      },
+      {
+        "mpId": 1155,
+        "score": 0.1210865820741649,
+        "overlap": 226
+      },
+      {
+        "mpId": 1457,
+        "score": 0.13688507104330458,
+        "overlap": 259
+      },
+      {
+        "mpId": 1317,
+        "score": 0.13697757971848717,
+        "overlap": 296
+      },
+      {
+        "mpId": 1297,
+        "score": 0.14038687239467015,
+        "overlap": 133
+      },
+      {
+        "mpId": 1124,
+        "score": 0.14912521247423738,
+        "overlap": 253
+      },
+      {
+        "mpId": 1644,
+        "score": 0.14995013711417396,
+        "overlap": 254
+      },
+      {
+        "mpId": 1466,
+        "score": 0.15197734324856577,
+        "overlap": 68
+      },
+      {
+        "mpId": 1386,
+        "score": 0.15249266234045403,
+        "overlap": 263
+      },
+      {
+        "mpId": 1000,
+        "score": 0.15369465587356798,
+        "overlap": 104
+      },
+      {
+        "mpId": 1465,
+        "score": 0.15510644634553492,
+        "overlap": 294
+      },
+      {
+        "mpId": 817,
+        "score": 0.15979517085986134,
+        "overlap": 206
+      },
+      {
+        "mpId": 810,
+        "score": 0.16172882622453763,
+        "overlap": 161
+      },
+      {
+        "mpId": 473,
+        "score": 0.1631448981896751,
+        "overlap": 280
+      },
+      {
+        "mpId": 1428,
+        "score": 0.16467448655565486,
+        "overlap": 221
+      },
+      {
+        "mpId": 1960,
+        "score": 0.1675524957631004,
+        "overlap": 185
+      },
+      {
+        "mpId": 1970,
+        "score": 0.1714211647869707,
+        "overlap": 217
+      }
+    ]
+  }
+}

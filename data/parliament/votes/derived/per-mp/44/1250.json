@@ -1,0 +1,315 @@
+{
+  "mpId": 1250,
+  "ns": "44",
+  "partyShort": "ОП",
+  "loyalty": {
+    "votesCast": 316,
+    "withParty": 307,
+    "loyaltyPct": 0.9715189873417721,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 316,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2021-01-27",
+        "item": 44,
+        "slug": "44-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 42 (става параграф 57) - предложение от Любомир Бонев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2020-12-09",
+        "item": 11,
+        "slug": "11-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-14",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 14",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2020-12-09",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-9-11-dekemvri-",
+        "title": "Програма за работата на Народното събрание за 9 - 11 декември 2020 г. - предложение за отпадане на точка 2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2020-11-25",
+        "item": 51,
+        "slug": "51-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 29",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2020-11-25",
+        "item": 29,
+        "slug": "29-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 16 - предложение от Мустафа Карадайъ и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2020-11-24",
+        "item": 40,
+        "slug": "40-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - Член 8 - предложение от Георги Гьоков и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2020-11-11",
+        "item": 18,
+        "slug": "18-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-9-otpada-pr",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 9 - отпада - предложение от Весела Лечева и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2020-11-11",
+        "item": 15,
+        "slug": "15-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-nov-predloz",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф нов... - предложение от Валентина Найденова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2020-10-30",
+        "item": 10,
+        "slug": "10-reshenie-po-raziskvaniya-po-pitane-ot-n-p-g-gyokov-v-lecheva",
+        "title": "Решение по разисквания по питане от н.п. Г.Гьоков, В.Лечева, В.Желева, М.Недялков, Н.Клисурска и Полина Шишкова към министъра на труда и социалната политика Деница Сачева относно политиката по подобряване на адекватността на пенсиите в България в краткосрочен и дългосрочен план",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1540,
+        "score": 0.6212593823553968,
+        "overlap": 302
+      },
+      {
+        "mpId": 1462,
+        "score": 0.5917057890039109,
+        "overlap": 282
+      },
+      {
+        "mpId": 1321,
+        "score": 0.5667919837068724,
+        "overlap": 260
+      },
+      {
+        "mpId": 1018,
+        "score": 0.5546215248851287,
+        "overlap": 256
+      },
+      {
+        "mpId": 1263,
+        "score": 0.5313504806936128,
+        "overlap": 282
+      },
+      {
+        "mpId": 1528,
+        "score": 0.5112198779114433,
+        "overlap": 261
+      },
+      {
+        "mpId": 1063,
+        "score": 0.4950839463103617,
+        "overlap": 266
+      },
+      {
+        "mpId": 1069,
+        "score": 0.49372817116587664,
+        "overlap": 216
+      },
+      {
+        "mpId": 1286,
+        "score": 0.48337753997661725,
+        "overlap": 201
+      },
+      {
+        "mpId": 1494,
+        "score": 0.4832243361192225,
+        "overlap": 258
+      },
+      {
+        "mpId": 1029,
+        "score": 0.47834987156005315,
+        "overlap": 240
+      },
+      {
+        "mpId": 549,
+        "score": 0.4695301415158426,
+        "overlap": 272
+      },
+      {
+        "mpId": 1457,
+        "score": 0.4679417450974822,
+        "overlap": 314
+      },
+      {
+        "mpId": 1341,
+        "score": 0.46686855781252024,
+        "overlap": 314
+      },
+      {
+        "mpId": 1008,
+        "score": 0.46667507985012585,
+        "overlap": 152
+      },
+      {
+        "mpId": 1386,
+        "score": 0.46456648418892293,
+        "overlap": 245
+      },
+      {
+        "mpId": 1479,
+        "score": 0.4627734781028384,
+        "overlap": 262
+      },
+      {
+        "mpId": 1288,
+        "score": 0.4624078626421967,
+        "overlap": 301
+      },
+      {
+        "mpId": 1543,
+        "score": 0.46054757886475756,
+        "overlap": 306
+      },
+      {
+        "mpId": 1355,
+        "score": 0.46037266136946764,
+        "overlap": 275
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1358,
+        "score": -0.13437096247164249,
+        "overlap": 165
+      },
+      {
+        "mpId": 1277,
+        "score": -0.12830983841524524,
+        "overlap": 90
+      },
+      {
+        "mpId": 1045,
+        "score": -0.11953301365046201,
+        "overlap": 109
+      },
+      {
+        "mpId": 829,
+        "score": -0.11567034896476118,
+        "overlap": 149
+      },
+      {
+        "mpId": 1323,
+        "score": -0.11553844001735081,
+        "overlap": 217
+      },
+      {
+        "mpId": 1525,
+        "score": -0.11302211504074858,
+        "overlap": 99
+      },
+      {
+        "mpId": 1531,
+        "score": -0.10930188770038356,
+        "overlap": 117
+      },
+      {
+        "mpId": 1368,
+        "score": -0.09716600815437006,
+        "overlap": 81
+      },
+      {
+        "mpId": 1342,
+        "score": -0.09629138409712988,
+        "overlap": 213
+      },
+      {
+        "mpId": 1336,
+        "score": -0.09490062397365395,
+        "overlap": 120
+      },
+      {
+        "mpId": 782,
+        "score": -0.09312403943594376,
+        "overlap": 103
+      },
+      {
+        "mpId": 913,
+        "score": -0.09200092767158147,
+        "overlap": 170
+      },
+      {
+        "mpId": 1261,
+        "score": -0.08969937018449045,
+        "overlap": 117
+      },
+      {
+        "mpId": 1366,
+        "score": -0.08694282672026622,
+        "overlap": 273
+      },
+      {
+        "mpId": 1352,
+        "score": -0.08450918978276512,
+        "overlap": 122
+      },
+      {
+        "mpId": 1349,
+        "score": -0.08443301158150714,
+        "overlap": 77
+      },
+      {
+        "mpId": 1060,
+        "score": -0.08399210511316162,
+        "overlap": 104
+      },
+      {
+        "mpId": 751,
+        "score": -0.08344899380999891,
+        "overlap": 98
+      },
+      {
+        "mpId": 1318,
+        "score": -0.08248020089145426,
+        "overlap": 142
+      },
+      {
+        "mpId": 1533,
+        "score": -0.08203116989147478,
+        "overlap": 166
+      }
+    ]
+  }
+}

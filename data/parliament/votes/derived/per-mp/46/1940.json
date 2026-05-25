@@ -1,0 +1,305 @@
+{
+  "mpId": 1940,
+  "ns": "46",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 245,
+    "withParty": 237,
+    "loyaltyPct": 0.9673469387755103,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 245,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2021-09-10",
+        "item": 64,
+        "slug": "64-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 3 (става параграф 4) - предложение от Пламен Абровски и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2021-09-10",
+        "item": 55,
+        "slug": "55-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - процедура за прекратяване на дебата",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-09-10",
+        "item": 37,
+        "slug": "37-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Г.Ганев за редакция в.т.4 - буква е - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2021-08-27",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - първо гласуване - предложение от Капон за удължаване на срока за предложенията за второ четене",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 36
+      },
+      {
+        "date": "2021-08-05",
+        "item": 54,
+        "slug": "54-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Раздел ІІ, член 139 до член 151",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 47
+      },
+      {
+        "date": "2021-08-05",
+        "item": 43,
+        "slug": "43-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - процедура за удължаване на работното време",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2021-08-05",
+        "item": 12,
+        "slug": "12-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 21- предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 40
+      },
+      {
+        "date": "2021-08-04",
+        "item": 22,
+        "slug": "22-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - предложение от Г.Свиленски за прекратяване на дебата - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 45
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1870,
+        "score": 0.7635702024600064,
+        "overlap": 239
+      },
+      {
+        "mpId": 1969,
+        "score": 0.7505267010602968,
+        "overlap": 223
+      },
+      {
+        "mpId": 1695,
+        "score": 0.7499035443870836,
+        "overlap": 235
+      },
+      {
+        "mpId": 1883,
+        "score": 0.7471964071392841,
+        "overlap": 234
+      },
+      {
+        "mpId": 1933,
+        "score": 0.7376801374715333,
+        "overlap": 207
+      },
+      {
+        "mpId": 1628,
+        "score": 0.7362656009111641,
+        "overlap": 205
+      },
+      {
+        "mpId": 1344,
+        "score": 0.7269004605005988,
+        "overlap": 211
+      },
+      {
+        "mpId": 817,
+        "score": 0.7260849229629154,
+        "overlap": 186
+      },
+      {
+        "mpId": 1882,
+        "score": 0.7242527247157351,
+        "overlap": 234
+      },
+      {
+        "mpId": 1015,
+        "score": 0.7157072747105607,
+        "overlap": 227
+      },
+      {
+        "mpId": 1577,
+        "score": 0.7154762036421884,
+        "overlap": 241
+      },
+      {
+        "mpId": 1674,
+        "score": 0.7118256659802177,
+        "overlap": 196
+      },
+      {
+        "mpId": 1596,
+        "score": 0.7108357937304827,
+        "overlap": 228
+      },
+      {
+        "mpId": 1880,
+        "score": 0.7071733255238634,
+        "overlap": 187
+      },
+      {
+        "mpId": 1269,
+        "score": 0.7067829100936895,
+        "overlap": 225
+      },
+      {
+        "mpId": 1920,
+        "score": 0.7051970301068439,
+        "overlap": 196
+      },
+      {
+        "mpId": 1923,
+        "score": 0.7010924399868576,
+        "overlap": 217
+      },
+      {
+        "mpId": 1465,
+        "score": 0.6963856699116043,
+        "overlap": 209
+      },
+      {
+        "mpId": 1976,
+        "score": 0.6957767769565525,
+        "overlap": 230
+      },
+      {
+        "mpId": 1966,
+        "score": 0.691661352103527,
+        "overlap": 217
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1678,
+        "score": 0.032054410459401994,
+        "overlap": 122
+      },
+      {
+        "mpId": 1681,
+        "score": 0.07522890831514312,
+        "overlap": 65
+      },
+      {
+        "mpId": 1568,
+        "score": 0.1038632736453918,
+        "overlap": 122
+      },
+      {
+        "mpId": 1595,
+        "score": 0.12317720453310496,
+        "overlap": 183
+      },
+      {
+        "mpId": 1663,
+        "score": 0.12590285296322506,
+        "overlap": 140
+      },
+      {
+        "mpId": 1943,
+        "score": 0.12829467256960184,
+        "overlap": 70
+      },
+      {
+        "mpId": 1963,
+        "score": 0.14172980012877137,
+        "overlap": 49
+      },
+      {
+        "mpId": 1000,
+        "score": 0.14538009210011973,
+        "overlap": 33
+      },
+      {
+        "mpId": 1641,
+        "score": 0.14942456551193897,
+        "overlap": 153
+      },
+      {
+        "mpId": 1673,
+        "score": 0.14991433567489293,
+        "overlap": 124
+      },
+      {
+        "mpId": 1314,
+        "score": 0.1582171974106371,
+        "overlap": 62
+      },
+      {
+        "mpId": 1642,
+        "score": 0.16048841411658163,
+        "overlap": 127
+      },
+      {
+        "mpId": 1914,
+        "score": 0.1670545801889325,
+        "overlap": 116
+      },
+      {
+        "mpId": 1394,
+        "score": 0.16731368476998626,
+        "overlap": 152
+      },
+      {
+        "mpId": 1589,
+        "score": 0.17191390910732965,
+        "overlap": 90
+      },
+      {
+        "mpId": 1297,
+        "score": 0.18108031670488473,
+        "overlap": 72
+      },
+      {
+        "mpId": 1023,
+        "score": 0.18352620091087746,
+        "overlap": 145
+      },
+      {
+        "mpId": 1640,
+        "score": 0.18413232265582036,
+        "overlap": 173
+      },
+      {
+        "mpId": 1060,
+        "score": 0.18757294918454898,
+        "overlap": 170
+      },
+      {
+        "mpId": 1578,
+        "score": 0.19348063742934027,
+        "overlap": 176
+      }
+    ]
+  }
+}

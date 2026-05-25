@@ -1,0 +1,275 @@
+{
+  "mpId": 1523,
+  "ns": "44",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 32,
+    "withParty": 27,
+    "loyaltyPct": 0.84375,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 32,
+    "dissentCount": 5,
+    "recent": [
+      {
+        "date": "2021-01-20",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-20-22-yanuari-",
+        "title": "Програма за работата на Народното събрание за 20 - 22 януари 2020 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2021-01-13",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-13-15-yanuari-",
+        "title": "Програма за работата на Народното събрание за 13 - 15 януари 2021 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2020-12-16",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-16-18-dekemvri",
+        "title": "Програма за работата на Народното събрание за 16 - 18 декември 2020 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2020-12-03",
+        "item": 3,
+        "slug": "3-novo-obsazhdane-na-zid-na-zakona-za-danak-varhu-dobavenata-s",
+        "title": "Ново обсъждане на ЗИД на Закона за данък върху добавената стойност, приет от НС на 19 ноември 2020 г., върнат за ново обсъждане с Указ № 247 от 25 ноември 2020 г. на Президента на Републиката по чл. 101 от Конституцията на Република България",
+        "topic": "constitution",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2020-11-19",
+        "item": 2,
+        "slug": "2-protsedura-za-novi-tochki-v-dnevniya-red-ot-tsveta-karayanch",
+        "title": "Процедура за нови точки в дневния ред от Цвета Караянчева",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1520,
+        "score": 0.5880526515990141,
+        "overlap": 32
+      },
+      {
+        "mpId": 1522,
+        "score": 0.4615930911724977,
+        "overlap": 15
+      },
+      {
+        "mpId": 1521,
+        "score": 0.43335952830096025,
+        "overlap": 25
+      },
+      {
+        "mpId": 1266,
+        "score": 0.42460388780422337,
+        "overlap": 30
+      },
+      {
+        "mpId": 1362,
+        "score": 0.3891558912470781,
+        "overlap": 21
+      },
+      {
+        "mpId": 1246,
+        "score": 0.38320315786038966,
+        "overlap": 22
+      },
+      {
+        "mpId": 1542,
+        "score": 0.37271714104249454,
+        "overlap": 23
+      },
+      {
+        "mpId": 1363,
+        "score": 0.3491282676376715,
+        "overlap": 28
+      },
+      {
+        "mpId": 1274,
+        "score": 0.33920026264998404,
+        "overlap": 10
+      },
+      {
+        "mpId": 1283,
+        "score": 0.32155984714220404,
+        "overlap": 15
+      },
+      {
+        "mpId": 963,
+        "score": 0.29483094708039354,
+        "overlap": 23
+      },
+      {
+        "mpId": 1008,
+        "score": 0.29423194619643894,
+        "overlap": 28
+      },
+      {
+        "mpId": 599,
+        "score": 0.2892274312090544,
+        "overlap": 31
+      },
+      {
+        "mpId": 1485,
+        "score": 0.28436839595036684,
+        "overlap": 29
+      },
+      {
+        "mpId": 1423,
+        "score": 0.28107438337344803,
+        "overlap": 15
+      },
+      {
+        "mpId": 1286,
+        "score": 0.2773500981126146,
+        "overlap": 32
+      },
+      {
+        "mpId": 1535,
+        "score": 0.2692343094816518,
+        "overlap": 30
+      },
+      {
+        "mpId": 1466,
+        "score": 0.26645048861685494,
+        "overlap": 31
+      },
+      {
+        "mpId": 1302,
+        "score": 0.2633425811912937,
+        "overlap": 18
+      },
+      {
+        "mpId": 1250,
+        "score": 0.25819888974716115,
+        "overlap": 24
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 960,
+        "score": -0.06904309634237425,
+        "overlap": 7
+      },
+      {
+        "mpId": 1245,
+        "score": -0.06164962023950898,
+        "overlap": 7
+      },
+      {
+        "mpId": 1319,
+        "score": -0.05752237416355278,
+        "overlap": 8
+      },
+      {
+        "mpId": 810,
+        "score": -0.05661385170722978,
+        "overlap": 6
+      },
+      {
+        "mpId": 663,
+        "score": -0.05276981585477189,
+        "overlap": 10
+      },
+      {
+        "mpId": 1267,
+        "score": -0.05255883312276367,
+        "overlap": 8
+      },
+      {
+        "mpId": 1388,
+        "score": -0.043852900965351466,
+        "overlap": 6
+      },
+      {
+        "mpId": 1381,
+        "score": -0.033557802760701215,
+        "overlap": 7
+      },
+      {
+        "mpId": 1316,
+        "score": -0.03187883565316691,
+        "overlap": 7
+      },
+      {
+        "mpId": 1554,
+        "score": -0.03187883565316691,
+        "overlap": 9
+      },
+      {
+        "mpId": 1559,
+        "score": -0.02998800719520336,
+        "overlap": 17
+      },
+      {
+        "mpId": 1389,
+        "score": -0.028490144114909487,
+        "overlap": 7
+      },
+      {
+        "mpId": 1277,
+        "score": -0.027607881518711633,
+        "overlap": 11
+      },
+      {
+        "mpId": 1368,
+        "score": -0.026880166528523517,
+        "overlap": 7
+      },
+      {
+        "mpId": 1455,
+        "score": -0.026064301757134343,
+        "overlap": 5
+      },
+      {
+        "mpId": 1553,
+        "score": -0.01620509308880411,
+        "overlap": 21
+      },
+      {
+        "mpId": 779,
+        "score": -0.015328483487124143,
+        "overlap": 8
+      },
+      {
+        "mpId": 1304,
+        "score": -0.015214515486254614,
+        "overlap": 7
+      },
+      {
+        "mpId": 1296,
+        "score": -0.014245072057454743,
+        "overlap": 8
+      },
+      {
+        "mpId": 1348,
+        "score": -0.011005636329070298,
+        "overlap": 6
+      }
+    ]
+  }
+}

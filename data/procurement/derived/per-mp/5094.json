@@ -1,0 +1,138 @@
+{
+  "mpId": 5094,
+  "summary": {
+    "totalEur": 3632423.828128774,
+    "totalOther": {},
+    "contractCount": 52,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 3632423.828128774,
+    "rank": 12,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 5094,
+      "mpName": "Николай Иванов Косев",
+      "contractorEik": "107564054",
+      "contractorName": "ЕВРОХИМ-ГРУП ООД",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": false,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 3632423.828128774,
+      "totalOther": {},
+      "contractCount": 52,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 2,
+          "totalEur": 41625.55027788714,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 2,
+          "totalEur": 79768.28251944188,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 3,
+          "totalEur": 223549.38823926414,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 2,
+          "totalEur": 54944.21294284268,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 2,
+          "totalEur": 230817.6068472209,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 10,
+          "totalEur": 307853.2387784214,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 13,
+          "totalEur": 1188626.6444425131,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 9,
+          "totalEur": 985645.9405981092,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 8,
+          "totalEur": 469026.1934830737,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 50566.77,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "117505556",
+          "name": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"КАНЕВ\" АД",
+          "contractCount": 3,
+          "totalEur": 1153474.483978669,
+          "totalOther": {}
+        },
+        {
+          "eik": "104510514",
+          "name": "МНОГОПРОФИЛНА ОБЛАСТНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"Д-Р СТЕФАН ЧЕРКЕЗОВ\" АД",
+          "contractCount": 5,
+          "totalEur": 701206.1375477419,
+          "totalOther": {}
+        },
+        {
+          "eik": "107507217",
+          "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"Д-Р ТОТА ВЕНКОВА\" АД",
+          "contractCount": 7,
+          "totalEur": 404921.4400024542,
+          "totalOther": {}
+        },
+        {
+          "eik": "116503980",
+          "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВ.ИВАН РИЛСКИ\" - РАЗГРАД АД",
+          "contractCount": 6,
+          "totalEur": 350107.11859880463,
+          "totalOther": {}
+        },
+        {
+          "eik": "175405647",
+          "name": "БДЖ - Пътнически превози ЕООД",
+          "contractCount": 7,
+          "totalEur": 197939.94876855347,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

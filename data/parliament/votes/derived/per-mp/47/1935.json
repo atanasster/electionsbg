@@ -1,0 +1,619 @@
+{
+  "mpId": 1935,
+  "ns": "47",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 982,
+    "withParty": 940,
+    "loyaltyPct": 0.9572301425661914,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 982,
+    "dissentCount": 42,
+    "recent": [
+      {
+        "date": "2022-07-27",
+        "item": 15,
+        "slug": "15-programa-za-rabotata-na-narodnoto-sabranie-za-27-29-yuli-202",
+        "title": "Програма за работата на Народното събрание за 27 - 29 юли 2022 г. - процедура от Искрен Митев за удължаване на работното време до т.4 - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2022-07-21",
+        "item": 50,
+        "slug": "50-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 18",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 32
+      },
+      {
+        "date": "2022-07-14",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-hazarta-parvo-glasuvane-protsedura-ot-karim",
+        "title": "ЗИД на Закона за хазарта - първо гласуване - процедура от Каримански за съкращаване на срока за предложения на три дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 48
+      },
+      {
+        "date": "2022-07-14",
+        "item": 12,
+        "slug": "12-zi-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-4-predlozh",
+        "title": "ЗИ на Закона за здравето - второ гласуване - параграф 4 - предложение от Асен Балтов за редакция - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 54
+      },
+      {
+        "date": "2022-07-14",
+        "item": 7,
+        "slug": "7-zi-na-zakona-za-zdraveto-vtoro-glasuvane-naimenovanie",
+        "title": "ЗИ на Закона за здравето - второ гласуване - наименование",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 46
+      },
+      {
+        "date": "2022-07-13",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-13-15-yuli-202",
+        "title": "Програма за работата на Народното събрание за 13 - 15 юли 2022 г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2022-06-30",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 1 - предложение от Пламен Абровски (№ ...199)",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-06-29",
+        "item": 58,
+        "slug": "58-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 31б,в - предложение от Ива Митева и група н.п. (№ ...218)",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 52
+      },
+      {
+        "date": "2022-06-15",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2022 г. - първо гласуване - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-06-15",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-15-17-yuni-202",
+        "title": "Програма за работата на Народното събрание за 15 - 17 юни 2022 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2022-06-09",
+        "item": 10,
+        "slug": "10-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на временна комисия за установяване на факти и обстоятелства относно газопроводи за пренос на природен газ от Руската федерация „Южен поток” и „Турски (Балкански) поток” и причините за забавянето на проектът IGB (Междусистемна газова връзка Гърция - България) - Искра Михайлова - председател",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 52
+      },
+      {
+        "date": "2022-06-08",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-08-10-yuni-202",
+        "title": "Програма за работата на Народното събрание за 08 - 10 юни 2022 г. - предложение от Петър Петров и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-06-01",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-publichnoto-predlagane-na-tsenni-knizha-par",
+        "title": "ЗИД на Закона за публичното предлагане на ценни книжа - първо гласуване - процедура от Искрен Митев за намаляване на срока за предложения на 3 дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 40
+      },
+      {
+        "date": "2022-05-18",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-upravlenie-na-sredstvata-ot-evropeyskite-st",
+        "title": "ЗИД на Закона за управление на средствата от Европейските структурни и инвестиционни фондове - второ гласуване - наименование, параграф 1 и параграф 2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2022-04-21",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование - второ гласуване - параграф 5 (става параграф 6) и параграф 6 (става параграф 7)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 37
+      },
+      {
+        "date": "2022-04-21",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование - второ гласуване - параграф 4 - нов, параграф 4 (става параграф 5)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-04-20",
+        "item": 2,
+        "slug": "2-programa-na-narodnoto-sabranie-za-20-i-21-april-2022g",
+        "title": "Програма на Народното събрание за 20 и 21 април 2022г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2022-04-14",
+        "item": 2,
+        "slug": "2-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-naimenovani",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - наименование, параграф 1 и параграф 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2022-03-31",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-zdraveto-parvo-glasuvane",
+        "title": "ЗИД на Закона за здравето - първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 40
+      },
+      {
+        "date": "2022-03-09",
+        "item": 2,
+        "slug": "2",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 46
+      },
+      {
+        "date": "2022-03-02",
+        "item": 24,
+        "slug": "24",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 35
+      },
+      {
+        "date": "2022-03-02",
+        "item": 4,
+        "slug": "4",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2022-02-25",
+        "item": 57,
+        "slug": "57",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 5
+      },
+      {
+        "date": "2022-02-24",
+        "item": 38,
+        "slug": "38",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 51
+      },
+      {
+        "date": "2022-02-24",
+        "item": 32,
+        "slug": "32",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 40
+      },
+      {
+        "date": "2022-02-23",
+        "item": 93,
+        "slug": "93",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 50
+      },
+      {
+        "date": "2022-02-22",
+        "item": 21,
+        "slug": "21",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 29
+      },
+      {
+        "date": "2022-02-16",
+        "item": 9,
+        "slug": "9",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-02-11",
+        "item": 21,
+        "slug": "21",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 41
+      },
+      {
+        "date": "2022-02-10",
+        "item": 3,
+        "slug": "3",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 6
+      },
+      {
+        "date": "2022-02-10",
+        "item": 2,
+        "slug": "2",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 45
+      },
+      {
+        "date": "2022-02-09",
+        "item": 6,
+        "slug": "6",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 57
+      },
+      {
+        "date": "2022-01-12",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-kolektivnite-investitsionni-shemi-i-na-drug",
+        "title": "ЗИД на Закона за колективните инвестиционни схеми и на други предприятия за колективно инвестиране - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 45
+      },
+      {
+        "date": "2022-01-12",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-12-14-yanuari-",
+        "title": "Програма за работата на Народното събрание за 12 - 14 януари 2022 г. - процедура за пряко предаване по БНТ и БНР от Цвета Галунова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 47
+      },
+      {
+        "date": "2022-01-05",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-05-07-yanuari-",
+        "title": "Програма за работата на Народното събрание за 05 - 07 януари 2022 г. - процедура от Иво Русчев за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 53
+      },
+      {
+        "date": "2021-12-23",
+        "item": 9,
+        "slug": "9-protsedura-ot-nikola-minchev-za-nova-tochka-3-v-dnevniya-red",
+        "title": "Процедура от Никола Минчев за нова точка 3 в дневния ред",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2021-12-23",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-parvo-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - първо гласуване - вносител Любомир Каримански и група н.п",
+        "topic": "tax",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 49
+      },
+      {
+        "date": "2021-12-22",
+        "item": 29,
+        "slug": "29-reshenie-za-izbirane-na-komisiya-po-vatreshna-sigurnost-i-ob",
+        "title": "Решение за избиране на Комисия по вътрешна сигурност и обществен ред - ръководство и състав",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2021-12-22",
+        "item": 21,
+        "slug": "21-reshenie-za-izbirane-na-komisiya-po-regionalna-politika-blag",
+        "title": "Решение за избиране на Комисия по регионална политика, благоустройство и местно самоуправление - ръководство и състав",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 38
+      },
+      {
+        "date": "2021-12-17",
+        "item": 3,
+        "slug": "3-protsedura-ot-nikola-minchev-za-prodalzhavane-s-podns-sled-p",
+        "title": "Процедура от Никола Минчев за продължаване с ПОДНС след приключване на точките",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 46
+      },
+      {
+        "date": "2021-12-15",
+        "item": 12,
+        "slug": "12-reshenie-za-sazdavane-na-vremenna-komisiya-za-vaprosite-s-en",
+        "title": "Решение за създаване на Временна комисия за въпросите с енергийната криза и предложение за справяне с нея - ръководство и състав",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 53
+      },
+      {
+        "date": "2021-12-15",
+        "item": 8,
+        "slug": "8-reshenie-za-promyana-v-sastava-na-vremennata-komisiya-za-izr",
+        "title": "Решение за промяна в състава на Временната комисия за изработване на проект на Правилник за организацията и дейността на Народното събрание - избира Явор Божанков",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 41
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1695,
+        "score": 0.8192507540080709,
+        "overlap": 947
+      },
+      {
+        "mpId": 2044,
+        "score": 0.7956470606136375,
+        "overlap": 921
+      },
+      {
+        "mpId": 2085,
+        "score": 0.793417305815297,
+        "overlap": 905
+      },
+      {
+        "mpId": 1344,
+        "score": 0.7855918237419877,
+        "overlap": 849
+      },
+      {
+        "mpId": 2074,
+        "score": 0.7827088230868167,
+        "overlap": 868
+      },
+      {
+        "mpId": 1966,
+        "score": 0.7820117086757826,
+        "overlap": 876
+      },
+      {
+        "mpId": 2073,
+        "score": 0.7808643026788632,
+        "overlap": 913
+      },
+      {
+        "mpId": 1015,
+        "score": 0.7802420385464119,
+        "overlap": 846
+      },
+      {
+        "mpId": 2086,
+        "score": 0.7796811755854505,
+        "overlap": 893
+      },
+      {
+        "mpId": 1934,
+        "score": 0.7767754151786476,
+        "overlap": 780
+      },
+      {
+        "mpId": 1596,
+        "score": 0.7713783124804517,
+        "overlap": 820
+      },
+      {
+        "mpId": 1960,
+        "score": 0.7702241847758938,
+        "overlap": 823
+      },
+      {
+        "mpId": 2065,
+        "score": 0.7701415823490602,
+        "overlap": 827
+      },
+      {
+        "mpId": 1951,
+        "score": 0.7682852902270499,
+        "overlap": 812
+      },
+      {
+        "mpId": 1933,
+        "score": 0.7674706532617708,
+        "overlap": 834
+      },
+      {
+        "mpId": 1317,
+        "score": 0.7654498195607539,
+        "overlap": 805
+      },
+      {
+        "mpId": 1628,
+        "score": 0.7651945861775357,
+        "overlap": 832
+      },
+      {
+        "mpId": 2095,
+        "score": 0.7646375255951228,
+        "overlap": 806
+      },
+      {
+        "mpId": 1577,
+        "score": 0.7637466698118179,
+        "overlap": 864
+      },
+      {
+        "mpId": 1692,
+        "score": 0.7627503035156997,
+        "overlap": 784
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1336,
+        "score": -0.19073859869153736,
+        "overlap": 746
+      },
+      {
+        "mpId": 2080,
+        "score": -0.18732237882948616,
+        "overlap": 834
+      },
+      {
+        "mpId": 2045,
+        "score": -0.1811061187511441,
+        "overlap": 784
+      },
+      {
+        "mpId": 2175,
+        "score": -0.1795722712667597,
+        "overlap": 843
+      },
+      {
+        "mpId": 2072,
+        "score": -0.1780414083752992,
+        "overlap": 868
+      },
+      {
+        "mpId": 1678,
+        "score": -0.17620147127034147,
+        "overlap": 739
+      },
+      {
+        "mpId": 2078,
+        "score": -0.17447812273444713,
+        "overlap": 778
+      },
+      {
+        "mpId": 2040,
+        "score": -0.16980162770811938,
+        "overlap": 883
+      },
+      {
+        "mpId": 2025,
+        "score": -0.1663854125703784,
+        "overlap": 785
+      },
+      {
+        "mpId": 1277,
+        "score": -0.16588267804256837,
+        "overlap": 869
+      },
+      {
+        "mpId": 2131,
+        "score": -0.16406091071718631,
+        "overlap": 969
+      },
+      {
+        "mpId": 2034,
+        "score": -0.16399356103430657,
+        "overlap": 899
+      },
+      {
+        "mpId": 2178,
+        "score": -0.16305108301813023,
+        "overlap": 508
+      },
+      {
+        "mpId": 1581,
+        "score": -0.16245646161088634,
+        "overlap": 852
+      },
+      {
+        "mpId": 829,
+        "score": -0.16081228798941655,
+        "overlap": 770
+      },
+      {
+        "mpId": 2093,
+        "score": -0.1599955557407322,
+        "overlap": 896
+      },
+      {
+        "mpId": 1253,
+        "score": -0.158554465911941,
+        "overlap": 891
+      },
+      {
+        "mpId": 2026,
+        "score": -0.1572195063034854,
+        "overlap": 904
+      },
+      {
+        "mpId": 2079,
+        "score": -0.15517862737579613,
+        "overlap": 903
+      },
+      {
+        "mpId": 2094,
+        "score": -0.15440228346071855,
+        "overlap": 931
+      }
+    ]
+  }
+}

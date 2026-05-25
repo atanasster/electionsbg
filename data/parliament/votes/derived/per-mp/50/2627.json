@@ -1,0 +1,245 @@
+{
+  "mpId": 2627,
+  "ns": "50",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 43,
+    "withParty": 41,
+    "loyaltyPct": 0.9534883720930233,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 43,
+    "dissentCount": 2,
+    "recent": [
+      {
+        "date": "2024-07-03",
+        "item": 18,
+        "slug": "18-reshenie-za-izbirane-na-ministar-predsedatel-na-republika-ba",
+        "title": "Решение за избиране на министър-председател на Република България - избира Росен Желязков",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 45
+      },
+      {
+        "date": "2024-07-03",
+        "item": 10,
+        "slug": "10-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно наличието на нарегламентирано влияние в правосъдната система и обвързаности на представители на съдебната власт, несъвместими със стандартите за независимост и професионална етика във връзка с дейността на групата около Мартин Божанов - Нотариуса и дейността на групата около бившия следовател Петьо Петров - Еврото - председател Златан Златанов - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2966,
+        "score": 0.9630363567333499,
+        "overlap": 41
+      },
+      {
+        "mpId": 2599,
+        "score": 0.9512195121951219,
+        "overlap": 41
+      },
+      {
+        "mpId": 2916,
+        "score": 0.9417632186960222,
+        "overlap": 42
+      },
+      {
+        "mpId": 2959,
+        "score": 0.9398272507881658,
+        "overlap": 41
+      },
+      {
+        "mpId": 2597,
+        "score": 0.9312403943594376,
+        "overlap": 42
+      },
+      {
+        "mpId": 2845,
+        "score": 0.9288347410476049,
+        "overlap": 41
+      },
+      {
+        "mpId": 2957,
+        "score": 0.9288347410476049,
+        "overlap": 41
+      },
+      {
+        "mpId": 2823,
+        "score": 0.926829268292683,
+        "overlap": 40
+      },
+      {
+        "mpId": 2940,
+        "score": 0.926829268292683,
+        "overlap": 41
+      },
+      {
+        "mpId": 2700,
+        "score": 0.9136498769008704,
+        "overlap": 39
+      },
+      {
+        "mpId": 2848,
+        "score": 0.9136498769008704,
+        "overlap": 39
+      },
+      {
+        "mpId": 2937,
+        "score": 0.9002813819046397,
+        "overlap": 38
+      },
+      {
+        "mpId": 2917,
+        "score": 0.8946750577612211,
+        "overlap": 43
+      },
+      {
+        "mpId": 2781,
+        "score": 0.8916309815169777,
+        "overlap": 41
+      },
+      {
+        "mpId": 2797,
+        "score": 0.8916309815169777,
+        "overlap": 41
+      },
+      {
+        "mpId": 2901,
+        "score": 0.8812021902246507,
+        "overlap": 41
+      },
+      {
+        "mpId": 2915,
+        "score": 0.8812021902246507,
+        "overlap": 41
+      },
+      {
+        "mpId": 2921,
+        "score": 0.8812021902246507,
+        "overlap": 41
+      },
+      {
+        "mpId": 2677,
+        "score": 0.8695387058524823,
+        "overlap": 31
+      },
+      {
+        "mpId": 2678,
+        "score": 0.861380806294838,
+        "overlap": 39
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2930,
+        "score": -0.09016696346674324,
+        "overlap": 7
+      },
+      {
+        "mpId": 2803,
+        "score": -0.027109455978741488,
+        "overlap": 34
+      },
+      {
+        "mpId": 2745,
+        "score": -0.014958733419877617,
+        "overlap": 39
+      },
+      {
+        "mpId": 2715,
+        "score": -0.006829001800251448,
+        "overlap": 43
+      },
+      {
+        "mpId": 2723,
+        "score": -0.006745679089991417,
+        "overlap": 42
+      },
+      {
+        "mpId": 2920,
+        "score": -0.006733128978488734,
+        "overlap": 42
+      },
+      {
+        "mpId": 2763,
+        "score": -0.006689748956828851,
+        "overlap": 42
+      },
+      {
+        "mpId": 2932,
+        "score": -0.006677507868884246,
+        "overlap": 42
+      },
+      {
+        "mpId": 2621,
+        "score": 0,
+        "overlap": 43
+      },
+      {
+        "mpId": 2639,
+        "score": 0,
+        "overlap": 43
+      },
+      {
+        "mpId": 2640,
+        "score": 0,
+        "overlap": 43
+      },
+      {
+        "mpId": 2642,
+        "score": 0,
+        "overlap": 43
+      },
+      {
+        "mpId": 2652,
+        "score": 0,
+        "overlap": 43
+      },
+      {
+        "mpId": 2666,
+        "score": 0,
+        "overlap": 41
+      },
+      {
+        "mpId": 2683,
+        "score": 0,
+        "overlap": 43
+      },
+      {
+        "mpId": 2689,
+        "score": 0,
+        "overlap": 43
+      },
+      {
+        "mpId": 2690,
+        "score": 0,
+        "overlap": 43
+      },
+      {
+        "mpId": 2702,
+        "score": 0,
+        "overlap": 41
+      },
+      {
+        "mpId": 2730,
+        "score": 0,
+        "overlap": 43
+      },
+      {
+        "mpId": 2741,
+        "score": 0,
+        "overlap": 43
+      }
+    ]
+  }
+}

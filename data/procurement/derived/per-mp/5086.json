@@ -1,0 +1,66 @@
+{
+  "mpId": 5086,
+  "summary": {
+    "totalEur": 238006.3706968397,
+    "totalOther": {},
+    "contractCount": 4,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 238006.3706968397,
+    "rank": 28,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 5086,
+      "mpName": "Иво Севдалинов Цанев",
+      "contractorEik": "131476144",
+      "contractorName": "КСБВ ЕООД - София",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "50",
+          "valueEur": 2556.4594059810925,
+          "fiscalYear": 2024,
+          "declarationYear": 2025
+        }
+      ],
+      "totalEur": 238006.3706968397,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2016",
+          "contractCount": 2,
+          "totalEur": 234171.68158786808,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 3834.6891089716387,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000133972",
+          "name": "Община Стражица",
+          "contractCount": 2,
+          "totalEur": 234171.68158786808,
+          "totalOther": {}
+        },
+        {
+          "eik": "000689022",
+          "name": "Втора многопрофилна болница за активно лечение /II МБАЛ/ - София ЕАД",
+          "contractCount": 2,
+          "totalEur": 3834.6891089716387,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

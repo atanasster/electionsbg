@@ -1,0 +1,325 @@
+{
+  "mpId": 3148,
+  "ns": "51",
+  "partyShort": "БСП - ОЛ",
+  "loyalty": {
+    "votesCast": 280,
+    "withParty": 270,
+    "loyaltyPct": 0.9642857142857143,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 280,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2025-01-15",
+        "item": 86,
+        "slug": "86-zakon-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-razhodi-pr",
+        "title": "Закон за събирането на приходи и извършването на разходи през 2025 г. до приемането на Закона за държавния бюджет на Република България за 2025 г., Закона за бюджета на държавното обществено осигуряване за 2025 г. и Закона за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - член 3 - предложение от Кирил Петков и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-12-18",
+        "item": 40,
+        "slug": "40-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 48 до член 69",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-12-18",
+        "item": 39,
+        "slug": "39-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 50 - предложение от Павела Митова и Александър Рашев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-12-18",
+        "item": 20,
+        "slug": "20-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 41 - предложение от Константина Петрова - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2024-12-18",
+        "item": 12,
+        "slug": "12-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 16 - предложение от Ваня Василева",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2024-12-11",
+        "item": 11,
+        "slug": "11-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-i-ust",
+        "title": "Решение за създаване на Временна комисия за проверка и установяване на факти и обстоятелства относно констатираните огнища на чума по дребни преживни животни и шарка по дребни преживни животни на територията на Република България",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-12-04",
+        "item": 2,
+        "slug": "2-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Атанас Атанасов (04.12.2024г.) - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-11-29",
+        "item": 4,
+        "slug": "4-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Силви Кирилов (29.11.2024г.)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-11-28",
+        "item": 7,
+        "slug": "7-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Силви Кирилов (28.11.2024г.) - балотаж - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-11-28",
+        "item": 5,
+        "slug": "5-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Рая Назарян (28.11.2024г.) - балотаж",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3410,
+        "score": 0.7881693916890712,
+        "overlap": 231
+      },
+      {
+        "mpId": 3051,
+        "score": 0.7824582414744365,
+        "overlap": 203
+      },
+      {
+        "mpId": 3039,
+        "score": 0.7468319774988349,
+        "overlap": 188
+      },
+      {
+        "mpId": 3185,
+        "score": 0.7191417444819633,
+        "overlap": 270
+      },
+      {
+        "mpId": 3080,
+        "score": 0.7015727519279638,
+        "overlap": 266
+      },
+      {
+        "mpId": 3081,
+        "score": 0.6846723007277965,
+        "overlap": 259
+      },
+      {
+        "mpId": 3287,
+        "score": 0.6780667109824048,
+        "overlap": 253
+      },
+      {
+        "mpId": 3134,
+        "score": 0.6589991203927376,
+        "overlap": 244
+      },
+      {
+        "mpId": 3260,
+        "score": 0.6480851474907462,
+        "overlap": 218
+      },
+      {
+        "mpId": 3094,
+        "score": 0.6385411550008615,
+        "overlap": 242
+      },
+      {
+        "mpId": 3282,
+        "score": 0.6366914523505366,
+        "overlap": 231
+      },
+      {
+        "mpId": 3404,
+        "score": 0.5676018505537354,
+        "overlap": 254
+      },
+      {
+        "mpId": 3413,
+        "score": 0.5136334405516935,
+        "overlap": 178
+      },
+      {
+        "mpId": 3373,
+        "score": 0.5068697173935065,
+        "overlap": 275
+      },
+      {
+        "mpId": 3269,
+        "score": 0.45965111333211417,
+        "overlap": 249
+      },
+      {
+        "mpId": 3023,
+        "score": 0.44970857363166566,
+        "overlap": 242
+      },
+      {
+        "mpId": 3144,
+        "score": 0.40890068155266834,
+        "overlap": 271
+      },
+      {
+        "mpId": 3342,
+        "score": 0.40068285818164584,
+        "overlap": 269
+      },
+      {
+        "mpId": 3227,
+        "score": 0.35845162722572965,
+        "overlap": 153
+      },
+      {
+        "mpId": 3271,
+        "score": 0.34605112514694936,
+        "overlap": 264
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3102,
+        "score": 0.04105546348005274,
+        "overlap": 82
+      },
+      {
+        "mpId": 3415,
+        "score": 0.049475297902804395,
+        "overlap": 115
+      },
+      {
+        "mpId": 3160,
+        "score": 0.0512507573605981,
+        "overlap": 119
+      },
+      {
+        "mpId": 3118,
+        "score": 0.08917089957046022,
+        "overlap": 178
+      },
+      {
+        "mpId": 3307,
+        "score": 0.10524529159193628,
+        "overlap": 232
+      },
+      {
+        "mpId": 3371,
+        "score": 0.11156168951499815,
+        "overlap": 235
+      },
+      {
+        "mpId": 3163,
+        "score": 0.11212551066189583,
+        "overlap": 217
+      },
+      {
+        "mpId": 3273,
+        "score": 0.11601389544001194,
+        "overlap": 228
+      },
+      {
+        "mpId": 3181,
+        "score": 0.11601697063001552,
+        "overlap": 231
+      },
+      {
+        "mpId": 3106,
+        "score": 0.11604754566563134,
+        "overlap": 150
+      },
+      {
+        "mpId": 3131,
+        "score": 0.1176144247287955,
+        "overlap": 233
+      },
+      {
+        "mpId": 3302,
+        "score": 0.11961456216216282,
+        "overlap": 256
+      },
+      {
+        "mpId": 3293,
+        "score": 0.11980615872183635,
+        "overlap": 246
+      },
+      {
+        "mpId": 3363,
+        "score": 0.12106953129080644,
+        "overlap": 255
+      },
+      {
+        "mpId": 3304,
+        "score": 0.12275098827729959,
+        "overlap": 257
+      },
+      {
+        "mpId": 3231,
+        "score": 0.1233216199414726,
+        "overlap": 261
+      },
+      {
+        "mpId": 3400,
+        "score": 0.12364359637498139,
+        "overlap": 267
+      },
+      {
+        "mpId": 3308,
+        "score": 0.12528220279239313,
+        "overlap": 266
+      },
+      {
+        "mpId": 3127,
+        "score": 0.12539041385132554,
+        "overlap": 266
+      },
+      {
+        "mpId": 3393,
+        "score": 0.12560376037965854,
+        "overlap": 267
+      }
+    ]
+  }
+}

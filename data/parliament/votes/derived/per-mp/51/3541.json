@@ -1,0 +1,285 @@
+{
+  "mpId": 3541,
+  "ns": "51",
+  "partyShort": "ГЕРБ - СДС",
+  "loyalty": {
+    "votesCast": 246,
+    "withParty": 240,
+    "loyaltyPct": 0.975609756097561,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 246,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2026-03-19",
+        "item": 41,
+        "slug": "41-zakon-za-prozrachnost-i-pochtenost-v-upravlenieto-vtoro-glas",
+        "title": "Закон за прозрачност и почтеност в управлението – второ гласуване - член 21 - предложение от Юлиана Матеева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-03-18",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-18-i-19-mart-2",
+        "title": "Програма за работата на Народното събрание за 18 и 19 март 2026 г. - предложение от Искра Михайлова и Даниел Проданов - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 59
+      },
+      {
+        "date": "2026-03-12",
+        "item": 8,
+        "slug": "8-zid-na-nakazatelniya-kodeks-parvo-glasuvane-vnositel-bozhida",
+        "title": "ЗИД на Наказателния кодекс - първо гласуване - вносител Божидар Божанов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2026-03-05",
+        "item": 6,
+        "slug": "6-izslushvane-na-sluzhebniya-zamestnik-ministar-na-energetikat",
+        "title": "Изслушване на служебния заместник-министър на енергетиката и председателя на Комисията за енергийно и водно регулиране Пламен Младеновски,относно повишените сметки за ток и хилядите подадени жалби за това от български граждани в последните месеци - процедура от Александър Иванов за пряко предаване по БНТ",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 56
+      },
+      {
+        "date": "2026-03-04",
+        "item": 24,
+        "slug": "24-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-8-nov-p",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 8 - нов - предложение от Божидар Божанов и Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2026-02-27",
+        "item": 7,
+        "slug": "7-ratifikatsiya-na-sporazumenieto-za-partnyorstvo-mezhdu-evrop",
+        "title": "Ратификация на Споразумението за партньорство между Европейския съюз и неговите държави членки, от една страна, и членовете на Организацията на държавите от Африка, Карибите и Тихоокеанския басейн, от друга страна, подписано в Самоа на 15 ноември 2023 г. - процедура за допускане в зала - прегласуване",
+        "topic": "ratification",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 49
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3549,
+        "score": 0.8559033571769944,
+        "overlap": 213
+      },
+      {
+        "mpId": 3537,
+        "score": 0.8297022339981068,
+        "overlap": 212
+      },
+      {
+        "mpId": 3533,
+        "score": 0.8197909880273759,
+        "overlap": 222
+      },
+      {
+        "mpId": 3535,
+        "score": 0.8000483077202216,
+        "overlap": 200
+      },
+      {
+        "mpId": 3531,
+        "score": 0.7619213355070807,
+        "overlap": 196
+      },
+      {
+        "mpId": 3547,
+        "score": 0.730876021538582,
+        "overlap": 222
+      },
+      {
+        "mpId": 3580,
+        "score": 0.7074690674523406,
+        "overlap": 220
+      },
+      {
+        "mpId": 3539,
+        "score": 0.518382577730396,
+        "overlap": 165
+      },
+      {
+        "mpId": 3529,
+        "score": 0.445302497614005,
+        "overlap": 123
+      },
+      {
+        "mpId": 3527,
+        "score": 0.41809676540208707,
+        "overlap": 69
+      },
+      {
+        "mpId": 3543,
+        "score": 0.4179975374986125,
+        "overlap": 115
+      },
+      {
+        "mpId": 3106,
+        "score": 0.29521405344577156,
+        "overlap": 223
+      },
+      {
+        "mpId": 3209,
+        "score": 0.2821255504962154,
+        "overlap": 246
+      },
+      {
+        "mpId": 3521,
+        "score": 0.27595802701601524,
+        "overlap": 123
+      },
+      {
+        "mpId": 3104,
+        "score": 0.2691302317803639,
+        "overlap": 232
+      },
+      {
+        "mpId": 3085,
+        "score": 0.263803843691737,
+        "overlap": 245
+      },
+      {
+        "mpId": 3202,
+        "score": 0.25902520150230496,
+        "overlap": 233
+      },
+      {
+        "mpId": 3392,
+        "score": 0.25773612245044636,
+        "overlap": 236
+      },
+      {
+        "mpId": 3033,
+        "score": 0.2574059111372158,
+        "overlap": 240
+      },
+      {
+        "mpId": 3339,
+        "score": 0.25715395038189315,
+        "overlap": 239
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3307,
+        "score": -0.040539500445721244,
+        "overlap": 199
+      },
+      {
+        "mpId": 3026,
+        "score": -0.03524882274705684,
+        "overlap": 107
+      },
+      {
+        "mpId": 3230,
+        "score": -0.03345803759726607,
+        "overlap": 130
+      },
+      {
+        "mpId": 3192,
+        "score": -0.033347313194724976,
+        "overlap": 111
+      },
+      {
+        "mpId": 3090,
+        "score": -0.03200661099187628,
+        "overlap": 206
+      },
+      {
+        "mpId": 3358,
+        "score": -0.030253177249629212,
+        "overlap": 101
+      },
+      {
+        "mpId": 3137,
+        "score": -0.028999148950507973,
+        "overlap": 158
+      },
+      {
+        "mpId": 3116,
+        "score": -0.025722086013476593,
+        "overlap": 215
+      },
+      {
+        "mpId": 3122,
+        "score": -0.024053129502204833,
+        "overlap": 167
+      },
+      {
+        "mpId": 3129,
+        "score": -0.0240012865034358,
+        "overlap": 215
+      },
+      {
+        "mpId": 3304,
+        "score": -0.022988543606953207,
+        "overlap": 196
+      },
+      {
+        "mpId": 3141,
+        "score": -0.022733551460322084,
+        "overlap": 216
+      },
+      {
+        "mpId": 3084,
+        "score": -0.021968051580134398,
+        "overlap": 208
+      },
+      {
+        "mpId": 3068,
+        "score": -0.021601157853092218,
+        "overlap": 213
+      },
+      {
+        "mpId": 3516,
+        "score": -0.02119268295877623,
+        "overlap": 147
+      },
+      {
+        "mpId": 3121,
+        "score": -0.020613860897937694,
+        "overlap": 127
+      },
+      {
+        "mpId": 3177,
+        "score": -0.02030047926906571,
+        "overlap": 216
+      },
+      {
+        "mpId": 3247,
+        "score": -0.019734109038421103,
+        "overlap": 137
+      },
+      {
+        "mpId": 3027,
+        "score": -0.018414266844473774,
+        "overlap": 148
+      },
+      {
+        "mpId": 3165,
+        "score": -0.01799202769959399,
+        "overlap": 213
+      }
+    ]
+  }
+}

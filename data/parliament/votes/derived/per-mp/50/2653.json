@@ -1,0 +1,325 @@
+{
+  "mpId": 2653,
+  "ns": "50",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 567,
+    "withParty": 557,
+    "loyaltyPct": 0.982363315696649,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 567,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2024-09-11",
+        "item": 39,
+        "slug": "39-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-nov-p",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф нов.. - предложение от Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 52
+      },
+      {
+        "date": "2024-08-08",
+        "item": 3,
+        "slug": "3-protsedura-ot-georgi-svilenski-za-razmestvane-na-tochkite",
+        "title": "Процедура от Георги Свиленски за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 65
+      },
+      {
+        "date": "2024-07-31",
+        "item": 26,
+        "slug": "26-zid-na-grazhdanskiya-protsesualen-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Гражданския процесуален кодекс – второ гласуване - параграф 3",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 53
+      },
+      {
+        "date": "2024-07-31",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-protsedur",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2024-07-31",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – второ гласуване - параграф ... - предложение от Джевдет Чакъров и група н.п. - процедура за допустимост",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2024-07-31",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – второ гласуване - параграф нов - предложение от Борислав Гуцанов и група н.п. - процедура за допустимост - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-07-18",
+        "item": 4,
+        "slug": "4-protsedura-za-udalzhavane-na-r-vreme-do-preklyuchvane-na-t-5",
+        "title": "Процедура за удължаване на р. време до преключване на т.5",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 36
+      },
+      {
+        "date": "2024-07-12",
+        "item": 84,
+        "slug": "84-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т. 9",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 54
+      },
+      {
+        "date": "2024-07-12",
+        "item": 82,
+        "slug": "82-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т. 7",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 51
+      },
+      {
+        "date": "2024-07-12",
+        "item": 78,
+        "slug": "78-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - ал.3",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 56
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2852,
+        "score": 0.9387341673636147,
+        "overlap": 563
+      },
+      {
+        "mpId": 2947,
+        "score": 0.9378584826559321,
+        "overlap": 539
+      },
+      {
+        "mpId": 2647,
+        "score": 0.9343185949626638,
+        "overlap": 535
+      },
+      {
+        "mpId": 2911,
+        "score": 0.9337156057125467,
+        "overlap": 565
+      },
+      {
+        "mpId": 2779,
+        "score": 0.9325238473909462,
+        "overlap": 558
+      },
+      {
+        "mpId": 2770,
+        "score": 0.9314558096744537,
+        "overlap": 539
+      },
+      {
+        "mpId": 2941,
+        "score": 0.9298883873080184,
+        "overlap": 545
+      },
+      {
+        "mpId": 2840,
+        "score": 0.9284206995545345,
+        "overlap": 539
+      },
+      {
+        "mpId": 2602,
+        "score": 0.9273259073814833,
+        "overlap": 562
+      },
+      {
+        "mpId": 2833,
+        "score": 0.9258220043740034,
+        "overlap": 525
+      },
+      {
+        "mpId": 2673,
+        "score": 0.9243198231430602,
+        "overlap": 564
+      },
+      {
+        "mpId": 2747,
+        "score": 0.9228413107337738,
+        "overlap": 549
+      },
+      {
+        "mpId": 2935,
+        "score": 0.9228413107337738,
+        "overlap": 546
+      },
+      {
+        "mpId": 2905,
+        "score": 0.9150373585745695,
+        "overlap": 543
+      },
+      {
+        "mpId": 2714,
+        "score": 0.9144430556053665,
+        "overlap": 549
+      },
+      {
+        "mpId": 2688,
+        "score": 0.9121638737695855,
+        "overlap": 538
+      },
+      {
+        "mpId": 2842,
+        "score": 0.9099271864465349,
+        "overlap": 502
+      },
+      {
+        "mpId": 2768,
+        "score": 0.9071196109117382,
+        "overlap": 538
+      },
+      {
+        "mpId": 2802,
+        "score": 0.9048104029816904,
+        "overlap": 536
+      },
+      {
+        "mpId": 2913,
+        "score": 0.9035352454938457,
+        "overlap": 501
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2979,
+        "score": -0.05026991694184659,
+        "overlap": 278
+      },
+      {
+        "mpId": 2996,
+        "score": -0.029741626587270104,
+        "overlap": 36
+      },
+      {
+        "mpId": 2930,
+        "score": -0.025031308716087945,
+        "overlap": 7
+      },
+      {
+        "mpId": 2972,
+        "score": -0.006012325878048522,
+        "overlap": 53
+      },
+      {
+        "mpId": 2967,
+        "score": 0.00852093942741508,
+        "overlap": 286
+      },
+      {
+        "mpId": 3007,
+        "score": 0.012784839010804948,
+        "overlap": 52
+      },
+      {
+        "mpId": 3008,
+        "score": 0.030188894190115077,
+        "overlap": 147
+      },
+      {
+        "mpId": 3005,
+        "score": 0.04059501823132193,
+        "overlap": 77
+      },
+      {
+        "mpId": 2998,
+        "score": 0.061744212448095394,
+        "overlap": 74
+      },
+      {
+        "mpId": 2904,
+        "score": 0.06792501192775893,
+        "overlap": 38
+      },
+      {
+        "mpId": 2909,
+        "score": 0.06792501192775893,
+        "overlap": 38
+      },
+      {
+        "mpId": 2951,
+        "score": 0.07435406646817526,
+        "overlap": 39
+      },
+      {
+        "mpId": 2946,
+        "score": 0.07836039099693787,
+        "overlap": 21
+      },
+      {
+        "mpId": 3001,
+        "score": 0.07883220079092416,
+        "overlap": 106
+      },
+      {
+        "mpId": 2997,
+        "score": 0.08041803596466336,
+        "overlap": 98
+      },
+      {
+        "mpId": 2934,
+        "score": 0.08061258480669066,
+        "overlap": 41
+      },
+      {
+        "mpId": 2980,
+        "score": 0.08524864931554031,
+        "overlap": 313
+      },
+      {
+        "mpId": 2912,
+        "score": 0.09143147749635572,
+        "overlap": 43
+      },
+      {
+        "mpId": 2953,
+        "score": 0.09143147749635572,
+        "overlap": 42
+      },
+      {
+        "mpId": 2965,
+        "score": 0.09143147749635572,
+        "overlap": 43
+      }
+    ]
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "mpId": 1867,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 504,
+    "withParty": 496,
+    "loyaltyPct": 0.9841269841269841,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 504,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 70,
+        "slug": "70-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 27 - отпада",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-09-10",
+        "item": 70,
+        "slug": "70-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 5 (става параграф 6) - предложение от Пламен Абровски и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-09-10",
+        "item": 43,
+        "slug": "43-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Иван Иванов и Хр.Гаджев за редакция на т.16 ал.5 - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-08-25",
+        "item": 5,
+        "slug": "5-reshenie-za-promyana-v-sastava-na-komisiya-po-politikite-za-",
+        "title": "Решение за промяна в състава на Комисия по политиките за българите извън страната",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-08-25",
+        "item": 4,
+        "slug": "4-reshenie-za-promyana-v-sastava-na-komisiyata-po-okolnata-sre",
+        "title": "Решение за промяна в състава на Комисията по околната среда и водите",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-08-12",
+        "item": 6,
+        "slug": "6-izslushvane-na-ministara-na-zdraveopazvaneto-stoycho-katsaro",
+        "title": "Изслушване на министъра на здравеопазването Стойчо Кацаров относно изграждане на Национална детска болница - процедура за удължаване на работното време до точка 7",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2021-08-06",
+        "item": 5,
+        "slug": "5-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на факти и обстоятелства относно действията и бездействията на компетентните български органи във връзка с наложените на 2.06.2021 г. санкции на български физически и юридически лица от Службата за контрол на чуждестранните активи (OFAC) и Министерството на финансите на САЩ на основание Глобалния закон \"Магнитски\" .... - за председател Хамид Хамид",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-08-05",
+        "item": 51,
+        "slug": "51-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 130 - предложение от Мая Манолова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1869,
+        "score": 0.9590564526154582,
+        "overlap": 503
+      },
+      {
+        "mpId": 1947,
+        "score": 0.9580399643037486,
+        "overlap": 499
+      },
+      {
+        "mpId": 1888,
+        "score": 0.9554818920827443,
+        "overlap": 496
+      },
+      {
+        "mpId": 1908,
+        "score": 0.9530055628558116,
+        "overlap": 501
+      },
+      {
+        "mpId": 1913,
+        "score": 0.9524210773023233,
+        "overlap": 496
+      },
+      {
+        "mpId": 1696,
+        "score": 0.9522841791740457,
+        "overlap": 498
+      },
+      {
+        "mpId": 1665,
+        "score": 0.951852581278694,
+        "overlap": 500
+      },
+      {
+        "mpId": 1899,
+        "score": 0.9495819538946185,
+        "overlap": 490
+      },
+      {
+        "mpId": 1938,
+        "score": 0.9490943967588165,
+        "overlap": 499
+      },
+      {
+        "mpId": 1948,
+        "score": 0.9486797724149794,
+        "overlap": 500
+      },
+      {
+        "mpId": 1907,
+        "score": 0.9454711902043823,
+        "overlap": 497
+      },
+      {
+        "mpId": 1896,
+        "score": 0.9432876539683446,
+        "overlap": 496
+      },
+      {
+        "mpId": 1950,
+        "score": 0.9431433489808738,
+        "overlap": 498
+      },
+      {
+        "mpId": 1871,
+        "score": 0.9415734568319096,
+        "overlap": 494
+      },
+      {
+        "mpId": 1605,
+        "score": 0.9408098342281556,
+        "overlap": 490
+      },
+      {
+        "mpId": 1918,
+        "score": 0.9397866584667987,
+        "overlap": 489
+      },
+      {
+        "mpId": 1719,
+        "score": 0.9380553930822229,
+        "overlap": 477
+      },
+      {
+        "mpId": 1959,
+        "score": 0.937750281949369,
+        "overlap": 492
+      },
+      {
+        "mpId": 1895,
+        "score": 0.9364237743949241,
+        "overlap": 485
+      },
+      {
+        "mpId": 1676,
+        "score": 0.9354053686837367,
+        "overlap": 487
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": -0.028913291429842437,
+        "overlap": 174
+      },
+      {
+        "mpId": 1643,
+        "score": -0.0030328105218618293,
+        "overlap": 243
+      },
+      {
+        "mpId": 1155,
+        "score": 0,
+        "overlap": 240
+      },
+      {
+        "mpId": 1317,
+        "score": 0.00546179051767552,
+        "overlap": 310
+      },
+      {
+        "mpId": 404,
+        "score": 0.014541213455914834,
+        "overlap": 283
+      },
+      {
+        "mpId": 1457,
+        "score": 0.014597249168194628,
+        "overlap": 277
+      },
+      {
+        "mpId": 388,
+        "score": 0.019941806000009315,
+        "overlap": 298
+      },
+      {
+        "mpId": 1124,
+        "score": 0.021274040835497186,
+        "overlap": 265
+      },
+      {
+        "mpId": 1970,
+        "score": 0.03759349317294175,
+        "overlap": 222
+      },
+      {
+        "mpId": 1428,
+        "score": 0.05348689521083446,
+        "overlap": 225
+      },
+      {
+        "mpId": 990,
+        "score": 0.054227533898789766,
+        "overlap": 302
+      },
+      {
+        "mpId": 1703,
+        "score": 0.059357470472418974,
+        "overlap": 208
+      },
+      {
+        "mpId": 1659,
+        "score": 0.060496378247862075,
+        "overlap": 310
+      },
+      {
+        "mpId": 1644,
+        "score": 0.06576958525382559,
+        "overlap": 260
+      },
+      {
+        "mpId": 473,
+        "score": 0.07339802303784479,
+        "overlap": 297
+      },
+      {
+        "mpId": 1706,
+        "score": 0.07904402480998671,
+        "overlap": 291
+      },
+      {
+        "mpId": 1386,
+        "score": 0.07991426048242703,
+        "overlap": 271
+      },
+      {
+        "mpId": 817,
+        "score": 0.08326536103252208,
+        "overlap": 208
+      },
+      {
+        "mpId": 1378,
+        "score": 0.0888573474996805,
+        "overlap": 242
+      },
+      {
+        "mpId": 1465,
+        "score": 0.09300767928365933,
+        "overlap": 311
+      }
+    ]
+  }
+}

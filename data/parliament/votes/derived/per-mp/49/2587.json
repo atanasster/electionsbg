@@ -1,0 +1,265 @@
+{
+  "mpId": 2587,
+  "ns": "49",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 41,
+    "withParty": 37,
+    "loyaltyPct": 0.9024390243902439,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 41,
+    "dissentCount": 4,
+    "recent": [
+      {
+        "date": "2024-04-26",
+        "item": 15,
+        "slug": "15-protsedura-ot-rositsa-kirova-za-nova-tochka-6",
+        "title": "Процедура от Росица Кирова за нова точка 6 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-04-26",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-hazarta-parvo-glasuvane-protsedura-ot-yorda",
+        "title": "ЗИД на Закона за хазарта - първо гласуване - процедура от Йордан Цонев за съкращаване на срока за предложения на 3 дни",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-04-26",
+        "item": 11,
+        "slug": "11-protsedura-ot-hristo-gadzhev-za-udalzhavane-na-rabotnoto-vre",
+        "title": "Процедура от Христо Гаджев за удължаване на работното време - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 53
+      },
+      {
+        "date": "2024-04-26",
+        "item": 7,
+        "slug": "7-reshenie-za-prekratyavane-na-palnomoshtiyata-na-naroden-pred",
+        "title": "Решение за прекратяване на пълномощията на народен представител",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 67
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2531,
+        "score": 0.12644278639666134,
+        "overlap": 38
+      },
+      {
+        "mpId": 2536,
+        "score": 0.1197406829948476,
+        "overlap": 38
+      },
+      {
+        "mpId": 2537,
+        "score": 0.11563669073766439,
+        "overlap": 31
+      },
+      {
+        "mpId": 1955,
+        "score": 0.10766118507805272,
+        "overlap": 27
+      },
+      {
+        "mpId": 451,
+        "score": 0.10622693177523969,
+        "overlap": 31
+      },
+      {
+        "mpId": 1297,
+        "score": 0.1046193404919599,
+        "overlap": 18
+      },
+      {
+        "mpId": 960,
+        "score": 0.10312500209590034,
+        "overlap": 39
+      },
+      {
+        "mpId": 524,
+        "score": 0.10258377589564249,
+        "overlap": 24
+      },
+      {
+        "mpId": 2527,
+        "score": 0.0996899143943514,
+        "overlap": 37
+      },
+      {
+        "mpId": 1920,
+        "score": 0.09877295966495896,
+        "overlap": 37
+      },
+      {
+        "mpId": 2289,
+        "score": 0.0984466269656945,
+        "overlap": 38
+      },
+      {
+        "mpId": 1687,
+        "score": 0.09743979685772328,
+        "overlap": 38
+      },
+      {
+        "mpId": 1599,
+        "score": 0.09629716646149672,
+        "overlap": 37
+      },
+      {
+        "mpId": 398,
+        "score": 0.09625744912026395,
+        "overlap": 32
+      },
+      {
+        "mpId": 2349,
+        "score": 0.09552579291585205,
+        "overlap": 36
+      },
+      {
+        "mpId": 1972,
+        "score": 0.09543812015563577,
+        "overlap": 37
+      },
+      {
+        "mpId": 1691,
+        "score": 0.09511216314364498,
+        "overlap": 39
+      },
+      {
+        "mpId": 2074,
+        "score": 0.09491090605661333,
+        "overlap": 39
+      },
+      {
+        "mpId": 2530,
+        "score": 0.09395110913941353,
+        "overlap": 33
+      },
+      {
+        "mpId": 1976,
+        "score": 0.09356640109329589,
+        "overlap": 29
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2119,
+        "score": -0.0030303586847844313,
+        "overlap": 24
+      },
+      {
+        "mpId": 2448,
+        "score": -0.002989553321009151,
+        "overlap": 23
+      },
+      {
+        "mpId": 2025,
+        "score": 0,
+        "overlap": 15
+      },
+      {
+        "mpId": 2055,
+        "score": 0,
+        "overlap": 6
+      },
+      {
+        "mpId": 2077,
+        "score": 0,
+        "overlap": 24
+      },
+      {
+        "mpId": 2397,
+        "score": 0,
+        "overlap": 7
+      },
+      {
+        "mpId": 2282,
+        "score": 0.0030178856868401404,
+        "overlap": 18
+      },
+      {
+        "mpId": 2063,
+        "score": 0.0030435654266096467,
+        "overlap": 31
+      },
+      {
+        "mpId": 2363,
+        "score": 0.0030945221750899904,
+        "overlap": 25
+      },
+      {
+        "mpId": 2352,
+        "score": 0.003470528041969024,
+        "overlap": 8
+      },
+      {
+        "mpId": 2408,
+        "score": 0.003642799917893622,
+        "overlap": 29
+      },
+      {
+        "mpId": 2084,
+        "score": 0.00403373399489692,
+        "overlap": 26
+      },
+      {
+        "mpId": 1660,
+        "score": 0.00450647086816589,
+        "overlap": 24
+      },
+      {
+        "mpId": 2277,
+        "score": 0.00470454118012181,
+        "overlap": 13
+      },
+      {
+        "mpId": 2435,
+        "score": 0.005871443005909643,
+        "overlap": 31
+      },
+      {
+        "mpId": 2374,
+        "score": 0.005913382417567803,
+        "overlap": 14
+      },
+      {
+        "mpId": 2129,
+        "score": 0.0060848203081168,
+        "overlap": 10
+      },
+      {
+        "mpId": 2520,
+        "score": 0.006253206812090257,
+        "overlap": 28
+      },
+      {
+        "mpId": 2099,
+        "score": 0.006425489326170127,
+        "overlap": 23
+      },
+      {
+        "mpId": 2422,
+        "score": 0.006537099744231704,
+        "overlap": 26
+      }
+    ]
+  }
+}

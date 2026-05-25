@@ -31,11 +31,12 @@ const fetchMpConnected =
 
 // Internal: one-time fetch + memoised index by mpId. Every call to the
 // per-MP hook below shares the same query cache.
-const useMpConnectedFile = () =>
+const useMpConnectedFile = (enabled = true) =>
   useQuery({
     queryKey: ["procurement", "mp_connected"] as const,
     queryFn: fetchMpConnected,
     staleTime: Infinity,
+    enabled,
   });
 
 export interface MpConnectedSummary {
@@ -47,6 +48,50 @@ export interface MpConnectedSummary {
   contractCount: number;
   awardCount: number;
 }
+
+interface ProcurementShard {
+  mpId: number;
+  summary: MpConnectedSummary;
+  entries: ProcurementMpConnectedContractor[];
+}
+
+interface ShardManifest {
+  mpIds: number[];
+}
+
+// Per-MP shard manifest — tells the frontend which MPs have shards so we
+// can skip both the shard-404 round-trip and the aggregate fallback for
+// MPs with no declared procurement connections (the common case).
+const fetchShardManifest = async (): Promise<ShardManifest | null> => {
+  const r = await fetch(dataUrl("/procurement/derived/per-mp/index.json"));
+  if (r.status === 404) return null;
+  if (!r.ok) return null;
+  const ct = r.headers.get("content-type") ?? "";
+  if (!ct.includes("json")) return null;
+  return (await r.json()) as ShardManifest;
+};
+
+const useShardManifest = () =>
+  useQuery({
+    queryKey: ["procurement", "shard_manifest"] as const,
+    queryFn: fetchShardManifest,
+    staleTime: Infinity,
+    retry: false,
+  });
+
+// Per-MP shard fetch — content-type guard mirrors the votes shard hook so
+// SPA-fallback HTML responses on missing paths are treated as misses
+// instead of throwing a JSON-parse error.
+const fetchProcurementShard = async (
+  mpId: number,
+): Promise<ProcurementShard | null> => {
+  const r = await fetch(dataUrl(`/procurement/derived/per-mp/${mpId}.json`));
+  if (r.status === 404) return null;
+  if (!r.ok) return null;
+  const ct = r.headers.get("content-type") ?? "";
+  if (!ct.includes("json")) return null;
+  return (await r.json()) as ProcurementShard;
+};
 
 /** Returns the MP-connected contractors for one candidate (resolved by name),
  * along with a summary rollup across them. Renders nothing-friendly: returns
@@ -61,19 +106,63 @@ export const useMpConnectedContracts = (
 } => {
   const { findMpByName } = useMps();
   const mpId = findMpByName(name)?.id ?? null;
-  const q = useMpConnectedFile();
+
+  // Phase 1: check the tiny manifest (~600 B) to learn whether this MP has
+  // a shard at all. Avoids both the shard-404 round-trip and the aggregate
+  // fallback when the MP simply has no procurement connections.
+  const manifestQuery = useShardManifest();
+  const mpIdsWithShards = useMemo(
+    () => new Set(manifestQuery.data?.mpIds ?? []),
+    [manifestQuery.data],
+  );
+  const hasShard = mpId != null && mpIdsWithShards.has(mpId);
+
+  // Phase 2: per-MP shard. Only fired when the manifest says one exists.
+  const shardQuery = useQuery({
+    queryKey: ["procurement", "mp_connected_shard", mpId ?? 0] as const,
+    queryFn: () => fetchProcurementShard(mpId!),
+    enabled: hasShard,
+    staleTime: Infinity,
+    retry: false,
+  });
+
+  // Aggregate is the fallback only when the manifest fetch FAILS (legacy
+  // deploy without shards). We wait for `isFetched` rather than just
+  // checking `data != null` so we don't double-fire at initial mount
+  // before the manifest response arrives.
+  const manifestKnown = manifestQuery.data != null;
+  const manifestSettled = manifestQuery.isFetched;
+  const aggregateEnabled = mpId != null && manifestSettled && !manifestKnown;
+  const q = useMpConnectedFile(aggregateEnabled);
 
   return useMemo(() => {
-    if (mpId == null || !q.data) {
+    const empty: MpConnectedSummary = {
+      totalEur: 0,
+      totalOther: {},
+      contractCount: 0,
+      awardCount: 0,
+    };
+    if (mpId == null) {
+      return { entries: [], summary: empty, isLoading: false };
+    }
+    // Manifest says this MP has no shard → no connections, return empty
+    // without touching the network further.
+    if (manifestKnown && !hasShard) {
+      return { entries: [], summary: empty, isLoading: false };
+    }
+    if (shardQuery.data) {
+      return {
+        entries: shardQuery.data.entries,
+        summary: shardQuery.data.summary,
+        isLoading: false,
+      };
+    }
+    if (!q.data) {
       return {
         entries: [],
-        summary: {
-          totalEur: 0,
-          totalOther: {},
-          contractCount: 0,
-          awardCount: 0,
-        },
-        isLoading: mpId == null ? false : q.isLoading,
+        summary: empty,
+        isLoading:
+          manifestQuery.isLoading || shardQuery.isLoading || q.isLoading,
       };
     }
     const entries = q.data.entries.filter((e) => e.mpId === mpId);
@@ -92,5 +181,14 @@ export const useMpConnectedContracts = (
       summary.awardCount += e.awardCount;
     }
     return { entries, summary, isLoading: false };
-  }, [mpId, q.data, q.isLoading]);
+  }, [
+    mpId,
+    q.data,
+    q.isLoading,
+    shardQuery.data,
+    shardQuery.isLoading,
+    manifestKnown,
+    hasShard,
+    manifestQuery.isLoading,
+  ]);
 };

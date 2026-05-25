@@ -1,0 +1,395 @@
+{
+  "mpId": 3302,
+  "ns": "51",
+  "partyShort": "ДПС - НН",
+  "loyalty": {
+    "votesCast": 3552,
+    "withParty": 3535,
+    "loyaltyPct": 0.995213963963964,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 3552,
+    "dissentCount": 17,
+    "recent": [
+      {
+        "date": "2026-03-19",
+        "item": 15,
+        "slug": "15-zakon-za-obshtestveniya-transport-vtoro-glasuvane-chl-35-pre",
+        "title": "Закон за обществения транспорт – второ гласуване - чл. 35 - предложение от Божидар Божанов и Йордан Иванов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2026-02-18",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-zdraveto-parvo-glasuvane-vnositel-radostin-",
+        "title": "ЗИД на Закона за здравето - първо гласуване - вносител Радостин Василев и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 20
+      },
+      {
+        "date": "2026-02-05",
+        "item": 73,
+        "slug": "73-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-28-",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф (28) 33",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2026-01-21",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-zashtita-na-potrebitelite-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за защита на потребителите – второ гласуване - параграф 33 до параграф 36",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      },
+      {
+        "date": "2025-10-31",
+        "item": 13,
+        "slug": "13-protsedura-ot-raya-nazaryan-za-nova-tochka-4",
+        "title": "Процедура от Рая Назарян за нова точка 4",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-10-08",
+        "item": 15,
+        "slug": "15-programa-za-rabotata-na-narodno-sabranie-za-8-10-oktomvri-20",
+        "title": "Програма за работата на Народно събрание за 8 - 10 октомври 2025 г. - предложение от Атанас Атанасов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 26
+      },
+      {
+        "date": "2025-07-23",
+        "item": 186,
+        "slug": "186-zid-na-kodeksa-za-zastrahovaneto-vtoro-glasuvane-paragraf-8-",
+        "title": "ЗИД на Кодекса за застраховането - второ гласуване - параграф 8 и 9 (става параграф 2 и 3)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 22
+      },
+      {
+        "date": "2025-07-23",
+        "item": 142,
+        "slug": "142-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата - второ гласуване - параграф 102 (става параграф 103) - предложение от Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 24
+      },
+      {
+        "date": "2025-07-23",
+        "item": 134,
+        "slug": "134-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата - второ гласуване - параграф 97 (става параграф 98) - предложение от Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2025-07-18",
+        "item": 36,
+        "slug": "36-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-4-predl",
+        "title": "ЗИД на Наказателния кодекс - второ гласуване - параграф 4 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2025-07-16",
+        "item": 47,
+        "slug": "47-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата – второ гласуване - параграф 10а - предложение от Любен Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 24
+      },
+      {
+        "date": "2025-07-16",
+        "item": 28,
+        "slug": "28-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата – второ гласуване - параграф 4",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2025-06-19",
+        "item": 250,
+        "slug": "250-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - параграф 6 (става параграф 4) - предложение от Рая Назарян",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2025-06-04",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-merkite-sreshtu-finansiraneto-na-terorizma-",
+        "title": "ЗИД на Закона за мерките срещу финансирането на тероризма – второ гласуване - параграф 53 - предложение от Божидар Божанов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-03-19",
+        "item": 82,
+        "slug": "82-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - параграф 17 (става параграф 20) - предложение от Божидар Божанов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-03-19",
+        "item": 79,
+        "slug": "79-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - параграф 15 и 16, параграф 17,18 и 19 - нови",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-02-13",
+        "item": 9,
+        "slug": "9-izslushvane-na-ministar-predsedatelya-na-republika-balgariya",
+        "title": "Изслушване на министър-председателя на Република България Росен Желязков, на министъра на енергетиката Жечо Станков, на министъра на околната среда и водите Манол Генов и на министъра на земеделието и храните Георги Тахов, относно текущите в момента процедури и действия от страна на правителството на Република България за защита на българския национален интерес, във връзка с намеренията след отправените искания от гръцка страна, за сключване до края на месец май 2025 г. на дългосрочно търговско споразумение за осигуряването на регулирано водоподаване по река Арда за нуждите на гръцките земеделци в северна Гърция - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 26
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3228,
+        "score": 0.9531503078486492,
+        "overlap": 3480
+      },
+      {
+        "mpId": 3400,
+        "score": 0.9498352419095414,
+        "overlap": 3466
+      },
+      {
+        "mpId": 3156,
+        "score": 0.9439701290551801,
+        "overlap": 3445
+      },
+      {
+        "mpId": 3308,
+        "score": 0.9438537402055073,
+        "overlap": 3434
+      },
+      {
+        "mpId": 3224,
+        "score": 0.9410002146718404,
+        "overlap": 3403
+      },
+      {
+        "mpId": 3393,
+        "score": 0.9399118590716052,
+        "overlap": 3411
+      },
+      {
+        "mpId": 3401,
+        "score": 0.9382076330486082,
+        "overlap": 3383
+      },
+      {
+        "mpId": 3356,
+        "score": 0.9349779529723016,
+        "overlap": 3374
+      },
+      {
+        "mpId": 3018,
+        "score": 0.9330359365568962,
+        "overlap": 3376
+      },
+      {
+        "mpId": 3127,
+        "score": 0.9308736168603859,
+        "overlap": 3342
+      },
+      {
+        "mpId": 3415,
+        "score": 0.9221372834404183,
+        "overlap": 3323
+      },
+      {
+        "mpId": 3306,
+        "score": 0.920826204865843,
+        "overlap": 3327
+      },
+      {
+        "mpId": 3231,
+        "score": 0.9174967410856006,
+        "overlap": 3263
+      },
+      {
+        "mpId": 3110,
+        "score": 0.9130699719251361,
+        "overlap": 3173
+      },
+      {
+        "mpId": 3042,
+        "score": 0.9052752587878103,
+        "overlap": 3180
+      },
+      {
+        "mpId": 3363,
+        "score": 0.9016128999677432,
+        "overlap": 3175
+      },
+      {
+        "mpId": 3289,
+        "score": 0.879270411276702,
+        "overlap": 3002
+      },
+      {
+        "mpId": 3343,
+        "score": 0.8772561000293554,
+        "overlap": 2995
+      },
+      {
+        "mpId": 3044,
+        "score": 0.8620529881953872,
+        "overlap": 2920
+      },
+      {
+        "mpId": 3491,
+        "score": 0.8562484986076309,
+        "overlap": 2858
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3518,
+        "score": -0.39040000492111937,
+        "overlap": 2393
+      },
+      {
+        "mpId": 3514,
+        "score": -0.3900997742750436,
+        "overlap": 2257
+      },
+      {
+        "mpId": 3517,
+        "score": -0.3879974125438559,
+        "overlap": 2318
+      },
+      {
+        "mpId": 3513,
+        "score": -0.3860770194054445,
+        "overlap": 2181
+      },
+      {
+        "mpId": 3510,
+        "score": -0.3785256495977236,
+        "overlap": 2116
+      },
+      {
+        "mpId": 3515,
+        "score": -0.37611540982931807,
+        "overlap": 2246
+      },
+      {
+        "mpId": 3508,
+        "score": -0.3640724173676509,
+        "overlap": 2149
+      },
+      {
+        "mpId": 3516,
+        "score": -0.3604015481776205,
+        "overlap": 2002
+      },
+      {
+        "mpId": 3512,
+        "score": -0.3574684073511215,
+        "overlap": 1892
+      },
+      {
+        "mpId": 3122,
+        "score": -0.34503510085742095,
+        "overlap": 3285
+      },
+      {
+        "mpId": 3230,
+        "score": -0.34157742420138265,
+        "overlap": 3268
+      },
+      {
+        "mpId": 3028,
+        "score": -0.34112314628487544,
+        "overlap": 3077
+      },
+      {
+        "mpId": 3358,
+        "score": -0.33743853066553703,
+        "overlap": 3181
+      },
+      {
+        "mpId": 3511,
+        "score": -0.3365643227248384,
+        "overlap": 1475
+      },
+      {
+        "mpId": 3026,
+        "score": -0.33251348816097676,
+        "overlap": 2613
+      },
+      {
+        "mpId": 3121,
+        "score": -0.3324556703713611,
+        "overlap": 3157
+      },
+      {
+        "mpId": 3084,
+        "score": -0.3311271046557225,
+        "overlap": 3120
+      },
+      {
+        "mpId": 3090,
+        "score": -0.330244091331519,
+        "overlap": 3335
+      },
+      {
+        "mpId": 3304,
+        "score": -0.3298424617802201,
+        "overlap": 3225
+      },
+      {
+        "mpId": 3165,
+        "score": -0.3297951152812802,
+        "overlap": 3264
+      }
+    ]
+  }
+}

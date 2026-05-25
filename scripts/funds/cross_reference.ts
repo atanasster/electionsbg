@@ -223,4 +223,78 @@ export const writeMpConnected = (
     path.join(outDir, "mp_connected.json"),
     JSON.stringify(data, null, 2) + "\n",
   );
+
+  // Per-MP shards. Same pattern as procurement — the candidate-page tile
+  // only needs one MP's slice, so we ship a tiny shard alongside the
+  // aggregate. Aggregate stays for the standalone /funds index screen.
+  writeMpConnectedShards(outDir, data);
+};
+
+const writeMpConnectedShards = (
+  outDir: string,
+  data: FundsMpConnectedFile,
+): void => {
+  const shardDir = path.join(outDir, "per-mp");
+  fs.mkdirSync(shardDir, { recursive: true });
+
+  const byMp = new Map<number, FundsMpConnectedFile["entries"]>();
+  for (const e of data.entries) {
+    const arr = byMp.get(e.mpId) ?? [];
+    arr.push(e);
+    byMp.set(e.mpId, arr);
+  }
+
+  const wanted = new Set<string>();
+  for (const [mpId, entries] of byMp) {
+    const file = `${mpId}.json`;
+    wanted.add(file);
+    const summary = {
+      contractCount: 0,
+      contractedEur: 0,
+      paidEur: 0,
+    };
+    for (const e of entries) {
+      summary.contractCount += e.contractCount;
+      summary.contractedEur += e.contractedEur;
+      summary.paidEur += e.paidEur;
+    }
+    const shard = { mpId, summary, entries };
+    const content = JSON.stringify(shard, null, 2) + "\n";
+    const fullPath = path.join(shardDir, file);
+    if (fs.existsSync(fullPath)) {
+      try {
+        const existing = fs.readFileSync(fullPath, "utf8");
+        if (existing === content) continue;
+      } catch {
+        // overwrite
+      }
+    }
+    fs.writeFileSync(fullPath, content);
+  }
+
+  // Manifest of MP ids with a shard. Mirrors the procurement side — the
+  // frontend fetches this once to know whether to expect a per-MP shard,
+  // skipping both the shard fetch AND the aggregate fallback for MPs with
+  // no declared fund connections.
+  const mpIds = [...byMp.keys()].sort((a, b) => a - b);
+  const manifest = JSON.stringify({ mpIds }, null, 2) + "\n";
+  const manifestPath = path.join(shardDir, "index.json");
+  let existingManifest = "";
+  if (fs.existsSync(manifestPath)) {
+    try {
+      existingManifest = fs.readFileSync(manifestPath, "utf8");
+    } catch {
+      // overwrite
+    }
+  }
+  if (existingManifest !== manifest) {
+    fs.writeFileSync(manifestPath, manifest);
+  }
+
+  for (const f of fs.readdirSync(shardDir)) {
+    if (!f.endsWith(".json")) continue;
+    if (f === "index.json") continue;
+    if (wanted.has(f)) continue;
+    fs.unlinkSync(path.join(shardDir, f));
+  }
 };

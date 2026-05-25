@@ -1,0 +1,32 @@
+{
+  "mpId": 5094,
+  "summary": {
+    "contractCount": 2,
+    "contractedEur": 25564.59,
+    "paidEur": 25564.59
+  },
+  "entries": [
+    {
+      "mpId": 5094,
+      "mpName": "Николай Иванов Косев",
+      "beneficiaryEik": "107564054",
+      "beneficiaryName": "ЕВРОХИМ ГРУП",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": false,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 25564.59,
+      "paidEur": 25564.59
+    }
+  ]
+}

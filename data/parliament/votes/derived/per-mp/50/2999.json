@@ -1,0 +1,375 @@
+{
+  "mpId": 2999,
+  "ns": "50",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 129,
+    "withParty": 114,
+    "loyaltyPct": 0.8837209302325582,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 129,
+    "dissentCount": 15,
+    "recent": [
+      {
+        "date": "2024-09-26",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-vnositeli",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - вносители Катя Панева и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-09-26",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-vnositeli",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - вносители Тошко Йорданов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-09-26",
+        "item": 4,
+        "slug": "4-protsedura-ot-raya-nazaryan-za-nova-tochka-5",
+        "title": "Процедура от Рая Назарян за нова точка 5 - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-09-11",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-nov-p",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф - нов - предложение от Надежда Йорданова, по чл.106 - процедура за допустимост",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2024-09-11",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-nov-p",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф - нов - предложение от Надежда Йорданова, по чл.105 - процедура за допустимост",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2024-09-11",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-nov-p",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф - нов - предложение от Надежда Йорданова, по чл.81 - процедура за допустимост",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2024-09-11",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-nov-p",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф - нов - предложение от Надежда Йорданова, по чл.6 - процедура за допустимост - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-09-11",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-septemvr",
+        "title": "Програма за работата на Народното събрание за 11 - 13 септември 2024 г. - процедура от Борислав Гуцанов за отпадане на точка 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-08-01",
+        "item": 2,
+        "slug": "2-protsedura-ot-raya-nazaryan-za-dve-novi-tochki",
+        "title": "Процедура от Рая Назарян за две нови точки",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-07-25",
+        "item": 7,
+        "slug": "7-zd-na-kodeksa-za-sotsialno-osiguryavane-parvo-glasuvane",
+        "title": "ЗД на Кодекса за социално осигуряване - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-07-17",
+        "item": 36,
+        "slug": "36-reshenie-za-izbirane-na-komisiya-po-okolnata-sreda-i-vodite",
+        "title": "Решение за избиране на Комисия по околната среда и водите",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2024-07-17",
+        "item": 34,
+        "slug": "34-reshenie-za-izbirane-na-komisiya-po-zdraveopazvaneto",
+        "title": "Решение за избиране на Комисия по здравеопазването",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-07-17",
+        "item": 30,
+        "slug": "30-reshenie-za-izbirane-na-komisiya-po-obrazovanieto-i-naukata",
+        "title": "Решение за избиране на Комисия по образованието и науката",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-07-12",
+        "item": 14,
+        "slug": "14-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 15 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-07-12",
+        "item": 11,
+        "slug": "11-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 14 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 30
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3001,
+        "score": 0.6759838831329715,
+        "overlap": 81
+      },
+      {
+        "mpId": 3003,
+        "score": 0.6618516143738804,
+        "overlap": 75
+      },
+      {
+        "mpId": 2988,
+        "score": 0.6563062700965665,
+        "overlap": 89
+      },
+      {
+        "mpId": 2990,
+        "score": 0.646768054627738,
+        "overlap": 81
+      },
+      {
+        "mpId": 2989,
+        "score": 0.6279539405985417,
+        "overlap": 91
+      },
+      {
+        "mpId": 2992,
+        "score": 0.6033882152083965,
+        "overlap": 86
+      },
+      {
+        "mpId": 2995,
+        "score": 0.6011194039582536,
+        "overlap": 96
+      },
+      {
+        "mpId": 2993,
+        "score": 0.582961444459579,
+        "overlap": 75
+      },
+      {
+        "mpId": 2994,
+        "score": 0.5661706014025412,
+        "overlap": 91
+      },
+      {
+        "mpId": 3000,
+        "score": 0.5657448425666436,
+        "overlap": 93
+      },
+      {
+        "mpId": 2998,
+        "score": 0.565718900430816,
+        "overlap": 57
+      },
+      {
+        "mpId": 2997,
+        "score": 0.560112033611204,
+        "overlap": 67
+      },
+      {
+        "mpId": 2991,
+        "score": 0.5543671429401896,
+        "overlap": 56
+      },
+      {
+        "mpId": 3008,
+        "score": 0.5425608669746597,
+        "overlap": 81
+      },
+      {
+        "mpId": 3005,
+        "score": 0.5257280742532378,
+        "overlap": 58
+      },
+      {
+        "mpId": 2987,
+        "score": 0.5246202146482868,
+        "overlap": 73
+      },
+      {
+        "mpId": 3002,
+        "score": 0.522598549268441,
+        "overlap": 82
+      },
+      {
+        "mpId": 3004,
+        "score": 0.5186283178426639,
+        "overlap": 79
+      },
+      {
+        "mpId": 3006,
+        "score": 0.4843656915172823,
+        "overlap": 54
+      },
+      {
+        "mpId": 3007,
+        "score": 0.4595433866607184,
+        "overlap": 38
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2685,
+        "score": -0.10291616342770397,
+        "overlap": 29
+      },
+      {
+        "mpId": 2670,
+        "score": -0.06685710923757639,
+        "overlap": 11
+      },
+      {
+        "mpId": 2609,
+        "score": -0.017641870800832106,
+        "overlap": 24
+      },
+      {
+        "mpId": 2702,
+        "score": 0.027716741057619603,
+        "overlap": 116
+      },
+      {
+        "mpId": 2753,
+        "score": 0.03203692782354499,
+        "overlap": 116
+      },
+      {
+        "mpId": 2665,
+        "score": 0.0325055572111585,
+        "overlap": 115
+      },
+      {
+        "mpId": 2859,
+        "score": 0.03540536809678974,
+        "overlap": 116
+      },
+      {
+        "mpId": 3014,
+        "score": 0.039088155249705214,
+        "overlap": 8
+      },
+      {
+        "mpId": 2931,
+        "score": 0.04361935180161974,
+        "overlap": 30
+      },
+      {
+        "mpId": 2827,
+        "score": 0.051006468795536476,
+        "overlap": 71
+      },
+      {
+        "mpId": 3015,
+        "score": 0.052442263352043675,
+        "overlap": 14
+      },
+      {
+        "mpId": 2862,
+        "score": 0.05522779130530094,
+        "overlap": 122
+      },
+      {
+        "mpId": 2787,
+        "score": 0.0578486934329168,
+        "overlap": 126
+      },
+      {
+        "mpId": 2803,
+        "score": 0.059671989512930415,
+        "overlap": 126
+      },
+      {
+        "mpId": 2741,
+        "score": 0.0629428766165151,
+        "overlap": 127
+      },
+      {
+        "mpId": 2640,
+        "score": 0.06377033022804948,
+        "overlap": 126
+      },
+      {
+        "mpId": 2952,
+        "score": 0.06510256947679315,
+        "overlap": 127
+      },
+      {
+        "mpId": 2821,
+        "score": 0.0654628099797251,
+        "overlap": 125
+      },
+      {
+        "mpId": 2705,
+        "score": 0.065503910122162,
+        "overlap": 128
+      },
+      {
+        "mpId": 2910,
+        "score": 0.065503910122162,
+        "overlap": 128
+      }
+    ]
+  }
+}

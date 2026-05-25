@@ -4,6 +4,7 @@ import { dataUrl } from "@/data/dataUrl";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { useMpProfile } from "./useMpProfile";
+import { useMpShard } from "./useMpShard";
 import type { SimilarityEntry, SimilarityFile, SimilaritySlice } from "./types";
 
 const queryFn = async (): Promise<SimilarityFile | undefined> => {
@@ -35,10 +36,19 @@ const pickSlice = (
 // the CSV id via the latest session's `mpNames` map keyed on the name.
 export const useMpSimilarity = (mpId?: number | null, name?: string | null) => {
   const { selected } = useElectionContext();
-  const { data, isLoading } = useQuery({
+
+  // Fast-path: shard hit avoids the ~1.5 MB similarity aggregate fetch.
+  const { shard, isLoading: shardLoading } = useMpShard(
+    mpId ?? undefined,
+    name ?? undefined,
+  );
+
+  const aggregateEnabled = !mpId && !name ? true : !shard && !shardLoading;
+  const { data, isLoading: aggregateLoading } = useQuery({
     queryKey: ["rollcall_similarity"] as [string],
     queryFn,
     staleTime: Infinity,
+    enabled: aggregateEnabled,
   });
 
   const ns = electionToNsFolder(selected);
@@ -64,9 +74,19 @@ export const useMpSimilarity = (mpId?: number | null, name?: string | null) => {
     return null;
   }, [name, mpNames]);
 
-  const entry =
+  const shardEntry: SimilarityEntry | undefined = shard
+    ? {
+        mpId: shard.mpId,
+        topK: shard.similarity.topK,
+        bottomK: shard.similarity.bottomK,
+      }
+    : undefined;
+
+  const aggregateEntry =
     (mpId != null ? byMpId.get(mpId) : undefined) ??
     (fallbackCsvId != null ? byMpId.get(fallbackCsvId) : undefined);
+
+  const entry = shardEntry ?? aggregateEntry;
 
   return {
     file: slice,
@@ -76,6 +96,6 @@ export const useMpSimilarity = (mpId?: number | null, name?: string | null) => {
     entry,
     byMpId,
     topK: slice?.topK ?? 0,
-    isLoading,
+    isLoading: aggregateEnabled ? aggregateLoading : false,
   };
 };

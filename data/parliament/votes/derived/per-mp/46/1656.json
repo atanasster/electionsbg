@@ -1,0 +1,265 @@
+{
+  "mpId": 1656,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 491,
+    "withParty": 487,
+    "loyaltyPct": 0.9918533604887984,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 491,
+    "dissentCount": 4,
+    "recent": [
+      {
+        "date": "2021-08-25",
+        "item": 5,
+        "slug": "5-reshenie-za-promyana-v-sastava-na-komisiya-po-politikite-za-",
+        "title": "Решение за промяна в състава на Комисия по политиките за българите извън страната",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-08-25",
+        "item": 4,
+        "slug": "4-reshenie-za-promyana-v-sastava-na-komisiyata-po-okolnata-sre",
+        "title": "Решение за промяна в състава на Комисията по околната среда и водите",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-08-11",
+        "item": 6,
+        "slug": "6-protsedura-protsedura-za-pryako-predavane-po-bnt1-i-bnr",
+        "title": "Процедура - процедура за пряко предаване по БНТ1 и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-07-30",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1888,
+        "score": 0.9530523700110106,
+        "overlap": 485
+      },
+      {
+        "mpId": 1739,
+        "score": 0.951970162878667,
+        "overlap": 473
+      },
+      {
+        "mpId": 1665,
+        "score": 0.9516793122477762,
+        "overlap": 488
+      },
+      {
+        "mpId": 1938,
+        "score": 0.9488224770528584,
+        "overlap": 487
+      },
+      {
+        "mpId": 1908,
+        "score": 0.9485107163798737,
+        "overlap": 488
+      },
+      {
+        "mpId": 1869,
+        "score": 0.9479802085605054,
+        "overlap": 490
+      },
+      {
+        "mpId": 1913,
+        "score": 0.9478103994559686,
+        "overlap": 482
+      },
+      {
+        "mpId": 1696,
+        "score": 0.9476441829027945,
+        "overlap": 484
+      },
+      {
+        "mpId": 1918,
+        "score": 0.9459863017234253,
+        "overlap": 481
+      },
+      {
+        "mpId": 1947,
+        "score": 0.944793488673962,
+        "overlap": 484
+      },
+      {
+        "mpId": 1895,
+        "score": 0.9425909177614167,
+        "overlap": 475
+      },
+      {
+        "mpId": 1899,
+        "score": 0.9381656082883584,
+        "overlap": 473
+      },
+      {
+        "mpId": 1729,
+        "score": 0.9352888275615233,
+        "overlap": 474
+      },
+      {
+        "mpId": 1907,
+        "score": 0.9341042662397203,
+        "overlap": 485
+      },
+      {
+        "mpId": 1950,
+        "score": 0.9339204800270554,
+        "overlap": 485
+      },
+      {
+        "mpId": 1605,
+        "score": 0.9337402988153001,
+        "overlap": 477
+      },
+      {
+        "mpId": 1867,
+        "score": 0.9332218883995753,
+        "overlap": 474
+      },
+      {
+        "mpId": 1959,
+        "score": 0.9329091960487778,
+        "overlap": 481
+      },
+      {
+        "mpId": 1896,
+        "score": 0.9319011901400983,
+        "overlap": 481
+      },
+      {
+        "mpId": 1719,
+        "score": 0.9308244417497737,
+        "overlap": 463
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": -0.0401115391887673,
+        "overlap": 165
+      },
+      {
+        "mpId": 1643,
+        "score": -0.015299751534052613,
+        "overlap": 240
+      },
+      {
+        "mpId": 1317,
+        "score": -0.011021333149448514,
+        "overlap": 299
+      },
+      {
+        "mpId": 1155,
+        "score": -0.0031122609389122747,
+        "overlap": 231
+      },
+      {
+        "mpId": 1457,
+        "score": 0.011782300740208725,
+        "overlap": 265
+      },
+      {
+        "mpId": 388,
+        "score": 0.014371614087286539,
+        "overlap": 288
+      },
+      {
+        "mpId": 404,
+        "score": 0.026408409776722576,
+        "overlap": 278
+      },
+      {
+        "mpId": 1644,
+        "score": 0.027146511463838684,
+        "overlap": 248
+      },
+      {
+        "mpId": 1124,
+        "score": 0.03372979713685685,
+        "overlap": 255
+      },
+      {
+        "mpId": 1659,
+        "score": 0.03778526988021374,
+        "overlap": 296
+      },
+      {
+        "mpId": 1428,
+        "score": 0.04126776181798346,
+        "overlap": 220
+      },
+      {
+        "mpId": 1703,
+        "score": 0.04325290963183957,
+        "overlap": 206
+      },
+      {
+        "mpId": 1970,
+        "score": 0.048274427059763196,
+        "overlap": 216
+      },
+      {
+        "mpId": 990,
+        "score": 0.05183318003150857,
+        "overlap": 291
+      },
+      {
+        "mpId": 1378,
+        "score": 0.06206712050540982,
+        "overlap": 236
+      },
+      {
+        "mpId": 473,
+        "score": 0.06551005227639242,
+        "overlap": 283
+      },
+      {
+        "mpId": 817,
+        "score": 0.06720838382788033,
+        "overlap": 203
+      },
+      {
+        "mpId": 1975,
+        "score": 0.06898374761897538,
+        "overlap": 276
+      },
+      {
+        "mpId": 1706,
+        "score": 0.07120657856129611,
+        "overlap": 282
+      },
+      {
+        "mpId": 1386,
+        "score": 0.0719905278215397,
+        "overlap": 260
+      }
+    ]
+  }
+}

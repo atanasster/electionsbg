@@ -27,5 +27,9 @@ export interface SessionFile {
   // Per-item title keyed by stringified item number. Used to collapse
   // re-votes (an item and its "прегласуване") before computing metrics.
   itemTitles?: Record<string, string>;
+  // Per-item slug ("${itemNo}-${slug}") and coarse topic tag. Both written
+  // at ingest time; consumed by the topic-index builder.
+  itemSlugs?: Record<string, string>;
+  itemTopics?: Record<string, string>;
   sessions: SessionItemFile[];
 }

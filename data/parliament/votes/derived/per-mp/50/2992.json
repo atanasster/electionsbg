@@ -1,0 +1,415 @@
+{
+  "mpId": 2992,
+  "ns": "50",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 140,
+    "withParty": 121,
+    "loyaltyPct": 0.8642857142857143,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 140,
+    "dissentCount": 19,
+    "recent": [
+      {
+        "date": "2024-09-26",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-vnositeli",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - вносители Тошко Йорданов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-09-26",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-vnositeli",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - вносители Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-26",
+        "item": 7,
+        "slug": "7-protsedura-ot-yordan-tsonev-za-udalzhavane-na-rabotnoto-vrem",
+        "title": "Процедура от Йордан Цонев за удължаване на работното време до приключване на всички точки",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-09-25",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-25-26-septemvr",
+        "title": "Програма за работата на Народното събрание за 25 – 26 септември 2024 г. - процедура от Тошко Йорданов т.13 да стане т.1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-09-25",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodnoto-sabranie-za-25-26-septemvr",
+        "title": "Програма за работата на Народното събрание за 25 – 26 септември 2024 г. - процедура от Димо Дренчев точка 6 да отпадне",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-19",
+        "item": 3,
+        "slug": "3-reshenie-za-prekratyavane-palnomoshtiyata-na-naroden-predsta",
+        "title": "Решение за прекратяване пълномощията на народен представител",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2024-09-19",
+        "item": 2,
+        "slug": "2-protsedura-ot-raya-nazaryan-za-nova-tochka-1-v-dnevniya-red",
+        "title": "Процедура от Рая Назарян за нова точка 1 в дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2024-09-18",
+        "item": 15,
+        "slug": "15-zid-na-targovskiya-zakon-vtoro-glasuvane-paragraf-25-nov-pre",
+        "title": "ЗИД на Търговския закон - второ гласуване - параграф 25 - нов - предложение от Георги Георгиев за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-18",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - предложение от ИТН за нова точка в дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-09-18",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - процедура от Рая Назарян за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-09-17",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-mestnite-danatsi-i-taksi-vtoro-glasuvane-na",
+        "title": "ЗИД на Закона за местните данъци и такси – второ гласуване - наименование, параграф 1, параграф 2, Преходни и заключителни разпоредби, параграф 3 и параграф 4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-09-11",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-nov-p",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф - нов - предложение от Надежда Йорданова, по чл.6 - процедура за допустимост - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-09-11",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-septemvr",
+        "title": "Програма за работата на Народното събрание за 11 - 13 септември 2024 г. - процедура от Васил Стефанов точка 5 да отпадне - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2024-09-11",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-septemvr",
+        "title": "Програма за работата на Народното събрание за 11 - 13 септември 2024 г. - предложение от Мая Димитрова, като т.1 за четвъртък",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-09-04",
+        "item": 4,
+        "slug": "4-reshenie-po-predlozhenie-ot-narodni-predstaviteli-za-proizve",
+        "title": "Решение по предложение от народни представители за произвеждане на национален референдум с въпрос \"Съгласни ли сте българският лев да бъде единствената официална валута в България до 2043 г.?\" - предложение от Йордан Тодоров за пряко предавене по БНТ и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-07-12",
+        "item": 39,
+        "slug": "39-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 33 (става член 32) - предложение от Павела Митова за редакция в ал.3 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-07-12",
+        "item": 28,
+        "slug": "28-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 21",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-07-12",
+        "item": 14,
+        "slug": "14-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 15 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-07-12",
+        "item": 11,
+        "slug": "11-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 14 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 30
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3000,
+        "score": 0.6693766059927747,
+        "overlap": 106
+      },
+      {
+        "mpId": 2990,
+        "score": 0.6616111645411848,
+        "overlap": 89
+      },
+      {
+        "mpId": 2988,
+        "score": 0.6614858398032134,
+        "overlap": 98
+      },
+      {
+        "mpId": 2995,
+        "score": 0.6462656519357953,
+        "overlap": 116
+      },
+      {
+        "mpId": 3008,
+        "score": 0.6278421457973481,
+        "overlap": 98
+      },
+      {
+        "mpId": 3003,
+        "score": 0.6138008040795799,
+        "overlap": 72
+      },
+      {
+        "mpId": 2999,
+        "score": 0.6033882152083965,
+        "overlap": 86
+      },
+      {
+        "mpId": 3004,
+        "score": 0.5991951941324191,
+        "overlap": 90
+      },
+      {
+        "mpId": 2989,
+        "score": 0.5942035143723491,
+        "overlap": 86
+      },
+      {
+        "mpId": 2997,
+        "score": 0.5902813361009552,
+        "overlap": 72
+      },
+      {
+        "mpId": 3001,
+        "score": 0.582927280515052,
+        "overlap": 74
+      },
+      {
+        "mpId": 3002,
+        "score": 0.5614797745340047,
+        "overlap": 82
+      },
+      {
+        "mpId": 2994,
+        "score": 0.5568884873063769,
+        "overlap": 100
+      },
+      {
+        "mpId": 2998,
+        "score": 0.5457433419285672,
+        "overlap": 55
+      },
+      {
+        "mpId": 2993,
+        "score": 0.5134961659630968,
+        "overlap": 65
+      },
+      {
+        "mpId": 2991,
+        "score": 0.5111986324432477,
+        "overlap": 51
+      },
+      {
+        "mpId": 3007,
+        "score": 0.5051869520151832,
+        "overlap": 43
+      },
+      {
+        "mpId": 2987,
+        "score": 0.5001417836410179,
+        "overlap": 72
+      },
+      {
+        "mpId": 3005,
+        "score": 0.4960025076369434,
+        "overlap": 53
+      },
+      {
+        "mpId": 3006,
+        "score": 0.4375329174878418,
+        "overlap": 47
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2685,
+        "score": -0.21166042497678922,
+        "overlap": 41
+      },
+      {
+        "mpId": 2609,
+        "score": -0.1041158412590707,
+        "overlap": 35
+      },
+      {
+        "mpId": 2670,
+        "score": -0.052608813437869884,
+        "overlap": 14
+      },
+      {
+        "mpId": 2669,
+        "score": -0.049850212821629075,
+        "overlap": 81
+      },
+      {
+        "mpId": 2914,
+        "score": -0.03323347521441938,
+        "overlap": 81
+      },
+      {
+        "mpId": 2827,
+        "score": -0.03010214431482707,
+        "overlap": 89
+      },
+      {
+        "mpId": 3014,
+        "score": -0.01922366120271981,
+        "overlap": 12
+      },
+      {
+        "mpId": 2623,
+        "score": -0.01536341818771787,
+        "overlap": 86
+      },
+      {
+        "mpId": 2859,
+        "score": -0.0038694347669733222,
+        "overlap": 129
+      },
+      {
+        "mpId": 3015,
+        "score": 0,
+        "overlap": 25
+      },
+      {
+        "mpId": 2690,
+        "score": 0.003844732240543962,
+        "overlap": 125
+      },
+      {
+        "mpId": 2715,
+        "score": 0.003942726027671612,
+        "overlap": 127
+      },
+      {
+        "mpId": 2812,
+        "score": 0.005188525706721958,
+        "overlap": 98
+      },
+      {
+        "mpId": 2942,
+        "score": 0.008130081300813007,
+        "overlap": 50
+      },
+      {
+        "mpId": 2932,
+        "score": 0.011565782896848488,
+        "overlap": 124
+      },
+      {
+        "mpId": 2803,
+        "score": 0.011738738780183031,
+        "overlap": 128
+      },
+      {
+        "mpId": 2702,
+        "score": 0.015578478553893499,
+        "overlap": 123
+      },
+      {
+        "mpId": 2739,
+        "score": 0.016210814498135055,
+        "overlap": 133
+      },
+      {
+        "mpId": 2711,
+        "score": 0.016873381946616653,
+        "overlap": 75
+      },
+      {
+        "mpId": 2753,
+        "score": 0.019694810439425288,
+        "overlap": 135
+      }
+    ]
+  }
+}

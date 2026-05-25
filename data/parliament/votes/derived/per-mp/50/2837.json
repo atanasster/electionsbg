@@ -1,0 +1,315 @@
+{
+  "mpId": 2837,
+  "ns": "50",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 603,
+    "withParty": 594,
+    "loyaltyPct": 0.9850746268656716,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 603,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 84,
+        "slug": "84-zid-na-zakona-za-grazhdanskata-registratsiya-vtoro-glasuvane",
+        "title": "ЗИД на Закона за гражданската регистрация – второ гласуване - чл.92 - предложение от Божидар Божанов за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 34
+      },
+      {
+        "date": "2024-09-20",
+        "item": 12,
+        "slug": "12-ratifikatsiya-na-aktovete-na-chetvartiya-izvanreden-kongres-",
+        "title": "Ратификация на актовете на Четвъртия извънреден конгрес на Всемирния пощенски съюз - процедура за допускане в зала",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2024-09-18",
+        "item": 20,
+        "slug": "20-reshenie-za-zakrivane-na-spetsializirano-chastno-visshe-uchi",
+        "title": "Решение за закриване на специализирано частно висше училище с наименование \"Европейско висше училище по икономика и мениджмънт\" със седалище Пловдив",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2024-09-12",
+        "item": 15,
+        "slug": "15-ratifikatsiya-na-administrativno-sporazumenie-mezhdu-savmest",
+        "title": "Ратификация на Административно споразумение между Съвместното предприятие „Интегрални схеми“ и Министерството на иновациите и растежа на Република България, въз основа на член 12, параграф 2 от Регламент (ЕС) № 2021/2085 за създаване на съвместните предприятия в рамките на „Хоризонт Европа“ и отмяна на регламенти (ЕО) № 219/2007, (ЕС) № 557/2014, (ЕС) № 558/2014, (ЕС) № 559/2014, (ЕС) № 560/2014, (ЕС) № 561/2014 и (ЕС) № 642/2014, подписано в Брюксел на 9 януари 2024 г. и в София на 25 януари 2024 г. - първо гласуване - процедура за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 34
+      },
+      {
+        "date": "2024-09-12",
+        "item": 10,
+        "slug": "10-ratifikatsiya-na-sporazumenieto-za-solidarna-garantsiya-mezh",
+        "title": "Ратификация на Споразумението за солидарна гаранция между Република България като гарант и Банката за развитие на Съвета на Европа като бенефициер във връзка с Рамково споразумение за заем от 13 юли 2023 г. между Банката за развитие на Съвета на Европа и „Българска банка за развитие“ ЕАД за подкрепа на микро-, малки и средни предприятия за създаването и запазването на жизнеспособни работни места и опазване на околната среда - процедура за допускане в зала",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 31
+      },
+      {
+        "date": "2024-09-11",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-9",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 9",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 34
+      },
+      {
+        "date": "2024-09-11",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-advokaturata-vtoro-glasuvane-protsedura-za-",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-07-31",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-zdraveto-parvo-glasuvane-protsedura-za-dopu",
+        "title": "ЗИД на Закона за здравето – първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 32
+      },
+      {
+        "date": "2024-07-31",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – второ гласуване - процедура за допускане в зала - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 34
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2952,
+        "score": 0.9610752393851346,
+        "overlap": 596
+      },
+      {
+        "mpId": 2683,
+        "score": 0.9563746503294522,
+        "overlap": 594
+      },
+      {
+        "mpId": 2689,
+        "score": 0.9556385615794089,
+        "overlap": 593
+      },
+      {
+        "mpId": 2598,
+        "score": 0.9555792371374202,
+        "overlap": 582
+      },
+      {
+        "mpId": 2787,
+        "score": 0.9553323129308203,
+        "overlap": 592
+      },
+      {
+        "mpId": 2705,
+        "score": 0.9544880067005428,
+        "overlap": 587
+      },
+      {
+        "mpId": 2910,
+        "score": 0.9544880067005428,
+        "overlap": 587
+      },
+      {
+        "mpId": 2825,
+        "score": 0.9507036169025406,
+        "overlap": 585
+      },
+      {
+        "mpId": 2764,
+        "score": 0.9487044770898426,
+        "overlap": 579
+      },
+      {
+        "mpId": 2706,
+        "score": 0.9479598122033449,
+        "overlap": 585
+      },
+      {
+        "mpId": 2730,
+        "score": 0.9466067224696121,
+        "overlap": 581
+      },
+      {
+        "mpId": 2698,
+        "score": 0.9459520880133694,
+        "overlap": 578
+      },
+      {
+        "mpId": 2898,
+        "score": 0.9441502745123915,
+        "overlap": 582
+      },
+      {
+        "mpId": 2639,
+        "score": 0.9439421338155516,
+        "overlap": 576
+      },
+      {
+        "mpId": 2932,
+        "score": 0.9418321926492281,
+        "overlap": 572
+      },
+      {
+        "mpId": 2621,
+        "score": 0.941645035723562,
+        "overlap": 570
+      },
+      {
+        "mpId": 2741,
+        "score": 0.941645035723562,
+        "overlap": 570
+      },
+      {
+        "mpId": 2642,
+        "score": 0.9412831302173009,
+        "overlap": 575
+      },
+      {
+        "mpId": 2743,
+        "score": 0.9399879963554755,
+        "overlap": 557
+      },
+      {
+        "mpId": 2763,
+        "score": 0.9399156586244348,
+        "overlap": 573
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2606,
+        "score": -0.10924697040419692,
+        "overlap": 173
+      },
+      {
+        "mpId": 3006,
+        "score": -0.06419722334671742,
+        "overlap": 85
+      },
+      {
+        "mpId": 3008,
+        "score": -0.051817744397510426,
+        "overlap": 147
+      },
+      {
+        "mpId": 2766,
+        "score": -0.04828849567054163,
+        "overlap": 39
+      },
+      {
+        "mpId": 3007,
+        "score": -0.03761921846509261,
+        "overlap": 50
+      },
+      {
+        "mpId": 2699,
+        "score": -0.03441683531042142,
+        "overlap": 250
+      },
+      {
+        "mpId": 2937,
+        "score": -0.027237366972519182,
+        "overlap": 40
+      },
+      {
+        "mpId": 3001,
+        "score": -0.0257736333996113,
+        "overlap": 102
+      },
+      {
+        "mpId": 2670,
+        "score": -0.024811241542868064,
+        "overlap": 47
+      },
+      {
+        "mpId": 2970,
+        "score": -0.023195086667048854,
+        "overlap": 123
+      },
+      {
+        "mpId": 2678,
+        "score": -0.02069506957308927,
+        "overlap": 40
+      },
+      {
+        "mpId": 2966,
+        "score": -0.02017105870804145,
+        "overlap": 41
+      },
+      {
+        "mpId": 2781,
+        "score": -0.0196849376646268,
+        "overlap": 43
+      },
+      {
+        "mpId": 2797,
+        "score": -0.0196849376646268,
+        "overlap": 43
+      },
+      {
+        "mpId": 2823,
+        "score": -0.013282367787792652,
+        "overlap": 42
+      },
+      {
+        "mpId": 2845,
+        "score": -0.01296979770337464,
+        "overlap": 44
+      },
+      {
+        "mpId": 2901,
+        "score": -0.01296979770337464,
+        "overlap": 44
+      },
+      {
+        "mpId": 2915,
+        "score": -0.01296979770337464,
+        "overlap": 44
+      },
+      {
+        "mpId": 2921,
+        "score": -0.01296979770337464,
+        "overlap": 44
+      },
+      {
+        "mpId": 2957,
+        "score": -0.01296979770337464,
+        "overlap": 44
+      }
+    ]
+  }
+}

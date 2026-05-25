@@ -1,0 +1,321 @@
+{
+  "mpId": 2065,
+  "ns": "48",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 1260,
+    "withParty": 1250,
+    "loyaltyPct": 0.9920634920634921,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 1260,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2023-01-27",
+        "item": 59,
+        "slug": "59-zid-na-zakona-za-zashtita-ot-domashnoto-nasilie-parvo-glasuv",
+        "title": "ЗИД на Закона за защита от домашното насилие - първо гласуване - вносител Надежда Йорданова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 35
+      },
+      {
+        "date": "2023-01-27",
+        "item": 15,
+        "slug": "15-zid-na-nakazatelno-protsesualniya-kodeks-parvo-glasuvane-vno",
+        "title": "ЗИД на Наказателно-процесуалния кодекс - първо гласуване - вносител Бойко Рашков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2023-01-27",
+        "item": 10,
+        "slug": "10-zid-na-nakazatelno-protsesualniya-kodeks-parvo-glasuvane-vno",
+        "title": "ЗИД на Наказателно-процесуалния кодекс - първо гласуване - вносител Надежда Йорданова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2023-01-18",
+        "item": 14,
+        "slug": "14-zd-na-kodeksa-na-zastrahovaneto-parvo-glasuvane-protsedura-o",
+        "title": "ЗД на Кодекса на застраховането - първо гласуване - процедура от Мартин Димитров за намаляване на срока за предложения на 3 дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2023-01-11",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-lechebnite-zavedeniya-parvo-glasuvane-prots",
+        "title": "ЗИД на Закона за лечебните заведения - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 49
+      },
+      {
+        "date": "2022-12-21",
+        "item": 10,
+        "slug": "10",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-12-07",
+        "item": 3,
+        "slug": "3-zakon-za-protivodeystvie-na-koruptsiyata-parvo-glasuvane",
+        "title": "Закон за противодействие на корупцията - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 37
+      },
+      {
+        "date": "2022-12-02",
+        "item": 178,
+        "slug": "178",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-11-23",
+        "item": 17,
+        "slug": "17-reshenie-za-promeni-v-komisiyata-za-pryakoto-uchastie-na-gra",
+        "title": "Решение за промени в Комисията за прякото участие на гражданите и взаимодействието с гражданското общество",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2022-11-02",
+        "item": 44,
+        "slug": "44-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 47 (става член 48) и 48 (става член 49) - предложение от Цвета Рангелова за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1966,
+        "score": 0.9505612081582712,
+        "overlap": 1210
+      },
+      {
+        "mpId": 1577,
+        "score": 0.9499147974772797,
+        "overlap": 1214
+      },
+      {
+        "mpId": 2361,
+        "score": 0.9490534174341513,
+        "overlap": 1215
+      },
+      {
+        "mpId": 1628,
+        "score": 0.9488603235659543,
+        "overlap": 1234
+      },
+      {
+        "mpId": 2073,
+        "score": 0.9449991775524018,
+        "overlap": 1227
+      },
+      {
+        "mpId": 1695,
+        "score": 0.9446200619086375,
+        "overlap": 1213
+      },
+      {
+        "mpId": 1951,
+        "score": 0.9430697447108033,
+        "overlap": 1213
+      },
+      {
+        "mpId": 1465,
+        "score": 0.9400052119989839,
+        "overlap": 1215
+      },
+      {
+        "mpId": 2272,
+        "score": 0.9397974150839715,
+        "overlap": 1212
+      },
+      {
+        "mpId": 2074,
+        "score": 0.9346152598407613,
+        "overlap": 1206
+      },
+      {
+        "mpId": 2135,
+        "score": 0.9344016286198062,
+        "overlap": 1188
+      },
+      {
+        "mpId": 2348,
+        "score": 0.9337366611909114,
+        "overlap": 1194
+      },
+      {
+        "mpId": 1934,
+        "score": 0.9324064023929776,
+        "overlap": 1181
+      },
+      {
+        "mpId": 1344,
+        "score": 0.9314774149185429,
+        "overlap": 1180
+      },
+      {
+        "mpId": 2281,
+        "score": 0.928746164221311,
+        "overlap": 1212
+      },
+      {
+        "mpId": 2340,
+        "score": 0.9261299110246963,
+        "overlap": 1171
+      },
+      {
+        "mpId": 2327,
+        "score": 0.9260082845322081,
+        "overlap": 1178
+      },
+      {
+        "mpId": 2085,
+        "score": 0.9256680996874052,
+        "overlap": 1186
+      },
+      {
+        "mpId": 2344,
+        "score": 0.9247091866539213,
+        "overlap": 1175
+      },
+      {
+        "mpId": 2328,
+        "score": 0.920083047756966,
+        "overlap": 1141
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2236,
+        "score": 0.03955055158958528,
+        "overlap": 587
+      },
+      {
+        "mpId": 2023,
+        "score": 0.06583170502507478,
+        "overlap": 822
+      },
+      {
+        "mpId": 2366,
+        "score": 0.06908051075667597,
+        "overlap": 830
+      },
+      {
+        "mpId": 1394,
+        "score": 0.07050902861048278,
+        "overlap": 124
+      },
+      {
+        "mpId": 2237,
+        "score": 0.08201726249640806,
+        "overlap": 544
+      },
+      {
+        "mpId": 2260,
+        "score": 0.08355873749216387,
+        "overlap": 736
+      },
+      {
+        "mpId": 2246,
+        "score": 0.09807166085544544,
+        "overlap": 759
+      },
+      {
+        "mpId": 2025,
+        "score": 0.10486364873618595,
+        "overlap": 941
+      },
+      {
+        "mpId": 2015,
+        "score": 0.1156954598531994,
+        "overlap": 1017
+      },
+      {
+        "mpId": 2093,
+        "score": 0.11941250709820404,
+        "overlap": 1008
+      },
+      {
+        "mpId": 2084,
+        "score": 0.1196131839925041,
+        "overlap": 872
+      },
+      {
+        "mpId": 2312,
+        "score": 0.12002394226354819,
+        "overlap": 981
+      },
+      {
+        "mpId": 2104,
+        "score": 0.12125244649661215,
+        "overlap": 1054
+      },
+      {
+        "mpId": 2258,
+        "score": 0.12170641550336427,
+        "overlap": 960
+      },
+      {
+        "mpId": 2271,
+        "score": 0.1239719831972927,
+        "overlap": 767
+      },
+      {
+        "mpId": 2128,
+        "score": 0.12419707767714298,
+        "overlap": 1065
+      },
+      {
+        "mpId": 2363,
+        "score": 0.12617898059678437,
+        "overlap": 1179
+      },
+      {
+        "mpId": 2129,
+        "score": 0.12789182552722586,
+        "overlap": 1136
+      },
+      {
+        "mpId": 2063,
+        "score": 0.12813486465306795,
+        "overlap": 1132
+      },
+      {
+        "mpId": 2126,
+        "score": 0.13344848599958356,
+        "overlap": 731
+      }
+    ]
+  }
+}

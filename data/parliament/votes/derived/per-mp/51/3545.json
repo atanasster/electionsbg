@@ -1,0 +1,123 @@
+{
+  "mpId": 3545,
+  "ns": "51",
+  "partyShort": "ГЕРБ - СДС",
+  "loyalty": {
+    "votesCast": 1,
+    "withParty": 1,
+    "loyaltyPct": 1,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 1,
+    "dissentCount": 0,
+    "recent": []
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3527,
+        "score": 0.11322770341445956,
+        "overlap": 1
+      },
+      {
+        "mpId": 3529,
+        "score": 0.08770580193070293,
+        "overlap": 1
+      },
+      {
+        "mpId": 3539,
+        "score": 0.07559289460184544,
+        "overlap": 1
+      },
+      {
+        "mpId": 3531,
+        "score": 0.06757373783994859,
+        "overlap": 1
+      },
+      {
+        "mpId": 3535,
+        "score": 0.06666666666666667,
+        "overlap": 1
+      },
+      {
+        "mpId": 3537,
+        "score": 0.06622661785325219,
+        "overlap": 1
+      },
+      {
+        "mpId": 3549,
+        "score": 0.06622661785325219,
+        "overlap": 1
+      },
+      {
+        "mpId": 3541,
+        "score": 0.0659380473395787,
+        "overlap": 1
+      },
+      {
+        "mpId": 3547,
+        "score": 0.06482037235521644,
+        "overlap": 1
+      },
+      {
+        "mpId": 3533,
+        "score": 0.06375767130633382,
+        "overlap": 1
+      },
+      {
+        "mpId": 3522,
+        "score": 0.03849001794597505,
+        "overlap": 1
+      },
+      {
+        "mpId": 3409,
+        "score": 0.028341010063256785,
+        "overlap": 1
+      },
+      {
+        "mpId": 3245,
+        "score": 0.02702702702702703,
+        "overlap": 1
+      },
+      {
+        "mpId": 3101,
+        "score": 0.026189140043946204,
+        "overlap": 1
+      },
+      {
+        "mpId": 3052,
+        "score": 0.026028960314767677,
+        "overlap": 1
+      },
+      {
+        "mpId": 3520,
+        "score": 0.02503915429180672,
+        "overlap": 1
+      },
+      {
+        "mpId": 3106,
+        "score": 0.0229597066319268,
+        "overlap": 1
+      },
+      {
+        "mpId": 3181,
+        "score": 0.02295365744024443,
+        "overlap": 1
+      },
+      {
+        "mpId": 3107,
+        "score": 0.022189373390928115,
+        "overlap": 1
+      },
+      {
+        "mpId": 3123,
+        "score": 0.022086305214969307,
+        "overlap": 1
+      }
+    ],
+    "bottomK": []
+  }
+}

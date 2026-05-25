@@ -1,0 +1,725 @@
+{
+  "mpId": 1901,
+  "ns": "46",
+  "partyShort": "ИБГНИ",
+  "loyalty": {
+    "votesCast": 430,
+    "withParty": 375,
+    "loyaltyPct": 0.872093023255814,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 430,
+    "dissentCount": 55,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 1 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-09-10",
+        "item": 83,
+        "slug": "83-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 8 - нов - предложение от Николина Ангелкова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 6
+      },
+      {
+        "date": "2021-09-10",
+        "item": 82,
+        "slug": "82-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 8 - предложение от Николина Ангелкова и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-09-10",
+        "item": 78,
+        "slug": "78-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6 (става параграф 10) - предложение от Христо Гаджев и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2021-09-10",
+        "item": 68,
+        "slug": "68-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 4 (става параграф 5) - предложение от Красимир Вълчев и Петър Николов",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-09-10",
+        "item": 67,
+        "slug": "67-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 4 (става параграф 5) - предложение от Христо Гаджев и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 6
+      },
+      {
+        "date": "2021-09-10",
+        "item": 62,
+        "slug": "62-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1и - предложение от Корнелия Нинова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-10",
+        "item": 61,
+        "slug": "61-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1з - предложение от Корнелия Нинова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-10",
+        "item": 57,
+        "slug": "57-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1а - предложение от Минчо Христов - прегласуване",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-10",
+        "item": 47,
+        "slug": "47-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Петър Чобанов за редакция на т.14 - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-10",
+        "item": 43,
+        "slug": "43-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Иван Иванов и Хр.Гаджев за редакция на т.16 ал.5 - прегласуване",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-10",
+        "item": 42,
+        "slug": "42-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Иван Иванов и Хр.Гаджев за редакция на т.16 ал",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-10",
+        "item": 41,
+        "slug": "41-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Деница Сачева за редакция на т.3",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-10",
+        "item": 40,
+        "slug": "40-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Ивайло Кожухаров за редакция",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-10",
+        "item": 39,
+        "slug": "39-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Н. Ангелкова за редакция - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-10",
+        "item": 34,
+        "slug": "34-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Г.Ганев за редакция в.т.4 - буква д",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-10",
+        "item": 32,
+        "slug": "32-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - процедура за разделно гласуване от т. 5 до т.21",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-10",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Пламен Абровски и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-10",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Младен Шишков и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-10",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Младен Шишков и група н.п. + редакция 77 млн. става 16.3 млн",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-09-10",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Кр.Вълчев и Петър Николов",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-09-10",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от К.Нинова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-10",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Корнелия Нинова и група н.п. - т.8- прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-10",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Корнелия Нинова и група н.п. -т.8",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-09-10",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от П.Аврамова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-10",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение Иван Ченчев за пряко предаване по БНТ1",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-09",
+        "item": 46,
+        "slug": "46-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 1 - предложение от Георги Ганев и Ал.Симидчиев - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2021-09-09",
+        "item": 32,
+        "slug": "32-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - процедура от Виктория Василева за начало на заседанието на НС, утре от 14:00 часа",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-09-09",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - процедура от Виктория Василева за удължаване на работното време до приемане на ЗИД на бюджета на НЗОК",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-09",
+        "item": 21,
+        "slug": "21-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - параграф 13",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-09",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - процедура от Рамадан Аталай за прекратяване на дебата",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-07",
+        "item": 32,
+        "slug": "32-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 2 - предложение от Деляна Пешева и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-09-07",
+        "item": 30,
+        "slug": "30-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 2 - предложение от Мустафа Карадайъ и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-07",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 2 - предложение от Мустафа Карадайъ и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-09-07",
+        "item": 25,
+        "slug": "25-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 1 - предложение от Деляна Пешева и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-01",
+        "item": 7,
+        "slug": "7-reshenie-vav-vrazka-s-obsazhdaneto-i-priemaneto-ot-narodnoto",
+        "title": "Решение във връзка с обсъждането и приемането от Народното събрание на законопроектите за изменения и допълнения в държавния и бюджетите на НЗОК и ДОО за 2021 г. - предложение от Ива Митева за разделно гласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-09-01",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-1-3-septemvri-",
+        "title": "Програма за работата на Народното събрание за 1 - 3 септември 2021 г. - предложение от Кристиан Вигенин и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-01",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-1-3-septemvri-",
+        "title": "Програма за работата на Народното събрание за 1 - 3 септември 2021 г. - предложение от Десислава Атанасова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-08-19",
+        "item": 2,
+        "slug": "2-protsedura-za-otpadane-na-tochka-t-3-ot-ramadan-atalay",
+        "title": "Процедура за отпадане на точка т.3 от Рамадан Аталай",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-08-18",
+        "item": 5,
+        "slug": "5-reshenie-za-izbirane-na-komisiya-po-ikonomicheska-politika-i",
+        "title": "Решение за избиране на Комисия по икономическа политика, иновации и туризъм",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-08-05",
+        "item": 60,
+        "slug": "60-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Приложение към Финансови правила ... - предложение от Мая Манолова и група н.п. по член 10",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-08-05",
+        "item": 59,
+        "slug": "59-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Приложение към Финансови правила ... - предложение от Мая Манолова и група н.п. по член 5",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-08-05",
+        "item": 45,
+        "slug": "45-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Раздел втори (става Раздел трети), член 110 - предложение от Надежда Йорданова и Атанас Славов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-08-05",
+        "item": 41,
+        "slug": "41-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 92",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-08-05",
+        "item": 31,
+        "slug": "31-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 64- предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-08-05",
+        "item": 29,
+        "slug": "29-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 52",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-08-05",
+        "item": 14,
+        "slug": "14-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 21- предложение от Иван Хиновски",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-08-05",
+        "item": 8,
+        "slug": "8-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 16а - предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-08-05",
+        "item": 4,
+        "slug": "4-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава пета, член 16 - предложение от Р.Желязков",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-08-05",
+        "item": 3,
+        "slug": "3-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава пета, член 16 - предложение за разделяне на Комисията по образование и децата, младежта и спорта",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 8
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1897,
+        "score": 0.8241372019631041,
+        "overlap": 406
+      },
+      {
+        "mpId": 1921,
+        "score": 0.7395241990207267,
+        "overlap": 358
+      },
+      {
+        "mpId": 1727,
+        "score": 0.7385536225895699,
+        "overlap": 357
+      },
+      {
+        "mpId": 1734,
+        "score": 0.7306292654598758,
+        "overlap": 401
+      },
+      {
+        "mpId": 1881,
+        "score": 0.7032186111075326,
+        "overlap": 364
+      },
+      {
+        "mpId": 1650,
+        "score": 0.6710898940085218,
+        "overlap": 359
+      },
+      {
+        "mpId": 1673,
+        "score": 0.6450530404951144,
+        "overlap": 269
+      },
+      {
+        "mpId": 1668,
+        "score": 0.6425497450538076,
+        "overlap": 393
+      },
+      {
+        "mpId": 1681,
+        "score": 0.6327582308618389,
+        "overlap": 224
+      },
+      {
+        "mpId": 1573,
+        "score": 0.6296384429726166,
+        "overlap": 371
+      },
+      {
+        "mpId": 1574,
+        "score": 0.6270542946713987,
+        "overlap": 297
+      },
+      {
+        "mpId": 1684,
+        "score": 0.6265861332417281,
+        "overlap": 403
+      },
+      {
+        "mpId": 1701,
+        "score": 0.621348042201788,
+        "overlap": 408
+      },
+      {
+        "mpId": 1693,
+        "score": 0.6201616040622699,
+        "overlap": 378
+      },
+      {
+        "mpId": 1679,
+        "score": 0.6196592810673667,
+        "overlap": 403
+      },
+      {
+        "mpId": 1944,
+        "score": 0.6171060291553574,
+        "overlap": 392
+      },
+      {
+        "mpId": 1902,
+        "score": 0.6152905012705612,
+        "overlap": 429
+      },
+      {
+        "mpId": 1670,
+        "score": 0.6146620288006944,
+        "overlap": 414
+      },
+      {
+        "mpId": 1718,
+        "score": 0.614311031104402,
+        "overlap": 411
+      },
+      {
+        "mpId": 1876,
+        "score": 0.6112150709411255,
+        "overlap": 275
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1935,
+        "score": 0.02641199165349501,
+        "overlap": 202
+      },
+      {
+        "mpId": 1972,
+        "score": 0.07036263329115902,
+        "overlap": 225
+      },
+      {
+        "mpId": 388,
+        "score": 0.07191996403317487,
+        "overlap": 247
+      },
+      {
+        "mpId": 1155,
+        "score": 0.07448773454208438,
+        "overlap": 215
+      },
+      {
+        "mpId": 1317,
+        "score": 0.07493767776737005,
+        "overlap": 271
+      },
+      {
+        "mpId": 1703,
+        "score": 0.07963073776384187,
+        "overlap": 176
+      },
+      {
+        "mpId": 1428,
+        "score": 0.08288289035728467,
+        "overlap": 193
+      },
+      {
+        "mpId": 1643,
+        "score": 0.08322244395176678,
+        "overlap": 213
+      },
+      {
+        "mpId": 1576,
+        "score": 0.08330710065936407,
+        "overlap": 163
+      },
+      {
+        "mpId": 1124,
+        "score": 0.09006807716384206,
+        "overlap": 222
+      },
+      {
+        "mpId": 1659,
+        "score": 0.09802276595759092,
+        "overlap": 265
+      },
+      {
+        "mpId": 1457,
+        "score": 0.09933856665765635,
+        "overlap": 238
+      },
+      {
+        "mpId": 810,
+        "score": 0.1053415644198626,
+        "overlap": 143
+      },
+      {
+        "mpId": 404,
+        "score": 0.10853373303864633,
+        "overlap": 238
+      },
+      {
+        "mpId": 1975,
+        "score": 0.10944342352874437,
+        "overlap": 245
+      },
+      {
+        "mpId": 1951,
+        "score": 0.11448028555998044,
+        "overlap": 227
+      },
+      {
+        "mpId": 817,
+        "score": 0.11698482174706128,
+        "overlap": 182
+      },
+      {
+        "mpId": 1465,
+        "score": 0.12010333331910443,
+        "overlap": 270
+      },
+      {
+        "mpId": 1687,
+        "score": 0.12342662426156135,
+        "overlap": 210
+      },
+      {
+        "mpId": 1386,
+        "score": 0.12530875740514422,
+        "overlap": 240
+      }
+    ]
+  }
+}

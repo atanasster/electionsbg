@@ -1,0 +1,285 @@
+{
+  "mpId": 3580,
+  "ns": "51",
+  "partyShort": "НЕЧЛ В ПГ",
+  "loyalty": {
+    "votesCast": 273,
+    "withParty": 267,
+    "loyaltyPct": 0.978021978021978,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 273,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2026-03-13",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-korporativnoto-podohodno-oblagane-vtoro-gla",
+        "title": "ЗИД на Закона за корпоративното подоходно облагане – второ гласуване - параграф 1",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 3
+      },
+      {
+        "date": "2026-03-12",
+        "item": 2,
+        "slug": "2-zakon-za-prozrachnost-i-pochtenost-v-upravlenieto-parvo-glas",
+        "title": "Закон за прозрачност и почтеност в управлението - първо гласуване - процедура от Георги Кръстев за съкращаване на срока за предложения на три дни - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 5
+      },
+      {
+        "date": "2026-03-05",
+        "item": 20,
+        "slug": "20-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-par",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - параграф 15 (става параграф 16) - предложение от Георги Хрисимиров и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 2
+      },
+      {
+        "date": "2026-03-05",
+        "item": 11,
+        "slug": "11-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-par",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - параграф 3 - предложение от Георги Хрисимиров и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2026-03-04",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-chastnite-sadebni-izpalniteli-parvo-glasuva",
+        "title": "ЗИД на Закона за частните съдебни изпълнители – първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 5
+      },
+      {
+        "date": "2026-03-04",
+        "item": 9,
+        "slug": "9-programa-za-rabotata-na-narodnoto-sabranie-za-4-6-mart-2026-",
+        "title": "Програма за работата на Народното събрание за 4 – 6 март 2026 г. - предложение от Йордан Тодоров",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 3
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3541,
+        "score": 0.7074690674523406,
+        "overlap": 220
+      },
+      {
+        "mpId": 3547,
+        "score": 0.7074681838135287,
+        "overlap": 251
+      },
+      {
+        "mpId": 3533,
+        "score": 0.6998010254075937,
+        "overlap": 241
+      },
+      {
+        "mpId": 3537,
+        "score": 0.6942303941565574,
+        "overlap": 219
+      },
+      {
+        "mpId": 3535,
+        "score": 0.665956529256464,
+        "overlap": 219
+      },
+      {
+        "mpId": 3549,
+        "score": 0.66156072854919,
+        "overlap": 218
+      },
+      {
+        "mpId": 3531,
+        "score": 0.6208495014996273,
+        "overlap": 216
+      },
+      {
+        "mpId": 3539,
+        "score": 0.386884378075561,
+        "overlap": 175
+      },
+      {
+        "mpId": 3529,
+        "score": 0.37857200013516723,
+        "overlap": 124
+      },
+      {
+        "mpId": 3527,
+        "score": 0.36305980331868853,
+        "overlap": 74
+      },
+      {
+        "mpId": 3519,
+        "score": 0.3543341250475063,
+        "overlap": 165
+      },
+      {
+        "mpId": 3521,
+        "score": 0.31372605500266576,
+        "overlap": 133
+      },
+      {
+        "mpId": 3543,
+        "score": 0.3094582934830303,
+        "overlap": 124
+      },
+      {
+        "mpId": 3491,
+        "score": 0.29643708808200186,
+        "overlap": 270
+      },
+      {
+        "mpId": 3493,
+        "score": 0.2839356603329031,
+        "overlap": 233
+      },
+      {
+        "mpId": 3289,
+        "score": 0.2833813097889423,
+        "overlap": 270
+      },
+      {
+        "mpId": 3106,
+        "score": 0.2803197199246508,
+        "overlap": 260
+      },
+      {
+        "mpId": 3308,
+        "score": 0.2723027863726296,
+        "overlap": 272
+      },
+      {
+        "mpId": 3306,
+        "score": 0.27199773942557354,
+        "overlap": 270
+      },
+      {
+        "mpId": 3415,
+        "score": 0.2715219412663615,
+        "overlap": 268
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3230,
+        "score": -0.042463136902401596,
+        "overlap": 130
+      },
+      {
+        "mpId": 3026,
+        "score": -0.03784674990039741,
+        "overlap": 101
+      },
+      {
+        "mpId": 3122,
+        "score": -0.03598964940316418,
+        "overlap": 178
+      },
+      {
+        "mpId": 3192,
+        "score": -0.035982787073077185,
+        "overlap": 115
+      },
+      {
+        "mpId": 3516,
+        "score": -0.03137937865373936,
+        "overlap": 154
+      },
+      {
+        "mpId": 3358,
+        "score": -0.030554894682254953,
+        "overlap": 96
+      },
+      {
+        "mpId": 3121,
+        "score": -0.024947046946262555,
+        "overlap": 130
+      },
+      {
+        "mpId": 3515,
+        "score": -0.0190358002807804,
+        "overlap": 228
+      },
+      {
+        "mpId": 3517,
+        "score": -0.018551040859663682,
+        "overlap": 226
+      },
+      {
+        "mpId": 3510,
+        "score": -0.017727368502058357,
+        "overlap": 197
+      },
+      {
+        "mpId": 3513,
+        "score": -0.01724525633186594,
+        "overlap": 222
+      },
+      {
+        "mpId": 3512,
+        "score": -0.016485923054470424,
+        "overlap": 179
+      },
+      {
+        "mpId": 3028,
+        "score": -0.014913916496748822,
+        "overlap": 77
+      },
+      {
+        "mpId": 3508,
+        "score": -0.012999626266117194,
+        "overlap": 214
+      },
+      {
+        "mpId": 3095,
+        "score": -0.01261728431711375,
+        "overlap": 120
+      },
+      {
+        "mpId": 3514,
+        "score": -0.01248963692489679,
+        "overlap": 198
+      },
+      {
+        "mpId": 3050,
+        "score": -0.009185747108005638,
+        "overlap": 61
+      },
+      {
+        "mpId": 3179,
+        "score": -0.008738265833888684,
+        "overlap": 221
+      },
+      {
+        "mpId": 3485,
+        "score": -0.007067380484586111,
+        "overlap": 53
+      },
+      {
+        "mpId": 3307,
+        "score": -0.00574408027892997,
+        "overlap": 218
+      }
+    ]
+  }
+}

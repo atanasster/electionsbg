@@ -1,0 +1,285 @@
+{
+  "mpId": 3401,
+  "ns": "51",
+  "partyShort": "ДПС - НН",
+  "loyalty": {
+    "votesCast": 3612,
+    "withParty": 3606,
+    "loyaltyPct": 0.9983388704318937,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 3612,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2026-02-18",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-zdraveto-parvo-glasuvane-vnositel-bozhidar-",
+        "title": "ЗИД на Закона за здравето - първо гласуване - вносител Божидар Божанов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 26
+      },
+      {
+        "date": "2025-07-16",
+        "item": 37,
+        "slug": "37-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата – второ гласуване - параграф 6а - предложение от Любен Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2025-06-19",
+        "item": 250,
+        "slug": "250-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - параграф 6 (става параграф 4) - предложение от Рая Назарян",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2025-05-22",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-zdravnoto-osiguryavane-parvo-glasuvane-vnos",
+        "title": "ЗИД на Закона за здравното осигуряване – първо гласуване - вносител Божидар Божанов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 21
+      },
+      {
+        "date": "2025-05-07",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-obshtestvenite-porachki-parvo-glasuvane",
+        "title": "ЗИД на Закона за обществените поръчки - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2025-03-19",
+        "item": 38,
+        "slug": "38-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - член 11 - предложение от Асен Василев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3228,
+        "score": 0.9620593018048906,
+        "overlap": 3531
+      },
+      {
+        "mpId": 3400,
+        "score": 0.9576626154402293,
+        "overlap": 3513
+      },
+      {
+        "mpId": 3156,
+        "score": 0.9544032361074116,
+        "overlap": 3506
+      },
+      {
+        "mpId": 3308,
+        "score": 0.9523444871382167,
+        "overlap": 3482
+      },
+      {
+        "mpId": 3393,
+        "score": 0.9522044466442138,
+        "overlap": 3475
+      },
+      {
+        "mpId": 3127,
+        "score": 0.9465795188827113,
+        "overlap": 3411
+      },
+      {
+        "mpId": 3224,
+        "score": 0.945302441033536,
+        "overlap": 3434
+      },
+      {
+        "mpId": 3018,
+        "score": 0.9451821197793765,
+        "overlap": 3435
+      },
+      {
+        "mpId": 3356,
+        "score": 0.9413836573791565,
+        "overlap": 3411
+      },
+      {
+        "mpId": 3302,
+        "score": 0.9382076330486082,
+        "overlap": 3383
+      },
+      {
+        "mpId": 3306,
+        "score": 0.9358105607415211,
+        "overlap": 3393
+      },
+      {
+        "mpId": 3042,
+        "score": 0.935085772257342,
+        "overlap": 3296
+      },
+      {
+        "mpId": 3415,
+        "score": 0.9344635990308358,
+        "overlap": 3380
+      },
+      {
+        "mpId": 3231,
+        "score": 0.9212882839503361,
+        "overlap": 3294
+      },
+      {
+        "mpId": 3363,
+        "score": 0.9160803544261897,
+        "overlap": 3237
+      },
+      {
+        "mpId": 3110,
+        "score": 0.9153307513183251,
+        "overlap": 3198
+      },
+      {
+        "mpId": 3289,
+        "score": 0.9051080192345882,
+        "overlap": 3100
+      },
+      {
+        "mpId": 3343,
+        "score": 0.8974287125515711,
+        "overlap": 3073
+      },
+      {
+        "mpId": 3044,
+        "score": 0.8872589205249164,
+        "overlap": 3014
+      },
+      {
+        "mpId": 3491,
+        "score": 0.8602887879285873,
+        "overlap": 2885
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3514,
+        "score": -0.38076298756280114,
+        "overlap": 2305
+      },
+      {
+        "mpId": 3518,
+        "score": -0.3807531765440367,
+        "overlap": 2412
+      },
+      {
+        "mpId": 3517,
+        "score": -0.3795914034278896,
+        "overlap": 2342
+      },
+      {
+        "mpId": 3513,
+        "score": -0.37501472660828106,
+        "overlap": 2216
+      },
+      {
+        "mpId": 3510,
+        "score": -0.36640143374615836,
+        "overlap": 2135
+      },
+      {
+        "mpId": 3515,
+        "score": -0.3615322396711289,
+        "overlap": 2270
+      },
+      {
+        "mpId": 3122,
+        "score": -0.35085340280164107,
+        "overlap": 3353
+      },
+      {
+        "mpId": 3512,
+        "score": -0.35073749615738403,
+        "overlap": 1953
+      },
+      {
+        "mpId": 3516,
+        "score": -0.3504556713859804,
+        "overlap": 2035
+      },
+      {
+        "mpId": 3508,
+        "score": -0.34839515368377477,
+        "overlap": 2164
+      },
+      {
+        "mpId": 3028,
+        "score": -0.3423958088035387,
+        "overlap": 3171
+      },
+      {
+        "mpId": 3230,
+        "score": -0.34213236910553296,
+        "overlap": 3376
+      },
+      {
+        "mpId": 3358,
+        "score": -0.34055816240586056,
+        "overlap": 3292
+      },
+      {
+        "mpId": 3121,
+        "score": -0.3359360073189087,
+        "overlap": 3266
+      },
+      {
+        "mpId": 3026,
+        "score": -0.3357755477254729,
+        "overlap": 2712
+      },
+      {
+        "mpId": 3090,
+        "score": -0.333607832030705,
+        "overlap": 3445
+      },
+      {
+        "mpId": 3304,
+        "score": -0.3333291038913562,
+        "overlap": 3326
+      },
+      {
+        "mpId": 3084,
+        "score": -0.3308814700275041,
+        "overlap": 3239
+      },
+      {
+        "mpId": 3165,
+        "score": -0.3307579578830066,
+        "overlap": 3383
+      },
+      {
+        "mpId": 3279,
+        "score": -0.32916875430247405,
+        "overlap": 3059
+      }
+    ]
+  }
+}

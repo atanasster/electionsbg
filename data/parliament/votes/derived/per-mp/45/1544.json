@@ -1,0 +1,275 @@
+{
+  "mpId": 1544,
+  "ns": "45",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 131,
+    "withParty": 126,
+    "loyaltyPct": 0.9618320610687023,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 131,
+    "dissentCount": 5,
+    "recent": [
+      {
+        "date": "2021-04-29",
+        "item": 14,
+        "slug": "14-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-7-nov",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 7 - нов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 72
+      },
+      {
+        "date": "2021-04-29",
+        "item": 11,
+        "slug": "11-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-4",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 4 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 74
+      },
+      {
+        "date": "2021-04-22",
+        "item": 75,
+        "slug": "75-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-27-pred",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 27 - предложение за редакция от Филип Попов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-04-22",
+        "item": 74,
+        "slug": "74-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-27-pred",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 27 - предложение за редакция от Татяна Дончева - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 65
+      },
+      {
+        "date": "2021-04-22",
+        "item": 33,
+        "slug": "33-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-8-stava",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 8 (става параграф 9) - предл.от В.Василева за разделно гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 68
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 805,
+        "score": 0.9232661084247388,
+        "overlap": 127
+      },
+      {
+        "mpId": 1716,
+        "score": 0.9232661084247388,
+        "overlap": 129
+      },
+      {
+        "mpId": 1812,
+        "score": 0.9143542648635814,
+        "overlap": 129
+      },
+      {
+        "mpId": 1281,
+        "score": 0.9124673029192829,
+        "overlap": 130
+      },
+      {
+        "mpId": 1596,
+        "score": 0.9099513834047842,
+        "overlap": 130
+      },
+      {
+        "mpId": 1567,
+        "score": 0.9083648743279549,
+        "overlap": 118
+      },
+      {
+        "mpId": 1386,
+        "score": 0.9076082185051725,
+        "overlap": 130
+      },
+      {
+        "mpId": 599,
+        "score": 0.9065240590479435,
+        "overlap": 128
+      },
+      {
+        "mpId": 1015,
+        "score": 0.9065240590479435,
+        "overlap": 131
+      },
+      {
+        "mpId": 1608,
+        "score": 0.9065240590479435,
+        "overlap": 130
+      },
+      {
+        "mpId": 1612,
+        "score": 0.9065240590479435,
+        "overlap": 131
+      },
+      {
+        "mpId": 1244,
+        "score": 0.9054751132668938,
+        "overlap": 130
+      },
+      {
+        "mpId": 1587,
+        "score": 0.9034902641327704,
+        "overlap": 128
+      },
+      {
+        "mpId": 1382,
+        "score": 0.899954085146515,
+        "overlap": 128
+      },
+      {
+        "mpId": 1513,
+        "score": 0.8989696318872455,
+        "overlap": 127
+      },
+      {
+        "mpId": 1692,
+        "score": 0.8971269380576836,
+        "overlap": 119
+      },
+      {
+        "mpId": 1816,
+        "score": 0.8930045287489753,
+        "overlap": 127
+      },
+      {
+        "mpId": 1618,
+        "score": 0.8886744866475458,
+        "overlap": 131
+      },
+      {
+        "mpId": 1651,
+        "score": 0.8862732049359294,
+        "overlap": 118
+      },
+      {
+        "mpId": 1813,
+        "score": 0.8862135212290072,
+        "overlap": 129
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1336,
+        "score": -0.22268088570756164,
+        "overlap": 39
+      },
+      {
+        "mpId": 1591,
+        "score": -0.1589376865675523,
+        "overlap": 47
+      },
+      {
+        "mpId": 1652,
+        "score": -0.14940473012523892,
+        "overlap": 51
+      },
+      {
+        "mpId": 1253,
+        "score": -0.14896146006780256,
+        "overlap": 47
+      },
+      {
+        "mpId": 1676,
+        "score": -0.1466880538890226,
+        "overlap": 51
+      },
+      {
+        "mpId": 1297,
+        "score": -0.13705061117171075,
+        "overlap": 38
+      },
+      {
+        "mpId": 1660,
+        "score": -0.10482848367219183,
+        "overlap": 62
+      },
+      {
+        "mpId": 1273,
+        "score": -0.10475744721782397,
+        "overlap": 50
+      },
+      {
+        "mpId": 1686,
+        "score": -0.09200442067363453,
+        "overlap": 114
+      },
+      {
+        "mpId": 810,
+        "score": -0.07795390233750402,
+        "overlap": 31
+      },
+      {
+        "mpId": 1663,
+        "score": -0.07696807104956704,
+        "overlap": 88
+      },
+      {
+        "mpId": 1598,
+        "score": -0.07318040653635675,
+        "overlap": 66
+      },
+      {
+        "mpId": 1702,
+        "score": -0.06951991935471569,
+        "overlap": 112
+      },
+      {
+        "mpId": 1616,
+        "score": -0.06557597343035872,
+        "overlap": 101
+      },
+      {
+        "mpId": 1620,
+        "score": -0.0636490947285459,
+        "overlap": 51
+      },
+      {
+        "mpId": 1678,
+        "score": -0.06190956587336354,
+        "overlap": 90
+      },
+      {
+        "mpId": 1575,
+        "score": -0.059831380155856144,
+        "overlap": 129
+      },
+      {
+        "mpId": 761,
+        "score": -0.0574959574576069,
+        "overlap": 68
+      },
+      {
+        "mpId": 1658,
+        "score": -0.057179172912104635,
+        "overlap": 69
+      },
+      {
+        "mpId": 1693,
+        "score": -0.05714714155397384,
+        "overlap": 101
+      }
+    ]
+  }
+}

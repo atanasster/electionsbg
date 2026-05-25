@@ -1,0 +1,265 @@
+{
+  "mpId": 403,
+  "ns": "45",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 133,
+    "withParty": 129,
+    "loyaltyPct": 0.9699248120300752,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 133,
+    "dissentCount": 4,
+    "recent": [
+      {
+        "date": "2021-04-29",
+        "item": 115,
+        "slug": "115-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-71-nov-pred",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 71 - нов - предложение за редакция от Борис Цветков",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-04-22",
+        "item": 74,
+        "slug": "74-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-27-pred",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 27 - предложение за редакция от Татяна Дончева - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 65
+      },
+      {
+        "date": "2021-04-22",
+        "item": 62,
+        "slug": "62-reshenie-za-izmenenie-i-dopalnenie-na-podns-predlozhenie-ot-",
+        "title": "Решение за изменение и допълнение на ПОДНС - предложение от А.Славов и група н.п. в чл.117а",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2021-04-22",
+        "item": 33,
+        "slug": "33-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-8-stava",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 8 (става параграф 9) - предл.от В.Василева за разделно гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 68
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 805,
+        "score": 0.9070684573997433,
+        "overlap": 128
+      },
+      {
+        "mpId": 1608,
+        "score": 0.8986412411431788,
+        "overlap": 131
+      },
+      {
+        "mpId": 1244,
+        "score": 0.8975323491154298,
+        "overlap": 130
+      },
+      {
+        "mpId": 1513,
+        "score": 0.8908708063747479,
+        "overlap": 129
+      },
+      {
+        "mpId": 1612,
+        "score": 0.8907584232384141,
+        "overlap": 131
+      },
+      {
+        "mpId": 1596,
+        "score": 0.8862135212290072,
+        "overlap": 130
+      },
+      {
+        "mpId": 1544,
+        "score": 0.8842975206611571,
+        "overlap": 120
+      },
+      {
+        "mpId": 1015,
+        "score": 0.8828756053336494,
+        "overlap": 131
+      },
+      {
+        "mpId": 1716,
+        "score": 0.8827719808622502,
+        "overlap": 126
+      },
+      {
+        "mpId": 1618,
+        "score": 0.8808790964137955,
+        "overlap": 132
+      },
+      {
+        "mpId": 1587,
+        "score": 0.8792896320577855,
+        "overlap": 128
+      },
+      {
+        "mpId": 1386,
+        "score": 0.8763113833843045,
+        "overlap": 129
+      },
+      {
+        "mpId": 1577,
+        "score": 0.875848172151519,
+        "overlap": 126
+      },
+      {
+        "mpId": 599,
+        "score": 0.8749927874288846,
+        "overlap": 126
+      },
+      {
+        "mpId": 1325,
+        "score": 0.8740730364761186,
+        "overlap": 122
+      },
+      {
+        "mpId": 1281,
+        "score": 0.872446807177209,
+        "overlap": 128
+      },
+      {
+        "mpId": 1813,
+        "score": 0.8703882797784892,
+        "overlap": 130
+      },
+      {
+        "mpId": 1816,
+        "score": 0.8690847645860563,
+        "overlap": 126
+      },
+      {
+        "mpId": 1687,
+        "score": 0.8665743298372548,
+        "overlap": 125
+      },
+      {
+        "mpId": 1812,
+        "score": 0.8653710006744609,
+        "overlap": 125
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1336,
+        "score": -0.1731962444392146,
+        "overlap": 47
+      },
+      {
+        "mpId": 1253,
+        "score": -0.1702416686489172,
+        "overlap": 53
+      },
+      {
+        "mpId": 1297,
+        "score": -0.16446073340605288,
+        "overlap": 40
+      },
+      {
+        "mpId": 1652,
+        "score": -0.14061621658846016,
+        "overlap": 56
+      },
+      {
+        "mpId": 1273,
+        "score": -0.12803687993289598,
+        "overlap": 53
+      },
+      {
+        "mpId": 1591,
+        "score": -0.1236182006636518,
+        "overlap": 57
+      },
+      {
+        "mpId": 1676,
+        "score": -0.1121732176798408,
+        "overlap": 61
+      },
+      {
+        "mpId": 1702,
+        "score": -0.10427987903207353,
+        "overlap": 116
+      },
+      {
+        "mpId": 1575,
+        "score": -0.0997189669264269,
+        "overlap": 128
+      },
+      {
+        "mpId": 1660,
+        "score": -0.09529862152017439,
+        "overlap": 73
+      },
+      {
+        "mpId": 1686,
+        "score": -0.0778498944161523,
+        "overlap": 116
+      },
+      {
+        "mpId": 1658,
+        "score": -0.07623889721613952,
+        "overlap": 76
+      },
+      {
+        "mpId": 1318,
+        "score": -0.07582342329348174,
+        "overlap": 72
+      },
+      {
+        "mpId": 1663,
+        "score": -0.06841606315517071,
+        "overlap": 93
+      },
+      {
+        "mpId": 1677,
+        "score": -0.06723638742123988,
+        "overlap": 100
+      },
+      {
+        "mpId": 761,
+        "score": -0.06707861703387472,
+        "overlap": 75
+      },
+      {
+        "mpId": 1597,
+        "score": -0.06098367211363063,
+        "overlap": 128
+      },
+      {
+        "mpId": 1636,
+        "score": -0.05466516567293301,
+        "overlap": 127
+      },
+      {
+        "mpId": 1624,
+        "score": -0.051140359133001086,
+        "overlap": 55
+      },
+      {
+        "mpId": 1261,
+        "score": -0.05042729056592992,
+        "overlap": 32
+      }
+    ]
+  }
+}

@@ -1,0 +1,721 @@
+{
+  "mpId": 3211,
+  "ns": "51",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 3665,
+    "withParty": 3580,
+    "loyaltyPct": 0.9768076398362893,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 3665,
+    "dissentCount": 85,
+    "recent": [
+      {
+        "date": "2026-03-12",
+        "item": 21,
+        "slug": "21-protsedura-ot-yordan-todorov-za-udalzhavane-na-rabotnoto-vre",
+        "title": "Процедура от Йордан Тодоров за удължаване на работното време до т.7",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-03-12",
+        "item": 8,
+        "slug": "8-zid-na-nakazatelniya-kodeks-parvo-glasuvane-vnositel-bozhida",
+        "title": "ЗИД на Наказателния кодекс - първо гласуване - вносител Божидар Божанов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2026-03-04",
+        "item": 24,
+        "slug": "24-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-8-nov-p",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 8 - нов - предложение от Божидар Божанов и Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2026-02-18",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-zdraveto-parvo-glasuvane-vnositel-vasil-pan",
+        "title": "ЗИД на Закона за здравето - първо гласуване - вносител Васил Пандов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 53
+      },
+      {
+        "date": "2026-02-04",
+        "item": 11,
+        "slug": "11-programa-za-rabotata-na-narodnoto-sabranie-za-4-6-fevruari-2",
+        "title": "Програма за работата на Народното събрание за 4 – 6 февруари 2026 г. - процедура от Ангел Славчев за отпадане на точка 8",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2026-01-30",
+        "item": 22,
+        "slug": "22-reshenie-po-godishna-rabotna-programa-na-narodnoto-sabranie-",
+        "title": "Решение по Годишна работна програма на Народното събрание по въпросите на Европейския съюз (2026 г.) - т.17",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 50
+      },
+      {
+        "date": "2026-01-30",
+        "item": 21,
+        "slug": "21-protsedura-ot-stoyan-taslakov-za-otpadane-na-tochka-11",
+        "title": "Процедура от Стоян Таслаков за отпадане на точка 11",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 50
+      },
+      {
+        "date": "2026-01-30",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-6-pre",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 6 - предложение от Цвета Рангелова",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 53
+      },
+      {
+        "date": "2025-12-18",
+        "item": 52,
+        "slug": "52-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-6-stava",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 6 (става параграф 8) - т.11",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2025-12-17",
+        "item": 47,
+        "slug": "47-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност – второ гласуване - параграф 19 (става параграф 20) - предложение от Мартин Димитров и Божидар Божанов",
+        "topic": "tax",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2025-12-17",
+        "item": 8,
+        "slug": "8-programa-za-rabotata-na-narodnoto-sabranie-za-17-19-dekemvri",
+        "title": "Програма за работата на Народното събрание за 17 – 19 декември 2025 г. - предложение от Ивайло Мирчев - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2025-11-20",
+        "item": 6,
+        "slug": "6",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2025-11-20",
+        "item": 4,
+        "slug": "4",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2025-11-13",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-ministerstvoto-na-vatreshnite-raboti-parvo-",
+        "title": "ЗИД на Закона за Министерството на вътрешните работи - първо четене - вносител Божидар Божанов и група н.п. внесен на 31.01.2025г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2025-11-12",
+        "item": 43,
+        "slug": "43-zid-na-nakazatelno-protsesualniya-kodeks-parvo-glasuvane-vno",
+        "title": "ЗИД на Наказателно-процесуалния кодекс – първо гласуване - вносител Божидар Божанов и Надежда Йорданова № 51-554-01-152",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2025-11-12",
+        "item": 11,
+        "slug": "11-programa-za-rabotata-na-narodnoto-sabranie-za-12-14-noemvri-",
+        "title": "Програма за работата на Народното събрание за 12 - 14 ноември 2025 г. - предложение от Елисавета Белобрадова - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2025-11-07",
+        "item": 4,
+        "slug": "4-protsedura-ot-kostadin-angelov-za-nova-tochka-vtora-izslushv",
+        "title": "Процедура от Костадин Ангелов за нова точка втора (Изслушване) - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2025-10-29",
+        "item": 11,
+        "slug": "11-programa-za-rabotata-na-narodnoto-sabranie-za-29-31-oktomvri",
+        "title": "Програма за работата на Народното събрание за 29 - 31 октомври 2025г. - предложение от Божидар Божанов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2025-10-28",
+        "item": 2,
+        "slug": "2-zid-na-zakona-za-lechebnite-zavedeniya-vtoro-glasuvane-predl",
+        "title": "ЗИД на Закона за лечебните заведения - второ гласуване - предложение за допустимост от Васил Пандов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 50
+      },
+      {
+        "date": "2025-10-10",
+        "item": 6,
+        "slug": "6-protsedura-ot-bozhidar-bozhanov-za-pryako-predavane-po-bnt-n",
+        "title": "Процедура от Божидар Божанов за пряко предаване по БНТ на т.1",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2025-07-31",
+        "item": 18,
+        "slug": "18-protsedura-ot-vasil-pandov-za-namalyavane-na-sroka-za-predlo",
+        "title": "Процедура от Васил Пандов за намаляване на срока за предложения по ЗИД на Закона за лечебните заведения - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2025-07-24",
+        "item": 124,
+        "slug": "124-zid-na-zakona-za-platezhnite-uslugi-i-platezhnite-sistemi-vt",
+        "title": "ЗИД на Закона за платежните услуги и платежните системи - второ гласуване - параграф 25 - предложение от Атанас Атанасов и Драгомир Стойнев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2025-07-24",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-vissheto-obrazovanie-vtoro-glasuvane-paragr",
+        "title": "ЗИД на Закона за висшето образование - второ гласуване - параграф 1 - предложение от Николай Денков и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 54
+      },
+      {
+        "date": "2025-07-23",
+        "item": 59,
+        "slug": "59-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата - второ гласуване - параграф 59 - предложение от Павлин Кръстев и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 56
+      },
+      {
+        "date": "2025-07-23",
+        "item": 56,
+        "slug": "56-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата - второ гласуване - параграф 58 - предложение от Коста Стоянов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 47
+      },
+      {
+        "date": "2025-07-23",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2025 г. - второ гласуване - параграф 1 - предложение от Хайри Садъков",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 60
+      },
+      {
+        "date": "2025-07-23",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2025 г. - второ гласуване - параграф 1 - предложение от Цончо Ганев и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 59
+      },
+      {
+        "date": "2025-07-18",
+        "item": 63,
+        "slug": "63-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-42-stav",
+        "title": "ЗИД на Наказателния кодекс - второ гласуване - параграф 42 (става параграф 46)- предложение от Николета Кузманова за редакция на точка 10",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 63
+      },
+      {
+        "date": "2025-07-18",
+        "item": 62,
+        "slug": "62-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-42-pred",
+        "title": "ЗИД на Наказателния кодекс - второ гласуване - параграф 42 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2025-07-18",
+        "item": 58,
+        "slug": "58-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-38-stav",
+        "title": "ЗИД на Наказателния кодекс - второ гласуване - параграф 38 (става параграф 40) - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2025-07-18",
+        "item": 38,
+        "slug": "38-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-9-predl",
+        "title": "ЗИД на Наказателния кодекс - второ гласуване - параграф 9 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2025-07-18",
+        "item": 36,
+        "slug": "36-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-4-predl",
+        "title": "ЗИД на Наказателния кодекс - второ гласуване - параграф 4 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2025-07-16",
+        "item": 37,
+        "slug": "37-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата – второ гласуване - параграф 6а - предложение от Любен Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2025-07-16",
+        "item": 8,
+        "slug": "8-programa-za-rabotata-na-narodno-sabranie-za-16-18-yuli-2025-",
+        "title": "Програма за работата на Народно събрание за 16 - 18 юли 2025 г. - предложение от Йордан Тодоров - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2025-07-16",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodno-sabranie-za-16-18-yuli-2025-",
+        "title": "Програма за работата на Народно събрание за 16 - 18 юли 2025 г. - предложение от Цвета Рангелова и Петър Петров - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2025-07-11",
+        "item": 11,
+        "slug": "11-reshenie-za-priemane-na-pravila-za-deynostta-na-nominatsionn",
+        "title": "Решение за приемане на Правила за дейността на Номинационната комисия и провеждане на процедура по номиниране, разглеждане на кандидатури и избор на членове на Комисия за противодействие на корупцията - предложение от Цвета Рангелова за редакция",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2025-07-09",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-vissheto-obrazovanie-parvo-glasuvane-protse",
+        "title": "ЗИД на Закона за висшето образование – първо гласуване - процедура от Васил Пандов за удължаване на срока за предложения",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2025-07-02",
+        "item": 10,
+        "slug": "10-reshenie-za-proizvezhdane-na-natsionalen-referendum-protsedu",
+        "title": "Решение за произвеждане на национален референдум - процедура от Ангел Славчев за удължаване на р.време до приключване на точката - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2025-06-26",
+        "item": 13,
+        "slug": "13-zid-na-nakazatelniya-kodeks-parvo-glasuvane-vnositel-kostadi",
+        "title": "ЗИД на Наказателния кодекс – първо гласуване - вносител Костадин Костадинов и група н.п внесен на 09.04.2025 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 58
+      },
+      {
+        "date": "2025-06-19",
+        "item": 175,
+        "slug": "175-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 77 - предложение от Рая Назарян и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2025-06-19",
+        "item": 97,
+        "slug": "97-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 33 (става член 31) - предложение от Христо Расташки",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2025-06-19",
+        "item": 85,
+        "slug": "85-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 28 - Вариант 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 52
+      },
+      {
+        "date": "2025-06-19",
+        "item": 66,
+        "slug": "66-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 18 (става член 17) - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 54
+      },
+      {
+        "date": "2025-06-19",
+        "item": 22,
+        "slug": "22-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 3а - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 58
+      },
+      {
+        "date": "2025-06-19",
+        "item": 5,
+        "slug": "5-reshenie-za-izmenenie-i-dopalnenie-na-pravilnika-za-organiza",
+        "title": "Решение за изменение и допълнение на Правилника за организацията и дейността на Народното събрание - параграф 2 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2025-06-18",
+        "item": 41,
+        "slug": "41-zid-na-zakona-za-chuzhdentsite-v-republika-balgariya-vtoro-g",
+        "title": "ЗИД на Закона за чужденците в Република България – второ гласуване - параграф 11 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2025-06-18",
+        "item": 38,
+        "slug": "38-zid-na-zakona-za-chuzhdentsite-v-republika-balgariya-vtoro-g",
+        "title": "ЗИД на Закона за чужденците в Република България – второ гласуване - параграф 10 - предложение от Божидар Божанов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2025-06-05",
+        "item": 25,
+        "slug": "25-zakonoproekt-za-litsata-obsluzhvashti-krediti-i-kupuvachite-",
+        "title": "Законопроект за лицата, обслужващи кредити, и купувачите на кредити – второ гласуване - член 3 - предложение от Мартин Димитров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 54
+      },
+      {
+        "date": "2025-05-28",
+        "item": 25,
+        "slug": "25-reshenie-za-izbor-na-predsedatel-zamestnik-predsedatel-sekre",
+        "title": "Решение за избор на председател, заместник-председател, секретар и членове на Комисията за разкриване на документите и за обявяване на принадлежност на български граждани към Държавна сигурност и разузнавателните служби на Българската народна армия - избира за член Стефан Тафров - прегласуване",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 59
+      },
+      {
+        "date": "2025-05-28",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-may-2025",
+        "title": "Програма за работата на Народното събрание за 28 - 30 май 2025 г. - предложение от Костадин Костадинов - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3183,
+        "score": 0.95387431226651,
+        "overlap": 3640
+      },
+      {
+        "mpId": 3295,
+        "score": 0.9473081822756444,
+        "overlap": 3639
+      },
+      {
+        "mpId": 3098,
+        "score": 0.944661781789297,
+        "overlap": 3644
+      },
+      {
+        "mpId": 3394,
+        "score": 0.9442988076303295,
+        "overlap": 3637
+      },
+      {
+        "mpId": 3157,
+        "score": 0.9399446657385903,
+        "overlap": 3604
+      },
+      {
+        "mpId": 3414,
+        "score": 0.9389049906022335,
+        "overlap": 3533
+      },
+      {
+        "mpId": 3078,
+        "score": 0.9374776604210002,
+        "overlap": 3556
+      },
+      {
+        "mpId": 3152,
+        "score": 0.9373250699281471,
+        "overlap": 3604
+      },
+      {
+        "mpId": 3234,
+        "score": 0.9364027361553963,
+        "overlap": 3575
+      },
+      {
+        "mpId": 3149,
+        "score": 0.9354741448147939,
+        "overlap": 3572
+      },
+      {
+        "mpId": 3032,
+        "score": 0.9350424667347701,
+        "overlap": 3577
+      },
+      {
+        "mpId": 3190,
+        "score": 0.935029500707771,
+        "overlap": 3591
+      },
+      {
+        "mpId": 3120,
+        "score": 0.9346419606694886,
+        "overlap": 3572
+      },
+      {
+        "mpId": 3377,
+        "score": 0.9340734931533355,
+        "overlap": 3541
+      },
+      {
+        "mpId": 3361,
+        "score": 0.9335613613364938,
+        "overlap": 3597
+      },
+      {
+        "mpId": 3221,
+        "score": 0.9318876985938845,
+        "overlap": 3531
+      },
+      {
+        "mpId": 3100,
+        "score": 0.9268537715494829,
+        "overlap": 3523
+      },
+      {
+        "mpId": 3033,
+        "score": 0.9225971003201187,
+        "overlap": 3540
+      },
+      {
+        "mpId": 3236,
+        "score": 0.9220204880046694,
+        "overlap": 3522
+      },
+      {
+        "mpId": 3085,
+        "score": 0.9188596942141791,
+        "overlap": 3434
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3518,
+        "score": -0.37275968933105796,
+        "overlap": 2517
+      },
+      {
+        "mpId": 3514,
+        "score": -0.370547383603591,
+        "overlap": 2383
+      },
+      {
+        "mpId": 3517,
+        "score": -0.3682506679706642,
+        "overlap": 2443
+      },
+      {
+        "mpId": 3513,
+        "score": -0.3653519360907442,
+        "overlap": 2311
+      },
+      {
+        "mpId": 3510,
+        "score": -0.3561399780043237,
+        "overlap": 2223
+      },
+      {
+        "mpId": 3515,
+        "score": -0.355565276533405,
+        "overlap": 2357
+      },
+      {
+        "mpId": 3512,
+        "score": -0.3430280938728642,
+        "overlap": 2011
+      },
+      {
+        "mpId": 3516,
+        "score": -0.33321495051376615,
+        "overlap": 2115
+      },
+      {
+        "mpId": 3508,
+        "score": -0.3325131495238297,
+        "overlap": 2249
+      },
+      {
+        "mpId": 3511,
+        "score": -0.3166355579553716,
+        "overlap": 1584
+      },
+      {
+        "mpId": 3480,
+        "score": -0.2945146364524244,
+        "overlap": 1886
+      },
+      {
+        "mpId": 3026,
+        "score": -0.2897682653603199,
+        "overlap": 2703
+      },
+      {
+        "mpId": 3490,
+        "score": -0.285794807677131,
+        "overlap": 2242
+      },
+      {
+        "mpId": 3122,
+        "score": -0.2830776919542463,
+        "overlap": 3356
+      },
+      {
+        "mpId": 3028,
+        "score": -0.2818386399844708,
+        "overlap": 3187
+      },
+      {
+        "mpId": 3084,
+        "score": -0.2813692656232852,
+        "overlap": 3231
+      },
+      {
+        "mpId": 3230,
+        "score": -0.280617625388036,
+        "overlap": 3389
+      },
+      {
+        "mpId": 3482,
+        "score": -0.27966443564123566,
+        "overlap": 2023
+      },
+      {
+        "mpId": 3165,
+        "score": -0.27846423141539456,
+        "overlap": 3373
+      },
+      {
+        "mpId": 3358,
+        "score": -0.27801562617807557,
+        "overlap": 3311
+      }
+    ]
+  }
+}

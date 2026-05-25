@@ -1,0 +1,90 @@
+{
+  "mpId": 2853,
+  "summary": {
+    "totalEur": 146625.5107089062,
+    "totalOther": {},
+    "contractCount": 11,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 146625.5107089062,
+    "rank": 32,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 2853,
+      "mpName": "Дора Стоянова Христова",
+      "contractorEik": "103873562",
+      "contractorName": "МЕДИЦИНСКИ ЦЕНТЪР МЛАДОСТ ВАРНА ООД",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 146625.5107089062,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2013",
+          "contractCount": 4,
+          "totalEur": 1593.3797927222715,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 4,
+          "totalEur": 106880.35258688127,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 2,
+          "totalEur": 17229.71832930265,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 20922.06,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000093442",
+          "name": "ОБЩИНА ВАРНА",
+          "contractCount": 3,
+          "totalEur": 106860.00317000966,
+          "totalOther": {}
+        },
+        {
+          "eik": "130362903",
+          "name": "АГЕНЦИЯ ПО ГЕОДЕЗИЯ, КАРТОГРАФИЯ И КАДАСТЪР",
+          "contractCount": 2,
+          "totalEur": 37130.01263392012,
+          "totalOther": {}
+        },
+        {
+          "eik": "121817309",
+          "name": "Районна прокуратура, гр. Разград",
+          "contractCount": 4,
+          "totalEur": 1593.3797927222715,
+          "totalOther": {}
+        },
+        {
+          "eik": "121858220",
+          "name": "РАЙОННА ЗДРАВНООСИГУРИТЕЛНА КАСА - СИЛИСТРА",
+          "contractCount": 2,
+          "totalEur": 1042.1151122541326,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

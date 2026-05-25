@@ -1,0 +1,94 @@
+{
+  "mpId": 50,
+  "summary": {
+    "totalEur": 109934.91254352372,
+    "totalOther": {},
+    "contractCount": 7,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 109934.91254352372,
+    "rank": 35,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 50,
+      "mpName": "Енчо Вълков Малев",
+      "contractorEik": "124121775",
+      "contractorName": "Добруджански хляб АД - Добрич",
+      "relations": [
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 109934.91254352372,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 2,
+          "totalEur": 15737.564103219605,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 1,
+          "totalEur": 10225.83762392437,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 29825.700597700208,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 44738.03960466912,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 2,
+          "totalEur": 9407.77061401042,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000852188",
+          "name": "Община Добричка",
+          "contractCount": 4,
+          "totalEur": 93481.53980662941,
+          "totalOther": {}
+        },
+        {
+          "eik": "000851111",
+          "name": "Център за психично здраве /ЦПЗ/ д-р П. Станчев- Добрич\" ЕООД /старо наименование - Областен диспансер за психични заболявания със стационар /ОДПЗС/ \"Д-р П. Станчев\" ЕООД- Добрич",
+          "contractCount": 2,
+          "totalEur": 9407.77061401042,
+          "totalOther": {}
+        },
+        {
+          "eik": "834056394",
+          "name": "Държавна психиатрична болница /ДПБ/ - с. Карвуна",
+          "contractCount": 1,
+          "totalEur": 7045.602122883891,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,565 @@
+{
+  "mpId": 3294,
+  "ns": "51",
+  "partyShort": "ДПС - НН",
+  "loyalty": {
+    "votesCast": 2660,
+    "withParty": 2626,
+    "loyaltyPct": 0.987218045112782,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 2660,
+    "dissentCount": 34,
+    "recent": [
+      {
+        "date": "2026-04-01",
+        "item": 7,
+        "slug": "7-protsedura-ot-atanas-v-atanasov-tochka-4-da-stane-tochka-2",
+        "title": "Процедура от Атанас В. Атанасов точка 4 да стане точка 2",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 26
+      },
+      {
+        "date": "2026-03-19",
+        "item": 49,
+        "slug": "49-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-2-predl",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 2 - предложение от Николета Кузманова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      },
+      {
+        "date": "2026-03-04",
+        "item": 22,
+        "slug": "22-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-1a-nov-",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 1а - нов - предложение от Божидар Божанов и Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2026-02-18",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-zdraveto-parvo-glasuvane-vnositel-stela-nik",
+        "title": "ЗИД на Закона за здравето - първо гласуване - вносител Стела Николова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-12-03",
+        "item": 8,
+        "slug": "8-protsedura-ot-hristo-rastashki-za-udalzhavane-na-zasedanieto",
+        "title": "Процедура от Христо Расташки за удължаване на заседанието до приключване на точка 4 от дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2025-11-12",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-zdravnoto-osiguryavane-vtoro-glasuvane-para",
+        "title": "ЗИД на Закона за здравното осигуряване – второ гласуване - параграф 3 (става параграф единствен)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2025-10-22",
+        "item": 8,
+        "slug": "8-programa-za-rabotata-na-narodnoto-sabranie-za-22-24-oktomvri",
+        "title": "Програма за работата на Народното събрание за 22 - 24 октомври 2025 г. - предложение от Ивайло Мирчев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-10-08",
+        "item": 15,
+        "slug": "15-programa-za-rabotata-na-narodno-sabranie-za-8-10-oktomvri-20",
+        "title": "Програма за работата на Народно събрание за 8 - 10 октомври 2025 г. - предложение от Атанас Атанасов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 26
+      },
+      {
+        "date": "2025-07-23",
+        "item": 153,
+        "slug": "153-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата - второ гласуване - параграф 110а - предложение от Любен Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2025-07-23",
+        "item": 81,
+        "slug": "81-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата - второ гласуване - параграф 73 - предложение от Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 26
+      },
+      {
+        "date": "2025-07-23",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата - второ гласуване - параграф 44 -предложение от Биляна Иванова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2025-07-18",
+        "item": 8,
+        "slug": "8-protsedura-ot-aleksandar-rashev-za-pryako-predavane-po-bnt-i",
+        "title": "Процедура от Александър Рашев за пряко предаване по БНТ и БНР на точка 1 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2025-06-27",
+        "item": 27,
+        "slug": "27-zid-na-grazhdanskiya-protsesualen-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Гражданския процесуален кодекс - второ гласуване - параграф 14 - предложение от Анна Александрова - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2025-06-18",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-18-20-yuni-202",
+        "title": "Програма за работата на Народното събрание за 18 - 20 юни 2025 г. - предложение от Ивайло Мирчев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-03-19",
+        "item": 83,
+        "slug": "83-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - параграф 17 (става параграф 20) - предложение от Божидар Божанов и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-03-19",
+        "item": 82,
+        "slug": "82-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - параграф 17 (става параграф 20) - предложение от Божидар Божанов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-03-19",
+        "item": 78,
+        "slug": "78-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - параграф 15 - предложение от Божидар Божанов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-03-19",
+        "item": 75,
+        "slug": "75-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - параграф 9 - предложение от Асен Василев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-03-19",
+        "item": 71,
+        "slug": "71-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - член 4 - предложение от Асен Василев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-03-19",
+        "item": 53,
+        "slug": "53-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - параграф 5а до 5 и- нови - предложение от Мартин Димитров и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-03-19",
+        "item": 51,
+        "slug": "51-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - параграф 5 - предложение от Мартин Димитров и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-03-19",
+        "item": 50,
+        "slug": "50-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - параграф 5 - предложение от Асен Василев и група н.п. - точка 3 - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-03-19",
+        "item": 48,
+        "slug": "48-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - параграф 5 - предложение от Асен Василев и група н.п. - точка 2 - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-03-19",
+        "item": 46,
+        "slug": "46-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - параграф 5 - предложение от Асен Василев и група н.п. - точка 1",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-03-19",
+        "item": 38,
+        "slug": "38-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - член 11 - предложение от Асен Василев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-03-19",
+        "item": 34,
+        "slug": "34-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - член 9 - предложение от Мартин Димитров и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-03-19",
+        "item": 31,
+        "slug": "31-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - член 7 - предложение от Асен Василев и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-03-19",
+        "item": 30,
+        "slug": "30-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - член 7 - предложение от Асен Василев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-03-19",
+        "item": 28,
+        "slug": "28-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - член 6 - предложение от Асен Василев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-03-19",
+        "item": 26,
+        "slug": "26-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - член 2 - предложение от Асен Василев и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-03-19",
+        "item": 25,
+        "slug": "25-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - член 2 - предложение от Асен Василев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-03-19",
+        "item": 23,
+        "slug": "23-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - член 1 - предложение от Асен Василев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-03-05",
+        "item": 20,
+        "slug": "20-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на Държавното обществено осигуряване за 2025 г. - първо гласуване - процедура за допускане в зала - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2025-01-15",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-4-",
+        "title": "ЗИД на Закона за съдебната власт – второ гласуване - параграф 4 (става параграф 2)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 29
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3228,
+        "score": 0.8272433699995421,
+        "overlap": 2621
+      },
+      {
+        "mpId": 3156,
+        "score": 0.824121449917531,
+        "overlap": 2611
+      },
+      {
+        "mpId": 3018,
+        "score": 0.822050141093429,
+        "overlap": 2578
+      },
+      {
+        "mpId": 3400,
+        "score": 0.8161859135923566,
+        "overlap": 2583
+      },
+      {
+        "mpId": 3110,
+        "score": 0.8145111058382911,
+        "overlap": 2455
+      },
+      {
+        "mpId": 3042,
+        "score": 0.8141899279067345,
+        "overlap": 2487
+      },
+      {
+        "mpId": 3401,
+        "score": 0.8123727205786048,
+        "overlap": 2540
+      },
+      {
+        "mpId": 3224,
+        "score": 0.8116860772410084,
+        "overlap": 2549
+      },
+      {
+        "mpId": 3308,
+        "score": 0.8104222037729238,
+        "overlap": 2556
+      },
+      {
+        "mpId": 3393,
+        "score": 0.8078365642677391,
+        "overlap": 2542
+      },
+      {
+        "mpId": 3231,
+        "score": 0.8074605211648307,
+        "overlap": 2490
+      },
+      {
+        "mpId": 3302,
+        "score": 0.8052538943228608,
+        "overlap": 2508
+      },
+      {
+        "mpId": 3127,
+        "score": 0.8018402072890032,
+        "overlap": 2496
+      },
+      {
+        "mpId": 3356,
+        "score": 0.8012715233806974,
+        "overlap": 2507
+      },
+      {
+        "mpId": 3131,
+        "score": 0.8012439844643204,
+        "overlap": 2075
+      },
+      {
+        "mpId": 3293,
+        "score": 0.7965775650233986,
+        "overlap": 2253
+      },
+      {
+        "mpId": 3044,
+        "score": 0.79224223210127,
+        "overlap": 2305
+      },
+      {
+        "mpId": 3343,
+        "score": 0.7879987928209523,
+        "overlap": 2331
+      },
+      {
+        "mpId": 3415,
+        "score": 0.7879768774669144,
+        "overlap": 2464
+      },
+      {
+        "mpId": 3306,
+        "score": 0.7863229849333144,
+        "overlap": 2464
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3122,
+        "score": -0.310431132498146,
+        "overlap": 2416
+      },
+      {
+        "mpId": 3230,
+        "score": -0.30522013765517736,
+        "overlap": 2431
+      },
+      {
+        "mpId": 3121,
+        "score": -0.30428830445037625,
+        "overlap": 2329
+      },
+      {
+        "mpId": 3090,
+        "score": -0.3031481496391946,
+        "overlap": 2500
+      },
+      {
+        "mpId": 3084,
+        "score": -0.3029772410714099,
+        "overlap": 2319
+      },
+      {
+        "mpId": 3028,
+        "score": -0.30271165278885526,
+        "overlap": 2290
+      },
+      {
+        "mpId": 3358,
+        "score": -0.30113912847006696,
+        "overlap": 2374
+      },
+      {
+        "mpId": 3307,
+        "score": -0.299089893035481,
+        "overlap": 2323
+      },
+      {
+        "mpId": 3512,
+        "score": -0.2989669379157653,
+        "overlap": 1394
+      },
+      {
+        "mpId": 3304,
+        "score": -0.2989171166045968,
+        "overlap": 2370
+      },
+      {
+        "mpId": 3513,
+        "score": -0.29884780102727754,
+        "overlap": 1523
+      },
+      {
+        "mpId": 3205,
+        "score": -0.2985110004688474,
+        "overlap": 2431
+      },
+      {
+        "mpId": 3165,
+        "score": -0.2970517179985025,
+        "overlap": 2458
+      },
+      {
+        "mpId": 3095,
+        "score": -0.29495522170116634,
+        "overlap": 2315
+      },
+      {
+        "mpId": 3518,
+        "score": -0.2947599157567339,
+        "overlap": 1684
+      },
+      {
+        "mpId": 3141,
+        "score": -0.2941700018716851,
+        "overlap": 2456
+      },
+      {
+        "mpId": 3154,
+        "score": -0.2934831871639855,
+        "overlap": 2437
+      },
+      {
+        "mpId": 3129,
+        "score": -0.29325097295297153,
+        "overlap": 2412
+      },
+      {
+        "mpId": 3517,
+        "score": -0.29320310505297426,
+        "overlap": 1608
+      },
+      {
+        "mpId": 3161,
+        "score": -0.2923220773549132,
+        "overlap": 2317
+      }
+    ]
+  }
+}

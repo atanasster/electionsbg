@@ -1,0 +1,663 @@
+{
+  "mpId": 2091,
+  "ns": "48",
+  "partyShort": "ПП",
+  "loyalty": {
+    "votesCast": 1158,
+    "withParty": 1112,
+    "loyaltyPct": 0.9602763385146805,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 1158,
+    "dissentCount": 46,
+    "recent": [
+      {
+        "date": "2023-02-02",
+        "item": 2,
+        "slug": "2-protsedura-ot-yordan-tsonev-za-razmestvane-na-tochkite",
+        "title": "Процедура от Йордан Цонев за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 45
+      },
+      {
+        "date": "2023-02-01",
+        "item": 36,
+        "slug": "36-zid-na-zakona-za-patishtata-vtoro-glasuvane-paragraf-5-predl",
+        "title": "ЗИД на Закона за пътищата - второ гласуване - параграф 5 - предложение от Коста Стоянов за редакция в т.2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 42
+      },
+      {
+        "date": "2023-02-01",
+        "item": 7,
+        "slug": "7-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 2 - предложение от Корнелия Нинова за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 42
+      },
+      {
+        "date": "2023-01-31",
+        "item": 8,
+        "slug": "8-reshenie-za-vazlagane-na-ministerski-savet-da-izgotvi-vseobh",
+        "title": "Решение за възлагане на Министерски съвет да изготви всеобхватна и финансово обоснована програма за инвестиции в отбраната до 2032 г. - предложение от Николай Дренчев за редакция по точка 1 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 35
+      },
+      {
+        "date": "2023-01-27",
+        "item": 62,
+        "slug": "62-zid-na-zakona-za-zashtita-ot-domashnoto-nasilie-parvo-glasuv",
+        "title": "ЗИД на Закона за защита от домашното насилие - първо гласуване - вносител Корнелия Нинова и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 39
+      },
+      {
+        "date": "2023-01-27",
+        "item": 58,
+        "slug": "58-zid-na-zakona-za-zashtita-ot-domashnoto-nasilie-parvo-glasuv",
+        "title": "ЗИД на Закона за защита от домашното насилие - първо гласуване - процедура от Стоян Таслаков за пряко предаване по БНТ2 и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 35
+      },
+      {
+        "date": "2023-01-26",
+        "item": 5,
+        "slug": "5-protsedura-ot-petar-petrov-za-razmestvane-na-tochkite",
+        "title": "Процедура от Петър Петров за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2023-01-18",
+        "item": 19,
+        "slug": "19-programa-za-rabotata-na-narodnoto-sabranie-za-18-20-yanuari-",
+        "title": "Програма за работата на Народното събрание за 18 - 20 януари 2023 г. - предложение от Д.Атанасова т.3 да стане точка три за утре - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 40
+      },
+      {
+        "date": "2023-01-18",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-merkite-sreshtu-izpiraneto-na-pari-parvo-gl",
+        "title": "ЗИД на Закона за мерките срещу изпирането на пари - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 33
+      },
+      {
+        "date": "2023-01-13",
+        "item": 15,
+        "slug": "15-reshenie-za-promyana-v-sastava-na-sekretarite-na-chetiridese",
+        "title": "Решение за промяна в състава на секретарите на Четиридесет и осмото Народното събрание",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2023-01-11",
+        "item": 37,
+        "slug": "37-protsedura-ot-desislava-atanasova-za-razmestvane-na-tochkite",
+        "title": "Процедура от Десислава Атанасова за разместване на точките",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 45
+      },
+      {
+        "date": "2023-01-04",
+        "item": 8,
+        "slug": "8-zid-na-kodeksa-za-sotsialno-osiguryavane-parvo-glasuvane",
+        "title": "ЗИД на Кодекса за социално осигуряване - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-12-23",
+        "item": 56,
+        "slug": "56-zid-na-zakona-za-trudovata-migratsiya-i-trudovata-mobilnost-",
+        "title": "ЗИД на Закона за трудовата миграция и трудовата мобилност - първо гласуване - процедура от Ивайло Чорбов за пряко предаване по БНТ1 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-12-23",
+        "item": 16,
+        "slug": "16-protsedura-ot-petar-petrov-za-razmestvane-na-tochkite",
+        "title": "Процедура от Петър Петров за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 47
+      },
+      {
+        "date": "2022-12-23",
+        "item": 11,
+        "slug": "11-protsedura-ot-tsoncho-ganev-za-razmestvane-na-tochkite",
+        "title": "Процедура от Цончо Ганев за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 45
+      },
+      {
+        "date": "2022-12-23",
+        "item": 5,
+        "slug": "5-protsedura-ot-hristo-gadzhev-za-razmestvane-na-tochkite",
+        "title": "Процедура от Христо Гаджев за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2022-12-22",
+        "item": 2,
+        "slug": "2-protsedura-ot-delyan-dobrev-za-razmestvane-na-tochkite",
+        "title": "Процедура от Делян Добрев за разместване на точките",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 46
+      },
+      {
+        "date": "2022-12-21",
+        "item": 16,
+        "slug": "16",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 44
+      },
+      {
+        "date": "2022-12-21",
+        "item": 15,
+        "slug": "15",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 44
+      },
+      {
+        "date": "2022-12-21",
+        "item": 14,
+        "slug": "14",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-12-21",
+        "item": 13,
+        "slug": "13",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2022-12-16",
+        "item": 26,
+        "slug": "26-zid-na-zakon-za-podpomagane-na-zemedelskite-proizvoditeli-vt",
+        "title": "ЗИД на Закон за подпомагане на земеделските производители - второ гласуване - параграф 14 - предложение от Костадин Костадинов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 21
+      },
+      {
+        "date": "2022-12-16",
+        "item": 18,
+        "slug": "18-ratifitsirane-na-sporazumenieto-mezhdu-ministerstvoto-na-otb",
+        "title": "Ратифициране на Споразумението между Министерството на отбраната на Република България и Министерството на отбраната на Украйна относно безвъзмездно предоставяне на въоражение, техника и боеприпаси - наименование, член 1 - предложение от Г.Свиленски за гласуване със ставане от място",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 44
+      },
+      {
+        "date": "2022-12-15",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-aktsizite-i-danachnite-skladove-vtoro-glasu",
+        "title": "ЗИД на Закона за акцизите и данъчните складове - второ гласуване - параграф 28 (става параграф 34) - предложение от Петър Чобанов за редакция за нова т.3",
+        "topic": "tax",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-12-15",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-aktsizite-i-danachnite-skladove-vtoro-glasu",
+        "title": "ЗИД на Закона за акцизите и данъчните складове - второ гласуване - параграф 33 - нов - предложение от Петър Чобанов за редакция",
+        "topic": "tax",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 43
+      },
+      {
+        "date": "2022-12-14",
+        "item": 4,
+        "slug": "4-reshenie-za-izbirane-na-ministar-predsedatel-na-republika-ba",
+        "title": "Решение за избиране на министър-председател на Република България - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 50
+      },
+      {
+        "date": "2022-12-09",
+        "item": 11,
+        "slug": "11-protsedura-ot-georgi-gyokov-za-razmestvane-na-tochkite",
+        "title": "Процедура от Георги Гьоков за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2022-12-08",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-mestnite-danatsi-i-taksi-parvo-glasuvane",
+        "title": "ЗИД на Закона за местните данъци и такси - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 37
+      },
+      {
+        "date": "2022-12-02",
+        "item": 171,
+        "slug": "171",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2022-12-02",
+        "item": 148,
+        "slug": "148",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 30
+      },
+      {
+        "date": "2022-12-02",
+        "item": 119,
+        "slug": "119",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 36
+      },
+      {
+        "date": "2022-12-02",
+        "item": 87,
+        "slug": "87",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 34
+      },
+      {
+        "date": "2022-12-02",
+        "item": 83,
+        "slug": "83",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2022-12-02",
+        "item": 58,
+        "slug": "58",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 39
+      },
+      {
+        "date": "2022-12-02",
+        "item": 52,
+        "slug": "52",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 37
+      },
+      {
+        "date": "2022-12-01",
+        "item": 121,
+        "slug": "121-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-nov-predloz",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф нов...- предложение от К.Костадинов и група н.п. - предложение от Евгения Алексиева за редакция в чл.215 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 46
+      },
+      {
+        "date": "2022-12-01",
+        "item": 103,
+        "slug": "103-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-6-po-vnosit",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 6 по вносител - предложение от Десислава Атанасова за редакция по чл 213б, ал.4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 46
+      },
+      {
+        "date": "2022-11-30",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-30-noemvri-2-d",
+        "title": "Програма за работата на Народното събрание за 30 ноември - 2 декември 2022 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-11-29",
+        "item": 4,
+        "slug": "4-zakon-za-prodalzhavane-deystvieto-na-razporedbi-na-zakona-za",
+        "title": "Закон за продължаване действието на разпоредби на Закона за държавния бюджет на Република България за 2022 г., Закона за бюджета на държавното обществено осигуряване за 2022 г. и Закона за бюджета на Националната здравноосигурителна каса за 2022 г. - първо гласуване - процедура от Г.Гьоков за пряко предаване по БНТ2 и БНР - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 34
+      },
+      {
+        "date": "2022-11-25",
+        "item": 6,
+        "slug": "6-protsedura-ot-rosen-zhelyazkov-za-provezhdane-na-izvanredno-",
+        "title": "Процедура от Росен Желязков за провеждане на извънредно заседание от 10 часа на 29.11.2022г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 49
+      },
+      {
+        "date": "2022-11-23",
+        "item": 13,
+        "slug": "13-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства, свързани с подписването и прекратяването на меморандума за 1 млрд. долара с Gemcorp Holdings Limited и IP3 Corporation от правителството с министър-председател Кирил Петков - процедура от Маноил Манев за удължаване на заседанието до точка 6 включително",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 40
+      },
+      {
+        "date": "2022-11-09",
+        "item": 8,
+        "slug": "8-reshenie-za-vazlagane-na-ministerski-savet-da-initsiira-lits",
+        "title": "Решение за възлагане на Министерски съвет да инициира лицензиране и сключване на договор за доставки на неруско ядрено гориво - процедура от Борислав Гуцанов за временно прекъсване на точката",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 39
+      },
+      {
+        "date": "2022-11-08",
+        "item": 18,
+        "slug": "18-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - параграф 5 - предложение от Мустафа Карадайъ и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2022-11-04",
+        "item": 4,
+        "slug": "4-reshenie-za-promeni-v-sastava-na-komisiyata-po-konstitutsion",
+        "title": "Решение за промени в състава на Комисията по конституционни въпроси - освобождава Смиляна Нитова и избира Явор Божанков",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 41
+      },
+      {
+        "date": "2022-10-28",
+        "item": 10,
+        "slug": "10-reshenie-za-izbirane-na-komisiyata-po-byudzhet-i-finansi-pop",
+        "title": "Решение за избиране на Комисията по бюджет и финанси - попълване на състава",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 41
+      },
+      {
+        "date": "2022-10-26",
+        "item": 8,
+        "slug": "8-reshenie-za-zadalzhavane-na-ms-v-srok-ot-sedem-dni-pri-spazv",
+        "title": "Решение за задължаване на МС в срок от седем дни, при спазване на законовите изисквания, да внесе в Народното събрание всички законопроекти, необходими за изпълнение на междинните етапни цели по Националния план за възстановяване и устойчивост, във връзка с подаване към ЕК на искане за второ плащане към 31.12.2022 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 50
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2109,
+        "score": 0.9058103861015453,
+        "overlap": 1143
+      },
+      {
+        "mpId": 2053,
+        "score": 0.8934905920482012,
+        "overlap": 1133
+      },
+      {
+        "mpId": 2118,
+        "score": 0.8836161595966769,
+        "overlap": 1083
+      },
+      {
+        "mpId": 2029,
+        "score": 0.8807734091258852,
+        "overlap": 1100
+      },
+      {
+        "mpId": 2062,
+        "score": 0.8805011481760756,
+        "overlap": 1105
+      },
+      {
+        "mpId": 2103,
+        "score": 0.8751391305299597,
+        "overlap": 1079
+      },
+      {
+        "mpId": 2362,
+        "score": 0.8735899004375542,
+        "overlap": 1071
+      },
+      {
+        "mpId": 2168,
+        "score": 0.869175432259829,
+        "overlap": 1080
+      },
+      {
+        "mpId": 2155,
+        "score": 0.867953394162538,
+        "overlap": 1061
+      },
+      {
+        "mpId": 2343,
+        "score": 0.8660939562491141,
+        "overlap": 1044
+      },
+      {
+        "mpId": 2017,
+        "score": 0.864619881372806,
+        "overlap": 1024
+      },
+      {
+        "mpId": 2114,
+        "score": 0.8635169548683816,
+        "overlap": 1055
+      },
+      {
+        "mpId": 2083,
+        "score": 0.849732526382257,
+        "overlap": 1017
+      },
+      {
+        "mpId": 2176,
+        "score": 0.8482450206904311,
+        "overlap": 1011
+      },
+      {
+        "mpId": 2110,
+        "score": 0.8450683614199075,
+        "overlap": 982
+      },
+      {
+        "mpId": 2282,
+        "score": 0.8339827299893291,
+        "overlap": 977
+      },
+      {
+        "mpId": 2120,
+        "score": 0.8304743771782448,
+        "overlap": 969
+      },
+      {
+        "mpId": 2125,
+        "score": 0.8298282950932463,
+        "overlap": 976
+      },
+      {
+        "mpId": 2093,
+        "score": 0.829547390383901,
+        "overlap": 958
+      },
+      {
+        "mpId": 2243,
+        "score": 0.8252776152421101,
+        "overlap": 959
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1297,
+        "score": -0.1424739576840787,
+        "overlap": 349
+      },
+      {
+        "mpId": 2133,
+        "score": -0.10701710829089352,
+        "overlap": 306
+      },
+      {
+        "mpId": 663,
+        "score": -0.05218485108581488,
+        "overlap": 653
+      },
+      {
+        "mpId": 960,
+        "score": -0.05153286548634347,
+        "overlap": 675
+      },
+      {
+        "mpId": 1389,
+        "score": -0.03243108127519967,
+        "overlap": 662
+      },
+      {
+        "mpId": 1576,
+        "score": -0.012004170636078447,
+        "overlap": 736
+      },
+      {
+        "mpId": 1000,
+        "score": -0.006988622465821414,
+        "overlap": 708
+      },
+      {
+        "mpId": 524,
+        "score": -0.0046491862380678385,
+        "overlap": 700
+      },
+      {
+        "mpId": 810,
+        "score": 0.0016834945265323772,
+        "overlap": 326
+      },
+      {
+        "mpId": 2295,
+        "score": 0.021327525041623947,
+        "overlap": 847
+      },
+      {
+        "mpId": 2064,
+        "score": 0.02540363133266644,
+        "overlap": 46
+      },
+      {
+        "mpId": 398,
+        "score": 0.03253643001564249,
+        "overlap": 814
+      },
+      {
+        "mpId": 2356,
+        "score": 0.0329970082752526,
+        "overlap": 846
+      },
+      {
+        "mpId": 2256,
+        "score": 0.03621090115980675,
+        "overlap": 661
+      },
+      {
+        "mpId": 451,
+        "score": 0.04068578120248761,
+        "overlap": 633
+      },
+      {
+        "mpId": 2283,
+        "score": 0.04154808780174138,
+        "overlap": 217
+      },
+      {
+        "mpId": 2038,
+        "score": 0.0435298487915568,
+        "overlap": 892
+      },
+      {
+        "mpId": 2088,
+        "score": 0.044607310631015765,
+        "overlap": 759
+      },
+      {
+        "mpId": 1700,
+        "score": 0.0448387957655649,
+        "overlap": 819
+      },
+      {
+        "mpId": 1723,
+        "score": 0.04557514622207259,
+        "overlap": 934
+      }
+    ]
+  }
+}

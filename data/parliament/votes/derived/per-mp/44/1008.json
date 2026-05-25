@@ -1,0 +1,335 @@
+{
+  "mpId": 1008,
+  "ns": "44",
+  "partyShort": "ОП",
+  "loyalty": {
+    "votesCast": 329,
+    "withParty": 318,
+    "loyaltyPct": 0.9665653495440729,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 329,
+    "dissentCount": 11,
+    "recent": [
+      {
+        "date": "2021-03-05",
+        "item": 3,
+        "slug": "3-reshenie-za-vazlagane-na-ministerskiya-savet-osiguryavane-na",
+        "title": "Решение за възлагане на Министерския съвет осигуряване на достъп на българските граждани до руската ваксина срещу Ковид - 19 \"Спутник V\" - процедура от Александър Симов за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2020-12-09",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-9-11-dekemvri-",
+        "title": "Програма за работата на Народното събрание за 9 - 11 декември 2020 г. - предложение за отпадане на точка 2 - прегласуване Г.Свиленски",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2020-12-09",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-9-11-dekemvri-",
+        "title": "Програма за работата на Народното събрание за 9 - 11 декември 2020 г. - предложение за отпадане на точка 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2020-12-03",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-2-4-dekemvri-2",
+        "title": "Програма за работата на Народното събрание за 2 - 4 декември 2020 г. - процедура за нова точка Изслушване на министър-председателя на Република България Бойко Борисов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2020-11-25",
+        "item": 73,
+        "slug": "73-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 66 - предложение от Дора Христова и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2020-11-25",
+        "item": 25,
+        "slug": "25-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 15 - предложение от Георги Свиленски и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2020-11-24",
+        "item": 22,
+        "slug": "22-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 20 (става параграф 22) - предложение от Георги Йорданов и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2020-11-24",
+        "item": 17,
+        "slug": "17-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 16 (става параграф 17) - предложение от Георги Йорданов и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2020-11-24",
+        "item": 12,
+        "slug": "12-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - Член 4 - предложение от Мустафа Карадайъ и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2020-11-20",
+        "item": 16,
+        "slug": "16-zd-na-zakona-za-zadalzheniyata-i-dogovorite-vtoro-glasuvane-",
+        "title": "ЗД на Закона за задълженията и договорите - второ гласуване - параграф 2 , параграф 2 (става параграф 3)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2020-11-11",
+        "item": 9,
+        "slug": "9-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-1-predlozhe",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 1 - предложение от Валентина Найденова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1462,
+        "score": 0.5832097504965129,
+        "overlap": 287
+      },
+      {
+        "mpId": 1528,
+        "score": 0.5682145346555928,
+        "overlap": 287
+      },
+      {
+        "mpId": 1321,
+        "score": 0.5636865873337302,
+        "overlap": 264
+      },
+      {
+        "mpId": 1365,
+        "score": 0.5559155187539566,
+        "overlap": 266
+      },
+      {
+        "mpId": 1535,
+        "score": 0.5432045819083939,
+        "overlap": 218
+      },
+      {
+        "mpId": 1479,
+        "score": 0.5273560286941179,
+        "overlap": 278
+      },
+      {
+        "mpId": 1457,
+        "score": 0.5269251152537561,
+        "overlap": 323
+      },
+      {
+        "mpId": 1244,
+        "score": 0.5242142000096832,
+        "overlap": 324
+      },
+      {
+        "mpId": 1341,
+        "score": 0.5235020576997913,
+        "overlap": 319
+      },
+      {
+        "mpId": 1069,
+        "score": 0.5231238668229445,
+        "overlap": 237
+      },
+      {
+        "mpId": 1263,
+        "score": 0.5190028493150814,
+        "overlap": 274
+      },
+      {
+        "mpId": 1498,
+        "score": 0.5178822617145185,
+        "overlap": 319
+      },
+      {
+        "mpId": 1461,
+        "score": 0.5165196938749338,
+        "overlap": 315
+      },
+      {
+        "mpId": 805,
+        "score": 0.5161980180531512,
+        "overlap": 302
+      },
+      {
+        "mpId": 1513,
+        "score": 0.5154598313679177,
+        "overlap": 289
+      },
+      {
+        "mpId": 540,
+        "score": 0.5137433436465306,
+        "overlap": 296
+      },
+      {
+        "mpId": 1540,
+        "score": 0.5127030322645715,
+        "overlap": 251
+      },
+      {
+        "mpId": 404,
+        "score": 0.5106808981085698,
+        "overlap": 292
+      },
+      {
+        "mpId": 1367,
+        "score": 0.5104303298744398,
+        "overlap": 315
+      },
+      {
+        "mpId": 1288,
+        "score": 0.5088865210598945,
+        "overlap": 307
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 829,
+        "score": -0.15618152209695924,
+        "overlap": 181
+      },
+      {
+        "mpId": 1323,
+        "score": -0.1533650591165676,
+        "overlap": 230
+      },
+      {
+        "mpId": 1358,
+        "score": -0.14807514333829958,
+        "overlap": 194
+      },
+      {
+        "mpId": 1533,
+        "score": -0.1314048569133292,
+        "overlap": 192
+      },
+      {
+        "mpId": 1045,
+        "score": -0.12480736932257815,
+        "overlap": 132
+      },
+      {
+        "mpId": 1530,
+        "score": -0.12431428846951029,
+        "overlap": 134
+      },
+      {
+        "mpId": 1531,
+        "score": -0.12257848699850585,
+        "overlap": 133
+      },
+      {
+        "mpId": 1368,
+        "score": -0.11750519800346751,
+        "overlap": 88
+      },
+      {
+        "mpId": 782,
+        "score": -0.1099100047371213,
+        "overlap": 140
+      },
+      {
+        "mpId": 1282,
+        "score": -0.10936074102293823,
+        "overlap": 89
+      },
+      {
+        "mpId": 1273,
+        "score": -0.10747763833431913,
+        "overlap": 104
+      },
+      {
+        "mpId": 1277,
+        "score": -0.10676101504060467,
+        "overlap": 92
+      },
+      {
+        "mpId": 1379,
+        "score": -0.10392651272896247,
+        "overlap": 58
+      },
+      {
+        "mpId": 1339,
+        "score": -0.103172240874076,
+        "overlap": 150
+      },
+      {
+        "mpId": 751,
+        "score": -0.10295973345818704,
+        "overlap": 106
+      },
+      {
+        "mpId": 1342,
+        "score": -0.0997539721575636,
+        "overlap": 241
+      },
+      {
+        "mpId": 1349,
+        "score": -0.09793424119368432,
+        "overlap": 78
+      },
+      {
+        "mpId": 1559,
+        "score": -0.09579723695563,
+        "overlap": 94
+      },
+      {
+        "mpId": 1261,
+        "score": -0.09178705677944528,
+        "overlap": 128
+      },
+      {
+        "mpId": 1514,
+        "score": -0.08929083954477188,
+        "overlap": 131
+      }
+    ]
+  }
+}

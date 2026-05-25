@@ -18,9 +18,13 @@ import { computeSimilarity } from "./similarity";
 import { computeCohesion } from "./cohesion";
 import { computeEmbedding } from "./embedding";
 import { computePartyCorrelation } from "./party_correlation";
+import { computeTopicIndex } from "./topic_index";
+import { computeDissents } from "./dissents";
+import { computePartyPairBreaks } from "./party_pair_breaks";
+import { writeMpShards } from "./per_mp_shards";
 import { dedupeRevotes } from "./dedupe";
 import type { SessionFile } from "./types";
-import { uploadText } from "../../lib/upload";
+import { uploadText, uploadTextTree } from "../../lib/upload";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -154,6 +158,70 @@ const main = async (args: { upload: boolean }): Promise<void> => {
     `  ✓ ${nsKeys.map((k) => `${k}:${partyCorrelationByNs[k].parties.length}²`).join(", ")} party matrices`,
   );
 
+  console.log(`→ computing cross-session topic index per NS`);
+  const topicIndexByNs: Record<
+    string,
+    ReturnType<typeof computeTopicIndex>
+  > = {};
+  for (const ns of nsKeys)
+    topicIndexByNs[ns] = computeTopicIndex(byNs.get(ns)!);
+  writeJson(path.join(DERIVED_DIR, "topic_index.json"), {
+    computedAt: nowIso,
+    byNs: topicIndexByNs,
+  });
+  console.log(
+    `  ✓ ${nsKeys.map((k) => `${k}:${topicIndexByNs[k].entries.length}`).join(", ")} topic entries`,
+  );
+
+  console.log(`→ computing per-MP dissents per NS`);
+  const dissentsByNs: Record<string, ReturnType<typeof computeDissents>> = {};
+  for (const ns of nsKeys) dissentsByNs[ns] = computeDissents(byNs.get(ns)!);
+  writeJson(path.join(DERIVED_DIR, "dissents.json"), {
+    computedAt: nowIso,
+    byNs: dissentsByNs,
+  });
+  console.log(
+    `  ✓ ${nsKeys.map((k) => `${k}:${dissentsByNs[k].entries.length}`).join(", ")} MP entries`,
+  );
+
+  console.log(`→ computing party-pair breaks per NS`);
+  const partyPairBreaksByNs: Record<
+    string,
+    ReturnType<typeof computePartyPairBreaks>
+  > = {};
+  for (const ns of nsKeys)
+    partyPairBreaksByNs[ns] = computePartyPairBreaks(byNs.get(ns)!);
+  writeJson(path.join(DERIVED_DIR, "party_pair_breaks.json"), {
+    computedAt: nowIso,
+    byNs: partyPairBreaksByNs,
+  });
+  console.log(
+    `  ✓ ${nsKeys.map((k) => `${k}:${Object.keys(partyPairBreaksByNs[k].pairs).length}`).join(", ")} party pairs`,
+  );
+
+  // Per-MP shards: candidate pages read one tiny JSON instead of the three
+  // monolithic NS aggregates above. Aggregate files stay in place for the
+  // browse-the-whole-chamber screens. Runs last so it can reuse the metrics
+  // already computed above without re-walking the session data.
+  console.log(`→ writing per-MP shards`);
+  let shardWritten = 0;
+  let shardUnchanged = 0;
+  let shardPruned = 0;
+  for (const ns of nsKeys) {
+    const res = writeMpShards(DERIVED_DIR, {
+      ns,
+      loyalty: loyaltyByNs[ns],
+      similarity: similarityByNs[ns],
+      dissents: dissentsByNs[ns],
+    });
+    shardWritten += res.written;
+    shardUnchanged += res.unchanged;
+    shardPruned += res.pruned;
+  }
+  console.log(
+    `  ✓ ${shardWritten} written, ${shardUnchanged} unchanged, ${shardPruned} pruned`,
+  );
+
   if (args.upload) {
     console.log(`→ uploading derived/ to bucket`);
     for (const f of [
@@ -162,12 +230,26 @@ const main = async (args: { upload: boolean }): Promise<void> => {
       "cohesion.json",
       "embedding.json",
       "party_correlation.json",
+      "topic_index.json",
+      "dissents.json",
+      "party_pair_breaks.json",
     ]) {
       await uploadText(
         path.join(DERIVED_DIR, f),
         `parliament/votes/derived/${f}`,
       );
     }
+    // Per-MP shards live in per-mp/<ns>/<mpId>.json. ~2,400 files total
+    // across the 9 ingested NSes (one per MP that ever cast a vote). On the
+    // very first deploy after this code lands, expect ~2,400 net-new objects
+    // in the bucket — the data-changes diff-cap may flag it; subsequent runs
+    // touch only changed shards thanks to the writeIfChanged guard upstream.
+    // uploadTextTree streams them with the same defaults as everything else
+    // under derived/.
+    await uploadTextTree(
+      path.join(DERIVED_DIR, "per-mp"),
+      "parliament/votes/derived/per-mp",
+    );
     console.log(`✓ uploaded`);
   }
 };

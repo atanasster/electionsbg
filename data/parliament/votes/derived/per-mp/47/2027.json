@@ -1,0 +1,717 @@
+{
+  "mpId": 2027,
+  "ns": "47",
+  "partyShort": "ПП",
+  "loyalty": {
+    "votesCast": 1586,
+    "withParty": 1511,
+    "loyaltyPct": 0.9527112232030265,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1586,
+    "dissentCount": 75,
+    "recent": [
+      {
+        "date": "2022-07-29",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-ustroystvo-na-teritoriyata-parvo-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - първо гласуване - вносител Костадин Костадинов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 54
+      },
+      {
+        "date": "2022-07-29",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-ustroystvo-na-teritoriyata-parvo-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - първо гласуване - вносител Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2022-07-29",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-27-29-yuli-202",
+        "title": "Програма за работата на Народното събрание за 27 - 29 юли 2022 г. - процедура от Десислава Атанасова за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 63
+      },
+      {
+        "date": "2022-07-28",
+        "item": 6,
+        "slug": "6-reshenie-za-urezhdane-na-posleditsite-ot-reshenie-na-konstit",
+        "title": "Решение за уреждане на последиците от Решение на Конституционния съд №8 от 2022г. по конституционно дело № 4 от 2022г. - прегласуване",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 32
+      },
+      {
+        "date": "2022-07-22",
+        "item": 28,
+        "slug": "28-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на процедурни правила за условията и реда за предлагане на кандидати, представяне и публично оповестяване на документите, изслушване на кандидатите и за избор на председател на Комисията за противодействие на корупцията и за отнемане на незаконно придобито имущество - предложение от Маноил Манев за редакция",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-07-22",
+        "item": 22,
+        "slug": "22-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на процедурни правила за условията и реда за предлагане на кандидати, представяне и публично оповестяване на документите, изслушване на кандидатите и за избор на председател на Комисията за противодействие на корупцията и за отнемане на незаконно придобито имущество - предложение от Росица Кирова за редакция на ІІІ",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2022-07-20",
+        "item": 11,
+        "slug": "11-programa-za-rabotata-na-narodnoto-sabranie-za-20-22-yuli-202",
+        "title": "Програма за работата на Народното събрание за 20 - 22 юли 2022 г. - процедура от Зорница Стратиева за разместване на точките",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-07-14",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-hazarta-parvo-glasuvane-vnositel-deyan-petk",
+        "title": "ЗИД на Закона за хазарта - първо гласуване - вносител Деян Петков и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-07-14",
+        "item": 28,
+        "slug": "28-zid-na-zakona-za-hazarta-parvo-glasuvane-vnositel-deyan-petk",
+        "title": "ЗИД на Закона за хазарта - първо гласуване - вносител Деян Петков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2022-07-14",
+        "item": 9,
+        "slug": "9-zi-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-1-2-i-3-pr",
+        "title": "ЗИ на Закона за здравето - второ гласуване - параграф 1, 2 и 3 - предложение от Красимир Събев за редакция - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-07-13",
+        "item": 38,
+        "slug": "38-reshenie-za-sazdavane-na-vremenna-anketna-komisiya-za-ustano",
+        "title": "Решение за създаване на Временна анкетна комисия за установяване на всички факти и обстоятелства, относно газопроводи за пренос на природен газ от Руската федерация - \"Южен поток\" и \"Балкански поток\" и причините за забавянето на проекта IGB (Междусистемна газова връзка Гърция - България) - за председател Искра Михайлова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-07-13",
+        "item": 31,
+        "slug": "31-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства, свързани с доставката на суров петрол до производителя на горива \"Лукойл Нефтохим Бургас\" АД - за председател Искра Михайлова",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2022-07-13",
+        "item": 24,
+        "slug": "24-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства, свързани с доставката на суров петрол до производителя на горива \"Лукойл Нефтохим Бургас\" АД - вносител Десислава Атанасова и група н.п",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-07-06",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-6-8-yuli-2022-",
+        "title": "Програма за работата на Народното събрание за 6 - 8 юли 2022 г. - предложение от Любомир Каримански - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 64
+      },
+      {
+        "date": "2022-07-06",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-6-8-yuli-2022-",
+        "title": "Програма за работата на Народното събрание за 6 - 8 юли 2022 г. - предложение от Пламен Абровски - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2022-06-30",
+        "item": 34,
+        "slug": "34-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 16 а - нов- предложение от Кристиан Вигенин (№...217) - прегласуване",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-06-29",
+        "item": 61,
+        "slug": "61-protsedura-ot-hr-gadzhev-da-se-pokanyat-voenno-razuznavane-i",
+        "title": "Процедура от Хр.Гаджев да се поканят Военно разузнаване и ДАР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 64
+      },
+      {
+        "date": "2022-06-29",
+        "item": 58,
+        "slug": "58-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 31б,в - предложение от Ива Митева и група н.п. (№ ...218)",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2022-06-29",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodnoto-sabranie-za-29-yuni-10-yul",
+        "title": "Програма за работата на Народното събрание за 29 юни - 10 юли 2022 г. - процедура от Петър Петров за разместване на точка 9",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-06-28",
+        "item": 32,
+        "slug": "32-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2022 г. - второ гласуване - наименование, параграф 1 - предложение от Мустафа Карадайъ и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2022-06-28",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2022 г. - второ гласуване - наименование, параграф 1 - предложение от Мустафа Карадайъ и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2022-06-28",
+        "item": 30,
+        "slug": "30-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2022 г. - второ гласуване - наименование, параграф 1 - предложение от Костадин Костадинов и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2022-06-09",
+        "item": 15,
+        "slug": "15-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на временна комисия за установяване на факти и обстоятелства относно газопроводи за пренос на природен газ от Руската федерация „Южен поток” и „Турски (Балкански) поток” и причините за забавянето на проектът IGB (Междусистемна газова връзка Гърция - България) - Рамадан Аталай - председател - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-06-09",
+        "item": 10,
+        "slug": "10-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на временна комисия за установяване на факти и обстоятелства относно газопроводи за пренос на природен газ от Руската федерация „Южен поток” и „Турски (Балкански) поток” и причините за забавянето на проектът IGB (Междусистемна газова връзка Гърция - България) - Искра Михайлова - председател",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-06-09",
+        "item": 9,
+        "slug": "9-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на временна комисия за установяване на факти и обстоятелства относно газопроводи за пренос на природен газ от Руската федерация „Южен поток” и „Турски (Балкански) поток” и причините за забавянето на проектът IGB (Междусистемна газова връзка Гърция - България) - Станислав Анастасов - председател - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-06-08",
+        "item": 21,
+        "slug": "21-reshenie-za-udalzhavane-na-sroka-na-deystvie-na-vremenna-kom",
+        "title": "Решение за удължаване на срока на действие на Временна комисия за проверка на обстоятелствата довели до спиране на природния газ от ООО \"Газпром експорт\" и проведената процедура за избор на алтернативни доставчици от \"Булгаргаз\" ЕАД - процедура от Цончо Ганев за удължаване на работното време до приключване на точката",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-06-02",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - първо гласуване - процедура от Тошко Йорданов за пряко излъчване по БНТ и БНР - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-06-01",
+        "item": 27,
+        "slug": "27-reshenie-za-sazdvane-na-vremenna-anketna-komisiya-za-ustanov",
+        "title": "Решение за създване на Временна анкетна комисия за установяване на всички факти и обстоятелства, свързани с подписания от правителството меморандум за 1 млрд. долара с GEMCORP и IP3 CORPORATION - председател Десислава Трифонова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-05-18",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-morskite-prostranstva-vatreshnite-vodni-pat",
+        "title": "ЗИД на Закона за морските пространства, вътрешните водни пътища и пристанищата на Република България - първо гласуване - процедура от Росица Кирова за максимален срок за предложения",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-05-11",
+        "item": 21,
+        "slug": "21-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-ob",
+        "title": "Решение за създаване на Временна комисия за проверка на обстоятелствата довели до спиране на природния газ от ООО \"Газпром експорт\" и проведената процедура за избор на алтернативни доставчици от \"Булгаргаз\" ЕАД - председател Даниел Митов",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-05-11",
+        "item": 20,
+        "slug": "20-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-ob",
+        "title": "Решение за създаване на Временна комисия за проверка на обстоятелствата довели до спиране на природния газ от ООО \"Газпром експорт\" и проведената процедура за избор на алтернативни доставчици от \"Булгаргаз\" ЕАД - председател Ангел Георгиев",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 59
+      },
+      {
+        "date": "2022-05-11",
+        "item": 13,
+        "slug": "13-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-ob",
+        "title": "Решение за създаване на Временна комисия за проверка на обстоятелствата довели до спиране на природния газ от ООО \"Газпром експорт\" и проведената процедура за избор на алтернативни доставчици от \"Булгаргаз\" ЕАД - процедура за удължаване на р.време до приключване на точката",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 59
+      },
+      {
+        "date": "2022-04-14",
+        "item": 82,
+        "slug": "82-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-61",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 61 - предложение от Дани Каназирева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2022-04-14",
+        "item": 72,
+        "slug": "72-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-53",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 53 - предложение от Дани Каназирева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-04-14",
+        "item": 70,
+        "slug": "70-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-52",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 52 - предложение от Дани Каназирева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2022-04-14",
+        "item": 60,
+        "slug": "60-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-47",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 47 - предложение от Дани Каназирева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2022-04-14",
+        "item": 58,
+        "slug": "58-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-46",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 46 - предложение от Дани Каназирева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-04-14",
+        "item": 56,
+        "slug": "56-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-45",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 45 - предложение от Десислава Атанасова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2022-04-14",
+        "item": 49,
+        "slug": "49-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-42",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 42 - предложение от Дани Каназирева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-04-14",
+        "item": 48,
+        "slug": "48-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-42",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 42 - предложение от Десислава Атанасова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2022-04-14",
+        "item": 46,
+        "slug": "46-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-41",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 41 - предложение от Десислава Атанасова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-04-14",
+        "item": 42,
+        "slug": "42-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-38",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 38 - предложение от Десислава Атанасова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2022-04-14",
+        "item": 40,
+        "slug": "40-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-35",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 35 - предложение от Десислава Атанасова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2022-04-14",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-17",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 17 - предложение от Десислава Атанасова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2022-04-14",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-8-",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 8 - предложение от Десислава Атанасова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2022-03-24",
+        "item": 10,
+        "slug": "10-zi-na-zakona-za-balgarskoto-grazhdanstvo-vtoro-glasuvane-par",
+        "title": "ЗИ на Закона за българското гражданство - второ гласуване - параграф 10 - нов - предложение от Мустафа Карадайъ",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2022-03-16",
+        "item": 21,
+        "slug": "21",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 46
+      },
+      {
+        "date": "2022-02-25",
+        "item": 96,
+        "slug": "96",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 65
+      },
+      {
+        "date": "2022-02-25",
+        "item": 55,
+        "slug": "55",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 64
+      },
+      {
+        "date": "2022-02-25",
+        "item": 52,
+        "slug": "52",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 65
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2130,
+        "score": 0.8958928560957131,
+        "overlap": 1575
+      },
+      {
+        "mpId": 2109,
+        "score": 0.8952786842094611,
+        "overlap": 1562
+      },
+      {
+        "mpId": 2053,
+        "score": 0.8932922962812118,
+        "overlap": 1562
+      },
+      {
+        "mpId": 2062,
+        "score": 0.8922808707766946,
+        "overlap": 1522
+      },
+      {
+        "mpId": 2103,
+        "score": 0.8900971715018282,
+        "overlap": 1553
+      },
+      {
+        "mpId": 2125,
+        "score": 0.8859405863019415,
+        "overlap": 1534
+      },
+      {
+        "mpId": 2081,
+        "score": 0.8857495144530579,
+        "overlap": 1529
+      },
+      {
+        "mpId": 2114,
+        "score": 0.8836500433652303,
+        "overlap": 1545
+      },
+      {
+        "mpId": 2029,
+        "score": 0.8820716448740135,
+        "overlap": 1527
+      },
+      {
+        "mpId": 2108,
+        "score": 0.8798255073216072,
+        "overlap": 1498
+      },
+      {
+        "mpId": 2020,
+        "score": 0.879086855846412,
+        "overlap": 1511
+      },
+      {
+        "mpId": 2118,
+        "score": 0.8784185041430246,
+        "overlap": 1545
+      },
+      {
+        "mpId": 2117,
+        "score": 0.8765383435258916,
+        "overlap": 1513
+      },
+      {
+        "mpId": 2112,
+        "score": 0.8751932872098622,
+        "overlap": 1521
+      },
+      {
+        "mpId": 2121,
+        "score": 0.8746984672096337,
+        "overlap": 1520
+      },
+      {
+        "mpId": 2094,
+        "score": 0.8717853387871719,
+        "overlap": 1505
+      },
+      {
+        "mpId": 2036,
+        "score": 0.8692568435655411,
+        "overlap": 1476
+      },
+      {
+        "mpId": 2030,
+        "score": 0.8677542532782236,
+        "overlap": 1495
+      },
+      {
+        "mpId": 2158,
+        "score": 0.8652603194473001,
+        "overlap": 1492
+      },
+      {
+        "mpId": 2128,
+        "score": 0.8650719193046458,
+        "overlap": 1501
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1428,
+        "score": -0.1851947129709866,
+        "overlap": 726
+      },
+      {
+        "mpId": 1457,
+        "score": -0.17998164583652218,
+        "overlap": 860
+      },
+      {
+        "mpId": 1643,
+        "score": -0.16668415719607713,
+        "overlap": 779
+      },
+      {
+        "mpId": 473,
+        "score": -0.16667910778460437,
+        "overlap": 843
+      },
+      {
+        "mpId": 1465,
+        "score": -0.16449544437428187,
+        "overlap": 856
+      },
+      {
+        "mpId": 1692,
+        "score": -0.16434422235902083,
+        "overlap": 853
+      },
+      {
+        "mpId": 767,
+        "score": -0.16258413936283198,
+        "overlap": 828
+      },
+      {
+        "mpId": 1466,
+        "score": -0.16242643910891622,
+        "overlap": 650
+      },
+      {
+        "mpId": 1386,
+        "score": -0.15527856653422428,
+        "overlap": 870
+      },
+      {
+        "mpId": 1124,
+        "score": -0.1550294277404701,
+        "overlap": 792
+      },
+      {
+        "mpId": 1975,
+        "score": -0.1510421077087164,
+        "overlap": 986
+      },
+      {
+        "mpId": 1703,
+        "score": -0.150541995503622,
+        "overlap": 623
+      },
+      {
+        "mpId": 1960,
+        "score": -0.14561811152112966,
+        "overlap": 920
+      },
+      {
+        "mpId": 1317,
+        "score": -0.14531347078678014,
+        "overlap": 898
+      },
+      {
+        "mpId": 2135,
+        "score": -0.1446661953860478,
+        "overlap": 886
+      },
+      {
+        "mpId": 1880,
+        "score": -0.14461258218339268,
+        "overlap": 831
+      },
+      {
+        "mpId": 1970,
+        "score": -0.14302810055702989,
+        "overlap": 733
+      },
+      {
+        "mpId": 1651,
+        "score": -0.14256005357866028,
+        "overlap": 620
+      },
+      {
+        "mpId": 1933,
+        "score": -0.14218206184246432,
+        "overlap": 960
+      },
+      {
+        "mpId": 1706,
+        "score": -0.14180745771208014,
+        "overlap": 752
+      }
+    ]
+  }
+}

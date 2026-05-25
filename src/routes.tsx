@@ -289,6 +289,16 @@ const ParliamentCohesionScreen = lazy(() =>
     default: m.ParliamentCohesionScreen,
   })),
 );
+const MpSimilarityScreen = lazy(() =>
+  import("./screens/MpSimilarityScreen").then((m) => ({
+    default: m.MpSimilarityScreen,
+  })),
+);
+const PartyPairBreaksScreen = lazy(() =>
+  import("./screens/PartyPairBreaksScreen").then((m) => ({
+    default: m.PartyPairBreaksScreen,
+  })),
+);
 const ParliamentEmbeddingScreen = lazy(() =>
   import("./screens/ParliamentEmbeddingScreen").then((m) => ({
     default: m.ParliamentEmbeddingScreen,
@@ -1487,10 +1497,34 @@ export const AuthRoutes = () => {
           }
         />
         <Route
+          path="votes/:date/:slug"
+          element={
+            <LayoutScreen>
+              <SessionScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="votes/between/:pair"
+          element={
+            <LayoutScreen>
+              <PartyPairBreaksScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
           path="parliament/cohesion"
           element={
             <LayoutScreen>
               <ParliamentCohesionScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="parliament/similarity/:mpId"
+          element={
+            <LayoutScreen>
+              <MpSimilarityScreen />
             </LayoutScreen>
           }
         />

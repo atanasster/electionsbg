@@ -1,0 +1,27 @@
+{
+  "mpId": 2760,
+  "summary": {
+    "contractCount": 1,
+    "contractedEur": 149000,
+    "paidEur": 0
+  },
+  "entries": [
+    {
+      "mpId": 2760,
+      "mpName": "Иван Димов Иванов",
+      "beneficiaryEik": "123722347",
+      "beneficiaryName": "АГРО ИНВЕСТ ИД ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 149000,
+      "paidEur": 0
+    }
+  ]
+}

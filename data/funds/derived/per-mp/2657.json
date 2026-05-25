@@ -1,0 +1,32 @@
+{
+  "mpId": 2657,
+  "summary": {
+    "contractCount": 1,
+    "contractedEur": 337796.23,
+    "paidEur": 51749.77
+  },
+  "entries": [
+    {
+      "mpId": 2657,
+      "mpName": "Петър Христов Петров",
+      "beneficiaryEik": "203161587",
+      "beneficiaryName": "ЗЕТТА СИСТЕМС ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 337796.23,
+      "paidEur": 51749.77
+    }
+  ]
+}

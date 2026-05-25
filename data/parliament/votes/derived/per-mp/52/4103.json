@@ -1,0 +1,295 @@
+{
+  "mpId": 4103,
+  "ns": "52",
+  "partyShort": "ПП",
+  "loyalty": {
+    "votesCast": 55,
+    "withParty": 48,
+    "loyaltyPct": 0.8727272727272727,
+    "windowFrom": "2026-04-30",
+    "windowTo": "2026-05-22",
+    "totalVoteItems": 81
+  },
+  "dissents": {
+    "totalCast": 55,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2026-05-22",
+        "item": 4,
+        "slug": "4-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности – първо гласуване - процедура от Даниела Кършева за намаляване на срока за предложения на 4 дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2026-05-15",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-nasarchavane-na-investitsiite-parvo-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите – първо гласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2026-05-15",
+        "item": 2,
+        "slug": "2-zid-na-zakona-za-sadebnata-vlast-parvo-glasuvane-protsedura-",
+        "title": "ЗИД на Закона за съдебната власт – първо гласуване - процедура Янка Тянкова за удължаване на срока за предложения с две седмици",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2026-05-13",
+        "item": 5,
+        "slug": "5-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на факти и обстоятелства относно дейността, финансирането, институционалните връзки и евентуалното влияние върху държавни органи на \"Национална агенция за контрол на защитените територии\" (НАКЗТ) и свързани лица и организации, както относно нерегламентираната дейност на групата, функционирала в района на бившата хижа \"Петрохан\"",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2026-05-13",
+        "item": 4,
+        "slug": "4-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на факти и обстоятелства относно дейността, финансирането, институционалните връзки и евентуалното влияние върху държавни органи на \"Национална агенция за контрол на защитените територии\" (НАКЗТ) и свързани лица и организации, както относно нерегламентираната дейност на групата, функционирала в района на бившата хижа \"Петрохан\" - предложение от Хамид Хамид за редакция",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2026-05-07",
+        "item": 12,
+        "slug": "12-reshenie-za-sazdavane-na-vremenna-komisiya-po-priemaneto-na-",
+        "title": "Решение за създаване на Временна комисия по приемането на Правилник за организацията и дейността на Петдесет и второто Народно събрание - ръководство и състав",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2026-04-30",
+        "item": 6,
+        "slug": "6-reshenie-za-priemane-na-protsedurni-pravila-za-izbirane-na-z",
+        "title": "Решение за приемане на процедурни правила за избиране на заместник-председатели на Петдесет и второто Народно събрание",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3611,
+        "score": 0.8427325153589008,
+        "overlap": 53
+      },
+      {
+        "mpId": 4107,
+        "score": 0.8355601933068731,
+        "overlap": 54
+      },
+      {
+        "mpId": 4112,
+        "score": 0.8355601933068731,
+        "overlap": 53
+      },
+      {
+        "mpId": 3764,
+        "score": 0.8307724743085091,
+        "overlap": 52
+      },
+      {
+        "mpId": 4101,
+        "score": 0.8217483297244681,
+        "overlap": 54
+      },
+      {
+        "mpId": 4106,
+        "score": 0.8044264919334962,
+        "overlap": 52
+      },
+      {
+        "mpId": 4110,
+        "score": 0.801443899700861,
+        "overlap": 49
+      },
+      {
+        "mpId": 4113,
+        "score": 0.7991732049750867,
+        "overlap": 51
+      },
+      {
+        "mpId": 3838,
+        "score": 0.7975801845201971,
+        "overlap": 53
+      },
+      {
+        "mpId": 3791,
+        "score": 0.7965695151399157,
+        "overlap": 54
+      },
+      {
+        "mpId": 4083,
+        "score": 0.7965695151399157,
+        "overlap": 54
+      },
+      {
+        "mpId": 4111,
+        "score": 0.7965695151399157,
+        "overlap": 55
+      },
+      {
+        "mpId": 3592,
+        "score": 0.796062322277134,
+        "overlap": 55
+      },
+      {
+        "mpId": 3948,
+        "score": 0.796062322277134,
+        "overlap": 54
+      },
+      {
+        "mpId": 4043,
+        "score": 0.796062322277134,
+        "overlap": 53
+      },
+      {
+        "mpId": 3618,
+        "score": 0.790905756012445,
+        "overlap": 52
+      },
+      {
+        "mpId": 4109,
+        "score": 0.785273480220794,
+        "overlap": 53
+      },
+      {
+        "mpId": 3780,
+        "score": 0.7840243293011833,
+        "overlap": 53
+      },
+      {
+        "mpId": 3734,
+        "score": 0.7814078022083395,
+        "overlap": 47
+      },
+      {
+        "mpId": 3944,
+        "score": 0.7780446426948013,
+        "overlap": 53
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4057,
+        "score": 0.10314212462587934,
+        "overlap": 5
+      },
+      {
+        "mpId": 3945,
+        "score": 0.10939874362342092,
+        "overlap": 14
+      },
+      {
+        "mpId": 3995,
+        "score": 0.10939874362342092,
+        "overlap": 14
+      },
+      {
+        "mpId": 4017,
+        "score": 0.13315591032282686,
+        "overlap": 28
+      },
+      {
+        "mpId": 4079,
+        "score": 0.13346521599003874,
+        "overlap": 37
+      },
+      {
+        "mpId": 4007,
+        "score": 0.15718875511867386,
+        "overlap": 29
+      },
+      {
+        "mpId": 3857,
+        "score": 0.1575521978122203,
+        "overlap": 36
+      },
+      {
+        "mpId": 3996,
+        "score": 0.19492029389636262,
+        "overlap": 12
+      },
+      {
+        "mpId": 4006,
+        "score": 0.19492029389636262,
+        "overlap": 12
+      },
+      {
+        "mpId": 4055,
+        "score": 0.19492029389636262,
+        "overlap": 12
+      },
+      {
+        "mpId": 4070,
+        "score": 0.20012511730970398,
+        "overlap": 31
+      },
+      {
+        "mpId": 3972,
+        "score": 0.20227834851568374,
+        "overlap": 12
+      },
+      {
+        "mpId": 3856,
+        "score": 0.20502256005068162,
+        "overlap": 35
+      },
+      {
+        "mpId": 4023,
+        "score": 0.20628424925175867,
+        "overlap": 29
+      },
+      {
+        "mpId": 3802,
+        "score": 0.2166915913951546,
+        "overlap": 27
+      },
+      {
+        "mpId": 3984,
+        "score": 0.22597307314641282,
+        "overlap": 13
+      },
+      {
+        "mpId": 3620,
+        "score": 0.23063280200722125,
+        "overlap": 9
+      },
+      {
+        "mpId": 4086,
+        "score": 0.23602117729459798,
+        "overlap": 51
+      },
+      {
+        "mpId": 3788,
+        "score": 0.24331962586898942,
+        "overlap": 24
+      },
+      {
+        "mpId": 3736,
+        "score": 0.24687005711339435,
+        "overlap": 51
+      }
+    ]
+  }
+}

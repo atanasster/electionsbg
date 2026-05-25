@@ -1,0 +1,345 @@
+{
+  "mpId": 1385,
+  "ns": "46",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 458,
+    "withParty": 446,
+    "loyaltyPct": 0.9737991266375546,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 458,
+    "dissentCount": 12,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 79,
+        "slug": "79-protsedura-ot-mariya-kapon-za-udalzhavane-na-rabotnoto-vreme",
+        "title": "Процедура от Мария Капон за удължаване на работното време - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-09-15",
+        "item": 49,
+        "slug": "49-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 18 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 23
+      },
+      {
+        "date": "2021-09-15",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 5",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2021-09-10",
+        "item": 77,
+        "slug": "77-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6 - отпада - предложение от Делян Добрев - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-09-10",
+        "item": 52,
+        "slug": "52-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Мария Капон и Иван Тотев за редакция на т.14, ал.6 - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-09-10",
+        "item": 37,
+        "slug": "37-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Г.Ганев за редакция в.т.4 - буква е - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-09-10",
+        "item": 34,
+        "slug": "34-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Г.Ганев за редакция в.т.4 - буква д",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2021-09-10",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Пламен Абровски и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-09-10",
+        "item": 21,
+        "slug": "21-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Костадин Ангелов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-09-10",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Хр.Гаджев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-09-10",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - предложение от Мустафа Карадайъ и група н.п. в Преходни и заключителни разпоредби",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 32
+      },
+      {
+        "date": "2021-09-07",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 1 - процедура от Мартин Димитров за отлагане на гласуването - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 34
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1667,
+        "score": 0.9009016470154821,
+        "overlap": 427
+      },
+      {
+        "mpId": 1875,
+        "score": 0.8991734037680893,
+        "overlap": 446
+      },
+      {
+        "mpId": 761,
+        "score": 0.8764992528701604,
+        "overlap": 422
+      },
+      {
+        "mpId": 1582,
+        "score": 0.8738983648794477,
+        "overlap": 417
+      },
+      {
+        "mpId": 1581,
+        "score": 0.8639809257966183,
+        "overlap": 415
+      },
+      {
+        "mpId": 1974,
+        "score": 0.8615660042392733,
+        "overlap": 410
+      },
+      {
+        "mpId": 848,
+        "score": 0.8436381469004098,
+        "overlap": 395
+      },
+      {
+        "mpId": 1625,
+        "score": 0.8430544641583255,
+        "overlap": 359
+      },
+      {
+        "mpId": 1253,
+        "score": 0.8394022254799576,
+        "overlap": 397
+      },
+      {
+        "mpId": 762,
+        "score": 0.8343866618896366,
+        "overlap": 398
+      },
+      {
+        "mpId": 1889,
+        "score": 0.8208093076074339,
+        "overlap": 369
+      },
+      {
+        "mpId": 1312,
+        "score": 0.8175995702726859,
+        "overlap": 381
+      },
+      {
+        "mpId": 1660,
+        "score": 0.8134040005932643,
+        "overlap": 366
+      },
+      {
+        "mpId": 1275,
+        "score": 0.8118074845173094,
+        "overlap": 332
+      },
+      {
+        "mpId": 1873,
+        "score": 0.8069394382179158,
+        "overlap": 347
+      },
+      {
+        "mpId": 1277,
+        "score": 0.8023120216123281,
+        "overlap": 351
+      },
+      {
+        "mpId": 1336,
+        "score": 0.7900992636999941,
+        "overlap": 376
+      },
+      {
+        "mpId": 829,
+        "score": 0.7692871734424432,
+        "overlap": 362
+      },
+      {
+        "mpId": 782,
+        "score": 0.7678799000071421,
+        "overlap": 320
+      },
+      {
+        "mpId": 1394,
+        "score": 0.7653885430064585,
+        "overlap": 327
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": 0.046862130698474724,
+        "overlap": 166
+      },
+      {
+        "mpId": 404,
+        "score": 0.0817028547838794,
+        "overlap": 262
+      },
+      {
+        "mpId": 1643,
+        "score": 0.10158748536178352,
+        "overlap": 230
+      },
+      {
+        "mpId": 1155,
+        "score": 0.11332326060227017,
+        "overlap": 225
+      },
+      {
+        "mpId": 1317,
+        "score": 0.123933173914594,
+        "overlap": 298
+      },
+      {
+        "mpId": 388,
+        "score": 0.13236346902404775,
+        "overlap": 285
+      },
+      {
+        "mpId": 1457,
+        "score": 0.1387991899886444,
+        "overlap": 263
+      },
+      {
+        "mpId": 817,
+        "score": 0.14035316354289998,
+        "overlap": 197
+      },
+      {
+        "mpId": 1386,
+        "score": 0.14185914025238705,
+        "overlap": 263
+      },
+      {
+        "mpId": 1124,
+        "score": 0.14449002400231759,
+        "overlap": 254
+      },
+      {
+        "mpId": 1644,
+        "score": 0.1453610911545922,
+        "overlap": 250
+      },
+      {
+        "mpId": 1428,
+        "score": 0.14618410772766482,
+        "overlap": 216
+      },
+      {
+        "mpId": 1960,
+        "score": 0.15094017219166556,
+        "overlap": 170
+      },
+      {
+        "mpId": 1466,
+        "score": 0.15744563632370323,
+        "overlap": 67
+      },
+      {
+        "mpId": 1297,
+        "score": 0.1583029710185006,
+        "overlap": 140
+      },
+      {
+        "mpId": 1465,
+        "score": 0.15961249598001007,
+        "overlap": 290
+      },
+      {
+        "mpId": 810,
+        "score": 0.16026329207607112,
+        "overlap": 163
+      },
+      {
+        "mpId": 1628,
+        "score": 0.1634057095677588,
+        "overlap": 251
+      },
+      {
+        "mpId": 1000,
+        "score": 0.16753211724704717,
+        "overlap": 107
+      },
+      {
+        "mpId": 473,
+        "score": 0.16776715590771088,
+        "overlap": 274
+      }
+    ]
+  }
+}

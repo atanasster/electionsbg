@@ -1,0 +1,725 @@
+{
+  "mpId": 2984,
+  "ns": "50",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 435,
+    "withParty": 338,
+    "loyaltyPct": 0.7770114942528735,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 435,
+    "dissentCount": 97,
+    "recent": [
+      {
+        "date": "2024-09-26",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-vnositeli",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - вносители Божидар Божанов и група н.п. от 11.09.2024г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-09-26",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-vnositeli",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - вносители Божидар Божанов и група н.п. от 07.08.2024г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-09-25",
+        "item": 63,
+        "slug": "63-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-20",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 20",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-09-25",
+        "item": 49,
+        "slug": "49-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-14",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 14",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 6
+      },
+      {
+        "date": "2024-09-25",
+        "item": 46,
+        "slug": "46-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-12-stava-",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 12 (става параграф 11) - по доклад",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-09-20",
+        "item": 2,
+        "slug": "2-protsedura-za-nova-tochka-v-dnevniya-red",
+        "title": "Процедура за нова точка в дневния ред",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-19",
+        "item": 10,
+        "slug": "10-reshenie-za-osvobozhdavane-na-anton-slavchev-kato-izpalnyava",
+        "title": "Решение за освобождаване на Антон Славчев като изпълняващ функциите на член и председател на Комисията за противодействие на корупцията и на КОНПИ - процедура от Хамид Хамид за удължаване на работното време до приключване на точката",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2024-09-19",
+        "item": 9,
+        "slug": "9-reshenie-za-osvobozhdavane-na-anton-slavchev-kato-izpalnyava",
+        "title": "Решение за освобождаване на Антон Славчев като изпълняващ функциите на член и председател на Комисията за противодействие на корупцията и на КОНПИ - процедура от Хамид Хамид за пряко предаване по БНТ и БНР - прегласуване",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-09-19",
+        "item": 7,
+        "slug": "7-reshenie-za-osvobozhdavane-na-anton-slavchev-kato-izpalnyavy",
+        "title": "Решение за освобождаване на Антон Славчев като изпълнявящ функциите на член и председател на Комисията за противодействие на корупцията и на КОНПИ - процедура за допускане в зала",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-09-19",
+        "item": 4,
+        "slug": "4-protsedura-ot-nadezhda-yordanova-za-otpadane-na-tochka-ot-dn",
+        "title": "Процедура от Надежда Йорданова за отпадане на точка от дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2024-09-18",
+        "item": 16,
+        "slug": "16-zid-na-targovskiya-zakon-vtoro-glasuvane-naimenovanie-paragr",
+        "title": "ЗИД на Търговския закон - второ гласуване - наименование, параграф 1 и параграф 2, параграф 3 - нов, параграф 3 - 16 (става параграф 4 - 17), параграф 18 - нов, параграф 17 - 20 (става параграф 19 - 22), параграф 23 - нов, Допълнителна разпоредба, параграф 21 (става параграф 24), Преходни и заключителни разпоредби, параграф 25 - нов, параграф 22 (става параграф 26 - нов), параграф 23 - 26 (става параграф 27 -30)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-09-18",
+        "item": 15,
+        "slug": "15-zid-na-targovskiya-zakon-vtoro-glasuvane-paragraf-25-nov-pre",
+        "title": "ЗИД на Търговския закон - второ гласуване - параграф 25 - нов - предложение от Георги Георгиев за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-18",
+        "item": 14,
+        "slug": "14-zid-na-targovskiya-zakon-vtoro-glasuvane-paragraf-23-predloz",
+        "title": "ЗИД на Търговския закон - второ гласуване - параграф 23 - предложение от Георги Георгиев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-09-18",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-turizma-parvo-glasuvane",
+        "title": "ЗИД на Закона за туризма - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-09-18",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - предложение от ИТН за нова точка в дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-09-12",
+        "item": 18,
+        "slug": "18-zakon-za-litsata-obsluzhvashti-krediti-i-kupuvachite-na-kred",
+        "title": "Закон за лицата, обслужващи кредити, и купувачите на кредити - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2024-09-12",
+        "item": 17,
+        "slug": "17-zakon-za-litsata-obsluzhvashti-krediti-i-kupuvachite-na-kred",
+        "title": "Закон за лицата, обслужващи кредити, и купувачите на кредити - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2024-09-12",
+        "item": 15,
+        "slug": "15-ratifikatsiya-na-administrativno-sporazumenie-mezhdu-savmest",
+        "title": "Ратификация на Административно споразумение между Съвместното предприятие „Интегрални схеми“ и Министерството на иновациите и растежа на Република България, въз основа на член 12, параграф 2 от Регламент (ЕС) № 2021/2085 за създаване на съвместните предприятия в рамките на „Хоризонт Европа“ и отмяна на регламенти (ЕО) № 219/2007, (ЕС) № 557/2014, (ЕС) № 558/2014, (ЕС) № 559/2014, (ЕС) № 560/2014, (ЕС) № 561/2014 и (ЕС) № 642/2014, подписано в Брюксел на 9 януари 2024 г. и в София на 25 януари 2024 г. - първо гласуване - процедура за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2024-09-12",
+        "item": 14,
+        "slug": "14-ratifikatsiya-na-administrativno-sporazumenie-mezhdu-savmest",
+        "title": "Ратификация на Административно споразумение между Съвместното предприятие „Интегрални схеми“ и Министерството на иновациите и растежа на Република България, въз основа на член 12, параграф 2 от Регламент (ЕС) № 2021/2085 за създаване на съвместните предприятия в рамките на „Хоризонт Европа“ и отмяна на регламенти (ЕО) № 219/2007, (ЕС) № 557/2014, (ЕС) № 558/2014, (ЕС) № 559/2014, (ЕС) № 560/2014, (ЕС) № 561/2014 и (ЕС) № 642/2014, подписано в Брюксел на 9 януари 2024 г. и в София на 25 януари 2024 г. - първо гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 4
+      },
+      {
+        "date": "2024-09-12",
+        "item": 12,
+        "slug": "12-ratifikatsiya-na-sporazumenieto-za-solidarna-garantsiya-mezh",
+        "title": "Ратификация на Споразумението за солидарна гаранция между Република България като гарант и Банката за развитие на Съвета на Европа като бенефициер във връзка с Рамково споразумение за заем от 13 юли 2023 г. между Банката за развитие на Съвета на Европа и „Българска банка за развитие“ ЕАД за подкрепа на микро-, малки и средни предприятия за създаването и запазването на жизнеспособни работни места и опазване на околната среда - първо гласуване - процедура за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2024-09-12",
+        "item": 4,
+        "slug": "4-protsedura-ot-al-nenkov-za-udalzhavane-na-sroka-za-predlozhe",
+        "title": "Процедура от Ал.Ненков за удължаване на срока за предложения на закона за гражданската регистрация",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-09-11",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-podpomagane-na-zemedelskite-proizvoditeli-p",
+        "title": "ЗИД на Закона за подпомагане на земеделските производители – първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2024-09-11",
+        "item": 35,
+        "slug": "35-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-11-pr",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 11 - предложение от Марин Маринов - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2024-09-11",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-10-pr",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 10 - предложение от Марин Маринов - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-09-11",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-3-i-4",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 3 и 4",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-09-05",
+        "item": 3,
+        "slug": "3-reshenie-za-izbirane-na-predsedatel-na-komisiyata-za-kontrol",
+        "title": "Решение за избиране на председател на Комисията за контрол над службите за сигурност, прилагането и използването на специалните разузнавателни средства и достъпа до данните по Закона за електронните съобщения за Втората сесия - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2024-09-04",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-4-i-5-septemvr",
+        "title": "Програма за работата на Народното събрание за 4 и 5 септември 2024г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 35
+      },
+      {
+        "date": "2024-08-15",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-advokaturata-parvo-glasuvane-protsedura-ot-",
+        "title": "ЗИД на Закона за адвокатурата – първо гласуване - процедура от Марин Маринов за съкращаване на срока за предложения на три дни",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 23
+      },
+      {
+        "date": "2024-08-14",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-schetovodstvoto-vtoro-glasuvane-prehodni-i-",
+        "title": "ЗИД на Закона за счетоводството – второ гласуване - Преходни и заключителни разпоредби, параграф 29 до параграф 34, параграф 35 - нов, параграф 35 (става параграф 36) до параграф 39 (става параграф 40), параграф 41- нов, параграф 40 (става параграф 42)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-08-14",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-schetovodstvoto-vtoro-glasuvane-paragraf-28",
+        "title": "ЗИД на Закона за счетоводството – второ гласуване - параграф 28 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-08-14",
+        "item": 21,
+        "slug": "21-zid-na-zakona-za-schetovodstvoto-vtoro-glasuvane-paragraf-9-",
+        "title": "ЗИД на Закона за счетоводството – второ гласуване - параграф 9 до параграф 27",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-08-14",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-schetovodstvoto-vtoro-glasuvane-paragraf-8",
+        "title": "ЗИД на Закона за счетоводството – второ гласуване - параграф 8 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-08-14",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-schetovodstvoto-vtoro-glasuvane-naimenovani",
+        "title": "ЗИД на Закона за счетоводството – второ гласуване - наименование, параграф 1 до параграф 3",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-08-14",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-14-16-avgust-2",
+        "title": "Програма за работата на Народното събрание за 14 – 16 август 2024 г. - процедура от Делян Добрев т.7 и т.15 да станат последни точки 4 и 5 в петък",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 35
+      },
+      {
+        "date": "2024-08-08",
+        "item": 21,
+        "slug": "21-ratifitsirane-na-memoranduma-za-razbiratelstvo-mezhdu-pravit",
+        "title": "Ратифициране на Меморандума за разбирателство между правителството на Република България и правителството на Република Турция относно презгранични операции за Air Policing, подписан на 21 февруари 2024 г. в гр. Анкара, Република Турция - второ гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-08-08",
+        "item": 20,
+        "slug": "20-ratifitsirane-na-memoranduma-za-razbiratelstvo-mezhdu-pravit",
+        "title": "Ратифициране на Меморандума за разбирателство между правителството на Република България и правителството на Република Турция относно презгранични операции за Air Policing, подписан на 21 февруари 2024 г. в гр. Анкара, Република Турция - първо гласуване - процедура за второ гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-08-08",
+        "item": 19,
+        "slug": "19-ratifitsirane-na-memoranduma-za-razbiratelstvo-mezhdu-pravit",
+        "title": "Ратифициране на Меморандума за разбирателство между правителството на Република България и правителството на Република Турция относно презгранични операции за Air Policing, подписан на 21 февруари 2024 г. в гр. Анкара, Република Турция - първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-08-08",
+        "item": 18,
+        "slug": "18-ratifitsirane-na-memoranduma-za-razbiratelstvo-mezhdu-minist",
+        "title": "Ратифициране на Меморандума за разбирателство между Министерството на отбраната на Република България и Министерството на националната отбрана на Румъния относно изграждането на Щаб на регионално компонентно командване на специални операции (HQR-SOCC) - второ гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-08-08",
+        "item": 17,
+        "slug": "17-ratifitsirane-na-memoranduma-za-razbiratelstvo-mezhdu-minist",
+        "title": "Ратифициране на Меморандума за разбирателство между Министерството на отбраната на Република България и Министерството на националната отбрана на Румъния относно изграждането на Щаб на регионално компонентно командване на специални операции (HQR-SOCC) - първо гласуване - процедура от Христо Гаджев за второ гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-08-08",
+        "item": 16,
+        "slug": "16-ratifitsirane-na-memoranduma-za-razbiratelstvo-mezhdu-minist",
+        "title": "Ратифициране на Меморандума за разбирателство между Министерството на отбраната на Република България и Министерството на националната отбрана на Румъния относно изграждането на Щаб на регионално компонентно командване на специални операции (HQR-SOCC) - първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-08-08",
+        "item": 15,
+        "slug": "15-reshenie-za-priemane-na-proekt-za-investitsionen-razhod-prid",
+        "title": "Решение за приемане на Проект за инвестиционен разход „Придобиване на зенитно-ракетни комплекси\" - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-08-08",
+        "item": 13,
+        "slug": "13-ratifikatsiya-na-mezhdunaroden-dogovor-loa-bu-b-ucr-pridobiv",
+        "title": "Ратификация на Международен договор (LOA) BU-B-UCR „Придобиване на боеприпаси за машини „Страйкър\" - второ гласуване",
+        "topic": "ratification",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-08-08",
+        "item": 12,
+        "slug": "12-ratifikatsiya-na-mezhdunaroden-dogovor-loa-bu-b-ucr-pridobiv",
+        "title": "Ратификация на Международен договор (LOA) BU-B-UCR „Придобиване на боеприпаси за машини „Страйкър\" - първо гласуване - процедура от Христо Гаджев за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-08-08",
+        "item": 8,
+        "slug": "8-reshenie-po-doklad-za-deynostta-na-vremennata-komisiya-za-pr",
+        "title": "Решение по доклад за дейността на Временната комисия за проверка на всички факти и обстоятелства на данни за извършени престъпления във връзка с дейността на Ивелин Михайлов - идеолог на ПП „Величие\" и изградения в с. Неофит Рилски, община Ветрино, културно-исторически комплекс „Исторически парк\", в т. ч. престъпления, свързани с пране на пари и обвързаности на представители на местната и централна власт с този комплекс и неговото изграждане",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-08-07",
+        "item": 49,
+        "slug": "49-zakon-za-vavezhdane-na-evroto-v-republika-balgariya-vtoro-gl",
+        "title": "Закон за въвеждане на еврото в Република България – второ гласуване - параграф 64 (става параграф 60)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2024-08-07",
+        "item": 48,
+        "slug": "48-zakon-za-vavezhdane-na-evroto-v-republika-balgariya-vtoro-gl",
+        "title": "Закон за въвеждане на еврото в Република България – второ гласуване - параграф 25 (става параграф 8), параграф 26 - 63 (става параграф 22 - 59)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2024-08-07",
+        "item": 47,
+        "slug": "47-zakon-za-vavezhdane-na-evroto-v-republika-balgariya-vtoro-gl",
+        "title": "Закон за въвеждане на еврото в Република България – второ гласуване- параграф 12 - 24 (става параграф 9 - 21)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-08-07",
+        "item": 46,
+        "slug": "46-zakon-za-vavezhdane-na-evroto-v-republika-balgariya-vtoro-gl",
+        "title": "Закон за въвеждане на еврото в Република България – второ гласуване - параграф 11 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-08-07",
+        "item": 43,
+        "slug": "43-zakon-za-vavezhdane-na-evroto-v-republika-balgariya-vtoro-gl",
+        "title": "Закон за въвеждане на еврото в Република България – второ гласуване - параграф 9",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-08-07",
+        "item": 42,
+        "slug": "42-zakon-za-vavezhdane-na-evroto-v-republika-balgariya-vtoro-gl",
+        "title": "Закон за въвеждане на еврото в Република България – второ гласуване - параграф 8",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2978,
+        "score": 0.805761573057876,
+        "overlap": 342
+      },
+      {
+        "mpId": 2982,
+        "score": 0.7474186430882204,
+        "overlap": 359
+      },
+      {
+        "mpId": 2986,
+        "score": 0.7217818233348354,
+        "overlap": 333
+      },
+      {
+        "mpId": 2980,
+        "score": 0.6488525755222093,
+        "overlap": 271
+      },
+      {
+        "mpId": 2979,
+        "score": 0.6171213867122411,
+        "overlap": 252
+      },
+      {
+        "mpId": 2985,
+        "score": 0.611954617130183,
+        "overlap": 390
+      },
+      {
+        "mpId": 2977,
+        "score": 0.49819265938377383,
+        "overlap": 372
+      },
+      {
+        "mpId": 2974,
+        "score": 0.45392203305240003,
+        "overlap": 280
+      },
+      {
+        "mpId": 2975,
+        "score": 0.4408631537615411,
+        "overlap": 275
+      },
+      {
+        "mpId": 2676,
+        "score": 0.43093841623328094,
+        "overlap": 259
+      },
+      {
+        "mpId": 2933,
+        "score": 0.4047292604670623,
+        "overlap": 319
+      },
+      {
+        "mpId": 2981,
+        "score": 0.4008115535526381,
+        "overlap": 259
+      },
+      {
+        "mpId": 2907,
+        "score": 0.39687726195244305,
+        "overlap": 244
+      },
+      {
+        "mpId": 2950,
+        "score": 0.3931223702351277,
+        "overlap": 317
+      },
+      {
+        "mpId": 2691,
+        "score": 0.38950979111004624,
+        "overlap": 217
+      },
+      {
+        "mpId": 2829,
+        "score": 0.3879190506423583,
+        "overlap": 418
+      },
+      {
+        "mpId": 2902,
+        "score": 0.382621157453732,
+        "overlap": 401
+      },
+      {
+        "mpId": 2712,
+        "score": 0.3815632990489289,
+        "overlap": 244
+      },
+      {
+        "mpId": 2896,
+        "score": 0.37957162717272797,
+        "overlap": 399
+      },
+      {
+        "mpId": 2960,
+        "score": 0.37885139894370395,
+        "overlap": 418
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3006,
+        "score": 0.005524440323131657,
+        "overlap": 59
+      },
+      {
+        "mpId": 2606,
+        "score": 0.007976741821389419,
+        "overlap": 114
+      },
+      {
+        "mpId": 2670,
+        "score": 0.014945779781513216,
+        "overlap": 22
+      },
+      {
+        "mpId": 2685,
+        "score": 0.02614399188075661,
+        "overlap": 49
+      },
+      {
+        "mpId": 2738,
+        "score": 0.03270978375078912,
+        "overlap": 112
+      },
+      {
+        "mpId": 3007,
+        "score": 0.03776840118758769,
+        "overlap": 43
+      },
+      {
+        "mpId": 2756,
+        "score": 0.040016673140863705,
+        "overlap": 219
+      },
+      {
+        "mpId": 2759,
+        "score": 0.04009307384787331,
+        "overlap": 301
+      },
+      {
+        "mpId": 2914,
+        "score": 0.04720693829330368,
+        "overlap": 124
+      },
+      {
+        "mpId": 2778,
+        "score": 0.047897857465966046,
+        "overlap": 293
+      },
+      {
+        "mpId": 2748,
+        "score": 0.04807277414351231,
+        "overlap": 320
+      },
+      {
+        "mpId": 2792,
+        "score": 0.0516201660119081,
+        "overlap": 287
+      },
+      {
+        "mpId": 2827,
+        "score": 0.05416139628283092,
+        "overlap": 219
+      },
+      {
+        "mpId": 2661,
+        "score": 0.05678218261309891,
+        "overlap": 299
+      },
+      {
+        "mpId": 2972,
+        "score": 0.06394084182887792,
+        "overlap": 45
+      },
+      {
+        "mpId": 2795,
+        "score": 0.0653525095630361,
+        "overlap": 314
+      },
+      {
+        "mpId": 2998,
+        "score": 0.06688073280282777,
+        "overlap": 51
+      },
+      {
+        "mpId": 2694,
+        "score": 0.06816950934448539,
+        "overlap": 255
+      },
+      {
+        "mpId": 2849,
+        "score": 0.06821484072974283,
+        "overlap": 190
+      },
+      {
+        "mpId": 2649,
+        "score": 0.06877821731741417,
+        "overlap": 325
+      }
+    ]
+  }
+}

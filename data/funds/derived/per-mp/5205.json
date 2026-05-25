@@ -1,0 +1,44 @@
+{
+  "mpId": 5205,
+  "summary": {
+    "contractCount": 6,
+    "contractedEur": 966404.99,
+    "paidEur": 484155.50999999995
+  },
+  "entries": [
+    {
+      "mpId": 5205,
+      "mpName": "Рашид Мехмедов Узунов",
+      "beneficiaryEik": "116003561",
+      "beneficiaryName": "РАЛОМЕКС АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 4,
+      "contractedEur": 847328.23,
+      "paidEur": 427695.66
+    },
+    {
+      "mpId": 5205,
+      "mpName": "Рашид Мехмедов Узунов",
+      "beneficiaryEik": "204909172",
+      "beneficiaryName": "\"Апис Мелифера България\" ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 119076.76,
+      "paidEur": 56459.85
+    }
+  ]
+}

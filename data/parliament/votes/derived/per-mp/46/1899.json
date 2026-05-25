@@ -1,0 +1,255 @@
+{
+  "mpId": 1899,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 505,
+    "withParty": 502,
+    "loyaltyPct": 0.994059405940594,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 505,
+    "dissentCount": 3,
+    "recent": [
+      {
+        "date": "2021-08-25",
+        "item": 5,
+        "slug": "5-reshenie-za-promyana-v-sastava-na-komisiya-po-politikite-za-",
+        "title": "Решение за промяна в състава на Комисия по политиките за българите извън страната",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-08-18",
+        "item": 24,
+        "slug": "24-reshenie-za-izbirane-na-komisiya-po-politikite-na-balgarite-",
+        "title": "Решение за избиране на Комисия по политиките на българите извън страната",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-07-21",
+        "item": 4,
+        "slug": "4-reshenie-za-izbor-na-predsedatel-na-chetirideset-i-shestoto-",
+        "title": "Решение за избор на Председател на Четиридесет и шестото Народно събрание - Кристиан Вигенин",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1869,
+        "score": 0.967822506788272,
+        "overlap": 504
+      },
+      {
+        "mpId": 1665,
+        "score": 0.9670047684967505,
+        "overlap": 501
+      },
+      {
+        "mpId": 1908,
+        "score": 0.9659906048527632,
+        "overlap": 502
+      },
+      {
+        "mpId": 1913,
+        "score": 0.965573303808236,
+        "overlap": 496
+      },
+      {
+        "mpId": 1947,
+        "score": 0.9646482903063635,
+        "overlap": 500
+      },
+      {
+        "mpId": 1938,
+        "score": 0.9622891507548759,
+        "overlap": 499
+      },
+      {
+        "mpId": 1888,
+        "score": 0.9621897139348494,
+        "overlap": 497
+      },
+      {
+        "mpId": 1696,
+        "score": 0.9611589801478938,
+        "overlap": 496
+      },
+      {
+        "mpId": 1895,
+        "score": 0.9564270152505446,
+        "overlap": 490
+      },
+      {
+        "mpId": 1918,
+        "score": 0.9553868550567324,
+        "overlap": 490
+      },
+      {
+        "mpId": 1896,
+        "score": 0.9522866191209346,
+        "overlap": 497
+      },
+      {
+        "mpId": 1950,
+        "score": 0.9521761629898109,
+        "overlap": 498
+      },
+      {
+        "mpId": 1948,
+        "score": 0.9511451110761602,
+        "overlap": 499
+      },
+      {
+        "mpId": 1959,
+        "score": 0.9511451110761602,
+        "overlap": 492
+      },
+      {
+        "mpId": 1871,
+        "score": 0.9504862209362324,
+        "overlap": 495
+      },
+      {
+        "mpId": 1907,
+        "score": 0.9501174013097252,
+        "overlap": 497
+      },
+      {
+        "mpId": 1605,
+        "score": 0.9498910675381264,
+        "overlap": 490
+      },
+      {
+        "mpId": 1867,
+        "score": 0.9495819538946185,
+        "overlap": 490
+      },
+      {
+        "mpId": 1719,
+        "score": 0.9472893537556281,
+        "overlap": 478
+      },
+      {
+        "mpId": 1739,
+        "score": 0.9461409855110443,
+        "overlap": 477
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": -0.04308554104701569,
+        "overlap": 179
+      },
+      {
+        "mpId": 1643,
+        "score": 0.0030129230252591136,
+        "overlap": 248
+      },
+      {
+        "mpId": 1317,
+        "score": 0.005425975111608433,
+        "overlap": 310
+      },
+      {
+        "mpId": 1155,
+        "score": 0.006128859427941017,
+        "overlap": 244
+      },
+      {
+        "mpId": 1457,
+        "score": 0.0174018341629725,
+        "overlap": 281
+      },
+      {
+        "mpId": 388,
+        "score": 0.0452823740540883,
+        "overlap": 297
+      },
+      {
+        "mpId": 1703,
+        "score": 0.04586418430210924,
+        "overlap": 208
+      },
+      {
+        "mpId": 404,
+        "score": 0.046226752665986116,
+        "overlap": 281
+      },
+      {
+        "mpId": 1124,
+        "score": 0.048307514111534465,
+        "overlap": 265
+      },
+      {
+        "mpId": 1659,
+        "score": 0.0486521189961769,
+        "overlap": 314
+      },
+      {
+        "mpId": 1970,
+        "score": 0.05092769427934507,
+        "overlap": 227
+      },
+      {
+        "mpId": 1644,
+        "score": 0.05939845875769763,
+        "overlap": 258
+      },
+      {
+        "mpId": 990,
+        "score": 0.06521340066209914,
+        "overlap": 304
+      },
+      {
+        "mpId": 1706,
+        "score": 0.07011223012993056,
+        "overlap": 295
+      },
+      {
+        "mpId": 1428,
+        "score": 0.07189009569680921,
+        "overlap": 224
+      },
+      {
+        "mpId": 817,
+        "score": 0.08271935277624579,
+        "overlap": 210
+      },
+      {
+        "mpId": 1972,
+        "score": 0.08394696147693488,
+        "overlap": 273
+      },
+      {
+        "mpId": 1281,
+        "score": 0.08601261139372497,
+        "overlap": 306
+      },
+      {
+        "mpId": 810,
+        "score": 0.08667516124872396,
+        "overlap": 162
+      },
+      {
+        "mpId": 473,
+        "score": 0.0869391653611139,
+        "overlap": 297
+      }
+    ]
+  }
+}

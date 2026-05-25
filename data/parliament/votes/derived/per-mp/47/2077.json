@@ -1,0 +1,319 @@
+{
+  "mpId": 2077,
+  "ns": "47",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 1347,
+    "withParty": 1337,
+    "loyaltyPct": 0.9925760950259837,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1347,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2022-07-28",
+        "item": 12,
+        "slug": "12-protsedura-ot-iskren-mitev-za-udalzhavane-na-rabotnoto-vreme",
+        "title": "Процедура от Искрен Митев за удължаване на работното време",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2022-07-21",
+        "item": 55,
+        "slug": "55-protsedura-ot-nastimir-ananiev-t-2-za-petak-da-e-zakona-za-h",
+        "title": "Процедура от Настимир Ананиев т.2 за петък да е Закона за хазарта",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-06-29",
+        "item": 25,
+        "slug": "25-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 20 и 21 - отпадат",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-04-21",
+        "item": 13,
+        "slug": "13-ratifikatsiya-na-pismo-za-oferta-i-priemane-na-bu-b-uch-radi",
+        "title": "Ратификация на Писмо за оферта и приемане на BU-B-UCH Радио-комуникационно оборудване - първо гласуване - процедура за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2022-02-22",
+        "item": 34,
+        "slug": "34",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 6
+      },
+      {
+        "date": "2022-02-22",
+        "item": 32,
+        "slug": "32",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2022-02-09",
+        "item": 9,
+        "slug": "9",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-01-27",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-energetikata-vtoro-glasuvane-zaklyuchitelni",
+        "title": "ЗИД на Закона за енергетиката - второ гласуване - Заключителни разпоредби",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-12-22",
+        "item": 59,
+        "slug": "59-reshenie-za-izbirane-na-komisiya-po-preventsiya-i-protivodey",
+        "title": "Решение за избиране на Комисия по превенция и противодействие с корупцията - ръководство и състав",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-12-15",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-na-15-17-dekemvri",
+        "title": "Програма за работата на Народното събрание на 15 - 17 декември 2021 г. - процедура от Георги Свиленски за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2061,
+        "score": 0.8837790080093096,
+        "overlap": 1282
+      },
+      {
+        "mpId": 2098,
+        "score": 0.8837790080093096,
+        "overlap": 1284
+      },
+      {
+        "mpId": 2129,
+        "score": 0.8608979647089349,
+        "overlap": 1246
+      },
+      {
+        "mpId": 2075,
+        "score": 0.8513828126070514,
+        "overlap": 1181
+      },
+      {
+        "mpId": 2127,
+        "score": 0.8385187631077626,
+        "overlap": 1101
+      },
+      {
+        "mpId": 2119,
+        "score": 0.8368308029294987,
+        "overlap": 1188
+      },
+      {
+        "mpId": 2039,
+        "score": 0.8151223140860402,
+        "overlap": 1081
+      },
+      {
+        "mpId": 2084,
+        "score": 0.8000090313094883,
+        "overlap": 1097
+      },
+      {
+        "mpId": 2100,
+        "score": 0.7966739195824639,
+        "overlap": 1068
+      },
+      {
+        "mpId": 2063,
+        "score": 0.7953928209277058,
+        "overlap": 1040
+      },
+      {
+        "mpId": 2104,
+        "score": 0.7474372575160523,
+        "overlap": 947
+      },
+      {
+        "mpId": 2069,
+        "score": 0.687869822511953,
+        "overlap": 815
+      },
+      {
+        "mpId": 2133,
+        "score": 0.4512269597783019,
+        "overlap": 905
+      },
+      {
+        "mpId": 1946,
+        "score": 0.44659277757771976,
+        "overlap": 1002
+      },
+      {
+        "mpId": 1700,
+        "score": 0.4375045403127888,
+        "overlap": 842
+      },
+      {
+        "mpId": 1388,
+        "score": 0.43625844111352297,
+        "overlap": 854
+      },
+      {
+        "mpId": 1455,
+        "score": 0.43259631766236956,
+        "overlap": 937
+      },
+      {
+        "mpId": 1628,
+        "score": 0.43223621873038826,
+        "overlap": 922
+      },
+      {
+        "mpId": 1615,
+        "score": 0.4272054539711599,
+        "overlap": 1073
+      },
+      {
+        "mpId": 1674,
+        "score": 0.4230530098229653,
+        "overlap": 824
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1678,
+        "score": -0.07433524127853053,
+        "overlap": 976
+      },
+      {
+        "mpId": 2159,
+        "score": -0.06960479798504744,
+        "overlap": 640
+      },
+      {
+        "mpId": 2178,
+        "score": -0.06599176514070275,
+        "overlap": 682
+      },
+      {
+        "mpId": 1336,
+        "score": -0.052622554490683385,
+        "overlap": 1020
+      },
+      {
+        "mpId": 2080,
+        "score": -0.05237468373224341,
+        "overlap": 1088
+      },
+      {
+        "mpId": 2176,
+        "score": -0.049361642822926974,
+        "overlap": 1120
+      },
+      {
+        "mpId": 2175,
+        "score": -0.048032985111589294,
+        "overlap": 1100
+      },
+      {
+        "mpId": 2079,
+        "score": -0.04773516348912334,
+        "overlap": 1203
+      },
+      {
+        "mpId": 2067,
+        "score": -0.045851677674005144,
+        "overlap": 1096
+      },
+      {
+        "mpId": 2126,
+        "score": -0.04496057682548154,
+        "overlap": 1056
+      },
+      {
+        "mpId": 2170,
+        "score": -0.043757428589123286,
+        "overlap": 1083
+      },
+      {
+        "mpId": 997,
+        "score": -0.04361149179263873,
+        "overlap": 995
+      },
+      {
+        "mpId": 2185,
+        "score": -0.04059068225392104,
+        "overlap": 265
+      },
+      {
+        "mpId": 2078,
+        "score": -0.039004036744940254,
+        "overlap": 1058
+      },
+      {
+        "mpId": 2164,
+        "score": -0.03799492242964555,
+        "overlap": 1244
+      },
+      {
+        "mpId": 2110,
+        "score": -0.037938972048032454,
+        "overlap": 1181
+      },
+      {
+        "mpId": 2105,
+        "score": -0.03719054602342845,
+        "overlap": 1121
+      },
+      {
+        "mpId": 2023,
+        "score": -0.03672341312605207,
+        "overlap": 1113
+      },
+      {
+        "mpId": 2120,
+        "score": -0.036308131986926416,
+        "overlap": 1253
+      },
+      {
+        "mpId": 2028,
+        "score": -0.036238068881278084,
+        "overlap": 1200
+      }
+    ]
+  }
+}

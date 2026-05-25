@@ -1,0 +1,285 @@
+{
+  "mpId": 1677,
+  "ns": "45",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 160,
+    "withParty": 154,
+    "loyaltyPct": 0.9625,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 160,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2021-05-07",
+        "item": 13,
+        "slug": "13-ratifikatsiya-na-protokol-za-izmenenie-na-sporazumenieto-mez",
+        "title": "Ратификация на Протокол за изменение на Споразумението между правителството на Република България и правителството на Румъния относно презгранични операции за Air Policing - второ гласуване",
+        "topic": "ratification",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-05-07",
+        "item": 12,
+        "slug": "12-ratifikatsiya-na-protokol-za-izmenenie-na-sporazumenieto-mez",
+        "title": "Ратификация на Протокол за изменение на Споразумението между правителството на Република България и правителството на Румъния относно презгранични операции за Air Policing - първо гласуване - процедура за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-05-07",
+        "item": 11,
+        "slug": "11-ratifikatsiya-na-protokol-za-izmenenie-na-sporazumenieto-mez",
+        "title": "Ратификация на Протокол за изменение на Споразумението между правителството на Република България и правителството на Румъния относно презгранични операции за Air Policing - първо гласуване - прегласуване",
+        "topic": "ratification",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-04-29",
+        "item": 15,
+        "slug": "15-zid-na-izborniya-kodeks-vtoro-glasuvane-protsedura-ot-t-yord",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - процедура от Т. Йорданов за удължаване на работното време",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2021-04-22",
+        "item": 67,
+        "slug": "67-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-26-nov-",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 26 - нов - т.1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 20
+      },
+      {
+        "date": "2021-04-22",
+        "item": 62,
+        "slug": "62-reshenie-za-izmenenie-i-dopalnenie-na-podns-predlozhenie-ot-",
+        "title": "Решение за изменение и допълнение на ПОДНС - предложение от А.Славов и група н.п. в чл.117а",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 20
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1609,
+        "score": 0.8785113061683937,
+        "overlap": 152
+      },
+      {
+        "mpId": 1366,
+        "score": 0.8736097932637766,
+        "overlap": 156
+      },
+      {
+        "mpId": 1625,
+        "score": 0.8642814641495705,
+        "overlap": 153
+      },
+      {
+        "mpId": 1318,
+        "score": 0.857833815749923,
+        "overlap": 121
+      },
+      {
+        "mpId": 1658,
+        "score": 0.8528429134567178,
+        "overlap": 122
+      },
+      {
+        "mpId": 1312,
+        "score": 0.8383964653677825,
+        "overlap": 145
+      },
+      {
+        "mpId": 761,
+        "score": 0.8380776628933835,
+        "overlap": 123
+      },
+      {
+        "mpId": 1667,
+        "score": 0.8372451700082254,
+        "overlap": 156
+      },
+      {
+        "mpId": 1654,
+        "score": 0.830131081006381,
+        "overlap": 155
+      },
+      {
+        "mpId": 1648,
+        "score": 0.8285649969896687,
+        "overlap": 148
+      },
+      {
+        "mpId": 1699,
+        "score": 0.8256927539186637,
+        "overlap": 144
+      },
+      {
+        "mpId": 1582,
+        "score": 0.8146146122025234,
+        "overlap": 155
+      },
+      {
+        "mpId": 1581,
+        "score": 0.7984321006272236,
+        "overlap": 135
+      },
+      {
+        "mpId": 1262,
+        "score": 0.7969596425427823,
+        "overlap": 126
+      },
+      {
+        "mpId": 1660,
+        "score": 0.7946945329937598,
+        "overlap": 121
+      },
+      {
+        "mpId": 848,
+        "score": 0.7835074955374611,
+        "overlap": 142
+      },
+      {
+        "mpId": 1390,
+        "score": 0.777560934248992,
+        "overlap": 128
+      },
+      {
+        "mpId": 1633,
+        "score": 0.7739527433912544,
+        "overlap": 133
+      },
+      {
+        "mpId": 1725,
+        "score": 0.7692307692307692,
+        "overlap": 131
+      },
+      {
+        "mpId": 1253,
+        "score": 0.7682525099074147,
+        "overlap": 102
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 817,
+        "score": -0.24708310555370036,
+        "overlap": 66
+      },
+      {
+        "mpId": 1576,
+        "score": -0.1941839093451543,
+        "overlap": 55
+      },
+      {
+        "mpId": 1600,
+        "score": -0.1849000654084097,
+        "overlap": 71
+      },
+      {
+        "mpId": 1703,
+        "score": -0.14008295367013143,
+        "overlap": 75
+      },
+      {
+        "mpId": 767,
+        "score": -0.13793616002983244,
+        "overlap": 93
+      },
+      {
+        "mpId": 1644,
+        "score": -0.13344012817090592,
+        "overlap": 92
+      },
+      {
+        "mpId": 1622,
+        "score": -0.1125636055843284,
+        "overlap": 98
+      },
+      {
+        "mpId": 1317,
+        "score": -0.1038240634562647,
+        "overlap": 111
+      },
+      {
+        "mpId": 1155,
+        "score": -0.09785609399199768,
+        "overlap": 92
+      },
+      {
+        "mpId": 1806,
+        "score": -0.09095880536541952,
+        "overlap": 102
+      },
+      {
+        "mpId": 1807,
+        "score": -0.09023975214738966,
+        "overlap": 101
+      },
+      {
+        "mpId": 473,
+        "score": -0.08988656193833433,
+        "overlap": 103
+      },
+      {
+        "mpId": 1465,
+        "score": -0.0895374865926758,
+        "overlap": 104
+      },
+      {
+        "mpId": 1290,
+        "score": -0.08920515501750788,
+        "overlap": 95
+      },
+      {
+        "mpId": 1529,
+        "score": -0.08885136547332034,
+        "overlap": 105
+      },
+      {
+        "mpId": 1124,
+        "score": -0.08735706972682651,
+        "overlap": 97
+      },
+      {
+        "mpId": 1706,
+        "score": -0.08688393273670264,
+        "overlap": 111
+      },
+      {
+        "mpId": 1692,
+        "score": -0.08370032682530422,
+        "overlap": 95
+      },
+      {
+        "mpId": 1738,
+        "score": -0.08046742493087793,
+        "overlap": 110
+      },
+      {
+        "mpId": 1815,
+        "score": -0.07659643817822478,
+        "overlap": 94
+      }
+    ]
+  }
+}

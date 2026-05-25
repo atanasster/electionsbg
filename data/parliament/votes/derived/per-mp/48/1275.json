@@ -1,0 +1,355 @@
+{
+  "mpId": 1275,
+  "ns": "48",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 1095,
+    "withParty": 1082,
+    "loyaltyPct": 0.9881278538812786,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 1095,
+    "dissentCount": 13,
+    "recent": [
+      {
+        "date": "2023-02-01",
+        "item": 35,
+        "slug": "35-zid-na-zakona-za-patishtata-vtoro-glasuvane-paragraf-6-predl",
+        "title": "ЗИД на Закона за пътищата - второ гласуване - параграф 6 - предложение от Божидар Божанов - гласуване за допустимост",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2023-02-01",
+        "item": 34,
+        "slug": "34-zid-na-zakona-za-patishtata-vtoro-glasuvane-paragraf-5-predl",
+        "title": "ЗИД на Закона за пътищата - второ гласуване - параграф 5 - предложение от Божидар Божанов - гласуване за допустимост",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2023-02-01",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-patishtata-vtoro-glasuvane-paragraf-3a-pred",
+        "title": "ЗИД на Закона за пътищата - второ гласуване - параграф 3а - предложение от Божидар Божанов - гласуване за допустимост",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2023-01-27",
+        "item": 32,
+        "slug": "32-zid-na-zakona-za-gorite-vtoro-glasuvane-paragraf-1-stava-par",
+        "title": "ЗИД на Закона за горите - второ гласуване - параграф 1 (става параграф 6) - предложение от Александър Дунчев за редакция в ал. 5",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2023-01-20",
+        "item": 9,
+        "slug": "9-ratifikatsiya-na-sporazumenieto-za-pridobivane-i-vzaimno-obs",
+        "title": "Ратификация на Споразумението за придобиване и взаимно обслужване (BGR-USA-02) между Министерството на отбраната на Република България и Департамента по отбраната на Съединените американски щати - първо гласуване - процедура от Христо Гаджев за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2023-01-18",
+        "item": 11,
+        "slug": "11-protsedura-ot-aleksandar-ivanov-za-pryako-predavane-po-bnt-i",
+        "title": "Процедура от Александър Иванов за пряко предаване по БНТ и БНР на точки 4 и 5",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2023-01-13",
+        "item": 51,
+        "slug": "51-zakon-za-kontrol-za-prilagane-na-derogatsiyata-za-zakupuvane",
+        "title": "Закон за контрол за прилагане на дерогацията за закупуването, вноса или трансфера на суров нефт, превозван по море, и на нефтопродукти с произход от Русия или изнесени от Русия - второ гласуване - Заключителна разпоредба - предложение за редакция от Петър Чобанов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2023-01-13",
+        "item": 50,
+        "slug": "50-zakon-za-kontrol-za-prilagane-na-derogatsiyata-za-zakupuvane",
+        "title": "Закон за контрол за прилагане на дерогацията за закупуването, вноса или трансфера на суров нефт, превозван по море, и на нефтопродукти с произход от Русия или изнесени от Русия - второ гласуване - параграф 2 - отпада",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2023-01-11",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 2 - предложение от Иван Манев за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 20
+      },
+      {
+        "date": "2022-12-22",
+        "item": 64,
+        "slug": "64-zakon-za-prodalzhavane-deystvieto-na-razporedbi-na-zakona-za",
+        "title": "Закон за продължаване действието на разпоредби на Закона за държавния бюджет на Република България за 2022г., Закона за бюджета на държавното обществено осигуряване и Закона за бюджета на Националната здравноосигурителна каса за 2022г. - второ гласуване - параграф 8 (става параграф 7) - предложение от Георги Самандов за редакция в ал. 1",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2022-12-22",
+        "item": 34,
+        "slug": "34-zakon-za-prodalzhavane-deystvieto-na-razporedbi-na-zakona-za",
+        "title": "Закон за продължаване действието на разпоредби на Закона за държавния бюджет на Република България за 2022г., Закона за бюджета на държавното обществено осигуряване и Закона за бюджета на Националната здравноосигурителна каса за 2022г. - второ гласуване - член 1 - предложение от Петър Чобанов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 20
+      },
+      {
+        "date": "2022-12-16",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-pravnata-pomosht-vtoro-glosuvane-paragraf-1",
+        "title": "ЗИД на Закона за правната помощ - второ глосуване - параграф 11 - предложение от Цончо Ганев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-12-15",
+        "item": 40,
+        "slug": "40-zid-na-zakona-za-sotsialno-podpomagane-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за социално подпомагане - второ гласуване - параграф 2 - предложение от Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2351,
+        "score": 0.9035559194767191,
+        "overlap": 1042
+      },
+      {
+        "mpId": 2090,
+        "score": 0.9004798840621261,
+        "overlap": 1016
+      },
+      {
+        "mpId": 2298,
+        "score": 0.8831669613796213,
+        "overlap": 997
+      },
+      {
+        "mpId": 1875,
+        "score": 0.8717863980266813,
+        "overlap": 998
+      },
+      {
+        "mpId": 2163,
+        "score": 0.8689711018131683,
+        "overlap": 983
+      },
+      {
+        "mpId": 2072,
+        "score": 0.8557519854438883,
+        "overlap": 964
+      },
+      {
+        "mpId": 2076,
+        "score": 0.8478546442982925,
+        "overlap": 932
+      },
+      {
+        "mpId": 2058,
+        "score": 0.8445813213956459,
+        "overlap": 912
+      },
+      {
+        "mpId": 761,
+        "score": 0.8402216882333544,
+        "overlap": 918
+      },
+      {
+        "mpId": 2244,
+        "score": 0.8358121973969824,
+        "overlap": 914
+      },
+      {
+        "mpId": 2277,
+        "score": 0.813618448836957,
+        "overlap": 819
+      },
+      {
+        "mpId": 2263,
+        "score": 0.811911635009727,
+        "overlap": 853
+      },
+      {
+        "mpId": 1312,
+        "score": 0.8079210415129215,
+        "overlap": 820
+      },
+      {
+        "mpId": 2251,
+        "score": 0.8075824631979251,
+        "overlap": 825
+      },
+      {
+        "mpId": 1318,
+        "score": 0.804521912884158,
+        "overlap": 799
+      },
+      {
+        "mpId": 1660,
+        "score": 0.7743257190474232,
+        "overlap": 768
+      },
+      {
+        "mpId": 1023,
+        "score": 0.7536754050549903,
+        "overlap": 736
+      },
+      {
+        "mpId": 2256,
+        "score": 0.7440995464052621,
+        "overlap": 670
+      },
+      {
+        "mpId": 829,
+        "score": 0.7412041030556077,
+        "overlap": 694
+      },
+      {
+        "mpId": 997,
+        "score": 0.7408861782683274,
+        "overlap": 724
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2064,
+        "score": 0.02084719308998427,
+        "overlap": 45
+      },
+      {
+        "mpId": 2264,
+        "score": 0.04792726588216738,
+        "overlap": 693
+      },
+      {
+        "mpId": 2236,
+        "score": 0.07458375844734956,
+        "overlap": 556
+      },
+      {
+        "mpId": 2324,
+        "score": 0.07967290098286983,
+        "overlap": 759
+      },
+      {
+        "mpId": 1583,
+        "score": 0.10956694532340978,
+        "overlap": 789
+      },
+      {
+        "mpId": 2237,
+        "score": 0.10989480358853336,
+        "overlap": 494
+      },
+      {
+        "mpId": 1678,
+        "score": 0.11170819187180764,
+        "overlap": 435
+      },
+      {
+        "mpId": 2239,
+        "score": 0.11245236548612117,
+        "overlap": 782
+      },
+      {
+        "mpId": 2350,
+        "score": 0.11522146901297126,
+        "overlap": 831
+      },
+      {
+        "mpId": 2366,
+        "score": 0.12200288948612106,
+        "overlap": 712
+      },
+      {
+        "mpId": 1568,
+        "score": 0.12378051030532573,
+        "overlap": 686
+      },
+      {
+        "mpId": 2285,
+        "score": 0.12384458761949559,
+        "overlap": 545
+      },
+      {
+        "mpId": 1573,
+        "score": 0.1279778112498023,
+        "overlap": 716
+      },
+      {
+        "mpId": 2320,
+        "score": 0.13152926254775688,
+        "overlap": 846
+      },
+      {
+        "mpId": 1640,
+        "score": 0.1338766151114594,
+        "overlap": 534
+      },
+      {
+        "mpId": 2246,
+        "score": 0.13616715659316658,
+        "overlap": 664
+      },
+      {
+        "mpId": 2023,
+        "score": 0.13932308936168877,
+        "overlap": 750
+      },
+      {
+        "mpId": 2315,
+        "score": 0.14074281475881842,
+        "overlap": 303
+      },
+      {
+        "mpId": 2260,
+        "score": 0.1421717124560609,
+        "overlap": 642
+      },
+      {
+        "mpId": 2128,
+        "score": 0.14247251708058398,
+        "overlap": 922
+      }
+    ]
+  }
+}

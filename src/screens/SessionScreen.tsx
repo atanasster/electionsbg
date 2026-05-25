@@ -1,5 +1,5 @@
-import { FC, useMemo, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { FC, useEffect, useMemo, useState } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Link } from "@/ux/Link";
 import { PartyTag } from "@/screens/components/party/PartyTag";
 import { useTranslation } from "react-i18next";
@@ -16,6 +16,11 @@ import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlF
 import { useMps } from "@/data/parliament/useMps";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { SessionVoteHemicycle } from "@/screens/components/votes/SessionVoteHemicycle";
+import { TopicChip } from "@/screens/components/votes/TopicChip";
+import { CopyTopicLink } from "@/screens/components/votes/CopyTopicLink";
+import { RollcallHeatmap } from "@/screens/components/votes/RollcallHeatmap";
+import { majorityFor } from "@/data/parliament/votes/majority";
+import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import type { SessionItem, VoteValue } from "@/data/parliament/votes/types";
 
 const VOTE_LABELS: Record<VoteValue, string> = {
@@ -90,40 +95,72 @@ const OUTCOME_COLOR: Record<Outcome, string> = {
   contested: "text-foreground",
 };
 
-const majorityFor = (
-  item: SessionItem,
-  party: string,
-  mpParty: Record<string, string>,
-): VoteValue | null => {
-  const counts = { yes: 0, no: 0, abstain: 0 };
-  for (const v of item.votes) {
-    if (v.vote === "absent") continue;
-    if (mpParty[String(v.mpId)] !== party) continue;
-    counts[v.vote]++;
-  }
-  let best: VoteValue | null = null;
-  let bestN = 0;
-  for (const k of ["yes", "no", "abstain"] as const) {
-    if (counts[k] > bestN) {
-      best = k;
-      bestN = counts[k];
-    }
-  }
-  return best;
-};
-
 export const SessionScreen: FC = () => {
-  const { date } = useParams();
+  // `slug` is the optional second path segment ("item-7-zid-na-zkpo"). The
+  // integer after "item-" is the authoritative item number — the slug tail
+  // is decorative and can change without breaking the URL.
+  const { date, slug } = useParams<{ date: string; slug?: string }>();
+  const slugItemNo = useMemo(() => {
+    if (!slug) return null;
+    const m = /^item-(\d+)/.exec(slug);
+    if (!m) return null;
+    const n = parseInt(m[1], 10);
+    return Number.isFinite(n) ? n : null;
+  }, [slug]);
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
+  const navigate = useNavigate();
   const mpParam = params.get("mp");
   const focusedMpId = mpParam ? Number(mpParam) : null;
   const [hideUnanimous, setHideUnanimous] = useState(false);
-  const [expanded, setExpanded] = useState<Set<number>>(new Set());
+  const [expanded, setExpanded] = useState<Set<number>>(
+    slugItemNo != null ? new Set([slugItemNo]) : new Set(),
+  );
+  // Heatmap defaults open on desktop, closed on mobile — at narrow widths the
+  // SVG can dominate the page and push the items list below the fold.
+  const isDesktop = useMediaQueryMatch("md");
+  const [showHeatmap, setShowHeatmap] = useState<boolean | null>(null);
+  const heatmapOpen = showHeatmap ?? isDesktop;
 
   const { session, isLoading } = useRollcallSession(date ?? null);
   const { findMpById } = useMps();
   const candidateUrl = useCandidateUrlForVote();
+
+  // Legacy support: `/votes/:date#item-N` (used before canonical slug URLs
+  // existed) → redirect to `/votes/:date/item-N-slug`. Runs once after the
+  // session loads so we can resolve the slug.
+  useEffect(() => {
+    if (slugItemNo != null) return;
+    if (!session || !date) return;
+    const hash = window.location.hash;
+    if (!hash.startsWith("#item-")) return;
+    const n = parseInt(hash.slice("#item-".length), 10);
+    if (!Number.isFinite(n)) return;
+    const target = session.itemSlugs?.[String(n)] ?? String(n);
+    navigate(`/votes/${date}/item-${target}${window.location.search}`, {
+      replace: true,
+    });
+  }, [slugItemNo, session, date, navigate]);
+
+  // Keep the deep-linked item open as the URL changes (covers the legacy
+  // `#item-N` redirect and any future replace navigations).
+  useEffect(() => {
+    if (slugItemNo == null) return;
+    setExpanded((prev) => {
+      if (prev.has(slugItemNo)) return prev;
+      const next = new Set(prev);
+      next.add(slugItemNo);
+      return next;
+    });
+  }, [slugItemNo]);
+
+  // Scroll the deep-linked item into view once the session is rendered.
+  useEffect(() => {
+    if (slugItemNo == null) return;
+    if (!session) return;
+    const el = document.getElementById(`item-${slugItemNo}`);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [slugItemNo, session]);
 
   const items = useMemo(() => {
     if (!session) return [];
@@ -265,6 +302,21 @@ export const SessionScreen: FC = () => {
               </div>
             </section>
 
+            {session.sessions.length > 1 && (
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setShowHeatmap(!heatmapOpen)}
+                  className="text-xs text-primary hover:underline inline-flex items-center gap-1 mb-2"
+                >
+                  {heatmapOpen
+                    ? t("votes_heatmap_hide") || "Hide heatmap"
+                    : t("votes_heatmap_show") || "Show heatmap"}
+                </button>
+                {heatmapOpen && <RollcallHeatmap session={session} />}
+              </div>
+            )}
+
             <div className="flex items-center gap-2">
               <label className="inline-flex items-center gap-2 text-sm cursor-pointer">
                 <input
@@ -284,6 +336,9 @@ export const SessionScreen: FC = () => {
             <ul className="divide-y border rounded-xl bg-card">
               {items.map((item) => {
                 const isOpen = expanded.has(item.item);
+                const itemSlug =
+                  session.itemSlugs?.[String(item.item)] ?? String(item.item);
+                const itemTopic = session.itemTopics?.[String(item.item)];
                 const focusedVote =
                   sessionMpId != null
                     ? item.votes.find((v) => v.mpId === sessionMpId)?.vote
@@ -352,6 +407,11 @@ export const SessionScreen: FC = () => {
                             </span>
                           )}
                         </div>
+                        {itemTopic && (
+                          <div className="mt-1.5 flex items-center gap-2 flex-wrap">
+                            <TopicChip topic={itemTopic} linkable={false} />
+                          </div>
+                        )}
                         <div className="text-xs text-muted-foreground flex flex-wrap gap-3 mt-0.5 tabular-nums">
                           <span className="text-emerald-600">
                             {t("vote_yes") || "Yes"}: {item.tallies.yes}
@@ -380,6 +440,12 @@ export const SessionScreen: FC = () => {
                     </button>
                     {isOpen && (
                       <>
+                        <div className="px-4 py-2 flex items-center gap-3 flex-wrap border-t bg-muted/10">
+                          {itemTopic && <TopicChip topic={itemTopic} />}
+                          {date && (
+                            <CopyTopicLink date={date} slug={itemSlug} />
+                          )}
+                        </div>
                         <SessionVoteHemicycle
                           item={item}
                           mpParty={session.mpParty}

@@ -1,0 +1,425 @@
+{
+  "mpId": 1521,
+  "ns": "44",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 110,
+    "withParty": 90,
+    "loyaltyPct": 0.8181818181818182,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 110,
+    "dissentCount": 20,
+    "recent": [
+      {
+        "date": "2021-02-25",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-24-26-fevruari",
+        "title": "Програма за работата на Народното събрание за 24 - 26 февруари 2021г. - предложение от Цвета Караянчева за две нови точки в дневния ред",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 4
+      },
+      {
+        "date": "2021-01-27",
+        "item": 4,
+        "slug": "4-reshenie-za-izbor-na-generalen-direktor-na-balgarskata-teleg",
+        "title": "Решение за избор на генерален директор на Българската телеграфна агенция - избира Ивайло Данаилов",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2021-01-22",
+        "item": 4,
+        "slug": "4-zd-na-zakona-za-merkite-i-deystviyata-po-vreme-na-izvanredno",
+        "title": "ЗД на Закона за мерките и действията по време на извънредното положение, обявено с решение на НС от 13.03.2020 г., и за преодоляване на последиците - първо гласуване - процедура от Красимир Ципов за намаляване на срока за предложения",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2021-01-20",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-20-22-yanuari-",
+        "title": "Програма за работата на Народното събрание за 20 - 22 януари 2020 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2021-01-13",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-13-15-yanuari-",
+        "title": "Програма за работата на Народното събрание за 13 - 15 януари 2021 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2020-12-16",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-16-18-dekemvri",
+        "title": "Програма за работата на Народното събрание за 16 - 18 декември 2020 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2020-12-09",
+        "item": 11,
+        "slug": "11-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-14",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 14",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2020-12-09",
+        "item": 9,
+        "slug": "9-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-14-predlozh",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 14 - предложение от Весела Лечева и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2020-12-09",
+        "item": 8,
+        "slug": "8-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-14-predlozh",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 14 - предложение от Красимир Янков и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2020-12-09",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-9-11-dekemvri-",
+        "title": "Програма за работата на Народното събрание за 9 - 11 декември 2020 г. - предложение за отпадане на точка 2",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2020-12-03",
+        "item": 3,
+        "slug": "3-novo-obsazhdane-na-zid-na-zakona-za-danak-varhu-dobavenata-s",
+        "title": "Ново обсъждане на ЗИД на Закона за данък върху добавената стойност, приет от НС на 19 ноември 2020 г., върнат за ново обсъждане с Указ № 247 от 25 ноември 2020 г. на Президента на Републиката по чл. 101 от Конституцията на Република България",
+        "topic": "constitution",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2020-12-03",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-2-4-dekemvri-2",
+        "title": "Програма за работата на Народното събрание за 2 - 4 декември 2020 г. - процедура за нова точка Изслушване на министър-председателя на Република България Бойко Борисов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2020-11-26",
+        "item": 4,
+        "slug": "4-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6 (стават параграф 5)",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2020-11-26",
+        "item": 3,
+        "slug": "3-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6 (стават параграф 5) - предложение от Дора Христова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2020-11-26",
+        "item": 2,
+        "slug": "2-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6 (стават параграф 5) - предложение от Георги Свиленски и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2020-11-06",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-05-06-noemvri-",
+        "title": "Програма за работата на Народното събрание за 05 - 06 ноември 2020 г. - процедура от Ф.Попов за отпадане на новите точки от дневния ред",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2020-11-06",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-05-06-noemvri-",
+        "title": "Програма за работата на Народното събрание за 05 - 06 ноември 2020 г. - процедура за нови точки в дневния ред",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2020-10-30",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-publichnite-predpriyatiya-vtoro-glasuvane-z",
+        "title": "ЗИД на Закона за публичните предприятия - второ гласуване - Заключителна разпоредба, параграф 1 (става параграф 2)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2020-10-30",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-publichnite-predpriyatiya-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за публичните предприятия - второ гласуване - параграф единствен (става параграф 1)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2020-10-29",
+        "item": 2,
+        "slug": "2-zid-na-zakona-za-obshtestvenite-porachki-parvo-glasuvane",
+        "title": "ЗИД на Закона за обществените поръчки - първо гласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1520,
+        "score": 0.6186417471655403,
+        "overlap": 64
+      },
+      {
+        "mpId": 1523,
+        "score": 0.43335952830096025,
+        "overlap": 25
+      },
+      {
+        "mpId": 1246,
+        "score": 0.42512573371857126,
+        "overlap": 51
+      },
+      {
+        "mpId": 1266,
+        "score": 0.3925464331383298,
+        "overlap": 68
+      },
+      {
+        "mpId": 1485,
+        "score": 0.3698712393898864,
+        "overlap": 81
+      },
+      {
+        "mpId": 1522,
+        "score": 0.35846408954943243,
+        "overlap": 22
+      },
+      {
+        "mpId": 1363,
+        "score": 0.35274062310306875,
+        "overlap": 62
+      },
+      {
+        "mpId": 1494,
+        "score": 0.35121598986525243,
+        "overlap": 97
+      },
+      {
+        "mpId": 1477,
+        "score": 0.34240271434130215,
+        "overlap": 107
+      },
+      {
+        "mpId": 1325,
+        "score": 0.3404015305506877,
+        "overlap": 96
+      },
+      {
+        "mpId": 1362,
+        "score": 0.3289369131229839,
+        "overlap": 41
+      },
+      {
+        "mpId": 599,
+        "score": 0.326044332556743,
+        "overlap": 83
+      },
+      {
+        "mpId": 1344,
+        "score": 0.31519340020939335,
+        "overlap": 85
+      },
+      {
+        "mpId": 1286,
+        "score": 0.31250000000000006,
+        "overlap": 87
+      },
+      {
+        "mpId": 963,
+        "score": 0.3122180425612776,
+        "overlap": 52
+      },
+      {
+        "mpId": 857,
+        "score": 0.3088035865953768,
+        "overlap": 104
+      },
+      {
+        "mpId": 1271,
+        "score": 0.30630012834127157,
+        "overlap": 104
+      },
+      {
+        "mpId": 1378,
+        "score": 0.30495123115910355,
+        "overlap": 92
+      },
+      {
+        "mpId": 523,
+        "score": 0.3045862656859159,
+        "overlap": 97
+      },
+      {
+        "mpId": 522,
+        "score": 0.30389060256572464,
+        "overlap": 59
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1554,
+        "score": -0.017683196392243517,
+        "overlap": 34
+      },
+      {
+        "mpId": 1277,
+        "score": -0.015314097295792223,
+        "overlap": 31
+      },
+      {
+        "mpId": 1261,
+        "score": 0,
+        "overlap": 16
+      },
+      {
+        "mpId": 1349,
+        "score": 0,
+        "overlap": 10
+      },
+      {
+        "mpId": 829,
+        "score": 0.005481612620668933,
+        "overlap": 38
+      },
+      {
+        "mpId": 1273,
+        "score": 0.006566453887823897,
+        "overlap": 11
+      },
+      {
+        "mpId": 1282,
+        "score": 0.008200027552138863,
+        "overlap": 35
+      },
+      {
+        "mpId": 1311,
+        "score": 0.010168147934776052,
+        "overlap": 14
+      },
+      {
+        "mpId": 1533,
+        "score": 0.010573873360945339,
+        "overlap": 34
+      },
+      {
+        "mpId": 1345,
+        "score": 0.010845247054559411,
+        "overlap": 28
+      },
+      {
+        "mpId": 1245,
+        "score": 0.011399018814688832,
+        "overlap": 14
+      },
+      {
+        "mpId": 1384,
+        "score": 0.011847809009550361,
+        "overlap": 21
+      },
+      {
+        "mpId": 960,
+        "score": 0.012766073029704134,
+        "overlap": 19
+      },
+      {
+        "mpId": 1060,
+        "score": 0.013533299049019171,
+        "overlap": 24
+      },
+      {
+        "mpId": 1370,
+        "score": 0.013937366833451516,
+        "overlap": 17
+      },
+      {
+        "mpId": 1021,
+        "score": 0.016120647005479025,
+        "overlap": 43
+      },
+      {
+        "mpId": 774,
+        "score": 0.01645770046691583,
+        "overlap": 18
+      },
+      {
+        "mpId": 1312,
+        "score": 0.01649647013304689,
+        "overlap": 31
+      },
+      {
+        "mpId": 1476,
+        "score": 0.017869810194237844,
+        "overlap": 17
+      },
+      {
+        "mpId": 1394,
+        "score": 0.024686550700373747,
+        "overlap": 25
+      }
+    ]
+  }
+}

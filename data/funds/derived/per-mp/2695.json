@@ -1,0 +1,49 @@
+{
+  "mpId": 2695,
+  "summary": {
+    "contractCount": 2,
+    "contractedEur": 158087.87,
+    "paidEur": 87528.57
+  },
+  "entries": [
+    {
+      "mpId": 2695,
+      "mpName": "Станислав Стоянов Иванов",
+      "beneficiaryEik": "204276464",
+      "beneficiaryName": "СИ ПЛАСТ 04 ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 134398.7,
+      "paidEur": 63839.39
+    },
+    {
+      "mpId": 2695,
+      "mpName": "Станислав Стоянов Иванов",
+      "beneficiaryEik": "112669637",
+      "beneficiaryName": "КАРИ ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 23689.17,
+      "paidEur": 23689.18
+    }
+  ]
+}

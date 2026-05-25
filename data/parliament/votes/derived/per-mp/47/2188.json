@@ -1,0 +1,315 @@
+{
+  "mpId": 2188,
+  "ns": "47",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 322,
+    "withParty": 313,
+    "loyaltyPct": 0.9720496894409938,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 322,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2022-07-29",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-27-29-yuli-202",
+        "title": "Програма за работата на Народното събрание за 27 - 29 юли 2022 г. - процедура от Десислава Атанасова за разместване на точките",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 5
+      },
+      {
+        "date": "2022-07-27",
+        "item": 17,
+        "slug": "17-reshenie-po-doklad-za-deynostta-na-vremennata-komisiya-za-pr",
+        "title": "Решение по доклад за дейността на Временната комисия за проверка на обстоятелствата довели до спиране на природния газ от ООО \"Газпром Експорт\" и проведената процедура за избор на алтернативни доставчици от \"Булгаргаз\" ЕАД - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 5
+      },
+      {
+        "date": "2022-07-22",
+        "item": 9,
+        "slug": "9-protsedura-ot-petar-petrov-za-pryako-predavane-po-bnt1-i-bnr",
+        "title": "Процедура от Петър Петров за пряко предаване по БНТ1 и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 6
+      },
+      {
+        "date": "2022-07-14",
+        "item": 2,
+        "slug": "2-protsedura-ot-lyubomir-karimanski-tochka-11-da-stane-tochka-",
+        "title": "Процедура от Любомир Каримански точка 11 да стане точка 8",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 6
+      },
+      {
+        "date": "2022-07-13",
+        "item": 31,
+        "slug": "31-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства, свързани с доставката на суров петрол до производителя на горива \"Лукойл Нефтохим Бургас\" АД - за председател Искра Михайлова",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 4
+      },
+      {
+        "date": "2022-07-13",
+        "item": 11,
+        "slug": "11-reshenie-za-prekratyavane-na-palnomoshtiyata-na-naroden-pred",
+        "title": "Решение за прекратяване на пълномощията на народен представител - освобождава Виктория Василева",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 4
+      },
+      {
+        "date": "2022-06-30",
+        "item": 39,
+        "slug": "39-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 18 - нов- предложение от Делян Добрев и група н.п. (№...242) - предложение за редакция от Делян Добрев - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 2
+      },
+      {
+        "date": "2022-06-30",
+        "item": 34,
+        "slug": "34-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 16 а - нов- предложение от Кристиан Вигенин (№...217) - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 2
+      },
+      {
+        "date": "2022-06-15",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-15-17-yuni-202",
+        "title": "Програма за работата на Народното събрание за 15 - 17 юни 2022 г. - предложение от Христо Гаджев и Томислав Дончев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 4
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2186,
+        "score": 0.7755667343294811,
+        "overlap": 268
+      },
+      {
+        "mpId": 2189,
+        "score": 0.7286698513881176,
+        "overlap": 225
+      },
+      {
+        "mpId": 2185,
+        "score": 0.6860037428403132,
+        "overlap": 228
+      },
+      {
+        "mpId": 2187,
+        "score": 0.6745226778336496,
+        "overlap": 227
+      },
+      {
+        "mpId": 2190,
+        "score": 0.6435025903499175,
+        "overlap": 186
+      },
+      {
+        "mpId": 2173,
+        "score": 0.39003388788842613,
+        "overlap": 317
+      },
+      {
+        "mpId": 2174,
+        "score": 0.38561338716284616,
+        "overlap": 308
+      },
+      {
+        "mpId": 2170,
+        "score": 0.3817357610406257,
+        "overlap": 298
+      },
+      {
+        "mpId": 2019,
+        "score": 0.3814051290330526,
+        "overlap": 310
+      },
+      {
+        "mpId": 2022,
+        "score": 0.37782353347784636,
+        "overlap": 308
+      },
+      {
+        "mpId": 2117,
+        "score": 0.37755258201955705,
+        "overlap": 319
+      },
+      {
+        "mpId": 1660,
+        "score": 0.37615328920230817,
+        "overlap": 300
+      },
+      {
+        "mpId": 2158,
+        "score": 0.3760976961615554,
+        "overlap": 313
+      },
+      {
+        "mpId": 2045,
+        "score": 0.3753324960014804,
+        "overlap": 286
+      },
+      {
+        "mpId": 2094,
+        "score": 0.37350154070808345,
+        "overlap": 316
+      },
+      {
+        "mpId": 2114,
+        "score": 0.3728160639102947,
+        "overlap": 316
+      },
+      {
+        "mpId": 2026,
+        "score": 0.37210129534183184,
+        "overlap": 310
+      },
+      {
+        "mpId": 2176,
+        "score": 0.37063359068275986,
+        "overlap": 302
+      },
+      {
+        "mpId": 2109,
+        "score": 0.3694172228750337,
+        "overlap": 318
+      },
+      {
+        "mpId": 2068,
+        "score": 0.368760543315572,
+        "overlap": 314
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 810,
+        "score": -0.1581012354154692,
+        "overlap": 139
+      },
+      {
+        "mpId": 1428,
+        "score": -0.11075251357125149,
+        "overlap": 232
+      },
+      {
+        "mpId": 1466,
+        "score": -0.11005209778818056,
+        "overlap": 236
+      },
+      {
+        "mpId": 1644,
+        "score": -0.10673354208554012,
+        "overlap": 240
+      },
+      {
+        "mpId": 1643,
+        "score": -0.10134699674216971,
+        "overlap": 242
+      },
+      {
+        "mpId": 1576,
+        "score": -0.0984076839719585,
+        "overlap": 235
+      },
+      {
+        "mpId": 1651,
+        "score": -0.0805532420311582,
+        "overlap": 229
+      },
+      {
+        "mpId": 1297,
+        "score": -0.0797381798293696,
+        "overlap": 158
+      },
+      {
+        "mpId": 1155,
+        "score": -0.0796353505176528,
+        "overlap": 256
+      },
+      {
+        "mpId": 1124,
+        "score": -0.07958343633592045,
+        "overlap": 222
+      },
+      {
+        "mpId": 1972,
+        "score": -0.07664241743562071,
+        "overlap": 272
+      },
+      {
+        "mpId": 1703,
+        "score": -0.07274159402222387,
+        "overlap": 214
+      },
+      {
+        "mpId": 2051,
+        "score": -0.07227886086659042,
+        "overlap": 240
+      },
+      {
+        "mpId": 767,
+        "score": -0.07211174188952894,
+        "overlap": 242
+      },
+      {
+        "mpId": 663,
+        "score": -0.07184514288626365,
+        "overlap": 204
+      },
+      {
+        "mpId": 1970,
+        "score": -0.07120516440958823,
+        "overlap": 237
+      },
+      {
+        "mpId": 1920,
+        "score": -0.07048911614590783,
+        "overlap": 257
+      },
+      {
+        "mpId": 1692,
+        "score": -0.07019268162184003,
+        "overlap": 244
+      },
+      {
+        "mpId": 1922,
+        "score": -0.06708425702303965,
+        "overlap": 155
+      },
+      {
+        "mpId": 1916,
+        "score": -0.06533918351100157,
+        "overlap": 233
+      }
+    ]
+  }
+}

@@ -1,0 +1,315 @@
+{
+  "mpId": 1155,
+  "ns": "44",
+  "partyShort": "ГЕРБ",
+  "loyalty": {
+    "votesCast": 651,
+    "withParty": 642,
+    "loyaltyPct": 0.9861751152073732,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 651,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2021-02-12",
+        "item": 14,
+        "slug": "14-zakon-za-dopalnenie-na-zakona-za-merkite-i-deystviyata-po-vr",
+        "title": "Закон за допълнение на Закона за мерките и действията по време на извънредното положение, обявено с решение на Народното събрание от 13 март 2020 г., и за преодоляване на последиците - второ гласуване - параграф 9 (става параграф 14) - предложение от Виолета Желева и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2020-11-26",
+        "item": 25,
+        "slug": "25-zid-na-semeyniya-kodeks-vtoro-glasuvane-paragraf-1-predlozhe",
+        "title": "ЗИД на Семейния кодекс - второ гласуване - параграф 1 - предложение от Кристина Сидорова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 74
+      },
+      {
+        "date": "2020-11-25",
+        "item": 63,
+        "slug": "63-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 51 - предложение от Дора Янкова",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 79
+      },
+      {
+        "date": "2020-11-25",
+        "item": 62,
+        "slug": "62-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 51 - предложение от Мария Цветкова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 75
+      },
+      {
+        "date": "2020-11-25",
+        "item": 48,
+        "slug": "48-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 28 - предложение от Мария Цветкова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 69
+      },
+      {
+        "date": "2020-11-25",
+        "item": 26,
+        "slug": "26-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 15 - предложение от Дора Янкова",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 71
+      },
+      {
+        "date": "2020-11-24",
+        "item": 48,
+        "slug": "48-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - Член 11 - предложение от Красимир Янков и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 68
+      },
+      {
+        "date": "2020-11-24",
+        "item": 19,
+        "slug": "19-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 17 (става параграф 18) - предложение от Дора Христова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2020-11-19",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф ... нов - предложение от Адлен Шевкед и Сергей Кичиков",
+        "topic": "tax",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 817,
+        "score": 0.7914389095371757,
+        "overlap": 620
+      },
+      {
+        "mpId": 1244,
+        "score": 0.7897344140239385,
+        "overlap": 635
+      },
+      {
+        "mpId": 1486,
+        "score": 0.7879713433901648,
+        "overlap": 606
+      },
+      {
+        "mpId": 1502,
+        "score": 0.7853153775850249,
+        "overlap": 624
+      },
+      {
+        "mpId": 1317,
+        "score": 0.7822848533425057,
+        "overlap": 604
+      },
+      {
+        "mpId": 1457,
+        "score": 0.7805911931816678,
+        "overlap": 630
+      },
+      {
+        "mpId": 1265,
+        "score": 0.7717225088798957,
+        "overlap": 610
+      },
+      {
+        "mpId": 1256,
+        "score": 0.7715616766857959,
+        "overlap": 597
+      },
+      {
+        "mpId": 1393,
+        "score": 0.771536860770237,
+        "overlap": 604
+      },
+      {
+        "mpId": 1329,
+        "score": 0.7705902012265897,
+        "overlap": 579
+      },
+      {
+        "mpId": 1299,
+        "score": 0.7701540930224039,
+        "overlap": 613
+      },
+      {
+        "mpId": 1461,
+        "score": 0.764472010387006,
+        "overlap": 614
+      },
+      {
+        "mpId": 1288,
+        "score": 0.7632662535437933,
+        "overlap": 606
+      },
+      {
+        "mpId": 1483,
+        "score": 0.7621273799950656,
+        "overlap": 600
+      },
+      {
+        "mpId": 1543,
+        "score": 0.7615875344716663,
+        "overlap": 606
+      },
+      {
+        "mpId": 1367,
+        "score": 0.7600458925700578,
+        "overlap": 613
+      },
+      {
+        "mpId": 805,
+        "score": 0.7597395625030616,
+        "overlap": 586
+      },
+      {
+        "mpId": 1498,
+        "score": 0.7573222901672114,
+        "overlap": 613
+      },
+      {
+        "mpId": 1480,
+        "score": 0.7562983225105778,
+        "overlap": 557
+      },
+      {
+        "mpId": 1260,
+        "score": 0.7550271907598437,
+        "overlap": 575
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1273,
+        "score": -0.2779037691739496,
+        "overlap": 189
+      },
+      {
+        "mpId": 829,
+        "score": -0.26802889515192874,
+        "overlap": 249
+      },
+      {
+        "mpId": 1530,
+        "score": -0.23746134257856483,
+        "overlap": 215
+      },
+      {
+        "mpId": 1021,
+        "score": -0.22741795601694847,
+        "overlap": 277
+      },
+      {
+        "mpId": 1345,
+        "score": -0.2272667698492404,
+        "overlap": 272
+      },
+      {
+        "mpId": 1276,
+        "score": -0.2240134258359133,
+        "overlap": 306
+      },
+      {
+        "mpId": 1555,
+        "score": -0.22245056683085734,
+        "overlap": 205
+      },
+      {
+        "mpId": 762,
+        "score": -0.2214127067433354,
+        "overlap": 338
+      },
+      {
+        "mpId": 1514,
+        "score": -0.20819400063570173,
+        "overlap": 254
+      },
+      {
+        "mpId": 1336,
+        "score": -0.20781921365197756,
+        "overlap": 247
+      },
+      {
+        "mpId": 1275,
+        "score": -0.20505520832252594,
+        "overlap": 186
+      },
+      {
+        "mpId": 1261,
+        "score": -0.2036076640624018,
+        "overlap": 183
+      },
+      {
+        "mpId": 1384,
+        "score": -0.19716025963161896,
+        "overlap": 240
+      },
+      {
+        "mpId": 1342,
+        "score": -0.19704489475961687,
+        "overlap": 411
+      },
+      {
+        "mpId": 1323,
+        "score": -0.19417289826627168,
+        "overlap": 345
+      },
+      {
+        "mpId": 1531,
+        "score": -0.19028903909627556,
+        "overlap": 234
+      },
+      {
+        "mpId": 1023,
+        "score": -0.18819969800246023,
+        "overlap": 155
+      },
+      {
+        "mpId": 1390,
+        "score": -0.1877980988024673,
+        "overlap": 290
+      },
+      {
+        "mpId": 1536,
+        "score": -0.18379675637529633,
+        "overlap": 211
+      },
+      {
+        "mpId": 1277,
+        "score": -0.18248018537670224,
+        "overlap": 143
+      }
+    ]
+  }
+}

@@ -1,0 +1,335 @@
+{
+  "mpId": 1379,
+  "ns": "44",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 133,
+    "withParty": 122,
+    "loyaltyPct": 0.9172932330827067,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 133,
+    "dissentCount": 11,
+    "recent": [
+      {
+        "date": "2021-02-24",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-24-26-fevruari",
+        "title": "Програма за работата на Народното събрание за 24 - 26 февруари 2021г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-02-19",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-17-19-fevruari",
+        "title": "Програма за работата на Народното събрание за 17 - 19 февруари 2021 г. - предложение от Цвета Караянчева за включване на нова точка първа в дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 52
+      },
+      {
+        "date": "2021-02-17",
+        "item": 5,
+        "slug": "5-protsedura-ot-georgi-svilenski-za-izslushvane-po-chl-113-ot-",
+        "title": "Процедура от Георги Свиленски за изслушване по чл. 113 от ПОДНС на Министър - председателя Бойко Борисов и кмета на Столична община Йорданка Фандъкова - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 57
+      },
+      {
+        "date": "2021-02-04",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-pchelarstvoto-vtoro-glasuvane-paragraf-14-n",
+        "title": "ЗИД на Закона за пчеларството - второ гласуване - параграф 14 - нов - предложение от Чавдар Велинов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2021-01-27",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-ns-za-27-29-yanuari-2021-g",
+        "title": "Програма за работата на НС за 27 - 29 януари 2021 г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 39
+      },
+      {
+        "date": "2021-01-13",
+        "item": 3,
+        "slug": "3-protsedura-za-pryako-predavane-po-bnt-i-bnr",
+        "title": "Процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 41
+      },
+      {
+        "date": "2020-11-26",
+        "item": 7,
+        "slug": "7-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 7 и 8 - предложение от Искрен Веселинов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 37
+      },
+      {
+        "date": "2020-11-24",
+        "item": 67,
+        "slug": "67-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - параграф 8 - предложение от Дора Христова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 46
+      },
+      {
+        "date": "2020-11-24",
+        "item": 61,
+        "slug": "61-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - параграф 8 - предложение от Хасан Адемов",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 50
+      },
+      {
+        "date": "2020-11-24",
+        "item": 46,
+        "slug": "46-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - Член 10 - предложение от Дора Христова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2020-10-30",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-publichnite-predpriyatiya-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за публичните предприятия - второ гласуване - параграф единствен (става параграф 1)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 40
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 462,
+        "score": 0.4735980392902706,
+        "overlap": 64
+      },
+      {
+        "mpId": 1261,
+        "score": 0.46356214216907754,
+        "overlap": 86
+      },
+      {
+        "mpId": 1301,
+        "score": 0.4551641454090258,
+        "overlap": 111
+      },
+      {
+        "mpId": 1296,
+        "score": 0.4539569824619933,
+        "overlap": 78
+      },
+      {
+        "mpId": 1045,
+        "score": 0.44732969958970775,
+        "overlap": 90
+      },
+      {
+        "mpId": 1315,
+        "score": 0.442762604223198,
+        "overlap": 85
+      },
+      {
+        "mpId": 1262,
+        "score": 0.4390594821969847,
+        "overlap": 72
+      },
+      {
+        "mpId": 1282,
+        "score": 0.43048192216942777,
+        "overlap": 78
+      },
+      {
+        "mpId": 1358,
+        "score": 0.428908223459219,
+        "overlap": 104
+      },
+      {
+        "mpId": 1531,
+        "score": 0.4264192316982556,
+        "overlap": 101
+      },
+      {
+        "mpId": 1505,
+        "score": 0.42537899162997256,
+        "overlap": 78
+      },
+      {
+        "mpId": 1318,
+        "score": 0.42352840550845783,
+        "overlap": 101
+      },
+      {
+        "mpId": 1285,
+        "score": 0.4219672325061098,
+        "overlap": 111
+      },
+      {
+        "mpId": 782,
+        "score": 0.4211030883453114,
+        "overlap": 95
+      },
+      {
+        "mpId": 1390,
+        "score": 0.4080059119558544,
+        "overlap": 100
+      },
+      {
+        "mpId": 1253,
+        "score": 0.40466974875309986,
+        "overlap": 96
+      },
+      {
+        "mpId": 833,
+        "score": 0.4046561882978719,
+        "overlap": 107
+      },
+      {
+        "mpId": 1323,
+        "score": 0.4018923760065096,
+        "overlap": 118
+      },
+      {
+        "mpId": 1268,
+        "score": 0.4002415285525663,
+        "overlap": 87
+      },
+      {
+        "mpId": 1515,
+        "score": 0.3984794307445389,
+        "overlap": 123
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 599,
+        "score": -0.21017627941581435,
+        "overlap": 83
+      },
+      {
+        "mpId": 404,
+        "score": -0.198673804427702,
+        "overlap": 119
+      },
+      {
+        "mpId": 486,
+        "score": -0.19519752636695306,
+        "overlap": 114
+      },
+      {
+        "mpId": 1544,
+        "score": -0.1867080789621848,
+        "overlap": 93
+      },
+      {
+        "mpId": 369,
+        "score": -0.18272493264086306,
+        "overlap": 108
+      },
+      {
+        "mpId": 1386,
+        "score": -0.18133077384638124,
+        "overlap": 101
+      },
+      {
+        "mpId": 1364,
+        "score": -0.17816511184829562,
+        "overlap": 121
+      },
+      {
+        "mpId": 1281,
+        "score": -0.17702523634469147,
+        "overlap": 106
+      },
+      {
+        "mpId": 1305,
+        "score": -0.17347049449192978,
+        "overlap": 97
+      },
+      {
+        "mpId": 1486,
+        "score": -0.17330305365935714,
+        "overlap": 119
+      },
+      {
+        "mpId": 1513,
+        "score": -0.17057995827214933,
+        "overlap": 123
+      },
+      {
+        "mpId": 465,
+        "score": -0.16982766998892948,
+        "overlap": 102
+      },
+      {
+        "mpId": 1511,
+        "score": -0.16932848693840052,
+        "overlap": 107
+      },
+      {
+        "mpId": 473,
+        "score": -0.16823164622761325,
+        "overlap": 103
+      },
+      {
+        "mpId": 1538,
+        "score": -0.16650614783267384,
+        "overlap": 119
+      },
+      {
+        "mpId": 862,
+        "score": -0.1658786401874583,
+        "overlap": 83
+      },
+      {
+        "mpId": 1265,
+        "score": -0.1652190803579467,
+        "overlap": 119
+      },
+      {
+        "mpId": 403,
+        "score": -0.16400793356738277,
+        "overlap": 105
+      },
+      {
+        "mpId": 1317,
+        "score": -0.16251310464629792,
+        "overlap": 122
+      },
+      {
+        "mpId": 1256,
+        "score": -0.16057373799612923,
+        "overlap": 119
+      }
+    ]
+  }
+}

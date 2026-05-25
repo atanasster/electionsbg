@@ -1,0 +1,325 @@
+{
+  "mpId": 2309,
+  "ns": "48",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 1286,
+    "withParty": 1276,
+    "loyaltyPct": 0.9922239502332815,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 1286,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2023-02-01",
+        "item": 19,
+        "slug": "19-zid-na-kodeksa-za-sotsialno-osiguryavane-parvo-glasuvane",
+        "title": "ЗИД на Кодекса за социално осигуряване - първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 23
+      },
+      {
+        "date": "2023-01-25",
+        "item": 56,
+        "slug": "56-zid-na-zakona-za-otbranata-i-vaorazhenite-sili-na-republika-",
+        "title": "ЗИД на Закона за отбраната и въоръжените сили на Република България - първо гласуване - вносител Министерски съвет",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 24
+      },
+      {
+        "date": "2023-01-18",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-18-20-yanuari-",
+        "title": "Програма за работата на Народното събрание за 18 - 20 януари 2023 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-12-22",
+        "item": 67,
+        "slug": "67-zakon-za-prodalzhavane-deystvieto-na-razporedbi-na-zakona-za",
+        "title": "Закон за продължаване действието на разпоредби на Закона за държавния бюджет на Република България за 2022г., Закона за бюджета на държавното обществено осигуряване и Закона за бюджета на Националната здравноосигурителна каса за 2022г. - второ гласуване - предложение от Д.Добрев за прекратяване на заседанието до параграф 10",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-12-22",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-balgarskata-narodna-banka-parvo-glasuvane-p",
+        "title": "ЗИД на Закона за Българската народна банка - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2022-12-08",
+        "item": 5,
+        "slug": "5-zid-na-kodeksa-na-truda-parvo-glasuvane-protsedura-ot-lidiya",
+        "title": "ЗИД на Кодекса на труда - първо гласуване - процедура от Лидия Недева за удължаване на срока за предложения на 14 дни",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-12-01",
+        "item": 100,
+        "slug": "100-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-6-po-vnosit",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 6 по вносител - предложение от Десислава Атанасова за редакция по чл 213б, ал.2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-11-02",
+        "item": 60,
+        "slug": "60-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 77 - 79 (става член 78 - 80)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2022-10-27",
+        "item": 22,
+        "slug": "22-protsedura-ot-andrey-gyurov-za-razglezhdane-na-reshenie-za-i",
+        "title": "Процедура от Андрей Гюров за разглеждане на Решение за избиране на Комисия по земеделието, храните и горите - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2022-10-21",
+        "item": 4,
+        "slug": "4-reshenie-za-izbor-na-predsedatel-na-48-to-narodno-sabranie-n",
+        "title": "Решение за избор на председател на 48-то Народно събрание на Република България - избира Кристиан Вигенин",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2278,
+        "score": 0.9653900838423088,
+        "overlap": 1265
+      },
+      {
+        "mpId": 2098,
+        "score": 0.960578624657757,
+        "overlap": 1259
+      },
+      {
+        "mpId": 2339,
+        "score": 0.9553083604942864,
+        "overlap": 1234
+      },
+      {
+        "mpId": 2318,
+        "score": 0.9515835068594487,
+        "overlap": 1242
+      },
+      {
+        "mpId": 2301,
+        "score": 0.950434035424579,
+        "overlap": 1231
+      },
+      {
+        "mpId": 2313,
+        "score": 0.9482806022475676,
+        "overlap": 1228
+      },
+      {
+        "mpId": 2317,
+        "score": 0.9449346181003089,
+        "overlap": 1222
+      },
+      {
+        "mpId": 2304,
+        "score": 0.9438953336198921,
+        "overlap": 1226
+      },
+      {
+        "mpId": 2363,
+        "score": 0.940438192540363,
+        "overlap": 1212
+      },
+      {
+        "mpId": 2075,
+        "score": 0.9373338853724477,
+        "overlap": 1208
+      },
+      {
+        "mpId": 2308,
+        "score": 0.9351069885190489,
+        "overlap": 1225
+      },
+      {
+        "mpId": 2266,
+        "score": 0.9341765107097666,
+        "overlap": 1194
+      },
+      {
+        "mpId": 2310,
+        "score": 0.9329456674017922,
+        "overlap": 1209
+      },
+      {
+        "mpId": 2352,
+        "score": 0.9285996501492547,
+        "overlap": 1201
+      },
+      {
+        "mpId": 2061,
+        "score": 0.9277306391676527,
+        "overlap": 1172
+      },
+      {
+        "mpId": 2119,
+        "score": 0.9210181276956831,
+        "overlap": 1176
+      },
+      {
+        "mpId": 2297,
+        "score": 0.9143941282941145,
+        "overlap": 1151
+      },
+      {
+        "mpId": 2063,
+        "score": 0.9098998202470521,
+        "overlap": 1176
+      },
+      {
+        "mpId": 2326,
+        "score": 0.9090807193877393,
+        "overlap": 1158
+      },
+      {
+        "mpId": 2077,
+        "score": 0.9069155086634813,
+        "overlap": 1133
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2064,
+        "score": -0.020207433080011127,
+        "overlap": 48
+      },
+      {
+        "mpId": 810,
+        "score": -0.010043574835811853,
+        "overlap": 363
+      },
+      {
+        "mpId": 1297,
+        "score": -0.008236304651673272,
+        "overlap": 371
+      },
+      {
+        "mpId": 2283,
+        "score": 0.0157379113182232,
+        "overlap": 242
+      },
+      {
+        "mpId": 2133,
+        "score": 0.03378065130721814,
+        "overlap": 352
+      },
+      {
+        "mpId": 2315,
+        "score": 0.06333957042959164,
+        "overlap": 365
+      },
+      {
+        "mpId": 663,
+        "score": 0.0660397103548289,
+        "overlap": 712
+      },
+      {
+        "mpId": 1576,
+        "score": 0.06944561203812563,
+        "overlap": 805
+      },
+      {
+        "mpId": 1703,
+        "score": 0.0695653947183513,
+        "overlap": 927
+      },
+      {
+        "mpId": 2371,
+        "score": 0.07537488670902188,
+        "overlap": 181
+      },
+      {
+        "mpId": 1389,
+        "score": 0.08599149940403579,
+        "overlap": 704
+      },
+      {
+        "mpId": 1640,
+        "score": 0.0861078716169915,
+        "overlap": 638
+      },
+      {
+        "mpId": 1466,
+        "score": 0.08865660226145489,
+        "overlap": 878
+      },
+      {
+        "mpId": 1678,
+        "score": 0.08884519684446544,
+        "overlap": 507
+      },
+      {
+        "mpId": 2295,
+        "score": 0.09694329116004063,
+        "overlap": 937
+      },
+      {
+        "mpId": 1970,
+        "score": 0.09849150403439756,
+        "overlap": 1028
+      },
+      {
+        "mpId": 1920,
+        "score": 0.09905125773208424,
+        "overlap": 1050
+      },
+      {
+        "mpId": 960,
+        "score": 0.10128849612258826,
+        "overlap": 715
+      },
+      {
+        "mpId": 1644,
+        "score": 0.10242065734762934,
+        "overlap": 970
+      },
+      {
+        "mpId": 1394,
+        "score": 0.10446411555506281,
+        "overlap": 121
+      }
+    ]
+  }
+}

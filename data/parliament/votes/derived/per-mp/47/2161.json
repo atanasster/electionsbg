@@ -1,0 +1,319 @@
+{
+  "mpId": 2161,
+  "ns": "47",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 1706,
+    "withParty": 1696,
+    "loyaltyPct": 0.9941383352872216,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1706,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2022-07-29",
+        "item": 27,
+        "slug": "27-zd-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosiguritel",
+        "title": "ЗД на Закона за бюджета на Националната здравноосигурителна каса за 2022 г.- първо гласуване - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2022-07-14",
+        "item": 28,
+        "slug": "28-zid-na-zakona-za-hazarta-parvo-glasuvane-vnositel-deyan-petk",
+        "title": "ЗИД на Закона за хазарта - първо гласуване - вносител Деян Петков и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-06-01",
+        "item": 27,
+        "slug": "27-reshenie-za-sazdvane-na-vremenna-anketna-komisiya-za-ustanov",
+        "title": "Решение за създване на Временна анкетна комисия за установяване на всички факти и обстоятелства, свързани с подписания от правителството меморандум за 1 млрд. долара с GEMCORP и IP3 CORPORATION - председател Десислава Трифонова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-03-09",
+        "item": 3,
+        "slug": "3",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 24
+      },
+      {
+        "date": "2022-02-24",
+        "item": 13,
+        "slug": "13",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-02-22",
+        "item": 72,
+        "slug": "72",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-01-05",
+        "item": 9,
+        "slug": "9-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства относно въведените на територията на Република България противоепидемични мерки срещу COVID-19",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-12-22",
+        "item": 11,
+        "slug": "11-protsedura-ot-hristo-gadzhev-za-udalzhavane-na-rabotnoto-vre",
+        "title": "Процедура от Христо Гаджев за удължаване на работното време до приемане на точка 3",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 26
+      },
+      {
+        "date": "2021-12-17",
+        "item": 37,
+        "slug": "37-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава осма, член 73 - предложение от Екатерина Захариева за редакция на ал.10",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-12-16",
+        "item": 50,
+        "slug": "50-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 25 (става член 26) - предложение от Росица Кирова - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2163,
+        "score": 0.9658267714761698,
+        "overlap": 1660
+      },
+      {
+        "mpId": 2090,
+        "score": 0.9608486767054447,
+        "overlap": 1658
+      },
+      {
+        "mpId": 2058,
+        "score": 0.9521213081092273,
+        "overlap": 1630
+      },
+      {
+        "mpId": 1253,
+        "score": 0.9356590885541638,
+        "overlap": 1574
+      },
+      {
+        "mpId": 761,
+        "score": 0.9348403694512879,
+        "overlap": 1599
+      },
+      {
+        "mpId": 2162,
+        "score": 0.9319841747494242,
+        "overlap": 1564
+      },
+      {
+        "mpId": 2076,
+        "score": 0.9294620860474389,
+        "overlap": 1570
+      },
+      {
+        "mpId": 1875,
+        "score": 0.9279136793731344,
+        "overlap": 1563
+      },
+      {
+        "mpId": 1312,
+        "score": 0.9196435558537551,
+        "overlap": 1544
+      },
+      {
+        "mpId": 2160,
+        "score": 0.9103753955547187,
+        "overlap": 1549
+      },
+      {
+        "mpId": 1277,
+        "score": 0.9087315121015348,
+        "overlap": 1486
+      },
+      {
+        "mpId": 2072,
+        "score": 0.8997812866153471,
+        "overlap": 1483
+      },
+      {
+        "mpId": 1581,
+        "score": 0.8889462187694489,
+        "overlap": 1416
+      },
+      {
+        "mpId": 848,
+        "score": 0.8879362512843986,
+        "overlap": 1452
+      },
+      {
+        "mpId": 1275,
+        "score": 0.882654064167094,
+        "overlap": 1428
+      },
+      {
+        "mpId": 2053,
+        "score": 0.8783876619837253,
+        "overlap": 1691
+      },
+      {
+        "mpId": 2130,
+        "score": 0.8758452953788519,
+        "overlap": 1693
+      },
+      {
+        "mpId": 2109,
+        "score": 0.8733421606984294,
+        "overlap": 1680
+      },
+      {
+        "mpId": 2158,
+        "score": 0.8712751755490118,
+        "overlap": 1630
+      },
+      {
+        "mpId": 2103,
+        "score": 0.8701793018947925,
+        "overlap": 1668
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1428,
+        "score": -0.2086217302898483,
+        "overlap": 755
+      },
+      {
+        "mpId": 1466,
+        "score": -0.20416087611634928,
+        "overlap": 691
+      },
+      {
+        "mpId": 1457,
+        "score": -0.2004862339662639,
+        "overlap": 896
+      },
+      {
+        "mpId": 1692,
+        "score": -0.19807053998964655,
+        "overlap": 885
+      },
+      {
+        "mpId": 767,
+        "score": -0.19475247225232828,
+        "overlap": 865
+      },
+      {
+        "mpId": 1124,
+        "score": -0.19257074105855954,
+        "overlap": 835
+      },
+      {
+        "mpId": 473,
+        "score": -0.19125101871225003,
+        "overlap": 897
+      },
+      {
+        "mpId": 1970,
+        "score": -0.18393420606848296,
+        "overlap": 771
+      },
+      {
+        "mpId": 1465,
+        "score": -0.18282069392454278,
+        "overlap": 885
+      },
+      {
+        "mpId": 1643,
+        "score": -0.18254436147114145,
+        "overlap": 804
+      },
+      {
+        "mpId": 1975,
+        "score": -0.18100529020622125,
+        "overlap": 1051
+      },
+      {
+        "mpId": 1703,
+        "score": -0.17976871582582038,
+        "overlap": 656
+      },
+      {
+        "mpId": 1317,
+        "score": -0.17861566854054045,
+        "overlap": 935
+      },
+      {
+        "mpId": 1880,
+        "score": -0.17780487556056018,
+        "overlap": 865
+      },
+      {
+        "mpId": 2074,
+        "score": -0.17587606227654806,
+        "overlap": 1065
+      },
+      {
+        "mpId": 1960,
+        "score": -0.17399505201610552,
+        "overlap": 971
+      },
+      {
+        "mpId": 1386,
+        "score": -0.17193255907433022,
+        "overlap": 921
+      },
+      {
+        "mpId": 1933,
+        "score": -0.17015569567876884,
+        "overlap": 1002
+      },
+      {
+        "mpId": 1651,
+        "score": -0.16644182369023117,
+        "overlap": 645
+      },
+      {
+        "mpId": 2135,
+        "score": -0.1658423077213001,
+        "overlap": 932
+      }
+    ]
+  }
+}

@@ -1,0 +1,355 @@
+{
+  "mpId": 1933,
+  "ns": "46",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 281,
+    "withParty": 268,
+    "loyaltyPct": 0.9537366548042705,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 281,
+    "dissentCount": 13,
+    "recent": [
+      {
+        "date": "2021-09-10",
+        "item": 55,
+        "slug": "55-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - процедура за прекратяване на дебата",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-09-10",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от К.Нинова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 57
+      },
+      {
+        "date": "2021-09-09",
+        "item": 41,
+        "slug": "41-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 1 - предложение от Мая Манолова и група н.п. (1.1.3.3.1 )",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2021-09-09",
+        "item": 2,
+        "slug": "2-protsedura-za-nova-tochka-ot-iva-miteva",
+        "title": "Процедура за нова точка от Ива Митева",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 50
+      },
+      {
+        "date": "2021-08-05",
+        "item": 43,
+        "slug": "43-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - процедура за удължаване на работното време",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2021-08-05",
+        "item": 31,
+        "slug": "31-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 64- предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 41
+      },
+      {
+        "date": "2021-08-05",
+        "item": 24,
+        "slug": "24-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 28",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-08-05",
+        "item": 15,
+        "slug": "15-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 20 и 21",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 45
+      },
+      {
+        "date": "2021-08-05",
+        "item": 8,
+        "slug": "8-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 16а - предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 52
+      },
+      {
+        "date": "2021-08-05",
+        "item": 6,
+        "slug": "6-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава пета, член 16 - предложение от М.Манолова по т. 21",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2021-08-05",
+        "item": 5,
+        "slug": "5-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава пета, член 16 - т.17",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 53
+      },
+      {
+        "date": "2021-07-22",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-22-i-23-yuli-2",
+        "title": "Програма за работата на Народното събрание за 22 и 23 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 41
+      },
+      {
+        "date": "2021-07-22",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-22-i-23-yuli-2",
+        "title": "Програма за работата на Народното събрание за 22 и 23 юли 2021г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 55
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1976,
+        "score": 0.8119979429411502,
+        "overlap": 269
+      },
+      {
+        "mpId": 1577,
+        "score": 0.7757753890873584,
+        "overlap": 276
+      },
+      {
+        "mpId": 1934,
+        "score": 0.7734651948493301,
+        "overlap": 253
+      },
+      {
+        "mpId": 1596,
+        "score": 0.7726274635327199,
+        "overlap": 270
+      },
+      {
+        "mpId": 1969,
+        "score": 0.768075429040381,
+        "overlap": 254
+      },
+      {
+        "mpId": 1966,
+        "score": 0.7680679591861582,
+        "overlap": 255
+      },
+      {
+        "mpId": 1923,
+        "score": 0.7664655098280692,
+        "overlap": 249
+      },
+      {
+        "mpId": 1695,
+        "score": 0.7635341190101856,
+        "overlap": 270
+      },
+      {
+        "mpId": 1567,
+        "score": 0.7603404070804561,
+        "overlap": 249
+      },
+      {
+        "mpId": 1870,
+        "score": 0.7601374387359889,
+        "overlap": 271
+      },
+      {
+        "mpId": 1015,
+        "score": 0.7596033696924226,
+        "overlap": 260
+      },
+      {
+        "mpId": 1628,
+        "score": 0.7485618395204281,
+        "overlap": 233
+      },
+      {
+        "mpId": 767,
+        "score": 0.7417825336984897,
+        "overlap": 217
+      },
+      {
+        "mpId": 1940,
+        "score": 0.7376801374715333,
+        "overlap": 207
+      },
+      {
+        "mpId": 1894,
+        "score": 0.7337993857053429,
+        "overlap": 239
+      },
+      {
+        "mpId": 1931,
+        "score": 0.7292916344469762,
+        "overlap": 235
+      },
+      {
+        "mpId": 1973,
+        "score": 0.725629700011281,
+        "overlap": 214
+      },
+      {
+        "mpId": 1882,
+        "score": 0.7238870588789899,
+        "overlap": 261
+      },
+      {
+        "mpId": 1883,
+        "score": 0.7186823927815785,
+        "overlap": 249
+      },
+      {
+        "mpId": 1599,
+        "score": 0.716193086198788,
+        "overlap": 246
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1678,
+        "score": -0.022562131409857005,
+        "overlap": 149
+      },
+      {
+        "mpId": 1663,
+        "score": 0.07519206177414045,
+        "overlap": 172
+      },
+      {
+        "mpId": 1681,
+        "score": 0.0823687767580373,
+        "overlap": 98
+      },
+      {
+        "mpId": 1963,
+        "score": 0.08674723979493605,
+        "overlap": 67
+      },
+      {
+        "mpId": 1595,
+        "score": 0.08991185161040992,
+        "overlap": 214
+      },
+      {
+        "mpId": 1914,
+        "score": 0.09647973217263524,
+        "overlap": 131
+      },
+      {
+        "mpId": 1641,
+        "score": 0.09682818167765579,
+        "overlap": 181
+      },
+      {
+        "mpId": 1568,
+        "score": 0.10917195732578196,
+        "overlap": 150
+      },
+      {
+        "mpId": 1394,
+        "score": 0.11419835100556051,
+        "overlap": 174
+      },
+      {
+        "mpId": 1943,
+        "score": 0.1146701526922969,
+        "overlap": 81
+      },
+      {
+        "mpId": 1640,
+        "score": 0.1287580880386225,
+        "overlap": 210
+      },
+      {
+        "mpId": 1589,
+        "score": 0.12907200901207141,
+        "overlap": 112
+      },
+      {
+        "mpId": 1314,
+        "score": 0.13363716810699422,
+        "overlap": 61
+      },
+      {
+        "mpId": 1060,
+        "score": 0.13651764585706944,
+        "overlap": 198
+      },
+      {
+        "mpId": 1336,
+        "score": 0.13739297177359405,
+        "overlap": 223
+      },
+      {
+        "mpId": 1889,
+        "score": 0.14420115155490815,
+        "overlap": 197
+      },
+      {
+        "mpId": 1673,
+        "score": 0.14829862171647964,
+        "overlap": 142
+      },
+      {
+        "mpId": 1668,
+        "score": 0.15328975526847238,
+        "overlap": 243
+      },
+      {
+        "mpId": 782,
+        "score": 0.15510938012770425,
+        "overlap": 187
+      },
+      {
+        "mpId": 1693,
+        "score": 0.15819626402948722,
+        "overlap": 236
+      }
+    ]
+  }
+}

@@ -1,0 +1,325 @@
+{
+  "mpId": 2532,
+  "ns": "49",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 1434,
+    "withParty": 1424,
+    "loyaltyPct": 0.99302649930265,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 1434,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2024-04-18",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-zdraveto-parvo-glasuvane",
+        "title": "ЗИД на Закона за здравето - първо гласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-04-11",
+        "item": 6,
+        "slug": "6-reshenie-po-godishen-doklad-na-darzhavnata-komisiya-po-sigur",
+        "title": "Решение по Годишен доклад на Държавната комисия по сигурността на информацията относно цялостната дейност по състоянието на защитата на класифицираната информация в Република България през 2022 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2024-04-05",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2024 г. - първо гласуване - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-02-15",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-predpriyatiyata-na-sotsialnata-i-solidarna-",
+        "title": "ЗИД на Закона за предприятията на социалната и солидарна икономика – първо гласуване - процедура от Деница Сачева за удължаване на срока за предложения на 14 дни",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2024-02-01",
+        "item": 33,
+        "slug": "33-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-pro",
+        "title": "ЗИД на Наказателно-процесуалния кодекс - второ гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2023-12-20",
+        "item": 15,
+        "slug": "15-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2024",
+        "title": "Закон за държавния бюджет на Република България за 2024 г. - второ гласуване - член 13 - предложение от Павела Митова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2023-12-11",
+        "item": 7,
+        "slug": "7-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2024",
+        "title": "Закон за държавния бюджет на Република България за 2024 г. - първо гласуване - прегласуване",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 28
+      },
+      {
+        "date": "2023-12-07",
+        "item": 8,
+        "slug": "8-protsedura-ot-hristo-gadzhev-za-sakrashtavane-na-sroka-za-pr",
+        "title": "Процедура от Христо Гаджев за съкращаване на срока за предложения по ЗИД на Закона за отбраната и въоръжените сили на три дни",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 36
+      },
+      {
+        "date": "2023-11-23",
+        "item": 51,
+        "slug": "51-zid-na-zakona-za-avtorskoto-pravo-i-srodnite-mu-prava-vtoro-",
+        "title": "ЗИД на Закона за авторското право и сродните му права - второ гласуване - параграф 82 (става параграф 81)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 36
+      },
+      {
+        "date": "2023-11-22",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-ekstraditsiyata-i-evropeyskata-zapoved-za-a",
+        "title": "ЗИД на Закона за екстрадицията и Европейската заповед за арест - второ гласуване - параграф 5 - нов - предложение от Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 35
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2538,
+        "score": 0.9054141299768538,
+        "overlap": 1250
+      },
+      {
+        "mpId": 2077,
+        "score": 0.6653038385297358,
+        "overlap": 1349
+      },
+      {
+        "mpId": 2452,
+        "score": 0.6583528404964608,
+        "overlap": 1394
+      },
+      {
+        "mpId": 2308,
+        "score": 0.653565649140018,
+        "overlap": 1325
+      },
+      {
+        "mpId": 2098,
+        "score": 0.6462667399229187,
+        "overlap": 1419
+      },
+      {
+        "mpId": 2318,
+        "score": 0.6447971499708725,
+        "overlap": 1384
+      },
+      {
+        "mpId": 2442,
+        "score": 0.6442253404852064,
+        "overlap": 1398
+      },
+      {
+        "mpId": 2119,
+        "score": 0.6423953591302675,
+        "overlap": 1350
+      },
+      {
+        "mpId": 2309,
+        "score": 0.6402335443479238,
+        "overlap": 1400
+      },
+      {
+        "mpId": 2439,
+        "score": 0.6343882499333983,
+        "overlap": 1364
+      },
+      {
+        "mpId": 2441,
+        "score": 0.6309532901236413,
+        "overlap": 1345
+      },
+      {
+        "mpId": 2061,
+        "score": 0.6303157386800278,
+        "overlap": 1378
+      },
+      {
+        "mpId": 2278,
+        "score": 0.6301765211023345,
+        "overlap": 1359
+      },
+      {
+        "mpId": 2453,
+        "score": 0.6294793116640229,
+        "overlap": 1249
+      },
+      {
+        "mpId": 2446,
+        "score": 0.6261890062903971,
+        "overlap": 1330
+      },
+      {
+        "mpId": 2304,
+        "score": 0.621841768044742,
+        "overlap": 1320
+      },
+      {
+        "mpId": 2310,
+        "score": 0.6199522047497099,
+        "overlap": 1305
+      },
+      {
+        "mpId": 2459,
+        "score": 0.6196145875421699,
+        "overlap": 1339
+      },
+      {
+        "mpId": 2435,
+        "score": 0.6170773515713716,
+        "overlap": 1331
+      },
+      {
+        "mpId": 2317,
+        "score": 0.6149891175992905,
+        "overlap": 1316
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2529,
+        "score": -0.1712320005513425,
+        "overlap": 1139
+      },
+      {
+        "mpId": 2380,
+        "score": -0.15740780973020416,
+        "overlap": 1151
+      },
+      {
+        "mpId": 2393,
+        "score": -0.14528299898945335,
+        "overlap": 1220
+      },
+      {
+        "mpId": 2521,
+        "score": -0.14333981474001026,
+        "overlap": 1096
+      },
+      {
+        "mpId": 2374,
+        "score": -0.13604912390217594,
+        "overlap": 1310
+      },
+      {
+        "mpId": 451,
+        "score": -0.13471903814298997,
+        "overlap": 568
+      },
+      {
+        "mpId": 2055,
+        "score": -0.13203271426718138,
+        "overlap": 1040
+      },
+      {
+        "mpId": 2522,
+        "score": -0.12750741230438264,
+        "overlap": 886
+      },
+      {
+        "mpId": 2120,
+        "score": -0.12595817425681377,
+        "overlap": 1068
+      },
+      {
+        "mpId": 2526,
+        "score": -0.1257684627836601,
+        "overlap": 1186
+      },
+      {
+        "mpId": 2110,
+        "score": -0.12445007171225696,
+        "overlap": 1081
+      },
+      {
+        "mpId": 2099,
+        "score": -0.12367198367936488,
+        "overlap": 950
+      },
+      {
+        "mpId": 2385,
+        "score": -0.12280447039721498,
+        "overlap": 1140
+      },
+      {
+        "mpId": 398,
+        "score": -0.12191597259747006,
+        "overlap": 571
+      },
+      {
+        "mpId": 2383,
+        "score": -0.11949990918887919,
+        "overlap": 1144
+      },
+      {
+        "mpId": 2020,
+        "score": -0.11933834598325235,
+        "overlap": 1086
+      },
+      {
+        "mpId": 2030,
+        "score": -0.11918869371665793,
+        "overlap": 1073
+      },
+      {
+        "mpId": 2444,
+        "score": -0.11834806650993814,
+        "overlap": 1163
+      },
+      {
+        "mpId": 2356,
+        "score": -0.1178103420658782,
+        "overlap": 1083
+      },
+      {
+        "mpId": 2418,
+        "score": -0.11774922431974433,
+        "overlap": 1223
+      }
+    ]
+  }
+}

@@ -54,6 +54,9 @@ import {
   validateSessionItems,
 } from "./rollcall/validate";
 import { uploadText, uploadTextTree } from "../lib/upload";
+import { slugify } from "../lib/slug";
+import { normalizeTitle } from "./derived/dedupe";
+import { classifyItemTitles, type VoteTopic } from "./derived/topics";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -98,6 +101,14 @@ interface SessionFile {
   // ("1", "2", ...); missing entries fall back to outcome labels on the
   // frontend.
   itemTitles?: Record<string, string>;
+  // Per-item slug derived from the normalized title — keyed by stringified
+  // item number, value formatted as "${itemNo}-${slug}". Used by the SPA to
+  // build canonical /votes/:date/item-:slug share URLs. Stable across
+  // re-ingest because the slug normalises away "прегласуване" suffixes.
+  itemSlugs?: Record<string, string>;
+  // Coarse topic tag per item. Same key space as itemTitles; missing entries
+  // default to "other" on read.
+  itemTopics?: Record<string, VoteTopic>;
   // Absolute URL of the per-MP PDF on parliament.bg. Used by the SPA to deep-
   // link "See source" from the session screen.
   pdfUrl?: string;
@@ -314,6 +325,8 @@ const ingestSession = async (
   }
   const pdfRef = findRollcallPdf(sten);
   const pdfUrl = pdfRef ? publicUrl(pdfRef.Pl_StenDfile) : undefined;
+  const itemSlugs = computeItemSlugs(itemTitles);
+  const itemTopics = classifyItemTitles(itemTitles);
   const sessionFile: SessionFile = {
     ns: rows[0]?.nsFolder ? `${rows[0].nsFolder}` : inferredNs,
     date: sten.Pl_Sten_date,
@@ -323,6 +336,8 @@ const ingestSession = async (
     mpNames,
     mpParty,
     ...(Object.keys(itemTitles).length > 0 ? { itemTitles } : {}),
+    ...(Object.keys(itemSlugs).length > 0 ? { itemSlugs } : {}),
+    ...(Object.keys(itemTopics).length > 0 ? { itemTopics } : {}),
     ...(pdfUrl ? { pdfUrl } : {}),
     sessions: items,
   };
@@ -559,6 +574,23 @@ const main = async (args: {
     await uploadText(INDEX_FILE, "parliament/votes/index.json");
     console.log(`✓ uploaded`);
   }
+};
+
+// Slugify every titled item. Key = stringified item number, value =
+// "${itemNo}-${slug}" (e.g. "7-zid-na-zkpo"). Untitled items are omitted —
+// the SPA falls back to the bare item number on read. The slug source is
+// the normalized title (re-vote suffix stripped) so an original cast and
+// any "прегласуване" of it produce the same URL.
+const computeItemSlugs = (
+  itemTitles: Record<string, string>,
+): Record<string, string> => {
+  const out: Record<string, string> = {};
+  for (const [item, title] of Object.entries(itemTitles)) {
+    const normalized = normalizeTitle(title);
+    if (!normalized) continue;
+    out[item] = slugify(normalized, item);
+  }
+  return out;
 };
 
 const deriveNsFromSession = (filePath: string): string => {

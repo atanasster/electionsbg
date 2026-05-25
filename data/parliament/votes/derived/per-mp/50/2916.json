@@ -1,0 +1,235 @@
+{
+  "mpId": 2916,
+  "ns": "50",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 45,
+    "withParty": 44,
+    "loyaltyPct": 0.9777777777777777,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 45,
+    "dissentCount": 1,
+    "recent": [
+      {
+        "date": "2024-07-03",
+        "item": 18,
+        "slug": "18-reshenie-za-izbirane-na-ministar-predsedatel-na-republika-ba",
+        "title": "Решение за избиране на министър-председател на Република България - избира Росен Желязков",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 45
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2959,
+        "score": 0.9770084209183943,
+        "overlap": 43
+      },
+      {
+        "mpId": 2597,
+        "score": 0.9663531361973137,
+        "overlap": 44
+      },
+      {
+        "mpId": 2845,
+        "score": 0.965581028730576,
+        "overlap": 43
+      },
+      {
+        "mpId": 2940,
+        "score": 0.9653072991634227,
+        "overlap": 42
+      },
+      {
+        "mpId": 2848,
+        "score": 0.9534625892455924,
+        "overlap": 41
+      },
+      {
+        "mpId": 2957,
+        "score": 0.9425910042369909,
+        "overlap": 42
+      },
+      {
+        "mpId": 2599,
+        "score": 0.9417632186960222,
+        "overlap": 41
+      },
+      {
+        "mpId": 2627,
+        "score": 0.9417632186960222,
+        "overlap": 42
+      },
+      {
+        "mpId": 2823,
+        "score": 0.9417632186960222,
+        "overlap": 41
+      },
+      {
+        "mpId": 2700,
+        "score": 0.9296260245144525,
+        "overlap": 40
+      },
+      {
+        "mpId": 2966,
+        "score": 0.9296260245144525,
+        "overlap": 40
+      },
+      {
+        "mpId": 2901,
+        "score": 0.9196009797434058,
+        "overlap": 43
+      },
+      {
+        "mpId": 2915,
+        "score": 0.9196009797434058,
+        "overlap": 43
+      },
+      {
+        "mpId": 2921,
+        "score": 0.9196009797434058,
+        "overlap": 43
+      },
+      {
+        "mpId": 2937,
+        "score": 0.9173286442120083,
+        "overlap": 39
+      },
+      {
+        "mpId": 2917,
+        "score": 0.9090909090909091,
+        "overlap": 45
+      },
+      {
+        "mpId": 2781,
+        "score": 0.9072221051385091,
+        "overlap": 42
+      },
+      {
+        "mpId": 2797,
+        "score": 0.9072221051385091,
+        "overlap": 42
+      },
+      {
+        "mpId": 2678,
+        "score": 0.8559529790779073,
+        "overlap": 39
+      },
+      {
+        "mpId": 2766,
+        "score": 0.8559529790779073,
+        "overlap": 38
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2930,
+        "score": -0.08703882797784893,
+        "overlap": 7
+      },
+      {
+        "mpId": 2803,
+        "score": -0.02616895573262865,
+        "overlap": 35
+      },
+      {
+        "mpId": 2745,
+        "score": -0.007219887278223847,
+        "overlap": 39
+      },
+      {
+        "mpId": 2702,
+        "score": -0.0065116532633827905,
+        "overlap": 41
+      },
+      {
+        "mpId": 2920,
+        "score": -0.006499538549143935,
+        "overlap": 43
+      },
+      {
+        "mpId": 2898,
+        "score": -0.0063877228415945096,
+        "overlap": 43
+      },
+      {
+        "mpId": 2666,
+        "score": 0,
+        "overlap": 42
+      },
+      {
+        "mpId": 2698,
+        "score": 0,
+        "overlap": 44
+      },
+      {
+        "mpId": 2715,
+        "score": 0,
+        "overlap": 45
+      },
+      {
+        "mpId": 2743,
+        "score": 0,
+        "overlap": 44
+      },
+      {
+        "mpId": 2763,
+        "score": 0,
+        "overlap": 44
+      },
+      {
+        "mpId": 2821,
+        "score": 0,
+        "overlap": 42
+      },
+      {
+        "mpId": 2859,
+        "score": 0,
+        "overlap": 44
+      },
+      {
+        "mpId": 2862,
+        "score": 0,
+        "overlap": 44
+      },
+      {
+        "mpId": 2932,
+        "score": 0,
+        "overlap": 44
+      },
+      {
+        "mpId": 2952,
+        "score": 0.006297908559918701,
+        "overlap": 45
+      },
+      {
+        "mpId": 2689,
+        "score": 0.0063089285308309375,
+        "overlap": 45
+      },
+      {
+        "mpId": 2683,
+        "score": 0.006325567492115719,
+        "overlap": 45
+      },
+      {
+        "mpId": 2910,
+        "score": 0.006336733551101466,
+        "overlap": 45
+      },
+      {
+        "mpId": 2787,
+        "score": 0.00634233880080523,
+        "overlap": 45
+      }
+    ]
+  }
+}

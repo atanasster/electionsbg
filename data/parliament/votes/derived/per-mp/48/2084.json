@@ -1,0 +1,293 @@
+{
+  "mpId": 2084,
+  "ns": "48",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 933,
+    "withParty": 926,
+    "loyaltyPct": 0.992497320471597,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 933,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2023-01-25",
+        "item": 31,
+        "slug": "31-zid-na-grazhdanskiya-protsesualen-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Гражданския процесуален кодекс - второ гласуване - параграф 4 (става параграф 5) - предложение за редакция от Бранимир Балачев в ал. 5 (по вносител) - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2023-01-25",
+        "item": 29,
+        "slug": "29-zid-na-grazhdanskiya-protsesualen-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Гражданския процесуален кодекс - второ гласуване - параграф 4 (става параграф 5) - предложение за редакция от Бранимир Балачев в ал. 5 (по вносител) - процедура за допустимост",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2023-01-24",
+        "item": 3,
+        "slug": "3-zakon-za-denonsirane-na-sporazumenieto-za-osnovavaneto-na-me",
+        "title": "Закон за денонсиране на Споразумението за основаването на Международната инвестиционна банка и на нейния устав и на Споразумението за организацията и дейността на Международната банка за икономическо сътрудничество - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2023-01-20",
+        "item": 37,
+        "slug": "37-zid-na-nakazatelniya-kodeks-parvo-glasuvane-vnositel-hamid-h",
+        "title": "ЗИД на Наказателния кодекс - първо гласуване - вносител Хамид Хамид и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2023-01-20",
+        "item": 36,
+        "slug": "36-zid-na-nakazatelniya-kodeks-parvo-glasuvane-vnositel-tsvetel",
+        "title": "ЗИД на Наказателния кодекс - първо гласуване - вносител Цветелина Заркин и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-12-14",
+        "item": 21,
+        "slug": "21-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование - първо гласуване - вносител Христо Симеонов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2022-12-02",
+        "item": 67,
+        "slug": "67",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 25
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2278,
+        "score": 0.8375225621159125,
+        "overlap": 923
+      },
+      {
+        "mpId": 2318,
+        "score": 0.835610944950893,
+        "overlap": 914
+      },
+      {
+        "mpId": 2313,
+        "score": 0.834771131765169,
+        "overlap": 906
+      },
+      {
+        "mpId": 2098,
+        "score": 0.834439800794494,
+        "overlap": 921
+      },
+      {
+        "mpId": 2339,
+        "score": 0.8301722338395537,
+        "overlap": 901
+      },
+      {
+        "mpId": 2061,
+        "score": 0.8289511216236363,
+        "overlap": 875
+      },
+      {
+        "mpId": 2309,
+        "score": 0.8216945424730536,
+        "overlap": 905
+      },
+      {
+        "mpId": 2266,
+        "score": 0.8199632095295363,
+        "overlap": 889
+      },
+      {
+        "mpId": 2119,
+        "score": 0.8185480739923603,
+        "overlap": 870
+      },
+      {
+        "mpId": 2317,
+        "score": 0.8176102704773666,
+        "overlap": 891
+      },
+      {
+        "mpId": 2304,
+        "score": 0.8172640798594047,
+        "overlap": 895
+      },
+      {
+        "mpId": 2363,
+        "score": 0.8123294857532607,
+        "overlap": 879
+      },
+      {
+        "mpId": 2352,
+        "score": 0.8112053476734156,
+        "overlap": 882
+      },
+      {
+        "mpId": 2310,
+        "score": 0.8108095411859962,
+        "overlap": 884
+      },
+      {
+        "mpId": 2368,
+        "score": 0.810759769839153,
+        "overlap": 828
+      },
+      {
+        "mpId": 2297,
+        "score": 0.8095191267713372,
+        "overlap": 856
+      },
+      {
+        "mpId": 2075,
+        "score": 0.8085180299793832,
+        "overlap": 884
+      },
+      {
+        "mpId": 2301,
+        "score": 0.8050018682250953,
+        "overlap": 874
+      },
+      {
+        "mpId": 2308,
+        "score": 0.8014318861566349,
+        "overlap": 891
+      },
+      {
+        "mpId": 2063,
+        "score": 0.7994045909898652,
+        "overlap": 866
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1297,
+        "score": -0.02093950782434872,
+        "overlap": 248
+      },
+      {
+        "mpId": 2064,
+        "score": -0.005837979213316544,
+        "overlap": 40
+      },
+      {
+        "mpId": 2315,
+        "score": 0.02064498530953274,
+        "overlap": 277
+      },
+      {
+        "mpId": 2283,
+        "score": 0.022733614599394637,
+        "overlap": 215
+      },
+      {
+        "mpId": 2133,
+        "score": 0.025374223551489584,
+        "overlap": 192
+      },
+      {
+        "mpId": 810,
+        "score": 0.02901614514159086,
+        "overlap": 265
+      },
+      {
+        "mpId": 1576,
+        "score": 0.03511027681627729,
+        "overlap": 564
+      },
+      {
+        "mpId": 663,
+        "score": 0.04906039267835762,
+        "overlap": 488
+      },
+      {
+        "mpId": 2371,
+        "score": 0.060708842837060836,
+        "overlap": 165
+      },
+      {
+        "mpId": 1466,
+        "score": 0.0614714871395663,
+        "overlap": 614
+      },
+      {
+        "mpId": 1703,
+        "score": 0.06291429134693002,
+        "overlap": 663
+      },
+      {
+        "mpId": 1678,
+        "score": 0.0673774633873186,
+        "overlap": 434
+      },
+      {
+        "mpId": 1920,
+        "score": 0.07043978400233294,
+        "overlap": 747
+      },
+      {
+        "mpId": 2295,
+        "score": 0.07118487848369434,
+        "overlap": 654
+      },
+      {
+        "mpId": 1640,
+        "score": 0.07427997722481579,
+        "overlap": 490
+      },
+      {
+        "mpId": 2346,
+        "score": 0.07445575447266625,
+        "overlap": 757
+      },
+      {
+        "mpId": 1389,
+        "score": 0.07452949378403778,
+        "overlap": 495
+      },
+      {
+        "mpId": 960,
+        "score": 0.07573825122870048,
+        "overlap": 473
+      },
+      {
+        "mpId": 1706,
+        "score": 0.07846885753285789,
+        "overlap": 702
+      },
+      {
+        "mpId": 1124,
+        "score": 0.08326967179006678,
+        "overlap": 758
+      }
+    ]
+  }
+}

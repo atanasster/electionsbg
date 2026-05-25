@@ -1,0 +1,725 @@
+{
+  "mpId": 2440,
+  "ns": "49",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 1010,
+    "withParty": 927,
+    "loyaltyPct": 0.9178217821782179,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 1010,
+    "dissentCount": 83,
+    "recent": [
+      {
+        "date": "2023-09-21",
+        "item": 59,
+        "slug": "59-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-par",
+        "title": "Закон за противодействие на корупцията - второ гласуване - параграф 78 - предложение от Станислав Богдански за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2023-09-21",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-merkite-sreshtu-izpiraneto-na-pari-vtoro-gl",
+        "title": "ЗИД на Закона за мерките срещу изпирането на пари - второ гласуване - параграф ... - предложение от Атанас Атанасов в ЗПФКПП - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2023-09-21",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-merkite-sreshtu-izpiraneto-na-pari-vtoro-gl",
+        "title": "ЗИД на Закона за мерките срещу изпирането на пари - второ гласуване - параграф ... - предложение от Атанас Атанасов в ЗАНН - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2023-09-21",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-merkite-sreshtu-izpiraneto-na-pari-vtoro-gl",
+        "title": "ЗИД на Закона за мерките срещу изпирането на пари - второ гласуване - параграф ... - предложение от Атанас Атанасов в НК с редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2023-09-21",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-merkite-sreshtu-izpiraneto-na-pari-vtoro-gl",
+        "title": "ЗИД на Закона за мерките срещу изпирането на пари - второ гласуване - параграф 36 - предложение от Божидар Божанов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2023-09-20",
+        "item": 127,
+        "slug": "127-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 95",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2023-09-20",
+        "item": 125,
+        "slug": "125-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 92 и член 93",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2023-09-20",
+        "item": 117,
+        "slug": "117-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-gla",
+        "title": "Закон за противодействие на корупцията - второ гласуване - Глава девета",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2023-09-20",
+        "item": 110,
+        "slug": "110-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 53 - предложение от Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2023-09-20",
+        "item": 98,
+        "slug": "98-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 37 - предложение от Петър Петров за редакция в ал.1",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2023-09-20",
+        "item": 97,
+        "slug": "97-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 37 - предложение от Десислава Атанасова, Рая Назарян и Радомир Чолаков - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2023-09-20",
+        "item": 95,
+        "slug": "95-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 37 - предложение от Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2023-09-20",
+        "item": 94,
+        "slug": "94-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-gla",
+        "title": "Закон за противодействие на корупцията - второ гласуване - Глава четвърта, член 30 до член 34 по вносител",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2023-09-20",
+        "item": 93,
+        "slug": "93-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-gla",
+        "title": "Закон за противодействие на корупцията - второ гласуване - Глава трета, член 24 до член 29 по вносител",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2023-09-20",
+        "item": 88,
+        "slug": "88-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 22 и член 23",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2023-09-20",
+        "item": 87,
+        "slug": "87-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 22 - предложение от Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2023-09-20",
+        "item": 86,
+        "slug": "86-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 21",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2023-09-20",
+        "item": 85,
+        "slug": "85-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 20",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2023-09-20",
+        "item": 83,
+        "slug": "83-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 18 и 19 - по вносител",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2023-09-20",
+        "item": 82,
+        "slug": "82-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 17 - член 29 - нови",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2023-09-20",
+        "item": 81,
+        "slug": "81-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 17 - по вносител",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2023-09-20",
+        "item": 80,
+        "slug": "80-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 17 - предложение от Тошко Йорданов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2023-09-20",
+        "item": 79,
+        "slug": "79-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 17 - предложение от Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2023-09-20",
+        "item": 78,
+        "slug": "78-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 16а - нов - предложение от Хамид Хамид за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2023-09-20",
+        "item": 77,
+        "slug": "77-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 16",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2023-09-20",
+        "item": 75,
+        "slug": "75-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 15",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2023-09-20",
+        "item": 74,
+        "slug": "74-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 15 - предложение от Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2023-09-20",
+        "item": 73,
+        "slug": "73-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 14",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2023-09-20",
+        "item": 72,
+        "slug": "72-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 14 - предложение от Стою Стоев и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2023-09-20",
+        "item": 70,
+        "slug": "70-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 13",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2023-09-20",
+        "item": 69,
+        "slug": "69-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 13 - номерация",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2023-09-20",
+        "item": 68,
+        "slug": "68-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 13 - предложение от Петър Петров за редакция нова т.17 в ал.1",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2023-09-20",
+        "item": 66,
+        "slug": "66-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 13 - предложение от Стою Стоев за редакция ал.2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2023-09-20",
+        "item": 65,
+        "slug": "65-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 13 - предложение от Стою Стоев за редакция ал.1, т.3",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2023-09-20",
+        "item": 64,
+        "slug": "64-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 13 - предложение от Стою Стоев и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2023-09-20",
+        "item": 63,
+        "slug": "63-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 13 - предложение от Тошко Йорданов и група н.п. т.2",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2023-09-20",
+        "item": 62,
+        "slug": "62-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 13 - предложение от Тошко Йорданов и група н.п. т.1",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2023-09-20",
+        "item": 61,
+        "slug": "61-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 12",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2023-09-20",
+        "item": 60,
+        "slug": "60-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 12 - предложение от Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2023-09-20",
+        "item": 59,
+        "slug": "59-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 11",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2023-09-20",
+        "item": 54,
+        "slug": "54-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 11 - предложение от Петър Петров за редакция на ал.1, \"г\" - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2023-09-20",
+        "item": 48,
+        "slug": "48-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 10 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2023-09-20",
+        "item": 47,
+        "slug": "47-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 10 - предложение от Стою Стоев за редакция на ал.6",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2023-09-20",
+        "item": 46,
+        "slug": "46-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 10 - предложение от Рая Назарян за редакция на т.5",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2023-09-20",
+        "item": 43,
+        "slug": "43-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 10 - предложение от Цвета Рангелова за редакция на т.1",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2023-09-20",
+        "item": 42,
+        "slug": "42-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 9",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2023-09-20",
+        "item": 41,
+        "slug": "41-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 9 - ал. 10",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2023-09-20",
+        "item": 35,
+        "slug": "35-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 9 - предложение от Стою Стоев за редакция в ал.6",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2023-09-08",
+        "item": 37,
+        "slug": "37-zid-na-zakona-za-elektronnoto-upravlenie-vtoro-glasuvane-par",
+        "title": "ЗИД на Закона за електронното управление - второ гласуване - параграф 34 - 37 ( става параграф 40 - 43)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2023-09-07",
+        "item": 4,
+        "slug": "4-reshenie-za-promyana-v-rakovodstvoto-na-komisiyata-po-kultur",
+        "title": "Решение за промяна в ръководството на Комисията по култура и медии",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 18
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2072,
+        "score": 0.519360261876349,
+        "overlap": 898
+      },
+      {
+        "mpId": 2298,
+        "score": 0.5004233814681444,
+        "overlap": 803
+      },
+      {
+        "mpId": 2457,
+        "score": 0.48634529031279317,
+        "overlap": 879
+      },
+      {
+        "mpId": 2431,
+        "score": 0.4791818096960739,
+        "overlap": 945
+      },
+      {
+        "mpId": 761,
+        "score": 0.4771000236253538,
+        "overlap": 731
+      },
+      {
+        "mpId": 2351,
+        "score": 0.47662041208896694,
+        "overlap": 933
+      },
+      {
+        "mpId": 2428,
+        "score": 0.46995320078725894,
+        "overlap": 878
+      },
+      {
+        "mpId": 1312,
+        "score": 0.4629762998674463,
+        "overlap": 731
+      },
+      {
+        "mpId": 2090,
+        "score": 0.4581117414330827,
+        "overlap": 807
+      },
+      {
+        "mpId": 2244,
+        "score": 0.45787969720304206,
+        "overlap": 866
+      },
+      {
+        "mpId": 2277,
+        "score": 0.4567523521364603,
+        "overlap": 564
+      },
+      {
+        "mpId": 1660,
+        "score": 0.4222952014336144,
+        "overlap": 563
+      },
+      {
+        "mpId": 2251,
+        "score": 0.4202050287242693,
+        "overlap": 610
+      },
+      {
+        "mpId": 1581,
+        "score": 0.37824809555559924,
+        "overlap": 563
+      },
+      {
+        "mpId": 829,
+        "score": 0.37518110597922255,
+        "overlap": 549
+      },
+      {
+        "mpId": 2256,
+        "score": 0.372939665186572,
+        "overlap": 471
+      },
+      {
+        "mpId": 2263,
+        "score": 0.36633634659050957,
+        "overlap": 624
+      },
+      {
+        "mpId": 820,
+        "score": 0.362398666133803,
+        "overlap": 419
+      },
+      {
+        "mpId": 1318,
+        "score": 0.3554166945403406,
+        "overlap": 479
+      },
+      {
+        "mpId": 997,
+        "score": 0.3521113435261977,
+        "overlap": 460
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2529,
+        "score": -0.030661038311125415,
+        "overlap": 228
+      },
+      {
+        "mpId": 2526,
+        "score": -0.024404335171943507,
+        "overlap": 270
+      },
+      {
+        "mpId": 2525,
+        "score": -0.020456611883348477,
+        "overlap": 512
+      },
+      {
+        "mpId": 2530,
+        "score": -0.0169308260019577,
+        "overlap": 189
+      },
+      {
+        "mpId": 1576,
+        "score": -0.016102943971129356,
+        "overlap": 595
+      },
+      {
+        "mpId": 1319,
+        "score": -0.01590954111602931,
+        "overlap": 821
+      },
+      {
+        "mpId": 1723,
+        "score": -0.01408537192855256,
+        "overlap": 651
+      },
+      {
+        "mpId": 2527,
+        "score": -0.013938369658791055,
+        "overlap": 234
+      },
+      {
+        "mpId": 2455,
+        "score": -0.009715710613414303,
+        "overlap": 775
+      },
+      {
+        "mpId": 1389,
+        "score": -0.00949088178943761,
+        "overlap": 734
+      },
+      {
+        "mpId": 2378,
+        "score": -0.009487307357732752,
+        "overlap": 617
+      },
+      {
+        "mpId": 2420,
+        "score": -0.008081161717815246,
+        "overlap": 736
+      },
+      {
+        "mpId": 1388,
+        "score": -0.007253866472022352,
+        "overlap": 784
+      },
+      {
+        "mpId": 2237,
+        "score": -0.006335546468146227,
+        "overlap": 398
+      },
+      {
+        "mpId": 2246,
+        "score": -0.006137120778226763,
+        "overlap": 646
+      },
+      {
+        "mpId": 2380,
+        "score": -0.005901894395357518,
+        "overlap": 837
+      },
+      {
+        "mpId": 2366,
+        "score": -0.004990486405267981,
+        "overlap": 767
+      },
+      {
+        "mpId": 817,
+        "score": -0.004610430438098819,
+        "overlap": 858
+      },
+      {
+        "mpId": 2395,
+        "score": -0.0038938814255073343,
+        "overlap": 350
+      },
+      {
+        "mpId": 2521,
+        "score": -0.0027959970962690515,
+        "overlap": 806
+      }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "mpId": 4170,
+  "summary": {
+    "totalEur": 1798213.5461671003,
+    "totalOther": {},
+    "contractCount": 4,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 1798213.5461671003,
+    "rank": 15,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 4170,
+      "mpName": "Ивайло Ванев Вълчев",
+      "contractorEik": "121489392",
+      "contractorName": "Солво ООД - София",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "1/6",
+          "valueEur": 511.29188119621847,
+          "fiscalYear": 2023,
+          "declarationYear": 2024
+        }
+      ],
+      "totalEur": 1798213.5461671003,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 773584.6162498785,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 194290.91485456302,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 830338.0150626588,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "130175000",
+          "name": "Софийска вода\" АД",
+          "contractCount": 4,
+          "totalEur": 1798213.5461671003,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

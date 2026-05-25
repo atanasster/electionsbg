@@ -1,0 +1,285 @@
+{
+  "mpId": 3533,
+  "ns": "51",
+  "partyShort": "ГЕРБ - СДС",
+  "loyalty": {
+    "votesCast": 271,
+    "withParty": 265,
+    "loyaltyPct": 0.977859778597786,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 271,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2026-04-01",
+        "item": 7,
+        "slug": "7-protsedura-ot-atanas-v-atanasov-tochka-4-da-stane-tochka-2",
+        "title": "Процедура от Атанас В. Атанасов точка 4 да стане точка 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-03-19",
+        "item": 22,
+        "slug": "22-zakon-za-obshtestveniya-transport-vtoro-glasuvane-chl-67-pre",
+        "title": "Закон за обществения транспорт – второ гласуване - чл. 67 - предложение от Божидар Божанов и Йордан Иванов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-03-19",
+        "item": 17,
+        "slug": "17-zakon-za-obshtestveniya-transport-vtoro-glasuvane-chl-37a-pr",
+        "title": "Закон за обществения транспорт – второ гласуване - чл. 37а - предложение от Кирил Добрев т.3, ал.2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-03-18",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-sotsialnoto-podpomagane-parvo-glasuvane-nai",
+        "title": "ЗИД на Закона за социалното подпомагане – първо гласуване - наименование, параграф 1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 57
+      },
+      {
+        "date": "2026-02-27",
+        "item": 7,
+        "slug": "7-ratifikatsiya-na-sporazumenieto-za-partnyorstvo-mezhdu-evrop",
+        "title": "Ратификация на Споразумението за партньорство между Европейския съюз и неговите държави членки, от една страна, и членовете на Организацията на държавите от Африка, Карибите и Тихоокеанския басейн, от друга страна, подписано в Самоа на 15 ноември 2023 г. - процедура за допускане в зала - прегласуване",
+        "topic": "ratification",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 49
+      },
+      {
+        "date": "2026-02-25",
+        "item": 38,
+        "slug": "38-reshenie-za-popalvane-sastava-na-komisiyata-po-energetika-zh",
+        "title": "Решение за попълване състава на Комисията по енергетика - Жечо Станков",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 54
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3549,
+        "score": 0.8571583513620201,
+        "overlap": 226
+      },
+      {
+        "mpId": 3541,
+        "score": 0.8197909880273759,
+        "overlap": 222
+      },
+      {
+        "mpId": 3537,
+        "score": 0.8107113471010239,
+        "overlap": 227
+      },
+      {
+        "mpId": 3531,
+        "score": 0.8099687032342852,
+        "overlap": 217
+      },
+      {
+        "mpId": 3535,
+        "score": 0.8033466584598062,
+        "overlap": 214
+      },
+      {
+        "mpId": 3547,
+        "score": 0.789364034964409,
+        "overlap": 252
+      },
+      {
+        "mpId": 3580,
+        "score": 0.6998010254075937,
+        "overlap": 241
+      },
+      {
+        "mpId": 3539,
+        "score": 0.5157000812017114,
+        "overlap": 177
+      },
+      {
+        "mpId": 3527,
+        "score": 0.43314808182420994,
+        "overlap": 74
+      },
+      {
+        "mpId": 3543,
+        "score": 0.41540269620285897,
+        "overlap": 126
+      },
+      {
+        "mpId": 3529,
+        "score": 0.41380190914555703,
+        "overlap": 129
+      },
+      {
+        "mpId": 3106,
+        "score": 0.31326548974784374,
+        "overlap": 252
+      },
+      {
+        "mpId": 3521,
+        "score": 0.2851449745496289,
+        "overlap": 135
+      },
+      {
+        "mpId": 3209,
+        "score": 0.2824530067512412,
+        "overlap": 269
+      },
+      {
+        "mpId": 3104,
+        "score": 0.27360724595127645,
+        "overlap": 254
+      },
+      {
+        "mpId": 3519,
+        "score": 0.2724311048850964,
+        "overlap": 162
+      },
+      {
+        "mpId": 3339,
+        "score": 0.2697624764636194,
+        "overlap": 263
+      },
+      {
+        "mpId": 3085,
+        "score": 0.269753411191078,
+        "overlap": 270
+      },
+      {
+        "mpId": 3167,
+        "score": 0.26684177263511677,
+        "overlap": 265
+      },
+      {
+        "mpId": 3392,
+        "score": 0.26352246390855666,
+        "overlap": 258
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3230,
+        "score": -0.03581793069526566,
+        "overlap": 145
+      },
+      {
+        "mpId": 3026,
+        "score": -0.03282090598578105,
+        "overlap": 118
+      },
+      {
+        "mpId": 3307,
+        "score": -0.03207189205024966,
+        "overlap": 216
+      },
+      {
+        "mpId": 3122,
+        "score": -0.026746428269422022,
+        "overlap": 190
+      },
+      {
+        "mpId": 3090,
+        "score": -0.02636332161523983,
+        "overlap": 227
+      },
+      {
+        "mpId": 3192,
+        "score": -0.024803550971799787,
+        "overlap": 116
+      },
+      {
+        "mpId": 3084,
+        "score": -0.024781905335865575,
+        "overlap": 230
+      },
+      {
+        "mpId": 3137,
+        "score": -0.023163670688805617,
+        "overlap": 177
+      },
+      {
+        "mpId": 3358,
+        "score": -0.02223212361827417,
+        "overlap": 109
+      },
+      {
+        "mpId": 3304,
+        "score": -0.022228380521418234,
+        "overlap": 218
+      },
+      {
+        "mpId": 3129,
+        "score": -0.022047253257859886,
+        "overlap": 235
+      },
+      {
+        "mpId": 3116,
+        "score": -0.020134097958684326,
+        "overlap": 236
+      },
+      {
+        "mpId": 3142,
+        "score": -0.02008909003145282,
+        "overlap": 204
+      },
+      {
+        "mpId": 3068,
+        "score": -0.019726489757032527,
+        "overlap": 234
+      },
+      {
+        "mpId": 3247,
+        "score": -0.019081560470168502,
+        "overlap": 153
+      },
+      {
+        "mpId": 3027,
+        "score": -0.01780536155052876,
+        "overlap": 172
+      },
+      {
+        "mpId": 3121,
+        "score": -0.01758725429996934,
+        "overlap": 146
+      },
+      {
+        "mpId": 3165,
+        "score": -0.01739708460424204,
+        "overlap": 234
+      },
+      {
+        "mpId": 3141,
+        "score": -0.017354068587030716,
+        "overlap": 236
+      },
+      {
+        "mpId": 3177,
+        "score": -0.016165225599662623,
+        "overlap": 234
+      }
+    ]
+  }
+}

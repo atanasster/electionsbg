@@ -1,0 +1,375 @@
+{
+  "mpId": 2765,
+  "ns": "50",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 581,
+    "withParty": 566,
+    "loyaltyPct": 0.9741824440619621,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 581,
+    "dissentCount": 15,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 54,
+        "slug": "54-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-15-stava-",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 15 (става параграф 14) - предложение от Иван Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 51
+      },
+      {
+        "date": "2024-09-25",
+        "item": 20,
+        "slug": "20-protsedura-ot-venko-sabrutev-t-5-da-stane-t-1-za-chetvartak",
+        "title": "Процедура от Венко Сабрутев т.5 да стане т.1 за четвъртък - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-09-25",
+        "item": 14,
+        "slug": "14-izslushvane-na-sluzhebniya-ministar-na-vatreshnite-raboti-at",
+        "title": "Изслушване на служебния министър на вътрешните работи Атанас Илков, във връзка с бездействието на Министерството на вътрешните работи за препятстването купуването и продаването на гласове на предходните парламентарни избори и последвалото политическо ангажиране на предходния служебен министър в предстоящите избори, както и липсата до момента на действия на министерството за препятстването на купуването и продаването на гласове на предстоящите избори за 51 Народно събрание, насрочени за 27.10.2024 г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2024-09-18",
+        "item": 13,
+        "slug": "13-zid-na-targovskiya-zakon-vtoro-glasuvane-paragraf-17-predloz",
+        "title": "ЗИД на Търговския закон - второ гласуване - параграф 17 - предложение от Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2024-09-11",
+        "item": 35,
+        "slug": "35-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-11-pr",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 11 - предложение от Марин Маринов - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 52
+      },
+      {
+        "date": "2024-09-11",
+        "item": 32,
+        "slug": "32-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-10-pr",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 10- предложение от Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2024-09-11",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-10-pr",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 10 - предложение от Марин Маринов - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 52
+      },
+      {
+        "date": "2024-08-14",
+        "item": 6,
+        "slug": "6-reshenie-za-promyana-v-sastava-na-komisiyata-po-obrazovaniet",
+        "title": "Решение за промяна в състава на Комисията по образованието и науката",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2024-08-14",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – първо гласуване - вносител Атанас Зафиров и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2024-08-14",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – първо гласуване - вносител Атанас Зафиров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 52
+      },
+      {
+        "date": "2024-08-07",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – първо гласуване - вносител Костадин Костадинов и група н.п. - процедура от Г.Свиленски за преминаване на второ гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-08-01",
+        "item": 18,
+        "slug": "18-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно корупционни практики и системна злоупотреба със служебно положение, извършвани в ущърб на гражданите и бизнеса, както и облагодетелстване на свързани дружества с кмета на Община Доспат - Елин Радев - за председател - Александър Вълчев - прегласуване",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 65
+      },
+      {
+        "date": "2024-07-12",
+        "item": 84,
+        "slug": "84-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т. 9",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 54
+      },
+      {
+        "date": "2024-07-12",
+        "item": 46,
+        "slug": "46-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 42 (става член 41)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 54
+      },
+      {
+        "date": "2024-07-03",
+        "item": 8,
+        "slug": "8-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно наличието на нарегламентирано влияние в правосъдната система и обвързаности на представители на съдебната власт, несъвместими със стандартите за независимост и професионална етика във връзка с дейността на групата около Мартин Божанов - Нотариуса и дейността на групата около бившия следовател Петьо Петров - Еврото - председател Надежда Йорданова",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 64
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2779,
+        "score": 0.9401543927098683,
+        "overlap": 572
+      },
+      {
+        "mpId": 2852,
+        "score": 0.9391938562946841,
+        "overlap": 575
+      },
+      {
+        "mpId": 2911,
+        "score": 0.9340820166126815,
+        "overlap": 579
+      },
+      {
+        "mpId": 2602,
+        "score": 0.9297001629569539,
+        "overlap": 577
+      },
+      {
+        "mpId": 2673,
+        "score": 0.9267894091360751,
+        "overlap": 576
+      },
+      {
+        "mpId": 2747,
+        "score": 0.9221075017756776,
+        "overlap": 563
+      },
+      {
+        "mpId": 2941,
+        "score": 0.9127272727272725,
+        "overlap": 548
+      },
+      {
+        "mpId": 2768,
+        "score": 0.9122623490985954,
+        "overlap": 546
+      },
+      {
+        "mpId": 2714,
+        "score": 0.9118460082775237,
+        "overlap": 561
+      },
+      {
+        "mpId": 2744,
+        "score": 0.9047861851983946,
+        "overlap": 554
+      },
+      {
+        "mpId": 2718,
+        "score": 0.8991829321965241,
+        "overlap": 539
+      },
+      {
+        "mpId": 2935,
+        "score": 0.8967450164616119,
+        "overlap": 551
+      },
+      {
+        "mpId": 2840,
+        "score": 0.8948033463442285,
+        "overlap": 542
+      },
+      {
+        "mpId": 2603,
+        "score": 0.8930862199444584,
+        "overlap": 563
+      },
+      {
+        "mpId": 2905,
+        "score": 0.8927255205819927,
+        "overlap": 552
+      },
+      {
+        "mpId": 2770,
+        "score": 0.8902297200499283,
+        "overlap": 539
+      },
+      {
+        "mpId": 2853,
+        "score": 0.8899148933647466,
+        "overlap": 544
+      },
+      {
+        "mpId": 2833,
+        "score": 0.8883827704232687,
+        "overlap": 526
+      },
+      {
+        "mpId": 2947,
+        "score": 0.8876804871157216,
+        "overlap": 536
+      },
+      {
+        "mpId": 2653,
+        "score": 0.8855199553092262,
+        "overlap": 529
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2979,
+        "score": -0.027466930838774085,
+        "overlap": 275
+      },
+      {
+        "mpId": 2930,
+        "score": -0.024618298195866545,
+        "overlap": 7
+      },
+      {
+        "mpId": 2996,
+        "score": -0.021938172723813917,
+        "overlap": 35
+      },
+      {
+        "mpId": 2972,
+        "score": 0,
+        "overlap": 54
+      },
+      {
+        "mpId": 3007,
+        "score": 0.01886083840385794,
+        "overlap": 52
+      },
+      {
+        "mpId": 3008,
+        "score": 0.040824829046386304,
+        "overlap": 149
+      },
+      {
+        "mpId": 3005,
+        "score": 0.04491586156553547,
+        "overlap": 77
+      },
+      {
+        "mpId": 2967,
+        "score": 0.05586897329588372,
+        "overlap": 291
+      },
+      {
+        "mpId": 2998,
+        "score": 0.060725447924310894,
+        "overlap": 72
+      },
+      {
+        "mpId": 2904,
+        "score": 0.0668042657122685,
+        "overlap": 38
+      },
+      {
+        "mpId": 2909,
+        "score": 0.0668042657122685,
+        "overlap": 38
+      },
+      {
+        "mpId": 2997,
+        "score": 0.06978631577988531,
+        "overlap": 96
+      },
+      {
+        "mpId": 2951,
+        "score": 0.07312724241271307,
+        "overlap": 39
+      },
+      {
+        "mpId": 3001,
+        "score": 0.07322418368317116,
+        "overlap": 103
+      },
+      {
+        "mpId": 2946,
+        "score": 0.07706746355884524,
+        "overlap": 21
+      },
+      {
+        "mpId": 2934,
+        "score": 0.07928249671720919,
+        "overlap": 41
+      },
+      {
+        "mpId": 2912,
+        "score": 0.0899228803025897,
+        "overlap": 43
+      },
+      {
+        "mpId": 2953,
+        "score": 0.0899228803025897,
+        "overlap": 42
+      },
+      {
+        "mpId": 2965,
+        "score": 0.0899228803025897,
+        "overlap": 43
+      },
+      {
+        "mpId": 2927,
+        "score": 0.09112995284026161,
+        "overlap": 43
+      }
+    ]
+  }
+}

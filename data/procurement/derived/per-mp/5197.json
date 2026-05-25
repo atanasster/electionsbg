@@ -1,0 +1,103 @@
+{
+  "mpId": 5197,
+  "summary": {
+    "totalEur": 1543078.8906144707,
+    "totalOther": {},
+    "contractCount": 14,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 1543078.8906144707,
+    "rank": 17,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 5197,
+      "mpName": "Йордан Йовчев Йовчев",
+      "contractorEik": "831635354",
+      "contractorName": "НАЦИОНАЛНА СПОРТНА БАЗА ЕАД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 1543078.8906144707,
+      "totalOther": {},
+      "contractCount": 14,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2016",
+          "contractCount": 4,
+          "totalEur": 552195.231691916,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 224968.42772633614,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 2,
+          "totalEur": 460162.69307659665,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 2,
+          "totalEur": 51129.188119621846,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 4,
+          "totalEur": 254623.35,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "121505512",
+          "name": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО БОРБА Сдружение",
+          "contractCount": 6,
+          "totalEur": 838518.6808029327,
+          "totalOther": {}
+        },
+        {
+          "eik": "121341855",
+          "name": "Сдружение \"Българска федерация по бокс",
+          "contractCount": 2,
+          "totalEur": 398807.6673330504,
+          "totalOther": {}
+        },
+        {
+          "eik": "121448709",
+          "name": "Сдружение Българска федерация по биатлон",
+          "contractCount": 2,
+          "totalEur": 153387.56435886555,
+          "totalOther": {}
+        },
+        {
+          "eik": "176464933",
+          "name": "БЪЛГАРСКИ СТРЕЛКОВИ СЪЮЗ Сдружение",
+          "contractCount": 2,
+          "totalEur": 101235.79000000001,
+          "totalOther": {}
+        },
+        {
+          "eik": "831331305",
+          "name": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПЛУВНИ СПОРТОВЕ Сдружение",
+          "contractCount": 2,
+          "totalEur": 51129.188119621846,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

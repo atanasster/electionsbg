@@ -1,0 +1,725 @@
+{
+  "mpId": 3383,
+  "ns": "51",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 3536,
+    "withParty": 3434,
+    "loyaltyPct": 0.9711538461538461,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 3536,
+    "dissentCount": 102,
+    "recent": [
+      {
+        "date": "2026-03-18",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-sotsialnoto-podpomagane-parvo-glasuvane-par",
+        "title": "ЗИД на Закона за социалното подпомагане – първо гласуване - параграф 4 - предложение от Деница Сачева за отпадане",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2026-03-05",
+        "item": 27,
+        "slug": "27-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-par",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - параграф 42 (става параграф 43) - предложение от Георги Хрисимиров и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2026-03-05",
+        "item": 18,
+        "slug": "18-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-par",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - параграф 13 (става параграф 14) - предложение от Георги Хрисимиров и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2026-03-05",
+        "item": 8,
+        "slug": "8-izslushvane-na-sluzhebniya-zamestnik-ministar-na-energetikat",
+        "title": "Изслушване на служебния заместник-министър на енергетиката и председателя на Комисията за енергийно и водно регулиране Пламен Младеновски,относно повишените сметки за ток и хилядите подадени жалби за това от български граждани в последните месеци - процедура от Хамид Хамид за удължаване на заседанието до точка 9 (точка 5 за днес)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2026-01-30",
+        "item": 21,
+        "slug": "21-protsedura-ot-stoyan-taslakov-za-otpadane-na-tochka-11",
+        "title": "Процедура от Стоян Таслаков за отпадане на точка 11",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-12-18",
+        "item": 48,
+        "slug": "48-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-6-stava",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 6 (става параграф 8) - т.8",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-12-17",
+        "item": 58,
+        "slug": "58-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност – второ гласуване - параграф 45 - 48 (става параграф 46 - 49)",
+        "topic": "tax",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-11-12",
+        "item": 28,
+        "slug": "28-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Наказателно-процесуалния кодекс – второ гласуване - параграф 1 (става параграф 2) - предложение от Цвета Рангелова за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-11-12",
+        "item": 21,
+        "slug": "21-zid-na-zakona-za-zdravnoto-osiguryavane-vtoro-glasuvane-para",
+        "title": "ЗИД на Закона за здравното осигуряване – второ гласуване - параграф 3 - предложение от Маргарита Махаева за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2025-11-07",
+        "item": 28,
+        "slug": "28-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - процедура от Асен Василев за включване на камерите на БНТ",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2025-10-02",
+        "item": 30,
+        "slug": "30-zid-na-zakona-za-grazhdanskoto-vazduhoplavane-vtoro-glasuvan",
+        "title": "ЗИД на Закона за гражданското въздухоплаване – второ гласуване - параграф 6 (става параграф 7), т.5г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2025-09-19",
+        "item": 5,
+        "slug": "5-protsedura-ot-toshko-yordanov-za-pryako-predavane-po-bnt",
+        "title": "Процедура от Тошко Йорданов за пряко предаване по БНТ - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2025-09-03",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-3-5-septemvri-",
+        "title": "Програма за работата на Народното събрание за 3 - 5 септември 2025г. - предложение от Атанас Атанасов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-07-31",
+        "item": 51,
+        "slug": "51-zid-na-zakona-za-darzhavnata-sobstvenost-vtoro-glasuvane-par",
+        "title": "ЗИД на Закона за държавната собственост - второ гласуване - параграф 12 - предложение от Павлин Найденов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-07-31",
+        "item": 50,
+        "slug": "50-zid-na-zakona-za-darzhavnata-sobstvenost-vtoro-glasuvane-par",
+        "title": "ЗИД на Закона за държавната собственост - второ гласуване - параграф 12 - предложение от Христо Расташки",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-07-24",
+        "item": 83,
+        "slug": "83-zid-na-zakona-za-mezhdunarodniya-targovski-arbitrazh-vtoro-g",
+        "title": "ЗИД на Закона за международния търговски арбитраж - второ гласуване - параграф 7 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-07-24",
+        "item": 74,
+        "slug": "74-zid-na-zakona-za-mezhdunarodniya-targovski-arbitrazh-vtoro-g",
+        "title": "ЗИД на Закона за международния търговски арбитраж - второ гласуване - параграф 3 - предложение от Ивайло Чорбов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-07-24",
+        "item": 57,
+        "slug": "57-zid-na-administrativnoprotsesualniya-kodeks-vtoro-glasuvane-",
+        "title": "ЗИД на Административнопроцесуалния кодекс - второ гласуване - параграф 50",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-07-24",
+        "item": 30,
+        "slug": "30-zid-na-administrativnoprotsesualniya-kodeks-vtoro-glasuvane-",
+        "title": "ЗИД на Административнопроцесуалния кодекс - второ гласуване - параграф 5 - предложение от Надежда Йорданова и Божидар Божанов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-07-23",
+        "item": 182,
+        "slug": "182-zid-na-kodeksa-za-zastrahovaneto-vtoro-glasuvane-paragraf-4",
+        "title": "ЗИД на Кодекса за застраховането - второ гласуване - параграф 4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2025-07-04",
+        "item": 3,
+        "slug": "3-protsedura-ot-nakaliya-kiselova-za-dve-novi-tochki-v-dnevniy",
+        "title": "Процедура от Накалия Киселова за две нови точки в дневния ред - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-06-27",
+        "item": 42,
+        "slug": "42-reshenie-za-priemane-na-godishna-rabotna-programa-na-narodno",
+        "title": "Решение за приемане на Годишна работна програма на Народното събрание по въпросите на Европейския съюз (2025г.) - предложение от Ивайло Чорбов за редакция на т.8",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2025-06-25",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1 - предложение от Свилен Трифонов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-06-20",
+        "item": 26,
+        "slug": "26-zakon-za-pazarite-na-kriptoaktivi-vtoro-glasuvane-chlen-36-p",
+        "title": "Закон за пазарите на криптоактиви – второ гласуване - член 36 - предложение от Божидар Божанов за редакция - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2025-06-19",
+        "item": 252,
+        "slug": "252-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - параграф 7",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-06-19",
+        "item": 246,
+        "slug": "246-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - параграф 3",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-06-19",
+        "item": 245,
+        "slug": "245-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - параграф 2",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-06-19",
+        "item": 243,
+        "slug": "243-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 113",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-06-19",
+        "item": 242,
+        "slug": "242-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 112",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2025-06-19",
+        "item": 240,
+        "slug": "240-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 110",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2025-06-19",
+        "item": 238,
+        "slug": "238-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 109 Вариант 3",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2025-06-19",
+        "item": 236,
+        "slug": "236-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 108е",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2025-06-19",
+        "item": 235,
+        "slug": "235-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 108д",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2025-06-19",
+        "item": 234,
+        "slug": "234-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 108г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2025-06-19",
+        "item": 233,
+        "slug": "233-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 108б",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-06-19",
+        "item": 211,
+        "slug": "211-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 99 - предложение от Рая Назарян",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-06-19",
+        "item": 195,
+        "slug": "195-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 88и",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-06-19",
+        "item": 194,
+        "slug": "194-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 88з",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-06-19",
+        "item": 193,
+        "slug": "193-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 88ж",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-06-19",
+        "item": 191,
+        "slug": "191-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 88е",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-06-19",
+        "item": 190,
+        "slug": "190-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 88д",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-06-19",
+        "item": 189,
+        "slug": "189-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 88г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-06-19",
+        "item": 188,
+        "slug": "188-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 88в",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-06-19",
+        "item": 186,
+        "slug": "186-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 88а",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-06-19",
+        "item": 184,
+        "slug": "184-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - Глава пета - Вариант 2",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-06-19",
+        "item": 177,
+        "slug": "177-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 79",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2025-06-19",
+        "item": 175,
+        "slug": "175-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 77 - предложение от Рая Назарян и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2025-06-19",
+        "item": 169,
+        "slug": "169-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 68",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-06-19",
+        "item": 165,
+        "slug": "165-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 63 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-06-19",
+        "item": 161,
+        "slug": "161-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 61 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3296,
+        "score": 0.9429317129004519,
+        "overlap": 3482
+      },
+      {
+        "mpId": 3371,
+        "score": 0.9086443271724601,
+        "overlap": 3244
+      },
+      {
+        "mpId": 3022,
+        "score": 0.9027964923059604,
+        "overlap": 3328
+      },
+      {
+        "mpId": 3066,
+        "score": 0.9019731765921173,
+        "overlap": 3238
+      },
+      {
+        "mpId": 3248,
+        "score": 0.8990512195288839,
+        "overlap": 3219
+      },
+      {
+        "mpId": 3366,
+        "score": 0.8984501990881342,
+        "overlap": 3257
+      },
+      {
+        "mpId": 3124,
+        "score": 0.8958768527278795,
+        "overlap": 3250
+      },
+      {
+        "mpId": 3355,
+        "score": 0.8936568749487681,
+        "overlap": 3189
+      },
+      {
+        "mpId": 3280,
+        "score": 0.8742482285601917,
+        "overlap": 3083
+      },
+      {
+        "mpId": 3239,
+        "score": 0.8700504262760101,
+        "overlap": 3033
+      },
+      {
+        "mpId": 3031,
+        "score": 0.8550452667910826,
+        "overlap": 2871
+      },
+      {
+        "mpId": 3288,
+        "score": 0.8502900534831309,
+        "overlap": 2915
+      },
+      {
+        "mpId": 3481,
+        "score": 0.8454558549686603,
+        "overlap": 2777
+      },
+      {
+        "mpId": 3479,
+        "score": 0.8286695743301801,
+        "overlap": 2815
+      },
+      {
+        "mpId": 3414,
+        "score": 0.8102380857435637,
+        "overlap": 3401
+      },
+      {
+        "mpId": 3273,
+        "score": 0.8019313609957027,
+        "overlap": 2570
+      },
+      {
+        "mpId": 3394,
+        "score": 0.7996900224635818,
+        "overlap": 3511
+      },
+      {
+        "mpId": 3033,
+        "score": 0.7966901058310583,
+        "overlap": 3422
+      },
+      {
+        "mpId": 3295,
+        "score": 0.7958439718788495,
+        "overlap": 3507
+      },
+      {
+        "mpId": 3183,
+        "score": 0.7941325215701149,
+        "overlap": 3505
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3514,
+        "score": -0.32365002313488284,
+        "overlap": 2236
+      },
+      {
+        "mpId": 3518,
+        "score": -0.3229549878674342,
+        "overlap": 2394
+      },
+      {
+        "mpId": 3517,
+        "score": -0.31306071818249515,
+        "overlap": 2302
+      },
+      {
+        "mpId": 3515,
+        "score": -0.3121989955147257,
+        "overlap": 2252
+      },
+      {
+        "mpId": 3513,
+        "score": -0.31042641748382843,
+        "overlap": 2186
+      },
+      {
+        "mpId": 3510,
+        "score": -0.3099184171893484,
+        "overlap": 2108
+      },
+      {
+        "mpId": 3511,
+        "score": -0.293706248121029,
+        "overlap": 1488
+      },
+      {
+        "mpId": 3508,
+        "score": -0.2915277039319935,
+        "overlap": 2156
+      },
+      {
+        "mpId": 3512,
+        "score": -0.28933895129615544,
+        "overlap": 1916
+      },
+      {
+        "mpId": 3516,
+        "score": -0.28044321583261056,
+        "overlap": 1985
+      },
+      {
+        "mpId": 3480,
+        "score": -0.24460157730124196,
+        "overlap": 1778
+      },
+      {
+        "mpId": 3490,
+        "score": -0.24376857820930026,
+        "overlap": 2155
+      },
+      {
+        "mpId": 3484,
+        "score": -0.23178780151552367,
+        "overlap": 1534
+      },
+      {
+        "mpId": 3482,
+        "score": -0.22764618134235215,
+        "overlap": 1989
+      },
+      {
+        "mpId": 3486,
+        "score": -0.2252377946795679,
+        "overlap": 2130
+      },
+      {
+        "mpId": 3485,
+        "score": -0.2152099187978675,
+        "overlap": 1521
+      },
+      {
+        "mpId": 3489,
+        "score": -0.21218611071020893,
+        "overlap": 1580
+      },
+      {
+        "mpId": 3477,
+        "score": -0.19786373015366018,
+        "overlap": 1760
+      },
+      {
+        "mpId": 3478,
+        "score": -0.1939772780207426,
+        "overlap": 1936
+      },
+      {
+        "mpId": 3026,
+        "score": -0.18093876171352516,
+        "overlap": 2694
+      }
+    ]
+  }
+}

@@ -1,0 +1,565 @@
+{
+  "mpId": 1423,
+  "ns": "44",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 102,
+    "withParty": 68,
+    "loyaltyPct": 0.6666666666666666,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 102,
+    "dissentCount": 34,
+    "recent": [
+      {
+        "date": "2021-03-04",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-avtomobilnite-prevozi-vtoro-glasuvane-prots",
+        "title": "ЗИД на Закона за автомобилните превози - второ гласуване - процедура от Георги Свиленски за отлагане разглеждането на закона",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2021-03-04",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-avtomobilnite-prevozi-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за автомобилните превози - второ гласуване - параграф 3 - нов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 4
+      },
+      {
+        "date": "2021-03-04",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-avtomobilnite-prevozi-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за автомобилните превози - второ гласуване - параграф 2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 4
+      },
+      {
+        "date": "2020-12-16",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-16-18-dekemvri",
+        "title": "Програма за работата на Народното събрание за 16 - 18 декември 2020 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2020-12-10",
+        "item": 2,
+        "slug": "2-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - наименование",
+        "topic": "tax",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2020-12-03",
+        "item": 3,
+        "slug": "3-novo-obsazhdane-na-zid-na-zakona-za-danak-varhu-dobavenata-s",
+        "title": "Ново обсъждане на ЗИД на Закона за данък върху добавената стойност, приет от НС на 19 ноември 2020 г., върнат за ново обсъждане с Указ № 247 от 25 ноември 2020 г. на Президента на Републиката по чл. 101 от Конституцията на Република България",
+        "topic": "constitution",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2020-12-03",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-2-4-dekemvri-2",
+        "title": "Програма за работата на Народното събрание за 2 - 4 декември 2020 г. - процедура за нова точка Изслушване на министър-председателя на Република България Бойко Борисов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2020-11-26",
+        "item": 4,
+        "slug": "4-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6 (стават параграф 5)",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2020-11-26",
+        "item": 3,
+        "slug": "3-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6 (стават параграф 5) - предложение от Дора Христова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2020-11-26",
+        "item": 2,
+        "slug": "2-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6 (стават параграф 5) - предложение от Георги Свиленски и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2020-11-25",
+        "item": 83,
+        "slug": "83-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 109 - предложение от Дора Янкова",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2020-11-25",
+        "item": 82,
+        "slug": "82-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 106 и Член 107",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 3
+      },
+      {
+        "date": "2020-11-25",
+        "item": 78,
+        "slug": "78-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 81 до Член 92",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 3
+      },
+      {
+        "date": "2020-11-25",
+        "item": 76,
+        "slug": "76-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 71 - предложение от Георги Свиленски и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2020-11-25",
+        "item": 73,
+        "slug": "73-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 66 - предложение от Дора Христова и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 3
+      },
+      {
+        "date": "2020-11-25",
+        "item": 69,
+        "slug": "69-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 63 - предложение от Георги Свиленски и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2020-11-25",
+        "item": 9,
+        "slug": "9-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 1",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 5
+      },
+      {
+        "date": "2020-11-25",
+        "item": 7,
+        "slug": "7-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 1 - предложение от Георги Свиленски и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 4
+      },
+      {
+        "date": "2020-11-25",
+        "item": 3,
+        "slug": "3-reshenie-za-proizvezhdane-na-izbori-za-veliko-narodno-sabran",
+        "title": "Решение за произвеждане на избори за Велико Народно събрание за приемане на нова Конституция на Република България",
+        "topic": "constitution",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2020-11-19",
+        "item": 25,
+        "slug": "25-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 60 (става параграф 62)",
+        "topic": "tax",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 3
+      },
+      {
+        "date": "2020-11-19",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 54 - 58 (става параграф 57 - 61), параграф 59 - отпада",
+        "topic": "tax",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 4
+      },
+      {
+        "date": "2020-11-19",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 46 - 53 (става параграф 49 - 56)",
+        "topic": "tax",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 4
+      },
+      {
+        "date": "2020-11-19",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 45 (става параграф 48)",
+        "topic": "tax",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 4
+      },
+      {
+        "date": "2020-11-19",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 42 - 44 (става параграф 45 - 47)",
+        "topic": "tax",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 4
+      },
+      {
+        "date": "2020-11-19",
+        "item": 5,
+        "slug": "5-novo-obsazhdane-na-zid-na-kodeksa-na-targovskoto-koraboplava",
+        "title": "Ново обсъждане на ЗИД на Кодекса на търговското корабоплаване, приет от НС на 28 октомври 2020 г., върнат за ново обсъждане с Указ № 229 от 5 ноември 2020 г. на Президента на Републиката по чл.101 от Конституцията на Република България",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2020-11-19",
+        "item": 4,
+        "slug": "4-protsedura-ot-tsveta-karayancheva-za-provezhdane-na-izvanred",
+        "title": "Процедура от Цвета Караянчева за провеждане на извънредно заседание на 24 ноември 2020 г. от 12 часа",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 6
+      },
+      {
+        "date": "2020-11-19",
+        "item": 3,
+        "slug": "3-protsedura-ot-tsveta-karayancheva-tochka-5-za-dnes-da-bade-z",
+        "title": "Процедура от Цвета Караянчева точка 5 за днес да бъде ЗИД на Семейния кодекс",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2020-11-19",
+        "item": 2,
+        "slug": "2-protsedura-za-novi-tochki-v-dnevniya-red-ot-tsveta-karayanch",
+        "title": "Процедура за нови точки в дневния ред от Цвета Караянчева",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2020-11-11",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-noemvri-",
+        "title": "Програма за работата на Народното събрание за 11 - 13 ноември 2020 г. - процедура от Румен Георгиев за отпадане на точка 4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2020-10-29",
+        "item": 2,
+        "slug": "2-zid-na-zakona-za-obshtestvenite-porachki-parvo-glasuvane",
+        "title": "ЗИД на Закона за обществените поръчки - първо гласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2020-10-28",
+        "item": 22,
+        "slug": "22-zid-na-kodeksa-na-targovskoto-koraboplavane-vtoro-glasuvane-",
+        "title": "ЗИД на Кодекса на търговското корабоплаване - второ гласуване - параграф 6 (става параграф 7) до параграф 10 (става параграф 11)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 6
+      },
+      {
+        "date": "2020-10-28",
+        "item": 5,
+        "slug": "5-reshenie-za-promyana-v-sastava-na-komisiyata-po-veroizpoveda",
+        "title": "Решение за промяна в състава на Комисията по вероизповеданията и правата на човека",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 3
+      },
+      {
+        "date": "2020-10-28",
+        "item": 4,
+        "slug": "4-reshenie-za-promyana-v-sastava-na-komisiyata-po-kulturata-i-",
+        "title": "Решение за промяна в състава на Комисията по културата и медиите - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2020-10-28",
+        "item": 3,
+        "slug": "3-reshenie-za-promyana-v-komisiyata-po-kulturata-i-mediite",
+        "title": "Решение за промяна в Комисията по културата и медиите",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1284,
+        "score": 0.4122424289477238,
+        "overlap": 60
+      },
+      {
+        "mpId": 1266,
+        "score": 0.37341810783799434,
+        "overlap": 60
+      },
+      {
+        "mpId": 1363,
+        "score": 0.3588791315913094,
+        "overlap": 63
+      },
+      {
+        "mpId": 1485,
+        "score": 0.32338956762082016,
+        "overlap": 66
+      },
+      {
+        "mpId": 1535,
+        "score": 0.3228794347542671,
+        "overlap": 70
+      },
+      {
+        "mpId": 1371,
+        "score": 0.32136046530094403,
+        "overlap": 66
+      },
+      {
+        "mpId": 1008,
+        "score": 0.3024496012651287,
+        "overlap": 61
+      },
+      {
+        "mpId": 1542,
+        "score": 0.30122652367102537,
+        "overlap": 47
+      },
+      {
+        "mpId": 1462,
+        "score": 0.28107438337344803,
+        "overlap": 86
+      },
+      {
+        "mpId": 1523,
+        "score": 0.28107438337344803,
+        "overlap": 15
+      },
+      {
+        "mpId": 599,
+        "score": 0.2797227419587831,
+        "overlap": 63
+      },
+      {
+        "mpId": 1479,
+        "score": 0.2768210186588981,
+        "overlap": 92
+      },
+      {
+        "mpId": 1498,
+        "score": 0.2763179677462274,
+        "overlap": 99
+      },
+      {
+        "mpId": 1263,
+        "score": 0.27243624727310134,
+        "overlap": 92
+      },
+      {
+        "mpId": 1246,
+        "score": 0.27155620595021046,
+        "overlap": 30
+      },
+      {
+        "mpId": 549,
+        "score": 0.26987601933219985,
+        "overlap": 93
+      },
+      {
+        "mpId": 1146,
+        "score": 0.26749821069718865,
+        "overlap": 88
+      },
+      {
+        "mpId": 1362,
+        "score": 0.2666831290963312,
+        "overlap": 34
+      },
+      {
+        "mpId": 1494,
+        "score": 0.2653052520009196,
+        "overlap": 76
+      },
+      {
+        "mpId": 1018,
+        "score": 0.2638868598748042,
+        "overlap": 80
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 829,
+        "score": -0.06518125118174688,
+        "overlap": 59
+      },
+      {
+        "mpId": 810,
+        "score": -0.03394710071254494,
+        "overlap": 14
+      },
+      {
+        "mpId": 1342,
+        "score": -0.030493804986921447,
+        "overlap": 74
+      },
+      {
+        "mpId": 1297,
+        "score": -0.02832963498350368,
+        "overlap": 7
+      },
+      {
+        "mpId": 960,
+        "score": -0.02759999392800201,
+        "overlap": 17
+      },
+      {
+        "mpId": 462,
+        "score": -0.022471910112359553,
+        "overlap": 19
+      },
+      {
+        "mpId": 1555,
+        "score": -0.02115300304059634,
+        "overlap": 57
+      },
+      {
+        "mpId": 1349,
+        "score": -0.018382694588558932,
+        "overlap": 30
+      },
+      {
+        "mpId": 1559,
+        "score": -0.01798156934611266,
+        "overlap": 45
+      },
+      {
+        "mpId": 1556,
+        "score": -0.01697355035627247,
+        "overlap": 16
+      },
+      {
+        "mpId": 762,
+        "score": -0.015743314446731715,
+        "overlap": 64
+      },
+      {
+        "mpId": 1311,
+        "score": -0.010991665980832531,
+        "overlap": 24
+      },
+      {
+        "mpId": 1553,
+        "score": -0.009716984634549206,
+        "overlap": 39
+      },
+      {
+        "mpId": 1282,
+        "score": -0.008864147577797736,
+        "overlap": 37
+      },
+      {
+        "mpId": 1505,
+        "score": -0.007610341260680724,
+        "overlap": 40
+      },
+      {
+        "mpId": 1557,
+        "score": -0.007610341260680724,
+        "overlap": 55
+      },
+      {
+        "mpId": 782,
+        "score": 0,
+        "overlap": 58
+      },
+      {
+        "mpId": 1021,
+        "score": 0,
+        "overlap": 56
+      },
+      {
+        "mpId": 1261,
+        "score": 0,
+        "overlap": 41
+      },
+      {
+        "mpId": 1323,
+        "score": 0,
+        "overlap": 74
+      }
+    ]
+  }
+}

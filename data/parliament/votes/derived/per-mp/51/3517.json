@@ -1,0 +1,445 @@
+{
+  "mpId": 3517,
+  "ns": "51",
+  "partyShort": "МЕЧ",
+  "loyalty": {
+    "votesCast": 2550,
+    "withParty": 2528,
+    "loyaltyPct": 0.9913725490196078,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 2550,
+    "dissentCount": 22,
+    "recent": [
+      {
+        "date": "2026-03-12",
+        "item": 20,
+        "slug": "20-zakon-za-obshtestveniya-transport-parvo-glasuvane-protsedura",
+        "title": "Закон за обществения транспорт - първо гласуване - процедура от Кирил Добрев за намаляване на срока за предложения на 3 дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2026-03-05",
+        "item": 37,
+        "slug": "37-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-par",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - параграф 136 (става параграф 139) - предложение от Георги Хрисимиров и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 6
+      },
+      {
+        "date": "2026-03-05",
+        "item": 31,
+        "slug": "31-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-par",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - параграф 63 (става параграф 64) - предложение от Георги Хрисимиров и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 4
+      },
+      {
+        "date": "2026-02-13",
+        "item": 25,
+        "slug": "25-ratifikatsiya-na-sporazumenie-za-izmenenie-i-dopalnenie-na-r",
+        "title": "Ратификация на Споразумение за изменение и допълнение на Рамковото споразумение между правителството на Република България и Европейския инвестиционен фонд относно изпълнението на Инициативата JEREMIE в Република България (Четвърто споразумение за изменение) и Споразумение за изменение и допълнение на Финансовото споразумение между правителството на Република България и Европейския инвестиционен фонд относно изпълнението на Инициативата JEREMIE в Република България (Четвърто споразумение за изменение) - първо гласуване - процедура от Александър Иванов за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 7
+      },
+      {
+        "date": "2026-01-28",
+        "item": 47,
+        "slug": "47-zid-na-zakona-za-dvizhenieto-po-patishtata-parvo-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата – първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 4
+      },
+      {
+        "date": "2025-11-06",
+        "item": 10,
+        "slug": "10-zakon-za-bezopasnostta-i-sigurnostta-po-vreme-na-sportni-mer",
+        "title": "Закон за безопасността и сигурността по време на спортни мероприятия – първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2025-10-29",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-publichnite-predpriyatiya-parvo-glasuvane",
+        "title": "ЗИД на Закона за публичните предприятия - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 6
+      },
+      {
+        "date": "2025-09-11",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-chistotata-na-atmosferniya-vazduh-vtoro-gla",
+        "title": "ЗИД на Закона за чистотата на атмосферния въздух – второ гласуване - параграф 10 до параграф 18",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2025-07-31",
+        "item": 27,
+        "slug": "27-zid-na-zakona-za-energetikata-vtoro-glasuvane-paragraf-5",
+        "title": "ЗИД на Закона за енергетиката - второ гласуване - параграф 5",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2025-07-25",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-lechebnite-zavedeniya-parvo-glasuvane-vnosi",
+        "title": "ЗИД на Закона за лечебните заведения – първо гласуване - вносител Костадин Ангелов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2025-07-24",
+        "item": 109,
+        "slug": "109-zid-na-zakona-za-mezhdunarodniya-targovski-arbitrazh-vtoro-g",
+        "title": "ЗИД на Закона за международния търговски арбитраж - второ гласуване - параграф 22 - предложение от Георги Кръстев за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2025-07-24",
+        "item": 106,
+        "slug": "106-zid-na-zakona-za-mezhdunarodniya-targovski-arbitrazh-vtoro-g",
+        "title": "ЗИД на Закона за международния търговски арбитраж - второ гласуване - параграф 20 - предложение от Надежда Йорданова и Божидар Божанов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2025-07-16",
+        "item": 39,
+        "slug": "39-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата – второ гласуване - параграф 6б - предложение от Любен Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2025-07-16",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-n",
+        "title": "ЗИД на Закона за движението по пътищата – второ гласуване - наименование",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2025-07-16",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата – второ гласуване - процедура от Кирил Добрев за прекратяване на дебата",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2025-06-20",
+        "item": 14,
+        "slug": "14-zakon-za-pazarite-na-kriptoaktivi-vtoro-glasuvane-chlen-20-p",
+        "title": "Закон за пазарите на криптоактиви – второ гласуване - член 20 - предложение от Георги Хрисимиров и Димо Дренчев",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2025-06-19",
+        "item": 117,
+        "slug": "117-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - Раздел ІІа",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2025-06-05",
+        "item": 32,
+        "slug": "32-zakonoproekt-za-litsata-obsluzhvashti-krediti-i-kupuvachite-",
+        "title": "Законопроект за лицата, обслужващи кредити, и купувачите на кредити – второ гласуване - член 14 и член 15",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2025-06-05",
+        "item": 13,
+        "slug": "13-ratifikatsiya-na-sporazumenie-za-izpalnenie-na-programata-in",
+        "title": "Ратификация на Споразумение за изпълнение на Програмата (Interreg VI-A) ИПП България-Сърбия 2021-2027 (CCI 2021TC16IPCB007) - първо гласуване - прегласуване",
+        "topic": "ratification",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2025-05-29",
+        "item": 11,
+        "slug": "11-ratifikatsiya-na-sporazumenie-za-izpalnenie-na-programata-in",
+        "title": "Ратификация на Споразумение за изпълнение на Програмата (Interreg VI-A) ИПП България - Северна Македония 2021-2027 - първо гласуване - процедура от Николай Нанков за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2025-05-08",
+        "item": 102,
+        "slug": "102-zid-na-zakona-za-natsionalnata-sistema-za-speshni-povikvaniy",
+        "title": "ЗИД на Закона за Националната система за спешни повиквания с единен европейски номер 112 - второ гласуване - параграф 21",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2025-04-09",
+        "item": 13,
+        "slug": "13-izslushvane-na-ministara-na-energetikata-zhecho-stankov-otno",
+        "title": "Изслушване на министъра на енергетиката Жечо Станков, относно сключените споразумения с турската компания Боташ, тяхното отражение върху Булгаргаз и необходимостта от предоговаряне на условията по тези споразумения - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 8
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3514,
+        "score": 0.9146745424500798,
+        "overlap": 2294
+      },
+      {
+        "mpId": 3518,
+        "score": 0.9096308733586367,
+        "overlap": 2404
+      },
+      {
+        "mpId": 3510,
+        "score": 0.9015977219484943,
+        "overlap": 2185
+      },
+      {
+        "mpId": 3513,
+        "score": 0.9000247451702018,
+        "overlap": 2230
+      },
+      {
+        "mpId": 3515,
+        "score": 0.8777903522183574,
+        "overlap": 2245
+      },
+      {
+        "mpId": 3508,
+        "score": 0.8760465591810304,
+        "overlap": 2176
+      },
+      {
+        "mpId": 3512,
+        "score": 0.8673419044825156,
+        "overlap": 1946
+      },
+      {
+        "mpId": 3516,
+        "score": 0.8628526772454187,
+        "overlap": 2022
+      },
+      {
+        "mpId": 3511,
+        "score": 0.7346492660242773,
+        "overlap": 1492
+      },
+      {
+        "mpId": 3509,
+        "score": 0.6149971448053477,
+        "overlap": 862
+      },
+      {
+        "mpId": 3490,
+        "score": 0.49988141251982005,
+        "overlap": 1890
+      },
+      {
+        "mpId": 3486,
+        "score": 0.4983190446824832,
+        "overlap": 1839
+      },
+      {
+        "mpId": 3482,
+        "score": 0.4819208112356053,
+        "overlap": 1670
+      },
+      {
+        "mpId": 3480,
+        "score": 0.48136255863678995,
+        "overlap": 1551
+      },
+      {
+        "mpId": 3478,
+        "score": 0.47899585118630367,
+        "overlap": 1670
+      },
+      {
+        "mpId": 3485,
+        "score": 0.4532842459558948,
+        "overlap": 1328
+      },
+      {
+        "mpId": 3477,
+        "score": 0.45326190059814014,
+        "overlap": 1555
+      },
+      {
+        "mpId": 3489,
+        "score": 0.41172746787390224,
+        "overlap": 1236
+      },
+      {
+        "mpId": 3230,
+        "score": 0.41162283489429197,
+        "overlap": 2323
+      },
+      {
+        "mpId": 3028,
+        "score": 0.4076641975254443,
+        "overlap": 2152
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3491,
+        "score": -0.4255441809319676,
+        "overlap": 2386
+      },
+      {
+        "mpId": 3493,
+        "score": -0.4106350986687747,
+        "overlap": 1803
+      },
+      {
+        "mpId": 3446,
+        "score": -0.40852413667722565,
+        "overlap": 2143
+      },
+      {
+        "mpId": 3415,
+        "score": -0.40820317954624574,
+        "overlap": 2473
+      },
+      {
+        "mpId": 3447,
+        "score": -0.40556293565157214,
+        "overlap": 2275
+      },
+      {
+        "mpId": 3450,
+        "score": -0.4027267866075523,
+        "overlap": 2156
+      },
+      {
+        "mpId": 3228,
+        "score": -0.40054825027862495,
+        "overlap": 2445
+      },
+      {
+        "mpId": 3453,
+        "score": -0.39939411659989776,
+        "overlap": 2222
+      },
+      {
+        "mpId": 3452,
+        "score": -0.3980350145961438,
+        "overlap": 2220
+      },
+      {
+        "mpId": 3306,
+        "score": -0.3977739603434926,
+        "overlap": 2447
+      },
+      {
+        "mpId": 3449,
+        "score": -0.3963424617003966,
+        "overlap": 2050
+      },
+      {
+        "mpId": 3308,
+        "score": -0.39340806550625157,
+        "overlap": 2407
+      },
+      {
+        "mpId": 3156,
+        "score": -0.392018417696814,
+        "overlap": 2425
+      },
+      {
+        "mpId": 3302,
+        "score": -0.3879974125438559,
+        "overlap": 2318
+      },
+      {
+        "mpId": 3224,
+        "score": -0.3841113750541837,
+        "overlap": 2369
+      },
+      {
+        "mpId": 3356,
+        "score": -0.38095364034904006,
+        "overlap": 2354
+      },
+      {
+        "mpId": 3400,
+        "score": -0.38038937876692636,
+        "overlap": 2417
+      },
+      {
+        "mpId": 3127,
+        "score": -0.38020983389040713,
+        "overlap": 2335
+      },
+      {
+        "mpId": 3401,
+        "score": -0.3795914034278896,
+        "overlap": 2342
+      },
+      {
+        "mpId": 3231,
+        "score": -0.37912309276243294,
+        "overlap": 2256
+      }
+    ]
+  }
+}

@@ -1,0 +1,295 @@
+{
+  "mpId": 2284,
+  "ns": "48",
+  "partyShort": "ПП",
+  "loyalty": {
+    "votesCast": 746,
+    "withParty": 739,
+    "loyaltyPct": 0.9906166219839142,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 746,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2023-02-01",
+        "item": 9,
+        "slug": "9-protsedura-ot-denitsa-sacheva-za-razmestvane-na-tochkite-t-1",
+        "title": "Процедура от Деница Сачева за разместване на точките т.10 да стане т.4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 39
+      },
+      {
+        "date": "2023-01-27",
+        "item": 6,
+        "slug": "6-protsedura-ot-ivelin-parvanov-za-razmestvane-na-tochkite-v-d",
+        "title": "Процедура от Ивелин Първанов за разместване на точките в дневния ред - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 44
+      },
+      {
+        "date": "2023-01-04",
+        "item": 8,
+        "slug": "8-zid-na-kodeksa-za-sotsialno-osiguryavane-parvo-glasuvane",
+        "title": "ЗИД на Кодекса за социално осигуряване - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-12-15",
+        "item": 3,
+        "slug": "3-reshenie-vav-vrazka-s-kolednata-vakantsiya-na-narodnoto-sabr",
+        "title": "Решение във връзка с Коледната ваканция на Народното събрание за 2022г. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 49
+      },
+      {
+        "date": "2022-12-15",
+        "item": 2,
+        "slug": "2-reshenie-vav-vrazka-s-kolednata-vakantsiya-na-narodnoto-sabr",
+        "title": "Решение във връзка с Коледната ваканция на Народното събрание за 2022г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 46
+      },
+      {
+        "date": "2022-12-09",
+        "item": 17,
+        "slug": "17-protsedura-ot-ivan-ivanov-za-razmestvane-na-tochkite",
+        "title": "Процедура от Иван Иванов за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 45
+      },
+      {
+        "date": "2022-12-09",
+        "item": 13,
+        "slug": "13-protsedura-ot-iliyan-yonchev-za-razmestvane-na-tochkite",
+        "title": "Процедура от Илиян Йончев за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 47
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2079,
+        "score": 0.7597248131025035,
+        "overlap": 573
+      },
+      {
+        "mpId": 2081,
+        "score": 0.7376386657679611,
+        "overlap": 686
+      },
+      {
+        "mpId": 2034,
+        "score": 0.7320234798177218,
+        "overlap": 621
+      },
+      {
+        "mpId": 2053,
+        "score": 0.7288141608041369,
+        "overlap": 734
+      },
+      {
+        "mpId": 2109,
+        "score": 0.7255604169653549,
+        "overlap": 731
+      },
+      {
+        "mpId": 2112,
+        "score": 0.7134619514963705,
+        "overlap": 651
+      },
+      {
+        "mpId": 2176,
+        "score": 0.7130661339298533,
+        "overlap": 676
+      },
+      {
+        "mpId": 2062,
+        "score": 0.7107856042855614,
+        "overlap": 708
+      },
+      {
+        "mpId": 2155,
+        "score": 0.7028599392356882,
+        "overlap": 681
+      },
+      {
+        "mpId": 2343,
+        "score": 0.7023470845002007,
+        "overlap": 672
+      },
+      {
+        "mpId": 2029,
+        "score": 0.7012616744741408,
+        "overlap": 701
+      },
+      {
+        "mpId": 2017,
+        "score": 0.6993898519268723,
+        "overlap": 673
+      },
+      {
+        "mpId": 2083,
+        "score": 0.6976947282410618,
+        "overlap": 665
+      },
+      {
+        "mpId": 2254,
+        "score": 0.6973867560443272,
+        "overlap": 639
+      },
+      {
+        "mpId": 2114,
+        "score": 0.6972282330007374,
+        "overlap": 681
+      },
+      {
+        "mpId": 2054,
+        "score": 0.6968786024532413,
+        "overlap": 612
+      },
+      {
+        "mpId": 2121,
+        "score": 0.6939932899870803,
+        "overlap": 640
+      },
+      {
+        "mpId": 2120,
+        "score": 0.692573924129404,
+        "overlap": 645
+      },
+      {
+        "mpId": 2118,
+        "score": 0.689465752748964,
+        "overlap": 695
+      },
+      {
+        "mpId": 2362,
+        "score": 0.6862379580829594,
+        "overlap": 669
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1297,
+        "score": 0.04078508295728468,
+        "overlap": 157
+      },
+      {
+        "mpId": 2064,
+        "score": 0.04377822553347832,
+        "overlap": 50
+      },
+      {
+        "mpId": 810,
+        "score": 0.10154115659932786,
+        "overlap": 209
+      },
+      {
+        "mpId": 524,
+        "score": 0.11588741840240621,
+        "overlap": 358
+      },
+      {
+        "mpId": 2133,
+        "score": 0.11709409825500675,
+        "overlap": 153
+      },
+      {
+        "mpId": 2283,
+        "score": 0.12176881157454991,
+        "overlap": 141
+      },
+      {
+        "mpId": 2256,
+        "score": 0.13803308337741968,
+        "overlap": 347
+      },
+      {
+        "mpId": 960,
+        "score": 0.15047014013034757,
+        "overlap": 343
+      },
+      {
+        "mpId": 1576,
+        "score": 0.15716638133986346,
+        "overlap": 418
+      },
+      {
+        "mpId": 1703,
+        "score": 0.17223928172495442,
+        "overlap": 458
+      },
+      {
+        "mpId": 2104,
+        "score": 0.17261128924628596,
+        "overlap": 663
+      },
+      {
+        "mpId": 1389,
+        "score": 0.17298874315759966,
+        "overlap": 328
+      },
+      {
+        "mpId": 2129,
+        "score": 0.17478304828192212,
+        "overlap": 652
+      },
+      {
+        "mpId": 1000,
+        "score": 0.17635174370621517,
+        "overlap": 390
+      },
+      {
+        "mpId": 2063,
+        "score": 0.17760059020683475,
+        "overlap": 649
+      },
+      {
+        "mpId": 2100,
+        "score": 0.18162437899959216,
+        "overlap": 616
+      },
+      {
+        "mpId": 2077,
+        "score": 0.1832277614973814,
+        "overlap": 628
+      },
+      {
+        "mpId": 2084,
+        "score": 0.18372289959468294,
+        "overlap": 552
+      },
+      {
+        "mpId": 1644,
+        "score": 0.18711253320552218,
+        "overlap": 523
+      },
+      {
+        "mpId": 1961,
+        "score": 0.18723881499084277,
+        "overlap": 474
+      }
+    ]
+  }
+}

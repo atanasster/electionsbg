@@ -1,0 +1,615 @@
+{
+  "mpId": 3000,
+  "ns": "50",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 160,
+    "withParty": 121,
+    "loyaltyPct": 0.75625,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 160,
+    "dissentCount": 39,
+    "recent": [
+      {
+        "date": "2024-09-26",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-vnositeli",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - вносители Тошко Йорданов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-09-26",
+        "item": 7,
+        "slug": "7-protsedura-ot-yordan-tsonev-za-udalzhavane-na-rabotnoto-vrem",
+        "title": "Процедура от Йордан Цонев за удължаване на работното време до приключване на всички точки",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-09-26",
+        "item": 6,
+        "slug": "6-protsedura-ot-raya-nazaryan-za-nova-tochka-6",
+        "title": "Процедура от Рая Назарян за нова точка 6 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-09-26",
+        "item": 4,
+        "slug": "4-protsedura-ot-raya-nazaryan-za-nova-tochka-5",
+        "title": "Процедура от Рая Назарян за нова точка 5 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-09-25",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-25-26-septemvr",
+        "title": "Програма за работата на Народното събрание за 25 – 26 септември 2024 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-09-20",
+        "item": 2,
+        "slug": "2-protsedura-za-nova-tochka-v-dnevniya-red",
+        "title": "Процедура за нова точка в дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-19",
+        "item": 4,
+        "slug": "4-protsedura-ot-nadezhda-yordanova-za-otpadane-na-tochka-ot-dn",
+        "title": "Процедура от Надежда Йорданова за отпадане на точка от дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2024-09-19",
+        "item": 3,
+        "slug": "3-reshenie-za-prekratyavane-palnomoshtiyata-na-naroden-predsta",
+        "title": "Решение за прекратяване пълномощията на народен представител",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2024-09-19",
+        "item": 2,
+        "slug": "2-protsedura-ot-raya-nazaryan-za-nova-tochka-1-v-dnevniya-red",
+        "title": "Процедура от Рая Назарян за нова точка 1 в дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2024-09-18",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - предложение от ИТН за нова точка в дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-09-18",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - процедура от Рая Назарян за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-09-18",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2024-09-12",
+        "item": 3,
+        "slug": "3-zakon-za-nasarchavane-na-dobrovolchestvoto-parvo-glasuvane-p",
+        "title": "Закон за насърчаване на доброволчеството - първо гласуване - процедура от Калина Константинова за отпадане на точката - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2024-09-11",
+        "item": 41,
+        "slug": "41-reshenie-za-izmenenie-na-reshenie-za-vazlagane-na-ministara-",
+        "title": "Решение за изменение на Решение за възлагане на министъра на енергетиката да проведе преговори с министъра на енергетиката на Украйна или негов представител с цел продажба на оборудване, предназначено за Проекта АЕЦ „Белене“ - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-09-11",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-advokaturata-vtoro-glasuvane-protsedura-za-",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-11",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-septemvr",
+        "title": "Програма за работата на Народното събрание за 11 - 13 септември 2024 г. - процедура от Васил Стефанов точка 5 да отпадне - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2024-09-11",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-septemvr",
+        "title": "Програма за работата на Народното събрание за 11 - 13 септември 2024 г. - процедура от Коста Стоянов точка 11 да стане точка 8",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2024-09-11",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-septemvr",
+        "title": "Програма за работата на Народното събрание за 11 - 13 септември 2024 г. - процедура от Борислав Гуцанов за отпадане на точка 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-09-11",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-septemvr",
+        "title": "Програма за работата на Народното събрание за 11 - 13 септември 2024 г. - предложение от Мая Димитрова, като т.1 за четвъртък",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-09-11",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-septemvr",
+        "title": "Програма за работата на Народното събрание за 11 - 13 септември 2024 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2024-09-04",
+        "item": 4,
+        "slug": "4-reshenie-po-predlozhenie-ot-narodni-predstaviteli-za-proizve",
+        "title": "Решение по предложение от народни представители за произвеждане на национален референдум с въпрос \"Съгласни ли сте българският лев да бъде единствената официална валута в България до 2043 г.?\" - предложение от Йордан Тодоров за пряко предавене по БНТ и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-08-15",
+        "item": 24,
+        "slug": "24-protsedura-ot-aleksandar-nenkov-za-udalzhavane-na-rabotnoto-",
+        "title": "Процедура от Александър Ненков за удължаване на работното време до изчерпването на фиксираните точки за днес - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2024-08-15",
+        "item": 21,
+        "slug": "21-protsedura-ot-aleksandar-simidchiev-za-sakrashtavane-na-srok",
+        "title": "Процедура от Александър Симидчиев за съкращаване на срока за предложения по ЗИД на Закона за здравето на 5 дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2024-08-15",
+        "item": 5,
+        "slug": "5-zid-na-targovskiya-zakon-parvo-glasuvane-protsedura-ot-marin",
+        "title": "ЗИД на Търговския закон – първо гласуване - процедура от Марин Маринов за съкращаване на срока за предложения на три дни",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-08-14",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-schetovodstvoto-vtoro-glasuvane-prehodni-i-",
+        "title": "ЗИД на Закона за счетоводството – второ гласуване - Преходни и заключителни разпоредби, параграф 29 до параграф 34, параграф 35 - нов, параграф 35 (става параграф 36) до параграф 39 (става параграф 40), параграф 41- нов, параграф 40 (става параграф 42)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-08-14",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – първо гласуване - вносител Атанас Зафиров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-08-14",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-14-16-avgust-2",
+        "title": "Програма за работата на Народното събрание за 14 – 16 август 2024 г. - процедура от Делян Добрев т.7 и т.15 да станат последни точки 4 и 5 в петък",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 35
+      },
+      {
+        "date": "2024-08-01",
+        "item": 8,
+        "slug": "8-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно корупционни практики и системна злоупотреба със служебно положение, извършвани в ущърб на гражданите и бизнеса, както и облагодетелстване на свързани дружества с кмета на Община Доспат - Елин Радев - процедура от Александър Иванов за удължаване на работното време до приключване на ЗД на Закона за безопасно използване на ядрената енергия - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-07-25",
+        "item": 8,
+        "slug": "8-zd-na-kodeksa-za-sotsialno-osiguryavane-parvo-glasuvane-prot",
+        "title": "ЗД на Кодекса за социално осигуряване - първо гласуване - процедура от Деница Сачева за намаляване на срока за предложения на три дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-07-25",
+        "item": 7,
+        "slug": "7-zd-na-kodeksa-za-sotsialno-osiguryavane-parvo-glasuvane",
+        "title": "ЗД на Кодекса за социално осигуряване - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-07-24",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – първо гласуване - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2024-07-17",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-17-19-yuli-202",
+        "title": "Програма за работата на Народното събрание за 17 - 19 юли 2024 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 37
+      },
+      {
+        "date": "2024-07-12",
+        "item": 40,
+        "slug": "40-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 33 (става член 32)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-07-12",
+        "item": 30,
+        "slug": "30-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 22",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-07-12",
+        "item": 29,
+        "slug": "29-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 22 - предложение от Анна Александрова и Христо Гаджев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-07-12",
+        "item": 28,
+        "slug": "28-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 21",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-07-12",
+        "item": 27,
+        "slug": "27-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 21 - предложение от Павела Митова и Станислав Богдански",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-07-12",
+        "item": 25,
+        "slug": "25-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 21 - предложение от Виктория Василева и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-07-12",
+        "item": 14,
+        "slug": "14-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 15 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2990,
+        "score": 0.7404375649645414,
+        "overlap": 102
+      },
+      {
+        "mpId": 2989,
+        "score": 0.7212770629264176,
+        "overlap": 119
+      },
+      {
+        "mpId": 2994,
+        "score": 0.7092741130492924,
+        "overlap": 134
+      },
+      {
+        "mpId": 3001,
+        "score": 0.6957010852370434,
+        "overlap": 94
+      },
+      {
+        "mpId": 2997,
+        "score": 0.6928890517934585,
+        "overlap": 91
+      },
+      {
+        "mpId": 2988,
+        "score": 0.6877953910866225,
+        "overlap": 107
+      },
+      {
+        "mpId": 2992,
+        "score": 0.6693766059927747,
+        "overlap": 106
+      },
+      {
+        "mpId": 2987,
+        "score": 0.6693743463144342,
+        "overlap": 104
+      },
+      {
+        "mpId": 2995,
+        "score": 0.668354452681064,
+        "overlap": 127
+      },
+      {
+        "mpId": 3002,
+        "score": 0.6589502140642983,
+        "overlap": 112
+      },
+      {
+        "mpId": 3004,
+        "score": 0.6586398497000491,
+        "overlap": 103
+      },
+      {
+        "mpId": 2998,
+        "score": 0.6475087687698158,
+        "overlap": 66
+      },
+      {
+        "mpId": 2993,
+        "score": 0.6367145399670133,
+        "overlap": 88
+      },
+      {
+        "mpId": 3003,
+        "score": 0.6365465335399306,
+        "overlap": 87
+      },
+      {
+        "mpId": 3005,
+        "score": 0.6281087071082564,
+        "overlap": 70
+      },
+      {
+        "mpId": 3008,
+        "score": 0.5838742081211422,
+        "overlap": 100
+      },
+      {
+        "mpId": 2999,
+        "score": 0.5657448425666436,
+        "overlap": 93
+      },
+      {
+        "mpId": 2991,
+        "score": 0.563436169819011,
+        "overlap": 63
+      },
+      {
+        "mpId": 3007,
+        "score": 0.5275043787166296,
+        "overlap": 49
+      },
+      {
+        "mpId": 3006,
+        "score": 0.5015325350572285,
+        "overlap": 62
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2685,
+        "score": -0.19170289512680816,
+        "overlap": 36
+      },
+      {
+        "mpId": 2670,
+        "score": -0.10437249168855076,
+        "overlap": 14
+      },
+      {
+        "mpId": 2669,
+        "score": -0.03846095790563293,
+        "overlap": 86
+      },
+      {
+        "mpId": 3014,
+        "score": -0.03813850356982369,
+        "overlap": 12
+      },
+      {
+        "mpId": 2609,
+        "score": -0.02581988897471611,
+        "overlap": 40
+      },
+      {
+        "mpId": 2933,
+        "score": -0.00894427190999916,
+        "overlap": 97
+      },
+      {
+        "mpId": 2859,
+        "score": -0.007676708932663294,
+        "overlap": 147
+      },
+      {
+        "mpId": 2914,
+        "score": -0.005494422557947561,
+        "overlap": 76
+      },
+      {
+        "mpId": 2739,
+        "score": -0.004020151261036848,
+        "overlap": 143
+      },
+      {
+        "mpId": 2741,
+        "score": -0.003838354466331647,
+        "overlap": 155
+      },
+      {
+        "mpId": 2827,
+        "score": 0,
+        "overlap": 98
+      },
+      {
+        "mpId": 2830,
+        "score": 0,
+        "overlap": 113
+      },
+      {
+        "mpId": 2702,
+        "score": 0.003863337046431279,
+        "overlap": 145
+      },
+      {
+        "mpId": 2692,
+        "score": 0.0047673129462279615,
+        "overlap": 98
+      },
+      {
+        "mpId": 2711,
+        "score": 0.005579283526516706,
+        "overlap": 82
+      },
+      {
+        "mpId": 2705,
+        "score": 0.007519115803969123,
+        "overlap": 158
+      },
+      {
+        "mpId": 2910,
+        "score": 0.007519115803969123,
+        "overlap": 159
+      },
+      {
+        "mpId": 2787,
+        "score": 0.007525766947068778,
+        "overlap": 159
+      },
+      {
+        "mpId": 2698,
+        "score": 0.007579619275811137,
+        "overlap": 153
+      },
+      {
+        "mpId": 2642,
+        "score": 0.007600114002565064,
+        "overlap": 152
+      }
+    ]
+  }
+}

@@ -1,0 +1,355 @@
+{
+  "mpId": 1561,
+  "ns": "44",
+  "partyShort": "ОП",
+  "loyalty": {
+    "votesCast": 296,
+    "withParty": 283,
+    "loyaltyPct": 0.956081081081081,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 296,
+    "dissentCount": 13,
+    "recent": [
+      {
+        "date": "2021-03-05",
+        "item": 6,
+        "slug": "6-reshenie-za-vazlagane-na-ministerskiya-savet-osiguryavane-na",
+        "title": "Решение за възлагане на Министерския съвет осигуряване на достъп на българските граждани до руската ваксина срещу Ковид - 19 \"Спутник V\" - вносител Корнелия Нинова и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-03-05",
+        "item": 5,
+        "slug": "5-reshenie-za-vazlagane-na-ministerskiya-savet-osiguryavane-na",
+        "title": "Решение за възлагане на Министерския съвет осигуряване на достъп на българските граждани до руската ваксина срещу Ковид - 19 \"Спутник V\" - вносител Корнелия Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-03-05",
+        "item": 3,
+        "slug": "3-reshenie-za-vazlagane-na-ministerskiya-savet-osiguryavane-na",
+        "title": "Решение за възлагане на Министерския съвет осигуряване на достъп на българските граждани до руската ваксина срещу Ковид - 19 \"Спутник V\" - процедура от Александър Симов за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2021-02-26",
+        "item": 14,
+        "slug": "14-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-balgarskoto-gra",
+        "title": "Закон за изменение и допълнение на Закона за българското гражданство - второ гласуване - параграф 8 - предложение от Маноил Манев и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-02-25",
+        "item": 25,
+        "slug": "25-zakon-za-industrialnite-parkove-vtoro-glasuvane-paragraf-6-p",
+        "title": "Закон за индустриалните паркове - второ гласуване - параграф 6 - предложение от Валентин Николов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 4
+      },
+      {
+        "date": "2021-02-04",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-pchelarstvoto-vtoro-glasuvane-paragraf-2-no",
+        "title": "ЗИД на Закона за пчеларството - второ гласуване - параграф 2 - нов - предложение от Чавдар Велинов и Валери Жаблянов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2021-02-04",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-pchelarstvoto-vtoro-glasuvane-paragraf-1-no",
+        "title": "ЗИД на Закона за пчеларството - второ гласуване - параграф 1 - нов - предложение от Чавдар Велинов и Валери Жаблянов за ал.3",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2021-01-27",
+        "item": 44,
+        "slug": "44-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 42 (става параграф 57) - предложение от Любомир Бонев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-01-27",
+        "item": 42,
+        "slug": "42-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 41 (става параграф 56) - предложение от Любомир Бонев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2021-01-27",
+        "item": 40,
+        "slug": "40-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 40 (става параграф 55) - предложение от Любомир Бонев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-01-27",
+        "item": 35,
+        "slug": "35-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 30 (става параграф 42) - предложение от Любомир Бонев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2021-01-27",
+        "item": 33,
+        "slug": "33-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 28 (става параграф 40) - предложение от Любомир Бонев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2021-01-27",
+        "item": 27,
+        "slug": "27-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 14 (става параграф 23) - предложение от Любомир Бонев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 6
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1465,
+        "score": 0.649842227391322,
+        "overlap": 282
+      },
+      {
+        "mpId": 1344,
+        "score": 0.6118195941211881,
+        "overlap": 275
+      },
+      {
+        "mpId": 1324,
+        "score": 0.6095587724494176,
+        "overlap": 212
+      },
+      {
+        "mpId": 1325,
+        "score": 0.5671647011933323,
+        "overlap": 243
+      },
+      {
+        "mpId": 1373,
+        "score": 0.5647136712911595,
+        "overlap": 254
+      },
+      {
+        "mpId": 1563,
+        "score": 0.5548058987667279,
+        "overlap": 153
+      },
+      {
+        "mpId": 1477,
+        "score": 0.5520491285645256,
+        "overlap": 258
+      },
+      {
+        "mpId": 523,
+        "score": 0.5384742409495157,
+        "overlap": 242
+      },
+      {
+        "mpId": 1063,
+        "score": 0.5217077145605747,
+        "overlap": 248
+      },
+      {
+        "mpId": 1469,
+        "score": 0.520453973901768,
+        "overlap": 288
+      },
+      {
+        "mpId": 1265,
+        "score": 0.51604684654214,
+        "overlap": 286
+      },
+      {
+        "mpId": 1263,
+        "score": 0.5141678033684178,
+        "overlap": 246
+      },
+      {
+        "mpId": 1341,
+        "score": 0.5135335065785578,
+        "overlap": 290
+      },
+      {
+        "mpId": 1502,
+        "score": 0.5116603702338366,
+        "overlap": 292
+      },
+      {
+        "mpId": 1457,
+        "score": 0.5052701682380379,
+        "overlap": 284
+      },
+      {
+        "mpId": 1244,
+        "score": 0.5027768877357248,
+        "overlap": 287
+      },
+      {
+        "mpId": 817,
+        "score": 0.501109308838754,
+        "overlap": 278
+      },
+      {
+        "mpId": 1281,
+        "score": 0.49845049188743984,
+        "overlap": 242
+      },
+      {
+        "mpId": 1474,
+        "score": 0.4972055669400518,
+        "overlap": 242
+      },
+      {
+        "mpId": 1299,
+        "score": 0.4922337420597034,
+        "overlap": 274
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 829,
+        "score": -0.08412217219658837,
+        "overlap": 82
+      },
+      {
+        "mpId": 1336,
+        "score": -0.07220263657073483,
+        "overlap": 118
+      },
+      {
+        "mpId": 1339,
+        "score": -0.06577891374044875,
+        "overlap": 115
+      },
+      {
+        "mpId": 1342,
+        "score": -0.06349265842990105,
+        "overlap": 221
+      },
+      {
+        "mpId": 1358,
+        "score": -0.0545240546739687,
+        "overlap": 132
+      },
+      {
+        "mpId": 1533,
+        "score": -0.038944621178100616,
+        "overlap": 126
+      },
+      {
+        "mpId": 1311,
+        "score": -0.03745029431365691,
+        "overlap": 43
+      },
+      {
+        "mpId": 1541,
+        "score": -0.035112540483349344,
+        "overlap": 90
+      },
+      {
+        "mpId": 1345,
+        "score": -0.02330073510699118,
+        "overlap": 83
+      },
+      {
+        "mpId": 1323,
+        "score": -0.020511020727629253,
+        "overlap": 149
+      },
+      {
+        "mpId": 1391,
+        "score": -0.014625839552999587,
+        "overlap": 132
+      },
+      {
+        "mpId": 1384,
+        "score": -0.014545550714702806,
+        "overlap": 42
+      },
+      {
+        "mpId": 1366,
+        "score": -0.011943417133578545,
+        "overlap": 247
+      },
+      {
+        "mpId": 1515,
+        "score": -0.01085482681709727,
+        "overlap": 211
+      },
+      {
+        "mpId": 1394,
+        "score": -0.010102556371222145,
+        "overlap": 35
+      },
+      {
+        "mpId": 1261,
+        "score": -0.008449430453650465,
+        "overlap": 49
+      },
+      {
+        "mpId": 1273,
+        "score": -0.008061632995949579,
+        "overlap": 37
+      },
+      {
+        "mpId": 1554,
+        "score": -0.005427413408548635,
+        "overlap": 44
+      },
+      {
+        "mpId": 1387,
+        "score": -0.004866309687281531,
+        "overlap": 44
+      },
+      {
+        "mpId": 1277,
+        "score": -0.004700277888643408,
+        "overlap": 52
+      }
+    ]
+  }
+}

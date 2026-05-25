@@ -1,0 +1,495 @@
+{
+  "mpId": 1584,
+  "ns": "46",
+  "partyShort": "ДБ",
+  "loyalty": {
+    "votesCast": 405,
+    "withParty": 378,
+    "loyaltyPct": 0.9333333333333333,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 405,
+    "dissentCount": 27,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 70,
+        "slug": "70-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 27 - отпада",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2021-09-15",
+        "item": 8,
+        "slug": "8-programa-za-rabotata-na-narodnoto-sabranie-na-15-09-2021-g-p",
+        "title": "Програма за работата на Народното събрание на 15.09.2021 г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2021-09-09",
+        "item": 32,
+        "slug": "32-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - процедура от Виктория Василева за начало на заседанието на НС, утре от 14:00 часа",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2021-09-09",
+        "item": 3,
+        "slug": "3-protsedura-za-pryako-predavane-po-bnt-i-bnr-ot-filip-popov",
+        "title": "Процедура за пряко предаване по БНТ и БНР от Филип Попов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2021-09-08",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - процедура от Филип Попов за пряко предаване по БНТ и БНР",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-09-07",
+        "item": 64,
+        "slug": "64-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 12 - предложение от Корнелия Нинова и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2021-09-07",
+        "item": 62,
+        "slug": "62-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 12 - предложение от Мая Манолова и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 33
+      },
+      {
+        "date": "2021-09-07",
+        "item": 61,
+        "slug": "61-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 12 - предложение от Мая Манолова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-09-07",
+        "item": 50,
+        "slug": "50-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 9а - предложение от Мая Манолова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-09-07",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 8 - предложение от М.Манолова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-09-07",
+        "item": 9,
+        "slug": "9-protsedura-ot-mariya-kapon-za-pryako-predavane-po-bnt-i-bnr",
+        "title": "Процедура от Мария Капон за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2021-09-01",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodnoto-sabranie-za-1-3-septemvri-",
+        "title": "Програма за работата на Народното събрание за 1 - 3 септември 2021 г. - предложение от Мая Манолова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2021-09-01",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-1-3-septemvri-",
+        "title": "Програма за работата на Народното събрание за 1 - 3 септември 2021 г. - предложение от Десислава Атанасова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2021-08-25",
+        "item": 5,
+        "slug": "5-reshenie-za-promyana-v-sastava-na-komisiya-po-politikite-za-",
+        "title": "Решение за промяна в състава на Комисия по политиките за българите извън страната",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-08-25",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-25-27-avgust-2021",
+        "title": "Програма за работата на Народното събрание 25 -27 август 2021 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-08-18",
+        "item": 21,
+        "slug": "21-reshenie-za-izbirane-na-komisiya-po-kulturata-i-mediite-s-re",
+        "title": "Решение за избиране на Комисия по културата и медиите с редакция за промяна в числеността",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-08-18",
+        "item": 13,
+        "slug": "13-reshenie-za-izbirane-na-komisiya-po-zemedelieto-hranite-i-go",
+        "title": "Решение за избиране на Комисия по земеделието, храните и горите",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2021-08-18",
+        "item": 12,
+        "slug": "12-reshenie-za-izbirane-na-komisiya-po-kontrol-nad-sluzhbite-za",
+        "title": "Решение за избиране на Комисия по контрол над службите за сигурност, прилагането и използването на СРС и достъпа до данните по Закона за електронните съобщения с предложение за редакция от Ива Митева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-08-12",
+        "item": 3,
+        "slug": "3-protsedura-protsedura-za-pryako-predavane-po-bnt1-i-bnr",
+        "title": "Процедура - процедура за пряко предаване по БНТ1 и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-08-11",
+        "item": 6,
+        "slug": "6-protsedura-protsedura-za-pryako-predavane-po-bnt1-i-bnr",
+        "title": "Процедура - процедура за пряко предаване по БНТ1 и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-08-05",
+        "item": 59,
+        "slug": "59-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Приложение към Финансови правила ... - предложение от Мая Манолова и група н.п. по член 5",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-08-04",
+        "item": 29,
+        "slug": "29-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава пета, член 16 - процедура за прекратяване на заседанието от Р. Василев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2021-08-04",
+        "item": 24,
+        "slug": "24-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава пета, член 16 - предложение за Комисия по",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 29
+      },
+      {
+        "date": "2021-08-04",
+        "item": 23,
+        "slug": "23-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава пета, член 16 - предложение от Корнелия Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 29
+      },
+      {
+        "date": "2021-08-04",
+        "item": 22,
+        "slug": "22-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - предложение от Г.Свиленски за прекратяване на дебата - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2021-08-04",
+        "item": 13,
+        "slug": "13-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 5 - предложение от Корнелия Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2021-07-30",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ 2 и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 24
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1877,
+        "score": 0.8265204411660512,
+        "overlap": 394
+      },
+      {
+        "mpId": 1902,
+        "score": 0.8163997921910902,
+        "overlap": 405
+      },
+      {
+        "mpId": 1884,
+        "score": 0.8122349787814519,
+        "overlap": 375
+      },
+      {
+        "mpId": 1903,
+        "score": 0.8039690610953049,
+        "overlap": 387
+      },
+      {
+        "mpId": 1671,
+        "score": 0.8017837257372732,
+        "overlap": 375
+      },
+      {
+        "mpId": 1718,
+        "score": 0.7965336744079904,
+        "overlap": 388
+      },
+      {
+        "mpId": 1670,
+        "score": 0.7950593581390344,
+        "overlap": 389
+      },
+      {
+        "mpId": 1679,
+        "score": 0.7950593581390344,
+        "overlap": 376
+      },
+      {
+        "mpId": 1684,
+        "score": 0.7824607964359517,
+        "overlap": 391
+      },
+      {
+        "mpId": 1726,
+        "score": 0.7819106877648884,
+        "overlap": 384
+      },
+      {
+        "mpId": 1649,
+        "score": 0.7809768319419438,
+        "overlap": 385
+      },
+      {
+        "mpId": 1892,
+        "score": 0.7791891843493929,
+        "overlap": 355
+      },
+      {
+        "mpId": 1693,
+        "score": 0.7763490001506045,
+        "overlap": 355
+      },
+      {
+        "mpId": 1944,
+        "score": 0.7717687248925803,
+        "overlap": 368
+      },
+      {
+        "mpId": 1701,
+        "score": 0.7594738485703624,
+        "overlap": 369
+      },
+      {
+        "mpId": 1874,
+        "score": 0.7579942322107008,
+        "overlap": 369
+      },
+      {
+        "mpId": 1595,
+        "score": 0.7500338304638604,
+        "overlap": 327
+      },
+      {
+        "mpId": 1610,
+        "score": 0.7454574996535921,
+        "overlap": 335
+      },
+      {
+        "mpId": 1680,
+        "score": 0.7443314476960544,
+        "overlap": 350
+      },
+      {
+        "mpId": 1879,
+        "score": 0.7441249714222541,
+        "overlap": 386
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 810,
+        "score": -0.04466625002869186,
+        "overlap": 86
+      },
+      {
+        "mpId": 1317,
+        "score": -0.034175337130066,
+        "overlap": 237
+      },
+      {
+        "mpId": 1155,
+        "score": -0.03158380828546184,
+        "overlap": 175
+      },
+      {
+        "mpId": 1643,
+        "score": -0.03105295017040594,
+        "overlap": 173
+      },
+      {
+        "mpId": 1124,
+        "score": -0.01728769260487695,
+        "overlap": 190
+      },
+      {
+        "mpId": 1703,
+        "score": -0.011254837102261933,
+        "overlap": 143
+      },
+      {
+        "mpId": 1457,
+        "score": -0.009964083320898794,
+        "overlap": 203
+      },
+      {
+        "mpId": 1576,
+        "score": -0.008223422828074596,
+        "overlap": 113
+      },
+      {
+        "mpId": 1428,
+        "score": -0.003579427301652529,
+        "overlap": 163
+      },
+      {
+        "mpId": 404,
+        "score": 0,
+        "overlap": 224
+      },
+      {
+        "mpId": 1386,
+        "score": 0.00974097855209351,
+        "overlap": 199
+      },
+      {
+        "mpId": 1644,
+        "score": 0.013604340477028715,
+        "overlap": 200
+      },
+      {
+        "mpId": 1706,
+        "score": 0.0160581717142241,
+        "overlap": 218
+      },
+      {
+        "mpId": 990,
+        "score": 0.016234964253489182,
+        "overlap": 224
+      },
+      {
+        "mpId": 1975,
+        "score": 0.01944611170656493,
+        "overlap": 212
+      },
+      {
+        "mpId": 1659,
+        "score": 0.019664205760333866,
+        "overlap": 233
+      },
+      {
+        "mpId": 1972,
+        "score": 0.03314967720658979,
+        "overlap": 191
+      },
+      {
+        "mpId": 1281,
+        "score": 0.03495146992436514,
+        "overlap": 225
+      },
+      {
+        "mpId": 473,
+        "score": 0.03532797777129302,
+        "overlap": 220
+      },
+      {
+        "mpId": 1297,
+        "score": 0.035355339059327376,
+        "overlap": 91
+      }
+    ]
+  }
+}

@@ -1,0 +1,725 @@
+{
+  "mpId": 1494,
+  "ns": "44",
+  "partyShort": "ГЕРБ",
+  "loyalty": {
+    "votesCast": 687,
+    "withParty": 574,
+    "loyaltyPct": 0.8355167394468704,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 687,
+    "dissentCount": 113,
+    "recent": [
+      {
+        "date": "2021-03-05",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-patishtata-vtoro-glasuvane-paragraf-25-stav",
+        "title": "ЗИД на Закона за пътищата - второ гласуване - параграф 25 (става параграф 31) - предложение от Халил Летифов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 72
+      },
+      {
+        "date": "2021-03-05",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-patishtata-vtoro-glasuvane-paragraf-24-stav",
+        "title": "ЗИД на Закона за пътищата - второ гласуване - параграф 24 (става параграф 30) - предложение от Халил Летифов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 73
+      },
+      {
+        "date": "2021-03-05",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-patishtata-vtoro-glasuvane-paragraf-3-stava",
+        "title": "ЗИД на Закона за пътищата - второ гласуване - параграф 3 (става параграф 6) - предложение от Халил Летифов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 71
+      },
+      {
+        "date": "2021-03-05",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-patishtata-vtoro-glasuvane-paragraf-2-stava",
+        "title": "ЗИД на Закона за пътищата - второ гласуване - параграф 2 (става параграф 5) - предложение от Халил Летифов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 73
+      },
+      {
+        "date": "2021-03-05",
+        "item": 3,
+        "slug": "3-reshenie-za-vazlagane-na-ministerskiya-savet-osiguryavane-na",
+        "title": "Решение за възлагане на Министерския съвет осигуряване на достъп на българските граждани до руската ваксина срещу Ковид - 19 \"Спутник V\" - процедура от Александър Симов за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 85
+      },
+      {
+        "date": "2021-02-26",
+        "item": 24,
+        "slug": "24-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-balgarskoto-gra",
+        "title": "Закон за изменение и допълнение на Закона за българското гражданство - второ гласуване - параграф 15 - предложение от Жельо Бойчев",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 70
+      },
+      {
+        "date": "2021-02-25",
+        "item": 41,
+        "slug": "41-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-priznavane-na-p",
+        "title": "Закон за изменение и допълнение на Закона за признаване на професионални квалификации - второ гласуване - параграф 14 - предложение от Георги Михайлов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 78
+      },
+      {
+        "date": "2021-02-25",
+        "item": 8,
+        "slug": "8-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-energiynata-efe",
+        "title": "Закон за изменение и допълнение на Закона за енергийната ефективност - второ гласуване - параграф 21 - предложение от Таско Ерменков, Любомир Бонев и Жельо Бойчев",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-02-19",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-17-19-fevruari",
+        "title": "Програма за работата на Народното събрание за 17 - 19 февруари 2021 г. - предложение от Цвета Караянчева за включване на нова точка втора в дневния ред - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 88
+      },
+      {
+        "date": "2021-02-11",
+        "item": 32,
+        "slug": "32-programa-za-razvitie-na-otbranitelnite-sposobnosti-na-vaoraz",
+        "title": "Програма за развитие на отбранителните способности на въоръжените сили на Република България 2032 и Проект на решение за приемане на програмата и за определяне числеността на въоръжените сили - процедура от Росен Малинов за прекратяването на заседанието и отлагане на точката за утре",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2021-02-04",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-pchelarstvoto-vtoro-glasuvane-paragraf-14-n",
+        "title": "ЗИД на Закона за пчеларството - второ гласуване - параграф 14 - нов - предложение от Чавдар Велинов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 82
+      },
+      {
+        "date": "2021-02-04",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-pchelarstvoto-vtoro-glasuvane-paragraf-2-no",
+        "title": "ЗИД на Закона за пчеларството - второ гласуване - параграф 2 - нов - предложение от Чавдар Велинов и Валери Жаблянов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2021-01-28",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-merkite-i-deystviyata-po-vreme-na-izvanredn",
+        "title": "ЗИД на Закона за мерките и действията по време на извънредното положение, обявено с решение на Народното събрание от 13 март 2020 г., и за преодоляване на последиците - второ гласуване - параграф 1 - предложение от Кр. Вигенин за редакция в ал.3",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 87
+      },
+      {
+        "date": "2021-01-27",
+        "item": 33,
+        "slug": "33-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 28 (става параграф 40) - предложение от Любомир Бонев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2021-01-27",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 15 (става параграф 24) - предложение от Любомир Бонев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-01-27",
+        "item": 27,
+        "slug": "27-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 14 (става параграф 23) - предложение от Любомир Бонев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2021-01-27",
+        "item": 25,
+        "slug": "25-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 13 (става параграф 22) - предложение от Любомир Бонев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2021-01-20",
+        "item": 9,
+        "slug": "9-reshenie-po-doklad-za-deynostta-na-vremennata-komisiya-po-po",
+        "title": "Решение по доклад за дейността на Временната комисия по повод придобиването от \"Българска банка за развитие\" АД на 28 265 200 акции от капитала на \"Първа инвестиционна банка\" АД - предложение от Георги Свиленски за нова точка 2 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 78
+      },
+      {
+        "date": "2020-12-10",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-obshtestvenite-porachki-vtoro-glasuvane-par",
+        "title": "ЗИД на Закона за обществените поръчки - второ гласуване - параграф 1 нов - предложение от Г.Свиленски и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 70
+      },
+      {
+        "date": "2020-12-09",
+        "item": 27,
+        "slug": "27-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-38-predlozh",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 38 - предложение от Весела Лечева и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2020-12-09",
+        "item": 24,
+        "slug": "24-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-nov-chl-400",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф .. нов, чл.400 - предложение от Валентина Найденова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2020-12-09",
+        "item": 23,
+        "slug": "23-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-nov-chl-399",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф .. нов, чл.399 - предложение от Валентина Найденова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 65
+      },
+      {
+        "date": "2020-12-09",
+        "item": 21,
+        "slug": "21-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-22a-nov-pre",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 22а - нов - предложение от Весела Лечева и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 69
+      },
+      {
+        "date": "2020-12-09",
+        "item": 20,
+        "slug": "20-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-nov-predloz",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф ...нов - предложение от Валентина Найденова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 68
+      },
+      {
+        "date": "2020-12-09",
+        "item": 17,
+        "slug": "17-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-16-predlozh",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 16 - предложение от Д.Чуколов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 73
+      },
+      {
+        "date": "2020-12-09",
+        "item": 16,
+        "slug": "16-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-16-predlozh",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 16 - предложение от Красимир Янков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 70
+      },
+      {
+        "date": "2020-12-09",
+        "item": 15,
+        "slug": "15-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-16-predlozh",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 16 - предложение от Георги Гьоков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 65
+      },
+      {
+        "date": "2020-12-09",
+        "item": 13,
+        "slug": "13-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-15-predlozh",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 15 - предложение от Весела Лечева и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 82
+      },
+      {
+        "date": "2020-12-09",
+        "item": 12,
+        "slug": "12-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-15-predlozh",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 15 - предложение от Красимир Янков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 82
+      },
+      {
+        "date": "2020-12-09",
+        "item": 9,
+        "slug": "9-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-14-predlozh",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 14 - предложение от Весела Лечева и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 76
+      },
+      {
+        "date": "2020-12-02",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-horata-s-uvrezhdaniya-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за хората с увреждания - второ гласуване - параграф 24а - предложение от Милко Недялков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 72
+      },
+      {
+        "date": "2020-12-02",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-horata-s-uvrezhdaniya-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за хората с увреждания - второ гласуване - параграф 24 - предложение от Милко Недялков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 74
+      },
+      {
+        "date": "2020-12-02",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-horata-s-uvrezhdaniya-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за хората с увреждания - второ гласуване - параграф 23 (става параграф 24) - предложение от Милко Недялков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 71
+      },
+      {
+        "date": "2020-12-02",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-horata-s-uvrezhdaniya-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за хората с увреждания - второ гласуване - параграф 22 (става параграф 23) - предложение от Милко Недялков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2020-12-02",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-horata-s-uvrezhdaniya-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за хората с увреждания - второ гласуване - параграф 21 (става параграф 22) - предложение от Милко Недялков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2020-12-02",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-horata-s-uvrezhdaniya-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за хората с увреждания - второ гласуване - параграф 20 (става параграф 21) - предложение от Милко Недялков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2020-12-02",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-horata-s-uvrezhdaniya-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за хората с увреждания - второ гласуване - параграф 18 - предложение от Милко Недялков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2020-12-02",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-horata-s-uvrezhdaniya-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за хората с увреждания - второ гласуване - параграф 7а - предложение от Милко Недялков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 68
+      },
+      {
+        "date": "2020-12-02",
+        "item": 7,
+        "slug": "7-zid-na-zakona-za-horata-s-uvrezhdaniya-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за хората с увреждания - второ гласуване - параграф 3 - предложение от Милко Недялков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 67
+      },
+      {
+        "date": "2020-11-26",
+        "item": 32,
+        "slug": "32-zid-na-semeyniya-kodeks-vtoro-glasuvane-paragraf-4a-predlozh",
+        "title": "ЗИД на Семейния кодекс - второ гласуване - параграф 4а - предложение от Кристина Сидорова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 71
+      },
+      {
+        "date": "2020-11-26",
+        "item": 30,
+        "slug": "30-zid-na-semeyniya-kodeks-vtoro-glasuvane-paragraf-4-predlozhe",
+        "title": "ЗИД на Семейния кодекс - второ гласуване - параграф 4 - предложение от Кристина Сидорова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 73
+      },
+      {
+        "date": "2020-11-26",
+        "item": 25,
+        "slug": "25-zid-na-semeyniya-kodeks-vtoro-glasuvane-paragraf-1-predlozhe",
+        "title": "ЗИД на Семейния кодекс - второ гласуване - параграф 1 - предложение от Кристина Сидорова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 74
+      },
+      {
+        "date": "2020-11-26",
+        "item": 18,
+        "slug": "18-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Приложение към член 50 - предложение от Красимир Янков и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2020-11-26",
+        "item": 9,
+        "slug": "9-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 7а и 7б - предложение от Дора Христова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 72
+      },
+      {
+        "date": "2020-11-26",
+        "item": 6,
+        "slug": "6-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6б - предложение от Георги Свиленски и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 74
+      },
+      {
+        "date": "2020-11-26",
+        "item": 5,
+        "slug": "5-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6а - предложение от Георги Свиленски и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 72
+      },
+      {
+        "date": "2020-11-26",
+        "item": 3,
+        "slug": "3-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6 (стават параграф 5) - предложение от Дора Христова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 82
+      },
+      {
+        "date": "2020-11-26",
+        "item": 2,
+        "slug": "2-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6 (стават параграф 5) - предложение от Георги Свиленски и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 83
+      },
+      {
+        "date": "2020-11-25",
+        "item": 83,
+        "slug": "83-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 109 - предложение от Дора Янкова",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 74
+      },
+      {
+        "date": "2020-11-25",
+        "item": 81,
+        "slug": "81-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 106 - предложение от Милен Михов",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 75
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1015,
+        "score": 0.7667434225611399,
+        "overlap": 629
+      },
+      {
+        "mpId": 1341,
+        "score": 0.7615560415207241,
+        "overlap": 662
+      },
+      {
+        "mpId": 1457,
+        "score": 0.7577967460542052,
+        "overlap": 670
+      },
+      {
+        "mpId": 1477,
+        "score": 0.7443419398718248,
+        "overlap": 482
+      },
+      {
+        "mpId": 1119,
+        "score": 0.7408889370373016,
+        "overlap": 609
+      },
+      {
+        "mpId": 1244,
+        "score": 0.7366926672939371,
+        "overlap": 663
+      },
+      {
+        "mpId": 1543,
+        "score": 0.7344077335591843,
+        "overlap": 655
+      },
+      {
+        "mpId": 1146,
+        "score": 0.7342514574905896,
+        "overlap": 573
+      },
+      {
+        "mpId": 1498,
+        "score": 0.7326703104166432,
+        "overlap": 640
+      },
+      {
+        "mpId": 1502,
+        "score": 0.7322006561889316,
+        "overlap": 656
+      },
+      {
+        "mpId": 1288,
+        "score": 0.7254985265655702,
+        "overlap": 627
+      },
+      {
+        "mpId": 1461,
+        "score": 0.7235689857680061,
+        "overlap": 643
+      },
+      {
+        "mpId": 1393,
+        "score": 0.7219306655588336,
+        "overlap": 625
+      },
+      {
+        "mpId": 1483,
+        "score": 0.7208376763544716,
+        "overlap": 631
+      },
+      {
+        "mpId": 1299,
+        "score": 0.7203012722348412,
+        "overlap": 646
+      },
+      {
+        "mpId": 757,
+        "score": 0.7199537590089631,
+        "overlap": 607
+      },
+      {
+        "mpId": 1467,
+        "score": 0.7168127802951736,
+        "overlap": 612
+      },
+      {
+        "mpId": 1265,
+        "score": 0.7164333728329575,
+        "overlap": 628
+      },
+      {
+        "mpId": 817,
+        "score": 0.7155360857953001,
+        "overlap": 625
+      },
+      {
+        "mpId": 1367,
+        "score": 0.7133746783870079,
+        "overlap": 641
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 829,
+        "score": -0.154389528885293,
+        "overlap": 265
+      },
+      {
+        "mpId": 1273,
+        "score": -0.11847979180030364,
+        "overlap": 159
+      },
+      {
+        "mpId": 1060,
+        "score": -0.09231343333602073,
+        "overlap": 217
+      },
+      {
+        "mpId": 1555,
+        "score": -0.09185622977494896,
+        "overlap": 242
+      },
+      {
+        "mpId": 1530,
+        "score": -0.090245825830866,
+        "overlap": 197
+      },
+      {
+        "mpId": 774,
+        "score": -0.08329070171362446,
+        "overlap": 143
+      },
+      {
+        "mpId": 1261,
+        "score": -0.08177651569622829,
+        "overlap": 195
+      },
+      {
+        "mpId": 782,
+        "score": -0.07428635814104168,
+        "overlap": 229
+      },
+      {
+        "mpId": 1277,
+        "score": -0.06739395270192564,
+        "overlap": 171
+      },
+      {
+        "mpId": 762,
+        "score": -0.06622843146128872,
+        "overlap": 323
+      },
+      {
+        "mpId": 1531,
+        "score": -0.06602166515074456,
+        "overlap": 216
+      },
+      {
+        "mpId": 1021,
+        "score": -0.06148427953126426,
+        "overlap": 279
+      },
+      {
+        "mpId": 1379,
+        "score": -0.0586797101809086,
+        "overlap": 114
+      },
+      {
+        "mpId": 1342,
+        "score": -0.05586399534339824,
+        "overlap": 411
+      },
+      {
+        "mpId": 462,
+        "score": -0.054890741793293715,
+        "overlap": 82
+      },
+      {
+        "mpId": 1275,
+        "score": -0.05201551835135282,
+        "overlap": 208
+      },
+      {
+        "mpId": 1315,
+        "score": -0.049959278317364714,
+        "overlap": 185
+      },
+      {
+        "mpId": 1045,
+        "score": -0.049685942419412814,
+        "overlap": 224
+      },
+      {
+        "mpId": 1253,
+        "score": -0.049257647339259844,
+        "overlap": 301
+      },
+      {
+        "mpId": 1390,
+        "score": -0.04718054862294817,
+        "overlap": 282
+      }
+    ]
+  }
+}

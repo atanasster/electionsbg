@@ -1,0 +1,265 @@
+{
+  "mpId": 2930,
+  "ns": "50",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 7,
+    "withParty": 3,
+    "loyaltyPct": 0.42857142857142855,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 7,
+    "dissentCount": 4,
+    "recent": [
+      {
+        "date": "2024-06-19",
+        "item": 10,
+        "slug": "10-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Петър Петров - втори тур",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-06-19",
+        "item": 9,
+        "slug": "9-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Юлиана Матеева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-06-19",
+        "item": 8,
+        "slug": "8-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Силви Кирилов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-06-19",
+        "item": 5,
+        "slug": "5-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2904,
+        "score": 0.30151134457776363,
+        "overlap": 7
+      },
+      {
+        "mpId": 2909,
+        "score": 0.30151134457776363,
+        "overlap": 7
+      },
+      {
+        "mpId": 2951,
+        "score": 0.2970442628930023,
+        "overlap": 7
+      },
+      {
+        "mpId": 2934,
+        "score": 0.29277002188455997,
+        "overlap": 7
+      },
+      {
+        "mpId": 2918,
+        "score": 0.2847473987257497,
+        "overlap": 7
+      },
+      {
+        "mpId": 2927,
+        "score": 0.2847473987257497,
+        "overlap": 7
+      },
+      {
+        "mpId": 2936,
+        "score": 0.2847473987257497,
+        "overlap": 7
+      },
+      {
+        "mpId": 2912,
+        "score": 0.2809757434745082,
+        "overlap": 7
+      },
+      {
+        "mpId": 2953,
+        "score": 0.2809757434745082,
+        "overlap": 7
+      },
+      {
+        "mpId": 2965,
+        "score": 0.2809757434745082,
+        "overlap": 7
+      },
+      {
+        "mpId": 2961,
+        "score": 0.2773500981126146,
+        "overlap": 7
+      },
+      {
+        "mpId": 2948,
+        "score": 0.27386127875258304,
+        "overlap": 7
+      },
+      {
+        "mpId": 2609,
+        "score": 0.16666666666666666,
+        "overlap": 7
+      },
+      {
+        "mpId": 2942,
+        "score": 0.15617376188860607,
+        "overlap": 7
+      },
+      {
+        "mpId": 2742,
+        "score": 0.14586499149789459,
+        "overlap": 7
+      },
+      {
+        "mpId": 2738,
+        "score": 0.13823270327522744,
+        "overlap": 7
+      },
+      {
+        "mpId": 2931,
+        "score": 0.13736056394868904,
+        "overlap": 7
+      },
+      {
+        "mpId": 2606,
+        "score": 0.13483997249264842,
+        "overlap": 7
+      },
+      {
+        "mpId": 2713,
+        "score": 0.1336306209562122,
+        "overlap": 7
+      },
+      {
+        "mpId": 2801,
+        "score": 0.13245323570650439,
+        "overlap": 7
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2893,
+        "score": -0.12598815766974242,
+        "overlap": 7
+      },
+      {
+        "mpId": 2846,
+        "score": -0.12309149097933272,
+        "overlap": 7
+      },
+      {
+        "mpId": 2811,
+        "score": -0.11785113019775793,
+        "overlap": 7
+      },
+      {
+        "mpId": 2677,
+        "score": -0.10369516947304255,
+        "overlap": 7
+      },
+      {
+        "mpId": 2620,
+        "score": -0.09622504486493763,
+        "overlap": 7
+      },
+      {
+        "mpId": 2678,
+        "score": -0.09365858115816941,
+        "overlap": 7
+      },
+      {
+        "mpId": 2766,
+        "score": -0.09365858115816941,
+        "overlap": 7
+      },
+      {
+        "mpId": 2937,
+        "score": -0.09245003270420486,
+        "overlap": 7
+      },
+      {
+        "mpId": 2700,
+        "score": -0.09128709291752768,
+        "overlap": 7
+      },
+      {
+        "mpId": 2848,
+        "score": -0.09128709291752768,
+        "overlap": 7
+      },
+      {
+        "mpId": 2966,
+        "score": -0.09128709291752768,
+        "overlap": 7
+      },
+      {
+        "mpId": 2599,
+        "score": -0.09016696346674324,
+        "overlap": 7
+      },
+      {
+        "mpId": 2627,
+        "score": -0.09016696346674324,
+        "overlap": 7
+      },
+      {
+        "mpId": 2823,
+        "score": -0.09016696346674324,
+        "overlap": 7
+      },
+      {
+        "mpId": 2940,
+        "score": -0.09016696346674324,
+        "overlap": 7
+      },
+      {
+        "mpId": 2781,
+        "score": -0.0890870806374748,
+        "overlap": 7
+      },
+      {
+        "mpId": 2797,
+        "score": -0.0890870806374748,
+        "overlap": 7
+      },
+      {
+        "mpId": 2959,
+        "score": -0.0890870806374748,
+        "overlap": 7
+      },
+      {
+        "mpId": 2845,
+        "score": -0.0880450906325624,
+        "overlap": 7
+      },
+      {
+        "mpId": 2901,
+        "score": -0.0880450906325624,
+        "overlap": 7
+      }
+    ]
+  }
+}

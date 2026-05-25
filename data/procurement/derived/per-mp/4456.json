@@ -1,0 +1,64 @@
+{
+  "mpId": 4456,
+  "summary": {
+    "totalEur": 69995.85853576231,
+    "totalOther": {},
+    "contractCount": 4,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 69995.85853576231,
+    "rank": 39,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 4456,
+      "mpName": "Христо Симеонов Борисов",
+      "contractorEik": "205590667",
+      "contractorName": "ПЕТРОВ И БОРИСОВ АРХИТЕКТИ ЕООД",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 69995.85853576231,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2022",
+          "contractCount": 2,
+          "totalEur": 35534.78574313719,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 2,
+          "totalEur": 34461.07279262513,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000405689",
+          "name": "МЕДИЦИНСКИ УНИВЕРСИТЕТ",
+          "contractCount": 3,
+          "totalEur": 44942.55635714761,
+          "totalOther": {}
+        },
+        {
+          "eik": "000403802",
+          "name": "ДРАМАТИЧНО - КУКЛЕН ТЕАТЪР \"ИВАН РАДОЕВ",
+          "contractCount": 1,
+          "totalEur": 25053.302178614707,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

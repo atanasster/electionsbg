@@ -1,0 +1,235 @@
+{
+  "mpId": 1362,
+  "ns": "44",
+  "partyShort": "ВОЛЯ",
+  "loyalty": {
+    "votesCast": 118,
+    "withParty": 117,
+    "loyaltyPct": 0.9915254237288136,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 118,
+    "dissentCount": 1,
+    "recent": [
+      {
+        "date": "2020-11-24",
+        "item": 26,
+        "slug": "26-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - Член 1 - предложение от Хасан Адемов",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 5
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1363,
+        "score": 0.5693403975896957,
+        "overlap": 96
+      },
+      {
+        "mpId": 1266,
+        "score": 0.4951867509201366,
+        "overlap": 77
+      },
+      {
+        "mpId": 1542,
+        "score": 0.48048056714022325,
+        "overlap": 63
+      },
+      {
+        "mpId": 1302,
+        "score": 0.4164320178257431,
+        "overlap": 60
+      },
+      {
+        "mpId": 1523,
+        "score": 0.3891558912470781,
+        "overlap": 21
+      },
+      {
+        "mpId": 1520,
+        "score": 0.3847888561951054,
+        "overlap": 38
+      },
+      {
+        "mpId": 1284,
+        "score": 0.3798902747888144,
+        "overlap": 49
+      },
+      {
+        "mpId": 1369,
+        "score": 0.37822397490935494,
+        "overlap": 70
+      },
+      {
+        "mpId": 1246,
+        "score": 0.37184606693200145,
+        "overlap": 39
+      },
+      {
+        "mpId": 1274,
+        "score": 0.35759212501413934,
+        "overlap": 20
+      },
+      {
+        "mpId": 1337,
+        "score": 0.3343531876620088,
+        "overlap": 26
+      },
+      {
+        "mpId": 1521,
+        "score": 0.3289369131229839,
+        "overlap": 41
+      },
+      {
+        "mpId": 1008,
+        "score": 0.3240331403147076,
+        "overlap": 74
+      },
+      {
+        "mpId": 1522,
+        "score": 0.31022104415577006,
+        "overlap": 19
+      },
+      {
+        "mpId": 1462,
+        "score": 0.30113253489357233,
+        "overlap": 112
+      },
+      {
+        "mpId": 1535,
+        "score": 0.2980241569013301,
+        "overlap": 88
+      },
+      {
+        "mpId": 599,
+        "score": 0.29322969533930154,
+        "overlap": 84
+      },
+      {
+        "mpId": 1485,
+        "score": 0.2907419023147902,
+        "overlap": 58
+      },
+      {
+        "mpId": 1528,
+        "score": 0.2732835116981439,
+        "overlap": 113
+      },
+      {
+        "mpId": 1494,
+        "score": 0.271420978209799,
+        "overlap": 101
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1368,
+        "score": -0.007969962028401865,
+        "overlap": 38
+      },
+      {
+        "mpId": 829,
+        "score": 0,
+        "overlap": 62
+      },
+      {
+        "mpId": 1304,
+        "score": 0,
+        "overlap": 26
+      },
+      {
+        "mpId": 1262,
+        "score": 0.008313439520466032,
+        "overlap": 41
+      },
+      {
+        "mpId": 1553,
+        "score": 0.009609611342804464,
+        "overlap": 40
+      },
+      {
+        "mpId": 1381,
+        "score": 0.009949879346007117,
+        "overlap": 10
+      },
+      {
+        "mpId": 1531,
+        "score": 0.013946174017163585,
+        "overlap": 61
+      },
+      {
+        "mpId": 1455,
+        "score": 0.015456116693379658,
+        "overlap": 29
+      },
+      {
+        "mpId": 1530,
+        "score": 0.01992970567463317,
+        "overlap": 45
+      },
+      {
+        "mpId": 1379,
+        "score": 0.020363684832629843,
+        "overlap": 41
+      },
+      {
+        "mpId": 1306,
+        "score": 0.021548188044157677,
+        "overlap": 36
+      },
+      {
+        "mpId": 1245,
+        "score": 0.024372127399974627,
+        "overlap": 8
+      },
+      {
+        "mpId": 1277,
+        "score": 0.024557187972246774,
+        "overlap": 45
+      },
+      {
+        "mpId": 1318,
+        "score": 0.024708310555370042,
+        "overlap": 65
+      },
+      {
+        "mpId": 1342,
+        "score": 0.025130705435587892,
+        "overlap": 78
+      },
+      {
+        "mpId": 1323,
+        "score": 0.025514853713327446,
+        "overlap": 70
+      },
+      {
+        "mpId": 762,
+        "score": 0.025948916385497792,
+        "overlap": 77
+      },
+      {
+        "mpId": 774,
+        "score": 0.026391032794863673,
+        "overlap": 23
+      },
+      {
+        "mpId": 1273,
+        "score": 0.02807933793632771,
+        "overlap": 35
+      },
+      {
+        "mpId": 1261,
+        "score": 0.029430068721405984,
+        "overlap": 53
+      }
+    ]
+  }
+}

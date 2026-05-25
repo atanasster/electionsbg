@@ -1,0 +1,465 @@
+{
+  "mpId": 1367,
+  "ns": "44",
+  "partyShort": "ГЕРБ",
+  "loyalty": {
+    "votesCast": 923,
+    "withParty": 899,
+    "loyaltyPct": 0.9739978331527628,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 923,
+    "dissentCount": 24,
+    "recent": [
+      {
+        "date": "2021-02-24",
+        "item": 10,
+        "slug": "10-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-elektronnite-sa",
+        "title": "Закон за изменение и допълнение на Закона за електронните съобщения - второ гласуване - параграф 83 до параграф 99",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 64
+      },
+      {
+        "date": "2021-02-17",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-filmovata-industriya-vtoro-glasuvane-naimen",
+        "title": "ЗИД на Закона за филмовата индустрия - второ гласуване - наименование, параграф 1 до параграф 8",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 73
+      },
+      {
+        "date": "2021-02-12",
+        "item": 15,
+        "slug": "15-zakon-za-dopalnenie-na-zakona-za-merkite-i-deystviyata-po-vr",
+        "title": "Закон за допълнение на Закона за мерките и действията по време на извънредното положение, обявено с решение на Народното събрание от 13 март 2020 г., и за преодоляване на последиците - второ гласуване - параграф 9 (става параграф 14)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 64
+      },
+      {
+        "date": "2021-02-11",
+        "item": 22,
+        "slug": "22-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-zashtita-na-kon",
+        "title": "Закон за изменение и допълнение на Закона за защита на конкуренцията - второ гласуване - параграф 67 - предложение от Корнелия Нинова и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 74
+      },
+      {
+        "date": "2021-02-04",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-pchelarstvoto-vtoro-glasuvane-paragraf-12-n",
+        "title": "ЗИД на Закона за пчеларството - второ гласуване - параграф 12 - нов - т.6",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 81
+      },
+      {
+        "date": "2021-01-27",
+        "item": 40,
+        "slug": "40-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 40 (става параграф 55) - предложение от Любомир Бонев и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 65
+      },
+      {
+        "date": "2020-12-10",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-mestnoto-samoupravlenie-i-mestnata-administ",
+        "title": "ЗИД на Закона за местното самоуправление и местната администрация - второ гласуване - параграф 4 - предложение от Искрен Веселинов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 80
+      },
+      {
+        "date": "2020-12-09",
+        "item": 8,
+        "slug": "8-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-14-predlozh",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 14 - предложение от Красимир Янков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 77
+      },
+      {
+        "date": "2020-12-03",
+        "item": 13,
+        "slug": "13-reshenie-za-odobryavane-na-uchastieto-na-republika-balgariya",
+        "title": "Решение за одобряване на участието на Република България в сключените от Европейската комисия и производителите на лекарства AstraZeneca, Sanofi и Pfizer Inc. и BioNTech Manufactoring GmbHand предварителни споразумения за покупка на ваксини във връзка с пандемията от COVID - 19, както и предприемането на действия за сключване на договор за покупка на ваксини от Janssen Pharmaceutica NV - предложение за допълнение от Корнелия Нинова - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 75
+      },
+      {
+        "date": "2020-11-26",
+        "item": 7,
+        "slug": "7-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 7 и 8 - предложение от Искрен Веселинов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 76
+      },
+      {
+        "date": "2020-11-26",
+        "item": 2,
+        "slug": "2-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6 (стават параграф 5) - предложение от Георги Свиленски и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 83
+      },
+      {
+        "date": "2020-11-25",
+        "item": 63,
+        "slug": "63-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 51 - предложение от Дора Янкова",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 79
+      },
+      {
+        "date": "2020-11-25",
+        "item": 48,
+        "slug": "48-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 28 - предложение от Мария Цветкова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 69
+      },
+      {
+        "date": "2020-11-25",
+        "item": 46,
+        "slug": "46-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 27 - предложение от Мария Цветкова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 69
+      },
+      {
+        "date": "2020-11-25",
+        "item": 32,
+        "slug": "32-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 17 - предложение от Мария Цветкова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 64
+      },
+      {
+        "date": "2020-11-25",
+        "item": 30,
+        "slug": "30-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 16 - предложение от Йордан Йорданов и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 72
+      },
+      {
+        "date": "2020-11-25",
+        "item": 26,
+        "slug": "26-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 15 - предложение от Дора Янкова",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 71
+      },
+      {
+        "date": "2020-11-25",
+        "item": 23,
+        "slug": "23-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 14 - предложение от Мустафа Карадайъ и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 73
+      },
+      {
+        "date": "2020-11-24",
+        "item": 62,
+        "slug": "62-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - параграф 8 - предложение от Виолета Желева и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 82
+      },
+      {
+        "date": "2020-11-24",
+        "item": 48,
+        "slug": "48-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - Член 11 - предложение от Красимир Янков и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 68
+      },
+      {
+        "date": "2020-11-24",
+        "item": 19,
+        "slug": "19-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 17 (става параграф 18) - предложение от Дора Христова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2020-11-20",
+        "item": 23,
+        "slug": "23-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Наказателно-процесуалния кодекс - второ гласуване - параграф 12",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 68
+      },
+      {
+        "date": "2020-11-06",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-merkite-i-deystviyata-po-vreme-na-izvanredn",
+        "title": "ЗИД на Закона за мерките и действията по време на извънредното положение, обявено с решение на НС от 13.03.2020 г. и за преодоляване на последиците - второ гласуване - параграф нов - предложение от Хамид Хамид и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 76
+      },
+      {
+        "date": "2020-11-05",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-05-06-noemvri-",
+        "title": "Програма за работата на Народното събрание за 05 - 06 ноември 2020 г. - процедура за разместване на точките",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 74
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1299,
+        "score": 0.928337257195135,
+        "overlap": 882
+      },
+      {
+        "mpId": 1457,
+        "score": 0.918295984363282,
+        "overlap": 897
+      },
+      {
+        "mpId": 1244,
+        "score": 0.9179991035169381,
+        "overlap": 897
+      },
+      {
+        "mpId": 1502,
+        "score": 0.9159726129581603,
+        "overlap": 880
+      },
+      {
+        "mpId": 1461,
+        "score": 0.9076378416598238,
+        "overlap": 874
+      },
+      {
+        "mpId": 1543,
+        "score": 0.9062085645744473,
+        "overlap": 870
+      },
+      {
+        "mpId": 1483,
+        "score": 0.9028357734729133,
+        "overlap": 854
+      },
+      {
+        "mpId": 1265,
+        "score": 0.8970852271450604,
+        "overlap": 860
+      },
+      {
+        "mpId": 817,
+        "score": 0.8931591239110354,
+        "overlap": 840
+      },
+      {
+        "mpId": 1341,
+        "score": 0.8919961563017762,
+        "overlap": 896
+      },
+      {
+        "mpId": 1288,
+        "score": 0.8891442557868686,
+        "overlap": 854
+      },
+      {
+        "mpId": 1256,
+        "score": 0.8860675725329252,
+        "overlap": 832
+      },
+      {
+        "mpId": 1393,
+        "score": 0.8845637220256922,
+        "overlap": 834
+      },
+      {
+        "mpId": 1329,
+        "score": 0.8822129771618321,
+        "overlap": 801
+      },
+      {
+        "mpId": 1486,
+        "score": 0.8799497672798305,
+        "overlap": 815
+      },
+      {
+        "mpId": 1469,
+        "score": 0.8792465549792763,
+        "overlap": 846
+      },
+      {
+        "mpId": 1317,
+        "score": 0.875557897378106,
+        "overlap": 824
+      },
+      {
+        "mpId": 1498,
+        "score": 0.8754542638351972,
+        "overlap": 858
+      },
+      {
+        "mpId": 805,
+        "score": 0.8735081631713947,
+        "overlap": 812
+      },
+      {
+        "mpId": 1529,
+        "score": 0.8606384683678762,
+        "overlap": 792
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1273,
+        "score": -0.26713177461621673,
+        "overlap": 268
+      },
+      {
+        "mpId": 1530,
+        "score": -0.26351261535445825,
+        "overlap": 302
+      },
+      {
+        "mpId": 829,
+        "score": -0.24945655218608995,
+        "overlap": 335
+      },
+      {
+        "mpId": 1342,
+        "score": -0.24799491493277098,
+        "overlap": 610
+      },
+      {
+        "mpId": 1345,
+        "score": -0.2449025983042682,
+        "overlap": 401
+      },
+      {
+        "mpId": 1514,
+        "score": -0.22952739749117465,
+        "overlap": 341
+      },
+      {
+        "mpId": 762,
+        "score": -0.2209224359115109,
+        "overlap": 445
+      },
+      {
+        "mpId": 1555,
+        "score": -0.22037779307683414,
+        "overlap": 271
+      },
+      {
+        "mpId": 1276,
+        "score": -0.21959427365403913,
+        "overlap": 422
+      },
+      {
+        "mpId": 1336,
+        "score": -0.21897640977283142,
+        "overlap": 348
+      },
+      {
+        "mpId": 1021,
+        "score": -0.21860287232151318,
+        "overlap": 380
+      },
+      {
+        "mpId": 1384,
+        "score": -0.21852668103289674,
+        "overlap": 342
+      },
+      {
+        "mpId": 1275,
+        "score": -0.21732754545048144,
+        "overlap": 266
+      },
+      {
+        "mpId": 1323,
+        "score": -0.217226937361609,
+        "overlap": 535
+      },
+      {
+        "mpId": 1358,
+        "score": -0.20670093063475725,
+        "overlap": 385
+      },
+      {
+        "mpId": 1390,
+        "score": -0.20231395555684195,
+        "overlap": 385
+      },
+      {
+        "mpId": 751,
+        "score": -0.197619764772078,
+        "overlap": 254
+      },
+      {
+        "mpId": 1531,
+        "score": -0.1956415101804548,
+        "overlap": 321
+      },
+      {
+        "mpId": 1533,
+        "score": -0.19502959993421087,
+        "overlap": 422
+      },
+      {
+        "mpId": 1060,
+        "score": -0.19362633204857504,
+        "overlap": 255
+      }
+    ]
+  }
+}

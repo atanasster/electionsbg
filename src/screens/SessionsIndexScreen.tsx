@@ -1,11 +1,21 @@
 import { FC, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Link } from "@/ux/Link";
 import { useTranslation } from "react-i18next";
-import { Calendar } from "lucide-react";
+import { Calendar, X } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { useRollcallIndex } from "@/data/parliament/votes/useRollcallIndex";
-import type { RollcallIndexEntry } from "@/data/parliament/votes/types";
+import { useTopicIndex } from "@/data/parliament/votes/useTopicIndex";
+import { ParliamentVotingTile } from "@/screens/dashboard/ParliamentVotingTile";
+import { ContestedVotesFeed } from "@/screens/components/votes/ContestedVotesFeed";
+import { SessionOutcomeBar } from "@/screens/components/votes/SessionOutcomeBar";
+import { TopicChip } from "@/screens/components/votes/TopicChip";
+import type {
+  RollcallIndexEntry,
+  TopicEntry,
+  VoteTopic,
+} from "@/data/parliament/votes/types";
 
 const formatDate = (iso: string, lang: string): string => {
   const d = new Date(iso + "T00:00:00Z");
@@ -19,7 +29,30 @@ const formatDate = (iso: string, lang: string): string => {
 export const SessionsIndexScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const { sessions, currentNs, isLoading } = useRollcallIndex();
+  const { entries: topicEntries } = useTopicIndex();
+  const [params, setParams] = useSearchParams();
+  const topicFilter = params.get("topic") as VoteTopic | null;
   const lang = i18n.language;
+
+  // Group topic entries by date so the outcome-bar column lookup is O(1).
+  const entriesByDate = useMemo(() => {
+    const m = new Map<string, TopicEntry[]>();
+    for (const e of topicEntries) {
+      const arr = m.get(e.date) ?? [];
+      arr.push(e);
+      m.set(e.date, arr);
+    }
+    return m;
+  }, [topicEntries]);
+
+  // When the user clicks a TopicChip elsewhere we land here with `?topic=`.
+  // Only keep sessions that contain at least one item of that topic.
+  const visibleSessions = useMemo(() => {
+    if (!topicFilter) return sessions;
+    return sessions.filter((s) =>
+      (entriesByDate.get(s.date) ?? []).some((e) => e.topic === topicFilter),
+    );
+  }, [sessions, topicFilter, entriesByDate]);
 
   const columns: DataTableColumns<RollcallIndexEntry, unknown> = useMemo(
     () => [
@@ -42,9 +75,19 @@ export const SessionsIndexScreen: FC = () => {
       {
         accessorKey: "items",
         header: t("votes_session_items") || "Vote items",
-        cell: ({ row }) => (
-          <div className="text-right tabular-nums">{row.original.items}</div>
-        ),
+        cell: ({ row }) => {
+          const entries = entriesByDate.get(row.original.date) ?? [];
+          return (
+            <div className="flex items-center gap-3">
+              <span className="tabular-nums text-right shrink-0 w-8 text-muted-foreground">
+                {row.original.items}
+              </span>
+              <div className="flex-1 min-w-[80px]">
+                <SessionOutcomeBar entries={entries} />
+              </div>
+            </div>
+          );
+        },
       },
       {
         accessorKey: "stenogramId",
@@ -61,7 +104,7 @@ export const SessionsIndexScreen: FC = () => {
         ),
       },
     ],
-    [t, lang],
+    [t, lang, entriesByDate],
   );
 
   const pageTitle = t("votes_index_title") || "Roll-call votes";
@@ -72,8 +115,8 @@ export const SessionsIndexScreen: FC = () => {
         {pageTitle}
       </Title>
 
-      <div className="max-w-5xl mx-auto pb-12">
-        <p className="text-sm text-muted-foreground mb-6">
+      <div className="pb-12 space-y-6">
+        <p className="text-sm text-muted-foreground max-w-3xl">
           {t("votes_index_intro") ||
             "Every voting day in the National Assembly. Click a date to see how MPs voted on each item."}
           {currentNs && (
@@ -84,23 +127,65 @@ export const SessionsIndexScreen: FC = () => {
           )}
         </p>
 
+        {topicFilter && (
+          <div className="flex items-center gap-2 text-sm">
+            <span className="text-muted-foreground">
+              {t("votes_topic_filter_active") || "Filtering by topic"}:
+            </span>
+            <TopicChip topic={topicFilter} linkable={false} />
+            <button
+              type="button"
+              onClick={() => {
+                const next = new URLSearchParams(params);
+                next.delete("topic");
+                setParams(next);
+              }}
+              className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+            >
+              <X className="h-3 w-3" />
+              {t("votes_topic_filter_clear") || "Clear topic filter"}
+            </button>
+          </div>
+        )}
+
+        {!topicFilter && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div>
+              <h2 className="sr-only">
+                {t("votes_landing_correlation_title") ||
+                  "How groups vote together"}
+              </h2>
+              <ParliamentVotingTile />
+            </div>
+            <ContestedVotesFeed />
+          </div>
+        )}
+
         {isLoading ? (
           <div className="text-sm text-muted-foreground">
             {t("loading") || "Loading…"}
           </div>
-        ) : sessions.length === 0 ? (
+        ) : visibleSessions.length === 0 ? (
           <div className="text-sm text-muted-foreground">
             {t("votes_index_empty") ||
               "No roll-call sessions have been ingested yet."}
           </div>
         ) : (
-          <DataTable<RollcallIndexEntry, unknown>
-            title={pageTitle}
-            pageSize={25}
-            columns={columns}
-            data={sessions}
-            initialSort={[{ id: "date", desc: true }]}
-          />
+          <section>
+            <h2 className="text-sm font-semibold uppercase tracking-wide mb-2">
+              {t("votes_landing_browse_all") || "Browse all voting days"}
+              <span className="ml-2 font-normal normal-case text-muted-foreground tabular-nums">
+                ({visibleSessions.length})
+              </span>
+            </h2>
+            <DataTable<RollcallIndexEntry, unknown>
+              title={pageTitle}
+              pageSize={25}
+              columns={columns}
+              data={visibleSessions}
+              initialSort={[{ id: "date", desc: true }]}
+            />
+          </section>
         )}
       </div>
     </div>

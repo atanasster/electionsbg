@@ -1,0 +1,725 @@
+{
+  "mpId": 3369,
+  "ns": "51",
+  "partyShort": "АПС",
+  "loyalty": {
+    "votesCast": 1111,
+    "withParty": 1021,
+    "loyaltyPct": 0.918991899189919,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 1111,
+    "dissentCount": 90,
+    "recent": [
+      {
+        "date": "2026-04-01",
+        "item": 5,
+        "slug": "5-protsedura-ot-kostadin-angelov-za-nova-tochka-treta-v-progra",
+        "title": "Процедура от Костадин Ангелов за нова точка трета в програмата - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 5
+      },
+      {
+        "date": "2026-03-13",
+        "item": 12,
+        "slug": "12-programa-na-narodnoto-sabranie-za-11-13-fevruari-2026-g-prod",
+        "title": "Програма на Народното събрание за 11 - 13 февруари 2026 г. - продедура от Рая Назарян за нова т. 5 - мерки срещу цените",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2026-03-13",
+        "item": 11,
+        "slug": "11-programa-na-narodnoto-sabranie-za-11-13-fevruari-2026-g-prod",
+        "title": "Програма на Народното събрание за 11 - 13 февруари 2026 г. - продедура от Рая Назарян за нова т. 4 - Борда за мир",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2026-03-13",
+        "item": 10,
+        "slug": "10-programa-na-narodnoto-sabranie-za-11-13-fevruari-2026-g-prod",
+        "title": "Програма на Народното събрание за 11 - 13 февруари 2026 г. - продедура от Рая Назарян за нова т. 3 - избор на подуправеител на БНБ - прегласуване",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2026-03-12",
+        "item": 4,
+        "slug": "4-programa-na-narodnoto-sabranie-za-11-13-fevruari-2026-g-prot",
+        "title": "Програма на Народното събрание за 11 - 13 февруари 2026 г. - процедура от Христо Гаджев точка 4 (ЗИД на Закона за защита от дискриминация) да стане 3 за днес",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2026-03-12",
+        "item": 3,
+        "slug": "3-programa-na-narodnoto-sabranie-za-11-13-fevruari-2026-g-prot",
+        "title": "Програма на Народното събрание за 11 - 13 февруари 2026 г. - процедура от Христо Гаджев точка 3 да стане 2 (за днес)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 6
+      },
+      {
+        "date": "2026-03-12",
+        "item": 2,
+        "slug": "2-zakon-za-prozrachnost-i-pochtenost-v-upravlenieto-parvo-glas",
+        "title": "Закон за прозрачност и почтеност в управлението - първо гласуване - процедура от Георги Кръстев за съкращаване на срока за предложения на три дни - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2026-03-05",
+        "item": 14,
+        "slug": "14-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-par",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - параграф 4 - предложение от Георги Хрисимиров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2026-02-26",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-publichnoto-predlagane-na-tsenni-knizha-vto",
+        "title": "ЗИД на Закона за публичното предлагане на ценни книжа - второ гласуване - Допълнителна разпоредба",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 6
+      },
+      {
+        "date": "2026-02-26",
+        "item": 3,
+        "slug": "3-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-pro",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - процедура за допускане в залата",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 4
+      },
+      {
+        "date": "2026-02-20",
+        "item": 5,
+        "slug": "5-zd-na-zakona-za-podpomagane-na-zemedelskite-proizvoditeli-pa",
+        "title": "ЗД на Закона за подпомагане на земеделските производители - първо гласуване - процедура от Хр. Гаджев преминаване към второ гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2026-02-13",
+        "item": 8,
+        "slug": "8-reshenie-za-prekratyavane-na-pravomoshtiyata-na-zamestnik-pr",
+        "title": "Решение за прекратяване на правомощията на заместник-председателя на Комисията за отнемане на незаконно придобитото имущество - Антон Славчев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2026-02-11",
+        "item": 14,
+        "slug": "14-protsedura-ot-kosta-stoyanov-za-udalzhavane-na-rabotnoto-vre",
+        "title": "Процедура от Коста Стоянов за удължаване на работното време до приключване на т.2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2026-02-11",
+        "item": 11,
+        "slug": "11-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-fevruari",
+        "title": "Програма за работата на Народното събрание за 11 - 13 февруари 2026 г. - предложение от Искра Михайлова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2026-02-11",
+        "item": 8,
+        "slug": "8-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-fevruari",
+        "title": "Програма за работата на Народното събрание за 11 - 13 февруари 2026 г. - предложение от Явор Божанков - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2026-02-05",
+        "item": 29,
+        "slug": "29-zi-na-izborniya-kodeks-vtoro-glasuvane-paragraf-2",
+        "title": "ЗИ на Изборния кодекс – второ гласуване - параграф 2 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2026-02-04",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-turizma-parvo-glasuvane-protsedura-ot-boris",
+        "title": "ЗИД на Закона за туризма – първо гласуване - процедура от Борис Аладжов за удължаване на срока за предложения на 28 дни",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2026-01-28",
+        "item": 48,
+        "slug": "48-zid-na-zakona-za-dvizhenieto-po-patishtata-parvo-glasuvane",
+        "title": "ЗИД на Закона за движението по пътищата – първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2026-01-28",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yanuari-",
+        "title": "Програма за работата на Народното събрание за 28 – 30 януари 2026 г. - процедура от Христо Гаджев за удължаване на работното време до приключване на точка 5",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2025-12-17",
+        "item": 17,
+        "slug": "17-zakon-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-razhodi-pr",
+        "title": "Закон за събирането на приходи и извършването на разходи през 2026 г. до приемането на Закона за държавния бюджет на Република България за 2026 г., Закона за бюджета на държавното обществено осигуряване за 2026 г. и Закона за бюджета на Националната здравноосигурителна каса за 2026 г.- първо гласуване - процедура за допускане в залата - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 4
+      },
+      {
+        "date": "2025-12-03",
+        "item": 6,
+        "slug": "6-reshenie-po-predlozhenie-za-proizvezhdane-na-natsionalen-ref",
+        "title": "Решение по предложение за произвеждане на Национален Референдум с въпрос: \"Съгласни ли сте България да въведе единната европейска валута \"еврото\" през 2026 г.?\" - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2025-11-07",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 6 Заключителна разпоредба - предложение от Павела Митова",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2025-11-07",
+        "item": 30,
+        "slug": "30-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 9 (става параграф 5)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2025-11-07",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 9 (който става параграф 5) - предложение от Павела Митова за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-11-07",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 5 (става параграф 4)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-11-07",
+        "item": 25,
+        "slug": "25-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 5 (става параграф 4) - предложение от Ст.Анастасов за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-11-07",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 5 (става параграф 4) - предложение от Павела Митова за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-11-07",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 4 - предложение от Павела Митова за отпадане",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-11-07",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 3",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-11-07",
+        "item": 21,
+        "slug": "21-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 3 - предложение от Павела Митова за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-11-07",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-11-07",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 2 - предложение от Павела Митова за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-11-07",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 1",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-11-07",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 1 - предложение от Павела Митова за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-11-07",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - наименование",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-11-07",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2025-11-07",
+        "item": 7,
+        "slug": "7-protsedura-ot-kostadin-angelov-za-nova-tochka-parva-zid-na-z",
+        "title": "Процедура от Костадин Ангелов за нова точка първа (ЗИД на Закона за административното регулиране...) - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2025-11-06",
+        "item": 13,
+        "slug": "13-novo-obsazhdane-na-zd-na-zakona-za-nasarchavane-na-investits",
+        "title": "Ново обсъждане на ЗД на Закона за насърчаване на инвестициите, приет от Народното събрание на 24.10.2025г., върнат за ново обсъждане с Указ № 208 на Президента на Републиката от 05.11.2025г., по чл.101 от Конституцията на Република България",
+        "topic": "constitution",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2025-11-06",
+        "item": 9,
+        "slug": "9-programa-za-rabotata-na-narodnoto-sabranie-za-5-7-noemvri-20",
+        "title": "Програма за работата на Народното събрание за 5 – 7 ноември 2025 г. - процедура от Рая Назарян за нова точка 4",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2025-10-30",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-29-31-oktomvri",
+        "title": "Програма за работата на Народното събрание за 29 - 31 октомври 2025г. - процедура от Рая Назарян за нова точка 1",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2025-10-29",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-29-31-oktomvri",
+        "title": "Програма за работата на Народното събрание за 29 - 31 октомври 2025г. - процедура от Владимир Георгиев точка 11 да отпадне",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2025-10-28",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-lechebnite-zavedeniya-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за лечебните заведения - второ гласуване - параграф 1 - Вариант 3",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2025-10-24",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - Заключителна разпоредба и параграф 2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2025-10-24",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - наименование, параграф 1",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2025-10-22",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-22-24-oktomvri",
+        "title": "Програма за работата на Народното събрание за 22 - 24 октомври 2025 г. - предложение от Явор Божанков - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-10-10",
+        "item": 12,
+        "slug": "12-zi-na-zakona-za-darzhavna-agentsiya-razuznavane-vtoro-glasuv",
+        "title": "ЗИ на Закона за Държавна агенция \"Разузнаване\" - второ гласуване - наименование - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2025-10-10",
+        "item": 10,
+        "slug": "10-protsedura-ot-aleksandar-ivanov-za-udalzhavane-na-r-vreme",
+        "title": "Процедура от Александър Иванов за удължаване на р.време - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-10-09",
+        "item": 23,
+        "slug": "23-ratifikatsiya-na-ramkovo-sporazumenie-za-zaem-mezhdu-bankata",
+        "title": "Ратификация на Рамково споразумение за заем между Банката за развитие на Съвета на Европа и Република България, Механизъм за съфинансиране на програми, съфинансирани от Европейския социален фонд плюс през 2021-2027 г. програмен период - първо гласуване",
+        "topic": "ratification",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2025-10-08",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodno-sabranie-za-8-10-oktomvri-20",
+        "title": "Програма за работата на Народно събрание за 8 - 10 октомври 2025 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2025-10-03",
+        "item": 10,
+        "slug": "10-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-vtoro-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - второ гласуване - наименование и параграф 1 (става параграф единствен)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 8
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3347,
+        "score": 0.6055396601186629,
+        "overlap": 625
+      },
+      {
+        "mpId": 3365,
+        "score": 0.5967370020384076,
+        "overlap": 721
+      },
+      {
+        "mpId": 3340,
+        "score": 0.580838873125462,
+        "overlap": 551
+      },
+      {
+        "mpId": 3346,
+        "score": 0.5669069085917616,
+        "overlap": 863
+      },
+      {
+        "mpId": 3348,
+        "score": 0.5647151976269094,
+        "overlap": 780
+      },
+      {
+        "mpId": 3352,
+        "score": 0.5584883797426105,
+        "overlap": 836
+      },
+      {
+        "mpId": 3344,
+        "score": 0.5575242681862767,
+        "overlap": 800
+      },
+      {
+        "mpId": 3349,
+        "score": 0.5570002798064434,
+        "overlap": 646
+      },
+      {
+        "mpId": 3372,
+        "score": 0.55374545256469,
+        "overlap": 990
+      },
+      {
+        "mpId": 3345,
+        "score": 0.5489199146388823,
+        "overlap": 561
+      },
+      {
+        "mpId": 3351,
+        "score": 0.5487910972643639,
+        "overlap": 864
+      },
+      {
+        "mpId": 3398,
+        "score": 0.5463133449284644,
+        "overlap": 794
+      },
+      {
+        "mpId": 3353,
+        "score": 0.5424210413139575,
+        "overlap": 974
+      },
+      {
+        "mpId": 3336,
+        "score": 0.5388266129909562,
+        "overlap": 902
+      },
+      {
+        "mpId": 3387,
+        "score": 0.5235800940490343,
+        "overlap": 1028
+      },
+      {
+        "mpId": 3379,
+        "score": 0.5180790265237599,
+        "overlap": 943
+      },
+      {
+        "mpId": 3341,
+        "score": 0.5103381204694621,
+        "overlap": 803
+      },
+      {
+        "mpId": 3342,
+        "score": 0.5009952447095616,
+        "overlap": 376
+      },
+      {
+        "mpId": 3488,
+        "score": 0.34503094964203374,
+        "overlap": 476
+      },
+      {
+        "mpId": 3147,
+        "score": 0.32521993142980204,
+        "overlap": 825
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3102,
+        "score": -0.09748331273653393,
+        "overlap": 96
+      },
+      {
+        "mpId": 3283,
+        "score": -0.08596581050424347,
+        "overlap": 76
+      },
+      {
+        "mpId": 3376,
+        "score": -0.0476687375818979,
+        "overlap": 550
+      },
+      {
+        "mpId": 3397,
+        "score": -0.03717394274107263,
+        "overlap": 538
+      },
+      {
+        "mpId": 3181,
+        "score": -0.01881796804446027,
+        "overlap": 830
+      },
+      {
+        "mpId": 3527,
+        "score": -0.0077355693391777365,
+        "overlap": 12
+      },
+      {
+        "mpId": 3581,
+        "score": -0.007366994728292805,
+        "overlap": 17
+      },
+      {
+        "mpId": 3359,
+        "score": -0.0065305768204907,
+        "overlap": 540
+      },
+      {
+        "mpId": 3384,
+        "score": -0.0064098876732152366,
+        "overlap": 573
+      },
+      {
+        "mpId": 3307,
+        "score": 0,
+        "overlap": 1035
+      },
+      {
+        "mpId": 3247,
+        "score": 0.0006815532161428641,
+        "overlap": 945
+      },
+      {
+        "mpId": 3027,
+        "score": 0.0025438802970692703,
+        "overlap": 1012
+      },
+      {
+        "mpId": 3026,
+        "score": 0.0027052932634143677,
+        "overlap": 993
+      },
+      {
+        "mpId": 3165,
+        "score": 0.006213872802524501,
+        "overlap": 1056
+      },
+      {
+        "mpId": 3028,
+        "score": 0.008897415124155452,
+        "overlap": 1032
+      },
+      {
+        "mpId": 3179,
+        "score": 0.008989965564029458,
+        "overlap": 1017
+      },
+      {
+        "mpId": 3279,
+        "score": 0.009683265337921954,
+        "overlap": 1009
+      },
+      {
+        "mpId": 3122,
+        "score": 0.009968620973125097,
+        "overlap": 1052
+      },
+      {
+        "mpId": 3121,
+        "score": 0.010050875870456038,
+        "overlap": 1058
+      },
+      {
+        "mpId": 3358,
+        "score": 0.011284361624794487,
+        "overlap": 1056
+      }
+    ]
+  }
+}

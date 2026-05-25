@@ -1,0 +1,32 @@
+{
+  "mpId": 819,
+  "summary": {
+    "contractCount": 1,
+    "contractedEur": 25564.59,
+    "paidEur": 25564.59
+  },
+  "entries": [
+    {
+      "mpId": 819,
+      "mpName": "Петър Димитров Попов",
+      "beneficiaryEik": "825240527",
+      "beneficiaryName": "ПЛОВДИВИНВЕСТ АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 25564.59,
+      "paidEur": 25564.59
+    }
+  ]
+}

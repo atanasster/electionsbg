@@ -1,0 +1,721 @@
+{
+  "mpId": 1644,
+  "ns": "49",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 2215,
+    "withParty": 2024,
+    "loyaltyPct": 0.9137697516930022,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 2215,
+    "dissentCount": 191,
+    "recent": [
+      {
+        "date": "2024-05-21",
+        "item": 3,
+        "slug": "3-reshenie-za-zadalzhavane-na-predstavitelite-opredeleni-ot-mi",
+        "title": "Решение за задължаване на представителите определени от Министерски съвет в Надзорния съвет на Националния осигурителен институт да подкрепят решение за осъвременяване на пенсиите по чл. 100 от Кодекса за социално осигуряване в размер на 11% - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-04-30",
+        "item": 18,
+        "slug": "18-protsedura-ot-delyan-dobrev-za-sakrashtavane-na-sroka-za-pre",
+        "title": "Процедура от Делян Добрев за съкращаване на срока за предложения по ЗИД на Закона за енергетиката на три дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-04-30",
+        "item": 17,
+        "slug": "17-reshenie-po-doklad-za-deynostta-na-vremennata-komisiya-kam-4",
+        "title": "Решение по Доклад за дейността на Временната комисия към 49-то Народно събрание по повод Споразумението между \"Булгаргаз\" - ЕАД и турската енергийна компания \"Боташ\", подписано на 3 януари 2023 г. в гр. София",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-04-25",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-energetikata-vtoro-glasuvane-paragraf-1-sta",
+        "title": "ЗИД на Закона за енергетиката – второ гласуване - - параграф 1 (става параграф 9) - предложение от Корнелия Нинова за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2024-04-25",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-energetikata-vtoro-glasuvane-paragraf-1-sta",
+        "title": "ЗИД на Закона за енергетиката – второ гласуване - - параграф 1 (става параграф 9) - предложение от Йордан Тодоров и Искра Михайлова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2024-04-24",
+        "item": 33,
+        "slug": "33-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-1",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 1",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 46
+      },
+      {
+        "date": "2024-04-24",
+        "item": 8,
+        "slug": "8-zid-na-grazhdanskiya-protsesualen-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Гражданския процесуален кодекс – второ гласуване - параграф 6 (става параграф 7) - предложение от Маргарита Махаева и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2024-04-18",
+        "item": 7,
+        "slug": "7-reshenie-za-izmenenie-i-dopalnenie-na-pravilnika-za-organiza",
+        "title": "Решение за изменение и допълнение на Правилника за организацията и дейността на Народното събрание - параграф 4 - предложение от Мая Димитрова за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2024-04-18",
+        "item": 6,
+        "slug": "6-reshenie-za-izmenenie-i-dopalnenie-na-pravilnika-za-organiza",
+        "title": "Решение за изменение и допълнение на Правилника за организацията и дейността на Народното събрание - параграф 4 - предложение от Цвета Рангелова за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2024-04-17",
+        "item": 12,
+        "slug": "12",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-04-17",
+        "item": 11,
+        "slug": "11",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-04-10",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-evropeyskata-zapoved-za-razsledvane-vtoro-g",
+        "title": "ЗИД на Закона за Европейската заповед за разследване - второ гласуване - параграф 6 - предложение от Петър Петров за редакция - процедура за допустимост за разглеждане на предложенията - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 38
+      },
+      {
+        "date": "2024-04-05",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2024 г. - първо гласуване - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 39
+      },
+      {
+        "date": "2024-04-04",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-zhelezopatniya-transport-parvo-glasuvane-pr",
+        "title": "ЗИД на Закона за железопътния транспорт – първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 49
+      },
+      {
+        "date": "2024-04-04",
+        "item": 7,
+        "slug": "7-protsedura-ot-daniel-petrov-za-pryako-predavane-po-bnt1-i-bn",
+        "title": "Процедура от Даниел Петров за пряко предаване по БНТ1 и БНР на т.6",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-04-03",
+        "item": 62,
+        "slug": "62-protsedura-ot-daniel-petrov-za-pryako-predavane-po-bnt1-i-bn",
+        "title": "Процедура от Даниел Петров за пряко предаване по БНТ1 и БНР на т.6",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-04-03",
+        "item": 16,
+        "slug": "16-zakon-za-predstavitelnite-iskove-za-zashtita-na-kolektivnite",
+        "title": "Закон за представителните искове за защита на колективните интереси на потребителите - второ гласуване - наименование - предложение от Надежда Йорданова и Петър Кьосев - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 45
+      },
+      {
+        "date": "2024-04-03",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-03-05-april-20",
+        "title": "Програма за работата на Народното събрание за 03 - 05 април 2024г. - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2024-03-28",
+        "item": 20,
+        "slug": "20-zd-na-zakona-za-administratsiyata-vtoro-glasuvane-paragraf-2",
+        "title": "ЗД на Закона за администрацията – второ гласуване - параграф 2 - нов - предложение от Надежда Йорданова и Божидар Божанов - процедура за допустимост",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 50
+      },
+      {
+        "date": "2024-03-28",
+        "item": 3,
+        "slug": "3-zid-na-nakazatelniya-kodeks-parvo-glasuvane-protsedura-za-do",
+        "title": "ЗИД на Наказателния кодекс – първо гласуване - процедура за допускане в зала - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2024-03-27",
+        "item": 3,
+        "slug": "3-reshenie-za-natsionalna-strategiya-za-razvitie-na-fizicheska",
+        "title": "Решение за Национална стратегия за развитие на физическата активност, физическото възпитание, спорта и спортно-туристическата дейност (2023-2034) - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-03-21",
+        "item": 6,
+        "slug": "6-reshenie-po-godishen-otchet-za-deynostta-na-saveta-za-elektr",
+        "title": "Решение по годишен отчет за дейността на Съвета за електронни медии за 2022 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-03-20",
+        "item": 13,
+        "slug": "13-zid-za-danachno-osiguritelniya-protsesualen-kodeks-parvo-gla",
+        "title": "ЗИД за Данъчно-осигурителния процесуален кодекс - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-03-15",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-ministerstvoto-na-vatreshnite-raboti-parvo-",
+        "title": "ЗИД на Закона за Министерството на вътрешните работи - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 41
+      },
+      {
+        "date": "2024-03-06",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-komisiyata-za-finansov-nadzor-parvo-glasuva",
+        "title": "ЗИД на Закона за комисията за финансов надзор - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 36
+      },
+      {
+        "date": "2024-02-29",
+        "item": 4,
+        "slug": "4-zakon-za-predstavitelnite-iskove-za-zashtita-na-kolektivnite",
+        "title": "Закон за представителните искове за защита на колективните интереси на потребителите - първо гласуване - процедура от Корнелия Нинова за намаляване на срока за предложения на три дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 51
+      },
+      {
+        "date": "2024-02-29",
+        "item": 3,
+        "slug": "3-zakon-za-predstavitelnite-iskove-za-zashtita-na-kolektivnite",
+        "title": "Закон за представителните искове за защита на колективните интереси на потребителите - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 49
+      },
+      {
+        "date": "2024-02-23",
+        "item": 9,
+        "slug": "9-protsedura-ot-petar-petrov-za-pryako-predavane-po-bnt2-i-bnr",
+        "title": "Процедура от Петър Петров за пряко предаване по БНТ2 и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2024-02-23",
+        "item": 8,
+        "slug": "8-protsedura-ot-stoyan-taslakov-za-pryako-predavane-po-bnt1-i-",
+        "title": "Процедура от Стоян Таслаков за пряко предаване по БНТ1 и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 67
+      },
+      {
+        "date": "2024-02-22",
+        "item": 50,
+        "slug": "50-zid-na-zakona-za-ministerstvoto-na-vatreshnite-raboti-vtoro-",
+        "title": "ЗИД на Закона за Министерството на вътрешните работи - второ гласуване - параграф 13",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2024-02-22",
+        "item": 49,
+        "slug": "49-zid-na-zakona-za-ministerstvoto-na-vatreshnite-raboti-vtoro-",
+        "title": "ЗИД на Закона за Министерството на вътрешните работи - второ гласуване - параграф 13 - предложение от Иван Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2024-02-22",
+        "item": 48,
+        "slug": "48-zid-na-zakona-za-ministerstvoto-na-vatreshnite-raboti-vtoro-",
+        "title": "ЗИД на Закона за Министерството на вътрешните работи - второ гласуване - параграф 11 и 12",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2024-02-22",
+        "item": 46,
+        "slug": "46-zid-na-zakona-za-ministerstvoto-na-vatreshnite-raboti-vtoro-",
+        "title": "ЗИД на Закона за Министерството на вътрешните работи - второ гласуване - параграф 10 (става параграф 7) - предложение от Иван Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-02-22",
+        "item": 30,
+        "slug": "30-zid-na-zakona-za-ministerstvoto-na-vatreshnite-raboti-vtoro-",
+        "title": "ЗИД на Закона за Министерството на вътрешните работи - второ гласуване - параграф 1 - предложение от Петър Петров за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-02-22",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - чл.22 - предложение от Александър Иванов, Николай Алгафари и Румен Христов - предложение от Климент Шопов за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2024-02-16",
+        "item": 8,
+        "slug": "8-ratifikatsiya-na-sporazumenieto-na-uchastvashtite-sadruzhnit",
+        "title": "Ратификация на Споразумението на участващите съдружници към Фонда на НАТО за иновации - първо гласуване - процедура за допускане в зала",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 47
+      },
+      {
+        "date": "2024-02-14",
+        "item": 18,
+        "slug": "18-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства за дейността на Глеб Мишин, свързана с данни за евентуално осъществяване на неправомерно предоставяне на българско гражданство - предложение от Петър Петров за редакция на наименование и т.1",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 51
+      },
+      {
+        "date": "2024-02-14",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-na-14-16-fevruari",
+        "title": "Програма за работата на Народното събрание на 14 - 16 февруари 2024 г. - предложение от Теменужка Петкова и да стане точка 3",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-02-07",
+        "item": 24,
+        "slug": "24-reshenie-za-sazdavane-na-vremenna-komisiya-po-povod-izgrazhd",
+        "title": "Решение за създаване на Временна комисия по повод изграждането на \"Национална многопрофилна детска болница\" в гр. София - прегласуване",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 45
+      },
+      {
+        "date": "2024-02-07",
+        "item": 19,
+        "slug": "19-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства, свързани с дейността на групата около Мартин Божанов - Нотариуса - за председател Гроздан Караджов",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2024-02-07",
+        "item": 13,
+        "slug": "13-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства, свързани с дейността на групата около Мартин Божанов - Нотариуса - предложение от Ивайло Вълчев за редакция - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-02-07",
+        "item": 9,
+        "slug": "9-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства, свързани с дейността на групата около Мартин Божанов - Нотариуса - предложение от Тошко Йорданов за редакция - прегласуване",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 59
+      },
+      {
+        "date": "2024-02-07",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodnoto-sabranie-za-7-9-fevruari-2",
+        "title": "Програма за работата на Народното събрание за 7 - 9 февруари 2024 г. - предложение от ПП-ДБ - ЗИД на Закона за здравето № 49-354-01-20",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-02-01",
+        "item": 40,
+        "slug": "40-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Наказателно-процесуалния кодекс - второ гласуване - параграф 2 - предложение от Маргарита Махаева и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 53
+      },
+      {
+        "date": "2024-02-01",
+        "item": 36,
+        "slug": "36-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Наказателно-процесуалния кодекс - второ гласуване - параграф 1 - предложение от Маргарита Махаева и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 51
+      },
+      {
+        "date": "2024-01-25",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-zdravnoto-osiguryavane-parvo-glasuvane-vnos",
+        "title": "ЗИД на Закона за здравното осигуряване - първо гласуване - вносител Божидар Божанов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 53
+      },
+      {
+        "date": "2024-01-24",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование - първо гласуване - вносител Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 54
+      },
+      {
+        "date": "2024-01-19",
+        "item": 4,
+        "slug": "4-reshenie-za-izbirane-na-sadiya-v-konstitutsionniya-sad-na-re",
+        "title": "Решение за избиране на съдия в Конституционния съд на Република България - процедура от Искра Михайлова за пряко предаване по БНТ1 и БНР - прегласуване",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2024-01-17",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-mestnoto-samoupravlenie-i-mestnata-administ",
+        "title": "ЗИД на Закона за местното самоуправление и местната администрация - второ гласуване - параграф 1 - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2024-01-11",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-11-i-12-yanuar",
+        "title": "Програма за работата на Народното събрание за 11 и 12 януари 2024 г. - предложение от БСП за нова точка - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 60
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1695,
+        "score": 0.7161646957888665,
+        "overlap": 2160
+      },
+      {
+        "mpId": 2073,
+        "score": 0.7074002791059066,
+        "overlap": 2159
+      },
+      {
+        "mpId": 1344,
+        "score": 0.7064659687405004,
+        "overlap": 2143
+      },
+      {
+        "mpId": 2349,
+        "score": 0.705081857848592,
+        "overlap": 1960
+      },
+      {
+        "mpId": 2065,
+        "score": 0.7024176571590298,
+        "overlap": 2086
+      },
+      {
+        "mpId": 1577,
+        "score": 0.702377543814072,
+        "overlap": 2097
+      },
+      {
+        "mpId": 2340,
+        "score": 0.7010735726612518,
+        "overlap": 2023
+      },
+      {
+        "mpId": 2361,
+        "score": 0.7004468361999143,
+        "overlap": 2105
+      },
+      {
+        "mpId": 2460,
+        "score": 0.6985115013096536,
+        "overlap": 2075
+      },
+      {
+        "mpId": 2434,
+        "score": 0.6966682448796322,
+        "overlap": 2148
+      },
+      {
+        "mpId": 2089,
+        "score": 0.695286408735982,
+        "overlap": 2023
+      },
+      {
+        "mpId": 2327,
+        "score": 0.6947175500350529,
+        "overlap": 2067
+      },
+      {
+        "mpId": 2430,
+        "score": 0.6941583197131553,
+        "overlap": 2004
+      },
+      {
+        "mpId": 2085,
+        "score": 0.6940225430609268,
+        "overlap": 2116
+      },
+      {
+        "mpId": 1933,
+        "score": 0.6921882799041094,
+        "overlap": 1913
+      },
+      {
+        "mpId": 2443,
+        "score": 0.692042938270371,
+        "overlap": 2011
+      },
+      {
+        "mpId": 2344,
+        "score": 0.6918922385310294,
+        "overlap": 2085
+      },
+      {
+        "mpId": 2348,
+        "score": 0.6881141301894526,
+        "overlap": 2066
+      },
+      {
+        "mpId": 2272,
+        "score": 0.6876488696971863,
+        "overlap": 2046
+      },
+      {
+        "mpId": 2414,
+        "score": 0.6828423274871187,
+        "overlap": 1867
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2075,
+        "score": -0.09564291427435843,
+        "overlap": 1322
+      },
+      {
+        "mpId": 2100,
+        "score": -0.07799089879330874,
+        "overlap": 1297
+      },
+      {
+        "mpId": 2266,
+        "score": -0.07532530936655824,
+        "overlap": 1369
+      },
+      {
+        "mpId": 2326,
+        "score": -0.07068618242967972,
+        "overlap": 1598
+      },
+      {
+        "mpId": 2450,
+        "score": -0.06973436896227261,
+        "overlap": 807
+      },
+      {
+        "mpId": 2429,
+        "score": -0.06610456453534938,
+        "overlap": 1108
+      },
+      {
+        "mpId": 2119,
+        "score": -0.06558169596313934,
+        "overlap": 1835
+      },
+      {
+        "mpId": 2129,
+        "score": -0.06060999134648055,
+        "overlap": 1820
+      },
+      {
+        "mpId": 2445,
+        "score": -0.059188347963312474,
+        "overlap": 1910
+      },
+      {
+        "mpId": 2318,
+        "score": -0.05542294230124152,
+        "overlap": 1944
+      },
+      {
+        "mpId": 2441,
+        "score": -0.054405415194024316,
+        "overlap": 1916
+      },
+      {
+        "mpId": 2363,
+        "score": -0.054108449561595114,
+        "overlap": 1737
+      },
+      {
+        "mpId": 2304,
+        "score": -0.05382537598714368,
+        "overlap": 1884
+      },
+      {
+        "mpId": 2039,
+        "score": -0.05330119677665238,
+        "overlap": 1678
+      },
+      {
+        "mpId": 2435,
+        "score": -0.05175253469710454,
+        "overlap": 1949
+      },
+      {
+        "mpId": 2061,
+        "score": -0.04849130525169289,
+        "overlap": 2001
+      },
+      {
+        "mpId": 2309,
+        "score": -0.04685472586650696,
+        "overlap": 2002
+      },
+      {
+        "mpId": 2310,
+        "score": -0.046686904535531655,
+        "overlap": 1871
+      },
+      {
+        "mpId": 2098,
+        "score": -0.04635267678963788,
+        "overlap": 2014
+      },
+      {
+        "mpId": 2442,
+        "score": -0.046312402979063756,
+        "overlap": 2016
+      }
+    ]
+  }
+}

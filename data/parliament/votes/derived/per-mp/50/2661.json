@@ -1,0 +1,315 @@
+{
+  "mpId": 2661,
+  "ns": "50",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 418,
+    "withParty": 409,
+    "loyaltyPct": 0.9784688995215312,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 418,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2024-09-11",
+        "item": 39,
+        "slug": "39-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-nov-p",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф нов.. - предложение от Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 52
+      },
+      {
+        "date": "2024-08-01",
+        "item": 18,
+        "slug": "18-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно корупционни практики и системна злоупотреба със служебно положение, извършвани в ущърб на гражданите и бизнеса, както и облагодетелстване на свързани дружества с кмета на Община Доспат - Елин Радев - за председател - Александър Вълчев - прегласуване",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 65
+      },
+      {
+        "date": "2024-07-31",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-protsedur",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2024-07-31",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – второ гласуване - параграф ... - предложение от Джевдет Чакъров и група н.п. - процедура за допустимост",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2024-07-31",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – второ гласуване - параграф нов - предложение от Борислав Гуцанов и група н.п. - процедура за допустимост - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-07-12",
+        "item": 84,
+        "slug": "84-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т. 9",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 54
+      },
+      {
+        "date": "2024-07-12",
+        "item": 73,
+        "slug": "73-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 77 (става член 76) - предложение от П. Митова и Ст.Богдански т.2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-06-20",
+        "item": 3,
+        "slug": "3-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Петър Петров - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 68
+      },
+      {
+        "date": "2024-06-20",
+        "item": 1,
+        "slug": "1-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Виктория Василева",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 68
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2947,
+        "score": 0.8114121058692415,
+        "overlap": 406
+      },
+      {
+        "mpId": 2653,
+        "score": 0.8059766111835343,
+        "overlap": 398
+      },
+      {
+        "mpId": 2913,
+        "score": 0.8043315476709092,
+        "overlap": 387
+      },
+      {
+        "mpId": 2852,
+        "score": 0.8039773829582901,
+        "overlap": 416
+      },
+      {
+        "mpId": 2779,
+        "score": 0.7949164583398317,
+        "overlap": 412
+      },
+      {
+        "mpId": 2681,
+        "score": 0.794797342063715,
+        "overlap": 382
+      },
+      {
+        "mpId": 2688,
+        "score": 0.7927816982797464,
+        "overlap": 407
+      },
+      {
+        "mpId": 2748,
+        "score": 0.7912014613126739,
+        "overlap": 354
+      },
+      {
+        "mpId": 2911,
+        "score": 0.7909597768772273,
+        "overlap": 417
+      },
+      {
+        "mpId": 2602,
+        "score": 0.7893728710445109,
+        "overlap": 415
+      },
+      {
+        "mpId": 2770,
+        "score": 0.7877628325092806,
+        "overlap": 398
+      },
+      {
+        "mpId": 2935,
+        "score": 0.7855305340140659,
+        "overlap": 406
+      },
+      {
+        "mpId": 2673,
+        "score": 0.7830404719437513,
+        "overlap": 417
+      },
+      {
+        "mpId": 2594,
+        "score": 0.7811120120530574,
+        "overlap": 393
+      },
+      {
+        "mpId": 2840,
+        "score": 0.7804753231214867,
+        "overlap": 394
+      },
+      {
+        "mpId": 2941,
+        "score": 0.7797891163576519,
+        "overlap": 397
+      },
+      {
+        "mpId": 2746,
+        "score": 0.7791260637095226,
+        "overlap": 394
+      },
+      {
+        "mpId": 2596,
+        "score": 0.7768925395813222,
+        "overlap": 388
+      },
+      {
+        "mpId": 2765,
+        "score": 0.7754927575898412,
+        "overlap": 398
+      },
+      {
+        "mpId": 2833,
+        "score": 0.7746698214426444,
+        "overlap": 387
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2979,
+        "score": -0.08113035502963785,
+        "overlap": 205
+      },
+      {
+        "mpId": 2930,
+        "score": -0.029086486358157505,
+        "overlap": 7
+      },
+      {
+        "mpId": 2996,
+        "score": -0.017279947800812524,
+        "overlap": 29
+      },
+      {
+        "mpId": 2741,
+        "score": -0.015133870531441572,
+        "overlap": 402
+      },
+      {
+        "mpId": 2598,
+        "score": -0.008592717535621509,
+        "overlap": 404
+      },
+      {
+        "mpId": 2665,
+        "score": -0.006699065939920579,
+        "overlap": 376
+      },
+      {
+        "mpId": 2753,
+        "score": -0.004401657448052817,
+        "overlap": 376
+      },
+      {
+        "mpId": 2690,
+        "score": -0.004296358767810754,
+        "overlap": 396
+      },
+      {
+        "mpId": 2621,
+        "score": -0.002161981504491653,
+        "overlap": 404
+      },
+      {
+        "mpId": 2639,
+        "score": -0.002142344571724191,
+        "overlap": 398
+      },
+      {
+        "mpId": 2764,
+        "score": -0.0021327246552658736,
+        "overlap": 403
+      },
+      {
+        "mpId": 2745,
+        "score": 0,
+        "overlap": 331
+      },
+      {
+        "mpId": 2705,
+        "score": 0.00211759875760619,
+        "overlap": 408
+      },
+      {
+        "mpId": 2910,
+        "score": 0.00211759875760619,
+        "overlap": 408
+      },
+      {
+        "mpId": 2698,
+        "score": 0.0021346382713128254,
+        "overlap": 404
+      },
+      {
+        "mpId": 2952,
+        "score": 0.004209248577189444,
+        "overlap": 415
+      },
+      {
+        "mpId": 2787,
+        "score": 0.0042389438206907595,
+        "overlap": 410
+      },
+      {
+        "mpId": 2932,
+        "score": 0.0043081242634155715,
+        "overlap": 403
+      },
+      {
+        "mpId": 2652,
+        "score": 0.004348052125787474,
+        "overlap": 398
+      },
+      {
+        "mpId": 2689,
+        "score": 0.0063249207707612755,
+        "overlap": 412
+      }
+    ]
+  }
+}

@@ -1,0 +1,315 @@
+{
+  "mpId": 2606,
+  "ns": "50",
+  "partyShort": "ПП-ДБ",
+  "loyalty": {
+    "votesCast": 178,
+    "withParty": 169,
+    "loyaltyPct": 0.949438202247191,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 178,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 54,
+        "slug": "54-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-15-stava-",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 15 (става параграф 14) - предложение от Иван Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 29
+      },
+      {
+        "date": "2024-08-07",
+        "item": 51,
+        "slug": "51-zid-na-zakona-za-kreditnite-institutsii-vtoro-glasuvane-para",
+        "title": "ЗИД на Закона за кредитните институции – второ гласуване - параграф 31 - предложение от Димо Дренчев",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2024-08-07",
+        "item": 25,
+        "slug": "25-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-vtoro-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - второ гласуване за редакция- Заключителна разпоредба и параграф 2 - предложение от Росен Желязков за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2024-08-07",
+        "item": 24,
+        "slug": "24-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-vtoro-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - второ гласуване - параграф 2 - предложение от Росен Желязков да отпадне - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2024-08-07",
+        "item": 22,
+        "slug": "22-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-vtoro-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - второ гласуване - параграф 1 - предложение от Росен Желязков за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2024-08-07",
+        "item": 21,
+        "slug": "21-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-vtoro-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - второ гласуване - наименование - предложение от Росен Желязков за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-08-07",
+        "item": 20,
+        "slug": "20-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-parvo-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - първо гласуване - процедура от Росен Желязков за второ гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-08-07",
+        "item": 19,
+        "slug": "19-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-parvo-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2024-08-07",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – второ гласуване - параграф 1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 30
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2638,
+        "score": 0.5580493425640262,
+        "overlap": 176
+      },
+      {
+        "mpId": 2634,
+        "score": 0.5293792820298355,
+        "overlap": 163
+      },
+      {
+        "mpId": 2807,
+        "score": 0.526129427621694,
+        "overlap": 171
+      },
+      {
+        "mpId": 2600,
+        "score": 0.5211258893140591,
+        "overlap": 165
+      },
+      {
+        "mpId": 2663,
+        "score": 0.5174758553640054,
+        "overlap": 153
+      },
+      {
+        "mpId": 2769,
+        "score": 0.5169350410713957,
+        "overlap": 169
+      },
+      {
+        "mpId": 2758,
+        "score": 0.5111964009231043,
+        "overlap": 158
+      },
+      {
+        "mpId": 2782,
+        "score": 0.5027488407954379,
+        "overlap": 167
+      },
+      {
+        "mpId": 2636,
+        "score": 0.4995541684356422,
+        "overlap": 160
+      },
+      {
+        "mpId": 2618,
+        "score": 0.4979873454384819,
+        "overlap": 166
+      },
+      {
+        "mpId": 2919,
+        "score": 0.4949015419574726,
+        "overlap": 171
+      },
+      {
+        "mpId": 2671,
+        "score": 0.4901327531667359,
+        "overlap": 162
+      },
+      {
+        "mpId": 2684,
+        "score": 0.4887883255043243,
+        "overlap": 148
+      },
+      {
+        "mpId": 2864,
+        "score": 0.4831765680986568,
+        "overlap": 160
+      },
+      {
+        "mpId": 2610,
+        "score": 0.47031532092140943,
+        "overlap": 149
+      },
+      {
+        "mpId": 2593,
+        "score": 0.4646731280385341,
+        "overlap": 166
+      },
+      {
+        "mpId": 2906,
+        "score": 0.4633852340151049,
+        "overlap": 158
+      },
+      {
+        "mpId": 2752,
+        "score": 0.4596409917205398,
+        "overlap": 153
+      },
+      {
+        "mpId": 2799,
+        "score": 0.45812946847218844,
+        "overlap": 156
+      },
+      {
+        "mpId": 2735,
+        "score": 0.4422297848602493,
+        "overlap": 128
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2702,
+        "score": -0.15131714787215234,
+        "overlap": 169
+      },
+      {
+        "mpId": 2859,
+        "score": -0.15033864335087174,
+        "overlap": 163
+      },
+      {
+        "mpId": 2741,
+        "score": -0.1369752083863498,
+        "overlap": 177
+      },
+      {
+        "mpId": 2753,
+        "score": -0.1360355371240515,
+        "overlap": 175
+      },
+      {
+        "mpId": 2665,
+        "score": -0.13457480021538007,
+        "overlap": 177
+      },
+      {
+        "mpId": 2621,
+        "score": -0.1336343496452193,
+        "overlap": 177
+      },
+      {
+        "mpId": 2952,
+        "score": -0.1333412658278124,
+        "overlap": 177
+      },
+      {
+        "mpId": 2698,
+        "score": -0.13194423565698268,
+        "overlap": 174
+      },
+      {
+        "mpId": 2825,
+        "score": -0.13135598379439656,
+        "overlap": 178
+      },
+      {
+        "mpId": 2598,
+        "score": -0.129461695410312,
+        "overlap": 177
+      },
+      {
+        "mpId": 2705,
+        "score": -0.12761873026640277,
+        "overlap": 177
+      },
+      {
+        "mpId": 2910,
+        "score": -0.12761873026640277,
+        "overlap": 177
+      },
+      {
+        "mpId": 2683,
+        "score": -0.127393851271831,
+        "overlap": 177
+      },
+      {
+        "mpId": 2690,
+        "score": -0.12614216475876552,
+        "overlap": 176
+      },
+      {
+        "mpId": 2730,
+        "score": -0.1259134389771945,
+        "overlap": 176
+      },
+      {
+        "mpId": 2642,
+        "score": -0.12568595290344728,
+        "overlap": 178
+      },
+      {
+        "mpId": 2764,
+        "score": -0.1252346553855017,
+        "overlap": 176
+      },
+      {
+        "mpId": 2932,
+        "score": -0.12315898152135667,
+        "overlap": 176
+      },
+      {
+        "mpId": 2803,
+        "score": -0.12162231568813184,
+        "overlap": 173
+      },
+      {
+        "mpId": 2787,
+        "score": -0.12118127792085061,
+        "overlap": 175
+      }
+    ]
+  }
+}

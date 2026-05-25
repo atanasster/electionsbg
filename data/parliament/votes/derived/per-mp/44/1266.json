@@ -1,0 +1,265 @@
+{
+  "mpId": 1266,
+  "ns": "44",
+  "partyShort": "ВОЛЯ",
+  "loyalty": {
+    "votesCast": 197,
+    "withParty": 193,
+    "loyaltyPct": 0.9796954314720813,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 197,
+    "dissentCount": 4,
+    "recent": [
+      {
+        "date": "2021-03-05",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-4-i-5-mart-202",
+        "title": "Програма за работата на Народното събрание за 4 и 5 март 2021 г. - предложение от Цвета Караянчева за отпадане на точка 7",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-01-14",
+        "item": 2,
+        "slug": "2-izslushvane-na-ministara-na-vatreshnite-raboti-hristo-terziy",
+        "title": "Изслушване на министъра на вътрешните работи Христо Терзийски, министъра на енергетиката Теменужка Петкова, министъра на околната среда и водите Емил Димитров и министъра на икономиката Лъчезар Борисов относно ситуацията на територията на страната във връзка с влошената метеорологична обстановка и предприетите действия от страна на компетентните органи - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 5
+      },
+      {
+        "date": "2020-12-03",
+        "item": 14,
+        "slug": "14-reshenie-za-odobryavane-na-uchastieto-na-republika-balgariya",
+        "title": "Решение за одобряване на участието на Република България в сключените от Европейската комисия и производителите на лекарства AstraZeneca, Sanofi и Pfizer Inc. и BioNTech Manufactoring GmbHand предварителни споразумения за покупка на ваксини във връзка с пандемията от COVID - 19, както и предприемането на действия за сключване на договор за покупка на ваксини от Janssen Pharmaceutica NV",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 4
+      },
+      {
+        "date": "2020-11-24",
+        "item": 70,
+        "slug": "70-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - параграф 11а - предложение от Георги Гьоков",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 3
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1363,
+        "score": 0.60425944825143,
+        "overlap": 131
+      },
+      {
+        "mpId": 1542,
+        "score": 0.5944964135963539,
+        "overlap": 105
+      },
+      {
+        "mpId": 1284,
+        "score": 0.5802919799991053,
+        "overlap": 105
+      },
+      {
+        "mpId": 1362,
+        "score": 0.4951867509201366,
+        "overlap": 77
+      },
+      {
+        "mpId": 1520,
+        "score": 0.4591989739816531,
+        "overlap": 63
+      },
+      {
+        "mpId": 1246,
+        "score": 0.426003187146878,
+        "overlap": 61
+      },
+      {
+        "mpId": 1523,
+        "score": 0.42460388780422337,
+        "overlap": 30
+      },
+      {
+        "mpId": 1302,
+        "score": 0.4041951592113531,
+        "overlap": 82
+      },
+      {
+        "mpId": 1535,
+        "score": 0.40239912956740587,
+        "overlap": 142
+      },
+      {
+        "mpId": 1521,
+        "score": 0.3925464331383298,
+        "overlap": 68
+      },
+      {
+        "mpId": 1485,
+        "score": 0.3863805647653649,
+        "overlap": 108
+      },
+      {
+        "mpId": 1494,
+        "score": 0.37659717329206843,
+        "overlap": 160
+      },
+      {
+        "mpId": 1423,
+        "score": 0.37341810783799434,
+        "overlap": 60
+      },
+      {
+        "mpId": 1462,
+        "score": 0.37152840182869545,
+        "overlap": 163
+      },
+      {
+        "mpId": 1369,
+        "score": 0.36376641863427595,
+        "overlap": 86
+      },
+      {
+        "mpId": 1378,
+        "score": 0.3615495011596921,
+        "overlap": 168
+      },
+      {
+        "mpId": 1528,
+        "score": 0.3611251832298155,
+        "overlap": 166
+      },
+      {
+        "mpId": 1371,
+        "score": 0.35991140534880817,
+        "overlap": 105
+      },
+      {
+        "mpId": 1008,
+        "score": 0.3569486522034602,
+        "overlap": 115
+      },
+      {
+        "mpId": 1018,
+        "score": 0.3559282361566794,
+        "overlap": 150
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1297,
+        "score": 0,
+        "overlap": 7
+      },
+      {
+        "mpId": 829,
+        "score": 0.004475717962746455,
+        "overlap": 113
+      },
+      {
+        "mpId": 762,
+        "score": 0.015855049805149804,
+        "overlap": 123
+      },
+      {
+        "mpId": 1381,
+        "score": 0.02279803762937766,
+        "overlap": 23
+      },
+      {
+        "mpId": 1319,
+        "score": 0.026052505285945306,
+        "overlap": 33
+      },
+      {
+        "mpId": 1304,
+        "score": 0.027563274353157436,
+        "overlap": 46
+      },
+      {
+        "mpId": 960,
+        "score": 0.03127036494188124,
+        "overlap": 23
+      },
+      {
+        "mpId": 1273,
+        "score": 0.03216892288936671,
+        "overlap": 71
+      },
+      {
+        "mpId": 1261,
+        "score": 0.039335775973548585,
+        "overlap": 73
+      },
+      {
+        "mpId": 1389,
+        "score": 0.045162230233094555,
+        "overlap": 40
+      },
+      {
+        "mpId": 1530,
+        "score": 0.04566469241609873,
+        "overlap": 81
+      },
+      {
+        "mpId": 774,
+        "score": 0.04703179656409296,
+        "overlap": 26
+      },
+      {
+        "mpId": 1259,
+        "score": 0.04972451580988469,
+        "overlap": 56
+      },
+      {
+        "mpId": 782,
+        "score": 0.05104699098597407,
+        "overlap": 100
+      },
+      {
+        "mpId": 524,
+        "score": 0.05264981264926564,
+        "overlap": 10
+      },
+      {
+        "mpId": 1349,
+        "score": 0.055539487426353076,
+        "overlap": 45
+      },
+      {
+        "mpId": 1525,
+        "score": 0.05718862635895969,
+        "overlap": 87
+      },
+      {
+        "mpId": 1514,
+        "score": 0.05772700983541091,
+        "overlap": 91
+      },
+      {
+        "mpId": 1531,
+        "score": 0.05858361491462195,
+        "overlap": 104
+      },
+      {
+        "mpId": 1339,
+        "score": 0.06176056549879613,
+        "overlap": 87
+      }
+    ]
+  }
+}

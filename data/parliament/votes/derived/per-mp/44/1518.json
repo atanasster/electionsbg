@@ -1,0 +1,154 @@
+{
+  "mpId": 1518,
+  "ns": "44",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 4,
+    "withParty": 1,
+    "loyaltyPct": 0.25,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 4,
+    "dissentCount": 3,
+    "recent": [
+      {
+        "date": "2021-01-20",
+        "item": 3,
+        "slug": "3-reshenie-za-popalvane-sastava-na-komisiyata-po-vatreshna-sig",
+        "title": "Решение за попълване състава на Комисията по вътрешна сигурност и обществен ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-01-13",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-13-15-yanuari-",
+        "title": "Програма за работата на Народното събрание за 13 - 15 януари 2021 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2020-12-09",
+        "item": 6,
+        "slug": "6-reshenie-za-promyana-v-sastava-na-komisiyata-po-evropeyskite",
+        "title": "Решение за промяна в състава на Комисията по европейските въпроси и контрол на европейските фондове",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1274,
+        "score": 0.21320071635561041,
+        "overlap": 3
+      },
+      {
+        "mpId": 1523,
+        "score": 0.17677669529663687,
+        "overlap": 2
+      },
+      {
+        "mpId": 1522,
+        "score": 0.17407765595569785,
+        "overlap": 2
+      },
+      {
+        "mpId": 451,
+        "score": 0.1414213562373095,
+        "overlap": 1
+      },
+      {
+        "mpId": 1519,
+        "score": 0.12909944487358055,
+        "overlap": 2
+      },
+      {
+        "mpId": 1283,
+        "score": 0.12126781251816648,
+        "overlap": 3
+      },
+      {
+        "mpId": 1520,
+        "score": 0.11470786693528087,
+        "overlap": 3
+      },
+      {
+        "mpId": 1362,
+        "score": 0.10482848367219183,
+        "overlap": 4
+      },
+      {
+        "mpId": 1246,
+        "score": 0.09853292781642932,
+        "overlap": 3
+      },
+      {
+        "mpId": 1521,
+        "score": 0.09805806756909202,
+        "overlap": 4
+      },
+      {
+        "mpId": 1542,
+        "score": 0.09166984970282113,
+        "overlap": 3
+      },
+      {
+        "mpId": 1055,
+        "score": 0.08838834764831843,
+        "overlap": 3
+      },
+      {
+        "mpId": 1394,
+        "score": 0.08391813582966891,
+        "overlap": 1
+      },
+      {
+        "mpId": 1302,
+        "score": 0.0827605888602368,
+        "overlap": 3
+      },
+      {
+        "mpId": 1251,
+        "score": 0.08219949365267865,
+        "overlap": 1
+      },
+      {
+        "mpId": 1266,
+        "score": 0.08006407690254357,
+        "overlap": 4
+      },
+      {
+        "mpId": 963,
+        "score": 0.07580980435789034,
+        "overlap": 3
+      },
+      {
+        "mpId": 1320,
+        "score": 0.07142857142857142,
+        "overlap": 4
+      },
+      {
+        "mpId": 1363,
+        "score": 0.07053456158585983,
+        "overlap": 4
+      },
+      {
+        "mpId": 1369,
+        "score": 0.0668153104781061,
+        "overlap": 1
+      }
+    ],
+    "bottomK": []
+  }
+}

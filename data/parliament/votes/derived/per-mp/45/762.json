@@ -1,0 +1,325 @@
+{
+  "mpId": 762,
+  "ns": "45",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 162,
+    "withParty": 152,
+    "loyaltyPct": 0.9382716049382716,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 162,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2021-05-07",
+        "item": 13,
+        "slug": "13-ratifikatsiya-na-protokol-za-izmenenie-na-sporazumenieto-mez",
+        "title": "Ратификация на Протокол за изменение на Споразумението между правителството на Република България и правителството на Румъния относно презгранични операции за Air Policing - второ гласуване",
+        "topic": "ratification",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-05-07",
+        "item": 11,
+        "slug": "11-ratifikatsiya-na-protokol-za-izmenenie-na-sporazumenieto-mez",
+        "title": "Ратификация на Протокол за изменение на Споразумението между правителството на Република България и правителството на Румъния относно презгранични операции за Air Policing - първо гласуване - прегласуване",
+        "topic": "ratification",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-04-29",
+        "item": 105,
+        "slug": "105-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-61-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 61 (става параграф 68) - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 39
+      },
+      {
+        "date": "2021-04-29",
+        "item": 103,
+        "slug": "103-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-61-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 61 (става параграф 68) - предложение от Мая Манолова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 40
+      },
+      {
+        "date": "2021-04-29",
+        "item": 101,
+        "slug": "101-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-60-otpada",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 60 - отпада",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 39
+      },
+      {
+        "date": "2021-04-29",
+        "item": 97,
+        "slug": "97-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-59-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 59 (става параграф 67) - предложение от Мая Манолова и група н.п. параграф 60 б - нов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 40
+      },
+      {
+        "date": "2021-04-22",
+        "item": 79,
+        "slug": "79-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-28-stav",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 28 (става параграф 29)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-04-22",
+        "item": 62,
+        "slug": "62-reshenie-za-izmenenie-i-dopalnenie-na-podns-predlozhenie-ot-",
+        "title": "Решение за изменение и допълнение на ПОДНС - предложение от А.Славов и група н.п. в чл.117а",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 20
+      },
+      {
+        "date": "2021-04-22",
+        "item": 59,
+        "slug": "59-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-20-nov-",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 20 - нов - предложение от Мая Манолова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2021-04-22",
+        "item": 13,
+        "slug": "13-protsedura-ot-viktoriya-vasileva-za-udalzhavane-na-rabotnoto",
+        "title": "Процедура от Виктория Василева за удължаване на работното време до приемане на точката",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 30
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1366,
+        "score": 0.8438442100980642,
+        "overlap": 158
+      },
+      {
+        "mpId": 1699,
+        "score": 0.835578697905061,
+        "overlap": 151
+      },
+      {
+        "mpId": 848,
+        "score": 0.833990235903718,
+        "overlap": 149
+      },
+      {
+        "mpId": 1609,
+        "score": 0.8246016789640256,
+        "overlap": 153
+      },
+      {
+        "mpId": 1312,
+        "score": 0.8244222122867205,
+        "overlap": 150
+      },
+      {
+        "mpId": 1625,
+        "score": 0.81810470760079,
+        "overlap": 153
+      },
+      {
+        "mpId": 1667,
+        "score": 0.8155232187296354,
+        "overlap": 155
+      },
+      {
+        "mpId": 1581,
+        "score": 0.8016528925619835,
+        "overlap": 137
+      },
+      {
+        "mpId": 1582,
+        "score": 0.8010367511013851,
+        "overlap": 156
+      },
+      {
+        "mpId": 1654,
+        "score": 0.7857789082232635,
+        "overlap": 157
+      },
+      {
+        "mpId": 1262,
+        "score": 0.7749685398607497,
+        "overlap": 127
+      },
+      {
+        "mpId": 1677,
+        "score": 0.7648139069166037,
+        "overlap": 134
+      },
+      {
+        "mpId": 1633,
+        "score": 0.7610526275681431,
+        "overlap": 139
+      },
+      {
+        "mpId": 1525,
+        "score": 0.7570301065251575,
+        "overlap": 119
+      },
+      {
+        "mpId": 1060,
+        "score": 0.7545454545454545,
+        "overlap": 122
+      },
+      {
+        "mpId": 1385,
+        "score": 0.7488070614367027,
+        "overlap": 123
+      },
+      {
+        "mpId": 1725,
+        "score": 0.7480048100612937,
+        "overlap": 131
+      },
+      {
+        "mpId": 1606,
+        "score": 0.7345181891770186,
+        "overlap": 122
+      },
+      {
+        "mpId": 1658,
+        "score": 0.7337993857053429,
+        "overlap": 113
+      },
+      {
+        "mpId": 1390,
+        "score": 0.729446623552637,
+        "overlap": 127
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 817,
+        "score": -0.1700753357624519,
+        "overlap": 59
+      },
+      {
+        "mpId": 1576,
+        "score": -0.1272981894570918,
+        "overlap": 53
+      },
+      {
+        "mpId": 1600,
+        "score": -0.125,
+        "overlap": 64
+      },
+      {
+        "mpId": 1644,
+        "score": -0.06998185081086372,
+        "overlap": 102
+      },
+      {
+        "mpId": 1290,
+        "score": -0.04873238794717249,
+        "overlap": 89
+      },
+      {
+        "mpId": 767,
+        "score": -0.025431949315644922,
+        "overlap": 106
+      },
+      {
+        "mpId": 1124,
+        "score": -0.008590101659300619,
+        "overlap": 111
+      },
+      {
+        "mpId": 1659,
+        "score": 0,
+        "overlap": 6
+      },
+      {
+        "mpId": 1811,
+        "score": 0.00952986215201744,
+        "overlap": 84
+      },
+      {
+        "mpId": 1155,
+        "score": 0.01749546270271593,
+        "overlap": 104
+      },
+      {
+        "mpId": 1703,
+        "score": 0.018366409900949288,
+        "overlap": 91
+      },
+      {
+        "mpId": 1634,
+        "score": 0.02128020858111465,
+        "overlap": 71
+      },
+      {
+        "mpId": 1805,
+        "score": 0.024393468845452248,
+        "overlap": 117
+      },
+      {
+        "mpId": 1622,
+        "score": 0.02554324940677347,
+        "overlap": 99
+      },
+      {
+        "mpId": 599,
+        "score": 0.03941408952382363,
+        "overlap": 119
+      },
+      {
+        "mpId": 403,
+        "score": 0.04132231404958678,
+        "overlap": 110
+      },
+      {
+        "mpId": 1317,
+        "score": 0.047120095940801465,
+        "overlap": 120
+      },
+      {
+        "mpId": 1325,
+        "score": 0.050427290565929914,
+        "overlap": 112
+      },
+      {
+        "mpId": 1428,
+        "score": 0.05131204736637803,
+        "overlap": 97
+      },
+      {
+        "mpId": 473,
+        "score": 0.056247130321657186,
+        "overlap": 113
+      }
+    ]
+  }
+}

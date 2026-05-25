@@ -1,0 +1,265 @@
+{
+  "mpId": 1654,
+  "ns": "45",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 194,
+    "withParty": 190,
+    "loyaltyPct": 0.979381443298969,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 194,
+    "dissentCount": 4,
+    "recent": [
+      {
+        "date": "2021-04-29",
+        "item": 15,
+        "slug": "15-zid-na-izborniya-kodeks-vtoro-glasuvane-protsedura-ot-t-yord",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - процедура от Т. Йорданов за удължаване на работното време",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2021-04-22",
+        "item": 41,
+        "slug": "41-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-11-pred",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 11 - предложение от Н. Хаджигенов и група н.п. по чл. 65",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2021-04-22",
+        "item": 23,
+        "slug": "23-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-4-stava",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 4 (става параграф 5)- предложение от Йорданова за отпадане",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-04-22",
+        "item": 9,
+        "slug": "9-protsedura-ot-filip-popov-za-prekratyavane-na-pryakoto-preda",
+        "title": "Процедура от Филип Попов за прекратяване на прякото предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1366,
+        "score": 0.9403566658021553,
+        "overlap": 191
+      },
+      {
+        "mpId": 1582,
+        "score": 0.9295774647887324,
+        "overlap": 188
+      },
+      {
+        "mpId": 1609,
+        "score": 0.9279261168243047,
+        "overlap": 180
+      },
+      {
+        "mpId": 1667,
+        "score": 0.9248797153793687,
+        "overlap": 183
+      },
+      {
+        "mpId": 1625,
+        "score": 0.923827157842853,
+        "overlap": 181
+      },
+      {
+        "mpId": 1699,
+        "score": 0.9168547777424931,
+        "overlap": 177
+      },
+      {
+        "mpId": 848,
+        "score": 0.9091632347024902,
+        "overlap": 177
+      },
+      {
+        "mpId": 1312,
+        "score": 0.9087953246051822,
+        "overlap": 175
+      },
+      {
+        "mpId": 1648,
+        "score": 0.8935836490382678,
+        "overlap": 176
+      },
+      {
+        "mpId": 1581,
+        "score": 0.8925838083701149,
+        "overlap": 164
+      },
+      {
+        "mpId": 1262,
+        "score": 0.835941561565924,
+        "overlap": 146
+      },
+      {
+        "mpId": 1385,
+        "score": 0.8311138735792495,
+        "overlap": 144
+      },
+      {
+        "mpId": 1677,
+        "score": 0.830131081006381,
+        "overlap": 155
+      },
+      {
+        "mpId": 1021,
+        "score": 0.8231256301765947,
+        "overlap": 166
+      },
+      {
+        "mpId": 1390,
+        "score": 0.8112672399923122,
+        "overlap": 149
+      },
+      {
+        "mpId": 1725,
+        "score": 0.8068563778005946,
+        "overlap": 153
+      },
+      {
+        "mpId": 1606,
+        "score": 0.7937951635386314,
+        "overlap": 139
+      },
+      {
+        "mpId": 1633,
+        "score": 0.7913525857487984,
+        "overlap": 161
+      },
+      {
+        "mpId": 762,
+        "score": 0.7857789082232635,
+        "overlap": 157
+      },
+      {
+        "mpId": 1318,
+        "score": 0.7786672709972015,
+        "overlap": 124
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": -0.17626334143656408,
+        "overlap": 54
+      },
+      {
+        "mpId": 1600,
+        "score": -0.16783627165933782,
+        "overlap": 70
+      },
+      {
+        "mpId": 817,
+        "score": -0.15699645640568982,
+        "overlap": 64
+      },
+      {
+        "mpId": 1290,
+        "score": -0.05398181119392522,
+        "overlap": 98
+      },
+      {
+        "mpId": 1644,
+        "score": -0.02422507915557546,
+        "overlap": 116
+      },
+      {
+        "mpId": 767,
+        "score": -0.023476219547919005,
+        "overlap": 122
+      },
+      {
+        "mpId": 1622,
+        "score": -0.015719307070490657,
+        "overlap": 119
+      },
+      {
+        "mpId": 1703,
+        "score": 0,
+        "overlap": 103
+      },
+      {
+        "mpId": 1124,
+        "score": 0.01585903699238878,
+        "overlap": 127
+      },
+      {
+        "mpId": 1811,
+        "score": 0.017594021863242448,
+        "overlap": 95
+      },
+      {
+        "mpId": 1155,
+        "score": 0.02422507915557546,
+        "overlap": 114
+      },
+      {
+        "mpId": 1634,
+        "score": 0.029465624664195476,
+        "overlap": 82
+      },
+      {
+        "mpId": 473,
+        "score": 0.02966954145484633,
+        "overlap": 133
+      },
+      {
+        "mpId": 1807,
+        "score": 0.02978612163460893,
+        "overlap": 132
+      },
+      {
+        "mpId": 1706,
+        "score": 0.035848050983696464,
+        "overlap": 143
+      },
+      {
+        "mpId": 1317,
+        "score": 0.0362471139384494,
+        "overlap": 142
+      },
+      {
+        "mpId": 1529,
+        "score": 0.03665980785090686,
+        "overlap": 136
+      },
+      {
+        "mpId": 1465,
+        "score": 0.0369428993741944,
+        "overlap": 134
+      },
+      {
+        "mpId": 1805,
+        "score": 0.037529331252040075,
+        "overlap": 132
+      },
+      {
+        "mpId": 1466,
+        "score": 0.0403751319259591,
+        "overlap": 115
+      }
+    ]
+  }
+}

@@ -1,0 +1,431 @@
+{
+  "mpId": 2246,
+  "ns": "48",
+  "partyShort": "ПП",
+  "loyalty": {
+    "votesCast": 801,
+    "withParty": 780,
+    "loyaltyPct": 0.9737827715355806,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 801,
+    "dissentCount": 21,
+    "recent": [
+      {
+        "date": "2023-02-02",
+        "item": 2,
+        "slug": "2-protsedura-ot-yordan-tsonev-za-razmestvane-na-tochkite",
+        "title": "Процедура от Йордан Цонев за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 45
+      },
+      {
+        "date": "2023-02-01",
+        "item": 18,
+        "slug": "18-protsedura-ot-kiril-ananiev-za-razmestvane-na-tochkite",
+        "title": "Процедура от Кирил Ананиев за разместване на точките",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 39
+      },
+      {
+        "date": "2023-01-31",
+        "item": 23,
+        "slug": "23-reshenie-po-godishen-doklad-za-deynostta-na-darzhavna-agents",
+        "title": "Решение по годишен доклад за дейността на Държавна агенция \"Национална сигурност\" през 2021 г. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 36
+      },
+      {
+        "date": "2023-01-31",
+        "item": 22,
+        "slug": "22-reshenie-po-godishen-doklad-za-deynostta-na-darzhavna-agents",
+        "title": "Решение по годишен доклад за дейността на Държавна агенция \"Национална сигурност\" през 2021 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 35
+      },
+      {
+        "date": "2023-01-27",
+        "item": 62,
+        "slug": "62-zid-na-zakona-za-zashtita-ot-domashnoto-nasilie-parvo-glasuv",
+        "title": "ЗИД на Закона за защита от домашното насилие - първо гласуване - вносител Корнелия Нинова и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 39
+      },
+      {
+        "date": "2023-01-27",
+        "item": 61,
+        "slug": "61-zid-na-zakona-za-zashtita-ot-domashnoto-nasilie-parvo-glasuv",
+        "title": "ЗИД на Закона за защита от домашното насилие - първо гласуване - вносител Корнелия Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 39
+      },
+      {
+        "date": "2023-01-20",
+        "item": 33,
+        "slug": "33-zid-na-nakazatelniya-kodeks-parvo-glasuvane-vnositel-kostadi",
+        "title": "ЗИД на Наказателния кодекс - първо гласуване - вносител Костадин Костадинов и група н.п. на 24.11.2022г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 35
+      },
+      {
+        "date": "2023-01-20",
+        "item": 31,
+        "slug": "31-zid-na-nakazatelniya-kodeks-parvo-glasuvane-vnositel-kostadi",
+        "title": "ЗИД на Наказателния кодекс - първо гласуване - вносител Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 36
+      },
+      {
+        "date": "2023-01-19",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-trudovata-migratsiya-i-trudovata-mobilnost-",
+        "title": "ЗИД на Закона за трудовата миграция и трудовата мобилност - второ гласуване - параграф 9 - отпада - предложение от Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 42
+      },
+      {
+        "date": "2023-01-19",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-trudovata-migratsiya-i-trudovata-mobilnost-",
+        "title": "ЗИД на Закона за трудовата миграция и трудовата мобилност - второ гласуване - параграф 7 - отпада - предложение от Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 40
+      },
+      {
+        "date": "2023-01-12",
+        "item": 49,
+        "slug": "49-reshenie-za-vazlagane-na-ministerski-savet-za-provezhdane-na",
+        "title": "Решение за възлагане на Министерски съвет за провеждане на преговори с правителството на САЩ относно сключването на Междуправителствено споразумение за изграждане на нова ядрена мощност в АЕЦ „Козлодуй\" с технология АР 1000 - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 42
+      },
+      {
+        "date": "2023-01-12",
+        "item": 46,
+        "slug": "46-protsedura-ot-tsoncho-ganev-za-udalzhavane-na-rabotnoto-vrem",
+        "title": "Процедура от Цончо Ганев за удължаване на работното време до т.22 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-12-16",
+        "item": 14,
+        "slug": "14-ratifitsirane-na-sporazumenieto-mezhdu-ministerstvoto-na-otb",
+        "title": "Ратифициране на Споразумението между Министерството на отбраната на Република България и Министерството на отбраната на Украйна относно безвъзмездно предоставяне на въоражение, техника и боеприпаси - процедура от Иван Ченчев за пряко предаване по БНТ и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-12-09",
+        "item": 17,
+        "slug": "17-protsedura-ot-ivan-ivanov-za-razmestvane-na-tochkite",
+        "title": "Процедура от Иван Иванов за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 45
+      },
+      {
+        "date": "2022-12-09",
+        "item": 13,
+        "slug": "13-protsedura-ot-iliyan-yonchev-za-razmestvane-na-tochkite",
+        "title": "Процедура от Илиян Йончев за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 47
+      },
+      {
+        "date": "2022-12-08",
+        "item": 5,
+        "slug": "5-zid-na-kodeksa-na-truda-parvo-glasuvane-protsedura-ot-lidiya",
+        "title": "ЗИД на Кодекса на труда - първо гласуване - процедура от Лидия Недева за удължаване на срока за предложения на 14 дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2022-12-02",
+        "item": 161,
+        "slug": "161",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 31
+      },
+      {
+        "date": "2022-12-02",
+        "item": 144,
+        "slug": "144",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 32
+      },
+      {
+        "date": "2022-12-01",
+        "item": 136,
+        "slug": "136-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-8-stava-par",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 8 (става параграф 26)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 45
+      },
+      {
+        "date": "2022-11-04",
+        "item": 3,
+        "slug": "3-protsedura-ot-rosen-zhelyazkov-za-otlagane-na-parlamentarniy",
+        "title": "Процедура от Росен Желязков за отлагане на парламентарния контрол",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 45
+      },
+      {
+        "date": "2022-11-02",
+        "item": 44,
+        "slug": "44-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 47 (става член 48) и 48 (става член 49) - предложение от Цвета Рангелова за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 45
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2083,
+        "score": 0.7648491209368266,
+        "overlap": 757
+      },
+      {
+        "mpId": 2109,
+        "score": 0.7495196629045893,
+        "overlap": 789
+      },
+      {
+        "mpId": 2103,
+        "score": 0.7431637050677407,
+        "overlap": 764
+      },
+      {
+        "mpId": 2114,
+        "score": 0.7421033404577053,
+        "overlap": 757
+      },
+      {
+        "mpId": 2053,
+        "score": 0.7383812986311092,
+        "overlap": 785
+      },
+      {
+        "mpId": 2343,
+        "score": 0.7351817421642017,
+        "overlap": 736
+      },
+      {
+        "mpId": 2155,
+        "score": 0.7348887310275631,
+        "overlap": 757
+      },
+      {
+        "mpId": 2062,
+        "score": 0.7306576618131635,
+        "overlap": 767
+      },
+      {
+        "mpId": 2362,
+        "score": 0.730405707827526,
+        "overlap": 751
+      },
+      {
+        "mpId": 2093,
+        "score": 0.7302727373989123,
+        "overlap": 699
+      },
+      {
+        "mpId": 2029,
+        "score": 0.727219129795459,
+        "overlap": 758
+      },
+      {
+        "mpId": 2110,
+        "score": 0.7191497936331117,
+        "overlap": 709
+      },
+      {
+        "mpId": 2176,
+        "score": 0.7182855712909233,
+        "overlap": 707
+      },
+      {
+        "mpId": 2243,
+        "score": 0.7142065546360316,
+        "overlap": 688
+      },
+      {
+        "mpId": 2168,
+        "score": 0.711863171512949,
+        "overlap": 754
+      },
+      {
+        "mpId": 2118,
+        "score": 0.7114627250384205,
+        "overlap": 736
+      },
+      {
+        "mpId": 2282,
+        "score": 0.7113662535059482,
+        "overlap": 695
+      },
+      {
+        "mpId": 2091,
+        "score": 0.7045572799805291,
+        "overlap": 702
+      },
+      {
+        "mpId": 2121,
+        "score": 0.7023877704950684,
+        "overlap": 676
+      },
+      {
+        "mpId": 2017,
+        "score": 0.7020137171457058,
+        "overlap": 704
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1297,
+        "score": -0.13381886378371824,
+        "overlap": 266
+      },
+      {
+        "mpId": 2133,
+        "score": -0.10290920580401461,
+        "overlap": 227
+      },
+      {
+        "mpId": 960,
+        "score": -0.09680463179373447,
+        "overlap": 495
+      },
+      {
+        "mpId": 663,
+        "score": -0.07607762040288459,
+        "overlap": 497
+      },
+      {
+        "mpId": 1389,
+        "score": -0.05136550395567582,
+        "overlap": 491
+      },
+      {
+        "mpId": 1000,
+        "score": -0.04980973355159867,
+        "overlap": 506
+      },
+      {
+        "mpId": 1576,
+        "score": -0.04537105809875407,
+        "overlap": 544
+      },
+      {
+        "mpId": 524,
+        "score": -0.04003928729392728,
+        "overlap": 521
+      },
+      {
+        "mpId": 2356,
+        "score": -0.02655238611411256,
+        "overlap": 588
+      },
+      {
+        "mpId": 1961,
+        "score": -0.01966688611073302,
+        "overlap": 622
+      },
+      {
+        "mpId": 2088,
+        "score": -0.015896396377473653,
+        "overlap": 568
+      },
+      {
+        "mpId": 2038,
+        "score": -0.014430166336403778,
+        "overlap": 645
+      },
+      {
+        "mpId": 1723,
+        "score": -0.014122867131533066,
+        "overlap": 673
+      },
+      {
+        "mpId": 1700,
+        "score": -0.012681658032877751,
+        "overlap": 585
+      },
+      {
+        "mpId": 398,
+        "score": -0.011594780786379962,
+        "overlap": 592
+      },
+      {
+        "mpId": 810,
+        "score": -0.007999136139942811,
+        "overlap": 236
+      },
+      {
+        "mpId": 1304,
+        "score": -0.005713841684413587,
+        "overlap": 679
+      },
+      {
+        "mpId": 987,
+        "score": -0.0053691710488134176,
+        "overlap": 537
+      },
+      {
+        "mpId": 1949,
+        "score": 0.005069639270579448,
+        "overlap": 585
+      },
+      {
+        "mpId": 1614,
+        "score": 0.0071276704532174115,
+        "overlap": 673
+      }
+    ]
+  }
+}

@@ -1,0 +1,285 @@
+{
+  "mpId": 1871,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 515,
+    "withParty": 509,
+    "loyaltyPct": 0.9883495145631068,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 515,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 65,
+        "slug": "65-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 25 - предложение от Хамид Хамид",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-08-06",
+        "item": 5,
+        "slug": "5-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на факти и обстоятелства относно действията и бездействията на компетентните български органи във връзка с наложените на 2.06.2021 г. санкции на български физически и юридически лица от Службата за контрол на чуждестранните активи (OFAC) и Министерството на финансите на САЩ на основание Глобалния закон \"Магнитски\" .... - за председател Хамид Хамид",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-08-05",
+        "item": 60,
+        "slug": "60-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Приложение към Финансови правила ... - предложение от Мая Манолова и група н.п. по член 10",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2021-08-05",
+        "item": 51,
+        "slug": "51-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 130 - предложение от Мая Манолова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-08-05",
+        "item": 8,
+        "slug": "8-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 16а - предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2021-07-30",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1665,
+        "score": 0.973571683696934,
+        "overlap": 513
+      },
+      {
+        "mpId": 1908,
+        "score": 0.9704363923762485,
+        "overlap": 513
+      },
+      {
+        "mpId": 1869,
+        "score": 0.9702149620100952,
+        "overlap": 514
+      },
+      {
+        "mpId": 1959,
+        "score": 0.9688780850183344,
+        "overlap": 505
+      },
+      {
+        "mpId": 1913,
+        "score": 0.9680170575692965,
+        "overlap": 506
+      },
+      {
+        "mpId": 1696,
+        "score": 0.967950927642707,
+        "overlap": 508
+      },
+      {
+        "mpId": 1947,
+        "score": 0.9649358283489552,
+        "overlap": 508
+      },
+      {
+        "mpId": 1938,
+        "score": 0.9647817660885754,
+        "overlap": 509
+      },
+      {
+        "mpId": 1896,
+        "score": 0.9613933131699591,
+        "overlap": 505
+      },
+      {
+        "mpId": 1950,
+        "score": 0.961325890851671,
+        "overlap": 510
+      },
+      {
+        "mpId": 1888,
+        "score": 0.9604327512465374,
+        "overlap": 506
+      },
+      {
+        "mpId": 1898,
+        "score": 0.9582937028027813,
+        "overlap": 505
+      },
+      {
+        "mpId": 1918,
+        "score": 0.958064335896058,
+        "overlap": 500
+      },
+      {
+        "mpId": 1719,
+        "score": 0.9545305396368565,
+        "overlap": 488
+      },
+      {
+        "mpId": 1872,
+        "score": 0.9534740583616722,
+        "overlap": 496
+      },
+      {
+        "mpId": 1605,
+        "score": 0.9526415184893757,
+        "overlap": 500
+      },
+      {
+        "mpId": 1801,
+        "score": 0.9525637889252624,
+        "overlap": 498
+      },
+      {
+        "mpId": 1638,
+        "score": 0.9524210773023233,
+        "overlap": 497
+      },
+      {
+        "mpId": 1907,
+        "score": 0.9506634770854729,
+        "overlap": 507
+      },
+      {
+        "mpId": 1899,
+        "score": 0.9504862209362324,
+        "overlap": 495
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": -0.03551977665689309,
+        "overlap": 177
+      },
+      {
+        "mpId": 1317,
+        "score": 0.0026839086072965746,
+        "overlap": 313
+      },
+      {
+        "mpId": 1643,
+        "score": 0.005961258482970002,
+        "overlap": 249
+      },
+      {
+        "mpId": 1155,
+        "score": 0.009094751579141813,
+        "overlap": 243
+      },
+      {
+        "mpId": 1457,
+        "score": 0.02295375192209689,
+        "overlap": 277
+      },
+      {
+        "mpId": 404,
+        "score": 0.02572384205927295,
+        "overlap": 289
+      },
+      {
+        "mpId": 388,
+        "score": 0.03079795015665409,
+        "overlap": 304
+      },
+      {
+        "mpId": 1124,
+        "score": 0.04181601701902681,
+        "overlap": 267
+      },
+      {
+        "mpId": 1970,
+        "score": 0.050381829704185595,
+        "overlap": 229
+      },
+      {
+        "mpId": 990,
+        "score": 0.05609949203612545,
+        "overlap": 308
+      },
+      {
+        "mpId": 1659,
+        "score": 0.05945550264670636,
+        "overlap": 315
+      },
+      {
+        "mpId": 1703,
+        "score": 0.06481798938470464,
+        "overlap": 208
+      },
+      {
+        "mpId": 1644,
+        "score": 0.06757607108654051,
+        "overlap": 265
+      },
+      {
+        "mpId": 1428,
+        "score": 0.07421170146147615,
+        "overlap": 225
+      },
+      {
+        "mpId": 817,
+        "score": 0.07528611321371435,
+        "overlap": 208
+      },
+      {
+        "mpId": 1706,
+        "score": 0.08045845559559504,
+        "overlap": 298
+      },
+      {
+        "mpId": 1465,
+        "score": 0.08334206644757984,
+        "overlap": 315
+      },
+      {
+        "mpId": 1269,
+        "score": 0.0840097262510077,
+        "overlap": 355
+      },
+      {
+        "mpId": 473,
+        "score": 0.09155617360878057,
+        "overlap": 301
+      },
+      {
+        "mpId": 1975,
+        "score": 0.09239385046996228,
+        "overlap": 293
+      }
+    ]
+  }
+}

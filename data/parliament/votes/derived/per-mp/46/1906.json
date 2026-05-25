@@ -1,0 +1,325 @@
+{
+  "mpId": 1906,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 419,
+    "withParty": 409,
+    "loyaltyPct": 0.9761336515513126,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 419,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2021-09-10",
+        "item": 68,
+        "slug": "68-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 4 (става параграф 5) - предложение от Красимир Вълчев и Петър Николов",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-09-10",
+        "item": 34,
+        "slug": "34-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Г.Ганев за редакция в.т.4 - буква д",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-09-10",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Велизар Шаламанов и група н.п. - до ал.9 - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-09-10",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Д.Танева и Ч.Божурски",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-09-08",
+        "item": 17,
+        "slug": "17-protsedura-ot-m-kapon-za-udalzhavane-na-r-vreme",
+        "title": "Процедура от М.Капон за удължаване на р.време",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-08-18",
+        "item": 24,
+        "slug": "24-reshenie-za-izbirane-na-komisiya-po-politikite-na-balgarite-",
+        "title": "Решение за избиране на Комисия по политиките на българите извън страната",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-08-05",
+        "item": 51,
+        "slug": "51-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 130 - предложение от Мая Манолова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-08-05",
+        "item": 45,
+        "slug": "45-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Раздел втори (става Раздел трети), член 110 - предложение от Надежда Йорданова и Атанас Славов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-08-05",
+        "item": 32,
+        "slug": "32-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 63 до член 69",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-08-05",
+        "item": 22,
+        "slug": "22-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 28 - предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 62
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1947,
+        "score": 0.8535256905203021,
+        "overlap": 416
+      },
+      {
+        "mpId": 1938,
+        "score": 0.8524166362365619,
+        "overlap": 417
+      },
+      {
+        "mpId": 1913,
+        "score": 0.8515073915658087,
+        "overlap": 412
+      },
+      {
+        "mpId": 1908,
+        "score": 0.8513924135732011,
+        "overlap": 416
+      },
+      {
+        "mpId": 1918,
+        "score": 0.8502170936554532,
+        "overlap": 411
+      },
+      {
+        "mpId": 1665,
+        "score": 0.8499318821772526,
+        "overlap": 415
+      },
+      {
+        "mpId": 1869,
+        "score": 0.849697596976598,
+        "overlap": 418
+      },
+      {
+        "mpId": 1696,
+        "score": 0.8485748789417772,
+        "overlap": 412
+      },
+      {
+        "mpId": 1872,
+        "score": 0.8480438208527518,
+        "overlap": 405
+      },
+      {
+        "mpId": 1907,
+        "score": 0.8474581342108797,
+        "overlap": 414
+      },
+      {
+        "mpId": 1950,
+        "score": 0.846902069952166,
+        "overlap": 414
+      },
+      {
+        "mpId": 1871,
+        "score": 0.8467636177966399,
+        "overlap": 410
+      },
+      {
+        "mpId": 1896,
+        "score": 0.8450709281990181,
+        "overlap": 409
+      },
+      {
+        "mpId": 1729,
+        "score": 0.844145969167044,
+        "overlap": 407
+      },
+      {
+        "mpId": 1948,
+        "score": 0.8435952245868743,
+        "overlap": 413
+      },
+      {
+        "mpId": 1959,
+        "score": 0.8435952245868743,
+        "overlap": 409
+      },
+      {
+        "mpId": 1888,
+        "score": 0.8423463506778687,
+        "overlap": 414
+      },
+      {
+        "mpId": 1898,
+        "score": 0.8423463506778687,
+        "overlap": 413
+      },
+      {
+        "mpId": 1893,
+        "score": 0.8409890464704762,
+        "overlap": 410
+      },
+      {
+        "mpId": 1676,
+        "score": 0.8406371827410255,
+        "overlap": 406
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": -0.055317822747116906,
+        "overlap": 137
+      },
+      {
+        "mpId": 1643,
+        "score": -0.04973544787900873,
+        "overlap": 190
+      },
+      {
+        "mpId": 1317,
+        "score": -0.01194248022463131,
+        "overlap": 245
+      },
+      {
+        "mpId": 404,
+        "score": -0.006359019210913006,
+        "overlap": 229
+      },
+      {
+        "mpId": 1155,
+        "score": 0.006744758408598172,
+        "overlap": 194
+      },
+      {
+        "mpId": 388,
+        "score": 0.009343663676950392,
+        "overlap": 238
+      },
+      {
+        "mpId": 1457,
+        "score": 0.0095752862890486,
+        "overlap": 213
+      },
+      {
+        "mpId": 990,
+        "score": 0.02496236542600193,
+        "overlap": 238
+      },
+      {
+        "mpId": 1644,
+        "score": 0.03595212818644934,
+        "overlap": 214
+      },
+      {
+        "mpId": 1124,
+        "score": 0.04319413654601663,
+        "overlap": 221
+      },
+      {
+        "mpId": 1970,
+        "score": 0.04857276711244834,
+        "overlap": 173
+      },
+      {
+        "mpId": 1659,
+        "score": 0.05039176376135747,
+        "overlap": 246
+      },
+      {
+        "mpId": 1465,
+        "score": 0.05383217066284603,
+        "overlap": 251
+      },
+      {
+        "mpId": 817,
+        "score": 0.0546191724660406,
+        "overlap": 167
+      },
+      {
+        "mpId": 1269,
+        "score": 0.06230245022140362,
+        "overlap": 287
+      },
+      {
+        "mpId": 1428,
+        "score": 0.06535541315207435,
+        "overlap": 209
+      },
+      {
+        "mpId": 1887,
+        "score": 0.06955063707094633,
+        "overlap": 231
+      },
+      {
+        "mpId": 1882,
+        "score": 0.07037173959185869,
+        "overlap": 282
+      },
+      {
+        "mpId": 1703,
+        "score": 0.07210450034724859,
+        "overlap": 192
+      },
+      {
+        "mpId": 1344,
+        "score": 0.07251748192059024,
+        "overlap": 238
+      }
+    ]
+  }
+}

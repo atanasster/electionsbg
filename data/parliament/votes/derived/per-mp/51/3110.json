@@ -1,0 +1,315 @@
+{
+  "mpId": 3110,
+  "ns": "51",
+  "partyShort": "ДПС - НН",
+  "loyalty": {
+    "votesCast": 3348,
+    "withParty": 3339,
+    "loyaltyPct": 0.9973118279569892,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 3348,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2026-01-28",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-smetnata-palata-vtoro-glasuvane-paragraf-22",
+        "title": "ЗИД на Закона за Сметната палата – второ гласуване - параграф 22 - предложение от Петър Петров - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-10-08",
+        "item": 15,
+        "slug": "15-programa-za-rabotata-na-narodno-sabranie-za-8-10-oktomvri-20",
+        "title": "Програма за работата на Народно събрание за 8 - 10 октомври 2025 г. - предложение от Атанас Атанасов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 26
+      },
+      {
+        "date": "2025-07-23",
+        "item": 142,
+        "slug": "142-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата - второ гласуване - параграф 102 (става параграф 103) - предложение от Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 24
+      },
+      {
+        "date": "2025-07-23",
+        "item": 134,
+        "slug": "134-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата - второ гласуване - параграф 97 (става параграф 98) - предложение от Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2025-07-16",
+        "item": 84,
+        "slug": "84-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата – второ гласуване - параграф 37 - предложение от Явор Божанков",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2025-07-11",
+        "item": 14,
+        "slug": "14-reshenie-za-priemane-na-pravila-za-deynostta-na-nominatsionn",
+        "title": "Решение за приемане на Правила за дейността на Номинационната комисия и провеждане на процедура по номиниране, разглеждане на кандидатури и избор на членове на Комисия за противодействие на корупцията - предложение от Лена Бориславова за редакция в чл.12, ал.2",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-05-16",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-energetikata-vtoro-glasuvane-protsedura-ot-",
+        "title": "ЗИД на Закона за енергетиката - второ гласуване - процедура от Йордан Тодоров за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2025-03-19",
+        "item": 82,
+        "slug": "82-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - параграф 17 (става параграф 20) - предложение от Божидар Божанов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-03-19",
+        "item": 65,
+        "slug": "65-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - член 1 - предложение от Асен Василев и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3228,
+        "score": 0.931173794455754,
+        "overlap": 3291
+      },
+      {
+        "mpId": 3400,
+        "score": 0.9246633963295936,
+        "overlap": 3268
+      },
+      {
+        "mpId": 3156,
+        "score": 0.9216007530826561,
+        "overlap": 3261
+      },
+      {
+        "mpId": 3393,
+        "score": 0.9179840354385427,
+        "overlap": 3225
+      },
+      {
+        "mpId": 3308,
+        "score": 0.9177189568305104,
+        "overlap": 3236
+      },
+      {
+        "mpId": 3401,
+        "score": 0.9153307513183251,
+        "overlap": 3198
+      },
+      {
+        "mpId": 3018,
+        "score": 0.9151389194806822,
+        "overlap": 3208
+      },
+      {
+        "mpId": 3302,
+        "score": 0.9130699719251361,
+        "overlap": 3173
+      },
+      {
+        "mpId": 3224,
+        "score": 0.9122329544635537,
+        "overlap": 3197
+      },
+      {
+        "mpId": 3127,
+        "score": 0.90821590262495,
+        "overlap": 3162
+      },
+      {
+        "mpId": 3356,
+        "score": 0.9055439462546306,
+        "overlap": 3163
+      },
+      {
+        "mpId": 3306,
+        "score": 0.896760965158267,
+        "overlap": 3134
+      },
+      {
+        "mpId": 3415,
+        "score": 0.896097129838767,
+        "overlap": 3127
+      },
+      {
+        "mpId": 3231,
+        "score": 0.8933517283533249,
+        "overlap": 3076
+      },
+      {
+        "mpId": 3042,
+        "score": 0.8928264782788071,
+        "overlap": 3043
+      },
+      {
+        "mpId": 3363,
+        "score": 0.8765441289203326,
+        "overlap": 2989
+      },
+      {
+        "mpId": 3343,
+        "score": 0.8650993875723502,
+        "overlap": 2860
+      },
+      {
+        "mpId": 3289,
+        "score": 0.8625964291870032,
+        "overlap": 2854
+      },
+      {
+        "mpId": 3044,
+        "score": 0.8538140362633988,
+        "overlap": 2801
+      },
+      {
+        "mpId": 3491,
+        "score": 0.819509388196405,
+        "overlap": 2654
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3517,
+        "score": -0.35798564096357177,
+        "overlap": 2154
+      },
+      {
+        "mpId": 3518,
+        "score": -0.35641434928573784,
+        "overlap": 2218
+      },
+      {
+        "mpId": 3514,
+        "score": -0.35436614052823334,
+        "overlap": 2103
+      },
+      {
+        "mpId": 3513,
+        "score": -0.35315611078090936,
+        "overlap": 2021
+      },
+      {
+        "mpId": 3510,
+        "score": -0.3482492130573063,
+        "overlap": 1976
+      },
+      {
+        "mpId": 3515,
+        "score": -0.34688190213580194,
+        "overlap": 2094
+      },
+      {
+        "mpId": 3516,
+        "score": -0.33274633014677996,
+        "overlap": 1870
+      },
+      {
+        "mpId": 3508,
+        "score": -0.33157981415590815,
+        "overlap": 2000
+      },
+      {
+        "mpId": 3512,
+        "score": -0.32553650825109015,
+        "overlap": 1757
+      },
+      {
+        "mpId": 3122,
+        "score": -0.32393726404096523,
+        "overlap": 3049
+      },
+      {
+        "mpId": 3028,
+        "score": -0.3218831606271028,
+        "overlap": 2899
+      },
+      {
+        "mpId": 3230,
+        "score": -0.31737253604874277,
+        "overlap": 3079
+      },
+      {
+        "mpId": 3358,
+        "score": -0.3171926331460151,
+        "overlap": 3004
+      },
+      {
+        "mpId": 3121,
+        "score": -0.3126358275621828,
+        "overlap": 2969
+      },
+      {
+        "mpId": 3090,
+        "score": -0.30944832652815746,
+        "overlap": 3151
+      },
+      {
+        "mpId": 3026,
+        "score": -0.3079050267162719,
+        "overlap": 2435
+      },
+      {
+        "mpId": 3304,
+        "score": -0.30676248552089963,
+        "overlap": 3033
+      },
+      {
+        "mpId": 3307,
+        "score": -0.30586756173426816,
+        "overlap": 2956
+      },
+      {
+        "mpId": 3084,
+        "score": -0.30583268643682526,
+        "overlap": 2928
+      },
+      {
+        "mpId": 3165,
+        "score": -0.3047547220406501,
+        "overlap": 3091
+      }
+    ]
+  }
+}

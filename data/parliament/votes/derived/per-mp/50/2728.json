@@ -1,0 +1,355 @@
+{
+  "mpId": 2728,
+  "ns": "50",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 293,
+    "withParty": 280,
+    "loyaltyPct": 0.9556313993174061,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 293,
+    "dissentCount": 13,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 84,
+        "slug": "84-zid-na-zakona-za-grazhdanskata-registratsiya-vtoro-glasuvane",
+        "title": "ЗИД на Закона за гражданската регистрация – второ гласуване - чл.92 - предложение от Божидар Божанов за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 6
+      },
+      {
+        "date": "2024-09-25",
+        "item": 21,
+        "slug": "21-protsedura-ot-toshko-yordanov-t-5-da-stane-t-2-za-chetvartak",
+        "title": "Процедура от Тошко Йорданов т.5 да стане т.2 за четвъртък",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 2
+      },
+      {
+        "date": "2024-09-25",
+        "item": 20,
+        "slug": "20-protsedura-ot-venko-sabrutev-t-5-da-stane-t-1-za-chetvartak",
+        "title": "Процедура от Венко Сабрутев т.5 да стане т.1 за четвъртък - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 2
+      },
+      {
+        "date": "2024-09-25",
+        "item": 9,
+        "slug": "9-programa-za-rabotata-na-narodnoto-sabranie-za-25-26-septemvr",
+        "title": "Програма за работата на Народното събрание за 25 – 26 септември 2024 г. - процедура от Георги Свиленски за разделяне на законите по т.7 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-09-25",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-25-26-septemvr",
+        "title": "Програма за работата на Народното събрание за 25 – 26 септември 2024 г. - предложение от Александър Вълчев и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2024-09-18",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - процедура от Рая Назарян за разместване на точките",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 3
+      },
+      {
+        "date": "2024-09-12",
+        "item": 3,
+        "slug": "3-zakon-za-nasarchavane-na-dobrovolchestvoto-parvo-glasuvane-p",
+        "title": "Закон за насърчаване на доброволчеството - първо гласуване - процедура от Калина Константинова за отпадане на точката - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2024-09-11",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-4-pre",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 4 - предложение от Цвета Рангелова за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-08-14",
+        "item": 8,
+        "slug": "8-reshenie-za-popalvane-v-sastava-na-komisiyata-po-preventsiya",
+        "title": "Решение за попълване в състава на Комисията по превенция и противодействие на корупцията - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-08-14",
+        "item": 6,
+        "slug": "6-reshenie-za-promyana-v-sastava-na-komisiyata-po-obrazovaniet",
+        "title": "Решение за промяна в състава на Комисията по образованието и науката",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2024-08-08",
+        "item": 3,
+        "slug": "3-protsedura-ot-georgi-svilenski-za-razmestvane-na-tochkite",
+        "title": "Процедура от Георги Свиленски за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-08-07",
+        "item": 44,
+        "slug": "44-zakon-za-vavezhdane-na-evroto-v-republika-balgariya-vtoro-gl",
+        "title": "Закон за въвеждане на еврото в Република България – второ гласуване - параграф 10",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-07-12",
+        "item": 42,
+        "slug": "42-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 40(става член 39) - предложение от В. Василева и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 19
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2900,
+        "score": 0.6728281420951934,
+        "overlap": 257
+      },
+      {
+        "mpId": 2695,
+        "score": 0.6719051365478896,
+        "overlap": 245
+      },
+      {
+        "mpId": 2964,
+        "score": 0.6561120786073139,
+        "overlap": 267
+      },
+      {
+        "mpId": 2958,
+        "score": 0.6493953231385992,
+        "overlap": 259
+      },
+      {
+        "mpId": 2926,
+        "score": 0.6478421018021892,
+        "overlap": 243
+      },
+      {
+        "mpId": 2943,
+        "score": 0.6452022724568889,
+        "overlap": 270
+      },
+      {
+        "mpId": 2894,
+        "score": 0.6387819310997633,
+        "overlap": 274
+      },
+      {
+        "mpId": 2785,
+        "score": 0.6378177098435304,
+        "overlap": 243
+      },
+      {
+        "mpId": 2860,
+        "score": 0.6346801508828736,
+        "overlap": 265
+      },
+      {
+        "mpId": 2849,
+        "score": 0.6323404944330208,
+        "overlap": 193
+      },
+      {
+        "mpId": 2804,
+        "score": 0.6290323196576442,
+        "overlap": 286
+      },
+      {
+        "mpId": 2962,
+        "score": 0.6246950475544242,
+        "overlap": 216
+      },
+      {
+        "mpId": 2718,
+        "score": 0.6186120270663288,
+        "overlap": 275
+      },
+      {
+        "mpId": 2672,
+        "score": 0.6156044165806961,
+        "overlap": 254
+      },
+      {
+        "mpId": 2945,
+        "score": 0.6141119832144389,
+        "overlap": 246
+      },
+      {
+        "mpId": 2602,
+        "score": 0.6116987147281001,
+        "overlap": 291
+      },
+      {
+        "mpId": 2779,
+        "score": 0.6103014502248718,
+        "overlap": 289
+      },
+      {
+        "mpId": 2911,
+        "score": 0.6089363780985706,
+        "overlap": 292
+      },
+      {
+        "mpId": 2770,
+        "score": 0.6085165637556501,
+        "overlap": 285
+      },
+      {
+        "mpId": 2852,
+        "score": 0.6083751279578193,
+        "overlap": 289
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2972,
+        "score": -0.05730010526857581,
+        "overlap": 30
+      },
+      {
+        "mpId": 2996,
+        "score": -0.040492965590937416,
+        "overlap": 21
+      },
+      {
+        "mpId": 3005,
+        "score": -0.03454360237286026,
+        "overlap": 34
+      },
+      {
+        "mpId": 2930,
+        "score": -0.03407990882954985,
+        "overlap": 7
+      },
+      {
+        "mpId": 2979,
+        "score": -0.0304186907272133,
+        "overlap": 123
+      },
+      {
+        "mpId": 3007,
+        "score": -0.026109670462935344,
+        "overlap": 38
+      },
+      {
+        "mpId": 3008,
+        "score": -0.01541321870142776,
+        "overlap": 78
+      },
+      {
+        "mpId": 3004,
+        "score": 0.005300882882559015,
+        "overlap": 67
+      },
+      {
+        "mpId": 2998,
+        "score": 0.02101605188576325,
+        "overlap": 37
+      },
+      {
+        "mpId": 2978,
+        "score": 0.02180770016298217,
+        "overlap": 152
+      },
+      {
+        "mpId": 2973,
+        "score": 0.03733266964732787,
+        "overlap": 21
+      },
+      {
+        "mpId": 3001,
+        "score": 0.047701935493124695,
+        "overlap": 65
+      },
+      {
+        "mpId": 2997,
+        "score": 0.05152397912385327,
+        "overlap": 58
+      },
+      {
+        "mpId": 2967,
+        "score": 0.05413886251693755,
+        "overlap": 188
+      },
+      {
+        "mpId": 2980,
+        "score": 0.06486001703835141,
+        "overlap": 143
+      },
+      {
+        "mpId": 2982,
+        "score": 0.06901307921788513,
+        "overlap": 200
+      },
+      {
+        "mpId": 2993,
+        "score": 0.07283513248747969,
+        "overlap": 60
+      },
+      {
+        "mpId": 2986,
+        "score": 0.07364943700111383,
+        "overlap": 193
+      },
+      {
+        "mpId": 2983,
+        "score": 0.07595990375343421,
+        "overlap": 122
+      },
+      {
+        "mpId": 2984,
+        "score": 0.07862667524454275,
+        "overlap": 205
+      }
+    ]
+  }
+}

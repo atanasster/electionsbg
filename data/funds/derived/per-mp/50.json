@@ -1,0 +1,32 @@
+{
+  "mpId": 50,
+  "summary": {
+    "contractCount": 1,
+    "contractedEur": 1500000,
+    "paidEur": 0
+  },
+  "entries": [
+    {
+      "mpId": 50,
+      "mpName": "Енчо Вълков Малев",
+      "beneficiaryEik": "124121775",
+      "beneficiaryName": "ДОБРУДЖАНСКИ ХЛЯБ АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 1500000,
+      "paidEur": 0
+    }
+  ]
+}

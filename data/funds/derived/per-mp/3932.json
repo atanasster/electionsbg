@@ -1,0 +1,27 @@
+{
+  "mpId": 3932,
+  "summary": {
+    "contractCount": 1,
+    "contractedEur": 10225.84,
+    "paidEur": 10225.84
+  },
+  "entries": [
+    {
+      "mpId": 3932,
+      "mpName": "Иван Косев Манев",
+      "beneficiaryEik": "203289105",
+      "beneficiaryName": "МИГОТА ЕООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 10225.84,
+      "paidEur": 10225.84
+    }
+  ]
+}

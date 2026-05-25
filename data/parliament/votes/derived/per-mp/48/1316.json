@@ -1,0 +1,313 @@
+{
+  "mpId": 1316,
+  "ns": "48",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 959,
+    "withParty": 950,
+    "loyaltyPct": 0.9906152241918665,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 959,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2023-01-19",
+        "item": 60,
+        "slug": "60-zid-na-zakona-za-patishtata-parvo-glasuvane-vnositel-bozhida",
+        "title": "ЗИД на Закона за пътищата - първо гласуване - вносител Божидар Божанов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2023-01-12",
+        "item": 46,
+        "slug": "46-protsedura-ot-tsoncho-ganev-za-udalzhavane-na-rabotnoto-vrem",
+        "title": "Процедура от Цончо Ганев за удължаване на работното време до т.22 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-12-23",
+        "item": 56,
+        "slug": "56-zid-na-zakona-za-trudovata-migratsiya-i-trudovata-mobilnost-",
+        "title": "ЗИД на Закона за трудовата миграция и трудовата мобилност - първо гласуване - процедура от Ивайло Чорбов за пряко предаване по БНТ1 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 6
+      },
+      {
+        "date": "2022-12-22",
+        "item": 63,
+        "slug": "63-zakon-za-prodalzhavane-deystvieto-na-razporedbi-na-zakona-za",
+        "title": "Закон за продължаване действието на разпоредби на Закона за държавния бюджет на Република България за 2022г., Закона за бюджета на държавното обществено осигуряване и Закона за бюджета на Националната здравноосигурителна каса за 2022г. - второ гласуване - параграф 8 (става параграф 7) - предложение от Венко Сабрутев за редакция в ал. 18 - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 31
+      },
+      {
+        "date": "2022-12-21",
+        "item": 10,
+        "slug": "10",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2022-12-16",
+        "item": 25,
+        "slug": "25-zid-na-zakon-za-podpomagane-na-zemedelskite-proizvoditeli-vt",
+        "title": "ЗИД на Закон за подпомагане на земеделските производители - второ гласуване - параграф 14 - предложение от Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2022-12-16",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-pravnata-pomosht-vtoro-glosuvane-paragraf-1",
+        "title": "ЗИД на Закона за правната помощ - второ глосуване - параграф 11 - предложение от Цончо Ганев и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      },
+      {
+        "date": "2022-11-02",
+        "item": 17,
+        "slug": "17-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 16 - предложение от Надежда Йорданова и груп н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 28
+      },
+      {
+        "date": "2022-10-27",
+        "item": 22,
+        "slug": "22-protsedura-ot-andrey-gyurov-za-razglezhdane-na-reshenie-za-i",
+        "title": "Процедура от Андрей Гюров за разглеждане на Решение за избиране на Комисия по земеделието, храните и горите - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 29
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2038,
+        "score": 0.8760075115912882,
+        "overlap": 877
+      },
+      {
+        "mpId": 2341,
+        "score": 0.8617622975445134,
+        "overlap": 939
+      },
+      {
+        "mpId": 1886,
+        "score": 0.8525236981793067,
+        "overlap": 927
+      },
+      {
+        "mpId": 2335,
+        "score": 0.8428393924999779,
+        "overlap": 914
+      },
+      {
+        "mpId": 1614,
+        "score": 0.8379041463818369,
+        "overlap": 850
+      },
+      {
+        "mpId": 987,
+        "score": 0.8374331558688538,
+        "overlap": 749
+      },
+      {
+        "mpId": 1455,
+        "score": 0.8369994241445943,
+        "overlap": 867
+      },
+      {
+        "mpId": 1319,
+        "score": 0.8355019359166842,
+        "overlap": 910
+      },
+      {
+        "mpId": 2307,
+        "score": 0.8338784975821071,
+        "overlap": 873
+      },
+      {
+        "mpId": 2097,
+        "score": 0.8331983457967878,
+        "overlap": 886
+      },
+      {
+        "mpId": 1572,
+        "score": 0.8319643649562019,
+        "overlap": 867
+      },
+      {
+        "mpId": 1946,
+        "score": 0.8315899477801141,
+        "overlap": 891
+      },
+      {
+        "mpId": 1723,
+        "score": 0.8312069614183859,
+        "overlap": 856
+      },
+      {
+        "mpId": 1615,
+        "score": 0.831043719093554,
+        "overlap": 914
+      },
+      {
+        "mpId": 2360,
+        "score": 0.8264213315052839,
+        "overlap": 817
+      },
+      {
+        "mpId": 1700,
+        "score": 0.8193594506258675,
+        "overlap": 784
+      },
+      {
+        "mpId": 2270,
+        "score": 0.8191609724602572,
+        "overlap": 868
+      },
+      {
+        "mpId": 1961,
+        "score": 0.8180644441933057,
+        "overlap": 801
+      },
+      {
+        "mpId": 1388,
+        "score": 0.8169906144845459,
+        "overlap": 856
+      },
+      {
+        "mpId": 2356,
+        "score": 0.8169259452495781,
+        "overlap": 777
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2366,
+        "score": -0.041610033944015544,
+        "overlap": 639
+      },
+      {
+        "mpId": 2236,
+        "score": -0.03366148297015371,
+        "overlap": 526
+      },
+      {
+        "mpId": 2023,
+        "score": -0.015408079036749728,
+        "overlap": 675
+      },
+      {
+        "mpId": 2237,
+        "score": -0.014542689533924565,
+        "overlap": 491
+      },
+      {
+        "mpId": 2128,
+        "score": -0.013691752549280926,
+        "overlap": 807
+      },
+      {
+        "mpId": 2015,
+        "score": -0.006604589869496536,
+        "overlap": 774
+      },
+      {
+        "mpId": 2093,
+        "score": -0.006499721601220327,
+        "overlap": 776
+      },
+      {
+        "mpId": 2025,
+        "score": -0.0011258534565307657,
+        "overlap": 753
+      },
+      {
+        "mpId": 2258,
+        "score": 0.004382415079694659,
+        "overlap": 791
+      },
+      {
+        "mpId": 2260,
+        "score": 0.007619663513945278,
+        "overlap": 567
+      },
+      {
+        "mpId": 2271,
+        "score": 0.009919986302492372,
+        "overlap": 596
+      },
+      {
+        "mpId": 2246,
+        "score": 0.018712437396943695,
+        "overlap": 626
+      },
+      {
+        "mpId": 2030,
+        "score": 0.029830411885122192,
+        "overlap": 718
+      },
+      {
+        "mpId": 2312,
+        "score": 0.03266501261682908,
+        "overlap": 856
+      },
+      {
+        "mpId": 2110,
+        "score": 0.032807520976770546,
+        "overlap": 777
+      },
+      {
+        "mpId": 2099,
+        "score": 0.03296779316163285,
+        "overlap": 780
+      },
+      {
+        "mpId": 2114,
+        "score": 0.03867116154285895,
+        "overlap": 880
+      },
+      {
+        "mpId": 2029,
+        "score": 0.0447437259553772,
+        "overlap": 894
+      },
+      {
+        "mpId": 2168,
+        "score": 0.045270026170247536,
+        "overlap": 884
+      },
+      {
+        "mpId": 2103,
+        "score": 0.04538952490740409,
+        "overlap": 889
+      }
+    ]
+  }
+}

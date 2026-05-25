@@ -1,0 +1,293 @@
+{
+  "mpId": 2368,
+  "ns": "48",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 1147,
+    "withParty": 1140,
+    "loyaltyPct": 0.993897122929381,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 1147,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2023-01-27",
+        "item": 40,
+        "slug": "40-zid-na-zakona-za-gorite-vtoro-glasuvane-paragraf-7-otpada-pr",
+        "title": "ЗИД на Закона за горите - второ гласуване - параграф 7 - отпада предложение от Ал. Дунчев",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2023-01-20",
+        "item": 27,
+        "slug": "27-protsedura-ot-nikola-minchev-za-razmestvane-na-tochkite-i-ud",
+        "title": "Процедура от Никола Минчев за разместване на точките и удължаване на работното време",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 23
+      },
+      {
+        "date": "2023-01-20",
+        "item": 20,
+        "slug": "20-protsedura-ot-yordan-tsonev-za-otpadane-na-parlamentarniya-k",
+        "title": "Процедура от Йордан Цонев за отпадане на парламентарния контрол за вторник",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2023-01-20",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-gorite-parvo-glasuvane-protsedura-ot-desisl",
+        "title": "ЗИД на Закона за горите - първо гласуване - процедура от Десислава Танева за намаляване на срока за предложения на 3 дни",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2022-12-15",
+        "item": 47,
+        "slug": "47-zid-na-zakona-za-semeyni-pomoshti-za-detsa-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за семейни помощи за деца - второ гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2022-12-15",
+        "item": 38,
+        "slug": "38-zid-na-zakona-za-sotsialno-podpomagane-vtoro-glasuvane-prots",
+        "title": "ЗИД на Закона за социално подпомагане - второ гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2022-12-02",
+        "item": 67,
+        "slug": "67",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 25
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2318,
+        "score": 0.931497931098303,
+        "overlap": 1123
+      },
+      {
+        "mpId": 2304,
+        "score": 0.9223508829294118,
+        "overlap": 1114
+      },
+      {
+        "mpId": 2278,
+        "score": 0.919802774513014,
+        "overlap": 1119
+      },
+      {
+        "mpId": 2098,
+        "score": 0.9155360044526092,
+        "overlap": 1112
+      },
+      {
+        "mpId": 2339,
+        "score": 0.9119017488252855,
+        "overlap": 1097
+      },
+      {
+        "mpId": 2317,
+        "score": 0.9062052365397559,
+        "overlap": 1101
+      },
+      {
+        "mpId": 2363,
+        "score": 0.9051628770760918,
+        "overlap": 1088
+      },
+      {
+        "mpId": 2309,
+        "score": 0.9040041410661857,
+        "overlap": 1098
+      },
+      {
+        "mpId": 2313,
+        "score": 0.900834000628856,
+        "overlap": 1082
+      },
+      {
+        "mpId": 2301,
+        "score": 0.9006342973901799,
+        "overlap": 1077
+      },
+      {
+        "mpId": 2352,
+        "score": 0.8993383303937054,
+        "overlap": 1079
+      },
+      {
+        "mpId": 2119,
+        "score": 0.8964693383247244,
+        "overlap": 1044
+      },
+      {
+        "mpId": 2075,
+        "score": 0.8945949831126737,
+        "overlap": 1067
+      },
+      {
+        "mpId": 2308,
+        "score": 0.8932044958378327,
+        "overlap": 1080
+      },
+      {
+        "mpId": 2310,
+        "score": 0.888911749252983,
+        "overlap": 1068
+      },
+      {
+        "mpId": 2266,
+        "score": 0.8838114568930198,
+        "overlap": 1043
+      },
+      {
+        "mpId": 2063,
+        "score": 0.8834355828220859,
+        "overlap": 1044
+      },
+      {
+        "mpId": 2061,
+        "score": 0.8818810431738813,
+        "overlap": 1032
+      },
+      {
+        "mpId": 2326,
+        "score": 0.8776799450195786,
+        "overlap": 1033
+      },
+      {
+        "mpId": 2077,
+        "score": 0.8765374095280678,
+        "overlap": 1009
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2064,
+        "score": -0.01577069981457237,
+        "overlap": 42
+      },
+      {
+        "mpId": 810,
+        "score": 0,
+        "overlap": 322
+      },
+      {
+        "mpId": 1297,
+        "score": 0.005142356784400989,
+        "overlap": 279
+      },
+      {
+        "mpId": 2133,
+        "score": 0.026363789462891335,
+        "overlap": 221
+      },
+      {
+        "mpId": 2283,
+        "score": 0.030706259687378664,
+        "overlap": 242
+      },
+      {
+        "mpId": 663,
+        "score": 0.06258436665112319,
+        "overlap": 577
+      },
+      {
+        "mpId": 2371,
+        "score": 0.06417339998182475,
+        "overlap": 182
+      },
+      {
+        "mpId": 1576,
+        "score": 0.06661858441809557,
+        "overlap": 678
+      },
+      {
+        "mpId": 2315,
+        "score": 0.07267039400541032,
+        "overlap": 356
+      },
+      {
+        "mpId": 1703,
+        "score": 0.07448709966994574,
+        "overlap": 799
+      },
+      {
+        "mpId": 1640,
+        "score": 0.07950667803011686,
+        "overlap": 611
+      },
+      {
+        "mpId": 1466,
+        "score": 0.0835721230789345,
+        "overlap": 794
+      },
+      {
+        "mpId": 1678,
+        "score": 0.08811754066253498,
+        "overlap": 490
+      },
+      {
+        "mpId": 960,
+        "score": 0.09175959112017296,
+        "overlap": 587
+      },
+      {
+        "mpId": 1389,
+        "score": 0.09445287248872355,
+        "overlap": 581
+      },
+      {
+        "mpId": 2295,
+        "score": 0.09562390424053047,
+        "overlap": 801
+      },
+      {
+        "mpId": 1970,
+        "score": 0.09843004476640776,
+        "overlap": 886
+      },
+      {
+        "mpId": 1583,
+        "score": 0.10076377828944712,
+        "overlap": 790
+      },
+      {
+        "mpId": 2264,
+        "score": 0.1034294318703766,
+        "overlap": 743
+      },
+      {
+        "mpId": 1920,
+        "score": 0.10406256031880544,
+        "overlap": 907
+      }
+    ]
+  }
+}

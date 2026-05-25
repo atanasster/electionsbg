@@ -1,0 +1,295 @@
+{
+  "mpId": 1736,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 491,
+    "withParty": 484,
+    "loyaltyPct": 0.9857433808553971,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 491,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 88,
+        "slug": "88-ratifikatsiya-na-tristranno-sporazumenie-za-darenie-na-vaksi",
+        "title": "Ратификация на Тристранно споразумение за дарение на ваксини срещу COVID-19, произведени от АстраЗенека, между Република България, Кралство Бутан и АстраЗенека и Двустранно споразумение за дарение на ваксини срещу COVID-19, произведени от АстраЗенека, между Република България и Кралство Бутан - второ гласуване - член 2 - предложение от Христо Гаджев",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-09-15",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 1 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 57
+      },
+      {
+        "date": "2021-08-12",
+        "item": 6,
+        "slug": "6-izslushvane-na-ministara-na-zdraveopazvaneto-stoycho-katsaro",
+        "title": "Изслушване на министъра на здравеопазването Стойчо Кацаров относно изграждане на Национална детска болница - процедура за удължаване на работното време до точка 7",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2021-08-11",
+        "item": 6,
+        "slug": "6-protsedura-protsedura-za-pryako-predavane-po-bnt1-i-bnr",
+        "title": "Процедура - процедура за пряко предаване по БНТ1 и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-08-05",
+        "item": 59,
+        "slug": "59-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Приложение към Финансови правила ... - предложение от Мая Манолова и група н.п. по член 5",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2021-08-05",
+        "item": 46,
+        "slug": "46-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Раздел втори (става Раздел трети), член 110 - предложение от Надежда Йорданова и Атанас Славов - 4-то изр",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-08-04",
+        "item": 17,
+        "slug": "17-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава трета, член 8 - предложение за редакция от Радомир Чолаков по т.15, ал.7",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 57
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1947,
+        "score": 0.9458568469043573,
+        "overlap": 488
+      },
+      {
+        "mpId": 1869,
+        "score": 0.9424869196416502,
+        "overlap": 490
+      },
+      {
+        "mpId": 1696,
+        "score": 0.9421224804746745,
+        "overlap": 485
+      },
+      {
+        "mpId": 1665,
+        "score": 0.9418742740708869,
+        "overlap": 488
+      },
+      {
+        "mpId": 1908,
+        "score": 0.9408864664849381,
+        "overlap": 489
+      },
+      {
+        "mpId": 1938,
+        "score": 0.9389216589119039,
+        "overlap": 486
+      },
+      {
+        "mpId": 1913,
+        "score": 0.9379201421907033,
+        "overlap": 482
+      },
+      {
+        "mpId": 1948,
+        "score": 0.9361671199144288,
+        "overlap": 486
+      },
+      {
+        "mpId": 1888,
+        "score": 0.934339020759985,
+        "overlap": 484
+      },
+      {
+        "mpId": 1728,
+        "score": 0.9341067831418312,
+        "overlap": 474
+      },
+      {
+        "mpId": 1907,
+        "score": 0.932950038181845,
+        "overlap": 484
+      },
+      {
+        "mpId": 1950,
+        "score": 0.932761266011367,
+        "overlap": 486
+      },
+      {
+        "mpId": 1867,
+        "score": 0.9320424562359373,
+        "overlap": 477
+      },
+      {
+        "mpId": 1719,
+        "score": 0.9318720779190037,
+        "overlap": 472
+      },
+      {
+        "mpId": 1918,
+        "score": 0.9315618505469393,
+        "overlap": 479
+      },
+      {
+        "mpId": 1896,
+        "score": 0.930744482536025,
+        "overlap": 485
+      },
+      {
+        "mpId": 1871,
+        "score": 0.9291545333851827,
+        "overlap": 484
+      },
+      {
+        "mpId": 1872,
+        "score": 0.9286084433574265,
+        "overlap": 475
+      },
+      {
+        "mpId": 1898,
+        "score": 0.9277436864957969,
+        "overlap": 487
+      },
+      {
+        "mpId": 1895,
+        "score": 0.9259306365068894,
+        "overlap": 474
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": -0.0438072921116538,
+        "overlap": 175
+      },
+      {
+        "mpId": 1155,
+        "score": -0.02181034636244526,
+        "overlap": 238
+      },
+      {
+        "mpId": 1643,
+        "score": -0.009190182776172597,
+        "overlap": 245
+      },
+      {
+        "mpId": 1317,
+        "score": -0.005516868790052204,
+        "overlap": 308
+      },
+      {
+        "mpId": 1457,
+        "score": -0.0029488904085944916,
+        "overlap": 273
+      },
+      {
+        "mpId": 1124,
+        "score": 0.00920938903071873,
+        "overlap": 259
+      },
+      {
+        "mpId": 404,
+        "score": 0.011750281000314207,
+        "overlap": 280
+      },
+      {
+        "mpId": 388,
+        "score": 0.020142904928830724,
+        "overlap": 298
+      },
+      {
+        "mpId": 1970,
+        "score": 0.03452054255562223,
+        "overlap": 225
+      },
+      {
+        "mpId": 1644,
+        "score": 0.036236086221236585,
+        "overlap": 258
+      },
+      {
+        "mpId": 990,
+        "score": 0.03747720737245174,
+        "overlap": 303
+      },
+      {
+        "mpId": 1659,
+        "score": 0.043647457993692095,
+        "overlap": 308
+      },
+      {
+        "mpId": 1428,
+        "score": 0.04449222441471873,
+        "overlap": 219
+      },
+      {
+        "mpId": 1706,
+        "score": 0.06273231452388625,
+        "overlap": 287
+      },
+      {
+        "mpId": 1281,
+        "score": 0.0648848243360626,
+        "overlap": 297
+      },
+      {
+        "mpId": 1465,
+        "score": 0.06631453805116938,
+        "overlap": 312
+      },
+      {
+        "mpId": 1703,
+        "score": 0.0666178314899114,
+        "overlap": 198
+      },
+      {
+        "mpId": 473,
+        "score": 0.06843525220787591,
+        "overlap": 291
+      },
+      {
+        "mpId": 1378,
+        "score": 0.07249313936680668,
+        "overlap": 244
+      },
+      {
+        "mpId": 1975,
+        "score": 0.07481650402137126,
+        "overlap": 283
+      }
+    ]
+  }
+}

@@ -1,0 +1,295 @@
+{
+  "mpId": 1689,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 458,
+    "withParty": 451,
+    "loyaltyPct": 0.9847161572052402,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 458,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2021-09-09",
+        "item": 48,
+        "slug": "48-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 1 - предложение от Костадин Ангелов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-08-25",
+        "item": 5,
+        "slug": "5-reshenie-za-promyana-v-sastava-na-komisiya-po-politikite-za-",
+        "title": "Решение за промяна в състава на Комисия по политиките за българите извън страната",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-08-25",
+        "item": 4,
+        "slug": "4-reshenie-za-promyana-v-sastava-na-komisiyata-po-okolnata-sre",
+        "title": "Решение за промяна в състава на Комисията по околната среда и водите",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-08-17",
+        "item": 5,
+        "slug": "5-deklaratsiya-vav-vrazka-s-uprazhnenoto-politseysko-nasilie-o",
+        "title": "Декларация във връзка с упражненото полицейско насилие от длъжностни лица срещу протестиращи граждани в периода юли - септември 2020 г. - предложение от Мая Манолова за нова т.4 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2021-08-17",
+        "item": 4,
+        "slug": "4-deklaratsiya-vav-vrazka-s-uprazhnenoto-politseysko-nasilie-o",
+        "title": "Декларация във връзка с упражненото полицейско насилие от длъжностни лица срещу протестиращи граждани в периода юли - септември 2020 г. - предложение от Мая Манолова за нова т. 4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-08-11",
+        "item": 6,
+        "slug": "6-protsedura-protsedura-za-pryako-predavane-po-bnt1-i-bnr",
+        "title": "Процедура - процедура за пряко предаване по БНТ1 и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-07-30",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1696,
+        "score": 0.917696079748626,
+        "overlap": 454
+      },
+      {
+        "mpId": 1719,
+        "score": 0.9153408964985783,
+        "overlap": 440
+      },
+      {
+        "mpId": 1896,
+        "score": 0.9148077364794942,
+        "overlap": 453
+      },
+      {
+        "mpId": 1888,
+        "score": 0.914132282709194,
+        "overlap": 450
+      },
+      {
+        "mpId": 1665,
+        "score": 0.9134788760452345,
+        "overlap": 455
+      },
+      {
+        "mpId": 1908,
+        "score": 0.9125208486436989,
+        "overlap": 457
+      },
+      {
+        "mpId": 1947,
+        "score": 0.9105629986300607,
+        "overlap": 452
+      },
+      {
+        "mpId": 1938,
+        "score": 0.9099078204893414,
+        "overlap": 455
+      },
+      {
+        "mpId": 1869,
+        "score": 0.9092672546468155,
+        "overlap": 457
+      },
+      {
+        "mpId": 1913,
+        "score": 0.908937251871266,
+        "overlap": 450
+      },
+      {
+        "mpId": 1895,
+        "score": 0.9073290058605944,
+        "overlap": 443
+      },
+      {
+        "mpId": 1899,
+        "score": 0.9073290058605944,
+        "overlap": 443
+      },
+      {
+        "mpId": 1867,
+        "score": 0.9063989651462496,
+        "overlap": 447
+      },
+      {
+        "mpId": 1918,
+        "score": 0.9063422421038846,
+        "overlap": 447
+      },
+      {
+        "mpId": 1739,
+        "score": 0.9047872086324791,
+        "overlap": 435
+      },
+      {
+        "mpId": 1736,
+        "score": 0.9038912706004091,
+        "overlap": 440
+      },
+      {
+        "mpId": 1728,
+        "score": 0.9037835619468286,
+        "overlap": 439
+      },
+      {
+        "mpId": 1950,
+        "score": 0.9030724314986829,
+        "overlap": 454
+      },
+      {
+        "mpId": 1959,
+        "score": 0.9020945509395453,
+        "overlap": 449
+      },
+      {
+        "mpId": 1801,
+        "score": 0.9001272688949453,
+        "overlap": 449
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": -0.08307211739095348,
+        "overlap": 165
+      },
+      {
+        "mpId": 1643,
+        "score": -0.057035182547203016,
+        "overlap": 222
+      },
+      {
+        "mpId": 404,
+        "score": -0.05165407863592888,
+        "overlap": 260
+      },
+      {
+        "mpId": 1317,
+        "score": -0.03709141900393097,
+        "overlap": 289
+      },
+      {
+        "mpId": 1457,
+        "score": -0.0366022106115127,
+        "overlap": 259
+      },
+      {
+        "mpId": 388,
+        "score": -0.01785840837876715,
+        "overlap": 275
+      },
+      {
+        "mpId": 1155,
+        "score": -0.016113948211503738,
+        "overlap": 235
+      },
+      {
+        "mpId": 1124,
+        "score": 0,
+        "overlap": 255
+      },
+      {
+        "mpId": 1970,
+        "score": 0.014282526577477412,
+        "overlap": 212
+      },
+      {
+        "mpId": 817,
+        "score": 0.031317848788214024,
+        "overlap": 189
+      },
+      {
+        "mpId": 990,
+        "score": 0.03280076640834873,
+        "overlap": 288
+      },
+      {
+        "mpId": 1644,
+        "score": 0.03435738964059923,
+        "overlap": 251
+      },
+      {
+        "mpId": 1659,
+        "score": 0.036117391714210245,
+        "overlap": 288
+      },
+      {
+        "mpId": 1465,
+        "score": 0.040012250523486656,
+        "overlap": 286
+      },
+      {
+        "mpId": 473,
+        "score": 0.041291827349632555,
+        "overlap": 283
+      },
+      {
+        "mpId": 1706,
+        "score": 0.047190659828151495,
+        "overlap": 273
+      },
+      {
+        "mpId": 1281,
+        "score": 0.04960570831482816,
+        "overlap": 283
+      },
+      {
+        "mpId": 1344,
+        "score": 0.051975602859580514,
+        "overlap": 273
+      },
+      {
+        "mpId": 1269,
+        "score": 0.05412625737707798,
+        "overlap": 322
+      },
+      {
+        "mpId": 1969,
+        "score": 0.05603208194819007,
+        "overlap": 303
+      }
+    ]
+  }
+}

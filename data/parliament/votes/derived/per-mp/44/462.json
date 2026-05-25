@@ -1,0 +1,305 @@
+{
+  "mpId": 462,
+  "ns": "44",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 121,
+    "withParty": 113,
+    "loyaltyPct": 0.9338842975206612,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 121,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2021-02-26",
+        "item": 30,
+        "slug": "30-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-chuzhdentsite-v",
+        "title": "Закон за изменение и допълнение на Закона за чужденците в Република България - второ гласуване - процедура за допускане в зала",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2021-02-26",
+        "item": 29,
+        "slug": "29-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-merkite-sreshtu",
+        "title": "Закон за изменение и допълнение на Закона за мерките срещу изпирането на пари - второ гласуване - наименование, параграф 1 до параграф 3, параграф 4 - нов, параграф 4 - 14 (става параграф 5 - 15), параграф 16 до параграф 19 - нови, параграф 15 - 16 (става параграф 20 - 21), параграф 22 - нов, параграф 17 - 18 (става параграф 23 - 24), Заключителни разпоредби, параграф 19 - 20 (става параграф 25 - 26)",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 30
+      },
+      {
+        "date": "2020-11-25",
+        "item": 4,
+        "slug": "4-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - наименование",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2020-11-24",
+        "item": 25,
+        "slug": "25-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - наименование",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 49
+      },
+      {
+        "date": "2020-11-24",
+        "item": 9,
+        "slug": "9-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - Член 2",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2020-11-24",
+        "item": 4,
+        "slug": "4-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - наименование",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2020-11-19",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 34 -36 (става параграф 37 - 39)",
+        "topic": "tax",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2020-11-19",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 28 (става параграф 29)",
+        "topic": "tax",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1262,
+        "score": 0.563224109729933,
+        "overlap": 87
+      },
+      {
+        "mpId": 1505,
+        "score": 0.5479445707690122,
+        "overlap": 101
+      },
+      {
+        "mpId": 761,
+        "score": 0.5045988974515149,
+        "overlap": 110
+      },
+      {
+        "mpId": 1268,
+        "score": 0.5034275503366182,
+        "overlap": 95
+      },
+      {
+        "mpId": 1298,
+        "score": 0.49182216800772643,
+        "overlap": 109
+      },
+      {
+        "mpId": 1315,
+        "score": 0.4908720304872996,
+        "overlap": 78
+      },
+      {
+        "mpId": 1390,
+        "score": 0.481868588010588,
+        "overlap": 108
+      },
+      {
+        "mpId": 1045,
+        "score": 0.48100717272871574,
+        "overlap": 79
+      },
+      {
+        "mpId": 1379,
+        "score": 0.4735980392902706,
+        "overlap": 64
+      },
+      {
+        "mpId": 1318,
+        "score": 0.4622112082141146,
+        "overlap": 100
+      },
+      {
+        "mpId": 1261,
+        "score": 0.46126305092383224,
+        "overlap": 76
+      },
+      {
+        "mpId": 1312,
+        "score": 0.4517571438231668,
+        "overlap": 95
+      },
+      {
+        "mpId": 1023,
+        "score": 0.44561190441513815,
+        "overlap": 72
+      },
+      {
+        "mpId": 1282,
+        "score": 0.44320737888988676,
+        "overlap": 66
+      },
+      {
+        "mpId": 1277,
+        "score": 0.43869121976353237,
+        "overlap": 68
+      },
+      {
+        "mpId": 1301,
+        "score": 0.4382968113111312,
+        "overlap": 92
+      },
+      {
+        "mpId": 1276,
+        "score": 0.4376322213741609,
+        "overlap": 96
+      },
+      {
+        "mpId": 1352,
+        "score": 0.43489207395110835,
+        "overlap": 84
+      },
+      {
+        "mpId": 1525,
+        "score": 0.43157056543116085,
+        "overlap": 82
+      },
+      {
+        "mpId": 1358,
+        "score": 0.4260749957994719,
+        "overlap": 101
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 369,
+        "score": -0.22434079895669617,
+        "overlap": 101
+      },
+      {
+        "mpId": 1386,
+        "score": -0.22427822307225195,
+        "overlap": 92
+      },
+      {
+        "mpId": 1544,
+        "score": -0.22413708785961658,
+        "overlap": 76
+      },
+      {
+        "mpId": 486,
+        "score": -0.21302581675522145,
+        "overlap": 103
+      },
+      {
+        "mpId": 1473,
+        "score": -0.2075051496026266,
+        "overlap": 95
+      },
+      {
+        "mpId": 1281,
+        "score": -0.20579336121324918,
+        "overlap": 100
+      },
+      {
+        "mpId": 1305,
+        "score": -0.20316662471487348,
+        "overlap": 85
+      },
+      {
+        "mpId": 465,
+        "score": -0.2029901300367421,
+        "overlap": 90
+      },
+      {
+        "mpId": 1511,
+        "score": -0.20159349669869306,
+        "overlap": 87
+      },
+      {
+        "mpId": 1260,
+        "score": -0.20124472044705272,
+        "overlap": 111
+      },
+      {
+        "mpId": 1428,
+        "score": -0.2008932277956332,
+        "overlap": 94
+      },
+      {
+        "mpId": 1271,
+        "score": -0.20020445509920617,
+        "overlap": 98
+      },
+      {
+        "mpId": 1513,
+        "score": -0.19779480091221577,
+        "overlap": 106
+      },
+      {
+        "mpId": 1538,
+        "score": -0.19685674914403828,
+        "overlap": 109
+      },
+      {
+        "mpId": 599,
+        "score": -0.19580591937114816,
+        "overlap": 71
+      },
+      {
+        "mpId": 1364,
+        "score": -0.1944377532603514,
+        "overlap": 105
+      },
+      {
+        "mpId": 1256,
+        "score": -0.19349381123317239,
+        "overlap": 108
+      },
+      {
+        "mpId": 1264,
+        "score": -0.19341635153869685,
+        "overlap": 94
+      },
+      {
+        "mpId": 767,
+        "score": -0.19158664693614202,
+        "overlap": 95
+      },
+      {
+        "mpId": 1317,
+        "score": -0.18844093705226797,
+        "overlap": 104
+      }
+    ]
+  }
+}

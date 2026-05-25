@@ -1,0 +1,305 @@
+{
+  "mpId": 1302,
+  "ns": "44",
+  "partyShort": "ВОЛЯ",
+  "loyalty": {
+    "votesCast": 179,
+    "withParty": 171,
+    "loyaltyPct": 0.9553072625698324,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 179,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2021-03-05",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-4-i-5-mart-202",
+        "title": "Програма за работата на Народното събрание за 4 и 5 март 2021 г. - предложение от Цвета Караянчева за отпадане на точка 7",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2020-11-25",
+        "item": 7,
+        "slug": "7-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 1 - предложение от Георги Свиленски и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 4
+      },
+      {
+        "date": "2020-11-25",
+        "item": 6,
+        "slug": "6-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 1 - предложение от Мустафа Карадайъ и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 4
+      },
+      {
+        "date": "2020-11-24",
+        "item": 20,
+        "slug": "20-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 17 (става параграф 18)",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 6
+      },
+      {
+        "date": "2020-11-24",
+        "item": 17,
+        "slug": "17-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 16 (става параграф 17) - предложение от Георги Йорданов и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 7
+      },
+      {
+        "date": "2020-11-24",
+        "item": 13,
+        "slug": "13-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - Член 4",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2020-11-11",
+        "item": 17,
+        "slug": "17-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-7-i-paragra",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 7 и параграф 8",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2020-11-11",
+        "item": 15,
+        "slug": "15-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-nov-predloz",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф нов... - предложение от Валентина Найденова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 2
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1363,
+        "score": 0.5078609211104624,
+        "overlap": 112
+      },
+      {
+        "mpId": 1284,
+        "score": 0.4827947321840385,
+        "overlap": 92
+      },
+      {
+        "mpId": 1542,
+        "score": 0.46278569527022767,
+        "overlap": 83
+      },
+      {
+        "mpId": 1362,
+        "score": 0.4164320178257431,
+        "overlap": 60
+      },
+      {
+        "mpId": 1266,
+        "score": 0.4041951592113531,
+        "overlap": 82
+      },
+      {
+        "mpId": 1528,
+        "score": 0.3561643835616438,
+        "overlap": 166
+      },
+      {
+        "mpId": 1535,
+        "score": 0.34872718307228245,
+        "overlap": 128
+      },
+      {
+        "mpId": 1462,
+        "score": 0.33649329818887536,
+        "overlap": 153
+      },
+      {
+        "mpId": 1365,
+        "score": 0.3219178082191781,
+        "overlap": 142
+      },
+      {
+        "mpId": 1146,
+        "score": 0.3196074506870062,
+        "overlap": 163
+      },
+      {
+        "mpId": 1321,
+        "score": 0.318821693974439,
+        "overlap": 143
+      },
+      {
+        "mpId": 1369,
+        "score": 0.31519144308271374,
+        "overlap": 71
+      },
+      {
+        "mpId": 1055,
+        "score": 0.31454808308960086,
+        "overlap": 68
+      },
+      {
+        "mpId": 1540,
+        "score": 0.3138005660950645,
+        "overlap": 148
+      },
+      {
+        "mpId": 1029,
+        "score": 0.3075760713970292,
+        "overlap": 136
+      },
+      {
+        "mpId": 1494,
+        "score": 0.3035675565609622,
+        "overlap": 132
+      },
+      {
+        "mpId": 1371,
+        "score": 0.30281756954506706,
+        "overlap": 79
+      },
+      {
+        "mpId": 1341,
+        "score": 0.3017873856959467,
+        "overlap": 177
+      },
+      {
+        "mpId": 1069,
+        "score": 0.29967270431432774,
+        "overlap": 134
+      },
+      {
+        "mpId": 1018,
+        "score": 0.29801171212222993,
+        "overlap": 131
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 829,
+        "score": -0.05089103320108535,
+        "overlap": 105
+      },
+      {
+        "mpId": 1525,
+        "score": -0.035468823797244343,
+        "overlap": 75
+      },
+      {
+        "mpId": 1296,
+        "score": -0.020007114905952566,
+        "overlap": 58
+      },
+      {
+        "mpId": 1560,
+        "score": -0.018059841095769247,
+        "overlap": 8
+      },
+      {
+        "mpId": 1261,
+        "score": -0.01742596381435765,
+        "overlap": 87
+      },
+      {
+        "mpId": 1379,
+        "score": -0.016076837984062016,
+        "overlap": 54
+      },
+      {
+        "mpId": 1352,
+        "score": -0.01567140614569796,
+        "overlap": 100
+      },
+      {
+        "mpId": 1505,
+        "score": -0.01188372799684306,
+        "overlap": 84
+      },
+      {
+        "mpId": 1023,
+        "score": -0.006442903104588024,
+        "overlap": 79
+      },
+      {
+        "mpId": 462,
+        "score": 0,
+        "overlap": 68
+      },
+      {
+        "mpId": 524,
+        "score": 0,
+        "overlap": 6
+      },
+      {
+        "mpId": 782,
+        "score": 0,
+        "overlap": 97
+      },
+      {
+        "mpId": 1384,
+        "score": 0.0049997500187484376,
+        "overlap": 89
+      },
+      {
+        "mpId": 1381,
+        "score": 0.007855287464987896,
+        "overlap": 30
+      },
+      {
+        "mpId": 762,
+        "score": 0.00819451937152662,
+        "overlap": 119
+      },
+      {
+        "mpId": 1311,
+        "score": 0.00858187328755105,
+        "overlap": 27
+      },
+      {
+        "mpId": 451,
+        "score": 0.011704114719613055,
+        "overlap": 13
+      },
+      {
+        "mpId": 1282,
+        "score": 0.013841576235570972,
+        "overlap": 70
+      },
+      {
+        "mpId": 1259,
+        "score": 0.017133069613002573,
+        "overlap": 52
+      },
+      {
+        "mpId": 1385,
+        "score": 0.01738320064851299,
+        "overlap": 53
+      }
+    ]
+  }
+}

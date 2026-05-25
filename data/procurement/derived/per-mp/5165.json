@@ -1,0 +1,87 @@
+{
+  "mpId": 5165,
+  "summary": {
+    "totalEur": 165743.9557441598,
+    "totalOther": {},
+    "contractCount": 2,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 165743.9557441598,
+    "rank": 30,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 5165,
+      "mpName": "Валери Пламенов Лачовски",
+      "contractorEik": "202809611",
+      "contractorName": "ДИМАКС СОД ООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "50%",
+          "valueEur": 0.5112918811962185,
+          "fiscalYear": 2024,
+          "declarationYear": 2025
+        }
+      ],
+      "totalEur": 165658.57,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 165658.57,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "824106518",
+          "name": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ЕООД",
+          "contractCount": 1,
+          "totalEur": 165658.57,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 5165,
+      "mpName": "Валери Пламенов Лачовски",
+      "contractorEik": "106510662",
+      "contractorName": "Многопрофилна болница за активно лечение  /МБАЛ/ - Кнежа ЕООД",
+      "relations": [
+        {
+          "kind": "procurator",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 85.38574415976849,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 85.38574415976849,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "121817309",
+          "name": "Районна прокуратура, гр. Кнежа",
+          "contractCount": 1,
+          "totalEur": 85.38574415976849,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

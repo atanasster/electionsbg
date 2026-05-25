@@ -1,0 +1,51 @@
+{
+  "mpId": 4386,
+  "summary": {
+    "contractCount": 2,
+    "contractedEur": 153446.42,
+    "paidEur": 117038.64
+  },
+  "entries": [
+    {
+      "mpId": 4386,
+      "mpName": "Драгомир Дамянов Драганов",
+      "beneficiaryEik": "117050304",
+      "beneficiaryName": "ЖОКЕЙ ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "stake",
+          "shareSize": "503",
+          "valueEur": 12858.990812084896,
+          "fiscalYear": 2023,
+          "declarationYear": 2023
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 148333.5,
+      "paidEur": 111925.72
+    },
+    {
+      "mpId": 4386,
+      "mpName": "Драгомир Дамянов Драганов",
+      "beneficiaryEik": "117692885",
+      "beneficiaryName": "\"КОРЕКТА\" ЕООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 5112.92,
+      "paidEur": 5112.92
+    }
+  ]
+}

@@ -1,0 +1,285 @@
+{
+  "mpId": 1647,
+  "ns": "45",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 197,
+    "withParty": 191,
+    "loyaltyPct": 0.9695431472081218,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 197,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2021-05-07",
+        "item": 7,
+        "slug": "7-protsedura-ot-nikolay-hadzhigenov-udalzhavane-na-rabotnoto-v",
+        "title": "Процедура от Николай Хаджигенов удължаване на работното време - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 38
+      },
+      {
+        "date": "2021-04-29",
+        "item": 64,
+        "slug": "64-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-39-nov",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 39 - нов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 47
+      },
+      {
+        "date": "2021-04-29",
+        "item": 41,
+        "slug": "41-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-20-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 20 (става параграф 25) - предложение от Ахмед Ахмедов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 48
+      },
+      {
+        "date": "2021-04-22",
+        "item": 62,
+        "slug": "62-reshenie-za-izmenenie-i-dopalnenie-na-podns-predlozhenie-ot-",
+        "title": "Решение за изменение и допълнение на ПОДНС - предложение от А.Славов и група н.п. в чл.117а",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2021-04-22",
+        "item": 47,
+        "slug": "47-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-13-nov-",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 13 - нов - предложение от А.Славов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 42
+      },
+      {
+        "date": "2021-04-22",
+        "item": 41,
+        "slug": "41-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-11-pred",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 11 - предложение от Н. Хаджигенов и група н.п. по чл. 65",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 44
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1739,
+        "score": 0.9591316259434929,
+        "overlap": 192
+      },
+      {
+        "mpId": 1666,
+        "score": 0.9514069501680286,
+        "overlap": 196
+      },
+      {
+        "mpId": 1722,
+        "score": 0.9514069501680286,
+        "overlap": 195
+      },
+      {
+        "mpId": 1707,
+        "score": 0.9511010028949984,
+        "overlap": 195
+      },
+      {
+        "mpId": 1801,
+        "score": 0.9508196721311475,
+        "overlap": 191
+      },
+      {
+        "mpId": 1571,
+        "score": 0.9482324029214078,
+        "overlap": 194
+      },
+      {
+        "mpId": 1719,
+        "score": 0.944575644617953,
+        "overlap": 186
+      },
+      {
+        "mpId": 1593,
+        "score": 0.9427827914103651,
+        "overlap": 193
+      },
+      {
+        "mpId": 1728,
+        "score": 0.9427827914103651,
+        "overlap": 192
+      },
+      {
+        "mpId": 1621,
+        "score": 0.9395746223540908,
+        "overlap": 191
+      },
+      {
+        "mpId": 1629,
+        "score": 0.9395746223540908,
+        "overlap": 190
+      },
+      {
+        "mpId": 1570,
+        "score": 0.9390193172966709,
+        "overlap": 187
+      },
+      {
+        "mpId": 1732,
+        "score": 0.9390193172966709,
+        "overlap": 185
+      },
+      {
+        "mpId": 1690,
+        "score": 0.9387819104615491,
+        "overlap": 184
+      },
+      {
+        "mpId": 1623,
+        "score": 0.9369898179454916,
+        "overlap": 190
+      },
+      {
+        "mpId": 1736,
+        "score": 0.9369898179454916,
+        "overlap": 190
+      },
+      {
+        "mpId": 1597,
+        "score": 0.936671106951989,
+        "overlap": 189
+      },
+      {
+        "mpId": 1657,
+        "score": 0.9347964142739412,
+        "overlap": 193
+      },
+      {
+        "mpId": 1653,
+        "score": 0.9344262295081968,
+        "overlap": 191
+      },
+      {
+        "mpId": 1632,
+        "score": 0.9340800339192715,
+        "overlap": 189
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": -0.13456518704298298,
+        "overlap": 56
+      },
+      {
+        "mpId": 817,
+        "score": -0.12841737670020995,
+        "overlap": 64
+      },
+      {
+        "mpId": 1600,
+        "score": -0.11088319064318593,
+        "overlap": 72
+      },
+      {
+        "mpId": 1622,
+        "score": -0.11077506463927039,
+        "overlap": 121
+      },
+      {
+        "mpId": 1290,
+        "score": -0.10302869077918604,
+        "overlap": 100
+      },
+      {
+        "mpId": 1428,
+        "score": -0.07649409635340133,
+        "overlap": 113
+      },
+      {
+        "mpId": 767,
+        "score": -0.07582601284705204,
+        "overlap": 123
+      },
+      {
+        "mpId": 1644,
+        "score": -0.07113159996271998,
+        "overlap": 120
+      },
+      {
+        "mpId": 1805,
+        "score": -0.059506164441655754,
+        "overlap": 134
+      },
+      {
+        "mpId": 473,
+        "score": -0.05227083734893167,
+        "overlap": 135
+      },
+      {
+        "mpId": 1155,
+        "score": -0.04267895997763199,
+        "overlap": 117
+      },
+      {
+        "mpId": 1466,
+        "score": -0.04267895997763199,
+        "overlap": 119
+      },
+      {
+        "mpId": 1815,
+        "score": -0.04083050034307913,
+        "overlap": 126
+      },
+      {
+        "mpId": 1567,
+        "score": -0.04065858168332046,
+        "overlap": 125
+      },
+      {
+        "mpId": 599,
+        "score": -0.038459168023740053,
+        "overlap": 142
+      },
+      {
+        "mpId": 1317,
+        "score": -0.03831539492974673,
+        "overlap": 144
+      },
+      {
+        "mpId": 1703,
+        "score": -0.03733631239209405,
+        "overlap": 106
+      },
+      {
+        "mpId": 1634,
+        "score": -0.03460772223372195,
+        "overlap": 82
+      },
+      {
+        "mpId": 1529,
+        "score": -0.03229303116015693,
+        "overlap": 138
+      },
+      {
+        "mpId": 1124,
+        "score": -0.02793993781135563,
+        "overlap": 128
+      }
+    ]
+  }
+}

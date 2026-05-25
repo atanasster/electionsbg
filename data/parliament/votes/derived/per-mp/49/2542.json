@@ -1,0 +1,245 @@
+{
+  "mpId": 2542,
+  "ns": "49",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 123,
+    "withParty": 121,
+    "loyaltyPct": 0.983739837398374,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 123,
+    "dissentCount": 2,
+    "recent": [
+      {
+        "date": "2024-03-07",
+        "item": 9,
+        "slug": "9-ratifikatsiya-na-konsultantski-tsentar-investeu-sporazumanie",
+        "title": "Ратификация на КОНСУЛТАНТСКИ ЦЕНТЪР INVESTEU Споразумание № АА-011823 между Министерството на иновациите и растежа и ЕИБ за консултантски услуги, които ще бъдат предоставени от ЕИБ на Министерството на иновациите и растежа, подписано в София на 2.11.2023 г. - първо гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 2
+      },
+      {
+        "date": "2024-02-28",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodnoto-sabranie-za-28-fevruari-1-",
+        "title": "Програма за работата на Народното събрание за 28 февруари - 1 март 2024 г. - предложение от Възраждане за нова точка в дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 3
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2540,
+        "score": 0.7370317752712813,
+        "overlap": 90
+      },
+      {
+        "mpId": 2541,
+        "score": 0.6572597863896331,
+        "overlap": 65
+      },
+      {
+        "mpId": 2535,
+        "score": 0.1935312665122639,
+        "overlap": 97
+      },
+      {
+        "mpId": 2256,
+        "score": 0.15644022612876837,
+        "overlap": 70
+      },
+      {
+        "mpId": 1023,
+        "score": 0.1550180619080402,
+        "overlap": 69
+      },
+      {
+        "mpId": 829,
+        "score": 0.1494860906445728,
+        "overlap": 86
+      },
+      {
+        "mpId": 2251,
+        "score": 0.14680580729873977,
+        "overlap": 89
+      },
+      {
+        "mpId": 997,
+        "score": 0.14588567734985472,
+        "overlap": 67
+      },
+      {
+        "mpId": 2538,
+        "score": 0.1426290275134399,
+        "overlap": 103
+      },
+      {
+        "mpId": 2298,
+        "score": 0.14234862022853173,
+        "overlap": 89
+      },
+      {
+        "mpId": 2532,
+        "score": 0.1419473693659929,
+        "overlap": 100
+      },
+      {
+        "mpId": 2457,
+        "score": 0.1393841980574045,
+        "overlap": 110
+      },
+      {
+        "mpId": 2090,
+        "score": 0.13785723008076636,
+        "overlap": 108
+      },
+      {
+        "mpId": 2277,
+        "score": 0.13561065440408887,
+        "overlap": 69
+      },
+      {
+        "mpId": 2351,
+        "score": 0.13334977160952566,
+        "overlap": 117
+      },
+      {
+        "mpId": 1581,
+        "score": 0.1312054032814849,
+        "overlap": 96
+      },
+      {
+        "mpId": 2428,
+        "score": 0.13060490163845684,
+        "overlap": 114
+      },
+      {
+        "mpId": 2396,
+        "score": 0.12923485431902118,
+        "overlap": 84
+      },
+      {
+        "mpId": 2244,
+        "score": 0.1271664270925623,
+        "overlap": 106
+      },
+      {
+        "mpId": 2431,
+        "score": 0.12237226113579361,
+        "overlap": 109
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2237,
+        "score": -0.025874250061901447,
+        "overlap": 50
+      },
+      {
+        "mpId": 2522,
+        "score": -0.01704486560506365,
+        "overlap": 90
+      },
+      {
+        "mpId": 2380,
+        "score": -0.016068815551764808,
+        "overlap": 118
+      },
+      {
+        "mpId": 2378,
+        "score": -0.015067881494394827,
+        "overlap": 94
+      },
+      {
+        "mpId": 2521,
+        "score": -0.013321931497533614,
+        "overlap": 95
+      },
+      {
+        "mpId": 2529,
+        "score": -0.010984130826719235,
+        "overlap": 98
+      },
+      {
+        "mpId": 2407,
+        "score": -0.009534504544988465,
+        "overlap": 102
+      },
+      {
+        "mpId": 2126,
+        "score": -0.00931422153001621,
+        "overlap": 76
+      },
+      {
+        "mpId": 2029,
+        "score": -0.009225233567996833,
+        "overlap": 93
+      },
+      {
+        "mpId": 2055,
+        "score": -0.007900018051561871,
+        "overlap": 107
+      },
+      {
+        "mpId": 2523,
+        "score": -0.0077277987424268,
+        "overlap": 102
+      },
+      {
+        "mpId": 2254,
+        "score": -0.005487496806677918,
+        "overlap": 95
+      },
+      {
+        "mpId": 2246,
+        "score": -0.002088656946356952,
+        "overlap": 95
+      },
+      {
+        "mpId": 2525,
+        "score": -0.0020628249366353847,
+        "overlap": 111
+      },
+      {
+        "mpId": 2381,
+        "score": -0.0018268352419721842,
+        "overlap": 103
+      },
+      {
+        "mpId": 2030,
+        "score": 0,
+        "overlap": 112
+      },
+      {
+        "mpId": 2120,
+        "score": 0,
+        "overlap": 109
+      },
+      {
+        "mpId": 2307,
+        "score": 0,
+        "overlap": 25
+      },
+      {
+        "mpId": 2393,
+        "score": 0,
+        "overlap": 111
+      },
+      {
+        "mpId": 2408,
+        "score": 0,
+        "overlap": 87
+      }
+    ]
+  }
+}

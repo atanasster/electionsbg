@@ -1,0 +1,315 @@
+{
+  "mpId": 2896,
+  "ns": "50",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 579,
+    "withParty": 570,
+    "loyaltyPct": 0.9844559585492227,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 579,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 58,
+        "slug": "58-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-15-nov",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 15 - нов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-09-25",
+        "item": 57,
+        "slug": "57-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-15-nov-pr",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 15 - нов - предложение от Божидар Божанов за редакция - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-18",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - процедура от Ал.Иванов за отпадане на т.1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-09-11",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-2-al-",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 2, ал.5",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-09-04",
+        "item": 9,
+        "slug": "9-protsedura-ot-al-nenkov-za-udalzhavane-na-rabotnoto-vreme-do",
+        "title": "Процедура от Ал. Ненков за удължаване на работното време до т.4 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2024-08-14",
+        "item": 30,
+        "slug": "30-reshenie-za-vazlagane-na-ministerskiya-savet-vklyuchvaneto-n",
+        "title": "Решение за възлагане на Министерския съвет включването на диазотния оксид (райски газ) в списъците с наркотични вещества по чл. 3, ал. 2 от Закона за контрол върху наркотичните вещества и прекурсорите - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-07-31",
+        "item": 19,
+        "slug": "19-zid-na-grazhdanskiya-protsesualen-kodeks-parvo-glasuvane-pro",
+        "title": "ЗИД на Гражданския процесуален кодекс – първо гласуване - процедура от Иван Иванов за удължаване на работното време до приемане на точка 5",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2024-07-31",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – второ гласуване - процедура за допускане в зала - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 4
+      },
+      {
+        "date": "2024-07-03",
+        "item": 8,
+        "slug": "8-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно наличието на нарегламентирано влияние в правосъдната система и обвързаности на представители на съдебната власт, несъвместими със стандартите за независимост и професионална етика във връзка с дейността на групата около Мартин Божанов - Нотариуса и дейността на групата около бившия следовател Петьо Петров - Еврото - председател Надежда Йорданова",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2595,
+        "score": 0.9379861193686705,
+        "overlap": 556
+      },
+      {
+        "mpId": 2829,
+        "score": 0.9352554407379181,
+        "overlap": 565
+      },
+      {
+        "mpId": 2895,
+        "score": 0.934811817913817,
+        "overlap": 550
+      },
+      {
+        "mpId": 2960,
+        "score": 0.934811817913817,
+        "overlap": 557
+      },
+      {
+        "mpId": 2923,
+        "score": 0.9264431827407289,
+        "overlap": 546
+      },
+      {
+        "mpId": 2925,
+        "score": 0.9068060240665747,
+        "overlap": 516
+      },
+      {
+        "mpId": 2902,
+        "score": 0.906189429903332,
+        "overlap": 541
+      },
+      {
+        "mpId": 2949,
+        "score": 0.8909587692517893,
+        "overlap": 494
+      },
+      {
+        "mpId": 2955,
+        "score": 0.8638688949048974,
+        "overlap": 475
+      },
+      {
+        "mpId": 2844,
+        "score": 0.8474570789815626,
+        "overlap": 431
+      },
+      {
+        "mpId": 2796,
+        "score": 0.8473376870793253,
+        "overlap": 446
+      },
+      {
+        "mpId": 2954,
+        "score": 0.8379369347848769,
+        "overlap": 449
+      },
+      {
+        "mpId": 2601,
+        "score": 0.7935015353229525,
+        "overlap": 422
+      },
+      {
+        "mpId": 2692,
+        "score": 0.7779014165741083,
+        "overlap": 371
+      },
+      {
+        "mpId": 2830,
+        "score": 0.7693062669619262,
+        "overlap": 383
+      },
+      {
+        "mpId": 2898,
+        "score": 0.6940433671388759,
+        "overlap": 563
+      },
+      {
+        "mpId": 2706,
+        "score": 0.6934490052061294,
+        "overlap": 566
+      },
+      {
+        "mpId": 2715,
+        "score": 0.6889250911855348,
+        "overlap": 529
+      },
+      {
+        "mpId": 2689,
+        "score": 0.6873499508955591,
+        "overlap": 571
+      },
+      {
+        "mpId": 2683,
+        "score": 0.6854172954212476,
+        "overlap": 572
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2972,
+        "score": -0.024757481371278835,
+        "overlap": 43
+      },
+      {
+        "mpId": 2998,
+        "score": -0.021187463061635294,
+        "overlap": 73
+      },
+      {
+        "mpId": 2996,
+        "score": 0,
+        "overlap": 27
+      },
+      {
+        "mpId": 3007,
+        "score": 0,
+        "overlap": 39
+      },
+      {
+        "mpId": 3008,
+        "score": 0,
+        "overlap": 131
+      },
+      {
+        "mpId": 3001,
+        "score": 0.009017062901397189,
+        "overlap": 93
+      },
+      {
+        "mpId": 2991,
+        "score": 0.022492506674678704,
+        "overlap": 70
+      },
+      {
+        "mpId": 2930,
+        "score": 0.025768403601503658,
+        "overlap": 7
+      },
+      {
+        "mpId": 3005,
+        "score": 0.02611901024282993,
+        "overlap": 69
+      },
+      {
+        "mpId": 2997,
+        "score": 0.02921862326259421,
+        "overlap": 89
+      },
+      {
+        "mpId": 2893,
+        "score": 0.03895816435012561,
+        "overlap": 20
+      },
+      {
+        "mpId": 2766,
+        "score": 0.04344177816050212,
+        "overlap": 38
+      },
+      {
+        "mpId": 2811,
+        "score": 0.04555253231743773,
+        "overlap": 24
+      },
+      {
+        "mpId": 2990,
+        "score": 0.04618506985643097,
+        "overlap": 106
+      },
+      {
+        "mpId": 2846,
+        "score": 0.04757806829199439,
+        "overlap": 21
+      },
+      {
+        "mpId": 2937,
+        "score": 0.05002808486957743,
+        "overlap": 39
+      },
+      {
+        "mpId": 2670,
+        "score": 0.05208218542997691,
+        "overlap": 38
+      },
+      {
+        "mpId": 3002,
+        "score": 0.05480302118370091,
+        "overlap": 123
+      },
+      {
+        "mpId": 2988,
+        "score": 0.05522951027105777,
+        "overlap": 122
+      },
+      {
+        "mpId": 2606,
+        "score": 0.05559377332489945,
+        "overlap": 157
+      }
+    ]
+  }
+}

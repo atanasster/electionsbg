@@ -1,0 +1,235 @@
+{
+  "mpId": 1636,
+  "ns": "47",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 20,
+    "withParty": 19,
+    "loyaltyPct": 0.95,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 20,
+    "dissentCount": 1,
+    "recent": [
+      {
+        "date": "2021-12-03",
+        "item": 4,
+        "slug": "4-reshenie-za-izbor-na-predsedatel-na-narodnoto-sabranie-na-re",
+        "title": "Решение за избор на Председател на Народното събрание на Република България - избира Цончо Ганев",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 25
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2082,
+        "score": 0.9511897312113418,
+        "overlap": 20
+      },
+      {
+        "mpId": 2132,
+        "score": 0.9511897312113418,
+        "overlap": 20
+      },
+      {
+        "mpId": 762,
+        "score": 0.9473684210526314,
+        "overlap": 19
+      },
+      {
+        "mpId": 782,
+        "score": 0.9473684210526314,
+        "overlap": 19
+      },
+      {
+        "mpId": 2087,
+        "score": 0.9293203772845849,
+        "overlap": 20
+      },
+      {
+        "mpId": 2136,
+        "score": 0.9293203772845849,
+        "overlap": 20
+      },
+      {
+        "mpId": 2002,
+        "score": 0.9011271137791659,
+        "overlap": 19
+      },
+      {
+        "mpId": 2016,
+        "score": 0.8947368421052629,
+        "overlap": 18
+      },
+      {
+        "mpId": 462,
+        "score": 0.8885233166386385,
+        "overlap": 16
+      },
+      {
+        "mpId": 1390,
+        "score": 0.8603090020146066,
+        "overlap": 15
+      },
+      {
+        "mpId": 2049,
+        "score": 0.85106449634699,
+        "overlap": 20
+      },
+      {
+        "mpId": 1995,
+        "score": 0.8111071056538127,
+        "overlap": 16
+      },
+      {
+        "mpId": 2111,
+        "score": 0.7071067811865475,
+        "overlap": 20
+      },
+      {
+        "mpId": 2013,
+        "score": 0.6622661785325219,
+        "overlap": 10
+      },
+      {
+        "mpId": 2014,
+        "score": 0.38527587518556095,
+        "overlap": 20
+      },
+      {
+        "mpId": 2024,
+        "score": 0.35011518841845507,
+        "overlap": 20
+      },
+      {
+        "mpId": 2123,
+        "score": 0.33605257767188207,
+        "overlap": 20
+      },
+      {
+        "mpId": 1739,
+        "score": 0.26142938576412406,
+        "overlap": 20
+      },
+      {
+        "mpId": 2064,
+        "score": 0.1558573000398393,
+        "overlap": 14
+      },
+      {
+        "mpId": 1891,
+        "score": 0.14301083536297643,
+        "overlap": 20
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2135,
+        "score": 0.015029524441056943,
+        "overlap": 20
+      },
+      {
+        "mpId": 1916,
+        "score": 0.018024602347862503,
+        "overlap": 16
+      },
+      {
+        "mpId": 1599,
+        "score": 0.022317944629798567,
+        "overlap": 17
+      },
+      {
+        "mpId": 1457,
+        "score": 0.02265393258263629,
+        "overlap": 17
+      },
+      {
+        "mpId": 1643,
+        "score": 0.023846352174628167,
+        "overlap": 18
+      },
+      {
+        "mpId": 1706,
+        "score": 0.024424979226903232,
+        "overlap": 19
+      },
+      {
+        "mpId": 1155,
+        "score": 0.0251480054266272,
+        "overlap": 17
+      },
+      {
+        "mpId": 2085,
+        "score": 0.026862582532657154,
+        "overlap": 20
+      },
+      {
+        "mpId": 1465,
+        "score": 0.030221619288276495,
+        "overlap": 18
+      },
+      {
+        "mpId": 1674,
+        "score": 0.030221619288276495,
+        "overlap": 19
+      },
+      {
+        "mpId": 1934,
+        "score": 0.03035359205268758,
+        "overlap": 17
+      },
+      {
+        "mpId": 473,
+        "score": 0.030622808783168212,
+        "overlap": 18
+      },
+      {
+        "mpId": 1428,
+        "score": 0.03281555957666711,
+        "overlap": 17
+      },
+      {
+        "mpId": 1931,
+        "score": 0.03651191633053342,
+        "overlap": 19
+      },
+      {
+        "mpId": 1894,
+        "score": 0.03667953121159069,
+        "overlap": 20
+      },
+      {
+        "mpId": 1935,
+        "score": 0.037413580900981215,
+        "overlap": 19
+      },
+      {
+        "mpId": 1386,
+        "score": 0.037433497634306145,
+        "overlap": 19
+      },
+      {
+        "mpId": 1972,
+        "score": 0.038321208717810355,
+        "overlap": 16
+      },
+      {
+        "mpId": 1576,
+        "score": 0.038402998623203316,
+        "overlap": 18
+      },
+      {
+        "mpId": 1920,
+        "score": 0.0391606200810599,
+        "overlap": 19
+      }
+    ]
+  }
+}

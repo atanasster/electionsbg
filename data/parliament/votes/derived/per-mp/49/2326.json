@@ -1,0 +1,397 @@
+{
+  "mpId": 2326,
+  "ns": "49",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 2659,
+    "withParty": 2641,
+    "loyaltyPct": 0.993230537796164,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 2659,
+    "dissentCount": 18,
+    "recent": [
+      {
+        "date": "2024-02-22",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - чл.22 - предложение от Александър Иванов, Николай Алгафари и Румен Христов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 32
+      },
+      {
+        "date": "2024-01-11",
+        "item": 7,
+        "slug": "7-zid-na-zakona-za-zakrila-i-razvitie-na-kulturata-parvo-glasu",
+        "title": "ЗИД на Закона за закрила и развитие на културата - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 35
+      },
+      {
+        "date": "2023-12-21",
+        "item": 57,
+        "slug": "57-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2024",
+        "title": "Закон за държавния бюджет на Република България за 2024 г. - второ гласуване - параграф 19,20,21 и 22 - предложение от Венко Сабрутев за редакция",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2023-12-13",
+        "item": 31,
+        "slug": "31-reshenie-za-priemane-na-izmenie-1-na-aktualiziran-proekt-za-",
+        "title": "Решение за приемане на Измение №1 на Актуализиран проект за инвестиционен разход \"Придобиване на многофункционален модулен патрулен кораб за ВМС\"",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 35
+      },
+      {
+        "date": "2023-11-23",
+        "item": 51,
+        "slug": "51-zid-na-zakona-za-avtorskoto-pravo-i-srodnite-mu-prava-vtoro-",
+        "title": "ЗИД на Закона за авторското право и сродните му права - второ гласуване - параграф 82 (става параграф 81)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 36
+      },
+      {
+        "date": "2023-10-05",
+        "item": 204,
+        "slug": "204-zid-na-zakona-za-energetikata-vtoro-glasuvane-paragraf-21",
+        "title": "ЗИД на Закона за енергетиката - второ гласуване - параграф 21 - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 34
+      },
+      {
+        "date": "2023-07-28",
+        "item": 198,
+        "slug": "198",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 34
+      },
+      {
+        "date": "2023-07-28",
+        "item": 177,
+        "slug": "177",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2023-07-28",
+        "item": 107,
+        "slug": "107",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 26
+      },
+      {
+        "date": "2023-07-28",
+        "item": 99,
+        "slug": "99",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 31
+      },
+      {
+        "date": "2023-07-27",
+        "item": 120,
+        "slug": "120-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2023",
+        "title": "Закон за държавния бюджет на Република България за 2023 г. - второ гласуване - параграф 39 - прегласуване",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2023-07-27",
+        "item": 87,
+        "slug": "87-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2023",
+        "title": "Закон за държавния бюджет на Република България за 2023 г. - второ гласуване - параграф 27 - предложение от Павела Митова и група н.п. по т.2",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 35
+      },
+      {
+        "date": "2023-06-15",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-darzhavnite-rezervi-i-voennovremennite-zapa",
+        "title": "ЗИД на Закона за държавните резерви и военновременните запаси - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 34
+      },
+      {
+        "date": "2023-06-15",
+        "item": 2,
+        "slug": "2-zid-na-zakona-za-prilagane-na-razporedbi-na-zakona-za-darzha",
+        "title": "ЗИД на Закона за прилагане на разпоредби на Закона за държавния бюджет на Република България за 2022г., Закон за бюджет на държавното обществено осигуряване за 2022г. и Закона за бюджета на НЗОК за 2022г. - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2023-06-14",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-prilagane-na-razporedbi-na-zakona-za-darzha",
+        "title": "ЗИД на Закона за прилагане на разпоредби на Закона за държавния бюджет на Република България за 2022г., Закон за бюджет на държавното обществено осигуряване за 2022г. и Закона за бюджета на НЗОК за 2022г. - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 26
+      },
+      {
+        "date": "2023-06-08",
+        "item": 13,
+        "slug": "13-zid-na-targovskiya-zakon-parvo-glasuvane-protsedura-za-dopus",
+        "title": "ЗИД на Търговския закон – първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2023-06-02",
+        "item": 33,
+        "slug": "33-reshenie-po-doklad-za-sastoyanieto-na-otbranata-i-vaorazheni",
+        "title": "Решение по доклад за състоянието на отбраната и въоражените сили на Република България през 2022 г. - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 34
+      },
+      {
+        "date": "2023-04-28",
+        "item": 12,
+        "slug": "12-reshenie-za-pravilnik-za-organizatsiyata-i-deynostta-na-naro",
+        "title": "Решение за Правилник за организацията и дейността на Народното събрание - член 111, ал 2 - предложение от Павела Митова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 37
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2442,
+        "score": 0.8822354092105319,
+        "overlap": 2603
+      },
+      {
+        "mpId": 2098,
+        "score": 0.8766353297355957,
+        "overlap": 2614
+      },
+      {
+        "mpId": 2061,
+        "score": 0.8712877927916675,
+        "overlap": 2560
+      },
+      {
+        "mpId": 2266,
+        "score": 0.8696226967512993,
+        "overlap": 2184
+      },
+      {
+        "mpId": 2309,
+        "score": 0.8661321273547485,
+        "overlap": 2597
+      },
+      {
+        "mpId": 2075,
+        "score": 0.8657514872323715,
+        "overlap": 2148
+      },
+      {
+        "mpId": 2318,
+        "score": 0.864365628180858,
+        "overlap": 2502
+      },
+      {
+        "mpId": 2446,
+        "score": 0.8631119147516093,
+        "overlap": 2514
+      },
+      {
+        "mpId": 2317,
+        "score": 0.8629587531231846,
+        "overlap": 2507
+      },
+      {
+        "mpId": 2435,
+        "score": 0.8607748714376235,
+        "overlap": 2535
+      },
+      {
+        "mpId": 2439,
+        "score": 0.8546235291698332,
+        "overlap": 2518
+      },
+      {
+        "mpId": 2445,
+        "score": 0.8536780525352242,
+        "overlap": 2482
+      },
+      {
+        "mpId": 2304,
+        "score": 0.849761599367896,
+        "overlap": 2459
+      },
+      {
+        "mpId": 2278,
+        "score": 0.848394953878985,
+        "overlap": 2467
+      },
+      {
+        "mpId": 2441,
+        "score": 0.8461775675439674,
+        "overlap": 2438
+      },
+      {
+        "mpId": 2363,
+        "score": 0.8443551285536302,
+        "overlap": 2357
+      },
+      {
+        "mpId": 2452,
+        "score": 0.84180525009136,
+        "overlap": 2460
+      },
+      {
+        "mpId": 2119,
+        "score": 0.8367954540550541,
+        "overlap": 2378
+      },
+      {
+        "mpId": 2459,
+        "score": 0.8362763913469039,
+        "overlap": 2436
+      },
+      {
+        "mpId": 2313,
+        "score": 0.8347872979858304,
+        "overlap": 2374
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2521,
+        "score": -0.30966353858171664,
+        "overlap": 2201
+      },
+      {
+        "mpId": 2393,
+        "score": -0.29358950861119854,
+        "overlap": 2307
+      },
+      {
+        "mpId": 2523,
+        "score": -0.282089882701403,
+        "overlap": 2141
+      },
+      {
+        "mpId": 2380,
+        "score": -0.2725449942665118,
+        "overlap": 2180
+      },
+      {
+        "mpId": 2030,
+        "score": -0.27249145196985497,
+        "overlap": 2054
+      },
+      {
+        "mpId": 2374,
+        "score": -0.269433407531022,
+        "overlap": 2292
+      },
+      {
+        "mpId": 2415,
+        "score": -0.26601964613852974,
+        "overlap": 2419
+      },
+      {
+        "mpId": 2384,
+        "score": -0.2635987765791175,
+        "overlap": 1794
+      },
+      {
+        "mpId": 2444,
+        "score": -0.26269699688134984,
+        "overlap": 2436
+      },
+      {
+        "mpId": 2409,
+        "score": -0.2620421791177816,
+        "overlap": 2362
+      },
+      {
+        "mpId": 2381,
+        "score": -0.2608750461207239,
+        "overlap": 2316
+      },
+      {
+        "mpId": 2110,
+        "score": -0.2587320355255132,
+        "overlap": 1981
+      },
+      {
+        "mpId": 2118,
+        "score": -0.25768607752972617,
+        "overlap": 2364
+      },
+      {
+        "mpId": 2254,
+        "score": -0.25768328198747775,
+        "overlap": 2344
+      },
+      {
+        "mpId": 2520,
+        "score": -0.25741054891470744,
+        "overlap": 1948
+      },
+      {
+        "mpId": 2525,
+        "score": -0.257035246671646,
+        "overlap": 1767
+      },
+      {
+        "mpId": 2426,
+        "score": -0.2562415980274718,
+        "overlap": 1942
+      },
+      {
+        "mpId": 2362,
+        "score": -0.25286648235699166,
+        "overlap": 2416
+      },
+      {
+        "mpId": 2529,
+        "score": -0.25162674428277715,
+        "overlap": 1532
+      },
+      {
+        "mpId": 2383,
+        "score": -0.25125831681004296,
+        "overlap": 2142
+      }
+    ]
+  }
+}

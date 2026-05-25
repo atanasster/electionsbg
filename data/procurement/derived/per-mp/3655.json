@@ -1,0 +1,63 @@
+{
+  "mpId": 3655,
+  "summary": {
+    "totalEur": 1223276.9616991254,
+    "totalOther": {},
+    "contractCount": 4,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 1223276.9616991254,
+    "rank": 20,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 3655,
+      "mpName": "Асен Георгиев Балтов",
+      "contractorEik": "130345786",
+      "contractorName": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ И СПЕШНА МЕДИЦИНА Н.И. ПИРОГОВ ЕАД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 1223276.9616991254,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 1,
+          "totalEur": 425567.6413594228,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 63910.83069591938,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 733798.489643783,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695317",
+          "name": "Министерство на здравеопазването /МЗ/",
+          "contractCount": 4,
+          "totalEur": 1223276.9616991254,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

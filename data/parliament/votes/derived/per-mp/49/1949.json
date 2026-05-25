@@ -1,0 +1,315 @@
+{
+  "mpId": 1949,
+  "ns": "49",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 389,
+    "withParty": 380,
+    "loyaltyPct": 0.9768637532133676,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 389,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2023-07-07",
+        "item": 10,
+        "slug": "10-protsedura-ot-tsoncho-ganev-za-otlagane-na-parlamentarniya-k",
+        "title": "Процедура от Цончо Ганев за отлагане на парламентарния контрол за днес - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 28
+      },
+      {
+        "date": "2023-07-07",
+        "item": 2,
+        "slug": "2-reshenie-po-predlozhenie-za-provezhdane-na-natsionalen-refer",
+        "title": "Решение по предложение за провеждане на национален референдум с въпрос \"Съгласни ли сте българският лев да бъде единствена официална валута в България до 2043 г.?\" - процедура от Петър Петров за удължаване на законодателната част на заседанието",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      },
+      {
+        "date": "2023-06-29",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-merkite-sreshtu-izpiraneto-na-pari-vtoro-gl",
+        "title": "ЗИД на Закона за мерките срещу изпирането на пари – второ гласуване - параграф 4в - предложение от Иван Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 4
+      },
+      {
+        "date": "2023-06-15",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-prilagane-na-razporedbi-na-zakona-za-darzha",
+        "title": "ЗИД на Закона за прилагане на разпоредби на Закона за държавния бюджет на Република България за 2022г., Закон за бюджет на държавното обществено осигуряване за 2022г. и Закона за бюджета на НЗОК за 2022г. - параграф 1 - точка 3 - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2023-06-15",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-prilagane-na-razporedbi-na-zakona-za-darzha",
+        "title": "ЗИД на Закона за прилагане на разпоредби на Закона за държавния бюджет на Република България за 2022г., Закон за бюджет на държавното обществено осигуряване за 2022г. и Закона за бюджета на НЗОК за 2022г. - параграф 1 - предложение от Корнелия Нинова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 23
+      },
+      {
+        "date": "2023-05-26",
+        "item": 35,
+        "slug": "35-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Наказателно - процесуалния кодекс - второ гласуване - параграф 16 (става параграф 8) - предложение за редакция от Петър Петров и Цвета Рангелова по ал.4",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 35
+      },
+      {
+        "date": "2023-05-10",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-10-12-may-2023",
+        "title": "Програма за работата на Народното събрание за 10 - 12 май 2023 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2023-04-27",
+        "item": 15,
+        "slug": "15-reshenie-za-pravilnik-za-organizatsiyata-i-deynostta-na-naro",
+        "title": "Решение за Правилник за организацията и дейността на Народното събрание - - член 54 - предложение от Никола Минчев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2023-04-27",
+        "item": 2,
+        "slug": "2-reshenie-za-pravilnik-za-organizatsiyata-i-deynostta-na-naro",
+        "title": "Решение за Правилник за организацията и дейността на Народното събрание - - член 36 - предложение от Радослав Чолаков/Христо Гаджев за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 810,
+        "score": 0.5952647683303832,
+        "overlap": 210
+      },
+      {
+        "mpId": 1457,
+        "score": 0.488422873336289,
+        "overlap": 364
+      },
+      {
+        "mpId": 2283,
+        "score": 0.4624872714458418,
+        "overlap": 181
+      },
+      {
+        "mpId": 2064,
+        "score": 0.4593699967900066,
+        "overlap": 196
+      },
+      {
+        "mpId": 2241,
+        "score": 0.42789959261365385,
+        "overlap": 362
+      },
+      {
+        "mpId": 1960,
+        "score": 0.41047425530737425,
+        "overlap": 362
+      },
+      {
+        "mpId": 767,
+        "score": 0.40078756676592653,
+        "overlap": 288
+      },
+      {
+        "mpId": 2307,
+        "score": 0.3965451093071443,
+        "overlap": 342
+      },
+      {
+        "mpId": 398,
+        "score": 0.38959397081971164,
+        "overlap": 350
+      },
+      {
+        "mpId": 2482,
+        "score": 0.386677450597931,
+        "overlap": 335
+      },
+      {
+        "mpId": 1955,
+        "score": 0.37939085191091476,
+        "overlap": 340
+      },
+      {
+        "mpId": 1935,
+        "score": 0.36771983951596765,
+        "overlap": 356
+      },
+      {
+        "mpId": 2040,
+        "score": 0.36737354992347243,
+        "overlap": 282
+      },
+      {
+        "mpId": 1389,
+        "score": 0.3575273937709994,
+        "overlap": 367
+      },
+      {
+        "mpId": 1644,
+        "score": 0.3434432964845116,
+        "overlap": 356
+      },
+      {
+        "mpId": 2411,
+        "score": 0.3429197770059608,
+        "overlap": 142
+      },
+      {
+        "mpId": 1692,
+        "score": 0.3427790110452172,
+        "overlap": 345
+      },
+      {
+        "mpId": 1455,
+        "score": 0.33745606326870664,
+        "overlap": 365
+      },
+      {
+        "mpId": 451,
+        "score": 0.3372081405807381,
+        "overlap": 244
+      },
+      {
+        "mpId": 1886,
+        "score": 0.33620017479108516,
+        "overlap": 365
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2450,
+        "score": -0.01628472284214667,
+        "overlap": 273
+      },
+      {
+        "mpId": 2352,
+        "score": 0.015553254948347004,
+        "overlap": 263
+      },
+      {
+        "mpId": 2129,
+        "score": 0.017829906431256405,
+        "overlap": 312
+      },
+      {
+        "mpId": 2451,
+        "score": 0.022860278703953085,
+        "overlap": 318
+      },
+      {
+        "mpId": 2119,
+        "score": 0.022982596797227133,
+        "overlap": 315
+      },
+      {
+        "mpId": 2308,
+        "score": 0.029834796258879154,
+        "overlap": 313
+      },
+      {
+        "mpId": 2422,
+        "score": 0.03380327288991475,
+        "overlap": 325
+      },
+      {
+        "mpId": 2251,
+        "score": 0.034145241223020886,
+        "overlap": 164
+      },
+      {
+        "mpId": 2084,
+        "score": 0.03476399227224682,
+        "overlap": 238
+      },
+      {
+        "mpId": 2098,
+        "score": 0.03782780258399836,
+        "overlap": 334
+      },
+      {
+        "mpId": 2039,
+        "score": 0.03835216312809003,
+        "overlap": 303
+      },
+      {
+        "mpId": 2075,
+        "score": 0.03953996065906582,
+        "overlap": 313
+      },
+      {
+        "mpId": 2445,
+        "score": 0.039659159927686156,
+        "overlap": 331
+      },
+      {
+        "mpId": 2077,
+        "score": 0.03989615452169956,
+        "overlap": 329
+      },
+      {
+        "mpId": 2363,
+        "score": 0.04053774407984689,
+        "overlap": 333
+      },
+      {
+        "mpId": 2484,
+        "score": 0.04054391406856549,
+        "overlap": 57
+      },
+      {
+        "mpId": 2452,
+        "score": 0.04424275738912957,
+        "overlap": 341
+      },
+      {
+        "mpId": 2435,
+        "score": 0.0445297145517016,
+        "overlap": 333
+      },
+      {
+        "mpId": 2304,
+        "score": 0.04453651555255466,
+        "overlap": 335
+      },
+      {
+        "mpId": 2278,
+        "score": 0.04497693954870058,
+        "overlap": 344
+      }
+    ]
+  }
+}

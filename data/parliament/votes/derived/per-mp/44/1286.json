@@ -1,0 +1,305 @@
+{
+  "mpId": 1286,
+  "ns": "44",
+  "partyShort": "ГЕРБ",
+  "loyalty": {
+    "votesCast": 449,
+    "withParty": 441,
+    "loyaltyPct": 0.9821826280623608,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 449,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2021-01-27",
+        "item": 27,
+        "slug": "27-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 14 (става параграф 23) - предложение от Любомир Бонев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2021-01-21",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-energetikata-vtoro-glasuvane-paragraf-4-nov",
+        "title": "ЗИД на Закона за енергетиката - второ гласуване - параграф 4 - нов - предложение от Рамадан Аталай",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 68
+      },
+      {
+        "date": "2021-01-21",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-energetikata-vtoro-glasuvane-paragraf-3-nov",
+        "title": "ЗИД на Закона за енергетиката - второ гласуване - параграф 3 - нов - предложение от Рамадан Аталай",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 69
+      },
+      {
+        "date": "2021-01-21",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-energetikata-vtoro-glasuvane-paragraf-2-nov",
+        "title": "ЗИД на Закона за енергетиката - второ гласуване - параграф 2 - нов - предложение от Рамадан Аталай",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 72
+      },
+      {
+        "date": "2021-01-21",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-energetikata-vtoro-glasuvane-paragraf-1-nov",
+        "title": "ЗИД на Закона за енергетиката - второ гласуване - параграф 1 - нов - предложение от Рамадан Аталай",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 72
+      },
+      {
+        "date": "2020-12-02",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-horata-s-uvrezhdaniya-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за хората с увреждания - второ гласуване - параграф 23 (става параграф 24) - предложение от Милко Недялков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 71
+      },
+      {
+        "date": "2020-11-26",
+        "item": 25,
+        "slug": "25-zid-na-semeyniya-kodeks-vtoro-glasuvane-paragraf-1-predlozhe",
+        "title": "ЗИД на Семейния кодекс - второ гласуване - параграф 1 - предложение от Кристина Сидорова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 74
+      },
+      {
+        "date": "2020-11-11",
+        "item": 9,
+        "slug": "9-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-1-predlozhe",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 1 - предложение от Валентина Найденова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1477,
+        "score": 0.7178080999444165,
+        "overlap": 401
+      },
+      {
+        "mpId": 549,
+        "score": 0.6657502859356828,
+        "overlap": 383
+      },
+      {
+        "mpId": 1457,
+        "score": 0.6650784713058576,
+        "overlap": 442
+      },
+      {
+        "mpId": 523,
+        "score": 0.6619674840907239,
+        "overlap": 355
+      },
+      {
+        "mpId": 1483,
+        "score": 0.6555246296395755,
+        "overlap": 426
+      },
+      {
+        "mpId": 1244,
+        "score": 0.6542652167491847,
+        "overlap": 438
+      },
+      {
+        "mpId": 1299,
+        "score": 0.6533835088083538,
+        "overlap": 428
+      },
+      {
+        "mpId": 1498,
+        "score": 0.6524926101764231,
+        "overlap": 424
+      },
+      {
+        "mpId": 1146,
+        "score": 0.6523858424654789,
+        "overlap": 406
+      },
+      {
+        "mpId": 1461,
+        "score": 0.6523483062406823,
+        "overlap": 432
+      },
+      {
+        "mpId": 1469,
+        "score": 0.651150562908459,
+        "overlap": 416
+      },
+      {
+        "mpId": 1543,
+        "score": 0.6497157937129662,
+        "overlap": 426
+      },
+      {
+        "mpId": 1288,
+        "score": 0.6489763681544853,
+        "overlap": 421
+      },
+      {
+        "mpId": 817,
+        "score": 0.6476736142574985,
+        "overlap": 418
+      },
+      {
+        "mpId": 1341,
+        "score": 0.6459869642203696,
+        "overlap": 433
+      },
+      {
+        "mpId": 1494,
+        "score": 0.6431907284279322,
+        "overlap": 356
+      },
+      {
+        "mpId": 1393,
+        "score": 0.6422880112133539,
+        "overlap": 414
+      },
+      {
+        "mpId": 1529,
+        "score": 0.6397807330373795,
+        "overlap": 397
+      },
+      {
+        "mpId": 1015,
+        "score": 0.6383695428208598,
+        "overlap": 420
+      },
+      {
+        "mpId": 1467,
+        "score": 0.6380455388481979,
+        "overlap": 414
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1554,
+        "score": -0.12378237474570462,
+        "overlap": 114
+      },
+      {
+        "mpId": 1530,
+        "score": -0.10564101814277249,
+        "overlap": 136
+      },
+      {
+        "mpId": 1559,
+        "score": -0.08317176737791443,
+        "overlap": 127
+      },
+      {
+        "mpId": 1277,
+        "score": -0.07274196215501307,
+        "overlap": 100
+      },
+      {
+        "mpId": 1345,
+        "score": -0.05964885880007676,
+        "overlap": 179
+      },
+      {
+        "mpId": 829,
+        "score": -0.0575569325170238,
+        "overlap": 146
+      },
+      {
+        "mpId": 1553,
+        "score": -0.05393380989724647,
+        "overlap": 113
+      },
+      {
+        "mpId": 913,
+        "score": -0.05111630125684568,
+        "overlap": 266
+      },
+      {
+        "mpId": 1555,
+        "score": -0.04892044221427025,
+        "overlap": 151
+      },
+      {
+        "mpId": 1296,
+        "score": -0.04741046559307605,
+        "overlap": 116
+      },
+      {
+        "mpId": 1275,
+        "score": -0.045965177214767276,
+        "overlap": 131
+      },
+      {
+        "mpId": 1276,
+        "score": -0.04588231119055012,
+        "overlap": 167
+      },
+      {
+        "mpId": 1394,
+        "score": -0.045258676284018536,
+        "overlap": 92
+      },
+      {
+        "mpId": 1390,
+        "score": -0.042319557915580217,
+        "overlap": 199
+      },
+      {
+        "mpId": 1261,
+        "score": -0.041293962759267534,
+        "overlap": 106
+      },
+      {
+        "mpId": 1259,
+        "score": -0.040599897147057515,
+        "overlap": 114
+      },
+      {
+        "mpId": 782,
+        "score": -0.037511724246026654,
+        "overlap": 124
+      },
+      {
+        "mpId": 1536,
+        "score": -0.03727608411984708,
+        "overlap": 175
+      },
+      {
+        "mpId": 1060,
+        "score": -0.03721657238480272,
+        "overlap": 102
+      },
+      {
+        "mpId": 774,
+        "score": -0.03702982605056062,
+        "overlap": 78
+      }
+    ]
+  }
+}

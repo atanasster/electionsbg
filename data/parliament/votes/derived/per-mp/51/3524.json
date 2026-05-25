@@ -1,0 +1,295 @@
+{
+  "mpId": 3524,
+  "ns": "51",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 920,
+    "withParty": 913,
+    "loyaltyPct": 0.9923913043478261,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 920,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2026-02-05",
+        "item": 31,
+        "slug": "31-zi-na-izborniya-kodeks-vtoro-glasuvane-paragraf-4-nov-predlo",
+        "title": "ЗИ на Изборния кодекс – второ гласуване - параграф 4 нов - предложение от Надежда Йорданова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-12-18",
+        "item": 11,
+        "slug": "11-zid-na-semeyniya-kodeks-vtoro-glasuvane-paragraf-3-al-6-pred",
+        "title": "ЗИД на Семейния кодекс - второ гласуване - параграф 3 - ал.6 - предложение от Деница Сачева за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2025-11-06",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-elektronnite-saobshteniya-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за електронните съобщения – второ гласуване - параграф 14 - предложение от Мартин Димитров за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-10-10",
+        "item": 6,
+        "slug": "6-protsedura-ot-bozhidar-bozhanov-za-pryako-predavane-po-bnt-n",
+        "title": "Процедура от Божидар Божанов за пряко предаване по БНТ на т.1",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-09-04",
+        "item": 6,
+        "slug": "6-reshenie-vav-vrazka-s-doklada-za-rabotata-na-vremennata-komi",
+        "title": "Решение във връзка с доклада за работата на Временната комисия за установяване на всички факти и обстоятелства относно проблемите с безводието в страната - предложение от Иван Белчев за редакция на т.4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-09-04",
+        "item": 5,
+        "slug": "5-reshenie-vav-vrazka-s-doklada-za-rabotata-na-vremennata-komi",
+        "title": "Решение във връзка с доклада за работата на Временната комисия за установяване на всички факти и обстоятелства относно проблемите с безводието в страната - предложение от Татяна Султанова за редакция на т.3",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-09-03",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-3-5-septemvri-",
+        "title": "Програма за работата на Народното събрание за 3 - 5 септември 2025г. - предложение от Атанас Атанасов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3479,
+        "score": 0.54203425229927,
+        "overlap": 898
+      },
+      {
+        "mpId": 3481,
+        "score": 0.5311925905044488,
+        "overlap": 873
+      },
+      {
+        "mpId": 3280,
+        "score": 0.5041124882571676,
+        "overlap": 882
+      },
+      {
+        "mpId": 3066,
+        "score": 0.5040491511316647,
+        "overlap": 886
+      },
+      {
+        "mpId": 3296,
+        "score": 0.49729211436005316,
+        "overlap": 913
+      },
+      {
+        "mpId": 3383,
+        "score": 0.49719938535515357,
+        "overlap": 911
+      },
+      {
+        "mpId": 3022,
+        "score": 0.49413391830024006,
+        "overlap": 889
+      },
+      {
+        "mpId": 3248,
+        "score": 0.4936721556383372,
+        "overlap": 883
+      },
+      {
+        "mpId": 3124,
+        "score": 0.4915891507622261,
+        "overlap": 883
+      },
+      {
+        "mpId": 3355,
+        "score": 0.48906608588777534,
+        "overlap": 867
+      },
+      {
+        "mpId": 3288,
+        "score": 0.48279130409670584,
+        "overlap": 824
+      },
+      {
+        "mpId": 3520,
+        "score": 0.48146853010985335,
+        "overlap": 757
+      },
+      {
+        "mpId": 3371,
+        "score": 0.46665875052089584,
+        "overlap": 839
+      },
+      {
+        "mpId": 3446,
+        "score": 0.4621881616027285,
+        "overlap": 890
+      },
+      {
+        "mpId": 3447,
+        "score": 0.4594221643074043,
+        "overlap": 919
+      },
+      {
+        "mpId": 3209,
+        "score": 0.45366797092047334,
+        "overlap": 901
+      },
+      {
+        "mpId": 3452,
+        "score": 0.4514541637899274,
+        "overlap": 884
+      },
+      {
+        "mpId": 3453,
+        "score": 0.44891180803717984,
+        "overlap": 891
+      },
+      {
+        "mpId": 3366,
+        "score": 0.4475298365397545,
+        "overlap": 792
+      },
+      {
+        "mpId": 3239,
+        "score": 0.4447090625266269,
+        "overlap": 782
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3518,
+        "score": -0.2988637606797222,
+        "overlap": 867
+      },
+      {
+        "mpId": 3517,
+        "score": -0.29673078002085684,
+        "overlap": 860
+      },
+      {
+        "mpId": 3513,
+        "score": -0.29629146991419913,
+        "overlap": 841
+      },
+      {
+        "mpId": 3515,
+        "score": -0.2923052993108459,
+        "overlap": 843
+      },
+      {
+        "mpId": 3508,
+        "score": -0.28790839981554917,
+        "overlap": 819
+      },
+      {
+        "mpId": 3514,
+        "score": -0.2821457120279376,
+        "overlap": 797
+      },
+      {
+        "mpId": 3512,
+        "score": -0.28138653563535615,
+        "overlap": 750
+      },
+      {
+        "mpId": 3510,
+        "score": -0.2807797640083124,
+        "overlap": 773
+      },
+      {
+        "mpId": 3516,
+        "score": -0.2575057120211686,
+        "overlap": 728
+      },
+      {
+        "mpId": 3484,
+        "score": -0.24421383130332996,
+        "overlap": 465
+      },
+      {
+        "mpId": 3482,
+        "score": -0.2283161112723935,
+        "overlap": 587
+      },
+      {
+        "mpId": 3490,
+        "score": -0.20927073987361133,
+        "overlap": 616
+      },
+      {
+        "mpId": 3511,
+        "score": -0.20326853752432045,
+        "overlap": 280
+      },
+      {
+        "mpId": 3489,
+        "score": -0.19197628681767145,
+        "overlap": 455
+      },
+      {
+        "mpId": 3480,
+        "score": -0.19123474687904682,
+        "overlap": 493
+      },
+      {
+        "mpId": 3486,
+        "score": -0.18875663109794222,
+        "overlap": 544
+      },
+      {
+        "mpId": 3485,
+        "score": -0.1826117555466214,
+        "overlap": 489
+      },
+      {
+        "mpId": 3509,
+        "score": -0.17924394044913375,
+        "overlap": 442
+      },
+      {
+        "mpId": 3478,
+        "score": -0.16063863744278234,
+        "overlap": 496
+      },
+      {
+        "mpId": 3179,
+        "score": -0.1452397992822914,
+        "overlap": 764
+      }
+    ]
+  }
+}

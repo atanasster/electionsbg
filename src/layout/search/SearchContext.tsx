@@ -92,16 +92,21 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
         c: 3,
         a: 4,
         b: 5,
+        v: 6,
       };
       const PER_TYPE_LIMIT = 5;
       const counts: Partial<Record<SearchIndexType["type"], number>> = {};
       const filtered =
         search(searchTerm)?.filter((r) => {
-          // Per-type fuzziness budget. Candidate names and ministry names
-          // are typically searched by a partial keyword ("отбран" → Defence
-          // ministry, "Радев" → Radev) so they get a looser threshold than
+          // Per-type fuzziness budget. Candidate names, ministry names and
+          // vote titles are typically searched by a partial keyword
+          // ("отбран" → Defence ministry, "Радев" → Radev, "корупция" → an
+          // anti-corruption bill), so they get a looser threshold than
           // settlements/sections where the user usually types an exact name.
-          const limit = r.item.type === "a" || r.item.type === "b" ? 0.4 : 0.1;
+          const limit =
+            r.item.type === "a" || r.item.type === "b" || r.item.type === "v"
+              ? 0.4
+              : 0.1;
           return (r.score || 1) <= limit;
         }) || [];
       const limited: typeof filtered = [];

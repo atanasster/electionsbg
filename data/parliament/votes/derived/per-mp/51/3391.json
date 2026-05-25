@@ -1,0 +1,285 @@
+{
+  "mpId": 3391,
+  "ns": "51",
+  "partyShort": "МЕЧ",
+  "loyalty": {
+    "votesCast": 398,
+    "withParty": 392,
+    "loyaltyPct": 0.9849246231155779,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 398,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2025-03-12",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-12-14-mart-202",
+        "title": "Програма за работата на Народното събрание за 12 - 14 март 2025 г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-02-12",
+        "item": 17,
+        "slug": "17-zakon-za-iziskvaniyata-za-dostapnost-na-produkti-i-uslugi-pa",
+        "title": "Закон за изискванията за достъпност на продукти и услуги – първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2025-01-29",
+        "item": 14,
+        "slug": "14-reshenie-za-popalvane-sastava-na-komisiyata-po-vanshna-polit",
+        "title": "Решение за попълване състава на Комисията по външна политика",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-01-29",
+        "item": 13,
+        "slug": "13-reshenie-za-promyana-v-sastava-na-komisiyata-po-transport-i-",
+        "title": "Решение за промяна в състава на Комисията по транспорт и съобщения",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-01-09",
+        "item": 3,
+        "slug": "3-izslushvane-na-sluzhebniya-ministar-predsedatel-g-n-dimitar-",
+        "title": "Изслушване на служебния министър-председател г-н Димитър Главчев относно делото по вписване на Българската православна старостилна църква и предприетите мерки от страна на държавата и правителството (Министерство на правосъдието и Дирекцията по вероизповеданията) за защита на държавния и обществения интерес пред Съда в Страсбург и пред Върховния касационен съд - процедура от Димитър Главчев за допускане в зала",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2024-12-18",
+        "item": 38,
+        "slug": "38-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 48 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3375,
+        "score": 0.743962295252459,
+        "overlap": 384
+      },
+      {
+        "mpId": 3397,
+        "score": 0.7111385344903584,
+        "overlap": 385
+      },
+      {
+        "mpId": 3378,
+        "score": 0.70485552503359,
+        "overlap": 389
+      },
+      {
+        "mpId": 3370,
+        "score": 0.6896563082085964,
+        "overlap": 336
+      },
+      {
+        "mpId": 3388,
+        "score": 0.6894460510817527,
+        "overlap": 304
+      },
+      {
+        "mpId": 3382,
+        "score": 0.6883862534106695,
+        "overlap": 338
+      },
+      {
+        "mpId": 3360,
+        "score": 0.6831696562500265,
+        "overlap": 384
+      },
+      {
+        "mpId": 3359,
+        "score": 0.6796767573879772,
+        "overlap": 378
+      },
+      {
+        "mpId": 3364,
+        "score": 0.6786135549107359,
+        "overlap": 328
+      },
+      {
+        "mpId": 3376,
+        "score": 0.6507683484768648,
+        "overlap": 363
+      },
+      {
+        "mpId": 3384,
+        "score": 0.6436396859387793,
+        "overlap": 359
+      },
+      {
+        "mpId": 3390,
+        "score": 0.48080223438910674,
+        "overlap": 308
+      },
+      {
+        "mpId": 3265,
+        "score": 0.44954888821856825,
+        "overlap": 265
+      },
+      {
+        "mpId": 3269,
+        "score": 0.3189686077562681,
+        "overlap": 172
+      },
+      {
+        "mpId": 3179,
+        "score": 0.27754724832622085,
+        "overlap": 387
+      },
+      {
+        "mpId": 3026,
+        "score": 0.26731333576431016,
+        "overlap": 388
+      },
+      {
+        "mpId": 3051,
+        "score": 0.26340122155233764,
+        "overlap": 150
+      },
+      {
+        "mpId": 3028,
+        "score": 0.2599184531724847,
+        "overlap": 383
+      },
+      {
+        "mpId": 3181,
+        "score": 0.25606001109163695,
+        "overlap": 332
+      },
+      {
+        "mpId": 3084,
+        "score": 0.25471995541404746,
+        "overlap": 391
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3283,
+        "score": -0.21404266845811665,
+        "overlap": 52
+      },
+      {
+        "mpId": 3445,
+        "score": -0.06577418884146209,
+        "overlap": 174
+      },
+      {
+        "mpId": 3448,
+        "score": -0.0542337183478108,
+        "overlap": 150
+      },
+      {
+        "mpId": 3102,
+        "score": -0.0479882692617211,
+        "overlap": 80
+      },
+      {
+        "mpId": 3101,
+        "score": -0.04778211542056852,
+        "overlap": 256
+      },
+      {
+        "mpId": 3452,
+        "score": -0.04706859657098945,
+        "overlap": 207
+      },
+      {
+        "mpId": 3453,
+        "score": -0.04696882304880921,
+        "overlap": 190
+      },
+      {
+        "mpId": 3450,
+        "score": -0.04171991482470885,
+        "overlap": 199
+      },
+      {
+        "mpId": 3447,
+        "score": -0.040062910746740545,
+        "overlap": 207
+      },
+      {
+        "mpId": 3449,
+        "score": -0.03899867341948885,
+        "overlap": 205
+      },
+      {
+        "mpId": 3198,
+        "score": -0.037221117365265996,
+        "overlap": 297
+      },
+      {
+        "mpId": 3446,
+        "score": -0.03573334063907635,
+        "overlap": 194
+      },
+      {
+        "mpId": 3442,
+        "score": -0.03416524997700637,
+        "overlap": 170
+      },
+      {
+        "mpId": 3089,
+        "score": -0.031965469848604766,
+        "overlap": 329
+      },
+      {
+        "mpId": 3250,
+        "score": -0.03185845283544389,
+        "overlap": 381
+      },
+      {
+        "mpId": 3488,
+        "score": -0.029470060006028042,
+        "overlap": 46
+      },
+      {
+        "mpId": 3444,
+        "score": -0.029140775257509806,
+        "overlap": 150
+      },
+      {
+        "mpId": 3118,
+        "score": -0.028980659895950698,
+        "overlap": 195
+      },
+      {
+        "mpId": 3305,
+        "score": -0.02787101303186411,
+        "overlap": 333
+      },
+      {
+        "mpId": 3443,
+        "score": -0.026495896878325757,
+        "overlap": 135
+      }
+    ]
+  }
+}

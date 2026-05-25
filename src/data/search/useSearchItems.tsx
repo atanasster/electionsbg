@@ -9,6 +9,7 @@ import { useElectionContext } from "../ElectionContext";
 import { useCandidates } from "../preferences/useCandidates";
 import { useMps } from "../parliament/useMps";
 import { dataUrl } from "@/data/dataUrl";
+import type { TopicIndexFile } from "../parliament/votes/types";
 
 // Per-year ministry rosters from data/budget/derived/admin_flow.json. We
 // dedupe across years to get the union set of unique spending units; each
@@ -43,6 +44,34 @@ const useBudgetMinistriesForSearch = () =>
     staleTime: Infinity,
   });
 
+// Roll-call topic index — fetched on first search activation alongside the
+// other heavy artifacts. Gzipped to ~580 KB; we cap the projection to the
+// top-N most-contested titled items per NS so Fuse memory stays bounded.
+const fetchTopicIndex = async (): Promise<TopicIndexFile | null> => {
+  try {
+    const r = await fetch(
+      dataUrl("/parliament/votes/derived/topic_index.json"),
+    );
+    if (!r.ok) return null;
+    return (await r.json()) as TopicIndexFile;
+  } catch {
+    return null;
+  }
+};
+
+const useTopicIndexForSearch = () =>
+  useQuery({
+    queryKey: ["search", "topic-index"] as const,
+    queryFn: fetchTopicIndex,
+    staleTime: Infinity,
+  });
+
+// Per-NS cap on indexed vote items. Picks the most-contested titled entries
+// first (contestScore ↓), then newest-first as a tiebreaker. Procedural
+// unanimous items would otherwise crowd out substantive contested votes
+// without ever being searched for.
+const VOTES_PER_NS_LIMIT = 200;
+
 const queryFn = async ({
   queryKey,
 }: QueryFunctionContext<[string, string | null | undefined]>): Promise<
@@ -58,8 +87,9 @@ const queryFn = async ({
 
 export type SearchIndexType = {
   // s=settlement, m=municipality, r=region, c=section, a=candidate/MP,
-  // b=budget unit (ministry / spending unit on /budget/ministry/:id)
-  type: "s" | "m" | "r" | "c" | "a" | "b";
+  // b=budget unit (ministry / spending unit on /budget/ministry/:id),
+  // v=roll-call vote item (key = "${date}|${slug}")
+  type: "s" | "m" | "r" | "c" | "a" | "b" | "v";
   key: string;
   name: string;
   name_en?: string;
@@ -79,6 +109,7 @@ export const useSearchItems = () => {
   const { regions } = useRegions();
   const { findMpByName } = useMps();
   const { data: adminFlow } = useBudgetMinistriesForSearch();
+  const { data: topicIndex } = useTopicIndexForSearch();
   const fuse = useMemo(() => {
     if (settlements && municipalities && sections && candidates) {
       const regionByCode = new Map(regions.map((r) => [r.oblast, r]));
@@ -179,6 +210,30 @@ export const useSearchItems = () => {
         }
       }
 
+      // Roll-call vote items. We cap per NS so a single noisy parliament
+      // doesn't crowd out the others. Ranking: contestScore desc, then
+      // recency desc — substantive contested votes win over unanimous
+      // procedural ones, which is what users type keywords to find.
+      if (topicIndex?.byNs) {
+        for (const slice of Object.values(topicIndex.byNs)) {
+          const titled = slice.entries.filter((e) => e.title);
+          titled.sort((a, b) => {
+            if (b.contestScore !== a.contestScore) {
+              return b.contestScore - a.contestScore;
+            }
+            return b.date.localeCompare(a.date);
+          });
+          for (const e of titled.slice(0, VOTES_PER_NS_LIMIT)) {
+            searchItems.push({
+              type: "v",
+              key: `${e.date}|${e.slug}`,
+              name: e.title!,
+              parentName: e.date,
+            });
+          }
+        }
+      }
+
       return new Fuse<SearchIndexType>(searchItems, {
         includeScore: true,
         includeMatches: true,
@@ -199,6 +254,7 @@ export const useSearchItems = () => {
     regions,
     sections,
     settlements,
+    topicIndex,
   ]);
   const search = (searchTern: string) => {
     return fuse?.search(searchTern);

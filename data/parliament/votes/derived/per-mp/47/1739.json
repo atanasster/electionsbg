@@ -1,0 +1,315 @@
+{
+  "mpId": 1739,
+  "ns": "47",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 288,
+    "withParty": 279,
+    "loyaltyPct": 0.96875,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 288,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2022-01-21",
+        "item": 4,
+        "slug": "4-protsedura-za-dopuskane-v-plenarna-zala",
+        "title": "Процедура за допускане в пленарна зала - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      },
+      {
+        "date": "2022-01-13",
+        "item": 2,
+        "slug": "2-protsedura-ot-filip-popov-za-pryako-predavane-po-bnt-i-bnr",
+        "title": "Процедура от Филип Попов за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-01-12",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-12-14-yanuari-",
+        "title": "Програма за работата на Народното събрание за 12 - 14 януари 2022 г. - процедура за пряко предаване по БНТ и БНР от Цвета Галунова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 20
+      },
+      {
+        "date": "2022-01-07",
+        "item": 2,
+        "slug": "2-protsedura-ot-nikola-minchev-za-nova-tochka-2-i-udalzhavane-",
+        "title": "Процедура от Никола Минчев за нова точка 2 и удължаване на работното време до изчерпване на дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2022-01-05",
+        "item": 5,
+        "slug": "5-reshenie-za-osvobozhdavane-i-izbirane-na-sekretar-na-ns",
+        "title": "Решение за освобождаване и избиране на секретар на НС",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2022-01-05",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-05-07-yanuari-",
+        "title": "Програма за работата на Народното събрание за 05 - 07 януари 2022 г. - процедура от Иво Русчев за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 23
+      },
+      {
+        "date": "2021-12-22",
+        "item": 4,
+        "slug": "4-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстаятелства относно машинното гласуване в изборите на 14 ноември 2021г. - предложение от Петър Петров за редакция на т.4 - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-12-17",
+        "item": 42,
+        "slug": "42-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 80 - предложение от Петър Петров за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 23
+      },
+      {
+        "date": "2021-12-16",
+        "item": 5,
+        "slug": "5-protsedura-ot-toma-bikov-za-pryako-predavane-po-bnt-i-bnr",
+        "title": "Процедура от Тома Биков за пряко предаване по БНТ и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 24
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2024,
+        "score": 0.5829041177498001,
+        "overlap": 143
+      },
+      {
+        "mpId": 2123,
+        "score": 0.5661703444424692,
+        "overlap": 144
+      },
+      {
+        "mpId": 2159,
+        "score": 0.5188079463374644,
+        "overlap": 248
+      },
+      {
+        "mpId": 2014,
+        "score": 0.5036121769974827,
+        "overlap": 131
+      },
+      {
+        "mpId": 1656,
+        "score": 0.46489249403456173,
+        "overlap": 277
+      },
+      {
+        "mpId": 1719,
+        "score": 0.46217954733050637,
+        "overlap": 274
+      },
+      {
+        "mpId": 1891,
+        "score": 0.4506145673611369,
+        "overlap": 251
+      },
+      {
+        "mpId": 1601,
+        "score": 0.4418783826759495,
+        "overlap": 268
+      },
+      {
+        "mpId": 1621,
+        "score": 0.43157104324317885,
+        "overlap": 269
+      },
+      {
+        "mpId": 1645,
+        "score": 0.4283600548201597,
+        "overlap": 261
+      },
+      {
+        "mpId": 1676,
+        "score": 0.42182370805725505,
+        "overlap": 265
+      },
+      {
+        "mpId": 1652,
+        "score": 0.42129340727692455,
+        "overlap": 281
+      },
+      {
+        "mpId": 1598,
+        "score": 0.41670274483820363,
+        "overlap": 271
+      },
+      {
+        "mpId": 1591,
+        "score": 0.41396718051084963,
+        "overlap": 259
+      },
+      {
+        "mpId": 1736,
+        "score": 0.41185855785130204,
+        "overlap": 272
+      },
+      {
+        "mpId": 1696,
+        "score": 0.41074006682944075,
+        "overlap": 284
+      },
+      {
+        "mpId": 2115,
+        "score": 0.4097783241990157,
+        "overlap": 273
+      },
+      {
+        "mpId": 1605,
+        "score": 0.4096673505778761,
+        "overlap": 233
+      },
+      {
+        "mpId": 1638,
+        "score": 0.40851352107374217,
+        "overlap": 286
+      },
+      {
+        "mpId": 1597,
+        "score": 0.4025594418196805,
+        "overlap": 270
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1428,
+        "score": -0.05790792318953019,
+        "overlap": 103
+      },
+      {
+        "mpId": 1576,
+        "score": -0.04015868936625819,
+        "overlap": 100
+      },
+      {
+        "mpId": 1643,
+        "score": -0.0394828689442775,
+        "overlap": 116
+      },
+      {
+        "mpId": 1970,
+        "score": -0.024090158393312158,
+        "overlap": 128
+      },
+      {
+        "mpId": 2135,
+        "score": -0.015716637371809627,
+        "overlap": 135
+      },
+      {
+        "mpId": 1703,
+        "score": -0.009220261936840373,
+        "overlap": 78
+      },
+      {
+        "mpId": 1155,
+        "score": -0.008765903482501345,
+        "overlap": 98
+      },
+      {
+        "mpId": 1317,
+        "score": -0.003877498413721782,
+        "overlap": 138
+      },
+      {
+        "mpId": 1466,
+        "score": 0.0046033363722907785,
+        "overlap": 99
+      },
+      {
+        "mpId": 1651,
+        "score": 0.011699435880841397,
+        "overlap": 91
+      },
+      {
+        "mpId": 1386,
+        "score": 0.01174345955224734,
+        "overlap": 125
+      },
+      {
+        "mpId": 1973,
+        "score": 0.012270990695477114,
+        "overlap": 135
+      },
+      {
+        "mpId": 1706,
+        "score": 0.014899283738711874,
+        "overlap": 132
+      },
+      {
+        "mpId": 1457,
+        "score": 0.015793076480587958,
+        "overlap": 137
+      },
+      {
+        "mpId": 473,
+        "score": 0.01601140418111178,
+        "overlap": 120
+      },
+      {
+        "mpId": 1599,
+        "score": 0.01944855518695324,
+        "overlap": 144
+      },
+      {
+        "mpId": 1920,
+        "score": 0.02047547370786743,
+        "overlap": 122
+      },
+      {
+        "mpId": 2074,
+        "score": 0.021890012073880336,
+        "overlap": 141
+      },
+      {
+        "mpId": 767,
+        "score": 0.02241874727288289,
+        "overlap": 156
+      },
+      {
+        "mpId": 810,
+        "score": 0.023146092963400568,
+        "overlap": 49
+      }
+    ]
+  }
+}

@@ -140,6 +140,19 @@ export const ParliamentVotingTile: FC = () => {
                     </div>
                   );
                 }
+                // Drill-down: pair URL uses "--" as the separator so party
+                // shortnames containing single hyphens (ГЕРБ-СДС) round-trip
+                // cleanly.
+                const pairSlug = `${encodeURIComponent(rowParty)}--${encodeURIComponent(colParty)}`;
+                const linkedCell = (
+                  <Link
+                    to={`/votes/between/${pairSlug}`}
+                    underline={false}
+                    className="contents"
+                  >
+                    {cell}
+                  </Link>
+                );
                 const verdict =
                   score >= 0.55
                     ? t("dashboard_parliament_legend_together")
@@ -183,7 +196,7 @@ export const ParliamentVotingTile: FC = () => {
                       </div>
                     }
                   >
-                    {cell}
+                    {linkedCell}
                   </Tooltip>
                 );
               })}

@@ -1,0 +1,335 @@
+{
+  "mpId": 1138,
+  "ns": "44",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 89,
+    "withParty": 78,
+    "loyaltyPct": 0.8764044943820225,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 89,
+    "dissentCount": 11,
+    "recent": [
+      {
+        "date": "2021-03-05",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-4-i-5-mart-202",
+        "title": "Програма за работата на Народното събрание за 4 и 5 март 2021 г. - предложение от Цвета Караянчева за отпадане на точка 7",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 48
+      },
+      {
+        "date": "2021-03-04",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-avtomobilnite-prevozi-vtoro-glasuvane-naime",
+        "title": "ЗИД на Закона за автомобилните превози - второ гласуване - наименование",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-03-04",
+        "item": 6,
+        "slug": "6-zakon-za-predostavyane-na-tsifrovo-sadarzhanie-i-tsifrovi-us",
+        "title": "Закон за предоставяне на цифрово съдържание и цифрови услуги и за продажба на стоки - второ гласуване - Глава четвърта, член 41 до член 48",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-02-26",
+        "item": 7,
+        "slug": "7-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-balgarskoto-gra",
+        "title": "Закон за изменение и допълнение на Закона за българското гражданство - второ гласуване - параграф 2",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2021-02-25",
+        "item": 30,
+        "slug": "30-protsedura-ot-al-ivanov-za-otpadane-na-t-12",
+        "title": "Процедура от Ал.Иванов за отпадане на т.12",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2021-02-11",
+        "item": 3,
+        "slug": "3-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-kontsesiite-vto",
+        "title": "Закон за изменение и допълнение на Закона за концесиите - второ гласуване - процедура за допускане в зала",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2021-02-10",
+        "item": 15,
+        "slug": "15-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-grazhdanskoto-v",
+        "title": "Закон за изменение и допълнение на Закона за гражданското въздухоплаване - второ гласуване - параграф 32 (става параграф 31) до параграф 37 (става параграф 36)",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-01-13",
+        "item": 6,
+        "slug": "6-zi-na-zakona-za-merkite-sreshtu-izpiraneto-na-pari-parvo-gla",
+        "title": "ЗИ на Закона за мерките срещу изпирането на пари - първо гласуване - процедура от Кр.Ципов за второ гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2020-11-19",
+        "item": 28,
+        "slug": "28-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 70 - предложение за редакция от Менда Стоянова",
+        "topic": "tax",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 32
+      },
+      {
+        "date": "2020-11-19",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 34 -36 (става параграф 37 - 39)",
+        "topic": "tax",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2020-11-19",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 34 - нов, параграф 32-33 (става параграф 35-36)",
+        "topic": "tax",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 46
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 848,
+        "score": 0.46811159601862895,
+        "overlap": 64
+      },
+      {
+        "mpId": 1534,
+        "score": 0.4274447622960047,
+        "overlap": 48
+      },
+      {
+        "mpId": 1353,
+        "score": 0.39396522137342144,
+        "overlap": 56
+      },
+      {
+        "mpId": 1352,
+        "score": 0.3678564606206145,
+        "overlap": 59
+      },
+      {
+        "mpId": 1262,
+        "score": 0.3676478701368984,
+        "overlap": 49
+      },
+      {
+        "mpId": 1385,
+        "score": 0.3523960932472829,
+        "overlap": 55
+      },
+      {
+        "mpId": 1315,
+        "score": 0.3450232718857368,
+        "overlap": 54
+      },
+      {
+        "mpId": 1045,
+        "score": 0.34089287330528983,
+        "overlap": 56
+      },
+      {
+        "mpId": 1298,
+        "score": 0.34060060471147807,
+        "overlap": 65
+      },
+      {
+        "mpId": 1285,
+        "score": 0.325847203308344,
+        "overlap": 75
+      },
+      {
+        "mpId": 833,
+        "score": 0.3201949883977043,
+        "overlap": 71
+      },
+      {
+        "mpId": 1390,
+        "score": 0.320116744127881,
+        "overlap": 67
+      },
+      {
+        "mpId": 1023,
+        "score": 0.319655582859702,
+        "overlap": 40
+      },
+      {
+        "mpId": 820,
+        "score": 0.3176460509803526,
+        "overlap": 54
+      },
+      {
+        "mpId": 782,
+        "score": 0.31246166502851963,
+        "overlap": 55
+      },
+      {
+        "mpId": 1275,
+        "score": 0.3104403647170093,
+        "overlap": 48
+      },
+      {
+        "mpId": 1268,
+        "score": 0.30528086354743394,
+        "overlap": 50
+      },
+      {
+        "mpId": 1318,
+        "score": 0.30439038876405056,
+        "overlap": 64
+      },
+      {
+        "mpId": 1253,
+        "score": 0.3023802179656048,
+        "overlap": 58
+      },
+      {
+        "mpId": 1336,
+        "score": 0.3018726524899911,
+        "overlap": 61
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1251,
+        "score": -0.0762131223541349,
+        "overlap": 15
+      },
+      {
+        "mpId": 1283,
+        "score": -0.06424925662032356,
+        "overlap": 14
+      },
+      {
+        "mpId": 1556,
+        "score": -0.06362847629757777,
+        "overlap": 6
+      },
+      {
+        "mpId": 1069,
+        "score": -0.06070984104933799,
+        "overlap": 43
+      },
+      {
+        "mpId": 1250,
+        "score": -0.05642593056411202,
+        "overlap": 38
+      },
+      {
+        "mpId": 990,
+        "score": -0.04344042607664861,
+        "overlap": 58
+      },
+      {
+        "mpId": 1468,
+        "score": -0.03587338685490461,
+        "overlap": 57
+      },
+      {
+        "mpId": 1297,
+        "score": -0.03539961627023943,
+        "overlap": 5
+      },
+      {
+        "mpId": 969,
+        "score": -0.03448788502503236,
+        "overlap": 12
+      },
+      {
+        "mpId": 1560,
+        "score": -0.028903665650804,
+        "overlap": 10
+      },
+      {
+        "mpId": 486,
+        "score": -0.026096943350084133,
+        "overlap": 56
+      },
+      {
+        "mpId": 369,
+        "score": -0.02595625799446786,
+        "overlap": 60
+      },
+      {
+        "mpId": 1377,
+        "score": -0.02554747247854024,
+        "overlap": 59
+      },
+      {
+        "mpId": 1473,
+        "score": -0.01956908754719271,
+        "overlap": 69
+      },
+      {
+        "mpId": 1540,
+        "score": -0.016556654463313048,
+        "overlap": 59
+      },
+      {
+        "mpId": 1386,
+        "score": -0.016485258466769275,
+        "overlap": 57
+      },
+      {
+        "mpId": 1552,
+        "score": -0.014997375688861584,
+        "overlap": 64
+      },
+      {
+        "mpId": 956,
+        "score": -0.012245305972844083,
+        "overlap": 41
+      },
+      {
+        "mpId": 1055,
+        "score": -0.011707322644771173,
+        "overlap": 17
+      },
+      {
+        "mpId": 1305,
+        "score": -0.011539507140288976,
+        "overlap": 63
+      }
+    ]
+  }
+}

@@ -1,0 +1,335 @@
+{
+  "mpId": 3358,
+  "ns": "51",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 3490,
+    "withParty": 3479,
+    "loyaltyPct": 0.9968481375358166,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 3490,
+    "dissentCount": 11,
+    "recent": [
+      {
+        "date": "2026-03-04",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-grazhdanskata-registratsiya-parvo-glasuvane",
+        "title": "ЗИД на Закона за гражданската регистрация – първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2026-02-05",
+        "item": 40,
+        "slug": "40-zi-na-izborniya-kodeks-vtoro-glasuvane-paragraf-3-stava-para",
+        "title": "ЗИ на Изборния кодекс – второ гласуване - параграф 3 (става параграф 5) - предложение от Надежда Йорданова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 32
+      },
+      {
+        "date": "2025-12-18",
+        "item": 31,
+        "slug": "31-zid-na-semeyniya-kodeks-vtoro-glasuvane-paragraf-11-stava-pa",
+        "title": "ЗИД на Семейния кодекс - второ гласуване - параграф 11 (става параграф 13)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 32
+      },
+      {
+        "date": "2025-10-29",
+        "item": 23,
+        "slug": "23-ratifikatsiya-na-usavarshenstvanoto-ramkovo-sporazumenie-mez",
+        "title": "Ратификация на Усъвършенстваното рамково споразумение между Европейския съюз и неговите държави членки, от една страна, и Република Чили, от друга страна, съставено в Брюксел на 13 декември 2023 г. - второ гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 29
+      },
+      {
+        "date": "2025-07-24",
+        "item": 37,
+        "slug": "37-zid-na-administrativnoprotsesualniya-kodeks-vtoro-glasuvane-",
+        "title": "ЗИД на Административнопроцесуалния кодекс - второ гласуване - параграф 11 - нов, параграф 12",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 29
+      },
+      {
+        "date": "2025-07-03",
+        "item": 9,
+        "slug": "9-zid-na-administrativnoprotsesualniya-kodeks-parvo-glasuvane-",
+        "title": "ЗИД на Административнопроцесуалния кодекс – първо гласуване - вносител Александър Рашев и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2025-06-19",
+        "item": 218,
+        "slug": "218-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 101 - предложение от Георги Кръстев за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2025-06-19",
+        "item": 105,
+        "slug": "105-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 34 (става член 32)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-05-07",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-merkite-sreshtu-finansiraneto-na-terorizma-",
+        "title": "ЗИД на Закона за мерките срещу финансирането на тероризма - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 32
+      },
+      {
+        "date": "2025-03-19",
+        "item": 35,
+        "slug": "35-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - член 9 и 10",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 33
+      },
+      {
+        "date": "2025-01-22",
+        "item": 80,
+        "slug": "80-reshenie-za-izbirane-na-sastav-na-komisiya-po-preventsiya-i-",
+        "title": "Решение за избиране на състав на Комисия по превенция и противодействие на корупцията",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 32
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3230,
+        "score": 0.9688169698904717,
+        "overlap": 3455
+      },
+      {
+        "mpId": 3090,
+        "score": 0.9591350863024574,
+        "overlap": 3434
+      },
+      {
+        "mpId": 3050,
+        "score": 0.9575586948637166,
+        "overlap": 3331
+      },
+      {
+        "mpId": 3122,
+        "score": 0.9566710624147361,
+        "overlap": 3387
+      },
+      {
+        "mpId": 3154,
+        "score": 0.9540323961848396,
+        "overlap": 3369
+      },
+      {
+        "mpId": 3095,
+        "score": 0.9534916969121181,
+        "overlap": 3315
+      },
+      {
+        "mpId": 3141,
+        "score": 0.9504438700563773,
+        "overlap": 3377
+      },
+      {
+        "mpId": 3177,
+        "score": 0.9495687843516339,
+        "overlap": 3399
+      },
+      {
+        "mpId": 3028,
+        "score": 0.9478521337134708,
+        "overlap": 3263
+      },
+      {
+        "mpId": 3068,
+        "score": 0.9455907475449147,
+        "overlap": 3374
+      },
+      {
+        "mpId": 3129,
+        "score": 0.9452567345645032,
+        "overlap": 3344
+      },
+      {
+        "mpId": 3165,
+        "score": 0.9417828060688991,
+        "overlap": 3343
+      },
+      {
+        "mpId": 3121,
+        "score": 0.9416151603936753,
+        "overlap": 3298
+      },
+      {
+        "mpId": 3205,
+        "score": 0.9387739994359188,
+        "overlap": 3348
+      },
+      {
+        "mpId": 3304,
+        "score": 0.933490499846754,
+        "overlap": 3299
+      },
+      {
+        "mpId": 3084,
+        "score": 0.9280225915790713,
+        "overlap": 3197
+      },
+      {
+        "mpId": 3027,
+        "score": 0.927324717249222,
+        "overlap": 3197
+      },
+      {
+        "mpId": 3116,
+        "score": 0.9252424585849115,
+        "overlap": 3233
+      },
+      {
+        "mpId": 3072,
+        "score": 0.9226073307732873,
+        "overlap": 3234
+      },
+      {
+        "mpId": 3142,
+        "score": 0.9221537062180194,
+        "overlap": 3210
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3493,
+        "score": -0.3858767400771523,
+        "overlap": 2058
+      },
+      {
+        "mpId": 3491,
+        "score": -0.38175478423819786,
+        "overlap": 2697
+      },
+      {
+        "mpId": 3415,
+        "score": -0.36146296634521513,
+        "overlap": 3215
+      },
+      {
+        "mpId": 3127,
+        "score": -0.34806350894836646,
+        "overlap": 3228
+      },
+      {
+        "mpId": 3160,
+        "score": -0.34799032532599466,
+        "overlap": 2603
+      },
+      {
+        "mpId": 3308,
+        "score": -0.3470694810189538,
+        "overlap": 3289
+      },
+      {
+        "mpId": 3452,
+        "score": -0.3459206943216307,
+        "overlap": 2982
+      },
+      {
+        "mpId": 3042,
+        "score": -0.3429319670274606,
+        "overlap": 3085
+      },
+      {
+        "mpId": 3447,
+        "score": -0.3419509681944382,
+        "overlap": 3034
+      },
+      {
+        "mpId": 3401,
+        "score": -0.34055816240586056,
+        "overlap": 3292
+      },
+      {
+        "mpId": 3228,
+        "score": -0.3396729810504974,
+        "overlap": 3339
+      },
+      {
+        "mpId": 3289,
+        "score": -0.33835644787097646,
+        "overlap": 2873
+      },
+      {
+        "mpId": 3450,
+        "score": -0.33782365756865645,
+        "overlap": 2905
+      },
+      {
+        "mpId": 3231,
+        "score": -0.33747670837103616,
+        "overlap": 3151
+      },
+      {
+        "mpId": 3302,
+        "score": -0.33743853066553703,
+        "overlap": 3181
+      },
+      {
+        "mpId": 3044,
+        "score": -0.3373544953250608,
+        "overlap": 2810
+      },
+      {
+        "mpId": 3445,
+        "score": -0.3366892386829324,
+        "overlap": 2667
+      },
+      {
+        "mpId": 3156,
+        "score": -0.33597988676073676,
+        "overlap": 3321
+      },
+      {
+        "mpId": 3363,
+        "score": -0.3355726826910683,
+        "overlap": 3039
+      },
+      {
+        "mpId": 3449,
+        "score": -0.33385433472994136,
+        "overlap": 2792
+      }
+    ]
+  }
+}

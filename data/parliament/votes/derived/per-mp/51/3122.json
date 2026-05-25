@@ -1,0 +1,305 @@
+{
+  "mpId": 3122,
+  "ns": "51",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 3552,
+    "withParty": 3544,
+    "loyaltyPct": 0.9977477477477478,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 3552,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2026-02-11",
+        "item": 9,
+        "slug": "9-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-fevruari",
+        "title": "Програма за работата на Народното събрание за 11 - 13 февруари 2026 г. - предложение от Севим Али и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2025-12-18",
+        "item": 31,
+        "slug": "31-zid-na-semeyniya-kodeks-vtoro-glasuvane-paragraf-11-stava-pa",
+        "title": "ЗИД на Семейния кодекс - второ гласуване - параграф 11 (става параграф 13)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 32
+      },
+      {
+        "date": "2025-10-29",
+        "item": 23,
+        "slug": "23-ratifikatsiya-na-usavarshenstvanoto-ramkovo-sporazumenie-mez",
+        "title": "Ратификация на Усъвършенстваното рамково споразумение между Европейския съюз и неговите държави членки, от една страна, и Република Чили, от друга страна, съставено в Брюксел на 13 декември 2023 г. - второ гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 29
+      },
+      {
+        "date": "2025-06-18",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-chuzhdentsite-v-republika-balgariya-vtoro-g",
+        "title": "ЗИД на Закона за чужденците в Република България – второ гласуване - параграф 4",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 29
+      },
+      {
+        "date": "2025-05-07",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-merkite-sreshtu-finansiraneto-na-terorizma-",
+        "title": "ЗИД на Закона за мерките срещу финансирането на тероризма - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 32
+      },
+      {
+        "date": "2025-04-09",
+        "item": 13,
+        "slug": "13-izslushvane-na-ministara-na-energetikata-zhecho-stankov-otno",
+        "title": "Изслушване на министъра на енергетиката Жечо Станков, относно сключените споразумения с турската компания Боташ, тяхното отражение върху Булгаргаз и необходимостта от предоговаряне на условията по тези споразумения - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 26
+      },
+      {
+        "date": "2025-01-22",
+        "item": 80,
+        "slug": "80-reshenie-za-izbirane-na-sastav-na-komisiya-po-preventsiya-i-",
+        "title": "Решение за избиране на състав на Комисия по превенция и противодействие на корупцията",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 32
+      },
+      {
+        "date": "2025-01-16",
+        "item": 11,
+        "slug": "11-programa-za-rabotata-na-narodnoto-sabranie-na-15-17-yanuari-",
+        "title": "Програма за работата на Народното събрание на 15 – 17 януари 2025 г. - процедура от Наталия Киселова за отпадане на парламентарния контрол",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 33
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3230,
+        "score": 0.9644887158892179,
+        "overlap": 3468
+      },
+      {
+        "mpId": 3090,
+        "score": 0.9581324934710216,
+        "overlap": 3467
+      },
+      {
+        "mpId": 3358,
+        "score": 0.9566710624147361,
+        "overlap": 3387
+      },
+      {
+        "mpId": 3177,
+        "score": 0.9552676887985465,
+        "overlap": 3456
+      },
+      {
+        "mpId": 3205,
+        "score": 0.955263608753234,
+        "overlap": 3431
+      },
+      {
+        "mpId": 3141,
+        "score": 0.9528505320149832,
+        "overlap": 3425
+      },
+      {
+        "mpId": 3154,
+        "score": 0.952119590610864,
+        "overlap": 3408
+      },
+      {
+        "mpId": 3068,
+        "score": 0.9493798033143162,
+        "overlap": 3424
+      },
+      {
+        "mpId": 3129,
+        "score": 0.9493798033143162,
+        "overlap": 3397
+      },
+      {
+        "mpId": 3165,
+        "score": 0.9455905904003159,
+        "overlap": 3397
+      },
+      {
+        "mpId": 3304,
+        "score": 0.9447962598254146,
+        "overlap": 3374
+      },
+      {
+        "mpId": 3121,
+        "score": 0.9438520919127888,
+        "overlap": 3347
+      },
+      {
+        "mpId": 3095,
+        "score": 0.9425162179863823,
+        "overlap": 3309
+      },
+      {
+        "mpId": 3072,
+        "score": 0.9393002150884494,
+        "overlap": 3325
+      },
+      {
+        "mpId": 3028,
+        "score": 0.9379286016639877,
+        "overlap": 3256
+      },
+      {
+        "mpId": 3084,
+        "score": 0.935121911649525,
+        "overlap": 3258
+      },
+      {
+        "mpId": 3027,
+        "score": 0.9345037160580337,
+        "overlap": 3251
+      },
+      {
+        "mpId": 3050,
+        "score": 0.9343260857855703,
+        "overlap": 3294
+      },
+      {
+        "mpId": 3116,
+        "score": 0.9293560466203981,
+        "overlap": 3287
+      },
+      {
+        "mpId": 3279,
+        "score": 0.9285901820834432,
+        "overlap": 3141
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3493,
+        "score": -0.38809649817405006,
+        "overlap": 2139
+      },
+      {
+        "mpId": 3491,
+        "score": -0.38648015112191547,
+        "overlap": 2782
+      },
+      {
+        "mpId": 3415,
+        "score": -0.3723057895813247,
+        "overlap": 3274
+      },
+      {
+        "mpId": 3160,
+        "score": -0.3584181112437299,
+        "overlap": 2651
+      },
+      {
+        "mpId": 3127,
+        "score": -0.35772497674106124,
+        "overlap": 3286
+      },
+      {
+        "mpId": 3308,
+        "score": -0.3575311574519942,
+        "overlap": 3352
+      },
+      {
+        "mpId": 3042,
+        "score": -0.35387416896478985,
+        "overlap": 3132
+      },
+      {
+        "mpId": 3401,
+        "score": -0.35085340280164107,
+        "overlap": 3353
+      },
+      {
+        "mpId": 3452,
+        "score": -0.35030406356125116,
+        "overlap": 2953
+      },
+      {
+        "mpId": 3228,
+        "score": -0.349195504415321,
+        "overlap": 3397
+      },
+      {
+        "mpId": 3289,
+        "score": -0.3480550092860723,
+        "overlap": 2938
+      },
+      {
+        "mpId": 3231,
+        "score": -0.3476868774448743,
+        "overlap": 3202
+      },
+      {
+        "mpId": 3156,
+        "score": -0.3470781724360795,
+        "overlap": 3383
+      },
+      {
+        "mpId": 3447,
+        "score": -0.346335898397752,
+        "overlap": 3006
+      },
+      {
+        "mpId": 3302,
+        "score": -0.34503510085742095,
+        "overlap": 3285
+      },
+      {
+        "mpId": 3044,
+        "score": -0.3439111812380027,
+        "overlap": 2871
+      },
+      {
+        "mpId": 3400,
+        "score": -0.3435475423377593,
+        "overlap": 3381
+      },
+      {
+        "mpId": 3363,
+        "score": -0.3424455264788938,
+        "overlap": 3097
+      },
+      {
+        "mpId": 3445,
+        "score": -0.34191662764963643,
+        "overlap": 2634
+      },
+      {
+        "mpId": 3450,
+        "score": -0.3412990124919205,
+        "overlap": 2883
+      }
+    ]
+  }
+}

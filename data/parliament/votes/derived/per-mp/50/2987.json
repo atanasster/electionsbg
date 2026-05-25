@@ -1,0 +1,305 @@
+{
+  "mpId": 2987,
+  "ns": "50",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 136,
+    "withParty": 128,
+    "loyaltyPct": 0.9411764705882353,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 136,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2024-09-26",
+        "item": 7,
+        "slug": "7-protsedura-ot-yordan-tsonev-za-udalzhavane-na-rabotnoto-vrem",
+        "title": "Процедура от Йордан Цонев за удължаване на работното време до приключване на всички точки",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-09-26",
+        "item": 4,
+        "slug": "4-protsedura-ot-raya-nazaryan-za-nova-tochka-5",
+        "title": "Процедура от Рая Назарян за нова точка 5 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-09-11",
+        "item": 41,
+        "slug": "41-reshenie-za-izmenenie-na-reshenie-za-vazlagane-na-ministara-",
+        "title": "Решение за изменение на Решение за възлагане на министъра на енергетиката да проведе преговори с министъра на енергетиката на Украйна или негов представител с цел продажба на оборудване, предназначено за Проекта АЕЦ „Белене“ - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-08-14",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – първо гласуване - вносител Атанас Зафиров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-07-26",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-kreditnite-institutsii-parvo-glasuvane",
+        "title": "ЗИД на Закона за кредитните институции - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2024-07-24",
+        "item": 4,
+        "slug": "4-zi-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya-",
+        "title": "ЗИ на Закона за държавния бюджет на Република България за 2024 г. – първо гласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-07-12",
+        "item": 39,
+        "slug": "39-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 33 (става член 32) - предложение от Павела Митова за редакция в ал.3 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-07-12",
+        "item": 14,
+        "slug": "14-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 15 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2994,
+        "score": 0.7049043984291943,
+        "overlap": 114
+      },
+      {
+        "mpId": 2989,
+        "score": 0.6794685051108309,
+        "overlap": 98
+      },
+      {
+        "mpId": 3000,
+        "score": 0.6693743463144342,
+        "overlap": 104
+      },
+      {
+        "mpId": 2993,
+        "score": 0.6351221333809403,
+        "overlap": 81
+      },
+      {
+        "mpId": 2995,
+        "score": 0.6176305205284369,
+        "overlap": 103
+      },
+      {
+        "mpId": 2998,
+        "score": 0.6060437322090948,
+        "overlap": 60
+      },
+      {
+        "mpId": 2990,
+        "score": 0.5963461496407916,
+        "overlap": 79
+      },
+      {
+        "mpId": 3001,
+        "score": 0.5869972174295652,
+        "overlap": 76
+      },
+      {
+        "mpId": 3002,
+        "score": 0.5868769612792631,
+        "overlap": 92
+      },
+      {
+        "mpId": 3003,
+        "score": 0.5630317780646766,
+        "overlap": 69
+      },
+      {
+        "mpId": 2997,
+        "score": 0.5475708968190233,
+        "overlap": 65
+      },
+      {
+        "mpId": 3004,
+        "score": 0.5455610957787468,
+        "overlap": 76
+      },
+      {
+        "mpId": 3006,
+        "score": 0.5411663385218649,
+        "overlap": 61
+      },
+      {
+        "mpId": 2988,
+        "score": 0.5369690454895454,
+        "overlap": 75
+      },
+      {
+        "mpId": 2999,
+        "score": 0.5246202146482868,
+        "overlap": 73
+      },
+      {
+        "mpId": 2991,
+        "score": 0.5213540217511153,
+        "overlap": 56
+      },
+      {
+        "mpId": 2992,
+        "score": 0.5001417836410179,
+        "overlap": 72
+      },
+      {
+        "mpId": 3005,
+        "score": 0.4637204285680076,
+        "overlap": 51
+      },
+      {
+        "mpId": 3008,
+        "score": 0.4444738068759794,
+        "overlap": 72
+      },
+      {
+        "mpId": 2973,
+        "score": 0.4176345347922784,
+        "overlap": 37
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2685,
+        "score": -0.06290245103533908,
+        "overlap": 18
+      },
+      {
+        "mpId": 2609,
+        "score": 0.01694428559251163,
+        "overlap": 33
+      },
+      {
+        "mpId": 2606,
+        "score": 0.020562903028816623,
+        "overlap": 25
+      },
+      {
+        "mpId": 2745,
+        "score": 0.04638254615090075,
+        "overlap": 108
+      },
+      {
+        "mpId": 2931,
+        "score": 0.048877009118595924,
+        "overlap": 12
+      },
+      {
+        "mpId": 2739,
+        "score": 0.05540265546203476,
+        "overlap": 117
+      },
+      {
+        "mpId": 2803,
+        "score": 0.05731247233330616,
+        "overlap": 124
+      },
+      {
+        "mpId": 2862,
+        "score": 0.060621719064042096,
+        "overlap": 127
+      },
+      {
+        "mpId": 2763,
+        "score": 0.06788587167028491,
+        "overlap": 131
+      },
+      {
+        "mpId": 2920,
+        "score": 0.06832608110152985,
+        "overlap": 128
+      },
+      {
+        "mpId": 2652,
+        "score": 0.06838966983665279,
+        "overlap": 131
+      },
+      {
+        "mpId": 2787,
+        "score": 0.07037761123784546,
+        "overlap": 133
+      },
+      {
+        "mpId": 2830,
+        "score": 0.07313717356049391,
+        "overlap": 87
+      },
+      {
+        "mpId": 2656,
+        "score": 0.0732114158203694,
+        "overlap": 61
+      },
+      {
+        "mpId": 2621,
+        "score": 0.07556752975952455,
+        "overlap": 132
+      },
+      {
+        "mpId": 2741,
+        "score": 0.07556752975952455,
+        "overlap": 132
+      },
+      {
+        "mpId": 2952,
+        "score": 0.07724086498525111,
+        "overlap": 135
+      },
+      {
+        "mpId": 2738,
+        "score": 0.07729439528317225,
+        "overlap": 26
+      },
+      {
+        "mpId": 2705,
+        "score": 0.07771703510958207,
+        "overlap": 134
+      },
+      {
+        "mpId": 2910,
+        "score": 0.07771703510958207,
+        "overlap": 133
+      }
+    ]
+  }
+}

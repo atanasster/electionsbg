@@ -18,7 +18,7 @@ import type { SessionFile } from "./types";
 
 const REVOTE_SUFFIX = /\s*[-–—]\s*прегласуване\s*$/iu;
 
-const normalizeTitle = (title: string): string => {
+export const normalizeTitle = (title: string): string => {
   let t = title.trim();
   // Strip one or more trailing re-vote markers (a re-vote can itself be
   // re-voted), so the whole chain collapses to one normalized key.

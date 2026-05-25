@@ -1,0 +1,325 @@
+{
+  "mpId": 3141,
+  "ns": "51",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 3590,
+    "withParty": 3580,
+    "loyaltyPct": 0.9972144846796658,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 3590,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2026-03-04",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-grazhdanskata-registratsiya-parvo-glasuvane",
+        "title": "ЗИД на Закона за гражданската регистрация – първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2025-10-29",
+        "item": 23,
+        "slug": "23-ratifikatsiya-na-usavarshenstvanoto-ramkovo-sporazumenie-mez",
+        "title": "Ратификация на Усъвършенстваното рамково споразумение между Европейския съюз и неговите държави членки, от една страна, и Република Чили, от друга страна, съставено в Брюксел на 13 декември 2023 г. - второ гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 29
+      },
+      {
+        "date": "2025-10-29",
+        "item": 22,
+        "slug": "22-ratifikatsiya-na-usavarshenstvanoto-ramkovo-sporazumenie-mez",
+        "title": "Ратификация на Усъвършенстваното рамково споразумение между Европейския съюз и неговите държави членки, от една страна, и Република Чили, от друга страна, съставено в Брюксел на 13 декември 2023 г. - първо гласуване - процедура от Йорданка Фандъкова за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 29
+      },
+      {
+        "date": "2025-07-23",
+        "item": 131,
+        "slug": "131-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата - второ гласуване - параграф 95 - 96 (става параграф 96 - 97)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-06-19",
+        "item": 246,
+        "slug": "246-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - параграф 3",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2025-06-05",
+        "item": 41,
+        "slug": "41-zakonoproekt-za-litsata-obsluzhvashti-krediti-i-kupuvachite-",
+        "title": "Законопроект за лицата, обслужващи кредити, и купувачите на кредити – второ гласуване - член 48 - предложение от Цончо Ганев и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2025-05-15",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-upravlenie-na-otpadatsite-parvo-glasuvane-p",
+        "title": "ЗИД на Закона за управление на отпадъците - първо гласуване - процедура от Младен Шишков за удължаване на срока за предложения",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2025-02-19",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-schetovodstvoto-parvo-glasuvane-protsedura-",
+        "title": "ЗИД на Закона за счетоводството – първо гласуване - процедура от Делян Добрев за второ гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2025-01-29",
+        "item": 15,
+        "slug": "15-reshenie-po-doklad-za-rezultatite-ot-rabotata-na-vremennata-",
+        "title": "Решение по Доклад за резултатите от работата на Временната комисия за проверка и установяване на факти и обстоятелства относно констатираните огнища на чума по дребни преживни животни и шарка по дребни преживни животни на територията на Република България - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2025-01-22",
+        "item": 80,
+        "slug": "80-reshenie-za-izbirane-na-sastav-na-komisiya-po-preventsiya-i-",
+        "title": "Решение за избиране на състав на Комисия по превенция и противодействие на корупцията",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 32
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3090,
+        "score": 0.9626904395236167,
+        "overlap": 3511
+      },
+      {
+        "mpId": 3165,
+        "score": 0.9618778444656947,
+        "overlap": 3478
+      },
+      {
+        "mpId": 3154,
+        "score": 0.9610954616013646,
+        "overlap": 3459
+      },
+      {
+        "mpId": 3177,
+        "score": 0.959909851488304,
+        "overlap": 3497
+      },
+      {
+        "mpId": 3129,
+        "score": 0.9567413463017673,
+        "overlap": 3443
+      },
+      {
+        "mpId": 3068,
+        "score": 0.9560808414026981,
+        "overlap": 3464
+      },
+      {
+        "mpId": 3230,
+        "score": 0.955278695516516,
+        "overlap": 3453
+      },
+      {
+        "mpId": 3205,
+        "score": 0.954677544672983,
+        "overlap": 3439
+      },
+      {
+        "mpId": 3122,
+        "score": 0.9528505320149832,
+        "overlap": 3425
+      },
+      {
+        "mpId": 3358,
+        "score": 0.9504438700563773,
+        "overlap": 3377
+      },
+      {
+        "mpId": 3304,
+        "score": 0.9442904682309174,
+        "overlap": 3395
+      },
+      {
+        "mpId": 3116,
+        "score": 0.9397691470892127,
+        "overlap": 3335
+      },
+      {
+        "mpId": 3084,
+        "score": 0.9394053364095665,
+        "overlap": 3293
+      },
+      {
+        "mpId": 3072,
+        "score": 0.9368563828119557,
+        "overlap": 3332
+      },
+      {
+        "mpId": 3142,
+        "score": 0.9359867647117021,
+        "overlap": 3306
+      },
+      {
+        "mpId": 3095,
+        "score": 0.9356682839885244,
+        "overlap": 3300
+      },
+      {
+        "mpId": 3121,
+        "score": 0.9350182178495845,
+        "overlap": 3327
+      },
+      {
+        "mpId": 3027,
+        "score": 0.9337760570576101,
+        "overlap": 3275
+      },
+      {
+        "mpId": 3050,
+        "score": 0.9305589960011167,
+        "overlap": 3284
+      },
+      {
+        "mpId": 3028,
+        "score": 0.9287405835617758,
+        "overlap": 3239
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3493,
+        "score": -0.3742831803750517,
+        "overlap": 2170
+      },
+      {
+        "mpId": 3491,
+        "score": -0.36873330093547924,
+        "overlap": 2799
+      },
+      {
+        "mpId": 3415,
+        "score": -0.3511993932172361,
+        "overlap": 3310
+      },
+      {
+        "mpId": 3160,
+        "score": -0.34511507232048344,
+        "overlap": 2683
+      },
+      {
+        "mpId": 3452,
+        "score": -0.3433914724651299,
+        "overlap": 2939
+      },
+      {
+        "mpId": 3447,
+        "score": -0.3394616340667587,
+        "overlap": 2990
+      },
+      {
+        "mpId": 3127,
+        "score": -0.33703308105703406,
+        "overlap": 3339
+      },
+      {
+        "mpId": 3308,
+        "score": -0.33551574069619544,
+        "overlap": 3390
+      },
+      {
+        "mpId": 3445,
+        "score": -0.3339888559674576,
+        "overlap": 2634
+      },
+      {
+        "mpId": 3450,
+        "score": -0.33367444703215715,
+        "overlap": 2861
+      },
+      {
+        "mpId": 3042,
+        "score": -0.3330501332382449,
+        "overlap": 3220
+      },
+      {
+        "mpId": 3231,
+        "score": -0.33273636152029346,
+        "overlap": 3220
+      },
+      {
+        "mpId": 3453,
+        "score": -0.3304737270777766,
+        "overlap": 2918
+      },
+      {
+        "mpId": 3401,
+        "score": -0.3283983497361195,
+        "overlap": 3392
+      },
+      {
+        "mpId": 3228,
+        "score": -0.32733082380324463,
+        "overlap": 3441
+      },
+      {
+        "mpId": 3302,
+        "score": -0.326805105461535,
+        "overlap": 3284
+      },
+      {
+        "mpId": 3289,
+        "score": -0.3267289742135973,
+        "overlap": 2984
+      },
+      {
+        "mpId": 3449,
+        "score": -0.32616588058258666,
+        "overlap": 2705
+      },
+      {
+        "mpId": 3156,
+        "score": -0.3254923133586759,
+        "overlap": 3422
+      },
+      {
+        "mpId": 3363,
+        "score": -0.3248027516376838,
+        "overlap": 3139
+      }
+    ]
+  }
+}

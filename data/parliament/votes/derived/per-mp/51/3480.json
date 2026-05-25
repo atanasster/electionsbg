@@ -1,0 +1,335 @@
+{
+  "mpId": 3480,
+  "ns": "51",
+  "partyShort": "ВЕЛИЧИЕ",
+  "loyalty": {
+    "votesCast": 1932,
+    "withParty": 1921,
+    "loyaltyPct": 0.9943064182194618,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 1932,
+    "dissentCount": 11,
+    "recent": [
+      {
+        "date": "2025-09-03",
+        "item": 7,
+        "slug": "7-reshenie-otnosno-predpriemane-na-speshni-merki-za-preodolyav",
+        "title": "Решение относно предприемане на спешни мерки за преодоляване на водната криза в Република България - процедура от Младен Шишков за удължаване на работното време до приемане на точката",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2025-07-16",
+        "item": 66,
+        "slug": "66-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата – второ гласуване - параграф 22а - предложение от Любен Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 7
+      },
+      {
+        "date": "2025-06-19",
+        "item": 255,
+        "slug": "255-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - параграф 10",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2025-06-19",
+        "item": 254,
+        "slug": "254-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - параграф 9 (става параграф 5)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 7
+      },
+      {
+        "date": "2025-06-19",
+        "item": 106,
+        "slug": "106-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 34а",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 6
+      },
+      {
+        "date": "2025-06-19",
+        "item": 70,
+        "slug": "70-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - член 20 - Вариант 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 6
+      },
+      {
+        "date": "2025-06-18",
+        "item": 52,
+        "slug": "52-zid-na-zakona-za-chuzhdentsite-v-republika-balgariya-vtoro-g",
+        "title": "ЗИД на Закона за чужденците в Република България – второ гласуване - параграф 20 (става параграф 23) - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2025-05-09",
+        "item": 2,
+        "slug": "2-reshenie-za-izbor-na-predsedatel-na-komisiyata-za-publichen-",
+        "title": "Решение за избор на председател на Комисията за публичен надзор над регистрираните одитори - процедура за допуск в пленарна зала на кандидата",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 3
+      },
+      {
+        "date": "2025-05-08",
+        "item": 95,
+        "slug": "95-zid-na-zakona-za-natsionalnata-sistema-za-speshni-povikvaniy",
+        "title": "ЗИД на Закона за Националната система за спешни повиквания с единен европейски номер 112 - второ гласуване - параграф 15",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2025-05-07",
+        "item": 9,
+        "slug": "9-programa-za-rabotata-na-narodnoto-sabranie-na-7-9-may-2025-g",
+        "title": "Програма за работата на Народното събрание на 7 - 9 май 2025 г. - предложение от Надежда Йорданова за отпадане на т.24",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2025-03-20",
+        "item": 108,
+        "slug": "108-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - член 5 - предложение от Светолсав Тодоров",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3490,
+        "score": 0.8037317257924952,
+        "overlap": 1698
+      },
+      {
+        "mpId": 3478,
+        "score": 0.7907540560920358,
+        "overlap": 1625
+      },
+      {
+        "mpId": 3486,
+        "score": 0.780826574239125,
+        "overlap": 1665
+      },
+      {
+        "mpId": 3477,
+        "score": 0.7712237631834908,
+        "overlap": 1468
+      },
+      {
+        "mpId": 3482,
+        "score": 0.7450681272232432,
+        "overlap": 1520
+      },
+      {
+        "mpId": 3485,
+        "score": 0.7083320681665889,
+        "overlap": 1264
+      },
+      {
+        "mpId": 3489,
+        "score": 0.6621973362866801,
+        "overlap": 1184
+      },
+      {
+        "mpId": 3484,
+        "score": 0.6185716100403872,
+        "overlap": 1140
+      },
+      {
+        "mpId": 3487,
+        "score": 0.5578295381486409,
+        "overlap": 687
+      },
+      {
+        "mpId": 3514,
+        "score": 0.484076407019084,
+        "overlap": 1503
+      },
+      {
+        "mpId": 3517,
+        "score": 0.48136255863678995,
+        "overlap": 1551
+      },
+      {
+        "mpId": 3518,
+        "score": 0.47479823094291185,
+        "overlap": 1544
+      },
+      {
+        "mpId": 3516,
+        "score": 0.4702557080094444,
+        "overlap": 1379
+      },
+      {
+        "mpId": 3510,
+        "score": 0.46732111897680895,
+        "overlap": 1433
+      },
+      {
+        "mpId": 3512,
+        "score": 0.46581480792579555,
+        "overlap": 1354
+      },
+      {
+        "mpId": 3513,
+        "score": 0.4573505150830556,
+        "overlap": 1490
+      },
+      {
+        "mpId": 3515,
+        "score": 0.4482186419593622,
+        "overlap": 1480
+      },
+      {
+        "mpId": 3511,
+        "score": 0.4434000301855666,
+        "overlap": 1040
+      },
+      {
+        "mpId": 3508,
+        "score": 0.4364271264406647,
+        "overlap": 1367
+      },
+      {
+        "mpId": 3121,
+        "score": 0.3699242538263175,
+        "overlap": 1707
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3491,
+        "score": -0.3286236895193745,
+        "overlap": 1842
+      },
+      {
+        "mpId": 3450,
+        "score": -0.32738334193493773,
+        "overlap": 1669
+      },
+      {
+        "mpId": 3493,
+        "score": -0.32726488223824607,
+        "overlap": 1410
+      },
+      {
+        "mpId": 3447,
+        "score": -0.3144766943402351,
+        "overlap": 1752
+      },
+      {
+        "mpId": 3415,
+        "score": -0.3139074831762577,
+        "overlap": 1872
+      },
+      {
+        "mpId": 3449,
+        "score": -0.31014435437244425,
+        "overlap": 1578
+      },
+      {
+        "mpId": 3453,
+        "score": -0.3087129018108025,
+        "overlap": 1717
+      },
+      {
+        "mpId": 3446,
+        "score": -0.3085341334042625,
+        "overlap": 1732
+      },
+      {
+        "mpId": 3452,
+        "score": -0.3074825536448619,
+        "overlap": 1709
+      },
+      {
+        "mpId": 3445,
+        "score": -0.30741962136808615,
+        "overlap": 1536
+      },
+      {
+        "mpId": 3289,
+        "score": -0.30358941329070144,
+        "overlap": 1755
+      },
+      {
+        "mpId": 3393,
+        "score": -0.30351882337407093,
+        "overlap": 1825
+      },
+      {
+        "mpId": 3308,
+        "score": -0.30319567202002806,
+        "overlap": 1869
+      },
+      {
+        "mpId": 3302,
+        "score": -0.3005806030243229,
+        "overlap": 1746
+      },
+      {
+        "mpId": 3361,
+        "score": -0.3002361968621267,
+        "overlap": 1881
+      },
+      {
+        "mpId": 3228,
+        "score": -0.30021787066610445,
+        "overlap": 1854
+      },
+      {
+        "mpId": 3381,
+        "score": -0.2996350332327797,
+        "overlap": 1663
+      },
+      {
+        "mpId": 3224,
+        "score": -0.29914471603124354,
+        "overlap": 1794
+      },
+      {
+        "mpId": 3113,
+        "score": -0.2986651472733202,
+        "overlap": 1769
+      },
+      {
+        "mpId": 3156,
+        "score": -0.2985064246220083,
+        "overlap": 1834
+      }
+    ]
+  }
+}

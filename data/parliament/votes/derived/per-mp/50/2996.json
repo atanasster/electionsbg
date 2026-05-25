@@ -1,0 +1,255 @@
+{
+  "mpId": 2996,
+  "ns": "50",
+  "partyShort": "НЕЧЛ В ПГ",
+  "loyalty": {
+    "votesCast": 36,
+    "withParty": 33,
+    "loyaltyPct": 0.9166666666666666,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 36,
+    "dissentCount": 3,
+    "recent": [
+      {
+        "date": "2024-09-18",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2024-08-14",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-14-16-avgust-2",
+        "title": "Програма за работата на Народното събрание за 14 – 16 август 2024 г. - процедура от Делян Добрев т.7 и т.15 да станат последни точки 4 и 5 в петък",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 35
+      },
+      {
+        "date": "2024-07-17",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-17-19-yuli-202",
+        "title": "Програма за работата на Народното събрание за 17 - 19 юли 2024 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 37
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3005,
+        "score": 0.5218821698374052,
+        "overlap": 28
+      },
+      {
+        "mpId": 3007,
+        "score": 0.48043565055296494,
+        "overlap": 21
+      },
+      {
+        "mpId": 3008,
+        "score": 0.4776651472212257,
+        "overlap": 36
+      },
+      {
+        "mpId": 2993,
+        "score": 0.43950398404028307,
+        "overlap": 30
+      },
+      {
+        "mpId": 3002,
+        "score": 0.43620120725723543,
+        "overlap": 31
+      },
+      {
+        "mpId": 2989,
+        "score": 0.43125358551541654,
+        "overlap": 31
+      },
+      {
+        "mpId": 2988,
+        "score": 0.4244373438135827,
+        "overlap": 32
+      },
+      {
+        "mpId": 3001,
+        "score": 0.3984513839882613,
+        "overlap": 26
+      },
+      {
+        "mpId": 2997,
+        "score": 0.39295262399668784,
+        "overlap": 25
+      },
+      {
+        "mpId": 2994,
+        "score": 0.39229933572445613,
+        "overlap": 35
+      },
+      {
+        "mpId": 3003,
+        "score": 0.37146329728054306,
+        "overlap": 24
+      },
+      {
+        "mpId": 3000,
+        "score": 0.3681431946467378,
+        "overlap": 28
+      },
+      {
+        "mpId": 2995,
+        "score": 0.366146046676159,
+        "overlap": 32
+      },
+      {
+        "mpId": 2990,
+        "score": 0.3549310554720022,
+        "overlap": 26
+      },
+      {
+        "mpId": 2998,
+        "score": 0.3460033379306548,
+        "overlap": 20
+      },
+      {
+        "mpId": 2999,
+        "score": 0.3301462400094654,
+        "overlap": 25
+      },
+      {
+        "mpId": 2992,
+        "score": 0.3247336398839976,
+        "overlap": 24
+      },
+      {
+        "mpId": 2991,
+        "score": 0.32410186177608213,
+        "overlap": 18
+      },
+      {
+        "mpId": 3004,
+        "score": 0.3234215794076912,
+        "overlap": 23
+      },
+      {
+        "mpId": 3006,
+        "score": 0.2773975205457409,
+        "overlap": 17
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2670,
+        "score": -0.20012511730970398,
+        "overlap": 12
+      },
+      {
+        "mpId": 2685,
+        "score": -0.12252450735245086,
+        "overlap": 18
+      },
+      {
+        "mpId": 2699,
+        "score": -0.10677035543974552,
+        "overlap": 20
+      },
+      {
+        "mpId": 2827,
+        "score": -0.10496680190814046,
+        "overlap": 24
+      },
+      {
+        "mpId": 2623,
+        "score": -0.09740465098831573,
+        "overlap": 28
+      },
+      {
+        "mpId": 2669,
+        "score": -0.09481566905727731,
+        "overlap": 25
+      },
+      {
+        "mpId": 2849,
+        "score": -0.09341609898779205,
+        "overlap": 23
+      },
+      {
+        "mpId": 2850,
+        "score": -0.08370734982798651,
+        "overlap": 27
+      },
+      {
+        "mpId": 2815,
+        "score": -0.07986523020975031,
+        "overlap": 18
+      },
+      {
+        "mpId": 2613,
+        "score": -0.07585826061362605,
+        "overlap": 26
+      },
+      {
+        "mpId": 2795,
+        "score": -0.0729229188996185,
+        "overlap": 27
+      },
+      {
+        "mpId": 2928,
+        "score": -0.06989523566092122,
+        "overlap": 27
+      },
+      {
+        "mpId": 2914,
+        "score": -0.06321044603818488,
+        "overlap": 26
+      },
+      {
+        "mpId": 2756,
+        "score": -0.0618261078768907,
+        "overlap": 26
+      },
+      {
+        "mpId": 2793,
+        "score": -0.06160411036336975,
+        "overlap": 32
+      },
+      {
+        "mpId": 2754,
+        "score": -0.06150297072799062,
+        "overlap": 23
+      },
+      {
+        "mpId": 2714,
+        "score": -0.05741593933417829,
+        "overlap": 31
+      },
+      {
+        "mpId": 2854,
+        "score": -0.056908688355211984,
+        "overlap": 29
+      },
+      {
+        "mpId": 2785,
+        "score": -0.05591239798617567,
+        "overlap": 31
+      },
+      {
+        "mpId": 2945,
+        "score": -0.05406735470694457,
+        "overlap": 30
+      }
+    ]
+  }
+}

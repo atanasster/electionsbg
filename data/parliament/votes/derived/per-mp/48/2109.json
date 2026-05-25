@@ -1,0 +1,329 @@
+{
+  "mpId": 2109,
+  "ns": "48",
+  "partyShort": "ПП",
+  "loyalty": {
+    "votesCast": 1312,
+    "withParty": 1301,
+    "loyaltyPct": 0.9916158536585366,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 1312,
+    "dissentCount": 11,
+    "recent": [
+      {
+        "date": "2023-01-27",
+        "item": 27,
+        "slug": "27-protsedura-ot-tsoncho-ganev-za-razmestvane-na-tochkite",
+        "title": "Процедура от Цончо Ганев за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 36
+      },
+      {
+        "date": "2023-01-19",
+        "item": 36,
+        "slug": "36-zid-na-zakona-za-kadastara-i-imotniya-registar-vtoro-glasuva",
+        "title": "ЗИД на Закона за кадастъра и имотния регистър - второ гласуване - параграф 1б - предложение от Божидар Божанов - процедура за допустимост",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2023-01-11",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-yanuari-",
+        "title": "Програма за работата на Народното събрание за 11 - 13 януари 2023 г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 47
+      },
+      {
+        "date": "2023-01-05",
+        "item": 13,
+        "slug": "13-protsedura-ot-georgi-svilenski-za-vklyuchvane-na-tochka-5",
+        "title": "Процедура от Георги Свиленски за включване на точка 5",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 46
+      },
+      {
+        "date": "2023-01-04",
+        "item": 8,
+        "slug": "8-zid-na-kodeksa-za-sotsialno-osiguryavane-parvo-glasuvane",
+        "title": "ЗИД на Кодекса за социално осигуряване - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-12-21",
+        "item": 15,
+        "slug": "15",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 44
+      },
+      {
+        "date": "2022-12-15",
+        "item": 49,
+        "slug": "49-zid-na-zakona-za-semeyni-pomoshti-za-detsa-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за семейни помощи за деца - второ гласуване - параграф 2 - нов - предложение от Корнелия Нинова и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-12-15",
+        "item": 48,
+        "slug": "48-zid-na-zakona-za-semeyni-pomoshti-za-detsa-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за семейни помощи за деца - второ гласуване - параграф 2 - нов - предложение от Корнелия Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 41
+      },
+      {
+        "date": "2022-12-02",
+        "item": 82,
+        "slug": "82",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 33
+      },
+      {
+        "date": "2022-12-02",
+        "item": 43,
+        "slug": "43",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2022-12-01",
+        "item": 136,
+        "slug": "136-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-8-stava-par",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 8 (става параграф 26)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 45
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2053,
+        "score": 0.9582816400539541,
+        "overlap": 1280
+      },
+      {
+        "mpId": 2062,
+        "score": 0.9474245956792944,
+        "overlap": 1251
+      },
+      {
+        "mpId": 2029,
+        "score": 0.9471347629731972,
+        "overlap": 1241
+      },
+      {
+        "mpId": 2362,
+        "score": 0.936403802541294,
+        "overlap": 1202
+      },
+      {
+        "mpId": 2155,
+        "score": 0.9362150375845698,
+        "overlap": 1207
+      },
+      {
+        "mpId": 2168,
+        "score": 0.9354190869078672,
+        "overlap": 1222
+      },
+      {
+        "mpId": 2103,
+        "score": 0.9319469274334466,
+        "overlap": 1208
+      },
+      {
+        "mpId": 2114,
+        "score": 0.929135547598869,
+        "overlap": 1196
+      },
+      {
+        "mpId": 2343,
+        "score": 0.9277493370438534,
+        "overlap": 1168
+      },
+      {
+        "mpId": 2118,
+        "score": 0.9210465348683052,
+        "overlap": 1213
+      },
+      {
+        "mpId": 2083,
+        "score": 0.9140640752378243,
+        "overlap": 1151
+      },
+      {
+        "mpId": 2176,
+        "score": 0.9118768207274528,
+        "overlap": 1141
+      },
+      {
+        "mpId": 2091,
+        "score": 0.9058103861015453,
+        "overlap": 1143
+      },
+      {
+        "mpId": 2017,
+        "score": 0.8993310155577829,
+        "overlap": 1143
+      },
+      {
+        "mpId": 2282,
+        "score": 0.896847841162739,
+        "overlap": 1106
+      },
+      {
+        "mpId": 2243,
+        "score": 0.8938076722656819,
+        "overlap": 1089
+      },
+      {
+        "mpId": 2081,
+        "score": 0.8931960743056047,
+        "overlap": 1098
+      },
+      {
+        "mpId": 2110,
+        "score": 0.8914387659862504,
+        "overlap": 1091
+      },
+      {
+        "mpId": 2252,
+        "score": 0.8881206253965831,
+        "overlap": 1135
+      },
+      {
+        "mpId": 2120,
+        "score": 0.8851733550753148,
+        "overlap": 1095
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1297,
+        "score": -0.1364228619520336,
+        "overlap": 363
+      },
+      {
+        "mpId": 2133,
+        "score": -0.0990178116730986,
+        "overlap": 344
+      },
+      {
+        "mpId": 960,
+        "score": -0.04989861169270414,
+        "overlap": 718
+      },
+      {
+        "mpId": 1389,
+        "score": -0.04334334091428127,
+        "overlap": 706
+      },
+      {
+        "mpId": 663,
+        "score": -0.03621311003114358,
+        "overlap": 712
+      },
+      {
+        "mpId": 524,
+        "score": -0.010754174138746938,
+        "overlap": 759
+      },
+      {
+        "mpId": 1000,
+        "score": -0.0032331190509002736,
+        "overlap": 758
+      },
+      {
+        "mpId": 1576,
+        "score": 0.008077734494590667,
+        "overlap": 810
+      },
+      {
+        "mpId": 810,
+        "score": 0.012461255710835537,
+        "overlap": 348
+      },
+      {
+        "mpId": 2356,
+        "score": 0.02560627068591656,
+        "overlap": 906
+      },
+      {
+        "mpId": 2064,
+        "score": 0.032906671022943104,
+        "overlap": 50
+      },
+      {
+        "mpId": 398,
+        "score": 0.04214616346636214,
+        "overlap": 889
+      },
+      {
+        "mpId": 2256,
+        "score": 0.04323124500091264,
+        "overlap": 720
+      },
+      {
+        "mpId": 1961,
+        "score": 0.04882862787182981,
+        "overlap": 965
+      },
+      {
+        "mpId": 2088,
+        "score": 0.049527613150965856,
+        "overlap": 836
+      },
+      {
+        "mpId": 451,
+        "score": 0.04982374501634131,
+        "overlap": 688
+      },
+      {
+        "mpId": 987,
+        "score": 0.05123090792202893,
+        "overlap": 798
+      },
+      {
+        "mpId": 1700,
+        "score": 0.05136509619701219,
+        "overlap": 908
+      },
+      {
+        "mpId": 2295,
+        "score": 0.05168255406667284,
+        "overlap": 944
+      },
+      {
+        "mpId": 2283,
+        "score": 0.05308720445416493,
+        "overlap": 234
+      }
+    ]
+  }
+}

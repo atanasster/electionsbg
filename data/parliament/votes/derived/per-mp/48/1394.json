@@ -1,0 +1,325 @@
+{
+  "mpId": 1394,
+  "ns": "48",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 130,
+    "withParty": 120,
+    "loyaltyPct": 0.9230769230769231,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 130,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2022-12-09",
+        "item": 32,
+        "slug": "32-ratifitsirane-na-sporazumenieto-mezhdu-ministerstvoto-na-otb",
+        "title": "Ратифициране на Споразумението между Министерството на отбраната на Република България и Министерството на отбраната на Украйна относно безвъзмездно предоставяне на въоражение, техника и боеприпаси - първо гласуване - процедура от Христо Гаджев за намаляване на срока за предложения на 3 дни - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 20
+      },
+      {
+        "date": "2022-12-09",
+        "item": 28,
+        "slug": "28-reshenie-za-okazvane-na-voenna-i-voenno-tehnicheska-podkrepa",
+        "title": "Решение за оказване на военна и военно-техническа подкрепа на Украйна",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 21
+      },
+      {
+        "date": "2022-12-09",
+        "item": 26,
+        "slug": "26-reshenie-za-okazvane-na-voenna-i-voenno-tehnicheska-podkrepa",
+        "title": "Решение за оказване на военна и военно-техническа подкрепа на Украйна - предложение от Екатерина Захариева за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 21
+      },
+      {
+        "date": "2022-12-09",
+        "item": 20,
+        "slug": "20-reshenie-za-okazvane-na-voenna-i-voenno-tehnicheska-podkrepa",
+        "title": "Решение за оказване на военна и военно-техническа подкрепа на Украйна - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2022-12-09",
+        "item": 17,
+        "slug": "17-protsedura-ot-ivan-ivanov-za-razmestvane-na-tochkite",
+        "title": "Процедура от Иван Иванов за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2022-11-04",
+        "item": 18,
+        "slug": "18-zid-na-izborniya-kodeks-parvo-glasuvane-vnositel-korneliya-n",
+        "title": "ЗИД на Изборния кодекс - първо гласуване - вносител Корнелия Нинова и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-11-04",
+        "item": 17,
+        "slug": "17-zid-na-izborniya-kodeks-parvo-glasuvane-vnositel-korneliya-n",
+        "title": "ЗИД на Изборния кодекс - първо гласуване - вносител Корнелия Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-11-02",
+        "item": 11,
+        "slug": "11-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 8 - отменено",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 20
+      },
+      {
+        "date": "2022-11-02",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodnoto-sabranie-za-2-4-noemvri-20",
+        "title": "Програма за работата на Народното събрание за 2 - 4 ноември 2022 г. - предложение от Борислав Гуцанов за отпадане на точка 4 и 8",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2022-11-02",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-2-4-noemvri-20",
+        "title": "Програма за работата на Народното събрание за 2 - 4 ноември 2022 г. - предложение от Милен Матеев и Надежда Йорданова за отпадане на точка 9 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 23
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1581,
+        "score": 0.33397125573068126,
+        "overlap": 127
+      },
+      {
+        "mpId": 2277,
+        "score": 0.289159446419413,
+        "overlap": 127
+      },
+      {
+        "mpId": 1275,
+        "score": 0.28636403655101395,
+        "overlap": 123
+      },
+      {
+        "mpId": 2251,
+        "score": 0.2826776534400715,
+        "overlap": 119
+      },
+      {
+        "mpId": 2058,
+        "score": 0.2761366400422369,
+        "overlap": 128
+      },
+      {
+        "mpId": 2090,
+        "score": 0.26698827175947387,
+        "overlap": 130
+      },
+      {
+        "mpId": 2284,
+        "score": 0.2660360801003039,
+        "overlap": 120
+      },
+      {
+        "mpId": 1318,
+        "score": 0.2660189013549304,
+        "overlap": 106
+      },
+      {
+        "mpId": 2314,
+        "score": 0.2657523161511338,
+        "overlap": 109
+      },
+      {
+        "mpId": 2260,
+        "score": 0.2649801955961707,
+        "overlap": 109
+      },
+      {
+        "mpId": 2244,
+        "score": 0.26264110490427006,
+        "overlap": 124
+      },
+      {
+        "mpId": 2240,
+        "score": 0.2625336649223126,
+        "overlap": 127
+      },
+      {
+        "mpId": 2298,
+        "score": 0.26252871141020506,
+        "overlap": 128
+      },
+      {
+        "mpId": 2256,
+        "score": 0.2606491998660951,
+        "overlap": 103
+      },
+      {
+        "mpId": 2072,
+        "score": 0.2597677598876369,
+        "overlap": 126
+      },
+      {
+        "mpId": 2351,
+        "score": 0.25643228959735404,
+        "overlap": 128
+      },
+      {
+        "mpId": 2173,
+        "score": 0.2538442082466513,
+        "overlap": 123
+      },
+      {
+        "mpId": 2163,
+        "score": 0.2536985663480097,
+        "overlap": 125
+      },
+      {
+        "mpId": 761,
+        "score": 0.2518298329617916,
+        "overlap": 121
+      },
+      {
+        "mpId": 1021,
+        "score": 0.25181485320373515,
+        "overlap": 109
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": 0.017148648064166612,
+        "overlap": 99
+      },
+      {
+        "mpId": 1466,
+        "score": 0.042857867425692524,
+        "overlap": 107
+      },
+      {
+        "mpId": 817,
+        "score": 0.04529797821763652,
+        "overlap": 122
+      },
+      {
+        "mpId": 1344,
+        "score": 0.05376851264371393,
+        "overlap": 109
+      },
+      {
+        "mpId": 1960,
+        "score": 0.055440965914990016,
+        "overlap": 122
+      },
+      {
+        "mpId": 1970,
+        "score": 0.05548108532996304,
+        "overlap": 109
+      },
+      {
+        "mpId": 1644,
+        "score": 0.056574130339308935,
+        "overlap": 109
+      },
+      {
+        "mpId": 2295,
+        "score": 0.057453180991405645,
+        "overlap": 114
+      },
+      {
+        "mpId": 1386,
+        "score": 0.05851756763583789,
+        "overlap": 123
+      },
+      {
+        "mpId": 2305,
+        "score": 0.05871008742070324,
+        "overlap": 120
+      },
+      {
+        "mpId": 2085,
+        "score": 0.059004129764625865,
+        "overlap": 123
+      },
+      {
+        "mpId": 2051,
+        "score": 0.059284174891169925,
+        "overlap": 121
+      },
+      {
+        "mpId": 1934,
+        "score": 0.05975901073069412,
+        "overlap": 121
+      },
+      {
+        "mpId": 1674,
+        "score": 0.059965254694023196,
+        "overlap": 122
+      },
+      {
+        "mpId": 1706,
+        "score": 0.05996884422846305,
+        "overlap": 116
+      },
+      {
+        "mpId": 1692,
+        "score": 0.06076473596300728,
+        "overlap": 119
+      },
+      {
+        "mpId": 1378,
+        "score": 0.06127685706393633,
+        "overlap": 118
+      },
+      {
+        "mpId": 1951,
+        "score": 0.061633597002029125,
+        "overlap": 122
+      },
+      {
+        "mpId": 1155,
+        "score": 0.062037389568159663,
+        "overlap": 118
+      },
+      {
+        "mpId": 1297,
+        "score": 0.0624796648766376,
+        "overlap": 51
+      }
+    ]
+  }
+}

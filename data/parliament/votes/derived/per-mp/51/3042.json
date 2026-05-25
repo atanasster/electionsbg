@@ -1,0 +1,335 @@
+{
+  "mpId": 3042,
+  "ns": "51",
+  "partyShort": "ДПС - НН",
+  "loyalty": {
+    "votesCast": 3413,
+    "withParty": 3402,
+    "loyaltyPct": 0.9967770290067389,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 3413,
+    "dissentCount": 11,
+    "recent": [
+      {
+        "date": "2025-07-23",
+        "item": 49,
+        "slug": "49-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата - второ гласуване - параграф 48",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2025-07-23",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата - второ гласуване - параграф 44 -предложение от Биляна Иванова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2025-07-16",
+        "item": 37,
+        "slug": "37-zid-na-zakona-za-dvizhenieto-po-patishtata-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за движението по пътищата – второ гласуване - параграф 6а - предложение от Любен Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2025-06-27",
+        "item": 27,
+        "slug": "27-zid-na-grazhdanskiya-protsesualen-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Гражданския процесуален кодекс - второ гласуване - параграф 14 - предложение от Анна Александрова - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2025-06-19",
+        "item": 196,
+        "slug": "196-zakon-za-nesastoyatelnost-na-fizicheskite-litsa-vtoro-glasuv",
+        "title": "Закон за несъстоятелност на физическите лица – второ гласуване - Глава шеста, Раздел І",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2025-05-14",
+        "item": 39,
+        "slug": "39-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите – второ гласуване - параграф 31 (става параграф 37) - предложение от Борис Аладжов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2025-05-08",
+        "item": 104,
+        "slug": "104-zid-na-zakona-za-ustroystvo-na-teritoriyata-parvo-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - първо гласуване - вносител Божидар Божанов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2025-04-30",
+        "item": 41,
+        "slug": "41-reshenie-za-novo-opredelyane-na-chislenostta-i-promeni-v-sas",
+        "title": "Решение за ново определяне на числеността и промени в състава и ръководството на Комисията по транспорт и съобщения - за заместник-председател - Танер Тюркоглу",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 5
+      },
+      {
+        "date": "2025-03-19",
+        "item": 38,
+        "slug": "38-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - член 11 - предложение от Асен Василев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2025-02-19",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-schetovodstvoto-parvo-glasuvane-vnositel-ki",
+        "title": "ЗИД на Закона за счетоводството – първо гласуване - вносител Кирил Петков и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-12-18",
+        "item": 71,
+        "slug": "71-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - Глава единадесета",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 25
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3401,
+        "score": 0.935085772257342,
+        "overlap": 3296
+      },
+      {
+        "mpId": 3156,
+        "score": 0.9300738072336152,
+        "overlap": 3328
+      },
+      {
+        "mpId": 3228,
+        "score": 0.9295442086403415,
+        "overlap": 3325
+      },
+      {
+        "mpId": 3400,
+        "score": 0.9266530060210506,
+        "overlap": 3310
+      },
+      {
+        "mpId": 3127,
+        "score": 0.9257585492388164,
+        "overlap": 3249
+      },
+      {
+        "mpId": 3308,
+        "score": 0.9195365261885008,
+        "overlap": 3276
+      },
+      {
+        "mpId": 3393,
+        "score": 0.9195358585171658,
+        "overlap": 3267
+      },
+      {
+        "mpId": 3224,
+        "score": 0.916883204836513,
+        "overlap": 3244
+      },
+      {
+        "mpId": 3018,
+        "score": 0.9153006509491101,
+        "overlap": 3238
+      },
+      {
+        "mpId": 3356,
+        "score": 0.9106153875039971,
+        "overlap": 3213
+      },
+      {
+        "mpId": 3302,
+        "score": 0.9052752587878103,
+        "overlap": 3180
+      },
+      {
+        "mpId": 3415,
+        "score": 0.9051846525703173,
+        "overlap": 3192
+      },
+      {
+        "mpId": 3306,
+        "score": 0.9013965003404948,
+        "overlap": 3190
+      },
+      {
+        "mpId": 3231,
+        "score": 0.8954763354224001,
+        "overlap": 3115
+      },
+      {
+        "mpId": 3110,
+        "score": 0.8928264782788071,
+        "overlap": 3043
+      },
+      {
+        "mpId": 3363,
+        "score": 0.8882129557936981,
+        "overlap": 3055
+      },
+      {
+        "mpId": 3343,
+        "score": 0.8772376002672004,
+        "overlap": 2930
+      },
+      {
+        "mpId": 3289,
+        "score": 0.8640077083530462,
+        "overlap": 2885
+      },
+      {
+        "mpId": 3044,
+        "score": 0.859000645111671,
+        "overlap": 2847
+      },
+      {
+        "mpId": 3293,
+        "score": 0.8451026573003412,
+        "overlap": 2707
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3517,
+        "score": -0.3585734283920647,
+        "overlap": 2190
+      },
+      {
+        "mpId": 3514,
+        "score": -0.355486441621405,
+        "overlap": 2133
+      },
+      {
+        "mpId": 3513,
+        "score": -0.3547569513941441,
+        "overlap": 2051
+      },
+      {
+        "mpId": 3122,
+        "score": -0.35387416896478985,
+        "overlap": 3132
+      },
+      {
+        "mpId": 3518,
+        "score": -0.35350754427854303,
+        "overlap": 2268
+      },
+      {
+        "mpId": 3028,
+        "score": -0.34537331990151743,
+        "overlap": 2987
+      },
+      {
+        "mpId": 3230,
+        "score": -0.3436888701863828,
+        "overlap": 3172
+      },
+      {
+        "mpId": 3358,
+        "score": -0.3429319670274606,
+        "overlap": 3085
+      },
+      {
+        "mpId": 3510,
+        "score": -0.34276675287122044,
+        "overlap": 2004
+      },
+      {
+        "mpId": 3304,
+        "score": -0.3406311270765457,
+        "overlap": 3122
+      },
+      {
+        "mpId": 3515,
+        "score": -0.3387414992558618,
+        "overlap": 2110
+      },
+      {
+        "mpId": 3090,
+        "score": -0.33813088428806426,
+        "overlap": 3231
+      },
+      {
+        "mpId": 3516,
+        "score": -0.33676767701671106,
+        "overlap": 1906
+      },
+      {
+        "mpId": 3512,
+        "score": -0.3366322339403557,
+        "overlap": 1842
+      },
+      {
+        "mpId": 3084,
+        "score": -0.33615965045142765,
+        "overlap": 3031
+      },
+      {
+        "mpId": 3121,
+        "score": -0.33591957636567804,
+        "overlap": 3038
+      },
+      {
+        "mpId": 3026,
+        "score": -0.335386669321435,
+        "overlap": 2507
+      },
+      {
+        "mpId": 3165,
+        "score": -0.3345110225283195,
+        "overlap": 3236
+      },
+      {
+        "mpId": 3141,
+        "score": -0.3330501332382449,
+        "overlap": 3220
+      },
+      {
+        "mpId": 3279,
+        "score": -0.3313477217100459,
+        "overlap": 2852
+      }
+    ]
+  }
+}

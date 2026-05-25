@@ -1,0 +1,295 @@
+{
+  "mpId": 2903,
+  "ns": "50",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 214,
+    "withParty": 207,
+    "loyaltyPct": 0.9672897196261683,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 214,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 41,
+        "slug": "41-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-9",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 9 - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2024-09-25",
+        "item": 20,
+        "slug": "20-protsedura-ot-venko-sabrutev-t-5-da-stane-t-1-za-chetvartak",
+        "title": "Процедура от Венко Сабрутев т.5 да стане т.1 за четвъртък - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2024-09-25",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-25-26-septemvr",
+        "title": "Програма за работата на Народното събрание за 25 – 26 септември 2024 г. - процедура от Станислав Балабанов за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-08-14",
+        "item": 27,
+        "slug": "27-protsedura-ot-aleksandar-ivanov-za-udalzhavane-na-rabotnoto-",
+        "title": "Процедура от Александър Иванов за удължаване на работното време до т.8",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2024-06-21",
+        "item": 7,
+        "slug": "7-reshenie-za-izbirane-na-vremenna-komisiya-za-izrabotvane-na-",
+        "title": "Решение за избиране на Временна комисия за изработване на проект на Правилник за организацията и дейността на Народно събрание - за председател - Цвета Рангелова",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-06-19",
+        "item": 10,
+        "slug": "10-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Петър Петров - втори тур",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-06-19",
+        "item": 8,
+        "slug": "8-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Силви Кирилов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2711,
+        "score": 0.5984592881993885,
+        "overlap": 144
+      },
+      {
+        "mpId": 2933,
+        "score": 0.5863019699779287,
+        "overlap": 188
+      },
+      {
+        "mpId": 2676,
+        "score": 0.5698884856650824,
+        "overlap": 157
+      },
+      {
+        "mpId": 2771,
+        "score": 0.5641768296769815,
+        "overlap": 154
+      },
+      {
+        "mpId": 2857,
+        "score": 0.5568194024007714,
+        "overlap": 129
+      },
+      {
+        "mpId": 2712,
+        "score": 0.545705610008375,
+        "overlap": 151
+      },
+      {
+        "mpId": 2656,
+        "score": 0.5264710031632485,
+        "overlap": 122
+      },
+      {
+        "mpId": 2622,
+        "score": 0.523783669794595,
+        "overlap": 137
+      },
+      {
+        "mpId": 2907,
+        "score": 0.515643333262486,
+        "overlap": 151
+      },
+      {
+        "mpId": 2713,
+        "score": 0.5153954943851524,
+        "overlap": 125
+      },
+      {
+        "mpId": 2601,
+        "score": 0.5061083283983889,
+        "overlap": 208
+      },
+      {
+        "mpId": 2691,
+        "score": 0.5054574194288021,
+        "overlap": 132
+      },
+      {
+        "mpId": 2742,
+        "score": 0.47280813450930637,
+        "overlap": 94
+      },
+      {
+        "mpId": 2950,
+        "score": 0.47163486750440736,
+        "overlap": 145
+      },
+      {
+        "mpId": 2595,
+        "score": 0.458101356832423,
+        "overlap": 204
+      },
+      {
+        "mpId": 2942,
+        "score": 0.4549599817977022,
+        "overlap": 89
+      },
+      {
+        "mpId": 2923,
+        "score": 0.45267673427022853,
+        "overlap": 206
+      },
+      {
+        "mpId": 2896,
+        "score": 0.4472338419447473,
+        "overlap": 199
+      },
+      {
+        "mpId": 2895,
+        "score": 0.4405653653621273,
+        "overlap": 200
+      },
+      {
+        "mpId": 2960,
+        "score": 0.4405653653621273,
+        "overlap": 203
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2998,
+        "score": -0.0337363599579505,
+        "overlap": 31
+      },
+      {
+        "mpId": 3008,
+        "score": -0.018556740475630138,
+        "overlap": 67
+      },
+      {
+        "mpId": 3001,
+        "score": -0.014357683075131602,
+        "overlap": 41
+      },
+      {
+        "mpId": 3007,
+        "score": -0.010478243557698858,
+        "overlap": 30
+      },
+      {
+        "mpId": 2972,
+        "score": -0.009855206599818044,
+        "overlap": 19
+      },
+      {
+        "mpId": 2970,
+        "score": 0.006460627768351831,
+        "overlap": 18
+      },
+      {
+        "mpId": 2990,
+        "score": 0.006685412101001828,
+        "overlap": 51
+      },
+      {
+        "mpId": 2991,
+        "score": 0.017907176978341786,
+        "overlap": 30
+      },
+      {
+        "mpId": 3005,
+        "score": 0.024953256425297485,
+        "overlap": 34
+      },
+      {
+        "mpId": 2988,
+        "score": 0.025125945381480302,
+        "overlap": 55
+      },
+      {
+        "mpId": 3003,
+        "score": 0.029319966475569493,
+        "overlap": 29
+      },
+      {
+        "mpId": 2997,
+        "score": 0.0310161403466157,
+        "overlap": 36
+      },
+      {
+        "mpId": 2992,
+        "score": 0.03203943533786635,
+        "overlap": 54
+      },
+      {
+        "mpId": 3000,
+        "score": 0.03813850356982369,
+        "overlap": 58
+      },
+      {
+        "mpId": 2670,
+        "score": 0.04146469423807486,
+        "overlap": 25
+      },
+      {
+        "mpId": 2748,
+        "score": 0.056155908685688184,
+        "overlap": 119
+      },
+      {
+        "mpId": 3015,
+        "score": 0.06775963568181181,
+        "overlap": 39
+      },
+      {
+        "mpId": 2996,
+        "score": 0.07312724241271307,
+        "overlap": 14
+      },
+      {
+        "mpId": 3006,
+        "score": 0.07663341497861714,
+        "overlap": 50
+      },
+      {
+        "mpId": 3004,
+        "score": 0.08296595461564407,
+        "overlap": 69
+      }
+    ]
+  }
+}

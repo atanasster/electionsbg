@@ -1,0 +1,365 @@
+{
+  "mpId": 1682,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 296,
+    "withParty": 282,
+    "loyaltyPct": 0.9527027027027027,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 296,
+    "dissentCount": 14,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 54,
+        "slug": "54-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 20",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 63
+      },
+      {
+        "date": "2021-09-07",
+        "item": 50,
+        "slug": "50-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 9а - предложение от Мая Манолова и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-09-07",
+        "item": 40,
+        "slug": "40-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 6 - предложение от Мая Манолова и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2021-08-25",
+        "item": 6,
+        "slug": "6-reshenie-za-promyana-v-sastava-na-komisiya-za-pryakoto-uchas",
+        "title": "Решение за промяна в състава на Комисия за прякото участие на гражданите и взаимодействието с гражданското общество",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-08-17",
+        "item": 4,
+        "slug": "4-deklaratsiya-vav-vrazka-s-uprazhnenoto-politseysko-nasilie-o",
+        "title": "Декларация във връзка с упражненото полицейско насилие от длъжностни лица срещу протестиращи граждани в периода юли - септември 2020 г. - предложение от Мая Манолова за нова т. 4",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-08-06",
+        "item": 3,
+        "slug": "3-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на факти и обстоятелства относно действията и бездействията на компетентните български органи във връзка с наложените на 2.06.2021 г. санкции на български физически и юридически лица от Службата за контрол на чуждестранните активи (OFAC) и Министерството на финансите на САЩ на основание Глобалния закон \"Магнитски\" .... - за председател Даниел Митов",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-08-05",
+        "item": 35,
+        "slug": "35-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 79 - предложение от Корнелия Нинова и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 50
+      },
+      {
+        "date": "2021-08-05",
+        "item": 22,
+        "slug": "22-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 28 - предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-08-05",
+        "item": 20,
+        "slug": "20-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 26 - предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-08-05",
+        "item": 18,
+        "slug": "18-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 25 - предл. от Н.Йорданова и А.Славов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-08-05",
+        "item": 12,
+        "slug": "12-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 21- предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-08-05",
+        "item": 8,
+        "slug": "8-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 16а - предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2021-08-05",
+        "item": 4,
+        "slug": "4-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава пета, член 16 - предложение от Р.Желязков",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-07-30",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1950,
+        "score": 0.694978243610849,
+        "overlap": 294
+      },
+      {
+        "mpId": 1696,
+        "score": 0.68770373873263,
+        "overlap": 294
+      },
+      {
+        "mpId": 1947,
+        "score": 0.6868322395607331,
+        "overlap": 290
+      },
+      {
+        "mpId": 1801,
+        "score": 0.6867092417084993,
+        "overlap": 290
+      },
+      {
+        "mpId": 1871,
+        "score": 0.6862358528780718,
+        "overlap": 291
+      },
+      {
+        "mpId": 1913,
+        "score": 0.6862358528780718,
+        "overlap": 292
+      },
+      {
+        "mpId": 1888,
+        "score": 0.6856426812903843,
+        "overlap": 290
+      },
+      {
+        "mpId": 1869,
+        "score": 0.6847773265684207,
+        "overlap": 296
+      },
+      {
+        "mpId": 1938,
+        "score": 0.6841760642499175,
+        "overlap": 294
+      },
+      {
+        "mpId": 1908,
+        "score": 0.6832230068040942,
+        "overlap": 294
+      },
+      {
+        "mpId": 1898,
+        "score": 0.6828441397340971,
+        "overlap": 290
+      },
+      {
+        "mpId": 1605,
+        "score": 0.6823917093933229,
+        "overlap": 289
+      },
+      {
+        "mpId": 1896,
+        "score": 0.6822452123254354,
+        "overlap": 290
+      },
+      {
+        "mpId": 1872,
+        "score": 0.6819723122967368,
+        "overlap": 286
+      },
+      {
+        "mpId": 1665,
+        "score": 0.6811713124220913,
+        "overlap": 293
+      },
+      {
+        "mpId": 1907,
+        "score": 0.6766300253927158,
+        "overlap": 291
+      },
+      {
+        "mpId": 1918,
+        "score": 0.6760161081535123,
+        "overlap": 290
+      },
+      {
+        "mpId": 1571,
+        "score": 0.6754053858779068,
+        "overlap": 286
+      },
+      {
+        "mpId": 1893,
+        "score": 0.6725794219202587,
+        "overlap": 286
+      },
+      {
+        "mpId": 1621,
+        "score": 0.6724688268137364,
+        "overlap": 283
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": 0.013941279076850239,
+        "overlap": 70
+      },
+      {
+        "mpId": 1643,
+        "score": 0.027297139409676947,
+        "overlap": 119
+      },
+      {
+        "mpId": 404,
+        "score": 0.04487306256847028,
+        "overlap": 163
+      },
+      {
+        "mpId": 1155,
+        "score": 0.06742634952389383,
+        "overlap": 121
+      },
+      {
+        "mpId": 1457,
+        "score": 0.07507664075374544,
+        "overlap": 138
+      },
+      {
+        "mpId": 1317,
+        "score": 0.07725054354886692,
+        "overlap": 167
+      },
+      {
+        "mpId": 388,
+        "score": 0.08058662122725078,
+        "overlap": 165
+      },
+      {
+        "mpId": 1124,
+        "score": 0.08597030132488888,
+        "overlap": 134
+      },
+      {
+        "mpId": 810,
+        "score": 0.08974612513694057,
+        "overlap": 71
+      },
+      {
+        "mpId": 817,
+        "score": 0.10278019139809301,
+        "overlap": 88
+      },
+      {
+        "mpId": 1659,
+        "score": 0.11853152680727667,
+        "overlap": 161
+      },
+      {
+        "mpId": 1386,
+        "score": 0.12477253254995299,
+        "overlap": 136
+      },
+      {
+        "mpId": 1644,
+        "score": 0.12684991537779738,
+        "overlap": 128
+      },
+      {
+        "mpId": 1703,
+        "score": 0.12720317584501464,
+        "overlap": 103
+      },
+      {
+        "mpId": 1975,
+        "score": 0.13553204479128542,
+        "overlap": 150
+      },
+      {
+        "mpId": 990,
+        "score": 0.1357818736573018,
+        "overlap": 157
+      },
+      {
+        "mpId": 1970,
+        "score": 0.13622459027317793,
+        "overlap": 116
+      },
+      {
+        "mpId": 1269,
+        "score": 0.1365559495025024,
+        "overlap": 192
+      },
+      {
+        "mpId": 1465,
+        "score": 0.137176057733452,
+        "overlap": 159
+      },
+      {
+        "mpId": 1880,
+        "score": 0.13881895490213436,
+        "overlap": 138
+      }
+    ]
+  }
+}

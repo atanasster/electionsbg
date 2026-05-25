@@ -1,0 +1,54 @@
+{
+  "mpId": 124,
+  "summary": {
+    "contractCount": 2,
+    "contractedEur": 51129.18,
+    "paidEur": 51129.18
+  },
+  "entries": [
+    {
+      "mpId": 124,
+      "mpName": "Митко Иванов Димитров",
+      "beneficiaryEik": "203010044",
+      "beneficiaryName": "Мamp;М ГРУП 2014 ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 25564.59,
+      "paidEur": 25564.59
+    },
+    {
+      "mpId": 124,
+      "mpName": "Митко Иванов Димитров",
+      "beneficiaryEik": "205310962",
+      "beneficiaryName": "СОД БЕРКУТ ЕООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 25564.59,
+      "paidEur": 25564.59
+    }
+  ]
+}

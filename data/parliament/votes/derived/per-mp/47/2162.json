@@ -1,0 +1,491 @@
+{
+  "mpId": 2162,
+  "ns": "47",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 1606,
+    "withParty": 1577,
+    "loyaltyPct": 0.9819427148194272,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1606,
+    "dissentCount": 29,
+    "recent": [
+      {
+        "date": "2022-07-27",
+        "item": 12,
+        "slug": "12-programa-za-rabotata-na-narodnoto-sabranie-za-27-29-yuli-202",
+        "title": "Програма за работата на Народното събрание за 27 - 29 юли 2022 г. - предложение от Ал.Несторов т.14 да стане т.1 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-07-27",
+        "item": 10,
+        "slug": "10-programa-za-rabotata-na-narodnoto-sabranie-za-27-29-yuli-202",
+        "title": "Програма за работата на Народното събрание за 27 - 29 юли 2022 г. - предложение от Йордан Цонев т.4 да стане т.2 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 24
+      },
+      {
+        "date": "2022-07-14",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-hazarta-parvo-glasuvane-vnositel-deyan-petk",
+        "title": "ЗИД на Закона за хазарта - първо гласуване - вносител Деян Петков и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-07-13",
+        "item": 38,
+        "slug": "38-reshenie-za-sazdavane-na-vremenna-anketna-komisiya-za-ustano",
+        "title": "Решение за създаване на Временна анкетна комисия за установяване на всички факти и обстоятелства, относно газопроводи за пренос на природен газ от Руската федерация - \"Южен поток\" и \"Балкански поток\" и причините за забавянето на проекта IGB (Междусистемна газова връзка Гърция - България) - за председател Искра Михайлова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-07-13",
+        "item": 31,
+        "slug": "31-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства, свързани с доставката на суров петрол до производителя на горива \"Лукойл Нефтохим Бургас\" АД - за председател Искра Михайлова",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-07-06",
+        "item": 15,
+        "slug": "15-programa-za-rabotata-na-narodnoto-sabranie-za-6-8-yuli-2022-",
+        "title": "Програма за работата на Народното събрание за 6 - 8 юли 2022 г. - предложение от Иван Ченчев за удължване на р.време до т.4 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-07-06",
+        "item": 13,
+        "slug": "13-programa-za-rabotata-na-narodnoto-sabranie-za-6-8-yuli-2022-",
+        "title": "Програма за работата на Народното събрание за 6 - 8 юли 2022 г. - предложение от Д.Атанасова за удължване на р.време до т.5 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-06-01",
+        "item": 29,
+        "slug": "29-protsedura-ot-petar-chobanov-za-udalzhavane-na-rabotnoto-vre",
+        "title": "Процедура от Петър Чобанов за удължаване на работното време до приключване на точка 5",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-06-01",
+        "item": 27,
+        "slug": "27-reshenie-za-sazdvane-na-vremenna-anketna-komisiya-za-ustanov",
+        "title": "Решение за създване на Временна анкетна комисия за установяване на всички факти и обстоятелства, свързани с подписания от правителството меморандум за 1 млрд. долара с GEMCORP и IP3 CORPORATION - председател Десислава Трифонова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-05-11",
+        "item": 18,
+        "slug": "18-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства относно действията и намеренията на Министерски съвет по отношение на доставките на природен газ за Република България - прегласуване",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-04-20",
+        "item": 5,
+        "slug": "5-programa-na-narodnoto-sabranie-za-20-i-21-april-2022g-protse",
+        "title": "Програма на Народното събрание за 20 и 21 април 2022г. - процедура от Десислава Атанасова за разместване на точка 1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2022-04-15",
+        "item": 5,
+        "slug": "5-reshenie-za-izbor-na-upravitel-na-balgarskata-narodna-banka",
+        "title": "Решение за избор на управител на Българската народна банка - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-03-24",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-zdraveto-parvo-glasuvane",
+        "title": "ЗИД на Закона за здравето - първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-02-24",
+        "item": 13,
+        "slug": "13",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-02-24",
+        "item": 9,
+        "slug": "9",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2022-02-22",
+        "item": 72,
+        "slug": "72",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-02-22",
+        "item": 54,
+        "slug": "54",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-02-22",
+        "item": 29,
+        "slug": "29",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-02-22",
+        "item": 23,
+        "slug": "23",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2022-02-22",
+        "item": 11,
+        "slug": "11",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-02-22",
+        "item": 10,
+        "slug": "10",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-02-17",
+        "item": 7,
+        "slug": "7",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-02-16",
+        "item": 4,
+        "slug": "4",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 21
+      },
+      {
+        "date": "2022-02-16",
+        "item": 3,
+        "slug": "3",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-02-09",
+        "item": 4,
+        "slug": "4",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 23
+      },
+      {
+        "date": "2022-01-07",
+        "item": 3,
+        "slug": "3-reshenie-za-priemane-na-usloviya-za-dostap-do-sgradite-na-na",
+        "title": "Решение за приемане на Условия за достъп до сградите на Народното събрание в условията на извънредна епидемична обстановка - предложение за редакция от Ива Митева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2022-01-05",
+        "item": 9,
+        "slug": "9-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства относно въведените на територията на Република България противоепидемични мерки срещу COVID-19",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-12-17",
+        "item": 37,
+        "slug": "37-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава осма, член 73 - предложение от Екатерина Захариева за редакция на ал.10",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-12-16",
+        "item": 50,
+        "slug": "50-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 25 (става член 26) - предложение от Росица Кирова - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2161,
+        "score": 0.9319841747494242,
+        "overlap": 1564
+      },
+      {
+        "mpId": 2163,
+        "score": 0.9284134849183598,
+        "overlap": 1566
+      },
+      {
+        "mpId": 2090,
+        "score": 0.9265789069635809,
+        "overlap": 1571
+      },
+      {
+        "mpId": 2058,
+        "score": 0.9113589697449573,
+        "overlap": 1531
+      },
+      {
+        "mpId": 761,
+        "score": 0.9027812663969271,
+        "overlap": 1520
+      },
+      {
+        "mpId": 2076,
+        "score": 0.8977698900611425,
+        "overlap": 1487
+      },
+      {
+        "mpId": 1253,
+        "score": 0.897153382777854,
+        "overlap": 1483
+      },
+      {
+        "mpId": 1875,
+        "score": 0.892175346579971,
+        "overlap": 1473
+      },
+      {
+        "mpId": 1312,
+        "score": 0.8897567504953776,
+        "overlap": 1466
+      },
+      {
+        "mpId": 848,
+        "score": 0.8779795707476303,
+        "overlap": 1404
+      },
+      {
+        "mpId": 2072,
+        "score": 0.8766853592959881,
+        "overlap": 1405
+      },
+      {
+        "mpId": 1277,
+        "score": 0.8766061002379524,
+        "overlap": 1411
+      },
+      {
+        "mpId": 2160,
+        "score": 0.8734200222107662,
+        "overlap": 1456
+      },
+      {
+        "mpId": 1581,
+        "score": 0.8566476515169238,
+        "overlap": 1341
+      },
+      {
+        "mpId": 1660,
+        "score": 0.8542968163254766,
+        "overlap": 1339
+      },
+      {
+        "mpId": 2109,
+        "score": 0.8536777771103985,
+        "overlap": 1593
+      },
+      {
+        "mpId": 2053,
+        "score": 0.8522229661387674,
+        "overlap": 1590
+      },
+      {
+        "mpId": 2130,
+        "score": 0.8509108445588771,
+        "overlap": 1593
+      },
+      {
+        "mpId": 2158,
+        "score": 0.8482893457146224,
+        "overlap": 1538
+      },
+      {
+        "mpId": 2114,
+        "score": 0.8451456075902446,
+        "overlap": 1567
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1428,
+        "score": -0.21723763536601134,
+        "overlap": 705
+      },
+      {
+        "mpId": 1643,
+        "score": -0.19945282603489137,
+        "overlap": 758
+      },
+      {
+        "mpId": 1457,
+        "score": -0.19733792153241325,
+        "overlap": 877
+      },
+      {
+        "mpId": 1466,
+        "score": -0.19037489658709053,
+        "overlap": 656
+      },
+      {
+        "mpId": 767,
+        "score": -0.1902069888404594,
+        "overlap": 823
+      },
+      {
+        "mpId": 1975,
+        "score": -0.18847343930502036,
+        "overlap": 988
+      },
+      {
+        "mpId": 1692,
+        "score": -0.18602260598437675,
+        "overlap": 855
+      },
+      {
+        "mpId": 473,
+        "score": -0.18590201084889382,
+        "overlap": 856
+      },
+      {
+        "mpId": 1970,
+        "score": -0.18501447027367826,
+        "overlap": 734
+      },
+      {
+        "mpId": 1880,
+        "score": -0.18442632973398604,
+        "overlap": 817
+      },
+      {
+        "mpId": 1317,
+        "score": -0.1835104353424598,
+        "overlap": 884
+      },
+      {
+        "mpId": 1960,
+        "score": -0.18303583051059377,
+        "overlap": 913
+      },
+      {
+        "mpId": 1124,
+        "score": -0.18128784034176412,
+        "overlap": 807
+      },
+      {
+        "mpId": 1465,
+        "score": -0.18084555802093066,
+        "overlap": 835
+      },
+      {
+        "mpId": 1703,
+        "score": -0.18046039060337205,
+        "overlap": 624
+      },
+      {
+        "mpId": 2074,
+        "score": -0.17992643583965762,
+        "overlap": 1004
+      },
+      {
+        "mpId": 2135,
+        "score": -0.17987274000149478,
+        "overlap": 877
+      },
+      {
+        "mpId": 1933,
+        "score": -0.17810927559556658,
+        "overlap": 950
+      },
+      {
+        "mpId": 1155,
+        "score": -0.16962899962543732,
+        "overlap": 678
+      },
+      {
+        "mpId": 1706,
+        "score": -0.16757634435204813,
+        "overlap": 750
+      }
+    ]
+  }
+}

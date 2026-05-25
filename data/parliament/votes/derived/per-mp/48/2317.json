@@ -1,0 +1,305 @@
+{
+  "mpId": 2317,
+  "ns": "48",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 1268,
+    "withParty": 1260,
+    "loyaltyPct": 0.9936908517350158,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 1268,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2023-01-19",
+        "item": 61,
+        "slug": "61-zid-na-zakona-za-gorite-parvo-glasuvane-protsedura-ot-desisl",
+        "title": "ЗИД на Закона за горите - първо гласуване - процедура от Десислава Танева за удължаване на работното време до 14:30 часа",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2023-01-19",
+        "item": 52,
+        "slug": "52-zid-na-zakona-za-pazarite-na-finansovi-instrumenti-vtoro-gla",
+        "title": "ЗИД на Закона за пазарите на финансови инструменти - второ гласуване - параграф 12 - отпадат",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2023-01-19",
+        "item": 28,
+        "slug": "28-zid-na-zakona-za-trudovata-migratsiya-i-trudovata-mobilnost-",
+        "title": "ЗИД на Закона за трудовата миграция и трудовата мобилност - второ гласуване - параграф 8 - отпада",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2022-12-14",
+        "item": 8,
+        "slug": "8-reshenie-za-davane-na-saglasie-za-uchastie-na-republika-balg",
+        "title": "Решение за даване на съгласие за участие на Република България в Общото и в Селективното увеличение на капитала на МБВР от 2018г. и в Общото и в Селективното увеличение на капитала на Международната финансова корпорация от 2018г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 26
+      },
+      {
+        "date": "2022-12-08",
+        "item": 5,
+        "slug": "5-zid-na-kodeksa-na-truda-parvo-glasuvane-protsedura-ot-lidiya",
+        "title": "ЗИД на Кодекса на труда - първо гласуване - процедура от Лидия Недева за удължаване на срока за предложения на 14 дни",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-12-01",
+        "item": 178,
+        "slug": "178-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-35-nov",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 35 - нов - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 24
+      },
+      {
+        "date": "2022-11-17",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-16-18-noemvri-",
+        "title": "Програма за работата на Народното събрание за 16 - 18 ноември 2022 г. - процедура от Вежди Рашидов за нова точка 2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-11-02",
+        "item": 11,
+        "slug": "11-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 8 - отменено",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 11
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2278,
+        "score": 0.9577226541726835,
+        "overlap": 1245
+      },
+      {
+        "mpId": 2098,
+        "score": 0.9528468223479472,
+        "overlap": 1235
+      },
+      {
+        "mpId": 2304,
+        "score": 0.9521340873192167,
+        "overlap": 1223
+      },
+      {
+        "mpId": 2301,
+        "score": 0.9491472036357267,
+        "overlap": 1218
+      },
+      {
+        "mpId": 2339,
+        "score": 0.9454562770213918,
+        "overlap": 1204
+      },
+      {
+        "mpId": 2309,
+        "score": 0.9449346181003089,
+        "overlap": 1222
+      },
+      {
+        "mpId": 2318,
+        "score": 0.9428360747511378,
+        "overlap": 1226
+      },
+      {
+        "mpId": 2075,
+        "score": 0.9388345392797848,
+        "overlap": 1192
+      },
+      {
+        "mpId": 2313,
+        "score": 0.9384249279082462,
+        "overlap": 1203
+      },
+      {
+        "mpId": 2266,
+        "score": 0.9346668485545278,
+        "overlap": 1176
+      },
+      {
+        "mpId": 2310,
+        "score": 0.9305543858610895,
+        "overlap": 1188
+      },
+      {
+        "mpId": 2363,
+        "score": 0.9304643040053943,
+        "overlap": 1198
+      },
+      {
+        "mpId": 2308,
+        "score": 0.9299692892694441,
+        "overlap": 1207
+      },
+      {
+        "mpId": 2352,
+        "score": 0.9281113174281436,
+        "overlap": 1188
+      },
+      {
+        "mpId": 2119,
+        "score": 0.9262811312666123,
+        "overlap": 1173
+      },
+      {
+        "mpId": 2061,
+        "score": 0.9163004137566874,
+        "overlap": 1146
+      },
+      {
+        "mpId": 2297,
+        "score": 0.9107388364395164,
+        "overlap": 1135
+      },
+      {
+        "mpId": 2326,
+        "score": 0.9073790338997302,
+        "overlap": 1147
+      },
+      {
+        "mpId": 2368,
+        "score": 0.9062052365397559,
+        "overlap": 1101
+      },
+      {
+        "mpId": 2063,
+        "score": 0.9042287801896147,
+        "overlap": 1155
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2064,
+        "score": -0.015242178799599864,
+        "overlap": 47
+      },
+      {
+        "mpId": 810,
+        "score": -0.011784461685726642,
+        "overlap": 359
+      },
+      {
+        "mpId": 1297,
+        "score": -0.008283369632795273,
+        "overlap": 374
+      },
+      {
+        "mpId": 2283,
+        "score": 0.02374176445813793,
+        "overlap": 246
+      },
+      {
+        "mpId": 2133,
+        "score": 0.03567236943029784,
+        "overlap": 340
+      },
+      {
+        "mpId": 663,
+        "score": 0.0569289284572526,
+        "overlap": 697
+      },
+      {
+        "mpId": 1576,
+        "score": 0.06765987085789671,
+        "overlap": 782
+      },
+      {
+        "mpId": 2371,
+        "score": 0.0689141853212988,
+        "overlap": 189
+      },
+      {
+        "mpId": 2315,
+        "score": 0.07186837451909885,
+        "overlap": 354
+      },
+      {
+        "mpId": 1703,
+        "score": 0.0719908250605247,
+        "overlap": 917
+      },
+      {
+        "mpId": 1678,
+        "score": 0.07399536022280624,
+        "overlap": 505
+      },
+      {
+        "mpId": 1466,
+        "score": 0.08077138349017685,
+        "overlap": 850
+      },
+      {
+        "mpId": 2295,
+        "score": 0.08429450373594227,
+        "overlap": 909
+      },
+      {
+        "mpId": 1389,
+        "score": 0.08648288340053246,
+        "overlap": 691
+      },
+      {
+        "mpId": 1640,
+        "score": 0.09025907217774888,
+        "overlap": 628
+      },
+      {
+        "mpId": 1970,
+        "score": 0.09316990232644534,
+        "overlap": 1000
+      },
+      {
+        "mpId": 767,
+        "score": 0.09343487161092397,
+        "overlap": 910
+      },
+      {
+        "mpId": 1920,
+        "score": 0.09482797772234393,
+        "overlap": 1026
+      },
+      {
+        "mpId": 1706,
+        "score": 0.0954059092685608,
+        "overlap": 931
+      },
+      {
+        "mpId": 1644,
+        "score": 0.09600552047614562,
+        "overlap": 948
+      }
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "mpId": 2734,
+  "summary": {
+    "totalEur": 41688.802196509925,
+    "totalOther": {},
+    "contractCount": 9,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 41688.802196509925,
+    "rank": 44,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 2734,
+      "mpName": "Тома Николов Томов",
+      "contractorEik": "204503086",
+      "contractorName": "ВАТОМ ТОМОВИ 1991 ООД",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 41688.802196509925,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 10225.83762392437,
+          "totalOther": {}
+        },
+        {
+          "year": "2021",
+          "contractCount": 2,
+          "totalEur": 20451.67524784874,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 3,
+          "totalEur": 7432.246156363282,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 2,
+          "totalEur": 3579.0431683735296,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "201617654",
+          "name": "ТЕРИТОРИАЛНО ПОДЕЛЕНИЕ \"ДЪРЖАВНО ГОРСКО СТОПАНСТВО КОСТИ",
+          "contractCount": 9,
+          "totalEur": 41688.802196509925,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

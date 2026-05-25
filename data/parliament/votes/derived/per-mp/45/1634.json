@@ -1,0 +1,255 @@
+{
+  "mpId": 1634,
+  "ns": "45",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 84,
+    "withParty": 81,
+    "loyaltyPct": 0.9642857142857143,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 84,
+    "dissentCount": 3,
+    "recent": [
+      {
+        "date": "2021-04-29",
+        "item": 96,
+        "slug": "96-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-59-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 59 (става параграф 67) - предложение от Мая Манолова и група н.п. параграф 59 - отпада",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 72
+      },
+      {
+        "date": "2021-04-28",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-28-29-april-20",
+        "title": "Програма за работата на Народното събрание за 28 - 29 април 2021 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2021-04-22",
+        "item": 43,
+        "slug": "43-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-11-nov",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 11 - нов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 68
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1810,
+        "score": 0.7090260800351684,
+        "overlap": 82
+      },
+      {
+        "mpId": 1618,
+        "score": 0.7025336901657377,
+        "overlap": 84
+      },
+      {
+        "mpId": 1805,
+        "score": 0.7013880562708863,
+        "overlap": 80
+      },
+      {
+        "mpId": 1469,
+        "score": 0.6965141596603887,
+        "overlap": 82
+      },
+      {
+        "mpId": 1813,
+        "score": 0.692724450845119,
+        "overlap": 83
+      },
+      {
+        "mpId": 1513,
+        "score": 0.6881723717988399,
+        "overlap": 83
+      },
+      {
+        "mpId": 1637,
+        "score": 0.6881723717988399,
+        "overlap": 78
+      },
+      {
+        "mpId": 1816,
+        "score": 0.687767574139647,
+        "overlap": 83
+      },
+      {
+        "mpId": 1244,
+        "score": 0.6851374781801903,
+        "overlap": 83
+      },
+      {
+        "mpId": 1577,
+        "score": 0.6827748580969536,
+        "overlap": 82
+      },
+      {
+        "mpId": 1281,
+        "score": 0.6801232952330778,
+        "overlap": 82
+      },
+      {
+        "mpId": 1808,
+        "score": 0.6801232952330778,
+        "overlap": 81
+      },
+      {
+        "mpId": 1015,
+        "score": 0.6799665553746422,
+        "overlap": 84
+      },
+      {
+        "mpId": 1608,
+        "score": 0.6799665553746422,
+        "overlap": 83
+      },
+      {
+        "mpId": 1612,
+        "score": 0.6799665553746422,
+        "overlap": 84
+      },
+      {
+        "mpId": 805,
+        "score": 0.6777455176806757,
+        "overlap": 82
+      },
+      {
+        "mpId": 1716,
+        "score": 0.6777455176806757,
+        "overlap": 81
+      },
+      {
+        "mpId": 767,
+        "score": 0.6766768816385953,
+        "overlap": 78
+      },
+      {
+        "mpId": 1587,
+        "score": 0.6750719549211041,
+        "overlap": 82
+      },
+      {
+        "mpId": 523,
+        "score": 0.673113802993834,
+        "overlap": 77
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1336,
+        "score": -0.2229819585314984,
+        "overlap": 37
+      },
+      {
+        "mpId": 1591,
+        "score": -0.19325669969565118,
+        "overlap": 46
+      },
+      {
+        "mpId": 1253,
+        "score": -0.17808219178082196,
+        "overlap": 44
+      },
+      {
+        "mpId": 1652,
+        "score": -0.16972192157139596,
+        "overlap": 49
+      },
+      {
+        "mpId": 1676,
+        "score": -0.15552675697055354,
+        "overlap": 48
+      },
+      {
+        "mpId": 1297,
+        "score": -0.14115693464811713,
+        "overlap": 34
+      },
+      {
+        "mpId": 1660,
+        "score": -0.12269245987824176,
+        "overlap": 52
+      },
+      {
+        "mpId": 1589,
+        "score": -0.12005557577458949,
+        "overlap": 44
+      },
+      {
+        "mpId": 1693,
+        "score": -0.10510605295860626,
+        "overlap": 55
+      },
+      {
+        "mpId": 1273,
+        "score": -0.10489908317531563,
+        "overlap": 47
+      },
+      {
+        "mpId": 1598,
+        "score": -0.10468478451804274,
+        "overlap": 52
+      },
+      {
+        "mpId": 1663,
+        "score": -0.09909274466426074,
+        "overlap": 55
+      },
+      {
+        "mpId": 1275,
+        "score": -0.09217710503460783,
+        "overlap": 40
+      },
+      {
+        "mpId": 1318,
+        "score": -0.08541668179859152,
+        "overlap": 55
+      },
+      {
+        "mpId": 1261,
+        "score": -0.08115343414514944,
+        "overlap": 28
+      },
+      {
+        "mpId": 1677,
+        "score": -0.07574320520213947,
+        "overlap": 60
+      },
+      {
+        "mpId": 761,
+        "score": -0.07402332101976053,
+        "overlap": 56
+      },
+      {
+        "mpId": 1658,
+        "score": -0.07361547592694506,
+        "overlap": 56
+      },
+      {
+        "mpId": 1641,
+        "score": -0.056773295580365965,
+        "overlap": 74
+      },
+      {
+        "mpId": 1455,
+        "score": -0.05505152481347819,
+        "overlap": 57
+      }
+    ]
+  }
+}

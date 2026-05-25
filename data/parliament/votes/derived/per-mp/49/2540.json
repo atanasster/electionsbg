@@ -1,0 +1,275 @@
+{
+  "mpId": 2540,
+  "ns": "49",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 109,
+    "withParty": 104,
+    "loyaltyPct": 0.9541284403669725,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 109,
+    "dissentCount": 5,
+    "recent": [
+      {
+        "date": "2024-04-04",
+        "item": 14,
+        "slug": "14-protsedura-ot-nikolay-nankov-za-otpadane-na-t-1",
+        "title": "Процедура от Николай Нанков за отпадане на т.1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 2
+      },
+      {
+        "date": "2024-03-21",
+        "item": 3,
+        "slug": "3-protsedura-ot-rosen-zhelyazkov-za-nova-tochka-11",
+        "title": "Процедура от Росен Желязков за нова точка 11 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2024-03-13",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-na-13-15-mart-202",
+        "title": "Програма за работата на Народното събрание на 13 - 15 март 2024г. - предложение за нова точка от Корнелия Нинова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 3
+      },
+      {
+        "date": "2024-03-07",
+        "item": 10,
+        "slug": "10-ratifikatsiya-na-sporazumenieto-za-izmenenie-1-kam-sporazume",
+        "title": "Ратификация на Споразумението за изменение № 1 към Споразумението за предоставяне на подкрепа за проекти от 30.01.2019 г. между КЕВР на Република България и ЕБВР - първо гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 2
+      },
+      {
+        "date": "2024-02-22",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - параграф 11 (става параграф 5)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 2
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2541,
+        "score": 0.8151876424777995,
+        "overlap": 73
+      },
+      {
+        "mpId": 2542,
+        "score": 0.7370317752712813,
+        "overlap": 90
+      },
+      {
+        "mpId": 2535,
+        "score": 0.22517239180156434,
+        "overlap": 87
+      },
+      {
+        "mpId": 2538,
+        "score": 0.1917207703178161,
+        "overlap": 105
+      },
+      {
+        "mpId": 2532,
+        "score": 0.1807355040237403,
+        "overlap": 101
+      },
+      {
+        "mpId": 2256,
+        "score": 0.1802182911877495,
+        "overlap": 74
+      },
+      {
+        "mpId": 829,
+        "score": 0.16812857411711923,
+        "overlap": 89
+      },
+      {
+        "mpId": 2251,
+        "score": 0.15725145840418792,
+        "overlap": 85
+      },
+      {
+        "mpId": 1023,
+        "score": 0.15628050664187476,
+        "overlap": 65
+      },
+      {
+        "mpId": 2090,
+        "score": 0.15469788655932706,
+        "overlap": 95
+      },
+      {
+        "mpId": 2084,
+        "score": 0.15369699429254527,
+        "overlap": 96
+      },
+      {
+        "mpId": 2457,
+        "score": 0.15156392872800203,
+        "overlap": 93
+      },
+      {
+        "mpId": 2277,
+        "score": 0.15144100398010776,
+        "overlap": 73
+      },
+      {
+        "mpId": 2396,
+        "score": 0.14887785056064154,
+        "overlap": 82
+      },
+      {
+        "mpId": 1581,
+        "score": 0.14849619450823145,
+        "overlap": 90
+      },
+      {
+        "mpId": 997,
+        "score": 0.14669856112538157,
+        "overlap": 66
+      },
+      {
+        "mpId": 2298,
+        "score": 0.14521631408146396,
+        "overlap": 83
+      },
+      {
+        "mpId": 2428,
+        "score": 0.14426961881744224,
+        "overlap": 103
+      },
+      {
+        "mpId": 2351,
+        "score": 0.1428379874700181,
+        "overlap": 106
+      },
+      {
+        "mpId": 1312,
+        "score": 0.14121505217964242,
+        "overlap": 77
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2522,
+        "score": -0.03423310559053727,
+        "overlap": 74
+      },
+      {
+        "mpId": 2237,
+        "score": -0.033874226968691266,
+        "overlap": 47
+      },
+      {
+        "mpId": 2126,
+        "score": -0.029930864720784975,
+        "overlap": 70
+      },
+      {
+        "mpId": 2378,
+        "score": -0.025362863675089407,
+        "overlap": 72
+      },
+      {
+        "mpId": 2521,
+        "score": -0.02446255688141683,
+        "overlap": 83
+      },
+      {
+        "mpId": 2523,
+        "score": -0.020694134054721,
+        "overlap": 87
+      },
+      {
+        "mpId": 2407,
+        "score": -0.020425823371003186,
+        "overlap": 90
+      },
+      {
+        "mpId": 2529,
+        "score": -0.018825092806189832,
+        "overlap": 88
+      },
+      {
+        "mpId": 2246,
+        "score": -0.017898166671420926,
+        "overlap": 77
+      },
+      {
+        "mpId": 2380,
+        "score": -0.017212157521813532,
+        "overlap": 103
+      },
+      {
+        "mpId": 1297,
+        "score": -0.015273184212842352,
+        "overlap": 15
+      },
+      {
+        "mpId": 2055,
+        "score": -0.01480872194397731,
+        "overlap": 87
+      },
+      {
+        "mpId": 2408,
+        "score": -0.011965626656935591,
+        "overlap": 73
+      },
+      {
+        "mpId": 2029,
+        "score": -0.011857962237704137,
+        "overlap": 81
+      },
+      {
+        "mpId": 2025,
+        "score": -0.01074573284364602,
+        "overlap": 96
+      },
+      {
+        "mpId": 2520,
+        "score": -0.008216046975793681,
+        "overlap": 93
+      },
+      {
+        "mpId": 2381,
+        "score": -0.007827279079763204,
+        "overlap": 90
+      },
+      {
+        "mpId": 2444,
+        "score": -0.007719907736074036,
+        "overlap": 103
+      },
+      {
+        "mpId": 2525,
+        "score": -0.006628802409532993,
+        "overlap": 98
+      },
+      {
+        "mpId": 2020,
+        "score": -0.006535497925968233,
+        "overlap": 95
+      }
+    ]
+  }
+}

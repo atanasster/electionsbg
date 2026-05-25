@@ -89,6 +89,16 @@ const SearchInternal: FC = () => {
         case "b":
           navigate({ pathname: `/budget/ministry/${selectedOption.item.key}` });
           break;
+        case "v": {
+          // Vote key format: "${date}|${slug}". Slug already carries the
+          // "${itemNo}-${slugified-title}" form, so we prepend "item-" to
+          // hit the canonical route pattern at /votes/:date/:slug.
+          const [date, slug] = selectedOption.item.key.split("|");
+          if (date && slug) {
+            navigate({ pathname: `/votes/${date}/item-${slug}` });
+          }
+          break;
+        }
       }
       setOpen(false);
       inputRef?.current?.blur();

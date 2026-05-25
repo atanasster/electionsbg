@@ -1,0 +1,285 @@
+{
+  "mpId": 1895,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 505,
+    "withParty": 499,
+    "loyaltyPct": 0.9881188118811881,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 505,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 88,
+        "slug": "88-ratifikatsiya-na-tristranno-sporazumenie-za-darenie-na-vaksi",
+        "title": "Ратификация на Тристранно споразумение за дарение на ваксини срещу COVID-19, произведени от АстраЗенека, между Република България, Кралство Бутан и АстраЗенека и Двустранно споразумение за дарение на ваксини срещу COVID-19, произведени от АстраЗенека, между Република България и Кралство Бутан - второ гласуване - член 2 - предложение от Христо Гаджев",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-08-25",
+        "item": 5,
+        "slug": "5-reshenie-za-promyana-v-sastava-na-komisiya-po-politikite-za-",
+        "title": "Решение за промяна в състава на Комисия по политиките за българите извън страната",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-08-25",
+        "item": 4,
+        "slug": "4-reshenie-za-promyana-v-sastava-na-komisiyata-po-okolnata-sre",
+        "title": "Решение за промяна в състава на Комисията по околната среда и водите",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-07-30",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2021-07-29",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за разместване на точките от Мария Капон - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-07-22",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-22-i-23-yuli-2",
+        "title": "Програма за работата на Народното събрание за 22 и 23 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 61
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1938,
+        "score": 0.9601315517621519,
+        "overlap": 502
+      },
+      {
+        "mpId": 1899,
+        "score": 0.9564270152505446,
+        "overlap": 490
+      },
+      {
+        "mpId": 1665,
+        "score": 0.9563078130930255,
+        "overlap": 501
+      },
+      {
+        "mpId": 1888,
+        "score": 0.9557030417060752,
+        "overlap": 496
+      },
+      {
+        "mpId": 1908,
+        "score": 0.9553048680734185,
+        "overlap": 502
+      },
+      {
+        "mpId": 1869,
+        "score": 0.9549182066977617,
+        "overlap": 504
+      },
+      {
+        "mpId": 1913,
+        "score": 0.9526415184893757,
+        "overlap": 495
+      },
+      {
+        "mpId": 1696,
+        "score": 0.9525193488656656,
+        "overlap": 497
+      },
+      {
+        "mpId": 1947,
+        "score": 0.9517576672733163,
+        "overlap": 498
+      },
+      {
+        "mpId": 1918,
+        "score": 0.9510342953526015,
+        "overlap": 494
+      },
+      {
+        "mpId": 1950,
+        "score": 0.9456544084487848,
+        "overlap": 499
+      },
+      {
+        "mpId": 1605,
+        "score": 0.9455337690631809,
+        "overlap": 493
+      },
+      {
+        "mpId": 1719,
+        "score": 0.9428935794922608,
+        "overlap": 476
+      },
+      {
+        "mpId": 1656,
+        "score": 0.9425909177614167,
+        "overlap": 475
+      },
+      {
+        "mpId": 1948,
+        "score": 0.9424588543540036,
+        "overlap": 497
+      },
+      {
+        "mpId": 1896,
+        "score": 0.9414405300648876,
+        "overlap": 496
+      },
+      {
+        "mpId": 1907,
+        "score": 0.9414405300648876,
+        "overlap": 497
+      },
+      {
+        "mpId": 1871,
+        "score": 0.9375544356173721,
+        "overlap": 495
+      },
+      {
+        "mpId": 1801,
+        "score": 0.9366834554179263,
+        "overlap": 488
+      },
+      {
+        "mpId": 1867,
+        "score": 0.9364237743949241,
+        "overlap": 485
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": -0.01795230876958987,
+        "overlap": 178
+      },
+      {
+        "mpId": 1643,
+        "score": 0.006025846050518227,
+        "overlap": 248
+      },
+      {
+        "mpId": 1317,
+        "score": 0.008138962667412649,
+        "overlap": 316
+      },
+      {
+        "mpId": 1155,
+        "score": 0.02451543771176407,
+        "overlap": 242
+      },
+      {
+        "mpId": 1457,
+        "score": 0.026102751244458756,
+        "overlap": 277
+      },
+      {
+        "mpId": 388,
+        "score": 0.03679192891894674,
+        "overlap": 301
+      },
+      {
+        "mpId": 404,
+        "score": 0.03755923654111372,
+        "overlap": 284
+      },
+      {
+        "mpId": 1124,
+        "score": 0.05132673374350537,
+        "overlap": 269
+      },
+      {
+        "mpId": 1703,
+        "score": 0.05569222379541837,
+        "overlap": 210
+      },
+      {
+        "mpId": 1659,
+        "score": 0.05723778705432576,
+        "overlap": 313
+      },
+      {
+        "mpId": 1644,
+        "score": 0.06236838169558251,
+        "overlap": 269
+      },
+      {
+        "mpId": 1970,
+        "score": 0.06450841275383709,
+        "overlap": 228
+      },
+      {
+        "mpId": 990,
+        "score": 0.07371949640063383,
+        "overlap": 310
+      },
+      {
+        "mpId": 1428,
+        "score": 0.07814140836609697,
+        "overlap": 226
+      },
+      {
+        "mpId": 817,
+        "score": 0.08271935277624579,
+        "overlap": 213
+      },
+      {
+        "mpId": 473,
+        "score": 0.08413467615591669,
+        "overlap": 299
+      },
+      {
+        "mpId": 1943,
+        "score": 0.08630395970895748,
+        "overlap": 143
+      },
+      {
+        "mpId": 1706,
+        "score": 0.0869391653611139,
+        "overlap": 300
+      },
+      {
+        "mpId": 1378,
+        "score": 0.08827467008419812,
+        "overlap": 246
+      },
+      {
+        "mpId": 1269,
+        "score": 0.09006659670296152,
+        "overlap": 354
+      }
+    ]
+  }
+}

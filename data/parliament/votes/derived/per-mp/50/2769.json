@@ -1,0 +1,485 @@
+{
+  "mpId": 2769,
+  "ns": "50",
+  "partyShort": "ПП-ДБ",
+  "loyalty": {
+    "votesCast": 590,
+    "withParty": 564,
+    "loyaltyPct": 0.9559322033898305,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 590,
+    "dissentCount": 26,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 76,
+        "slug": "76-zid-na-zakona-za-grazhdanskata-registratsiya-vtoro-glasuvane",
+        "title": "ЗИД на Закона за гражданската регистрация – второ гласуване - параграф 3, т.1",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 26
+      },
+      {
+        "date": "2024-09-11",
+        "item": 48,
+        "slug": "48-zid-na-zakona-za-semeynite-pomoshti-za-detsa-parvo-glasuvane",
+        "title": "ЗИД на Закона за семейните помощи за деца - първо гласуване - процедура от Мая Димитрова за удължаване на работното време до приключване на точката",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-09-04",
+        "item": 12,
+        "slug": "12-reshenie-za-vazlagane-na-ministara-na-energetikata-da-izvadi",
+        "title": "Решение за възлагане на министъра на енергетиката да извади парогенераторите от оборудването на Белене, което подлежи на преговори за продажба на Украйна, до изготвянето на анализ за приложението на тези парогенератори за нуждите на АЕЦ „Козлодуй\" - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2024-08-16",
+        "item": 3,
+        "slug": "3-protsedura-ot-pavela-mitova-za-udalzhavane-na-rabotnoto-vrem",
+        "title": "Процедура от Павела Митова за удължаване на работното време до изчерпване на фиксираните точките за днес - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 29
+      },
+      {
+        "date": "2024-08-14",
+        "item": 30,
+        "slug": "30-reshenie-za-vazlagane-na-ministerskiya-savet-vklyuchvaneto-n",
+        "title": "Решение за възлагане на Министерския съвет включването на диазотния оксид (райски газ) в списъците с наркотични вещества по чл. 3, ал. 2 от Закона за контрол върху наркотичните вещества и прекурсорите - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 26
+      },
+      {
+        "date": "2024-08-14",
+        "item": 10,
+        "slug": "10-reshenie-za-osvobozhdavane-ot-dlazhnost-na-zamestnik-predsed",
+        "title": "Решение за освобождаване от длъжност на заместник-председателя на Комисията за финансов надзор, ръководещ управление \" Застрахователен надзор\" - освобождава Владимир Савов",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2024-08-07",
+        "item": 26,
+        "slug": "26-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-vtoro-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - второ гласуване за редакция - наименование, параграф 1, Заключителна разпоредба, параграф 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-08-07",
+        "item": 25,
+        "slug": "25-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-vtoro-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - второ гласуване за редакция- Заключителна разпоредба и параграф 2 - предложение от Росен Желязков за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2024-08-07",
+        "item": 24,
+        "slug": "24-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-vtoro-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - второ гласуване - параграф 2 - предложение от Росен Желязков да отпадне - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2024-08-07",
+        "item": 22,
+        "slug": "22-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-vtoro-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - второ гласуване - параграф 1 - предложение от Росен Желязков за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2024-08-07",
+        "item": 21,
+        "slug": "21-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-vtoro-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - второ гласуване - наименование - предложение от Росен Желязков за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-08-07",
+        "item": 20,
+        "slug": "20-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-parvo-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - първо гласуване - процедура от Росен Желязков за второ гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-08-02",
+        "item": 11,
+        "slug": "11-zd-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-zakl",
+        "title": "ЗД на Кодекса за социално осигуряване - второ гласуване - Заключителна разпоредба и параграф 4 - предложение от Десислава Танева за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-07-26",
+        "item": 6,
+        "slug": "6-protsedura-ot-raya-nazyaryan-za-nova-tochka-v-dnevniya-red-r",
+        "title": "Процедура от Рая Назярян за нова точка в дневния ред - решение за небитовите потребители...да стане т.6",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-07-12",
+        "item": 96,
+        "slug": "96-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 135а - предложение от Павела Митова и Станислав Богдански",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2024-07-12",
+        "item": 94,
+        "slug": "94-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 132 - предложение от Цвета Рангелова и Петър Петров - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2024-07-12",
+        "item": 66,
+        "slug": "66-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 73 (става член 72) - предложение от Павела Митова и Станислав Богдански",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-07-12",
+        "item": 49,
+        "slug": "49-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 44 (става член 43) - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 34
+      },
+      {
+        "date": "2024-07-12",
+        "item": 37,
+        "slug": "37-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 33 (става член 32) - предложение от Цвета Рангелова и Петър Петров - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-07-12",
+        "item": 33,
+        "slug": "33-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 28 (става член 27) - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 29
+      },
+      {
+        "date": "2024-07-11",
+        "item": 22,
+        "slug": "22-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-vs",
+        "title": "Решение за създаване на Временна комисия за проверка на всички факти и обстоятелства на данни за извършени престъпления във връзка с дейността на Ивелин Михайлов - идеолог на ПП \"Величие\" и изграденият в с.Неофит Рилски, общ.Ветрино културно-исторически комплекс \"Исторически парк\", в т.ч. престъпления, свързани с пране на пари и обвързаности на представители на местната и централна власт с този комплекс и неговото изграждане - председател - Цвета Рангелова - прегласуване",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 26
+      },
+      {
+        "date": "2024-07-04",
+        "item": 7,
+        "slug": "7-izslushvane-na-sluzhebniya-ministar-na-otbranata-g-n-atanas-",
+        "title": "Изслушване на служебния министър на отбраната г-н Атанас Запрянов по въпроса за неучастие на Република България под никаква форма с жива въоръжена и невъоръжена сила във военния конфликт в Украйна - процедура от Борислав Гуцанов за удължаване на работното време до приключване на точката - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2024-07-03",
+        "item": 16,
+        "slug": "16-reshenie-za-osvobozhdavane-na-zamestnik-predsedatelya-na-kom",
+        "title": "Решение за освобождаване на заместник-председателя на Комисията за финансов надзор, ръководещ управление \"Застрахователен надзор\" - прегласуване",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 38
+      },
+      {
+        "date": "2024-07-03",
+        "item": 13,
+        "slug": "13-reshenie-za-osvobozhdavane-na-chlen-na-nadzorniya-savet-na-a",
+        "title": "Решение за освобождаване на член на Надзорния съвет на Агенцията за публични предприятия и контрол",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 38
+      },
+      {
+        "date": "2024-07-03",
+        "item": 10,
+        "slug": "10-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно наличието на нарегламентирано влияние в правосъдната система и обвързаности на представители на съдебната власт, несъвместими със стандартите за независимост и професионална етика във връзка с дейността на групата около Мартин Божанов - Нотариуса и дейността на групата около бившия следовател Петьо Петров - Еврото - председател Златан Златанов - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 37
+      },
+      {
+        "date": "2024-06-21",
+        "item": 7,
+        "slug": "7-reshenie-za-izbirane-na-vremenna-komisiya-za-izrabotvane-na-",
+        "title": "Решение за избиране на Временна комисия за изработване на проект на Правилник за организацията и дейността на Народно събрание - за председател - Цвета Рангелова",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 33
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2636,
+        "score": 0.9050432110151458,
+        "overlap": 531
+      },
+      {
+        "mpId": 2919,
+        "score": 0.8972243957501601,
+        "overlap": 538
+      },
+      {
+        "mpId": 2727,
+        "score": 0.8968054026003993,
+        "overlap": 517
+      },
+      {
+        "mpId": 2593,
+        "score": 0.8951110531140833,
+        "overlap": 555
+      },
+      {
+        "mpId": 2638,
+        "score": 0.8921749129059656,
+        "overlap": 529
+      },
+      {
+        "mpId": 2737,
+        "score": 0.8818124635496045,
+        "overlap": 517
+      },
+      {
+        "mpId": 2906,
+        "score": 0.8780913262471415,
+        "overlap": 520
+      },
+      {
+        "mpId": 2710,
+        "score": 0.8698755773340798,
+        "overlap": 500
+      },
+      {
+        "mpId": 2671,
+        "score": 0.8600016380905877,
+        "overlap": 486
+      },
+      {
+        "mpId": 2618,
+        "score": 0.8582919818671664,
+        "overlap": 511
+      },
+      {
+        "mpId": 2807,
+        "score": 0.8549534812823884,
+        "overlap": 488
+      },
+      {
+        "mpId": 2696,
+        "score": 0.8487612682049471,
+        "overlap": 497
+      },
+      {
+        "mpId": 2684,
+        "score": 0.8477804255993174,
+        "overlap": 473
+      },
+      {
+        "mpId": 2864,
+        "score": 0.8407221205088637,
+        "overlap": 464
+      },
+      {
+        "mpId": 2799,
+        "score": 0.8375760232142307,
+        "overlap": 469
+      },
+      {
+        "mpId": 2735,
+        "score": 0.8364559723833038,
+        "overlap": 447
+      },
+      {
+        "mpId": 2834,
+        "score": 0.8329456046589825,
+        "overlap": 474
+      },
+      {
+        "mpId": 2782,
+        "score": 0.82753967401283,
+        "overlap": 466
+      },
+      {
+        "mpId": 2600,
+        "score": 0.8137127403996076,
+        "overlap": 442
+      },
+      {
+        "mpId": 2708,
+        "score": 0.8054626278555135,
+        "overlap": 436
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2998,
+        "score": 0.031106878474046484,
+        "overlap": 74
+      },
+      {
+        "mpId": 2967,
+        "score": 0.04865251748190695,
+        "overlap": 286
+      },
+      {
+        "mpId": 2996,
+        "score": 0.052443653342723426,
+        "overlap": 36
+      },
+      {
+        "mpId": 2670,
+        "score": 0.07009355913809606,
+        "overlap": 47
+      },
+      {
+        "mpId": 2930,
+        "score": 0.07566499084579774,
+        "overlap": 7
+      },
+      {
+        "mpId": 3008,
+        "score": 0.09125541250952261,
+        "overlap": 149
+      },
+      {
+        "mpId": 3005,
+        "score": 0.09203339259136885,
+        "overlap": 78
+      },
+      {
+        "mpId": 2972,
+        "score": 0.09692876233453128,
+        "overlap": 52
+      },
+      {
+        "mpId": 2766,
+        "score": 0.0992134596034861,
+        "overlap": 38
+      },
+      {
+        "mpId": 2901,
+        "score": 0.09992896465095398,
+        "overlap": 43
+      },
+      {
+        "mpId": 2921,
+        "score": 0.09992896465095398,
+        "overlap": 43
+      },
+      {
+        "mpId": 2797,
+        "score": 0.10111159711370063,
+        "overlap": 43
+      },
+      {
+        "mpId": 2916,
+        "score": 0.10537267395476645,
+        "overlap": 42
+      },
+      {
+        "mpId": 2915,
+        "score": 0.10659089562768424,
+        "overlap": 42
+      },
+      {
+        "mpId": 2781,
+        "score": 0.107852370254614,
+        "overlap": 42
+      },
+      {
+        "mpId": 2959,
+        "score": 0.107852370254614,
+        "overlap": 42
+      },
+      {
+        "mpId": 2627,
+        "score": 0.10915971944487209,
+        "overlap": 42
+      },
+      {
+        "mpId": 2937,
+        "score": 0.11192369405211779,
+        "overlap": 38
+      },
+      {
+        "mpId": 2917,
+        "score": 0.11195846607693935,
+        "overlap": 44
+      },
+      {
+        "mpId": 2957,
+        "score": 0.1132528266044145,
+        "overlap": 43
+      }
+    ]
+  }
+}

@@ -1,0 +1,333 @@
+{
+  "mpId": 3373,
+  "ns": "51",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 581,
+    "withParty": 570,
+    "loyaltyPct": 0.9810671256454389,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 581,
+    "dissentCount": 11,
+    "recent": [
+      {
+        "date": "2025-03-12",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-12-14-mart-202",
+        "title": "Програма за работата на Народното събрание за 12 - 14 март 2025 г. - предложение от Кирил Веселински - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2025-03-05",
+        "item": 12,
+        "slug": "12-reshenie-za-zadalzhavane-na-ministerski-savet-da-predprieme-",
+        "title": "Решение за задължаване на Министерски съвет да предприеме необходимите действия за предоговаряне на действащите концесионни договори за добив на злато, ценни и редки метали, с цел значително увеличение на концесионните плащания и повишаване на контрола, а при невъзможност, да предприеме действия по прекратяването им - предложение от Тошко Йорданов за редакция - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 65
+      },
+      {
+        "date": "2025-02-20",
+        "item": 13,
+        "slug": "13",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2025-01-29",
+        "item": 7,
+        "slug": "7-reshenie-za-izbirane-na-rakovodstvo-na-vremennata-komisiya-z",
+        "title": "Решение за избиране на ръководство на Временната комисия за установяване на всички факти и обстоятелства относно проблемите с безводието в страната - за председател Богдан Богданов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2025-01-15",
+        "item": 74,
+        "slug": "74-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-34",
+        "title": "ЗИД на Закона за съдебната власт – второ гласуване - параграф 34 (по вносител)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2025-01-15",
+        "item": 72,
+        "slug": "72-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-33",
+        "title": "ЗИД на Закона за съдебната власт – второ гласуване - параграф 33 (по вносител) - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2025-01-15",
+        "item": 70,
+        "slug": "70-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-32",
+        "title": "ЗИД на Закона за съдебната власт – второ гласуване - параграф 32 (по вносител)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2025-01-15",
+        "item": 69,
+        "slug": "69-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-32",
+        "title": "ЗИД на Закона за съдебната власт – второ гласуване - параграф 32 - предложение от Надежда Йорданова, Божидар Божанов и Стою Стоев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2024-12-18",
+        "item": 13,
+        "slug": "13-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 27 - предложение от Атанас Славов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-12-11",
+        "item": 8,
+        "slug": "8-reshenie-za-sazdavane-na-vremenna-komisiya-za-vsichki-fakti-",
+        "title": "Решение за създаване на Временна комисия за всички факти и обстоятелства относно проблемите с безводието в страната - Коста Стоянов - председател",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 66
+      },
+      {
+        "date": "2024-11-20",
+        "item": 8,
+        "slug": "8-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Силви Кирилов (20.11.2024г.) - балотаж - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 69
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3023,
+        "score": 0.9011444363176627,
+        "overlap": 521
+      },
+      {
+        "mpId": 3404,
+        "score": 0.7919047153799535,
+        "overlap": 521
+      },
+      {
+        "mpId": 3448,
+        "score": 0.6829042602625439,
+        "overlap": 274
+      },
+      {
+        "mpId": 3024,
+        "score": 0.6616608213770255,
+        "overlap": 571
+      },
+      {
+        "mpId": 3153,
+        "score": 0.6595913739204176,
+        "overlap": 559
+      },
+      {
+        "mpId": 3185,
+        "score": 0.6571020777677317,
+        "overlap": 287
+      },
+      {
+        "mpId": 3080,
+        "score": 0.6514293918573268,
+        "overlap": 283
+      },
+      {
+        "mpId": 3374,
+        "score": 0.6480284539387176,
+        "overlap": 556
+      },
+      {
+        "mpId": 3081,
+        "score": 0.6380475374498648,
+        "overlap": 276
+      },
+      {
+        "mpId": 3287,
+        "score": 0.6343496658880102,
+        "overlap": 268
+      },
+      {
+        "mpId": 3094,
+        "score": 0.6123548637812528,
+        "overlap": 255
+      },
+      {
+        "mpId": 3134,
+        "score": 0.6100241822780277,
+        "overlap": 261
+      },
+      {
+        "mpId": 3282,
+        "score": 0.5928559756496145,
+        "overlap": 242
+      },
+      {
+        "mpId": 3260,
+        "score": 0.5791319526190616,
+        "overlap": 229
+      },
+      {
+        "mpId": 3342,
+        "score": 0.5290139089582183,
+        "overlap": 495
+      },
+      {
+        "mpId": 3413,
+        "score": 0.5227332258415955,
+        "overlap": 278
+      },
+      {
+        "mpId": 3148,
+        "score": 0.5068697173935065,
+        "overlap": 275
+      },
+      {
+        "mpId": 3396,
+        "score": 0.4932335050610334,
+        "overlap": 553
+      },
+      {
+        "mpId": 3399,
+        "score": 0.4932335050610334,
+        "overlap": 553
+      },
+      {
+        "mpId": 3052,
+        "score": 0.46910076634627496,
+        "overlap": 513
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3364,
+        "score": -0.11879535930092669,
+        "overlap": 552
+      },
+      {
+        "mpId": 3397,
+        "score": -0.11014527998260541,
+        "overlap": 487
+      },
+      {
+        "mpId": 3376,
+        "score": -0.10521503376545223,
+        "overlap": 518
+      },
+      {
+        "mpId": 3375,
+        "score": -0.09959258603099169,
+        "overlap": 547
+      },
+      {
+        "mpId": 3370,
+        "score": -0.09249945801257606,
+        "overlap": 557
+      },
+      {
+        "mpId": 3359,
+        "score": -0.07788336240893523,
+        "overlap": 535
+      },
+      {
+        "mpId": 3382,
+        "score": -0.07357794671548887,
+        "overlap": 548
+      },
+      {
+        "mpId": 3384,
+        "score": -0.05317845504187487,
+        "overlap": 519
+      },
+      {
+        "mpId": 3181,
+        "score": -0.04980384673133814,
+        "overlap": 460
+      },
+      {
+        "mpId": 3307,
+        "score": -0.03299918957048034,
+        "overlap": 517
+      },
+      {
+        "mpId": 3390,
+        "score": -0.031876557969823104,
+        "overlap": 506
+      },
+      {
+        "mpId": 3096,
+        "score": -0.03139003078684139,
+        "overlap": 531
+      },
+      {
+        "mpId": 3026,
+        "score": -0.029808395489473543,
+        "overlap": 571
+      },
+      {
+        "mpId": 3122,
+        "score": -0.029075214313134517,
+        "overlap": 555
+      },
+      {
+        "mpId": 3279,
+        "score": -0.028452131897694584,
+        "overlap": 549
+      },
+      {
+        "mpId": 3161,
+        "score": -0.02787536017904951,
+        "overlap": 534
+      },
+      {
+        "mpId": 3121,
+        "score": -0.02768650695045466,
+        "overlap": 563
+      },
+      {
+        "mpId": 3027,
+        "score": -0.02720545182930097,
+        "overlap": 557
+      },
+      {
+        "mpId": 3084,
+        "score": -0.02704654558042242,
+        "overlap": 570
+      },
+      {
+        "mpId": 3141,
+        "score": -0.026515905091117273,
+        "overlap": 574
+      }
+    ]
+  }
+}

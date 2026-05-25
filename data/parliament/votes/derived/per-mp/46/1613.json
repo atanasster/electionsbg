@@ -1,0 +1,245 @@
+{
+  "mpId": 1613,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 345,
+    "withParty": 343,
+    "loyaltyPct": 0.9942028985507246,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 345,
+    "dissentCount": 2,
+    "recent": [
+      {
+        "date": "2021-09-10",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Корнелия Нинова и група н.п. -т.8",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-08-19",
+        "item": 2,
+        "slug": "2-protsedura-za-otpadane-na-tochka-t-3-ot-ramadan-atalay",
+        "title": "Процедура за отпадане на точка т.3 от Рамадан Аталай",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 62
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1868,
+        "score": 0.8582214250935672,
+        "overlap": 338
+      },
+      {
+        "mpId": 1665,
+        "score": 0.821296792664235,
+        "overlap": 345
+      },
+      {
+        "mpId": 1908,
+        "score": 0.8204354428806778,
+        "overlap": 345
+      },
+      {
+        "mpId": 1696,
+        "score": 0.8164556433552588,
+        "overlap": 342
+      },
+      {
+        "mpId": 1605,
+        "score": 0.8158433545261365,
+        "overlap": 340
+      },
+      {
+        "mpId": 1938,
+        "score": 0.8130421385411467,
+        "overlap": 342
+      },
+      {
+        "mpId": 1869,
+        "score": 0.8104486960850507,
+        "overlap": 344
+      },
+      {
+        "mpId": 1918,
+        "score": 0.809830575824025,
+        "overlap": 341
+      },
+      {
+        "mpId": 1739,
+        "score": 0.8084149573099305,
+        "overlap": 333
+      },
+      {
+        "mpId": 1801,
+        "score": 0.8073420092340853,
+        "overlap": 334
+      },
+      {
+        "mpId": 1888,
+        "score": 0.8071463868047646,
+        "overlap": 339
+      },
+      {
+        "mpId": 1913,
+        "score": 0.8070988002631388,
+        "overlap": 336
+      },
+      {
+        "mpId": 1947,
+        "score": 0.8070597468552817,
+        "overlap": 338
+      },
+      {
+        "mpId": 1948,
+        "score": 0.8055185927344369,
+        "overlap": 342
+      },
+      {
+        "mpId": 1871,
+        "score": 0.8045607537214309,
+        "overlap": 341
+      },
+      {
+        "mpId": 1593,
+        "score": 0.803151160333768,
+        "overlap": 335
+      },
+      {
+        "mpId": 1895,
+        "score": 0.80301562882604,
+        "overlap": 338
+      },
+      {
+        "mpId": 1899,
+        "score": 0.80301562882604,
+        "overlap": 333
+      },
+      {
+        "mpId": 1623,
+        "score": 0.8028651332475774,
+        "overlap": 329
+      },
+      {
+        "mpId": 1728,
+        "score": 0.802341813966465,
+        "overlap": 331
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": -0.02114037345881972,
+        "overlap": 146
+      },
+      {
+        "mpId": 1643,
+        "score": 0.03193176259205948,
+        "overlap": 208
+      },
+      {
+        "mpId": 1703,
+        "score": 0.042435631486275195,
+        "overlap": 168
+      },
+      {
+        "mpId": 1317,
+        "score": 0.04472683664085546,
+        "overlap": 252
+      },
+      {
+        "mpId": 1644,
+        "score": 0.052460060310311654,
+        "overlap": 220
+      },
+      {
+        "mpId": 1457,
+        "score": 0.05464571386262473,
+        "overlap": 228
+      },
+      {
+        "mpId": 1000,
+        "score": 0.054964970992931274,
+        "overlap": 80
+      },
+      {
+        "mpId": 388,
+        "score": 0.05665659527821661,
+        "overlap": 233
+      },
+      {
+        "mpId": 1972,
+        "score": 0.05794930750490006,
+        "overlap": 205
+      },
+      {
+        "mpId": 1970,
+        "score": 0.07196604004175988,
+        "overlap": 200
+      },
+      {
+        "mpId": 1155,
+        "score": 0.07217254273319927,
+        "overlap": 202
+      },
+      {
+        "mpId": 1428,
+        "score": 0.0736145340038141,
+        "overlap": 175
+      },
+      {
+        "mpId": 810,
+        "score": 0.07655054157318164,
+        "overlap": 144
+      },
+      {
+        "mpId": 1935,
+        "score": 0.08093174900267608,
+        "overlap": 191
+      },
+      {
+        "mpId": 473,
+        "score": 0.0858656509266222,
+        "overlap": 251
+      },
+      {
+        "mpId": 1124,
+        "score": 0.0888847103083824,
+        "overlap": 224
+      },
+      {
+        "mpId": 1344,
+        "score": 0.0937637740467651,
+        "overlap": 257
+      },
+      {
+        "mpId": 1943,
+        "score": 0.09654875395176117,
+        "overlap": 118
+      },
+      {
+        "mpId": 1659,
+        "score": 0.09773343942730693,
+        "overlap": 251
+      },
+      {
+        "mpId": 1951,
+        "score": 0.09828927389638029,
+        "overlap": 208
+      }
+    ]
+  }
+}

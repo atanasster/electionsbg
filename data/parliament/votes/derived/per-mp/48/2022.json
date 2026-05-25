@@ -1,0 +1,343 @@
+{
+  "mpId": 2022,
+  "ns": "48",
+  "partyShort": "ПП",
+  "loyalty": {
+    "votesCast": 594,
+    "withParty": 582,
+    "loyaltyPct": 0.9797979797979798,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 594,
+    "dissentCount": 12,
+    "recent": [
+      {
+        "date": "2023-01-27",
+        "item": 62,
+        "slug": "62-zid-na-zakona-za-zashtita-ot-domashnoto-nasilie-parvo-glasuv",
+        "title": "ЗИД на Закона за защита от домашното насилие - първо гласуване - вносител Корнелия Нинова и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 39
+      },
+      {
+        "date": "2023-01-27",
+        "item": 61,
+        "slug": "61-zid-na-zakona-za-zashtita-ot-domashnoto-nasilie-parvo-glasuv",
+        "title": "ЗИД на Закона за защита от домашното насилие - първо гласуване - вносител Корнелия Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 39
+      },
+      {
+        "date": "2023-01-27",
+        "item": 25,
+        "slug": "25-protsedura-ot-aleksandar-nenkov-za-udalzhavane-na-rabotnoto-",
+        "title": "Процедура от Александър Ненков за удължаване на работното време до т.18",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 36
+      },
+      {
+        "date": "2023-01-13",
+        "item": 48,
+        "slug": "48-zakon-za-kontrol-za-prilagane-na-derogatsiyata-za-zakupuvane",
+        "title": "Закон за контрол за прилагане на дерогацията за закупуването, вноса или трансфера на суров нефт, превозван по море, и на нефтопродукти с произход от Русия или изнесени от Русия - второ гласуване - параграфи 1 и 2 - нови - предложение от Петър Чобанов за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2023-01-11",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 2 - предложение от Виолета Комитова за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 46
+      },
+      {
+        "date": "2022-12-21",
+        "item": 17,
+        "slug": "17",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 43
+      },
+      {
+        "date": "2022-11-11",
+        "item": 2,
+        "slug": "2-protsedura-ot-vezhdi-rashidov-za-udalzhavane-na-vremeto-za-p",
+        "title": "Процедура от Вежди Рашидов за удължаване на времето за парламентарен контрол до 15 часа",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 38
+      },
+      {
+        "date": "2022-11-03",
+        "item": 17,
+        "slug": "17-reshenie-za-ukrepvane-na-otbranitelnite-sposobnosti-na-balga",
+        "title": "Решение за укрепване на отбранителните способности на България и оказване на военна подкрепа на Украйна и Решение за възлагане на Министерския съвет да предостави военна и техническа помощ на Република Украйна - процедура от Иван Иванов за пряко предаване по БНТ1 и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 46
+      },
+      {
+        "date": "2022-10-21",
+        "item": 3,
+        "slug": "3-reshenie-za-izbor-na-predsedatel-na-48-to-narodno-sabranie-n",
+        "title": "Решение за избор на председател на 48-то Народно събрание на Република България - избира Йордан Цонев",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 52
+      },
+      {
+        "date": "2022-10-20",
+        "item": 13,
+        "slug": "13-reshenie-za-izbor-na-predsedatel-na-48-to-narodno-sabranie-n",
+        "title": "Решение за избор на председател на 48-то Народно събрание на Република България - балотаж - избира Йордан Цонев",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 52
+      },
+      {
+        "date": "2022-10-20",
+        "item": 10,
+        "slug": "10-reshenie-za-izbor-na-predsedatel-na-48-to-narodno-sabranie-n",
+        "title": "Решение за избор на председател на 48-то Народно събрание на Република България - избира Йордан Цонев",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 52
+      },
+      {
+        "date": "2022-10-20",
+        "item": 3,
+        "slug": "3-reshenie-za-izbor-na-predsedatel-na-48-to-narodno-sabranie-n",
+        "title": "Решение за избор на председател на 48-то Народно събрание на Република България - избира Криситиан Вигенин",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 52
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2284,
+        "score": 0.6573814894092502,
+        "overlap": 447
+      },
+      {
+        "mpId": 2114,
+        "score": 0.6500746091529748,
+        "overlap": 565
+      },
+      {
+        "mpId": 2034,
+        "score": 0.6460307127349879,
+        "overlap": 490
+      },
+      {
+        "mpId": 2173,
+        "score": 0.6423957236689318,
+        "overlap": 517
+      },
+      {
+        "mpId": 2053,
+        "score": 0.6392866798505206,
+        "overlap": 582
+      },
+      {
+        "mpId": 2081,
+        "score": 0.6382162386874873,
+        "overlap": 538
+      },
+      {
+        "mpId": 2112,
+        "score": 0.6336643773636366,
+        "overlap": 517
+      },
+      {
+        "mpId": 2109,
+        "score": 0.6328788411106558,
+        "overlap": 578
+      },
+      {
+        "mpId": 2079,
+        "score": 0.6326804628060053,
+        "overlap": 439
+      },
+      {
+        "mpId": 2254,
+        "score": 0.631906287004296,
+        "overlap": 527
+      },
+      {
+        "mpId": 2120,
+        "score": 0.6302551213649823,
+        "overlap": 530
+      },
+      {
+        "mpId": 2029,
+        "score": 0.6276818577846736,
+        "overlap": 565
+      },
+      {
+        "mpId": 2020,
+        "score": 0.6262816577226061,
+        "overlap": 486
+      },
+      {
+        "mpId": 2017,
+        "score": 0.6228659355307189,
+        "overlap": 538
+      },
+      {
+        "mpId": 2155,
+        "score": 0.6197716704628751,
+        "overlap": 538
+      },
+      {
+        "mpId": 2062,
+        "score": 0.6186712957268553,
+        "overlap": 560
+      },
+      {
+        "mpId": 2176,
+        "score": 0.615194144325207,
+        "overlap": 518
+      },
+      {
+        "mpId": 2168,
+        "score": 0.6136441525273246,
+        "overlap": 556
+      },
+      {
+        "mpId": 2343,
+        "score": 0.6117596014739325,
+        "overlap": 535
+      },
+      {
+        "mpId": 2362,
+        "score": 0.6059543814710636,
+        "overlap": 520
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2064,
+        "score": 0.0349864278984525,
+        "overlap": 40
+      },
+      {
+        "mpId": 1297,
+        "score": 0.047913746841921935,
+        "overlap": 101
+      },
+      {
+        "mpId": 2133,
+        "score": 0.07720232935915157,
+        "overlap": 75
+      },
+      {
+        "mpId": 2283,
+        "score": 0.0817441726656386,
+        "overlap": 79
+      },
+      {
+        "mpId": 810,
+        "score": 0.10201597560369005,
+        "overlap": 161
+      },
+      {
+        "mpId": 960,
+        "score": 0.1254391870510692,
+        "overlap": 254
+      },
+      {
+        "mpId": 1389,
+        "score": 0.1389571033791904,
+        "overlap": 247
+      },
+      {
+        "mpId": 1576,
+        "score": 0.14277983715044468,
+        "overlap": 333
+      },
+      {
+        "mpId": 2129,
+        "score": 0.1456547148789719,
+        "overlap": 544
+      },
+      {
+        "mpId": 2295,
+        "score": 0.14686363287002085,
+        "overlap": 388
+      },
+      {
+        "mpId": 524,
+        "score": 0.15046954503877127,
+        "overlap": 274
+      },
+      {
+        "mpId": 2104,
+        "score": 0.1525408256372529,
+        "overlap": 496
+      },
+      {
+        "mpId": 2084,
+        "score": 0.15265647901359244,
+        "overlap": 465
+      },
+      {
+        "mpId": 2063,
+        "score": 0.15515503909415368,
+        "overlap": 540
+      },
+      {
+        "mpId": 2100,
+        "score": 0.15620852656948023,
+        "overlap": 487
+      },
+      {
+        "mpId": 663,
+        "score": 0.16170772550161386,
+        "overlap": 280
+      },
+      {
+        "mpId": 1644,
+        "score": 0.16252148526883736,
+        "overlap": 412
+      },
+      {
+        "mpId": 2339,
+        "score": 0.16342180089696304,
+        "overlap": 550
+      },
+      {
+        "mpId": 2075,
+        "score": 0.16460976274811992,
+        "overlap": 538
+      },
+      {
+        "mpId": 2077,
+        "score": 0.16785501567201028,
+        "overlap": 511
+      }
+    ]
+  }
+}

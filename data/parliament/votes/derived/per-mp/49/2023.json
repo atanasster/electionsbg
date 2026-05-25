@@ -1,0 +1,385 @@
+{
+  "mpId": 2023,
+  "ns": "49",
+  "partyShort": "ПП-ДБ",
+  "loyalty": {
+    "votesCast": 349,
+    "withParty": 333,
+    "loyaltyPct": 0.9541547277936963,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 349,
+    "dissentCount": 16,
+    "recent": [
+      {
+        "date": "2023-07-19",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodnoto-sabranie-za-19-21-yuli-202",
+        "title": "Програма за работата на Народното събрание за 19 - 21 юли 2023 г. - предложение от БСП - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 51
+      },
+      {
+        "date": "2023-07-18",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-balgarskite-lichni-dokumenti-vtoro-glasuvan",
+        "title": "ЗИД на Закона за българските лични документи - второ гласуване - параграф 20 - предложение от Петър Петров за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2023-07-05",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-zashtita-ot-domashnoto-nasilie-vtoro-glasuv",
+        "title": "ЗИД на Закона за защита от домашното насилие - второ гласуване - параграф 4 - предложение от Кристиан Вигенин и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 46
+      },
+      {
+        "date": "2023-06-29",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-merkite-sreshtu-izpiraneto-na-pari-vtoro-gl",
+        "title": "ЗИД на Закона за мерките срещу изпирането на пари – второ гласуване - параграф 3 - предложение от Иван Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2023-06-21",
+        "item": 28,
+        "slug": "28-zid-na-zakona-za-obshtestvenite-biblioteki-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за обществените библиотеки - второ гласуване - процедура за допускане в залата",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 40
+      },
+      {
+        "date": "2023-06-02",
+        "item": 27,
+        "slug": "27-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-3-",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 3, Преходни и заключителни разпоредби, параграф 4 и 5 (стават параграфи 5 и 6)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 51
+      },
+      {
+        "date": "2023-06-02",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-15",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 15, т.1 - предложение от Петър Петров - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 51
+      },
+      {
+        "date": "2023-05-30",
+        "item": 2,
+        "slug": "2-izslushvane-na-predsedatelya-na-darzhavna-agentsiya-natsiona",
+        "title": "Изслушване на председателя на Държавна агенция \"Национална сигурност\", директора на Служба \"Военно разузнаване\" и председателя на Държавна агенция \"Разузнаване\", относно изнесените твърдения от народен представител от парламентарната група \"Продължаваме Промяната - Демократична България\", че ръководителите на службите за сигурност са съгласувани с посолствата на чужди държави - процедура от Ангел Георгиев за пряко излъчване по БНТ1 и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 49
+      },
+      {
+        "date": "2023-05-26",
+        "item": 73,
+        "slug": "73-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Наказателно - процесуалния кодекс - второ гласуване - параграф 54 (става параграф 34) - предложение за редакция от Радомир Чолаков",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 57
+      },
+      {
+        "date": "2023-05-25",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-obshtestvenite-biblioteki-parvo-glasuvane",
+        "title": "ЗИД на Закона за обществените библиотеки - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 60
+      },
+      {
+        "date": "2023-04-28",
+        "item": 20,
+        "slug": "20-reshenie-za-pravilnik-za-organizatsiyata-i-deynostta-na-naro",
+        "title": "Решение за Правилник за организацията и дейността на Народното събрание - параграф 7 - предложение от Константин Бачийски",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 42
+      },
+      {
+        "date": "2023-04-27",
+        "item": 21,
+        "slug": "21-reshenie-za-pravilnik-za-organizatsiyata-i-deynostta-na-naro",
+        "title": "Решение за Правилник за организацията и дейността на Народното събрание - - Глава осма, член 71 до член 91",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 51
+      },
+      {
+        "date": "2023-04-27",
+        "item": 2,
+        "slug": "2-reshenie-za-pravilnik-za-organizatsiyata-i-deynostta-na-naro",
+        "title": "Решение за Правилник за организацията и дейността на Народното събрание - - член 36 - предложение от Радослав Чолаков/Христо Гаджев за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 50
+      },
+      {
+        "date": "2023-04-20",
+        "item": 6,
+        "slug": "6-reshenie-za-obyavyavane-na-21-april-2023-g-za-neraboten-den-",
+        "title": "Решение за обявяване на 21 април 2023 г. за неработен ден на Народното събрание на Република България + предложение за редакция от Йордан Цонев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 50
+      },
+      {
+        "date": "2023-04-19",
+        "item": 1,
+        "slug": "1-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-pe",
+        "title": "Решение за избиране на председател на Народното събрание - Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2023-04-12",
+        "item": 3,
+        "slug": "3-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-pe",
+        "title": "Решение за избиране на председател на Народното събрание - Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2040,
+        "score": 0.6477933310025212,
+        "overlap": 288
+      },
+      {
+        "mpId": 2391,
+        "score": 0.5307864968395607,
+        "overlap": 169
+      },
+      {
+        "mpId": 2482,
+        "score": 0.5011371913050808,
+        "overlap": 296
+      },
+      {
+        "mpId": 2271,
+        "score": 0.4789627818804119,
+        "overlap": 107
+      },
+      {
+        "mpId": 2258,
+        "score": 0.4768439837378609,
+        "overlap": 118
+      },
+      {
+        "mpId": 2437,
+        "score": 0.42821827866739925,
+        "overlap": 320
+      },
+      {
+        "mpId": 1949,
+        "score": 0.32701379229556415,
+        "overlap": 208
+      },
+      {
+        "mpId": 2436,
+        "score": 0.29909974395711164,
+        "overlap": 325
+      },
+      {
+        "mpId": 2054,
+        "score": 0.298492545959565,
+        "overlap": 329
+      },
+      {
+        "mpId": 2120,
+        "score": 0.29398936395701103,
+        "overlap": 278
+      },
+      {
+        "mpId": 2079,
+        "score": 0.29355741420865816,
+        "overlap": 322
+      },
+      {
+        "mpId": 2418,
+        "score": 0.2913994604336565,
+        "overlap": 323
+      },
+      {
+        "mpId": 1457,
+        "score": 0.29005790519010693,
+        "overlap": 329
+      },
+      {
+        "mpId": 2029,
+        "score": 0.28791864021536634,
+        "overlap": 323
+      },
+      {
+        "mpId": 2448,
+        "score": 0.28725937999783313,
+        "overlap": 315
+      },
+      {
+        "mpId": 2407,
+        "score": 0.2869010822926759,
+        "overlap": 314
+      },
+      {
+        "mpId": 2062,
+        "score": 0.28671969992956087,
+        "overlap": 337
+      },
+      {
+        "mpId": 2118,
+        "score": 0.28641211705576725,
+        "overlap": 329
+      },
+      {
+        "mpId": 2438,
+        "score": 0.28628958921112224,
+        "overlap": 317
+      },
+      {
+        "mpId": 2083,
+        "score": 0.28525699941365923,
+        "overlap": 330
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2084,
+        "score": -0.00922838872272232,
+        "overlap": 216
+      },
+      {
+        "mpId": 2484,
+        "score": 0.006899177356641238,
+        "overlap": 51
+      },
+      {
+        "mpId": 2450,
+        "score": 0.00900607105743598,
+        "overlap": 270
+      },
+      {
+        "mpId": 2352,
+        "score": 0.019849711139180458,
+        "overlap": 268
+      },
+      {
+        "mpId": 2119,
+        "score": 0.02195406832350611,
+        "overlap": 278
+      },
+      {
+        "mpId": 2129,
+        "score": 0.024361522740207517,
+        "overlap": 303
+      },
+      {
+        "mpId": 2445,
+        "score": 0.024744949839093942,
+        "overlap": 305
+      },
+      {
+        "mpId": 2098,
+        "score": 0.025324468927010287,
+        "overlap": 309
+      },
+      {
+        "mpId": 2313,
+        "score": 0.025468490578997464,
+        "overlap": 292
+      },
+      {
+        "mpId": 2422,
+        "score": 0.027418593375611887,
+        "overlap": 304
+      },
+      {
+        "mpId": 2326,
+        "score": 0.0280864827820112,
+        "overlap": 303
+      },
+      {
+        "mpId": 2363,
+        "score": 0.028318628426111058,
+        "overlap": 313
+      },
+      {
+        "mpId": 2310,
+        "score": 0.028751932985551863,
+        "overlap": 288
+      },
+      {
+        "mpId": 2451,
+        "score": 0.028897379484706578,
+        "overlap": 289
+      },
+      {
+        "mpId": 2441,
+        "score": 0.02963244386049789,
+        "overlap": 310
+      },
+      {
+        "mpId": 2077,
+        "score": 0.0298163388441443,
+        "overlap": 300
+      },
+      {
+        "mpId": 2308,
+        "score": 0.030642442964574506,
+        "overlap": 303
+      },
+      {
+        "mpId": 2063,
+        "score": 0.03133385147086129,
+        "overlap": 308
+      },
+      {
+        "mpId": 2459,
+        "score": 0.031714981166326976,
+        "overlap": 308
+      },
+      {
+        "mpId": 2368,
+        "score": 0.031852204706332814,
+        "overlap": 298
+      }
+    ]
+  }
+}

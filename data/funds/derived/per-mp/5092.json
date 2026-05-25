@@ -1,0 +1,44 @@
+{
+  "mpId": 5092,
+  "summary": {
+    "contractCount": 3,
+    "contractedEur": 543248,
+    "paidEur": 3067.75
+  },
+  "entries": [
+    {
+      "mpId": 5092,
+      "mpName": "Богомил Иванов Петков",
+      "beneficiaryEik": "110001952",
+      "beneficiaryName": "ОСЪМ ИНЖЕНЕРИНГ АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 540180.25,
+      "paidEur": 0
+    },
+    {
+      "mpId": 5092,
+      "mpName": "Богомил Иванов Петков",
+      "beneficiaryEik": "817076893",
+      "beneficiaryName": "БОКАЛ - ПЕТ ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 3067.75,
+      "paidEur": 3067.75
+    }
+  ]
+}

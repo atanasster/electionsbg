@@ -1,0 +1,44 @@
+{
+  "mpId": 2681,
+  "summary": {
+    "contractCount": 2,
+    "contractedEur": 2808597.35,
+    "paidEur": 2121.86
+  },
+  "entries": [
+    {
+      "mpId": 2681,
+      "mpName": "Борислав Иванов Борисов",
+      "beneficiaryEik": "825203984",
+      "beneficiaryName": "ЮРИЙ ГАГАРИН АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 2806475.49,
+      "paidEur": 0
+    },
+    {
+      "mpId": 2681,
+      "mpName": "Борислав Иванов Борисов",
+      "beneficiaryEik": "201749264",
+      "beneficiaryName": "СЕКОНТ 2011 ЕООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 2121.86,
+      "paidEur": 2121.86
+    }
+  ]
+}

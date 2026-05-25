@@ -4,6 +4,7 @@ import { dataUrl } from "@/data/dataUrl";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { useMpProfile } from "./useMpProfile";
+import { useMpShard } from "./useMpShard";
 import type { LoyaltyEntry, LoyaltyFile, LoyaltySlice } from "./types";
 
 const queryFn = async (): Promise<LoyaltyFile | undefined> => {
@@ -42,10 +43,25 @@ const pickSlice = (
 // different NS than the one selected.
 export const useMpLoyalty = (mpId?: number | null, name?: string | null) => {
   const { selected } = useElectionContext();
-  const { data, isLoading } = useQuery({
+
+  // Phase B fast-path: try the per-MP shard first. When present we avoid the
+  // ~150 KB loyalty aggregate fetch entirely on the candidate page.
+  const { shard, isLoading: shardLoading } = useMpShard(
+    mpId ?? undefined,
+    name ?? undefined,
+  );
+
+  // Aggregate is still fetched when the shard misses (older NSes, fresh
+  // ingests, or chamber-browsing screens that call this hook without an
+  // mp). React Query dedupes the request across hooks. We hold off on the
+  // aggregate until the shard request resolves — otherwise both fire in
+  // parallel and we waste the 1.5 MB download.
+  const aggregateEnabled = !mpId && !name ? true : !shard && !shardLoading;
+  const { data, isLoading: aggregateLoading } = useQuery({
     queryKey: ["rollcall_loyalty"] as [string],
     queryFn,
     staleTime: Infinity,
+    enabled: aggregateEnabled,
   });
 
   const ns = electionToNsFolder(selected);
@@ -74,17 +90,62 @@ export const useMpLoyalty = (mpId?: number | null, name?: string | null) => {
     return null;
   }, [name, mpNames]);
 
-  const entry =
+  // Synthesize a LoyaltyEntry from the shard so the consumer sees the same
+  // shape regardless of which source served the data.
+  const shardEntry: LoyaltyEntry | undefined = shard
+    ? {
+        mpId: shard.mpId,
+        partyShort: shard.partyShort,
+        votesCast: shard.loyalty.votesCast,
+        withParty: shard.loyalty.withParty,
+        loyaltyPct: shard.loyalty.loyaltyPct,
+      }
+    : undefined;
+
+  const aggregateEntry =
     (mpId != null ? byMpId.get(mpId) : undefined) ??
     (fallbackCsvId != null ? byMpId.get(fallbackCsvId) : undefined);
 
+  const entry = shardEntry ?? aggregateEntry;
+
+  // Synthetic slice metadata when only the shard loaded — keeps consumers
+  // that read `file.windowFrom`/`windowTo`/`totalVoteItems` happy.
+  const effectiveSlice: LoyaltySlice | undefined =
+    slice ??
+    (shard
+      ? {
+          windowFrom: shard.loyalty.windowFrom,
+          windowTo: shard.loyalty.windowTo,
+          totalVoteItems: shard.loyalty.totalVoteItems,
+          entries: [],
+        }
+      : undefined);
+
   return {
-    file: slice,
-    slice,
+    file: effectiveSlice,
+    slice: effectiveSlice,
     ns,
     entries: slice?.entries ?? [],
     entry,
     byMpId,
-    isLoading,
+    isLoading: aggregateEnabled ? aggregateLoading : false,
   };
+};
+
+// Returns the top-N most-loyal and most-independent MPs in the current NS,
+// filtered by a minimum votesCast threshold. The default 30 mirrors the
+// embedding/cohesion runners — fewer cast votes makes the loyalty ratio
+// noisy (an MP seated for a single sitting day with one defection would
+// otherwise show up as the chamber's most independent).
+export const useLoyaltyRanking = (topN = 5, bottomN = 5, minVotesCast = 30) => {
+  const { entries, isLoading } = useMpLoyalty();
+  const { top, bottom } = useMemo(() => {
+    const eligible = entries.filter((e) => e.votesCast >= minVotesCast);
+    const sorted = [...eligible].sort((a, b) => b.loyaltyPct - a.loyaltyPct);
+    return {
+      top: sorted.slice(0, topN),
+      bottom: sorted.slice(-bottomN).reverse(),
+    };
+  }, [entries, topN, bottomN, minVotesCast]);
+  return { top, bottom, isLoading };
 };

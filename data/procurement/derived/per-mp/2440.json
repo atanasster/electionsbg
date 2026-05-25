@@ -1,0 +1,137 @@
+{
+  "mpId": 2440,
+  "summary": {
+    "totalEur": 1192498.5658262733,
+    "totalOther": {},
+    "contractCount": 11,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 1192498.5658262733,
+    "rank": 22,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 2440,
+      "mpName": "Румен Иванов Иванов",
+      "contractorEik": "119622608",
+      "contractorName": "ОЛИМПИА АУТО АД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 937012.2505534735,
+      "totalOther": {},
+      "contractCount": 10,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 275177.2904598048,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 4,
+          "totalEur": 552011.1666146853,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 30667.287034149183,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 2,
+          "totalEur": 43417.20394921849,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 35739.30249561567,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "201617654",
+          "name": "Държавно предприятие - Югоизточно държавно предприятие /ДПЮИДП/ - Сливен",
+          "contractCount": 3,
+          "totalEur": 771968.9339052985,
+          "totalOther": {}
+        },
+        {
+          "eik": "123531939",
+          "name": "ТЕЦ \"Марица Изток\" 2 ЕАД",
+          "contractCount": 2,
+          "totalEur": 55219.5231691916,
+          "totalOther": {}
+        },
+        {
+          "eik": "201619580",
+          "name": "ТЕРИТОРИАЛНО ПОДЕЛЕНИЕ \"ДЪРЖАВНО ГОРСКО СТОПАНСТВО-БОРИНО",
+          "contractCount": 3,
+          "totalEur": 48562.502876016835,
+          "totalOther": {}
+        },
+        {
+          "eik": "201617412",
+          "name": "ТЕРИТОРИАЛНО ПОДЕЛЕНИЕ ДЪРЖАВНО ГОРСКО СТОПАНСТВО-ОМУРТАГ",
+          "contractCount": 1,
+          "totalEur": 35739.30249561567,
+          "totalOther": {}
+        },
+        {
+          "eik": "000818022",
+          "name": "ОБЩИНА - СТАРА ЗАГОРА",
+          "contractCount": 1,
+          "totalEur": 25521.988107350844,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 2440,
+      "mpName": "Румен Иванов Иванов",
+      "contractorEik": "130967927",
+      "contractorName": "НЮТЕК ИНЖЕНЕРИНГ ООД",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 255486.31527279978,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2020",
+          "contractCount": 1,
+          "totalEur": 255486.31527279978,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "106513772",
+          "name": "АЕЦ КОЗЛОДУЙ ЕАД",
+          "contractCount": 1,
+          "totalEur": 255486.31527279978,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

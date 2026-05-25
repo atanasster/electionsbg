@@ -219,4 +219,131 @@ export const writeMpConnected = (
 ): void => {
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(path.join(outDir, "mp_connected.json"), canonicalJson(data));
+
+  // Per-MP shards. The candidate page only needs one MP's contractor list;
+  // sharding lets it skip the chamber-wide fetch. Idempotent — re-running
+  // the cross-reference doesn't churn unchanged shards.
+  writeMpConnectedShards(outDir, data);
+};
+
+const writeMpConnectedShards = (
+  outDir: string,
+  data: MpConnectedFile,
+): void => {
+  const shardDir = path.join(outDir, "per-mp");
+  fs.mkdirSync(shardDir, { recursive: true });
+
+  const byMp = new Map<number, MpConnectedFile["entries"]>();
+  for (const e of data.entries) {
+    const arr = byMp.get(e.mpId) ?? [];
+    arr.push(e);
+    byMp.set(e.mpId, arr);
+  }
+
+  // Cohort-wide totalEur distribution. Pre-computed here so each shard can
+  // carry the MP's rank without the frontend ever loading the chamber-wide
+  // mp_connected.json — and so MPs WITHOUT any connections can still read
+  // cohort.size + cohort.median from the manifest for context like "0 vs
+  // 12k average".
+  const cohortTotals = [...byMp.values()].map((entries) =>
+    entries.reduce((sum, e) => sum + e.totalEur, 0),
+  );
+  cohortTotals.sort((a, b) => b - a);
+  const cohortSize = cohortTotals.length;
+  const cohortMedian =
+    cohortSize === 0
+      ? 0
+      : cohortSize % 2 === 1
+        ? cohortTotals[(cohortSize - 1) >> 1]
+        : (cohortTotals[cohortSize >> 1] +
+            cohortTotals[(cohortSize >> 1) - 1]) /
+          2;
+  // 1-based rank by total. Map mpId → rank. Ties get the same rank, with the
+  // next rank advancing past the cluster — same semantics as the runtime
+  // rankIn() helper in useMpScorecard.
+  const rankByMp = new Map<number, number>();
+  for (const [mpId, entries] of byMp) {
+    const total = entries.reduce((s, e) => s + e.totalEur, 0);
+    let rank = 1;
+    for (const v of cohortTotals) {
+      if (v > total) rank += 1;
+      else break;
+    }
+    rankByMp.set(mpId, rank);
+  }
+
+  const wanted = new Set<string>();
+  for (const [mpId, entries] of byMp) {
+    const file = `${mpId}.json`;
+    wanted.add(file);
+    const summary = {
+      totalEur: 0,
+      totalOther: {} as Record<string, number>,
+      contractCount: 0,
+      awardCount: 0,
+    };
+    for (const e of entries) {
+      summary.totalEur += e.totalEur;
+      for (const [cur, amt] of Object.entries(e.totalOther)) {
+        summary.totalOther[cur] = (summary.totalOther[cur] ?? 0) + amt;
+      }
+      summary.contractCount += e.contractCount;
+      summary.awardCount += e.awardCount;
+    }
+    // Embed per-MP scorecard stats so the candidate-page tile can render
+    // rank + cohort context without fetching mp_connected.json (chamber-
+    // wide, ~15 KB gzipped). Drops the procurement aggregate off the
+    // candidate-page critical path entirely.
+    const scorecard = {
+      value: summary.totalEur,
+      rank: rankByMp.get(mpId) ?? null,
+      cohortSize,
+      cohortMedian,
+    };
+    const shard = { mpId, summary, scorecard, entries };
+    const content = canonicalJson(shard);
+    const fullPath = path.join(shardDir, file);
+    if (fs.existsSync(fullPath)) {
+      try {
+        const existing = fs.readFileSync(fullPath, "utf8");
+        if (existing === content) continue;
+      } catch {
+        // overwrite
+      }
+    }
+    fs.writeFileSync(fullPath, content);
+  }
+
+  // Manifest of MP ids that have a shard. Carries cohort.size + median so
+  // candidate pages for MPs WITHOUT connections (the common case) can still
+  // render "0 contracts vs N median" without loading the aggregate.
+  const mpIds = [...byMp.keys()].sort((a, b) => a - b);
+  const manifest =
+    JSON.stringify(
+      { mpIds, cohort: { size: cohortSize, median: cohortMedian } },
+      null,
+      2,
+    ) + "\n";
+  const manifestPath = path.join(shardDir, "index.json");
+  let existingManifest = "";
+  if (fs.existsSync(manifestPath)) {
+    try {
+      existingManifest = fs.readFileSync(manifestPath, "utf8");
+    } catch {
+      // overwrite
+    }
+  }
+  if (existingManifest !== manifest) {
+    fs.writeFileSync(manifestPath, manifest);
+  }
+
+  // Prune stale shards (MP disappeared from the cross-reference, e.g. a
+  // declared interest was retracted). The manifest is intentionally
+  // preserved by the `!== "index.json"` guard.
+  for (const f of fs.readdirSync(shardDir)) {
+    if (!f.endsWith(".json")) continue;
+    if (f === "index.json") continue;
+    if (wanted.has(f)) continue;
+    fs.unlinkSync(path.join(shardDir, f));
+  }
 };

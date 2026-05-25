@@ -1,0 +1,51 @@
+{
+  "mpId": 1609,
+  "summary": {
+    "totalEur": 513905.0940010124,
+    "totalOther": {},
+    "contractCount": 1,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 513905.0940010124,
+    "rank": 26,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 1609,
+      "mpName": "Мартин Георгиев Захариев",
+      "contractorEik": "203397356",
+      "contractorName": "Евротръст Технолъджис АД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 513905.0940010124,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 513905.0940010124,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000696327",
+          "name": "СТОЛИЧНА ОБЩИНА",
+          "contractCount": 1,
+          "totalEur": 513905.0940010124,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

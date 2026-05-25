@@ -1,0 +1,445 @@
+{
+  "mpId": 3345,
+  "ns": "51",
+  "partyShort": "АПС",
+  "loyalty": {
+    "votesCast": 765,
+    "withParty": 743,
+    "loyaltyPct": 0.9712418300653595,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 765,
+    "dissentCount": 22,
+    "recent": [
+      {
+        "date": "2025-05-14",
+        "item": 18,
+        "slug": "18-reshenie-za-izbor-na-zamestnik-predsedatel-i-dvama-chlenove-",
+        "title": "Решение за избор на заместник-председател и двама членове на Комисията за регулиране на съобщенията от квотата на Народното събрание - избира за член Рушен Риза",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2025-05-08",
+        "item": 79,
+        "slug": "79-reshenie-za-izbor-na-chlenove-vklyuchitelno-predsedatel-i-za",
+        "title": "Решение за избор на членове, включително председател и заместник-председател на Националното бюро за контрол на специалните разузнавателни средства - избира за председател Пламен Колев Иванов",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2025-05-08",
+        "item": 4,
+        "slug": "4-protsedura-ot-petar-petrov-za-otpadane-na-tochki-ot-7-do-13",
+        "title": "Процедура от Петър Петров за отпадане на точки от 7 до 13 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2025-04-02",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-2-4-april-2025",
+        "title": "Програма за работата на Народното събрание за 2 - 4 април 2025 г. - предложение от Искра Михайлова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2025-03-27",
+        "item": 16,
+        "slug": "16-reshenie-za-izbor-na-predsedatel-i-chetirima-chlenove-na-fis",
+        "title": "Решение за избор на председател и четирима членове на Фискалния съвет - избира Любомир Дацов за член",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2025-03-26",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-26-28-mart-202",
+        "title": "Програма за работата на Народното събрание за 26 - 28 март 2025 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2025-03-20",
+        "item": 189,
+        "slug": "189-protsedura-ot-maya-dimtrova-v-petak-da-ne-se-provezhda-zased",
+        "title": "Процедура от Мая Димтрова в петък да не се провежда заседание - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2025-03-20",
+        "item": 181,
+        "slug": "181-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - Приложение №2, Раздел ІІ - предложение от Татяна Султанова",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2025-03-20",
+        "item": 136,
+        "slug": "136-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - член 27 - предложение от Коста Стоянов и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2025-03-20",
+        "item": 133,
+        "slug": "133-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - член 23 - предложение от Борис Аладжов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2025-03-20",
+        "item": 130,
+        "slug": "130-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - член 17 - предложение от Мартин Димитров и група",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-03-20",
+        "item": 75,
+        "slug": "75-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - параграф 32 (става параграф 33) - предложение от Мартин Димитров и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2025-03-20",
+        "item": 51,
+        "slug": "51-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - параграф 18 - предложение от Асен Василев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2025-03-20",
+        "item": 50,
+        "slug": "50-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - параграф 18 - предложение от Мартин Димитров и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2025-03-20",
+        "item": 45,
+        "slug": "45-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - параграф 16 - предложение от Петър Кьосев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2025-03-19",
+        "item": 23,
+        "slug": "23-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - член 1 - предложение от Асен Василев и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2025-03-19",
+        "item": 11,
+        "slug": "11-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - процедура от Петър Петров за гласуване текст по текст",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2025-01-29",
+        "item": 8,
+        "slug": "8-reshenie-za-izbirane-na-rakovodstvo-na-vremennata-komisiya-z",
+        "title": "Решение за избиране на ръководство на Временната комисия за установяване на всички факти и обстоятелства относно проблемите с безводието в страната - за председател Коста Стоянов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2025-01-22",
+        "item": 33,
+        "slug": "33-reshenie-za-izbirane-na-sastav-na-komisiya-po-vatreshna-sigu",
+        "title": "Решение за избиране на състав на Комисия по вътрешна сигурност и обществен ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2025-01-08",
+        "item": 14,
+        "slug": "14-zid-na-izborniya-kodeks-parvo-glasuvane-vnositel-nadezhda-yo",
+        "title": "ЗИД на Изборния кодекс - първо гласуване - вносител Надежда Йорданова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-12-18",
+        "item": 50,
+        "slug": "50-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 76 - предложение от Павела Митова и Александър Рашев т.1",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-11-15",
+        "item": 5,
+        "slug": "5-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Рая Назарян (15.11.2024г.) - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3340,
+        "score": 0.7005610498354989,
+        "overlap": 543
+      },
+      {
+        "mpId": 3365,
+        "score": 0.6903221057804684,
+        "overlap": 696
+      },
+      {
+        "mpId": 3347,
+        "score": 0.6899955556301254,
+        "overlap": 601
+      },
+      {
+        "mpId": 3349,
+        "score": 0.5960415861611331,
+        "overlap": 573
+      },
+      {
+        "mpId": 3352,
+        "score": 0.5856658675712114,
+        "overlap": 675
+      },
+      {
+        "mpId": 3398,
+        "score": 0.5837995998633695,
+        "overlap": 657
+      },
+      {
+        "mpId": 3344,
+        "score": 0.5725679918388851,
+        "overlap": 659
+      },
+      {
+        "mpId": 3351,
+        "score": 0.5674149880467195,
+        "overlap": 687
+      },
+      {
+        "mpId": 3348,
+        "score": 0.5652409425923368,
+        "overlap": 639
+      },
+      {
+        "mpId": 3369,
+        "score": 0.5489199146388823,
+        "overlap": 561
+      },
+      {
+        "mpId": 3341,
+        "score": 0.5417785734840875,
+        "overlap": 638
+      },
+      {
+        "mpId": 3346,
+        "score": 0.5368621182171727,
+        "overlap": 660
+      },
+      {
+        "mpId": 3336,
+        "score": 0.5140596412002987,
+        "overlap": 677
+      },
+      {
+        "mpId": 3353,
+        "score": 0.504933069565067,
+        "overlap": 704
+      },
+      {
+        "mpId": 3379,
+        "score": 0.5039083873993957,
+        "overlap": 694
+      },
+      {
+        "mpId": 3342,
+        "score": 0.5034177360386124,
+        "overlap": 318
+      },
+      {
+        "mpId": 3372,
+        "score": 0.502969741483435,
+        "overlap": 722
+      },
+      {
+        "mpId": 3387,
+        "score": 0.4947347792281016,
+        "overlap": 743
+      },
+      {
+        "mpId": 3488,
+        "score": 0.34047521100417083,
+        "overlap": 349
+      },
+      {
+        "mpId": 3024,
+        "score": 0.325496755333412,
+        "overlap": 338
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3283,
+        "score": -0.13233840843246536,
+        "overlap": 76
+      },
+      {
+        "mpId": 3102,
+        "score": -0.10347486153655157,
+        "overlap": 94
+      },
+      {
+        "mpId": 3397,
+        "score": -0.02912430723428703,
+        "overlap": 495
+      },
+      {
+        "mpId": 3376,
+        "score": -0.020411634507685596,
+        "overlap": 514
+      },
+      {
+        "mpId": 3227,
+        "score": -0.009873550614297889,
+        "overlap": 109
+      },
+      {
+        "mpId": 3489,
+        "score": 0.0024115927045406573,
+        "overlap": 315
+      },
+      {
+        "mpId": 3384,
+        "score": 0.003124733005412637,
+        "overlap": 529
+      },
+      {
+        "mpId": 3181,
+        "score": 0.004777866311870948,
+        "overlap": 638
+      },
+      {
+        "mpId": 3484,
+        "score": 0.007346566713914353,
+        "overlap": 327
+      },
+      {
+        "mpId": 3485,
+        "score": 0.009542857446183689,
+        "overlap": 288
+      },
+      {
+        "mpId": 3486,
+        "score": 0.010178039287787679,
+        "overlap": 355
+      },
+      {
+        "mpId": 3490,
+        "score": 0.010311415596178453,
+        "overlap": 371
+      },
+      {
+        "mpId": 3478,
+        "score": 0.010493242979326496,
+        "overlap": 338
+      },
+      {
+        "mpId": 3307,
+        "score": 0.012409676118231268,
+        "overlap": 707
+      },
+      {
+        "mpId": 3359,
+        "score": 0.012734269288768418,
+        "overlap": 506
+      },
+      {
+        "mpId": 3477,
+        "score": 0.016951706664229207,
+        "overlap": 371
+      },
+      {
+        "mpId": 3480,
+        "score": 0.019058068417612047,
+        "overlap": 346
+      },
+      {
+        "mpId": 3515,
+        "score": 0.019277573442844274,
+        "overlap": 152
+      },
+      {
+        "mpId": 3106,
+        "score": 0.020072326963898893,
+        "overlap": 179
+      },
+      {
+        "mpId": 3247,
+        "score": 0.020765494830021776,
+        "overlap": 677
+      }
+    ]
+  }
+}

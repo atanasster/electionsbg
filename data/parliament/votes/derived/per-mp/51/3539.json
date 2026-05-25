@@ -1,0 +1,305 @@
+{
+  "mpId": 3539,
+  "ns": "51",
+  "partyShort": "БСП - ОЛ",
+  "loyalty": {
+    "votesCast": 192,
+    "withParty": 184,
+    "loyaltyPct": 0.9583333333333334,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 192,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2026-03-19",
+        "item": 43,
+        "slug": "43-zakon-za-prozrachnost-i-pochtenost-v-upravlenieto-vtoro-glas",
+        "title": "Закон за прозрачност и почтеност в управлението – второ гласуване - параграф 1 - предложение от Юлиана Матеева",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 2
+      },
+      {
+        "date": "2026-03-18",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-ra",
+        "title": "ЗИД на Закона за събирането на приходи и извършването на разходи през 2026 г. до приемането на Закона за държавния бюджет на Република България за 2026 г., Закона за бюджета на държавното обществено осигуряване за 2026 г. и Закона за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - параграф ....№51-654-04-41 - предложение от Павела Митова и група н.п.- стр.28 - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2026-03-13",
+        "item": 12,
+        "slug": "12-programa-na-narodnoto-sabranie-za-11-13-fevruari-2026-g-prod",
+        "title": "Програма на Народното събрание за 11 - 13 февруари 2026 г. - продедура от Рая Назарян за нова т. 5 - мерки срещу цените",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2026-03-13",
+        "item": 10,
+        "slug": "10-programa-na-narodnoto-sabranie-za-11-13-fevruari-2026-g-prod",
+        "title": "Програма на Народното събрание за 11 - 13 февруари 2026 г. - продедура от Рая Назарян за нова т. 3 - избор на подуправеител на БНБ - прегласуване",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2026-03-12",
+        "item": 8,
+        "slug": "8-zid-na-nakazatelniya-kodeks-parvo-glasuvane-vnositel-bozhida",
+        "title": "ЗИД на Наказателния кодекс - първо гласуване - вносител Божидар Божанов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2026-03-11",
+        "item": 3,
+        "slug": "3-programa-na-narodnoto-sabranie-za-11-13-fevruari-2026-g-pred",
+        "title": "Програма на Народното събрание за 11 - 13 февруари 2026 г. - предложение от Ангел Славчев",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2026-03-05",
+        "item": 31,
+        "slug": "31-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-par",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - параграф 63 (става параграф 64) - предложение от Георги Хрисимиров и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 4
+      },
+      {
+        "date": "2026-03-05",
+        "item": 27,
+        "slug": "27-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-par",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - параграф 42 (става параграф 43) - предложение от Георги Хрисимиров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 4
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3543,
+        "score": 0.7121474084345023,
+        "overlap": 116
+      },
+      {
+        "mpId": 3531,
+        "score": 0.6436198997408841,
+        "overlap": 155
+      },
+      {
+        "mpId": 3529,
+        "score": 0.5370247707467547,
+        "overlap": 99
+      },
+      {
+        "mpId": 3549,
+        "score": 0.5306637447810644,
+        "overlap": 173
+      },
+      {
+        "mpId": 3541,
+        "score": 0.518382577730396,
+        "overlap": 165
+      },
+      {
+        "mpId": 3533,
+        "score": 0.5157000812017114,
+        "overlap": 177
+      },
+      {
+        "mpId": 3547,
+        "score": 0.5095957958520263,
+        "overlap": 180
+      },
+      {
+        "mpId": 3535,
+        "score": 0.5039526306789697,
+        "overlap": 160
+      },
+      {
+        "mpId": 3537,
+        "score": 0.4956199125785413,
+        "overlap": 164
+      },
+      {
+        "mpId": 3527,
+        "score": 0.4536381220615677,
+        "overlap": 57
+      },
+      {
+        "mpId": 3580,
+        "score": 0.386884378075561,
+        "overlap": 175
+      },
+      {
+        "mpId": 3525,
+        "score": 0.21496230183171938,
+        "overlap": 121
+      },
+      {
+        "mpId": 3106,
+        "score": 0.1961217472373684,
+        "overlap": 185
+      },
+      {
+        "mpId": 3519,
+        "score": 0.19491500426437489,
+        "overlap": 118
+      },
+      {
+        "mpId": 3406,
+        "score": 0.1919878222237667,
+        "overlap": 164
+      },
+      {
+        "mpId": 3411,
+        "score": 0.19196396550903902,
+        "overlap": 158
+      },
+      {
+        "mpId": 3280,
+        "score": 0.18000856694113096,
+        "overlap": 165
+      },
+      {
+        "mpId": 3257,
+        "score": 0.17682737540157137,
+        "overlap": 157
+      },
+      {
+        "mpId": 3521,
+        "score": 0.1736903859410479,
+        "overlap": 103
+      },
+      {
+        "mpId": 3298,
+        "score": 0.17341544837894096,
+        "overlap": 150
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3311,
+        "score": -0.006001200360120042,
+        "overlap": 71
+      },
+      {
+        "mpId": 3398,
+        "score": -0.002222359409136093,
+        "overlap": 19
+      },
+      {
+        "mpId": 3516,
+        "score": 0.004049296559093742,
+        "overlap": 117
+      },
+      {
+        "mpId": 3270,
+        "score": 0.004642661399851148,
+        "overlap": 8
+      },
+      {
+        "mpId": 3336,
+        "score": 0.005797710356524485,
+        "overlap": 17
+      },
+      {
+        "mpId": 3176,
+        "score": 0.008862667920586556,
+        "overlap": 36
+      },
+      {
+        "mpId": 3026,
+        "score": 0.008980013648383894,
+        "overlap": 70
+      },
+      {
+        "mpId": 3348,
+        "score": 0.01127875341474004,
+        "overlap": 18
+      },
+      {
+        "mpId": 3351,
+        "score": 0.012413424101081967,
+        "overlap": 39
+      },
+      {
+        "mpId": 3230,
+        "score": 0.013698951471010976,
+        "overlap": 92
+      },
+      {
+        "mpId": 3509,
+        "score": 0.01488233659121359,
+        "overlap": 43
+      },
+      {
+        "mpId": 3358,
+        "score": 0.01526049293008051,
+        "overlap": 73
+      },
+      {
+        "mpId": 3137,
+        "score": 0.015899922061006953,
+        "overlap": 121
+      },
+      {
+        "mpId": 3121,
+        "score": 0.018071685737700103,
+        "overlap": 107
+      },
+      {
+        "mpId": 3192,
+        "score": 0.019115063558080802,
+        "overlap": 81
+      },
+      {
+        "mpId": 3065,
+        "score": 0.019561159060495957,
+        "overlap": 120
+      },
+      {
+        "mpId": 3510,
+        "score": 0.021732171441573987,
+        "overlap": 150
+      },
+      {
+        "mpId": 3512,
+        "score": 0.022231297147448776,
+        "overlap": 130
+      },
+      {
+        "mpId": 3513,
+        "score": 0.023063067222730712,
+        "overlap": 162
+      },
+      {
+        "mpId": 3036,
+        "score": 0.02323983681101269,
+        "overlap": 70
+      }
+    ]
+  }
+}

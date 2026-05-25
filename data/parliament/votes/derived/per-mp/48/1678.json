@@ -1,0 +1,595 @@
+{
+  "mpId": 1678,
+  "ns": "48",
+  "partyShort": "ДБ",
+  "loyalty": {
+    "votesCast": 527,
+    "withParty": 490,
+    "loyaltyPct": 0.9297912713472486,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 527,
+    "dissentCount": 37,
+    "recent": [
+      {
+        "date": "2023-02-02",
+        "item": 11,
+        "slug": "11-protsedura-ot-desislava-atanasova-za-pryako-predavane-po-bnt",
+        "title": "Процедура от Десислава Атанасова за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2023-02-01",
+        "item": 3,
+        "slug": "3-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-1-predlozhe",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 1 - предложение от Георги Гьоков за редакция по ал. 2",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2023-01-27",
+        "item": 62,
+        "slug": "62-zid-na-zakona-za-zashtita-ot-domashnoto-nasilie-parvo-glasuv",
+        "title": "ЗИД на Закона за защита от домашното насилие - първо гласуване - вносител Корнелия Нинова и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2023-01-27",
+        "item": 61,
+        "slug": "61-zid-na-zakona-za-zashtita-ot-domashnoto-nasilie-parvo-glasuv",
+        "title": "ЗИД на Закона за защита от домашното насилие - първо гласуване - вносител Корнелия Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2023-01-27",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-gorite-vtoro-glasuvane-prehodni-i-zaklyuchi",
+        "title": "ЗИД на Закона за горите - второ гласуване - Преходни и заключителни ръзпоредби, параграф 5 и 6 (става параграф 13 и 14), параграф 15",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2023-01-27",
+        "item": 22,
+        "slug": "22-novo-obsazhdane-na-zid-na-zakona-za-energetikata-priet-ot-na",
+        "title": "Ново обсъждане на ЗИД на Закона за енергетиката, приет от Народното събрание на 12 януари 2023 г., върнат за ново обсъждане с Указ № 15 от 24 януари 2023 г. на Президента на републиката по член 101 от Конституцията на Република България - прегласуване",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2023-01-27",
+        "item": 8,
+        "slug": "8-protsedura-ot-daniela-dasheva-za-nova-tochka-2",
+        "title": "Процедура от Даниела Дашева за нова точка 2",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2023-01-27",
+        "item": 7,
+        "slug": "7-protsedura-ot-daniela-dasheva-za-nova-tochka-1",
+        "title": "Процедура от Даниела Дашева за нова точка 1",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2023-01-27",
+        "item": 6,
+        "slug": "6-protsedura-ot-ivelin-parvanov-za-razmestvane-na-tochkite-v-d",
+        "title": "Процедура от Ивелин Първанов за разместване на точките в дневния ред - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2023-01-25",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-25-27-yanuari-",
+        "title": "Програма за работата на Народното събрание за 25 - 27 януари 2023 г. - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2023-01-18",
+        "item": 35,
+        "slug": "35-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства, свързани с поемането на пълния контрол на \"Международния панаир Пловдив\" АД от предприемача и почетен консул на Руската федерация в Пловдив Георги Гергов, чрез действия на централната власт и на местните власти в общините Пловдив и Варна от 2016 г. насам - председател - Румен Йончев-прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2023-01-12",
+        "item": 49,
+        "slug": "49-reshenie-za-vazlagane-na-ministerski-savet-za-provezhdane-na",
+        "title": "Решение за възлагане на Министерски съвет за провеждане на преговори с правителството на САЩ относно сключването на Междуправителствено споразумение за изграждане на нова ядрена мощност в АЕЦ „Козлодуй\" с технология АР 1000 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2023-01-12",
+        "item": 18,
+        "slug": "18-reshenie-za-zadalzhavane-na-ministerski-savet-da-promeni-pla",
+        "title": "Решение за задължаване на Министерски съвет да промени Плана за възстановяване и устойчивост в част енергетика - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2023-01-12",
+        "item": 16,
+        "slug": "16-reshenie-za-zadalzhavane-na-ministerski-savet-da-promeni-pla",
+        "title": "Решение за задължаване на Министерски съвет да промени Плана за възстановяване и устойчивост в част енергетика - т. ІІ, т.4, т.4.1 и т. 5 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2023-01-05",
+        "item": 16,
+        "slug": "16-reshenie-po-doklad-za-deynostta-na-vremennata-komisiya-za-us",
+        "title": "Решение по доклад за дейността на Временната комисия за установяване на всички факти и обстоятелства, свързани с подписването и прекратяването на меморандума за 1 млрд. долара с Gemcorp Holdings Limited и IP3 Corporation от правителството с министър-председател Кирил Петков",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2023-01-04",
+        "item": 3,
+        "slug": "3-protsedura-ot-georgi-gyokov-za-udalzhavane-na-rabotnoto-vrem",
+        "title": "Процедура от Георги Гьоков за удължаване на работното време до т.3",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-12-23",
+        "item": 18,
+        "slug": "18-novo-obsazhdane-na-zid-na-izborniya-kodeks-priet-ot-narodnot",
+        "title": "Ново обсъждане на ЗИД на Изборния кодекс, приет от Народното събрание на 02.12.2022г., върнат за ново обсъждане с Указ №287 от 14.12.2022г. на Президента на Репуликата по чл.101 от Конституцията на Република България - процедура от Явор Божанков за пряко предаване по БНТ1 и БНР - прегласуване",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-12-23",
+        "item": 16,
+        "slug": "16-protsedura-ot-petar-petrov-za-razmestvane-na-tochkite",
+        "title": "Процедура от Петър Петров за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2022-12-22",
+        "item": 34,
+        "slug": "34-zakon-za-prodalzhavane-deystvieto-na-razporedbi-na-zakona-za",
+        "title": "Закон за продължаване действието на разпоредби на Закона за държавния бюджет на Република България за 2022г., Закона за бюджета на държавното обществено осигуряване и Закона за бюджета на Националната здравноосигурителна каса за 2022г. - второ гласуване - член 1 - предложение от Петър Чобанов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-12-22",
+        "item": 29,
+        "slug": "29-zakon-za-prodalzhavane-deystvieto-na-razporedbi-na-zakona-za",
+        "title": "Закон за продължаване действието на разпоредби на Закона за държавния бюджет на Република България за 2022г., Закона за бюджета на държавното обществено осигуряване и Закона за бюджета на Националната здравноосигурителна каса за 2022г. - второ гласуване - процедура от Иван Ченчев за пряко предаване по БНТ и БНР - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-12-15",
+        "item": 37,
+        "slug": "37-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 39 - нов, Заключителна разпоредба, параграф 36 (става параграф 40)",
+        "topic": "tax",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-12-15",
+        "item": 36,
+        "slug": "36-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 32 - 35 (става параграф 34 - 37), параграф 38 - нов",
+        "topic": "tax",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-12-15",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - наименование, параграф 1 и 2, параграф 3 - нов, параграф 3 (става параграф 4), параграф 5 - нов, параграф 4 - 5 (става параграф 6 - 7)",
+        "topic": "tax",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-12-06",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-ustroystvo-na-teritoriyata-parvo-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - първо гласуване - вносител Манол Генов група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-12-06",
+        "item": 13,
+        "slug": "13-reshenie-za-izmenenie-na-reshenie-na-narodnoto-sabranie-za-v",
+        "title": "Решение за изменение на Решение на Народното събрание за възлагане на Министерския съвет да приеме програма за предоставяне на компенсации на небитовите крайни клиенти на електроенергия",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-12-06",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-korporativnoto-podohodno-oblagane-vtoro-gla",
+        "title": "ЗИД на Закона за корпоративното подоходно облагане - второ гласуване - параграф нов ...- предложение от Десислава Танева и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2022-12-06",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-korporativnoto-podohodno-oblagane-vtoro-gla",
+        "title": "ЗИД на Закона за корпоративното подоходно облагане - второ гласуване - параграф нов ...- предложение от Десислава Танева за редакция - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2022-12-01",
+        "item": 74,
+        "slug": "74-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 2 - предложение от Кирил Петков и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-12-01",
+        "item": 57,
+        "slug": "57-protsedura-ot-miroslav-ivanov-za-otlagane-na-raziskvaniyata-",
+        "title": "Процедура от Мирослав Иванов за отлагане на разискванията на Изборния кодекс - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-12-01",
+        "item": 51,
+        "slug": "51-zid-na-izborniya-kodeks-vtoro-glasuvane-chlen-97-predlozheni",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - член 97 - предложение от Кирил Петков и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-12-01",
+        "item": 20,
+        "slug": "20-zid-na-izborniya-kodeks-vtoro-glasuvane-protsedura-ot-yordan",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - процедура от Йордан Цонев за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-11-30",
+        "item": 11,
+        "slug": "11-protsedura-ot-dimo-drenchev-za-otlagane-na-t-2",
+        "title": "Процедура от Димо Дренчев за отлагане на т.2 - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-11-08",
+        "item": 35,
+        "slug": "35-reshenie-za-vazlagane-na-ministerskiya-savet-da-prieme-progr",
+        "title": "Решение за възлагане на Министерския съвет да приеме програма за предоставяне на компенсации на небитовите крайни клиенти на електроенергия",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-11-03",
+        "item": 4,
+        "slug": "4-reshenie-za-izbirane-na-predsedatel-na-komisiyata-po-vaprosi",
+        "title": "Решение за избиране на председател на Комисията по въпросите на децата, младежта и спорта - Халил Летифов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2022-10-28",
+        "item": 8,
+        "slug": "8-reshenie-za-izbirane-na-komisiya-po-vaprosite-na-detsata-mla",
+        "title": "Решение за избиране на Комисия по въпросите на децата, младежта и спорта - за председател Халил Летифов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-10-27",
+        "item": 49,
+        "slug": "49-reshenie-za-izbirane-na-komisiya-po-vaprosite-na-detsata-mla",
+        "title": "Решение за избиране на Комисия по въпросите на децата, младежта и спорта - за председател Халил Летифов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2022-10-25",
+        "item": 5,
+        "slug": "5-protsedura-ot-georgi-svilenski-za-pryako-predavane-po-bnt1-i",
+        "title": "Процедура от Георги Свиленски за пряко предаване по БНТ1 и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 17
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1679,
+        "score": 0.5849831819752739,
+        "overlap": 494
+      },
+      {
+        "mpId": 2311,
+        "score": 0.5799522622773007,
+        "overlap": 481
+      },
+      {
+        "mpId": 1573,
+        "score": 0.5798361083413512,
+        "overlap": 427
+      },
+      {
+        "mpId": 2320,
+        "score": 0.5755681738958652,
+        "overlap": 462
+      },
+      {
+        "mpId": 2299,
+        "score": 0.5728625224195263,
+        "overlap": 464
+      },
+      {
+        "mpId": 2338,
+        "score": 0.5716333417803365,
+        "overlap": 490
+      },
+      {
+        "mpId": 1693,
+        "score": 0.5671489345665072,
+        "overlap": 449
+      },
+      {
+        "mpId": 1890,
+        "score": 0.5626831949242512,
+        "overlap": 440
+      },
+      {
+        "mpId": 2323,
+        "score": 0.562681287707847,
+        "overlap": 446
+      },
+      {
+        "mpId": 1640,
+        "score": 0.5562743564478114,
+        "overlap": 355
+      },
+      {
+        "mpId": 2239,
+        "score": 0.5532957265977855,
+        "overlap": 431
+      },
+      {
+        "mpId": 2324,
+        "score": 0.5492567943609229,
+        "overlap": 398
+      },
+      {
+        "mpId": 1583,
+        "score": 0.544932713653791,
+        "overlap": 431
+      },
+      {
+        "mpId": 1568,
+        "score": 0.5439962818555669,
+        "overlap": 397
+      },
+      {
+        "mpId": 2257,
+        "score": 0.5316815220906109,
+        "overlap": 433
+      },
+      {
+        "mpId": 1684,
+        "score": 0.5308003099261143,
+        "overlap": 455
+      },
+      {
+        "mpId": 2315,
+        "score": 0.510945078141012,
+        "overlap": 243
+      },
+      {
+        "mpId": 2264,
+        "score": 0.5018972103605128,
+        "overlap": 369
+      },
+      {
+        "mpId": 2343,
+        "score": 0.4727196337015705,
+        "overlap": 507
+      },
+      {
+        "mpId": 2120,
+        "score": 0.46896292094082437,
+        "overlap": 494
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1297,
+        "score": 0.02663820907081755,
+        "overlap": 173
+      },
+      {
+        "mpId": 2039,
+        "score": 0.04277850269469523,
+        "overlap": 358
+      },
+      {
+        "mpId": 2256,
+        "score": 0.044394205489563195,
+        "overlap": 319
+      },
+      {
+        "mpId": 829,
+        "score": 0.05758167996310984,
+        "overlap": 282
+      },
+      {
+        "mpId": 2129,
+        "score": 0.06298323554727304,
+        "overlap": 482
+      },
+      {
+        "mpId": 2133,
+        "score": 0.06455967137759269,
+        "overlap": 100
+      },
+      {
+        "mpId": 2084,
+        "score": 0.0673774633873186,
+        "overlap": 434
+      },
+      {
+        "mpId": 2244,
+        "score": 0.06980387637384516,
+        "overlap": 433
+      },
+      {
+        "mpId": 2104,
+        "score": 0.0727825342874051,
+        "overlap": 469
+      },
+      {
+        "mpId": 2266,
+        "score": 0.07369846622659347,
+        "overlap": 478
+      },
+      {
+        "mpId": 2317,
+        "score": 0.07399536022280624,
+        "overlap": 505
+      },
+      {
+        "mpId": 2075,
+        "score": 0.07608502058970262,
+        "overlap": 484
+      },
+      {
+        "mpId": 960,
+        "score": 0.0770803741066814,
+        "overlap": 293
+      },
+      {
+        "mpId": 2098,
+        "score": 0.07730280475365979,
+        "overlap": 500
+      },
+      {
+        "mpId": 1312,
+        "score": 0.07766597524382952,
+        "overlap": 366
+      },
+      {
+        "mpId": 2263,
+        "score": 0.07932656358117866,
+        "overlap": 405
+      },
+      {
+        "mpId": 2063,
+        "score": 0.07945024158097416,
+        "overlap": 481
+      },
+      {
+        "mpId": 2310,
+        "score": 0.08042941001289516,
+        "overlap": 475
+      },
+      {
+        "mpId": 820,
+        "score": 0.08068423483216582,
+        "overlap": 265
+      },
+      {
+        "mpId": 2100,
+        "score": 0.08069757437674438,
+        "overlap": 453
+      }
+    ]
+  }
+}

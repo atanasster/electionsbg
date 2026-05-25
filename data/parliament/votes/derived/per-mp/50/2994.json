@@ -1,0 +1,445 @@
+{
+  "mpId": 2994,
+  "ns": "50",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 193,
+    "withParty": 171,
+    "loyaltyPct": 0.8860103626943006,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 193,
+    "dissentCount": 22,
+    "recent": [
+      {
+        "date": "2024-09-20",
+        "item": 2,
+        "slug": "2-protsedura-za-nova-tochka-v-dnevniya-red",
+        "title": "Процедура за нова точка в дневния ред",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-18",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - процедура от Рая Назарян за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-09-17",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-mestnite-danatsi-i-taksi-vtoro-glasuvane-na",
+        "title": "ЗИД на Закона за местните данъци и такси – второ гласуване - наименование, параграф 1, параграф 2, Преходни и заключителни разпоредби, параграф 3 и параграф 4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-09-17",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-mestnite-danatsi-i-taksi-vtoro-glasuvane-pa",
+        "title": "ЗИД на Закона за местните данъци и такси - второ гласуване – параграф 2 - предложение от Байрам Байрам за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-09-12",
+        "item": 3,
+        "slug": "3-zakon-za-nasarchavane-na-dobrovolchestvoto-parvo-glasuvane-p",
+        "title": "Закон за насърчаване на доброволчеството - първо гласуване - процедура от Калина Константинова за отпадане на точката - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2024-09-11",
+        "item": 41,
+        "slug": "41-reshenie-za-izmenenie-na-reshenie-za-vazlagane-na-ministara-",
+        "title": "Решение за изменение на Решение за възлагане на министъра на енергетиката да проведе преговори с министъра на енергетиката на Украйна или негов представител с цел продажба на оборудване, предназначено за Проекта АЕЦ „Белене“ - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-09-11",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-5-pre",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 5 - предложение от Златан Златанов - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-09-11",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-3-i-4",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 3 и 4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-09-11",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-septemvr",
+        "title": "Програма за работата на Народното събрание за 11 - 13 септември 2024 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2024-09-05",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-opazvane-na-okolnata-sreda-parvo-glasuvane-",
+        "title": "ЗИД на Закона за опазване на околната среда - първо гласуване - предложение от Васил Стефанов за отлагане на разискванията",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-08-15",
+        "item": 24,
+        "slug": "24-protsedura-ot-aleksandar-nenkov-za-udalzhavane-na-rabotnoto-",
+        "title": "Процедура от Александър Ненков за удължаване на работното време до изчерпването на фиксираните точки за днес - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2024-08-15",
+        "item": 5,
+        "slug": "5-zid-na-targovskiya-zakon-parvo-glasuvane-protsedura-ot-marin",
+        "title": "ЗИД на Търговския закон – първо гласуване - процедура от Марин Маринов за съкращаване на срока за предложения на три дни",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-08-14",
+        "item": 27,
+        "slug": "27-protsedura-ot-aleksandar-ivanov-za-udalzhavane-na-rabotnoto-",
+        "title": "Процедура от Александър Иванов за удължаване на работното време до т.8",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-08-14",
+        "item": 25,
+        "slug": "25-zid-na-zakona-za-schetovodstvoto-vtoro-glasuvane-paragraf-28",
+        "title": "ЗИД на Закона за счетоводството – второ гласуване - параграф 28 - по вносител - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-08-14",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-schetovodstvoto-vtoro-glasuvane-paragraf-28",
+        "title": "ЗИД на Закона за счетоводството – второ гласуване - параграф 28 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-08-14",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-schetovodstvoto-vtoro-glasuvane-paragraf-5-",
+        "title": "ЗИД на Закона за счетоводството – второ гласуване - параграф 5 до параграф 7",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-07-17",
+        "item": 38,
+        "slug": "38-reshenie-za-izbirane-na-komisiya-po-transport-i-saobshteniya",
+        "title": "Решение за избиране на Комисия по транспорт и съобщения",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-07-17",
+        "item": 37,
+        "slug": "37-reshenie-za-izbirane-na-komisiya-po-okolnata-sreda-i-vodite-",
+        "title": "Решение за избиране на Комисия по околната среда и водите - ръководство и състав",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2024-07-12",
+        "item": 39,
+        "slug": "39-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 33 (става член 32) - предложение от Павела Митова за редакция в ал.3 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-07-12",
+        "item": 27,
+        "slug": "27-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 21 - предложение от Павела Митова и Станислав Богдански",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-07-12",
+        "item": 26,
+        "slug": "26-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 21 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2024-07-12",
+        "item": 25,
+        "slug": "25-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 21 - предложение от Виктория Василева и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 14
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3002,
+        "score": 0.7423130219390272,
+        "overlap": 139
+      },
+      {
+        "mpId": 2989,
+        "score": 0.7405049717720295,
+        "overlap": 132
+      },
+      {
+        "mpId": 2995,
+        "score": 0.7383720930232559,
+        "overlap": 143
+      },
+      {
+        "mpId": 2993,
+        "score": 0.7164889249914821,
+        "overlap": 113
+      },
+      {
+        "mpId": 3000,
+        "score": 0.7092741130492924,
+        "overlap": 134
+      },
+      {
+        "mpId": 2987,
+        "score": 0.7049043984291943,
+        "overlap": 114
+      },
+      {
+        "mpId": 3001,
+        "score": 0.6855083439361442,
+        "overlap": 99
+      },
+      {
+        "mpId": 2990,
+        "score": 0.6742553612995612,
+        "overlap": 103
+      },
+      {
+        "mpId": 2988,
+        "score": 0.6537361875458454,
+        "overlap": 110
+      },
+      {
+        "mpId": 3004,
+        "score": 0.6436544669061126,
+        "overlap": 109
+      },
+      {
+        "mpId": 3003,
+        "score": 0.6370255751338144,
+        "overlap": 94
+      },
+      {
+        "mpId": 3008,
+        "score": 0.630481599427255,
+        "overlap": 114
+      },
+      {
+        "mpId": 3006,
+        "score": 0.6166628905696635,
+        "overlap": 84
+      },
+      {
+        "mpId": 2998,
+        "score": 0.5972422703660177,
+        "overlap": 71
+      },
+      {
+        "mpId": 2997,
+        "score": 0.5906830140052531,
+        "overlap": 88
+      },
+      {
+        "mpId": 3005,
+        "score": 0.5800797475686802,
+        "overlap": 74
+      },
+      {
+        "mpId": 2999,
+        "score": 0.5661706014025412,
+        "overlap": 91
+      },
+      {
+        "mpId": 2992,
+        "score": 0.5568884873063769,
+        "overlap": 100
+      },
+      {
+        "mpId": 2991,
+        "score": 0.5379643898572859,
+        "overlap": 66
+      },
+      {
+        "mpId": 3007,
+        "score": 0.48342078169428454,
+        "overlap": 50
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2685,
+        "score": -0.11673240119337944,
+        "overlap": 38
+      },
+      {
+        "mpId": 2670,
+        "score": -0.0778547093275226,
+        "overlap": 13
+      },
+      {
+        "mpId": 3015,
+        "score": -0.02181025225883645,
+        "overlap": 10
+      },
+      {
+        "mpId": 2609,
+        "score": 0.007337090886046865,
+        "overlap": 38
+      },
+      {
+        "mpId": 2830,
+        "score": 0.007917331283047413,
+        "overlap": 128
+      },
+      {
+        "mpId": 3014,
+        "score": 0.01625640221905888,
+        "overlap": 14
+      },
+      {
+        "mpId": 2932,
+        "score": 0.03260184012586873,
+        "overlap": 185
+      },
+      {
+        "mpId": 2920,
+        "score": 0.03287340109720038,
+        "overlap": 184
+      },
+      {
+        "mpId": 2702,
+        "score": 0.03293467496415888,
+        "overlap": 179
+      },
+      {
+        "mpId": 2827,
+        "score": 0.033940989733266876,
+        "overlap": 108
+      },
+      {
+        "mpId": 2739,
+        "score": 0.03427150504802771,
+        "overlap": 168
+      },
+      {
+        "mpId": 2787,
+        "score": 0.035286146899264896,
+        "overlap": 191
+      },
+      {
+        "mpId": 2706,
+        "score": 0.03541172077265175,
+        "overlap": 184
+      },
+      {
+        "mpId": 2698,
+        "score": 0.03553864490993084,
+        "overlap": 183
+      },
+      {
+        "mpId": 2862,
+        "score": 0.0360937147522489,
+        "overlap": 182
+      },
+      {
+        "mpId": 2803,
+        "score": 0.036398308462513025,
+        "overlap": 174
+      },
+      {
+        "mpId": 2705,
+        "score": 0.038459958120974407,
+        "overlap": 192
+      },
+      {
+        "mpId": 2910,
+        "score": 0.038459958120974407,
+        "overlap": 190
+      },
+      {
+        "mpId": 2642,
+        "score": 0.03887426046809744,
+        "overlap": 186
+      },
+      {
+        "mpId": 2741,
+        "score": 0.0392660402837909,
+        "overlap": 188
+      }
+    ]
+  }
+}

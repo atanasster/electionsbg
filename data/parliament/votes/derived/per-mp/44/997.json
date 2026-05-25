@@ -1,0 +1,415 @@
+{
+  "mpId": 997,
+  "ns": "44",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 266,
+    "withParty": 247,
+    "loyaltyPct": 0.9285714285714286,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 266,
+    "dissentCount": 19,
+    "recent": [
+      {
+        "date": "2021-03-04",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-avtomobilnite-prevozi-vtoro-glasuvane-prots",
+        "title": "ЗИД на Закона за автомобилните превози - второ гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2021-02-26",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-24-26-fevruari",
+        "title": "Програма за работата на Народното събрание за 24 - 26 февруари 2021г. - предложение от Цвета Караянчева за нови точки в дневния ред",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 36
+      },
+      {
+        "date": "2021-02-10",
+        "item": 8,
+        "slug": "8-zakon-za-izmenenie-i-dopalnenie-na-administrativnoprotsesual",
+        "title": "Закон за изменение и допълнение на Административнопроцесуалния кодекс - второ гласуване - параграф 1 - 6 (става параграф 11 - 16), параграф 17 - нов",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 20
+      },
+      {
+        "date": "2021-02-05",
+        "item": 3,
+        "slug": "3-reshenie-za-odobryavane-na-reshenie-es-evratom-2020-2053-na-",
+        "title": "Решение за одобряване на Решение (ЕС, Евратом) 2020/2053 на Съвета от 14 декември 2020 година относно системата на собствените ресурси на Европейския съюз и отмяна на Решение 2014/335/ЕС, Евратом",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 49
+      },
+      {
+        "date": "2021-02-04",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-pchelarstvoto-vtoro-glasuvane-paragraf-14-n",
+        "title": "ЗИД на Закона за пчеларството - второ гласуване - параграф 14 - нов - предложение от Чавдар Велинов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2021-01-29",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-kontsesiite-parvo-glasuvane-protsedura-za-u",
+        "title": "ЗИД на Закона за концесиите - първо гласуване - процедура за удължаване на законодателната част",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2021-01-22",
+        "item": 2,
+        "slug": "2-zd-na-zakona-za-merkite-i-deystviyata-po-vreme-na-izvanredno",
+        "title": "ЗД на Закона за мерките и действията по време на извънредното положение, обявено с решение на НС от 13.03.2020 г., и за преодоляване на последиците - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 52
+      },
+      {
+        "date": "2021-01-21",
+        "item": 29,
+        "slug": "29-ratifitsirane-na-sporazumenieto-za-vazdushen-transport-mezhd",
+        "title": "Ратифициране на Споразумението за въздушен транспорт между САЩ, от една страна, ЕС и неговите държави членки, от друга страна, Исландия, от трета страна и Кралство Норвегия, от четвърта страна и на Допълнителното споразумение м/у ЕС и неговите държави членки, от една страна, Исландия, от друга страна и Кралство Норвегия, от трета страна, за прилагане на Споразумението за въздушен транспорт между САЩ, от една страна, ЕС и неговите държави членки, от друга страна, Исландия, от трета страна и Кралство Норвегия, от четвърта страна, подписани на 17 юни 2011 г. в Брюксел, Кралство Белгия - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2021-01-20",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-grazhdanskoto-vazduhoplavane-parvo-glasuvan",
+        "title": "ЗИД на Закона за гражданското въздухоплаване - първо гласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-01-20",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-merkite-sreshtu-izpiraneto-na-pari-parvo-gl",
+        "title": "ЗИД на Закона за мерките срещу изпирането на пари - първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 47
+      },
+      {
+        "date": "2021-01-15",
+        "item": 2,
+        "slug": "2-zid-na-kodeksa-za-sotsialno-osiguryavane-parvo-glasuvane",
+        "title": "ЗИД на Кодекса за социално осигуряване - първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 47
+      },
+      {
+        "date": "2020-12-02",
+        "item": 25,
+        "slug": "25-zid-na-zakona-za-horata-s-uvrezhdaniya-vtoro-glasuvane-parag",
+        "title": "ЗИД на Закона за хората с увреждания - второ гласуване - параграф 24 - отпада",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2020-11-26",
+        "item": 7,
+        "slug": "7-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 7 и 8 - предложение от Искрен Веселинов и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 37
+      },
+      {
+        "date": "2020-11-20",
+        "item": 76,
+        "slug": "76-zid-na-zakona-za-lichnata-pomosht-vtoro-glasuvane-prehodni-i",
+        "title": "ЗИД на Закона за личната помощ - второ гласуване - Преходни и заключителни разпоредби",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2020-11-20",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-lichnata-pomosht-vtoro-glasuvane-paragraf-8",
+        "title": "ЗИД на Закона за личната помощ - второ гласуване - параграф 8 и параграф 9",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2020-11-20",
+        "item": 34,
+        "slug": "34-zid-na-zakona-za-lichnata-pomosht-vtoro-glasuvane-paragraf-2",
+        "title": "ЗИД на Закона за личната помощ - второ гласуване - параграф 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2020-11-20",
+        "item": 20,
+        "slug": "20-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Наказателно-процесуалния кодекс - второ гласуване - параграф 2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2020-11-19",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 14 - нов, параграф 14 - 27 (става параграф 15 - 28)",
+        "topic": "tax",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2020-11-19",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - от параграф 10 до параграф 13",
+        "topic": "tax",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1298,
+        "score": 0.5867009418511973,
+        "overlap": 188
+      },
+      {
+        "mpId": 1390,
+        "score": 0.5399395301587437,
+        "overlap": 173
+      },
+      {
+        "mpId": 1514,
+        "score": 0.5261935107316966,
+        "overlap": 172
+      },
+      {
+        "mpId": 1021,
+        "score": 0.5180022174776905,
+        "overlap": 169
+      },
+      {
+        "mpId": 1276,
+        "score": 0.5165253323626364,
+        "overlap": 175
+      },
+      {
+        "mpId": 1533,
+        "score": 0.49841057337472733,
+        "overlap": 171
+      },
+      {
+        "mpId": 1345,
+        "score": 0.48814030918996143,
+        "overlap": 164
+      },
+      {
+        "mpId": 833,
+        "score": 0.48619203046632786,
+        "overlap": 199
+      },
+      {
+        "mpId": 1515,
+        "score": 0.47629482604919865,
+        "overlap": 203
+      },
+      {
+        "mpId": 1323,
+        "score": 0.47368173353802967,
+        "overlap": 186
+      },
+      {
+        "mpId": 1366,
+        "score": 0.47165460064270437,
+        "overlap": 241
+      },
+      {
+        "mpId": 1530,
+        "score": 0.4668969307272753,
+        "overlap": 135
+      },
+      {
+        "mpId": 751,
+        "score": 0.4564630262835416,
+        "overlap": 129
+      },
+      {
+        "mpId": 1391,
+        "score": 0.45598854976462366,
+        "overlap": 166
+      },
+      {
+        "mpId": 1301,
+        "score": 0.44450317512781207,
+        "overlap": 144
+      },
+      {
+        "mpId": 1253,
+        "score": 0.44428705768911303,
+        "overlap": 135
+      },
+      {
+        "mpId": 1285,
+        "score": 0.44384182559090657,
+        "overlap": 161
+      },
+      {
+        "mpId": 761,
+        "score": 0.4424875077423193,
+        "overlap": 143
+      },
+      {
+        "mpId": 1296,
+        "score": 0.4424676850340501,
+        "overlap": 108
+      },
+      {
+        "mpId": 1505,
+        "score": 0.4391335659675771,
+        "overlap": 110
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1386,
+        "score": -0.1585949851401834,
+        "overlap": 168
+      },
+      {
+        "mpId": 369,
+        "score": -0.1525500519917396,
+        "overlap": 183
+      },
+      {
+        "mpId": 486,
+        "score": -0.1506380146051268,
+        "overlap": 208
+      },
+      {
+        "mpId": 530,
+        "score": -0.1424660123700479,
+        "overlap": 216
+      },
+      {
+        "mpId": 1367,
+        "score": -0.14098147537004826,
+        "overlap": 258
+      },
+      {
+        "mpId": 1281,
+        "score": -0.14044791204894405,
+        "overlap": 184
+      },
+      {
+        "mpId": 1511,
+        "score": -0.14044791204894405,
+        "overlap": 192
+      },
+      {
+        "mpId": 1480,
+        "score": -0.1401493374500905,
+        "overlap": 213
+      },
+      {
+        "mpId": 1484,
+        "score": -0.1397327784226908,
+        "overlap": 229
+      },
+      {
+        "mpId": 1264,
+        "score": -0.13739316360414314,
+        "overlap": 220
+      },
+      {
+        "mpId": 1469,
+        "score": -0.13702081432144625,
+        "overlap": 249
+      },
+      {
+        "mpId": 465,
+        "score": -0.13599557532141837,
+        "overlap": 191
+      },
+      {
+        "mpId": 1364,
+        "score": -0.13514385092574516,
+        "overlap": 233
+      },
+      {
+        "mpId": 473,
+        "score": -0.133762058984188,
+        "overlap": 197
+      },
+      {
+        "mpId": 1502,
+        "score": -0.1315485421236378,
+        "overlap": 262
+      },
+      {
+        "mpId": 817,
+        "score": -0.1315070883415827,
+        "overlap": 242
+      },
+      {
+        "mpId": 1529,
+        "score": -0.1309792366806267,
+        "overlap": 217
+      },
+      {
+        "mpId": 805,
+        "score": -0.13056722170357452,
+        "overlap": 246
+      },
+      {
+        "mpId": 1461,
+        "score": -0.12975307358109978,
+        "overlap": 259
+      },
+      {
+        "mpId": 599,
+        "score": -0.1283913151044441,
+        "overlap": 141
+      }
+    ]
+  }
+}

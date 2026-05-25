@@ -1,0 +1,32 @@
+{
+  "mpId": 115,
+  "summary": {
+    "contractCount": 1,
+    "contractedEur": 115846.78,
+    "paidEur": 0
+  },
+  "entries": [
+    {
+      "mpId": 115,
+      "mpName": "Добромир Христов Гущеров",
+      "beneficiaryEik": "828050472",
+      "beneficiaryName": "ДАНУБЕ ТУРС АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 115846.78,
+      "paidEur": 0
+    }
+  ]
+}

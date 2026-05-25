@@ -1,0 +1,64 @@
+{
+  "mpId": 5205,
+  "summary": {
+    "totalEur": 17120.352995914778,
+    "totalOther": {},
+    "contractCount": 3,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 17120.352995914778,
+    "rank": 48,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 5205,
+      "mpName": "Рашид Мехмедов Узунов",
+      "contractorEik": "116003561",
+      "contractorName": "Раломекс АД - Завет",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 17120.352995914778,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 7917.0991343828455,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 2,
+          "totalEur": 9203.253861531934,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000559025",
+          "name": "Професионална гимназия по механизация на селското стопанство /ПГМСС/ \"Никола Йонков Вапцаров\" с. Средище",
+          "contractCount": 2,
+          "totalEur": 9203.253861531934,
+          "totalOther": {}
+        },
+        {
+          "eik": "000559000",
+          "name": "Професионална земеделска гимназия - Добруджа, гр. Силистра",
+          "contractCount": 1,
+          "totalEur": 7917.0991343828455,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

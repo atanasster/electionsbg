@@ -1,0 +1,585 @@
+{
+  "mpId": 1574,
+  "ns": "46",
+  "partyShort": "ИБГНИ",
+  "loyalty": {
+    "votesCast": 347,
+    "withParty": 311,
+    "loyaltyPct": 0.8962536023054755,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 347,
+    "dissentCount": 36,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 97,
+        "slug": "97-ratifikatsiya-na-sporazumenieto-za-preprodazhba-na-vaksini-o",
+        "title": "Ратификация на Споразумението за препродажба на ваксини от и между Република България и Кралство Норвегия относно препродажба на дози ваксини на Moderna Switzerland GMBH срещу Covid-19 - второ гласуване - член 2 - предложение от Христо Гаджев",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-09-15",
+        "item": 93,
+        "slug": "93-ratifikatsiya-na-tristrannoto-sporazumenie-za-darenie-na-vak",
+        "title": "Ратификация на Тристранното споразумение за дарение на ваксини срещу COVID-19, произведени от АстраЗенека, между Република България, Босна и Херцеговина и АстраЗенека и на Двустранното споразумение за дарение на ваксини срещу COVID-19, произведени от АстраЗенека, между Република България и Босна и Херцеговина - второ гласуване - член 2 - предложение от Христо Гаджев",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-09-15",
+        "item": 88,
+        "slug": "88-ratifikatsiya-na-tristranno-sporazumenie-za-darenie-na-vaksi",
+        "title": "Ратификация на Тристранно споразумение за дарение на ваксини срещу COVID-19, произведени от АстраЗенека, между Република България, Кралство Бутан и АстраЗенека и Двустранно споразумение за дарение на ваксини срещу COVID-19, произведени от АстраЗенека, между Република България и Кралство Бутан - второ гласуване - член 2 - предложение от Христо Гаджев",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-09-15",
+        "item": 72,
+        "slug": "72-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 28 (става параграф 27) - предложение за редакция от Хамид Хамид - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-09-15",
+        "item": 70,
+        "slug": "70-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 27 - отпада",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-09-15",
+        "item": 68,
+        "slug": "68-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 26 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-09-15",
+        "item": 67,
+        "slug": "67-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 26 - Вариант І",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-09-15",
+        "item": 59,
+        "slug": "59-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 23 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-09-15",
+        "item": 57,
+        "slug": "57-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 22 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-09-15",
+        "item": 55,
+        "slug": "55-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 21 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-15",
+        "item": 53,
+        "slug": "53-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 20 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-15",
+        "item": 51,
+        "slug": "51-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 19 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-15",
+        "item": 49,
+        "slug": "49-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 18 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-15",
+        "item": 47,
+        "slug": "47-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 17 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-09-15",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 16 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-09-15",
+        "item": 43,
+        "slug": "43-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 15 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-09-15",
+        "item": 41,
+        "slug": "41-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 14 - Вариант ІІ",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-09-10",
+        "item": 65,
+        "slug": "65-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 3 (става параграф 4) - предложение от Пламен Абровски и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-09-10",
+        "item": 55,
+        "slug": "55-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - процедура за прекратяване на дебата",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-10",
+        "item": 32,
+        "slug": "32-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - процедура за разделно гласуване от т. 5 до т.21",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-10",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от К.Нинова и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-10",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение Иван Ченчев за пряко предаване по БНТ1",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-09-10",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - предложение от К.Ангелов и група н.п. по чл.5",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 6
+      },
+      {
+        "date": "2021-09-09",
+        "item": 46,
+        "slug": "46-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 1 - предложение от Георги Ганев и Ал.Симидчиев - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2021-09-09",
+        "item": 43,
+        "slug": "43-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 1 - предложение от М. Карадайъ и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-09-09",
+        "item": 35,
+        "slug": "35-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 1 - предложение от Ивайло Христов за прекратяване на дебата",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-08-19",
+        "item": 3,
+        "slug": "3-protsedura-za-razmestvane-na-tochkite-ot-zhecho-stankov",
+        "title": "Процедура за разместване на точките от Жечо Станков",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-08-12",
+        "item": 6,
+        "slug": "6-izslushvane-na-ministara-na-zdraveopazvaneto-stoycho-katsaro",
+        "title": "Изслушване на министъра на здравеопазването Стойчо Кацаров относно изграждане на Национална детска болница - процедура за удължаване на работното време до точка 7",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-08-05",
+        "item": 52,
+        "slug": "52-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 130",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-08-05",
+        "item": 46,
+        "slug": "46-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Раздел втори (става Раздел трети), член 110 - предложение от Надежда Йорданова и Атанас Славов - 4-то изр",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-08-05",
+        "item": 43,
+        "slug": "43-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - процедура за удължаване на работното време",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-08-05",
+        "item": 20,
+        "slug": "20-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 26 - предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-08-05",
+        "item": 18,
+        "slug": "18-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 25 - предл. от Н.Йорданова и А.Славов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-08-05",
+        "item": 15,
+        "slug": "15-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 20 и 21",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-08-05",
+        "item": 10,
+        "slug": "10-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 19 - предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-08-04",
+        "item": 17,
+        "slug": "17-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава трета, член 8 - предложение за редакция от Радомир Чолаков по т.15, ал.7",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 8
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1921,
+        "score": 0.7243331836657494,
+        "overlap": 296
+      },
+      {
+        "mpId": 1734,
+        "score": 0.7228961348327024,
+        "overlap": 323
+      },
+      {
+        "mpId": 1650,
+        "score": 0.6902925172696689,
+        "overlap": 301
+      },
+      {
+        "mpId": 1881,
+        "score": 0.686916135775783,
+        "overlap": 294
+      },
+      {
+        "mpId": 1727,
+        "score": 0.6693732084117495,
+        "overlap": 284
+      },
+      {
+        "mpId": 1897,
+        "score": 0.6569967555795881,
+        "overlap": 327
+      },
+      {
+        "mpId": 1901,
+        "score": 0.6270542946713987,
+        "overlap": 297
+      },
+      {
+        "mpId": 1673,
+        "score": 0.6083709848795975,
+        "overlap": 215
+      },
+      {
+        "mpId": 1876,
+        "score": 0.5947839461382024,
+        "overlap": 220
+      },
+      {
+        "mpId": 1642,
+        "score": 0.5673580866812619,
+        "overlap": 221
+      },
+      {
+        "mpId": 1690,
+        "score": 0.5642880936468346,
+        "overlap": 339
+      },
+      {
+        "mpId": 1944,
+        "score": 0.5473421114362444,
+        "overlap": 320
+      },
+      {
+        "mpId": 1253,
+        "score": 0.5449689229238937,
+        "overlap": 294
+      },
+      {
+        "mpId": 1573,
+        "score": 0.5384216314242914,
+        "overlap": 302
+      },
+      {
+        "mpId": 1950,
+        "score": 0.5369190374216091,
+        "overlap": 342
+      },
+      {
+        "mpId": 1898,
+        "score": 0.5366876718391561,
+        "overlap": 341
+      },
+      {
+        "mpId": 1896,
+        "score": 0.5357581300364869,
+        "overlap": 341
+      },
+      {
+        "mpId": 1724,
+        "score": 0.5340969198255685,
+        "overlap": 333
+      },
+      {
+        "mpId": 1869,
+        "score": 0.5338314106244313,
+        "overlap": 346
+      },
+      {
+        "mpId": 1597,
+        "score": 0.5335481176575214,
+        "overlap": 202
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1428,
+        "score": 0.06913266228129507,
+        "overlap": 143
+      },
+      {
+        "mpId": 1935,
+        "score": 0.09179273366344479,
+        "overlap": 146
+      },
+      {
+        "mpId": 1155,
+        "score": 0.09413675517637154,
+        "overlap": 159
+      },
+      {
+        "mpId": 1703,
+        "score": 0.10868733834354535,
+        "overlap": 130
+      },
+      {
+        "mpId": 1637,
+        "score": 0.11023284373970225,
+        "overlap": 104
+      },
+      {
+        "mpId": 1659,
+        "score": 0.11253104922628394,
+        "overlap": 191
+      },
+      {
+        "mpId": 1960,
+        "score": 0.11510327612901576,
+        "overlap": 125
+      },
+      {
+        "mpId": 1576,
+        "score": 0.11911970797125321,
+        "overlap": 125
+      },
+      {
+        "mpId": 388,
+        "score": 0.12171575589133124,
+        "overlap": 180
+      },
+      {
+        "mpId": 1951,
+        "score": 0.12378082652741287,
+        "overlap": 162
+      },
+      {
+        "mpId": 1963,
+        "score": 0.12835876495216741,
+        "overlap": 62
+      },
+      {
+        "mpId": 817,
+        "score": 0.1301028014992284,
+        "overlap": 174
+      },
+      {
+        "mpId": 1972,
+        "score": 0.13160677843315918,
+        "overlap": 161
+      },
+      {
+        "mpId": 1643,
+        "score": 0.13327849749579576,
+        "overlap": 179
+      },
+      {
+        "mpId": 1465,
+        "score": 0.13357100434786648,
+        "overlap": 194
+      },
+      {
+        "mpId": 1651,
+        "score": 0.13361411009917057,
+        "overlap": 147
+      },
+      {
+        "mpId": 404,
+        "score": 0.1349045355667299,
+        "overlap": 177
+      },
+      {
+        "mpId": 1887,
+        "score": 0.13766573308919558,
+        "overlap": 190
+      },
+      {
+        "mpId": 1317,
+        "score": 0.14001244610394956,
+        "overlap": 206
+      },
+      {
+        "mpId": 1975,
+        "score": 0.14258131404413088,
+        "overlap": 187
+      }
+    ]
+  }
+}

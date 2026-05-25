@@ -1,0 +1,245 @@
+{
+  "mpId": 987,
+  "ns": "44",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 129,
+    "withParty": 127,
+    "loyaltyPct": 0.9844961240310077,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 129,
+    "dissentCount": 2,
+    "recent": [
+      {
+        "date": "2021-02-04",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-pchelarstvoto-vtoro-glasuvane-paragraf-1-no",
+        "title": "ЗИД на Закона за пчеларството - второ гласуване - параграф 1 - нов - предложение от Чавдар Велинов и Валери Жаблянов за ал.3",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-01-22",
+        "item": 4,
+        "slug": "4-zd-na-zakona-za-merkite-i-deystviyata-po-vreme-na-izvanredno",
+        "title": "ЗД на Закона за мерките и действията по време на извънредното положение, обявено с решение на НС от 13.03.2020 г., и за преодоляване на последиците - първо гласуване - процедура от Красимир Ципов за намаляване на срока за предложения",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 7
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1316,
+        "score": 0.49591829906708773,
+        "overlap": 72
+      },
+      {
+        "mpId": 1347,
+        "score": 0.46948553403344245,
+        "overlap": 58
+      },
+      {
+        "mpId": 1319,
+        "score": 0.46640048431011083,
+        "overlap": 49
+      },
+      {
+        "mpId": 1455,
+        "score": 0.464442161887926,
+        "overlap": 76
+      },
+      {
+        "mpId": 1062,
+        "score": 0.4544599702304183,
+        "overlap": 90
+      },
+      {
+        "mpId": 398,
+        "score": 0.4477215043467819,
+        "overlap": 53
+      },
+      {
+        "mpId": 1306,
+        "score": 0.431668887191345,
+        "overlap": 83
+      },
+      {
+        "mpId": 1267,
+        "score": 0.4311106048233565,
+        "overlap": 72
+      },
+      {
+        "mpId": 451,
+        "score": 0.41012193308819755,
+        "overlap": 36
+      },
+      {
+        "mpId": 1388,
+        "score": 0.39691115068546706,
+        "overlap": 37
+      },
+      {
+        "mpId": 1381,
+        "score": 0.3891547782585246,
+        "overlap": 48
+      },
+      {
+        "mpId": 663,
+        "score": 0.38806450418189575,
+        "overlap": 47
+      },
+      {
+        "mpId": 1245,
+        "score": 0.3719924439802217,
+        "overlap": 41
+      },
+      {
+        "mpId": 1389,
+        "score": 0.37067856345167494,
+        "overlap": 57
+      },
+      {
+        "mpId": 1304,
+        "score": 0.3528718159877869,
+        "overlap": 48
+      },
+      {
+        "mpId": 1370,
+        "score": 0.31980107453341566,
+        "overlap": 63
+      },
+      {
+        "mpId": 1000,
+        "score": 0.314970394174356,
+        "overlap": 36
+      },
+      {
+        "mpId": 1272,
+        "score": 0.305085107923876,
+        "overlap": 29
+      },
+      {
+        "mpId": 1368,
+        "score": 0.28890865008248806,
+        "overlap": 50
+      },
+      {
+        "mpId": 960,
+        "score": 0.28641560415781253,
+        "overlap": 31
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1523,
+        "score": 0,
+        "overlap": 7
+      },
+      {
+        "mpId": 1349,
+        "score": 0.0260132990857236,
+        "overlap": 16
+      },
+      {
+        "mpId": 1542,
+        "score": 0.03666793988112846,
+        "overlap": 17
+      },
+      {
+        "mpId": 1314,
+        "score": 0.04,
+        "overlap": 26
+      },
+      {
+        "mpId": 1274,
+        "score": 0.04264014327112208,
+        "overlap": 5
+      },
+      {
+        "mpId": 369,
+        "score": 0.04311239909182913,
+        "overlap": 56
+      },
+      {
+        "mpId": 1556,
+        "score": 0.048038446141526144,
+        "overlap": 8
+      },
+      {
+        "mpId": 1284,
+        "score": 0.053033008588991064,
+        "overlap": 17
+      },
+      {
+        "mpId": 1008,
+        "score": 0.0594438298277764,
+        "overlap": 44
+      },
+      {
+        "mpId": 1562,
+        "score": 0.06024640760767093,
+        "overlap": 30
+      },
+      {
+        "mpId": 1055,
+        "score": 0.061871843353822904,
+        "overlap": 19
+      },
+      {
+        "mpId": 1259,
+        "score": 0.06210590034081188,
+        "overlap": 45
+      },
+      {
+        "mpId": 1362,
+        "score": 0.0628970902033151,
+        "overlap": 11
+      },
+      {
+        "mpId": 1555,
+        "score": 0.06651901052377393,
+        "overlap": 38
+      },
+      {
+        "mpId": 1250,
+        "score": 0.0669438681395203,
+        "overlap": 44
+      },
+      {
+        "mpId": 1522,
+        "score": 0.06963106238227913,
+        "overlap": 11
+      },
+      {
+        "mpId": 1558,
+        "score": 0.06974858324629156,
+        "overlap": 21
+      },
+      {
+        "mpId": 1251,
+        "score": 0.07397954428741078,
+        "overlap": 34
+      },
+      {
+        "mpId": 963,
+        "score": 0.07580980435789035,
+        "overlap": 38
+      },
+      {
+        "mpId": 1519,
+        "score": 0.07745966692414834,
+        "overlap": 24
+      }
+    ]
+  }
+}

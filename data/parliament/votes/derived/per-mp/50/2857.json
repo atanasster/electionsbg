@@ -1,0 +1,515 @@
+{
+  "mpId": 2857,
+  "ns": "50",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 215,
+    "withParty": 186,
+    "loyaltyPct": 0.8651162790697674,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 215,
+    "dissentCount": 29,
+    "recent": [
+      {
+        "date": "2024-09-26",
+        "item": 7,
+        "slug": "7-protsedura-ot-yordan-tsonev-za-udalzhavane-na-rabotnoto-vrem",
+        "title": "Процедура от Йордан Цонев за удължаване на работното време до приключване на всички точки",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-18",
+        "item": 8,
+        "slug": "8-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - процедура от Цончо Ганев за отпадане на т.8 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-09-18",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - процедура за нова точка в дневния ред от ППДБ",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 6
+      },
+      {
+        "date": "2024-09-18",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - предложение от ИТН за нова точка в дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-09-18",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 6
+      },
+      {
+        "date": "2024-09-12",
+        "item": 4,
+        "slug": "4-protsedura-ot-al-nenkov-za-udalzhavane-na-sroka-za-predlozhe",
+        "title": "Процедура от Ал.Ненков за удължаване на срока за предложения на закона за гражданската регистрация",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-08-01",
+        "item": 16,
+        "slug": "16-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно корупционни практики и системна злоупотреба със служебно положение, извършвани в ущърб на гражданите и бизнеса, както и облагодетелстване на свързани дружества с кмета на Община Доспат - Елин Радев - за председател - Венко Сабрутев - прегласуване",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2024-08-01",
+        "item": 12,
+        "slug": "12-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно корупционни практики и системна злоупотреба със служебно положение, извършвани в ущърб на гражданите и бизнеса, както и облагодетелстване на свързани дружества с кмета на Община Доспат - Елин Радев - състав",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2024-08-01",
+        "item": 2,
+        "slug": "2-protsedura-ot-raya-nazaryan-za-dve-novi-tochki",
+        "title": "Процедура от Рая Назарян за две нови точки",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-07-31",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-31-yuli-2-avgu",
+        "title": "Програма за работата на Народното събрание за 31 юли – 2 август 2024 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-07-17",
+        "item": 39,
+        "slug": "39-reshenie-za-izbirane-na-komisiya-po-transport-i-saobshteniya",
+        "title": "Решение за избиране на Комисия по транспорт и съобщения - ръководство и състав",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2024-07-17",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-17-19-yuli-202",
+        "title": "Програма за работата на Народното събрание за 17 - 19 юли 2024 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-07-12",
+        "item": 23,
+        "slug": "23-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 18",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-07-12",
+        "item": 22,
+        "slug": "22-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 18 - предложение от Калоян Методиев - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-07-12",
+        "item": 20,
+        "slug": "20-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 18 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2024-07-12",
+        "item": 17,
+        "slug": "17-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 17 - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-07-12",
+        "item": 14,
+        "slug": "14-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 15 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2024-07-12",
+        "item": 11,
+        "slug": "11-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 14 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2024-07-12",
+        "item": 8,
+        "slug": "8-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 12 - предложение от Георги Свиленски - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2024-07-12",
+        "item": 4,
+        "slug": "4-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 8 - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2024-07-11",
+        "item": 3,
+        "slug": "3-izslushvane-na-sluzhebniya-ministar-na-energetikata-vladimir",
+        "title": "Изслушване на служебния министър на енергетиката Владимир Малинов, относно Дългосрочно подсигуряване и диверсификация на газовите доставки. Резултатите от предприетите действия на служебния министър на енергетиката с цел предоговаряне на Споразумението между „Булгаргаз“ ЕАД и турската енергийна компания „БОТАШ“. Мерките, които са предприети за преодоляване на пречките за пускане и експлоатация на терминала за втечнен газ в Александруполис, в който България е съакционер чрез „Булгартрансгаз“. Изпълнението на Решение (ДВ, бр. 63 от 2023 г.) на 49-ото Народно събрание за възлагане на министъра на енергетиката да проведе преговори за условията и реда, при които „Български енергиен холдинг“ ЕАД да придобие до 20 % дял в консорциума, титуляр на Договора за търсене и проучване на нефт и природен газ в площ „Блок 1-21 Хан Аспарух“ - процедура от Радослав Рибарски за провеждане на закрито заседание по цялото изслушване - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2024-07-10",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-10-12-yuli-202",
+        "title": "Програма за работата на Народното събрание за 10 - 12 юли 2024 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-07-04",
+        "item": 2,
+        "slug": "2-protsedura-ot-raya-nazaryan-za-razmestvane-na-tochkite",
+        "title": "Процедура от Рая Назарян за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-07-03",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-03-05-yuli-202",
+        "title": "Програма за работата на Народното събрание за 03 - 05 юли 2024 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-06-20",
+        "item": 1,
+        "slug": "1-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Виктория Василева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-06-19",
+        "item": 10,
+        "slug": "10-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Петър Петров - втори тур",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-06-19",
+        "item": 8,
+        "slug": "8-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Силви Кирилов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-06-19",
+        "item": 7,
+        "slug": "7-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Рая Назарян - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-06-19",
+        "item": 5,
+        "slug": "5-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2742,
+        "score": 0.5926323811867323,
+        "overlap": 124
+      },
+      {
+        "mpId": 2656,
+        "score": 0.5867970919045775,
+        "overlap": 138
+      },
+      {
+        "mpId": 2711,
+        "score": 0.5656745641018703,
+        "overlap": 147
+      },
+      {
+        "mpId": 2676,
+        "score": 0.5654893625283658,
+        "overlap": 180
+      },
+      {
+        "mpId": 2903,
+        "score": 0.5568194024007714,
+        "overlap": 129
+      },
+      {
+        "mpId": 2713,
+        "score": 0.5541199077640607,
+        "overlap": 133
+      },
+      {
+        "mpId": 2712,
+        "score": 0.5486986198621211,
+        "overlap": 178
+      },
+      {
+        "mpId": 2771,
+        "score": 0.5224523968967747,
+        "overlap": 165
+      },
+      {
+        "mpId": 2933,
+        "score": 0.5223429000792084,
+        "overlap": 176
+      },
+      {
+        "mpId": 2691,
+        "score": 0.5026443725490651,
+        "overlap": 148
+      },
+      {
+        "mpId": 2907,
+        "score": 0.4947246772353934,
+        "overlap": 163
+      },
+      {
+        "mpId": 2601,
+        "score": 0.4946681340410565,
+        "overlap": 200
+      },
+      {
+        "mpId": 2622,
+        "score": 0.48648661627434386,
+        "overlap": 151
+      },
+      {
+        "mpId": 2829,
+        "score": 0.4598972797874938,
+        "overlap": 207
+      },
+      {
+        "mpId": 2960,
+        "score": 0.45616972200429723,
+        "overlap": 207
+      },
+      {
+        "mpId": 2595,
+        "score": 0.4548339366417169,
+        "overlap": 209
+      },
+      {
+        "mpId": 2923,
+        "score": 0.45241392835886407,
+        "overlap": 204
+      },
+      {
+        "mpId": 2692,
+        "score": 0.4446821616395049,
+        "overlap": 160
+      },
+      {
+        "mpId": 2942,
+        "score": 0.43173233756175133,
+        "overlap": 91
+      },
+      {
+        "mpId": 2896,
+        "score": 0.4306485427012116,
+        "overlap": 199
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3008,
+        "score": 0.01262892050706804,
+        "overlap": 72
+      },
+      {
+        "mpId": 2990,
+        "score": 0.01364941295990332,
+        "overlap": 76
+      },
+      {
+        "mpId": 2998,
+        "score": 0.017219638141716367,
+        "overlap": 53
+      },
+      {
+        "mpId": 2930,
+        "score": 0.041885390829169554,
+        "overlap": 7
+      },
+      {
+        "mpId": 2996,
+        "score": 0.062209075224179934,
+        "overlap": 12
+      },
+      {
+        "mpId": 3007,
+        "score": 0.06417938247608372,
+        "overlap": 21
+      },
+      {
+        "mpId": 2970,
+        "score": 0.07254762501100118,
+        "overlap": 37
+      },
+      {
+        "mpId": 2991,
+        "score": 0.0731211329476109,
+        "overlap": 43
+      },
+      {
+        "mpId": 3001,
+        "score": 0.08061258480669069,
+        "overlap": 62
+      },
+      {
+        "mpId": 3006,
+        "score": 0.08605312753685324,
+        "overlap": 38
+      },
+      {
+        "mpId": 2967,
+        "score": 0.09030230582752713,
+        "overlap": 161
+      },
+      {
+        "mpId": 2606,
+        "score": 0.0903651991559848,
+        "overlap": 62
+      },
+      {
+        "mpId": 3000,
+        "score": 0.09084399583322703,
+        "overlap": 85
+      },
+      {
+        "mpId": 2972,
+        "score": 0.10060545457319173,
+        "overlap": 37
+      },
+      {
+        "mpId": 2863,
+        "score": 0.108388746190515,
+        "overlap": 86
+      },
+      {
+        "mpId": 2988,
+        "score": 0.10901019990904762,
+        "overlap": 83
+      },
+      {
+        "mpId": 2738,
+        "score": 0.110008685239055,
+        "overlap": 61
+      },
+      {
+        "mpId": 3015,
+        "score": 0.11067431421857193,
+        "overlap": 39
+      },
+      {
+        "mpId": 2992,
+        "score": 0.1112037839174208,
+        "overlap": 84
+      },
+      {
+        "mpId": 3003,
+        "score": 0.11224074270294365,
+        "overlap": 56
+      }
+    ]
+  }
+}

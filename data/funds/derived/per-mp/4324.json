@@ -1,0 +1,34 @@
+{
+  "mpId": 4324,
+  "summary": {
+    "contractCount": 1,
+    "contractedEur": 5112.92,
+    "paidEur": 5112.92
+  },
+  "entries": [
+    {
+      "mpId": 4324,
+      "mpName": "Искрен Николаев Митев",
+      "beneficiaryEik": "203326551",
+      "beneficiaryName": "3 ЕН 3 ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "stake",
+          "shareSize": "24,72%",
+          "valueEur": 147.25206178451091,
+          "fiscalYear": 2023,
+          "declarationYear": 2023
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 5112.92,
+      "paidEur": 5112.92
+    }
+  ]
+}

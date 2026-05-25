@@ -1,0 +1,295 @@
+{
+  "mpId": 2993,
+  "ns": "50",
+  "partyShort": "НЕЗ",
+  "loyalty": {
+    "votesCast": 118,
+    "withParty": 111,
+    "loyaltyPct": 0.940677966101695,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 118,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2024-09-11",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-septemvr",
+        "title": "Програма за работата на Народното събрание за 11 - 13 септември 2024 г. - процедура от Борислав Гуцанов за отпадане на точка 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-08-14",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-schetovodstvoto-vtoro-glasuvane-prehodni-i-",
+        "title": "ЗИД на Закона за счетоводството – второ гласуване - Преходни и заключителни разпоредби, параграф 29 до параграф 34, параграф 35 - нов, параграф 35 (става параграф 36) до параграф 39 (става параграф 40), параграф 41- нов, параграф 40 (става параграф 42)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-08-14",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-schetovodstvoto-vtoro-glasuvane-paragraf-5-",
+        "title": "ЗИД на Закона за счетоводството – второ гласуване - параграф 5 до параграф 7",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-08-14",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-14-16-avgust-2",
+        "title": "Програма за работата на Народното събрание за 14 – 16 август 2024 г. - процедура от Делян Добрев т.7 и т.15 да станат последни точки 4 и 5 в петък",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 35
+      },
+      {
+        "date": "2024-07-26",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-kreditnite-institutsii-parvo-glasuvane",
+        "title": "ЗИД на Закона за кредитните институции - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2024-07-25",
+        "item": 7,
+        "slug": "7-zd-na-kodeksa-za-sotsialno-osiguryavane-parvo-glasuvane",
+        "title": "ЗД на Кодекса за социално осигуряване - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-07-12",
+        "item": 14,
+        "slug": "14-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 15 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3002,
+        "score": 0.807492632811193,
+        "overlap": 106
+      },
+      {
+        "mpId": 2989,
+        "score": 0.7407219246934718,
+        "overlap": 96
+      },
+      {
+        "mpId": 2997,
+        "score": 0.7249313936680668,
+        "overlap": 75
+      },
+      {
+        "mpId": 2994,
+        "score": 0.7164889249914821,
+        "overlap": 113
+      },
+      {
+        "mpId": 3004,
+        "score": 0.6989426148428494,
+        "overlap": 88
+      },
+      {
+        "mpId": 2998,
+        "score": 0.6983948460540053,
+        "overlap": 65
+      },
+      {
+        "mpId": 3003,
+        "score": 0.6950770232416341,
+        "overlap": 75
+      },
+      {
+        "mpId": 2988,
+        "score": 0.6711560552140243,
+        "overlap": 85
+      },
+      {
+        "mpId": 3001,
+        "score": 0.6711560552140243,
+        "overlap": 77
+      },
+      {
+        "mpId": 3005,
+        "score": 0.6554341900901899,
+        "overlap": 65
+      },
+      {
+        "mpId": 2995,
+        "score": 0.6368790444368729,
+        "overlap": 95
+      },
+      {
+        "mpId": 3000,
+        "score": 0.6367145399670133,
+        "overlap": 88
+      },
+      {
+        "mpId": 2987,
+        "score": 0.6351221333809403,
+        "overlap": 81
+      },
+      {
+        "mpId": 3006,
+        "score": 0.6243370672302773,
+        "overlap": 69
+      },
+      {
+        "mpId": 2991,
+        "score": 0.5979133361118126,
+        "overlap": 58
+      },
+      {
+        "mpId": 3008,
+        "score": 0.5865565565643215,
+        "overlap": 84
+      },
+      {
+        "mpId": 2999,
+        "score": 0.582961444459579,
+        "overlap": 75
+      },
+      {
+        "mpId": 2990,
+        "score": 0.5803802770983916,
+        "overlap": 70
+      },
+      {
+        "mpId": 2973,
+        "score": 0.5552777082985894,
+        "overlap": 41
+      },
+      {
+        "mpId": 2992,
+        "score": 0.5134961659630968,
+        "overlap": 65
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2685,
+        "score": -0.14530954842977412,
+        "overlap": 25
+      },
+      {
+        "mpId": 2670,
+        "score": -0.08306935378835816,
+        "overlap": 11
+      },
+      {
+        "mpId": 2830,
+        "score": -0.02956669669467383,
+        "overlap": 72
+      },
+      {
+        "mpId": 2609,
+        "score": -0.0182665541450397,
+        "overlap": 22
+      },
+      {
+        "mpId": 2827,
+        "score": 0,
+        "overlap": 62
+      },
+      {
+        "mpId": 2669,
+        "score": 0.005830631218946603,
+        "overlap": 66
+      },
+      {
+        "mpId": 2931,
+        "score": 0.00752731253628575,
+        "overlap": 13
+      },
+      {
+        "mpId": 2844,
+        "score": 0.02815970539845778,
+        "overlap": 86
+      },
+      {
+        "mpId": 2606,
+        "score": 0.04433510985214727,
+        "overlap": 22
+      },
+      {
+        "mpId": 2692,
+        "score": 0.045531262041544854,
+        "overlap": 84
+      },
+      {
+        "mpId": 2914,
+        "score": 0.046645049751572826,
+        "overlap": 68
+      },
+      {
+        "mpId": 2954,
+        "score": 0.04664857053127,
+        "overlap": 94
+      },
+      {
+        "mpId": 2657,
+        "score": 0.047753590497526,
+        "overlap": 69
+      },
+      {
+        "mpId": 2803,
+        "score": 0.05354693318682902,
+        "overlap": 105
+      },
+      {
+        "mpId": 2925,
+        "score": 0.05697645723588385,
+        "overlap": 87
+      },
+      {
+        "mpId": 2801,
+        "score": 0.058067140841245625,
+        "overlap": 67
+      },
+      {
+        "mpId": 2859,
+        "score": 0.06517162928695161,
+        "overlap": 104
+      },
+      {
+        "mpId": 2790,
+        "score": 0.06554148621210625,
+        "overlap": 56
+      },
+      {
+        "mpId": 2702,
+        "score": 0.06559580987349364,
+        "overlap": 111
+      },
+      {
+        "mpId": 2933,
+        "score": 0.06644105970267493,
+        "overlap": 67
+      }
+    ]
+  }
+}

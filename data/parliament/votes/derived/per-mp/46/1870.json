@@ -1,0 +1,365 @@
+{
+  "mpId": 1870,
+  "ns": "46",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 384,
+    "withParty": 370,
+    "loyaltyPct": 0.9635416666666666,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 384,
+    "dissentCount": 14,
+    "recent": [
+      {
+        "date": "2021-09-09",
+        "item": 4,
+        "slug": "4-reshenie-za-izbirane-na-postoyanna-delegatsiya-na-narodnoto-",
+        "title": "Решение за избиране на постоянна делегация на Народното събрание в Парламентарната асамблея на НАТО",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2021-09-07",
+        "item": 54,
+        "slug": "54-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 11 (става параграф 10) - процедура от Стоян Мирчев за прекратяване на дебата по този параграф",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 49
+      },
+      {
+        "date": "2021-09-07",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 8 - предложение от М.Манолова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2021-09-07",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2021-08-27",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - първо гласуване - предложение от Капон за удължаване на срока за предложенията за второ четене",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 36
+      },
+      {
+        "date": "2021-08-13",
+        "item": 2,
+        "slug": "2-protsedura-za-pryako-predavane-po-bnt-i-bnr",
+        "title": "Процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 39
+      },
+      {
+        "date": "2021-08-05",
+        "item": 54,
+        "slug": "54-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Раздел ІІ, член 139 до член 151",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 47
+      },
+      {
+        "date": "2021-08-05",
+        "item": 41,
+        "slug": "41-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 92",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 53
+      },
+      {
+        "date": "2021-08-05",
+        "item": 10,
+        "slug": "10-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 19 - предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 51
+      },
+      {
+        "date": "2021-07-29",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 40
+      },
+      {
+        "date": "2021-07-22",
+        "item": 13,
+        "slug": "13-reshenie-za-sazdavane-na-vremenna-komisiya-za-razsledvane-na",
+        "title": "Решение за създаване на Временна комисия за разследване на факти и обстоятелства при използване на сълзотворен газ, употребата на сила и помощни средства от МВР извършени на 10.07 и 02.09.2020 г. срещу протестиращи граждани, както и за разследване на факти и обстоятелства свързани с подслушване и следене на протестиращи граждани, опозиционни лидери и членове на политически партии от опозицията",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 42
+      },
+      {
+        "date": "2021-07-22",
+        "item": 12,
+        "slug": "12-reshenie-za-sazdavane-na-vremenna-komisiya-za-razsledvane-na",
+        "title": "Решение за създаване на Временна комисия за разследване на факти и обстоятелства при използване на сълзотворен газ, употребата на сила и помощни средства от МВР извършени на 10.07 и 02.09.2020 г. срещу протестиращи граждани, както и за разследване на факти и обстоятелства свързани с подслушване и следене на протестиращи граждани, опозиционни лидери и членове на политически партии от опозицията - предложение за редакция от Атанас Атанасов",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-07-22",
+        "item": 10,
+        "slug": "10-reshenie-za-sazdavane-na-vremenna-komisiya-za-razsledvane-na",
+        "title": "Решение за създаване на Временна комисия за разследване на факти и обстоятелства при използване на сълзотворен газ, употребата на сила и помощни средства от МВР извършени на 10.07 и 02.09.2020 г. срещу протестиращи граждани, както и за разследване на факти и обстоятелства свързани с подслушване и следене на протестиращи граждани, опозиционни лидери и членове на политически партии от опозицията - предложение за редакция от Хаджигенов",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 50
+      },
+      {
+        "date": "2021-07-22",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-22-i-23-yuli-2",
+        "title": "Програма за работата на Народното събрание за 22 и 23 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 41
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1695,
+        "score": 0.9104388473705817,
+        "overlap": 360
+      },
+      {
+        "mpId": 1596,
+        "score": 0.9038237255776135,
+        "overlap": 358
+      },
+      {
+        "mpId": 1883,
+        "score": 0.8899733848559338,
+        "overlap": 346
+      },
+      {
+        "mpId": 1577,
+        "score": 0.8882659043699306,
+        "overlap": 377
+      },
+      {
+        "mpId": 1015,
+        "score": 0.8848519009295336,
+        "overlap": 354
+      },
+      {
+        "mpId": 1969,
+        "score": 0.8844344466197667,
+        "overlap": 328
+      },
+      {
+        "mpId": 1882,
+        "score": 0.8817532869921791,
+        "overlap": 352
+      },
+      {
+        "mpId": 1269,
+        "score": 0.8662594393038227,
+        "overlap": 352
+      },
+      {
+        "mpId": 1966,
+        "score": 0.858082057811181,
+        "overlap": 345
+      },
+      {
+        "mpId": 1344,
+        "score": 0.844861763197096,
+        "overlap": 304
+      },
+      {
+        "mpId": 1920,
+        "score": 0.8446721865474233,
+        "overlap": 295
+      },
+      {
+        "mpId": 1916,
+        "score": 0.8439195958635501,
+        "overlap": 304
+      },
+      {
+        "mpId": 1674,
+        "score": 0.8412227771030604,
+        "overlap": 289
+      },
+      {
+        "mpId": 1465,
+        "score": 0.836225811457757,
+        "overlap": 318
+      },
+      {
+        "mpId": 1706,
+        "score": 0.8337698351241623,
+        "overlap": 298
+      },
+      {
+        "mpId": 1934,
+        "score": 0.8318609983976536,
+        "overlap": 330
+      },
+      {
+        "mpId": 1936,
+        "score": 0.8304188587993186,
+        "overlap": 321
+      },
+      {
+        "mpId": 1281,
+        "score": 0.8280936000203525,
+        "overlap": 305
+      },
+      {
+        "mpId": 1894,
+        "score": 0.8274972651427791,
+        "overlap": 320
+      },
+      {
+        "mpId": 1567,
+        "score": 0.8244713466620777,
+        "overlap": 331
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1678,
+        "score": -0.06875238727711584,
+        "overlap": 215
+      },
+      {
+        "mpId": 1595,
+        "score": 0.008387253679077233,
+        "overlap": 297
+      },
+      {
+        "mpId": 1663,
+        "score": 0.04052617961525572,
+        "overlap": 230
+      },
+      {
+        "mpId": 1681,
+        "score": 0.04439420548956319,
+        "overlap": 160
+      },
+      {
+        "mpId": 1568,
+        "score": 0.057708741149070555,
+        "overlap": 212
+      },
+      {
+        "mpId": 1591,
+        "score": 0.06256517520491459,
+        "overlap": 329
+      },
+      {
+        "mpId": 1641,
+        "score": 0.06395375859372339,
+        "overlap": 264
+      },
+      {
+        "mpId": 1668,
+        "score": 0.06536840774921131,
+        "overlap": 326
+      },
+      {
+        "mpId": 1640,
+        "score": 0.07375144692539294,
+        "overlap": 286
+      },
+      {
+        "mpId": 1688,
+        "score": 0.08789131634198881,
+        "overlap": 326
+      },
+      {
+        "mpId": 1892,
+        "score": 0.08864948098811375,
+        "overlap": 343
+      },
+      {
+        "mpId": 1689,
+        "score": 0.09541823795733997,
+        "overlap": 340
+      },
+      {
+        "mpId": 1685,
+        "score": 0.09635595153277585,
+        "overlap": 301
+      },
+      {
+        "mpId": 1879,
+        "score": 0.0971558839019972,
+        "overlap": 363
+      },
+      {
+        "mpId": 1874,
+        "score": 0.09964456332909066,
+        "overlap": 345
+      },
+      {
+        "mpId": 1877,
+        "score": 0.10562136302490571,
+        "overlap": 372
+      },
+      {
+        "mpId": 1584,
+        "score": 0.10678755470980511,
+        "overlap": 280
+      },
+      {
+        "mpId": 1903,
+        "score": 0.10726263678578712,
+        "overlap": 361
+      },
+      {
+        "mpId": 1890,
+        "score": 0.1077208830124873,
+        "overlap": 327
+      },
+      {
+        "mpId": 1730,
+        "score": 0.11224370560865425,
+        "overlap": 312
+      }
+    ]
+  }
+}

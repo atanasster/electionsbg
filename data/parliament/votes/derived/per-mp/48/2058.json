@@ -1,0 +1,315 @@
+{
+  "mpId": 2058,
+  "ns": "48",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 1062,
+    "withParty": 1053,
+    "loyaltyPct": 0.9915254237288136,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 1062,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2023-01-27",
+        "item": 50,
+        "slug": "50-zakon-za-zashtita-na-litsata-podavashti-signali-ili-publichn",
+        "title": "Закон за защита на лицата, подаващи сигнали или публично оповестяващи информация за нарушения - второ гласуване - член 22 - предложение от Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 6
+      },
+      {
+        "date": "2023-01-27",
+        "item": 32,
+        "slug": "32-zid-na-zakona-za-gorite-vtoro-glasuvane-paragraf-1-stava-par",
+        "title": "ЗИД на Закона за горите - второ гласуване - параграф 1 (става параграф 6) - предложение от Александър Дунчев за редакция в ал. 5",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2023-01-26",
+        "item": 4,
+        "slug": "4-protsedura-ot-petar-petrov-za-tochka-5-da-stane-tochka-2",
+        "title": "Процедура от Петър Петров за точка 5 да стане точка 2 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2023-01-18",
+        "item": 35,
+        "slug": "35-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства, свързани с поемането на пълния контрол на \"Международния панаир Пловдив\" АД от предприемача и почетен консул на Руската федерация в Пловдив Георги Гергов, чрез действия на централната власт и на местните власти в общините Пловдив и Варна от 2016 г. насам - председател - Румен Йончев-прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2023-01-04",
+        "item": 8,
+        "slug": "8-zid-na-kodeksa-za-sotsialno-osiguryavane-parvo-glasuvane",
+        "title": "ЗИД на Кодекса за социално осигуряване - първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      },
+      {
+        "date": "2022-12-22",
+        "item": 34,
+        "slug": "34-zakon-za-prodalzhavane-deystvieto-na-razporedbi-na-zakona-za",
+        "title": "Закон за продължаване действието на разпоредби на Закона за държавния бюджет на Република България за 2022г., Закона за бюджета на държавното обществено осигуряване и Закона за бюджета на Националната здравноосигурителна каса за 2022г. - второ гласуване - член 1 - предложение от Петър Чобанов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 20
+      },
+      {
+        "date": "2022-12-22",
+        "item": 17,
+        "slug": "17-zakon-za-kompensirane-na-razhodite-na-potrebitelite-na-motor",
+        "title": "Закон за компенсиране на разходите на потребителите на моторни горива - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      },
+      {
+        "date": "2022-12-22",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-energetikata-parvo-glasuvane-protsedura-ot-",
+        "title": "ЗИД на Закона за енергетиката - първо гласуване - процедура от Делян Добрев за съкращаване на срока за предложения на три дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2022-12-16",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-pravnata-pomosht-vtoro-glosuvane-paragraf-1",
+        "title": "ЗИД на Закона за правната помощ - второ глосуване - параграф 11 - предложение от Цончо Ганев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2351,
+        "score": 0.8903190103908902,
+        "overlap": 1006
+      },
+      {
+        "mpId": 2090,
+        "score": 0.8751490234700235,
+        "overlap": 971
+      },
+      {
+        "mpId": 2298,
+        "score": 0.8673338466474364,
+        "overlap": 964
+      },
+      {
+        "mpId": 1875,
+        "score": 0.8568882767298153,
+        "overlap": 964
+      },
+      {
+        "mpId": 2163,
+        "score": 0.8530191058127471,
+        "overlap": 947
+      },
+      {
+        "mpId": 2244,
+        "score": 0.8452693530220384,
+        "overlap": 900
+      },
+      {
+        "mpId": 1275,
+        "score": 0.8445813213956459,
+        "overlap": 912
+      },
+      {
+        "mpId": 2076,
+        "score": 0.8391890761274768,
+        "overlap": 909
+      },
+      {
+        "mpId": 2072,
+        "score": 0.8384344980567522,
+        "overlap": 922
+      },
+      {
+        "mpId": 761,
+        "score": 0.8323125788062299,
+        "overlap": 896
+      },
+      {
+        "mpId": 1318,
+        "score": 0.8173003047038914,
+        "overlap": 800
+      },
+      {
+        "mpId": 1312,
+        "score": 0.8108501516680572,
+        "overlap": 803
+      },
+      {
+        "mpId": 2263,
+        "score": 0.8096348781680206,
+        "overlap": 843
+      },
+      {
+        "mpId": 2251,
+        "score": 0.8017083763991575,
+        "overlap": 805
+      },
+      {
+        "mpId": 2277,
+        "score": 0.785935520421182,
+        "overlap": 773
+      },
+      {
+        "mpId": 829,
+        "score": 0.7643049262210495,
+        "overlap": 710
+      },
+      {
+        "mpId": 1023,
+        "score": 0.7616816080617032,
+        "overlap": 729
+      },
+      {
+        "mpId": 1660,
+        "score": 0.7556726079651462,
+        "overlap": 743
+      },
+      {
+        "mpId": 2256,
+        "score": 0.7437357441610946,
+        "overlap": 671
+      },
+      {
+        "mpId": 1581,
+        "score": 0.7214299210715427,
+        "overlap": 645
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2064,
+        "score": 0.021006132059823077,
+        "overlap": 43
+      },
+      {
+        "mpId": 2264,
+        "score": 0.034815640974811456,
+        "overlap": 675
+      },
+      {
+        "mpId": 2236,
+        "score": 0.06592314466089821,
+        "overlap": 551
+      },
+      {
+        "mpId": 1583,
+        "score": 0.07684864835720161,
+        "overlap": 746
+      },
+      {
+        "mpId": 2239,
+        "score": 0.08230987798215868,
+        "overlap": 765
+      },
+      {
+        "mpId": 2320,
+        "score": 0.08557186928550714,
+        "overlap": 805
+      },
+      {
+        "mpId": 1573,
+        "score": 0.09037767640636812,
+        "overlap": 670
+      },
+      {
+        "mpId": 2285,
+        "score": 0.09823797462336843,
+        "overlap": 518
+      },
+      {
+        "mpId": 2237,
+        "score": 0.10526436282325599,
+        "overlap": 484
+      },
+      {
+        "mpId": 2350,
+        "score": 0.10554537938670386,
+        "overlap": 808
+      },
+      {
+        "mpId": 1640,
+        "score": 0.10590067644273117,
+        "overlap": 523
+      },
+      {
+        "mpId": 2265,
+        "score": 0.1096983972117718,
+        "overlap": 757
+      },
+      {
+        "mpId": 1568,
+        "score": 0.1107364505600978,
+        "overlap": 667
+      },
+      {
+        "mpId": 2366,
+        "score": 0.11287488157431398,
+        "overlap": 679
+      },
+      {
+        "mpId": 1678,
+        "score": 0.11544600509168122,
+        "overlap": 419
+      },
+      {
+        "mpId": 2323,
+        "score": 0.11551231573112825,
+        "overlap": 811
+      },
+      {
+        "mpId": 2324,
+        "score": 0.1160810134577573,
+        "overlap": 797
+      },
+      {
+        "mpId": 2338,
+        "score": 0.11801629556940244,
+        "overlap": 902
+      },
+      {
+        "mpId": 1684,
+        "score": 0.11825544476585695,
+        "overlap": 844
+      },
+      {
+        "mpId": 1693,
+        "score": 0.1242050215060759,
+        "overlap": 789
+      }
+    ]
+  }
+}

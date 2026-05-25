@@ -1,0 +1,295 @@
+{
+  "mpId": 2649,
+  "ns": "50",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 466,
+    "withParty": 459,
+    "loyaltyPct": 0.9849785407725322,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 466,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 39,
+        "slug": "39-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-8-otpada",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 8 - отпада",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-08-07",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – първо гласуване - вносител Костадин Костадинов и група н.п. - процедура от Г.Свиленски за преминаване на второ гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-08-01",
+        "item": 18,
+        "slug": "18-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно корупционни практики и системна злоупотреба със служебно положение, извършвани в ущърб на гражданите и бизнеса, както и облагодетелстване на свързани дружества с кмета на Община Доспат - Елин Радев - за председател - Александър Вълчев - прегласуване",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 65
+      },
+      {
+        "date": "2024-07-31",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – второ гласуване - параграф 1 (става параграф 2) - предложение от Венко Сабрутев за редакция",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-07-12",
+        "item": 66,
+        "slug": "66-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 73 (става член 72) - предложение от Павела Митова и Станислав Богдански",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2024-07-12",
+        "item": 60,
+        "slug": "60-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 60 (става член 59) - предложение от Цвета Рангелова и Петър Петров - т.1",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-07-12",
+        "item": 33,
+        "slug": "33-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 28 (става член 27) - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 61
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2681,
+        "score": 0.8490807481036098,
+        "overlap": 429
+      },
+      {
+        "mpId": 2852,
+        "score": 0.8428619664235965,
+        "overlap": 465
+      },
+      {
+        "mpId": 2746,
+        "score": 0.8423273116381828,
+        "overlap": 442
+      },
+      {
+        "mpId": 2941,
+        "score": 0.8402641769987194,
+        "overlap": 453
+      },
+      {
+        "mpId": 2793,
+        "score": 0.8396129729718612,
+        "overlap": 424
+      },
+      {
+        "mpId": 2779,
+        "score": 0.8381533218235602,
+        "overlap": 460
+      },
+      {
+        "mpId": 2602,
+        "score": 0.8367119564890239,
+        "overlap": 464
+      },
+      {
+        "mpId": 2653,
+        "score": 0.83565229156524,
+        "overlap": 446
+      },
+      {
+        "mpId": 2911,
+        "score": 0.8355267808713719,
+        "overlap": 464
+      },
+      {
+        "mpId": 2647,
+        "score": 0.8350361667935496,
+        "overlap": 439
+      },
+      {
+        "mpId": 2935,
+        "score": 0.8331511481834041,
+        "overlap": 453
+      },
+      {
+        "mpId": 2714,
+        "score": 0.8326939592819605,
+        "overlap": 456
+      },
+      {
+        "mpId": 2747,
+        "score": 0.8311141038113175,
+        "overlap": 449
+      },
+      {
+        "mpId": 2947,
+        "score": 0.8297332337988356,
+        "overlap": 445
+      },
+      {
+        "mpId": 2688,
+        "score": 0.8289123424675902,
+        "overlap": 448
+      },
+      {
+        "mpId": 2770,
+        "score": 0.8286376512805532,
+        "overlap": 446
+      },
+      {
+        "mpId": 2673,
+        "score": 0.822936151614528,
+        "overlap": 464
+      },
+      {
+        "mpId": 2630,
+        "score": 0.8221083073205849,
+        "overlap": 421
+      },
+      {
+        "mpId": 2840,
+        "score": 0.8189144393644538,
+        "overlap": 445
+      },
+      {
+        "mpId": 2905,
+        "score": 0.815221304365255,
+        "overlap": 442
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2979,
+        "score": -0.08338935494731398,
+        "overlap": 224
+      },
+      {
+        "mpId": 2996,
+        "score": -0.04933636669949972,
+        "overlap": 32
+      },
+      {
+        "mpId": 2930,
+        "score": -0.027681826617913324,
+        "overlap": 7
+      },
+      {
+        "mpId": 3007,
+        "score": -0.007069300707549023,
+        "overlap": 44
+      },
+      {
+        "mpId": 2967,
+        "score": -0.006282137050225315,
+        "overlap": 262
+      },
+      {
+        "mpId": 3005,
+        "score": 0,
+        "overlap": 69
+      },
+      {
+        "mpId": 2972,
+        "score": 0.00664895968541847,
+        "overlap": 46
+      },
+      {
+        "mpId": 3008,
+        "score": 0.008346384763935573,
+        "overlap": 125
+      },
+      {
+        "mpId": 2980,
+        "score": 0.04159211798682433,
+        "overlap": 241
+      },
+      {
+        "mpId": 3001,
+        "score": 0.04843310740148646,
+        "overlap": 91
+      },
+      {
+        "mpId": 2998,
+        "score": 0.05121164267819312,
+        "overlap": 69
+      },
+      {
+        "mpId": 2997,
+        "score": 0.05231373504786204,
+        "overlap": 87
+      },
+      {
+        "mpId": 3004,
+        "score": 0.05597419819812408,
+        "overlap": 111
+      },
+      {
+        "mpId": 2982,
+        "score": 0.0560567254693283,
+        "overlap": 337
+      },
+      {
+        "mpId": 2986,
+        "score": 0.06480788633412306,
+        "overlap": 297
+      },
+      {
+        "mpId": 2984,
+        "score": 0.06877821731741417,
+        "overlap": 325
+      },
+      {
+        "mpId": 2992,
+        "score": 0.06917079998188276,
+        "overlap": 118
+      },
+      {
+        "mpId": 2978,
+        "score": 0.07085429457765205,
+        "overlap": 312
+      },
+      {
+        "mpId": 2951,
+        "score": 0.07400455004924958,
+        "overlap": 37
+      },
+      {
+        "mpId": 2904,
+        "score": 0.07511746287542016,
+        "overlap": 38
+      }
+    ]
+  }
+}

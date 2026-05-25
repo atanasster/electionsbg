@@ -1,0 +1,355 @@
+{
+  "mpId": 1576,
+  "ns": "46",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 182,
+    "withParty": 169,
+    "loyaltyPct": 0.9285714285714286,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 182,
+    "dissentCount": 13,
+    "recent": [
+      {
+        "date": "2021-09-10",
+        "item": 85,
+        "slug": "85-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 12 (по доклад) - нов",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2021-09-10",
+        "item": 40,
+        "slug": "40-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Ивайло Кожухаров за редакция",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2021-09-09",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - параграф 13 - предложение от Десислава Атанасова и гупа н.п. - процедура за удължаване на работното време до 17 часа",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 57
+      },
+      {
+        "date": "2021-09-09",
+        "item": 3,
+        "slug": "3-protsedura-za-pryako-predavane-po-bnt-i-bnr-ot-filip-popov",
+        "title": "Процедура за пряко предаване по БНТ и БНР от Филип Попов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 52
+      },
+      {
+        "date": "2021-09-08",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - процедура от Филип Попов за пряко предаване по БНТ и БНР",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-09-07",
+        "item": 54,
+        "slug": "54-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 11 (става параграф 10) - процедура от Стоян Мирчев за прекратяване на дебата по този параграф",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 49
+      },
+      {
+        "date": "2021-09-07",
+        "item": 47,
+        "slug": "47-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 8",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 44
+      },
+      {
+        "date": "2021-09-07",
+        "item": 44,
+        "slug": "44-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 7",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 35
+      },
+      {
+        "date": "2021-09-07",
+        "item": 40,
+        "slug": "40-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 6 - предложение от Мая Манолова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 36
+      },
+      {
+        "date": "2021-08-25",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-25-27-avgust-2021",
+        "title": "Програма за работата на Народното събрание 25 -27 август 2021 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 46
+      },
+      {
+        "date": "2021-08-12",
+        "item": 3,
+        "slug": "3-protsedura-protsedura-za-pryako-predavane-po-bnt1-i-bnr",
+        "title": "Процедура - процедура за пряко предаване по БНТ1 и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 54
+      },
+      {
+        "date": "2021-08-05",
+        "item": 43,
+        "slug": "43-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - процедура за удължаване на работното време",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2021-07-29",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 40
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1969,
+        "score": 0.6541445514212854,
+        "overlap": 173
+      },
+      {
+        "mpId": 1457,
+        "score": 0.630929300862757,
+        "overlap": 154
+      },
+      {
+        "mpId": 1870,
+        "score": 0.6230183621031218,
+        "overlap": 178
+      },
+      {
+        "mpId": 1706,
+        "score": 0.6147073473905583,
+        "overlap": 160
+      },
+      {
+        "mpId": 1628,
+        "score": 0.6094616227349395,
+        "overlap": 150
+      },
+      {
+        "mpId": 1882,
+        "score": 0.60279628678631,
+        "overlap": 174
+      },
+      {
+        "mpId": 990,
+        "score": 0.6027839950828578,
+        "overlap": 173
+      },
+      {
+        "mpId": 1317,
+        "score": 0.5991224458335301,
+        "overlap": 162
+      },
+      {
+        "mpId": 1015,
+        "score": 0.5975813297380981,
+        "overlap": 175
+      },
+      {
+        "mpId": 1596,
+        "score": 0.5952600253287054,
+        "overlap": 174
+      },
+      {
+        "mpId": 1695,
+        "score": 0.5929340982338096,
+        "overlap": 177
+      },
+      {
+        "mpId": 1966,
+        "score": 0.5901502108397441,
+        "overlap": 174
+      },
+      {
+        "mpId": 1281,
+        "score": 0.5898656959833196,
+        "overlap": 163
+      },
+      {
+        "mpId": 1269,
+        "score": 0.589486005018277,
+        "overlap": 171
+      },
+      {
+        "mpId": 1922,
+        "score": 0.5882352941176471,
+        "overlap": 159
+      },
+      {
+        "mpId": 1934,
+        "score": 0.5860377498286042,
+        "overlap": 165
+      },
+      {
+        "mpId": 1659,
+        "score": 0.584840600739506,
+        "overlap": 167
+      },
+      {
+        "mpId": 1916,
+        "score": 0.5827834481271575,
+        "overlap": 155
+      },
+      {
+        "mpId": 1544,
+        "score": 0.5804922831678684,
+        "overlap": 154
+      },
+      {
+        "mpId": 1344,
+        "score": 0.579185520361991,
+        "overlap": 155
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1678,
+        "score": -0.14458854569473698,
+        "overlap": 129
+      },
+      {
+        "mpId": 1595,
+        "score": -0.09160729677542652,
+        "overlap": 163
+      },
+      {
+        "mpId": 1689,
+        "score": -0.08307211739095348,
+        "overlap": 165
+      },
+      {
+        "mpId": 1568,
+        "score": -0.07737779857993002,
+        "overlap": 92
+      },
+      {
+        "mpId": 1688,
+        "score": -0.07588671133338308,
+        "overlap": 158
+      },
+      {
+        "mpId": 1874,
+        "score": -0.07471429710440494,
+        "overlap": 167
+      },
+      {
+        "mpId": 1646,
+        "score": -0.06593406593406594,
+        "overlap": 170
+      },
+      {
+        "mpId": 1902,
+        "score": -0.06427915552282565,
+        "overlap": 182
+      },
+      {
+        "mpId": 1671,
+        "score": -0.06227106227106227,
+        "overlap": 166
+      },
+      {
+        "mpId": 1641,
+        "score": -0.0621209886990191,
+        "overlap": 145
+      },
+      {
+        "mpId": 1668,
+        "score": -0.06208409505296226,
+        "overlap": 160
+      },
+      {
+        "mpId": 1903,
+        "score": -0.058213387057280255,
+        "overlap": 174
+      },
+      {
+        "mpId": 1663,
+        "score": -0.05773502691896257,
+        "overlap": 135
+      },
+      {
+        "mpId": 1649,
+        "score": -0.05763604994348886,
+        "overlap": 174
+      },
+      {
+        "mpId": 1693,
+        "score": -0.05606237606257654,
+        "overlap": 149
+      },
+      {
+        "mpId": 1906,
+        "score": -0.055317822747116906,
+        "overlap": 137
+      },
+      {
+        "mpId": 1591,
+        "score": -0.054254600815679205,
+        "overlap": 164
+      },
+      {
+        "mpId": 1877,
+        "score": -0.05373997301914873,
+        "overlap": 181
+      },
+      {
+        "mpId": 1959,
+        "score": -0.05368178136914255,
+        "overlap": 178
+      },
+      {
+        "mpId": 1720,
+        "score": -0.051516217117608905,
+        "overlap": 172
+      }
+    ]
+  }
+}

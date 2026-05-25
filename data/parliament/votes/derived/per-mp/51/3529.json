@@ -1,0 +1,285 @@
+{
+  "mpId": 3529,
+  "ns": "51",
+  "partyShort": "БСП - ОЛ",
+  "loyalty": {
+    "votesCast": 142,
+    "withParty": 136,
+    "loyaltyPct": 0.9577464788732394,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 142,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2026-03-19",
+        "item": 26,
+        "slug": "26-zakon-za-obshtestveniya-transport-vtoro-glasuvane-paragraf-1",
+        "title": "Закон за обществения транспорт – второ гласуване - параграф 1 - предложение от Божидар Божанов и Йордан Иванов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2026-03-19",
+        "item": 22,
+        "slug": "22-zakon-za-obshtestveniya-transport-vtoro-glasuvane-chl-67-pre",
+        "title": "Закон за обществения транспорт – второ гласуване - чл. 67 - предложение от Божидар Божанов и Йордан Иванов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2026-03-11",
+        "item": 9,
+        "slug": "9-zakon-za-prozrachnost-i-pochtenost-v-upravlenieto-parvo-glas",
+        "title": "Закон за прозрачност и почтеност в управлението - първо гласуване - процедура от Анна Алексндрова за удължаване на работното време до т.4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2026-03-05",
+        "item": 25,
+        "slug": "25-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-par",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - параграф 25 (става параграф 26) - предложение от Георги Хрисимиров и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 3
+      },
+      {
+        "date": "2026-03-05",
+        "item": 11,
+        "slug": "11-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-par",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - параграф 3 - предложение от Георги Хрисимиров и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2026-03-05",
+        "item": 8,
+        "slug": "8-izslushvane-na-sluzhebniya-zamestnik-ministar-na-energetikat",
+        "title": "Изслушване на служебния заместник-министър на енергетиката и председателя на Комисията за енергийно и водно регулиране Пламен Младеновски,относно повишените сметки за ток и хилядите подадени жалби за това от български граждани в последните месеци - процедура от Хамид Хамид за удължаване на заседанието до точка 9 (точка 5 за днес)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3539,
+        "score": 0.5370247707467547,
+        "overlap": 99
+      },
+      {
+        "mpId": 3531,
+        "score": 0.5333947980036999,
+        "overlap": 111
+      },
+      {
+        "mpId": 3527,
+        "score": 0.5263285060230593,
+        "overlap": 58
+      },
+      {
+        "mpId": 3543,
+        "score": 0.44787978623943764,
+        "overlap": 71
+      },
+      {
+        "mpId": 3541,
+        "score": 0.445302497614005,
+        "overlap": 123
+      },
+      {
+        "mpId": 3547,
+        "score": 0.4263842054145769,
+        "overlap": 129
+      },
+      {
+        "mpId": 3533,
+        "score": 0.41380190914555703,
+        "overlap": 129
+      },
+      {
+        "mpId": 3535,
+        "score": 0.4034466888812335,
+        "overlap": 117
+      },
+      {
+        "mpId": 3537,
+        "score": 0.3833582694465276,
+        "overlap": 117
+      },
+      {
+        "mpId": 3580,
+        "score": 0.37857200013516723,
+        "overlap": 124
+      },
+      {
+        "mpId": 3549,
+        "score": 0.3601244349346169,
+        "overlap": 110
+      },
+      {
+        "mpId": 3581,
+        "score": 0.2553541159019178,
+        "overlap": 51
+      },
+      {
+        "mpId": 3519,
+        "score": 0.19707176895959555,
+        "overlap": 83
+      },
+      {
+        "mpId": 3411,
+        "score": 0.19593015488284865,
+        "overlap": 130
+      },
+      {
+        "mpId": 3406,
+        "score": 0.18676873450313813,
+        "overlap": 127
+      },
+      {
+        "mpId": 3525,
+        "score": 0.17200522903844537,
+        "overlap": 88
+      },
+      {
+        "mpId": 3212,
+        "score": 0.16615092028490996,
+        "overlap": 100
+      },
+      {
+        "mpId": 3106,
+        "score": 0.16310965806199226,
+        "overlap": 134
+      },
+      {
+        "mpId": 3412,
+        "score": 0.1580802810777434,
+        "overlap": 96
+      },
+      {
+        "mpId": 3235,
+        "score": 0.153998578481221,
+        "overlap": 119
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3516,
+        "score": -0.025839828215684615,
+        "overlap": 111
+      },
+      {
+        "mpId": 3065,
+        "score": -0.018569138565663005,
+        "overlap": 68
+      },
+      {
+        "mpId": 3510,
+        "score": -0.013753367121832168,
+        "overlap": 121
+      },
+      {
+        "mpId": 3508,
+        "score": -0.009245003270420486,
+        "overlap": 124
+      },
+      {
+        "mpId": 3515,
+        "score": -0.009025184378291647,
+        "overlap": 134
+      },
+      {
+        "mpId": 3513,
+        "score": -0.008919554394653051,
+        "overlap": 127
+      },
+      {
+        "mpId": 3512,
+        "score": -0.0070346212776162985,
+        "overlap": 112
+      },
+      {
+        "mpId": 3514,
+        "score": -0.006661733875264914,
+        "overlap": 120
+      },
+      {
+        "mpId": 3349,
+        "score": -0.006342019922059921,
+        "overlap": 6
+      },
+      {
+        "mpId": 3517,
+        "score": -0.004397676002535334,
+        "overlap": 129
+      },
+      {
+        "mpId": 3036,
+        "score": -0.002995973122406809,
+        "overlap": 29
+      },
+      {
+        "mpId": 3336,
+        "score": -0.002242242646654375,
+        "overlap": 17
+      },
+      {
+        "mpId": 3402,
+        "score": 0,
+        "overlap": 58
+      },
+      {
+        "mpId": 3311,
+        "score": 0.002320941639217248,
+        "overlap": 70
+      },
+      {
+        "mpId": 3348,
+        "score": 0.0026172092449394833,
+        "overlap": 17
+      },
+      {
+        "mpId": 3230,
+        "score": 0.0031788107353292665,
+        "overlap": 93
+      },
+      {
+        "mpId": 3176,
+        "score": 0.0034276034421608314,
+        "overlap": 49
+      },
+      {
+        "mpId": 3270,
+        "score": 0.003591063624973064,
+        "overlap": 10
+      },
+      {
+        "mpId": 3398,
+        "score": 0.007735402190238356,
+        "overlap": 25
+      },
+      {
+        "mpId": 3281,
+        "score": 0.008652416335391563,
+        "overlap": 31
+      }
+    ]
+  }
+}

@@ -1,0 +1,725 @@
+{
+  "mpId": 3182,
+  "ns": "51",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 3755,
+    "withParty": 3548,
+    "loyaltyPct": 0.9448735019973369,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 3755,
+    "dissentCount": 207,
+    "recent": [
+      {
+        "date": "2026-04-01",
+        "item": 7,
+        "slug": "7-protsedura-ot-atanas-v-atanasov-tochka-4-da-stane-tochka-2",
+        "title": "Процедура от Атанас В. Атанасов точка 4 да стане точка 2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-03-19",
+        "item": 49,
+        "slug": "49-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-2-predl",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 2 - предложение от Николета Кузманова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 53
+      },
+      {
+        "date": "2026-03-18",
+        "item": 57,
+        "slug": "57-zid-na-zakona-za-obshtestvenite-biblioteki-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за обществените библиотеки - второ гласуване - параграф 2",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 50
+      },
+      {
+        "date": "2026-03-11",
+        "item": 5,
+        "slug": "5-programa-na-narodnoto-sabranie-za-11-13-fevruari-2026-g-pred",
+        "title": "Програма на Народното събрание за 11 - 13 февруари 2026 г. - предложение от Стоян Таслаков",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-03-04",
+        "item": 24,
+        "slug": "24-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-8-nov-p",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 8 - нов - предложение от Божидар Божанов и Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2026-03-04",
+        "item": 22,
+        "slug": "22-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-1a-nov-",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 1а - нов - предложение от Божидар Божанов и Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 50
+      },
+      {
+        "date": "2026-03-04",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-zdravnoto-osiguryavane-parvo-glasuvane",
+        "title": "ЗИД на Закона за здравното осигуряване – първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2026-03-04",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-4-6-mart-2026-",
+        "title": "Програма за работата на Народното събрание за 4 – 6 март 2026 г. - предложение от Божидар Божанов - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-02-18",
+        "item": 27,
+        "slug": "27-ratifikatsiya-na-mezhdunaroden-dogovor-letter-of-offer-and-a",
+        "title": "Ратификация на Международен договор (Letter of Offer and Acceptance – LOA) BU-P-AAL „Придобиване на мобилна ракетна (NSM) система за брегова отбрана (CDS) и свързаните с нея оборудване, резервни части, обучение и свързаната с тях поддръжка” и на Международен договор (Letter of Offer and Acceptance – LOA) BU-P-LBR „Мултифункционална система за разпространение на информация – Съвместна тактическа радиосистема (MIDS JTRS) и свързаната с нея поддръжка и оборудване“ - процедура за пряко предаване по БНТ",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2026-02-18",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-zdraveto-parvo-glasuvane-vnositel-bozhidar-",
+        "title": "ЗИД на Закона за здравето - първо гласуване - вносител Божидар Божанов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 54
+      },
+      {
+        "date": "2026-02-18",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-zdraveto-parvo-glasuvane-vnositel-radostin-",
+        "title": "ЗИД на Закона за здравето - първо гласуване - вносител Радостин Василев и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2026-02-18",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-18-20-fevruari",
+        "title": "Програма за работата на Народното събрание за 18 - 20 февруари 2026 г. - предложение от Явор Божанков - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2026-02-13",
+        "item": 23,
+        "slug": "23-zid-na-kodeksa-za-sotsialno-osiguryavane-parvo-glasuvane-pro",
+        "title": "ЗИД на Кодекса за социално осигуряване - първо гласуване - процедура от Георги Хрисимиров за удължаване на срока за предложения",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2026-02-13",
+        "item": 17,
+        "slug": "17-zid-na-kodeksa-za-sotsialno-osiguryavane-parvo-glasuvane-pro",
+        "title": "ЗИД на Кодекса за социално осигуряване - първо гласуване - процедура от Георги Хрисимиров за пряко предаване по БНТ - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-02-11",
+        "item": 18,
+        "slug": "18-izslushvane-na-ministara-na-okolnata-sreda-i-vodite-manol-ge",
+        "title": "Изслушване на министъра на околната среда и водите Манол Генов, заместник - министър на вътрешните работи, Деньо Денев - и.ф. председател на ДАНС, представители на ГДБОП, и главен комисар Захари Васков - директор и представители на ГДНП във връзка със смъртните случаи в района на хижа „Петрохан“ и в района на връх Околчица - процедура от Йордан Иванов за закриване на заседанието за задаване на техния въпрос - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 50
+      },
+      {
+        "date": "2026-02-11",
+        "item": 8,
+        "slug": "8-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-fevruari",
+        "title": "Програма за работата на Народното събрание за 11 - 13 февруари 2026 г. - предложение от Явор Божанков - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-02-11",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-fevruari",
+        "title": "Програма за работата на Народното събрание за 11 - 13 февруари 2026 г. - предложение от Йордан Иванов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-02-05",
+        "item": 86,
+        "slug": "86-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-42-",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф (42) 49 - предложение от Костадин Костадинов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-02-05",
+        "item": 85,
+        "slug": "85-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-42-",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф (42) 49 - предложение от Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-02-05",
+        "item": 74,
+        "slug": "74-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-29-",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф (29) 34 - предложение от Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2026-02-05",
+        "item": 67,
+        "slug": "67-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-31-",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф 31 - нов - предложение от Мая Димитрова за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2026-02-05",
+        "item": 59,
+        "slug": "59-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-25-",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф 25 - предложение от Костадин Костадинов и група н.п. чл.24",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2026-02-05",
+        "item": 58,
+        "slug": "58-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-25-",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф 25 - предложение от Костадин Костадинов и група н.п. чл.22",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2026-02-05",
+        "item": 57,
+        "slug": "57-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-25-",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф 25 - предложение от Костадин Костадинов и група н.п. чл.21",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2026-02-05",
+        "item": 55,
+        "slug": "55-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-19-",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф 19 - предложение от Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-02-05",
+        "item": 53,
+        "slug": "53-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-10-",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф 10 - предложение от Костадин Костадинов и група н.п. стр.11 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-02-05",
+        "item": 51,
+        "slug": "51-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-10-",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф 10 - предложение от Костадин Костадинов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-02-05",
+        "item": 50,
+        "slug": "50-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-10-",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф 10 - предложение от Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-02-05",
+        "item": 47,
+        "slug": "47-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-7-p",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф 7 - предложение от Божидар Божанов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2026-02-05",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-kibersigurnost-vtoro-glasuvane-paragraf-6-p",
+        "title": "ЗИД на Закона за киберсигурност – второ гласуване - параграф 6 - -предложение от Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-02-05",
+        "item": 43,
+        "slug": "43-programa-za-rabotata-na-narodnoto-sabranie-za-4-6-fevruari-2",
+        "title": "Програма за работата на Народното събрание за 4 – 6 февруари 2026 г. - процедура от Тошко Йорданов за отлагане на точка 2 за утре - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2026-02-05",
+        "item": 39,
+        "slug": "39-zi-na-izborniya-kodeks-vtoro-glasuvane-paragraf-3-predlozhen",
+        "title": "ЗИ на Изборния кодекс – второ гласуване - параграф 3 - предложение от Лариса Савова - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-02-05",
+        "item": 34,
+        "slug": "34-zi-na-izborniya-kodeks-vtoro-glasuvane-paragraf-7-nov-predlo",
+        "title": "ЗИ на Изборния кодекс – второ гласуване - параграф 7 нов - предложение от Надежда Йорданова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-02-05",
+        "item": 33,
+        "slug": "33-zi-na-izborniya-kodeks-vtoro-glasuvane-paragraf-6-nov-predlo",
+        "title": "ЗИ на Изборния кодекс – второ гласуване - параграф 6 нов - предложение от Надежда Йорданова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-02-05",
+        "item": 32,
+        "slug": "32-zi-na-izborniya-kodeks-vtoro-glasuvane-paragraf-5-nov-predlo",
+        "title": "ЗИ на Изборния кодекс – второ гласуване - параграф 5 нов - предложение от Надежда Йорданова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-02-05",
+        "item": 31,
+        "slug": "31-zi-na-izborniya-kodeks-vtoro-glasuvane-paragraf-4-nov-predlo",
+        "title": "ЗИ на Изборния кодекс – второ гласуване - параграф 4 нов - предложение от Надежда Йорданова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-02-05",
+        "item": 26,
+        "slug": "26-zi-na-izborniya-kodeks-vtoro-glasuvane-paragraf-2-predlozhen",
+        "title": "ЗИ на Изборния кодекс – второ гласуване - параграф 2 - предложение от Джейхан Ибрямов за редакция на ал.5 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2026-02-05",
+        "item": 24,
+        "slug": "24-zi-na-izborniya-kodeks-vtoro-glasuvane-paragraf-2-predlozhen",
+        "title": "ЗИ на Изборния кодекс – второ гласуване - параграф 2 - предложение от Надежда Йорданова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-02-05",
+        "item": 22,
+        "slug": "22-zi-na-izborniya-kodeks-vtoro-glasuvane-paragraf-2-predlozhen",
+        "title": "ЗИ на Изборния кодекс – второ гласуване - параграф 2 - предложение от Хайри Садъков и група н.п. и Лариса Савова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-02-05",
+        "item": 20,
+        "slug": "20-zi-na-izborniya-kodeks-vtoro-glasuvane-paragraf-1-predlozhen",
+        "title": "ЗИ на Изборния кодекс – второ гласуване - параграф 1 - предложение от Хайри Садъков и група н.п. и Лариса Савова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-02-04",
+        "item": 10,
+        "slug": "10-programa-za-rabotata-na-narodnoto-sabranie-za-4-6-fevruari-2",
+        "title": "Програма за работата на Народното събрание за 4 – 6 февруари 2026 г. - предложение от Радослав Рибарски и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 60
+      },
+      {
+        "date": "2026-02-04",
+        "item": 9,
+        "slug": "9-programa-za-rabotata-na-narodnoto-sabranie-za-4-6-fevruari-2",
+        "title": "Програма за работата на Народното събрание за 4 – 6 февруари 2026 г. - предложение от Радослав Рибарски и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 60
+      },
+      {
+        "date": "2026-02-04",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-4-6-fevruari-2",
+        "title": "Програма за работата на Народното събрание за 4 – 6 февруари 2026 г. - предложение от Йордан Иванов - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 59
+      },
+      {
+        "date": "2026-01-30",
+        "item": 21,
+        "slug": "21-protsedura-ot-stoyan-taslakov-za-otpadane-na-tochka-11",
+        "title": "Процедура от Стоян Таслаков за отпадане на точка 11",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 50
+      },
+      {
+        "date": "2026-01-30",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-6-pre",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 6 - предложение от Цвета Рангелова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 53
+      },
+      {
+        "date": "2026-01-30",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-5-sta",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 5 (става параграф 8) - предложение от Стою Стоев и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 53
+      },
+      {
+        "date": "2026-01-28",
+        "item": 36,
+        "slug": "36-zid-na-zakona-za-smetnata-palata-vtoro-glasuvane-paragraf-11",
+        "title": "ЗИД на Закона за Сметната палата – второ гласуване - параграф 112",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-01-28",
+        "item": 11,
+        "slug": "11-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yanuari-",
+        "title": "Програма за работата на Народното събрание за 28 – 30 януари 2026 г. - процедура Ангел Славев за отпадане на точка 6 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2026-01-21",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-protivodeystvie-na-koruptsiyata-vnositeli-b",
+        "title": "ЗИД на Закона за противодействие на корупцията (Вносители: Божидар Божанов, Надежда Йорданова и Ивайло Мирчев, 29.09.2025 г.) – първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 60
+      },
+      {
+        "date": "2026-01-14",
+        "item": 12,
+        "slug": "12-programa-za-rabotata-na-narodnoto-sabranie-za-14-16-yanuari-",
+        "title": "Програма за работата на Народното събрание за 14 – 16 януари 2026 г. - процедура от Христо Расташки за удължаване на р. време до т.5 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3295,
+        "score": 0.9406119916267881,
+        "overlap": 3728
+      },
+      {
+        "mpId": 3183,
+        "score": 0.939275133159006,
+        "overlap": 3722
+      },
+      {
+        "mpId": 3394,
+        "score": 0.9377120290233311,
+        "overlap": 3726
+      },
+      {
+        "mpId": 3098,
+        "score": 0.9364743811187086,
+        "overlap": 3727
+      },
+      {
+        "mpId": 3152,
+        "score": 0.9364050802238982,
+        "overlap": 3702
+      },
+      {
+        "mpId": 3190,
+        "score": 0.9347044318231669,
+        "overlap": 3673
+      },
+      {
+        "mpId": 3157,
+        "score": 0.9345260920734779,
+        "overlap": 3688
+      },
+      {
+        "mpId": 3361,
+        "score": 0.9321828833102779,
+        "overlap": 3693
+      },
+      {
+        "mpId": 3414,
+        "score": 0.9303967233289379,
+        "overlap": 3619
+      },
+      {
+        "mpId": 3149,
+        "score": 0.930026369392763,
+        "overlap": 3652
+      },
+      {
+        "mpId": 3078,
+        "score": 0.9293033733421722,
+        "overlap": 3644
+      },
+      {
+        "mpId": 3032,
+        "score": 0.928612459466317,
+        "overlap": 3665
+      },
+      {
+        "mpId": 3234,
+        "score": 0.9284967021430564,
+        "overlap": 3661
+      },
+      {
+        "mpId": 3236,
+        "score": 0.927846129950202,
+        "overlap": 3600
+      },
+      {
+        "mpId": 3221,
+        "score": 0.9255624444926565,
+        "overlap": 3618
+      },
+      {
+        "mpId": 3120,
+        "score": 0.9237609580433691,
+        "overlap": 3648
+      },
+      {
+        "mpId": 3377,
+        "score": 0.920796968313964,
+        "overlap": 3616
+      },
+      {
+        "mpId": 3362,
+        "score": 0.9205201728138191,
+        "overlap": 3600
+      },
+      {
+        "mpId": 3211,
+        "score": 0.9179091776450079,
+        "overlap": 3564
+      },
+      {
+        "mpId": 3100,
+        "score": 0.9158822403829059,
+        "overlap": 3580
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3517,
+        "score": -0.3711584401681195,
+        "overlap": 2462
+      },
+      {
+        "mpId": 3518,
+        "score": -0.3698908520216531,
+        "overlap": 2531
+      },
+      {
+        "mpId": 3514,
+        "score": -0.36866894436113784,
+        "overlap": 2394
+      },
+      {
+        "mpId": 3513,
+        "score": -0.3618208427532048,
+        "overlap": 2307
+      },
+      {
+        "mpId": 3510,
+        "score": -0.3605826283139836,
+        "overlap": 2241
+      },
+      {
+        "mpId": 3515,
+        "score": -0.35403629350629173,
+        "overlap": 2371
+      },
+      {
+        "mpId": 3512,
+        "score": -0.342384004068332,
+        "overlap": 2028
+      },
+      {
+        "mpId": 3508,
+        "score": -0.337474589508816,
+        "overlap": 2276
+      },
+      {
+        "mpId": 3516,
+        "score": -0.33555113625812066,
+        "overlap": 2126
+      },
+      {
+        "mpId": 3511,
+        "score": -0.3168221175685214,
+        "overlap": 1592
+      },
+      {
+        "mpId": 3122,
+        "score": -0.2966444289196413,
+        "overlap": 3438
+      },
+      {
+        "mpId": 3490,
+        "score": -0.2965379327536014,
+        "overlap": 2298
+      },
+      {
+        "mpId": 3028,
+        "score": -0.29612599888805463,
+        "overlap": 3264
+      },
+      {
+        "mpId": 3026,
+        "score": -0.29586804215869583,
+        "overlap": 2768
+      },
+      {
+        "mpId": 3084,
+        "score": -0.2933138880525395,
+        "overlap": 3306
+      },
+      {
+        "mpId": 3230,
+        "score": -0.29221948005336557,
+        "overlap": 3467
+      },
+      {
+        "mpId": 3482,
+        "score": -0.2921503416589477,
+        "overlap": 2072
+      },
+      {
+        "mpId": 3358,
+        "score": -0.29210918351368304,
+        "overlap": 3387
+      },
+      {
+        "mpId": 3165,
+        "score": -0.29143286583124073,
+        "overlap": 3459
+      },
+      {
+        "mpId": 3141,
+        "score": -0.28629798308198423,
+        "overlap": 3477
+      }
+    ]
+  }
+}

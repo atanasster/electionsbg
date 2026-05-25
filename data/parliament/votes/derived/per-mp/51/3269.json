@@ -1,0 +1,305 @@
+{
+  "mpId": 3269,
+  "ns": "51",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 272,
+    "withParty": 264,
+    "loyaltyPct": 0.9705882352941176,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 272,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2024-12-19",
+        "item": 2,
+        "slug": "2-protsedura-ot-nataliya-kiselova-za-udalzhavane-na-rabotnoto-",
+        "title": "Процедура от Наталия Киселова за удължаване на работното време",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-12-18",
+        "item": 53,
+        "slug": "53-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 84 - предложение от Атанас Славов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-12-18",
+        "item": 52,
+        "slug": "52-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 81 - предложение от Атанас Славов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-12-18",
+        "item": 49,
+        "slug": "49-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - процедура от Божидар Божанов за удължаване на работното време до приключване на точката",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-12-18",
+        "item": 20,
+        "slug": "20-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 41 - предложение от Константина Петрова - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-12-05",
+        "item": 5,
+        "slug": "5-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Петър Петров (05.12.2024г.)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-11-11",
+        "item": 6,
+        "slug": "6-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Наталия Киселова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-11-11",
+        "item": 5,
+        "slug": "5-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Андрей Цеков - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3024,
+        "score": 0.6559852112492158,
+        "overlap": 269
+      },
+      {
+        "mpId": 3153,
+        "score": 0.6559231708744429,
+        "overlap": 266
+      },
+      {
+        "mpId": 3374,
+        "score": 0.6511991685319085,
+        "overlap": 265
+      },
+      {
+        "mpId": 3265,
+        "score": 0.4773277782714982,
+        "overlap": 239
+      },
+      {
+        "mpId": 3410,
+        "score": 0.4655136214390559,
+        "overlap": 226
+      },
+      {
+        "mpId": 3148,
+        "score": 0.45965111333211417,
+        "overlap": 249
+      },
+      {
+        "mpId": 3370,
+        "score": 0.45325960909933666,
+        "overlap": 259
+      },
+      {
+        "mpId": 3382,
+        "score": 0.4525747064577301,
+        "overlap": 262
+      },
+      {
+        "mpId": 3390,
+        "score": 0.4305244878749496,
+        "overlap": 245
+      },
+      {
+        "mpId": 3388,
+        "score": 0.41657937256075894,
+        "overlap": 229
+      },
+      {
+        "mpId": 3364,
+        "score": 0.412250526588455,
+        "overlap": 253
+      },
+      {
+        "mpId": 3342,
+        "score": 0.4046420757483603,
+        "overlap": 264
+      },
+      {
+        "mpId": 3375,
+        "score": 0.4046103561149845,
+        "overlap": 253
+      },
+      {
+        "mpId": 3378,
+        "score": 0.4032077189423772,
+        "overlap": 262
+      },
+      {
+        "mpId": 3360,
+        "score": 0.38574648694470665,
+        "overlap": 261
+      },
+      {
+        "mpId": 3384,
+        "score": 0.38354336709502324,
+        "overlap": 263
+      },
+      {
+        "mpId": 3051,
+        "score": 0.378254003120003,
+        "overlap": 198
+      },
+      {
+        "mpId": 3359,
+        "score": 0.3658754607923181,
+        "overlap": 245
+      },
+      {
+        "mpId": 3080,
+        "score": 0.364406779661017,
+        "overlap": 258
+      },
+      {
+        "mpId": 3287,
+        "score": 0.3606914049517505,
+        "overlap": 247
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3283,
+        "score": -0.21554928140645227,
+        "overlap": 77
+      },
+      {
+        "mpId": 3106,
+        "score": 0.016440045615673624,
+        "overlap": 154
+      },
+      {
+        "mpId": 3049,
+        "score": 0.02162320116807671,
+        "overlap": 92
+      },
+      {
+        "mpId": 3415,
+        "score": 0.036662412263200765,
+        "overlap": 103
+      },
+      {
+        "mpId": 3160,
+        "score": 0.05111694960603336,
+        "overlap": 124
+      },
+      {
+        "mpId": 3409,
+        "score": 0.053500435925363576,
+        "overlap": 149
+      },
+      {
+        "mpId": 3198,
+        "score": 0.05633825168959909,
+        "overlap": 198
+      },
+      {
+        "mpId": 3305,
+        "score": 0.06600629466040253,
+        "overlap": 185
+      },
+      {
+        "mpId": 3408,
+        "score": 0.07105379959807816,
+        "overlap": 171
+      },
+      {
+        "mpId": 3101,
+        "score": 0.07500978368060413,
+        "overlap": 181
+      },
+      {
+        "mpId": 3245,
+        "score": 0.07740962274535473,
+        "overlap": 159
+      },
+      {
+        "mpId": 3118,
+        "score": 0.07999666234040538,
+        "overlap": 166
+      },
+      {
+        "mpId": 3412,
+        "score": 0.08380411389966545,
+        "overlap": 175
+      },
+      {
+        "mpId": 3104,
+        "score": 0.08690698201458565,
+        "overlap": 238
+      },
+      {
+        "mpId": 3220,
+        "score": 0.08816450840345458,
+        "overlap": 224
+      },
+      {
+        "mpId": 3102,
+        "score": 0.08988645523557809,
+        "overlap": 83
+      },
+      {
+        "mpId": 3235,
+        "score": 0.09043228213758506,
+        "overlap": 232
+      },
+      {
+        "mpId": 3311,
+        "score": 0.09129684390218289,
+        "overlap": 229
+      },
+      {
+        "mpId": 3286,
+        "score": 0.09146687610552849,
+        "overlap": 238
+      },
+      {
+        "mpId": 3386,
+        "score": 0.09163550023245585,
+        "overlap": 245
+      }
+    ]
+  }
+}

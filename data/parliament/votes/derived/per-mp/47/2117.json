@@ -1,0 +1,621 @@
+{
+  "mpId": 2117,
+  "ns": "47",
+  "partyShort": "ПП",
+  "loyalty": {
+    "votesCast": 1720,
+    "withParty": 1679,
+    "loyaltyPct": 0.9761627906976744,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1720,
+    "dissentCount": 41,
+    "recent": [
+      {
+        "date": "2022-07-29",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-27-29-yuli-202",
+        "title": "Програма за работата на Народното събрание за 27 - 29 юли 2022 г. - процедура от Десислава Атанасова за отпадане на парламентарния контрол",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 64
+      },
+      {
+        "date": "2022-07-27",
+        "item": 12,
+        "slug": "12-programa-za-rabotata-na-narodnoto-sabranie-za-27-29-yuli-202",
+        "title": "Програма за работата на Народното събрание за 27 - 29 юли 2022 г. - предложение от Ал.Несторов т.14 да стане т.1 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-07-21",
+        "item": 54,
+        "slug": "54-zid-na-zakona-za-hazarta-vtoro-glasuvane-predlozhenie-ot-l-k",
+        "title": "ЗИД на Закона за хазарта - второ гласуване - предложение от Л.Каримански закона да е т.1 за 22.07.2022г. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-07-21",
+        "item": 53,
+        "slug": "53-zid-na-zakona-za-hazarta-vtoro-glasuvane-predlozhenie-ot-l-k",
+        "title": "ЗИД на Закона за хазарта - второ гласуване - предложение от Л.Каримански закона да е т.1 за 22.07.2022г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-07-20",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-20-22-yuli-202",
+        "title": "Програма за работата на Народното събрание за 20 - 22 юли 2022 г. - предложение от Андрей Чорбанов - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2022-07-14",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-hazarta-parvo-glasuvane-vnositel-deyan-petk",
+        "title": "ЗИД на Закона за хазарта - първо гласуване - вносител Деян Петков и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-07-14",
+        "item": 28,
+        "slug": "28-zid-na-zakona-za-hazarta-parvo-glasuvane-vnositel-deyan-petk",
+        "title": "ЗИД на Закона за хазарта - първо гласуване - вносител Деян Петков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2022-07-13",
+        "item": 38,
+        "slug": "38-reshenie-za-sazdavane-na-vremenna-anketna-komisiya-za-ustano",
+        "title": "Решение за създаване на Временна анкетна комисия за установяване на всички факти и обстоятелства, относно газопроводи за пренос на природен газ от Руската федерация - \"Южен поток\" и \"Балкански поток\" и причините за забавянето на проекта IGB (Междусистемна газова връзка Гърция - България) - за председател Искра Михайлова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-07-13",
+        "item": 37,
+        "slug": "37-reshenie-za-sazdavane-na-vremenna-anketna-komisiya-za-ustano",
+        "title": "Решение за създаване на Временна анкетна комисия за установяване на всички факти и обстоятелства, относно газопроводи за пренос на природен газ от Руската федерация - \"Южен поток\" и \"Балкански поток\" и причините за забавянето на проекта IGB (Междусистемна газова връзка Гърция - България) - за председател Станислав Анастасов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-07-06",
+        "item": 15,
+        "slug": "15-programa-za-rabotata-na-narodnoto-sabranie-za-6-8-yuli-2022-",
+        "title": "Програма за работата на Народното събрание за 6 - 8 юли 2022 г. - предложение от Иван Ченчев за удължване на р.време до т.4 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 67
+      },
+      {
+        "date": "2022-06-15",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-15-17-yuni-202",
+        "title": "Програма за работата на Народното събрание за 15 - 17 юни 2022 г. - предложение от Христо Гаджев и Томислав Дончев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 67
+      },
+      {
+        "date": "2022-06-09",
+        "item": 15,
+        "slug": "15-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на временна комисия за установяване на факти и обстоятелства относно газопроводи за пренос на природен газ от Руската федерация „Южен поток” и „Турски (Балкански) поток” и причините за забавянето на проектът IGB (Междусистемна газова връзка Гърция - България) - Рамадан Аталай - председател - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-05-11",
+        "item": 20,
+        "slug": "20-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-ob",
+        "title": "Решение за създаване на Временна комисия за проверка на обстоятелствата довели до спиране на природния газ от ООО \"Газпром експорт\" и проведената процедура за избор на алтернативни доставчици от \"Булгаргаз\" ЕАД - председател Ангел Георгиев",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 59
+      },
+      {
+        "date": "2022-05-11",
+        "item": 13,
+        "slug": "13-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-ob",
+        "title": "Решение за създаване на Временна комисия за проверка на обстоятелствата довели до спиране на природния газ от ООО \"Газпром експорт\" и проведената процедура за избор на алтернативни доставчици от \"Булгаргаз\" ЕАД - процедура за удължаване на р.време до приключване на точката",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 59
+      },
+      {
+        "date": "2022-05-05",
+        "item": 18,
+        "slug": "18-reshenie-za-izbor-na-dvama-chlenove-na-saveta-za-elektronni-",
+        "title": "Решение за избор на двама членове на Съвета за електронни медии - процедура от Т.Йорданов за удължаване на р.време до приключване на точката",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 57
+      },
+      {
+        "date": "2022-05-05",
+        "item": 9,
+        "slug": "9-reshenie-za-promyana-v-sastava-na-komisiyata-po-zemedelieto-",
+        "title": "Решение за промяна в състава на Комисията по земеделието, храните и горите - вносител ИТН",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-02-25",
+        "item": 47,
+        "slug": "47",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 65
+      },
+      {
+        "date": "2022-02-24",
+        "item": 6,
+        "slug": "6",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 52
+      },
+      {
+        "date": "2022-02-22",
+        "item": 59,
+        "slug": "59",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-02-22",
+        "item": 58,
+        "slug": "58",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2022-02-22",
+        "item": 57,
+        "slug": "57",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-02-22",
+        "item": 56,
+        "slug": "56",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 65
+      },
+      {
+        "date": "2022-02-22",
+        "item": 4,
+        "slug": "4",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 64
+      },
+      {
+        "date": "2022-01-13",
+        "item": 6,
+        "slug": "6-reshenie-za-vavezhdane-na-kompensatoren-mehanizam-za-nebitov",
+        "title": "Решение за въвеждане на компенсаторен механизъм за небитови крайни клиенти на електроенергийния пазар - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2022-01-07",
+        "item": 27,
+        "slug": "27-reshenie-za-priemane-na-usloviya-za-dostap-do-sgradite-na-na",
+        "title": "Решение за приемане на Условия за достъп до сградите на Народното събрание в условията на извънредна епидемична обстановка - точка 5 - предложение за редакция от Ива Митева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2022-01-07",
+        "item": 19,
+        "slug": "19-reshenie-za-priemane-na-usloviya-za-dostap-do-sgradite-na-na",
+        "title": "Решение за приемане на Условия за достъп до сградите на Народното събрание в условията на извънредна епидемична обстановка - точка 2 - да отпадне - предложение за редакция от Хасан Адемов - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-01-05",
+        "item": 9,
+        "slug": "9-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства относно въведените на територията на Република България противоепидемични мерки срещу COVID-19",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2022-01-05",
+        "item": 8,
+        "slug": "8-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства относно въведените на територията на Република България противоепидемични мерки срещу COVID-19 - предложение за редакция от Никола Минчев за нова точка 5",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-12-23",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-parvo-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - първо гласуване - вносител Десислава Атанасова и група н.п",
+        "topic": "tax",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2021-12-22",
+        "item": 57,
+        "slug": "57-reshenie-za-izbirane-na-komisiya-po-politikite-za-balgarite-",
+        "title": "Решение за избиране на Комисия по политиките за българите извън страната - председател Костадин Костадинов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2021-12-22",
+        "item": 5,
+        "slug": "5-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстаятелства относно машинното гласуване в изборите на 14 ноември 2021г. - предложение от Христо Гаджев за редакция на т.7",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 65
+      },
+      {
+        "date": "2021-12-22",
+        "item": 4,
+        "slug": "4-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстаятелства относно машинното гласуване в изборите на 14 ноември 2021г. - предложение от Петър Петров за редакция на т.4 - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2021-12-17",
+        "item": 68,
+        "slug": "68-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Раздел ІІІ, член 153а - предложение от Атанас Славов и Иван Димитров",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-12-17",
+        "item": 42,
+        "slug": "42-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 80 - предложение от Петър Петров за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2021-12-17",
+        "item": 25,
+        "slug": "25-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 50 - предложение от Елена Гунчева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-12-17",
+        "item": 8,
+        "slug": "8-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 32 - предложение за редакция от Христо Гаджев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 52
+      },
+      {
+        "date": "2021-12-16",
+        "item": 28,
+        "slug": "28-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 11 - предложение от Атанас Славов и Иван Димитров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 56
+      },
+      {
+        "date": "2021-12-16",
+        "item": 10,
+        "slug": "10-reshenie-za-izmenenie-i-dopalnenie-na-reshenie-na-narodnoto-",
+        "title": "Решение за изменение и допълнение на Решение на Народното събрание за справяне с ценовата криза на електроенергията, прието на 15.12.2021 г. - предложение за редакция по т.2 от Ангел Георгиев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-12-16",
+        "item": 9,
+        "slug": "9-reshenie-za-izmenenie-i-dopalnenie-na-reshenie-na-narodnoto-",
+        "title": "Решение за изменение и допълнение на Решение на Народното събрание за справяне с ценовата криза на електроенергията, прието на 15.12.2021 г. - предложение за редакция по т.1 от Делян Добрев - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-12-16",
+        "item": 6,
+        "slug": "6-reshenie-za-izmenenie-i-dopalnenie-na-reshenie-na-narodnoto-",
+        "title": "Решение за изменение и допълнение на Решение на Народното събрание за справяне с ценовата криза на електроенергията, прието на 15.12.2021 г. - предложение за редакция от Рамадан Аталай",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-12-16",
+        "item": 5,
+        "slug": "5-protsedura-ot-toma-bikov-za-pryako-predavane-po-bnt-i-bnr",
+        "title": "Процедура от Тома Биков за пряко предаване по БНТ и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2109,
+        "score": 0.9535553739668037,
+        "overlap": 1696
+      },
+      {
+        "mpId": 2062,
+        "score": 0.9522440780170546,
+        "overlap": 1666
+      },
+      {
+        "mpId": 2081,
+        "score": 0.9493365904498711,
+        "overlap": 1672
+      },
+      {
+        "mpId": 2053,
+        "score": 0.9481093698704753,
+        "overlap": 1696
+      },
+      {
+        "mpId": 2130,
+        "score": 0.9468618575416984,
+        "overlap": 1707
+      },
+      {
+        "mpId": 2103,
+        "score": 0.9400642833172358,
+        "overlap": 1676
+      },
+      {
+        "mpId": 2114,
+        "score": 0.9388027677601243,
+        "overlap": 1676
+      },
+      {
+        "mpId": 2054,
+        "score": 0.9342481516905081,
+        "overlap": 1626
+      },
+      {
+        "mpId": 2118,
+        "score": 0.9335404095460261,
+        "overlap": 1678
+      },
+      {
+        "mpId": 2029,
+        "score": 0.9335400027799354,
+        "overlap": 1655
+      },
+      {
+        "mpId": 2112,
+        "score": 0.9308772623505758,
+        "overlap": 1647
+      },
+      {
+        "mpId": 2020,
+        "score": 0.929981092287605,
+        "overlap": 1639
+      },
+      {
+        "mpId": 2121,
+        "score": 0.9273399242419692,
+        "overlap": 1645
+      },
+      {
+        "mpId": 2108,
+        "score": 0.9238148597423879,
+        "overlap": 1602
+      },
+      {
+        "mpId": 2030,
+        "score": 0.9221484965399157,
+        "overlap": 1626
+      },
+      {
+        "mpId": 2094,
+        "score": 0.9210582450765055,
+        "overlap": 1628
+      },
+      {
+        "mpId": 2125,
+        "score": 0.919128387613418,
+        "overlap": 1643
+      },
+      {
+        "mpId": 2068,
+        "score": 0.9180690011630184,
+        "overlap": 1579
+      },
+      {
+        "mpId": 2155,
+        "score": 0.9173298766510032,
+        "overlap": 1535
+      },
+      {
+        "mpId": 2164,
+        "score": 0.9164570636536685,
+        "overlap": 1606
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 473,
+        "score": -0.20115621801919278,
+        "overlap": 908
+      },
+      {
+        "mpId": 1466,
+        "score": -0.1897120484188749,
+        "overlap": 716
+      },
+      {
+        "mpId": 1643,
+        "score": -0.18963171043092436,
+        "overlap": 844
+      },
+      {
+        "mpId": 767,
+        "score": -0.1894118111575812,
+        "overlap": 903
+      },
+      {
+        "mpId": 1457,
+        "score": -0.18928130678615426,
+        "overlap": 935
+      },
+      {
+        "mpId": 1428,
+        "score": -0.18850229354842934,
+        "overlap": 784
+      },
+      {
+        "mpId": 1124,
+        "score": -0.1819854019440332,
+        "overlap": 862
+      },
+      {
+        "mpId": 1465,
+        "score": -0.18024698229502206,
+        "overlap": 934
+      },
+      {
+        "mpId": 2135,
+        "score": -0.17845122111839123,
+        "overlap": 960
+      },
+      {
+        "mpId": 1692,
+        "score": -0.17352576442028783,
+        "overlap": 929
+      },
+      {
+        "mpId": 1703,
+        "score": -0.1686664262538573,
+        "overlap": 674
+      },
+      {
+        "mpId": 1970,
+        "score": -0.16669465413865386,
+        "overlap": 805
+      },
+      {
+        "mpId": 1386,
+        "score": -0.16626173280095793,
+        "overlap": 955
+      },
+      {
+        "mpId": 1317,
+        "score": -0.1638754199689486,
+        "overlap": 979
+      },
+      {
+        "mpId": 1651,
+        "score": -0.16334247521948478,
+        "overlap": 664
+      },
+      {
+        "mpId": 1975,
+        "score": -0.16127365672904512,
+        "overlap": 1088
+      },
+      {
+        "mpId": 1880,
+        "score": -0.15917251475987887,
+        "overlap": 904
+      },
+      {
+        "mpId": 2074,
+        "score": -0.15802583818249513,
+        "overlap": 1101
+      },
+      {
+        "mpId": 1923,
+        "score": -0.1574451872116091,
+        "overlap": 961
+      },
+      {
+        "mpId": 1706,
+        "score": -0.15395433595611224,
+        "overlap": 813
+      }
+    ]
+  }
+}

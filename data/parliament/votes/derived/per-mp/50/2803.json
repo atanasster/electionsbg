@@ -1,0 +1,305 @@
+{
+  "mpId": 2803,
+  "ns": "50",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 572,
+    "withParty": 564,
+    "loyaltyPct": 0.986013986013986,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 572,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 83,
+        "slug": "83-zid-na-zakona-za-grazhdanskata-registratsiya-vtoro-glasuvane",
+        "title": "ЗИД на Закона за гражданската регистрация – второ гласуване - параграф 7 - нов - предложение от Божидар Божанов и Мартин Димитров",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-09-25",
+        "item": 48,
+        "slug": "48-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-13-stava-",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 13 (става параграф 12)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 37
+      },
+      {
+        "date": "2024-09-25",
+        "item": 21,
+        "slug": "21-protsedura-ot-toshko-yordanov-t-5-da-stane-t-2-za-chetvartak",
+        "title": "Процедура от Тошко Йорданов т.5 да стане т.2 за четвъртък",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 38
+      },
+      {
+        "date": "2024-08-14",
+        "item": 28,
+        "slug": "28-reshenie-za-vazlagane-na-ministerskiya-savet-vklyuchvaneto-n",
+        "title": "Решение за възлагане на Министерския съвет включването на диазотния оксид (райски газ) в списъците с наркотични вещества по чл. 3, ал. 2 от Закона за контрол върху наркотичните вещества и прекурсорите - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2024-07-25",
+        "item": 9,
+        "slug": "9-zakon-za-denonsirane-na-sporazumenieto-mezhdu-pravitelstvoto",
+        "title": "Закон за денонсиране на Споразумението между правителството на Република България и правителството на Републка Молдова за подпомагане на Тараклийския държавен университет, Републка Молдова - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 35
+      },
+      {
+        "date": "2024-07-12",
+        "item": 90,
+        "slug": "90-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 93 - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2024-07-12",
+        "item": 44,
+        "slug": "44-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 41 (става член 40)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 38
+      },
+      {
+        "date": "2024-06-20",
+        "item": 5,
+        "slug": "5-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Силви Кирилов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 38
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2952,
+        "score": 0.9336468956211936,
+        "overlap": 569
+      },
+      {
+        "mpId": 2683,
+        "score": 0.9286429107924633,
+        "overlap": 564
+      },
+      {
+        "mpId": 2698,
+        "score": 0.9248964807039736,
+        "overlap": 551
+      },
+      {
+        "mpId": 2705,
+        "score": 0.924809927718998,
+        "overlap": 557
+      },
+      {
+        "mpId": 2910,
+        "score": 0.924809927718998,
+        "overlap": 557
+      },
+      {
+        "mpId": 2825,
+        "score": 0.9244341057103225,
+        "overlap": 554
+      },
+      {
+        "mpId": 2689,
+        "score": 0.9243841020128997,
+        "overlap": 564
+      },
+      {
+        "mpId": 2859,
+        "score": 0.9237075665385346,
+        "overlap": 546
+      },
+      {
+        "mpId": 2690,
+        "score": 0.9233618781501035,
+        "overlap": 547
+      },
+      {
+        "mpId": 2764,
+        "score": 0.9222302367497474,
+        "overlap": 550
+      },
+      {
+        "mpId": 2932,
+        "score": 0.9221795029256978,
+        "overlap": 552
+      },
+      {
+        "mpId": 2706,
+        "score": 0.919761075058484,
+        "overlap": 560
+      },
+      {
+        "mpId": 2898,
+        "score": 0.919380199506932,
+        "overlap": 556
+      },
+      {
+        "mpId": 2862,
+        "score": 0.918799948785513,
+        "overlap": 541
+      },
+      {
+        "mpId": 2787,
+        "score": 0.9164995006908595,
+        "overlap": 558
+      },
+      {
+        "mpId": 2730,
+        "score": 0.9124522564694844,
+        "overlap": 548
+      },
+      {
+        "mpId": 2741,
+        "score": 0.9106713710430311,
+        "overlap": 539
+      },
+      {
+        "mpId": 2763,
+        "score": 0.9089988785918789,
+        "overlap": 545
+      },
+      {
+        "mpId": 2621,
+        "score": 0.9088090574008163,
+        "overlap": 537
+      },
+      {
+        "mpId": 2723,
+        "score": 0.9072264557610595,
+        "overlap": 537
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2606,
+        "score": -0.12162231568813184,
+        "overlap": 173
+      },
+      {
+        "mpId": 3006,
+        "score": -0.10762950672071656,
+        "overlap": 74
+      },
+      {
+        "mpId": 2766,
+        "score": -0.06335829046432674,
+        "overlap": 34
+      },
+      {
+        "mpId": 3008,
+        "score": -0.05288028772825593,
+        "overlap": 137
+      },
+      {
+        "mpId": 2915,
+        "score": -0.04632511986138021,
+        "overlap": 36
+      },
+      {
+        "mpId": 3007,
+        "score": -0.04478905131093968,
+        "overlap": 50
+      },
+      {
+        "mpId": 2678,
+        "score": -0.042238860309551166,
+        "overlap": 34
+      },
+      {
+        "mpId": 2937,
+        "score": -0.04169381992250832,
+        "overlap": 33
+      },
+      {
+        "mpId": 2823,
+        "score": -0.04066418396811223,
+        "overlap": 35
+      },
+      {
+        "mpId": 2781,
+        "score": -0.04017717018451539,
+        "overlap": 35
+      },
+      {
+        "mpId": 2797,
+        "score": -0.04017717018451539,
+        "overlap": 35
+      },
+      {
+        "mpId": 2901,
+        "score": -0.03970724559546875,
+        "overlap": 35
+      },
+      {
+        "mpId": 2921,
+        "score": -0.03970724559546875,
+        "overlap": 35
+      },
+      {
+        "mpId": 2917,
+        "score": -0.039253433598942976,
+        "overlap": 37
+      },
+      {
+        "mpId": 2597,
+        "score": -0.0388148339826388,
+        "overlap": 37
+      },
+      {
+        "mpId": 2670,
+        "score": -0.037980008786676046,
+        "overlap": 46
+      },
+      {
+        "mpId": 2966,
+        "score": -0.03430779039969242,
+        "overlap": 34
+      },
+      {
+        "mpId": 2845,
+        "score": -0.03308937132955729,
+        "overlap": 36
+      },
+      {
+        "mpId": 2957,
+        "score": -0.03308937132955729,
+        "overlap": 36
+      },
+      {
+        "mpId": 2699,
+        "score": -0.0297190944111946,
+        "overlap": 243
+      }
+    ]
+  }
+}

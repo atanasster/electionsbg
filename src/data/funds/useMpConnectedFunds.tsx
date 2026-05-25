@@ -19,11 +19,12 @@ const fetchMpConnected = async (): Promise<FundsMpConnectedFile | null> => {
 };
 
 // One-time fetch — every per-MP call below shares this query cache.
-export const useFundsMpConnectedFile = () =>
+export const useFundsMpConnectedFile = (enabled = true) =>
   useQuery({
     queryKey: ["funds", "mp_connected"] as const,
     queryFn: fetchMpConnected,
     staleTime: Infinity,
+    enabled,
   });
 
 export interface FundsMpConnectedSummary {
@@ -31,6 +32,42 @@ export interface FundsMpConnectedSummary {
   contractedEur: number;
   paidEur: number;
 }
+
+interface FundsShard {
+  mpId: number;
+  summary: FundsMpConnectedSummary;
+  entries: FundsMpConnected[];
+}
+
+interface ShardManifest {
+  mpIds: number[];
+}
+
+const fetchShardManifest = async (): Promise<ShardManifest | null> => {
+  const r = await fetch(dataUrl("/funds/derived/per-mp/index.json"));
+  if (r.status === 404) return null;
+  if (!r.ok) return null;
+  const ct = r.headers.get("content-type") ?? "";
+  if (!ct.includes("json")) return null;
+  return (await r.json()) as ShardManifest;
+};
+
+const useShardManifest = () =>
+  useQuery({
+    queryKey: ["funds", "shard_manifest"] as const,
+    queryFn: fetchShardManifest,
+    staleTime: Infinity,
+    retry: false,
+  });
+
+const fetchFundsShard = async (mpId: number): Promise<FundsShard | null> => {
+  const r = await fetch(dataUrl(`/funds/derived/per-mp/${mpId}.json`));
+  if (r.status === 404) return null;
+  if (!r.ok) return null;
+  const ct = r.headers.get("content-type") ?? "";
+  if (!ct.includes("json")) return null;
+  return (await r.json()) as FundsShard;
+};
 
 /** EU-funds MP cross-reference for one beneficiary EIK — which MP(s) are
  * linked to this company, and through what declared/registered relation.
@@ -63,7 +100,30 @@ export const useMpConnectedFunds = (
 } => {
   const { findMpByName } = useMps();
   const mpId = findMpByName(name)?.id ?? null;
-  const q = useFundsMpConnectedFile();
+
+  // Phase 1: manifest tells us whether this MP has a shard.
+  const manifestQuery = useShardManifest();
+  const mpIdsWithShards = useMemo(
+    () => new Set(manifestQuery.data?.mpIds ?? []),
+    [manifestQuery.data],
+  );
+  const hasShard = mpId != null && mpIdsWithShards.has(mpId);
+
+  // Phase 2: shard only fetched when manifest confirms it exists.
+  const shardQuery = useQuery({
+    queryKey: ["funds", "mp_connected_shard", mpId ?? 0] as const,
+    queryFn: () => fetchFundsShard(mpId!),
+    enabled: hasShard,
+    staleTime: Infinity,
+    retry: false,
+  });
+
+  // Wait for the manifest fetch to actually complete before deciding to
+  // fire the aggregate — otherwise both race at initial mount.
+  const manifestKnown = manifestQuery.data != null;
+  const manifestSettled = manifestQuery.isFetched;
+  const aggregateEnabled = mpId != null && manifestSettled && !manifestKnown;
+  const q = useFundsMpConnectedFile(aggregateEnabled);
 
   return useMemo(() => {
     const empty: FundsMpConnectedSummary = {
@@ -71,11 +131,25 @@ export const useMpConnectedFunds = (
       contractedEur: 0,
       paidEur: 0,
     };
-    if (mpId == null || !q.data) {
+    if (mpId == null) {
+      return { entries: [], summary: empty, isLoading: false };
+    }
+    if (manifestKnown && !hasShard) {
+      return { entries: [], summary: empty, isLoading: false };
+    }
+    if (shardQuery.data) {
+      return {
+        entries: shardQuery.data.entries,
+        summary: shardQuery.data.summary,
+        isLoading: false,
+      };
+    }
+    if (!q.data) {
       return {
         entries: [],
         summary: empty,
-        isLoading: mpId == null ? false : q.isLoading,
+        isLoading:
+          manifestQuery.isLoading || shardQuery.isLoading || q.isLoading,
       };
     }
     const entries = q.data.entries.filter((e) => e.mpId === mpId);
@@ -90,5 +164,14 @@ export const useMpConnectedFunds = (
       summary.paidEur += e.paidEur;
     }
     return { entries, summary, isLoading: false };
-  }, [mpId, q.data, q.isLoading]);
+  }, [
+    mpId,
+    q.data,
+    q.isLoading,
+    shardQuery.data,
+    shardQuery.isLoading,
+    manifestKnown,
+    hasShard,
+    manifestQuery.isLoading,
+  ]);
 };

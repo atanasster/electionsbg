@@ -1,0 +1,711 @@
+{
+  "mpId": 2521,
+  "ns": "49",
+  "partyShort": "ПП-ДБ",
+  "loyalty": {
+    "votesCast": 2817,
+    "withParty": 2755,
+    "loyaltyPct": 0.9779907703230387,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 2817,
+    "dissentCount": 62,
+    "recent": [
+      {
+        "date": "2024-03-28",
+        "item": 10,
+        "slug": "10-zd-na-zakona-za-ministerstvoto-na-vatreshnite-raboti-vtoro-g",
+        "title": "ЗД на Закона за Министерството на вътрешните работи – второ гласуване - наименование",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-03-06",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-6-8-mart-2024-",
+        "title": "Програма за работата на Народното събрание за 6 - 8 март 2024 г. - процедура от Тошко Йорданов за пряко предаване по БНТ1 и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 60
+      },
+      {
+        "date": "2024-02-22",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - чл.22 - предложение от Александър Иванов, Николай Алгафари и Румен Христов - предложение от Климент Шопов за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-02-22",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - чл.12 - предложение от Александър Иванов, Николай Алгафари и Румен Христов - предложение от Климент Шопов за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 56
+      },
+      {
+        "date": "2024-02-09",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-ustroystvo-na-chernomorskoto-kraybrezhie-vt",
+        "title": "ЗИД на Закона за устройство на Черноморското крайбрежие - второ гласуване - параграф 1 (става параграф 2) - предложение от Коста Стоянов за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 36
+      },
+      {
+        "date": "2024-02-07",
+        "item": 22,
+        "slug": "22-reshenie-za-moratorium-varhu-promyana-na-prednaznachenieto-n",
+        "title": "Решение за Мораториум върху промяна на предназначението на земеделски земи - държавна и общинска собственост за изграждане на фотоволтаични паркове",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 42
+      },
+      {
+        "date": "2024-01-24",
+        "item": 20,
+        "slug": "20-reshenie-za-izmenenie-na-pravilnika-za-organizatsiyata-i-dey",
+        "title": "Решение за изменение на Правилника за организацията и дейността на Народното събрание - параграф 4 - предложение от Ивайло Вълчев и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 44
+      },
+      {
+        "date": "2024-01-24",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование - първо гласуване - вносител Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-01-19",
+        "item": 4,
+        "slug": "4-reshenie-za-izbirane-na-sadiya-v-konstitutsionniya-sad-na-re",
+        "title": "Решение за избиране на съдия в Конституционния съд на Република България - процедура от Искра Михайлова за пряко предаване по БНТ1 и БНР - прегласуване",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 49
+      },
+      {
+        "date": "2024-01-11",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-11-i-12-yanuar",
+        "title": "Програма за работата на Народното събрание за 11 и 12 януари 2024 г. - предложение от БСП за нова точка - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 49
+      },
+      {
+        "date": "2023-12-21",
+        "item": 33,
+        "slug": "33-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2024",
+        "title": "Закон за държавния бюджет на Република България за 2024 г. - второ гласуване - параграф 12 (става параграф 13) - т.2, ал.3",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 56
+      },
+      {
+        "date": "2023-12-21",
+        "item": 21,
+        "slug": "21-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2024",
+        "title": "Закон за държавния бюджет на Република България за 2024 г. - второ гласуване - параграф 3 да отпадне - предложение от Владислав Панев и група н.п., предложение от Павела Митова и Тошко Йорданов - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 54
+      },
+      {
+        "date": "2023-12-19",
+        "item": 39,
+        "slug": "39-zid-na-konstitutsiyata-na-republika-balgariya-vtoro-glasuvan",
+        "title": "ЗИД на Конституцията на Република България - второ гласуване - параграф 10 - предложение от Бойко Рашков",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2023-12-18",
+        "item": 83,
+        "slug": "83-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2024",
+        "title": "Закон за държавния бюджет на Република България за 2024 г. - второ гласуване - процедура за пряко предаване по БНТ и БНР",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 48
+      },
+      {
+        "date": "2023-12-18",
+        "item": 32,
+        "slug": "32-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2024 г. - второ гласуване - член 1 - предложение от Корнелия Нинова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 48
+      },
+      {
+        "date": "2023-12-12",
+        "item": 22,
+        "slug": "22-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на Процедурни правила за условията и реда за предлагане на кандидати, представянето и публичното оповестяване на документите, изслушването на кандидатите и избор на съдии в Конституционния съд на Република България от квотата на Народното събрание - предложение от Петър Петров за редакция на Раздел VІ, т.1",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 49
+      },
+      {
+        "date": "2023-12-12",
+        "item": 21,
+        "slug": "21-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на Процедурни правила за условията и реда за предлагане на кандидати, представянето и публичното оповестяване на документите, изслушването на кандидатите и избор на съдии в Конституционния съд на Република България от квотата на Народното събрание - предложение от Петър Петров за редакция на Раздел V, т.9",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 50
+      },
+      {
+        "date": "2023-12-12",
+        "item": 20,
+        "slug": "20-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на Процедурни правила за условията и реда за предлагане на кандидати, представянето и публичното оповестяване на документите, изслушването на кандидатите и избор на съдии в Конституционния съд на Република България от квотата на Народното събрание - предложение от Петър Петров за редакция на Раздел V, т.4",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 50
+      },
+      {
+        "date": "2023-12-12",
+        "item": 19,
+        "slug": "19-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на Процедурни правила за условията и реда за предлагане на кандидати, представянето и публичното оповестяване на документите, изслушването на кандидатите и избор на съдии в Конституционния съд на Република България от квотата на Народното събрание - предложение от Петър Петров за редакция на Раздел V, т.3",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 48
+      },
+      {
+        "date": "2023-12-12",
+        "item": 18,
+        "slug": "18-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на Процедурни правила за условията и реда за предлагане на кандидати, представянето и публичното оповестяване на документите, изслушването на кандидатите и избор на съдии в Конституционния съд на Република България от квотата на Народното събрание - предложение от Петър Петров за редакция на Раздел ІV, т.5 - прегласуване",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 49
+      },
+      {
+        "date": "2023-12-12",
+        "item": 16,
+        "slug": "16-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на Процедурни правила за условията и реда за предлагане на кандидати, представянето и публичното оповестяване на документите, изслушването на кандидатите и избор на съдии в Конституционния съд на Република България от квотата на Народното събрание - предложение от Петър Петров за редакция на Раздел ІV, т.3",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 48
+      },
+      {
+        "date": "2023-12-12",
+        "item": 15,
+        "slug": "15-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на Процедурни правила за условията и реда за предлагане на кандидати, представянето и публичното оповестяване на документите, изслушването на кандидатите и избор на съдии в Конституционния съд на Република България от квотата на Народното събрание - предложение от Петър Петров за редакция на Раздел ІV, т.2",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 49
+      },
+      {
+        "date": "2023-12-12",
+        "item": 14,
+        "slug": "14-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на Процедурни правила за условията и реда за предлагане на кандидати, представянето и публичното оповестяване на документите, изслушването на кандидатите и избор на съдии в Конституционния съд на Република България от квотата на Народното събрание - предложение от Станислав Богдански за редакция на Раздел ІІ, т.8",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2023-12-12",
+        "item": 13,
+        "slug": "13-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на Процедурни правила за условията и реда за предлагане на кандидати, представянето и публичното оповестяване на документите, изслушването на кандидатите и избор на съдии в Конституционния съд на Република България от квотата на Народното събрание - предложение от Петър Петров за редакция на Раздел ІІ, т.5",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2023-12-12",
+        "item": 7,
+        "slug": "7-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на Процедурни правила за условията и реда за предлагане на кандидати, представянето и публичното оповестяване на документите, изслушването на кандидатите и избор на съдии в Конституционния съд на Република България от квотата на Народното събрание - предложение от Петър Петров за редакция на Раздел І, т.2 (б)",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 46
+      },
+      {
+        "date": "2023-12-06",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodnoto-sabranie-za-6-8-dekemvri-2",
+        "title": "Програма за работата на Народното събрание за 6 - 8 декември 2023 г. - процедура от Корнелия Нинова за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 53
+      },
+      {
+        "date": "2023-11-29",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-vnositel-",
+        "title": "ЗИД на Закона за закрила на детето - първо гласуване - вносител Тошко Йорданов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 48
+      },
+      {
+        "date": "2023-11-24",
+        "item": 11,
+        "slug": "11-reshenie-za-sazdavane-na-vremenna-komisiya-za-prouchvane-na-",
+        "title": "Решение за създаване на Временна комисия за проучване на всички факти и обстоятелствата, свързани с организацията, подготовката и опазването на обществения ред, във връзка със заявения мирен протест срещу ръководството на БФС на 16.11.2023 г., както и с употребата на физическа сила и помощни средства от сужители на МВР по време на провеждането му - председател Ивайло Вълчев - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2023-11-24",
+        "item": 9,
+        "slug": "9-reshenie-za-sazdavane-na-vremenna-komisiya-za-prouchvane-na-",
+        "title": "Решение за създаване на Временна комисия за проучване на всички факти и обстоятелствата, свързани с организацията, подготовката и опазването на обществения ред, във връзка със заявения мирен протест срещу ръководството на БФС на 16.11.2023 г., както и с употребата на физическа сила и помощни средства от сужители на МВР по време на провеждането му - председател Цвета Рангелова - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 49
+      },
+      {
+        "date": "2023-11-09",
+        "item": 19,
+        "slug": "19-zid-na-izborniya-kodeks-parvo-glasuvane",
+        "title": "ЗИД на Изборния кодекс - първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 43
+      },
+      {
+        "date": "2023-10-05",
+        "item": 101,
+        "slug": "101-zid-na-zakona-za-energetikata-vtoro-glasuvane-paragraf-5-pre",
+        "title": "ЗИД на Закона за енергетиката - второ гласуване - параграф 5 - предложение от Илина Мутафчиева и Вл.Панев - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 48
+      },
+      {
+        "date": "2023-10-05",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-obshtestvenite-porachki-vtoro-glasuvane-par",
+        "title": "ЗИД на Закона за обществените поръчки - второ гласуване - параграф 52,чл.237а - предложение от Десислава Атанасова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 56
+      },
+      {
+        "date": "2023-10-05",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-obshtestvenite-porachki-vtoro-glasuvane-par",
+        "title": "ЗИД на Закона за обществените поръчки - второ гласуване - параграф 41 - нов - предложение от Марин Маринов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2023-09-28",
+        "item": 28,
+        "slug": "28-povtorno-glasuvane-na-osporenite-razporedbi-ot-zid-na-zakona",
+        "title": "Повторно гласуване на оспорените разпоредби от ЗИД на Закона за съдебната власт, приет от НС на 2.06.2023 г., върнат за ново обсъждане с Указ № 90 от 14.06.2023 г. на Президента на Републиката по чл.101 от Конституцията на Република България - параграф 10",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2023-09-28",
+        "item": 25,
+        "slug": "25-povtorno-glasuvane-na-osporenite-razporedbi-ot-zid-na-zakona",
+        "title": "Повторно гласуване на оспорените разпоредби от ЗИД на Закона за съдебната власт, приет от НС на 2.06.2023 г., върнат за ново обсъждане с Указ № 90 от 14.06.2023 г. на Президента на Републиката по чл.101 от Конституцията на Република България - параграф 9",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2023-09-28",
+        "item": 22,
+        "slug": "22-povtorno-glasuvane-na-osporenite-razporedbi-ot-zid-na-zakona",
+        "title": "Повторно гласуване на оспорените разпоредби от ЗИД на Закона за съдебната власт, приет от НС на 2.06.2023 г., върнат за ново обсъждане с Указ № 90 от 14.06.2023 г. на Президента на Републиката по чл.101 от Конституцията на Република България - параграф 8",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 49
+      },
+      {
+        "date": "2023-09-28",
+        "item": 20,
+        "slug": "20-povtorno-glasuvane-na-osporenite-razporedbi-ot-zid-na-zakona",
+        "title": "Повторно гласуване на оспорените разпоредби от ЗИД на Закона за съдебната власт, приет от НС на 2.06.2023 г., върнат за ново обсъждане с Указ № 90 от 14.06.2023 г. на Президента на Републиката по чл.101 от Конституцията на Република България - параграф 7",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2023-09-28",
+        "item": 18,
+        "slug": "18-povtorno-glasuvane-na-osporenite-razporedbi-ot-zid-na-zakona",
+        "title": "Повторно гласуване на оспорените разпоредби от ЗИД на Закона за съдебната власт, приет от НС на 2.06.2023 г., върнат за ново обсъждане с Указ № 90 от 14.06.2023 г. на Президента на Републиката по чл.101 от Конституцията на Република България - параграф 6",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2023-09-28",
+        "item": 16,
+        "slug": "16-povtorno-glasuvane-na-osporenite-razporedbi-ot-zid-na-zakona",
+        "title": "Повторно гласуване на оспорените разпоредби от ЗИД на Закона за съдебната власт, приет от НС на 2.06.2023 г., върнат за ново обсъждане с Указ № 90 от 14.06.2023 г. на Президента на Републиката по чл.101 от Конституцията на Република България - параграф 5",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 49
+      },
+      {
+        "date": "2023-09-28",
+        "item": 11,
+        "slug": "11-povtorno-glasuvane-na-osporenite-razporedbi-ot-zid-na-zakona",
+        "title": "Повторно гласуване на оспорените разпоредби от ЗИД на Закона за съдебната власт, приет от НС на 2.06.2023 г., върнат за ново обсъждане с Указ № 90 от 14.06.2023 г. на Президента на Републиката по чл.101 от Конституцията на Република България - параграф ... чл.147 - предложение от Петър Петров и група н.п",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 44
+      },
+      {
+        "date": "2023-09-20",
+        "item": 116,
+        "slug": "116-zakon-za-protivodeystvie-na-koruptsiyata-vtoro-glasuvane-chl",
+        "title": "Закон за противодействие на корупцията - второ гласуване - член 85 - предложение от Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 54
+      },
+      {
+        "date": "2023-09-20",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-nasarchavane-na-investitsiite-parvo-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - първо гласуване - процедура от Тошко Йорданов за удължаване на срока за предложения - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 49
+      },
+      {
+        "date": "2023-09-13",
+        "item": 12,
+        "slug": "12-protsedura-ot-toshko-yordanov-za-udalzhavane-na-rabotnoto-vr",
+        "title": "Процедура от Тошко Йорданов за удължаване на работното време до приключване на трета точка - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2023-07-28",
+        "item": 229,
+        "slug": "229",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 52
+      },
+      {
+        "date": "2023-07-28",
+        "item": 228,
+        "slug": "228",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 42
+      },
+      {
+        "date": "2023-07-28",
+        "item": 176,
+        "slug": "176",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2023-07-28",
+        "item": 127,
+        "slug": "127",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 48
+      },
+      {
+        "date": "2023-07-28",
+        "item": 126,
+        "slug": "126",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 49
+      },
+      {
+        "date": "2023-07-28",
+        "item": 123,
+        "slug": "123",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 46
+      },
+      {
+        "date": "2023-07-28",
+        "item": 95,
+        "slug": "95",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 49
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2523,
+        "score": 0.9009232041265187,
+        "overlap": 2577
+      },
+      {
+        "mpId": 2062,
+        "score": 0.8555304863764162,
+        "overlap": 2681
+      },
+      {
+        "mpId": 2520,
+        "score": 0.8496662709434896,
+        "overlap": 2428
+      },
+      {
+        "mpId": 2415,
+        "score": 0.8356095035731828,
+        "overlap": 2601
+      },
+      {
+        "mpId": 2362,
+        "score": 0.8336015610123624,
+        "overlap": 2614
+      },
+      {
+        "mpId": 2449,
+        "score": 0.8268285484015738,
+        "overlap": 2476
+      },
+      {
+        "mpId": 2083,
+        "score": 0.8250126463977439,
+        "overlap": 2573
+      },
+      {
+        "mpId": 2254,
+        "score": 0.8237748018233265,
+        "overlap": 2503
+      },
+      {
+        "mpId": 2436,
+        "score": 0.8184228550264353,
+        "overlap": 2408
+      },
+      {
+        "mpId": 2409,
+        "score": 0.8183218726540267,
+        "overlap": 2530
+      },
+      {
+        "mpId": 2374,
+        "score": 0.8177863234922972,
+        "overlap": 2549
+      },
+      {
+        "mpId": 2118,
+        "score": 0.8166453906671491,
+        "overlap": 2516
+      },
+      {
+        "mpId": 2444,
+        "score": 0.8125607982666265,
+        "overlap": 2527
+      },
+      {
+        "mpId": 2385,
+        "score": 0.8120124488624504,
+        "overlap": 2443
+      },
+      {
+        "mpId": 2017,
+        "score": 0.8094014195813453,
+        "overlap": 2346
+      },
+      {
+        "mpId": 2386,
+        "score": 0.8070566196878103,
+        "overlap": 2606
+      },
+      {
+        "mpId": 2282,
+        "score": 0.8051476862386612,
+        "overlap": 2420
+      },
+      {
+        "mpId": 2448,
+        "score": 0.8048154420548683,
+        "overlap": 2452
+      },
+      {
+        "mpId": 2381,
+        "score": 0.8026403543196236,
+        "overlap": 2446
+      },
+      {
+        "mpId": 2110,
+        "score": 0.8014212396367943,
+        "overlap": 2309
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2445,
+        "score": -0.3099922979722953,
+        "overlap": 2346
+      },
+      {
+        "mpId": 2326,
+        "score": -0.30966353858171664,
+        "overlap": 2201
+      },
+      {
+        "mpId": 2129,
+        "score": -0.3057871185868818,
+        "overlap": 2275
+      },
+      {
+        "mpId": 2318,
+        "score": -0.30270249295742085,
+        "overlap": 2407
+      },
+      {
+        "mpId": 2266,
+        "score": -0.298929150888612,
+        "overlap": 1897
+      },
+      {
+        "mpId": 2075,
+        "score": -0.29848191230316584,
+        "overlap": 1863
+      },
+      {
+        "mpId": 2309,
+        "score": -0.29556511696522825,
+        "overlap": 2479
+      },
+      {
+        "mpId": 2098,
+        "score": -0.2939066799501376,
+        "overlap": 2489
+      },
+      {
+        "mpId": 2061,
+        "score": -0.29352496310126597,
+        "overlap": 2437
+      },
+      {
+        "mpId": 2439,
+        "score": -0.2933110465741516,
+        "overlap": 2394
+      },
+      {
+        "mpId": 2119,
+        "score": -0.2922385977886419,
+        "overlap": 2314
+      },
+      {
+        "mpId": 2304,
+        "score": -0.29126929464910434,
+        "overlap": 2308
+      },
+      {
+        "mpId": 2435,
+        "score": -0.28946155434837617,
+        "overlap": 2427
+      },
+      {
+        "mpId": 2442,
+        "score": -0.2885190330247975,
+        "overlap": 2419
+      },
+      {
+        "mpId": 2278,
+        "score": -0.2878417024710243,
+        "overlap": 2406
+      },
+      {
+        "mpId": 2459,
+        "score": -0.2830708854936285,
+        "overlap": 2375
+      },
+      {
+        "mpId": 2441,
+        "score": -0.28064508673266286,
+        "overlap": 2356
+      },
+      {
+        "mpId": 2317,
+        "score": -0.27833424193730716,
+        "overlap": 2355
+      },
+      {
+        "mpId": 2446,
+        "score": -0.2772514878583198,
+        "overlap": 2322
+      },
+      {
+        "mpId": 2310,
+        "score": -0.2766745822203515,
+        "overlap": 2274
+      }
+    ]
+  }
+}

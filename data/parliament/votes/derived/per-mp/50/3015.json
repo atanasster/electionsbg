@@ -1,0 +1,275 @@
+{
+  "mpId": 3015,
+  "ns": "50",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 113,
+    "withParty": 108,
+    "loyaltyPct": 0.9557522123893806,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 113,
+    "dissentCount": 5,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 82,
+        "slug": "82-zid-na-zakona-za-grazhdanskata-registratsiya-vtoro-glasuvane",
+        "title": "ЗИД на Закона за гражданската регистрация – второ гласуване - параграф 10 - предложение от Маргарита Махаева за редакция на стр. 12",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 50
+      },
+      {
+        "date": "2024-09-25",
+        "item": 81,
+        "slug": "81-zid-na-zakona-za-grazhdanskata-registratsiya-vtoro-glasuvane",
+        "title": "ЗИД на Закона за гражданската регистрация – второ гласуване - параграф 1 ( става параграф 3) - предложение от Маргарита Махаева за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 50
+      },
+      {
+        "date": "2024-09-19",
+        "item": 16,
+        "slug": "16-reshenie-za-osvobozhdavane-na-anton-slavchev-kato-izpalnyava",
+        "title": "Решение за освобождаване на Антон Славчев като изпълняващ функциите на член и председател на Комисията за противодействие на корупцията и на КОНПИ - точка 2 - предложение от Тервел Георгиев",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 67
+      },
+      {
+        "date": "2024-09-19",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-pryakoto-uchastie-na-grazhdanite-v-darzhavn",
+        "title": "ЗИД на Закона за прякото участие на гражданите в държавната власт и местното самоуправление – първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2024-09-19",
+        "item": 4,
+        "slug": "4-protsedura-ot-nadezhda-yordanova-za-otpadane-na-tochka-ot-dn",
+        "title": "Процедура от Надежда Йорданова за отпадане на точка от дневния ред",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 66
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2929,
+        "score": 0.4662188768045055,
+        "overlap": 98
+      },
+      {
+        "mpId": 2754,
+        "score": 0.4591652608995902,
+        "overlap": 101
+      },
+      {
+        "mpId": 2939,
+        "score": 0.43406220335122925,
+        "overlap": 112
+      },
+      {
+        "mpId": 2603,
+        "score": 0.43323379595916206,
+        "overlap": 112
+      },
+      {
+        "mpId": 2657,
+        "score": 0.4317314506201111,
+        "overlap": 90
+      },
+      {
+        "mpId": 2924,
+        "score": 0.430222757078306,
+        "overlap": 112
+      },
+      {
+        "mpId": 2804,
+        "score": 0.42937923576263287,
+        "overlap": 109
+      },
+      {
+        "mpId": 2795,
+        "score": 0.4279452947803905,
+        "overlap": 103
+      },
+      {
+        "mpId": 2594,
+        "score": 0.42298423451779193,
+        "overlap": 107
+      },
+      {
+        "mpId": 2843,
+        "score": 0.41846913903895183,
+        "overlap": 100
+      },
+      {
+        "mpId": 2770,
+        "score": 0.41712039653910166,
+        "overlap": 107
+      },
+      {
+        "mpId": 2820,
+        "score": 0.41692339291817593,
+        "overlap": 105
+      },
+      {
+        "mpId": 2852,
+        "score": 0.4160578060493088,
+        "overlap": 113
+      },
+      {
+        "mpId": 2779,
+        "score": 0.4156989807940703,
+        "overlap": 113
+      },
+      {
+        "mpId": 2793,
+        "score": 0.4109926471504451,
+        "overlap": 103
+      },
+      {
+        "mpId": 2818,
+        "score": 0.40998891337560467,
+        "overlap": 106
+      },
+      {
+        "mpId": 2744,
+        "score": 0.40954725004176606,
+        "overlap": 112
+      },
+      {
+        "mpId": 2747,
+        "score": 0.4091383118071223,
+        "overlap": 109
+      },
+      {
+        "mpId": 2911,
+        "score": 0.40754553867435,
+        "overlap": 112
+      },
+      {
+        "mpId": 2602,
+        "score": 0.4070796475202115,
+        "overlap": 113
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2972,
+        "score": -0.06611073566849314,
+        "overlap": 7
+      },
+      {
+        "mpId": 2983,
+        "score": -0.06457663497597785,
+        "overlap": 50
+      },
+      {
+        "mpId": 2702,
+        "score": -0.04941997354933901,
+        "overlap": 85
+      },
+      {
+        "mpId": 2821,
+        "score": -0.04255511797561071,
+        "overlap": 95
+      },
+      {
+        "mpId": 3002,
+        "score": -0.04181210050035454,
+        "overlap": 10
+      },
+      {
+        "mpId": 3008,
+        "score": -0.04149413314433077,
+        "overlap": 15
+      },
+      {
+        "mpId": 2989,
+        "score": -0.03307027666812536,
+        "overlap": 9
+      },
+      {
+        "mpId": 2741,
+        "score": -0.03273359687394656,
+        "overlap": 97
+      },
+      {
+        "mpId": 3003,
+        "score": -0.029502647161824744,
+        "overlap": 5
+      },
+      {
+        "mpId": 2621,
+        "score": -0.028641897264703235,
+        "overlap": 98
+      },
+      {
+        "mpId": 3007,
+        "score": -0.028116077855776665,
+        "overlap": 5
+      },
+      {
+        "mpId": 2990,
+        "score": -0.026908264647791603,
+        "overlap": 16
+      },
+      {
+        "mpId": 2743,
+        "score": -0.02499132396295233,
+        "overlap": 97
+      },
+      {
+        "mpId": 2652,
+        "score": -0.024686968617112257,
+        "overlap": 97
+      },
+      {
+        "mpId": 3005,
+        "score": -0.02231887105077943,
+        "overlap": 5
+      },
+      {
+        "mpId": 2994,
+        "score": -0.02181025225883645,
+        "overlap": 10
+      },
+      {
+        "mpId": 2739,
+        "score": -0.021427478217774167,
+        "overlap": 94
+      },
+      {
+        "mpId": 2997,
+        "score": -0.020806259464411975,
+        "overlap": 16
+      },
+      {
+        "mpId": 2976,
+        "score": -0.01992926591458116,
+        "overlap": 47
+      },
+      {
+        "mpId": 3004,
+        "score": -0.017124693631268544,
+        "overlap": 13
+      }
+    ]
+  }
+}

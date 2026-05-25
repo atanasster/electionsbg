@@ -1,0 +1,325 @@
+{
+  "mpId": 1574,
+  "ns": "45",
+  "partyShort": "ИСМВ",
+  "loyalty": {
+    "votesCast": 95,
+    "withParty": 85,
+    "loyaltyPct": 0.8947368421052632,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 95,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2021-04-29",
+        "item": 66,
+        "slug": "66-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-34-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 34 (става параграф 40) - т.2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2021-04-29",
+        "item": 24,
+        "slug": "24-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-8-otpada",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 8 - отпада",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-04-29",
+        "item": 19,
+        "slug": "19-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-5-stava-par",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 5 (става параграф 8) - предложение от Хр.Гаджев за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-04-29",
+        "item": 17,
+        "slug": "17-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-5-stava-par",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 5 (става параграф 8) - предложение от Н. Йорданова и А. Цонева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-04-23",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-21-23-april-20",
+        "title": "Програма за работата на Народното събрание за 21 - 23 април 2021 г. - предложение от Ива Митeва за отпадане на точка от дневния ред и нова точка",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-04-22",
+        "item": 36,
+        "slug": "36-reshenie-za-izmenenie-i-dopalnenie-na-podns-predlozhenie-ot-",
+        "title": "Решение за изменение и допълнение на ПОДНС - предложение от Хаджигенов и група н.п. в чл.53",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2021-04-22",
+        "item": 35,
+        "slug": "35-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-8-stava",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 8 (става параграф 9) - т.2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2021-04-22",
+        "item": 30,
+        "slug": "30-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-7-stava",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 7 (става параграф 8) - предл. Чолаков за отпадане на втората част от т.2 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2021-04-22",
+        "item": 9,
+        "slug": "9-protsedura-ot-filip-popov-za-prekratyavane-na-pryakoto-preda",
+        "title": "Процедура от Филип Попов за прекратяване на прякото предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2021-04-22",
+        "item": 7,
+        "slug": "7-reshenie-za-nalagane-na-moratorium-varhu-opredeleni-deystviy",
+        "title": "Решение за налагане на мораториум върху определени действия - предложение от Христо Гаджев за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1650,
+        "score": 0.6541840145239091,
+        "overlap": 73
+      },
+      {
+        "mpId": 1734,
+        "score": 0.6427136959864834,
+        "overlap": 72
+      },
+      {
+        "mpId": 1686,
+        "score": 0.6152497956622428,
+        "overlap": 86
+      },
+      {
+        "mpId": 1575,
+        "score": 0.5698997930447884,
+        "overlap": 90
+      },
+      {
+        "mpId": 1616,
+        "score": 0.5641352711653373,
+        "overlap": 79
+      },
+      {
+        "mpId": 1679,
+        "score": 0.5242360457443432,
+        "overlap": 92
+      },
+      {
+        "mpId": 1727,
+        "score": 0.5239016048517746,
+        "overlap": 73
+      },
+      {
+        "mpId": 1584,
+        "score": 0.5224274412806352,
+        "overlap": 79
+      },
+      {
+        "mpId": 1654,
+        "score": 0.506616664348186,
+        "overlap": 90
+      },
+      {
+        "mpId": 1275,
+        "score": 0.5063272075608461,
+        "overlap": 64
+      },
+      {
+        "mpId": 1702,
+        "score": 0.5036329651658791,
+        "overlap": 80
+      },
+      {
+        "mpId": 1718,
+        "score": 0.5011349934434437,
+        "overlap": 87
+      },
+      {
+        "mpId": 1681,
+        "score": 0.4968794583485791,
+        "overlap": 67
+      },
+      {
+        "mpId": 1573,
+        "score": 0.493086226526752,
+        "overlap": 89
+      },
+      {
+        "mpId": 1693,
+        "score": 0.49285607667984455,
+        "overlap": 73
+      },
+      {
+        "mpId": 1580,
+        "score": 0.489632216559607,
+        "overlap": 95
+      },
+      {
+        "mpId": 1582,
+        "score": 0.4881942401900702,
+        "overlap": 91
+      },
+      {
+        "mpId": 1312,
+        "score": 0.4832102109504214,
+        "overlap": 80
+      },
+      {
+        "mpId": 1729,
+        "score": 0.4799843272982506,
+        "overlap": 87
+      },
+      {
+        "mpId": 1602,
+        "score": 0.4787679624200141,
+        "overlap": 71
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": -0.10759049504114514,
+        "overlap": 25
+      },
+      {
+        "mpId": 473,
+        "score": -0.0970188157132916,
+        "overlap": 70
+      },
+      {
+        "mpId": 1466,
+        "score": -0.08449656673659704,
+        "overlap": 60
+      },
+      {
+        "mpId": 1622,
+        "score": -0.08224291882008655,
+        "overlap": 65
+      },
+      {
+        "mpId": 1703,
+        "score": -0.07761505257063328,
+        "overlap": 61
+      },
+      {
+        "mpId": 1428,
+        "score": -0.061954517984990666,
+        "overlap": 64
+      },
+      {
+        "mpId": 1600,
+        "score": -0.05488212999484517,
+        "overlap": 34
+      },
+      {
+        "mpId": 1155,
+        "score": -0.05281035421037315,
+        "overlap": 62
+      },
+      {
+        "mpId": 990,
+        "score": -0.05073854712899858,
+        "overlap": 68
+      },
+      {
+        "mpId": 1643,
+        "score": -0.05052309584945071,
+        "overlap": 65
+      },
+      {
+        "mpId": 523,
+        "score": -0.05010030100351264,
+        "overlap": 69
+      },
+      {
+        "mpId": 1344,
+        "score": -0.04889288740407146,
+        "overlap": 72
+      },
+      {
+        "mpId": 1807,
+        "score": -0.04870001530154722,
+        "overlap": 67
+      },
+      {
+        "mpId": 1290,
+        "score": -0.04707185560485666,
+        "overlap": 51
+      },
+      {
+        "mpId": 1651,
+        "score": -0.04076542275707879,
+        "overlap": 69
+      },
+      {
+        "mpId": 388,
+        "score": -0.039914276359887396,
+        "overlap": 67
+      },
+      {
+        "mpId": 1716,
+        "score": -0.039114309923257165,
+        "overlap": 73
+      },
+      {
+        "mpId": 1810,
+        "score": -0.039114309923257165,
+        "overlap": 72
+      },
+      {
+        "mpId": 1811,
+        "score": -0.034519262808358424,
+        "overlap": 57
+      },
+      {
+        "mpId": 1644,
+        "score": -0.03168621252622389,
+        "overlap": 58
+      }
+    ]
+  }
+}

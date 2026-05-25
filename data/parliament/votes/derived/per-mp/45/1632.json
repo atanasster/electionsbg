@@ -1,0 +1,255 @@
+{
+  "mpId": 1632,
+  "ns": "45",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 193,
+    "withParty": 190,
+    "loyaltyPct": 0.9844559585492227,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 193,
+    "dissentCount": 3,
+    "recent": [
+      {
+        "date": "2021-04-22",
+        "item": 47,
+        "slug": "47-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-13-nov-",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 13 - нов - предложение от А.Славов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 42
+      },
+      {
+        "date": "2021-04-22",
+        "item": 41,
+        "slug": "41-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-11-pred",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 11 - предложение от Н. Хаджигенов и група н.п. по чл. 65",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 44
+      },
+      {
+        "date": "2021-04-22",
+        "item": 6,
+        "slug": "6-reshenie-za-nalagane-na-moratorium-varhu-opredeleni-deystviy",
+        "title": "Решение за налагане на мораториум върху определени действия - предложение от Татяна Дончева за редакция на т.1 (б)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 41
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1722,
+        "score": 0.9620844065332381,
+        "overlap": 191
+      },
+      {
+        "mpId": 1736,
+        "score": 0.958681323692001,
+        "overlap": 188
+      },
+      {
+        "mpId": 1732,
+        "score": 0.9553668984561862,
+        "overlap": 183
+      },
+      {
+        "mpId": 1623,
+        "score": 0.9531716609121619,
+        "overlap": 187
+      },
+      {
+        "mpId": 1801,
+        "score": 0.9505637992237294,
+        "overlap": 186
+      },
+      {
+        "mpId": 1666,
+        "score": 0.9457778911682679,
+        "overlap": 193
+      },
+      {
+        "mpId": 1728,
+        "score": 0.942497589122031,
+        "overlap": 190
+      },
+      {
+        "mpId": 1605,
+        "score": 0.9392265193370166,
+        "overlap": 187
+      },
+      {
+        "mpId": 1593,
+        "score": 0.9370179519759726,
+        "overlap": 190
+      },
+      {
+        "mpId": 1580,
+        "score": 0.9349068809249546,
+        "overlap": 191
+      },
+      {
+        "mpId": 1696,
+        "score": 0.9344820394723813,
+        "overlap": 190
+      },
+      {
+        "mpId": 1707,
+        "score": 0.9344820394723813,
+        "overlap": 190
+      },
+      {
+        "mpId": 1647,
+        "score": 0.9340800339192715,
+        "overlap": 189
+      },
+      {
+        "mpId": 1571,
+        "score": 0.9315383148299143,
+        "overlap": 189
+      },
+      {
+        "mpId": 1739,
+        "score": 0.9315383148299143,
+        "overlap": 188
+      },
+      {
+        "mpId": 1657,
+        "score": 0.9290172322240048,
+        "overlap": 190
+      },
+      {
+        "mpId": 1653,
+        "score": 0.9285854454844523,
+        "overlap": 186
+      },
+      {
+        "mpId": 1629,
+        "score": 0.9281767955801105,
+        "overlap": 187
+      },
+      {
+        "mpId": 1656,
+        "score": 0.9277920956675103,
+        "overlap": 186
+      },
+      {
+        "mpId": 1597,
+        "score": 0.9252113059793926,
+        "overlap": 186
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1576,
+        "score": -0.15612299843467647,
+        "overlap": 53
+      },
+      {
+        "mpId": 1290,
+        "score": -0.10359634626420873,
+        "overlap": 95
+      },
+      {
+        "mpId": 1600,
+        "score": -0.10220294510898537,
+        "overlap": 68
+      },
+      {
+        "mpId": 817,
+        "score": -0.09932685831612645,
+        "overlap": 62
+      },
+      {
+        "mpId": 1622,
+        "score": -0.0626542876086142,
+        "overlap": 118
+      },
+      {
+        "mpId": 1428,
+        "score": -0.034961615736103936,
+        "overlap": 111
+      },
+      {
+        "mpId": 767,
+        "score": -0.027725014612494464,
+        "overlap": 122
+      },
+      {
+        "mpId": 1703,
+        "score": -0.022525214195470145,
+        "overlap": 104
+      },
+      {
+        "mpId": 1155,
+        "score": -0.021457053771143726,
+        "overlap": 114
+      },
+      {
+        "mpId": 1805,
+        "score": -0.019944674859436008,
+        "overlap": 132
+      },
+      {
+        "mpId": 1634,
+        "score": -0.01739919991618736,
+        "overlap": 79
+      },
+      {
+        "mpId": 473,
+        "score": -0.013139708280690917,
+        "overlap": 133
+      },
+      {
+        "mpId": 1466,
+        "score": -0.0071523512570479085,
+        "overlap": 114
+      },
+      {
+        "mpId": 1644,
+        "score": -0.0071523512570479085,
+        "overlap": 116
+      },
+      {
+        "mpId": 403,
+        "score": -0.006757219511337876,
+        "overlap": 127
+      },
+      {
+        "mpId": 1317,
+        "score": 0,
+        "overlap": 142
+      },
+      {
+        "mpId": 1815,
+        "score": 0,
+        "overlap": 125
+      },
+      {
+        "mpId": 599,
+        "score": 0.006445177644998371,
+        "overlap": 139
+      },
+      {
+        "mpId": 1567,
+        "score": 0.00681376626714645,
+        "overlap": 122
+      },
+      {
+        "mpId": 1692,
+        "score": 0.013458938011904816,
+        "overlap": 123
+      }
+    ]
+  }
+}

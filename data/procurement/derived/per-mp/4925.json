@@ -1,0 +1,66 @@
+{
+  "mpId": 4925,
+  "summary": {
+    "totalEur": 95435.69737656135,
+    "totalOther": {},
+    "contractCount": 2,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 95435.69737656135,
+    "rank": 37,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 4925,
+      "mpName": "МЮМЮН САЛИ МЮМЮН",
+      "contractorEik": "200502607",
+      "contractorName": "ДЖЕНИ СПОРТ ЕООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "100",
+          "valueEur": 2556.4594059810925,
+          "fiscalYear": 2023,
+          "declarationYear": 2023
+        }
+      ],
+      "totalEur": 95435.69737656135,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 9538.661335596653,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 85897.03604096471,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "123531939",
+          "name": "ТЕЦ МАРИЦА ИЗТОК 2 ЕАД",
+          "contractCount": 1,
+          "totalEur": 85897.03604096471,
+          "totalOther": {}
+        },
+        {
+          "eik": "000291591",
+          "name": "Община Ловеч",
+          "contractCount": 1,
+          "totalEur": 9538.661335596653,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,305 @@
+{
+  "mpId": 2795,
+  "ns": "50",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 474,
+    "withParty": 466,
+    "loyaltyPct": 0.9831223628691983,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 474,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2024-08-16",
+        "item": 3,
+        "slug": "3-protsedura-ot-pavela-mitova-za-udalzhavane-na-rabotnoto-vrem",
+        "title": "Процедура от Павела Митова за удължаване на работното време до изчерпване на фиксираните точките за днес - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-08-07",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – първо гласуване - вносител Костадин Костадинов и група н.п. - процедура от Г.Свиленски за преминаване на второ гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-08-01",
+        "item": 18,
+        "slug": "18-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно корупционни практики и системна злоупотреба със служебно положение, извършвани в ущърб на гражданите и бизнеса, както и облагодетелстване на свързани дружества с кмета на Община Доспат - Елин Радев - за председател - Александър Вълчев - прегласуване",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 65
+      },
+      {
+        "date": "2024-07-31",
+        "item": 26,
+        "slug": "26-zid-na-grazhdanskiya-protsesualen-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Гражданския процесуален кодекс – второ гласуване - параграф 3",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 53
+      },
+      {
+        "date": "2024-07-18",
+        "item": 4,
+        "slug": "4-protsedura-za-udalzhavane-na-r-vreme-do-preklyuchvane-na-t-5",
+        "title": "Процедура за удължаване на р. време до преключване на т.5",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 36
+      },
+      {
+        "date": "2024-07-12",
+        "item": 8,
+        "slug": "8-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 12 - предложение от Георги Свиленски - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-06-21",
+        "item": 7,
+        "slug": "7-reshenie-za-izbirane-na-vremenna-komisiya-za-izrabotvane-na-",
+        "title": "Решение за избиране на Временна комисия за изработване на проект на Правилник за организацията и дейността на Народно събрание - за председател - Цвета Рангелова",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 64
+      },
+      {
+        "date": "2024-06-19",
+        "item": 10,
+        "slug": "10-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Петър Петров - втори тур",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 68
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2804,
+        "score": 0.8700156245026451,
+        "overlap": 453
+      },
+      {
+        "mpId": 2779,
+        "score": 0.8592530981611339,
+        "overlap": 467
+      },
+      {
+        "mpId": 2852,
+        "score": 0.8560678759542429,
+        "overlap": 470
+      },
+      {
+        "mpId": 2911,
+        "score": 0.85438342825165,
+        "overlap": 472
+      },
+      {
+        "mpId": 2744,
+        "score": 0.8543649938398683,
+        "overlap": 458
+      },
+      {
+        "mpId": 2947,
+        "score": 0.8540340630589663,
+        "overlap": 455
+      },
+      {
+        "mpId": 2602,
+        "score": 0.8538586648494803,
+        "overlap": 471
+      },
+      {
+        "mpId": 2714,
+        "score": 0.846226668618409,
+        "overlap": 463
+      },
+      {
+        "mpId": 2673,
+        "score": 0.8442871253677167,
+        "overlap": 470
+      },
+      {
+        "mpId": 2935,
+        "score": 0.8410467435324872,
+        "overlap": 455
+      },
+      {
+        "mpId": 2905,
+        "score": 0.8372769049962944,
+        "overlap": 454
+      },
+      {
+        "mpId": 2840,
+        "score": 0.835330414156922,
+        "overlap": 441
+      },
+      {
+        "mpId": 2747,
+        "score": 0.8310103862110971,
+        "overlap": 457
+      },
+      {
+        "mpId": 2765,
+        "score": 0.8299976529461416,
+        "overlap": 450
+      },
+      {
+        "mpId": 2941,
+        "score": 0.8299976529461416,
+        "overlap": 442
+      },
+      {
+        "mpId": 2603,
+        "score": 0.8280286956783404,
+        "overlap": 462
+      },
+      {
+        "mpId": 2653,
+        "score": 0.8275353257473834,
+        "overlap": 438
+      },
+      {
+        "mpId": 2768,
+        "score": 0.8224084742568085,
+        "overlap": 446
+      },
+      {
+        "mpId": 2802,
+        "score": 0.8216618978461462,
+        "overlap": 446
+      },
+      {
+        "mpId": 2833,
+        "score": 0.8206193647392463,
+        "overlap": 439
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2979,
+        "score": -0.10347403592902146,
+        "overlap": 201
+      },
+      {
+        "mpId": 3005,
+        "score": -0.08294511660071416,
+        "overlap": 49
+      },
+      {
+        "mpId": 2996,
+        "score": -0.0729229188996185,
+        "overlap": 27
+      },
+      {
+        "mpId": 3008,
+        "score": -0.06168297140247834,
+        "overlap": 106
+      },
+      {
+        "mpId": 3007,
+        "score": -0.05572782125753528,
+        "overlap": 37
+      },
+      {
+        "mpId": 2998,
+        "score": -0.028035081501016038,
+        "overlap": 52
+      },
+      {
+        "mpId": 2967,
+        "score": -0.027856435401100253,
+        "overlap": 262
+      },
+      {
+        "mpId": 2930,
+        "score": -0.02727723627949905,
+        "overlap": 7
+      },
+      {
+        "mpId": 2997,
+        "score": -0.02577456558882258,
+        "overlap": 67
+      },
+      {
+        "mpId": 3001,
+        "score": -0.014317566531022735,
+        "overlap": 78
+      },
+      {
+        "mpId": 2973,
+        "score": -0.00747017880833996,
+        "overlap": 23
+      },
+      {
+        "mpId": 2972,
+        "score": -0.006551780229511989,
+        "overlap": 32
+      },
+      {
+        "mpId": 2990,
+        "score": 0.013333465022527085,
+        "overlap": 89
+      },
+      {
+        "mpId": 2980,
+        "score": 0.030055093542923222,
+        "overlap": 250
+      },
+      {
+        "mpId": 2991,
+        "score": 0.035714285714285705,
+        "overlap": 45
+      },
+      {
+        "mpId": 2992,
+        "score": 0.03833989743324358,
+        "overlap": 106
+      },
+      {
+        "mpId": 3004,
+        "score": 0.04242776458138317,
+        "overlap": 104
+      },
+      {
+        "mpId": 3006,
+        "score": 0.050946196621201395,
+        "overlap": 54
+      },
+      {
+        "mpId": 3003,
+        "score": 0.05360308082149971,
+        "overlap": 71
+      },
+      {
+        "mpId": 2988,
+        "score": 0.058463396668342826,
+        "overlap": 105
+      }
+    ]
+  }
+}

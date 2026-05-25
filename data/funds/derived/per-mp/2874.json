@@ -1,0 +1,32 @@
+{
+  "mpId": 2874,
+  "summary": {
+    "contractCount": 1,
+    "contractedEur": 25564.59,
+    "paidEur": 25564.59
+  },
+  "entries": [
+    {
+      "mpId": 2874,
+      "mpName": "Александър Николаев Сабанов",
+      "beneficiaryEik": "201738862",
+      "beneficiaryName": "ДАНАУ АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 25564.59,
+      "paidEur": 25564.59
+    }
+  ]
+}

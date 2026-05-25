@@ -14,6 +14,45 @@ import { useMpLoyalty } from "./votes/useMpLoyalty";
 import { useMpAssets } from "./useMpAssets";
 import { useAssetsRankings } from "./useAssetsRankings";
 
+// Pre-computed scorecard stats embedded in the per-MP procurement shard.
+// Lets the scorecard render rank + cohort context without loading the
+// chamber-wide mp_connected.json (~15 KB gzipped).
+interface ProcurementShard {
+  mpId: number;
+  scorecard: {
+    value: number;
+    rank: number | null;
+    cohortSize: number;
+    cohortMedian: number;
+  };
+}
+
+interface ProcurementShardManifest {
+  mpIds: number[];
+  cohort?: { size: number; median: number };
+}
+
+const fetchProcurementShardManifest =
+  async (): Promise<ProcurementShardManifest | null> => {
+    const r = await fetch(dataUrl("/procurement/derived/per-mp/index.json"));
+    if (r.status === 404) return null;
+    if (!r.ok) return null;
+    const ct = r.headers.get("content-type") ?? "";
+    if (!ct.includes("json")) return null;
+    return (await r.json()) as ProcurementShardManifest;
+  };
+
+const fetchProcurementShard = async (
+  mpId: number,
+): Promise<ProcurementShard | null> => {
+  const r = await fetch(dataUrl(`/procurement/derived/per-mp/${mpId}.json`));
+  if (r.status === 404) return null;
+  if (!r.ok) return null;
+  const ct = r.headers.get("content-type") ?? "";
+  if (!ct.includes("json")) return null;
+  return (await r.json()) as ProcurementShard;
+};
+
 export type ScorecardMetric = {
   /** Raw value for the MP. null when unavailable. */
   value: number | null;
@@ -97,10 +136,35 @@ export const useMpScorecard = (
   const { rankings: assetsRankings, isLoading: assetsRankingsLoading } =
     useAssetsRankings();
 
+  // Fast-path: pre-computed scorecard stats embedded in the per-MP shard
+  // (manifest + shard). When the manifest exists, the chamber-wide
+  // mp_connected.json fetch is skipped entirely.
+  const procManifestQuery = useQuery({
+    queryKey: ["procurement", "shard_manifest"] as const,
+    queryFn: fetchProcurementShardManifest,
+    staleTime: Infinity,
+    retry: false,
+  });
+  const procManifestSettled = procManifestQuery.isFetched;
+  const procManifestKnown = procManifestQuery.data != null;
+  const procHasShard =
+    mpId != null && (procManifestQuery.data?.mpIds ?? []).includes(mpId);
+  const procShardQuery = useQuery({
+    queryKey: ["procurement", "mp_connected_shard", mpId ?? 0] as const,
+    queryFn: () => fetchProcurementShard(mpId!),
+    enabled: procHasShard,
+    staleTime: Infinity,
+    retry: false,
+  });
+
+  // Aggregate fallback only fires when the manifest is unavailable (legacy
+  // deploy without shards).
+  const connectedAggregateEnabled = procManifestSettled && !procManifestKnown;
   const connectedQuery = useQuery({
     queryKey: ["procurement", "mp_connected"] as const,
     queryFn: fetchConnected,
     staleTime: Infinity,
+    enabled: connectedAggregateEnabled,
   });
 
   const scorecard = useMemo<MpScorecard>(() => {
@@ -161,27 +225,47 @@ export const useMpScorecard = (
     };
 
     // --- Connected contracts ---------------------------------------------
-    // mp_connected.json carries one row per (mp × contractor). Roll up to a
-    // per-MP total, then rank. Cohort here = every MP that has at least one
-    // connected contract; MPs with zero are excluded from the rank denominator
-    // (so a rank of "1 из 23" reads as "1 of the 23 MPs whose firms won state
-    // contracts", not "1 of 240").
-    const allEntries = connectedQuery.data?.entries ?? [];
-    const totalByMp = new Map<number, number>();
-    for (const e of allEntries) {
-      totalByMp.set(e.mpId, (totalByMp.get(e.mpId) ?? 0) + e.totalEur);
+    // Prefer the shard's pre-computed stats — same semantics as the runtime
+    // computation below, just done at ingest time. When the manifest reports
+    // no shard for this MP, the metric is "no connections" (value=null) but
+    // the cohort context (size + median) still comes from the manifest so
+    // the UI can show "0 vs N average".
+    let connectedContracts: ScorecardMetric;
+    if (procShardQuery.data) {
+      const sc = procShardQuery.data.scorecard;
+      connectedContracts = {
+        value: sc.value,
+        rank: sc.rank,
+        cohortSize: sc.cohortSize,
+        median: sc.cohortMedian,
+      };
+    } else if (procManifestKnown && procManifestQuery.data?.cohort) {
+      connectedContracts = {
+        value: null,
+        rank: null,
+        cohortSize: procManifestQuery.data.cohort.size,
+        median: procManifestQuery.data.cohort.median,
+      };
+    } else {
+      // Legacy fallback: chamber-wide aggregate. mp_connected.json carries
+      // one row per (mp × contractor). Roll up to a per-MP total, then rank.
+      const allEntries = connectedQuery.data?.entries ?? [];
+      const totalByMp = new Map<number, number>();
+      for (const e of allEntries) {
+        totalByMp.set(e.mpId, (totalByMp.get(e.mpId) ?? 0) + e.totalEur);
+      }
+      const contractTotalsDesc = Array.from(totalByMp.values()).sort(
+        (a, b) => b - a,
+      );
+      const contractsValue =
+        mpId != null && totalByMp.has(mpId) ? totalByMp.get(mpId)! : null;
+      connectedContracts = {
+        value: contractsValue,
+        rank: rankIn(contractsValue, contractTotalsDesc),
+        cohortSize: contractTotalsDesc.length,
+        median: medianOf(contractTotalsDesc),
+      };
     }
-    const contractTotalsDesc = Array.from(totalByMp.values()).sort(
-      (a, b) => b - a,
-    );
-    const contractsValue =
-      mpId != null && totalByMp.has(mpId) ? totalByMp.get(mpId)! : null;
-    const connectedContracts: ScorecardMetric = {
-      value: contractsValue,
-      rank: rankIn(contractsValue, contractTotalsDesc),
-      cohortSize: contractTotalsDesc.length,
-      median: medianOf(contractTotalsDesc),
-    };
 
     const hasAny =
       loyalty.value != null ||
@@ -204,6 +288,9 @@ export const useMpScorecard = (
     assetsRankings,
     ns,
     connectedQuery.data,
+    procShardQuery.data,
+    procManifestKnown,
+    procManifestQuery.data,
     mpId,
   ]);
 
@@ -212,7 +299,9 @@ export const useMpScorecard = (
     loyaltyLoading ||
     assetsLoading ||
     assetsRankingsLoading ||
-    connectedQuery.isLoading;
+    (connectedAggregateEnabled && connectedQuery.isLoading) ||
+    (!procManifestSettled && procManifestQuery.isLoading) ||
+    (procHasShard && procShardQuery.isLoading);
 
   if (!mpId) {
     return {

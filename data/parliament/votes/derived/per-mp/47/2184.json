@@ -1,0 +1,671 @@
+{
+  "mpId": 2184,
+  "ns": "47",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 783,
+    "withParty": 738,
+    "loyaltyPct": 0.9425287356321839,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 783,
+    "dissentCount": 45,
+    "recent": [
+      {
+        "date": "2022-07-29",
+        "item": 41,
+        "slug": "41-zid-na-grazhdanskiya-protsesualen-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Гражданския процесуален кодекс - второ гласуване - параграф 1 предложение от Петър Петръв за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-07-29",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-ustroystvo-na-teritoriyata-parvo-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - първо гласуване - вносител Владислав Панев и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-07-29",
+        "item": 7,
+        "slug": "7-zid-na-zakona-za-ustroystvo-na-teritoriyata-parvo-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - първо гласуване - вносител Владислав Панев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-07-29",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-27-29-yuli-202",
+        "title": "Програма за работата на Народното събрание за 27 - 29 юли 2022 г. - процедура от Десислава Атанасова за отпадане на парламентарния контрол",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2022-07-22",
+        "item": 24,
+        "slug": "24-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на процедурни правила за условията и реда за предлагане на кандидати, представяне и публично оповестяване на документите, изслушване на кандидатите и за избор на председател на Комисията за противодействие на корупцията и за отнемане на незаконно придобито имущество - процедура от Десислава Атанасова за поименно гласуване - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2022-07-22",
+        "item": 22,
+        "slug": "22-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на процедурни правила за условията и реда за предлагане на кандидати, представяне и публично оповестяване на документите, изслушване на кандидатите и за избор на председател на Комисията за противодействие на корупцията и за отнемане на незаконно придобито имущество - предложение от Росица Кирова за редакция на ІІІ",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-07-22",
+        "item": 18,
+        "slug": "18-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на процедурни правила за условията и реда за предлагане на кандидати, представяне и публично оповестяване на документите, изслушване на кандидатите и за избор на председател на Комисията за противодействие на корупцията и за отнемане на незаконно придобито имущество - предложение от Петър Петров за редакция на І, т. 1",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-07-22",
+        "item": 14,
+        "slug": "14-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на процедурни правила за условията и реда за предлагане на кандидати, представяне и публично оповестяване на документите, изслушване на кандидатите и за избор на председател на Комисията за противодействие на корупцията и за отнемане на незаконно придобито имущество - предложение от Александър Несторов за редакция по І, т. 2 второ предложение - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2022-07-22",
+        "item": 12,
+        "slug": "12-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на процедурни правила за условията и реда за предлагане на кандидати, представяне и публично оповестяване на документите, изслушване на кандидатите и за избор на председател на Комисията за противодействие на корупцията и за отнемане на незаконно придобито имущество - предложение от Александър Несторов за редакция по І, т. 2 първо предложение - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2022-07-21",
+        "item": 55,
+        "slug": "55-protsedura-ot-nastimir-ananiev-t-2-za-petak-da-e-zakona-za-h",
+        "title": "Процедура от Настимир Ананиев т.2 за петък да е Закона за хазарта",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2022-07-20",
+        "item": 21,
+        "slug": "21-zid-na-kodeksa-na-truda-parvo-glasuvane-vnositel-ministerski",
+        "title": "ЗИД на Кодекса на труда - първо гласуване - вносител Министерски съвет - предложение от Искрен Арабаджиев за намаляване на срока за предложения на три дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-07-20",
+        "item": 20,
+        "slug": "20-zid-na-kodeksa-na-truda-parvo-glasuvane-vnositel-ministerski",
+        "title": "ЗИД на Кодекса на труда - първо гласуване - вносител Министерски съвет",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-07-20",
+        "item": 15,
+        "slug": "15-reshenie-za-prekratyavane-palnomoshtiyata-na-naroden-predsta",
+        "title": "Решение за прекратяване пълномощията на народен представител - освобождава Георги Гвоздейков",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2022-07-15",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-sadebnata-vlast-parvo-glasuvane-predlozheni",
+        "title": "ЗИД на Закона за съдебната власт - първо гласуване - предложение от Десислава Атанасова за увеличаване на срока за предложения на 7 дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-07-08",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-vissheto-obrazovanie-vtoro-glasuvane-naimen",
+        "title": "ЗИД на Закона за висшето образование - второ гласуване - наименование, параграф 1 - предложение от Красимир Вълчев и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 5
+      },
+      {
+        "date": "2022-06-30",
+        "item": 7,
+        "slug": "7-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 1 - предложение от Пламен Абровски (№ ...203)",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-06-29",
+        "item": 57,
+        "slug": "57-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 31а - предложение от Ива Митева и група н.п. (№ ...210) - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-06-29",
+        "item": 52,
+        "slug": "52-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф ... - предложение от Десислава Атанасова и група н.п. (№ ... 223) - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2022-06-29",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 18 (става параграф 21) - предложение от Николина Ангелкова и група н.п. (№ 47-254-04-241) - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-06-29",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 18 (става параграф 21) - предложение от Десислава Танева и група н.п. (№ 47-254-04-247) - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2022-06-29",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 18 (става параграф 21) - предложение от Пламен Абровски и група н.п. (№ 47-254-04-208) - прегласуване",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-06-28",
+        "item": 32,
+        "slug": "32-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2022 г. - второ гласуване - наименование, параграф 1 - предложение от Мустафа Карадайъ и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-06-28",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2022 г. - второ гласуване - наименование, параграф 1 - предложение от Мустафа Карадайъ и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-28",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2022 г. - второ гласуване - параграф 2 -- предложение от Десислава Атанасова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-28",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2022 г. - второ гласуване - наименование, параграф 1",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-09",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-obshtestvenite-porachki-parvo-glasuvane-vno",
+        "title": "ЗИД на Закона за обществените поръчки - първо гласуване - вносител Настимир Ананиев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-06-09",
+        "item": 3,
+        "slug": "3-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на временна комисия за установяване на факти и обстоятелства относно газопроводи за пренос на природен газ от Руската федерация „Южен поток” и „Турски (Балкански) поток” и причините за забавянето на проектът IGB (Междусистемна газова връзка Гърция - България) - процедура от Хамид Хамид за отлагане на гласуването на ръководство и състав",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-06-08",
+        "item": 21,
+        "slug": "21-reshenie-za-udalzhavane-na-sroka-na-deystvie-na-vremenna-kom",
+        "title": "Решение за удължаване на срока на действие на Временна комисия за проверка на обстоятелствата довели до спиране на природния газ от ООО \"Газпром експорт\" и проведената процедура за избор на алтернативни доставчици от \"Булгаргаз\" ЕАД - процедура от Цончо Ганев за удължаване на работното време до приключване на точката",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2022-06-08",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-08-10-yuni-202",
+        "title": "Програма за работата на Народното събрание за 08 - 10 юни 2022 г. - предложение от Петър Петров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 23
+      },
+      {
+        "date": "2022-05-25",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-nasarchavane-na-zaetostta-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за насърчаване на заетостта - второ гласуване - параграф 3 (става параграф 4) - предложение от Георги Георгиев и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-05-20",
+        "item": 7,
+        "slug": "7-reshenie-vav-vrazka-s-raziskvaniya-po-pitane-ot-narodnite-pr",
+        "title": "Решение във връзка с разисквания по питане от народните представители Стоян Таслаков и Никола Димитров към заместник министър-председателя по ефективно управление Калина Константинова относно състоянието на „Български пощи\"ЕАД - предложение за редакция от Халил Летифов по т. 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2022-05-20",
+        "item": 6,
+        "slug": "6-reshenie-vav-vrazka-s-raziskvaniya-po-pitane-ot-narodnite-pr",
+        "title": "Решение във връзка с разисквания по питане от народните представители Стоян Таслаков и Никола Димитров към заместник министър-председателя по ефективно управление Калина Константинова относно състоянието на „Български пощи\"ЕАД - предложение за редакция от Благовест Кирилов по т.1 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2022-05-19",
+        "item": 4,
+        "slug": "4-reshenie-za-predsrochno-osvobozhdavane-na-miroslav-ivanov-za",
+        "title": "Решение за предсрочно освобождаване на Мирослав Иванов - заместник-председател на Народното събрание - процедура за удължаване на р.време до приключване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2022-05-18",
+        "item": 17,
+        "slug": "17-ratifikatsiya-na-standartnoto-sporazumenie-za-nivoto-na-obsl",
+        "title": "Ратификация на Стандартното споразумение за нивото на обслужване между Службата по наркотиците и престъпността на ООН (UNODC), Центъра за корпоративни приложения - Виена (EAC-VN), и Държавна агенция „Национална сигурност\" - Република България, за предоставяне на услуги за информационно-комуникационни технологии, свързани с инсталирането и поддръжката на приложението на ООН goAML, подписано на 9 декември 2020 г. за Държавна агенция „Национална сигурност\" и на 18 февруари 2021 г. за Службата по наркотиците и престъпността на ООН - първо гласуване - процедура от Десислава Атанасова за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2022-05-12",
+        "item": 10,
+        "slug": "10-zakon-za-balgarskiya-ezik-parvo-glasuvane-protsedura-za-udal",
+        "title": "Закон за българския език - първо гласуване - процедура за удължаване на работното време до приключване на точката",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2022-05-12",
+        "item": 8,
+        "slug": "8-reshenie-za-sazdavane-na-vremenna-komisiya-za-razglezhdane-n",
+        "title": "Решение за създаване на Временна комисия за разглеждане на всички меморандуми и писма за намерения, подписани от правителството за периода от 12 май 2021 г. до 20 април 2022 г",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-05-12",
+        "item": 7,
+        "slug": "7-reshenie-za-sazdavane-na-vremenna-komisiya-za-razglezhdane-n",
+        "title": "Решение за създаване на Временна комисия за разглеждане на всички меморандуми и писма за намерения, подписани от правителството за периода от 12 май 2021 г. до 20 април 2022 г. - предложение от Никола Минчев за редакция",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-05-05",
+        "item": 25,
+        "slug": "25-reshenie-za-izbor-na-dvama-chlenove-na-saveta-za-elektronni-",
+        "title": "Решение за избор на двама членове на Съвета за електронни медии - избира Тодор Беленски",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2022-05-05",
+        "item": 8,
+        "slug": "8-reshenie-za-izmenenie-na-reshenie-za-izbirane-na-komisiya-po",
+        "title": "Решение за изменение на Решение за избиране на Комисия по конституционни и правни въпроси - вносител ИТН",
+        "topic": "constitution",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 20
+      },
+      {
+        "date": "2022-04-21",
+        "item": 16,
+        "slug": "16-protsedura-ot-hamid-hamid-za-udalzhavane-na-r-vreme-do-priem",
+        "title": "Процедура от Хамид Хамид за удължаване на р.време до приемането на т.6",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-04-21",
+        "item": 15,
+        "slug": "15-protsedura-ot-hr-gadzhev-za-udalzhavane-na-r-vreme-do-priema",
+        "title": "Процедура от Хр.Гаджев за удължаване на р.време до приемането на т.8",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-04-20",
+        "item": 8,
+        "slug": "8-programa-na-narodnoto-sabranie-za-20-i-21-april-2022g-predlo",
+        "title": "Програма на Народното събрание за 20 и 21 април 2022г. - предложение от Костадин Костадинов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-03-24",
+        "item": 10,
+        "slug": "10-zi-na-zakona-za-balgarskoto-grazhdanstvo-vtoro-glasuvane-par",
+        "title": "ЗИ на Закона за българското гражданство - второ гласуване - параграф 10 - нов - предложение от Мустафа Карадайъ",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-03-16",
+        "item": 22,
+        "slug": "22",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2022-03-16",
+        "item": 21,
+        "slug": "21",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1871,
+        "score": 0.5733795282101369,
+        "overlap": 696
+      },
+      {
+        "mpId": 1696,
+        "score": 0.5603232054388285,
+        "overlap": 683
+      },
+      {
+        "mpId": 1638,
+        "score": 0.5586423786314328,
+        "overlap": 706
+      },
+      {
+        "mpId": 1597,
+        "score": 0.5522938915523792,
+        "overlap": 683
+      },
+      {
+        "mpId": 1690,
+        "score": 0.5399425787051403,
+        "overlap": 620
+      },
+      {
+        "mpId": 2115,
+        "score": 0.5290090977437177,
+        "overlap": 647
+      },
+      {
+        "mpId": 1652,
+        "score": 0.5225147601869387,
+        "overlap": 614
+      },
+      {
+        "mpId": 1736,
+        "score": 0.5058762498712688,
+        "overlap": 592
+      },
+      {
+        "mpId": 1735,
+        "score": 0.49897130852911414,
+        "overlap": 568
+      },
+      {
+        "mpId": 1888,
+        "score": 0.4967044750972054,
+        "overlap": 571
+      },
+      {
+        "mpId": 1598,
+        "score": 0.4700892932910855,
+        "overlap": 552
+      },
+      {
+        "mpId": 2178,
+        "score": 0.4616166941399244,
+        "overlap": 407
+      },
+      {
+        "mpId": 2176,
+        "score": 0.45015703980007143,
+        "overlap": 746
+      },
+      {
+        "mpId": 2166,
+        "score": 0.4477702823038469,
+        "overlap": 758
+      },
+      {
+        "mpId": 2173,
+        "score": 0.4450229634971148,
+        "overlap": 756
+      },
+      {
+        "mpId": 1676,
+        "score": 0.44195158694669434,
+        "overlap": 529
+      },
+      {
+        "mpId": 2161,
+        "score": 0.4379760539918072,
+        "overlap": 751
+      },
+      {
+        "mpId": 2168,
+        "score": 0.43513426978438957,
+        "overlap": 725
+      },
+      {
+        "mpId": 1621,
+        "score": 0.4341829977193997,
+        "overlap": 497
+      },
+      {
+        "mpId": 2130,
+        "score": 0.4337152912268204,
+        "overlap": 770
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2069,
+        "score": 0.03183662331229987,
+        "overlap": 254
+      },
+      {
+        "mpId": 2064,
+        "score": 0.047484422955060474,
+        "overlap": 27
+      },
+      {
+        "mpId": 1975,
+        "score": 0.05417301054859094,
+        "overlap": 555
+      },
+      {
+        "mpId": 1576,
+        "score": 0.05743679889502424,
+        "overlap": 390
+      },
+      {
+        "mpId": 1465,
+        "score": 0.05775613888124322,
+        "overlap": 441
+      },
+      {
+        "mpId": 1933,
+        "score": 0.06399254253821739,
+        "overlap": 497
+      },
+      {
+        "mpId": 1466,
+        "score": 0.06437593802593358,
+        "overlap": 378
+      },
+      {
+        "mpId": 2035,
+        "score": 0.06480300267181367,
+        "overlap": 542
+      },
+      {
+        "mpId": 1124,
+        "score": 0.06612645991311544,
+        "overlap": 384
+      },
+      {
+        "mpId": 2051,
+        "score": 0.06752358493299684,
+        "overlap": 436
+      },
+      {
+        "mpId": 1922,
+        "score": 0.06891589856588361,
+        "overlap": 345
+      },
+      {
+        "mpId": 1692,
+        "score": 0.07440201450808936,
+        "overlap": 440
+      },
+      {
+        "mpId": 1703,
+        "score": 0.07472770121661429,
+        "overlap": 362
+      },
+      {
+        "mpId": 810,
+        "score": 0.07566766504010652,
+        "overlap": 200
+      },
+      {
+        "mpId": 767,
+        "score": 0.08032274175681556,
+        "overlap": 445
+      },
+      {
+        "mpId": 473,
+        "score": 0.08142309126254954,
+        "overlap": 469
+      },
+      {
+        "mpId": 2073,
+        "score": 0.08338028656669959,
+        "overlap": 581
+      },
+      {
+        "mpId": 2089,
+        "score": 0.08540167381100336,
+        "overlap": 565
+      },
+      {
+        "mpId": 1923,
+        "score": 0.08676773340053913,
+        "overlap": 476
+      },
+      {
+        "mpId": 2074,
+        "score": 0.0881265008123522,
+        "overlap": 570
+      }
+    ]
+  }
+}

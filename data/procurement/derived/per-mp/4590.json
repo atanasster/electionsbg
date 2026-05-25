@@ -1,0 +1,51 @@
+{
+  "mpId": 4590,
+  "summary": {
+    "totalEur": 65138.815745744774,
+    "totalOther": {},
+    "contractCount": 1,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 65138.815745744774,
+    "rank": 41,
+    "cohortSize": 54,
+    "cohortMedian": 305399.75355731323
+  },
+  "entries": [
+    {
+      "mpId": 4590,
+      "mpName": "Петър Николаев Николов",
+      "contractorEik": "206705325",
+      "contractorName": "Никел Проект ООД",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 65138.815745744774,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 65138.815745744774,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "128501598",
+          "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВ.ПАНТЕЛЕЙМОН\" - ЯМБОЛ АД",
+          "contractCount": 1,
+          "totalEur": 65138.815745744774,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}
