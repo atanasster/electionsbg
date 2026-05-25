@@ -9,6 +9,7 @@
 // ministry execution reports drop in spring after the calendar year closes.
 
 import { FC, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowDown, ArrowUp, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -113,9 +114,13 @@ const RowItem: FC<{ row: Row; lang: "bg" | "en" }> = ({ row, lang }) => {
     : "text-amber-600 dark:text-amber-400";
   return (
     <li className="flex items-baseline gap-2 py-1.5 border-b border-border/40 last:border-b-0 text-xs">
-      <span className="flex-1 truncate" title={label}>
+      <Link
+        to={`/budget/ministry/${row.nodeId}`}
+        className="flex-1 truncate text-primary hover:underline"
+        title={label}
+      >
         {label}
-      </span>
+      </Link>
       <span className="text-muted-foreground tabular-nums shrink-0">
         {compactEur(row.planned)} → {compactEur(row.executed)}
       </span>
