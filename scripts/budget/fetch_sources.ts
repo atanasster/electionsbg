@@ -301,6 +301,30 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
     format: "manual-pdf",
     url: "https://www.minfin.bg/upload/57898/1000_Pril-1-MoF_draft+ProgOtchet_31.12.2023_Official.pdf",
   },
+  // МВнР FY2023 — discovered + headcount-parseable but execution-blocked.
+  //   URL: https://www.mfa.bg/upload/121303/програмен%20отчет%20МВнР%2031122023.zip
+  //   Inner entry: 1100-Otchet programi 202312_MVnR.xlsx (suffix-matched
+  //                inside a Cyrillic-named subdirectory inside the ZIP)
+  //   Headcount works (6 programmes, 1,234 staff, €24.08M, €19,510/FTE)
+  //   thanks to headcount.ts: parseHeadcountFromExecutionXlsx now reaches
+  //   sheet "Програми" and findXlsxValueColumns falls back to Отчет-only
+  //   when Закон/Уточнен columns are unlabelled.
+  //   BLOCKER: execution_xlsx.ts:parseExecutionXlsx throws "no rows with
+  //   classification codes" because МВнР's "Програми" sheet doesn't put
+  //   policy-area / programme codes in a column the financial parser
+  //   recognises — those codes live in the *other* sheet
+  //   ("политики+програми" — the policy-area rollup with Класификационен
+  //   код in column 0). Activating МВнР needs execution_xlsx.ts to either
+  //   dispatch by sheet name OR accept the policy-area-rollup layout.
+  //   Until then MVnR stays surveyed-but-not-ingested.
+  // {
+  //   fiscalYear: 2023,
+  //   adminId: "admin-ministerstvoto-na-vanshnite-raboti",
+  //   unitNameBg: "Министерството на външните работи",
+  //   format: "xlsx-in-zip",
+  //   url: "https://www.mfa.bg/upload/121303/програмен отчет МВнР 31122023.zip",
+  //   entryName: "1100-Otchet programi 202312_MVnR.xlsx",
+  // },
   // МФ FY2024 — site is Cloudflare-challenged and Wayback has not archived
   // the annual report yet (only 30.06.2024 H1 is mirrored). Operator must
   // download `1000_Pril-1-MoF_draft+ProgOtchet_31.12.2024_Official.pdf`

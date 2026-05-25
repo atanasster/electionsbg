@@ -213,6 +213,7 @@ export const parseHeadcountFromExecutionPdf = async (
 const findXlsxValueColumns = (
   rows: unknown[][],
 ): { law: number; amended: number; executed: number } | null => {
+  let otchetOnly = -1;
   for (let r = 0; r < Math.min(rows.length, 30); r++) {
     const row = rows[r] ?? [];
     let law = -1;
@@ -229,6 +230,23 @@ const findXlsxValueColumns = (
     if (law >= 0 && amended >= 0 && executed >= 0 && law !== amended) {
       return { law, amended, executed };
     }
+    // Track the right-most Отчет-only column for the fallback. Title rows
+    // often contain the word "Отчет" at column 0 ("Отчет на ведомствените
+    // разходи…"); the actual header row has it at column 3+. Take the
+    // largest column index we see.
+    if (executed > otchetOnly && law < 0 && amended < 0) {
+      otchetOnly = executed;
+    }
+  }
+  // МВнР's "Програми" sheet labels only the Отчет column; Закон / Уточнен
+  // are present as columns but unlabelled. Fall back to assuming the three
+  // value columns are consecutive ending at the labelled Отчет column.
+  if (otchetOnly >= 2) {
+    return {
+      law: otchetOnly - 2,
+      amended: otchetOnly - 1,
+      executed: otchetOnly,
+    };
   }
   return null;
 };
@@ -248,7 +266,11 @@ export const parseHeadcountFromExecutionXlsx = (
 ): ParsedHeadcountUnit => {
   const wb = XLSX.read(Buffer.from(xlsxBytes), { type: "buffer" });
   const currency: "BGN" | "EUR" = fiscalYear >= 2026 ? "EUR" : "BGN";
-  const sheet = wb.Sheets["Прогр."] ?? wb.Sheets[wb.SheetNames[0]];
+  // МТСП uses sheet name "Прогр."; МВнР uses "Програми". Try both before
+  // falling back to the first sheet (which may be a policy-area rollup
+  // rather than the per-programme detail we want).
+  const sheet =
+    wb.Sheets["Прогр."] ?? wb.Sheets["Програми"] ?? wb.Sheets[wb.SheetNames[0]];
   const rows = XLSX.utils.sheet_to_json(sheet, {
     header: 1,
     defval: "",

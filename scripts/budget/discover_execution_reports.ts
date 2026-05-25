@@ -58,7 +58,11 @@ const TARGETS: Target[] = [
     key: "mtitc",
     adminId: "admin-ministerstvoto-na-transporta-i-saobshteniyata",
     label: "МТС — Transport",
-    startUrl: "https://www.mtc.government.bg/bg/category/77/byudzhet",
+    startUrl: "https://www.mtc.government.bg/bg/category/266",
+    alsoVisit: [
+      "https://www.mtc.government.bg/bg/archive-year/16",
+      "https://www.mtc.government.bg/bg/category/257",
+    ],
   },
   {
     key: "mc",
@@ -76,13 +80,16 @@ const TARGETS: Target[] = [
     key: "ms",
     adminId: "admin-ministerskiya-savet",
     label: "МС — Council of Ministers",
-    startUrl: "https://www.government.bg/bg/prestsentar/byudzhet",
+    startUrl:
+      "https://www.government.bg/bg/administratsia/byudzhet/byudzhet-na-ms",
+    alsoVisit: ["https://www.government.bg/bg/administratsia/byudzhet"],
   },
   {
     key: "mvnr",
     adminId: "admin-ministerstvoto-na-vanshnite-raboti",
     label: "МВнР — Foreign Affairs",
-    startUrl: "https://www.mfa.bg/bg/themes/byudzhet-mvnr-105",
+    startUrl: "https://www.mfa.bg/bg/ministerstvo/dokumenti/otchetnost",
+    alsoVisit: ["https://www.mfa.bg/bg/ministerstvo/dokumenti/budget-mvnr"],
   },
 ];
 
