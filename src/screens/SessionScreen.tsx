@@ -3,13 +3,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Link } from "@/ux/Link";
 import { PartyTag } from "@/screens/components/party/PartyTag";
 import { useTranslation } from "react-i18next";
-import {
-  Calendar,
-  ChevronLeft,
-  ChevronDown,
-  ChevronRight,
-  ExternalLink,
-} from "lucide-react";
+import { ChevronLeft, ChevronDown, ChevronRight } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { useRollcallSession } from "@/data/parliament/votes/useRollcallSession";
 import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlForVote";
@@ -19,9 +13,17 @@ import { SessionVoteHemicycle } from "@/screens/components/votes/SessionVoteHemi
 import { TopicChip } from "@/screens/components/votes/TopicChip";
 import { CopyTopicLink } from "@/screens/components/votes/CopyTopicLink";
 import { RollcallHeatmap } from "@/screens/components/votes/RollcallHeatmap";
+import { SessionStatsTiles } from "@/screens/components/votes/SessionStatsTiles";
+import { SessionItemBreakdown } from "@/screens/components/votes/SessionItemBreakdown";
+import { SessionDefections } from "@/screens/components/votes/SessionDefections";
+import { computeSessionMetrics } from "@/data/parliament/votes/sessionMetrics";
 import { majorityFor } from "@/data/parliament/votes/majority";
-import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import type { SessionItem, VoteValue } from "@/data/parliament/votes/types";
+
+// Threshold for switching the per-session visualization from per-item party
+// breakdown cards (legible at a glance) to the embedding-clustered heatmap
+// (only meaningful when there are many items to spot patterns across).
+const HEATMAP_MIN_ITEMS = 8;
 
 const VOTE_LABELS: Record<VoteValue, string> = {
   yes: "yes",
@@ -116,11 +118,6 @@ export const SessionScreen: FC = () => {
   const [expanded, setExpanded] = useState<Set<number>>(
     slugItemNo != null ? new Set([slugItemNo]) : new Set(),
   );
-  // Heatmap defaults open on desktop, closed on mobile — at narrow widths the
-  // SVG can dominate the page and push the items list below the fold.
-  const isDesktop = useMediaQueryMatch("md");
-  const [showHeatmap, setShowHeatmap] = useState<boolean | null>(null);
-  const heatmapOpen = showHeatmap ?? isDesktop;
 
   const { session, isLoading } = useRollcallSession(date ?? null);
   const { findMpById } = useMps();
@@ -176,7 +173,10 @@ export const SessionScreen: FC = () => {
     [session],
   );
 
-  const totalVotes = session?.sessions[0]?.votes.length ?? 0;
+  const metrics = useMemo(
+    () => (session ? computeSessionMetrics(session) : null),
+    [session],
+  );
   // Roster lookup first; fall back to the session-file `mpNames` map when
   // the CSV id isn't in the deduped roster (parliament.bg recycles ids
   // across NSes — see useCandidateUrlForVote for the longer note).
@@ -210,7 +210,7 @@ export const SessionScreen: FC = () => {
     <div className="w-full px-4 md:px-8">
       <Title description={pageTitle}>{pageTitle}</Title>
 
-      <div className="max-w-5xl mx-auto pb-12 space-y-4">
+      <div className="pb-12 space-y-4">
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <Link
             to="/votes"
@@ -251,70 +251,29 @@ export const SessionScreen: FC = () => {
           </div>
         ) : (
           <>
-            <section className="rounded-xl border bg-card p-5">
-              <div className="flex flex-wrap items-baseline gap-x-8 gap-y-2">
-                <div>
-                  <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
-                    <Calendar className="inline h-3 w-3 mr-1" />
-                    {t("votes_session_date") || "Date"}
-                  </div>
-                  <div className="text-xl font-semibold tabular-nums">
-                    {headingDate}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
-                    {t("votes_session_ns") || "Parliament"}
-                  </div>
-                  <div className="text-xl font-semibold tabular-nums">
-                    {session.ns}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
-                    {t("votes_session_items") || "Vote items"}
-                  </div>
-                  <div className="text-xl font-semibold tabular-nums">
-                    {castItemCount}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
-                    {t("votes_session_seated") || "Seated"}
-                  </div>
-                  <div className="text-xl font-semibold tabular-nums">
-                    {totalVotes}
-                  </div>
-                </div>
-                {session.pdfUrl && (
-                  <div className="ml-auto">
-                    <a
-                      href={session.pdfUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
-                    >
-                      {t("votes_session_pdf") || "Виж в parliament.bg"}
-                      <ExternalLink className="h-3.5 w-3.5" />
-                    </a>
-                  </div>
-                )}
-              </div>
-            </section>
+            {metrics && (
+              <SessionStatsTiles
+                session={session}
+                metrics={metrics}
+                headingDate={headingDate}
+              />
+            )}
 
-            {session.sessions.length > 1 && (
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setShowHeatmap(!heatmapOpen)}
-                  className="text-xs text-primary hover:underline inline-flex items-center gap-1 mb-2"
-                >
-                  {heatmapOpen
-                    ? t("votes_heatmap_hide") || "Hide heatmap"
-                    : t("votes_heatmap_show") || "Show heatmap"}
-                </button>
-                {heatmapOpen && <RollcallHeatmap session={session} />}
-              </div>
+            {metrics && metrics.perItem.length >= HEATMAP_MIN_ITEMS ? (
+              <RollcallHeatmap session={session} />
+            ) : metrics && metrics.perItem.length > 0 ? (
+              <SessionItemBreakdown
+                session={session}
+                perItem={metrics.perItem}
+              />
+            ) : null}
+
+            {metrics && (
+              <SessionDefections
+                session={session}
+                perItem={metrics.perItem}
+                candidateUrl={candidateUrl}
+              />
             )}
 
             <div className="flex items-center gap-2">

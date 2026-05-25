@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMpEmbeddingOrder } from "@/data/parliament/votes/useMpEmbedding";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
@@ -13,10 +13,10 @@ type Props = {
 };
 
 const VOTE_COLOR: Record<VoteValue, string> = {
-  yes: "#10b981", // emerald
-  no: "#ef4444", // red
-  abstain: "#f59e0b", // amber
-  absent: "#e5e7eb", // muted grey for "no vote cast"
+  yes: "#10b981",
+  no: "#ef4444",
+  abstain: "#f59e0b",
+  absent: "#e5e7eb",
 };
 
 const VOTE_LABEL: Record<VoteValue, string> = {
@@ -29,44 +29,65 @@ const VOTE_LABEL: Record<VoteValue, string> = {
 const castCount = (item: SessionItem): number =>
   item.tallies.yes + item.tallies.no + item.tallies.abstain;
 
-// Auto-scale cell dimensions to keep the grid readable across viewport sizes
-// while staying within ~600 px wide / ~480 px tall. Past 480 MPs the rows
-// compress to a 1-px sliver, which is the right trade-off — the patterns
-// remain visible even when individual rows can't be picked out by eye.
-const TARGET_WIDTH = 600;
-const TARGET_HEIGHT = 480;
+const marginOf = (item: SessionItem): number =>
+  Math.abs(item.tallies.yes - (item.tallies.no + item.tallies.abstain));
 
-// Roll-call heatmap. Y-axis = MPs sorted by embedding x-coordinate so MPs
-// who vote similarly cluster together; X-axis = items in their roll-call
-// order. Cell colour encodes the cast vote (or absent). Patterns to look
-// for:
-//   - one party's row flipping from green-to-red mid-grid = a defection
-//     wave on a particular item
-//   - vertical bands where a cluster votes opposite the rest = a cross-aisle
-//     coalition forming for that item.
+const FALLBACK_WIDTH = 600;
+const TARGET_HEIGHT = 480;
+const PARTY_LABEL_COL = 80; // left column reserved for party-band labels
+const X_AXIS_H = 28; // bottom band for item-number labels
+const PARTY_STRIP_W = 4;
+const GAP = 2;
+
+// Roll-call heatmap. Y-axis = MPs sorted by embedding x-coordinate so MPs who
+// vote similarly cluster together. X-axis = items sorted by closeness (smallest
+// margin first), so contested votes — the interesting ones — cluster on the
+// left. Cell colour encodes the cast vote (or absent).
 export const RollcallHeatmap: FC<Props> = ({ session }) => {
   const { t } = useTranslation();
   const { order, isLoading: orderLoading } = useMpEmbeddingOrder();
-  const { colorForPartyShort } = useParliamentGroups();
+  const { colorForPartyShort, labelForPartyShort } = useParliamentGroups();
   const [hovered, setHovered] = useState<{
     mpId: number;
     item: number;
   } | null>(null);
+  // Callback ref so the observer attaches when the div actually mounts —
+  // the component returns null while order data is loading, so a plain
+  // useRef + useEffect([]) would observe a still-null node.
+  const [containerEl, setContainerEl] = useState<HTMLDivElement | null>(null);
+  const [containerWidth, setContainerWidth] = useState(FALLBACK_WIDTH);
 
-  const { rows, items, voteByMpItem, cellW, cellH } = useMemo(() => {
+  useEffect(() => {
+    if (!containerEl) return;
+    const initial = containerEl.clientWidth;
+    if (initial > 0) setContainerWidth(initial);
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const w = entry.contentRect.width;
+        if (w > 0) setContainerWidth(w);
+      }
+    });
+    ro.observe(containerEl);
+    return () => ro.disconnect();
+  }, [containerEl]);
+
+  const { rows, items, voteByMpItem, cellW, cellH, partyRuns } = useMemo(() => {
     const castItems = session.sessions.filter((it) => castCount(it) > 0);
+    // Sort items by closeness — tightest margins first, unanimous votes last.
+    // Stable tie-break by original item number so the layout is deterministic.
+    const sortedItems = [...castItems].sort((a, b) => {
+      const ma = marginOf(a);
+      const mb = marginOf(b);
+      if (ma !== mb) return ma - mb;
+      return a.item - b.item;
+    });
 
-    // Union of all MP ids seen in the session — typically every seated MP,
-    // even those marked absent on every item.
     const mpSet = new Set<number>();
-    for (const it of castItems) {
+    for (const it of sortedItems) {
       for (const v of it.votes) mpSet.add(v.mpId);
     }
     const allMps = [...mpSet];
 
-    // Primary key: embedding rank. Secondary key (for MPs without an
-    // embedding point — typically those with too few votes to model): name
-    // alphabetically so the bottom of the grid is still deterministic.
     allMps.sort((a, b) => {
       const ra = order.get(a);
       const rb = order.get(b);
@@ -78,42 +99,67 @@ export const RollcallHeatmap: FC<Props> = ({ session }) => {
       return na.localeCompare(nb);
     });
 
-    // Build the (mpId, item) → vote map up front so cell render is O(1).
     const vMap = new Map<string, VoteValue>();
-    for (const it of castItems) {
+    for (const it of sortedItems) {
       for (const v of it.votes) {
         vMap.set(`${v.mpId}#${it.item}`, v.vote);
       }
     }
 
+    const partyStripPlusGap = PARTY_LABEL_COL + PARTY_STRIP_W + GAP;
+    const widthBudget = Math.max(120, containerWidth - partyStripPlusGap);
     const cw = Math.max(
       2,
-      Math.min(10, Math.floor(TARGET_WIDTH / Math.max(1, castItems.length))),
+      Math.floor(widthBudget / Math.max(1, sortedItems.length)),
     );
     const ch = Math.max(
       1,
       Math.min(4, Math.floor(TARGET_HEIGHT / Math.max(1, allMps.length))),
     );
 
+    // Contiguous party runs along the y-axis. Used to label parties next to
+    // the colour strip — one label per contiguous block. Groups smaller than
+    // 4 MPs are skipped to keep labels from overlapping each other.
+    const runs: {
+      party: string;
+      start: number;
+      end: number;
+    }[] = [];
+    let cur: { party: string; start: number; end: number } | null = null;
+    for (let i = 0; i < allMps.length; i++) {
+      const party = session.mpParty?.[String(allMps[i])] ?? "—";
+      if (!cur || cur.party !== party) {
+        if (cur) runs.push(cur);
+        cur = { party, start: i, end: i };
+      } else {
+        cur.end = i;
+      }
+    }
+    if (cur) runs.push(cur);
+
     return {
       rows: allMps,
-      items: castItems,
+      items: sortedItems,
       voteByMpItem: vMap,
       cellW: cw,
       cellH: ch,
+      partyRuns: runs,
     };
-  }, [session, order]);
+  }, [session, order, containerWidth]);
 
   if (orderLoading) return null;
   if (rows.length === 0 || items.length === 0) return null;
 
   const gridW = items.length * cellW;
   const gridH = rows.length * cellH;
-  const partyStripW = 4; // narrow vertical strip of party colour at row 0
+  const svgW = PARTY_LABEL_COL + PARTY_STRIP_W + GAP + gridW;
+  const svgH = gridH + X_AXIS_H;
 
-  // Tooltip is rendered as a sibling absolute-positioned div on hover. Cell
-  // hover state is local (no Radix tooltip per cell) — a few hundred cells
-  // with full tooltips would slow scroll on mid-range laptops.
+  // Decide how often to draw an x-axis tick. Skip labels if the cell is too
+  // narrow to fit even 2 characters (saves crowding when there are hundreds
+  // of items in one session).
+  const xTickStride = cellW >= 14 ? 1 : cellW >= 7 ? 2 : cellW >= 4 ? 5 : 10;
+
   const hoveredVote =
     hovered != null
       ? voteByMpItem.get(`${hovered.mpId}#${hovered.item}`)
@@ -131,41 +177,63 @@ export const RollcallHeatmap: FC<Props> = ({ session }) => {
         {t("votes_heatmap_title") || "Vote-by-MP heatmap"}
       </h2>
       <p className="text-xs text-muted-foreground mb-3">
-        {t("votes_heatmap_axis_mps") || "MPs (left-right by voting pattern)"} ·{" "}
-        {t("votes_heatmap_axis_items") || "Items"}
+        {t("votes_heatmap_axis_mps_v2") ||
+          "MPs (clustered by voting pattern) · items (closest votes first)"}
       </p>
 
-      <div className="relative">
+      <div ref={setContainerEl} className="relative w-full">
         <svg
-          width={gridW + partyStripW + 2}
-          height={gridH}
+          width={svgW}
+          height={svgH}
           className="block max-w-full"
           role="img"
           aria-label={t("votes_heatmap_title") || "Vote-by-MP heatmap"}
         >
-          {/* Party-colour strip on the left edge — one rect per MP row */}
+          {/* Party-band labels on the left, one per contiguous run of ≥4 MPs */}
+          {partyRuns
+            .filter((r) => r.end - r.start + 1 >= 4)
+            .map((r) => {
+              const midY = ((r.start + r.end + 1) / 2) * cellH;
+              return (
+                <text
+                  key={`pl-${r.party}-${r.start}`}
+                  x={PARTY_LABEL_COL - 4}
+                  y={midY}
+                  textAnchor="end"
+                  dominantBaseline="middle"
+                  fontSize={10}
+                  fill="currentColor"
+                  className="text-muted-foreground"
+                >
+                  {labelForPartyShort(r.party) || r.party}
+                </text>
+              );
+            })}
+
+          {/* Party-colour strip — one rect per MP row */}
           {rows.map((mpId, ri) => {
             const party = session.mpParty?.[String(mpId)];
             const fill = colorForPartyShort(party) ?? "#94a3b8";
             return (
               <rect
                 key={`p-${mpId}`}
-                x={0}
+                x={PARTY_LABEL_COL}
                 y={ri * cellH}
-                width={partyStripW}
+                width={PARTY_STRIP_W}
                 height={cellH}
                 fill={fill}
               />
             );
           })}
-          {/* Cells: one rect per (mp, item) tuple */}
+
+          {/* Cells */}
           {rows.map((mpId, ri) =>
             items.map((it, ci) => {
               const vote = voteByMpItem.get(`${mpId}#${it.item}`) ?? "absent";
               return (
                 <rect
                   key={`c-${mpId}-${it.item}`}
-                  x={partyStripW + 2 + ci * cellW}
+                  x={PARTY_LABEL_COL + PARTY_STRIP_W + GAP + ci * cellW}
                   y={ri * cellH}
                   width={cellW}
                   height={cellH}
@@ -176,6 +244,36 @@ export const RollcallHeatmap: FC<Props> = ({ session }) => {
               );
             }),
           )}
+
+          {/* X-axis: item numbers under each column, sampled per stride */}
+          {items.map((it, ci) => {
+            if (ci % xTickStride !== 0 && ci !== items.length - 1) return null;
+            const cx =
+              PARTY_LABEL_COL + PARTY_STRIP_W + GAP + ci * cellW + cellW / 2;
+            return (
+              <g key={`x-${it.item}`}>
+                <line
+                  x1={cx}
+                  x2={cx}
+                  y1={gridH}
+                  y2={gridH + 3}
+                  stroke="currentColor"
+                  className="text-muted-foreground/40"
+                />
+                <text
+                  x={cx}
+                  y={gridH + 6}
+                  fontSize={9}
+                  textAnchor="end"
+                  fill="currentColor"
+                  className="text-muted-foreground"
+                  transform={`rotate(-55, ${cx}, ${gridH + 6})`}
+                >
+                  #{it.item}
+                </text>
+              </g>
+            );
+          })}
         </svg>
 
         {hovered && (
