@@ -236,11 +236,7 @@ export const BudgetPersonnelTile: FC<{ fiscalYear: number }> = ({
 
   if (!data || (!current && ministries.length === 0)) return null;
 
-  const renderTooltip = ({
-    active,
-    payload,
-    label,
-  }: {
+  const RenderTooltip: FC<{
     active?: boolean;
     payload?: Array<{
       name: string;
@@ -249,7 +245,7 @@ export const BudgetPersonnelTile: FC<{ fiscalYear: number }> = ({
       dataKey: string;
     }>;
     label?: string;
-  }): JSX.Element | null => {
+  }> = ({ active, payload, label }) => {
     if (!active || !payload || payload.length === 0) return null;
     return (
       <div className="rounded border bg-background p-2 text-xs shadow-sm">
@@ -439,7 +435,7 @@ export const BudgetPersonnelTile: FC<{ fiscalYear: number }> = ({
                     tickFormatter={(v) => `${v}%`}
                     width={32}
                   />
-                  <Tooltip content={renderTooltip} />
+                  <Tooltip content={<RenderTooltip />} />
                   <Bar
                     yAxisId="left"
                     dataKey="filled"

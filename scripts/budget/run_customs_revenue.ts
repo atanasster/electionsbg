@@ -104,7 +104,7 @@ const cmd = command({
         continue;
       }
       console.log(`  ${fy}: fetching ${url}`);
-      const bytes = await fetchPdf(url, fy, refresh);
+      const bytes = await fetchPdf(url, fy, refresh === true);
       console.log(`  ${fy}: ${bytes.length} bytes — parsing`);
       const parsed = await parseCustomsHronikaPdf(bytes, fy, { url });
       const outPath = path.join(OUTPUT_DIR, `${fy}.json`);

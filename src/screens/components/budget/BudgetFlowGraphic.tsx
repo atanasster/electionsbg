@@ -780,10 +780,16 @@ const FlowSvg: FC<{
                 ) : null}
               </div>
             );
+            const clickSide: "left" | "right" =
+              side === "revenue" ? "left" : "right";
             const clickable =
               onNodeClick != null &&
               (!isNodeClickable ||
-                isNodeClickable({ id: node.id, label: node.label, side }));
+                isNodeClickable({
+                  id: node.id,
+                  label: node.label,
+                  side: clickSide,
+                }));
             return (
               <g
                 key={`${sidePrefix}-node-${node.id}`}
@@ -794,7 +800,7 @@ const FlowSvg: FC<{
                     onNodeClick!({
                       id: node.id,
                       label: node.label,
-                      side,
+                      side: clickSide,
                     });
                   }
                 }}

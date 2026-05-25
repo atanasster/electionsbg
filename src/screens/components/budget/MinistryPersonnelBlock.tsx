@@ -62,7 +62,7 @@ export const MinistryPersonnelBlock: FC<Props> = ({ adminId }) => {
         </CardTitle>
         <p className="text-sm text-muted-foreground">
           {t("personnel_ministry_subtitle", {
-            count:
+            headcount:
               latest.totalHeadcount.executed?.toLocaleString("en-US") ?? "—",
             year: latest.fiscalYear,
           })}
