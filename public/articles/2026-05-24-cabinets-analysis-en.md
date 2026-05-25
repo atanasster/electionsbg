@@ -125,7 +125,11 @@ The numbers, however, are significant:
 - **Avg GDP growth: +5.2%** — continuation of the post-COVID rebound
 - **Avg budget balance: −3.0%** — the start of the prolonged balance deterioration
 
-This is the cabinet that absorbs the **first inflation shock wave from Russia's invasion of Ukraine** (24 Feb 2022). Energy prices pull HICP up; the government responds with compensatory measures (fuel-tax rebates, business aid). The lag: anti-inflation measures **continue to weigh on the budget** under the next cabinet.
+The cabinet inherited a new fiscal reality that began in late 2021, when temporary COVID pension supplements were turned into permanent structural spending, and massive, untargeted energy subsidies for business electricity costs were introduced. This marked the end of Bulgaria's long-standing, highly conservative fiscal anchor and locked the country into deficits around 3% of GDP.
+
+A comparison with regional peers reveals fundamental differences in crisis response. While Greece rapidly consolidated its deficit from −7.5% (2021) to −2.5% (2022), and Romania gradually consolidated under an EU Excessive Deficit Procedure, Bulgaria's deficit remained structurally elevated. Meanwhile, Bulgarian inflation peaked at 15.3% in 2022—substantially higher than Greece's 9.3% and Romania's 13.8%—driven by the high energy intensity of the Bulgarian economy, a larger weight of food and energy in the CPI basket, and strong consumer demand fueled by double-digit nominal salary growth.
+
+The lag: these anti-crisis measures and permanent social commitments **continued to weigh heavily on the budget** under subsequent mandates.
 
 ### [Galab Donev](/governments/donev) — caretaker · Aug 2022 – Jun 2023
 
@@ -163,7 +167,7 @@ This is a signal of fiscal indiscipline in **caretaker** cabinets without legisl
 - **Avg unemployment: 3.5%** — **the lowest in the table for any cabinet**
 - **Debt Δ: +6.2 pp** — **the largest debt build-up by any regular cabinet**
 
-The Zhelyazkov paradox is concentrated in two numbers: **lowest unemployment in history** (3.5%) and **fastest debt accumulation by a regular cabinet** (+6.2 pp). Largely financed by international issuance (a combined €11.6 bn in eurobonds across 2024–2025 — see the [debt issuance table](/indicators/fiscal#debt-emissions)). The budget balance is **−3.6%** — above the 3% Maastricht threshold the country has only just cleared to join the eurozone.
+The Zhelyazkov paradox is concentrated in two numbers: **lowest unemployment in history** (3.5%) and **fastest debt accumulation by a regular cabinet** (+6.2 pp). Debt was primarily financed through massive issuance on international markets (a total of €7.2 billion in Eurobonds in 2025, plus an additional €1.7 billion in domestic bonds—see the [debt issuance table](/indicators/fiscal#debt-emissions)). Out of this massive debt haul, barely €234 million went to refinance maturing international bonds, while over 85% was spent directly on covering the new annual cash deficit (which hit €6.09 billion for 2025) and on building up the liquid assets of the fiscal reserve ahead of the eurozone entry. The budget balance on an accrual basis reached **−3.6%**, which exceeds the 3% Maastricht threshold the country had only just cleared to join the eurozone.
 
 Ends **after the autumn 2025 protests** — you see them as a new red band in the [event strip](/governments).
 
@@ -183,7 +187,7 @@ One of the most important principles when analysing governments: **causes and ef
 
 2. **The KTB stabilisation issuance (2014)** is a financial decision under Oresharski — but servicing that debt is visible in the [issuance table](/indicators/fiscal#debt-emissions) for the next 10 years, under cabinets Borisov II, III, Petkov and Denkov.
 
-3. **COVID stimulus (2020–2021)** is decided under Borisov III — but its repayment shows in deficits above 3% under Petkov, Donev and Denkov.
+3. **Social spending and automatic indexation (2020–2023)**: temporary BGN 50 COVID pension supplements introduced under Borisov III in 2020 were made permanent in late 2021 (under Petkov). The subsequent tie of the minimum wage to 50% of the average gross salary (initiated by BSP in February 2023) triggered an automatic wage-wage spiral. This social-budgetary lag stripped subsequent budgets of flexibility, caused three consecutive years of deficits around 3.5%, and forced a record debt accumulation of +6.2 pp under Zhelyazkov in 2025 to cover the cash shortfalls of the social security system and the state.
 
 4. **Eurozone reforms** are largely completed under Denkov (texts, translations, ESMA notification) — but the mandate that gets to mint "we adopt the euro" is Zhelyazkov's. The same dynamic runs in reverse: the RRF pause arrives under Glavchev I/II and explains the **drop to just €2.1 bn net in EU funds** under Zhelyazkov, vs. €6.8 bn under Borisov III.
 
@@ -206,8 +210,8 @@ Focus on 5 cabinets: **Petkov → Donev → Denkov → Glavchev I+II → Zhelyaz
 
 - The inflation cycle is symmetric: from 11.2% (Petkov) to 13.0% (Donev) to 5.4% (Denkov) to 2.5% (Glavchev I). **Global cycle**, not domestic policy.
 - Unemployment fell continuously from 4.7% → 3.5% — impressive, but see the note below.
-- **The budget balance worsens continuously**: from −3.0% (Petkov) to −4.8% (Glavchev I peak) to −3.6% under Zhelyazkov. This is a new fiscal norm in the third consecutive year ≈ −3.5% deficit.
-- **Debt accumulation accelerated dramatically**: 6.2 pp of GDP in the Zhelyazkov term alone (larger than any other single-cabinet accumulation in the table).
+- **The budget balance worsens continuously**: from −3.0% (Petkov) to −4.8% (Glavchev I peak) to −3.6% under Zhelyazkov. This is a new fiscal norm in the third consecutive year ≈ −3.5% deficit. This structural deficit is a direct consequence of automatic spending laws: **the legal tie of the minimum wage to 50% of the average gross salary** (initiated by "BSP for Bulgaria" in the 48th National Assembly and passed in February 2023, effective 2024, triggering an automatic wage-wage spiral across the public sector payroll) and **the strict application of the Swiss Rule for pensions** (which, in a high-inflation and high-wage growth environment, automatically raised pension expenditures by over 11% annually, tearing a massive structural hole in the social security budget covered by direct transfers from the state treasury).
+- **Debt accumulation accelerated dramatically**: 6.2 pp of GDP in the Zhelyazkov term alone (larger than any other single-cabinet accumulation in the table). This new debt was raised almost entirely to cover the cash deficits and buffer the fiscal reserve for the eurozone entry, rather than to refinance older debt (which faced negligible maturities in 2025).
 - Unemployment is phenomenally low (3.5%), but combined with **AROPE 29%** it means **many employed people live in poverty risk** — the "working poor" phenomenon.
 
 **The lag that has not yet arrived**: the 2024–2025 fiscal loosening has to be consolidated to meet the extended Maastricht rules the country has just agreed to. That burden will fall on the incumbent regular [Radev](/governments/radev) cabinet or whichever government succeeds it — who **will have to clean up someone else's bill**.
