@@ -1,0 +1,275 @@
+{
+  "mpId": 3252,
+  "ns": "45",
+  "partyShort": "ИСМВ",
+  "loyalty": {
+    "votesCast": 74,
+    "withParty": 69,
+    "loyaltyPct": 0.9324324324324325,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 74,
+    "dissentCount": 5,
+    "recent": [
+      {
+        "date": "2021-04-29",
+        "item": 117,
+        "slug": "117-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-65-po-vnosi",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 65 (по вносител)- отпада - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-04-29",
+        "item": 77,
+        "slug": "77-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-50-nov",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 50 - нов - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-04-23",
+        "item": 10,
+        "slug": "10-zid-na-izborniya-kodeks-parvo-glasuvane-vnositeli-hristo-iva",
+        "title": "ЗИД на Изборния кодекс - първо гласуване - вносители Христо Иванов, Антоанета Цонева и Ивайло Мирчев - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-04-23",
+        "item": 5,
+        "slug": "5-zid-na-izborniya-kodeks-parvo-glasuvane-vnositeli-hristo-iva",
+        "title": "ЗИД на Изборния кодекс - първо гласуване - вносители Христо Иванов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-04-23",
+        "item": 4,
+        "slug": "4-zid-na-izborniya-kodeks-parvo-glasuvane-hristo-ivanov-i-grup",
+        "title": "ЗИД на Изборния кодекс - първо гласуване - Христо Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1616,
+        "score": 0.5660116161682923,
+        "overlap": 67
+      },
+      {
+        "mpId": 1686,
+        "score": 0.5429919841400007,
+        "overlap": 73
+      },
+      {
+        "mpId": 4753,
+        "score": 0.5162660957539448,
+        "overlap": 66
+      },
+      {
+        "mpId": 3351,
+        "score": 0.5137468353292415,
+        "overlap": 57
+      },
+      {
+        "mpId": 1702,
+        "score": 0.48004267235639847,
+        "overlap": 67
+      },
+      {
+        "mpId": 1575,
+        "score": 0.476048678466187,
+        "overlap": 71
+      },
+      {
+        "mpId": 3402,
+        "score": 0.46054685728553363,
+        "overlap": 44
+      },
+      {
+        "mpId": 5245,
+        "score": 0.45826095901225394,
+        "overlap": 70
+      },
+      {
+        "mpId": 3395,
+        "score": 0.452556368072173,
+        "overlap": 58
+      },
+      {
+        "mpId": 3282,
+        "score": 0.4465942614792463,
+        "overlap": 40
+      },
+      {
+        "mpId": 3481,
+        "score": 0.4424397086077331,
+        "overlap": 46
+      },
+      {
+        "mpId": 3394,
+        "score": 0.438598722555895,
+        "overlap": 61
+      },
+      {
+        "mpId": 3444,
+        "score": 0.4366952057244305,
+        "overlap": 54
+      },
+      {
+        "mpId": 3401,
+        "score": 0.429264022408433,
+        "overlap": 69
+      },
+      {
+        "mpId": 4265,
+        "score": 0.42044186989470395,
+        "overlap": 68
+      },
+      {
+        "mpId": 5266,
+        "score": 0.4175738453296617,
+        "overlap": 57
+      },
+      {
+        "mpId": 5121,
+        "score": 0.4155550027331878,
+        "overlap": 47
+      },
+      {
+        "mpId": 4800,
+        "score": 0.4135148412520407,
+        "overlap": 62
+      },
+      {
+        "mpId": 5255,
+        "score": 0.4082868681431803,
+        "overlap": 59
+      },
+      {
+        "mpId": 5244,
+        "score": 0.4031102846968016,
+        "overlap": 68
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4249,
+        "score": -0.06711560552140243,
+        "overlap": 53
+      },
+      {
+        "mpId": 1811,
+        "score": -0.036558191099961945,
+        "overlap": 37
+      },
+      {
+        "mpId": 5248,
+        "score": -0.03522835442257656,
+        "overlap": 45
+      },
+      {
+        "mpId": 5151,
+        "score": -0.031969210715861285,
+        "overlap": 53
+      },
+      {
+        "mpId": 4632,
+        "score": -0.031068488300060003,
+        "overlap": 27
+      },
+      {
+        "mpId": 5267,
+        "score": -0.03106848830006,
+        "overlap": 51
+      },
+      {
+        "mpId": 4838,
+        "score": -0.021871315933325676,
+        "overlap": 52
+      },
+      {
+        "mpId": 4258,
+        "score": -0.012463055064254434,
+        "overlap": 47
+      },
+      {
+        "mpId": 4786,
+        "score": -0.010611908999450222,
+        "overlap": 51
+      },
+      {
+        "mpId": 1806,
+        "score": 0,
+        "overlap": 55
+      },
+      {
+        "mpId": 4116,
+        "score": 0.009931706035227363,
+        "overlap": 60
+      },
+      {
+        "mpId": 4225,
+        "score": 0.010042266465917387,
+        "overlap": 60
+      },
+      {
+        "mpId": 5126,
+        "score": 0.010274936706584829,
+        "overlap": 55
+      },
+      {
+        "mpId": 5223,
+        "score": 0.011185934253567072,
+        "overlap": 53
+      },
+      {
+        "mpId": 5169,
+        "score": 0.01752499093081954,
+        "overlap": 20
+      },
+      {
+        "mpId": 5236,
+        "score": 0.020010007506255475,
+        "overlap": 58
+      },
+      {
+        "mpId": 5195,
+        "score": 0.020159897297680807,
+        "overlap": 58
+      },
+      {
+        "mpId": 3455,
+        "score": 0.020712325533373332,
+        "overlap": 55
+      },
+      {
+        "mpId": 4807,
+        "score": 0.020712325533373332,
+        "overlap": 55
+      },
+      {
+        "mpId": 1469,
+        "score": 0.020963393191418232,
+        "overlap": 53
+      }
+    ]
+  }
+}

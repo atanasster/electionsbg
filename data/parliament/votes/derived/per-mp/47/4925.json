@@ -1,0 +1,323 @@
+{
+  "mpId": 4925,
+  "ns": "47",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 1031,
+    "withParty": 1021,
+    "loyaltyPct": 0.9903006789524733,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1031,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2022-07-22",
+        "item": 18,
+        "slug": "18-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на процедурни правила за условията и реда за предлагане на кандидати, представяне и публично оповестяване на документите, изслушване на кандидатите и за избор на председател на Комисията за противодействие на корупцията и за отнемане на незаконно придобито имущество - предложение от Петър Петров за редакция на І, т. 1",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-07-14",
+        "item": 10,
+        "slug": "10-zi-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-4-predlozh",
+        "title": "ЗИ на Закона за здравето - второ гласуване - параграф 4 - предложение от Силви Кирилов за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 26
+      },
+      {
+        "date": "2022-06-24",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-publichnoto-predlagane-na-tsenni-knizha-vto",
+        "title": "ЗИД на Закона за публичното предлагане на ценни книжа - второ гласуване - процедура от Ива Митева текстовете да не се четат",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-06-08",
+        "item": 14,
+        "slug": "14-ratifikatsiya-na-sporazumenieto-za-evropeyska-kooperirashta-",
+        "title": "Ратификация на Споразумението за европейска кооперираща държава между правителството на Република България и Европейската космическа агенция - първо гласуване - процедура за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 3
+      },
+      {
+        "date": "2022-05-26",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-opazvane-na-okolnata-sreda-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за опазване на околната среда - второ гласуване - процедура от Пламен Абровски за прекратяване на дебата",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2022-05-25",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-25-27-may-2022",
+        "title": "Програма за работата на Народното събрание за 25 - 27 май 2022 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-05-05",
+        "item": 11,
+        "slug": "11-reshenie-za-izmenenie-na-reshenie-za-izbirane-na-komisiya-po",
+        "title": "Решение за изменение на Решение за избиране на Комисия по бюджет и финанси - вносител Възраждане",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2022-05-05",
+        "item": 10,
+        "slug": "10-reshenie-za-promyana-v-sastava-na-komisiyata-po-ikonomichesk",
+        "title": "Решение за промяна в състава на Комисията по икономическа политика и иновации - вносител ИТН",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2022-03-30",
+        "item": 22,
+        "slug": "22-ratifitsirane-na-pismo-za-izmenenie-1-na-finansoviya-dogovor",
+        "title": "Ратифициране на Писмо за изменение № 1 на Финансовия договор между Република България и Европейската инвестиционна банка (проект „България - съфинансиране по Фондовете на ЕС 2014 - 2020 г. (СПЗ)\") от 27 ноември 2014 г. - първо гласуване - процедура от Р. Гечев за второ гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 2
+      },
+      {
+        "date": "2022-02-22",
+        "item": 53,
+        "slug": "53",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5102,
+        "score": 0.8428729894065288,
+        "overlap": 985
+      },
+      {
+        "mpId": 4710,
+        "score": 0.8255071893073803,
+        "overlap": 900
+      },
+      {
+        "mpId": 4709,
+        "score": 0.8194181369501241,
+        "overlap": 873
+      },
+      {
+        "mpId": 4762,
+        "score": 0.8184848771280125,
+        "overlap": 921
+      },
+      {
+        "mpId": 4137,
+        "score": 0.8169894180221081,
+        "overlap": 899
+      },
+      {
+        "mpId": 5146,
+        "score": 0.8152212439658332,
+        "overlap": 890
+      },
+      {
+        "mpId": 4827,
+        "score": 0.8138874397341127,
+        "overlap": 823
+      },
+      {
+        "mpId": 4594,
+        "score": 0.8079366056256776,
+        "overlap": 930
+      },
+      {
+        "mpId": 4483,
+        "score": 0.7900159310787267,
+        "overlap": 782
+      },
+      {
+        "mpId": 4216,
+        "score": 0.781146275936917,
+        "overlap": 807
+      },
+      {
+        "mpId": 4022,
+        "score": 0.7792880617697695,
+        "overlap": 757
+      },
+      {
+        "mpId": 4658,
+        "score": 0.7786482027238594,
+        "overlap": 827
+      },
+      {
+        "mpId": 4811,
+        "score": 0.7678492298753905,
+        "overlap": 781
+      },
+      {
+        "mpId": 4140,
+        "score": 0.760319184244861,
+        "overlap": 733
+      },
+      {
+        "mpId": 3901,
+        "score": 0.7599136324409057,
+        "overlap": 798
+      },
+      {
+        "mpId": 4746,
+        "score": 0.7557973696536756,
+        "overlap": 755
+      },
+      {
+        "mpId": 4135,
+        "score": 0.7545232841545693,
+        "overlap": 729
+      },
+      {
+        "mpId": 4114,
+        "score": 0.7488603992342089,
+        "overlap": 746
+      },
+      {
+        "mpId": 2035,
+        "score": 0.7405216325845491,
+        "overlap": 838
+      },
+      {
+        "mpId": 5294,
+        "score": 0.7384163317913679,
+        "overlap": 678
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2175,
+        "score": -0.11184341245625541,
+        "overlap": 865
+      },
+      {
+        "mpId": 2080,
+        "score": -0.11167922943257957,
+        "overlap": 862
+      },
+      {
+        "mpId": 1336,
+        "score": -0.11083171918714023,
+        "overlap": 812
+      },
+      {
+        "mpId": 4054,
+        "score": -0.10590343447684174,
+        "overlap": 882
+      },
+      {
+        "mpId": 4741,
+        "score": -0.10392109268124566,
+        "overlap": 768
+      },
+      {
+        "mpId": 5283,
+        "score": -0.09716873425810954,
+        "overlap": 761
+      },
+      {
+        "mpId": 4224,
+        "score": -0.09633848785008468,
+        "overlap": 936
+      },
+      {
+        "mpId": 4802,
+        "score": -0.09347142779949062,
+        "overlap": 892
+      },
+      {
+        "mpId": 4324,
+        "score": -0.09117850319742028,
+        "overlap": 833
+      },
+      {
+        "mpId": 4316,
+        "score": -0.09082803126460438,
+        "overlap": 794
+      },
+      {
+        "mpId": 2170,
+        "score": -0.09003445680613893,
+        "overlap": 843
+      },
+      {
+        "mpId": 2172,
+        "score": -0.08912889073248727,
+        "overlap": 862
+      },
+      {
+        "mpId": 2045,
+        "score": -0.08795925620048632,
+        "overlap": 795
+      },
+      {
+        "mpId": 2131,
+        "score": -0.08777559682072474,
+        "overlap": 1016
+      },
+      {
+        "mpId": 4905,
+        "score": -0.08609785829532784,
+        "overlap": 894
+      },
+      {
+        "mpId": 4160,
+        "score": -0.08559482568485989,
+        "overlap": 919
+      },
+      {
+        "mpId": 3914,
+        "score": -0.08218054576733137,
+        "overlap": 966
+      },
+      {
+        "mpId": 3932,
+        "score": -0.07826027601436104,
+        "overlap": 921
+      },
+      {
+        "mpId": 4122,
+        "score": -0.07757951116725414,
+        "overlap": 781
+      },
+      {
+        "mpId": 4262,
+        "score": -0.07672341868847939,
+        "overlap": 830
+      }
+    ]
+  }
+}

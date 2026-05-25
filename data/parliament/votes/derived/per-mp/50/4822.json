@@ -1,0 +1,405 @@
+{
+  "mpId": 4822,
+  "ns": "50",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 372,
+    "withParty": 354,
+    "loyaltyPct": 0.9516129032258065,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 372,
+    "dissentCount": 18,
+    "recent": [
+      {
+        "date": "2024-09-12",
+        "item": 21,
+        "slug": "21-zd-na-zakona-za-lekarstvenite-produkti-v-humannata-meditsina",
+        "title": "ЗД на Закона за лекарствените продукти в хуманната медицина - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-09-11",
+        "item": 32,
+        "slug": "32-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-10-pr",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 10- предложение от Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-08-08",
+        "item": 3,
+        "slug": "3-protsedura-ot-georgi-svilenski-za-razmestvane-na-tochkite",
+        "title": "Процедура от Георги Свиленски за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-08-02",
+        "item": 6,
+        "slug": "6-zd-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-para",
+        "title": "ЗД на Кодекса за социално осигуряване - второ гласуване - параграф ... - предложение от Джевдет Чакъров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-07-31",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – второ гласуване - параграф ... - предложение от Калоян Методиев - процедура за допустимост",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-07-25",
+        "item": 8,
+        "slug": "8-zd-na-kodeksa-za-sotsialno-osiguryavane-parvo-glasuvane-prot",
+        "title": "ЗД на Кодекса за социално осигуряване - първо гласуване - процедура от Деница Сачева за намаляване на срока за предложения на три дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2024-07-17",
+        "item": 42,
+        "slug": "42-protsedura-ot-daniel-prodanov-za-razmestvane-na-tochkite-t-3",
+        "title": "Процедура от Даниел Проданов за разместване на точките т.3 да стане т.3 за утре и за удължаване на р. време",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-07-12",
+        "item": 22,
+        "slug": "22-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 18 - предложение от Калоян Методиев - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-07-12",
+        "item": 20,
+        "slug": "20-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 18 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-07-12",
+        "item": 19,
+        "slug": "19-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 18 - предложение от Павела Митова и Станислав Богдански",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-07-12",
+        "item": 17,
+        "slug": "17-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 17 - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-07-12",
+        "item": 14,
+        "slug": "14-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 15 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-07-12",
+        "item": 12,
+        "slug": "12-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 14 - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-07-12",
+        "item": 11,
+        "slug": "11-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 14 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-07-12",
+        "item": 8,
+        "slug": "8-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 12 - предложение от Георги Свиленски - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-07-12",
+        "item": 4,
+        "slug": "4-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 8 - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-06-28",
+        "item": 2,
+        "slug": "2-protsedura-ot-tsoncho-ganev-za-udalzhavane-na-r-vreme-do-pri",
+        "title": "Процедура от Цончо Ганев за удължаване на р.време до приключване на т.10 и парламенатрен контрол",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-06-27",
+        "item": 3,
+        "slug": "3-protsedura-ot-raya-nazaryan-za-nova-tochka-10-v-dnevniya-red",
+        "title": "Процедура от Рая Назарян за нова точка 10 в дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 40
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5275,
+        "score": 0.7835510166315003,
+        "overlap": 355
+      },
+      {
+        "mpId": 5127,
+        "score": 0.7821010452558494,
+        "overlap": 339
+      },
+      {
+        "mpId": 5295,
+        "score": 0.7775419143502351,
+        "overlap": 348
+      },
+      {
+        "mpId": 5086,
+        "score": 0.7747436401681315,
+        "overlap": 331
+      },
+      {
+        "mpId": 5208,
+        "score": 0.7661817295652342,
+        "overlap": 326
+      },
+      {
+        "mpId": 5155,
+        "score": 0.7621314855407592,
+        "overlap": 355
+      },
+      {
+        "mpId": 5281,
+        "score": 0.7595659456334213,
+        "overlap": 240
+      },
+      {
+        "mpId": 4764,
+        "score": 0.75178003589782,
+        "overlap": 303
+      },
+      {
+        "mpId": 5105,
+        "score": 0.7502868380219501,
+        "overlap": 361
+      },
+      {
+        "mpId": 5107,
+        "score": 0.7344063499776965,
+        "overlap": 327
+      },
+      {
+        "mpId": 5156,
+        "score": 0.7261960994238416,
+        "overlap": 249
+      },
+      {
+        "mpId": 2785,
+        "score": 0.7242607750279249,
+        "overlap": 313
+      },
+      {
+        "mpId": 5274,
+        "score": 0.7222819944946717,
+        "overlap": 368
+      },
+      {
+        "mpId": 5284,
+        "score": 0.7192233856672756,
+        "overlap": 299
+      },
+      {
+        "mpId": 4746,
+        "score": 0.7163389241264478,
+        "overlap": 336
+      },
+      {
+        "mpId": 5117,
+        "score": 0.7093691820164972,
+        "overlap": 354
+      },
+      {
+        "mpId": 4854,
+        "score": 0.7090105599042611,
+        "overlap": 327
+      },
+      {
+        "mpId": 4820,
+        "score": 0.7060790560121789,
+        "overlap": 365
+      },
+      {
+        "mpId": 5195,
+        "score": 0.7036168963961984,
+        "overlap": 357
+      },
+      {
+        "mpId": 5102,
+        "score": 0.7032320301546118,
+        "overlap": 287
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2930,
+        "score": -0.03117398431942748,
+        "overlap": 7
+      },
+      {
+        "mpId": 2992,
+        "score": 0.034079908829549845,
+        "overlap": 104
+      },
+      {
+        "mpId": 5007,
+        "score": 0.035751237908044214,
+        "overlap": 214
+      },
+      {
+        "mpId": 2990,
+        "score": 0.05079415246676985,
+        "overlap": 101
+      },
+      {
+        "mpId": 5234,
+        "score": 0.06273643326097712,
+        "overlap": 348
+      },
+      {
+        "mpId": 5247,
+        "score": 0.06326586402494436,
+        "overlap": 335
+      },
+      {
+        "mpId": 2967,
+        "score": 0.06720917747567046,
+        "overlap": 206
+      },
+      {
+        "mpId": 5258,
+        "score": 0.06723308560948538,
+        "overlap": 269
+      },
+      {
+        "mpId": 4752,
+        "score": 0.07419177178278738,
+        "overlap": 328
+      },
+      {
+        "mpId": 5171,
+        "score": 0.07646575219744361,
+        "overlap": 357
+      },
+      {
+        "mpId": 3000,
+        "score": 0.07727124614660721,
+        "overlap": 118
+      },
+      {
+        "mpId": 5185,
+        "score": 0.07827994507675122,
+        "overlap": 348
+      },
+      {
+        "mpId": 4756,
+        "score": 0.07878289620342675,
+        "overlap": 359
+      },
+      {
+        "mpId": 4815,
+        "score": 0.0886245701465603,
+        "overlap": 337
+      },
+      {
+        "mpId": 2932,
+        "score": 0.09003759454863922,
+        "overlap": 353
+      },
+      {
+        "mpId": 2920,
+        "score": 0.090787573584718,
+        "overlap": 351
+      },
+      {
+        "mpId": 4907,
+        "score": 0.0908633422201488,
+        "overlap": 364
+      },
+      {
+        "mpId": 5194,
+        "score": 0.09199239028810438,
+        "overlap": 336
+      },
+      {
+        "mpId": 3004,
+        "score": 0.09212886023386059,
+        "overlap": 124
+      },
+      {
+        "mpId": 4795,
+        "score": 0.0960892122026109,
+        "overlap": 361
+      }
+    ]
+  }
+}

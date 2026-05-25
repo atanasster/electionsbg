@@ -1,0 +1,325 @@
+{
+  "mpId": 4781,
+  "ns": "50",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 590,
+    "withParty": 580,
+    "loyaltyPct": 0.9830508474576272,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 590,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 58,
+        "slug": "58-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-15-nov",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 15 - нов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-09-25",
+        "item": 57,
+        "slug": "57-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-15-nov-pr",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 15 - нов - предложение от Божидар Божанов за редакция - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-25",
+        "item": 46,
+        "slug": "46-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-12-stava-",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 12 (става параграф 11) - по доклад",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-09-11",
+        "item": 41,
+        "slug": "41-reshenie-za-izmenenie-na-reshenie-za-vazlagane-na-ministara-",
+        "title": "Решение за изменение на Решение за възлагане на министъра на енергетиката да проведе преговори с министъра на енергетиката на Украйна или негов представител с цел продажба на оборудване, предназначено за Проекта АЕЦ „Белене“ - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-09-04",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-nezavisimiya-finansov-odit-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за независимия финансов одит - второ гласуване - член 13 - предложение от Димо Дренчев и Цончо Ганев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-09-04",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-nezavisimiya-finansov-odit-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за независимия финансов одит - второ гласуване - член 1 - предложение от Димо Дренчев и Цончо Ганев - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-08-14",
+        "item": 30,
+        "slug": "30-reshenie-za-vazlagane-na-ministerskiya-savet-vklyuchvaneto-n",
+        "title": "Решение за възлагане на Министерския съвет включването на диазотния оксид (райски газ) в списъците с наркотични вещества по чл. 3, ал. 2 от Закона за контрол върху наркотичните вещества и прекурсорите - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-08-01",
+        "item": 16,
+        "slug": "16-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно корупционни практики и системна злоупотреба със служебно положение, извършвани в ущърб на гражданите и бизнеса, както и облагодетелстване на свързани дружества с кмета на Община Доспат - Елин Радев - за председател - Венко Сабрутев - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-07-12",
+        "item": 99,
+        "slug": "99-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - приложение - предложение от Виктория Василева и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-07-12",
+        "item": 85,
+        "slug": "85-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т. 10",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2829,
+        "score": 0.9493339718561004,
+        "overlap": 575
+      },
+      {
+        "mpId": 4996,
+        "score": 0.9487345577803482,
+        "overlap": 562
+      },
+      {
+        "mpId": 4876,
+        "score": 0.9423305426763702,
+        "overlap": 560
+      },
+      {
+        "mpId": 4908,
+        "score": 0.934811817913817,
+        "overlap": 557
+      },
+      {
+        "mpId": 2895,
+        "score": 0.9333333333333335,
+        "overlap": 558
+      },
+      {
+        "mpId": 4868,
+        "score": 0.9188569198823537,
+        "overlap": 552
+      },
+      {
+        "mpId": 4862,
+        "score": 0.904500056157495,
+        "overlap": 507
+      },
+      {
+        "mpId": 4910,
+        "score": 0.8955763184563654,
+        "overlap": 523
+      },
+      {
+        "mpId": 4936,
+        "score": 0.8802876899697618,
+        "overlap": 488
+      },
+      {
+        "mpId": 4723,
+        "score": 0.8561108779654789,
+        "overlap": 446
+      },
+      {
+        "mpId": 4699,
+        "score": 0.8492878445800331,
+        "overlap": 456
+      },
+      {
+        "mpId": 4938,
+        "score": 0.8487491423055253,
+        "overlap": 459
+      },
+      {
+        "mpId": 4737,
+        "score": 0.8319837010131272,
+        "overlap": 434
+      },
+      {
+        "mpId": 4813,
+        "score": 0.7812167996510578,
+        "overlap": 379
+      },
+      {
+        "mpId": 4900,
+        "score": 0.7678465264266335,
+        "overlap": 390
+      },
+      {
+        "mpId": 4915,
+        "score": 0.6642111641550715,
+        "overlap": 441
+      },
+      {
+        "mpId": 4866,
+        "score": 0.6416724899259797,
+        "overlap": 572
+      },
+      {
+        "mpId": 4824,
+        "score": 0.6375112606524451,
+        "overlap": 573
+      },
+      {
+        "mpId": 5148,
+        "score": 0.6350938558600092,
+        "overlap": 532
+      },
+      {
+        "mpId": 5060,
+        "score": 0.6344875608713414,
+        "overlap": 542
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4899,
+        "score": -0.015442595892062079,
+        "overlap": 67
+      },
+      {
+        "mpId": 4762,
+        "score": 0.020827910104467964,
+        "overlap": 113
+      },
+      {
+        "mpId": 2930,
+        "score": 0.025565499628245683,
+        "overlap": 7
+      },
+      {
+        "mpId": 4787,
+        "score": 0.03131121455425748,
+        "overlap": 66
+      },
+      {
+        "mpId": 2893,
+        "score": 0.038651402376829895,
+        "overlap": 20
+      },
+      {
+        "mpId": 2846,
+        "score": 0.047203432003085063,
+        "overlap": 21
+      },
+      {
+        "mpId": 2915,
+        "score": 0.04726925136854825,
+        "overlap": 41
+      },
+      {
+        "mpId": 5100,
+        "score": 0.05167208309988595,
+        "overlap": 38
+      },
+      {
+        "mpId": 4819,
+        "score": 0.054393781569121995,
+        "overlap": 109
+      },
+      {
+        "mpId": 2966,
+        "score": 0.056011203361120386,
+        "overlap": 40
+      },
+      {
+        "mpId": 2597,
+        "score": 0.05940885257860046,
+        "overlap": 43
+      },
+      {
+        "mpId": 4810,
+        "score": 0.05940885257860046,
+        "overlap": 130
+      },
+      {
+        "mpId": 2916,
+        "score": 0.06008016035638719,
+        "overlap": 41
+      },
+      {
+        "mpId": 2917,
+        "score": 0.06008016035638719,
+        "overlap": 43
+      },
+      {
+        "mpId": 2921,
+        "score": 0.06077475175956204,
+        "overlap": 41
+      },
+      {
+        "mpId": 2957,
+        "score": 0.06077475175956204,
+        "overlap": 41
+      },
+      {
+        "mpId": 2627,
+        "score": 0.062239413716704786,
+        "overlap": 40
+      },
+      {
+        "mpId": 5294,
+        "score": 0.06394094062643726,
+        "overlap": 101
+      },
+      {
+        "mpId": 3002,
+        "score": 0.06602252917735249,
+        "overlap": 130
+      },
+      {
+        "mpId": 5146,
+        "score": 0.06712400494644269,
+        "overlap": 140
+      }
+    ]
+  }
+}

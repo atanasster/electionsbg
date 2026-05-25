@@ -1,0 +1,301 @@
+{
+  "mpId": 4827,
+  "ns": "47",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 1004,
+    "withParty": 996,
+    "loyaltyPct": 0.9920318725099602,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1004,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2022-07-13",
+        "item": 28,
+        "slug": "28-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства, свързани с доставката на суров петрол до производителя на горива \"Лукойл Нефтохим Бургас\" АД - за председател Александър Ракшиев - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 29
+      },
+      {
+        "date": "2022-06-09",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-obshtestvenite-porachki-parvo-glasuvane-vno",
+        "title": "ЗИД на Закона за обществените поръчки - първо гласуване - вносител Настимир Ананиев и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 24
+      },
+      {
+        "date": "2022-06-08",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-08-10-yuni-202",
+        "title": "Програма за работата на Народното събрание за 08 - 10 юни 2022 г. - предложение от Петър Петров и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2022-05-26",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-opazvane-na-okolnata-sreda-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за опазване на околната среда - второ гласуване - процедура от Пламен Абровски за прекратяване на дебата",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2022-02-22",
+        "item": 53,
+        "slug": "53",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2022-02-17",
+        "item": 2,
+        "slug": "2",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2022-01-05",
+        "item": 7,
+        "slug": "7-reshenie-za-promyana-v-komisiyata-za-pryakoto-uchastie-na-gr",
+        "title": "Решение за промяна в Комисията за прякото участие на гражданите и взаимодействието с гражданското общество",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2021-12-22",
+        "item": 15,
+        "slug": "15-reshenie-za-izbirane-na-komisiya-po-konstitutsionni-i-pravni",
+        "title": "Решение за избиране на Комисия по конституционни и правни въпроси - ръководство и състав",
+        "topic": "constitution",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 27
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4709,
+        "score": 0.8431032925529213,
+        "overlap": 887
+      },
+      {
+        "mpId": 4762,
+        "score": 0.8420171786320543,
+        "overlap": 924
+      },
+      {
+        "mpId": 5102,
+        "score": 0.8384010172331415,
+        "overlap": 963
+      },
+      {
+        "mpId": 5146,
+        "score": 0.8332252253574651,
+        "overlap": 897
+      },
+      {
+        "mpId": 4710,
+        "score": 0.8326066351269074,
+        "overlap": 893
+      },
+      {
+        "mpId": 4137,
+        "score": 0.8304183016391146,
+        "overlap": 901
+      },
+      {
+        "mpId": 4594,
+        "score": 0.8147049517762723,
+        "overlap": 926
+      },
+      {
+        "mpId": 4925,
+        "score": 0.8138874397341127,
+        "overlap": 823
+      },
+      {
+        "mpId": 4658,
+        "score": 0.8117484854593209,
+        "overlap": 841
+      },
+      {
+        "mpId": 4483,
+        "score": 0.806582937513048,
+        "overlap": 802
+      },
+      {
+        "mpId": 4811,
+        "score": 0.7923136163595299,
+        "overlap": 809
+      },
+      {
+        "mpId": 4022,
+        "score": 0.792189344929729,
+        "overlap": 751
+      },
+      {
+        "mpId": 4135,
+        "score": 0.7904650595827547,
+        "overlap": 759
+      },
+      {
+        "mpId": 4216,
+        "score": 0.788576325396376,
+        "overlap": 808
+      },
+      {
+        "mpId": 4140,
+        "score": 0.7883823165459247,
+        "overlap": 766
+      },
+      {
+        "mpId": 4746,
+        "score": 0.7820546534092173,
+        "overlap": 760
+      },
+      {
+        "mpId": 3901,
+        "score": 0.777351396153766,
+        "overlap": 815
+      },
+      {
+        "mpId": 4114,
+        "score": 0.7769569539111915,
+        "overlap": 775
+      },
+      {
+        "mpId": 4886,
+        "score": 0.7647538070536118,
+        "overlap": 754
+      },
+      {
+        "mpId": 5294,
+        "score": 0.7600625111871648,
+        "overlap": 707
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4741,
+        "score": -0.09052189401745327,
+        "overlap": 731
+      },
+      {
+        "mpId": 4054,
+        "score": -0.0888006311080833,
+        "overlap": 830
+      },
+      {
+        "mpId": 2045,
+        "score": -0.08695367338315298,
+        "overlap": 775
+      },
+      {
+        "mpId": 2175,
+        "score": -0.0847362807929777,
+        "overlap": 848
+      },
+      {
+        "mpId": 4224,
+        "score": -0.08413978562087727,
+        "overlap": 900
+      },
+      {
+        "mpId": 1336,
+        "score": -0.08259066533490703,
+        "overlap": 804
+      },
+      {
+        "mpId": 2080,
+        "score": -0.08117504367848316,
+        "overlap": 825
+      },
+      {
+        "mpId": 4324,
+        "score": -0.0738125650615638,
+        "overlap": 827
+      },
+      {
+        "mpId": 4802,
+        "score": -0.06802299282778569,
+        "overlap": 879
+      },
+      {
+        "mpId": 2172,
+        "score": -0.06703821588890647,
+        "overlap": 830
+      },
+      {
+        "mpId": 5283,
+        "score": -0.06507602065711116,
+        "overlap": 759
+      },
+      {
+        "mpId": 4316,
+        "score": -0.06457286824780845,
+        "overlap": 763
+      },
+      {
+        "mpId": 4905,
+        "score": -0.06364030971018772,
+        "overlap": 856
+      },
+      {
+        "mpId": 4262,
+        "score": -0.061717858687345264,
+        "overlap": 824
+      },
+      {
+        "mpId": 4738,
+        "score": -0.06159960247851467,
+        "overlap": 861
+      },
+      {
+        "mpId": 2131,
+        "score": -0.058759635751916374,
+        "overlap": 991
+      },
+      {
+        "mpId": 3932,
+        "score": -0.05448737410071846,
+        "overlap": 866
+      },
+      {
+        "mpId": 4160,
+        "score": -0.05402913036467227,
+        "overlap": 884
+      },
+      {
+        "mpId": 4122,
+        "score": -0.053368500874006054,
+        "overlap": 745
+      },
+      {
+        "mpId": 2186,
+        "score": -0.053211844944729594,
+        "overlap": 242
+      }
+    ]
+  }
+}

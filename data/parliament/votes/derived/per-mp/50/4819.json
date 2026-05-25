@@ -1,0 +1,305 @@
+{
+  "mpId": 4819,
+  "ns": "50",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 118,
+    "withParty": 110,
+    "loyaltyPct": 0.9322033898305084,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 118,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2024-09-19",
+        "item": 4,
+        "slug": "4-protsedura-ot-nadezhda-yordanova-za-otpadane-na-tochka-ot-dn",
+        "title": "Процедура от Надежда Йорданова за отпадане на точка от дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2024-09-12",
+        "item": 3,
+        "slug": "3-zakon-za-nasarchavane-na-dobrovolchestvoto-parvo-glasuvane-p",
+        "title": "Закон за насърчаване на доброволчеството - първо гласуване - процедура от Калина Константинова за отпадане на точката - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2024-09-11",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-septemvr",
+        "title": "Програма за работата на Народното събрание за 11 - 13 септември 2024 г. - процедура от Борислав Гуцанов за отпадане на точка 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2024-09-04",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-4-i-5-septemvr",
+        "title": "Програма за работата на Народното събрание за 4 и 5 септември 2024г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 35
+      },
+      {
+        "date": "2024-08-14",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-14-16-avgust-2",
+        "title": "Програма за работата на Народното събрание за 14 – 16 август 2024 г. - процедура от Делян Добрев т.7 и т.15 да станат последни точки 4 и 5 в петък",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 35
+      },
+      {
+        "date": "2024-07-17",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-17-19-yuli-202",
+        "title": "Програма за работата на Народното събрание за 17 - 19 юли 2024 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 37
+      },
+      {
+        "date": "2024-07-12",
+        "item": 11,
+        "slug": "11-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 14 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-07-03",
+        "item": 18,
+        "slug": "18-reshenie-za-izbirane-na-ministar-predsedatel-na-republika-ba",
+        "title": "Решение за избиране на министър-председател на Република България - избира Росен Желязков",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 45
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5146,
+        "score": 0.755970829219086,
+        "overlap": 103
+      },
+      {
+        "mpId": 4762,
+        "score": 0.7555630179432015,
+        "overlap": 92
+      },
+      {
+        "mpId": 4810,
+        "score": 0.7268326590665242,
+        "overlap": 94
+      },
+      {
+        "mpId": 4827,
+        "score": 0.7019998845819646,
+        "overlap": 93
+      },
+      {
+        "mpId": 4886,
+        "score": 0.6954358003302333,
+        "overlap": 73
+      },
+      {
+        "mpId": 4704,
+        "score": 0.6766409227291003,
+        "overlap": 104
+      },
+      {
+        "mpId": 4787,
+        "score": 0.6681531047810609,
+        "overlap": 65
+      },
+      {
+        "mpId": 4925,
+        "score": 0.6547311582706214,
+        "overlap": 70
+      },
+      {
+        "mpId": 4710,
+        "score": 0.6499055563255766,
+        "overlap": 97
+      },
+      {
+        "mpId": 4709,
+        "score": 0.6359883112726771,
+        "overlap": 108
+      },
+      {
+        "mpId": 5294,
+        "score": 0.6237449404683603,
+        "overlap": 73
+      },
+      {
+        "mpId": 2916,
+        "score": 0.5413127381832802,
+        "overlap": 39
+      },
+      {
+        "mpId": 2966,
+        "score": 0.5378528742004771,
+        "overlap": 37
+      },
+      {
+        "mpId": 2597,
+        "score": 0.5352643613280604,
+        "overlap": 39
+      },
+      {
+        "mpId": 2599,
+        "score": 0.5312532024908597,
+        "overlap": 37
+      },
+      {
+        "mpId": 2627,
+        "score": 0.5312532024908597,
+        "overlap": 38
+      },
+      {
+        "mpId": 2993,
+        "score": 0.5291533024589542,
+        "overlap": 65
+      },
+      {
+        "mpId": 2959,
+        "score": 0.5248906591678238,
+        "overlap": 37
+      },
+      {
+        "mpId": 2957,
+        "score": 0.5187513759338115,
+        "overlap": 37
+      },
+      {
+        "mpId": 3004,
+        "score": 0.509133174976598,
+        "overlap": 65
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2930,
+        "score": -0.0545544725589981,
+        "overlap": 7
+      },
+      {
+        "mpId": 3015,
+        "score": -0.018018749253911177,
+        "overlap": 5
+      },
+      {
+        "mpId": 4700,
+        "score": -0.012165006031411485,
+        "overlap": 110
+      },
+      {
+        "mpId": 4815,
+        "score": 0.0040813946778021195,
+        "overlap": 108
+      },
+      {
+        "mpId": 5194,
+        "score": 0.004127863666773915,
+        "overlap": 114
+      },
+      {
+        "mpId": 4824,
+        "score": 0.007978836279039113,
+        "overlap": 116
+      },
+      {
+        "mpId": 4866,
+        "score": 0.008007434350217576,
+        "overlap": 116
+      },
+      {
+        "mpId": 2920,
+        "score": 0.008147602757602897,
+        "overlap": 113
+      },
+      {
+        "mpId": 4752,
+        "score": 0.008376490362572769,
+        "overlap": 113
+      },
+      {
+        "mpId": 4904,
+        "score": 0.008494119857293758,
+        "overlap": 105
+      },
+      {
+        "mpId": 4737,
+        "score": 0.009545044354015157,
+        "overlap": 100
+      },
+      {
+        "mpId": 5159,
+        "score": 0.01186299068156648,
+        "overlap": 117
+      },
+      {
+        "mpId": 4847,
+        "score": 0.011915273837851754,
+        "overlap": 117
+      },
+      {
+        "mpId": 4907,
+        "score": 0.011925813666394532,
+        "overlap": 117
+      },
+      {
+        "mpId": 4835,
+        "score": 0.012043628785668075,
+        "overlap": 112
+      },
+      {
+        "mpId": 5185,
+        "score": 0.012087344460380702,
+        "overlap": 109
+      },
+      {
+        "mpId": 4756,
+        "score": 0.012165006031411485,
+        "overlap": 117
+      },
+      {
+        "mpId": 5273,
+        "score": 0.01224418403340636,
+        "overlap": 111
+      },
+      {
+        "mpId": 5247,
+        "score": 0.01230169578262807,
+        "overlap": 110
+      },
+      {
+        "mpId": 4887,
+        "score": 0.012324928467692193,
+        "overlap": 117
+      }
+    ]
+  }
+}

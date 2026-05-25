@@ -1,0 +1,495 @@
+{
+  "mpId": 4500,
+  "ns": "46",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 372,
+    "withParty": 345,
+    "loyaltyPct": 0.9274193548387096,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 372,
+    "dissentCount": 27,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 8,
+        "slug": "8-programa-za-rabotata-na-narodnoto-sabranie-na-15-09-2021-g-p",
+        "title": "Програма за работата на Народното събрание на 15.09.2021 г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2021-09-10",
+        "item": 77,
+        "slug": "77-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 6 - отпада - предложение от Делян Добрев - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-09-10",
+        "item": 37,
+        "slug": "37-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Г.Ганев за редакция в.т.4 - буква е - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-09-10",
+        "item": 34,
+        "slug": "34-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Г.Ганев за редакция в.т.4 - буква д",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2021-09-10",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Пламен Абровски и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-09-10",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от М.Манолова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2021-09-10",
+        "item": 28,
+        "slug": "28-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Д.Делчев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2021-09-10",
+        "item": 27,
+        "slug": "27-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Велизар Шаламанов и група н.п. - ал.10 и ал.11",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-09-10",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Велизар Шаламанов и група н.п. - до ал.9 - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2021-09-10",
+        "item": 21,
+        "slug": "21-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Костадин Ангелов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-09-10",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Хр.Гаджев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-09-02",
+        "item": 3,
+        "slug": "3-reshenie-za-nasrochvane-na-izbori-za-prezident-i-vitseprezid",
+        "title": "Решение за насрочване на избори за президент и вицепрезидент на Република България - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2021-08-25",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-25-27-avgust-2021",
+        "title": "Програма за работата на Народното събрание 25 -27 август 2021 г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2021-08-19",
+        "item": 2,
+        "slug": "2-protsedura-za-otpadane-na-tochka-t-3-ot-ramadan-atalay",
+        "title": "Процедура за отпадане на точка т.3 от Рамадан Аталай",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-08-13",
+        "item": 2,
+        "slug": "2-protsedura-za-pryako-predavane-po-bnt-i-bnr",
+        "title": "Процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2021-08-11",
+        "item": 4,
+        "slug": "4-reshenie-za-dostap-na-narodnite-predstaviteli-do-postapili-m",
+        "title": "Решение за достъп на народните представители до постъпили материали в деловодството на Народното събрание - предложение за редакция от Ива Митева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-08-05",
+        "item": 47,
+        "slug": "47-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Раздел втори (става Раздел трети), член 110 и член 111",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2021-08-05",
+        "item": 13,
+        "slug": "13-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 21- предложение от М.Манолова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 22
+      },
+      {
+        "date": "2021-08-05",
+        "item": 6,
+        "slug": "6-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава пета, член 16 - предложение от М.Манолова по т. 21",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-08-05",
+        "item": 4,
+        "slug": "4-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава пета, член 16 - предложение от Р.Желязков",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-08-05",
+        "item": 2,
+        "slug": "2-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава пета, член 16 - предложение от Л. Каримански",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2021-08-04",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-4-6-avgust-202",
+        "title": "Програма за работата на Народното събрание за 4 - 6 август 2021 г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2021-07-30",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-07-29",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 32
+      },
+      {
+        "date": "2021-07-29",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за разместване на точките от Мария Капон - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2021-07-28",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2021-07-22",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-22-i-23-yuli-2",
+        "title": "Програма за работата на Народното събрание за 22 и 23 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 32
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3783,
+        "score": 0.7913155344257198,
+        "overlap": 344
+      },
+      {
+        "mpId": 4738,
+        "score": 0.7874447494060174,
+        "overlap": 349
+      },
+      {
+        "mpId": 4450,
+        "score": 0.7793741540434869,
+        "overlap": 348
+      },
+      {
+        "mpId": 3908,
+        "score": 0.7764863214419511,
+        "overlap": 357
+      },
+      {
+        "mpId": 1974,
+        "score": 0.7743467267777335,
+        "overlap": 342
+      },
+      {
+        "mpId": 4911,
+        "score": 0.7711616338269985,
+        "overlap": 316
+      },
+      {
+        "mpId": 1582,
+        "score": 0.7678278702798796,
+        "overlap": 342
+      },
+      {
+        "mpId": 1385,
+        "score": 0.7637304770216155,
+        "overlap": 336
+      },
+      {
+        "mpId": 4552,
+        "score": 0.7591956432916422,
+        "overlap": 322
+      },
+      {
+        "mpId": 4240,
+        "score": 0.7558608077590024,
+        "overlap": 302
+      },
+      {
+        "mpId": 4326,
+        "score": 0.7549848835478338,
+        "overlap": 329
+      },
+      {
+        "mpId": 3533,
+        "score": 0.738805782236963,
+        "overlap": 301
+      },
+      {
+        "mpId": 1889,
+        "score": 0.7373047572217432,
+        "overlap": 304
+      },
+      {
+        "mpId": 4818,
+        "score": 0.7347917707091751,
+        "overlap": 278
+      },
+      {
+        "mpId": 3714,
+        "score": 0.7279007111939696,
+        "overlap": 317
+      },
+      {
+        "mpId": 3578,
+        "score": 0.7259241210756738,
+        "overlap": 315
+      },
+      {
+        "mpId": 4720,
+        "score": 0.7165285925971485,
+        "overlap": 267
+      },
+      {
+        "mpId": 1873,
+        "score": 0.708864308935285,
+        "overlap": 286
+      },
+      {
+        "mpId": 4122,
+        "score": 0.7072886744919704,
+        "overlap": 316
+      },
+      {
+        "mpId": 3700,
+        "score": 0.7037396060380401,
+        "overlap": 259
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5173,
+        "score": 0.04334124383223162,
+        "overlap": 137
+      },
+      {
+        "mpId": 5223,
+        "score": 0.09876583293168621,
+        "overlap": 55
+      },
+      {
+        "mpId": 3865,
+        "score": 0.10141851056742199,
+        "overlap": 82
+      },
+      {
+        "mpId": 5169,
+        "score": 0.12777531299998796,
+        "overlap": 113
+      },
+      {
+        "mpId": 3620,
+        "score": 0.14184162865339506,
+        "overlap": 185
+      },
+      {
+        "mpId": 404,
+        "score": 0.14299087579748956,
+        "overlap": 206
+      },
+      {
+        "mpId": 4872,
+        "score": 0.15536386656646634,
+        "overlap": 188
+      },
+      {
+        "mpId": 388,
+        "score": 0.16056767874777925,
+        "overlap": 219
+      },
+      {
+        "mpId": 4632,
+        "score": 0.1677519106227644,
+        "overlap": 151
+      },
+      {
+        "mpId": 4304,
+        "score": 0.16804905647858462,
+        "overlap": 209
+      },
+      {
+        "mpId": 4120,
+        "score": 0.17263532565794473,
+        "overlap": 141
+      },
+      {
+        "mpId": 5124,
+        "score": 0.17623098824012584,
+        "overlap": 171
+      },
+      {
+        "mpId": 5236,
+        "score": 0.177976811211129,
+        "overlap": 210
+      },
+      {
+        "mpId": 5157,
+        "score": 0.18832944617230335,
+        "overlap": 208
+      },
+      {
+        "mpId": 1637,
+        "score": 0.19575688073103134,
+        "overlap": 144
+      },
+      {
+        "mpId": 4225,
+        "score": 0.19649437297296482,
+        "overlap": 229
+      },
+      {
+        "mpId": 4854,
+        "score": 0.20409567404897247,
+        "overlap": 208
+      },
+      {
+        "mpId": 3925,
+        "score": 0.20535785908976423,
+        "overlap": 225
+      },
+      {
+        "mpId": 4912,
+        "score": 0.21322939356555326,
+        "overlap": 230
+      },
+      {
+        "mpId": 5165,
+        "score": 0.21824924112908367,
+        "overlap": 182
+      }
+    ]
+  }
+}

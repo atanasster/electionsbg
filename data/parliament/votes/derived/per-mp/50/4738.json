@@ -1,0 +1,285 @@
+{
+  "mpId": 4738,
+  "ns": "50",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 310,
+    "withParty": 304,
+    "loyaltyPct": 0.9806451612903225,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 310,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-25-26-septemvr",
+        "title": "Програма за работата на Народното събрание за 25 – 26 септември 2024 г. - процедура от Тошко Йорданов т.13 да стане т.1",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2024-09-11",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-nov-p",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф - нов - предложение от Надежда Йорданова, по чл.105 - процедура за допустимост",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-08-15",
+        "item": 7,
+        "slug": "7-reshenie-za-izbirane-na-postoyanna-delegatsiya-na-narodnoto-",
+        "title": "Решение за избиране на постоянна делегация на Народното събрание в Парламентарната асамблея на Организацията за сигурност и сътрудничество в Европа",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 3
+      },
+      {
+        "date": "2024-07-25",
+        "item": 12,
+        "slug": "12-zakon-za-denonsirane-na-sporazumenieto-mezhdu-pravitelstvoto",
+        "title": "Закон за денонсиране на Споразумението между правителството на Република България и правителството на Републка Молдова за подпомагане на Тараклийския държавен университет, Републка Молдова - второ гласуване - наименование, член единствен - предложение от Силви Кирилов за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2024-07-03",
+        "item": 16,
+        "slug": "16-reshenie-za-osvobozhdavane-na-zamestnik-predsedatelya-na-kom",
+        "title": "Решение за освобождаване на заместник-председателя на Комисията за финансов надзор, ръководещ управление \"Застрахователен надзор\" - прегласуване",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2024-07-03",
+        "item": 3,
+        "slug": "3-protsedura-ot-al-nenkov-za-obsht-debat-po-tochki-5-6-i-7",
+        "title": "Процедура от Ал. Ненков за общ дебат по точки 5,6 и 7",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4903,
+        "score": 0.7046516830316255,
+        "overlap": 230
+      },
+      {
+        "mpId": 4754,
+        "score": 0.6851324219172755,
+        "overlap": 225
+      },
+      {
+        "mpId": 4802,
+        "score": 0.6707769944254129,
+        "overlap": 195
+      },
+      {
+        "mpId": 4775,
+        "score": 0.6671643813555025,
+        "overlap": 248
+      },
+      {
+        "mpId": 4915,
+        "score": 0.6494312503299403,
+        "overlap": 245
+      },
+      {
+        "mpId": 4818,
+        "score": 0.6417736979019433,
+        "overlap": 209
+      },
+      {
+        "mpId": 4996,
+        "score": 0.5973961574415796,
+        "overlap": 302
+      },
+      {
+        "mpId": 4908,
+        "score": 0.5851033623971065,
+        "overlap": 297
+      },
+      {
+        "mpId": 4876,
+        "score": 0.581463595769813,
+        "overlap": 300
+      },
+      {
+        "mpId": 4781,
+        "score": 0.5804961776124795,
+        "overlap": 297
+      },
+      {
+        "mpId": 4911,
+        "score": 0.5755035877925035,
+        "overlap": 108
+      },
+      {
+        "mpId": 4862,
+        "score": 0.5693269813374667,
+        "overlap": 279
+      },
+      {
+        "mpId": 2829,
+        "score": 0.5691328337261595,
+        "overlap": 296
+      },
+      {
+        "mpId": 2907,
+        "score": 0.5635743129850023,
+        "overlap": 204
+      },
+      {
+        "mpId": 2895,
+        "score": 0.5564202992783214,
+        "overlap": 287
+      },
+      {
+        "mpId": 4900,
+        "score": 0.5520144312601225,
+        "overlap": 240
+      },
+      {
+        "mpId": 4917,
+        "score": 0.551912421696382,
+        "overlap": 174
+      },
+      {
+        "mpId": 4868,
+        "score": 0.5511500914974651,
+        "overlap": 288
+      },
+      {
+        "mpId": 5148,
+        "score": 0.538894860352202,
+        "overlap": 306
+      },
+      {
+        "mpId": 4737,
+        "score": 0.537024813421964,
+        "overlap": 239
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3006,
+        "score": -0.006514416067725942,
+        "overlap": 41
+      },
+      {
+        "mpId": 3015,
+        "score": 0.051840703379435214,
+        "overlap": 32
+      },
+      {
+        "mpId": 3002,
+        "score": 0.06358201519149374,
+        "overlap": 86
+      },
+      {
+        "mpId": 3004,
+        "score": 0.06510211862016836,
+        "overlap": 101
+      },
+      {
+        "mpId": 2992,
+        "score": 0.06536622566250541,
+        "overlap": 101
+      },
+      {
+        "mpId": 2990,
+        "score": 0.07388033383214648,
+        "overlap": 95
+      },
+      {
+        "mpId": 4899,
+        "score": 0.07725054354886692,
+        "overlap": 70
+      },
+      {
+        "mpId": 5184,
+        "score": 0.08465551412439452,
+        "overlap": 75
+      },
+      {
+        "mpId": 2988,
+        "score": 0.09077550113240584,
+        "overlap": 92
+      },
+      {
+        "mpId": 4727,
+        "score": 0.09115399342800684,
+        "overlap": 158
+      },
+      {
+        "mpId": 2930,
+        "score": 0.10463701596227337,
+        "overlap": 7
+      },
+      {
+        "mpId": 2967,
+        "score": 0.10685885644168697,
+        "overlap": 195
+      },
+      {
+        "mpId": 3000,
+        "score": 0.10806864539165983,
+        "overlap": 119
+      },
+      {
+        "mpId": 4925,
+        "score": 0.10947937360460798,
+        "overlap": 80
+      },
+      {
+        "mpId": 2993,
+        "score": 0.114681463059015,
+        "overlap": 74
+      },
+      {
+        "mpId": 5146,
+        "score": 0.1221030195496165,
+        "overlap": 121
+      },
+      {
+        "mpId": 4819,
+        "score": 0.12558517875132433,
+        "overlap": 100
+      },
+      {
+        "mpId": 4787,
+        "score": 0.13527329580515385,
+        "overlap": 61
+      },
+      {
+        "mpId": 5100,
+        "score": 0.14099242241167445,
+        "overlap": 40
+      },
+      {
+        "mpId": 4762,
+        "score": 0.14207756506182018,
+        "overlap": 104
+      }
+    ]
+  }
+}

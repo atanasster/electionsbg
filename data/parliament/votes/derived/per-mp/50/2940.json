@@ -3,16 +3,16 @@
   "ns": "50",
   "partyShort": "ДПС",
   "loyalty": {
-    "votesCast": 43,
-    "withParty": 41,
-    "loyaltyPct": 0.9534883720930233,
+    "votesCast": 1,
+    "withParty": 0,
+    "loyaltyPct": 0,
     "windowFrom": "2024-06-19",
     "windowTo": "2024-09-26",
     "totalVoteItems": 685
   },
   "dissents": {
-    "totalCast": 43,
-    "dissentCount": 2,
+    "totalCast": 1,
+    "dissentCount": 1,
     "recent": [
       {
         "date": "2024-07-11",
@@ -23,223 +23,11 @@
         "mpVote": "abstain",
         "majorityVote": "yes",
         "groupSize": 17
-      },
-      {
-        "date": "2024-07-03",
-        "item": 18,
-        "slug": "18-reshenie-za-izbirane-na-ministar-predsedatel-na-republika-ba",
-        "title": "Решение за избиране на министър-председател на Република България - избира Росен Желязков",
-        "topic": "other",
-        "mpVote": "no",
-        "majorityVote": "yes",
-        "groupSize": 45
       }
     ]
   },
   "similarity": {
-    "topK": [
-      {
-        "mpId": 2848,
-        "score": 0.9877295966495896,
-        "overlap": 41
-      },
-      {
-        "mpId": 2845,
-        "score": 0.9764672918705589,
-        "overlap": 42
-      },
-      {
-        "mpId": 2599,
-        "score": 0.975609756097561,
-        "overlap": 42
-      },
-      {
-        "mpId": 2823,
-        "score": 0.975609756097561,
-        "overlap": 41
-      },
-      {
-        "mpId": 2916,
-        "score": 0.9653072991634227,
-        "overlap": 42
-      },
-      {
-        "mpId": 2959,
-        "score": 0.9398272507881658,
-        "overlap": 40
-      },
-      {
-        "mpId": 2700,
-        "score": 0.9383431168171101,
-        "overlap": 39
-      },
-      {
-        "mpId": 2966,
-        "score": 0.9383431168171101,
-        "overlap": 40
-      },
-      {
-        "mpId": 2597,
-        "score": 0.9312403943594376,
-        "overlap": 42
-      },
-      {
-        "mpId": 2627,
-        "score": 0.926829268292683,
-        "overlap": 41
-      },
-      {
-        "mpId": 2937,
-        "score": 0.9252891980686575,
-        "overlap": 38
-      },
-      {
-        "mpId": 2781,
-        "score": 0.9157291161525718,
-        "overlap": 41
-      },
-      {
-        "mpId": 2678,
-        "score": 0.9120502654886521,
-        "overlap": 38
-      },
-      {
-        "mpId": 2915,
-        "score": 0.9050184656361279,
-        "overlap": 42
-      },
-      {
-        "mpId": 2957,
-        "score": 0.9050184656361279,
-        "overlap": 40
-      },
-      {
-        "mpId": 2797,
-        "score": 0.8916309815169777,
-        "overlap": 40
-      },
-      {
-        "mpId": 2766,
-        "score": 0.886715535891745,
-        "overlap": 38
-      },
-      {
-        "mpId": 2901,
-        "score": 0.8812021902246507,
-        "overlap": 40
-      },
-      {
-        "mpId": 2921,
-        "score": 0.8812021902246507,
-        "overlap": 40
-      },
-      {
-        "mpId": 2917,
-        "score": 0.8711309772938205,
-        "overlap": 43
-      }
-    ],
-    "bottomK": [
-      {
-        "mpId": 2930,
-        "score": -0.09016696346674324,
-        "overlap": 7
-      },
-      {
-        "mpId": 2803,
-        "score": -0.027109455978741488,
-        "overlap": 36
-      },
-      {
-        "mpId": 2745,
-        "score": -0.007479366709938809,
-        "overlap": 40
-      },
-      {
-        "mpId": 2715,
-        "score": -0.006829001800251448,
-        "overlap": 43
-      },
-      {
-        "mpId": 2702,
-        "score": -0.006745679089991417,
-        "overlap": 42
-      },
-      {
-        "mpId": 2920,
-        "score": -0.006733128978488734,
-        "overlap": 42
-      },
-      {
-        "mpId": 2859,
-        "score": -0.0067020576129712345,
-        "overlap": 42
-      },
-      {
-        "mpId": 2932,
-        "score": -0.006677507868884246,
-        "overlap": 42
-      },
-      {
-        "mpId": 2898,
-        "score": -0.006617294665781962,
-        "overlap": 41
-      },
-      {
-        "mpId": 2598,
-        "score": 0,
-        "overlap": 42
-      },
-      {
-        "mpId": 2621,
-        "score": 0,
-        "overlap": 43
-      },
-      {
-        "mpId": 2639,
-        "score": 0,
-        "overlap": 43
-      },
-      {
-        "mpId": 2640,
-        "score": 0,
-        "overlap": 43
-      },
-      {
-        "mpId": 2642,
-        "score": 0,
-        "overlap": 43
-      },
-      {
-        "mpId": 2666,
-        "score": 0,
-        "overlap": 41
-      },
-      {
-        "mpId": 2683,
-        "score": 0,
-        "overlap": 43
-      },
-      {
-        "mpId": 2689,
-        "score": 0,
-        "overlap": 43
-      },
-      {
-        "mpId": 2690,
-        "score": 0,
-        "overlap": 43
-      },
-      {
-        "mpId": 2698,
-        "score": 0,
-        "overlap": 42
-      },
-      {
-        "mpId": 2706,
-        "score": 0,
-        "overlap": 42
-      }
-    ]
+    "topK": [],
+    "bottomK": []
   }
 }

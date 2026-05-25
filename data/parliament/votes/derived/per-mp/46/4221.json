@@ -1,0 +1,265 @@
+{
+  "mpId": 4221,
+  "ns": "46",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 320,
+    "withParty": 316,
+    "loyaltyPct": 0.9875,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 320,
+    "dissentCount": 4,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 97,
+        "slug": "97-ratifikatsiya-na-sporazumenieto-za-preprodazhba-na-vaksini-o",
+        "title": "Ратификация на Споразумението за препродажба на ваксини от и между Република България и Кралство Норвегия относно препродажба на дози ваксини на Moderna Switzerland GMBH срещу Covid-19 - второ гласуване - член 2 - предложение от Христо Гаджев",
+        "topic": "ratification",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 26
+      },
+      {
+        "date": "2021-09-15",
+        "item": 72,
+        "slug": "72-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 28 (става параграф 27) - предложение за редакция от Хамид Хамид - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2021-09-10",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - предложение от К.Ангелов и група н.п. по чл.5",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-08-05",
+        "item": 60,
+        "slug": "60-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Приложение към Финансови правила ... - предложение от Мая Манолова и група н.п. по член 10",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 26
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4738,
+        "score": 0.7923744773443633,
+        "overlap": 300
+      },
+      {
+        "mpId": 4450,
+        "score": 0.7715397845362525,
+        "overlap": 299
+      },
+      {
+        "mpId": 4911,
+        "score": 0.7649551816353991,
+        "overlap": 274
+      },
+      {
+        "mpId": 1606,
+        "score": 0.7626134569407287,
+        "overlap": 254
+      },
+      {
+        "mpId": 3908,
+        "score": 0.7583561028958407,
+        "overlap": 306
+      },
+      {
+        "mpId": 1582,
+        "score": 0.7527979274220116,
+        "overlap": 293
+      },
+      {
+        "mpId": 1974,
+        "score": 0.7490704757287707,
+        "overlap": 287
+      },
+      {
+        "mpId": 1385,
+        "score": 0.7366903046146293,
+        "overlap": 290
+      },
+      {
+        "mpId": 3783,
+        "score": 0.7357427925767165,
+        "overlap": 286
+      },
+      {
+        "mpId": 3578,
+        "score": 0.7331741442292273,
+        "overlap": 275
+      },
+      {
+        "mpId": 4552,
+        "score": 0.7331741442292273,
+        "overlap": 275
+      },
+      {
+        "mpId": 4326,
+        "score": 0.7212500676820658,
+        "overlap": 278
+      },
+      {
+        "mpId": 4122,
+        "score": 0.6912001834314773,
+        "overlap": 266
+      },
+      {
+        "mpId": 3639,
+        "score": 0.6888826190951676,
+        "overlap": 253
+      },
+      {
+        "mpId": 1873,
+        "score": 0.688319837709504,
+        "overlap": 237
+      },
+      {
+        "mpId": 3714,
+        "score": 0.6863624767990664,
+        "overlap": 257
+      },
+      {
+        "mpId": 4775,
+        "score": 0.6804794027120478,
+        "overlap": 229
+      },
+      {
+        "mpId": 4500,
+        "score": 0.6801955296653596,
+        "overlap": 257
+      },
+      {
+        "mpId": 3533,
+        "score": 0.6772915701870037,
+        "overlap": 237
+      },
+      {
+        "mpId": 1889,
+        "score": 0.6659815170986209,
+        "overlap": 248
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5173,
+        "score": 0.06097107608496923,
+        "overlap": 72
+      },
+      {
+        "mpId": 4632,
+        "score": 0.09076462476011263,
+        "overlap": 101
+      },
+      {
+        "mpId": 404,
+        "score": 0.13209052024719978,
+        "overlap": 175
+      },
+      {
+        "mpId": 4266,
+        "score": 0.1357015126962102,
+        "overlap": 134
+      },
+      {
+        "mpId": 4120,
+        "score": 0.13586453511140545,
+        "overlap": 85
+      },
+      {
+        "mpId": 5169,
+        "score": 0.14403062900788058,
+        "overlap": 77
+      },
+      {
+        "mpId": 3620,
+        "score": 0.14561964340441585,
+        "overlap": 131
+      },
+      {
+        "mpId": 4225,
+        "score": 0.15238648797076956,
+        "overlap": 189
+      },
+      {
+        "mpId": 4249,
+        "score": 0.155179866780411,
+        "overlap": 148
+      },
+      {
+        "mpId": 388,
+        "score": 0.1589673240096126,
+        "overlap": 179
+      },
+      {
+        "mpId": 5248,
+        "score": 0.16261456347774905,
+        "overlap": 127
+      },
+      {
+        "mpId": 4872,
+        "score": 0.16412083742088898,
+        "overlap": 150
+      },
+      {
+        "mpId": 5223,
+        "score": 0.1644267644428885,
+        "overlap": 55
+      },
+      {
+        "mpId": 4838,
+        "score": 0.17556578555657112,
+        "overlap": 145
+      },
+      {
+        "mpId": 4304,
+        "score": 0.18185079974284174,
+        "overlap": 166
+      },
+      {
+        "mpId": 4912,
+        "score": 0.1881432845804831,
+        "overlap": 180
+      },
+      {
+        "mpId": 4147,
+        "score": 0.19034166456626253,
+        "overlap": 144
+      },
+      {
+        "mpId": 5236,
+        "score": 0.1962976426496284,
+        "overlap": 160
+      },
+      {
+        "mpId": 5216,
+        "score": 0.19662581223525744,
+        "overlap": 162
+      },
+      {
+        "mpId": 5126,
+        "score": 0.19782343346100015,
+        "overlap": 183
+      }
+    ]
+  }
+}

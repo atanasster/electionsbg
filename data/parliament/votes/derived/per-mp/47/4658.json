@@ -1,0 +1,331 @@
+{
+  "mpId": 4658,
+  "ns": "47",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 1079,
+    "withParty": 1067,
+    "loyaltyPct": 0.9888785912882299,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1079,
+    "dissentCount": 12,
+    "recent": [
+      {
+        "date": "2022-07-13",
+        "item": 28,
+        "slug": "28-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства, свързани с доставката на суров петрол до производителя на горива \"Лукойл Нефтохим Бургас\" АД - за председател Александър Ракшиев - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 29
+      },
+      {
+        "date": "2022-06-29",
+        "item": 35,
+        "slug": "35-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - процедура от Десислава Атанасова за удължаване на работното време до 20 часа",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2022-03-09",
+        "item": 7,
+        "slug": "7",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-03-02",
+        "item": 22,
+        "slug": "22",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2022-03-02",
+        "item": 21,
+        "slug": "21",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2022-03-02",
+        "item": 20,
+        "slug": "20",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2022-02-23",
+        "item": 7,
+        "slug": "7",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 23
+      },
+      {
+        "date": "2022-02-22",
+        "item": 76,
+        "slug": "76",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2022-02-22",
+        "item": 53,
+        "slug": "53",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2022-02-03",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-elektronnoto-upravlenie-parvo-glasuvane-pro",
+        "title": "ЗИД на Закона за електронното управление - първо гласуване - процедура от Кирил Симеонов за намаляване на срока за предложения",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2022-01-05",
+        "item": 7,
+        "slug": "7-reshenie-za-promyana-v-komisiyata-za-pryakoto-uchastie-na-gr",
+        "title": "Решение за промяна в Комисията за прякото участие на гражданите и взаимодействието с гражданското общество",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2021-12-22",
+        "item": 15,
+        "slug": "15-reshenie-za-izbirane-na-komisiya-po-konstitutsionni-i-pravni",
+        "title": "Решение за избиране на Комисия по конституционни и правни въпроси - ръководство и състав",
+        "topic": "constitution",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 27
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4762,
+        "score": 0.8460092415477908,
+        "overlap": 983
+      },
+      {
+        "mpId": 4709,
+        "score": 0.8437233332913401,
+        "overlap": 928
+      },
+      {
+        "mpId": 5102,
+        "score": 0.8377301047543255,
+        "overlap": 1014
+      },
+      {
+        "mpId": 4827,
+        "score": 0.8117484854593209,
+        "overlap": 841
+      },
+      {
+        "mpId": 4594,
+        "score": 0.8067969036286324,
+        "overlap": 954
+      },
+      {
+        "mpId": 4137,
+        "score": 0.8003954404635178,
+        "overlap": 915
+      },
+      {
+        "mpId": 5146,
+        "score": 0.7922179751434831,
+        "overlap": 898
+      },
+      {
+        "mpId": 4710,
+        "score": 0.7917337464059028,
+        "overlap": 894
+      },
+      {
+        "mpId": 4216,
+        "score": 0.7871897882439747,
+        "overlap": 828
+      },
+      {
+        "mpId": 4925,
+        "score": 0.7786482027238594,
+        "overlap": 827
+      },
+      {
+        "mpId": 4483,
+        "score": 0.7737713437361523,
+        "overlap": 795
+      },
+      {
+        "mpId": 4114,
+        "score": 0.7580018812063659,
+        "overlap": 770
+      },
+      {
+        "mpId": 3901,
+        "score": 0.7541168099837438,
+        "overlap": 812
+      },
+      {
+        "mpId": 4135,
+        "score": 0.7470959194129464,
+        "overlap": 736
+      },
+      {
+        "mpId": 4811,
+        "score": 0.7464407509466472,
+        "overlap": 782
+      },
+      {
+        "mpId": 4022,
+        "score": 0.7463866966581135,
+        "overlap": 740
+      },
+      {
+        "mpId": 4140,
+        "score": 0.7398297554509884,
+        "overlap": 742
+      },
+      {
+        "mpId": 5294,
+        "score": 0.7361606075327819,
+        "overlap": 695
+      },
+      {
+        "mpId": 2035,
+        "score": 0.7284094370230281,
+        "overlap": 840
+      },
+      {
+        "mpId": 4886,
+        "score": 0.7251819735480792,
+        "overlap": 747
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4741,
+        "score": -0.05431649805222222,
+        "overlap": 732
+      },
+      {
+        "mpId": 1336,
+        "score": -0.0343786074582482,
+        "overlap": 835
+      },
+      {
+        "mpId": 2186,
+        "score": -0.026148818018424533,
+        "overlap": 275
+      },
+      {
+        "mpId": 5283,
+        "score": -0.02558319146112716,
+        "overlap": 770
+      },
+      {
+        "mpId": 2175,
+        "score": -0.02126309735815002,
+        "overlap": 874
+      },
+      {
+        "mpId": 2080,
+        "score": -0.018131911718246765,
+        "overlap": 849
+      },
+      {
+        "mpId": 2045,
+        "score": -0.014086773826254909,
+        "overlap": 825
+      },
+      {
+        "mpId": 4054,
+        "score": -0.013223482906509399,
+        "overlap": 884
+      },
+      {
+        "mpId": 4316,
+        "score": -0.008277844001740947,
+        "overlap": 817
+      },
+      {
+        "mpId": 4224,
+        "score": -0.002557553121569403,
+        "overlap": 963
+      },
+      {
+        "mpId": 4905,
+        "score": -0.0008809427325848126,
+        "overlap": 902
+      },
+      {
+        "mpId": 2172,
+        "score": 0.0009025542778899829,
+        "overlap": 869
+      },
+      {
+        "mpId": 4324,
+        "score": 0.0017912203554434705,
+        "overlap": 859
+      },
+      {
+        "mpId": 4809,
+        "score": 0.002968958520604092,
+        "overlap": 787
+      },
+      {
+        "mpId": 4262,
+        "score": 0.0036762128340512793,
+        "overlap": 881
+      },
+      {
+        "mpId": 4726,
+        "score": 0.0038815382226372558,
+        "overlap": 764
+      },
+      {
+        "mpId": 2013,
+        "score": 0.009569487529386909,
+        "overlap": 11
+      },
+      {
+        "mpId": 4802,
+        "score": 0.010696691234035723,
+        "overlap": 949
+      },
+      {
+        "mpId": 2170,
+        "score": 0.010940692762589781,
+        "overlap": 862
+      },
+      {
+        "mpId": 4009,
+        "score": 0.014991916141651606,
+        "overlap": 950
+      }
+    ]
+  }
+}

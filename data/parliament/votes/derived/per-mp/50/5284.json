@@ -1,0 +1,315 @@
+{
+  "mpId": 5284,
+  "ns": "50",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 408,
+    "withParty": 399,
+    "loyaltyPct": 0.9779411764705882,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 408,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 54,
+        "slug": "54-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-15-stava-",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 15 (става параграф 14) - предложение от Иван Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 51
+      },
+      {
+        "date": "2024-09-25",
+        "item": 9,
+        "slug": "9-programa-za-rabotata-na-narodnoto-sabranie-za-25-26-septemvr",
+        "title": "Програма за работата на Народното събрание за 25 – 26 септември 2024 г. - процедура от Георги Свиленски за разделяне на законите по т.7 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-09-11",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-nov-p",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф - нов - предложение от Надежда Йорданова, по чл.6 - процедура за допустимост - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2024-09-05",
+        "item": 3,
+        "slug": "3-reshenie-za-izbirane-na-predsedatel-na-komisiyata-za-kontrol",
+        "title": "Решение за избиране на председател на Комисията за контрол над службите за сигурност, прилагането и използването на специалните разузнавателни средства и достъпа до данните по Закона за електронните съобщения за Втората сесия - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2024-09-04",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-nezavisimiya-finansov-odit-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за независимия финансов одит - второ гласуване - член 36 - предложение от Димо Дренчев и Цончо Ганев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2024-08-07",
+        "item": 43,
+        "slug": "43-zakon-za-vavezhdane-na-evroto-v-republika-balgariya-vtoro-gl",
+        "title": "Закон за въвеждане на еврото в Република България – второ гласуване - параграф 9",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-08-07",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – второ гласуване - параграф 2 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-07-03",
+        "item": 14,
+        "slug": "14-izslushvane-na-ministar-predsedatelya-na-rbalgariya-g-n-dimi",
+        "title": "Изслушване на министър-председателя на РБългария г-н Димитър Главчев, министъра на отбраната Атанас Запрянов, зам.-министъра на външните работи г-жа Митева относно подготовката за предстоящата юбилейна среща на държавните и правителствените ръководители на страните членки на НАТО, 9 - 11 юли 2024г. във Вашингтон, представяне на разработените и приети документи, в т.ч. и ангажименти на предхождащите срещи на министрите на отбраната и на външните работи и представяне на позицията на РБългария - процедура за отлагане на точката",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-06-19",
+        "item": 9,
+        "slug": "9-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Юлиана Матеева",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4786,
+        "score": 0.7903684913265048,
+        "overlap": 390
+      },
+      {
+        "mpId": 4807,
+        "score": 0.7785824333265291,
+        "overlap": 403
+      },
+      {
+        "mpId": 4912,
+        "score": 0.7759521271181536,
+        "overlap": 395
+      },
+      {
+        "mpId": 5075,
+        "score": 0.7746054216120036,
+        "overlap": 393
+      },
+      {
+        "mpId": 4895,
+        "score": 0.7727566001007171,
+        "overlap": 405
+      },
+      {
+        "mpId": 4783,
+        "score": 0.7707380516885683,
+        "overlap": 404
+      },
+      {
+        "mpId": 4983,
+        "score": 0.7707380516885683,
+        "overlap": 405
+      },
+      {
+        "mpId": 4721,
+        "score": 0.7687490469490136,
+        "overlap": 402
+      },
+      {
+        "mpId": 2802,
+        "score": 0.7684732793678399,
+        "overlap": 390
+      },
+      {
+        "mpId": 2765,
+        "score": 0.7667667711352051,
+        "overlap": 391
+      },
+      {
+        "mpId": 5207,
+        "score": 0.7650976029366463,
+        "overlap": 381
+      },
+      {
+        "mpId": 4739,
+        "score": 0.7642271688496924,
+        "overlap": 386
+      },
+      {
+        "mpId": 4896,
+        "score": 0.7614979452464138,
+        "overlap": 387
+      },
+      {
+        "mpId": 4808,
+        "score": 0.761110671300249,
+        "overlap": 397
+      },
+      {
+        "mpId": 5083,
+        "score": 0.7596404051932444,
+        "overlap": 395
+      },
+      {
+        "mpId": 4816,
+        "score": 0.7596399597121328,
+        "overlap": 379
+      },
+      {
+        "mpId": 2905,
+        "score": 0.7540685919419883,
+        "overlap": 391
+      },
+      {
+        "mpId": 5133,
+        "score": 0.7536596468422956,
+        "overlap": 381
+      },
+      {
+        "mpId": 4733,
+        "score": 0.7509339249044966,
+        "overlap": 387
+      },
+      {
+        "mpId": 5124,
+        "score": 0.750707221186756,
+        "overlap": 370
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2930,
+        "score": -0.029578550313870463,
+        "overlap": 7
+      },
+      {
+        "mpId": 5007,
+        "score": 0.01850266226206321,
+        "overlap": 196
+      },
+      {
+        "mpId": 4899,
+        "score": 0.023822187777128204,
+        "overlap": 58
+      },
+      {
+        "mpId": 2990,
+        "score": 0.024097295023216836,
+        "overlap": 87
+      },
+      {
+        "mpId": 3002,
+        "score": 0.049426347834800564,
+        "overlap": 96
+      },
+      {
+        "mpId": 2967,
+        "score": 0.057056939549539484,
+        "overlap": 228
+      },
+      {
+        "mpId": 5258,
+        "score": 0.05888511251748913,
+        "overlap": 291
+      },
+      {
+        "mpId": 3004,
+        "score": 0.05980947935749239,
+        "overlap": 108
+      },
+      {
+        "mpId": 2992,
+        "score": 0.06005211515847127,
+        "overlap": 111
+      },
+      {
+        "mpId": 5247,
+        "score": 0.06225127960100715,
+        "overlap": 373
+      },
+      {
+        "mpId": 3000,
+        "score": 0.06415205035152392,
+        "overlap": 110
+      },
+      {
+        "mpId": 4727,
+        "score": 0.06763890158591818,
+        "overlap": 149
+      },
+      {
+        "mpId": 2988,
+        "score": 0.06792408337520796,
+        "overlap": 109
+      },
+      {
+        "mpId": 2951,
+        "score": 0.07028910940341786,
+        "overlap": 35
+      },
+      {
+        "mpId": 2961,
+        "score": 0.07383252448422789,
+        "overlap": 37
+      },
+      {
+        "mpId": 2912,
+        "score": 0.07479769648804109,
+        "overlap": 37
+      },
+      {
+        "mpId": 2976,
+        "score": 0.07495889860711273,
+        "overlap": 194
+      },
+      {
+        "mpId": 2927,
+        "score": 0.07580173733957989,
+        "overlap": 37
+      },
+      {
+        "mpId": 2993,
+        "score": 0.07780293948097378,
+        "overlap": 83
+      },
+      {
+        "mpId": 5234,
+        "score": 0.0793675790132545,
+        "overlap": 375
+      }
+    ]
+  }
+}

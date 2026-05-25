@@ -42,7 +42,11 @@ import {
 } from "./rollcall/parse";
 import { parseXlsx, readXlsxRows } from "./rollcall/parse_xlsx";
 import { inferNs } from "./rollcall/ns";
-import { buildNameToIdMap, resolveByName } from "./rollcall/roster";
+import {
+  buildNameToIdMap,
+  buildSessionRemap,
+  resolveByName,
+} from "./rollcall/roster";
 import { extractItemTitlesFromXlsxRows } from "./rollcall/titles";
 import { extractItemTitles } from "./rollcall/titles";
 import {
@@ -64,6 +68,10 @@ const __dirname = path.dirname(__filename);
 const VOTES_DIR = path.resolve(__dirname, "../../data/parliament/votes");
 const SESSIONS_DIR = path.join(VOTES_DIR, "sessions");
 const INDEX_FILE = path.join(VOTES_DIR, "index.json");
+const MP_INDEX_FILE = path.resolve(
+  __dirname,
+  "../../data/parliament/index.json",
+);
 const CANARY_FIXTURE = path.resolve(
   __dirname,
   "../../tests/fixtures/parliament/votes/canary.json",
@@ -252,7 +260,64 @@ const ingestSession = async (
       );
     }
   }
-  const items = groupByItem(rows);
+  // Canary first — validates the parser hasn't drifted from the pinned
+  // fixture. Runs on the raw parsed items BEFORE the id remap so the fixture
+  // stays a pure parser snapshot (the post-remap data depends on a moving
+  // target — data/parliament/index.json — and would cause spurious failures
+  // every time the deduped roster changes).
+  const preRemapItems = groupByItem(rows);
+  if (opts.runCanaryCheck && sten.Pl_Sten_id === CANARY_STEN_ID) {
+    if (opts.dryRun && !fs.existsSync(CANARY_FIXTURE)) {
+      console.log(
+        `  · canary fixture missing — skipped (run without --dry-run to seed)`,
+      );
+    } else {
+      runCanary(CANARY_FIXTURE, preRemapItems);
+    }
+  }
+
+  // Reconcile parliament.bg's per-NS stenogram id space against our deduped
+  // roster. Most days they agree, but occasionally the CSV uses an id that
+  // the roster owns under a different person (recycled id — Velichkov voting
+  // under former MP Топалова-Яшар's 4103 in the 52nd NA) or an older per-NS
+  // id the dedup merged out. In both cases the CSV name is authoritative —
+  // remap to the canonical roster id scoped to this session's NS so per-MP
+  // shards / candidate URLs align. Two-pass with collision detection so two
+  // CSV ids for the same person on a swearing-in transition don't get
+  // collapsed into one (which would double-count one set of votes).
+  const sessionNs = rows[0]?.nsFolder ? `${rows[0].nsFolder}` : inferredNs;
+  const remap = buildSessionRemap(
+    MP_INDEX_FILE,
+    sessionNs,
+    rows.map((r) => ({ csvId: r.mpId, csvName: r.mpName })),
+  );
+  if (remap.byCsvId.size > 0) {
+    rows = rows.map((r) => {
+      const newId = remap.byCsvId.get(r.mpId);
+      return newId === undefined ? r : { ...r, mpId: newId };
+    });
+    const summary = [...remap.log.entries()]
+      .map(
+        ([csvId, info]) =>
+          `${csvId}→${info.newId} (${info.csvName}; roster ${csvId}=${info.rosterName})`,
+      )
+      .join("; ");
+    console.log(
+      `  · ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}): remapped ${remap.byCsvId.size} CSV id(s) by name → ${summary}`,
+    );
+  }
+  if (remap.collisions.size > 0) {
+    const summary = [...remap.collisions.entries()]
+      .map(
+        ([newId, list]) =>
+          `→${newId} ⇐ ${list.map((c) => `${c.csvId} (${c.csvName})`).join(" + ")}`,
+      )
+      .join("; ");
+    console.log(
+      `  · ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}): ${remap.collisions.size} name collision(s) left at original id(s) → ${summary}`,
+    );
+  }
+  const items = remap.byCsvId.size === 0 ? preRemapItems : groupByItem(rows);
   if (items.length === 0) {
     // Empty XLSX with the right sheet name but no data rows — happens on a
     // few historical sessions where the file was published but never filled.
@@ -263,20 +328,6 @@ const ingestSession = async (
     return null;
   }
   const result = validateSessionItems(items, ctx);
-
-  // Canary: validates the parser hasn't drifted from the pinned fixture.
-  // Skip during --dry-run if the fixture is missing — we don't want a dry
-  // run to have the side effect of seeding the fixture. Once seeded, dry-run
-  // can still compare against it.
-  if (opts.runCanaryCheck && sten.Pl_Sten_id === CANARY_STEN_ID) {
-    if (opts.dryRun && !fs.existsSync(CANARY_FIXTURE)) {
-      console.log(
-        `  · canary fixture missing — skipped (run without --dry-run to seed)`,
-      );
-    } else {
-      runCanary(CANARY_FIXTURE, items);
-    }
-  }
 
   // Build name and party lookups from CSV rows (BG uppercase as upstream
   // provides). The CSV is the authoritative source for who held what party

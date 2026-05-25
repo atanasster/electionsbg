@@ -1,0 +1,325 @@
+{
+  "mpId": 3674,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 505,
+    "withParty": 495,
+    "loyaltyPct": 0.9801980198019802,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 505,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 70,
+        "slug": "70-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 27 - отпада",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-09-15",
+        "item": 65,
+        "slug": "65-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 25 - предложение от Хамид Хамид",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-09-15",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 5 - предложение за редакция от Хамид Хамид",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-09-09",
+        "item": 49,
+        "slug": "49-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 1 - предложение от Костадин Ангелов и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-09-09",
+        "item": 48,
+        "slug": "48-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 1 - предложение от Костадин Ангелов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-09-07",
+        "item": 62,
+        "slug": "62-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 12 - предложение от Мая Манолова и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-08-05",
+        "item": 51,
+        "slug": "51-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 130 - предложение от Мая Манолова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-08-05",
+        "item": 46,
+        "slug": "46-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Раздел втори (става Раздел трети), член 110 - предложение от Надежда Йорданова и Атанас Славов - 4-то изр",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-08-05",
+        "item": 45,
+        "slug": "45-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Раздел втори (става Раздел трети), член 110 - предложение от Надежда Йорданова и Атанас Славов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-07-30",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1869,
+        "score": 0.9624731981028725,
+        "overlap": 504
+      },
+      {
+        "mpId": 4705,
+        "score": 0.9620852552208962,
+        "overlap": 496
+      },
+      {
+        "mpId": 4997,
+        "score": 0.9589834139761729,
+        "overlap": 498
+      },
+      {
+        "mpId": 4868,
+        "score": 0.9585355744799062,
+        "overlap": 503
+      },
+      {
+        "mpId": 1665,
+        "score": 0.9574048469277332,
+        "overlap": 501
+      },
+      {
+        "mpId": 1938,
+        "score": 0.9569321102069627,
+        "overlap": 499
+      },
+      {
+        "mpId": 1913,
+        "score": 0.9559113823322466,
+        "overlap": 496
+      },
+      {
+        "mpId": 3693,
+        "score": 0.9557985560809085,
+        "overlap": 496
+      },
+      {
+        "mpId": 1947,
+        "score": 0.9528686858629356,
+        "overlap": 499
+      },
+      {
+        "mpId": 1728,
+        "score": 0.9506501248546929,
+        "overlap": 481
+      },
+      {
+        "mpId": 1918,
+        "score": 0.9500000000000001,
+        "overlap": 492
+      },
+      {
+        "mpId": 3993,
+        "score": 0.9466817356484706,
+        "overlap": 492
+      },
+      {
+        "mpId": 4699,
+        "score": 0.9460241786521707,
+        "overlap": 496
+      },
+      {
+        "mpId": 5218,
+        "score": 0.9451466145131898,
+        "overlap": 495
+      },
+      {
+        "mpId": 1959,
+        "score": 0.9436030877047391,
+        "overlap": 492
+      },
+      {
+        "mpId": 1907,
+        "score": 0.9425835270745266,
+        "overlap": 497
+      },
+      {
+        "mpId": 4862,
+        "score": 0.9424544100407124,
+        "overlap": 498
+      },
+      {
+        "mpId": 4663,
+        "score": 0.9419773033583296,
+        "overlap": 488
+      },
+      {
+        "mpId": 1948,
+        "score": 0.9392646827037978,
+        "overlap": 496
+      },
+      {
+        "mpId": 1899,
+        "score": 0.9379766162402088,
+        "overlap": 485
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5173,
+        "score": -0.04303868345724525,
+        "overlap": 178
+      },
+      {
+        "mpId": 4225,
+        "score": -0.02710037051879862,
+        "overlap": 311
+      },
+      {
+        "mpId": 3620,
+        "score": -0.02708681694429807,
+        "overlap": 248
+      },
+      {
+        "mpId": 4872,
+        "score": -0.024488775998915042,
+        "overlap": 239
+      },
+      {
+        "mpId": 4304,
+        "score": -0.008691454417369167,
+        "overlap": 272
+      },
+      {
+        "mpId": 404,
+        "score": -0.0028860299286318663,
+        "overlap": 287
+      },
+      {
+        "mpId": 388,
+        "score": 0.0028270704564493793,
+        "overlap": 294
+      },
+      {
+        "mpId": 5124,
+        "score": 0.013565948792607994,
+        "overlap": 220
+      },
+      {
+        "mpId": 1659,
+        "score": 0.020011438376685724,
+        "overlap": 306
+      },
+      {
+        "mpId": 4249,
+        "score": 0.023733544035398447,
+        "overlap": 262
+      },
+      {
+        "mpId": 4854,
+        "score": 0.03619123303193522,
+        "overlap": 268
+      },
+      {
+        "mpId": 3925,
+        "score": 0.03681966145849493,
+        "overlap": 305
+      },
+      {
+        "mpId": 4838,
+        "score": 0.03746708440385871,
+        "overlap": 225
+      },
+      {
+        "mpId": 5248,
+        "score": 0.03926940411831124,
+        "overlap": 206
+      },
+      {
+        "mpId": 4116,
+        "score": 0.04762446621038276,
+        "overlap": 292
+      },
+      {
+        "mpId": 4912,
+        "score": 0.048863276081811284,
+        "overlap": 309
+      },
+      {
+        "mpId": 5126,
+        "score": 0.0504259053992288,
+        "overlap": 291
+      },
+      {
+        "mpId": 5267,
+        "score": 0.05141065426553181,
+        "overlap": 348
+      },
+      {
+        "mpId": 1281,
+        "score": 0.05543165713462048,
+        "overlap": 300
+      },
+      {
+        "mpId": 5103,
+        "score": 0.056541409128987585,
+        "overlap": 285
+      }
+    ]
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "mpId": 4170,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 423,
+    "withParty": 418,
+    "loyaltyPct": 0.9881796690307328,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 423,
+    "dissentCount": 5,
+    "recent": [
+      {
+        "date": "2021-09-10",
+        "item": 43,
+        "slug": "43-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Иван Иванов и Хр.Гаджев за редакция на т.16 ал.5 - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-09-10",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - предложение от К.Ангелов и група н.п. по чл.5",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-08-17",
+        "item": 5,
+        "slug": "5-deklaratsiya-vav-vrazka-s-uprazhnenoto-politseysko-nasilie-o",
+        "title": "Декларация във връзка с упражненото полицейско насилие от длъжностни лица срещу протестиращи граждани в периода юли - септември 2020 г. - предложение от Мая Манолова за нова т.4 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2021-08-17",
+        "item": 4,
+        "slug": "4-deklaratsiya-vav-vrazka-s-uprazhnenoto-politseysko-nasilie-o",
+        "title": "Декларация във връзка с упражненото полицейско насилие от длъжностни лица срещу протестиращи граждани в периода юли - септември 2020 г. - предложение от Мая Манолова за нова т. 4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-08-05",
+        "item": 29,
+        "slug": "29-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 52",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 55
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1665,
+        "score": 0.8876019932986821,
+        "overlap": 423
+      },
+      {
+        "mpId": 4868,
+        "score": 0.8843191919986839,
+        "overlap": 423
+      },
+      {
+        "mpId": 1646,
+        "score": 0.8805694233214527,
+        "overlap": 408
+      },
+      {
+        "mpId": 3693,
+        "score": 0.879475364729573,
+        "overlap": 417
+      },
+      {
+        "mpId": 1869,
+        "score": 0.8780997450649523,
+        "overlap": 423
+      },
+      {
+        "mpId": 4997,
+        "score": 0.8780389926557445,
+        "overlap": 418
+      },
+      {
+        "mpId": 1913,
+        "score": 0.8775981472962374,
+        "overlap": 416
+      },
+      {
+        "mpId": 5218,
+        "score": 0.8775981472962374,
+        "overlap": 417
+      },
+      {
+        "mpId": 1947,
+        "score": 0.8771690614488423,
+        "overlap": 418
+      },
+      {
+        "mpId": 1959,
+        "score": 0.8746624708181189,
+        "overlap": 416
+      },
+      {
+        "mpId": 4705,
+        "score": 0.8737174003413577,
+        "overlap": 415
+      },
+      {
+        "mpId": 4900,
+        "score": 0.8732182359676288,
+        "overlap": 414
+      },
+      {
+        "mpId": 1938,
+        "score": 0.8714119930329199,
+        "overlap": 417
+      },
+      {
+        "mpId": 1907,
+        "score": 0.8713301943294961,
+        "overlap": 420
+      },
+      {
+        "mpId": 1867,
+        "score": 0.8712413833431286,
+        "overlap": 413
+      },
+      {
+        "mpId": 3674,
+        "score": 0.8693769154843085,
+        "overlap": 411
+      },
+      {
+        "mpId": 4862,
+        "score": 0.8684334785102719,
+        "overlap": 419
+      },
+      {
+        "mpId": 1899,
+        "score": 0.8679258486915018,
+        "overlap": 409
+      },
+      {
+        "mpId": 3993,
+        "score": 0.8679258486915018,
+        "overlap": 413
+      },
+      {
+        "mpId": 4699,
+        "score": 0.8661414453297859,
+        "overlap": 416
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5173,
+        "score": -0.04741527664038592,
+        "overlap": 152
+      },
+      {
+        "mpId": 4225,
+        "score": -0.04478430084236742,
+        "overlap": 245
+      },
+      {
+        "mpId": 4304,
+        "score": -0.035109383059844866,
+        "overlap": 213
+      },
+      {
+        "mpId": 388,
+        "score": -0.02491643647186771,
+        "overlap": 228
+      },
+      {
+        "mpId": 4872,
+        "score": -0.0236066544300936,
+        "overlap": 195
+      },
+      {
+        "mpId": 5124,
+        "score": -0.014945466803830259,
+        "overlap": 179
+      },
+      {
+        "mpId": 3620,
+        "score": -0.009947089575801746,
+        "overlap": 196
+      },
+      {
+        "mpId": 3925,
+        "score": -0.009360887034750723,
+        "overlap": 239
+      },
+      {
+        "mpId": 404,
+        "score": -0.006359019210913006,
+        "overlap": 225
+      },
+      {
+        "mpId": 4854,
+        "score": 0.009967877664465375,
+        "overlap": 224
+      },
+      {
+        "mpId": 1659,
+        "score": 0.012597940940339367,
+        "overlap": 240
+      },
+      {
+        "mpId": 4912,
+        "score": 0.026916085331423013,
+        "overlap": 246
+      },
+      {
+        "mpId": 4838,
+        "score": 0.030957827282561537,
+        "overlap": 191
+      },
+      {
+        "mpId": 1281,
+        "score": 0.03358766882718917,
+        "overlap": 244
+      },
+      {
+        "mpId": 5267,
+        "score": 0.03964701377725685,
+        "overlap": 275
+      },
+      {
+        "mpId": 5126,
+        "score": 0.043208435956743785,
+        "overlap": 237
+      },
+      {
+        "mpId": 4249,
+        "score": 0.049025629345158195,
+        "overlap": 216
+      },
+      {
+        "mpId": 4116,
+        "score": 0.04938106966485004,
+        "overlap": 240
+      },
+      {
+        "mpId": 5248,
+        "score": 0.050473150243074014,
+        "overlap": 179
+      },
+      {
+        "mpId": 5165,
+        "score": 0.053958067268785374,
+        "overlap": 188
+      }
+    ]
+  }
+}

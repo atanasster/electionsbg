@@ -1,0 +1,337 @@
+{
+  "mpId": 4709,
+  "ns": "47",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 1100,
+    "withParty": 1088,
+    "loyaltyPct": 0.9890909090909091,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1100,
+    "dissentCount": 12,
+    "recent": [
+      {
+        "date": "2022-07-22",
+        "item": 18,
+        "slug": "18-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на процедурни правила за условията и реда за предлагане на кандидати, представяне и публично оповестяване на документите, изслушване на кандидатите и за избор на председател на Комисията за противодействие на корупцията и за отнемане на незаконно придобито имущество - предложение от Петър Петров за редакция на І, т. 1",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-07-13",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-13-15-yuli-202",
+        "title": "Програма за работата на Народното събрание за 13 - 15 юли 2022 г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2022-05-05",
+        "item": 10,
+        "slug": "10-reshenie-za-promyana-v-sastava-na-komisiyata-po-ikonomichesk",
+        "title": "Решение за промяна в състава на Комисията по икономическа политика и иновации - вносител ИТН",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2022-04-20",
+        "item": 9,
+        "slug": "9-reshenie-za-predpriemane-na-deystviya-ot-agentsiya-patna-inf",
+        "title": "Решение за предприемане на действия от Агенция \"Пътна инфраструктура\" за осъществяване на дейностите по поддържане на републиканската пътна мрежа - вносител Тошко Йорданов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-04-13",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-13-15-april-20",
+        "title": "Програма за работата на Народното събрание за 13 - 15 април 2022 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2022-03-23",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-23-25-mart-202",
+        "title": "Програма за работата на Народното събрание за 23 - 25 март 2022 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2022-03-02",
+        "item": 25,
+        "slug": "25",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-03-02",
+        "item": 22,
+        "slug": "22",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2022-02-24",
+        "item": 5,
+        "slug": "5",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-02-23",
+        "item": 7,
+        "slug": "7",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 23
+      },
+      {
+        "date": "2022-02-03",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-elektronnoto-upravlenie-parvo-glasuvane-pro",
+        "title": "ЗИД на Закона за електронното управление - първо гласуване - процедура от Кирил Симеонов за намаляване на срока за предложения",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-12-17",
+        "item": 23,
+        "slug": "23-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 46 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4710,
+        "score": 0.8472539689442126,
+        "overlap": 955
+      },
+      {
+        "mpId": 4762,
+        "score": 0.8457366354680783,
+        "overlap": 982
+      },
+      {
+        "mpId": 4137,
+        "score": 0.845664667888686,
+        "overlap": 968
+      },
+      {
+        "mpId": 4658,
+        "score": 0.8437233332913401,
+        "overlap": 928
+      },
+      {
+        "mpId": 4827,
+        "score": 0.8431032925529213,
+        "overlap": 887
+      },
+      {
+        "mpId": 5102,
+        "score": 0.8427310661862435,
+        "overlap": 1030
+      },
+      {
+        "mpId": 5146,
+        "score": 0.840717048164361,
+        "overlap": 952
+      },
+      {
+        "mpId": 4594,
+        "score": 0.83099391524234,
+        "overlap": 984
+      },
+      {
+        "mpId": 4483,
+        "score": 0.8210112984075749,
+        "overlap": 850
+      },
+      {
+        "mpId": 4925,
+        "score": 0.8194181369501241,
+        "overlap": 873
+      },
+      {
+        "mpId": 4022,
+        "score": 0.8077432670298533,
+        "overlap": 800
+      },
+      {
+        "mpId": 4216,
+        "score": 0.7989359640235301,
+        "overlap": 851
+      },
+      {
+        "mpId": 3901,
+        "score": 0.7856771307265185,
+        "overlap": 855
+      },
+      {
+        "mpId": 4811,
+        "score": 0.7798404026440082,
+        "overlap": 832
+      },
+      {
+        "mpId": 4140,
+        "score": 0.7745044750432992,
+        "overlap": 784
+      },
+      {
+        "mpId": 4135,
+        "score": 0.7662752924137973,
+        "overlap": 770
+      },
+      {
+        "mpId": 4746,
+        "score": 0.7624875560243372,
+        "overlap": 782
+      },
+      {
+        "mpId": 4114,
+        "score": 0.7607401430810404,
+        "overlap": 792
+      },
+      {
+        "mpId": 2035,
+        "score": 0.7544004267530556,
+        "overlap": 876
+      },
+      {
+        "mpId": 5294,
+        "score": 0.7535385852335464,
+        "overlap": 723
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4741,
+        "score": -0.07447722493918717,
+        "overlap": 800
+      },
+      {
+        "mpId": 1336,
+        "score": -0.06563243534548295,
+        "overlap": 849
+      },
+      {
+        "mpId": 2045,
+        "score": -0.060855371395278794,
+        "overlap": 840
+      },
+      {
+        "mpId": 5283,
+        "score": -0.05893128446849135,
+        "overlap": 803
+      },
+      {
+        "mpId": 2080,
+        "score": -0.05073680962095256,
+        "overlap": 896
+      },
+      {
+        "mpId": 2175,
+        "score": -0.05045195254634353,
+        "overlap": 920
+      },
+      {
+        "mpId": 4054,
+        "score": -0.04760493621771853,
+        "overlap": 927
+      },
+      {
+        "mpId": 4324,
+        "score": -0.04748401998465646,
+        "overlap": 901
+      },
+      {
+        "mpId": 4224,
+        "score": -0.04352526769989168,
+        "overlap": 997
+      },
+      {
+        "mpId": 4905,
+        "score": -0.03719211120751295,
+        "overlap": 925
+      },
+      {
+        "mpId": 4802,
+        "score": -0.036758027910988325,
+        "overlap": 966
+      },
+      {
+        "mpId": 2186,
+        "score": -0.03484274214407321,
+        "overlap": 267
+      },
+      {
+        "mpId": 4726,
+        "score": -0.03429896978239799,
+        "overlap": 778
+      },
+      {
+        "mpId": 4316,
+        "score": -0.030703532471445815,
+        "overlap": 836
+      },
+      {
+        "mpId": 4262,
+        "score": -0.028875222067243744,
+        "overlap": 908
+      },
+      {
+        "mpId": 2105,
+        "score": -0.027687048353305495,
+        "overlap": 917
+      },
+      {
+        "mpId": 2131,
+        "score": -0.024756593203218887,
+        "overlap": 1087
+      },
+      {
+        "mpId": 3932,
+        "score": -0.023744917269054387,
+        "overlap": 965
+      },
+      {
+        "mpId": 4738,
+        "score": -0.02341616460623297,
+        "overlap": 935
+      },
+      {
+        "mpId": 2172,
+        "score": -0.021267638500483958,
+        "overlap": 909
+      }
+    ]
+  }
+}

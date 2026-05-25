@@ -1,0 +1,245 @@
+{
+  "mpId": 3642,
+  "ns": "45",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 192,
+    "withParty": 190,
+    "loyaltyPct": 0.9895833333333334,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 192,
+    "dissentCount": 2,
+    "recent": [
+      {
+        "date": "2021-05-07",
+        "item": 9,
+        "slug": "9-reshenie-za-vazlagane-na-ministerski-savet-osiguryavaneto-na",
+        "title": "Решение за възлагане на Министерски съвет осигуряването на достъп на българските граждани до руската ваксина срещу COVID-19 \"Спутник V\"",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 43
+      },
+      {
+        "date": "2021-04-22",
+        "item": 7,
+        "slug": "7-reshenie-za-nalagane-na-moratorium-varhu-opredeleni-deystviy",
+        "title": "Решение за налагане на мораториум върху определени действия - предложение от Христо Гаджев за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 45
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3693,
+        "score": 0.9726596203853584,
+        "overlap": 190
+      },
+      {
+        "mpId": 4876,
+        "score": 0.961978462991735,
+        "overlap": 192
+      },
+      {
+        "mpId": 3415,
+        "score": 0.9558594602508337,
+        "overlap": 187
+      },
+      {
+        "mpId": 3248,
+        "score": 0.9532584773065047,
+        "overlap": 188
+      },
+      {
+        "mpId": 3271,
+        "score": 0.9532584773065047,
+        "overlap": 188
+      },
+      {
+        "mpId": 3448,
+        "score": 0.951046889548647,
+        "overlap": 191
+      },
+      {
+        "mpId": 1707,
+        "score": 0.9506786120150678,
+        "overlap": 189
+      },
+      {
+        "mpId": 3372,
+        "score": 0.9506786120150678,
+        "overlap": 188
+      },
+      {
+        "mpId": 1629,
+        "score": 0.9500146608331992,
+        "overlap": 186
+      },
+      {
+        "mpId": 3309,
+        "score": 0.9477483126977966,
+        "overlap": 188
+      },
+      {
+        "mpId": 4796,
+        "score": 0.9477483126977966,
+        "overlap": 187
+      },
+      {
+        "mpId": 3551,
+        "score": 0.9474011354940377,
+        "overlap": 188
+      },
+      {
+        "mpId": 4737,
+        "score": 0.9470788831585737,
+        "overlap": 185
+      },
+      {
+        "mpId": 4813,
+        "score": 0.944809061866431,
+        "overlap": 185
+      },
+      {
+        "mpId": 4900,
+        "score": 0.9444590195417769,
+        "overlap": 185
+      },
+      {
+        "mpId": 3600,
+        "score": 0.9418607779765288,
+        "overlap": 187
+      },
+      {
+        "mpId": 4663,
+        "score": 0.9396881078299225,
+        "overlap": 187
+      },
+      {
+        "mpId": 3993,
+        "score": 0.9389033782503547,
+        "overlap": 186
+      },
+      {
+        "mpId": 1737,
+        "score": 0.9346495293840151,
+        "overlap": 191
+      },
+      {
+        "mpId": 1570,
+        "score": 0.9325989869704849,
+        "overlap": 182
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5173,
+        "score": -0.14652658642778296,
+        "overlap": 52
+      },
+      {
+        "mpId": 1600,
+        "score": -0.08408644793459279,
+        "overlap": 68
+      },
+      {
+        "mpId": 1622,
+        "score": -0.07000371029497104,
+        "overlap": 117
+      },
+      {
+        "mpId": 4258,
+        "score": -0.06410676255336001,
+        "overlap": 98
+      },
+      {
+        "mpId": 4632,
+        "score": -0.059928129341343145,
+        "overlap": 63
+      },
+      {
+        "mpId": 4249,
+        "score": -0.03596098766684192,
+        "overlap": 116
+      },
+      {
+        "mpId": 4267,
+        "score": -0.027879472713549003,
+        "overlap": 121
+      },
+      {
+        "mpId": 4838,
+        "score": -0.014062555790279513,
+        "overlap": 109
+      },
+      {
+        "mpId": 5126,
+        "score": -0.013212910564542248,
+        "overlap": 132
+      },
+      {
+        "mpId": 5248,
+        "score": -0.007550234608309857,
+        "overlap": 103
+      },
+      {
+        "mpId": 1805,
+        "score": -0.006685262704648756,
+        "overlap": 131
+      },
+      {
+        "mpId": 4225,
+        "score": -0.006456855767998727,
+        "overlap": 141
+      },
+      {
+        "mpId": 4872,
+        "score": 0,
+        "overlap": 114
+      },
+      {
+        "mpId": 5223,
+        "score": 0,
+        "overlap": 113
+      },
+      {
+        "mpId": 403,
+        "score": 0.006794864479563054,
+        "overlap": 126
+      },
+      {
+        "mpId": 1815,
+        "score": 0.006880697749139113,
+        "overlap": 124
+      },
+      {
+        "mpId": 5151,
+        "score": 0.013703452523036827,
+        "overlap": 120
+      },
+      {
+        "mpId": 3620,
+        "score": 0.013761395498278225,
+        "overlap": 121
+      },
+      {
+        "mpId": 4854,
+        "score": 0.014125195547029415,
+        "overlap": 125
+      },
+      {
+        "mpId": 1634,
+        "score": 0.017496132142066564,
+        "overlap": 79
+      }
+    ]
+  }
+}

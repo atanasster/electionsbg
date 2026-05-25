@@ -1,0 +1,315 @@
+{
+  "mpId": 5249,
+  "ns": "50",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 386,
+    "withParty": 377,
+    "loyaltyPct": 0.9766839378238342,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 386,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2024-09-11",
+        "item": 39,
+        "slug": "39-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-nov-p",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф нов.. - предложение от Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 52
+      },
+      {
+        "date": "2024-09-11",
+        "item": 32,
+        "slug": "32-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-10-pr",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 10- предложение от Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2024-09-11",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-4-pre",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 4 - предложение от Цвета Рангелова за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 52
+      },
+      {
+        "date": "2024-08-14",
+        "item": 6,
+        "slug": "6-reshenie-za-promyana-v-sastava-na-komisiyata-po-obrazovaniet",
+        "title": "Решение за промяна в състава на Комисията по образованието и науката",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2024-08-07",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – второ гласуване - параграф 2 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-08-07",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – второ гласуване - параграф 1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-08-07",
+        "item": 7,
+        "slug": "7-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – първо гласуване - вносител Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 60
+      },
+      {
+        "date": "2024-08-02",
+        "item": 6,
+        "slug": "6-zd-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-para",
+        "title": "ЗД на Кодекса за социално осигуряване - второ гласуване - параграф ... - предложение от Джевдет Чакъров и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2024-07-31",
+        "item": 26,
+        "slug": "26-zid-na-grazhdanskiya-protsesualen-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Гражданския процесуален кодекс – второ гласуване - параграф 3",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 53
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4786,
+        "score": 0.7630803112164969,
+        "overlap": 366
+      },
+      {
+        "mpId": 4807,
+        "score": 0.7591766023652229,
+        "overlap": 380
+      },
+      {
+        "mpId": 5267,
+        "score": 0.7590967069421878,
+        "overlap": 367
+      },
+      {
+        "mpId": 4783,
+        "score": 0.7576230987600575,
+        "overlap": 384
+      },
+      {
+        "mpId": 5133,
+        "score": 0.7546772491503954,
+        "overlap": 370
+      },
+      {
+        "mpId": 4895,
+        "score": 0.7536272798660584,
+        "overlap": 384
+      },
+      {
+        "mpId": 4721,
+        "score": 0.7534648255916192,
+        "overlap": 383
+      },
+      {
+        "mpId": 4912,
+        "score": 0.7520998345380546,
+        "overlap": 373
+      },
+      {
+        "mpId": 5075,
+        "score": 0.7510945723973806,
+        "overlap": 374
+      },
+      {
+        "mpId": 2765,
+        "score": 0.7478783550139053,
+        "overlap": 375
+      },
+      {
+        "mpId": 5083,
+        "score": 0.7474316436181596,
+        "overlap": 369
+      },
+      {
+        "mpId": 4983,
+        "score": 0.744370216566004,
+        "overlap": 385
+      },
+      {
+        "mpId": 5207,
+        "score": 0.7412792017231744,
+        "overlap": 361
+      },
+      {
+        "mpId": 4808,
+        "score": 0.738445415444449,
+        "overlap": 372
+      },
+      {
+        "mpId": 5091,
+        "score": 0.7299081072326595,
+        "overlap": 325
+      },
+      {
+        "mpId": 2905,
+        "score": 0.7283455568855925,
+        "overlap": 362
+      },
+      {
+        "mpId": 5124,
+        "score": 0.7264128815275851,
+        "overlap": 343
+      },
+      {
+        "mpId": 4733,
+        "score": 0.7225925255522992,
+        "overlap": 358
+      },
+      {
+        "mpId": 5284,
+        "score": 0.7215754603092072,
+        "overlap": 306
+      },
+      {
+        "mpId": 4816,
+        "score": 0.7212517673980788,
+        "overlap": 351
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2930,
+        "score": -0.030685820596610784,
+        "overlap": 7
+      },
+      {
+        "mpId": 5007,
+        "score": -0.019195307704688438,
+        "overlap": 190
+      },
+      {
+        "mpId": 5258,
+        "score": -0.010181578538888998,
+        "overlap": 275
+      },
+      {
+        "mpId": 4752,
+        "score": 0.03533708627883412,
+        "overlap": 331
+      },
+      {
+        "mpId": 4815,
+        "score": 0.036731271037491776,
+        "overlap": 344
+      },
+      {
+        "mpId": 4756,
+        "score": 0.03877460439782759,
+        "overlap": 367
+      },
+      {
+        "mpId": 5247,
+        "score": 0.04151677530140979,
+        "overlap": 346
+      },
+      {
+        "mpId": 4899,
+        "score": 0.04324944603551575,
+        "overlap": 54
+      },
+      {
+        "mpId": 5171,
+        "score": 0.04333632256227789,
+        "overlap": 366
+      },
+      {
+        "mpId": 2656,
+        "score": 0.04419488720296694,
+        "overlap": 126
+      },
+      {
+        "mpId": 5185,
+        "score": 0.045325960909933655,
+        "overlap": 362
+      },
+      {
+        "mpId": 4728,
+        "score": 0.04981565042853842,
+        "overlap": 337
+      },
+      {
+        "mpId": 2932,
+        "score": 0.049995093697455244,
+        "overlap": 357
+      },
+      {
+        "mpId": 5234,
+        "score": 0.052605278612861725,
+        "overlap": 364
+      },
+      {
+        "mpId": 5101,
+        "score": 0.0550455819931129,
+        "overlap": 357
+      },
+      {
+        "mpId": 2920,
+        "score": 0.057285833952906755,
+        "overlap": 359
+      },
+      {
+        "mpId": 4904,
+        "score": 0.05733330944445937,
+        "overlap": 329
+      },
+      {
+        "mpId": 4848,
+        "score": 0.05881690639477284,
+        "overlap": 372
+      },
+      {
+        "mpId": 4759,
+        "score": 0.061190047228410434,
+        "overlap": 368
+      },
+      {
+        "mpId": 5194,
+        "score": 0.06268974303253536,
+        "overlap": 345
+      }
+    ]
+  }
+}

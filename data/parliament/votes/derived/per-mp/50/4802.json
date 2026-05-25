@@ -1,0 +1,285 @@
+{
+  "mpId": 4802,
+  "ns": "50",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 275,
+    "withParty": 269,
+    "loyaltyPct": 0.9781818181818182,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 275,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2024-09-11",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-nov-p",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф - нов - предложение от Надежда Йорданова, по чл.105 - процедура за допустимост",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-08-15",
+        "item": 24,
+        "slug": "24-protsedura-ot-aleksandar-nenkov-za-udalzhavane-na-rabotnoto-",
+        "title": "Процедура от Александър Ненков за удължаване на работното време до изчерпването на фиксираните точки за днес - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 6
+      },
+      {
+        "date": "2024-08-14",
+        "item": 27,
+        "slug": "27-protsedura-ot-aleksandar-ivanov-za-udalzhavane-na-rabotnoto-",
+        "title": "Процедура от Александър Иванов за удължаване на работното време до т.8",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2024-08-07",
+        "item": 21,
+        "slug": "21-zi-na-zakona-za-natsionalnata-sluzhba-za-ohrana-vtoro-glasuv",
+        "title": "ЗИ на Закона за Националната служба за охрана - второ гласуване - наименование - предложение от Росен Желязков за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2024-07-31",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – второ гласуване - параграф ... - предложение от Калоян Методиев - процедура за допустимост",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2024-07-03",
+        "item": 3,
+        "slug": "3-protsedura-ot-al-nenkov-za-obsht-debat-po-tochki-5-6-i-7",
+        "title": "Процедура от Ал. Ненков за общ дебат по точки 5,6 и 7",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4915,
+        "score": 0.6861611477069858,
+        "overlap": 238
+      },
+      {
+        "mpId": 4903,
+        "score": 0.6786121143787243,
+        "overlap": 204
+      },
+      {
+        "mpId": 4738,
+        "score": 0.6707769944254129,
+        "overlap": 195
+      },
+      {
+        "mpId": 4754,
+        "score": 0.6154637690648949,
+        "overlap": 187
+      },
+      {
+        "mpId": 4818,
+        "score": 0.6086386331254485,
+        "overlap": 184
+      },
+      {
+        "mpId": 2903,
+        "score": 0.5984592881993885,
+        "overlap": 144
+      },
+      {
+        "mpId": 4781,
+        "score": 0.5690043291611274,
+        "overlap": 267
+      },
+      {
+        "mpId": 2857,
+        "score": 0.5656745641018703,
+        "overlap": 147
+      },
+      {
+        "mpId": 4775,
+        "score": 0.5627444450240467,
+        "overlap": 192
+      },
+      {
+        "mpId": 4908,
+        "score": 0.5623839907207994,
+        "overlap": 265
+      },
+      {
+        "mpId": 4813,
+        "score": 0.5552372284960994,
+        "overlap": 225
+      },
+      {
+        "mpId": 2829,
+        "score": 0.5519562367326964,
+        "overlap": 263
+      },
+      {
+        "mpId": 4737,
+        "score": 0.5513513642390385,
+        "overlap": 223
+      },
+      {
+        "mpId": 4900,
+        "score": 0.5473097540697132,
+        "overlap": 227
+      },
+      {
+        "mpId": 4876,
+        "score": 0.5453055853792738,
+        "overlap": 263
+      },
+      {
+        "mpId": 4996,
+        "score": 0.5390386426472024,
+        "overlap": 256
+      },
+      {
+        "mpId": 4868,
+        "score": 0.5356112185456038,
+        "overlap": 257
+      },
+      {
+        "mpId": 4917,
+        "score": 0.5354521363994821,
+        "overlap": 153
+      },
+      {
+        "mpId": 2895,
+        "score": 0.5330962889713475,
+        "overlap": 255
+      },
+      {
+        "mpId": 4887,
+        "score": 0.5234351838239062,
+        "overlap": 269
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2990,
+        "score": -0.017604166656054583,
+        "overlap": 64
+      },
+      {
+        "mpId": 3000,
+        "score": 0.005579283526516706,
+        "overlap": 82
+      },
+      {
+        "mpId": 4727,
+        "score": 0.01568675700109959,
+        "overlap": 102
+      },
+      {
+        "mpId": 2992,
+        "score": 0.016873381946616653,
+        "overlap": 75
+      },
+      {
+        "mpId": 4899,
+        "score": 0.03625664237213005,
+        "overlap": 54
+      },
+      {
+        "mpId": 4762,
+        "score": 0.041076388864127365,
+        "overlap": 76
+      },
+      {
+        "mpId": 3004,
+        "score": 0.044813883699255166,
+        "overlap": 86
+      },
+      {
+        "mpId": 2988,
+        "score": 0.05513513642390385,
+        "overlap": 74
+      },
+      {
+        "mpId": 3002,
+        "score": 0.06018031371333269,
+        "overlap": 67
+      },
+      {
+        "mpId": 5146,
+        "score": 0.06303839222210679,
+        "overlap": 89
+      },
+      {
+        "mpId": 4819,
+        "score": 0.07073032816158474,
+        "overlap": 75
+      },
+      {
+        "mpId": 4810,
+        "score": 0.07253068584471717,
+        "overlap": 87
+      },
+      {
+        "mpId": 4925,
+        "score": 0.08644411940657834,
+        "overlap": 67
+      },
+      {
+        "mpId": 3006,
+        "score": 0.09416993017307071,
+        "overlap": 59
+      },
+      {
+        "mpId": 5294,
+        "score": 0.09650743446849591,
+        "overlap": 69
+      },
+      {
+        "mpId": 3015,
+        "score": 0.10705565201439765,
+        "overlap": 46
+      },
+      {
+        "mpId": 2930,
+        "score": 0.10804236090984295,
+        "overlap": 7
+      },
+      {
+        "mpId": 2994,
+        "score": 0.1093948937723261,
+        "overlap": 97
+      },
+      {
+        "mpId": 4787,
+        "score": 0.11027027284780773,
+        "overlap": 50
+      },
+      {
+        "mpId": 2967,
+        "score": 0.11033650977058124,
+        "overlap": 172
+      }
+    ]
+  }
+}

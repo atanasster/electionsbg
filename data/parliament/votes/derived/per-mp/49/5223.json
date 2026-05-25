@@ -1,0 +1,721 @@
+{
+  "mpId": 5223,
+  "ns": "49",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 1932,
+    "withParty": 1788,
+    "loyaltyPct": 0.9254658385093167,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 1932,
+    "dissentCount": 144,
+    "recent": [
+      {
+        "date": "2024-05-21",
+        "item": 2,
+        "slug": "2-protsedura-ot-miroslav-ivanov-za-pryako-predavane-po-bnt1-i-",
+        "title": "Процедура от Мирослав Иванов за пряко предаване по БНТ1 и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 64
+      },
+      {
+        "date": "2024-04-25",
+        "item": 18,
+        "slug": "18-reshenie-za-osiguryavane-na-sredstva-na-mini-maritsa-iztok-e",
+        "title": "Решение за осигуряване на средства на \"Мини Марица Изток\" ЕАД за периода 2024 г. - 2029 г. с цел обезпечаване на дейности по техническа рекултивация на нарушените терени на находище \"Източно маришки въглищен басейн\" - предложение от Георги Гьоков за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2024-04-25",
+        "item": 17,
+        "slug": "17-reshenie-za-osiguryavane-na-sredstva-na-mini-maritsa-iztok-e",
+        "title": "Решение за осигуряване на средства на \"Мини Марица Изток\" ЕАД за периода 2024 г. - 2029 г. с цел обезпечаване на дейности по техническа рекултивация на нарушените терени на находище \"Източно маришки въглищен басейн\" - предложение от Искра Михайлова за редакция във второто изречение - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2024-04-18",
+        "item": 9,
+        "slug": "9-reshenie-za-izmenenie-i-dopalnenie-na-pravilnika-za-organiza",
+        "title": "Решение за изменение и допълнение на Правилника за организацията и дейността на Народното събрание - параграф 4 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-04-18",
+        "item": 7,
+        "slug": "7-reshenie-za-izmenenie-i-dopalnenie-na-pravilnika-za-organiza",
+        "title": "Решение за изменение и допълнение на Правилника за организацията и дейността на Народното събрание - параграф 4 - предложение от Мая Димитрова за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2024-04-18",
+        "item": 3,
+        "slug": "3-reshenie-za-izmenenie-i-dopalnenie-na-pravilnika-za-organiza",
+        "title": "Решение за изменение и допълнение на Правилника за организацията и дейността на Народното събрание - параграф 2 - предложение от Гроздан Караджов за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2024-04-17",
+        "item": 12,
+        "slug": "12",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-04-17",
+        "item": 11,
+        "slug": "11",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-04-12",
+        "item": 6,
+        "slug": "6-zd-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigur",
+        "title": "ЗД на Закона за бюджета на държавното обществено осигуряване за 2024 г. – второ гласуване - параграф единствен (става параграф 1) - предложение от Корнелия Нинова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-04-04",
+        "item": 7,
+        "slug": "7-protsedura-ot-daniel-petrov-za-pryako-predavane-po-bnt1-i-bn",
+        "title": "Процедура от Даниел Петров за пряко предаване по БНТ1 и БНР на т.6",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-04-03",
+        "item": 62,
+        "slug": "62-protsedura-ot-daniel-petrov-za-pryako-predavane-po-bnt1-i-bn",
+        "title": "Процедура от Даниел Петров за пряко предаване по БНТ1 и БНР на т.6",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-04-03",
+        "item": 51,
+        "slug": "51-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на факти и обстоятелства относно изчезналия стратегически документ \"Пътна карта за реализация на прокекта за разширяване на газопреносната система на Република България\", както и всички факти и обстоятелства относно реализацията на проекта \"Турски поток\" на територията на Република България - председател - Коста Стоянов - прегласуване",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-04-03",
+        "item": 45,
+        "slug": "45-protsedura-ot-georgi-svilenski-za-prekratyavane-na-zasedanie",
+        "title": "Процедура от Георги Свиленски за прекратяване на заседанието - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-04-03",
+        "item": 36,
+        "slug": "36-zakon-za-predstavitelnite-iskove-za-zashtita-na-kolektivnite",
+        "title": "Закон за представителните искове за защита на колективните интереси на потребителите - второ гласуване - параграф 15 - предложение от Мая Димитрова за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 50
+      },
+      {
+        "date": "2024-04-03",
+        "item": 34,
+        "slug": "34-zakon-za-predstavitelnite-iskove-za-zashtita-na-kolektivnite",
+        "title": "Закон за представителните искове за защита на колективните интереси на потребителите - второ гласуване - второ гласуване - предложение от Мая Димитрова за редакция касаеща препратки към наименованието",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 45
+      },
+      {
+        "date": "2024-04-03",
+        "item": 33,
+        "slug": "33-zakon-za-predstavitelnite-iskove-za-zashtita-na-kolektivnite",
+        "title": "Закон за представителните искове за защита на колективните интереси на потребителите - второ гласуване - второ гласуване - Допълнителни разпоредби, параграф 1 до параграф 4",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 52
+      },
+      {
+        "date": "2024-04-03",
+        "item": 28,
+        "slug": "28-zakon-za-predstavitelnite-iskove-za-zashtita-na-kolektivnite",
+        "title": "Закон за представителните искове за защита на колективните интереси на потребителите - второ гласуване - второ гласуване - Глава пета, Раздел І, член 14, Раздел ІІ, член 15 и 16, Раздел ІІІ, член 17, Раздел ІV, член 18, Раздел V, член 19 - 21",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 44
+      },
+      {
+        "date": "2024-04-03",
+        "item": 27,
+        "slug": "27-zakon-za-predstavitelnite-iskove-za-zashtita-na-kolektivnite",
+        "title": "Закон за представителните искове за защита на колективните интереси на потребителите - второ гласуване - второ гласуване - Глава ІV, член 12 и 13 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 39
+      },
+      {
+        "date": "2024-04-03",
+        "item": 23,
+        "slug": "23-zakon-za-predstavitelnite-iskove-za-zashtita-na-kolektivnite",
+        "title": "Закон за представителните искове за защита на колективните интереси на потребителите - второ гласуване - второ гласуване - Глава ІІ, Раздел І, член 3, Раздел ІІ, член 4, Раздел ІІІ, член 5",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 24
+      },
+      {
+        "date": "2024-04-03",
+        "item": 13,
+        "slug": "13-zakon-za-predstavitelnite-iskove-za-zashtita-na-kolektivnite",
+        "title": "Закон за представителните искове за защита на колективните интереси на потребителите - второ гласуване - процедура от Хамид Хамид за отлагане на точката до постъпване на доклад - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2024-04-03",
+        "item": 9,
+        "slug": "9-zakon-za-predstavitelnite-iskove-za-zashtita-na-kolektivnite",
+        "title": "Закон за представителните искове за защита на колективните интереси на потребителите - второ гласуване - процедура от Георги Свиленски за удължаване на работното време до приемане на точката - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 54
+      },
+      {
+        "date": "2024-04-03",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-03-05-april-20",
+        "title": "Програма за работата на Народното събрание за 03 - 05 април 2024г. - предложение от ПП-ДБ и да стане точка 3 за четвъртък",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 63
+      },
+      {
+        "date": "2024-04-02",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-balgarskata-narodna-banka-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за Българската народна банка - второ гласуване - параграф 3 - предложение от Тошко Йорданов за редакция на параграф 3, т.1",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2024-04-02",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-balgarskata-narodna-banka-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за Българската народна банка - второ гласуване - параграф 3 - предложение от Тошко Йорданов за редакция за нови ал. 5 и ал. 6",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2024-04-02",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-balgarskata-narodna-banka-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за Българската народна банка - второ гласуване - параграф 2 - предложение от Тошко Йорданов за редакция на член 19 с две нови алинеи",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-04-02",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-balgarskata-narodna-banka-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за Българската народна банка - второ гласуване - параграф 1 - предложение от Тошко Йорданов за редакция на член 12 (да се замени с член 14)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-03-29",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-balgarskata-narodna-banka-parvo-glasuvane-p",
+        "title": "ЗИД на Закона за Българската народна банка - първо гласуване - процедура от Анна Александрова за намаляване на срока за предложения на три дни - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-03-21",
+        "item": 6,
+        "slug": "6-reshenie-po-godishen-otchet-za-deynostta-na-saveta-za-elektr",
+        "title": "Решение по годишен отчет за дейността на Съвета за електронни медии за 2022 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-03-20",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-20-22-mart-202",
+        "title": "Програма за работата на Народното събрание за 20 - 22 март 2024 г. - предложение от Възраждане",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2024-03-06",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-6-8-mart-2024-",
+        "title": "Програма за работата на Народното събрание за 6 - 8 март 2024 г. - процедура от Тошко Йорданов за пряко предаване по БНТ1 и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 56
+      },
+      {
+        "date": "2024-02-28",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodnoto-sabranie-za-28-fevruari-1-",
+        "title": "Програма за работата на Народното събрание за 28 февруари - 1 март 2024 г. - предложение от Цончо Ганев за отпадане на проект за решение за промяна в комисиите с вносител Атанас Атанасов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2024-02-28",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-28-fevruari-1-",
+        "title": "Програма за работата на Народното събрание за 28 февруари - 1 март 2024 г. - предложение от Цончо Ганев за отпадане на проект за решение за промяна в комисията по външна политика с вносител Явор Божанков",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2024-02-28",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodnoto-sabranie-za-28-fevruari-1-",
+        "title": "Програма за работата на Народното събрание за 28 февруари - 1 март 2024 г. - предложение от Възраждане за нова точка в дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2024-02-23",
+        "item": 19,
+        "slug": "19-povtorno-obsazhdane-na-osporenite-s-ukaz-28-na-prezidenta-na",
+        "title": "Повторно обсъждане на оспорените с Указ №28 на президента на Република България параграф 2 и параграф 10, т.2 от ЗИД на Наказателно-процесуалния кодекс, приет от Народното събрание на 01.02.2024 г. - параграф 10 - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2024-02-23",
+        "item": 9,
+        "slug": "9-protsedura-ot-petar-petrov-za-pryako-predavane-po-bnt2-i-bnr",
+        "title": "Процедура от Петър Петров за пряко предаване по БНТ2 и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2024-02-23",
+        "item": 8,
+        "slug": "8-protsedura-ot-stoyan-taslakov-za-pryako-predavane-po-bnt1-i-",
+        "title": "Процедура от Стоян Таслаков за пряко предаване по БНТ1 и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 67
+      },
+      {
+        "date": "2024-02-22",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - чл.12 - предложение от Александър Иванов, Николай Алгафари и Румен Христов - предложение от Климент Шопов за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-02-14",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-na-14-16-fevruari",
+        "title": "Програма за работата на Народното събрание на 14 - 16 февруари 2024 г. - предложение от Костадин Костадинов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2024-02-07",
+        "item": 19,
+        "slug": "19-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства, свързани с дейността на групата около Мартин Божанов - Нотариуса - за председател Гроздан Караджов",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2024-02-07",
+        "item": 18,
+        "slug": "18-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства, свързани с дейността на групата около Мартин Божанов - Нотариуса - за председател Златан Златанов",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 56
+      },
+      {
+        "date": "2024-02-07",
+        "item": 13,
+        "slug": "13-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства, свързани с дейността на групата около Мартин Божанов - Нотариуса - предложение от Ивайло Вълчев за редакция - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-01-31",
+        "item": 25,
+        "slug": "25-zid-na-zakona-za-orazhiyata-boepripasite-vzrivnite-veshtestv",
+        "title": "ЗИД на Закона за оръжията, боеприпасите, взривните вещества и пиротехническите изделия - второ гласуване - параграф 5",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 50
+      },
+      {
+        "date": "2024-01-31",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-31-yanuari-2-f",
+        "title": "Програма за работата на Народното събрание за 31 януари - 2 февруари 2024 г. - предложение от Костадин Костадинов за провеждане на изслушване на министъра на образованието и науката ... - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-01-19",
+        "item": 4,
+        "slug": "4-reshenie-za-izbirane-na-sadiya-v-konstitutsionniya-sad-na-re",
+        "title": "Решение за избиране на съдия в Конституционния съд на Република България - процедура от Искра Михайлова за пряко предаване по БНТ1 и БНР - прегласуване",
+        "topic": "constitution",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2024-01-11",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-11-i-12-yanuar",
+        "title": "Програма за работата на Народното събрание за 11 и 12 януари 2024 г. - предложение от БСП за нова точка - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2023-12-20",
+        "item": 52,
+        "slug": "52-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2024",
+        "title": "Закон за държавния бюджет на Република България за 2024 г. - второ гласуване - член 47 - предложение от Корнелия Нинова и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 52
+      },
+      {
+        "date": "2023-12-20",
+        "item": 51,
+        "slug": "51-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2024",
+        "title": "Закон за държавния бюджет на Република България за 2024 г. - второ гласуване - член 47 - предложение от Корнелия Нинова и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 52
+      },
+      {
+        "date": "2023-12-20",
+        "item": 50,
+        "slug": "50-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2024",
+        "title": "Закон за държавния бюджет на Република България за 2024 г. - второ гласуване - член 47 - предложение от Даниел Петров и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 50
+      },
+      {
+        "date": "2023-12-20",
+        "item": 13,
+        "slug": "13-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2024",
+        "title": "Закон за държавния бюджет на Република България за 2024 г. - второ гласуване - член 12 - предложение от Петър Петров",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 51
+      },
+      {
+        "date": "2023-12-20",
+        "item": 11,
+        "slug": "11-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2024",
+        "title": "Закон за държавния бюджет на Република България за 2024 г. - второ гласуване - процедуа от Ал.Ненков за удължване на р.време до 19 часа",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 48
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5113,
+        "score": 0.7149914917639565,
+        "overlap": 1763
+      },
+      {
+        "mpId": 4812,
+        "score": 0.6959771960527208,
+        "overlap": 1694
+      },
+      {
+        "mpId": 4808,
+        "score": 0.6834946840090433,
+        "overlap": 1877
+      },
+      {
+        "mpId": 2434,
+        "score": 0.6822577267527495,
+        "overlap": 1886
+      },
+      {
+        "mpId": 5165,
+        "score": 0.681973297550964,
+        "overlap": 1701
+      },
+      {
+        "mpId": 4820,
+        "score": 0.6813844586321637,
+        "overlap": 1801
+      },
+      {
+        "mpId": 5274,
+        "score": 0.6792550211430545,
+        "overlap": 1875
+      },
+      {
+        "mpId": 4807,
+        "score": 0.6786329700777365,
+        "overlap": 1838
+      },
+      {
+        "mpId": 4983,
+        "score": 0.678487398947907,
+        "overlap": 1871
+      },
+      {
+        "mpId": 4703,
+        "score": 0.678305270961967,
+        "overlap": 1847
+      },
+      {
+        "mpId": 4816,
+        "score": 0.6781060260481909,
+        "overlap": 1773
+      },
+      {
+        "mpId": 4906,
+        "score": 0.6780645767556697,
+        "overlap": 1630
+      },
+      {
+        "mpId": 5083,
+        "score": 0.6738452766699938,
+        "overlap": 1745
+      },
+      {
+        "mpId": 1706,
+        "score": 0.673486737092284,
+        "overlap": 1605
+      },
+      {
+        "mpId": 4590,
+        "score": 0.6706258834368929,
+        "overlap": 1804
+      },
+      {
+        "mpId": 4830,
+        "score": 0.6686687898417307,
+        "overlap": 1728
+      },
+      {
+        "mpId": 4912,
+        "score": 0.6678713800400667,
+        "overlap": 1811
+      },
+      {
+        "mpId": 4786,
+        "score": 0.6674758706898501,
+        "overlap": 1751
+      },
+      {
+        "mpId": 4934,
+        "score": 0.6667934036214898,
+        "overlap": 1770
+      },
+      {
+        "mpId": 5267,
+        "score": 0.6667903878348437,
+        "overlap": 1758
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2075,
+        "score": -0.13473958742902448,
+        "overlap": 1183
+      },
+      {
+        "mpId": 2266,
+        "score": -0.12689930031678676,
+        "overlap": 1240
+      },
+      {
+        "mpId": 2100,
+        "score": -0.11592668084715498,
+        "overlap": 1181
+      },
+      {
+        "mpId": 5234,
+        "score": -0.11285549469749237,
+        "overlap": 1599
+      },
+      {
+        "mpId": 4848,
+        "score": -0.10807585648717095,
+        "overlap": 1676
+      },
+      {
+        "mpId": 4887,
+        "score": -0.10341645706624265,
+        "overlap": 1614
+      },
+      {
+        "mpId": 5171,
+        "score": -0.10142674353324156,
+        "overlap": 1618
+      },
+      {
+        "mpId": 4780,
+        "score": -0.0990484347482285,
+        "overlap": 1563
+      },
+      {
+        "mpId": 5159,
+        "score": -0.09865844613360186,
+        "overlap": 1597
+      },
+      {
+        "mpId": 4907,
+        "score": -0.09789603901069718,
+        "overlap": 1730
+      },
+      {
+        "mpId": 4488,
+        "score": -0.09774033826095885,
+        "overlap": 1648
+      },
+      {
+        "mpId": 4815,
+        "score": -0.09773747607164608,
+        "overlap": 1555
+      },
+      {
+        "mpId": 4756,
+        "score": -0.09513878568431842,
+        "overlap": 1635
+      },
+      {
+        "mpId": 4928,
+        "score": -0.09500187344254757,
+        "overlap": 1706
+      },
+      {
+        "mpId": 2352,
+        "score": -0.09444168117922662,
+        "overlap": 1263
+      },
+      {
+        "mpId": 5194,
+        "score": -0.09406156801267777,
+        "overlap": 1609
+      },
+      {
+        "mpId": 4860,
+        "score": -0.0939240510268422,
+        "overlap": 1687
+      },
+      {
+        "mpId": 4759,
+        "score": -0.09238475681408226,
+        "overlap": 1631
+      },
+      {
+        "mpId": 5185,
+        "score": -0.09229707259099541,
+        "overlap": 1385
+      },
+      {
+        "mpId": 5101,
+        "score": -0.09178668631598563,
+        "overlap": 1688
+      }
+    ]
+  }
+}

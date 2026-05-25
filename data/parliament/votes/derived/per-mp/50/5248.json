@@ -1,0 +1,395 @@
+{
+  "mpId": 5248,
+  "ns": "50",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 273,
+    "withParty": 256,
+    "loyaltyPct": 0.9377289377289377,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 273,
+    "dissentCount": 17,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 27,
+        "slug": "27-zid-na-zakona-za-zdraveto-vtoro-glasuvane-protsedura-za-dopu",
+        "title": "ЗИД на Закона за здравето – второ гласуване - процедура за допускане в зала - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-09-19",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-pryakoto-uchastie-na-grazhdanite-v-darzhavn",
+        "title": "ЗИД на Закона за прякото участие на гражданите в държавната власт и местното самоуправление – първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2024-09-18",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - предложение от ИТН за нова точка в дневния ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 65
+      },
+      {
+        "date": "2024-09-11",
+        "item": 35,
+        "slug": "35-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-11-pr",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 11 - предложение от Марин Маринов - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 52
+      },
+      {
+        "date": "2024-09-11",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-10-pr",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 10 - предложение от Марин Маринов - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 52
+      },
+      {
+        "date": "2024-08-14",
+        "item": 9,
+        "slug": "9-reshenie-za-osvobozhdavane-ot-dlazhnost-na-zamestnik-predsed",
+        "title": "Решение за освобождаване от длъжност на заместник-председателя на Комисията за финансов надзор, ръководещ управление \" Застрахователен надзор\" - процедура за допускане в зала",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-08-08",
+        "item": 3,
+        "slug": "3-protsedura-ot-georgi-svilenski-za-razmestvane-na-tochkite",
+        "title": "Процедура от Георги Свиленски за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 65
+      },
+      {
+        "date": "2024-08-07",
+        "item": 43,
+        "slug": "43-zakon-za-vavezhdane-na-evroto-v-republika-balgariya-vtoro-gl",
+        "title": "Закон за въвеждане на еврото в Република България – второ гласуване - параграф 9",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-08-07",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – първо гласуване - вносител Костадин Костадинов и група н.п. - процедура от Г.Свиленски за преминаване на второ гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-07-26",
+        "item": 8,
+        "slug": "8-protsedura-ot-iskra-mihaylova-za-razmestvane-na-tochkite-t-6",
+        "title": "Процедура от Искра Михайлова за разместване на точките - т.6 да стане т.2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-07-17",
+        "item": 3,
+        "slug": "3-izslushvane-na-sluzhebniya-ministar-predsedatel-na-republika",
+        "title": "Изслушване на служебния министър-председател на Република България и служебен министър на външните работи Димитър Главчев, на служебния министър на вътрешните работи Калин Стоянов – председател на Междуведомствената комисия за възстановяване и подпомагане към Министерския съвет и на служебния министър на земеделието и храните Георги Тахов, относно овладяването на започналите в края на миналата седмица пожари в страната и необходимите действия от страна на държавата за отстраняване на последиците и подпомагане на пострадалите - процедура за допускане в зала",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-07-03",
+        "item": 10,
+        "slug": "10-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно наличието на нарегламентирано влияние в правосъдната система и обвързаности на представители на съдебната власт, несъвместими със стандартите за независимост и професионална етика във връзка с дейността на групата около Мартин Божанов - Нотариуса и дейността на групата около бившия следовател Петьо Петров - Еврото - председател Златан Златанов - прегласуване",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 64
+      },
+      {
+        "date": "2024-07-03",
+        "item": 8,
+        "slug": "8-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно наличието на нарегламентирано влияние в правосъдната система и обвързаности на представители на съдебната власт, несъвместими със стандартите за независимост и професионална етика във връзка с дейността на групата около Мартин Божанов - Нотариуса и дейността на групата около бившия следовател Петьо Петров - Еврото - председател Надежда Йорданова",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 64
+      },
+      {
+        "date": "2024-06-20",
+        "item": 5,
+        "slug": "5-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Силви Кирилов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2024-06-20",
+        "item": 3,
+        "slug": "3-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Петър Петров - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 68
+      },
+      {
+        "date": "2024-06-20",
+        "item": 1,
+        "slug": "1-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Виктория Василева",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 68
+      },
+      {
+        "date": "2024-06-19",
+        "item": 9,
+        "slug": "9-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Юлиана Матеева",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5284,
+        "score": 0.6986626867408945,
+        "overlap": 249
+      },
+      {
+        "mpId": 4786,
+        "score": 0.6518835584289215,
+        "overlap": 266
+      },
+      {
+        "mpId": 5249,
+        "score": 0.643193516766657,
+        "overlap": 228
+      },
+      {
+        "mpId": 5124,
+        "score": 0.6303733929454877,
+        "overlap": 258
+      },
+      {
+        "mpId": 4739,
+        "score": 0.6303226048923989,
+        "overlap": 268
+      },
+      {
+        "mpId": 4718,
+        "score": 0.6267867056623769,
+        "overlap": 257
+      },
+      {
+        "mpId": 4906,
+        "score": 0.6267586273656872,
+        "overlap": 247
+      },
+      {
+        "mpId": 5083,
+        "score": 0.6263735672799993,
+        "overlap": 268
+      },
+      {
+        "mpId": 4895,
+        "score": 0.6261348697075918,
+        "overlap": 273
+      },
+      {
+        "mpId": 4807,
+        "score": 0.624926801178738,
+        "overlap": 270
+      },
+      {
+        "mpId": 4808,
+        "score": 0.6246910481144179,
+        "overlap": 269
+      },
+      {
+        "mpId": 5133,
+        "score": 0.6234084366626985,
+        "overlap": 265
+      },
+      {
+        "mpId": 2802,
+        "score": 0.6196368135020726,
+        "overlap": 265
+      },
+      {
+        "mpId": 2765,
+        "score": 0.6181697103041884,
+        "overlap": 268
+      },
+      {
+        "mpId": 5172,
+        "score": 0.6175499368701303,
+        "overlap": 263
+      },
+      {
+        "mpId": 5075,
+        "score": 0.6174378901108499,
+        "overlap": 265
+      },
+      {
+        "mpId": 4896,
+        "score": 0.6157361747293625,
+        "overlap": 263
+      },
+      {
+        "mpId": 4816,
+        "score": 0.6125606330422085,
+        "overlap": 259
+      },
+      {
+        "mpId": 5157,
+        "score": 0.6119857285203912,
+        "overlap": 257
+      },
+      {
+        "mpId": 5207,
+        "score": 0.6115966995911298,
+        "overlap": 260
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2992,
+        "score": -0.049850212821629075,
+        "overlap": 81
+      },
+      {
+        "mpId": 3000,
+        "score": -0.03846095790563293,
+        "overlap": 86
+      },
+      {
+        "mpId": 2930,
+        "score": -0.03546634510659544,
+        "overlap": 7
+      },
+      {
+        "mpId": 5007,
+        "score": -0.03327859875891486,
+        "overlap": 151
+      },
+      {
+        "mpId": 4752,
+        "score": -0.03267378281329305,
+        "overlap": 247
+      },
+      {
+        "mpId": 5194,
+        "score": -0.03220272813389336,
+        "overlap": 246
+      },
+      {
+        "mpId": 5258,
+        "score": -0.026477460440395048,
+        "overlap": 209
+      },
+      {
+        "mpId": 5247,
+        "score": -0.023992323684435022,
+        "overlap": 254
+      },
+      {
+        "mpId": 4759,
+        "score": -0.02357426861329532,
+        "overlap": 260
+      },
+      {
+        "mpId": 3004,
+        "score": -0.022066131998506957,
+        "overlap": 71
+      },
+      {
+        "mpId": 2932,
+        "score": -0.018385753783539995,
+        "overlap": 259
+      },
+      {
+        "mpId": 4815,
+        "score": -0.013266753885541578,
+        "overlap": 257
+      },
+      {
+        "mpId": 4756,
+        "score": -0.013180963353257108,
+        "overlap": 271
+      },
+      {
+        "mpId": 4861,
+        "score": -0.013002592975584778,
+        "overlap": 267
+      },
+      {
+        "mpId": 2990,
+        "score": -0.011557604715036758,
+        "overlap": 73
+      },
+      {
+        "mpId": 2988,
+        "score": -0.010859306069076733,
+        "overlap": 80
+      },
+      {
+        "mpId": 3002,
+        "score": -0.010775449168807308,
+        "overlap": 71
+      },
+      {
+        "mpId": 5171,
+        "score": -0.010544770682605687,
+        "overlap": 267
+      },
+      {
+        "mpId": 5185,
+        "score": -0.010477452717020143,
+        "overlap": 266
+      },
+      {
+        "mpId": 4860,
+        "score": -0.010364990218288028,
+        "overlap": 269
+      }
+    ]
+  }
+}

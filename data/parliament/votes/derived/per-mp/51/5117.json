@@ -1,0 +1,485 @@
+{
+  "mpId": 5117,
+  "ns": "51",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 533,
+    "withParty": 507,
+    "loyaltyPct": 0.9512195121951219,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 533,
+    "dissentCount": 26,
+    "recent": [
+      {
+        "date": "2026-04-01",
+        "item": 7,
+        "slug": "7-protsedura-ot-atanas-v-atanasov-tochka-4-da-stane-tochka-2",
+        "title": "Процедура от Атанас В. Атанасов точка 4 да стане точка 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-03-19",
+        "item": 49,
+        "slug": "49-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-2-predl",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 2 - предложение от Николета Кузманова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 53
+      },
+      {
+        "date": "2026-03-19",
+        "item": 39,
+        "slug": "39-zakon-za-prozrachnost-i-pochtenost-v-upravlenieto-vtoro-glas",
+        "title": "Закон за прозрачност и почтеност в управлението – второ гласуване - член 18 - предложение от Георги Кръстев за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 59
+      },
+      {
+        "date": "2026-03-19",
+        "item": 22,
+        "slug": "22-zakon-za-obshtestveniya-transport-vtoro-glasuvane-chl-67-pre",
+        "title": "Закон за обществения транспорт – второ гласуване - чл. 67 - предложение от Божидар Божанов и Йордан Иванов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-03-19",
+        "item": 18,
+        "slug": "18-zakon-za-obshtestveniya-transport-vtoro-glasuvane-chl-37a-pr",
+        "title": "Закон за обществения транспорт – второ гласуване - чл. 37а - предложение от Кирил Добрев",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-03-19",
+        "item": 17,
+        "slug": "17-zakon-za-obshtestveniya-transport-vtoro-glasuvane-chl-37a-pr",
+        "title": "Закон за обществения транспорт – второ гласуване - чл. 37а - предложение от Кирил Добрев т.3, ал.2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-03-18",
+        "item": 41,
+        "slug": "41-zid-na-zakona-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-ra",
+        "title": "ЗИД на Закона за събирането на приходи и извършването на разходи през 2026 г. до приемането на Закона за държавния бюджет на Република България за 2026 г., Закона за бюджета на държавното обществено осигуряване за 2026 г. и Закона за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - параграф ....№51-654-04-41 - предложение от Павела Митова и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-03-18",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-ra",
+        "title": "ЗИД на Закона за събирането на приходи и извършването на разходи през 2026 г. до приемането на Закона за държавния бюджет на Република България за 2026 г., Закона за бюджета на държавното обществено осигуряване за 2026 г. и Закона за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - процедура за допускане в залата",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 46
+      },
+      {
+        "date": "2026-03-13",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-korporativnoto-podohodno-oblagane-vtoro-gla",
+        "title": "ЗИД на Закона за корпоративното подоходно облагане – второ гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 50
+      },
+      {
+        "date": "2026-03-12",
+        "item": 18,
+        "slug": "18-zakon-za-obshtestveniya-transport-parvo-glasuvane-protsedura",
+        "title": "Закон за обществения транспорт - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 42
+      },
+      {
+        "date": "2026-03-12",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-zashtita-ot-diskriminatsiya-vtoro-glasuvane",
+        "title": "ЗИД на Закона за защита от дискриминация - второ гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 49
+      },
+      {
+        "date": "2026-03-12",
+        "item": 12,
+        "slug": "12-ratifitsikatsiya-na-ramkovoto-sporazumenie-mezhdu-pravitelst",
+        "title": "Ратифицикация на Рамковото споразумение между правителството на Република България и Федералния съвет на Конфедерация Швейцария относно изпълнението на Втория швейцарски принос към избрани държави - членки на Европейския съюз , за подкрепа на мерки в областта на миграцията - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 57
+      },
+      {
+        "date": "2026-03-10",
+        "item": 2,
+        "slug": "2-izslushvane-na-sluzhebniya-ministar-na-finansite-georgi-klis",
+        "title": "Изслушване на служебния министър на финансите Георги Клисурски, директора на Агенция \"Митници\" Георги Димов, председателя на \"Държавна агенция \"Държавен резерв и военновременни запаси\" Асен Асенов и особения търговски управител на \"Лукойл Нефтохим Бургас\" - АД Румен Спецов, относно готовността на държавата за осигуряване на необходимите количества горива за нуждите на населението и индустрията във връзка с кризата, предизвикана от блокадата на Ормузкия проток. Какви мерки предвижда правителството за справяне с ценовия шок, предизвикан от тази криза? - процедура за допускане в залата",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2026-02-27",
+        "item": 2,
+        "slug": "2-ratifikatsiya-na-sporazumenieto-mezhdu-pravitelstvoto-na-rep",
+        "title": "Ратификация на Споразумението между правителството на Република България и Организацията на обединените нации за образование, наука и култура (ЮНЕСКО) относно определянето на Центъра за подводна археология за институт от категория 2 под егидата на ЮНЕСКО като „Институт за подводно наследство\" - процедура за допускане в зала",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 52
+      },
+      {
+        "date": "2026-02-26",
+        "item": 19,
+        "slug": "19-izslushvane-v-plenarna-zala-na-sluzhebniya-ministar-predseda",
+        "title": "Изслушване в пленарна зала на служебния министър-председател Андрей Гюров и на служебните министри г-жа Надежда Нейнски - министър на външните работи, на г-н Корман Исмаилов - министър на транспорта и съобщенията, на г-н Атанас Запрянов - министър на отбраната, и на г-н Иван Димитриев - изпълнителен директор на \"Летище София\" ЕАД относно ситуацията с намиращите се на летището военни самолети на САЩ, напрежението в Близкия изток и планираното му временно затваряне за граждански цели - процедура от Христо Гаджев представителя на летище София да бъде освободен",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 36
+      },
+      {
+        "date": "2026-02-26",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-publichnoto-predlagane-na-tsenni-knizha-vto",
+        "title": "ЗИД на Закона за публичното предлагане на ценни книжа - второ гласуване - процедура за допускане в залата",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 52
+      },
+      {
+        "date": "2026-02-26",
+        "item": 3,
+        "slug": "3-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-pro",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - процедура за допускане в залата",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 54
+      },
+      {
+        "date": "2026-02-25",
+        "item": 37,
+        "slug": "37-reshenie-za-popalvane-sastava-na-komisiyata-po-preventsiya-i",
+        "title": "Решение за попълване състава на Комисията по превенция и противодействие на корупцията - Георги Георгиев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 54
+      },
+      {
+        "date": "2025-01-09",
+        "item": 8,
+        "slug": "8-zakon-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-razhodi-pr",
+        "title": "Закон за събирането на приходи и извършването на разходи през 2025 г. до приемането на Закона за държавния бюджет на Република България за 2025 г., Закона за бюджета на Държавното обществено осигуряване за 2025 г. и Закона за бюджета на Националната здравноосигурителна каса за 2025 г. - първо гласуване - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 41
+      },
+      {
+        "date": "2025-01-08",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-8-10-yanuari-2",
+        "title": "Програма за работата на Народното събрание за 8 - 10 януари 2025 г. - предложение от Иван Белчев и група н.п. като точка 3 за четвъртък",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 32
+      },
+      {
+        "date": "2024-12-18",
+        "item": 14,
+        "slug": "14-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 32 - предложение от Павела Митова и Александър Рашев",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-12-18",
+        "item": 13,
+        "slug": "13-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 27 - предложение от Атанас Славов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-11-15",
+        "item": 7,
+        "slug": "7-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Андрей Цеков - балотаж (15.11.2024г.)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 69
+      },
+      {
+        "date": "2024-11-15",
+        "item": 1,
+        "slug": "1-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Андрей Цеков (15.11.2024г.)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 69
+      },
+      {
+        "date": "2024-11-13",
+        "item": 1,
+        "slug": "1-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Андрей Цеков (нова процедура)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 69
+      },
+      {
+        "date": "2024-11-11",
+        "item": 12,
+        "slug": "12-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Андрей Цеков (балотаж)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 68
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5128,
+        "score": 0.842260194770796,
+        "overlap": 476
+      },
+      {
+        "mpId": 5091,
+        "score": 0.8270835285881313,
+        "overlap": 455
+      },
+      {
+        "mpId": 5284,
+        "score": 0.816144908787051,
+        "overlap": 439
+      },
+      {
+        "mpId": 5172,
+        "score": 0.7818070007306706,
+        "overlap": 443
+      },
+      {
+        "mpId": 3081,
+        "score": 0.6570038509974571,
+        "overlap": 271
+      },
+      {
+        "mpId": 5207,
+        "score": 0.6141677885878256,
+        "overlap": 240
+      },
+      {
+        "mpId": 5293,
+        "score": 0.5727589772586493,
+        "overlap": 219
+      },
+      {
+        "mpId": 3533,
+        "score": 0.5619330779207315,
+        "overlap": 217
+      },
+      {
+        "mpId": 3547,
+        "score": 0.522678059482721,
+        "overlap": 221
+      },
+      {
+        "mpId": 3148,
+        "score": 0.5052694221886442,
+        "overlap": 266
+      },
+      {
+        "mpId": 3410,
+        "score": 0.48169646254823384,
+        "overlap": 241
+      },
+      {
+        "mpId": 3373,
+        "score": 0.46915640824980004,
+        "overlap": 283
+      },
+      {
+        "mpId": 3039,
+        "score": 0.45055865740929063,
+        "overlap": 202
+      },
+      {
+        "mpId": 3539,
+        "score": 0.44652504452115044,
+        "overlap": 155
+      },
+      {
+        "mpId": 3051,
+        "score": 0.4382356702606493,
+        "overlap": 212
+      },
+      {
+        "mpId": 3580,
+        "score": 0.43072759467142563,
+        "overlap": 216
+      },
+      {
+        "mpId": 3023,
+        "score": 0.41256468863738527,
+        "overlap": 249
+      },
+      {
+        "mpId": 3209,
+        "score": 0.38430859401661954,
+        "overlap": 529
+      },
+      {
+        "mpId": 3298,
+        "score": 0.37597252251848223,
+        "overlap": 516
+      },
+      {
+        "mpId": 3339,
+        "score": 0.3742874700593042,
+        "overlap": 524
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3516,
+        "score": -0.005022534239801872,
+        "overlap": 162
+      },
+      {
+        "mpId": 3485,
+        "score": 0.0040298781269103206,
+        "overlap": 31
+      },
+      {
+        "mpId": 3515,
+        "score": 0.004824163970861673,
+        "overlap": 201
+      },
+      {
+        "mpId": 3512,
+        "score": 0.005013550984104793,
+        "overlap": 188
+      },
+      {
+        "mpId": 3510,
+        "score": 0.006126236629097285,
+        "overlap": 190
+      },
+      {
+        "mpId": 3513,
+        "score": 0.007151553554461192,
+        "overlap": 206
+      },
+      {
+        "mpId": 3509,
+        "score": 0.007383706676633773,
+        "overlap": 59
+      },
+      {
+        "mpId": 3517,
+        "score": 0.008227298449762414,
+        "overlap": 217
+      },
+      {
+        "mpId": 3508,
+        "score": 0.009883324222148016,
+        "overlap": 209
+      },
+      {
+        "mpId": 3514,
+        "score": 0.01068253961276021,
+        "overlap": 203
+      },
+      {
+        "mpId": 3480,
+        "score": 0.012624441336449198,
+        "overlap": 142
+      },
+      {
+        "mpId": 3477,
+        "score": 0.02545273017166351,
+        "overlap": 100
+      },
+      {
+        "mpId": 3490,
+        "score": 0.02670719857277704,
+        "overlap": 95
+      },
+      {
+        "mpId": 3518,
+        "score": 0.0338093864549827,
+        "overlap": 195
+      },
+      {
+        "mpId": 3484,
+        "score": 0.03860765431258197,
+        "overlap": 128
+      },
+      {
+        "mpId": 3230,
+        "score": 0.04162907234150368,
+        "overlap": 420
+      },
+      {
+        "mpId": 5194,
+        "score": 0.04194725554376559,
+        "overlap": 390
+      },
+      {
+        "mpId": 3142,
+        "score": 0.043445340296061306,
+        "overlap": 477
+      },
+      {
+        "mpId": 5234,
+        "score": 0.04367095375863284,
+        "overlap": 467
+      },
+      {
+        "mpId": 3397,
+        "score": 0.04372970510604583,
+        "overlap": 231
+      }
+    ]
+  }
+}

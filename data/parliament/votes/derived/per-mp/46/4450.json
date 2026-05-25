@@ -1,0 +1,325 @@
+{
+  "mpId": 4450,
+  "ns": "46",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 462,
+    "withParty": 452,
+    "loyaltyPct": 0.9783549783549783,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 462,
+    "dissentCount": 10,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 70,
+        "slug": "70-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 27 - отпада",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-09-10",
+        "item": 83,
+        "slug": "83-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 8 - нов - предложение от Николина Ангелкова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 29
+      },
+      {
+        "date": "2021-09-10",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Кр.Вълчев и Петър Николов",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 30
+      },
+      {
+        "date": "2021-09-10",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - предложение от К.Ангелов и група н.п. по чл.5",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-09-09",
+        "item": 46,
+        "slug": "46-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 1 - предложение от Георги Ганев и Ал.Симидчиев - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 26
+      },
+      {
+        "date": "2021-09-09",
+        "item": 35,
+        "slug": "35-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 1 - предложение от Ивайло Христов за прекратяване на дебата",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2021-08-17",
+        "item": 8,
+        "slug": "8-deklaratsiya-vav-vrazka-s-uprazhnenoto-politseysko-nasilie-o",
+        "title": "Декларация във връзка с упражненото полицейско насилие от длъжностни лица срещу протестиращи граждани в периода юли - септември 2020 г. - предложение от Д.Делчев за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-08-11",
+        "item": 3,
+        "slug": "3-reshenie-za-priemane-na-pravila-za-distantsionno-uchastie-v-",
+        "title": "Решение за приемане на Правила за дистанционно участие в заседанията на Четиридесет и шестото Народно събрание на народни представители, поставени под задължителна изолация или карантина поради COVID - 19",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-08-05",
+        "item": 4,
+        "slug": "4-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава пета, член 16 - предложение от Р.Желязков",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-07-22",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-22-i-23-yuli-2",
+        "title": "Програма за работата на Народното събрание за 22 и 23 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 32
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3908,
+        "score": 0.9099447962578214,
+        "overlap": 445
+      },
+      {
+        "mpId": 4738,
+        "score": 0.8983022898584473,
+        "overlap": 420
+      },
+      {
+        "mpId": 4911,
+        "score": 0.882057557316311,
+        "overlap": 389
+      },
+      {
+        "mpId": 1582,
+        "score": 0.8818897637795274,
+        "overlap": 416
+      },
+      {
+        "mpId": 3783,
+        "score": 0.8779694649706397,
+        "overlap": 418
+      },
+      {
+        "mpId": 4552,
+        "score": 0.8773309649340528,
+        "overlap": 402
+      },
+      {
+        "mpId": 1385,
+        "score": 0.8764992528701604,
+        "overlap": 422
+      },
+      {
+        "mpId": 1974,
+        "score": 0.8747786455003947,
+        "overlap": 414
+      },
+      {
+        "mpId": 3714,
+        "score": 0.865084327273076,
+        "overlap": 396
+      },
+      {
+        "mpId": 4326,
+        "score": 0.8473799084028244,
+        "overlap": 404
+      },
+      {
+        "mpId": 3578,
+        "score": 0.8443279192312044,
+        "overlap": 391
+      },
+      {
+        "mpId": 4775,
+        "score": 0.8424771492775777,
+        "overlap": 356
+      },
+      {
+        "mpId": 1889,
+        "score": 0.8421666567542404,
+        "overlap": 386
+      },
+      {
+        "mpId": 1873,
+        "score": 0.8373381335544017,
+        "overlap": 353
+      },
+      {
+        "mpId": 4818,
+        "score": 0.8084605485224083,
+        "overlap": 332
+      },
+      {
+        "mpId": 3639,
+        "score": 0.805836718031665,
+        "overlap": 373
+      },
+      {
+        "mpId": 1261,
+        "score": 0.8041942361644545,
+        "overlap": 346
+      },
+      {
+        "mpId": 3533,
+        "score": 0.803781776041487,
+        "overlap": 352
+      },
+      {
+        "mpId": 1060,
+        "score": 0.8012963127307257,
+        "overlap": 357
+      },
+      {
+        "mpId": 4122,
+        "score": 0.7989373857359932,
+        "overlap": 394
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5173,
+        "score": 0.08275866085499815,
+        "overlap": 163
+      },
+      {
+        "mpId": 388,
+        "score": 0.1304675029946397,
+        "overlap": 271
+      },
+      {
+        "mpId": 5223,
+        "score": 0.1312531600783068,
+        "overlap": 63
+      },
+      {
+        "mpId": 404,
+        "score": 0.13318844512608982,
+        "overlap": 256
+      },
+      {
+        "mpId": 4632,
+        "score": 0.14163662871669527,
+        "overlap": 184
+      },
+      {
+        "mpId": 3620,
+        "score": 0.14550722819096656,
+        "overlap": 221
+      },
+      {
+        "mpId": 4225,
+        "score": 0.14888867360705127,
+        "overlap": 287
+      },
+      {
+        "mpId": 4872,
+        "score": 0.1547217437614329,
+        "overlap": 229
+      },
+      {
+        "mpId": 5169,
+        "score": 0.1791142854690619,
+        "overlap": 136
+      },
+      {
+        "mpId": 4304,
+        "score": 0.1814523034760084,
+        "overlap": 256
+      },
+      {
+        "mpId": 4854,
+        "score": 0.18226414857962345,
+        "overlap": 248
+      },
+      {
+        "mpId": 4147,
+        "score": 0.1827845408324732,
+        "overlap": 171
+      },
+      {
+        "mpId": 4912,
+        "score": 0.18791742538016729,
+        "overlap": 280
+      },
+      {
+        "mpId": 4120,
+        "score": 0.1950259375060601,
+        "overlap": 155
+      },
+      {
+        "mpId": 4249,
+        "score": 0.19884692095575243,
+        "overlap": 251
+      },
+      {
+        "mpId": 5126,
+        "score": 0.2000833657043185,
+        "overlap": 270
+      },
+      {
+        "mpId": 5236,
+        "score": 0.20539827988714215,
+        "overlap": 257
+      },
+      {
+        "mpId": 5124,
+        "score": 0.20868663539283389,
+        "overlap": 214
+      },
+      {
+        "mpId": 5267,
+        "score": 0.2090120298167694,
+        "overlap": 321
+      },
+      {
+        "mpId": 5248,
+        "score": 0.21214925199336102,
+        "overlap": 204
+      }
+    ]
+  }
+}

@@ -1,0 +1,295 @@
+{
+  "mpId": 3457,
+  "ns": "44",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 223,
+    "withParty": 216,
+    "loyaltyPct": 0.968609865470852,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 223,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2021-02-11",
+        "item": 15,
+        "slug": "15-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-zashtita-na-kon",
+        "title": "Закон за изменение и допълнение на Закона за защита на конкуренцията - второ гласуване - параграф 18 (става параграф 19)",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 3
+      },
+      {
+        "date": "2021-02-04",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-pchelarstvoto-vtoro-glasuvane-paragraf-1-no",
+        "title": "ЗИД на Закона за пчеларството - второ гласуване - параграф 1 - нов - предложение от Чавдар Велинов и Валери Жаблянов за ал.3",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-01-29",
+        "item": 9,
+        "slug": "9-zd-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-para",
+        "title": "ЗД на Наказателно-процесуалния кодекс - второ гласуване - параграф 5 до параграф 7",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 5
+      },
+      {
+        "date": "2021-01-20",
+        "item": 4,
+        "slug": "4-reshenie-za-popalvane-sastava-na-komisiyata-za-kontrol-nad-s",
+        "title": "Решение за попълване състава на Комисията за контрол над службите за сигурност, прилагането и използването на СРС и достъпа до данните по ЗЕС",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2021-01-20",
+        "item": 3,
+        "slug": "3-reshenie-za-popalvane-sastava-na-komisiyata-po-vatreshna-sig",
+        "title": "Решение за попълване състава на Комисията по вътрешна сигурност и обществен ред",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2020-11-25",
+        "item": 31,
+        "slug": "31-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 16",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 5
+      },
+      {
+        "date": "2020-11-20",
+        "item": 70,
+        "slug": "70-zid-na-zakona-za-lichnata-pomosht-vtoro-glasuvane-paragraf-3",
+        "title": "ЗИД на Закона за личната помощ - второ гласуване - параграф 32 (става параграф 30) - предложение от Антон Кутев и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 2
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4022,
+        "score": 0.5629728394895838,
+        "overlap": 99
+      },
+      {
+        "mpId": 4710,
+        "score": 0.5479637146058319,
+        "overlap": 136
+      },
+      {
+        "mpId": 1306,
+        "score": 0.5449475300857142,
+        "overlap": 148
+      },
+      {
+        "mpId": 4811,
+        "score": 0.5254626775625599,
+        "overlap": 154
+      },
+      {
+        "mpId": 4140,
+        "score": 0.4478080210720255,
+        "overlap": 88
+      },
+      {
+        "mpId": 4886,
+        "score": 0.4311106048233565,
+        "overlap": 72
+      },
+      {
+        "mpId": 5294,
+        "score": 0.4199477377734935,
+        "overlap": 68
+      },
+      {
+        "mpId": 4135,
+        "score": 0.40310784859831245,
+        "overlap": 61
+      },
+      {
+        "mpId": 4216,
+        "score": 0.38882785227001276,
+        "overlap": 53
+      },
+      {
+        "mpId": 5285,
+        "score": 0.3845947657662828,
+        "overlap": 66
+      },
+      {
+        "mpId": 5221,
+        "score": 0.37734700000511184,
+        "overlap": 79
+      },
+      {
+        "mpId": 3172,
+        "score": 0.37297660933757804,
+        "overlap": 87
+      },
+      {
+        "mpId": 1370,
+        "score": 0.348635857774221,
+        "overlap": 83
+      },
+      {
+        "mpId": 4827,
+        "score": 0.34111888096047444,
+        "overlap": 46
+      },
+      {
+        "mpId": 4879,
+        "score": 0.3386417194111322,
+        "overlap": 55
+      },
+      {
+        "mpId": 1347,
+        "score": 0.32620720685599247,
+        "overlap": 54
+      },
+      {
+        "mpId": 4722,
+        "score": 0.28381769886292385,
+        "overlap": 37
+      },
+      {
+        "mpId": 3865,
+        "score": 0.2809387802771537,
+        "overlap": 37
+      },
+      {
+        "mpId": 833,
+        "score": 0.27143957169645694,
+        "overlap": 166
+      },
+      {
+        "mpId": 3184,
+        "score": 0.2679985157046388,
+        "overlap": 35
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1523,
+        "score": -0.05255883312276367,
+        "overlap": 8
+      },
+      {
+        "mpId": 4258,
+        "score": -0.0074703872483921335,
+        "overlap": 19
+      },
+      {
+        "mpId": 1283,
+        "score": 0.009013765517295198,
+        "overlap": 10
+      },
+      {
+        "mpId": 1274,
+        "score": 0.01584708444428277,
+        "overlap": 7
+      },
+      {
+        "mpId": 369,
+        "score": 0.017479196659433587,
+        "overlap": 134
+      },
+      {
+        "mpId": 1564,
+        "score": 0.02041986062165402,
+        "overlap": 7
+      },
+      {
+        "mpId": 1320,
+        "score": 0.021236975607061895,
+        "overlap": 72
+      },
+      {
+        "mpId": 5195,
+        "score": 0.023537738773846142,
+        "overlap": 108
+      },
+      {
+        "mpId": 3681,
+        "score": 0.02500430595916041,
+        "overlap": 98
+      },
+      {
+        "mpId": 969,
+        "score": 0.029030596631501947,
+        "overlap": 19
+      },
+      {
+        "mpId": 1251,
+        "score": 0.030549201228258573,
+        "overlap": 31
+      },
+      {
+        "mpId": 1008,
+        "score": 0.03092897551904923,
+        "overlap": 63
+      },
+      {
+        "mpId": 862,
+        "score": 0.03626904057724137,
+        "overlap": 96
+      },
+      {
+        "mpId": 5223,
+        "score": 0.04336823772911108,
+        "overlap": 105
+      },
+      {
+        "mpId": 1069,
+        "score": 0.04428948073645192,
+        "overlap": 112
+      },
+      {
+        "mpId": 963,
+        "score": 0.04507918704589024,
+        "overlap": 33
+      },
+      {
+        "mpId": 1362,
+        "score": 0.046751038964104104,
+        "overlap": 13
+      },
+      {
+        "mpId": 1423,
+        "score": 0.04727341315458802,
+        "overlap": 25
+      },
+      {
+        "mpId": 1556,
+        "score": 0.047608927749074874,
+        "overlap": 15
+      },
+      {
+        "mpId": 956,
+        "score": 0.05153817609704591,
+        "overlap": 106
+      }
+    ]
+  }
+}

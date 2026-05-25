@@ -1,0 +1,295 @@
+{
+  "mpId": 5080,
+  "ns": "52",
+  "partyShort": "ПБ",
+  "loyalty": {
+    "votesCast": 66,
+    "withParty": 59,
+    "loyaltyPct": 0.8939393939393939,
+    "windowFrom": "2026-04-30",
+    "windowTo": "2026-05-22",
+    "totalVoteItems": 81
+  },
+  "dissents": {
+    "totalCast": 66,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2026-05-14",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-zashtita-na-potrebitelite-parvo-glasuvane",
+        "title": "ЗИД на Закона за защита на потребителите – първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 122
+      },
+      {
+        "date": "2026-05-14",
+        "item": 5,
+        "slug": "5-reshenie-za-prekratyavane-palnomoshtiyata-na-naroden-predsta",
+        "title": "Решение за прекратяване пълномощията на народен представител - Крум Неделков",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 123
+      },
+      {
+        "date": "2026-05-14",
+        "item": 4,
+        "slug": "4-reshenie-za-prekratyavane-palnomoshtiyata-na-naroden-predsta",
+        "title": "Решение за прекратяване пълномощията на народен представител - Марио Смърков",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 124
+      },
+      {
+        "date": "2026-05-14",
+        "item": 3,
+        "slug": "3-reshenie-za-prekratyavane-palnomoshtiyata-na-naroden-predsta",
+        "title": "Решение за прекратяване пълномощията на народен представител - Илко Илиев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 122
+      },
+      {
+        "date": "2026-05-14",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodno-sabranie-za-13-15-may-2026-g",
+        "title": "Програма за работата на Народно събрание за 13 - 15 май 2026 г. - предложение от Михаела Доцова за нова точка първа",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-05-07",
+        "item": 8,
+        "slug": "8-reshenie-za-osvobozhdavane-i-izbirane-na-sekretar-na-petdese",
+        "title": "Решение за освобождаване и избиране на секретар на Петдесет и второто Народно събрание - редакция на Надежда Йорданова",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 129
+      },
+      {
+        "date": "2026-04-30",
+        "item": 4,
+        "slug": "4-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-vtoroto-na",
+        "title": "Решение за избиране на председател на Петдесет и второто Народно събрание - избира Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 128
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5201,
+        "score": 0.8440722199302098,
+        "overlap": 56
+      },
+      {
+        "mpId": 5140,
+        "score": 0.8414522910076115,
+        "overlap": 56
+      },
+      {
+        "mpId": 5190,
+        "score": 0.8286954896734187,
+        "overlap": 63
+      },
+      {
+        "mpId": 5161,
+        "score": 0.821559570324457,
+        "overlap": 65
+      },
+      {
+        "mpId": 5078,
+        "score": 0.7967410107710748,
+        "overlap": 66
+      },
+      {
+        "mpId": 5299,
+        "score": 0.7967410107710748,
+        "overlap": 62
+      },
+      {
+        "mpId": 5137,
+        "score": 0.7928249671720918,
+        "overlap": 66
+      },
+      {
+        "mpId": 5176,
+        "score": 0.787735907038353,
+        "overlap": 65
+      },
+      {
+        "mpId": 5163,
+        "score": 0.7833494518006403,
+        "overlap": 66
+      },
+      {
+        "mpId": 5264,
+        "score": 0.779035654976162,
+        "overlap": 65
+      },
+      {
+        "mpId": 5079,
+        "score": 0.7769020215688299,
+        "overlap": 66
+      },
+      {
+        "mpId": 5262,
+        "score": 0.7748062179181807,
+        "overlap": 64
+      },
+      {
+        "mpId": 5089,
+        "score": 0.7724054437220944,
+        "overlap": 66
+      },
+      {
+        "mpId": 5069,
+        "score": 0.7706112134070844,
+        "overlap": 66
+      },
+      {
+        "mpId": 5087,
+        "score": 0.7706112134070844,
+        "overlap": 66
+      },
+      {
+        "mpId": 5088,
+        "score": 0.7706112134070844,
+        "overlap": 66
+      },
+      {
+        "mpId": 5110,
+        "score": 0.7706112134070844,
+        "overlap": 66
+      },
+      {
+        "mpId": 5130,
+        "score": 0.7706112134070844,
+        "overlap": 66
+      },
+      {
+        "mpId": 5138,
+        "score": 0.7706112134070844,
+        "overlap": 66
+      },
+      {
+        "mpId": 5219,
+        "score": 0.7706112134070844,
+        "overlap": 66
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5060,
+        "score": -0.14825992064801702,
+        "overlap": 64
+      },
+      {
+        "mpId": 5101,
+        "score": -0.14716573653773893,
+        "overlap": 64
+      },
+      {
+        "mpId": 5074,
+        "score": -0.13379872160113454,
+        "overlap": 61
+      },
+      {
+        "mpId": 5171,
+        "score": -0.11618357280412614,
+        "overlap": 62
+      },
+      {
+        "mpId": 5234,
+        "score": -0.10112997936948631,
+        "overlap": 61
+      },
+      {
+        "mpId": 5159,
+        "score": -0.1003490412008509,
+        "overlap": 61
+      },
+      {
+        "mpId": 5194,
+        "score": -0.1003490412008509,
+        "overlap": 62
+      },
+      {
+        "mpId": 5247,
+        "score": -0.08562346815634271,
+        "overlap": 58
+      },
+      {
+        "mpId": 5273,
+        "score": -0.08427498280790525,
+        "overlap": 60
+      },
+      {
+        "mpId": 5258,
+        "score": -0.07627700713964738,
+        "overlap": 50
+      },
+      {
+        "mpId": 5148,
+        "score": -0.059643207936565815,
+        "overlap": 48
+      },
+      {
+        "mpId": 5185,
+        "score": -0.059643207936565815,
+        "overlap": 48
+      },
+      {
+        "mpId": 5153,
+        "score": 0.050078308583613444,
+        "overlap": 32
+      },
+      {
+        "mpId": 5166,
+        "score": 0.15569978883230456,
+        "overlap": 29
+      },
+      {
+        "mpId": 5230,
+        "score": 0.17734043940858907,
+        "overlap": 35
+      },
+      {
+        "mpId": 4099,
+        "score": 0.18090680674665816,
+        "overlap": 5
+      },
+      {
+        "mpId": 4105,
+        "score": 0.18090680674665816,
+        "overlap": 5
+      },
+      {
+        "mpId": 4110,
+        "score": 0.18090680674665816,
+        "overlap": 5
+      },
+      {
+        "mpId": 5221,
+        "score": 0.1895261918141976,
+        "overlap": 41
+      },
+      {
+        "mpId": 5285,
+        "score": 0.20806259464411975,
+        "overlap": 42
+      }
+    ]
+  }
+}

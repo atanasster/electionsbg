@@ -1,0 +1,315 @@
+{
+  "mpId": 4738,
+  "ns": "48",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 727,
+    "withParty": 718,
+    "loyaltyPct": 0.9876203576341128,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 727,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2023-01-24",
+        "item": 4,
+        "slug": "4-zakon-za-denonsirane-na-sporazumenieto-za-osnovavaneto-na-me",
+        "title": "Закон за денонсиране на Споразумението за основаването на Международната инвестиционна банка и на нейния устав и на Споразумението за организацията и дейността на Международната банка за икономическо сътрудничество - първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2023-01-19",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-trudovata-migratsiya-i-trudovata-mobilnost-",
+        "title": "ЗИД на Закона за трудовата миграция и трудовата мобилност - второ гласуване - параграф 2 (става параграф 1)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2023-01-13",
+        "item": 51,
+        "slug": "51-zakon-za-kontrol-za-prilagane-na-derogatsiyata-za-zakupuvane",
+        "title": "Закон за контрол за прилагане на дерогацията за закупуването, вноса или трансфера на суров нефт, превозван по море, и на нефтопродукти с произход от Русия или изнесени от Русия - второ гласуване - Заключителна разпоредба - предложение за редакция от Петър Чобанов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2023-01-13",
+        "item": 48,
+        "slug": "48-zakon-za-kontrol-za-prilagane-na-derogatsiyata-za-zakupuvane",
+        "title": "Закон за контрол за прилагане на дерогацията за закупуването, вноса или трансфера на суров нефт, превозван по море, и на нефтопродукти с произход от Русия или изнесени от Русия - второ гласуване - параграфи 1 и 2 - нови - предложение от Петър Чобанов за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2023-01-11",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 2 - предложение от Иван Манев за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 20
+      },
+      {
+        "date": "2022-12-23",
+        "item": 24,
+        "slug": "24-protsedura-ot-desislava-atanasova-za-udalzhavane-na-rabotnot",
+        "title": "Процедура от Десислава Атанасова за удължаване на работното време до примане на всички точки от дневния ред - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2022-12-22",
+        "item": 34,
+        "slug": "34-zakon-za-prodalzhavane-deystvieto-na-razporedbi-na-zakona-za",
+        "title": "Закон за продължаване действието на разпоредби на Закона за държавния бюджет на Република България за 2022г., Закона за бюджета на държавното обществено осигуряване и Закона за бюджета на Националната здравноосигурителна каса за 2022г. - второ гласуване - член 1 - предложение от Петър Чобанов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 20
+      },
+      {
+        "date": "2022-12-16",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-pravnata-pomosht-vtoro-glosuvane-paragraf-1",
+        "title": "ЗИД на Закона за правната помощ - второ глосуване - параграф 11 - предложение от Цончо Ганев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-11-02",
+        "item": 57,
+        "slug": "57-protsedura-ot-asen-vasilev-za-udalzhavane-na-rabotnoto-vreme",
+        "title": "Процедура от Асен Василев за удължаване на работното време до приемане на точката",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2058,
+        "score": 0.7214299210715427,
+        "overlap": 645
+      },
+      {
+        "mpId": 4903,
+        "score": 0.7212750165027774,
+        "overlap": 673
+      },
+      {
+        "mpId": 4108,
+        "score": 0.715075923315631,
+        "overlap": 681
+      },
+      {
+        "mpId": 4754,
+        "score": 0.7100663354588537,
+        "overlap": 664
+      },
+      {
+        "mpId": 4466,
+        "score": 0.6949133754163468,
+        "overlap": 632
+      },
+      {
+        "mpId": 2163,
+        "score": 0.6927988898745764,
+        "overlap": 649
+      },
+      {
+        "mpId": 4802,
+        "score": 0.6889728996442851,
+        "overlap": 638
+      },
+      {
+        "mpId": 1875,
+        "score": 0.6875755555838211,
+        "overlap": 654
+      },
+      {
+        "mpId": 4326,
+        "score": 0.6829918524447225,
+        "overlap": 617
+      },
+      {
+        "mpId": 4450,
+        "score": 0.6728786007243259,
+        "overlap": 611
+      },
+      {
+        "mpId": 4995,
+        "score": 0.6637601254435482,
+        "overlap": 608
+      },
+      {
+        "mpId": 4500,
+        "score": 0.6537497557791544,
+        "overlap": 574
+      },
+      {
+        "mpId": 4552,
+        "score": 0.6519934200951174,
+        "overlap": 544
+      },
+      {
+        "mpId": 4818,
+        "score": 0.6421641724464129,
+        "overlap": 551
+      },
+      {
+        "mpId": 4221,
+        "score": 0.6420901808564896,
+        "overlap": 534
+      },
+      {
+        "mpId": 4154,
+        "score": 0.6203951517133625,
+        "overlap": 521
+      },
+      {
+        "mpId": 4122,
+        "score": 0.6020172235341823,
+        "overlap": 504
+      },
+      {
+        "mpId": 4911,
+        "score": 0.5980142180159677,
+        "overlap": 505
+      },
+      {
+        "mpId": 4601,
+        "score": 0.5922085900902342,
+        "overlap": 444
+      },
+      {
+        "mpId": 4719,
+        "score": 0.5699160718216927,
+        "overlap": 399
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5100,
+        "score": 0.03854159987039231,
+        "overlap": 43
+      },
+      {
+        "mpId": 2264,
+        "score": 0.08929321208710256,
+        "overlap": 445
+      },
+      {
+        "mpId": 5283,
+        "score": 0.11473466888282574,
+        "overlap": 384
+      },
+      {
+        "mpId": 5244,
+        "score": 0.13481546281826753,
+        "overlap": 505
+      },
+      {
+        "mpId": 4536,
+        "score": 0.1357045808963713,
+        "overlap": 399
+      },
+      {
+        "mpId": 2320,
+        "score": 0.1467936924666015,
+        "overlap": 544
+      },
+      {
+        "mpId": 4658,
+        "score": 0.15463145754997554,
+        "overlap": 140
+      },
+      {
+        "mpId": 5229,
+        "score": 0.15951937934812774,
+        "overlap": 528
+      },
+      {
+        "mpId": 5173,
+        "score": 0.16556685981157188,
+        "overlap": 433
+      },
+      {
+        "mpId": 4671,
+        "score": 0.16681719625918115,
+        "overlap": 521
+      },
+      {
+        "mpId": 5121,
+        "score": 0.16967050126345978,
+        "overlap": 477
+      },
+      {
+        "mpId": 4914,
+        "score": 0.1711825579074925,
+        "overlap": 510
+      },
+      {
+        "mpId": 5266,
+        "score": 0.17510092619059078,
+        "overlap": 530
+      },
+      {
+        "mpId": 5193,
+        "score": 0.17553218641287865,
+        "overlap": 270
+      },
+      {
+        "mpId": 5245,
+        "score": 0.1819065877744981,
+        "overlap": 610
+      },
+      {
+        "mpId": 4258,
+        "score": 0.19010696526040435,
+        "overlap": 163
+      },
+      {
+        "mpId": 4324,
+        "score": 0.1927469144189434,
+        "overlap": 463
+      },
+      {
+        "mpId": 5230,
+        "score": 0.19441352834396475,
+        "overlap": 543
+      },
+      {
+        "mpId": 5255,
+        "score": 0.19496084185806997,
+        "overlap": 585
+      },
+      {
+        "mpId": 5206,
+        "score": 0.19566008754025102,
+        "overlap": 566
+      }
+    ]
+  }
+}

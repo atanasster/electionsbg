@@ -1,0 +1,365 @@
+{
+  "mpId": 4809,
+  "ns": "45",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 117,
+    "withParty": 103,
+    "loyaltyPct": 0.8803418803418803,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 117,
+    "dissentCount": 14,
+    "recent": [
+      {
+        "date": "2021-04-29",
+        "item": 116,
+        "slug": "116-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-65-otpada",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 65 - отпада",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 39
+      },
+      {
+        "date": "2021-04-29",
+        "item": 108,
+        "slug": "108-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-63-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 63 (става параграф 69) - предложение от Мая Манолова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 39
+      },
+      {
+        "date": "2021-04-29",
+        "item": 107,
+        "slug": "107-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-62-otpada",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 62 - отпада - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 40
+      },
+      {
+        "date": "2021-04-29",
+        "item": 105,
+        "slug": "105-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-61-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 61 (става параграф 68) - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 39
+      },
+      {
+        "date": "2021-04-29",
+        "item": 103,
+        "slug": "103-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-61-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 61 (става параграф 68) - предложение от Мая Манолова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 40
+      },
+      {
+        "date": "2021-04-29",
+        "item": 101,
+        "slug": "101-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-60-otpada",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 60 - отпада",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 39
+      },
+      {
+        "date": "2021-04-29",
+        "item": 100,
+        "slug": "100-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-60-predlozh",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 60 - предложение от Надежда Йорданова и Антоанета Цонева",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 38
+      },
+      {
+        "date": "2021-04-29",
+        "item": 99,
+        "slug": "99-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-59-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 59 (става параграф 67) - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 40
+      },
+      {
+        "date": "2021-04-29",
+        "item": 97,
+        "slug": "97-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-59-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 59 (става параграф 67) - предложение от Мая Манолова и група н.п. параграф 60 б - нов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 40
+      },
+      {
+        "date": "2021-04-29",
+        "item": 96,
+        "slug": "96-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-59-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 59 (става параграф 67) - предложение от Мая Манолова и група н.п. параграф 59 - отпада",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 39
+      },
+      {
+        "date": "2021-04-28",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-28-29-april-20",
+        "title": "Програма за работата на Народното събрание за 28 - 29 април 2021 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 36
+      },
+      {
+        "date": "2021-04-22",
+        "item": 46,
+        "slug": "46-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-12-nov",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 12 - нов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-04-22",
+        "item": 30,
+        "slug": "30-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-7-stava",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 7 (става параграф 8) - предл. Чолаков за отпадане на втората част от т.2 - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2021-04-22",
+        "item": 13,
+        "slug": "13-protsedura-ot-viktoriya-vasileva-za-udalzhavane-na-rabotnoto",
+        "title": "Процедура от Виктория Василева за удължаване на работното време до приемане на точката",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 30
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3714,
+        "score": 0.683174585377371,
+        "overlap": 114
+      },
+      {
+        "mpId": 4775,
+        "score": 0.683174585377371,
+        "overlap": 116
+      },
+      {
+        "mpId": 4754,
+        "score": 0.6664773687552685,
+        "overlap": 115
+      },
+      {
+        "mpId": 4326,
+        "score": 0.6634549538179653,
+        "overlap": 102
+      },
+      {
+        "mpId": 1699,
+        "score": 0.6599379843470499,
+        "overlap": 114
+      },
+      {
+        "mpId": 3783,
+        "score": 0.6591397796577455,
+        "overlap": 115
+      },
+      {
+        "mpId": 1648,
+        "score": 0.6568445103032441,
+        "overlap": 114
+      },
+      {
+        "mpId": 3287,
+        "score": 0.6561802845482034,
+        "overlap": 115
+      },
+      {
+        "mpId": 1366,
+        "score": 0.6538819227245212,
+        "overlap": 116
+      },
+      {
+        "mpId": 4738,
+        "score": 0.6444990979945948,
+        "overlap": 106
+      },
+      {
+        "mpId": 4552,
+        "score": 0.6425534669347776,
+        "overlap": 112
+      },
+      {
+        "mpId": 1654,
+        "score": 0.638682143626918,
+        "overlap": 116
+      },
+      {
+        "mpId": 3274,
+        "score": 0.6338421355848863,
+        "overlap": 98
+      },
+      {
+        "mpId": 4154,
+        "score": 0.6291198478887619,
+        "overlap": 98
+      },
+      {
+        "mpId": 4450,
+        "score": 0.6264114497259977,
+        "overlap": 86
+      },
+      {
+        "mpId": 4995,
+        "score": 0.6219935742764743,
+        "overlap": 103
+      },
+      {
+        "mpId": 4818,
+        "score": 0.6219555004188635,
+        "overlap": 85
+      },
+      {
+        "mpId": 3453,
+        "score": 0.6151175214683705,
+        "overlap": 96
+      },
+      {
+        "mpId": 3912,
+        "score": 0.612030995783164,
+        "overlap": 88
+      },
+      {
+        "mpId": 4122,
+        "score": 0.6116635199194835,
+        "overlap": 107
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1600,
+        "score": -0.06516075439283586,
+        "overlap": 53
+      },
+      {
+        "mpId": 4632,
+        "score": -0.04179586594315147,
+        "overlap": 44
+      },
+      {
+        "mpId": 5173,
+        "score": -0.029197858123689188,
+        "overlap": 40
+      },
+      {
+        "mpId": 4249,
+        "score": -0.010032154423814102,
+        "overlap": 74
+      },
+      {
+        "mpId": 1622,
+        "score": 0,
+        "overlap": 75
+      },
+      {
+        "mpId": 4854,
+        "score": 0,
+        "overlap": 77
+      },
+      {
+        "mpId": 4872,
+        "score": 0,
+        "overlap": 69
+      },
+      {
+        "mpId": 4258,
+        "score": 0.011177545850247397,
+        "overlap": 61
+      },
+      {
+        "mpId": 1634,
+        "score": 0.012202383114084503,
+        "overlap": 46
+      },
+      {
+        "mpId": 5126,
+        "score": 0.018430244519362142,
+        "overlap": 84
+      },
+      {
+        "mpId": 5117,
+        "score": 0.018502662262063214,
+        "overlap": 80
+      },
+      {
+        "mpId": 5248,
+        "score": 0.021063136593556735,
+        "overlap": 59
+      },
+      {
+        "mpId": 4225,
+        "score": 0.02701935278737575,
+        "overlap": 86
+      },
+      {
+        "mpId": 4912,
+        "score": 0.027538005725776183,
+        "overlap": 84
+      },
+      {
+        "mpId": 4267,
+        "score": 0.02916610405434509,
+        "overlap": 71
+      },
+      {
+        "mpId": 1529,
+        "score": 0.03643597788679312,
+        "overlap": 85
+      },
+      {
+        "mpId": 5157,
+        "score": 0.03700532452412643,
+        "overlap": 80
+      },
+      {
+        "mpId": 5267,
+        "score": 0.037151880838356854,
+        "overlap": 78
+      },
+      {
+        "mpId": 1805,
+        "score": 0.037300192329612555,
+        "overlap": 82
+      },
+      {
+        "mpId": 4786,
+        "score": 0.03806934938134405,
+        "overlap": 77
+      }
+    ]
+  }
+}

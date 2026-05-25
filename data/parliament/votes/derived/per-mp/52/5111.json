@@ -1,0 +1,275 @@
+{
+  "mpId": 5111,
+  "ns": "52",
+  "partyShort": "ДБ",
+  "loyalty": {
+    "votesCast": 60,
+    "withParty": 55,
+    "loyaltyPct": 0.9166666666666666,
+    "windowFrom": "2026-04-30",
+    "windowTo": "2026-05-22",
+    "totalVoteItems": 81
+  },
+  "dissents": {
+    "totalCast": 60,
+    "dissentCount": 5,
+    "recent": [
+      {
+        "date": "2026-05-15",
+        "item": 2,
+        "slug": "2-zid-na-zakona-za-sadebnata-vlast-parvo-glasuvane-protsedura-",
+        "title": "ЗИД на Закона за съдебната власт – първо гласуване - процедура Янка Тянкова за удължаване на срока за предложения с две седмици",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 20
+      },
+      {
+        "date": "2026-05-14",
+        "item": 7,
+        "slug": "7-zid-na-zakona-za-sadebnata-vlast-parvo-glasuvane-protsedura-",
+        "title": "ЗИД на Закона за съдебната власт – първо гласуване - процедура от Петър Витанов за удължаване на р.време до приемане на точката",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2026-05-14",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-zashtita-na-potrebitelite-parvo-glasuvane",
+        "title": "ЗИД на Закона за защита на потребителите – първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2026-05-13",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-zashtita-na-konkurentsiyata-parvo-glasuvane",
+        "title": "ЗИД на Закона за защита на конкуренцията – първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2026-05-07",
+        "item": 11,
+        "slug": "11-reshenie-za-sazdavane-na-vremenna-komisiya-po-priemaneto-na-",
+        "title": "Решение за създаване на Временна комисия по приемането на Правилник за организацията и дейността на Петдесет и второто Народно събрание",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5096,
+        "score": 0.8814825547070534,
+        "overlap": 58
+      },
+      {
+        "mpId": 5147,
+        "score": 0.8814825547070534,
+        "overlap": 56
+      },
+      {
+        "mpId": 5229,
+        "score": 0.8814825547070534,
+        "overlap": 58
+      },
+      {
+        "mpId": 5256,
+        "score": 0.8718267164379812,
+        "overlap": 57
+      },
+      {
+        "mpId": 5139,
+        "score": 0.867148549754591,
+        "overlap": 60
+      },
+      {
+        "mpId": 5202,
+        "score": 0.8645309671165332,
+        "overlap": 59
+      },
+      {
+        "mpId": 5092,
+        "score": 0.8602388894414729,
+        "overlap": 59
+      },
+      {
+        "mpId": 5233,
+        "score": 0.8475793795260129,
+        "overlap": 59
+      },
+      {
+        "mpId": 5123,
+        "score": 0.8469010445797931,
+        "overlap": 60
+      },
+      {
+        "mpId": 5255,
+        "score": 0.8469010445797931,
+        "overlap": 60
+      },
+      {
+        "mpId": 5245,
+        "score": 0.8370785094807313,
+        "overlap": 59
+      },
+      {
+        "mpId": 5170,
+        "score": 0.8337966824563375,
+        "overlap": 58
+      },
+      {
+        "mpId": 5206,
+        "score": 0.8337966824563375,
+        "overlap": 58
+      },
+      {
+        "mpId": 5215,
+        "score": 0.8275862068965516,
+        "overlap": 57
+      },
+      {
+        "mpId": 5266,
+        "score": 0.8246883274537257,
+        "overlap": 55
+      },
+      {
+        "mpId": 5072,
+        "score": 0.823791232945381,
+        "overlap": 58
+      },
+      {
+        "mpId": 5257,
+        "score": 0.8194016708203834,
+        "overlap": 54
+      },
+      {
+        "mpId": 5283,
+        "score": 0.8194016708203834,
+        "overlap": 51
+      },
+      {
+        "mpId": 5180,
+        "score": 0.8143279274805704,
+        "overlap": 58
+      },
+      {
+        "mpId": 5244,
+        "score": 0.8116346550465973,
+        "overlap": 50
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3945,
+        "score": 0.13130643285972254,
+        "overlap": 18
+      },
+      {
+        "mpId": 3995,
+        "score": 0.13130643285972254,
+        "overlap": 18
+      },
+      {
+        "mpId": 4023,
+        "score": 0.16248342090492035,
+        "overlap": 30
+      },
+      {
+        "mpId": 4100,
+        "score": 0.17616606585441102,
+        "overlap": 5
+      },
+      {
+        "mpId": 4109,
+        "score": 0.17616606585441102,
+        "overlap": 5
+      },
+      {
+        "mpId": 4111,
+        "score": 0.17616606585441102,
+        "overlap": 5
+      },
+      {
+        "mpId": 5247,
+        "score": 0.200111203789521,
+        "overlap": 57
+      },
+      {
+        "mpId": 3996,
+        "score": 0.21055872190307892,
+        "overlap": 16
+      },
+      {
+        "mpId": 4006,
+        "score": 0.21055872190307892,
+        "overlap": 16
+      },
+      {
+        "mpId": 4055,
+        "score": 0.21055872190307892,
+        "overlap": 16
+      },
+      {
+        "mpId": 5101,
+        "score": 0.2229254143544687,
+        "overlap": 59
+      },
+      {
+        "mpId": 5060,
+        "score": 0.22458287520033124,
+        "overlap": 59
+      },
+      {
+        "mpId": 5074,
+        "score": 0.2280118196945597,
+        "overlap": 57
+      },
+      {
+        "mpId": 5234,
+        "score": 0.22978625750451445,
+        "overlap": 59
+      },
+      {
+        "mpId": 4057,
+        "score": 0.2321191727213148,
+        "overlap": 8
+      },
+      {
+        "mpId": 4007,
+        "score": 0.2358333153182891,
+        "overlap": 30
+      },
+      {
+        "mpId": 3984,
+        "score": 0.2373222262672836,
+        "overlap": 17
+      },
+      {
+        "mpId": 4017,
+        "score": 0.23973165074269207,
+        "overlap": 30
+      },
+      {
+        "mpId": 5103,
+        "score": 0.23973165074269207,
+        "overlap": 35
+      },
+      {
+        "mpId": 3972,
+        "score": 0.2549249642552304,
+        "overlap": 16
+      }
+    ]
+  }
+}

@@ -1,0 +1,725 @@
+{
+  "mpId": 5230,
+  "ns": "47",
+  "partyShort": "ДБ",
+  "loyalty": {
+    "votesCast": 1405,
+    "withParty": 1267,
+    "loyaltyPct": 0.9017793594306049,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1405,
+    "dissentCount": 138,
+    "recent": [
+      {
+        "date": "2022-07-29",
+        "item": 33,
+        "slug": "33-zid-na-zakona-za-obshtestvenite-porachki-parvo-glasuvane-vno",
+        "title": "ЗИД на Закона за обществените поръчки - първо гласуване - вносител Настимир Ананиев и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-07-29",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-27-29-yuli-202",
+        "title": "Програма за работата на Народното събрание за 27 - 29 юли 2022 г. - процедура от Десислава Атанасова за отпадане на парламентарния контрол",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-07-29",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-27-29-yuli-202",
+        "title": "Програма за работата на Народното събрание за 27 - 29 юли 2022 г. - процедура от Десислава Атанасова за пряко предаване по БНТ1 и БНР в последния час от заседанието",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-07-27",
+        "item": 19,
+        "slug": "19-programa-za-rabotata-na-narodnoto-sabranie-za-27-29-yuli-202",
+        "title": "Програма за работата на Народното събрание за 27 - 29 юли 2022 г. - процедура от Мустафа Карадайъ точка 4 да стане точка 2 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-07-22",
+        "item": 25,
+        "slug": "25-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на процедурни правила за условията и реда за предлагане на кандидати, представяне и публично оповестяване на документите, изслушване на кандидатите и за избор на председател на Комисията за противодействие на корупцията и за отнемане на незаконно придобито имущество - предложение от Джейхан Ибрямов за редакция на ІІІ, т.2",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-07-22",
+        "item": 21,
+        "slug": "21-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на процедурни правила за условията и реда за предлагане на кандидати, представяне и публично оповестяване на документите, изслушване на кандидатите и за избор на председател на Комисията за противодействие на корупцията и за отнемане на незаконно придобито имущество - предложение от Александър Несторов за редакция на ІІІ",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-07-22",
+        "item": 3,
+        "slug": "3-protsedura-ot-plamen-abrovski-za-sakrashtavane-na-sroka-za-p",
+        "title": "Процедура от Пламен Абровски за съкращаване на срока за предложения по ЗИД на Закона за ветеринарномедицинската дейност - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-07-20",
+        "item": 18,
+        "slug": "18-zid-na-kodeksa-na-truda-parvo-glasuvane-vnositel-kostadin-ko",
+        "title": "ЗИД на Кодекса на труда - първо гласуване - вносител Костадин Костадинов и група н.п. внесен на 04.05.2022г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-07-20",
+        "item": 10,
+        "slug": "10-programa-za-rabotata-na-narodnoto-sabranie-za-20-22-yuli-202",
+        "title": "Програма за работата на Народното събрание за 20 - 22 юли 2022 г. - процедура от Искрен Арабаджиев за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-07-20",
+        "item": 8,
+        "slug": "8-programa-za-rabotata-na-narodnoto-sabranie-za-20-22-yuli-202",
+        "title": "Програма за работата на Народното събрание за 20 - 22 юли 2022 г. - процедура от Тошко Йорданов за разместване на точките",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-07-20",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodnoto-sabranie-za-20-22-yuli-202",
+        "title": "Програма за работата на Народното събрание за 20 - 22 юли 2022 г. - предложение от Иво Русчев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-07-13",
+        "item": 10,
+        "slug": "10-programa-za-rabotata-na-narodnoto-sabranie-za-13-15-yuli-202",
+        "title": "Програма за работата на Народното събрание за 13 - 15 юли 2022 г. - процедура от Тошко Йорданов точка 10 да стане точка 8",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-07-13",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodnoto-sabranie-za-13-15-yuli-202",
+        "title": "Програма за работата на Народното събрание за 13 - 15 юли 2022 г. - процедура от Десислава Атанасова точка 14 да стане точка 5 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-07-06",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-6-8-yuli-2022-",
+        "title": "Програма за работата на Народното събрание за 6 - 8 юли 2022 г. - предложение от Любомир Каримански - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2022-06-30",
+        "item": 34,
+        "slug": "34-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 16 а - нов- предложение от Кристиан Вигенин (№...217) - прегласуване",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-06-30",
+        "item": 29,
+        "slug": "29-protsedura-ot-miroslav-ivanov-za-povtorno-razglezhdane-na-za",
+        "title": "Процедура от Мирослав Иванов за повторно разглеждане на Закона за бюджета на Националната здравноосигурителна каса за 2022 г. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-06-30",
+        "item": 28,
+        "slug": "28-protsedura-ot-miroslav-ivanov-za-povtorno-razglezhdane-na-za",
+        "title": "Процедура от Мирослав Иванов за повторно разглеждане на Закона за бюджета на Националната здравноосигурителна каса за 2022 г",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-06-30",
+        "item": 21,
+        "slug": "21-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 7 нов - предложение от Пламен Абровски (№ ...203)",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-30",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 1 - предложение от Цвета Галунова (№ ...258) - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-06-30",
+        "item": 7,
+        "slug": "7-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 1 - предложение от Пламен Абровски (№ ...203)",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-06-29",
+        "item": 48,
+        "slug": "48-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 30 - отпада - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-06-29",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 23 (става параграф 24) - предложение от Венеция Ангова и група н.п. (№ 47-254-04-249) - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-06-28",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2022 г. - второ гласуване - параграф 12 - предложение от Десислава Атанасова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-28",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2022 г. - второ гласуване - параграф 11 - предложение от Мустафа Карадайъ и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-28",
+        "item": 21,
+        "slug": "21-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2022 г. - второ гласуване - параграф 11 - предложение от Десислава Атанасова и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-28",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2022 г. - второ гласуване - параграф 11 - предложение от Десислава Атанасова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-28",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2022 г. - второ гласуване - Заключителни разпоредби - предложение от Десислава Атанасова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-28",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2022 г. - второ гласуване - параграф 10 - предложение от Десислава Атанасова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-06-28",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2022 г. - второ гласуване - параграф 9 - предложение от Десислава Атанасова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-06-24",
+        "item": 9,
+        "slug": "9-reshenie-za-predpriemane-na-deystviya-ot-ministerskiya-savet",
+        "title": "Решение за предприемане на действия от Министерския съвет на Република България за одобрение на проекта на Преговорната рамка и проекта за Заключение на Съвета на ЕС и европейската интеграция на Република Северна Македония - вносител Десислава Атанасова и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-24",
+        "item": 8,
+        "slug": "8-reshenie-za-predpriemane-na-deystviya-ot-ministerskiya-savet",
+        "title": "Решение за предприемане на действия от Министерския съвет на Република България за одобрение на проекта на Преговорната рамка и проекта за Заключение на Съвета на ЕС и европейската интеграция на Република Северна Македония - вносител Десислава Атанасова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-24",
+        "item": 7,
+        "slug": "7-reshenie-za-odobrenie-na-predlozheniya-ot-frenskoto-predseda",
+        "title": "Решение за одобрение на предложения от Френското председателство проект на Преговорна рамка членство в ЕС на Република Северна Македония и Република Албания - вносител Мустафа Карадайъ и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-24",
+        "item": 6,
+        "slug": "6-reshenie-za-odobrenie-na-predlozheniya-ot-frenskoto-predseda",
+        "title": "Решение за одобрение на предложения от Френското председателство проект на Преговорна рамка членство в ЕС на Република Северна Македония и Република Албания - вносител Мустафа Карадайъ и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-15",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-15-17-yuni-202",
+        "title": "Програма за работата на Народното събрание за 15 - 17 юни 2022 г. - предложение от Христо Гаджев и Томислав Дончев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-08",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-08-10-yuni-202",
+        "title": "Програма за работата на Народното събрание за 08 - 10 юни 2022 г. - предложение от Петър Петров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-06-02",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - първо гласуване - процедура от Тошко Йорданов за пряко излъчване по БНТ и БНР - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-06-01",
+        "item": 20,
+        "slug": "20-protsedura-ot-mustafa-karadaya-za-udalzhavane-na-rabotnoto-v",
+        "title": "Процедура от Мустафа Карадайъ за удължаване на работното време до приключване на точка 6",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2022-06-01",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodnoto-sabranie-za-1-3-yuni-2022-",
+        "title": "Програма за работата на Народното събрание за 1 - 3 юни 2022 г. - предложение от Ахмед Ахмедов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-06-01",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-1-3-yuni-2022-",
+        "title": "Програма за работата на Народното събрание за 1 - 3 юни 2022 г. - предложение от Александър Ненков - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-05-05",
+        "item": 25,
+        "slug": "25-reshenie-za-izbor-na-dvama-chlenove-na-saveta-za-elektronni-",
+        "title": "Решение за избор на двама членове на Съвета за електронни медии - избира Тодор Беленски",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 16
+      },
+      {
+        "date": "2022-04-21",
+        "item": 7,
+        "slug": "7-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование - второ гласуване - параграф 5 (става параграф 6) - предложение от Петър Чобанов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-04-14",
+        "item": 94,
+        "slug": "94-reshenie-za-predpriemane-na-deystviya-vav-vrazka-s-konstatir",
+        "title": "Решение за предприемане на действия във връзка с констатирана опасност от настъпване на невъзможност за Агенция „Пътна инфраструктура\" за осъществяване на дейностите по поддържане на републиканската пътна мрежа - вносител Настимир Ананиев и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-04-14",
+        "item": 93,
+        "slug": "93-reshenie-za-predpriemane-na-deystviya-vav-vrazka-s-konstatir",
+        "title": "Решение за предприемане на действия във връзка с констатирана опасност от настъпване на невъзможност за Агенция „Пътна инфраструктура\" за осъществяване на дейностите по поддържане на републиканската пътна мрежа - вносител Настимир Ананиев и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-04-14",
+        "item": 92,
+        "slug": "92-reshenie-za-predpriemane-na-deystviya-vav-vrazka-s-konstatir",
+        "title": "Решение за предприемане на действия във връзка с констатирана опасност от настъпване на невъзможност за Агенция „Пътна инфраструктура\" за осъществяване на дейностите по поддържане на републиканската пътна мрежа - Комисията по регионална политика, благоустройство и местно самоуправление - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-04-14",
+        "item": 90,
+        "slug": "90-reshenie-za-predpriemane-na-deystviya-vav-vrazka-s-konstatir",
+        "title": "Решение за предприемане на действия във връзка с констатирана опасност от настъпване на невъзможност за Агенция „Пътна инфраструктура\" за осъществяване на дейностите по поддържане на републиканската пътна мрежа - предложение на Комисия по конституционни и правни въпроси - прегласуване",
+        "topic": "constitution",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-04-13",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-8-predloz",
+        "title": "ЗИД на Закона за здравето - второ гласуване - параграф 8 - предложение от Мустафа Карадайъ и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2022-04-13",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-5-predloz",
+        "title": "ЗИД на Закона за здравето - второ гласуване - параграф 5 - предложение от Мустафа Карадайъ и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2022-04-13",
+        "item": 7,
+        "slug": "7-zid-na-zakona-za-zdravnoto-osiguryavane-vtoro-glasuvane-para",
+        "title": "ЗИД на Закона за здравното осигуряване - второ гласуване - параграф 4 - предложение от Мустафа Карадайъ и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-04-13",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-13-15-april-20",
+        "title": "Програма за работата на Народното събрание за 13 - 15 април 2022 г. - предложение от Десислава Атанасова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2022-03-30",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-30-mart-1-apri",
+        "title": "Програма за работата на Народното събрание за 30 март - 1 април 2022 г. - предложение от Радомир Чолаков",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 2166,
+        "score": 0.7832444922276215,
+        "overlap": 1361
+      },
+      {
+        "mpId": 5245,
+        "score": 0.7820186302610149,
+        "overlap": 1275
+      },
+      {
+        "mpId": 4671,
+        "score": 0.7801761085699731,
+        "overlap": 1191
+      },
+      {
+        "mpId": 4372,
+        "score": 0.7733893325378317,
+        "overlap": 1392
+      },
+      {
+        "mpId": 2130,
+        "score": 0.7729446455448491,
+        "overlap": 1395
+      },
+      {
+        "mpId": 5014,
+        "score": 0.7729446455448491,
+        "overlap": 1388
+      },
+      {
+        "mpId": 4161,
+        "score": 0.7725925925925925,
+        "overlap": 1273
+      },
+      {
+        "mpId": 1717,
+        "score": 0.771803932679073,
+        "overlap": 1211
+      },
+      {
+        "mpId": 4144,
+        "score": 0.7673963447515515,
+        "overlap": 1368
+      },
+      {
+        "mpId": 4234,
+        "score": 0.7667011570251716,
+        "overlap": 1376
+      },
+      {
+        "mpId": 3870,
+        "score": 0.7647825600003149,
+        "overlap": 1372
+      },
+      {
+        "mpId": 2070,
+        "score": 0.7645786004803272,
+        "overlap": 1238
+      },
+      {
+        "mpId": 4748,
+        "score": 0.7609434305246341,
+        "overlap": 1357
+      },
+      {
+        "mpId": 3899,
+        "score": 0.7608410488954588,
+        "overlap": 1359
+      },
+      {
+        "mpId": 4273,
+        "score": 0.7604256606176196,
+        "overlap": 1340
+      },
+      {
+        "mpId": 3881,
+        "score": 0.7587815091835561,
+        "overlap": 1321
+      },
+      {
+        "mpId": 3957,
+        "score": 0.7575411914321345,
+        "overlap": 1344
+      },
+      {
+        "mpId": 5192,
+        "score": 0.7561576026534421,
+        "overlap": 1349
+      },
+      {
+        "mpId": 4059,
+        "score": 0.7551476953387708,
+        "overlap": 1332
+      },
+      {
+        "mpId": 5232,
+        "score": 0.7549541559849683,
+        "overlap": 1369
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4267,
+        "score": -0.14897649271298596,
+        "overlap": 762
+      },
+      {
+        "mpId": 4838,
+        "score": -0.14463641690331364,
+        "overlap": 625
+      },
+      {
+        "mpId": 1643,
+        "score": -0.1411188357744073,
+        "overlap": 681
+      },
+      {
+        "mpId": 5126,
+        "score": -0.13780332002943854,
+        "overlap": 802
+      },
+      {
+        "mpId": 5223,
+        "score": -0.1356813385323143,
+        "overlap": 603
+      },
+      {
+        "mpId": 1651,
+        "score": -0.13462389121265186,
+        "overlap": 578
+      },
+      {
+        "mpId": 3942,
+        "score": -0.12600156685448563,
+        "overlap": 778
+      },
+      {
+        "mpId": 5165,
+        "score": -0.12600032541448378,
+        "overlap": 741
+      },
+      {
+        "mpId": 4441,
+        "score": -0.12531367677927135,
+        "overlap": 661
+      },
+      {
+        "mpId": 5124,
+        "score": -0.12496826263762598,
+        "overlap": 690
+      },
+      {
+        "mpId": 4225,
+        "score": -0.12434488728003848,
+        "overlap": 760
+      },
+      {
+        "mpId": 4304,
+        "score": -0.12009746854185775,
+        "overlap": 802
+      },
+      {
+        "mpId": 4854,
+        "score": -0.1197028008422633,
+        "overlap": 726
+      },
+      {
+        "mpId": 4912,
+        "score": -0.1192310868051513,
+        "overlap": 775
+      },
+      {
+        "mpId": 4872,
+        "score": -0.11781726476696681,
+        "overlap": 627
+      },
+      {
+        "mpId": 5236,
+        "score": -0.11630081080649952,
+        "overlap": 784
+      },
+      {
+        "mpId": 5248,
+        "score": -0.10870528503972879,
+        "overlap": 556
+      },
+      {
+        "mpId": 4906,
+        "score": -0.10332017361124726,
+        "overlap": 736
+      },
+      {
+        "mpId": 5125,
+        "score": -0.10291165933949734,
+        "overlap": 750
+      },
+      {
+        "mpId": 4116,
+        "score": -0.10238466509861309,
+        "overlap": 686
+      }
+    ]
+  }
+}

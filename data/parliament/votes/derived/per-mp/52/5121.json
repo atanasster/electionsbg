@@ -1,0 +1,285 @@
+{
+  "mpId": 5121,
+  "ns": "52",
+  "partyShort": "ДБ",
+  "loyalty": {
+    "votesCast": 66,
+    "withParty": 60,
+    "loyaltyPct": 0.9090909090909091,
+    "windowFrom": "2026-04-30",
+    "windowTo": "2026-05-22",
+    "totalVoteItems": 81
+  },
+  "dissents": {
+    "totalCast": 66,
+    "dissentCount": 6,
+    "recent": [
+      {
+        "date": "2026-05-14",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-zashtita-na-potrebitelite-parvo-glasuvane",
+        "title": "ЗИД на Закона за защита на потребителите – първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2026-05-13",
+        "item": 5,
+        "slug": "5-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на факти и обстоятелства относно дейността, финансирането, институционалните връзки и евентуалното влияние върху държавни органи на \"Национална агенция за контрол на защитените територии\" (НАКЗТ) и свързани лица и организации, както относно нерегламентираната дейност на групата, функционирала в района на бившата хижа \"Петрохан\"",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2026-05-13",
+        "item": 4,
+        "slug": "4-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на факти и обстоятелства относно дейността, финансирането, институционалните връзки и евентуалното влияние върху държавни органи на \"Национална агенция за контрол на защитените територии\" (НАКЗТ) и свързани лица и организации, както относно нерегламентираната дейност на групата, функционирала в района на бившата хижа \"Петрохан\" - предложение от Хамид Хамид за редакция",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2026-05-13",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-zashtita-na-konkurentsiyata-parvo-glasuvane",
+        "title": "ЗИД на Закона за защита на конкуренцията – първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2026-05-07",
+        "item": 12,
+        "slug": "12-reshenie-za-sazdavane-na-vremenna-komisiya-po-priemaneto-na-",
+        "title": "Решение за създаване на Временна комисия по приемането на Правилник за организацията и дейността на Петдесет и второто Народно събрание - ръководство и състав",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2026-05-07",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodno-sabranie-za-7-i-8-may-2026-g",
+        "title": "Програма за работата на Народно събрание за 7 и 8 май 2026 г. - предложение от Ангел Георгиев - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5123,
+        "score": 0.9120472787782388,
+        "overlap": 65
+      },
+      {
+        "mpId": 5245,
+        "score": 0.9027317259105926,
+        "overlap": 64
+      },
+      {
+        "mpId": 5206,
+        "score": 0.9005004170528446,
+        "overlap": 64
+      },
+      {
+        "mpId": 5096,
+        "score": 0.8984341422975737,
+        "overlap": 61
+      },
+      {
+        "mpId": 5229,
+        "score": 0.8984341422975737,
+        "overlap": 62
+      },
+      {
+        "mpId": 5255,
+        "score": 0.8957607202286274,
+        "overlap": 65
+      },
+      {
+        "mpId": 5092,
+        "score": 0.8933250005738371,
+        "overlap": 65
+      },
+      {
+        "mpId": 5139,
+        "score": 0.8838244834037178,
+        "overlap": 63
+      },
+      {
+        "mpId": 5170,
+        "score": 0.8838244834037178,
+        "overlap": 63
+      },
+      {
+        "mpId": 5202,
+        "score": 0.8814825547070534,
+        "overlap": 61
+      },
+      {
+        "mpId": 5180,
+        "score": 0.8794741616790159,
+        "overlap": 64
+      },
+      {
+        "mpId": 5266,
+        "score": 0.8773280079294955,
+        "overlap": 60
+      },
+      {
+        "mpId": 5072,
+        "score": 0.8742274308808125,
+        "overlap": 63
+      },
+      {
+        "mpId": 5256,
+        "score": 0.8718267164379812,
+        "overlap": 59
+      },
+      {
+        "mpId": 5233,
+        "score": 0.8645309671165332,
+        "overlap": 62
+      },
+      {
+        "mpId": 5246,
+        "score": 0.8628708445067482,
+        "overlap": 56
+      },
+      {
+        "mpId": 5215,
+        "score": 0.8620689655172413,
+        "overlap": 61
+      },
+      {
+        "mpId": 5181,
+        "score": 0.8547320749391972,
+        "overlap": 60
+      },
+      {
+        "mpId": 5082,
+        "score": 0.852206133166107,
+        "overlap": 57
+      },
+      {
+        "mpId": 5193,
+        "score": 0.8477073063820015,
+        "overlap": 54
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3945,
+        "score": 0.16413304107465318,
+        "overlap": 19
+      },
+      {
+        "mpId": 3995,
+        "score": 0.16413304107465318,
+        "overlap": 19
+      },
+      {
+        "mpId": 4100,
+        "score": 0.17616606585441102,
+        "overlap": 5
+      },
+      {
+        "mpId": 4109,
+        "score": 0.17616606585441102,
+        "overlap": 5
+      },
+      {
+        "mpId": 4111,
+        "score": 0.17616606585441102,
+        "overlap": 5
+      },
+      {
+        "mpId": 5247,
+        "score": 0.18343527014039426,
+        "overlap": 60
+      },
+      {
+        "mpId": 5234,
+        "score": 0.19695964928958382,
+        "overlap": 61
+      },
+      {
+        "mpId": 4017,
+        "score": 0.21575848566842287,
+        "overlap": 35
+      },
+      {
+        "mpId": 5101,
+        "score": 0.2229254143544687,
+        "overlap": 65
+      },
+      {
+        "mpId": 5171,
+        "score": 0.22627786434233255,
+        "overlap": 65
+      },
+      {
+        "mpId": 4057,
+        "score": 0.2321191727213148,
+        "overlap": 8
+      },
+      {
+        "mpId": 4007,
+        "score": 0.2358333153182891,
+        "overlap": 36
+      },
+      {
+        "mpId": 5060,
+        "score": 0.24062450914321204,
+        "overlap": 64
+      },
+      {
+        "mpId": 5159,
+        "score": 0.2442983782441711,
+        "overlap": 64
+      },
+      {
+        "mpId": 5194,
+        "score": 0.2442983782441711,
+        "overlap": 64
+      },
+      {
+        "mpId": 3996,
+        "score": 0.24565184222025874,
+        "overlap": 17
+      },
+      {
+        "mpId": 4006,
+        "score": 0.24565184222025874,
+        "overlap": 17
+      },
+      {
+        "mpId": 4055,
+        "score": 0.24565184222025874,
+        "overlap": 17
+      },
+      {
+        "mpId": 5273,
+        "score": 0.24619956161197978,
+        "overlap": 63
+      },
+      {
+        "mpId": 4023,
+        "score": 0.2553310899934463,
+        "overlap": 36
+      }
+    ]
+  }
+}

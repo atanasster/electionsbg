@@ -1,0 +1,255 @@
+{
+  "mpId": 4775,
+  "ns": "45",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 184,
+    "withParty": 181,
+    "loyaltyPct": 0.9836956521739131,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 184,
+    "dissentCount": 3,
+    "recent": [
+      {
+        "date": "2021-05-07",
+        "item": 13,
+        "slug": "13-ratifikatsiya-na-protokol-za-izmenenie-na-sporazumenieto-mez",
+        "title": "Ратификация на Протокол за изменение на Споразумението между правителството на Република България и правителството на Румъния относно презгранични операции за Air Policing - второ гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-05-07",
+        "item": 12,
+        "slug": "12-ratifikatsiya-na-protokol-za-izmenenie-na-sporazumenieto-mez",
+        "title": "Ратификация на Протокол за изменение на Споразумението между правителството на Република България и правителството на Румъния относно презгранични операции за Air Policing - първо гласуване - процедура за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-05-07",
+        "item": 11,
+        "slug": "11-ratifikatsiya-na-protokol-za-izmenenie-na-sporazumenieto-mez",
+        "title": "Ратификация на Протокол за изменение на Споразумението между правителството на Република България и правителството на Румъния относно презгранични операции за Air Policing - първо гласуване - прегласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4754,
+        "score": 0.9736472987288455,
+        "overlap": 177
+      },
+      {
+        "mpId": 1366,
+        "score": 0.9425101670767123,
+        "overlap": 180
+      },
+      {
+        "mpId": 3783,
+        "score": 0.9330696892331957,
+        "overlap": 177
+      },
+      {
+        "mpId": 1699,
+        "score": 0.9318449224716766,
+        "overlap": 170
+      },
+      {
+        "mpId": 1654,
+        "score": 0.923827157842853,
+        "overlap": 181
+      },
+      {
+        "mpId": 3287,
+        "score": 0.923827157842853,
+        "overlap": 179
+      },
+      {
+        "mpId": 4552,
+        "score": 0.9077191636861504,
+        "overlap": 166
+      },
+      {
+        "mpId": 3714,
+        "score": 0.9007633587786259,
+        "overlap": 168
+      },
+      {
+        "mpId": 4738,
+        "score": 0.8975323491154298,
+        "overlap": 158
+      },
+      {
+        "mpId": 1648,
+        "score": 0.8915800292786527,
+        "overlap": 171
+      },
+      {
+        "mpId": 4154,
+        "score": 0.870330979413264,
+        "overlap": 141
+      },
+      {
+        "mpId": 1677,
+        "score": 0.8642814641495705,
+        "overlap": 153
+      },
+      {
+        "mpId": 4122,
+        "score": 0.8329601234121696,
+        "overlap": 162
+      },
+      {
+        "mpId": 4221,
+        "score": 0.8289184969245434,
+        "overlap": 125
+      },
+      {
+        "mpId": 4500,
+        "score": 0.8277487603574163,
+        "overlap": 144
+      },
+      {
+        "mpId": 4995,
+        "score": 0.8239076780986865,
+        "overlap": 153
+      },
+      {
+        "mpId": 4326,
+        "score": 0.81810470760079,
+        "overlap": 153
+      },
+      {
+        "mpId": 4802,
+        "score": 0.8158170829823049,
+        "overlap": 145
+      },
+      {
+        "mpId": 3274,
+        "score": 0.8139004485228496,
+        "overlap": 135
+      },
+      {
+        "mpId": 3322,
+        "score": 0.8092330162302931,
+        "overlap": 133
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4632,
+        "score": -0.210156508122437,
+        "overlap": 62
+      },
+      {
+        "mpId": 1600,
+        "score": -0.18566211204047056,
+        "overlap": 68
+      },
+      {
+        "mpId": 5173,
+        "score": -0.18351455848153966,
+        "overlap": 56
+      },
+      {
+        "mpId": 4258,
+        "score": -0.08430381637964367,
+        "overlap": 95
+      },
+      {
+        "mpId": 4267,
+        "score": -0.08147332338154854,
+        "overlap": 111
+      },
+      {
+        "mpId": 4249,
+        "score": -0.07566499084579774,
+        "overlap": 108
+      },
+      {
+        "mpId": 5248,
+        "score": -0.06178020632152154,
+        "overlap": 96
+      },
+      {
+        "mpId": 1622,
+        "score": -0.05728091760930676,
+        "overlap": 109
+      },
+      {
+        "mpId": 1634,
+        "score": -0.05112966255076047,
+        "overlap": 72
+      },
+      {
+        "mpId": 4854,
+        "score": -0.04127863666773915,
+        "overlap": 116
+      },
+      {
+        "mpId": 4872,
+        "score": -0.03362888482035455,
+        "overlap": 105
+      },
+      {
+        "mpId": 4225,
+        "score": -0.03019061391407273,
+        "overlap": 132
+      },
+      {
+        "mpId": 5117,
+        "score": -0.02325860945944311,
+        "overlap": 122
+      },
+      {
+        "mpId": 5126,
+        "score": -0.02316757737057058,
+        "overlap": 123
+      },
+      {
+        "mpId": 1811,
+        "score": -0.018317814287603876,
+        "overlap": 93
+      },
+      {
+        "mpId": 5125,
+        "score": -0.01582028971803639,
+        "overlap": 113
+      },
+      {
+        "mpId": 1805,
+        "score": -0.01562929330329127,
+        "overlap": 123
+      },
+      {
+        "mpId": 1806,
+        "score": -0.01562929330329127,
+        "overlap": 121
+      },
+      {
+        "mpId": 4912,
+        "score": -0.015385070570951702,
+        "overlap": 126
+      },
+      {
+        "mpId": 1529,
+        "score": -0.015267175572519083,
+        "overlap": 126
+      }
+    ]
+  }
+}

@@ -1,0 +1,607 @@
+{
+  "mpId": 5220,
+  "ns": "47",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 1204,
+    "withParty": 1163,
+    "loyaltyPct": 0.9659468438538206,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1204,
+    "dissentCount": 41,
+    "recent": [
+      {
+        "date": "2022-07-29",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-zdraveto-parvo-glasuvane-protsedura-za-dopu",
+        "title": "ЗИД на Закона за здравето - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2022-07-22",
+        "item": 30,
+        "slug": "30-zid-na-zakona-za-hazarta-vtoro-glasuvane-protsedura-za-dopus",
+        "title": "ЗИД на Закона за хазарта - второ гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2022-07-21",
+        "item": 50,
+        "slug": "50-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 18",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 32
+      },
+      {
+        "date": "2022-07-21",
+        "item": 49,
+        "slug": "49-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 17",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 32
+      },
+      {
+        "date": "2022-07-21",
+        "item": 46,
+        "slug": "46-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 15 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 34
+      },
+      {
+        "date": "2022-07-21",
+        "item": 44,
+        "slug": "44-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 14",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 27
+      },
+      {
+        "date": "2022-07-21",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 1 - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2022-07-01",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-merkite-i-deystviyata-po-vreme-na-izvanredn",
+        "title": "ЗИД на Закона за мерките и действията по време на извънредното положение, обявено с решение на Народното събрание от 13 март 2020 г. и за преодоляване на последиците - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-06-01",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-1-3-yuni-2022-",
+        "title": "Програма за работата на Народното събрание за 1 - 3 юни 2022 г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 43
+      },
+      {
+        "date": "2022-05-25",
+        "item": 27,
+        "slug": "27-zid-na-zakona-za-nasarchavane-na-zaetostta-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за насърчаване на заетостта - второ гласуване - параграф 17 (става параграф 18) - предложение от Георги Георгиев и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 35
+      },
+      {
+        "date": "2022-05-25",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-nasarchavane-na-zaetostta-vtoro-glasuvane-p",
+        "title": "ЗИД на Закона за насърчаване на заетостта - второ гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-05-18",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-18-20-may-2022",
+        "title": "Програма за работата на Народното събрание за 18 - 20 май 2022г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 50
+      },
+      {
+        "date": "2022-05-05",
+        "item": 19,
+        "slug": "19-reshenie-za-izbor-na-dvama-chlenove-na-saveta-za-elektronni-",
+        "title": "Решение за избор на двама членове на Съвета за електронни медии - процедура за допускане в зала",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 36
+      },
+      {
+        "date": "2022-04-21",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование - второ гласуване - параграф 5 (става параграф 6) и параграф 6 (става параграф 7)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 37
+      },
+      {
+        "date": "2022-04-21",
+        "item": 7,
+        "slug": "7-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование - второ гласуване - параграф 5 (става параграф 6) - предложение от Петър Чобанов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 36
+      },
+      {
+        "date": "2022-04-14",
+        "item": 2,
+        "slug": "2-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-naimenovani",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - наименование, параграф 1 и параграф 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2022-03-31",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-zdravnoto-osiguryavane-parvo-glasuvane",
+        "title": "ЗИД на Закона за здравното осигуряване - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 50
+      },
+      {
+        "date": "2022-03-30",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-30-mart-1-apri",
+        "title": "Програма за работата на Народното събрание за 30 март - 1 април 2022 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 50
+      },
+      {
+        "date": "2022-03-24",
+        "item": 2,
+        "slug": "2-protsedura-ot-nikola-minchev-za-razmestvane-na-tochkite",
+        "title": "Процедура от Никола Минчев за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2022-03-09",
+        "item": 3,
+        "slug": "3",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 43
+      },
+      {
+        "date": "2022-03-02",
+        "item": 2,
+        "slug": "2",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-02-25",
+        "item": 10,
+        "slug": "10",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 22
+      },
+      {
+        "date": "2022-02-23",
+        "item": 15,
+        "slug": "15",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 49
+      },
+      {
+        "date": "2022-02-22",
+        "item": 53,
+        "slug": "53",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 53
+      },
+      {
+        "date": "2022-02-22",
+        "item": 8,
+        "slug": "8",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2022-02-22",
+        "item": 7,
+        "slug": "7",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 38
+      },
+      {
+        "date": "2022-02-17",
+        "item": 14,
+        "slug": "14",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 21
+      },
+      {
+        "date": "2022-02-16",
+        "item": 38,
+        "slug": "38",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-02-16",
+        "item": 37,
+        "slug": "37",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2022-02-16",
+        "item": 17,
+        "slug": "17",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 3
+      },
+      {
+        "date": "2022-02-16",
+        "item": 2,
+        "slug": "2",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 45
+      },
+      {
+        "date": "2022-02-09",
+        "item": 2,
+        "slug": "2",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 47
+      },
+      {
+        "date": "2022-01-26",
+        "item": 4,
+        "slug": "4",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 48
+      },
+      {
+        "date": "2022-01-12",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-kolektivnite-investitsionni-shemi-i-na-drug",
+        "title": "ЗИД на Закона за колективните инвестиционни схеми и на други предприятия за колективно инвестиране - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 45
+      },
+      {
+        "date": "2022-01-07",
+        "item": 7,
+        "slug": "7-reshenie-za-priemane-na-usloviya-za-dostap-do-sgradite-na-na",
+        "title": "Решение за приемане на Условия за достъп до сградите на Народното събрание в условията на извънредна епидемична обстановка - текст преди точка 1 - предложение за редакция от Комисията по здравеопазването",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 5
+      },
+      {
+        "date": "2021-12-22",
+        "item": 39,
+        "slug": "39-reshenie-za-izbirane-na-komisiya-po-vaprosite-na-detsata-mla",
+        "title": "Решение за избиране на Комисия по въпросите на децата, младежта и спорта - ръководство и състав",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 34
+      },
+      {
+        "date": "2021-12-22",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-22-i-23-dekemv",
+        "title": "Програма за работата на Народното събрание за 22 и 23 декември 2021 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2021-12-16",
+        "item": 20,
+        "slug": "20-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - процедура от Настимир Ананиев за удължаване на заседанието до 16 часа",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 46
+      },
+      {
+        "date": "2021-12-16",
+        "item": 11,
+        "slug": "11-reshenie-za-izmenenie-i-dopalnenie-na-reshenie-na-narodnoto-",
+        "title": "Решение за изменение и допълнение на Решение на Народното събрание за справяне с ценовата криза на електроенергията, прието на 15.12.2021 г. - предложение за редакция по т. 3 от Петър Куленски",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2021-12-16",
+        "item": 6,
+        "slug": "6-reshenie-za-izmenenie-i-dopalnenie-na-reshenie-na-narodnoto-",
+        "title": "Решение за изменение и допълнение на Решение на Народното събрание за справяне с ценовата криза на електроенергията, прието на 15.12.2021 г. - предложение за редакция от Рамадан Аталай",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2021-12-10",
+        "item": 5,
+        "slug": "5-reshenie-za-priemane-na-pravila-za-distantsionno-uchastie-v-",
+        "title": "Решение за приемане на Правила за дистанционно участие в заседанията на Народното събрание на народни представители, поставени под задължителна изолация или карантина поради COVID-19",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 42
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4808,
+        "score": 0.9070642642316276,
+        "overlap": 1131
+      },
+      {
+        "mpId": 5274,
+        "score": 0.8837931602175385,
+        "overlap": 1147
+      },
+      {
+        "mpId": 4703,
+        "score": 0.87731689654126,
+        "overlap": 1103
+      },
+      {
+        "mpId": 4983,
+        "score": 0.8674699658836654,
+        "overlap": 1075
+      },
+      {
+        "mpId": 5083,
+        "score": 0.8579465623927686,
+        "overlap": 1002
+      },
+      {
+        "mpId": 4272,
+        "score": 0.8570177846945038,
+        "overlap": 1040
+      },
+      {
+        "mpId": 4739,
+        "score": 0.8500907941823101,
+        "overlap": 959
+      },
+      {
+        "mpId": 4807,
+        "score": 0.8491163719051988,
+        "overlap": 982
+      },
+      {
+        "mpId": 5207,
+        "score": 0.844963021723528,
+        "overlap": 1030
+      },
+      {
+        "mpId": 4130,
+        "score": 0.8442193518802191,
+        "overlap": 996
+      },
+      {
+        "mpId": 5157,
+        "score": 0.8402823328725036,
+        "overlap": 977
+      },
+      {
+        "mpId": 4147,
+        "score": 0.8382285144412742,
+        "overlap": 958
+      },
+      {
+        "mpId": 2095,
+        "score": 0.8371875217170093,
+        "overlap": 975
+      },
+      {
+        "mpId": 4820,
+        "score": 0.8279735830552131,
+        "overlap": 1012
+      },
+      {
+        "mpId": 4778,
+        "score": 0.8262741541435047,
+        "overlap": 912
+      },
+      {
+        "mpId": 2044,
+        "score": 0.8253341401940344,
+        "overlap": 1068
+      },
+      {
+        "mpId": 5103,
+        "score": 0.8233323914596149,
+        "overlap": 1007
+      },
+      {
+        "mpId": 4590,
+        "score": 0.8178908054006149,
+        "overlap": 937
+      },
+      {
+        "mpId": 3892,
+        "score": 0.8169979531407786,
+        "overlap": 938
+      },
+      {
+        "mpId": 5075,
+        "score": 0.8164125814228919,
+        "overlap": 967
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5283,
+        "score": -0.19157851786799038,
+        "overlap": 852
+      },
+      {
+        "mpId": 2045,
+        "score": -0.17522751941067016,
+        "overlap": 929
+      },
+      {
+        "mpId": 4741,
+        "score": -0.1747373715431117,
+        "overlap": 915
+      },
+      {
+        "mpId": 2175,
+        "score": -0.16930228972498407,
+        "overlap": 1035
+      },
+      {
+        "mpId": 1336,
+        "score": -0.1661325664594735,
+        "overlap": 898
+      },
+      {
+        "mpId": 4160,
+        "score": -0.1651324782197544,
+        "overlap": 1049
+      },
+      {
+        "mpId": 4324,
+        "score": -0.16307300513945822,
+        "overlap": 948
+      },
+      {
+        "mpId": 2080,
+        "score": -0.15771848403135924,
+        "overlap": 1020
+      },
+      {
+        "mpId": 4802,
+        "score": -0.1566803416836205,
+        "overlap": 1051
+      },
+      {
+        "mpId": 4054,
+        "score": -0.15495332339383397,
+        "overlap": 1037
+      },
+      {
+        "mpId": 4262,
+        "score": -0.15408674627002913,
+        "overlap": 971
+      },
+      {
+        "mpId": 4726,
+        "score": -0.1521965503471378,
+        "overlap": 841
+      },
+      {
+        "mpId": 4224,
+        "score": -0.14984756994254886,
+        "overlap": 1082
+      },
+      {
+        "mpId": 5300,
+        "score": -0.14810282273542485,
+        "overlap": 1090
+      },
+      {
+        "mpId": 2026,
+        "score": -0.14792555800432622,
+        "overlap": 1087
+      },
+      {
+        "mpId": 4316,
+        "score": -0.1459147115485596,
+        "overlap": 951
+      },
+      {
+        "mpId": 4009,
+        "score": -0.14387935512174677,
+        "overlap": 1074
+      },
+      {
+        "mpId": 2160,
+        "score": -0.13908494033623597,
+        "overlap": 1074
+      },
+      {
+        "mpId": 4221,
+        "score": -0.1390616230861076,
+        "overlap": 983
+      },
+      {
+        "mpId": 3914,
+        "score": -0.13863160054004137,
+        "overlap": 1120
+      }
+    ]
+  }
+}

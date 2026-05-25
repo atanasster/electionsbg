@@ -1,0 +1,455 @@
+{
+  "mpId": 5172,
+  "ns": "51",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 513,
+    "withParty": 490,
+    "loyaltyPct": 0.9551656920077972,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 513,
+    "dissentCount": 23,
+    "recent": [
+      {
+        "date": "2026-04-01",
+        "item": 7,
+        "slug": "7-protsedura-ot-atanas-v-atanasov-tochka-4-da-stane-tochka-2",
+        "title": "Процедура от Атанас В. Атанасов точка 4 да стане точка 2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-03-19",
+        "item": 43,
+        "slug": "43-zakon-za-prozrachnost-i-pochtenost-v-upravlenieto-vtoro-glas",
+        "title": "Закон за прозрачност и почтеност в управлението – второ гласуване - параграф 1 - предложение от Юлиана Матеева",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-03-18",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-18-i-19-mart-2",
+        "title": "Програма за работата на Народното събрание за 18 и 19 март 2026 г. - предложение от Искра Михайлова и Даниел Проданов - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 59
+      },
+      {
+        "date": "2026-03-11",
+        "item": 3,
+        "slug": "3-programa-na-narodnoto-sabranie-za-11-13-fevruari-2026-g-pred",
+        "title": "Програма на Народното събрание за 11 - 13 февруари 2026 г. - предложение от Ангел Славчев",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 60
+      },
+      {
+        "date": "2026-03-04",
+        "item": 24,
+        "slug": "24-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-8-nov-p",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 8 - нов - предложение от Божидар Божанов и Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2026-02-27",
+        "item": 7,
+        "slug": "7-ratifikatsiya-na-sporazumenieto-za-partnyorstvo-mezhdu-evrop",
+        "title": "Ратификация на Споразумението за партньорство между Европейския съюз и неговите държави членки, от една страна, и членовете на Организацията на държавите от Африка, Карибите и Тихоокеанския басейн, от друга страна, подписано в Самоа на 15 ноември 2023 г. - процедура за допускане в зала - прегласуване",
+        "topic": "ratification",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 49
+      },
+      {
+        "date": "2026-02-25",
+        "item": 36,
+        "slug": "36-reshenie-za-popalvane-sastava-na-komisiyata-po-truda-i-sotsi",
+        "title": "Решение за попълване състава на Комисията по труда и социалната политика - Жечо Станков и Георги Георгиев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 53
+      },
+      {
+        "date": "2026-02-20",
+        "item": 7,
+        "slug": "7-zd-na-zakona-za-podpomagane-na-zemedelskite-proizvoditeli-pa",
+        "title": "ЗД на Закона за подпомагане на земеделските производители - първо гласуване - предложение от Иван Д. Иванов за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 45
+      },
+      {
+        "date": "2025-01-15",
+        "item": 103,
+        "slug": "103-zakon-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-razhodi-pr",
+        "title": "Закон за събирането на приходи и извършването на разходи през 2025 г. до приемането на Закона за държавния бюджет на Република България за 2025 г., Закона за бюджета на държавното обществено осигуряване за 2025 г. и Закона за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - предложение от Мартин Димитров и Божидар Божанов - процедура за допустимост",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2025-01-15",
+        "item": 100,
+        "slug": "100-zakon-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-razhodi-pr",
+        "title": "Закон за събирането на приходи и извършването на разходи през 2025 г. до приемането на Закона за държавния бюджет на Република България за 2025 г., Закона за бюджета на държавното обществено осигуряване за 2025 г. и Закона за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - предложение от Кирил Петков и група н.п. (№...04-11 за МВР ) - процедура за допустимост",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2025-01-15",
+        "item": 99,
+        "slug": "99-zakon-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-razhodi-pr",
+        "title": "Закон за събирането на приходи и извършването на разходи през 2025 г. до приемането на Закона за държавния бюджет на Република България за 2025 г., Закона за бюджета на държавното обществено осигуряване за 2025 г. и Закона за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - предложение от Кирил Петков и група н.п. (№...04-10) - процедура за допустимост",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2025-01-15",
+        "item": 96,
+        "slug": "96-zakon-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-razhodi-pr",
+        "title": "Закон за събирането на приходи и извършването на разходи през 2025 г. до приемането на Закона за държавния бюджет на Република България за 2025 г., Закона за бюджета на държавното обществено осигуряване за 2025 г. и Закона за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - предложение от Кирил Петков и група н.п. (в Закон за МВР) - процедура за допустимост",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2025-01-15",
+        "item": 94,
+        "slug": "94-zakon-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-razhodi-pr",
+        "title": "Закон за събирането на приходи и извършването на разходи през 2025 г. до приемането на Закона за държавния бюджет на Република България за 2025 г., Закона за бюджета на държавното обществено осигуряване за 2025 г. и Закона за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - предложение от Йордан Цонев (№51-554-04-6) - процедура за допустимост",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 65
+      },
+      {
+        "date": "2025-01-15",
+        "item": 84,
+        "slug": "84-zakon-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-razhodi-pr",
+        "title": "Закон за събирането на приходи и извършването на разходи през 2025 г. до приемането на Закона за държавния бюджет на Република България за 2025 г., Закона за бюджета на държавното обществено осигуряване за 2025 г. и Закона за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - член 3 - предложение от Мартин Димитров и Божидар Божанов",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2025-01-15",
+        "item": 69,
+        "slug": "69-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-32",
+        "title": "ЗИД на Закона за съдебната власт – второ гласуване - параграф 32 - предложение от Надежда Йорданова, Божидар Божанов и Стою Стоев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2025-01-15",
+        "item": 48,
+        "slug": "48-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-31",
+        "title": "ЗИД на Закона за съдебната власт – второ гласуване - параграф 31 - предложение от Надежда Йорданова, Божидар Божанов и Стою Стоев - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2025-01-15",
+        "item": 44,
+        "slug": "44-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-31",
+        "title": "ЗИД на Закона за съдебната власт – второ гласуване - параграф 31 - предложение от Петър Петров и Цвета Рангелова т.1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 65
+      },
+      {
+        "date": "2024-12-18",
+        "item": 75,
+        "slug": "75-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 135 - нов - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-12-18",
+        "item": 56,
+        "slug": "56-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 89 - предложение от Атанас Славов и група н.п. т.3",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 55
+      },
+      {
+        "date": "2024-12-18",
+        "item": 55,
+        "slug": "55-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 89 - предложение от Атанас Славов и група н.п. т.1, т.2, т.4 и т.5 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-12-18",
+        "item": 11,
+        "slug": "11-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 16 - предложение от Павела Митова и Александър Рашев",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2024-11-15",
+        "item": 7,
+        "slug": "7-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Андрей Цеков - балотаж (15.11.2024г.)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 69
+      },
+      {
+        "date": "2024-11-15",
+        "item": 1,
+        "slug": "1-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Андрей Цеков (15.11.2024г.)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 69
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5091,
+        "score": 0.8561884226006443,
+        "overlap": 466
+      },
+      {
+        "mpId": 5128,
+        "score": 0.8403575810421093,
+        "overlap": 467
+      },
+      {
+        "mpId": 5117,
+        "score": 0.7818070007306706,
+        "overlap": 443
+      },
+      {
+        "mpId": 5284,
+        "score": 0.7629711960055701,
+        "overlap": 420
+      },
+      {
+        "mpId": 3081,
+        "score": 0.6033224082793661,
+        "overlap": 249
+      },
+      {
+        "mpId": 3533,
+        "score": 0.5816099290447148,
+        "overlap": 227
+      },
+      {
+        "mpId": 5207,
+        "score": 0.5677113414461913,
+        "overlap": 222
+      },
+      {
+        "mpId": 5293,
+        "score": 0.5448532760747032,
+        "overlap": 201
+      },
+      {
+        "mpId": 3580,
+        "score": 0.49804568756796397,
+        "overlap": 219
+      },
+      {
+        "mpId": 3547,
+        "score": 0.4896737041273894,
+        "overlap": 223
+      },
+      {
+        "mpId": 3148,
+        "score": 0.4590946182442182,
+        "overlap": 244
+      },
+      {
+        "mpId": 3373,
+        "score": 0.4249760134972085,
+        "overlap": 261
+      },
+      {
+        "mpId": 3039,
+        "score": 0.4151093246156173,
+        "overlap": 184
+      },
+      {
+        "mpId": 3410,
+        "score": 0.4139740750405586,
+        "overlap": 216
+      },
+      {
+        "mpId": 3023,
+        "score": 0.3963383057220919,
+        "overlap": 241
+      },
+      {
+        "mpId": 3209,
+        "score": 0.3759865566185397,
+        "overlap": 511
+      },
+      {
+        "mpId": 3051,
+        "score": 0.36010660733599303,
+        "overlap": 184
+      },
+      {
+        "mpId": 3052,
+        "score": 0.35863523532448394,
+        "overlap": 389
+      },
+      {
+        "mpId": 3539,
+        "score": 0.35556115406391736,
+        "overlap": 164
+      },
+      {
+        "mpId": 3339,
+        "score": 0.3548505051897339,
+        "overlap": 504
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3516,
+        "score": 0,
+        "overlap": 151
+      },
+      {
+        "mpId": 3480,
+        "score": 0.005117713801485002,
+        "overlap": 152
+      },
+      {
+        "mpId": 3517,
+        "score": 0.007146843916805388,
+        "overlap": 212
+      },
+      {
+        "mpId": 3515,
+        "score": 0.007333598932123969,
+        "overlap": 221
+      },
+      {
+        "mpId": 3510,
+        "score": 0.007450387287405879,
+        "overlap": 192
+      },
+      {
+        "mpId": 3485,
+        "score": 0.008168188341470085,
+        "overlap": 56
+      },
+      {
+        "mpId": 3512,
+        "score": 0.00889175155725788,
+        "overlap": 166
+      },
+      {
+        "mpId": 3509,
+        "score": 0.009353804397670957,
+        "overlap": 56
+      },
+      {
+        "mpId": 3490,
+        "score": 0.009414436309095577,
+        "overlap": 129
+      },
+      {
+        "mpId": 3513,
+        "score": 0.00966368949255469,
+        "overlap": 209
+      },
+      {
+        "mpId": 3514,
+        "score": 0.01323209233791307,
+        "overlap": 185
+      },
+      {
+        "mpId": 3508,
+        "score": 0.013772398360814982,
+        "overlap": 197
+      },
+      {
+        "mpId": 3477,
+        "score": 0.016766853332113814,
+        "overlap": 84
+      },
+      {
+        "mpId": 3482,
+        "score": 0.019693594227113444,
+        "overlap": 149
+      },
+      {
+        "mpId": 3581,
+        "score": 0.02049315866838163,
+        "overlap": 88
+      },
+      {
+        "mpId": 5159,
+        "score": 0.021843009934654035,
+        "overlap": 389
+      },
+      {
+        "mpId": 3142,
+        "score": 0.022014916513713817,
+        "overlap": 438
+      },
+      {
+        "mpId": 3484,
+        "score": 0.025153112019471877,
+        "overlap": 100
+      },
+      {
+        "mpId": 3230,
+        "score": 0.025830079516278654,
+        "overlap": 405
+      },
+      {
+        "mpId": 5194,
+        "score": 0.02680078737217205,
+        "overlap": 376
+      }
+    ]
+  }
+}

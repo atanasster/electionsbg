@@ -1,0 +1,365 @@
+{
+  "mpId": 5157,
+  "ns": "50",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 563,
+    "withParty": 549,
+    "loyaltyPct": 0.9751332149200711,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 563,
+    "dissentCount": 14,
+    "recent": [
+      {
+        "date": "2024-09-11",
+        "item": 35,
+        "slug": "35-zid-na-zakona-za-advokaturata-vtoro-glasuvane-paragraf-11-pr",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - параграф 11 - предложение от Марин Маринов - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 52
+      },
+      {
+        "date": "2024-09-04",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-nezavisimiya-finansov-odit-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за независимия финансов одит - второ гласуване - параграф 22 до параграф 54",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 46
+      },
+      {
+        "date": "2024-09-04",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-nezavisimiya-finansov-odit-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за независимия финансов одит - второ гласуване - член 51 - предложение от Димо Дренчев и Цончо Ганев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 44
+      },
+      {
+        "date": "2024-09-04",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-nezavisimiya-finansov-odit-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за независимия финансов одит - второ гласуване - член 49 - предложение от Димо Дренчев и Цончо Ганев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2024-09-04",
+        "item": 21,
+        "slug": "21-zid-na-zakona-za-nezavisimiya-finansov-odit-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за независимия финансов одит - второ гласуване - член 46 - предложение от Димо Дренчев и Цончо Ганев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2024-09-04",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-nezavisimiya-finansov-odit-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за независимия финансов одит - второ гласуване - член 36 - предложение от Димо Дренчев и Цончо Ганев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2024-08-14",
+        "item": 6,
+        "slug": "6-reshenie-za-promyana-v-sastava-na-komisiyata-po-obrazovaniet",
+        "title": "Решение за промяна в състава на Комисията по образованието и науката",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2024-08-08",
+        "item": 3,
+        "slug": "3-protsedura-ot-georgi-svilenski-za-razmestvane-na-tochkite",
+        "title": "Процедура от Георги Свиленски за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 65
+      },
+      {
+        "date": "2024-08-07",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – първо гласуване - вносител Костадин Костадинов и група н.п. - процедура от Г.Свиленски за преминаване на второ гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-07-31",
+        "item": 26,
+        "slug": "26-zid-na-grazhdanskiya-protsesualen-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Гражданския процесуален кодекс – второ гласуване - параграф 3",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 53
+      },
+      {
+        "date": "2024-07-31",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-protsedur",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2024-07-26",
+        "item": 8,
+        "slug": "8-protsedura-ot-iskra-mihaylova-za-razmestvane-na-tochkite-t-6",
+        "title": "Процедура от Искра Михайлова за разместване на точките - т.6 да стане т.2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-07-12",
+        "item": 84,
+        "slug": "84-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т. 9",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 54
+      },
+      {
+        "date": "2024-07-12",
+        "item": 79,
+        "slug": "79-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т.4",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 57
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4783,
+        "score": 0.9270525282844211,
+        "overlap": 558
+      },
+      {
+        "mpId": 4807,
+        "score": 0.9262530002975774,
+        "overlap": 554
+      },
+      {
+        "mpId": 4816,
+        "score": 0.9258220043740034,
+        "overlap": 525
+      },
+      {
+        "mpId": 4895,
+        "score": 0.9239381504169272,
+        "overlap": 560
+      },
+      {
+        "mpId": 4721,
+        "score": 0.9192737609814581,
+        "overlap": 558
+      },
+      {
+        "mpId": 4808,
+        "score": 0.9172101629761866,
+        "overlap": 553
+      },
+      {
+        "mpId": 4896,
+        "score": 0.9147134470559447,
+        "overlap": 533
+      },
+      {
+        "mpId": 4983,
+        "score": 0.9144518143077396,
+        "overlap": 559
+      },
+      {
+        "mpId": 5133,
+        "score": 0.9123931155698436,
+        "overlap": 532
+      },
+      {
+        "mpId": 4820,
+        "score": 0.9099824690780347,
+        "overlap": 541
+      },
+      {
+        "mpId": 4718,
+        "score": 0.9067719487962751,
+        "overlap": 514
+      },
+      {
+        "mpId": 5207,
+        "score": 0.9052435558823021,
+        "overlap": 525
+      },
+      {
+        "mpId": 5083,
+        "score": 0.9017322310529892,
+        "overlap": 543
+      },
+      {
+        "mpId": 4749,
+        "score": 0.900562851782364,
+        "overlap": 527
+      },
+      {
+        "mpId": 4739,
+        "score": 0.900103179704172,
+        "overlap": 534
+      },
+      {
+        "mpId": 2905,
+        "score": 0.899522402079633,
+        "overlap": 541
+      },
+      {
+        "mpId": 4733,
+        "score": 0.8980516913344055,
+        "overlap": 539
+      },
+      {
+        "mpId": 5103,
+        "score": 0.8929934167520488,
+        "overlap": 532
+      },
+      {
+        "mpId": 2765,
+        "score": 0.8883827704232687,
+        "overlap": 526
+      },
+      {
+        "mpId": 4777,
+        "score": 0.8871904766388383,
+        "overlap": 495
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2930,
+        "score": -0.02500781616401777,
+        "overlap": 7
+      },
+      {
+        "mpId": 5007,
+        "score": -0.018250715470005226,
+        "overlap": 312
+      },
+      {
+        "mpId": 2967,
+        "score": 0.01702588459616348,
+        "overlap": 284
+      },
+      {
+        "mpId": 2904,
+        "score": 0.06786126248909875,
+        "overlap": 37
+      },
+      {
+        "mpId": 2909,
+        "score": 0.06786126248909875,
+        "overlap": 37
+      },
+      {
+        "mpId": 2951,
+        "score": 0.07428428319004365,
+        "overlap": 39
+      },
+      {
+        "mpId": 2946,
+        "score": 0.07828684767618646,
+        "overlap": 21
+      },
+      {
+        "mpId": 4899,
+        "score": 0.08559915095541436,
+        "overlap": 75
+      },
+      {
+        "mpId": 2912,
+        "score": 0.09134566661166331,
+        "overlap": 42
+      },
+      {
+        "mpId": 2953,
+        "score": 0.09134566661166331,
+        "overlap": 41
+      },
+      {
+        "mpId": 4787,
+        "score": 0.09188458377475334,
+        "overlap": 75
+      },
+      {
+        "mpId": 2927,
+        "score": 0.09257183780670561,
+        "overlap": 42
+      },
+      {
+        "mpId": 2961,
+        "score": 0.09710288373341579,
+        "overlap": 43
+      },
+      {
+        "mpId": 2992,
+        "score": 0.10154468290078694,
+        "overlap": 134
+      },
+      {
+        "mpId": 3014,
+        "score": 0.10158222946627814,
+        "overlap": 23
+      },
+      {
+        "mpId": 2990,
+        "score": 0.10594257431481366,
+        "overlap": 117
+      },
+      {
+        "mpId": 2918,
+        "score": 0.10681365900773725,
+        "overlap": 41
+      },
+      {
+        "mpId": 5004,
+        "score": 0.11815082571930763,
+        "overlap": 349
+      },
+      {
+        "mpId": 4819,
+        "score": 0.11869307519919274,
+        "overlap": 115
+      },
+      {
+        "mpId": 2893,
+        "score": 0.12287685874807992,
+        "overlap": 21
+      }
+    ]
+  }
+}

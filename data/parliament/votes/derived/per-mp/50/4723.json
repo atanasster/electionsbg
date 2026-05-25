@@ -1,0 +1,315 @@
+{
+  "mpId": 4723,
+  "ns": "50",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 456,
+    "withParty": 447,
+    "loyaltyPct": 0.9802631578947368,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 456,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2024-09-26",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-vnositeli",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - вносители Елисавета Белобрадова и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-09-25",
+        "item": 58,
+        "slug": "58-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-15-nov",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 15 - нов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-09-20",
+        "item": 12,
+        "slug": "12-ratifikatsiya-na-aktovete-na-chetvartiya-izvanreden-kongres-",
+        "title": "Ратификация на актовете на Четвъртия извънреден конгрес на Всемирния пощенски съюз - процедура за допускане в зала",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-07-31",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – второ гласуване - параграф 1 (става параграф 2) - предложение от Венко Сабрутев за редакция",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2024-07-31",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-31-yuli-2-avgu",
+        "title": "Програма за работата на Народното събрание за 31 юли – 2 август 2024 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-07-26",
+        "item": 9,
+        "slug": "9-protsedura-ot-al-ivanov-za-udalzhavane-na-r-vreme",
+        "title": "Процедура от Ал.Иванов за удължаване на р.време",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-07-12",
+        "item": 85,
+        "slug": "85-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т. 10",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-07-04",
+        "item": 2,
+        "slug": "2-protsedura-ot-raya-nazaryan-za-razmestvane-na-tochkite",
+        "title": "Процедура от Рая Назарян за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-06-20",
+        "item": 1,
+        "slug": "1-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Виктория Василева",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 3
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4862,
+        "score": 0.8608165803818382,
+        "overlap": 417
+      },
+      {
+        "mpId": 4781,
+        "score": 0.8561108779654789,
+        "overlap": 446
+      },
+      {
+        "mpId": 4699,
+        "score": 0.8520898313059901,
+        "overlap": 401
+      },
+      {
+        "mpId": 4876,
+        "score": 0.8514208289937701,
+        "overlap": 445
+      },
+      {
+        "mpId": 4908,
+        "score": 0.8474570789815626,
+        "overlap": 431
+      },
+      {
+        "mpId": 4996,
+        "score": 0.8413688724570938,
+        "overlap": 436
+      },
+      {
+        "mpId": 2829,
+        "score": 0.8402350613949057,
+        "overlap": 448
+      },
+      {
+        "mpId": 2895,
+        "score": 0.8342154590916815,
+        "overlap": 434
+      },
+      {
+        "mpId": 4868,
+        "score": 0.8248256835919686,
+        "overlap": 436
+      },
+      {
+        "mpId": 4910,
+        "score": 0.8082676307643974,
+        "overlap": 401
+      },
+      {
+        "mpId": 4938,
+        "score": 0.7873778360497935,
+        "overlap": 373
+      },
+      {
+        "mpId": 4936,
+        "score": 0.7708320442570055,
+        "overlap": 373
+      },
+      {
+        "mpId": 4900,
+        "score": 0.7624438058041226,
+        "overlap": 341
+      },
+      {
+        "mpId": 4737,
+        "score": 0.7542273128038208,
+        "overlap": 353
+      },
+      {
+        "mpId": 4813,
+        "score": 0.7274046890726088,
+        "overlap": 315
+      },
+      {
+        "mpId": 4824,
+        "score": 0.6033297741116004,
+        "overlap": 445
+      },
+      {
+        "mpId": 4866,
+        "score": 0.5971117377356798,
+        "overlap": 443
+      },
+      {
+        "mpId": 5148,
+        "score": 0.5967557105825785,
+        "overlap": 410
+      },
+      {
+        "mpId": 2952,
+        "score": 0.5887160757549016,
+        "overlap": 453
+      },
+      {
+        "mpId": 5159,
+        "score": 0.5876769159942579,
+        "overlap": 449
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4899,
+        "score": 0.005748075794443202,
+        "overlap": 55
+      },
+      {
+        "mpId": 3006,
+        "score": 0.010663974945148267,
+        "overlap": 60
+      },
+      {
+        "mpId": 2967,
+        "score": 0.012957474917103771,
+        "overlap": 240
+      },
+      {
+        "mpId": 2988,
+        "score": 0.01311156752390748,
+        "overlap": 100
+      },
+      {
+        "mpId": 4762,
+        "score": 0.013954695969695586,
+        "overlap": 100
+      },
+      {
+        "mpId": 3002,
+        "score": 0.01734709117734773,
+        "overlap": 95
+      },
+      {
+        "mpId": 5100,
+        "score": 0.021637678905463958,
+        "overlap": 36
+      },
+      {
+        "mpId": 4925,
+        "score": 0.02635524235770322,
+        "overlap": 67
+      },
+      {
+        "mpId": 2993,
+        "score": 0.02815970539845778,
+        "overlap": 86
+      },
+      {
+        "mpId": 2930,
+        "score": 0.02854813347699592,
+        "overlap": 7
+      },
+      {
+        "mpId": 5146,
+        "score": 0.029149212728319378,
+        "overlap": 115
+      },
+      {
+        "mpId": 4727,
+        "score": 0.03108694790524933,
+        "overlap": 213
+      },
+      {
+        "mpId": 2893,
+        "score": 0.032370540675089515,
+        "overlap": 21
+      },
+      {
+        "mpId": 2990,
+        "score": 0.03256095726262303,
+        "overlap": 87
+      },
+      {
+        "mpId": 4819,
+        "score": 0.03737828074515332,
+        "overlap": 93
+      },
+      {
+        "mpId": 3000,
+        "score": 0.03980392038781618,
+        "overlap": 116
+      },
+      {
+        "mpId": 3004,
+        "score": 0.039964097776987756,
+        "overlap": 96
+      },
+      {
+        "mpId": 4787,
+        "score": 0.04079154340771216,
+        "overlap": 59
+      },
+      {
+        "mpId": 2846,
+        "score": 0.04216838777232515,
+        "overlap": 22
+      },
+      {
+        "mpId": 4886,
+        "score": 0.05038874642625701,
+        "overlap": 74
+      }
+    ]
+  }
+}

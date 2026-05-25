@@ -1,0 +1,565 @@
+{
+  "mpId": 5294,
+  "ns": "51",
+  "partyShort": "АПС",
+  "loyalty": {
+    "votesCast": 1488,
+    "withParty": 1454,
+    "loyaltyPct": 0.9771505376344086,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 1488,
+    "dissentCount": 34,
+    "recent": [
+      {
+        "date": "2026-04-01",
+        "item": 3,
+        "slug": "3-protsedura-ot-kostadin-angelov-za-nova-tochka-parva-v-progra",
+        "title": "Процедура от Костадин Ангелов за нова точка първа в програмата",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 6
+      },
+      {
+        "date": "2026-03-04",
+        "item": 10,
+        "slug": "10-programa-za-rabotata-na-narodnoto-sabranie-za-4-6-mart-2026-",
+        "title": "Програма за работата на Народното събрание за 4 – 6 март 2026 г. - предложение от Борислав Гуцанов за отпадане на фиксираната т.1 за четвъртък",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 6
+      },
+      {
+        "date": "2026-03-04",
+        "item": 8,
+        "slug": "8-programa-za-rabotata-na-narodnoto-sabranie-za-4-6-mart-2026-",
+        "title": "Програма за работата на Народното събрание за 4 – 6 март 2026 г. - предложение от Георги Хрисимиров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 5
+      },
+      {
+        "date": "2026-02-19",
+        "item": 9,
+        "slug": "9-izslushvane-na-ministara-na-energetikata-zhecho-stankov-i-iv",
+        "title": "Изслушване на министъра на енергетиката Жечо Станков и Иван Андреев, изпълнителен директор на АЕЦ „Козлодуй\", Цанко Бачийски, председател на Агенция за ядрено регулиране относно потенциални нарушения на нормативната и законовата уредба, свързани с промяна на проектно оборудване и използване на несертифицирани компоненти в АЕЦ \"Козлодуй\", довели до нужда от три извънредни спирания на 6-ти блок, създаващи риск за енергийната и националната сигурност на Република България и загуби на десетки милиони евро - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 2
+      },
+      {
+        "date": "2026-02-05",
+        "item": 31,
+        "slug": "31-zi-na-izborniya-kodeks-vtoro-glasuvane-paragraf-4-nov-predlo",
+        "title": "ЗИ на Изборния кодекс – второ гласуване - параграф 4 нов - предложение от Надежда Йорданова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 4
+      },
+      {
+        "date": "2025-12-18",
+        "item": 37,
+        "slug": "37-zid-na-semeyniya-kodeks-vtoro-glasuvane-paragraf-15",
+        "title": "ЗИД на Семейния кодекс - второ гласуване - параграф 15",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 4
+      },
+      {
+        "date": "2025-12-18",
+        "item": 23,
+        "slug": "23-zid-na-semeyniya-kodeks-vtoro-glasuvane-paragraf-7-stava-par",
+        "title": "ЗИД на Семейния кодекс - второ гласуване - параграф 7 (става параграф 6) - предложение от Явор Хайтов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 2
+      },
+      {
+        "date": "2025-11-12",
+        "item": 33,
+        "slug": "33-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Наказателно-процесуалния кодекс – второ гласуване - параграф 2 (става параграф 3)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 4
+      },
+      {
+        "date": "2025-11-07",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 6 Заключителна разпоредба - предложение от Павела Митова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 4
+      },
+      {
+        "date": "2025-11-07",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 5 (става параграф 4) - предложение от Павела Митова за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 4
+      },
+      {
+        "date": "2025-10-10",
+        "item": 19,
+        "slug": "19-zi-na-zakona-za-spetsialnite-razuznavatelni-sredstva-vtoro-g",
+        "title": "ЗИ на Закона за специалните разузнавателни средства - второ гласуване - параграф ... - предложение от Златан Златанов - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 3
+      },
+      {
+        "date": "2025-10-08",
+        "item": 25,
+        "slug": "25-zid-na-zakona-za-targovskiya-registar-i-registara-na-yuridic",
+        "title": "ЗИД на Закона за търговския регистър и регистъра на юридическите лица с нестопанска цел – второ гласуване - параграф 1 - нов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 3
+      },
+      {
+        "date": "2025-07-18",
+        "item": 10,
+        "slug": "10-protsedura-ot-petar-petrov-za-pryako-predavane-po-bnt-i-bnr-",
+        "title": "Процедура от Петър Петров за пряко предаване по БНТ и БНР на точка 2 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 4
+      },
+      {
+        "date": "2025-05-16",
+        "item": 2,
+        "slug": "2-protsedura-ot-nataliya-kiselova-za-novi-tochki",
+        "title": "Процедура от Наталия Киселова за нови точки",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2025-04-17",
+        "item": 17,
+        "slug": "17-programa-za-rabotata-na-narodnoto-sabranie-za-16-i-17-april-",
+        "title": "Програма за работата на Народното събрание за 16 и 17 април 2025 г.- процедура от Костадин Ангелов заседанието да приключи след точка 6",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2025-03-27",
+        "item": 16,
+        "slug": "16-reshenie-za-izbor-na-predsedatel-i-chetirima-chlenove-na-fis",
+        "title": "Решение за избор на председател и четирима членове на Фискалния съвет - избира Любомир Дацов за член",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2025-03-26",
+        "item": 21,
+        "slug": "21-protsedura-ot-kostadin-angelov-za-udalzhavane-na-rabotnoto-v",
+        "title": "Процедура от Костадин Ангелов за удължаване на работното време до приключване на т.5 - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2025-03-26",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-26-28-mart-202",
+        "title": "Програма за работата на Народното събрание за 26 - 28 март 2025 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2025-03-20",
+        "item": 175,
+        "slug": "175-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - Приложение №2, Раздел І - предложение от Андрей Цеков №126, №45",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2025-03-20",
+        "item": 172,
+        "slug": "172-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - Приложение №2, Раздел ІІ - предложение от Коста Стоянов",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2025-03-20",
+        "item": 148,
+        "slug": "148-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - член 53 - предложение от Ангел Георгиев № ...113",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2025-03-20",
+        "item": 147,
+        "slug": "147-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - член 53 - предложение от Ангел Георгиев № ...110",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2025-03-20",
+        "item": 124,
+        "slug": "124-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - член 16",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2025-03-20",
+        "item": 71,
+        "slug": "71-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2025",
+        "title": "Закон за държавния бюджет на Република България за 2025 г. – второ гласуване - параграф 27 (става параграф 28) - предложение от Мартин Димитров и група н.п., 26б",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2025-03-19",
+        "item": 37,
+        "slug": "37-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - член 11 - предложение от Георги Георгиев и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2025-03-19",
+        "item": 11,
+        "slug": "11-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2025 г. – второ гласуване - процедура от Петър Петров за гласуване текст по текст",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2025-01-24",
+        "item": 16,
+        "slug": "16-reshenie-po-iskane-na-izpalnyavashtiya-funktsiite-glaven-pro",
+        "title": "Решение по искане на изпълняващия функциите главен прокурор на Република България, вх. № 51-427-00-5 от 19 декември 2024 г., за даване на разрешение за възбуждане на наказателно преследване срещу Марио Киров Рангелов, народен представител от 51-вото Народно събрание - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-12-06",
+        "item": 4,
+        "slug": "4-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Петър Петров (06.12.2024г.)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-11-29",
+        "item": 3,
+        "slug": "3-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Петър Петров (29.11.2024г.) - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-11-28",
+        "item": 2,
+        "slug": "2-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Петър Петров (28.11.2024г.)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-11-27",
+        "item": 2,
+        "slug": "2-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Петър Петров (27.11.2024г.)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-11-22",
+        "item": 2,
+        "slug": "2-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Петър Петров (22.11.2024г.)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-11-20",
+        "item": 2,
+        "slug": "2-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Петър Петров (20.11.2024г.)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-11-15",
+        "item": 5,
+        "slug": "5-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Рая Назарян (15.11.2024г.) - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3347,
+        "score": 0.49253920189575,
+        "overlap": 608
+      },
+      {
+        "mpId": 3521,
+        "score": 0.4760216840944515,
+        "overlap": 461
+      },
+      {
+        "mpId": 3522,
+        "score": 0.47588318675586655,
+        "overlap": 505
+      },
+      {
+        "mpId": 3052,
+        "score": 0.46803075341839595,
+        "overlap": 1135
+      },
+      {
+        "mpId": 3365,
+        "score": 0.46615131835843576,
+        "overlap": 671
+      },
+      {
+        "mpId": 3369,
+        "score": 0.46573068950697993,
+        "overlap": 733
+      },
+      {
+        "mpId": 3209,
+        "score": 0.46386943866893354,
+        "overlap": 1448
+      },
+      {
+        "mpId": 3296,
+        "score": 0.45606251692111327,
+        "overlap": 1466
+      },
+      {
+        "mpId": 3355,
+        "score": 0.4527303351435363,
+        "overlap": 1429
+      },
+      {
+        "mpId": 3392,
+        "score": 0.45084673625487387,
+        "overlap": 1434
+      },
+      {
+        "mpId": 3345,
+        "score": 0.4500792638426628,
+        "overlap": 543
+      },
+      {
+        "mpId": 3414,
+        "score": 0.4499750396105834,
+        "overlap": 1395
+      },
+      {
+        "mpId": 3366,
+        "score": 0.4455357398840723,
+        "overlap": 1375
+      },
+      {
+        "mpId": 3066,
+        "score": 0.44443453270982886,
+        "overlap": 1408
+      },
+      {
+        "mpId": 3280,
+        "score": 0.4426599629644203,
+        "overlap": 1388
+      },
+      {
+        "mpId": 3273,
+        "score": 0.4423450246487789,
+        "overlap": 1285
+      },
+      {
+        "mpId": 3212,
+        "score": 0.44217680325595277,
+        "overlap": 1303
+      },
+      {
+        "mpId": 3248,
+        "score": 0.4413129729630862,
+        "overlap": 1403
+      },
+      {
+        "mpId": 3403,
+        "score": 0.43882727092356977,
+        "overlap": 1458
+      },
+      {
+        "mpId": 3100,
+        "score": 0.43877996818105647,
+        "overlap": 1451
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5060,
+        "score": -0.19600960070536372,
+        "overlap": 1351
+      },
+      {
+        "mpId": 5159,
+        "score": -0.19414404638636568,
+        "overlap": 1343
+      },
+      {
+        "mpId": 5234,
+        "score": -0.19037726286160014,
+        "overlap": 1378
+      },
+      {
+        "mpId": 3230,
+        "score": -0.18978347664753661,
+        "overlap": 1354
+      },
+      {
+        "mpId": 3515,
+        "score": -0.18735513940786935,
+        "overlap": 799
+      },
+      {
+        "mpId": 3122,
+        "score": -0.18689181168780533,
+        "overlap": 1379
+      },
+      {
+        "mpId": 3516,
+        "score": -0.18523064311024,
+        "overlap": 735
+      },
+      {
+        "mpId": 3358,
+        "score": -0.1839083260186769,
+        "overlap": 1307
+      },
+      {
+        "mpId": 5074,
+        "score": -0.18107892934102127,
+        "overlap": 1238
+      },
+      {
+        "mpId": 3510,
+        "score": -0.18001032875781142,
+        "overlap": 766
+      },
+      {
+        "mpId": 3141,
+        "score": -0.17927667361005878,
+        "overlap": 1425
+      },
+      {
+        "mpId": 3028,
+        "score": -0.17855963241378725,
+        "overlap": 1282
+      },
+      {
+        "mpId": 3514,
+        "score": -0.177957044750354,
+        "overlap": 794
+      },
+      {
+        "mpId": 3205,
+        "score": -0.17759491150934958,
+        "overlap": 1393
+      },
+      {
+        "mpId": 3304,
+        "score": -0.1761078963969354,
+        "overlap": 1350
+      },
+      {
+        "mpId": 3165,
+        "score": -0.17561314198211528,
+        "overlap": 1411
+      },
+      {
+        "mpId": 3508,
+        "score": -0.17555325811979772,
+        "overlap": 800
+      },
+      {
+        "mpId": 5148,
+        "score": -0.17541010417471306,
+        "overlap": 1395
+      },
+      {
+        "mpId": 3177,
+        "score": -0.17483385391774217,
+        "overlap": 1402
+      },
+      {
+        "mpId": 5171,
+        "score": -0.17450930655491442,
+        "overlap": 1284
+      }
+    ]
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "mpId": 4483,
+  "ns": "47",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 994,
+    "withParty": 986,
+    "loyaltyPct": 0.9919517102615694,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 994,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2022-06-30",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 1 - предложение от Десислава Танева и група н.п. (№ ...247)",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2022-06-09",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-obshtestvenite-porachki-parvo-glasuvane-vno",
+        "title": "ЗИД на Закона за обществените поръчки - първо гласуване - вносител Настимир Ананиев и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-05-11",
+        "item": 8,
+        "slug": "8-ratifikatsiya-na-sporazumenieto-mezhdu-ministerstvoto-na-otb",
+        "title": "Ратификация на Споразумението между Министерството на отбраната на Република България и Министерството на националната отбрана на Република Гърция относно осигуряване на поддръжка на гръцко военно формирование във връзка с изпълнението на мисия на морската патрулна авиация - първо гласуване - процедура от Ат.Зафиров за съкращаване на срока за предложения",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2022-04-13",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-zdraveto-vtoro-glasuvane-naimenovanie-parag",
+        "title": "ЗИД на Закона за здравето - второ гласуване - наименование, параграф 1 - нов, параграф 1 (става параграф 2) до параграф 4 (става параграф 5), Заключителни разпоредби - процедура от Антон Тонев за прекратяване на дебата",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2022-03-02",
+        "item": 25,
+        "slug": "25",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-03-02",
+        "item": 13,
+        "slug": "13",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 10
+      },
+      {
+        "date": "2022-02-25",
+        "item": 32,
+        "slug": "32",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 28
+      },
+      {
+        "date": "2022-02-22",
+        "item": 13,
+        "slug": "13",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4137,
+        "score": 0.8291322260247458,
+        "overlap": 884
+      },
+      {
+        "mpId": 5102,
+        "score": 0.8220928345404025,
+        "overlap": 934
+      },
+      {
+        "mpId": 4709,
+        "score": 0.8210112984075749,
+        "overlap": 850
+      },
+      {
+        "mpId": 4710,
+        "score": 0.8151532095487319,
+        "overlap": 865
+      },
+      {
+        "mpId": 4594,
+        "score": 0.8093086902614908,
+        "overlap": 895
+      },
+      {
+        "mpId": 4827,
+        "score": 0.806582937513048,
+        "overlap": 802
+      },
+      {
+        "mpId": 4762,
+        "score": 0.8032172421189643,
+        "overlap": 871
+      },
+      {
+        "mpId": 5146,
+        "score": 0.7994507464684671,
+        "overlap": 845
+      },
+      {
+        "mpId": 4811,
+        "score": 0.799099101396999,
+        "overlap": 801
+      },
+      {
+        "mpId": 4925,
+        "score": 0.7900159310787267,
+        "overlap": 782
+      },
+      {
+        "mpId": 4022,
+        "score": 0.7814777879683269,
+        "overlap": 727
+      },
+      {
+        "mpId": 4658,
+        "score": 0.7737713437361523,
+        "overlap": 795
+      },
+      {
+        "mpId": 4216,
+        "score": 0.7683951112974822,
+        "overlap": 775
+      },
+      {
+        "mpId": 4140,
+        "score": 0.7648382834609472,
+        "overlap": 733
+      },
+      {
+        "mpId": 5294,
+        "score": 0.761577271342879,
+        "overlap": 701
+      },
+      {
+        "mpId": 3901,
+        "score": 0.7584440702623515,
+        "overlap": 779
+      },
+      {
+        "mpId": 4886,
+        "score": 0.7555917549208835,
+        "overlap": 735
+      },
+      {
+        "mpId": 4135,
+        "score": 0.7507493888435708,
+        "overlap": 714
+      },
+      {
+        "mpId": 4114,
+        "score": 0.7440393411260835,
+        "overlap": 739
+      },
+      {
+        "mpId": 2035,
+        "score": 0.7369648286719622,
+        "overlap": 813
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4741,
+        "score": -0.12352125180673913,
+        "overlap": 746
+      },
+      {
+        "mpId": 2175,
+        "score": -0.11595769127907987,
+        "overlap": 838
+      },
+      {
+        "mpId": 2080,
+        "score": -0.10486076342158575,
+        "overlap": 810
+      },
+      {
+        "mpId": 4905,
+        "score": -0.10099983965329123,
+        "overlap": 829
+      },
+      {
+        "mpId": 4054,
+        "score": -0.09838793553870567,
+        "overlap": 840
+      },
+      {
+        "mpId": 1336,
+        "score": -0.09689030968923806,
+        "overlap": 796
+      },
+      {
+        "mpId": 2045,
+        "score": -0.09337721611452057,
+        "overlap": 763
+      },
+      {
+        "mpId": 5283,
+        "score": -0.09084840962836448,
+        "overlap": 739
+      },
+      {
+        "mpId": 2172,
+        "score": -0.09065736402460062,
+        "overlap": 812
+      },
+      {
+        "mpId": 4224,
+        "score": -0.08390149631310952,
+        "overlap": 902
+      },
+      {
+        "mpId": 4802,
+        "score": -0.08320522604371902,
+        "overlap": 874
+      },
+      {
+        "mpId": 2170,
+        "score": -0.08047804031659692,
+        "overlap": 787
+      },
+      {
+        "mpId": 4316,
+        "score": -0.08025419506374921,
+        "overlap": 760
+      },
+      {
+        "mpId": 3932,
+        "score": -0.07974691407634714,
+        "overlap": 864
+      },
+      {
+        "mpId": 2131,
+        "score": -0.0767488717481888,
+        "overlap": 980
+      },
+      {
+        "mpId": 4324,
+        "score": -0.07542089405046722,
+        "overlap": 815
+      },
+      {
+        "mpId": 4262,
+        "score": -0.07459766027268563,
+        "overlap": 819
+      },
+      {
+        "mpId": 4122,
+        "score": -0.07129117747341653,
+        "overlap": 742
+      },
+      {
+        "mpId": 4726,
+        "score": -0.07088770821078341,
+        "overlap": 738
+      },
+      {
+        "mpId": 4160,
+        "score": -0.0691410160178493,
+        "overlap": 868
+      }
+    ]
+  }
+}

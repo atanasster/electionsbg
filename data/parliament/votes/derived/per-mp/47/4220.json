@@ -1,0 +1,435 @@
+{
+  "mpId": 4220,
+  "ns": "47",
+  "partyShort": "ПП",
+  "loyalty": {
+    "votesCast": 1717,
+    "withParty": 1695,
+    "loyaltyPct": 0.9871869539895166,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1717,
+    "dissentCount": 22,
+    "recent": [
+      {
+        "date": "2022-07-29",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-27-29-yuli-202",
+        "title": "Програма за работата на Народното събрание за 27 - 29 юли 2022 г. - процедура от Десислава Атанасова за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 63
+      },
+      {
+        "date": "2022-07-20",
+        "item": 11,
+        "slug": "11-programa-za-rabotata-na-narodnoto-sabranie-za-20-22-yuli-202",
+        "title": "Програма за работата на Народното събрание за 20 - 22 юли 2022 г. - процедура от Зорница Стратиева за разместване на точките",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-07-14",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-hazarta-parvo-glasuvane-vnositel-deyan-petk",
+        "title": "ЗИД на Закона за хазарта - първо гласуване - вносител Деян Петков и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-07-14",
+        "item": 28,
+        "slug": "28-zid-na-zakona-za-hazarta-parvo-glasuvane-vnositel-deyan-petk",
+        "title": "ЗИД на Закона за хазарта - първо гласуване - вносител Деян Петков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2022-07-13",
+        "item": 38,
+        "slug": "38-reshenie-za-sazdavane-na-vremenna-anketna-komisiya-za-ustano",
+        "title": "Решение за създаване на Временна анкетна комисия за установяване на всички факти и обстоятелства, относно газопроводи за пренос на природен газ от Руската федерация - \"Южен поток\" и \"Балкански поток\" и причините за забавянето на проекта IGB (Междусистемна газова връзка Гърция - България) - за председател Искра Михайлова",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-07-13",
+        "item": 37,
+        "slug": "37-reshenie-za-sazdavane-na-vremenna-anketna-komisiya-za-ustano",
+        "title": "Решение за създаване на Временна анкетна комисия за установяване на всички факти и обстоятелства, относно газопроводи за пренос на природен газ от Руската федерация - \"Южен поток\" и \"Балкански поток\" и причините за забавянето на проекта IGB (Междусистемна газова връзка Гърция - България) - за председател Станислав Анастасов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-06-28",
+        "item": 30,
+        "slug": "30-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2022 г. - второ гласуване - наименование, параграф 1 - предложение от Костадин Костадинов и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2022-04-21",
+        "item": 11,
+        "slug": "11-protsedura-ot-al-ivanova-za-udalzhavane-na-r-vreme-do-prikly",
+        "title": "Процедура от Ал. Иванова за удължаване на р.време до приключване на т.8",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2022-04-20",
+        "item": 8,
+        "slug": "8-programa-na-narodnoto-sabranie-za-20-i-21-april-2022g-predlo",
+        "title": "Програма на Народното събрание за 20 и 21 април 2022г. - предложение от Костадин Костадинов",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-04-14",
+        "item": 63,
+        "slug": "63-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-48",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 48 и 49 - предложение за редакция от Дани Каназирева - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2022-02-22",
+        "item": 59,
+        "slug": "59",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-02-22",
+        "item": 58,
+        "slug": "58",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2022-02-22",
+        "item": 25,
+        "slug": "25",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2022-02-16",
+        "item": 7,
+        "slug": "7",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-02-16",
+        "item": 6,
+        "slug": "6",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-01-19",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-19-21-yanuari-",
+        "title": "Програма за работата на Народното събрание за 19 - 21 януари 2022 г. - предложение за нова точка от ПГ на ГЕРБ - СДС",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2022-01-12",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-12-14-yanuari-",
+        "title": "Програма за работата на Народното събрание за 12 - 14 януари 2022 г. - процедура за пряко предаване по БНТ и БНР от Цвета Галунова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 56
+      },
+      {
+        "date": "2022-01-05",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-05-07-yanuari-",
+        "title": "Програма за работата на Народното събрание за 05 - 07 януари 2022 г. - предложение от Жечо Станков",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2021-12-22",
+        "item": 5,
+        "slug": "5-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстаятелства относно машинното гласуване в изборите на 14 ноември 2021г. - предложение от Христо Гаджев за редакция на т.7",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 65
+      },
+      {
+        "date": "2021-12-17",
+        "item": 68,
+        "slug": "68-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Раздел ІІІ, член 153а - предложение от Атанас Славов и Иван Димитров",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-12-16",
+        "item": 28,
+        "slug": "28-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 11 - предложение от Атанас Славов и Иван Димитров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 56
+      },
+      {
+        "date": "2021-12-16",
+        "item": 26,
+        "slug": "26-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 8",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 57
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4372,
+        "score": 0.959584387104283,
+        "overlap": 1692
+      },
+      {
+        "mpId": 3899,
+        "score": 0.9548964026114689,
+        "overlap": 1672
+      },
+      {
+        "mpId": 2130,
+        "score": 0.954191422764984,
+        "overlap": 1707
+      },
+      {
+        "mpId": 5014,
+        "score": 0.9523301911210991,
+        "overlap": 1694
+      },
+      {
+        "mpId": 2117,
+        "score": 0.9522440780170546,
+        "overlap": 1666
+      },
+      {
+        "mpId": 4234,
+        "score": 0.9475223928836572,
+        "overlap": 1678
+      },
+      {
+        "mpId": 3870,
+        "score": 0.9467880084818607,
+        "overlap": 1676
+      },
+      {
+        "mpId": 4144,
+        "score": 0.9422703508593561,
+        "overlap": 1657
+      },
+      {
+        "mpId": 3957,
+        "score": 0.9396474983409929,
+        "overlap": 1645
+      },
+      {
+        "mpId": 4748,
+        "score": 0.9376554531674123,
+        "overlap": 1641
+      },
+      {
+        "mpId": 5215,
+        "score": 0.9367681719949875,
+        "overlap": 1647
+      },
+      {
+        "mpId": 2108,
+        "score": 0.9366155757955584,
+        "overlap": 1609
+      },
+      {
+        "mpId": 5232,
+        "score": 0.9360567797414109,
+        "overlap": 1674
+      },
+      {
+        "mpId": 4378,
+        "score": 0.9293131164058038,
+        "overlap": 1629
+      },
+      {
+        "mpId": 4598,
+        "score": 0.9285905108193963,
+        "overlap": 1603
+      },
+      {
+        "mpId": 5192,
+        "score": 0.924924081005654,
+        "overlap": 1644
+      },
+      {
+        "mpId": 4295,
+        "score": 0.9228914618437705,
+        "overlap": 1618
+      },
+      {
+        "mpId": 2068,
+        "score": 0.9221412909387433,
+        "overlap": 1574
+      },
+      {
+        "mpId": 2164,
+        "score": 0.9216908823415112,
+        "overlap": 1605
+      },
+      {
+        "mpId": 4224,
+        "score": 0.920632132665546,
+        "overlap": 1567
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4304,
+        "score": -0.21221218851913953,
+        "overlap": 915
+      },
+      {
+        "mpId": 5126,
+        "score": -0.2092858622568508,
+        "overlap": 906
+      },
+      {
+        "mpId": 1643,
+        "score": -0.20599842348306957,
+        "overlap": 829
+      },
+      {
+        "mpId": 5223,
+        "score": -0.20506085682488592,
+        "overlap": 704
+      },
+      {
+        "mpId": 4854,
+        "score": -0.19928427079279903,
+        "overlap": 851
+      },
+      {
+        "mpId": 4838,
+        "score": -0.199153365202549,
+        "overlap": 771
+      },
+      {
+        "mpId": 4267,
+        "score": -0.19862551049498803,
+        "overlap": 897
+      },
+      {
+        "mpId": 4912,
+        "score": -0.19745607131246462,
+        "overlap": 911
+      },
+      {
+        "mpId": 3942,
+        "score": -0.18488965553788952,
+        "overlap": 952
+      },
+      {
+        "mpId": 5125,
+        "score": -0.18255243673700397,
+        "overlap": 913
+      },
+      {
+        "mpId": 5124,
+        "score": -0.18228901411058213,
+        "overlap": 791
+      },
+      {
+        "mpId": 4225,
+        "score": -0.18083685504270763,
+        "overlap": 955
+      },
+      {
+        "mpId": 5103,
+        "score": -0.17823182172678534,
+        "overlap": 1064
+      },
+      {
+        "mpId": 5236,
+        "score": -0.17764990889809593,
+        "overlap": 934
+      },
+      {
+        "mpId": 5165,
+        "score": -0.17355800704009586,
+        "overlap": 891
+      },
+      {
+        "mpId": 5248,
+        "score": -0.171618348881227,
+        "overlap": 670
+      },
+      {
+        "mpId": 1651,
+        "score": -0.17127477879951228,
+        "overlap": 660
+      },
+      {
+        "mpId": 5172,
+        "score": -0.16883513469881045,
+        "overlap": 947
+      },
+      {
+        "mpId": 4272,
+        "score": -0.16786025759678644,
+        "overlap": 1087
+      },
+      {
+        "mpId": 4147,
+        "score": -0.16740129812856924,
+        "overlap": 988
+      }
+    ]
+  }
+}

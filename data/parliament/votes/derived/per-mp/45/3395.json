@@ -1,0 +1,415 @@
+{
+  "mpId": 3395,
+  "ns": "45",
+  "partyShort": "ИСМВ",
+  "loyalty": {
+    "votesCast": 133,
+    "withParty": 114,
+    "loyaltyPct": 0.8571428571428571,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 133,
+    "dissentCount": 19,
+    "recent": [
+      {
+        "date": "2021-05-07",
+        "item": 9,
+        "slug": "9-reshenie-za-vazlagane-na-ministerski-savet-osiguryavaneto-na",
+        "title": "Решение за възлагане на Министерски съвет осигуряването на достъп на българските граждани до руската ваксина срещу COVID-19 \"Спутник V\"",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-05-07",
+        "item": 8,
+        "slug": "8-protsedura-ot-toshko-yordanov-za-razmestvane-na-tochki-8-i-6",
+        "title": "Процедура от Тошко Йорданов за разместване на точки 8 и 6, и удължаване на работното време до приемане на точка 6",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-04-29",
+        "item": 111,
+        "slug": "111-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-63a-predloz",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 63а - предложение от Ива Митева, В.Василева и Тошко Йорданов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2021-04-29",
+        "item": 107,
+        "slug": "107-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-62-otpada",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 62 - отпада - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-04-29",
+        "item": 77,
+        "slug": "77-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-50-nov",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 50 - нов - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-04-29",
+        "item": 3,
+        "slug": "3-reshenie-za-izmenenie-i-dopalnenie-na-podns-naimenovanie-i-t",
+        "title": "Решение за изменение и допълнение на ПОДНС - наименование и текста преди параграф 1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-04-23",
+        "item": 15,
+        "slug": "15-zid-na-izborniya-kodeks-parvo-glasuvane-protsedura-ot-r-vasi",
+        "title": "ЗИД на Изборния кодекс - първо гласуване - процедура от Р. Василев за намаляване на срока за предложения - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-04-23",
+        "item": 10,
+        "slug": "10-zid-na-izborniya-kodeks-parvo-glasuvane-vnositeli-hristo-iva",
+        "title": "ЗИД на Изборния кодекс - първо гласуване - вносители Христо Иванов, Антоанета Цонева и Ивайло Мирчев - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-04-22",
+        "item": 74,
+        "slug": "74-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-27-pred",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 27 - предложение за редакция от Татяна Дончева - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2021-04-22",
+        "item": 69,
+        "slug": "69-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-27-pred",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 27 - предложение от Мая Манолова и група н.п. в Приложение към правилника",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-04-22",
+        "item": 62,
+        "slug": "62-reshenie-za-izmenenie-i-dopalnenie-na-podns-predlozhenie-ot-",
+        "title": "Решение за изменение и допълнение на ПОДНС - предложение от А.Славов и група н.п. в чл.117а",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2021-04-22",
+        "item": 51,
+        "slug": "51-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-14-nov",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 14 - нов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-04-22",
+        "item": 49,
+        "slug": "49-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-14-nov-",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 14 - нов - предложение от А.Славов и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2021-04-22",
+        "item": 41,
+        "slug": "41-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-11-pred",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 11 - предложение от Н. Хаджигенов и група н.п. по чл. 65",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-04-22",
+        "item": 33,
+        "slug": "33-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-8-stava",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 8 (става параграф 9) - предл.от В.Василева за разделно гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-04-22",
+        "item": 32,
+        "slug": "32-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-7-stava",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 7 (става параграф 8) - т.2",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2021-04-22",
+        "item": 28,
+        "slug": "28-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-7-stava",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 7 (става параграф 8) - предл. от В. Василева за разделно гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-04-22",
+        "item": 14,
+        "slug": "14-reshenie-za-izmenenie-i-dopalnenie-na-podns-predlozhenie-ot-",
+        "title": "Решение за изменение и допълнение на ПОДНС - предложение от Н. Хаджигенов и група н.п. по член 13",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-04-22",
+        "item": 7,
+        "slug": "7-reshenie-za-nalagane-na-moratorium-varhu-opredeleni-deystviy",
+        "title": "Решение за налагане на мораториум върху определени действия - предложение от Христо Гаджев за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3351,
+        "score": 0.7442143646099578,
+        "overlap": 111
+      },
+      {
+        "mpId": 1686,
+        "score": 0.7400608183812527,
+        "overlap": 124
+      },
+      {
+        "mpId": 3402,
+        "score": 0.6418522732673798,
+        "overlap": 79
+      },
+      {
+        "mpId": 1575,
+        "score": 0.6090979092037714,
+        "overlap": 128
+      },
+      {
+        "mpId": 3260,
+        "score": 0.5989287815120458,
+        "overlap": 122
+      },
+      {
+        "mpId": 5245,
+        "score": 0.5902607587595918,
+        "overlap": 127
+      },
+      {
+        "mpId": 3394,
+        "score": 0.5822532131667533,
+        "overlap": 109
+      },
+      {
+        "mpId": 4265,
+        "score": 0.5804754136086772,
+        "overlap": 118
+      },
+      {
+        "mpId": 4800,
+        "score": 0.5782311188698942,
+        "overlap": 119
+      },
+      {
+        "mpId": 5244,
+        "score": 0.5779525251011076,
+        "overlap": 121
+      },
+      {
+        "mpId": 3401,
+        "score": 0.5761659596980319,
+        "overlap": 123
+      },
+      {
+        "mpId": 5147,
+        "score": 0.5674751756663422,
+        "overlap": 122
+      },
+      {
+        "mpId": 4753,
+        "score": 0.5672161840092366,
+        "overlap": 109
+      },
+      {
+        "mpId": 1616,
+        "score": 0.5632699981036576,
+        "overlap": 110
+      },
+      {
+        "mpId": 3481,
+        "score": 0.5566291993542654,
+        "overlap": 93
+      },
+      {
+        "mpId": 5206,
+        "score": 0.5548264797092158,
+        "overlap": 127
+      },
+      {
+        "mpId": 1702,
+        "score": 0.5538753231963519,
+        "overlap": 115
+      },
+      {
+        "mpId": 1655,
+        "score": 0.5477133197129439,
+        "overlap": 120
+      },
+      {
+        "mpId": 4536,
+        "score": 0.5439684175981747,
+        "overlap": 122
+      },
+      {
+        "mpId": 4671,
+        "score": 0.5302240516819349,
+        "overlap": 118
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5173,
+        "score": -0.1267754020759564,
+        "overlap": 35
+      },
+      {
+        "mpId": 4249,
+        "score": -0.08711806224821944,
+        "overlap": 86
+      },
+      {
+        "mpId": 4632,
+        "score": -0.07259008777437409,
+        "overlap": 41
+      },
+      {
+        "mpId": 1600,
+        "score": -0.0679018095318889,
+        "overlap": 45
+      },
+      {
+        "mpId": 4258,
+        "score": -0.058238704909845236,
+        "overlap": 66
+      },
+      {
+        "mpId": 1811,
+        "score": -0.03796289990307144,
+        "overlap": 69
+      },
+      {
+        "mpId": 1806,
+        "score": -0.03239105320715664,
+        "overlap": 103
+      },
+      {
+        "mpId": 1622,
+        "score": -0.025438348555315904,
+        "overlap": 90
+      },
+      {
+        "mpId": 4786,
+        "score": -0.016529490122682157,
+        "overlap": 95
+      },
+      {
+        "mpId": 5248,
+        "score": -0.009145491423778284,
+        "overlap": 78
+      },
+      {
+        "mpId": 1804,
+        "score": 0,
+        "overlap": 107
+      },
+      {
+        "mpId": 3259,
+        "score": 0,
+        "overlap": 99
+      },
+      {
+        "mpId": 3620,
+        "score": 0,
+        "overlap": 93
+      },
+      {
+        "mpId": 3681,
+        "score": 0,
+        "overlap": 96
+      },
+      {
+        "mpId": 4116,
+        "score": 0,
+        "overlap": 110
+      },
+      {
+        "mpId": 4225,
+        "score": 0,
+        "overlap": 110
+      },
+      {
+        "mpId": 4267,
+        "score": 0,
+        "overlap": 89
+      },
+      {
+        "mpId": 5126,
+        "score": 0,
+        "overlap": 104
+      },
+      {
+        "mpId": 1738,
+        "score": 0.007880125225640987,
+        "overlap": 108
+      },
+      {
+        "mpId": 5267,
+        "score": 0.008065565308263788,
+        "overlap": 102
+      }
+    ]
+  }
+}

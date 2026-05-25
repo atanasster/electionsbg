@@ -1,0 +1,295 @@
+{
+  "mpId": 4349,
+  "ns": "48",
+  "partyShort": "ПП",
+  "loyalty": {
+    "votesCast": 1188,
+    "withParty": 1181,
+    "loyaltyPct": 0.9941077441077442,
+    "windowFrom": "2022-10-19",
+    "windowTo": "2023-02-02",
+    "totalVoteItems": 1435
+  },
+  "dissents": {
+    "totalCast": 1188,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2023-02-01",
+        "item": 18,
+        "slug": "18-protsedura-ot-kiril-ananiev-za-razmestvane-na-tochkite",
+        "title": "Процедура от Кирил Ананиев за разместване на точките",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 39
+      },
+      {
+        "date": "2023-01-19",
+        "item": 13,
+        "slug": "13-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-par",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - параграф 2 - отпада - предложение от Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 34
+      },
+      {
+        "date": "2023-01-19",
+        "item": 12,
+        "slug": "12-zid-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-par",
+        "title": "ЗИД на Кодекса за социално осигуряване - второ гласуване - параграф 1 - отпада - предложение от Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 33
+      },
+      {
+        "date": "2023-01-11",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-ustroystvo-na-teritoriyata-vtoro-glasuvane-",
+        "title": "ЗИД на Закона за устройство на територията - второ гласуване - параграф 1 - предложение от Десислава Танева и група н.п. - гласуване за допустимост - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 49
+      },
+      {
+        "date": "2022-12-09",
+        "item": 17,
+        "slug": "17-protsedura-ot-ivan-ivanov-za-razmestvane-na-tochkite",
+        "title": "Процедура от Иван Иванов за разместване на точките - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 45
+      },
+      {
+        "date": "2022-12-08",
+        "item": 25,
+        "slug": "25-protsedura-ot-georgi-svilenski-za-razmestvane-na-tochki-5-i-",
+        "title": "Процедура от Георги Свиленски за разместване на точки 5 и 6 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 37
+      },
+      {
+        "date": "2022-12-01",
+        "item": 136,
+        "slug": "136-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-8-stava-par",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 8 (става параграф 26)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 45
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4372,
+        "score": 0.9277493370438534,
+        "overlap": 1168
+      },
+      {
+        "mpId": 5014,
+        "score": 0.9058806908607302,
+        "overlap": 1158
+      },
+      {
+        "mpId": 2176,
+        "score": 0.9012531367653421,
+        "overlap": 1073
+      },
+      {
+        "mpId": 4144,
+        "score": 0.9009505853235668,
+        "overlap": 1124
+      },
+      {
+        "mpId": 4220,
+        "score": 0.900313813324941,
+        "overlap": 1130
+      },
+      {
+        "mpId": 5072,
+        "score": 0.8957841622611366,
+        "overlap": 1080
+      },
+      {
+        "mpId": 4255,
+        "score": 0.8880808314213062,
+        "overlap": 1085
+      },
+      {
+        "mpId": 4841,
+        "score": 0.8870674909481997,
+        "overlap": 1045
+      },
+      {
+        "mpId": 5092,
+        "score": 0.8848425500804451,
+        "overlap": 1106
+      },
+      {
+        "mpId": 2155,
+        "score": 0.8846141386008133,
+        "overlap": 1085
+      },
+      {
+        "mpId": 2114,
+        "score": 0.8824926124919754,
+        "overlap": 1084
+      },
+      {
+        "mpId": 4234,
+        "score": 0.8791454570610697,
+        "overlap": 1089
+      },
+      {
+        "mpId": 2081,
+        "score": 0.8783231710359671,
+        "overlap": 1032
+      },
+      {
+        "mpId": 4273,
+        "score": 0.8783231710359671,
+        "overlap": 1032
+      },
+      {
+        "mpId": 5232,
+        "score": 0.8714155627250588,
+        "overlap": 1094
+      },
+      {
+        "mpId": 2091,
+        "score": 0.8660939562491141,
+        "overlap": 1044
+      },
+      {
+        "mpId": 5215,
+        "score": 0.8648751489813307,
+        "overlap": 1002
+      },
+      {
+        "mpId": 2243,
+        "score": 0.8560597705731888,
+        "overlap": 992
+      },
+      {
+        "mpId": 4190,
+        "score": 0.8514502366399949,
+        "overlap": 1027
+      },
+      {
+        "mpId": 2252,
+        "score": 0.840888833845558,
+        "overlap": 1025
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5169,
+        "score": -0.10477222602830817,
+        "overlap": 314
+      },
+      {
+        "mpId": 4658,
+        "score": -0.05784641966450992,
+        "overlap": 278
+      },
+      {
+        "mpId": 4266,
+        "score": -0.03148294698287831,
+        "overlap": 640
+      },
+      {
+        "mpId": 5221,
+        "score": -0.0233734832069359,
+        "overlap": 623
+      },
+      {
+        "mpId": 5285,
+        "score": -0.0057697574116567455,
+        "overlap": 645
+      },
+      {
+        "mpId": 1000,
+        "score": -0.0022665541677832552,
+        "overlap": 710
+      },
+      {
+        "mpId": 5173,
+        "score": 0.014864944362979835,
+        "overlap": 740
+      },
+      {
+        "mpId": 4899,
+        "score": 0.015832181693946165,
+        "overlap": 694
+      },
+      {
+        "mpId": 5100,
+        "score": 0.02966011461052942,
+        "overlap": 48
+      },
+      {
+        "mpId": 4120,
+        "score": 0.042587371292218484,
+        "overlap": 312
+      },
+      {
+        "mpId": 4812,
+        "score": 0.056323780697153665,
+        "overlap": 842
+      },
+      {
+        "mpId": 4601,
+        "score": 0.05682552029826643,
+        "overlap": 654
+      },
+      {
+        "mpId": 4879,
+        "score": 0.05799581772026609,
+        "overlap": 825
+      },
+      {
+        "mpId": 4787,
+        "score": 0.058591630838712494,
+        "overlap": 742
+      },
+      {
+        "mpId": 4258,
+        "score": 0.05967455885745422,
+        "overlap": 223
+      },
+      {
+        "mpId": 4114,
+        "score": 0.06440092669914461,
+        "overlap": 824
+      },
+      {
+        "mpId": 5224,
+        "score": 0.06745510335133688,
+        "overlap": 879
+      },
+      {
+        "mpId": 5294,
+        "score": 0.06858952235767782,
+        "overlap": 806
+      },
+      {
+        "mpId": 4886,
+        "score": 0.07256305739258628,
+        "overlap": 722
+      },
+      {
+        "mpId": 1316,
+        "score": 0.07459098644742035,
+        "overlap": 829
+      }
+    ]
+  }
+}

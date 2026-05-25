@@ -1,0 +1,255 @@
+{
+  "mpId": 5293,
+  "ns": "51",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 231,
+    "withParty": 228,
+    "loyaltyPct": 0.987012987012987,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 231,
+    "dissentCount": 3,
+    "recent": [
+      {
+        "date": "2024-12-18",
+        "item": 21,
+        "slug": "21-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 41 - предложение от Павела Митова и Александър Рашев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2024-12-18",
+        "item": 14,
+        "slug": "14-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 32 - предложение от Павела Митова и Александър Рашев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-11-13",
+        "item": 7,
+        "slug": "7-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Андрей Цеков (нова процедура) - балотаж - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 69
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3081,
+        "score": 0.8235699274854786,
+        "overlap": 220
+      },
+      {
+        "mpId": 5207,
+        "score": 0.77691559021127,
+        "overlap": 196
+      },
+      {
+        "mpId": 3148,
+        "score": 0.6462621195545555,
+        "overlap": 218
+      },
+      {
+        "mpId": 3039,
+        "score": 0.6090280558626657,
+        "overlap": 180
+      },
+      {
+        "mpId": 5128,
+        "score": 0.5810954564309515,
+        "overlap": 223
+      },
+      {
+        "mpId": 3373,
+        "score": 0.5775028862341074,
+        "overlap": 229
+      },
+      {
+        "mpId": 5117,
+        "score": 0.5727589772586493,
+        "overlap": 219
+      },
+      {
+        "mpId": 5091,
+        "score": 0.5707712814405312,
+        "overlap": 215
+      },
+      {
+        "mpId": 5284,
+        "score": 0.563871792131731,
+        "overlap": 209
+      },
+      {
+        "mpId": 3410,
+        "score": 0.5545001278088714,
+        "overlap": 192
+      },
+      {
+        "mpId": 3051,
+        "score": 0.5491610100556448,
+        "overlap": 178
+      },
+      {
+        "mpId": 5172,
+        "score": 0.5448532760747032,
+        "overlap": 201
+      },
+      {
+        "mpId": 3023,
+        "score": 0.5324982939025802,
+        "overlap": 207
+      },
+      {
+        "mpId": 3283,
+        "score": 0.5063172771075222,
+        "overlap": 75
+      },
+      {
+        "mpId": 5186,
+        "score": 0.40459392205859573,
+        "overlap": 83
+      },
+      {
+        "mpId": 3404,
+        "score": 0.39142382458216446,
+        "overlap": 205
+      },
+      {
+        "mpId": 3227,
+        "score": 0.37331080222273205,
+        "overlap": 133
+      },
+      {
+        "mpId": 3413,
+        "score": 0.3237148292546958,
+        "overlap": 147
+      },
+      {
+        "mpId": 3396,
+        "score": 0.3087506346248189,
+        "overlap": 221
+      },
+      {
+        "mpId": 3399,
+        "score": 0.30560011794497377,
+        "overlap": 220
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3397,
+        "score": 0.03204451399991502,
+        "overlap": 174
+      },
+      {
+        "mpId": 5258,
+        "score": 0.032688537896655774,
+        "overlap": 185
+      },
+      {
+        "mpId": 3415,
+        "score": 0.04349426680069595,
+        "overlap": 89
+      },
+      {
+        "mpId": 5234,
+        "score": 0.04887495989698973,
+        "overlap": 184
+      },
+      {
+        "mpId": 3142,
+        "score": 0.05140088779599138,
+        "overlap": 223
+      },
+      {
+        "mpId": 5159,
+        "score": 0.05651297798437567,
+        "overlap": 225
+      },
+      {
+        "mpId": 3371,
+        "score": 0.057655167568172155,
+        "overlap": 190
+      },
+      {
+        "mpId": 5156,
+        "score": 0.058858735795354986,
+        "overlap": 116
+      },
+      {
+        "mpId": 3304,
+        "score": 0.0618905422798803,
+        "overlap": 230
+      },
+      {
+        "mpId": 3391,
+        "score": 0.06251526437927266,
+        "overlap": 152
+      },
+      {
+        "mpId": 3141,
+        "score": 0.06256413357367697,
+        "overlap": 230
+      },
+      {
+        "mpId": 3116,
+        "score": 0.06265465198682983,
+        "overlap": 229
+      },
+      {
+        "mpId": 3068,
+        "score": 0.06275036755668373,
+        "overlap": 230
+      },
+      {
+        "mpId": 3270,
+        "score": 0.06291274517734728,
+        "overlap": 225
+      },
+      {
+        "mpId": 3090,
+        "score": 0.06333265608114826,
+        "overlap": 231
+      },
+      {
+        "mpId": 3177,
+        "score": 0.063798305603042,
+        "overlap": 231
+      },
+      {
+        "mpId": 5101,
+        "score": 0.06381617691665943,
+        "overlap": 230
+      },
+      {
+        "mpId": 3230,
+        "score": 0.06384019549961259,
+        "overlap": 231
+      },
+      {
+        "mpId": 5148,
+        "score": 0.06400858404268195,
+        "overlap": 231
+      },
+      {
+        "mpId": 3165,
+        "score": 0.06408267420196948,
+        "overlap": 231
+      }
+    ]
+  }
+}

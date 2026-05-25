@@ -1,0 +1,515 @@
+{
+  "mpId": 5267,
+  "ns": "46",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 365,
+    "withParty": 336,
+    "loyaltyPct": 0.9205479452054794,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 365,
+    "dissentCount": 29,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-na-15-09-2021-g",
+        "title": "Програма за работата на Народното събрание на 15.09.2021 г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 41
+      },
+      {
+        "date": "2021-09-10",
+        "item": 49,
+        "slug": "49-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Кр.Вълчев за редакция на т.17",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2021-09-10",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - процедура от Тошко Йорданов за удължаване на работното време до 22 часа",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 38
+      },
+      {
+        "date": "2021-09-09",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - процедура от Виктория Василева за удължаване на работното време до приемане на ЗИД на бюджета на НЗОК",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 42
+      },
+      {
+        "date": "2021-09-09",
+        "item": 11,
+        "slug": "11-reshenie-za-izbirane-na-postoyanna-delegatsiya-na-narodnoto-",
+        "title": "Решение за избиране на постоянна делегация на Народното събрание в Интерпарламентарния съюз",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 26
+      },
+      {
+        "date": "2021-09-09",
+        "item": 9,
+        "slug": "9-reshenie-za-izbirane-na-postoyanna-delegatsiya-na-narodnoto-",
+        "title": "Решение за избиране на постоянна делегация на Народното събрание в Парламентарната асамблея на Черноморското икономическо сътрудничество",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2021-09-09",
+        "item": 8,
+        "slug": "8-reshenie-za-izbirane-na-postoyanna-delegatsiya-na-narodnoto-",
+        "title": "Решение за избиране на постоянна делегация на Народното събрание в Парламентарната асамблея на Процеса за сътрудничество в Югоизточна Европа",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-09-09",
+        "item": 6,
+        "slug": "6-reshenie-za-izbirane-na-postoyanna-delegatsiya-na-narodnoto-",
+        "title": "Решение за избиране на постоянна делегация на Народното събрание в Парламентарната асамблея на Организацията за сигурност и сътрудничество в Европа",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 32
+      },
+      {
+        "date": "2021-09-09",
+        "item": 5,
+        "slug": "5-reshenie-za-izbirane-na-postoyanna-delegatsiya-na-narodnoto-",
+        "title": "Решение за избиране на постоянна делегация на Народното събрание в Парламентарната асамблея на Съвета на Европа",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 45
+      },
+      {
+        "date": "2021-09-09",
+        "item": 4,
+        "slug": "4-reshenie-za-izbirane-na-postoyanna-delegatsiya-na-narodnoto-",
+        "title": "Решение за избиране на постоянна делегация на Народното събрание в Парламентарната асамблея на НАТО",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2021-09-08",
+        "item": 16,
+        "slug": "16-protsedura-za-razmestvane-na-tochkite-v-dnevniya-red-ot-iva-",
+        "title": "Процедура за разместване на точките в дневния ред от Ива Митева",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 36
+      },
+      {
+        "date": "2021-09-08",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-8-10-septemvri",
+        "title": "Програма за работата на Народното събрание за 8 - 10 септември 2021 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 55
+      },
+      {
+        "date": "2021-09-07",
+        "item": 47,
+        "slug": "47-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 8",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 44
+      },
+      {
+        "date": "2021-09-02",
+        "item": 6,
+        "slug": "6-ratifitsirane-na-ramkovo-sporazumenie-za-proekta-traduki-otn",
+        "title": "Ратифициране на Рамково споразумение за Проекта \"Традуки\" относно подкрепа и посредничество за проекти в областта на превода в Югоизточна Европа, подписано от българска страна на 29.12.2020 г. в София - процедура за допускане в залата",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 47
+      },
+      {
+        "date": "2021-09-02",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodnoto-sabranie-za-1-3-septemvri-",
+        "title": "Програма за работата на Народното събрание за 1 - 3 септември 2021 г. - разместване на точките",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 40
+      },
+      {
+        "date": "2021-09-01",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-1-3-septemvri-",
+        "title": "Програма за работата на Народното събрание за 1 - 3 септември 2021 г. - предложение от Кристиан Вигенин и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 54
+      },
+      {
+        "date": "2021-08-27",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - първо гласуване - предложение от Капон за удължаване на срока за предложенията за второ четене",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 36
+      },
+      {
+        "date": "2021-08-26",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - първо гласуване - процедура за удължаване на работното време",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 22
+      },
+      {
+        "date": "2021-08-25",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-25-27-avgust-2021",
+        "title": "Програма за работата на Народното събрание 25 -27 август 2021 г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 46
+      },
+      {
+        "date": "2021-08-18",
+        "item": 24,
+        "slug": "24-reshenie-za-izbirane-na-komisiya-po-politikite-na-balgarite-",
+        "title": "Решение за избиране на Комисия по политиките на българите извън страната",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 34
+      },
+      {
+        "date": "2021-08-18",
+        "item": 14,
+        "slug": "14-reshenie-za-izbirane-na-komisiya-po-truda-sotsialnata-i-demo",
+        "title": "Решение за избиране на Комисия по труда, социалната и демографската политика",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 47
+      },
+      {
+        "date": "2021-08-18",
+        "item": 11,
+        "slug": "11-reshenie-za-izbirane-na-komisiya-po-vatreshna-sigurnost-i-ob",
+        "title": "Решение за избиране на Комисия по вътрешна сигурност и обществен ред",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 52
+      },
+      {
+        "date": "2021-08-18",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-18-20-avgust-2",
+        "title": "Програма за работата на Народното събрание за 18 - 20 август 2021 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 52
+      },
+      {
+        "date": "2021-08-05",
+        "item": 56,
+        "slug": "56-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Допълнителни разпоредби, параграф 1 до параграф 10",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 45
+      },
+      {
+        "date": "2021-08-05",
+        "item": 54,
+        "slug": "54-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Раздел ІІ, член 139 до член 151",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 47
+      },
+      {
+        "date": "2021-08-05",
+        "item": 43,
+        "slug": "43-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - процедура за удължаване на работното време",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2021-08-05",
+        "item": 8,
+        "slug": "8-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 16а - предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 52
+      },
+      {
+        "date": "2021-07-28",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 38
+      },
+      {
+        "date": "2021-07-28",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 52
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1882,
+        "score": 0.912403362723792,
+        "overlap": 350
+      },
+      {
+        "mpId": 5274,
+        "score": 0.9000967153994259,
+        "overlap": 355
+      },
+      {
+        "mpId": 4807,
+        "score": 0.8788655081165425,
+        "overlap": 302
+      },
+      {
+        "mpId": 1883,
+        "score": 0.8714948591932405,
+        "overlap": 339
+      },
+      {
+        "mpId": 4912,
+        "score": 0.8698819791605829,
+        "overlap": 315
+      },
+      {
+        "mpId": 1870,
+        "score": 0.8662594393038227,
+        "overlap": 352
+      },
+      {
+        "mpId": 5126,
+        "score": 0.844699713588259,
+        "overlap": 299
+      },
+      {
+        "mpId": 4983,
+        "score": 0.837424395671314,
+        "overlap": 359
+      },
+      {
+        "mpId": 1936,
+        "score": 0.8316599206244806,
+        "overlap": 315
+      },
+      {
+        "mpId": 4739,
+        "score": 0.8290554374101512,
+        "overlap": 342
+      },
+      {
+        "mpId": 4812,
+        "score": 0.8287994073574751,
+        "overlap": 293
+      },
+      {
+        "mpId": 4116,
+        "score": 0.8281369741061363,
+        "overlap": 290
+      },
+      {
+        "mpId": 4225,
+        "score": 0.823548762290893,
+        "overlap": 300
+      },
+      {
+        "mpId": 4304,
+        "score": 0.8221733789334315,
+        "overlap": 276
+      },
+      {
+        "mpId": 3861,
+        "score": 0.82124619542835,
+        "overlap": 311
+      },
+      {
+        "mpId": 388,
+        "score": 0.8189995881603106,
+        "overlap": 303
+      },
+      {
+        "mpId": 4906,
+        "score": 0.8189995881603106,
+        "overlap": 282
+      },
+      {
+        "mpId": 1281,
+        "score": 0.816033861665763,
+        "overlap": 299
+      },
+      {
+        "mpId": 5207,
+        "score": 0.8036400479620155,
+        "overlap": 325
+      },
+      {
+        "mpId": 5083,
+        "score": 0.8034428307811838,
+        "overlap": 338
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5283,
+        "score": -0.07688567562321283,
+        "overlap": 208
+      },
+      {
+        "mpId": 1595,
+        "score": -0.03996461842858333,
+        "overlap": 284
+      },
+      {
+        "mpId": 1681,
+        "score": 0.0034868402187720336,
+        "overlap": 152
+      },
+      {
+        "mpId": 5121,
+        "score": 0.006932211206993367,
+        "overlap": 199
+      },
+      {
+        "mpId": 1663,
+        "score": 0.009549105211188454,
+        "overlap": 216
+      },
+      {
+        "mpId": 4800,
+        "score": 0.014840977539709786,
+        "overlap": 250
+      },
+      {
+        "mpId": 4536,
+        "score": 0.01506085585022181,
+        "overlap": 273
+      },
+      {
+        "mpId": 4265,
+        "score": 0.01668618392099682,
+        "overlap": 309
+      },
+      {
+        "mpId": 3720,
+        "score": 0.024997492661205937,
+        "overlap": 315
+      },
+      {
+        "mpId": 4315,
+        "score": 0.027194503871739613,
+        "overlap": 310
+      },
+      {
+        "mpId": 1892,
+        "score": 0.027429088040717527,
+        "overlap": 326
+      },
+      {
+        "mpId": 5266,
+        "score": 0.028700460690577228,
+        "overlap": 299
+      },
+      {
+        "mpId": 1874,
+        "score": 0.029451797644113435,
+        "overlap": 329
+      },
+      {
+        "mpId": 1877,
+        "score": 0.030812918439247817,
+        "overlap": 353
+      },
+      {
+        "mpId": 3607,
+        "score": 0.036547919304601446,
+        "overlap": 344
+      },
+      {
+        "mpId": 5139,
+        "score": 0.03911465900700148,
+        "overlap": 343
+      },
+      {
+        "mpId": 4170,
+        "score": 0.03964701377725685,
+        "overlap": 275
+      },
+      {
+        "mpId": 1685,
+        "score": 0.04051135544140557,
+        "overlap": 290
+      },
+      {
+        "mpId": 4936,
+        "score": 0.04124585242250066,
+        "overlap": 303
+      },
+      {
+        "mpId": 1649,
+        "score": 0.041308517810297644,
+        "overlap": 337
+      }
+    ]
+  }
+}

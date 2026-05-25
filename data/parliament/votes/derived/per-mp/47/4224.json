@@ -1,0 +1,491 @@
+{
+  "mpId": 4224,
+  "ns": "47",
+  "partyShort": "ПП",
+  "loyalty": {
+    "votesCast": 1621,
+    "withParty": 1592,
+    "loyaltyPct": 0.9821098087600246,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1621,
+    "dissentCount": 29,
+    "recent": [
+      {
+        "date": "2022-07-22",
+        "item": 18,
+        "slug": "18-reshenie-za-priemane-na-protsedurni-pravila-za-usloviyata-i-",
+        "title": "Решение за приемане на процедурни правила за условията и реда за предлагане на кандидати, представяне и публично оповестяване на документите, изслушване на кандидатите и за избор на председател на Комисията за противодействие на корупцията и за отнемане на незаконно придобито имущество - предложение от Петър Петров за редакция на І, т. 1",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 62
+      },
+      {
+        "date": "2022-07-22",
+        "item": 9,
+        "slug": "9-protsedura-ot-petar-petrov-za-pryako-predavane-po-bnt1-i-bnr",
+        "title": "Процедура от Петър Петров за пряко предаване по БНТ1 и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 60
+      },
+      {
+        "date": "2022-07-20",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodnoto-sabranie-za-20-22-yuli-202",
+        "title": "Програма за работата на Народното събрание за 20 - 22 юли 2022 г. - предложение от Иво Русчев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2022-07-14",
+        "item": 12,
+        "slug": "12-zi-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-4-predlozh",
+        "title": "ЗИ на Закона за здравето - второ гласуване - параграф 4 - предложение от Асен Балтов за редакция - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2022-07-06",
+        "item": 13,
+        "slug": "13-programa-za-rabotata-na-narodnoto-sabranie-za-6-8-yuli-2022-",
+        "title": "Програма за работата на Народното събрание за 6 - 8 юли 2022 г. - предложение от Д.Атанасова за удължване на р.време до т.5 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 67
+      },
+      {
+        "date": "2022-06-29",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodnoto-sabranie-za-29-yuni-10-yul",
+        "title": "Програма за работата на Народното събрание за 29 юни - 10 юли 2022 г. - процедура от Петър Петров за разместване на точка 9",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-06-01",
+        "item": 15,
+        "slug": "15-reshenie-za-obyavyavane-na-konkursni-protseduri-ot-ministara",
+        "title": "Решение за обявяване на конкурсни процедури от Министъра на земеделието за избор на директори на държавните предприятия по чл. 163 от Закона за горите - предложение от Пламен Абровски за редакция по преамбюла",
+        "topic": "personnel",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2022-05-25",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodnoto-sabranie-za-25-27-may-2022",
+        "title": "Програма за работата на Народното събрание за 25 - 27 май 2022 г. - предложение от Рамадан Аталай и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2022-05-11",
+        "item": 18,
+        "slug": "18-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства относно действията и намеренията на Министерски съвет по отношение на доставките на природен газ за Република България - прегласуване",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 59
+      },
+      {
+        "date": "2022-05-05",
+        "item": 25,
+        "slug": "25-reshenie-za-izbor-na-dvama-chlenove-na-saveta-za-elektronni-",
+        "title": "Решение за избор на двама членове на Съвета за електронни медии - избира Тодор Беленски",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2022-04-20",
+        "item": 8,
+        "slug": "8-programa-na-narodnoto-sabranie-za-20-i-21-april-2022g-predlo",
+        "title": "Програма на Народното събрание за 20 и 21 април 2022г. - предложение от Костадин Костадинов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-03-10",
+        "item": 17,
+        "slug": "17",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 56
+      },
+      {
+        "date": "2022-03-10",
+        "item": 16,
+        "slug": "16",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 57
+      },
+      {
+        "date": "2022-02-24",
+        "item": 10,
+        "slug": "10",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2022-02-24",
+        "item": 9,
+        "slug": "9",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2022-02-24",
+        "item": 5,
+        "slug": "5",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 56
+      },
+      {
+        "date": "2022-02-23",
+        "item": 101,
+        "slug": "101",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 12
+      },
+      {
+        "date": "2022-02-22",
+        "item": 70,
+        "slug": "70",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-02-22",
+        "item": 69,
+        "slug": "69",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-02-22",
+        "item": 66,
+        "slug": "66",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 64
+      },
+      {
+        "date": "2022-02-22",
+        "item": 64,
+        "slug": "64",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 63
+      },
+      {
+        "date": "2022-02-22",
+        "item": 58,
+        "slug": "58",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2022-02-22",
+        "item": 57,
+        "slug": "57",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2022-01-12",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-12-14-yanuari-",
+        "title": "Програма за работата на Народното събрание за 12 - 14 януари 2022 г. - процедура за пряко предаване по БНТ и БНР от Цвета Галунова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 56
+      },
+      {
+        "date": "2021-12-17",
+        "item": 42,
+        "slug": "42-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 80 - предложение от Петър Петров за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2021-12-16",
+        "item": 54,
+        "slug": "54-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 26 (става член 27) - предложение от Атанас Славов и Иван Димитров с редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 54
+      },
+      {
+        "date": "2021-12-16",
+        "item": 32,
+        "slug": "32-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 16 - предложение от Петър Петров за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-12-16",
+        "item": 26,
+        "slug": "26-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 8",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 57
+      },
+      {
+        "date": "2021-12-03",
+        "item": 4,
+        "slug": "4-reshenie-za-izbor-na-predsedatel-na-narodnoto-sabranie-na-re",
+        "title": "Решение за избор на Председател на Народното събрание на Република България - избира Цончо Ганев",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3899,
+        "score": 0.9243110333649431,
+        "overlap": 1583
+      },
+      {
+        "mpId": 4372,
+        "score": 0.9227879920509187,
+        "overlap": 1595
+      },
+      {
+        "mpId": 4220,
+        "score": 0.920632132665546,
+        "overlap": 1567
+      },
+      {
+        "mpId": 5014,
+        "score": 0.9203091862350894,
+        "overlap": 1596
+      },
+      {
+        "mpId": 2130,
+        "score": 0.9190371624807907,
+        "overlap": 1610
+      },
+      {
+        "mpId": 4234,
+        "score": 0.9156058588290306,
+        "overlap": 1581
+      },
+      {
+        "mpId": 3870,
+        "score": 0.9152974592278793,
+        "overlap": 1582
+      },
+      {
+        "mpId": 2117,
+        "score": 0.9126240954576198,
+        "overlap": 1566
+      },
+      {
+        "mpId": 4144,
+        "score": 0.9083531669430337,
+        "overlap": 1556
+      },
+      {
+        "mpId": 3957,
+        "score": 0.9068396312597343,
+        "overlap": 1552
+      },
+      {
+        "mpId": 5232,
+        "score": 0.9062490224443939,
+        "overlap": 1578
+      },
+      {
+        "mpId": 5215,
+        "score": 0.901267465327993,
+        "overlap": 1551
+      },
+      {
+        "mpId": 2108,
+        "score": 0.9010111465803189,
+        "overlap": 1514
+      },
+      {
+        "mpId": 4748,
+        "score": 0.9008733597453777,
+        "overlap": 1541
+      },
+      {
+        "mpId": 4378,
+        "score": 0.8972863525414712,
+        "overlap": 1529
+      },
+      {
+        "mpId": 4295,
+        "score": 0.8936101469042336,
+        "overlap": 1530
+      },
+      {
+        "mpId": 4054,
+        "score": 0.8925034660190012,
+        "overlap": 1433
+      },
+      {
+        "mpId": 5072,
+        "score": 0.8924835280193357,
+        "overlap": 1503
+      },
+      {
+        "mpId": 2164,
+        "score": 0.8895939638584732,
+        "overlap": 1515
+      },
+      {
+        "mpId": 2068,
+        "score": 0.8886762435468538,
+        "overlap": 1486
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4304,
+        "score": -0.2293995410961743,
+        "overlap": 877
+      },
+      {
+        "mpId": 4267,
+        "score": -0.2280896956700756,
+        "overlap": 837
+      },
+      {
+        "mpId": 5126,
+        "score": -0.22313067747512075,
+        "overlap": 861
+      },
+      {
+        "mpId": 4912,
+        "score": -0.2134318283111158,
+        "overlap": 866
+      },
+      {
+        "mpId": 1643,
+        "score": -0.206723375889414,
+        "overlap": 807
+      },
+      {
+        "mpId": 5125,
+        "score": -0.2067079976956559,
+        "overlap": 865
+      },
+      {
+        "mpId": 5223,
+        "score": -0.206269731557789,
+        "overlap": 688
+      },
+      {
+        "mpId": 4854,
+        "score": -0.2051877496817524,
+        "overlap": 826
+      },
+      {
+        "mpId": 5236,
+        "score": -0.20309848052900037,
+        "overlap": 891
+      },
+      {
+        "mpId": 5172,
+        "score": -0.20234566387237887,
+        "overlap": 888
+      },
+      {
+        "mpId": 4838,
+        "score": -0.1986435550569306,
+        "overlap": 756
+      },
+      {
+        "mpId": 5103,
+        "score": -0.19860193326583295,
+        "overlap": 1017
+      },
+      {
+        "mpId": 4225,
+        "score": -0.197854117444975,
+        "overlap": 909
+      },
+      {
+        "mpId": 5075,
+        "score": -0.19504901248447892,
+        "overlap": 972
+      },
+      {
+        "mpId": 4147,
+        "score": -0.19493665587858705,
+        "overlap": 928
+      },
+      {
+        "mpId": 3942,
+        "score": -0.19459340979567744,
+        "overlap": 914
+      },
+      {
+        "mpId": 4272,
+        "score": -0.19320048428390962,
+        "overlap": 1029
+      },
+      {
+        "mpId": 1651,
+        "score": -0.19163498051621813,
+        "overlap": 634
+      },
+      {
+        "mpId": 4734,
+        "score": -0.19007727857697243,
+        "overlap": 812
+      },
+      {
+        "mpId": 5124,
+        "score": -0.18969017717240036,
+        "overlap": 758
+      }
+    ]
+  }
+}

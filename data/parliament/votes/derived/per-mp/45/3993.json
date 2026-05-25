@@ -1,0 +1,275 @@
+{
+  "mpId": 3993,
+  "ns": "45",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 194,
+    "withParty": 189,
+    "loyaltyPct": 0.9742268041237113,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 194,
+    "dissentCount": 5,
+    "recent": [
+      {
+        "date": "2021-05-07",
+        "item": 9,
+        "slug": "9-reshenie-za-vazlagane-na-ministerski-savet-osiguryavaneto-na",
+        "title": "Решение за възлагане на Министерски съвет осигуряването на достъп на българските граждани до руската ваксина срещу COVID-19 \"Спутник V\"",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 43
+      },
+      {
+        "date": "2021-05-07",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-5-i-7-may-2021",
+        "title": "Програма за работата на Народното събрание за 5 и 7 май 2021 г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 36
+      },
+      {
+        "date": "2021-04-22",
+        "item": 47,
+        "slug": "47-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-13-nov-",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 13 - нов - предложение от А.Славов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 42
+      },
+      {
+        "date": "2021-04-22",
+        "item": 7,
+        "slug": "7-reshenie-za-nalagane-na-moratorium-varhu-opredeleni-deystviy",
+        "title": "Решение за налагане на мораториум върху определени действия - предложение от Христо Гаджев за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 45
+      },
+      {
+        "date": "2021-04-22",
+        "item": 6,
+        "slug": "6-reshenie-za-nalagane-na-moratorium-varhu-opredeleni-deystviy",
+        "title": "Решение за налагане на мораториум върху определени действия - предложение от Татяна Дончева за редакция на т.1 (б)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 41
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 3693,
+        "score": 0.9508764612175108,
+        "overlap": 191
+      },
+      {
+        "mpId": 3271,
+        "score": 0.942497589122031,
+        "overlap": 193
+      },
+      {
+        "mpId": 1707,
+        "score": 0.9399468467207578,
+        "overlap": 194
+      },
+      {
+        "mpId": 3415,
+        "score": 0.9395746223540908,
+        "overlap": 187
+      },
+      {
+        "mpId": 1632,
+        "score": 0.9392265193370166,
+        "overlap": 187
+      },
+      {
+        "mpId": 3642,
+        "score": 0.9389033782503547,
+        "overlap": 186
+      },
+      {
+        "mpId": 4900,
+        "score": 0.9337016574585635,
+        "overlap": 190
+      },
+      {
+        "mpId": 3248,
+        "score": 0.9315383148299143,
+        "overlap": 189
+      },
+      {
+        "mpId": 3448,
+        "score": 0.9294713758032979,
+        "overlap": 192
+      },
+      {
+        "mpId": 4876,
+        "score": 0.9294713758032979,
+        "overlap": 193
+      },
+      {
+        "mpId": 1732,
+        "score": 0.9274321938229644,
+        "overlap": 183
+      },
+      {
+        "mpId": 3710,
+        "score": 0.9270979749146072,
+        "overlap": 182
+      },
+      {
+        "mpId": 4908,
+        "score": 0.9240358706816412,
+        "overlap": 192
+      },
+      {
+        "mpId": 3372,
+        "score": 0.9235524249756283,
+        "overlap": 190
+      },
+      {
+        "mpId": 3309,
+        "score": 0.9205790405377977,
+        "overlap": 190
+      },
+      {
+        "mpId": 4796,
+        "score": 0.9205790405377977,
+        "overlap": 189
+      },
+      {
+        "mpId": 3551,
+        "score": 0.9201136842331274,
+        "overlap": 188
+      },
+      {
+        "mpId": 4737,
+        "score": 0.9196711185184382,
+        "overlap": 186
+      },
+      {
+        "mpId": 1629,
+        "score": 0.9171270718232044,
+        "overlap": 187
+      },
+      {
+        "mpId": 1570,
+        "score": 0.9162583119696757,
+        "overlap": 186
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5173,
+        "score": -0.13530659864338626,
+        "overlap": 55
+      },
+      {
+        "mpId": 4632,
+        "score": -0.09932685831612645,
+        "overlap": 61
+      },
+      {
+        "mpId": 4258,
+        "score": -0.09562739655157729,
+        "overlap": 98
+      },
+      {
+        "mpId": 1600,
+        "score": -0.08362059145280622,
+        "overlap": 70
+      },
+      {
+        "mpId": 1622,
+        "score": -0.0626542876086142,
+        "overlap": 122
+      },
+      {
+        "mpId": 4249,
+        "score": -0.04291410754228745,
+        "overlap": 115
+      },
+      {
+        "mpId": 4838,
+        "score": -0.04195393888332473,
+        "overlap": 109
+      },
+      {
+        "mpId": 4267,
+        "score": -0.041587521918741696,
+        "overlap": 121
+      },
+      {
+        "mpId": 5126,
+        "score": -0.026279416561381833,
+        "overlap": 132
+      },
+      {
+        "mpId": 4872,
+        "score": -0.021457053771143726,
+        "overlap": 113
+      },
+      {
+        "mpId": 1805,
+        "score": -0.019944674859436008,
+        "overlap": 131
+      },
+      {
+        "mpId": 4225,
+        "score": -0.019263250315871425,
+        "overlap": 141
+      },
+      {
+        "mpId": 1634,
+        "score": -0.00869959995809368,
+        "overlap": 80
+      },
+      {
+        "mpId": 5248,
+        "score": -0.007508404731823381,
+        "overlap": 105
+      },
+      {
+        "mpId": 1815,
+        "score": -0.006842577246675456,
+        "overlap": 122
+      },
+      {
+        "mpId": 403,
+        "score": -0.006757219511337876,
+        "overlap": 126
+      },
+      {
+        "mpId": 4854,
+        "score": 0,
+        "overlap": 125
+      },
+      {
+        "mpId": 5151,
+        "score": 0,
+        "overlap": 120
+      },
+      {
+        "mpId": 5195,
+        "score": 0.006445177644998371,
+        "overlap": 138
+      },
+      {
+        "mpId": 1529,
+        "score": 0.0064941911086855205,
+        "overlap": 135
+      }
+    ]
+  }
+}

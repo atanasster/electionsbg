@@ -1,0 +1,305 @@
+{
+  "mpId": 4827,
+  "ns": "50",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 145,
+    "withParty": 137,
+    "loyaltyPct": 0.9448275862068966,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 145,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2024-08-15",
+        "item": 5,
+        "slug": "5-zid-na-targovskiya-zakon-parvo-glasuvane-protsedura-ot-marin",
+        "title": "ЗИД на Търговския закон – първо гласуване - процедура от Марин Маринов за съкращаване на срока за предложения на три дни",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2024-07-12",
+        "item": 40,
+        "slug": "40-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 33 (става член 32)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 16
+      },
+      {
+        "date": "2024-07-12",
+        "item": 31,
+        "slug": "31-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 23 (става член 22 )",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-07-12",
+        "item": 29,
+        "slug": "29-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 22 - предложение от Анна Александрова и Христо Гаджев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-07-12",
+        "item": 27,
+        "slug": "27-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 21 - предложение от Павела Митова и Станислав Богдански",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 12
+      },
+      {
+        "date": "2024-07-12",
+        "item": 25,
+        "slug": "25-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 21 - предложение от Виктория Василева и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 14
+      },
+      {
+        "date": "2024-07-12",
+        "item": 14,
+        "slug": "14-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 15 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-07-03",
+        "item": 18,
+        "slug": "18-reshenie-za-izbirane-na-ministar-predsedatel-na-republika-ba",
+        "title": "Решение за избиране на министър-председател на Република България - избира Росен Желязков",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 45
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4704,
+        "score": 0.7944216981327005,
+        "overlap": 137
+      },
+      {
+        "mpId": 4810,
+        "score": 0.7726674092862559,
+        "overlap": 111
+      },
+      {
+        "mpId": 5146,
+        "score": 0.7638838768596542,
+        "overlap": 114
+      },
+      {
+        "mpId": 4762,
+        "score": 0.7476463310435026,
+        "overlap": 98
+      },
+      {
+        "mpId": 4710,
+        "score": 0.7444132719148584,
+        "overlap": 115
+      },
+      {
+        "mpId": 5294,
+        "score": 0.7128097984933985,
+        "overlap": 88
+      },
+      {
+        "mpId": 4819,
+        "score": 0.7019998845819646,
+        "overlap": 93
+      },
+      {
+        "mpId": 4709,
+        "score": 0.6941695065746322,
+        "overlap": 127
+      },
+      {
+        "mpId": 4886,
+        "score": 0.6651340975897281,
+        "overlap": 76
+      },
+      {
+        "mpId": 4925,
+        "score": 0.6077853116640997,
+        "overlap": 74
+      },
+      {
+        "mpId": 2988,
+        "score": 0.5879404509647188,
+        "overlap": 82
+      },
+      {
+        "mpId": 2993,
+        "score": 0.5821628126272561,
+        "overlap": 75
+      },
+      {
+        "mpId": 4787,
+        "score": 0.5701240736627577,
+        "overlap": 62
+      },
+      {
+        "mpId": 3002,
+        "score": 0.5530937931060568,
+        "overlap": 89
+      },
+      {
+        "mpId": 2990,
+        "score": 0.5526081577278062,
+        "overlap": 73
+      },
+      {
+        "mpId": 2994,
+        "score": 0.5335417344193738,
+        "overlap": 94
+      },
+      {
+        "mpId": 3000,
+        "score": 0.5331405124075165,
+        "overlap": 87
+      },
+      {
+        "mpId": 2599,
+        "score": 0.5261629690193306,
+        "overlap": 40
+      },
+      {
+        "mpId": 4899,
+        "score": 0.5221978562277042,
+        "overlap": 65
+      },
+      {
+        "mpId": 2916,
+        "score": 0.5209322610706233,
+        "overlap": 41
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2930,
+        "score": -0.04987546680538165,
+        "overlap": 7
+      },
+      {
+        "mpId": 3015,
+        "score": -0.024709986774669505,
+        "overlap": 5
+      },
+      {
+        "mpId": 3014,
+        "score": -0.01841773671709393,
+        "overlap": 6
+      },
+      {
+        "mpId": 4700,
+        "score": 0.014828857007114013,
+        "overlap": 134
+      },
+      {
+        "mpId": 4815,
+        "score": 0.022388059701492536,
+        "overlap": 134
+      },
+      {
+        "mpId": 2920,
+        "score": 0.03351961119198015,
+        "overlap": 141
+      },
+      {
+        "mpId": 5194,
+        "score": 0.03396444065333182,
+        "overlap": 141
+      },
+      {
+        "mpId": 4759,
+        "score": 0.03683547343418786,
+        "overlap": 142
+      },
+      {
+        "mpId": 5247,
+        "score": 0.037488696519052046,
+        "overlap": 132
+      },
+      {
+        "mpId": 4752,
+        "score": 0.038290294766601084,
+        "overlap": 140
+      },
+      {
+        "mpId": 2952,
+        "score": 0.03969748332822723,
+        "overlap": 143
+      },
+      {
+        "mpId": 4847,
+        "score": 0.04357331796282124,
+        "overlap": 144
+      },
+      {
+        "mpId": 4907,
+        "score": 0.04361186137412826,
+        "overlap": 144
+      },
+      {
+        "mpId": 4824,
+        "score": 0.04376706421829241,
+        "overlap": 144
+      },
+      {
+        "mpId": 4835,
+        "score": 0.04404270297481608,
+        "overlap": 140
+      },
+      {
+        "mpId": 2932,
+        "score": 0.04432361600111543,
+        "overlap": 140
+      },
+      {
+        "mpId": 4756,
+        "score": 0.04448657102134204,
+        "overlap": 144
+      },
+      {
+        "mpId": 5101,
+        "score": 0.044734408989271834,
+        "overlap": 144
+      },
+      {
+        "mpId": 4887,
+        "score": 0.04507139611728835,
+        "overlap": 143
+      },
+      {
+        "mpId": 5074,
+        "score": 0.04511405717380271,
+        "overlap": 142
+      }
+    ]
+  }
+}

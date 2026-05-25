@@ -1,0 +1,255 @@
+{
+  "mpId": 4792,
+  "ns": "46",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 129,
+    "withParty": 126,
+    "loyaltyPct": 0.9767441860465116,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 129,
+    "dissentCount": 3,
+    "recent": [
+      {
+        "date": "2021-09-07",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 2 - предложение от Десислава Атанасова и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2021-09-07",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 1 - процедура от Мартин Димитров за отлагане на гласуването - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 34
+      },
+      {
+        "date": "2021-08-17",
+        "item": 8,
+        "slug": "8-deklaratsiya-vav-vrazka-s-uprazhnenoto-politseysko-nasilie-o",
+        "title": "Декларация във връзка с упражненото полицейско насилие от длъжностни лица срещу протестиращи граждани в периода юли - септември 2020 г. - предложение от Д.Делчев за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1889,
+        "score": 0.5496225272412469,
+        "overlap": 124
+      },
+      {
+        "mpId": 4775,
+        "score": 0.532939271339896,
+        "overlap": 124
+      },
+      {
+        "mpId": 4466,
+        "score": 0.5129117162157085,
+        "overlap": 115
+      },
+      {
+        "mpId": 1606,
+        "score": 0.5092546807198559,
+        "overlap": 111
+      },
+      {
+        "mpId": 1385,
+        "score": 0.4970779700331184,
+        "overlap": 119
+      },
+      {
+        "mpId": 3908,
+        "score": 0.49641417587307946,
+        "overlap": 126
+      },
+      {
+        "mpId": 4552,
+        "score": 0.4955888616176,
+        "overlap": 118
+      },
+      {
+        "mpId": 3533,
+        "score": 0.4912346439430307,
+        "overlap": 110
+      },
+      {
+        "mpId": 4911,
+        "score": 0.48620840680912353,
+        "overlap": 116
+      },
+      {
+        "mpId": 3714,
+        "score": 0.48487879544981294,
+        "overlap": 118
+      },
+      {
+        "mpId": 1582,
+        "score": 0.4825140521965732,
+        "overlap": 117
+      },
+      {
+        "mpId": 3783,
+        "score": 0.4727987058949772,
+        "overlap": 114
+      },
+      {
+        "mpId": 4450,
+        "score": 0.4681819516362789,
+        "overlap": 119
+      },
+      {
+        "mpId": 4738,
+        "score": 0.46647555665690765,
+        "overlap": 117
+      },
+      {
+        "mpId": 1974,
+        "score": 0.4611704822933263,
+        "overlap": 115
+      },
+      {
+        "mpId": 4326,
+        "score": 0.4539286518439435,
+        "overlap": 120
+      },
+      {
+        "mpId": 4809,
+        "score": 0.4532156981837687,
+        "overlap": 92
+      },
+      {
+        "mpId": 4240,
+        "score": 0.45075571047929164,
+        "overlap": 106
+      },
+      {
+        "mpId": 4221,
+        "score": 0.4491609907412765,
+        "overlap": 91
+      },
+      {
+        "mpId": 4122,
+        "score": 0.4486384134324433,
+        "overlap": 114
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5173,
+        "score": -0.007173113909540875,
+        "overlap": 49
+      },
+      {
+        "mpId": 3620,
+        "score": 0.02407717061715384,
+        "overlap": 74
+      },
+      {
+        "mpId": 4632,
+        "score": 0.033051756607073046,
+        "overlap": 33
+      },
+      {
+        "mpId": 4249,
+        "score": 0.0534004740796465,
+        "overlap": 73
+      },
+      {
+        "mpId": 5248,
+        "score": 0.06544900686385206,
+        "overlap": 83
+      },
+      {
+        "mpId": 404,
+        "score": 0.0692647182871648,
+        "overlap": 73
+      },
+      {
+        "mpId": 5169,
+        "score": 0.07049073768502413,
+        "overlap": 62
+      },
+      {
+        "mpId": 4266,
+        "score": 0.0736449378529043,
+        "overlap": 71
+      },
+      {
+        "mpId": 5157,
+        "score": 0.07503677814442852,
+        "overlap": 60
+      },
+      {
+        "mpId": 5293,
+        "score": 0.07841433823585965,
+        "overlap": 81
+      },
+      {
+        "mpId": 5284,
+        "score": 0.08444621040784886,
+        "overlap": 74
+      },
+      {
+        "mpId": 4120,
+        "score": 0.086580897858956,
+        "overlap": 61
+      },
+      {
+        "mpId": 5075,
+        "score": 0.08674723979493605,
+        "overlap": 67
+      },
+      {
+        "mpId": 4912,
+        "score": 0.09229729926564355,
+        "overlap": 84
+      },
+      {
+        "mpId": 3631,
+        "score": 0.09584126496992257,
+        "overlap": 73
+      },
+      {
+        "mpId": 4147,
+        "score": 0.09703755114373062,
+        "overlap": 46
+      },
+      {
+        "mpId": 5216,
+        "score": 0.09831353843426086,
+        "overlap": 98
+      },
+      {
+        "mpId": 4267,
+        "score": 0.09927271762054324,
+        "overlap": 76
+      },
+      {
+        "mpId": 4726,
+        "score": 0.10125921901246876,
+        "overlap": 89
+      },
+      {
+        "mpId": 5103,
+        "score": 0.10177453643217765,
+        "overlap": 88
+      }
+    ]
+  }
+}

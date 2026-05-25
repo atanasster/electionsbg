@@ -1,0 +1,455 @@
+{
+  "mpId": 5082,
+  "ns": "50",
+  "partyShort": "ПП-ДБ",
+  "loyalty": {
+    "votesCast": 312,
+    "withParty": 289,
+    "loyaltyPct": 0.9262820512820513,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 312,
+    "dissentCount": 23,
+    "recent": [
+      {
+        "date": "2024-09-19",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-pryakoto-uchastie-na-grazhdanite-v-darzhavn",
+        "title": "ЗИД на Закона за прякото участие на гражданите в държавната власт и местното самоуправление – първо гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 35
+      },
+      {
+        "date": "2024-09-18",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - процедура от Ал.Иванов за отпадане на т.1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-09-18",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodno-sabranie-za-18-20-septemvri-",
+        "title": "Програма за работата на Народно събрание за 18 - 20 септември 2024 г. - процедура от Рая Назарян за разместване на точките",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 26
+      },
+      {
+        "date": "2024-09-13",
+        "item": 2,
+        "slug": "2-protsedura-ot-margarita-mahaeva-za-sakrashtavane-na-sroka-za",
+        "title": "Процедура от Маргарита Махаева за съкращаване на срока за предложения по ЗИД на Закона за лекарствените продукти в хуманната медицина на три дни",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-09-12",
+        "item": 21,
+        "slug": "21-zd-na-zakona-za-lekarstvenite-produkti-v-humannata-meditsina",
+        "title": "ЗД на Закона за лекарствените продукти в хуманната медицина - първо гласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 23
+      },
+      {
+        "date": "2024-09-12",
+        "item": 20,
+        "slug": "20-zd-na-zakona-za-lekarstvenite-produkti-v-humannata-meditsina",
+        "title": "ЗД на Закона за лекарствените продукти в хуманната медицина - първо гласуване - процедура за удължаване на р.време",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2024-09-11",
+        "item": 46,
+        "slug": "46-zid-na-zakona-za-lichnata-pomosht-parvo-glasuvane",
+        "title": "ЗИД на Закона за личната помощ - първо гласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2024-09-04",
+        "item": 12,
+        "slug": "12-reshenie-za-vazlagane-na-ministara-na-energetikata-da-izvadi",
+        "title": "Решение за възлагане на министъра на енергетиката да извади парогенераторите от оборудването на Белене, което подлежи на преговори за продажба на Украйна, до изготвянето на анализ за приложението на тези парогенератори за нуждите на АЕЦ „Козлодуй\" - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2024-08-02",
+        "item": 11,
+        "slug": "11-zd-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-zakl",
+        "title": "ЗД на Кодекса за социално осигуряване - второ гласуване - Заключителна разпоредба и параграф 4 - предложение от Десислава Танева за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-08-02",
+        "item": 9,
+        "slug": "9-zd-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-para",
+        "title": "ЗД на Кодекса за социално осигуряване - второ гласуване - параграф 2 - нов предложение от Десислава Танева за редакция и преномериране - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-08-02",
+        "item": 4,
+        "slug": "4-protsedura-ot-temenuzhka-petkova-za-sroka-za-sakrashtavane-n",
+        "title": "Процедура от Теменужка Петкова за срока за съкращаване на срока за предложения по ЗИД на Закона за независимия финансов одит",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2024-08-01",
+        "item": 4,
+        "slug": "4-izslushvane-na-sluzhebniya-ministar-na-vatreshnite-raboti-ka",
+        "title": "Изслушване на служебния министър на вътрешните работи Калин Стоянов, относно получени сигнали от граждани на множество населени места в страната относно системни нарушения от мотоциклетисти на чл. 5 от Закона за движение по пътищата, съгласно който водачът на превозното средство е длъжен да не затруднява живеещите в крайпътните имоти, като спазва действащите норми за шум - процедура за допускане в зала - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2024-07-26",
+        "item": 8,
+        "slug": "8-protsedura-ot-iskra-mihaylova-za-razmestvane-na-tochkite-t-6",
+        "title": "Процедура от Искра Михайлова за разместване на точките - т.6 да стане т.2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-07-26",
+        "item": 7,
+        "slug": "7-protsedura-ot-raya-nazyaryan-za-nova-tochka-v-dnevniya-red-r",
+        "title": "Процедура от Рая Назярян за нова точка в дневния ред - решение за отмяна на лятната ваканция на НС да стане т.7",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-07-12",
+        "item": 101,
+        "slug": "101-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - Приложение - т.2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2024-07-12",
+        "item": 90,
+        "slug": "90-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 93 - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-07-12",
+        "item": 66,
+        "slug": "66-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 73 (става член 72) - предложение от Павела Митова и Станислав Богдански",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-07-12",
+        "item": 60,
+        "slug": "60-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 60 (става член 59) - предложение от Цвета Рангелова и Петър Петров - т.1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-07-12",
+        "item": 56,
+        "slug": "56-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 49 (става член 48) - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 35
+      },
+      {
+        "date": "2024-07-12",
+        "item": 49,
+        "slug": "49-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 44 (става член 43) - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 34
+      },
+      {
+        "date": "2024-07-03",
+        "item": 16,
+        "slug": "16-reshenie-za-osvobozhdavane-na-zamestnik-predsedatelya-na-kom",
+        "title": "Решение за освобождаване на заместник-председателя на Комисията за финансов надзор, ръководещ управление \"Застрахователен надзор\" - прегласуване",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 38
+      },
+      {
+        "date": "2024-07-03",
+        "item": 13,
+        "slug": "13-reshenie-za-osvobozhdavane-na-chlen-na-nadzorniya-savet-na-a",
+        "title": "Решение за освобождаване на член на Надзорния съвет на Агенцията за публични предприятия и контрол",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 38
+      },
+      {
+        "date": "2024-06-19",
+        "item": 10,
+        "slug": "10-reshenie-za-izbirane-na-predsedatel-na-narodnoto-sabranie-na",
+        "title": "Решение за избиране на председател на Народното събрание на Република България - избира Петър Петров - втори тур",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 38
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4869,
+        "score": 0.6714295272498024,
+        "overlap": 278
+      },
+      {
+        "mpId": 5072,
+        "score": 0.6701228235606214,
+        "overlap": 294
+      },
+      {
+        "mpId": 5245,
+        "score": 0.6655230481004628,
+        "overlap": 305
+      },
+      {
+        "mpId": 5256,
+        "score": 0.6604003190577669,
+        "overlap": 286
+      },
+      {
+        "mpId": 2636,
+        "score": 0.6504075389351377,
+        "overlap": 290
+      },
+      {
+        "mpId": 4817,
+        "score": 0.6373249760138462,
+        "overlap": 286
+      },
+      {
+        "mpId": 2735,
+        "score": 0.6347336033376592,
+        "overlap": 259
+      },
+      {
+        "mpId": 5232,
+        "score": 0.6332026575949118,
+        "overlap": 276
+      },
+      {
+        "mpId": 2906,
+        "score": 0.6328494275942801,
+        "overlap": 286
+      },
+      {
+        "mpId": 5291,
+        "score": 0.6150675852697665,
+        "overlap": 211
+      },
+      {
+        "mpId": 5231,
+        "score": 0.6148192914667586,
+        "overlap": 280
+      },
+      {
+        "mpId": 4748,
+        "score": 0.6089903590056436,
+        "overlap": 259
+      },
+      {
+        "mpId": 2919,
+        "score": 0.6062542261627948,
+        "overlap": 278
+      },
+      {
+        "mpId": 5255,
+        "score": 0.6019833446945253,
+        "overlap": 291
+      },
+      {
+        "mpId": 5229,
+        "score": 0.6006522104789785,
+        "overlap": 272
+      },
+      {
+        "mpId": 5181,
+        "score": 0.5990593998188678,
+        "overlap": 231
+      },
+      {
+        "mpId": 4851,
+        "score": 0.5932026089792607,
+        "overlap": 236
+      },
+      {
+        "mpId": 5193,
+        "score": 0.5918843468677288,
+        "overlap": 219
+      },
+      {
+        "mpId": 2969,
+        "score": 0.5888642335035629,
+        "overlap": 231
+      },
+      {
+        "mpId": 5166,
+        "score": 0.5822391654999417,
+        "overlap": 244
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3006,
+        "score": -0.013248229202707032,
+        "overlap": 47
+      },
+      {
+        "mpId": 5100,
+        "score": 0.035841660797672974,
+        "overlap": 35
+      },
+      {
+        "mpId": 3014,
+        "score": 0.03929044768882554,
+        "overlap": 17
+      },
+      {
+        "mpId": 2992,
+        "score": 0.049850212821629075,
+        "overlap": 91
+      },
+      {
+        "mpId": 3002,
+        "score": 0.06465269501284385,
+        "overlap": 75
+      },
+      {
+        "mpId": 4762,
+        "score": 0.07512443064773892,
+        "overlap": 101
+      },
+      {
+        "mpId": 3015,
+        "score": 0.07614196364546495,
+        "overlap": 27
+      },
+      {
+        "mpId": 2987,
+        "score": 0.08112850385517859,
+        "overlap": 70
+      },
+      {
+        "mpId": 5186,
+        "score": 0.08190601557786016,
+        "overlap": 41
+      },
+      {
+        "mpId": 2990,
+        "score": 0.09246083772029406,
+        "overlap": 80
+      },
+      {
+        "mpId": 3000,
+        "score": 0.10439402860100366,
+        "overlap": 101
+      },
+      {
+        "mpId": 2967,
+        "score": 0.10463390903252481,
+        "overlap": 161
+      },
+      {
+        "mpId": 2930,
+        "score": 0.10639903531978631,
+        "overlap": 7
+      },
+      {
+        "mpId": 2993,
+        "score": 0.11078199315998546,
+        "overlap": 78
+      },
+      {
+        "mpId": 4727,
+        "score": 0.11199916899854717,
+        "overlap": 179
+      },
+      {
+        "mpId": 2988,
+        "score": 0.11945236675984407,
+        "overlap": 100
+      },
+      {
+        "mpId": 4787,
+        "score": 0.12307213544953635,
+        "overlap": 63
+      },
+      {
+        "mpId": 2917,
+        "score": 0.12965186265091133,
+        "overlap": 41
+      },
+      {
+        "mpId": 2994,
+        "score": 0.13115077791126908,
+        "overlap": 109
+      },
+      {
+        "mpId": 4819,
+        "score": 0.13350449481111448,
+        "overlap": 104
+      }
+    ]
+  }
+}

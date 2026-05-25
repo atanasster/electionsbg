@@ -1,0 +1,305 @@
+{
+  "mpId": 5258,
+  "ns": "50",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 476,
+    "withParty": 468,
+    "loyaltyPct": 0.9831932773109243,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 476,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 38,
+        "slug": "38-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-8-nov",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 8 - нов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 37
+      },
+      {
+        "date": "2024-09-25",
+        "item": 21,
+        "slug": "21-protsedura-ot-toshko-yordanov-t-5-da-stane-t-2-za-chetvartak",
+        "title": "Процедура от Тошко Йорданов т.5 да стане т.2 за четвъртък",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 38
+      },
+      {
+        "date": "2024-09-20",
+        "item": 3,
+        "slug": "3-zi-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya-",
+        "title": "ЗИ на Закона за държавния бюджет на Република България за 2024 г. - първо гласуване - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 32
+      },
+      {
+        "date": "2024-09-12",
+        "item": 19,
+        "slug": "19-zd-na-zakona-za-lekarstvenite-produkti-v-humannata-meditsina",
+        "title": "ЗД на Закона за лекарствените продукти в хуманната медицина - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 37
+      },
+      {
+        "date": "2024-09-12",
+        "item": 13,
+        "slug": "13-ratifikatsiya-na-sporazumenieto-za-solidarna-garantsiya-mezh",
+        "title": "Ратификация на Споразумението за солидарна гаранция между Република България като гарант и Банката за развитие на Съвета на Европа като бенефициер във връзка с Рамково споразумение за заем от 13 юли 2023 г. между Банката за развитие на Съвета на Европа и „Българска банка за развитие“ ЕАД за подкрепа на микро-, малки и средни предприятия за създаването и запазването на жизнеспособни работни места и опазване на околната среда - второ гласуване",
+        "topic": "ratification",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 37
+      },
+      {
+        "date": "2024-08-01",
+        "item": 2,
+        "slug": "2-protsedura-ot-raya-nazaryan-za-dve-novi-tochki",
+        "title": "Процедура от Рая Назарян за две нови точки",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 38
+      },
+      {
+        "date": "2024-07-31",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-protsedur",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-07-12",
+        "item": 79,
+        "slug": "79-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т.4",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 38
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5074,
+        "score": 0.848270186242863,
+        "overlap": 458
+      },
+      {
+        "mpId": 5185,
+        "score": 0.8393000181304029,
+        "overlap": 464
+      },
+      {
+        "mpId": 2952,
+        "score": 0.8382884208336856,
+        "overlap": 472
+      },
+      {
+        "mpId": 5234,
+        "score": 0.8367310955532341,
+        "overlap": 458
+      },
+      {
+        "mpId": 4804,
+        "score": 0.8339320866583136,
+        "overlap": 469
+      },
+      {
+        "mpId": 2763,
+        "score": 0.832884035655885,
+        "overlap": 463
+      },
+      {
+        "mpId": 4907,
+        "score": 0.8321135290483495,
+        "overlap": 468
+      },
+      {
+        "mpId": 5159,
+        "score": 0.8317384868395877,
+        "overlap": 470
+      },
+      {
+        "mpId": 4795,
+        "score": 0.8279218051889847,
+        "overlap": 459
+      },
+      {
+        "mpId": 4848,
+        "score": 0.8275862188363005,
+        "overlap": 462
+      },
+      {
+        "mpId": 4847,
+        "score": 0.8273520772835422,
+        "overlap": 462
+      },
+      {
+        "mpId": 4928,
+        "score": 0.8273520772835422,
+        "overlap": 462
+      },
+      {
+        "mpId": 5247,
+        "score": 0.8271657945122728,
+        "overlap": 452
+      },
+      {
+        "mpId": 4780,
+        "score": 0.8268376106154006,
+        "overlap": 463
+      },
+      {
+        "mpId": 5273,
+        "score": 0.8232987055694666,
+        "overlap": 454
+      },
+      {
+        "mpId": 4861,
+        "score": 0.8231248051014335,
+        "overlap": 457
+      },
+      {
+        "mpId": 2639,
+        "score": 0.8227645189374923,
+        "overlap": 459
+      },
+      {
+        "mpId": 5194,
+        "score": 0.8222117185322422,
+        "overlap": 446
+      },
+      {
+        "mpId": 4866,
+        "score": 0.8218341448567127,
+        "overlap": 461
+      },
+      {
+        "mpId": 4824,
+        "score": 0.8209209864074727,
+        "overlap": 463
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3006,
+        "score": -0.10328506458254433,
+        "overlap": 67
+      },
+      {
+        "mpId": 5184,
+        "score": -0.0708383414148079,
+        "overlap": 131
+      },
+      {
+        "mpId": 2967,
+        "score": -0.0564743576607793,
+        "overlap": 262
+      },
+      {
+        "mpId": 4925,
+        "score": -0.051052312538345676,
+        "overlap": 87
+      },
+      {
+        "mpId": 4727,
+        "score": -0.03613081356904737,
+        "overlap": 241
+      },
+      {
+        "mpId": 2915,
+        "score": -0.029213427824643045,
+        "overlap": 40
+      },
+      {
+        "mpId": 2921,
+        "score": -0.029213427824643045,
+        "overlap": 40
+      },
+      {
+        "mpId": 5248,
+        "score": -0.026477460440395048,
+        "overlap": 209
+      },
+      {
+        "mpId": 2966,
+        "score": -0.022716844980576845,
+        "overlap": 39
+      },
+      {
+        "mpId": 2957,
+        "score": -0.021910070868482283,
+        "overlap": 41
+      },
+      {
+        "mpId": 2917,
+        "score": -0.02165966183467154,
+        "overlap": 41
+      },
+      {
+        "mpId": 2597,
+        "score": -0.021417646843905964,
+        "overlap": 41
+      },
+      {
+        "mpId": 5100,
+        "score": -0.020956998442536474,
+        "overlap": 42
+      },
+      {
+        "mpId": 4886,
+        "score": -0.016267870581839112,
+        "overlap": 86
+      },
+      {
+        "mpId": 2599,
+        "score": -0.014958733419877617,
+        "overlap": 40
+      },
+      {
+        "mpId": 2627,
+        "score": -0.014958733419877617,
+        "overlap": 39
+      },
+      {
+        "mpId": 4930,
+        "score": -0.014907914959999963,
+        "overlap": 209
+      },
+      {
+        "mpId": 5249,
+        "score": -0.010181578538888998,
+        "overlap": 275
+      },
+      {
+        "mpId": 5146,
+        "score": -0.008066352461470002,
+        "overlap": 132
+      },
+      {
+        "mpId": 2959,
+        "score": -0.007389790224568489,
+        "overlap": 39
+      }
+    ]
+  }
+}

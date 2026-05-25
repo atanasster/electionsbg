@@ -1,0 +1,245 @@
+{
+  "mpId": 4866,
+  "ns": "50",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 601,
+    "withParty": 599,
+    "loyaltyPct": 0.9966722129783694,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 601,
+    "dissentCount": 2,
+    "recent": [
+      {
+        "date": "2024-09-18",
+        "item": 18,
+        "slug": "18-ratifikatsiya-na-sporazumenieto-otnosno-tsentralnoevropeyska",
+        "title": "Ратификация на Споразумението относно Централноевропейската програма за обмен в университетското образование (CEEPUS ІV), подписано в гр.Варшава, Полша, на 20.09.2023г. - първо гласуване - процедура от Силви Кирилов за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 34
+      },
+      {
+        "date": "2024-08-07",
+        "item": 42,
+        "slug": "42-zakon-za-vavezhdane-na-evroto-v-republika-balgariya-vtoro-gl",
+        "title": "Закон за въвеждане на еврото в Република България – второ гласуване - параграф 8",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 33
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4824,
+        "score": 0.9713836770029898,
+        "overlap": 588
+      },
+      {
+        "mpId": 2952,
+        "score": 0.9682386567158381,
+        "overlap": 594
+      },
+      {
+        "mpId": 5159,
+        "score": 0.9663864914393783,
+        "overlap": 593
+      },
+      {
+        "mpId": 4847,
+        "score": 0.9653025942491477,
+        "overlap": 587
+      },
+      {
+        "mpId": 4928,
+        "score": 0.9653025942491477,
+        "overlap": 587
+      },
+      {
+        "mpId": 4804,
+        "score": 0.9636016191932204,
+        "overlap": 592
+      },
+      {
+        "mpId": 4795,
+        "score": 0.9605026929982047,
+        "overlap": 580
+      },
+      {
+        "mpId": 4907,
+        "score": 0.9590261606527652,
+        "overlap": 590
+      },
+      {
+        "mpId": 2932,
+        "score": 0.9583726498630035,
+        "overlap": 572
+      },
+      {
+        "mpId": 4861,
+        "score": 0.9578479188594629,
+        "overlap": 579
+      },
+      {
+        "mpId": 2639,
+        "score": 0.9549611555182587,
+        "overlap": 577
+      },
+      {
+        "mpId": 2920,
+        "score": 0.9535682175271811,
+        "overlap": 565
+      },
+      {
+        "mpId": 4860,
+        "score": 0.9526457924594713,
+        "overlap": 583
+      },
+      {
+        "mpId": 2763,
+        "score": 0.9492395835950616,
+        "overlap": 573
+      },
+      {
+        "mpId": 5171,
+        "score": 0.9473494578568767,
+        "overlap": 565
+      },
+      {
+        "mpId": 4835,
+        "score": 0.9468981416093581,
+        "overlap": 574
+      },
+      {
+        "mpId": 5185,
+        "score": 0.9467217280476001,
+        "overlap": 576
+      },
+      {
+        "mpId": 4780,
+        "score": 0.9441502745123915,
+        "overlap": 582
+      },
+      {
+        "mpId": 4848,
+        "score": 0.9432016512821615,
+        "overlap": 575
+      },
+      {
+        "mpId": 4759,
+        "score": 0.9431082863374948,
+        "overlap": 567
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5184,
+        "score": -0.11215260030843527,
+        "overlap": 172
+      },
+      {
+        "mpId": 3006,
+        "score": -0.07310433981088836,
+        "overlap": 82
+      },
+      {
+        "mpId": 4727,
+        "score": -0.04528569770611844,
+        "overlap": 265
+      },
+      {
+        "mpId": 4925,
+        "score": -0.036134417101053445,
+        "overlap": 92
+      },
+      {
+        "mpId": 5146,
+        "score": -0.028546497683913846,
+        "overlap": 146
+      },
+      {
+        "mpId": 5100,
+        "score": -0.02472199218334303,
+        "overlap": 47
+      },
+      {
+        "mpId": 2921,
+        "score": -0.019384715405416822,
+        "overlap": 43
+      },
+      {
+        "mpId": 4930,
+        "score": -0.018465479492576497,
+        "overlap": 256
+      },
+      {
+        "mpId": 2966,
+        "score": -0.01339900047184581,
+        "overlap": 40
+      },
+      {
+        "mpId": 2915,
+        "score": -0.012923143603611215,
+        "overlap": 42
+      },
+      {
+        "mpId": 2957,
+        "score": -0.012923143603611215,
+        "overlap": 42
+      },
+      {
+        "mpId": 2917,
+        "score": -0.012775445683189019,
+        "overlap": 44
+      },
+      {
+        "mpId": 2597,
+        "score": -0.012632698793018562,
+        "overlap": 44
+      },
+      {
+        "mpId": 4762,
+        "score": -0.01195788673282649,
+        "overlap": 116
+      },
+      {
+        "mpId": 2916,
+        "score": -0.0063877228415945096,
+        "overlap": 43
+      },
+      {
+        "mpId": 4787,
+        "score": -0.004993512647599832,
+        "overlap": 73
+      },
+      {
+        "mpId": 4886,
+        "score": -0.004797611767575081,
+        "overlap": 88
+      },
+      {
+        "mpId": 2599,
+        "score": 0,
+        "overlap": 40
+      },
+      {
+        "mpId": 2627,
+        "score": 0,
+        "overlap": 41
+      },
+      {
+        "mpId": 2930,
+        "score": 0,
+        "overlap": 7
+      }
+    ]
+  }
+}

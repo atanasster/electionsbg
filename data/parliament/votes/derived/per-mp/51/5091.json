@@ -1,0 +1,315 @@
+{
+  "mpId": 5091,
+  "ns": "51",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 522,
+    "withParty": 513,
+    "loyaltyPct": 0.9827586206896551,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 522,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2026-04-01",
+        "item": 7,
+        "slug": "7-protsedura-ot-atanas-v-atanasov-tochka-4-da-stane-tochka-2",
+        "title": "Процедура от Атанас В. Атанасов точка 4 да стане точка 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2026-03-19",
+        "item": 49,
+        "slug": "49-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-2-predl",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 2 - предложение от Николета Кузманова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 53
+      },
+      {
+        "date": "2026-02-27",
+        "item": 7,
+        "slug": "7-ratifikatsiya-na-sporazumenieto-za-partnyorstvo-mezhdu-evrop",
+        "title": "Ратификация на Споразумението за партньорство между Европейския съюз и неговите държави членки, от една страна, и членовете на Организацията на държавите от Африка, Карибите и Тихоокеанския басейн, от друга страна, подписано в Самоа на 15 ноември 2023 г. - процедура за допускане в зала - прегласуване",
+        "topic": "ratification",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 49
+      },
+      {
+        "date": "2025-01-15",
+        "item": 93,
+        "slug": "93-zakon-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-razhodi-pr",
+        "title": "Закон за събирането на приходи и извършването на разходи през 2025 г. до приемането на Закона за държавния бюджет на Република България за 2025 г., Закона за бюджета на държавното обществено осигуряване за 2025 г. и Закона за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - предложение от Йордан Цонев (№51-554-04-5) - процедура за допустимост",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 65
+      },
+      {
+        "date": "2024-12-20",
+        "item": 3,
+        "slug": "3-reshenie-vav-vrazka-s-kolednata-vakantsiya-na-narodnoto-sabr",
+        "title": "Решение във връзка с Коледната ваканция на Народното събрание за 2024 г. - вносител Кирил Петков и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 66
+      },
+      {
+        "date": "2024-12-18",
+        "item": 22,
+        "slug": "22-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 41 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-12-18",
+        "item": 21,
+        "slug": "21-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 41 - предложение от Павела Митова и Александър Рашев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2024-12-18",
+        "item": 20,
+        "slug": "20-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 41 - предложение от Константина Петрова - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-12-18",
+        "item": 14,
+        "slug": "14-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 32 - предложение от Павела Митова и Александър Рашев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 57
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5128,
+        "score": 0.8761130389003842,
+        "overlap": 479
+      },
+      {
+        "mpId": 5284,
+        "score": 0.8644725761527311,
+        "overlap": 453
+      },
+      {
+        "mpId": 5172,
+        "score": 0.8561884226006443,
+        "overlap": 466
+      },
+      {
+        "mpId": 5117,
+        "score": 0.8270835285881313,
+        "overlap": 455
+      },
+      {
+        "mpId": 3081,
+        "score": 0.6410729744932049,
+        "overlap": 262
+      },
+      {
+        "mpId": 5207,
+        "score": 0.6298531596522912,
+        "overlap": 236
+      },
+      {
+        "mpId": 3533,
+        "score": 0.6121737777335147,
+        "overlap": 226
+      },
+      {
+        "mpId": 5293,
+        "score": 0.5707712814405312,
+        "overlap": 215
+      },
+      {
+        "mpId": 3547,
+        "score": 0.508939135711879,
+        "overlap": 223
+      },
+      {
+        "mpId": 3148,
+        "score": 0.4746141909795887,
+        "overlap": 253
+      },
+      {
+        "mpId": 3580,
+        "score": 0.47247994463632853,
+        "overlap": 218
+      },
+      {
+        "mpId": 3373,
+        "score": 0.4440143552209023,
+        "overlap": 268
+      },
+      {
+        "mpId": 3410,
+        "score": 0.4393329981710225,
+        "overlap": 226
+      },
+      {
+        "mpId": 3023,
+        "score": 0.4162401704941767,
+        "overlap": 247
+      },
+      {
+        "mpId": 3039,
+        "score": 0.41324783844439,
+        "overlap": 190
+      },
+      {
+        "mpId": 3209,
+        "score": 0.3886278019921283,
+        "overlap": 519
+      },
+      {
+        "mpId": 3052,
+        "score": 0.3804184214383856,
+        "overlap": 403
+      },
+      {
+        "mpId": 3539,
+        "score": 0.3789946499764479,
+        "overlap": 173
+      },
+      {
+        "mpId": 3339,
+        "score": 0.37675184881140267,
+        "overlap": 517
+      },
+      {
+        "mpId": 3051,
+        "score": 0.3744247389801162,
+        "overlap": 190
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3480,
+        "score": -0.001273691074151995,
+        "overlap": 150
+      },
+      {
+        "mpId": 3485,
+        "score": 0.0027105198365473247,
+        "overlap": 59
+      },
+      {
+        "mpId": 3516,
+        "score": 0.008867738781976863,
+        "overlap": 138
+      },
+      {
+        "mpId": 3509,
+        "score": 0.009311858875125175,
+        "overlap": 56
+      },
+      {
+        "mpId": 3490,
+        "score": 0.010543746254850403,
+        "overlap": 122
+      },
+      {
+        "mpId": 3515,
+        "score": 0.014601425345116421,
+        "overlap": 215
+      },
+      {
+        "mpId": 3510,
+        "score": 0.014833954621207315,
+        "overlap": 187
+      },
+      {
+        "mpId": 3512,
+        "score": 0.016439202057540684,
+        "overlap": 160
+      },
+      {
+        "mpId": 3517,
+        "score": 0.01660118863175661,
+        "overlap": 204
+      },
+      {
+        "mpId": 3477,
+        "score": 0.016691665270169825,
+        "overlap": 89
+      },
+      {
+        "mpId": 3513,
+        "score": 0.018038164394526768,
+        "overlap": 202
+      },
+      {
+        "mpId": 3581,
+        "score": 0.02040126063284296,
+        "overlap": 90
+      },
+      {
+        "mpId": 3482,
+        "score": 0.02083061180668417,
+        "overlap": 143
+      },
+      {
+        "mpId": 3514,
+        "score": 0.0215554177669057,
+        "overlap": 178
+      },
+      {
+        "mpId": 3508,
+        "score": 0.02243559013482789,
+        "overlap": 191
+      },
+      {
+        "mpId": 3129,
+        "score": 0.02496391411741248,
+        "overlap": 477
+      },
+      {
+        "mpId": 3142,
+        "score": 0.025422785524392092,
+        "overlap": 456
+      },
+      {
+        "mpId": 3230,
+        "score": 0.025714248979670555,
+        "overlap": 408
+      },
+      {
+        "mpId": 3116,
+        "score": 0.026358354983381137,
+        "overlap": 481
+      },
+      {
+        "mpId": 3068,
+        "score": 0.026685563366889202,
+        "overlap": 482
+      }
+    ]
+  }
+}

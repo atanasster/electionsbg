@@ -1,0 +1,311 @@
+{
+  "mpId": 4022,
+  "ns": "47",
+  "partyShort": "ДПС",
+  "loyalty": {
+    "votesCast": 907,
+    "withParty": 898,
+    "loyaltyPct": 0.9900771775082691,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 907,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2022-07-22",
+        "item": 10,
+        "slug": "10-protsedura-ot-iva-miteva-za-udalzhavane-vremeto-na-zakonodat",
+        "title": "Процедура от Ива Митева за удължаване времето на законодателната дейност до приемане на точка 2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2022-07-20",
+        "item": 15,
+        "slug": "15-reshenie-za-prekratyavane-palnomoshtiyata-na-naroden-predsta",
+        "title": "Решение за прекратяване пълномощията на народен представител - освобождава Георги Гвоздейков",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 9
+      },
+      {
+        "date": "2022-07-13",
+        "item": 28,
+        "slug": "28-reshenie-za-sazdavane-na-vremenna-komisiya-za-ustanovyavane-",
+        "title": "Решение за създаване на Временна комисия за установяване на всички факти и обстоятелства, свързани с доставката на суров петрол до производителя на горива \"Лукойл Нефтохим Бургас\" АД - за председател Александър Ракшиев - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 29
+      },
+      {
+        "date": "2022-06-30",
+        "item": 29,
+        "slug": "29-protsedura-ot-miroslav-ivanov-za-povtorno-razglezhdane-na-za",
+        "title": "Процедура от Мирослав Иванов за повторно разглеждане на Закона за бюджета на Националната здравноосигурителна каса за 2022 г. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 31
+      },
+      {
+        "date": "2022-06-30",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 1 - предложение от Десислава Танева и група н.п. (№ ...247)",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2022-05-25",
+        "item": 34,
+        "slug": "34-zid-na-zakona-za-energiyata-ot-vazobnovyaemi-iztochnitsi-vto",
+        "title": "ЗИД на Закона за енергията от възобновяеми източници - второ гласуване - наименование",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 6
+      },
+      {
+        "date": "2022-03-02",
+        "item": 25,
+        "slug": "25",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2022-02-23",
+        "item": 7,
+        "slug": "7",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 23
+      },
+      {
+        "date": "2021-12-17",
+        "item": 29,
+        "slug": "29-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 59 - процедура за прекратяване на дебата от Искрен Митев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 18
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4709,
+        "score": 0.8077432670298533,
+        "overlap": 800
+      },
+      {
+        "mpId": 4827,
+        "score": 0.792189344929729,
+        "overlap": 751
+      },
+      {
+        "mpId": 4710,
+        "score": 0.7921557335998524,
+        "overlap": 810
+      },
+      {
+        "mpId": 5146,
+        "score": 0.791211224553492,
+        "overlap": 814
+      },
+      {
+        "mpId": 4762,
+        "score": 0.7888571078210881,
+        "overlap": 830
+      },
+      {
+        "mpId": 4137,
+        "score": 0.7863749572190294,
+        "overlap": 816
+      },
+      {
+        "mpId": 5102,
+        "score": 0.7854771630861361,
+        "overlap": 864
+      },
+      {
+        "mpId": 4216,
+        "score": 0.7821283045326132,
+        "overlap": 757
+      },
+      {
+        "mpId": 4483,
+        "score": 0.7814777879683269,
+        "overlap": 727
+      },
+      {
+        "mpId": 4925,
+        "score": 0.7792880617697695,
+        "overlap": 757
+      },
+      {
+        "mpId": 4594,
+        "score": 0.7707722729271129,
+        "overlap": 825
+      },
+      {
+        "mpId": 4811,
+        "score": 0.7688528038494473,
+        "overlap": 740
+      },
+      {
+        "mpId": 4746,
+        "score": 0.7621888842352189,
+        "overlap": 717
+      },
+      {
+        "mpId": 4140,
+        "score": 0.7520728843383961,
+        "overlap": 683
+      },
+      {
+        "mpId": 2035,
+        "score": 0.7469752034802538,
+        "overlap": 781
+      },
+      {
+        "mpId": 4658,
+        "score": 0.7463866966581135,
+        "overlap": 740
+      },
+      {
+        "mpId": 5294,
+        "score": 0.7451387843872715,
+        "overlap": 645
+      },
+      {
+        "mpId": 4114,
+        "score": 0.7433541099733626,
+        "overlap": 700
+      },
+      {
+        "mpId": 4135,
+        "score": 0.7420816030028469,
+        "overlap": 678
+      },
+      {
+        "mpId": 3901,
+        "score": 0.7193657763119623,
+        "overlap": 711
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4741,
+        "score": -0.10567397812017851,
+        "overlap": 679
+      },
+      {
+        "mpId": 2175,
+        "score": -0.103817362342293,
+        "overlap": 761
+      },
+      {
+        "mpId": 2080,
+        "score": -0.10033321326861477,
+        "overlap": 750
+      },
+      {
+        "mpId": 2045,
+        "score": -0.09068620717750703,
+        "overlap": 720
+      },
+      {
+        "mpId": 4054,
+        "score": -0.08512861250266475,
+        "overlap": 776
+      },
+      {
+        "mpId": 1336,
+        "score": -0.08496314540458075,
+        "overlap": 737
+      },
+      {
+        "mpId": 4324,
+        "score": -0.0825978789617168,
+        "overlap": 776
+      },
+      {
+        "mpId": 4905,
+        "score": -0.07646604241127727,
+        "overlap": 773
+      },
+      {
+        "mpId": 2170,
+        "score": -0.07320255594849084,
+        "overlap": 758
+      },
+      {
+        "mpId": 2172,
+        "score": -0.07246628504151714,
+        "overlap": 736
+      },
+      {
+        "mpId": 3932,
+        "score": -0.07122336229678171,
+        "overlap": 795
+      },
+      {
+        "mpId": 4802,
+        "score": -0.06866849224754498,
+        "overlap": 805
+      },
+      {
+        "mpId": 2131,
+        "score": -0.0679541777717739,
+        "overlap": 896
+      },
+      {
+        "mpId": 4224,
+        "score": -0.06659886899431088,
+        "overlap": 834
+      },
+      {
+        "mpId": 5283,
+        "score": -0.06512416339858193,
+        "overlap": 688
+      },
+      {
+        "mpId": 4726,
+        "score": -0.06106647036938195,
+        "overlap": 620
+      },
+      {
+        "mpId": 4160,
+        "score": -0.06049534627650575,
+        "overlap": 828
+      },
+      {
+        "mpId": 2186,
+        "score": -0.05876963237349713,
+        "overlap": 244
+      },
+      {
+        "mpId": 4316,
+        "score": -0.05788068617935425,
+        "overlap": 709
+      },
+      {
+        "mpId": 4009,
+        "score": -0.057410380135184784,
+        "overlap": 825
+      }
+    ]
+  }
+}

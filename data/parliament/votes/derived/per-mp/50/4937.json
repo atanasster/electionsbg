@@ -1,0 +1,315 @@
+{
+  "mpId": 4937,
+  "ns": "50",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 568,
+    "withParty": 559,
+    "loyaltyPct": 0.9841549295774648,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 568,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2024-09-26",
+        "item": 38,
+        "slug": "38-reshenie-za-odobrenie-na-predlozhenata-ot-ministerski-savet-",
+        "title": "Решение за одобрение на предложената от Министерски съвет актуализирана Пътна карта за климатична неутралност на Република България - процедура от Хамид Хамид за отпадане на точка 14 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 37
+      },
+      {
+        "date": "2024-09-25",
+        "item": 70,
+        "slug": "70-zid-na-zakona-za-podpomagane-na-zemedelskite-proizvoditeli-v",
+        "title": "ЗИД на Закона за подпомагане на земеделските производители – второ гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-09-19",
+        "item": 7,
+        "slug": "7-reshenie-za-osvobozhdavane-na-anton-slavchev-kato-izpalnyavy",
+        "title": "Решение за освобождаване на Антон Славчев като изпълнявящ функциите на член и председател на Комисията за противодействие на корупцията и на КОНПИ - процедура за допускане в зала",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-09-17",
+        "item": 2,
+        "slug": "2-zid-na-zakona-za-mestnite-danatsi-i-taksi-parvo-glasuvane",
+        "title": "ЗИД на Закона за местните данъци и такси – първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-09-11",
+        "item": 44,
+        "slug": "44-zid-na-zakona-za-podpomagane-na-zemedelskite-proizvoditeli-p",
+        "title": "ЗИД на Закона за подпомагане на земеделските производители – първо гласуване - процедура за допускане в зала - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-09-11",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-advokaturata-vtoro-glasuvane-protsedura-za-",
+        "title": "ЗИД на Закона за адвокатурата – второ гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-08-14",
+        "item": 9,
+        "slug": "9-reshenie-za-osvobozhdavane-ot-dlazhnost-na-zamestnik-predsed",
+        "title": "Решение за освобождаване от длъжност на заместник-председателя на Комисията за финансов надзор, ръководещ управление \" Застрахователен надзор\" - процедура за допускане в зала",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 36
+      },
+      {
+        "date": "2024-08-01",
+        "item": 8,
+        "slug": "8-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно корупционни практики и системна злоупотреба със служебно положение, извършвани в ущърб на гражданите и бизнеса, както и облагодетелстване на свързани дружества с кмета на Община Доспат - Елин Радев - процедура от Александър Иванов за удължаване на работното време до приключване на ЗД на Закона за безопасно използване на ядрената енергия - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 36
+      },
+      {
+        "date": "2024-06-21",
+        "item": 7,
+        "slug": "7-reshenie-za-izbirane-na-vremenna-komisiya-za-izrabotvane-na-",
+        "title": "Решение за избиране на Временна комисия за изработване на проект на Правилник за организацията и дейността на Народно събрание - за председател - Цвета Рангелова",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 37
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4847,
+        "score": 0.9410461038267619,
+        "overlap": 565
+      },
+      {
+        "mpId": 4928,
+        "score": 0.9392081231552253,
+        "overlap": 564
+      },
+      {
+        "mpId": 4795,
+        "score": 0.9375017235287092,
+        "overlap": 558
+      },
+      {
+        "mpId": 4861,
+        "score": 0.9366612915143959,
+        "overlap": 557
+      },
+      {
+        "mpId": 2952,
+        "score": 0.9334536209647482,
+        "overlap": 561
+      },
+      {
+        "mpId": 4804,
+        "score": 0.9320489037722063,
+        "overlap": 561
+      },
+      {
+        "mpId": 5159,
+        "score": 0.9314271303297416,
+        "overlap": 560
+      },
+      {
+        "mpId": 4860,
+        "score": 0.929633005082505,
+        "overlap": 561
+      },
+      {
+        "mpId": 5273,
+        "score": 0.9273597723484793,
+        "overlap": 545
+      },
+      {
+        "mpId": 4835,
+        "score": 0.927032198756282,
+        "overlap": 552
+      },
+      {
+        "mpId": 4866,
+        "score": 0.926385102301096,
+        "overlap": 554
+      },
+      {
+        "mpId": 2639,
+        "score": 0.9260105458730762,
+        "overlap": 552
+      },
+      {
+        "mpId": 4907,
+        "score": 0.9234824549862453,
+        "overlap": 559
+      },
+      {
+        "mpId": 4759,
+        "score": 0.9229390248519379,
+        "overlap": 548
+      },
+      {
+        "mpId": 5101,
+        "score": 0.922721992434227,
+        "overlap": 543
+      },
+      {
+        "mpId": 5171,
+        "score": 0.9194864228027829,
+        "overlap": 545
+      },
+      {
+        "mpId": 4756,
+        "score": 0.9176099198991038,
+        "overlap": 544
+      },
+      {
+        "mpId": 4824,
+        "score": 0.9175381140684724,
+        "overlap": 550
+      },
+      {
+        "mpId": 2920,
+        "score": 0.9162084376147537,
+        "overlap": 540
+      },
+      {
+        "mpId": 4848,
+        "score": 0.9156820892569196,
+        "overlap": 544
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5184,
+        "score": -0.09191173147513228,
+        "overlap": 167
+      },
+      {
+        "mpId": 3006,
+        "score": -0.08015836519696397,
+        "overlap": 80
+      },
+      {
+        "mpId": 4727,
+        "score": -0.0687272400181126,
+        "overlap": 256
+      },
+      {
+        "mpId": 4925,
+        "score": -0.05593569847587503,
+        "overlap": 91
+      },
+      {
+        "mpId": 5146,
+        "score": -0.025777312660274956,
+        "overlap": 144
+      },
+      {
+        "mpId": 5100,
+        "score": -0.019134692232936294,
+        "overlap": 47
+      },
+      {
+        "mpId": 2966,
+        "score": -0.01382767474704745,
+        "overlap": 40
+      },
+      {
+        "mpId": 2915,
+        "score": -0.013336593788141405,
+        "overlap": 42
+      },
+      {
+        "mpId": 2921,
+        "score": -0.013336593788141405,
+        "overlap": 42
+      },
+      {
+        "mpId": 2957,
+        "score": -0.013336593788141405,
+        "overlap": 42
+      },
+      {
+        "mpId": 2917,
+        "score": -0.013184170567565755,
+        "overlap": 44
+      },
+      {
+        "mpId": 2597,
+        "score": -0.013036856775572309,
+        "overlap": 44
+      },
+      {
+        "mpId": 4930,
+        "score": -0.008166962421929555,
+        "overlap": 235
+      },
+      {
+        "mpId": 2599,
+        "score": 0,
+        "overlap": 40
+      },
+      {
+        "mpId": 2627,
+        "score": 0,
+        "overlap": 41
+      },
+      {
+        "mpId": 2916,
+        "score": 0,
+        "overlap": 42
+      },
+      {
+        "mpId": 2930,
+        "score": 0,
+        "overlap": 7
+      },
+      {
+        "mpId": 4886,
+        "score": 0,
+        "overlap": 82
+      },
+      {
+        "mpId": 2967,
+        "score": 0.002864647540732327,
+        "overlap": 295
+      },
+      {
+        "mpId": 2990,
+        "score": 0.004113485150154649,
+        "overlap": 119
+      }
+    ]
+  }
+}

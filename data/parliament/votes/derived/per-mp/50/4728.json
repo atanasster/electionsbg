@@ -1,0 +1,265 @@
+{
+  "mpId": 4728,
+  "ns": "50",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 541,
+    "withParty": 537,
+    "loyaltyPct": 0.9926062846580407,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 541,
+    "dissentCount": 4,
+    "recent": [
+      {
+        "date": "2024-09-18",
+        "item": 18,
+        "slug": "18-ratifikatsiya-na-sporazumenieto-otnosno-tsentralnoevropeyska",
+        "title": "Ратификация на Споразумението относно Централноевропейската програма за обмен в университетското образование (CEEPUS ІV), подписано в гр.Варшава, Полша, на 20.09.2023г. - първо гласуване - процедура от Силви Кирилов за второ гласуване",
+        "topic": "ratification",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 34
+      },
+      {
+        "date": "2024-08-08",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – първо гласуване - вносител Костадин Костадинов и група н.п. - вносител Атанас Зафиров и група н.п.- процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2024-08-07",
+        "item": 42,
+        "slug": "42-zakon-za-vavezhdane-na-evroto-v-republika-balgariya-vtoro-gl",
+        "title": "Закон за въвеждане на еврото в Република България – второ гласуване - параграф 8",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-07-12",
+        "item": 44,
+        "slug": "44-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 41 (става член 40)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 38
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4848,
+        "score": 0.930839239328676,
+        "overlap": 535
+      },
+      {
+        "mpId": 5101,
+        "score": 0.9302681012668296,
+        "overlap": 531
+      },
+      {
+        "mpId": 4928,
+        "score": 0.9267591333439708,
+        "overlap": 539
+      },
+      {
+        "mpId": 4847,
+        "score": 0.9248831027096712,
+        "overlap": 540
+      },
+      {
+        "mpId": 5171,
+        "score": 0.9231988713573657,
+        "overlap": 528
+      },
+      {
+        "mpId": 4752,
+        "score": 0.9218816425559605,
+        "overlap": 512
+      },
+      {
+        "mpId": 4756,
+        "score": 0.9212835210018524,
+        "overlap": 530
+      },
+      {
+        "mpId": 4887,
+        "score": 0.9198111018657049,
+        "overlap": 519
+      },
+      {
+        "mpId": 2920,
+        "score": 0.9197819872188214,
+        "overlap": 522
+      },
+      {
+        "mpId": 4795,
+        "score": 0.9190874017152417,
+        "overlap": 533
+      },
+      {
+        "mpId": 4860,
+        "score": 0.918755190507053,
+        "overlap": 534
+      },
+      {
+        "mpId": 4866,
+        "score": 0.9153051490332861,
+        "overlap": 525
+      },
+      {
+        "mpId": 4804,
+        "score": 0.9138897272283302,
+        "overlap": 536
+      },
+      {
+        "mpId": 2952,
+        "score": 0.9136227607837175,
+        "overlap": 537
+      },
+      {
+        "mpId": 4759,
+        "score": 0.9134989112062921,
+        "overlap": 522
+      },
+      {
+        "mpId": 4861,
+        "score": 0.9125951843182264,
+        "overlap": 530
+      },
+      {
+        "mpId": 4907,
+        "score": 0.9125573907609866,
+        "overlap": 535
+      },
+      {
+        "mpId": 5060,
+        "score": 0.9105407325628843,
+        "overlap": 520
+      },
+      {
+        "mpId": 2639,
+        "score": 0.9091197428283502,
+        "overlap": 525
+      },
+      {
+        "mpId": 4835,
+        "score": 0.9082988670466693,
+        "overlap": 525
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5184,
+        "score": -0.10771293581699268,
+        "overlap": 168
+      },
+      {
+        "mpId": 3006,
+        "score": -0.08181780746320325,
+        "overlap": 87
+      },
+      {
+        "mpId": 4727,
+        "score": -0.047702023521491985,
+        "overlap": 256
+      },
+      {
+        "mpId": 4925,
+        "score": -0.04757806829199439,
+        "overlap": 96
+      },
+      {
+        "mpId": 3015,
+        "score": -0.04255511797561071,
+        "overlap": 95
+      },
+      {
+        "mpId": 5146,
+        "score": -0.033828371750228826,
+        "overlap": 145
+      },
+      {
+        "mpId": 2921,
+        "score": -0.027225377166610037,
+        "overlap": 42
+      },
+      {
+        "mpId": 5100,
+        "score": -0.026041092714988456,
+        "overlap": 45
+      },
+      {
+        "mpId": 2957,
+        "score": -0.020419032874957527,
+        "overlap": 41
+      },
+      {
+        "mpId": 2966,
+        "score": -0.014113935923440919,
+        "overlap": 40
+      },
+      {
+        "mpId": 4930,
+        "score": -0.013893392106878047,
+        "overlap": 226
+      },
+      {
+        "mpId": 2915,
+        "score": -0.013612688583305018,
+        "overlap": 40
+      },
+      {
+        "mpId": 2597,
+        "score": -0.013306746400929985,
+        "overlap": 42
+      },
+      {
+        "mpId": 4762,
+        "score": -0.008397285428441995,
+        "overlap": 115
+      },
+      {
+        "mpId": 2959,
+        "score": -0.006886895548638457,
+        "overlap": 41
+      },
+      {
+        "mpId": 2917,
+        "score": -0.006728554945005179,
+        "overlap": 43
+      },
+      {
+        "mpId": 2967,
+        "score": -0.005847903219125367,
+        "overlap": 283
+      },
+      {
+        "mpId": 4886,
+        "score": -0.005053599723007759,
+        "overlap": 88
+      },
+      {
+        "mpId": 2627,
+        "score": 0,
+        "overlap": 41
+      },
+      {
+        "mpId": 2916,
+        "score": 0,
+        "overlap": 42
+      }
+    ]
+  }
+}

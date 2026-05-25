@@ -1,0 +1,629 @@
+{
+  "mpId": 5125,
+  "ns": "47",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 953,
+    "withParty": 911,
+    "loyaltyPct": 0.9559286463798531,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 953,
+    "dissentCount": 42,
+    "recent": [
+      {
+        "date": "2022-07-29",
+        "item": 27,
+        "slug": "27-zd-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosiguritel",
+        "title": "ЗД на Закона за бюджета на Националната здравноосигурителна каса за 2022 г.- първо гласуване - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 27
+      },
+      {
+        "date": "2022-07-21",
+        "item": 48,
+        "slug": "48-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 16",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 35
+      },
+      {
+        "date": "2022-07-21",
+        "item": 47,
+        "slug": "47-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - Преходни и заключителни разпоредби",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-07-21",
+        "item": 46,
+        "slug": "46-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 15 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 34
+      },
+      {
+        "date": "2022-07-21",
+        "item": 43,
+        "slug": "43-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 13- прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 29
+      },
+      {
+        "date": "2022-07-21",
+        "item": 40,
+        "slug": "40-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 11 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 29
+      },
+      {
+        "date": "2022-07-21",
+        "item": 38,
+        "slug": "38-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 10 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-07-21",
+        "item": 36,
+        "slug": "36-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 9 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 26
+      },
+      {
+        "date": "2022-07-21",
+        "item": 34,
+        "slug": "34-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 8 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2022-07-21",
+        "item": 32,
+        "slug": "32-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 7- прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 27
+      },
+      {
+        "date": "2022-07-21",
+        "item": 30,
+        "slug": "30-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 6 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 34
+      },
+      {
+        "date": "2022-07-21",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 3 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2022-07-21",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-statistika-na-vatreshnoobshtnostnata-targov",
+        "title": "ЗИД на Закона за статистика на вътрешнообщностната търговия със стоки - второ гласуване - параграф 2 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2022-07-08",
+        "item": 22,
+        "slug": "22-ratifikatsiya-na-tristranno-sporazumanie-za-darenie-na-vaksi",
+        "title": "Ратификация на Тристранно споразумание за дарение на ваксини срещу COVID-19, произведени от АстраЗенека, между Република България, Ислямска Република Иран и АстраЗенека и на Двустранното споразумение за дарение на ваксини срещу COVID-19, произведени от АстраЗенека, между Република България, Ислямска Република Иран - второ гласуване",
+        "topic": "ratification",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2022-07-06",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-6-8-yuli-2022-",
+        "title": "Програма за работата на Народното събрание за 6 - 8 юли 2022 г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 56
+      },
+      {
+        "date": "2022-06-30",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - параграф 1 - предложение от Цвета Галунова (№ ...258) - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2022-06-29",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - второ гласуване - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-06-28",
+        "item": 2,
+        "slug": "2-protsedura-za-dopuskane-v-zala-po-tochka-1",
+        "title": "Процедура за допускане в зала по точка 1",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 50
+      },
+      {
+        "date": "2022-06-16",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodnoto-sabranie-za-15-17-yuni-202",
+        "title": "Програма за работата на Народното събрание за 15 - 17 юни 2022 г. - процедура от Кристиан Вигенин за удължаване на работното време до приемане на точка 5",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2022-06-15",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2022 г. - първо гласуване - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-05-11",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-priznavane-izpalnenie-i-postanovyavane-na-a",
+        "title": "ЗИД на Закона за признаване, изпълнение и постановяване на актове за обезпечаване на имущество - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 33
+      },
+      {
+        "date": "2022-05-11",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-11-13-may-2022",
+        "title": "Програма за работата на Народното събрание за 11 - 13 май 2022 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 45
+      },
+      {
+        "date": "2022-03-24",
+        "item": 2,
+        "slug": "2-protsedura-ot-nikola-minchev-za-razmestvane-na-tochkite",
+        "title": "Процедура от Никола Минчев за разместване на точките",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 9
+      },
+      {
+        "date": "2022-03-10",
+        "item": 2,
+        "slug": "2",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2022-03-02",
+        "item": 2,
+        "slug": "2",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 42
+      },
+      {
+        "date": "2022-02-24",
+        "item": 38,
+        "slug": "38",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 51
+      },
+      {
+        "date": "2022-02-24",
+        "item": 32,
+        "slug": "32",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 40
+      },
+      {
+        "date": "2022-02-24",
+        "item": 14,
+        "slug": "14",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2022-02-24",
+        "item": 13,
+        "slug": "13",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 51
+      },
+      {
+        "date": "2022-02-23",
+        "item": 93,
+        "slug": "93",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 50
+      },
+      {
+        "date": "2022-02-09",
+        "item": 6,
+        "slug": "6",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 57
+      },
+      {
+        "date": "2022-01-21",
+        "item": 6,
+        "slug": "6-zakon-za-udalzhavane-do-31-mart-2022-g-na-deystvieto-na-razp",
+        "title": "Закон за удължаване до 31 март 2022 г. на действието на разпоредби на Закона за държавния бюджет на Република България за 2021 г., Закона за бюджета на държавното обществено осигуряване за 2021 г. и Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - процедура за допускане в зала - прегласуване",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2022-01-21",
+        "item": 5,
+        "slug": "5-zakon-za-udalzhavane-do-31-mart-2022-g-na-deystvieto-na-razp",
+        "title": "Закон за удължаване до 31 март 2022 г. на действието на разпоредби на Закона за държавния бюджет на Република България за 2021 г., Закона за бюджета на държавното обществено осигуряване за 2021 г. и Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - процедура за допускане в пленарна зала",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      },
+      {
+        "date": "2022-01-05",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-05-07-yanuari-",
+        "title": "Програма за работата на Народното събрание за 05 - 07 януари 2022 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 53
+      },
+      {
+        "date": "2021-12-23",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-parvo-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - първо гласуване - процедура от Любомир Каримански за второ гласуване",
+        "topic": "tax",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 46
+      },
+      {
+        "date": "2021-12-22",
+        "item": 32,
+        "slug": "32-reshenie-za-izbirane-na-komisiya-po-zemedelieto-hranite-i-go",
+        "title": "Решение за избиране на Комисия по земеделието, храните и горите",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 34
+      },
+      {
+        "date": "2021-12-22",
+        "item": 21,
+        "slug": "21-reshenie-za-izbirane-na-komisiya-po-regionalna-politika-blag",
+        "title": "Решение за избиране на Комисия по регионална политика, благоустройство и местно самоуправление - ръководство и състав",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 38
+      },
+      {
+        "date": "2021-12-22",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-22-i-23-dekemv",
+        "title": "Програма за работата на Народното събрание за 22 и 23 декември 2021 г",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2021-12-17",
+        "item": 37,
+        "slug": "37-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Глава осма, член 73 - предложение от Екатерина Захариева за редакция на ал.10",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 48
+      },
+      {
+        "date": "2021-12-17",
+        "item": 28,
+        "slug": "28-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 54 до член 58",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2021-12-17",
+        "item": 4,
+        "slug": "4-protsedura-ot-filip-popov-za-udalzhavane-na-rabotnoto-vreme-",
+        "title": "Процедура от Филип Попов за удължаване на работното време до приемане на ПОДНС",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 40
+      },
+      {
+        "date": "2021-12-15",
+        "item": 9,
+        "slug": "9-reshenie-za-sazdavane-na-vremenna-komisiya-za-vaprosite-s-en",
+        "title": "Решение за създаване на Временна комисия за въпросите с енергийната криза и предложение за справяне с нея - предложение за разделно гласуване от Ива Митева",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 57
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5103,
+        "score": 0.8245553151569155,
+        "overlap": 860
+      },
+      {
+        "mpId": 4272,
+        "score": 0.8189143097161684,
+        "overlap": 883
+      },
+      {
+        "mpId": 5075,
+        "score": 0.8153234144243396,
+        "overlap": 847
+      },
+      {
+        "mpId": 4808,
+        "score": 0.812148287260862,
+        "overlap": 910
+      },
+      {
+        "mpId": 4807,
+        "score": 0.8111161004820829,
+        "overlap": 853
+      },
+      {
+        "mpId": 4147,
+        "score": 0.8111036043653562,
+        "overlap": 839
+      },
+      {
+        "mpId": 5207,
+        "score": 0.8109673541801952,
+        "overlap": 872
+      },
+      {
+        "mpId": 5274,
+        "score": 0.8089326425789923,
+        "overlap": 935
+      },
+      {
+        "mpId": 5151,
+        "score": 0.807210258798752,
+        "overlap": 793
+      },
+      {
+        "mpId": 4130,
+        "score": 0.8048744603762873,
+        "overlap": 850
+      },
+      {
+        "mpId": 5236,
+        "score": 0.8030952209987017,
+        "overlap": 813
+      },
+      {
+        "mpId": 4778,
+        "score": 0.8030634573304156,
+        "overlap": 803
+      },
+      {
+        "mpId": 4225,
+        "score": 0.7987144380211835,
+        "overlap": 831
+      },
+      {
+        "mpId": 5083,
+        "score": 0.7985115352336155,
+        "overlap": 853
+      },
+      {
+        "mpId": 4739,
+        "score": 0.7948059184669481,
+        "overlap": 820
+      },
+      {
+        "mpId": 3892,
+        "score": 0.7939970430198785,
+        "overlap": 813
+      },
+      {
+        "mpId": 4906,
+        "score": 0.7927210129273617,
+        "overlap": 771
+      },
+      {
+        "mpId": 4703,
+        "score": 0.7871944431130581,
+        "overlap": 903
+      },
+      {
+        "mpId": 4820,
+        "score": 0.7845924734986142,
+        "overlap": 855
+      },
+      {
+        "mpId": 2044,
+        "score": 0.7843620917034999,
+        "overlap": 892
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 1336,
+        "score": -0.22678291627812386,
+        "overlap": 744
+      },
+      {
+        "mpId": 2045,
+        "score": -0.22395758819495357,
+        "overlap": 763
+      },
+      {
+        "mpId": 4738,
+        "score": -0.22058316114349794,
+        "overlap": 821
+      },
+      {
+        "mpId": 4802,
+        "score": -0.2205806910141801,
+        "overlap": 842
+      },
+      {
+        "mpId": 5283,
+        "score": -0.21894439637707772,
+        "overlap": 729
+      },
+      {
+        "mpId": 2080,
+        "score": -0.21801091671176018,
+        "overlap": 798
+      },
+      {
+        "mpId": 2131,
+        "score": -0.21263922327950527,
+        "overlap": 945
+      },
+      {
+        "mpId": 4160,
+        "score": -0.21017208065882811,
+        "overlap": 865
+      },
+      {
+        "mpId": 1277,
+        "score": -0.21005937347207054,
+        "overlap": 838
+      },
+      {
+        "mpId": 4324,
+        "score": -0.20911369498605495,
+        "overlap": 763
+      },
+      {
+        "mpId": 2175,
+        "score": -0.2086291012942487,
+        "overlap": 798
+      },
+      {
+        "mpId": 4009,
+        "score": -0.20854710584763958,
+        "overlap": 862
+      },
+      {
+        "mpId": 5300,
+        "score": -0.20704445499737906,
+        "overlap": 881
+      },
+      {
+        "mpId": 4054,
+        "score": -0.20671408036333958,
+        "overlap": 813
+      },
+      {
+        "mpId": 4224,
+        "score": -0.2067079976956559,
+        "overlap": 865
+      },
+      {
+        "mpId": 4262,
+        "score": -0.20633398786223614,
+        "overlap": 788
+      },
+      {
+        "mpId": 1253,
+        "score": -0.20142449561165948,
+        "overlap": 863
+      },
+      {
+        "mpId": 4038,
+        "score": -0.19820475566273696,
+        "overlap": 880
+      },
+      {
+        "mpId": 2161,
+        "score": -0.19807053998964655,
+        "overlap": 885
+      },
+      {
+        "mpId": 3914,
+        "score": -0.197549300822903,
+        "overlap": 896
+      }
+    ]
+  }
+}

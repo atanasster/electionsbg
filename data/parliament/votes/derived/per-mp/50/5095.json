@@ -1,0 +1,405 @@
+{
+  "mpId": 5095,
+  "ns": "50",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 473,
+    "withParty": 455,
+    "loyaltyPct": 0.9619450317124736,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 473,
+    "dissentCount": 18,
+    "recent": [
+      {
+        "date": "2024-09-25",
+        "item": 39,
+        "slug": "39-zid-na-zakona-za-zdraveto-vtoro-glasuvane-paragraf-8-otpada",
+        "title": "ЗИД на Закона за здравето – второ гласуване - параграф 8 - отпада",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-09-25",
+        "item": 14,
+        "slug": "14-izslushvane-na-sluzhebniya-ministar-na-vatreshnite-raboti-at",
+        "title": "Изслушване на служебния министър на вътрешните работи Атанас Илков, във връзка с бездействието на Министерството на вътрешните работи за препятстването купуването и продаването на гласове на предходните парламентарни избори и последвалото политическо ангажиране на предходния служебен министър в предстоящите избори, както и липсата до момента на действия на министерството за препятстването на купуването и продаването на гласове на предстоящите избори за 51 Народно събрание, насрочени за 27.10.2024 г. - процедура за пряко предаване по БНТ и БНР",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2024-08-14",
+        "item": 6,
+        "slug": "6-reshenie-za-promyana-v-sastava-na-komisiyata-po-obrazovaniet",
+        "title": "Решение за промяна в състава на Комисията по образованието и науката",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2024-08-08",
+        "item": 4,
+        "slug": "4-reshenie-po-doklad-za-deynostta-na-vremennata-komisiya-za-pr",
+        "title": "Решение по доклад за дейността на Временната комисия за проверка на всички факти и обстоятелства на данни за извършени престъпления във връзка с дейността на Ивелин Михайлов - идеолог на ПП „Величие\" и изградения в с. Неофит Рилски, община Ветрино, културно-исторически комплекс „Исторически парк\", в т. ч. престъпления, свързани с пране на пари и обвързаности на представители на местната и централна власт с този комплекс и неговото изграждане - процедура от Вяра Тодева за преминаване към открито заседание",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-08-07",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – второ гласуване - параграф 2 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2024-08-07",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – първо гласуване - вносител Костадин Костадинов и група н.п. - процедура от Г.Свиленски за преминаване на второ гласуване - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2024-07-12",
+        "item": 85,
+        "slug": "85-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т. 10",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 54
+      },
+      {
+        "date": "2024-07-12",
+        "item": 84,
+        "slug": "84-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т. 9",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 54
+      },
+      {
+        "date": "2024-07-12",
+        "item": 83,
+        "slug": "83-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т. 8",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2024-07-12",
+        "item": 82,
+        "slug": "82-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т. 7",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 51
+      },
+      {
+        "date": "2024-07-12",
+        "item": 81,
+        "slug": "81-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т. 6",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 53
+      },
+      {
+        "date": "2024-07-12",
+        "item": 80,
+        "slug": "80-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т.5",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-07-12",
+        "item": 79,
+        "slug": "79-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - т.4",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-07-12",
+        "item": 78,
+        "slug": "78-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 90 (става член 89) - предложение Стою Стоев за редакция - ал.3",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2024-07-12",
+        "item": 73,
+        "slug": "73-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 77 (става член 76) - предложение от П. Митова и Ст.Богдански т.2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-07-12",
+        "item": 72,
+        "slug": "72-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 77 (става член 76) - предложение от П. Митова и Ст.Богдански т.1 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 56
+      },
+      {
+        "date": "2024-07-12",
+        "item": 61,
+        "slug": "61-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 60 (става член 59) - предложение от Цвета Рангелова и Петър Петров - т.2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2024-07-03",
+        "item": 8,
+        "slug": "8-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно наличието на нарегламентирано влияние в правосъдната система и обвързаности на представители на съдебната власт, несъвместими със стандартите за независимост и професионална етика във връзка с дейността на групата около Мартин Божанов - Нотариуса и дейността на групата около бившия следовател Петьо Петров - Еврото - председател Надежда Йорданова",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 64
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4807,
+        "score": 0.8385241920255883,
+        "overlap": 468
+      },
+      {
+        "mpId": 5075,
+        "score": 0.8328056430063239,
+        "overlap": 454
+      },
+      {
+        "mpId": 4983,
+        "score": 0.8293976652278711,
+        "overlap": 470
+      },
+      {
+        "mpId": 5207,
+        "score": 0.8279697859944835,
+        "overlap": 449
+      },
+      {
+        "mpId": 4783,
+        "score": 0.8274275995147407,
+        "overlap": 469
+      },
+      {
+        "mpId": 4895,
+        "score": 0.8241371823633373,
+        "overlap": 471
+      },
+      {
+        "mpId": 4721,
+        "score": 0.8233273172599,
+        "overlap": 468
+      },
+      {
+        "mpId": 4797,
+        "score": 0.8230339255777154,
+        "overlap": 430
+      },
+      {
+        "mpId": 4830,
+        "score": 0.8194828813486508,
+        "overlap": 431
+      },
+      {
+        "mpId": 5274,
+        "score": 0.8158786341832187,
+        "overlap": 454
+      },
+      {
+        "mpId": 4733,
+        "score": 0.8136665777830875,
+        "overlap": 462
+      },
+      {
+        "mpId": 5195,
+        "score": 0.8133531544332909,
+        "overlap": 445
+      },
+      {
+        "mpId": 2765,
+        "score": 0.808534658612562,
+        "overlap": 452
+      },
+      {
+        "mpId": 4838,
+        "score": 0.8035003617230876,
+        "overlap": 429
+      },
+      {
+        "mpId": 4912,
+        "score": 0.8020955804663668,
+        "overlap": 458
+      },
+      {
+        "mpId": 2905,
+        "score": 0.7979894737759898,
+        "overlap": 450
+      },
+      {
+        "mpId": 4808,
+        "score": 0.797495045172641,
+        "overlap": 458
+      },
+      {
+        "mpId": 4896,
+        "score": 0.7959903640910494,
+        "overlap": 437
+      },
+      {
+        "mpId": 4820,
+        "score": 0.7946891838174245,
+        "overlap": 441
+      },
+      {
+        "mpId": 4749,
+        "score": 0.7946343874288498,
+        "overlap": 446
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 2930,
+        "score": -0.027369027575198667,
+        "overlap": 7
+      },
+      {
+        "mpId": 2967,
+        "score": -0.009316725257981976,
+        "overlap": 264
+      },
+      {
+        "mpId": 5007,
+        "score": 0.005706836748154471,
+        "overlap": 276
+      },
+      {
+        "mpId": 2951,
+        "score": 0.06503850097738513,
+        "overlap": 35
+      },
+      {
+        "mpId": 4899,
+        "score": 0.07163866547141534,
+        "overlap": 70
+      },
+      {
+        "mpId": 2904,
+        "score": 0.07426865073585635,
+        "overlap": 36
+      },
+      {
+        "mpId": 2909,
+        "score": 0.07426865073585635,
+        "overlap": 36
+      },
+      {
+        "mpId": 2961,
+        "score": 0.07590802483228203,
+        "overlap": 38
+      },
+      {
+        "mpId": 3004,
+        "score": 0.0766269707235102,
+        "overlap": 122
+      },
+      {
+        "mpId": 2912,
+        "score": 0.07690032871115762,
+        "overlap": 38
+      },
+      {
+        "mpId": 2927,
+        "score": 0.07793259407691133,
+        "overlap": 37
+      },
+      {
+        "mpId": 2953,
+        "score": 0.08459036158227339,
+        "overlap": 38
+      },
+      {
+        "mpId": 2946,
+        "score": 0.08567860859069464,
+        "overlap": 19
+      },
+      {
+        "mpId": 2918,
+        "score": 0.08572585348460246,
+        "overlap": 36
+      },
+      {
+        "mpId": 2992,
+        "score": 0.08976080390868717,
+        "overlap": 125
+      },
+      {
+        "mpId": 4787,
+        "score": 0.10056022847309863,
+        "overlap": 69
+      },
+      {
+        "mpId": 3014,
+        "score": 0.11117351555922728,
+        "overlap": 18
+      },
+      {
+        "mpId": 2990,
+        "score": 0.11148611493458598,
+        "overlap": 117
+      },
+      {
+        "mpId": 4819,
+        "score": 0.11198271478632282,
+        "overlap": 108
+      },
+      {
+        "mpId": 3002,
+        "score": 0.11225665124001857,
+        "overlap": 126
+      }
+    ]
+  }
+}

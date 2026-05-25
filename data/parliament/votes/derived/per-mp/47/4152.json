@@ -1,0 +1,329 @@
+{
+  "mpId": 4152,
+  "ns": "47",
+  "partyShort": "ВЪЗРАЖДАНЕ",
+  "loyalty": {
+    "votesCast": 1402,
+    "withParty": 1391,
+    "loyaltyPct": 0.9921540656205421,
+    "windowFrom": "2021-12-03",
+    "windowTo": "2022-07-29",
+    "totalVoteItems": 1933
+  },
+  "dissents": {
+    "totalCast": 1402,
+    "dissentCount": 11,
+    "recent": [
+      {
+        "date": "2022-07-29",
+        "item": 14,
+        "slug": "14-ratifikatsiya-na-ramkovoto-sporazumenie-za-partnyorstvo-i-po",
+        "title": "Ратификация на Рамковото споразумение за партньорство и подкрепа между правителство на Република България и Международната банка за възстановяване и развитие - първо гласуване - процедура за допускане в зала",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 8
+      },
+      {
+        "date": "2022-06-08",
+        "item": 13,
+        "slug": "13-ratifikatsiya-na-sporazumenieto-za-evropeyska-kooperirashta-",
+        "title": "Ратификация на Споразумението за европейска кооперираща държава между правителството на Република България и Европейската космическа агенция - първо гласуване",
+        "topic": "ratification",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-06-02",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2022 г. - първо гласуване - процедура от Тошко Йорданов за пряко излъчване по БНТ и БНР - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2022-04-14",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-10",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 10 - предложение от Десислава Атанасова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 8
+      },
+      {
+        "date": "2022-03-31",
+        "item": 2,
+        "slug": "2-zid-na-zakona-za-zdravnoto-osiguryavane-parvo-glasuvane-prot",
+        "title": "ЗИД на Закона за здравното осигуряване - първо гласуване - процедура за допускане в зала",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 12
+      },
+      {
+        "date": "2022-02-23",
+        "item": 91,
+        "slug": "91",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-02-23",
+        "item": 76,
+        "slug": "76",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      },
+      {
+        "date": "2022-02-22",
+        "item": 21,
+        "slug": "21",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-12-23",
+        "item": 13,
+        "slug": "13-reshenie-za-izmenenie-na-reshenie-na-narodnoto-sabranie-za-i",
+        "title": "Решение за изменение на Решение на Народното събрание за избиране на Министерски съвет на Република България",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-12-23",
+        "item": 12,
+        "slug": "12-reshenie-za-izmenenie-na-reshenie-na-narodnoto-sabranie-za-p",
+        "title": "Решение за изменение на Решение на Народното събрание за приемане на структура на Министерски съвет на Република България",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 11
+      },
+      {
+        "date": "2021-12-08",
+        "item": 5,
+        "slug": "5-protsedura-za-pryako-predavane-po-bnt-1-i-bnr",
+        "title": "Процедура за пряко предаване по БНТ 1 и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 13
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4907,
+        "score": 0.8956951992225588,
+        "overlap": 1338
+      },
+      {
+        "mpId": 5101,
+        "score": 0.8925189751118405,
+        "overlap": 1336
+      },
+      {
+        "mpId": 5234,
+        "score": 0.8773451156274269,
+        "overlap": 1316
+      },
+      {
+        "mpId": 4780,
+        "score": 0.8560322251474246,
+        "overlap": 1257
+      },
+      {
+        "mpId": 5273,
+        "score": 0.8513828126070514,
+        "overlap": 1181
+      },
+      {
+        "mpId": 4223,
+        "score": 0.8256620097532723,
+        "overlap": 1145
+      },
+      {
+        "mpId": 5258,
+        "score": 0.8167199333251313,
+        "overlap": 1168
+      },
+      {
+        "mpId": 4752,
+        "score": 0.8155566235742279,
+        "overlap": 1108
+      },
+      {
+        "mpId": 5185,
+        "score": 0.8140438529355101,
+        "overlap": 1123
+      },
+      {
+        "mpId": 2127,
+        "score": 0.8089189735336064,
+        "overlap": 1087
+      },
+      {
+        "mpId": 5247,
+        "score": 0.7806870628113485,
+        "overlap": 1025
+      },
+      {
+        "mpId": 2069,
+        "score": 0.6985666534778923,
+        "overlap": 851
+      },
+      {
+        "mpId": 4658,
+        "score": 0.41836981252631034,
+        "overlap": 909
+      },
+      {
+        "mpId": 4827,
+        "score": 0.4139402994602241,
+        "overlap": 856
+      },
+      {
+        "mpId": 4114,
+        "score": 0.4053088763778911,
+        "overlap": 842
+      },
+      {
+        "mpId": 4709,
+        "score": 0.39943503051879037,
+        "overlap": 932
+      },
+      {
+        "mpId": 4762,
+        "score": 0.39938674333756985,
+        "overlap": 1011
+      },
+      {
+        "mpId": 4325,
+        "score": 0.3913169483735251,
+        "overlap": 630
+      },
+      {
+        "mpId": 5125,
+        "score": 0.38962311609287087,
+        "overlap": 841
+      },
+      {
+        "mpId": 5157,
+        "score": 0.3893351584726989,
+        "overlap": 940
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4316,
+        "score": -0.07405852046254849,
+        "overlap": 1100
+      },
+      {
+        "mpId": 5283,
+        "score": -0.06975556613495563,
+        "overlap": 996
+      },
+      {
+        "mpId": 4054,
+        "score": -0.06712531358309998,
+        "overlap": 1199
+      },
+      {
+        "mpId": 2170,
+        "score": -0.06622990688828442,
+        "overlap": 1149
+      },
+      {
+        "mpId": 4716,
+        "score": -0.062215106884232596,
+        "overlap": 593
+      },
+      {
+        "mpId": 4224,
+        "score": -0.057452192805513225,
+        "overlap": 1279
+      },
+      {
+        "mpId": 3940,
+        "score": -0.05489591081866435,
+        "overlap": 1232
+      },
+      {
+        "mpId": 5300,
+        "score": -0.05485220832484338,
+        "overlap": 1272
+      },
+      {
+        "mpId": 4917,
+        "score": -0.05325257920200122,
+        "overlap": 1035
+      },
+      {
+        "mpId": 2031,
+        "score": -0.05314667310664621,
+        "overlap": 1136
+      },
+      {
+        "mpId": 2164,
+        "score": -0.05208728898151381,
+        "overlap": 1311
+      },
+      {
+        "mpId": 2028,
+        "score": -0.051296876181295206,
+        "overlap": 1266
+      },
+      {
+        "mpId": 4905,
+        "score": -0.05011566639926247,
+        "overlap": 1198
+      },
+      {
+        "mpId": 4273,
+        "score": -0.04961748618192194,
+        "overlap": 1308
+      },
+      {
+        "mpId": 4741,
+        "score": -0.04917761861485484,
+        "overlap": 1067
+      },
+      {
+        "mpId": 2043,
+        "score": -0.0487898898441287,
+        "overlap": 1274
+      },
+      {
+        "mpId": 1336,
+        "score": -0.04847594117434389,
+        "overlap": 1037
+      },
+      {
+        "mpId": 2060,
+        "score": -0.04828466625906759,
+        "overlap": 1196
+      },
+      {
+        "mpId": 5153,
+        "score": -0.04795490786220531,
+        "overlap": 1149
+      },
+      {
+        "mpId": 4160,
+        "score": -0.04724901717257166,
+        "overlap": 1222
+      }
+    ]
+  }
+}

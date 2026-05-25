@@ -1,0 +1,405 @@
+{
+  "mpId": 4905,
+  "ns": "50",
+  "partyShort": "ПП-ДБ",
+  "loyalty": {
+    "votesCast": 498,
+    "withParty": 480,
+    "loyaltyPct": 0.963855421686747,
+    "windowFrom": "2024-06-19",
+    "windowTo": "2024-09-26",
+    "totalVoteItems": 685
+  },
+  "dissents": {
+    "totalCast": 498,
+    "dissentCount": 18,
+    "recent": [
+      {
+        "date": "2024-09-26",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-vnositeli",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - вносители Катя Панева и група н.п",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-09-26",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-zakrila-na-deteto-parvo-glasuvane-vnositeli",
+        "title": "ЗИД на Закона за закрила на детето – първо гласуване - вносители Божидар Божанов и група н.п. от 07.08.2024г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-09-11",
+        "item": 48,
+        "slug": "48-zid-na-zakona-za-semeynite-pomoshti-za-detsa-parvo-glasuvane",
+        "title": "ЗИД на Закона за семейните помощи за деца - първо гласуване - процедура от Мая Димитрова за удължаване на работното време до приключване на точката",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 20
+      },
+      {
+        "date": "2024-09-04",
+        "item": 4,
+        "slug": "4-reshenie-po-predlozhenie-ot-narodni-predstaviteli-za-proizve",
+        "title": "Решение по предложение от народни представители за произвеждане на национален референдум с въпрос \"Съгласни ли сте българският лев да бъде единствената официална валута в България до 2043 г.?\" - предложение от Йордан Тодоров за пряко предавене по БНТ и БНР - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2024-08-14",
+        "item": 30,
+        "slug": "30-reshenie-za-vazlagane-na-ministerskiya-savet-vklyuchvaneto-n",
+        "title": "Решение за възлагане на Министерския съвет включването на диазотния оксид (райски газ) в списъците с наркотични вещества по чл. 3, ал. 2 от Закона за контрол върху наркотичните вещества и прекурсорите - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 26
+      },
+      {
+        "date": "2024-08-07",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-preduchilishtnoto-i-uchilishtnoto-obrazovan",
+        "title": "ЗИД на Закона за предучилищното и училищното образование – второ гласуване - наименование",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2024-08-02",
+        "item": 11,
+        "slug": "11-zd-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-zakl",
+        "title": "ЗД на Кодекса за социално осигуряване - второ гласуване - Заключителна разпоредба и параграф 4 - предложение от Десислава Танева за редакция",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-08-02",
+        "item": 9,
+        "slug": "9-zd-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-para",
+        "title": "ЗД на Кодекса за социално осигуряване - второ гласуване - параграф 2 - нов предложение от Десислава Танева за редакция и преномериране - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 28
+      },
+      {
+        "date": "2024-08-02",
+        "item": 6,
+        "slug": "6-zd-na-kodeksa-za-sotsialno-osiguryavane-vtoro-glasuvane-para",
+        "title": "ЗД на Кодекса за социално осигуряване - второ гласуване - параграф ... - предложение от Джевдет Чакъров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-07-31",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – второ гласуване - параграф ... - предложение от Калоян Методиев - процедура за допустимост",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-07-31",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – второ гласуване - параграф ... - предложение от Джевдет Чакъров и група н.п. - процедура за допустимост",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 33
+      },
+      {
+        "date": "2024-07-31",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2024 г. – второ гласуване - параграф нов - предложение от Борислав Гуцанов и група н.п. - процедура за допустимост - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 35
+      },
+      {
+        "date": "2024-07-12",
+        "item": 37,
+        "slug": "37-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 33 (става член 32) - предложение от Цвета Рангелова и Петър Петров - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 30
+      },
+      {
+        "date": "2024-07-12",
+        "item": 33,
+        "slug": "33-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 28 (става член 27) - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 29
+      },
+      {
+        "date": "2024-07-12",
+        "item": 20,
+        "slug": "20-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 18 - предложение от Георги Свиленски",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 31
+      },
+      {
+        "date": "2024-07-12",
+        "item": 17,
+        "slug": "17-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 17 - предложение от Цвета Рангелова и Петър Петров",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 29
+      },
+      {
+        "date": "2024-07-12",
+        "item": 5,
+        "slug": "5-reshenie-za-priemane-na-pravilnik-za-organizatsiyata-i-deyno",
+        "title": "Решение за приемане на Правилник за организацията и дейността на Народното събрание - член 8",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 31
+      },
+      {
+        "date": "2024-07-03",
+        "item": 10,
+        "slug": "10-reshenie-za-sazdavane-na-vremenna-komisiya-za-proverka-na-fa",
+        "title": "Решение за създаване на Временна комисия за проверка на факти и обстоятелства относно наличието на нарегламентирано влияние в правосъдната система и обвързаности на представители на съдебната власт, несъвместими със стандартите за независимост и професионална етика във връзка с дейността на групата около Мартин Божанов - Нотариуса и дейността на групата около бившия следовател Петьо Петров - Еврото - председател Златан Златанов - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 37
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5245,
+        "score": 0.8375760232142307,
+        "overlap": 469
+      },
+      {
+        "mpId": 5255,
+        "score": 0.8328934918172723,
+        "overlap": 469
+      },
+      {
+        "mpId": 4748,
+        "score": 0.8317029573588627,
+        "overlap": 426
+      },
+      {
+        "mpId": 5272,
+        "score": 0.8285591703946681,
+        "overlap": 429
+      },
+      {
+        "mpId": 2636,
+        "score": 0.8200614349300793,
+        "overlap": 446
+      },
+      {
+        "mpId": 5072,
+        "score": 0.8169756599127705,
+        "overlap": 439
+      },
+      {
+        "mpId": 5206,
+        "score": 0.8150087005509424,
+        "overlap": 415
+      },
+      {
+        "mpId": 5256,
+        "score": 0.813733471206735,
+        "overlap": 433
+      },
+      {
+        "mpId": 2906,
+        "score": 0.8061636929928685,
+        "overlap": 438
+      },
+      {
+        "mpId": 5230,
+        "score": 0.8043511929506258,
+        "overlap": 430
+      },
+      {
+        "mpId": 4817,
+        "score": 0.7970668167195962,
+        "overlap": 419
+      },
+      {
+        "mpId": 5166,
+        "score": 0.7968784245773569,
+        "overlap": 410
+      },
+      {
+        "mpId": 5232,
+        "score": 0.7923438155693633,
+        "overlap": 409
+      },
+      {
+        "mpId": 5231,
+        "score": 0.7916399225264409,
+        "overlap": 449
+      },
+      {
+        "mpId": 2919,
+        "score": 0.7911603688226545,
+        "overlap": 444
+      },
+      {
+        "mpId": 4707,
+        "score": 0.7826957343774225,
+        "overlap": 388
+      },
+      {
+        "mpId": 5229,
+        "score": 0.7784580370809153,
+        "overlap": 430
+      },
+      {
+        "mpId": 4914,
+        "score": 0.7778838080309206,
+        "overlap": 378
+      },
+      {
+        "mpId": 4869,
+        "score": 0.7618680613747653,
+        "overlap": 397
+      },
+      {
+        "mpId": 2735,
+        "score": 0.7576316125509782,
+        "overlap": 381
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3014,
+        "score": 0.030354174694363235,
+        "overlap": 9
+      },
+      {
+        "mpId": 2967,
+        "score": 0.034199774270929045,
+        "overlap": 254
+      },
+      {
+        "mpId": 5100,
+        "score": 0.04845712304320892,
+        "overlap": 43
+      },
+      {
+        "mpId": 2930,
+        "score": 0.08219949365267866,
+        "overlap": 7
+      },
+      {
+        "mpId": 5186,
+        "score": 0.08700614961064575,
+        "overlap": 33
+      },
+      {
+        "mpId": 2992,
+        "score": 0.09414096375990108,
+        "overlap": 96
+      },
+      {
+        "mpId": 3006,
+        "score": 0.10235033889020939,
+        "overlap": 69
+      },
+      {
+        "mpId": 4762,
+        "score": 0.10714712807970307,
+        "overlap": 108
+      },
+      {
+        "mpId": 2893,
+        "score": 0.12427395320024001,
+        "overlap": 21
+      },
+      {
+        "mpId": 2983,
+        "score": 0.12535592767801954,
+        "overlap": 183
+      },
+      {
+        "mpId": 2988,
+        "score": 0.12584176035262956,
+        "overlap": 105
+      },
+      {
+        "mpId": 2915,
+        "score": 0.1302707136348149,
+        "overlap": 44
+      },
+      {
+        "mpId": 2921,
+        "score": 0.1302707136348149,
+        "overlap": 44
+      },
+      {
+        "mpId": 2846,
+        "score": 0.13153475700890735,
+        "overlap": 22
+      },
+      {
+        "mpId": 4925,
+        "score": 0.13153475700890735,
+        "overlap": 82
+      },
+      {
+        "mpId": 2966,
+        "score": 0.13506755066722442,
+        "overlap": 41
+      },
+      {
+        "mpId": 2916,
+        "score": 0.13593640417013383,
+        "overlap": 45
+      },
+      {
+        "mpId": 2959,
+        "score": 0.1391353454685198,
+        "overlap": 43
+      },
+      {
+        "mpId": 4787,
+        "score": 0.13982417816958842,
+        "overlap": 68
+      },
+      {
+        "mpId": 2627,
+        "score": 0.14082189608215148,
+        "overlap": 43
+      }
+    ]
+  }
+}

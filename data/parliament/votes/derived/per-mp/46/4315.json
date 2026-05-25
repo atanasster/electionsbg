@@ -1,0 +1,295 @@
+{
+  "mpId": 4315,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 456,
+    "withParty": 449,
+    "loyaltyPct": 0.9846491228070176,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 456,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2021-09-15",
+        "item": 65,
+        "slug": "65-zid-na-zakona-za-zashtita-na-litsa-zastrasheni-vav-vrazka-s-",
+        "title": "ЗИД на Закона за защита на лица, застрашени във връзка с наказателно производство - второ гласуване - параграф 25 - предложение от Хамид Хамид",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-09-10",
+        "item": 34,
+        "slug": "34-zid-na-zakona-za-darzhavniya-byudzhet-na-republika-balgariya",
+        "title": "ЗИД на Закона за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 1 - предложение от Г.Ганев за редакция в.т.4 - буква д",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-09-09",
+        "item": 51,
+        "slug": "51-zid-na-zakona-za-byudzheta-na-natsionalnata-zdravnoosigurite",
+        "title": "ЗИД на Закона за бюджета на Националната здравноосигурителна каса за 2021 г. - второ гласуване - параграф 1 - предложение за редакция от Александър Иванов - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2021-08-17",
+        "item": 5,
+        "slug": "5-deklaratsiya-vav-vrazka-s-uprazhnenoto-politseysko-nasilie-o",
+        "title": "Декларация във връзка с упражненото полицейско насилие от длъжностни лица срещу протестиращи граждани в периода юли - септември 2020 г. - предложение от Мая Манолова за нова т.4 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      },
+      {
+        "date": "2021-08-17",
+        "item": 4,
+        "slug": "4-deklaratsiya-vav-vrazka-s-uprazhnenoto-politseysko-nasilie-o",
+        "title": "Декларация във връзка с упражненото полицейско насилие от длъжностни лица срещу протестиращи граждани в периода юли - септември 2020 г. - предложение от Мая Манолова за нова т. 4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 60
+      },
+      {
+        "date": "2021-08-05",
+        "item": 46,
+        "slug": "46-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - Раздел втори (става Раздел трети), член 110 - предложение от Надежда Йорданова и Атанас Славов - 4-то изр",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-08-05",
+        "item": 29,
+        "slug": "29-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 52",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 55
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4900,
+        "score": 0.9143483772125949,
+        "overlap": 447
+      },
+      {
+        "mpId": 3693,
+        "score": 0.9107381820942937,
+        "overlap": 450
+      },
+      {
+        "mpId": 1913,
+        "score": 0.9087942349853744,
+        "overlap": 450
+      },
+      {
+        "mpId": 4699,
+        "score": 0.9071448460802113,
+        "overlap": 449
+      },
+      {
+        "mpId": 1869,
+        "score": 0.9068626828867389,
+        "overlap": 455
+      },
+      {
+        "mpId": 1665,
+        "score": 0.9066089150207092,
+        "overlap": 452
+      },
+      {
+        "mpId": 4705,
+        "score": 0.905494234037536,
+        "overlap": 450
+      },
+      {
+        "mpId": 1938,
+        "score": 0.9052044270751852,
+        "overlap": 450
+      },
+      {
+        "mpId": 1947,
+        "score": 0.9036310840419597,
+        "overlap": 452
+      },
+      {
+        "mpId": 4868,
+        "score": 0.9033995936302889,
+        "overlap": 454
+      },
+      {
+        "mpId": 1899,
+        "score": 0.9025241117712614,
+        "overlap": 444
+      },
+      {
+        "mpId": 1959,
+        "score": 0.8995890662366928,
+        "overlap": 446
+      },
+      {
+        "mpId": 1907,
+        "score": 0.8986170626397826,
+        "overlap": 452
+      },
+      {
+        "mpId": 4997,
+        "score": 0.8980048476310405,
+        "overlap": 448
+      },
+      {
+        "mpId": 1918,
+        "score": 0.8969428665590423,
+        "overlap": 443
+      },
+      {
+        "mpId": 1571,
+        "score": 0.8952672847869421,
+        "overlap": 440
+      },
+      {
+        "mpId": 1801,
+        "score": 0.8952672847869421,
+        "overlap": 443
+      },
+      {
+        "mpId": 5218,
+        "score": 0.8951281562637897,
+        "overlap": 447
+      },
+      {
+        "mpId": 4862,
+        "score": 0.8936721576273854,
+        "overlap": 449
+      },
+      {
+        "mpId": 1948,
+        "score": 0.8927044560359018,
+        "overlap": 448
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5173,
+        "score": -0.07588671133338308,
+        "overlap": 158
+      },
+      {
+        "mpId": 4304,
+        "score": -0.04290987433808063,
+        "overlap": 243
+      },
+      {
+        "mpId": 4872,
+        "score": -0.03886121212990385,
+        "overlap": 216
+      },
+      {
+        "mpId": 4225,
+        "score": -0.03727147549417987,
+        "overlap": 281
+      },
+      {
+        "mpId": 404,
+        "score": -0.012212900720970636,
+        "overlap": 254
+      },
+      {
+        "mpId": 388,
+        "score": -0.011963400127375996,
+        "overlap": 262
+      },
+      {
+        "mpId": 4854,
+        "score": -0.009571971421786108,
+        "overlap": 237
+      },
+      {
+        "mpId": 3620,
+        "score": -0.006368005999173917,
+        "overlap": 224
+      },
+      {
+        "mpId": 1659,
+        "score": 0,
+        "overlap": 274
+      },
+      {
+        "mpId": 5124,
+        "score": 0.007175929819118073,
+        "overlap": 199
+      },
+      {
+        "mpId": 3925,
+        "score": 0.008989089372417354,
+        "overlap": 276
+      },
+      {
+        "mpId": 4838,
+        "score": 0.023121962769127626,
+        "overlap": 208
+      },
+      {
+        "mpId": 5267,
+        "score": 0.027194503871739613,
+        "overlap": 310
+      },
+      {
+        "mpId": 5126,
+        "score": 0.02963733877963663,
+        "overlap": 260
+      },
+      {
+        "mpId": 4912,
+        "score": 0.03159081034280992,
+        "overlap": 281
+      },
+      {
+        "mpId": 4249,
+        "score": 0.034524174065647645,
+        "overlap": 244
+      },
+      {
+        "mpId": 5248,
+        "score": 0.03462031938686758,
+        "overlap": 192
+      },
+      {
+        "mpId": 4632,
+        "score": 0.038463184312501765,
+        "overlap": 182
+      },
+      {
+        "mpId": 4116,
+        "score": 0.04149227429149128,
+        "overlap": 268
+      },
+      {
+        "mpId": 4807,
+        "score": 0.04352326091179324,
+        "overlap": 266
+      }
+    ]
+  }
+}

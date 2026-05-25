@@ -1,0 +1,265 @@
+{
+  "mpId": 5244,
+  "ns": "52",
+  "partyShort": "ДБ",
+  "loyalty": {
+    "votesCast": 55,
+    "withParty": 51,
+    "loyaltyPct": 0.9272727272727272,
+    "windowFrom": "2026-04-30",
+    "windowTo": "2026-05-22",
+    "totalVoteItems": 81
+  },
+  "dissents": {
+    "totalCast": 55,
+    "dissentCount": 4,
+    "recent": [
+      {
+        "date": "2026-05-13",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-zashtita-na-konkurentsiyata-parvo-glasuvane",
+        "title": "ЗИД на Закона за защита на конкуренцията – първо гласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2026-05-07",
+        "item": 11,
+        "slug": "11-reshenie-za-sazdavane-na-vremenna-komisiya-po-priemaneto-na-",
+        "title": "Решение за създаване на Временна комисия по приемането на Правилник за организацията и дейността на Петдесет и второто Народно събрание",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      },
+      {
+        "date": "2026-05-07",
+        "item": 10,
+        "slug": "10-reshenie-za-sazdavane-na-vremenna-komisiya-po-priemaneto-na-",
+        "title": "Решение за създаване на Временна комисия по приемането на Правилник за организацията и дейността на Петдесет и второто Народно събрание - предложение от Петър Петров за редакция на точка 1",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2026-05-07",
+        "item": 5,
+        "slug": "5-programa-za-rabotata-na-narodno-sabranie-za-7-i-8-may-2026-g",
+        "title": "Програма за работата на Народно събрание за 7 и 8 май 2026 г. - предложение от Хамид Хамид",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5096,
+        "score": 0.8511922825582904,
+        "overlap": 54
+      },
+      {
+        "mpId": 5147,
+        "score": 0.8511922825582904,
+        "overlap": 54
+      },
+      {
+        "mpId": 5202,
+        "score": 0.8511922825582904,
+        "overlap": 55
+      },
+      {
+        "mpId": 5266,
+        "score": 0.8443565629465052,
+        "overlap": 53
+      },
+      {
+        "mpId": 5139,
+        "score": 0.8373508351824621,
+        "overlap": 55
+      },
+      {
+        "mpId": 5229,
+        "score": 0.8334591100049926,
+        "overlap": 54
+      },
+      {
+        "mpId": 5233,
+        "score": 0.8334591100049926,
+        "overlap": 55
+      },
+      {
+        "mpId": 5215,
+        "score": 0.8296709807142995,
+        "overlap": 54
+      },
+      {
+        "mpId": 5256,
+        "score": 0.8226098226808155,
+        "overlap": 52
+      },
+      {
+        "mpId": 5206,
+        "score": 0.8199060261161608,
+        "overlap": 54
+      },
+      {
+        "mpId": 5123,
+        "score": 0.8177990924351827,
+        "overlap": 55
+      },
+      {
+        "mpId": 5255,
+        "score": 0.8177990924351827,
+        "overlap": 55
+      },
+      {
+        "mpId": 5092,
+        "score": 0.8133728062534918,
+        "overlap": 55
+      },
+      {
+        "mpId": 5111,
+        "score": 0.8116346550465973,
+        "overlap": 50
+      },
+      {
+        "mpId": 5245,
+        "score": 0.8069933131985481,
+        "overlap": 54
+      },
+      {
+        "mpId": 5181,
+        "score": 0.8047270004486238,
+        "overlap": 52
+      },
+      {
+        "mpId": 5170,
+        "score": 0.8024612170498595,
+        "overlap": 53
+      },
+      {
+        "mpId": 5193,
+        "score": 0.7924528301886793,
+        "overlap": 48
+      },
+      {
+        "mpId": 5072,
+        "score": 0.7914248115215929,
+        "overlap": 53
+      },
+      {
+        "mpId": 5231,
+        "score": 0.7886073743156409,
+        "overlap": 49
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5247,
+        "score": 0.17444809066301295,
+        "overlap": 49
+      },
+      {
+        "mpId": 4100,
+        "score": 0.18428853505018536,
+        "overlap": 5
+      },
+      {
+        "mpId": 4109,
+        "score": 0.18428853505018536,
+        "overlap": 5
+      },
+      {
+        "mpId": 4111,
+        "score": 0.18428853505018536,
+        "overlap": 5
+      },
+      {
+        "mpId": 5258,
+        "score": 0.19425717247145283,
+        "overlap": 44
+      },
+      {
+        "mpId": 5103,
+        "score": 0.20062794503020767,
+        "overlap": 32
+      },
+      {
+        "mpId": 3945,
+        "score": 0.20604084592303354,
+        "overlap": 18
+      },
+      {
+        "mpId": 3995,
+        "score": 0.20604084592303354,
+        "overlap": 18
+      },
+      {
+        "mpId": 5234,
+        "score": 0.20604084592303354,
+        "overlap": 51
+      },
+      {
+        "mpId": 4023,
+        "score": 0.21853931903038443,
+        "overlap": 34
+      },
+      {
+        "mpId": 4017,
+        "score": 0.22570643815898364,
+        "overlap": 33
+      },
+      {
+        "mpId": 5332,
+        "score": 0.23320381162846934,
+        "overlap": 11
+      },
+      {
+        "mpId": 4057,
+        "score": 0.24282146558931603,
+        "overlap": 8
+      },
+      {
+        "mpId": 4007,
+        "score": 0.24670685574572424,
+        "overlap": 34
+      },
+      {
+        "mpId": 5101,
+        "score": 0.24986122674478858,
+        "overlap": 54
+      },
+      {
+        "mpId": 5060,
+        "score": 0.25171895661120103,
+        "overlap": 54
+      },
+      {
+        "mpId": 5329,
+        "score": 0.25539990311691463,
+        "overlap": 26
+      },
+      {
+        "mpId": 5331,
+        "score": 0.25777491755679216,
+        "overlap": 14
+      },
+      {
+        "mpId": 5333,
+        "score": 0.25777491755679216,
+        "overlap": 14
+      },
+      {
+        "mpId": 5322,
+        "score": 0.26302545492234575,
+        "overlap": 26
+      }
+    ]
+  }
+}

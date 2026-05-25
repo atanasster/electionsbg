@@ -1,0 +1,295 @@
+{
+  "mpId": 4936,
+  "ns": "46",
+  "partyShort": "ИТН",
+  "loyalty": {
+    "votesCast": 453,
+    "withParty": 446,
+    "loyaltyPct": 0.9845474613686535,
+    "windowFrom": "2021-07-21",
+    "windowTo": "2021-09-15",
+    "totalVoteItems": 560
+  },
+  "dissents": {
+    "totalCast": 453,
+    "dissentCount": 7,
+    "recent": [
+      {
+        "date": "2021-09-07",
+        "item": 62,
+        "slug": "62-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 12 - предложение от Мая Манолова и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-09-07",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-byudzheta-na-darzhavnoto-obshtestveno-osigu",
+        "title": "ЗИД на Закона за бюджета на държавното обществено осигуряване за 2021г. - второ гласуване - параграф 1 - предложение от Мая Манолова и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-08-12",
+        "item": 6,
+        "slug": "6-izslushvane-na-ministara-na-zdraveopazvaneto-stoycho-katsaro",
+        "title": "Изслушване на министъра на здравеопазването Стойчо Кацаров относно изграждане на Национална детска болница - процедура за удължаване на работното време до точка 7",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2021-08-11",
+        "item": 3,
+        "slug": "3-reshenie-za-priemane-na-pravila-za-distantsionno-uchastie-v-",
+        "title": "Решение за приемане на Правила за дистанционно участие в заседанията на Четиридесет и шестото Народно събрание на народни представители, поставени под задължителна изолация или карантина поради COVID - 19",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 64
+      },
+      {
+        "date": "2021-08-05",
+        "item": 12,
+        "slug": "12-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 21- предложение от К.Нинова и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 59
+      },
+      {
+        "date": "2021-07-29",
+        "item": 3,
+        "slug": "3-programa-za-rabotata-na-narodnoto-sabranie-za-28-30-yuli-202",
+        "title": "Програма за работата на Народното събрание за 28 - 30 юли 2021г. - процедура за разместване на точките от Мария Капон - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 61
+      },
+      {
+        "date": "2021-07-21",
+        "item": 4,
+        "slug": "4-reshenie-za-izbor-na-predsedatel-na-chetirideset-i-shestoto-",
+        "title": "Решение за избор на Председател на Четиридесет и шестото Народно събрание - Кристиан Вигенин",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 64
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 1869,
+        "score": 0.9123616598792815,
+        "overlap": 452
+      },
+      {
+        "mpId": 1907,
+        "score": 0.9109384387396675,
+        "overlap": 448
+      },
+      {
+        "mpId": 3693,
+        "score": 0.9093367750218097,
+        "overlap": 448
+      },
+      {
+        "mpId": 1947,
+        "score": 0.904507549298235,
+        "overlap": 446
+      },
+      {
+        "mpId": 4868,
+        "score": 0.9043217366820572,
+        "overlap": 450
+      },
+      {
+        "mpId": 1665,
+        "score": 0.9029851178167075,
+        "overlap": 449
+      },
+      {
+        "mpId": 4705,
+        "score": 0.9016668006863376,
+        "overlap": 446
+      },
+      {
+        "mpId": 1938,
+        "score": 0.9014482590411756,
+        "overlap": 448
+      },
+      {
+        "mpId": 1913,
+        "score": 0.9004867139578797,
+        "overlap": 444
+      },
+      {
+        "mpId": 5218,
+        "score": 0.9004867139578797,
+        "overlap": 444
+      },
+      {
+        "mpId": 4862,
+        "score": 0.8989747130431258,
+        "overlap": 446
+      },
+      {
+        "mpId": 1872,
+        "score": 0.8984967903063515,
+        "overlap": 440
+      },
+      {
+        "mpId": 4997,
+        "score": 0.8964493170771565,
+        "overlap": 446
+      },
+      {
+        "mpId": 1948,
+        "score": 0.8956808529291512,
+        "overlap": 445
+      },
+      {
+        "mpId": 1918,
+        "score": 0.8953004177280346,
+        "overlap": 438
+      },
+      {
+        "mpId": 3674,
+        "score": 0.8953004177280346,
+        "overlap": 439
+      },
+      {
+        "mpId": 4663,
+        "score": 0.8951611702351354,
+        "overlap": 439
+      },
+      {
+        "mpId": 1646,
+        "score": 0.8930083580392142,
+        "overlap": 431
+      },
+      {
+        "mpId": 1867,
+        "score": 0.8928178163863523,
+        "overlap": 439
+      },
+      {
+        "mpId": 1899,
+        "score": 0.8916191850411472,
+        "overlap": 438
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4872,
+        "score": -0.055666241884139406,
+        "overlap": 210
+      },
+      {
+        "mpId": 3620,
+        "score": -0.04185281800300552,
+        "overlap": 220
+      },
+      {
+        "mpId": 4225,
+        "score": -0.03478743148422813,
+        "overlap": 273
+      },
+      {
+        "mpId": 404,
+        "score": -0.03395935280893345,
+        "overlap": 247
+      },
+      {
+        "mpId": 5173,
+        "score": -0.02685602058751319,
+        "overlap": 172
+      },
+      {
+        "mpId": 4304,
+        "score": -0.02479288571044849,
+        "overlap": 240
+      },
+      {
+        "mpId": 5124,
+        "score": -0.007255812760537102,
+        "overlap": 209
+      },
+      {
+        "mpId": 4854,
+        "score": -0.0032261757540538428,
+        "overlap": 230
+      },
+      {
+        "mpId": 388,
+        "score": -0.0030241443789055284,
+        "overlap": 261
+      },
+      {
+        "mpId": 1659,
+        "score": 0.0030580610773556036,
+        "overlap": 271
+      },
+      {
+        "mpId": 3925,
+        "score": 0.006059437686642097,
+        "overlap": 267
+      },
+      {
+        "mpId": 4912,
+        "score": 0.023230895566290013,
+        "overlap": 269
+      },
+      {
+        "mpId": 4249,
+        "score": 0.03808199948948223,
+        "overlap": 234
+      },
+      {
+        "mpId": 5103,
+        "score": 0.03931387692577187,
+        "overlap": 244
+      },
+      {
+        "mpId": 5292,
+        "score": 0.03990697018295406,
+        "overlap": 215
+      },
+      {
+        "mpId": 5267,
+        "score": 0.04124585242250066,
+        "overlap": 303
+      },
+      {
+        "mpId": 1281,
+        "score": 0.04447183142040026,
+        "overlap": 275
+      },
+      {
+        "mpId": 5236,
+        "score": 0.04847550149313678,
+        "overlap": 247
+      },
+      {
+        "mpId": 1887,
+        "score": 0.049113964578917146,
+        "overlap": 240
+      },
+      {
+        "mpId": 4906,
+        "score": 0.051410454441393985,
+        "overlap": 250
+      }
+    ]
+  }
+}

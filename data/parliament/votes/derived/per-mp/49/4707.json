@@ -1,0 +1,315 @@
+{
+  "mpId": 4707,
+  "ns": "49",
+  "partyShort": "ПП-ДБ",
+  "loyalty": {
+    "votesCast": 289,
+    "withParty": 280,
+    "loyaltyPct": 0.9688581314878892,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 289,
+    "dissentCount": 9,
+    "recent": [
+      {
+        "date": "2024-04-30",
+        "item": 25,
+        "slug": "25-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - наименование и параграф 1 - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 41
+      },
+      {
+        "date": "2024-04-26",
+        "item": 7,
+        "slug": "7-reshenie-za-prekratyavane-na-palnomoshtiyata-na-naroden-pred",
+        "title": "Решение за прекратяване на пълномощията на народен представител",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 46
+      },
+      {
+        "date": "2024-04-25",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-energetikata-vtoro-glasuvane-paragraf-1-sta",
+        "title": "ЗИД на Закона за енергетиката – второ гласуване - - параграф 1 (става параграф 9) - предложение от Йордан Тодоров и Искра Михайлова",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 39
+      },
+      {
+        "date": "2024-04-25",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-energetikata-vtoro-glasuvane-naimenovanie-p",
+        "title": "ЗИД на Закона за енергетиката – второ гласуване - наименование, параграф 1 - нов до параграф 8 - нов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 39
+      },
+      {
+        "date": "2024-04-25",
+        "item": 21,
+        "slug": "21-protsedura-ot-dragomir-stoynev-tochka-11-da-stane-tochka-10",
+        "title": "Процедура от Драгомир Стойнев точка 11 да стане точка 10",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 43
+      },
+      {
+        "date": "2024-04-25",
+        "item": 9,
+        "slug": "9-reshenie-za-predsrochno-osvobozhdavane-na-rosen-zhelyazkov-p",
+        "title": "Решение за предсрочно освобождаване на Росен Желязков - председател на 49-то Народно събрание - процедура от Йордан Цонев за прекратяване на дебата - прегласуване",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-04-19",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-energetikata-parvo-glasuvane-protsedura-ot-",
+        "title": "ЗИД на Закона за енергетиката – първо гласуване - процедура от Росица Кирова за съвместно разглеждане на ЗИД на Закона за енергетиката с вносители Красен Кръстев и група н.п.; и на ЗИД на Закона за енергетиката с вносители Павела Митова и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 45
+      },
+      {
+        "date": "2023-05-19",
+        "item": 22,
+        "slug": "22-zid-na-nakazatelniya-kodeks-parvo-glasuvane-vnositel-kostadi",
+        "title": "ЗИД на Наказателния кодекс - първо гласуване - вносител Костадин Костадинов и група н.п. № 49-354-01-21",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 46
+      },
+      {
+        "date": "2023-04-20",
+        "item": 6,
+        "slug": "6-reshenie-za-obyavyavane-na-21-april-2023-g-za-neraboten-den-",
+        "title": "Решение за обявяване на 21 април 2023 г. за неработен ден на Народното събрание на Република България + предложение за редакция от Йордан Цонев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 50
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5266,
+        "score": 0.66486214109894,
+        "overlap": 253
+      },
+      {
+        "mpId": 5291,
+        "score": 0.5760681777832772,
+        "overlap": 141
+      },
+      {
+        "mpId": 5184,
+        "score": 0.4016096644512494,
+        "overlap": 59
+      },
+      {
+        "mpId": 2040,
+        "score": 0.32836559028040013,
+        "overlap": 121
+      },
+      {
+        "mpId": 5153,
+        "score": 0.32766095606229867,
+        "overlap": 107
+      },
+      {
+        "mpId": 2120,
+        "score": 0.2964105484805114,
+        "overlap": 256
+      },
+      {
+        "mpId": 5300,
+        "score": 0.2877100451212892,
+        "overlap": 277
+      },
+      {
+        "mpId": 5014,
+        "score": 0.2792514246858577,
+        "overlap": 285
+      },
+      {
+        "mpId": 4817,
+        "score": 0.2762346206764099,
+        "overlap": 275
+      },
+      {
+        "mpId": 2083,
+        "score": 0.2757444723028954,
+        "overlap": 285
+      },
+      {
+        "mpId": 5245,
+        "score": 0.27331495822854057,
+        "overlap": 281
+      },
+      {
+        "mpId": 5215,
+        "score": 0.2720371950550788,
+        "overlap": 252
+      },
+      {
+        "mpId": 5147,
+        "score": 0.2712640568182131,
+        "overlap": 260
+      },
+      {
+        "mpId": 2030,
+        "score": 0.27085352861048884,
+        "overlap": 264
+      },
+      {
+        "mpId": 2062,
+        "score": 0.2708112569912946,
+        "overlap": 282
+      },
+      {
+        "mpId": 5232,
+        "score": 0.2693229944067661,
+        "overlap": 270
+      },
+      {
+        "mpId": 2383,
+        "score": 0.26781204188216506,
+        "overlap": 273
+      },
+      {
+        "mpId": 2362,
+        "score": 0.26568562712163485,
+        "overlap": 286
+      },
+      {
+        "mpId": 2449,
+        "score": 0.26499293384410283,
+        "overlap": 257
+      },
+      {
+        "mpId": 5096,
+        "score": 0.26310547275934487,
+        "overlap": 260
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5234,
+        "score": -0.0049283288290695795,
+        "overlap": 242
+      },
+      {
+        "mpId": 5148,
+        "score": -0.0036885555678165876,
+        "overlap": 235
+      },
+      {
+        "mpId": 2352,
+        "score": 0,
+        "overlap": 212
+      },
+      {
+        "mpId": 2450,
+        "score": 0,
+        "overlap": 117
+      },
+      {
+        "mpId": 2100,
+        "score": 0.001449808366121568,
+        "overlap": 120
+      },
+      {
+        "mpId": 5194,
+        "score": 0.0024209101306752094,
+        "overlap": 272
+      },
+      {
+        "mpId": 4937,
+        "score": 0.002641544698678326,
+        "overlap": 270
+      },
+      {
+        "mpId": 4488,
+        "score": 0.004821552292494879,
+        "overlap": 266
+      },
+      {
+        "mpId": 4907,
+        "score": 0.005847053462046862,
+        "overlap": 279
+      },
+      {
+        "mpId": 4795,
+        "score": 0.0059391387091649855,
+        "overlap": 273
+      },
+      {
+        "mpId": 5101,
+        "score": 0.00708708105100463,
+        "overlap": 276
+      },
+      {
+        "mpId": 4887,
+        "score": 0.007217922700070764,
+        "overlap": 280
+      },
+      {
+        "mpId": 4824,
+        "score": 0.007328799475567414,
+        "overlap": 253
+      },
+      {
+        "mpId": 2538,
+        "score": 0.007386538757544652,
+        "overlap": 149
+      },
+      {
+        "mpId": 5273,
+        "score": 0.007600114002565064,
+        "overlap": 265
+      },
+      {
+        "mpId": 4860,
+        "score": 0.008460797752701907,
+        "overlap": 283
+      },
+      {
+        "mpId": 5060,
+        "score": 0.008770580193070292,
+        "overlap": 262
+      },
+      {
+        "mpId": 4804,
+        "score": 0.009431365764335568,
+        "overlap": 282
+      },
+      {
+        "mpId": 4759,
+        "score": 0.009511012772444226,
+        "overlap": 273
+      },
+      {
+        "mpId": 4848,
+        "score": 0.009556710578898652,
+        "overlap": 280
+      }
+    ]
+  }
+}

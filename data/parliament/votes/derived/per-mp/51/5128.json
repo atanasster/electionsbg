@@ -1,0 +1,415 @@
+{
+  "mpId": 5128,
+  "ns": "51",
+  "partyShort": "ГЕРБ-СДС",
+  "loyalty": {
+    "votesCast": 539,
+    "withParty": 520,
+    "loyaltyPct": 0.9647495361781077,
+    "windowFrom": "2024-11-11",
+    "windowTo": "2026-04-01",
+    "totalVoteItems": 4187
+  },
+  "dissents": {
+    "totalCast": 539,
+    "dissentCount": 19,
+    "recent": [
+      {
+        "date": "2026-03-19",
+        "item": 41,
+        "slug": "41-zakon-za-prozrachnost-i-pochtenost-v-upravlenieto-vtoro-glas",
+        "title": "Закон за прозрачност и почтеност в управлението – второ гласуване - член 21 - предложение от Юлиана Матеева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2026-03-18",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-18-i-19-mart-2",
+        "title": "Програма за работата на Народното събрание за 18 и 19 март 2026 г. - предложение от Искра Михайлова и Даниел Проданов - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 59
+      },
+      {
+        "date": "2026-03-12",
+        "item": 8,
+        "slug": "8-zid-na-nakazatelniya-kodeks-parvo-glasuvane-vnositel-bozhida",
+        "title": "ЗИД на Наказателния кодекс - първо гласуване - вносител Божидар Божанов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 55
+      },
+      {
+        "date": "2026-03-05",
+        "item": 6,
+        "slug": "6-izslushvane-na-sluzhebniya-zamestnik-ministar-na-energetikat",
+        "title": "Изслушване на служебния заместник-министър на енергетиката и председателя на Комисията за енергийно и водно регулиране Пламен Младеновски,относно повишените сметки за ток и хилядите подадени жалби за това от български граждани в последните месеци - процедура от Александър Иванов за пряко предаване по БНТ",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 56
+      },
+      {
+        "date": "2026-03-04",
+        "item": 24,
+        "slug": "24-zid-na-nakazatelniya-kodeks-vtoro-glasuvane-paragraf-8-nov-p",
+        "title": "ЗИД на Наказателния кодекс – второ гласуване - параграф 8 - нов - предложение от Божидар Божанов и Надежда Йорданова",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 51
+      },
+      {
+        "date": "2026-02-27",
+        "item": 7,
+        "slug": "7-ratifikatsiya-na-sporazumenieto-za-partnyorstvo-mezhdu-evrop",
+        "title": "Ратификация на Споразумението за партньорство между Европейския съюз и неговите държави членки, от една страна, и членовете на Организацията на държавите от Африка, Карибите и Тихоокеанския басейн, от друга страна, подписано в Самоа на 15 ноември 2023 г. - процедура за допускане в зала - прегласуване",
+        "topic": "ratification",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 49
+      },
+      {
+        "date": "2025-01-15",
+        "item": 89,
+        "slug": "89-zakon-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-razhodi-pr",
+        "title": "Закон за събирането на приходи и извършването на разходи през 2025 г. до приемането на Закона за държавния бюджет на Република България за 2025 г., Закона за бюджета на държавното обществено осигуряване за 2025 г. и Закона за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - член 8 - предложение от Кирил Петков и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 62
+      },
+      {
+        "date": "2025-01-15",
+        "item": 86,
+        "slug": "86-zakon-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-razhodi-pr",
+        "title": "Закон за събирането на приходи и извършването на разходи през 2025 г. до приемането на Закона за държавния бюджет на Република България за 2025 г., Закона за бюджета на държавното обществено осигуряване за 2025 г. и Закона за бюджета на Националната здравноосигурителна каса за 2025 г. – второ гласуване - член 3 - предложение от Кирил Петков и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 65
+      },
+      {
+        "date": "2025-01-15",
+        "item": 77,
+        "slug": "77-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-36",
+        "title": "ЗИД на Закона за съдебната власт – второ гласуване - параграф 36 (по вносител)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 66
+      },
+      {
+        "date": "2025-01-15",
+        "item": 74,
+        "slug": "74-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-34",
+        "title": "ЗИД на Закона за съдебната власт – второ гласуване - параграф 34 (по вносител)",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2025-01-15",
+        "item": 72,
+        "slug": "72-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-33",
+        "title": "ЗИД на Закона за съдебната власт – второ гласуване - параграф 33 (по вносител) - прегласуване",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 67
+      },
+      {
+        "date": "2025-01-15",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-17",
+        "title": "ЗИД на Закона за съдебната власт – второ гласуване - параграф 17 до 20 - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 66
+      },
+      {
+        "date": "2025-01-08",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-8-10-yanuari-2",
+        "title": "Програма за работата на Народното събрание за 8 - 10 януари 2025 г. - предложение от Иван Белчев и група н.п. като точка 3 за четвъртък",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 32
+      },
+      {
+        "date": "2025-01-08",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-8-10-yanuari-2",
+        "title": "Програма за работата на Народното събрание за 8 - 10 януари 2025 г",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 32
+      },
+      {
+        "date": "2024-12-18",
+        "item": 46,
+        "slug": "46-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 73 - предложение от Атанас Славов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 63
+      },
+      {
+        "date": "2024-12-18",
+        "item": 13,
+        "slug": "13-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 27 - предложение от Атанас Славов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 58
+      },
+      {
+        "date": "2024-12-18",
+        "item": 12,
+        "slug": "12-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 16 - предложение от Ваня Василева",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2024-12-18",
+        "item": 7,
+        "slug": "7-proekt-na-pravilnik-za-organizatsiyata-i-deynostta-na-narodn",
+        "title": "Проект на Правилник за организацията и дейността на Народното събрание - член 13 - предложение от Тошко Йорданов за създаване на нова алинея 5 - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 51
+      },
+      {
+        "date": "2024-11-13",
+        "item": 7,
+        "slug": "7-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-parvoto-na",
+        "title": "Решение за избиране на Председател на Петдесет и първото Народното събрание на Република България - избира Андрей Цеков (нова процедура) - балотаж - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 69
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5091,
+        "score": 0.8761130389003842,
+        "overlap": 479
+      },
+      {
+        "mpId": 5117,
+        "score": 0.842260194770796,
+        "overlap": 476
+      },
+      {
+        "mpId": 5172,
+        "score": 0.8403575810421093,
+        "overlap": 467
+      },
+      {
+        "mpId": 5284,
+        "score": 0.8372947808987519,
+        "overlap": 454
+      },
+      {
+        "mpId": 3081,
+        "score": 0.6506008453110026,
+        "overlap": 276
+      },
+      {
+        "mpId": 5207,
+        "score": 0.5914739494774793,
+        "overlap": 239
+      },
+      {
+        "mpId": 5293,
+        "score": 0.5810954564309515,
+        "overlap": 223
+      },
+      {
+        "mpId": 3533,
+        "score": 0.5771757388122851,
+        "overlap": 222
+      },
+      {
+        "mpId": 3547,
+        "score": 0.5145749512650506,
+        "overlap": 222
+      },
+      {
+        "mpId": 3148,
+        "score": 0.5106971540538453,
+        "overlap": 270
+      },
+      {
+        "mpId": 3580,
+        "score": 0.49809523117129856,
+        "overlap": 220
+      },
+      {
+        "mpId": 3410,
+        "score": 0.46936993023336016,
+        "overlap": 241
+      },
+      {
+        "mpId": 3373,
+        "score": 0.4666398016994349,
+        "overlap": 287
+      },
+      {
+        "mpId": 3039,
+        "score": 0.4339994104677922,
+        "overlap": 198
+      },
+      {
+        "mpId": 3051,
+        "score": 0.4339647280364507,
+        "overlap": 212
+      },
+      {
+        "mpId": 3023,
+        "score": 0.4149274286918692,
+        "overlap": 255
+      },
+      {
+        "mpId": 3209,
+        "score": 0.3955044933081277,
+        "overlap": 537
+      },
+      {
+        "mpId": 3052,
+        "score": 0.38305143460279184,
+        "overlap": 411
+      },
+      {
+        "mpId": 3392,
+        "score": 0.37420639250257853,
+        "overlap": 523
+      },
+      {
+        "mpId": 3339,
+        "score": 0.3723477693104412,
+        "overlap": 529
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 3516,
+        "score": -0.014920757391562988,
+        "overlap": 147
+      },
+      {
+        "mpId": 3517,
+        "score": -0.01047486487576124,
+        "overlap": 203
+      },
+      {
+        "mpId": 3515,
+        "score": -0.009554297596875531,
+        "overlap": 212
+      },
+      {
+        "mpId": 3510,
+        "score": -0.008493144466019098,
+        "overlap": 186
+      },
+      {
+        "mpId": 3513,
+        "score": -0.005901546823451527,
+        "overlap": 200
+      },
+      {
+        "mpId": 3514,
+        "score": -0.005876905601744218,
+        "overlap": 182
+      },
+      {
+        "mpId": 3480,
+        "score": -0.005000562594939677,
+        "overlap": 148
+      },
+      {
+        "mpId": 3512,
+        "score": -0.0037235175676478016,
+        "overlap": 165
+      },
+      {
+        "mpId": 3508,
+        "score": -0.0036701263719668966,
+        "overlap": 192
+      },
+      {
+        "mpId": 3509,
+        "score": 0.0018279367000867922,
+        "overlap": 46
+      },
+      {
+        "mpId": 3485,
+        "score": 0.005320805171106618,
+        "overlap": 51
+      },
+      {
+        "mpId": 5234,
+        "score": 0.021622673434690567,
+        "overlap": 446
+      },
+      {
+        "mpId": 3490,
+        "score": 0.021847452735507904,
+        "overlap": 129
+      },
+      {
+        "mpId": 3518,
+        "score": 0.021935099094409792,
+        "overlap": 193
+      },
+      {
+        "mpId": 3477,
+        "score": 0.023944440132300182,
+        "overlap": 86
+      },
+      {
+        "mpId": 3482,
+        "score": 0.025256151280533764,
+        "overlap": 144
+      },
+      {
+        "mpId": 3581,
+        "score": 0.03003606492987275,
+        "overlap": 94
+      },
+      {
+        "mpId": 3478,
+        "score": 0.030423697458429,
+        "overlap": 185
+      },
+      {
+        "mpId": 3484,
+        "score": 0.03140435866229554,
+        "overlap": 110
+      },
+      {
+        "mpId": 5194,
+        "score": 0.03341135987622994,
+        "overlap": 399
+      }
+    ]
+  }
+}

@@ -1,0 +1,465 @@
+{
+  "mpId": 3325,
+  "ns": "44",
+  "partyShort": "БСП",
+  "loyalty": {
+    "votesCast": 406,
+    "withParty": 382,
+    "loyaltyPct": 0.9408866995073891,
+    "windowFrom": "2020-10-28",
+    "windowTo": "2021-03-25",
+    "totalVoteItems": 1036
+  },
+  "dissents": {
+    "totalCast": 406,
+    "dissentCount": 24,
+    "recent": [
+      {
+        "date": "2021-03-04",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-otbranata-i-vaorazhenite-sili-na-republika-",
+        "title": "ЗИД на Закона за отбраната и въоръжените сили на Република България - второ гласуване - параграф 8, параграф 9 - нов",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 7
+      },
+      {
+        "date": "2021-02-26",
+        "item": 10,
+        "slug": "10-zakon-za-izmenenie-i-dopalnenie-na-zakona-za-balgarskoto-gra",
+        "title": "Закон за изменение и допълнение на Закона за българското гражданство - второ гласуване - параграф 4",
+        "topic": "zid",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 18
+      },
+      {
+        "date": "2021-02-10",
+        "item": 6,
+        "slug": "6-zakon-za-izmenenie-i-dopalnenie-na-administrativnoprotsesual",
+        "title": "Закон за изменение и допълнение на Административнопроцесуалния кодекс - второ гласуване - параграф 1 до параграф 3 - нови",
+        "topic": "zid",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 26
+      },
+      {
+        "date": "2021-01-29",
+        "item": 4,
+        "slug": "4-zd-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-naim",
+        "title": "ЗД на Наказателно-процесуалния кодекс - второ гласуване - наименование",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 26
+      },
+      {
+        "date": "2021-01-22",
+        "item": 2,
+        "slug": "2-zd-na-zakona-za-merkite-i-deystviyata-po-vreme-na-izvanredno",
+        "title": "ЗД на Закона за мерките и действията по време на извънредното положение, обявено с решение на НС от 13.03.2020 г., и за преодоляване на последиците - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 52
+      },
+      {
+        "date": "2021-01-21",
+        "item": 12,
+        "slug": "12-zd-na-zakona-za-administrativnoto-regulirane-na-ikonomichesk",
+        "title": "ЗД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - първо гласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 32
+      },
+      {
+        "date": "2021-01-20",
+        "item": 7,
+        "slug": "7-protsedura-ot-aleksandar-ivanov-za-udalzhavane-na-sroka-za-p",
+        "title": "Процедура от Александър Иванов за удължаване на срока за предложения по Закона за възстановяване и преструктуриране на кредитнитите институции и инвестиционни посредници",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 44
+      },
+      {
+        "date": "2020-12-16",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-rezerva-na-vaorazhenite-sili-na-republika-b",
+        "title": "ЗИД на Закона за резерва на въоръжените сили на Република България - второ гласуване - параграф 18 (става параграф 19)",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 23
+      },
+      {
+        "date": "2020-12-16",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-rezerva-na-vaorazhenite-sili-na-republika-b",
+        "title": "ЗИД на Закона за резерва на въоръжените сили на Република България - второ гласуване - наименование, параграф 1 до параграф 7",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 39
+      },
+      {
+        "date": "2020-12-10",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-zhelezopatniya-transport-parvo-glasuvane-pr",
+        "title": "ЗИД на Закона за железопътния транспорт - първо гласуване - процедура за удължаване на р.време",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 22
+      },
+      {
+        "date": "2020-12-02",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-horata-s-uvrezhdaniya-vtoro-glasuvane-naime",
+        "title": "ЗИД на Закона за хората с увреждания - второ гласуване - наименование, параграф 1 и параграф 2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 32
+      },
+      {
+        "date": "2020-11-26",
+        "item": 7,
+        "slug": "7-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - параграф 7 и 8 - предложение от Искрен Веселинов и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 37
+      },
+      {
+        "date": "2020-11-25",
+        "item": 5,
+        "slug": "5-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - Член 1 - предложение от Йордан Йорданов и група н.п",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 57
+      },
+      {
+        "date": "2020-11-25",
+        "item": 4,
+        "slug": "4-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2021",
+        "title": "Закон за държавния бюджет на Република България за 2021 г. - второ гласуване - наименование",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 61
+      },
+      {
+        "date": "2020-11-24",
+        "item": 71,
+        "slug": "71-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - параграф 12, параграф 13-нов, параграф 13 (става параграф 14) Приложения от №1 до Приложение №5",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 44
+      },
+      {
+        "date": "2020-11-24",
+        "item": 29,
+        "slug": "29-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 43
+      },
+      {
+        "date": "2020-11-24",
+        "item": 25,
+        "slug": "25-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2021 г. - второ гласуване - наименование",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 49
+      },
+      {
+        "date": "2020-11-20",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-lichnata-pomosht-vtoro-glasuvane-paragraf-8",
+        "title": "ЗИД на Закона за личната помощ - второ гласуване - параграф 8 и параграф 9",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 19
+      },
+      {
+        "date": "2020-11-20",
+        "item": 20,
+        "slug": "20-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Наказателно-процесуалния кодекс - второ гласуване - параграф 2",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2020-11-19",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 31 (става параграф 32), параграф 33-нов",
+        "topic": "tax",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 45
+      },
+      {
+        "date": "2020-11-19",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-vtoro-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - второ гласуване - параграф 28 (става параграф 29)",
+        "topic": "tax",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 43
+      },
+      {
+        "date": "2020-11-11",
+        "item": 20,
+        "slug": "20-zid-na-kodeksa-na-truda-vtoro-glasuvane-paragraf-10-paragraf",
+        "title": "ЗИД на Кодекса на труда - второ гласуване - параграф 10 - параграф 12",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 34
+      },
+      {
+        "date": "2020-11-05",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-danak-varhu-dobavenata-stoynost-parvo-glasu",
+        "title": "ЗИД на Закона за данък върху добавената стойност - първо гласуване",
+        "topic": "tax",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2020-10-30",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-merkite-i-deystviyata-po-vreme-na-izvanredn",
+        "title": "ЗИД на Закона за мерките и действията по време на извънредното положение, обявено с Решение на НС от 13 март 2020 г. и за преодоляване на последиците - първо гласуване - процедура за намаляване на срока за предложения",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 43
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 4122,
+        "score": 0.6800735254367721,
+        "overlap": 275
+      },
+      {
+        "mpId": 4500,
+        "score": 0.6594401724641915,
+        "overlap": 271
+      },
+      {
+        "mpId": 4108,
+        "score": 0.6426620275909547,
+        "overlap": 342
+      },
+      {
+        "mpId": 1285,
+        "score": 0.632022194859105,
+        "overlap": 288
+      },
+      {
+        "mpId": 3060,
+        "score": 0.6313304990669567,
+        "overlap": 309
+      },
+      {
+        "mpId": 4221,
+        "score": 0.6291614928043338,
+        "overlap": 248
+      },
+      {
+        "mpId": 4450,
+        "score": 0.6284117406521568,
+        "overlap": 253
+      },
+      {
+        "mpId": 4552,
+        "score": 0.626962328219399,
+        "overlap": 252
+      },
+      {
+        "mpId": 3578,
+        "score": 0.6157623515737506,
+        "overlap": 243
+      },
+      {
+        "mpId": 1345,
+        "score": 0.615182837494188,
+        "overlap": 256
+      },
+      {
+        "mpId": 3155,
+        "score": 0.6100576002235781,
+        "overlap": 378
+      },
+      {
+        "mpId": 833,
+        "score": 0.6009320912606334,
+        "overlap": 286
+      },
+      {
+        "mpId": 1276,
+        "score": 0.5969937312497637,
+        "overlap": 250
+      },
+      {
+        "mpId": 1353,
+        "score": 0.5916206150508195,
+        "overlap": 192
+      },
+      {
+        "mpId": 4917,
+        "score": 0.5867009418511973,
+        "overlap": 188
+      },
+      {
+        "mpId": 913,
+        "score": 0.5711591950471923,
+        "overlap": 266
+      },
+      {
+        "mpId": 1270,
+        "score": 0.5656634200845967,
+        "overlap": 327
+      },
+      {
+        "mpId": 1268,
+        "score": 0.5544168547045516,
+        "overlap": 195
+      },
+      {
+        "mpId": 1352,
+        "score": 0.5539719849950561,
+        "overlap": 215
+      },
+      {
+        "mpId": 4818,
+        "score": 0.5524451376211946,
+        "overlap": 204
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 369,
+        "score": -0.22566891521296142,
+        "overlap": 294
+      },
+      {
+        "mpId": 486,
+        "score": -0.2136750486077294,
+        "overlap": 281
+      },
+      {
+        "mpId": 5236,
+        "score": -0.20640820224799583,
+        "overlap": 262
+      },
+      {
+        "mpId": 3264,
+        "score": -0.19491172578304186,
+        "overlap": 277
+      },
+      {
+        "mpId": 530,
+        "score": -0.19166666666666665,
+        "overlap": 321
+      },
+      {
+        "mpId": 1264,
+        "score": -0.1870056102524626,
+        "overlap": 313
+      },
+      {
+        "mpId": 1367,
+        "score": -0.1833127694094752,
+        "overlap": 381
+      },
+      {
+        "mpId": 1511,
+        "score": -0.17719247798458349,
+        "overlap": 280
+      },
+      {
+        "mpId": 3210,
+        "score": -0.17491193377378647,
+        "overlap": 361
+      },
+      {
+        "mpId": 1502,
+        "score": -0.17448143360411406,
+        "overlap": 383
+      },
+      {
+        "mpId": 1329,
+        "score": -0.1742754501223205,
+        "overlap": 348
+      },
+      {
+        "mpId": 1473,
+        "score": -0.1734412159459599,
+        "overlap": 325
+      },
+      {
+        "mpId": 5195,
+        "score": -0.17112197347218133,
+        "overlap": 188
+      },
+      {
+        "mpId": 1468,
+        "score": -0.17086923336335197,
+        "overlap": 311
+      },
+      {
+        "mpId": 1271,
+        "score": -0.17055705720530293,
+        "overlap": 331
+      },
+      {
+        "mpId": 1256,
+        "score": -0.16750604174581976,
+        "overlap": 382
+      },
+      {
+        "mpId": 3011,
+        "score": -0.16643618904891336,
+        "overlap": 361
+      },
+      {
+        "mpId": 4225,
+        "score": -0.16563191341402406,
+        "overlap": 350
+      },
+      {
+        "mpId": 1299,
+        "score": -0.16554929331296248,
+        "overlap": 380
+      },
+      {
+        "mpId": 5126,
+        "score": -0.16352596350653537,
+        "overlap": 317
+      }
+    ]
+  }
+}

@@ -1,0 +1,335 @@
+{
+  "mpId": 4671,
+  "ns": "45",
+  "partyShort": "ДБ",
+  "loyalty": {
+    "votesCast": 183,
+    "withParty": 172,
+    "loyaltyPct": 0.9398907103825137,
+    "windowFrom": "2021-04-21",
+    "windowTo": "2021-05-07",
+    "totalVoteItems": 207
+  },
+  "dissents": {
+    "totalCast": 183,
+    "dissentCount": 11,
+    "recent": [
+      {
+        "date": "2021-04-29",
+        "item": 116,
+        "slug": "116-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-65-otpada",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 65 - отпада",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 23
+      },
+      {
+        "date": "2021-04-29",
+        "item": 77,
+        "slug": "77-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-50-nov",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 50 - нов - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
+      {
+        "date": "2021-04-29",
+        "item": 76,
+        "slug": "76-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-50-nov-preg",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 50 - нов - прегласуване - отменено",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2021-04-29",
+        "item": 55,
+        "slug": "55-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-26-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 26 (става параграф 32) и параграф 27 (става параграф 33)",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-04-29",
+        "item": 41,
+        "slug": "41-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-20-stava-pa",
+        "title": "ЗИД на Изборния кодекс - второ гласуване - параграф 20 (става параграф 25) - предложение от Ахмед Ахмедов и група н.п",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2021-04-22",
+        "item": 49,
+        "slug": "49-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-14-nov-",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 14 - нов - предложение от А.Славов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-04-22",
+        "item": 37,
+        "slug": "37-reshenie-za-izmenenie-i-dopalnenie-na-podns-predlozhenie-ot-",
+        "title": "Решение за изменение и допълнение на ПОДНС - предложение от В.Василева и Т.Дончева в чл.55, б",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-04-22",
+        "item": 32,
+        "slug": "32-reshenie-za-izmenenie-i-dopalnenie-na-podns-paragraf-7-stava",
+        "title": "Решение за изменение и допълнение на ПОДНС - параграф 7 (става параграф 8) - т.2",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2021-04-22",
+        "item": 27,
+        "slug": "27-reshenie-za-izmenenie-i-dopalnenie-na-podns-predlozhenie-ot-",
+        "title": "Решение за изменение и допълнение на ПОДНС - предложение от Н.Хаджигенов в чл.48",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 25
+      },
+      {
+        "date": "2021-04-22",
+        "item": 12,
+        "slug": "12-reshenie-za-izmenenie-i-dopalnenie-na-podns-predlozhenie-ot-",
+        "title": "Решение за изменение и допълнение на ПОДНС - предложение от А.Славов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 24
+      },
+      {
+        "date": "2021-04-22",
+        "item": 10,
+        "slug": "10-reshenie-za-otmyana-na-velikdenskata-vakantsiya-na-narodnoto",
+        "title": "Решение за отмяна на Великденската ваканция на Народното събрание за 2021 г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 23
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5245,
+        "score": 0.8702034215939068,
+        "overlap": 176
+      },
+      {
+        "mpId": 5244,
+        "score": 0.8615751684814252,
+        "overlap": 169
+      },
+      {
+        "mpId": 3260,
+        "score": 0.8529490072377716,
+        "overlap": 169
+      },
+      {
+        "mpId": 5147,
+        "score": 0.8459561968316041,
+        "overlap": 163
+      },
+      {
+        "mpId": 4536,
+        "score": 0.8333968471730913,
+        "overlap": 168
+      },
+      {
+        "mpId": 3401,
+        "score": 0.8282364455613491,
+        "overlap": 174
+      },
+      {
+        "mpId": 5206,
+        "score": 0.8282364455613491,
+        "overlap": 169
+      },
+      {
+        "mpId": 1655,
+        "score": 0.8221013607794132,
+        "overlap": 165
+      },
+      {
+        "mpId": 3257,
+        "score": 0.8219222293902917,
+        "overlap": 171
+      },
+      {
+        "mpId": 4265,
+        "score": 0.821593865540955,
+        "overlap": 158
+      },
+      {
+        "mpId": 4161,
+        "score": 0.8206835206684512,
+        "overlap": 157
+      },
+      {
+        "mpId": 4800,
+        "score": 0.8206835206684512,
+        "overlap": 157
+      },
+      {
+        "mpId": 5256,
+        "score": 0.8001747063550209,
+        "overlap": 167
+      },
+      {
+        "mpId": 5255,
+        "score": 0.7770644102849755,
+        "overlap": 142
+      },
+      {
+        "mpId": 5283,
+        "score": 0.7710748214968585,
+        "overlap": 142
+      },
+      {
+        "mpId": 3394,
+        "score": 0.756636112407882,
+        "overlap": 150
+      },
+      {
+        "mpId": 3360,
+        "score": 0.7484638056871136,
+        "overlap": 139
+      },
+      {
+        "mpId": 1672,
+        "score": 0.7453747726501654,
+        "overlap": 135
+      },
+      {
+        "mpId": 4913,
+        "score": 0.7336711737614395,
+        "overlap": 176
+      },
+      {
+        "mpId": 3658,
+        "score": 0.7268342671254984,
+        "overlap": 157
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 4632,
+        "score": -0.19826116939329955,
+        "overlap": 62
+      },
+      {
+        "mpId": 5173,
+        "score": -0.1530809058942434,
+        "overlap": 57
+      },
+      {
+        "mpId": 1600,
+        "score": -0.1366520416525303,
+        "overlap": 71
+      },
+      {
+        "mpId": 4258,
+        "score": -0.10046150864012858,
+        "overlap": 97
+      },
+      {
+        "mpId": 1634,
+        "score": -0.045696890633444474,
+        "overlap": 80
+      },
+      {
+        "mpId": 4249,
+        "score": -0.045083481733371615,
+        "overlap": 111
+      },
+      {
+        "mpId": 4267,
+        "score": -0.04368983516463091,
+        "overlap": 115
+      },
+      {
+        "mpId": 1811,
+        "score": -0.032742917296329034,
+        "overlap": 90
+      },
+      {
+        "mpId": 5248,
+        "score": -0.0315518645928133,
+        "overlap": 96
+      },
+      {
+        "mpId": 4872,
+        "score": -0.03005565448891441,
+        "overlap": 106
+      },
+      {
+        "mpId": 4838,
+        "score": -0.029383183380516528,
+        "overlap": 107
+      },
+      {
+        "mpId": 5151,
+        "score": -0.028632850559705388,
+        "overlap": 113
+      },
+      {
+        "mpId": 5125,
+        "score": -0.021208962067277397,
+        "overlap": 115
+      },
+      {
+        "mpId": 1806,
+        "score": -0.013968605915391565,
+        "overlap": 121
+      },
+      {
+        "mpId": 4225,
+        "score": -0.013491358179982834,
+        "overlap": 133
+      },
+      {
+        "mpId": 1805,
+        "score": -0.0069843029576957824,
+        "overlap": 124
+      },
+      {
+        "mpId": 5195,
+        "score": -0.006770991295584818,
+        "overlap": 133
+      },
+      {
+        "mpId": 1622,
+        "score": 0,
+        "overlap": 114
+      },
+      {
+        "mpId": 1815,
+        "score": 0,
+        "overlap": 115
+      },
+      {
+        "mpId": 5126,
+        "score": 0,
+        "overlap": 124
+      }
+    ]
+  }
+}

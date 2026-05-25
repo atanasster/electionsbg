@@ -1,0 +1,303 @@
+{
+  "mpId": 5291,
+  "ns": "49",
+  "partyShort": "ПП-ДБ",
+  "loyalty": {
+    "votesCast": 196,
+    "withParty": 188,
+    "loyaltyPct": 0.9591836734693877,
+    "windowFrom": "2023-04-12",
+    "windowTo": "2024-06-02",
+    "totalVoteItems": 3855
+  },
+  "dissents": {
+    "totalCast": 196,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2024-04-26",
+        "item": 8,
+        "slug": "8-protsedura-ot-rositsa-kirova-za-nova-tochka-3",
+        "title": "Процедура от Росица Кирова за нова точка 3",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 47
+      },
+      {
+        "date": "2024-04-17",
+        "item": 13,
+        "slug": "13",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 45
+      },
+      {
+        "date": "2023-05-30",
+        "item": 2,
+        "slug": "2-izslushvane-na-predsedatelya-na-darzhavna-agentsiya-natsiona",
+        "title": "Изслушване на председателя на Държавна агенция \"Национална сигурност\", директора на Служба \"Военно разузнаване\" и председателя на Държавна агенция \"Разузнаване\", относно изнесените твърдения от народен представител от парламентарната група \"Продължаваме Промяната - Демократична България\", че ръководителите на службите за сигурност са съгласувани с посолствата на чужди държави - процедура от Ангел Георгиев за пряко излъчване по БНТ1 и БНР",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 49
+      },
+      {
+        "date": "2023-05-05",
+        "item": 6,
+        "slug": "6-protsedura-ot-rosen-zhelyazkov-novite-tochki-v-dnevniya-red-",
+        "title": "Процедура от Росен Желязков новите точки в дневния ред да станат точка 4 и 7",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 55
+      },
+      {
+        "date": "2023-04-28",
+        "item": 24,
+        "slug": "24-reshenie-za-pravilnik-za-organizatsiyata-i-deynostta-na-naro",
+        "title": "Решение за Правилник за организацията и дейността на Народното събрание - Приложение към Финансови правила - предложение от Петър Петров в чл.10",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 43
+      },
+      {
+        "date": "2023-04-28",
+        "item": 13,
+        "slug": "13-reshenie-za-pravilnik-za-organizatsiyata-i-deynostta-na-naro",
+        "title": "Решение за Правилник за организацията и дейността на Народното събрание - член 111, ал 2 - предложение от Павела Митова за редакция",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 48
+      },
+      {
+        "date": "2023-04-28",
+        "item": 5,
+        "slug": "5-reshenie-za-pravilnik-za-organizatsiyata-i-deynostta-na-naro",
+        "title": "Решение за Правилник за организацията и дейността на Народното събрание - член 93 - предложение от Павела Митова за редакция",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 53
+      },
+      {
+        "date": "2023-04-27",
+        "item": 16,
+        "slug": "16-reshenie-za-pravilnik-za-organizatsiyata-i-deynostta-na-naro",
+        "title": "Решение за Правилник за организацията и дейността на Народното събрание - - член 60 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 49
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5266,
+        "score": 0.5879685967014486,
+        "overlap": 183
+      },
+      {
+        "mpId": 4707,
+        "score": 0.5760681777832772,
+        "overlap": 141
+      },
+      {
+        "mpId": 2040,
+        "score": 0.4465338257995318,
+        "overlap": 146
+      },
+      {
+        "mpId": 5184,
+        "score": 0.4350256450233215,
+        "overlap": 51
+      },
+      {
+        "mpId": 5153,
+        "score": 0.4265022249198645,
+        "overlap": 118
+      },
+      {
+        "mpId": 2482,
+        "score": 0.31063037209869776,
+        "overlap": 137
+      },
+      {
+        "mpId": 2437,
+        "score": 0.2720406517562239,
+        "overlap": 154
+      },
+      {
+        "mpId": 4851,
+        "score": 0.26967994498529685,
+        "overlap": 13
+      },
+      {
+        "mpId": 2120,
+        "score": 0.2550450851962807,
+        "overlap": 186
+      },
+      {
+        "mpId": 4720,
+        "score": 0.2463801649954511,
+        "overlap": 159
+      },
+      {
+        "mpId": 5215,
+        "score": 0.24192847153664818,
+        "overlap": 183
+      },
+      {
+        "mpId": 2015,
+        "score": 0.2396766404833932,
+        "overlap": 161
+      },
+      {
+        "mpId": 2079,
+        "score": 0.2365301452896018,
+        "overlap": 184
+      },
+      {
+        "mpId": 2419,
+        "score": 0.23477041814248298,
+        "overlap": 171
+      },
+      {
+        "mpId": 5300,
+        "score": 0.2329911738402012,
+        "overlap": 192
+      },
+      {
+        "mpId": 4730,
+        "score": 0.2301369960763305,
+        "overlap": 172
+      },
+      {
+        "mpId": 5082,
+        "score": 0.2284420163395065,
+        "overlap": 179
+      },
+      {
+        "mpId": 4817,
+        "score": 0.2271758118704352,
+        "overlap": 188
+      },
+      {
+        "mpId": 4841,
+        "score": 0.2256545010244094,
+        "overlap": 182
+      },
+      {
+        "mpId": 2126,
+        "score": 0.22143369664891882,
+        "overlap": 145
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5258,
+        "score": -0.006032237972782286,
+        "overlap": 135
+      },
+      {
+        "mpId": 5148,
+        "score": 0,
+        "overlap": 163
+      },
+      {
+        "mpId": 2450,
+        "score": 0.0023547670324929595,
+        "overlap": 135
+      },
+      {
+        "mpId": 5234,
+        "score": 0.006066353436066036,
+        "overlap": 172
+      },
+      {
+        "mpId": 5194,
+        "score": 0.00744983593779457,
+        "overlap": 178
+      },
+      {
+        "mpId": 5159,
+        "score": 0.007488336638323919,
+        "overlap": 170
+      },
+      {
+        "mpId": 4488,
+        "score": 0.008902380907770216,
+        "overlap": 178
+      },
+      {
+        "mpId": 2100,
+        "score": 0.008922953671010706,
+        "overlap": 142
+      },
+      {
+        "mpId": 2538,
+        "score": 0.009092200688427992,
+        "overlap": 30
+      },
+      {
+        "mpId": 5273,
+        "score": 0.009355093641886381,
+        "overlap": 170
+      },
+      {
+        "mpId": 4848,
+        "score": 0.010293060347627723,
+        "overlap": 179
+      },
+      {
+        "mpId": 2530,
+        "score": 0.011239917135889685,
+        "overlap": 27
+      },
+      {
+        "mpId": 4728,
+        "score": 0.011405205429689917,
+        "overlap": 177
+      },
+      {
+        "mpId": 4759,
+        "score": 0.011707247428836368,
+        "overlap": 181
+      },
+      {
+        "mpId": 4752,
+        "score": 0.012137313937751741,
+        "overlap": 182
+      },
+      {
+        "mpId": 4907,
+        "score": 0.012955005512625914,
+        "overlap": 179
+      },
+      {
+        "mpId": 2266,
+        "score": 0.013698650219700372,
+        "overlap": 149
+      },
+      {
+        "mpId": 5060,
+        "score": 0.013880363049242051,
+        "overlap": 172
+      },
+      {
+        "mpId": 4700,
+        "score": 0.013883087627352351,
+        "overlap": 176
+      },
+      {
+        "mpId": 4928,
+        "score": 0.014421593639248383,
+        "overlap": 184
+      }
+    ]
+  }
+}
