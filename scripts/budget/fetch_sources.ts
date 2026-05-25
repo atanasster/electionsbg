@@ -301,30 +301,28 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
     format: "manual-pdf",
     url: "https://www.minfin.bg/upload/57898/1000_Pril-1-MoF_draft+ProgOtchet_31.12.2023_Official.pdf",
   },
-  // МВнР FY2023 — discovered + headcount-parseable but execution-blocked.
-  //   URL: https://www.mfa.bg/upload/121303/програмен%20отчет%20МВнР%2031122023.zip
-  //   Inner entry: 1100-Otchet programi 202312_MVnR.xlsx (suffix-matched
-  //                inside a Cyrillic-named subdirectory inside the ZIP)
-  //   Headcount works (6 programmes, 1,234 staff, €24.08M, €19,510/FTE)
-  //   thanks to headcount.ts: parseHeadcountFromExecutionXlsx now reaches
-  //   sheet "Програми" and findXlsxValueColumns falls back to Отчет-only
-  //   when Закон/Уточнен columns are unlabelled.
-  //   BLOCKER: execution_xlsx.ts:parseExecutionXlsx throws "no rows with
-  //   classification codes" because МВнР's "Програми" sheet doesn't put
-  //   policy-area / programme codes in a column the financial parser
-  //   recognises — those codes live in the *other* sheet
-  //   ("политики+програми" — the policy-area rollup with Класификационен
-  //   код in column 0). Activating МВнР needs execution_xlsx.ts to either
-  //   dispatch by sheet name OR accept the policy-area-rollup layout.
-  //   Until then MVnR stays surveyed-but-not-ingested.
-  // {
-  //   fiscalYear: 2023,
-  //   adminId: "admin-ministerstvoto-na-vanshnite-raboti",
-  //   unitNameBg: "Министерството на външните работи",
-  //   format: "xlsx-in-zip",
-  //   url: "https://www.mfa.bg/upload/121303/програмен отчет МВнР 31122023.zip",
-  //   entryName: "1100-Otchet programi 202312_MVnR.xlsx",
-  // },
+  // МВнР FY2023 — programmatic execution report packaged as a ZIP at mfa.bg
+  // containing several XLSX/DOCX. The one we want is named
+  // `1100-Otchet programi 202312_MVnR.xlsx` and lives inside a Cyrillic-
+  // named subdirectory; the suffix-match in fetchExecutionZipXlsx handles
+  // the encoding. The ZIP also has a Razshifrovka breakdown XLSX (not the
+  // report we want — name doesn't include "Otchet programi").
+  //
+  // МВнР's XLSX uses the "Отчет-only header" layout: the "политики+програми"
+  // sheet labels just the Отчет column (Закон/Уточнен are placeholder-zero
+  // columns to its left). Both execution_xlsx.ts and headcount.ts grew an
+  // Отчет-only fallback (rightmost-Отчет, with the three value columns
+  // assumed consecutive ending at it) to cover this. Discovered via
+  // scripts/budget/discover_execution_reports.ts sweep of
+  // mfa.bg/bg/ministerstvo/dokumenti/otchetnost.
+  {
+    fiscalYear: 2023,
+    adminId: "admin-ministerstvoto-na-vanshnite-raboti",
+    unitNameBg: "Министерството на външните работи",
+    format: "xlsx-in-zip",
+    url: "https://www.mfa.bg/upload/121303/програмен отчет МВнР 31122023.zip",
+    entryName: "1100-Otchet programi 202312_MVnR.xlsx",
+  },
   // МФ FY2024 — site is Cloudflare-challenged and Wayback has not archived
   // the annual report yet (only 30.06.2024 H1 is mirrored). Operator must
   // download `1000_Pril-1-MoF_draft+ProgOtchet_31.12.2024_Official.pdf`
@@ -351,10 +349,12 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
   // },
   // ──────────────────────────────────────────────────────────────────────
   // Surveyed but currently un-ingestable (kept here so a future operator
-  // doesn't re-do the same probing). Coverage as of 2026-05-25 is ~30% of
-  // total first-level FY2024 expenditure (€2.73B of €8.93B). The gap is
-  // dominated by ministries that don't publish their programme-budget
-  // execution report at a stable URL discoverable via automated means.
+  // doesn't re-do the same probing). Coverage as of 2026-05-26 is ~30% of
+  // total first-level FY2024 expenditure (€2.73B of €8.93B), plus МФ and
+  // МВнР for FY2023 (added via the Playwright discovery + Internet
+  // Archive flow). The gap is dominated by ministries that don't publish
+  // their programme-budget execution report at a stable URL discoverable
+  // via automated means.
   //
   // Surveyed via Wayback CDX + direct HTTP probe (FY2024 unless noted):
   //   • МВР Interior          — €1.42B  Cloudflare-challenged (see above)
@@ -401,8 +401,18 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
   //                                       per-programme headcount in it.
   //                                       МК FY2024 annual programmatic is
   //                                       not yet published as of 2026-05-26.
-  //   • МВнР Foreign Affairs   — €0.09B  Wayback only has FY2017 H1; the
-  //                                       FY24 file isn't archived
+  //   • МВнР Foreign Affairs   — €0.09B  INGESTED FY2023 (entry above). The
+  //                                       Playwright sweep of
+  //                                       mfa.bg/bg/ministerstvo/dokumenti/
+  //                                       otchetnost surfaced 383 candidates;
+  //                                       the FY2023 annual is in
+  //                                       /upload/121303/...МВнР 31122023.zip
+  //                                       under entry "1100-Otchet programi
+  //                                       202312_MVnR.xlsx". FY2024 annual
+  //                                       not yet published (only Q1 + H1
+  //                                       there); FY2025 annual exists in
+  //                                       /upload/141415/ — add a new entry
+  //                                       once we want it.
   //   • МС Council of Ministers — €0.08B  government.bg returns 0 candidate
   //                                       URLs for execution reports
   //   • ММС Youth & Sports     — €0.07B  publishes "годишен отчет ZDOI"

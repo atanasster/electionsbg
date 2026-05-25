@@ -193,6 +193,14 @@ const scoreCandidate = (href: string, text: string): Candidate => {
     score -= 8;
     reasons.push("energy-eff-form");
   }
+  // Penalty for blank-template files (макет = template / form). These match
+  // the canonical "Otchet programi" pattern but are blank forms for filing,
+  // not actual reports. МС's 0300_Maket Otchet programi B.1-2026.xlsx is
+  // the canonical example.
+  if (/maket|макет/i.test(hay)) {
+    score -= 6;
+    reasons.push("template-form");
+  }
   // Penalty for EU operational-programme reports (Програма "Развитие на
   // регионите", Оперативна програма…) — these are progress reports on EU
   // funds, not state-budget execution reports.

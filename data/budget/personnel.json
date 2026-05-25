@@ -1725,6 +1725,219 @@
         }
       },
       {
+        "adminId": "admin-ministerstvoto-na-vanshnite-raboti",
+        "avgAnnualCostPerFte": {
+          "amount": 38158,
+          "amountEur": 19510,
+          "currency": "BGN"
+        },
+        "fiscalYear": 2023,
+        "nameBg": "Министерството на външните работи",
+        "nameEn": "Ministry of Foreign Affairs",
+        "programmes": [
+          {
+            "avgAnnualCostPerFte": null,
+            "code": "1100.01.06",
+            "headcount": {
+              "amended": null,
+              "executed": null,
+              "law": null
+            },
+            "nameBg": "- Бюджетна програма \"Международно сътрудничество за развитие и хуманитарна помощ",
+            "personnel": {
+              "amended": {
+                "amount": 21860,
+                "amountEur": 11177,
+                "currency": "BGN"
+              },
+              "executed": {
+                "amount": 21856,
+                "amountEur": 11175,
+                "currency": "BGN"
+              },
+              "law": null
+            }
+          },
+          {
+            "avgAnnualCostPerFte": {
+              "amount": 46755,
+              "amountEur": 23905,
+              "currency": "BGN"
+            },
+            "code": "1100.01.11",
+            "headcount": {
+              "amended": 661,
+              "executed": 565,
+              "law": 661
+            },
+            "nameBg": "- Бюджетна програма Бюджетна програма \"Администриране и осигуряване на дейността на Централно управление на МВнР",
+            "personnel": {
+              "amended": {
+                "amount": 26532456,
+                "amountEur": 13565829,
+                "currency": "BGN"
+              },
+              "executed": {
+                "amount": 26416493,
+                "amountEur": 13506538,
+                "currency": "BGN"
+              },
+              "law": {
+                "amount": 24881600,
+                "amountEur": 12721760,
+                "currency": "BGN"
+              }
+            }
+          },
+          {
+            "avgAnnualCostPerFte": {
+              "amount": 30347,
+              "amountEur": 15516,
+              "currency": "BGN"
+            },
+            "code": "1100.01.12",
+            "headcount": {
+              "amended": 707,
+              "executed": 620,
+              "law": 707
+            },
+            "nameBg": "- Бюджетна програма \"Администриране и осигуряване на дейността на задграничните представителства",
+            "personnel": {
+              "amended": {
+                "amount": 19272379,
+                "amountEur": 9853811,
+                "currency": "BGN"
+              },
+              "executed": {
+                "amount": 18815298,
+                "amountEur": 9620109,
+                "currency": "BGN"
+              },
+              "law": {
+                "amount": 18811100,
+                "amountEur": 9617963,
+                "currency": "BGN"
+              }
+            }
+          },
+          {
+            "avgAnnualCostPerFte": {
+              "amount": 49852,
+              "amountEur": 25489,
+              "currency": "BGN"
+            },
+            "code": "1100.02.01",
+            "headcount": {
+              "amended": 21,
+              "executed": 15,
+              "law": 21
+            },
+            "nameBg": "-Бюджетна програма \"Публична дипломация",
+            "personnel": {
+              "amended": {
+                "amount": 749097,
+                "amountEur": 383007,
+                "currency": "BGN"
+              },
+              "executed": {
+                "amount": 747784,
+                "amountEur": 382336,
+                "currency": "BGN"
+              },
+              "law": {
+                "amount": 734400,
+                "amountEur": 375493,
+                "currency": "BGN"
+              }
+            }
+          },
+          {
+            "avgAnnualCostPerFte": {
+              "amount": 32731,
+              "amountEur": 16735,
+              "currency": "BGN"
+            },
+            "code": "1100.02.02",
+            "headcount": {
+              "amended": 10,
+              "executed": 9,
+              "law": 10
+            },
+            "nameBg": "- Бюджетна програма \"Културна дипломация",
+            "personnel": {
+              "amended": {
+                "amount": 303551,
+                "amountEur": 155203,
+                "currency": "BGN"
+              },
+              "executed": {
+                "amount": 294580,
+                "amountEur": 150616,
+                "currency": "BGN"
+              },
+              "law": {
+                "amount": 296500,
+                "amountEur": 151598,
+                "currency": "BGN"
+              }
+            }
+          },
+          {
+            "avgAnnualCostPerFte": {
+              "amount": 31652,
+              "amountEur": 16184,
+              "currency": "BGN"
+            },
+            "code": "1100.03.01",
+            "headcount": {
+              "amended": 25,
+              "executed": 25,
+              "law": 25
+            },
+            "nameBg": "- Бюджетна програма \"Подкрепа за българските общности и лицата с българско самосъзнание зад граница; съхраняване на българското културно-историческо наследство",
+            "personnel": {
+              "amended": {
+                "amount": 797000,
+                "amountEur": 407500,
+                "currency": "BGN"
+              },
+              "executed": {
+                "amount": 791309,
+                "amountEur": 404590,
+                "currency": "BGN"
+              },
+              "law": {
+                "amount": 814000,
+                "amountEur": 416192,
+                "currency": "BGN"
+              }
+            }
+          }
+        ],
+        "totalHeadcount": {
+          "amended": 1424,
+          "executed": 1234,
+          "law": 1424
+        },
+        "totalPersonnel": {
+          "amended": {
+            "amount": 47676343,
+            "amountEur": 24376527,
+            "currency": "BGN"
+          },
+          "executed": {
+            "amount": 47087320,
+            "amountEur": 24075364,
+            "currency": "BGN"
+          },
+          "law": {
+            "amount": 45537600,
+            "amountEur": 23283006,
+            "currency": "BGN"
+          }
+        }
+      },
+      {
         "adminId": "admin-ministerstvoto-na-ikonomikata-i-industriyata",
         "avgAnnualCostPerFte": {
           "amount": 35877,
@@ -4077,7 +4290,7 @@
       }
     ]
   },
-  "generatedAt": "2026-05-25T20:26:22.949Z",
+  "generatedAt": "2026-05-25T21:49:52.253Z",
   "national": {
     "2017": {
       "nsiHeadcount": {

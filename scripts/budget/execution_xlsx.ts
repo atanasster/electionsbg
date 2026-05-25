@@ -64,7 +64,8 @@ interface ColIndices {
   headerRow: number;
 }
 const findValueColumns = (rows: unknown[][]): ColIndices | null => {
-  for (let r = 0; r < Math.min(rows.length, 6); r++) {
+  let otchetOnly = { col: -1, row: -1 };
+  for (let r = 0; r < Math.min(rows.length, 12); r++) {
     const row = rows[r] ?? [];
     let law = -1;
     let amended = -1;
@@ -78,6 +79,23 @@ const findValueColumns = (rows: unknown[][]): ColIndices | null => {
     if (law >= 0 && amended >= 0 && executed >= 0 && law !== amended) {
       return { law, amended, executed, headerRow: r };
     }
+    // Track rightmost Отчет-only candidate. Title rows often carry "Отчет"
+    // at column 0 ("Отчет на разходите …") which we don't want — take the
+    // largest column index we see across all rows.
+    if (executed > otchetOnly.col && law < 0 && amended < 0) {
+      otchetOnly = { col: executed, row: r };
+    }
+  }
+  // МВнР-style fallback: only "Отчет" is labelled (Закон/Уточнен columns
+  // exist with placeholder zeros but no header). Assume the three value
+  // columns are consecutive ending at the labelled Отчет column.
+  if (otchetOnly.col >= 2) {
+    return {
+      law: otchetOnly.col - 2,
+      amended: otchetOnly.col - 1,
+      executed: otchetOnly.col,
+      headerRow: otchetOnly.row,
+    };
   }
   return null;
 };

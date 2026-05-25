@@ -165,6 +165,23 @@
     {
       "discovery": "auto-confirmed",
       "fiscalYear": 2023,
+      "id": "exec-admin-ministerstvoto-na-vanshnite-raboti-2023",
+      "kind": "execution-report",
+      "reportDate": "2023-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "xlsx",
+          "label": "Министерството на външните работи — програмен отчет (XLSX в ZIP архив)",
+          "role": "report",
+          "url": "https://www.mfa.bg/upload/121303/програмен отчет МВнР 31122023.zip"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на външните работи за 2023 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2023,
       "id": "law-2023",
       "kind": "law",
       "seq": 0,
@@ -749,5 +766,5 @@
       "title": "КФП — state budget execution by major budget indicators"
     }
   ],
-  "generatedAt": "2026-05-25T20:26:23.575Z"
+  "generatedAt": "2026-05-25T21:49:52.701Z"
 }
