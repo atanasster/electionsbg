@@ -1,6 +1,5 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useMpEmbeddingOrder } from "@/data/parliament/votes/useMpEmbedding";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import type {
   SessionFile,
@@ -33,27 +32,34 @@ const marginOf = (item: SessionItem): number =>
   Math.abs(item.tallies.yes - (item.tallies.no + item.tallies.abstain));
 
 const FALLBACK_WIDTH = 600;
-const TARGET_HEIGHT = 480;
-const PARTY_LABEL_COL = 80; // left column reserved for party-band labels
-const X_AXIS_H = 28; // bottom band for item-number labels
-const PARTY_STRIP_W = 4;
-const GAP = 2;
+const LABEL_COL = 140; // left column for party-name labels
+const STRIP_W = 3; // party-colour strip between label and cells
+const GAP = 6;
+const X_AXIS_H = 32;
+const ROW_H = 26;
+const ROW_GAP = 2;
 
-// Roll-call heatmap. Y-axis = MPs sorted by embedding x-coordinate so MPs who
-// vote similarly cluster together. X-axis = items sorted by closeness (smallest
-// margin first), so contested votes — the interesting ones — cluster on the
-// left. Cell colour encodes the cast vote (or absent).
+type CellData = {
+  party: string;
+  counts: Record<VoteValue, number>;
+  total: number;
+};
+
+// Roll-call heatmap. Rows = parliamentary groups (largest first); columns =
+// items sorted by closeness (smallest margin first). Each cell is a stacked
+// horizontal bar showing the group's split for that item — yes / no /
+// abstain / absent — so cross-party patterns and intra-group splits are
+// both visible at a glance. Aggregating to the group level keeps row height
+// readable regardless of how many items the day's session contained.
 export const RollcallHeatmap: FC<Props> = ({ session }) => {
   const { t } = useTranslation();
-  const { order, isLoading: orderLoading } = useMpEmbeddingOrder();
   const { colorForPartyShort, labelForPartyShort } = useParliamentGroups();
   const [hovered, setHovered] = useState<{
-    mpId: number;
+    party: string;
     item: number;
   } | null>(null);
-  // Callback ref so the observer attaches when the div actually mounts —
-  // the component returns null while order data is loading, so a plain
-  // useRef + useEffect([]) would observe a still-null node.
+
+  // Callback ref so the observer attaches when the div actually mounts.
   const [containerEl, setContainerEl] = useState<HTMLDivElement | null>(null);
   const [containerWidth, setContainerWidth] = useState(FALLBACK_WIDTH);
 
@@ -71,10 +77,8 @@ export const RollcallHeatmap: FC<Props> = ({ session }) => {
     return () => ro.disconnect();
   }, [containerEl]);
 
-  const { rows, items, voteByMpItem, cellW, cellH, partyRuns } = useMemo(() => {
+  const { parties, items, cells, cellW } = useMemo(() => {
     const castItems = session.sessions.filter((it) => castCount(it) > 0);
-    // Sort items by closeness — tightest margins first, unanimous votes last.
-    // Stable tie-break by original item number so the layout is deterministic.
     const sortedItems = [...castItems].sort((a, b) => {
       const ma = marginOf(a);
       const mb = marginOf(b);
@@ -82,103 +86,95 @@ export const RollcallHeatmap: FC<Props> = ({ session }) => {
       return a.item - b.item;
     });
 
-    const mpSet = new Set<number>();
-    for (const it of sortedItems) {
-      for (const v of it.votes) mpSet.add(v.mpId);
+    // Build per-party MP count from the union of mpParty keys and every
+    // mpId seen in any item's votes — covers non-attached MPs who only
+    // show up in the per-item rows.
+    const allMps = new Set<number>();
+    for (const id of Object.keys(session.mpParty ?? {})) allMps.add(Number(id));
+    for (const it of sortedItems) for (const v of it.votes) allMps.add(v.mpId);
+
+    const partySize = new Map<string, number>();
+    for (const mpId of allMps) {
+      const p = session.mpParty?.[String(mpId)] ?? "—";
+      partySize.set(p, (partySize.get(p) ?? 0) + 1);
     }
-    const allMps = [...mpSet];
 
-    allMps.sort((a, b) => {
-      const ra = order.get(a);
-      const rb = order.get(b);
-      if (ra != null && rb != null) return ra - rb;
-      if (ra != null) return -1;
-      if (rb != null) return 1;
-      const na = session.mpNames?.[String(a)] ?? "";
-      const nb = session.mpNames?.[String(b)] ?? "";
-      return na.localeCompare(nb);
-    });
-
-    const vMap = new Map<string, VoteValue>();
+    const cellMap = new Map<string, CellData>();
     for (const it of sortedItems) {
+      for (const [party, size] of partySize) {
+        cellMap.set(`${party}#${it.item}`, {
+          party,
+          counts: { yes: 0, no: 0, abstain: 0, absent: 0 },
+          total: size,
+        });
+      }
       for (const v of it.votes) {
-        vMap.set(`${v.mpId}#${it.item}`, v.vote);
+        const party = session.mpParty?.[String(v.mpId)] ?? "—";
+        const entry = cellMap.get(`${party}#${it.item}`);
+        if (!entry) continue;
+        entry.counts[v.vote]++;
+      }
+      // Backfill absent for any party member missing from the item's votes
+      // (SessionItem.votes is meant to include every MP, but be defensive).
+      for (const [party, size] of partySize) {
+        const entry = cellMap.get(`${party}#${it.item}`)!;
+        const seen =
+          entry.counts.yes +
+          entry.counts.no +
+          entry.counts.abstain +
+          entry.counts.absent;
+        if (seen < size) entry.counts.absent += size - seen;
       }
     }
 
-    const partyStripPlusGap = PARTY_LABEL_COL + PARTY_STRIP_W + GAP;
-    const widthBudget = Math.max(120, containerWidth - partyStripPlusGap);
+    const partyList = [...partySize.entries()]
+      .sort((a, b) => {
+        if (b[1] !== a[1]) return b[1] - a[1];
+        return a[0].localeCompare(b[0]);
+      })
+      .map(([p]) => p);
+
+    const widthBudget = Math.max(
+      120,
+      containerWidth - LABEL_COL - STRIP_W - GAP,
+    );
     const cw = Math.max(
-      2,
+      4,
       Math.floor(widthBudget / Math.max(1, sortedItems.length)),
     );
-    const ch = Math.max(
-      1,
-      Math.min(4, Math.floor(TARGET_HEIGHT / Math.max(1, allMps.length))),
-    );
-
-    // Contiguous party runs along the y-axis. Used to label parties next to
-    // the colour strip — one label per contiguous block. Groups smaller than
-    // 4 MPs are skipped to keep labels from overlapping each other.
-    const runs: {
-      party: string;
-      start: number;
-      end: number;
-    }[] = [];
-    let cur: { party: string; start: number; end: number } | null = null;
-    for (let i = 0; i < allMps.length; i++) {
-      const party = session.mpParty?.[String(allMps[i])] ?? "—";
-      if (!cur || cur.party !== party) {
-        if (cur) runs.push(cur);
-        cur = { party, start: i, end: i };
-      } else {
-        cur.end = i;
-      }
-    }
-    if (cur) runs.push(cur);
 
     return {
-      rows: allMps,
+      parties: partyList,
       items: sortedItems,
-      voteByMpItem: vMap,
+      cells: cellMap,
       cellW: cw,
-      cellH: ch,
-      partyRuns: runs,
     };
-  }, [session, order, containerWidth]);
+  }, [session, containerWidth]);
 
-  if (orderLoading) return null;
-  if (rows.length === 0 || items.length === 0) return null;
+  if (parties.length === 0 || items.length === 0) return null;
 
   const gridW = items.length * cellW;
-  const gridH = rows.length * cellH;
-  const svgW = PARTY_LABEL_COL + PARTY_STRIP_W + GAP + gridW;
+  const gridH = parties.length * (ROW_H + ROW_GAP) - ROW_GAP;
+  const svgW = LABEL_COL + STRIP_W + GAP + gridW;
   const svgH = gridH + X_AXIS_H;
 
-  // Decide how often to draw an x-axis tick. Skip labels if the cell is too
-  // narrow to fit even 2 characters (saves crowding when there are hundreds
-  // of items in one session).
-  const xTickStride = cellW >= 14 ? 1 : cellW >= 7 ? 2 : cellW >= 4 ? 5 : 10;
+  const xTickStride = cellW >= 24 ? 1 : cellW >= 12 ? 2 : cellW >= 6 ? 5 : 10;
 
-  const hoveredVote =
-    hovered != null
-      ? voteByMpItem.get(`${hovered.mpId}#${hovered.item}`)
-      : null;
-  const hoveredMpName =
-    hovered != null
-      ? (session.mpNames?.[String(hovered.mpId)] ?? `MP #${hovered.mpId}`)
-      : null;
-  const hoveredItemTitle =
-    hovered != null ? session.itemTitles?.[String(hovered.item)] : null;
+  const hoveredCell = hovered
+    ? cells.get(`${hovered.party}#${hovered.item}`)
+    : null;
+  const hoveredItemTitle = hovered
+    ? session.itemTitles?.[String(hovered.item)]
+    : null;
 
   return (
     <section className="rounded-xl border bg-card p-4">
       <h2 className="text-sm font-semibold uppercase tracking-wide mb-1">
-        {t("votes_heatmap_title") || "Vote-by-MP heatmap"}
+        {t("votes_heatmap_title") || "Voting heatmap"}
       </h2>
       <p className="text-xs text-muted-foreground mb-3">
-        {t("votes_heatmap_axis_mps_v2") ||
-          "MPs (clustered by voting pattern) · items (closest votes first)"}
+        {t("votes_heatmap_axis_groups") ||
+          "Parliamentary groups · items sorted by closeness · each cell shows the group's vote split"}
       </p>
 
       <div ref={setContainerEl} className="relative w-full">
@@ -187,60 +183,90 @@ export const RollcallHeatmap: FC<Props> = ({ session }) => {
           height={svgH}
           className="block max-w-full"
           role="img"
-          aria-label={t("votes_heatmap_title") || "Vote-by-MP heatmap"}
+          aria-label={t("votes_heatmap_title") || "Voting heatmap"}
         >
-          {/* Party-band labels on the left, one per contiguous run of ≥4 MPs */}
-          {partyRuns
-            .filter((r) => r.end - r.start + 1 >= 4)
-            .map((r) => {
-              const midY = ((r.start + r.end + 1) / 2) * cellH;
-              return (
+          {parties.map((party, ri) => {
+            const y = ri * (ROW_H + ROW_GAP);
+            const fill = colorForPartyShort(party) ?? "#94a3b8";
+            const label = labelForPartyShort(party) || party;
+            return (
+              <g key={`row-${party}`}>
                 <text
-                  key={`pl-${r.party}-${r.start}`}
-                  x={PARTY_LABEL_COL - 4}
-                  y={midY}
+                  x={LABEL_COL - 6}
+                  y={y + ROW_H / 2}
                   textAnchor="end"
                   dominantBaseline="middle"
-                  fontSize={10}
+                  fontSize={11}
                   fill="currentColor"
-                  className="text-muted-foreground"
+                  className="text-foreground"
                 >
-                  {labelForPartyShort(r.party) || r.party}
+                  {label}
                 </text>
-              );
-            })}
-
-          {/* Party-colour strip — one rect per MP row */}
-          {rows.map((mpId, ri) => {
-            const party = session.mpParty?.[String(mpId)];
-            const fill = colorForPartyShort(party) ?? "#94a3b8";
-            return (
-              <rect
-                key={`p-${mpId}`}
-                x={PARTY_LABEL_COL}
-                y={ri * cellH}
-                width={PARTY_STRIP_W}
-                height={cellH}
-                fill={fill}
-              />
+                <rect
+                  x={LABEL_COL}
+                  y={y}
+                  width={STRIP_W}
+                  height={ROW_H}
+                  fill={fill}
+                />
+              </g>
             );
           })}
 
-          {/* Cells */}
-          {rows.map((mpId, ri) =>
+          {/* Cells — each is a stacked yes/no/abstain/absent bar */}
+          {parties.map((party, ri) =>
             items.map((it, ci) => {
-              const vote = voteByMpItem.get(`${mpId}#${it.item}`) ?? "absent";
+              const data = cells.get(`${party}#${it.item}`);
+              if (!data) return null;
+              const { total } = data;
+              const x0 = LABEL_COL + STRIP_W + GAP + ci * cellW;
+              const y0 = ri * (ROW_H + ROW_GAP);
+              let xCursor = x0;
+              const segs: { v: VoteValue; w: number; x: number }[] = [];
+              for (const v of [
+                "yes",
+                "no",
+                "abstain",
+                "absent",
+              ] as VoteValue[]) {
+                const share = total > 0 ? data.counts[v] / total : 0;
+                const w = share * cellW;
+                if (w > 0) {
+                  segs.push({ v, w, x: xCursor });
+                  xCursor += w;
+                }
+              }
+              const isHovered =
+                hovered?.party === party && hovered.item === it.item;
               return (
-                <rect
-                  key={`c-${mpId}-${it.item}`}
-                  x={PARTY_LABEL_COL + PARTY_STRIP_W + GAP + ci * cellW}
-                  y={ri * cellH}
-                  width={cellW}
-                  height={cellH}
-                  fill={VOTE_COLOR[vote]}
-                  onMouseEnter={() => setHovered({ mpId, item: it.item })}
+                <g
+                  key={`c-${party}-${it.item}`}
+                  onMouseEnter={() => setHovered({ party, item: it.item })}
                   onMouseLeave={() => setHovered(null)}
-                />
+                >
+                  {segs.map((s) => (
+                    <rect
+                      key={`${party}-${it.item}-${s.v}`}
+                      x={s.x}
+                      y={y0}
+                      width={s.w}
+                      height={ROW_H}
+                      fill={VOTE_COLOR[s.v]}
+                    />
+                  ))}
+                  {isHovered && (
+                    <rect
+                      x={x0}
+                      y={y0}
+                      width={cellW}
+                      height={ROW_H}
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={1.5}
+                      className="text-foreground pointer-events-none"
+                    />
+                  )}
+                </g>
               );
             }),
           )}
@@ -248,8 +274,7 @@ export const RollcallHeatmap: FC<Props> = ({ session }) => {
           {/* X-axis: item numbers under each column, sampled per stride */}
           {items.map((it, ci) => {
             if (ci % xTickStride !== 0 && ci !== items.length - 1) return null;
-            const cx =
-              PARTY_LABEL_COL + PARTY_STRIP_W + GAP + ci * cellW + cellW / 2;
+            const cx = LABEL_COL + STRIP_W + GAP + ci * cellW + cellW / 2;
             return (
               <g key={`x-${it.item}`}>
                 <line
@@ -276,27 +301,35 @@ export const RollcallHeatmap: FC<Props> = ({ session }) => {
           })}
         </svg>
 
-        {hovered && (
+        {hovered && hoveredCell && (
           <div className="absolute top-0 left-0 right-0 pointer-events-none bg-popover border rounded-md px-3 py-2 text-xs shadow-md max-w-md">
-            <div className="font-semibold mb-0.5">{hoveredMpName}</div>
+            <div className="font-semibold mb-0.5">
+              {labelForPartyShort(hovered.party) || hovered.party}
+              <span className="text-muted-foreground font-normal ml-2">
+                · {hoveredCell.total}
+              </span>
+            </div>
             {hoveredItemTitle && (
               <div className="text-muted-foreground line-clamp-2 mb-1">
                 #{hovered.item}: {hoveredItemTitle}
               </div>
             )}
-            {hoveredVote && (
-              <div>
-                <span className="text-muted-foreground">
-                  {t("votes_session_party") || "Vote"}:{" "}
-                </span>
-                <span
-                  className="font-semibold"
-                  style={{ color: VOTE_COLOR[hoveredVote] }}
-                >
-                  {t(VOTE_LABEL[hoveredVote]) || hoveredVote}
-                </span>
-              </div>
-            )}
+            <div className="flex gap-3 flex-wrap">
+              {(["yes", "no", "abstain", "absent"] as VoteValue[]).map((v) => {
+                const c = hoveredCell.counts[v];
+                if (c === 0) return null;
+                const pct = Math.round((c / hoveredCell.total) * 100);
+                return (
+                  <span
+                    key={v}
+                    className="font-medium"
+                    style={{ color: VOTE_COLOR[v] }}
+                  >
+                    {t(VOTE_LABEL[v]) || v}: {c} ({pct}%)
+                  </span>
+                );
+              })}
+            </div>
           </div>
         )}
       </div>

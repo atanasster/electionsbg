@@ -33,3 +33,25 @@ export const firstLastName = (name?: string | null): string => {
   if (parts.length < 3) return name.trim();
   return `${parts[0]} ${parts[parts.length - 1]}`;
 };
+
+// Title-case a name, preserving hyphenated parts ("ИВАН ПЕТРОВ-СТАНЕВ"
+// → "Иван Петров-Станев"). Source data from parliament.bg roll-call CSVs
+// is uppercase; this gives a more readable form for dense chip layouts.
+export const titleCaseName = (name?: string | null): string => {
+  if (!name) return "";
+  return name
+    .trim()
+    .split(/\s+/)
+    .map((part) =>
+      part
+        .split("-")
+        .map((seg) =>
+          seg.length === 0
+            ? seg
+            : seg.charAt(0).toLocaleUpperCase() +
+              seg.slice(1).toLocaleLowerCase(),
+        )
+        .join("-"),
+    )
+    .join(" ");
+};
