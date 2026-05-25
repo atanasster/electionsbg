@@ -1,0 +1,156 @@
+{
+  "generatedAt": "2026-05-25T17:01:22.521Z",
+  "country": "BG",
+  "fiscalYear": 2023,
+  "asOf": "2023-12-31",
+  "currency": "BGN",
+  "source": {
+    "publisher": "Агенция \"Митници\"",
+    "document": "Митническа хроника — Българските митници през 2023 г.",
+    "url": "https://customs.bg/wps/wcm/connect/customs.bg28892/890abab9-b78d-4910-9e9a-fc168306e1e9/Mitnicheska_hronika2023.pdf?MOD=AJPERES"
+  },
+  "lines": [
+    {
+      "id": "total_collected",
+      "labelBg": "Общи постъпления (акцизи, ДДС при внос, мита, глоби)",
+      "labelEn": "Total collections (excise, import VAT, customs, fines)",
+      "amount": 12502200000,
+      "amountEur": 6392273357,
+      "parent": null
+    },
+    {
+      "id": "excise_total",
+      "labelBg": "Акциз",
+      "labelEn": "Excise duties",
+      "amount": 6148000000,
+      "amountEur": 3143422486,
+      "parent": "total_collected",
+      "share": 0.4917534513925549
+    },
+    {
+      "id": "excise_fuels",
+      "labelBg": "Акциз — Горива",
+      "labelEn": "Excise — Fuels",
+      "amount": 2430800000,
+      "amountEur": 1242848305,
+      "parent": "excise_total",
+      "share": 0.39538061158100196
+    },
+    {
+      "id": "excise_diesel",
+      "labelBg": "Акциз — Газьол (дизел)",
+      "labelEn": "Excise — Diesel",
+      "amount": null,
+      "amountEur": null,
+      "parent": "excise_fuels"
+    },
+    {
+      "id": "excise_petrol",
+      "labelBg": "Акциз — Бензин",
+      "labelEn": "Excise — Petrol",
+      "amount": null,
+      "amountEur": null,
+      "parent": "excise_fuels"
+    },
+    {
+      "id": "excise_lpg",
+      "labelBg": "Акциз — Втечнен нефтен газ (ВНГ)",
+      "labelEn": "Excise — LPG",
+      "amount": null,
+      "amountEur": null,
+      "parent": "excise_fuels"
+    },
+    {
+      "id": "excise_natural_gas",
+      "labelBg": "Акциз — Природен газ",
+      "labelEn": "Excise — Natural gas",
+      "amount": null,
+      "amountEur": null,
+      "parent": "excise_fuels"
+    },
+    {
+      "id": "excise_kerosene_net",
+      "labelBg": "Акциз — Керосин (нетен)",
+      "labelEn": "Excise — Kerosene (net)",
+      "amount": null,
+      "amountEur": null,
+      "parent": "excise_fuels"
+    },
+    {
+      "id": "excise_tobacco",
+      "labelBg": "Акциз — Тютюн и тютюневи изделия",
+      "labelEn": "Excise — Tobacco",
+      "amount": null,
+      "amountEur": null,
+      "parent": "excise_total"
+    },
+    {
+      "id": "excise_alcohol",
+      "labelBg": "Акциз — Алкохол, алкохолни напитки и бира",
+      "labelEn": "Excise — Alcohol & beer",
+      "amount": 327700000,
+      "amountEur": 167550349,
+      "parent": "excise_total",
+      "share": 0.05330188679245283
+    },
+    {
+      "id": "import_vat_total",
+      "labelBg": "ДДС при внос",
+      "labelEn": "Import VAT",
+      "amount": 6021600000,
+      "amountEur": 3078795192,
+      "parent": "total_collected",
+      "share": 0.4816432307913807
+    },
+    {
+      "id": "customs_duties_total",
+      "labelBg": "Мита при внос",
+      "labelEn": "Customs duties",
+      "amount": 322700000,
+      "amountEur": 164993890,
+      "parent": "total_collected",
+      "share": 0.025811457183535697
+    },
+    {
+      "id": "fines_total",
+      "labelBg": "Глоби, санкции, лихви и други приходи",
+      "labelEn": "Fines, penalties, interest and other revenue",
+      "amount": 10000000,
+      "amountEur": 5112919,
+      "parent": "total_collected",
+      "share": 0.0007998592247764393
+    }
+  ],
+  "customsByCountry": [
+    {
+      "name": "Китай",
+      "amount": 174700000,
+      "amountEur": 89322692,
+      "sharePct": 54.5
+    },
+    {
+      "name": "Русия",
+      "amount": 18000000,
+      "amountEur": 9203254,
+      "sharePct": 5.6
+    },
+    {
+      "name": "Турция",
+      "amount": 13300000,
+      "amountEur": 6800182,
+      "sharePct": 4.1
+    },
+    {
+      "name": "САЩ",
+      "amount": 12800000,
+      "amountEur": 6544536,
+      "sharePct": 4
+    },
+    {
+      "name": "Индия",
+      "amount": 11100000,
+      "amountEur": 5675340,
+      "sharePct": 3.5
+    }
+  ]
+}

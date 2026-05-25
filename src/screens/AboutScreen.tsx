@@ -358,6 +358,14 @@ export const AboutScreen = () => {
                   label={t("budget_ministry_execution_source")}
                 />
                 <SourceItem
+                  href="https://customs.bg/wps/portal/agency/media-center/customs-chronicle"
+                  label={t("budget_customs_revenue_source")}
+                />
+                <SourceItem
+                  href="https://nra.bg/wps/portal/nra/za-nap/osnovni-dokumenti/Godishni-otcheti-za-deynostta-na-NAP"
+                  label={t("budget_nap_annual_source")}
+                />
+                <SourceItem
                   href="https://commission.europa.eu/strategy-and-policy/eu-budget/long-term-eu-budget/2021-2027/spending-and-revenue_en"
                   label={t("budget_ec_eu_funds_source")}
                 />
@@ -368,6 +376,10 @@ export const AboutScreen = () => {
                 <SourceItem
                   href="https://ec.europa.eu/eurostat/databrowser/view/gov_10a_main/default/table"
                   label={t("budget_eu_peers_source")}
+                />
+                <SourceItem
+                  href="https://iisda.government.bg/annual_reports"
+                  label={t("budget_iisda_doklad_source")}
                 />
               </ul>
             </DataGroup>

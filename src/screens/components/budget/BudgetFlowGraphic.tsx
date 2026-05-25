@@ -481,7 +481,22 @@ const FlowSvg: FC<{
   model: BudgetFlowModel;
   width: number;
   height: number;
-}> = ({ model, width, height }) => {
+  onNodeClick?: (node: {
+    id: string;
+    label: string;
+    side: "left" | "right";
+  }) => void;
+  // Optional predicate — if provided, only nodes for which it returns true
+  // show a pointer cursor + fire onNodeClick. Default (predicate omitted) is
+  // "every node is clickable" for backward compatibility with the original
+  // behaviour, but callers that wire onNodeClick to a category-specific
+  // handler should pass a predicate so dead clicks don't mislead users.
+  isNodeClickable?: (node: {
+    id: string;
+    label: string;
+    side: "left" | "right";
+  }) => boolean;
+}> = ({ model, width, height, onNodeClick, isNodeClickable }) => {
   const { t } = useTranslation();
   const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip();
   const [focus, setFocus] = useState<FocusState>({ id: null, side: null });
@@ -765,9 +780,24 @@ const FlowSvg: FC<{
                 ) : null}
               </div>
             );
+            const clickable =
+              onNodeClick != null &&
+              (!isNodeClickable ||
+                isNodeClickable({ id: node.id, label: node.label, side }));
             return (
               <g
                 key={`${sidePrefix}-node-${node.id}`}
+                style={{ cursor: clickable ? "pointer" : undefined }}
+                onClick={(e) => {
+                  if (clickable) {
+                    e.stopPropagation();
+                    onNodeClick!({
+                      id: node.id,
+                      label: node.label,
+                      side,
+                    });
+                  }
+                }}
                 onMouseEnter={(e) => {
                   setFocus({ id: node.id, side });
                   onMouseEnter({ pageX: e.pageX, pageY: e.pageY }, tipContent);
@@ -1011,6 +1041,16 @@ export const BudgetFlowGraphic: FC<{
   model: BudgetFlowModel;
   width: number;
   height: number;
+  onNodeClick?: (node: {
+    id: string;
+    label: string;
+    side: "left" | "right";
+  }) => void;
+  isNodeClickable?: (node: {
+    id: string;
+    label: string;
+    side: "left" | "right";
+  }) => boolean;
 }> = (props) => {
   if (props.width <= 0 || props.height <= 0) return null;
   return <FlowSvg {...props} />;

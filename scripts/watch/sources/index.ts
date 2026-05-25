@@ -12,6 +12,7 @@ import { aopDebarred } from "./aop_debarred";
 import { isunEuFunds } from "./isun_eu_funds";
 import { egovBudgetExecution } from "./egov_budget_execution";
 import { ministryExecutionReports } from "./ministry_execution_reports";
+import { iisdaDoklad } from "./iisda_doklad";
 import { eurostat } from "./eurostat";
 import { eurostatRegional } from "./eurostat_regional";
 import { ecBudgetPerMs } from "./ec_budget_per_ms";
@@ -26,6 +27,8 @@ import { smetnaPalata } from "./smetna_palata";
 import { financingReports } from "./financing_reports";
 import { transparencyCpi } from "./transparency_cpi";
 import { worldbankWgi } from "./worldbank_wgi";
+import { customsRevenue } from "./customs_revenue";
+import { napAnnual } from "./nap_annual";
 
 // cik is intentionally omitted — see ./cik.ts header. Re-add to this array
 // once a Playwright-based fetch (or alternate endpoint) bypasses Cloudflare.
@@ -45,6 +48,9 @@ export const SOURCES: WatchSource[] = [
   isunEuFunds,
   egovBudgetExecution,
   ministryExecutionReports,
+  iisdaDoklad,
+  customsRevenue,
+  napAnnual,
   eurostat,
   eurostatRegional,
   ecBudgetPerMs,

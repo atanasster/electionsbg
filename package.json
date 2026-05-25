@@ -35,6 +35,7 @@
     "procurement:ingest": "tsx ./scripts/procurement/ingest.ts",
     "procurement:ingest-legacy": "tsx ./scripts/procurement/ingest_legacy.ts",
     "budget:ingest": "tsx ./scripts/budget/ingest.ts",
+    "budget:revenue-breakdown": "tsx ./scripts/budget/run_customs_revenue.ts && tsx ./scripts/budget/run_nap_annual.ts",
     "funds:ingest": "tsx ./scripts/funds/ingest.ts",
     "tr:build-company-connections": "tsx ./scripts/declarations/tr/build_company_connections.ts",
     "bucket:sync": "gsutil -m -h 'Cache-Control:public,max-age=300,must-revalidate' rsync -r -x '^_cache/.*|.*\\.DS_Store$' -j json,svg,xml,txt,html,css,md data gs://data-electionsbg-com",

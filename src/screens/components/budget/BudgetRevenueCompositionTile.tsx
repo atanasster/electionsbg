@@ -10,14 +10,30 @@
 // as their own slices and adds a ranked YoY table below the donut so the same
 // data reads as a drill-down rather than a summary.
 
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Coins } from "lucide-react";
+import { ChevronRight, Coins } from "lucide-react";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
 import { useKfp } from "@/data/budget/useBudget";
 import type { KfpSnapshot, KfpSnapshotLine } from "@/data/budget/types";
+import {
+  BudgetFlowRevenueDrilldown,
+  type RevenueDrillCategory,
+} from "./BudgetFlowRevenueDrilldown";
+
+// Map a KFP revenue-line Bulgarian label to one of the four drill-down
+// categories. Returns null when no breakdown is available for the row.
+const revenueCategoryFromLabel = (
+  labelBg: string,
+): RevenueDrillCategory | null => {
+  if (/добавената\s+стойност/i.test(labelBg)) return "vat";
+  if (/^акцизи?$/i.test(labelBg.trim())) return "excise";
+  if (/^мита/i.test(labelBg)) return "customs";
+  if (/доход(и|ите)\s+на\s+физи/i.test(labelBg)) return "pit";
+  return null;
+};
 
 // Tailwind-friendly palette. Reuse hues from BudgetTrendTile (emerald for
 // revenue, plus shaded variants) so the budget pillar feels coherent.
@@ -228,8 +244,12 @@ export const BudgetRevenueCompositionTile: FC<{
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { data: kfp } = useKfp();
+  // Which row (if any) is currently expanded into its sub-breakdown.
+  const [expandedRow, setExpandedRow] = useState<RevenueDrillCategory | null>(
+    null,
+  );
 
-  const { slices, total, asOf, snapFy, prior } = useMemo(() => {
+  const { slices, total, asOf, snapFy, prior, snapshot } = useMemo(() => {
     if (!kfp)
       return {
         slices: [] as Slice[],
@@ -237,10 +257,18 @@ export const BudgetRevenueCompositionTile: FC<{
         asOf: null as string | null,
         snapFy: null as number | null,
         prior: null as KfpSnapshot | null,
+        snapshot: null as KfpSnapshot | null,
       };
     const snap = pickSnapshot(kfp.snapshots, fiscalYear);
     if (!snap)
-      return { slices: [], total: 0, asOf: null, snapFy: null, prior: null };
+      return {
+        slices: [],
+        total: 0,
+        asOf: null,
+        snapFy: null,
+        prior: null,
+        snapshot: null,
+      };
     const sl = buildSlices(snap, expanded);
     const tot = sl.reduce((s, x) => s + x.value, 0);
     return {
@@ -249,6 +277,7 @@ export const BudgetRevenueCompositionTile: FC<{
       asOf: snap.asOf,
       snapFy: snap.fiscalYear,
       prior: pickPriorSnapshot(kfp.snapshots, snap.fiscalYear),
+      snapshot: snap,
     };
   }, [kfp, fiscalYear, expanded]);
 
@@ -302,8 +331,20 @@ export const BudgetRevenueCompositionTile: FC<{
                 priorVal != null && priorVal > 0
                   ? ((d.value - priorVal) / priorVal) * 100
                   : null;
-              return (
-                <li key={d.key} className="flex items-baseline gap-2">
+              const drillCat = revenueCategoryFromLabel(d.labelBg);
+              const isExpandable = drillCat != null;
+              const isOpen = drillCat != null && expandedRow === drillCat;
+              const rowContent = (
+                <>
+                  {isExpandable ? (
+                    <ChevronRight
+                      className={`h-3 w-3 shrink-0 text-muted-foreground transition-transform ${
+                        isOpen ? "rotate-90" : ""
+                      }`}
+                    />
+                  ) : (
+                    <span className="h-3 w-3 shrink-0" />
+                  )}
                   <span
                     aria-hidden="true"
                     className="h-2.5 w-2.5 shrink-0 rounded-sm"
@@ -332,6 +373,38 @@ export const BudgetRevenueCompositionTile: FC<{
                       {yoy != null ? fmtYoy(yoy) : "—"}
                     </span>
                   ) : null}
+                </>
+              );
+              return (
+                <li key={d.key}>
+                  {isExpandable ? (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setExpandedRow((cur) =>
+                          cur === drillCat ? null : drillCat,
+                        )
+                      }
+                      className="flex w-full items-baseline gap-2 rounded px-1 hover:bg-muted/40 text-left"
+                      aria-expanded={isOpen}
+                    >
+                      {rowContent}
+                    </button>
+                  ) : (
+                    <div className="flex items-baseline gap-2 px-1">
+                      {rowContent}
+                    </div>
+                  )}
+                  {isOpen && snapshot && drillCat && (
+                    <div className="mt-1 ml-3">
+                      <BudgetFlowRevenueDrilldown
+                        fiscalYear={snapshot.fiscalYear}
+                        snapshot={snapshot}
+                        category={drillCat}
+                        onClose={() => setExpandedRow(null)}
+                      />
+                    </div>
+                  )}
                 </li>
               );
             })}

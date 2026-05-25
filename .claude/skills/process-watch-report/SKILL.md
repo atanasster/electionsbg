@@ -40,6 +40,9 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `ИСУН EU funds` (beneficiaries) | `update-funds` |
 | `data.egov.bg бюджет` (budget execution) | `update-budget` |
 | `Per-ministry execution reports` (програмен бюджет) | `update-budget` |
+| `Доклад за състоянието на администрацията (IISDA)` | `update-budget` (resolve new file id first — see `iisda_doklad` describe-line) |
+| `Агенция "Митници" — Митническа хроника` annual reports | `update-budget` (revenue-breakdown sub-step — runs `scripts/budget/run_customs_revenue.ts`; see "Revenue-breakdown ingest" below) |
+| `НАП — Годишен отчет за дейността` | `update-budget` (revenue-breakdown sub-step — runs `scripts/budget/run_nap_annual.ts`; see "Revenue-breakdown ingest" below) |
 | `Сметна палата party financing` | `update-financing` |
 | `Сметна палата annual-report index` | `update-financing` (annual-report year added — runs `scrape_reports.ts`) |
 | `Eurostat macro` (BG) | `update-macro` |
@@ -82,6 +85,22 @@ If the user says "skip governments for this run", drop it from the plan without 
 
 3. If the user says "skip CPI for this run", drop it from the queue without stamping — the next orchestrator run will surface it again.
 
+### Revenue-breakdown ingest (`customs_revenue`, `nap_annual`)
+
+Both these sources publish annually — `customs_revenue` (Митническа хроника) in March of T+1 and `nap_annual` (НАП Годишен отчет) also in March of T+1. They share the `update-budget` mapping but run two separate scripts that aren't part of `npm run budget:ingest` yet:
+
+- `customs_revenue` flip → run `npx tsx scripts/budget/run_customs_revenue.ts` (writes `data/budget/revenue_breakdown/customs/<year>.json` for each year in `MITNICHESKA_HRONIKA_REPORTS`).
+- `nap_annual` flip → run `npx tsx scripts/budget/run_nap_annual.ts` (writes both `data/budget/revenue_breakdown/vat/<year>.json` and `data/budget/revenue_breakdown/pit/<year>.json`).
+
+When the watcher describe-line says `"N new year(s) added"`, the operator first needs to look up the freshly-published PDF URL and add it to the relevant catalogue:
+
+- Customs: `MITNICHESKA_HRONIKA_REPORTS` in `scripts/budget/customs_revenue.ts`. New URLs come from `customs.bg/wps/portal/agency/media-center/customs-chronicle/mh<YYYY>` (linked from the chronicle index page, but the actual PDF URL is opaque-UUID — find it via WebSearch with `site:customs.bg Mitnicheska_hronika <YYYY>`).
+- НАП: `NAP_ANNUAL_REPORTS` in `scripts/budget/nap_annual.ts`. New URLs come from `nra.bg/wps/portal/nra/za-nap/osnovni-dokumenti/Godishni-otcheti-za-deynostta-na-NAP` (same opaque-UUID problem; find via `site:nra.bg "Годишен отчет НАП" <YYYY>`).
+
+If the describe-line is `"N report(s) re-uploaded"` instead, no curation needed — just run the script with `--refresh` to bypass the cache and re-ingest.
+
+After the script runs, stamp `update-budget` with a summary like `"customs: backfilled 2025; vat/pit: 2024 only"`.
+
 ## Source → skill mapping (canonical)
 
 Each watcher source maps to one or more downstream skills. Multiple sources can map to the same skill (deduped at queue-build time); a single source can also fan out to several skills (`indicators_az` feeds both `update-indicators` for the municipality rate and `update-regional` for the oblast long-term-unemployment series) — queue each, then dedupe:
@@ -101,6 +120,9 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `isun_eu_funds` | `update-funds` |
 | `egov_budget_execution` | `update-budget` |
 | `ministry_execution_reports` | `update-budget` |
+| `iisda_doklad` | `update-budget` |
+| `customs_revenue` | `update-budget` (revenue-breakdown sub-step — re-runs `scripts/budget/run_customs_revenue.ts`) |
+| `nap_annual` | `update-budget` (revenue-breakdown sub-step — re-runs `scripts/budget/run_nap_annual.ts`) |
 | `smetna_palata` | `update-financing` |
 | `financing_reports` | `update-financing` |
 | `eurostat` | `update-macro` |

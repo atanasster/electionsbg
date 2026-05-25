@@ -1,0 +1,399 @@
+{
+  "adminId": "admin-ministerstvoto-na-zdraveopazvaneto",
+  "avgAnnualCostPerFte": {
+    "amount": 42459,
+    "amountEur": 21709,
+    "currency": "BGN"
+  },
+  "fiscalYear": 2024,
+  "nameBg": "Министерството на здравеопазването",
+  "nameEn": "Ministry of Health",
+  "programmes": [
+    {
+      "avgAnnualCostPerFte": {
+        "amount": 37384,
+        "amountEur": 19114,
+        "currency": "BGN"
+      },
+      "code": "1600.01.01",
+      "headcount": {
+        "amended": 1194,
+        "executed": 1073,
+        "law": 1208
+      },
+      "nameBg": "Държавен здравен контрол",
+      "personnel": {
+        "amended": {
+          "amount": 40085410,
+          "amountEur": 20495345,
+          "currency": "BGN"
+        },
+        "executed": {
+          "amount": 40112793,
+          "amountEur": 20509345,
+          "currency": "BGN"
+        },
+        "law": {
+          "amount": 37187900,
+          "amountEur": 19013871,
+          "currency": "BGN"
+        }
+      }
+    },
+    {
+      "avgAnnualCostPerFte": {
+        "amount": 49242,
+        "amountEur": 25177,
+        "currency": "BGN"
+      },
+      "code": "1600.01.02",
+      "headcount": {
+        "amended": 192,
+        "executed": 170,
+        "law": 192
+      },
+      "nameBg": "Промоция и превенция на незаразните болести",
+      "personnel": {
+        "amended": {
+          "amount": 8159204,
+          "amountEur": 4171735,
+          "currency": "BGN"
+        },
+        "executed": {
+          "amount": 8371057,
+          "amountEur": 4280053,
+          "currency": "BGN"
+        },
+        "law": {
+          "amount": 6643000,
+          "amountEur": 3396512,
+          "currency": "BGN"
+        }
+      }
+    },
+    {
+      "avgAnnualCostPerFte": {
+        "amount": 40073,
+        "amountEur": 20489,
+        "currency": "BGN"
+      },
+      "code": "1600.01.03",
+      "headcount": {
+        "amended": 861,
+        "executed": 742,
+        "law": 861
+      },
+      "nameBg": "Профилактика и надзор на заразните болести",
+      "personnel": {
+        "amended": {
+          "amount": 29577839,
+          "amountEur": 15122909,
+          "currency": "BGN"
+        },
+        "executed": {
+          "amount": 29733814,
+          "amountEur": 15202658,
+          "currency": "BGN"
+        },
+        "law": {
+          "amount": 29005200,
+          "amountEur": 14830123,
+          "currency": "BGN"
+        }
+      }
+    },
+    {
+      "avgAnnualCostPerFte": {
+        "amount": 38893,
+        "amountEur": 19886,
+        "currency": "BGN"
+      },
+      "code": "1600.01.04",
+      "headcount": {
+        "amended": 19,
+        "executed": 19,
+        "law": 19
+      },
+      "nameBg": "Намаляване на търсенето на наркотични вещества",
+      "personnel": {
+        "amended": null,
+        "executed": {
+          "amount": 738966,
+          "amountEur": 377827,
+          "currency": "BGN"
+        },
+        "law": null
+      }
+    },
+    {
+      "avgAnnualCostPerFte": {
+        "amount": 43142,
+        "amountEur": 22058,
+        "currency": "BGN"
+      },
+      "code": "1600.02.01",
+      "headcount": {
+        "amended": 502,
+        "executed": 463,
+        "law": 502
+      },
+      "nameBg": "Контрол на медицинските дейности, здравна информация и електронно здравеопазване",
+      "personnel": {
+        "amended": {
+          "amount": 19930660,
+          "amountEur": 10190385,
+          "currency": "BGN"
+        },
+        "executed": {
+          "amount": 19974976,
+          "amountEur": 10213043,
+          "currency": "BGN"
+        },
+        "law": {
+          "amount": 16254000,
+          "amountEur": 8310538,
+          "currency": "BGN"
+        }
+      }
+    },
+    {
+      "avgAnnualCostPerFte": {
+        "amount": 42018,
+        "amountEur": 21484,
+        "currency": "BGN"
+      },
+      "code": "1600.02.02",
+      "headcount": {
+        "amended": 130,
+        "executed": 121,
+        "law": 132
+      },
+      "nameBg": "Осигуряване на медицинска помощ на специфични групи от населението",
+      "personnel": {
+        "amended": {
+          "amount": 4956360,
+          "amountEur": 2534147,
+          "currency": "BGN"
+        },
+        "executed": {
+          "amount": 5084217,
+          "amountEur": 2599519,
+          "currency": "BGN"
+        },
+        "law": {
+          "amount": 4786500,
+          "amountEur": 2447299,
+          "currency": "BGN"
+        }
+      }
+    },
+    {
+      "avgAnnualCostPerFte": {
+        "amount": 47428,
+        "amountEur": 24250,
+        "currency": "BGN"
+      },
+      "code": "1600.02.03",
+      "headcount": {
+        "amended": 7244,
+        "executed": 6573,
+        "law": 7244
+      },
+      "nameBg": "Спешна медицинска помощ",
+      "personnel": {
+        "amended": {
+          "amount": 311328705,
+          "amountEur": 159179839,
+          "currency": "BGN"
+        },
+        "executed": {
+          "amount": 311743680,
+          "amountEur": 159392013,
+          "currency": "BGN"
+        },
+        "law": {
+          "amount": 295226500,
+          "amountEur": 150946913,
+          "currency": "BGN"
+        }
+      }
+    },
+    {
+      "avgAnnualCostPerFte": {
+        "amount": 31146,
+        "amountEur": 15924,
+        "currency": "BGN"
+      },
+      "code": "1600.02.04",
+      "headcount": {
+        "amended": 1445,
+        "executed": 1384,
+        "law": 1442
+      },
+      "nameBg": "Психиатрична помощ",
+      "personnel": {
+        "amended": {
+          "amount": 43167913,
+          "amountEur": 22071403,
+          "currency": "BGN"
+        },
+        "executed": {
+          "amount": 43105410,
+          "amountEur": 22039446,
+          "currency": "BGN"
+        },
+        "law": {
+          "amount": 39956200,
+          "amountEur": 20429281,
+          "currency": "BGN"
+        }
+      }
+    },
+    {
+      "avgAnnualCostPerFte": {
+        "amount": 35582,
+        "amountEur": 18193,
+        "currency": "BGN"
+      },
+      "code": "1600.02.05",
+      "headcount": {
+        "amended": 569,
+        "executed": 480,
+        "law": 511
+      },
+      "nameBg": "Осигуряване на кръв и кръвни продукти",
+      "personnel": {
+        "amended": {
+          "amount": 17132899,
+          "amountEur": 8759912,
+          "currency": "BGN"
+        },
+        "executed": {
+          "amount": 17079344,
+          "amountEur": 8732530,
+          "currency": "BGN"
+        },
+        "law": {
+          "amount": 14639000,
+          "amountEur": 7484802,
+          "currency": "BGN"
+        }
+      }
+    },
+    {
+      "avgAnnualCostPerFte": {
+        "amount": 28764,
+        "amountEur": 14707,
+        "currency": "BGN"
+      },
+      "code": "1600.02.06",
+      "headcount": {
+        "amended": 1411,
+        "executed": 1141,
+        "law": 1398
+      },
+      "nameBg": "Медико - социални грижи за деца в неравностойно положение, майчино и детско здравеопазване",
+      "personnel": {
+        "amended": {
+          "amount": 32997040,
+          "amountEur": 16871119,
+          "currency": "BGN"
+        },
+        "executed": {
+          "amount": 32820210,
+          "amountEur": 16780707,
+          "currency": "BGN"
+        },
+        "law": {
+          "amount": 36983400,
+          "amountEur": 18909312,
+          "currency": "BGN"
+        }
+      }
+    },
+    {
+      "avgAnnualCostPerFte": {
+        "amount": 51745,
+        "amountEur": 26457,
+        "currency": "BGN"
+      },
+      "code": "1600.03.01",
+      "headcount": {
+        "amended": 254,
+        "executed": 224,
+        "law": 254
+      },
+      "nameBg": "Достъпни и качествени лекарствени продукти и медицински изделия",
+      "personnel": {
+        "amended": {
+          "amount": 11741754,
+          "amountEur": 6003463,
+          "currency": "BGN"
+        },
+        "executed": {
+          "amount": 11590990,
+          "amountEur": 5926379,
+          "currency": "BGN"
+        },
+        "law": {
+          "amount": 10981700,
+          "amountEur": 5614854,
+          "currency": "BGN"
+        }
+      }
+    },
+    {
+      "avgAnnualCostPerFte": {
+        "amount": 55106,
+        "amountEur": 28175,
+        "currency": "BGN"
+      },
+      "code": "1600.04.00",
+      "headcount": {
+        "amended": 514,
+        "executed": 452,
+        "law": 514
+      },
+      "nameBg": "Администрация",
+      "personnel": {
+        "amended": {
+          "amount": 25076518,
+          "amountEur": 12821420,
+          "currency": "BGN"
+        },
+        "executed": {
+          "amount": 24907788,
+          "amountEur": 12735150,
+          "currency": "BGN"
+        },
+        "law": {
+          "amount": 22329400,
+          "amountEur": 11416841,
+          "currency": "BGN"
+        }
+      }
+    }
+  ],
+  "totalHeadcount": {
+    "amended": 14335,
+    "executed": 12842,
+    "law": 14277
+  },
+  "totalPersonnel": {
+    "amended": {
+      "amount": 544154302,
+      "amountEur": 278221677,
+      "currency": "BGN"
+    },
+    "executed": {
+      "amount": 545263245,
+      "amountEur": 278788670,
+      "currency": "BGN"
+    },
+    "law": {
+      "amount": 513992800,
+      "amountEur": 262800346,
+      "currency": "BGN"
+    }
+  }
+}

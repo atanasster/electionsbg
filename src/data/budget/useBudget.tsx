@@ -8,9 +8,13 @@ import { dataUrl } from "@/data/dataUrl";
 import type {
   BudgetIndex,
   BudgetDocumentsFile,
+  CustomsBreakdownFile,
   KfpFile,
   MinistryProcurementFile,
   MinistryRollup,
+  PersonnelFile,
+  PitBreakdownFile,
+  VatBreakdownFile,
 } from "./types";
 
 const fetchJson = async <T,>(path: string): Promise<T | null> => {
@@ -62,5 +66,53 @@ export const useBudgetMinistryRollup = (nodeId: string | undefined) =>
     queryFn: () =>
       fetchJson<MinistryRollup>(`/budget/ministries/${nodeId}.json`),
     enabled: !!nodeId,
+    staleTime: Infinity,
+  });
+
+// Personnel — per-programme headcount × Персонал spend (from each ministry's
+// program-budget execution report) plus the annual Доклад за състоянието на
+// администрацията aggregates. Single committed file (~80 KB across 9 years).
+export const usePersonnel = () =>
+  useQuery({
+    queryKey: ["budget", "personnel"] as const,
+    queryFn: () => fetchJson<PersonnelFile>("/budget/personnel.json"),
+    staleTime: Infinity,
+  });
+
+// Revenue-side breakdowns — itemise each Sankey LEFT-side wedge into its
+// sub-flows. Coverage is per-fiscal-year-file; pickers fall back to the most
+// recent available year when the selected one isn't ingested yet (mirrors
+// `usePersonnel`'s pattern).
+
+export const useCustomsBreakdown = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "customs", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<CustomsBreakdownFile>(
+        `/budget/revenue_breakdown/customs/${fiscalYear}.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+export const useVatBreakdown = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "vat", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<VatBreakdownFile>(
+        `/budget/revenue_breakdown/vat/${fiscalYear}.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+export const usePitBreakdown = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "pit", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<PitBreakdownFile>(
+        `/budget/revenue_breakdown/pit/${fiscalYear}.json`,
+      ),
+    enabled: !!fiscalYear,
     staleTime: Infinity,
   });

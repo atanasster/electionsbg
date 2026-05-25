@@ -152,6 +152,20 @@ export type ExecutionReportSource =
       format: "manual-pdf";
       url: string; // informational only — for browser download
       trailingValueCount?: number; // present → borderless parser
+    }
+  | {
+      fiscalYear: number;
+      adminId: string;
+      unitNameBg: string;
+      format: "docx";
+      url: string;
+    }
+  | {
+      fiscalYear: number;
+      adminId: string;
+      unitNameBg: string;
+      format: "docx-in-zip";
+      url: string;
     };
 
 export const EXECUTION_REPORTS: ExecutionReportSource[] = [
@@ -160,6 +174,13 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
   // (Tourism), have URLs that aren't in their current site listings (MOD's
   // doc archive only retains the last ~2 years), or use hash-based filenames
   // that aren't year-substitutable (МОСВ, МИР).
+  {
+    fiscalYear: 2022,
+    adminId: "admin-ministerstvoto-na-ikonomikata-i-industriyata",
+    unitNameBg: "Министерството на икономиката и индустрията",
+    format: "pdf",
+    url: "https://www.mi.government.bg/files/useruploads/files/budget/2000_Otchet programi 31.12.2022 MII.pdf",
+  },
   {
     fiscalYear: 2023,
     adminId: "admin-ministerstvoto-na-ikonomikata-i-industriyata",
@@ -182,6 +203,13 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
     url: "https://www.mlsp.government.bg/uploads/11/finansi-1/na-mtsp-za-2023-g.zip",
     entryName: "31.12.2023/1500-Otchet programi-31.12.2023.xlsx",
   },
+  {
+    fiscalYear: 2023,
+    adminId: "admin-ministerstvoto-na-zemedelieto",
+    unitNameBg: "Министерството на земеделието",
+    format: "docx",
+    url: "https://www.mzh.government.bg/media/filer_public/2024/03/13/2200_otchet_31-12-2023_.docx",
+  },
   // FY2024
   {
     fiscalYear: 2024,
@@ -189,6 +217,13 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
     unitNameBg: "Министерството на икономиката и индустрията",
     format: "pdf",
     url: "https://www.mi.government.bg/files/useruploads/files/budget/2000_Otchet programi 31.12.2024 MII.pdf",
+  },
+  {
+    fiscalYear: 2024,
+    adminId: "admin-ministerstvoto-na-zemedelieto",
+    unitNameBg: "Министерството на земеделието",
+    format: "docx-in-zip",
+    url: "https://www.mzh.government.bg/media/filer_public/2025/03/25/2200_otchet_31-12-2024.zip",
   },
   {
     fiscalYear: 2024,
@@ -449,6 +484,66 @@ export const fetchExecutionPdf = async (
   }
   throw new Error(
     `execution report ${adminId} ${fiscalYear}: ${
+      lastErr instanceof Error ? lastErr.message : String(lastErr)
+    }`,
+  );
+};
+
+// Fetch a ministry's program-budget execution report DOCX. Cached raw under
+// raw_data/budget/exec-<adminId>-<fy>.docx. If the URL points at a ZIP that
+// wraps a single .docx (MZH 2024 layout), the inner .docx bytes are extracted
+// and cached; if the URL serves a raw .docx directly (MZH 2023 layout), the
+// bytes are cached as-is. Either way the cache holds raw DOCX bytes.
+export const fetchExecutionDocx = async (
+  adminId: string,
+  fiscalYear: number,
+  url: string,
+  opts: { refresh?: boolean; viaZip?: boolean } = {},
+): Promise<Uint8Array> => {
+  fs.mkdirSync(CACHE_DIR, { recursive: true });
+  const cache = path.join(CACHE_DIR, `exec-${adminId}-${fiscalYear}.docx`);
+  if (!opts.refresh && fs.existsSync(cache)) {
+    return new Uint8Array(fs.readFileSync(cache));
+  }
+  let lastErr: unknown;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = await fetch(encodeURI(url), {
+        headers: {
+          "User-Agent": UA,
+          Accept:
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/zip,*/*",
+        },
+        redirect: "follow",
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+      const raw = new Uint8Array(await res.arrayBuffer());
+      if (raw.length < 1000 || raw[0] !== 0x50 || raw[1] !== 0x4b) {
+        throw new Error(
+          `response is not a ZIP/DOCX (${raw.length} bytes, starts ` +
+            `"${Buffer.from(raw.slice(0, 8)).toString("latin1")}")`,
+        );
+      }
+      // If wrapped in a ZIP container, unwrap to the inner DOCX.
+      const { extractDocxBytesFromZip } = await import("./fetch_sources_docx");
+      const docx = opts.viaZip
+        ? await extractDocxBytesFromZip(raw)
+        : await extractDocxBytesFromZip(raw); // same call — helper auto-detects
+      try {
+        fs.writeFileSync(cache, docx);
+      } catch (e) {
+        console.warn(
+          `  cache write failed for exec-${adminId}-${fiscalYear}.docx: ${(e as Error).message}`,
+        );
+      }
+      return docx;
+    } catch (e) {
+      lastErr = e;
+      await new Promise((r) => setTimeout(r, 600 * (attempt + 1)));
+    }
+  }
+  throw new Error(
+    `execution report ${adminId} ${fiscalYear} (docx): ${
       lastErr instanceof Error ? lastErr.message : String(lastErr)
     }`,
   );

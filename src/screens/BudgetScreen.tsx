@@ -38,6 +38,7 @@ import { BudgetSamePointTile } from "./components/budget/BudgetSamePointTile";
 import { BudgetFlowTile } from "./components/budget/BudgetFlowTile";
 import { BudgetJourneyTile } from "./components/budget/BudgetJourneyTile";
 import { BudgetMinistriesTile } from "./components/budget/BudgetMinistriesTile";
+import { BudgetPersonnelTile } from "./components/budget/BudgetPersonnelTile";
 import { BudgetRevenueCompositionTile } from "./components/budget/BudgetRevenueCompositionTile";
 import { BudgetExpenditureCompositionTile } from "./components/budget/BudgetExpenditureCompositionTile";
 import { BudgetFunctionalTile } from "./components/budget/BudgetFunctionalTile";
@@ -447,6 +448,7 @@ export const BudgetScreen: FC = () => {
           </div>
           <BudgetFunctionalTile fiscalYear={term.selectedFy} />
           <BudgetTopDeviationsTile fiscalYear={term.selectedFy} />
+          <BudgetPersonnelTile fiscalYear={term.selectedFy} />
           <BudgetMinistriesTile fiscalYear={term.selectedFy} />
         </DashboardSection>
 

@@ -26,6 +26,7 @@ import {
   fetchLawHtml,
   fetchExecutionPdf,
   fetchExecutionZipXlsx,
+  fetchExecutionDocx,
   readManualExecutionPdf,
   ManualFetchMissing,
   LAW_DV_MATERIALS,
@@ -46,6 +47,12 @@ import { parseExecutionPdf } from "./execution_pdf";
 import { parseBorderlessExecutionPdf } from "./execution_borderless_pdf";
 import { parseExecutionXlsx } from "./execution_xlsx";
 import { buildExecutionFacts } from "./execution_facts";
+import {
+  buildPersonnel,
+  PERSONNEL_FILE,
+  type PersonnelExecutionSource,
+} from "./personnel_facts";
+import { DOKLAD_FILE_IDS } from "./doklad";
 import type { BudgetFact } from "./types";
 import { crossReferenceProcurement } from "./cross_reference";
 import { buildMinistryRollups } from "./ministries";
@@ -120,6 +127,22 @@ const EXECUTION_XLSX_CANARY_FIXTURE = path.resolve(
   __dirname,
   "../../tests/fixtures/budget/execution-xlsx-canary.json",
 );
+// Personnel canaries — one per parser path. headcount-pdf (MZ 2024) and
+// headcount-xlsx (МТСП 2024) pin the per-programme headcount parser; doklad
+// (2024) pins the annual-report aggregate parser.
+const HEADCOUNT_PDF_CANARY_FIXTURE = path.resolve(
+  __dirname,
+  "../../tests/fixtures/budget/headcount-pdf-canary.json",
+);
+const HEADCOUNT_XLSX_CANARY_FIXTURE = path.resolve(
+  __dirname,
+  "../../tests/fixtures/budget/headcount-xlsx-canary.json",
+);
+const DOKLAD_CANARY_FIXTURE = path.resolve(
+  __dirname,
+  "../../tests/fixtures/budget/doklad-canary.json",
+);
+const PERSONNEL_CANARY_YEAR = 2024;
 
 // Pinned resource for the canary — the 2025-12 (full-year) snapshot. Re-parsed
 // every run; byte drift in the parser or currency conversion throws.
@@ -374,43 +397,66 @@ const main = async (args: {
   > | null = null;
   let canaryXlsxUnit: Awaited<ReturnType<typeof parseExecutionPdf>> | null =
     null;
+  // Capture each report's bytes so the headcount parser can re-scan the same
+  // source without a second HTTP fetch.
+  const personnelSources: PersonnelExecutionSource[] = [];
   for (const r of EXECUTION_REPORTS) {
     // dispatch by source format — bordered PDF, borderless PDF, XLSX-in-ZIP,
     // or manual-fetch PDF (operator-saved in raw_data/budget/)
     const fetchOpts = { refresh: args.refreshCache };
-    let unit: Awaited<ReturnType<typeof parseExecutionPdf>>;
+    let unit: Awaited<ReturnType<typeof parseExecutionPdf>> | null = null;
+    let sourceBytes: Uint8Array | null = null;
     try {
       if (r.format === "pdf") {
-        unit = await parseExecutionPdf(
-          await fetchExecutionPdf(r.adminId, r.fiscalYear, r.url, fetchOpts),
+        sourceBytes = await fetchExecutionPdf(
+          r.adminId,
           r.fiscalYear,
+          r.url,
+          fetchOpts,
         );
+        unit = await parseExecutionPdf(sourceBytes, r.fiscalYear);
       } else if (r.format === "pdf-borderless") {
-        unit = await parseBorderlessExecutionPdf(
-          await fetchExecutionPdf(r.adminId, r.fiscalYear, r.url, fetchOpts),
+        sourceBytes = await fetchExecutionPdf(
+          r.adminId,
           r.fiscalYear,
-          { trailingValueCount: r.trailingValueCount },
+          r.url,
+          fetchOpts,
         );
+        unit = await parseBorderlessExecutionPdf(sourceBytes, r.fiscalYear, {
+          trailingValueCount: r.trailingValueCount,
+        });
       } else if (r.format === "xlsx-in-zip") {
-        unit = await parseExecutionXlsx(
-          await fetchExecutionZipXlsx(
-            r.adminId,
-            r.fiscalYear,
-            r.url,
-            r.entryName,
-            fetchOpts,
-          ),
+        sourceBytes = await fetchExecutionZipXlsx(
+          r.adminId,
           r.fiscalYear,
+          r.url,
+          r.entryName,
+          fetchOpts,
         );
+        unit = await parseExecutionXlsx(sourceBytes, r.fiscalYear);
+      } else if (r.format === "docx" || r.format === "docx-in-zip") {
+        // DOCX-format reports — used by ministries that publish in MS Word
+        // (МЗХ). Financial-grain parsing is not yet implemented for DOCX, so
+        // we fetch the bytes purely for the headcount/Персонал extractor
+        // downstream. The admin/program facts for these ministries are
+        // populated only from the law side (planned), not amended/executed.
+        sourceBytes = await fetchExecutionDocx(
+          r.adminId,
+          r.fiscalYear,
+          r.url,
+          fetchOpts,
+        );
+        // No financial unit — skip the reconciliation steps but still
+        // capture bytes for the personnel orchestrator.
       } else {
         // manual-pdf — read from cache; missing file is non-fatal
-        const bytes = readManualExecutionPdf(r.adminId, r.fiscalYear, r.url);
+        sourceBytes = readManualExecutionPdf(r.adminId, r.fiscalYear, r.url);
         unit =
           r.trailingValueCount != null
-            ? await parseBorderlessExecutionPdf(bytes, r.fiscalYear, {
+            ? await parseBorderlessExecutionPdf(sourceBytes, r.fiscalYear, {
                 trailingValueCount: r.trailingValueCount,
               })
-            : await parseExecutionPdf(bytes, r.fiscalYear);
+            : await parseExecutionPdf(sourceBytes, r.fiscalYear);
       }
     } catch (e) {
       if (e instanceof ManualFetchMissing) {
@@ -420,6 +466,26 @@ const main = async (args: {
         continue;
       }
       throw e;
+    }
+    if (sourceBytes) {
+      personnelSources.push({
+        adminId: r.adminId,
+        fiscalYear: r.fiscalYear,
+        format: r.format,
+        bytes: sourceBytes,
+        // МО's borderless PDF labels headcount rows but omits the numbers
+        // (defence — classified). Suppress the no-headcount warning.
+        expectsHeadcount: r.adminId !== "admin-ministerstvoto-na-otbranata",
+      });
+    }
+    if (!unit) {
+      // DOCX-format reports contribute headcount only — no financial facts
+      // until a DOCX financial parser is added. Log and continue.
+      console.log(
+        `  • ${r.adminId} ${r.fiscalYear} [${r.format}]: headcount-only ` +
+          `(no financial-grain parser for ${r.format} yet)`,
+      );
+      continue;
     }
     if (
       r.adminId === EXECUTION_CANARY_ADMIN_ID &&
@@ -472,6 +538,76 @@ const main = async (args: {
       `→ canary on execution report [xlsx-in-zip] ${EXECUTION_XLSX_CANARY_ADMIN_ID} ${EXECUTION_CANARY_YEAR}`,
     );
     runCanary(EXECUTION_XLSX_CANARY_FIXTURE, canaryXlsxUnit);
+  }
+
+  // 3b-ii. Personnel — per-programme headcount + Персонал spend (re-parses
+  // the same execution-report bytes the loop above already fetched) joined
+  // with the annual Доклад за състоянието на администрацията aggregates
+  // (every curated year — gives a national-headcount timeline back to 2017).
+  console.log("→ building personnel facts");
+  const adminNameByIdForPersonnel = new Map(
+    adminRegistry.nodes.map((n) => [
+      n.id,
+      { nameBg: n.nameBg, nameEn: n.nameEn },
+    ]),
+  );
+  const personnel = await buildPersonnel({
+    sources: personnelSources,
+    dokladYears: Object.keys(DOKLAD_FILE_IDS).map(Number),
+    lookupName: (adminId) =>
+      adminNameByIdForPersonnel.get(adminId) ?? {
+        nameBg: adminId,
+        nameEn: adminId,
+      },
+  });
+  for (const w of personnel.warnings) console.warn(`  ⚠ ${w}`);
+  {
+    const totalMinistries = Object.values(personnel.file.byMinistry).reduce(
+      (n, arr) => n + arr.length,
+      0,
+    );
+    const totalProgrammes = Object.values(personnel.file.byMinistry).reduce(
+      (n, arr) => n + arr.reduce((m, s) => m + s.programmes.length, 0),
+      0,
+    );
+    const nationalYears = Object.keys(personnel.file.national).join(", ");
+    console.log(
+      `  personnel: ${totalProgrammes} programme(s) across ` +
+        `${totalMinistries} ministry-year(s)` +
+        (nationalYears
+          ? ` + national Доклад for ${nationalYears}`
+          : " (no Доклад)"),
+    );
+  }
+  // Pin one (ministry, year) per personnel parser path. Byte drift in any of
+  // the three (PDF headcount, XLSX headcount, Доклад aggregates) surfaces here
+  // before downstream rollups can mask it.
+  {
+    const yearKey = String(PERSONNEL_CANARY_YEAR);
+    const summaries = personnel.file.byMinistry[yearKey] ?? [];
+    const pdfCanary = summaries.find(
+      (s) => s.adminId === EXECUTION_CANARY_ADMIN_ID,
+    );
+    if (pdfCanary) {
+      console.log(
+        `→ canary on headcount [pdf] ${EXECUTION_CANARY_ADMIN_ID} ${PERSONNEL_CANARY_YEAR}`,
+      );
+      runCanary(HEADCOUNT_PDF_CANARY_FIXTURE, pdfCanary);
+    }
+    const xlsxCanary = summaries.find(
+      (s) => s.adminId === EXECUTION_XLSX_CANARY_ADMIN_ID,
+    );
+    if (xlsxCanary) {
+      console.log(
+        `→ canary on headcount [xlsx-in-zip] ${EXECUTION_XLSX_CANARY_ADMIN_ID} ${PERSONNEL_CANARY_YEAR}`,
+      );
+      runCanary(HEADCOUNT_XLSX_CANARY_FIXTURE, xlsxCanary);
+    }
+    const doklad = personnel.file.national[yearKey];
+    if (doklad) {
+      console.log(`→ canary on Доклад ${PERSONNEL_CANARY_YEAR}`);
+      runCanary(DOKLAD_CANARY_FIXTURE, doklad);
+    }
   }
 
   const adminReconByYear = new Map(
@@ -708,6 +844,10 @@ const main = async (args: {
   // it stays a one-shot derivation (no need to thread the rollups through).
   const adminFlow = buildAdminFlow();
   if (writeAdminFlow(adminFlow)) touched++;
+
+  // Personnel — per-programme headcount × Персонал spend + Доклад aggregates.
+  // Single committed file; the frontend reads it via React Query.
+  if (writeIfChanged(PERSONNEL_FILE, canonicalJson(personnel.file))) touched++;
 
   // 4b. Prune orphan files from the regenerable shard dirs (a renamed node or
   // a parser change can leave stale files behind — e.g. the old facts/law.json).

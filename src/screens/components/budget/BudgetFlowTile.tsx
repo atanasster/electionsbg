@@ -16,6 +16,15 @@ import type { KfpSnapshot } from "@/data/budget/types";
 import { snapshotToFlowModel } from "./budgetFlowModel";
 import { BudgetFlowGraphic } from "./BudgetFlowGraphic";
 import { BudgetFlowMobile } from "./BudgetFlowMobile";
+import {
+  BudgetFlowPersonnelDrilldown,
+  BudgetFlowPersonnelTrigger,
+} from "./BudgetFlowPersonnelDrilldown";
+import {
+  BudgetFlowRevenueDrilldown,
+  BudgetFlowRevenueTrigger,
+  type RevenueDrillCategory,
+} from "./BudgetFlowRevenueDrilldown";
 
 // Below this width labels overlap; the SVG falls back to horizontal scroll
 // inside the card, mirroring the procurement Sankey's mobile policy. The
@@ -91,6 +100,49 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const isMd = useMediaQueryMatch("md");
   const [size, setSize] = useState({ width: 0, height: 0 });
+  const [personnelOpen, setPersonnelOpen] = useState(false);
+  const [revenueOpen, setRevenueOpen] = useState<RevenueDrillCategory | null>(
+    null,
+  );
+  // Label matchers — Sankey labels vary by language. All matched case-
+  // insensitively so a click on either form opens the drill-down. Right side
+  // = expenditure (Персонал); left side = revenue (4 categories).
+  const isPersonnelLabel = (label: string): boolean =>
+    /(^|\s)персонал(\s|$)/i.test(label) || /(^|\s)personnel(\s|$)/i.test(label);
+  const revenueCategoryFromLabel = (
+    label: string,
+  ): RevenueDrillCategory | null => {
+    if (/добавената\s+стойност|value\s+added/i.test(label)) return "vat";
+    if (/^акцизи?$|excise/i.test(label.trim())) return "excise";
+    if (/мита|customs/i.test(label)) return "customs";
+    if (/доход(и|ите)\s+на\s+физи|personal\s+income/i.test(label)) return "pit";
+    return null;
+  };
+  const onSankeyNodeClick = useCallback(
+    (node: { id: string; label: string; side: "left" | "right" }) => {
+      if (node.side === "right" && isPersonnelLabel(node.label)) {
+        setPersonnelOpen(true);
+        return;
+      }
+      if (node.side === "left") {
+        const cat = revenueCategoryFromLabel(node.label);
+        if (cat) setRevenueOpen(cat);
+      }
+    },
+    [],
+  );
+  // Predicate version of the same decision — drives the pointer cursor so
+  // users only see "this is clickable" on nodes that actually open a drill-
+  // down. Otherwise every node looked clickable but only 5 did anything.
+  const isNodeClickable = useCallback(
+    (node: { id: string; label: string; side: "left" | "right" }) => {
+      if (node.side === "right") return isPersonnelLabel(node.label);
+      if (node.side === "left")
+        return revenueCategoryFromLabel(node.label) != null;
+      return false;
+    },
+    [],
+  );
   const containerRef = useCallback((el: HTMLDivElement | null) => {
     if (!el) return;
     setSize({ width: el.clientWidth, height: el.clientHeight });
@@ -140,7 +192,17 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-3">
         <div className="flex items-center justify-between gap-3 flex-wrap">
-          <Legend />
+          <div className="flex items-center gap-3 flex-wrap">
+            <Legend />
+            <BudgetFlowRevenueTrigger
+              open={revenueOpen}
+              onSelect={setRevenueOpen}
+            />
+            <BudgetFlowPersonnelTrigger
+              open={personnelOpen}
+              onClick={() => setPersonnelOpen((v) => !v)}
+            />
+          </div>
           <div className="text-xs text-muted-foreground tabular-nums">
             <strong className="text-foreground tabular-nums">
               {formatEur(revenueEur)}
@@ -185,6 +247,8 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
                       model={model}
                       width={graphicWidth}
                       height={graphicHeight}
+                      onNodeClick={onSankeyNodeClick}
+                      isNodeClickable={isNodeClickable}
                     />
                   ) : null}
                 </div>
@@ -193,6 +257,21 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
           })()
         ) : (
           <BudgetFlowMobile model={model} />
+        )}
+        {revenueOpen && (
+          <BudgetFlowRevenueDrilldown
+            fiscalYear={snapshot.fiscalYear}
+            snapshot={snapshot}
+            category={revenueOpen}
+            onClose={() => setRevenueOpen(null)}
+          />
+        )}
+        {personnelOpen && (
+          <BudgetFlowPersonnelDrilldown
+            fiscalYear={snapshot.fiscalYear}
+            snapshot={snapshot}
+            onClose={() => setPersonnelOpen(false)}
+          />
         )}
         <p className="text-[11px] text-muted-foreground/80">
           {t("budget_flow_source_hint") ||

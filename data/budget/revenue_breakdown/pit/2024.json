@@ -1,0 +1,322 @@
+{
+  "generatedAt": "2026-05-25T17:01:23.589Z",
+  "country": "BG",
+  "fiscalYear": 2024,
+  "asOf": "2024-12-31",
+  "currency": "BGN",
+  "source": {
+    "publisher": "Национална агенция за приходите (НАП)",
+    "document": "Годишен отчет за дейността на НАП 2024",
+    "url": "https://nra.bg/wps/wcm/connect/nra.bg25863/35154c13-e039-4fa4-9702-8cebf8adad22/%D0%93%D0%BE%D0%B4%D0%B8%D1%88%D0%B5%D0%BD_%D0%BE%D1%82%D1%87%D0%B5%D1%82_%D0%9D%D0%90%D0%9F_2024+-%D0%BE%D0%B4%D0%BE%D0%B1%D1%80%D0%B5%D0%BD+%D1%81+%D0%A0%D0%9C%D0%A4-3-07032025%D0%B3..pdf?MOD=AJPERES"
+  },
+  "lines": [
+    {
+      "id": "pit_employment_net",
+      "labelBg": "ДДФЛ от трудови правоотношения (нетно)",
+      "labelEn": "Personal income tax — employment (net)",
+      "amount": 5143300000,
+      "amountEur": 2629727533,
+      "parent": null
+    },
+    {
+      "id": "emp_declaration",
+      "labelBg": "Плащане по декларация",
+      "labelEn": "Payment by declaration",
+      "amount": 5060400000,
+      "amountEur": 2587341436,
+      "parent": "pit_employment_net",
+      "share": 0.9838819434993098
+    },
+    {
+      "id": "emp_revision_act",
+      "labelBg": "Плащане по РА",
+      "labelEn": "Payment by revision act",
+      "amount": 2400000,
+      "amountEur": 1227101,
+      "parent": "pit_employment_net",
+      "share": 0.00046662648494157446
+    },
+    {
+      "id": "emp_interest",
+      "labelBg": "Плащане на лихви за ДДФЛ",
+      "labelEn": "Interest payments",
+      "amount": 11000000,
+      "amountEur": 5624211,
+      "parent": "pit_employment_net",
+      "share": 0.002138704722648883
+    },
+    {
+      "id": "emp_past_years",
+      "labelBg": "Плащане на ДДФЛ за минали години",
+      "labelEn": "Past-year arrears",
+      "amount": 69900000,
+      "amountEur": 35739302,
+      "parent": "pit_employment_net",
+      "share": 0.013590496373923356
+    },
+    {
+      "id": "emp_refunded",
+      "labelBg": "Възстановен и прихванат данък",
+      "labelEn": "Refunded & offset (negative)",
+      "amount": -400000,
+      "amountEur": -204517,
+      "parent": "pit_employment_net",
+      "share": -0.00007777108082359575
+    },
+    {
+      "id": "pit_nonemployment_net",
+      "labelBg": "ДДФЛ от извънтрудови правоотношения (нетно)",
+      "labelEn": "Personal income tax — non-employment (net)",
+      "amount": 463300000,
+      "amountEur": 236881529,
+      "parent": null
+    },
+    {
+      "id": "non_declaration",
+      "labelBg": "Плащане по декларация",
+      "labelEn": "Payment by declaration",
+      "amount": 317400000,
+      "amountEur": 162284043,
+      "parent": "pit_nonemployment_net",
+      "share": 0.6850852579322253
+    },
+    {
+      "id": "non_advance",
+      "labelBg": "Плащане на авансови вноски",
+      "labelEn": "Advance payments",
+      "amount": 114800000,
+      "amountEur": 58696308,
+      "parent": "pit_nonemployment_net",
+      "share": 0.24778761061946902
+    },
+    {
+      "id": "non_revision_act",
+      "labelBg": "Плащане по РА",
+      "labelEn": "Payment by revision act",
+      "amount": 8000000,
+      "amountEur": 4090335,
+      "parent": "pit_nonemployment_net",
+      "share": 0.017267429311461257
+    },
+    {
+      "id": "non_interest",
+      "labelBg": "Плащане на лихви за ДДФЛ",
+      "labelEn": "Interest payments",
+      "amount": 11500000,
+      "amountEur": 5879857,
+      "parent": "pit_nonemployment_net",
+      "share": 0.024821929635225556
+    },
+    {
+      "id": "non_past_years",
+      "labelBg": "Плащане за минали години",
+      "labelEn": "Past-year arrears",
+      "amount": 159900000,
+      "amountEur": 81755572,
+      "parent": "pit_nonemployment_net",
+      "share": 0.34513274336283184
+    },
+    {
+      "id": "non_refunded",
+      "labelBg": "Възстановен и прихванат данък",
+      "labelEn": "Refunded & offset (negative)",
+      "amount": -148300000,
+      "amountEur": -75824586,
+      "parent": "pit_nonemployment_net",
+      "share": -0.320094970861213
+    },
+    {
+      "id": "pit_final_tax",
+      "labelBg": "Окончателен данък и дивиденти",
+      "labelEn": "Final tax (residents/non-residents) & dividends",
+      "amount": 611300000,
+      "amountEur": 312552727,
+      "parent": null
+    }
+  ],
+  "total": 6217900000,
+  "totalEur": 3179161788,
+  "bySector": {
+    "coverage": "Jan-Nov 2024",
+    "total": 5353593225,
+    "totalEur": 2737248751,
+    "sectors": [
+      {
+        "id": "A",
+        "labelBg": "Селско, горско и рибно стопанство",
+        "labelEn": "Agriculture, forestry & fishing",
+        "amount": 103436221,
+        "amountEur": 52886100,
+        "share": 0.01932089657409487
+      },
+      {
+        "id": "B",
+        "labelBg": "Добивна промишленост",
+        "labelEn": "Mining & quarrying",
+        "amount": 51920319,
+        "amountEur": 26546438,
+        "share": 0.009698218900446998
+      },
+      {
+        "id": "C",
+        "labelBg": "Преработваща промишленост",
+        "labelEn": "Manufacturing",
+        "amount": 883049884,
+        "amountEur": 451496236,
+        "share": 0.1649452707531772
+      },
+      {
+        "id": "D",
+        "labelBg": "Производство и разпределение на електрическа и топлинна енергия и на газообразни горива",
+        "labelEn": "Electricity, gas, steam & air conditioning supply",
+        "amount": 116473479,
+        "amountEur": 59551944,
+        "share": 0.021756131649318576
+      },
+      {
+        "id": "E",
+        "labelBg": "Доставяне на води; канализационни услуги, управление на отпадъци и възстановяване",
+        "labelEn": "Water supply, sewerage, waste management",
+        "amount": 60457586,
+        "amountEur": 30911473,
+        "share": 0.011292898705429754
+      },
+      {
+        "id": "F",
+        "labelBg": "Строителство",
+        "labelEn": "Construction",
+        "amount": 289051629,
+        "amountEur": 147789751,
+        "share": 0.05399207912364317
+      },
+      {
+        "id": "G",
+        "labelBg": "Търговия; ремонт на автомобили и мотоциклети",
+        "labelEn": "Wholesale & retail trade",
+        "amount": 815752805,
+        "amountEur": 417087786,
+        "share": 0.1523748201844379
+      },
+      {
+        "id": "H",
+        "labelBg": "Транспорт, складиране и пощи",
+        "labelEn": "Transportation & storage",
+        "amount": 256019993,
+        "amountEur": 130900944,
+        "share": 0.047822085511549116
+      },
+      {
+        "id": "I",
+        "labelBg": "Хотелиерство и ресторантьорство",
+        "labelEn": "Accommodation & food service",
+        "amount": 188990785,
+        "amountEur": 96629454,
+        "share": 0.035301670683057916
+      },
+      {
+        "id": "J",
+        "labelBg": "Създаване и разпространение на информация и творчески продукти; далекосъобщения",
+        "labelEn": "Information & communication",
+        "amount": 779901122,
+        "amountEur": 398757112,
+        "share": 0.14567806877034442
+      },
+      {
+        "id": "K",
+        "labelBg": "Финансови и застрахователни дейности",
+        "labelEn": "Financial & insurance activities",
+        "amount": 215336484,
+        "amountEur": 110099796,
+        "share": 0.040222795223669616
+      },
+      {
+        "id": "L",
+        "labelBg": "Операции с недвижими имоти",
+        "labelEn": "Real estate activities",
+        "amount": 61374694,
+        "amountEur": 31380383,
+        "share": 0.011464205706439343
+      },
+      {
+        "id": "M",
+        "labelBg": "Професионални дейности и научни изследвания",
+        "labelEn": "Professional, scientific & technical activities",
+        "amount": 309882636,
+        "amountEur": 158440476,
+        "share": 0.05788311195421464
+      },
+      {
+        "id": "N",
+        "labelBg": "Административни и спомагателни дейности",
+        "labelEn": "Administrative & support service activities",
+        "amount": 216413532,
+        "amountEur": 110650482,
+        "share": 0.04042397748663469
+      },
+      {
+        "id": "O",
+        "labelBg": "Държавно управление",
+        "labelEn": "Public administration & defence",
+        "amount": 181255258,
+        "amountEur": 92674342,
+        "share": 0.033856748240337214
+      },
+      {
+        "id": "P",
+        "labelBg": "Образование",
+        "labelEn": "Education",
+        "amount": 286843599,
+        "amountEur": 146660803,
+        "share": 0.05357964024246538
+      },
+      {
+        "id": "Q",
+        "labelBg": "Хуманно здравеопазване и социална работа",
+        "labelEn": "Human health & social work",
+        "amount": 347159984,
+        "amountEur": 177500081,
+        "share": 0.06484616395187552
+      },
+      {
+        "id": "R",
+        "labelBg": "Култура, спорт и развлечения",
+        "labelEn": "Arts, entertainment & recreation",
+        "amount": 65885642,
+        "amountEur": 33686794,
+        "share": 0.012306807639461625
+      },
+      {
+        "id": "S",
+        "labelBg": "Други дейности",
+        "labelEn": "Other service activities",
+        "amount": 61664034,
+        "amountEur": 31528320,
+        "share": 0.011518251650507122
+      },
+      {
+        "id": "T",
+        "labelBg": "Дейности на домакинства като работодатели",
+        "labelEn": "Activities of households as employers",
+        "amount": 10504,
+        "amountEur": 5371,
+        "share": 0.0000019620467148958634
+      },
+      {
+        "id": "U",
+        "labelBg": "Дейности на екстериториални организации и служби",
+        "labelEn": "Extraterritorial organisations",
+        "amount": 6344,
+        "amountEur": 3244,
+        "share": 0.0000011849985109767094
+      },
+      {
+        "id": "X",
+        "labelBg": "Не е посочена икономическа дейност",
+        "labelEn": "Economic activity not specified",
+        "amount": 62706691,
+        "amountEur": 32061422,
+        "share": 0.011713010003669078
+      }
+    ]
+  }
+}

@@ -11,11 +11,12 @@ allowed-tools:
 
 # Update Budget skill
 
-Ingests the Bulgarian state budget into `data/budget/`. **Three pillars** run from one CLI (`npm run budget:ingest`):
+Ingests the Bulgarian state budget into `data/budget/`. **Four pillars** run from one CLI (`npm run budget:ingest`):
 
 1. **КФП feed** (data.egov.bg) — monthly consolidated execution snapshots → time series, economic-grain plan-vs-actual, fiscal-year roll-ups, latest snapshot.
 2. **State Budget Law** (Държавен вестник HTML) — per-spending-unit appropriations → admin-grain + program-grain BudgetFacts at `stage: "law"`, the administrative + program classification registries, the law/amendment document index.
 3. **Per-ministry execution reports** — each first-level spending unit's "Отчет за изпълнението на програмния бюджет" → admin + program-grain BudgetFacts at `stage: "amendment"` (уточнен план) and `stage: "execution"` (отчет), joined against the law facts for the full law → amended → executed reconciliation. **Four source formats supported**, hand-curated in `EXECUTION_REPORTS`.
+4. **Personnel** (headcount + Персонал spend) — re-parses the same per-ministry execution-report bytes for the "Численост на щатния персонал" rows + the annual "Доклад за състоянието на администрацията" PDF from iisda.government.bg/annual_reports for national aggregates (positions, vacancy, structure counts). Output: `data/budget/personnel.json`. Adding a new fiscal-year Доклад: resolve the file id from /annual_report/<id> and add to `DOKLAD_FILE_IDS` in `scripts/budget/doklad.ts`.
 
 Plus the budget-journey document index, procurement cross-link (Phase 4), and per-ministry rollups (sliced files the ministry detail screen reads).
 
@@ -25,6 +26,7 @@ Plus the budget-journey document index, procurement cross-link (Phase 4), and pe
 |---|---|
 | `data.egov.bg бюджет: N new monthly snapshot(s)` | Incremental ingest (`npm run budget:ingest`) |
 | `Per-ministry execution reports: N updated` | Same — the watcher's `describe()` names the changed ministries |
+| `Доклад за състоянието на администрацията: new year` | Resolve file id from /annual_report/<id> → add to `DOKLAD_FILE_IDS` in `scripts/budget/doklad.ts` → run `npm run budget:ingest` |
 | User says "refresh budget" / "update budget data" | Same — incremental |
 | New fiscal year's reports publish (mid-year) | Update each ministry's URL in `EXECUTION_REPORTS`; ingest; re-seed canaries |
 | `data/budget/` empty (fresh clone) | Cold-start ingest of every visible monthly resource + curated reports |
@@ -107,6 +109,66 @@ git commit -m "budget: ingest through YYYY-MM"
 
 The canary fixtures (`tests/fixtures/budget/*.json`) are committed.
 
+## Revenue-breakdown ingests (separate scripts)
+
+Two complementary ingests live alongside the main budget pipeline but run independently. They itemise the revenue-side wedges (excise, import VAT, customs duties, domestic VAT, PIT) that the KFP feed publishes only as flat aggregates. Run them when the matching watcher source flips (`customs_revenue`, `nap_annual`).
+
+### Single combined command (recommended)
+
+```bash
+npm run budget:revenue-breakdown
+```
+
+Runs both `scripts/budget/run_customs_revenue.ts` and `scripts/budget/run_nap_annual.ts` in sequence — covers every output under `data/budget/revenue_breakdown/{customs,vat,pit}/`. Use this when the orchestrator invokes `/update-budget` because `customs_revenue` or `nap_annual` flipped. Subsequent runs are cheap — both scripts cache the source PDFs under `raw_data/budget/` and skip re-download.
+
+Stamp the result with: `npx tsx scripts/stamp-ingest.ts update-budget --summary "revenue-breakdown: customs <years>, vat/pit <years>"`.
+
+The two scripts also run individually if you need finer control:
+
+### Customs Agency (Митница) — excise + import VAT + customs duties
+
+Source: `customs.bg/wps/portal/agency/media-center/customs-chronicle` — the annual "Митническа хроника" PDF, published in March of T+1.
+
+```bash
+npx tsx scripts/budget/run_customs_revenue.ts             # all known years
+npx tsx scripts/budget/run_customs_revenue.ts --year 2025 # single year
+npx tsx scripts/budget/run_customs_revenue.ts --refresh   # bypass cache
+```
+
+Output: `data/budget/revenue_breakdown/customs/<year>.json` per fiscal year — total collections, excise by product group (fuels → diesel/petrol/LPG/natural-gas/kerosene + tobacco + alcohol), import VAT, customs duties, fines, and top-5 country-of-origin split for customs duties.
+
+Coverage: 2022, 2023, 2024, 2025. Sub-product detail only for 2025 (older reports use different narrative phrasings); top-level + country split for all 4 years.
+
+Reconciles to KFP totals **exactly** (Δ ≈ 0 across all years).
+
+Adding a new year: find the PDF URL via WebSearch (`site:customs.bg Mitnicheska_hronika <YYYY>`), then add it to `MITNICHESKA_HRONIKA_REPORTS` in `scripts/budget/customs_revenue.ts`.
+
+### НАП annual — domestic VAT by sector + PIT by income type
+
+Source: `nra.bg/wps/portal/nra/za-nap/osnovni-dokumenti/Godishni-otcheti-za-deynostta-na-NAP` — the annual "Годишен отчет за дейността на НАП" PDF, approved by Council of Ministers in March of T+1.
+
+```bash
+npx tsx scripts/budget/run_nap_annual.ts             # all known years
+npx tsx scripts/budget/run_nap_annual.ts --year 2024 # single year
+npx tsx scripts/budget/run_nap_annual.ts --refresh   # bypass cache
+```
+
+Output (two files per fiscal year):
+- `data/budget/revenue_breakdown/vat/<year>.json` — declared net VAT by КИД-2008 sector (21 sectors), from Table 3 of the report.
+- `data/budget/revenue_breakdown/pit/<year>.json` — PIT by income type (employment + non-employment + final tax/dividends, each with payment-type sub-lines) from Tables 8, 10 + narrative. Plus `bySector` from Table 9 (employment PIT due contributions by КИД-2008 sector, Jan-Nov coverage — the source's published window, not ours).
+
+Coverage: 2024 only. Older years' URLs aren't web-indexed (opaque WCM UUIDs); backfill is a manual URL-hunt follow-up.
+
+Reconciliation:
+- VAT: НАП declared net ≈ KFP total VAT minus Митница import VAT (gap ≈ 2-3% timing).
+- PIT: НАП-reported total ≈ 88% of KFP PIT total. The 12% gap is patent tax (municipal, §01-03) + other income types collected outside НАП. UI captions should say "NAP-administered PIT", not "all PIT".
+
+Adding a new year: same pattern — find the PDF URL (via `site:nra.bg "Годишен отчет НАП" <YYYY>`), add to `NAP_ANNUAL_REPORTS` in `scripts/budget/nap_annual.ts`.
+
+### System dependency
+
+The NAP parser shells out to `pdftotext -layout` (poppler-utils) because the NAP report's tables have multi-line wrapping that defeats custom pdfjs column extraction. `pdftotext` is universal on dev/CI environments. The customs parser is pdfjs-only — no extra dependency.
+
 ## Data sources — by source format
 
 | Source | Format | Reader | Parser | Where |
@@ -119,6 +181,8 @@ The canary fixtures (`tests/fixtures/budget/*.json`) are committed.
 | Ministry XLSX in ZIP | ZIP containing XLSX | `fetchExecutionZipXlsx` (unzipper) | `xlsx` (SheetJS) → `execution_xlsx.ts` | `EXECUTION_REPORTS` (`format: "xlsx-in-zip"`) |
 | Manual PDF (WAF-blocked) | bare PDF, no auto-fetch | `readManualExecutionPdf` (cache only) | `execution_pdf` OR `execution_borderless_pdf` based on `trailingValueCount` | `EXECUTION_REPORTS` (`format: "manual-pdf"`); operator drops PDF at `raw_data/budget/exec-<adminId>-<fy>.pdf` |
 | Сметна палата audit listing | HTML | `fetchBulnaoAuditHtml` | best-effort regex; non-fatal | bulnao.government.bg |
+| Митническа хроника | PDF (narrative + Table 1) | inline `fetchPdf` in `run_customs_revenue.ts` | `customs_revenue.ts` (pdfjs column-aware + Table 1 extraction) | curated `MITNICHESKA_HRONIKA_REPORTS` |
+| НАП Годишен отчет | PDF (multi-table) | inline `fetchPdf` in `run_nap_annual.ts` | `nap_annual.ts` (shells out to `pdftotext -layout`) | curated `NAP_ANNUAL_REPORTS` |
 
 ## Adding a new ministry to EXECUTION_REPORTS
 

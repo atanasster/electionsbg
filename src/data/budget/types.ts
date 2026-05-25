@@ -273,3 +273,182 @@ export interface BudgetIndex {
   fiscalYears: FiscalYearSummary[];
   documentCount: number;
 }
+
+// --------------------------------------------------------------------------
+// Personnel — annual Доклад aggregates + per-ministry, per-programme headcount
+// (the budget pipeline's 4th pillar, sliced from each ministry's
+// "Отчет за изпълнението на програмния бюджет" alongside the Персонал line).
+// --------------------------------------------------------------------------
+
+export interface HeadcountTriple {
+  law: number | null;
+  amended: number | null;
+  executed: number | null;
+}
+
+export interface PersonnelTriple {
+  law: Money | null;
+  amended: Money | null;
+  executed: Money | null;
+}
+
+export interface PersonnelProgramme {
+  code: string; // МФ classification code, e.g. "1600.01.01"
+  nameBg: string;
+  headcount: HeadcountTriple;
+  personnel: PersonnelTriple;
+  // executed personnel ÷ executed headcount — average annual cost per FTE,
+  // including employer social-security contributions.
+  avgAnnualCostPerFte: Money | null;
+}
+
+export interface MinistryHeadcountSummary {
+  adminId: string;
+  nameBg: string;
+  nameEn: string;
+  fiscalYear: number;
+  totalHeadcount: HeadcountTriple;
+  totalPersonnel: PersonnelTriple;
+  avgAnnualCostPerFte: Money | null;
+  programmes: PersonnelProgramme[];
+}
+
+// All values are щатни бройки (positions). Only `total` is reliably present
+// in every Доклад since 2017; the rest are null when the year's report omits
+// them or uses a phrasing the parser doesn't recognise.
+export interface DokladPositions {
+  total: number;
+  central: number | null;
+  territorial: number | null;
+  municipal: number | null;
+  municipalOwnRevenue: number | null;
+  filled: number | null;
+  vacant: number | null;
+  vacantOverSixMonths: number | null;
+}
+
+export interface DokladData {
+  year: number;
+  positions: DokladPositions;
+  structureCounts: {
+    central: Record<string, number>;
+    territorial: Record<string, number>;
+  };
+  // NSI list-headcount by administration type — excludes МВР + МО.
+  nsiHeadcount: {
+    central: Record<string, number>;
+    territorial: Record<string, number>;
+    total: number;
+  };
+}
+
+export interface PersonnelFile {
+  generatedAt: string;
+  // Keyed by fiscal year (as string for JSON-friendly).
+  national: Record<string, DokladData>;
+  byMinistry: Record<string, MinistryHeadcountSummary[]>;
+}
+
+// --------------------------------------------------------------------------
+// Revenue breakdowns — itemised sub-flows for the left side of the budget
+// Sankey. The KFP feed publishes flat aggregates per tax type; these files
+// drill each wedge into its sub-flows:
+//   – customs/<year>.json: excise + import VAT + customs duties from
+//     Митническа хроника (2022-2025; product split for 2025 only).
+//   – vat/<year>.json: declared net VAT by 21 КИД-2008 sector from НАП
+//     Table 3 (2024 only).
+//   – pit/<year>.json: PIT by income type + by sector from НАП Tables
+//     8/10 + Table 9 + narrative (2024 only).
+// All amounts are in native currency (BGN ≤ 2025, EUR ≥ 2026) with `amountEur`
+// pre-folded; share values are decimal 0..1.
+// --------------------------------------------------------------------------
+
+export interface CustomsRevenueLine {
+  id: string;
+  labelBg: string;
+  labelEn: string;
+  amount: number | null;
+  amountEur: number | null;
+  parent: string | null;
+  share?: number | null; // decimal share of its parent line
+}
+
+export interface CustomsRevenueByCountry {
+  name: string; // Bulgarian short name (Китай, Турция, САЩ, …)
+  amount: number;
+  amountEur: number;
+  sharePct: number; // 0..100, as reported by the source
+}
+
+export interface CustomsBreakdownFile {
+  generatedAt: string;
+  country: "BG";
+  fiscalYear: number;
+  asOf: string;
+  currency: "BGN" | "EUR";
+  source: { publisher: string; document: string; url: string };
+  lines: CustomsRevenueLine[];
+  customsByCountry: CustomsRevenueByCountry[];
+}
+
+export interface VatSectorEntry {
+  id: string; // KID-2008 letter (A..U) or "X" for "no sector"
+  labelBg: string;
+  labelEn: string;
+  declaredToPay: number | null;
+  declaredToPayEur: number | null;
+  declaredToRefund: number | null;
+  declaredToRefundEur: number | null;
+  declaredNet: number | null;
+  declaredNetEur: number | null;
+  share: number | null; // signed share of total declared net (decimal 0..1, can be negative)
+}
+
+export interface VatBreakdownFile {
+  generatedAt: string;
+  country: "BG";
+  fiscalYear: number;
+  asOf: string;
+  currency: "BGN" | "EUR";
+  source: { publisher: string; document: string; url: string };
+  declaredNet: number | null;
+  declaredNetEur: number | null;
+  sectors: VatSectorEntry[];
+}
+
+export interface PitLine {
+  id: string;
+  labelBg: string;
+  labelEn: string;
+  amount: number | null;
+  amountEur: number | null;
+  parent: string | null;
+  share?: number | null; // decimal share of parent
+}
+
+export interface PitSectorEntry {
+  id: string;
+  labelBg: string;
+  labelEn: string;
+  amount: number | null;
+  amountEur: number | null;
+  share: number | null; // decimal 0..1
+}
+
+export interface PitBreakdownFile {
+  generatedAt: string;
+  country: "BG";
+  fiscalYear: number;
+  asOf: string;
+  currency: "BGN" | "EUR";
+  source: { publisher: string; document: string; url: string };
+  lines: PitLine[];
+  total: number | null;
+  totalEur: number | null;
+  bySector: {
+    coverage: string; // human-readable note, e.g. "Jan-Nov 2024"
+    total: number | null;
+    totalEur: number | null;
+    sectors: PitSectorEntry[];
+  };
+}

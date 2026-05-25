@@ -41,6 +41,7 @@ import {
 import { Title } from "@/ux/Title";
 import { StatCard } from "./dashboard/StatCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { MinistryPersonnelBlock } from "./components/budget/MinistryPersonnelBlock";
 import { Sparkline } from "@/ux/Sparkline";
 import { formatEur } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
@@ -945,6 +946,7 @@ export const BudgetMinistryScreen: FC = () => {
         <ExpenditureTrendChart years={data.years} />
         <HistoryTable years={data.years} />
         <ProgramBlock years={data.years} lang={lang} />
+        <MinistryPersonnelBlock adminId={data.nodeId} />
         {data.procurement ? (
           <ProcurementBlock procurement={data.procurement} years={data.years} />
         ) : null}
