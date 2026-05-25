@@ -109,7 +109,7 @@ The longest cabinet in the table — **1,469 days (4 years)**. Also the only reg
 
 Ends **after the summer and autumn 2020 anti-government protests**. This is not a resignation — the cabinet completes on the regular date. But the protests are clearly visible in the [trust-in-government comparison with the EU](/indicators/governance) — exactly in 2020 government trust falls from ~28% to ~17%.
 
-The lag: **COVID-era fiscal stimulus** (anti-crisis measures, the 60/40 wage subsidy, temporary employment support) is debt-financed, and that debt shows in the balance through 2022–2023. The 2019 surplus (+2.0% of GDP) flips to a **−4.0% deficit in 2020** — most of that under Borisov III, but the payment shows under Petkov and Denkov.
+The lag: **COVID-era fiscal stimulus** (anti-crisis aid, the 60/40 wage subsidy, and employment support) cost a total of **BGN 2.8 billion in 2020** (2.3% of GDP) and **BGN 4.6 billion in 2021** (3.3% of GDP), with the "60/40" scheme alone absorbing over **BGN 2.1 billion** by its conclusion in mid-2022. These emergency expenditures collapsed the budget balance from a surplus of +2.1% of GDP in 2019 to a **−4.0% deficit in 2020** (per Eurostat). They were financed by drawing down the fiscal reserve (from BGN 12.1 billion at end-2019 to around BGN 7.8 billion by end-2021) and issuing a new €2.5 billion Eurobond in autumn 2020. 
 
 ### [Yanev I + Yanev II](/governments/yanev-1) — caretaker · May–December 2021
 
@@ -156,7 +156,7 @@ Under Denkov **the serious eurozone-accession negotiations** begin, alongside RR
 
 - **Avg budget balance under Glavchev I: −4.8%** — **the worst mandate average**
 
-This is a signal of fiscal indiscipline in **caretaker** cabinets without legislative sanction — they run on extended budgets without update. EU pauses an RRF tranche over unfulfilled reforms; the effect of this shows as **a drop to just €2.1 bn net** in EU funds under Zhelyazkov, vs. €6.8 bn under Borisov III.
+This is a signal of fiscal indiscipline in **caretaker** cabinets without legislative sanction — they run on extended budgets without update. In November 2025, the EU officially paid out the second RRF tranche after nearly two years of delays, but froze (withheld) €214.5 million of it due to the unfulfilled Anti-Corruption Commission reform. The long-term effect of this delay and partial freeze shows as **a drop to just €2.1 bn net** in EU funds under Zhelyazkov, vs. €6.8 bn under Borisov III.
 
 ### [Zhelyazkov](/governments/zhelyazkov) — GERB-SDS·BSP-OL·ITN · Jan 2025 – Feb 2026
 
@@ -245,7 +245,7 @@ Focus on 5 cabinets: **Petkov → Donev → Denkov → Glavchev I+II → Zhelyaz
 A short summary of the inheritance any new cabinet sworn in from autumn 2026 receives:
 
 1. **Eurozone**: already inside. Maastricht criteria must be maintained — but the deficit is 3.6%, above the threshold.
-2. **RRF**: payments have been partially frozen and delayed since 2024 (despite a partial second tranche disbursement in late 2025). Restoring the full flow requires implementing the agreed reforms (anti-corruption bodies, judiciary).
+2. **RRF**: payments have been partially frozen and delayed since 2024 (despite a partial second tranche disbursement of €438.6 million in November 2025, from which the EC withheld €214.5 million). Restoring the full flow requires implementing the agreed reforms (specifically, adopting the rules for selecting members of the new Anti-Corruption Commission).
 3. **Debt**: a 6.2-pp build-up under one mandate — a record. Without consolidation we face the EU's Excessive Deficit Procedure (EDP).
 4. **WGI**: control of corruption still below the 2007 level. This is the area with the largest deficit vs. the EU.
 5. **Social cohesion**: highest AROPE among peers. Without redistributive policy, economic growth produces no social return.
