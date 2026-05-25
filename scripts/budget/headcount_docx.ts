@@ -34,7 +34,9 @@ const extractDocxTables = async (
   // unzipper shares memory with the input buffer; the financial-parse pass
   // earlier in the ingest can leave the bytes detached/mutated, which then
   // silently produces wrong tables on the second pass. Clone before opening.
-  const dir = await unzipper.Open.buffer(Buffer.from(new Uint8Array(docxBytes)));
+  const dir = await unzipper.Open.buffer(
+    Buffer.from(new Uint8Array(docxBytes)),
+  );
   const docXml = dir.files.find((f) => f.path === "word/document.xml");
   if (!docXml) {
     throw new Error("docx: word/document.xml not found in archive");

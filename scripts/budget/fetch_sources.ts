@@ -325,6 +325,53 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
   //   format: "manual-pdf",
   //   url: "https://www.mvr.bg/upload/279894/1300_bu_3_122024-rezume.pdf",
   // },
+  // ──────────────────────────────────────────────────────────────────────
+  // Surveyed but currently un-ingestable (kept here so a future operator
+  // doesn't re-do the same probing). Coverage as of 2026-05-25 is ~30% of
+  // total first-level FY2024 expenditure (€2.73B of €8.93B). The gap is
+  // dominated by ministries that don't publish their programme-budget
+  // execution report at a stable URL discoverable via automated means.
+  //
+  // Surveyed via Wayback CDX + direct HTTP probe (FY2024 unless noted):
+  //   • МВР Interior          — €1.42B  Cloudflare-challenged (see above)
+  //   • Съдебна власт          — €0.62B  no programme-budget format published
+  //   • МОН Education          — €0.58B  budget section is JS-rendered;
+  //                                       no FY24 PDF surfaced in Wayback
+  //   • МРРБ Regional Dev.     — €0.57B  ditto; mrrb.bg budget page has no
+  //                                       direct PDF links in static HTML
+  //   • МТС Transport          — €0.36B  mtitc.government.bg returns 0 PDFs
+  //                                       in Wayback for 2024-25 date range
+  //   • ДФЗ Agriculture Fund   — €0.27B  publishes "Годишен отчет" only
+  //                                       (annual, no programme-budget rows)
+  //   • МП Justice             — €0.25B  budget section returns near-empty
+  //                                       HTML; reports likely behind login
+  //   • МК Culture             — €0.21B  no execution-report URL surfaced
+  //   • МВнР Foreign Affairs   — €0.09B  Wayback only has FY2017 H1; the
+  //                                       FY24 file isn't archived
+  //   • МС Council of Ministers — €0.08B  government.bg returns 0 candidate
+  //                                       URLs for execution reports
+  //   • ММС Youth & Sports     — €0.07B  publishes "годишен отчет ZDOI"
+  //                                       (transparency-law report only),
+  //                                       not a programme-budget execution
+  //   • НС Parliament          — €0.06B  reports are part of Стенографски
+  //                                       дневници, not standalone PDFs
+  //   • МЕ Energy              — €0.03B  budget-files directory accepts
+  //                                       requests but FY24 file returns
+  //                                       200+0 bytes (CMS quirk = file
+  //                                       not yet published); only FY2020
+  //                                       PDF still on disk
+  //
+  // Likely-classified (intentionally skipped):
+  //   • ДАНС National Security — €0.09B
+  //   • ДАТО Technical Ops     — €0.04B
+  //   • НСО Protection Service — €0.03B
+  //
+  // To add any of the surveyed-but-missing ministries: an operator opens
+  // their site in a real browser, saves the FY24 (or latest) programme-
+  // budget execution report to raw_data/budget/exec-<adminId>-<fy>.pdf,
+  // and adds a manual-pdf entry here. Be alert for scope mismatch (some
+  // ministries' planned ≠ law-html planned for EU-fund-heavy programmes
+  // — see project_budget_execution_scope.md).
 ];
 
 // A single egov resource: a 2D string array. Row 0 is the header.

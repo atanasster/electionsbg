@@ -113,7 +113,9 @@ const extractDocxTables = async (
   // with the caller's Uint8Array, and a later parse pass (headcount) on the
   // same source bytes would otherwise see corrupted data. See pdf_table.ts
   // for the same fix pattern applied to pdfjs.
-  const dir = await unzipper.Open.buffer(Buffer.from(new Uint8Array(docxBytes)));
+  const dir = await unzipper.Open.buffer(
+    Buffer.from(new Uint8Array(docxBytes)),
+  );
   const docXml = dir.files.find((f) => f.path === "word/document.xml");
   if (!docXml) {
     throw new Error("docx: word/document.xml not found in archive");
