@@ -225,6 +225,22 @@ Some ministry sites (minfin.bg, mvr.bg) WAF-block automated clients on every end
 4. **Uncomment** the entry in `EXECUTION_REPORTS` (manual-pdf entries default to commented-out so they don't fire the missing-file warning until activated).
 5. **Run** `npm run budget:ingest`. If the file isn't found, the run logs `⚠ <adminId> <year> [manual-pdf]: skipped — …` and continues (non-fatal); the rest of the pipeline still completes.
 
+### Playwright discovery for JS-rendered budget sections
+
+Several ministries (МОН, МРРБ, МК, МЕ, МС, МВнР, МТС) render their budget index client-side, so static HTML scraping returns the page shell without the PDF links. `scripts/budget/discover_execution_reports.ts` opens each in chromium, waits for JS to populate, follows one level of budget-keyworded sub-pages, and writes scored candidates to `data-reports/budget-discovery-<DATE>.md`.
+
+```bash
+# Headed: opens chromium, pauses between ministries for inspection
+npx tsx scripts/budget/discover_execution_reports.ts --ministry mc
+
+# Headless: batch sweep, writes the report and exits
+npx tsx scripts/budget/discover_execution_reports.ts --headless
+```
+
+The scoring boosts canonical filename patterns (`<chapter>_Otchet_<date>.doc[x]`, `Otchet_programi_*`) and penalises known false-positive classes (АУЕР Forma ZEE energy-efficiency forms, EU operational-programme progress reports). The operator picks the right candidate from the report, saves to `raw_data/budget/exec-<adminId>-<fy>.pdf`, and adds a manual-pdf entry to EXECUTION_REPORTS. **This is a one-off discovery tool — not wired into the watcher or CI.**
+
+Known parser gap surfaced by the tool: МК publishes binary `.doc` (Word 97-2003), not OOXML `.docx`. `headcount_docx.ts`'s unzipper path won't open them — they'd need a separate binary-doc parser (e.g., libreoffice convert or `textract`) before they can be ingested.
+
 ### Wayback fallback for МФ ProgOtchet
 
 When the live minfin.bg is Cloudflare-challenged but the file already exists, the Internet Archive usually has a usable capture. The `minfin_program_otchet` watcher (`scripts/watch/sources/minfin_program_otchet.ts`) polls Wayback CDX for `1000_Pril-1-MoF_*ProgOtchet*.pdf` and surfaces the latest annual capture. When it flips, the operator can pull the file via the `id_` raw-flavor:
@@ -308,6 +324,7 @@ Pre-existing condition the slice fixed: `writeIfChanged` now ignores `generatedA
 | `scripts/watch/sources/egov_budget_execution.ts` | Watcher — КФП dataset resource-UUID list |
 | `scripts/watch/sources/ministry_execution_reports.ts` | Watcher — HEAD-probes every fetchable URL in `EXECUTION_REPORTS` (skips manual-pdf) |
 | `scripts/watch/sources/minfin_program_otchet.ts` | Watcher — Wayback CDX of `1000_Pril-1-MoF_*ProgOtchet*.pdf`, the МФ programme-budget execution reports (covers the WAF-blocked manual-pdf gap) |
+| `scripts/budget/discover_execution_reports.ts` | One-off Playwright discovery aid — sweeps JS-rendered ministry budget sections and writes scored candidate URLs to `data-reports/budget-discovery-<DATE>.md`. Not wired into the watcher or CI. |
 | `data/budget/index.json` | Year/period coverage summary — committed |
 | `data/budget/kfp.json` | КФП observation series + snapshots — committed |
 | `data/budget/documents.json` | Budget-journey document index — committed |

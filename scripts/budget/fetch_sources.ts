@@ -345,7 +345,17 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
   //                                       (annual, no programme-budget rows)
   //   • МП Justice             — €0.25B  budget section returns near-empty
   //                                       HTML; reports likely behind login
-  //   • МК Culture             — €0.21B  no execution-report URL surfaced
+  //   • МК Culture             — €0.21B  Playwright discovery (see below)
+  //                                       found the canonical pattern:
+  //                                       mc.government.bg/files/<id>_1800_
+  //                                       Otchet_31.12.<YYYY>.doc. FY2023
+  //                                       reachable (10079_…); FY2024 annual
+  //                                       not published; FY2025 surfaced as
+  //                                       XLSX. BLOCKER: files are binary
+  //                                       Word 97-2003 (.doc), not OOXML
+  //                                       .docx — needs a binary-doc parser
+  //                                       path beyond the current
+  //                                       headcount_docx.ts
   //   • МВнР Foreign Affairs   — €0.09B  Wayback only has FY2017 H1; the
   //                                       FY24 file isn't archived
   //   • МС Council of Ministers — €0.08B  government.bg returns 0 candidate
@@ -366,10 +376,18 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
   //   • ДАТО Technical Ops     — €0.04B
   //   • НСО Protection Service — €0.03B
   //
-  // To add any of the surveyed-but-missing ministries: an operator opens
-  // their site in a real browser, saves the FY24 (or latest) programme-
-  // budget execution report to raw_data/budget/exec-<adminId>-<fy>.pdf,
-  // and adds a manual-pdf entry here. Be alert for scope mismatch (some
+  // For sites that JS-render their budget section (МОН, МРРБ, МК, МЕ, МС,
+  // МВнР, МТС — curl returns the page shell only), use the Playwright
+  // discovery tool: `npx tsx scripts/budget/discover_execution_reports.ts
+  // --headless` runs a sweep across all 7 and writes
+  // `data-reports/budget-discovery-<DATE>.md` with scored PDF/DOCX/XLSX
+  // candidates. Headed mode (`--ministry <key>`) opens chromium for
+  // interactive inspection of a single site.
+  //
+  // Otherwise: an operator opens the ministry's site in a real browser,
+  // saves the FY24 (or latest) programme-budget execution report to
+  // raw_data/budget/exec-<adminId>-<fy>.pdf, and adds a manual-pdf entry
+  // here. Be alert for scope mismatch (some
   // ministries' planned ≠ law-html planned for EU-fund-heavy programmes
   // — see project_budget_execution_scope.md).
 ];
