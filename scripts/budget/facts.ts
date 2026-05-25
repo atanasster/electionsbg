@@ -105,6 +105,7 @@ const UNIT_EN: Record<string, string> = {
   "Министерството на регионалното развитие и благоустройството":
     "Ministry of Regional Development and Public Works",
   "Министерството на земеделието и храните": "Ministry of Agriculture and Food",
+  "Министерството на земеделието": "Ministry of Agriculture",
   "Министерството на транспорта и съобщенията":
     "Ministry of Transport and Communications",
   "Министерството на електронното управление": "Ministry of e-Governance",
