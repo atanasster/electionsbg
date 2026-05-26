@@ -162,6 +162,37 @@ const PARAGRAPH_TITLES = [
   "Капиталови трансфери",
 ];
 
+// ЕБК sub-paragraph (§52XX, §53XX, §55XX) canonical category names. When
+// a 4-digit § code in col B is paired with one of these exact strings as
+// the description, the row is a sub-paragraph rollup (sum of all projects
+// under that sub-paragraph within the enclosing Function/Activity). When
+// the same 4-digit code is paired with a SPECIFIC project description
+// ("Сграда X на ул. Y"), it's a real project. So we must check BOTH.
+const SUB_PARAGRAPH_GENERIC_DESC = new Set(
+  [
+    "инженеринг",
+    "ППР",
+    "ППР за сграда",
+    "СМР",
+    "СМР, ППР и ДР",
+    "Обзавеждане",
+    "МиС",
+    "МиС (машини и съоръжения)",
+    "придобиване на сгради",
+    "придобиване на земя",
+    "придобиване на компютри и хардуер",
+    "придобиване на стопански инвентар",
+    "придобиване на друго оборудване, машини и съоръжения",
+    "придобиване на транспортни средства",
+    "придобиване на други ДМА",
+    "придобиване на програмни продукти и лицензи за програмни продукти",
+    "придобиване на други нематериални дълготрайни активи",
+    "изграждане на инфраструктурни обекти",
+    "капиталови трансфери за домакинствата",
+    "капиталови трансфери",
+  ].map((s) => s.toLowerCase().trim()),
+);
+
 // Read col B (the § / Функция / Дейност code column) at the anchor's y.
 // "Функция 01" / "Дейност 122" appear here for subtotal rows that share
 // their amount-row layout with real projects — we use it to distinguish.
@@ -178,21 +209,27 @@ const collectColB = (items: RawItem[], y: number): string => {
 const collectColA = (items: RawItem[], y: number): string => {
   // Col A items ("Район X", "Първостепенен разпоредител", or institution
   // names) sit at the same baseline as the amount anchor on real-project
-  // rows. We use a STRICT y±3 band — extending up to (y+9)±3 (to catch
-  // the top half of a two-line "Първостепенен / разпоредител" stack)
-  // looked attractive at first but turned out to be wrong: that same
-  // ±9pt window catches the project label from the ROW ABOVE a
-  // §-sub-paragraph subtotal ("инженеринг", "ППР", "придобиване на сгради",
-  // …), making the parser misclassify the subtotal as a real project
-  // inheriting the previous row's location tag. Real projects always
-  // have at least the bottom half of the stack ("разпоредител") or a
-  // "Район X" tag within ±3pt of the anchor.
-  const parts: Array<{ y: number; str: string }> = [];
+  // rows. We accept items within ±3pt of the anchor, AND items within
+  // ±3pt of (y + 9) IF they appear together with a ±3 match — the +9
+  // offset is meant for the two-line "Първостепенен / разпоредител"
+  // vertical-text stack on real-project rows, where "разпоредител" is
+  // at y_anchor + ~1 and "Първостепенен" 9pt above that. Requiring a
+  // y±3 anchor match prevents the +9 fallback from accidentally
+  // catching the previous row's label on §-sub-paragraph subtotals
+  // (which have nothing at y±3 themselves).
+  const tight: Array<{ y: number; str: string }> = [];
+  const extended: Array<{ y: number; str: string }> = [];
   for (const it of items) {
     if (it.x > COL_A_MAX_X) continue;
-    if (Math.abs(it.y - y) > 3) continue;
-    parts.push({ y: it.y, str: it.str });
+    if (Math.abs(it.y - y) <= 3) {
+      tight.push({ y: it.y, str: it.str });
+    } else if (Math.abs(it.y - (y + 9)) <= 3) {
+      extended.push({ y: it.y, str: it.str });
+    }
   }
+  // The extended (+9) band is only trusted if the tight band also has
+  // a match — otherwise it's a leak from the previous project's row.
+  const parts = tight.length > 0 ? [...tight, ...extended] : tight;
   // Sort top-to-bottom (descending y) and concatenate without spaces —
   // the vertical-text case is per-letter and needs to glue back together.
   parts.sort((a, b) => b.y - a.y);
@@ -331,6 +368,19 @@ const parseProgram = async (
       // least one of: a § code in colB ("311", "322", "606"), or a
       // spending-unit / район tag in colA. Drop the rest.
       if (!colA.trim() && !colB.trim()) continue;
+      // ЕБК sub-paragraph rollup rows have a 4-digit § code in col B
+      // (§5201/5202/.../5301/5309/5504/…) AND a canonical category name
+      // as the description ("инженеринг", "придобиване на сгради",
+      // "капиталови трансфери за домакинствата", …). Real projects can
+      // ALSO have a 4-digit § code (a building purchase under §5202,
+      // for example), so checking colB alone over-skips. Require both
+      // the 4-digit § code and the exact generic-category description.
+      if (
+        /^5\d{3}$/.test(colB.trim()) &&
+        SUB_PARAGRAPH_GENERIC_DESC.has(desc.toLowerCase().trim())
+      ) {
+        continue;
+      }
       const rayon = lookupRayonCode(colA) || lookupRayonCode(desc);
       projectId += 1;
       projects.push({

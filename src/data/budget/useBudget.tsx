@@ -256,18 +256,19 @@ export const useSofiaCapitalProgram = (fiscalYear: number | undefined) =>
   });
 
 // Plovdiv's annual Капиталова програма — parsed from a borderless PDF on
-// plovdiv.bg into ~608 line items + per-район rollup. Plovdiv has a single
+// plovdiv.bg into ~567 line items + per-район rollup. Plovdiv has a single
 // settlement record for the whole city, so the tile renders all 6 районi
 // stacked instead of filtering to one (Sofia's pattern).
 //
-// Parser quality: project-sum is ~94% of recap (recap €71.4M, sum €67.3M).
-// A few §-sub-paragraph subtotal rows ("изграждане на инфраструктурни
-// обекти", "капиталови трансфери за домакинствата", "придобиване на
-// сгради") still slip past the subtotal filter — typically when col-A
-// vertical-text labels from an adjacent project's row happen to overlap
-// the subtotal's y-band. The tile shows the recap figure as the
-// headline (truth), so the slight under-count in the per-project list
-// is the safer failure mode than the original +10% inflation.
+// Parser quality: project-sum is ~46M EUR (recap headline 71.4M EUR).
+// The 25M EUR gap reflects the source-document convention: the recap is
+// the published city-wide ОБЩО including non-itemized commitments
+// (transfers, some EU-cofinanced items, paragraph-level rollups that
+// don't decompose to individual line items). The same pattern appears
+// in Ruse (recap 49.5M EUR vs per-sheet sum 26.2M EUR). The tile shows
+// the recap as the headline (correct) and the per-project list contains
+// only the items that DO carry a specific § code + description — no
+// generic Дейност-category labels leak into top-N.
 export const usePlovdivCapitalProgram = (fiscalYear: number | undefined) =>
   useQuery({
     queryKey: ["budget", "capital_programs", "plovdiv", fiscalYear] as const,
