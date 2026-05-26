@@ -94,7 +94,7 @@ If the user says "skip governments for this run", drop it from the plan without 
 
 The 5 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse) each publish an annual капиталова програма on their own website. The watcher tracks all 5 sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
 
-Each município has its own parser script (different source formats: Sofia + Burgas + Ruse = XLSX, Plovdiv + Stara Zagora = born-digital PDF, Varna = rasterized PDF needing OCR), but a shared output schema under `data/budget/capital_programs/{year}/{muni}.json`. Operator workflow when the source flips:
+Each município has its own parser script (different source formats: Sofia + Burgas + Ruse = XLSX, Plovdiv + Stara Zagora = born-digital PDF, Varna = rasterized PDF needing OCR, Pleven = born-digital but fragmented PDF that still benefits from OCR after page-slicing), but a shared output schema under `data/budget/capital_programs/{year}/{muni}.json`. Operator workflow when the source flips:
 
 1. **Identify which (year, muni) entries flipped** from the watcher's describe-line — e.g. `"2 capital programme(s) re-uploaded: 2025/sofia, 2025/burgas"`.
 
@@ -126,9 +126,31 @@ Each município has its own parser script (different source formats: Sofia + Bur
    # Reads the OCR JSON, writes data/budget/capital_programs/<year>/varna.json
    ```
    The OCR JSON is committed to raw_data/ so the rollup is reproducible; only re-run varna_ocr.ts when the upstream PDF actually changes (the `capital_programs` watcher's fingerprint catches this). Requires GEMINI_API_KEY in `.env.local`.
+
+   **Pleven is three-step** — the source is a 63-page budget docket where capital data sits on pages 13-17 (Прил. №4 general) and 35-37 (Прил. №10А EU projects). Text is technically extractable but the layout is heavily fragmented, so we slice the capital pages into a focused PDF and OCR them:
+   ```bash
+   # Step 1: slice the 8 capital pages out of the 63-page docket (pypdf required)
+   python3 -c "
+   from pypdf import PdfReader, PdfWriter
+   r = PdfReader('raw_data/budget/capital_programs/pleven-<year>.pdf')
+   w = PdfWriter()
+   for i in list(range(12,17)) + list(range(34,37)): w.add_page(r.pages[i])
+   with open('raw_data/budget/capital_programs/pleven-<year>-capital-pages.pdf','wb') as f: w.write(f)
+   "
+
+   # Step 2: OCR (cheap — 8 pages, ~$0.04 in Gemini credits)
+   tsx scripts/budget/capital_programs/pleven_ocr.ts --year <year>
+   # Writes raw_data/budget/capital_programs/pleven-<year>-ocr.json
+
+   # Step 3: rollup (deterministic, offline)
+   tsx scripts/budget/capital_programs/pleven.ts --year <year>
+   # Reads the OCR JSON, writes data/budget/capital_programs/<year>/pleven.json
+   ```
+   Same OCR-cache convention as Varna. If a future year ships the capital appendices on different page numbers, update the python slice block above.
+
    Each writes `data/budget/capital_programs/{year}/{muni}.json` and prints the recap total + per-район or per-village breakdown for canary verification.
 
-4. **Adding a new year** (e.g. when 2026 programmes publish in spring): also add the new (year → urls) entry to `CAPITAL_PROGRAM_URLS` in `scripts/watch/sources/capital_programs.ts` AND update the `SOURCE_URLS` map at the top of each parser. Adding a 5th município follows the existing pattern: write a parser under `scripts/budget/capital_programs/<muni>.ts`, add a row to `CAPITAL_PROGRAM_URLS`, build a frontend tile (see the existing `{Sofia,Plovdiv,Burgas,StaraZagora}CapitalProjectsTile.tsx` for design variants).
+4. **Adding a new year** (e.g. when 2026 programmes publish in spring): also add the new (year → urls) entry to `CAPITAL_PROGRAM_URLS` in `scripts/watch/sources/capital_programs.ts` AND update the `SOURCE_URLS` map at the top of each parser. Adding a new município follows the existing pattern: write a parser under `scripts/budget/capital_programs/<muni>.ts`, add a row to `CAPITAL_PROGRAM_URLS`, build a frontend tile (see the existing `{Sofia,Plovdiv,Burgas,StaraZagora,Ruse,Varna,Pleven}CapitalProjectsTile.tsx` for design variants — районирана / per-settlement / per-funding-source).
 
 After running, stamp `update-budget` with a summary like `"capital_programs: refreshed sofia+burgas+ruse 2025"`.
 
@@ -172,7 +194,7 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `nap_annual` | `update-budget` (revenue-breakdown sub-step — re-runs `scripts/budget/run_nap_annual.ts`) |
 | `nssi_b1` | `update-noi` (operator manually downloads the new B1 XLS files into `raw_data/budget/noi/`, then runs `scripts/budget/noi/__write_funds.ts` — auto-fetch is blocked by an NSSI redirect-to-homepage on GET) |
 | `dv_investment_annex` | `update-budget` (investment-program sub-step — operator adds the new fiscal year to both `INVESTMENT_ANNEX_URLS` in `scripts/watch/sources/dv_investment_annex.ts` AND the `SOURCES` map in `scripts/budget/investment_program/__write_program.ts`, fetches the PDF into `raw_data/budget/investment_program/{year}-annex-iii.pdf`, then runs `scripts/budget/investment_program/__write_program.ts`) |
-| `capital_programs` | `update-budget` (capital-programmes sub-step — see "Capital-programmes ingest" below; covers Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna — Varna needs an OCR pre-step) |
+| `capital_programs` | `update-budget` (capital-programmes sub-step — see "Capital-programmes ingest" below; covers Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven — Varna and Pleven need a Gemini Vision OCR pre-step) |
 | `smetna_palata` | `update-financing` |
 | `financing_reports` | `update-financing` |
 | `eurostat` | `update-macro` |

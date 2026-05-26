@@ -987,3 +987,56 @@ export interface StaraZagoraCapitalProgramFile {
   projects: StaraZagoraCapitalProject[];
   bySettlement: StaraZagoraCapitalSettlementRollup[];
 }
+
+// Pleven — single-município, no районi (PVN24, EKATTE 56722). Two source
+// appendices: Прил. №4 (general capital, 7.59M BGN) + Прил. №10А (EU
+// projects, 11.00M BGN). Granularity dimension is by SETTLEMENT (city +
+// 24 outlying villages) and by FUNDING SOURCE. OCR-derived — see
+// scripts/budget/capital_programs/pleven_ocr.ts.
+export interface PlevenCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null; // e.g. "гр. Плевен" / "с. Горталово"
+  fundingSource: string | null; // SCREAMING_SNAKE_CASE code
+  appendix: "PRILOZHENIE_4" | "PRILOZHENIE_10A";
+  total: Money;
+}
+
+export interface PlevenCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface PlevenCapitalFundingRollup {
+  code: string;
+  projectCount: number;
+  total: Money;
+}
+
+export interface PlevenCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money }; // itemised sum
+  publishedRecap: {
+    prilozhenie4: Money | null;
+    prilozhenie10A: Money | null;
+    combined: Money | null;
+  };
+  projects: PlevenCapitalProject[];
+  bySettlement: PlevenCapitalSettlementRollup[];
+  byFundingSource: PlevenCapitalFundingRollup[];
+}

@@ -1,11 +1,12 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 6 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
-// Ruse, Varna) publishes an annual "Капиталова програма" / "Поименен
-// списък на обектите за капиталови разходи" on its own website. URLs are
-// opaque and change every year (some include the date, some a content
-// hash), so the catalogue is hand-curated below — mirrors the SOURCE_URLS
-// map in each município's parser under scripts/budget/capital_programs/.
+// Each of the 7 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Ruse, Varna, Pleven) publishes an annual "Капиталова програма" /
+// "Поименен списък на обектите за капиталови разходи" on its own website.
+// URLs are opaque and change every year (some include the date, some a
+// content hash), so the catalogue is hand-curated below — mirrors the
+// SOURCE_URLS map in each município's parser under
+// scripts/budget/capital_programs/.
 //
 // This watcher HEADs each catalogued URL; a re-upload (content-length /
 // last-modified / etag change) surfaces as `changed`. Adding a new year
@@ -13,7 +14,8 @@
 //   1. fetch the file into raw_data/budget/capital_programs/
 //      (sofia: .xlsx, plovdiv: .pdf, burgas: .xlsx, stara_zagora: .pdf
 //       — extracted from the budget docket ZIP, ruse: .xlsx,
-//       varna: .pdf — rasterized scan, OCR pre-step required)
+//       varna: .pdf — rasterized scan, OCR pre-step required,
+//       pleven: .pdf — fragmented layout, OCR pre-step required)
 //   2. run the relevant ingest:
 //      tsx scripts/budget/capital_programs/sofia.ts --year YYYY
 //      tsx scripts/budget/capital_programs/plovdiv.ts --year YYYY
@@ -23,6 +25,10 @@
 //      # Varna requires OCR first (Gemini Vision):
 //      tsx scripts/budget/capital_programs/varna_ocr.ts --year YYYY
 //      tsx scripts/budget/capital_programs/varna.ts --year YYYY
+//      # Pleven requires OCR first (Gemini Vision); slice capital pages
+//      # 13-17 + 35-37 into pleven-YYYY-capital-pages.pdf, then:
+//      tsx scripts/budget/capital_programs/pleven_ocr.ts --year YYYY
+//      tsx scripts/budget/capital_programs/pleven.ts --year YYYY
 //
 // Cadence: weekly. Municipal capital programmes publish once per fiscal
 // year (March-May of the same year, alongside the council's budget
@@ -51,7 +57,8 @@ type Municipality =
   | "burgas"
   | "stara_zagora"
   | "ruse"
-  | "varna";
+  | "varna"
+  | "pleven";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -77,6 +84,13 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // describe-line points the operator to.
     varna:
       "https://varnacouncil.bg/wp-content/uploads/2025/04/7-9.-Приложение-4-капиталови-разходи-.pdf",
+    // Pleven publishes a single 63-page budget docket PDF; the capital
+    // appendices (№4 + №10А) sit on pages 13-17 and 35-37. Text IS
+    // extractable but the layout is heavily fragmented, so the pipeline
+    // slices those pages into a focused PDF and OCRs them with Gemini
+    // Vision — see scripts/budget/capital_programs/pleven_ocr.ts.
+    pleven:
+      "https://obs.pleven.bg/uploads/posts/prilozheniya-kam-reshenie-659.pdf",
   },
 };
 

@@ -22,6 +22,7 @@ import type {
   NoiFundsFile,
   PersonnelFile,
   PitBreakdownFile,
+  PlevenCapitalProgramFile,
   PlovdivCapitalProgramFile,
   RuseCapitalProgramFile,
   SofiaCapitalProgramFile,
@@ -269,6 +270,23 @@ export const useVarnaCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<VarnaCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/varna.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Pleven's annual Капиталова програма (Приложения №4 + №10А) — OCR'd via
+// Gemini Vision from the budget docket PDF. Single município, no районi.
+// The structural dimension we expose is per-settlement (city + outlying
+// villages) + per-funding-source (преходни остатъци / целеви субсидии /
+// EU projects). Itemised sum 9.5M EUR matches published combined recap
+// (Прил. №4 + №10А) exactly. Tile mirrors the Stara Zagora pattern.
+export const usePlevenCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "pleven", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<PlevenCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/pleven.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

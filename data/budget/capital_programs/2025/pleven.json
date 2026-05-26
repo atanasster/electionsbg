@@ -1,0 +1,1360 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-26T15:59:05.041Z",
+  "source": {
+    "publisher": "Община Плевен",
+    "documentTitle": "Капиталова програма 2025 г. (Приложения №4 + №10А)",
+    "url": "https://obs.pleven.bg/uploads/posts/prilozheniya-kam-reshenie-659.pdf",
+    "fetchedAt": "2026-05-26T15:59:05.042Z",
+    "ocrModel": "gemini-2.5-pro",
+    "ocrGeneratedAt": "2026-05-26T15:54:52.016Z"
+  },
+  "municipalityCode": "PVN24",
+  "municipalityNameBg": "Плевен",
+  "municipalityNameEn": "Pleven",
+  "currency": "BGN",
+  "recapitulation": {
+    "total": {
+      "amount": 18584441,
+      "currency": "BGN",
+      "amountEur": 9502074
+    }
+  },
+  "publishedRecap": {
+    "prilozhenie4": {
+      "amount": 7586808,
+      "currency": "BGN",
+      "amountEur": 3879073
+    },
+    "prilozhenie10A": {
+      "amount": 10997633,
+      "currency": "BGN",
+      "amountEur": 5623000
+    },
+    "combined": {
+      "amount": 18584441,
+      "currency": "BGN",
+      "amountEur": 9502074
+    }
+  },
+  "projects": [
+    {
+      "id": 1,
+      "name": "ПМС 395/2022 Укрепване на периодично активно свлачище № 1 PVN 24.567222.13, прекъсващо общински път PVN 2141 при км 4+000",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 260215,
+        "currency": "BGN",
+        "amountEur": 133046
+      }
+    },
+    {
+      "id": 2,
+      "name": "ПМС 188 и 300/2022 \"Инженерно и хидрогеоложко проучване 2 на съвременно, периодично - активно свлачище PVN 24.62116.02, регистрирано на общ.път LOV1054 с. Ралево",
+      "settlement": "с. Ралево",
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 455275,
+        "currency": "BGN",
+        "amountEur": 232778
+      }
+    },
+    {
+      "id": 3,
+      "name": "ул. \"Столетов\"",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 34052,
+        "currency": "BGN",
+        "amountEur": 17411
+      }
+    },
+    {
+      "id": 4,
+      "name": "ул. \"Брацигово\"",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 8133,
+        "currency": "BGN",
+        "amountEur": 4158
+      }
+    },
+    {
+      "id": 5,
+      "name": "Скейтборд площадка",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 415100,
+        "currency": "BGN",
+        "amountEur": 212237
+      }
+    },
+    {
+      "id": 6,
+      "name": "ул. \"Пиер Кюри\"",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 82,
+        "currency": "BGN",
+        "amountEur": 42
+      }
+    },
+    {
+      "id": 7,
+      "name": "ТП, ОСИП на обект:Основен ремонт на общинска сграда с детска площадка върху покривното пространство в ПИ56722. 668.100 гр.Плевен",
+      "settlement": "гр. Плевен",
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 8,
+      "name": "ТП, ОСИП:Реконструкция промишлен водопровод по ул.\"Индустриална\" и ул.\"Георги Кочев\", гр.Плевен",
+      "settlement": "гр. Плевен",
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 9,
+      "name": "ППП, ПУП-ПУР, ТП вод. за обект \"Пътна връзка на ж.к.Сторгозия - ул.Г.М Димитров с ул.\"Генерал Вл.Вазов\", гр.Плевен\"",
+      "settlement": "гр. Плевен",
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 144000,
+        "currency": "BGN",
+        "amountEur": 73626
+      }
+    },
+    {
+      "id": 10,
+      "name": "ППП, ПУП-ПУР за обект \"Пътна връзка на ж.к.Дружба с Източна промишлена зона при пътен възел Балканстрой, гр.Плевен\"",
+      "settlement": "гр. Плевен",
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 80000,
+        "currency": "BGN",
+        "amountEur": 40903
+      }
+    },
+    {
+      "id": 11,
+      "name": "ППП, ПУП-ПУР за обект \"Пътна връзка на ж.к.Сторгозия със Западна промишлена зона при /Читалище Ракитин/",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 80000,
+        "currency": "BGN",
+        "amountEur": 40903
+      }
+    },
+    {
+      "id": 12,
+      "name": "ППП, ПУП-ПУР за обект \"Реконструкция пътна връзка при ул.Лозенка - ж.к.Сторгозия\"",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 25000,
+        "currency": "BGN",
+        "amountEur": 12782
+      }
+    },
+    {
+      "id": 13,
+      "name": "ППП, ПУП-ПУР за обект \"Реконструкция бул.Европа",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 14,
+      "name": "Проектиране на кръгово кръстовище ул.Перуника",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 70000,
+        "currency": "BGN",
+        "amountEur": 35790
+      }
+    },
+    {
+      "id": 15,
+      "name": "Изграждане на второ платно за движение на ул.Шипка",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 16,
+      "name": "Проектиране на кръгово кръстовище Кръгово при Регионален исторически музей Плевен",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 17,
+      "name": "Проектиране - Реконструкция на общински сгради \"Хотел Сторгозия\"",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 18,
+      "name": "ПП и ИП за Допълнително водоснабдяване на гр.Плевен от съществуващи кладенци в землището на община Никопол",
+      "settlement": "гр. Плевен",
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 19,
+      "name": "Проектиране - Реконструкция на ВиК инфраструктура и улична мрежа на ул. П. Р. Славейков - гр. Плевен",
+      "settlement": "гр. Плевен",
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 20,
+      "name": "Проектиране Реконструкция на ВиК инфраструктура и улична мрежа на ул. Георги Кочев - гр. Плевен",
+      "settlement": "гр. Плевен",
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 21,
+      "name": "Реконструкция на ВиК инфраструктура и улична мрежа на ул.Панайот Волов - гр. Плевен",
+      "settlement": "гр. Плевен",
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 22,
+      "name": "Реконструкция на ВиК инфраструктура и улична мрежа на ул.Бузлуджа - гр. Плевен",
+      "settlement": "гр. Плевен",
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 23,
+      "name": "ХГД, Проектиране и СМР на Сондажен кладенец за допълнително водоснабдяване на кметство Ралево",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 120000,
+        "currency": "BGN",
+        "amountEur": 61355
+      }
+    },
+    {
+      "id": 24,
+      "name": "ХГД, Проектиране и СМР на Сондажен кладенец за допълнително водоснабдяване на кметство Ласкар",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 120000,
+        "currency": "BGN",
+        "amountEur": 61355
+      }
+    },
+    {
+      "id": 25,
+      "name": "ХГД, Проектиране и СМР на Сондажен кладенец за допълнително водоснабдяване на кметство Николаево",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 120000,
+        "currency": "BGN",
+        "amountEur": 61355
+      }
+    },
+    {
+      "id": 26,
+      "name": "ХГД, Проектиране и СМР на Сондажен кладенец за допълнително водоснабдяване на кметство Брестовец",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 120000,
+        "currency": "BGN",
+        "amountEur": 61355
+      }
+    },
+    {
+      "id": 27,
+      "name": "Реконструкция на водопроводната мрежа - кметство Опанец",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 28,
+      "name": "ХГД, Проектиране и СМР на Сондажен кладенец за допълнително водоснабдяване на кметство Къшин",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 120000,
+        "currency": "BGN",
+        "amountEur": 61355
+      }
+    },
+    {
+      "id": 29,
+      "name": "ХГД, Проектиране и СМР на Сондажен кладенец за допълнително водоснабдяване на кметство Бохот",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 120000,
+        "currency": "BGN",
+        "amountEur": 61355
+      }
+    },
+    {
+      "id": 30,
+      "name": "ХГД, Проектиране и СМР на Сондажен кладенец за допълнително водоснабдяване на кметство Тодорово",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 120000,
+        "currency": "BGN",
+        "amountEur": 61355
+      }
+    },
+    {
+      "id": 31,
+      "name": "ТИП, ОСИП за обект \"Реконструкция зала Балканстрой - гр.Плевен\"",
+      "settlement": "гр. Плевен",
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 32,
+      "name": "ТП, ОСИП, АВТ.НАДЗОР, СТР. НАДЗОР, СМР за обект: „Възстановяване на връзката между Клетка 1 на депо за отпадъци и ретензионен басейн\"",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1000000,
+        "currency": "BGN",
+        "amountEur": 511292
+      }
+    },
+    {
+      "id": 33,
+      "name": "Разработване на Генерален план за организация на движението в гр.Плевен",
+      "settlement": "гр. Плевен",
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 250000,
+        "currency": "BGN",
+        "amountEur": 127823
+      }
+    },
+    {
+      "id": 34,
+      "name": "ТП, ОСИП, АВТ. НАДЗОР, СТР. НАДЗОР, СМР - Комбинирана детска площадка, ПИ с идент. 17258.101.301, м/у кв.9 и кв.15 по плана на с. Горталово, общ. Плевен",
+      "settlement": "с. Горталово",
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 19000,
+        "currency": "BGN",
+        "amountEur": 9715
+      }
+    },
+    {
+      "id": 35,
+      "name": "ОСИП - Комбинирана детска площадка, ПИ с идент. 56722.667.308, ж.к. Дружба, УПИ І, кв.27 по плана на гр. Плевен",
+      "settlement": "гр. Плевен",
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 19000,
+        "currency": "BGN",
+        "amountEur": 9715
+      }
+    },
+    {
+      "id": 36,
+      "name": "Реконструкция на с-ма за улично осветление",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 614552,
+        "currency": "BGN",
+        "amountEur": 314215
+      }
+    },
+    {
+      "id": 37,
+      "name": "ул. \"Кара Колю\"",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 29656,
+        "currency": "BGN",
+        "amountEur": 15163
+      }
+    },
+    {
+      "id": 38,
+      "name": "зала \"Спартак\" геодезическа заснемане",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 960,
+        "currency": "BGN",
+        "amountEur": 491
+      }
+    },
+    {
+      "id": 39,
+      "name": "Приют за безстопанствени животни",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 145656,
+        "currency": "BGN",
+        "amountEur": 74473
+      }
+    },
+    {
+      "id": 40,
+      "name": "ХГ \"Илия Бешков\" - канализация",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 156750,
+        "currency": "BGN",
+        "amountEur": 80145
+      }
+    },
+    {
+      "id": 41,
+      "name": "Косачка ZERO TURN",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 12108,
+        "currency": "BGN",
+        "amountEur": 6191
+      }
+    },
+    {
+      "id": 42,
+      "name": "Модулни дървени къщички",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 43,
+      "name": "Климатици общинска администрация",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 10824,
+        "currency": "BGN",
+        "amountEur": 5534
+      }
+    },
+    {
+      "id": 44,
+      "name": "Спирки градски транспорт",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 45,
+      "name": "Придобиване земя",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 46,
+      "name": "ПУП, ИП, ПОСИП-Проектиране на Западен обход на гр.Плевен",
+      "settlement": "гр. Плевен",
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 47,
+      "name": "ТИП, ОСИП за обект \"Консервация и реставрация на сграда с идент. 56722.480.293.2 - Панорама \"Плевенска епопея 1877\"\"",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 47100,
+        "currency": "BGN",
+        "amountEur": 24082
+      }
+    },
+    {
+      "id": 48,
+      "name": "ТИП, ОСИП за обект \"Основен ремонт Къща музей Цар Освободител Александър II\" - Плевен\"",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 4860,
+        "currency": "BGN",
+        "amountEur": 2485
+      }
+    },
+    {
+      "id": 49,
+      "name": "ТИП, ОСИП за обект \"Консервация и реставрация на сграда с идент. 17854.51.106.4 - Румънски мавзолей с.Гривица\"",
+      "settlement": "с. Гривица",
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 20220,
+        "currency": "BGN",
+        "amountEur": 10338
+      }
+    },
+    {
+      "id": 50,
+      "name": "ТП, ОСИП - Основен ремонт на градинка пред Стадион",
+      "settlement": null,
+      "fundingSource": "UNSPECIFIED_SOURCE",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 58400,
+        "currency": "BGN",
+        "amountEur": 29859
+      }
+    },
+    {
+      "id": 51,
+      "name": "ТП, ОСИП - Основен ремонт на предгаров площад-градинка Иван Мендиликов, ПИ 56722.659.545;543, УПИ 1, кв 267",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 60600,
+        "currency": "BGN",
+        "amountEur": 30984
+      }
+    },
+    {
+      "id": 52,
+      "name": "ОСИП - Основен ремонт на съществуваща сграда с идентификатор 56722.659.1143.4 - Зала по борба, разположена в УПИ І, кв.839, ПИ с идентификатор 56722.659.1143 по плана на гр. Плевен",
+      "settlement": "гр. Плевен",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 4800,
+        "currency": "BGN",
+        "amountEur": 2454
+      }
+    },
+    {
+      "id": 53,
+      "name": "ОСИП- „Основен ремонт на Летен театър, обслужващи помещения, сгради и прилежащо пространство\", парк „Кайлъка\", ПИ с идент. 56722.621.24 по КККР на гр.Плевен, Община Плевен, Област Плевен.",
+      "settlement": "гр. Плевен",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 4800,
+        "currency": "BGN",
+        "amountEur": 2454
+      }
+    },
+    {
+      "id": 54,
+      "name": "ОСИП-Основен ремонт на съществуваща сграда с идентификатор 56722.655.171.4 – Ученическа спортна зала, разположена в УПИ ІХ, кв.703 ПИ с идентификатор 56722.655.171 по плана на гр. Плевен",
+      "settlement": "гр. Плевен",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 4800,
+        "currency": "BGN",
+        "amountEur": 2454
+      }
+    },
+    {
+      "id": 55,
+      "name": "ул. \"Цар Самуил\" /между ул.\"Тунджа\" и ул.\"Х.Димитър\"/\", гр.Плевен",
+      "settlement": "гр. Плевен",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 113000,
+        "currency": "BGN",
+        "amountEur": 57776
+      }
+    },
+    {
+      "id": 56,
+      "name": "ул. \"Източна\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 3105,
+        "currency": "BGN",
+        "amountEur": 1588
+      }
+    },
+    {
+      "id": 57,
+      "name": "ул. \"Пиер Кюри\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 2050,
+        "currency": "BGN",
+        "amountEur": 1048
+      }
+    },
+    {
+      "id": 58,
+      "name": "ул.\"Митрополит Климент\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1850,
+        "currency": "BGN",
+        "amountEur": 946
+      }
+    },
+    {
+      "id": 59,
+      "name": "Изграждане на паркинг и изместване на пешеходна пътека в ПИ 56722.659.1154 и ПИ 56722.659.516",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 650,
+        "currency": "BGN",
+        "amountEur": 332
+      }
+    },
+    {
+      "id": 60,
+      "name": "ул. \"Брацигово\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1650,
+        "currency": "BGN",
+        "amountEur": 844
+      }
+    },
+    {
+      "id": 61,
+      "name": "бул. \"Г. Кочев\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1550,
+        "currency": "BGN",
+        "amountEur": 793
+      }
+    },
+    {
+      "id": 62,
+      "name": "ул. \"В. Ганчев\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 410,
+        "currency": "BGN",
+        "amountEur": 210
+      }
+    },
+    {
+      "id": 63,
+      "name": "ОСИП ул. \"Втора задгарова\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 16200,
+        "currency": "BGN",
+        "amountEur": 8283
+      }
+    },
+    {
+      "id": 64,
+      "name": "Основен ремонт и реконструкция на общински път - ПИ 56722.29.32, свързващ РП І-З \"Бяла-Ботевград\" при км. 92+774-ляво с общински път - ПИ 56722.30.100 по КККР, землище на гр. Плевен, Община Плевен",
+      "settlement": "гр. Плевен",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 240000,
+        "currency": "BGN",
+        "amountEur": 122710
+      }
+    },
+    {
+      "id": 65,
+      "name": "ОСИП - Инвестиционно проектиране на Укрепване на новообразувано свлачище в землището на с. Ралево на общ. път LOV 1054 между с. Ралево и с. Николаево",
+      "settlement": "с. Николаево",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 4200,
+        "currency": "BGN",
+        "amountEur": 2147
+      }
+    },
+    {
+      "id": 66,
+      "name": "ТП, ОСИП - Подпорна стена - ул. Мануш войвода № 9",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 67,
+      "name": "Ремонт на вътрешни ВиК инсталации и ново сградно канализационно отклонение в КСУДПЛПН ул. „Неофит Рилски\" №55",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 30000,
+        "currency": "BGN",
+        "amountEur": 15339
+      }
+    },
+    {
+      "id": 68,
+      "name": "Допълнително водоснабдяване на с. Горталово от местен водоизточник „Баба Радица\" в местността „Под село\"",
+      "settlement": "с. Горталово",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 501800,
+        "currency": "BGN",
+        "amountEur": 256566
+      }
+    },
+    {
+      "id": 69,
+      "name": "ОСИП-Основен ремонт на дворно пространство и площадки за игра в ДЯ \"Мир\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 2000,
+        "currency": "BGN",
+        "amountEur": 1023
+      }
+    },
+    {
+      "id": 70,
+      "name": "ОСИП-Основен ремонт на дворно пространство и площадки за игра в ДЯ \"Латинка\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1900,
+        "currency": "BGN",
+        "amountEur": 971
+      }
+    },
+    {
+      "id": 71,
+      "name": "ОСИП-Основен ремонт на дворно пространство и площадки за игра в ДЯ \"Асен Халачев\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1500,
+        "currency": "BGN",
+        "amountEur": 767
+      }
+    },
+    {
+      "id": 72,
+      "name": "ОСИП-Основен ремонт на дворно пространство и площадки за игра в ДЯ \"Дружба\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 900,
+        "currency": "BGN",
+        "amountEur": 460
+      }
+    },
+    {
+      "id": 73,
+      "name": "ОСИП-Основен ремонт на дворно пространство и площадки за игра в ДЯ \"Щастливо детство\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1500,
+        "currency": "BGN",
+        "amountEur": 767
+      }
+    },
+    {
+      "id": 74,
+      "name": "ОСИП-Основен ремонт на дворно пространство и площадки за игра в ДЯ \"Чайка\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 600,
+        "currency": "BGN",
+        "amountEur": 307
+      }
+    },
+    {
+      "id": 75,
+      "name": "ОСИП, АВТ.НАДЗОР, СТР.НАДЗОР, СМР на ул.ОК20 - ОК176a /Кл.Охр. 48-50/ Ст.Михайловски",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 510000,
+        "currency": "BGN",
+        "amountEur": 260759
+      }
+    },
+    {
+      "id": 76,
+      "name": "Проектиране и изграждане на поливна с-ма в УПИ № 56722.659.1006",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 77,
+      "name": "Проектиране на парк \"Малка Мизия\" с. Коиловци",
+      "settlement": "с. Коиловци",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 26000,
+        "currency": "BGN",
+        "amountEur": 13294
+      }
+    },
+    {
+      "id": 78,
+      "name": "ОП \"План за възстановяване\", Проект: „Енергийно обновяване на МСЗала \"Спартак\"\", гр. Плевен \" Дог. Nº BG0-RRP-4.020",
+      "settlement": "гр. Плевен",
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 99000,
+        "currency": "BGN",
+        "amountEur": 50618
+      }
+    },
+    {
+      "id": 79,
+      "name": "ОП \"План за възстановяване\", Проект: „Подобряване качеството на атмосферния въздух в община Плевен\", финансиран по АДБФП рег. номер № BG16FFPR002-5.001-0008-C01/07.05.2024 - Закупуване/доставка и монтаж (пускане в експлоатация) на ново оборудване/съоръжения/обзавеждане/техника (отоплителни устройства на биомаса или електричество)",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 2500000,
+        "currency": "BGN",
+        "amountEur": 1278230
+      }
+    },
+    {
+      "id": 80,
+      "name": "ОП \"План за възстановяване\", Проект: „Подобряване качеството на атмосферния въздух в община Плевен\". финансиран по АДБФП рег. номер № BG16FFPR002-5.001-0008-C01/07.05.2024-Закупуване/доставка и монтаж (пускане в експлоатация) на нови оборудване/съоръжения/обзавеждане/техника (фотоволтаични системи - 75 домакинства)",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 500000,
+        "currency": "BGN",
+        "amountEur": 255646
+      }
+    },
+    {
+      "id": 81,
+      "name": "ОП \"План за възстановяване\", Проект: „Обновяване и модернизация на СО \"Данаил Попов\", гр. Плевен \" Дог. № BG0-RRP-1.011-0006-C01 ИА\" Програма за образование\"",
+      "settlement": "гр. Плевен",
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 1889077,
+        "currency": "BGN",
+        "amountEur": 965870
+      }
+    },
+    {
+      "id": 82,
+      "name": "ОП \"План за възстановяване\", Проект: „Обновяване и модернизация на ОУ \"Петър Берон\", гр. Плевен \" Дог. № BG-RRP-1.007-0033-С01 ИА \"Програма за образование\"",
+      "settlement": "гр. Плевен",
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 2320400,
+        "currency": "BGN",
+        "amountEur": 1186402
+      }
+    },
+    {
+      "id": 83,
+      "name": "ОП \"План за възстановяване\". Проект: „Обновяване и модернизация на СУ \"Стоян Заимов\", гр. Плевен \" Дог. № BG-RRP-1.007-0032-001 ИА \"Програма за образование\" - основен ремонт",
+      "settlement": "гр. Плевен",
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 2964791,
+        "currency": "BGN",
+        "amountEur": 1515874
+      }
+    },
+    {
+      "id": 84,
+      "name": "ОП \"План за възстановяване\", Проект: „Обновяване и модернизация на СУ \"Стоян Заимов\", гр. Плевен \" Дог. № BG-RRP-1.007-0032-С01 ИА \"Програма за образование\" - Климатична система",
+      "settlement": "гр. Плевен",
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 428764,
+        "currency": "BGN",
+        "amountEur": 219224
+      }
+    },
+    {
+      "id": 85,
+      "name": "ОП \"План за възстановяване\", Проект: „Обновяване и модернизация на СУ \"Стоян Заимов\", гр. Плевен \" Дог. № BG-RRP-1.007-0032-С01 ИА \"Програма за образование\" -Модулно бюро",
+      "settlement": "гр. Плевен",
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 1574,
+        "currency": "BGN",
+        "amountEur": 805
+      }
+    },
+    {
+      "id": 86,
+      "name": "ОП \"План за възстановяване\", Проект „Обновяване и модернизация на СУ \"Стоян Заимов\", гр. Плевен \" Дог № BG-RRP-1.007-0032-С01 ИА \"Програма за образование\" - интерактивен дисплей",
+      "settlement": "гр. Плевен",
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 145824,
+        "currency": "BGN",
+        "amountEur": 74559
+      }
+    },
+    {
+      "id": 87,
+      "name": "ОП \"План за възстановяване\", Проект: „Обновяване и модернизация на СУ \"Стоян Заимов\", гр. Плевен \" Дог. № BG-RRP-1.007-0032-С01 ИА \"Програма за образование\" - крайстенна библиотека",
+      "settlement": "гр. Плевен",
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 19639,
+        "currency": "BGN",
+        "amountEur": 10041
+      }
+    },
+    {
+      "id": 88,
+      "name": "ОП \"План за възстановяване\", Проект: „Обновяване и модернизация на СУ \"Стоян Заимов\", гр. Плевен \" Дог. № BG-RRP-1 007-0032-С01 ИА \"Програма за образование\" - библиотека",
+      "settlement": "гр. Плевен",
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 5376,
+        "currency": "BGN",
+        "amountEur": 2749
+      }
+    },
+    {
+      "id": 89,
+      "name": "ОП \"План за възстановяване\", Проект: „Обновяване и модернизация на СУ \"Стоян Заимов\", гр. Плевен \" Дог. № BG-RRP-1.007-0032-С01 ИА \"Програма за образование\" - ъглов модул за диван",
+      "settlement": "гр. Плевен",
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 1728,
+        "currency": "BGN",
+        "amountEur": 884
+      }
+    },
+    {
+      "id": 90,
+      "name": "ОП \"План за възстановяване\", Проект: „Обновяване и модернизация на СУ \"Стоян Заимов\", гр. Плевен \" Дог. № BG-RRP-1.007-0032-С01 ИА \"Програма за образование\" - стационарен диван",
+      "settlement": "гр. Плевен",
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 5952,
+        "currency": "BGN",
+        "amountEur": 3043
+      }
+    },
+    {
+      "id": 91,
+      "name": "ОП \"План за възстановяване\", Проект: „Обновяване и модернизация на СУ \"Стоян Заимов\", гр. Плевен \" Дог. № BG-RRP-1.007-0032-С01 ИА \"Програма за образование\" -бюро ъглово 2 бр.",
+      "settlement": "гр. Плевен",
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 3148,
+        "currency": "BGN",
+        "amountEur": 1610
+      }
+    },
+    {
+      "id": 92,
+      "name": "ОП \"План за възстановяване\", Проект: „Обновяване и модернизация на СУ \"Стоян Заимов\", гр. Плевен \" Дог. № BG-RRP-1007-0032-С01 ИА \"Програма за образование\" - Асансьор",
+      "settlement": "гр. Плевен",
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 112360,
+        "currency": "BGN",
+        "amountEur": 57449
+      }
+    }
+  ],
+  "bySettlement": [
+    {
+      "name": "гр. Плевен",
+      "projectCount": 31,
+      "total": {
+        "amount": 9538033,
+        "currency": "BGN",
+        "amountEur": 4876719
+      },
+      "topProjects": [
+        {
+          "id": 83,
+          "name": "ОП \"План за възстановяване\". Проект: „Обновяване и модернизация на СУ \"Стоян Заимов\", гр. Плевен \" Дог. № BG-RRP-1.007-0032-001 ИА \"Програма за образование\" - основен ремонт",
+          "total": {
+            "amount": 2964791,
+            "currency": "BGN",
+            "amountEur": 1515874
+          }
+        },
+        {
+          "id": 82,
+          "name": "ОП \"План за възстановяване\", Проект: „Обновяване и модернизация на ОУ \"Петър Берон\", гр. Плевен \" Дог. № BG-RRP-1.007-0033-С01 ИА \"Програма за образование\"",
+          "total": {
+            "amount": 2320400,
+            "currency": "BGN",
+            "amountEur": 1186402
+          }
+        },
+        {
+          "id": 81,
+          "name": "ОП \"План за възстановяване\", Проект: „Обновяване и модернизация на СО \"Данаил Попов\", гр. Плевен \" Дог. № BG0-RRP-1.011-0006-C01 ИА\" Програма за образование\"",
+          "total": {
+            "amount": 1889077,
+            "currency": "BGN",
+            "amountEur": 965870
+          }
+        },
+        {
+          "id": 84,
+          "name": "ОП \"План за възстановяване\", Проект: „Обновяване и модернизация на СУ \"Стоян Заимов\", гр. Плевен \" Дог. № BG-RRP-1.007-0032-С01 ИА \"Програма за образование\" - Климатична система",
+          "total": {
+            "amount": 428764,
+            "currency": "BGN",
+            "amountEur": 219224
+          }
+        },
+        {
+          "id": 33,
+          "name": "Разработване на Генерален план за организация на движението в гр.Плевен",
+          "total": {
+            "amount": 250000,
+            "currency": "BGN",
+            "amountEur": 127823
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Горталово",
+      "projectCount": 2,
+      "total": {
+        "amount": 520800,
+        "currency": "BGN",
+        "amountEur": 266281
+      },
+      "topProjects": [
+        {
+          "id": 68,
+          "name": "Допълнително водоснабдяване на с. Горталово от местен водоизточник „Баба Радица\" в местността „Под село\"",
+          "total": {
+            "amount": 501800,
+            "currency": "BGN",
+            "amountEur": 256566
+          }
+        },
+        {
+          "id": 34,
+          "name": "ТП, ОСИП, АВТ. НАДЗОР, СТР. НАДЗОР, СМР - Комбинирана детска площадка, ПИ с идент. 17258.101.301, м/у кв.9 и кв.15 по плана на с. Горталово, общ. Плевен",
+          "total": {
+            "amount": 19000,
+            "currency": "BGN",
+            "amountEur": 9715
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Ралево",
+      "projectCount": 1,
+      "total": {
+        "amount": 455275,
+        "currency": "BGN",
+        "amountEur": 232778
+      },
+      "topProjects": [
+        {
+          "id": 2,
+          "name": "ПМС 188 и 300/2022 \"Инженерно и хидрогеоложко проучване 2 на съвременно, периодично - активно свлачище PVN 24.62116.02, регистрирано на общ.път LOV1054 с. Ралево",
+          "total": {
+            "amount": 455275,
+            "currency": "BGN",
+            "amountEur": 232778
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Коиловци",
+      "projectCount": 1,
+      "total": {
+        "amount": 26000,
+        "currency": "BGN",
+        "amountEur": 13294
+      },
+      "topProjects": [
+        {
+          "id": 77,
+          "name": "Проектиране на парк \"Малка Мизия\" с. Коиловци",
+          "total": {
+            "amount": 26000,
+            "currency": "BGN",
+            "amountEur": 13294
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Гривица",
+      "projectCount": 1,
+      "total": {
+        "amount": 20220,
+        "currency": "BGN",
+        "amountEur": 10338
+      },
+      "topProjects": [
+        {
+          "id": 49,
+          "name": "ТИП, ОСИП за обект \"Консервация и реставрация на сграда с идент. 17854.51.106.4 - Румънски мавзолей с.Гривица\"",
+          "total": {
+            "amount": 20220,
+            "currency": "BGN",
+            "amountEur": 10338
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Николаево",
+      "projectCount": 1,
+      "total": {
+        "amount": 4200,
+        "currency": "BGN",
+        "amountEur": 2147
+      },
+      "topProjects": [
+        {
+          "id": 65,
+          "name": "ОСИП - Инвестиционно проектиране на Укрепване на новообразувано свлачище в землището на с. Ралево на общ. път LOV 1054 между с. Ралево и с. Николаево",
+          "total": {
+            "amount": 4200,
+            "currency": "BGN",
+            "amountEur": 2147
+          }
+        }
+      ]
+    }
+  ],
+  "byFundingSource": [
+    {
+      "code": "EU_PROJECTS",
+      "projectCount": 15,
+      "total": {
+        "amount": 10997633,
+        "currency": "BGN",
+        "amountEur": 5623000
+      }
+    },
+    {
+      "code": "TARGETED_SUBSIDY",
+      "projectCount": 21,
+      "total": {
+        "amount": 2758000,
+        "currency": "BGN",
+        "amountEur": 1410143
+      }
+    },
+    {
+      "code": "UNSPECIFIED_SOURCE",
+      "projectCount": 23,
+      "total": {
+        "amount": 2050086,
+        "currency": "BGN",
+        "amountEur": 1048192
+      }
+    },
+    {
+      "code": "OTHER_BUDGET",
+      "projectCount": 27,
+      "total": {
+        "amount": 1605865,
+        "currency": "BGN",
+        "amountEur": 821066
+      }
+    },
+    {
+      "code": "TRANSITIONAL_BALANCES",
+      "projectCount": 6,
+      "total": {
+        "amount": 1172857,
+        "currency": "BGN",
+        "amountEur": 599672
+      }
+    }
+  ]
+}
