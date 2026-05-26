@@ -176,14 +176,21 @@ const collectColB = (items: RawItem[], y: number): string => {
 };
 
 const collectColA = (items: RawItem[], y: number): string => {
-  // Some district tags ("Район Централен") sit at the same y; others may
-  // be vertically split (each Cyrillic letter is its own text item at
-  // x=55 over a 30pt y-range). We gather any items with x<COL_A_MAX_X
-  // whose y is within 3pt of the anchor — that covers both cases.
+  // Col A items ("Район X", "Първостепенен разпоредител", or institution
+  // names) sit at the same baseline as the amount anchor on real-project
+  // rows. We use a STRICT y±3 band — extending up to (y+9)±3 (to catch
+  // the top half of a two-line "Първостепенен / разпоредител" stack)
+  // looked attractive at first but turned out to be wrong: that same
+  // ±9pt window catches the project label from the ROW ABOVE a
+  // §-sub-paragraph subtotal ("инженеринг", "ППР", "придобиване на сгради",
+  // …), making the parser misclassify the subtotal as a real project
+  // inheriting the previous row's location tag. Real projects always
+  // have at least the bottom half of the stack ("разпоредител") or a
+  // "Район X" tag within ±3pt of the anchor.
   const parts: Array<{ y: number; str: string }> = [];
   for (const it of items) {
     if (it.x > COL_A_MAX_X) continue;
-    if (Math.abs(it.y - y) > 3 && Math.abs(it.y - (y + 9)) > 3) continue;
+    if (Math.abs(it.y - y) > 3) continue;
     parts.push({ y: it.y, str: it.str });
   }
   // Sort top-to-bottom (descending y) and concatenate without spaces —
@@ -316,6 +323,14 @@ const parseProgram = async (
       if (PARAGRAPH_TITLES.some((t) => desc.startsWith(t))) continue;
       // Discard sub-subcolumns: rows where colA looks like a § number.
       if (/^[\d\s]+$/.test(colA)) continue;
+      // §-sub-paragraph subtotal rows ("инженеринг", "придобиване на сгради",
+      // "капиталови трансфери за домакинствата", "Обект", "ППР", "МиС",
+      // …) appear as label-only rows with the amount inherited from the
+      // rollup. They have BOTH colA empty (no разпоредител / no Район
+      // tag) AND colB empty (no § code). Real projects always carry at
+      // least one of: a § code in colB ("311", "322", "606"), or a
+      // spending-unit / район tag in colA. Drop the rest.
+      if (!colA.trim() && !colB.trim()) continue;
       const rayon = lookupRayonCode(colA) || lookupRayonCode(desc);
       projectId += 1;
       projects.push({
