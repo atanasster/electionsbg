@@ -144,14 +144,26 @@ const VILLAGE_NAMES = [
 const QUARTER_PREFIXES = ["ж.к.", "ж.к", "к/с", "кв.", "кв "];
 
 // Known multi-word Burgas city quarters. Single-word capture would
-// truncate "Черно море" → "Черно", "Меден рудник" → "Меден" etc. Listed
+// truncate "Черно Море" → "Черно", "Меден рудник" → "Меден" etc. Listed
 // here so the lookup can grab the second word verbatim when present.
+//
+// Source: bg.wikipedia.org/wiki/Категория:Квартали_на_Бургас (cross-
+// referenced against actual XLSX rows). Capitalisation follows the
+// Burgas budget XLSX ("кв.Черно Море" with capital М), not Wikipedia's
+// "Черно море" (lowercase) — the parser is case-insensitive but emits
+// the canonical form from this list.
+//
+// Single-word квартали from the same category (Сарафово, Крайморие,
+// Лозово, Хоризонт, Победа, Лазур, Акациите, Изгрев, Зорница,
+// Възраждане) all match via the fallback single-Cyrillic-word capture
+// and don't need explicit listing.
 const MULTI_WORD_QUARTERS = [
-  "Черно море",
+  "Черно Море",
   "Меден рудник",
   "Долно Езерово",
   "Горно Езерово",
   "Братя Миладинови",
+  "Петко Славейков",
 ];
 
 const extractSettlement = (name: string): string | null => {
