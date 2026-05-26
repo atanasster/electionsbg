@@ -8,7 +8,7 @@
 // the tile returns null silently — the hook fetches lazily so the JSON
 // isn't loaded outside Sofia pages.
 
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { HardHat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -16,7 +16,11 @@ import { useSofiaCapitalProgram } from "@/data/budget/useBudget";
 import { rayonFromObshtina } from "@/data/budget/sofiaRayons";
 import type { SofiaCapitalRayonRollup } from "@/data/budget/types";
 
-const SOFIA_CAPITAL_LATEST_YEAR = 2025;
+// Sofia is the only município with ingested history; years descend so
+// the latest sits first in the picker. When a new fiscal year ships in
+// spring, prepend it here AND add the URL to scripts/budget/capital_programs/sofia.ts.
+const SOFIA_CAPITAL_YEARS = [2025, 2024, 2023, 2022] as const;
+const SOFIA_CAPITAL_LATEST_YEAR = SOFIA_CAPITAL_YEARS[0];
 
 const compactEur = (v: number): string => {
   if (v >= 1_000_000_000) return `€${(v / 1_000_000_000).toFixed(2)}B`;
@@ -39,8 +43,9 @@ export const SofiaCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("bg") ? "bg" : "en";
   const rayonCode = rayonFromObshtina(obshtinaCode);
+  const [year, setYear] = useState<number>(SOFIA_CAPITAL_LATEST_YEAR);
   const { data, isLoading } = useSofiaCapitalProgram(
-    rayonCode ? SOFIA_CAPITAL_LATEST_YEAR : undefined,
+    rayonCode ? year : undefined,
   );
 
   const rayon: SofiaCapitalRayonRollup | null = useMemo(() => {
@@ -62,10 +67,19 @@ export const SofiaCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <HardHat className="h-4 w-4" />
           {t("sofia_capital_tile_title", { rayon: rayonLabel })}
-          <span className="text-xs text-muted-foreground font-normal ml-1">
-            {data.fiscalYear}
-            {lang === "bg" ? " г." : ""}
-          </span>
+          <select
+            value={year}
+            onChange={(e) => setYear(Number(e.target.value))}
+            className="ml-auto text-xs font-normal bg-transparent border rounded px-1.5 py-0.5 tabular-nums cursor-pointer hover:bg-muted/40"
+            aria-label={t("sofia_capital_year_picker_label")}
+          >
+            {SOFIA_CAPITAL_YEARS.map((y) => (
+              <option key={y} value={y}>
+                {y}
+                {lang === "bg" ? " г." : ""}
+              </option>
+            ))}
+          </select>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {t("sofia_capital_tile_intro")}

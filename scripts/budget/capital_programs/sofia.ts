@@ -30,6 +30,41 @@ const __dirname = dirname(__filename);
 
 const SOURCE_URLS: Record<number, string> = {
   2025: "https://www.sofia.bg/documents/d/guest/prilozenie-_3-kapitalova-programa-2025",
+  2024: "https://www.sofia.bg/documents/d/guest/prilozenie-3_-razcet-za-finansirane-na-kapitalovite-razhodi-2024-g-",
+  2023: "https://www.sofia.bg/documents/d/guest/4-kapitalova-programa-za-2023-g",
+  // 2022's budget docket landed on sofia.bg in Aug 2023 — the year-end
+  // refined plan ("Уточнен план") XLSX has the per-project list.
+  2022: "https://www.sofia.bg/documents/d/guest/2023-08-28-razcet-za-finansirane-na-kapitalovite-razhodi-2022g-",
+};
+
+// XLSX layout differs across fiscal years. The cleanest split:
+//   2025+ — 5-col layout: desc=A, ownFunds=B, stateSubsidy=C, euFunds=D, total=E
+//   2023/2024 — wider layout: desc=A, total=D ("ОБЩО"), funding-source cols
+//     differ (12 vs 20 cols) and don't map 1:1 to the ownFunds/state/eu trio
+//   2022 — radically different: § markers in col A, project description in
+//     col B, "Уточнен план" (refined annual plan) in col F. Handled by the
+//     separate sofia_2022.ts parser below.
+interface ColumnConfig {
+  descColumn: number; // index of the column holding project description + hierarchy markers
+  totalColumn: number; // index of the column holding the annual headline amount
+  // For 2025 only — finer-grained funding breakdown columns. Wider-layout
+  // 2023/2024 don't capture this (funding-source columns are too year-
+  // specific to remap reliably; the tile only renders `total` anyway).
+  ownFundsColumn?: number;
+  stateSubsidyColumn?: number;
+  euFundsColumn?: number;
+}
+
+const COLUMN_CONFIGS: Record<number, ColumnConfig> = {
+  2025: {
+    descColumn: 0,
+    ownFundsColumn: 1,
+    stateSubsidyColumn: 2,
+    euFundsColumn: 3,
+    totalColumn: 4,
+  },
+  2024: { descColumn: 0, totalColumn: 3 }, // col D = "ОБЩО"
+  2023: { descColumn: 0, totalColumn: 3 }, // col D = "ОБЩО С ОПЕРАТИВНИ ПРОГРАМИ"
 };
 
 interface Money {
@@ -116,11 +151,21 @@ const buildMoney = (raw: unknown, currency: "BGN" | "EUR"): Money => {
 const buildAmounts = (
   row: unknown[],
   currency: "BGN" | "EUR",
+  cfg: ColumnConfig,
 ): AmountColumns => ({
-  ownFunds: buildMoney(row[1], currency),
-  stateSubsidy: buildMoney(row[2], currency),
-  euFunds: buildMoney(row[3], currency),
-  total: buildMoney(row[4], currency),
+  ownFunds:
+    cfg.ownFundsColumn !== undefined
+      ? buildMoney(row[cfg.ownFundsColumn], currency)
+      : buildMoney(0, currency),
+  stateSubsidy:
+    cfg.stateSubsidyColumn !== undefined
+      ? buildMoney(row[cfg.stateSubsidyColumn], currency)
+      : buildMoney(0, currency),
+  euFunds:
+    cfg.euFundsColumn !== undefined
+      ? buildMoney(row[cfg.euFundsColumn], currency)
+      : buildMoney(0, currency),
+  total: buildMoney(row[cfg.totalColumn], currency),
 });
 
 // Extract район tokens from a project description. The XLSX uses several
@@ -180,6 +225,13 @@ interface ParseOptions {
 }
 
 const parse = (opts: ParseOptions): SofiaCapitalProgramFile => {
+  const cfg = COLUMN_CONFIGS[opts.fiscalYear];
+  if (!cfg) {
+    throw new Error(
+      `No COLUMN_CONFIGS entry for fiscal year ${opts.fiscalYear} — add one ` +
+        `or use the dedicated sofia_2022.ts parser for the legacy layout.`,
+    );
+  }
   const buf = readFileSync(opts.xlsxPath);
   const wb = XLSX.read(buf, { type: "buffer" });
   const sheetName = wb.SheetNames[0];
@@ -199,8 +251,8 @@ const parse = (opts: ParseOptions): SofiaCapitalProgramFile => {
   // ---- Locate the itemised section's header row -----------------------
   let itemHeaderRow = -1;
   for (let i = 0; i < rows.length; i++) {
-    const cell0 = String(rows[i][0] ?? "").trim();
-    if (cell0.startsWith("НАИМЕНОВАНИЕ НА ОБЕКТА")) {
+    const cell = String(rows[i][cfg.descColumn] ?? "").trim();
+    if (cell.startsWith("НАИМЕНОВАНИЕ НА ОБЕКТА")) {
       itemHeaderRow = i;
       break;
     }
@@ -222,7 +274,7 @@ const parse = (opts: ParseOptions): SofiaCapitalProgramFile => {
 
   for (let i = itemHeaderRow + 1; i < rows.length; i++) {
     const row = rows[i];
-    const desc = String(row[0] ?? "").trim();
+    const desc = String(row[cfg.descColumn] ?? "").trim();
     if (!desc) continue;
 
     // Header rows like "СТОЛИЧНА ОБЩИНА" or "/лева/" — skip cleanly.
@@ -235,9 +287,11 @@ const parse = (opts: ParseOptions): SofiaCapitalProgramFile => {
       continue;
     }
 
-    // City-wide capital total — drives `recapitulation.total`.
-    if (desc.startsWith("КАПИТАЛОВИ РАЗХОДИ ОБЩО")) {
-      totalAmounts = buildAmounts(row, opts.currency);
+    // City-wide capital total — drives `recapitulation.total`. The
+    // header text varies by year: 2025 says "КАПИТАЛОВИ РАЗХОДИ ОБЩО",
+    // 2023/2024 just "ОБЩО" on its own line above the paragraph list.
+    if (desc.startsWith("КАПИТАЛОВИ РАЗХОДИ ОБЩО") || desc === "ОБЩО") {
+      totalAmounts = buildAmounts(row, opts.currency, cfg);
       continue;
     }
 
@@ -250,7 +304,7 @@ const parse = (opts: ParseOptions): SofiaCapitalProgramFile => {
       const labelBg = desc.replace(/^§\s*\d{4}\s*/, "").trim();
       paragraphs.set(code, {
         labelBg,
-        amounts: buildAmounts(row, opts.currency),
+        amounts: buildAmounts(row, opts.currency, cfg),
       });
       continue;
     }
@@ -267,7 +321,7 @@ const parse = (opts: ParseOptions): SofiaCapitalProgramFile => {
 
     // Project item. Must have a non-zero total to be retained; rows with
     // only "0" in column E are inactive carry-overs.
-    const amounts = buildAmounts(row, opts.currency);
+    const amounts = buildAmounts(row, opts.currency, cfg);
     if (amounts.total.amount === 0) continue;
 
     projectId += 1;
