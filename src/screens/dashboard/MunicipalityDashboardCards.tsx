@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle, Building2, Gauge, Map } from "lucide-react";
+import { AlertTriangle, Building2, Coins, Gauge, Map } from "lucide-react";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useMunicipalitySummary } from "@/data/dashboard/useMunicipalitySummary";
@@ -20,6 +20,7 @@ import { TopSettlementsTile } from "./TopSettlementsTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { IndicatorsTile } from "./IndicatorsTile";
 import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
+import { SofiaCapitalProjectsTile } from "./SofiaCapitalProjectsTile";
 import { PlovdivCapitalProjectsTile } from "./PlovdivCapitalProjectsTile";
 import { BurgasCapitalProjectsTile } from "./BurgasCapitalProjectsTile";
 import { StaraZagoraCapitalProjectsTile } from "./StaraZagoraCapitalProjectsTile";
@@ -132,7 +133,15 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
             isMunicipality
           />
           <IndicatorsTile obshtinaCode={municipalityCode} />
+        </DashboardSection>
+
+        <DashboardSection
+          id="finances"
+          title={t("dashboard_section_finances")}
+          icon={Coins}
+        >
           <MunicipalityTransfersTile municipalityCode={municipalityCode} />
+          <SofiaCapitalProjectsTile obshtinaCode={municipalityCode} />
           <PlovdivCapitalProjectsTile obshtinaCode={municipalityCode} />
           <BurgasCapitalProjectsTile obshtinaCode={municipalityCode} />
           <StaraZagoraCapitalProjectsTile obshtinaCode={municipalityCode} />

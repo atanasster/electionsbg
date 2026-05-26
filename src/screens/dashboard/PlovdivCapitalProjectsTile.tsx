@@ -46,7 +46,9 @@ export const PlovdivCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
   if (!enabled || isLoading || !data) return null;
 
   const totalEur = data.recapitulation.total.amountEur;
-  const taggedCount = data.byRayon.reduce((s, r) => s + r.projectCount, 0);
+  // Count distinct projects with at least one район tag (NOT byRayon
+  // projectCount sum — that double-counts the rare multi-район project).
+  const taggedCount = data.projects.filter((p) => p.rayons.length > 0).length;
   const maxRayonEur = Math.max(
     ...data.byRayon.map((r) => r.total.amountEur),
     1,

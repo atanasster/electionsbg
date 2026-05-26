@@ -237,7 +237,13 @@ export const useInvestmentProgram = (fiscalYear: number | undefined) =>
 // extracted from Приложение №3 to the city's budget law. The Capital
 // Projects tile on a Sofia settlement page filters this down to the
 // settlement's parent район and shows the top items + a total. ~440 KB
-// uncompressed; gzip on the GCS bucket brings it well under 100 KB.
+// uncompressed; gzip on the GCS bucket brings it well under 50 KB.
+//
+// Known recap-vs-sum gap: ~18% of the headline figure is unattributed
+// at project grain — the recap is the published city-wide ОБЩО (which
+// includes some city-wide commitments not enumerated as individual
+// objects). The tile shows the recap as the headline and the per-район
+// breakdown from the attributed projects; both are honest views.
 export const useSofiaCapitalProgram = (fiscalYear: number | undefined) =>
   useQuery({
     queryKey: ["budget", "capital_programs", "sofia", fiscalYear] as const,
@@ -250,9 +256,18 @@ export const useSofiaCapitalProgram = (fiscalYear: number | undefined) =>
   });
 
 // Plovdiv's annual Капиталова програма — parsed from a borderless PDF on
-// plovdiv.bg into 642 line items + per-район rollup. Plovdiv has a single
+// plovdiv.bg into 626 line items + per-район rollup. Plovdiv has a single
 // settlement record for the whole city, so the tile renders all 6 районi
 // stacked instead of filtering to one (Sofia's pattern).
+//
+// Known parser gap: project-sum overshoots recap by ~10%. A few generic
+// Дейност-name descriptions ("изграждане на инфраструктурни обекти",
+// "капиталови трансфери за домакинствата", "инженеринг", "придобиване на
+// сгради") leak as projects when the col-A/col-B subtotal filter misses
+// them. The tile shows the recap figure as the headline (correct) and a
+// best-effort per-район breakdown; individual project sums in the tile
+// are slightly inflated. Fix would require tightening the
+// activity-vs-project distinction in scripts/budget/capital_programs/plovdiv.ts.
 export const usePlovdivCapitalProgram = (fiscalYear: number | undefined) =>
   useQuery({
     queryKey: ["budget", "capital_programs", "plovdiv", fiscalYear] as const,
@@ -283,9 +298,13 @@ export const useBurgasCapitalProgram = (fiscalYear: number | undefined) =>
 // Ruse's annual капиталова програма — parsed from the обshtinaruse.bg
 // year-end XLSX. Single município, but with DEDICATED PER-VILLAGE
 // SHEETS — sub-settlement attribution is via workbook structure, so
-// localisation is 100% accurate for the 12 villages + 1 town that have
-// their own kmetstvo. The tile mirrors the Stara Zagora pattern (recap
-// + per-village strip + top city-wide projects).
+// the LOCALISATION of any captured project to a village is 100% accurate
+// (no free-text regex). Note: this does NOT mean every project is
+// captured — col F (Уточнен план) for many EU-funded items is 0, with
+// the actual amount in one of the funding-source sub-columns. The v1
+// parser counts only col F so the recognised-projects sum is ~53% of
+// the recap headline. The tile mirrors the Stara Zagora pattern
+// (recap + per-village strip + top city-wide projects).
 export const useRuseCapitalProgram = (fiscalYear: number | undefined) =>
   useQuery({
     queryKey: ["budget", "capital_programs", "ruse", fiscalYear] as const,
