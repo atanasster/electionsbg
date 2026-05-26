@@ -869,7 +869,7 @@ export interface BurgasCapitalProgramFile {
   bySettlement: BurgasCapitalSettlementRollup[];
 }
 
-// Varna — districted município (VAR06, EKATTE 10135) with 5 районi
+// Varna — districted município (VAR06, EKATTE 10135) with 5 райони
 // (Одесос, Приморски, Младост, Аспарухово, Владислав Варненчик). Source
 // PDF is rasterized scans (200dpi), so the parser pipeline has an OCR
 // pre-step via Gemini Vision; the structured rollup mirrors Plovdiv's.
@@ -949,7 +949,7 @@ export interface RuseCapitalProgramFile {
   bySettlement: RuseCapitalSettlementRollup[];
 }
 
-// Stara Zagora — single município (no районi), same shape as Burgas
+// Stara Zagora — single município (no райони), same shape as Burgas
 // minus the funding-source detail. The source PDF has 9 funding
 // sub-columns but reliable extraction would require column-by-column
 // positional reading; the v1 parser captures only the "Годишна задача
@@ -988,7 +988,7 @@ export interface StaraZagoraCapitalProgramFile {
   bySettlement: StaraZagoraCapitalSettlementRollup[];
 }
 
-// Pleven — single-município, no районi (PVN24, EKATTE 56722). Two source
+// Pleven — single-município, no райони (PVN24, EKATTE 56722). Two source
 // appendices: Прил. №4 (general capital, 7.59M BGN) + Прил. №10А (EU
 // projects, 11.00M BGN). Granularity dimension is by SETTLEMENT (city +
 // 24 outlying villages) and by FUNDING SOURCE. OCR-derived — see

@@ -169,7 +169,7 @@ const buildAmounts = (
 });
 
 // Extract район tokens from a project description. The XLSX uses several
-// quotation styles and occasionally lists two районi for a single project.
+// quotation styles and occasionally lists two райони for a single project.
 // We match `район "X"`, `район „X"`, `райони "X" и „Y"`. The captured
 // token goes through lookupRayonCode() to validate and canonicalise.
 const RAYON_RE =
@@ -363,7 +363,7 @@ const parse = (opts: ParseOptions): SofiaCapitalProgramFile => {
         total: bgnToMoney(0),
         projects: [],
       };
-      // When a project is split across N районi, we attribute the full
+      // When a project is split across N райони, we attribute the full
       // amount to each — this matches how readers interpret line items
       // ("project for район X and Y"). A cross-район `byRayon` total will
       // therefore exceed the city-wide total; that's intentional, and the
@@ -470,7 +470,7 @@ const main = () => {
       parsed.projects.length
     ).toFixed(0)}%)`,
   );
-  console.log("[sofia-capital] top 5 районi by amount:");
+  console.log("[sofia-capital] top 5 райони by amount:");
   for (const r of parsed.byRayon.slice(0, 5)) {
     console.log(
       `  ${r.labelBg.padEnd(18)} ${r.projectCount.toString().padStart(3)} projects  €${(

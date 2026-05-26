@@ -20,7 +20,7 @@
 // then runs `tsx scripts/budget/capital_programs/varna.ts --year YYYY`.
 //
 // Tile UX matches Plovdiv (single settlement record for the whole
-// city, render ALL 5 районi stacked).
+// city, render ALL 5 райони stacked).
 //
 // Run: tsx scripts/budget/capital_programs/varna.ts [--year 2025]
 

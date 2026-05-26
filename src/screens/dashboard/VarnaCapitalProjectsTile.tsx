@@ -1,11 +1,11 @@
-// All-районi breakdown tile for Варна's annual Капиталова програма
+// All-райони breakdown tile for Варна's annual Капиталова програма
 // (Приложение №4). Source is a 71-page rasterized PDF that we OCR via
 // Gemini Vision in a one-shot pre-step (see scripts/budget/capital_programs/
 // varna_ocr.ts); this tile consumes the structured roll-up that the
 // downstream parser produces.
 //
 // UX mirrors Plovdiv: single settlement record for the whole city, so
-// we show ALL 5 районi (Одесос, Приморски, Младост, Аспарухово,
+// we show ALL 5 райони (Одесос, Приморски, Младост, Аспарухово,
 // Владислав Варненчик) stacked with totals + project counts, then a
 // top-3 city-wide-projects strip.
 

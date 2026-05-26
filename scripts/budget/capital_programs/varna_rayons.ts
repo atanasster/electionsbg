@@ -7,7 +7,7 @@ export interface VarnaRayon {
   labelEn: string;
   // Like Plovdiv, Varna is one obshtina (VAR06, EKATTE 10135) for the
   // whole city — there's no per-район obshtina code in the settlement
-  // data. The frontend tile shows ALL 5 районi stacked on the single
+  // data. The frontend tile shows ALL 5 райони stacked on the single
   // Varna settlement / município page. obshtinaCode is reserved for
   // forward-compatibility with future municipalities that follow the
   // Sofia per-район obshtina pattern.

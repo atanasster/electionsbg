@@ -23,7 +23,7 @@
 // multi-line descriptions, sparse columns) — Gemini Vision recovers the
 // row-level structure reliably. See Varna for the original use case.
 //
-// Pleven has NO районi. The structural dimension we expose is:
+// Pleven has NO райони. The structural dimension we expose is:
 //   - by FUNDING SOURCE (Прил. №4 row-groups: преходни остатъци /
 //     целеви субсидии / други бюджетни средства + Прил. №10А EU)
 //   - by SETTLEMENT (city + 24 outlying villages around it, where the

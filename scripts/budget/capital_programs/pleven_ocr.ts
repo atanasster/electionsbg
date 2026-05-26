@@ -13,7 +13,7 @@
 //   Приложение №10А — Капиталови разходи по проекти на ЕС    (pages 35-37)
 // Resulting `pleven-2025-capital-pages.pdf` is 8 pages / 361 KB.
 //
-// Pleven has NO районi — single município. The structural dimension we
+// Pleven has NO райони — single município. The structural dimension we
 // preserve instead is `fundingSource` (Преходни остатъци / Целеви
 // субсидии / Други бюджетни средства / ОП „План за възстановяване") —
 // these are the row-group labels in the leftmost column of Прил. №4 and

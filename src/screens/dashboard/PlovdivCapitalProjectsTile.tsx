@@ -1,10 +1,10 @@
-// All-районi breakdown tile for Plovdiv's annual Капиталова програма.
+// All-райони breakdown tile for Plovdiv's annual Капиталова програма.
 //
 // Plovdiv has a single settlement record (EKATTE 56784, obshtina PDV22) for
 // the whole city, so we can't filter to "your район" the way SofiaCapital-
-// ProjectsTile does. Instead this tile shows ALL 6 районi stacked, with
+// ProjectsTile does. Instead this tile shows ALL 6 райони stacked, with
 // total + project count + a horizontal bar per район, plus the city's
-// 2-3 largest projects as an "above all районi" highlight strip.
+// 2-3 largest projects as an "above all райони" highlight strip.
 //
 // Mounted on the Plovdiv settlement page (and the município page) inside
 // the existing "финанси" section. Returns null silently when the parent

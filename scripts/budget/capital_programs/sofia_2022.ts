@@ -284,7 +284,7 @@ const main = () => {
       Math.max(parsed.projects.length, 1)
     ).toFixed(0)}%)`,
   );
-  console.log(`[sofia-capital-2022] top 5 районi by amount:`);
+  console.log(`[sofia-capital-2022] top 5 райони by amount:`);
   for (const r of parsed.byRayon.slice(0, 5)) {
     console.log(
       `  ${r.labelBg.padEnd(18)} ${r.projectCount.toString().padStart(2)} projects  €${(

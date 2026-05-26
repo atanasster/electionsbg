@@ -62,7 +62,7 @@ type GeminiResponse = {
   };
 };
 
-// Varna's 5 районi — canonical codes mirror the inline tagging found in
+// Varna's 5 райони — canonical codes mirror the inline tagging found in
 // the agent's earlier reconnaissance ("район „Младост"", etc.).
 const VARNA_RAYONS = [
   { code: "ODESOS", aliases: ["Одесос"] },

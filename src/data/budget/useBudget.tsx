@@ -259,7 +259,7 @@ export const useSofiaCapitalProgram = (fiscalYear: number | undefined) =>
 
 // Varna's annual Капиталова програма (Приложение №4) — OCR'd via Gemini
 // Vision from the rasterized varnacouncil.bg PDF, then rolled up into
-// the same shape as Plovdiv. Five районi (Одесос, Приморски, Младост,
+// the same shape as Plovdiv. Five райони (Одесос, Приморски, Младост,
 // Аспарухово, Владислав Варненчик) rendered stacked on the city's
 // settlement / município page. Tile headline is the itemised sum
 // (Ruse/SZ convention); the OCR'd "ОБЩО" figure is preserved on
@@ -276,7 +276,7 @@ export const useVarnaCapitalProgram = (fiscalYear: number | undefined) =>
   });
 
 // Pleven's annual Капиталова програма (Приложения №4 + №10А) — OCR'd via
-// Gemini Vision from the budget docket PDF. Single município, no районi.
+// Gemini Vision from the budget docket PDF. Single município, no райони.
 // The structural dimension we expose is per-settlement (city + outlying
 // villages) + per-funding-source (преходни остатъци / целеви субсидии /
 // EU projects). Itemised sum 9.5M EUR matches published combined recap
@@ -294,7 +294,7 @@ export const usePlevenCapitalProgram = (fiscalYear: number | undefined) =>
 
 // Plovdiv's annual Капиталова програма — parsed from a borderless PDF on
 // plovdiv.bg into ~567 line items + per-район rollup. Plovdiv has a single
-// settlement record for the whole city, so the tile renders all 6 районi
+// settlement record for the whole city, so the tile renders all 6 райони
 // stacked instead of filtering to one (Sofia's pattern).
 //
 // Parser quality: project-sum is ~46M EUR (recap headline 71.4M EUR).

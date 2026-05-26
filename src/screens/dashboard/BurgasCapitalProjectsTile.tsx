@@ -3,7 +3,7 @@
 //
 // Бургас isn't районирана (unlike Sofia/Plovdiv), so this tile leads with
 // the FUNDING-SOURCE composition — state subsidy / own funds / debt /
-// EU funds / other / carry-overs — instead of a районi breakdown. Then
+// EU funds / other / carry-overs — instead of a райони breakdown. Then
 // a per-settlement strip for the ~14% of projects that name a sub-
 // village or city quarter, followed by the top-5 projects citywide.
 //
