@@ -42,6 +42,7 @@ import {
   filterEventsToWindow,
 } from "@/screens/components/governments/chartEvents";
 import { CabinetKpiTile } from "@/screens/components/macro/CabinetKpiTile";
+import { CabinetFiscalFootprintTile } from "@/screens/components/governments/CabinetFiscalFootprintTile";
 import { CabinetScoreDetail } from "@/screens/components/macro/CabinetScoreCard";
 import { colorForGovernmentSolid } from "@/screens/components/governments/governmentColors";
 import {
@@ -343,6 +344,10 @@ export const GovernmentDetailScreen: FC = () => {
           {t("cabinet_detail_term_averages_explainer")}
         </p>
         <CabinetScoreDetail government={government} macro={macro} />
+      </section>
+
+      <section className="mb-8">
+        <CabinetFiscalFootprintTile government={government} />
       </section>
 
       <section className="mb-8">

@@ -41,6 +41,8 @@ import { BudgetMinistriesTile } from "./components/budget/BudgetMinistriesTile";
 import { BudgetPersonnelTile } from "./components/budget/BudgetPersonnelTile";
 import { BudgetRevenueCompositionTile } from "./components/budget/BudgetRevenueCompositionTile";
 import { BudgetExpenditureCompositionTile } from "./components/budget/BudgetExpenditureCompositionTile";
+import { BudgetSocialFundsTile } from "./components/budget/BudgetSocialFundsTile";
+import { BudgetInvestmentProjectsTile } from "./components/budget/BudgetInvestmentProjectsTile";
 import { BudgetFunctionalTile } from "./components/budget/BudgetFunctionalTile";
 import { BudgetTopDeviationsTile } from "./components/budget/BudgetTopDeviationsTile";
 import { BudgetCitizenViewTile } from "./components/budget/BudgetCitizenViewTile";
@@ -449,6 +451,10 @@ export const BudgetScreen: FC = () => {
           <BudgetFunctionalTile fiscalYear={term.selectedFy} />
           <BudgetTopDeviationsTile fiscalYear={term.selectedFy} />
           <BudgetPersonnelTile fiscalYear={term.selectedFy} />
+          <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
+            <BudgetSocialFundsTile fiscalYear={term.selectedFy} />
+            <BudgetInvestmentProjectsTile fiscalYear={term.selectedFy} />
+          </div>
           <BudgetMinistriesTile fiscalYear={term.selectedFy} />
         </DashboardSection>
 
