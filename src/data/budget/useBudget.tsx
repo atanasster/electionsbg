@@ -26,6 +26,7 @@ import type {
   RuseCapitalProgramFile,
   SofiaCapitalProgramFile,
   StaraZagoraCapitalProgramFile,
+  VarnaCapitalProgramFile,
   VatBreakdownFile,
 } from "./types";
 
@@ -250,6 +251,24 @@ export const useSofiaCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<SofiaCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/sofia.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Varna's annual Капиталова програма (Приложение №4) — OCR'd via Gemini
+// Vision from the rasterized varnacouncil.bg PDF, then rolled up into
+// the same shape as Plovdiv. Five районi (Одесос, Приморски, Младост,
+// Аспарухово, Владислав Варненчик) rendered stacked on the city's
+// settlement / município page. Tile headline is the itemised sum
+// (Ruse/SZ convention); the OCR'd "ОБЩО" figure is preserved on
+// `publishedRecap` for reference.
+export const useVarnaCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "varna", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<VarnaCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/varna.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

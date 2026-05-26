@@ -22,6 +22,7 @@ import { IndicatorsTile } from "./IndicatorsTile";
 import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
 import { SofiaCapitalProjectsTile } from "./SofiaCapitalProjectsTile";
 import { PlovdivCapitalProjectsTile } from "./PlovdivCapitalProjectsTile";
+import { VarnaCapitalProjectsTile } from "./VarnaCapitalProjectsTile";
 import { BurgasCapitalProjectsTile } from "./BurgasCapitalProjectsTile";
 import { StaraZagoraCapitalProjectsTile } from "./StaraZagoraCapitalProjectsTile";
 import { RuseCapitalProjectsTile } from "./RuseCapitalProjectsTile";
@@ -143,6 +144,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           <MunicipalityTransfersTile municipalityCode={municipalityCode} />
           <SofiaCapitalProjectsTile obshtinaCode={municipalityCode} />
           <PlovdivCapitalProjectsTile obshtinaCode={municipalityCode} />
+          <VarnaCapitalProjectsTile obshtinaCode={municipalityCode} />
           <BurgasCapitalProjectsTile obshtinaCode={municipalityCode} />
           <StaraZagoraCapitalProjectsTile obshtinaCode={municipalityCode} />
           <RuseCapitalProjectsTile obshtinaCode={municipalityCode} />

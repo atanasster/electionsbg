@@ -1,24 +1,28 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 5 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
-// Ruse) publishes an annual "Капиталова програма" / "Поименен списък на
-// обектите за капиталови разходи" on its own website. URLs are opaque
-// and change every year (some include the date, some a content hash),
-// so the catalogue is hand-curated below — mirrors the SOURCE_URLS map
-// in each município's parser under scripts/budget/capital_programs/.
+// Each of the 6 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Ruse, Varna) publishes an annual "Капиталова програма" / "Поименен
+// списък на обектите за капиталови разходи" on its own website. URLs are
+// opaque and change every year (some include the date, some a content
+// hash), so the catalogue is hand-curated below — mirrors the SOURCE_URLS
+// map in each município's parser under scripts/budget/capital_programs/.
 //
 // This watcher HEADs each catalogued URL; a re-upload (content-length /
 // last-modified / etag change) surfaces as `changed`. Adding a new year
 // to the catalogue triggers `added`, prompting the operator to:
 //   1. fetch the file into raw_data/budget/capital_programs/
 //      (sofia: .xlsx, plovdiv: .pdf, burgas: .xlsx, stara_zagora: .pdf
-//       — extracted from the budget docket ZIP, ruse: .xlsx)
+//       — extracted from the budget docket ZIP, ruse: .xlsx,
+//       varna: .pdf — rasterized scan, OCR pre-step required)
 //   2. run the relevant ingest:
 //      tsx scripts/budget/capital_programs/sofia.ts --year YYYY
 //      tsx scripts/budget/capital_programs/plovdiv.ts --year YYYY
 //      tsx scripts/budget/capital_programs/burgas.ts --year YYYY
 //      tsx scripts/budget/capital_programs/stara_zagora.ts --year YYYY
 //      tsx scripts/budget/capital_programs/ruse.ts --year YYYY
+//      # Varna requires OCR first (Gemini Vision):
+//      tsx scripts/budget/capital_programs/varna_ocr.ts --year YYYY
+//      tsx scripts/budget/capital_programs/varna.ts --year YYYY
 //
 // Cadence: weekly. Municipal capital programmes publish once per fiscal
 // year (March-May of the same year, alongside the council's budget
@@ -41,7 +45,13 @@ const UA =
 // Hand-curated catalogue: per-fiscal-year, per-município source URL.
 // Keep in sync with the SOURCE_URLS in each parser file under
 // scripts/budget/capital_programs/.
-type Municipality = "sofia" | "plovdiv" | "burgas" | "stara_zagora" | "ruse";
+type Municipality =
+  | "sofia"
+  | "plovdiv"
+  | "burgas"
+  | "stara_zagora"
+  | "ruse"
+  | "varna";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -62,6 +72,11 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // with quarterly snapshots throughout the year. The year-end file
     // is the canonical artifact for the fiscal-year recap.
     ruse: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2025/Kapitalov_razchet_31.12.2025_publ._27.02.2026.xlsx",
+    // Varna ships a 71-page rasterized PDF — the parser pipeline has
+    // an OCR pre-step (varna_ocr.ts → Gemini Vision) that the watcher
+    // describe-line points the operator to.
+    varna:
+      "https://varnacouncil.bg/wp-content/uploads/2025/04/7-9.-Приложение-4-капиталови-разходи-.pdf",
   },
 };
 

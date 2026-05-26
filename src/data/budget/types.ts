@@ -869,6 +869,47 @@ export interface BurgasCapitalProgramFile {
   bySettlement: BurgasCapitalSettlementRollup[];
 }
 
+// Varna — districted município (VAR06, EKATTE 10135) with 5 районi
+// (Одесос, Приморски, Младост, Аспарухово, Владислав Варненчик). Source
+// PDF is rasterized scans (200dpi), so the parser pipeline has an OCR
+// pre-step via Gemini Vision; the structured rollup mirrors Plovdiv's.
+export interface VarnaCapitalProject {
+  id: number;
+  name: string;
+  rayons: string[];
+  total: Money;
+}
+
+export interface VarnaCapitalRayonRollup {
+  code: string;
+  labelBg: string;
+  labelEn: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface VarnaCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money }; // itemised sum (matches projects[])
+  publishedRecap: Money | null; // ОБЩО figure Gemini found on the recap page (informational)
+  projects: VarnaCapitalProject[];
+  byRayon: VarnaCapitalRayonRollup[];
+}
+
 // Ruse — single município (RSE27, EKATTE 63427). Each of the 12 villages
 // + 1 satellite town (Мартен) of obshtina Русе has its own sheet in the
 // source XLSX, so per-settlement attribution is via sheet structure
