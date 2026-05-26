@@ -16,6 +16,7 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ChevronDown, HardHat, X } from "lucide-react";
+import { DrilldownLoadingShell } from "./DrilldownLoadingShell";
 import { formatEur } from "@/lib/currency";
 import {
   useInvestmentProgramIndex,
@@ -74,7 +75,16 @@ export const BudgetFlowCapitalDrilldown: FC<{
     return row?.executed?.amountEur ?? row?.planned?.amountEur ?? null;
   }, [snapshot]);
 
-  if (!program || dataYear == null) return null;
+  if (!program || dataYear == null) {
+    return (
+      <DrilldownLoadingShell
+        icon={HardHat}
+        title={t("capital_drilldown_title")}
+        onClose={onClose}
+        closeAriaLabel={t("capital_drilldown_close")}
+      />
+    );
+  }
 
   const totalEur = program.grandTotal.amountEur;
 

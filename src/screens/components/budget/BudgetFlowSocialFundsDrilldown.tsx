@@ -15,6 +15,7 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ChevronDown, HeartHandshake, X } from "lucide-react";
+import { DrilldownLoadingShell } from "./DrilldownLoadingShell";
 import { formatEur } from "@/lib/currency";
 import { useNoiFunds } from "@/data/budget/useBudget";
 import type {
@@ -75,7 +76,16 @@ export const BudgetFlowSocialFundsDrilldown: FC<{
     return row?.executed?.amountEur ?? row?.planned?.amountEur ?? null;
   }, [snapshot]);
 
-  if (!yearEntry) return null;
+  if (!yearEntry) {
+    return (
+      <DrilldownLoadingShell
+        icon={HeartHandshake}
+        title={t("noi_drilldown_title")}
+        onClose={onClose}
+        closeAriaLabel={t("noi_drilldown_close")}
+      />
+    );
+  }
 
   const { totals, funds } = yearEntry;
 

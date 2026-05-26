@@ -20,6 +20,7 @@ import { FC, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Building2, ChevronDown, X } from "lucide-react";
+import { DrilldownLoadingShell } from "./DrilldownLoadingShell";
 import { formatEur } from "@/lib/currency";
 import {
   useMunicipalTransfersByOblast,
@@ -109,7 +110,16 @@ export const BudgetFlowMunicipalitiesDrilldown: FC<{
     return row?.executed?.amountEur ?? row?.planned?.amountEur ?? null;
   }, [snapshot]);
 
-  if (!totals || !byOblast || dataYear == null) return null;
+  if (!totals || !byOblast || dataYear == null) {
+    return (
+      <DrilldownLoadingShell
+        icon={Building2}
+        title={t("municipalities_drilldown_title")}
+        onClose={onClose}
+        closeAriaLabel={t("municipalities_drilldown_close")}
+      />
+    );
+  }
 
   // Sum of the five envelopes — the Article 53 grand total. Differs from the
   // КФП "Общини" line (which also includes municipal own revenue + transfers
