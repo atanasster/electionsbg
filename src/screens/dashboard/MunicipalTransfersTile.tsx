@@ -11,10 +11,12 @@
 // (Столична община) since the budget allocates to Sofia city as one entity,
 // not per MIR. The surrounding Sofia region (SFO) is its own oblast.
 
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Building2 } from "lucide-react";
+import { Building2, ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { Link } from "@/ux/Link";
 import { SOFIA_REGIONS } from "@/data/dataTypes";
 import { useMunicipalTransfersForOblast } from "@/data/budget/useBudget";
 import type { MunicipalTransfersOblastShardYear } from "@/data/budget/types";
@@ -67,6 +69,7 @@ export const MunicipalTransfersTile: FC<{ regionCode: string }> = ({
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("bg") ? "bg" : "en";
+  const [perMuniOpen, setPerMuniOpen] = useState(false);
   const oblastCode = resolveOblastCode(regionCode);
   const { data: shard, isLoading } = useMunicipalTransfersForOblast(
     oblastCode ?? undefined,
@@ -83,6 +86,21 @@ export const MunicipalTransfersTile: FC<{ regionCode: string }> = ({
     if (!shard || shard.years.length < 2) return null;
     return shard.years[shard.years.length - 2];
   }, [shard]);
+
+  const yearlyTotals = useMemo(
+    () =>
+      shard
+        ? shard.years.map((y) => ({
+            year: y.fiscalYear,
+            eur: y.oblastTotals.total.amountEur,
+          }))
+        : [],
+    [shard],
+  );
+  const maxYearlyEur = yearlyTotals.reduce(
+    (m, y) => (y.eur > m ? y.eur : m),
+    0,
+  );
 
   if (!oblastCode || isLoading || !shard || !latest) return null;
 
@@ -168,12 +186,55 @@ export const MunicipalTransfersTile: FC<{ regionCode: string }> = ({
           })}
         </div>
 
+        {/* Multi-year trend — oblast total across all years in the shard. */}
+        {yearlyTotals.length > 1 && (
+          <div>
+            <div className="text-xs font-medium mb-1">
+              {t("municipality_transfers_trend")}
+            </div>
+            <div className="space-y-0.5">
+              {yearlyTotals.map((p) => {
+                const widthPct =
+                  maxYearlyEur > 0 ? (p.eur / maxYearlyEur) * 100 : 0;
+                return (
+                  <div
+                    key={p.year}
+                    className="grid grid-cols-[auto_1fr_auto] items-baseline gap-3 rounded px-2 py-1 text-xs"
+                  >
+                    <span className="tabular-nums text-muted-foreground w-10">
+                      {p.year}
+                    </span>
+                    <div
+                      className="h-1 rounded-full bg-rose-300/70"
+                      style={{ width: `${widthPct}%` }}
+                    />
+                    <span className="tabular-nums font-medium w-16 text-right">
+                      {compactEur(p.eur)}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {/* Per-municipality list — already sorted desc by builder. */}
         <div>
-          <div className="text-xs font-medium mb-1">
+          <button
+            type="button"
+            onClick={() => setPerMuniOpen((v) => !v)}
+            aria-expanded={perMuniOpen}
+            className="flex items-center gap-1 text-xs font-medium mb-1 hover:underline"
+          >
             {t("municipal_transfers_per_muni")}
-          </div>
-          <div className="space-y-0.5 max-h-[360px] overflow-y-auto pr-1">
+            <ChevronDown
+              className={cn(
+                "h-3 w-3 transition-transform",
+                !perMuniOpen && "-rotate-90",
+              )}
+            />
+          </button>
+          <div className={cn("space-y-0.5", !perMuniOpen && "hidden")}>
             {latest.municipalities.map((m) => {
               const eur = m.total?.amountEur ?? 0;
               const pct = totalEur > 0 ? (eur / totalEur) * 100 : 0;
@@ -185,7 +246,13 @@ export const MunicipalTransfersTile: FC<{ regionCode: string }> = ({
                   key={m.ekatte + m.obshtinaCode}
                   className="grid grid-cols-[1fr_auto_auto] items-baseline gap-3 rounded px-2 py-1 text-xs hover:bg-muted/50"
                 >
-                  <span className="truncate">{name}</span>
+                  <Link
+                    to={`/settlement/${m.obshtinaCode}`}
+                    underline={false}
+                    className="truncate hover:underline"
+                  >
+                    {name}
+                  </Link>
                   <span className="tabular-nums font-medium">
                     {compactEur(eur)}
                   </span>
