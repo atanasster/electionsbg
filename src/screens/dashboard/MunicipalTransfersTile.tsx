@@ -244,7 +244,7 @@ export const MunicipalTransfersTile: FC<{ regionCode: string }> = ({
               return (
                 <div
                   key={m.ekatte + m.obshtinaCode}
-                  className="grid grid-cols-[1fr_auto_auto] items-baseline gap-3 rounded px-2 py-1 text-xs hover:bg-muted/50"
+                  className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-baseline gap-3 rounded px-2 py-1 text-xs hover:bg-muted/50"
                 >
                   <Link
                     to={`/settlement/${m.obshtinaCode}`}

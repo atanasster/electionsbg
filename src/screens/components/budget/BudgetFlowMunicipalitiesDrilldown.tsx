@@ -218,7 +218,7 @@ export const BudgetFlowMunicipalitiesDrilldown: FC<{
             // to a region page yet — render as plain row in that case.
             const isRoutable = row.oblastCode !== "SOF";
             const rowInner = (
-              <div className="grid grid-cols-[1fr_auto_auto] items-baseline gap-3 rounded px-2 py-1 text-xs hover:bg-muted/50">
+              <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-baseline gap-3 rounded px-2 py-1 text-xs hover:bg-muted/50">
                 <div className="flex items-center gap-2 min-w-0">
                   <span className="truncate">{oblastLabel}</span>
                   <span className="text-muted-foreground tabular-nums text-[10px]">

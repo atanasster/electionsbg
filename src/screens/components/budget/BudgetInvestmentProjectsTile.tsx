@@ -96,9 +96,9 @@ export const BudgetInvestmentProjectsTile: FC<{ fiscalYear: number }> = ({
             return (
               <div
                 key={cat.key}
-                className="grid grid-cols-[1fr_auto_auto] items-baseline gap-3"
+                className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-baseline gap-3"
               >
-                <div className="relative h-5">
+                <div className="relative h-5 min-w-0 overflow-hidden">
                   <div
                     className="absolute inset-y-0 left-0 rounded-sm"
                     style={{

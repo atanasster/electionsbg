@@ -290,7 +290,7 @@ export const BudgetFlowSocialFundsDrilldown: FC<{
             return (
               <div
                 key={f.fundCode}
-                className="grid grid-cols-[1fr_auto_auto] items-baseline gap-3 rounded px-2 py-1 text-xs"
+                className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-baseline gap-3 rounded px-2 py-1 text-xs"
               >
                 <span className="truncate">
                   {name}
