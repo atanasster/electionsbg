@@ -464,3 +464,134 @@ export interface PitBreakdownFile {
     sectors: PitSectorEntry[];
   };
 }
+
+// ---------------------------------------------------------------------------
+// Municipal transfers — Article 53 of the State Budget Law.
+// Sliced per fiscal year under data/budget/municipal_transfers/{year}/:
+//   - totals.json           — top-level transfer-type envelope
+//   - by_municipality.json  — 265 per-община rows
+//   - by_oblast.json        — 28 pre-aggregated oblast rollups
+// Plus a small index.json listing the years on disk.
+// ---------------------------------------------------------------------------
+
+export type MunicipalTransferType =
+  | "delegated"
+  | "equalization"
+  | "winter"
+  | "capital"
+  | "otherTargeted";
+
+export interface MunicipalTransferTypeTotals {
+  delegated: Money | null;
+  equalization: Money | null;
+  winter: Money | null;
+  capital: Money | null;
+  otherTargeted: Money | null;
+}
+
+export interface MunicipalTransferRow {
+  ekatte: string;
+  obshtinaCode: string;
+  oblastCode: string;
+  nuts3: string;
+  nameBg: string;
+  nameEn: string;
+  total: Money | null;
+  delegated: Money | null;
+  equalization: Money | null;
+  winter: Money | null;
+  capital: Money | null;
+  otherTargeted: Money | null;
+}
+
+export interface MunicipalTransfersTotalsFile {
+  fiscalYear: number;
+  asOf: string;
+  source: { documentId: string; url: string };
+  totals: MunicipalTransferTypeTotals;
+  rowSum: {
+    total: Money;
+    delegated: Money;
+    equalization: Money;
+    winter: Money;
+    capital: Money;
+    otherTargeted: Money;
+  };
+  reconciliationDeltasEur: Partial<Record<MunicipalTransferType, number>>;
+}
+
+export interface MunicipalTransfersByMunicipalityFile {
+  fiscalYear: number;
+  asOf: string;
+  source: { documentId: string; url: string };
+  municipalities: MunicipalTransferRow[];
+}
+
+export interface MunicipalTransfersOblastRow {
+  oblastCode: string;
+  oblastNameBg: string;
+  oblastNameEn: string;
+  municipalityCount: number;
+  total: Money;
+  delegated: Money;
+  equalization: Money;
+  winter: Money;
+  capital: Money;
+  otherTargeted: Money;
+}
+
+export interface MunicipalTransfersByOblastFile {
+  fiscalYear: number;
+  asOf: string;
+  source: { documentId: string; url: string };
+  oblasts: MunicipalTransfersOblastRow[];
+}
+
+export interface MunicipalTransfersIndexFile {
+  generatedAt: string;
+  years: Array<{
+    fiscalYear: number;
+    municipalityCount: number;
+    grandTotalEur: number;
+  }>;
+}
+
+// Per-oblast shard — what region / municipality dashboards fetch. One file
+// per oblast (28 of them) with the full multi-year history for the ~12-22
+// municipalities in that oblast. Replaces the larger by_municipality.json
+// for the per-page case where only one oblast's data is needed.
+
+export interface MunicipalTransfersOblastShardMuniYear {
+  ekatte: string;
+  obshtinaCode: string;
+  nameBg: string;
+  nameEn: string;
+  total: Money | null;
+  delegated: Money | null;
+  equalization: Money | null;
+  winter: Money | null;
+  capital: Money | null;
+  otherTargeted: Money | null;
+}
+
+export interface MunicipalTransfersOblastShardYear {
+  fiscalYear: number;
+  asOf: string;
+  source: { documentId: string; url: string };
+  oblastTotals: {
+    total: Money;
+    delegated: Money;
+    equalization: Money;
+    winter: Money;
+    capital: Money;
+    otherTargeted: Money;
+  };
+  municipalities: MunicipalTransfersOblastShardMuniYear[];
+}
+
+export interface MunicipalTransfersOblastShard {
+  oblastCode: string;
+  oblastNameBg: string;
+  oblastNameEn: string;
+  years: MunicipalTransfersOblastShardYear[];
+}

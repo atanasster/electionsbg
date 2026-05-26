@@ -1,0 +1,1593 @@
+{
+  "oblastCode": "LOV",
+  "oblastNameBg": "Ловеч",
+  "oblastNameEn": "Lovech",
+  "years": [
+    {
+      "fiscalYear": 2020,
+      "asOf": "2020-01-01",
+      "source": {
+        "documentId": "law-2020",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 91592800,
+          "currency": "BGN",
+          "amountEur": 46830655
+        },
+        "delegated": {
+          "amount": 75978000,
+          "currency": "BGN",
+          "amountEur": 38846935
+        },
+        "equalization": {
+          "amount": 8908000,
+          "currency": "BGN",
+          "amountEur": 4554589
+        },
+        "winter": {
+          "amount": 1415800,
+          "currency": "BGN",
+          "amountEur": 723887
+        },
+        "capital": {
+          "amount": 5291000,
+          "currency": "BGN",
+          "amountEur": 2705246
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "43952",
+          "obshtinaCode": "LOV18",
+          "nameBg": "Ловеч",
+          "nameEn": "Lovech",
+          "total": {
+            "amount": 29325500,
+            "currency": "BGN",
+            "amountEur": 14993890
+          },
+          "delegated": {
+            "amount": 24635500,
+            "currency": "BGN",
+            "amountEur": 12595931
+          },
+          "equalization": {
+            "amount": 2850700,
+            "currency": "BGN",
+            "amountEur": 1457540
+          },
+          "winter": {
+            "amount": 343200,
+            "currency": "BGN",
+            "amountEur": 175475
+          },
+          "capital": {
+            "amount": 1496100,
+            "currency": "BGN",
+            "amountEur": 764944
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "73198",
+          "obshtinaCode": "LOV34",
+          "nameBg": "Троян",
+          "nameEn": "Troyan",
+          "total": {
+            "amount": 17042400,
+            "currency": "BGN",
+            "amountEur": 8713641
+          },
+          "delegated": {
+            "amount": 14007100,
+            "currency": "BGN",
+            "amountEur": 7161717
+          },
+          "equalization": {
+            "amount": 1449200,
+            "currency": "BGN",
+            "amountEur": 740964
+          },
+          "winter": {
+            "amount": 414800,
+            "currency": "BGN",
+            "amountEur": 212084
+          },
+          "capital": {
+            "amount": 1171300,
+            "currency": "BGN",
+            "amountEur": 598876
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "72343",
+          "obshtinaCode": "LOV33",
+          "nameBg": "Тетевен",
+          "nameEn": "Teteven",
+          "total": {
+            "amount": 13994900,
+            "currency": "BGN",
+            "amountEur": 7155479
+          },
+          "delegated": {
+            "amount": 11747700,
+            "currency": "BGN",
+            "amountEur": 6006504
+          },
+          "equalization": {
+            "amount": 1489100,
+            "currency": "BGN",
+            "amountEur": 761365
+          },
+          "winter": {
+            "amount": 151300,
+            "currency": "BGN",
+            "amountEur": 77358
+          },
+          "capital": {
+            "amount": 606800,
+            "currency": "BGN",
+            "amountEur": 310252
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "44327",
+          "obshtinaCode": "LOV19",
+          "nameBg": "Луковит",
+          "nameEn": "Lukovit",
+          "total": {
+            "amount": 13649400,
+            "currency": "BGN",
+            "amountEur": 6978827
+          },
+          "delegated": {
+            "amount": 11428000,
+            "currency": "BGN",
+            "amountEur": 5843044
+          },
+          "equalization": {
+            "amount": 1575800,
+            "currency": "BGN",
+            "amountEur": 805694
+          },
+          "winter": {
+            "amount": 111100,
+            "currency": "BGN",
+            "amountEur": 56805
+          },
+          "capital": {
+            "amount": 534500,
+            "currency": "BGN",
+            "amountEur": 273286
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "87014",
+          "obshtinaCode": "LOV38",
+          "nameBg": "Ябланица",
+          "nameEn": "Yablanitsa",
+          "total": {
+            "amount": 6211300,
+            "currency": "BGN",
+            "amountEur": 3175787
+          },
+          "delegated": {
+            "amount": 5112300,
+            "currency": "BGN",
+            "amountEur": 2613877
+          },
+          "equalization": {
+            "amount": 479000,
+            "currency": "BGN",
+            "amountEur": 244909
+          },
+          "winter": {
+            "amount": 146500,
+            "currency": "BGN",
+            "amountEur": 74904
+          },
+          "capital": {
+            "amount": 473500,
+            "currency": "BGN",
+            "amountEur": 242097
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "75054",
+          "obshtinaCode": "LOV36",
+          "nameBg": "Угърчин",
+          "nameEn": "Ugarchin",
+          "total": {
+            "amount": 5255900,
+            "currency": "BGN",
+            "amountEur": 2687299
+          },
+          "delegated": {
+            "amount": 3986200,
+            "currency": "BGN",
+            "amountEur": 2038112
+          },
+          "equalization": {
+            "amount": 637700,
+            "currency": "BGN",
+            "amountEur": 326051
+          },
+          "winter": {
+            "amount": 117400,
+            "currency": "BGN",
+            "amountEur": 60026
+          },
+          "capital": {
+            "amount": 514600,
+            "currency": "BGN",
+            "amountEur": 263111
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "43476",
+          "obshtinaCode": "LOV17",
+          "nameBg": "Летница",
+          "nameEn": "Letnitsa",
+          "total": {
+            "amount": 3438100,
+            "currency": "BGN",
+            "amountEur": 1757873
+          },
+          "delegated": {
+            "amount": 2819200,
+            "currency": "BGN",
+            "amountEur": 1441434
+          },
+          "equalization": {
+            "amount": 306800,
+            "currency": "BGN",
+            "amountEur": 156864
+          },
+          "winter": {
+            "amount": 58900,
+            "currency": "BGN",
+            "amountEur": 30115
+          },
+          "capital": {
+            "amount": 253200,
+            "currency": "BGN",
+            "amountEur": 129459
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "52218",
+          "obshtinaCode": "LOV02",
+          "nameBg": "Априлци",
+          "nameEn": "Apriltsi",
+          "total": {
+            "amount": 2675300,
+            "currency": "BGN",
+            "amountEur": 1367859
+          },
+          "delegated": {
+            "amount": 2242000,
+            "currency": "BGN",
+            "amountEur": 1146316
+          },
+          "equalization": {
+            "amount": 119700,
+            "currency": "BGN",
+            "amountEur": 61202
+          },
+          "winter": {
+            "amount": 72600,
+            "currency": "BGN",
+            "amountEur": 37120
+          },
+          "capital": {
+            "amount": 241000,
+            "currency": "BGN",
+            "amountEur": 123221
+          },
+          "otherTargeted": null
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2022,
+      "asOf": "2022-01-01",
+      "source": {
+        "documentId": "law-2022",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 120484300,
+          "currency": "BGN",
+          "amountEur": 61602645
+        },
+        "delegated": {
+          "amount": 99717100,
+          "currency": "BGN",
+          "amountEur": 50984544
+        },
+        "equalization": {
+          "amount": 11369400,
+          "currency": "BGN",
+          "amountEur": 5813081
+        },
+        "winter": {
+          "amount": 1560400,
+          "currency": "BGN",
+          "amountEur": 797821
+        },
+        "capital": {
+          "amount": 7837400,
+          "currency": "BGN",
+          "amountEur": 4007198
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "43952",
+          "obshtinaCode": "LOV18",
+          "nameBg": "Ловеч",
+          "nameEn": "Lovech",
+          "total": {
+            "amount": 38451600,
+            "currency": "BGN",
+            "amountEur": 19659991
+          },
+          "delegated": {
+            "amount": 32418100,
+            "currency": "BGN",
+            "amountEur": 16575111
+          },
+          "equalization": {
+            "amount": 3437800,
+            "currency": "BGN",
+            "amountEur": 1757719
+          },
+          "winter": {
+            "amount": 373000,
+            "currency": "BGN",
+            "amountEur": 190712
+          },
+          "capital": {
+            "amount": 2222700,
+            "currency": "BGN",
+            "amountEur": 1136448
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "73198",
+          "obshtinaCode": "LOV34",
+          "nameBg": "Троян",
+          "nameEn": "Troyan",
+          "total": {
+            "amount": 22904100,
+            "currency": "BGN",
+            "amountEur": 11710680
+          },
+          "delegated": {
+            "amount": 18759100,
+            "currency": "BGN",
+            "amountEur": 9591376
+          },
+          "equalization": {
+            "amount": 1929800,
+            "currency": "BGN",
+            "amountEur": 986691
+          },
+          "winter": {
+            "amount": 465700,
+            "currency": "BGN",
+            "amountEur": 238109
+          },
+          "capital": {
+            "amount": 1749500,
+            "currency": "BGN",
+            "amountEur": 894505
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "72343",
+          "obshtinaCode": "LOV33",
+          "nameBg": "Тетевен",
+          "nameEn": "Teteven",
+          "total": {
+            "amount": 18133100,
+            "currency": "BGN",
+            "amountEur": 9271307
+          },
+          "delegated": {
+            "amount": 15178900,
+            "currency": "BGN",
+            "amountEur": 7760848
+          },
+          "equalization": {
+            "amount": 1877000,
+            "currency": "BGN",
+            "amountEur": 959695
+          },
+          "winter": {
+            "amount": 169500,
+            "currency": "BGN",
+            "amountEur": 86664
+          },
+          "capital": {
+            "amount": 907700,
+            "currency": "BGN",
+            "amountEur": 464100
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "44327",
+          "obshtinaCode": "LOV19",
+          "nameBg": "Луковит",
+          "nameEn": "Lukovit",
+          "total": {
+            "amount": 17738500,
+            "currency": "BGN",
+            "amountEur": 9069551
+          },
+          "delegated": {
+            "amount": 14969000,
+            "currency": "BGN",
+            "amountEur": 7653528
+          },
+          "equalization": {
+            "amount": 1850300,
+            "currency": "BGN",
+            "amountEur": 946043
+          },
+          "winter": {
+            "amount": 119400,
+            "currency": "BGN",
+            "amountEur": 61048
+          },
+          "capital": {
+            "amount": 799800,
+            "currency": "BGN",
+            "amountEur": 408931
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "87014",
+          "obshtinaCode": "LOV38",
+          "nameBg": "Ябланица",
+          "nameEn": "Yablanitsa",
+          "total": {
+            "amount": 7896900,
+            "currency": "BGN",
+            "amountEur": 4037621
+          },
+          "delegated": {
+            "amount": 6340800,
+            "currency": "BGN",
+            "amountEur": 3242000
+          },
+          "equalization": {
+            "amount": 701600,
+            "currency": "BGN",
+            "amountEur": 358722
+          },
+          "winter": {
+            "amount": 160900,
+            "currency": "BGN",
+            "amountEur": 82267
+          },
+          "capital": {
+            "amount": 693600,
+            "currency": "BGN",
+            "amountEur": 354632
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "75054",
+          "obshtinaCode": "LOV36",
+          "nameBg": "Угърчин",
+          "nameEn": "Ugarchin",
+          "total": {
+            "amount": 7316900,
+            "currency": "BGN",
+            "amountEur": 3741072
+          },
+          "delegated": {
+            "amount": 5523100,
+            "currency": "BGN",
+            "amountEur": 2823916
+          },
+          "equalization": {
+            "amount": 913100,
+            "currency": "BGN",
+            "amountEur": 466861
+          },
+          "winter": {
+            "amount": 126000,
+            "currency": "BGN",
+            "amountEur": 64423
+          },
+          "capital": {
+            "amount": 754700,
+            "currency": "BGN",
+            "amountEur": 385872
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "43476",
+          "obshtinaCode": "LOV17",
+          "nameBg": "Летница",
+          "nameEn": "Letnitsa",
+          "total": {
+            "amount": 4369700,
+            "currency": "BGN",
+            "amountEur": 2234192
+          },
+          "delegated": {
+            "amount": 3546500,
+            "currency": "BGN",
+            "amountEur": 1813297
+          },
+          "equalization": {
+            "amount": 396700,
+            "currency": "BGN",
+            "amountEur": 202829
+          },
+          "winter": {
+            "amount": 63100,
+            "currency": "BGN",
+            "amountEur": 32263
+          },
+          "capital": {
+            "amount": 363400,
+            "currency": "BGN",
+            "amountEur": 185803
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "52218",
+          "obshtinaCode": "LOV02",
+          "nameBg": "Априлци",
+          "nameEn": "Apriltsi",
+          "total": {
+            "amount": 3673500,
+            "currency": "BGN",
+            "amountEur": 1878231
+          },
+          "delegated": {
+            "amount": 2981600,
+            "currency": "BGN",
+            "amountEur": 1524468
+          },
+          "equalization": {
+            "amount": 263100,
+            "currency": "BGN",
+            "amountEur": 134521
+          },
+          "winter": {
+            "amount": 82800,
+            "currency": "BGN",
+            "amountEur": 42335
+          },
+          "capital": {
+            "amount": 346000,
+            "currency": "BGN",
+            "amountEur": 176907
+          },
+          "otherTargeted": null
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2023,
+      "asOf": "2023-01-01",
+      "source": {
+        "documentId": "law-2023",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 147687600,
+          "currency": "BGN",
+          "amountEur": 75511470
+        },
+        "delegated": {
+          "amount": 122360000,
+          "currency": "BGN",
+          "amountEur": 62561673
+        },
+        "equalization": {
+          "amount": 12479500,
+          "currency": "BGN",
+          "amountEur": 6380667
+        },
+        "winter": {
+          "amount": 1560700,
+          "currency": "BGN",
+          "amountEur": 797975
+        },
+        "capital": {
+          "amount": 11287400,
+          "currency": "BGN",
+          "amountEur": 5771155
+        },
+        "otherTargeted": {
+          "amount": 920000,
+          "currency": "BGN",
+          "amountEur": 470389
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "43952",
+          "obshtinaCode": "LOV18",
+          "nameBg": "Ловеч",
+          "nameEn": "Lovech",
+          "total": {
+            "amount": 46955200,
+            "currency": "BGN",
+            "amountEur": 24007813
+          },
+          "delegated": {
+            "amount": 39495300,
+            "currency": "BGN",
+            "amountEur": 20193626
+          },
+          "equalization": {
+            "amount": 3878100,
+            "currency": "BGN",
+            "amountEur": 1982841
+          },
+          "winter": {
+            "amount": 372800,
+            "currency": "BGN",
+            "amountEur": 190610
+          },
+          "capital": {
+            "amount": 3209000,
+            "currency": "BGN",
+            "amountEur": 1640736
+          },
+          "otherTargeted": {
+            "amount": 274000,
+            "currency": "BGN",
+            "amountEur": 140094
+          }
+        },
+        {
+          "ekatte": "73198",
+          "obshtinaCode": "LOV34",
+          "nameBg": "Троян",
+          "nameEn": "Troyan",
+          "total": {
+            "amount": 28260600,
+            "currency": "BGN",
+            "amountEur": 14449415
+          },
+          "delegated": {
+            "amount": 23096900,
+            "currency": "BGN",
+            "amountEur": 11809257
+          },
+          "equalization": {
+            "amount": 2163900,
+            "currency": "BGN",
+            "amountEur": 1106385
+          },
+          "winter": {
+            "amount": 465700,
+            "currency": "BGN",
+            "amountEur": 238109
+          },
+          "capital": {
+            "amount": 2534100,
+            "currency": "BGN",
+            "amountEur": 1295665
+          },
+          "otherTargeted": {
+            "amount": 314800,
+            "currency": "BGN",
+            "amountEur": 160955
+          }
+        },
+        {
+          "ekatte": "72343",
+          "obshtinaCode": "LOV33",
+          "nameBg": "Тетевен",
+          "nameEn": "Teteven",
+          "total": {
+            "amount": 22061000,
+            "currency": "BGN",
+            "amountEur": 11279610
+          },
+          "delegated": {
+            "amount": 18601800,
+            "currency": "BGN",
+            "amountEur": 9510949
+          },
+          "equalization": {
+            "amount": 1975000,
+            "currency": "BGN",
+            "amountEur": 1009801
+          },
+          "winter": {
+            "amount": 169500,
+            "currency": "BGN",
+            "amountEur": 86664
+          },
+          "capital": {
+            "amount": 1314700,
+            "currency": "BGN",
+            "amountEur": 672195
+          },
+          "otherTargeted": {
+            "amount": 102600,
+            "currency": "BGN",
+            "amountEur": 52459
+          }
+        },
+        {
+          "ekatte": "44327",
+          "obshtinaCode": "LOV19",
+          "nameBg": "Луковит",
+          "nameEn": "Lukovit",
+          "total": {
+            "amount": 21942700,
+            "currency": "BGN",
+            "amountEur": 11219124
+          },
+          "delegated": {
+            "amount": 18652800,
+            "currency": "BGN",
+            "amountEur": 9537025
+          },
+          "equalization": {
+            "amount": 2006500,
+            "currency": "BGN",
+            "amountEur": 1025907
+          },
+          "winter": {
+            "amount": 119600,
+            "currency": "BGN",
+            "amountEur": 61151
+          },
+          "capital": {
+            "amount": 1163800,
+            "currency": "BGN",
+            "amountEur": 595041
+          },
+          "otherTargeted": {
+            "amount": 95600,
+            "currency": "BGN",
+            "amountEur": 48880
+          }
+        },
+        {
+          "ekatte": "87014",
+          "obshtinaCode": "LOV38",
+          "nameBg": "Ябланица",
+          "nameEn": "Yablanitsa",
+          "total": {
+            "amount": 9904900,
+            "currency": "BGN",
+            "amountEur": 5064295
+          },
+          "delegated": {
+            "amount": 7981300,
+            "currency": "BGN",
+            "amountEur": 4080774
+          },
+          "equalization": {
+            "amount": 772500,
+            "currency": "BGN",
+            "amountEur": 394973
+          },
+          "winter": {
+            "amount": 160900,
+            "currency": "BGN",
+            "amountEur": 82267
+          },
+          "capital": {
+            "amount": 990200,
+            "currency": "BGN",
+            "amountEur": 506281
+          },
+          "otherTargeted": {
+            "amount": 17200,
+            "currency": "BGN",
+            "amountEur": 8794
+          }
+        },
+        {
+          "ekatte": "75054",
+          "obshtinaCode": "LOV36",
+          "nameBg": "Угърчин",
+          "nameEn": "Ugarchin",
+          "total": {
+            "amount": 8819700,
+            "currency": "BGN",
+            "amountEur": 4509441
+          },
+          "delegated": {
+            "amount": 6687900,
+            "currency": "BGN",
+            "amountEur": 3419469
+          },
+          "equalization": {
+            "amount": 933400,
+            "currency": "BGN",
+            "amountEur": 477240
+          },
+          "winter": {
+            "amount": 126000,
+            "currency": "BGN",
+            "amountEur": 64423
+          },
+          "capital": {
+            "amount": 1072400,
+            "currency": "BGN",
+            "amountEur": 548309
+          },
+          "otherTargeted": {
+            "amount": 40300,
+            "currency": "BGN",
+            "amountEur": 20605
+          }
+        },
+        {
+          "ekatte": "43476",
+          "obshtinaCode": "LOV17",
+          "nameBg": "Летница",
+          "nameEn": "Letnitsa",
+          "total": {
+            "amount": 5273100,
+            "currency": "BGN",
+            "amountEur": 2696093
+          },
+          "delegated": {
+            "amount": 4205800,
+            "currency": "BGN",
+            "amountEur": 2150391
+          },
+          "equalization": {
+            "amount": 487000,
+            "currency": "BGN",
+            "amountEur": 248999
+          },
+          "winter": {
+            "amount": 63300,
+            "currency": "BGN",
+            "amountEur": 32365
+          },
+          "capital": {
+            "amount": 517000,
+            "currency": "BGN",
+            "amountEur": 264338
+          },
+          "otherTargeted": {
+            "amount": 46000,
+            "currency": "BGN",
+            "amountEur": 23519
+          }
+        },
+        {
+          "ekatte": "52218",
+          "obshtinaCode": "LOV02",
+          "nameBg": "Априлци",
+          "nameEn": "Apriltsi",
+          "total": {
+            "amount": 4470400,
+            "currency": "BGN",
+            "amountEur": 2285679
+          },
+          "delegated": {
+            "amount": 3638200,
+            "currency": "BGN",
+            "amountEur": 1860182
+          },
+          "equalization": {
+            "amount": 263100,
+            "currency": "BGN",
+            "amountEur": 134521
+          },
+          "winter": {
+            "amount": 82900,
+            "currency": "BGN",
+            "amountEur": 42386
+          },
+          "capital": {
+            "amount": 486200,
+            "currency": "BGN",
+            "amountEur": 248590
+          },
+          "otherTargeted": {
+            "amount": 29500,
+            "currency": "BGN",
+            "amountEur": 15083
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2024,
+      "asOf": "2024-01-01",
+      "source": {
+        "documentId": "law-2024",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 165745700,
+          "currency": "BGN",
+          "amountEur": 84744431
+        },
+        "delegated": {
+          "amount": 140343200,
+          "currency": "BGN",
+          "amountEur": 71756339
+        },
+        "equalization": {
+          "amount": 12507600,
+          "currency": "BGN",
+          "amountEur": 6395035
+        },
+        "winter": {
+          "amount": 1560700,
+          "currency": "BGN",
+          "amountEur": 797974
+        },
+        "capital": {
+          "amount": 11334200,
+          "currency": "BGN",
+          "amountEur": 5795084
+        },
+        "otherTargeted": {
+          "amount": 1104100,
+          "currency": "BGN",
+          "amountEur": 564517
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "43952",
+          "obshtinaCode": "LOV18",
+          "nameBg": "Ловеч",
+          "nameEn": "Lovech",
+          "total": {
+            "amount": 52475000,
+            "currency": "BGN",
+            "amountEur": 26830041
+          },
+          "delegated": {
+            "amount": 45004600,
+            "currency": "BGN",
+            "amountEur": 23010487
+          },
+          "equalization": {
+            "amount": 3878100,
+            "currency": "BGN",
+            "amountEur": 1982841
+          },
+          "winter": {
+            "amount": 372700,
+            "currency": "BGN",
+            "amountEur": 190558
+          },
+          "capital": {
+            "amount": 3219600,
+            "currency": "BGN",
+            "amountEur": 1646155
+          },
+          "otherTargeted": {
+            "amount": 328800,
+            "currency": "BGN",
+            "amountEur": 168113
+          }
+        },
+        {
+          "ekatte": "73198",
+          "obshtinaCode": "LOV34",
+          "nameBg": "Троян",
+          "nameEn": "Troyan",
+          "total": {
+            "amount": 33660300,
+            "currency": "BGN",
+            "amountEur": 17210238
+          },
+          "delegated": {
+            "amount": 28488200,
+            "currency": "BGN",
+            "amountEur": 14565785
+          },
+          "equalization": {
+            "amount": 2163900,
+            "currency": "BGN",
+            "amountEur": 1106385
+          },
+          "winter": {
+            "amount": 465700,
+            "currency": "BGN",
+            "amountEur": 238109
+          },
+          "capital": {
+            "amount": 2542500,
+            "currency": "BGN",
+            "amountEur": 1299960
+          },
+          "otherTargeted": {
+            "amount": 377700,
+            "currency": "BGN",
+            "amountEur": 193115
+          }
+        },
+        {
+          "ekatte": "72343",
+          "obshtinaCode": "LOV33",
+          "nameBg": "Тетевен",
+          "nameEn": "Teteven",
+          "total": {
+            "amount": 24625000,
+            "currency": "BGN",
+            "amountEur": 12590563
+          },
+          "delegated": {
+            "amount": 21150900,
+            "currency": "BGN",
+            "amountEur": 10814283
+          },
+          "equalization": {
+            "amount": 1985000,
+            "currency": "BGN",
+            "amountEur": 1014914
+          },
+          "winter": {
+            "amount": 169500,
+            "currency": "BGN",
+            "amountEur": 86664
+          },
+          "capital": {
+            "amount": 1319600,
+            "currency": "BGN",
+            "amountEur": 674701
+          },
+          "otherTargeted": {
+            "amount": 123200,
+            "currency": "BGN",
+            "amountEur": 62991
+          }
+        },
+        {
+          "ekatte": "44327",
+          "obshtinaCode": "LOV19",
+          "nameBg": "Луковит",
+          "nameEn": "Lukovit",
+          "total": {
+            "amount": 24093300,
+            "currency": "BGN",
+            "amountEur": 12318709
+          },
+          "delegated": {
+            "amount": 20783800,
+            "currency": "BGN",
+            "amountEur": 10626588
+          },
+          "equalization": {
+            "amount": 2020100,
+            "currency": "BGN",
+            "amountEur": 1032861
+          },
+          "winter": {
+            "amount": 119600,
+            "currency": "BGN",
+            "amountEur": 61151
+          },
+          "capital": {
+            "amount": 1169800,
+            "currency": "BGN",
+            "amountEur": 598109
+          },
+          "otherTargeted": {
+            "amount": 114800,
+            "currency": "BGN",
+            "amountEur": 58696
+          }
+        },
+        {
+          "ekatte": "87014",
+          "obshtinaCode": "LOV38",
+          "nameBg": "Ябланица",
+          "nameEn": "Yablanitsa",
+          "total": {
+            "amount": 10684300,
+            "currency": "BGN",
+            "amountEur": 5462796
+          },
+          "delegated": {
+            "amount": 8750600,
+            "currency": "BGN",
+            "amountEur": 4474111
+          },
+          "equalization": {
+            "amount": 777000,
+            "currency": "BGN",
+            "amountEur": 397274
+          },
+          "winter": {
+            "amount": 161000,
+            "currency": "BGN",
+            "amountEur": 82318
+          },
+          "capital": {
+            "amount": 995700,
+            "currency": "BGN",
+            "amountEur": 509093
+          },
+          "otherTargeted": {
+            "amount": 20700,
+            "currency": "BGN",
+            "amountEur": 10584
+          }
+        },
+        {
+          "ekatte": "75054",
+          "obshtinaCode": "LOV36",
+          "nameBg": "Угърчин",
+          "nameEn": "Ugarchin",
+          "total": {
+            "amount": 9526100,
+            "currency": "BGN",
+            "amountEur": 4870618
+          },
+          "delegated": {
+            "amount": 7386700,
+            "currency": "BGN",
+            "amountEur": 3776760
+          },
+          "equalization": {
+            "amount": 933400,
+            "currency": "BGN",
+            "amountEur": 477240
+          },
+          "winter": {
+            "amount": 126000,
+            "currency": "BGN",
+            "amountEur": 64423
+          },
+          "capital": {
+            "amount": 1080000,
+            "currency": "BGN",
+            "amountEur": 552195
+          },
+          "otherTargeted": {
+            "amount": 48300,
+            "currency": "BGN",
+            "amountEur": 24695
+          }
+        },
+        {
+          "ekatte": "43476",
+          "obshtinaCode": "LOV17",
+          "nameBg": "Летница",
+          "nameEn": "Letnitsa",
+          "total": {
+            "amount": 5781000,
+            "currency": "BGN",
+            "amountEur": 2955778
+          },
+          "delegated": {
+            "amount": 4711800,
+            "currency": "BGN",
+            "amountEur": 2409105
+          },
+          "equalization": {
+            "amount": 487000,
+            "currency": "BGN",
+            "amountEur": 248999
+          },
+          "winter": {
+            "amount": 63300,
+            "currency": "BGN",
+            "amountEur": 32365
+          },
+          "capital": {
+            "amount": 518900,
+            "currency": "BGN",
+            "amountEur": 265309
+          },
+          "otherTargeted": {
+            "amount": 55200,
+            "currency": "BGN",
+            "amountEur": 28223
+          }
+        },
+        {
+          "ekatte": "52218",
+          "obshtinaCode": "LOV02",
+          "nameBg": "Априлци",
+          "nameEn": "Apriltsi",
+          "total": {
+            "amount": 4900700,
+            "currency": "BGN",
+            "amountEur": 2505688
+          },
+          "delegated": {
+            "amount": 4066600,
+            "currency": "BGN",
+            "amountEur": 2079220
+          },
+          "equalization": {
+            "amount": 263100,
+            "currency": "BGN",
+            "amountEur": 134521
+          },
+          "winter": {
+            "amount": 82900,
+            "currency": "BGN",
+            "amountEur": 42386
+          },
+          "capital": {
+            "amount": 488100,
+            "currency": "BGN",
+            "amountEur": 249562
+          },
+          "otherTargeted": {
+            "amount": 35400,
+            "currency": "BGN",
+            "amountEur": 18100
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2025,
+      "asOf": "2025-01-01",
+      "source": {
+        "documentId": "law-2025",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 187295300,
+          "currency": "BGN",
+          "amountEur": 95762567
+        },
+        "delegated": {
+          "amount": 159328000,
+          "currency": "BGN",
+          "amountEur": 81463113
+        },
+        "equalization": {
+          "amount": 14341100,
+          "currency": "BGN",
+          "amountEur": 7332488
+        },
+        "winter": {
+          "amount": 1583400,
+          "currency": "BGN",
+          "amountEur": 809579
+        },
+        "capital": {
+          "amount": 12042800,
+          "currency": "BGN",
+          "amountEur": 6157385
+        },
+        "otherTargeted": {
+          "amount": 1220500,
+          "currency": "BGN",
+          "amountEur": 624032
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "43952",
+          "obshtinaCode": "LOV18",
+          "nameBg": "Ловеч",
+          "nameEn": "Lovech",
+          "total": {
+            "amount": 58732100,
+            "currency": "BGN",
+            "amountEur": 30029246
+          },
+          "delegated": {
+            "amount": 50852000,
+            "currency": "BGN",
+            "amountEur": 26000215
+          },
+          "equalization": {
+            "amount": 4080200,
+            "currency": "BGN",
+            "amountEur": 2086173
+          },
+          "winter": {
+            "amount": 378000,
+            "currency": "BGN",
+            "amountEur": 193268
+          },
+          "capital": {
+            "amount": 3421900,
+            "currency": "BGN",
+            "amountEur": 1749590
+          },
+          "otherTargeted": {
+            "amount": 334600,
+            "currency": "BGN",
+            "amountEur": 171078
+          }
+        },
+        {
+          "ekatte": "73198",
+          "obshtinaCode": "LOV34",
+          "nameBg": "Троян",
+          "nameEn": "Troyan",
+          "total": {
+            "amount": 38013300,
+            "currency": "BGN",
+            "amountEur": 19435892
+          },
+          "delegated": {
+            "amount": 32537700,
+            "currency": "BGN",
+            "amountEur": 16636262
+          },
+          "equalization": {
+            "amount": 2299100,
+            "currency": "BGN",
+            "amountEur": 1175511
+          },
+          "winter": {
+            "amount": 472500,
+            "currency": "BGN",
+            "amountEur": 241585
+          },
+          "capital": {
+            "amount": 2704000,
+            "currency": "BGN",
+            "amountEur": 1382533
+          },
+          "otherTargeted": {
+            "amount": 425500,
+            "currency": "BGN",
+            "amountEur": 217555
+          }
+        },
+        {
+          "ekatte": "44327",
+          "obshtinaCode": "LOV19",
+          "nameBg": "Луковит",
+          "nameEn": "Lukovit",
+          "total": {
+            "amount": 27450700,
+            "currency": "BGN",
+            "amountEur": 14035320
+          },
+          "delegated": {
+            "amount": 23815000,
+            "currency": "BGN",
+            "amountEur": 12176416
+          },
+          "equalization": {
+            "amount": 2268600,
+            "currency": "BGN",
+            "amountEur": 1159917
+          },
+          "winter": {
+            "amount": 121400,
+            "currency": "BGN",
+            "amountEur": 62071
+          },
+          "capital": {
+            "amount": 1245700,
+            "currency": "BGN",
+            "amountEur": 636916
+          },
+          "otherTargeted": {
+            "amount": 139600,
+            "currency": "BGN",
+            "amountEur": 71376
+          }
+        },
+        {
+          "ekatte": "72343",
+          "obshtinaCode": "LOV33",
+          "nameBg": "Тетевен",
+          "nameEn": "Teteven",
+          "total": {
+            "amount": 27404700,
+            "currency": "BGN",
+            "amountEur": 14011801
+          },
+          "delegated": {
+            "amount": 23612200,
+            "currency": "BGN",
+            "amountEur": 12072726
+          },
+          "equalization": {
+            "amount": 2217700,
+            "currency": "BGN",
+            "amountEur": 1133892
+          },
+          "winter": {
+            "amount": 171900,
+            "currency": "BGN",
+            "amountEur": 87891
+          },
+          "capital": {
+            "amount": 1402900,
+            "currency": "BGN",
+            "amountEur": 717291
+          },
+          "otherTargeted": {
+            "amount": 154100,
+            "currency": "BGN",
+            "amountEur": 78790
+          }
+        },
+        {
+          "ekatte": "87014",
+          "obshtinaCode": "LOV38",
+          "nameBg": "Ябланица",
+          "nameEn": "Yablanitsa",
+          "total": {
+            "amount": 12320000,
+            "currency": "BGN",
+            "amountEur": 6299116
+          },
+          "delegated": {
+            "amount": 10025900,
+            "currency": "BGN",
+            "amountEur": 5126161
+          },
+          "equalization": {
+            "amount": 1074100,
+            "currency": "BGN",
+            "amountEur": 549179
+          },
+          "winter": {
+            "amount": 163400,
+            "currency": "BGN",
+            "amountEur": 83545
+          },
+          "capital": {
+            "amount": 1056600,
+            "currency": "BGN",
+            "amountEur": 540231
+          },
+          "otherTargeted": {
+            "amount": 23100,
+            "currency": "BGN",
+            "amountEur": 11811
+          }
+        },
+        {
+          "ekatte": "75054",
+          "obshtinaCode": "LOV36",
+          "nameBg": "Угърчин",
+          "nameEn": "Ugarchin",
+          "total": {
+            "amount": 10832500,
+            "currency": "BGN",
+            "amountEur": 5538569
+          },
+          "delegated": {
+            "amount": 8281400,
+            "currency": "BGN",
+            "amountEur": 4234213
+          },
+          "equalization": {
+            "amount": 1275100,
+            "currency": "BGN",
+            "amountEur": 651948
+          },
+          "winter": {
+            "amount": 127900,
+            "currency": "BGN",
+            "amountEur": 65394
+          },
+          "capital": {
+            "amount": 1148100,
+            "currency": "BGN",
+            "amountEur": 587014
+          },
+          "otherTargeted": {
+            "amount": 45600,
+            "currency": "BGN",
+            "amountEur": 23315
+          }
+        },
+        {
+          "ekatte": "43476",
+          "obshtinaCode": "LOV17",
+          "nameBg": "Летница",
+          "nameEn": "Letnitsa",
+          "total": {
+            "amount": 6520100,
+            "currency": "BGN",
+            "amountEur": 3333674
+          },
+          "delegated": {
+            "amount": 5366000,
+            "currency": "BGN",
+            "amountEur": 2743592
+          },
+          "equalization": {
+            "amount": 541300,
+            "currency": "BGN",
+            "amountEur": 276762
+          },
+          "winter": {
+            "amount": 64200,
+            "currency": "BGN",
+            "amountEur": 32825
+          },
+          "capital": {
+            "amount": 548600,
+            "currency": "BGN",
+            "amountEur": 280495
+          },
+          "otherTargeted": {
+            "amount": 58900,
+            "currency": "BGN",
+            "amountEur": 30115
+          }
+        },
+        {
+          "ekatte": "52218",
+          "obshtinaCode": "LOV02",
+          "nameBg": "Априлци",
+          "nameEn": "Apriltsi",
+          "total": {
+            "amount": 6021900,
+            "currency": "BGN",
+            "amountEur": 3078949
+          },
+          "delegated": {
+            "amount": 4837800,
+            "currency": "BGN",
+            "amountEur": 2473528
+          },
+          "equalization": {
+            "amount": 585000,
+            "currency": "BGN",
+            "amountEur": 299106
+          },
+          "winter": {
+            "amount": 84100,
+            "currency": "BGN",
+            "amountEur": 43000
+          },
+          "capital": {
+            "amount": 515000,
+            "currency": "BGN",
+            "amountEur": 263315
+          },
+          "otherTargeted": {
+            "amount": 39100,
+            "currency": "BGN",
+            "amountEur": 19992
+          }
+        }
+      ]
+    }
+  ]
+}

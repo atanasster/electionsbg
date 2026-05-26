@@ -1,0 +1,1937 @@
+{
+  "oblastCode": "VTR",
+  "oblastNameBg": "Велико Търново",
+  "oblastNameEn": "Veliko Tarnovo",
+  "years": [
+    {
+      "fiscalYear": 2020,
+      "asOf": "2020-01-01",
+      "source": {
+        "documentId": "law-2020",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 150930900,
+          "currency": "BGN",
+          "amountEur": 77169744
+        },
+        "delegated": {
+          "amount": 127855100,
+          "currency": "BGN",
+          "amountEur": 65371273
+        },
+        "equalization": {
+          "amount": 13273100,
+          "currency": "BGN",
+          "amountEur": 6786429
+        },
+        "winter": {
+          "amount": 1818000,
+          "currency": "BGN",
+          "amountEur": 929528
+        },
+        "capital": {
+          "amount": 7984700,
+          "currency": "BGN",
+          "amountEur": 4082512
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "10447",
+          "obshtinaCode": "VTR04",
+          "nameBg": "Велико Търново",
+          "nameEn": "Veliko Tarnovo",
+          "total": {
+            "amount": 53008000,
+            "currency": "BGN",
+            "amountEur": 27102560
+          },
+          "delegated": {
+            "amount": 48886200,
+            "currency": "BGN",
+            "amountEur": 24995117
+          },
+          "equalization": {
+            "amount": 1779300,
+            "currency": "BGN",
+            "amountEur": 909742
+          },
+          "winter": {
+            "amount": 440700,
+            "currency": "BGN",
+            "amountEur": 225326
+          },
+          "capital": {
+            "amount": 1901800,
+            "currency": "BGN",
+            "amountEur": 972375
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "16359",
+          "obshtinaCode": "VTR06",
+          "nameBg": "Горна Оряховица",
+          "nameEn": "Gorna Oryahovitsa",
+          "total": {
+            "amount": 24004800,
+            "currency": "BGN",
+            "amountEur": 12273459
+          },
+          "delegated": {
+            "amount": 20591500,
+            "currency": "BGN",
+            "amountEur": 10528267
+          },
+          "equalization": {
+            "amount": 2589300,
+            "currency": "BGN",
+            "amountEur": 1323888
+          },
+          "winter": {
+            "amount": 108200,
+            "currency": "BGN",
+            "amountEur": 55322
+          },
+          "capital": {
+            "amount": 715800,
+            "currency": "BGN",
+            "amountEur": 365983
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "65766",
+          "obshtinaCode": "VTR28",
+          "nameBg": "Свищов",
+          "nameEn": "Svishtov",
+          "total": {
+            "amount": 18870200,
+            "currency": "BGN",
+            "amountEur": 9648180
+          },
+          "delegated": {
+            "amount": 15296600,
+            "currency": "BGN",
+            "amountEur": 7821027
+          },
+          "equalization": {
+            "amount": 2723400,
+            "currency": "BGN",
+            "amountEur": 1392452
+          },
+          "winter": {
+            "amount": 110800,
+            "currency": "BGN",
+            "amountEur": 56651
+          },
+          "capital": {
+            "amount": 739400,
+            "currency": "BGN",
+            "amountEur": 378049
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "55052",
+          "obshtinaCode": "VTR22",
+          "nameBg": "Павликени",
+          "nameEn": "Pavlikeni",
+          "total": {
+            "amount": 14692300,
+            "currency": "BGN",
+            "amountEur": 7512054
+          },
+          "delegated": {
+            "amount": 12099500,
+            "currency": "BGN",
+            "amountEur": 6186376
+          },
+          "equalization": {
+            "amount": 1612800,
+            "currency": "BGN",
+            "amountEur": 824612
+          },
+          "winter": {
+            "amount": 168500,
+            "currency": "BGN",
+            "amountEur": 86153
+          },
+          "capital": {
+            "amount": 811500,
+            "currency": "BGN",
+            "amountEur": 414913
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "69633",
+          "obshtinaCode": "VTR31",
+          "nameBg": "Стражица",
+          "nameEn": "Strazhitsa",
+          "total": {
+            "amount": 9824800,
+            "currency": "BGN",
+            "amountEur": 5023340
+          },
+          "delegated": {
+            "amount": 7828400,
+            "currency": "BGN",
+            "amountEur": 4002597
+          },
+          "equalization": {
+            "amount": 1111300,
+            "currency": "BGN",
+            "amountEur": 568199
+          },
+          "winter": {
+            "amount": 159600,
+            "currency": "BGN",
+            "amountEur": 81602
+          },
+          "capital": {
+            "amount": 725500,
+            "currency": "BGN",
+            "amountEur": 370942
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "27190",
+          "obshtinaCode": "VTR13",
+          "nameBg": "Елена",
+          "nameEn": "Elena",
+          "total": {
+            "amount": 8957900,
+            "currency": "BGN",
+            "amountEur": 4580102
+          },
+          "delegated": {
+            "amount": 6107900,
+            "currency": "BGN",
+            "amountEur": 3122920
+          },
+          "equalization": {
+            "amount": 892700,
+            "currency": "BGN",
+            "amountEur": 456430
+          },
+          "winter": {
+            "amount": 522700,
+            "currency": "BGN",
+            "amountEur": 267252
+          },
+          "capital": {
+            "amount": 1434600,
+            "currency": "BGN",
+            "amountEur": 733499
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "57354",
+          "obshtinaCode": "VTR26",
+          "nameBg": "Полски Тръмбеш",
+          "nameEn": "Polski Trambesh",
+          "total": {
+            "amount": 7683600,
+            "currency": "BGN",
+            "amountEur": 3928562
+          },
+          "delegated": {
+            "amount": 6011400,
+            "currency": "BGN",
+            "amountEur": 3073580
+          },
+          "equalization": {
+            "amount": 1045000,
+            "currency": "BGN",
+            "amountEur": 534300
+          },
+          "winter": {
+            "amount": 74600,
+            "currency": "BGN",
+            "amountEur": 38142
+          },
+          "capital": {
+            "amount": 552600,
+            "currency": "BGN",
+            "amountEur": 282540
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "44793",
+          "obshtinaCode": "VTR20",
+          "nameBg": "Лясковец",
+          "nameEn": "Lyaskovets",
+          "total": {
+            "amount": 6579700,
+            "currency": "BGN",
+            "amountEur": 3364147
+          },
+          "delegated": {
+            "amount": 5353700,
+            "currency": "BGN",
+            "amountEur": 2737303
+          },
+          "equalization": {
+            "amount": 784600,
+            "currency": "BGN",
+            "amountEur": 401160
+          },
+          "winter": {
+            "amount": 74000,
+            "currency": "BGN",
+            "amountEur": 37836
+          },
+          "capital": {
+            "amount": 367400,
+            "currency": "BGN",
+            "amountEur": 187849
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "30962",
+          "obshtinaCode": "VTR14",
+          "nameBg": "Златарица",
+          "nameEn": "Zlataritsa",
+          "total": {
+            "amount": 4556600,
+            "currency": "BGN",
+            "amountEur": 2329753
+          },
+          "delegated": {
+            "amount": 3461100,
+            "currency": "BGN",
+            "amountEur": 1769632
+          },
+          "equalization": {
+            "amount": 485700,
+            "currency": "BGN",
+            "amountEur": 248334
+          },
+          "winter": {
+            "amount": 119900,
+            "currency": "BGN",
+            "amountEur": 61304
+          },
+          "capital": {
+            "amount": 489900,
+            "currency": "BGN",
+            "amountEur": 250482
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "70295",
+          "obshtinaCode": "VTR32",
+          "nameBg": "Сухиндол",
+          "nameEn": "Suhindol",
+          "total": {
+            "amount": 2753000,
+            "currency": "BGN",
+            "amountEur": 1407587
+          },
+          "delegated": {
+            "amount": 2218800,
+            "currency": "BGN",
+            "amountEur": 1134454
+          },
+          "equalization": {
+            "amount": 249000,
+            "currency": "BGN",
+            "amountEur": 127312
+          },
+          "winter": {
+            "amount": 39000,
+            "currency": "BGN",
+            "amountEur": 19940
+          },
+          "capital": {
+            "amount": 246200,
+            "currency": "BGN",
+            "amountEur": 125880
+          },
+          "otherTargeted": null
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2022,
+      "asOf": "2022-01-01",
+      "source": {
+        "documentId": "law-2022",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 202575400,
+          "currency": "BGN",
+          "amountEur": 103575157
+        },
+        "delegated": {
+          "amount": 172813600,
+          "currency": "BGN",
+          "amountEur": 88358191
+        },
+        "equalization": {
+          "amount": 15819400,
+          "currency": "BGN",
+          "amountEur": 8088332
+        },
+        "winter": {
+          "amount": 1993100,
+          "currency": "BGN",
+          "amountEur": 1019057
+        },
+        "capital": {
+          "amount": 11949300,
+          "currency": "BGN",
+          "amountEur": 6109581
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "10447",
+          "obshtinaCode": "VTR04",
+          "nameBg": "Велико Търново",
+          "nameEn": "Veliko Tarnovo",
+          "total": {
+            "amount": 74706800,
+            "currency": "BGN",
+            "amountEur": 38196980
+          },
+          "delegated": {
+            "amount": 68600900,
+            "currency": "BGN",
+            "amountEur": 35075083
+          },
+          "equalization": {
+            "amount": 2639400,
+            "currency": "BGN",
+            "amountEur": 1349504
+          },
+          "winter": {
+            "amount": 487600,
+            "currency": "BGN",
+            "amountEur": 249306
+          },
+          "capital": {
+            "amount": 2978900,
+            "currency": "BGN",
+            "amountEur": 1523087
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "16359",
+          "obshtinaCode": "VTR06",
+          "nameBg": "Горна Оряховица",
+          "nameEn": "Gorna Oryahovitsa",
+          "total": {
+            "amount": 31030600,
+            "currency": "BGN",
+            "amountEur": 15865694
+          },
+          "delegated": {
+            "amount": 26915600,
+            "currency": "BGN",
+            "amountEur": 13761728
+          },
+          "equalization": {
+            "amount": 2936000,
+            "currency": "BGN",
+            "amountEur": 1501153
+          },
+          "winter": {
+            "amount": 116500,
+            "currency": "BGN",
+            "amountEur": 59566
+          },
+          "capital": {
+            "amount": 1062500,
+            "currency": "BGN",
+            "amountEur": 543248
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "65766",
+          "obshtinaCode": "VTR28",
+          "nameBg": "Свищов",
+          "nameEn": "Svishtov",
+          "total": {
+            "amount": 24370800,
+            "currency": "BGN",
+            "amountEur": 12460592
+          },
+          "delegated": {
+            "amount": 20125800,
+            "currency": "BGN",
+            "amountEur": 10290158
+          },
+          "equalization": {
+            "amount": 3037800,
+            "currency": "BGN",
+            "amountEur": 1553202
+          },
+          "winter": {
+            "amount": 119000,
+            "currency": "BGN",
+            "amountEur": 60844
+          },
+          "capital": {
+            "amount": 1088200,
+            "currency": "BGN",
+            "amountEur": 556388
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "55052",
+          "obshtinaCode": "VTR22",
+          "nameBg": "Павликени",
+          "nameEn": "Pavlikeni",
+          "total": {
+            "amount": 19440900,
+            "currency": "BGN",
+            "amountEur": 9939974
+          },
+          "delegated": {
+            "amount": 16220200,
+            "currency": "BGN",
+            "amountEur": 8293257
+          },
+          "equalization": {
+            "amount": 1829800,
+            "currency": "BGN",
+            "amountEur": 935562
+          },
+          "winter": {
+            "amount": 181100,
+            "currency": "BGN",
+            "amountEur": 92595
+          },
+          "capital": {
+            "amount": 1209800,
+            "currency": "BGN",
+            "amountEur": 618561
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "69633",
+          "obshtinaCode": "VTR31",
+          "nameBg": "Стражица",
+          "nameEn": "Strazhitsa",
+          "total": {
+            "amount": 12669800,
+            "currency": "BGN",
+            "amountEur": 6477966
+          },
+          "delegated": {
+            "amount": 10123100,
+            "currency": "BGN",
+            "amountEur": 5175859
+          },
+          "equalization": {
+            "amount": 1293100,
+            "currency": "BGN",
+            "amountEur": 661152
+          },
+          "winter": {
+            "amount": 171600,
+            "currency": "BGN",
+            "amountEur": 87738
+          },
+          "capital": {
+            "amount": 1082000,
+            "currency": "BGN",
+            "amountEur": 553218
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "27190",
+          "obshtinaCode": "VTR13",
+          "nameBg": "Елена",
+          "nameEn": "Elena",
+          "total": {
+            "amount": 12294300,
+            "currency": "BGN",
+            "amountEur": 6285976
+          },
+          "delegated": {
+            "amount": 8412500,
+            "currency": "BGN",
+            "amountEur": 4301243
+          },
+          "equalization": {
+            "amount": 1186500,
+            "currency": "BGN",
+            "amountEur": 606648
+          },
+          "winter": {
+            "amount": 581400,
+            "currency": "BGN",
+            "amountEur": 297265
+          },
+          "capital": {
+            "amount": 2113900,
+            "currency": "BGN",
+            "amountEur": 1080820
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "57354",
+          "obshtinaCode": "VTR26",
+          "nameBg": "Полски Тръмбеш",
+          "nameEn": "Polski Trambesh",
+          "total": {
+            "amount": 9671900,
+            "currency": "BGN",
+            "amountEur": 4945164
+          },
+          "delegated": {
+            "amount": 7627900,
+            "currency": "BGN",
+            "amountEur": 3900083
+          },
+          "equalization": {
+            "amount": 1152500,
+            "currency": "BGN",
+            "amountEur": 589264
+          },
+          "winter": {
+            "amount": 80500,
+            "currency": "BGN",
+            "amountEur": 41159
+          },
+          "capital": {
+            "amount": 811000,
+            "currency": "BGN",
+            "amountEur": 414658
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "44793",
+          "obshtinaCode": "VTR20",
+          "nameBg": "Лясковец",
+          "nameEn": "Lyaskovets",
+          "total": {
+            "amount": 8500900,
+            "currency": "BGN",
+            "amountEur": 4346441
+          },
+          "delegated": {
+            "amount": 7088800,
+            "currency": "BGN",
+            "amountEur": 3624446
+          },
+          "equalization": {
+            "amount": 798500,
+            "currency": "BGN",
+            "amountEur": 408267
+          },
+          "winter": {
+            "amount": 79400,
+            "currency": "BGN",
+            "amountEur": 40597
+          },
+          "capital": {
+            "amount": 534200,
+            "currency": "BGN",
+            "amountEur": 273132
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "30962",
+          "obshtinaCode": "VTR14",
+          "nameBg": "Златарица",
+          "nameEn": "Zlataritsa",
+          "total": {
+            "amount": 5877300,
+            "currency": "BGN",
+            "amountEur": 3005016
+          },
+          "delegated": {
+            "amount": 4502800,
+            "currency": "BGN",
+            "amountEur": 2302245
+          },
+          "equalization": {
+            "amount": 524000,
+            "currency": "BGN",
+            "amountEur": 267917
+          },
+          "winter": {
+            "amount": 134100,
+            "currency": "BGN",
+            "amountEur": 68564
+          },
+          "capital": {
+            "amount": 716400,
+            "currency": "BGN",
+            "amountEur": 366290
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "70295",
+          "obshtinaCode": "VTR32",
+          "nameBg": "Сухиндол",
+          "nameEn": "Suhindol",
+          "total": {
+            "amount": 4012100,
+            "currency": "BGN",
+            "amountEur": 2051354
+          },
+          "delegated": {
+            "amount": 3196000,
+            "currency": "BGN",
+            "amountEur": 1634089
+          },
+          "equalization": {
+            "amount": 421800,
+            "currency": "BGN",
+            "amountEur": 215663
+          },
+          "winter": {
+            "amount": 41900,
+            "currency": "BGN",
+            "amountEur": 21423
+          },
+          "capital": {
+            "amount": 352400,
+            "currency": "BGN",
+            "amountEur": 180179
+          },
+          "otherTargeted": null
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2023,
+      "asOf": "2023-01-01",
+      "source": {
+        "documentId": "law-2023",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 250415500,
+          "currency": "BGN",
+          "amountEur": 128035412
+        },
+        "delegated": {
+          "amount": 214909200,
+          "currency": "BGN",
+          "amountEur": 109881330
+        },
+        "equalization": {
+          "amount": 16315000,
+          "currency": "BGN",
+          "amountEur": 8341726
+        },
+        "winter": {
+          "amount": 1993600,
+          "currency": "BGN",
+          "amountEur": 1019312
+        },
+        "capital": {
+          "amount": 17197700,
+          "currency": "BGN",
+          "amountEur": 8793046
+        },
+        "otherTargeted": {
+          "amount": 1981000,
+          "currency": "BGN",
+          "amountEur": 1012869
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "10447",
+          "obshtinaCode": "VTR04",
+          "nameBg": "Велико Търново",
+          "nameEn": "Veliko Tarnovo",
+          "total": {
+            "amount": 93122600,
+            "currency": "BGN",
+            "amountEur": 47612829
+          },
+          "delegated": {
+            "amount": 85667000,
+            "currency": "BGN",
+            "amountEur": 43800842
+          },
+          "equalization": {
+            "amount": 2640200,
+            "currency": "BGN",
+            "amountEur": 1349913
+          },
+          "winter": {
+            "amount": 486200,
+            "currency": "BGN",
+            "amountEur": 248590
+          },
+          "capital": {
+            "amount": 4329200,
+            "currency": "BGN",
+            "amountEur": 2213485
+          },
+          "otherTargeted": {
+            "amount": 771300,
+            "currency": "BGN",
+            "amountEur": 394359
+          }
+        },
+        {
+          "ekatte": "16359",
+          "obshtinaCode": "VTR06",
+          "nameBg": "Горна Оряховица",
+          "nameEn": "Gorna Oryahovitsa",
+          "total": {
+            "amount": 38043900,
+            "currency": "BGN",
+            "amountEur": 19451537
+          },
+          "delegated": {
+            "amount": 33124800,
+            "currency": "BGN",
+            "amountEur": 16936441
+          },
+          "equalization": {
+            "amount": 3264600,
+            "currency": "BGN",
+            "amountEur": 1669163
+          },
+          "winter": {
+            "amount": 116600,
+            "currency": "BGN",
+            "amountEur": 59617
+          },
+          "capital": {
+            "amount": 1537900,
+            "currency": "BGN",
+            "amountEur": 786316
+          },
+          "otherTargeted": {
+            "amount": 288900,
+            "currency": "BGN",
+            "amountEur": 147712
+          }
+        },
+        {
+          "ekatte": "65766",
+          "obshtinaCode": "VTR28",
+          "nameBg": "Свищов",
+          "nameEn": "Svishtov",
+          "total": {
+            "amount": 29651800,
+            "currency": "BGN",
+            "amountEur": 15160725
+          },
+          "delegated": {
+            "amount": 24982100,
+            "currency": "BGN",
+            "amountEur": 12773145
+          },
+          "equalization": {
+            "amount": 3038600,
+            "currency": "BGN",
+            "amountEur": 1553612
+          },
+          "winter": {
+            "amount": 117600,
+            "currency": "BGN",
+            "amountEur": 60128
+          },
+          "capital": {
+            "amount": 1513500,
+            "currency": "BGN",
+            "amountEur": 773840
+          },
+          "otherTargeted": {
+            "amount": 274700,
+            "currency": "BGN",
+            "amountEur": 140452
+          }
+        },
+        {
+          "ekatte": "55052",
+          "obshtinaCode": "VTR22",
+          "nameBg": "Павликени",
+          "nameEn": "Pavlikeni",
+          "total": {
+            "amount": 23966200,
+            "currency": "BGN",
+            "amountEur": 12253723
+          },
+          "delegated": {
+            "amount": 20183000,
+            "currency": "BGN",
+            "amountEur": 10319404
+          },
+          "equalization": {
+            "amount": 1860100,
+            "currency": "BGN",
+            "amountEur": 951054
+          },
+          "winter": {
+            "amount": 180900,
+            "currency": "BGN",
+            "amountEur": 92493
+          },
+          "capital": {
+            "amount": 1742200,
+            "currency": "BGN",
+            "amountEur": 890773
+          },
+          "otherTargeted": {
+            "amount": 205600,
+            "currency": "BGN",
+            "amountEur": 105122
+          }
+        },
+        {
+          "ekatte": "27190",
+          "obshtinaCode": "VTR13",
+          "nameBg": "Елена",
+          "nameEn": "Elena",
+          "total": {
+            "amount": 16038700,
+            "currency": "BGN",
+            "amountEur": 8200457
+          },
+          "delegated": {
+            "amount": 11101300,
+            "currency": "BGN",
+            "amountEur": 5676005
+          },
+          "equalization": {
+            "amount": 1255100,
+            "currency": "BGN",
+            "amountEur": 641722
+          },
+          "winter": {
+            "amount": 585200,
+            "currency": "BGN",
+            "amountEur": 299208
+          },
+          "capital": {
+            "amount": 3097100,
+            "currency": "BGN",
+            "amountEur": 1583522
+          },
+          "otherTargeted": {
+            "amount": 58200,
+            "currency": "BGN",
+            "amountEur": 29757
+          }
+        },
+        {
+          "ekatte": "69633",
+          "obshtinaCode": "VTR31",
+          "nameBg": "Стражица",
+          "nameEn": "Strazhitsa",
+          "total": {
+            "amount": 15426300,
+            "currency": "BGN",
+            "amountEur": 7887342
+          },
+          "delegated": {
+            "amount": 12404100,
+            "currency": "BGN",
+            "amountEur": 6342116
+          },
+          "equalization": {
+            "amount": 1295400,
+            "currency": "BGN",
+            "amountEur": 662328
+          },
+          "winter": {
+            "amount": 171300,
+            "currency": "BGN",
+            "amountEur": 87584
+          },
+          "capital": {
+            "amount": 1555500,
+            "currency": "BGN",
+            "amountEur": 795315
+          },
+          "otherTargeted": {
+            "amount": 78000,
+            "currency": "BGN",
+            "amountEur": 39881
+          }
+        },
+        {
+          "ekatte": "57354",
+          "obshtinaCode": "VTR26",
+          "nameBg": "Полски Тръмбеш",
+          "nameEn": "Polski Trambesh",
+          "total": {
+            "amount": 11650200,
+            "currency": "BGN",
+            "amountEur": 5956653
+          },
+          "delegated": {
+            "amount": 9258600,
+            "currency": "BGN",
+            "amountEur": 4733847
+          },
+          "equalization": {
+            "amount": 1162200,
+            "currency": "BGN",
+            "amountEur": 594223
+          },
+          "winter": {
+            "amount": 80300,
+            "currency": "BGN",
+            "amountEur": 41057
+          },
+          "capital": {
+            "amount": 1149100,
+            "currency": "BGN",
+            "amountEur": 587526
+          },
+          "otherTargeted": {
+            "amount": 152500,
+            "currency": "BGN",
+            "amountEur": 77972
+          }
+        },
+        {
+          "ekatte": "44793",
+          "obshtinaCode": "VTR20",
+          "nameBg": "Лясковец",
+          "nameEn": "Lyaskovets",
+          "total": {
+            "amount": 10477300,
+            "currency": "BGN",
+            "amountEur": 5356958
+          },
+          "delegated": {
+            "amount": 8797800,
+            "currency": "BGN",
+            "amountEur": 4498244
+          },
+          "equalization": {
+            "amount": 838600,
+            "currency": "BGN",
+            "amountEur": 428769
+          },
+          "winter": {
+            "amount": 79500,
+            "currency": "BGN",
+            "amountEur": 40648
+          },
+          "capital": {
+            "amount": 761400,
+            "currency": "BGN",
+            "amountEur": 389298
+          },
+          "otherTargeted": {
+            "amount": 81900,
+            "currency": "BGN",
+            "amountEur": 41875
+          }
+        },
+        {
+          "ekatte": "30962",
+          "obshtinaCode": "VTR14",
+          "nameBg": "Златарица",
+          "nameEn": "Zlataritsa",
+          "total": {
+            "amount": 7202400,
+            "currency": "BGN",
+            "amountEur": 3682529
+          },
+          "delegated": {
+            "amount": 5521700,
+            "currency": "BGN",
+            "amountEur": 2823200
+          },
+          "equalization": {
+            "amount": 527200,
+            "currency": "BGN",
+            "amountEur": 269553
+          },
+          "winter": {
+            "amount": 134100,
+            "currency": "BGN",
+            "amountEur": 68564
+          },
+          "capital": {
+            "amount": 1019400,
+            "currency": "BGN",
+            "amountEur": 521211
+          },
+          "otherTargeted": {
+            "amount": 36400,
+            "currency": "BGN",
+            "amountEur": 18611
+          }
+        },
+        {
+          "ekatte": "70295",
+          "obshtinaCode": "VTR32",
+          "nameBg": "Сухиндол",
+          "nameEn": "Suhindol",
+          "total": {
+            "amount": 4836100,
+            "currency": "BGN",
+            "amountEur": 2472659
+          },
+          "delegated": {
+            "amount": 3868800,
+            "currency": "BGN",
+            "amountEur": 1978086
+          },
+          "equalization": {
+            "amount": 433000,
+            "currency": "BGN",
+            "amountEur": 221389
+          },
+          "winter": {
+            "amount": 41900,
+            "currency": "BGN",
+            "amountEur": 21423
+          },
+          "capital": {
+            "amount": 492400,
+            "currency": "BGN",
+            "amountEur": 251760
+          },
+          "otherTargeted": {
+            "amount": 33500,
+            "currency": "BGN",
+            "amountEur": 17128
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2024,
+      "asOf": "2024-01-01",
+      "source": {
+        "documentId": "law-2024",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 284060500,
+          "currency": "BGN",
+          "amountEur": 145237828
+        },
+        "delegated": {
+          "amount": 248773600,
+          "currency": "BGN",
+          "amountEur": 127195923
+        },
+        "equalization": {
+          "amount": 16406400,
+          "currency": "BGN",
+          "amountEur": 8388458
+        },
+        "winter": {
+          "amount": 1977400,
+          "currency": "BGN",
+          "amountEur": 1011031
+        },
+        "capital": {
+          "amount": 16903100,
+          "currency": "BGN",
+          "amountEur": 8642419
+        },
+        "otherTargeted": {
+          "amount": 2377200,
+          "currency": "BGN",
+          "amountEur": 1215443
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "10447",
+          "obshtinaCode": "VTR04",
+          "nameBg": "Велико Търново",
+          "nameEn": "Veliko Tarnovo",
+          "total": {
+            "amount": 107834800,
+            "currency": "BGN",
+            "amountEur": 55135058
+          },
+          "delegated": {
+            "amount": 100578000,
+            "currency": "BGN",
+            "amountEur": 51424715
+          },
+          "equalization": {
+            "amount": 2646800,
+            "currency": "BGN",
+            "amountEur": 1353287
+          },
+          "winter": {
+            "amount": 481400,
+            "currency": "BGN",
+            "amountEur": 246136
+          },
+          "capital": {
+            "amount": 4128600,
+            "currency": "BGN",
+            "amountEur": 2110920
+          },
+          "otherTargeted": {
+            "amount": 925500,
+            "currency": "BGN",
+            "amountEur": 473201
+          }
+        },
+        {
+          "ekatte": "16359",
+          "obshtinaCode": "VTR06",
+          "nameBg": "Горна Оряховица",
+          "nameEn": "Gorna Oryahovitsa",
+          "total": {
+            "amount": 42789800,
+            "currency": "BGN",
+            "amountEur": 21878077
+          },
+          "delegated": {
+            "amount": 37865100,
+            "currency": "BGN",
+            "amountEur": 19360118
+          },
+          "equalization": {
+            "amount": 3269700,
+            "currency": "BGN",
+            "amountEur": 1671771
+          },
+          "winter": {
+            "amount": 116500,
+            "currency": "BGN",
+            "amountEur": 59566
+          },
+          "capital": {
+            "amount": 1538500,
+            "currency": "BGN",
+            "amountEur": 786623
+          },
+          "otherTargeted": {
+            "amount": 346700,
+            "currency": "BGN",
+            "amountEur": 177265
+          }
+        },
+        {
+          "ekatte": "65766",
+          "obshtinaCode": "VTR28",
+          "nameBg": "Свищов",
+          "nameEn": "Svishtov",
+          "total": {
+            "amount": 33110500,
+            "currency": "BGN",
+            "amountEur": 16929130
+          },
+          "delegated": {
+            "amount": 28432900,
+            "currency": "BGN",
+            "amountEur": 14537511
+          },
+          "equalization": {
+            "amount": 3044800,
+            "currency": "BGN",
+            "amountEur": 1556782
+          },
+          "winter": {
+            "amount": 117500,
+            "currency": "BGN",
+            "amountEur": 60077
+          },
+          "capital": {
+            "amount": 1515300,
+            "currency": "BGN",
+            "amountEur": 774761
+          },
+          "otherTargeted": {
+            "amount": 329600,
+            "currency": "BGN",
+            "amountEur": 168522
+          }
+        },
+        {
+          "ekatte": "55052",
+          "obshtinaCode": "VTR22",
+          "nameBg": "Павликени",
+          "nameEn": "Pavlikeni",
+          "total": {
+            "amount": 26629800,
+            "currency": "BGN",
+            "amountEur": 13615601
+          },
+          "delegated": {
+            "amount": 22827100,
+            "currency": "BGN",
+            "amountEur": 11671311
+          },
+          "equalization": {
+            "amount": 1870400,
+            "currency": "BGN",
+            "amountEur": 956320
+          },
+          "winter": {
+            "amount": 181000,
+            "currency": "BGN",
+            "amountEur": 92544
+          },
+          "capital": {
+            "amount": 1751300,
+            "currency": "BGN",
+            "amountEur": 895425
+          },
+          "otherTargeted": {
+            "amount": 246700,
+            "currency": "BGN",
+            "amountEur": 126136
+          }
+        },
+        {
+          "ekatte": "27190",
+          "obshtinaCode": "VTR13",
+          "nameBg": "Елена",
+          "nameEn": "Elena",
+          "total": {
+            "amount": 18456200,
+            "currency": "BGN",
+            "amountEur": 9436505
+          },
+          "delegated": {
+            "amount": 13670400,
+            "currency": "BGN",
+            "amountEur": 6989565
+          },
+          "equalization": {
+            "amount": 1255100,
+            "currency": "BGN",
+            "amountEur": 641722
+          },
+          "winter": {
+            "amount": 572500,
+            "currency": "BGN",
+            "amountEur": 292715
+          },
+          "capital": {
+            "amount": 2958200,
+            "currency": "BGN",
+            "amountEur": 1512504
+          },
+          "otherTargeted": {
+            "amount": 69900,
+            "currency": "BGN",
+            "amountEur": 35739
+          }
+        },
+        {
+          "ekatte": "69633",
+          "obshtinaCode": "VTR31",
+          "nameBg": "Стражица",
+          "nameEn": "Strazhitsa",
+          "total": {
+            "amount": 16910500,
+            "currency": "BGN",
+            "amountEur": 8646201
+          },
+          "delegated": {
+            "amount": 13858000,
+            "currency": "BGN",
+            "amountEur": 7085483
+          },
+          "equalization": {
+            "amount": 1313600,
+            "currency": "BGN",
+            "amountEur": 671633
+          },
+          "winter": {
+            "amount": 171500,
+            "currency": "BGN",
+            "amountEur": 87687
+          },
+          "capital": {
+            "amount": 1567400,
+            "currency": "BGN",
+            "amountEur": 801399
+          },
+          "otherTargeted": {
+            "amount": 93600,
+            "currency": "BGN",
+            "amountEur": 47857
+          }
+        },
+        {
+          "ekatte": "57354",
+          "obshtinaCode": "VTR26",
+          "nameBg": "Полски Тръмбеш",
+          "nameEn": "Polski Trambesh",
+          "total": {
+            "amount": 12688900,
+            "currency": "BGN",
+            "amountEur": 6487732
+          },
+          "delegated": {
+            "amount": 10277900,
+            "currency": "BGN",
+            "amountEur": 5255007
+          },
+          "equalization": {
+            "amount": 1173500,
+            "currency": "BGN",
+            "amountEur": 600001
+          },
+          "winter": {
+            "amount": 80400,
+            "currency": "BGN",
+            "amountEur": 41108
+          },
+          "capital": {
+            "amount": 1157100,
+            "currency": "BGN",
+            "amountEur": 591616
+          },
+          "otherTargeted": {
+            "amount": 183000,
+            "currency": "BGN",
+            "amountEur": 93566
+          }
+        },
+        {
+          "ekatte": "44793",
+          "obshtinaCode": "VTR20",
+          "nameBg": "Лясковец",
+          "nameEn": "Lyaskovets",
+          "total": {
+            "amount": 11459600,
+            "currency": "BGN",
+            "amountEur": 5859200
+          },
+          "delegated": {
+            "amount": 9771100,
+            "currency": "BGN",
+            "amountEur": 4995884
+          },
+          "equalization": {
+            "amount": 847600,
+            "currency": "BGN",
+            "amountEur": 433371
+          },
+          "winter": {
+            "amount": 79500,
+            "currency": "BGN",
+            "amountEur": 40648
+          },
+          "capital": {
+            "amount": 761400,
+            "currency": "BGN",
+            "amountEur": 389298
+          },
+          "otherTargeted": {
+            "amount": 98300,
+            "currency": "BGN",
+            "amountEur": 50260
+          }
+        },
+        {
+          "ekatte": "30962",
+          "obshtinaCode": "VTR14",
+          "nameBg": "Златарица",
+          "nameEn": "Zlataritsa",
+          "total": {
+            "amount": 8838700,
+            "currency": "BGN",
+            "amountEur": 4519156
+          },
+          "delegated": {
+            "amount": 7122700,
+            "currency": "BGN",
+            "amountEur": 3641779
+          },
+          "equalization": {
+            "amount": 551900,
+            "currency": "BGN",
+            "amountEur": 282182
+          },
+          "winter": {
+            "amount": 135200,
+            "currency": "BGN",
+            "amountEur": 69127
+          },
+          "capital": {
+            "amount": 1028900,
+            "currency": "BGN",
+            "amountEur": 526068
+          },
+          "otherTargeted": {
+            "amount": 43700,
+            "currency": "BGN",
+            "amountEur": 22343
+          }
+        },
+        {
+          "ekatte": "70295",
+          "obshtinaCode": "VTR32",
+          "nameBg": "Сухиндол",
+          "nameEn": "Suhindol",
+          "total": {
+            "amount": 5341700,
+            "currency": "BGN",
+            "amountEur": 2731168
+          },
+          "delegated": {
+            "amount": 4370400,
+            "currency": "BGN",
+            "amountEur": 2234550
+          },
+          "equalization": {
+            "amount": 433000,
+            "currency": "BGN",
+            "amountEur": 221389
+          },
+          "winter": {
+            "amount": 41900,
+            "currency": "BGN",
+            "amountEur": 21423
+          },
+          "capital": {
+            "amount": 496400,
+            "currency": "BGN",
+            "amountEur": 253805
+          },
+          "otherTargeted": {
+            "amount": 40200,
+            "currency": "BGN",
+            "amountEur": 20554
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2025,
+      "asOf": "2025-01-01",
+      "source": {
+        "documentId": "law-2025",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 321615900,
+          "currency": "BGN",
+          "amountEur": 164439599
+        },
+        "delegated": {
+          "amount": 283578100,
+          "currency": "BGN",
+          "amountEur": 144991180
+        },
+        "equalization": {
+          "amount": 17974200,
+          "currency": "BGN",
+          "amountEur": 9190064
+        },
+        "winter": {
+          "amount": 2007900,
+          "currency": "BGN",
+          "amountEur": 1026622
+        },
+        "capital": {
+          "amount": 18055700,
+          "currency": "BGN",
+          "amountEur": 9231732
+        },
+        "otherTargeted": {
+          "amount": 2745300,
+          "currency": "BGN",
+          "amountEur": 1403649
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "10447",
+          "obshtinaCode": "VTR04",
+          "nameBg": "Велико Търново",
+          "nameEn": "Veliko Tarnovo",
+          "total": {
+            "amount": 122928300,
+            "currency": "BGN",
+            "amountEur": 62852242
+          },
+          "delegated": {
+            "amount": 115342400,
+            "currency": "BGN",
+            "amountEur": 58973633
+          },
+          "equalization": {
+            "amount": 2651700,
+            "currency": "BGN",
+            "amountEur": 1355793
+          },
+          "winter": {
+            "amount": 489500,
+            "currency": "BGN",
+            "amountEur": 250277
+          },
+          "capital": {
+            "amount": 4444700,
+            "currency": "BGN",
+            "amountEur": 2272539
+          },
+          "otherTargeted": {
+            "amount": 1010400,
+            "currency": "BGN",
+            "amountEur": 516609
+          }
+        },
+        {
+          "ekatte": "16359",
+          "obshtinaCode": "VTR06",
+          "nameBg": "Горна Оряховица",
+          "nameEn": "Gorna Oryahovitsa",
+          "total": {
+            "amount": 48036400,
+            "currency": "BGN",
+            "amountEur": 24560621
+          },
+          "delegated": {
+            "amount": 42874000,
+            "currency": "BGN",
+            "amountEur": 21921128
+          },
+          "equalization": {
+            "amount": 3414500,
+            "currency": "BGN",
+            "amountEur": 1745806
+          },
+          "winter": {
+            "amount": 118000,
+            "currency": "BGN",
+            "amountEur": 60332
+          },
+          "capital": {
+            "amount": 1629900,
+            "currency": "BGN",
+            "amountEur": 833355
+          },
+          "otherTargeted": {
+            "amount": 404800,
+            "currency": "BGN",
+            "amountEur": 206971
+          }
+        },
+        {
+          "ekatte": "65766",
+          "obshtinaCode": "VTR28",
+          "nameBg": "Свищов",
+          "nameEn": "Svishtov",
+          "total": {
+            "amount": 37009300,
+            "currency": "BGN",
+            "amountEur": 18922555
+          },
+          "delegated": {
+            "amount": 32233700,
+            "currency": "BGN",
+            "amountEur": 16480829
+          },
+          "equalization": {
+            "amount": 3049500,
+            "currency": "BGN",
+            "amountEur": 1559185
+          },
+          "winter": {
+            "amount": 119100,
+            "currency": "BGN",
+            "amountEur": 60895
+          },
+          "capital": {
+            "amount": 1607000,
+            "currency": "BGN",
+            "amountEur": 821646
+          },
+          "otherTargeted": {
+            "amount": 367500,
+            "currency": "BGN",
+            "amountEur": 187900
+          }
+        },
+        {
+          "ekatte": "55052",
+          "obshtinaCode": "VTR22",
+          "nameBg": "Павликени",
+          "nameEn": "Pavlikeni",
+          "total": {
+            "amount": 30083200,
+            "currency": "BGN",
+            "amountEur": 15381296
+          },
+          "delegated": {
+            "amount": 25947200,
+            "currency": "BGN",
+            "amountEur": 13266593
+          },
+          "equalization": {
+            "amount": 2089700,
+            "currency": "BGN",
+            "amountEur": 1068447
+          },
+          "winter": {
+            "amount": 183500,
+            "currency": "BGN",
+            "amountEur": 93822
+          },
+          "capital": {
+            "amount": 1862800,
+            "currency": "BGN",
+            "amountEur": 952435
+          },
+          "otherTargeted": {
+            "amount": 275800,
+            "currency": "BGN",
+            "amountEur": 141014
+          }
+        },
+        {
+          "ekatte": "27190",
+          "obshtinaCode": "VTR13",
+          "nameBg": "Елена",
+          "nameEn": "Elena",
+          "total": {
+            "amount": 20937400,
+            "currency": "BGN",
+            "amountEur": 10705123
+          },
+          "delegated": {
+            "amount": 15608900,
+            "currency": "BGN",
+            "amountEur": 7980704
+          },
+          "equalization": {
+            "amount": 1507600,
+            "currency": "BGN",
+            "amountEur": 770824
+          },
+          "winter": {
+            "amount": 582000,
+            "currency": "BGN",
+            "amountEur": 297572
+          },
+          "capital": {
+            "amount": 3238900,
+            "currency": "BGN",
+            "amountEur": 1656023
+          },
+          "otherTargeted": {
+            "amount": 93100,
+            "currency": "BGN",
+            "amountEur": 47601
+          }
+        },
+        {
+          "ekatte": "69633",
+          "obshtinaCode": "VTR31",
+          "nameBg": "Стражица",
+          "nameEn": "Strazhitsa",
+          "total": {
+            "amount": 19037900,
+            "currency": "BGN",
+            "amountEur": 9733924
+          },
+          "delegated": {
+            "amount": 15815300,
+            "currency": "BGN",
+            "amountEur": 8086234
+          },
+          "equalization": {
+            "amount": 1423900,
+            "currency": "BGN",
+            "amountEur": 728029
+          },
+          "winter": {
+            "amount": 173900,
+            "currency": "BGN",
+            "amountEur": 88914
+          },
+          "capital": {
+            "amount": 1624800,
+            "currency": "BGN",
+            "amountEur": 830747
+          },
+          "otherTargeted": {
+            "amount": 147800,
+            "currency": "BGN",
+            "amountEur": 75569
+          }
+        },
+        {
+          "ekatte": "57354",
+          "obshtinaCode": "VTR26",
+          "nameBg": "Полски Тръмбеш",
+          "nameEn": "Polski Trambesh",
+          "total": {
+            "amount": 14303500,
+            "currency": "BGN",
+            "amountEur": 7313263
+          },
+          "delegated": {
+            "amount": 11629900,
+            "currency": "BGN",
+            "amountEur": 5946273
+          },
+          "equalization": {
+            "amount": 1366400,
+            "currency": "BGN",
+            "amountEur": 698629
+          },
+          "winter": {
+            "amount": 81500,
+            "currency": "BGN",
+            "amountEur": 41670
+          },
+          "capital": {
+            "amount": 1225700,
+            "currency": "BGN",
+            "amountEur": 626690
+          },
+          "otherTargeted": {
+            "amount": 236400,
+            "currency": "BGN",
+            "amountEur": 120869
+          }
+        },
+        {
+          "ekatte": "44793",
+          "obshtinaCode": "VTR20",
+          "nameBg": "Лясковец",
+          "nameEn": "Lyaskovets",
+          "total": {
+            "amount": 12865400,
+            "currency": "BGN",
+            "amountEur": 6577975
+          },
+          "delegated": {
+            "amount": 11001600,
+            "currency": "BGN",
+            "amountEur": 5625029
+          },
+          "equalization": {
+            "amount": 979000,
+            "currency": "BGN",
+            "amountEur": 500555
+          },
+          "winter": {
+            "amount": 80600,
+            "currency": "BGN",
+            "amountEur": 41210
+          },
+          "capital": {
+            "amount": 804200,
+            "currency": "BGN",
+            "amountEur": 411181
+          },
+          "otherTargeted": {
+            "amount": 109100,
+            "currency": "BGN",
+            "amountEur": 55782
+          }
+        },
+        {
+          "ekatte": "30962",
+          "obshtinaCode": "VTR14",
+          "nameBg": "Златарица",
+          "nameEn": "Zlataritsa",
+          "total": {
+            "amount": 10132600,
+            "currency": "BGN",
+            "amountEur": 5180716
+          },
+          "delegated": {
+            "amount": 8135800,
+            "currency": "BGN",
+            "amountEur": 4159768
+          },
+          "equalization": {
+            "amount": 766300,
+            "currency": "BGN",
+            "amountEur": 391803
+          },
+          "winter": {
+            "amount": 137200,
+            "currency": "BGN",
+            "amountEur": 70149
+          },
+          "capital": {
+            "amount": 1093300,
+            "currency": "BGN",
+            "amountEur": 558995
+          },
+          "otherTargeted": {
+            "amount": 47100,
+            "currency": "BGN",
+            "amountEur": 24082
+          }
+        },
+        {
+          "ekatte": "70295",
+          "obshtinaCode": "VTR32",
+          "nameBg": "Сухиндол",
+          "nameEn": "Suhindol",
+          "total": {
+            "amount": 6281900,
+            "currency": "BGN",
+            "amountEur": 3211884
+          },
+          "delegated": {
+            "amount": 4989300,
+            "currency": "BGN",
+            "amountEur": 2550989
+          },
+          "equalization": {
+            "amount": 725600,
+            "currency": "BGN",
+            "amountEur": 370993
+          },
+          "winter": {
+            "amount": 42600,
+            "currency": "BGN",
+            "amountEur": 21781
+          },
+          "capital": {
+            "amount": 524400,
+            "currency": "BGN",
+            "amountEur": 268121
+          },
+          "otherTargeted": {
+            "amount": 53300,
+            "currency": "BGN",
+            "amountEur": 27252
+          }
+        }
+      ]
+    }
+  ]
+}

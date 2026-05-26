@@ -12,6 +12,11 @@ import type {
   KfpFile,
   MinistryProcurementFile,
   MinistryRollup,
+  MunicipalTransfersByMunicipalityFile,
+  MunicipalTransfersByOblastFile,
+  MunicipalTransfersIndexFile,
+  MunicipalTransfersOblastShard,
+  MunicipalTransfersTotalsFile,
   PersonnelFile,
   PitBreakdownFile,
   VatBreakdownFile,
@@ -114,5 +119,87 @@ export const usePitBreakdown = (fiscalYear: number | undefined) =>
         `/budget/revenue_breakdown/pit/${fiscalYear}.json`,
       ),
     enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Municipal transfers — itemise the Sankey RIGHT-side "Общини" wedge into the
+// five transfer-type sub-envelopes and the 265 per-община rows. Coverage is
+// per-fiscal-year; the index lists the years on disk so consumers can fall
+// back to the latest available year when the selected one isn't ingested.
+
+export const useMunicipalTransfersIndex = () =>
+  useQuery({
+    queryKey: ["budget", "municipal-transfers", "index"] as const,
+    queryFn: () =>
+      fetchJson<MunicipalTransfersIndexFile>(
+        "/budget/municipal_transfers/index.json",
+      ),
+    staleTime: Infinity,
+  });
+
+export const useMunicipalTransfersTotals = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "municipal-transfers", "totals", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<MunicipalTransfersTotalsFile>(
+        `/budget/municipal_transfers/${fiscalYear}/totals.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+export const useMunicipalTransfersByOblast = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: [
+      "budget",
+      "municipal-transfers",
+      "by-oblast",
+      fiscalYear,
+    ] as const,
+    queryFn: () =>
+      fetchJson<MunicipalTransfersByOblastFile>(
+        `/budget/municipal_transfers/${fiscalYear}/by_oblast.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+export const useMunicipalTransfersByMunicipality = (
+  fiscalYear: number | undefined,
+) =>
+  useQuery({
+    queryKey: [
+      "budget",
+      "municipal-transfers",
+      "by-municipality",
+      fiscalYear,
+    ] as const,
+    queryFn: () =>
+      fetchJson<MunicipalTransfersByMunicipalityFile>(
+        `/budget/municipal_transfers/${fiscalYear}/by_municipality.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Per-oblast shard with full multi-year history — the unit a region or
+// municipality dashboard fetches. One file per oblast (~5-50 KB) carrying
+// every year × every municipality in that oblast, so the per-page tile reads
+// ONE small file regardless of how many years it surfaces.
+export const useMunicipalTransfersForOblast = (
+  oblastCode: string | undefined,
+) =>
+  useQuery({
+    queryKey: [
+      "budget",
+      "municipal-transfers",
+      "oblast-shard",
+      oblastCode,
+    ] as const,
+    queryFn: () =>
+      fetchJson<MunicipalTransfersOblastShard>(
+        `/budget/municipal_transfers/oblasts/${oblastCode}.json`,
+      ),
+    enabled: !!oblastCode,
     staleTime: Infinity,
   });

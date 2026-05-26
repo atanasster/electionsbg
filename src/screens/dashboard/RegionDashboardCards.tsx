@@ -23,6 +23,7 @@ import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopMunicipalitiesTile } from "./TopMunicipalitiesTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { RegionalIndicatorsTile } from "./RegionalIndicatorsTile";
+import { MunicipalTransfersTile } from "./MunicipalTransfersTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
@@ -115,6 +116,7 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
           <CensusDemographicsTile regionCode={regionCode} />
         )}
         <RegionalIndicatorsTile regionCode={regionCode} />
+        <MunicipalTransfersTile regionCode={regionCode} />
       </DashboardSection>
 
       <DashboardSection

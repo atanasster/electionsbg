@@ -42,6 +42,15 @@ import {
 import type { ParsedResource } from "./kfp";
 import { parseLawHtml } from "./law_html";
 import type { ParsedLawUnit, ParsedLawFramework } from "./law_html";
+import {
+  parseMunicipalTransfers,
+  buildTotalsFile,
+  buildByMunicipalityFile,
+  buildByOblastFile,
+  buildOblastShards,
+  type ParsedMunicipalTransfers,
+  type MunicipalTransfersIndexFile,
+} from "./municipal_transfers";
 import { buildAdminRegistry, buildLawFacts, buildProgramData } from "./facts";
 import { parseExecutionPdf } from "./execution_pdf";
 import { parseBorderlessExecutionPdf } from "./execution_borderless_pdf";
@@ -97,6 +106,7 @@ const PROGRAM_REGISTRY_FILE = path.join(CLASSIFICATION_DIR, "program.json");
 const FACTS_DIR = path.join(BUDGET_DIR, "facts");
 const RECONCILIATION_DIR = path.join(BUDGET_DIR, "reconciliation");
 const MINISTRIES_DIR = path.join(BUDGET_DIR, "ministries");
+const MUNICIPAL_TRANSFERS_DIR = path.join(BUDGET_DIR, "municipal_transfers");
 const MINISTRY_PROCUREMENT_FILE = path.join(
   BUDGET_DIR,
   "derived",
@@ -362,6 +372,7 @@ const main = async (args: {
   console.log("→ parsing state budget laws");
   const unitsByYear = new Map<number, ParsedLawUnit[]>();
   const frameworkByYear = new Map<number, ParsedLawFramework>();
+  const municipalTransfersByYear = new Map<number, ParsedMunicipalTransfers>();
   for (const [yearStr, idMat] of Object.entries(LAW_DV_MATERIALS)) {
     const year = parseInt(yearStr, 10);
     const html = await fetchLawHtml(year, idMat, {
@@ -370,10 +381,28 @@ const main = async (args: {
     const { units, framework } = parseLawHtml(html, year);
     unitsByYear.set(year, units);
     if (framework) frameworkByYear.set(year, framework);
-    console.log(
-      `  • ${year}: ${units.length} spending unit(s)` +
-        (framework ? `, framework parsed` : `, framework MISSING`),
-    );
+    // Article-53-equivalent table — the per-municipality state→municipal
+    // transfer allocations. The article number drifts across years; the parser
+    // anchors on a stable phrase. Some older laws (pre-2020 layouts) may not
+    // carry the table at all — non-fatal, skip.
+    try {
+      const parsedMt = parseMunicipalTransfers(html, year);
+      municipalTransfersByYear.set(year, parsedMt);
+      console.log(
+        `  • ${year}: ${units.length} spending unit(s)` +
+          (framework ? `, framework parsed` : `, framework MISSING`) +
+          `, municipal transfers: ${parsedMt.municipalities.length} община(s)` +
+          (parsedMt.unresolvedNames.length > 0
+            ? ` (${parsedMt.unresolvedNames.length} unresolved)`
+            : ""),
+      );
+    } catch (e) {
+      console.log(
+        `  • ${year}: ${units.length} spending unit(s)` +
+          (framework ? `, framework parsed` : `, framework MISSING`) +
+          `, municipal transfers UNAVAILABLE — ${(e as Error).message}`,
+      );
+    }
   }
   // Law-parser canary — re-parse the pinned year and byte-compare.
   if (unitsByYear.has(LAW_CANARY_YEAR)) {
@@ -887,6 +916,91 @@ const main = async (args: {
   for (const rollup of ministryRollups) {
     const file = path.join(MINISTRIES_DIR, `${rollup.nodeId}.json`);
     if (writeIfChanged(file, canonicalJson(rollup))) touched++;
+  }
+  // Per-year municipal-transfer artifacts: totals (envelope by transfer-type),
+  // by-municipality (per-община breakdown — drives the Sankey drilldown and
+  // per-region tiles), by-oblast (pre-aggregated oblast rollups for the
+  // choropleth). Plus a small index.json listing the years covered.
+  const mtIndexYears: MunicipalTransfersIndexFile["years"] = [];
+  for (const [year, parsed] of municipalTransfersByYear) {
+    const idMat = LAW_DV_MATERIALS[year];
+    const source = {
+      documentId: `law-${year}`,
+      url: `https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=${idMat}`,
+    };
+    // The DV promulgation date is what `asOf` should report. We don't have it
+    // structured here; use a YYYY-01-01 fallback (year the law applies to). A
+    // future pass can plumb the real promulgation date through.
+    const asOf = `${year}-01-01`;
+    const dir = path.join(MUNICIPAL_TRANSFERS_DIR, String(year));
+    if (
+      writeIfChanged(
+        path.join(dir, "totals.json"),
+        canonicalJson(buildTotalsFile(parsed, asOf, source)),
+      )
+    ) {
+      touched++;
+    }
+    if (
+      writeIfChanged(
+        path.join(dir, "by_municipality.json"),
+        canonicalJson(buildByMunicipalityFile(parsed, asOf, source)),
+      )
+    ) {
+      touched++;
+    }
+    if (
+      writeIfChanged(
+        path.join(dir, "by_oblast.json"),
+        canonicalJson(buildByOblastFile(parsed, asOf, source)),
+      )
+    ) {
+      touched++;
+    }
+    mtIndexYears.push({
+      fiscalYear: year,
+      municipalityCount: parsed.municipalities.length,
+      grandTotalEur: parsed.rowSum.total.amountEur,
+    });
+  }
+  if (mtIndexYears.length > 0) {
+    const indexFile: MunicipalTransfersIndexFile = {
+      generatedAt: new Date().toISOString(),
+      years: mtIndexYears.sort((a, b) => a.fiscalYear - b.fiscalYear),
+    };
+    if (
+      writeIfChanged(
+        path.join(MUNICIPAL_TRANSFERS_DIR, "index.json"),
+        canonicalJson(indexFile),
+      )
+    ) {
+      touched++;
+    }
+    // Per-oblast shards — the slice consumed by region / municipality
+    // dashboards. One file per oblast with the full multi-year history (5-15
+    // KB each) instead of a single 265-row × N-years file.
+    const asOfByYear = new Map<number, string>();
+    const sourceByYear = new Map<number, { documentId: string; url: string }>();
+    for (const year of municipalTransfersByYear.keys()) {
+      asOfByYear.set(year, `${year}-01-01`);
+      sourceByYear.set(year, {
+        documentId: `law-${year}`,
+        url: `https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=${LAW_DV_MATERIALS[year]}`,
+      });
+    }
+    const shards = buildOblastShards(
+      municipalTransfersByYear,
+      asOfByYear,
+      sourceByYear,
+    );
+    for (const shard of shards) {
+      const file = path.join(
+        MUNICIPAL_TRANSFERS_DIR,
+        "oblasts",
+        `${shard.oblastCode}.json`,
+      );
+      if (writeIfChanged(file, canonicalJson(shard))) touched++;
+    }
   }
   // Aggregated admin-grain spending flow — input for the admin view of the
   // budget-flow графика. Read from the just-written ministry rollup files so

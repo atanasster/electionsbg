@@ -1,0 +1,68 @@
+{
+  "fiscalYear": 2023,
+  "asOf": "2023-01-01",
+  "source": {
+    "documentId": "law-2023",
+    "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+  },
+  "totals": {
+    "delegated": {
+      "amount": 6087750900,
+      "currency": "BGN",
+      "amountEur": 3112617610
+    },
+    "equalization": {
+      "amount": 404000000,
+      "currency": "BGN",
+      "amountEur": 206561920
+    },
+    "winter": {
+      "amount": 48228100,
+      "currency": "BGN",
+      "amountEur": 24658636
+    },
+    "capital": {
+      "amount": 426310200,
+      "currency": "BGN",
+      "amountEur": 217968944
+    },
+    "otherTargeted": {
+      "amount": 50000000,
+      "currency": "BGN",
+      "amountEur": 25564594
+    }
+  },
+  "rowSum": {
+    "total": {
+      "amount": 6966289200,
+      "currency": "BGN",
+      "amountEur": 3561807110
+    },
+    "delegated": {
+      "amount": 6087750900,
+      "currency": "BGN",
+      "amountEur": 3112617610
+    },
+    "equalization": {
+      "amount": 404000000,
+      "currency": "BGN",
+      "amountEur": 206561920
+    },
+    "winter": {
+      "amount": 48228100,
+      "currency": "BGN",
+      "amountEur": 24658636
+    },
+    "capital": {
+      "amount": 426310200,
+      "currency": "BGN",
+      "amountEur": 217968944
+    },
+    "otherTargeted": {
+      "amount": 50000000,
+      "currency": "BGN",
+      "amountEur": 25564594
+    }
+  },
+  "reconciliationDeltasEur": {}
+}

@@ -25,6 +25,10 @@ import {
   BudgetFlowRevenueTrigger,
   type RevenueDrillCategory,
 } from "./BudgetFlowRevenueDrilldown";
+import {
+  BudgetFlowMunicipalitiesDrilldown,
+  BudgetFlowMunicipalitiesTrigger,
+} from "./BudgetFlowMunicipalitiesDrilldown";
 
 // Below this width labels overlap; the SVG falls back to horizontal scroll
 // inside the card, mirroring the procurement Sankey's mobile policy. The
@@ -101,6 +105,7 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
   const isMd = useMediaQueryMatch("md");
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [personnelOpen, setPersonnelOpen] = useState(false);
+  const [municipalitiesOpen, setMunicipalitiesOpen] = useState(false);
   const [revenueOpen, setRevenueOpen] = useState<RevenueDrillCategory | null>(
     null,
   );
@@ -109,6 +114,8 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
   // = expenditure (Персонал); left side = revenue (4 categories).
   const isPersonnelLabel = (label: string): boolean =>
     /(^|\s)персонал(\s|$)/i.test(label) || /(^|\s)personnel(\s|$)/i.test(label);
+  const isMunicipalitiesLabel = (label: string): boolean =>
+    /^общини$/i.test(label.trim()) || /^municipalities$/i.test(label.trim());
   const revenueCategoryFromLabel = (
     label: string,
   ): RevenueDrillCategory | null => {
@@ -120,9 +127,15 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
   };
   const onSankeyNodeClick = useCallback(
     (node: { id: string; label: string; side: "left" | "right" }) => {
-      if (node.side === "right" && isPersonnelLabel(node.label)) {
-        setPersonnelOpen(true);
-        return;
+      if (node.side === "right") {
+        if (isPersonnelLabel(node.label)) {
+          setPersonnelOpen(true);
+          return;
+        }
+        if (isMunicipalitiesLabel(node.label)) {
+          setMunicipalitiesOpen(true);
+          return;
+        }
       }
       if (node.side === "left") {
         const cat = revenueCategoryFromLabel(node.label);
@@ -133,10 +146,13 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
   );
   // Predicate version of the same decision — drives the pointer cursor so
   // users only see "this is clickable" on nodes that actually open a drill-
-  // down. Otherwise every node looked clickable but only 5 did anything.
+  // down. Otherwise every node looked clickable but only a few did anything.
   const isNodeClickable = useCallback(
     (node: { id: string; label: string; side: "left" | "right" }) => {
-      if (node.side === "right") return isPersonnelLabel(node.label);
+      if (node.side === "right")
+        return (
+          isPersonnelLabel(node.label) || isMunicipalitiesLabel(node.label)
+        );
       if (node.side === "left")
         return revenueCategoryFromLabel(node.label) != null;
       return false;
@@ -201,6 +217,10 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
             <BudgetFlowPersonnelTrigger
               open={personnelOpen}
               onClick={() => setPersonnelOpen((v) => !v)}
+            />
+            <BudgetFlowMunicipalitiesTrigger
+              open={municipalitiesOpen}
+              onClick={() => setMunicipalitiesOpen((v) => !v)}
             />
           </div>
           <div className="text-xs text-muted-foreground tabular-nums">
@@ -271,6 +291,13 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
             fiscalYear={snapshot.fiscalYear}
             snapshot={snapshot}
             onClose={() => setPersonnelOpen(false)}
+          />
+        )}
+        {municipalitiesOpen && (
+          <BudgetFlowMunicipalitiesDrilldown
+            fiscalYear={snapshot.fiscalYear}
+            snapshot={snapshot}
+            onClose={() => setMunicipalitiesOpen(false)}
           />
         )}
         <p className="text-[11px] text-muted-foreground/80">

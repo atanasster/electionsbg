@@ -1,0 +1,1765 @@
+{
+  "oblastCode": "KNL",
+  "oblastNameBg": "Кюстендил",
+  "oblastNameEn": "Kyustendil",
+  "years": [
+    {
+      "fiscalYear": 2020,
+      "asOf": "2020-01-01",
+      "source": {
+        "documentId": "law-2020",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 76213200,
+          "currency": "BGN",
+          "amountEur": 38967192
+        },
+        "delegated": {
+          "amount": 60587500,
+          "currency": "BGN",
+          "amountEur": 30977897
+        },
+        "equalization": {
+          "amount": 8328100,
+          "currency": "BGN",
+          "amountEur": 4258089
+        },
+        "winter": {
+          "amount": 1558400,
+          "currency": "BGN",
+          "amountEur": 796799
+        },
+        "capital": {
+          "amount": 5739200,
+          "currency": "BGN",
+          "amountEur": 2934406
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "41112",
+          "obshtinaCode": "KNL29",
+          "nameBg": "Кюстендил",
+          "nameEn": "Kyustendil",
+          "total": {
+            "amount": 31904200,
+            "currency": "BGN",
+            "amountEur": 16312358
+          },
+          "delegated": {
+            "amount": 26250200,
+            "currency": "BGN",
+            "amountEur": 13421514
+          },
+          "equalization": {
+            "amount": 2944800,
+            "currency": "BGN",
+            "amountEur": 1505652
+          },
+          "winter": {
+            "amount": 657200,
+            "currency": "BGN",
+            "amountEur": 336021
+          },
+          "capital": {
+            "amount": 2052000,
+            "currency": "BGN",
+            "amountEur": 1049171
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "68789",
+          "obshtinaCode": "KNL48",
+          "nameBg": "Дупница",
+          "nameEn": "Dupnitsa",
+          "total": {
+            "amount": 23530800,
+            "currency": "BGN",
+            "amountEur": 12031107
+          },
+          "delegated": {
+            "amount": 20087500,
+            "currency": "BGN",
+            "amountEur": 10270576
+          },
+          "equalization": {
+            "amount": 2498700,
+            "currency": "BGN",
+            "amountEur": 1277565
+          },
+          "winter": {
+            "amount": 168700,
+            "currency": "BGN",
+            "amountEur": 86255
+          },
+          "capital": {
+            "amount": 775900,
+            "currency": "BGN",
+            "amountEur": 396711
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "04501",
+          "obshtinaCode": "KNL04",
+          "nameBg": "Бобов дол",
+          "nameEn": "Bobov dol",
+          "total": {
+            "amount": 4781300,
+            "currency": "BGN",
+            "amountEur": 2444640
+          },
+          "delegated": {
+            "amount": 3538100,
+            "currency": "BGN",
+            "amountEur": 1809002
+          },
+          "equalization": {
+            "amount": 601300,
+            "currency": "BGN",
+            "amountEur": 307440
+          },
+          "winter": {
+            "amount": 133900,
+            "currency": "BGN",
+            "amountEur": 68462
+          },
+          "capital": {
+            "amount": 508000,
+            "currency": "BGN",
+            "amountEur": 259736
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "65365",
+          "obshtinaCode": "KNL41",
+          "nameBg": "Сапарева баня",
+          "nameEn": "Sapareva banya",
+          "total": {
+            "amount": 3710500,
+            "currency": "BGN",
+            "amountEur": 1897149
+          },
+          "delegated": {
+            "amount": 3040800,
+            "currency": "BGN",
+            "amountEur": 1554736
+          },
+          "equalization": {
+            "amount": 374100,
+            "currency": "BGN",
+            "amountEur": 191274
+          },
+          "winter": {
+            "amount": 57100,
+            "currency": "BGN",
+            "amountEur": 29195
+          },
+          "capital": {
+            "amount": 238500,
+            "currency": "BGN",
+            "amountEur": 121943
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "39116",
+          "obshtinaCode": "KNL27",
+          "nameBg": "Кочериново",
+          "nameEn": "Kocherinovo",
+          "total": {
+            "amount": 3590600,
+            "currency": "BGN",
+            "amountEur": 1835845
+          },
+          "delegated": {
+            "amount": 2487200,
+            "currency": "BGN",
+            "amountEur": 1271685
+          },
+          "equalization": {
+            "amount": 566400,
+            "currency": "BGN",
+            "amountEur": 289596
+          },
+          "winter": {
+            "amount": 101300,
+            "currency": "BGN",
+            "amountEur": 51794
+          },
+          "capital": {
+            "amount": 435700,
+            "currency": "BGN",
+            "amountEur": 222770
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "51216",
+          "obshtinaCode": "KNL31",
+          "nameBg": "Невестино",
+          "nameEn": "Nevestino",
+          "total": {
+            "amount": 2633200,
+            "currency": "BGN",
+            "amountEur": 1346334
+          },
+          "delegated": {
+            "amount": 1454000,
+            "currency": "BGN",
+            "amountEur": 743418
+          },
+          "equalization": {
+            "amount": 417500,
+            "currency": "BGN",
+            "amountEur": 213464
+          },
+          "winter": {
+            "amount": 157600,
+            "currency": "BGN",
+            "amountEur": 80580
+          },
+          "capital": {
+            "amount": 604100,
+            "currency": "BGN",
+            "amountEur": 308871
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "62671",
+          "obshtinaCode": "KNL38",
+          "nameBg": "Рила",
+          "nameEn": "Rila",
+          "total": {
+            "amount": 2345200,
+            "currency": "BGN",
+            "amountEur": 1199082
+          },
+          "delegated": {
+            "amount": 1777400,
+            "currency": "BGN",
+            "amountEur": 908770
+          },
+          "equalization": {
+            "amount": 342300,
+            "currency": "BGN",
+            "amountEur": 175015
+          },
+          "winter": {
+            "amount": 19200,
+            "currency": "BGN",
+            "amountEur": 9817
+          },
+          "capital": {
+            "amount": 206300,
+            "currency": "BGN",
+            "amountEur": 105480
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "04532",
+          "obshtinaCode": "KNL05",
+          "nameBg": "Бобошево",
+          "nameEn": "Boboshevo",
+          "total": {
+            "amount": 1938000,
+            "currency": "BGN",
+            "amountEur": 990884
+          },
+          "delegated": {
+            "amount": 1152300,
+            "currency": "BGN",
+            "amountEur": 589162
+          },
+          "equalization": {
+            "amount": 307300,
+            "currency": "BGN",
+            "amountEur": 157120
+          },
+          "winter": {
+            "amount": 83400,
+            "currency": "BGN",
+            "amountEur": 42642
+          },
+          "capital": {
+            "amount": 395000,
+            "currency": "BGN",
+            "amountEur": 201960
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "73047",
+          "obshtinaCode": "KNL50",
+          "nameBg": "Трекляно",
+          "nameEn": "Treklyano",
+          "total": {
+            "amount": 1779400,
+            "currency": "BGN",
+            "amountEur": 909793
+          },
+          "delegated": {
+            "amount": 800000,
+            "currency": "BGN",
+            "amountEur": 409034
+          },
+          "equalization": {
+            "amount": 275700,
+            "currency": "BGN",
+            "amountEur": 140963
+          },
+          "winter": {
+            "amount": 180000,
+            "currency": "BGN",
+            "amountEur": 92033
+          },
+          "capital": {
+            "amount": 523700,
+            "currency": "BGN",
+            "amountEur": 267764
+          },
+          "otherTargeted": null
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2022,
+      "asOf": "2022-01-01",
+      "source": {
+        "documentId": "law-2022",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 101874000,
+          "currency": "BGN",
+          "amountEur": 52087350
+        },
+        "delegated": {
+          "amount": 81411500,
+          "currency": "BGN",
+          "amountEur": 41625041
+        },
+        "equalization": {
+          "amount": 10107000,
+          "currency": "BGN",
+          "amountEur": 5167628
+        },
+        "winter": {
+          "amount": 1799900,
+          "currency": "BGN",
+          "amountEur": 920275
+        },
+        "capital": {
+          "amount": 8555600,
+          "currency": "BGN",
+          "amountEur": 4374408
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "41112",
+          "obshtinaCode": "KNL29",
+          "nameBg": "Кюстендил",
+          "nameEn": "Kyustendil",
+          "total": {
+            "amount": 42644200,
+            "currency": "BGN",
+            "amountEur": 21803633
+          },
+          "delegated": {
+            "amount": 35086300,
+            "currency": "BGN",
+            "amountEur": 17939340
+          },
+          "equalization": {
+            "amount": 3714900,
+            "currency": "BGN",
+            "amountEur": 1899398
+          },
+          "winter": {
+            "amount": 753700,
+            "currency": "BGN",
+            "amountEur": 385361
+          },
+          "capital": {
+            "amount": 3089300,
+            "currency": "BGN",
+            "amountEur": 1579534
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "68789",
+          "obshtinaCode": "KNL48",
+          "nameBg": "Дупница",
+          "nameEn": "Dupnitsa",
+          "total": {
+            "amount": 30094500,
+            "currency": "BGN",
+            "amountEur": 15387074
+          },
+          "delegated": {
+            "amount": 26121300,
+            "currency": "BGN",
+            "amountEur": 13355609
+          },
+          "equalization": {
+            "amount": 2626600,
+            "currency": "BGN",
+            "amountEur": 1342959
+          },
+          "winter": {
+            "amount": 191900,
+            "currency": "BGN",
+            "amountEur": 98117
+          },
+          "capital": {
+            "amount": 1154700,
+            "currency": "BGN",
+            "amountEur": 590389
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "04501",
+          "obshtinaCode": "KNL04",
+          "nameBg": "Бобов дол",
+          "nameEn": "Bobov dol",
+          "total": {
+            "amount": 6636900,
+            "currency": "BGN",
+            "amountEur": 3393393
+          },
+          "delegated": {
+            "amount": 4981600,
+            "currency": "BGN",
+            "amountEur": 2547052
+          },
+          "equalization": {
+            "amount": 745800,
+            "currency": "BGN",
+            "amountEur": 381321
+          },
+          "winter": {
+            "amount": 153700,
+            "currency": "BGN",
+            "amountEur": 78586
+          },
+          "capital": {
+            "amount": 755800,
+            "currency": "BGN",
+            "amountEur": 386434
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "65365",
+          "obshtinaCode": "KNL41",
+          "nameBg": "Сапарева баня",
+          "nameEn": "Sapareva banya",
+          "total": {
+            "amount": 5205200,
+            "currency": "BGN",
+            "amountEur": 2661377
+          },
+          "delegated": {
+            "amount": 4268800,
+            "currency": "BGN",
+            "amountEur": 2182603
+          },
+          "equalization": {
+            "amount": 528300,
+            "currency": "BGN",
+            "amountEur": 270116
+          },
+          "winter": {
+            "amount": 65800,
+            "currency": "BGN",
+            "amountEur": 33643
+          },
+          "capital": {
+            "amount": 342300,
+            "currency": "BGN",
+            "amountEur": 175015
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "39116",
+          "obshtinaCode": "KNL27",
+          "nameBg": "Кочериново",
+          "nameEn": "Kocherinovo",
+          "total": {
+            "amount": 5032000,
+            "currency": "BGN",
+            "amountEur": 2572821
+          },
+          "delegated": {
+            "amount": 3541000,
+            "currency": "BGN",
+            "amountEur": 1810485
+          },
+          "equalization": {
+            "amount": 744400,
+            "currency": "BGN",
+            "amountEur": 380606
+          },
+          "winter": {
+            "amount": 110800,
+            "currency": "BGN",
+            "amountEur": 56651
+          },
+          "capital": {
+            "amount": 635800,
+            "currency": "BGN",
+            "amountEur": 325079
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "51216",
+          "obshtinaCode": "KNL31",
+          "nameBg": "Невестино",
+          "nameEn": "Nevestino",
+          "total": {
+            "amount": 3649100,
+            "currency": "BGN",
+            "amountEur": 1865755
+          },
+          "delegated": {
+            "amount": 2063600,
+            "currency": "BGN",
+            "amountEur": 1055102
+          },
+          "equalization": {
+            "amount": 490400,
+            "currency": "BGN",
+            "amountEur": 250738
+          },
+          "winter": {
+            "amount": 180400,
+            "currency": "BGN",
+            "amountEur": 92237
+          },
+          "capital": {
+            "amount": 914700,
+            "currency": "BGN",
+            "amountEur": 467679
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "62671",
+          "obshtinaCode": "KNL38",
+          "nameBg": "Рила",
+          "nameEn": "Rila",
+          "total": {
+            "amount": 3233100,
+            "currency": "BGN",
+            "amountEur": 1653058
+          },
+          "delegated": {
+            "amount": 2490600,
+            "currency": "BGN",
+            "amountEur": 1273424
+          },
+          "equalization": {
+            "amount": 379500,
+            "currency": "BGN",
+            "amountEur": 194035
+          },
+          "winter": {
+            "amount": 42500,
+            "currency": "BGN",
+            "amountEur": 21730
+          },
+          "capital": {
+            "amount": 320500,
+            "currency": "BGN",
+            "amountEur": 163869
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "04532",
+          "obshtinaCode": "KNL05",
+          "nameBg": "Бобошево",
+          "nameEn": "Boboshevo",
+          "total": {
+            "amount": 2751200,
+            "currency": "BGN",
+            "amountEur": 1406666
+          },
+          "delegated": {
+            "amount": 1632300,
+            "currency": "BGN",
+            "amountEur": 834582
+          },
+          "equalization": {
+            "amount": 450200,
+            "currency": "BGN",
+            "amountEur": 230184
+          },
+          "winter": {
+            "amount": 93600,
+            "currency": "BGN",
+            "amountEur": 47857
+          },
+          "capital": {
+            "amount": 575100,
+            "currency": "BGN",
+            "amountEur": 294044
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "73047",
+          "obshtinaCode": "KNL50",
+          "nameBg": "Трекляно",
+          "nameEn": "Treklyano",
+          "total": {
+            "amount": 2627800,
+            "currency": "BGN",
+            "amountEur": 1343573
+          },
+          "delegated": {
+            "amount": 1226000,
+            "currency": "BGN",
+            "amountEur": 626844
+          },
+          "equalization": {
+            "amount": 426900,
+            "currency": "BGN",
+            "amountEur": 218271
+          },
+          "winter": {
+            "amount": 207500,
+            "currency": "BGN",
+            "amountEur": 106093
+          },
+          "capital": {
+            "amount": 767400,
+            "currency": "BGN",
+            "amountEur": 392365
+          },
+          "otherTargeted": null
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2023,
+      "asOf": "2023-01-01",
+      "source": {
+        "documentId": "law-2023",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 126917000,
+          "currency": "BGN",
+          "amountEur": 64891632
+        },
+        "delegated": {
+          "amount": 102090700,
+          "currency": "BGN",
+          "amountEur": 52198146
+        },
+        "equalization": {
+          "amount": 10801700,
+          "currency": "BGN",
+          "amountEur": 5522822
+        },
+        "winter": {
+          "amount": 1796700,
+          "currency": "BGN",
+          "amountEur": 918639
+        },
+        "capital": {
+          "amount": 12227900,
+          "currency": "BGN",
+          "amountEur": 6252026
+        },
+        "otherTargeted": {
+          "amount": 1266700,
+          "currency": "BGN",
+          "amountEur": 647654
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "41112",
+          "obshtinaCode": "KNL29",
+          "nameBg": "Кюстендил",
+          "nameEn": "Kyustendil",
+          "total": {
+            "amount": 53333900,
+            "currency": "BGN",
+            "amountEur": 27269190
+          },
+          "delegated": {
+            "amount": 44436300,
+            "currency": "BGN",
+            "amountEur": 22719919
+          },
+          "equalization": {
+            "amount": 3720100,
+            "currency": "BGN",
+            "amountEur": 1902057
+          },
+          "winter": {
+            "amount": 750700,
+            "currency": "BGN",
+            "amountEur": 383827
+          },
+          "capital": {
+            "amount": 4426800,
+            "currency": "BGN",
+            "amountEur": 2263387
+          },
+          "otherTargeted": {
+            "amount": 605600,
+            "currency": "BGN",
+            "amountEur": 309638
+          }
+        },
+        {
+          "ekatte": "68789",
+          "obshtinaCode": "KNL48",
+          "nameBg": "Дупница",
+          "nameEn": "Dupnitsa",
+          "total": {
+            "amount": 37640200,
+            "currency": "BGN",
+            "amountEur": 19245129
+          },
+          "delegated": {
+            "amount": 32642100,
+            "currency": "BGN",
+            "amountEur": 16689641
+          },
+          "equalization": {
+            "amount": 3110600,
+            "currency": "BGN",
+            "amountEur": 1590425
+          },
+          "winter": {
+            "amount": 192400,
+            "currency": "BGN",
+            "amountEur": 98373
+          },
+          "capital": {
+            "amount": 1695100,
+            "currency": "BGN",
+            "amountEur": 866691
+          },
+          "otherTargeted": {
+            "amount": 235500,
+            "currency": "BGN",
+            "amountEur": 120409
+          }
+        },
+        {
+          "ekatte": "04501",
+          "obshtinaCode": "KNL04",
+          "nameBg": "Бобов дол",
+          "nameEn": "Bobov dol",
+          "total": {
+            "amount": 8042600,
+            "currency": "BGN",
+            "amountEur": 4112116
+          },
+          "delegated": {
+            "amount": 6033500,
+            "currency": "BGN",
+            "amountEur": 3084880
+          },
+          "equalization": {
+            "amount": 759700,
+            "currency": "BGN",
+            "amountEur": 388428
+          },
+          "winter": {
+            "amount": 153800,
+            "currency": "BGN",
+            "amountEur": 78637
+          },
+          "capital": {
+            "amount": 1095600,
+            "currency": "BGN",
+            "amountEur": 560171
+          },
+          "otherTargeted": {
+            "amount": 151500,
+            "currency": "BGN",
+            "amountEur": 77461
+          }
+        },
+        {
+          "ekatte": "65365",
+          "obshtinaCode": "KNL41",
+          "nameBg": "Сапарева баня",
+          "nameEn": "Sapareva banya",
+          "total": {
+            "amount": 6631700,
+            "currency": "BGN",
+            "amountEur": 3390734
+          },
+          "delegated": {
+            "amount": 5406500,
+            "currency": "BGN",
+            "amountEur": 2764300
+          },
+          "equalization": {
+            "amount": 673800,
+            "currency": "BGN",
+            "amountEur": 344508
+          },
+          "winter": {
+            "amount": 66000,
+            "currency": "BGN",
+            "amountEur": 33745
+          },
+          "capital": {
+            "amount": 485400,
+            "currency": "BGN",
+            "amountEur": 248181
+          },
+          "otherTargeted": {
+            "amount": 109400,
+            "currency": "BGN",
+            "amountEur": 55935
+          }
+        },
+        {
+          "ekatte": "39116",
+          "obshtinaCode": "KNL27",
+          "nameBg": "Кочериново",
+          "nameEn": "Kocherinovo",
+          "total": {
+            "amount": 6196900,
+            "currency": "BGN",
+            "amountEur": 3168425
+          },
+          "delegated": {
+            "amount": 4432500,
+            "currency": "BGN",
+            "amountEur": 2266301
+          },
+          "equalization": {
+            "amount": 747000,
+            "currency": "BGN",
+            "amountEur": 381935
+          },
+          "winter": {
+            "amount": 110900,
+            "currency": "BGN",
+            "amountEur": 56702
+          },
+          "capital": {
+            "amount": 906500,
+            "currency": "BGN",
+            "amountEur": 463486
+          },
+          "otherTargeted": {
+            "amount": 49400,
+            "currency": "BGN",
+            "amountEur": 25258
+          }
+        },
+        {
+          "ekatte": "51216",
+          "obshtinaCode": "KNL31",
+          "nameBg": "Невестино",
+          "nameEn": "Nevestino",
+          "total": {
+            "amount": 4515700,
+            "currency": "BGN",
+            "amountEur": 2308841
+          },
+          "delegated": {
+            "amount": 2540600,
+            "currency": "BGN",
+            "amountEur": 1298988
+          },
+          "equalization": {
+            "amount": 529300,
+            "currency": "BGN",
+            "amountEur": 270627
+          },
+          "winter": {
+            "amount": 179500,
+            "currency": "BGN",
+            "amountEur": 91777
+          },
+          "capital": {
+            "amount": 1266300,
+            "currency": "BGN",
+            "amountEur": 647449
+          },
+          "otherTargeted": {
+            "amount": 40700,
+            "currency": "BGN",
+            "amountEur": 20810
+          }
+        },
+        {
+          "ekatte": "62671",
+          "obshtinaCode": "KNL38",
+          "nameBg": "Рила",
+          "nameEn": "Rila",
+          "total": {
+            "amount": 3916900,
+            "currency": "BGN",
+            "amountEur": 2002679
+          },
+          "delegated": {
+            "amount": 3043000,
+            "currency": "BGN",
+            "amountEur": 1555861
+          },
+          "equalization": {
+            "amount": 382600,
+            "currency": "BGN",
+            "amountEur": 195620
+          },
+          "winter": {
+            "amount": 42500,
+            "currency": "BGN",
+            "amountEur": 21730
+          },
+          "capital": {
+            "amount": 448800,
+            "currency": "BGN",
+            "amountEur": 229468
+          },
+          "otherTargeted": {
+            "amount": 52700,
+            "currency": "BGN",
+            "amountEur": 26945
+          }
+        },
+        {
+          "ekatte": "04532",
+          "obshtinaCode": "KNL05",
+          "nameBg": "Бобошево",
+          "nameEn": "Boboshevo",
+          "total": {
+            "amount": 3344800,
+            "currency": "BGN",
+            "amountEur": 1710169
+          },
+          "delegated": {
+            "amount": 2025800,
+            "currency": "BGN",
+            "amountEur": 1035775
+          },
+          "equalization": {
+            "amount": 451700,
+            "currency": "BGN",
+            "amountEur": 230951
+          },
+          "winter": {
+            "amount": 93500,
+            "currency": "BGN",
+            "amountEur": 47806
+          },
+          "capital": {
+            "amount": 773800,
+            "currency": "BGN",
+            "amountEur": 395638
+          },
+          "otherTargeted": {
+            "amount": 18400,
+            "currency": "BGN",
+            "amountEur": 9408
+          }
+        },
+        {
+          "ekatte": "73047",
+          "obshtinaCode": "KNL50",
+          "nameBg": "Трекляно",
+          "nameEn": "Treklyano",
+          "total": {
+            "amount": 3294300,
+            "currency": "BGN",
+            "amountEur": 1684349
+          },
+          "delegated": {
+            "amount": 1530400,
+            "currency": "BGN",
+            "amountEur": 782481
+          },
+          "equalization": {
+            "amount": 426900,
+            "currency": "BGN",
+            "amountEur": 218271
+          },
+          "winter": {
+            "amount": 207400,
+            "currency": "BGN",
+            "amountEur": 106042
+          },
+          "capital": {
+            "amount": 1129600,
+            "currency": "BGN",
+            "amountEur": 577555
+          },
+          "otherTargeted": {
+            "amount": 3500,
+            "currency": "BGN",
+            "amountEur": 1790
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2024,
+      "asOf": "2024-01-01",
+      "source": {
+        "documentId": "law-2024",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 141309900,
+          "currency": "BGN",
+          "amountEur": 72250605
+        },
+        "delegated": {
+          "amount": 116647700,
+          "currency": "BGN",
+          "amountEur": 59641022
+        },
+        "equalization": {
+          "amount": 10892700,
+          "currency": "BGN",
+          "amountEur": 5569348
+        },
+        "winter": {
+          "amount": 1795400,
+          "currency": "BGN",
+          "amountEur": 917973
+        },
+        "capital": {
+          "amount": 11974100,
+          "currency": "BGN",
+          "amountEur": 6122261
+        },
+        "otherTargeted": {
+          "amount": 1520100,
+          "currency": "BGN",
+          "amountEur": 777215
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "41112",
+          "obshtinaCode": "KNL29",
+          "nameBg": "Кюстендил",
+          "nameEn": "Kyustendil",
+          "total": {
+            "amount": 61256900,
+            "currency": "BGN",
+            "amountEur": 31320156
+          },
+          "delegated": {
+            "amount": 52455400,
+            "currency": "BGN",
+            "amountEur": 26820020
+          },
+          "equalization": {
+            "amount": 3720800,
+            "currency": "BGN",
+            "amountEur": 1902415
+          },
+          "winter": {
+            "amount": 751000,
+            "currency": "BGN",
+            "amountEur": 383980
+          },
+          "capital": {
+            "amount": 4329700,
+            "currency": "BGN",
+            "amountEur": 2213740
+          },
+          "otherTargeted": {
+            "amount": 726700,
+            "currency": "BGN",
+            "amountEur": 371556
+          }
+        },
+        {
+          "ekatte": "68789",
+          "obshtinaCode": "KNL48",
+          "nameBg": "Дупница",
+          "nameEn": "Dupnitsa",
+          "total": {
+            "amount": 41953100,
+            "currency": "BGN",
+            "amountEur": 21450279
+          },
+          "delegated": {
+            "amount": 36940000,
+            "currency": "BGN",
+            "amountEur": 18887122
+          },
+          "equalization": {
+            "amount": 3123500,
+            "currency": "BGN",
+            "amountEur": 1597020
+          },
+          "winter": {
+            "amount": 192300,
+            "currency": "BGN",
+            "amountEur": 98321
+          },
+          "capital": {
+            "amount": 1697300,
+            "currency": "BGN",
+            "amountEur": 867816
+          },
+          "otherTargeted": {
+            "amount": 282600,
+            "currency": "BGN",
+            "amountEur": 144491
+          }
+        },
+        {
+          "ekatte": "04501",
+          "obshtinaCode": "KNL04",
+          "nameBg": "Бобов дол",
+          "nameEn": "Bobov dol",
+          "total": {
+            "amount": 8739000,
+            "currency": "BGN",
+            "amountEur": 4468180
+          },
+          "delegated": {
+            "amount": 6720400,
+            "currency": "BGN",
+            "amountEur": 3436086
+          },
+          "equalization": {
+            "amount": 759700,
+            "currency": "BGN",
+            "amountEur": 388428
+          },
+          "winter": {
+            "amount": 153900,
+            "currency": "BGN",
+            "amountEur": 78688
+          },
+          "capital": {
+            "amount": 1105000,
+            "currency": "BGN",
+            "amountEur": 564978
+          },
+          "otherTargeted": {
+            "amount": 181800,
+            "currency": "BGN",
+            "amountEur": 92953
+          }
+        },
+        {
+          "ekatte": "65365",
+          "obshtinaCode": "KNL41",
+          "nameBg": "Сапарева баня",
+          "nameEn": "Sapareva banya",
+          "total": {
+            "amount": 7208500,
+            "currency": "BGN",
+            "amountEur": 3685648
+          },
+          "delegated": {
+            "amount": 5983000,
+            "currency": "BGN",
+            "amountEur": 3059059
+          },
+          "equalization": {
+            "amount": 673800,
+            "currency": "BGN",
+            "amountEur": 344508
+          },
+          "winter": {
+            "amount": 65900,
+            "currency": "BGN",
+            "amountEur": 33694
+          },
+          "capital": {
+            "amount": 485800,
+            "currency": "BGN",
+            "amountEur": 248386
+          },
+          "otherTargeted": {
+            "amount": 131300,
+            "currency": "BGN",
+            "amountEur": 67133
+          }
+        },
+        {
+          "ekatte": "39116",
+          "obshtinaCode": "KNL27",
+          "nameBg": "Кочериново",
+          "nameEn": "Kocherinovo",
+          "total": {
+            "amount": 6757800,
+            "currency": "BGN",
+            "amountEur": 3455208
+          },
+          "delegated": {
+            "amount": 4967700,
+            "currency": "BGN",
+            "amountEur": 2539945
+          },
+          "equalization": {
+            "amount": 767400,
+            "currency": "BGN",
+            "amountEur": 392365
+          },
+          "winter": {
+            "amount": 110900,
+            "currency": "BGN",
+            "amountEur": 56702
+          },
+          "capital": {
+            "amount": 911800,
+            "currency": "BGN",
+            "amountEur": 466196
+          },
+          "otherTargeted": {
+            "amount": 59200,
+            "currency": "BGN",
+            "amountEur": 30268
+          }
+        },
+        {
+          "ekatte": "51216",
+          "obshtinaCode": "KNL31",
+          "nameBg": "Невестино",
+          "nameEn": "Nevestino",
+          "total": {
+            "amount": 4616700,
+            "currency": "BGN",
+            "amountEur": 2360481
+          },
+          "delegated": {
+            "amount": 2629500,
+            "currency": "BGN",
+            "amountEur": 1344442
+          },
+          "equalization": {
+            "amount": 529300,
+            "currency": "BGN",
+            "amountEur": 270627
+          },
+          "winter": {
+            "amount": 179600,
+            "currency": "BGN",
+            "amountEur": 91828
+          },
+          "capital": {
+            "amount": 1278300,
+            "currency": "BGN",
+            "amountEur": 653584
+          },
+          "otherTargeted": {
+            "amount": 48900,
+            "currency": "BGN",
+            "amountEur": 25002
+          }
+        },
+        {
+          "ekatte": "62671",
+          "obshtinaCode": "KNL38",
+          "nameBg": "Рила",
+          "nameEn": "Rila",
+          "total": {
+            "amount": 4322900,
+            "currency": "BGN",
+            "amountEur": 2210264
+          },
+          "delegated": {
+            "amount": 3422800,
+            "currency": "BGN",
+            "amountEur": 1750050
+          },
+          "equalization": {
+            "amount": 406600,
+            "currency": "BGN",
+            "amountEur": 207891
+          },
+          "winter": {
+            "amount": 42600,
+            "currency": "BGN",
+            "amountEur": 21781
+          },
+          "capital": {
+            "amount": 450900,
+            "currency": "BGN",
+            "amountEur": 230542
+          },
+          "otherTargeted": {
+            "amount": 63300,
+            "currency": "BGN",
+            "amountEur": 32365
+          }
+        },
+        {
+          "ekatte": "04532",
+          "obshtinaCode": "KNL05",
+          "nameBg": "Бобошево",
+          "nameEn": "Boboshevo",
+          "total": {
+            "amount": 3441200,
+            "currency": "BGN",
+            "amountEur": 1759458
+          },
+          "delegated": {
+            "amount": 2105400,
+            "currency": "BGN",
+            "amountEur": 1076474
+          },
+          "equalization": {
+            "amount": 463300,
+            "currency": "BGN",
+            "amountEur": 236882
+          },
+          "winter": {
+            "amount": 92600,
+            "currency": "BGN",
+            "amountEur": 47346
+          },
+          "capital": {
+            "amount": 779900,
+            "currency": "BGN",
+            "amountEur": 398757
+          },
+          "otherTargeted": {
+            "amount": 22100,
+            "currency": "BGN",
+            "amountEur": 11300
+          }
+        },
+        {
+          "ekatte": "73047",
+          "obshtinaCode": "KNL50",
+          "nameBg": "Трекляно",
+          "nameEn": "Treklyano",
+          "total": {
+            "amount": 3013800,
+            "currency": "BGN",
+            "amountEur": 1540931
+          },
+          "delegated": {
+            "amount": 1423500,
+            "currency": "BGN",
+            "amountEur": 727824
+          },
+          "equalization": {
+            "amount": 448300,
+            "currency": "BGN",
+            "amountEur": 229212
+          },
+          "winter": {
+            "amount": 206600,
+            "currency": "BGN",
+            "amountEur": 105633
+          },
+          "capital": {
+            "amount": 935400,
+            "currency": "BGN",
+            "amountEur": 478262
+          },
+          "otherTargeted": {
+            "amount": 4200,
+            "currency": "BGN",
+            "amountEur": 2147
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2025,
+      "asOf": "2025-01-01",
+      "source": {
+        "documentId": "law-2025",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 162019900,
+          "currency": "BGN",
+          "amountEur": 82839459
+        },
+        "delegated": {
+          "amount": 134961100,
+          "currency": "BGN",
+          "amountEur": 69004516
+        },
+        "equalization": {
+          "amount": 12476500,
+          "currency": "BGN",
+          "amountEur": 6379134
+        },
+        "winter": {
+          "amount": 1820900,
+          "currency": "BGN",
+          "amountEur": 931011
+        },
+        "capital": {
+          "amount": 12761400,
+          "currency": "BGN",
+          "amountEur": 6524802
+        },
+        "otherTargeted": {
+          "amount": 1828100,
+          "currency": "BGN",
+          "amountEur": 934694
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "41112",
+          "obshtinaCode": "KNL29",
+          "nameBg": "Кюстендил",
+          "nameEn": "Kyustendil",
+          "total": {
+            "amount": 70082100,
+            "currency": "BGN",
+            "amountEur": 35832409
+          },
+          "delegated": {
+            "amount": 60993900,
+            "currency": "BGN",
+            "amountEur": 31185686
+          },
+          "equalization": {
+            "amount": 3721400,
+            "currency": "BGN",
+            "amountEur": 1902722
+          },
+          "winter": {
+            "amount": 762000,
+            "currency": "BGN",
+            "amountEur": 389604
+          },
+          "capital": {
+            "amount": 4604800,
+            "currency": "BGN",
+            "amountEur": 2354397
+          },
+          "otherTargeted": {
+            "amount": 928500,
+            "currency": "BGN",
+            "amountEur": 474735
+          }
+        },
+        {
+          "ekatte": "68789",
+          "obshtinaCode": "KNL48",
+          "nameBg": "Дупница",
+          "nameEn": "Dupnitsa",
+          "total": {
+            "amount": 46653700,
+            "currency": "BGN",
+            "amountEur": 23853658
+          },
+          "delegated": {
+            "amount": 41379800,
+            "currency": "BGN",
+            "amountEur": 21157156
+          },
+          "equalization": {
+            "amount": 3277900,
+            "currency": "BGN",
+            "amountEur": 1675964
+          },
+          "winter": {
+            "amount": 195000,
+            "currency": "BGN",
+            "amountEur": 99702
+          },
+          "capital": {
+            "amount": 1801000,
+            "currency": "BGN",
+            "amountEur": 920837
+          },
+          "otherTargeted": {
+            "amount": 324200,
+            "currency": "BGN",
+            "amountEur": 165761
+          }
+        },
+        {
+          "ekatte": "04501",
+          "obshtinaCode": "KNL04",
+          "nameBg": "Бобов дол",
+          "nameEn": "Bobov dol",
+          "total": {
+            "amount": 10171300,
+            "currency": "BGN",
+            "amountEur": 5200503
+          },
+          "delegated": {
+            "amount": 7876300,
+            "currency": "BGN",
+            "amountEur": 4027088
+          },
+          "equalization": {
+            "amount": 963400,
+            "currency": "BGN",
+            "amountEur": 492579
+          },
+          "winter": {
+            "amount": 156100,
+            "currency": "BGN",
+            "amountEur": 79813
+          },
+          "capital": {
+            "amount": 1175500,
+            "currency": "BGN",
+            "amountEur": 601024
+          },
+          "otherTargeted": {
+            "amount": 194600,
+            "currency": "BGN",
+            "amountEur": 99497
+          }
+        },
+        {
+          "ekatte": "65365",
+          "obshtinaCode": "KNL41",
+          "nameBg": "Сапарева баня",
+          "nameEn": "Sapareva banya",
+          "total": {
+            "amount": 8193400,
+            "currency": "BGN",
+            "amountEur": 4189219
+          },
+          "delegated": {
+            "amount": 6938900,
+            "currency": "BGN",
+            "amountEur": 3547803
+          },
+          "equalization": {
+            "amount": 673800,
+            "currency": "BGN",
+            "amountEur": 344508
+          },
+          "winter": {
+            "amount": 66900,
+            "currency": "BGN",
+            "amountEur": 34205
+          },
+          "capital": {
+            "amount": 513800,
+            "currency": "BGN",
+            "amountEur": 262702
+          },
+          "otherTargeted": {
+            "amount": 154700,
+            "currency": "BGN",
+            "amountEur": 79097
+          }
+        },
+        {
+          "ekatte": "39116",
+          "obshtinaCode": "KNL27",
+          "nameBg": "Кочериново",
+          "nameEn": "Kocherinovo",
+          "total": {
+            "amount": 7872900,
+            "currency": "BGN",
+            "amountEur": 4025350
+          },
+          "delegated": {
+            "amount": 5809100,
+            "currency": "BGN",
+            "amountEur": 2970146
+          },
+          "equalization": {
+            "amount": 984000,
+            "currency": "BGN",
+            "amountEur": 503111
+          },
+          "winter": {
+            "amount": 112600,
+            "currency": "BGN",
+            "amountEur": 57571
+          },
+          "capital": {
+            "amount": 967200,
+            "currency": "BGN",
+            "amountEur": 494522
+          },
+          "otherTargeted": {
+            "amount": 78600,
+            "currency": "BGN",
+            "amountEur": 40188
+          }
+        },
+        {
+          "ekatte": "51216",
+          "obshtinaCode": "KNL31",
+          "nameBg": "Невестино",
+          "nameEn": "Nevestino",
+          "total": {
+            "amount": 5586800,
+            "currency": "BGN",
+            "amountEur": 2856485
+          },
+          "delegated": {
+            "amount": 3253200,
+            "currency": "BGN",
+            "amountEur": 1663335
+          },
+          "equalization": {
+            "amount": 793100,
+            "currency": "BGN",
+            "amountEur": 405506
+          },
+          "winter": {
+            "amount": 182300,
+            "currency": "BGN",
+            "amountEur": 93209
+          },
+          "capital": {
+            "amount": 1358200,
+            "currency": "BGN",
+            "amountEur": 694437
+          },
+          "otherTargeted": {
+            "amount": 52600,
+            "currency": "BGN",
+            "amountEur": 26894
+          }
+        },
+        {
+          "ekatte": "62671",
+          "obshtinaCode": "KNL38",
+          "nameBg": "Рила",
+          "nameEn": "Rila",
+          "total": {
+            "amount": 5244700,
+            "currency": "BGN",
+            "amountEur": 2681573
+          },
+          "delegated": {
+            "amount": 4093100,
+            "currency": "BGN",
+            "amountEur": 2092769
+          },
+          "equalization": {
+            "amount": 632500,
+            "currency": "BGN",
+            "amountEur": 323392
+          },
+          "winter": {
+            "amount": 43200,
+            "currency": "BGN",
+            "amountEur": 22088
+          },
+          "capital": {
+            "amount": 475900,
+            "currency": "BGN",
+            "amountEur": 243324
+          },
+          "otherTargeted": {
+            "amount": 67000,
+            "currency": "BGN",
+            "amountEur": 34257
+          }
+        },
+        {
+          "ekatte": "04532",
+          "obshtinaCode": "KNL05",
+          "nameBg": "Бобошево",
+          "nameEn": "Boboshevo",
+          "total": {
+            "amount": 4208100,
+            "currency": "BGN",
+            "amountEur": 2151567
+          },
+          "delegated": {
+            "amount": 2638600,
+            "currency": "BGN",
+            "amountEur": 1349095
+          },
+          "equalization": {
+            "amount": 648100,
+            "currency": "BGN",
+            "amountEur": 331368
+          },
+          "winter": {
+            "amount": 94000,
+            "currency": "BGN",
+            "amountEur": 48061
+          },
+          "capital": {
+            "amount": 827400,
+            "currency": "BGN",
+            "amountEur": 423043
+          },
+          "otherTargeted": {
+            "amount": 23100,
+            "currency": "BGN",
+            "amountEur": 11811
+          }
+        },
+        {
+          "ekatte": "73047",
+          "obshtinaCode": "KNL50",
+          "nameBg": "Трекляно",
+          "nameEn": "Treklyano",
+          "total": {
+            "amount": 4006900,
+            "currency": "BGN",
+            "amountEur": 2048695
+          },
+          "delegated": {
+            "amount": 1978200,
+            "currency": "BGN",
+            "amountEur": 1011438
+          },
+          "equalization": {
+            "amount": 782300,
+            "currency": "BGN",
+            "amountEur": 399984
+          },
+          "winter": {
+            "amount": 208800,
+            "currency": "BGN",
+            "amountEur": 106758
+          },
+          "capital": {
+            "amount": 1037600,
+            "currency": "BGN",
+            "amountEur": 530516
+          },
+          "otherTargeted": {
+            "amount": 4800,
+            "currency": "BGN",
+            "amountEur": 2454
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1421 @@
+{
+  "oblastCode": "SLS",
+  "oblastNameBg": "Силистра",
+  "oblastNameEn": "Silistra",
+  "years": [
+    {
+      "fiscalYear": 2020,
+      "asOf": "2020-01-01",
+      "source": {
+        "documentId": "law-2020",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 81213600,
+          "currency": "BGN",
+          "amountEur": 41523854
+        },
+        "delegated": {
+          "amount": 66723700,
+          "currency": "BGN",
+          "amountEur": 34115286
+        },
+        "equalization": {
+          "amount": 9355200,
+          "currency": "BGN",
+          "amountEur": 4783237
+        },
+        "winter": {
+          "amount": 866300,
+          "currency": "BGN",
+          "amountEur": 442931
+        },
+        "capital": {
+          "amount": 4268400,
+          "currency": "BGN",
+          "amountEur": 2182397
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "66425",
+          "obshtinaCode": "SLS31",
+          "nameBg": "Силистра",
+          "nameEn": "Silistra",
+          "total": {
+            "amount": 31377400,
+            "currency": "BGN",
+            "amountEur": 16043010
+          },
+          "delegated": {
+            "amount": 27041800,
+            "currency": "BGN",
+            "amountEur": 13826253
+          },
+          "equalization": {
+            "amount": 3199700,
+            "currency": "BGN",
+            "amountEur": 1635981
+          },
+          "winter": {
+            "amount": 203900,
+            "currency": "BGN",
+            "amountEur": 104252
+          },
+          "capital": {
+            "amount": 932000,
+            "currency": "BGN",
+            "amountEur": 476524
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "24030",
+          "obshtinaCode": "SLS10",
+          "nameBg": "Дулово",
+          "nameEn": "Dulovo",
+          "total": {
+            "amount": 18468400,
+            "currency": "BGN",
+            "amountEur": 9442743
+          },
+          "delegated": {
+            "amount": 15101800,
+            "currency": "BGN",
+            "amountEur": 7721428
+          },
+          "equalization": {
+            "amount": 2378300,
+            "currency": "BGN",
+            "amountEur": 1216005
+          },
+          "winter": {
+            "amount": 126200,
+            "currency": "BGN",
+            "amountEur": 64525
+          },
+          "capital": {
+            "amount": 862100,
+            "currency": "BGN",
+            "amountEur": 440785
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "73496",
+          "obshtinaCode": "SLS34",
+          "nameBg": "Тутракан",
+          "nameEn": "Tutrakan",
+          "total": {
+            "amount": 9760600,
+            "currency": "BGN",
+            "amountEur": 4990516
+          },
+          "delegated": {
+            "amount": 7875800,
+            "currency": "BGN",
+            "amountEur": 4026833
+          },
+          "equalization": {
+            "amount": 1253400,
+            "currency": "BGN",
+            "amountEur": 640853
+          },
+          "winter": {
+            "amount": 114800,
+            "currency": "BGN",
+            "amountEur": 58696
+          },
+          "capital": {
+            "amount": 516600,
+            "currency": "BGN",
+            "amountEur": 264133
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "15031",
+          "obshtinaCode": "SLS07",
+          "nameBg": "Главиница",
+          "nameEn": "Glavinitsa",
+          "total": {
+            "amount": 7736300,
+            "currency": "BGN",
+            "amountEur": 3955507
+          },
+          "delegated": {
+            "amount": 5894000,
+            "currency": "BGN",
+            "amountEur": 3013554
+          },
+          "equalization": {
+            "amount": 1008600,
+            "currency": "BGN",
+            "amountEur": 515689
+          },
+          "winter": {
+            "amount": 120500,
+            "currency": "BGN",
+            "amountEur": 61611
+          },
+          "capital": {
+            "amount": 713200,
+            "currency": "BGN",
+            "amountEur": 364653
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "35242",
+          "obshtinaCode": "SLS15",
+          "nameBg": "Кайнарджа",
+          "nameEn": "Kaynardzha",
+          "total": {
+            "amount": 6543200,
+            "currency": "BGN",
+            "amountEur": 3345485
+          },
+          "delegated": {
+            "amount": 5273100,
+            "currency": "BGN",
+            "amountEur": 2696093
+          },
+          "equalization": {
+            "amount": 646400,
+            "currency": "BGN",
+            "amountEur": 330499
+          },
+          "winter": {
+            "amount": 118700,
+            "currency": "BGN",
+            "amountEur": 60690
+          },
+          "capital": {
+            "amount": 505000,
+            "currency": "BGN",
+            "amountEur": 258202
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "66665",
+          "obshtinaCode": "SLS32",
+          "nameBg": "Ситово",
+          "nameEn": "Sitovo",
+          "total": {
+            "amount": 4300100,
+            "currency": "BGN",
+            "amountEur": 2198606
+          },
+          "delegated": {
+            "amount": 3194900,
+            "currency": "BGN",
+            "amountEur": 1633526
+          },
+          "equalization": {
+            "amount": 544100,
+            "currency": "BGN",
+            "amountEur": 278194
+          },
+          "winter": {
+            "amount": 116400,
+            "currency": "BGN",
+            "amountEur": 59514
+          },
+          "capital": {
+            "amount": 444700,
+            "currency": "BGN",
+            "amountEur": 227371
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "00415",
+          "obshtinaCode": "SLS01",
+          "nameBg": "Алфатар",
+          "nameEn": "Alfatar",
+          "total": {
+            "amount": 3027600,
+            "currency": "BGN",
+            "amountEur": 1547987
+          },
+          "delegated": {
+            "amount": 2342300,
+            "currency": "BGN",
+            "amountEur": 1197599
+          },
+          "equalization": {
+            "amount": 324700,
+            "currency": "BGN",
+            "amountEur": 166016
+          },
+          "winter": {
+            "amount": 65800,
+            "currency": "BGN",
+            "amountEur": 33643
+          },
+          "capital": {
+            "amount": 294800,
+            "currency": "BGN",
+            "amountEur": 150729
+          },
+          "otherTargeted": null
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2022,
+      "asOf": "2022-01-01",
+      "source": {
+        "documentId": "law-2022",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 108332300,
+          "currency": "BGN",
+          "amountEur": 55389425
+        },
+        "delegated": {
+          "amount": 89883900,
+          "currency": "BGN",
+          "amountEur": 45956909
+        },
+        "equalization": {
+          "amount": 11206600,
+          "currency": "BGN",
+          "amountEur": 5729845
+        },
+        "winter": {
+          "amount": 964900,
+          "currency": "BGN",
+          "amountEur": 493346
+        },
+        "capital": {
+          "amount": 6276900,
+          "currency": "BGN",
+          "amountEur": 3209328
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "66425",
+          "obshtinaCode": "SLS31",
+          "nameBg": "Силистра",
+          "nameEn": "Silistra",
+          "total": {
+            "amount": 42638600,
+            "currency": "BGN",
+            "amountEur": 21800770
+          },
+          "delegated": {
+            "amount": 37329000,
+            "currency": "BGN",
+            "amountEur": 19086015
+          },
+          "equalization": {
+            "amount": 3699300,
+            "currency": "BGN",
+            "amountEur": 1891422
+          },
+          "winter": {
+            "amount": 226900,
+            "currency": "BGN",
+            "amountEur": 116012
+          },
+          "capital": {
+            "amount": 1383400,
+            "currency": "BGN",
+            "amountEur": 707321
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "24030",
+          "obshtinaCode": "SLS10",
+          "nameBg": "Дулово",
+          "nameEn": "Dulovo",
+          "total": {
+            "amount": 24170600,
+            "currency": "BGN",
+            "amountEur": 12358232
+          },
+          "delegated": {
+            "amount": 19939000,
+            "currency": "BGN",
+            "amountEur": 10194649
+          },
+          "equalization": {
+            "amount": 2802000,
+            "currency": "BGN",
+            "amountEur": 1432640
+          },
+          "winter": {
+            "amount": 140700,
+            "currency": "BGN",
+            "amountEur": 71939
+          },
+          "capital": {
+            "amount": 1288900,
+            "currency": "BGN",
+            "amountEur": 659004
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "73496",
+          "obshtinaCode": "SLS34",
+          "nameBg": "Тутракан",
+          "nameEn": "Tutrakan",
+          "total": {
+            "amount": 12763800,
+            "currency": "BGN",
+            "amountEur": 6526027
+          },
+          "delegated": {
+            "amount": 10403500,
+            "currency": "BGN",
+            "amountEur": 5319225
+          },
+          "equalization": {
+            "amount": 1462300,
+            "currency": "BGN",
+            "amountEur": 747662
+          },
+          "winter": {
+            "amount": 127800,
+            "currency": "BGN",
+            "amountEur": 65343
+          },
+          "capital": {
+            "amount": 770200,
+            "currency": "BGN",
+            "amountEur": 393797
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "15031",
+          "obshtinaCode": "SLS07",
+          "nameBg": "Главиница",
+          "nameEn": "Glavinitsa",
+          "total": {
+            "amount": 9925400,
+            "currency": "BGN",
+            "amountEur": 5074776
+          },
+          "delegated": {
+            "amount": 7467900,
+            "currency": "BGN",
+            "amountEur": 3818277
+          },
+          "equalization": {
+            "amount": 1274000,
+            "currency": "BGN",
+            "amountEur": 651386
+          },
+          "winter": {
+            "amount": 134200,
+            "currency": "BGN",
+            "amountEur": 68615
+          },
+          "capital": {
+            "amount": 1049300,
+            "currency": "BGN",
+            "amountEur": 536499
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "35242",
+          "obshtinaCode": "SLS15",
+          "nameBg": "Кайнарджа",
+          "nameEn": "Kaynardzha",
+          "total": {
+            "amount": 8666200,
+            "currency": "BGN",
+            "amountEur": 4430958
+          },
+          "delegated": {
+            "amount": 6961400,
+            "currency": "BGN",
+            "amountEur": 3559307
+          },
+          "equalization": {
+            "amount": 861200,
+            "currency": "BGN",
+            "amountEur": 440325
+          },
+          "winter": {
+            "amount": 132300,
+            "currency": "BGN",
+            "amountEur": 67644
+          },
+          "capital": {
+            "amount": 711300,
+            "currency": "BGN",
+            "amountEur": 363682
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "66665",
+          "obshtinaCode": "SLS32",
+          "nameBg": "Ситово",
+          "nameEn": "Sitovo",
+          "total": {
+            "amount": 5732000,
+            "currency": "BGN",
+            "amountEur": 2930725
+          },
+          "delegated": {
+            "amount": 4269500,
+            "currency": "BGN",
+            "amountEur": 2182961
+          },
+          "equalization": {
+            "amount": 683900,
+            "currency": "BGN",
+            "amountEur": 349673
+          },
+          "winter": {
+            "amount": 129700,
+            "currency": "BGN",
+            "amountEur": 66315
+          },
+          "capital": {
+            "amount": 648900,
+            "currency": "BGN",
+            "amountEur": 331777
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "00415",
+          "obshtinaCode": "SLS01",
+          "nameBg": "Алфатар",
+          "nameEn": "Alfatar",
+          "total": {
+            "amount": 4435700,
+            "currency": "BGN",
+            "amountEur": 2267937
+          },
+          "delegated": {
+            "amount": 3513600,
+            "currency": "BGN",
+            "amountEur": 1796475
+          },
+          "equalization": {
+            "amount": 423900,
+            "currency": "BGN",
+            "amountEur": 216737
+          },
+          "winter": {
+            "amount": 73300,
+            "currency": "BGN",
+            "amountEur": 37478
+          },
+          "capital": {
+            "amount": 424900,
+            "currency": "BGN",
+            "amountEur": 217248
+          },
+          "otherTargeted": null
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2023,
+      "asOf": "2023-01-01",
+      "source": {
+        "documentId": "law-2023",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 134116600,
+          "currency": "BGN",
+          "amountEur": 68572728
+        },
+        "delegated": {
+          "amount": 112206000,
+          "currency": "BGN",
+          "amountEur": 57370017
+        },
+        "equalization": {
+          "amount": 11978000,
+          "currency": "BGN",
+          "amountEur": 6124255
+        },
+        "winter": {
+          "amount": 963700,
+          "currency": "BGN",
+          "amountEur": 492732
+        },
+        "capital": {
+          "amount": 8968900,
+          "currency": "BGN",
+          "amountEur": 4585726
+        },
+        "otherTargeted": {
+          "amount": 628000,
+          "currency": "BGN",
+          "amountEur": 321091
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "66425",
+          "obshtinaCode": "SLS31",
+          "nameBg": "Силистра",
+          "nameEn": "Silistra",
+          "total": {
+            "amount": 52633600,
+            "currency": "BGN",
+            "amountEur": 26911132
+          },
+          "delegated": {
+            "amount": 46146100,
+            "currency": "BGN",
+            "amountEur": 23594126
+          },
+          "equalization": {
+            "amount": 4258000,
+            "currency": "BGN",
+            "amountEur": 2177081
+          },
+          "winter": {
+            "amount": 226900,
+            "currency": "BGN",
+            "amountEur": 116012
+          },
+          "capital": {
+            "amount": 2002600,
+            "currency": "BGN",
+            "amountEur": 1023913
+          },
+          "otherTargeted": {
+            "amount": 272500,
+            "currency": "BGN",
+            "amountEur": 139327
+          }
+        },
+        {
+          "ekatte": "24030",
+          "obshtinaCode": "SLS10",
+          "nameBg": "Дулово",
+          "nameEn": "Dulovo",
+          "total": {
+            "amount": 29038300,
+            "currency": "BGN",
+            "amountEur": 14847047
+          },
+          "delegated": {
+            "amount": 24252600,
+            "currency": "BGN",
+            "amountEur": 12400157
+          },
+          "equalization": {
+            "amount": 2803500,
+            "currency": "BGN",
+            "amountEur": 1433407
+          },
+          "winter": {
+            "amount": 140100,
+            "currency": "BGN",
+            "amountEur": 71632
+          },
+          "capital": {
+            "amount": 1842100,
+            "currency": "BGN",
+            "amountEur": 941851
+          },
+          "otherTargeted": {
+            "amount": 34400,
+            "currency": "BGN",
+            "amountEur": 17588
+          }
+        },
+        {
+          "ekatte": "73496",
+          "obshtinaCode": "SLS34",
+          "nameBg": "Тутракан",
+          "nameEn": "Tutrakan",
+          "total": {
+            "amount": 17106600,
+            "currency": "BGN",
+            "amountEur": 8746466
+          },
+          "delegated": {
+            "amount": 14406900,
+            "currency": "BGN",
+            "amountEur": 7366131
+          },
+          "equalization": {
+            "amount": 1462300,
+            "currency": "BGN",
+            "amountEur": 747662
+          },
+          "winter": {
+            "amount": 127700,
+            "currency": "BGN",
+            "amountEur": 65292
+          },
+          "capital": {
+            "amount": 1109700,
+            "currency": "BGN",
+            "amountEur": 567381
+          },
+          "otherTargeted": {
+            "amount": 94900,
+            "currency": "BGN",
+            "amountEur": 48522
+          }
+        },
+        {
+          "ekatte": "15031",
+          "obshtinaCode": "SLS07",
+          "nameBg": "Главиница",
+          "nameEn": "Glavinitsa",
+          "total": {
+            "amount": 11837900,
+            "currency": "BGN",
+            "amountEur": 6052622
+          },
+          "delegated": {
+            "amount": 8838100,
+            "currency": "BGN",
+            "amountEur": 4518849
+          },
+          "equalization": {
+            "amount": 1368500,
+            "currency": "BGN",
+            "amountEur": 699703
+          },
+          "winter": {
+            "amount": 134100,
+            "currency": "BGN",
+            "amountEur": 68564
+          },
+          "capital": {
+            "amount": 1497200,
+            "currency": "BGN",
+            "amountEur": 765506
+          },
+          "otherTargeted": {
+            "amount": 92800,
+            "currency": "BGN",
+            "amountEur": 47448
+          }
+        },
+        {
+          "ekatte": "35242",
+          "obshtinaCode": "SLS15",
+          "nameBg": "Кайнарджа",
+          "nameEn": "Kaynardzha",
+          "total": {
+            "amount": 10306700,
+            "currency": "BGN",
+            "amountEur": 5269732
+          },
+          "delegated": {
+            "amount": 8313200,
+            "currency": "BGN",
+            "amountEur": 4250472
+          },
+          "equalization": {
+            "amount": 861200,
+            "currency": "BGN",
+            "amountEur": 440325
+          },
+          "winter": {
+            "amount": 132000,
+            "currency": "BGN",
+            "amountEur": 67491
+          },
+          "capital": {
+            "amount": 1000300,
+            "currency": "BGN",
+            "amountEur": 511445
+          },
+          "otherTargeted": {
+            "amount": 67100,
+            "currency": "BGN",
+            "amountEur": 34308
+          }
+        },
+        {
+          "ekatte": "66665",
+          "obshtinaCode": "SLS32",
+          "nameBg": "Ситово",
+          "nameEn": "Sitovo",
+          "total": {
+            "amount": 7352200,
+            "currency": "BGN",
+            "amountEur": 3759120
+          },
+          "delegated": {
+            "amount": 5560200,
+            "currency": "BGN",
+            "amountEur": 2842885
+          },
+          "equalization": {
+            "amount": 741300,
+            "currency": "BGN",
+            "amountEur": 379021
+          },
+          "winter": {
+            "amount": 129600,
+            "currency": "BGN",
+            "amountEur": 66263
+          },
+          "capital": {
+            "amount": 921100,
+            "currency": "BGN",
+            "amountEur": 470951
+          },
+          "otherTargeted": {
+            "amount": 55300,
+            "currency": "BGN",
+            "amountEur": 28274
+          }
+        },
+        {
+          "ekatte": "00415",
+          "obshtinaCode": "SLS01",
+          "nameBg": "Алфатар",
+          "nameEn": "Alfatar",
+          "total": {
+            "amount": 5841300,
+            "currency": "BGN",
+            "amountEur": 2986609
+          },
+          "delegated": {
+            "amount": 4688900,
+            "currency": "BGN",
+            "amountEur": 2397397
+          },
+          "equalization": {
+            "amount": 483200,
+            "currency": "BGN",
+            "amountEur": 247056
+          },
+          "winter": {
+            "amount": 73300,
+            "currency": "BGN",
+            "amountEur": 37478
+          },
+          "capital": {
+            "amount": 595900,
+            "currency": "BGN",
+            "amountEur": 304679
+          },
+          "otherTargeted": {
+            "amount": 11000,
+            "currency": "BGN",
+            "amountEur": 5624
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2024,
+      "asOf": "2024-01-01",
+      "source": {
+        "documentId": "law-2024",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 150897100,
+          "currency": "BGN",
+          "amountEur": 77152462
+        },
+        "delegated": {
+          "amount": 128837900,
+          "currency": "BGN",
+          "amountEur": 65873771
+        },
+        "equalization": {
+          "amount": 12024600,
+          "currency": "BGN",
+          "amountEur": 6148082
+        },
+        "winter": {
+          "amount": 964100,
+          "currency": "BGN",
+          "amountEur": 492937
+        },
+        "capital": {
+          "amount": 9070500,
+          "currency": "BGN",
+          "amountEur": 4637673
+        },
+        "otherTargeted": {
+          "amount": 753700,
+          "currency": "BGN",
+          "amountEur": 385360
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "66425",
+          "obshtinaCode": "SLS31",
+          "nameBg": "Силистра",
+          "nameEn": "Silistra",
+          "total": {
+            "amount": 59830500,
+            "currency": "BGN",
+            "amountEur": 30590849
+          },
+          "delegated": {
+            "amount": 53340100,
+            "currency": "BGN",
+            "amountEur": 27272360
+          },
+          "equalization": {
+            "amount": 4258000,
+            "currency": "BGN",
+            "amountEur": 2177081
+          },
+          "winter": {
+            "amount": 226800,
+            "currency": "BGN",
+            "amountEur": 115961
+          },
+          "capital": {
+            "amount": 2005600,
+            "currency": "BGN",
+            "amountEur": 1025447
+          },
+          "otherTargeted": {
+            "amount": 327000,
+            "currency": "BGN",
+            "amountEur": 167192
+          }
+        },
+        {
+          "ekatte": "24030",
+          "obshtinaCode": "SLS10",
+          "nameBg": "Дулово",
+          "nameEn": "Dulovo",
+          "total": {
+            "amount": 32029300,
+            "currency": "BGN",
+            "amountEur": 16376321
+          },
+          "delegated": {
+            "amount": 27215400,
+            "currency": "BGN",
+            "amountEur": 13915013
+          },
+          "equalization": {
+            "amount": 2815100,
+            "currency": "BGN",
+            "amountEur": 1439338
+          },
+          "winter": {
+            "amount": 140300,
+            "currency": "BGN",
+            "amountEur": 71734
+          },
+          "capital": {
+            "amount": 1858500,
+            "currency": "BGN",
+            "amountEur": 950236
+          },
+          "otherTargeted": {
+            "amount": 41300,
+            "currency": "BGN",
+            "amountEur": 21116
+          }
+        },
+        {
+          "ekatte": "73496",
+          "obshtinaCode": "SLS34",
+          "nameBg": "Тутракан",
+          "nameEn": "Tutrakan",
+          "total": {
+            "amount": 19058500,
+            "currency": "BGN",
+            "amountEur": 9744456
+          },
+          "delegated": {
+            "amount": 16352200,
+            "currency": "BGN",
+            "amountEur": 8360747
+          },
+          "equalization": {
+            "amount": 1462300,
+            "currency": "BGN",
+            "amountEur": 747662
+          },
+          "winter": {
+            "amount": 127700,
+            "currency": "BGN",
+            "amountEur": 65292
+          },
+          "capital": {
+            "amount": 1116300,
+            "currency": "BGN",
+            "amountEur": 570755
+          },
+          "otherTargeted": {
+            "amount": 113900,
+            "currency": "BGN",
+            "amountEur": 58236
+          }
+        },
+        {
+          "ekatte": "15031",
+          "obshtinaCode": "SLS07",
+          "nameBg": "Главиница",
+          "nameEn": "Glavinitsa",
+          "total": {
+            "amount": 14081800,
+            "currency": "BGN",
+            "amountEur": 7199910
+          },
+          "delegated": {
+            "amount": 11061500,
+            "currency": "BGN",
+            "amountEur": 5655655
+          },
+          "equalization": {
+            "amount": 1374500,
+            "currency": "BGN",
+            "amountEur": 702771
+          },
+          "winter": {
+            "amount": 134200,
+            "currency": "BGN",
+            "amountEur": 68615
+          },
+          "capital": {
+            "amount": 1511600,
+            "currency": "BGN",
+            "amountEur": 772869
+          },
+          "otherTargeted": {
+            "amount": 111400,
+            "currency": "BGN",
+            "amountEur": 56958
+          }
+        },
+        {
+          "ekatte": "35242",
+          "obshtinaCode": "SLS15",
+          "nameBg": "Кайнарджа",
+          "nameEn": "Kaynardzha",
+          "total": {
+            "amount": 11322700,
+            "currency": "BGN",
+            "amountEur": 5789205
+          },
+          "delegated": {
+            "amount": 9278800,
+            "currency": "BGN",
+            "amountEur": 4744175
+          },
+          "equalization": {
+            "amount": 861200,
+            "currency": "BGN",
+            "amountEur": 440325
+          },
+          "winter": {
+            "amount": 132100,
+            "currency": "BGN",
+            "amountEur": 67542
+          },
+          "capital": {
+            "amount": 1050600,
+            "currency": "BGN",
+            "amountEur": 537163
+          },
+          "otherTargeted": {
+            "amount": 80500,
+            "currency": "BGN",
+            "amountEur": 41159
+          }
+        },
+        {
+          "ekatte": "66665",
+          "obshtinaCode": "SLS32",
+          "nameBg": "Ситово",
+          "nameEn": "Sitovo",
+          "total": {
+            "amount": 7901600,
+            "currency": "BGN",
+            "amountEur": 4040024
+          },
+          "delegated": {
+            "amount": 6103000,
+            "currency": "BGN",
+            "amountEur": 3120414
+          },
+          "equalization": {
+            "amount": 741300,
+            "currency": "BGN",
+            "amountEur": 379021
+          },
+          "winter": {
+            "amount": 129700,
+            "currency": "BGN",
+            "amountEur": 66315
+          },
+          "capital": {
+            "amount": 927600,
+            "currency": "BGN",
+            "amountEur": 474274
+          },
+          "otherTargeted": {
+            "amount": 66400,
+            "currency": "BGN",
+            "amountEur": 33950
+          }
+        },
+        {
+          "ekatte": "00415",
+          "obshtinaCode": "SLS01",
+          "nameBg": "Алфатар",
+          "nameEn": "Alfatar",
+          "total": {
+            "amount": 6672700,
+            "currency": "BGN",
+            "amountEur": 3411697
+          },
+          "delegated": {
+            "amount": 5486900,
+            "currency": "BGN",
+            "amountEur": 2805407
+          },
+          "equalization": {
+            "amount": 512200,
+            "currency": "BGN",
+            "amountEur": 261884
+          },
+          "winter": {
+            "amount": 73300,
+            "currency": "BGN",
+            "amountEur": 37478
+          },
+          "capital": {
+            "amount": 600300,
+            "currency": "BGN",
+            "amountEur": 306929
+          },
+          "otherTargeted": {
+            "amount": 13200,
+            "currency": "BGN",
+            "amountEur": 6749
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2025,
+      "asOf": "2025-01-01",
+      "source": {
+        "documentId": "law-2025",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 169981600,
+          "currency": "BGN",
+          "amountEur": 86910213
+        },
+        "delegated": {
+          "amount": 146025400,
+          "currency": "BGN",
+          "amountEur": 74661600
+        },
+        "equalization": {
+          "amount": 13342700,
+          "currency": "BGN",
+          "amountEur": 6822015
+        },
+        "winter": {
+          "amount": 978300,
+          "currency": "BGN",
+          "amountEur": 500196
+        },
+        "capital": {
+          "amount": 9635200,
+          "currency": "BGN",
+          "amountEur": 4926400
+        },
+        "otherTargeted": {
+          "amount": 884300,
+          "currency": "BGN",
+          "amountEur": 452136
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "66425",
+          "obshtinaCode": "SLS31",
+          "nameBg": "Силистра",
+          "nameEn": "Silistra",
+          "total": {
+            "amount": 66295400,
+            "currency": "BGN",
+            "amountEur": 33896300
+          },
+          "delegated": {
+            "amount": 59544300,
+            "currency": "BGN",
+            "amountEur": 30444517
+          },
+          "equalization": {
+            "amount": 4392300,
+            "currency": "BGN",
+            "amountEur": 2245747
+          },
+          "winter": {
+            "amount": 230000,
+            "currency": "BGN",
+            "amountEur": 117597
+          },
+          "capital": {
+            "amount": 2128800,
+            "currency": "BGN",
+            "amountEur": 1088438
+          },
+          "otherTargeted": {
+            "amount": 401800,
+            "currency": "BGN",
+            "amountEur": 205437
+          }
+        },
+        {
+          "ekatte": "24030",
+          "obshtinaCode": "SLS10",
+          "nameBg": "Дулово",
+          "nameEn": "Dulovo",
+          "total": {
+            "amount": 35876700,
+            "currency": "BGN",
+            "amountEur": 18343465
+          },
+          "delegated": {
+            "amount": 30772000,
+            "currency": "BGN",
+            "amountEur": 15733474
+          },
+          "equalization": {
+            "amount": 2981500,
+            "currency": "BGN",
+            "amountEur": 1524417
+          },
+          "winter": {
+            "amount": 142400,
+            "currency": "BGN",
+            "amountEur": 72808
+          },
+          "capital": {
+            "amount": 1980800,
+            "currency": "BGN",
+            "amountEur": 1012767
+          },
+          "otherTargeted": {
+            "amount": 54700,
+            "currency": "BGN",
+            "amountEur": 27968
+          }
+        },
+        {
+          "ekatte": "73496",
+          "obshtinaCode": "SLS34",
+          "nameBg": "Тутракан",
+          "nameEn": "Tutrakan",
+          "total": {
+            "amount": 21850800,
+            "currency": "BGN",
+            "amountEur": 11172137
+          },
+          "delegated": {
+            "amount": 18889800,
+            "currency": "BGN",
+            "amountEur": 9658201
+          },
+          "equalization": {
+            "amount": 1643800,
+            "currency": "BGN",
+            "amountEur": 840462
+          },
+          "winter": {
+            "amount": 129600,
+            "currency": "BGN",
+            "amountEur": 66263
+          },
+          "capital": {
+            "amount": 1187600,
+            "currency": "BGN",
+            "amountEur": 607210
+          },
+          "otherTargeted": {
+            "amount": 116800,
+            "currency": "BGN",
+            "amountEur": 59719
+          }
+        },
+        {
+          "ekatte": "15031",
+          "obshtinaCode": "SLS07",
+          "nameBg": "Главиница",
+          "nameEn": "Glavinitsa",
+          "total": {
+            "amount": 15953100,
+            "currency": "BGN",
+            "amountEur": 8156691
+          },
+          "delegated": {
+            "amount": 12690400,
+            "currency": "BGN",
+            "amountEur": 6488498
+          },
+          "equalization": {
+            "amount": 1521300,
+            "currency": "BGN",
+            "amountEur": 777828
+          },
+          "winter": {
+            "amount": 136200,
+            "currency": "BGN",
+            "amountEur": 69638
+          },
+          "capital": {
+            "amount": 1605200,
+            "currency": "BGN",
+            "amountEur": 820726
+          },
+          "otherTargeted": {
+            "amount": 122900,
+            "currency": "BGN",
+            "amountEur": 62838
+          }
+        },
+        {
+          "ekatte": "35242",
+          "obshtinaCode": "SLS15",
+          "nameBg": "Кайнарджа",
+          "nameEn": "Kaynardzha",
+          "total": {
+            "amount": 12495900,
+            "currency": "BGN",
+            "amountEur": 6389052
+          },
+          "delegated": {
+            "amount": 10182200,
+            "currency": "BGN",
+            "amountEur": 5206076
+          },
+          "equalization": {
+            "amount": 1064900,
+            "currency": "BGN",
+            "amountEur": 544475
+          },
+          "winter": {
+            "amount": 134100,
+            "currency": "BGN",
+            "amountEur": 68564
+          },
+          "capital": {
+            "amount": 1114700,
+            "currency": "BGN",
+            "amountEur": 569937
+          },
+          "otherTargeted": {
+            "amount": 89100,
+            "currency": "BGN",
+            "amountEur": 45556
+          }
+        },
+        {
+          "ekatte": "66665",
+          "obshtinaCode": "SLS32",
+          "nameBg": "Ситово",
+          "nameEn": "Sitovo",
+          "total": {
+            "amount": 9150100,
+            "currency": "BGN",
+            "amountEur": 4678372
+          },
+          "delegated": {
+            "amount": 7053400,
+            "currency": "BGN",
+            "amountEur": 3606346
+          },
+          "equalization": {
+            "amount": 982200,
+            "currency": "BGN",
+            "amountEur": 502191
+          },
+          "winter": {
+            "amount": 131600,
+            "currency": "BGN",
+            "amountEur": 67286
+          },
+          "capital": {
+            "amount": 982900,
+            "currency": "BGN",
+            "amountEur": 502549
+          },
+          "otherTargeted": {
+            "amount": 77800,
+            "currency": "BGN",
+            "amountEur": 39779
+          }
+        },
+        {
+          "ekatte": "00415",
+          "obshtinaCode": "SLS01",
+          "nameBg": "Алфатар",
+          "nameEn": "Alfatar",
+          "total": {
+            "amount": 8359600,
+            "currency": "BGN",
+            "amountEur": 4274196
+          },
+          "delegated": {
+            "amount": 6893300,
+            "currency": "BGN",
+            "amountEur": 3524488
+          },
+          "equalization": {
+            "amount": 756700,
+            "currency": "BGN",
+            "amountEur": 386895
+          },
+          "winter": {
+            "amount": 74400,
+            "currency": "BGN",
+            "amountEur": 38040
+          },
+          "capital": {
+            "amount": 635200,
+            "currency": "BGN",
+            "amountEur": 324773
+          },
+          "otherTargeted": {
+            "amount": 21200,
+            "currency": "BGN",
+            "amountEur": 10839
+          }
+        }
+      ]
+    }
+  ]
+}

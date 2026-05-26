@@ -24,6 +24,7 @@ import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
 import { TopSofiaAreasTile } from "./TopSofiaAreasTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { IndicatorsTile } from "./IndicatorsTile";
+import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
@@ -115,6 +116,7 @@ export const SofiaDashboardCards: FC = () => {
         <TopSofiaAreasTile parties={data.parties} />
         <CensusDemographicsTile regionCode="SOF" />
         <IndicatorsTile obshtinaCode="SOF00" />
+        <MunicipalityTransfersTile municipalityCode="SOF00" />
       </DashboardSection>
 
       <DashboardSection

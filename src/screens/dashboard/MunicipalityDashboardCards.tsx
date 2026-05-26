@@ -19,6 +19,7 @@ import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopSettlementsTile } from "./TopSettlementsTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { IndicatorsTile } from "./IndicatorsTile";
+import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
@@ -127,6 +128,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
             isMunicipality
           />
           <IndicatorsTile obshtinaCode={municipalityCode} />
+          <MunicipalityTransfersTile municipalityCode={municipalityCode} />
         </DashboardSection>
 
         <DashboardSection

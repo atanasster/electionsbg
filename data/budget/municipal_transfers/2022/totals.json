@@ -1,0 +1,64 @@
+{
+  "fiscalYear": 2022,
+  "asOf": "2022-01-01",
+  "source": {
+    "documentId": "law-2022",
+    "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+  },
+  "totals": {
+    "delegated": {
+      "amount": 4889285900,
+      "currency": "BGN",
+      "amountEur": 2499852186
+    },
+    "equalization": {
+      "amount": 379000000,
+      "currency": "BGN",
+      "amountEur": 193779623
+    },
+    "winter": {
+      "amount": 48228100,
+      "currency": "BGN",
+      "amountEur": 24658636
+    },
+    "capital": {
+      "amount": 296310200,
+      "currency": "BGN",
+      "amountEur": 151501000
+    },
+    "otherTargeted": null
+  },
+  "rowSum": {
+    "total": {
+      "amount": 5612824200,
+      "currency": "BGN",
+      "amountEur": 2869791444
+    },
+    "delegated": {
+      "amount": 4889285900,
+      "currency": "BGN",
+      "amountEur": 2499852186
+    },
+    "equalization": {
+      "amount": 379000000,
+      "currency": "BGN",
+      "amountEur": 193779623
+    },
+    "winter": {
+      "amount": 48228100,
+      "currency": "BGN",
+      "amountEur": 24658636
+    },
+    "capital": {
+      "amount": 296310200,
+      "currency": "BGN",
+      "amountEur": 151501000
+    },
+    "otherTargeted": {
+      "amount": 0,
+      "currency": "BGN",
+      "amountEur": 0
+    }
+  },
+  "reconciliationDeltasEur": {}
+}

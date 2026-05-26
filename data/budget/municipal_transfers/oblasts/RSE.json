@@ -1,0 +1,1593 @@
+{
+  "oblastCode": "RSE",
+  "oblastNameBg": "Русе",
+  "oblastNameEn": "Ruse",
+  "years": [
+    {
+      "fiscalYear": 2020,
+      "asOf": "2020-01-01",
+      "source": {
+        "documentId": "law-2020",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 118511900,
+          "currency": "BGN",
+          "amountEur": 60594173
+        },
+        "delegated": {
+          "amount": 101093800,
+          "currency": "BGN",
+          "amountEur": 51688439
+        },
+        "equalization": {
+          "amount": 11280700,
+          "currency": "BGN",
+          "amountEur": 5767730
+        },
+        "winter": {
+          "amount": 1201700,
+          "currency": "BGN",
+          "amountEur": 614419
+        },
+        "capital": {
+          "amount": 4935700,
+          "currency": "BGN",
+          "amountEur": 2523583
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "63427",
+          "obshtinaCode": "RSE27",
+          "nameBg": "Русе",
+          "nameEn": "Ruse",
+          "total": {
+            "amount": 80321500,
+            "currency": "BGN",
+            "amountEur": 41067731
+          },
+          "delegated": {
+            "amount": 72389000,
+            "currency": "BGN",
+            "amountEur": 37011908
+          },
+          "equalization": {
+            "amount": 6028000,
+            "currency": "BGN",
+            "amountEur": 3082067
+          },
+          "winter": {
+            "amount": 254800,
+            "currency": "BGN",
+            "amountEur": 130277
+          },
+          "capital": {
+            "amount": 1649700,
+            "currency": "BGN",
+            "amountEur": 843478
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "07603",
+          "obshtinaCode": "RSE04",
+          "nameBg": "Бяла",
+          "nameEn": "Byala",
+          "total": {
+            "amount": 7252100,
+            "currency": "BGN",
+            "amountEur": 3707940
+          },
+          "delegated": {
+            "amount": 5732900,
+            "currency": "BGN",
+            "amountEur": 2931185
+          },
+          "equalization": {
+            "amount": 920900,
+            "currency": "BGN",
+            "amountEur": 470849
+          },
+          "winter": {
+            "amount": 131500,
+            "currency": "BGN",
+            "amountEur": 67235
+          },
+          "capital": {
+            "amount": 466800,
+            "currency": "BGN",
+            "amountEur": 238671
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "10803",
+          "obshtinaCode": "RSE05",
+          "nameBg": "Ветово",
+          "nameEn": "Vetovo",
+          "total": {
+            "amount": 7024600,
+            "currency": "BGN",
+            "amountEur": 3591621
+          },
+          "delegated": {
+            "amount": 5509300,
+            "currency": "BGN",
+            "amountEur": 2816860
+          },
+          "equalization": {
+            "amount": 975300,
+            "currency": "BGN",
+            "amountEur": 498663
+          },
+          "winter": {
+            "amount": 125600,
+            "currency": "BGN",
+            "amountEur": 64218
+          },
+          "capital": {
+            "amount": 414400,
+            "currency": "BGN",
+            "amountEur": 211879
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "20184",
+          "obshtinaCode": "RSE08",
+          "nameBg": "Две могили",
+          "nameEn": "Dve mogili",
+          "total": {
+            "amount": 6237500,
+            "currency": "BGN",
+            "amountEur": 3189183
+          },
+          "delegated": {
+            "amount": 4826800,
+            "currency": "BGN",
+            "amountEur": 2467904
+          },
+          "equalization": {
+            "amount": 745200,
+            "currency": "BGN",
+            "amountEur": 381015
+          },
+          "winter": {
+            "amount": 143100,
+            "currency": "BGN",
+            "amountEur": 73166
+          },
+          "capital": {
+            "amount": 522400,
+            "currency": "BGN",
+            "amountEur": 267099
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "67444",
+          "obshtinaCode": "RSE33",
+          "nameBg": "Сливо поле",
+          "nameEn": "Slivo pole",
+          "total": {
+            "amount": 5985900,
+            "currency": "BGN",
+            "amountEur": 3060542
+          },
+          "delegated": {
+            "amount": 4511700,
+            "currency": "BGN",
+            "amountEur": 2306796
+          },
+          "equalization": {
+            "amount": 854600,
+            "currency": "BGN",
+            "amountEur": 436950
+          },
+          "winter": {
+            "amount": 128000,
+            "currency": "BGN",
+            "amountEur": 65445
+          },
+          "capital": {
+            "amount": 491600,
+            "currency": "BGN",
+            "amountEur": 251351
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "05611",
+          "obshtinaCode": "RSE03",
+          "nameBg": "Борово",
+          "nameEn": "Borovo",
+          "total": {
+            "amount": 4205200,
+            "currency": "BGN",
+            "amountEur": 2150085
+          },
+          "delegated": {
+            "amount": 3256000,
+            "currency": "BGN",
+            "amountEur": 1664766
+          },
+          "equalization": {
+            "amount": 515700,
+            "currency": "BGN",
+            "amountEur": 263673
+          },
+          "winter": {
+            "amount": 90900,
+            "currency": "BGN",
+            "amountEur": 46476
+          },
+          "capital": {
+            "amount": 342600,
+            "currency": "BGN",
+            "amountEur": 175169
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "32095",
+          "obshtinaCode": "RSE13",
+          "nameBg": "Иваново",
+          "nameEn": "Ivanovo",
+          "total": {
+            "amount": 4184400,
+            "currency": "BGN",
+            "amountEur": 2139450
+          },
+          "delegated": {
+            "amount": 2541700,
+            "currency": "BGN",
+            "amountEur": 1299551
+          },
+          "equalization": {
+            "amount": 741500,
+            "currency": "BGN",
+            "amountEur": 379123
+          },
+          "winter": {
+            "amount": 233700,
+            "currency": "BGN",
+            "amountEur": 119489
+          },
+          "capital": {
+            "amount": 667500,
+            "currency": "BGN",
+            "amountEur": 341287
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "78361",
+          "obshtinaCode": "RSE37",
+          "nameBg": "Ценово",
+          "nameEn": "Tsenovo",
+          "total": {
+            "amount": 3300700,
+            "currency": "BGN",
+            "amountEur": 1687621
+          },
+          "delegated": {
+            "amount": 2326400,
+            "currency": "BGN",
+            "amountEur": 1189469
+          },
+          "equalization": {
+            "amount": 499500,
+            "currency": "BGN",
+            "amountEur": 255390
+          },
+          "winter": {
+            "amount": 94100,
+            "currency": "BGN",
+            "amountEur": 48113
+          },
+          "capital": {
+            "amount": 380700,
+            "currency": "BGN",
+            "amountEur": 194649
+          },
+          "otherTargeted": null
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2022,
+      "asOf": "2022-01-01",
+      "source": {
+        "documentId": "law-2022",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 157350100,
+          "currency": "BGN",
+          "amountEur": 80451827
+        },
+        "delegated": {
+          "amount": 134679500,
+          "currency": "BGN",
+          "amountEur": 68860534
+        },
+        "equalization": {
+          "amount": 14077000,
+          "currency": "BGN",
+          "amountEur": 7197455
+        },
+        "winter": {
+          "amount": 1337400,
+          "currency": "BGN",
+          "amountEur": 683802
+        },
+        "capital": {
+          "amount": 7256200,
+          "currency": "BGN",
+          "amountEur": 3710035
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "63427",
+          "obshtinaCode": "RSE27",
+          "nameBg": "Русе",
+          "nameEn": "Ruse",
+          "total": {
+            "amount": 107708300,
+            "currency": "BGN",
+            "amountEur": 55070379
+          },
+          "delegated": {
+            "amount": 97480000,
+            "currency": "BGN",
+            "amountEur": 49840733
+          },
+          "equalization": {
+            "amount": 7515300,
+            "currency": "BGN",
+            "amountEur": 3842512
+          },
+          "winter": {
+            "amount": 282600,
+            "currency": "BGN",
+            "amountEur": 144491
+          },
+          "capital": {
+            "amount": 2430400,
+            "currency": "BGN",
+            "amountEur": 1242644
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "10803",
+          "obshtinaCode": "RSE05",
+          "nameBg": "Ветово",
+          "nameEn": "Vetovo",
+          "total": {
+            "amount": 9186600,
+            "currency": "BGN",
+            "amountEur": 4697034
+          },
+          "delegated": {
+            "amount": 7225400,
+            "currency": "BGN",
+            "amountEur": 3694288
+          },
+          "equalization": {
+            "amount": 1216800,
+            "currency": "BGN",
+            "amountEur": 622140
+          },
+          "winter": {
+            "amount": 139900,
+            "currency": "BGN",
+            "amountEur": 71530
+          },
+          "capital": {
+            "amount": 604500,
+            "currency": "BGN",
+            "amountEur": 309076
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "07603",
+          "obshtinaCode": "RSE04",
+          "nameBg": "Бяла",
+          "nameEn": "Byala",
+          "total": {
+            "amount": 9176800,
+            "currency": "BGN",
+            "amountEur": 4692023
+          },
+          "delegated": {
+            "amount": 7367900,
+            "currency": "BGN",
+            "amountEur": 3767147
+          },
+          "equalization": {
+            "amount": 967800,
+            "currency": "BGN",
+            "amountEur": 494828
+          },
+          "winter": {
+            "amount": 146400,
+            "currency": "BGN",
+            "amountEur": 74853
+          },
+          "capital": {
+            "amount": 694700,
+            "currency": "BGN",
+            "amountEur": 355194
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "20184",
+          "obshtinaCode": "RSE08",
+          "nameBg": "Две могили",
+          "nameEn": "Dve mogili",
+          "total": {
+            "amount": 7886400,
+            "currency": "BGN",
+            "amountEur": 4032252
+          },
+          "delegated": {
+            "amount": 6047000,
+            "currency": "BGN",
+            "amountEur": 3091782
+          },
+          "equalization": {
+            "amount": 915000,
+            "currency": "BGN",
+            "amountEur": 467832
+          },
+          "winter": {
+            "amount": 159300,
+            "currency": "BGN",
+            "amountEur": 81449
+          },
+          "capital": {
+            "amount": 765100,
+            "currency": "BGN",
+            "amountEur": 391189
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "67444",
+          "obshtinaCode": "RSE33",
+          "nameBg": "Сливо поле",
+          "nameEn": "Slivo pole",
+          "total": {
+            "amount": 7881900,
+            "currency": "BGN",
+            "amountEur": 4029951
+          },
+          "delegated": {
+            "amount": 5901700,
+            "currency": "BGN",
+            "amountEur": 3017491
+          },
+          "equalization": {
+            "amount": 1113900,
+            "currency": "BGN",
+            "amountEur": 569528
+          },
+          "winter": {
+            "amount": 142700,
+            "currency": "BGN",
+            "amountEur": 72961
+          },
+          "capital": {
+            "amount": 723600,
+            "currency": "BGN",
+            "amountEur": 369971
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "32095",
+          "obshtinaCode": "RSE13",
+          "nameBg": "Иваново",
+          "nameEn": "Ivanovo",
+          "total": {
+            "amount": 5832700,
+            "currency": "BGN",
+            "amountEur": 2982212
+          },
+          "delegated": {
+            "amount": 3497000,
+            "currency": "BGN",
+            "amountEur": 1787988
+          },
+          "equalization": {
+            "amount": 1086400,
+            "currency": "BGN",
+            "amountEur": 555467
+          },
+          "winter": {
+            "amount": 260500,
+            "currency": "BGN",
+            "amountEur": 133192
+          },
+          "capital": {
+            "amount": 988800,
+            "currency": "BGN",
+            "amountEur": 505565
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "05611",
+          "obshtinaCode": "RSE03",
+          "nameBg": "Борово",
+          "nameEn": "Borovo",
+          "total": {
+            "amount": 5334300,
+            "currency": "BGN",
+            "amountEur": 2727384
+          },
+          "delegated": {
+            "amount": 4081800,
+            "currency": "BGN",
+            "amountEur": 2086991
+          },
+          "equalization": {
+            "amount": 655200,
+            "currency": "BGN",
+            "amountEur": 334998
+          },
+          "winter": {
+            "amount": 101200,
+            "currency": "BGN",
+            "amountEur": 51743
+          },
+          "capital": {
+            "amount": 496100,
+            "currency": "BGN",
+            "amountEur": 253652
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "78361",
+          "obshtinaCode": "RSE37",
+          "nameBg": "Ценово",
+          "nameEn": "Tsenovo",
+          "total": {
+            "amount": 4343100,
+            "currency": "BGN",
+            "amountEur": 2220592
+          },
+          "delegated": {
+            "amount": 3078700,
+            "currency": "BGN",
+            "amountEur": 1574114
+          },
+          "equalization": {
+            "amount": 606600,
+            "currency": "BGN",
+            "amountEur": 310150
+          },
+          "winter": {
+            "amount": 104800,
+            "currency": "BGN",
+            "amountEur": 53583
+          },
+          "capital": {
+            "amount": 553000,
+            "currency": "BGN",
+            "amountEur": 282744
+          },
+          "otherTargeted": null
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2023,
+      "asOf": "2023-01-01",
+      "source": {
+        "documentId": "law-2023",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 191758100,
+          "currency": "BGN",
+          "amountEur": 98044359
+        },
+        "delegated": {
+          "amount": 165990200,
+          "currency": "BGN",
+          "amountEur": 84869442
+        },
+        "equalization": {
+          "amount": 14148800,
+          "currency": "BGN",
+          "amountEur": 7234166
+        },
+        "winter": {
+          "amount": 1334800,
+          "currency": "BGN",
+          "amountEur": 682471
+        },
+        "capital": {
+          "amount": 10284300,
+          "currency": "BGN",
+          "amountEur": 5258280
+        },
+        "otherTargeted": {
+          "amount": 1424700,
+          "currency": "BGN",
+          "amountEur": 728439
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "63427",
+          "obshtinaCode": "RSE27",
+          "nameBg": "Русе",
+          "nameEn": "Ruse",
+          "total": {
+            "amount": 131773100,
+            "currency": "BGN",
+            "amountEur": 67374516
+          },
+          "delegated": {
+            "amount": 120519500,
+            "currency": "BGN",
+            "amountEur": 61620642
+          },
+          "equalization": {
+            "amount": 7515300,
+            "currency": "BGN",
+            "amountEur": 3842512
+          },
+          "winter": {
+            "amount": 281300,
+            "currency": "BGN",
+            "amountEur": 143826
+          },
+          "capital": {
+            "amount": 3457000,
+            "currency": "BGN",
+            "amountEur": 1767536
+          },
+          "otherTargeted": {
+            "amount": 827200,
+            "currency": "BGN",
+            "amountEur": 422941
+          }
+        },
+        {
+          "ekatte": "07603",
+          "obshtinaCode": "RSE04",
+          "nameBg": "Бяла",
+          "nameEn": "Byala",
+          "total": {
+            "amount": 11148400,
+            "currency": "BGN",
+            "amountEur": 5700086
+          },
+          "delegated": {
+            "amount": 9026700,
+            "currency": "BGN",
+            "amountEur": 4615278
+          },
+          "equalization": {
+            "amount": 976000,
+            "currency": "BGN",
+            "amountEur": 499021
+          },
+          "winter": {
+            "amount": 146200,
+            "currency": "BGN",
+            "amountEur": 74751
+          },
+          "capital": {
+            "amount": 999500,
+            "currency": "BGN",
+            "amountEur": 511036
+          },
+          "otherTargeted": {
+            "amount": 186500,
+            "currency": "BGN",
+            "amountEur": 95356
+          }
+        },
+        {
+          "ekatte": "10803",
+          "obshtinaCode": "RSE05",
+          "nameBg": "Ветово",
+          "nameEn": "Vetovo",
+          "total": {
+            "amount": 11045000,
+            "currency": "BGN",
+            "amountEur": 5647219
+          },
+          "delegated": {
+            "amount": 8820600,
+            "currency": "BGN",
+            "amountEur": 4509901
+          },
+          "equalization": {
+            "amount": 1235300,
+            "currency": "BGN",
+            "amountEur": 631599
+          },
+          "winter": {
+            "amount": 139700,
+            "currency": "BGN",
+            "amountEur": 71427
+          },
+          "capital": {
+            "amount": 849400,
+            "currency": "BGN",
+            "amountEur": 434291
+          },
+          "otherTargeted": {
+            "amount": 28700,
+            "currency": "BGN",
+            "amountEur": 14674
+          }
+        },
+        {
+          "ekatte": "20184",
+          "obshtinaCode": "RSE08",
+          "nameBg": "Две могили",
+          "nameEn": "Dve mogili",
+          "total": {
+            "amount": 9605800,
+            "currency": "BGN",
+            "amountEur": 4911368
+          },
+          "delegated": {
+            "amount": 7441300,
+            "currency": "BGN",
+            "amountEur": 3804676
+          },
+          "equalization": {
+            "amount": 921200,
+            "currency": "BGN",
+            "amountEur": 471002
+          },
+          "winter": {
+            "amount": 159200,
+            "currency": "BGN",
+            "amountEur": 81398
+          },
+          "capital": {
+            "amount": 1084100,
+            "currency": "BGN",
+            "amountEur": 554292
+          },
+          "otherTargeted": {
+            "amount": 98000,
+            "currency": "BGN",
+            "amountEur": 50107
+          }
+        },
+        {
+          "ekatte": "67444",
+          "obshtinaCode": "RSE33",
+          "nameBg": "Сливо поле",
+          "nameEn": "Slivo pole",
+          "total": {
+            "amount": 9460000,
+            "currency": "BGN",
+            "amountEur": 4836821
+          },
+          "delegated": {
+            "amount": 7187700,
+            "currency": "BGN",
+            "amountEur": 3675013
+          },
+          "equalization": {
+            "amount": 1113900,
+            "currency": "BGN",
+            "amountEur": 569528
+          },
+          "winter": {
+            "amount": 142400,
+            "currency": "BGN",
+            "amountEur": 72808
+          },
+          "capital": {
+            "amount": 1016000,
+            "currency": "BGN",
+            "amountEur": 519473
+          },
+          "otherTargeted": {
+            "amount": 125500,
+            "currency": "BGN",
+            "amountEur": 64167
+          }
+        },
+        {
+          "ekatte": "32095",
+          "obshtinaCode": "RSE13",
+          "nameBg": "Иваново",
+          "nameEn": "Ivanovo",
+          "total": {
+            "amount": 7040300,
+            "currency": "BGN",
+            "amountEur": 3599648
+          },
+          "delegated": {
+            "amount": 4287500,
+            "currency": "BGN",
+            "amountEur": 2192164
+          },
+          "equalization": {
+            "amount": 1086400,
+            "currency": "BGN",
+            "amountEur": 555467
+          },
+          "winter": {
+            "amount": 260300,
+            "currency": "BGN",
+            "amountEur": 133089
+          },
+          "capital": {
+            "amount": 1406100,
+            "currency": "BGN",
+            "amountEur": 718928
+          },
+          "otherTargeted": {
+            "amount": 57900,
+            "currency": "BGN",
+            "amountEur": 29604
+          }
+        },
+        {
+          "ekatte": "05611",
+          "obshtinaCode": "RSE03",
+          "nameBg": "Борово",
+          "nameEn": "Borovo",
+          "total": {
+            "amount": 6395200,
+            "currency": "BGN",
+            "amountEur": 3269814
+          },
+          "delegated": {
+            "amount": 4948300,
+            "currency": "BGN",
+            "amountEur": 2530026
+          },
+          "equalization": {
+            "amount": 655200,
+            "currency": "BGN",
+            "amountEur": 334998
+          },
+          "winter": {
+            "amount": 101000,
+            "currency": "BGN",
+            "amountEur": 51640
+          },
+          "capital": {
+            "amount": 690700,
+            "currency": "BGN",
+            "amountEur": 353149
+          },
+          "otherTargeted": {
+            "amount": 40000,
+            "currency": "BGN",
+            "amountEur": 20452
+          }
+        },
+        {
+          "ekatte": "78361",
+          "obshtinaCode": "RSE37",
+          "nameBg": "Ценово",
+          "nameEn": "Tsenovo",
+          "total": {
+            "amount": 5290300,
+            "currency": "BGN",
+            "amountEur": 2704887
+          },
+          "delegated": {
+            "amount": 3758600,
+            "currency": "BGN",
+            "amountEur": 1921742
+          },
+          "equalization": {
+            "amount": 645500,
+            "currency": "BGN",
+            "amountEur": 330039
+          },
+          "winter": {
+            "amount": 104700,
+            "currency": "BGN",
+            "amountEur": 53532
+          },
+          "capital": {
+            "amount": 781500,
+            "currency": "BGN",
+            "amountEur": 399575
+          },
+          "otherTargeted": {
+            "amount": 60900,
+            "currency": "BGN",
+            "amountEur": 31138
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2024,
+      "asOf": "2024-01-01",
+      "source": {
+        "documentId": "law-2024",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 214371300,
+          "currency": "BGN",
+          "amountEur": 109606305
+        },
+        "delegated": {
+          "amount": 188558600,
+          "currency": "BGN",
+          "amountEur": 96408482
+        },
+        "equalization": {
+          "amount": 14164800,
+          "currency": "BGN",
+          "amountEur": 7242346
+        },
+        "winter": {
+          "amount": 1334700,
+          "currency": "BGN",
+          "amountEur": 682420
+        },
+        "capital": {
+          "amount": 10313200,
+          "currency": "BGN",
+          "amountEur": 5273056
+        },
+        "otherTargeted": {
+          "amount": 1709800,
+          "currency": "BGN",
+          "amountEur": 874206
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "63427",
+          "obshtinaCode": "RSE27",
+          "nameBg": "Русе",
+          "nameEn": "Ruse",
+          "total": {
+            "amount": 148468000,
+            "currency": "BGN",
+            "amountEur": 75910483
+          },
+          "delegated": {
+            "amount": 137214100,
+            "currency": "BGN",
+            "amountEur": 70156455
+          },
+          "equalization": {
+            "amount": 7515300,
+            "currency": "BGN",
+            "amountEur": 3842512
+          },
+          "winter": {
+            "amount": 281200,
+            "currency": "BGN",
+            "amountEur": 143775
+          },
+          "capital": {
+            "amount": 3457400,
+            "currency": "BGN",
+            "amountEur": 1767741
+          },
+          "otherTargeted": {
+            "amount": 992600,
+            "currency": "BGN",
+            "amountEur": 507508
+          }
+        },
+        {
+          "ekatte": "07603",
+          "obshtinaCode": "RSE04",
+          "nameBg": "Бяла",
+          "nameEn": "Byala",
+          "total": {
+            "amount": 12424700,
+            "currency": "BGN",
+            "amountEur": 6352648
+          },
+          "delegated": {
+            "amount": 10290300,
+            "currency": "BGN",
+            "amountEur": 5261347
+          },
+          "equalization": {
+            "amount": 984400,
+            "currency": "BGN",
+            "amountEur": 503316
+          },
+          "winter": {
+            "amount": 146200,
+            "currency": "BGN",
+            "amountEur": 74751
+          },
+          "capital": {
+            "amount": 1003800,
+            "currency": "BGN",
+            "amountEur": 513235
+          },
+          "otherTargeted": {
+            "amount": 223900,
+            "currency": "BGN",
+            "amountEur": 114478
+          }
+        },
+        {
+          "ekatte": "10803",
+          "obshtinaCode": "RSE05",
+          "nameBg": "Ветово",
+          "nameEn": "Vetovo",
+          "total": {
+            "amount": 11970000,
+            "currency": "BGN",
+            "amountEur": 6120164
+          },
+          "delegated": {
+            "amount": 9742800,
+            "currency": "BGN",
+            "amountEur": 4981415
+          },
+          "equalization": {
+            "amount": 1235300,
+            "currency": "BGN",
+            "amountEur": 631599
+          },
+          "winter": {
+            "amount": 139700,
+            "currency": "BGN",
+            "amountEur": 71427
+          },
+          "capital": {
+            "amount": 852200,
+            "currency": "BGN",
+            "amountEur": 435723
+          },
+          "otherTargeted": {
+            "amount": 34400,
+            "currency": "BGN",
+            "amountEur": 17588
+          }
+        },
+        {
+          "ekatte": "67444",
+          "obshtinaCode": "RSE33",
+          "nameBg": "Сливо поле",
+          "nameEn": "Slivo pole",
+          "total": {
+            "amount": 10665500,
+            "currency": "BGN",
+            "amountEur": 5453184
+          },
+          "delegated": {
+            "amount": 8388300,
+            "currency": "BGN",
+            "amountEur": 4288870
+          },
+          "equalization": {
+            "amount": 1113900,
+            "currency": "BGN",
+            "amountEur": 569528
+          },
+          "winter": {
+            "amount": 142400,
+            "currency": "BGN",
+            "amountEur": 72808
+          },
+          "capital": {
+            "amount": 1020900,
+            "currency": "BGN",
+            "amountEur": 521978
+          },
+          "otherTargeted": {
+            "amount": 150700,
+            "currency": "BGN",
+            "amountEur": 77052
+          }
+        },
+        {
+          "ekatte": "20184",
+          "obshtinaCode": "RSE08",
+          "nameBg": "Две могили",
+          "nameEn": "Dve mogili",
+          "total": {
+            "amount": 10464100,
+            "currency": "BGN",
+            "amountEur": 5350209
+          },
+          "delegated": {
+            "amount": 8288500,
+            "currency": "BGN",
+            "amountEur": 4237843
+          },
+          "equalization": {
+            "amount": 926900,
+            "currency": "BGN",
+            "amountEur": 473916
+          },
+          "winter": {
+            "amount": 159200,
+            "currency": "BGN",
+            "amountEur": 81398
+          },
+          "capital": {
+            "amount": 1089500,
+            "currency": "BGN",
+            "amountEur": 557053
+          },
+          "otherTargeted": {
+            "amount": 117600,
+            "currency": "BGN",
+            "amountEur": 60128
+          }
+        },
+        {
+          "ekatte": "32095",
+          "obshtinaCode": "RSE13",
+          "nameBg": "Иваново",
+          "nameEn": "Ivanovo",
+          "total": {
+            "amount": 7450500,
+            "currency": "BGN",
+            "amountEur": 3809380
+          },
+          "delegated": {
+            "amount": 4693200,
+            "currency": "BGN",
+            "amountEur": 2399595
+          },
+          "equalization": {
+            "amount": 1086400,
+            "currency": "BGN",
+            "amountEur": 555467
+          },
+          "winter": {
+            "amount": 260300,
+            "currency": "BGN",
+            "amountEur": 133089
+          },
+          "capital": {
+            "amount": 1410600,
+            "currency": "BGN",
+            "amountEur": 721228
+          },
+          "otherTargeted": {
+            "amount": 69500,
+            "currency": "BGN",
+            "amountEur": 35535
+          }
+        },
+        {
+          "ekatte": "05611",
+          "obshtinaCode": "RSE03",
+          "nameBg": "Борово",
+          "nameEn": "Borovo",
+          "total": {
+            "amount": 7223700,
+            "currency": "BGN",
+            "amountEur": 3693419
+          },
+          "delegated": {
+            "amount": 5773900,
+            "currency": "BGN",
+            "amountEur": 2952148
+          },
+          "equalization": {
+            "amount": 655200,
+            "currency": "BGN",
+            "amountEur": 334998
+          },
+          "winter": {
+            "amount": 101000,
+            "currency": "BGN",
+            "amountEur": 51640
+          },
+          "capital": {
+            "amount": 693600,
+            "currency": "BGN",
+            "amountEur": 354632
+          },
+          "otherTargeted": {
+            "amount": 48000,
+            "currency": "BGN",
+            "amountEur": 24542
+          }
+        },
+        {
+          "ekatte": "78361",
+          "obshtinaCode": "RSE37",
+          "nameBg": "Ценово",
+          "nameEn": "Tsenovo",
+          "total": {
+            "amount": 5704800,
+            "currency": "BGN",
+            "amountEur": 2916818
+          },
+          "delegated": {
+            "amount": 4167500,
+            "currency": "BGN",
+            "amountEur": 2130809
+          },
+          "equalization": {
+            "amount": 647400,
+            "currency": "BGN",
+            "amountEur": 331010
+          },
+          "winter": {
+            "amount": 104700,
+            "currency": "BGN",
+            "amountEur": 53532
+          },
+          "capital": {
+            "amount": 785200,
+            "currency": "BGN",
+            "amountEur": 401466
+          },
+          "otherTargeted": {
+            "amount": 73100,
+            "currency": "BGN",
+            "amountEur": 37375
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2025,
+      "asOf": "2025-01-01",
+      "source": {
+        "documentId": "law-2025",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 239151400,
+          "currency": "BGN",
+          "amountEur": 122276169
+        },
+        "delegated": {
+          "amount": 212087800,
+          "currency": "BGN",
+          "amountEur": 108438771
+        },
+        "equalization": {
+          "amount": 14773800,
+          "currency": "BGN",
+          "amountEur": 7553723
+        },
+        "winter": {
+          "amount": 1354300,
+          "currency": "BGN",
+          "amountEur": 692442
+        },
+        "capital": {
+          "amount": 10935500,
+          "currency": "BGN",
+          "amountEur": 5591232
+        },
+        "otherTargeted": {
+          "amount": 2057400,
+          "currency": "BGN",
+          "amountEur": 1051931
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "63427",
+          "obshtinaCode": "RSE27",
+          "nameBg": "Русе",
+          "nameEn": "Ruse",
+          "total": {
+            "amount": 165867800,
+            "currency": "BGN",
+            "amountEur": 84806859
+          },
+          "delegated": {
+            "amount": 154395300,
+            "currency": "BGN",
+            "amountEur": 78941063
+          },
+          "equalization": {
+            "amount": 7520300,
+            "currency": "BGN",
+            "amountEur": 3845068
+          },
+          "winter": {
+            "amount": 285000,
+            "currency": "BGN",
+            "amountEur": 145718
+          },
+          "capital": {
+            "amount": 3667200,
+            "currency": "BGN",
+            "amountEur": 1875010
+          },
+          "otherTargeted": {
+            "amount": 1214800,
+            "currency": "BGN",
+            "amountEur": 621117
+          }
+        },
+        {
+          "ekatte": "07603",
+          "obshtinaCode": "RSE04",
+          "nameBg": "Бяла",
+          "nameEn": "Byala",
+          "total": {
+            "amount": 13842400,
+            "currency": "BGN",
+            "amountEur": 7077507
+          },
+          "delegated": {
+            "amount": 11543600,
+            "currency": "BGN",
+            "amountEur": 5902149
+          },
+          "equalization": {
+            "amount": 1083000,
+            "currency": "BGN",
+            "amountEur": 553729
+          },
+          "winter": {
+            "amount": 148400,
+            "currency": "BGN",
+            "amountEur": 75876
+          },
+          "capital": {
+            "amount": 1067400,
+            "currency": "BGN",
+            "amountEur": 545753
+          },
+          "otherTargeted": {
+            "amount": 266500,
+            "currency": "BGN",
+            "amountEur": 136259
+          }
+        },
+        {
+          "ekatte": "10803",
+          "obshtinaCode": "RSE05",
+          "nameBg": "Ветово",
+          "nameEn": "Vetovo",
+          "total": {
+            "amount": 13243500,
+            "currency": "BGN",
+            "amountEur": 6771294
+          },
+          "delegated": {
+            "amount": 10734600,
+            "currency": "BGN",
+            "amountEur": 5488514
+          },
+          "equalization": {
+            "amount": 1463600,
+            "currency": "BGN",
+            "amountEur": 748327
+          },
+          "winter": {
+            "amount": 141800,
+            "currency": "BGN",
+            "amountEur": 72501
+          },
+          "capital": {
+            "amount": 903500,
+            "currency": "BGN",
+            "amountEur": 461952
+          },
+          "otherTargeted": {
+            "amount": 35400,
+            "currency": "BGN",
+            "amountEur": 18100
+          }
+        },
+        {
+          "ekatte": "67444",
+          "obshtinaCode": "RSE33",
+          "nameBg": "Сливо поле",
+          "nameEn": "Slivo pole",
+          "total": {
+            "amount": 11691400,
+            "currency": "BGN",
+            "amountEur": 5977718
+          },
+          "delegated": {
+            "amount": 9351900,
+            "currency": "BGN",
+            "amountEur": 4781551
+          },
+          "equalization": {
+            "amount": 1113900,
+            "currency": "BGN",
+            "amountEur": 569528
+          },
+          "winter": {
+            "amount": 144500,
+            "currency": "BGN",
+            "amountEur": 73882
+          },
+          "capital": {
+            "amount": 1081100,
+            "currency": "BGN",
+            "amountEur": 552758
+          },
+          "otherTargeted": {
+            "amount": 163800,
+            "currency": "BGN",
+            "amountEur": 83750
+          }
+        },
+        {
+          "ekatte": "20184",
+          "obshtinaCode": "RSE08",
+          "nameBg": "Две могили",
+          "nameEn": "Dve mogili",
+          "total": {
+            "amount": 11364200,
+            "currency": "BGN",
+            "amountEur": 5810423
+          },
+          "delegated": {
+            "amount": 9073300,
+            "currency": "BGN",
+            "amountEur": 4639105
+          },
+          "equalization": {
+            "amount": 974300,
+            "currency": "BGN",
+            "amountEur": 498152
+          },
+          "winter": {
+            "amount": 161600,
+            "currency": "BGN",
+            "amountEur": 82625
+          },
+          "capital": {
+            "amount": 1155000,
+            "currency": "BGN",
+            "amountEur": 590542
+          },
+          "otherTargeted": {
+            "amount": 141100,
+            "currency": "BGN",
+            "amountEur": 72143
+          }
+        },
+        {
+          "ekatte": "05611",
+          "obshtinaCode": "RSE03",
+          "nameBg": "Борово",
+          "nameEn": "Borovo",
+          "total": {
+            "amount": 8344200,
+            "currency": "BGN",
+            "amountEur": 4266322
+          },
+          "delegated": {
+            "amount": 6721900,
+            "currency": "BGN",
+            "amountEur": 3436853
+          },
+          "equalization": {
+            "amount": 786000,
+            "currency": "BGN",
+            "amountEur": 401875
+          },
+          "winter": {
+            "amount": 102500,
+            "currency": "BGN",
+            "amountEur": 52407
+          },
+          "capital": {
+            "amount": 733800,
+            "currency": "BGN",
+            "amountEur": 375186
+          },
+          "otherTargeted": {
+            "amount": 66700,
+            "currency": "BGN",
+            "amountEur": 34103
+          }
+        },
+        {
+          "ekatte": "32095",
+          "obshtinaCode": "RSE13",
+          "nameBg": "Иваново",
+          "nameEn": "Ivanovo",
+          "total": {
+            "amount": 8343200,
+            "currency": "BGN",
+            "amountEur": 4265810
+          },
+          "delegated": {
+            "amount": 5398500,
+            "currency": "BGN",
+            "amountEur": 2760209
+          },
+          "equalization": {
+            "amount": 1183900,
+            "currency": "BGN",
+            "amountEur": 605318
+          },
+          "winter": {
+            "amount": 264200,
+            "currency": "BGN",
+            "amountEur": 135083
+          },
+          "capital": {
+            "amount": 1496600,
+            "currency": "BGN",
+            "amountEur": 765199
+          },
+          "otherTargeted": {
+            "amount": 81600,
+            "currency": "BGN",
+            "amountEur": 41721
+          }
+        },
+        {
+          "ekatte": "78361",
+          "obshtinaCode": "RSE37",
+          "nameBg": "Ценово",
+          "nameEn": "Tsenovo",
+          "total": {
+            "amount": 6454700,
+            "currency": "BGN",
+            "amountEur": 3300236
+          },
+          "delegated": {
+            "amount": 4868700,
+            "currency": "BGN",
+            "amountEur": 2489327
+          },
+          "equalization": {
+            "amount": 648800,
+            "currency": "BGN",
+            "amountEur": 331726
+          },
+          "winter": {
+            "amount": 106300,
+            "currency": "BGN",
+            "amountEur": 54350
+          },
+          "capital": {
+            "amount": 830900,
+            "currency": "BGN",
+            "amountEur": 424832
+          },
+          "otherTargeted": {
+            "amount": 87500,
+            "currency": "BGN",
+            "amountEur": 44738
+          }
+        }
+      ]
+    }
+  ]
+}

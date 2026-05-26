@@ -1,0 +1,64 @@
+{
+  "fiscalYear": 2020,
+  "asOf": "2020-01-01",
+  "source": {
+    "documentId": "law-2020",
+    "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+  },
+  "totals": {
+    "delegated": {
+      "amount": 3653185200,
+      "currency": "BGN",
+      "amountEur": 1867843933
+    },
+    "equalization": {
+      "amount": 307022000,
+      "currency": "BGN",
+      "amountEur": 156977856
+    },
+    "winter": {
+      "amount": 43228100,
+      "currency": "BGN",
+      "amountEur": 22102177
+    },
+    "capital": {
+      "amount": 199110200,
+      "currency": "BGN",
+      "amountEur": 101803429
+    },
+    "otherTargeted": null
+  },
+  "rowSum": {
+    "total": {
+      "amount": 4202545500,
+      "currency": "BGN",
+      "amountEur": 2148727395
+    },
+    "delegated": {
+      "amount": 3653185200,
+      "currency": "BGN",
+      "amountEur": 1867843933
+    },
+    "equalization": {
+      "amount": 307022000,
+      "currency": "BGN",
+      "amountEur": 156977856
+    },
+    "winter": {
+      "amount": 43228100,
+      "currency": "BGN",
+      "amountEur": 22102177
+    },
+    "capital": {
+      "amount": 199110200,
+      "currency": "BGN",
+      "amountEur": 101803429
+    },
+    "otherTargeted": {
+      "amount": 0,
+      "currency": "BGN",
+      "amountEur": 0
+    }
+  },
+  "reconciliationDeltasEur": {}
+}

@@ -1,0 +1,2109 @@
+{
+  "oblastCode": "HKV",
+  "oblastNameBg": "Хасково",
+  "oblastNameEn": "Haskovo",
+  "years": [
+    {
+      "fiscalYear": 2020,
+      "asOf": "2020-01-01",
+      "source": {
+        "documentId": "law-2020",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 143202000,
+          "currency": "BGN",
+          "amountEur": 73218020
+        },
+        "delegated": {
+          "amount": 119827200,
+          "currency": "BGN",
+          "amountEur": 61266673
+        },
+        "equalization": {
+          "amount": 12953700,
+          "currency": "BGN",
+          "amountEur": 6623120
+        },
+        "winter": {
+          "amount": 1616000,
+          "currency": "BGN",
+          "amountEur": 826247
+        },
+        "capital": {
+          "amount": 8805100,
+          "currency": "BGN",
+          "amountEur": 4501976
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "77195",
+          "obshtinaCode": "HKV34",
+          "nameBg": "Хасково",
+          "nameEn": "Haskovo",
+          "total": {
+            "amount": 51516000,
+            "currency": "BGN",
+            "amountEur": 26339713
+          },
+          "delegated": {
+            "amount": 47339700,
+            "currency": "BGN",
+            "amountEur": 24204404
+          },
+          "equalization": {
+            "amount": 2319400,
+            "currency": "BGN",
+            "amountEur": 1185890
+          },
+          "winter": {
+            "amount": 226500,
+            "currency": "BGN",
+            "amountEur": 115808
+          },
+          "capital": {
+            "amount": 1630400,
+            "currency": "BGN",
+            "amountEur": 833610
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "21052",
+          "obshtinaCode": "HKV09",
+          "nameBg": "Димитровград",
+          "nameEn": "Dimitrovgrad",
+          "total": {
+            "amount": 24853100,
+            "currency": "BGN",
+            "amountEur": 12707188
+          },
+          "delegated": {
+            "amount": 20824900,
+            "currency": "BGN",
+            "amountEur": 10647602
+          },
+          "equalization": {
+            "amount": 2679100,
+            "currency": "BGN",
+            "amountEur": 1369802
+          },
+          "winter": {
+            "amount": 200500,
+            "currency": "BGN",
+            "amountEur": 102514
+          },
+          "capital": {
+            "amount": 1148600,
+            "currency": "BGN",
+            "amountEur": 587270
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "65677",
+          "obshtinaCode": "HKV28",
+          "nameBg": "Свиленград",
+          "nameEn": "Svilengrad",
+          "total": {
+            "amount": 14913300,
+            "currency": "BGN",
+            "amountEur": 7625049
+          },
+          "delegated": {
+            "amount": 12537700,
+            "currency": "BGN",
+            "amountEur": 6410424
+          },
+          "equalization": {
+            "amount": 1385900,
+            "currency": "BGN",
+            "amountEur": 708599
+          },
+          "winter": {
+            "amount": 165200,
+            "currency": "BGN",
+            "amountEur": 84465
+          },
+          "capital": {
+            "amount": 824500,
+            "currency": "BGN",
+            "amountEur": 421560
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "77181",
+          "obshtinaCode": "HKV33",
+          "nameBg": "Харманли",
+          "nameEn": "Harmanli",
+          "total": {
+            "amount": 13888500,
+            "currency": "BGN",
+            "amountEur": 7101077
+          },
+          "delegated": {
+            "amount": 11155900,
+            "currency": "BGN",
+            "amountEur": 5703921
+          },
+          "equalization": {
+            "amount": 1634400,
+            "currency": "BGN",
+            "amountEur": 835655
+          },
+          "winter": {
+            "amount": 174700,
+            "currency": "BGN",
+            "amountEur": 89323
+          },
+          "capital": {
+            "amount": 923500,
+            "currency": "BGN",
+            "amountEur": 472178
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "72761",
+          "obshtinaCode": "HKV32",
+          "nameBg": "Тополовград",
+          "nameEn": "Topolovgrad",
+          "total": {
+            "amount": 7746000,
+            "currency": "BGN",
+            "amountEur": 3960467
+          },
+          "delegated": {
+            "amount": 6081900,
+            "currency": "BGN",
+            "amountEur": 3109626
+          },
+          "equalization": {
+            "amount": 935500,
+            "currency": "BGN",
+            "amountEur": 478314
+          },
+          "winter": {
+            "amount": 97900,
+            "currency": "BGN",
+            "amountEur": 50055
+          },
+          "capital": {
+            "amount": 630700,
+            "currency": "BGN",
+            "amountEur": 322472
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "44570",
+          "obshtinaCode": "HKV17",
+          "nameBg": "Любимец",
+          "nameEn": "Lyubimets",
+          "total": {
+            "amount": 6578500,
+            "currency": "BGN",
+            "amountEur": 3363534
+          },
+          "delegated": {
+            "amount": 5202000,
+            "currency": "BGN",
+            "amountEur": 2659740
+          },
+          "equalization": {
+            "amount": 892200,
+            "currency": "BGN",
+            "amountEur": 456175
+          },
+          "winter": {
+            "amount": 65100,
+            "currency": "BGN",
+            "amountEur": 33285
+          },
+          "capital": {
+            "amount": 419200,
+            "currency": "BGN",
+            "amountEur": 214334
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "47278",
+          "obshtinaCode": "HKV29",
+          "nameBg": "Симеоновград",
+          "nameEn": "Simeonovgrad",
+          "total": {
+            "amount": 6113300,
+            "currency": "BGN",
+            "amountEur": 3125681
+          },
+          "delegated": {
+            "amount": 4814900,
+            "currency": "BGN",
+            "amountEur": 2461819
+          },
+          "equalization": {
+            "amount": 926900,
+            "currency": "BGN",
+            "amountEur": 473916
+          },
+          "winter": {
+            "amount": 34000,
+            "currency": "BGN",
+            "amountEur": 17384
+          },
+          "capital": {
+            "amount": 337500,
+            "currency": "BGN",
+            "amountEur": 172561
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "32024",
+          "obshtinaCode": "HKV11",
+          "nameBg": "Ивайловград",
+          "nameEn": "Ivaylovgrad",
+          "total": {
+            "amount": 5983600,
+            "currency": "BGN",
+            "amountEur": 3059366
+          },
+          "delegated": {
+            "amount": 3784800,
+            "currency": "BGN",
+            "amountEur": 1935138
+          },
+          "equalization": {
+            "amount": 771800,
+            "currency": "BGN",
+            "amountEur": 394615
+          },
+          "winter": {
+            "amount": 311300,
+            "currency": "BGN",
+            "amountEur": 159165
+          },
+          "capital": {
+            "amount": 1115700,
+            "currency": "BGN",
+            "amountEur": 570448
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "68727",
+          "obshtinaCode": "HKV30",
+          "nameBg": "Стамболово",
+          "nameEn": "Stambolovo",
+          "total": {
+            "amount": 5408800,
+            "currency": "BGN",
+            "amountEur": 2765476
+          },
+          "delegated": {
+            "amount": 3807600,
+            "currency": "BGN",
+            "amountEur": 1946795
+          },
+          "equalization": {
+            "amount": 654400,
+            "currency": "BGN",
+            "amountEur": 334589
+          },
+          "winter": {
+            "amount": 145600,
+            "currency": "BGN",
+            "amountEur": 74444
+          },
+          "capital": {
+            "amount": 801200,
+            "currency": "BGN",
+            "amountEur": 409647
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "48297",
+          "obshtinaCode": "HKV19",
+          "nameBg": "Минерални бани",
+          "nameEn": "Mineralni bani",
+          "total": {
+            "amount": 3649300,
+            "currency": "BGN",
+            "amountEur": 1865857
+          },
+          "delegated": {
+            "amount": 2722400,
+            "currency": "BGN",
+            "amountEur": 1391941
+          },
+          "equalization": {
+            "amount": 374800,
+            "currency": "BGN",
+            "amountEur": 191632
+          },
+          "winter": {
+            "amount": 89400,
+            "currency": "BGN",
+            "amountEur": 45709
+          },
+          "capital": {
+            "amount": 462700,
+            "currency": "BGN",
+            "amountEur": 236575
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "46084",
+          "obshtinaCode": "HKV18",
+          "nameBg": "Маджарово",
+          "nameEn": "Madzharovo",
+          "total": {
+            "amount": 2551600,
+            "currency": "BGN",
+            "amountEur": 1304612
+          },
+          "delegated": {
+            "amount": 1555400,
+            "currency": "BGN",
+            "amountEur": 795263
+          },
+          "equalization": {
+            "amount": 379300,
+            "currency": "BGN",
+            "amountEur": 193933
+          },
+          "winter": {
+            "amount": 105800,
+            "currency": "BGN",
+            "amountEur": 54095
+          },
+          "capital": {
+            "amount": 511100,
+            "currency": "BGN",
+            "amountEur": 261321
+          },
+          "otherTargeted": null
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2022,
+      "asOf": "2022-01-01",
+      "source": {
+        "documentId": "law-2022",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 190137600,
+          "currency": "BGN",
+          "amountEur": 97215813
+        },
+        "delegated": {
+          "amount": 158677000,
+          "currency": "BGN",
+          "amountEur": 81130263
+        },
+        "equalization": {
+          "amount": 16650800,
+          "currency": "BGN",
+          "amountEur": 8513420
+        },
+        "winter": {
+          "amount": 1749800,
+          "currency": "BGN",
+          "amountEur": 894660
+        },
+        "capital": {
+          "amount": 13060000,
+          "currency": "BGN",
+          "amountEur": 6677471
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "77195",
+          "obshtinaCode": "HKV34",
+          "nameBg": "Хасково",
+          "nameEn": "Haskovo",
+          "total": {
+            "amount": 67188800,
+            "currency": "BGN",
+            "amountEur": 34353088
+          },
+          "delegated": {
+            "amount": 60970500,
+            "currency": "BGN",
+            "amountEur": 31173722
+          },
+          "equalization": {
+            "amount": 3544600,
+            "currency": "BGN",
+            "amountEur": 1812325
+          },
+          "winter": {
+            "amount": 244500,
+            "currency": "BGN",
+            "amountEur": 125011
+          },
+          "capital": {
+            "amount": 2429200,
+            "currency": "BGN",
+            "amountEur": 1242030
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "21052",
+          "obshtinaCode": "HKV09",
+          "nameBg": "Димитровград",
+          "nameEn": "Dimitrovgrad",
+          "total": {
+            "amount": 33121400,
+            "currency": "BGN",
+            "amountEur": 16934703
+          },
+          "delegated": {
+            "amount": 28042700,
+            "currency": "BGN",
+            "amountEur": 14338005
+          },
+          "equalization": {
+            "amount": 3158000,
+            "currency": "BGN",
+            "amountEur": 1614660
+          },
+          "winter": {
+            "amount": 215600,
+            "currency": "BGN",
+            "amountEur": 110235
+          },
+          "capital": {
+            "amount": 1705100,
+            "currency": "BGN",
+            "amountEur": 871804
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "65677",
+          "obshtinaCode": "HKV28",
+          "nameBg": "Свиленград",
+          "nameEn": "Svilengrad",
+          "total": {
+            "amount": 20012200,
+            "currency": "BGN",
+            "amountEur": 10232075
+          },
+          "delegated": {
+            "amount": 17142100,
+            "currency": "BGN",
+            "amountEur": 8764617
+          },
+          "equalization": {
+            "amount": 1462000,
+            "currency": "BGN",
+            "amountEur": 747509
+          },
+          "winter": {
+            "amount": 178500,
+            "currency": "BGN",
+            "amountEur": 91266
+          },
+          "capital": {
+            "amount": 1229600,
+            "currency": "BGN",
+            "amountEur": 628684
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "77181",
+          "obshtinaCode": "HKV33",
+          "nameBg": "Харманли",
+          "nameEn": "Harmanli",
+          "total": {
+            "amount": 18502100,
+            "currency": "BGN",
+            "amountEur": 9459974
+          },
+          "delegated": {
+            "amount": 14797800,
+            "currency": "BGN",
+            "amountEur": 7565995
+          },
+          "equalization": {
+            "amount": 2169200,
+            "currency": "BGN",
+            "amountEur": 1109094
+          },
+          "winter": {
+            "amount": 187900,
+            "currency": "BGN",
+            "amountEur": 96072
+          },
+          "capital": {
+            "amount": 1347200,
+            "currency": "BGN",
+            "amountEur": 688812
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "72761",
+          "obshtinaCode": "HKV32",
+          "nameBg": "Тополовград",
+          "nameEn": "Topolovgrad",
+          "total": {
+            "amount": 10542600,
+            "currency": "BGN",
+            "amountEur": 5390346
+          },
+          "delegated": {
+            "amount": 8288900,
+            "currency": "BGN",
+            "amountEur": 4238047
+          },
+          "equalization": {
+            "amount": 1237400,
+            "currency": "BGN",
+            "amountEur": 632673
+          },
+          "winter": {
+            "amount": 105500,
+            "currency": "BGN",
+            "amountEur": 53941
+          },
+          "capital": {
+            "amount": 910800,
+            "currency": "BGN",
+            "amountEur": 465685
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "44570",
+          "obshtinaCode": "HKV17",
+          "nameBg": "Любимец",
+          "nameEn": "Lyubimets",
+          "total": {
+            "amount": 8883900,
+            "currency": "BGN",
+            "amountEur": 4542266
+          },
+          "delegated": {
+            "amount": 7157800,
+            "currency": "BGN",
+            "amountEur": 3659725
+          },
+          "equalization": {
+            "amount": 1045400,
+            "currency": "BGN",
+            "amountEur": 534505
+          },
+          "winter": {
+            "amount": 70100,
+            "currency": "BGN",
+            "amountEur": 35842
+          },
+          "capital": {
+            "amount": 610600,
+            "currency": "BGN",
+            "amountEur": 312195
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "32024",
+          "obshtinaCode": "HKV11",
+          "nameBg": "Ивайловград",
+          "nameEn": "Ivaylovgrad",
+          "total": {
+            "amount": 8246000,
+            "currency": "BGN",
+            "amountEur": 4216113
+          },
+          "delegated": {
+            "amount": 5193000,
+            "currency": "BGN",
+            "amountEur": 2655139
+          },
+          "equalization": {
+            "amount": 1018300,
+            "currency": "BGN",
+            "amountEur": 520649
+          },
+          "winter": {
+            "amount": 342400,
+            "currency": "BGN",
+            "amountEur": 175066
+          },
+          "capital": {
+            "amount": 1692300,
+            "currency": "BGN",
+            "amountEur": 865259
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "47278",
+          "obshtinaCode": "HKV29",
+          "nameBg": "Симеоновград",
+          "nameEn": "Simeonovgrad",
+          "total": {
+            "amount": 8140600,
+            "currency": "BGN",
+            "amountEur": 4162223
+          },
+          "delegated": {
+            "amount": 6401800,
+            "currency": "BGN",
+            "amountEur": 3273188
+          },
+          "equalization": {
+            "amount": 1210100,
+            "currency": "BGN",
+            "amountEur": 618714
+          },
+          "winter": {
+            "amount": 36900,
+            "currency": "BGN",
+            "amountEur": 18867
+          },
+          "capital": {
+            "amount": 491800,
+            "currency": "BGN",
+            "amountEur": 251453
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "68727",
+          "obshtinaCode": "HKV30",
+          "nameBg": "Стамболово",
+          "nameEn": "Stambolovo",
+          "total": {
+            "amount": 6850400,
+            "currency": "BGN",
+            "amountEur": 3502554
+          },
+          "delegated": {
+            "amount": 4730100,
+            "currency": "BGN",
+            "amountEur": 2418462
+          },
+          "equalization": {
+            "amount": 777400,
+            "currency": "BGN",
+            "amountEur": 397478
+          },
+          "winter": {
+            "amount": 156800,
+            "currency": "BGN",
+            "amountEur": 80171
+          },
+          "capital": {
+            "amount": 1186100,
+            "currency": "BGN",
+            "amountEur": 606443
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "48297",
+          "obshtinaCode": "HKV19",
+          "nameBg": "Минерални бани",
+          "nameEn": "Mineralni bani",
+          "total": {
+            "amount": 5166600,
+            "currency": "BGN",
+            "amountEur": 2641641
+          },
+          "delegated": {
+            "amount": 3806900,
+            "currency": "BGN",
+            "amountEur": 1946437
+          },
+          "equalization": {
+            "amount": 582700,
+            "currency": "BGN",
+            "amountEur": 297930
+          },
+          "winter": {
+            "amount": 96200,
+            "currency": "BGN",
+            "amountEur": 49186
+          },
+          "capital": {
+            "amount": 680800,
+            "currency": "BGN",
+            "amountEur": 348088
+          },
+          "otherTargeted": null
+        },
+        {
+          "ekatte": "46084",
+          "obshtinaCode": "HKV18",
+          "nameBg": "Маджарово",
+          "nameEn": "Madzharovo",
+          "total": {
+            "amount": 3483000,
+            "currency": "BGN",
+            "amountEur": 1780830
+          },
+          "delegated": {
+            "amount": 2145400,
+            "currency": "BGN",
+            "amountEur": 1096926
+          },
+          "equalization": {
+            "amount": 445700,
+            "currency": "BGN",
+            "amountEur": 227883
+          },
+          "winter": {
+            "amount": 115400,
+            "currency": "BGN",
+            "amountEur": 59003
+          },
+          "capital": {
+            "amount": 776500,
+            "currency": "BGN",
+            "amountEur": 397018
+          },
+          "otherTargeted": null
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2023,
+      "asOf": "2023-01-01",
+      "source": {
+        "documentId": "law-2023",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 235562400,
+          "currency": "BGN",
+          "amountEur": 120441142
+        },
+        "delegated": {
+          "amount": 196514900,
+          "currency": "BGN",
+          "amountEur": 100476472
+        },
+        "equalization": {
+          "amount": 18551300,
+          "currency": "BGN",
+          "amountEur": 9485129
+        },
+        "winter": {
+          "amount": 1750200,
+          "currency": "BGN",
+          "amountEur": 894862
+        },
+        "capital": {
+          "amount": 18746000,
+          "currency": "BGN",
+          "amountEur": 9584678
+        },
+        "otherTargeted": {
+          "amount": 1953600,
+          "currency": "BGN",
+          "amountEur": 998861
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "77195",
+          "obshtinaCode": "HKV34",
+          "nameBg": "Хасково",
+          "nameEn": "Haskovo",
+          "total": {
+            "amount": 83724000,
+            "currency": "BGN",
+            "amountEur": 42807401
+          },
+          "delegated": {
+            "amount": 75497600,
+            "currency": "BGN",
+            "amountEur": 38601310
+          },
+          "equalization": {
+            "amount": 4445000,
+            "currency": "BGN",
+            "amountEur": 2272692
+          },
+          "winter": {
+            "amount": 245000,
+            "currency": "BGN",
+            "amountEur": 125267
+          },
+          "capital": {
+            "amount": 3536400,
+            "currency": "BGN",
+            "amountEur": 1808133
+          },
+          "otherTargeted": {
+            "amount": 596700,
+            "currency": "BGN",
+            "amountEur": 305088
+          }
+        },
+        {
+          "ekatte": "21052",
+          "obshtinaCode": "HKV09",
+          "nameBg": "Димитровград",
+          "nameEn": "Dimitrovgrad",
+          "total": {
+            "amount": 41441200,
+            "currency": "BGN",
+            "amountEur": 21188549
+          },
+          "delegated": {
+            "amount": 34985300,
+            "currency": "BGN",
+            "amountEur": 17887700
+          },
+          "equalization": {
+            "amount": 3746900,
+            "currency": "BGN",
+            "amountEur": 1915760
+          },
+          "winter": {
+            "amount": 216200,
+            "currency": "BGN",
+            "amountEur": 110541
+          },
+          "capital": {
+            "amount": 2492800,
+            "currency": "BGN",
+            "amountEur": 1274548
+          },
+          "otherTargeted": {
+            "amount": 345000,
+            "currency": "BGN",
+            "amountEur": 176396
+          }
+        },
+        {
+          "ekatte": "65677",
+          "obshtinaCode": "HKV28",
+          "nameBg": "Свиленград",
+          "nameEn": "Svilengrad",
+          "total": {
+            "amount": 24848500,
+            "currency": "BGN",
+            "amountEur": 12704836
+          },
+          "delegated": {
+            "amount": 21234500,
+            "currency": "BGN",
+            "amountEur": 10857027
+          },
+          "equalization": {
+            "amount": 1642800,
+            "currency": "BGN",
+            "amountEur": 839950
+          },
+          "winter": {
+            "amount": 178800,
+            "currency": "BGN",
+            "amountEur": 91419
+          },
+          "capital": {
+            "amount": 1792400,
+            "currency": "BGN",
+            "amountEur": 916440
+          },
+          "otherTargeted": {
+            "amount": 315400,
+            "currency": "BGN",
+            "amountEur": 161261
+          }
+        },
+        {
+          "ekatte": "77181",
+          "obshtinaCode": "HKV33",
+          "nameBg": "Харманли",
+          "nameEn": "Harmanli",
+          "total": {
+            "amount": 22595300,
+            "currency": "BGN",
+            "amountEur": 11552793
+          },
+          "delegated": {
+            "amount": 18313200,
+            "currency": "BGN",
+            "amountEur": 9363390
+          },
+          "equalization": {
+            "amount": 2169200,
+            "currency": "BGN",
+            "amountEur": 1109094
+          },
+          "winter": {
+            "amount": 187400,
+            "currency": "BGN",
+            "amountEur": 95816
+          },
+          "capital": {
+            "amount": 1925500,
+            "currency": "BGN",
+            "amountEur": 984493
+          },
+          "otherTargeted": {
+            "amount": 287300,
+            "currency": "BGN",
+            "amountEur": 146894
+          }
+        },
+        {
+          "ekatte": "72761",
+          "obshtinaCode": "HKV32",
+          "nameBg": "Тополовград",
+          "nameEn": "Topolovgrad",
+          "total": {
+            "amount": 13027500,
+            "currency": "BGN",
+            "amountEur": 6660855
+          },
+          "delegated": {
+            "amount": 10266900,
+            "currency": "BGN",
+            "amountEur": 5249383
+          },
+          "equalization": {
+            "amount": 1376000,
+            "currency": "BGN",
+            "amountEur": 703538
+          },
+          "winter": {
+            "amount": 105500,
+            "currency": "BGN",
+            "amountEur": 53941
+          },
+          "capital": {
+            "amount": 1279100,
+            "currency": "BGN",
+            "amountEur": 653993
+          },
+          "otherTargeted": {
+            "amount": 122000,
+            "currency": "BGN",
+            "amountEur": 62378
+          }
+        },
+        {
+          "ekatte": "44570",
+          "obshtinaCode": "HKV17",
+          "nameBg": "Любимец",
+          "nameEn": "Lyubimets",
+          "total": {
+            "amount": 10842900,
+            "currency": "BGN",
+            "amountEur": 5543887
+          },
+          "delegated": {
+            "amount": 8807100,
+            "currency": "BGN",
+            "amountEur": 4502999
+          },
+          "equalization": {
+            "amount": 1091700,
+            "currency": "BGN",
+            "amountEur": 558177
+          },
+          "winter": {
+            "amount": 70300,
+            "currency": "BGN",
+            "amountEur": 35944
+          },
+          "capital": {
+            "amount": 873800,
+            "currency": "BGN",
+            "amountEur": 446767
+          },
+          "otherTargeted": {
+            "amount": 106000,
+            "currency": "BGN",
+            "amountEur": 54197
+          }
+        },
+        {
+          "ekatte": "32024",
+          "obshtinaCode": "HKV11",
+          "nameBg": "Ивайловград",
+          "nameEn": "Ivaylovgrad",
+          "total": {
+            "amount": 10074500,
+            "currency": "BGN",
+            "amountEur": 5151010
+          },
+          "delegated": {
+            "amount": 6264800,
+            "currency": "BGN",
+            "amountEur": 3203141
+          },
+          "equalization": {
+            "amount": 1018300,
+            "currency": "BGN",
+            "amountEur": 520649
+          },
+          "winter": {
+            "amount": 342400,
+            "currency": "BGN",
+            "amountEur": 175066
+          },
+          "capital": {
+            "amount": 2449000,
+            "currency": "BGN",
+            "amountEur": 1252154
+          },
+          "otherTargeted": {
+            "amount": 73300,
+            "currency": "BGN",
+            "amountEur": 37478
+          }
+        },
+        {
+          "ekatte": "47278",
+          "obshtinaCode": "HKV29",
+          "nameBg": "Симеоновград",
+          "nameEn": "Simeonovgrad",
+          "total": {
+            "amount": 9856900,
+            "currency": "BGN",
+            "amountEur": 5039753
+          },
+          "delegated": {
+            "amount": 7926600,
+            "currency": "BGN",
+            "amountEur": 4052806
+          },
+          "equalization": {
+            "amount": 1210100,
+            "currency": "BGN",
+            "amountEur": 618714
+          },
+          "winter": {
+            "amount": 36700,
+            "currency": "BGN",
+            "amountEur": 18764
+          },
+          "capital": {
+            "amount": 683500,
+            "currency": "BGN",
+            "amountEur": 349468
+          },
+          "otherTargeted": {
+            "amount": 47800,
+            "currency": "BGN",
+            "amountEur": 24440
+          }
+        },
+        {
+          "ekatte": "68727",
+          "obshtinaCode": "HKV30",
+          "nameBg": "Стамболово",
+          "nameEn": "Stambolovo",
+          "total": {
+            "amount": 8551700,
+            "currency": "BGN",
+            "amountEur": 4372415
+          },
+          "delegated": {
+            "amount": 5880800,
+            "currency": "BGN",
+            "amountEur": 3006805
+          },
+          "equalization": {
+            "amount": 819700,
+            "currency": "BGN",
+            "amountEur": 419106
+          },
+          "winter": {
+            "amount": 156700,
+            "currency": "BGN",
+            "amountEur": 80119
+          },
+          "capital": {
+            "amount": 1694500,
+            "currency": "BGN",
+            "amountEur": 866384
+          },
+          "otherTargeted": {
+            "amount": 5600,
+            "currency": "BGN",
+            "amountEur": 2863
+          }
+        },
+        {
+          "ekatte": "48297",
+          "obshtinaCode": "HKV19",
+          "nameBg": "Минерални бани",
+          "nameEn": "Mineralni bani",
+          "total": {
+            "amount": 6330700,
+            "currency": "BGN",
+            "amountEur": 3236836
+          },
+          "delegated": {
+            "amount": 4690900,
+            "currency": "BGN",
+            "amountEur": 2398419
+          },
+          "equalization": {
+            "amount": 584500,
+            "currency": "BGN",
+            "amountEur": 298850
+          },
+          "winter": {
+            "amount": 96000,
+            "currency": "BGN",
+            "amountEur": 49084
+          },
+          "capital": {
+            "amount": 959300,
+            "currency": "BGN",
+            "amountEur": 490482
+          },
+          "otherTargeted": {
+            "amount": 29900,
+            "currency": "BGN",
+            "amountEur": 15288
+          }
+        },
+        {
+          "ekatte": "46084",
+          "obshtinaCode": "HKV18",
+          "nameBg": "Маджарово",
+          "nameEn": "Madzharovo",
+          "total": {
+            "amount": 4269200,
+            "currency": "BGN",
+            "amountEur": 2182807
+          },
+          "delegated": {
+            "amount": 2647200,
+            "currency": "BGN",
+            "amountEur": 1353492
+          },
+          "equalization": {
+            "amount": 447100,
+            "currency": "BGN",
+            "amountEur": 228599
+          },
+          "winter": {
+            "amount": 115200,
+            "currency": "BGN",
+            "amountEur": 58901
+          },
+          "capital": {
+            "amount": 1059700,
+            "currency": "BGN",
+            "amountEur": 541816
+          },
+          "otherTargeted": {
+            "amount": 24600,
+            "currency": "BGN",
+            "amountEur": 12578
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2024,
+      "asOf": "2024-01-01",
+      "source": {
+        "documentId": "law-2024",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 260724500,
+          "currency": "BGN",
+          "amountEur": 133306319
+        },
+        "delegated": {
+          "amount": 221671800,
+          "currency": "BGN",
+          "amountEur": 113338990
+        },
+        "equalization": {
+          "amount": 18591100,
+          "currency": "BGN",
+          "amountEur": 9505478
+        },
+        "winter": {
+          "amount": 1750600,
+          "currency": "BGN",
+          "amountEur": 895067
+        },
+        "capital": {
+          "amount": 18711000,
+          "currency": "BGN",
+          "amountEur": 9566783
+        },
+        "otherTargeted": {
+          "amount": 2344500,
+          "currency": "BGN",
+          "amountEur": 1198723
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "77195",
+          "obshtinaCode": "HKV34",
+          "nameBg": "Хасково",
+          "nameEn": "Haskovo",
+          "total": {
+            "amount": 94263600,
+            "currency": "BGN",
+            "amountEur": 48196213
+          },
+          "delegated": {
+            "amount": 86019900,
+            "currency": "BGN",
+            "amountEur": 43981276
+          },
+          "equalization": {
+            "amount": 4445000,
+            "currency": "BGN",
+            "amountEur": 2272692
+          },
+          "winter": {
+            "amount": 245100,
+            "currency": "BGN",
+            "amountEur": 125318
+          },
+          "capital": {
+            "amount": 3553600,
+            "currency": "BGN",
+            "amountEur": 1816927
+          },
+          "otherTargeted": {
+            "amount": 716100,
+            "currency": "BGN",
+            "amountEur": 366136
+          }
+        },
+        {
+          "ekatte": "21052",
+          "obshtinaCode": "HKV09",
+          "nameBg": "Димитровград",
+          "nameEn": "Dimitrovgrad",
+          "total": {
+            "amount": 46011500,
+            "currency": "BGN",
+            "amountEur": 23525306
+          },
+          "delegated": {
+            "amount": 39548900,
+            "currency": "BGN",
+            "amountEur": 20221031
+          },
+          "equalization": {
+            "amount": 3746900,
+            "currency": "BGN",
+            "amountEur": 1915760
+          },
+          "winter": {
+            "amount": 216100,
+            "currency": "BGN",
+            "amountEur": 110490
+          },
+          "capital": {
+            "amount": 2499600,
+            "currency": "BGN",
+            "amountEur": 1278025
+          },
+          "otherTargeted": {
+            "amount": 414100,
+            "currency": "BGN",
+            "amountEur": 211726
+          }
+        },
+        {
+          "ekatte": "65677",
+          "obshtinaCode": "HKV28",
+          "nameBg": "Свиленград",
+          "nameEn": "Svilengrad",
+          "total": {
+            "amount": 27368500,
+            "currency": "BGN",
+            "amountEur": 13993292
+          },
+          "delegated": {
+            "amount": 23781600,
+            "currency": "BGN",
+            "amountEur": 12159339
+          },
+          "equalization": {
+            "amount": 1644100,
+            "currency": "BGN",
+            "amountEur": 840615
+          },
+          "winter": {
+            "amount": 179000,
+            "currency": "BGN",
+            "amountEur": 91521
+          },
+          "capital": {
+            "amount": 1763800,
+            "currency": "BGN",
+            "amountEur": 901817
+          },
+          "otherTargeted": {
+            "amount": 378500,
+            "currency": "BGN",
+            "amountEur": 193524
+          }
+        },
+        {
+          "ekatte": "77181",
+          "obshtinaCode": "HKV33",
+          "nameBg": "Харманли",
+          "nameEn": "Harmanli",
+          "total": {
+            "amount": 25368500,
+            "currency": "BGN",
+            "amountEur": 12970708
+          },
+          "delegated": {
+            "amount": 21074300,
+            "currency": "BGN",
+            "amountEur": 10775118
+          },
+          "equalization": {
+            "amount": 2169200,
+            "currency": "BGN",
+            "amountEur": 1109094
+          },
+          "winter": {
+            "amount": 187500,
+            "currency": "BGN",
+            "amountEur": 95867
+          },
+          "capital": {
+            "amount": 1937500,
+            "currency": "BGN",
+            "amountEur": 990628
+          },
+          "otherTargeted": {
+            "amount": 344800,
+            "currency": "BGN",
+            "amountEur": 176293
+          }
+        },
+        {
+          "ekatte": "72761",
+          "obshtinaCode": "HKV32",
+          "nameBg": "Тополовград",
+          "nameEn": "Topolovgrad",
+          "total": {
+            "amount": 14233600,
+            "currency": "BGN",
+            "amountEur": 7277524
+          },
+          "delegated": {
+            "amount": 11464300,
+            "currency": "BGN",
+            "amountEur": 5861604
+          },
+          "equalization": {
+            "amount": 1376000,
+            "currency": "BGN",
+            "amountEur": 703538
+          },
+          "winter": {
+            "amount": 105600,
+            "currency": "BGN",
+            "amountEur": 53992
+          },
+          "capital": {
+            "amount": 1287700,
+            "currency": "BGN",
+            "amountEur": 658391
+          },
+          "otherTargeted": {
+            "amount": 146400,
+            "currency": "BGN",
+            "amountEur": 74853
+          }
+        },
+        {
+          "ekatte": "44570",
+          "obshtinaCode": "HKV17",
+          "nameBg": "Любимец",
+          "nameEn": "Lyubimets",
+          "total": {
+            "amount": 11722100,
+            "currency": "BGN",
+            "amountEur": 5993415
+          },
+          "delegated": {
+            "amount": 9679600,
+            "currency": "BGN",
+            "amountEur": 4949101
+          },
+          "equalization": {
+            "amount": 1093500,
+            "currency": "BGN",
+            "amountEur": 559098
+          },
+          "winter": {
+            "amount": 70300,
+            "currency": "BGN",
+            "amountEur": 35944
+          },
+          "capital": {
+            "amount": 878700,
+            "currency": "BGN",
+            "amountEur": 449272
+          },
+          "otherTargeted": {
+            "amount": 127200,
+            "currency": "BGN",
+            "amountEur": 65036
+          }
+        },
+        {
+          "ekatte": "47278",
+          "obshtinaCode": "HKV29",
+          "nameBg": "Симеоновград",
+          "nameEn": "Simeonovgrad",
+          "total": {
+            "amount": 10708300,
+            "currency": "BGN",
+            "amountEur": 5475067
+          },
+          "delegated": {
+            "amount": 8773900,
+            "currency": "BGN",
+            "amountEur": 4486024
+          },
+          "equalization": {
+            "amount": 1210100,
+            "currency": "BGN",
+            "amountEur": 618714
+          },
+          "winter": {
+            "amount": 36700,
+            "currency": "BGN",
+            "amountEur": 18764
+          },
+          "capital": {
+            "amount": 687600,
+            "currency": "BGN",
+            "amountEur": 351564
+          },
+          "otherTargeted": {
+            "amount": 57300,
+            "currency": "BGN",
+            "amountEur": 29297
+          }
+        },
+        {
+          "ekatte": "32024",
+          "obshtinaCode": "HKV11",
+          "nameBg": "Ивайловград",
+          "nameEn": "Ivaylovgrad",
+          "total": {
+            "amount": 10601200,
+            "currency": "BGN",
+            "amountEur": 5420307
+          },
+          "delegated": {
+            "amount": 6894200,
+            "currency": "BGN",
+            "amountEur": 3524948
+          },
+          "equalization": {
+            "amount": 1018300,
+            "currency": "BGN",
+            "amountEur": 520649
+          },
+          "winter": {
+            "amount": 341800,
+            "currency": "BGN",
+            "amountEur": 174760
+          },
+          "capital": {
+            "amount": 2346900,
+            "currency": "BGN",
+            "amountEur": 1199951
+          },
+          "otherTargeted": {
+            "amount": 88000,
+            "currency": "BGN",
+            "amountEur": 44994
+          }
+        },
+        {
+          "ekatte": "68727",
+          "obshtinaCode": "HKV30",
+          "nameBg": "Стамболово",
+          "nameEn": "Stambolovo",
+          "total": {
+            "amount": 9123300,
+            "currency": "BGN",
+            "amountEur": 4664669
+          },
+          "delegated": {
+            "amount": 6417800,
+            "currency": "BGN",
+            "amountEur": 3281369
+          },
+          "equalization": {
+            "amount": 831600,
+            "currency": "BGN",
+            "amountEur": 425190
+          },
+          "winter": {
+            "amount": 157000,
+            "currency": "BGN",
+            "amountEur": 80273
+          },
+          "capital": {
+            "amount": 1716900,
+            "currency": "BGN",
+            "amountEur": 877837
+          },
+          "otherTargeted": {
+            "amount": 6700,
+            "currency": "BGN",
+            "amountEur": 3426
+          }
+        },
+        {
+          "ekatte": "48297",
+          "obshtinaCode": "HKV19",
+          "nameBg": "Минерални бани",
+          "nameEn": "Mineralni bani",
+          "total": {
+            "amount": 6822900,
+            "currency": "BGN",
+            "amountEur": 3488493
+          },
+          "delegated": {
+            "amount": 5160200,
+            "currency": "BGN",
+            "amountEur": 2638368
+          },
+          "equalization": {
+            "amount": 598600,
+            "currency": "BGN",
+            "amountEur": 306059
+          },
+          "winter": {
+            "amount": 96100,
+            "currency": "BGN",
+            "amountEur": 49135
+          },
+          "capital": {
+            "amount": 968000,
+            "currency": "BGN",
+            "amountEur": 494931
+          },
+          "otherTargeted": {
+            "amount": 35800,
+            "currency": "BGN",
+            "amountEur": 18304
+          }
+        },
+        {
+          "ekatte": "46084",
+          "obshtinaCode": "HKV18",
+          "nameBg": "Маджарово",
+          "nameEn": "Madzharovo",
+          "total": {
+            "amount": 4501000,
+            "currency": "BGN",
+            "amountEur": 2301325
+          },
+          "delegated": {
+            "amount": 2857100,
+            "currency": "BGN",
+            "amountEur": 1460812
+          },
+          "equalization": {
+            "amount": 457800,
+            "currency": "BGN",
+            "amountEur": 234069
+          },
+          "winter": {
+            "amount": 115400,
+            "currency": "BGN",
+            "amountEur": 59003
+          },
+          "capital": {
+            "amount": 1070700,
+            "currency": "BGN",
+            "amountEur": 547440
+          },
+          "otherTargeted": {
+            "amount": 29600,
+            "currency": "BGN",
+            "amountEur": 15134
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2025,
+      "asOf": "2025-01-01",
+      "source": {
+        "documentId": "law-2025",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
+      },
+      "oblastTotals": {
+        "total": {
+          "amount": 293421300,
+          "currency": "BGN",
+          "amountEur": 150023927
+        },
+        "delegated": {
+          "amount": 251257200,
+          "currency": "BGN",
+          "amountEur": 128465766
+        },
+        "equalization": {
+          "amount": 20471700,
+          "currency": "BGN",
+          "amountEur": 10467013
+        },
+        "winter": {
+          "amount": 1776300,
+          "currency": "BGN",
+          "amountEur": 908207
+        },
+        "capital": {
+          "amount": 19916100,
+          "currency": "BGN",
+          "amountEur": 10182940
+        },
+        "otherTargeted": {
+          "amount": 2764700,
+          "currency": "BGN",
+          "amountEur": 1413568
+        }
+      },
+      "municipalities": [
+        {
+          "ekatte": "77195",
+          "obshtinaCode": "HKV34",
+          "nameBg": "Хасково",
+          "nameEn": "Haskovo",
+          "total": {
+            "amount": 105525700,
+            "currency": "BGN",
+            "amountEur": 53954434
+          },
+          "delegated": {
+            "amount": 96957300,
+            "currency": "BGN",
+            "amountEur": 49573480
+          },
+          "equalization": {
+            "amount": 4541700,
+            "currency": "BGN",
+            "amountEur": 2322134
+          },
+          "winter": {
+            "amount": 248600,
+            "currency": "BGN",
+            "amountEur": 127107
+          },
+          "capital": {
+            "amount": 3778100,
+            "currency": "BGN",
+            "amountEur": 1931712
+          },
+          "otherTargeted": {
+            "amount": 850000,
+            "currency": "BGN",
+            "amountEur": 434598
+          }
+        },
+        {
+          "ekatte": "21052",
+          "obshtinaCode": "HKV09",
+          "nameBg": "Димитровград",
+          "nameEn": "Dimitrovgrad",
+          "total": {
+            "amount": 51360900,
+            "currency": "BGN",
+            "amountEur": 26260411
+          },
+          "delegated": {
+            "amount": 44717400,
+            "currency": "BGN",
+            "amountEur": 22863644
+          },
+          "equalization": {
+            "amount": 3768000,
+            "currency": "BGN",
+            "amountEur": 1926548
+          },
+          "winter": {
+            "amount": 219100,
+            "currency": "BGN",
+            "amountEur": 112024
+          },
+          "capital": {
+            "amount": 2656400,
+            "currency": "BGN",
+            "amountEur": 1358196
+          },
+          "otherTargeted": {
+            "amount": 485400,
+            "currency": "BGN",
+            "amountEur": 248181
+          }
+        },
+        {
+          "ekatte": "65677",
+          "obshtinaCode": "HKV28",
+          "nameBg": "Свиленград",
+          "nameEn": "Svilengrad",
+          "total": {
+            "amount": 30890100,
+            "currency": "BGN",
+            "amountEur": 15793857
+          },
+          "delegated": {
+            "amount": 27089200,
+            "currency": "BGN",
+            "amountEur": 13850488
+          },
+          "equalization": {
+            "amount": 1740800,
+            "currency": "BGN",
+            "amountEur": 890057
+          },
+          "winter": {
+            "amount": 181600,
+            "currency": "BGN",
+            "amountEur": 92851
+          },
+          "capital": {
+            "amount": 1878500,
+            "currency": "BGN",
+            "amountEur": 960462
+          },
+          "otherTargeted": {
+            "amount": 430600,
+            "currency": "BGN",
+            "amountEur": 220162
+          }
+        },
+        {
+          "ekatte": "77181",
+          "obshtinaCode": "HKV33",
+          "nameBg": "Харманли",
+          "nameEn": "Harmanli",
+          "total": {
+            "amount": 28592600,
+            "currency": "BGN",
+            "amountEur": 14619164
+          },
+          "delegated": {
+            "amount": 24092900,
+            "currency": "BGN",
+            "amountEur": 12318504
+          },
+          "equalization": {
+            "amount": 2199200,
+            "currency": "BGN",
+            "amountEur": 1124433
+          },
+          "winter": {
+            "amount": 190200,
+            "currency": "BGN",
+            "amountEur": 97248
+          },
+          "capital": {
+            "amount": 2110300,
+            "currency": "BGN",
+            "amountEur": 1078979
+          },
+          "otherTargeted": {
+            "amount": 398300,
+            "currency": "BGN",
+            "amountEur": 203648
+          }
+        },
+        {
+          "ekatte": "72761",
+          "obshtinaCode": "HKV32",
+          "nameBg": "Тополовград",
+          "nameEn": "Topolovgrad",
+          "total": {
+            "amount": 16182900,
+            "currency": "BGN",
+            "amountEur": 8274185
+          },
+          "delegated": {
+            "amount": 13028400,
+            "currency": "BGN",
+            "amountEur": 6661315
+          },
+          "equalization": {
+            "amount": 1673600,
+            "currency": "BGN",
+            "amountEur": 855698
+          },
+          "winter": {
+            "amount": 107200,
+            "currency": "BGN",
+            "amountEur": 54810
+          },
+          "capital": {
+            "amount": 1373700,
+            "currency": "BGN",
+            "amountEur": 702362
+          },
+          "otherTargeted": {
+            "amount": 164300,
+            "currency": "BGN",
+            "amountEur": 84005
+          }
+        },
+        {
+          "ekatte": "44570",
+          "obshtinaCode": "HKV17",
+          "nameBg": "Любимец",
+          "nameEn": "Lyubimets",
+          "total": {
+            "amount": 13387200,
+            "currency": "BGN",
+            "amountEur": 6844767
+          },
+          "delegated": {
+            "amount": 11079800,
+            "currency": "BGN",
+            "amountEur": 5665012
+          },
+          "equalization": {
+            "amount": 1305200,
+            "currency": "BGN",
+            "amountEur": 667338
+          },
+          "winter": {
+            "amount": 71300,
+            "currency": "BGN",
+            "amountEur": 36455
+          },
+          "capital": {
+            "amount": 930900,
+            "currency": "BGN",
+            "amountEur": 475962
+          },
+          "otherTargeted": {
+            "amount": 144200,
+            "currency": "BGN",
+            "amountEur": 73728
+          }
+        },
+        {
+          "ekatte": "32024",
+          "obshtinaCode": "HKV11",
+          "nameBg": "Ивайловград",
+          "nameEn": "Ivaylovgrad",
+          "total": {
+            "amount": 12188800,
+            "currency": "BGN",
+            "amountEur": 6232034
+          },
+          "delegated": {
+            "amount": 8053100,
+            "currency": "BGN",
+            "amountEur": 4117485
+          },
+          "equalization": {
+            "amount": 1330800,
+            "currency": "BGN",
+            "amountEur": 680427
+          },
+          "winter": {
+            "amount": 346900,
+            "currency": "BGN",
+            "amountEur": 177367
+          },
+          "capital": {
+            "amount": 2458000,
+            "currency": "BGN",
+            "amountEur": 1256755
+          },
+          "otherTargeted": {
+            "amount": 115500,
+            "currency": "BGN",
+            "amountEur": 59054
+          }
+        },
+        {
+          "ekatte": "47278",
+          "obshtinaCode": "HKV29",
+          "nameBg": "Симеоновград",
+          "nameEn": "Simeonovgrad",
+          "total": {
+            "amount": 12187100,
+            "currency": "BGN",
+            "amountEur": 6231165
+          },
+          "delegated": {
+            "amount": 9968600,
+            "currency": "BGN",
+            "amountEur": 5096864
+          },
+          "equalization": {
+            "amount": 1453300,
+            "currency": "BGN",
+            "amountEur": 743060
+          },
+          "winter": {
+            "amount": 37200,
+            "currency": "BGN",
+            "amountEur": 19020
+          },
+          "capital": {
+            "amount": 728000,
+            "currency": "BGN",
+            "amountEur": 372220
+          },
+          "otherTargeted": {
+            "amount": 63100,
+            "currency": "BGN",
+            "amountEur": 32263
+          }
+        },
+        {
+          "ekatte": "68727",
+          "obshtinaCode": "HKV30",
+          "nameBg": "Стамболово",
+          "nameEn": "Stambolovo",
+          "total": {
+            "amount": 10445600,
+            "currency": "BGN",
+            "amountEur": 5340750
+          },
+          "delegated": {
+            "amount": 7304400,
+            "currency": "BGN",
+            "amountEur": 3734680
+          },
+          "equalization": {
+            "amount": 1148000,
+            "currency": "BGN",
+            "amountEur": 586963
+          },
+          "winter": {
+            "amount": 159500,
+            "currency": "BGN",
+            "amountEur": 81551
+          },
+          "capital": {
+            "amount": 1833700,
+            "currency": "BGN",
+            "amountEur": 937556
+          },
+          "otherTargeted": {
+            "amount": 38200,
+            "currency": "BGN",
+            "amountEur": 19531
+          }
+        },
+        {
+          "ekatte": "48297",
+          "obshtinaCode": "HKV19",
+          "nameBg": "Минерални бани",
+          "nameEn": "Mineralni bani",
+          "total": {
+            "amount": 7420600,
+            "currency": "BGN",
+            "amountEur": 3794093
+          },
+          "delegated": {
+            "amount": 5686400,
+            "currency": "BGN",
+            "amountEur": 2907410
+          },
+          "equalization": {
+            "amount": 609200,
+            "currency": "BGN",
+            "amountEur": 311479
+          },
+          "winter": {
+            "amount": 97500,
+            "currency": "BGN",
+            "amountEur": 49851
+          },
+          "capital": {
+            "amount": 1027500,
+            "currency": "BGN",
+            "amountEur": 525352
+          },
+          "otherTargeted": {
+            "amount": 40500,
+            "currency": "BGN",
+            "amountEur": 20707
+          }
+        },
+        {
+          "ekatte": "46084",
+          "obshtinaCode": "HKV18",
+          "nameBg": "Маджарово",
+          "nameEn": "Madzharovo",
+          "total": {
+            "amount": 5239800,
+            "currency": "BGN",
+            "amountEur": 2679067
+          },
+          "delegated": {
+            "amount": 3279700,
+            "currency": "BGN",
+            "amountEur": 1676884
+          },
+          "equalization": {
+            "amount": 701900,
+            "currency": "BGN",
+            "amountEur": 358876
+          },
+          "winter": {
+            "amount": 117200,
+            "currency": "BGN",
+            "amountEur": 59923
+          },
+          "capital": {
+            "amount": 1141000,
+            "currency": "BGN",
+            "amountEur": 583384
+          },
+          "otherTargeted": {
+            "amount": 34600,
+            "currency": "BGN",
+            "amountEur": 17691
+          }
+        }
+      ]
+    }
+  ]
+}
