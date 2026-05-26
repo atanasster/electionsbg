@@ -381,6 +381,18 @@ export const AboutScreen = () => {
                   href="https://iisda.government.bg/annual_reports"
                   label={t("budget_iisda_doklad_source")}
                 />
+                <SourceItem
+                  href="https://dv.parliament.bg/"
+                  label={t("budget_municipal_transfers_source")}
+                />
+                <SourceItem
+                  href="https://dv.parliament.bg/"
+                  label={t("budget_investment_program_source")}
+                />
+                <SourceItem
+                  href="https://www.nssi.bg/budjet-i-finansi/otkrito-upravlenie/otcheti-i-balansi/"
+                  label={t("budget_noi_b1_source")}
+                />
               </ul>
             </DataGroup>
 

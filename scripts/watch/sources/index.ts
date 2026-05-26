@@ -31,6 +31,8 @@ import { transparencyCpi } from "./transparency_cpi";
 import { worldbankWgi } from "./worldbank_wgi";
 import { customsRevenue } from "./customs_revenue";
 import { napAnnual } from "./nap_annual";
+import { nssiB1 } from "./nssi_b1";
+import { dvInvestmentAnnex } from "./dv_investment_annex";
 
 // cik is intentionally omitted — see ./cik.ts header. Re-add to this array
 // once a Playwright-based fetch (or alternate endpoint) bypasses Cloudflare.
@@ -53,6 +55,8 @@ export const SOURCES: WatchSource[] = [
   iisdaDoklad,
   customsRevenue,
   napAnnual,
+  nssiB1,
+  dvInvestmentAnnex,
   eurostat,
   eurostatRegional,
   ecBudgetPerMs,

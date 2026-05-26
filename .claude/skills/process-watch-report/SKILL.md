@@ -43,6 +43,8 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `Доклад за състоянието на администрацията (IISDA)` | `update-budget` (resolve new file id first — see `iisda_doklad` describe-line) |
 | `Агенция "Митници" — Митническа хроника` annual reports | `update-budget` (revenue-breakdown sub-step — runs `scripts/budget/run_customs_revenue.ts`; see "Revenue-breakdown ingest" below) |
 | `НАП — Годишен отчет за дейността` | `update-budget` (revenue-breakdown sub-step — runs `scripts/budget/run_nap_annual.ts`; see "Revenue-breakdown ingest" below) |
+| `НОИ — месечни B1 отчети по фондове` | `update-noi` (manual download to `raw_data/budget/noi/`, then `tsx scripts/budget/noi/__write_funds.ts`) |
+| `ДВ — Инвестиционна програма за общински проекти` | `update-budget` (investment-program sub-step — fetch PDF to `raw_data/budget/investment_program/{year}-annex-iii.pdf`, then `tsx scripts/budget/investment_program/__write_program.ts`) |
 | `Сметна палата party financing` | `update-financing` |
 | `Сметна палата annual-report index` | `update-financing` (annual-report year added — runs `scrape_reports.ts`) |
 | `Eurostat macro` (BG) | `update-macro` |
@@ -125,6 +127,8 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `iisda_doklad` | `update-budget` |
 | `customs_revenue` | `update-budget` (revenue-breakdown sub-step — re-runs `scripts/budget/run_customs_revenue.ts`) |
 | `nap_annual` | `update-budget` (revenue-breakdown sub-step — re-runs `scripts/budget/run_nap_annual.ts`) |
+| `nssi_b1` | `update-noi` (operator manually downloads the new B1 XLS files into `raw_data/budget/noi/`, then runs `scripts/budget/noi/__write_funds.ts` — auto-fetch is blocked by an NSSI redirect-to-homepage on GET) |
+| `dv_investment_annex` | `update-budget` (investment-program sub-step — operator adds the new fiscal year to both `INVESTMENT_ANNEX_URLS` in `scripts/watch/sources/dv_investment_annex.ts` AND the `SOURCES` map in `scripts/budget/investment_program/__write_program.ts`, fetches the PDF into `raw_data/budget/investment_program/{year}-annex-iii.pdf`, then runs `scripts/budget/investment_program/__write_program.ts`) |
 | `smetna_palata` | `update-financing` |
 | `financing_reports` | `update-financing` |
 | `eurostat` | `update-macro` |
