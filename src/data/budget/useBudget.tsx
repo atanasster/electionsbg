@@ -22,6 +22,7 @@ import type {
   NoiFundsFile,
   PersonnelFile,
   PitBreakdownFile,
+  PlovdivCapitalProgramFile,
   SofiaCapitalProgramFile,
   VatBreakdownFile,
 } from "./types";
@@ -253,6 +254,21 @@ export const useSofiaCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<SofiaCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/sofia.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Plovdiv's annual Капиталова програма — parsed from a borderless PDF on
+// plovdiv.bg into 642 line items + per-район rollup. Plovdiv has a single
+// settlement record for the whole city, so the tile renders all 6 районi
+// stacked instead of filtering to one (Sofia's pattern).
+export const usePlovdivCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "plovdiv", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<PlovdivCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/plovdiv.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

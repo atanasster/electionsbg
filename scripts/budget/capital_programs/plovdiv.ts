@@ -115,6 +115,9 @@ const TOTAL_COL_MAX_X = 478;
 // Column-C x-band (description).
 const DESC_COL_MIN_X = 145;
 const DESC_COL_MAX_X = 415;
+// Column-B x-band (§ / Функция / Дейност codes).
+const COL_B_MIN_X = 100;
+const COL_B_MAX_X = 145;
 // Column-A x-band (район / разпоредител / institution).
 const COL_A_MAX_X = 95;
 // y-tolerance for "same row".
@@ -159,6 +162,19 @@ const PARAGRAPH_TITLES = [
   "Капиталови трансфери",
 ];
 
+// Read col B (the § / Функция / Дейност code column) at the anchor's y.
+// "Функция 01" / "Дейност 122" appear here for subtotal rows that share
+// their amount-row layout with real projects — we use it to distinguish.
+const collectColB = (items: RawItem[], y: number): string => {
+  const parts: string[] = [];
+  for (const it of items) {
+    if (it.x < COL_B_MIN_X || it.x > COL_B_MAX_X) continue;
+    if (Math.abs(it.y - y) > 3) continue;
+    parts.push(it.str);
+  }
+  return parts.join(" ").trim();
+};
+
 const collectColA = (items: RawItem[], y: number): string => {
   // Some district tags ("Район Централен") sit at the same y; others may
   // be vertically split (each Cyrillic letter is its own text item at
@@ -202,8 +218,12 @@ const collectDescription = (
       linesByY
         .get(y)!
         .sort((a, b) => a.x - b.x)
+        // Join with a space — many PDFs render each word as its own text
+        // item with no internal whitespace, so joining without a separator
+        // yields mashed-together text ("ПоземленимотсИдентификатор…").
+        // Excess whitespace gets collapsed below.
         .map((it) => it.str)
-        .join("")
+        .join(" ")
         .replace(/\s+/g, " ")
         .trim(),
     )
@@ -281,10 +301,17 @@ const parseProgram = async (
         continue;
       }
       const colA = collectColA(items, a.y);
+      const colB = collectColB(items, a.y);
       const desc = collectDescription(items, a.y, prevY);
       prevY = a.y;
       if (!desc) continue;
-      // Skip recapitulation / subtotal rows.
+      // Skip recapitulation / subtotal rows. col B carries the "Функция X"
+      // / "Дейност YYY" / "Обект" headings whose amounts roll up the lines
+      // below — they share an amount-row layout with real projects but
+      // shouldn't appear in the per-object list.
+      // Cyrillic letters aren't word-chars for JS `\b`, so anchor on a
+      // trailing whitespace or end-of-string instead.
+      if (/^(Функция|Дейност|Обект|Раздел)(\s|$)/iu.test(colB)) continue;
       if (SKIP_RE.test(desc)) continue;
       if (PARAGRAPH_TITLES.some((t) => desc.startsWith(t))) continue;
       // Discard sub-subcolumns: rows where colA looks like a § number.

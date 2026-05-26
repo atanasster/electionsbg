@@ -784,3 +784,42 @@ export interface SofiaCapitalProgramFile {
   projects: SofiaCapitalProject[];
   byRayon: SofiaCapitalRayonRollup[];
 }
+
+// Plovdiv shares Sofia's per-район rollup structure but has a simpler
+// project shape (no §-paragraph hierarchy in the source PDF) and adds
+// município identification fields so the tile can label itself even
+// when used in a generic context.
+
+export interface PlovdivCapitalProject {
+  id: number;
+  name: string;
+  rayons: string[]; // canonical Plovdiv район codes (CENTRALEN, …)
+  total: Money;
+}
+
+export interface PlovdivCapitalRayonRollup {
+  code: string;
+  labelBg: string;
+  labelEn: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface PlovdivCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  projects: PlovdivCapitalProject[];
+  byRayon: PlovdivCapitalRayonRollup[];
+}
