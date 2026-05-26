@@ -178,8 +178,7 @@ const extractSettlement = (desc: string): string | null => {
 // (subtotal) row. The non-anchored match catches both.
 // "§ 51 - ..." (space-separated) and "§-54 - ..." (dash-prefixed) both
 // appear as paragraph subtotals — accept either.
-const SKIP_RE =
-  /КАПИТАЛОВИ РАЗХОДИ\s*-\s*ОБЩО|§\s*-?\s*\d+|ф-я\s*"|Д\.\s*\d+/u;
+const SKIP_RE = /КАПИТАЛОВИ РАЗХОДИ\s*-\s*ОБЩО|§\s*-?\s*\d+|ф-я\s*"|Д\.\s*\d+/u;
 
 const parseAmount = (raw: string): number | null => {
   const t = raw
