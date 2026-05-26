@@ -24,6 +24,7 @@ import type {
   PitBreakdownFile,
   PlovdivCapitalProgramFile,
   SofiaCapitalProgramFile,
+  StaraZagoraCapitalProgramFile,
   VatBreakdownFile,
 } from "./types";
 
@@ -273,6 +274,29 @@ export const useBurgasCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<BurgasCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/burgas.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Stara Zagora's annual Капиталова програма (Приложение №4) — parsed
+// from the borderless born-digital PDF on starazagora.bg. Single
+// município, no районi. The parser captures the recap total reliably
+// but the per-project itemisation only reaches ~73% of the recap value
+// due to the source layout (mixed same-line / desc-above / desc-below
+// rows). The tile shows the recap as the headline, plus a per-village
+// strip from the school-renovation cluster that DOES localise cleanly.
+export const useStaraZagoraCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: [
+      "budget",
+      "capital_programs",
+      "stara_zagora",
+      fiscalYear,
+    ] as const,
+    queryFn: () =>
+      fetchJson<StaraZagoraCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/stara_zagora.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

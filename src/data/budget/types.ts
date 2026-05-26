@@ -868,3 +868,41 @@ export interface BurgasCapitalProgramFile {
   projects: BurgasCapitalProject[];
   bySettlement: BurgasCapitalSettlementRollup[];
 }
+
+// Stara Zagora — single município (no районi), same shape as Burgas
+// minus the funding-source detail. The source PDF has 9 funding
+// sub-columns but reliable extraction would require column-by-column
+// positional reading; the v1 parser captures only the "Годишна задача
+// общо" rollup column. Per-settlement tagging against the 51 known
+// villages of obshtina SZR31.
+export interface StaraZagoraCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface StaraZagoraCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface StaraZagoraCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  projects: StaraZagoraCapitalProject[];
+  bySettlement: StaraZagoraCapitalSettlementRollup[];
+}

@@ -176,7 +176,10 @@ const extractSettlement = (desc: string): string | null => {
 // AT THE START of an anchor's description (typical case) or LEAKED from
 // the row above when the anchor's y is within the y-band of the previous
 // (subtotal) row. The non-anchored match catches both.
-const SKIP_RE = /КАПИТАЛОВИ РАЗХОДИ\s*-\s*ОБЩО|§\s*\d+\s*-|ф-я\s*"|Д\.\s*\d+/u;
+// "§ 51 - ..." (space-separated) and "§-54 - ..." (dash-prefixed) both
+// appear as paragraph subtotals — accept either.
+const SKIP_RE =
+  /КАПИТАЛОВИ РАЗХОДИ\s*-\s*ОБЩО|§\s*-?\s*\d+|ф-я\s*"|Д\.\s*\d+/u;
 
 const parseAmount = (raw: string): number | null => {
   const t = raw
