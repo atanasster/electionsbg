@@ -8,11 +8,13 @@ export interface PlovdivRayon {
   obshtinaCode: string; // settlement.obshtina value (PDV codes)
 }
 
-// Plovdiv's 6 районi. The codebase's obshtina codes for Plovdiv settlements
-// follow the same MIR-level pattern as Sofia — TBD whether they map 1:1 to
-// районi. For now we expose the район catalogue without obshtina mapping;
-// the frontend tile filters by município (PDV05 = община Пловдив) and the
-// user reads the район tile from the município page.
+// Plovdiv's 6 районi. Unlike Sofia (where every район has its own S2XXX
+// obshtina code), Plovdiv is ONE obshtina (PDV22, EKATTE 56784) covering
+// the whole city — settlement-level data has no per-район granularity.
+// So no obshtina→район map; the frontend tile shows ALL 6 районi stacked
+// on the single Plovdiv settlement / município page. obshtinaCode is kept
+// in the type for forward-compatibility with future municipalities that
+// follow the Sofia pattern.
 export const PLOVDIV_RAYONS: PlovdivRayon[] = [
   {
     code: "CENTRALEN",
