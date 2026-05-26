@@ -716,3 +716,59 @@ export interface InvestmentProgramIndexFile {
     grandTotalEur: number;
   }>;
 }
+
+// ---------------------------------------------------------------------------
+// Municipal capital programmes — per-project line items from each община's
+// annual "Поименен списък на обектите за строителство и капиталови разходи".
+// Phase 1 covers Sofia (Столична община) only. The XLSX is one sheet of
+// ~350 projects, parsed offline into the file below. Settlement and
+// município pages within Sofia consume this to render a CapitalProjectsTile.
+// ---------------------------------------------------------------------------
+
+export interface SofiaCapitalAmounts {
+  ownFunds: Money;
+  stateSubsidy: Money;
+  euFunds: Money;
+  total: Money;
+}
+
+export interface SofiaCapitalProject extends SofiaCapitalAmounts {
+  id: number;
+  name: string;
+  paragraph: string;
+  functionLabel: string | null;
+  activityLabel: string | null;
+  rayons: string[]; // canonical район codes (e.g. ["BANKYA"])
+}
+
+export interface SofiaCapitalParagraph extends SofiaCapitalAmounts {
+  code: string;
+  labelBg: string;
+}
+
+export interface SofiaCapitalRayonRollup {
+  code: string;
+  labelBg: string;
+  labelEn: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface SofiaCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+  };
+  currency: "BGN" | "EUR";
+  recapitulation: {
+    total: SofiaCapitalAmounts;
+    byParagraph: SofiaCapitalParagraph[];
+  };
+  projects: SofiaCapitalProject[];
+  byRayon: SofiaCapitalRayonRollup[];
+}

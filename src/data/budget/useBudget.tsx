@@ -22,6 +22,7 @@ import type {
   NoiFundsFile,
   PersonnelFile,
   PitBreakdownFile,
+  SofiaCapitalProgramFile,
   VatBreakdownFile,
 } from "./types";
 
@@ -236,6 +237,22 @@ export const useInvestmentProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<InvestmentProgramFile>(
         `/budget/investment_program/${fiscalYear}.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Sofia's annual капиталова програма — per-project capital-spending list
+// extracted from Приложение №3 to the city's budget law. The Capital
+// Projects tile on a Sofia settlement page filters this down to the
+// settlement's parent район and shows the top items + a total. ~440 KB
+// uncompressed; gzip on the GCS bucket brings it well under 100 KB.
+export const useSofiaCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "sofia", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<SofiaCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/sofia.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
