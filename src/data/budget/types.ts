@@ -941,7 +941,8 @@ export interface StaraZagoraCapitalProgramFile {
   municipalityNameBg: string;
   municipalityNameEn: string;
   currency: "BGN" | "EUR";
-  recapitulation: { total: Money };
+  recapitulation: { total: Money }; // itemised sum (matches projects[])
+  publishedRecap: Money | null; // PDF's "КАПИТАЛОВИ РАЗХОДИ - ОБЩО" — informational, includes city-wide rollups not in line items
   projects: StaraZagoraCapitalProject[];
   bySettlement: StaraZagoraCapitalSettlementRollup[];
 }

@@ -324,12 +324,14 @@ export const useRuseCapitalProgram = (fiscalYear: number | undefined) =>
   });
 
 // Stara Zagora's annual Капиталова програма (Приложение №4) — parsed
-// from the borderless born-digital PDF on starazagora.bg. Single
-// município, no районi. The parser captures the recap total reliably
-// but the per-project itemisation only reaches ~73% of the recap value
-// due to the source layout (mixed same-line / desc-above / desc-below
-// rows). The tile shows the recap as the headline, plus a per-village
-// strip from the school-renovation cluster that DOES localise cleanly.
+// from the council-budget PDF via `pdftotext -layout` (clean row-based
+// extraction). The tile shows the itemised sum (~14M EUR) as the
+// headline so it equals what the per-project list sums to — same
+// Ruse-style convention. The PDF's own "КАПИТАЛОВИ РАЗХОДИ - ОБЩО"
+// recap (29.3M EUR) is kept on the JSON's `publishedRecap` field for
+// reference but not surfaced as the tile headline because the gap
+// (city-wide commitments, paragraph-level rollups) can't be substantiated
+// from the line-item list users can drill into.
 export const useStaraZagoraCapitalProgram = (fiscalYear: number | undefined) =>
   useQuery({
     queryKey: [
