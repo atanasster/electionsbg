@@ -21,6 +21,7 @@ import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
 import { SofiaCapitalProjectsTile } from "./SofiaCapitalProjectsTile";
 import { PlovdivCapitalProjectsTile } from "./PlovdivCapitalProjectsTile";
+import { BurgasCapitalProjectsTile } from "./BurgasCapitalProjectsTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
@@ -153,6 +154,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
             <MunicipalityTransfersTile municipalityCode={obshtinaCode} />
             <SofiaCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <PlovdivCapitalProjectsTile obshtinaCode={obshtinaCode} />
+            <BurgasCapitalProjectsTile obshtinaCode={obshtinaCode} />
           </DashboardSection>
         ) : null}
 

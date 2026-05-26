@@ -21,6 +21,7 @@ import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { IndicatorsTile } from "./IndicatorsTile";
 import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
 import { PlovdivCapitalProjectsTile } from "./PlovdivCapitalProjectsTile";
+import { BurgasCapitalProjectsTile } from "./BurgasCapitalProjectsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
@@ -131,6 +132,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           <IndicatorsTile obshtinaCode={municipalityCode} />
           <MunicipalityTransfersTile municipalityCode={municipalityCode} />
           <PlovdivCapitalProjectsTile obshtinaCode={municipalityCode} />
+          <BurgasCapitalProjectsTile obshtinaCode={municipalityCode} />
         </DashboardSection>
 
         <DashboardSection

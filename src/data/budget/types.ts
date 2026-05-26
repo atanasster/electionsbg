@@ -823,3 +823,50 @@ export interface PlovdivCapitalProgramFile {
   projects: PlovdivCapitalProject[];
   byRayon: PlovdivCapitalRayonRollup[];
 }
+
+// Burgas — not районирана; the rollup is by funding source + by sub-
+// settlement (the ~14% of rows that name a village or city quarter).
+export interface BurgasCapitalFunding {
+  stateSubsidy: Money;
+  ownFunds: Money;
+  debt: Money;
+  euFunds: Money;
+  other: Money;
+  carryOverCommunity: Money;
+  carryOverDelegated: Money;
+}
+
+export interface BurgasCapitalProject extends BurgasCapitalFunding {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface BurgasCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface BurgasCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: {
+    total: Money;
+    funding: BurgasCapitalFunding;
+  };
+  projects: BurgasCapitalProject[];
+  bySettlement: BurgasCapitalSettlementRollup[];
+}

@@ -1,0 +1,5011 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-26T12:41:40.050Z",
+  "source": {
+    "publisher": "Община Бургас",
+    "documentTitle": "Капиталова програма 2025 г.",
+    "url": "https://burgas.bg/uploads/posts/2025/88b526bffed7c988521911ecb2eb0086.xlsx",
+    "fetchedAt": "2026-05-26T12:41:40.051Z"
+  },
+  "municipalityCode": "BGS04",
+  "municipalityNameBg": "Бургас",
+  "municipalityNameEn": "Burgas",
+  "currency": "BGN",
+  "recapitulation": {
+    "total": {
+      "amount": 169528056.918,
+      "currency": "BGN",
+      "amountEur": 86678319
+    },
+    "funding": {
+      "stateSubsidy": {
+        "amount": 4339900,
+        "currency": "BGN",
+        "amountEur": 2218956
+      },
+      "ownFunds": {
+        "amount": 12450320,
+        "currency": "BGN",
+        "amountEur": 6365748
+      },
+      "debt": {
+        "amount": 36325109,
+        "currency": "BGN",
+        "amountEur": 18572733
+      },
+      "euFunds": {
+        "amount": 67372081.918,
+        "currency": "BGN",
+        "amountEur": 34446799
+      },
+      "other": {
+        "amount": 44636768,
+        "currency": "BGN",
+        "amountEur": 22822417
+      },
+      "carryOverCommunity": {
+        "amount": 3428878,
+        "currency": "BGN",
+        "amountEur": 1753157
+      },
+      "carryOverDelegated": {
+        "amount": 975000,
+        "currency": "BGN",
+        "amountEur": 498510
+      }
+    }
+  },
+  "projects": [
+    {
+      "id": 1,
+      "name": "Ремонт на покрив на сграда – бивша детска градина в с. Твърдица",
+      "settlement": "Твърдица",
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 180000,
+        "currency": "BGN",
+        "amountEur": 92033
+      },
+      "total": {
+        "amount": 180000,
+        "currency": "BGN",
+        "amountEur": 92033
+      }
+    },
+    {
+      "id": 2,
+      "name": "Осн.р-т на парк УПИ 1 кв.45 ж.к.Славейков",
+      "settlement": "ж.к. Славейков",
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 1492539,
+        "currency": "BGN",
+        "amountEur": 763123
+      },
+      "carryOverCommunity": {
+        "amount": 8455,
+        "currency": "BGN",
+        "amountEur": 4323
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1500994,
+        "currency": "BGN",
+        "amountEur": 767446
+      }
+    },
+    {
+      "id": 3,
+      "name": "Осн.р-т на път BGS1039/III-906, Каблешково-Бургас/Рудник-Брястовец/III-6009/ от ЖП прелез до о.т.507/ул.Морава, кв.Ч.море/-ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 1275224,
+        "currency": "BGN",
+        "amountEur": 652012
+      },
+      "carryOverCommunity": {
+        "amount": 8,
+        "currency": "BGN",
+        "amountEur": 4
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1275232,
+        "currency": "BGN",
+        "amountEur": 652016
+      }
+    },
+    {
+      "id": 4,
+      "name": "Осн.р-т на път I-9 Варна-Бургас от км 236+270 до км 237+840/дясно платно/ и от км 236+257 до км 237+880/ляво платно/",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 2257641,
+        "currency": "BGN",
+        "amountEur": 1154314
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 2257641,
+        "currency": "BGN",
+        "amountEur": 1154314
+      }
+    },
+    {
+      "id": 5,
+      "name": "Сървърно мрежово оборудване и компютри",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 650000,
+        "currency": "BGN",
+        "amountEur": 332340
+      },
+      "total": {
+        "amount": 700000,
+        "currency": "BGN",
+        "amountEur": 357904
+      }
+    },
+    {
+      "id": 6,
+      "name": "Специализирана детска болница – Бургас",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 17211304,
+        "currency": "BGN",
+        "amountEur": 8800000
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 23217,
+        "currency": "BGN",
+        "amountEur": 11871
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 17234521,
+        "currency": "BGN",
+        "amountEur": 8811871
+      }
+    },
+    {
+      "id": 7,
+      "name": "Изграждане на етажен паркинг в к/с Зорница /здравни нужди/-ИП",
+      "settlement": "к/с Зорница",
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 62879,
+        "currency": "BGN",
+        "amountEur": 32150
+      },
+      "carryOverCommunity": {
+        "amount": 1737452,
+        "currency": "BGN",
+        "amountEur": 888345
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1800331,
+        "currency": "BGN",
+        "amountEur": 920495
+      }
+    },
+    {
+      "id": 8,
+      "name": "Жил.сграда за настаняване млади специалисти УПИ IV-683 кв.19 ж.к.Изгрев",
+      "settlement": "ж.к. Изгрев",
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 5880,
+        "currency": "BGN",
+        "amountEur": 3006
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 1073312,
+        "currency": "BGN",
+        "amountEur": 548776
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1079192,
+        "currency": "BGN",
+        "amountEur": 551782
+      }
+    },
+    {
+      "id": 9,
+      "name": "Канализация  гр. Българово",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 4569400,
+        "currency": "BGN",
+        "amountEur": 2336297
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 4569400,
+        "currency": "BGN",
+        "amountEur": 2336297
+      }
+    },
+    {
+      "id": 10,
+      "name": "ПСОВ гр.Българово",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 4141801,
+        "currency": "BGN",
+        "amountEur": 2117669
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 4141801,
+        "currency": "BGN",
+        "amountEur": 2117669
+      }
+    },
+    {
+      "id": 11,
+      "name": "Интегриран проект за управление на питейни и отпадни води- кв.Черно Море и кв.Рудник",
+      "settlement": "кв. Черно море",
+      "stateSubsidy": {
+        "amount": 765530,
+        "currency": "BGN",
+        "amountEur": 391409
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 765530,
+        "currency": "BGN",
+        "amountEur": 391409
+      }
+    },
+    {
+      "id": 12,
+      "name": "Водопроводна мрежа във вилна зона „Росенец“",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 789370,
+        "currency": "BGN",
+        "amountEur": 403598
+      },
+      "ownFunds": {
+        "amount": 1000000,
+        "currency": "BGN",
+        "amountEur": 511292
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1789370,
+        "currency": "BGN",
+        "amountEur": 914890
+      }
+    },
+    {
+      "id": 13,
+      "name": "Проектиране и изграждане на нова улица в пром.зона \"Север\"-",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 15798,
+        "currency": "BGN",
+        "amountEur": 8077
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 15798,
+        "currency": "BGN",
+        "amountEur": 8077
+      }
+    },
+    {
+      "id": 14,
+      "name": "Изгр. На второ платно на бул. \"Никола Петков\" и кръстовище -ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 535520,
+        "currency": "BGN",
+        "amountEur": 273807
+      },
+      "carryOverCommunity": {
+        "amount": 7980,
+        "currency": "BGN",
+        "amountEur": 4080
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 543500,
+        "currency": "BGN",
+        "amountEur": 277887
+      }
+    },
+    {
+      "id": 15,
+      "name": "Реконструкция ул.\"Индустриална\" и ул.Чаталджа в обхват м/у ул.Спортна и бул.Тодор Александров = ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 6110,
+        "currency": "BGN",
+        "amountEur": 3124
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 1151072,
+        "currency": "BGN",
+        "amountEur": 588534
+      },
+      "carryOverCommunity": {
+        "amount": 13295,
+        "currency": "BGN",
+        "amountEur": 6798
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1170477,
+        "currency": "BGN",
+        "amountEur": 598455
+      }
+    },
+    {
+      "id": 16,
+      "name": "Изграждане на нови улици в зона \"Пети километър\"",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 850000,
+        "currency": "BGN",
+        "amountEur": 434598
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 850000,
+        "currency": "BGN",
+        "amountEur": 434598
+      }
+    },
+    {
+      "id": 17,
+      "name": "Реконструкция на 2бр.същ.кръстовища по бул.Захари Стоянов и изграждане на нова улична мрежа в територията на ПЗ „Юг-Запад“, гр.Бургас: Етап 1 - Нова улица от о.т.251 до о.т.97 по регулационния план на ПЗ „Юг-Запад” гр. Бургас - ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 5540000,
+        "currency": "BGN",
+        "amountEur": 2832557
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 5540000,
+        "currency": "BGN",
+        "amountEur": 2832557
+      }
+    },
+    {
+      "id": 18,
+      "name": "„Реконструкция на ул. Одрин от кр-ще Трапезица до бул.„Проф.Яким Якимов“, от км 0+000 до км 0+600 с изграждане на второ пътно платно“ - 3 етап - ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 8200000,
+        "currency": "BGN",
+        "amountEur": 4192593
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 8200000,
+        "currency": "BGN",
+        "amountEur": 4192593
+      }
+    },
+    {
+      "id": 19,
+      "name": "Реконструкция ул.Гладстон о.т.374А до о.т.314 с подмяна на съществ.водопровод и БФК о.т.315 до о.т.314 - ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 840939,
+        "currency": "BGN",
+        "amountEur": 429965
+      },
+      "carryOverCommunity": {
+        "amount": 1622673,
+        "currency": "BGN",
+        "amountEur": 829660
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 2463612,
+        "currency": "BGN",
+        "amountEur": 1259625
+      }
+    },
+    {
+      "id": 20,
+      "name": "Реконструкция ул.Патриарх Евтимий  с подмяна на съществ.водопровод и БФК о.т.370 до о.т.317 = ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 2183490,
+        "currency": "BGN",
+        "amountEur": 1116401
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 2183490,
+        "currency": "BGN",
+        "amountEur": 1116401
+      }
+    },
+    {
+      "id": 21,
+      "name": "Изграждане на  улици ж.р.М.Рудник о.т.384-80 до о.т.129 ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 650,
+        "currency": "BGN",
+        "amountEur": 332
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 147788,
+        "currency": "BGN",
+        "amountEur": 75563
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 148438,
+        "currency": "BGN",
+        "amountEur": 75895
+      }
+    },
+    {
+      "id": 22,
+      "name": "Реконструкция ул.Ивайло от о.т.508 до о.т.407 -ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 954992,
+        "currency": "BGN",
+        "amountEur": 488280
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 954992,
+        "currency": "BGN",
+        "amountEur": 488280
+      }
+    },
+    {
+      "id": 23,
+      "name": "Нова велоалея кв.Крайморие с рампово съоръжение/пасарелка",
+      "settlement": "кв. Крайморие",
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 99858,
+        "currency": "BGN",
+        "amountEur": 51057
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 99858,
+        "currency": "BGN",
+        "amountEur": 51057
+      }
+    },
+    {
+      "id": 24,
+      "name": "Нова улица кв.Ветрен - УЛ. \"Родопи\"",
+      "settlement": "кв. Ветрен",
+      "stateSubsidy": {
+        "amount": 350000,
+        "currency": "BGN",
+        "amountEur": 178952
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 350000,
+        "currency": "BGN",
+        "amountEur": 178952
+      }
+    },
+    {
+      "id": 25,
+      "name": "Изграждане на Спортна зала в спортен комплекс Меден рудник",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 1042000,
+        "currency": "BGN",
+        "amountEur": 532766
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1042000,
+        "currency": "BGN",
+        "amountEur": 532766
+      }
+    },
+    {
+      "id": 26,
+      "name": "Черноморски център по Шахмат",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 400000,
+        "currency": "BGN",
+        "amountEur": 204517
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 400000,
+        "currency": "BGN",
+        "amountEur": 204517
+      }
+    },
+    {
+      "id": 27,
+      "name": "Олекотена покривна конструкция на тенис кортове",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 23200,
+        "currency": "BGN",
+        "amountEur": 11862
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 23200,
+        "currency": "BGN",
+        "amountEur": 11862
+      }
+    },
+    {
+      "id": 28,
+      "name": "Траурен автомобил за ОП Обреден комплекс",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 70000,
+        "currency": "BGN",
+        "amountEur": 35790
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 70000,
+        "currency": "BGN",
+        "amountEur": 35790
+      }
+    },
+    {
+      "id": 29,
+      "name": "Проектиране и изграждане на паметник на Коджакафалията-НОВ",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 140000,
+        "currency": "BGN",
+        "amountEur": 71581
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 140000,
+        "currency": "BGN",
+        "amountEur": 71581
+      }
+    },
+    {
+      "id": 30,
+      "name": "Проектиране  на паметник на Ив.Вазов",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 25000,
+        "currency": "BGN",
+        "amountEur": 12782
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 25000,
+        "currency": "BGN",
+        "amountEur": 12782
+      }
+    },
+    {
+      "id": 31,
+      "name": "Реконструкция на Общински път BGS1033 в участъка от Път I-6 \"Бургас - Айтос\" през гр. Българово до  АМ Тракия-3 етап от км 3+850 до км 4+982 = ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 476650,
+        "currency": "BGN",
+        "amountEur": 243707
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 476650,
+        "currency": "BGN",
+        "amountEur": 243707
+      }
+    },
+    {
+      "id": 32,
+      "name": "Реконструкция на Общински път BGS1030  от км 2+100 до км 4+100 Д.Езерово = ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 1221980,
+        "currency": "BGN",
+        "amountEur": 624788
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1221980,
+        "currency": "BGN",
+        "amountEur": 624788
+      }
+    },
+    {
+      "id": 33,
+      "name": "Студентски кампус – Споделено академично пространство с лаборатории за научна дейност и парк в УПИ в УПИ VII и УПИ IX, кв. 24 по плана на зона \"Хоризонт\", гр. Бургас ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 1675000,
+        "currency": "BGN",
+        "amountEur": 856414
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1675000,
+        "currency": "BGN",
+        "amountEur": 856414
+      }
+    },
+    {
+      "id": 34,
+      "name": "Изграждане на нова сграда за диагностична дейност и основен ремонт на съществуваща сграда на Специализирана болница за активно лечение по пневмо-фтизиатрични болести, гр. Бургас ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 1707883,
+        "currency": "BGN",
+        "amountEur": 873227
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1707883,
+        "currency": "BGN",
+        "amountEur": 873227
+      }
+    },
+    {
+      "id": 35,
+      "name": "Приют за кучета в УПИ 1-942 в м. 75, ж.р. „Меден рудник“, гр. Бургас ИП",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 1630000,
+        "currency": "BGN",
+        "amountEur": 833406
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1630000,
+        "currency": "BGN",
+        "amountEur": 833406
+      }
+    },
+    {
+      "id": 36,
+      "name": "Реконструкция ул.Пробуда (между ул.Гладстон и ул.Дебелт)",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 965000,
+        "currency": "BGN",
+        "amountEur": 493397
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 965000,
+        "currency": "BGN",
+        "amountEur": 493397
+      }
+    },
+    {
+      "id": 37,
+      "name": "Реконструкция ул.Левски (между ул.М.Луиза и ул.Дебелт)",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 620000,
+        "currency": "BGN",
+        "amountEur": 317001
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 620000,
+        "currency": "BGN",
+        "amountEur": 317001
+      }
+    },
+    {
+      "id": 38,
+      "name": "Реконструкция ул.Любен Каравелов (между ул.М.Луиза и ул.Дебелт)",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 462000,
+        "currency": "BGN",
+        "amountEur": 236217
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 462000,
+        "currency": "BGN",
+        "amountEur": 236217
+      }
+    },
+    {
+      "id": 39,
+      "name": "Надграждане на система за ел. велосипеди",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 560000,
+        "currency": "BGN",
+        "amountEur": 286323
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 560000,
+        "currency": "BGN",
+        "amountEur": 286323
+      }
+    },
+    {
+      "id": 40,
+      "name": "Паркинг автомати - 10 бр. за ОП Транспорт",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 41,
+      "name": "Основен ремонт вентилационна система за библиотека Яворов",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 54000,
+        "currency": "BGN",
+        "amountEur": 27610
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 54000,
+        "currency": "BGN",
+        "amountEur": 27610
+      }
+    },
+    {
+      "id": 42,
+      "name": "Осн.р-т на дворно пространство  ОУ ПР Славейков",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 295000,
+        "currency": "BGN",
+        "amountEur": 150831
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 295000,
+        "currency": "BGN",
+        "amountEur": 150831
+      }
+    },
+    {
+      "id": 43,
+      "name": "Осн. р-т покрив и площадка -ОУ Братя Миладинови",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 44,
+      "name": "Осн. р-т дворно пространство - ДГ \"Звездица-Зорница\"",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 250000,
+        "currency": "BGN",
+        "amountEur": 127823
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 250000,
+        "currency": "BGN",
+        "amountEur": 127823
+      }
+    },
+    {
+      "id": 45,
+      "name": "Изграждане на басейн и физкултурен салон - ДГ \"Вълшебство\"",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 46,
+      "name": "Изграждане нов физкултурен салон на ОУ „Елин Пелин“",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 47,
+      "name": "Автомобили за екоинспекторите - 4 бр. - РИОСВ",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 160000,
+        "currency": "BGN",
+        "amountEur": 81807
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 160000,
+        "currency": "BGN",
+        "amountEur": 81807
+      }
+    },
+    {
+      "id": 48,
+      "name": "Изграждане на система за подземно събиране на отпадъци - РИОСВ",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 1828800,
+        "currency": "BGN",
+        "amountEur": 935051
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1828800,
+        "currency": "BGN",
+        "amountEur": 935051
+      }
+    },
+    {
+      "id": 49,
+      "name": "Товарен електр. автомобил\n до 3,5 т.  за ОП Чистота еко-РИОСВ",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 84000,
+        "currency": "BGN",
+        "amountEur": 42949
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 84000,
+        "currency": "BGN",
+        "amountEur": 42949
+      }
+    },
+    {
+      "id": 50,
+      "name": "Кошотоварачна \nмашина до 4 т.  - за ОП Чистота еко-РИОСВ",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 330000,
+        "currency": "BGN",
+        "amountEur": 168726
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 330000,
+        "currency": "BGN",
+        "amountEur": 168726
+      }
+    },
+    {
+      "id": 51,
+      "name": "Товарен автомобил \nс мултилифт до 10 т. за ОП Чистота еко-РИОСВ",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 264000,
+        "currency": "BGN",
+        "amountEur": 134981
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 264000,
+        "currency": "BGN",
+        "amountEur": 134981
+      }
+    },
+    {
+      "id": 52,
+      "name": "Компактор втора употреба за ОП Чистота еко-РИОСВ",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 425000,
+        "currency": "BGN",
+        "amountEur": 217299
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 425000,
+        "currency": "BGN",
+        "amountEur": 217299
+      }
+    },
+    {
+      "id": 53,
+      "name": "Работен проект за разширение и надграждане на  II-клетка-РИОСВ",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 62000,
+        "currency": "BGN",
+        "amountEur": 31700
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 62000,
+        "currency": "BGN",
+        "amountEur": 31700
+      }
+    },
+    {
+      "id": 54,
+      "name": "Система за видеонаблюдение на контейнери -РИОСВ",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 245000,
+        "currency": "BGN",
+        "amountEur": 125267
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 245000,
+        "currency": "BGN",
+        "amountEur": 125267
+      }
+    },
+    {
+      "id": 55,
+      "name": "ДКЦ-2 -трансфер",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 700000,
+        "currency": "BGN",
+        "amountEur": 357904
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 700000,
+        "currency": "BGN",
+        "amountEur": 357904
+      }
+    },
+    {
+      "id": 56,
+      "name": "Ремонт на покрив сграда на ГРЕ/ППМГ",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 800000,
+        "currency": "BGN",
+        "amountEur": 409034
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 800000,
+        "currency": "BGN",
+        "amountEur": 409034
+      }
+    },
+    {
+      "id": 57,
+      "name": "Автомобил за II-РПУ",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 30000,
+        "currency": "BGN",
+        "amountEur": 15339
+      },
+      "total": {
+        "amount": 30000,
+        "currency": "BGN",
+        "amountEur": 15339
+      }
+    },
+    {
+      "id": 58,
+      "name": "Автомобил за УКОРС",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 75000,
+        "currency": "BGN",
+        "amountEur": 38347
+      },
+      "total": {
+        "amount": 75000,
+        "currency": "BGN",
+        "amountEur": 38347
+      }
+    },
+    {
+      "id": 59,
+      "name": "Проектиране и изграждане на Здравна служба в с.Маринка",
+      "settlement": "Маринка",
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 300000,
+        "currency": "BGN",
+        "amountEur": 153388
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 300000,
+        "currency": "BGN",
+        "amountEur": 153388
+      }
+    },
+    {
+      "id": 60,
+      "name": "Основен ремонт на  здравна служба в кв. Долно Езерово",
+      "settlement": "кв. Долно Езерово",
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 450000,
+        "currency": "BGN",
+        "amountEur": 230081
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 450000,
+        "currency": "BGN",
+        "amountEur": 230081
+      }
+    },
+    {
+      "id": 61,
+      "name": "Закупуване лек автомобил",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 62,
+      "name": "Закупуване на паяк",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 35000,
+        "currency": "BGN",
+        "amountEur": 17895
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 35000,
+        "currency": "BGN",
+        "amountEur": 17895
+      }
+    },
+    {
+      "id": 63,
+      "name": "Видеокамера за контрол на скоростта",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 38850,
+        "currency": "BGN",
+        "amountEur": 19864
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 38850,
+        "currency": "BGN",
+        "amountEur": 19864
+      }
+    },
+    {
+      "id": 64,
+      "name": "Изграждане улично осветление от път I-9 в участъка от Кръгово кр-ще до Северен обход на Бургас, Бургас",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 4500,
+        "currency": "BGN",
+        "amountEur": 2301
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 4500,
+        "currency": "BGN",
+        "amountEur": 2301
+      }
+    },
+    {
+      "id": 65,
+      "name": "Климатици",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 7000,
+        "currency": "BGN",
+        "amountEur": 3579
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 7000,
+        "currency": "BGN",
+        "amountEur": 3579
+      }
+    },
+    {
+      "id": 66,
+      "name": "Въвеждане на единна ГИС система",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 67,
+      "name": "Софтуер и софтуерни лицензи",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 40000,
+        "currency": "BGN",
+        "amountEur": 20452
+      },
+      "total": {
+        "amount": 40000,
+        "currency": "BGN",
+        "amountEur": 20452
+      }
+    },
+    {
+      "id": 68,
+      "name": "Придобиване на земя",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 3000000,
+        "currency": "BGN",
+        "amountEur": 1533876
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 3000000,
+        "currency": "BGN",
+        "amountEur": 1533876
+      }
+    },
+    {
+      "id": 69,
+      "name": "Трансфер православни храмове",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 70,
+      "name": "Публичен сграден фонд за административно обслужване, собственост на Община Бургас-ул.Конт Андрованти, ЦАУ Възраждане, к-во Маринка,к-во Димчево,к-во Твърдица,к-во Г.Езерово и к-во Ч.море",
+      "settlement": "Димчево",
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 631000,
+        "currency": "BGN",
+        "amountEur": 322625
+      },
+      "euFunds": {
+        "amount": 1192702,
+        "currency": "BGN",
+        "amountEur": 609819
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1823702,
+        "currency": "BGN",
+        "amountEur": 932444
+      }
+    },
+    {
+      "id": 71,
+      "name": "Административна сграда с адрес: гр. Бургас, ул. Шейново №24",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 1663000,
+        "currency": "BGN",
+        "amountEur": 850278
+      },
+      "euFunds": {
+        "amount": 1500000,
+        "currency": "BGN",
+        "amountEur": 766938
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 3163000,
+        "currency": "BGN",
+        "amountEur": 1617216
+      }
+    },
+    {
+      "id": 72,
+      "name": "Административна сграда с адрес: гр. Бургас, к-с „Славейков“ до бл.49",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 295000,
+        "currency": "BGN",
+        "amountEur": 150831
+      },
+      "euFunds": {
+        "amount": 212381,
+        "currency": "BGN",
+        "amountEur": 108589
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 507381,
+        "currency": "BGN",
+        "amountEur": 259420
+      }
+    },
+    {
+      "id": 73,
+      "name": "Модернизация на ДГ \"Вълшебство\"",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 1065000,
+        "currency": "BGN",
+        "amountEur": 544526
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1065000,
+        "currency": "BGN",
+        "amountEur": 544526
+      }
+    },
+    {
+      "id": 74,
+      "name": "Модернизация на ДГ \"Ален мак\" кв. Сарафово",
+      "settlement": "кв. Сарафово",
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 1310000,
+        "currency": "BGN",
+        "amountEur": 669792
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1310000,
+        "currency": "BGN",
+        "amountEur": 669792
+      }
+    },
+    {
+      "id": 75,
+      "name": "ReSkin-EE ОУ Ив Вазов  кв. Банево",
+      "settlement": "Банево",
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 330000,
+        "currency": "BGN",
+        "amountEur": 168726
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 330000,
+        "currency": "BGN",
+        "amountEur": 168726
+      }
+    },
+    {
+      "id": 76,
+      "name": "Спортна зала „Нефтохимик”, к-с Лазур",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 1745000,
+        "currency": "BGN",
+        "amountEur": 892204
+      },
+      "euFunds": {
+        "amount": 584373.6,
+        "currency": "BGN",
+        "amountEur": 298785
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 2329373.6,
+        "currency": "BGN",
+        "amountEur": 1190990
+      }
+    },
+    {
+      "id": 77,
+      "name": "Иновативни възстановителни мерки в отговор на градските предизвикателствата към здравето и включването в Спортна зала \"Младост\"",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 3808000,
+        "currency": "BGN",
+        "amountEur": 1946999
+      },
+      "euFunds": {
+        "amount": 3812000,
+        "currency": "BGN",
+        "amountEur": 1949045
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 7620000,
+        "currency": "BGN",
+        "amountEur": 3896044
+      }
+    },
+    {
+      "id": 78,
+      "name": "Публична културна инфраструктура чрез въвеждане на мерки за ЕЕ в сгради за обществено обслужване-читалища",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 500000,
+        "currency": "BGN",
+        "amountEur": 255646
+      },
+      "euFunds": {
+        "amount": 2030622,
+        "currency": "BGN",
+        "amountEur": 1038241
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 2530622,
+        "currency": "BGN",
+        "amountEur": 1293886
+      }
+    },
+    {
+      "id": 79,
+      "name": "Сграда на Младежки културен център ул. „Уилям Гладстон“ № 39“",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 290000,
+        "currency": "BGN",
+        "amountEur": 148275
+      },
+      "euFunds": {
+        "amount": 1366518.2999999998,
+        "currency": "BGN",
+        "amountEur": 698690
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1656518.2999999998,
+        "currency": "BGN",
+        "amountEur": 846964
+      }
+    },
+    {
+      "id": 80,
+      "name": "Закрит плувен басейн в ПИ 07079.651.72, УПИ I, кв.135 по плана на РЦ \"Меден рудник\"",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 1265120,
+        "currency": "BGN",
+        "amountEur": 646846
+      },
+      "euFunds": {
+        "amount": 307098.5,
+        "currency": "BGN",
+        "amountEur": 157017
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1572218.5,
+        "currency": "BGN",
+        "amountEur": 803863
+      }
+    },
+    {
+      "id": 81,
+      "name": "Надграждане на образователната инфраструктура в Община Бургас, чрез изграждане на нови сгради към училища - ОУ \"Христо Ботев\" кв.Сарафово и ново училище в кв.Крайморие и ПМГ",
+      "settlement": "кв. Сарафово",
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 4295000,
+        "currency": "BGN",
+        "amountEur": 2195999
+      },
+      "euFunds": {
+        "amount": 2999900,
+        "currency": "BGN",
+        "amountEur": 1533825
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 7294900,
+        "currency": "BGN",
+        "amountEur": 3729823
+      }
+    },
+    {
+      "id": 82,
+      "name": "Реформиране на Дом за стари хора \"Цвета и Анка Върбанови\" гр. Бургас чрез изграждане на сграда за резидентна грижа за възрастни хора в надтрудоспособна възраст в УПИ II-525, кв.9, ПИ с идентификатор 07079.701.525, по плана на в. з. „Минерални бани“, гр. Бургас",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 7058340.2,
+        "currency": "BGN",
+        "amountEur": 3608872
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 7058340.2,
+        "currency": "BGN",
+        "amountEur": 3608872
+      }
+    },
+    {
+      "id": 83,
+      "name": "Изграждане и оборудване на нови социални и интегрирани здравно-социални услуги за резидентна грижа и специализирани социални услуги за лица с увреждания",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 3806000,
+        "currency": "BGN",
+        "amountEur": 1945977
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 3806000,
+        "currency": "BGN",
+        "amountEur": 1945977
+      }
+    },
+    {
+      "id": 84,
+      "name": "Българските общини работят заедно за подобряване на качеството на атмосферния въздух - проект LIFE - климатици",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 140000,
+        "currency": "BGN",
+        "amountEur": 71581
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 217227.03999999998,
+        "currency": "BGN",
+        "amountEur": 111066
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 357227.04,
+        "currency": "BGN",
+        "amountEur": 182647
+      }
+    },
+    {
+      "id": 85,
+      "name": "Намаляване на замърсяването на атмосферния въздух с фини прахови частици в населените места на Община Бургас - II",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 2564511.2,
+        "currency": "BGN",
+        "amountEur": 1311214
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 2564511.2,
+        "currency": "BGN",
+        "amountEur": 1311214
+      }
+    },
+    {
+      "id": 86,
+      "name": "Ел.система за вело стоянки - разширение-Проект Clima sump",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 45000,
+        "currency": "BGN",
+        "amountEur": 23008
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 55000.00000000001,
+        "currency": "BGN",
+        "amountEur": 28121
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 87,
+      "name": "Закупуване на електромобил - Проект Clima sump",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 270000,
+        "currency": "BGN",
+        "amountEur": 138049
+      },
+      "euFunds": {
+        "amount": 330000,
+        "currency": "BGN",
+        "amountEur": 168726
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 600000,
+        "currency": "BGN",
+        "amountEur": 306775
+      }
+    },
+    {
+      "id": 88,
+      "name": "Проект РегиониЗАКлимат (R4C) \n(надграждане на ИСУВ и създаване на концептуален модел -проектиране на улици) за ж.к. Зорница",
+      "settlement": "ж.к. Зорница",
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 255000,
+        "currency": "BGN",
+        "amountEur": 130379
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 255000,
+        "currency": "BGN",
+        "amountEur": 130379
+      }
+    },
+    {
+      "id": 89,
+      "name": "Проект за Програма за публична подкрепа за развитието на индустриални райони, паркове и подобни територии и за привличане на инвестиции.\" - „Реконструкция на ул. Търговска от о.т. 108-122-123-192-124-125-126 и изграждане на нов участък от о.т. 126-194-127-128-129-130 до о.т. 131 съгласно действащ ПУП - ПРЗ на ПЗ \"Юг - Запад\", гр. Бургас“",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 827000,
+        "currency": "BGN",
+        "amountEur": 422838
+      },
+      "euFunds": {
+        "amount": 2583458,
+        "currency": "BGN",
+        "amountEur": 1320901
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 3410458,
+        "currency": "BGN",
+        "amountEur": 1743739
+      }
+    },
+    {
+      "id": 90,
+      "name": "Енергийно ефективни системи за улично осветление-ПВУ",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 1000000,
+        "currency": "BGN",
+        "amountEur": 511292
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1000000,
+        "currency": "BGN",
+        "amountEur": 511292
+      }
+    },
+    {
+      "id": 91,
+      "name": "„Прилагане на зелени мерки за по-чист въздух на територията на община Бургас“",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 2524685,
+        "currency": "BGN",
+        "amountEur": 1290851
+      },
+      "euFunds": {
+        "amount": 1200000,
+        "currency": "BGN",
+        "amountEur": 613550
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 3724685,
+        "currency": "BGN",
+        "amountEur": 1904401
+      }
+    },
+    {
+      "id": 92,
+      "name": "Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд -ЕТАП I“-ПВУ- 29 сгради",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 21409952,
+        "currency": "BGN",
+        "amountEur": 10946735
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 21409952,
+        "currency": "BGN",
+        "amountEur": 10946735
+      }
+    },
+    {
+      "id": 93,
+      "name": "Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд -ЕТАП II“-ПВУ - 14 сгради",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 573998.0780000001,
+        "currency": "BGN",
+        "amountEur": 293481
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 573998.0780000001,
+        "currency": "BGN",
+        "amountEur": 293481
+      }
+    },
+    {
+      "id": 94,
+      "name": "Рекултивация на клетка 1 на Регионално депо „Братово – Запад",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 2000000,
+        "currency": "BGN",
+        "amountEur": 1022584
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 2000000,
+        "currency": "BGN",
+        "amountEur": 1022584
+      }
+    },
+    {
+      "id": 95,
+      "name": "Подобряване на инфраструктурата и модернизация на рибарско пристанище \"Сарафово\"",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 1600000,
+        "currency": "BGN",
+        "amountEur": 818067
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 1600000,
+        "currency": "BGN",
+        "amountEur": 818067
+      }
+    },
+    {
+      "id": 96,
+      "name": "Подобряване на инфраструктурата и модернизация на „Лодкостоянка Крайморие“",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 97,
+      "name": "Подобряване на инфраструктурата и модернизация на Закрита лодкостоянка „Ченгене скеле“",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 98,
+      "name": "\"Модернизация на сграда и обзавеждане, вкл. въвеждане на мерки за енергийна ефективност, изграждане на STEM център, осигуряване на достъпност и облагородяване на дворно пространство на ОУ „Георги Бенковски“, гр. Бургас\"",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 130000,
+        "currency": "BGN",
+        "amountEur": 66468
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 130000,
+        "currency": "BGN",
+        "amountEur": 66468
+      }
+    },
+    {
+      "id": 99,
+      "name": "„Изграждане на иновативен, високотехнологичен, академичен център за интегриране на съвременни образователни и технологични инициативи, насърчаващ растежа на знанието и икономическия напредък.“",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 3900000,
+        "currency": "BGN",
+        "amountEur": 1994038
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 3900000,
+        "currency": "BGN",
+        "amountEur": 1994038
+      }
+    },
+    {
+      "id": 100,
+      "name": "Проучване за социализация на градинка Лазур, проект Bauhaus4Med.",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 500000,
+        "currency": "BGN",
+        "amountEur": 255646
+      },
+      "euFunds": {
+        "amount": 46000,
+        "currency": "BGN",
+        "amountEur": 23519
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 546000,
+        "currency": "BGN",
+        "amountEur": 279165
+      }
+    },
+    {
+      "id": 101,
+      "name": "Проект MED-IREN (закупуване на дрон и специализиран модул за гасене на пожари)",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 102,
+      "name": "Спортна зала Бойчо Брънзов - мерки за ЕЕ и прилежащо пространство",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 500000,
+        "currency": "BGN",
+        "amountEur": 255646
+      },
+      "euFunds": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 600000,
+        "currency": "BGN",
+        "amountEur": 306775
+      }
+    },
+    {
+      "id": 103,
+      "name": "Модернизация на образователна среда и въвеждане на мерки за ЕЕ, изграждане на СТЕМ център и пристройка за асансьор ОУ \"Антон Страшимиров\", гр.Бургас",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 32000,
+        "currency": "BGN",
+        "amountEur": 16361
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 32000,
+        "currency": "BGN",
+        "amountEur": 16361
+      }
+    },
+    {
+      "id": 104,
+      "name": "„Финансиране на избрани от Европейската комисия Европейски цифрови иновационни хъбове,отличени с „Печат за високи постижения““",
+      "settlement": null,
+      "stateSubsidy": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "ownFunds": {
+        "amount": 1476130,
+        "currency": "BGN",
+        "amountEur": 754733
+      },
+      "debt": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "euFunds": {
+        "amount": 1500000,
+        "currency": "BGN",
+        "amountEur": 766938
+      },
+      "other": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverCommunity": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "carryOverDelegated": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "total": {
+        "amount": 2976130,
+        "currency": "BGN",
+        "amountEur": 1521671
+      }
+    }
+  ],
+  "bySettlement": [
+    {
+      "name": "кв. Сарафово",
+      "projectCount": 2,
+      "total": {
+        "amount": 8604900,
+        "currency": "BGN",
+        "amountEur": 4399616
+      },
+      "topProjects": [
+        {
+          "id": 81,
+          "name": "Надграждане на образователната инфраструктура в Община Бургас, чрез изграждане на нови сгради към училища - ОУ \"Христо Ботев\" кв.Сарафово и ново училище в кв.Крайморие и ПМГ",
+          "total": {
+            "amount": 7294900,
+            "currency": "BGN",
+            "amountEur": 3729823
+          }
+        },
+        {
+          "id": 74,
+          "name": "Модернизация на ДГ \"Ален мак\" кв. Сарафово",
+          "total": {
+            "amount": 1310000,
+            "currency": "BGN",
+            "amountEur": 669792
+          }
+        }
+      ]
+    },
+    {
+      "name": "Димчево",
+      "projectCount": 1,
+      "total": {
+        "amount": 1823702,
+        "currency": "BGN",
+        "amountEur": 932444
+      },
+      "topProjects": [
+        {
+          "id": 70,
+          "name": "Публичен сграден фонд за административно обслужване, собственост на Община Бургас-ул.Конт Андрованти, ЦАУ Възраждане, к-во Маринка,к-во Димчево,к-во Твърдица,к-во Г.Езерово и к-во Ч.море",
+          "total": {
+            "amount": 1823702,
+            "currency": "BGN",
+            "amountEur": 932444
+          }
+        }
+      ]
+    },
+    {
+      "name": "к/с Зорница",
+      "projectCount": 1,
+      "total": {
+        "amount": 1800331,
+        "currency": "BGN",
+        "amountEur": 920495
+      },
+      "topProjects": [
+        {
+          "id": 7,
+          "name": "Изграждане на етажен паркинг в к/с Зорница /здравни нужди/-ИП",
+          "total": {
+            "amount": 1800331,
+            "currency": "BGN",
+            "amountEur": 920495
+          }
+        }
+      ]
+    },
+    {
+      "name": "ж.к. Славейков",
+      "projectCount": 1,
+      "total": {
+        "amount": 1500994,
+        "currency": "BGN",
+        "amountEur": 767446
+      },
+      "topProjects": [
+        {
+          "id": 2,
+          "name": "Осн.р-т на парк УПИ 1 кв.45 ж.к.Славейков",
+          "total": {
+            "amount": 1500994,
+            "currency": "BGN",
+            "amountEur": 767446
+          }
+        }
+      ]
+    },
+    {
+      "name": "ж.к. Изгрев",
+      "projectCount": 1,
+      "total": {
+        "amount": 1079192,
+        "currency": "BGN",
+        "amountEur": 551782
+      },
+      "topProjects": [
+        {
+          "id": 8,
+          "name": "Жил.сграда за настаняване млади специалисти УПИ IV-683 кв.19 ж.к.Изгрев",
+          "total": {
+            "amount": 1079192,
+            "currency": "BGN",
+            "amountEur": 551782
+          }
+        }
+      ]
+    },
+    {
+      "name": "кв. Черно море",
+      "projectCount": 1,
+      "total": {
+        "amount": 765530,
+        "currency": "BGN",
+        "amountEur": 391409
+      },
+      "topProjects": [
+        {
+          "id": 11,
+          "name": "Интегриран проект за управление на питейни и отпадни води- кв.Черно Море и кв.Рудник",
+          "total": {
+            "amount": 765530,
+            "currency": "BGN",
+            "amountEur": 391409
+          }
+        }
+      ]
+    },
+    {
+      "name": "кв. Долно Езерово",
+      "projectCount": 1,
+      "total": {
+        "amount": 450000,
+        "currency": "BGN",
+        "amountEur": 230081
+      },
+      "topProjects": [
+        {
+          "id": 60,
+          "name": "Основен ремонт на  здравна служба в кв. Долно Езерово",
+          "total": {
+            "amount": 450000,
+            "currency": "BGN",
+            "amountEur": 230081
+          }
+        }
+      ]
+    },
+    {
+      "name": "кв. Ветрен",
+      "projectCount": 1,
+      "total": {
+        "amount": 350000,
+        "currency": "BGN",
+        "amountEur": 178952
+      },
+      "topProjects": [
+        {
+          "id": 24,
+          "name": "Нова улица кв.Ветрен - УЛ. \"Родопи\"",
+          "total": {
+            "amount": 350000,
+            "currency": "BGN",
+            "amountEur": 178952
+          }
+        }
+      ]
+    },
+    {
+      "name": "Банево",
+      "projectCount": 1,
+      "total": {
+        "amount": 330000,
+        "currency": "BGN",
+        "amountEur": 168726
+      },
+      "topProjects": [
+        {
+          "id": 75,
+          "name": "ReSkin-EE ОУ Ив Вазов  кв. Банево",
+          "total": {
+            "amount": 330000,
+            "currency": "BGN",
+            "amountEur": 168726
+          }
+        }
+      ]
+    },
+    {
+      "name": "Маринка",
+      "projectCount": 1,
+      "total": {
+        "amount": 300000,
+        "currency": "BGN",
+        "amountEur": 153388
+      },
+      "topProjects": [
+        {
+          "id": 59,
+          "name": "Проектиране и изграждане на Здравна служба в с.Маринка",
+          "total": {
+            "amount": 300000,
+            "currency": "BGN",
+            "amountEur": 153388
+          }
+        }
+      ]
+    },
+    {
+      "name": "ж.к. Зорница",
+      "projectCount": 1,
+      "total": {
+        "amount": 255000,
+        "currency": "BGN",
+        "amountEur": 130379
+      },
+      "topProjects": [
+        {
+          "id": 88,
+          "name": "Проект РегиониЗАКлимат (R4C) \n(надграждане на ИСУВ и създаване на концептуален модел -проектиране на улици) за ж.к. Зорница",
+          "total": {
+            "amount": 255000,
+            "currency": "BGN",
+            "amountEur": 130379
+          }
+        }
+      ]
+    },
+    {
+      "name": "Твърдица",
+      "projectCount": 1,
+      "total": {
+        "amount": 180000,
+        "currency": "BGN",
+        "amountEur": 92033
+      },
+      "topProjects": [
+        {
+          "id": 1,
+          "name": "Ремонт на покрив на сграда – бивша детска градина в с. Твърдица",
+          "total": {
+            "amount": 180000,
+            "currency": "BGN",
+            "amountEur": 92033
+          }
+        }
+      ]
+    },
+    {
+      "name": "кв. Крайморие",
+      "projectCount": 1,
+      "total": {
+        "amount": 99858,
+        "currency": "BGN",
+        "amountEur": 51057
+      },
+      "topProjects": [
+        {
+          "id": 23,
+          "name": "Нова велоалея кв.Крайморие с рампово съоръжение/пасарелка",
+          "total": {
+            "amount": 99858,
+            "currency": "BGN",
+            "amountEur": 51057
+          }
+        }
+      ]
+    }
+  ]
+}
