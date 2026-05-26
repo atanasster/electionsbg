@@ -369,25 +369,57 @@ const moneyFromBgn = (bgn: number | null): import("../types").Money => {
   };
 };
 
+// Empty placeholder for years where only the pension yearbook is on disk
+// (no B1 XLS). Keeps the artifact schema uniform while signalling that
+// fund-level revenue/expenditure aren't available — consumers should
+// check funds.length and the totals before rendering a per-fund row.
+const ZERO_MONEY = (): import("../types").Money => ({
+  amount: 0,
+  currency: "BGN",
+  amountEur: 0,
+});
+
 export const buildNoiFundsFile = (
   snapshotsByYear: Map<number, NoiFundSnapshot[]>,
   pensionTypesByYear: Map<number, NoiPensionTypeBreakdown> = new Map(),
 ): NoiFundsFile => {
   const years: NoiFundsFile["years"] = [];
-  for (const [year, funds] of [...snapshotsByYear.entries()].sort(
-    (a, b) => a[0] - b[0],
-  )) {
-    const pensions = sumMoney(funds.map((f) => moneyFromBgn(f.pensionsBgn)));
-    const shortTermBenefits = sumMoney(
-      funds.map((f) => moneyFromBgn(f.shortTermBenefitsBgn)),
-    );
+  // Union: any year that has either B1 funds OR yearbook pension-type data.
+  // Yearbook-only years (e.g. 2023 with yearbook PDF but no B1 XLS) still
+  // surface their pension-type breakdown in the artifact — the per-fund
+  // section is skipped and fund-level totals are derived from the yearbook
+  // grand-total alone.
+  const allYears = new Set<number>([
+    ...snapshotsByYear.keys(),
+    ...pensionTypesByYear.keys(),
+  ]);
+  for (const year of [...allYears].sort((a, b) => a - b)) {
+    const funds = snapshotsByYear.get(year) ?? [];
+    const pensionTypes = pensionTypesByYear.get(year) ?? null;
+
+    // For yearbook-only years we still need *some* pensions total. Use the
+    // yearbook's own grand-total as the headline; expenditure stays
+    // null-equivalent (zero) so the UI can detect "no fund-level data".
+    const pensions = funds.length
+      ? sumMoney(funds.map((f) => moneyFromBgn(f.pensionsBgn)))
+      : (pensionTypes?.total ?? ZERO_MONEY());
+    const shortTermBenefits = funds.length
+      ? sumMoney(funds.map((f) => moneyFromBgn(f.shortTermBenefitsBgn)))
+      : ZERO_MONEY();
+
     years.push({
       fiscalYear: year,
       asOf: funds[0]?.asOf ?? `${year}-12-31`,
       totals: {
-        revenue: sumMoney(funds.map((f) => f.revenue)),
-        expenditure: sumMoney(funds.map((f) => f.expenditure)),
-        balance: sumMoney(funds.map((f) => f.balance)),
+        revenue: funds.length
+          ? sumMoney(funds.map((f) => f.revenue))
+          : ZERO_MONEY(),
+        expenditure: funds.length
+          ? sumMoney(funds.map((f) => f.expenditure))
+          : (pensionTypes?.total ?? ZERO_MONEY()),
+        balance: funds.length
+          ? sumMoney(funds.map((f) => f.balance))
+          : ZERO_MONEY(),
         pensions,
         shortTermBenefits,
       },
@@ -395,7 +427,7 @@ export const buildNoiFundsFile = (
         (a, b) =>
           (b.expenditure?.amountEur ?? 0) - (a.expenditure?.amountEur ?? 0),
       ),
-      pensionTypes: pensionTypesByYear.get(year) ?? null,
+      pensionTypes,
     });
   }
   return {

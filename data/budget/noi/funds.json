@@ -1,11 +1,75 @@
 {
-  "generatedAt": "2026-05-26T10:38:18.467Z",
+  "generatedAt": "2026-05-26T12:32:25.400Z",
   "source": {
     "publisher": "Национален осигурителен институт (NOI)",
     "urlTemplate": "https://www.nssi.bg/wp-content/uploads/B1_{YYYY}_{MM}_{FUND}.xls",
     "description": "Monthly per-fund cash-execution report (B1). Fund codes: 5500 ДОО, 5591 УчПФ, 5592 ГВРС."
   },
   "years": [
+    {
+      "fiscalYear": 2023,
+      "asOf": "2023-12-31",
+      "totals": {
+        "revenue": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        },
+        "expenditure": {
+          "amount": 19109314917,
+          "currency": "BGN",
+          "amountEur": 9770437572
+        },
+        "balance": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        },
+        "pensions": {
+          "amount": 19109314917,
+          "currency": "BGN",
+          "amountEur": 9770437572
+        },
+        "shortTermBenefits": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        }
+      },
+      "funds": [],
+      "pensionTypes": {
+        "oldAge": {
+          "amount": 15240588132,
+          "currency": "BGN",
+          "amountEur": 7792388977
+        },
+        "disability": {
+          "amount": 3414258594,
+          "currency": "BGN",
+          "amountEur": 1745682699
+        },
+        "social": {
+          "amount": 305787325,
+          "currency": "BGN",
+          "amountEur": 156346577
+        },
+        "occupational": {
+          "amount": 68781963,
+          "currency": "BGN",
+          "amountEur": 35167659
+        },
+        "other": {
+          "amount": 79898903,
+          "currency": "BGN",
+          "amountEur": 40851660
+        },
+        "total": {
+          "amount": 19109314917,
+          "currency": "BGN",
+          "amountEur": 9770437572
+        }
+      }
+    },
     {
       "fiscalYear": 2024,
       "asOf": "2024-12-31",

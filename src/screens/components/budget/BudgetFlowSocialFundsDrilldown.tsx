@@ -277,42 +277,46 @@ export const BudgetFlowSocialFundsDrilldown: FC<{
         </div>
       )}
 
-      {/* Per-fund list */}
-      <div>
-        <div className="text-xs font-medium mb-1">{t("noi_by_fund")}</div>
-        <div className="space-y-0.5">
-          {funds.map((f: NoiFundSnapshot) => {
-            const eur = f.expenditure?.amountEur ?? 0;
-            const pct = totalEur > 0 ? (eur / totalEur) * 100 : 0;
-            const maxEur = funds[0]?.expenditure?.amountEur ?? 0;
-            const widthPct = maxEur > 0 ? (eur / maxEur) * 100 : 0;
-            const name = lang === "bg" ? f.fundLabelBg : f.fundLabelEn;
-            return (
-              <div
-                key={f.fundCode}
-                className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-baseline gap-3 rounded px-2 py-1 text-xs"
-              >
-                <span className="truncate">
-                  {name}
-                  <span className="text-muted-foreground ml-1 text-[10px]">
-                    {f.fundCode}
-                  </span>
-                </span>
-                <span className="tabular-nums font-medium">
-                  {compactEur(eur)}
-                </span>
-                <span className="tabular-nums text-muted-foreground w-12 text-right">
-                  {pct >= 0.1 ? `${pct.toFixed(1)}%` : ""}
-                </span>
+      {/* Per-fund list — only when we actually have B1 fund data.
+          Yearbook-only years (e.g. 2023 with the pension yearbook PDF but
+          no B1 XLS files) skip this section since funds is empty. */}
+      {funds.length > 0 && (
+        <div>
+          <div className="text-xs font-medium mb-1">{t("noi_by_fund")}</div>
+          <div className="space-y-0.5">
+            {funds.map((f: NoiFundSnapshot) => {
+              const eur = f.expenditure?.amountEur ?? 0;
+              const pct = totalEur > 0 ? (eur / totalEur) * 100 : 0;
+              const maxEur = funds[0]?.expenditure?.amountEur ?? 0;
+              const widthPct = maxEur > 0 ? (eur / maxEur) * 100 : 0;
+              const name = lang === "bg" ? f.fundLabelBg : f.fundLabelEn;
+              return (
                 <div
-                  className="col-span-3 h-0.5 rounded-full bg-rose-200/60"
-                  style={{ width: `${widthPct}%` }}
-                />
-              </div>
-            );
-          })}
+                  key={f.fundCode}
+                  className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-baseline gap-3 rounded px-2 py-1 text-xs"
+                >
+                  <span className="truncate">
+                    {name}
+                    <span className="text-muted-foreground ml-1 text-[10px]">
+                      {f.fundCode}
+                    </span>
+                  </span>
+                  <span className="tabular-nums font-medium">
+                    {compactEur(eur)}
+                  </span>
+                  <span className="tabular-nums text-muted-foreground w-12 text-right">
+                    {pct >= 0.1 ? `${pct.toFixed(1)}%` : ""}
+                  </span>
+                  <div
+                    className="col-span-3 h-0.5 rounded-full bg-rose-200/60"
+                    style={{ width: `${widthPct}%` }}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
 
       <p className="mt-2 text-[11px] text-muted-foreground">
         {t("noi_drilldown_caveat")}
