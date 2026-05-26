@@ -17,6 +17,9 @@ import type {
   MunicipalTransfersIndexFile,
   MunicipalTransfersOblastShard,
   MunicipalTransfersTotalsFile,
+  InvestmentProgramFile,
+  InvestmentProgramIndexFile,
+  NoiFundsFile,
   PersonnelFile,
   PitBreakdownFile,
   VatBreakdownFile,
@@ -201,5 +204,39 @@ export const useMunicipalTransfersForOblast = (
         `/budget/municipal_transfers/oblasts/${oblastCode}.json`,
       ),
     enabled: !!oblastCode,
+    staleTime: Infinity,
+  });
+
+// NOI fund-level execution — drives the drilldown on the Sankey's
+// "Социалноосигурителни фондове" leaf. Single committed file (~16 KB across
+// the available fiscal years).
+export const useNoiFunds = () =>
+  useQuery({
+    queryKey: ["budget", "noi", "funds"] as const,
+    queryFn: () => fetchJson<NoiFundsFile>("/budget/noi/funds.json"),
+    staleTime: Infinity,
+  });
+
+// Investment program — per-year per-project list parsed from the budget law's
+// Приложение III. Drives the drilldown on the Sankey's "Капиталови разходи"
+// leaf and per-region investment tiles.
+export const useInvestmentProgramIndex = () =>
+  useQuery({
+    queryKey: ["budget", "investment-program", "index"] as const,
+    queryFn: () =>
+      fetchJson<InvestmentProgramIndexFile>(
+        "/budget/investment_program/index.json",
+      ),
+    staleTime: Infinity,
+  });
+
+export const useInvestmentProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "investment-program", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<InvestmentProgramFile>(
+        `/budget/investment_program/${fiscalYear}.json`,
+      ),
+    enabled: !!fiscalYear,
     staleTime: Infinity,
   });

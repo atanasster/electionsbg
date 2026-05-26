@@ -23,7 +23,8 @@ type Props = {
     | "budget-context"
     | "budget-journey"
     | "annual-reports"
-    | "funds";
+    | "funds"
+    | "finances";
   title?: ReactNode;
   subtitle?: ReactNode;
   icon?: LucideIcon;

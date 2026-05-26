@@ -29,6 +29,14 @@ import {
   BudgetFlowMunicipalitiesDrilldown,
   BudgetFlowMunicipalitiesTrigger,
 } from "./BudgetFlowMunicipalitiesDrilldown";
+import {
+  BudgetFlowSocialFundsDrilldown,
+  BudgetFlowSocialFundsTrigger,
+} from "./BudgetFlowSocialFundsDrilldown";
+import {
+  BudgetFlowCapitalDrilldown,
+  BudgetFlowCapitalTrigger,
+} from "./BudgetFlowCapitalDrilldown";
 
 // Below this width labels overlap; the SVG falls back to horizontal scroll
 // inside the card, mirroring the procurement Sankey's mobile policy. The
@@ -106,6 +114,8 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [personnelOpen, setPersonnelOpen] = useState(false);
   const [municipalitiesOpen, setMunicipalitiesOpen] = useState(false);
+  const [socialFundsOpen, setSocialFundsOpen] = useState(false);
+  const [capitalOpen, setCapitalOpen] = useState(false);
   const [revenueOpen, setRevenueOpen] = useState<RevenueDrillCategory | null>(
     null,
   );
@@ -116,6 +126,12 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
     /(^|\s)персонал(\s|$)/i.test(label) || /(^|\s)personnel(\s|$)/i.test(label);
   const isMunicipalitiesLabel = (label: string): boolean =>
     /^общини$/i.test(label.trim()) || /^municipalities$/i.test(label.trim());
+  const isSocialFundsLabel = (label: string): boolean =>
+    /осигурителни\s+фондове|социалноосигурителни\s+фондове/i.test(label) ||
+    /social[\s-]*security[\s-]*funds?/i.test(label);
+  const isCapitalLabel = (label: string): boolean =>
+    /^капиталови\s+разходи$/i.test(label.trim()) ||
+    /^capital\s+expenditure$/i.test(label.trim());
   const revenueCategoryFromLabel = (
     label: string,
   ): RevenueDrillCategory | null => {
@@ -136,6 +152,14 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
           setMunicipalitiesOpen(true);
           return;
         }
+        if (isSocialFundsLabel(node.label)) {
+          setSocialFundsOpen(true);
+          return;
+        }
+        if (isCapitalLabel(node.label)) {
+          setCapitalOpen(true);
+          return;
+        }
       }
       if (node.side === "left") {
         const cat = revenueCategoryFromLabel(node.label);
@@ -151,7 +175,10 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
     (node: { id: string; label: string; side: "left" | "right" }) => {
       if (node.side === "right")
         return (
-          isPersonnelLabel(node.label) || isMunicipalitiesLabel(node.label)
+          isPersonnelLabel(node.label) ||
+          isMunicipalitiesLabel(node.label) ||
+          isSocialFundsLabel(node.label) ||
+          isCapitalLabel(node.label)
         );
       if (node.side === "left")
         return revenueCategoryFromLabel(node.label) != null;
@@ -221,6 +248,14 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
             <BudgetFlowMunicipalitiesTrigger
               open={municipalitiesOpen}
               onClick={() => setMunicipalitiesOpen((v) => !v)}
+            />
+            <BudgetFlowSocialFundsTrigger
+              open={socialFundsOpen}
+              onClick={() => setSocialFundsOpen((v) => !v)}
+            />
+            <BudgetFlowCapitalTrigger
+              open={capitalOpen}
+              onClick={() => setCapitalOpen((v) => !v)}
             />
           </div>
           <div className="text-xs text-muted-foreground tabular-nums">
@@ -298,6 +333,20 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
             fiscalYear={snapshot.fiscalYear}
             snapshot={snapshot}
             onClose={() => setMunicipalitiesOpen(false)}
+          />
+        )}
+        {socialFundsOpen && (
+          <BudgetFlowSocialFundsDrilldown
+            fiscalYear={snapshot.fiscalYear}
+            snapshot={snapshot}
+            onClose={() => setSocialFundsOpen(false)}
+          />
+        )}
+        {capitalOpen && (
+          <BudgetFlowCapitalDrilldown
+            fiscalYear={snapshot.fiscalYear}
+            snapshot={snapshot}
+            onClose={() => setCapitalOpen(false)}
           />
         )}
         <p className="text-[11px] text-muted-foreground/80">

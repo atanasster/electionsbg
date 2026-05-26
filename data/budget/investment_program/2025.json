@@ -1,0 +1,1188 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-26T08:02:46.310Z",
+  "source": {
+    "documentId": "investment-program-2025",
+    "url": "https://dv.parliament.bg/DVPics/2025/26_25/1619.pdf"
+  },
+  "projectCount": 3065,
+  "grandTotal": {
+    "amount": 7065047300,
+    "currency": "BGN",
+    "amountEur": 3612301325
+  },
+  "byOblast": [
+    {
+      "key": "PDV",
+      "labelBg": "Пловдив",
+      "labelEn": "PDV",
+      "count": 132,
+      "total": {
+        "amount": 703020500,
+        "currency": "BGN",
+        "amountEur": 359448674
+      }
+    },
+    {
+      "key": "VAR",
+      "labelBg": "Варна",
+      "labelEn": "VAR",
+      "count": 115,
+      "total": {
+        "amount": 497090100,
+        "currency": "BGN",
+        "amountEur": 254158132
+      }
+    },
+    {
+      "key": "BGS",
+      "labelBg": "Бургас",
+      "labelEn": "BGS",
+      "count": 127,
+      "total": {
+        "amount": 462113700,
+        "currency": "BGN",
+        "amountEur": 236274983
+      }
+    },
+    {
+      "key": "SFO",
+      "labelBg": "Софийска",
+      "labelEn": "SFO",
+      "count": 168,
+      "total": {
+        "amount": 421808500,
+        "currency": "BGN",
+        "amountEur": 215667261
+      }
+    },
+    {
+      "key": "BLG",
+      "labelBg": "Благоевград",
+      "labelEn": "BLG",
+      "count": 214,
+      "total": {
+        "amount": 390528700,
+        "currency": "BGN",
+        "amountEur": 199674154
+      }
+    },
+    {
+      "key": "HKV",
+      "labelBg": "Хасково",
+      "labelEn": "HKV",
+      "count": 133,
+      "total": {
+        "amount": 354424700,
+        "currency": "BGN",
+        "amountEur": 181214472
+      }
+    },
+    {
+      "key": "PVN",
+      "labelBg": "Плевен",
+      "labelEn": "PVN",
+      "count": 135,
+      "total": {
+        "amount": 281287700,
+        "currency": "BGN",
+        "amountEur": 143820117
+      }
+    },
+    {
+      "key": "PAZ",
+      "labelBg": "Пазарджик",
+      "labelEn": "PAZ",
+      "count": 189,
+      "total": {
+        "amount": 276822800,
+        "currency": "BGN",
+        "amountEur": 141537250
+      }
+    },
+    {
+      "key": "SZR",
+      "labelBg": "Стара Загора",
+      "labelEn": "SZR",
+      "count": 103,
+      "total": {
+        "amount": 270294600,
+        "currency": "BGN",
+        "amountEur": 138199435
+      }
+    },
+    {
+      "key": "VRC",
+      "labelBg": "Враца",
+      "labelEn": "VRC",
+      "count": 99,
+      "total": {
+        "amount": 256123600,
+        "currency": "BGN",
+        "amountEur": 130953917
+      }
+    },
+    {
+      "key": "SHU",
+      "labelBg": "Шумен",
+      "labelEn": "SHU",
+      "count": 108,
+      "total": {
+        "amount": 251336500,
+        "currency": "BGN",
+        "amountEur": 128506312
+      }
+    },
+    {
+      "key": "LOV",
+      "labelBg": "Ловеч",
+      "labelEn": "LOV",
+      "count": 139,
+      "total": {
+        "amount": 241094900,
+        "currency": "BGN",
+        "amountEur": 123269865
+      }
+    },
+    {
+      "key": "SOF",
+      "labelBg": "София-град",
+      "labelEn": "SOF",
+      "count": 155,
+      "total": {
+        "amount": 233365800,
+        "currency": "BGN",
+        "amountEur": 119318039
+      }
+    },
+    {
+      "key": "DOB",
+      "labelBg": "Добрич",
+      "labelEn": "DOB",
+      "count": 66,
+      "total": {
+        "amount": 225395300,
+        "currency": "BGN",
+        "amountEur": 115242787
+      }
+    },
+    {
+      "key": "_unresolved",
+      "labelBg": "_unresolved",
+      "labelEn": "_unresolved",
+      "count": 91,
+      "total": {
+        "amount": 221658700,
+        "currency": "BGN",
+        "amountEur": 113332294
+      }
+    },
+    {
+      "key": "MON",
+      "labelBg": "Монтана",
+      "labelEn": "MON",
+      "count": 85,
+      "total": {
+        "amount": 188500900,
+        "currency": "BGN",
+        "amountEur": 96378980
+      }
+    },
+    {
+      "key": "GAB",
+      "labelBg": "Габрово",
+      "labelEn": "GAB",
+      "count": 87,
+      "total": {
+        "amount": 187034000,
+        "currency": "BGN",
+        "amountEur": 95628966
+      }
+    },
+    {
+      "key": "KNL",
+      "labelBg": "Кюстендил",
+      "labelEn": "KNL",
+      "count": 107,
+      "total": {
+        "amount": 174676000,
+        "currency": "BGN",
+        "amountEur": 89310421
+      }
+    },
+    {
+      "key": "SLS",
+      "labelBg": "Силистра",
+      "labelEn": "SLS",
+      "count": 60,
+      "total": {
+        "amount": 168671100,
+        "currency": "BGN",
+        "amountEur": 86240164
+      }
+    },
+    {
+      "key": "SML",
+      "labelBg": "Смолян",
+      "labelEn": "SML",
+      "count": 117,
+      "total": {
+        "amount": 153573100,
+        "currency": "BGN",
+        "amountEur": 78520679
+      }
+    },
+    {
+      "key": "SLV",
+      "labelBg": "Сливен",
+      "labelEn": "SLV",
+      "count": 36,
+      "total": {
+        "amount": 141690900,
+        "currency": "BGN",
+        "amountEur": 72445407
+      }
+    },
+    {
+      "key": "RSE",
+      "labelBg": "Русе",
+      "labelEn": "RSE",
+      "count": 113,
+      "total": {
+        "amount": 141022500,
+        "currency": "BGN",
+        "amountEur": 72103659
+      }
+    },
+    {
+      "key": "PER",
+      "labelBg": "Перник",
+      "labelEn": "PER",
+      "count": 64,
+      "total": {
+        "amount": 131462100,
+        "currency": "BGN",
+        "amountEur": 67215504
+      }
+    },
+    {
+      "key": "VID",
+      "labelBg": "Видин",
+      "labelEn": "VID",
+      "count": 144,
+      "total": {
+        "amount": 130858400,
+        "currency": "BGN",
+        "amountEur": 66906838
+      }
+    },
+    {
+      "key": "KRZ",
+      "labelBg": "Кърджали",
+      "labelEn": "KRZ",
+      "count": 48,
+      "total": {
+        "amount": 128104800,
+        "currency": "BGN",
+        "amountEur": 65498944
+      }
+    },
+    {
+      "key": "TGV",
+      "labelBg": "Търговище",
+      "labelEn": "TGV",
+      "count": 58,
+      "total": {
+        "amount": 121824500,
+        "currency": "BGN",
+        "amountEur": 62287878
+      }
+    },
+    {
+      "key": "VTR",
+      "labelBg": "Велико Търново",
+      "labelEn": "VTR",
+      "count": 74,
+      "total": {
+        "amount": 105583200,
+        "currency": "BGN",
+        "amountEur": 53983833
+      }
+    },
+    {
+      "key": "RAZ",
+      "labelBg": "Разград",
+      "labelEn": "RAZ",
+      "count": 59,
+      "total": {
+        "amount": 104107700,
+        "currency": "BGN",
+        "amountEur": 53229422
+      }
+    },
+    {
+      "key": "JAM",
+      "labelBg": "Ямбол",
+      "labelEn": "JAM",
+      "count": 39,
+      "total": {
+        "amount": 101572000,
+        "currency": "BGN",
+        "amountEur": 51932939
+      }
+    }
+  ],
+  "byCategory": [
+    {
+      "key": "roads",
+      "labelBg": "Пътища и улици",
+      "labelEn": "Roads & streets",
+      "count": 1060,
+      "total": {
+        "amount": 2469621300,
+        "currency": "BGN",
+        "amountEur": 1262697320
+      }
+    },
+    {
+      "key": "water_sewage",
+      "labelBg": "ВиК и пречистване",
+      "labelEn": "Water & sewage",
+      "count": 542,
+      "total": {
+        "amount": 1516071800,
+        "currency": "BGN",
+        "amountEur": 775155203
+      }
+    },
+    {
+      "key": "other",
+      "labelBg": "Други",
+      "labelEn": "Other",
+      "count": 575,
+      "total": {
+        "amount": 1270951400,
+        "currency": "BGN",
+        "amountEur": 649827132
+      }
+    },
+    {
+      "key": "buildings",
+      "labelBg": "Сгради и саниране",
+      "labelEn": "Buildings",
+      "count": 544,
+      "total": {
+        "amount": 863698100,
+        "currency": "BGN",
+        "amountEur": 441601826
+      }
+    },
+    {
+      "key": "sports",
+      "labelBg": "Спорт",
+      "labelEn": "Sports",
+      "count": 199,
+      "total": {
+        "amount": 505657800,
+        "currency": "BGN",
+        "amountEur": 258538728
+      }
+    },
+    {
+      "key": "education",
+      "labelBg": "Образование",
+      "labelEn": "Education",
+      "count": 40,
+      "total": {
+        "amount": 265410100,
+        "currency": "BGN",
+        "amountEur": 135702029
+      }
+    },
+    {
+      "key": "social",
+      "labelBg": "Здравеопазване и социални",
+      "labelEn": "Health & social",
+      "count": 34,
+      "total": {
+        "amount": 75421900,
+        "currency": "BGN",
+        "amountEur": 38562605
+      }
+    },
+    {
+      "key": "culture",
+      "labelBg": "Култура",
+      "labelEn": "Culture",
+      "count": 43,
+      "total": {
+        "amount": 54985500,
+        "currency": "BGN",
+        "amountEur": 28113640
+      }
+    },
+    {
+      "key": "energy",
+      "labelBg": "Енергия",
+      "labelEn": "Energy",
+      "count": 28,
+      "total": {
+        "amount": 43229400,
+        "currency": "BGN",
+        "amountEur": 22102841
+      }
+    }
+  ],
+  "topProjects": [
+    {
+      "projectId": "OP-24.001-2724",
+      "name": "Нова учебна база на математическа гимназия „Д-р Петър Берон“ вПИ 10135.3513.1960 и ПИ 10135.3513.250 в 26-и м.р., район „Младост“,град Варна–проектиране и изграждане",
+      "category": "education",
+      "municipalityNameBg": "Варна",
+      "ekatte": "10135",
+      "obshtinaCode": "VAR06",
+      "oblastCode": "VAR",
+      "oblastNameBg": "Варна",
+      "cost": {
+        "amount": 98486000,
+        "currency": "BGN",
+        "amountEur": 50355092
+      }
+    },
+    {
+      "projectId": "OP-24.001-0139",
+      "name": "Студентски кампус–Споделено академично пространство с лабо-ратории за научна дейност и парк в УПИ VII и УПИ IX, кв.24 поплана на зона „Хоризонт“, гр.Бургас",
+      "category": "education",
+      "municipalityNameBg": "Бургас",
+      "ekatte": "07079",
+      "obshtinaCode": "BGS04",
+      "oblastCode": "BGS",
+      "oblastNameBg": "Бургас",
+      "cost": {
+        "amount": 83765000,
+        "currency": "BGN",
+        "amountEur": 42828364
+      }
+    },
+    {
+      "projectId": "OP-24.001-2767",
+      "name": "„Реконструкцияирехабилитациянаводоснабдителнасистемаисъоръжения в с.Бутан, община Козлодуй, област Враца“",
+      "category": "water_sewage",
+      "municipalityNameBg": "Козлодуй",
+      "ekatte": "37798",
+      "obshtinaCode": "VRC20",
+      "oblastCode": "VRC",
+      "oblastNameBg": "Враца",
+      "cost": {
+        "amount": 80800000,
+        "currency": "BGN",
+        "amountEur": 41312384
+      }
+    },
+    {
+      "projectId": "OP-24.001-0220",
+      "name": "Нова сграда на регионална библиотека „Пенчо Славейков“, гр.Варна",
+      "category": "buildings",
+      "municipalityNameBg": "Варна",
+      "ekatte": "10135",
+      "obshtinaCode": "VAR06",
+      "oblastCode": "VAR",
+      "oblastNameBg": "Варна",
+      "cost": {
+        "amount": 76478700,
+        "currency": "BGN",
+        "amountEur": 39102938
+      }
+    },
+    {
+      "projectId": "OP-24.001-2810",
+      "name": "„ИзгражданенаИндустриаленпаркДобрич,вт.ч.довеждащаивътрешна техническа инфраструктура, необходима за функциони-рането му“",
+      "category": "roads",
+      "municipalityNameBg": "Добрич",
+      "ekatte": "72624",
+      "obshtinaCode": "DOB28",
+      "oblastCode": "DOB",
+      "oblastNameBg": "Добрич",
+      "cost": {
+        "amount": 61614300,
+        "currency": "BGN",
+        "amountEur": 31502891
+      }
+    },
+    {
+      "projectId": "OP-24.001-2248",
+      "name": "Реконструкция на водопроводна мрежа, изграждане на канализацияза битови отпадни води и пречиствателна станция за битови отпадниводи /ПСОВ/ в с.Обручище",
+      "category": "water_sewage",
+      "municipalityNameBg": "Гълъбово",
+      "ekatte": "18280",
+      "obshtinaCode": "SZR07",
+      "oblastCode": "SZR",
+      "oblastNameBg": "СтараЗагора",
+      "cost": {
+        "amount": 54204500,
+        "currency": "BGN",
+        "amountEur": 27714321
+      }
+    },
+    {
+      "projectId": "OP-24.001-1222",
+      "name": "Рехабилитациянабул.„Ал.Стамболийски“отбул.„КонстантинВеличков“ до Западен парк",
+      "category": "other",
+      "municipalityNameBg": "Столична",
+      "ekatte": "68134",
+      "obshtinaCode": "SOF",
+      "oblastCode": "SOF",
+      "oblastNameBg": "София-град",
+      "cost": {
+        "amount": 45871000,
+        "currency": "BGN",
+        "amountEur": 23453470
+      }
+    },
+    {
+      "projectId": "OP-24.001-0984",
+      "name": "спортна инфраструктура–Стадион „Локомотив“–град Пловдив“:Етап 1: „Благоустрояване и инфраструктура“; Етап 5: „Централна",
+      "category": "sports",
+      "municipalityNameBg": "Пловдив",
+      "ekatte": "56784",
+      "obshtinaCode": "PDV22",
+      "oblastCode": "PDV",
+      "oblastNameBg": "Пловдив",
+      "cost": {
+        "amount": 42000000,
+        "currency": "BGN",
+        "amountEur": 21474259
+      }
+    },
+    {
+      "projectId": "OP-25.001-0180",
+      "name": "Изграждане на бул.„Северен“–етап II",
+      "category": "other",
+      "municipalityNameBg": "Пловдив",
+      "ekatte": "56784",
+      "obshtinaCode": "PDV22",
+      "oblastCode": "PDV",
+      "oblastNameBg": "Пловдив",
+      "cost": {
+        "amount": 40000000,
+        "currency": "BGN",
+        "amountEur": 20451675
+      }
+    },
+    {
+      "projectId": "OP-24.001-1594",
+      "name": "Реконструкция и реновиране на спортен комплекс стадион „ПанайотВолов“–Шумен",
+      "category": "sports",
+      "municipalityNameBg": "Шумен",
+      "ekatte": "83510",
+      "obshtinaCode": "SHU30",
+      "oblastCode": "SHU",
+      "oblastNameBg": "Шумен",
+      "cost": {
+        "amount": 38000000,
+        "currency": "BGN",
+        "amountEur": 19429091
+      }
+    },
+    {
+      "projectId": "OP-24.001-0946",
+      "name": "Многофункционална спортна зала",
+      "category": "sports",
+      "municipalityNameBg": "Плевен",
+      "ekatte": "56722",
+      "obshtinaCode": "PVN24",
+      "oblastCode": "PVN",
+      "oblastNameBg": "Плевен",
+      "cost": {
+        "amount": 36024000,
+        "currency": "BGN",
+        "amountEur": 18418779
+      }
+    },
+    {
+      "projectId": "OP-24.001-0985",
+      "name": "„Изпълнение на строеж, част от Общинската спортна инфраструк-тура–Стадион „Христо Ботев“–град Пловдив“",
+      "category": "sports",
+      "municipalityNameBg": "Пловдив",
+      "ekatte": "56784",
+      "obshtinaCode": "PDV22",
+      "oblastCode": "PDV",
+      "oblastNameBg": "Пловдив",
+      "cost": {
+        "amount": 33583400,
+        "currency": "BGN",
+        "amountEur": 17170920
+      }
+    },
+    {
+      "projectId": "OP-24.001-1035",
+      "name": "Ремонт и доизграждане коритото на река Бели Лом в регулациятана гр. Разград",
+      "category": "other",
+      "municipalityNameBg": "Разград",
+      "ekatte": "61710",
+      "obshtinaCode": "RAZ26",
+      "oblastCode": "RAZ",
+      "oblastNameBg": "Разград",
+      "cost": {
+        "amount": 31095400,
+        "currency": "BGN",
+        "amountEur": 15898826
+      }
+    },
+    {
+      "projectId": "OP-24.001-1961",
+      "name": "ОТ 1772 до ОТ 1788/вкл. изграждане на две нови кръгови кръс-товища, изграждане на ул.„Съединение“ от ОТ 1730 до ОТ 1739,ул.„Инвестиционна“ от ОТ 1732 до ОТ 1735 и ул.„Широка планина“",
+      "category": "other",
+      "municipalityNameBg": "Монтана",
+      "ekatte": "48489",
+      "obshtinaCode": "MON29",
+      "oblastCode": "MON",
+      "oblastNameBg": "Монтана",
+      "cost": {
+        "amount": 30000000,
+        "currency": "BGN",
+        "amountEur": 15338756
+      }
+    },
+    {
+      "projectId": "OP-24.001-1143",
+      "name": "Асфалтиране на улици в гр.Сливен, кв. „Речица“, след изпълнениена воден цикъл",
+      "category": "roads",
+      "municipalityNameBg": "Сливен",
+      "ekatte": "67338",
+      "obshtinaCode": "SLV20",
+      "oblastCode": "SLV",
+      "oblastNameBg": "Сливен",
+      "cost": {
+        "amount": 28925000,
+        "currency": "BGN",
+        "amountEur": 14789118
+      }
+    },
+    {
+      "projectId": "OP-24.001-0483",
+      "name": "Водоснабдяване на група села: Велковци, Кметчета, Лесичарка, Кара-ли, Костенковци, Стойчовци, Драгомани, Тодорчета, Междене, Узунии Старилковци от вътрешната водопроводна мрежа на гр.Габрово",
+      "category": "water_sewage",
+      "municipalityNameBg": "Габрово",
+      "ekatte": "14218",
+      "obshtinaCode": "GAB05",
+      "oblastCode": "GAB",
+      "oblastNameBg": "Габрово",
+      "cost": {
+        "amount": 26579000,
+        "currency": "BGN",
+        "amountEur": 13589627
+      }
+    },
+    {
+      "projectId": "OP-24.001-0156",
+      "name": "–Подобект 1: Общински път BGS1039 „Ш-906/Каблешково–Бур-гас/–Черноморе–Рудник–III-6009/Миролюбово–Брястовец/“",
+      "category": "roads",
+      "municipalityNameBg": "Бургас",
+      "ekatte": "07079",
+      "obshtinaCode": "BGS04",
+      "oblastCode": "BGS",
+      "oblastNameBg": "Бургас",
+      "cost": {
+        "amount": 25620000,
+        "currency": "BGN",
+        "amountEur": 13099298
+      }
+    },
+    {
+      "projectId": "OP-24.001-2310",
+      "name": "Рехабилитация и реконструкция на бул.„Симеон Велики“, гр.Шумен",
+      "category": "buildings",
+      "municipalityNameBg": "Шумен",
+      "ekatte": "83510",
+      "obshtinaCode": "SHU30",
+      "oblastCode": "SHU",
+      "oblastNameBg": "Шумен",
+      "cost": {
+        "amount": 23508600,
+        "currency": "BGN",
+        "amountEur": 12019756
+      }
+    },
+    {
+      "projectId": "OP-24.001-3076",
+      "name": "Реконструкция на вътрешната водопроводна мрежа на с.Иваново,общ. Харманли",
+      "category": "water_sewage",
+      "municipalityNameBg": "Харманли",
+      "ekatte": "77181",
+      "obshtinaCode": "HKV33",
+      "oblastCode": "HKV",
+      "oblastNameBg": "Хасково",
+      "cost": {
+        "amount": 23300000,
+        "currency": "BGN",
+        "amountEur": 11913101
+      }
+    },
+    {
+      "projectId": "OP-24.001-0582",
+      "name": "Основен ремонт на улици в град Кърджали",
+      "category": "roads",
+      "municipalityNameBg": "Кърджали",
+      "ekatte": "40909",
+      "obshtinaCode": "KRZ16",
+      "oblastCode": "KRZ",
+      "oblastNameBg": "Кърджали",
+      "cost": {
+        "amount": 23095000,
+        "currency": "BGN",
+        "amountEur": 11808286
+      }
+    },
+    {
+      "projectId": "OP-24.001-2092",
+      "name": "„Инженерингна„ПСОВ“и„Канализация“с.Николово,общинаРусе, ЕТАП 1, Главен клон 1, водопровод, КПС, СКО и СВО“",
+      "category": "water_sewage",
+      "municipalityNameBg": "Русе",
+      "ekatte": "63427",
+      "obshtinaCode": "RSE27",
+      "oblastCode": "RSE",
+      "oblastNameBg": "Русе",
+      "cost": {
+        "amount": 22279500,
+        "currency": "BGN",
+        "amountEur": 11391327
+      }
+    },
+    {
+      "projectId": "OP-24.001-0459",
+      "name": "Реконструкция и удължаване на водопроводната система и изграж-дане на нова канализационна система на с.Згориград, община Враца",
+      "category": "water_sewage",
+      "municipalityNameBg": "Враца",
+      "ekatte": "12259",
+      "obshtinaCode": "VRC10",
+      "oblastCode": "VRC",
+      "oblastNameBg": "Враца",
+      "cost": {
+        "amount": 22000000,
+        "currency": "BGN",
+        "amountEur": 11248421
+      }
+    },
+    {
+      "projectId": "OP-24.001-0216",
+      "name": "Ремонт на напорен тръбопровод∅500 за отпадъчни води, находящсе на дъното на Варненското езеро",
+      "category": "other",
+      "municipalityNameBg": "Варна",
+      "ekatte": "10135",
+      "obshtinaCode": "VAR06",
+      "oblastCode": "VAR",
+      "oblastNameBg": "Варна",
+      "cost": {
+        "amount": 21973400,
+        "currency": "BGN",
+        "amountEur": 11234821
+      }
+    },
+    {
+      "projectId": "OP-24.001-0631",
+      "name": "Преустройство и реконструкция на Художествена галерия „ВладимирДимитров–Майстора“–СМР и строителен надзор",
+      "category": "buildings",
+      "municipalityNameBg": "Кюстендил",
+      "ekatte": "41112",
+      "obshtinaCode": "KNL29",
+      "oblastCode": "KNL",
+      "oblastNameBg": "Кюстендил",
+      "cost": {
+        "amount": 21331900,
+        "currency": "BGN",
+        "amountEur": 10906827
+      }
+    },
+    {
+      "projectId": "OP-24.001-2461",
+      "name": "ул.„Васил Левски“ при кръговото кръстовище (от ОК1243-ляво иОК627-дясно до ОК1317)–в проекта се предвижда и частично по-",
+      "category": "roads",
+      "municipalityNameBg": "Плевен",
+      "ekatte": "56722",
+      "obshtinaCode": "PVN24",
+      "oblastCode": "PVN",
+      "oblastNameBg": "Плевен",
+      "cost": {
+        "amount": 21281300,
+        "currency": "BGN",
+        "amountEur": 10880956
+      }
+    },
+    {
+      "projectId": "OP-24.001-0168",
+      "name": "III 906, от км 0+000 до км 11+782,24, с дължина 11,78 км. Като щесе извърши основен ремонт на целия път, свързващ трите населениместа: Горица–Гълъбец–Порой, с републиканската пътна мрежа",
+      "category": "roads",
+      "municipalityNameBg": "Поморие",
+      "ekatte": "57491",
+      "obshtinaCode": "BGS17",
+      "oblastCode": "BGS",
+      "oblastNameBg": "Бургас",
+      "cost": {
+        "amount": 20973000,
+        "currency": "BGN",
+        "amountEur": 10723325
+      }
+    },
+    {
+      "projectId": "OP-24.001-2052",
+      "name": "Основен ремонт PVN 1151 /ІІ-35/Плевен-Ясен/ІІІ.3005/ от км 5+419до км 12+800",
+      "category": "buildings",
+      "municipalityNameBg": "Плевен",
+      "ekatte": "56722",
+      "obshtinaCode": "PVN24",
+      "oblastCode": "PVN",
+      "oblastNameBg": "Плевен",
+      "cost": {
+        "amount": 20946200,
+        "currency": "BGN",
+        "amountEur": 10709622
+      }
+    },
+    {
+      "projectId": "OP-24.001-0144",
+      "name": "Защитена лодкостоянка, източно от УПИ I, кв. 2б по плана на ПЗ„Юг-Изток“, гр.Бургас, в прилежащата акватория на Черно море",
+      "category": "other",
+      "municipalityNameBg": "Бургас",
+      "ekatte": "07079",
+      "obshtinaCode": "BGS04",
+      "oblastCode": "BGS",
+      "oblastNameBg": "Бургас",
+      "cost": {
+        "amount": 20000000,
+        "currency": "BGN",
+        "amountEur": 10225838
+      }
+    },
+    {
+      "projectId": "OP-25.001-0132",
+      "name": "Изграждане на Географска информационна система на Пловдив",
+      "category": "other",
+      "municipalityNameBg": "Пловдив",
+      "ekatte": "56784",
+      "obshtinaCode": "PDV22",
+      "oblastCode": "PDV",
+      "oblastNameBg": "Пловдив",
+      "cost": {
+        "amount": 20000000,
+        "currency": "BGN",
+        "amountEur": 10225838
+      }
+    },
+    {
+      "projectId": "OP-24.001-3070",
+      "name": "зор на обект: „Подмяна на водопровод и основен ремонт на ул.„ХанАспарух“, ул.„Цар Асен“, ул.„Ген. Гурко“, ул.„Шести септември“,ул.„Цар Самуил“, ул.„Роберт Кремер“, ул.„Беласица“ ул.„Самар-",
+      "category": "water_sewage",
+      "municipalityNameBg": "Симеонов-град",
+      "ekatte": null,
+      "obshtinaCode": null,
+      "oblastCode": "HKV",
+      "oblastNameBg": "Хасково",
+      "cost": {
+        "amount": 19981000,
+        "currency": "BGN",
+        "amountEur": 10216123
+      }
+    },
+    {
+      "projectId": "OP-24.001-2685",
+      "name": "Основен ремонт на път PDV-1342 „/III–6062/ Съединение–Най-ден Герово–Драгомир“ от км 0+000 до км 11+515, включителнокръстовище с път PAZ–2123",
+      "category": "roads",
+      "municipalityNameBg": "Съединение",
+      "ekatte": "70528",
+      "obshtinaCode": "PDV33",
+      "oblastCode": "PDV",
+      "oblastNameBg": "Пловдив",
+      "cost": {
+        "amount": 19851400,
+        "currency": "BGN",
+        "amountEur": 10149860
+      }
+    },
+    {
+      "projectId": "OP-24.001-0583",
+      "name": "Основен ремонт на общинска пътна мрежа",
+      "category": "roads",
+      "municipalityNameBg": "Кърджали",
+      "ekatte": "40909",
+      "obshtinaCode": "KRZ16",
+      "oblastCode": "KRZ",
+      "oblastNameBg": "Кърджали",
+      "cost": {
+        "amount": 19827100,
+        "currency": "BGN",
+        "amountEur": 10137435
+      }
+    },
+    {
+      "projectId": "OP-24.001-0820",
+      "name": "Доизграждане на канализационна и реконструкция на водопроводнатамрежа–етап III на с.Ивайло, община Пазарджик",
+      "category": "water_sewage",
+      "municipalityNameBg": "Пазарджик",
+      "ekatte": "55155",
+      "obshtinaCode": "PAZ19",
+      "oblastCode": "PAZ",
+      "oblastNameBg": "Пазарджик",
+      "cost": {
+        "amount": 19774700,
+        "currency": "BGN",
+        "amountEur": 10110644
+      }
+    },
+    {
+      "projectId": "OP-24.001-0959",
+      "name": "Укрепване на двата бряга на р. Асеница /р. Чепеларска/ в регула-цията на гр.Асеновград",
+      "category": "other",
+      "municipalityNameBg": "Асеновград",
+      "ekatte": "00702",
+      "obshtinaCode": "PDV01",
+      "oblastCode": "PDV",
+      "oblastNameBg": "Пловдив",
+      "cost": {
+        "amount": 19500000,
+        "currency": "BGN",
+        "amountEur": 9970192
+      }
+    },
+    {
+      "projectId": "OP-24.001-0256",
+      "name": "Изготвяне на технически проект и СМР за обект: Реконструкция напътен възел на бул.„Вл. Варненчик“ с бул.„Република“ по планана ЗПЗ, гр.Варна",
+      "category": "roads",
+      "municipalityNameBg": "Варна",
+      "ekatte": "10135",
+      "obshtinaCode": "VAR06",
+      "oblastCode": "VAR",
+      "oblastNameBg": "Варна",
+      "cost": {
+        "amount": 19441100,
+        "currency": "BGN",
+        "amountEur": 9940077
+      }
+    },
+    {
+      "projectId": "OP-24.001-0986",
+      "name": "Реконструкция и разширение на „Голямоконарско шосе“",
+      "category": "roads",
+      "municipalityNameBg": "Пловдив",
+      "ekatte": "56784",
+      "obshtinaCode": "PDV22",
+      "oblastCode": "PDV",
+      "oblastNameBg": "Пловдив",
+      "cost": {
+        "amount": 19000000,
+        "currency": "BGN",
+        "amountEur": 9714546
+      }
+    },
+    {
+      "projectId": "OP-24.001-2981",
+      "name": "Проектиране и изграждане на източния надлез над ж.п. линиятапри Бакърена фабрика",
+      "category": "other",
+      "municipalityNameBg": "Столична",
+      "ekatte": "68134",
+      "obshtinaCode": "SOF",
+      "oblastCode": "SOF",
+      "oblastNameBg": "София-град",
+      "cost": {
+        "amount": 18768000,
+        "currency": "BGN",
+        "amountEur": 9595926
+      }
+    },
+    {
+      "projectId": "OP-24.001-2522",
+      "name": "Инженеринг–проектиране, строителство и авторски надзор на обект:Реконструкция на ВВМ на гр.Стамболийски–1 етап",
+      "category": "buildings",
+      "municipalityNameBg": "Стамболий-ски",
+      "ekatte": null,
+      "obshtinaCode": null,
+      "oblastCode": "PDV",
+      "oblastNameBg": "Пловдив",
+      "cost": {
+        "amount": 18445000,
+        "currency": "BGN",
+        "amountEur": 9430779
+      }
+    },
+    {
+      "projectId": "OP-24.001-0403",
+      "name": "„Изграждане на зелена и велосипедна достъпна среда в Крайдунав-ски парк и прилежащите му територии, гр.Видин“–Етап 1; Етап 2;Етап 3; Етап 4; Етап 5",
+      "category": "other",
+      "municipalityNameBg": "Видин",
+      "ekatte": "10971",
+      "obshtinaCode": "VID09",
+      "oblastCode": "VID",
+      "oblastNameBg": "Видин",
+      "cost": {
+        "amount": 18000000,
+        "currency": "BGN",
+        "amountEur": 9203254
+      }
+    },
+    {
+      "projectId": "OP-24.001-3077",
+      "name": "Реконструкция на вътрешната водопроводна мрежа на с.Поляново,общ. Харманли",
+      "category": "water_sewage",
+      "municipalityNameBg": "Харманли",
+      "ekatte": "77181",
+      "obshtinaCode": "HKV33",
+      "oblastCode": "HKV",
+      "oblastNameBg": "Хасково",
+      "cost": {
+        "amount": 18000000,
+        "currency": "BGN",
+        "amountEur": 9203254
+      }
+    },
+    {
+      "projectId": "OP-24.001-1416",
+      "name": "Реконструкция на общински спортен обект „Колодрум“ в град Ка-занлък в закрита многофункционална спортна зала",
+      "category": "sports",
+      "municipalityNameBg": "Казанлък",
+      "ekatte": "35167",
+      "obshtinaCode": "SZR12",
+      "oblastCode": "SZR",
+      "oblastNameBg": "Стара Загора",
+      "cost": {
+        "amount": 17930700,
+        "currency": "BGN",
+        "amountEur": 9167821
+      }
+    },
+    {
+      "projectId": "OP-24.001-0763",
+      "name": "Ремонт на обект: „Водоснабдяване на град Лом–Гравитачен водо-3провод от НВ V 300 мдо водоем гр.Лом“, с обща дължина 18 700 м",
+      "category": "water_sewage",
+      "municipalityNameBg": "Лом",
+      "ekatte": "44238",
+      "obshtinaCode": "MON24",
+      "oblastCode": "MON",
+      "oblastNameBg": "Монтана",
+      "cost": {
+        "amount": 17296000,
+        "currency": "BGN",
+        "amountEur": 8843304
+      }
+    },
+    {
+      "projectId": "OP-24.001-1438",
+      "name": "Реконструкция на уличната мрежа, благоустрояване на междублоковопространство и изграждане на улична дъждовна канализация в кв.„Казански“, град Стара Загора",
+      "category": "water_sewage",
+      "municipalityNameBg": "СтараЗагора",
+      "ekatte": null,
+      "obshtinaCode": null,
+      "oblastCode": null,
+      "oblastNameBg": "СтараЗагора",
+      "cost": {
+        "amount": 17258000,
+        "currency": "BGN",
+        "amountEur": 8823875
+      }
+    },
+    {
+      "projectId": "OP-24.001-3072",
+      "name": "„Проектиране и изграждане на язовир „Ханчето“, в землището нагр.Тополовград“",
+      "category": "other",
+      "municipalityNameBg": "Тополовград",
+      "ekatte": "72761",
+      "obshtinaCode": "HKV32",
+      "oblastCode": "HKV",
+      "oblastNameBg": "Хасково",
+      "cost": {
+        "amount": 16900000,
+        "currency": "BGN",
+        "amountEur": 8640833
+      }
+    },
+    {
+      "projectId": "OP-24.001-1145",
+      "name": "Ревитализация на колодрума в гр.Сливен",
+      "category": "other",
+      "municipalityNameBg": "Сливен",
+      "ekatte": "67338",
+      "obshtinaCode": "SLV20",
+      "oblastCode": "SLV",
+      "oblastNameBg": "Сливен",
+      "cost": {
+        "amount": 16639000,
+        "currency": "BGN",
+        "amountEur": 8507386
+      }
+    },
+    {
+      "projectId": "OP-24.001-0997",
+      "name": "ковски, община Раковски, област Пловдив; Първи етап „Изгражданена многофункционална спортна зала“; Втори етап „Изграждане на",
+      "category": "sports",
+      "municipalityNameBg": "Раковски",
+      "ekatte": "62075",
+      "obshtinaCode": "PDV25",
+      "oblastCode": "PDV",
+      "oblastNameBg": "Пловдив",
+      "cost": {
+        "amount": 16609400,
+        "currency": "BGN",
+        "amountEur": 8492251
+      }
+    },
+    {
+      "projectId": "OP-24.001-0088",
+      "name": "изграждане на нови: водопроводна мрежа със сградни водопроводниотклонения /СВО/ и канализационна мрежа със сградни канализа-ционни отклонения /СКО/ и изграждане на ново пътно платно по",
+      "category": "roads",
+      "municipalityNameBg": "Сандански",
+      "ekatte": "65334",
+      "obshtinaCode": "BLG40",
+      "oblastCode": "BLG",
+      "oblastNameBg": "Благоевград",
+      "cost": {
+        "amount": 16220500,
+        "currency": "BGN",
+        "amountEur": 8293410
+      }
+    },
+    {
+      "projectId": "OP-25.001-0059",
+      "name": "Основен ремонт на ОУ „Райна Княгиня“–4 241 226лв., ОУ „Ди-митър Талев“–5 940 000лв., ОУ „Яне Сандански“–5 922 000 лв.",
+      "category": "buildings",
+      "municipalityNameBg": "Пловдив",
+      "ekatte": "56784",
+      "obshtinaCode": "PDV22",
+      "oblastCode": "PDV",
+      "oblastNameBg": "Пловдив",
+      "cost": {
+        "amount": 16103200,
+        "currency": "BGN",
+        "amountEur": 8233435
+      }
+    },
+    {
+      "projectId": "OP-25.001-0068",
+      "name": "Ремонт на Околовръстен път в Тракия",
+      "category": "roads",
+      "municipalityNameBg": "Пловдив",
+      "ekatte": "56784",
+      "obshtinaCode": "PDV22",
+      "oblastCode": "PDV",
+      "oblastNameBg": "Пловдив",
+      "cost": {
+        "amount": 16000000,
+        "currency": "BGN",
+        "amountEur": 8180670
+      }
+    },
+    {
+      "projectId": "OP-24.001-1397",
+      "name": "Реконструкция на част от съществуващата водоснабдителна системаи съоръжения на град Сливница, община Сливница, и изгражданена нови клонове",
+      "category": "water_sewage",
+      "municipalityNameBg": "Сливница",
+      "ekatte": "67372",
+      "obshtinaCode": "SFO45",
+      "oblastCode": "SFO",
+      "oblastNameBg": "София област",
+      "cost": {
+        "amount": 15025900,
+        "currency": "BGN",
+        "amountEur": 7682621
+      }
+    }
+  ]
+}

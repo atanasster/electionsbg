@@ -1,0 +1,526 @@
+{
+  "generatedAt": "2026-05-26T07:47:58.924Z",
+  "source": {
+    "publisher": "Национален осигурителен институт (NOI)",
+    "urlTemplate": "https://www.nssi.bg/wp-content/uploads/B1_{YYYY}_{MM}_{FUND}.xls",
+    "description": "Monthly per-fund cash-execution report (B1). Fund codes: 5500 ДОО, 5591 УчПФ, 5592 ГВРС."
+  },
+  "years": [
+    {
+      "fiscalYear": 2024,
+      "asOf": "2024-12-31",
+      "totals": {
+        "revenue": {
+          "amount": 13027035393,
+          "currency": "BGN",
+          "amountEur": 6660617432
+        },
+        "expenditure": {
+          "amount": 24719771820,
+          "currency": "BGN",
+          "amountEur": 12639018637
+        },
+        "balance": {
+          "amount": -167534527,
+          "currency": "BGN",
+          "amountEur": -85659043
+        },
+        "pensions": {
+          "amount": 21769385532,
+          "currency": "BGN",
+          "amountEur": 11130510081
+        },
+        "shortTermBenefits": {
+          "amount": 2756946250,
+          "currency": "BGN",
+          "amountEur": 1409604235
+        }
+      },
+      "funds": [
+        {
+          "fundCode": "5500",
+          "fundLabelBg": "Държавно обществено осигуряване",
+          "fundLabelEn": "State Social Security",
+          "fiscalYear": 2024,
+          "asOf": "2024-12-31",
+          "revenue": {
+            "amount": 12889953266,
+            "currency": "BGN",
+            "amountEur": 6590528454
+          },
+          "expenditure": {
+            "amount": 24615046805,
+            "currency": "BGN",
+            "amountEur": 12585473587
+          },
+          "balance": {
+            "amount": -199903454,
+            "currency": "BGN",
+            "amountEur": -102209013
+          },
+          "expenseLines": [
+            {
+              "id": "personnel",
+              "labelBg": "1. Персонал",
+              "labelEn": "Personnel",
+              "planned": {
+                "amount": 134061985,
+                "currency": "BGN",
+                "amountEur": 68544805
+              },
+              "executed": {
+                "amount": 133807996,
+                "currency": "BGN",
+                "amountEur": 68414942
+              }
+            },
+            {
+              "id": "operations",
+              "labelBg": "2. Издръжка",
+              "labelEn": "Operations",
+              "planned": {
+                "amount": 51228200,
+                "currency": "BGN",
+                "amountEur": 26192563
+              },
+              "executed": {
+                "amount": 49843968,
+                "currency": "BGN",
+                "amountEur": 25484816
+              }
+            },
+            {
+              "id": "interest",
+              "labelBg": "3. Лихви",
+              "labelEn": "Interest",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            },
+            {
+              "id": "social_total",
+              "labelBg": "4. Социални разходи, стипендии",
+              "labelEn": "Social expenditure (pensions + benefits)",
+              "planned": {
+                "amount": 24183049000,
+                "currency": "BGN",
+                "amountEur": 12364596616
+              },
+              "executed": {
+                "amount": 24421874809,
+                "currency": "BGN",
+                "amountEur": 12486706313
+              }
+            },
+            {
+              "id": "subsidies",
+              "labelBg": "5.Субсидии",
+              "labelEn": "Subsidies",
+              "planned": {
+                "amount": 49213,
+                "currency": "BGN",
+                "amountEur": 25162
+              },
+              "executed": {
+                "amount": -200409,
+                "currency": "BGN",
+                "amountEur": -102467
+              }
+            },
+            {
+              "id": "capital_assets",
+              "labelBg": "6. Придобиване на нeфинансови актииви",
+              "labelEn": "Capital assets",
+              "planned": {
+                "amount": 9027100,
+                "currency": "BGN",
+                "amountEur": 4615483
+              },
+              "executed": {
+                "amount": 8618715,
+                "currency": "BGN",
+                "amountEur": 4406679
+              }
+            },
+            {
+              "id": "capital_transfers",
+              "labelBg": "7. Капиталови трансфери",
+              "labelEn": "Capital transfers",
+              "planned": {
+                "amount": 3000000,
+                "currency": "BGN",
+                "amountEur": 1533876
+              },
+              "executed": {
+                "amount": 1101726,
+                "currency": "BGN",
+                "amountEur": 563304
+              }
+            },
+            {
+              "id": "abroad",
+              "labelBg": "8. Предоставени текущи и капиталови трансфери за чужбина",
+              "labelEn": "Transfers abroad",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            },
+            {
+              "id": "reserve",
+              "labelBg": "10. Резерв за непредвидини и неотложни разходи",
+              "labelEn": "Reserve for unforeseen",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            }
+          ],
+          "pensionsBgn": 21666698776,
+          "shortTermBenefitsBgn": 2755176033
+        },
+        {
+          "fundCode": "5591",
+          "fundLabelBg": "Учителски пенсионен фонд",
+          "fundLabelEn": "Teachers' Pension Fund",
+          "fiscalYear": 2024,
+          "asOf": "2024-12-31",
+          "revenue": {
+            "amount": 134365687,
+            "currency": "BGN",
+            "amountEur": 68700085
+          },
+          "expenditure": {
+            "amount": 102689600,
+            "currency": "BGN",
+            "amountEur": 52504359
+          },
+          "balance": {
+            "amount": 31676087,
+            "currency": "BGN",
+            "amountEur": 16195726
+          },
+          "expenseLines": [
+            {
+              "id": "personnel",
+              "labelBg": "1. Персонал",
+              "labelEn": "Personnel",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            },
+            {
+              "id": "operations",
+              "labelBg": "2. Издръжка",
+              "labelEn": "Operations",
+              "planned": {
+                "amount": 17800,
+                "currency": "BGN",
+                "amountEur": 9101
+              },
+              "executed": {
+                "amount": 2844,
+                "currency": "BGN",
+                "amountEur": 1454
+              }
+            },
+            {
+              "id": "interest",
+              "labelBg": "3. Лихви",
+              "labelEn": "Interest",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            },
+            {
+              "id": "social_total",
+              "labelBg": "4. Социални разходи, стипендии",
+              "labelEn": "Social expenditure (pensions + benefits)",
+              "planned": {
+                "amount": 105184900,
+                "currency": "BGN",
+                "amountEur": 53780185
+              },
+              "executed": {
+                "amount": 102686756,
+                "currency": "BGN",
+                "amountEur": 52502905
+              }
+            },
+            {
+              "id": "subsidies",
+              "labelBg": "5.Субсидии",
+              "labelEn": "Subsidies",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            },
+            {
+              "id": "capital_assets",
+              "labelBg": "6. Придобиване на нeфинансови актииви",
+              "labelEn": "Capital assets",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            },
+            {
+              "id": "capital_transfers",
+              "labelBg": "7. Капиталови трансфери",
+              "labelEn": "Capital transfers",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            },
+            {
+              "id": "abroad",
+              "labelBg": "8. Предоставени текущи и капиталови трансфери за чужбина",
+              "labelEn": "Transfers abroad",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            },
+            {
+              "id": "reserve",
+              "labelBg": "10. Резерв за непредвидини и неотложни разходи",
+              "labelEn": "Reserve for unforeseen",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            }
+          ],
+          "pensionsBgn": 102686756,
+          "shortTermBenefitsBgn": 0
+        },
+        {
+          "fundCode": "5592",
+          "fundLabelBg": "Фонд „Гарантирани вземания на работниците и служителите\"",
+          "fundLabelEn": "Guaranteed Workers' Receivables Fund",
+          "fiscalYear": 2024,
+          "asOf": "2024-12-31",
+          "revenue": {
+            "amount": 2716440,
+            "currency": "BGN",
+            "amountEur": 1388894
+          },
+          "expenditure": {
+            "amount": 2035415,
+            "currency": "BGN",
+            "amountEur": 1040691
+          },
+          "balance": {
+            "amount": 692840,
+            "currency": "BGN",
+            "amountEur": 354243
+          },
+          "expenseLines": [
+            {
+              "id": "personnel",
+              "labelBg": "1. Персонал",
+              "labelEn": "Personnel",
+              "planned": {
+                "amount": 175700,
+                "currency": "BGN",
+                "amountEur": 89834
+              },
+              "executed": {
+                "amount": 146296,
+                "currency": "BGN",
+                "amountEur": 74800
+              }
+            },
+            {
+              "id": "operations",
+              "labelBg": "2. Издръжка",
+              "labelEn": "Operations",
+              "planned": {
+                "amount": 126000,
+                "currency": "BGN",
+                "amountEur": 64423
+              },
+              "executed": {
+                "amount": 118902,
+                "currency": "BGN",
+                "amountEur": 60794
+              }
+            },
+            {
+              "id": "interest",
+              "labelBg": "3. Лихви",
+              "labelEn": "Interest",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            },
+            {
+              "id": "social_total",
+              "labelBg": "4. Социални разходи, стипендии",
+              "labelEn": "Social expenditure (pensions + benefits)",
+              "planned": {
+                "amount": 4500000,
+                "currency": "BGN",
+                "amountEur": 2300813
+              },
+              "executed": {
+                "amount": 1770217,
+                "currency": "BGN",
+                "amountEur": 905098
+              }
+            },
+            {
+              "id": "subsidies",
+              "labelBg": "5.Субсидии",
+              "labelEn": "Subsidies",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            },
+            {
+              "id": "capital_assets",
+              "labelBg": "6. Придобиване на нeфинансови актииви",
+              "labelEn": "Capital assets",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            },
+            {
+              "id": "capital_transfers",
+              "labelBg": "7. Капиталови трансфери",
+              "labelEn": "Capital transfers",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            },
+            {
+              "id": "abroad",
+              "labelBg": "8. Предоставени текущи и капиталови трансфери за чужбина",
+              "labelEn": "Transfers abroad",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            },
+            {
+              "id": "reserve",
+              "labelBg": "10. Резерв за непредвидини и неотложни разходи",
+              "labelEn": "Reserve for unforeseen",
+              "planned": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              },
+              "executed": {
+                "amount": 0,
+                "currency": "BGN",
+                "amountEur": 0
+              }
+            }
+          ],
+          "pensionsBgn": 0,
+          "shortTermBenefitsBgn": 1770217
+        }
+      ]
+    }
+  ]
+}

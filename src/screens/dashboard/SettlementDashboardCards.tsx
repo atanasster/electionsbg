@@ -1,10 +1,11 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle, Building2, Gauge, Map } from "lucide-react";
+import { AlertTriangle, Building2, Coins, Gauge, Map } from "lucide-react";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useSettlementSummary } from "@/data/dashboard/useSettlementSummary";
 import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
+import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useSettlementStats } from "@/data/settlements/useSettlementStats";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
@@ -17,6 +18,7 @@ import { PartyResultsTile } from "./PartyResultsTile";
 import { SectionsMapTile } from "./SectionsMapTile";
 import { TopSectionsTile } from "./TopSectionsTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
+import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
@@ -51,8 +53,10 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
   const { electionStats } = useElectionContext();
   const { data, isLoading } = useSettlementSummary(ekatte);
   const { settlement } = useSettlementVotes(ekatte);
+  const { findSettlement } = useSettlementsInfo();
   const { stats } = useSettlementStats(ekatte);
   const { data: problemSectionsStats } = useProblemSectionsStats();
+  const obshtinaCode = settlement?.obshtina ?? findSettlement(ekatte)?.obshtina;
 
   const basePath = `/sections/${ekatte}`;
 
@@ -137,6 +141,16 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
             basePath={basePath}
           />
         </DashboardSection>
+
+        {obshtinaCode ? (
+          <DashboardSection
+            id="finances"
+            title={t("dashboard_section_finances")}
+            icon={Coins}
+          >
+            <MunicipalityTransfersTile municipalityCode={obshtinaCode} />
+          </DashboardSection>
+        ) : null}
 
         <DashboardSection
           id="neighborhoods"

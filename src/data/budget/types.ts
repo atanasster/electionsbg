@@ -595,3 +595,124 @@ export interface MunicipalTransfersOblastShard {
   oblastNameEn: string;
   years: MunicipalTransfersOblastShardYear[];
 }
+
+// ---------------------------------------------------------------------------
+// NOI (National Social Security Institute) — fund-level execution snapshots.
+// Sourced from per-fund B1 XLS files on nssi.bg. Drives the drilldown on the
+// Sankey's "Социалноосигурителни фондове" line.
+// ---------------------------------------------------------------------------
+
+export type NoiFundCode = "5500" | "5591" | "5592";
+
+export type NoiExpenseLineId =
+  | "personnel"
+  | "operations"
+  | "interest"
+  | "social_pensions"
+  | "social_other"
+  | "social_total"
+  | "subsidies"
+  | "capital_assets"
+  | "capital_transfers"
+  | "abroad"
+  | "reserve";
+
+export interface NoiExpenseLine {
+  id: NoiExpenseLineId;
+  labelBg: string;
+  labelEn: string;
+  planned: Money | null;
+  executed: Money | null;
+}
+
+export interface NoiFundSnapshot {
+  fundCode: NoiFundCode;
+  fundLabelBg: string;
+  fundLabelEn: string;
+  fiscalYear: number;
+  asOf: string;
+  revenue: Money | null;
+  expenditure: Money | null;
+  balance: Money | null;
+  expenseLines: NoiExpenseLine[];
+  pensionsBgn: number | null;
+  shortTermBenefitsBgn: number | null;
+}
+
+export interface NoiFundsFile {
+  generatedAt: string;
+  source: {
+    publisher: string;
+    urlTemplate: string;
+    description: string;
+  };
+  years: Array<{
+    fiscalYear: number;
+    asOf: string;
+    totals: {
+      revenue: Money;
+      expenditure: Money;
+      balance: Money;
+      pensions: Money;
+      shortTermBenefits: Money;
+    };
+    funds: NoiFundSnapshot[];
+  }>;
+}
+
+// ---------------------------------------------------------------------------
+// Investment Program — Приложение № 3 към чл. 113 of the State Budget Law.
+// Per-project capital allocations to municipalities (3000+ projects in 2025).
+// Drives the drilldown on the Sankey's "Капиталови разходи" leaf.
+// ---------------------------------------------------------------------------
+
+export type InvestmentCategory =
+  | "roads"
+  | "water_sewage"
+  | "education"
+  | "social"
+  | "sports"
+  | "culture"
+  | "buildings"
+  | "energy"
+  | "other";
+
+export interface InvestmentProjectRow {
+  projectId: string;
+  name: string;
+  category: InvestmentCategory;
+  municipalityNameBg: string | null;
+  ekatte: string | null;
+  obshtinaCode: string | null;
+  oblastCode: string | null;
+  oblastNameBg: string | null;
+  cost: Money;
+}
+
+export interface InvestmentRollupRow {
+  key: string;
+  labelBg: string;
+  labelEn: string;
+  count: number;
+  total: Money;
+}
+
+export interface InvestmentProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: { documentId: string; url: string };
+  projectCount: number;
+  grandTotal: Money;
+  byOblast: InvestmentRollupRow[];
+  byCategory: InvestmentRollupRow[];
+  topProjects: InvestmentProjectRow[];
+}
+
+export interface InvestmentProgramIndexFile {
+  generatedAt: string;
+  years: Array<{
+    fiscalYear: number;
+    projectCount: number;
+    grandTotalEur: number;
+  }>;
+}
