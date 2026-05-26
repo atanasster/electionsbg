@@ -1,7 +1,7 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 4 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora)
-// publishes an annual "Капиталова програма" / "Поименен списък на
+// Each of the 5 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Ruse) publishes an annual "Капиталова програма" / "Поименен списък на
 // обектите за капиталови разходи" on its own website. URLs are opaque
 // and change every year (some include the date, some a content hash),
 // so the catalogue is hand-curated below — mirrors the SOURCE_URLS map
@@ -12,12 +12,13 @@
 // to the catalogue triggers `added`, prompting the operator to:
 //   1. fetch the file into raw_data/budget/capital_programs/
 //      (sofia: .xlsx, plovdiv: .pdf, burgas: .xlsx, stara_zagora: .pdf
-//       — extracted from the budget docket ZIP)
+//       — extracted from the budget docket ZIP, ruse: .xlsx)
 //   2. run the relevant ingest:
 //      tsx scripts/budget/capital_programs/sofia.ts --year YYYY
 //      tsx scripts/budget/capital_programs/plovdiv.ts --year YYYY
 //      tsx scripts/budget/capital_programs/burgas.ts --year YYYY
 //      tsx scripts/budget/capital_programs/stara_zagora.ts --year YYYY
+//      tsx scripts/budget/capital_programs/ruse.ts --year YYYY
 //
 // Cadence: weekly. Municipal capital programmes publish once per fiscal
 // year (March-May of the same year, alongside the council's budget
@@ -40,7 +41,7 @@ const UA =
 // Hand-curated catalogue: per-fiscal-year, per-município source URL.
 // Keep in sync with the SOURCE_URLS in each parser file under
 // scripts/budget/capital_programs/.
-type Municipality = "sofia" | "plovdiv" | "burgas" | "stara_zagora";
+type Municipality = "sofia" | "plovdiv" | "burgas" | "stara_zagora" | "ruse";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -57,6 +58,10 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // budget-decision ZIP — the ZIP itself is what we fingerprint.
     stara_zagora:
       "https://www.starazagora.bg/uploads/posts/2025/2025_05_29_prilozhenia_byudzhet_2025.zip",
+    // Ruse publishes a year-end revised plan in late February of T+1,
+    // with quarterly snapshots throughout the year. The year-end file
+    // is the canonical artifact for the fiscal-year recap.
+    ruse: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2025/Kapitalov_razchet_31.12.2025_publ._27.02.2026.xlsx",
   },
 };
 

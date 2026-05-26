@@ -23,6 +23,7 @@ import type {
   PersonnelFile,
   PitBreakdownFile,
   PlovdivCapitalProgramFile,
+  RuseCapitalProgramFile,
   SofiaCapitalProgramFile,
   StaraZagoraCapitalProgramFile,
   VatBreakdownFile,
@@ -274,6 +275,23 @@ export const useBurgasCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<BurgasCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/burgas.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Ruse's annual капиталова програма — parsed from the обshtinaruse.bg
+// year-end XLSX. Single município, but with DEDICATED PER-VILLAGE
+// SHEETS — sub-settlement attribution is via workbook structure, so
+// localisation is 100% accurate for the 12 villages + 1 town that have
+// their own kmetstvo. The tile mirrors the Stara Zagora pattern (recap
+// + per-village strip + top city-wide projects).
+export const useRuseCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "ruse", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<RuseCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/ruse.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

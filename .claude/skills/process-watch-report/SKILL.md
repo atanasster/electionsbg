@@ -92,7 +92,7 @@ If the user says "skip governments for this run", drop it from the plan without 
 
 ### Capital-programmes ingest (`capital_programs`)
 
-The 4 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora) each publish an annual капиталова програма on their own website. The watcher tracks all 4 sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
+The 5 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse) each publish an annual капиталова програма on their own website. The watcher tracks all 5 sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
 
 Each município has its own parser script (different source formats: Sofia + Burgas = XLSX, Plovdiv + Stara Zagora = PDF), but a shared output schema under `data/budget/capital_programs/{year}/{muni}.json`. Operator workflow when the source flips:
 
@@ -112,6 +112,7 @@ Each município has its own parser script (different source formats: Sofia + Bur
    tsx scripts/budget/capital_programs/plovdiv.ts --year <year>
    tsx scripts/budget/capital_programs/burgas.ts --year <year>
    tsx scripts/budget/capital_programs/stara_zagora.ts --year <year>
+   tsx scripts/budget/capital_programs/ruse.ts --year <year>
    ```
    Each writes `data/budget/capital_programs/{year}/{muni}.json` and prints the recap total + per-район or per-village breakdown for canary verification.
 

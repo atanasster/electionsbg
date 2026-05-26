@@ -409,6 +409,10 @@ export const AboutScreen = () => {
                   href="https://www.starazagora.bg/bg/obshtinski-byudzhet/byudzhet-za-2025-godina/"
                   label={t("budget_capital_stara_zagora_source")}
                 />
+                <SourceItem
+                  href="https://obshtinaruse.bg/razchet-za-kapitalovi-razhodi"
+                  label={t("budget_capital_ruse_source")}
+                />
               </ul>
             </DataGroup>
 

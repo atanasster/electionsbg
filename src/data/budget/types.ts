@@ -869,6 +869,45 @@ export interface BurgasCapitalProgramFile {
   bySettlement: BurgasCapitalSettlementRollup[];
 }
 
+// Ruse — single município (RSE27, EKATTE 63427). Each of the 12 villages
+// + 1 satellite town (Мартен) of obshtina Русе has its own sheet in the
+// source XLSX, so per-settlement attribution is via sheet structure
+// rather than free-text regex. Same JSON shape as Stara Zagora.
+export interface RuseCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  spendingUnit: string;
+  paragraph: string;
+  years: string;
+  total: Money;
+}
+
+export interface RuseCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface RuseCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  projects: RuseCapitalProject[];
+  bySettlement: RuseCapitalSettlementRollup[];
+}
+
 // Stara Zagora — single município (no районi), same shape as Burgas
 // minus the funding-source detail. The source PDF has 9 funding
 // sub-columns but reliable extraction would require column-by-column
