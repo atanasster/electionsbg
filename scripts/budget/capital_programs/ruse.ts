@@ -246,11 +246,9 @@ const parseProgram = (
     }))
     .sort((a, b) => b.total.amountEur - a.total.amountEur);
 
-  // Fallback: if the Общо sheet read failed for any reason, use the
-  // sum-of-items.
-  if (recapTotal.amount === 0) {
-    recapTotal = bgnToMoney(projects.reduce((s, p) => s + p.total.amount, 0));
-  }
+  // recapTotal is computed in Pass 1 above as the sum of per-sheet
+  // ОБЩО col F values across all spending-unit sheets — it equals the
+  // sum of captured projects exactly, so no fallback is needed.
 
   return {
     fiscalYear,
