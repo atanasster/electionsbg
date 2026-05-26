@@ -100,16 +100,21 @@ export const CAPITAL_PROGRAM_URLS: Record<
   2024: {
     sofia:
       "https://www.sofia.bg/documents/d/guest/prilozenie-3_-razcet-za-finansirane-na-kapitalovite-razhodi-2024-g-",
+    ruse: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2024/Kapitalov_razchet_31.12.2024.xlsx",
   },
   2023: {
     sofia:
       "https://www.sofia.bg/documents/d/guest/4-kapitalova-programa-za-2023-g",
+    ruse: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2023/Kapitalov razchet 31.12.2023.xlsx",
   },
   2022: {
     // 2022's budget itself adopted late (Aug 2023) due to political
     // instability; this is the year-end "Уточнен план" XLSX.
     sofia:
       "https://www.sofia.bg/documents/d/guest/2023-08-28-razcet-za-finansirane-na-kapitalovite-razhodi-2022g-",
+    // Ruse's 2022 file is labelled "Капиталов отчет" (executed-only,
+    // no separate refined-plan); same workbook structure.
+    ruse: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2022/Капиталов отчет 31.12.2022.xlsx",
   },
 };
 

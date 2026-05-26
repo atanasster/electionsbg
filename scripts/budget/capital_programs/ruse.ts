@@ -43,6 +43,13 @@ const __dirname = dirname(__filename);
 
 const SOURCE_URLS: Record<number, string> = {
   2025: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2025/Kapitalov_razchet_31.12.2025_publ._27.02.2026.xlsx",
+  2024: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2024/Kapitalov_razchet_31.12.2024.xlsx",
+  2023: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2023/Kapitalov razchet 31.12.2023.xlsx",
+  // 2022's year-end file is labelled "Капиталов отчет" (executed-only,
+  // no separate "Разчет"). Same workbook structure — one sheet per
+  // spending unit + per-kmetstvo sheets for the 12 villages — but the
+  // headline figure is the executed amount rather than the refined plan.
+  2022: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2022/Капиталов отчет 31.12.2022.xlsx",
 };
 
 interface Money {

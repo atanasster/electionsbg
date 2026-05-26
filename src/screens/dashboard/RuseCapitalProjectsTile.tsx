@@ -11,13 +11,17 @@
 // Mounted on Русе settlement (EKATTE 63427, obshtina RSE27) and the
 // município page. Returns null silently for any other muni.
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { HardHat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useRuseCapitalProgram } from "@/data/budget/useBudget";
 
-const RUSE_CAPITAL_LATEST_YEAR = 2025;
+// 2022's source is an "Капиталов отчет" (executed-only), so its
+// headline is the actual spent figure rather than a refined plan —
+// noted in the tile via a year-specific caveat.
+const RUSE_CAPITAL_YEARS = [2025, 2024, 2023, 2022] as const;
+const RUSE_CAPITAL_LATEST_YEAR = RUSE_CAPITAL_YEARS[0];
 const RUSE_OBSHTINA = "RSE27";
 
 const compactEur = (v: number): string => {
@@ -33,9 +37,8 @@ export const RuseCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("bg") ? "bg" : "en";
   const enabled = obshtinaCode === RUSE_OBSHTINA;
-  const { data, isLoading } = useRuseCapitalProgram(
-    enabled ? RUSE_CAPITAL_LATEST_YEAR : undefined,
-  );
+  const [year, setYear] = useState<number>(RUSE_CAPITAL_LATEST_YEAR);
+  const { data, isLoading } = useRuseCapitalProgram(enabled ? year : undefined);
 
   if (!enabled || isLoading || !data) return null;
 
@@ -52,10 +55,19 @@ export const RuseCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <HardHat className="h-4 w-4" />
           {t("ruse_capital_tile_title")}
-          <span className="text-xs text-muted-foreground font-normal ml-1">
-            {data.fiscalYear}
-            {lang === "bg" ? " г." : ""}
-          </span>
+          <select
+            value={year}
+            onChange={(e) => setYear(Number(e.target.value))}
+            className="ml-auto text-xs font-normal bg-transparent border rounded px-1.5 py-0.5 tabular-nums cursor-pointer hover:bg-muted/40"
+            aria-label={t("sofia_capital_year_picker_label")}
+          >
+            {RUSE_CAPITAL_YEARS.map((y) => (
+              <option key={y} value={y}>
+                {y}
+                {lang === "bg" ? " г." : ""}
+              </option>
+            ))}
+          </select>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {t("ruse_capital_tile_intro")}
