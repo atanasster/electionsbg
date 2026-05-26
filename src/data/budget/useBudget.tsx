@@ -12,13 +12,13 @@ import type {
   KfpFile,
   MinistryProcurementFile,
   MinistryRollup,
-  MunicipalTransfersByMunicipalityFile,
   MunicipalTransfersByOblastFile,
   MunicipalTransfersIndexFile,
   MunicipalTransfersOblastShard,
   MunicipalTransfersTotalsFile,
   InvestmentProgramFile,
   InvestmentProgramIndexFile,
+  BurgasCapitalProgramFile,
   NoiFundsFile,
   PersonnelFile,
   PitBreakdownFile,
@@ -169,23 +169,11 @@ export const useMunicipalTransfersByOblast = (fiscalYear: number | undefined) =>
     staleTime: Infinity,
   });
 
-export const useMunicipalTransfersByMunicipality = (
-  fiscalYear: number | undefined,
-) =>
-  useQuery({
-    queryKey: [
-      "budget",
-      "municipal-transfers",
-      "by-municipality",
-      fiscalYear,
-    ] as const,
-    queryFn: () =>
-      fetchJson<MunicipalTransfersByMunicipalityFile>(
-        `/budget/municipal_transfers/${fiscalYear}/by_municipality.json`,
-      ),
-    enabled: !!fiscalYear,
-    staleTime: Infinity,
-  });
+// `useMunicipalTransfersByMunicipality` removed in audit pass — the
+// per-year 265-row by_municipality.json was 220 KB raw / 25 KB gz per year
+// but no UI consumed it. The per-oblast shards
+// (/budget/municipal_transfers/oblasts/{code}.json) carry the same per-муни
+// rows sliced by region, which is the only access pattern pages use.
 
 // Per-oblast shard with full multi-year history — the unit a region or
 // municipality dashboard fetches. One file per oblast (~5-50 KB) carrying
@@ -269,6 +257,22 @@ export const usePlovdivCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<PlovdivCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/plovdiv.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Burgas's annual Капиталова програма — extracted from the city's draft-
+// budget XLSX workbook. Not районирана, so the tile groups by funding
+// source (state subsidy / own / debt / EU / other / carry-over) instead
+// of by район, plus a per-settlement strip for the ~14% of projects that
+// name a village or city quarter in their description.
+export const useBurgasCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "burgas", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<BurgasCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/burgas.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

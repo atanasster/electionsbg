@@ -156,7 +156,7 @@ export const BudgetFlowCapitalDrilldown: FC<{
                 className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-baseline gap-3 rounded px-2 py-1 text-xs"
               >
                 <span className="truncate">
-                  {row.labelBg}
+                  {lang === "bg" ? row.labelBg : row.labelEn}
                   <span className="text-muted-foreground ml-1 text-[10px]">
                     {row.count}
                   </span>

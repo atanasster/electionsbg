@@ -16,7 +16,6 @@ import { fileURLToPath } from "url";
 import {
   parseMunicipalTransfers,
   buildTotalsFile,
-  buildByMunicipalityFile,
   buildByOblastFile,
   buildOblastShards,
   type MunicipalTransfersIndexFile,
@@ -74,12 +73,10 @@ const main = (): void => {
     };
     const asOf = `${year}-01-01`;
     const totals = buildTotalsFile(parsed, asOf, source);
-    const muni = buildByMunicipalityFile(parsed, asOf, source);
     const oblast = buildByOblastFile(parsed, asOf, source);
 
     const dir = path.join(DATA_BUDGET_DIR, String(year));
     writeJson(path.join(dir, "totals.json"), totals);
-    writeJson(path.join(dir, "by_municipality.json"), muni);
     writeJson(path.join(dir, "by_oblast.json"), oblast);
 
     parsedByYear.set(year, parsed);

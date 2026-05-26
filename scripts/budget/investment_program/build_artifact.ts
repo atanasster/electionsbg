@@ -78,39 +78,42 @@ const CATEGORY_LABELS: Record<InvestmentCategory, { bg: string; en: string }> =
 
 // Same oblast-name → 3-letter code map used by the municipal-transfers
 // builder. Duplicated here to keep the investment-program module independent.
-const OBLAST_NAME_TO_CODE: Record<string, string> = {
-  Благоевград: "BLG",
-  Бургас: "BGS",
-  Варна: "VAR",
-  "Велико Търново": "VTR",
-  Видин: "VID",
-  Враца: "VRC",
-  Габрово: "GAB",
-  Добрич: "DOB",
-  Кърджали: "KRZ",
-  Кюстендил: "KNL",
-  Ловеч: "LOV",
-  Монтана: "MON",
-  Пазарджик: "PAZ",
-  Перник: "PER",
-  Плевен: "PVN",
-  Пловдив: "PDV",
-  Разград: "RAZ",
-  Русе: "RSE",
-  Силистра: "SLS",
-  Сливен: "SLV",
-  Смолян: "SML",
-  Софийска: "SFO",
-  "Стара Загора": "SZR",
-  Търговище: "TGV",
-  Хасково: "HKV",
-  Шумен: "SHU",
-  Ямбол: "JAM",
-  "София-град": "SOF",
+// Per-oblast name registry. Single source of truth: code → { bg, en }. The
+// OBLAST_NAME_TO_CODE inverse map is derived from this for the law-side
+// "Софийска"/"София-град" string-matching.
+const OBLAST_NAMES: Record<string, { bg: string; en: string }> = {
+  BLG: { bg: "Благоевград", en: "Blagoevgrad" },
+  BGS: { bg: "Бургас", en: "Burgas" },
+  VAR: { bg: "Варна", en: "Varna" },
+  VTR: { bg: "Велико Търново", en: "Veliko Tarnovo" },
+  VID: { bg: "Видин", en: "Vidin" },
+  VRC: { bg: "Враца", en: "Vratsa" },
+  GAB: { bg: "Габрово", en: "Gabrovo" },
+  DOB: { bg: "Добрич", en: "Dobrich" },
+  KRZ: { bg: "Кърджали", en: "Kardzhali" },
+  KNL: { bg: "Кюстендил", en: "Kyustendil" },
+  LOV: { bg: "Ловеч", en: "Lovech" },
+  MON: { bg: "Монтана", en: "Montana" },
+  PAZ: { bg: "Пазарджик", en: "Pazardzhik" },
+  PER: { bg: "Перник", en: "Pernik" },
+  PVN: { bg: "Плевен", en: "Pleven" },
+  PDV: { bg: "Пловдив", en: "Plovdiv" },
+  RAZ: { bg: "Разград", en: "Razgrad" },
+  RSE: { bg: "Русе", en: "Ruse" },
+  SLS: { bg: "Силистра", en: "Silistra" },
+  SLV: { bg: "Сливен", en: "Sliven" },
+  SML: { bg: "Смолян", en: "Smolyan" },
+  SFO: { bg: "Софийска", en: "Sofia (region)" },
+  SZR: { bg: "Стара Загора", en: "Stara Zagora" },
+  TGV: { bg: "Търговище", en: "Targovishte" },
+  HKV: { bg: "Хасково", en: "Haskovo" },
+  SHU: { bg: "Шумен", en: "Shumen" },
+  JAM: { bg: "Ямбол", en: "Yambol" },
+  SOF: { bg: "София-град", en: "Sofia (capital)" },
 };
 
-const OBLAST_NAME_BG: Record<string, string> = Object.fromEntries(
-  Object.entries(OBLAST_NAME_TO_CODE).map(([name, code]) => [code, name]),
+const OBLAST_NAME_TO_CODE: Record<string, string> = Object.fromEntries(
+  Object.entries(OBLAST_NAMES).map(([code, n]) => [n.bg, code]),
 );
 
 // Map "Софийска" (the law's adjectival form for the surrounding Sofia oblast)
@@ -176,13 +179,16 @@ export const buildInvestmentProgramFile = (
     byOblastMap.set(k, list);
   }
   const byOblast: InvestmentRollupRow[] = [...byOblastMap.entries()]
-    .map(([code, list]) => ({
-      key: code,
-      labelBg: OBLAST_NAME_BG[code] ?? code,
-      labelEn: code,
-      count: list.length,
-      total: sumMoney(list.map((r) => r.cost)),
-    }))
+    .map(([code, list]) => {
+      const names = OBLAST_NAMES[code];
+      return {
+        key: code,
+        labelBg: names?.bg ?? code,
+        labelEn: names?.en ?? code,
+        count: list.length,
+        total: sumMoney(list.map((r) => r.cost)),
+      };
+    })
     .sort((a, b) => b.total.amountEur - a.total.amountEur);
 
   // Category rollup

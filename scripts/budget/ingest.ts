@@ -45,7 +45,6 @@ import type { ParsedLawUnit, ParsedLawFramework } from "./law_html";
 import {
   parseMunicipalTransfers,
   buildTotalsFile,
-  buildByMunicipalityFile,
   buildByOblastFile,
   buildOblastShards,
   type ParsedMunicipalTransfers,
@@ -937,14 +936,6 @@ const main = async (args: {
       writeIfChanged(
         path.join(dir, "totals.json"),
         canonicalJson(buildTotalsFile(parsed, asOf, source)),
-      )
-    ) {
-      touched++;
-    }
-    if (
-      writeIfChanged(
-        path.join(dir, "by_municipality.json"),
-        canonicalJson(buildByMunicipalityFile(parsed, asOf, source)),
       )
     ) {
       touched++;
