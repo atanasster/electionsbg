@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-26T07:47:58.924Z",
+  "generatedAt": "2026-05-26T10:38:18.467Z",
   "source": {
     "publisher": "Национален осигурителен институт (NOI)",
     "urlTemplate": "https://www.nssi.bg/wp-content/uploads/B1_{YYYY}_{MM}_{FUND}.xls",
@@ -520,7 +520,39 @@
           "pensionsBgn": 0,
           "shortTermBenefitsBgn": 1770217
         }
-      ]
+      ],
+      "pensionTypes": {
+        "oldAge": {
+          "amount": 17111781933,
+          "currency": "BGN",
+          "amountEur": 8749115175
+        },
+        "disability": {
+          "amount": 4016990176,
+          "currency": "BGN",
+          "amountEur": 2053854464
+        },
+        "social": {
+          "amount": 362596573,
+          "currency": "BGN",
+          "amountEur": 185392684
+        },
+        "occupational": {
+          "amount": 73538808,
+          "currency": "BGN",
+          "amountEur": 37599795
+        },
+        "other": {
+          "amount": 88141815,
+          "currency": "BGN",
+          "amountEur": 45066194
+        },
+        "total": {
+          "amount": 21653049305,
+          "currency": "BGN",
+          "amountEur": 11071028313
+        }
+      }
     }
   ]
 }

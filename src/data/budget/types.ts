@@ -639,6 +639,17 @@ export interface NoiFundSnapshot {
   shortTermBenefitsBgn: number | null;
 }
 
+// Depth-3 pension-type breakdown sourced from the annual yearbook PDF
+// (Table 6.3). Only present for years where the yearbook has been ingested.
+export interface NoiPensionTypeBreakdown {
+  oldAge: Money;
+  disability: Money;
+  social: Money;
+  occupational: Money;
+  other: Money;
+  total: Money;
+}
+
 export interface NoiFundsFile {
   generatedAt: string;
   source: {
@@ -657,6 +668,7 @@ export interface NoiFundsFile {
       shortTermBenefits: Money;
     };
     funds: NoiFundSnapshot[];
+    pensionTypes: NoiPensionTypeBreakdown | null;
   }>;
 }
 

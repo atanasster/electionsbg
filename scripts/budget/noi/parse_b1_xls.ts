@@ -305,6 +305,19 @@ export const parseB1XlsFile = (
 // Artifact — what gets written to data/budget/noi/.
 // ---------------------------------------------------------------------------
 
+// Sub-pension breakdown sourced from the annual NOI pension yearbook
+// (Yearbook_Pensions_YYYY.pdf, Table 6.3). Only available for years
+// where the yearbook PDF has been ingested. null when no yearbook is on
+// disk for the fiscal year.
+export interface NoiPensionTypeBreakdown {
+  oldAge: import("../types").Money;
+  disability: import("../types").Money;
+  social: import("../types").Money;
+  occupational: import("../types").Money;
+  other: import("../types").Money;
+  total: import("../types").Money;
+}
+
 export interface NoiFundsFile {
   generatedAt: string;
   source: {
@@ -326,6 +339,9 @@ export interface NoiFundsFile {
       shortTermBenefits: import("../types").Money;
     };
     funds: NoiFundSnapshot[];
+    // Depth-3 detail: pension types within the Пенсии bucket. null when no
+    // yearbook PDF was ingested for this fiscal year.
+    pensionTypes: NoiPensionTypeBreakdown | null;
   }>;
 }
 
@@ -355,6 +371,7 @@ const moneyFromBgn = (bgn: number | null): import("../types").Money => {
 
 export const buildNoiFundsFile = (
   snapshotsByYear: Map<number, NoiFundSnapshot[]>,
+  pensionTypesByYear: Map<number, NoiPensionTypeBreakdown> = new Map(),
 ): NoiFundsFile => {
   const years: NoiFundsFile["years"] = [];
   for (const [year, funds] of [...snapshotsByYear.entries()].sort(
@@ -378,6 +395,7 @@ export const buildNoiFundsFile = (
         (a, b) =>
           (b.expenditure?.amountEur ?? 0) - (a.expenditure?.amountEur ?? 0),
       ),
+      pensionTypes: pensionTypesByYear.get(year) ?? null,
     });
   }
   return {

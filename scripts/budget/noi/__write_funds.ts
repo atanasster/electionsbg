@@ -19,7 +19,12 @@ import {
   buildNoiFundsFile,
   type NoiFundCode,
   type NoiFundSnapshot,
+  type NoiPensionTypeBreakdown,
 } from "./parse_b1_xls";
+import {
+  parsePensionYearbook,
+  aggregatePensionTypes,
+} from "./parse_pension_yearbook";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,8 +35,14 @@ const OUT_FILE = path.resolve(__dirname, "../../../data/budget/noi/funds.json");
 const FUNDS: NoiFundCode[] = ["5500", "5591", "5592"];
 const TRY_YEARS = [2020, 2021, 2022, 2023, 2024, 2025];
 
-const main = (): void => {
+const YEARBOOK_DIR = path.resolve(
+  __dirname,
+  "../../../raw_data/budget/noi/yearbooks",
+);
+
+const main = async (): Promise<void> => {
   const snapshotsByYear = new Map<number, NoiFundSnapshot[]>();
+  const pensionTypesByYear = new Map<number, NoiPensionTypeBreakdown>();
 
   for (const year of TRY_YEARS) {
     const funds: NoiFundSnapshot[] = [];
@@ -55,6 +66,29 @@ const main = (): void => {
       }
     }
     if (funds.length > 0) snapshotsByYear.set(year, funds);
+
+    // Pension yearbook (Table 6.3) — drives the depth-3 pension-type
+    // breakdown. Optional; absence just leaves pensionTypes null in the
+    // artifact, the UI gracefully degrades.
+    const yearbookPath = path.join(
+      YEARBOOK_DIR,
+      `Yearbook_Pensions_${year}.pdf`,
+    );
+    if (fs.existsSync(yearbookPath)) {
+      try {
+        const bytes = new Uint8Array(fs.readFileSync(yearbookPath));
+        const parsed = await parsePensionYearbook(bytes, year);
+        const buckets = aggregatePensionTypes(parsed);
+        pensionTypesByYear.set(year, buckets);
+        console.log(
+          `  • ${year}/yearbook: old-age €${(buckets.oldAge.amountEur / 1e9).toFixed(2)}B + disability €${(buckets.disability.amountEur / 1e9).toFixed(2)}B + ${(buckets.social.amountEur / 1e6).toFixed(0)}M social`,
+        );
+      } catch (e) {
+        console.log(
+          `  • ${year}/yearbook: parse failed — ${(e as Error).message}`,
+        );
+      }
+    }
   }
 
   if (snapshotsByYear.size === 0) {
@@ -66,10 +100,15 @@ const main = (): void => {
     process.exit(1);
   }
 
-  const file = buildNoiFundsFile(snapshotsByYear);
+  const file = buildNoiFundsFile(snapshotsByYear, pensionTypesByYear);
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
   fs.writeFileSync(OUT_FILE, JSON.stringify(file, null, 2), "utf8");
-  console.log(`\n→ wrote ${OUT_FILE} (${file.years.length} year(s))`);
+  console.log(
+    `\n→ wrote ${OUT_FILE} (${file.years.length} year(s), ${pensionTypesByYear.size} with pension-type detail)`,
+  );
 };
 
-main();
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

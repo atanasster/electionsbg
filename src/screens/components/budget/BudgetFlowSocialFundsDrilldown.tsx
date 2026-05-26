@@ -204,6 +204,79 @@ export const BudgetFlowSocialFundsDrilldown: FC<{
         </div>
       </div>
 
+      {/* Depth-3: pension types within the Пенсии bucket — sourced from the
+          annual yearbook PDF (Table 6.3). Renders only when the yearbook has
+          been ingested for this fiscal year. */}
+      {yearEntry.pensionTypes && (
+        <div className="mb-3 rounded border bg-card/50 p-2">
+          <div className="text-xs font-medium mb-1">
+            {t("noi_pensions_by_type")}
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+            {[
+              {
+                key: "oldAge",
+                i18nKey: "noi_ptype_old_age",
+                eur: yearEntry.pensionTypes.oldAge.amountEur,
+                colour: "#f43f5e",
+              },
+              {
+                key: "disability",
+                i18nKey: "noi_ptype_disability",
+                eur: yearEntry.pensionTypes.disability.amountEur,
+                colour: "#fb7185",
+              },
+              {
+                key: "social",
+                i18nKey: "noi_ptype_social",
+                eur: yearEntry.pensionTypes.social.amountEur,
+                colour: "#fda4af",
+              },
+              {
+                key: "occupational",
+                i18nKey: "noi_ptype_occupational",
+                eur: yearEntry.pensionTypes.occupational.amountEur,
+                colour: "#fcd34d",
+              },
+              {
+                key: "other",
+                i18nKey: "noi_ptype_other",
+                eur: yearEntry.pensionTypes.other.amountEur,
+                colour: "#e5e7eb",
+              },
+            ]
+              .filter((p) => p.eur > 0)
+              .map((p) => {
+                const ptotal = yearEntry.pensionTypes!.total.amountEur;
+                const pct = ptotal > 0 ? (p.eur / ptotal) * 100 : 0;
+                return (
+                  <div
+                    key={p.key}
+                    className="rounded border bg-card p-2 text-xs"
+                  >
+                    <div
+                      className="h-1 rounded-full mb-1"
+                      style={{ backgroundColor: p.colour }}
+                    />
+                    <div className="text-muted-foreground line-clamp-2">
+                      {t(p.i18nKey)}
+                    </div>
+                    <div className="font-medium tabular-nums">
+                      {compactEur(p.eur)}
+                    </div>
+                    <div className="text-muted-foreground tabular-nums text-[10px]">
+                      {pct >= 0.1 ? `${pct.toFixed(1)}%` : ""}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+          <p className="text-[10px] text-muted-foreground mt-1">
+            {t("noi_pensions_by_type_caption")}
+          </p>
+        </div>
+      )}
+
       {/* Per-fund list */}
       <div>
         <div className="text-xs font-medium mb-1">{t("noi_by_fund")}</div>
