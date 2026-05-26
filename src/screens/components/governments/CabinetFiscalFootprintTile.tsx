@@ -123,6 +123,7 @@ export const CabinetFiscalFootprintTile: FC<{ government: Government }> = ({
             {tenureYears.length > 1
               ? `–${tenureYears[tenureYears.length - 1]}`
               : ""}
+            {lang === "bg" ? " г." : ""}
           </span>
         </CardTitle>
         <p className="text-xs text-muted-foreground">

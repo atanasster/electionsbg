@@ -608,8 +608,6 @@ export type NoiExpenseLineId =
   | "personnel"
   | "operations"
   | "interest"
-  | "social_pensions"
-  | "social_other"
   | "social_total"
   | "subsidies"
   | "capital_assets"

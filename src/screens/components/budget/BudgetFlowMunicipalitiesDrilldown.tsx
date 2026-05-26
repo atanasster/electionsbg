@@ -224,9 +224,14 @@ export const BudgetFlowMunicipalitiesDrilldown: FC<{
             const pct = envelopeEur > 0 ? (eur / envelopeEur) * 100 : 0;
             const oblastLabel =
               lang === "bg" ? row.oblastNameBg : row.oblastNameEn;
-            // Sofia (capital) is a synthetic oblast code that doesn't route
-            // to a region page yet — render as plain row in that case.
-            const isRoutable = row.oblastCode !== "SOF";
+            // Sofia (capital) is a synthetic oblast code; the dashboard for
+            // Sofia city lives at /sofia (special-case page), not under
+            // /municipality/SOF (which would be empty). Other oblasts use the
+            // standard /municipality/:code route.
+            const target =
+              row.oblastCode === "SOF"
+                ? "/sofia"
+                : `/municipality/${row.oblastCode}`;
             const rowInner = (
               <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-baseline gap-3 rounded px-2 py-1 text-xs hover:bg-muted/50">
                 <div className="flex items-center gap-2 min-w-0">
@@ -247,16 +252,10 @@ export const BudgetFlowMunicipalitiesDrilldown: FC<{
                 />
               </div>
             );
-            return isRoutable ? (
-              <Link
-                key={row.oblastCode}
-                to={`/municipality/${row.oblastCode}`}
-                className="block"
-              >
+            return (
+              <Link key={row.oblastCode} to={target} className="block">
                 {rowInner}
               </Link>
-            ) : (
-              <div key={row.oblastCode}>{rowInner}</div>
             );
           })}
         </div>
