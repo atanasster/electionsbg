@@ -157,22 +157,35 @@ const parseProgram = (
   const projects: CapitalProject[] = [];
   let projectId = 0;
 
-  // Pass 1: extract the headline recap from the "Общо" sheet.
-  let recapTotal: Money = bgnToMoney(0);
-  const obshto = wb.Sheets["Общо"];
-  if (obshto) {
-    const rows = XLSX.utils.sheet_to_json<unknown[]>(obshto, {
+  // Pass 1: sum the per-sheet ОБЩО (col F = Уточнен план) across all
+  // spending-unit sheets. This matches what's actually itemised at
+  // project granularity. The Общо sheet's own R8 col F is HIGHER
+  // (~96.8M BGN vs 51.3M BGN per-sheet sum in 2025) because it
+  // includes a city-wide "Преходен остатък ДДД" carry-over (idx 21 ≈
+  // 49.5M BGN) that doesn't decompose to any individual spending unit
+  // — using it as the recap would make the tile show a headline that
+  // doesn't match what the per-project list sums to.
+  let recapBgn = 0;
+  for (const sheetName of wb.SheetNames) {
+    if (sheetName === "Общо") continue;
+    const rows = XLSX.utils.sheet_to_json<unknown[]>(wb.Sheets[sheetName], {
       header: 1,
       raw: true,
     });
-    // R8 has the ОБЩО line; col F (index 5) = Уточнен план grand total.
-    const obshtoRow = rows[8];
-    if (obshtoRow && obshtoRow[1] === "ОБЩО") {
-      recapTotal = bgnToMoney(parseAmount(obshtoRow[5]));
+    const r8 = rows[8];
+    if (r8 && r8[1] === "ОБЩО") {
+      recapBgn += parseAmount(r8[5]);
     }
   }
+  const recapTotal: Money = bgnToMoney(recapBgn);
 
-  // Pass 2: walk every sheet and pick up the project rows.
+  // Pass 2: walk every spending-unit sheet and pick up project rows.
+  // A row counts as a project when col C (period) matches "YYYY-YYYY"
+  // AND col F (Уточнен план — revised plan for the fiscal year) is
+  // non-zero. Rows with col F = 0 are projects in the multi-year plan
+  // (col D = Сметна стойност > 0) that have no allocation for the
+  // current fiscal year — we omit them so the tile only shows what's
+  // actually planned for spending this year.
   for (const sheetName of wb.SheetNames) {
     if (sheetName === "Общо") continue;
     const sheet = wb.Sheets[sheetName];
@@ -190,7 +203,7 @@ const parseProgram = (
       const period = row[2];
       if (!name) continue;
       if (!isProjectPeriod(period)) continue;
-      const total = parseAmount(row[5]); // Уточнен план
+      const total = parseAmount(row[5]); // col F = Уточнен план
       if (total === 0) continue;
 
       projectId += 1;

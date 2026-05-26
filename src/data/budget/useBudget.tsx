@@ -298,14 +298,20 @@ export const useBurgasCapitalProgram = (fiscalYear: number | undefined) =>
 
 // Ruse's annual капиталова програма — parsed from the обshtinaruse.bg
 // year-end XLSX. Single município, but with DEDICATED PER-VILLAGE
-// SHEETS — sub-settlement attribution is via workbook structure, so
-// the LOCALISATION of any captured project to a village is 100% accurate
-// (no free-text regex). Note: this does NOT mean every project is
-// captured — col F (Уточнен план) for many EU-funded items is 0, with
-// the actual amount in one of the funding-source sub-columns. The v1
-// parser counts only col F so the recognised-projects sum is ~53% of
-// the recap headline. The tile mirrors the Stara Zagora pattern
-// (recap + per-village strip + top city-wide projects).
+// SHEETS — sub-settlement attribution is via workbook structure, so the
+// LOCALISATION of any captured project to a village is 100% accurate
+// (no free-text regex).
+//
+// Per-project amount = col F (Уточнен план = revised plan for the
+// fiscal year). The recap headline is computed as the sum of per-sheet
+// ОБЩО col F values across all 70 spending-unit sheets — this matches
+// the per-project list to the byte. The Общо sheet's own R8 col F
+// shows a HIGHER figure (~96.8M BGN vs 51.3M BGN per-sheet sum for
+// 2025) because it includes a city-wide "Преходен остатък ДДД"
+// (delegated-state-activity carry-over, idx 21 ≈ 49.5M BGN) that
+// doesn't decompose to any individual spending unit. Using it as the
+// recap would make the tile show a number the per-project list can't
+// substantiate, so we deliberately don't.
 export const useRuseCapitalProgram = (fiscalYear: number | undefined) =>
   useQuery({
     queryKey: ["budget", "capital_programs", "ruse", fiscalYear] as const,
