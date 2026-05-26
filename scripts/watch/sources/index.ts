@@ -33,6 +33,7 @@ import { customsRevenue } from "./customs_revenue";
 import { napAnnual } from "./nap_annual";
 import { nssiB1 } from "./nssi_b1";
 import { dvInvestmentAnnex } from "./dv_investment_annex";
+import { capitalPrograms } from "./capital_programs";
 
 // cik is intentionally omitted — see ./cik.ts header. Re-add to this array
 // once a Playwright-based fetch (or alternate endpoint) bypasses Cloudflare.
@@ -57,6 +58,7 @@ export const SOURCES: WatchSource[] = [
   napAnnual,
   nssiB1,
   dvInvestmentAnnex,
+  capitalPrograms,
   eurostat,
   eurostatRegional,
   ecBudgetPerMs,

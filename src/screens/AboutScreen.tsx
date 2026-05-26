@@ -393,6 +393,22 @@ export const AboutScreen = () => {
                   href="https://www.nssi.bg/budjet-i-finansi/otkrito-upravlenie/otcheti-i-balansi/"
                   label={t("budget_noi_b1_source")}
                 />
+                <SourceItem
+                  href="https://www.sofia.bg/"
+                  label={t("budget_capital_sofia_source")}
+                />
+                <SourceItem
+                  href="https://www.plovdiv.bg/proekt-budget-2025/"
+                  label={t("budget_capital_plovdiv_source")}
+                />
+                <SourceItem
+                  href="https://burgas.bg/bg/2025/proektobyudzhet-2025-g/"
+                  label={t("budget_capital_burgas_source")}
+                />
+                <SourceItem
+                  href="https://www.starazagora.bg/bg/obshtinski-byudzhet/byudzhet-za-2025-godina/"
+                  label={t("budget_capital_stara_zagora_source")}
+                />
               </ul>
             </DataGroup>
 

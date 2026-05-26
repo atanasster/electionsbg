@@ -45,6 +45,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `НАП — Годишен отчет за дейността` | `update-budget` (revenue-breakdown sub-step — runs `scripts/budget/run_nap_annual.ts`; see "Revenue-breakdown ingest" below) |
 | `НОИ — месечни B1 отчети по фондове` | `update-noi` (manual download to `raw_data/budget/noi/`, then `tsx scripts/budget/noi/__write_funds.ts`) |
 | `ДВ — Инвестиционна програма за общински проекти` | `update-budget` (investment-program sub-step — fetch PDF to `raw_data/budget/investment_program/{year}-annex-iii.pdf`, then `tsx scripts/budget/investment_program/__write_program.ts`) |
+| `Общински капиталови програми` (per-município capital lists) | `update-budget` (capital-programmes sub-step — for each (year/muni) flagged in the watcher's describe-line, fetch the source file into `raw_data/budget/capital_programs/<muni>-<year>.{xlsx,pdf}` and run `tsx scripts/budget/capital_programs/<muni>.ts --year <year>` — see "Capital-programmes ingest" below) |
 | `Сметна палата party financing` | `update-financing` |
 | `Сметна палата annual-report index` | `update-financing` (annual-report year added — runs `scrape_reports.ts`) |
 | `Eurostat macro` (BG) | `update-macro` |
@@ -89,6 +90,35 @@ If the user says "skip governments for this run", drop it from the plan without 
 
 3. If the user says "skip CPI for this run", drop it from the queue without stamping — the next orchestrator run will surface it again.
 
+### Capital-programmes ingest (`capital_programs`)
+
+The 4 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora) each publish an annual капиталова програма on their own website. The watcher tracks all 4 sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
+
+Each município has its own parser script (different source formats: Sofia + Burgas = XLSX, Plovdiv + Stara Zagora = PDF), but a shared output schema under `data/budget/capital_programs/{year}/{muni}.json`. Operator workflow when the source flips:
+
+1. **Identify which (year, muni) entries flipped** from the watcher's describe-line — e.g. `"2 capital programme(s) re-uploaded: 2025/sofia, 2025/burgas"`.
+
+2. **Fetch each flagged source** into `raw_data/budget/capital_programs/`. The URLs are catalogued in `CAPITAL_PROGRAM_URLS` in `scripts/watch/sources/capital_programs.ts`; mirror to disk with a browser UA:
+   ```bash
+   curl -sL -A "Mozilla/5.0" \
+     -o raw_data/budget/capital_programs/<muni>-<year>.<ext> \
+     "<url from CAPITAL_PROGRAM_URLS>"
+   ```
+   For Stara Zagora, the catalogued URL is a ZIP — extract the `pr 4 KV*.pdf` file from it. For Sofia/Burgas use the `.xlsx` extension; Plovdiv uses `.pdf`.
+
+3. **Run the matching ingest script** per flagged município:
+   ```bash
+   tsx scripts/budget/capital_programs/sofia.ts --year <year>
+   tsx scripts/budget/capital_programs/plovdiv.ts --year <year>
+   tsx scripts/budget/capital_programs/burgas.ts --year <year>
+   tsx scripts/budget/capital_programs/stara_zagora.ts --year <year>
+   ```
+   Each writes `data/budget/capital_programs/{year}/{muni}.json` and prints the recap total + per-район or per-village breakdown for canary verification.
+
+4. **Adding a new year** (e.g. when 2026 programmes publish in spring): also add the new (year → urls) entry to `CAPITAL_PROGRAM_URLS` in `scripts/watch/sources/capital_programs.ts` AND update the `SOURCE_URLS` map at the top of each parser. Adding a 5th município follows the existing pattern: write a parser under `scripts/budget/capital_programs/<muni>.ts`, add a row to `CAPITAL_PROGRAM_URLS`, build a frontend tile (see the existing `{Sofia,Plovdiv,Burgas,StaraZagora}CapitalProjectsTile.tsx` for design variants).
+
+After running, stamp `update-budget` with a summary like `"capital_programs: refreshed sofia+burgas 2025"`.
+
 ### Revenue-breakdown ingest (`customs_revenue`, `nap_annual`)
 
 Both these sources publish annually — `customs_revenue` (Митническа хроника) in March of T+1 and `nap_annual` (НАП Годишен отчет) also in March of T+1. They share the `update-budget` mapping but run two separate scripts that aren't part of `npm run budget:ingest` yet:
@@ -129,6 +159,7 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `nap_annual` | `update-budget` (revenue-breakdown sub-step — re-runs `scripts/budget/run_nap_annual.ts`) |
 | `nssi_b1` | `update-noi` (operator manually downloads the new B1 XLS files into `raw_data/budget/noi/`, then runs `scripts/budget/noi/__write_funds.ts` — auto-fetch is blocked by an NSSI redirect-to-homepage on GET) |
 | `dv_investment_annex` | `update-budget` (investment-program sub-step — operator adds the new fiscal year to both `INVESTMENT_ANNEX_URLS` in `scripts/watch/sources/dv_investment_annex.ts` AND the `SOURCES` map in `scripts/budget/investment_program/__write_program.ts`, fetches the PDF into `raw_data/budget/investment_program/{year}-annex-iii.pdf`, then runs `scripts/budget/investment_program/__write_program.ts`) |
+| `capital_programs` | `update-budget` (capital-programmes sub-step — see "Capital-programmes ingest" below; covers Sofia, Plovdiv, Burgas, Stara Zagora) |
 | `smetna_palata` | `update-financing` |
 | `financing_reports` | `update-financing` |
 | `eurostat` | `update-macro` |
