@@ -17,8 +17,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const SOURCE_URLS: Record<number, string> = {
-  2025: "https://www.asenovgrad.bg/uploads/MyDocuments//rkr_mv_2025_oc-02052025.pdf",
+  2022: "https://www.asenovgrad.bg/uploads/MyDocuments//raz_kapitalovi-razhodi26042022-1.pdf",
+  2023: "https://www.asenovgrad.bg/uploads/MyDocuments//rkr_mv_20092023_oc-21092023.pdf",
   2024: "https://www.asenovgrad.bg/uploads/MyDocuments//rkr_2024_oc-01032024.pdf",
+  2025: "https://www.asenovgrad.bg/uploads/MyDocuments//rkr_mv_2025_oc-02052025.pdf",
 };
 
 interface Money {

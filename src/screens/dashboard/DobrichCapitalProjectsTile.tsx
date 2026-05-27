@@ -8,13 +8,15 @@
 // Source is an inline HTML table on dobrich.bg, scraped server-side
 // by scripts/budget/capital_programs/dobrich.ts (no OCR needed).
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { HardHat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useDobrichCapitalProgram } from "@/data/budget/useBudget";
 
-const DOBRICH_CAPITAL_LATEST_YEAR = 2025;
+// 2024 + 2025 currently on disk; 2023 and earlier aren't on dobrich.bg.
+const DOBRICH_CAPITAL_YEARS = [2025, 2024] as const;
+const DOBRICH_CAPITAL_LATEST_YEAR = DOBRICH_CAPITAL_YEARS[0];
 const DOBRICH_OBSHTINA = "DOB28";
 
 const compactEur = (v: number): string => {
@@ -48,8 +50,9 @@ export const DobrichCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("bg") ? "bg" : "en";
   const enabled = obshtinaCode === DOBRICH_OBSHTINA;
+  const [year, setYear] = useState<number>(DOBRICH_CAPITAL_LATEST_YEAR);
   const { data, isLoading } = useDobrichCapitalProgram(
-    enabled ? DOBRICH_CAPITAL_LATEST_YEAR : undefined,
+    enabled ? year : undefined,
   );
 
   if (!enabled || isLoading || !data) return null;
@@ -65,10 +68,19 @@ export const DobrichCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <HardHat className="h-4 w-4" />
           {t("dobrich_capital_tile_title")}
-          <span className="text-xs text-muted-foreground font-normal ml-1">
-            {data.fiscalYear}
-            {lang === "bg" ? " г." : ""}
-          </span>
+          <select
+            value={year}
+            onChange={(e) => setYear(Number(e.target.value))}
+            className="ml-auto text-xs font-normal bg-transparent border rounded px-1.5 py-0.5 tabular-nums cursor-pointer hover:bg-muted/40"
+            aria-label={t("sofia_capital_year_picker_label")}
+          >
+            {DOBRICH_CAPITAL_YEARS.map((y) => (
+              <option key={y} value={y}>
+                {y}
+                {lang === "bg" ? " г." : ""}
+              </option>
+            ))}
+          </select>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {t("dobrich_capital_tile_intro")}

@@ -7,13 +7,14 @@
 // Mounted on Asenovgrad settlement (EKATTE 00702) and município page;
 // renders null silently for any other obshtina.
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { HardHat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useAsenovgradCapitalProgram } from "@/data/budget/useBudget";
 
-const ASN_CAPITAL_LATEST_YEAR = 2025;
+const ASN_CAPITAL_YEARS = [2025, 2024, 2023, 2022] as const;
+const ASN_CAPITAL_LATEST_YEAR = ASN_CAPITAL_YEARS[0];
 const ASN_OBSHTINA = "PDV01";
 
 const compactEur = (v: number): string => {
@@ -29,8 +30,9 @@ export const AsenovgradCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("bg") ? "bg" : "en";
   const enabled = obshtinaCode === ASN_OBSHTINA;
+  const [year, setYear] = useState<number>(ASN_CAPITAL_LATEST_YEAR);
   const { data, isLoading } = useAsenovgradCapitalProgram(
-    enabled ? ASN_CAPITAL_LATEST_YEAR : undefined,
+    enabled ? year : undefined,
   );
 
   if (!enabled || isLoading || !data) return null;
@@ -48,10 +50,19 @@ export const AsenovgradCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <HardHat className="h-4 w-4" />
           {t("asenovgrad_capital_tile_title")}
-          <span className="text-xs text-muted-foreground font-normal ml-1">
-            {data.fiscalYear}
-            {lang === "bg" ? " г." : ""}
-          </span>
+          <select
+            value={year}
+            onChange={(e) => setYear(Number(e.target.value))}
+            className="ml-auto text-xs font-normal bg-transparent border rounded px-1.5 py-0.5 tabular-nums cursor-pointer hover:bg-muted/40"
+            aria-label={t("sofia_capital_year_picker_label")}
+          >
+            {ASN_CAPITAL_YEARS.map((y) => (
+              <option key={y} value={y}>
+                {y}
+                {lang === "bg" ? " г." : ""}
+              </option>
+            ))}
+          </select>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {t("asenovgrad_capital_tile_intro")}

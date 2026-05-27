@@ -174,6 +174,13 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // template). Multi-line project names → Gemini Vision OCR.
     haskovo:
       "https://www.haskovo.bg/uploads/posts/2024/e02aef94db43a6123034f1947c9b9479.pdf",
+    // Dobrich 2024 — same dobrich.bg HTML-scrape recipe as 2025, original
+    // adopted programme (no "aktualizatsiya" slug). 51 projects, ~€22.9M.
+    dobrich:
+      "https://www.dobrich.bg/bg/programa-za-kapitalovi-razhodi-na-obshtina-grad-dobrich/programa-za-kapitalovite-razhodi-na-obshtina-grad-dobrich-za-2024-g",
+    // Asenovgrad 2024 — same OCR pipeline as 2025.
+    asenovgrad:
+      "https://www.asenovgrad.bg/uploads/MyDocuments//rkr_2024_oc-01032024.pdf",
   },
   2023: {
     sofia:
@@ -194,8 +201,14 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // Watcher tracks the article landing page (the RAR URL itself is
     // session-bound and changes each year).
     vidin: "https://vidin.bg/",
+    // Asenovgrad 2023 — same OCR pipeline as 2025.
+    asenovgrad:
+      "https://www.asenovgrad.bg/uploads/MyDocuments//rkr_mv_20092023_oc-21092023.pdf",
   },
   2022: {
+    // Asenovgrad 2022 — same OCR pipeline as 2025.
+    asenovgrad:
+      "https://www.asenovgrad.bg/uploads/MyDocuments//raz_kapitalovi-razhodi26042022-1.pdf",
     // Vidin 2022 — .doc inside 4-то тримесечие 2022 RAR; same workflow
     // as 2023. NB: source recap has an internal inconsistency (states
     // 7.15M but section totals + bullets sum to 12.6M); see vidin.ts.

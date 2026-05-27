@@ -31,6 +31,8 @@ const UA =
   "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
 const SOURCE_URLS: Record<number, string> = {
+  // 2024 original (no actualisation slug; the initial adopted programme).
+  2024: "https://www.dobrich.bg/bg/programa-za-kapitalovi-razhodi-na-obshtina-grad-dobrich/programa-za-kapitalovite-razhodi-na-obshtina-grad-dobrich-za-2024-g",
   // 2025 actualisation (October 2025 council decision); the live capital
   // programme page rotates between yearly versions, so this URL is the
   // adopted snapshot. Re-resolve from
