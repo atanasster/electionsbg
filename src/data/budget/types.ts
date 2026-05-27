@@ -1028,6 +1028,49 @@ export interface VidinCapitalProgramFile {
   bySettlement: VidinCapitalSettlementRollup[];
 }
 
+// Габрово — single-município (GAB05, EKATTE 14218). Oblast capital
+// with 134 settlements (city + 133 villages — the largest village
+// count in the fleet). Source is the council's "Инвестиционна програма"
+// (Приложение №5 to the budget), discovered via Google indexing of
+// gabrovo.bg/files/budjet*/...pdf (the site itself is JS-rendered
+// so harvester misses it). Born-digital PDF (Microsoft Print-to-PDF
+// render of an underlying XLSX) but column-positioned layout → OCR
+// via Gemini Vision for robust extraction.
+export interface GabrovoCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface GabrovoCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface GabrovoCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: GabrovoCapitalProject[];
+  bySettlement: GabrovoCapitalSettlementRollup[];
+}
+
 // Хасково — single-município (HKV34, EKATTE 77195). Oblast capital
 // with 37 settlements (city + 36 villages). Source is a 19-page born-
 // digital landscape PDF on haskovo.bg (Прил. №7 МИНФИН B3 template);

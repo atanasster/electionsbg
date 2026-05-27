@@ -36,6 +36,7 @@ import { VidinCapitalProjectsTile } from "./VidinCapitalProjectsTile";
 import { VelikoTarnovoCapitalProjectsTile } from "./VelikoTarnovoCapitalProjectsTile";
 import { PernikCapitalProjectsTile } from "./PernikCapitalProjectsTile";
 import { HaskovoCapitalProjectsTile } from "./HaskovoCapitalProjectsTile";
+import { GabrovoCapitalProjectsTile } from "./GabrovoCapitalProjectsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
@@ -168,6 +169,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           <VelikoTarnovoCapitalProjectsTile obshtinaCode={municipalityCode} />
           <PernikCapitalProjectsTile obshtinaCode={municipalityCode} />
           <HaskovoCapitalProjectsTile obshtinaCode={municipalityCode} />
+          <GabrovoCapitalProjectsTile obshtinaCode={municipalityCode} />
         </DashboardSection>
 
         <DashboardSection

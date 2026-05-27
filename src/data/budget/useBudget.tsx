@@ -31,6 +31,7 @@ import type {
   SlivenCapitalProgramFile,
   SofiaCapitalProgramFile,
   StaraZagoraCapitalProgramFile,
+  GabrovoCapitalProgramFile,
   HaskovoCapitalProgramFile,
   PernikCapitalProgramFile,
   VarnaCapitalProgramFile,
@@ -461,6 +462,19 @@ export const useVidinCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<VidinCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/vidin.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Габрово — Oblast capital (GAB05, 134 settlements). 9-page born-
+// digital landscape PDF on gabrovo.bg; OCR via Gemini Vision.
+export const useGabrovoCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "gabrovo", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<GabrovoCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/gabrovo.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

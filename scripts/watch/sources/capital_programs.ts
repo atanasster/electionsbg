@@ -1,10 +1,10 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 15 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Each of the 16 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
 // Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin,
-// Veliko Tarnovo, Pernik, Haskovo) publishes an annual "Капиталова
-// програма" / "Поименен списък на обектите за капиталови разходи" on
-// its own website.
+// Veliko Tarnovo, Pernik, Haskovo, Gabrovo) publishes an annual
+// "Капиталова програма" / "Поименен списък на обектите за капиталови
+// разходи" on its own website.
 // URLs are opaque and change every year (some include the date, some a
 // content hash), so the catalogue is hand-curated below — mirrors the
 // SOURCE_URLS map in each município's parser under
@@ -68,7 +68,8 @@ type Municipality =
   | "vidin"
   | "veliko_tarnovo"
   | "pernik"
-  | "haskovo";
+  | "haskovo"
+  | "gabrovo";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -125,6 +126,10 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // URL discovered via the Playwright harvest.ts tool (the shumen.bg
     // budget portal is JS-rendered).
     shumen: "https://www.shumen.bg/uploads/deinosti/budjet/25051314.pdf",
+    // Габрово (GAB05) — oblast capital, 134 settlements. PDF URL found
+    // via Google indexing (gabrovo.bg's portal is JS-rendered). 2025
+    // December actualisation; OCR via Gemini Vision.
+    gabrovo: "https://gabrovo.bg/files/budjet2025/izmenenia/20.5.pdf",
     // Велико Търново (VTR04) — Tier-2 oblast capital, 89 settlements.
     // The 22-appendix master XLSX is a clean structured file with a
     // dedicated "Pril15" sheet (Инвестиционна програма). No OCR needed.
