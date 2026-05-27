@@ -1,0 +1,47 @@
+{
+  "eik": "123716465",
+  "entries": [
+    {
+      "mpId": 3782,
+      "mpName": "Момчил Донев Ненов",
+      "contractorEik": "123716465",
+      "contractorName": "Елемент-АСК ООД - Казанлък",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "50%",
+          "valueEur": 1278.2297029905462,
+          "fiscalYear": 2021,
+          "declarationYear": 2022
+        }
+      ],
+      "totalEur": 1022.5837623924369,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 1,
+          "totalEur": 766.9378217943278,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 255.64594059810923,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000817778",
+          "name": "Община Казанлък",
+          "contractCount": 2,
+          "totalEur": 1022.5837623924369,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

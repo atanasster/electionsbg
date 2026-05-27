@@ -1,0 +1,74 @@
+{
+  "eik": "115147345",
+  "entries": [
+    {
+      "mpId": 3351,
+      "mpName": "Мария Василева Капон",
+      "contractorEik": "115147345",
+      "contractorName": "Фернет българия ООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "250",
+          "valueEur": 51129.188119621846,
+          "fiscalYear": 2021,
+          "declarationYear": 2021
+        }
+      ],
+      "totalEur": 868408.8085365293,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 3,
+          "totalEur": 393234.5858280116,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 337191.88273009413,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 1,
+          "totalEur": 137982.3399784235,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000133634",
+          "name": "Община Велико Търново",
+          "contractCount": 1,
+          "totalEur": 337191.88273009413,
+          "totalOther": {}
+        },
+        {
+          "eik": "831909905",
+          "name": "Министерство на земеделието и храните /МЗХ//Старо наименование: Министерство на земеделието и продоволствието /Мзп/",
+          "contractCount": 2,
+          "totalEur": 283204.57299458544,
+          "totalOther": {}
+        },
+        {
+          "eik": "130925885",
+          "name": "Изпълнителна агенция по селекция и репродукция в животновъдството",
+          "contractCount": 1,
+          "totalEur": 137982.3399784235,
+          "totalOther": {}
+        },
+        {
+          "eik": "000472182",
+          "name": "Община Марица, област Пловдив",
+          "contractCount": 1,
+          "totalEur": 110030.01283342621,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

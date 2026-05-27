@@ -1,0 +1,70 @@
+{
+  "eik": "104054085",
+  "entries": [
+    {
+      "mpId": 233,
+      "mpName": "Николай Петров Кънчев",
+      "contractorEik": "104054085",
+      "contractorName": "Драгажен флот - Истър АД - Свищов",
+      "relations": [
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 155406.14470582822,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 1,
+          "totalEur": 4294.851802048235,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 8998.737109053445,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 126364.765853883,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 2,
+          "totalEur": 5624.210693158403,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 10123.579247685126,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "130316140",
+          "name": "Държавно предприятие \"Пристанищна инфраструктура\" /Дппи/ - София",
+          "contractCount": 1,
+          "totalEur": 126364.765853883,
+          "totalOther": {}
+        },
+        {
+          "eik": "000133965",
+          "name": "Община Свищов",
+          "contractCount": 6,
+          "totalEur": 29041.37885194521,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

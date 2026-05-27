@@ -1,0 +1,39 @@
+{
+  "eik": "206867786",
+  "entries": [
+    {
+      "mpId": 3710,
+      "mpName": "Пламен Николаев Николов",
+      "contractorEik": "206867786",
+      "contractorName": "Кп инвест груп ЕООД",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 173692.53974016148,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2023",
+          "contractCount": 4,
+          "totalEur": 173692.53974016148,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000696327",
+          "name": "Район \"Връбница",
+          "contractCount": 4,
+          "totalEur": 173692.53974016148,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

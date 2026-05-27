@@ -1,0 +1,47 @@
+{
+  "eik": "131380345",
+  "entries": [
+    {
+      "mpId": 805,
+      "mpName": "Йордан Петков Йорданов",
+      "beneficiaryEik": "131380345",
+      "beneficiaryName": "Дайрект Сървисиз ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ],
+      "contractCount": 3,
+      "contractedEur": 356845.63,
+      "paidEur": 149473.49
+    }
+  ]
+}

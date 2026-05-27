@@ -1,0 +1,52 @@
+{
+  "eik": "123729167",
+  "entries": [
+    {
+      "mpId": 4018,
+      "mpName": "Николай Димитров Благоев",
+      "beneficiaryEik": "123729167",
+      "beneficiaryName": "Кемпес нб ЕООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 9561.16,
+      "paidEur": 9561.16
+    }
+  ]
+}

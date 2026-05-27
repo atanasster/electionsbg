@@ -224,6 +224,72 @@ export const writeMpConnected = (
   // sharding lets it skip the chamber-wide fetch. Idempotent — re-running
   // the cross-reference doesn't churn unchanged shards.
   writeMpConnectedShards(outDir, data);
+
+  // Per-EIK shards for the reverse lookup. /company/{eik} and
+  // /awarder/{eik} need "which MPs are connected to this contractor?",
+  // which the aggregate mp_connected.json answers only by streaming the
+  // full ~105 KB. The per-EIK shard does it in O(1).
+  writeMpConnectedByEikShards(outDir, data);
+};
+
+const writeMpConnectedByEikShards = (
+  outDir: string,
+  data: MpConnectedFile,
+): void => {
+  const shardDir = path.join(outDir, "by-eik");
+  fs.mkdirSync(shardDir, { recursive: true });
+
+  // The aggregate's row is (mpId, contractorEik, ...); the reverse-lookup
+  // shard groups by contractorEik. We keep the manifest small — just an
+  // alphabetised list of EIKs that have at least one MP connection.
+  const byEik = new Map<string, MpConnectedFile["entries"]>();
+  for (const e of data.entries) {
+    if (!e.contractorEik) continue;
+    const arr = byEik.get(e.contractorEik) ?? [];
+    arr.push(e);
+    byEik.set(e.contractorEik, arr);
+  }
+
+  const wanted = new Set<string>();
+  for (const [eik, entries] of byEik) {
+    const file = `${eik}.json`;
+    wanted.add(file);
+    const content = canonicalJson({ eik, entries });
+    const fullPath = path.join(shardDir, file);
+    if (fs.existsSync(fullPath)) {
+      try {
+        if (fs.readFileSync(fullPath, "utf8") === content) continue;
+      } catch {
+        // overwrite
+      }
+    }
+    fs.writeFileSync(fullPath, content);
+  }
+
+  // Manifest of EIKs that have a per-EIK shard. /company/{eik} reads this
+  // small manifest first; if the EIK isn't listed, no shard fetch fires
+  // at all.
+  const eiks = [...byEik.keys()].sort();
+  const manifest = JSON.stringify({ eiks }, null, 2) + "\n";
+  const manifestPath = path.join(shardDir, "index.json");
+  let existingManifest = "";
+  if (fs.existsSync(manifestPath)) {
+    try {
+      existingManifest = fs.readFileSync(manifestPath, "utf8");
+    } catch {
+      // overwrite
+    }
+  }
+  if (existingManifest !== manifest) {
+    fs.writeFileSync(manifestPath, manifest);
+  }
+
+  for (const f of fs.readdirSync(shardDir)) {
+    if (!f.endsWith(".json")) continue;
+    if (f === "index.json") continue;
+    if (wanted.has(f)) continue;
+    fs.unlinkSync(path.join(shardDir, f));
+  }
 };
 
 const writeMpConnectedShards = (

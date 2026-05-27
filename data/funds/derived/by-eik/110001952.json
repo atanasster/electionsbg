@@ -1,0 +1,47 @@
+{
+  "eik": "110001952",
+  "entries": [
+    {
+      "mpId": 5092,
+      "mpName": "Богомил Иванов Петков",
+      "beneficiaryEik": "110001952",
+      "beneficiaryName": "Осъм инженеринг АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 540180.25,
+      "paidEur": 0
+    }
+  ]
+}

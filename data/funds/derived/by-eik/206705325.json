@@ -1,0 +1,47 @@
+{
+  "eik": "206705325",
+  "entries": [
+    {
+      "mpId": 4590,
+      "mpName": "Петър Николаев Николов",
+      "beneficiaryEik": "206705325",
+      "beneficiaryName": "Никел Проект ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 17441.19,
+      "paidEur": 9205.18
+    }
+  ]
+}

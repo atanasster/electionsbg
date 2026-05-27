@@ -1,0 +1,44 @@
+{
+  "eik": "130822878",
+  "entries": [
+    {
+      "mpId": 139,
+      "mpName": "Йордан Мирчев Митев",
+      "contractorEik": "130822878",
+      "contractorName": "Холдинг Български държавни железници ЕАД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 25564.594059810923,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2022",
+          "contractCount": 1,
+          "totalEur": 25564.594059810923,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "130823243",
+          "name": "Национална компания \"Железопътна инфраструктура\" ДП",
+          "contractCount": 1,
+          "totalEur": 25564.594059810923,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

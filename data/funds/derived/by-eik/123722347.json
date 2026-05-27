@@ -1,0 +1,47 @@
+{
+  "eik": "123722347",
+  "entries": [
+    {
+      "mpId": 2760,
+      "mpName": "Иван Димов Иванов",
+      "beneficiaryEik": "123722347",
+      "beneficiaryName": "Агро инвест ид ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 149000,
+      "paidEur": 0
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "eik": "123139451",
+  "entries": [
+    {
+      "mpId": 4372,
+      "mpName": "Радослав Красенов Василев",
+      "beneficiaryEik": "123139451",
+      "beneficiaryName": "Тева - тм ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "stake",
+          "shareSize": "25%",
+          "valueEur": 639.1148514952731,
+          "fiscalYear": 2023,
+          "declarationYear": 2024
+        }
+      ],
+      "contractCount": 4,
+      "contractedEur": 359329.28,
+      "paidEur": 188799.65
+    }
+  ]
+}

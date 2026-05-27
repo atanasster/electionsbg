@@ -25,19 +25,16 @@ import {
   Euro,
   Newspaper,
 } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
 import { Title } from "@/ux/Title";
 import { StatCard } from "./dashboard/StatCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useContractor } from "@/data/procurement/useContractor";
 import { useAwarder } from "@/data/procurement/useAwarder";
-import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
+import { useProcurementMpConnectedByEik } from "@/data/procurement/useMpConnectedByEik";
 import { useFundsBeneficiary } from "@/data/funds/useFundsBeneficiary";
-import { useFundsConnectedForEik } from "@/data/funds/useMpConnectedFunds";
+import { useFundsMpConnectedByEik } from "@/data/funds/useFundsMpConnectedByEik";
 import { useFundsConfirmedCase } from "@/data/funds/useFundsConfirmed";
 import { useCompanyConnections } from "@/data/parliament/useCompanyConnections";
-import { dataUrl } from "@/data/dataUrl";
-import type { ProcurementMpConnectedFile } from "@/data/dataTypes";
 import type {
   FundsBeneficiary,
   FundsMpConnected,
@@ -56,27 +53,6 @@ import { CompanyConnectionsSection } from "./components/connections/CompanyConne
 import { PoliticalLinksCard } from "./components/funds/PoliticalLinksCard";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
-
-// Reverse lookup for "is this EIK MP-tied, and which MPs?" — reuses the
-// fetch that's already cached by useMpConnectedContracts on other screens.
-const useMpConnectedForEik = (eik?: string) => {
-  const q = useQuery({
-    queryKey: ["procurement", "mp_connected"] as const,
-    queryFn: async () => {
-      const r = await fetch(dataUrl("/procurement/derived/mp_connected.json"));
-      if (r.status === 404) return null;
-      if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-      return (await r.json()) as ProcurementMpConnectedFile;
-    },
-    staleTime: Infinity,
-  });
-  void useMpConnectedContracts; // import is intentional for cache sharing
-  if (!eik || !q.data) return { entries: [], isLoading: q.isLoading };
-  return {
-    entries: q.data.entries.filter((e) => e.contractorEik === eik),
-    isLoading: false,
-  };
-};
 
 const SkeletonCard: FC = () => (
   <div className="rounded-xl border bg-card p-4 shadow-sm animate-pulse h-[140px]">
@@ -251,8 +227,8 @@ export const CompanyByEikScreen: FC = () => {
   const { data: aw } = useAwarder(eik);
   const { beneficiary: funds, isLoading: fundsLoading } =
     useFundsBeneficiary(eik);
-  const { entries: mpLinks } = useMpConnectedForEik(eik);
-  const { entries: fundsMpLinks } = useFundsConnectedForEik(eik);
+  const { entries: mpLinks } = useProcurementMpConnectedByEik(eik);
+  const { entries: fundsMpLinks } = useFundsMpConnectedByEik(eik);
   const { caseData: confirmedCase } = useFundsConfirmedCase(eik);
   const { connections, isLoading: connLoading } = useCompanyConnections(eik);
   const isLoading = procLoading || fundsLoading || connLoading;
