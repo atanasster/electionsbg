@@ -1,10 +1,10 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 17 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Each of the 18 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
 // Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin,
-// Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol) publishes an annual
-// "Капиталова програма" / "Поименен списък на обектите за капиталови
-// разходи" on its own website.
+// Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali) publishes
+// an annual "Капиталова програма" / "Поименен списък на обектите за
+// капиталови разходи" on its own website.
 // URLs are opaque and change every year (some include the date, some a
 // content hash), so the catalogue is hand-curated below — mirrors the
 // SOURCE_URLS map in each município's parser under
@@ -70,7 +70,8 @@ type Municipality =
   | "pernik"
   | "haskovo"
   | "gabrovo"
-  | "yambol";
+  | "yambol"
+  | "kardzhali";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -135,6 +136,10 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // (RAR for 2024+, ZIP for 2022-23) on yambol.bg/byudzhet contains
     // Прил. 5 (Прил. 4 in earlier years) — capital expenditure list.
     yambol: "https://yambol.bg/uploads/F78A27D981721A6CE39F7EC33D6B09B2",
+    // Кърджали (KRZ16) — oblast capital, 118 settlements. PDF URL
+    // discovered via Google site:kardjali.bg search; this is the
+    // April 2025 project version (not yet actualised). OCR via Gemini.
+    kardzhali: "https://kardjali.bg/news_docs/news_docs_20250417-022937.pdf",
     // Велико Търново (VTR04) — Tier-2 oblast capital, 89 settlements.
     // The 22-appendix master XLSX is a clean structured file with a
     // dedicated "Pril15" sheet (Инвестиционна програма). No OCR needed.
@@ -193,6 +198,9 @@ export const CAPITAL_PROGRAM_URLS: Record<
       "https://www.asenovgrad.bg/uploads/MyDocuments//rkr_2024_oc-01032024.pdf",
     // Yambol 2024 — RAR archive of budget on yambol.bg, Прил. 4 inside.
     yambol: "https://yambol.bg/uploads/E2799BB345CA60C59FADC2893CA59B8F",
+    // Kardzhali 2024 — third actualisation (Dec 2024 year-end version);
+    // file has било/става amendment-pair columns, parser captures СТАВА.
+    kardzhali: "https://kardjali.bg/docs/obs_docs/Pril_1_Kapiit_razhodi.pdf",
   },
   2023: {
     sofia:

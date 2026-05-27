@@ -38,6 +38,7 @@ import { PernikCapitalProjectsTile } from "./PernikCapitalProjectsTile";
 import { HaskovoCapitalProjectsTile } from "./HaskovoCapitalProjectsTile";
 import { GabrovoCapitalProjectsTile } from "./GabrovoCapitalProjectsTile";
 import { YambolCapitalProjectsTile } from "./YambolCapitalProjectsTile";
+import { KardzhaliCapitalProjectsTile } from "./KardzhaliCapitalProjectsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
@@ -172,6 +173,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           <HaskovoCapitalProjectsTile obshtinaCode={municipalityCode} />
           <GabrovoCapitalProjectsTile obshtinaCode={municipalityCode} />
           <YambolCapitalProjectsTile obshtinaCode={municipalityCode} />
+          <KardzhaliCapitalProjectsTile obshtinaCode={municipalityCode} />
         </DashboardSection>
 
         <DashboardSection

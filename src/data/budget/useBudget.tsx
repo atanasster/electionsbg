@@ -33,6 +33,7 @@ import type {
   StaraZagoraCapitalProgramFile,
   GabrovoCapitalProgramFile,
   HaskovoCapitalProgramFile,
+  KardzhaliCapitalProgramFile,
   YambolCapitalProgramFile,
   PernikCapitalProgramFile,
   VarnaCapitalProgramFile,
@@ -463,6 +464,19 @@ export const useVidinCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<VidinCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/vidin.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Кърджали — Oblast capital (KRZ16, 118 settlements). Born-digital
+// landscape PDF discovered via Google indexing. OCR via Gemini Vision.
+export const useKardzhaliCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "kardzhali", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<KardzhaliCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/kardzhali.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

@@ -93,7 +93,7 @@ If the user says "skip governments for this run", drop it from the plan without 
 
 ### Capital-programmes ingest (`capital_programs`)
 
-The 17 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
+The 18 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
 
 Each município has its own parser script:
 - **XLSX/XLS**: Sofia, Burgas, Ruse, Veliko Tarnovo (sheet "Pril15"), Pernik (post-euro EUR figures), Burgas 2022.
@@ -135,6 +135,9 @@ Output schema is shared under `data/budget/capital_programs/{year}/{muni}.json`.
    # Yambol: extract RAR (unar) or ZIP (Python CP866) first, then OCR:
    tsx scripts/budget/capital_programs/yambol_ocr.ts --year <year>
    tsx scripts/budget/capital_programs/yambol.ts --year <year>
+   # Kardzhali: same OCR pattern; URLs discovered via Google site:kardjali.bg:
+   tsx scripts/budget/capital_programs/kardzhali_ocr.ts --year <year>
+   tsx scripts/budget/capital_programs/kardzhali.ts --year <year>
    # Vidin: unar extract + textutil convert the .doc first, then:
    tsx scripts/budget/capital_programs/vidin.ts --year <year>
    ```

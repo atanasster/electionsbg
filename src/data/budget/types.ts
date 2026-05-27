@@ -1028,6 +1028,47 @@ export interface VidinCapitalProgramFile {
   bySettlement: VidinCapitalSettlementRollup[];
 }
 
+// Кърджали — single-município (KRZ16, EKATTE 40909). Oblast capital
+// with 118 settlements (city + 117 villages). Source PDF discovered
+// via Google site:kardjali.bg search; born-digital text-extractable
+// PDF (Excel-rendered) with project + actualisation variants. OCR
+// via Gemini Vision for robust extraction of "било/става" amendment
+// pairs (capture СТАВА).
+export interface KardzhaliCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface KardzhaliCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface KardzhaliCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: KardzhaliCapitalProject[];
+  bySettlement: KardzhaliCapitalSettlementRollup[];
+}
+
 // Ямбол — single-município (JAM26, EKATTE 87374). Oblast capital,
 // single-settlement (just the city — no surrounding villages, those
 // are separate общини in Yambol oblast). Source is "Приложение 4/5
