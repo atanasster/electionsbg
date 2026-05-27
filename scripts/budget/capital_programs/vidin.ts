@@ -27,6 +27,13 @@
 // Vidin obshtina = VID09, EKATTE 10971. 34 settlements: city + town
 // Дунавци + 32 villages. The .doc tags each project's settlement
 // inline ("гр.Видин", "с.Бела Рада", "с.Бeла Рада" with NBSP variants).
+//
+// Year coverage:
+//   2022 — operator-fetched, NB recap inconsistency (see PUBLISHED_RECAPS)
+//   2023 — operator-fetched, clean
+//   2024 — not available on vidin.bg as of 2026-05-27 (the 2024 year-end
+//          quarterly report archive has not been uploaded). Skip until
+//          a future watcher probe surfaces it.
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
@@ -156,12 +163,19 @@ const PROJECT_RE =
   /^[\s\u00A0]*-\s+(.+?)\s+-\s+([\d\s\u00A0]+)\s*лв\.?[;]?\s*$/u;
 
 const SOURCE_URLS: Record<number, string> = {
+  2022: "https://vidin.bg/", // .doc inside year-end RAR (4-то тримесечие 2022) — operator-fetched
   2023: "https://vidin.bg/", // packaged inside the year-end RAR — vidin.bg lists the article but the actual file is operator-fetched
 };
 
 const PUBLISHED_RECAPS: Record<number, number> = {
-  // From the recap paragraph at the top of the .doc:
-  //   "Отчета за капиталови разходи е в размер на 33 056 660 лв."
+  // From the recap paragraph at the top of each .doc.
+  // 2022: "Отчета за капиталови разходи е в размер на 7 149 769 лв."
+  //   NB: the 2022 doc has an internal inconsistency — the recap states
+  //   7.15M лв but the section totals (1=10.48M, 2=2.12M, 3=0.005M) and
+  //   bullets both sum to ~12.6M лв. We keep the source-stated number
+  //   here for fidelity; the tile shows the itemised total as headline.
+  // 2023: "Отчета за капиталови разходи е в размер на 33 056 660 лв." (clean)
+  2022: 7_149_769,
   2023: 33_056_660,
 };
 

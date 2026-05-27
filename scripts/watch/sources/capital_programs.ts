@@ -157,6 +157,10 @@ export const CAPITAL_PROGRAM_URLS: Record<
     vidin: "https://vidin.bg/",
   },
   2022: {
+    // Vidin 2022 — .doc inside 4-то тримесечие 2022 RAR; same workflow
+    // as 2023. NB: source recap has an internal inconsistency (states
+    // 7.15M but section totals + bullets sum to 12.6M); see vidin.ts.
+    vidin: "https://vidin.bg/",
     // 2022's budget itself adopted late (Aug 2023) due to political
     // instability; this is the year-end "Уточнен план" XLSX.
     sofia:
