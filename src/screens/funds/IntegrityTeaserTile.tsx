@@ -50,7 +50,7 @@ export const IntegrityTeaserTile: FC = () => {
           </span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-3 md:p-4 space-y-2">
+      <CardContent className="p-3 md:p-4 space-y-2 text-sm">
         <p className="text-xs text-muted-foreground">
           {t("integrity_teaser_intro") ||
             "Programmes where one or two beneficiaries dominate, beneficiaries who win across multiple programmes, and AOP debarred suppliers found in ИСУН."}

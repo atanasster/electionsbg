@@ -56,7 +56,7 @@ export const FundsFocusTile: FC = () => {
             <li key={th.slug}>
               <Link
                 to={`/funds/focus/${th.slug}`}
-                className="block rounded-md border border-border p-3 transition-colors hover:border-amber-300 hover:bg-amber-50/30 dark:hover:bg-amber-900/10"
+                className="block rounded-md border border-border p-3 text-sm transition-colors hover:border-amber-300 hover:bg-amber-50/30 dark:hover:bg-amber-900/10"
               >
                 <div className="font-medium">
                   {lang === "bg" ? th.labelBg : th.labelEn}

@@ -115,7 +115,7 @@ const TopBeneficiariesCard: FC<{ rows: FundsTopRow[] }> = ({ rows }) => {
   const visible = rows.slice(0, 15);
   return (
     <Card>
-      <CardContent className="p-3 md:p-4">
+      <CardContent className="p-3 md:p-4 text-sm">
         <ul className="flex flex-col divide-y divide-border">
           {visible.map((r, i) => (
             <li

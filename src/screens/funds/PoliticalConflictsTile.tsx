@@ -52,7 +52,7 @@ export const PoliticalConflictsTile: FC = () => {
           </span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2 p-3 md:p-4">
+      <CardContent className="space-y-2 p-3 md:p-4 text-sm">
         <p className="text-xs text-muted-foreground">
           {t("funds_political_intro") ||
             "EU-funds beneficiaries whose declared owners or managers are sitting MPs, cabinet members, regional governors, mayors, or councillors. Source: Сметна палата declarations + Commerce Registry."}
