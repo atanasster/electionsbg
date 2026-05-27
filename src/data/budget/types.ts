@@ -988,6 +988,44 @@ export interface StaraZagoraCapitalProgramFile {
   bySettlement: StaraZagoraCapitalSettlementRollup[];
 }
 
+// Dobrich — single-município single-settlement (DOB28, EKATTE 72624).
+// The city's villages live in a separate "Добрич-селска" rural община
+// (DOB15). Source is an inline HTML table on dobrich.bg — no OCR or PDF
+// parsing needed; scraped via fetch + regex by scripts/budget/
+// capital_programs/dobrich.ts. Surfaces a per-funding-source rollup
+// (Own funds / Targeted subsidy / Carry-overs / EU projects / …).
+export interface DobrichCapitalProject {
+  id: number;
+  name: string;
+  fundingSource: string | null;
+  total: Money;
+}
+
+export interface DobrichCapitalFundingRollup {
+  code: string;
+  projectCount: number;
+  total: Money;
+}
+
+export interface DobrichCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: DobrichCapitalProject[];
+  byFundingSource: DobrichCapitalFundingRollup[];
+}
+
 // Sliven — single-município, no райони (SLV20, EKATTE 67338). Tier-2
 // oblast capital with 45 settlements (city + town Кермен + 43 villages).
 // Source is a 23-page rasterized PDF on mun.sliven.bg, ingested through

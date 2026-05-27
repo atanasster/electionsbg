@@ -1,0 +1,864 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T08:39:26.484Z",
+  "source": {
+    "publisher": "Община град Добрич",
+    "documentTitle": "Програма за капиталовите разходи на Община град Добрич за 2025 г. (Актуализация октомври 2025)",
+    "url": "https://www.dobrich.bg/bg/programa-za-kapitalovi-razhodi-na-obshtina-grad-dobrich/aktualizatsiya-na-programa-za-kapitalovite-razhodi-na-obshtina-grad-dobrich-za-2025-g-prieta-s-reshenie-26-1/28102025-g",
+    "fetchedAt": "2026-05-27T08:39:26.485Z"
+  },
+  "municipalityCode": "DOB28",
+  "municipalityNameBg": "Добрич",
+  "municipalityNameEn": "Dobrich",
+  "currency": "BGN",
+  "recapitulation": {
+    "total": {
+      "amount": 45302085,
+      "currency": "BGN",
+      "amountEur": 23162588
+    }
+  },
+  "publishedRecap": null,
+  "projects": [
+    {
+      "id": 1,
+      "name": "Училища",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 630202,
+        "currency": "BGN",
+        "amountEur": 322217
+      }
+    },
+    {
+      "id": 2,
+      "name": "Детски градини",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 226103,
+        "currency": "BGN",
+        "amountEur": 115605
+      }
+    },
+    {
+      "id": 3,
+      "name": "ОП \"Спортни имоти\"",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 1609,
+        "currency": "BGN",
+        "amountEur": 823
+      }
+    },
+    {
+      "id": 4,
+      "name": "Регионална библиотека \"Дора Габе\"",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 75543,
+        "currency": "BGN",
+        "amountEur": 38625
+      }
+    },
+    {
+      "id": 5,
+      "name": "Художествена галерия",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 1885,
+        "currency": "BGN",
+        "amountEur": 964
+      }
+    },
+    {
+      "id": 6,
+      "name": "ОП \"Устойчиви дейности и проекти\"",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 5200,
+        "currency": "BGN",
+        "amountEur": 2659
+      }
+    },
+    {
+      "id": 7,
+      "name": "Електронен дневник в Детските градини",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 12100,
+        "currency": "BGN",
+        "amountEur": 6187
+      }
+    },
+    {
+      "id": 8,
+      "name": "Изграждане на детска площадка",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 1978,
+        "currency": "BGN",
+        "amountEur": 1011
+      }
+    },
+    {
+      "id": 9,
+      "name": "Дирекция \"Хуманитарни дейности\"",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 960163,
+        "currency": "BGN",
+        "amountEur": 490924
+      }
+    },
+    {
+      "id": 10,
+      "name": "Местна комисия за борба срещу противообществените прояви на малолетни и непълнолетни",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 111551,
+        "currency": "BGN",
+        "amountEur": 57035
+      }
+    },
+    {
+      "id": 11,
+      "name": "Регионален исторически музей - Добрич",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 10300,
+        "currency": "BGN",
+        "amountEur": 5266
+      }
+    },
+    {
+      "id": 12,
+      "name": "Общински културен институт „Добрич“",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 4325,
+        "currency": "BGN",
+        "amountEur": 2211
+      }
+    },
+    {
+      "id": 13,
+      "name": "Реконструкция на вътрешно - разпределителна водопроводна мрежа, кв. Рилци, гр. Добрич - II, III, IV и V етап",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 431617,
+        "currency": "BGN",
+        "amountEur": 220682
+      }
+    },
+    {
+      "id": 14,
+      "name": "Изграждане на битова канализация в кв. \"Рилци\" - V и VI етапи",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 434167,
+        "currency": "BGN",
+        "amountEur": 221986
+      }
+    },
+    {
+      "id": 15,
+      "name": "Електронна система за градска мобилност",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 16,
+      "name": "Климатична техника за общинска администрация",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 4085,
+        "currency": "BGN",
+        "amountEur": 2089
+      }
+    },
+    {
+      "id": 17,
+      "name": "Видеонаблюдение в град Добрич",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 43508,
+        "currency": "BGN",
+        "amountEur": 22245
+      }
+    },
+    {
+      "id": 18,
+      "name": "Подмяна на вентилационна система в басейн \"Русалка\" (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 46863,
+        "currency": "BGN",
+        "amountEur": 23961
+      }
+    },
+    {
+      "id": 19,
+      "name": "Разширение на Гробищен парк - закупуване на земя",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 24000,
+        "currency": "BGN",
+        "amountEur": 12271
+      }
+    },
+    {
+      "id": 20,
+      "name": "Подмяна на конвектори в ЦУИ-Община град Добрич (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 14500,
+        "currency": "BGN",
+        "amountEur": 7414
+      }
+    },
+    {
+      "id": 21,
+      "name": "Основен ремонт на покрив на Подслон 2 в Зооцентър (преходен) - надзори",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 22,
+      "name": "Oсновен ремонт на боксове за кучета на територията на ОПБЖ (преходен) - надзори",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 2419,
+        "currency": "BGN",
+        "amountEur": 1237
+      }
+    },
+    {
+      "id": 23,
+      "name": "Изграждане на заслон на спирка по ул. \"Сан Стефано\" 2",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 6100,
+        "currency": "BGN",
+        "amountEur": 3119
+      }
+    },
+    {
+      "id": 24,
+      "name": "Реконструкция на вътрешно - разпределителна водопроводна мрежа, кв. Рилци, гр. Добрич - I етап (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 193445,
+        "currency": "BGN",
+        "amountEur": 98907
+      }
+    },
+    {
+      "id": 25,
+      "name": "Упражняване на авторски надзор за „Изграждане на битова канализация в кв. Рилци, гр. Добрич &ndash; етап II, III и IV“ (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 73560,
+        "currency": "BGN",
+        "amountEur": 37611
+      }
+    },
+    {
+      "id": 26,
+      "name": "Инвестиционен проект за физкултурен салон за УПИ I, кв. 717 (ОУ \"Хан Аспарух\")",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 6000,
+        "currency": "BGN",
+        "amountEur": 3068
+      }
+    },
+    {
+      "id": 27,
+      "name": "Програмен продукт \"Сиела\" за общинска администрация",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 2304,
+        "currency": "BGN",
+        "amountEur": 1178
+      }
+    },
+    {
+      "id": 28,
+      "name": "Модернизиране и въвеждане на мерки за енергийна ефективност в ДГ №32 „Зорница“ - СМР (съфинансиране)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 324126,
+        "currency": "BGN",
+        "amountEur": 165723
+      }
+    },
+    {
+      "id": 29,
+      "name": "Модернизиране и въвеждане на мерки за енергийна ефективност в ДГ №23 „Звездица“ - СМР (съфинансиране)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 67359,
+        "currency": "BGN",
+        "amountEur": 34440
+      }
+    },
+    {
+      "id": 30,
+      "name": "Инвестиционен проект по части \"Пътна\", \"ВОБД\" и \"Постоянна организация на движението\" за бул. \"Добруджа\" в кв. \"Рилци\"",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 18720,
+        "currency": "BGN",
+        "amountEur": 9571
+      }
+    },
+    {
+      "id": 31,
+      "name": "Ръчен бензинов ъглошлайф (фугорез) за ОП \"Комунастрой\"",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 4000,
+        "currency": "BGN",
+        "amountEur": 2045
+      }
+    },
+    {
+      "id": 32,
+      "name": "Мултифункционално устройство (А3-цветно лазерно)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 6000,
+        "currency": "BGN",
+        "amountEur": 3068
+      }
+    },
+    {
+      "id": 33,
+      "name": "Изграждане на битова канализация в кв. \"Рилци\" - V и VI етапи",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 86833,
+        "currency": "BGN",
+        "amountEur": 44397
+      }
+    },
+    {
+      "id": 34,
+      "name": "Хидравличен горски мулчер за ОП \"УДП\"",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 50340,
+        "currency": "BGN",
+        "amountEur": 25738
+      }
+    },
+    {
+      "id": 35,
+      "name": "Товарен автомобил за ОП \"ЦЗПЖ\"",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 36,
+      "name": "Външни дисплеи за пешеходната зона на центъра на града",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 18000,
+        "currency": "BGN",
+        "amountEur": 9203
+      }
+    },
+    {
+      "id": 37,
+      "name": "Изготвяне на инвестиционен проект за промяна по време на строителството съгласно чл. 154 , ал. 5 от ЗУТ на обект: „Нов облик на централен пазар град Добрич и прилежащата му територия” състояща се в промяна на конструкцията на колоните и фундаментите на покритието на пазара",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 8400,
+        "currency": "BGN",
+        "amountEur": 4295
+      }
+    },
+    {
+      "id": 38,
+      "name": "Изготвяне на инвестиционен проект за промяна по време на строителството съгласно чл. 154 , ал. 5 от ЗУТ на обект: „Нов облик на централен пазар град Добрич и прилежащата му територия” състояща се в изместване на съществуваща подземна физическа инфраструктура на „Виваком - България“ ЕАД",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 4368,
+        "currency": "BGN",
+        "amountEur": 2233
+      }
+    },
+    {
+      "id": 39,
+      "name": "Изготвяне на инвестиционен проект и упражняване на авторски надзор по време на строителството за обект \"Захранващи кабелни линии НН за Централен пазар град Добрич и прилежащата му територия\"",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 6360,
+        "currency": "BGN",
+        "amountEur": 3252
+      }
+    },
+    {
+      "id": 40,
+      "name": "Модернизиране и въвеждане на мерки за енергийна ефективност в ДГ №27 „Славейче“ (съфинансиране)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 279603,
+        "currency": "BGN",
+        "amountEur": 142959
+      }
+    },
+    {
+      "id": 41,
+      "name": "Модернизиране и въвеждане на мерки за енергийна ефективност в ДГ №23 „Звездица“ - Строителен надзор (съфинансиране)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 8164,
+        "currency": "BGN",
+        "amountEur": 4174
+      }
+    },
+    {
+      "id": 42,
+      "name": "Модернизиране и въвеждане на мерки за енергийна ефективност в ДГ №32 „Зорница“ - Строителен надзор (съфинансиране)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 17427,
+        "currency": "BGN",
+        "amountEur": 8910
+      }
+    },
+    {
+      "id": 43,
+      "name": "Ремонт и рехабилитация на общежития в системата на училищното образование (Ученическо общежитие ул. \"Ал. Друмев Сивков\" №3) - Строителен надзор (съфинансиране)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 47000,
+        "currency": "BGN",
+        "amountEur": 24031
+      }
+    },
+    {
+      "id": 44,
+      "name": "Модернизиране и въвеждане на мерки за енергийна ефективност в ДГ №32 „Зорница“ (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 957673,
+        "currency": "BGN",
+        "amountEur": 489650
+      }
+    },
+    {
+      "id": 45,
+      "name": "Модернизиране и въвеждане на мерки за енергийна ефективност в ДГ №27 „Славейче“ (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 1650976,
+        "currency": "BGN",
+        "amountEur": 844131
+      }
+    },
+    {
+      "id": 46,
+      "name": "Модернизиране и въвеждане на мерки за енергийна ефективност в ДГ №23 „Звездица“ (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 1340004,
+        "currency": "BGN",
+        "amountEur": 685133
+      }
+    },
+    {
+      "id": 47,
+      "name": "Модернизиране и въвеждане на мерки за енергийна ефективност в ОУ \"Стефан Караджа“",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 2303596,
+        "currency": "BGN",
+        "amountEur": 1177810
+      }
+    },
+    {
+      "id": 48,
+      "name": "Модернизиране и въвеждане на мерки за енергийна ефективност в СУ „Любен Каравелов“ (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 4391558,
+        "currency": "BGN",
+        "amountEur": 2245368
+      }
+    },
+    {
+      "id": 49,
+      "name": "Училищна СТЕМ среда - ОУ \"Хан Аспарух\" (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 162674,
+        "currency": "BGN",
+        "amountEur": 83174
+      }
+    },
+    {
+      "id": 50,
+      "name": "Училищна СТЕМ среда - СУ \"Димитър Талев\" (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 192466,
+        "currency": "BGN",
+        "amountEur": 98406
+      }
+    },
+    {
+      "id": 51,
+      "name": "Училищна СТЕМ среда - ОУ \"Христо Смирненски\" (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 52702,
+        "currency": "BGN",
+        "amountEur": 26946
+      }
+    },
+    {
+      "id": 52,
+      "name": "Училищна СТЕМ среда - Професионална гимназия по ветеринарна медицина (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 35160,
+        "currency": "BGN",
+        "amountEur": 17977
+      }
+    },
+    {
+      "id": 53,
+      "name": "Енергийно обновяване на публичен сграден фонд за административно обслужване“ (сграда за администартивно обслужване и за култура, пл. \"Независимост\" №7) (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 2449292,
+        "currency": "BGN",
+        "amountEur": 1252303
+      }
+    },
+    {
+      "id": 54,
+      "name": "Интергирани мерки за екологосъобразна мобилност (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 6640000,
+        "currency": "BGN",
+        "amountEur": 3394978
+      }
+    },
+    {
+      "id": 55,
+      "name": "Ремонт и рехабилитация на общежития в системата на училищното образование (Ученическо общежитие ул. \"Ал. Друмев Сивков\" №3) (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 3612325,
+        "currency": "BGN",
+        "amountEur": 1846952
+      }
+    },
+    {
+      "id": 56,
+      "name": "Основен ремонт и модернизация на „Дом за стари хора &ndash; Добрич“ (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 990378,
+        "currency": "BGN",
+        "amountEur": 506372
+      }
+    },
+    {
+      "id": 57,
+      "name": "Внедряване на мерки за енергийна ефективност в системата за външно изкуствено осветление на Община град Добрич (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 1910694,
+        "currency": "BGN",
+        "amountEur": 976922
+      }
+    },
+    {
+      "id": 58,
+      "name": "Рехабилитация и модернизация на част от системата за външно улично осветление на Община град Добрич (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 361335,
+        "currency": "BGN",
+        "amountEur": 184748
+      }
+    },
+    {
+      "id": 59,
+      "name": "Училищна СТЕМ среда - Професионална гимназия по аграрно стопанство",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 12780,
+        "currency": "BGN",
+        "amountEur": 6534
+      }
+    },
+    {
+      "id": 60,
+      "name": "Училищна СТЕМ среда - СУ \"Г. С. Раковски\"",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 51385,
+        "currency": "BGN",
+        "amountEur": 26273
+      }
+    },
+    {
+      "id": 61,
+      "name": "Училищна СТЕМ среда - СУ \"Св. Климент Охридски\"",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 240241,
+        "currency": "BGN",
+        "amountEur": 122833
+      }
+    },
+    {
+      "id": 62,
+      "name": "Училищна СТЕМ среда - СУ \"Любен Каравелов\"",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 15241,
+        "currency": "BGN",
+        "amountEur": 7793
+      }
+    },
+    {
+      "id": 63,
+      "name": "Училищна СТЕМ среда - ОУ \"Христо Ботев\"",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 158552,
+        "currency": "BGN",
+        "amountEur": 81066
+      }
+    },
+    {
+      "id": 64,
+      "name": "Проект \"Силен старт\" - ДГ27",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 9344,
+        "currency": "BGN",
+        "amountEur": 4778
+      }
+    },
+    {
+      "id": 65,
+      "name": "Проект \"Силен старт\" - ДГ32",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 8078,
+        "currency": "BGN",
+        "amountEur": 4130
+      }
+    },
+    {
+      "id": 66,
+      "name": "Подобряване на материалната база на Домашен социален патронаж",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 47192,
+        "currency": "BGN",
+        "amountEur": 24129
+      }
+    },
+    {
+      "id": 67,
+      "name": "Нов градски център с обществени функции и пешеходни пространства на град Добрич (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 9144189,
+        "currency": "BGN",
+        "amountEur": 4675350
+      }
+    },
+    {
+      "id": 68,
+      "name": "Реконструкция на водопровод по ул. Вардар (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 249867,
+        "currency": "BGN",
+        "amountEur": 127755
+      }
+    },
+    {
+      "id": 69,
+      "name": "Реконструкция на водопровод по ул. Хан Тервел (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 218170,
+        "currency": "BGN",
+        "amountEur": 111549
+      }
+    },
+    {
+      "id": 70,
+      "name": "Основен ремонт на ул. Трети път (преходен)",
+      "fundingSource": "OWN_FUNDS",
+      "total": {
+        "amount": 156085,
+        "currency": "BGN",
+        "amountEur": 79805
+      }
+    },
+    {
+      "id": 71,
+      "name": "Битова канализация в кв. \"Рилци\" - етапи II, III, IV (преходен)",
+      "fundingSource": "ДРУГИ",
+      "total": {
+        "amount": 133537,
+        "currency": "BGN",
+        "amountEur": 68276
+      }
+    },
+    {
+      "id": 72,
+      "name": "Енергийно обновяване на многофамилна жилищна сграда бул. Добруджа №13 (преходен)",
+      "fundingSource": "ДРУГИ",
+      "total": {
+        "amount": 280200,
+        "currency": "BGN",
+        "amountEur": 143264
+      }
+    },
+    {
+      "id": 73,
+      "name": "Енергийно обновяване на многофамилна жилищна сграда ул. Дунав №16 (преходен)",
+      "fundingSource": "ДРУГИ",
+      "total": {
+        "amount": 955200,
+        "currency": "BGN",
+        "amountEur": 488386
+      }
+    },
+    {
+      "id": 74,
+      "name": "Енергийно обновяване на многофамилна жилищна сграда ж.к. Дружба, бл. 8 (преходен)",
+      "fundingSource": "ДРУГИ",
+      "total": {
+        "amount": 240294,
+        "currency": "BGN",
+        "amountEur": 122860
+      }
+    },
+    {
+      "id": 75,
+      "name": "Енергийно обновяване на многофамилна жилищна сграда ул. Панайот Хитов №16 (преходен)",
+      "fundingSource": "ДРУГИ",
+      "total": {
+        "amount": 240000,
+        "currency": "BGN",
+        "amountEur": 122710
+      }
+    },
+    {
+      "id": 76,
+      "name": "Енергийно обновяване на многофамилна жилищна сграда ж.к. Дружба, бл. 10 (преходен)",
+      "fundingSource": "ДРУГИ",
+      "total": {
+        "amount": 240294,
+        "currency": "BGN",
+        "amountEur": 122860
+      }
+    },
+    {
+      "id": 77,
+      "name": "Енергийно обновяване на многофамилна жилищна сграда бул. Добричка епопея №6 (преходен)",
+      "fundingSource": "ДРУГИ",
+      "total": {
+        "amount": 240000,
+        "currency": "BGN",
+        "amountEur": 122710
+      }
+    },
+    {
+      "id": 78,
+      "name": "Енергийно обновяване на многофамилна жилищна сграда ул. Петко Д. Петков №2 (преходен)",
+      "fundingSource": "ДРУГИ",
+      "total": {
+        "amount": 382742,
+        "currency": "BGN",
+        "amountEur": 195693
+      }
+    },
+    {
+      "id": 79,
+      "name": "Енергийно обновяване на многофамилна жилищна сграда кв. Петър Сарийски №2 (преходен)",
+      "fundingSource": "ДРУГИ",
+      "total": {
+        "amount": 420600,
+        "currency": "BGN",
+        "amountEur": 215049
+      }
+    },
+    {
+      "id": 80,
+      "name": "Основен ремонт на детска площадка в Градски парк \"Свети Георги\" (преходен)",
+      "fundingSource": "ДРУГИ",
+      "total": {
+        "amount": 1200,
+        "currency": "BGN",
+        "amountEur": 614
+      }
+    },
+    {
+      "id": 81,
+      "name": "Изграждане на нова детска площадка на открито в кв. \"Рилци\" (преходен)",
+      "fundingSource": "ДРУГИ",
+      "total": {
+        "amount": 1200,
+        "currency": "BGN",
+        "amountEur": 614
+      }
+    },
+    {
+      "id": 82,
+      "name": "Нов облик на централен пазар град Добрич и прилежащата му територия",
+      "fundingSource": "ДРУГИ",
+      "total": {
+        "amount": 478634,
+        "currency": "BGN",
+        "amountEur": 244722
+      }
+    }
+  ],
+  "byFundingSource": [
+    {
+      "code": "OWN_FUNDS",
+      "projectCount": 70,
+      "total": {
+        "amount": 41688184,
+        "currency": "BGN",
+        "amountEur": 21314830
+      }
+    },
+    {
+      "code": "ДРУГИ",
+      "projectCount": 12,
+      "total": {
+        "amount": 3613901,
+        "currency": "BGN",
+        "amountEur": 1847758
+      }
+    }
+  ]
+}

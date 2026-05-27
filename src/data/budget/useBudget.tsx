@@ -19,6 +19,7 @@ import type {
   InvestmentProgramFile,
   InvestmentProgramIndexFile,
   BurgasCapitalProgramFile,
+  DobrichCapitalProgramFile,
   NoiFundsFile,
   PersonnelFile,
   PitBreakdownFile,
@@ -381,6 +382,20 @@ export const useStaraZagoraCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<StaraZagoraCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/stara_zagora.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Dobrich — Tier-2 oblast capital, single-settlement município (DOB28).
+// Sourced from an inline HTML table on dobrich.bg (no OCR / PDF needed).
+// Tile pattern: Burgas-style funding-source mini-grid + top projects.
+export const useDobrichCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "dobrich", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<DobrichCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/dobrich.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

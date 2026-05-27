@@ -425,6 +425,10 @@ export const AboutScreen = () => {
                   href="https://mun.sliven.bg/"
                   label={t("budget_capital_sliven_source")}
                 />
+                <SourceItem
+                  href="https://www.dobrich.bg/bg/kapitalovi-razhodi-na-obshtina-grad-dobrich-1/"
+                  label={t("budget_capital_dobrich_source")}
+                />
               </ul>
             </DataGroup>
 

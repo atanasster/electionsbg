@@ -27,6 +27,7 @@ import { StaraZagoraCapitalProjectsTile } from "./StaraZagoraCapitalProjectsTile
 import { RuseCapitalProjectsTile } from "./RuseCapitalProjectsTile";
 import { PlevenCapitalProjectsTile } from "./PlevenCapitalProjectsTile";
 import { SlivenCapitalProjectsTile } from "./SlivenCapitalProjectsTile";
+import { DobrichCapitalProjectsTile } from "./DobrichCapitalProjectsTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
@@ -165,6 +166,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
             <RuseCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <PlevenCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <SlivenCapitalProjectsTile obshtinaCode={obshtinaCode} />
+            <DobrichCapitalProjectsTile obshtinaCode={obshtinaCode} />
           </DashboardSection>
         ) : null}
 
