@@ -113,6 +113,28 @@ Adding a theme is purely a JSON edit — re-run `npm run funds:ingest-projects`
 or `npx tsx scripts/funds/themes.ts` and the new theme appears on `/funds`
 and at `/funds/focus/{slug}`. No code change required.
 
+## RRF / ПВУ scoreboard (`rrf_context.json` + `/funds/rrf`)
+
+Phase-9 — focused dashboard for Bulgaria's Recovery and Resilience Plan
+(National Plan for Recovery and Resilience, ПВУ).
+
+The page combines two data sources:
+
+- **Programme summary** for `2021BG-RRP` (built by the regular projects
+  ingest — contracted EUR, paid EUR, top beneficiaries, top munis).
+- **Editorial context** in `rrf_context.json`: the EC envelope amount
+  (€6.27 B after the 2024 amendment), the 31 August 2026 disbursement
+  deadline, and pointers to the EC Recovery & Resilience Scoreboard and
+  the "100 largest final recipients per country" page for cross-country
+  comparison.
+
+The "paid vs envelope" KPI uses the EC envelope as the denominator (the
+politically-meaningful metric — BG sits below 50% of the envelope today),
+while "paid vs contracted" uses the ИСУН register total.
+
+Update `rrf_context.json` by hand when the EC publishes new headline
+figures or when the deadline changes. The file is small and committed.
+
 
 ## Political-economy join layer (`derived/political_links.json`)
 

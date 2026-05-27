@@ -23,6 +23,7 @@ import { AbsorptionByPeriodTile } from "./funds/AbsorptionByPeriodTile";
 import { FundsSankeyTile } from "./funds/FundsSankeyTile";
 import { IntegrityTeaserTile } from "./funds/IntegrityTeaserTile";
 import { FundsFocusTile } from "./funds/FundsFocusTile";
+import { RrfTeaserTile } from "./funds/RrfTeaserTile";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
 import { summarizeFundsRelations } from "@/data/funds/relationLabel";
 import { formatEur } from "@/lib/currency";
@@ -401,6 +402,8 @@ export const FundsScreen: FC = () => {
         ) : null}
 
         <IntegrityTeaserTile />
+
+        <RrfTeaserTile />
 
         <FundsFocusTile />
 

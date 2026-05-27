@@ -1,0 +1,36 @@
+{
+  "description": "Editorial context for /funds/rrf. The numeric disbursement comes from data/funds/projects/by-program/2021BG-RRP-summary.json; this file carries only the editorial framing (EC scoreboard pointer, peer-comparison narrative, key milestones). Update by hand when EC publishes new headline figures.",
+  "generatedAt": "2026-05-27",
+  "context": {
+    "totalAllocationEur": 6266000000,
+    "totalAllocationNote": {
+      "bg": "Общата сума по ПВУ за България след измененията от 2024 г. (€6.27 млрд., от които €5.69 млрд. в грантове, останалите в заеми). От нея в ИСУН е публикуван по-голям обем договорени средства, защото включва и стойността на проекти, които ще получат само частично грантово финансиране.",
+      "en": "Total RRP envelope for Bulgaria after the 2024 amendment (€6.27 B — €5.69 B in grants plus the rest in loans). ИСУН publishes a larger contracted total because it includes the full project value, not only the grant share."
+    },
+    "deadline": "2026-08-31",
+    "deadlineNote": {
+      "bg": "Крайният срок за изпълнение на проектите по ПВУ е 31 август 2026 г. България има за цел до 2026 г. да усвои всички средства; към 2025 г. е изостанала съществено от ЕС средното.",
+      "en": "RRF projects must complete by 31 August 2026. As of 2025 Bulgaria sits well below the EU average for disbursement."
+    },
+    "ecScoreboard": {
+      "url": "https://commission.europa.eu/business-economy-euro/economic-recovery/recovery-and-resilience-scoreboard_en",
+      "label": "Recovery and Resilience Scoreboard (EC)"
+    },
+    "ecLargestRecipients": {
+      "url": "https://commission.europa.eu/business-economy-euro/economic-recovery/recovery-and-resilience-scoreboard/largest-final-recipients_en",
+      "label": "100 largest final recipients per country (EC)"
+    },
+    "investigativeCards": [
+      {
+        "outlet": "Capital",
+        "title": "ПВУ — какво обещахме, какво изпълнихме",
+        "url": "https://www.capital.bg/"
+      },
+      {
+        "outlet": "OCCRP / EUobserver",
+        "title": "Bulgaria's RRF Lag",
+        "url": "https://www.occrp.org/"
+      }
+    ]
+  }
+}

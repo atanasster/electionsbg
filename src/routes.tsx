@@ -229,6 +229,11 @@ const FundsFocusScreen = lazy(() =>
     default: m.FundsFocusScreen,
   })),
 );
+const FundsRrfScreen = lazy(() =>
+  import("./screens/funds/FundsRrfScreen").then((m) => ({
+    default: m.FundsRrfScreen,
+  })),
+);
 const TopContractorsScreen = lazy(() =>
   import("./screens/TopContractorsScreen").then((m) => ({
     default: m.TopContractorsScreen,
@@ -1414,6 +1419,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <FundsFocusScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="funds/rrf"
+          element={
+            <LayoutScreen>
+              <FundsRrfScreen />
             </LayoutScreen>
           }
         />
