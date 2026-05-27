@@ -1,0 +1,44 @@
+{
+  "ekatte": "77027",
+  "name": "Хаджидимитрово",
+  "province": "Стара Загора",
+  "obshtina": "Казанлък",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 47933.66,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000802826",
+      "name": "Основно училище \"Свети Паисий Хилендарски\"",
+      "tier": "school",
+      "totalEur": 47933.66,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "2bba31c1566c",
+      "ocid": "ocds-e82gsb-540288",
+      "date": "2026-01-30",
+      "amount": 47933.66,
+      "currency": "EUR",
+      "amountEur": 47933.66,
+      "partyEik": "123670651",
+      "partyName": "ВАЛ Ген ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-540288-804779%2F2026-01-30-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 47933.66,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

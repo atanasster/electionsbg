@@ -1,0 +1,839 @@
+{
+  "ekatte": "04279",
+  "name": "Благоевград",
+  "province": "Благоевград",
+  "obshtina": "Благоевград",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2100,
+  "awardCount": 0,
+  "totalEur": 369675718.7290749,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000024695",
+      "name": "Община Благоевград",
+      "tier": "municipal",
+      "totalEur": 238415181.0940062,
+      "totalOther": {},
+      "contractCount": 993,
+      "awardCount": 0
+    },
+    {
+      "eik": "101533900",
+      "name": "Специализирана болница за активно лечение по ОНКОЛОГИЯ\"СВЕТИ Мина\" ЕООД",
+      "tier": "hospital",
+      "totalEur": 51317014.28475775,
+      "totalOther": {},
+      "contractCount": 296,
+      "awardCount": 0
+    },
+    {
+      "eik": "000017149",
+      "name": "Югозападен университет \"Неофит Рилски\"",
+      "tier": "university",
+      "totalEur": 43029567.92953069,
+      "totalOther": {},
+      "contractCount": 389,
+      "awardCount": 0
+    },
+    {
+      "eik": "101505152",
+      "name": "Многопрофилна болница за активно лечение - благоевград АД",
+      "tier": "hospital",
+      "totalEur": 18479735.49830502,
+      "totalOther": {},
+      "contractCount": 169,
+      "awardCount": 0
+    },
+    {
+      "eik": "811047831",
+      "name": "Водоснабдяване и канализация ЕООД",
+      "tier": "utility",
+      "totalEur": 12378191.418309717,
+      "totalOther": {},
+      "contractCount": 92,
+      "awardCount": 0
+    },
+    {
+      "eik": "000029297",
+      "name": "Регионална дирекция по горите - благоевград",
+      "tier": "regional_gov",
+      "totalEur": 2235438.319610754,
+      "totalOther": {},
+      "contractCount": 17,
+      "awardCount": 0
+    },
+    {
+      "eik": "000019050",
+      "name": "Осмо средно училище \"Арсени Костенцев",
+      "tier": "school",
+      "totalEur": 1232789.1943573828,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "101533931",
+      "name": "Център за психично здраве - благоевград ЕООД",
+      "tier": "hospital",
+      "totalEur": 1066394.609847686,
+      "totalOther": {},
+      "contractCount": 33,
+      "awardCount": 0
+    },
+    {
+      "eik": "101533917",
+      "name": "Специализирана болница за активно лечение на пневмо - фтизиатрични заболявания - благоевград ЕООД",
+      "tier": "hospital",
+      "totalEur": 520259.57266224566,
+      "totalOther": {},
+      "contractCount": 63,
+      "awardCount": 0
+    },
+    {
+      "eik": "000012472",
+      "name": "Трето основно училище \"Димитър Талев\"",
+      "tier": "school",
+      "totalEur": 196961.33287918684,
+      "totalOther": {},
+      "contractCount": 12,
+      "awardCount": 0
+    },
+    {
+      "eik": "000016976",
+      "name": "Седмо средно училище \"Кузман Шапкарев\"",
+      "tier": "school",
+      "totalEur": 196932.9594553719,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "000012497",
+      "name": "Пето средно училище \"Георги Измирлиев\"",
+      "tier": "school",
+      "totalEur": 156142.58416437008,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "000019456",
+      "name": "Средно училище с изучаване на чужди езици \"Свети климент Охридски\"",
+      "tier": "school",
+      "totalEur": 147020.85,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000016983",
+      "name": "ПРИРОДО-МАТЕМАТИЧЕСКА Гимназия \"Акад. Сергей Корольов\"",
+      "tier": "school",
+      "totalEur": 142821.35,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "129009735",
+      "name": "Областна дирекция на МВР - Благоевград",
+      "tier": "regional_gov",
+      "totalEur": 139105.35,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    },
+    {
+      "eik": "000012465",
+      "name": "Второ основно училище \"Димитьр Благоев",
+      "tier": "school",
+      "totalEur": 22162.38118854911,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "3ab17cccd19b",
+      "ocid": "aop-legacy-2023-332650",
+      "date": "2023-02-17",
+      "amount": 24000000,
+      "currency": "BGN",
+      "amountEur": 12271005.148709243,
+      "partyEik": "020767877",
+      "partyName": "РАСТЕР-ЮГ ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "b18f59b05aa2",
+      "ocid": "aop-legacy-2017-820745",
+      "date": "2017-12-21",
+      "amount": 19098738.28,
+      "currency": "BGN",
+      "amountEur": 9765029.82365543,
+      "partyEik": "177230374",
+      "partyName": "ДЗЗД Кобека, София",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "c156b81dc75f",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-12-21",
+      "amount": 19098738.28,
+      "currency": "BGN",
+      "amountEur": 9765029.82365543,
+      "partyEik": "177230374",
+      "partyName": "ДЗЗД Кобека, София",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "4ec8ccc3ac0d",
+      "ocid": "aop-legacy-2011-2015-435640",
+      "date": "2011-04-18",
+      "amount": 15978835,
+      "currency": "BGN",
+      "amountEur": 8169848.606473978,
+      "partyEik": "101004999",
+      "partyName": "Биострой ЕООД - Благоевград",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "f186f9f47e7e",
+      "ocid": "ocds-e82gsb-535314",
+      "date": "2026-04-08",
+      "amount": 7739839,
+      "currency": "EUR",
+      "amountEur": 7739839,
+      "partyEik": "115573932",
+      "partyName": "Истлинк българия ООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-535314-835074%2F2026-04-08-award"
+    },
+    {
+      "key": "43bf80e2ee29",
+      "ocid": "aop-legacy-2019-886186",
+      "date": "2019-01-07",
+      "amount": 8911500,
+      "currency": "BGN",
+      "amountEur": 4556377.599280101,
+      "partyEik": "177330218",
+      "partyName": "ДЗЗД Балканика грийн саут уест проджект",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "4aa72a0e35a0",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-01-07",
+      "amount": 8911500,
+      "currency": "BGN",
+      "amountEur": 4556377.599280101,
+      "partyEik": "177330218",
+      "partyName": "ДЗЗД Балканика грийн саут уест проджект",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "f799dc79a947",
+      "ocid": "aop-legacy-2022-207642",
+      "date": "2022-03-18",
+      "amount": 6539245.98,
+      "currency": "BGN",
+      "amountEur": 3343463.3787190095,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "b6f2d2f6f80c",
+      "ocid": "aop-legacy-2022-198957",
+      "date": "2022-02-22",
+      "amount": 6055178.53,
+      "currency": "BGN",
+      "amountEur": 3095963.621582653,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "14211efac431",
+      "ocid": "ocds-e82gsb-446583",
+      "date": "2026-04-20",
+      "amount": 2892968.58,
+      "currency": "EUR",
+      "amountEur": 2892968.58,
+      "partyEik": "020767877",
+      "partyName": "РАСТЕР-ЮГ ООД",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-446583-844741%2F2026-04-20-contractamendment"
+    },
+    {
+      "key": "3abc257cae0d",
+      "ocid": "ocds-e82gsb-446583",
+      "date": "2026-01-22",
+      "amount": 2892968.58,
+      "currency": "EUR",
+      "amountEur": 2892968.58,
+      "partyEik": "020767877",
+      "partyName": "РАСТЕР-ЮГ ООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-446583-799756%2F2026-01-22-contractamendment"
+    },
+    {
+      "key": "ef2e9a0af8f4",
+      "ocid": "aop-legacy-2023-370422",
+      "date": "2023-05-08",
+      "amount": 5417799.99,
+      "currency": "BGN",
+      "amountEur": 2770077.1488319538,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "a372f2b13e0e",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-10-23",
+      "amount": 4552019.98,
+      "currency": "BGN",
+      "amountEur": 2327410.858816973,
+      "partyEik": "177213325",
+      "partyName": "ДЗЗД в Строй - Благоевград",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "d3c3956f66fc",
+      "ocid": "aop-legacy-2017-810863",
+      "date": "2017-10-23",
+      "amount": 4552019.98,
+      "currency": "BGN",
+      "amountEur": 2327410.858816973,
+      "partyEik": "177213325",
+      "partyName": "ДЗЗД в Строй - Благоевград",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "c22f4c5f8acf",
+      "ocid": "aop-legacy-2011-2015-421285",
+      "date": "2011-01-04",
+      "amount": 4166705.59,
+      "currency": "BGN",
+      "amountEur": 2130402.7395018996,
+      "partyEik": "101611650",
+      "partyName": "Агромах ООД - Благоевград старо/нов\nАгромах ЕООД с. Бяло поле",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "551f8c2e4909",
+      "ocid": "ocds-e82gsb-135964",
+      "date": "2026-01-05",
+      "amount": 1907840.96,
+      "currency": "EUR",
+      "amountEur": 1907840.96,
+      "partyEik": "200750300",
+      "partyName": "Геоконструкт ООД",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-135964-792341%2F2026-01-05-contractamendment"
+    },
+    {
+      "key": "659a488ec2b9",
+      "ocid": "ocds-e82gsb-135964",
+      "date": "2026-01-05",
+      "amount": 1907840.96,
+      "currency": "EUR",
+      "amountEur": 1907840.96,
+      "partyEik": "177531370",
+      "partyName": "БЛГ-2021",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-135964-792341%2F2026-01-05-contractamendment"
+    },
+    {
+      "key": "a0bdd4d97238",
+      "ocid": "ocds-e82gsb-135964",
+      "date": "2026-01-05",
+      "amount": 1907840.96,
+      "currency": "EUR",
+      "amountEur": 1907840.96,
+      "partyEik": "203250833",
+      "partyName": "Инфра кепитал ЕООД",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-135964-792341%2F2026-01-05-contractamendment"
+    },
+    {
+      "key": "bd2676baf635",
+      "ocid": "ocds-e82gsb-135964",
+      "date": "2026-01-05",
+      "amount": 1907840.96,
+      "currency": "EUR",
+      "amountEur": 1907840.96,
+      "partyEik": "020767877",
+      "partyName": "РАСТЕР-ЮГ ООД",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-135964-792341%2F2026-01-05-contractamendment"
+    },
+    {
+      "key": "8eed3b75bb8b",
+      "ocid": "aop-legacy-2022-198957",
+      "date": "2022-02-22",
+      "amount": 3517032.42,
+      "currency": "BGN",
+      "amountEur": 1798230.1222498887,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "e637f698a27d",
+      "ocid": "aop-legacy-2022-311072",
+      "date": "2022-12-19",
+      "amount": 3249800,
+      "currency": "BGN",
+      "amountEur": 1661596.355511471,
+      "partyEik": "832018046",
+      "partyName": "Соломед ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "5434bd3ffb62",
+      "ocid": "aop-legacy-2019-945984",
+      "date": "2019-11-28",
+      "amount": 3036508.02,
+      "currency": "BGN",
+      "amountEur": 1552541.8978132047,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "b5eccbbd8003",
+      "ocid": "aop-legacy-2022-RL-1035984",
+      "date": "2022-07-11",
+      "amount": 3023378.6,
+      "currency": "BGN",
+      "amountEur": 1545828.9319623895,
+      "partyEik": "177015222",
+      "partyName": "ДЗЗД Растер - Лили 1204",
+      "bundleUuid": "db3e39ba-37f9-44bf-847f-75f36acee513",
+      "sourceUrl": "https://data.egov.bg/data/view/db3e39ba-37f9-44bf-847f-75f36acee513"
+    },
+    {
+      "key": "00d05cb2d10c",
+      "ocid": "aop-legacy-2011-2015-571551",
+      "date": "2013-11-25",
+      "amount": 3015189.76,
+      "currency": "BGN",
+      "amountEur": 1541642.0445539744,
+      "partyEik": "176600828",
+      "partyName": "ДЗЗД Обединение Благоевград 2013",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "5d5eaf06dd0d",
+      "ocid": "aop-legacy-2022-305016",
+      "date": "2022-12-02",
+      "amount": 2834385,
+      "currency": "BGN",
+      "amountEur": 1449198.0386843437,
+      "partyEik": "202366443",
+      "partyName": "Булбус трейд ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "34078ded52ca",
+      "ocid": "aop-legacy-2011-2015-545882",
+      "date": "2013-06-14",
+      "amount": 2820300,
+      "currency": "BGN",
+      "amountEur": 1441996.492537695,
+      "partyEik": "176469026",
+      "partyName": "ДЗЗД Консорциум Канбера Пакарад",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "3ae4f8ebccc4",
+      "ocid": "aop-legacy-2011-2015-436666",
+      "date": "2011-04-28",
+      "amount": 2649210.2,
+      "currency": "BGN",
+      "amountEur": 1354519.6668422103,
+      "partyEik": "201530181",
+      "partyName": "Гбс Бл/Ис ООД - Благоевград",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "fd09f3557c98",
+      "ocid": "aop-legacy-2011-2015-565218",
+      "date": "2013-10-18",
+      "amount": 2640523.75,
+      "currency": "BGN",
+      "amountEur": 1350078.3554807934,
+      "partyEik": "811132858",
+      "partyName": "Пиринстройинженеринг ЕАД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "e5d6d029dc4d",
+      "ocid": "aop-legacy-2011-2015-604805",
+      "date": "2014-05-22",
+      "amount": 2533605.45,
+      "currency": "BGN",
+      "amountEur": 1295411.8967394917,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "f55f3535d2f0",
+      "ocid": "aop-legacy-2011-2015-633149",
+      "date": "2014-11-12",
+      "amount": 2520333.1,
+      "currency": "BGN",
+      "amountEur": 1288625.851940097,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "5356bd1516bf",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-10-18",
+      "amount": 2493151.6,
+      "currency": "BGN",
+      "amountEur": 1274728.1716713621,
+      "partyEik": "177377812",
+      "partyName": "ДЗЗД Грамада строй    -   Благоевград",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "d7535f47f0cd",
+      "ocid": "aop-legacy-2019-938956",
+      "date": "2019-10-18",
+      "amount": 2493151.6,
+      "currency": "BGN",
+      "amountEur": 1274728.1716713621,
+      "partyEik": "177377812",
+      "partyName": "ДЗЗД Грамада строй    -   Благоевград",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "865197984fd6",
+      "ocid": "aop-legacy-2011-2015-490520",
+      "date": "2012-07-10",
+      "amount": 2473443,
+      "currency": "BGN",
+      "amountEur": 1264651.3245016183,
+      "partyEik": "102153152",
+      "partyName": "Фьоникс Фарма ЕАД /старо Либра ЕАД /- София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "f5b1fd01bf25",
+      "ocid": "aop-legacy-2023-399312",
+      "date": "2023-07-12",
+      "amount": 2375258,
+      "currency": "BGN",
+      "amountEur": 1214450.1311463676,
+      "partyEik": "131106522",
+      "partyName": "ПРОСВЕТА-СОФИЯ АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "9860dd2275d4",
+      "ocid": "aop-legacy-2011-2015-625414",
+      "date": "2014-09-25",
+      "amount": 2357132.6,
+      "currency": "BGN",
+      "amountEur": 1205182.7612829336,
+      "partyEik": "176754438",
+      "partyName": "ДЗЗД ПИСК-М",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "605339401d58",
+      "ocid": "ocds-e82gsb-416915",
+      "date": "2026-02-04",
+      "amount": 1201042.58,
+      "currency": "EUR",
+      "amountEur": 1201042.58,
+      "partyEik": "203376586",
+      "partyName": "Евробилд - м ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-416915-804082%2F2026-02-04-contractamendment"
+    },
+    {
+      "key": "c5d0629720da",
+      "ocid": "aop-legacy-2023-370007",
+      "date": "2023-05-08",
+      "amount": 2296448.99,
+      "currency": "BGN",
+      "amountEur": 1174155.7241682562,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "52facd76ec12",
+      "ocid": "aop-legacy-2022-245671",
+      "date": "2022-06-27",
+      "amount": 2292805,
+      "currency": "BGN",
+      "amountEur": 1172292.5816660956,
+      "partyEik": "101688586",
+      "partyName": "БРАВО-СТРОЙ ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "55a02933ca93",
+      "ocid": "aop-legacy-2023-446180",
+      "date": "2023-11-10",
+      "amount": 2284900,
+      "currency": "BGN",
+      "amountEur": 1168250.8193452395,
+      "partyEik": "205075635",
+      "partyName": "Ай Тръкс ЕАД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "48e0f4bcbc87",
+      "ocid": "aop-legacy-2023-445599",
+      "date": "2023-11-10",
+      "amount": 2251981.05,
+      "currency": "BGN",
+      "amountEur": 1151419.6274727352,
+      "partyEik": "101658372",
+      "partyName": "Евро мийт енд милк ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "ab5f465db1a4",
+      "ocid": "aop-legacy-2023-370030",
+      "date": "2023-05-08",
+      "amount": 2251456.1,
+      "currency": "BGN",
+      "amountEur": 1151151.2247997015,
+      "partyEik": "175256438",
+      "partyName": "Алта фармасютикълс ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "14615dc94520",
+      "ocid": "aop-legacy-2011-2015-694023",
+      "date": "2015-10-26",
+      "amount": 2244942.6,
+      "currency": "BGN",
+      "amountEur": 1147820.9251315298,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "7864506ec547",
+      "ocid": "aop-legacy-2017-794796",
+      "date": "2017-07-10",
+      "amount": 2204500,
+      "currency": "BGN",
+      "amountEur": 1127142.9520970637,
+      "partyEik": "101688586",
+      "partyName": "Браво - Строй ООД - Благоевград",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "a0195363389f",
+      "ocid": "aop-legacy-2023-380906",
+      "date": "2023-06-02",
+      "amount": 2197538.84,
+      "currency": "BGN",
+      "amountEur": 1123583.7675053556,
+      "partyEik": "101655586",
+      "partyName": "СТИЛСТРОЙ-М ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "6b68468e355c",
+      "ocid": "aop-legacy-2011-2015-423005",
+      "date": "2011-01-17",
+      "amount": 2138138.4,
+      "currency": "BGN",
+      "amountEur": 1093212.8047938726,
+      "partyEik": "101628518",
+      "partyName": "Белви ООД - Благоевград",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "3e383e243ff3",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-11-04",
+      "amount": 2104963.4,
+      "currency": "BGN",
+      "amountEur": 1076250.696635188,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "859a54209b83",
+      "ocid": "aop-legacy-2016-755926",
+      "date": "2016-11-04",
+      "amount": 2104963.4,
+      "currency": "BGN",
+      "amountEur": 1076250.696635188,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "52ef3468d665",
+      "ocid": "aop-legacy-2016-735024",
+      "date": "2016-05-31",
+      "amount": 2099527.76,
+      "currency": "BGN",
+      "amountEur": 1073471.4980340826,
+      "partyEik": "176982281",
+      "partyName": "ДЗЗД Саниране 2016",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "eddeff3cc712",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-05-31",
+      "amount": 2099527.76,
+      "currency": "BGN",
+      "amountEur": 1073471.4980340826,
+      "partyEik": "176982281",
+      "partyName": "ДЗЗД Саниране 2016",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "3920cdd5fd46",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-06-15",
+      "amount": 2070000.13,
+      "currency": "BGN",
+      "amountEur": 1058374.2605441168,
+      "partyEik": "200277864",
+      "partyName": "Бг Еврострой и авм ЕООД - Благоевград",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2011",
+      "totalEur": 16754851.234514244,
+      "totalOther": {},
+      "contractCount": 111
+    },
+    {
+      "year": "2012",
+      "totalEur": 5452729.736224518,
+      "totalOther": {},
+      "contractCount": 92
+    },
+    {
+      "year": "2013",
+      "totalEur": 16180784.546714181,
+      "totalOther": {},
+      "contractCount": 92
+    },
+    {
+      "year": "2014",
+      "totalEur": 8379034.011135938,
+      "totalOther": {},
+      "contractCount": 65
+    },
+    {
+      "year": "2015",
+      "totalEur": 9850158.035207557,
+      "totalOther": {},
+      "contractCount": 89
+    },
+    {
+      "year": "2016",
+      "totalEur": 98634984.41582347,
+      "totalOther": {},
+      "contractCount": 346
+    },
+    {
+      "year": "2017",
+      "totalEur": 66742031.3319665,
+      "totalOther": {},
+      "contractCount": 302
+    },
+    {
+      "year": "2019",
+      "totalEur": 34782508.36217871,
+      "totalOther": {},
+      "contractCount": 276
+    },
+    {
+      "year": "2020",
+      "totalEur": 1411294.1359934148,
+      "totalOther": {},
+      "contractCount": 38
+    },
+    {
+      "year": "2021",
+      "totalEur": 2242336.164186049,
+      "totalOther": {},
+      "contractCount": 8
+    },
+    {
+      "year": "2022",
+      "totalEur": 28949251.954413217,
+      "totalOther": {},
+      "contractCount": 209
+    },
+    {
+      "year": "2023",
+      "totalEur": 41716108.250717096,
+      "totalOther": {},
+      "contractCount": 284
+    },
+    {
+      "year": "2026",
+      "totalEur": 38579646.54999999,
+      "totalOther": {},
+      "contractCount": 188
+    }
+  ]
+}

@@ -1,0 +1,875 @@
+{
+  "ekatte": "77195",
+  "name": "Хасково",
+  "province": "Хасково",
+  "obshtina": "Хасково",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2893,
+  "awardCount": 0,
+  "totalEur": 417039071.718097,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000903946",
+      "name": "Община Хасково",
+      "tier": "municipal",
+      "totalEur": 182559160.92078418,
+      "totalOther": {},
+      "contractCount": 624,
+      "awardCount": 0
+    },
+    {
+      "eik": "121858220",
+      "name": "Районна здравноосигурителна каса - кюстендил",
+      "tier": "regional_gov",
+      "totalEur": 71612007.077094,
+      "totalOther": {},
+      "contractCount": 1301,
+      "awardCount": 0
+    },
+    {
+      "eik": "000900156",
+      "name": "Специализирана болница за активно лечение по онкология - хасково ЕООД",
+      "tier": "hospital",
+      "totalEur": 65753612.05566783,
+      "totalOther": {},
+      "contractCount": 109,
+      "awardCount": 0
+    },
+    {
+      "eik": "126529015",
+      "name": "Многопрофилна болница за активно лечение - хасково АД",
+      "tier": "hospital",
+      "totalEur": 49568896.11813932,
+      "totalOther": {},
+      "contractCount": 483,
+      "awardCount": 0
+    },
+    {
+      "eik": "126004284",
+      "name": "Водоснабдяване и канализация ЕООД",
+      "tier": "utility",
+      "totalEur": 36824942.54047198,
+      "totalOther": {},
+      "contractCount": 109,
+      "awardCount": 0
+    },
+    {
+      "eik": "836154410",
+      "name": "Център за спешна Медицинска помощ - хасково",
+      "tier": "hospital",
+      "totalEur": 3455335.07767715,
+      "totalOther": {},
+      "contractCount": 79,
+      "awardCount": 0
+    },
+    {
+      "eik": "129009984",
+      "name": "Областна дирекция на МВР (ОДМВР) - Хасково",
+      "tier": "regional_gov",
+      "totalEur": 1570933.2143273703,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0
+    },
+    {
+      "eik": "126004590",
+      "name": "ФИНАНСОВО-СТОПАНСКА Гимназия \"Атанас Буров\"",
+      "tier": "school",
+      "totalEur": 1373564.0757738147,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "126526325",
+      "name": "Езикова гимназия \"Проф. Д-Р асен Златаров\"",
+      "tier": "school",
+      "totalEur": 750467.6502120837,
+      "totalOther": {},
+      "contractCount": 18,
+      "awardCount": 0
+    },
+    {
+      "eik": "836024388",
+      "name": "Средно училище \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 648453.1231245562,
+      "totalOther": {},
+      "contractCount": 34,
+      "awardCount": 0
+    },
+    {
+      "eik": "126152888",
+      "name": "Основно училище \"СВ.ИВАН Рилски",
+      "tier": "school",
+      "totalEur": 514872.71899909514,
+      "totalOther": {},
+      "contractCount": 17,
+      "awardCount": 0
+    },
+    {
+      "eik": "176986657",
+      "name": "Областна дирекция по безопасност на храните - хасково",
+      "tier": "regional_gov",
+      "totalEur": 507831.3590075825,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0
+    },
+    {
+      "eik": "000892236",
+      "name": "Основно училище \"Христо Смирненски\"",
+      "tier": "school",
+      "totalEur": 447894.44123200903,
+      "totalOther": {},
+      "contractCount": 47,
+      "awardCount": 0
+    },
+    {
+      "eik": "000900131",
+      "name": "Специализирана болница за активно лечение на ПНЕВМО-ФТИЗИАТРИЧНИ заболявания хасково ЕООД",
+      "tier": "hospital",
+      "totalEur": 411928.0422177797,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    },
+    {
+      "eik": "126128563",
+      "name": "Регионален Исторически музей - хасково",
+      "tier": "regional_gov",
+      "totalEur": 369290.4876701963,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    },
+    {
+      "eik": "000896213",
+      "name": "Професионална гимназия по дървообработване и строителство \"Цар иван асен втори\"",
+      "tier": "school",
+      "totalEur": 208872.45365732198,
+      "totalOther": {},
+      "contractCount": 12,
+      "awardCount": 0
+    },
+    {
+      "eik": "000900163",
+      "name": "Център за психично здраве - хасково ЕООД",
+      "tier": "hospital",
+      "totalEur": 131176.91630673423,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000898171",
+      "name": "Основно училище \"Л.КАРАВЕЛОВ\"",
+      "tier": "school",
+      "totalEur": 125998.41568029941,
+      "totalOther": {},
+      "contractCount": 10,
+      "awardCount": 0
+    },
+    {
+      "eik": "000896163",
+      "name": "ПРИРОДО-МАТЕМАТИЧЕСКА Гимназия \"Академик боян Петканчин\"",
+      "tier": "school",
+      "totalEur": 124444.69251555605,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    },
+    {
+      "eik": "126526357",
+      "name": "Професионална гимназия по лека промишленост \"Райна княгиня\"",
+      "tier": "school",
+      "totalEur": 79390.33753807846,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "76ae7e636e71",
+      "ocid": "ocds-e82gsb-514781",
+      "date": "2026-03-16",
+      "amount": 15583750.46,
+      "currency": "EUR",
+      "amountEur": 15583750.46,
+      "partyEik": "200290178",
+      "partyName": "Грийн партнърс АД",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-514781-824786%2F2026-03-16-award"
+    },
+    {
+      "key": "9bbca9a22e5a",
+      "ocid": "ocds-e82gsb-514781",
+      "date": "2026-03-16",
+      "amount": 15583750.46,
+      "currency": "EUR",
+      "amountEur": 15583750.46,
+      "partyEik": "175819840",
+      "partyName": "Грийн ПАРТНЪРС-БКС",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-514781-824786%2F2026-03-16-award"
+    },
+    {
+      "key": "d106b88d6afb",
+      "ocid": "ocds-e82gsb-514781",
+      "date": "2026-03-16",
+      "amount": 15583750.46,
+      "currency": "EUR",
+      "amountEur": 15583750.46,
+      "partyEik": "131058508",
+      "partyName": "БКС-ХРИСТО Нанев ЕООД",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-514781-824786%2F2026-03-16-award"
+    },
+    {
+      "key": "1a93b05d7e3a",
+      "ocid": "ocds-e82gsb-501504",
+      "date": "2026-01-27",
+      "amount": 13804880.79,
+      "currency": "EUR",
+      "amountEur": 13804880.79,
+      "partyEik": "126658138",
+      "partyName": "Европът 2005 ООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-501504-801535%2F2026-01-27-award"
+    },
+    {
+      "key": "5c2fc2a5485b",
+      "ocid": "ocds-e82gsb-501504",
+      "date": "2026-01-27",
+      "amount": 13804880.79,
+      "currency": "EUR",
+      "amountEur": 13804880.79,
+      "partyEik": "104637700",
+      "partyName": "БКС - Горна оряховица ЕАД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-501504-801535%2F2026-01-27-award"
+    },
+    {
+      "key": "974c34ada0bc",
+      "ocid": "ocds-e82gsb-394304",
+      "date": "2026-01-14",
+      "amount": 12495257.67,
+      "currency": "EUR",
+      "amountEur": 12495257.67,
+      "partyEik": "181379203",
+      "partyName": "Вик Хасково",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-394304-795752%2F2026-01-14-award"
+    },
+    {
+      "key": "abc6f14b5751",
+      "ocid": "aop-legacy-2011-2015-592549",
+      "date": "2014-03-18",
+      "amount": 18463114.24,
+      "currency": "BGN",
+      "amountEur": 9440040.412510289,
+      "partyEik": "176487490",
+      "partyName": "ДЗЗД Хасково Басура",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "42e15bad5169",
+      "ocid": "aop-legacy-2022-223249",
+      "date": "2022-04-22",
+      "amount": 14696406.45,
+      "currency": "BGN",
+      "amountEur": 7514153.300644739,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "8f9823b5ed29",
+      "ocid": "ocds-e82gsb-425811",
+      "date": "2026-02-18",
+      "amount": 6199797.52,
+      "currency": "EUR",
+      "amountEur": 6199797.52,
+      "partyEik": "181494458",
+      "partyName": "Аква систем",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-425811-811943%2F2026-02-18-award"
+    },
+    {
+      "key": "54ac3bf2b605",
+      "ocid": "aop-legacy-2011-2015-675232",
+      "date": "2015-07-01",
+      "amount": 9200000,
+      "currency": "BGN",
+      "amountEur": 4703885.30700521,
+      "partyEik": "203436357",
+      "partyName": "Лендфил АД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "3199c8facbe9",
+      "ocid": "aop-legacy-2022-225061",
+      "date": "2022-04-26",
+      "amount": 8514082.78,
+      "currency": "BGN",
+      "amountEur": 4353181.401246529,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "671eb8f58515",
+      "ocid": "ocds-e82gsb-551207",
+      "date": "2026-01-21",
+      "amount": 3986224.58,
+      "currency": "EUR",
+      "amountEur": 3986224.58,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-551207-799116%2F2026-01-21-award"
+    },
+    {
+      "key": "f56259b51e56",
+      "ocid": "aop-legacy-2011-2015-547525",
+      "date": "2013-06-26",
+      "amount": 7146080,
+      "currency": "BGN",
+      "amountEur": 3653732.686378673,
+      "partyEik": "000639140",
+      "partyName": "Агроинженеринг - 90 ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "079beb6ff2c4",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-08-18",
+      "amount": 6720000,
+      "currency": "BGN",
+      "amountEur": 3435881.4416385884,
+      "partyEik": "831578978",
+      "partyName": "Внп Фасилити ЕООД / старо наименование - п. Дусман ЕООД - София  - предишно п. Дусман ООД/",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "a1f79f97ea6d",
+      "ocid": "aop-legacy-2017-801051",
+      "date": "2017-08-18",
+      "amount": 6720000,
+      "currency": "BGN",
+      "amountEur": 3435881.4416385884,
+      "partyEik": "831578978",
+      "partyName": "Внп Фасилити ЕООД / старо наименование - п. Дусман ЕООД - София  - предишно п. Дусман ООД/",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "3587fe0051ec",
+      "ocid": "aop-legacy-2019-940811",
+      "date": "2019-10-28",
+      "amount": 6640000,
+      "currency": "BGN",
+      "amountEur": 3394978.091142891,
+      "partyEik": "040529004",
+      "partyName": "Сирма Солюшънс АД - София /ново наименование/ Сирма груп АД - София /старо наименование/",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "95322ea24c6d",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-10-28",
+      "amount": 6640000,
+      "currency": "BGN",
+      "amountEur": 3394978.091142891,
+      "partyEik": "040529004",
+      "partyName": "Сирма Солюшънс АД - София /ново наименование/ Сирма груп АД - София /старо наименование/",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "f09d9c32a347",
+      "ocid": "aop-legacy-2011-2015-583283",
+      "date": "2014-01-30",
+      "amount": 6453507.04,
+      "currency": "BGN",
+      "amountEur": 3299625.7547946395,
+      "partyEik": "131268894",
+      "partyName": "Медекс ООД /Старо наименование Медекс Фармасютикълс ООД/",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "eb2c64d937c2",
+      "ocid": "aop-legacy-2011-2015-545779",
+      "date": "2013-06-14",
+      "amount": 6005565.19,
+      "currency": "BGN",
+      "amountEur": 3070596.7236416256,
+      "partyEik": "102153152",
+      "partyName": "Фьоникс Фарма ЕАД /старо Либра ЕАД /- София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "0e6cae89a9ae",
+      "ocid": "aop-legacy-2016-732733",
+      "date": "2016-05-10",
+      "amount": 5518856.49,
+      "currency": "BGN",
+      "amountEur": 2821746.5168240597,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "4453b741fdc1",
+      "ocid": "aop-legacy-2017-804891",
+      "date": "2017-09-14",
+      "amount": 5450700.32,
+      "currency": "BGN",
+      "amountEur": 2786898.8204496303,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "e4db1623851d",
+      "ocid": "aop-legacy-2011-2015-622807",
+      "date": "2014-09-08",
+      "amount": 5180994.56,
+      "currency": "BGN",
+      "amountEur": 2649000.455049774,
+      "partyEik": "201325372",
+      "partyName": "Мост Енерджи АД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "2ebba92f5fa9",
+      "ocid": "aop-legacy-2022-206660",
+      "date": "2022-03-16",
+      "amount": 4893000,
+      "currency": "BGN",
+      "amountEur": 2501751.174693097,
+      "partyEik": "040529004",
+      "partyName": "Сирма солюшънс АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "a10c3973f603",
+      "ocid": "aop-legacy-2016-709595",
+      "date": "2016-01-25",
+      "amount": 4889548.8,
+      "currency": "BGN",
+      "amountEur": 2499986.6041527125,
+      "partyEik": "131340233",
+      "partyName": "Бюро за охрана и сигурност - Ит ЕООД /старо наименование ООД/",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "fb0e7dab7721",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-01-25",
+      "amount": 4889548.8,
+      "currency": "BGN",
+      "amountEur": 2499986.6041527125,
+      "partyEik": "131340233",
+      "partyName": "Бюро за охрана и сигурност - Ит ЕООД /старо наименование ООД/",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "22ee2f173c61",
+      "ocid": "aop-legacy-2023-465925",
+      "date": "2023-12-29",
+      "amount": 4731540,
+      "currency": "BGN",
+      "amountEur": 2419197.9875551555,
+      "partyEik": "200109521",
+      "partyName": "ЕВРОМЕД-СОФИЯ ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "a0e8c4efef10",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-03-29",
+      "amount": 4475408.04,
+      "currency": "BGN",
+      "amountEur": 2288239.795892281,
+      "partyEik": "202604898",
+      "partyName": "Цапк  Прогрес Груп АД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "cc3ac479f454",
+      "ocid": "aop-legacy-2016-723524",
+      "date": "2016-03-29",
+      "amount": 4475408.04,
+      "currency": "BGN",
+      "amountEur": 2288239.795892281,
+      "partyEik": "202604898",
+      "partyName": "Цапк  Прогрес Груп АД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "6611358aee38",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-09-19",
+      "amount": 4447650.03,
+      "currency": "BGN",
+      "amountEur": 2274047.3507411177,
+      "partyEik": "177231444",
+      "partyName": "ДЗЗД Стоките - гр. Хасково",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "ec35a2a498e0",
+      "ocid": "aop-legacy-2019-934456",
+      "date": "2019-09-19",
+      "amount": 4447650.03,
+      "currency": "BGN",
+      "amountEur": 2274047.3507411177,
+      "partyEik": "177231444",
+      "partyName": "ДЗЗД Стоките - гр. Хасково",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "23006c14437b",
+      "ocid": "aop-legacy-2019-949786",
+      "date": "2019-12-19",
+      "amount": 4213329.72,
+      "currency": "BGN",
+      "amountEur": 2154241.2786387363,
+      "partyEik": "103267194",
+      "partyName": "Санита Трейдинг АД - клон София",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "12a93b28a985",
+      "ocid": "aop-legacy-2019-949786",
+      "date": "2019-12-19",
+      "amount": 4120133.04,
+      "currency": "BGN",
+      "amountEur": 2106590.5728002945,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "085a2ef4c569",
+      "ocid": "ocds-e82gsb-560314",
+      "date": "2026-03-20",
+      "amount": 1982051.61,
+      "currency": "EUR",
+      "amountEur": 1982051.61,
+      "partyEik": "175256438",
+      "partyName": "Алта фармасютикълс ООД",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-560314-827745%2F2026-03-20-award"
+    },
+    {
+      "key": "65bb718e59e3",
+      "ocid": "aop-legacy-2011-2015-591897",
+      "date": "2014-03-14",
+      "amount": 3830047.83,
+      "currency": "BGN",
+      "amountEur": 1958272.3600721944,
+      "partyEik": "126106727",
+      "partyName": "Водно строителство - Хасково АД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "6ef3a7429ffc",
+      "ocid": "aop-legacy-2011-2015-545779",
+      "date": "2013-06-14",
+      "amount": 3803318.4,
+      "currency": "BGN",
+      "amountEur": 1944605.8195241918,
+      "partyEik": "131159254",
+      "partyName": "ГлаксоСмитКлайн ЕООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "c4a36445efd5",
+      "ocid": "aop-legacy-2022-253870",
+      "date": "2022-07-22",
+      "amount": 3328021.51,
+      "currency": "BGN",
+      "amountEur": 1701590.3785093795,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "0e8e7b31f029",
+      "ocid": "aop-legacy-2023-456436",
+      "date": "2023-12-04",
+      "amount": 3247556.56,
+      "currency": "BGN",
+      "amountEur": 1660449.30285352,
+      "partyEik": "126608270",
+      "partyName": "ВиК - Бунар ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "c24f3d0d14f8",
+      "ocid": "ocds-e82gsb-551207",
+      "date": "2026-01-21",
+      "amount": 1626189.16,
+      "currency": "EUR",
+      "amountEur": 1626189.16,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-551207-799138%2F2026-01-21-award"
+    },
+    {
+      "key": "79775f7d8307",
+      "ocid": "aop-legacy-2011-2015-568637",
+      "date": "2013-11-07",
+      "amount": 3139910.22,
+      "currency": "BGN",
+      "amountEur": 1605410.6031710324,
+      "partyEik": "126658138",
+      "partyName": "Европът 2005 ООД - Хасково",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "23ec591e51d9",
+      "ocid": "aop-legacy-2019-949786",
+      "date": "2019-12-19",
+      "amount": 3017656.91,
+      "currency": "BGN",
+      "amountEur": 1542903.478318668,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "363ab5839509",
+      "ocid": "ocds-e82gsb-501504",
+      "date": "2026-01-27",
+      "amount": 1533875.64,
+      "currency": "EUR",
+      "amountEur": 1533875.64,
+      "partyEik": "104637700",
+      "partyName": "БКС - Горна оряховица ЕАД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-501504-801535%2F2026-01-27-award"
+    },
+    {
+      "key": "503b71549edb",
+      "ocid": "ocds-e82gsb-501504",
+      "date": "2026-01-27",
+      "amount": 1533875.64,
+      "currency": "EUR",
+      "amountEur": 1533875.64,
+      "partyEik": "126658138",
+      "partyName": "Европът 2005 ООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-501504-801535%2F2026-01-27-award"
+    },
+    {
+      "key": "fdca0a1db060",
+      "ocid": "ocds-e82gsb-501504",
+      "date": "2026-01-27",
+      "amount": 1533875.64,
+      "currency": "EUR",
+      "amountEur": 1533875.64,
+      "partyEik": "203728856",
+      "partyName": "СТ Клинър ЕООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-501504-801535%2F2026-01-27-award"
+    },
+    {
+      "key": "22ee359396d6",
+      "ocid": "aop-legacy-2023-439554",
+      "date": "2023-10-27",
+      "amount": 2992190,
+      "currency": "BGN",
+      "amountEur": 1529882.453996513,
+      "partyEik": "121819662",
+      "partyName": "ВИП Секюрити ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "4b2d9fca3b0b",
+      "ocid": "ocds-e82gsb-315766",
+      "date": "2026-02-10",
+      "amount": 1529882.45,
+      "currency": "EUR",
+      "amountEur": 1529882.45,
+      "partyEik": "121819662",
+      "partyName": "ВИП Секюрити ЕООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-315766-808248%2F2026-02-10-contractamendment"
+    },
+    {
+      "key": "9e8762dc7758",
+      "ocid": "aop-legacy-2022-226952",
+      "date": "2022-05-04",
+      "amount": 2930224.65,
+      "currency": "BGN",
+      "amountEur": 1498200.073626031,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "8854b1696cec",
+      "ocid": "aop-legacy-2011-2015-658799",
+      "date": "2015-03-31",
+      "amount": 2831951.4,
+      "currency": "BGN",
+      "amountEur": 1447953.7587622646,
+      "partyEik": "175256438",
+      "partyName": "Алта Фармасютикълс ЕООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "e7893a488bd9",
+      "ocid": "aop-legacy-2022-244365",
+      "date": "2022-06-24",
+      "amount": 2820000,
+      "currency": "BGN",
+      "amountEur": 1441843.1049733362,
+      "partyEik": "131016886",
+      "partyName": "Волф милениум ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "e17e28bdf46d",
+      "ocid": "aop-legacy-2022-253871",
+      "date": "2022-07-22",
+      "amount": 2714572.29,
+      "currency": "BGN",
+      "amountEur": 1387938.7727972267,
+      "partyEik": "131268894",
+      "partyName": "Медекс ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "7e9e9924484b",
+      "ocid": "aop-legacy-2022-226585",
+      "date": "2022-05-03",
+      "amount": 2648979.76,
+      "currency": "BGN",
+      "amountEur": 1354401.8447411072,
+      "partyEik": "202513217",
+      "partyName": "Фармнет ЕАД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2011",
+      "totalEur": 8737118.358957576,
+      "totalOther": {},
+      "contractCount": 81
+    },
+    {
+      "year": "2012",
+      "totalEur": 12872311.254045596,
+      "totalOther": {},
+      "contractCount": 93
+    },
+    {
+      "year": "2013",
+      "totalEur": 23744230.98122025,
+      "totalOther": {},
+      "contractCount": 145
+    },
+    {
+      "year": "2014",
+      "totalEur": 32521520.67408721,
+      "totalOther": {},
+      "contractCount": 219
+    },
+    {
+      "year": "2015",
+      "totalEur": 14153782.097626073,
+      "totalOther": {},
+      "contractCount": 132
+    },
+    {
+      "year": "2016",
+      "totalEur": 26051455.709340792,
+      "totalOther": {},
+      "contractCount": 235
+    },
+    {
+      "year": "2017",
+      "totalEur": 32827436.914251246,
+      "totalOther": {},
+      "contractCount": 401
+    },
+    {
+      "year": "2019",
+      "totalEur": 43081109.61075351,
+      "totalOther": {},
+      "contractCount": 398
+    },
+    {
+      "year": "2020",
+      "totalEur": 775952.3578225101,
+      "totalOther": {},
+      "contractCount": 51
+    },
+    {
+      "year": "2021",
+      "totalEur": 5270961.545737615,
+      "totalOther": {},
+      "contractCount": 6
+    },
+    {
+      "year": "2022",
+      "totalEur": 53467406.74291733,
+      "totalOther": {},
+      "contractCount": 439
+    },
+    {
+      "year": "2023",
+      "totalEur": 32396047.15133728,
+      "totalOther": {},
+      "contractCount": 474
+    },
+    {
+      "year": "2026",
+      "totalEur": 131139738.32000001,
+      "totalOther": {},
+      "contractCount": 219
+    }
+  ]
+}

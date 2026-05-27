@@ -60,6 +60,7 @@ export const ENGLISH_STATIC_PAGES = [
   "procurement/contractors",
   "procurement/awarders",
   "procurement/mps",
+  "procurement/by-settlement",
   "funds",
   "funds/political",
   "funds/integrity",
@@ -176,6 +177,14 @@ export const routeDefs = (year: string): RouteDefs => [
     file: `src/screens/TopAwardersScreen.tsx`,
   },
   { path: "procurement/mps", file: `src/screens/TopMpsScreen.tsx` },
+  {
+    path: "procurement/by-settlement",
+    file: `data/procurement/by_settlement/index.json`,
+  },
+  {
+    path: "procurement/settlement/:id",
+    file: `procurement-settlements-list`,
+  },
 
   // EU funds — ИСУН 2020 corpus.
   { path: "funds", file: `data/funds/index.json` },

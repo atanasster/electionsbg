@@ -1,0 +1,44 @@
+{
+  "ekatte": "68148",
+  "name": "Софрониево",
+  "province": "Враца",
+  "obshtina": "Мизия",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 120820.82798607241,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000182802",
+      "name": "Основно училище \"Отец Паисий",
+      "tier": "school",
+      "totalEur": 120820.82798607241,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "24aa4fc1bdf5",
+      "ocid": "aop-legacy-2022-281201",
+      "date": "2022-10-03",
+      "amount": 236305,
+      "currency": "BGN",
+      "amountEur": 120820.82798607241,
+      "partyEik": "206687350",
+      "partyName": "Унистрой 77 ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2022",
+      "totalEur": 120820.82798607241,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

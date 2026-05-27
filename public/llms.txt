@@ -37,11 +37,7 @@ Site language: primary Bulgarian, with full English UI translation. Every page i
 - [Officials declarations](https://electionsbg.com/officials): cabinet members, deputy ministers, agency heads, regional governors.
 - [State budget](https://electionsbg.com/budget): consolidated execution, ministry-by-ministry plan vs actual, COFOG breakdown, EU peer comparison.
 - [Public procurement](https://electionsbg.com/procurement): all АОП contracts since the dataset starts, debarred-supplier flags, MP-connection cross-reference.
-- [EU funds](https://electionsbg.com/funds): ИСУН 2020 corpus (~80,000 contracts, ~€43B contracted, ~€16B paid); choropleth by municipality, top beneficiaries, programmes, fund-by-fund Sankey.
-- [EU funds — political economy](https://electionsbg.com/funds/political): beneficiary companies whose owners or directors are sitting MPs or senior officials.
-- [EU funds — integrity](https://electionsbg.com/funds/integrity): HHI concentration per programme, serial winners, and matches against the АОП debarred-supplier register.
-- [EU funds — RRF](https://electionsbg.com/funds/rrf): Recovery and Resilience Plan dashboard — pillars, reforms, top contracts, EU peer context.
-- [EU funds — editorial focus](https://electionsbg.com/funds): thematic lenses at `/funds/focus/{slug}` (guest houses, roads, agriculture, schools, municipal infrastructure) with top beneficiaries and investigative sources.
+- [Procurement by settlement](https://electionsbg.com/procurement/by-settlement): per-settlement procurement totals — every contract pinned to the buyer's HQ address (municipalities, schools, hospitals, universities, regional offices, utilities) with central ministries / national state companies aggregated into a separate 'national procurement' rollup; ~388 settlements with €36 B in local-tier contracts.
 - [Party financing](https://electionsbg.com/financing): declared campaign income and expenditures from Сметна палата.
 - [Macro & governance indicators](https://electionsbg.com/indicators): KPI dashboard of Bulgaria's macro/fiscal/governance/social indicators since 2005, with EU27 rank, YoY arrows and cabinet-shaded sparklines; domain sub-pages at /indicators/economy, /indicators/fiscal, /indicators/governance, /indicators/society; multi-panel EU peer comparison dashboard at /indicators/compare (WGI radar, COFOG budget composition, SILC inequality, spend-vs-outcome scatters).
 - [Risk analysis](https://electionsbg.com/risk-analysis): composite electoral-risk index across 5 process signals + 4 context signals.
@@ -71,10 +67,6 @@ Site language: primary Bulgarian, with full English UI translation. Every page i
 - `/elections/{YYYY_MM_DD}` — landing for one parliamentary vote (national + regional).
 - `/reports/{level}/{metric}` — analytical reports (turnout, concentration, gainers/losers, invalid ballots, additional voters, supports-no-one, problem sections) at municipality, settlement, or section level.
 - `/articles/{slug}` — long-form analytical articles. Each article is also available as raw Markdown at `/articles/{slug}-bg.md` and `/articles/{slug}-en.md` for direct LLM ingestion.
-- `/funds/programme/{code}` — per-operational-programme detail (ИСУН 2020 code, e.g. `2014BG05M2OP001`): top beneficiaries, contracts and municipalities.
-- `/funds/focus/{slug}` — editorial focus theme (e.g. `guest-houses`, `roads`, `agriculture`, `schools`, `municipal-infrastructure`).
-- `/funds/contract/{number}` — individual EU-funds contract detail.
-- `/company/{eik}` — company profile by Bulgarian EIK: EU funds received, public-procurement won, MP business connections.
 - `/en/...` — every BG URL has an English mirror under `/en/`; both variants declare bidirectional `hreflang` alternates.
 
 ## Data

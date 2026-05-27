@@ -1,0 +1,98 @@
+{
+  "ekatte": "22616",
+  "name": "Долно Дряново",
+  "province": "Благоевград",
+  "obshtina": "Гърмен",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 5,
+  "awardCount": 0,
+  "totalEur": 141634.52912615103,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000011477",
+      "name": "Обединено училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 141634.52912615103,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "a2129319dd82",
+      "ocid": "ocds-e82gsb-558493",
+      "date": "2026-04-17",
+      "amount": 128349.76,
+      "currency": "EUR",
+      "amountEur": 128349.76,
+      "partyEik": "811130355",
+      "partyName": "Престиж БИЗНЕС-93 ООД",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-558493-845386%2F2026-04-17-award"
+    },
+    {
+      "key": "20a6e4c6c07a",
+      "ocid": "aop-legacy-2023-429277",
+      "date": "2023-09-28",
+      "amount": 10250,
+      "currency": "BGN",
+      "amountEur": 5240.74178226124,
+      "partyEik": "204336299",
+      "partyName": "ПАНЕВ-ССН ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "a72e5c23b652",
+      "ocid": "aop-legacy-2023-431680",
+      "date": "2023-10-03",
+      "amount": 8756.67,
+      "currency": "BGN",
+      "amountEur": 4477.214277314491,
+      "partyEik": "201716517",
+      "partyName": "ЕТ Любомир Павлов - 89",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "9e6a584ddddf",
+      "ocid": "aop-legacy-2023-429257",
+      "date": "2023-09-28",
+      "amount": 6925,
+      "currency": "BGN",
+      "amountEur": 3540.696277283813,
+      "partyEik": "204336299",
+      "partyName": "ПАНЕВ-ССН ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "f2792788c121",
+      "ocid": "aop-legacy-2023-429230",
+      "date": "2023-09-28",
+      "amount": 51.08,
+      "currency": "BGN",
+      "amountEur": 26.11678929150284,
+      "partyEik": "204336299",
+      "partyName": "ПАНЕВ-ССН ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2023",
+      "totalEur": 13284.769126151046,
+      "totalOther": {},
+      "contractCount": 4
+    },
+    {
+      "year": "2026",
+      "totalEur": 128349.76,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

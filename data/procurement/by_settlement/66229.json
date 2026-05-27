@@ -1,0 +1,74 @@
+{
+  "ekatte": "66229",
+  "name": "Сеново",
+  "province": "Русе",
+  "obshtina": "Ветово",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 3,
+  "awardCount": 0,
+  "totalEur": 167881.5950261526,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000498960",
+      "name": "Основно училище \"СВ.СВ.КИРИЛ и Методий",
+      "tier": "school",
+      "totalEur": 167881.5950261526,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "32fbcc15dcb0",
+      "ocid": "aop-legacy-2022-264660",
+      "date": "2022-08-16",
+      "amount": 269147.86,
+      "currency": "BGN",
+      "amountEur": 137613.11565933644,
+      "partyEik": "117606174",
+      "partyName": "Медиком ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "fcaf51369008",
+      "ocid": "aop-legacy-2011-2015-502209",
+      "date": "2012-10-02",
+      "amount": 49548.8,
+      "currency": "BGN",
+      "amountEur": 25333.89916301519,
+      "partyEik": "5059100347",
+      "partyName": "ОП Ученическо Столово Хранене и Почивно Дело",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "32e4295ece58",
+      "ocid": "aop-legacy-2011-2015-502206",
+      "date": "2012-10-02",
+      "amount": 9651.2,
+      "currency": "BGN",
+      "amountEur": 4934.580203800944,
+      "partyEik": "5059100347",
+      "partyName": "ОП Ученическо Столово Хранене и Почивно Дело",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2012",
+      "totalEur": 30268.479366816133,
+      "totalOther": {},
+      "contractCount": 2
+    },
+    {
+      "year": "2022",
+      "totalEur": 137613.11565933644,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

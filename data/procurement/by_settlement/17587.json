@@ -1,0 +1,44 @@
+{
+  "ekatte": "17587",
+  "name": "Градница",
+  "province": "Габрово",
+  "obshtina": "Севлиево",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 37943.29,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000209637",
+      "name": "Основно училище \"СВ.СВ.КИРИЛ и Методий\"",
+      "tier": "school",
+      "totalEur": 37943.29,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "a27e23658aee",
+      "ocid": "ocds-e82gsb-560136",
+      "date": "2026-03-30",
+      "amount": 37943.29,
+      "currency": "EUR",
+      "amountEur": 37943.29,
+      "partyEik": "204957338",
+      "partyName": "Егоист дизайн ЕООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-560136-836685%2F2026-03-30-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 37943.29,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

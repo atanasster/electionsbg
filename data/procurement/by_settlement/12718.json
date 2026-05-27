@@ -1,0 +1,62 @@
+{
+  "ekatte": "12718",
+  "name": "Върбина",
+  "province": "Смолян",
+  "obshtina": "Мадан",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 35414.71887577141,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000607662",
+      "name": "Средно училище \"СВ.СВ.КИРИЛ и Методий\"",
+      "tier": "school",
+      "totalEur": 35414.71887577141,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "f7ba9fa635a2",
+      "ocid": "aop-legacy-2011-2015-680495",
+      "date": "2015-08-03",
+      "amount": 64680,
+      "currency": "BGN",
+      "amountEur": 33070.35887577141,
+      "partyEik": "117679603",
+      "partyName": "Дмв ЕООД - Русе",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "35e8c1a268e8",
+      "ocid": "ocds-e82gsb-550954",
+      "date": "2026-02-05",
+      "amount": 2344.36,
+      "currency": "EUR",
+      "amountEur": 2344.36,
+      "partyEik": "175342714",
+      "partyName": "Център за творческо обучение ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-550954-806892%2F2026-02-05-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2015",
+      "totalEur": 33070.35887577141,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 2344.36,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

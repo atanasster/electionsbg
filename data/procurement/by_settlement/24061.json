@@ -1,0 +1,44 @@
+{
+  "ekatte": "24061",
+  "name": "Дунавци",
+  "province": "Видин",
+  "obshtina": "Видин",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 38455.29,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "105553900",
+      "name": "Основно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 38455.29,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "2b137d742c28",
+      "ocid": "ocds-e82gsb-417456",
+      "date": "2026-03-04",
+      "amount": 38455.29,
+      "currency": "EUR",
+      "amountEur": 38455.29,
+      "partyEik": "131468980",
+      "partyName": "А1 България ЕАД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-417456-818749%2F2026-03-04-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 38455.29,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "ekatte": "17419",
+  "name": "Градежница",
+  "province": "Ловеч",
+  "obshtina": "Тетевен",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 54177.70287177311,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000281799",
+      "name": "Основно училище \"Васил Априлов\"",
+      "tier": "school",
+      "totalEur": 54177.70287177311,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "5907041f96e1",
+      "ocid": "ocds-e82gsb-540842",
+      "date": "2026-01-29",
+      "amount": 60000,
+      "currency": "BGN",
+      "amountEur": 30677.51287177311,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-540842-803731%2F2026-01-29-award"
+    },
+    {
+      "key": "0a63022933a4",
+      "ocid": "ocds-e82gsb-540885",
+      "date": "2026-01-27",
+      "amount": 23500.19,
+      "currency": "EUR",
+      "amountEur": 23500.19,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-540885-802802%2F2026-01-27-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 54177.70287177311,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

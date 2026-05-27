@@ -1,0 +1,110 @@
+{
+  "ekatte": "20688",
+  "name": "Дерманци",
+  "province": "Ловеч",
+  "obshtina": "Луковит",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 5,
+  "awardCount": 0,
+  "totalEur": 235274.4758286763,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000281864",
+      "name": "Обединено училище \"Неофит Рилски\"",
+      "tier": "school",
+      "totalEur": 235274.4758286763,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "93a9c0320608",
+      "ocid": "aop-legacy-2019-939860",
+      "date": "2019-10-23",
+      "amount": 139680,
+      "currency": "BGN",
+      "amountEur": 71417.2499654878,
+      "partyEik": "131245283",
+      "partyName": "Сакса ООД - Долна баня",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "8c22eeacd9fb",
+      "ocid": "aop-legacy-2016-706134",
+      "date": "2016-01-07",
+      "amount": 99300,
+      "currency": "BGN",
+      "amountEur": 50771.2838027845,
+      "partyEik": "117679603",
+      "partyName": "Дмв ЕООД - Русе",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "f6e4a6115f40",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-01-07",
+      "amount": 99300,
+      "currency": "BGN",
+      "amountEur": 50771.2838027845,
+      "partyEik": "117679603",
+      "partyName": "Дмв ЕООД - Русе",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "1c42d5302f2e",
+      "ocid": "ocds-e82gsb-560923",
+      "date": "2026-04-30",
+      "amount": 50082,
+      "currency": "EUR",
+      "amountEur": 50082,
+      "partyEik": "114600294",
+      "partyName": "Офис решения бг ЕООД",
+      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
+      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-560923-849797%2F2026-04-30-award"
+    },
+    {
+      "key": "75e64578ce59",
+      "ocid": "aop-legacy-2011-2015-641530",
+      "date": "2015-01-08",
+      "amount": 23925,
+      "currency": "BGN",
+      "amountEur": 12232.658257619527,
+      "partyEik": "117679603",
+      "partyName": "Дмв ЕООД - Русе",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2015",
+      "totalEur": 12232.658257619527,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2016",
+      "totalEur": 101542.567605569,
+      "totalOther": {},
+      "contractCount": 2
+    },
+    {
+      "year": "2019",
+      "totalEur": 71417.2499654878,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 50082,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

@@ -1,0 +1,431 @@
+{
+  "ekatte": "46721",
+  "name": "Мало Бучино",
+  "province": "София (столица)",
+  "obshtina": "Столична",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 28,
+  "awardCount": 0,
+  "totalEur": 1556038.7630087486,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "131374577",
+      "name": "Държавна психиатрична болница за лечение на наркомани и АЛКОХОЛИЗЪМ-СОФИЯ",
+      "tier": "hospital",
+      "totalEur": 1351522.0067695049,
+      "totalOther": {},
+      "contractCount": 26,
+      "awardCount": 0
+    },
+    {
+      "eik": "000674166",
+      "name": "Детска Градина № 9 \"Пламъче\"",
+      "tier": "school",
+      "totalEur": 204516.7562392437,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "a8c79425cf0f",
+      "ocid": "aop-legacy-2022-286551",
+      "date": "2022-10-17",
+      "amount": 615200,
+      "currency": "BGN",
+      "amountEur": 314546.7653119136,
+      "partyEik": "121242342",
+      "partyName": "АТ Инженеринг 2000 ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "8094463a4df4",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-10-02",
+      "amount": 333080.28,
+      "currency": "BGN",
+      "amountEur": 170301.2429505632,
+      "partyEik": "202468722",
+      "partyName": "Апекс Инженеринг ООД - София",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "ded287505e58",
+      "ocid": "aop-legacy-2019-936555",
+      "date": "2019-10-02",
+      "amount": 333080.28,
+      "currency": "BGN",
+      "amountEur": 170301.2429505632,
+      "partyEik": "202468722",
+      "partyName": "Апекс Инженеринг ООД - София",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "fded8e9bb9f4",
+      "ocid": "ocds-e82gsb-508347",
+      "date": "2026-02-05",
+      "amount": 102258.38,
+      "currency": "EUR",
+      "amountEur": 102258.38,
+      "partyEik": "201031335",
+      "partyName": "МАКЕДОНИЯ-СНАБ ЕООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-508347-807252%2F2026-02-05-award"
+    },
+    {
+      "key": "027d7048e91b",
+      "ocid": "aop-legacy-2023-439316",
+      "date": "2023-10-20",
+      "amount": 200000,
+      "currency": "BGN",
+      "amountEur": 102258.37623924369,
+      "partyEik": "201031335",
+      "partyName": "МАКЕДОНИЯ-СНАБ ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "8aa9a3a3afc6",
+      "ocid": "ocds-e82gsb-543504",
+      "date": "2026-01-31",
+      "amount": 97082.06,
+      "currency": "EUR",
+      "amountEur": 97082.06,
+      "partyEik": "175190148",
+      "partyName": "Инвекс секюрити ЕООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-543504-804797%2F2026-01-31-award"
+    },
+    {
+      "key": "47733167c0ed",
+      "ocid": "ocds-e82gsb-537697",
+      "date": "2026-01-31",
+      "amount": 66467.94,
+      "currency": "EUR",
+      "amountEur": 66467.94,
+      "partyEik": "204917226",
+      "partyName": "Мотобул ЕАД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-537697-804791%2F2026-01-31-award"
+    },
+    {
+      "key": "4e9921d12e30",
+      "ocid": "aop-legacy-2011-2015-569663",
+      "date": "2013-11-13",
+      "amount": 106296,
+      "currency": "BGN",
+      "amountEur": 54348.28180363324,
+      "partyEik": "115091359",
+      "partyName": "Горрел ЕООД - Пловдив",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "010899c20aa8",
+      "ocid": "aop-legacy-2011-2015-509461",
+      "date": "2012-11-16",
+      "amount": 98480,
+      "currency": "BGN",
+      "amountEur": 50352.0244602036,
+      "partyEik": "115091359",
+      "partyName": "Горрел ЕООД - Пловдив",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "957996d7b581",
+      "ocid": "aop-legacy-2011-2015-457266",
+      "date": "2011-11-17",
+      "amount": 98000,
+      "currency": "BGN",
+      "amountEur": 50106.604357229415,
+      "partyEik": "115091359",
+      "partyName": "Горрел ЕООД - Пловдив",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "cfd8319cae4e",
+      "ocid": "aop-legacy-2011-2015-634555",
+      "date": "2014-11-24",
+      "amount": 82220,
+      "currency": "BGN",
+      "amountEur": 42038.41847195308,
+      "partyEik": "115091359",
+      "partyName": "Горрел ЕООД - Пловдив",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "2b798bc1de71",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-03-25",
+      "amount": 82003.5,
+      "currency": "BGN",
+      "amountEur": 41927.7237796741,
+      "partyEik": "130568248",
+      "partyName": "Дизелор ЕООД - София",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "311992cfe77c",
+      "ocid": "aop-legacy-2019-902708",
+      "date": "2019-03-25",
+      "amount": 82003.5,
+      "currency": "BGN",
+      "amountEur": 41927.7237796741,
+      "partyEik": "130568248",
+      "partyName": "Дизелор ЕООД - София",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "77761610760b",
+      "ocid": "aop-legacy-2017-773880",
+      "date": "2017-02-27",
+      "amount": 73080,
+      "currency": "BGN",
+      "amountEur": 37365.21067781965,
+      "partyEik": "202416234",
+      "partyName": "Криейтив М Груп ЕООД",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "d9bc800eb108",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-02-27",
+      "amount": 73080,
+      "currency": "BGN",
+      "amountEur": 37365.21067781965,
+      "partyEik": "202416234",
+      "partyName": "Криейтив М Груп ЕООД",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "a22344d1582c",
+      "ocid": "aop-legacy-2011-2015-689963",
+      "date": "2015-09-30",
+      "amount": 68220,
+      "currency": "BGN",
+      "amountEur": 34880.33213520602,
+      "partyEik": "202416234",
+      "partyName": "Криейтив М Груп ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "e4500a684140",
+      "ocid": "aop-legacy-2023-362674",
+      "date": "2023-04-12",
+      "amount": 53000,
+      "currency": "BGN",
+      "amountEur": 27098.46970339958,
+      "partyEik": "131372843",
+      "partyName": "Албена холидейз ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "1fc44a2c7a6b",
+      "ocid": "aop-legacy-2022-220010",
+      "date": "2022-04-07",
+      "amount": 53000,
+      "currency": "BGN",
+      "amountEur": 27098.46970339958,
+      "partyEik": "131025725",
+      "partyName": "ТОП Спринт ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "0c1dc0ae4c51",
+      "ocid": "aop-legacy-2023-400434",
+      "date": "2023-07-14",
+      "amount": 41240,
+      "currency": "BGN",
+      "amountEur": 21085.67718053205,
+      "partyEik": "131085380",
+      "partyName": "Содексо пасс българия ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "be5b39179ce4",
+      "ocid": "aop-legacy-2022-254064",
+      "date": "2022-07-18",
+      "amount": 41240,
+      "currency": "BGN",
+      "amountEur": 21085.67718053205,
+      "partyEik": "131085380",
+      "partyName": "Содексо пасс българия ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "f4abe1911160",
+      "ocid": "aop-legacy-2023-370439",
+      "date": "2023-05-04",
+      "amount": 37741.83,
+      "currency": "BGN",
+      "amountEur": 19297.091260487876,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "00c245096f9a",
+      "ocid": "aop-legacy-2022-223710",
+      "date": "2022-04-18",
+      "amount": 29963.04,
+      "currency": "BGN",
+      "amountEur": 15319.859087957542,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "f4abe1911160",
+      "ocid": "aop-legacy-2023-370439",
+      "date": "2023-05-04",
+      "amount": 5250.74,
+      "currency": "BGN",
+      "amountEur": 2684.660732272232,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "00c245096f9a",
+      "ocid": "aop-legacy-2022-223710",
+      "date": "2022-04-18",
+      "amount": 4980.25,
+      "currency": "BGN",
+      "amountEur": 2546.361391327467,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "f4abe1911160",
+      "ocid": "aop-legacy-2023-370439",
+      "date": "2023-05-04",
+      "amount": 4646,
+      "currency": "BGN",
+      "amountEur": 2375.462080037631,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "f4abe1911160",
+      "ocid": "aop-legacy-2023-370439",
+      "date": "2023-05-04",
+      "amount": 4151,
+      "currency": "BGN",
+      "amountEur": 2122.372598845503,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "1598fa6da91d",
+      "ocid": "aop-legacy-2022-221956",
+      "date": "2022-04-13",
+      "amount": 2789,
+      "currency": "BGN",
+      "amountEur": 1425.9930566562534,
+      "partyEik": "102227154",
+      "partyName": "Фаркол АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "00c245096f9a",
+      "ocid": "aop-legacy-2022-223710",
+      "date": "2022-04-18",
+      "amount": 725.87,
+      "currency": "BGN",
+      "amountEur": 371.13143780389913,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2011",
+      "totalEur": 50106.604357229415,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2012",
+      "totalEur": 50352.0244602036,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2013",
+      "totalEur": 54348.28180363324,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2014",
+      "totalEur": 42038.41847195308,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2015",
+      "totalEur": 34880.33213520602,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2017",
+      "totalEur": 74730.4213556393,
+      "totalOther": {},
+      "contractCount": 2
+    },
+    {
+      "year": "2019",
+      "totalEur": 424457.9334604746,
+      "totalOther": {},
+      "contractCount": 4
+    },
+    {
+      "year": "2022",
+      "totalEur": 382394.25716959045,
+      "totalOther": {},
+      "contractCount": 7
+    },
+    {
+      "year": "2023",
+      "totalEur": 176922.10979481856,
+      "totalOther": {},
+      "contractCount": 7
+    },
+    {
+      "year": "2026",
+      "totalEur": 265808.38,
+      "totalOther": {},
+      "contractCount": 3
+    }
+  ]
+}

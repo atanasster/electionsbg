@@ -1,0 +1,1567 @@
+{
+  "ekatte": "56784",
+  "name": "Пловдив",
+  "province": "Пловдив",
+  "obshtina": "Пловдив",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 11999,
+  "awardCount": 0,
+  "totalEur": 3438869503.264951,
+  "totalOther": {
+    "USD": 57161.259999999995
+  },
+  "awarders": [
+    {
+      "eik": "115552190",
+      "name": "Електроразпределение Юг ЕАД",
+      "tier": "utility",
+      "totalEur": 1034533758.8228427,
+      "totalOther": {},
+      "contractCount": 2414,
+      "awardCount": 0
+    },
+    {
+      "eik": "115576405",
+      "name": "Университетска многопрофилна болница за активно лечение \"Свети георги\" ЕАД",
+      "tier": "hospital",
+      "totalEur": 990316438.356093,
+      "totalOther": {},
+      "contractCount": 2614,
+      "awardCount": 0
+    },
+    {
+      "eik": "000471504",
+      "name": "Община Пловдив",
+      "tier": "municipal",
+      "totalEur": 549968970.908364,
+      "totalOther": {},
+      "contractCount": 1877,
+      "awardCount": 0
+    },
+    {
+      "eik": "000463379",
+      "name": "Комплексен онкологичен център - пловдив ЕООД",
+      "tier": "hospital",
+      "totalEur": 280643296.5663513,
+      "totalOther": {},
+      "contractCount": 561,
+      "awardCount": 0
+    },
+    {
+      "eik": "115010670",
+      "name": "Водоснабдяване и канализация ЕООД",
+      "tier": "utility",
+      "totalEur": 166450253.21370375,
+      "totalOther": {},
+      "contractCount": 226,
+      "awardCount": 0
+    },
+    {
+      "eik": "000455471",
+      "name": "Медицински университет - пловдив",
+      "tier": "university",
+      "totalEur": 91268439.82330489,
+      "totalOther": {
+        "USD": 57161.259999999995
+      },
+      "contractCount": 746,
+      "awardCount": 0
+    },
+    {
+      "eik": "115016602",
+      "name": "ЕВН България топлофикация ЕАД",
+      "tier": "utility",
+      "totalEur": 73379439.53409709,
+      "totalOther": {},
+      "contractCount": 252,
+      "awardCount": 0
+    },
+    {
+      "eik": "000472182",
+      "name": "Община Марица",
+      "tier": "municipal",
+      "totalEur": 65094894.52727236,
+      "totalOther": {},
+      "contractCount": 276,
+      "awardCount": 0
+    },
+    {
+      "eik": "115532049",
+      "name": "Университетска многопрофилна болница за активно лечение - пловдив АД",
+      "tier": "hospital",
+      "totalEur": 48265111.01892733,
+      "totalOther": {},
+      "contractCount": 414,
+      "awardCount": 0
+    },
+    {
+      "eik": "000472200",
+      "name": "Община Родопи",
+      "tier": "municipal",
+      "totalEur": 40527225.70264739,
+      "totalOther": {},
+      "contractCount": 300,
+      "awardCount": 0
+    },
+    {
+      "eik": "000455457",
+      "name": "Пловдивски университет \"Паисий Хилендарски\"",
+      "tier": "university",
+      "totalEur": 21159860.20655455,
+      "totalOther": {},
+      "contractCount": 277,
+      "awardCount": 0
+    },
+    {
+      "eik": "115531627",
+      "name": "Многопрофилна болница за активно лечение \"Св. Мина\" - пловдив ЕООД",
+      "tier": "hospital",
+      "totalEur": 9012980.350646172,
+      "totalOther": {},
+      "contractCount": 110,
+      "awardCount": 0
+    },
+    {
+      "eik": "115517517",
+      "name": "Многопрофилна болница за активно лечение \"Св. Пантелеймон - пловдив\" ЕООД",
+      "tier": "hospital",
+      "totalEur": 8493996.391753223,
+      "totalOther": {},
+      "contractCount": 261,
+      "awardCount": 0
+    },
+    {
+      "eik": "000455440",
+      "name": "Университет по хранителни технологии - пловдив",
+      "tier": "university",
+      "totalEur": 7965799.3743352955,
+      "totalOther": {},
+      "contractCount": 60,
+      "awardCount": 0
+    },
+    {
+      "eik": "115214445",
+      "name": "Многопрофилна транспортна болница - пловдив",
+      "tier": "hospital",
+      "totalEur": 6541170.82261751,
+      "totalOther": {},
+      "contractCount": 214,
+      "awardCount": 0
+    },
+    {
+      "eik": "000455464",
+      "name": "Аграрен университет - пловдив",
+      "tier": "university",
+      "totalEur": 5883479.511215138,
+      "totalOther": {},
+      "contractCount": 93,
+      "awardCount": 0
+    },
+    {
+      "eik": "825294069",
+      "name": "Център за спешна Медицинска помощ - пловдив",
+      "tier": "hospital",
+      "totalEur": 5279327.696053389,
+      "totalOther": {},
+      "contractCount": 86,
+      "awardCount": 0
+    },
+    {
+      "eik": "129009870",
+      "name": "Областна дирекция на МВР (ОДМВР) - Пловдив",
+      "tier": "regional_gov",
+      "totalEur": 3370095.7071933653,
+      "totalOther": {},
+      "contractCount": 24,
+      "awardCount": 0
+    },
+    {
+      "eik": "000463386",
+      "name": "Център за психично здраве - пловдив ЕООД",
+      "tier": "hospital",
+      "totalEur": 2899557.478315139,
+      "totalOther": {},
+      "contractCount": 46,
+      "awardCount": 0
+    },
+    {
+      "eik": "115013887",
+      "name": "Академия за музикално, Танцово и изобразително изкуство \"Проф. Асен Диамандиев\" - пловдив",
+      "tier": "university",
+      "totalEur": 2477097.4231742537,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "000458275",
+      "name": "Спортно училище \"Васил Левски\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 1812189.1939843954,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    },
+    {
+      "eik": "000472385",
+      "name": "Регионална дирекция по горите - пловдив",
+      "tier": "regional_gov",
+      "totalEur": 1644286.589325248,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0
+    },
+    {
+      "eik": "115627433",
+      "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център свети георги ЕООД",
+      "tier": "hospital",
+      "totalEur": 1328208.157150672,
+      "totalOther": {},
+      "contractCount": 81,
+      "awardCount": 0
+    },
+    {
+      "eik": "115009166",
+      "name": "Областна администрация - област пловдив",
+      "tier": "regional_gov",
+      "totalEur": 1256095.1192588313,
+      "totalOther": {},
+      "contractCount": 17,
+      "awardCount": 0
+    },
+    {
+      "eik": "176030673",
+      "name": "Регионална здравна инспекция - пловдив",
+      "tier": "regional_gov",
+      "totalEur": 1097208.3770061815,
+      "totalOther": {},
+      "contractCount": 26,
+      "awardCount": 0
+    },
+    {
+      "eik": "000466329",
+      "name": "Диагностично - консултативен център V - Пловдив ЕООД",
+      "tier": "hospital",
+      "totalEur": 1069869.5982531712,
+      "totalOther": {},
+      "contractCount": 51,
+      "awardCount": 0
+    },
+    {
+      "eik": "000455208",
+      "name": "Професионална гимназия по машиностроене - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 1062839.8566543104,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0
+    },
+    {
+      "eik": "000451081",
+      "name": "Детска Градина \"Осми март\" - пловдив",
+      "tier": "school",
+      "totalEur": 958983.5692951331,
+      "totalOther": {},
+      "contractCount": 20,
+      "awardCount": 0
+    },
+    {
+      "eik": "000463258",
+      "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център II- пловдив ЕООД",
+      "tier": "hospital",
+      "totalEur": 810971.3849363187,
+      "totalOther": {},
+      "contractCount": 40,
+      "awardCount": 0
+    },
+    {
+      "eik": "000458713",
+      "name": "Детска Градина \"Малина\"",
+      "tier": "school",
+      "totalEur": 717688.0913011867,
+      "totalOther": {},
+      "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "176986618",
+      "name": "Областна дирекция по безопастност на храните - пловдив",
+      "tier": "regional_gov",
+      "totalEur": 627894.2597260497,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0
+    },
+    {
+      "eik": "000460130",
+      "name": "Детска Градина \"Червената шапчица\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 616687.3470176856,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0
+    },
+    {
+      "eik": "000454992",
+      "name": "Професионална гимназия по хранителни технологии и техника - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 560898.3386612844,
+      "totalOther": {},
+      "contractCount": 18,
+      "awardCount": 0
+    },
+    {
+      "eik": "115022516",
+      "name": "Детска Градина \"Зора\"",
+      "tier": "school",
+      "totalEur": 516549.6871328285,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459562",
+      "name": "Средно училище черноризец храбър",
+      "tier": "school",
+      "totalEur": 502963.9436965381,
+      "totalOther": {},
+      "contractCount": 32,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459651",
+      "name": "Детска Градина \"Мирослава\"",
+      "tier": "school",
+      "totalEur": 477633.10464104754,
+      "totalOther": {},
+      "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "000458204",
+      "name": "Основно училище \"Димитър Талев\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 446949.2994669271,
+      "totalOther": {},
+      "contractCount": 25,
+      "awardCount": 0
+    },
+    {
+      "eik": "115352243",
+      "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център - пловдив ЕООД",
+      "tier": "hospital",
+      "totalEur": 409049.2271823216,
+      "totalOther": {},
+      "contractCount": 20,
+      "awardCount": 0
+    },
+    {
+      "eik": "000458631",
+      "name": "Средно училище \"СВ.СВ. кирил и Методий\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 391255.6025822285,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459719",
+      "name": "Детска Градина \"Кремена\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 378037.31347499526,
+      "totalOther": {},
+      "contractCount": 10,
+      "awardCount": 0
+    },
+    {
+      "eik": "000463272",
+      "name": "Диагностично - консултативен център іv - пловдив ЕООД",
+      "tier": "hospital",
+      "totalEur": 352468.90578424506,
+      "totalOther": {},
+      "contractCount": 70,
+      "awardCount": 0
+    },
+    {
+      "eik": "000460461",
+      "name": "Детска Градина \"Малкият принц\"",
+      "tier": "school",
+      "totalEur": 349974.44470915163,
+      "totalOther": {},
+      "contractCount": 12,
+      "awardCount": 0
+    },
+    {
+      "eik": "000454743",
+      "name": "Средно училище \"П.К. Яворов\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 337126.2026444016,
+      "totalOther": {},
+      "contractCount": 17,
+      "awardCount": 0
+    },
+    {
+      "eik": "000451003",
+      "name": "Детска Градина \"Перуника\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 335300.09484367253,
+      "totalOther": {},
+      "contractCount": 10,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459995",
+      "name": "Средно училище \"Димитър Матевски\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 284820.7651871584,
+      "totalOther": {},
+      "contractCount": 22,
+      "awardCount": 0
+    },
+    {
+      "eik": "115783708",
+      "name": "Детска Градина \"Боряна\" - пловдив",
+      "tier": "school",
+      "totalEur": 265762.64636491926,
+      "totalOther": {},
+      "contractCount": 17,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459832",
+      "name": "Детска Градина \"Велимира\"",
+      "tier": "school",
+      "totalEur": 260239.16884770148,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459669",
+      "name": "Детска Градина \"Десислава\"",
+      "tier": "school",
+      "totalEur": 254386.44269409918,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "000451099",
+      "name": "Детска Градина \"Мая\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 251602.342406293,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "000461143",
+      "name": "Детска Градина \"Д-Р едгар бороу\"",
+      "tier": "school",
+      "totalEur": 251281.3481988721,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "000460358",
+      "name": "Детска Градина \"Таня Савичева\"",
+      "tier": "school",
+      "totalEur": 249100.48064995423,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "000451327",
+      "name": "Детска Градина \"Незабравка\"",
+      "tier": "school",
+      "totalEur": 235994.32883609517,
+      "totalOther": {},
+      "contractCount": 10,
+      "awardCount": 0
+    },
+    {
+      "eik": "000460511",
+      "name": "Детска Градина \"Слънце\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 212430.95363687028,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453140",
+      "name": "Средно училище \"Паисий Хилендарски\"",
+      "tier": "school",
+      "totalEur": 210629.07708318206,
+      "totalOther": {},
+      "contractCount": 24,
+      "awardCount": 0
+    },
+    {
+      "eik": "115889082",
+      "name": "Средно училище \"Св. Патриарх Евтимий\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 204328.5715016131,
+      "totalOther": {},
+      "contractCount": 33,
+      "awardCount": 0
+    },
+    {
+      "eik": "825168476",
+      "name": "Средно училище \"Свети седмочисленици\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 187696.76721018698,
+      "totalOther": {},
+      "contractCount": 24,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459975",
+      "name": "Детска Градина \"Еделвайс\" - пловдив",
+      "tier": "school",
+      "totalEur": 180085.3075966725,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453157",
+      "name": "Основно училище /ОУ/ \"Пенчо Славейков\", гр. Пловдив",
+      "tier": "school",
+      "totalEur": 176914.28702903623,
+      "totalOther": {},
+      "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "000458282",
+      "name": "Математическа гимназия \"Академик кирил Попов\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 174416.0097983976,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    },
+    {
+      "eik": "000458211",
+      "name": "Детска Градина \"Снежанка\"",
+      "tier": "school",
+      "totalEur": 173966.0016278511,
+      "totalOther": {},
+      "contractCount": 10,
+      "awardCount": 0
+    },
+    {
+      "eik": "115890886",
+      "name": "Средно училище \"Свети КОНСТАНТИН-КИРИЛ философ\"",
+      "tier": "school",
+      "totalEur": 172345.62634779094,
+      "totalOther": {},
+      "contractCount": 18,
+      "awardCount": 0
+    },
+    {
+      "eik": "000461015",
+      "name": "Френска Езикова гимназия \"Антоан дьо сент - екзюпери\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 171800.2093092958,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453285",
+      "name": "Основно училище \"Райна княгиня\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 168643.25308891878,
+      "totalOther": {},
+      "contractCount": 24,
+      "awardCount": 0
+    },
+    {
+      "eik": "000458656",
+      "name": "Детска Градина \"Буратино\" - пловдив",
+      "tier": "school",
+      "totalEur": 166388.03460730228,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453214",
+      "name": "Начално училище \"Христо Ботев\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 165983.04497906257,
+      "totalOther": {},
+      "contractCount": 17,
+      "awardCount": 0
+    },
+    {
+      "eik": "176201170",
+      "name": "Детска Градина \"Рая\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 160591.66463532107,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459676",
+      "name": "Детска Градина \"Наталия\"",
+      "tier": "school",
+      "totalEur": 158607.34369393045,
+      "totalOther": {},
+      "contractCount": 12,
+      "awardCount": 0
+    },
+    {
+      "eik": "000451100",
+      "name": "Детска Градина \"Вяра\"",
+      "tier": "school",
+      "totalEur": 148513.9549056411,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0
+    },
+    {
+      "eik": "000454914",
+      "name": "Професионална гимназия по архитектура, Сроителство и геодезия \"Арх. Камен Петков\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 133426.04418584437,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000455418",
+      "name": "Професионална гимназия по транспорт и строителни технологии\" гоце Делчев\" - пловдив",
+      "tier": "school",
+      "totalEur": 130704.4,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000451277",
+      "name": "Детска Градина \"Детелина\"",
+      "tier": "school",
+      "totalEur": 130075.90013354945,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459574",
+      "name": "Основно училище \"Димчо Дебелянов",
+      "tier": "school",
+      "totalEur": 126497.70174299405,
+      "totalOther": {},
+      "contractCount": 24,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453029",
+      "name": "Основно училище \"Душо Хаджидеков\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 124487.61906709685,
+      "totalOther": {},
+      "contractCount": 18,
+      "awardCount": 0
+    },
+    {
+      "eik": "000458970",
+      "name": "Детска Градина \"Щастливо детство\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 123053.96856480368,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "115112771",
+      "name": "Основно училище \"Княз александър първи\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 118743.60649085043,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0
+    },
+    {
+      "eik": "115898979",
+      "name": "Детска Градина \"Чучулига\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 115670.04801030764,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    },
+    {
+      "eik": "000454939",
+      "name": "Професионална гимназия по облекло \"Ана май\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 113678.59783099758,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459627",
+      "name": "Детска Градина \"Биляна\"",
+      "tier": "school",
+      "totalEur": 105984.80107013392,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453196",
+      "name": "Основно училище \"Екзарх антим I-ви\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 105700.83289447447,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459060",
+      "name": "Детска Градина \"Маргаритка\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 105589.06799946824,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "000460372",
+      "name": "Детска Градина \"Лилия\"",
+      "tier": "school",
+      "totalEur": 104577.5556637847,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "000452967",
+      "name": "Основно училище \"Алеко Константинов\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 94461.69656872016,
+      "totalOther": {},
+      "contractCount": 20,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453239",
+      "name": "Основно училище \"Яне Сандански\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 87047.92850094334,
+      "totalOther": {},
+      "contractCount": 21,
+      "awardCount": 0
+    },
+    {
+      "eik": "000452991",
+      "name": "Основно училище \"Васил Левски\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 86856.05599668682,
+      "totalOther": {},
+      "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459861",
+      "name": "Основно училище \"Драган Манчов",
+      "tier": "school",
+      "totalEur": 82741.29653395234,
+      "totalOther": {},
+      "contractCount": 17,
+      "awardCount": 0
+    },
+    {
+      "eik": "115783717",
+      "name": "Детска Градина \"Дружба\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 81606.24389645318,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000454750",
+      "name": "Езикова гимназия \"Пловдив",
+      "tier": "school",
+      "totalEur": 71580.85825455177,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000452072",
+      "name": "Начално училище \"Кирил Нектариев\", гр. Пловдив",
+      "tier": "school",
+      "totalEur": 59982.585398526455,
+      "totalOther": {},
+      "contractCount": 12,
+      "awardCount": 0
+    },
+    {
+      "eik": "000454896",
+      "name": "Професионална гимназия по механотехника \"Проф. Цветан Лазаров\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 51788.75916470245,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000454978",
+      "name": "Професионална гимназия по кожени изделия и текстил \"Д-Р иван Богоров\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 45716.65165172842,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "115889019",
+      "name": "Средно училище \"Св. Софроний Врачански\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 44138.33513137645,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459637",
+      "name": "Детска Градина \"Захарно петле",
+      "tier": "school",
+      "totalEur": 39796.70523511757,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453075",
+      "name": "Основно училище \"Кочо Честеменски\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 37399.95807406575,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0
+    },
+    {
+      "eik": "115112757",
+      "name": "Хуманитарна гимназия \"СВ.СВ. кирил и Методий\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 26400.505156378622,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453011",
+      "name": "Основно училище \"Стоян Михайловски\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 25166.95004284626,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453260",
+      "name": "Средно училище \"Христо г. Данов",
+      "tier": "school",
+      "totalEur": 17779.817264281657,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "a4d1f47823b8",
+      "ocid": "aop-legacy-2023-321162",
+      "date": "2023-01-18",
+      "amount": 84690149.39,
+      "currency": "BGN",
+      "amountEur": 43301385.800401874,
+      "partyEik": "160053574",
+      "partyName": "АДД - България ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "6b27c9e25814",
+      "ocid": "aop-legacy-2021-x",
+      "date": "2021-04-19",
+      "amount": 81499000,
+      "currency": "BGN",
+      "amountEur": 41669777.02561061,
+      "partyEik": "177477054",
+      "partyName": "ДЗЗД  Еко Проект - Пловдив",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "fa1890a33f94",
+      "ocid": "aop-legacy-2021-1011238",
+      "date": "2021-04-19",
+      "amount": 81499000,
+      "currency": "BGN",
+      "amountEur": 41669777.02561061,
+      "partyEik": "177477054",
+      "partyName": "ДЗЗД  Еко Проект - Пловдив",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "6a44c49b318a",
+      "ocid": "aop-legacy-2023-346195",
+      "date": "2023-03-21",
+      "amount": 76212578.75,
+      "currency": "BGN",
+      "amountEur": 38966872.75990245,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "2f9b92fc77dd",
+      "ocid": "aop-legacy-2016-752874",
+      "date": "2016-10-14",
+      "amount": 65707266.73,
+      "currency": "BGN",
+      "amountEur": 33595592.0146434,
+      "partyEik": "160053574",
+      "partyName": "Адд - България ООД - Пловдив",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "3f1fc0432f7f",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-10-14",
+      "amount": 65707266.73,
+      "currency": "BGN",
+      "amountEur": 33595592.0146434,
+      "partyEik": "160053574",
+      "partyName": "Адд - България ООД - Пловдив",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "1e14993f4c79",
+      "ocid": "aop-legacy-2019-900631",
+      "date": "2019-03-15",
+      "amount": 51040191.54,
+      "currency": "BGN",
+      "amountEur": 26096435.549101915,
+      "partyEik": "831404223",
+      "partyName": "Кремък ЕООД - Раднево/Ст. Загора",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "93cffdbd85cc",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-03-15",
+      "amount": 51040191.54,
+      "currency": "BGN",
+      "amountEur": 26096435.549101915,
+      "partyEik": "831404223",
+      "partyName": "Кремък ЕООД - Раднево/Ст. Загора",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "e87c77cd070c",
+      "ocid": "aop-legacy-2022-199963",
+      "date": "2022-02-25",
+      "amount": 49194295.13,
+      "currency": "BGN",
+      "amountEur": 25152643.70113967,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "56560be8c6c8",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-07-29",
+      "amount": 46733570.33,
+      "currency": "BGN",
+      "amountEur": 23894495.08904148,
+      "partyEik": "115313800",
+      "partyName": "Кмд ЕООД - Пловдив",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "582e1ac53083",
+      "ocid": "aop-legacy-2019-924234",
+      "date": "2019-07-29",
+      "amount": 46733570.33,
+      "currency": "BGN",
+      "amountEur": 23894495.08904148,
+      "partyEik": "115313800",
+      "partyName": "Кмд ЕООД - Пловдив",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "91286c622c9a",
+      "ocid": "aop-legacy-2023-409735",
+      "date": "2023-08-11",
+      "amount": 46435807.86,
+      "currency": "BGN",
+      "amountEur": 23742251.55560555,
+      "partyEik": "121398487",
+      "partyName": "Др. Пендл и др. Писвангер българия ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "f77352d843e1",
+      "ocid": "aop-legacy-2011-2015-606434",
+      "date": "2014-05-31",
+      "amount": 38797988.94,
+      "currency": "BGN",
+      "amountEur": 19837096.751762677,
+      "partyEik": "121398487",
+      "partyName": "Др. Пендл и Др. Писвангер България ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "fcf66d6eb267",
+      "ocid": "aop-legacy-2023-333150",
+      "date": "2023-02-17",
+      "amount": 36079975.55,
+      "currency": "BGN",
+      "amountEur": 18447398.572473068,
+      "partyEik": "822114822",
+      "partyName": "Заводски строежи - пс - пазарджик ЕАД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "22168a6b1e40",
+      "ocid": "ocds-e82gsb-220982",
+      "date": "2026-04-02",
+      "amount": 18447398.57,
+      "currency": "EUR",
+      "amountEur": 18447398.57,
+      "partyEik": "822114822",
+      "partyName": "Заводски строежи - пс - пазарджик ЕАД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-220982-831790%2F2026-04-02-contractamendment"
+    },
+    {
+      "key": "004f2a958a10",
+      "ocid": "ocds-e82gsb-388941",
+      "date": "2026-03-13",
+      "amount": 17323729.54,
+      "currency": "EUR",
+      "amountEur": 17323729.54,
+      "partyEik": "120045648",
+      "partyName": "Стройколукс ООД",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-388941-823261%2F2026-03-13-contractamendment"
+    },
+    {
+      "key": "7ea01a838641",
+      "ocid": "ocds-e82gsb-388941",
+      "date": "2026-03-13",
+      "amount": 17323729.54,
+      "currency": "EUR",
+      "amountEur": 17323729.54,
+      "partyEik": "201947157",
+      "partyName": "Билдком бг ЕООД",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-388941-823261%2F2026-03-13-contractamendment"
+    },
+    {
+      "key": "d78ca7af7cf8",
+      "ocid": "aop-legacy-2022-222603",
+      "date": "2022-04-19",
+      "amount": 32335870,
+      "currency": "BGN",
+      "amountEur": 16533067.802416366,
+      "partyEik": "175256438",
+      "partyName": "Алта фармасютикълс ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "6b9a297e3078",
+      "ocid": "aop-legacy-2011-2015-636387",
+      "date": "2014-12-04",
+      "amount": 31471880,
+      "currency": "BGN",
+      "amountEur": 16091316.729981644,
+      "partyEik": "115313800",
+      "partyName": "Кмд ЕООД - Пловдив",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "d71fb5605d49",
+      "ocid": "aop-legacy-2022-222603",
+      "date": "2022-04-19",
+      "amount": 29611099.91,
+      "currency": "BGN",
+      "amountEur": 15139914.977273077,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "442ebf41158c",
+      "ocid": "aop-legacy-2022-290901",
+      "date": "2022-10-31",
+      "amount": 29512855.84,
+      "currency": "BGN",
+      "amountEur": 15089683.581906402,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "d19c75fc0e0c",
+      "ocid": "aop-legacy-2023-346195",
+      "date": "2023-03-21",
+      "amount": 27838703.2,
+      "currency": "BGN",
+      "amountEur": 14233702.929191187,
+      "partyEik": "201039264",
+      "partyName": "Инвекс трейдинг АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "36cf7c6333b7",
+      "ocid": "aop-legacy-2011-2015-645671",
+      "date": "2015-01-29",
+      "amount": 26894000,
+      "currency": "BGN",
+      "amountEur": 13750683.8528911,
+      "partyEik": "121396123",
+      "partyName": "Български пощи /Бп/ ЕАД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "7b82a8562826",
+      "ocid": "aop-legacy-2016-725182",
+      "date": "2016-04-04",
+      "amount": 25429082.58,
+      "currency": "BGN",
+      "amountEur": 13001683.469422188,
+      "partyEik": "202513217",
+      "partyName": "Фармнет АД - Варна",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "74b156374910",
+      "ocid": "aop-legacy-2016-722701",
+      "date": "2016-03-28",
+      "amount": 24269000,
+      "currency": "BGN",
+      "amountEur": 12408542.664751027,
+      "partyEik": "176805726",
+      "partyName": "ДЗЗД Консорциум Пътнически превози Пловдив - с. Браниполе",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "d669e44426fe",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-03-28",
+      "amount": 24269000,
+      "currency": "BGN",
+      "amountEur": 12408542.664751027,
+      "partyEik": "176805726",
+      "partyName": "ДЗЗД Консорциум Пътнически превози Пловдив - с. Браниполе",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "0557f24fe4df",
+      "ocid": "aop-legacy-2011-2015-678191",
+      "date": "2015-07-20",
+      "amount": 24102619.2,
+      "currency": "BGN",
+      "amountEur": 12323473.512524094,
+      "partyEik": "831404223",
+      "partyName": "Кремък ЕООД - Раднево/Ст. Загора",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "7cef598f8d07",
+      "ocid": "aop-legacy-2011-2015-541618",
+      "date": "2013-05-17",
+      "amount": 24000000,
+      "currency": "BGN",
+      "amountEur": 12271005.148709243,
+      "partyEik": "176449931",
+      "partyName": "ДЗЗД Гбс - Спортен комплекс Пловдив",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "8eb0c551689c",
+      "ocid": "aop-legacy-2011-2015-696793",
+      "date": "2015-11-11",
+      "amount": 22113500,
+      "currency": "BGN",
+      "amountEur": 11306453.014832577,
+      "partyEik": "160053574",
+      "partyName": "Адд - България ООД - Пловдив",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "874e72c41205",
+      "ocid": "aop-legacy-2011-2015-642468",
+      "date": "2015-01-14",
+      "amount": 21423606,
+      "currency": "BGN",
+      "amountEur": 10953715.813746594,
+      "partyEik": "202513217",
+      "partyName": "Фармнет АД - Варна",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "8d7f94f2c4e7",
+      "ocid": "aop-legacy-2023-346195",
+      "date": "2023-03-21",
+      "amount": 20656948,
+      "currency": "BGN",
+      "amountEur": 10561729.802692464,
+      "partyEik": "202318167",
+      "partyName": "Ремеди трейдинг ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "152833487971",
+      "ocid": "aop-legacy-2023-364897",
+      "date": "2023-04-25",
+      "amount": 20534158,
+      "currency": "BGN",
+      "amountEur": 10498948.272600379,
+      "partyEik": "121746004",
+      "partyName": "Сименс ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "4b49c1df11d9",
+      "ocid": "ocds-e82gsb-231885",
+      "date": "2026-04-21",
+      "amount": 10498948.27,
+      "currency": "EUR",
+      "amountEur": 10498948.27,
+      "partyEik": "121746004",
+      "partyName": "Сименс ЕООД",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-231885-845809%2F2026-04-21-contractamendment"
+    },
+    {
+      "key": "60db2effae97",
+      "ocid": "aop-legacy-2017-795072",
+      "date": "2017-07-10",
+      "amount": 20166146.25,
+      "currency": "BGN",
+      "amountEur": 10310786.852640567,
+      "partyEik": "202318167",
+      "partyName": "Ремеди Трейдинг ООД",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "ff385219e396",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-07-10",
+      "amount": 20166146.25,
+      "currency": "BGN",
+      "amountEur": 10310786.852640567,
+      "partyEik": "202318167",
+      "partyName": "Ремеди Трейдинг ООД",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "94248777fcfd",
+      "ocid": "aop-legacy-2011-2015-557534",
+      "date": "2013-08-28",
+      "amount": 19812462.3,
+      "currency": "BGN",
+      "amountEur": 10129951.120496158,
+      "partyEik": "131085380",
+      "partyName": "Содексо пасс българия ЕООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "f2ef44dbe0fc",
+      "ocid": "aop-legacy-2019-905179",
+      "date": "2019-04-03",
+      "amount": 18962187.5,
+      "currency": "BGN",
+      "amountEur": 9695212.51847042,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "14c9e3ca009e",
+      "ocid": "aop-legacy-2022-228833",
+      "date": "2022-05-13",
+      "amount": 18455715.83,
+      "currency": "BGN",
+      "amountEur": 9436257.665543528,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "962e00cafd95",
+      "ocid": "aop-legacy-2022-222603",
+      "date": "2022-04-19",
+      "amount": 17781889,
+      "currency": "BGN",
+      "amountEur": 9091735.478032345,
+      "partyEik": "202318167",
+      "partyName": "Ремеди трейдинг ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "c3383e30ebc8",
+      "ocid": "aop-legacy-2023-329697",
+      "date": "2023-03-01",
+      "amount": 17396417.73,
+      "currency": "BGN",
+      "amountEur": 8894647.14724695,
+      "partyEik": "115345761",
+      "partyName": "ГБС - Пловдив АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "181fc1fbf16e",
+      "ocid": "ocds-e82gsb-239632",
+      "date": "2026-01-08",
+      "amount": 8399196.25,
+      "currency": "EUR",
+      "amountEur": 8399196.25,
+      "partyEik": "180878303",
+      "partyName": "Интербилд 2023",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-239632-793620%2F2026-01-08-contractamendment"
+    },
+    {
+      "key": "cba63f85f314",
+      "ocid": "aop-legacy-2023-341831",
+      "date": "2023-03-13",
+      "amount": 16427400,
+      "currency": "BGN",
+      "amountEur": 8399196.24916276,
+      "partyEik": "180878303",
+      "partyName": "Интербилд 2023",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "10748c0e16ce",
+      "ocid": "aop-legacy-2011-2015-576492",
+      "date": "2013-12-20",
+      "amount": 16335146.1,
+      "currency": "BGN",
+      "amountEur": 8352027.579084071,
+      "partyEik": "160053574",
+      "partyName": "Адд - България ООД - Пловдив",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "97bc1f462b33",
+      "ocid": "aop-legacy-2011-2015-648874",
+      "date": "2015-02-17",
+      "amount": 16308385,
+      "currency": "BGN",
+      "amountEur": 8338344.845922192,
+      "partyEik": "131413311",
+      "partyName": "Индра Системас С.А. /старо наименование Солусиона С.А. - Клон АД/ - клон на чуждестранен търговец",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "25fc8051f118",
+      "ocid": "aop-legacy-2016-731848",
+      "date": "2016-04-28",
+      "amount": 16265047.16,
+      "currency": "BGN",
+      "amountEur": 8316186.560181611,
+      "partyEik": "040451865",
+      "partyName": "Зк Уника - АД (старо наименование Застрахователно и презастрахователно дружество /зпд/ Витоша АД)",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "817bfaf3a883",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-04-28",
+      "amount": 16265047.16,
+      "currency": "BGN",
+      "amountEur": 8316186.560181611,
+      "partyEik": "040451865",
+      "partyName": "Зк Уника - АД (старо наименование Застрахователно и презастрахователно дружество /зпд/ Витоша АД)",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "881e80af81b6",
+      "ocid": "aop-legacy-2022-222603",
+      "date": "2022-04-19",
+      "amount": 15806025.37,
+      "currency": "BGN",
+      "amountEur": 8081492.445662455,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "7735689388a5",
+      "ocid": "aop-legacy-2022-290901",
+      "date": "2022-10-31",
+      "amount": 15782593.2,
+      "currency": "BGN",
+      "amountEur": 8069511.767382645,
+      "partyEik": "202318167",
+      "partyName": "Ремеди трейдинг ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "53ae18d25053",
+      "ocid": "aop-legacy-2011-2015-566241",
+      "date": "2013-10-23",
+      "amount": 15696000,
+      "currency": "BGN",
+      "amountEur": 8025237.367255845,
+      "partyEik": "831496285",
+      "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "9bcf18664e69",
+      "ocid": "aop-legacy-2023-341466",
+      "date": "2023-03-14",
+      "amount": 15590462.13,
+      "currency": "BGN",
+      "amountEur": 7971276.711166104,
+      "partyEik": "831040520",
+      "partyName": "Иса 2000 ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2011",
+      "totalEur": 157022765.0578967,
+      "totalOther": {},
+      "contractCount": 594
+    },
+    {
+      "year": "2012",
+      "totalEur": 139366621.0406835,
+      "totalOther": {},
+      "contractCount": 709
+    },
+    {
+      "year": "2013",
+      "totalEur": 209875851.74069315,
+      "totalOther": {},
+      "contractCount": 789
+    },
+    {
+      "year": "2014",
+      "totalEur": 304523360.4352116,
+      "totalOther": {},
+      "contractCount": 888
+    },
+    {
+      "year": "2015",
+      "totalEur": 232623627.47273538,
+      "totalOther": {},
+      "contractCount": 775
+    },
+    {
+      "year": "2016",
+      "totalEur": 454434424.9858118,
+      "totalOther": {},
+      "contractCount": 1336
+    },
+    {
+      "year": "2017",
+      "totalEur": 263965851.71001565,
+      "totalOther": {},
+      "contractCount": 1119
+    },
+    {
+      "year": "2019",
+      "totalEur": 381593376.31593746,
+      "totalOther": {},
+      "contractCount": 1169
+    },
+    {
+      "year": "2020",
+      "totalEur": 20848404.298942138,
+      "totalOther": {},
+      "contractCount": 152
+    },
+    {
+      "year": "2021",
+      "totalEur": 231150406.5179489,
+      "totalOther": {},
+      "contractCount": 361
+    },
+    {
+      "year": "2022",
+      "totalEur": 305000167.6270433,
+      "totalOther": {
+        "USD": 38811.259999999995
+      },
+      "contractCount": 1551
+    },
+    {
+      "year": "2023",
+      "totalEur": 457748242.99657935,
+      "totalOther": {
+        "USD": 18350
+      },
+      "contractCount": 1741
+    },
+    {
+      "year": "2026",
+      "totalEur": 280716403.0654531,
+      "totalOther": {},
+      "contractCount": 815
+    }
+  ]
+}

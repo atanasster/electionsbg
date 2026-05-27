@@ -5,6 +5,8 @@
 import fs from "fs";
 import path from "path";
 import type {
+  AwarderAddress,
+  AwarderGeo,
   AwarderRollup,
   Contract,
   ContractorRollup,
@@ -13,6 +15,8 @@ import type {
 } from "./types";
 import { canonicalJson } from "./validate";
 import { splitBag } from "@/lib/currency";
+import { getResolver } from "./resolve_ekatte";
+import { classifyAwarder, LOCAL_TIERS } from "./awarder_tier";
 
 // How many contracts to embed per-entity for the dashboard "top contracts"
 // tile. 20 keeps the rollup small (~5 KB extra) while giving the tile
@@ -65,6 +69,10 @@ interface AwarderAcc {
   eik: string;
   name: string;
   region?: string;
+  /** Address fields propagated from the most recent contract row that had
+   *  them. New rows take precedence over old so a relocated buyer
+   *  eventually shows the new HQ. */
+  address?: AwarderAddress;
   totalByCurrency: Record<string, number>;
   contractCount: number;
   awardCount: number;
@@ -207,7 +215,7 @@ export const buildRollups = (contractsDir: string): RollupResult => {
         contractors.set(row.contractorEik, ca);
 
         // Awarder.
-        const aa =
+        const aa: AwarderAcc =
           awarders.get(row.awarderEik) ??
           ({
             eik: row.awarderEik,
@@ -222,6 +230,16 @@ export const buildRollups = (contractsDir: string): RollupResult => {
           } satisfies AwarderAcc);
         aa.name = row.awarderName || aa.name;
         if (row.awarderRegion) aa.region = row.awarderRegion;
+        // Capture address fields when present. Rows are walked YYYY-MM
+        // ascending, so the last write wins → newest known HQ.
+        if (row.awarderLocality || row.awarderPostal || row.awarderStreet) {
+          aa.address = {
+            ...(aa.address ?? {}),
+            ...(row.awarderLocality ? { locality: row.awarderLocality } : {}),
+            ...(row.awarderPostal ? { postal: row.awarderPostal } : {}),
+            ...(row.awarderStreet ? { street: row.awarderStreet } : {}),
+          };
+        }
         addCurrency(aa.totalByCurrency, row.currency, row.amount);
         if (row.tag === "award") aa.awardCount++;
         else aa.contractCount++;
@@ -346,21 +364,47 @@ export const buildRollups = (contractsDir: string): RollupResult => {
     }),
   );
 
-  const awarderOut: AwarderRollup[] = [...awarders.values()].map((a) => ({
-    eik: a.eik,
-    name: a.name,
-    region: a.region,
-    ...splitBag(a.totalByCurrency),
-    contractCount: a.contractCount,
-    awardCount: a.awardCount,
-    byContractor: finalizeEntries([...a.byContractor.values()]).slice(
-      0,
-      TOP_LIMIT,
-    ),
-    byYear: finalizeByYear([...a.byYear.values()]),
-    topContracts: a.topContracts,
-    generatedAt: now,
-  }));
+  // Resolver + tier classifier are stateless and cheap; instantiate once
+  // before the per-awarder loop. Memoised inside getResolver().
+  const resolver = getResolver();
+
+  const awarderOut: AwarderRollup[] = [...awarders.values()].map((a) => {
+    let geo: AwarderGeo | undefined;
+    const tier = classifyAwarder(a.eik, a.name);
+    if (a.address) {
+      const res = resolver.resolve({
+        locality: a.address.locality,
+        postalCode: a.address.postal,
+        streetAddress: a.address.street,
+        region: a.region,
+      });
+      if (res.ekatte && res.confidence !== "unresolved") {
+        geo = {
+          ekatte: res.ekatte,
+          confidence: res.confidence,
+          tier,
+          isLocalHQ: LOCAL_TIERS.has(tier),
+        };
+      }
+    }
+    return {
+      eik: a.eik,
+      name: a.name,
+      region: a.region,
+      address: a.address,
+      geo,
+      ...splitBag(a.totalByCurrency),
+      contractCount: a.contractCount,
+      awardCount: a.awardCount,
+      byContractor: finalizeEntries([...a.byContractor.values()]).slice(
+        0,
+        TOP_LIMIT,
+      ),
+      byYear: finalizeByYear([...a.byYear.values()]),
+      topContracts: a.topContracts,
+      generatedAt: now,
+    };
+  });
 
   return { contractors: contractorOut, awarders: awarderOut, totals };
 };

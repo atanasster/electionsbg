@@ -1,0 +1,101 @@
+{
+  "ekatte": "00357",
+  "name": "Нови Искър",
+  "province": "София (столица)",
+  "obshtina": "Столична",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 4,
+  "awardCount": 0,
+  "totalEur": 191352.5516333219,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000676021",
+      "name": "Детска Градина № 121",
+      "tier": "school",
+      "totalEur": 109545.8516333219,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000675211",
+      "name": "Детска Градина № 157 \"Детска стряха\"",
+      "tier": "school",
+      "totalEur": 81806.7,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "6d45f93cf12e",
+      "ocid": "ocds-e82gsb-535544",
+      "date": "2026-02-17",
+      "amount": 81806.7,
+      "currency": "EUR",
+      "amountEur": 81806.7,
+      "partyEik": "121462751",
+      "partyName": "Бохемис ООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-535544-812700%2F2026-02-17-award"
+    },
+    {
+      "key": "09a0660b4173",
+      "ocid": "ocds-e82gsb-575252",
+      "date": "2026-04-20",
+      "amount": 51100,
+      "currency": "EUR",
+      "amountEur": 51100,
+      "partyEik": "201031335",
+      "partyName": "МАКЕДОНИЯ-СНАБ ЕООД",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-575252-845802%2F2026-04-20-award"
+    },
+    {
+      "key": "63d0ed7f2235",
+      "ocid": "aop-legacy-2022-255511",
+      "date": "2022-07-21",
+      "amount": 59022,
+      "currency": "BGN",
+      "amountEur": 30177.469411963208,
+      "partyEik": "201031335",
+      "partyName": "МАКЕДОНИЯ-СНАБ ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "537e8298358e",
+      "ocid": "aop-legacy-2023-419411",
+      "date": "2023-08-31",
+      "amount": 55288.15,
+      "currency": "BGN",
+      "amountEur": 28268.38222135871,
+      "partyEik": "201031335",
+      "partyName": "МАКЕДОНИЯ-СНАБ ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2022",
+      "totalEur": 30177.469411963208,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2023",
+      "totalEur": 28268.38222135871,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 132906.7,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

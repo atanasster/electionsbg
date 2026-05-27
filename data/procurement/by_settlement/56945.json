@@ -1,0 +1,98 @@
+{
+  "ekatte": "56945",
+  "name": "Подайва",
+  "province": "Разград",
+  "obshtina": "Исперих",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 4,
+  "awardCount": 0,
+  "totalEur": 233798.13249612696,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000498797",
+      "name": "Основно училище \"Отец Паисий\"",
+      "tier": "school",
+      "totalEur": 233798.13249612696,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "2aed84dec3da",
+      "ocid": "aop-legacy-2019-940369",
+      "date": "2019-10-25",
+      "amount": 206760,
+      "currency": "BGN",
+      "amountEur": 105714.70935613013,
+      "partyEik": "115781068",
+      "partyName": "Салина 7 ЕООД - Хисар",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "583281f05c9d",
+      "ocid": "ocds-e82gsb-519692",
+      "date": "2026-04-29",
+      "amount": 65783.53,
+      "currency": "EUR",
+      "amountEur": 65783.53,
+      "partyEik": "200871895",
+      "partyName": "ДЖИ Ти ей петролиум ООД",
+      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
+      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-519692-850228%2F2026-04-29-award"
+    },
+    {
+      "key": "eccbe58a0415",
+      "ocid": "aop-legacy-2011-2015-679335",
+      "date": "2015-07-27",
+      "amount": 82368,
+      "currency": "BGN",
+      "amountEur": 42114.08967037012,
+      "partyEik": "117679603",
+      "partyName": "Дмв ЕООД - Русе",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "98a2c20f147a",
+      "ocid": "aop-legacy-2011-2015-630784",
+      "date": "2014-10-28",
+      "amount": 39480,
+      "currency": "BGN",
+      "amountEur": 20185.803469626706,
+      "partyEik": "117679603",
+      "partyName": "Дмв ЕООД - Русе",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2014",
+      "totalEur": 20185.803469626706,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2015",
+      "totalEur": 42114.08967037012,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2019",
+      "totalEur": 105714.70935613013,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 65783.53,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

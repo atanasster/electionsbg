@@ -1,0 +1,74 @@
+{
+  "ekatte": "73688",
+  "name": "Търничени",
+  "province": "Стара Загора",
+  "obshtina": "Павел баня",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 3,
+  "awardCount": 0,
+  "totalEur": 97967.80355460342,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000802712",
+      "name": "Основно училище \"Св. Паисий Хилендарски\"",
+      "tier": "school",
+      "totalEur": 97967.80355460342,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "e09955972db1",
+      "ocid": "aop-legacy-2022-286044",
+      "date": "2022-10-14",
+      "amount": 123883.57,
+      "currency": "BGN",
+      "amountEur": 63340.66355460342,
+      "partyEik": "203461508",
+      "partyName": "Маджестик строй ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "06d705729627",
+      "ocid": "ocds-e82gsb-545012",
+      "date": "2026-04-16",
+      "amount": 23512.08,
+      "currency": "EUR",
+      "amountEur": 23512.08,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-545012-844574%2F2026-04-16-award"
+    },
+    {
+      "key": "57ce4ee91b3c",
+      "ocid": "ocds-e82gsb-544875",
+      "date": "2026-04-16",
+      "amount": 11115.06,
+      "currency": "EUR",
+      "amountEur": 11115.06,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-544875-844532%2F2026-04-16-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2022",
+      "totalEur": 63340.66355460342,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 34627.14,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

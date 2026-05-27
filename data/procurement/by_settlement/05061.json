@@ -1,0 +1,56 @@
+{
+  "ekatte": "05061",
+  "name": "Божурово",
+  "province": "Добрич",
+  "obshtina": "Добрич-селска",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 26961.12,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000842386",
+      "name": "Основно училище \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 26961.12,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "62f28487ab5a",
+      "ocid": "ocds-e82gsb-519002",
+      "date": "2026-03-26",
+      "amount": 13480.56,
+      "currency": "EUR",
+      "amountEur": 13480.56,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-519002-833218%2F2026-03-26-contractamendment"
+    },
+    {
+      "key": "81eb5ffac916",
+      "ocid": "ocds-e82gsb-519002",
+      "date": "2026-03-26",
+      "amount": 13480.56,
+      "currency": "EUR",
+      "amountEur": 13480.56,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-519002-804757%2F2026-03-26-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 26961.12,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "ekatte": "38529",
+  "name": "Копривец",
+  "province": "Русе",
+  "obshtina": "Бяла",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 77767.57870571574,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "117090544",
+      "name": "Основно училище \"Неофит Рилски\"",
+      "tier": "school",
+      "totalEur": 77767.57870571574,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "f55ca6dd9a13",
+      "ocid": "aop-legacy-2011-2015-497660",
+      "date": "2012-08-31",
+      "amount": 94477.5,
+      "currency": "BGN",
+      "amountEur": 48305.578705715736,
+      "partyEik": "030039338",
+      "partyName": "ЕТ Атанас Пашанков - Полки Тръмбеш",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "33acef8ba704",
+      "ocid": "ocds-e82gsb-553830",
+      "date": "2026-02-27",
+      "amount": 29462,
+      "currency": "EUR",
+      "amountEur": 29462,
+      "partyEik": "207880772",
+      "partyName": "Лиск - 1 ООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-553830-817567%2F2026-02-27-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2012",
+      "totalEur": 48305.578705715736,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 29462,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

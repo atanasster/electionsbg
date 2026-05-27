@@ -1,0 +1,44 @@
+{
+  "ekatte": "57217",
+  "name": "Поликраище",
+  "province": "Велико Търново",
+  "obshtina": "Горна Оряховица",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 4647.147246948866,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000123451",
+      "name": "Основно училище - Св.Св. Кирил и Методий, с. Поликраище",
+      "tier": "school",
+      "totalEur": 4647.147246948866,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "4f6c6117a694",
+      "ocid": "aop-legacy-2011-2015-570980",
+      "date": "2013-11-21",
+      "amount": 9089.03,
+      "currency": "BGN",
+      "amountEur": 4647.147246948866,
+      "partyEik": "104583277",
+      "partyName": "Елит-94 ЕООД - Горна Оряховица",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2013",
+      "totalEur": 4647.147246948866,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "ekatte": "12406",
+  "name": "Въглен",
+  "province": "Варна",
+  "obshtina": "Аксаково",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 28174.35,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000081439",
+      "name": "Основно училище \"Христо Смирненски\"",
+      "tier": "school",
+      "totalEur": 28174.35,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "6861dc5e9052",
+      "ocid": "ocds-e82gsb-552065",
+      "date": "2026-02-11",
+      "amount": 28174.35,
+      "currency": "EUR",
+      "amountEur": 28174.35,
+      "partyEik": "200790030",
+      "partyName": "Дезон - бг ЕООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-552065-809420%2F2026-02-11-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 28174.35,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

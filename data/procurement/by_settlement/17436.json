@@ -1,0 +1,110 @@
+{
+  "ekatte": "17436",
+  "name": "Градец",
+  "province": "Сливен",
+  "obshtina": "Котел",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 6,
+  "awardCount": 0,
+  "totalEur": 259355.46001651476,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000582216",
+      "name": "Основно училище \"Кап. Петър Пармаков\"",
+      "tier": "school",
+      "totalEur": 259355.46001651476,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "3917a881e61e",
+      "ocid": "ocds-e82gsb-511926",
+      "date": "2026-01-04",
+      "amount": 71222.96,
+      "currency": "EUR",
+      "amountEur": 71222.96,
+      "partyEik": "200783534",
+      "partyName": "Апетит 2009 ЕООД",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-511926-791889%2F2026-01-04-contractamendment"
+    },
+    {
+      "key": "5444ea358daa",
+      "ocid": "ocds-e82gsb-415251",
+      "date": "2026-02-12",
+      "amount": 53864.8,
+      "currency": "EUR",
+      "amountEur": 53864.8,
+      "partyEik": "200783534",
+      "partyName": "Апетит 2009 ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-415251-810615%2F2026-02-12-award"
+    },
+    {
+      "key": "7a26f5d59114",
+      "ocid": "aop-legacy-2023-425430",
+      "date": "2023-09-18",
+      "amount": 90619.2,
+      "currency": "BGN",
+      "amountEur": 46332.861240496364,
+      "partyEik": "200783534",
+      "partyName": "Апетит 2009 ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "066f2ce2ea2e",
+      "ocid": "ocds-e82gsb-511926",
+      "date": "2026-01-04",
+      "amount": 34563.33,
+      "currency": "EUR",
+      "amountEur": 34563.33,
+      "partyEik": "203997600",
+      "partyName": "ДОЙЧЕВ-МТВ ЕООД",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-511926-791887%2F2026-01-04-contractamendment"
+    },
+    {
+      "key": "71ec58947634",
+      "ocid": "ocds-e82gsb-415251",
+      "date": "2026-02-12",
+      "amount": 27212.18,
+      "currency": "EUR",
+      "amountEur": 27212.18,
+      "partyEik": "203997600",
+      "partyName": "ДОЙЧЕВ-МТВ ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-415251-810615%2F2026-02-12-award"
+    },
+    {
+      "key": "77c2644ea9b4",
+      "ocid": "aop-legacy-2023-425430",
+      "date": "2023-09-18",
+      "amount": 51163.2,
+      "currency": "BGN",
+      "amountEur": 26159.328776018363,
+      "partyEik": "203997600",
+      "partyName": "ДОЙЧЕВ-МТВ ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2023",
+      "totalEur": 72492.19001651472,
+      "totalOther": {},
+      "contractCount": 2
+    },
+    {
+      "year": "2026",
+      "totalEur": 186863.27000000002,
+      "totalOther": {},
+      "contractCount": 4
+    }
+  ]
+}

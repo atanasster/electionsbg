@@ -1,0 +1,56 @@
+{
+  "ekatte": "35571",
+  "name": "Калугерово",
+  "province": "Пазарджик",
+  "obshtina": "Лесичово",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 31167.85,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000342121",
+      "name": "Обединено училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 31167.85,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "73b29a2e45f2",
+      "ocid": "ocds-e82gsb-553073",
+      "date": "2026-03-17",
+      "amount": 20130.77,
+      "currency": "EUR",
+      "amountEur": 20130.77,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-553073-826441%2F2026-03-17-award"
+    },
+    {
+      "key": "dd349a72fc23",
+      "ocid": "ocds-e82gsb-553064",
+      "date": "2026-04-17",
+      "amount": 11037.08,
+      "currency": "EUR",
+      "amountEur": 11037.08,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-553064-845389%2F2026-04-17-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 31167.85,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

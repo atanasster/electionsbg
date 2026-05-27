@@ -1,0 +1,56 @@
+{
+  "ekatte": "07116",
+  "name": "Бутан",
+  "province": "Враца",
+  "obshtina": "Козлодуй",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 31324.92,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000182962",
+      "name": "Средно УЧИЛИЩЕ\"СВ.СВ.КИРИЛ и Методий\"",
+      "tier": "school",
+      "totalEur": 31324.92,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "dd248d30b456",
+      "ocid": "ocds-e82gsb-553477",
+      "date": "2026-04-16",
+      "amount": 20232.14,
+      "currency": "EUR",
+      "amountEur": 20232.14,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-553477-844413%2F2026-04-16-award"
+    },
+    {
+      "key": "f554181b66c1",
+      "ocid": "ocds-e82gsb-553547",
+      "date": "2026-04-16",
+      "amount": 11092.78,
+      "currency": "EUR",
+      "amountEur": 11092.78,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-553547-844434%2F2026-04-16-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 31324.92,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

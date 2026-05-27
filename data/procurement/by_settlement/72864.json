@@ -1,0 +1,56 @@
+{
+  "ekatte": "72864",
+  "name": "Топчийско",
+  "province": "Бургас",
+  "obshtina": "Руен",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 18582.392130195363,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000043044",
+      "name": "Основно училище \"Реджеб кюпчю",
+      "tier": "school",
+      "totalEur": 18582.392130195363,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "2a7f71d3874f",
+      "ocid": "aop-legacy-2022-282245",
+      "date": "2022-10-05",
+      "amount": 18704,
+      "currency": "BGN",
+      "amountEur": 9563.203345894071,
+      "partyEik": "147144250",
+      "partyName": "Балкан м ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "672c8d2e8270",
+      "ocid": "aop-legacy-2022-282256",
+      "date": "2022-10-05",
+      "amount": 17640,
+      "currency": "BGN",
+      "amountEur": 9019.188784301294,
+      "partyEik": "147144250",
+      "partyName": "Балкан м ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2022",
+      "totalEur": 18582.392130195363,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

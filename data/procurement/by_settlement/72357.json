@@ -1,0 +1,44 @@
+{
+  "ekatte": "72357",
+  "name": "Тетово",
+  "province": "Русе",
+  "obshtina": "Русе",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 69952,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000498978",
+      "name": "Основно училище \"Отец Паисий\"",
+      "tier": "school",
+      "totalEur": 69952,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "a710ca81415a",
+      "ocid": "ocds-e82gsb-419086",
+      "date": "2026-01-28",
+      "amount": 69952,
+      "currency": "EUR",
+      "amountEur": 69952,
+      "partyEik": "131468980",
+      "partyName": "А1 България ЕАД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-419086-802960%2F2026-01-28-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 69952,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

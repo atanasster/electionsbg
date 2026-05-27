@@ -1,0 +1,68 @@
+{
+  "ekatte": "23813",
+  "name": "Друмево",
+  "province": "Шумен",
+  "obshtina": "Шумен",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 3,
+  "awardCount": 0,
+  "totalEur": 12432.49,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000922117",
+      "name": "Обединено училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 12432.49,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "aae740635ca8",
+      "ocid": "ocds-e82gsb-536733",
+      "date": "2026-02-05",
+      "amount": 8812.76,
+      "currency": "EUR",
+      "amountEur": 8812.76,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-536733-807139%2F2026-02-05-award"
+    },
+    {
+      "key": "73646efb08bc",
+      "ocid": "ocds-e82gsb-536733",
+      "date": "2026-02-05",
+      "amount": 2383.5,
+      "currency": "EUR",
+      "amountEur": 2383.5,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-536733-807139%2F2026-02-05-award"
+    },
+    {
+      "key": "1f7bd2960bee",
+      "ocid": "ocds-e82gsb-536733",
+      "date": "2026-02-05",
+      "amount": 1236.23,
+      "currency": "EUR",
+      "amountEur": 1236.23,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-536733-807139%2F2026-02-05-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 12432.49,
+      "totalOther": {},
+      "contractCount": 3
+    }
+  ]
+}

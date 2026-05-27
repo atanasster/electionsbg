@@ -1,0 +1,56 @@
+{
+  "ekatte": "78656",
+  "name": "Църквица",
+  "province": "Шумен",
+  "obshtina": "Никола Козлево",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 242079.34,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000922633",
+      "name": "Основно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 242079.34,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "21ad3f643c4e",
+      "ocid": "ocds-e82gsb-545457",
+      "date": "2026-02-26",
+      "amount": 206629.34,
+      "currency": "EUR",
+      "amountEur": 206629.34,
+      "partyEik": "175222941",
+      "partyName": "КОЗИРОГ-95 ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-545457-817167%2F2026-02-26-award"
+    },
+    {
+      "key": "280c0f7b0556",
+      "ocid": "ocds-e82gsb-562631",
+      "date": "2026-04-21",
+      "amount": 35450,
+      "currency": "EUR",
+      "amountEur": 35450,
+      "partyEik": "204248810",
+      "partyName": "Виплам ЕООД",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-562631-846473%2F2026-04-21-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 242079.34,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

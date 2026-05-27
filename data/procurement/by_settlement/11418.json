@@ -1,0 +1,62 @@
+{
+  "ekatte": "11418",
+  "name": "Владимирово",
+  "province": "Монтана",
+  "obshtina": "Бойчиновци",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 58952.822166701604,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000312669",
+      "name": "Професионална гимназия по транспорт \"Владимир Петков Минчев\"",
+      "tier": "school",
+      "totalEur": 58952.822166701604,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "24f0bced6ea7",
+      "ocid": "ocds-e82gsb-546926",
+      "date": "2026-02-26",
+      "amount": 35914.01,
+      "currency": "EUR",
+      "amountEur": 35914.01,
+      "partyEik": "175261307",
+      "partyName": "ТОК И жица ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-546926-817372%2F2026-02-26-award"
+    },
+    {
+      "key": "ea63e17973b7",
+      "ocid": "aop-legacy-2023-420468",
+      "date": "2023-09-04",
+      "amount": 45060,
+      "currency": "BGN",
+      "amountEur": 23038.812166701606,
+      "partyEik": "131565689",
+      "partyName": "Тера корп ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2023",
+      "totalEur": 23038.812166701606,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 35914.01,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

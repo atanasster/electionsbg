@@ -1,0 +1,62 @@
+{
+  "ekatte": "21498",
+  "name": "Добринище",
+  "province": "Благоевград",
+  "obshtina": "Банско",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 103088.93546259133,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000012981",
+      "name": "Основно училище \"Св. Климент Охридски\"",
+      "tier": "school",
+      "totalEur": 103088.93546259133,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "6ea7a28be7d3",
+      "ocid": "aop-legacy-2020-59516",
+      "date": "2020-09-01",
+      "amount": 113590.06,
+      "currency": "BGN",
+      "amountEur": 58077.67546259133,
+      "partyEik": "101526851",
+      "partyName": "БУЛ Строй инвест ЕООД",
+      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
+      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
+    },
+    {
+      "key": "a1688df051fe",
+      "ocid": "ocds-e82gsb-564432",
+      "date": "2026-04-21",
+      "amount": 45011.26,
+      "currency": "EUR",
+      "amountEur": 45011.26,
+      "partyEik": "204660454",
+      "partyName": "Юнион интерактив ООД",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-564432-846265%2F2026-04-21-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2020",
+      "totalEur": 58077.67546259133,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 45011.26,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

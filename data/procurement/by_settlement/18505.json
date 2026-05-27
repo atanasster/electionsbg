@@ -1,0 +1,44 @@
+{
+  "ekatte": "18505",
+  "name": "Гложене",
+  "province": "Враца",
+  "obshtina": "Козлодуй",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 63595.07216884903,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000182282",
+      "name": "Основно училище \"Христо Ботев",
+      "tier": "school",
+      "totalEur": 63595.07216884903,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "a1c6c1392749",
+      "ocid": "aop-legacy-2020-72268",
+      "date": "2020-11-11",
+      "amount": 124381.15,
+      "currency": "BGN",
+      "amountEur": 63595.07216884903,
+      "partyEik": "200574292",
+      "partyName": "НИК - Строй 06 ЕООД",
+      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
+      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2020",
+      "totalEur": 63595.07216884903,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

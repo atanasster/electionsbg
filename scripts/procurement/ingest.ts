@@ -42,6 +42,7 @@ import { writeByIdContracts } from "./by_id";
 import { writeContractorContracts } from "./contractor_contracts";
 import { writeAwarderContracts } from "./awarder_contracts";
 import { buildByNs } from "./by_ns";
+import { buildBySettlement } from "./by_settlement";
 import { uploadText, uploadTextTree } from "../lib/upload";
 import type {
   BundleEntry,
@@ -449,6 +450,21 @@ const main = async (args: {
         `Run /update-connections to enable the journalism payload.`,
     );
   }
+
+  // 7b. Per-settlement procurement rollup. Reads awarders/*.json (already
+  // enriched with geo from buildRollups) + awarder_contracts/*.json and
+  // emits by_settlement/{ekatte}.json + index.json + _national.json.
+  // Drives the /procurement/by-settlement landing + per-settlement tiles
+  // on the existing settlement detail pages. See
+  // [[project_procurement_geo]] for the methodology note.
+  console.log(`→ building per-settlement procurement shards`);
+  const bs = await buildBySettlement();
+  console.log(
+    `  by_settlement/: ${bs.settlementFiles} settlement file(s); ` +
+      `${bs.localAwardersPinned} local-tier buyer(s) pinned, ` +
+      `${bs.nationalAwarders} aggregated into _national.json, ` +
+      `${bs.awardersWithoutGeo} dropped (no cached address)`,
+  );
 
   // 8. Index + bundles.
   writeIndexJson(

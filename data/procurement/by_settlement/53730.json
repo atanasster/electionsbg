@@ -1,0 +1,56 @@
+{
+  "ekatte": "53730",
+  "name": "Орешене",
+  "province": "Ловеч",
+  "obshtina": "Ябланица",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 48387.41,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "820180695",
+      "name": "Основно училище 'васил левски'",
+      "tier": "school",
+      "totalEur": 48387.41,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "e1c3f887f29e",
+      "ocid": "ocds-e82gsb-543227",
+      "date": "2026-01-27",
+      "amount": 28674.52,
+      "currency": "EUR",
+      "amountEur": 28674.52,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-543227-802778%2F2026-01-27-award"
+    },
+    {
+      "key": "d1e529577c27",
+      "ocid": "ocds-e82gsb-543215",
+      "date": "2026-01-27",
+      "amount": 19712.89,
+      "currency": "EUR",
+      "amountEur": 19712.89,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-543215-802787%2F2026-01-27-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 48387.41,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

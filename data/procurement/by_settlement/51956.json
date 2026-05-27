@@ -1,0 +1,62 @@
+{
+  "ekatte": "51956",
+  "name": "Нова Черна",
+  "province": "Силистра",
+  "obshtina": "Тутракан",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 422942.2536372793,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000558546",
+      "name": "Основно училище \"Свети свети кирил и Методий\"",
+      "tier": "school",
+      "totalEur": 422942.2536372793,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "dbf1c508896c",
+      "ocid": "ocds-e82gsb-536454",
+      "date": "2026-01-17",
+      "amount": 299685.58,
+      "currency": "EUR",
+      "amountEur": 299685.58,
+      "partyEik": "130508678",
+      "partyName": "Епос груп ЕООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-536454-798546%2F2026-01-17-award"
+    },
+    {
+      "key": "a38436fd025b",
+      "ocid": "aop-legacy-2022-293196",
+      "date": "2022-10-31",
+      "amount": 241069.1,
+      "currency": "BGN",
+      "amountEur": 123256.67363727932,
+      "partyEik": "202988228",
+      "partyName": "Йорданов инжинеринг ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2022",
+      "totalEur": 123256.67363727932,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 299685.58,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

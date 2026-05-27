@@ -145,6 +145,12 @@ const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
       "all АОП contracts since the dataset starts, debarred-supplier flags, MP-connection cross-reference",
   },
   {
+    url: "/procurement/by-settlement",
+    label: "Procurement by settlement",
+    description:
+      "per-settlement procurement totals — every contract pinned to the buyer's HQ address (municipalities, schools, hospitals, universities, regional offices, utilities) with central ministries / national state companies aggregated into a separate 'national procurement' rollup; ~388 settlements with €36 B in local-tier contracts",
+  },
+  {
     url: "/financing",
     label: "Party financing",
     description: "declared campaign income and expenditures from Сметна палата",

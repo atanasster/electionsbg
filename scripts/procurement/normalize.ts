@@ -43,7 +43,13 @@ interface OcdsParty {
   name?: string;
   roles?: string[];
   identifier?: { id?: string; legalName?: string; scheme?: string };
-  address?: { region?: string };
+  address?: {
+    region?: string;
+    locality?: string;
+    postalCode?: string;
+    streetAddress?: string;
+    countryName?: string;
+  };
 }
 
 interface OcdsRelease {
@@ -126,6 +132,9 @@ const buyerFields = (
   eikFull?: string;
   name: string;
   region?: string;
+  locality?: string;
+  postal?: string;
+  street?: string;
 } | null => {
   const party = resolveParty(release, release.buyer);
   const rawEik = party?.identifier?.id;
@@ -133,6 +142,7 @@ const buyerFields = (
   if (!isValidEik(canon)) return null;
   const rawName =
     party?.identifier?.legalName ?? party?.name ?? release.buyer?.name ?? "";
+  const addr = party?.address;
   return {
     eik: canon,
     eikFull: rawEik && rawEik !== canon ? rawEik : undefined,
@@ -140,7 +150,10 @@ const buyerFields = (
     // registry. Normalise here so the on-disk per-EIK awarder shards match
     // the same entity's casing in the funds + officials trees.
     name: normaliseOrgName(rawName),
-    region: party?.address?.region,
+    region: addr?.region,
+    locality: addr?.locality,
+    postal: addr?.postalCode,
+    street: addr?.streetAddress,
   };
 };
 
@@ -298,6 +311,9 @@ export const normalizeBundle = (
             awarderEik: buyer.eik,
             awarderName: buyer.name,
             awarderRegion: buyer.region,
+            awarderLocality: buyer.locality,
+            awarderPostal: buyer.postal,
+            awarderStreet: buyer.street,
             contractorEik: supplier.eik,
             contractorEikFull: supplier.eikFull,
             contractorName: supplier.name,
@@ -349,6 +365,9 @@ export const normalizeBundle = (
             awarderEik: buyer.eik,
             awarderName: buyer.name,
             awarderRegion: buyer.region,
+            awarderLocality: buyer.locality,
+            awarderPostal: buyer.postal,
+            awarderStreet: buyer.street,
             contractorEik: supplier.eik,
             contractorEikFull: supplier.eikFull,
             contractorName: supplier.name,

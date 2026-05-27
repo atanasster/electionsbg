@@ -1,0 +1,44 @@
+{
+  "ekatte": "02693",
+  "name": "Баня",
+  "province": "Благоевград",
+  "obshtina": "Разлог",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 54656.08,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000012636",
+      "name": "Основно училище \"СВ.ПАИСИЙ Хилендарски\"",
+      "tier": "school",
+      "totalEur": 54656.08,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "e812fd8770fe",
+      "ocid": "ocds-e82gsb-526197",
+      "date": "2026-01-19",
+      "amount": 54656.08,
+      "currency": "EUR",
+      "amountEur": 54656.08,
+      "partyEik": "200544954",
+      "partyName": "Уеб Сървисис ЕООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-526197-799107%2F2026-01-19-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 54656.08,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

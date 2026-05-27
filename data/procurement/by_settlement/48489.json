@@ -1,0 +1,812 @@
+{
+  "ekatte": "48489",
+  "name": "Монтана",
+  "province": "Монтана",
+  "obshtina": "Монтана",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1443,
+  "awardCount": 0,
+  "totalEur": 137175382.91546562,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000320872",
+      "name": "Община Монтана",
+      "tier": "municipal",
+      "totalEur": 86345061.3832303,
+      "totalOther": {},
+      "contractCount": 500,
+      "awardCount": 0
+    },
+    {
+      "eik": "111047073",
+      "name": "Многопрофилна болница за активно лечение - Д-Р стамен Илиев АД",
+      "tier": "hospital",
+      "totalEur": 25824799.743715364,
+      "totalOther": {},
+      "contractCount": 692,
+      "awardCount": 0
+    },
+    {
+      "eik": "821152916",
+      "name": "Водоснабдяване и канализация ООД",
+      "tier": "utility",
+      "totalEur": 22822892.639884394,
+      "totalOther": {},
+      "contractCount": 192,
+      "awardCount": 0
+    },
+    {
+      "eik": "129009831",
+      "name": "Областна дирекция на МВР (ОДМВР) - Монтана",
+      "tier": "regional_gov",
+      "totalEur": 842883.7875920198,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0
+    },
+    {
+      "eik": "111030736",
+      "name": "Професионална гимназия по строителство, Архитектура и компютърни науки \"Проф. Арх. Стефан Стефанов\"",
+      "tier": "school",
+      "totalEur": 566617.2189848811,
+      "totalOther": {},
+      "contractCount": 12,
+      "awardCount": 0
+    },
+    {
+      "eik": "000314556",
+      "name": "Профилирана гимназия с преподаване на чужди езици \"Петър богдан\"",
+      "tier": "school",
+      "totalEur": 224432.01600819087,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    },
+    {
+      "eik": "000312498",
+      "name": "ФИНАНСОВО-СТОПАНСКА Професионална гимназия \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 125254.19599402811,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0
+    },
+    {
+      "eik": "176538885",
+      "name": "Професионална гимназия по техника и електротехника \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 118412.5465722481,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    },
+    {
+      "eik": "000311631",
+      "name": "Второ средно училище \"Никола Йонков Вапцаров",
+      "tier": "school",
+      "totalEur": 106364.05004524933,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "177061173",
+      "name": "VI Средно училище \"Отец Паисий",
+      "tier": "school",
+      "totalEur": 83667.8034389492,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000311019",
+      "name": "Начално училище \"Георги Бенковски\"",
+      "tier": "school",
+      "totalEur": 70184.82,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "000311624",
+      "name": "Първо основно училище \"Св. Св. Кирил и Методий\"",
+      "tier": "school",
+      "totalEur": 25833.559999999998,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0
+    },
+    {
+      "eik": "000312402",
+      "name": "Природоматематическа профилирана гимназия \"Св. Климент Охридски\"",
+      "tier": "school",
+      "totalEur": 18979.15,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "2cb49e5e1522",
+      "ocid": "aop-legacy-2011-2015-542787",
+      "date": "2013-05-23",
+      "amount": 41269133.14,
+      "currency": "BGN",
+      "amountEur": 21100572.718487803,
+      "partyEik": "176450798",
+      "partyName": "Обединение \"Канализация Монтана - 2012\" - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "1be6128a173e",
+      "ocid": "aop-legacy-2023-439598",
+      "date": "2023-10-20",
+      "amount": 8127320.14,
+      "currency": "BGN",
+      "amountEur": 4155432.8034645137,
+      "partyEik": "111001688",
+      "partyName": "Пътинженеринг - м АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "6a610a8656d6",
+      "ocid": "aop-legacy-2023-384398",
+      "date": "2023-06-12",
+      "amount": 3676909.8,
+      "currency": "BGN",
+      "amountEur": 1879974.1286308113,
+      "partyEik": "205954475",
+      "partyName": "Водни и Енергийни Спестявания АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "0695efb33c63",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-08-16",
+      "amount": 2844975.05,
+      "currency": "BGN",
+      "amountEur": 1454612.6452708056,
+      "partyEik": "177050522",
+      "partyName": "ДЗЗД Монтана",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "6139256d5dcc",
+      "ocid": "aop-legacy-2016-744927",
+      "date": "2016-08-16",
+      "amount": 2844975.05,
+      "currency": "BGN",
+      "amountEur": 1454612.6452708056,
+      "partyEik": "177050522",
+      "partyName": "ДЗЗД Монтана",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "9feaf46dfc64",
+      "ocid": "ocds-e82gsb-451947",
+      "date": "2026-04-17",
+      "amount": 1385452.21,
+      "currency": "EUR",
+      "amountEur": 1385452.21,
+      "partyEik": "201144735",
+      "partyName": "Стефстрой 2010 ЕООД",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-451947-845095%2F2026-04-17-contractamendment"
+    },
+    {
+      "key": "324e5a161389",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-07-15",
+      "amount": 2573000,
+      "currency": "BGN",
+      "amountEur": 1315554.0103178702,
+      "partyEik": "177365482",
+      "partyName": "ДЗЗД   Монтана - 2018",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "94f69260299e",
+      "ocid": "aop-legacy-2019-921600",
+      "date": "2019-07-15",
+      "amount": 2573000,
+      "currency": "BGN",
+      "amountEur": 1315554.0103178702,
+      "partyEik": "177365482",
+      "partyName": "ДЗЗД   Монтана - 2018",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "343661a3adf2",
+      "ocid": "ocds-e82gsb-409743",
+      "date": "2026-02-13",
+      "amount": 1285171.82,
+      "currency": "EUR",
+      "amountEur": 1285171.82,
+      "partyEik": "111001688",
+      "partyName": "Пътинженеринг - м АД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-409743-810762%2F2026-02-13-contractamendment"
+    },
+    {
+      "key": "735397f8dadf",
+      "ocid": "aop-legacy-2023-440968",
+      "date": "2023-10-30",
+      "amount": 2316896,
+      "currency": "BGN",
+      "amountEur": 1184610.1143759938,
+      "partyEik": "200511089",
+      "partyName": "Виксо ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "19835e1a570f",
+      "ocid": "aop-legacy-2020-74332",
+      "date": "2020-11-27",
+      "amount": 2000000,
+      "currency": "BGN",
+      "amountEur": 1022583.762392437,
+      "partyEik": "131200181",
+      "partyName": "Енерджи Маркет АД",
+      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
+      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
+    },
+    {
+      "key": "e1fe3ba70d3b",
+      "ocid": "aop-legacy-2019-943142",
+      "date": "2019-11-08",
+      "amount": 2000000,
+      "currency": "BGN",
+      "amountEur": 1022583.762392437,
+      "partyEik": "200907117",
+      "partyName": "Кумер ООД /старо ЕООД/ - София",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "d0f4d6697d09",
+      "ocid": "aop-legacy-2017-812195",
+      "date": "2017-11-01",
+      "amount": 2000000,
+      "currency": "BGN",
+      "amountEur": 1022583.762392437,
+      "partyEik": "201325372",
+      "partyName": "Мост Енерджи АД",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "a0c00c752e98",
+      "ocid": "aop-legacy-2016-756825",
+      "date": "2016-11-09",
+      "amount": 2000000,
+      "currency": "BGN",
+      "amountEur": 1022583.762392437,
+      "partyEik": "113570147",
+      "partyName": "Чез Трейд България ЕАД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "9294a6ed1fb4",
+      "ocid": "aop-legacy-2022-216233",
+      "date": "2022-03-30",
+      "amount": 1999997,
+      "currency": "BGN",
+      "amountEur": 1022582.2285167933,
+      "partyEik": "203093500",
+      "partyName": "Енвайро клийн ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "7675481da1a3",
+      "ocid": "ocds-e82gsb-415994",
+      "date": "2026-02-13",
+      "amount": 973019.64,
+      "currency": "EUR",
+      "amountEur": 973019.64,
+      "partyEik": "111001688",
+      "partyName": "Пътинженеринг - м АД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-415994-810784%2F2026-02-13-contractamendment"
+    },
+    {
+      "key": "8e4735e79050",
+      "ocid": "aop-legacy-2022-248981",
+      "date": "2022-07-06",
+      "amount": 1800000,
+      "currency": "BGN",
+      "amountEur": 920325.3861531933,
+      "partyEik": "130277958",
+      "partyName": "Електроразпределителни мрежи Запад АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "c5b7821c026c",
+      "ocid": "aop-legacy-2011-2015-669250",
+      "date": "2015-05-29",
+      "amount": 1665000,
+      "currency": "BGN",
+      "amountEur": 851300.9821917037,
+      "partyEik": "111001688",
+      "partyName": "Пътинженеринг - М АД /ново наименование/ Пътинженеринг - м ЕАД - Монтана /старо наименование/",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "93ee7483fd36",
+      "ocid": "aop-legacy-2023-387940",
+      "date": "2023-06-20",
+      "amount": 1555363.38,
+      "currency": "BGN",
+      "amountEur": 795244.6685039088,
+      "partyEik": "201741844",
+      "partyName": "Смарт бизнес къмпани ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "a78f008a7331",
+      "ocid": "aop-legacy-2011-2015-499165",
+      "date": "2012-09-12",
+      "amount": 1480759.39,
+      "currency": "BGN",
+      "amountEur": 757100.254112065,
+      "partyEik": "201675586",
+      "partyName": "ЕС Билд ЕООД - гр. Монтана",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "39a102fcb482",
+      "ocid": "aop-legacy-2011-2015-704424",
+      "date": "2015-12-23",
+      "amount": 1470430.76,
+      "currency": "BGN",
+      "amountEur": 751819.3094491853,
+      "partyEik": "176953760",
+      "partyName": "ДЗЗД Обединение Депо Монтана 2015",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "f03a5ccd4d60",
+      "ocid": "aop-legacy-2011-2015-439193",
+      "date": "2011-05-27",
+      "amount": 1388464.83,
+      "currency": "BGN",
+      "amountEur": 709910.7949054878,
+      "partyEik": "131223059",
+      "partyName": "Стреза ЕООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "ac7c9c15e1ac",
+      "ocid": "aop-legacy-2011-2015-632109",
+      "date": "2014-11-05",
+      "amount": 1380000,
+      "currency": "BGN",
+      "amountEur": 705582.7960507815,
+      "partyEik": "106609315",
+      "partyName": "Енемона Ютилитис АД - София - старо наименование Енемона Ютилитис ЕАД - Козлодуй",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "20ec4ce9014c",
+      "ocid": "aop-legacy-2019-913884",
+      "date": "2019-05-29",
+      "amount": 1333333.33,
+      "currency": "BGN",
+      "amountEur": 681722.5065573184,
+      "partyEik": "111001688",
+      "partyName": "Пътинженеринг - М АД /ново наименование/ Пътинженеринг - м ЕАД - Монтана /старо наименование/",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "a6d1b37d323c",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-05-29",
+      "amount": 1333333.33,
+      "currency": "BGN",
+      "amountEur": 681722.5065573184,
+      "partyEik": "111001688",
+      "partyName": "Пътинженеринг - М АД /ново наименование/ Пътинженеринг - м ЕАД - Монтана /старо наименование/",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "31af2f4c5674",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-04-22",
+      "amount": 1306950,
+      "currency": "BGN",
+      "amountEur": 668232.9241293977,
+      "partyEik": "111532557",
+      "partyName": "Ай Пи ЕООД - гр. Монтана",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "9a4088610361",
+      "ocid": "aop-legacy-2019-908308",
+      "date": "2019-04-22",
+      "amount": 1306950,
+      "currency": "BGN",
+      "amountEur": 668232.9241293977,
+      "partyEik": "111532557",
+      "partyName": "Ай Пи ЕООД - гр. Монтана",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "349511b14ed1",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-07-14",
+      "amount": 1279379,
+      "currency": "BGN",
+      "amountEur": 654136.0956729368,
+      "partyEik": "106610986",
+      "partyName": "Инекс Трейд ЕООД",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "61d8e6195157",
+      "ocid": "aop-legacy-2017-796050",
+      "date": "2017-07-14",
+      "amount": 1279379,
+      "currency": "BGN",
+      "amountEur": 654136.0956729368,
+      "partyEik": "106610986",
+      "partyName": "Инекс Трейд ЕООД",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "3546d2db2660",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-09-21",
+      "amount": 1262835.94,
+      "currency": "BGN",
+      "amountEur": 645677.7634047949,
+      "partyEik": "202062878",
+      "partyName": "Инфра Роудс ЕООД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "76a51a8f30e0",
+      "ocid": "aop-legacy-2016-750088",
+      "date": "2016-09-21",
+      "amount": 1262835.94,
+      "currency": "BGN",
+      "amountEur": 645677.7634047949,
+      "partyEik": "202062878",
+      "partyName": "Инфра Роудс ЕООД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "969989a1d3a8",
+      "ocid": "aop-legacy-2016-731596",
+      "date": "2016-04-26",
+      "amount": 1250388,
+      "currency": "BGN",
+      "amountEur": 639313.2327451772,
+      "partyEik": "111532557",
+      "partyName": "Ай Пи ЕООД - гр. Монтана",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "bd58ff205794",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-04-26",
+      "amount": 1250388,
+      "currency": "BGN",
+      "amountEur": 639313.2327451772,
+      "partyEik": "111532557",
+      "partyName": "Ай Пи ЕООД - гр. Монтана",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "775a887aa17c",
+      "ocid": "aop-legacy-2017-797923",
+      "date": "2017-07-26",
+      "amount": 1221380,
+      "currency": "BGN",
+      "amountEur": 624481.6778554374,
+      "partyEik": "177154962",
+      "partyName": "ДЗЗД Доминус инженеринг - Монтана",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "e87435fc6fff",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-07-26",
+      "amount": 1221380,
+      "currency": "BGN",
+      "amountEur": 624481.6778554374,
+      "partyEik": "177154962",
+      "partyName": "ДЗЗД Доминус инженеринг - Монтана",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "9a40c7dc26b1",
+      "ocid": "aop-legacy-2011-2015-698798",
+      "date": "2015-11-23",
+      "amount": 1200000,
+      "currency": "BGN",
+      "amountEur": 613550.2574354622,
+      "partyEik": "201325372",
+      "partyName": "Мост Енерджи АД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "5f5569772945",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-05-29",
+      "amount": 1166666.67,
+      "currency": "BGN",
+      "amountEur": 596507.1964332279,
+      "partyEik": "175288770",
+      "partyName": "Алфасист инженеринг ООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "e06ad782eeed",
+      "ocid": "aop-legacy-2019-913884",
+      "date": "2019-05-29",
+      "amount": 1166666.67,
+      "currency": "BGN",
+      "amountEur": 596507.1964332279,
+      "partyEik": "175288770",
+      "partyName": "Алфасист инженеринг ООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "088940e41227",
+      "ocid": "aop-legacy-2011-2015-427880",
+      "date": "2011-02-23",
+      "amount": 1158530,
+      "currency": "BGN",
+      "amountEur": 592346.983122255,
+      "partyEik": "131330278",
+      "partyName": "Фонд Енергийна ефективност - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "75d338b7ff77",
+      "ocid": "aop-legacy-2023-405933",
+      "date": "2023-08-02",
+      "amount": 1099980,
+      "currency": "BGN",
+      "amountEur": 562410.8434782164,
+      "partyEik": "131468980",
+      "partyName": "А1 България ЕАД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "3b2a9e82b109",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-09-21",
+      "amount": 1081611.09,
+      "currency": "BGN",
+      "amountEur": 553018.9689287924,
+      "partyEik": "130467904",
+      "partyName": "Статус-Н ООД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "4928719ec436",
+      "ocid": "aop-legacy-2016-750088",
+      "date": "2016-09-21",
+      "amount": 1081611.09,
+      "currency": "BGN",
+      "amountEur": 553018.9689287924,
+      "partyEik": "130467904",
+      "partyName": "Статус-Н ООД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "70c1eeed5799",
+      "ocid": "aop-legacy-2011-2015-604908",
+      "date": "2014-05-22",
+      "amount": 1079248,
+      "currency": "BGN",
+      "amountEur": 551810.7401972564,
+      "partyEik": "176681011",
+      "partyName": "Сдружение Инфра Гбс Монтана 2013",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "adbcc9f13ffc",
+      "ocid": "aop-legacy-2011-2015-657435",
+      "date": "2015-03-27",
+      "amount": 1023192,
+      "currency": "BGN",
+      "amountEur": 523149.7625049212,
+      "partyEik": "111532557",
+      "partyName": "Ай Пи ЕООД - гр. Монтана",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "aa9b557c9e3b",
+      "ocid": "aop-legacy-2017-796050",
+      "date": "2017-07-14",
+      "amount": 1004048,
+      "currency": "BGN",
+      "amountEur": 513361.59073130076,
+      "partyEik": "177144014",
+      "partyName": "ДЗЗД „Огоста 2017\" - Мездра",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "eef304b1b52c",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-07-14",
+      "amount": 1004048,
+      "currency": "BGN",
+      "amountEur": 513361.59073130076,
+      "partyEik": "177144014",
+      "partyName": "ДЗЗД „Огоста 2017\" - Мездра",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "29878b37b71a",
+      "ocid": "aop-legacy-2011-2015-429813",
+      "date": "2011-03-02",
+      "amount": 938069,
+      "currency": "BGN",
+      "amountEur": 479627.0637018555,
+      "partyEik": "175925847",
+      "partyName": "Сдружение Пст - мут - монтана 2010 - гр. София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "05d4f9d91513",
+      "ocid": "aop-legacy-2011-2015-527544",
+      "date": "2013-03-04",
+      "amount": 926058,
+      "currency": "BGN",
+      "amountEur": 473485.9369168077,
+      "partyEik": "111551461",
+      "partyName": "Вип - Петрол ЕООД - Монтана /старо наименование Вип - Петрол ООД/",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "2d4a08d1949e",
+      "ocid": "aop-legacy-2011-2015-690379",
+      "date": "2015-10-02",
+      "amount": 910261.54,
+      "currency": "BGN",
+      "amountEur": 465409.3351671669,
+      "partyEik": "202725138",
+      "partyName": "ЛЕС Консултинг  ООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "ca8762a9e043",
+      "ocid": "aop-legacy-2016-750088",
+      "date": "2016-09-21",
+      "amount": 902116.05,
+      "currency": "BGN",
+      "amountEur": 461244.6122618019,
+      "partyEik": "175254451",
+      "partyName": "Трейс-София  АД - /старо Трейс-София ЕАД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2011",
+      "totalEur": 5623064.571051676,
+      "totalOther": {},
+      "contractCount": 67
+    },
+    {
+      "year": "2012",
+      "totalEur": 5657616.853202987,
+      "totalOther": {},
+      "contractCount": 83
+    },
+    {
+      "year": "2013",
+      "totalEur": 28056648.94188145,
+      "totalOther": {},
+      "contractCount": 95
+    },
+    {
+      "year": "2014",
+      "totalEur": 6956921.194582351,
+      "totalOther": {},
+      "contractCount": 108
+    },
+    {
+      "year": "2015",
+      "totalEur": 8281286.589325247,
+      "totalOther": {},
+      "contractCount": 112
+    },
+    {
+      "year": "2016",
+      "totalEur": 20108838.7743311,
+      "totalOther": {},
+      "contractCount": 211
+    },
+    {
+      "year": "2017",
+      "totalEur": 10716735.053660084,
+      "totalOther": {},
+      "contractCount": 141
+    },
+    {
+      "year": "2019",
+      "totalEur": 14390058.563372072,
+      "totalOther": {},
+      "contractCount": 124
+    },
+    {
+      "year": "2020",
+      "totalEur": 1300529.033709474,
+      "totalOther": {},
+      "contractCount": 15
+    },
+    {
+      "year": "2021",
+      "totalEur": 150217.55469544898,
+      "totalOther": {},
+      "contractCount": 4
+    },
+    {
+      "year": "2022",
+      "totalEur": 9110945.20484909,
+      "totalOther": {},
+      "contractCount": 184
+    },
+    {
+      "year": "2023",
+      "totalEur": 18612928.061232314,
+      "totalOther": {},
+      "contractCount": 223
+    },
+    {
+      "year": "2026",
+      "totalEur": 8209592.519572305,
+      "totalOther": {},
+      "contractCount": 76
+    }
+  ]
+}

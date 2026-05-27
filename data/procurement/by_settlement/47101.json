@@ -1,0 +1,56 @@
+{
+  "ekatte": "47101",
+  "name": "Манолово",
+  "province": "Стара Загора",
+  "obshtina": "Павел баня",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 48746.39,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000801998",
+      "name": "Основно училище \"Георги Бенковски\"",
+      "tier": "school",
+      "totalEur": 48746.39,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "0ffb388a4924",
+      "ocid": "ocds-e82gsb-541391",
+      "date": "2026-01-27",
+      "amount": 29033.5,
+      "currency": "EUR",
+      "amountEur": 29033.5,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-541391-802765%2F2026-01-27-award"
+    },
+    {
+      "key": "db5af37b6256",
+      "ocid": "ocds-e82gsb-541348",
+      "date": "2026-04-20",
+      "amount": 19712.89,
+      "currency": "EUR",
+      "amountEur": 19712.89,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-541348-845654%2F2026-04-20-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 48746.39,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

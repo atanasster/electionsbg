@@ -1,0 +1,44 @@
+{
+  "ekatte": "39668",
+  "name": "Крепост",
+  "province": "Хасково",
+  "obshtina": "Димитровград",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 12768.226277334941,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000892407",
+      "name": "Основно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 12768.226277334941,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "5989dd085852",
+      "ocid": "ocds-e82gsb-516167",
+      "date": "2026-01-29",
+      "amount": 24972.48,
+      "currency": "BGN",
+      "amountEur": 12768.226277334941,
+      "partyEik": "104518906",
+      "partyName": "Вали компютърс ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-516167-803969%2F2026-01-29-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 12768.226277334941,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

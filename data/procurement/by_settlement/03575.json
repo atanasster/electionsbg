@@ -1,0 +1,44 @@
+{
+  "ekatte": "03575",
+  "name": "Беловец",
+  "province": "Разград",
+  "obshtina": "Кубрат",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 41500,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000498469",
+      "name": "Основно училище \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 41500,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "20831bca016a",
+      "ocid": "ocds-e82gsb-546751",
+      "date": "2026-02-06",
+      "amount": 41500,
+      "currency": "EUR",
+      "amountEur": 41500,
+      "partyEik": "202510744",
+      "partyName": "Дяков строй ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-546751-807738%2F2026-02-06-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 41500,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

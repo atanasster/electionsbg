@@ -315,6 +315,25 @@ const enumerateFundsProgrammes = (rootUrl: string, routes: string[]) => {
   }
 };
 
+const enumerateProcurementSettlements = (rootUrl: string, routes: string[]) => {
+  // One URL per settlement that has at least one local-tier contract on
+  // file. Read from by_settlement/index.json which is freshest after every
+  // procurement ingest. Skip the synthetic _national.json sibling — that
+  // surfaces as a card on the landing, not a standalone page.
+  const idxFile = `${projectPath}/data/procurement/by_settlement/index.json`;
+  if (!fs.existsSync(idxFile)) return;
+  let idx: { settlements?: Array<{ ekatte: string }> };
+  try {
+    idx = JSON.parse(fs.readFileSync(idxFile, "utf-8"));
+  } catch {
+    return;
+  }
+  const lastmod = safeFileMod(idxFile);
+  for (const s of idx.settlements ?? []) {
+    pushUrl(`${rootUrl}/${routes[0]}${s.ekatte}`, lastmod);
+  }
+};
+
 const enumerateElections = (rootUrl: string, routes: string[]) => {
   // electionsFile is loaded at module init.
   const lastmod = safeFileMod(electionsFile);
@@ -438,6 +457,8 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateFundsThemes(rootUrl, routes);
     if (route.file === "funds-programmes-list")
       return enumerateFundsProgrammes(rootUrl, routes);
+    if (route.file === "procurement-settlements-list")
+      return enumerateProcurementSettlements(rootUrl, routes);
     // Generic ":id" expansion against a folder of files (e.g. municipalities/by/{id}).
     const folders = route.file?.split(":id");
     if (!folders) throw new Error("Must assign file property: " + route.path);

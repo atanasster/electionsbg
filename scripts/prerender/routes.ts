@@ -1657,6 +1657,30 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "procurement/by-settlement",
+    title: "Обществени поръчки по населено място | electionsbg.com",
+    description:
+      "Сумите от обществените поръчки, разпределени по населено място според адреса на седалището на възложителя — общини, училища, болници, университети, регионални администрации. Министерствата и националните държавни компании са обобщени отделно.",
+    breadcrumbName: "Поръчки по населено място",
+    ogImage: "/og/procurement-by-settlement.png",
+    bodyHtml: `
+<h1>Обществени поръчки по населено място</h1>
+<p>Всеки подписан договор от централния регистър на АОП (data.egov.bg) е привързан към адреса на седалището на възложителя. Изключваме министерствата, държавните агенции и националните държавни компании — софийското им седалище не казва нищо за това къде е похарчена сумата — и ги обобщаваме отделно в "Национални поръчки".</p>
+<p>Покрита е сума от ~€36 млрд. в местни договори (~388 населени места) плюс ~€34,7 млрд. в национални поръчки. <a href="${SITE_URL}/about">Прочети методологията</a>.</p>
+<p>Виж и <a href="${SITE_URL}/procurement">общия преглед на обществените поръчки</a>, <a href="${SITE_URL}/procurement/contractors">топ изпълнителите</a> и <a href="${SITE_URL}/procurement/awarders">топ възложителите</a>.</p>`.trim(),
+    english: {
+      title: "Public Procurement by Settlement | electionsbg.com",
+      description:
+        "Public-procurement totals broken down by settlement based on the buyer's HQ address — municipalities, schools, hospitals, universities and regional offices. Central ministries and national state companies are aggregated separately.",
+      breadcrumbName: "Procurement by settlement",
+      bodyHtml: `
+<h1>Public procurement by settlement</h1>
+<p>Every signed contract from the central АОП register (data.egov.bg) is pinned to the buyer's HQ address. Central ministries, state agencies and nationally-operating state companies are excluded from per-settlement pins — their Sofia HQ tells you nothing about where the money was spent — and roll up into a separate "National procurement" card.</p>
+<p>Covers ~€36 B in local-tier contracts (~388 settlements) plus ~€34.7 B in national procurement. <a href="${SITE_URL}/en/about">Read the methodology</a>.</p>
+<p>See also the <a href="${SITE_URL}/en/procurement">procurement overview</a>, <a href="${SITE_URL}/en/procurement/contractors">top contractors</a> and <a href="${SITE_URL}/en/procurement/awarders">top awarders</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "procurement/mps",
     title: "Депутати с обществени поръчки на свързани фирми | electionsbg.com",
     description:

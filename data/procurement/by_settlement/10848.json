@@ -1,0 +1,56 @@
+{
+  "ekatte": "10848",
+  "name": "Ветрен",
+  "province": "Стара Загора",
+  "obshtina": "Мъглиж",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 46055.168393981075,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000802662",
+      "name": "Основно училище \"Св. Св. Кирил и Методий\"",
+      "tier": "school",
+      "totalEur": 46055.168393981075,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "8b74cc89dde1",
+      "ocid": "ocds-e82gsb-533086",
+      "date": "2026-01-19",
+      "amount": 64929.86,
+      "currency": "BGN",
+      "amountEur": 33198.1102652071,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-533086-798684%2F2026-01-19-award"
+    },
+    {
+      "key": "187ca4152bef",
+      "ocid": "ocds-e82gsb-533116",
+      "date": "2026-01-19",
+      "amount": 25146.22,
+      "currency": "BGN",
+      "amountEur": 12857.058128773973,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-533116-798688%2F2026-01-19-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 46055.168393981075,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

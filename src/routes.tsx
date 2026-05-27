@@ -189,6 +189,18 @@ const CandidateProcurementScreen = lazy(() =>
     default: m.CandidateProcurementScreen,
   })),
 );
+const ProcurementBySettlementScreen = lazy(() =>
+  import("./screens/procurement/ProcurementBySettlementScreen").then((m) => ({
+    default: m.ProcurementBySettlementScreen,
+  })),
+);
+const ProcurementSettlementDetailScreen = lazy(() =>
+  import("./screens/procurement/ProcurementSettlementDetailScreen").then(
+    (m) => ({
+      default: m.ProcurementSettlementDetailScreen,
+    }),
+  ),
+);
 const ProcurementScreen = lazy(() =>
   import("./screens/ProcurementScreen").then((m) => ({
     default: m.ProcurementScreen,
@@ -1379,6 +1391,22 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <ProcurementScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="procurement/by-settlement"
+          element={
+            <LayoutScreen>
+              <ProcurementBySettlementScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="procurement/settlement/:ekatte"
+          element={
+            <LayoutScreen>
+              <ProcurementSettlementDetailScreen />
             </LayoutScreen>
           }
         />

@@ -1,0 +1,44 @@
+{
+  "ekatte": "05339",
+  "name": "Болярци",
+  "province": "Пловдив",
+  "obshtina": "Садово",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 253944.89,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000453972",
+      "name": "Основно училище \"Г.С. Раковски\"",
+      "tier": "school",
+      "totalEur": 253944.89,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "6a1da9f86be7",
+      "ocid": "ocds-e82gsb-547914",
+      "date": "2026-02-26",
+      "amount": 253944.89,
+      "currency": "EUR",
+      "amountEur": 253944.89,
+      "partyEik": "175222941",
+      "partyName": "КОЗИРОГ-95 ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-547914-817097%2F2026-02-26-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 253944.89,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

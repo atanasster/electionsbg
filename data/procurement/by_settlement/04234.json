@@ -1,0 +1,101 @@
+{
+  "ekatte": "04234",
+  "name": "Бистрица",
+  "province": "София (столица)",
+  "obshtina": "Столична",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 4,
+  "awardCount": 0,
+  "totalEur": 264333.0245555084,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000667435",
+      "name": "Детска Градина n 143 \"Щурче\"",
+      "tier": "school",
+      "totalEur": 166467.9445555084,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000668996",
+      "name": "192-РО Средно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 97865.08,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "e464c405c358",
+      "ocid": "ocds-e82gsb-540587",
+      "date": "2026-01-30",
+      "amount": 100000,
+      "currency": "EUR",
+      "amountEur": 100000,
+      "partyEik": "121115423",
+      "partyName": "БЕТИ-М ЕООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-540587-804627%2F2026-01-30-award"
+    },
+    {
+      "key": "6643e993c638",
+      "ocid": "ocds-e82gsb-549063",
+      "date": "2026-02-25",
+      "amount": 97865.08,
+      "currency": "EUR",
+      "amountEur": 97865.08,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-549063-816648%2F2026-02-25-award"
+    },
+    {
+      "key": "4ec4dec9cec4",
+      "ocid": "aop-legacy-2023-434912",
+      "date": "2023-10-10",
+      "amount": 70000,
+      "currency": "BGN",
+      "amountEur": 35790.431683735296,
+      "partyEik": "121115423",
+      "partyName": "БЕТИ-М ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "f2c31ab21d7c",
+      "ocid": "aop-legacy-2022-257814",
+      "date": "2022-07-27",
+      "amount": 60000,
+      "currency": "BGN",
+      "amountEur": 30677.51287177311,
+      "partyEik": "121115423",
+      "partyName": "БЕТИ-М ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2022",
+      "totalEur": 30677.51287177311,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2023",
+      "totalEur": 35790.431683735296,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 197865.08000000002,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "ekatte": "18490",
+  "name": "Елин Пелин",
+  "province": "София",
+  "obshtina": "Елин Пелин",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 276784.1215837777,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000760341",
+      "name": "Професионална гимназия по керамика",
+      "tier": "school",
+      "totalEur": 276784.1215837777,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "529e3ac3c289",
+      "ocid": "aop-legacy-2023-444973",
+      "date": "2023-11-03",
+      "amount": 336342.68,
+      "currency": "BGN",
+      "amountEur": 171969.28158377772,
+      "partyEik": "200388512",
+      "partyName": "Ивелинстрой ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "e40251f2e102",
+      "ocid": "ocds-e82gsb-544353",
+      "date": "2026-02-02",
+      "amount": 104814.84,
+      "currency": "EUR",
+      "amountEur": 104814.84,
+      "partyEik": "204857284",
+      "partyName": "Изохолд н и н ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-544353-795034%2F2026-02-02-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2023",
+      "totalEur": 171969.28158377772,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 104814.84,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "ekatte": "35515",
+  "name": "Калояновец",
+  "province": "Стара Загора",
+  "obshtina": "Стара Загора",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 47712.659999999996,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000802897",
+      "name": "Основно училище \"Отец Паисий\"",
+      "tier": "school",
+      "totalEur": 47712.659999999996,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "19386a0b32d0",
+      "ocid": "ocds-e82gsb-519499",
+      "date": "2026-03-09",
+      "amount": 38986.09,
+      "currency": "EUR",
+      "amountEur": 38986.09,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-519499-821446%2F2026-03-09-award"
+    },
+    {
+      "key": "2adea38ad16c",
+      "ocid": "ocds-e82gsb-519520",
+      "date": "2026-03-09",
+      "amount": 8726.57,
+      "currency": "EUR",
+      "amountEur": 8726.57,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-519520-821467%2F2026-03-09-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 47712.659999999996,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

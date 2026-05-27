@@ -1405,10 +1405,46 @@ export type ProcurementRollupContractRow = {
 
 /** Per-awarder rollup at data/procurement/awarders/<EIK>.json (matches the
  * scripts/procurement/types.ts AwarderRollup shape). */
+/** Tier classification — see scripts/procurement/awarder_tier.ts. */
+export type ProcurementAwarderTier =
+  | "municipal"
+  | "school"
+  | "hospital"
+  | "university"
+  | "forestry"
+  | "regional_gov"
+  | "utility"
+  | "central_ministry"
+  | "central_agency"
+  | "national_state_co"
+  | "other";
+
+/** Resolved geographic + tier metadata. `isLocalHQ` is true when the
+ *  awarder's HQ is a meaningful proxy for where its contracts were spent
+ *  (municipality, school, hospital, university, forestry, regional gov,
+ *  utility) — central ministries and national state companies are not. */
+export type ProcurementAwarderGeo = {
+  ekatte: string;
+  confidence:
+    | "postal+name+province"
+    | "postal+name"
+    | "postal_only"
+    | "name+province"
+    | "name_only";
+  tier: ProcurementAwarderTier;
+  isLocalHQ: boolean;
+};
+
 export type ProcurementAwarderRollup = {
   eik: string;
   name: string;
   region?: string;
+  address?: {
+    locality?: string;
+    postal?: string;
+    street?: string;
+  };
+  geo?: ProcurementAwarderGeo;
   totalEur: number;
   totalOther: Record<string, number>;
   contractCount: number;
@@ -1423,6 +1459,57 @@ export type ProcurementAwarderRollup = {
   byYear: ProcurementByYear[];
   topContracts: ProcurementRollupContractRow[];
   generatedAt: string;
+};
+
+/** Per-settlement procurement file at
+ *  data/procurement/by_settlement/<EKATTE>.json. Aggregates local-tier
+ *  awarders whose HQ resolves to this settlement. Central/national
+ *  procurement is rolled up separately into _national.json. */
+export type ProcurementBySettlementFile = {
+  ekatte: string;
+  name: string;
+  province: string;
+  obshtina: string;
+  generatedAt: string;
+  contractCount: number;
+  awardCount: number;
+  totalEur: number;
+  totalOther: Record<string, number>;
+  awarders: Array<{
+    eik: string;
+    name: string;
+    tier: ProcurementAwarderTier;
+    totalEur: number;
+    totalOther: Record<string, number>;
+    contractCount: number;
+    awardCount: number;
+  }>;
+  topContracts: ProcurementRollupContractRow[];
+  byYear: ProcurementByYear[];
+};
+
+/** Landing-page index — by_settlement/index.json. */
+export type ProcurementBySettlementIndex = {
+  generatedAt: string;
+  totalEur: number;
+  totalContracts: number;
+  settlementCount: number;
+  national: {
+    contractCount: number;
+    awardCount: number;
+    totalEur: number;
+    totalOther: Record<string, number>;
+    awarderCount: number;
+  };
+  settlements: Array<{
+    ekatte: string;
+    name: string;
+    province: string;
+    obshtina: string;
+    contractCount: number;
+    totalEur: number;
+    awarderCount: number;
+  }>;
 };
 
 /** Per-contractor rollup at data/procurement/contractors/<EIK>.json. */

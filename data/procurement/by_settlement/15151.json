@@ -1,0 +1,56 @@
+{
+  "ekatte": "15151",
+  "name": "Глоджево",
+  "province": "Русе",
+  "obshtina": "Ветово",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 68161.02115214513,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "117043822",
+      "name": "Средно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 68161.02115214513,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "e3edc220758a",
+      "ocid": "ocds-e82gsb-548106",
+      "date": "2026-01-26",
+      "amount": 95233.24,
+      "currency": "BGN",
+      "amountEur": 48691.98243201096,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-548106-802074%2F2026-01-26-award"
+    },
+    {
+      "key": "8b7ccb6ae466",
+      "ocid": "ocds-e82gsb-548110",
+      "date": "2026-01-26",
+      "amount": 38078.13,
+      "currency": "BGN",
+      "amountEur": 19469.038720134162,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-548110-802084%2F2026-01-26-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 68161.02115214513,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "ekatte": "38532",
+  "name": "Копривлен",
+  "province": "Благоевград",
+  "obshtina": "Хаджидимово",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 124122.7,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000013503",
+      "name": "Основно училище \"Никола Вапцаров\"",
+      "tier": "school",
+      "totalEur": 124122.7,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "f6ad8a634034",
+      "ocid": "ocds-e82gsb-548931",
+      "date": "2026-03-02",
+      "amount": 124122.7,
+      "currency": "EUR",
+      "amountEur": 124122.7,
+      "partyEik": "201044133",
+      "partyName": "РАДО-СТРОЙ 2010 ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-548931-818246%2F2026-03-02-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 124122.7,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

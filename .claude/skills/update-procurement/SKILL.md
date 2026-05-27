@@ -49,8 +49,16 @@ Expected output on a normal day (one new fortnight published):
 → wrote 1 new + 2 modified month-shard(s)
 → rebuilding contractor/awarder rollups
   4823 contractor file(s), 1102 awarder file(s)
+→ building per-settlement procurement shards
+  by_settlement/: 388 settlement file(s); 1460 local-tier buyer(s) pinned, 346 aggregated into _national.json, 1586 dropped (no cached address)
 ✓ index.json + bundles.json updated
 ```
+
+The per-settlement step (added 2026) reads each awarder rollup's `geo` block (set by `buildRollups` via the resolver in `scripts/procurement/resolve_ekatte.ts`) and groups local-tier buyers by EKATTE. Output lives at `data/procurement/by_settlement/{ekatte}.json` + `index.json` + `_national.json` — drives the /procurement/by-settlement landing and the procurement tile on the existing settlement detail pages. Central ministries and national state companies are *not* pinned to settlements — they're aggregated into the national rollup. See [[project_procurement_geo]] for the methodology + the curated tier overrides in `scripts/procurement/awarder_tier.ts`.
+
+**One-shot enrichment after this commit:** existing awarder rollups built before this code change have no `geo` block (the normalizer wasn't capturing locality/postalCode). Run `npx tsx scripts/procurement/enrich_awarders_geo.ts` once to backfill from the cached fortnight bundles in `raw_data/procurement/`. From the next `procurement:ingest` onward the rollup builder applies geo automatically.
+
+**Curating the awarder_tier "other" bucket:** the enrichment writes `data/procurement/awarder_tier_unclassified.json` with every awarder whose name didn't match a tier heuristic. Skim it for entities that should be classified (e.g. new ministry sub-units), add an `OVERRIDES` entry in `scripts/procurement/awarder_tier.ts`, and re-run the enrichment (cheap — re-reads the same cached bundles).
 
 If the canary line is missing it's because the canary bundle's `datasetUuid` matched the only-new-bundles filter and the run intentionally re-ran the canary as part of normal ingest. Either is fine.
 

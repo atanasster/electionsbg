@@ -1,0 +1,74 @@
+{
+  "ekatte": "61368",
+  "name": "Радиево",
+  "province": "Хасково",
+  "obshtina": "Димитровград",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 3,
+  "awardCount": 0,
+  "totalEur": 68919.89902368817,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000892898",
+      "name": "Основно училище \"Христо Смирненски\"",
+      "tier": "school",
+      "totalEur": 68919.89902368817,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "e219174d89c9",
+      "ocid": "ocds-e82gsb-522043",
+      "date": "2026-04-30",
+      "amount": 28605.25,
+      "currency": "EUR",
+      "amountEur": 28605.25,
+      "partyEik": "836012090",
+      "partyName": "Чавдаров, Георгиев и с-ие ЕООД",
+      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
+      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-522043-850730%2F2026-04-30-contractamendment"
+    },
+    {
+      "key": "8273a8fd9f74",
+      "ocid": "aop-legacy-2023-462124",
+      "date": "2023-12-15",
+      "amount": 43625.25,
+      "currency": "BGN",
+      "amountEur": 22305.23614015533,
+      "partyEik": "836012090",
+      "partyName": "Чавдаров, Георгиев и с-ие ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "6c88c24e9435",
+      "ocid": "aop-legacy-2023-339090",
+      "date": "2023-02-28",
+      "amount": 35223.35,
+      "currency": "BGN",
+      "amountEur": 18009.412883532823,
+      "partyEik": "836012090",
+      "partyName": "Чавдаров, Георгиев и с-ие ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2023",
+      "totalEur": 40314.64902368816,
+      "totalOther": {},
+      "contractCount": 2
+    },
+    {
+      "year": "2026",
+      "totalEur": 28605.25,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "ekatte": "38916",
+  "name": "Костенец",
+  "province": "София",
+  "obshtina": "Костенец",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 257478.41,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000764763",
+      "name": "Основно училище \"Константин костенечки\"",
+      "tier": "school",
+      "totalEur": 257478.41,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "45dc667e5aae",
+      "ocid": "ocds-e82gsb-377765",
+      "date": "2026-02-12",
+      "amount": 210984.59,
+      "currency": "EUR",
+      "amountEur": 210984.59,
+      "partyEik": "181167531",
+      "partyName": "АКМ Строй",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-377765-810145%2F2026-02-12-contractamendment"
+    },
+    {
+      "key": "67c4c02a4744",
+      "ocid": "ocds-e82gsb-507420",
+      "date": "2026-03-25",
+      "amount": 46493.82,
+      "currency": "EUR",
+      "amountEur": 46493.82,
+      "partyEik": "175415627",
+      "partyName": "Контракс АД",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-507420-832452%2F2026-03-25-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 257478.41,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "ekatte": "47189",
+  "name": "Марикостиново",
+  "province": "Благоевград",
+  "obshtina": "Петрич",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 6,
+  "awardCount": 0,
+  "totalEur": 1482327.3084039001,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "101510103",
+      "name": "Специализирана болница за рехабилитация - марикостиново ЕООД",
+      "tier": "hospital",
+      "totalEur": 1313600.9884039,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    },
+    {
+      "eik": "000013670",
+      "name": "Основно училище \"СВ.СВ. кирил и Методий\"",
+      "tier": "school",
+      "totalEur": 168726.32,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "ee8a5ecc2ebe",
+      "ocid": "ocds-e82gsb-552832",
+      "date": "2026-04-15",
+      "amount": 493405,
+      "currency": "EUR",
+      "amountEur": 493405,
+      "partyEik": "201799071",
+      "partyName": "МВ-ХЕЛТИ Фуудс ЕООД",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-552832-843301%2F2026-04-15-award"
+    },
+    {
+      "key": "4330f1447fa3",
+      "ocid": "aop-legacy-2023-318655",
+      "date": "2023-01-09",
+      "amount": 443663.92,
+      "currency": "BGN",
+      "amountEur": 226841.76027568858,
+      "partyEik": "202323253",
+      "partyName": "Анкер груп ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "682b0b71a935",
+      "ocid": "aop-legacy-2022-203249",
+      "date": "2022-03-01",
+      "amount": 432000,
+      "currency": "BGN",
+      "amountEur": 220878.0926767664,
+      "partyEik": "201799071",
+      "partyName": "МВ-ХЕЛТИ Фуудс ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "e56aee45fbce",
+      "ocid": "aop-legacy-2011-2015-667883",
+      "date": "2015-05-21",
+      "amount": 381000,
+      "currency": "BGN",
+      "amountEur": 194802.20673575925,
+      "partyEik": "201799071",
+      "partyName": "МВ-ХЕЛТИ Фуудс",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "1f32cdd26b02",
+      "ocid": "aop-legacy-2011-2015-540364",
+      "date": "2013-05-09",
+      "amount": 347500,
+      "currency": "BGN",
+      "amountEur": 177673.92871568594,
+      "partyEik": "201799071",
+      "partyName": "МВ-ХЕЛТИ Фуудс",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "6262d7ddaf9b",
+      "ocid": "ocds-e82gsb-513258",
+      "date": "2026-03-11",
+      "amount": 168726.32,
+      "currency": "EUR",
+      "amountEur": 168726.32,
+      "partyEik": "206337802",
+      "partyName": "Алекс строй 99 ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-513258-821394%2F2026-03-11-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2013",
+      "totalEur": 177673.92871568594,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2015",
+      "totalEur": 194802.20673575925,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2022",
+      "totalEur": 220878.0926767664,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2023",
+      "totalEur": 226841.76027568858,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 662131.3200000001,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

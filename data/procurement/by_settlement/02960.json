@@ -1,0 +1,44 @@
+{
+  "ekatte": "02960",
+  "name": "Бачево",
+  "province": "Благоевград",
+  "obshtina": "Разлог",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 42110.81,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000013236",
+      "name": "Основно училище \"Св. Св. Кирил и Методий\"",
+      "tier": "school",
+      "totalEur": 42110.81,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "1c87d36a6d67",
+      "ocid": "ocds-e82gsb-544570",
+      "date": "2026-02-11",
+      "amount": 42110.81,
+      "currency": "EUR",
+      "amountEur": 42110.81,
+      "partyEik": "203760829",
+      "partyName": "Атарион ЕООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-544570-809389%2F2026-02-11-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 42110.81,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

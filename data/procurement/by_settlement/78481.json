@@ -1,0 +1,56 @@
+{
+  "ekatte": "78481",
+  "name": "Церово",
+  "province": "София",
+  "obshtina": "Своге",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 76922.39672333485,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000760003",
+      "name": "Основно училище \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 76922.39672333485,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "487b98460550",
+      "ocid": "ocds-e82gsb-538414",
+      "date": "2026-01-20",
+      "amount": 75323.74,
+      "currency": "BGN",
+      "amountEur": 38512.416723334856,
+      "partyEik": "104518906",
+      "partyName": "Вали компютърс ООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-538414-799666%2F2026-01-20-award"
+    },
+    {
+      "key": "f8c0327da5d0",
+      "ocid": "ocds-e82gsb-538414",
+      "date": "2026-04-15",
+      "amount": 38409.98,
+      "currency": "EUR",
+      "amountEur": 38409.98,
+      "partyEik": "104518906",
+      "partyName": "Вали компютърс ООД",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-538414-844105%2F2026-04-15-contractamendment"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 76922.39672333485,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

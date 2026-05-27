@@ -1,0 +1,44 @@
+{
+  "ekatte": "35033",
+  "name": "Каблешково",
+  "province": "Бургас",
+  "obshtina": "Поморие",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 137145.35516890528,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000042743",
+      "name": "Основно училище \"П. Хилендарски",
+      "tier": "school",
+      "totalEur": 137145.35516890528,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "013f89e65801",
+      "ocid": "aop-legacy-2022-198172",
+      "date": "2022-02-15",
+      "amount": 268233,
+      "currency": "BGN",
+      "amountEur": 137145.35516890528,
+      "partyEik": "202988228",
+      "partyName": "Йорданов инжинеринг ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2022",
+      "totalEur": 137145.35516890528,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

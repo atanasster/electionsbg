@@ -1,0 +1,116 @@
+{
+  "ekatte": "56438",
+  "name": "Пирне",
+  "province": "Бургас",
+  "obshtina": "Айтос",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 6,
+  "awardCount": 0,
+  "totalEur": 139453.82950665447,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000043514",
+      "name": "Основно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 139453.82950665447,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "de0b780d732f",
+      "ocid": "ocds-e82gsb-546267",
+      "date": "2026-01-13",
+      "amount": 73684.8,
+      "currency": "EUR",
+      "amountEur": 73684.8,
+      "partyEik": "102637662",
+      "partyName": "Хитекс ЕООД",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-546267-796239%2F2026-01-13-award"
+    },
+    {
+      "key": "f582a70bc5d9",
+      "ocid": "aop-legacy-2022-312408",
+      "date": "2022-12-19",
+      "amount": 54903.16,
+      "currency": "BGN",
+      "amountEur": 28071.539960016977,
+      "partyEik": "102637662",
+      "partyName": "Хитекс ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "527dde7b413f",
+      "ocid": "aop-legacy-2020-80913",
+      "date": "2020-12-23",
+      "amount": 39609,
+      "currency": "BGN",
+      "amountEur": 20251.760122301017,
+      "partyEik": "205586124",
+      "partyName": "„Кидара“ ЕООД",
+      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
+      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
+    },
+    {
+      "key": "0f0837a40d74",
+      "ocid": "ocds-e82gsb-541806",
+      "date": "2026-01-12",
+      "amount": 12206,
+      "currency": "EUR",
+      "amountEur": 12206,
+      "partyEik": "200377455",
+      "partyName": "Десий ЕООД",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-541806-795513%2F2026-01-12-award"
+    },
+    {
+      "key": "72b6cbb4a1f1",
+      "ocid": "aop-legacy-2022-315406",
+      "date": "2022-12-23",
+      "amount": 5860.5,
+      "currency": "BGN",
+      "amountEur": 2996.4260697504383,
+      "partyEik": "200377455",
+      "partyName": "Десий ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "4da6a304c98b",
+      "ocid": "aop-legacy-2020-80913",
+      "date": "2020-12-23",
+      "amount": 4387.52,
+      "currency": "BGN",
+      "amountEur": 2243.3033545860326,
+      "partyEik": "200377455",
+      "partyName": "„Десий“ ЕООД",
+      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
+      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2020",
+      "totalEur": 22495.06347688705,
+      "totalOther": {},
+      "contractCount": 2
+    },
+    {
+      "year": "2022",
+      "totalEur": 31067.966029767416,
+      "totalOther": {},
+      "contractCount": 2
+    },
+    {
+      "year": "2026",
+      "totalEur": 85890.8,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

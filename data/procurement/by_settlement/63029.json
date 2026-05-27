@@ -1,0 +1,44 @@
+{
+  "ekatte": "63029",
+  "name": "Росен",
+  "province": "Бургас",
+  "obshtina": "Созопол",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 95979.71,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000043884",
+      "name": "Основно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 95979.71,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "fd9b364e03a4",
+      "ocid": "ocds-e82gsb-506715",
+      "date": "2026-02-02",
+      "amount": 95979.71,
+      "currency": "EUR",
+      "amountEur": 95979.71,
+      "partyEik": "175415627",
+      "partyName": "Контракс АД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-506715-804982%2F2026-02-02-contractamendment"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 95979.71,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

@@ -38,6 +38,14 @@ export interface Contract {
   awarderEik: string;
   awarderName: string;
   awarderRegion?: string; // NUTS code (BG411, …) — populated when on the party
+  /** Awarder HQ locality (free text, e.g. "гр. София"). Captured from
+   *  parties[].address at normalization. Used by the EKATTE resolver in
+   *  the rollup builder — see scripts/procurement/resolve_ekatte.ts. */
+  awarderLocality?: string;
+  /** Awarder HQ postal code (4-digit BG). 100% populated in the 2026
+   *  bundles; primary key for the EKATTE resolver. */
+  awarderPostal?: string;
+  awarderStreet?: string;
 
   // Contractor side (supplier). EIK is 9-digit canonical; eikFull preserves
   // the 13-digit branch form when the upstream provided it.
@@ -163,10 +171,65 @@ export interface ContractorRollup {
   generatedAt: string;
 }
 
+/** Resolved geographic + tier metadata attached to each awarder rollup so
+ *  the per-settlement aggregator can group local-tier buyers by EKATTE and
+ *  separate central/national procurement into its own rollup.
+ *
+ *  Source: scripts/procurement/resolve_ekatte.ts (postal-primary →
+ *  name+province → name-only) and scripts/procurement/awarder_tier.ts
+ *  (heuristic-by-name + curated EIK overrides). See
+ *  [[project_procurement_geo]] for the methodology note. */
+export interface AwarderGeo {
+  ekatte: string;
+  /** Confidence band emitted by the resolver — strongest match wins. */
+  confidence:
+    | "postal+name+province"
+    | "postal+name"
+    | "postal_only"
+    | "name+province"
+    | "name_only";
+  /** Awarder tier — see scripts/procurement/awarder_tier.ts for the full
+   *  list. `isLocalHQ` is derived from the LOCAL_TIERS set so consumers
+   *  don't need to keep the membership rule in sync. */
+  tier:
+    | "municipal"
+    | "school"
+    | "hospital"
+    | "university"
+    | "forestry"
+    | "regional_gov"
+    | "utility"
+    | "central_ministry"
+    | "central_agency"
+    | "national_state_co"
+    | "other";
+  /** true when tier ∈ LOCAL_TIERS (municipality / school / hospital /
+   *  university / forestry / regional_gov / utility). Central/national
+   *  buyers procure nationwide from a Sofia HQ so their EKATTE is *not*
+   *  a meaningful proxy for where the contract was spent. */
+  isLocalHQ: boolean;
+}
+
+/** Snapshot of buyer.address as captured during normalization. Stored on
+ *  the rollup (not on each contract) since a buyer's HQ rarely changes
+ *  inside the lifetime of a procurement record. */
+export interface AwarderAddress {
+  locality?: string;
+  postal?: string;
+  street?: string;
+}
+
 export interface AwarderRollup {
   eik: string;
   name: string;
   region?: string;
+  /** Address fields captured from `parties[].address` at normalization time.
+   *  Sourced exclusively from OCDS bundles; awarders that haven't appeared
+   *  in a 2026+ bundle (legacy-CSV-only) have no address. */
+  address?: AwarderAddress;
+  /** Resolved EKATTE + tier. Absent when address is missing or the
+   *  resolver couldn't pick a single settlement. */
+  geo?: AwarderGeo;
   totalEur: number;
   totalOther: Record<string, number>;
   contractCount: number;
@@ -369,6 +432,74 @@ export interface AwarderConcentrationFile {
   minAwarderTotalEur: number;
   total: number;
   entries: AwarderConcentrationEntry[];
+}
+
+/** Per-settlement shard — data/procurement/by_settlement/{ekatte}.json.
+ *  Aggregates every awarder whose tier ∈ LOCAL_TIERS pinned to this
+ *  EKATTE. Central/national procurement is rolled up separately into
+ *  by_settlement/_national.json (the SPA renders a distinct card so the
+ *  user doesn't read a giant Sofia bubble as a Sofia outcome). */
+export interface SettlementProcurementFile {
+  ekatte: string;
+  name: string;
+  province: string;
+  obshtina: string;
+  generatedAt: string;
+  contractCount: number;
+  awardCount: number;
+  totalEur: number;
+  totalOther: Record<string, number>;
+  /** Local-tier awarders that resolve to this settlement, sorted by total
+   *  euro descending. */
+  awarders: Array<{
+    eik: string;
+    name: string;
+    tier: AwarderGeo["tier"];
+    totalEur: number;
+    totalOther: Record<string, number>;
+    contractCount: number;
+    awardCount: number;
+  }>;
+  /** Top contracts in this settlement (by amount, descending). Slim row;
+   *  full details live on /awarder/:eik and /contract/:id. */
+  topContracts: RollupContractRow[];
+  /** Annual totals across all awarders in this settlement. */
+  byYear: Array<{
+    year: string;
+    totalEur: number;
+    totalOther: Record<string, number>;
+    contractCount: number;
+  }>;
+}
+
+/** Landing-page index — data/procurement/by_settlement/index.json. Lists
+ *  every settlement with at least one local-tier contract, plus the
+ *  national rollup as a sibling card. Sortable, paginable on the SPA
+ *  without per-settlement fetches. */
+export interface SettlementProcurementIndex {
+  generatedAt: string;
+  totalEur: number;
+  totalContracts: number;
+  settlementCount: number;
+  /** Excluded-from-pinning rollup (central_ministry / central_agency /
+   *  national_state_co / other) so the landing page can show the share
+   *  of spending that doesn't have a meaningful geographic home. */
+  national: {
+    contractCount: number;
+    awardCount: number;
+    totalEur: number;
+    totalOther: Record<string, number>;
+    awarderCount: number;
+  };
+  settlements: Array<{
+    ekatte: string;
+    name: string;
+    province: string;
+    obshtina: string;
+    contractCount: number;
+    totalEur: number;
+    awarderCount: number;
+  }>;
 }
 
 // Sankey-shaped MP-tied flow. Only includes nodes/edges that participate in

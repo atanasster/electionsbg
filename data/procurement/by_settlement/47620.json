@@ -1,0 +1,44 @@
+{
+  "ekatte": "47620",
+  "name": "Медовец",
+  "province": "Варна",
+  "obshtina": "Дългопол",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 53576.3,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000082773",
+      "name": "Средно училище \"Назъм хикмет\"",
+      "tier": "school",
+      "totalEur": 53576.3,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "d95a4e6e620f",
+      "ocid": "ocds-e82gsb-561205",
+      "date": "2026-04-09",
+      "amount": 53576.3,
+      "currency": "EUR",
+      "amountEur": 53576.3,
+      "partyEik": "205374317",
+      "partyName": "Риформ корп ЕООД",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-561205-842449%2F2026-04-09-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 53576.3,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

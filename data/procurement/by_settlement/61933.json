@@ -1,0 +1,44 @@
+{
+  "ekatte": "61933",
+  "name": "Ракево",
+  "province": "Враца",
+  "obshtina": "Криводол",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 85755.75586835256,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000182706",
+      "name": "Основно училище \"Васил Левски",
+      "tier": "school",
+      "totalEur": 85755.75586835256,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "c7df30549a1e",
+      "ocid": "aop-legacy-2023-387040",
+      "date": "2023-06-14",
+      "amount": 167723.68,
+      "currency": "BGN",
+      "amountEur": 85755.75586835256,
+      "partyEik": "203769479",
+      "partyName": "ГАРАНТ-90-ЦОНЕВ и Сие ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2023",
+      "totalEur": 85755.75586835256,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

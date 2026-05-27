@@ -84,9 +84,13 @@ const run = async (): Promise<void> => {
       const url = `${BASE}${spec.route}`;
       console.log(`→ ${url}`);
       await page.goto(url, { waitUntil: "networkidle", timeout: 30_000 });
-      await page.waitForSelector(spec.waitFor, { timeout: 20_000 }).catch(() => {
-        console.log(`  ⚠ waitFor "${spec.waitFor}" didn't resolve — capturing anyway`);
-      });
+      await page
+        .waitForSelector(spec.waitFor, { timeout: 20_000 })
+        .catch(() => {
+          console.log(
+            `  ⚠ waitFor "${spec.waitFor}" didn't resolve — capturing anyway`,
+          );
+        });
       if (spec.settleMs) await page.waitForTimeout(spec.settleMs);
       if (spec.scrollTo) {
         await page.evaluate((sel) => {
@@ -96,7 +100,10 @@ const run = async (): Promise<void> => {
         await page.waitForTimeout(500);
       }
       const outPath = path.join(OG_DIR, spec.file);
-      await page.screenshot({ path: outPath, clip: { x: 0, y: 0, width: 1200, height: 630 } });
+      await page.screenshot({
+        path: outPath,
+        clip: { x: 0, y: 0, width: 1200, height: 630 },
+      });
       const stat = fs.statSync(outPath);
       console.log(`  ✓ ${spec.file} (${Math.round(stat.size / 1024)} KB)`);
     }

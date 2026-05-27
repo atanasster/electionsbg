@@ -1,0 +1,44 @@
+{
+  "ekatte": "62517",
+  "name": "Ресен",
+  "province": "Велико Търново",
+  "obshtina": "Велико Търново",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 26309,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "104028012",
+      "name": "Основно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 26309,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "407f6b7380ea",
+      "ocid": "ocds-e82gsb-559760",
+      "date": "2026-03-31",
+      "amount": 26309,
+      "currency": "EUR",
+      "amountEur": 26309,
+      "partyEik": "104518906",
+      "partyName": "Вали компютърс ООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-559760-837706%2F2026-03-31-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 26309,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

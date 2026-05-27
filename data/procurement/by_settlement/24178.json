@@ -1,0 +1,74 @@
+{
+  "ekatte": "24178",
+  "name": "Душево",
+  "province": "Габрово",
+  "obshtina": "Севлиево",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 3,
+  "awardCount": 0,
+  "totalEur": 82124.72111430953,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000209815",
+      "name": "Основно училище \"СВ.СВ. кирил и Методий\"",
+      "tier": "school",
+      "totalEur": 82124.72111430953,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "47cc65e79f14",
+      "ocid": "aop-legacy-2011-2015-543300",
+      "date": "2013-05-29",
+      "amount": 79776,
+      "currency": "BGN",
+      "amountEur": 40788.821114309525,
+      "partyEik": "817047610",
+      "partyName": "Херос ЕООД - Габрово",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "cba408880966",
+      "ocid": "ocds-e82gsb-559374",
+      "date": "2026-04-03",
+      "amount": 34765.9,
+      "currency": "EUR",
+      "amountEur": 34765.9,
+      "partyEik": "204957338",
+      "partyName": "Егоист дизайн ЕООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-559374-839924%2F2026-04-03-award"
+    },
+    {
+      "key": "1c782a784091",
+      "ocid": "ocds-e82gsb-551729",
+      "date": "2026-04-03",
+      "amount": 6570,
+      "currency": "EUR",
+      "amountEur": 6570,
+      "partyEik": "103836699",
+      "partyName": "Верига домино ЕООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-551729-839921%2F2026-04-03-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2013",
+      "totalEur": 40788.821114309525,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 41335.9,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

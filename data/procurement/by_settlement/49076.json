@@ -1,0 +1,74 @@
+{
+  "ekatte": "49076",
+  "name": "Горно Черковище",
+  "province": "Стара Загора",
+  "obshtina": "Казанлък",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 3,
+  "awardCount": 0,
+  "totalEur": 99230.8459465291,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000802623",
+      "name": "Основно училище \"Свети климент Охридски\"",
+      "tier": "school",
+      "totalEur": 99230.8459465291,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "0700f4349e2b",
+      "ocid": "aop-legacy-2023-410595",
+      "date": "2023-08-09",
+      "amount": 101016.91,
+      "currency": "BGN",
+      "amountEur": 51649.1259465291,
+      "partyEik": "123644560",
+      "partyName": "А.П.П. Инженеринг ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "d7bbcd53f7a5",
+      "ocid": "ocds-e82gsb-551076",
+      "date": "2026-02-19",
+      "amount": 38691.72,
+      "currency": "EUR",
+      "amountEur": 38691.72,
+      "partyEik": "202395053",
+      "partyName": "ЕВРОКЛАС-КОНСУЛТ ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-551076-813647%2F2026-02-19-award"
+    },
+    {
+      "key": "3143458c72a2",
+      "ocid": "ocds-e82gsb-551076",
+      "date": "2026-02-19",
+      "amount": 8890,
+      "currency": "EUR",
+      "amountEur": 8890,
+      "partyEik": "202395053",
+      "partyName": "ЕВРОКЛАС-КОНСУЛТ ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-551076-813647%2F2026-02-19-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2023",
+      "totalEur": 51649.1259465291,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 47581.72,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

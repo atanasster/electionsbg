@@ -1,0 +1,98 @@
+{
+  "ekatte": "69170",
+  "name": "Стефан Караджа",
+  "province": "Варна",
+  "obshtina": "Вълчи дол",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 4,
+  "awardCount": 0,
+  "totalEur": 154358.455003758,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000083423",
+      "name": "Професионална гимназия по земеделие и горско стопанство",
+      "tier": "school",
+      "totalEur": 154358.455003758,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "cf6aa619cca3",
+      "ocid": "aop-legacy-2023-389614",
+      "date": "2023-06-20",
+      "amount": 140000,
+      "currency": "BGN",
+      "amountEur": 71580.86336747059,
+      "partyEik": "124035416",
+      "partyName": "Екострой АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "bce9b1c3ec1b",
+      "ocid": "ocds-e82gsb-554089",
+      "date": "2026-02-27",
+      "amount": 32135,
+      "currency": "EUR",
+      "amountEur": 32135,
+      "partyEik": "124674154",
+      "partyName": "Компютърни технологии ООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-554089-817952%2F2026-02-27-award"
+    },
+    {
+      "key": "4fa3fac6ab3a",
+      "ocid": "aop-legacy-2011-2015-609215",
+      "date": "2014-06-18",
+      "amount": 60315.9,
+      "currency": "BGN",
+      "amountEur": 30839.029977042996,
+      "partyEik": "103672090",
+      "partyName": "Бултрейд - 2002 ООД - Варна",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "1b78c8b5caaa",
+      "ocid": "aop-legacy-2016-715174",
+      "date": "2016-02-22",
+      "amount": 38732.4,
+      "currency": "BGN",
+      "amountEur": 19803.561659244413,
+      "partyEik": "131245283",
+      "partyName": "Сакса ООД - Долна баня",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2014",
+      "totalEur": 30839.029977042996,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2016",
+      "totalEur": 19803.561659244413,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2023",
+      "totalEur": 71580.86336747059,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 32135,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

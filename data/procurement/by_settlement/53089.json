@@ -1,0 +1,62 @@
+{
+  "ekatte": "53089",
+  "name": "Обнова",
+  "province": "Плевен",
+  "obshtina": "Левски",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 162568.28166093168,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000402636",
+      "name": "Основно училище \"Неофит Рилски\"",
+      "tier": "school",
+      "totalEur": 162568.28166093168,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "703a082e7971",
+      "ocid": "aop-legacy-2022-307193",
+      "date": "2022-12-05",
+      "amount": 235309.92,
+      "currency": "BGN",
+      "amountEur": 120312.05166093168,
+      "partyEik": "130508678",
+      "partyName": "Епос груп ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "654c25f5c33b",
+      "ocid": "ocds-e82gsb-418333",
+      "date": "2026-03-25",
+      "amount": 42256.23,
+      "currency": "EUR",
+      "amountEur": 42256.23,
+      "partyEik": "131468980",
+      "partyName": "А1 България ЕАД",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-418333-831899%2F2026-03-25-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2022",
+      "totalEur": 120312.05166093168,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 42256.23,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

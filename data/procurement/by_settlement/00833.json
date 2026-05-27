@@ -1,0 +1,44 @@
+{
+  "ekatte": "00833",
+  "name": "Ахелой",
+  "province": "Бургас",
+  "obshtina": "Поморие",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 722388.21,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000043560",
+      "name": "Основно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 722388.21,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "dae7652dac50",
+      "ocid": "ocds-e82gsb-521736",
+      "date": "2026-01-15",
+      "amount": 722388.21,
+      "currency": "EUR",
+      "amountEur": 722388.21,
+      "partyEik": "200466053",
+      "partyName": "Инфра концепт ЕООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-521736-797690%2F2026-01-15-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 722388.21,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

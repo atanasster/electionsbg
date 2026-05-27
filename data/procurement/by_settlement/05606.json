@@ -1,0 +1,44 @@
+{
+  "ekatte": "05606",
+  "name": "Борово",
+  "province": "Благоевград",
+  "obshtina": "Гоце Делчев",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 35407.91,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000011413",
+      "name": "Основно училище \"Св. Климент Охридски\"",
+      "tier": "school",
+      "totalEur": 35407.91,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "9fbe463399d8",
+      "ocid": "ocds-e82gsb-534337",
+      "date": "2026-02-18",
+      "amount": 35407.91,
+      "currency": "EUR",
+      "amountEur": 35407.91,
+      "partyEik": "101661176",
+      "partyName": "ГАРАНТ-2004 ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-534337-812856%2F2026-02-18-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 35407.91,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

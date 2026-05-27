@@ -1,0 +1,803 @@
+{
+  "ekatte": "00702",
+  "name": "Асеновград",
+  "province": "Пловдив",
+  "obshtina": "Асеновград",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 925,
+  "awardCount": 0,
+  "totalEur": 198907472.3056529,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000471059",
+      "name": "Община Асеновград",
+      "tier": "municipal",
+      "totalEur": 190624771.04318833,
+      "totalOther": {},
+      "contractCount": 444,
+      "awardCount": 0
+    },
+    {
+      "eik": "115532654",
+      "name": "Многопрофилна болница за активно лечение - асеновград ЕООД",
+      "tier": "hospital",
+      "totalEur": 6673586.098552684,
+      "totalOther": {},
+      "contractCount": 328,
+      "awardCount": 0
+    },
+    {
+      "eik": "000459085",
+      "name": "Детска Градина \"Никола й. Вапцаров\" - гр. Асеновград",
+      "tier": "school",
+      "totalEur": 446479.15530501114,
+      "totalOther": {},
+      "contractCount": 23,
+      "awardCount": 0
+    },
+    {
+      "eik": "115022092",
+      "name": "Детска Градина \"Зорница\" - гр. Асеновград",
+      "tier": "school",
+      "totalEur": 322239.39939468156,
+      "totalOther": {},
+      "contractCount": 25,
+      "awardCount": 0
+    },
+    {
+      "eik": "115016253",
+      "name": "Професионална гимназия \"Цар иван асен втори\"",
+      "tier": "school",
+      "totalEur": 150357.70291896534,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000450848",
+      "name": "Детска Градина \"Асенова крепост\" - гр. Асеновград",
+      "tier": "school",
+      "totalEur": 132430.08799890583,
+      "totalOther": {},
+      "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "000452824",
+      "name": "Средно училище \"СВ.СВ. кирил и Методий\" - гр. Асеновград",
+      "tier": "school",
+      "totalEur": 113741.67233875132,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0
+    },
+    {
+      "eik": "825211746",
+      "name": "Детска Градина \"Надежда\" - гр. Асеновград",
+      "tier": "school",
+      "totalEur": 100946.61438366321,
+      "totalOther": {},
+      "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "000452863",
+      "name": "Основно училище \"Христо Ботев\" - гр. Асеновград",
+      "tier": "school",
+      "totalEur": 98278.94180240615,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "000450816",
+      "name": "Детска Градина \"Пролет\" - гр. Асеновград",
+      "tier": "school",
+      "totalEur": 92268.34808040576,
+      "totalOther": {},
+      "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "000451487",
+      "name": "Детска Градина \"Радост\" - кв. Долни воден",
+      "tier": "school",
+      "totalEur": 85980.79225229187,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0
+    },
+    {
+      "eik": "000451964",
+      "name": "Основно училище \"Ангел Кънчев\" - гр. Асеновград",
+      "tier": "school",
+      "totalEur": 66392.44943676086,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "6d3b7e6e0a40",
+      "ocid": "aop-legacy-2016-756742",
+      "date": "2016-11-08",
+      "amount": 37528364.57,
+      "currency": "BGN",
+      "amountEur": 19187948.119212814,
+      "partyEik": "176656741",
+      "partyName": "ДЗЗД Обединение Станимака 2013",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "a15440c288db",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-11-08",
+      "amount": 37528364.57,
+      "currency": "BGN",
+      "amountEur": 19187948.119212814,
+      "partyEik": "176656741",
+      "partyName": "ДЗЗД Обединение Станимака 2013",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "7197e71c8a79",
+      "ocid": "aop-legacy-2016-760712",
+      "date": "2016-12-02",
+      "amount": 31430400,
+      "currency": "BGN",
+      "amountEur": 16070108.342749625,
+      "partyEik": "176942002",
+      "partyName": "ДЗЗД  Асеновград 90",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "ffca55d7ef06",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-12-02",
+      "amount": 31430400,
+      "currency": "BGN",
+      "amountEur": 16070108.342749625,
+      "partyEik": "176942002",
+      "partyName": "ДЗЗД  Асеновград 90",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "97c7cdb96168",
+      "ocid": "aop-legacy-2016-759161",
+      "date": "2016-11-22",
+      "amount": 29579880,
+      "currency": "BGN",
+      "amountEur": 15123952.490758399,
+      "partyEik": "831040520",
+      "partyName": "Иса-2000 ЕООД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "e0fa5f418b37",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-11-22",
+      "amount": 29579880,
+      "currency": "BGN",
+      "amountEur": 15123952.490758399,
+      "partyEik": "831040520",
+      "partyName": "Иса-2000 ЕООД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "2d33986ffd47",
+      "ocid": "aop-legacy-2023-400686",
+      "date": "2023-07-19",
+      "amount": 17191733.2,
+      "currency": "BGN",
+      "amountEur": 8789993.608851485,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "a973222b4fa0",
+      "ocid": "aop-legacy-2022-307572",
+      "date": "2022-12-09",
+      "amount": 6760714.28,
+      "currency": "BGN",
+      "amountEur": 3456698.322451338,
+      "partyEik": "175410719",
+      "partyName": "Балканика енерджи АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "f353245ec629",
+      "ocid": "aop-legacy-2022-297811",
+      "date": "2022-11-10",
+      "amount": 6488296.52,
+      "currency": "BGN",
+      "amountEur": 3317413.3334696777,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "49a0a2fc3960",
+      "ocid": "aop-legacy-2011-2015-454815",
+      "date": "2011-10-26",
+      "amount": 5061047.54,
+      "currency": "BGN",
+      "amountEur": 2587672.517550094,
+      "partyEik": "836148005",
+      "partyName": "Монолит АД - Хасково",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "42f4ed3d35b8",
+      "ocid": "aop-legacy-2011-2015-621137",
+      "date": "2014-08-28",
+      "amount": 4957498.9,
+      "currency": "BGN",
+      "amountEur": 2534728.938609184,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД - старо наименование запрянови - 03 ЕООД - Асеновград",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "fdf3dfd907cf",
+      "ocid": "aop-legacy-2011-2015-448213",
+      "date": "2011-08-22",
+      "amount": 4655504.81,
+      "currency": "BGN",
+      "amountEur": 2380321.8122229436,
+      "partyEik": "200408908",
+      "partyName": "Интегрирани пътни системи АД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "2253cf4059f2",
+      "ocid": "aop-legacy-2023-445086",
+      "date": "2023-11-06",
+      "amount": 2997200,
+      "currency": "BGN",
+      "amountEur": 1532444.0263213061,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "701c9af2d46f",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-11-25",
+      "amount": 2616180,
+      "currency": "BGN",
+      "amountEur": 1337631.593747923,
+      "partyEik": "175462089",
+      "partyName": "ДЗЗД Обединение Трансеко/ състоящо се от Екоинженеринг ЕООД - Кърджали и Трансконсулт - Бг ООД/ - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "b0165c42c742",
+      "ocid": "aop-legacy-2016-759595",
+      "date": "2016-11-25",
+      "amount": 2616180,
+      "currency": "BGN",
+      "amountEur": 1337631.593747923,
+      "partyEik": "175462089",
+      "partyName": "ДЗЗД Обединение Трансеко/ състоящо се от Екоинженеринг ЕООД - Кърджали и Трансконсулт - Бг ООД/ - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "e748ec4ee904",
+      "ocid": "aop-legacy-2022-267781",
+      "date": "2022-08-25",
+      "amount": 2219305,
+      "currency": "BGN",
+      "amountEur": 1134712.6283981737,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "5603e0d262f3",
+      "ocid": "aop-legacy-2011-2015-548101",
+      "date": "2013-07-01",
+      "amount": 2150592.17,
+      "currency": "BGN",
+      "amountEur": 1099580.3162851576,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД - старо наименование запрянови - 03 ЕООД - Асеновград",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "6b37c75074f2",
+      "ocid": "aop-legacy-2011-2015-676212",
+      "date": "2015-07-07",
+      "amount": 2066398.8,
+      "currency": "BGN",
+      "amountEur": 1056532.9297536085,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД - старо наименование запрянови - 03 ЕООД - Асеновград",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "24864d4071a3",
+      "ocid": "aop-legacy-2016-761446",
+      "date": "2016-12-07",
+      "amount": 2035800,
+      "currency": "BGN",
+      "amountEur": 1040888.0117392616,
+      "partyEik": "176939337",
+      "partyName": "ДЗЗД Евроконсултинг",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "6e8263808768",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-12-07",
+      "amount": 2035800,
+      "currency": "BGN",
+      "amountEur": 1040888.0117392616,
+      "partyEik": "176939337",
+      "partyName": "ДЗЗД Евроконсултинг",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "7bfa0d8017a8",
+      "ocid": "aop-legacy-2011-2015-551521",
+      "date": "2013-07-22",
+      "amount": 1896220.87,
+      "currency": "BGN",
+      "amountEur": 969522.3357858302,
+      "partyEik": "176535266",
+      "partyName": "ДЗЗД Задгранично Псп- София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "08ee2905c215",
+      "ocid": "aop-legacy-2022-205765",
+      "date": "2022-03-15",
+      "amount": 1597236,
+      "currency": "BGN",
+      "amountEur": 816653.7991543233,
+      "partyEik": "115313800",
+      "partyName": "К м д ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "267861008f93",
+      "ocid": "aop-legacy-2011-2015-484788",
+      "date": "2012-05-30",
+      "amount": 1590401.54,
+      "currency": "BGN",
+      "amountEur": 813159.395243963,
+      "partyEik": "176248736",
+      "partyName": "ДЗЗД Консорциум Асенова крепост- София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "629fa1d8ec9e",
+      "ocid": "ocds-e82gsb-440098",
+      "date": "2026-02-10",
+      "amount": 791863.3,
+      "currency": "EUR",
+      "amountEur": 791863.3,
+      "partyEik": "206194222",
+      "partyName": "Елкомо ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-440098-808437%2F2026-02-10-contractamendment"
+    },
+    {
+      "key": "27c5880b06ab",
+      "ocid": "aop-legacy-2016-760566",
+      "date": "2016-12-01",
+      "amount": 1328400,
+      "currency": "BGN",
+      "amountEur": 679200.1349810567,
+      "partyEik": "176943385",
+      "partyName": "ДЗЗД Пловдивинвест 99",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "cf4557e4004f",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-12-01",
+      "amount": 1328400,
+      "currency": "BGN",
+      "amountEur": 679200.1349810567,
+      "partyEik": "176943385",
+      "partyName": "ДЗЗД Пловдивинвест 99",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "ab6e00473d17",
+      "ocid": "aop-legacy-2011-2015-624413",
+      "date": "2014-09-19",
+      "amount": 1220836.58,
+      "currency": "BGN",
+      "amountEur": 624203.8316213577,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД - старо наименование запрянови - 03 ЕООД - Асеновград",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "9e5efb20136c",
+      "ocid": "aop-legacy-2016-740085",
+      "date": "2016-07-12",
+      "amount": 1210802.26,
+      "currency": "BGN",
+      "amountEur": 619073.3652720329,
+      "partyEik": "115083405",
+      "partyName": "Бибов и Ко ООД - Пловдив",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "27f6c9992bd4",
+      "ocid": "aop-legacy-2011-2015-686975",
+      "date": "2015-09-11",
+      "amount": 1191118.2,
+      "currency": "BGN",
+      "amountEur": 609009.0652050535,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД - старо наименование запрянови - 03 ЕООД - Асеновград",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "56560be8c6c8",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-03-07",
+      "amount": 1161207,
+      "currency": "BGN",
+      "amountEur": 593715.7114882172,
+      "partyEik": "115313800",
+      "partyName": "Кмд ЕООД - Пловдив",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "e3449fceb50c",
+      "ocid": "aop-legacy-2019-899128",
+      "date": "2019-03-07",
+      "amount": 1161207,
+      "currency": "BGN",
+      "amountEur": 593715.7114882172,
+      "partyEik": "115313800",
+      "partyName": "Кмд ЕООД - Пловдив",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "8c5e68f31721",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-08-05",
+      "amount": 1158375.55,
+      "currency": "BGN",
+      "amountEur": 592268.0140912043,
+      "partyEik": "101626296",
+      "partyName": "Петканин ЕООД - с. Огняново",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "fd566ab62335",
+      "ocid": "aop-legacy-2016-743615",
+      "date": "2016-08-05",
+      "amount": 1158375.55,
+      "currency": "BGN",
+      "amountEur": 592268.0140912043,
+      "partyEik": "101626296",
+      "partyName": "Петканин ЕООД - с. Огняново",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "c460602ff32a",
+      "ocid": "aop-legacy-2022-301967",
+      "date": "2022-11-22",
+      "amount": 1155718.77,
+      "currency": "BGN",
+      "amountEur": 590909.6240470798,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "0be88cd2823b",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-07-07",
+      "amount": 1146364.62,
+      "currency": "BGN",
+      "amountEur": 586126.9230965882,
+      "partyEik": "176998136",
+      "partyName": "Консорциум Касс Груп",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "9bc2197b4ff7",
+      "ocid": "aop-legacy-2016-739552",
+      "date": "2016-07-07",
+      "amount": 1146364.62,
+      "currency": "BGN",
+      "amountEur": 586126.9230965882,
+      "partyEik": "176998136",
+      "partyName": "Консорциум Касс Груп",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "da76c55ea390",
+      "ocid": "aop-legacy-2016-739552",
+      "date": "2016-07-07",
+      "amount": 1131065.71,
+      "currency": "BGN",
+      "amountEur": 578304.7146224364,
+      "partyEik": "200285252",
+      "partyName": "Стройнорм ЕООД - гр.София - Стройнорм ООД (старо наименование)",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "45e3f1be564b",
+      "ocid": "aop-legacy-2016-740086",
+      "date": "2016-07-12",
+      "amount": 1115806.9,
+      "currency": "BGN",
+      "amountEur": 570503.0089527208,
+      "partyEik": "115757512",
+      "partyName": "Протектор Бг  ЕООД  - Пловдив",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "d07aae8f3cef",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-07-12",
+      "amount": 1115806.9,
+      "currency": "BGN",
+      "amountEur": 570503.0089527208,
+      "partyEik": "115757512",
+      "partyName": "Протектор Бг  ЕООД  - Пловдив",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "7f69b0016f7d",
+      "ocid": "aop-legacy-2011-2015-621106",
+      "date": "2014-08-28",
+      "amount": 1100218.66,
+      "currency": "BGN",
+      "amountEur": 562532.8683985827,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД - старо наименование запрянови - 03 ЕООД - Асеновград",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "320e4a42cacf",
+      "ocid": "aop-legacy-2019-899365",
+      "date": "2019-03-07",
+      "amount": 1087523.34,
+      "currency": "BGN",
+      "amountEur": 556041.8543533948,
+      "partyEik": "115083405",
+      "partyName": "Бибов и Ко ООД - Пловдив",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "eab3854a2780",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-03-07",
+      "amount": 1087523.34,
+      "currency": "BGN",
+      "amountEur": 556041.8543533948,
+      "partyEik": "115083405",
+      "partyName": "Бибов и Ко ООД - Пловдив",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "715dc3cb28b5",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-07-25",
+      "amount": 1067897.31,
+      "currency": "BGN",
+      "amountEur": 546007.2245542813,
+      "partyEik": "200603541",
+      "partyName": "Ер Енд Джи Инженеринг",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "74ee37d2f238",
+      "ocid": "aop-legacy-2016-741815",
+      "date": "2016-07-25",
+      "amount": 1067897.31,
+      "currency": "BGN",
+      "amountEur": 546007.2245542813,
+      "partyEik": "200603541",
+      "partyName": "Ер Енд Джи Инженеринг",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "00adfc8d09ba",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-01-03",
+      "amount": 1067512,
+      "currency": "BGN",
+      "amountEur": 545810.2186795376,
+      "partyEik": "200635701",
+      "partyName": "Райд - Раим Кюлджиев ЕООД, с.Тополово, Община Асеновград",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "5acfbaa43d5e",
+      "ocid": "aop-legacy-2017-765052",
+      "date": "2017-01-03",
+      "amount": 1067512,
+      "currency": "BGN",
+      "amountEur": 545810.2186795376,
+      "partyEik": "200635701",
+      "partyName": "Райд - Раим Кюлджиев ЕООД, с.Тополово, Община Асеновград",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "1687df55e716",
+      "ocid": "aop-legacy-2023-464670",
+      "date": "2023-12-26",
+      "amount": 1048600,
+      "currency": "BGN",
+      "amountEur": 536140.6666223548,
+      "partyEik": "131433890",
+      "partyName": "Евромаркет кънстракшън ЕАД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "530da55b295a",
+      "ocid": "aop-legacy-2019-899365",
+      "date": "2019-03-07",
+      "amount": 1048258.77,
+      "currency": "BGN",
+      "amountEur": 535966.1984937341,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД - старо наименование запрянови - 03 ЕООД - Асеновград",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "e85088ebdd9b",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-03-07",
+      "amount": 1048258.77,
+      "currency": "BGN",
+      "amountEur": 535966.1984937341,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД - старо наименование запрянови - 03 ЕООД - Асеновград",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "1deaeb7b288c",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-08-03",
+      "amount": 1046021.34,
+      "currency": "BGN",
+      "amountEur": 534822.2186999893,
+      "partyEik": "200346132",
+      "partyName": "Ксм Строй - ООД - с. Буково",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2011",
+      "totalEur": 6909816.098536172,
+      "totalOther": {},
+      "contractCount": 35
+    },
+    {
+      "year": "2012",
+      "totalEur": 3614695.101312486,
+      "totalOther": {},
+      "contractCount": 42
+    },
+    {
+      "year": "2013",
+      "totalEur": 3113049.4214732363,
+      "totalOther": {},
+      "contractCount": 20
+    },
+    {
+      "year": "2014",
+      "totalEur": 6414235.710670151,
+      "totalOther": {},
+      "contractCount": 44
+    },
+    {
+      "year": "2015",
+      "totalEur": 4065817.7806864604,
+      "totalOther": {},
+      "contractCount": 57
+    },
+    {
+      "year": "2016",
+      "totalEur": 124524378.55539592,
+      "totalOther": {},
+      "contractCount": 109
+    },
+    {
+      "year": "2017",
+      "totalEur": 7782739.512125287,
+      "totalOther": {},
+      "contractCount": 62
+    },
+    {
+      "year": "2019",
+      "totalEur": 7602775.128717734,
+      "totalOther": {},
+      "contractCount": 50
+    },
+    {
+      "year": "2020",
+      "totalEur": 191739.67573868894,
+      "totalOther": {},
+      "contractCount": 3
+    },
+    {
+      "year": "2021",
+      "totalEur": 111574.1654438269,
+      "totalOther": {},
+      "contractCount": 23
+    },
+    {
+      "year": "2022",
+      "totalEur": 15801121.37557968,
+      "totalOther": {},
+      "contractCount": 148
+    },
+    {
+      "year": "2023",
+      "totalEur": 16194001.809973259,
+      "totalOther": {},
+      "contractCount": 202
+    },
+    {
+      "year": "2026",
+      "totalEur": 2581527.97,
+      "totalOther": {},
+      "contractCount": 130
+    }
+  ]
+}

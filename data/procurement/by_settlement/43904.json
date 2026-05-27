@@ -1,0 +1,44 @@
+{
+  "ekatte": "43904",
+  "name": "Литаково",
+  "province": "София",
+  "obshtina": "Ботевград",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 59999.19,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "176117377",
+      "name": "Основно училище \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 59999.19,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "86e57749914e",
+      "ocid": "ocds-e82gsb-428109",
+      "date": "2026-02-11",
+      "amount": 59999.19,
+      "currency": "EUR",
+      "amountEur": 59999.19,
+      "partyEik": "131468980",
+      "partyName": "А1 България ЕАД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-428109-809460%2F2026-02-11-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 59999.19,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

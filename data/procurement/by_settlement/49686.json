@@ -1,0 +1,56 @@
+{
+  "ekatte": "49686",
+  "name": "Микрево",
+  "province": "Благоевград",
+  "obshtina": "Струмяни",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 65685.63,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000012745",
+      "name": "Средно училище \"Св. Паисий Хилендарски\"",
+      "tier": "school",
+      "totalEur": 65685.63,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "61fb5af76cdb",
+      "ocid": "ocds-e82gsb-511661",
+      "date": "2026-01-21",
+      "amount": 51113.85,
+      "currency": "EUR",
+      "amountEur": 51113.85,
+      "partyEik": "175342714",
+      "partyName": "Център за творческо обучение ООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-511661-800388%2F2026-01-21-award"
+    },
+    {
+      "key": "30eb3a7a1468",
+      "ocid": "ocds-e82gsb-511661",
+      "date": "2026-01-21",
+      "amount": 14571.78,
+      "currency": "EUR",
+      "amountEur": 14571.78,
+      "partyEik": "205658883",
+      "partyName": "от Марс ООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-511661-800328%2F2026-01-21-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 65685.63,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

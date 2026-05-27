@@ -1,0 +1,74 @@
+{
+  "ekatte": "37863",
+  "name": "Койнаре",
+  "province": "Плевен",
+  "obshtina": "Червен бряг",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 3,
+  "awardCount": 0,
+  "totalEur": 222761.65106374276,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000183152",
+      "name": "Средно училище \"Христо Смирненски",
+      "tier": "school",
+      "totalEur": 222761.65106374276,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "acc3e1463c80",
+      "ocid": "aop-legacy-2023-318964",
+      "date": "2023-01-09",
+      "amount": 209659.8,
+      "currency": "BGN",
+      "amountEur": 107197.35355322293,
+      "partyEik": "130508678",
+      "partyName": "Епос груп ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "344169d9e9c5",
+      "ocid": "aop-legacy-2017-789817",
+      "date": "2017-06-02",
+      "amount": 113012.06,
+      "currency": "BGN",
+      "amountEur": 57782.148755259914,
+      "partyEik": "020420353",
+      "partyName": "ЕТ Импорт-експорт 2000 - Величко Великов - Плевен",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "5fdc3213c69f",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-06-02",
+      "amount": 113012.06,
+      "currency": "BGN",
+      "amountEur": 57782.148755259914,
+      "partyEik": "020420353",
+      "partyName": "ЕТ Импорт-експорт 2000 - Величко Великов - Плевен",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2017",
+      "totalEur": 115564.29751051983,
+      "totalOther": {},
+      "contractCount": 2
+    },
+    {
+      "year": "2023",
+      "totalEur": 107197.35355322293,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

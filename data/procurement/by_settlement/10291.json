@@ -1,0 +1,44 @@
+{
+  "ekatte": "10291",
+  "name": "Ведраре",
+  "province": "Пловдив",
+  "obshtina": "Карлово",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 130891.62145994285,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000453958",
+      "name": "Основно училище \"Св. Св. Кирил и Методий\" - с. Ведраре",
+      "tier": "school",
+      "totalEur": 130891.62145994285,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "9b6f36b698d8",
+      "ocid": "aop-legacy-2022-304006",
+      "date": "2022-11-25",
+      "amount": 256001.76,
+      "currency": "BGN",
+      "amountEur": 130891.62145994285,
+      "partyEik": "205783036",
+      "partyName": "ГЛАВ-Проектинвест София ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2022",
+      "totalEur": 130891.62145994285,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

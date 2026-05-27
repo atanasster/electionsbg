@@ -1,0 +1,44 @@
+{
+  "ekatte": "62089",
+  "name": "Раковски",
+  "province": "Разград",
+  "obshtina": "Разград",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 82547.28,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000498818",
+      "name": "Основно училище \"Г. с. Раковски\"",
+      "tier": "school",
+      "totalEur": 82547.28,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "c3cc5592a209",
+      "ocid": "ocds-e82gsb-551844",
+      "date": "2026-03-10",
+      "amount": 82547.28,
+      "currency": "EUR",
+      "amountEur": 82547.28,
+      "partyEik": "206497380",
+      "partyName": "Супернова инженеринг ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-551844-821796%2F2026-03-10-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 82547.28,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

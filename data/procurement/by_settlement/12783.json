@@ -1,0 +1,44 @@
+{
+  "ekatte": "12783",
+  "name": "Върбовка",
+  "province": "Велико Търново",
+  "obshtina": "Павликени",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 146472.93,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000122666",
+      "name": "Основно училище \"Филип тотю\"",
+      "tier": "school",
+      "totalEur": 146472.93,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "00b89a45ed0b",
+      "ocid": "ocds-e82gsb-503662",
+      "date": "2026-01-09",
+      "amount": 146472.93,
+      "currency": "EUR",
+      "amountEur": 146472.93,
+      "partyEik": "207712543",
+      "partyName": "Георгиев инженеринг 15 ЕООД",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-503662-795111%2F2026-01-09-contractamendment"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 146472.93,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "ekatte": "53120",
+  "name": "Оброчище",
+  "province": "Добрич",
+  "obshtina": "Балчик",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 3,
+  "awardCount": 0,
+  "totalEur": 212788.9046538298,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000842315",
+      "name": "Средно училище \"Христо Смирненски\"",
+      "tier": "school",
+      "totalEur": 212788.9046538298,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "8b9ea62f08c0",
+      "ocid": "ocds-e82gsb-557646",
+      "date": "2026-03-27",
+      "amount": 147209,
+      "currency": "EUR",
+      "amountEur": 147209,
+      "partyEik": "205975093",
+      "partyName": "Строй - мал ЕООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-557646-833943%2F2026-03-27-award"
+    },
+    {
+      "key": "ea09a267b851",
+      "ocid": "ocds-e82gsb-434447",
+      "date": "2026-02-19",
+      "amount": 42571.77,
+      "currency": "EUR",
+      "amountEur": 42571.77,
+      "partyEik": "206780299",
+      "partyName": "РД Строй добрич ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-434447-813710%2F2026-02-19-contractamendment"
+    },
+    {
+      "key": "f7f30b0026cd",
+      "ocid": "aop-legacy-2011-2015-569635",
+      "date": "2013-11-13",
+      "amount": 45000,
+      "currency": "BGN",
+      "amountEur": 23008.13465382983,
+      "partyEik": "834025484",
+      "partyName": "Пътнически превози ЕООД - Добрич",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2013",
+      "totalEur": 23008.13465382983,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 189780.77,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

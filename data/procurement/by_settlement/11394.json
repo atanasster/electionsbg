@@ -1,0 +1,98 @@
+{
+  "ekatte": "11394",
+  "name": "Владая",
+  "province": "София (столица)",
+  "obshtina": "Столична",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 4,
+  "awardCount": 0,
+  "totalEur": 157908.36269000883,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "121571761",
+      "name": "Детска Градина 4 \"Слънчо\"",
+      "tier": "school",
+      "totalEur": 157908.36269000883,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "5fc014ae81f9",
+      "ocid": "ocds-e82gsb-576092",
+      "date": "2026-05-04",
+      "amount": 51100,
+      "currency": "EUR",
+      "amountEur": 51100,
+      "partyEik": "201031335",
+      "partyName": "МАКЕДОНИЯ-СНАБ ЕООД",
+      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
+      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-576092-851458%2F2026-05-04-award"
+    },
+    {
+      "key": "9dc539841275",
+      "ocid": "aop-legacy-2022-286382",
+      "date": "2022-10-15",
+      "amount": 69999,
+      "currency": "BGN",
+      "amountEur": 35789.920391854095,
+      "partyEik": "201031335",
+      "partyName": "МАКЕДОНИЯ-СНАБ ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "489718b3c50e",
+      "ocid": "aop-legacy-2023-446135",
+      "date": "2023-11-07",
+      "amount": 69900,
+      "currency": "BGN",
+      "amountEur": 35739.30249561567,
+      "partyEik": "201031335",
+      "partyName": "МАКЕДОНИЯ-СНАБ ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "22839d1ae1ec",
+      "ocid": "aop-legacy-2020-64163",
+      "date": "2020-10-01",
+      "amount": 69000,
+      "currency": "BGN",
+      "amountEur": 35279.13980253907,
+      "partyEik": "121272823",
+      "partyName": "ЕТ Македония - иван Даньовски",
+      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
+      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2020",
+      "totalEur": 35279.13980253907,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2022",
+      "totalEur": 35789.920391854095,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2023",
+      "totalEur": 35739.30249561567,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 51100,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

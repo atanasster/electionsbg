@@ -1,0 +1,44 @@
+{
+  "ekatte": "20835",
+  "name": "Джулюница",
+  "province": "Велико Търново",
+  "obshtina": "Лясковец",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 31577.89787455965,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000122730",
+      "name": "Основно училище - П.Р.Славейков, с. Джулюница, общ. Лясковец",
+      "tier": "school",
+      "totalEur": 31577.89787455965,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "ebf052499352",
+      "ocid": "aop-legacy-2011-2015-485127",
+      "date": "2012-06-01",
+      "amount": 61761,
+      "currency": "BGN",
+      "amountEur": 31577.89787455965,
+      "partyEik": "200833485",
+      "partyName": "Мичев - 2009 ООД - Лясковец",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2012",
+      "totalEur": 31577.89787455965,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

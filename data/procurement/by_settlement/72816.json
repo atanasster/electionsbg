@@ -1,0 +1,56 @@
+{
+  "ekatte": "72816",
+  "name": "Тополчане",
+  "province": "Сливен",
+  "obshtina": "Сливен",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 48670.89675483043,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000582262",
+      "name": "Основно училище \"СВ.ПАИСИЙ Хилендарски",
+      "tier": "school",
+      "totalEur": 48670.89675483043,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "bd2dab1d5478",
+      "ocid": "aop-legacy-2023-432474",
+      "date": "2023-10-04",
+      "amount": 72296,
+      "currency": "BGN",
+      "amountEur": 36964.357842961814,
+      "partyEik": "203997600",
+      "partyName": "ДОЙЧЕВ-МТВ ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "d3d972fcc42d",
+      "ocid": "aop-legacy-2023-434930",
+      "date": "2023-10-10",
+      "amount": 22896,
+      "currency": "BGN",
+      "amountEur": 11706.538911868618,
+      "partyEik": "119677914",
+      "partyName": "КЕЙ Енд ви ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2023",
+      "totalEur": 48670.89675483043,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "ekatte": "06197",
+  "name": "Братя Кунчеви",
+  "province": "Стара Загора",
+  "obshtina": "Стара Загора",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 31544,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000802598",
+      "name": "Основно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 31544,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "3b8d9c592119",
+      "ocid": "ocds-e82gsb-566652",
+      "date": "2026-04-15",
+      "amount": 24575,
+      "currency": "EUR",
+      "amountEur": 24575,
+      "partyEik": "104518906",
+      "partyName": "Вали компютърс ООД",
+      "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+      "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-566652-844101%2F2026-04-15-award"
+    },
+    {
+      "key": "fd34b80e863c",
+      "ocid": "ocds-e82gsb-575570",
+      "date": "2026-04-29",
+      "amount": 6969,
+      "currency": "EUR",
+      "amountEur": 6969,
+      "partyEik": "104518906",
+      "partyName": "Вали компютърс ООД",
+      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
+      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-575570-850359%2F2026-04-29-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 31544,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

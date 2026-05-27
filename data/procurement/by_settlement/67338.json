@@ -1,0 +1,992 @@
+{
+  "ekatte": "67338",
+  "name": "Сливен",
+  "province": "Сливен",
+  "obshtina": "Сливен",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1577,
+  "awardCount": 0,
+  "totalEur": 280392107.47220534,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000590654",
+      "name": "Община Сливен",
+      "tier": "municipal",
+      "totalEur": 200737391.93623132,
+      "totalOther": {},
+      "contractCount": 553,
+      "awardCount": 0
+    },
+    {
+      "eik": "829053806",
+      "name": "Водоснабдяване и канализация - сливен ООД",
+      "tier": "utility",
+      "totalEur": 34728005.212867126,
+      "totalOther": {},
+      "contractCount": 74,
+      "awardCount": 0
+    },
+    {
+      "eik": "119502733",
+      "name": "\"Многопрофилна болница за активно лечение д - р Иван Селимински - Сливен\" АД",
+      "tier": "hospital",
+      "totalEur": 22093373.2946958,
+      "totalOther": {},
+      "contractCount": 549,
+      "awardCount": 0
+    },
+    {
+      "eik": "119004654",
+      "name": "Топлофикация-Сливен-инж.Ангел Ангелов ЕАД",
+      "tier": "utility",
+      "totalEur": 13995726.994078014,
+      "totalOther": {},
+      "contractCount": 91,
+      "awardCount": 0
+    },
+    {
+      "eik": "000591101",
+      "name": "Регионална дирекция по горите - сливен",
+      "tier": "regional_gov",
+      "totalEur": 1225784.6336338026,
+      "totalOther": {},
+      "contractCount": 18,
+      "awardCount": 0
+    },
+    {
+      "eik": "129009913",
+      "name": "Областна дирекция на МВР (ОДМВР) - Сливен",
+      "tier": "regional_gov",
+      "totalEur": 1198051.7631900522,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "119607289",
+      "name": "Дирекция на природен парк \"Сините камъни\" - сливен",
+      "tier": "regional_gov",
+      "totalEur": 1158583.4014936371,
+      "totalOther": {},
+      "contractCount": 14,
+      "awardCount": 0
+    },
+    {
+      "eik": "119002144",
+      "name": "Център за спешна Медицинска помощ - сливен",
+      "tier": "hospital",
+      "totalEur": 913512.9229022972,
+      "totalOther": {},
+      "contractCount": 21,
+      "awardCount": 0
+    },
+    {
+      "eik": "829061285",
+      "name": "Начално училище \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 852834.86,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "000584637",
+      "name": "Основно училище Юрий ГАГАРИН-СЛИВЕН",
+      "tier": "school",
+      "totalEur": 428785.2460001125,
+      "totalOther": {},
+      "contractCount": 18,
+      "awardCount": 0
+    },
+    {
+      "eik": "000580578",
+      "name": "Детска Градина \"Теменуга\"",
+      "tier": "school",
+      "totalEur": 230684.23362526397,
+      "totalOther": {},
+      "contractCount": 17,
+      "awardCount": 0
+    },
+    {
+      "eik": "119006242",
+      "name": "Детска Градина \"Еделвайс\"",
+      "tier": "school",
+      "totalEur": 222745.07239151665,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0
+    },
+    {
+      "eik": "177292671",
+      "name": "Детска Градина \"Надежда\"",
+      "tier": "school",
+      "totalEur": 210945.73974404729,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "000581751",
+      "name": "Средно училище \"Пейо Крачолов Яворов\"",
+      "tier": "school",
+      "totalEur": 208975.07688889117,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0
+    },
+    {
+      "eik": "000580610",
+      "name": "Детска Градина \"Синчец\"",
+      "tier": "school",
+      "totalEur": 189300.60879759485,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0
+    },
+    {
+      "eik": "000580628",
+      "name": "Детска Градина \"Божур\"",
+      "tier": "school",
+      "totalEur": 189112.5517503055,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0
+    },
+    {
+      "eik": "000580514",
+      "name": "Детска Градина \"Мак\"",
+      "tier": "school",
+      "totalEur": 174872.91658001972,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0
+    },
+    {
+      "eik": "000584911",
+      "name": "Детска Градина \"Звездица\"",
+      "tier": "school",
+      "totalEur": 153206.05609112245,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0
+    },
+    {
+      "eik": "119077823",
+      "name": "Основно училище /ОУ/ - Братя Миладинови, гр. Сливен",
+      "tier": "school",
+      "totalEur": 149751.22070936637,
+      "totalOther": {},
+      "contractCount": 17,
+      "awardCount": 0
+    },
+    {
+      "eik": "000585696",
+      "name": "Детска Градина \"Зорница\"",
+      "tier": "school",
+      "totalEur": 135023.35501684708,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0
+    },
+    {
+      "eik": "000580592",
+      "name": "Детска Градина \"Вержин и хаик папазян\"",
+      "tier": "school",
+      "totalEur": 128478.2617503055,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "000584402",
+      "name": "Детска Градина \"Детство\"",
+      "tier": "school",
+      "totalEur": 124545.01331710833,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0
+    },
+    {
+      "eik": "000580546",
+      "name": "Основно училище \"Димитър Петров\"",
+      "tier": "school",
+      "totalEur": 114751.84,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0
+    },
+    {
+      "eik": "000584929",
+      "name": "Детска Градина \"Детски рай\"",
+      "tier": "school",
+      "totalEur": 112993.84915866921,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0
+    },
+    {
+      "eik": "000580521",
+      "name": "Детска Градина \"Калина\"",
+      "tier": "school",
+      "totalEur": 105509.34746961648,
+      "totalOther": {},
+      "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "000585382",
+      "name": "Детска Градина \"Елица\"",
+      "tier": "school",
+      "totalEur": 100597.83687999469,
+      "totalOther": {},
+      "contractCount": 10,
+      "awardCount": 0
+    },
+    {
+      "eik": "000582682",
+      "name": "Професионална гимназия по хотелиерство и туризъм \"Акад. Неделчо Неделчев\"",
+      "tier": "school",
+      "totalEur": 94132.89409099973,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000582643",
+      "name": "Професионална гимназия по механотехника /Пгм/ гр. Сливен",
+      "tier": "school",
+      "totalEur": 85087.9575423222,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    },
+    {
+      "eik": "000582675",
+      "name": "Професионална гимназия по текстил и облекло \"Добри Желязков\"",
+      "tier": "school",
+      "totalEur": 80518.94,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "000584772",
+      "name": "Детска Градина \"Здравец\"",
+      "tier": "school",
+      "totalEur": 80003.58445452826,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    },
+    {
+      "eik": "000584644",
+      "name": "Профилирана гимназия с преподаване на западни езици \"Захарий Стоянов\"",
+      "tier": "school",
+      "totalEur": 65143.84,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "829091269",
+      "name": "Средно училище \"Хаджи Мина Пашов\"",
+      "tier": "school",
+      "totalEur": 59058,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "119502758",
+      "name": "Диагностично - консултативен център 1 - сливен ЕООД",
+      "tier": "hospital",
+      "totalEur": 44619.010854726635,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "8de569867bdc",
+      "ocid": "aop-legacy-2011-2015-557230",
+      "date": "2013-08-27",
+      "amount": 47187249.68,
+      "currency": "BGN",
+      "amountEur": 24126457.65736286,
+      "partyEik": "176452728",
+      "partyName": "ДЗЗД П. Г. Хидро партньори",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "28ced2414500",
+      "ocid": "ocds-e82gsb-519016",
+      "date": "2026-03-02",
+      "amount": 13842703.1,
+      "currency": "EUR",
+      "amountEur": 13842703.1,
+      "partyEik": "128628656",
+      "partyName": "Сорт комерс ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-519016-817460%2F2026-03-02-award"
+    },
+    {
+      "key": "67245d207c8d",
+      "ocid": "aop-legacy-2011-2015-679490",
+      "date": "2015-07-28",
+      "amount": 20000000,
+      "currency": "BGN",
+      "amountEur": 10225837.623924369,
+      "partyEik": "175819840",
+      "partyName": "ДЗЗД Грийн партнърс - бкс, София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "d9b78762cead",
+      "ocid": "aop-legacy-2022-RL-1031439",
+      "date": "2022-03-14",
+      "amount": 16663874.47,
+      "currency": "BGN",
+      "amountEur": 8520103.725783939,
+      "partyEik": "180701726",
+      "partyName": "ДЗЗД Нс инженеринг асеновец",
+      "bundleUuid": "db3e39ba-37f9-44bf-847f-75f36acee513",
+      "sourceUrl": "https://data.egov.bg/data/view/db3e39ba-37f9-44bf-847f-75f36acee513"
+    },
+    {
+      "key": "308b1d09ef73",
+      "ocid": "aop-legacy-2011-2015-440905",
+      "date": "2011-06-10",
+      "amount": 12816534.21,
+      "currency": "BGN",
+      "amountEur": 6552989.88664659,
+      "partyEik": "201373381",
+      "partyName": "Билдинг- Монолит 2010 ООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "b22e22c9eac0",
+      "ocid": "aop-legacy-2011-2015-440990",
+      "date": "2011-06-10",
+      "amount": 12723031.91,
+      "currency": "BGN",
+      "amountEur": 6505182.919783417,
+      "partyEik": "119606803",
+      "partyName": "Гради ЕООД - Сливен",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "447542d2527c",
+      "ocid": "ocds-e82gsb-470327",
+      "date": "2026-01-19",
+      "amount": 6391148.52,
+      "currency": "EUR",
+      "amountEur": 6391148.52,
+      "partyEik": "203634531",
+      "partyName": "Юнайтед пропърти груп ЕООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-470327-798244%2F2026-01-19-award"
+    },
+    {
+      "key": "3e85cf95eec9",
+      "ocid": "aop-legacy-2011-2015-440987",
+      "date": "2011-06-10",
+      "amount": 11933086.99,
+      "currency": "BGN",
+      "amountEur": 6101290.4955952205,
+      "partyEik": "119606803",
+      "partyName": "Гради ЕООД - Сливен",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "4f0b3aa3e110",
+      "ocid": "aop-legacy-2022-202607",
+      "date": "2022-02-28",
+      "amount": 8786089.8,
+      "currency": "BGN",
+      "amountEur": 4492256.382200908,
+      "partyEik": "113580690",
+      "partyName": "Нивел строй ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "ce5c7bf49f7d",
+      "ocid": "ocds-e82gsb-410465",
+      "date": "2026-03-27",
+      "amount": 2752019.18,
+      "currency": "EUR",
+      "amountEur": 2752019.18,
+      "partyEik": "119547647",
+      "partyName": "Общинска охрана и СОТ-СЛИВЕН ЕООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-410465-832690%2F2026-03-27-contractamendment"
+    },
+    {
+      "key": "ed19e6c19245",
+      "ocid": "ocds-e82gsb-410465",
+      "date": "2026-03-12",
+      "amount": 2752019.18,
+      "currency": "EUR",
+      "amountEur": 2752019.18,
+      "partyEik": "119547647",
+      "partyName": "Общинска охрана и СОТ-СЛИВЕН ЕООД",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-410465-820816%2F2026-03-12-contractamendment"
+    },
+    {
+      "key": "415c5ad44a90",
+      "ocid": "aop-legacy-2011-2015-539897",
+      "date": "2013-05-07",
+      "amount": 4957203,
+      "currency": "BGN",
+      "amountEur": 2534577.6473415378,
+      "partyEik": "119547647",
+      "partyName": "Общинска охрана и Сот - Сливен ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "0d927e6bfe62",
+      "ocid": "aop-legacy-2011-2015-440854",
+      "date": "2011-06-10",
+      "amount": 4824072.34,
+      "currency": "BGN",
+      "amountEur": 2466509.0217452436,
+      "partyEik": "831769677",
+      "partyName": "Станилов ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "32f54bf3c94d",
+      "ocid": "aop-legacy-2011-2015-664911",
+      "date": "2015-05-04",
+      "amount": 4500000,
+      "currency": "BGN",
+      "amountEur": 2300813.465382983,
+      "partyEik": "176692100",
+      "partyName": "ДЗЗД Зелена среда Сливен - Сливен",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "cfd207d29bd3",
+      "ocid": "aop-legacy-2011-2015-446565",
+      "date": "2011-08-05",
+      "amount": 4081126.05,
+      "currency": "BGN",
+      "amountEur": 2086646.6155033924,
+      "partyEik": "121884560",
+      "partyName": "Търговска банка Д АД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "a4af86438175",
+      "ocid": "aop-legacy-2022-249431",
+      "date": "2022-07-08",
+      "amount": 4000000,
+      "currency": "BGN",
+      "amountEur": 2045167.524784874,
+      "partyEik": "113570147",
+      "partyName": "Електрохолд Трейд ЕАД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "f04e83606cdf",
+      "ocid": "aop-legacy-2011-2015-485993",
+      "date": "2012-06-07",
+      "amount": 4000000,
+      "currency": "BGN",
+      "amountEur": 2045167.524784874,
+      "partyEik": "201477145",
+      "partyName": "Петер якобсен -щрасен унд тиефбау ООД&Ко КД кчт",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "cc15434fd678",
+      "ocid": "ocds-e82gsb-258566",
+      "date": "2026-01-26",
+      "amount": 1971780.78,
+      "currency": "EUR",
+      "amountEur": 1971780.78,
+      "partyEik": "119677914",
+      "partyName": "КЕЙ Енд ви ООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-258566-800790%2F2026-01-26-contractamendment"
+    },
+    {
+      "key": "fc44342492c8",
+      "ocid": "aop-legacy-2023-332116",
+      "date": "2023-02-15",
+      "amount": 3856468,
+      "currency": "BGN",
+      "amountEur": 1971780.7784930184,
+      "partyEik": "119677914",
+      "partyName": "КЕЙ Енд ви ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "5117e8ee5e1b",
+      "ocid": "aop-legacy-2011-2015-509749",
+      "date": "2012-11-20",
+      "amount": 3815955.32,
+      "currency": "BGN",
+      "amountEur": 1951066.9741235177,
+      "partyEik": "119081953",
+      "partyName": "Водстрой 98 АД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "3be7625c444a",
+      "ocid": "aop-legacy-2011-2015-609529",
+      "date": "2014-06-19",
+      "amount": 3689948.41,
+      "currency": "BGN",
+      "amountEur": 1886640.6640658954,
+      "partyEik": "176691379",
+      "partyName": "ДЗЗД Сливен - Център",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "adeace5b93cc",
+      "ocid": "aop-legacy-2011-2015-531202",
+      "date": "2013-03-22",
+      "amount": 3620000.64,
+      "currency": "BGN",
+      "amountEur": 1850876.937157115,
+      "partyEik": "176448231",
+      "partyName": "ДЗЗД Реставрация Туида 2012, Разлог",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "fcbbd01ccec5",
+      "ocid": "aop-legacy-2023-422248",
+      "date": "2023-09-15",
+      "amount": 3600000,
+      "currency": "BGN",
+      "amountEur": 1840650.7723063866,
+      "partyEik": "113570147",
+      "partyName": "Електрохолд Трейд ЕАД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "60415498cdb4",
+      "ocid": "aop-legacy-2011-2015-451477",
+      "date": "2011-09-27",
+      "amount": 3419289.63,
+      "currency": "BGN",
+      "amountEur": 1748255.027277422,
+      "partyEik": "119606803",
+      "partyName": "Гради ЕООД - Сливен",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "4095d70a9e1b",
+      "ocid": "aop-legacy-2021-x",
+      "date": "2021-01-18",
+      "amount": 3294644.76,
+      "currency": "BGN",
+      "amountEur": 1684525.1172136636,
+      "partyEik": "177471813",
+      "partyName": "ДЗЗД Аква Пура",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "45fd1ebd4854",
+      "ocid": "aop-legacy-2021-1004916",
+      "date": "2021-01-18",
+      "amount": 3294644.76,
+      "currency": "BGN",
+      "amountEur": 1684525.1172136636,
+      "partyEik": "177471813",
+      "partyName": "ДЗЗД Аква Пура",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "8744af6c8e5d",
+      "ocid": "aop-legacy-2017-801344",
+      "date": "2017-08-21",
+      "amount": 3156825,
+      "currency": "BGN",
+      "amountEur": 1614058.9928572525,
+      "partyEik": "000065763",
+      "partyName": "СМА Минерал бургас вар  /старо наименование Бургас - Вар ЕООД - Бургас/",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "930e989580e5",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-08-21",
+      "amount": 3156825,
+      "currency": "BGN",
+      "amountEur": 1614058.9928572525,
+      "partyEik": "000065763",
+      "partyName": "СМА Минерал бургас вар  /старо наименование Бургас - Вар ЕООД - Бургас/",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "49f006b6d1a5",
+      "ocid": "aop-legacy-2011-2015-681502",
+      "date": "2015-08-07",
+      "amount": 3059768.63,
+      "currency": "BGN",
+      "amountEur": 1564434.8588578762,
+      "partyEik": "176452728",
+      "partyName": "ДЗЗД П. Г. Хидро партньори",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "7afc93997b8a",
+      "ocid": "ocds-e82gsb-535815",
+      "date": "2026-03-06",
+      "amount": 1473078.48,
+      "currency": "EUR",
+      "amountEur": 1473078.48,
+      "partyEik": "131085380",
+      "partyName": "Плъкси българия ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-535815-819171%2F2026-03-06-award"
+    },
+    {
+      "key": "b9d38860b920",
+      "ocid": "aop-legacy-2011-2015-560805",
+      "date": "2013-09-20",
+      "amount": 2756000,
+      "currency": "BGN",
+      "amountEur": 1409120.4245767782,
+      "partyEik": "176493283",
+      "partyName": "ДЗЗД Свеко-Строй - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "e180fa4c8369",
+      "ocid": "aop-legacy-2023-402800",
+      "date": "2023-07-20",
+      "amount": 2560263,
+      "currency": "BGN",
+      "amountEur": 1309041.685627074,
+      "partyEik": "119509973",
+      "partyName": "БИЛДИНГ-ТД ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "c7f3f60ce0cd",
+      "ocid": "ocds-e82gsb-535875",
+      "date": "2026-02-17",
+      "amount": 1252665.11,
+      "currency": "EUR",
+      "amountEur": 1252665.11,
+      "partyEik": "119648688",
+      "partyName": "ВИАДУКТ-АБ Бинкос ООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-535875-811396%2F2026-02-17-award"
+    },
+    {
+      "key": "cfb34b9a187e",
+      "ocid": "ocds-e82gsb-535875",
+      "date": "2026-02-17",
+      "amount": 1252665.11,
+      "currency": "EUR",
+      "amountEur": 1252665.11,
+      "partyEik": "119027514",
+      "partyName": "БЕРКО-90 - Берковски С-ИЕ СД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-535875-811396%2F2026-02-17-award"
+    },
+    {
+      "key": "776831657ea9",
+      "ocid": "aop-legacy-2017-814144",
+      "date": "2017-11-09",
+      "amount": 2322089.59,
+      "currency": "BGN",
+      "amountEur": 1187265.5547772555,
+      "partyEik": "177211192",
+      "partyName": "Обединение „Сливен Партнерс” ДЗЗД",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "d011586fe125",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-11-09",
+      "amount": 2322089.59,
+      "currency": "BGN",
+      "amountEur": 1187265.5547772555,
+      "partyEik": "177211192",
+      "partyName": "Обединение „Сливен Партнерс” ДЗЗД",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "58bbce7a3b63",
+      "ocid": "aop-legacy-2011-2015-688837",
+      "date": "2015-09-23",
+      "amount": 2110808.58,
+      "currency": "BGN",
+      "amountEur": 1079239.2897133187,
+      "partyEik": "102705120",
+      "partyName": "Аква Системс  АД - Бургас",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "ec131bd44231",
+      "ocid": "aop-legacy-2011-2015-451482",
+      "date": "2011-09-27",
+      "amount": 2041264.67,
+      "currency": "BGN",
+      "amountEur": 1043682.0531436781,
+      "partyEik": "119671911",
+      "partyName": "Гд Стройинвест - Сливен",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "8b78d5abec10",
+      "ocid": "aop-legacy-2011-2015-617790",
+      "date": "2014-08-04",
+      "amount": 2000000,
+      "currency": "BGN",
+      "amountEur": 1022583.762392437,
+      "partyEik": "176220594",
+      "partyName": "ДЗЗД Про Груп партнърс, Сливен",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "48e90d9577e9",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-05-16",
+      "amount": 1900800,
+      "currency": "BGN",
+      "amountEur": 971863.6077777721,
+      "partyEik": "000065763",
+      "partyName": "СМА Минерал бургас вар  /старо наименование Бургас - Вар ЕООД - Бургас/",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "5ebb40407722",
+      "ocid": "aop-legacy-2016-733630",
+      "date": "2016-05-16",
+      "amount": 1900800,
+      "currency": "BGN",
+      "amountEur": 971863.6077777721,
+      "partyEik": "000065763",
+      "partyName": "СМА Минерал бургас вар  /старо наименование Бургас - Вар ЕООД - Бургас/",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "366fc249f63f",
+      "ocid": "aop-legacy-2011-2015-451479",
+      "date": "2011-09-27",
+      "amount": 1814244.88,
+      "currency": "BGN",
+      "amountEur": 927608.6776458076,
+      "partyEik": "119671911",
+      "partyName": "Гд Стройинвест - Сливен",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "1fbf0a7674c4",
+      "ocid": "aop-legacy-2011-2015-619254",
+      "date": "2014-08-14",
+      "amount": 1793210.64,
+      "currency": "BGN",
+      "amountEur": 916854.0415066748,
+      "partyEik": "176733141",
+      "partyName": "ДЗЗД  Моби – Сливен - грСливен",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "5749cad86325",
+      "ocid": "aop-legacy-2016-731897",
+      "date": "2016-04-28",
+      "amount": 1760000,
+      "currency": "BGN",
+      "amountEur": 899873.7109053446,
+      "partyEik": "119004654",
+      "partyName": "Топлофикация - Сливен ЕАД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "b06dde4a9401",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-04-28",
+      "amount": 1760000,
+      "currency": "BGN",
+      "amountEur": 899873.7109053446,
+      "partyEik": "119004654",
+      "partyName": "Топлофикация - Сливен ЕАД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "3d6c20f2e332",
+      "ocid": "ocds-e82gsb-524201",
+      "date": "2026-03-02",
+      "amount": 878011.87,
+      "currency": "EUR",
+      "amountEur": 878011.87,
+      "partyEik": "107544354",
+      "partyName": "Стелит 1 ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-524201-817506%2F2026-03-02-award"
+    },
+    {
+      "key": "0e5346fe29af",
+      "ocid": "ocds-e82gsb-534392",
+      "date": "2026-02-05",
+      "amount": 852834.86,
+      "currency": "EUR",
+      "amountEur": 852834.86,
+      "partyEik": "829084716",
+      "partyName": "Монолит ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-534392-807241%2F2026-02-05-award"
+    },
+    {
+      "key": "66b6534779b1",
+      "ocid": "aop-legacy-2022-274576",
+      "date": "2022-09-14",
+      "amount": 1666666.67,
+      "currency": "BGN",
+      "amountEur": 852153.137031337,
+      "partyEik": "119648688",
+      "partyName": "ВИАДУКТ-АБ Бинкос ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "0ae549678a66",
+      "ocid": "aop-legacy-2022-191996",
+      "date": "2022-01-31",
+      "amount": 1650000,
+      "currency": "BGN",
+      "amountEur": 843631.6039737605,
+      "partyEik": "000065763",
+      "partyName": "СМА Минерал бургас вар ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "727f2c7f81bc",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-02-07",
+      "amount": 1585211.2,
+      "currency": "BGN",
+      "amountEur": 810505.6165413149,
+      "partyEik": "177336114",
+      "partyName": "ДЗЗД «Чавдар 2018» - Сливен",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2011",
+      "totalEur": 33349352.63289754,
+      "totalOther": {},
+      "contractCount": 61
+    },
+    {
+      "year": "2012",
+      "totalEur": 9456647.74545845,
+      "totalOther": {},
+      "contractCount": 76
+    },
+    {
+      "year": "2013",
+      "totalEur": 35116525.280827075,
+      "totalOther": {},
+      "contractCount": 66
+    },
+    {
+      "year": "2014",
+      "totalEur": 10148728.304607252,
+      "totalOther": {},
+      "contractCount": 58
+    },
+    {
+      "year": "2015",
+      "totalEur": 18796838.70786316,
+      "totalOther": {},
+      "contractCount": 49
+    },
+    {
+      "year": "2016",
+      "totalEur": 18885622.564333297,
+      "totalOther": {},
+      "contractCount": 90
+    },
+    {
+      "year": "2017",
+      "totalEur": 20172109.626092248,
+      "totalOther": {},
+      "contractCount": 114
+    },
+    {
+      "year": "2019",
+      "totalEur": 31199705.306698434,
+      "totalOther": {},
+      "contractCount": 179
+    },
+    {
+      "year": "2020",
+      "totalEur": 1230677.047596161,
+      "totalOther": {},
+      "contractCount": 24
+    },
+    {
+      "year": "2021",
+      "totalEur": 4385421.616398153,
+      "totalOther": {},
+      "contractCount": 17
+    },
+    {
+      "year": "2022",
+      "totalEur": 34618594.080262594,
+      "totalOther": {},
+      "contractCount": 371
+    },
+    {
+      "year": "2023",
+      "totalEur": 20146972.702126466,
+      "totalOther": {},
+      "contractCount": 294
+    },
+    {
+      "year": "2026",
+      "totalEur": 42884911.85704443,
+      "totalOther": {},
+      "contractCount": 178
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "ekatte": "30898",
+  "name": "Зимница",
+  "province": "Ямбол",
+  "obshtina": "Стралджа",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 3,
+  "awardCount": 0,
+  "totalEur": 65087.955841867646,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000961771",
+      "name": "Основно училище \"Свети свети кирил и Методий\"",
+      "tier": "school",
+      "totalEur": 65087.955841867646,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "cef86aa5c339",
+      "ocid": "ocds-e82gsb-559966",
+      "date": "2026-04-27",
+      "amount": 36134.28,
+      "currency": "EUR",
+      "amountEur": 36134.28,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
+      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-559966-849128%2F2026-04-27-award"
+    },
+    {
+      "key": "dbcaccb047c3",
+      "ocid": "aop-legacy-2011-2015-585148",
+      "date": "2014-02-11",
+      "amount": 35000,
+      "currency": "BGN",
+      "amountEur": 17895.215841867648,
+      "partyEik": "119677914",
+      "partyName": "Кей Енд Ви - ООД - Сливен",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "6e3bafa17a84",
+      "ocid": "ocds-e82gsb-536247",
+      "date": "2026-03-13",
+      "amount": 11058.46,
+      "currency": "EUR",
+      "amountEur": 11058.46,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-536247-824856%2F2026-03-13-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2014",
+      "totalEur": 17895.215841867648,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 47192.74,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

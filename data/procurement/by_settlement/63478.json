@@ -1,0 +1,44 @@
+{
+  "ekatte": "63478",
+  "name": "Русокастро",
+  "province": "Бургас",
+  "obshtina": "Камено",
+  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 159874.17,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000043667",
+      "name": "Основно училище \"Иван Вазов\"",
+      "tier": "school",
+      "totalEur": 159874.17,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "dd3b3a52187e",
+      "ocid": "ocds-e82gsb-540145",
+      "date": "2026-01-27",
+      "amount": 159874.17,
+      "currency": "EUR",
+      "amountEur": 159874.17,
+      "partyEik": "207775764",
+      "partyName": "Електромилениум строй груп ООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-540145-802578%2F2026-01-27-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 159874.17,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}
