@@ -120,8 +120,6 @@ export const SofiaMpsTile: FC<Props> = ({ parties }) => {
   const total = groups.reduce((s, g) => s + g.mps.length, 0);
   if (total === 0) return null;
 
-  const maxStack = Math.max(...groups.map((g) => g.mps.length));
-
   return (
     <StatCard
       label={
@@ -139,19 +137,32 @@ export const SofiaMpsTile: FC<Props> = ({ parties }) => {
       }
     >
       <div className="mt-2 overflow-x-auto">
-        <div
-          className="flex items-end justify-center gap-3 min-h-[160px] px-1"
-          style={{ minWidth: `${groups.length * 64}px` }}
-        >
+        <div className="flex flex-col items-stretch gap-2">
           {groups.map((g) => (
             <div
               key={g.partyNickName}
-              className="flex flex-col items-center gap-1.5 shrink-0"
+              className="flex flex-row items-center gap-2 shrink-0"
             >
-              <div className="flex flex-col items-center gap-1">
-                {Array.from({ length: maxStack - g.mps.length }).map((_, i) => (
-                  <div key={`s${i}`} className="h-9 w-9" aria-hidden />
-                ))}
+              {/* Label (party name + count) on the left */}
+              <div className="flex flex-col items-end justify-center w-24 text-right shrink-0 text-[10px] leading-tight">
+                <span
+                  className="text-muted-foreground truncate w-full"
+                  title={displayNameFor(g.partyNickName) ?? g.partyNickName}
+                >
+                  {displayNameFor(g.partyNickName) ?? g.partyNickName}
+                </span>
+                <span className="font-semibold tabular-nums text-sm leading-none">
+                  {g.mps.length}
+                </span>
+              </div>
+              {/* Party color bar (vertical) */}
+              <div
+                className="w-1 self-stretch rounded-full shrink-0"
+                style={{ backgroundColor: g.color }}
+                aria-hidden
+              />
+              {/* Avatars stack horizontally, left-aligned */}
+              <div className="flex flex-row items-center gap-1">
                 {g.mps.map((r) => {
                   const display = mpName(r.mp);
                   const tooltipContent = (
@@ -210,22 +221,6 @@ export const SofiaMpsTile: FC<Props> = ({ parties }) => {
                     </Link>
                   );
                 })}
-              </div>
-              <div
-                className="h-1 w-full rounded-full"
-                style={{ backgroundColor: g.color }}
-                aria-hidden
-              />
-              <div className="flex flex-col items-center text-[10px] leading-tight w-16 text-center">
-                <span className="font-semibold tabular-nums text-sm leading-none">
-                  {g.mps.length}
-                </span>
-                <span
-                  className="text-muted-foreground truncate w-full"
-                  title={displayNameFor(g.partyNickName) ?? g.partyNickName}
-                >
-                  {displayNameFor(g.partyNickName) ?? g.partyNickName}
-                </span>
               </div>
             </div>
           ))}
