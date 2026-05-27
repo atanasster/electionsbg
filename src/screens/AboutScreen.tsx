@@ -518,6 +518,10 @@ export const AboutScreen = () => {
                   href="https://obs.kyustendil.bg/Documents/DnevenRed/30/ДЗ 61-00-3216.pdf"
                   label={t("budget_capital_kyustendil_source")}
                 />
+                <SourceItem
+                  href="https://www.montana.bg/свали/бюджет/32"
+                  label={t("budget_capital_montana_source")}
+                />
               </ul>
             </DataGroup>
 

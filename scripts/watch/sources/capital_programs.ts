@@ -1,9 +1,9 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 25 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Each of the 26 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
 // Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin,
 // Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech,
-// Dupnitsa, Velingrad, Samokov, Karlovo, Kazanlak, Kyustendil) publishes an annual "Капиталова
+// Dupnitsa, Velingrad, Samokov, Karlovo, Kazanlak, Kyustendil, Montana) publishes an annual "Капиталова
 // програма" / "Поименен списък на обектите за капиталови разходи" on
 // its own website.
 // URLs are opaque and change every year (some include the date, some a
@@ -79,7 +79,8 @@ type Municipality =
   | "samokov"
   | "karlovo"
   | "kazanlak"
-  | "kyustendil";
+  | "kyustendil"
+  | "montana";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -198,6 +199,12 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // PDF then runs Gemini Vision OCR.
     kyustendil:
       "https://obs.kyustendil.bg/Documents/DnevenRed/30/ДЗ 61-00-3216.pdf",
+    // Монтана (MON29) — Montana-oblast capital, 24 settlements (1 town
+    // + 23 villages). Source is the 5-page scanned "Капиталова програма
+    // за 2025 г." on montana.bg/свали/бюджет/32. Parser uses page 5
+    // (consolidated 9-project summary) only — pages 1-4 are funding-
+    // source sub-appendices that would double-count.
+    montana: "https://www.montana.bg/свали/бюджет/32",
     // Vidin (VID09) 2025 — PLAN year. RAR contains an XLS (paragraph
     // aggregates) + scanned Resolution PDF whose annex only itemises
     // the ЦС (Targeted Subsidy) portion (2.89M BGN of the 7.47M plan).

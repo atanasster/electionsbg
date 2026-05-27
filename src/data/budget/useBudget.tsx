@@ -45,6 +45,7 @@ import type {
   KarlovoCapitalProgramFile,
   KazanlakCapitalProgramFile,
   KyustendilCapitalProgramFile,
+  MontanaCapitalProgramFile,
   VidinCapitalProgramFile,
   VatBreakdownFile,
 } from "./types";
@@ -628,6 +629,22 @@ export const useKarlovoCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<KarlovoCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/karlovo.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Монтана — Montana oblast capital (MON29, 24 settlements). Source is
+// the council's 5-page scanned "Капиталова програма за 2025 г." on
+// montana.bg — OCR via Gemini Vision. Parser uses page 5 (consolidated
+// summary) only; pages 1-4 are funding-source sub-appendices that
+// would double-count. 2025: 9 projects, ~€29.1M.
+export const useMontanaCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "montana", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<MontanaCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/montana.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

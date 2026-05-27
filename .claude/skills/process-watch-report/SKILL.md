@@ -93,7 +93,7 @@ If the user says "skip governments for this run", drop it from the plan without 
 
 ### Capital-programmes ingest (`capital_programs`)
 
-The 25 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech, Dupnitsa, Velingrad, Samokov, Karlovo, Kazanlak, Kyustendil) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
+The 26 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech, Dupnitsa, Velingrad, Samokov, Karlovo, Kazanlak, Kyustendil, Montana) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
 
 Each município has its own parser script:
 - **XLSX/XLS**: Sofia, Burgas, Ruse, Veliko Tarnovo (sheet "Pril15"), Pernik (post-euro EUR figures), Burgas 2022, Karlovo (sheet "2025" — `Обща сума за обекта` col is the per-line total, no OCR).
@@ -171,6 +171,11 @@ Output schema is shared under `data/budget/capital_programs/{year}/{muni}.json`.
    #   python3 -c "from pypdf import PdfReader, PdfWriter; r=PdfReader('IN'); w=PdfWriter(); [w.add_page(r.pages[i]) for i in range(29,40)]; open('OUT','wb').write(w.write)"
    tsx scripts/budget/capital_programs/kyustendil_ocr.ts --year <year>
    tsx scripts/budget/capital_programs/kyustendil.ts --year <year>
+   # Montana: 5-page scanned Konica Minolta "Капиталова програма" at
+   # /свали/бюджет/32. Parser uses page 5 only (consolidated summary;
+   # pages 1-4 are funding-source sub-appendices that would double-count):
+   tsx scripts/budget/capital_programs/montana_ocr.ts --year <year>
+   tsx scripts/budget/capital_programs/montana.ts --year <year>
    # Vidin: unar extract + textutil convert the .doc first, then:
    tsx scripts/budget/capital_programs/vidin.ts --year <year>
    ```

@@ -1473,6 +1473,50 @@ export interface KazanlakCapitalProgramFile {
   bySettlement: KazanlakCapitalSettlementRollup[];
 }
 
+// Монтана — single-município (MON29, EKATTE 48489) in Montana oblast.
+// 24 settlements (1 town + 23 villages). Source is the 5-page scanned
+// PDF "Капиталова програма за 2025 г." from montana.bg's budget portal.
+// Pages 1-4 contain per-function sub-appendices (Прил. 7а/7б/7в/7д —
+// funding-source breakdowns) that itemise the SAME projects shown on
+// page 5; we use page 5 only (the consolidated 9-project list). A
+// separate 3M театър ремонт line sits below the "ВСИЧКО" recap, so
+// the headline (€29.1M) is the full itemised total, not the ВСИЧКО
+// subtotal (~€27.6M). OCR via Gemini Vision.
+export interface MontanaCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface MontanaCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface MontanaCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: MontanaCapitalProject[];
+  bySettlement: MontanaCapitalSettlementRollup[];
+}
+
 // Кюстендил — single-município (KNL29, EKATTE 41112) in Kyustendil
 // oblast. 72 settlements (city + 71 villages — second-largest village
 // count in the fleet after Gabrovo's 134). Source is the council's
