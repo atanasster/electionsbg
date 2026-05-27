@@ -415,10 +415,16 @@ const main = async (args: {
   upload: boolean;
   dryRun: boolean;
   skipCanary: boolean;
+  rebuildIndex: boolean;
   seatedCount?: string;
   seatedTolerance?: string;
 }): Promise<void> => {
   fs.mkdirSync(VOTES_DIR, { recursive: true });
+
+  if (args.rebuildIndex) {
+    rebuildIndexFromDisk({ dryRun: args.dryRun, upload: args.upload });
+    return;
+  }
 
   // Snapshot the baseline file count BEFORE any ingest writes, so the
   // diff-cap check compares against pre-run state (not post-run).
@@ -694,6 +700,76 @@ const buildMpProfileByNs = (
   return out;
 };
 
+// Rebuild votes/index.json strictly from on-disk session files — no network
+// fetches, no session-file mutation. Use after a canonical-roster id-space
+// change (data/parliament/index.json) or a session backfill remap has rewritten
+// per-session mpNames/mpParty keys: the index's mpProfileByNs is otherwise
+// keyed by the *previous* id generation, so frontends that look up MP names
+// by id (loyalty ribbon, similarity browser) fall back to "MP #<id>".
+const rebuildIndexFromDisk = (opts: {
+  dryRun: boolean;
+  upload: boolean;
+}): void => {
+  if (!fs.existsSync(SESSIONS_DIR)) {
+    console.log("✗ sessions directory missing — nothing to rebuild");
+    return;
+  }
+  const existing = readIndex();
+  const files = fs
+    .readdirSync(SESSIONS_DIR)
+    .filter((f) => f.endsWith(".json"))
+    .sort();
+  const sessions: IndexFile["sessions"] = [];
+  for (const f of files) {
+    const full = path.join(SESSIONS_DIR, f);
+    let sf: SessionFile;
+    try {
+      sf = JSON.parse(fs.readFileSync(full, "utf8")) as SessionFile;
+    } catch {
+      continue;
+    }
+    sessions.push({
+      date: sf.date,
+      stenogramId: sf.stenogramId,
+      items: sf.sessions.length,
+      file: `sessions/${f}`,
+      ns: sf.ns ?? "",
+    });
+  }
+  sessions.sort((a, b) => a.date.localeCompare(b.date));
+  const idx: IndexFile = {
+    scrapedAt: new Date().toISOString(),
+    ns: sessions.length
+      ? deriveNsFromSession(sessions[sessions.length - 1].file)
+      : (existing?.ns ?? ""),
+    lastStenogramId: Math.max(
+      ...sessions.map((s) => s.stenogramId),
+      existing?.lastStenogramId ?? 0,
+    ),
+    lastDate: sessions.length
+      ? sessions[sessions.length - 1].date
+      : (existing?.lastDate ?? ""),
+    mpProfileByNs: buildMpProfileByNs(sessions),
+    sessions,
+  };
+  if (opts.dryRun) {
+    console.log(
+      `[DRY RUN] would rebuild ${INDEX_FILE} from ${sessions.length} session(s)`,
+    );
+    return;
+  }
+  writeIndex(idx);
+  console.log(
+    `✓ rebuilt ${INDEX_FILE} from ${sessions.length} on-disk session(s)`,
+  );
+  if (opts.upload) {
+    console.log(`→ uploading index.json to bucket`);
+    void uploadText(INDEX_FILE, "parliament/votes/index.json").then(() =>
+      console.log(`✓ uploaded`),
+    );
+  }
+};
+
 const cli = command({
   name: "scrape_rollcall",
   args: {
@@ -745,6 +821,13 @@ const cli = command({
         "Skip the canary regression check (only for ingesting the canary itself)",
       defaultValue: () => false,
     }),
+    rebuildIndex: flag({
+      type: optional(boolean),
+      long: "rebuild-index",
+      description:
+        "Rebuild votes/index.json strictly from on-disk session files (no network, no session mutation). Use after a canonical-roster id-space change.",
+      defaultValue: () => false,
+    }),
     seatedCount: option({
       type: optional(string),
       long: "seated-count",
@@ -766,6 +849,7 @@ const cli = command({
       upload: !!args.upload,
       dryRun: !!args.dryRun,
       skipCanary: !!args.skipCanary,
+      rebuildIndex: !!args.rebuildIndex,
       seatedCount: args.seatedCount,
       seatedTolerance: args.seatedTolerance,
     }),
