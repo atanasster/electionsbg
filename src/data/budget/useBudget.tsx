@@ -42,6 +42,7 @@ import type {
   PernikCapitalProgramFile,
   VarnaCapitalProgramFile,
   VelikoTarnovoCapitalProgramFile,
+  KarlovoCapitalProgramFile,
   VidinCapitalProgramFile,
   VatBreakdownFile,
 } from "./types";
@@ -610,6 +611,21 @@ export const useVelikoTarnovoCapitalProgram = (
     queryFn: () =>
       fetchJson<VelikoTarnovoCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/veliko_tarnovo.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Карлово — Plovdiv-oblast município (PDV13, 27 settlements). Source is
+// a clean XLSX (Приложение № 7 — план за финансиране на капиталови
+// разходи) on karlovo.bg — no OCR. 2025 plan covers 136 projects
+// totalling ~€15.0M.
+export const useKarlovoCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "karlovo", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<KarlovoCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/karlovo.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

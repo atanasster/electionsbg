@@ -1,9 +1,9 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 22 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Each of the 23 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
 // Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin,
 // Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech,
-// Dupnitsa, Velingrad, Samokov) publishes an annual "Капиталова
+// Dupnitsa, Velingrad, Samokov, Karlovo) publishes an annual "Капиталова
 // програма" / "Поименен списък на обектите за капиталови разходи" on
 // its own website.
 // URLs are opaque and change every year (some include the date, some a
@@ -76,7 +76,8 @@ type Municipality =
   | "lovech"
   | "dupnitsa"
   | "velingrad"
-  | "samokov";
+  | "samokov"
+  | "karlovo";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -171,6 +172,13 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // dedicated "Pril15" sheet (Инвестиционна програма). No OCR needed.
     veliko_tarnovo:
       "https://www.veliko-tarnovo.bg/uploads/posts/2025/2025_05_07_2025_04_30_572-2-prilozheniya1-22.xlsx",
+    // Карлово (PDV13) — Plovdiv-oblast município, 27 settlements
+    // (4 towns: Карлово, Калофер, Клисура, Баня + 23 villages). The
+    // capital file is served via karlovo.bg's service-download-file.php
+    // endpoint (Referer header required). XLSX with a "2025" sheet that
+    // is the standalone annual plan — no OCR needed.
+    karlovo:
+      "https://karlovo.bg/inc/service/service-download-file.php?identifier=6d56fbd5-f78b-4a49-a311-a0fff162c643",
     // Vidin (VID09) 2025 — PLAN year. RAR contains an XLS (paragraph
     // aggregates) + scanned Resolution PDF whose annex only itemises
     // the ЦС (Targeted Subsidy) portion (2.89M BGN of the 7.47M plan).

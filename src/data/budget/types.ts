@@ -1429,6 +1429,45 @@ export interface VelikoTarnovoCapitalProgramFile {
   bySettlement: VelikoTarnovoCapitalSettlementRollup[];
 }
 
+// Карлово — single-município (PDV13, EKATTE 36498) in Plovdiv oblast.
+// 27 settlements (4 towns: Карлово, Калофер, Клисура, Баня + 23 villages).
+// Source is a clean XLSX (Приложение № 7) on karlovo.bg served via the
+// site's service-download-file.php endpoint. The workbook's "2025" sheet
+// is the standalone annual plan; col "Обща сума за обекта" is the
+// per-line headline. 2025 plan is 29.34M BGN (~€15.0M) across 136 projects.
+export interface KarlovoCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface KarlovoCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface KarlovoCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: KarlovoCapitalProject[];
+  bySettlement: KarlovoCapitalSettlementRollup[];
+}
+
 // Shumen — single-município (SHU30, EKATTE 83510). Oblast capital with
 // 27 settlements (the city + 26 villages). Source is a 15-page
 // born-digital PDF on shumen.bg (Приложение №6 — ПЛАН ЗА ФИНАНСИРАНЕ

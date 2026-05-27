@@ -93,10 +93,10 @@ If the user says "skip governments for this run", drop it from the plan without 
 
 ### Capital-programmes ingest (`capital_programs`)
 
-The 22 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech, Dupnitsa, Velingrad, Samokov) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
+The 23 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech, Dupnitsa, Velingrad, Samokov, Karlovo) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
 
 Each município has its own parser script:
-- **XLSX/XLS**: Sofia, Burgas, Ruse, Veliko Tarnovo (sheet "Pril15"), Pernik (post-euro EUR figures), Burgas 2022.
+- **XLSX/XLS**: Sofia, Burgas, Ruse, Veliko Tarnovo (sheet "Pril15"), Pernik (post-euro EUR figures), Burgas 2022, Karlovo (sheet "2025" — `Обща сума за обекта` col is the per-line total, no OCR).
 - **Born-digital PDF**: Plovdiv, Stara Zagora (inside a ZIP), Asenovgrad, Shumen.
 - **Rasterized PDF needing Gemini Vision OCR**: Varna, Sliven.
 - **Born-digital PDF needing OCR after page-slicing** (fragmented layout): Pleven, Burgas 2024/2023.
@@ -155,6 +155,10 @@ Output schema is shared under `data/budget/capital_programs/{year}/{muni}.json`.
    # Samokov: Annex 5 PDF on samokov.bg, then OCR:
    tsx scripts/budget/capital_programs/samokov_ocr.ts --year <year>
    tsx scripts/budget/capital_programs/samokov.ts --year <year>
+   # Karlovo: Annex 7 XLSX on karlovo.bg (curl with Referer header), direct parse:
+   #   curl -H 'Referer: https://karlovo.bg/' -o raw_data/budget/capital_programs/karlovo-<year>.xlsx \
+   #     'https://karlovo.bg/inc/service/service-download-file.php?identifier=<UUID>'
+   tsx scripts/budget/capital_programs/karlovo.ts --year <year>
    # Vidin: unar extract + textutil convert the .doc first, then:
    tsx scripts/budget/capital_programs/vidin.ts --year <year>
    ```
