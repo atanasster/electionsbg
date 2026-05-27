@@ -113,6 +113,13 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // URL discovered via the Playwright harvest.ts tool (the shumen.bg
     // budget portal is JS-rendered).
     shumen: "https://www.shumen.bg/uploads/deinosti/budjet/25051314.pdf",
+    // Vidin (VID09) 2025 — PLAN year. RAR contains an XLS (paragraph
+    // aggregates) + scanned Resolution PDF whose annex only itemises
+    // the ЦС (Targeted Subsidy) portion (2.89M BGN of the 7.47M plan).
+    // OCR via vidin_ocr.ts; we DO NOT emit a 2025 vidin.json — see the
+    // long comment in scripts/budget/capital_programs/vidin.ts. Watcher
+    // tracks the article landing page (RAR URL is session-bound).
+    vidin: "https://vidin.bg/",
   },
   // Sofia historical back-years (2022-2024). The Sofia portal occasionally
   // re-uploads corrected versions of older files; tracking these means a

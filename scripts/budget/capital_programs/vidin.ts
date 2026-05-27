@@ -34,6 +34,20 @@
 //   2024 — not available on vidin.bg as of 2026-05-27 (the 2024 year-end
 //          quarterly report archive has not been uploaded). Skip until
 //          a future watcher probe surfaces it.
+//   2025 — PLAN year (no execution report yet). The "Бюджет 2025г -
+//          Първоначален план" RAR on vidin.bg contains Budget_2025_5504.xls
+//          (MINFIN B3 template, paragraph-level aggregates only: §5100
+//          ≈ 4.47M, §5200 ≈ 2.95M, §5300 ≈ 0.046M, total ≈ 7.47M BGN)
+//          and a scanned Council Resolution №94 PDF whose Приложение
+//          (pages 4-8) lists the per-project allocation — but ONLY for
+//          the ЦС (Целева Субсидия) portion (2.89M BGN, ~39% of total).
+//          OCR via vidin_ocr.ts captures those 38 projects. We DO NOT
+//          emit data/budget/capital_programs/2025/vidin.json because
+//          the scope is materially different from 2022/2023 execution
+//          (subsidy-only PLAN vs. full EXECUTION). Tile stays anchored
+//          to 2023. Artifacts in raw_data/budget/capital_programs/
+//          vidin-2025-{budget.xls,resolution.pdf,ocr.json} for future
+//          use if/when we add a plan-vs-execution year toggle.
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
