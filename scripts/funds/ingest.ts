@@ -222,22 +222,86 @@ const main = async (args: {
   }
   console.log(`→ wrote ${shards.length} beneficiary shard(s)`);
 
-  // 4b. Per-EIK files — one small JSON per beneficiary for O(1) single-company
-  // lookup on the /company/{EIK} page (so it does not pull a ~1.5 MB shard to
-  // read one row). Gitignored and uploaded to the bucket, same convention as
-  // the procurement per-contractor files.
+  // 4b. Per-EIK files — one small JSON per beneficiary EIK for O(1) lookup
+  // on the /company/{EIK} page (so it does not pull a ~1.5 MB shard to
+  // read one row). Gitignored and uploaded to the bucket, same convention
+  // as the procurement per-contractor files.
+  //
+  // ИСУН lists sub-units (райони, териториални поделения, клонове) as
+  // separate rows sharing the parent's EIK — e.g. EIK 000471504 has the
+  // main "Община Пловдив" row plus 6 separate районы rows. Aggregate by
+  // EIK first so the file carries the true per-EIK total. Without this,
+  // /company/{eik} reads only whichever sub-unit was written last and
+  // displays a fraction of the real funds amount.
   fs.rmSync(BENEFICIARIES_BY_EIK_DIR, { recursive: true, force: true });
   fs.mkdirSync(BENEFICIARIES_BY_EIK_DIR, { recursive: true });
-  let byEikCount = 0;
+  interface AggregatedByEik {
+    eik: string;
+    name: string;
+    orgType: string;
+    orgKind: string;
+    orgForm: string;
+    contractCount: number;
+    contractedEur: number;
+    paidEur: number;
+    subUnits: string[]; // distinct names that fold into this EIK
+  }
+  const aggByEik = new Map<string, AggregatedByEik>();
   for (const r of rows) {
     if (!r.eik) continue;
-    fs.writeFileSync(
-      path.join(BENEFICIARIES_BY_EIK_DIR, `${r.eik}.json`),
-      canonicalJson(r),
-    );
-    byEikCount += 1;
+    const prev = aggByEik.get(r.eik);
+    if (!prev) {
+      aggByEik.set(r.eik, {
+        eik: r.eik,
+        name: r.name,
+        orgType: r.orgType,
+        orgKind: r.orgKind,
+        orgForm: r.orgForm,
+        contractCount: r.contractCount,
+        contractedEur: r.contractedEur,
+        paidEur: r.paidEur,
+        subUnits: [r.name],
+      });
+      continue;
+    }
+    // Keep the row with the largest contracted value as the canonical
+    // header — that's the parent unit in the vast majority of cases.
+    if (r.contractedEur > prev.contractedEur) {
+      prev.name = r.name;
+      prev.orgType = r.orgType;
+      prev.orgKind = r.orgKind;
+      prev.orgForm = r.orgForm;
+    }
+    prev.contractCount += r.contractCount;
+    prev.contractedEur += r.contractedEur;
+    prev.paidEur += r.paidEur;
+    if (!prev.subUnits.includes(r.name)) prev.subUnits.push(r.name);
   }
-  console.log(`→ wrote ${byEikCount} per-EIK beneficiary file(s)`);
+  for (const agg of aggByEik.values()) {
+    // Drop subUnits when there's only the parent — keeps the canonical
+    // 1-unit file shape unchanged.
+    const out: AggregatedByEik | Omit<AggregatedByEik, "subUnits"> =
+      agg.subUnits.length > 1
+        ? agg
+        : (() => {
+            // strip subUnits field
+            const rest = { ...agg };
+            // @ts-expect-error: dynamic delete on widened type
+            delete rest.subUnits;
+            return rest;
+          })();
+    // Round amounts the same way the shards do — keeps the file diff-stable.
+    const final = {
+      ...out,
+      contractedEur: round2(agg.contractedEur),
+      paidEur: round2(agg.paidEur),
+    };
+    fs.writeFileSync(
+      path.join(BENEFICIARIES_BY_EIK_DIR, `${agg.eik}.json`),
+      canonicalJson(final),
+    );
+  }
+  console.log(`→ wrote ${aggByEik.size} per-EIK beneficiary file(s)`);
 
   // 5. Cross-reference beneficiaries against the MP-companies graph. Optional:
   // if companies-index.json is absent (fresh clone before /update-connections)

@@ -228,7 +228,12 @@ const cmd = command({
   },
 });
 
-run(cmd, process.argv.slice(2));
+// Only fire the CLI when invoked directly. Without this guard, every file
+// that imports `normalizeName` from here (e.g. scripts/funds/political_links.ts)
+// would inadvertently trigger the debarred scrape on import.
+const isMain =
+  fileURLToPath(import.meta.url) === path.resolve(process.argv[1] ?? "");
+if (isMain) run(cmd, process.argv.slice(2));
 
 // Exports for unit testing / reuse from the ingest CLI.
 export { normalizeName, parseBgDate, parsePage, mergeSnapshot };
