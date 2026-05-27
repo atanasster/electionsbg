@@ -18,6 +18,17 @@
 // Велико Търново obshtina = VTR04, EKATTE 10447 (the city). 89 settlements:
 // city + town Дебелец + town Килифарево + 86 villages.
 //
+// Year coverage:
+//   2024 — 162 projects, BGN 55.3M (~EUR 28.3M). Header row index = 4.
+//   2025 — 382 projects, BGN 92.2M (~EUR 47.1M). Header row index = 6.
+//   2023 and earlier — NOT on the current veliko-tarnovo.bg CMS. The
+//     site was rebuilt in 2024; older budget pages (byudzhet-2023/,
+//     etc.) all return 404. No Wayback snapshots. Skip until a future
+//     archive surfaces them.
+//
+// Because the header row index varies between years (2024 = 4, 2025 = 6),
+// the parser locates the "ВСИЧКО РАЗХОДИ" anchor row dynamically.
+//
 // Run: tsx scripts/budget/capital_programs/veliko_tarnovo.ts [--year 2025]
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -30,11 +41,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const SOURCE_URLS: Record<number, string> = {
+  2024: "https://www.veliko-tarnovo.bg/uploads/posts/2024/03_07_97-priloj_1-22.xlsx",
   2025: "https://www.veliko-tarnovo.bg/uploads/posts/2025/2025_05_07_2025_04_30_572-2-prilozheniya1-22.xlsx",
 };
 
-// "ВСИЧКО РАЗХОДИ" row (row index 7 in the 2025 file) — published recap.
+// "ВСИЧКО РАЗХОДИ" row in the source XLSX — published recap headline.
+// (The row index varies between years; we resolve it dynamically below.)
 const PUBLISHED_RECAPS: Record<number, number> = {
+  2024: 55_288_017,
   2025: 92_164_560,
 };
 
@@ -253,8 +267,27 @@ const main = () => {
     defval: "",
   }) as (string | number)[][];
 
+  // Locate the "ВСИЧКО РАЗХОДИ" recap row; project data starts immediately
+  // after it. The row index varies between years (2024 → row 5, 2025 → 7).
+  let dataStart = -1;
+  for (let i = 0; i < Math.min(20, aoa.length); i++) {
+    const c0 = String(aoa[i][0] || "").trim();
+    if (/^ВСИЧКО РАЗХОДИ/i.test(c0)) {
+      dataStart = i + 1;
+      break;
+    }
+  }
+  if (dataStart < 0) {
+    throw new Error(
+      `Could not locate "ВСИЧКО РАЗХОДИ" anchor row in Pril15 — first 10 first-cells: ${aoa
+        .slice(0, 10)
+        .map((r) => String(r[0] || "").trim())
+        .join(" | ")}`,
+    );
+  }
+
   const projects: VelikoTarnovoCapitalProject[] = [];
-  for (let i = 6; i < aoa.length; i++) {
+  for (let i = dataStart; i < aoa.length; i++) {
     const name = String(aoa[i][0] || "").trim();
     const totalRaw = Number(aoa[i][1] || 0);
     if (!name) continue;

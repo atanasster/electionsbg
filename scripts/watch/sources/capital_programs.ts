@@ -149,6 +149,10 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // path (burgas_ocr.ts → burgas_pdf.ts) extracts Прил. №3.
     burgas:
       "https://www.burgas.bg/uploads/posts/2024/3886aef5966458387457a988d50be8ea.pdf",
+    // Велико Търново 2024 — same XLSX shape as 2025 but with the header
+    // row at index 4 (vs 6 for 2025). 162 projects, ~28.3M EUR.
+    veliko_tarnovo:
+      "https://www.veliko-tarnovo.bg/uploads/posts/2024/03_07_97-priloj_1-22.xlsx",
   },
   2023: {
     sofia:
