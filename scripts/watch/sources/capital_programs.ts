@@ -1,7 +1,7 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 11 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
-// Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen) publishes an annual "Капиталова програма" /
+// Each of the 12 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin) publishes an annual "Капиталова програма" /
 // "Поименен списък на обектите за капиталови разходи" on its own website.
 // URLs are opaque and change every year (some include the date, some a
 // content hash), so the catalogue is hand-curated below — mirrors the
@@ -62,7 +62,8 @@ type Municipality =
   | "sliven"
   | "dobrich"
   | "asenovgrad"
-  | "shumen";
+  | "shumen"
+  | "vidin";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -147,6 +148,13 @@ export const CAPITAL_PROGRAM_URLS: Record<
     pleven: "https://www.pleven.bg/uploads/posts/byudzhet-2023.pdf",
     burgas:
       "https://www.burgas.bg/uploads/posts/2023/6fb48388025aacb5ea37b9ee33a36030.pdf",
+    // Vidin (VID09) — Tier-2 oblast capital, 34 settlements. The 2023
+    // capital-expenditure list ships as a .doc inside the year-end RAR
+    // published on vidin.bg; the operator fetches the RAR, extracts with
+    // `unar`, converts the .doc via `textutil`, then runs vidin.ts.
+    // Watcher tracks the article landing page (the RAR URL itself is
+    // session-bound and changes each year).
+    vidin: "https://vidin.bg/",
   },
   2022: {
     // 2022's budget itself adopted late (Aug 2023) due to political

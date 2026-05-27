@@ -32,6 +32,7 @@ import type {
   SofiaCapitalProgramFile,
   StaraZagoraCapitalProgramFile,
   VarnaCapitalProgramFile,
+  VidinCapitalProgramFile,
   VatBreakdownFile,
 } from "./types";
 
@@ -441,6 +442,22 @@ export const useSlivenCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<SlivenCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/sliven.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Vidin — Tier-2 oblast capital (VID09, 34 settlements). The
+// year-end "Отчет капиталови разходи" .doc is parsed directly by
+// vidin.ts (no OCR — born-text). 2023 ingest covers a 90%
+// settlement-tagged execution report, currently the only year on
+// disk; back-years exist on vidin.bg and could be added the same way.
+export const useVidinCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "vidin", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<VidinCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/vidin.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

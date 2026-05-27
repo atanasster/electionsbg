@@ -441,6 +441,10 @@ export const AboutScreen = () => {
                   href="https://www.shumen.bg/bg/byudzhet/2025"
                   label={t("budget_capital_shumen_source")}
                 />
+                <SourceItem
+                  href="https://vidin.bg/"
+                  label={t("budget_capital_vidin_source")}
+                />
               </ul>
             </DataGroup>
 

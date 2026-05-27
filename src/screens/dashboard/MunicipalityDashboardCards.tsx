@@ -32,6 +32,7 @@ import { SlivenCapitalProjectsTile } from "./SlivenCapitalProjectsTile";
 import { DobrichCapitalProjectsTile } from "./DobrichCapitalProjectsTile";
 import { AsenovgradCapitalProjectsTile } from "./AsenovgradCapitalProjectsTile";
 import { ShumenCapitalProjectsTile } from "./ShumenCapitalProjectsTile";
+import { VidinCapitalProjectsTile } from "./VidinCapitalProjectsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
@@ -160,6 +161,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           <DobrichCapitalProjectsTile obshtinaCode={municipalityCode} />
           <AsenovgradCapitalProjectsTile obshtinaCode={municipalityCode} />
           <ShumenCapitalProjectsTile obshtinaCode={municipalityCode} />
+          <VidinCapitalProjectsTile obshtinaCode={municipalityCode} />
         </DashboardSection>
 
         <DashboardSection

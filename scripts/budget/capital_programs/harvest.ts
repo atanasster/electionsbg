@@ -58,8 +58,7 @@ const CANDIDATES: Candidate[] = [
       "https://vidin.bg/wps/portal/vidin-municipality/administration/budget",
       "https://vidin.bg/wps/portal/vidin-municipality/administration/budget/finance-budget",
     ],
-    notes:
-      "IBM WebSphere Portal — content loads via JS; needs hydration",
+    notes: "IBM WebSphere Portal — content loads via JS; needs hydration",
   },
   {
     slug: "targovishte",

@@ -988,6 +988,46 @@ export interface StaraZagoraCapitalProgramFile {
   bySettlement: StaraZagoraCapitalSettlementRollup[];
 }
 
+// Vidin — single-município (VID09, EKATTE 10971). Oblast capital with
+// 34 settlements (city + town Дунавци + 32 villages). Source is the
+// year-end "Отчет капиталови разходи" .doc inside the council RAR
+// bundle on vidin.bg; parsed directly by vidin.ts via textutil →
+// regex (no OCR — the .doc is born-text). Achieves 90% per-village
+// localisation, highest in the fleet because Vidin's bullets always
+// tag the settlement explicitly.
+export interface VidinCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface VidinCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface VidinCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: VidinCapitalProject[];
+  bySettlement: VidinCapitalSettlementRollup[];
+}
+
 // Shumen — single-município (SHU30, EKATTE 83510). Oblast capital with
 // 27 settlements (the city + 26 villages). Source is a 15-page
 // born-digital PDF on shumen.bg (Приложение №6 — ПЛАН ЗА ФИНАНСИРАНЕ
