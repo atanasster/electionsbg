@@ -34,6 +34,7 @@ import type {
   GabrovoCapitalProgramFile,
   HaskovoCapitalProgramFile,
   KardzhaliCapitalProgramFile,
+  LovechCapitalProgramFile,
   YambolCapitalProgramFile,
   PernikCapitalProgramFile,
   VarnaCapitalProgramFile,
@@ -464,6 +465,22 @@ export const useVidinCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<VidinCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/vidin.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Ловеч — Oblast capital (LOV18, 35 settlements). Scanned PDF, capital
+// section on pages 36-42, OCR via Gemini Vision. Multi-column layout
+// where OCR sometimes mis-picks a column; publishedRecap is overridden
+// with the council's authoritative total and the tile uses it for the
+// headline. Per-village breakdown remains useful for relative rankings.
+export const useLovechCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "lovech", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<LovechCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/lovech.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

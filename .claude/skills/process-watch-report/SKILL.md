@@ -93,7 +93,7 @@ If the user says "skip governments for this run", drop it from the plan without 
 
 ### Capital-programmes ingest (`capital_programs`)
 
-The 18 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
+The 19 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
 
 Each município has its own parser script:
 - **XLSX/XLS**: Sofia, Burgas, Ruse, Veliko Tarnovo (sheet "Pril15"), Pernik (post-euro EUR figures), Burgas 2022.
@@ -138,6 +138,14 @@ Output schema is shared under `data/budget/capital_programs/{year}/{muni}.json`.
    # Kardzhali: same OCR pattern; URLs discovered via Google site:kardjali.bg:
    tsx scripts/budget/capital_programs/kardzhali_ocr.ts --year <year>
    tsx scripts/budget/capital_programs/kardzhali.ts --year <year>
+   # Lovech: scanned 77-page bundle; slice pages 36-42 with pypdf, then OCR:
+   # python3 -c "from pypdf import PdfReader, PdfWriter
+   # r = PdfReader('raw_data/budget/capital_programs/lovech-<year>.pdf')
+   # w = PdfWriter()
+   # for i in range(35, 42): w.add_page(r.pages[i])
+   # open('raw_data/budget/capital_programs/lovech-<year>-capital-pages.pdf','wb').write(w)"
+   tsx scripts/budget/capital_programs/lovech_ocr.ts --year <year>
+   tsx scripts/budget/capital_programs/lovech.ts --year <year>
    # Vidin: unar extract + textutil convert the .doc first, then:
    tsx scripts/budget/capital_programs/vidin.ts --year <year>
    ```

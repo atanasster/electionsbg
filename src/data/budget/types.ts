@@ -1028,6 +1028,52 @@ export interface VidinCapitalProgramFile {
   bySettlement: VidinCapitalSettlementRollup[];
 }
 
+// Ловеч — single-município (LOV18, EKATTE 43952). Oblast capital
+// with 35 settlements (city + 34 villages). Source is the council's
+// "Бюджет и капиталови разходи" — a 77-page scanned Konica Minolta
+// PDF combining the resolution text + budget + capital. The capital
+// project list sits on pages 36-42 (landscape multi-column funding-
+// source breakdown). The operator slices those pages with pypdf and
+// runs Gemini Vision OCR. The OCR sometimes mis-picks a multi-year
+// column instead of the annual planned amount, so the published
+// council total (49,781,917 BGN for 2025) is overridden via the
+// parser's PUBLISHED_RECAPS map and the tile uses publishedRecap as
+// its headline rather than the itemised sum.
+export interface LovechCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface LovechCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface LovechCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: LovechCapitalProject[];
+  bySettlement: LovechCapitalSettlementRollup[];
+}
+
 // Кърджали — single-município (KRZ16, EKATTE 40909). Oblast capital
 // with 118 settlements (city + 117 villages). Source PDF discovered
 // via Google site:kardjali.bg search; born-digital text-extractable

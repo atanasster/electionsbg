@@ -473,6 +473,10 @@ export const AboutScreen = () => {
                   href="https://kardjali.bg/"
                   label={t("budget_capital_kardzhali_source")}
                 />
+                <SourceItem
+                  href="https://www.lovech.bg/bg/byudzhet"
+                  label={t("budget_capital_lovech_source")}
+                />
               </ul>
             </DataGroup>
 

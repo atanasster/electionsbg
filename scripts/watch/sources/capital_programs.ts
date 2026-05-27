@@ -1,10 +1,10 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 18 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Each of the 19 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
 // Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin,
-// Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali) publishes
-// an annual "Капиталова програма" / "Поименен списък на обектите за
-// капиталови разходи" on its own website.
+// Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech)
+// publishes an annual "Капиталова програма" / "Поименен списък на
+// обектите за капиталови разходи" on its own website.
 // URLs are opaque and change every year (some include the date, some a
 // content hash), so the catalogue is hand-curated below — mirrors the
 // SOURCE_URLS map in each município's parser under
@@ -71,7 +71,8 @@ type Municipality =
   | "haskovo"
   | "gabrovo"
   | "yambol"
-  | "kardzhali";
+  | "kardzhali"
+  | "lovech";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -140,6 +141,12 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // discovered via Google site:kardjali.bg search; this is the
     // April 2025 project version (not yet actualised). OCR via Gemini.
     kardzhali: "https://kardjali.bg/news_docs/news_docs_20250417-022937.pdf",
+    // Ловеч (LOV18) — 35 settlements. Scanned 77-page council bundle;
+    // operator slices pages 36-42 (capital section) before OCR.
+    // Published recap (49,781,917 BGN) is overridden in the parser
+    // because OCR can mis-pick a multi-year column.
+    lovech:
+      "https://www.lovech.bg/uploads/posts/2025/byudzhet-i-kapitalovi-razhodi-na-obshtina-lovech-za-2025-g.pdf",
     // Велико Търново (VTR04) — Tier-2 oblast capital, 89 settlements.
     // The 22-appendix master XLSX is a clean structured file with a
     // dedicated "Pril15" sheet (Инвестиционна програма). No OCR needed.
