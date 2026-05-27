@@ -13,6 +13,13 @@
 import fs from "fs";
 import path from "path";
 import { normaliseOrgName } from "../lib/normalize_name";
+import {
+  buildSettlementIndex,
+  resolveOffice,
+  type OfficeMatchQuality,
+  type PostcodeIndex,
+  type Settlement,
+} from "./parse_registered_office";
 import type {
   MpDeclaration,
   MpOwnershipStake,
@@ -55,6 +62,17 @@ export type CompanyIndexEntry = {
   slug: string;
   displayName: string; // canonical (most-frequent) raw form
   registeredOffices: string[]; // distinct values across stakes
+  /** EKATTE code(s) resolved from `registeredOffices` via the BG Post
+   * postcode table + settlements name index. Usually one entry; a second is
+   * emitted only when a company has independently declared offices in
+   * different settlements across years. Sofia city collapses to the
+   * synthetic EKATTE 68134 (no rayon split). Filled in by
+   * `enrichWithEkatteHQ()`. */
+  ekatteHQ?: string[];
+  /** Best (highest-confidence) match quality across the entry's resolved
+   * offices. "foreign" or "unresolved" companies still appear in the index
+   * but won't be linked from any settlement page. */
+  hqMatchQuality?: OfficeMatchQuality;
   stakes: CompanyIndexEntryStake[];
   /** TR-only relationships (no declared stake). Populated for every entry
    * by the post-graph extension so MPs whose link to this company is purely
@@ -154,6 +172,68 @@ export type BuildCompanyIndexArgs = {
   stringify: (o: object) => string;
 };
 
+/** Quality ranking used to pick the best office match per company. */
+const QUALITY_RANK: Record<OfficeMatchQuality, number> = {
+  high: 4,
+  medium: 3,
+  low: 2,
+  foreign: 1,
+  unresolved: 0,
+};
+
+/** Enrich each entry with ekatteHQ + hqMatchQuality, mutating in place.
+ *
+ * For multi-office companies the highest-quality match wins for the
+ * `hqMatchQuality` field; `ekatteHQ` collects the union of all resolved
+ * EKATTEs across offices (deduplicated, ordered by declaration recency).
+ * Silently no-ops if reference data is missing — keeps the older pipeline
+ * runnable on a fresh checkout that hasn't fetched the postcode table yet. */
+export const enrichWithEkatteHQ = (
+  companies: CompanyIndexEntry[],
+): { matched: number; total: number } => {
+  const settlementsPath = path.join(process.cwd(), "data", "settlements.json");
+  const postcodePath = path.join(process.cwd(), "data", "postcode_ekatte.json");
+  if (!fs.existsSync(settlementsPath)) {
+    console.warn(
+      `[declarations] settlements.json missing — skipping HQ enrichment`,
+    );
+    return { matched: 0, total: companies.length };
+  }
+  const settlements: Settlement[] = JSON.parse(
+    fs.readFileSync(settlementsPath, "utf-8"),
+  );
+  const idx = buildSettlementIndex(settlements);
+  const pc: PostcodeIndex = fs.existsSync(postcodePath)
+    ? (
+        JSON.parse(fs.readFileSync(postcodePath, "utf-8")) as {
+          byPostcode: PostcodeIndex;
+        }
+      ).byPostcode
+    : {};
+  if (Object.keys(pc).length === 0) {
+    console.warn(
+      `[declarations] postcode_ekatte.json missing/empty — village ambiguities will fall back to first match`,
+    );
+  }
+
+  let matched = 0;
+  for (const c of companies) {
+    const ekattes = new Set<string>();
+    let best: OfficeMatchQuality = "unresolved";
+    for (const office of c.registeredOffices) {
+      const m = resolveOffice(office, idx, pc);
+      if (QUALITY_RANK[m.quality] > QUALITY_RANK[best]) best = m.quality;
+      if (m.ekatte) ekattes.add(m.ekatte);
+    }
+    if (ekattes.size > 0) {
+      c.ekatteHQ = Array.from(ekattes);
+      matched++;
+    }
+    c.hqMatchQuality = best;
+  }
+  return { matched, total: companies.length };
+};
+
 export const buildCompanyIndex = ({
   publicFolder,
   stringify,
@@ -241,6 +321,12 @@ export const buildCompanyIndex = ({
       `[declarations] dropped ${droppedPlaceholder} placeholder stake(s) with no resolvable company name`,
     );
   }
+
+  const { matched, total } = enrichWithEkatteHQ(companies);
+  console.log(
+    `[declarations] resolved HQ → EKATTE for ${matched}/${total} companies`,
+  );
+
   companies.sort((a, b) =>
     a.displayName.localeCompare(b.displayName, "bg", { sensitivity: "base" }),
   );

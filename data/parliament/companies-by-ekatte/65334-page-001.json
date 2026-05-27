@@ -1,0 +1,40 @@
+{
+  "ekatte": "65334",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "ГАБИАННА-ТРАНС",
+      "displayName": "Габианна транс",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Сандански, 2800",
+      "mps": [
+        {
+          "mpId": 3796,
+          "mpName": "Николай Георгиев Ангов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3796,
+          "mpName": "Николай Георгиев Ангов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Търговски-център-Сандански",
+      "displayName": "Търговски център Сандански",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Сандански, 2800",
+      "mps": [
+        {
+          "mpId": 1618,
+          "mpName": "Митко Живков Захов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

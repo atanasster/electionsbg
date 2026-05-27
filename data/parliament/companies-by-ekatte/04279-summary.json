@@ -1,0 +1,103 @@
+{
+  "ekatte": "04279",
+  "count": 9,
+  "mpCount": 5,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Бельово-ООД",
+      "displayName": "Бельово ООД",
+      "registeredOffice": "Благоевград",
+      "mps": [
+        {
+          "mpId": 3845,
+          "mpName": "Владимир Славев Табутов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3845,
+          "mpName": "Владимир Славев Табутов",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3845,
+          "mpName": "Владимир Славев Табутов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИНВЕСТСТРОЙ-2021",
+      "displayName": "Инвестстрой 2021",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Благоевград, 2700",
+      "mps": [
+        {
+          "mpId": 5296,
+          "mpName": "Рашко Георгиев Динков",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5296,
+          "mpName": "Рашко Георгиев Динков",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Георгиев-0777",
+      "displayName": "Георгиев 0777",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Благоевград, 2700",
+      "mps": [
+        {
+          "mpId": 5101,
+          "mpName": "Георги Николаев Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5101,
+          "mpName": "Георги Николаев Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СЕНТРЪЛ-ВЮ-ПРОПЪРТИС",
+      "displayName": "Сентръл вю пропъртис",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Благоевград, 2700",
+      "mps": [
+        {
+          "mpId": 5296,
+          "mpName": "Рашко Георгиев Динков",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5296,
+          "mpName": "Рашко Георгиев Динков",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЛАВС",
+      "displayName": "Лавс",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Благоевград, 2700",
+      "mps": [
+        {
+          "mpId": 3845,
+          "mpName": "Владимир Славев Табутов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

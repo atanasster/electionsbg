@@ -1,0 +1,40 @@
+{
+  "ekatte": "43952",
+  "count": 2,
+  "mpCount": 2,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ММ-ПЕТРОВИ",
+      "displayName": "ММ Петрови",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Ловеч, 5500",
+      "mps": [
+        {
+          "mpId": 2614,
+          "mpName": "Петър Костадинов Петров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2614,
+          "mpName": "Петър Костадинов Петров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Расташки-Консулт-ООД",
+      "displayName": "Расташки Консулт ООД",
+      "registeredOffice": "Ловеч",
+      "mps": [
+        {
+          "mpId": 4834,
+          "mpName": "Христо Цветанов Расташки",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

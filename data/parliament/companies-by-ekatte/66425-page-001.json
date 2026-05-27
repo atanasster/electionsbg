@@ -1,0 +1,91 @@
+{
+  "ekatte": "66425",
+  "page": 1,
+  "totalPages": 1,
+  "count": 5,
+  "companies": [
+    {
+      "slug": "ДМС-ПРОПЪРТИ",
+      "displayName": "ДМС Пропърти",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Силистра, 7500",
+      "mps": [
+        {
+          "mpId": 5133,
+          "mpName": "Милен Стойчев Делийски",
+          "role": "representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5133,
+          "mpName": "Милен Стойчев Делийски",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИДА-2003",
+      "displayName": "Ида -2003",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Силистра, 7500",
+      "mps": [
+        {
+          "mpId": 3373,
+          "mpName": "Тодор Стаматов Тодоров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3373,
+          "mpName": "Тодор Стаматов Тодоров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СИЛПРО",
+      "displayName": "Силпро",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Силистра, 7500",
+      "mps": [
+        {
+          "mpId": 2707,
+          "mpName": "Георги Колев Колев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2707,
+          "mpName": "Георги Колев Колев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДМС-ЕООД",
+      "displayName": "Дмс ЕООД",
+      "registeredOffice": "гр. Силистра",
+      "mps": [
+        {
+          "mpId": 5133,
+          "mpName": "МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИВ-СПЕД-ЕООД",
+      "displayName": "ИВ Спед ЕООД",
+      "registeredOffice": "гр. Силистра",
+      "mps": [
+        {
+          "mpId": 5133,
+          "mpName": "МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

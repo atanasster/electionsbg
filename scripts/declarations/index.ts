@@ -31,6 +31,7 @@ import { buildOfficialsConnections } from "./build_officials_connections";
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
+import { buildCompaniesBySettlement } from "../parliament/build_companies_by_settlement";
 
 const REGISTER_BASE = "https://register.cacbg.bg";
 
@@ -274,6 +275,13 @@ export const parseFinancialDeclarations = async ({
   // graph surfaces non-MP co-officers (the "spatial" payoff). Phase 2.5 folds
   // officials in as first-class nodes from the cross-reference above.
   buildConnectionsGraph({ publicFolder, rawFolder: dataFolder, stringify });
+
+  // Per-settlement shards for the "Companies HQ'd here" tile. Reads the
+  // now-graph-enriched companies-index.json (with `ekatteHQ` and `mpRoles`
+  // populated) and emits public/parliament/companies-by-ekatte/{index,
+  // {ekatte}-summary, {ekatte}-page-NNN}.json. Must run AFTER the graph pass
+  // so mpRoles is on every entry.
+  buildCompaniesBySettlement({ publicFolder, stringify });
 
   // Phase 7: per-MP wealth rollups + cross-MP rankings file consumed by the
   // home/party/candidate "MPs by declared assets" tiles.
