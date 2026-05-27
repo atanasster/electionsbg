@@ -104,6 +104,13 @@ This pulls the sibling **Проекти** export from `https://2020.eufunds.bg/b
 
 Also writes per-beneficiary contract lists to `data/funds/projects/by-eik/{eik}.json` (gitignored, same convention as `beneficiaries-by-eik`) and per-programme lists to `by-program/{code}.json`. The top-level `index.json` carries corpus totals, the location-kind histogram, per-programme rollups, and per-status rollups.
 
+The ingest also emits two slim derivatives for the frontend:
+
+- **Per-place summaries** — `by-ekatte/{ekatte}-summary.json` and `by-muni/{обshtina}-summary.json` (~3-5 KB each), carrying rollup + top-3 contracts + top-3 programmes + per-capita €. Backs the `EuFundsTile` on settlement and муни dashboards (avoids loading the full 18 MB Sofia shard for the tile).
+- **Choropleth map data** — `muni-map.json` (~65 KB) with one denormalised row per муни. Backs the `FundsMuniMapTile` on `/funds`. Includes a synthetic `SOF00` row aggregating S22 + S23xx/S24xx/S25xx so the Sofia districts on the map render as a single Стoлична value.
+
+Per-capita uses **Census 2021** population (`data/census_2021_settlements.json`) — not ГРАО — because the census carries the Sofia city EKATTE (68134 = 1.18M) which ГРАО does not. Re-run this step after `update-census` if NSI ever re-releases the corpus.
+
 Flags mirror Step 1 — `--dry-run`, `--file PATH`.
 
 ## Step 4 — Commit + deploy
