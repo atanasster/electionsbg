@@ -234,6 +234,7 @@ Surfaces that are **intentionally non-fatal**:
 | `scripts/funds/taxonomy.ts` | Programme-code → period + fund-family inference (CCI pattern). Used by both ingest scripts. |
 | `scripts/funds/build_taxonomy_derivatives.ts` | Builds `data/funds/taxonomy.json`, `derived/absorption.json`, `derived/sankey.json` from the projects ingest. Runs at the end of `funds:ingest-projects`. |
 | `scripts/funds/integrity.ts` | Builds `derived/integrity.json` (slim leaderboard) + per-programme shards (HHI, serial winners, debarred matches). Runs at the end of `funds:ingest-projects`. |
+| `scripts/funds/themes.ts` | Builds `derived/themes/{slug}.json` editorial-focus shards from the `data/funds/themes.json` definition file. Runs at the end of `funds:ingest-projects`. |
 | `scripts/funds/eik.ts` | EIK/BULSTAT canonicalization (9-digit) |
 | `scripts/funds/types.ts` | Shared type definitions |
 | `scripts/watch/sources/isun_eu_funds.ts` | Watcher source — fingerprints the export corpus shape |
@@ -248,6 +249,9 @@ Surfaces that are **intentionally non-fatal**:
 | `data/funds/derived/sankey.json` | Precomputed Fund → top-OP Sankey for the `/funds` tile (~5 KB) — committed |
 | `data/funds/derived/integrity.json` | Slim concentration / serial-winner / debarred leaderboard (~50 KB) — committed |
 | `data/funds/derived/integrity-by-program/{code}.json` | Per-programme HHI + top-10 beneficiaries + debarred matches (~3-5 KB) — committed |
+| `data/funds/themes.json` | Editorial focus-theme definitions (slug, label, keywords, programme codes, investigative cards) — hand-maintained, committed |
+| `data/funds/derived/themes/{slug}.json` | Per-theme derived shard (totals, top beneficiaries, top contracts, top munis, programmes, sources) — committed |
+| `data/funds/derived/themes/index.json` | Slim themes index for the `/funds` tile and `/funds/focus/{slug}` router — committed |
 | `data/_cache/funds/beneficiaries.xlsx` | Snapshot of the last downloaded export — gitignored |
 
 ## Quick command reference

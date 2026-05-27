@@ -1,0 +1,143 @@
+{
+  "description": "Editorial focus themes for /funds/focus/{slug}. Hand-curated keyword filters and investigative-journalism sources. Update this file (not the code) to add or refine a theme. The shard build (scripts/funds/themes.ts) re-runs on every funds:ingest-projects.",
+  "themes": [
+    {
+      "slug": "guest-houses",
+      "labelBg": "Къщи за гости",
+      "labelEn": "Guest houses",
+      "summaryBg": "Емблематичният за PRSR скандал — европейски средства, преобразили частни вили в \"къщи за гости\" срещу субсидия, често без реална туристическа дейност след приемането.",
+      "summaryEn": "The iconic PRSR scandal — EU funds turned private villas into \"guest houses\" against subsidy, often with no real tourist activity after acceptance.",
+      "icon": "Home",
+      "titleKeywords": [
+        "къща за гости",
+        "къщи за гости",
+        "семеен хотел",
+        "семейни хотели",
+        "семеен туристически",
+        "къща за настаняване"
+      ],
+      "investigativeCards": [
+        {
+          "outlet": "Bivol",
+          "title": "Базата данни „Къщи за гости“ — анализ на €92 млн. PRSR-субсидии",
+          "url": "https://bivol.bg/koshti-za-gosti.html"
+        },
+        {
+          "outlet": "OCCRP",
+          "title": "EU Prosecutors Probe Possible Misuse of EU Funds by Bulgarian Companies",
+          "url": "https://www.occrp.org/en/news/eu-prosecutors-probe-possible-misuse-of-eu-funds-by-bulgarian-companies"
+        },
+        {
+          "outlet": "Капитал",
+          "title": "Хроника на провала: ОПКВ срещу самите си правила за \"къщи за гости\"",
+          "url": "https://www.capital.bg/"
+        }
+      ]
+    },
+    {
+      "slug": "roads",
+      "labelBg": "Пътища и магистрали",
+      "labelEn": "Roads & highways",
+      "summaryBg": "ОП „Транспорт\", ОП „Региони в растеж\" и програмата „Транспортна свързаност\" 2021-2027 — магистралите Хемус, Струма, Лот 3.1 и реконструкции на държавни пътища.",
+      "summaryEn": "OP \"Transport\", OP \"Regions in Growth\", and the 2021-2027 \"Transport Connectivity\" programme — Hemus, Struma, Lot 3.1 highways and state-road reconstructions.",
+      "icon": "Route",
+      "titleKeywords": [
+        "магистрала",
+        "автомагистрала",
+        "път II-",
+        "път III-",
+        "път I-",
+        "пътна инфраструктура",
+        "пътни съоръжения",
+        "лот 3.1",
+        "лот ",
+        "Хемус",
+        "Струма",
+        "Лот 3"
+      ],
+      "programCodes": [
+        "2014BG16M1OP001",
+        "2014BG16RFOP001",
+        "2021BG16FFPR001"
+      ],
+      "investigativeCards": [
+        {
+          "outlet": "OCCRP",
+          "title": "Bulgaria's Highways: How EU Money Flows to the Same Construction Cartel",
+          "url": "https://www.occrp.org/en/europes-far-east/"
+        },
+        {
+          "outlet": "Mediapool",
+          "title": "Архив „Магистрала Хемус\" — задлъжняла лот 3.1",
+          "url": "https://www.mediapool.bg/"
+        }
+      ]
+    },
+    {
+      "slug": "agriculture",
+      "labelBg": "Земеделие и ДФЗ",
+      "labelEn": "Agriculture (ДФЗ)",
+      "summaryBg": "Програмата за развитие на селските райони — субсидии за стопанства, инвестиции в селскостопанска инфраструктура и водеща мярка 4.1. Високи концентрации и повтарящи се бенефициенти.",
+      "summaryEn": "Rural Development Programme — farm subsidies, agri-infrastructure investments, and the headline Measure 4.1. High concentration and serial winners.",
+      "icon": "Wheat",
+      "programCodes": [
+        "2014BG06RDNP001"
+      ],
+      "investigativeCards": [
+        {
+          "outlet": "Bivol",
+          "title": "Кой получи най-много по ПРСР",
+          "url": "https://bivol.bg/"
+        },
+        {
+          "outlet": "Капитал",
+          "title": "Финансиране на земеделието през ЕС",
+          "url": "https://www.capital.bg/"
+        }
+      ]
+    },
+    {
+      "slug": "schools",
+      "labelBg": "Училища и детски градини",
+      "labelEn": "Schools & kindergartens",
+      "summaryBg": "ОП „Наука и образование за интелигентен растеж\", ОП „Образование\" 2021-2027 и инвестиции в училищна и предучилищна инфраструктура чрез ОПРР.",
+      "summaryEn": "OP \"Science and Education for Smart Growth\", OP \"Education\" 2021-2027, and school + pre-school infrastructure investments via the Regions OP.",
+      "icon": "GraduationCap",
+      "titleKeywords": [
+        "училище",
+        "училищна",
+        "училищна инфраструктура",
+        "детска градина",
+        "детски градини",
+        "детска ясла",
+        "детски ясли",
+        "образование",
+        "образователен",
+        "образователна"
+      ],
+      "investigativeCards": []
+    },
+    {
+      "slug": "municipal-infrastructure",
+      "labelBg": "Общинска инфраструктура",
+      "labelEn": "Municipal infrastructure",
+      "summaryBg": "Реконструкции на площади, паркове, басейни, спортни обекти и водопроводи финансирани предимно през ОПРР и Плана за възстановяване.",
+      "summaryEn": "Town squares, parks, swimming pools, sports venues and water-supply reconstructions, mostly via the Regions OP and the Recovery Plan.",
+      "icon": "Building",
+      "titleKeywords": [
+        "площад",
+        "парк",
+        "басейн",
+        "плувен",
+        "спортна зала",
+        "спортен комплекс",
+        "стадион",
+        "ВиК",
+        "водопровод",
+        "канализация",
+        "пречиствателна станция"
+      ],
+      "investigativeCards": []
+    }
+  ]
+}

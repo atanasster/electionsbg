@@ -22,6 +22,7 @@ import { PoliticalConflictsTile } from "./funds/PoliticalConflictsTile";
 import { AbsorptionByPeriodTile } from "./funds/AbsorptionByPeriodTile";
 import { FundsSankeyTile } from "./funds/FundsSankeyTile";
 import { IntegrityTeaserTile } from "./funds/IntegrityTeaserTile";
+import { FundsFocusTile } from "./funds/FundsFocusTile";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
 import { summarizeFundsRelations } from "@/data/funds/relationLabel";
 import { formatEur } from "@/lib/currency";
@@ -400,6 +401,8 @@ export const FundsScreen: FC = () => {
         ) : null}
 
         <IntegrityTeaserTile />
+
+        <FundsFocusTile />
 
         <PoliticalConflictsTile />
 

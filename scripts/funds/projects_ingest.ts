@@ -23,6 +23,7 @@ import {
   writeAll as writeTaxonomyDerivatives,
 } from "./build_taxonomy_derivatives";
 import { buildIntegrity, writeIntegrity } from "./integrity";
+import { buildThemes, writeThemes } from "./themes";
 import type {
   FundsProject,
   FundsProjectsIndex,
@@ -897,6 +898,19 @@ const main = async (args: MainArgs): Promise<void> => {
     `  ${it.programmeCount} programme(s) — ${it.highConcentrationCount} high-HHI, ` +
       `${it.moderateConcentrationCount} moderate, ${it.debarredOverlapCount} debarred-overlap`,
   );
+
+  // Phase-8 derivative: focus themes (hand-curated keyword + programme-code
+  // lenses on top of the contract corpus — guest houses, roads, agriculture,
+  // schools, municipal infrastructure).
+  console.log(`→ building focus themes`);
+  const themes = buildThemes();
+  writeThemes(themes);
+  for (const s of themes.shards) {
+    console.log(
+      `  ${s.slug}: ${s.totals.contractCount} contracts · ` +
+        `${s.totals.beneficiaryCount} beneficiaries`,
+    );
+  }
   // Honour the convention from ./ingest.ts: TOP_N is informational only, not
   // serialised separately — the per-EIK shards already carry the top
   // beneficiaries by contracted value (sorted desc). The constant is kept

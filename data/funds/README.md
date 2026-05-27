@@ -29,6 +29,7 @@ data/funds/
 │   ├── by-program/{code}-summary.json      # Slim programme-page summary
 │   └── by-eik/{eik}.json                   # Per-beneficiary contract lists (gitignored)
 ├── taxonomy.json                       # Per-programme period + fund-family lookup (committed)
+├── themes.json                         # Hand-curated editorial focus-theme definitions (committed)
 └── derived/                            # Cross-references built from siblings (no new external data)
     ├── mp_connected.json                   # EU-funds × MP-companies graph (committed)
     ├── per-mp/{mpId}.json                  # Per-MP shard for candidate pages (committed)
@@ -37,7 +38,8 @@ data/funds/
     ├── absorption.json                     # Per-period + per-programme absorption % (committed)
     ├── sankey.json                         # Fund → top-OP Sankey shape for /funds tile (committed)
     ├── integrity.json                      # Concentration / serial-winner / debarred leaderboard (committed)
-    └── integrity-by-program/{code}.json    # Per-programme HHI + top-10 beneficiaries + debarred (committed)
+    ├── integrity-by-program/{code}.json    # Per-programme HHI + top-10 beneficiaries + debarred (committed)
+    └── themes/{slug}.json                  # Per-theme focus dashboard (guest houses / roads / etc.) (committed)
 ```
 
 ## Programme taxonomy (`taxonomy.json` + `derived/absorption.json` + `derived/sankey.json`)
@@ -89,6 +91,27 @@ What is **NOT** computed (limitation of the upstream feed): single-bidder
 rate per EU-funded contract. The АОП OCDS feed surfaces bid counts only on
 tender records, not on the contract-grain rows we ingest. A future ingest
 of the tender-grain feed would unlock that metric.
+
+## Focus themes (`themes.json` + `derived/themes/`)
+
+Phase-8 — editorial lenses across the EU-funds corpus.
+
+Each theme in `themes.json` defines a slug, BG+EN label and summary, an icon
+name (lucide), an optional list of `titleKeywords` and/or `programCodes`, and
+a list of `investigativeCards` (outlet + title + URL). Any contract whose
+title contains a keyword (case-insensitive, normalised) OR whose programme
+code matches becomes part of that theme.
+
+The build (`scripts/funds/themes.ts`) scans every per-programme shard in a
+single pass and writes one shard per theme:
+`derived/themes/{slug}.json` carries the totals, top beneficiaries, top
+contracts, top municipalities, programme breakdown and investigative-card
+sidebar. A slim `derived/themes/index.json` lists the themes for the `/funds`
+tile and the `/funds/focus/{slug}` router.
+
+Adding a theme is purely a JSON edit — re-run `npm run funds:ingest-projects`
+or `npx tsx scripts/funds/themes.ts` and the new theme appears on `/funds`
+and at `/funds/focus/{slug}`. No code change required.
 
 
 ## Political-economy join layer (`derived/political_links.json`)
