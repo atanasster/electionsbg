@@ -192,6 +192,10 @@ export interface NormalizeStats {
   awardsEmitted: number;
   amendmentsEmitted: number;
   rowsDroppedNoSupplierEik: number;
+  // Self-deal rows: buyer.eik === supplier.eik but the names differ. The
+  // OCDS feed substitutes the buyer's EIK on the supplier ref when the
+  // real one is missing. See the guard in normalizeBundle.
+  rowsDroppedSelfDeal: number;
 }
 
 export const normalizeBundle = (
@@ -206,6 +210,7 @@ export const normalizeBundle = (
     awardsEmitted: 0,
     amendmentsEmitted: 0,
     rowsDroppedNoSupplierEik: 0,
+    rowsDroppedSelfDeal: 0,
   };
   const rows: Contract[] = [];
 
@@ -264,6 +269,22 @@ export const normalizeBundle = (
             stats.rowsDroppedNoSupplierEik++;
             continue;
           }
+          // Guard against the OCDS "self-deal" data-quality bug — when a
+          // contract has buyer.id === supplier.id BUT the buyer and
+          // supplier names disagree, the supplier party never had a real
+          // EIK and the feed substituted the buyer's. Recording such a
+          // row would attach the contractor name to the buyer's EIK on
+          // disk, breaking name resolution on /company/{eik}. Drop the
+          // row; the contract still survives on the awarder side via
+          // /awarder/{eik}/contracts (which uses buyer.eik directly).
+          if (
+            supplier.eik === buyer.eik &&
+            normaliseOrgName(supplier.name).toLocaleLowerCase("bg") !==
+              normaliseOrgName(buyer.name).toLocaleLowerCase("bg")
+          ) {
+            stats.rowsDroppedSelfDeal += 1;
+            continue;
+          }
           rows.push({
             key: contractKey(release.id, contract.id, supplier.eik, tag),
             ocid: release.ocid,
@@ -308,6 +329,15 @@ export const normalizeBundle = (
           const supplier = contractorFields(release, supplierRef);
           if (!supplier) {
             stats.rowsDroppedNoSupplierEik++;
+            continue;
+          }
+          // Same self-deal guard as the contract path above.
+          if (
+            supplier.eik === buyer.eik &&
+            normaliseOrgName(supplier.name).toLocaleLowerCase("bg") !==
+              normaliseOrgName(buyer.name).toLocaleLowerCase("bg")
+          ) {
+            stats.rowsDroppedSelfDeal += 1;
             continue;
           }
           rows.push({

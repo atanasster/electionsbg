@@ -175,6 +175,21 @@ const ROMAN_NUMERAL_RE =
 // Делчев / Левски we want to keep the capital.
 const SURNAME_SUFFIX_RE = /(?:ов|ев|ин|ски|ска|ова|ева|ина|ий|ийски|вски)$/i;
 
+// Settlement-name patterns where the second word should always be
+// title-cased even if the source typed it lowercase. The ИСУН register
+// has many "Община кресна" / "Община пловдив" entries with inconsistent
+// casing of the settlement name; this regex rewrites them to "Община
+// Кресна" / "Община Пловдив" so the same city reads the same wherever it
+// appears.
+const SETTLEMENT_PREFIX_RE =
+  /^(Община|Град|Област|гр\.|с\.) ([а-я])([\p{L}'’-]*)/u;
+
+const fixSettlementCasing = (s: string): string =>
+  s.replace(
+    SETTLEMENT_PREFIX_RE,
+    (_m, prefix, first, rest) => `${prefix} ${first.toUpperCase()}${rest}`,
+  );
+
 // Definite-article suffix on Bulgarian nouns — the budget law emits
 // "Министерството на ...", "Агенцията за ...", "Комисията за ...",
 // "Предприятието за ..." (the -то/-та form) while every other ingest
@@ -389,7 +404,9 @@ export const normaliseOrgName = (name: string): string => {
     prevEndedSentence = ENDS_WITH_SENTENCE_BOUNDARY_RE.test(w.suffix);
   }
 
-  return words.map((w) => w.out).join("");
+  // Last pass: settlement-name pattern — "Община пловдив" → "Община
+  // Пловдив". The mixed-case input wouldn't otherwise trigger any branch.
+  return fixSettlementCasing(words.map((w) => w.out).join(""));
 };
 
 /**

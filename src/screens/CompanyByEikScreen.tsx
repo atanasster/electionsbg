@@ -30,6 +30,7 @@ import { Title } from "@/ux/Title";
 import { StatCard } from "./dashboard/StatCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useContractor } from "@/data/procurement/useContractor";
+import { useAwarder } from "@/data/procurement/useAwarder";
 import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
 import { useFundsBeneficiary } from "@/data/funds/useFundsBeneficiary";
 import { useFundsConnectedForEik } from "@/data/funds/useMpConnectedFunds";
@@ -243,6 +244,11 @@ export const CompanyByEikScreen: FC = () => {
   const { eik } = useParams<{ eik: string }>();
   const { t, i18n } = useTranslation();
   const { data: c, isLoading: procLoading } = useContractor(eik);
+  // Awarder hook is here only for the display-name fallback chain — most
+  // public institutions (Plovdiv municipality, etc) appear in the buyer
+  // file rather than the supplier file, so without this an EIK that's
+  // primarily an awarder would display under its noisy contractor name.
+  const { data: aw } = useAwarder(eik);
   const { beneficiary: funds, isLoading: fundsLoading } =
     useFundsBeneficiary(eik);
   const { entries: mpLinks } = useMpConnectedForEik(eik);
@@ -280,8 +286,21 @@ export const CompanyByEikScreen: FC = () => {
     );
   }
 
+  // Display-name fallback chain. We prefer the awarder name when the EIK
+  // is primarily a buyer (state institutions) — those names come from
+  // hundreds of contracts and are the most stable. The funds beneficiary
+  // name is next (curated registry, sentence-cased). The procurement
+  // contractor name lands last because the OCDS feed has occasional self-
+  // deal rows that put a stray supplier name on a public-institution EIK
+  // (see scripts/procurement/normalize.ts self-deal guard).
+  const awarderIsPrimary = aw && c ? aw.contractCount >= c.contractCount : !!aw;
   const displayName =
-    c?.name ?? funds?.name ?? connections?.name ?? `ЕИК ${eik ?? ""}`;
+    (awarderIsPrimary ? aw?.name : null) ??
+    funds?.name ??
+    c?.name ??
+    aw?.name ??
+    connections?.name ??
+    `ЕИК ${eik ?? ""}`;
 
   return (
     <>
