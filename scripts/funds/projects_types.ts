@@ -128,12 +128,62 @@ export interface FundsProjectsIndex {
   }>;
   // Rollup per status — useful as a freshness/health signal.
   byStatus: Array<{ status: string; rollup: ProjectsRollup }>;
-  // Shard listings so the frontend can validate a fetch URL without a 404.
-  ekatteShards: string[]; // EKATTEs with at least one project
-  muniShards: string[]; // муни codes with at least one project
-  programShards: string[]; // programme codes with at least one project
-  // Beneficiaries with at least one contract under this corpus.
+  // муни and programme shard catalogues — small and useful (the frontend
+  // can validate URLs without hitting a 404). The per-EKATTE catalogue is
+  // deliberately omitted: ~3.3k entries would add ~25 KB to every dashboard
+  // fetch for no real benefit (a 404 on a missing settlement shard is cheap).
+  muniShards: string[];
+  programShards: string[];
+  // Counts only — useful as health-check signals, but the enumeration of
+  // EKATTE / EIK shards is not embedded in the index.
+  ekatteShardCount: number;
   eikShardCount: number;
   // Multi-location rows (region / national / unresolved) — kept in one file.
   multiLocationCount: number;
+}
+
+// Slim "tile-ready" snapshot for a single place (EKATTE or муни). Emitted
+// alongside the full by-ekatte/{ekatte}.json + by-muni/{id}.json so a
+// settlement / muni dashboard can render the EU-funds tile without pulling
+// the full per-place contract list — critical for Sofia, where the full
+// per-EKATTE file is ~19 MB and the per-муни file is ~20 MB.
+//
+// Files: data/funds/projects/by-ekatte/{ekatte}-summary.json
+//      data/funds/projects/by-muni/{obshtina}-summary.json
+export interface FundsProjectsSummary {
+  kind: "ekatte" | "muni";
+  placeId: string;
+  // Cheap rollup of the place's whole contract corpus.
+  rollup: ProjectsRollup;
+  // Top-3 contracts by total value — enough to feature on the tile. Slim
+  // shape (no hqAddress, no location echo — the place context is implicit).
+  topContracts: Array<{
+    contractNumber: string;
+    title: string;
+    totalEur: number;
+    paidEur: number;
+    status: string;
+    programCode: string;
+    programName: string;
+    beneficiaryEik: string | null;
+    beneficiaryName: string;
+  }>;
+  // Top-3 programmes by total value — programme mix at a glance.
+  topPrograms: Array<{
+    programCode: string;
+    programName: string;
+    rollup: ProjectsRollup;
+  }>;
+  // Per-capita € contracted using the place's ГРАО permanent-address
+  // population (settlements: own population; муни: sum across constituent
+  // settlements). Null when GRAO has no data for the place (foreign
+  // pseudo-codes, Sofia synthetic S22 muni when ГРАО lookup misses).
+  perCapitaEur: number | null;
+  population: number | null;
+  // Rank by perCapitaEur within the same oblast (1 = highest). Only
+  // populated when perCapitaEur is non-null and the oblast has at least
+  // 5 ranked places. Cohort size = `cohortSize`.
+  perCapitaRank: number | null;
+  cohortSize: number | null;
+  oblastCode: string | null;
 }

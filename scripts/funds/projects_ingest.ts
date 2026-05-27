@@ -21,6 +21,7 @@ import { buildResolver } from "./projects_resolve";
 import type {
   FundsProject,
   FundsProjectsIndex,
+  FundsProjectsSummary,
   ProjectLocationKind,
   ProjectsRollup,
   ResolvedFundsProject,
@@ -36,6 +37,8 @@ const BY_EIK_DIR = path.join(PROJECTS_DIR, "by-eik");
 const BY_PROGRAM_DIR = path.join(PROJECTS_DIR, "by-program");
 const INDEX_FILE = path.join(PROJECTS_DIR, "index.json");
 const MULTI_LOC_FILE = path.join(PROJECTS_DIR, "multi_location.json");
+const SETTLEMENTS_FILE = path.resolve(__dirname, "../../data/settlements.json");
+const GRAO_FILE = path.resolve(__dirname, "../../data/grao_population.json");
 
 const SOURCE_LABEL = "ИСУН 2020 — публичен модул, Проекти (2020.eufunds.bg)";
 const SOURCE_URL = "https://2020.eufunds.bg/bg/0/0/Project";
@@ -129,6 +132,124 @@ const sortByValueDesc = (a: FundsProject, b: FundsProject): number =>
 const resetDir = (dir: string): void => {
   fs.rmSync(dir, { recursive: true, force: true });
   fs.mkdirSync(dir, { recursive: true });
+};
+
+// Population / oblast lookup tables for the per-capita rank on the summary
+// shards. Loaded once per ingest from data/settlements.json + data/grao_population.json.
+interface PlaceLookup {
+  // EKATTE → permanent-address population (from ГРАО). Missing for Sofia
+  // (68134 not in ГРАО — the capital is reported at district grain S23xx /
+  // S24xx / S25xx, not as a single city EKATTE) and a tail of edge cases.
+  popByEkatte: Map<string, number>;
+  // EKATTE → oblast code (normalised).
+  oblastByEkatte: Map<string, string>;
+  // обshtina → summed population across constituent settlements (ГРАО). Used
+  // as the денominator for the muni-level per-capita rank.
+  popByMuni: Map<string, number>;
+  // обshtina → oblast code (from settlements.json — first match wins).
+  oblastByMuni: Map<string, string>;
+}
+
+const loadPlaceLookup = (): PlaceLookup => {
+  const settlements: Array<{
+    ekatte: string;
+    oblast: string;
+    obshtina: string;
+  }> = JSON.parse(fs.readFileSync(SETTLEMENTS_FILE, "utf-8"));
+  const grao: {
+    settlements: Record<string, { permanent: number; current: number }>;
+  } = JSON.parse(fs.readFileSync(GRAO_FILE, "utf-8"));
+
+  const popByEkatte = new Map<string, number>();
+  const oblastByEkatte = new Map<string, string>();
+  const popByMuni = new Map<string, number>();
+  const oblastByMuni = new Map<string, string>();
+
+  const norm = (o: string): string => (o === "PDV-00" ? "PDV" : o);
+
+  for (const s of settlements) {
+    if (s.oblast === "32") continue; // foreign-country pseudo-rows
+    const oblast = norm(s.oblast);
+    oblastByEkatte.set(s.ekatte, oblast);
+    if (!oblastByMuni.has(s.obshtina)) oblastByMuni.set(s.obshtina, oblast);
+    const pop = grao.settlements[s.ekatte]?.permanent ?? 0;
+    if (pop > 0) {
+      popByEkatte.set(s.ekatte, pop);
+      popByMuni.set(s.obshtina, (popByMuni.get(s.obshtina) ?? 0) + pop);
+    }
+  }
+
+  return { popByEkatte, oblastByEkatte, popByMuni, oblastByMuni };
+};
+
+// Slim "top contract" projection for the tile shard. Strips fields that the
+// tile doesn't render (hqAddress, ownCofinanceEur, durationMonths, the
+// location echo — the place context is implicit from the file path).
+const toTopContract = (
+  r: ResolvedFundsProject,
+): FundsProjectsSummary["topContracts"][number] => ({
+  contractNumber: r.contractNumber,
+  title: r.title,
+  totalEur: r.totalEur,
+  paidEur: r.paidEur,
+  status: r.status,
+  programCode: r.programCode,
+  programName: r.programName,
+  beneficiaryEik: r.beneficiaryEik,
+  beneficiaryName: r.beneficiaryName,
+});
+
+// Build a top-N programme breakdown from a place's contract list.
+const buildTopPrograms = (
+  contracts: ResolvedFundsProject[],
+  topN: number,
+): FundsProjectsSummary["topPrograms"] => {
+  const byProg = new Map<
+    string,
+    {
+      programName: string;
+      rollup: ReturnType<typeof emptyRollup>;
+    }
+  >();
+  for (const r of contracts) {
+    let entry = byProg.get(r.programCode);
+    if (!entry) {
+      entry = { programName: r.programName, rollup: emptyRollup() };
+      byProg.set(r.programCode, entry);
+    }
+    accumulateRollup(entry.rollup, r);
+  }
+  return [...byProg.entries()]
+    .map(([programCode, { programName, rollup }]) => ({
+      programCode,
+      programName,
+      rollup: finalizeRollup(rollup),
+    }))
+    .sort((a, b) => b.rollup.totalEur - a.rollup.totalEur)
+    .slice(0, topN);
+};
+
+// In-place rank assignment by perCapitaEur, scoped to oblast cohorts. Mutates
+// the summary objects to fill perCapitaRank + cohortSize.
+const assignWithinOblastRanks = (
+  summaries: FundsProjectsSummary[],
+  minCohort: number,
+): void => {
+  const byOblast = new Map<string, FundsProjectsSummary[]>();
+  for (const s of summaries) {
+    if (!s.oblastCode || s.perCapitaEur == null) continue;
+    const arr = byOblast.get(s.oblastCode) ?? [];
+    arr.push(s);
+    byOblast.set(s.oblastCode, arr);
+  }
+  for (const arr of byOblast.values()) {
+    if (arr.length < minCohort) continue;
+    arr.sort((a, b) => (b.perCapitaEur ?? 0) - (a.perCapitaEur ?? 0));
+    arr.forEach((s, i) => {
+      s.perCapitaRank = i + 1;
+      s.cohortSize = arr.length;
+    });
+  }
 };
 
 interface MainArgs {
@@ -235,7 +356,13 @@ const main = async (args: MainArgs): Promise<void> => {
   }
   console.log(`→ wrote ${programShards.length} per-program shard(s)`);
 
-  // 6. Per-EKATTE shards — single-settlement rows only. One file per EKATTE.
+  // Place lookup (population + oblast) feeds the per-capita rank on the
+  // summary shards. Loaded once and reused for both EKATTE and муни passes.
+  const places = loadPlaceLookup();
+
+  // 6. Per-EKATTE shards — single-settlement rows only. One file per EKATTE
+  // (full contract list) plus one `{ekatte}-summary.json` slim shard for the
+  // settlement-page tile.
   resetDir(BY_EKATTE_DIR);
   const byEkatte = new Map<string, ResolvedFundsProject[]>();
   for (const r of resolved) {
@@ -245,21 +372,50 @@ const main = async (args: MainArgs): Promise<void> => {
     byEkatte.set(r.location.ekatte, arr);
   }
   const ekatteShards: string[] = [];
+  const ekatteSummaries: FundsProjectsSummary[] = [];
   for (const [ekatte, arr] of [...byEkatte.entries()].sort()) {
     const sorted = [...arr].sort(sortByValueDesc);
     const rollup = emptyRollup();
     for (const r of sorted) accumulateRollup(rollup, r);
+    const rollupFinal = finalizeRollup(rollup);
     fs.writeFileSync(
       path.join(BY_EKATTE_DIR, `${ekatte}.json`),
       canonicalJson({
         ekatte,
-        rollup: finalizeRollup(rollup),
+        rollup: rollupFinal,
         contracts: sorted,
       }),
     );
     ekatteShards.push(ekatte);
+    const population = places.popByEkatte.get(ekatte) ?? null;
+    const oblastCode = places.oblastByEkatte.get(ekatte) ?? null;
+    ekatteSummaries.push({
+      kind: "ekatte",
+      placeId: ekatte,
+      rollup: rollupFinal,
+      topContracts: sorted.slice(0, 3).map(toTopContract),
+      topPrograms: buildTopPrograms(sorted, 3),
+      perCapitaEur:
+        population && rollupFinal.totalEur > 0
+          ? round2(rollupFinal.totalEur / population)
+          : null,
+      population,
+      perCapitaRank: null,
+      cohortSize: null,
+      oblastCode,
+    });
   }
-  console.log(`→ wrote ${ekatteShards.length} per-EKATTE shard(s)`);
+  // Assign within-oblast ranks now that all settlements are summarised. A
+  // minimum cohort size guards against trivially-tiny oblasts producing
+  // misleading "1 of 2" ranks.
+  assignWithinOblastRanks(ekatteSummaries, 5);
+  for (const s of ekatteSummaries) {
+    fs.writeFileSync(
+      path.join(BY_EKATTE_DIR, `${s.placeId}-summary.json`),
+      canonicalJson(s),
+    );
+  }
+  console.log(`→ wrote ${ekatteShards.length} per-EKATTE shard(s) + summaries`);
 
   // 7. Per-муни shards — settlement rows (collapsed to their муни) AND муни
   // rows (replicated across every muni named). NOTE: the per-EKATTE file
@@ -276,6 +432,7 @@ const main = async (args: MainArgs): Promise<void> => {
     }
   }
   const muniShards: string[] = [];
+  const muniSummaries: FundsProjectsSummary[] = [];
   for (const [muni, arr] of [...byMuni.entries()].sort()) {
     const sorted = [...arr].sort(sortByValueDesc);
     const rollup = emptyRollup();
@@ -284,22 +441,49 @@ const main = async (args: MainArgs): Promise<void> => {
     // rows always have a single muni, so dedup is only needed for multi-loc
     // rows that named the same muni twice — defensive.
     const seen = new Set<string>();
+    const dedupedContracts: ResolvedFundsProject[] = [];
     for (const r of sorted) {
       if (seen.has(r.contractNumber)) continue;
       seen.add(r.contractNumber);
       accumulateRollup(rollup, r);
+      dedupedContracts.push(r);
     }
+    const rollupFinal = finalizeRollup(rollup);
     fs.writeFileSync(
       path.join(BY_MUNI_DIR, `${muni}.json`),
       canonicalJson({
         muni,
-        rollup: finalizeRollup(rollup),
+        rollup: rollupFinal,
         contracts: sorted,
       }),
     );
     muniShards.push(muni);
+    const population = places.popByMuni.get(muni) ?? null;
+    const oblastCode = places.oblastByMuni.get(muni) ?? null;
+    muniSummaries.push({
+      kind: "muni",
+      placeId: muni,
+      rollup: rollupFinal,
+      topContracts: dedupedContracts.slice(0, 3).map(toTopContract),
+      topPrograms: buildTopPrograms(dedupedContracts, 3),
+      perCapitaEur:
+        population && rollupFinal.totalEur > 0
+          ? round2(rollupFinal.totalEur / population)
+          : null,
+      population,
+      perCapitaRank: null,
+      cohortSize: null,
+      oblastCode,
+    });
   }
-  console.log(`→ wrote ${muniShards.length} per-муни shard(s)`);
+  assignWithinOblastRanks(muniSummaries, 5);
+  for (const s of muniSummaries) {
+    fs.writeFileSync(
+      path.join(BY_MUNI_DIR, `${s.placeId}-summary.json`),
+      canonicalJson(s),
+    );
+  }
+  console.log(`→ wrote ${muniShards.length} per-муни shard(s) + summaries`);
 
   // 8. Per-EIK shards — every contract grouped by the beneficiary EIK.
   // Gitignored (~40k files), same convention as data/funds/beneficiaries-by-eik.
@@ -375,9 +559,9 @@ const main = async (args: MainArgs): Promise<void> => {
       (a, b) => b.rollup.totalEur - a.rollup.totalEur,
     ),
     byStatus,
-    ekatteShards,
     muniShards,
     programShards,
+    ekatteShardCount: ekatteShards.length,
     eikShardCount,
     multiLocationCount: multiLoc.length,
   };

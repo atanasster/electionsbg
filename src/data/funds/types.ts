@@ -143,3 +143,46 @@ export interface FundsConfirmedFile {
   };
   cases: FundsConfirmedCase[];
 }
+
+// Slim "tile-ready" summary for a single place. Backed by
+// funds/projects/by-ekatte/{ekatte}-summary.json and
+// funds/projects/by-muni/{obshtina}-summary.json — see
+// scripts/funds/projects_types.ts for the source of truth.
+export interface FundsProjectsRollup {
+  contractCount: number;
+  beneficiaryCount: number;
+  totalEur: number;
+  grantEur: number;
+  paidEur: number;
+}
+
+export interface FundsProjectsTopContract {
+  contractNumber: string;
+  title: string;
+  totalEur: number;
+  paidEur: number;
+  status: string;
+  programCode: string;
+  programName: string;
+  beneficiaryEik: string | null;
+  beneficiaryName: string;
+}
+
+export interface FundsProjectsTopProgram {
+  programCode: string;
+  programName: string;
+  rollup: FundsProjectsRollup;
+}
+
+export interface FundsProjectsSummaryFile {
+  kind: "ekatte" | "muni";
+  placeId: string;
+  rollup: FundsProjectsRollup;
+  topContracts: FundsProjectsTopContract[];
+  topPrograms: FundsProjectsTopProgram[];
+  perCapitaEur: number | null;
+  population: number | null;
+  perCapitaRank: number | null;
+  cohortSize: number | null;
+  oblastCode: string | null;
+}
