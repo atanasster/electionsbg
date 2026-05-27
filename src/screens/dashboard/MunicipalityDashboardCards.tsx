@@ -1,6 +1,13 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle, Building2, Coins, Gauge, Map } from "lucide-react";
+import {
+  AlertTriangle,
+  Building2,
+  Coins,
+  Gauge,
+  Landmark,
+  Map,
+} from "lucide-react";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useMunicipalitySummary } from "@/data/dashboard/useMunicipalitySummary";
@@ -43,15 +50,20 @@ import { LovechCapitalProjectsTile } from "./LovechCapitalProjectsTile";
 import { DupnitsaCapitalProjectsTile } from "./DupnitsaCapitalProjectsTile";
 import { VelingradCapitalProjectsTile } from "./VelingradCapitalProjectsTile";
 import { SamokovCapitalProjectsTile } from "./SamokovCapitalProjectsTile";
+import { KarlovoCapitalProjectsTile } from "./KarlovoCapitalProjectsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
+import { MunicipalMayorTile } from "./MunicipalMayorTile";
+import { MunicipalCouncilCompositionTile } from "./MunicipalCouncilCompositionTile";
+import { MunicipalOfficialsRosterTile } from "./MunicipalOfficialsRosterTile";
 import { DashboardSection } from "./DashboardSection";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
 
 const SECTION_TOPICS: readonly DashboardSectionId[] = [
   "votes",
   "geography",
+  "local_government",
   "anomalies",
   "neighborhoods",
 ];
@@ -154,6 +166,18 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
         </DashboardSection>
 
         <DashboardSection
+          id="local_government"
+          title={t("dashboard_section_local_government")}
+          icon={Landmark}
+        >
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+            <MunicipalMayorTile obshtinaCode={municipalityCode} />
+            <MunicipalCouncilCompositionTile obshtinaCode={municipalityCode} />
+          </div>
+          <MunicipalOfficialsRosterTile obshtinaCode={municipalityCode} />
+        </DashboardSection>
+
+        <DashboardSection
           id="finances"
           title={t("dashboard_section_finances")}
           icon={Coins}
@@ -182,6 +206,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           <DupnitsaCapitalProjectsTile obshtinaCode={municipalityCode} />
           <VelingradCapitalProjectsTile obshtinaCode={municipalityCode} />
           <SamokovCapitalProjectsTile obshtinaCode={municipalityCode} />
+          <KarlovoCapitalProjectsTile obshtinaCode={municipalityCode} />
         </DashboardSection>
 
         <DashboardSection
