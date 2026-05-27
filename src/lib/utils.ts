@@ -23,6 +23,22 @@ export const initials = (name?: string | null): string => {
   );
 };
 
+// Canonical form for name-based lookups across data sources. parliament.bg's
+// profile API returns hyphenated names without surrounding spaces
+// ("ГУГЛЕВА-ИВАНОВА"), but the roll-call CSVs render the same name with
+// spaces around the hyphen ("ГУГЛЕВА - ИВАНОВА") — and CIK data is
+// inconsistent too. Without this collapsing step, the rollcall→index
+// fallback in `useMps.findMpByName` and the legacy /candidate/{name} URL
+// resolver both miss for any MP with a hyphenated family name. Apply at
+// every comparison site (and at scrape time when writing the index's
+// `normalizedName`) so both ends agree.
+export const normalizeMpName = (s: string): string =>
+  s
+    .toUpperCase()
+    .replace(/\s+/g, " ")
+    .replace(/\s*-\s*/g, "-")
+    .trim();
+
 // Drop the patronymic from a Bulgarian three-part name (e.g.
 // "Бойко Методиев Борисов" → "Бойко Борисов") so tight tile layouts can
 // show a recognizable name without truncation. Falls back to the original

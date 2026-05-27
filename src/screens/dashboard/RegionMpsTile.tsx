@@ -13,7 +13,7 @@ import { Link } from "@/ux/Link";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { useTooltip } from "@/ux/useTooltip";
 import { Hint } from "@/ux/Hint";
-import { initials } from "@/lib/utils";
+import { initials, normalizeMpName as normalize } from "@/lib/utils";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { StatCard } from "./StatCard";
 
@@ -21,8 +21,6 @@ type Props = {
   regionCode: string;
   parties: NationalPartyResult[];
 };
-
-const normalize = (s: string) => s.toUpperCase().replace(/\s+/g, " ").trim();
 
 type MpRow = {
   mp: MpIndexEntry;

@@ -11,6 +11,7 @@ import {
   type ParsedSlug,
 } from "./candidateSlug";
 import { transliterateName } from "./transliterateName";
+import { normalizeMpName as normalize } from "@/lib/utils";
 
 /** A single (name, partyNum) bucket of CIK candidate rows merged with the
  * parliament.bg MP we matched it to (when any). Used by the candidate page,
@@ -43,8 +44,6 @@ export type ResolvedCandidate = {
   /** parliament.bg index entry when matched — saves callers a second lookup. */
   mpEntry: MpIndexEntry | null;
 };
-
-const normalize = (s: string) => s.toUpperCase().replace(/\s+/g, " ").trim();
 
 /** Build the set of party-name tokens we'll try to substring-match against
  * an MP's `currentPartyGroupShort`. Coalitions splinter once seated — e.g.

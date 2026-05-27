@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import { normalizeMpName } from "@/lib/utils";
 
 // MP photos are stored at /parliament/photos/<id>.webp (cached locally
 // from parliament.bg by the scraper, served from the bucket with our
@@ -42,8 +43,6 @@ type IndexFile = {
   mps: MpIndexEntry[];
 };
 
-const normalize = (s: string) => s.toUpperCase().replace(/\s+/g, " ").trim();
-
 const queryFn = async (): Promise<IndexFile | undefined> => {
   const response = await fetch(dataUrl(`/parliament/index.json`));
   if (response.status === 404) return undefined;
@@ -51,9 +50,16 @@ const queryFn = async (): Promise<IndexFile | undefined> => {
     throw new Error(`fetch failed: ${response.status} ${response.url}`);
   }
   const file = (await response.json()) as IndexFile;
-  // Resolve photoUrl once at ingest so every consumer sees an absolute,
-  // bucket-resolved URL without having to know about the dataUrl seam.
-  for (const mp of file.mps) mp.photoUrl = resolvePhoto(mp.photoUrl);
+  for (const mp of file.mps) {
+    // Resolve photoUrl once at ingest so every consumer sees an absolute,
+    // bucket-resolved URL without having to know about the dataUrl seam.
+    mp.photoUrl = resolvePhoto(mp.photoUrl);
+    // Re-canonicalize hyphenated names in case a legacy index was written
+    // before normalizeMpName collapsed " - " → "-". Idempotent for fresh
+    // indexes.
+    mp.normalizedName = normalizeMpName(mp.normalizedName);
+    mp.normalizedName_en = normalizeMpName(mp.normalizedName_en);
+  }
   return file;
 };
 
@@ -81,7 +87,7 @@ export const useMps = () => {
   const findMpByName = useCallback(
     (name?: string | null): MpIndexEntry | undefined => {
       if (!name) return undefined;
-      return byName.get(normalize(name));
+      return byName.get(normalizeMpName(name));
     },
     [byName],
   );
