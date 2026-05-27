@@ -21,6 +21,7 @@ import { buildResolver } from "./projects_resolve";
 import type {
   FundsProject,
   FundsProjectsIndex,
+  FundsProjectsProgramSummary,
   FundsProjectsSummary,
   ProjectLocationKind,
   ProjectsRollup,
@@ -225,6 +226,155 @@ const toTopContract = (
   beneficiaryName: r.beneficiaryName,
 });
 
+// Collapse the raw ИСУН status strings into the four dashboard buckets
+// (Completed / In progress / Signed / Terminated). Matching predicates mirror
+// the ones used client-side in ProjectsStatusMixTile so the per-programme
+// detail page lines up with the corpus-wide tile.
+const STATUS_GROUPS: Array<{ match: (s: string) => boolean; key: string }> = [
+  { match: (s) => s.startsWith("Приключен"), key: "completed" },
+  { match: (s) => s.startsWith("В изпълнение"), key: "in-progress" },
+  { match: (s) => s === "Сключен", key: "signed" },
+  { match: (s) => s.startsWith("Прекратен"), key: "terminated" },
+];
+
+const buildProgramStatusBreakdown = (
+  contracts: ResolvedFundsProject[],
+): FundsProjectsProgramSummary["statusBreakdown"] => {
+  const buckets = new Map<string, ReturnType<typeof emptyRollup>>();
+  for (const r of contracts) {
+    const group = STATUS_GROUPS.find((g) => g.match(r.status));
+    const key = group?.key ?? "other";
+    const ag = buckets.get(key) ?? emptyRollup();
+    accumulateRollup(ag, r);
+    buckets.set(key, ag);
+  }
+  return [...buckets.entries()]
+    .map(([status, rollup]) => ({ status, rollup: finalizeRollup(rollup) }))
+    .sort((a, b) => b.rollup.totalEur - a.rollup.totalEur);
+};
+
+const buildProgramLocationKindHistogram = (
+  contracts: ResolvedFundsProject[],
+): FundsProjectsProgramSummary["byLocationKind"] => {
+  const h: FundsProjectsProgramSummary["byLocationKind"] = {
+    settlement: 0,
+    muni: 0,
+    region: 0,
+    national: 0,
+    unresolved: 0,
+  };
+  for (const r of contracts) h[r.location.kind] += 1;
+  return h;
+};
+
+const buildProgramTopBeneficiaries = (
+  contracts: ResolvedFundsProject[],
+  topN: number,
+): FundsProjectsProgramSummary["topBeneficiaries"] => {
+  // Group by EIK when present; fall back to a name-based key for the
+  // unlinked tail. Same convention as accumulateRollup.
+  const byKey = new Map<
+    string,
+    {
+      beneficiaryEik: string | null;
+      beneficiaryName: string;
+      orgType: string;
+      contractCount: number;
+      totalEur: number;
+      paidEur: number;
+    }
+  >();
+  for (const r of contracts) {
+    const key = r.beneficiaryEik ?? `name:${r.beneficiaryName}`;
+    const entry = byKey.get(key) ?? {
+      beneficiaryEik: r.beneficiaryEik,
+      beneficiaryName: r.beneficiaryName,
+      orgType: r.orgType,
+      contractCount: 0,
+      totalEur: 0,
+      paidEur: 0,
+    };
+    entry.contractCount += 1;
+    entry.totalEur += r.totalEur;
+    entry.paidEur += r.paidEur;
+    byKey.set(key, entry);
+  }
+  return [...byKey.values()]
+    .map((e) => ({
+      ...e,
+      totalEur: round2(e.totalEur),
+      paidEur: round2(e.paidEur),
+    }))
+    .sort((a, b) => b.totalEur - a.totalEur)
+    .slice(0, topN);
+};
+
+const buildProgramTopMunis = (
+  contracts: ResolvedFundsProject[],
+  topN: number,
+): FundsProjectsProgramSummary["topMunis"] => {
+  // Sum across each муни named in the row's resolved location. Contracts
+  // with no muni context (region / national / unresolved) are skipped.
+  const byMuni = new Map<
+    string,
+    {
+      muni: string;
+      oblast: string | null;
+      contractCount: number;
+      totalEur: number;
+      paidEur: number;
+      seen: Set<string>;
+    }
+  >();
+  for (const r of contracts) {
+    const munis = r.location.munis ?? [];
+    if (munis.length === 0) continue;
+    const oblast = r.location.oblasts?.[0] ?? null;
+    for (const m of munis) {
+      const entry = byMuni.get(m) ?? {
+        muni: m,
+        oblast,
+        contractCount: 0,
+        totalEur: 0,
+        paidEur: 0,
+        seen: new Set<string>(),
+      };
+      // De-dup contract numbers — a multi-loc contract shouldn't double-count
+      // when it lists the same муни twice (defensive; the resolver de-dups).
+      if (entry.seen.has(r.contractNumber)) continue;
+      entry.seen.add(r.contractNumber);
+      entry.contractCount += 1;
+      entry.totalEur += r.totalEur;
+      entry.paidEur += r.paidEur;
+      byMuni.set(m, entry);
+    }
+  }
+  return [...byMuni.values()]
+    .map((e) => ({
+      muni: e.muni,
+      oblast: e.oblast,
+      contractCount: e.contractCount,
+      totalEur: round2(e.totalEur),
+      paidEur: round2(e.paidEur),
+    }))
+    .sort((a, b) => b.totalEur - a.totalEur)
+    .slice(0, topN);
+};
+
+const toProgramTopContract = (
+  r: ResolvedFundsProject,
+): FundsProjectsProgramSummary["topContracts"][number] => ({
+  contractNumber: r.contractNumber,
+  title: r.title,
+  totalEur: r.totalEur,
+  paidEur: r.paidEur,
+  status: r.status,
+  beneficiaryEik: r.beneficiaryEik,
+  beneficiaryName: r.beneficiaryName,
+  locationRaw: r.locationRaw,
+  locationMunis: r.location.munis ?? null,
+});
+
 // Build a top-N programme breakdown from a place's contract list.
 const buildTopPrograms = (
   contracts: ResolvedFundsProject[],
@@ -363,24 +513,43 @@ const main = async (args: MainArgs): Promise<void> => {
     const sorted = [...arr].sort(sortByValueDesc);
     const rollup = emptyRollup();
     for (const r of sorted) accumulateRollup(rollup, r);
-    const file = `${code}.json`;
+    const rollupFinal = finalizeRollup(rollup);
     fs.writeFileSync(
-      path.join(BY_PROGRAM_DIR, file),
+      path.join(BY_PROGRAM_DIR, `${code}.json`),
       canonicalJson({
         programCode: code,
         programName: programNames.get(code)!,
-        rollup: finalizeRollup(rollup),
+        rollup: rollupFinal,
         contracts: sorted,
       }),
+    );
+    // Slim per-programme summary for the /funds/programme/{code} drill-down
+    // page. ~10-15 KB per programme — orders of magnitude smaller than the
+    // full shard above (the Иновации programme's full shard is 45 MB).
+    const summary: FundsProjectsProgramSummary = {
+      programCode: code,
+      programName: programNames.get(code)!,
+      rollup: rollupFinal,
+      statusBreakdown: buildProgramStatusBreakdown(sorted),
+      byLocationKind: buildProgramLocationKindHistogram(sorted),
+      topContracts: sorted.slice(0, 20).map(toProgramTopContract),
+      topBeneficiaries: buildProgramTopBeneficiaries(sorted, 20),
+      topMunis: buildProgramTopMunis(sorted, 10),
+    };
+    fs.writeFileSync(
+      path.join(BY_PROGRAM_DIR, `${code}-summary.json`),
+      canonicalJson(summary),
     );
     programShards.push(code);
     byProgramRollups.push({
       programCode: code,
       programName: programNames.get(code)!,
-      rollup: finalizeRollup(rollup),
+      rollup: rollupFinal,
     });
   }
-  console.log(`→ wrote ${programShards.length} per-program shard(s)`);
+  console.log(
+    `→ wrote ${programShards.length} per-program shard(s) + summaries`,
+  );
 
   // Place lookup (population + oblast) feeds the per-capita rank on the
   // summary shards. Loaded once and reused for both EKATTE and муни passes.

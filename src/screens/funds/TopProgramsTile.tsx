@@ -8,6 +8,7 @@
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { Layers } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import type { FundsProjectsIndexFile } from "@/data/funds/types";
@@ -64,39 +65,44 @@ export const TopProgramsTile: FC<{ index: FundsProjectsIndexFile }> = ({
                 ? (p.rollup.paidEur / p.rollup.totalEur) * 100
                 : 0;
             return (
-              <li key={p.programCode} className="space-y-1">
-                <div className="flex items-baseline gap-2 text-sm">
-                  <span className="w-5 shrink-0 text-xs tabular-nums text-muted-foreground">
-                    {i + 1}
-                  </span>
-                  <span className="flex-1 min-w-0 line-clamp-1 font-medium">
-                    {p.programName}
-                  </span>
-                  <span
-                    className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] font-semibold tabular-nums ${rateBadgeClass(disbursementPct)}`}
-                    title={t("funds_programs_tile_disbursement_tip", {
-                      paid: compactEur(p.rollup.paidEur),
-                      total: compactEur(p.rollup.totalEur),
-                    })}
-                  >
-                    {disbursementPct.toFixed(0)}%
-                  </span>
-                  <span className="shrink-0 w-20 text-right text-sm font-medium tabular-nums">
-                    {compactEur(p.rollup.totalEur)}
-                  </span>
-                </div>
-                <div className="ml-7 h-1.5 overflow-hidden rounded-full bg-muted">
-                  <div
-                    className="h-full rounded-full bg-amber-400/70"
-                    style={{ width: `${pct}%` }}
-                  />
-                </div>
-                <div className="ml-7 text-[11px] text-muted-foreground tabular-nums">
-                  {numFmt.format(p.rollup.contractCount)}{" "}
-                  {t("funds_programs_tile_contracts")} ·{" "}
-                  {numFmt.format(p.rollup.beneficiaryCount)}{" "}
-                  {t("funds_programs_tile_beneficiaries")}
-                </div>
+              <li key={p.programCode}>
+                <Link
+                  to={`/funds/programme/${p.programCode}`}
+                  className="block space-y-1 rounded -mx-2 px-2 py-1 hover:bg-muted/50 transition-colors"
+                >
+                  <div className="flex items-baseline gap-2 text-sm">
+                    <span className="w-5 shrink-0 text-xs tabular-nums text-muted-foreground">
+                      {i + 1}
+                    </span>
+                    <span className="flex-1 min-w-0 line-clamp-1 font-medium">
+                      {p.programName}
+                    </span>
+                    <span
+                      className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] font-semibold tabular-nums ${rateBadgeClass(disbursementPct)}`}
+                      title={t("funds_programs_tile_disbursement_tip", {
+                        paid: compactEur(p.rollup.paidEur),
+                        total: compactEur(p.rollup.totalEur),
+                      })}
+                    >
+                      {disbursementPct.toFixed(0)}%
+                    </span>
+                    <span className="shrink-0 w-20 text-right text-sm font-medium tabular-nums">
+                      {compactEur(p.rollup.totalEur)}
+                    </span>
+                  </div>
+                  <div className="ml-7 h-1.5 overflow-hidden rounded-full bg-muted">
+                    <div
+                      className="h-full rounded-full bg-amber-400/70"
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                  <div className="ml-7 text-[11px] text-muted-foreground tabular-nums">
+                    {numFmt.format(p.rollup.contractCount)}{" "}
+                    {t("funds_programs_tile_contracts")} ·{" "}
+                    {numFmt.format(p.rollup.beneficiaryCount)}{" "}
+                    {t("funds_programs_tile_beneficiaries")}
+                  </div>
+                </Link>
               </li>
             );
           })}

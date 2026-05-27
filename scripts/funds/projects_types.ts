@@ -142,6 +142,55 @@ export interface FundsProjectsIndex {
   multiLocationCount: number;
 }
 
+// Slim "drill-down-ready" snapshot for a single programme. Emitted alongside
+// the full by-program/{code}.json (which can be 5-45 MB) so the per-programme
+// detail page renders without loading the full contract list — same
+// summary-shard pattern as ./FundsProjectsSummary below.
+//
+// File: data/funds/projects/by-program/{code}-summary.json
+export interface FundsProjectsProgramSummary {
+  programCode: string;
+  programName: string;
+  rollup: ProjectsRollup;
+  // 4-bucket status mix collapsed from raw ИСУН status strings — same
+  // taxonomy as the /funds tile.
+  statusBreakdown: Array<{
+    status: string;
+    rollup: ProjectsRollup;
+  }>;
+  // Location-kind histogram restricted to this programme.
+  byLocationKind: Record<ProjectLocationKind, number>;
+  // Top-N contracts within the programme.
+  topContracts: Array<{
+    contractNumber: string;
+    title: string;
+    totalEur: number;
+    paidEur: number;
+    status: string;
+    beneficiaryEik: string | null;
+    beneficiaryName: string;
+    locationRaw: string;
+    locationMunis: string[] | null;
+  }>;
+  // Top-N beneficiaries within the programme, by funds contracted.
+  topBeneficiaries: Array<{
+    beneficiaryEik: string | null;
+    beneficiaryName: string;
+    orgType: string;
+    contractCount: number;
+    totalEur: number;
+    paidEur: number;
+  }>;
+  // Top-N муни within the programme, by funds contracted.
+  topMunis: Array<{
+    muni: string;
+    oblast: string | null;
+    contractCount: number;
+    totalEur: number;
+    paidEur: number;
+  }>;
+}
+
 // Slim "tile-ready" snapshot for a single place (EKATTE or муни). Emitted
 // alongside the full by-ekatte/{ekatte}.json + by-muni/{id}.json so a
 // settlement / muni dashboard can render the EU-funds tile without pulling

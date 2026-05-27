@@ -208,6 +208,52 @@ export interface FundsProjectsMuniMapFile {
   munis: FundsProjectsMuniMapRow[];
 }
 
+// Slim drill-down payload for a single programme. Backed by
+// /funds/projects/by-program/{code}-summary.json — see
+// scripts/funds/projects_types.ts for the source of truth.
+export interface FundsProjectsProgramSummaryFile {
+  programCode: string;
+  programName: string;
+  rollup: FundsProjectsRollup;
+  statusBreakdown: Array<{
+    status: string;
+    rollup: FundsProjectsRollup;
+  }>;
+  byLocationKind: {
+    settlement: number;
+    muni: number;
+    region: number;
+    national: number;
+    unresolved: number;
+  };
+  topContracts: Array<{
+    contractNumber: string;
+    title: string;
+    totalEur: number;
+    paidEur: number;
+    status: string;
+    beneficiaryEik: string | null;
+    beneficiaryName: string;
+    locationRaw: string;
+    locationMunis: string[] | null;
+  }>;
+  topBeneficiaries: Array<{
+    beneficiaryEik: string | null;
+    beneficiaryName: string;
+    orgType: string;
+    contractCount: number;
+    totalEur: number;
+    paidEur: number;
+  }>;
+  topMunis: Array<{
+    muni: string;
+    oblast: string | null;
+    contractCount: number;
+    totalEur: number;
+    paidEur: number;
+  }>;
+}
+
 // Slim "tile-ready" summary for a single place. Backed by
 // funds/projects/by-ekatte/{ekatte}-summary.json and
 // funds/projects/by-muni/{obshtina}-summary.json — see
