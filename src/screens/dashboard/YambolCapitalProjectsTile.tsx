@@ -67,7 +67,9 @@ export const YambolCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
             {compactEur(totalEur)}
           </span>
           <span className="text-xs text-muted-foreground">
-            {t("yambol_capital_project_count", { count: data.projects.length })}
+            {t("yambol_capital_project_count", {
+              count: data.projectCount ?? data.projects.length,
+            })}
           </span>
         </div>
 

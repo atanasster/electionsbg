@@ -779,6 +779,7 @@ export interface SofiaCapitalProgramFile {
     total: SofiaCapitalAmounts;
     byParagraph: SofiaCapitalParagraph[];
   };
+  projectCount?: number;
   projects: SofiaCapitalProject[];
   byRayon: SofiaCapitalRayonRollup[];
 }
@@ -818,6 +819,7 @@ export interface PlovdivCapitalProgramFile {
   municipalityNameEn: string;
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
+  projectCount?: number;
   projects: PlovdivCapitalProject[];
   byRayon: PlovdivCapitalRayonRollup[];
 }
@@ -865,6 +867,7 @@ export interface BurgasCapitalProgramFile {
     total: Money;
     funding: BurgasCapitalFunding;
   };
+  projectCount?: number;
   projects: BurgasCapitalProject[];
   bySettlement: BurgasCapitalSettlementRollup[];
 }
@@ -906,6 +909,7 @@ export interface VarnaCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money }; // itemised sum (matches projects[])
   publishedRecap: Money | null; // ОБЩО figure Gemini found on the recap page (informational)
+  projectCount?: number;
   projects: VarnaCapitalProject[];
   byRayon: VarnaCapitalRayonRollup[];
 }
@@ -945,6 +949,7 @@ export interface RuseCapitalProgramFile {
   municipalityNameEn: string;
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
+  projectCount?: number;
   projects: RuseCapitalProject[];
   bySettlement: RuseCapitalSettlementRollup[];
 }
@@ -984,6 +989,7 @@ export interface StaraZagoraCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money }; // itemised sum (matches projects[])
   publishedRecap: Money | null; // PDF's "КАПИТАЛОВИ РАЗХОДИ - ОБЩО" — informational, includes city-wide rollups not in line items
+  projectCount?: number;
   projects: StaraZagoraCapitalProject[];
   bySettlement: StaraZagoraCapitalSettlementRollup[];
 }
@@ -1024,6 +1030,7 @@ export interface VidinCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: VidinCapitalProject[];
   bySettlement: VidinCapitalSettlementRollup[];
 }
@@ -1063,6 +1070,7 @@ export interface SamokovCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: SamokovCapitalProject[];
   bySettlement: SamokovCapitalSettlementRollup[];
 }
@@ -1103,6 +1111,7 @@ export interface VelingradCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: VelingradCapitalProject[];
   bySettlement: VelingradCapitalSettlementRollup[];
 }
@@ -1145,6 +1154,7 @@ export interface DupnitsaCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: DupnitsaCapitalProject[];
   bySettlement: DupnitsaCapitalSettlementRollup[];
 }
@@ -1191,6 +1201,7 @@ export interface LovechCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: LovechCapitalProject[];
   bySettlement: LovechCapitalSettlementRollup[];
 }
@@ -1232,6 +1243,7 @@ export interface KardzhaliCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: KardzhaliCapitalProject[];
   bySettlement: KardzhaliCapitalSettlementRollup[];
 }
@@ -1266,6 +1278,7 @@ export interface YambolCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: YambolCapitalProject[];
 }
 
@@ -1308,6 +1321,7 @@ export interface GabrovoCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: GabrovoCapitalProject[];
   bySettlement: GabrovoCapitalSettlementRollup[];
 }
@@ -1348,6 +1362,7 @@ export interface HaskovoCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: HaskovoCapitalProject[];
   bySettlement: HaskovoCapitalSettlementRollup[];
 }
@@ -1385,6 +1400,7 @@ export interface PernikCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: PernikCapitalProject[];
   bySettlement: PernikCapitalSettlementRollup[];
 }
@@ -1425,6 +1441,7 @@ export interface VelikoTarnovoCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: VelikoTarnovoCapitalProject[];
   bySettlement: VelikoTarnovoCapitalSettlementRollup[];
 }
@@ -1469,6 +1486,7 @@ export interface KazanlakCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: KazanlakCapitalProject[];
   bySettlement: KazanlakCapitalSettlementRollup[];
 }
@@ -1603,6 +1621,7 @@ export interface MontanaCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: MontanaCapitalProject[];
   bySettlement: MontanaCapitalSettlementRollup[];
 }
@@ -1647,6 +1666,7 @@ export interface KyustendilCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: KyustendilCapitalProject[];
   bySettlement: KyustendilCapitalSettlementRollup[];
 }
@@ -1686,6 +1706,7 @@ export interface KarlovoCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: KarlovoCapitalProject[];
   bySettlement: KarlovoCapitalSettlementRollup[];
 }
@@ -1726,6 +1747,7 @@ export interface ShumenCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: ShumenCapitalProject[];
   bySettlement: ShumenCapitalSettlementRollup[];
 }
@@ -1766,6 +1788,7 @@ export interface AsenovgradCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: AsenovgradCapitalProject[];
   bySettlement: AsenovgradCapitalSettlementRollup[];
 }
@@ -1804,6 +1827,7 @@ export interface DobrichCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: DobrichCapitalProject[];
   byFundingSource: DobrichCapitalFundingRollup[];
 }
@@ -1844,6 +1868,7 @@ export interface SlivenCapitalProgramFile {
   currency: "BGN" | "EUR";
   recapitulation: { total: Money };
   publishedRecap: Money | null;
+  projectCount?: number;
   projects: SlivenCapitalProject[];
   bySettlement: SlivenCapitalSettlementRollup[];
 }
@@ -1896,6 +1921,7 @@ export interface PlevenCapitalProgramFile {
     prilozhenie10A: Money | null;
     combined: Money | null;
   };
+  projectCount?: number;
   projects: PlevenCapitalProject[];
   bySettlement: PlevenCapitalSettlementRollup[];
   byFundingSource: PlevenCapitalFundingRollup[];

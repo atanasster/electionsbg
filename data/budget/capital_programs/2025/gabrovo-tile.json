@@ -1,0 +1,732 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T14:04:58.429Z",
+  "source": {
+    "publisher": "Община Габрово",
+    "documentTitle": "Приложение №5 — Инвестиционна програма на Община Габрово за 2025 г. (актуализация)",
+    "url": "https://gabrovo.bg/files/budjet2025/izmenenia/20.5.pdf",
+    "fetchedAt": "2026-05-27T14:04:58.429Z",
+    "ocrModel": "gemini-2.5-pro",
+    "ocrGeneratedAt": "2026-05-27T14:04:27.625Z"
+  },
+  "municipalityCode": "GAB05",
+  "municipalityNameBg": "Габрово",
+  "municipalityNameEn": "Gabrovo",
+  "currency": "BGN",
+  "recapitulation": {
+    "total": {
+      "amount": 15866747,
+      "currency": "BGN",
+      "amountEur": 8112539
+    }
+  },
+  "publishedRecap": {
+    "amount": 14983268,
+    "currency": "BGN",
+    "amountEur": 7660823
+  },
+  "projects": [
+    {
+      "id": 33,
+      "name": "Реконструкция на улица Свищовска и ул. Транспортна, град Габрово",
+      "settlement": "гр. Габрово",
+      "total": {
+        "amount": 1841150,
+        "currency": "BGN",
+        "amountEur": 941365
+      }
+    },
+    {
+      "id": 110,
+      "name": "НОВ Физкултурен салон в ОУ „ Неофит Рилски\"",
+      "settlement": null,
+      "total": {
+        "amount": 1135087,
+        "currency": "BGN",
+        "amountEur": 580361
+      }
+    },
+    {
+      "id": 18,
+      "name": "Основен ремонт ул. Станционна",
+      "settlement": null,
+      "total": {
+        "amount": 938500,
+        "currency": "BGN",
+        "amountEur": 479847
+      }
+    },
+    {
+      "id": 111,
+      "name": "Имот: Сграда с идентификатор 14218.538.414.1, гараж с идент. 14218.538.414.2, селскостопанска постройка с идент. 14218.538.414.3; поземлен имот с идент. 14218.538.414",
+      "settlement": null,
+      "total": {
+        "amount": 860000,
+        "currency": "BGN",
+        "amountEur": 439711
+      }
+    },
+    {
+      "id": 109,
+      "name": "НОВ Физкултурен салон в ОУ „ Неофит Рилски\"",
+      "settlement": null,
+      "total": {
+        "amount": 835108,
+        "currency": "BGN",
+        "amountEur": 426984
+      }
+    },
+    {
+      "id": 54,
+      "name": "Аварийно укрепване на терен зад спортно хале на стадион \"Христо Ботев\" град Габрово",
+      "settlement": "гр. Габрово",
+      "total": {
+        "amount": 798273,
+        "currency": "BGN",
+        "amountEur": 408151
+      }
+    },
+    {
+      "id": 23,
+      "name": "Проектиране и основен ремонт ул. Евтим Дабев и междублокови пространства",
+      "settlement": null,
+      "total": {
+        "amount": 745000,
+        "currency": "BGN",
+        "amountEur": 380912
+      }
+    },
+    {
+      "id": 237,
+      "name": "Изграждане на кръгово кръстовище при бул. Васил Априлов и ул. Юрий Венелин, гр. Габрово",
+      "settlement": "гр. Габрово",
+      "total": {
+        "amount": 736001,
+        "currency": "BGN",
+        "amountEur": 376311
+      }
+    },
+    {
+      "id": 53,
+      "name": "Основен ремонт на улица Христо Ботев, град Габрово",
+      "settlement": "гр. Габрово",
+      "total": {
+        "amount": 721753,
+        "currency": "BGN",
+        "amountEur": 369026
+      }
+    },
+    {
+      "id": 289,
+      "name": "Кредит от фонд Флаг 1219/11.01.2021г.",
+      "settlement": null,
+      "total": {
+        "amount": 507397,
+        "currency": "BGN",
+        "amountEur": 259428
+      }
+    },
+    {
+      "id": 56,
+      "name": "Основен ремонт на пътна естакада в Северната промишлена зона на гр. Габрово за квартал „Трендафила \"- град Габрово",
+      "settlement": "гр. Габрово",
+      "total": {
+        "amount": 471965,
+        "currency": "BGN",
+        "amountEur": 241312
+      }
+    },
+    {
+      "id": 205,
+      "name": "Специализиран сметосъбиращ камион над 12т.",
+      "settlement": null,
+      "total": {
+        "amount": 420000,
+        "currency": "BGN",
+        "amountEur": 214743
+      }
+    },
+    {
+      "id": 290,
+      "name": "Кредит от Ргфр по проект Транспорт",
+      "settlement": null,
+      "total": {
+        "amount": 350000,
+        "currency": "BGN",
+        "amountEur": 178952
+      }
+    },
+    {
+      "id": 204,
+      "name": "Високопроходим специализиран автомобил над 12 т. 2 бр. втора употреба",
+      "settlement": null,
+      "total": {
+        "amount": 338132,
+        "currency": "BGN",
+        "amountEur": 172884
+      }
+    },
+    {
+      "id": 13,
+      "name": "Основен ремонт водопровод и възстановяване на улични настилки на 3 улици в с. Драгановци",
+      "settlement": "с. Драгановци",
+      "total": {
+        "amount": 295000,
+        "currency": "BGN",
+        "amountEur": 150831
+      }
+    },
+    {
+      "id": 291,
+      "name": "Кредит от Ргфр по проект\" Развитие на културната инфраструктура в Община Габрово чрез обновление и модернизация на Дом на културата \"Емануил Манолов\"",
+      "settlement": null,
+      "total": {
+        "amount": 281244,
+        "currency": "BGN",
+        "amountEur": 143798
+      }
+    },
+    {
+      "id": 246,
+      "name": "Проектиране и изграждане на паркинг в стадион \"Христо Ботев\"",
+      "settlement": null,
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 199,
+      "name": "Проектиране и изграждане на електрозахранване на 5 броя зарядни станции при автобусно депо",
+      "settlement": null,
+      "total": {
+        "amount": 175749,
+        "currency": "BGN",
+        "amountEur": 89859
+      }
+    },
+    {
+      "id": 8,
+      "name": "Основен ремонт отоплителна инсталация ДЯ Славейче",
+      "settlement": null,
+      "total": {
+        "amount": 160805,
+        "currency": "BGN",
+        "amountEur": 82218
+      }
+    },
+    {
+      "id": 10,
+      "name": "Основен ремонт за повишаване на ен. еф. на сградата на ДГ Мики Маус база с. Враниловци, чрез изпълнение на Есм и използване на веи",
+      "settlement": "с. Враниловци",
+      "total": {
+        "amount": 153616,
+        "currency": "BGN",
+        "amountEur": 78543
+      }
+    },
+    {
+      "id": 27,
+      "name": "Основен Ремонт ул. Чавдар",
+      "settlement": null,
+      "total": {
+        "amount": 150800,
+        "currency": "BGN",
+        "amountEur": 77103
+      }
+    },
+    {
+      "id": 32,
+      "name": "Основен ремонт на стълбище Летен театър към улица \"Чардафон\" в гр. Габрово",
+      "settlement": "гр. Габрово",
+      "total": {
+        "amount": 150000,
+        "currency": "BGN",
+        "amountEur": 76694
+      }
+    },
+    {
+      "id": 287,
+      "name": "Отчуждителни процедури",
+      "settlement": null,
+      "total": {
+        "amount": 134022,
+        "currency": "BGN",
+        "amountEur": 68524
+      }
+    },
+    {
+      "id": 31,
+      "name": "Ремонт дворно пространство стълби Дк Емануил Манолов",
+      "settlement": null,
+      "total": {
+        "amount": 125770,
+        "currency": "BGN",
+        "amountEur": 64305
+      }
+    },
+    {
+      "id": 240,
+      "name": "Изграждане на детска площадка",
+      "settlement": null,
+      "total": {
+        "amount": 116000,
+        "currency": "BGN",
+        "amountEur": 59310
+      }
+    },
+    {
+      "id": 6,
+      "name": "Ремонт спортна площадка",
+      "settlement": null,
+      "total": {
+        "amount": 100829,
+        "currency": "BGN",
+        "amountEur": 51553
+      }
+    },
+    {
+      "id": 170,
+      "name": "Доставка и монтаж на детски съоръжения за игра 15 броя",
+      "settlement": null,
+      "total": {
+        "amount": 99000,
+        "currency": "BGN",
+        "amountEur": 50618
+      }
+    },
+    {
+      "id": 58,
+      "name": "Реконструкция на водопровод и възстановяване на настилки по улици в кв. Априлово, гр. Габрово - ул. Ножарска, ул. Слънчев дол, ул. Казашка, ул. Въстаническа, пл. Добри Пенчев",
+      "settlement": "гр. Габрово",
+      "total": {
+        "amount": 98581,
+        "currency": "BGN",
+        "amountEur": 50404
+      }
+    },
+    {
+      "id": 195,
+      "name": "Трактор с кабина до 25 к.с. за комунални дейности с прикачен инвентар 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 97800,
+        "currency": "BGN",
+        "amountEur": 50004
+      }
+    },
+    {
+      "id": 206,
+      "name": "ЛЕК Автомобил за нуждите на МЦ",
+      "settlement": null,
+      "total": {
+        "amount": 90000,
+        "currency": "BGN",
+        "amountEur": 46016
+      }
+    }
+  ],
+  "bySettlement": [
+    {
+      "name": "гр. Габрово",
+      "projectCount": 41,
+      "total": {
+        "amount": 5093352,
+        "currency": "BGN",
+        "amountEur": 2604190
+      },
+      "topProjects": [
+        {
+          "id": 33,
+          "name": "Реконструкция на улица Свищовска и ул. Транспортна, град Габрово",
+          "total": {
+            "amount": 1841150,
+            "currency": "BGN",
+            "amountEur": 941365
+          }
+        },
+        {
+          "id": 54,
+          "name": "Аварийно укрепване на терен зад спортно хале на стадион \"Христо Ботев\" град Габрово",
+          "total": {
+            "amount": 798273,
+            "currency": "BGN",
+            "amountEur": 408151
+          }
+        },
+        {
+          "id": 237,
+          "name": "Изграждане на кръгово кръстовище при бул. Васил Априлов и ул. Юрий Венелин, гр. Габрово",
+          "total": {
+            "amount": 736001,
+            "currency": "BGN",
+            "amountEur": 376311
+          }
+        },
+        {
+          "id": 53,
+          "name": "Основен ремонт на улица Христо Ботев, град Габрово",
+          "total": {
+            "amount": 721753,
+            "currency": "BGN",
+            "amountEur": 369026
+          }
+        },
+        {
+          "id": 56,
+          "name": "Основен ремонт на пътна естакада в Северната промишлена зона на гр. Габрово за квартал „Трендафила \"- град Габрово",
+          "total": {
+            "amount": 471965,
+            "currency": "BGN",
+            "amountEur": 241312
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Драгановци",
+      "projectCount": 2,
+      "total": {
+        "amount": 295000,
+        "currency": "BGN",
+        "amountEur": 150831
+      },
+      "topProjects": [
+        {
+          "id": 13,
+          "name": "Основен ремонт водопровод и възстановяване на улични настилки на 3 улици в с. Драгановци",
+          "total": {
+            "amount": 295000,
+            "currency": "BGN",
+            "amountEur": 150831
+          }
+        },
+        {
+          "id": 51,
+          "name": "Основен ремонт на сградата на Народно читалище \"Христо Ботев - 1923\" с. Драгановци, община Габрово",
+          "total": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Враниловци",
+      "projectCount": 3,
+      "total": {
+        "amount": 153616,
+        "currency": "BGN",
+        "amountEur": 78543
+      },
+      "topProjects": [
+        {
+          "id": 10,
+          "name": "Основен ремонт за повишаване на ен. еф. на сградата на ДГ Мики Маус база с. Враниловци, чрез изпълнение на Есм и използване на веи",
+          "total": {
+            "amount": 153616,
+            "currency": "BGN",
+            "amountEur": 78543
+          }
+        },
+        {
+          "id": 36,
+          "name": "Основен ремонт на улици в с. Враниловци",
+          "total": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          }
+        },
+        {
+          "id": 49,
+          "name": "Основен ремонт на сградата на \"Дом на културата\" с. Враниловци, община Габрово",
+          "total": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Музга",
+      "projectCount": 1,
+      "total": {
+        "amount": 35000,
+        "currency": "BGN",
+        "amountEur": 17895
+      },
+      "topProjects": [
+        {
+          "id": 1,
+          "name": "Проектиране: \"Основен ремонт на адм. сграда с.Музга\"",
+          "total": {
+            "amount": 35000,
+            "currency": "BGN",
+            "amountEur": 17895
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Геновци",
+      "projectCount": 2,
+      "total": {
+        "amount": 33500,
+        "currency": "BGN",
+        "amountEur": 17128
+      },
+      "topProjects": [
+        {
+          "id": 236,
+          "name": "Проектиране „Водоснабдяване с. Геновци\"",
+          "total": {
+            "amount": 17500,
+            "currency": "BGN",
+            "amountEur": 8948
+          }
+        },
+        {
+          "id": 168,
+          "name": "Доставка и монтаж на система резервоари за питейна вода с. Геновци",
+          "total": {
+            "amount": 16000,
+            "currency": "BGN",
+            "amountEur": 8181
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Чарково",
+      "projectCount": 2,
+      "total": {
+        "amount": 22500,
+        "currency": "BGN",
+        "amountEur": 11504
+      },
+      "topProjects": [
+        {
+          "id": 245,
+          "name": "Изграждане на кът за отдих в с. Чарково",
+          "total": {
+            "amount": 15000,
+            "currency": "BGN",
+            "amountEur": 7669
+          }
+        },
+        {
+          "id": 244,
+          "name": "Изграждане на кът за отдих в с. Чарково",
+          "total": {
+            "amount": 7500,
+            "currency": "BGN",
+            "amountEur": 3835
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Харачерите",
+      "projectCount": 1,
+      "total": {
+        "amount": 5500,
+        "currency": "BGN",
+        "amountEur": 2812
+      },
+      "topProjects": [
+        {
+          "id": 172,
+          "name": "Разшитение на системата за видеонаблюдение с. Харачерите",
+          "total": {
+            "amount": 5500,
+            "currency": "BGN",
+            "amountEur": 2812
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Жълтеш",
+      "projectCount": 2,
+      "total": {
+        "amount": 1500,
+        "currency": "BGN",
+        "amountEur": 767
+      },
+      "topProjects": [
+        {
+          "id": 169,
+          "name": "Доставка и монтаж на беседка с. Жълтеш",
+          "total": {
+            "amount": 1500,
+            "currency": "BGN",
+            "amountEur": 767
+          }
+        },
+        {
+          "id": 37,
+          "name": "Основен ремонт на улици в с. Жълтеш",
+          "total": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Борики",
+      "projectCount": 1,
+      "total": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "topProjects": [
+        {
+          "id": 35,
+          "name": "Основен ремонт на улици в с. Борики",
+          "total": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Новаковци",
+      "projectCount": 1,
+      "total": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "topProjects": [
+        {
+          "id": 38,
+          "name": "Основен ремонт на улици в с. Новаковци",
+          "total": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Райновци",
+      "projectCount": 1,
+      "total": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "topProjects": [
+        {
+          "id": 39,
+          "name": "Основен ремонт на улици в с. Райновци",
+          "total": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Поповци",
+      "projectCount": 1,
+      "total": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "topProjects": [
+        {
+          "id": 40,
+          "name": "Основен ремонт на улици в с. Поповци",
+          "total": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Стоевци",
+      "projectCount": 1,
+      "total": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "topProjects": [
+        {
+          "id": 41,
+          "name": "Основен ремонт на улици в с.Стоевци",
+          "total": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Яворец",
+      "projectCount": 2,
+      "total": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "topProjects": [
+        {
+          "id": 42,
+          "name": "Основен ремонт на улици в с. Яворец",
+          "total": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          }
+        },
+        {
+          "id": 52,
+          "name": "Основен ремонт на сградата на Народно читалище \"Васил Левски 1922\" с. Яворец, община Габрово",
+          "total": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Гъбене",
+      "projectCount": 1,
+      "total": {
+        "amount": 0,
+        "currency": "BGN",
+        "amountEur": 0
+      },
+      "topProjects": [
+        {
+          "id": 50,
+          "name": "Основен ремонт на сградата на Народно читалище \"Паисий ХИЛЕНДАРСКИ-1909\" с. Гъбене, община Габрово",
+          "total": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          }
+        }
+      ]
+    }
+  ],
+  "projectCount": 299
+}

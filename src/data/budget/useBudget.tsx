@@ -272,7 +272,7 @@ export const useSofiaCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "sofia", fiscalYear] as const,
     queryFn: () =>
       fetchJson<SofiaCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/sofia.json`,
+        `/budget/capital_programs/${fiscalYear}/sofia-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -290,7 +290,7 @@ export const useVarnaCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "varna", fiscalYear] as const,
     queryFn: () =>
       fetchJson<VarnaCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/varna.json`,
+        `/budget/capital_programs/${fiscalYear}/varna-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -307,7 +307,7 @@ export const usePlevenCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "pleven", fiscalYear] as const,
     queryFn: () =>
       fetchJson<PlevenCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/pleven.json`,
+        `/budget/capital_programs/${fiscalYear}/pleven-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -332,7 +332,7 @@ export const usePlovdivCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "plovdiv", fiscalYear] as const,
     queryFn: () =>
       fetchJson<PlovdivCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/plovdiv.json`,
+        `/budget/capital_programs/${fiscalYear}/plovdiv-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -348,7 +348,7 @@ export const useBurgasCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "burgas", fiscalYear] as const,
     queryFn: () =>
       fetchJson<BurgasCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/burgas.json`,
+        `/budget/capital_programs/${fiscalYear}/burgas-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -375,7 +375,7 @@ export const useRuseCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "ruse", fiscalYear] as const,
     queryFn: () =>
       fetchJson<RuseCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/ruse.json`,
+        `/budget/capital_programs/${fiscalYear}/ruse-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -400,7 +400,7 @@ export const useStaraZagoraCapitalProgram = (fiscalYear: number | undefined) =>
     ] as const,
     queryFn: () =>
       fetchJson<StaraZagoraCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/stara_zagora.json`,
+        `/budget/capital_programs/${fiscalYear}/stara_zagora-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -414,7 +414,7 @@ export const useShumenCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "shumen", fiscalYear] as const,
     queryFn: () =>
       fetchJson<ShumenCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/shumen.json`,
+        `/budget/capital_programs/${fiscalYear}/shumen-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -428,7 +428,7 @@ export const useAsenovgradCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "asenovgrad", fiscalYear] as const,
     queryFn: () =>
       fetchJson<AsenovgradCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/asenovgrad.json`,
+        `/budget/capital_programs/${fiscalYear}/asenovgrad-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -442,7 +442,7 @@ export const useDobrichCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "dobrich", fiscalYear] as const,
     queryFn: () =>
       fetchJson<DobrichCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/dobrich.json`,
+        `/budget/capital_programs/${fiscalYear}/dobrich-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -457,7 +457,7 @@ export const useSlivenCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "sliven", fiscalYear] as const,
     queryFn: () =>
       fetchJson<SlivenCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/sliven.json`,
+        `/budget/capital_programs/${fiscalYear}/sliven-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -473,7 +473,7 @@ export const useVidinCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "vidin", fiscalYear] as const,
     queryFn: () =>
       fetchJson<VidinCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/vidin.json`,
+        `/budget/capital_programs/${fiscalYear}/vidin-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -486,7 +486,7 @@ export const useSamokovCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "samokov", fiscalYear] as const,
     queryFn: () =>
       fetchJson<SamokovCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/samokov.json`,
+        `/budget/capital_programs/${fiscalYear}/samokov-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -499,7 +499,7 @@ export const useVelingradCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "velingrad", fiscalYear] as const,
     queryFn: () =>
       fetchJson<VelingradCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/velingrad.json`,
+        `/budget/capital_programs/${fiscalYear}/velingrad-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -512,7 +512,7 @@ export const useDupnitsaCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "dupnitsa", fiscalYear] as const,
     queryFn: () =>
       fetchJson<DupnitsaCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/dupnitsa.json`,
+        `/budget/capital_programs/${fiscalYear}/dupnitsa-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -528,7 +528,7 @@ export const useLovechCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "lovech", fiscalYear] as const,
     queryFn: () =>
       fetchJson<LovechCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/lovech.json`,
+        `/budget/capital_programs/${fiscalYear}/lovech-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -541,7 +541,7 @@ export const useKardzhaliCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "kardzhali", fiscalYear] as const,
     queryFn: () =>
       fetchJson<KardzhaliCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/kardzhali.json`,
+        `/budget/capital_programs/${fiscalYear}/kardzhali-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -555,7 +555,7 @@ export const useYambolCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "yambol", fiscalYear] as const,
     queryFn: () =>
       fetchJson<YambolCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/yambol.json`,
+        `/budget/capital_programs/${fiscalYear}/yambol-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -568,7 +568,7 @@ export const useGabrovoCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "gabrovo", fiscalYear] as const,
     queryFn: () =>
       fetchJson<GabrovoCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/gabrovo.json`,
+        `/budget/capital_programs/${fiscalYear}/gabrovo-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -581,7 +581,7 @@ export const useHaskovoCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "haskovo", fiscalYear] as const,
     queryFn: () =>
       fetchJson<HaskovoCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/haskovo.json`,
+        `/budget/capital_programs/${fiscalYear}/haskovo-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -594,7 +594,7 @@ export const usePernikCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "pernik", fiscalYear] as const,
     queryFn: () =>
       fetchJson<PernikCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/pernik.json`,
+        `/budget/capital_programs/${fiscalYear}/pernik-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -615,7 +615,7 @@ export const useVelikoTarnovoCapitalProgram = (
     ] as const,
     queryFn: () =>
       fetchJson<VelikoTarnovoCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/veliko_tarnovo.json`,
+        `/budget/capital_programs/${fiscalYear}/veliko_tarnovo-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -630,7 +630,7 @@ export const useKarlovoCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "karlovo", fiscalYear] as const,
     queryFn: () =>
       fetchJson<KarlovoCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/karlovo.json`,
+        `/budget/capital_programs/${fiscalYear}/karlovo-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -670,7 +670,7 @@ export const useMontanaCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "montana", fiscalYear] as const,
     queryFn: () =>
       fetchJson<MontanaCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/montana.json`,
+        `/budget/capital_programs/${fiscalYear}/montana-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -685,7 +685,7 @@ export const useKyustendilCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "kyustendil", fiscalYear] as const,
     queryFn: () =>
       fetchJson<KyustendilCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/kyustendil.json`,
+        `/budget/capital_programs/${fiscalYear}/kyustendil-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
@@ -701,7 +701,7 @@ export const useKazanlakCapitalProgram = (fiscalYear: number | undefined) =>
     queryKey: ["budget", "capital_programs", "kazanlak", fiscalYear] as const,
     queryFn: () =>
       fetchJson<KazanlakCapitalProgramFile>(
-        `/budget/capital_programs/${fiscalYear}/kazanlak.json`,
+        `/budget/capital_programs/${fiscalYear}/kazanlak-tile.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

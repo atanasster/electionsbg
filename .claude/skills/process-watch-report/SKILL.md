@@ -47,7 +47,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `НОИ — месечни B1 отчети по фондове` | `update-noi` (manual download to `raw_data/budget/noi/`, then `tsx scripts/budget/noi/__write_funds.ts`) |
 | `ДВ — Инвестиционна програма за общински проекти` | `update-budget` (investment-program sub-step — fetch PDF to `raw_data/budget/investment_program/{year}-annex-iii.pdf`, then `tsx scripts/budget/investment_program/__write_program.ts`) |
 | `МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение` | `update-budget` (IPOP sub-step — `curl -o raw_data/budget/ipop/projects-{year}.csv 'https://ipop.mrrb.bg/reports_projects_export.php'`, then `tsx scripts/budget/ipop/ingest.ts` — re-fetches the daily-refreshed national execution CSV, rewrites all 264 municipality shards) |
-| `Общински капиталови програми` (per-município capital lists) | `update-budget` (capital-programmes sub-step — for each (year/muni) flagged in the watcher's describe-line, fetch the source file into `raw_data/budget/capital_programs/<muni>-<year>.{xlsx,pdf}` and run `tsx scripts/budget/capital_programs/<muni>.ts --year <year>` — see "Capital-programmes ingest" below) |
+| `Общински капиталови програми` (per-município capital lists) | `update-budget` (capital-programmes sub-step — for each (year/muni) flagged in the watcher's describe-line, fetch the source file into `raw_data/budget/capital_programs/<muni>-<year>.{xlsx,pdf}` and run `tsx scripts/budget/capital_programs/<muni>.ts --year <year>` THEN `tsx scripts/budget/capital_programs/__shrink_for_tile.ts` — the shrink step regenerates the `{muni}-tile.json` sidecar files that the dashboard hooks read; without it, the tile would still try to load the full 50-450KB file and bandwidth would balloon — see "Capital-programmes ingest" below) |
 | `Сметна палата party financing` | `update-financing` |
 | `Сметна палата annual-report index` | `update-financing` (annual-report year added — runs `scrape_reports.ts`) |
 | `Eurostat macro` (BG) | `update-macro` |
@@ -97,6 +97,14 @@ If the user says "skip governments for this run", drop it from the plan without 
 The 26 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech, Dupnitsa, Velingrad, Samokov, Karlovo, Kazanlak, Kyustendil, Montana) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
 
 Each município has its own parser script:
+After any capital-programmes parser run, ALWAYS run the shrink step:
+
+```bash
+tsx scripts/budget/capital_programs/__shrink_for_tile.ts
+```
+
+This regenerates the `{muni}-tile.json` sidecar files (~5KB each) that the dashboard hooks fetch instead of the 50-450KB full files. The tile sidecars truncate `projects[]` to top-30 by amount and add a `projectCount` top-level field so the tile's "X projects" badge still shows the full count. `bySettlement[]` and `byRayon[]` are kept intact because the Sofia tile uses `byRayon.find()` to look up specific rajons — truncating would hide outside-top-N rajons.
+
 - **XLSX/XLS**: Sofia, Burgas, Ruse, Veliko Tarnovo (sheet "Pril15"), Pernik (post-euro EUR figures), Burgas 2022, Karlovo (sheet "2025" — `Обща сума за обекта` col is the per-line total, no OCR).
 - **Born-digital PDF**: Plovdiv, Stara Zagora (inside a ZIP), Asenovgrad, Shumen.
 - **Rasterized PDF needing Gemini Vision OCR**: Varna, Sliven.

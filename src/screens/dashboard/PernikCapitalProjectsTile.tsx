@@ -71,7 +71,9 @@ export const PernikCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
             {compactEur(totalEur)}
           </span>
           <span className="text-xs text-muted-foreground">
-            {t("pernik_capital_project_count", { count: data.projects.length })}
+            {t("pernik_capital_project_count", {
+              count: data.projectCount ?? data.projects.length,
+            })}
           </span>
         </div>
 

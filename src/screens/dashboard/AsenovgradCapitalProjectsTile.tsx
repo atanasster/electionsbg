@@ -75,7 +75,7 @@ export const AsenovgradCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
           </span>
           <span className="text-xs text-muted-foreground">
             {t("asenovgrad_capital_project_count", {
-              count: data.projects.length,
+              count: data.projectCount ?? data.projects.length,
             })}
           </span>
         </div>

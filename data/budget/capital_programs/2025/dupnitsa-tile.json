@@ -1,0 +1,661 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T15:51:47.800Z",
+  "source": {
+    "publisher": "Община Дупница",
+    "documentTitle": "Разчет за финансиране на капиталовите разходи на Община Дупница за 2025 г.",
+    "url": "https://www.dupnitsa.bg/section-316-content.html",
+    "fetchedAt": "2026-05-27T15:51:47.801Z",
+    "ocrModel": "gemini-2.5-pro",
+    "ocrGeneratedAt": "2026-05-27T15:51:00.991Z"
+  },
+  "municipalityCode": "KNL48",
+  "municipalityNameBg": "Дупница",
+  "municipalityNameEn": "Dupnitsa",
+  "currency": "BGN",
+  "recapitulation": {
+    "total": {
+      "amount": 13177576,
+      "currency": "BGN",
+      "amountEur": 6737588
+    }
+  },
+  "publishedRecap": {
+    "amount": 13177576,
+    "currency": "BGN",
+    "amountEur": 6737588
+  },
+  "projects": [
+    {
+      "id": 8,
+      "name": "Реконструкция на съществуващата водопроводна мрежа на с. Самораново, община Дупница, с. Самораново",
+      "settlement": "с. Самораново",
+      "total": {
+        "amount": 1465380,
+        "currency": "BGN",
+        "amountEur": 749237
+      }
+    },
+    {
+      "id": 15,
+      "name": "Основен ремонт на ул. Евтим Трайчев от о.т. 2060 до о.т. 883, гр.Дупница",
+      "settlement": "гр. Дупница",
+      "total": {
+        "amount": 1269000,
+        "currency": "BGN",
+        "amountEur": 648829
+      }
+    },
+    {
+      "id": 18,
+      "name": "Реконструкция на водопроводната мрежа на с. Бистрица, с. Бистрица",
+      "settlement": "с. Бистрица",
+      "total": {
+        "amount": 1200000,
+        "currency": "BGN",
+        "amountEur": 613550
+      }
+    },
+    {
+      "id": 11,
+      "name": "Реконструкция на помпена станция \"Таушаница\", гр. Дупница",
+      "settlement": "гр. Дупница",
+      "total": {
+        "amount": 1040181,
+        "currency": "BGN",
+        "amountEur": 531836
+      }
+    },
+    {
+      "id": 52,
+      "name": "Младежки център, гр. Дупница",
+      "settlement": "гр. Дупница",
+      "total": {
+        "amount": 761076,
+        "currency": "BGN",
+        "amountEur": 389132
+      }
+    },
+    {
+      "id": 53,
+      "name": "Изграждане на малък физкултурен салон към Основно училище „Св. св. Кирил и Методий\", с. Яхиново, с. Яхиново",
+      "settlement": "с. Яхиново",
+      "total": {
+        "amount": 679938,
+        "currency": "BGN",
+        "amountEur": 347647
+      }
+    },
+    {
+      "id": 105,
+      "name": "СМР зелени площи в гр.Дупница, гр.Дупница",
+      "settlement": "гр. Дупница",
+      "total": {
+        "amount": 613021,
+        "currency": "BGN",
+        "amountEur": 313433
+      }
+    },
+    {
+      "id": 50,
+      "name": "Изграждане на физкултурен салон, ОУ Христо Ботев",
+      "settlement": null,
+      "total": {
+        "amount": 532555,
+        "currency": "BGN",
+        "amountEur": 272291
+      }
+    },
+    {
+      "id": 1,
+      "name": "Аварийно почистване р. Джубрена, с. Червен брег",
+      "settlement": "с. Червен брег",
+      "total": {
+        "amount": 497710,
+        "currency": "BGN",
+        "amountEur": 254475
+      }
+    },
+    {
+      "id": 19,
+      "name": "Ремонт на храм \"Рождество на Пресвета Богородица\", с. Дяково",
+      "settlement": "с. Дяково",
+      "total": {
+        "amount": 468759,
+        "currency": "BGN",
+        "amountEur": 239673
+      }
+    },
+    {
+      "id": 2,
+      "name": "Аварийно почистване р. Джубрена, с. Крайници",
+      "settlement": "с. Крайници",
+      "total": {
+        "amount": 458390,
+        "currency": "BGN",
+        "amountEur": 234371
+      }
+    },
+    {
+      "id": 51,
+      "name": "Физкултурен салон, ОУ Христаки Павлович",
+      "settlement": null,
+      "total": {
+        "amount": 446304,
+        "currency": "BGN",
+        "amountEur": 228192
+      }
+    },
+    {
+      "id": 14,
+      "name": "Инженеринг за основен ремонт на ул. \"Генерал Гурко\" от о.т.39 до о.т.69, с.Яхиново, с. Яхиново",
+      "settlement": "с. Яхиново",
+      "total": {
+        "amount": 369444,
+        "currency": "BGN",
+        "amountEur": 188894
+      }
+    },
+    {
+      "id": 17,
+      "name": "Основен ремонт на ул. Река Джубрена, с. Яхиново",
+      "settlement": "с. Яхиново",
+      "total": {
+        "amount": 278000,
+        "currency": "BGN",
+        "amountEur": 142139
+      }
+    },
+    {
+      "id": 104,
+      "name": "Изграждане на довеждаща инфраструктура на обект \"Регионално депо за неопасни отпадъци Дупница\", гр. Дупница",
+      "settlement": "гр. Дупница",
+      "total": {
+        "amount": 275197,
+        "currency": "BGN",
+        "amountEur": 140706
+      }
+    },
+    {
+      "id": 16,
+      "name": "Основен ремонт на ул. Каваклия от о.т. 6061 до о.т. 6069, гр.Дупница",
+      "settlement": "гр. Дупница",
+      "total": {
+        "amount": 254000,
+        "currency": "BGN",
+        "amountEur": 129868
+      }
+    },
+    {
+      "id": 3,
+      "name": "Основен ремонт на външна фасада на училище, гр.Дупница",
+      "settlement": "гр. Дупница",
+      "total": {
+        "amount": 248772,
+        "currency": "BGN",
+        "amountEur": 127195
+      }
+    },
+    {
+      "id": 102,
+      "name": "Мултифункционална машина за зимно почистване и измиване, гр.Дупница",
+      "settlement": "гр. Дупница",
+      "total": {
+        "amount": 190680,
+        "currency": "BGN",
+        "amountEur": 97493
+      }
+    },
+    {
+      "id": 128,
+      "name": "Проектиране и авторски надзор за реконструкция на водопроводна мрежа в с. Крайници, с. Крайници",
+      "settlement": "с. Крайници",
+      "total": {
+        "amount": 160000,
+        "currency": "BGN",
+        "amountEur": 81807
+      }
+    },
+    {
+      "id": 12,
+      "name": "ул. Орлинска в участъка от ул. Николаевска до II-62 с о.т. 2034-1436, гр.Дупница",
+      "settlement": "гр. Дупница",
+      "total": {
+        "amount": 136068,
+        "currency": "BGN",
+        "amountEur": 69570
+      }
+    },
+    {
+      "id": 7,
+      "name": "Ремонт на покрив на физкултурен салон, Пгхвхт",
+      "settlement": null,
+      "total": {
+        "amount": 101455,
+        "currency": "BGN",
+        "amountEur": 51873
+      }
+    },
+    {
+      "id": 6,
+      "name": "Ремонт помещение в ПГ Христо Ботев, ПГ Христо Ботев",
+      "settlement": null,
+      "total": {
+        "amount": 93491,
+        "currency": "BGN",
+        "amountEur": 47801
+      }
+    },
+    {
+      "id": 48,
+      "name": "Лаптопи, ПГ Христо Ботев",
+      "settlement": null,
+      "total": {
+        "amount": 92856,
+        "currency": "BGN",
+        "amountEur": 47477
+      }
+    },
+    {
+      "id": 20,
+      "name": "Основен ремонт на техническа инфраструктура за устрояване на открит паркинг в централна градска част, гр. Дупница",
+      "settlement": "гр. Дупница",
+      "total": {
+        "amount": 89880,
+        "currency": "BGN",
+        "amountEur": 45955
+      }
+    },
+    {
+      "id": 119,
+      "name": "Проектиране и авторски надзор за благоустрояване и озеленяване на прилежащо парково пространство Младежки център, гр.Дупница",
+      "settlement": "гр. Дупница",
+      "total": {
+        "amount": 85000,
+        "currency": "BGN",
+        "amountEur": 43460
+      }
+    },
+    {
+      "id": 64,
+      "name": "Интерактивен дисплей, ОУ Кирил и Методий",
+      "settlement": null,
+      "total": {
+        "amount": 77582,
+        "currency": "BGN",
+        "amountEur": 39667
+      }
+    },
+    {
+      "id": 129,
+      "name": "Проектиране и авторски надзор на тренировъчен салон за спортни дейности ул. Саморанска, гр.Дупница",
+      "settlement": "гр. Дупница",
+      "total": {
+        "amount": 65000,
+        "currency": "BGN",
+        "amountEur": 33234
+      }
+    },
+    {
+      "id": 61,
+      "name": "Климатици, ПГ Христо Ботев",
+      "settlement": null,
+      "total": {
+        "amount": 61305,
+        "currency": "BGN",
+        "amountEur": 31345
+      }
+    },
+    {
+      "id": 47,
+      "name": "Интерактивен дисплей, ПГ Христо Ботев",
+      "settlement": null,
+      "total": {
+        "amount": 59753,
+        "currency": "BGN",
+        "amountEur": 30551
+      }
+    },
+    {
+      "id": 4,
+      "name": "Основен ремонт на съществуваща спортна площадка в ОУ \"Неофит Рилски\", ОУ Неофит Рилски",
+      "settlement": null,
+      "total": {
+        "amount": 54008,
+        "currency": "BGN",
+        "amountEur": 27614
+      }
+    }
+  ],
+  "bySettlement": [
+    {
+      "name": "гр. Дупница",
+      "projectCount": 30,
+      "total": {
+        "amount": 5284448,
+        "currency": "BGN",
+        "amountEur": 2701895
+      },
+      "topProjects": [
+        {
+          "id": 15,
+          "name": "Основен ремонт на ул. Евтим Трайчев от о.т. 2060 до о.т. 883, гр.Дупница",
+          "total": {
+            "amount": 1269000,
+            "currency": "BGN",
+            "amountEur": 648829
+          }
+        },
+        {
+          "id": 11,
+          "name": "Реконструкция на помпена станция \"Таушаница\", гр. Дупница",
+          "total": {
+            "amount": 1040181,
+            "currency": "BGN",
+            "amountEur": 531836
+          }
+        },
+        {
+          "id": 52,
+          "name": "Младежки център, гр. Дупница",
+          "total": {
+            "amount": 761076,
+            "currency": "BGN",
+            "amountEur": 389132
+          }
+        },
+        {
+          "id": 105,
+          "name": "СМР зелени площи в гр.Дупница, гр.Дупница",
+          "total": {
+            "amount": 613021,
+            "currency": "BGN",
+            "amountEur": 313433
+          }
+        },
+        {
+          "id": 104,
+          "name": "Изграждане на довеждаща инфраструктура на обект \"Регионално депо за неопасни отпадъци Дупница\", гр. Дупница",
+          "total": {
+            "amount": 275197,
+            "currency": "BGN",
+            "amountEur": 140706
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Самораново",
+      "projectCount": 1,
+      "total": {
+        "amount": 1465380,
+        "currency": "BGN",
+        "amountEur": 749237
+      },
+      "topProjects": [
+        {
+          "id": 8,
+          "name": "Реконструкция на съществуващата водопроводна мрежа на с. Самораново, община Дупница, с. Самораново",
+          "total": {
+            "amount": 1465380,
+            "currency": "BGN",
+            "amountEur": 749237
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Яхиново",
+      "projectCount": 6,
+      "total": {
+        "amount": 1347530,
+        "currency": "BGN",
+        "amountEur": 688981
+      },
+      "topProjects": [
+        {
+          "id": 53,
+          "name": "Изграждане на малък физкултурен салон към Основно училище „Св. св. Кирил и Методий\", с. Яхиново, с. Яхиново",
+          "total": {
+            "amount": 679938,
+            "currency": "BGN",
+            "amountEur": 347647
+          }
+        },
+        {
+          "id": 14,
+          "name": "Инженеринг за основен ремонт на ул. \"Генерал Гурко\" от о.т.39 до о.т.69, с.Яхиново, с. Яхиново",
+          "total": {
+            "amount": 369444,
+            "currency": "BGN",
+            "amountEur": 188894
+          }
+        },
+        {
+          "id": 17,
+          "name": "Основен ремонт на ул. Река Джубрена, с. Яхиново",
+          "total": {
+            "amount": 278000,
+            "currency": "BGN",
+            "amountEur": 142139
+          }
+        },
+        {
+          "id": 120,
+          "name": "Изготвяне на проект за подмяна на водопроводна мрежа с. Яхиново, с. Яхиново",
+          "total": {
+            "amount": 14880,
+            "currency": "BGN",
+            "amountEur": 7608
+          }
+        },
+        {
+          "id": 55,
+          "name": "Климатици, с.Яхиново",
+          "total": {
+            "amount": 3638,
+            "currency": "BGN",
+            "amountEur": 1860
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Бистрица",
+      "projectCount": 1,
+      "total": {
+        "amount": 1200000,
+        "currency": "BGN",
+        "amountEur": 613550
+      },
+      "topProjects": [
+        {
+          "id": 18,
+          "name": "Реконструкция на водопроводната мрежа на с. Бистрица, с. Бистрица",
+          "total": {
+            "amount": 1200000,
+            "currency": "BGN",
+            "amountEur": 613550
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Крайници",
+      "projectCount": 14,
+      "total": {
+        "amount": 685307,
+        "currency": "BGN",
+        "amountEur": 350392
+      },
+      "topProjects": [
+        {
+          "id": 2,
+          "name": "Аварийно почистване р. Джубрена, с. Крайници",
+          "total": {
+            "amount": 458390,
+            "currency": "BGN",
+            "amountEur": 234371
+          }
+        },
+        {
+          "id": 128,
+          "name": "Проектиране и авторски надзор за реконструкция на водопроводна мрежа в с. Крайници, с. Крайници",
+          "total": {
+            "amount": 160000,
+            "currency": "BGN",
+            "amountEur": 81807
+          }
+        },
+        {
+          "id": 28,
+          "name": "Преносим компютър Dell Vostro 3520 13, с. Крайници",
+          "total": {
+            "amount": 13594,
+            "currency": "BGN",
+            "amountEur": 6951
+          }
+        },
+        {
+          "id": 83,
+          "name": "Интерактивна маса, с.Крайници",
+          "total": {
+            "amount": 12305,
+            "currency": "BGN",
+            "amountEur": 6291
+          }
+        },
+        {
+          "id": 26,
+          "name": "Стереоскопичен лаптоп, с. Крайници",
+          "total": {
+            "amount": 11563,
+            "currency": "BGN",
+            "amountEur": 5912
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Червен брег",
+      "projectCount": 1,
+      "total": {
+        "amount": 497710,
+        "currency": "BGN",
+        "amountEur": 254475
+      },
+      "topProjects": [
+        {
+          "id": 1,
+          "name": "Аварийно почистване р. Джубрена, с. Червен брег",
+          "total": {
+            "amount": 497710,
+            "currency": "BGN",
+            "amountEur": 254475
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Дяково",
+      "projectCount": 1,
+      "total": {
+        "amount": 468759,
+        "currency": "BGN",
+        "amountEur": 239673
+      },
+      "topProjects": [
+        {
+          "id": 19,
+          "name": "Ремонт на храм \"Рождество на Пресвета Богородица\", с. Дяково",
+          "total": {
+            "amount": 468759,
+            "currency": "BGN",
+            "amountEur": 239673
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Джерман",
+      "projectCount": 1,
+      "total": {
+        "amount": 45000,
+        "currency": "BGN",
+        "amountEur": 23008
+      },
+      "topProjects": [
+        {
+          "id": 111,
+          "name": "Изграждане на сценичен подиум и фермена конструкция с. Джерман, с. Джерман",
+          "total": {
+            "amount": 45000,
+            "currency": "BGN",
+            "amountEur": 23008
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Грамаде",
+      "projectCount": 1,
+      "total": {
+        "amount": 15000,
+        "currency": "BGN",
+        "amountEur": 7669
+      },
+      "topProjects": [
+        {
+          "id": 123,
+          "name": "Проектиране и авторски надзор на подпорна стена за аварийно укрепване на път, с. Грамаде",
+          "total": {
+            "amount": 15000,
+            "currency": "BGN",
+            "amountEur": 7669
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Тополница",
+      "projectCount": 1,
+      "total": {
+        "amount": 13000,
+        "currency": "BGN",
+        "amountEur": 6647
+      },
+      "topProjects": [
+        {
+          "id": 124,
+          "name": "Проектиране и авторски надзор за изграждане на подпорна стена за аварийно укрепване на път в района на ж.п спирка, с. Тополница",
+          "total": {
+            "amount": 13000,
+            "currency": "BGN",
+            "amountEur": 6647
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Пиперево",
+      "projectCount": 1,
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      },
+      "topProjects": [
+        {
+          "id": 122,
+          "name": "Проектиране и авторски надзор на подпорна стена за аварийно укрепване на дере, с.Пиперево",
+          "total": {
+            "amount": 10000,
+            "currency": "BGN",
+            "amountEur": 5113
+          }
+        }
+      ]
+    }
+  ],
+  "projectCount": 137
+}

@@ -82,15 +82,18 @@ export const PlovdivCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
           </span>
           <span className="text-xs text-muted-foreground">
             {t("plovdiv_capital_project_count", {
-              count: data.projects.length,
+              count: data.projectCount ?? data.projects.length,
             })}
           </span>
           <span className="text-xs text-muted-foreground tabular-nums">
             ·{" "}
             {t("plovdiv_capital_tagged_share", {
               pct:
-                data.projects.length > 0
-                  ? ((100 * taggedCount) / data.projects.length).toFixed(0)
+                (data.projectCount ?? data.projects.length) > 0
+                  ? (
+                      (100 * taggedCount) /
+                      (data.projectCount ?? data.projects.length)
+                    ).toFixed(0)
                   : "0",
             })}
           </span>
