@@ -6,7 +6,8 @@
 // every filing on record with a deep link to the source XML.
 
 import { FC, useMemo } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useSearchParams, Link } from "react-router-dom";
+import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useTranslation } from "react-i18next";
 import {
   ArrowDown,
@@ -71,11 +72,21 @@ const fmtEur = (n: number, lang: string): string => {
 
 export const OfficialProfileScreen: FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const [searchParams] = useSearchParams();
   const { t, i18n } = useTranslation();
   const { official, isLoading: officialLoading } = useOfficial(slug);
   const { declarations, isLoading: declsLoading } =
     useOfficialDeclarations(slug);
   const { nameForBg } = useCandidateName();
+  const { findMunicipality } = useMunicipalities();
+
+  // `?from=<obshtina>` breadcrumb support — the per-municipality roster
+  // tiles append it when deep-linking into the profile, so a return-link
+  // to the originating settlement page is always one tap away. Falls
+  // back to the global "/officials/assets" listing when missing or
+  // unrecognised.
+  const fromObshtina = searchParams.get("from");
+  const fromMunicipality = fromObshtina ? findMunicipality(fromObshtina) : null;
 
   const latest = declarations[0] ?? null;
 
@@ -410,9 +421,25 @@ export const OfficialProfileScreen: FC = () => {
       ) : null}
 
       <div className="text-xs text-muted-foreground">
-        <Link to="/officials/assets" className="text-primary hover:underline">
-          ← {t("official_back_to_list") || "Back to all officials"}
-        </Link>
+        {fromMunicipality ? (
+          <Link
+            to={`/settlement/${fromObshtina}`}
+            className="text-primary hover:underline"
+          >
+            ←{" "}
+            {t("official_back_to_municipality", {
+              name:
+                i18n.language === "bg"
+                  ? fromMunicipality.name
+                  : fromMunicipality.name_en,
+              defaultValue: "Back to {{name}}",
+            })}
+          </Link>
+        ) : (
+          <Link to="/officials/assets" className="text-primary hover:underline">
+            ← {t("official_back_to_list") || "Back to all officials"}
+          </Link>
+        )}
       </div>
     </div>
   );
