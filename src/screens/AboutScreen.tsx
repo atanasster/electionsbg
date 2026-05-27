@@ -485,6 +485,10 @@ export const AboutScreen = () => {
                   href="https://m.velingrad.bg/wp-content/uploads/2025/04/ПРОЕКТ-ПКР-2025.pdf"
                   label={t("budget_capital_velingrad_source")}
                 />
+                <SourceItem
+                  href="https://www.samokov.bg/documents/d/samokov/prilozenie-5"
+                  label={t("budget_capital_samokov_source")}
+                />
               </ul>
             </DataGroup>
 

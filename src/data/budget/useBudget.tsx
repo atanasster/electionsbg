@@ -33,6 +33,7 @@ import type {
   StaraZagoraCapitalProgramFile,
   DupnitsaCapitalProgramFile,
   GabrovoCapitalProgramFile,
+  SamokovCapitalProgramFile,
   VelingradCapitalProgramFile,
   HaskovoCapitalProgramFile,
   KardzhaliCapitalProgramFile,
@@ -467,6 +468,19 @@ export const useVidinCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<VidinCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/vidin.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Самоков — Sofia-oblast município (SFO39, 28 settlements). Born-
+// digital PDF on samokov.bg; OCR via Gemini Vision.
+export const useSamokovCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "samokov", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<SamokovCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/samokov.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

@@ -1028,6 +1028,45 @@ export interface VidinCapitalProgramFile {
   bySettlement: VidinCapitalSettlementRollup[];
 }
 
+// Самоков — single-município (SFO39, EKATTE 65231) in Sofia oblast.
+// 28 settlements (city + 27 villages, incl. resort к.к. Боровец).
+// Source is a 10-page born-digital Excel-rendered PDF on samokov.bg
+// (Приложение №5 to the council budget). OCR via Gemini Vision.
+export interface SamokovCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface SamokovCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface SamokovCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: SamokovCapitalProject[];
+  bySettlement: SamokovCapitalSettlementRollup[];
+}
+
 // Велинград — single-município (PAZ08, EKATTE 10450) in Pazardjik
 // oblast. 21 settlements (city + 20 villages). Source is the council's
 // "ПРОЕКТ НА ПРОГРАМАТА ЗА КАПИТАЛОВИ РАЗХОДИ" — a clean born-digital

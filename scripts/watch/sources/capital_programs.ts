@@ -1,10 +1,11 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 21 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Each of the 22 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
 // Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin,
 // Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech,
-// Dupnitsa, Velingrad) publishes an annual "Капиталова програма" /
-// "Поименен списък на обектите за капиталови разходи" on its own website.
+// Dupnitsa, Velingrad, Samokov) publishes an annual "Капиталова
+// програма" / "Поименен списък на обектите за капиталови разходи" on
+// its own website.
 // URLs are opaque and change every year (some include the date, some a
 // content hash), so the catalogue is hand-curated below — mirrors the
 // SOURCE_URLS map in each município's parser under
@@ -74,7 +75,8 @@ type Municipality =
   | "kardzhali"
   | "lovech"
   | "dupnitsa"
-  | "velingrad";
+  | "velingrad"
+  | "samokov";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -160,6 +162,10 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // via Google. OCR via Gemini Vision.
     velingrad:
       "https://m.velingrad.bg/wp-content/uploads/2025/04/ПРОЕКТ-ПКР-2025.pdf",
+    // Самоков (SFO39) — Sofia-oblast município, 28 settlements
+    // (incl. resort к.к. Боровец). Прил. №5 to the council budget;
+    // born-digital Excel-rendered PDF, discovered via Google. OCR.
+    samokov: "https://www.samokov.bg/documents/d/samokov/prilozenie-5",
     // Велико Търново (VTR04) — Tier-2 oblast capital, 89 settlements.
     // The 22-appendix master XLSX is a clean structured file with a
     // dedicated "Pril15" sheet (Инвестиционна програма). No OCR needed.
