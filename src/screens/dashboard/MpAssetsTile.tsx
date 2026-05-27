@@ -2,7 +2,10 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Wallet, ArrowRight, ArrowUp, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useAssetsRankingsTop } from "@/data/parliament/useAssetsRankings";
+import {
+  useAssetsRankings,
+  useAssetsRankingsTop,
+} from "@/data/parliament/useAssetsRankings";
 import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
@@ -45,7 +48,6 @@ export const MpAssetsTile: FC<Props> = ({
   className,
 }) => {
   const { t, i18n } = useTranslation();
-  const { rankings } = useAssetsRankingsTop();
   const { selected } = useElectionContext();
   const { findMpsByRegion, findMpById } = useMps();
   const { mpName } = useCandidateName();
@@ -74,12 +76,25 @@ export const MpAssetsTile: FC<Props> = ({
 
   const isRegional = regionMpIds != null;
 
+  // The slim top-50 file is fine for the nationwide tile, but regional pages
+  // need the full ranking — most oblasts don't crack the national top-50, so
+  // filtering the slim file leaves them empty.
+  const { rankings: topRankings } = useAssetsRankingsTop({
+    enabled: !isRegional,
+  });
+  const { rankings: fullRankings } = useAssetsRankings({ enabled: isRegional });
+  const rankings = isRegional ? fullRankings : topRankings;
+
   const topMps = useMemo(() => {
     if (!rankings) return [];
     if (isRegional) {
-      return rankings.topMps
-        .filter((m) => regionMpIds!.has(m.mpId))
-        .slice(0, ROWS);
+      // Prefer the per-NS slice so the ranking matches the selected election;
+      // fall back to the lifetime list when the NS has no slice yet.
+      const pool =
+        selectedFolder && rankings.byNs[selectedFolder]?.topMps?.length
+          ? rankings.byNs[selectedFolder].topMps
+          : rankings.topMps;
+      return pool.filter((m) => regionMpIds!.has(m.mpId)).slice(0, ROWS);
     }
     if (selectedFolder && rankings.byNs[selectedFolder]?.topMps?.length) {
       return rankings.byNs[selectedFolder].topMps.slice(0, ROWS);
@@ -122,7 +137,7 @@ export const MpAssetsTile: FC<Props> = ({
             to={detailsTo}
             className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline normal-case shrink-0"
           >
-            {t("dashboard_see_details") || "See details"}
+            {t("dashboard_mp_assets_view_all") || "View all"}
             <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
@@ -186,10 +201,7 @@ export const MpAssetsTile: FC<Props> = ({
           );
         })}
       </div>
-      <div className="mt-2 pt-2 border-t flex items-center justify-between text-[11px] text-muted-foreground">
-        <Link to={detailsTo} className="text-primary hover:underline">
-          {t("dashboard_mp_assets_view_all") || "All MPs by assets"} →
-        </Link>
+      <div className="mt-2 pt-2 border-t flex items-center justify-end text-[11px] text-muted-foreground">
         <span>
           {t("dashboard_mp_assets_count_label") ||
             "Net worth (€), declarant + spouse"}

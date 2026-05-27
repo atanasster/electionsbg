@@ -13,11 +13,12 @@ const queryFn = async (): Promise<ConnectionsRankings | undefined> => {
   return response.json();
 };
 
-export const useConnectionsRankings = () => {
+export const useConnectionsRankings = (options?: { enabled?: boolean }) => {
   const { data, isLoading } = useQuery({
     queryKey: ["mp_connections_rankings"] as [string],
     queryFn,
     staleTime: Infinity,
+    enabled: options?.enabled ?? true,
   });
   return { rankings: data, isLoading };
 };
@@ -43,11 +44,12 @@ const queryFnTop = async (): Promise<ConnectionsRankingsTop | undefined> => {
   return response.json();
 };
 
-export const useConnectionsRankingsTop = () => {
+export const useConnectionsRankingsTop = (options?: { enabled?: boolean }) => {
   const { data, isLoading } = useQuery({
     queryKey: ["mp_connections_rankings_top"] as [string],
     queryFn: queryFnTop,
     staleTime: Infinity,
+    enabled: options?.enabled ?? true,
   });
   return { rankings: data, isLoading };
 };

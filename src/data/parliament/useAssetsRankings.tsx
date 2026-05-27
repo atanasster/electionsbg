@@ -11,11 +11,12 @@ const queryFn = async (): Promise<MpAssetsRankings | undefined> => {
   return response.json();
 };
 
-export const useAssetsRankings = () => {
+export const useAssetsRankings = (options?: { enabled?: boolean }) => {
   const { data, isLoading } = useQuery({
     queryKey: ["mp_assets_rankings"] as [string],
     queryFn,
     staleTime: Infinity,
+    enabled: options?.enabled ?? true,
   });
   return { rankings: data, isLoading };
 };
@@ -32,11 +33,12 @@ const queryFnTop = async (): Promise<MpAssetsRankings | undefined> => {
   return response.json();
 };
 
-export const useAssetsRankingsTop = () => {
+export const useAssetsRankingsTop = (options?: { enabled?: boolean }) => {
   const { data, isLoading } = useQuery({
     queryKey: ["mp_assets_rankings_top"] as [string],
     queryFn: queryFnTop,
     staleTime: Infinity,
+    enabled: options?.enabled ?? true,
   });
   return { rankings: data, isLoading };
 };

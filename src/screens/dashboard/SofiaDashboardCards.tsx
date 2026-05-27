@@ -6,6 +6,7 @@ import { useSofiaSummary } from "@/data/dashboard/useSofiaSummary";
 import { useSofiaStats } from "@/data/country/useSofiaStats";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
+import { useRegionDeclarationsHasContent } from "@/data/parliament/useMpDeclarationsAvailability";
 import { SOFIA_REGIONS } from "@/data/dataTypes";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
@@ -52,6 +53,9 @@ export const SofiaDashboardCards: FC = () => {
   const { sofiaStats } = useSofiaStats();
   const { votesSofia } = useRegionVotes();
   const { data: problemSectionsStats } = useProblemSectionsStats();
+  const declarationsHaveContent = useRegionDeclarationsHasContent({
+    regionCodes: SOFIA_REGIONS,
+  });
   const sofia = votesSofia();
 
   if (isLoading) {
@@ -157,19 +161,21 @@ export const SofiaDashboardCards: FC = () => {
         ) : null}
       </DashboardSection>
 
-      <DashboardSection
-        id="declarations"
-        title={t("dashboard_section_declarations")}
-        subtitle={<MpDeclarationsProvenance regionCodes={SOFIA_REGIONS} />}
-        icon={Briefcase}
-      >
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-          <MpConnectionsTile regionCodes={SOFIA_REGIONS} />
-          <CarMakesTile regionCodes={SOFIA_REGIONS} hideProvenance />
-        </div>
-        <CompaniesHqTile ekatte="68134" />
-        <MpAssetsTile regionCodes={SOFIA_REGIONS} />
-      </DashboardSection>
+      {declarationsHaveContent && (
+        <DashboardSection
+          id="declarations"
+          title={t("dashboard_section_declarations")}
+          subtitle={<MpDeclarationsProvenance regionCodes={SOFIA_REGIONS} />}
+          icon={Briefcase}
+        >
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+            <MpConnectionsTile regionCodes={SOFIA_REGIONS} />
+            <CarMakesTile regionCodes={SOFIA_REGIONS} hideProvenance />
+          </div>
+          <CompaniesHqTile ekatte="68134" />
+          <MpAssetsTile regionCodes={SOFIA_REGIONS} />
+        </DashboardSection>
+      )}
     </section>
   );
 };

@@ -4,6 +4,7 @@ import { AlertTriangle, Briefcase, Building2, Gauge, Map } from "lucide-react";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useRegionSummary } from "@/data/dashboard/useRegionSummary";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
+import { useRegionDeclarationsHasContent } from "@/data/parliament/useMpDeclarationsAvailability";
 import { SOFIA_REGIONS } from "@/data/dataTypes";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
@@ -49,6 +50,9 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
   const { electionStats } = useElectionContext();
   const { data, isLoading } = useRegionSummary(regionCode);
   const { data: problemSectionsStats } = useProblemSectionsStats();
+  const declarationsHaveContent = useRegionDeclarationsHasContent({
+    regionCode,
+  });
 
   if (isLoading) {
     return (
@@ -144,18 +148,20 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
         ) : null}
       </DashboardSection>
 
-      <DashboardSection
-        id="declarations"
-        title={t("dashboard_section_declarations")}
-        subtitle={<MpDeclarationsProvenance regionCode={regionCode} />}
-        icon={Briefcase}
-      >
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-          <MpConnectionsTile regionCode={regionCode} />
-          <CarMakesTile regionCode={regionCode} hideProvenance />
-        </div>
-        <MpAssetsTile regionCode={regionCode} />
-      </DashboardSection>
+      {declarationsHaveContent && (
+        <DashboardSection
+          id="declarations"
+          title={t("dashboard_section_declarations")}
+          subtitle={<MpDeclarationsProvenance regionCode={regionCode} />}
+          icon={Briefcase}
+        >
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+            <MpConnectionsTile regionCode={regionCode} />
+            <CarMakesTile regionCode={regionCode} hideProvenance />
+          </div>
+          <MpAssetsTile regionCode={regionCode} />
+        </DashboardSection>
+      )}
     </section>
   );
 };

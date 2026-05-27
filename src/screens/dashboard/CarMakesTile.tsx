@@ -123,6 +123,7 @@ export const CarMakesTile: FC<Props> = ({
 
   if (!isRegional && !carMakes) return null;
   if (isRegional && !mpCars) return null;
+  if (isRegional && topCars.length === 0) return null;
 
   const titleKey = isRegional
     ? "dashboard_car_makes_region_title"

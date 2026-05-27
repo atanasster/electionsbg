@@ -2,7 +2,10 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Network, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useConnectionsRankingsTop } from "@/data/parliament/useConnectionsRankings";
+import {
+  useConnectionsRankings,
+  useConnectionsRankingsTop,
+} from "@/data/parliament/useConnectionsRankings";
 import { useDataProvenance } from "@/data/parliament/useDataProvenance";
 import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -39,7 +42,6 @@ export const MpConnectionsTile: FC<Props> = ({
   className,
 }) => {
   const { t, i18n } = useTranslation();
-  const { rankings } = useConnectionsRankingsTop();
   const { provenance } = useDataProvenance();
   const { selected } = useElectionContext();
   const { findMpsByRegion, findMpById } = useMps();
@@ -66,12 +68,27 @@ export const MpConnectionsTile: FC<Props> = ({
 
   const isRegional = regionMpIds != null;
 
+  // The slim top-50 file is fine for the nationwide tile, but regional pages
+  // need the full ranking — most oblasts don't crack the national top-50, so
+  // filtering the slim file leaves them empty.
+  const { rankings: topRankings } = useConnectionsRankingsTop({
+    enabled: !isRegional,
+  });
+  const { rankings: fullRankings } = useConnectionsRankings({
+    enabled: isRegional,
+  });
+  const rankings = isRegional ? fullRankings : topRankings;
+
   const topMps: ConnectionsTopMp[] = useMemo(() => {
     if (!rankings) return [];
     if (isRegional) {
-      return rankings.topMps
-        .filter((m) => regionMpIds!.has(m.mpId))
-        .slice(0, ROWS);
+      // Prefer the per-NS slice so the ranking matches the selected election;
+      // fall back to the lifetime list when the NS has no slice yet.
+      const pool =
+        selectedFolder && rankings.byNs[selectedFolder]?.topMps?.length
+          ? rankings.byNs[selectedFolder].topMps
+          : rankings.topMps;
+      return pool.filter((m) => regionMpIds!.has(m.mpId)).slice(0, ROWS);
     }
     if (selectedFolder && rankings.byNs[selectedFolder]) {
       return rankings.byNs[selectedFolder].topMps.slice(0, ROWS);
