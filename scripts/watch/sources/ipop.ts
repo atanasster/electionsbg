@@ -58,8 +58,7 @@ export const ipop: WatchSource = {
 
   describe(prev: WatchState | null, curr: Fingerprint): string {
     if (!prev) return curr.detail;
-    if (prev.fingerprint === curr.value)
-      return `${curr.detail} (no change)`;
+    if (prev.fingerprint === curr.value) return `${curr.detail} (no change)`;
     return `IPOP CSV re-uploaded — re-run \`tsx scripts/budget/ipop/ingest.ts\``;
   },
 };
