@@ -1,1 +1,36 @@
-{"mpId":5004,"mpName":"Лариса Борисова Савова","generatedAt":"2026-05-23T13:45:42.043Z","total":2,"roles":[{"uic":"206600281","companyName":"ИЗДАТЕЛСКА КЪЩА ЛАРА ИНК","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Чепеларе, 4850","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-07-28T13:46:30","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206600281","companyName":"ИЗДАТЕЛСКА КЪЩА ЛАРА ИНК","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Чепеларе, 4850","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":null,"addedAt":"2021-07-28T13:46:30","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 5004,
+  "mpName": "Лариса Борисова Савова",
+  "generatedAt": "2026-05-23T13:45:42.043Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "206600281",
+      "companyName": "Издателска къща лара инк",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Чепеларе, 4850",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-07-28T13:46:30",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206600281",
+      "companyName": "Издателска къща лара инк",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Чепеларе, 4850",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-07-28T13:46:30",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

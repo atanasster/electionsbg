@@ -1,1 +1,36 @@
-{"mpId":222,"mpName":"Петя Илиева Гегова","generatedAt":"2026-05-23T13:45:42.014Z","total":2,"roles":[{"uic":"206576081","companyName":"ИМПЕТУС - ПГ","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София, 1113","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-07-07T10:23:02","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206576081","companyName":"ИМПЕТУС - ПГ","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София, 1113","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":null,"addedAt":"2021-07-07T10:23:02","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 222,
+  "mpName": "Петя Илиева Гегова",
+  "generatedAt": "2026-05-23T13:45:42.014Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "206576081",
+      "companyName": "Импетус - ПГ",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1113",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-07-07T10:23:02",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206576081",
+      "companyName": "Импетус - ПГ",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1113",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-07-07T10:23:02",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

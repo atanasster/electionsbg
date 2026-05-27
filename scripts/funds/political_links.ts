@@ -28,6 +28,11 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import type { FundsBeneficiary } from "./types";
+// Reuse the procurement-side normaliser so the debarred-supplier join uses
+// the SAME key on both sides — without this, "АБВ ЕООД" in the debarred
+// list (key "абв") fails to match the funds beneficiary "АБВ ЕООД" (key
+// "абв еоод"). The procurement normaliser strips the legal-form suffix.
+import { normalizeName as debarredJoinKey } from "../procurement/debarred";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -57,13 +62,6 @@ const TOP_N = 50;
 const round2 = (n: number): number => Math.round(n * 100) / 100;
 const canonicalJson = (data: unknown): string =>
   JSON.stringify(data, null, 2) + "\n";
-
-const normalize = (s: string): string =>
-  s
-    .toLowerCase()
-    .replace(/[„""'`]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
 
 // ---- Schema mirrors of upstream files (only the fields we read) ----
 
@@ -402,7 +400,11 @@ const buildDebarredNames = (): Set<string> => {
   const file = JSON.parse(
     fs.readFileSync(PROC_DEBARRED, "utf8"),
   ) as DebarredFile;
-  for (const e of file.entries) set.add(normalize(e.nameNormalized));
+  // The debarred-side `nameNormalized` is already legal-form-stripped by
+  // scripts/procurement/debarred.ts. Re-apply `debarredJoinKey` here as a
+  // belt-and-braces (idempotent) so the comparison is symmetric whether
+  // the upstream file ships a raw `name` or a pre-stripped one.
+  for (const e of file.entries) set.add(debarredJoinKey(e.nameNormalized));
   return set;
 };
 
@@ -458,6 +460,13 @@ export const buildPoliticalLinks = (): {
   const procByEik = buildProcurementByEik(flaggedEiks);
   const debarredNames = buildDebarredNames();
 
+  // Track how many flagged EIKs ALSO appear in the debarred-suppliers
+  // register. We log a warning if the debarred list has rows but the join
+  // never hits — historically this masked a normalisation mismatch between
+  // the two sides (debarred-side keys had the legal-form suffix stripped
+  // while the funds-side keys did not). See `debarredJoinKey` above.
+  const debarredListSize = debarredNames.size;
+
   const entries: PoliticalEntry[] = [];
   let mpOnly = 0;
   let officialOnly = 0;
@@ -472,7 +481,8 @@ export const buildPoliticalLinks = (): {
     const procRow = procByEik.get(eik);
     const procurementEur = procRow?.totalEur ?? 0;
     const procurementContractCount = procRow?.contractCount ?? 0;
-    const debarred = debarredNames.has(normalize(b.name));
+    // Use the same legal-form-stripped key on both sides of the join.
+    const debarred = debarredNames.has(debarredJoinKey(b.name));
 
     if (mps.length > 0 && officials.length > 0) both += 1;
     else if (mps.length > 0) mpOnly += 1;
@@ -533,6 +543,19 @@ export const buildPoliticalLinks = (): {
     eik: entry.eik,
     entry,
   }));
+
+  // Loud-fail safety net for the debarred join: if the upstream debarred
+  // register has rows but no funds beneficiary matched, the most likely
+  // cause is a normalisation drift between the two sides (which is exactly
+  // what caused the silent `debarredFlagged: 0` regression flagged in the
+  // ingest audit). Warn but don't throw — the ingest must still complete.
+  if (debarredListSize > 0 && debarredFlagged === 0) {
+    console.log(
+      `  ⚠ debarred-list has ${debarredListSize} row(s) but the funds join ` +
+        `matched 0 — check that scripts/procurement/debarred.ts and the funds ` +
+        `match key (debarredJoinKey) still use compatible normalisation`,
+    );
+  }
 
   return { index, shards };
 };

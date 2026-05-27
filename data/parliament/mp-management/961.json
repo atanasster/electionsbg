@@ -1,1 +1,36 @@
-{"mpId":961,"mpName":"Милена Иванова Христова","generatedAt":"2026-05-23T13:45:42.019Z","total":2,"roles":[{"uic":"206746521","companyName":"КРИСДЕНИ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Горна Оряховица, 5100","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-12-03T17:52:13","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206746521","companyName":"КРИСДЕНИ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Горна Оряховица, 5100","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":null,"addedAt":"2021-12-03T17:52:13","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 961,
+  "mpName": "Милена Иванова Христова",
+  "generatedAt": "2026-05-23T13:45:42.019Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "206746521",
+      "companyName": "Крисдени",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Горна Оряховица, 5100",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-12-03T17:52:13",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206746521",
+      "companyName": "Крисдени",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Горна Оряховица, 5100",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-12-03T17:52:13",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

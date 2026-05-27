@@ -52,6 +52,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { command, run, flag, optional, boolean } from "cmd-ts";
 import { uploadText } from "../lib/upload";
+import { normaliseOrgName } from "../lib/normalize_name";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -400,12 +401,16 @@ const parseParties = (html: string): ParsedRow[] => {
     const inner = rowMatch[1];
     const cells = [...inner.matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/g)];
     if (cells.length === 0) continue;
-    const name = cleanCell(cells[0][1]);
-    if (!name) continue;
-    if (name === "Партия") continue; // header row
-    if (/Ред\.\/Стр\.|^Стр\./.test(name)) continue; // DataGrid pager row
-    if (/^Липсват данни\.?$/.test(name)) continue; // GridView empty-data row
-    if (!/[А-Яа-я]/.test(name)) continue; // a party name is Cyrillic text
+    const rawName = cleanCell(cells[0][1]);
+    if (!rawName) continue;
+    if (rawName === "Партия") continue; // header row
+    if (/Ред\.\/Стр\.|^Стр\./.test(rawName)) continue; // DataGrid pager row
+    if (/^Липсват данни\.?$/.test(rawName)) continue; // GridView empty-data row
+    if (!/[А-Яа-я]/.test(rawName)) continue; // a party name is Cyrillic text
+    // bulnao.government.bg emits party names in ALL CAPS verbatim. Canonicalise
+    // to sentence case so the financing dashboard reads consistently with
+    // every other party-naming surface (parliament, elections).
+    const name = normaliseOrgName(rawName);
     if (seen.has(name)) continue;
     seen.add(name);
     const doc = inner.match(/ShowWndGfoUp\('(\d+)'\)/);

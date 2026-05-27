@@ -1,10 +1,16 @@
-// Beneficiary-name normaliser. The ИСУН XLSX export carries names in mixed
-// case — most are sentence case ("Министерство на енергетиката") but a
-// large minority are wholesale ALL CAPS ("АГЕНЦИЯ ПО ЗАЕТОСТТА" or
-// "ДП НАЦИОНАЛНА КОМПАНИЯ \"ЖЕЛЕЗОПЪТНА ИНФРАСТРУКТУРА\""). We canonicalise
-// the all-caps subset to sentence case in the ingest so downstream display
-// and joins are consistent — name-matched flags (debarred, etc.) stop
-// fragmenting across casing variants too.
+// Shared entity-name normaliser. Multiple ingest scripts (funds, procurement,
+// declarations, financing, budget) read Bulgarian organisation names from
+// upstream feeds that mix sentence case and wholesale ALL CAPS for the same
+// entity. This util canonicalises the all-caps subset to sentence case so
+// downstream display and name-matched joins (debarred lists, ministry
+// rollups) stop fragmenting across casing variants.
+//
+// Imported by:
+//   - scripts/funds/parse.ts + projects_parse.ts (ИСУН XLSX rows)
+//   - scripts/procurement/normalize.ts (АОП OCDS parties)
+//   - scripts/declarations/build_company_index.ts (companies-index displayName)
+//   - scripts/financing/scrape_*.ts (party names from bulnao.government.bg)
+//   - scripts/budget/law_html.ts (definite-article stripping wrapper)
 //
 // Strategy:
 //   1. Tokenise on whitespace.
@@ -160,6 +166,32 @@ const LOWERCASE_FUNCTION_WORDS = new Set<string>([
 // Roman numerals (I-XX) used in school names: "ОУ III", "ПГ XI" — keep upper.
 const ROMAN_NUMERAL_RE =
   /^(?:I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|XIII|XIV|XV|XVI|XVII|XVIII|XIX|XX)$/;
+
+// Bulgarian / Slavic surname + given-name suffixes. Used by the sentence-
+// case sweep to override "lowercase middle-of-sentence" when the word
+// inside a quote looks like a personal name. Without this, school names
+// like "Средно училище \"Иван Вазов\"" come out as "иван вазов" — the
+// second word is mid-sentence by default, but for surnames like Вазов /
+// Делчев / Левски we want to keep the capital.
+const SURNAME_SUFFIX_RE = /(?:ов|ев|ин|ски|ска|ова|ева|ина|ий|ийски|вски)$/i;
+
+// Definite-article suffix on Bulgarian nouns — the budget law emits
+// "Министерството на ...", "Агенцията за ...", "Комисията за ...",
+// "Предприятието за ..." (the -то/-та form) while every other ingest
+// source uses the bare-noun form. Strip the trailing definite-article
+// suffix that immediately follows the first word's natural ending.
+// Negative lookahead for `[а-я]` is used instead of `\b` because JS `\b`
+// is ASCII-only and won't fire between Cyrillic letters.
+const DEFINITE_ARTICLE_PATTERNS: RegExp[] = [
+  // neuter -ство → -ството (Министерство → Министерството)
+  /(?<=^[А-Я][а-я]+ство)то(?![а-я])/u,
+  // feminine -ия → -ията (Комисия → Комисията, Агенция → Агенцията,
+  // Дирекция → Дирекцията)
+  /(?<=^[А-Я][а-я]+ия)та(?![а-я])/u,
+  // neuter -ие → -ието (Предприятие → Предприятието,
+  // Управление → Управлението)
+  /(?<=^[А-Я][а-я]+ие)то(?![а-я])/u,
+];
 
 const ACRONYM_IN_PAREN_MIN = 3;
 const ACRONYM_IN_PAREN_MAX = 9;
@@ -335,6 +367,8 @@ export const normaliseOrgName = (name: string): string => {
   //     real name begins after them)
   //   - a word whose prefix is an opening quote / paren / bracket
   //   - the word immediately after a content word ending in . ! ? : ;
+  //   - a word whose lowercase core ends in a personal-name surname suffix
+  //     (-ов / -ев / -ски / -ий ...) — preserves "Иван Вазов", "Гоце Делчев"
   let sawTitleCased = false;
   let prevEndedSentence = false;
   for (const w of words) {
@@ -343,7 +377,8 @@ export const normaliseOrgName = (name: string): string => {
     const isSentenceStart =
       (w.titleCased && !sawTitleCased) ||
       prevEndedSentence ||
-      SENTENCE_BOUNDARY_RE.test(w.prefix);
+      SENTENCE_BOUNDARY_RE.test(w.prefix) ||
+      (w.titleCased && SURNAME_SUFFIX_RE.test(w.core.toLowerCase()));
 
     if (w.titleCased && !isSentenceStart) {
       // Lowercase the first letter of the (already title-cased) core.
@@ -355,4 +390,31 @@ export const normaliseOrgName = (name: string): string => {
   }
 
   return words.map((w) => w.out).join("");
+};
+
+/**
+ * Drop the definite-article suffix on the first word of a ministry-style
+ * name ("Министерството на финансите" → "Министерство на финансите"). Used
+ * by the budget law parser, which alone emits the definite-article form.
+ * Idempotent on already-canonical names.
+ */
+export const stripDefiniteArticle = (name: string): string => {
+  let out = name;
+  for (const re of DEFINITE_ARTICLE_PATTERNS) out = out.replace(re, "");
+  return out;
+};
+
+/**
+ * Convert a section / heading label to sentence case. Less aggressive than
+ * `normaliseOrgName` — preserves a leading Roman-numeral or Arabic-numeral
+ * marker ("I.", "1.") so budget section headers like
+ * "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ" become "I. Приходи, помощи и дарения".
+ */
+export const sentenceCaseLabel = (label: string): string => {
+  if (!label) return label;
+  // Pull off an optional leading section marker ("I.", "1.2", "А.") and
+  // pass the rest through the org normaliser.
+  const m = label.match(/^([IVXLCDM]+\.|\d+(?:\.\d+)*\.?|[А-Я]\.)\s+(.+)$/u);
+  if (!m) return normaliseOrgName(label);
+  return `${m[1]} ${normaliseOrgName(m[2])}`;
 };

@@ -18,6 +18,7 @@
 
 import { load } from "cheerio";
 import { toEur } from "../../src/lib/currency";
+import { stripDefiniteArticle } from "../lib/normalize_name";
 import type { FactKind, Money } from "./types";
 
 // Minimal DOM-node shape — cheerio's nodes are domhandler nodes; we only need
@@ -363,7 +364,11 @@ export const parseLawHtml = (
     }
     if (!mainRows) continue; // unit with no parseable table — skipped, not fatal
     units.push({
-      unitName: marker.unit,
+      // The law's marker reads "Министерството на ...", with the definite
+      // article. Every other ingest source uses "Министерство на ..." —
+      // strip the article here so the unit name is comparable across
+      // budget × funds × officials × procurement.
+      unitName: stripDefiniteArticle(marker.unit),
       fiscalYear,
       sections: parseUnitTable(mainRows),
       programs: programRows ? parseProgramTable(programRows) : [],

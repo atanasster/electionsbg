@@ -1,1 +1,36 @@
-{"mpId":237,"mpName":"Светослав Иванов Спасов","generatedAt":"2026-05-23T13:45:42.015Z","total":2,"roles":[{"uic":"207053048","companyName":"Ес Макс Солар","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София, 1612","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":null,"addedAt":"2022-08-18T08:52:01","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"000649348","companyName":"НАЦИОНАЛНА ЕЛЕКТРИЧЕСКА КОМПАНИЯ","legalForm":"EAD","seat":null,"status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2021-08-05T15:39:08","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 237,
+  "mpName": "Светослав Иванов Спасов",
+  "generatedAt": "2026-05-23T13:45:42.015Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "207053048",
+      "companyName": "Ес Макс Солар",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1612",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-08-18T08:52:01",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "000649348",
+      "companyName": "Национална Електрическа компания",
+      "legalForm": "EAD",
+      "seat": null,
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-08-05T15:39:08",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

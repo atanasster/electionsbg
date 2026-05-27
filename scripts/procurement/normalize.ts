@@ -23,6 +23,7 @@ import { createHash } from "crypto";
 import type { Contract, ContractTag } from "./types";
 import { canonicalEik, isValidEik } from "./eik";
 import { toEur } from "@/lib/currency";
+import { normaliseOrgName } from "../lib/normalize_name";
 
 // Stable per-row slug. Mirrors the dedupe key used by writeMonthShards in
 // ingest.ts so a row's URL persists across re-runs.
@@ -130,12 +131,15 @@ const buyerFields = (
   const rawEik = party?.identifier?.id;
   const canon = canonicalEik(rawEik);
   if (!isValidEik(canon)) return null;
-  const name =
+  const rawName =
     party?.identifier?.legalName ?? party?.name ?? release.buyer?.name ?? "";
   return {
     eik: canon,
     eikFull: rawEik && rawEik !== canon ? rawEik : undefined,
-    name,
+    // АОП OCDS emits awarder names in ALL CAPS verbatim from the source
+    // registry. Normalise here so the on-disk per-EIK awarder shards match
+    // the same entity's casing in the funds + officials trees.
+    name: normaliseOrgName(rawName),
     region: party?.address?.region,
   };
 };
@@ -149,11 +153,11 @@ const contractorFields = (
   const rawEik = party?.identifier?.id;
   const canon = canonicalEik(rawEik);
   if (!isValidEik(canon)) return null;
-  const name = party?.identifier?.legalName ?? party?.name ?? ref.name ?? "";
+  const rawName = party?.identifier?.legalName ?? party?.name ?? ref.name ?? "";
   return {
     eik: canon,
     eikFull: rawEik && rawEik !== canon ? rawEik : undefined,
-    name,
+    name: normaliseOrgName(rawName),
   };
 };
 

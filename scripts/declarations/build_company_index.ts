@@ -12,6 +12,7 @@
 
 import fs from "fs";
 import path from "path";
+import { normaliseOrgName } from "../lib/normalize_name";
 import type {
   MpDeclaration,
   MpOwnershipStake,
@@ -141,7 +142,11 @@ const pickDisplayName = (rawNames: string[]): string => {
       bestCount = count;
     }
   }
-  return best;
+  // Court-of-Audit declarations are entered in ALL CAPS verbatim, but the
+  // funds / procurement / officials trees all canonicalise to sentence
+  // case. Run the chosen display name through the shared org-name
+  // normaliser so the same entity reads identically across the dashboard.
+  return normaliseOrgName(best);
 };
 
 export type BuildCompanyIndexArgs = {

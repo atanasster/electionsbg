@@ -8,7 +8,7 @@
 
 import * as XLSX from "xlsx";
 import { canonicalEik } from "./eik";
-import { normaliseOrgName } from "./normalize_name";
+import { normaliseOrgName } from "../lib/normalize_name";
 import type { FundsBeneficiary } from "./types";
 
 const EXPECTED_HEADERS = [

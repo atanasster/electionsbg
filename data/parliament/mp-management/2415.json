@@ -1,1 +1,36 @@
-{"mpId":2415,"mpName":"Тунчер Мехмедов Кърджалиев","generatedAt":"2026-05-23T13:45:42.024Z","total":2,"roles":[{"uic":"206970448","companyName":"ПАНАЦЕЯ 1","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Търговище, 7700","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-06-09T09:51:01","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206970448","companyName":"ПАНАЦЕЯ 1","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Търговище, 7700","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":null,"addedAt":"2022-06-09T09:51:01","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2415,
+  "mpName": "Тунчер Мехмедов Кърджалиев",
+  "generatedAt": "2026-05-23T13:45:42.024Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "206970448",
+      "companyName": "Панацея 1",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-06-09T09:51:01",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206970448",
+      "companyName": "Панацея 1",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-06-09T09:51:01",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

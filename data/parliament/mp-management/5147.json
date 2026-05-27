@@ -1,1 +1,106 @@
-{"mpId":5147,"mpName":"Димитър Георгиев Найденов","generatedAt":"2026-05-23T13:45:42.045Z","total":7,"roles":[{"uic":"102150633","companyName":"ЗЕНИТ КОМЕРС","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-06-23T15:06:12","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"},{"uic":"102832947","companyName":"ДИТЕКС","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-06-06T11:12:07","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206782460","companyName":"ДИТЕКС ПРОПЪРТИ","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"partner","positionLabel":null,"sharePercent":null,"addedAt":"2022-04-07T14:30:56","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"БУРГАС\"; MP declared a stake in this UIC"},{"uic":"206782460","companyName":"ДИТЕКС ПРОПЪРТИ","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-01-12T11:02:53","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"БУРГАС\"; MP declared a stake in this UIC"},{"uic":"206782332","companyName":"ДИТЕКС ПРАЙМ","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-01-12T10:32:40","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"БУРГАС\"; MP declared a stake in this UIC"},{"uic":"206782332","companyName":"ДИТЕКС ПРАЙМ","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":null,"addedAt":"2022-01-12T10:32:40","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"БУРГАС\"; MP declared a stake in this UIC"},{"uic":"206782460","companyName":"ДИТЕКС ПРОПЪРТИ","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":null,"addedAt":"2022-01-12T11:02:53","erasedAt":"2022-04-07T14:30:56","confidence":"high","confidenceReason":"full-name match; seat contains MP region \"БУРГАС\"; MP declared a stake in this UIC"}]}
+{
+  "mpId": 5147,
+  "mpName": "Димитър Георгиев Найденов",
+  "generatedAt": "2026-05-23T13:45:42.045Z",
+  "total": 7,
+  "roles": [
+    {
+      "uic": "102150633",
+      "companyName": "Зенит комерс",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-06-23T15:06:12",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "102832947",
+      "companyName": "Дитекс",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-06-06T11:12:07",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206782460",
+      "companyName": "Дитекс пропърти",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-04-07T14:30:56",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"БУРГАС\"; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "206782460",
+      "companyName": "Дитекс пропърти",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-01-12T11:02:53",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"БУРГАС\"; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "206782332",
+      "companyName": "Дитекс прайм",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-01-12T10:32:40",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"БУРГАС\"; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "206782332",
+      "companyName": "Дитекс прайм",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-01-12T10:32:40",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"БУРГАС\"; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "206782460",
+      "companyName": "Дитекс пропърти",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-01-12T11:02:53",
+      "erasedAt": "2022-04-07T14:30:56",
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"БУРГАС\"; MP declared a stake in this UIC"
+    }
+  ]
+}

@@ -12,6 +12,7 @@
 // recent section. Amounts are in MILLIONS of the native currency.
 
 import { toEur } from "../../src/lib/currency";
+import { sentenceCaseLabel } from "../lib/normalize_name";
 import type { EgovResource } from "./fetch_sources";
 import type {
   FiscalYearSeriesFigures,
@@ -426,7 +427,10 @@ export const parseEgovResource = (
         code,
         series: meta.series,
         kind: meta.kind,
-        labelBg: label,
+        // КФП source rows arrive as "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ" — keep
+        // the Roman / Arabic section marker, sentence-case the body so the
+        // /budget header doesn't read like the all-caps source feed.
+        labelBg: sentenceCaseLabel(label),
         labelEn: meta.labelEn,
         planned,
         executed,

@@ -1,1 +1,64 @@
-{"mpId":3148,"mpName":"Красимир Христов Николов","generatedAt":"2026-05-23T13:45:42.032Z","total":4,"roles":[{"uic":"208810129","companyName":"К.И.Д. ФУУД 1926","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Пловдив, 4002","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2026-05-13T09:18:15","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208810129","companyName":"К.И.Д. ФУУД 1926","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Пловдив, 4002","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":null,"addedAt":"2026-05-13T09:18:15","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206574514","companyName":"АЛБА РЕЗИДЪНС","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-07-06T09:11:55","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206574514","companyName":"АЛБА РЕЗИДЪНС","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"partner","positionLabel":null,"sharePercent":null,"addedAt":"2021-07-06T09:11:55","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 3148,
+  "mpName": "Красимир Христов Николов",
+  "generatedAt": "2026-05-23T13:45:42.032Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "208810129",
+      "companyName": "К.И.Д. Фууд 1926",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4002",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-05-13T09:18:15",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208810129",
+      "companyName": "К.И.Д. Фууд 1926",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4002",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-05-13T09:18:15",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206574514",
+      "companyName": "Алба резидънс",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-07-06T09:11:55",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206574514",
+      "companyName": "Алба резидънс",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-07-06T09:11:55",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

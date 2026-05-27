@@ -1,1 +1,36 @@
-{"mpId":3373,"mpName":"Тодор Стаматов Тодоров","generatedAt":"2026-05-23T13:45:42.034Z","total":2,"roles":[{"uic":"103838337","companyName":"ИДА -2003","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Силистра, 7500","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-03-25T11:13:20","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"103838337","companyName":"ИДА -2003","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Силистра, 7500","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":null,"addedAt":"2022-03-25T11:13:20","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 3373,
+  "mpName": "Тодор Стаматов Тодоров",
+  "generatedAt": "2026-05-23T13:45:42.034Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "103838337",
+      "companyName": "Ида -2003",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Силистра, 7500",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-03-25T11:13:20",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "103838337",
+      "companyName": "Ида -2003",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Силистра, 7500",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-03-25T11:13:20",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

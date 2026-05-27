@@ -1,1 +1,36 @@
-{"mpId":4783,"mpName":"Христина Иванова Георгиева","generatedAt":"2026-05-23T13:45:42.041Z","total":2,"roles":[{"uic":"207018871","companyName":"ВИВ 87","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-07-18T15:48:46","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207018871","companyName":"ВИВ 87","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":null,"addedAt":"2022-07-18T15:48:46","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 4783,
+  "mpName": "Христина Иванова Георгиева",
+  "generatedAt": "2026-05-23T13:45:42.041Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "207018871",
+      "companyName": "Вив 87",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-07-18T15:48:46",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207018871",
+      "companyName": "Вив 87",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-07-18T15:48:46",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

@@ -1,1 +1,50 @@
-{"mpId":2366,"mpName":"Семир Хусеин Абу Мелих","generatedAt":"2026-05-23T13:45:42.023Z","total":3,"roles":[{"uic":"102697008","companyName":"МЕДИЦИНСКИ ЦЕНТЪР СВЕТА СОФИЯ","legalForm":"Дружество с ограничена отговорност","seat":null,"status":"active","role":"partner","positionLabel":null,"sharePercent":null,"addedAt":"2022-02-24T14:35:31","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"204279300","companyName":"Дева Транспорт","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-05-20T12:15:40","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"102697008","companyName":"МЕДИЦИНСКИ ЦЕНТЪР СВЕТА СОФИЯ","legalForm":"Дружество с ограничена отговорност","seat":null,"status":"active","role":"sole_owner","positionLabel":null,"sharePercent":null,"addedAt":"2021-04-13T16:52:15","erasedAt":"2022-02-24T14:35:31","confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2366,
+  "mpName": "Семир Хусеин Абу Мелих",
+  "generatedAt": "2026-05-23T13:45:42.023Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "102697008",
+      "companyName": "Медицински център света софия",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-02-24T14:35:31",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "204279300",
+      "companyName": "Дева Транспорт",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-05-20T12:15:40",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "102697008",
+      "companyName": "Медицински център света софия",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": null,
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-04-13T16:52:15",
+      "erasedAt": "2022-02-24T14:35:31",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}
