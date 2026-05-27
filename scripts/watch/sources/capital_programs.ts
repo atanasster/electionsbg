@@ -1,7 +1,7 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 7 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
-// Ruse, Varna, Pleven) publishes an annual "Капиталова програма" /
+// Each of the 8 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Ruse, Varna, Pleven, Sliven) publishes an annual "Капиталова програма" /
 // "Поименен списък на обектите за капиталови разходи" on its own website.
 // URLs are opaque and change every year (some include the date, some a
 // content hash), so the catalogue is hand-curated below — mirrors the
@@ -58,7 +58,8 @@ type Municipality =
   | "stara_zagora"
   | "ruse"
   | "varna"
-  | "pleven";
+  | "pleven"
+  | "sliven";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -91,6 +92,9 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // Vision — see scripts/budget/capital_programs/pleven_ocr.ts.
     pleven:
       "https://obs.pleven.bg/uploads/posts/prilozheniya-kam-reshenie-659.pdf",
+    // Sliven — Tier-2 oblast capital (SLV20), 23-page rasterized PDF
+    // on mun.sliven.bg (opaque hash URL). Same OCR pipeline as Varna.
+    sliven: "https://mun.sliven.bg/uploads/95ADBC16C47BD97F571BEB02674C6E2C",
   },
   // Sofia historical back-years (2022-2024). The Sofia portal occasionally
   // re-uploads corrected versions of older files; tracking these means a

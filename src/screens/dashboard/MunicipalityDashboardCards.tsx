@@ -27,6 +27,7 @@ import { BurgasCapitalProjectsTile } from "./BurgasCapitalProjectsTile";
 import { StaraZagoraCapitalProjectsTile } from "./StaraZagoraCapitalProjectsTile";
 import { RuseCapitalProjectsTile } from "./RuseCapitalProjectsTile";
 import { PlevenCapitalProjectsTile } from "./PlevenCapitalProjectsTile";
+import { SlivenCapitalProjectsTile } from "./SlivenCapitalProjectsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
@@ -150,6 +151,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           <StaraZagoraCapitalProjectsTile obshtinaCode={municipalityCode} />
           <RuseCapitalProjectsTile obshtinaCode={municipalityCode} />
           <PlevenCapitalProjectsTile obshtinaCode={municipalityCode} />
+          <SlivenCapitalProjectsTile obshtinaCode={municipalityCode} />
         </DashboardSection>
 
         <DashboardSection

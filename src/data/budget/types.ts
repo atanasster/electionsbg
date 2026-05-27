@@ -988,6 +988,46 @@ export interface StaraZagoraCapitalProgramFile {
   bySettlement: StaraZagoraCapitalSettlementRollup[];
 }
 
+// Sliven — single-município, no райони (SLV20, EKATTE 67338). Tier-2
+// oblast capital with 45 settlements (city + town Кермен + 43 villages).
+// Source is a 23-page rasterized PDF on mun.sliven.bg, ingested through
+// the OCR pre-step in sliven_ocr.ts + sliven.ts rollup. Output shape
+// mirrors StaraZagora (per-village breakdown via "с." / "гр." prefix).
+export interface SlivenCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface SlivenCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface SlivenCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: SlivenCapitalProject[];
+  bySettlement: SlivenCapitalSettlementRollup[];
+}
+
 // Pleven — single-município, no райони (PVN24, EKATTE 56722). Two source
 // appendices: Прил. №4 (general capital, 7.59M BGN) + Прил. №10А (EU
 // projects, 11.00M BGN). Granularity dimension is by SETTLEMENT (city +

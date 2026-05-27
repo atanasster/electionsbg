@@ -25,6 +25,7 @@ import type {
   PlevenCapitalProgramFile,
   PlovdivCapitalProgramFile,
   RuseCapitalProgramFile,
+  SlivenCapitalProgramFile,
   SofiaCapitalProgramFile,
   StaraZagoraCapitalProgramFile,
   VarnaCapitalProgramFile,
@@ -380,6 +381,21 @@ export const useStaraZagoraCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<StaraZagoraCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/stara_zagora.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Sliven — Tier-2 oblast capital, single município (SLV20, EKATTE 67338).
+// Same shape as Stara Zagora (per-village rollup, "honest tile" with
+// itemised total as headline + publishedRecap preserved). Source is a
+// 23-page rasterized PDF on mun.sliven.bg, OCR'd by sliven_ocr.ts.
+export const useSlivenCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "sliven", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<SlivenCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/sliven.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

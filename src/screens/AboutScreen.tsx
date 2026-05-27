@@ -421,6 +421,10 @@ export const AboutScreen = () => {
                   href="https://obs.pleven.bg/"
                   label={t("budget_capital_pleven_source")}
                 />
+                <SourceItem
+                  href="https://mun.sliven.bg/"
+                  label={t("budget_capital_sliven_source")}
+                />
               </ul>
             </DataGroup>
 
