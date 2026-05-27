@@ -1,0 +1,40 @@
+{
+  "obshtina": "BLG33",
+  "count": 2,
+  "mpCount": 2,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "МОУШЪНСПОРТС",
+      "displayName": "Моушънспортс",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Петрич, 2850",
+      "mps": [
+        {
+          "mpId": 3922,
+          "mpName": "Десислава Илиева Георгиева",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3922,
+          "mpName": "Десислава Илиева Георгиева",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АВГУСТИН-&amp;-ТУРНОВ",
+      "displayName": "Августин &amp; Турнов",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Петрич, 2890",
+      "mps": [
+        {
+          "mpId": 4430,
+          "mpName": "Ивайло Ангелов Иванов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

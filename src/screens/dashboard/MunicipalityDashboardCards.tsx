@@ -28,6 +28,7 @@ import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { IndicatorsTile } from "./IndicatorsTile";
 import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
 import { EuFundsTile } from "./EuFundsTile";
+import { CompaniesHqTile } from "./CompaniesHqTile";
 import { SofiaCapitalProjectsTile } from "./SofiaCapitalProjectsTile";
 import { PlovdivCapitalProjectsTile } from "./PlovdivCapitalProjectsTile";
 import { VarnaCapitalProjectsTile } from "./VarnaCapitalProjectsTile";
@@ -187,6 +188,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
         >
           <MunicipalityTransfersTile municipalityCode={municipalityCode} />
           <EuFundsTile kind="muni" obshtina={municipalityCode} />
+          <CompaniesHqTile kind="muni" obshtina={municipalityCode} />
           <SofiaCapitalProjectsTile obshtinaCode={municipalityCode} />
           <PlovdivCapitalProjectsTile obshtinaCode={municipalityCode} />
           <VarnaCapitalProjectsTile obshtinaCode={municipalityCode} />

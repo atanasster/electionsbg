@@ -1,0 +1,72 @@
+{
+  "obshtina": "BLG40",
+  "page": 1,
+  "totalPages": 1,
+  "count": 4,
+  "companies": [
+    {
+      "slug": "ГАБИАННА-ТРАНС",
+      "displayName": "Габианна транс",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Сандански, 2800",
+      "mps": [
+        {
+          "mpId": 3796,
+          "mpName": "Николай Георгиев Ангов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3796,
+          "mpName": "Николай Георгиев Ангов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ТОП-АУТО-2022",
+      "displayName": "ТОП Ауто 2022",
+      "registeredOffice": "БЪЛГАРИЯ, с. Поленица, 2804",
+      "mps": [
+        {
+          "mpId": 2681,
+          "mpName": "Борислав Иванов Борисов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2681,
+          "mpName": "Борислав Иванов Борисов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Търговски-център-Сандански",
+      "displayName": "Търговски център Сандански",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Сандански, 2800",
+      "mps": [
+        {
+          "mpId": 1618,
+          "mpName": "Митко Живков Захов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Ристовица-ООД",
+      "displayName": "Ристовица ООД",
+      "registeredOffice": "Плоски",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

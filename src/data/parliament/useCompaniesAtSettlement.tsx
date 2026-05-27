@@ -56,31 +56,46 @@ const fetchOrNull = async <T,>(url: string): Promise<T | null> => {
   return (await r.json()) as T;
 };
 
-export const useCompaniesHqSummary = (ekatte: string | undefined) =>
-  useQuery({
-    queryKey: ["companies-hq", "summary", ekatte ?? ""] as const,
+/** Place key — numeric EKATTE (`"56784"`, settlement view) OR an obshtina
+ * code (`"PDV22"`, municipality view). Routes to the matching shard family. */
+export type CompaniesHqPlace =
+  | { kind: "ekatte"; ekatte: string | undefined }
+  | { kind: "muni"; obshtina: string | undefined };
+
+const shardBase = (p: CompaniesHqPlace): { dir: string; id: string } => {
+  if (p.kind === "ekatte") {
+    return { dir: "companies-by-ekatte", id: p.ekatte ?? "" };
+  }
+  return { dir: "companies-by-obshtina", id: p.obshtina ?? "" };
+};
+
+export const useCompaniesHqSummary = (place: CompaniesHqPlace) => {
+  const { dir, id } = shardBase(place);
+  return useQuery({
+    queryKey: ["companies-hq", "summary", dir, id] as const,
     queryFn: () =>
       fetchOrNull<CompaniesHqSummary>(
-        dataUrl(`/parliament/companies-by-ekatte/${ekatte}-summary.json`),
+        dataUrl(`/parliament/${dir}/${id}-summary.json`),
       ),
-    enabled: !!ekatte,
+    enabled: !!id,
     staleTime: Infinity,
   });
+};
 
 const pad3 = (n: number): string => String(n).padStart(3, "0");
 
-export const useCompaniesHqPage = (ekatte: string | undefined, page: number) =>
-  useQuery({
-    queryKey: ["companies-hq", "page", ekatte ?? "", page] as const,
+export const useCompaniesHqPage = (place: CompaniesHqPlace, page: number) => {
+  const { dir, id } = shardBase(place);
+  return useQuery({
+    queryKey: ["companies-hq", "page", dir, id, page] as const,
     queryFn: () =>
       fetchOrNull<CompaniesHqPage>(
-        dataUrl(
-          `/parliament/companies-by-ekatte/${ekatte}-page-${pad3(page)}.json`,
-        ),
+        dataUrl(`/parliament/${dir}/${id}-page-${pad3(page)}.json`),
       ),
-    enabled: !!ekatte && page >= 1,
+    enabled: !!id && page >= 1,
     staleTime: Infinity,
   });
+};
 
 export const useCompaniesHqIndex = () =>
   useQuery({

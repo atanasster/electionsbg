@@ -1,0 +1,85 @@
+{
+  "obshtina": "SHU30",
+  "count": 6,
+  "mpCount": 4,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ЕТЕР-К",
+      "displayName": "ЕТЕР-К",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Шумен, 9700",
+      "mps": [
+        {
+          "mpId": 2647,
+          "mpName": "Димитър Крумов Александров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2647,
+          "mpName": "Димитър Крумов Александров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Н.Н-АВИОХИМ",
+      "displayName": "Н.Н - Авиохим",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Шумен, 9700",
+      "mps": [
+        {
+          "mpId": 4579,
+          "mpName": "Захари Георгиев Борачев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4579,
+          "mpName": "Захари Георгиев Борачев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДЕМИР-АГРО-ЕООД",
+      "displayName": "\"Демир агро\" ЕООД",
+      "registeredOffice": "Шумен",
+      "mps": [
+        {
+          "mpId": 5228,
+          "mpName": "Айлин Нуридин Пехливанова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АЛ-И-КО-АД",
+      "displayName": "АЛ И ко АД",
+      "registeredOffice": "Шумен",
+      "mps": [
+        {
+          "mpId": 2647,
+          "mpName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЕТЕР-К-ЕООД",
+      "displayName": "Етер к ЕООД",
+      "registeredOffice": "Шумен",
+      "mps": [
+        {
+          "mpId": 2647,
+          "mpName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

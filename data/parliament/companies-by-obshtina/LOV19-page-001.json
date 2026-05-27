@@ -1,0 +1,52 @@
+{
+  "obshtina": "LOV19",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "ПАНЕГА-КОНСУЛТ-ЕООД",
+      "displayName": "Панега консулт ЕООД",
+      "registeredOffice": "ЛУКОВИТ",
+      "mps": [
+        {
+          "mpId": 2923,
+          "mpName": "Калин Димитров Василев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2923,
+          "mpName": "Калин Димитров Василев",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2923,
+          "mpName": "КАЛИН ДИМИТРОВ ВАСИЛЕВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МИТРОВИ-2021",
+      "displayName": "Митрови 2021",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Луковит, 5770",
+      "mps": [
+        {
+          "mpId": 5101,
+          "mpName": "Георги Николаев Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5101,
+          "mpName": "Георги Николаев Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

@@ -12,9 +12,11 @@ import { H1 } from "@/ux/H1";
 import { Link } from "@/ux/Link";
 import { Card, CardContent } from "@/ux/Card";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
+import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import {
   useCompaniesHqPage,
   useCompaniesHqSummary,
+  type CompaniesHqPlace,
   type CompaniesHqRow,
 } from "@/data/parliament/useCompaniesAtSettlement";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
@@ -80,24 +82,38 @@ type Props = {
 
 export const SettlementCompaniesScreen: FC<Props> = ({ sofia = false }) => {
   const { id } = useParams();
-  const ekatte = sofia ? SOFIA_EKATTE : id;
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Math.max(1, Number(searchParams.get("page") ?? "1") || 1);
   const { t, i18n } = useTranslation();
   const { findSettlement } = useSettlementsInfo();
+  const { findMunicipality } = useMunicipalities();
 
-  const { data: summary } = useCompaniesHqSummary(ekatte);
-  const { data: pageData, isLoading } = useCompaniesHqPage(ekatte, page);
+  // Sofia → synthetic EKATTE. Numeric :id → settlement view. Alphanumeric :id
+  // → municipality view (e.g. /settlement/PDV22/companies = Plovdiv obshtina).
+  const isMuni = !sofia && !!id && !/^\d+$/.test(id);
+  const place: CompaniesHqPlace = sofia
+    ? { kind: "ekatte", ekatte: SOFIA_EKATTE }
+    : isMuni
+      ? { kind: "muni", obshtina: id }
+      : { kind: "ekatte", ekatte: id };
 
-  const settlementName = useMemo(() => {
+  const { data: summary } = useCompaniesHqSummary(place);
+  const { data: pageData, isLoading } = useCompaniesHqPage(place, page);
+
+  const placeName = useMemo(() => {
     if (sofia) return "София";
-    if (!ekatte) return "";
-    const s = findSettlement(ekatte);
-    if (!s) return ekatte;
+    if (!id) return "";
+    if (isMuni) {
+      const m = findMunicipality(id);
+      if (!m) return id;
+      return i18n.language === "bg" ? m.name : m.name_en;
+    }
+    const s = findSettlement(id);
+    if (!s) return id;
     return i18n.language === "bg" ? s.name : s.name_en;
-  }, [ekatte, sofia, findSettlement, i18n.language]);
+  }, [id, sofia, isMuni, findSettlement, findMunicipality, i18n.language]);
 
-  if (!ekatte) return null;
+  if (!sofia && !id) return null;
 
   const totalPages = summary?.totalPages ?? pageData?.totalPages ?? 1;
   const count = summary?.count ?? pageData?.count ?? 0;
@@ -106,19 +122,14 @@ export const SettlementCompaniesScreen: FC<Props> = ({ sofia = false }) => {
     setSearchParams(p === 1 ? {} : { page: String(p) });
   };
 
-  const titleStr = t("companies_hq_screen_title", {
-    name: settlementName,
-  });
+  const titleStr = t("companies_hq_screen_title", { name: placeName });
+  const backHref = sofia ? "/sofia" : `/settlement/${id}`;
 
   return (
     <>
       <SEO title={titleStr} description={titleStr} />
       <H1>
-        {sofia ? (
-          <Link to="/sofia">{settlementName}</Link>
-        ) : (
-          <Link to={`/settlement/${ekatte}`}>{settlementName}</Link>
-        )}
+        <Link to={backHref}>{placeName}</Link>
         {" / "}
         {t("companies_hq_screen_breadcrumb")}
       </H1>

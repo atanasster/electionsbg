@@ -15,16 +15,24 @@ import { Briefcase, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import {
   useCompaniesHqSummary,
+  type CompaniesHqPlace,
   type CompaniesHqRow,
 } from "@/data/parliament/useCompaniesAtSettlement";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 
 const SOFIA_EKATTE = "68134";
 
-type Props = {
-  /** EKATTE of the settlement; pass "68134" for Sofia capital. */
-  ekatte: string;
-};
+type Props =
+  | {
+      /** Settlement page — pass numeric EKATTE; "68134" for the Sofia capital. */
+      kind?: "ekatte";
+      ekatte: string;
+    }
+  | {
+      /** Municipality page — pass alphanumeric obshtina code (e.g. "PDV22"). */
+      kind: "muni";
+      obshtina: string;
+    };
 
 const SkeletonState: FC = () => (
   <Card>
@@ -101,17 +109,23 @@ const CompanyRow: FC<{ row: CompaniesHqRow }> = ({ row }) => {
   );
 };
 
-export const CompaniesHqTile: FC<Props> = ({ ekatte }) => {
+export const CompaniesHqTile: FC<Props> = (props) => {
   const { t } = useTranslation();
-  const { data, isLoading } = useCompaniesHqSummary(ekatte);
+  const place: CompaniesHqPlace =
+    props.kind === "muni"
+      ? { kind: "muni", obshtina: props.obshtina }
+      : { kind: "ekatte", ekatte: props.ekatte };
+  const { data, isLoading } = useCompaniesHqSummary(place);
 
   if (isLoading) return <SkeletonState />;
   if (!data || data.count === 0) return null;
 
   const detailHref =
-    ekatte === SOFIA_EKATTE
-      ? `/sofia/companies`
-      : `/settlement/${ekatte}/companies`;
+    props.kind === "muni"
+      ? `/settlement/${props.obshtina}/companies`
+      : props.ekatte === SOFIA_EKATTE
+        ? `/sofia/companies`
+        : `/settlement/${props.ekatte}/companies`;
 
   return (
     <Card>

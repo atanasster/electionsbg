@@ -32,6 +32,7 @@ import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
 import { buildCompaniesBySettlement } from "../parliament/build_companies_by_settlement";
+import { buildCompaniesByObshtina } from "../parliament/build_companies_by_obshtina";
 
 const REGISTER_BASE = "https://register.cacbg.bg";
 
@@ -282,6 +283,10 @@ export const parseFinancialDeclarations = async ({
   // {ekatte}-summary, {ekatte}-page-NNN}.json. Must run AFTER the graph pass
   // so mpRoles is on every entry.
   buildCompaniesBySettlement({ publicFolder, stringify });
+
+  // Municipality-grain rollup of the same data — emits the matching
+  // companies-by-obshtina/ shard family for the муни-page tile.
+  buildCompaniesByObshtina({ publicFolder, stringify });
 
   // Phase 7: per-MP wealth rollups + cross-MP rankings file consumed by the
   // home/party/candidate "MPs by declared assets" tiles.

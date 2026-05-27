@@ -1,0 +1,53 @@
+{
+  "obshtina": "SZR12",
+  "page": 1,
+  "totalPages": 1,
+  "count": 3,
+  "companies": [
+    {
+      "slug": "СТИКС-Ист",
+      "displayName": "Стикс- Ист",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Казанлък, 6100",
+      "mps": [
+        {
+          "mpId": 1041,
+          "mpName": "Емил Димитров Караниколов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 1041,
+          "mpName": "Емил Димитров Караниколов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ГУС-Маркетинг-енд-Консултинг",
+      "displayName": "Гус Маркетинг енд Консултинг",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Казанлък, 6100",
+      "mps": [
+        {
+          "mpId": 1041,
+          "mpName": "Емил Димитров Караниколов",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Елемент-АСК-ООД",
+      "displayName": "Елемент - Аск ООД",
+      "registeredOffice": "Казанлък",
+      "mps": [
+        {
+          "mpId": 3782,
+          "mpName": "Момчил Донев Ненов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "obshtina": "VID09",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "Вимос",
+      "displayName": "Вимос",
+      "registeredOffice": "Видин",
+      "mps": [
+        {
+          "mpId": 4126,
+          "mpName": "Валери Иванов Сираков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Интер-Солар-ООД",
+      "displayName": "Интер Солар ООД",
+      "registeredOffice": "Видин",
+      "mps": [
+        {
+          "mpId": 4043,
+          "mpName": "Иво Георгиев Атанасов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

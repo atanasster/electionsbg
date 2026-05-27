@@ -1,0 +1,27 @@
+{
+  "obshtina": "VAR01",
+  "count": 1,
+  "mpCount": 1,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Магия-Лорели",
+      "displayName": "Магия-Лорели",
+      "registeredOffice": "БЪЛГАРИЯ, с. Близнаци, 9132",
+      "mps": [
+        {
+          "mpId": 2759,
+          "mpName": "Нели Рускова Петрова",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2759,
+          "mpName": "Нели Рускова Петрова",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

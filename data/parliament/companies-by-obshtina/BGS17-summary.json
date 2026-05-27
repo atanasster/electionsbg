@@ -1,0 +1,33 @@
+{
+  "obshtina": "BGS17",
+  "count": 1,
+  "mpCount": 1,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "РУ-СТРОЙ-22",
+      "displayName": "РУ - Строй 22",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Поморие, 8200",
+      "mps": [
+        {
+          "mpId": 4624,
+          "mpName": "Радостин Колев Колев",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4624,
+          "mpName": "Радостин Колев Колев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4624,
+          "mpName": "Радостин Колев Колев",
+          "role": "sole_owner",
+          "isCurrent": false
+        }
+      ]
+    }
+  ]
+}

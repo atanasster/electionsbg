@@ -1,0 +1,85 @@
+{
+  "obshtina": "TGV35",
+  "count": 6,
+  "mpCount": 5,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Омуртаг-Енерджи",
+      "displayName": "Омуртаг Енерджи",
+      "registeredOffice": "БЪЛГАРИЯ, с. Разбойна, 7707",
+      "mps": [
+        {
+          "mpId": 1051,
+          "mpName": "Ердоан Мустафов Ахмедов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 1051,
+          "mpName": "Ердоан Мустафов Ахмедов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ПАНАЦЕЯ-1",
+      "displayName": "Панацея 1",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 2415,
+          "mpName": "Тунчер Мехмедов Кърджалиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2415,
+          "mpName": "Тунчер Мехмедов Кърджалиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "КДА-ЕНЕРДЖИ",
+      "displayName": "КДА Енерджи",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 3239,
+          "mpName": "Александър Петров Александров",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "С-и-Д-Партнърс",
+      "displayName": "с и Д Партнърс",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 3239,
+          "mpName": "Александър Петров Александров",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ТРАКИЯ-ГЛАС-БЪЛГАРИЯ",
+      "displayName": "Тракия глас българия",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 64,
+          "mpName": "Лидия Сантова Шулева",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}
