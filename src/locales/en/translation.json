@@ -364,6 +364,7 @@
   "mp_business_interests": "MP business interests",
   "mp_declarations_source": "Property and interest declarations from the Court of Audit (register.cacbg.bg) — MPs, cabinet members, deputy ministers, state-agency heads, regional governors, mayors and municipal councillors",
   "commerce_registry_source": "Trade Register filings from data.egov.bg",
+  "bgpost_postcodes_source": "Bulgarian Post postal-code register (data.egov.bg, CC0) — joined to the NSI settlements catalog to resolve the free-text 'registered office' field on cacbg.bg declarations to a specific settlement, so the 'Companies HQ'd here' tile on each settlement page can list MP-linked firms by their headquarters address. Sofia city (postal code 1000…1799) collapses to a single capital entry — no rayon split, as no public dataset cleanly maps Sofia postcodes to the 24 administrative rayons.",
   "local_government_section": "Local government",
   "local_government_roster_source": "Roster of mayors, deputy mayors, council chairs, councillors and chief architects per municipality — derived from the Court of Audit declarations and surfaced on every settlement page",
   "census_section": "Demographics",

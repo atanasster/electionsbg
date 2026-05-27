@@ -216,6 +216,10 @@ export const AboutScreen = () => {
                   href="https://data.egov.bg/"
                   label={t("commerce_registry_source")}
                 />
+                <SourceItem
+                  href="https://data.egov.bg/data/view/acb135ab-00a2-4aa7-b5e5-49c992385ef5"
+                  label={t("bgpost_postcodes_source")}
+                />
               </ul>
             </DataGroup>
 
