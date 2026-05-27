@@ -56,7 +56,7 @@ export const MpConnectedFundsTile: FC<{
           </Link>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2 p-3 md:p-4">
+      <CardContent className="space-y-2 p-3 md:p-4 text-sm">
         <ul className="flex flex-col divide-y divide-border">
           {visible.map((e) => (
             <li
