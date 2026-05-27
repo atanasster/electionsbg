@@ -1,0 +1,57 @@
+{
+  "eik": "201738862",
+  "name": "ДАНАУ АД",
+  "orgType": "Компания",
+  "contractCount": 1,
+  "contractedEur": 25564.59,
+  "paidEur": 25564.59,
+  "mps": [
+    {
+      "mpId": 2874,
+      "mpName": "Александър Николаев Сабанов",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [
+    {
+      "slug": "aleksandr-nikolaev-sabanov-01e707",
+      "name": "Александър Николаев Сабанов",
+      "category": "mayor",
+      "tier": "municipal",
+      "role": "mayor",
+      "institution": null,
+      "municipality": "Силистра",
+      "confidence": "high",
+      "latestDeclarationYear": null,
+      "roles": [
+        {
+          "source": "tr",
+          "trRole": "actual_owner",
+          "shareSize": null,
+          "valueEur": null
+        },
+        {
+          "source": "tr",
+          "trRole": "director",
+          "shareSize": null,
+          "valueEur": null
+        }
+      ]
+    }
+  ],
+  "procurementEur": 0,
+  "procurementContractCount": 0,
+  "debarred": false,
+  "exposureScore": 11.25
+}

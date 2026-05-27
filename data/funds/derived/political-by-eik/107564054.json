@@ -1,0 +1,51 @@
+{
+  "eik": "107564054",
+  "name": "ЕВРОХИМ ГРУП",
+  "orgType": "Компания",
+  "contractCount": 2,
+  "contractedEur": 25564.59,
+  "paidEur": 25564.59,
+  "mps": [
+    {
+      "mpId": 5094,
+      "mpName": "Николай Иванов Косев",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": false,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [
+    {
+      "slug": "nikolai-ivanov-kosev-cd5565",
+      "name": "Николай Иванов Косев",
+      "category": "councillor",
+      "tier": "municipal",
+      "role": "councillor",
+      "institution": null,
+      "municipality": "Габрово",
+      "confidence": "high",
+      "latestDeclarationYear": null,
+      "roles": [
+        {
+          "source": "tr",
+          "trRole": "manager",
+          "shareSize": null,
+          "valueEur": null
+        }
+      ]
+    }
+  ],
+  "procurementEur": 3632423.83,
+  "procurementContractCount": 52,
+  "debarred": false,
+  "exposureScore": 15.78
+}

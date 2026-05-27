@@ -1,0 +1,33 @@
+{
+  "eik": "123139451",
+  "name": "ТЕВА - ТМ ООД",
+  "orgType": "Компания",
+  "contractCount": 4,
+  "contractedEur": 359329.28,
+  "paidEur": 188799.65,
+  "mps": [
+    {
+      "mpId": 4372,
+      "mpName": "Радослав Красенов Василев",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "stake",
+          "shareSize": "25%",
+          "valueEur": 639.1148514952731,
+          "fiscalYear": 2023,
+          "declarationYear": 2024
+        }
+      ]
+    }
+  ],
+  "officials": [],
+  "procurementEur": 1839.63,
+  "procurementContractCount": 2,
+  "debarred": false,
+  "exposureScore": 15.74
+}

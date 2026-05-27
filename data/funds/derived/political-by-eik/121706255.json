@@ -1,0 +1,52 @@
+{
+  "eik": "121706255",
+  "name": "\"Национална компания индустриални зони\" ЕАД (НКИЗ ЕАД)",
+  "orgType": "Компания",
+  "contractCount": 2,
+  "contractedEur": 4561740.51,
+  "paidEur": 248951.13,
+  "mps": [
+    {
+      "mpId": 3167,
+      "mpName": "Илия Димитров Лазаров",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [
+    {
+      "slug": "petko-georgiev-nikolov-0e4c71",
+      "name": "Петко Георгиев Николов",
+      "category": "cabinet",
+      "tier": "executive",
+      "role": "cabinet",
+      "institution": "Министерство на икономиката и индустрията",
+      "municipality": null,
+      "confidence": "high",
+      "latestDeclarationYear": 2025,
+      "roles": [
+        {
+          "source": "tr",
+          "trRole": "representative",
+          "shareSize": null,
+          "valueEur": null
+        },
+        {
+          "source": "tr",
+          "trRole": "director",
+          "shareSize": null,
+          "valueEur": null
+        }
+      ]
+    }
+  ],
+  "procurementEur": 0,
+  "procurementContractCount": 0,
+  "debarred": false,
+  "exposureScore": 16.43
+}

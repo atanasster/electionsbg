@@ -1,0 +1,33 @@
+{
+  "eik": "203219909",
+  "name": "МЕТАЛ - ВМ ЕООД",
+  "orgType": "Компания",
+  "contractCount": 3,
+  "contractedEur": 499532.15,
+  "paidEur": 262548.37,
+  "mps": [
+    {
+      "mpId": 4868,
+      "mpName": "Венцислав Михайлов Асенов",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "stake",
+          "shareSize": "100",
+          "valueEur": 511.29188119621847,
+          "fiscalYear": 2024,
+          "declarationYear": 2025
+        }
+      ]
+    }
+  ],
+  "officials": [],
+  "procurementEur": 0,
+  "procurementContractCount": 0,
+  "debarred": false,
+  "exposureScore": 13.81
+}

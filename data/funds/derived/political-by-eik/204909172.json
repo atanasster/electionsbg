@@ -1,0 +1,57 @@
+{
+  "eik": "204909172",
+  "name": "\"Апис Мелифера България\" ООД",
+  "orgType": "Компания",
+  "contractCount": 2,
+  "contractedEur": 119076.76,
+  "paidEur": 56459.85,
+  "mps": [
+    {
+      "mpId": 5205,
+      "mpName": "Рашид Мехмедов Узунов",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    },
+    {
+      "mpId": 5333,
+      "mpName": "Таня Петрова Гюрюшева-Николова",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [
+    {
+      "slug": "dimitr-georgiev-dimitrov-402467",
+      "name": "Димитър Георгиев Димитров",
+      "category": "councillor",
+      "tier": "municipal",
+      "role": "councillor",
+      "institution": null,
+      "municipality": "Горна Малина",
+      "confidence": "high",
+      "latestDeclarationYear": null,
+      "roles": [
+        {
+          "source": "tr",
+          "trRole": "partner",
+          "shareSize": null,
+          "valueEur": null
+        }
+      ]
+    }
+  ],
+  "procurementEur": 0,
+  "procurementContractCount": 0,
+  "debarred": false,
+  "exposureScore": 13.07
+}

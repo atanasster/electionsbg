@@ -1,0 +1,31 @@
+{
+  "eik": "825240527",
+  "name": "ПЛОВДИВИНВЕСТ АД",
+  "orgType": "Компания",
+  "contractCount": 1,
+  "contractedEur": 25564.59,
+  "paidEur": 25564.59,
+  "mps": [
+    {
+      "mpId": 819,
+      "mpName": "Петър Димитров Попов",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [],
+  "procurementEur": 2080649.36,
+  "procurementContractCount": 98,
+  "debarred": false,
+  "exposureScore": 15.21
+}

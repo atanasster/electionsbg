@@ -1,0 +1,46 @@
+{
+  "eik": "119622608",
+  "name": "ОЛИМПИА АУТО АД",
+  "orgType": "Компания",
+  "contractCount": 1,
+  "contractedEur": 5112.92,
+  "paidEur": 5112.92,
+  "mps": [
+    {
+      "mpId": 2440,
+      "mpName": "Румен Иванов Иванов",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [
+    {
+      "slug": "rumen-ivanov-ivanov-91fba6",
+      "name": "Румен Иванов Иванов",
+      "category": "deputy_mayor",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "institution": null,
+      "municipality": "Сливен",
+      "confidence": "high",
+      "latestDeclarationYear": null,
+      "roles": [
+        {
+          "source": "tr",
+          "trRole": "director",
+          "shareSize": null,
+          "valueEur": null
+        }
+      ]
+    }
+  ],
+  "procurementEur": 937012.25,
+  "procurementContractCount": 10,
+  "debarred": false,
+  "exposureScore": 13.76
+}

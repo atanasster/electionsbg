@@ -32,11 +32,11 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `BG Wikipedia polls` | `update-polls` |
 | `BG Wikipedia governments list` | _manual edit required — see "Governments: manual edit first" below_ |
 | `Сметна палата declarations registry` | `update-connections` |
-| `Сметна палата declarations — executive (officials)` | `update-officials` |
-| `Сметна палата declarations — municipal (mayors & councillors)` | `update-officials` (Step 1b — municipal ingest) |
+| `Сметна палата declarations — executive (officials)` | `update-officials` (also re-runs `update-funds` political-economy join step — `npx tsx scripts/funds/political_links.ts` — since the officials → company links are an input) |
+| `Сметна палата declarations — municipal (mayors & councillors)` | `update-officials` (Step 1b — municipal ingest; same political-economy follow-up applies) |
 | `data.egov.bg Commerce Registry` | `update-connections` |
-| `data.egov.bg АОП` (procurement) | `update-procurement` |
-| `АОП debarred-suppliers register` | `update-procurement` (Step 5 — debarred-list refresh) |
+| `data.egov.bg АОП` (procurement) | `update-procurement` (also re-runs the funds political-economy join — `npx tsx scripts/funds/political_links.ts` — since АОП award totals overlay the EU-funds political flags) |
+| `АОП debarred-suppliers register` | `update-procurement` (Step 5 — debarred-list refresh; debarred flags on flagged EU-funds beneficiaries refresh via the same political_links step) |
 | `ИСУН EU funds` (beneficiaries) | `update-funds` |
 | `ИСУН EU funds` (projects) | `update-funds` (Step 2 — contract-level ingest; runs `npm run funds:ingest-projects` after the beneficiaries ingest) |
 | `data.egov.bg бюджет` (budget execution) | `update-budget` |

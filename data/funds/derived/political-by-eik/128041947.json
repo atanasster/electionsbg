@@ -1,0 +1,46 @@
+{
+  "eik": "128041947",
+  "name": "\"ИВАГО БЪЛГАРИЯ\" ООД",
+  "orgType": "Компания",
+  "contractCount": 3,
+  "contractedEur": 155452.14,
+  "paidEur": 71683.12,
+  "mps": [
+    {
+      "mpId": 1070,
+      "mpName": "Александър Стойчев Стойков",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [
+    {
+      "slug": "aleksandr-stoichev-stoikov-a25a5c",
+      "name": "Александър Стойчев Стойков",
+      "category": "councillor",
+      "tier": "municipal",
+      "role": "councillor",
+      "institution": null,
+      "municipality": "Ямбол",
+      "confidence": "high",
+      "latestDeclarationYear": null,
+      "roles": [
+        {
+          "source": "tr",
+          "trRole": "partner",
+          "shareSize": null,
+          "valueEur": null
+        }
+      ]
+    }
+  ],
+  "procurementEur": 0,
+  "procurementContractCount": 0,
+  "debarred": false,
+  "exposureScore": 13.05
+}

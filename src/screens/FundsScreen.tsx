@@ -18,6 +18,7 @@ import { ProjectsStatusMixTile } from "./funds/ProjectsStatusMixTile";
 import { TopProgramsTile } from "./funds/TopProgramsTile";
 import { GeographyMixTile } from "./funds/GeographyMixTile";
 import { FundsMuniMapTile } from "./funds/FundsMuniMapTile";
+import { PoliticalConflictsTile } from "./funds/PoliticalConflictsTile";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
 import { summarizeFundsRelations } from "@/data/funds/relationLabel";
 import { formatEur } from "@/lib/currency";
@@ -392,6 +393,8 @@ export const FundsScreen: FC = () => {
             <TopProgramsTile index={projectsIndex} />
           </>
         ) : null}
+
+        <PoliticalConflictsTile />
 
         {mpFile && mpFile.entries.length > 0 ? (
           <MpConnectedCard file={mpFile} />

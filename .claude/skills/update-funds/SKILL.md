@@ -132,6 +132,40 @@ small date-filtered export from overwriting `data/funds/`. A date-filtered
 slice is fine to inspect with `--file ... --dry-run`, but never write one as
 canonical.
 
+## Political-economy join layer
+
+After the MP cross-reference runs (Step 1 above), the ingest folds in two more
+sources into a single derived shard set keyed by beneficiary EIK:
+
+- `data/officials/derived/company_links.json` (from `/update-officials`) —
+  non-MP officials with declared stakes or TR roles: cabinet, deputy ministers,
+  state-agency heads, regional governors, mayors, deputy mayors, council chairs,
+  councillors, chief architects. Only the **high-confidence** slice is used —
+  declarations and `namesakeCount == 1` TR roles.
+- `data/procurement/derived/top_contractors.json` + per-EIK
+  `data/procurement/contractors/{eik}.json` (from `/update-procurement`) — the
+  АОП award overlap per flagged EIK.
+- `data/procurement/debarred.json` — name-matched debarred-suppliers flag.
+
+Outputs:
+
+| Path | Shape | Size |
+|---|---|---|
+| `data/funds/derived/political_links.json` | `{ totals, top: top-50, flaggedEiks: [...] }` | ~50 KB committed |
+| `data/funds/derived/political-by-eik/{eik}.json` | One PoliticalEntry per flagged EIK | 1–4 KB × ~286 files committed |
+| `data/funds/derived/political-by-eik/index.json` | Manifest of flagged EIKs | ~5 KB committed |
+
+The build runs as part of `funds:ingest` (Step 1 — no separate command). For
+dev iteration on just this step, run it standalone:
+
+```bash
+npx tsx scripts/funds/political_links.ts
+```
+
+No new external fetch — purely a join over already-ingested data. Re-run after
+`/update-officials` or `/update-procurement` flips, even when ИСУН itself
+hasn't moved.
+
 ## MP cross-reference
 
 When `data/parliament/companies-index.json` is present, the ingest joins every
@@ -196,6 +230,7 @@ Surfaces that are **intentionally non-fatal**:
 | `scripts/funds/fetch.ts` | XLSX export download (always fresh) + snapshot writer |
 | `scripts/funds/parse.ts` | XLSX → `FundsBeneficiary[]` (header-schema guard, EIK extraction) |
 | `scripts/funds/cross_reference.ts` | EIK-keyed join against `companies-index.json` → `mp_connected.json` |
+| `scripts/funds/political_links.ts` | Political-economy join: MP + officials + АОП overlap + debarred → `political_links.json` + per-EIK shards |
 | `scripts/funds/eik.ts` | EIK/BULSTAT canonicalization (9-digit) |
 | `scripts/funds/types.ts` | Shared type definitions |
 | `scripts/watch/sources/isun_eu_funds.ts` | Watcher source — fingerprints the export corpus shape |
@@ -203,6 +238,8 @@ Surfaces that are **intentionally non-fatal**:
 | `data/funds/beneficiaries/<0-9>.json`, `_x.json` | Beneficiary rows sharded by EIK last digit — committed |
 | `data/funds/beneficiaries-by-eik/<EIK>.json` | One small file per beneficiary for O(1) `/company/{EIK}` lookup — bulky (~46k files), uploaded to the bucket, gitignored |
 | `data/funds/derived/mp_connected.json` | One entry per (MP, beneficiary) pair — the MP-tied journalism payload — committed |
+| `data/funds/derived/political_links.json` | Slim leaderboard of politically-tied beneficiaries (MP + non-MP officials + АОП overlap + debarred) — committed |
+| `data/funds/derived/political-by-eik/{EIK}.json` | Per-EIK political-economy shard for the `/company` panel — committed |
 | `data/_cache/funds/beneficiaries.xlsx` | Snapshot of the last downloaded export — gitignored |
 
 ## Quick command reference

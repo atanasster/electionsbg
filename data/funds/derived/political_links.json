@@ -1,0 +1,2051 @@
+{
+  "generatedAt": "2026-05-27T12:04:08.967Z",
+  "totals": {
+    "flaggedEiks": 286,
+    "mpOnly": 82,
+    "officialOnly": 188,
+    "both": 16,
+    "debarredFlagged": 0,
+    "contractedEur": 659086124.92,
+    "paidEur": 166696194.21,
+    "procurementEur": 956638744.79
+  },
+  "top": [
+    {
+      "eik": "130316140",
+      "name": "ДЪРЖАВНО ПРЕДПРИЯТИЕ \"ПРИСТАНИЩНА ИНФРАСТРУКТУРА\"",
+      "orgType": "Компания",
+      "contractCount": 18,
+      "contractedEur": 120192402.23,
+      "paidEur": 57275431.24,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "angel-borisov-zaburtov-fd5ef9",
+          "name": "Ангел Борисов Забуртов",
+          "category": "cabinet",
+          "tier": "executive",
+          "role": "cabinet",
+          "institution": "Министерство на транспорта и съобщенията",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2026,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        },
+        {
+          "slug": "stoyan-borisov-hristov-a391df",
+          "name": "Стоян Борисов Христов",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Русе",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "branch_manager",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 19.7
+    },
+    {
+      "eik": "130020522",
+      "name": "КонтурГлобал Марица Изток 3 АД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 110410546.93,
+      "paidEur": 0,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "krasimir-velikov-nenov-bb5109",
+          "name": "Красимир Великов Ненов",
+          "category": "cabinet",
+          "tier": "executive",
+          "role": "cabinet",
+          "institution": "Министерство на енергетиката",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 19.21
+    },
+    {
+      "eik": "824106518",
+      "name": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ЕООД, гр. Плевен",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 60547390.45,
+      "paidEur": 3331134.29,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "kaloyan-ivanov-kdriiski-ef3655",
+          "name": "Калоян Иванов Къдрийски",
+          "category": "deputy_mayor",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "institution": null,
+          "municipality": "Плевен",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 2397116.06,
+      "procurementContractCount": 29,
+      "debarred": false,
+      "exposureScore": 23.02
+    },
+    {
+      "eik": "831160078",
+      "name": "\"НАПОИТЕЛНИ СИСТЕМИ\" ЕАД",
+      "orgType": "Компания",
+      "contractCount": 24,
+      "contractedEur": 55023459.24,
+      "paidEur": 49484788.67,
+      "mps": [
+        {
+          "mpId": 4649,
+          "mpName": "Генади Събков Събков",
+          "relations": [
+            {
+              "kind": "branch_manager",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [
+        {
+          "slug": "mincho-stoikov-kazandzhiev-51c218",
+          "name": "Минчо Стойков Казанджиев",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Ловеч",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        },
+        {
+          "slug": "stefan-shtiliyanov-shtiliyanov-9d11f7",
+          "name": "Стефан Щилиянов Щилиянов",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Сливен",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "branch_manager",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 4016103.44,
+      "procurementContractCount": 41,
+      "debarred": false,
+      "exposureScore": 23.77
+    },
+    {
+      "eik": "123152884",
+      "name": "АРСЕНАЛ - 2000 АД",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 48850711.46,
+      "paidEur": 0,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "dobrin-tsvetanov-dragnev-44e92a",
+          "name": "Добрин Цветанов Драгнев",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Казанлък",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 18.4
+    },
+    {
+      "eik": "203635576",
+      "name": "ВМ ПЕТРОЛЕУМ ООД",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 35488318.51,
+      "paidEur": 0,
+      "mps": [
+        {
+          "mpId": 2706,
+          "mpName": "Веселин Найденов Марешки",
+          "relations": [
+            {
+              "kind": "stake",
+              "shareSize": "40",
+              "valueEur": 102.2583762392437,
+              "fiscalYear": 2020,
+              "declarationYear": 2021
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 18.08
+    },
+    {
+      "eik": "833067612",
+      "name": "“АРСЕНАЛ” АД",
+      "orgType": "Компания",
+      "contractCount": 5,
+      "contractedEur": 33894749.11,
+      "paidEur": 165778.33,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "dobrin-tsvetanov-dragnev-44e92a",
+          "name": "Добрин Цветанов Драгнев",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Казанлък",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 3782527.11,
+      "procurementContractCount": 5,
+      "debarred": false,
+      "exposureScore": 22.58
+    },
+    {
+      "eik": "833017552",
+      "name": "\"Мини Марица - изток\" ЕАД",
+      "orgType": "Компания",
+      "contractCount": 18,
+      "contractedEur": 30594384.54,
+      "paidEur": 0,
+      "mps": [
+        {
+          "mpId": 1689,
+          "mpName": "Андон Петров Андонов",
+          "relations": [
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 60996346.31,
+      "procurementContractCount": 19,
+      "debarred": false,
+      "exposureScore": 23.31
+    },
+    {
+      "eik": "836144932",
+      "name": "НЕОХИМ АД",
+      "orgType": "Компания",
+      "contractCount": 3,
+      "contractedEur": 16707468.09,
+      "paidEur": 67573.61,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "stefan-dimitrov-dimitrov-160832",
+          "name": "Стефан Димитров Димитров",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Димитровград",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "representative",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "actual_owner",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 372.55,
+      "procurementContractCount": 3,
+      "debarred": false,
+      "exposureScore": 19.1
+    },
+    {
+      "eik": "131045382",
+      "name": "ПРЕДПРИЯТИЕ ЗА УПРАВЛЕНИЕ НА ДЕЙНОСТИТЕ ПО ОПАЗВАНЕ НА ОКОЛНАТА СРЕДА (ПУДООС)",
+      "orgType": "Държавна администрация",
+      "contractCount": 1,
+      "contractedEur": 16625859.78,
+      "paidEur": 16625859.79,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "reneta-georgieva-koleva-877928",
+          "name": "Ренета Георгиева Колева",
+          "category": "cabinet",
+          "tier": "executive",
+          "role": "cabinet",
+          "institution": "Министерство на околната среда и водите",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 1376135.72,
+      "procurementContractCount": 18,
+      "debarred": false,
+      "exposureScore": 21.56
+    },
+    {
+      "eik": "836014515",
+      "name": "АБ АД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 12238395.97,
+      "paidEur": 1273329.09,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "hristo-dimitrov-hristov-a59ac1",
+          "name": "Христо Димитров Христов",
+          "category": "mayor",
+          "tier": "municipal",
+          "role": "mayor",
+          "institution": null,
+          "municipality": "Болярово",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "representative",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 158145232.98,
+      "procurementContractCount": 55,
+      "debarred": false,
+      "exposureScore": 22.68
+    },
+    {
+      "eik": "201239464",
+      "name": "ГЕОСОЛАР КАМЕНЯК ЕООД",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 11780059.11,
+      "paidEur": 0,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "hamdi-mehmedov-iliyazov-9bb80a",
+          "name": "Хамди Мехмедов Илиязов",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Търговище",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 16.98
+    },
+    {
+      "eik": "201617654",
+      "name": "ЮГОИЗТОЧНО ДЪРЖАВНО ПРЕДПРИЯТИЕ",
+      "orgType": "Държавна администрация",
+      "contractCount": 3,
+      "contractedEur": 7828898.46,
+      "paidEur": 4565756.39,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "miroslav-tsonev-marinov-2d13c9",
+          "name": "Мирослав Цонев Маринов",
+          "category": "cabinet",
+          "tier": "executive",
+          "role": "cabinet",
+          "institution": "Министерство на земеделието и храните",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 40336.99,
+      "procurementContractCount": 3,
+      "debarred": false,
+      "exposureScore": 19.75
+    },
+    {
+      "eik": "103061301",
+      "name": "\"Пристанище Варна\" ЕАД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 6706601.57,
+      "paidEur": 0,
+      "mps": [
+        {
+          "mpId": 860,
+          "mpName": "Димитър Йорданов Атанасов",
+          "relations": [
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 16.41
+    },
+    {
+      "eik": "114532352",
+      "name": "\"УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р ГЕОРГИ СТРАНСКИ\" ЕАД ГРАД ПЛЕВЕН",
+      "orgType": "Медицинско заведение",
+      "contractCount": 3,
+      "contractedEur": 5486561.92,
+      "paidEur": 74801.06,
+      "mps": [
+        {
+          "mpId": 2926,
+          "mpName": "Калин Николов Поповски",
+          "relations": [
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 16.21
+    },
+    {
+      "eik": "121706255",
+      "name": "\"Национална компания индустриални зони\" ЕАД (НКИЗ ЕАД)",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 4561740.51,
+      "paidEur": 248951.13,
+      "mps": [
+        {
+          "mpId": 3167,
+          "mpName": "Илия Димитров Лазаров",
+          "relations": [
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [
+        {
+          "slug": "petko-georgiev-nikolov-0e4c71",
+          "name": "Петко Георгиев Николов",
+          "category": "cabinet",
+          "tier": "executive",
+          "role": "cabinet",
+          "institution": "Министерство на икономиката и индустрията",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "representative",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 16.43
+    },
+    {
+      "eik": "202295544",
+      "name": "\"ЖИТОСВЯТ АГРО\" ЕООД",
+      "orgType": "Компания",
+      "contractCount": 5,
+      "contractedEur": 4424811.07,
+      "paidEur": 2212405.55,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "stanislav-rumenov-kostadinov-6585ce",
+          "name": "Станислав Руменов Костадинов",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Карнобат",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 16
+    },
+    {
+      "eik": "203133495",
+      "name": "\"КОМ АГРО\" ООД",
+      "orgType": "Компания",
+      "contractCount": 4,
+      "contractedEur": 4022049.78,
+      "paidEur": 1090472.99,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "kalin-krasimirov-statkov-783ccb",
+          "name": "Калин Красимиров Статков",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Берковица",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "55",
+              "valueEur": 28172.182653911637
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 15.9
+    },
+    {
+      "eik": "201596039",
+      "name": "\"ГРУПА ОВОЩАРИ КАРНОБАТ\" ООД",
+      "orgType": "Компания",
+      "contractCount": 4,
+      "contractedEur": 3891391.92,
+      "paidEur": 2186684.42,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "zhivka-mincheva-grozdeva-2d2128",
+          "name": "Живка Минчева Гроздева",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Карнобат",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "partner",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 15.87
+    },
+    {
+      "eik": "832072001",
+      "name": "НИКИ ЕООД",
+      "orgType": "Компания",
+      "contractCount": 6,
+      "contractedEur": 3152242.84,
+      "paidEur": 1154172.08,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "nikolai-todorov-nikolov-0f457f",
+          "name": "Николай Тодоров Николов",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Исперих",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "partner",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 15.66
+    },
+    {
+      "eik": "825203984",
+      "name": "ЮРИЙ ГАГАРИН АД",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 2806475.49,
+      "paidEur": 0,
+      "mps": [
+        {
+          "mpId": 2681,
+          "mpName": "Борислав Иванов Борисов",
+          "relations": [
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 15.54
+    },
+    {
+      "eik": "106530686",
+      "name": "АТОМЕНЕРГОРЕМОНТ АД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 2752845.36,
+      "paidEur": 1277673.68,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "simeon-ivanov-simeonov-f3010c",
+          "name": "Симеон Иванов Симеонов",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Козлодуй",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 188158110.61,
+      "procurementContractCount": 108,
+      "debarred": false,
+      "exposureScore": 21.24
+    },
+    {
+      "eik": "822120615",
+      "name": "\"Телекабел\" АД",
+      "orgType": "Компания",
+      "contractCount": 6,
+      "contractedEur": 2613677.66,
+      "paidEur": 1318429.95,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "angel-chavdarov-vasilev-1ad552",
+          "name": "Ангел Чавдаров Василев",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Пазарджик",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 15.47
+    },
+    {
+      "eik": "121100236",
+      "name": "БИ ЕМ ЕС ПРОДЪКШЪН ООД",
+      "orgType": "Компания",
+      "contractCount": 5,
+      "contractedEur": 2476687.65,
+      "paidEur": 1163870.58,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "dimitr-kirilov-dimitrov-1ae28c",
+          "name": "Димитър Кирилов Димитров",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Видин",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "partner",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 15.42
+    },
+    {
+      "eik": "206841186",
+      "name": "ЖИЖО 85 ЕООД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 2162969.57,
+      "paidEur": 1081484.68,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "zhivko-ivanov-zdravkov-c15529",
+          "name": "Живко Иванов Здравков",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Калояново",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 15.28
+    },
+    {
+      "eik": "119603547",
+      "name": "Е.МИРОЛИО ЕАД",
+      "orgType": "Компания",
+      "contractCount": 3,
+      "contractedEur": 2084060.45,
+      "paidEur": 630794.39,
+      "mps": [
+        {
+          "mpId": 5243,
+          "mpName": "Светла Вълканова Коджабашева",
+          "relations": [
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 15.24
+    },
+    {
+      "eik": "837066073",
+      "name": "Метал ЕАД",
+      "orgType": "Компания",
+      "contractCount": 5,
+      "contractedEur": 1881048.44,
+      "paidEur": 1129713.45,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "mariya-dimitrova-dimitrova-e46a95",
+          "name": "Мария Димитрова Димитрова",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Силистра",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 15.14
+    },
+    {
+      "eik": "101627341",
+      "name": "ШИПКОВАТА КЪЩА ЕООД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 1802910.13,
+      "paidEur": 325578.89,
+      "mps": [
+        {
+          "mpId": 2715,
+          "mpName": "Борис Петков Кърчев",
+          "relations": [
+            {
+              "kind": "manager",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 15.1
+    },
+    {
+      "eik": "175415627",
+      "name": "КОНТРАКС АД",
+      "orgType": "Компания",
+      "contractCount": 5,
+      "contractedEur": 1747426.37,
+      "paidEur": 943269.38,
+      "mps": [
+        {
+          "mpId": 805,
+          "mpName": "Йордан Петков Йорданов",
+          "relations": [
+            {
+              "kind": "actual_owner",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 87688154.96,
+      "procurementContractCount": 804,
+      "debarred": false,
+      "exposureScore": 20.55
+    },
+    {
+      "eik": "110032086",
+      "name": "КАМАКС ООД",
+      "orgType": "Компания",
+      "contractCount": 5,
+      "contractedEur": 1523972.55,
+      "paidEur": 410979.5,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "emil-asenov-maksimov-f7e0d4",
+          "name": "Емил Асенов Максимов",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Тетевен",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "30",
+              "valueEur": 1789.5215841867648
+            },
+            {
+              "source": "tr",
+              "trRole": "partner",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.93
+    },
+    {
+      "eik": "124121775",
+      "name": "ДОБРУДЖАНСКИ ХЛЯБ АД",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 1500000,
+      "paidEur": 0,
+      "mps": [
+        {
+          "mpId": 50,
+          "mpName": "Енчо Вълков Малев",
+          "relations": [
+            {
+              "kind": "representative",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 109934.91,
+      "procurementContractCount": 7,
+      "debarred": false,
+      "exposureScore": 18.4
+    },
+    {
+      "eik": "125021188",
+      "name": "МЕБЕЛ-СТИЛ ООД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 1468551,
+      "paidEur": 650918.59,
+      "mps": [
+        {
+          "mpId": 5108,
+          "mpName": "Илко Пенков Илиев",
+          "relations": [
+            {
+              "kind": "manager",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.89
+    },
+    {
+      "eik": "202605690",
+      "name": "\"РОДОПИ ТРЕЙД МЕНИДЖМЪНТ\" ЕООД",
+      "orgType": "Компания",
+      "contractCount": 4,
+      "contractedEur": 1452670.21,
+      "paidEur": 959348.72,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "stanimir-mitkov-chaushev-4f07f8",
+          "name": "Станимир Митков Чаушев",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Златоград",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "100%",
+              "valueEur": 2556.4594059810925
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.88
+    },
+    {
+      "eik": "200053001",
+      "name": "Ил Бе Са ЕООД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 1424112.99,
+      "paidEur": 712056.49,
+      "mps": [
+        {
+          "mpId": 4116,
+          "mpName": "ИЛТЕР БЕЙЗАТОВ САДЪКОВ",
+          "relations": [
+            {
+              "kind": "stake",
+              "shareSize": "100",
+              "valueEur": 2556.4594059810925,
+              "fiscalYear": 2021,
+              "declarationYear": 2022
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.86
+    },
+    {
+      "eik": "833105098",
+      "name": "АТЕ ПЛАСТ ООД",
+      "orgType": "Компания",
+      "contractCount": 3,
+      "contractedEur": 1378287.41,
+      "paidEur": 181809.82,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "mariya-koleva-zhekova-489cbb",
+          "name": "Мария Колева Жекова",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Стара Загора",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "26",
+              "valueEur": 39880.76673330504
+            },
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "26",
+              "valueEur": 39880.76673330504
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.83
+    },
+    {
+      "eik": "175081049",
+      "name": "ЦЕМА ЕООД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 1377609.68,
+      "paidEur": 471866.2,
+      "mps": [
+        {
+          "mpId": 3047,
+          "mpName": "НИКОЛА ХРИСТОВ КРЪСТЕВ",
+          "relations": [
+            {
+              "kind": "stake",
+              "shareSize": "1038000",
+              "valueEur": 530720.9726816748,
+              "fiscalYear": 2021,
+              "declarationYear": 2021
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.83
+    },
+    {
+      "eik": "204118464",
+      "name": "ДЕЛИОРМАН ГРУП ООД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 1364212.69,
+      "paidEur": 582107.87,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "nihat-yusuf-shaban-2cbc85",
+          "name": "Нихат Юсуф Шабан",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Каолиново",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "partner",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.82
+    },
+    {
+      "eik": "102004105",
+      "name": "Камт АД",
+      "orgType": "Компания",
+      "contractCount": 6,
+      "contractedEur": 1335257.86,
+      "paidEur": 721307.08,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "radostin-hristov-hristov-fcf014",
+          "name": "Радостин Христов Христов",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Карнобат",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "representative",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.8
+    },
+    {
+      "eik": "204133950",
+      "name": "\"ШИЙП ГРУП 2016\" ООД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 1257846.04,
+      "paidEur": 617243.21,
+      "mps": [
+        {
+          "mpId": 2984,
+          "mpName": "Георги Александров Александров",
+          "relations": [
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.74
+    },
+    {
+      "eik": "175001761",
+      "name": "ДОМЕЙН ОРЯНОВО ЕООД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 1250640.59,
+      "paidEur": 486328.93,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "tsvetozar-tihomirov-michevski-c543fa",
+          "name": "Цветозар Тихомиров Мичевски",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Угърчин",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.73
+    },
+    {
+      "eik": "102151443",
+      "name": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ ООД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 1222396.63,
+      "paidEur": 395322.19,
+      "mps": [
+        {
+          "mpId": 805,
+          "mpName": "Йордан Петков Йорданов",
+          "relations": [
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [
+        {
+          "slug": "ivan-dochev-ivanov-ba8abb",
+          "name": "Иван Дочев Иванов",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Айтос",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "partner",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        },
+        {
+          "slug": "ivan-zhelyazkov-ivanov-02f38d",
+          "name": "Иван Желязков Иванов",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Гълъбово",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "partner",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        },
+        {
+          "slug": "petr-valentinov-haralambov-2efba0",
+          "name": "Петър Валентинов Хараламбов",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Айтос",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "partner",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 106759.79,
+      "procurementContractCount": 7,
+      "debarred": false,
+      "exposureScore": 19.1
+    },
+    {
+      "eik": "826018141",
+      "name": "КАРАДЖА - ФАГ ООД",
+      "orgType": "Компания",
+      "contractCount": 3,
+      "contractedEur": 1177045.33,
+      "paidEur": 588522.54,
+      "mps": [
+        {
+          "mpId": 4812,
+          "mpName": "Гюнай Хюсмен Хюсмен",
+          "relations": [
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "high"
+            },
+            {
+              "kind": "stake",
+              "shareSize": "81%",
+              "valueEur": 2070.732118844685,
+              "fiscalYear": 2024,
+              "declarationYear": 2025
+            }
+          ]
+        }
+      ],
+      "officials": [
+        {
+          "slug": "yaman-gyunai-hyusmen-d772a3",
+          "name": "Яман Гюнай Хюсмен",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Исперих",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "partner",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 15.08
+    },
+    {
+      "eik": "104055430",
+      "name": "ВИНПРОМ АД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 1150315.69,
+      "paidEur": 656794.81,
+      "mps": [
+        {
+          "mpId": 913,
+          "mpName": "Евгений Василев Узунов",
+          "relations": [
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.65
+    },
+    {
+      "eik": "206692269",
+      "name": "КМС СОЛАР ООД",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 963650.21,
+      "paidEur": 0,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "gergana-vladimirova-murtova-6a5013",
+          "name": "Гергана Владимирова Муртова",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Благоевград",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "33",
+              "valueEur": 10737.129505120589
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.47
+    },
+    {
+      "eik": "203397356",
+      "name": "Евротръст Технолъджис АД",
+      "orgType": "Компания",
+      "contractCount": 2,
+      "contractedEur": 866015.98,
+      "paidEur": 433007.99,
+      "mps": [
+        {
+          "mpId": 1609,
+          "mpName": "Мартин Георгиев Захариев",
+          "relations": [
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 513905.09,
+      "procurementContractCount": 1,
+      "debarred": false,
+      "exposureScore": 18.31
+    },
+    {
+      "eik": "116003561",
+      "name": "РАЛОМЕКС АД",
+      "orgType": "Компания",
+      "contractCount": 4,
+      "contractedEur": 847328.23,
+      "paidEur": 427695.66,
+      "mps": [
+        {
+          "mpId": 5205,
+          "mpName": "Рашид Мехмедов Узунов",
+          "relations": [
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 17120.35,
+      "procurementContractCount": 3,
+      "debarred": false,
+      "exposureScore": 17.27
+    },
+    {
+      "eik": "131240076",
+      "name": "ЕНЬО БОНЧЕВ ПРОДАКШЪН",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 816514.08,
+      "paidEur": 403943.73,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "ekaterina-petkova-boncheva-lisicharova-87ffab",
+          "name": "Екатерина Петкова Бончева-Лисичарова",
+          "category": "agency_head",
+          "tier": "executive",
+          "role": "agency_head",
+          "institution": "Комисия по досиетата",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "250",
+              "valueEur": 1278.2297029905462
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.31
+    },
+    {
+      "eik": "177154115",
+      "name": "Местна инициативна група Твърдица - Сливен - Долината на прасковите",
+      "orgType": "Нестопанска организация",
+      "contractCount": 2,
+      "contractedEur": 774987.84,
+      "paidEur": 24021.28,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "atanas-hristov-atanasov-03f0ca",
+          "name": "Атанас Христов Атанасов",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Твърдица",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "actual_owner",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.25
+    },
+    {
+      "eik": "811200024",
+      "name": "ГАМА-КОМЕРС",
+      "orgType": "Компания",
+      "contractCount": 4,
+      "contractedEur": 774551.4,
+      "paidEur": 445593.21,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "ivan-todorov-gerov-2b9d03",
+          "name": "Иван Тодоров Геров",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Гоце Делчев",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "50%",
+              "valueEur": 1278.2297029905462
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 14.25
+    },
+    {
+      "eik": "106510662",
+      "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - КНЕЖА ЕООД",
+      "orgType": "Компания",
+      "contractCount": 1,
+      "contractedEur": 758723.04,
+      "paidEur": 151744.61,
+      "mps": [
+        {
+          "mpId": 5165,
+          "mpName": "Валери Пламенов Лачовски",
+          "relations": [
+            {
+              "kind": "procurator",
+              "isCurrent": true,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 85.39,
+      "procurementContractCount": 1,
+      "debarred": false,
+      "exposureScore": 15.57
+    }
+  ],
+  "flaggedEiks": [
+    "130316140",
+    "130020522",
+    "824106518",
+    "831160078",
+    "123152884",
+    "203635576",
+    "833067612",
+    "833017552",
+    "836144932",
+    "131045382",
+    "836014515",
+    "201239464",
+    "201617654",
+    "103061301",
+    "114532352",
+    "121706255",
+    "202295544",
+    "203133495",
+    "201596039",
+    "832072001",
+    "825203984",
+    "106530686",
+    "822120615",
+    "121100236",
+    "206841186",
+    "119603547",
+    "837066073",
+    "101627341",
+    "175415627",
+    "110032086",
+    "124121775",
+    "125021188",
+    "202605690",
+    "200053001",
+    "833105098",
+    "175081049",
+    "204118464",
+    "102004105",
+    "204133950",
+    "175001761",
+    "102151443",
+    "826018141",
+    "104055430",
+    "206692269",
+    "203397356",
+    "116003561",
+    "131240076",
+    "177154115",
+    "811200024",
+    "106510662",
+    "206148584",
+    "206457584",
+    "822090225",
+    "203190862",
+    "110001952",
+    "203219909",
+    "119667699",
+    "104677748",
+    "205236586",
+    "125555587",
+    "201498495",
+    "123727668",
+    "203125413",
+    "203105962",
+    "123139451",
+    "200621546",
+    "131380345",
+    "121800256",
+    "127003032",
+    "203161587",
+    "000750062",
+    "202476377",
+    "107515210",
+    "205206700",
+    "200872545",
+    "205395083",
+    "125537379",
+    "204083013",
+    "204103188",
+    "102872963",
+    "106006655",
+    "117000924",
+    "203207383",
+    "202918009",
+    "202486040",
+    "831646048",
+    "206715091",
+    "821177257",
+    "040454345",
+    "200094133",
+    "131448846",
+    "101536112",
+    "130255125",
+    "831635354",
+    "201888095",
+    "101159421",
+    "128041947",
+    "203827288",
+    "101055748",
+    "123722347",
+    "117050304",
+    "206769445",
+    "204276464",
+    "207035269",
+    "204944052",
+    "205218485",
+    "204923147",
+    "104606078",
+    "204572748",
+    "203706639",
+    "204909172",
+    "811204268",
+    "828050472",
+    "203458342",
+    "121027425",
+    "131476144",
+    "206537518",
+    "206545237",
+    "831643461",
+    "175426132",
+    "124134667",
+    "206361881",
+    "200820559",
+    "205336697",
+    "030264696",
+    "104054085",
+    "825095010",
+    "203483232",
+    "000649348",
+    "104655989",
+    "202642330",
+    "123763333",
+    "200767512",
+    "103841714",
+    "200111255",
+    "813196172",
+    "825398032",
+    "115825739",
+    "205220648",
+    "205738219",
+    "200137677",
+    "838101940",
+    "203414994",
+    "204487931",
+    "115147345",
+    "203718577",
+    "206536327",
+    "813195241",
+    "175209984",
+    "124030661",
+    "200067887",
+    "206989765",
+    "126144101",
+    "126652270",
+    "204033505",
+    "126657292",
+    "121081992",
+    "160107050",
+    "102921036",
+    "115933138",
+    "130924057",
+    "148149275",
+    "201476538",
+    "202214656",
+    "205253066",
+    "206881704",
+    "202981340",
+    "107564054",
+    "825240527",
+    "200423956",
+    "200197279",
+    "121125663",
+    "102067237",
+    "201738862",
+    "102115388",
+    "123722607",
+    "147137715",
+    "200726024",
+    "200758221",
+    "203010044",
+    "203768562",
+    "204124990",
+    "205310962",
+    "831546464",
+    "112669637",
+    "175012213",
+    "103966899",
+    "201022005",
+    "206705325",
+    "203064800",
+    "204125601",
+    "206364703",
+    "115824740",
+    "126649349",
+    "204997709",
+    "117605866",
+    "203289105",
+    "205174868",
+    "202659777",
+    "202408440",
+    "123729167",
+    "119622608",
+    "102655436",
+    "104032530",
+    "202823511",
+    "203711910",
+    "201832124",
+    "201433615",
+    "112008155",
+    "117692885",
+    "101672621",
+    "101793690",
+    "111563499",
+    "113567368",
+    "115814753",
+    "118578660",
+    "121755423",
+    "123156493",
+    "128562052",
+    "130199413",
+    "130378264",
+    "148061117",
+    "175161310",
+    "175165180",
+    "200165712",
+    "200168199",
+    "200529105",
+    "200552303",
+    "200781120",
+    "201012331",
+    "201470058",
+    "201550180",
+    "201765375",
+    "202067302",
+    "202352269",
+    "202580454",
+    "203075939",
+    "203149713",
+    "203311556",
+    "203326551",
+    "203704549",
+    "203717219",
+    "203895549",
+    "204042785",
+    "204126646",
+    "204633652",
+    "204811835",
+    "205053101",
+    "205317316",
+    "205499000",
+    "118550554",
+    "205497316",
+    "108567110",
+    "203362063",
+    "813207380",
+    "203946666",
+    "200249085",
+    "202924962",
+    "202847380",
+    "131453957",
+    "205364216",
+    "204597370",
+    "205129182",
+    "817076893",
+    "131069903",
+    "205401255",
+    "115505907",
+    "202454288",
+    "103835309",
+    "203308336",
+    "201749264",
+    "201693545",
+    "203961732",
+    "204319924",
+    "205416296",
+    "203402084",
+    "205198812",
+    "205617519",
+    "108578092",
+    "114631877",
+    "121683408",
+    "130790423",
+    "200528925",
+    "203362889",
+    "206030187",
+    "206462706"
+  ]
+}

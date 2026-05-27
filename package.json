@@ -38,6 +38,7 @@
     "budget:revenue-breakdown": "tsx ./scripts/budget/run_customs_revenue.ts && tsx ./scripts/budget/run_nap_annual.ts",
     "funds:ingest": "tsx ./scripts/funds/ingest.ts",
     "funds:ingest-projects": "tsx ./scripts/funds/projects_ingest.ts",
+    "funds:political-links": "tsx ./scripts/funds/political_links.ts",
     "tr:build-company-connections": "tsx ./scripts/declarations/tr/build_company_connections.ts",
     "bucket:sync": "gsutil -m -h 'Cache-Control:public,max-age=300,must-revalidate' rsync -r -x '^_cache/.*|.*\\.DS_Store$' -j json,svg,xml,txt,html,css,md data gs://data-electionsbg-com",
     "bucket:sync:dry": "gsutil -m rsync -r -n -x '^_cache/.*|.*\\.DS_Store$' -j json,svg,xml,txt,html,css,md data gs://data-electionsbg-com",

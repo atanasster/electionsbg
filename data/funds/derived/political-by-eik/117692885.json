@@ -1,0 +1,46 @@
+{
+  "eik": "117692885",
+  "name": "\"КОРЕКТА\" ЕООД",
+  "orgType": "Компания",
+  "contractCount": 1,
+  "contractedEur": 5112.92,
+  "paidEur": 5112.92,
+  "mps": [
+    {
+      "mpId": 4386,
+      "mpName": "Драгомир Дамянов Драганов",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [
+    {
+      "slug": "dragomir-damyanov-draganov-90645d",
+      "name": "Драгомир Дамянов Драганов",
+      "category": "regional_governor",
+      "tier": "executive",
+      "role": "regional_governor",
+      "institution": "Област - Русе",
+      "municipality": null,
+      "confidence": "high",
+      "latestDeclarationYear": 2025,
+      "roles": [
+        {
+          "source": "tr",
+          "trRole": "manager",
+          "shareSize": null,
+          "valueEur": null
+        }
+      ]
+    }
+  ],
+  "procurementEur": 0,
+  "procurementContractCount": 0,
+  "debarred": false,
+  "exposureScore": 9.64
+}

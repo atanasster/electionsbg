@@ -19,6 +19,7 @@ import {
   buildMpConnected,
   writeMpConnected,
 } from "./cross_reference";
+import { buildPoliticalLinks, writePoliticalLinks } from "./political_links";
 import type {
   FundsBeneficiary,
   FundsBreakdownRow,
@@ -276,6 +277,35 @@ const main = async (args: {
     console.log(
       `  companies-index.json missing — skipping cross-reference ` +
         `(run /update-connections to enable the MP-tied payload)`,
+    );
+  }
+
+  // 5b. Political-economy join layer — fold MP + officials + procurement +
+  // debarred into one derived shard set keyed by beneficiary EIK. Cheap
+  // (reads already-written files), no external fetch, so always runs after
+  // the beneficiary shards land. Skipped if neither MP nor officials links
+  // are present (fresh clone before /update-connections or /update-officials).
+  if (
+    fs.existsSync(COMPANIES_INDEX) ||
+    fs.existsSync(
+      path.resolve(
+        __dirname,
+        "../../data/officials/derived/company_links.json",
+      ),
+    )
+  ) {
+    console.log(`→ building political-economy join layer`);
+    const data = buildPoliticalLinks();
+    writePoliticalLinks(data);
+    const t = data.index.totals;
+    console.log(
+      `  ${t.flaggedEiks} flagged EIK(s) (${t.mpOnly} MP-only, ` +
+        `${t.officialOnly} official-only, ${t.both} both, ${t.debarredFlagged} debarred) ` +
+        `→ derived/political_links.json + ${data.shards.length} per-EIK shard(s)`,
+    );
+  } else {
+    console.log(
+      `  officials + companies-index missing — skipping political-economy join`,
     );
   }
 

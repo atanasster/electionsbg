@@ -1,0 +1,31 @@
+{
+  "eik": "112669637",
+  "name": "КАРИ ООД",
+  "orgType": "Компания",
+  "contractCount": 1,
+  "contractedEur": 23689.17,
+  "paidEur": 23689.18,
+  "mps": [
+    {
+      "mpId": 2695,
+      "mpName": "Станислав Стоянов Иванов",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [],
+  "procurementEur": 0,
+  "procurementContractCount": 0,
+  "debarred": false,
+  "exposureScore": 10.77
+}

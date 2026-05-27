@@ -344,6 +344,10 @@ export const AboutScreen = () => {
                   href="https://2020.eufunds.bg/bg/0/0/Project"
                   label={t("eu_funds_isun_projects_source")}
                 />
+                <SourceItem
+                  href="https://register.cacbg.bg/"
+                  label={t("eu_funds_political_join_source")}
+                />
               </ul>
             </DataGroup>
 

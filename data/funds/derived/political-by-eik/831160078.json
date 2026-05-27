@@ -1,0 +1,65 @@
+{
+  "eik": "831160078",
+  "name": "\"НАПОИТЕЛНИ СИСТЕМИ\" ЕАД",
+  "orgType": "Компания",
+  "contractCount": 24,
+  "contractedEur": 55023459.24,
+  "paidEur": 49484788.67,
+  "mps": [
+    {
+      "mpId": 4649,
+      "mpName": "Генади Събков Събков",
+      "relations": [
+        {
+          "kind": "branch_manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [
+    {
+      "slug": "mincho-stoikov-kazandzhiev-51c218",
+      "name": "Минчо Стойков Казанджиев",
+      "category": "councillor",
+      "tier": "municipal",
+      "role": "councillor",
+      "institution": null,
+      "municipality": "Ловеч",
+      "confidence": "high",
+      "latestDeclarationYear": null,
+      "roles": [
+        {
+          "source": "tr",
+          "trRole": "director",
+          "shareSize": null,
+          "valueEur": null
+        }
+      ]
+    },
+    {
+      "slug": "stefan-shtiliyanov-shtiliyanov-9d11f7",
+      "name": "Стефан Щилиянов Щилиянов",
+      "category": "councillor",
+      "tier": "municipal",
+      "role": "councillor",
+      "institution": null,
+      "municipality": "Сливен",
+      "confidence": "high",
+      "latestDeclarationYear": null,
+      "roles": [
+        {
+          "source": "tr",
+          "trRole": "branch_manager",
+          "shareSize": null,
+          "valueEur": null
+        }
+      ]
+    }
+  ],
+  "procurementEur": 4016103.44,
+  "procurementContractCount": 41,
+  "debarred": false,
+  "exposureScore": 23.77
+}

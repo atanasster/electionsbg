@@ -1,0 +1,53 @@
+{
+  "eik": "117050304",
+  "name": "ЖОКЕЙ ООД",
+  "orgType": "Компания",
+  "contractCount": 1,
+  "contractedEur": 148333.5,
+  "paidEur": 111925.72,
+  "mps": [
+    {
+      "mpId": 4386,
+      "mpName": "Драгомир Дамянов Драганов",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "stake",
+          "shareSize": "503",
+          "valueEur": 12858.990812084896,
+          "fiscalYear": 2023,
+          "declarationYear": 2023
+        }
+      ]
+    }
+  ],
+  "officials": [
+    {
+      "slug": "dragomir-damyanov-draganov-90645d",
+      "name": "Драгомир Дамянов Драганов",
+      "category": "regional_governor",
+      "tier": "executive",
+      "role": "regional_governor",
+      "institution": "Област - Русе",
+      "municipality": null,
+      "confidence": "high",
+      "latestDeclarationYear": 2025,
+      "roles": [
+        {
+          "source": "tr",
+          "trRole": "partner",
+          "shareSize": null,
+          "valueEur": null
+        }
+      ]
+    }
+  ],
+  "procurementEur": 0,
+  "procurementContractCount": 0,
+  "debarred": false,
+  "exposureScore": 13.01
+}

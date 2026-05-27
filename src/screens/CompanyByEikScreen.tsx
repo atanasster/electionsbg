@@ -52,6 +52,7 @@ import { CompanyTopAwardersTile } from "./components/procurement/CompanyTopAward
 import { CompanyByYearChart } from "./components/procurement/CompanyByYearChart";
 import { ErrorSection } from "./components/ErrorSection";
 import { CompanyConnectionsSection } from "./components/connections/CompanyConnectionsSection";
+import { PoliticalLinksCard } from "./components/funds/PoliticalLinksCard";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
 
@@ -425,6 +426,8 @@ export const CompanyByEikScreen: FC = () => {
         ) : null}
 
         <CompanyConnectionsSection eik={eik} />
+
+        <PoliticalLinksCard eik={eik} />
 
         {funds ? (
           <EuFundsCard funds={funds} standalone={!c} mpLinks={fundsMpLinks} />

@@ -1,0 +1,64 @@
+{
+  "eik": "831646048",
+  "name": "АВТОМАГИСТРАЛИ ЕАД",
+  "orgType": "Компания",
+  "contractCount": 1,
+  "contractedEur": 199846.97,
+  "paidEur": 120011.86,
+  "mps": [
+    {
+      "mpId": 3271,
+      "mpName": "Георги Захаринин Попов",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [
+    {
+      "slug": "ivan-stanchev-stanchev-006ded",
+      "name": "Иван Станчев Станчев",
+      "category": "deputy_mayor",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "institution": null,
+      "municipality": "Чирпан",
+      "confidence": "high",
+      "latestDeclarationYear": null,
+      "roles": [
+        {
+          "source": "tr",
+          "trRole": "director",
+          "shareSize": null,
+          "valueEur": null
+        },
+        {
+          "source": "tr",
+          "trRole": "representative",
+          "shareSize": null,
+          "valueEur": null
+        },
+        {
+          "source": "tr",
+          "trRole": "representative",
+          "shareSize": null,
+          "valueEur": null
+        },
+        {
+          "source": "tr",
+          "trRole": "director",
+          "shareSize": null,
+          "valueEur": null
+        }
+      ]
+    }
+  ],
+  "procurementEur": 324742073.49,
+  "procurementContractCount": 15,
+  "debarred": false,
+  "exposureScore": 19.18
+}
