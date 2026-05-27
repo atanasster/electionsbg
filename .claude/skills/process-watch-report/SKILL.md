@@ -93,9 +93,17 @@ If the user says "skip governments for this run", drop it from the plan without 
 
 ### Capital-programmes ingest (`capital_programs`)
 
-The 5 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse) each publish an annual капиталова програма on their own website. The watcher tracks all 5 sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
+The 14 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
 
-Each município has its own parser script (different source formats: Sofia + Burgas + Ruse = XLSX, Plovdiv + Stara Zagora = born-digital PDF, Varna = rasterized PDF needing OCR, Pleven = born-digital but fragmented PDF that still benefits from OCR after page-slicing), but a shared output schema under `data/budget/capital_programs/{year}/{muni}.json`. Operator workflow when the source flips:
+Each município has its own parser script:
+- **XLSX/XLS**: Sofia, Burgas, Ruse, Veliko Tarnovo (sheet "Pril15"), Pernik (post-euro EUR figures), Burgas 2022.
+- **Born-digital PDF**: Plovdiv, Stara Zagora (inside a ZIP), Asenovgrad, Shumen.
+- **Rasterized PDF needing Gemini Vision OCR**: Varna, Sliven.
+- **Born-digital PDF needing OCR after page-slicing** (fragmented layout): Pleven, Burgas 2024/2023.
+- **HTML scrape**: Dobrich (inline tables).
+- **`.doc` inside a RAR archive**: Vidin (operator workflow: unar → textutil).
+
+Output schema is shared under `data/budget/capital_programs/{year}/{muni}.json`. Operator workflow when the source flips:
 
 1. **Identify which (year, muni) entries flipped** from the watcher's describe-line — e.g. `"2 capital programme(s) re-uploaded: 2025/sofia, 2025/burgas"`.
 
@@ -114,6 +122,12 @@ Each município has its own parser script (different source formats: Sofia + Bur
    tsx scripts/budget/capital_programs/burgas.ts --year <year>
    tsx scripts/budget/capital_programs/stara_zagora.ts --year <year>
    tsx scripts/budget/capital_programs/ruse.ts --year <year>
+   tsx scripts/budget/capital_programs/dobrich.ts --year <year>
+   tsx scripts/budget/capital_programs/asenovgrad.ts --year <year>
+   tsx scripts/budget/capital_programs/veliko_tarnovo.ts --year <year>
+   tsx scripts/budget/capital_programs/pernik.ts --year <year>
+   # Vidin: unar extract + textutil convert the .doc first, then:
+   tsx scripts/budget/capital_programs/vidin.ts --year <year>
    ```
 
    **Varna is two-step** — the source PDF is rasterized (200dpi scans), so a Gemini Vision OCR pre-step is required before the rollup parser:

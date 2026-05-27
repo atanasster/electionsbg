@@ -453,6 +453,10 @@ export const AboutScreen = () => {
                   href="https://www.veliko-tarnovo.bg/bg/byudzhet-i-finansi/byudzhet-2025/"
                   label={t("budget_capital_veliko_tarnovo_source")}
                 />
+                <SourceItem
+                  href="https://www.pernik.bg/bg/byudzhet"
+                  label={t("budget_capital_pernik_source")}
+                />
               </ul>
             </DataGroup>
 

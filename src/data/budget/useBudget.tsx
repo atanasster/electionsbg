@@ -31,6 +31,7 @@ import type {
   SlivenCapitalProgramFile,
   SofiaCapitalProgramFile,
   StaraZagoraCapitalProgramFile,
+  PernikCapitalProgramFile,
   VarnaCapitalProgramFile,
   VelikoTarnovoCapitalProgramFile,
   VidinCapitalProgramFile,
@@ -459,6 +460,19 @@ export const useVidinCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<VidinCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/vidin.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Перник — Oblast capital (PER32, 24 settlements). Single-sheet XLS
+// on pernik.bg, already in EUR (post-euro). No OCR needed.
+export const usePernikCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "pernik", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<PernikCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/pernik.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

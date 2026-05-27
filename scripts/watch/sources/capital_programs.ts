@@ -1,8 +1,8 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 13 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
-// Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo)
-// publishes an annual "Капиталова програма" /
+// Each of the 14 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin,
+// Veliko Tarnovo, Pernik) publishes an annual "Капиталова програма" /
 // "Поименен списък на обектите за капиталови разходи" on its own website.
 // URLs are opaque and change every year (some include the date, some a
 // content hash), so the catalogue is hand-curated below — mirrors the
@@ -65,12 +65,20 @@ type Municipality =
   | "asenovgrad"
   | "shumen"
   | "vidin"
-  | "veliko_tarnovo";
+  | "veliko_tarnovo"
+  | "pernik";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
   Partial<Record<Municipality, string>>
 > = {
+  // 2026 — Pernik publishes the named capital list in EUR (post-euro
+  // adoption) as a clean single-sheet XLS. Direct curl + xlsx-parse,
+  // no JS rendering needed.
+  2026: {
+    pernik:
+      "https://pernik.bg/wp-content/uploads/2026/04/Poimenen-spisak-EURO.xls",
+  },
   2025: {
     sofia:
       "https://www.sofia.bg/documents/d/guest/prilozenie-_3-kapitalova-programa-2025",

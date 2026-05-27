@@ -1028,6 +1028,43 @@ export interface VidinCapitalProgramFile {
   bySettlement: VidinCapitalSettlementRollup[];
 }
 
+// Перник — single-município (PER32, EKATTE 55871). Oblast capital
+// with 24 settlements (city + town Батановци + 22 villages). Source
+// is a clean single-sheet XLS on pernik.bg, already denominated in
+// EUR (post-euro adoption). No OCR. ~160 projects per fiscal year.
+export interface PernikCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface PernikCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface PernikCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: PernikCapitalProject[];
+  bySettlement: PernikCapitalSettlementRollup[];
+}
+
 // Велико Търново — single-município (VTR04, EKATTE 10447). Tier-2
 // oblast capital with 89 settlements (city + town Дебелец + town
 // Килифарево + 86 villages). Source is the council's "Приложения 1-22"
