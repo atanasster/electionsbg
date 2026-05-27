@@ -1,0 +1,10 @@
+{
+  "_comment": "Manual overrides for registry-name → obshtina-code joins. Keys are the verbatim 'Institution' string from register.cacbg.bg list.xml (NOT normalised). Values are the app's obshtina code from data/municipalities.json — except for the synthetic 'SFO_CITY' code, which represents the Столична община city-wide administration (mayor + 9 deputies + 60 city councillors + 2 chief architects). Sofia райони each have their own S23xx code and page; SFO_CITY is staged as a separate shard for a future Sofia-wide tile and is not consumed by any v1 SPA page. Add entries here whenever scripts/officials/municipal.ts throws an 'unmatched roster entries' error. Do not delete entries — they are cheap, and reverting an alias risks silent drift.",
+  "aliases": {
+    "Бобовдол": "KNL04",
+    "Вълчидол": "VAR09",
+    "Добричка": "DOB15",
+    "Лесичево": "PAZ14",
+    "Столична община": "SFO_CITY"
+  }
+}
