@@ -287,18 +287,42 @@ const aggregateByRegion = (mps: Mp[], nsName: string): SeatsByRegion => {
 };
 
 // Download an MP photo from parliament.bg and re-encode to WebP at quality 82.
-// Source PNGs are ~200 KB each; WebP brings them to ~50-80 KB without visible
-// loss at the avatar sizes we use. Stored at `${file}` (caller picks the path,
-// expected to end in .webp).
-const downloadPhoto = async (id: number, file: string): Promise<boolean> => {
+// Source images are ~10-200 KB each; WebP brings them to ~50-80 KB without
+// visible loss at the avatar sizes we use. Stored at `${file}` (caller picks
+// the path, expected to end in .webp).
+//
+// parliament.bg uses .jpg for older MPs (pre-2010 imports) and .png for newer
+// ones. Their server returns 200 OK with a text/html error page when the
+// extension is wrong, so we check Content-Type to detect that and try the
+// alternate extension before giving up. Pass `filename` (from A_ns_MP_img)
+// when known to skip the probe.
+const PHOTO_EXTS = ["png", "jpg", "jpeg"] as const;
+
+const tryDownloadExt = async (url: string, file: string): Promise<boolean> => {
+  const res = await fetch(url, { headers: HEADERS });
+  if (!res.ok) return false;
+  const ct = res.headers.get("content-type") ?? "";
+  if (!ct.startsWith("image/")) return false;
+  const src = Buffer.from(await res.arrayBuffer());
+  if (src.length < 100) return false;
+  const out = await sharp(src).webp({ quality: 82 }).toBuffer();
+  fs.writeFileSync(file, out);
+  return true;
+};
+
+const downloadPhoto = async (
+  id: number,
+  file: string,
+  filename?: string | null,
+): Promise<boolean> => {
   try {
-    const res = await fetch(`${PHOTO_BASE}${id}.png`, { headers: HEADERS });
-    if (!res.ok) return false;
-    const src = Buffer.from(await res.arrayBuffer());
-    if (src.length < 100) return false;
-    const out = await sharp(src).webp({ quality: 82 }).toBuffer();
-    fs.writeFileSync(file, out);
-    return true;
+    if (filename && !/blank/i.test(filename)) {
+      if (await tryDownloadExt(`${PHOTO_BASE}${filename}`, file)) return true;
+    }
+    for (const ext of PHOTO_EXTS) {
+      if (await tryDownloadExt(`${PHOTO_BASE}${id}.${ext}`, file)) return true;
+    }
+    return false;
   } catch {
     return false;
   }
@@ -717,7 +741,21 @@ const runHistory = async (opts: {
           ok++;
           continue;
         }
-        const got = await downloadPhoto(mp.id, file);
+        // Read the source filename (e.g. "5330.png" or "584.jpg") from the
+        // cached profile so downloadPhoto hits the right extension on the
+        // first try. parliament.bg returns 200 OK with text/html for the
+        // wrong extension, so guessing wastes a round-trip.
+        let imgName: string | null = null;
+        try {
+          const pFile = path.join(profilesDir, `${mp.id}.json`);
+          const p = JSON.parse(fs.readFileSync(pFile, "utf8")) as {
+            A_ns_MP_img?: string | null;
+          };
+          imgName = p.A_ns_MP_img ?? null;
+        } catch {
+          // Profile missing or unreadable — fall through to extension probe.
+        }
+        const got = await downloadPhoto(mp.id, file, imgName);
         if (got) ok++;
         else miss++;
         if ((ok + miss) % 100 === 0) {
@@ -779,6 +817,12 @@ const main = async (opts: {
   );
 
   const mps = list.colListMP.map(toMp);
+  // Capture parliament.bg's source image filename per id (e.g. "5330.png" or
+  // "584.jpg") for downloadPhoto to use directly — they mix extensions.
+  const srcImgById = new Map<number, string | null>();
+  for (const raw of list.colListMP) {
+    srcImgById.set(raw.A_ns_MP_id, raw.A_ns_MP_img ?? null);
+  }
 
   // Optional: enrich with full profile (240 sequential calls, throttled)
   let profiles: MpProfile[] | null = null;
@@ -857,7 +901,7 @@ const main = async (opts: {
           ok++;
           continue;
         }
-        const got = await downloadPhoto(mp.id, file);
+        const got = await downloadPhoto(mp.id, file, srcImgById.get(mp.id));
         if (got) ok++;
         else miss++;
       }
