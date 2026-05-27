@@ -53,12 +53,14 @@ const CANDIDATES: Candidate[] = [
   },
   {
     slug: "vidin",
-    obshtinaCode: "VID22",
+    obshtinaCode: "VID09",
     urls: [
+      "https://vidin.bg/wps/portal/vidin-municipality/administration/finance-budget/publishing-budget",
       "https://vidin.bg/wps/portal/vidin-municipality/administration/budget",
       "https://vidin.bg/wps/portal/vidin-municipality/administration/budget/finance-budget",
     ],
-    notes: "IBM WebSphere Portal — content loads via JS; needs hydration",
+    notes:
+      "IBM WebSphere Portal — JS-rendered. Budget plan + year-end execution publish as RAR archives; pipe through `unar` then existing vidin.ts",
   },
   {
     slug: "targovishte",
@@ -183,7 +185,7 @@ const main = async () => {
       console.log(`    rendered → ${links.length} anchors`);
       for (const { href, text } of links) {
         if (!KEYWORD_RE.test(href) && !KEYWORD_RE.test(text)) continue;
-        if (/\.(pdf|xlsx|xls|doc|docx|zip)(\?|$|#)/i.test(href)) {
+        if (/\.(pdf|xlsx|xls|doc|docx|zip|rar|7z)(\?|$|#)/i.test(href)) {
           if (!documents.has(href)) documents.set(href, text);
         } else if (
           new URL(href, url).origin === new URL(url).origin &&
