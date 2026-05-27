@@ -2,7 +2,7 @@
   "generatedAt": "2026-05-21T00:00:00.000Z",
   "description": "EU-funds beneficiaries cross-referenced against investigative journalism. Each case is a company named by Bulgarian media as a politically-connected recipient of Recovery-Plan money, whose grant is corroborated by the ИСУН 2020 public register (data/funds/). The `register` figures are this project's own data (ИСУН 'Договорени средства' — the total contracted project value: EU grant + the beneficiary's own co-financing). The `claim` figures are only what the cited journalism reported. BGN/EUR peg 1.95583.",
   "measure": {
-    "name": "RESTORE — изграждане на нови мощности за съхранение на електрическа енергия",
+    "name": "Restore — изграждане на нови мощности за съхранение на електрическа енергия",
     "fund": "Национален план за възстановяване и устойчивост (НПВУ)",
     "note": "Two rounds. RESTORE 1 ranked 82 of ~151 projects in 2024–2025; RESTORE 2 ranked in December 2025. Combined envelope ~1.149 billion BGN. The measure drew scrutiny because many approved beneficiaries trace to politicians, ex-ministers and well-known businessmen.",
     "officialList": "https://www.me.government.bg/news/82-proekta-na-obshta-stoinost-pochti-1-150-mlrd-lv-shte-badat-finansirani-po-restore-3640.html"
@@ -15,7 +15,7 @@
       "round": "RESTORE 1",
       "beneficiaries": [
         {
-          "name": "ВМ ПЕТРОЛЕУМ ООД",
+          "name": "Вм петролеум ООД",
           "eik": "203635576",
           "contractedEur": 35488318.51,
           "contractedBgn": 69409118,
@@ -47,7 +47,7 @@
       "round": "RESTORE 1",
       "beneficiaries": [
         {
-          "name": "ВЕРИЛА СОЛАР ПАРК 2 ООД",
+          "name": "Верила солар парк 2 ООД",
           "eik": "206934480",
           "contractedEur": 65701079.33,
           "contractedBgn": 128500142,
@@ -79,7 +79,7 @@
       "round": "RESTORE 1",
       "beneficiaries": [
         {
-          "name": "ТОКИ СТОРИДЖ ЕАД",
+          "name": "Токи сторидж ЕАД",
           "eik": "207274721",
           "contractedEur": 40983549.74,
           "contractedBgn": 80156856,
@@ -115,7 +115,7 @@
       "round": "RESTORE 1",
       "beneficiaries": [
         {
-          "name": "МЛД БАТЕРИ ПАРК ООД",
+          "name": "Млд батери парк ООД",
           "eik": "208031284",
           "contractedEur": 20850349.97,
           "contractedBgn": 40779740,
@@ -147,7 +147,7 @@
       "round": "RESTORE 1",
       "beneficiaries": [
         {
-          "name": "АДВАНС ГРИЙН ЕНЕРДЖИ АД",
+          "name": "Адванс грийн енерджи АД",
           "eik": "207958783",
           "contractedEur": 75000497.69,
           "contractedBgn": 146688223,
@@ -179,7 +179,7 @@
       "round": "RESTORE 2",
       "beneficiaries": [
         {
-          "name": "СО Сторидж ЕООД",
+          "name": "Со Сторидж ЕООД",
           "eik": "208411297",
           "contractedEur": 53964252.97,
           "contractedBgn": 105544905,
@@ -212,7 +212,7 @@
         {
           "name": "Болкан Пауър Систем ЕООД",
           "eik": "208397285",
-          "contractedEur": 43057520.0,
+          "contractedEur": 43057520,
           "contractedBgn": 84213189,
           "paidEur": 0,
           "contractCount": 1
@@ -272,9 +272,9 @@
       "round": "RESTORE 1",
       "beneficiaries": [
         {
-          "name": "КРИТА ЕНЕРДЖИ 50 АД",
+          "name": "Крита енерджи 50 АД",
           "eik": "207930595",
-          "contractedEur": 69494880.0,
+          "contractedEur": 69494880,
           "contractedBgn": 135920171,
           "paidEur": 0,
           "contractCount": 1
@@ -310,7 +310,7 @@
         {
           "name": "„Криводол Енерджи Парк“ ЕООД",
           "eik": "208376227",
-          "contractedEur": 5265750.0,
+          "contractedEur": 5265750,
           "contractedBgn": 10298912,
           "paidEur": 0,
           "contractCount": 1
@@ -318,7 +318,7 @@
         {
           "name": "„Криводол Сторидж Парк“ ЕООД",
           "eik": "208376273",
-          "contractedEur": 5265750.0,
+          "contractedEur": 5265750,
           "contractedBgn": 10298912,
           "paidEur": 0,
           "contractCount": 1
@@ -326,7 +326,7 @@
         {
           "name": "„Полски Тръмбеш Сторидж Сълюшън“ ЕООД",
           "eik": "208336574",
-          "contractedEur": 5265250.0,
+          "contractedEur": 5265250,
           "contractedBgn": 10297934,
           "paidEur": 0,
           "contractCount": 1
@@ -334,7 +334,7 @@
         {
           "name": "„Полски Тръмбеш Балансинг Систем“ ЕООД",
           "eik": "208336492",
-          "contractedEur": 5265250.0,
+          "contractedEur": 5265250,
           "contractedBgn": 10297934,
           "paidEur": 0,
           "contractCount": 1

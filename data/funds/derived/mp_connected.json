@@ -1,22 +1,64 @@
 {
-  "generatedAt": "2026-05-21T12:38:59.130Z",
-  "total": 100,
-  "mpCount": 86,
-  "beneficiaryCount": 98,
-  "contractedEur": 168527162.21,
-  "paidEur": 61009057.82,
+  "generatedAt": "2026-05-27T14:08:42.897Z",
+  "total": 103,
+  "mpCount": 89,
+  "beneficiaryCount": 99,
+  "contractedEur": 223796805.4,
+  "paidEur": 110651385.54,
   "entries": [
+    {
+      "mpId": 2115,
+      "mpName": "Пламен Иванов Иванов",
+      "beneficiaryEik": "831160078",
+      "beneficiaryName": "\"Напоителни системи\" ЕАД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ],
+      "contractCount": 24,
+      "contractedEur": 55023459.24,
+      "paidEur": 49484788.67
+    },
     {
       "mpId": 4649,
       "mpName": "Генади Събков Събков",
       "beneficiaryEik": "831160078",
-      "beneficiaryName": "\"НАПОИТЕЛНИ СИСТЕМИ\" ЕАД",
+      "beneficiaryName": "\"Напоителни системи\" ЕАД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "branch_manager",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "branch_manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "branch_manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "branch_manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "branch_manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "branch_manager",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 24,
@@ -27,7 +69,7 @@
       "mpId": 2706,
       "mpName": "Веселин Найденов Марешки",
       "beneficiaryEik": "203635576",
-      "beneficiaryName": "ВМ ПЕТРОЛЕУМ ООД",
+      "beneficiaryName": "Вм петролеум ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -53,6 +95,31 @@
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 18,
@@ -70,6 +137,31 @@
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -80,13 +172,38 @@
       "mpId": 2926,
       "mpName": "Калин Николов Поповски",
       "beneficiaryEik": "114532352",
-      "beneficiaryName": "\"УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р ГЕОРГИ СТРАНСКИ\" ЕАД ГРАД ПЛЕВЕН",
+      "beneficiaryName": "\"Университетска многопрофилна болница за активно лечение - Д-Р георги странски\" ЕАД град плевен",
       "orgType": "Медицинско заведение",
       "relations": [
         {
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 3,
@@ -97,13 +214,38 @@
       "mpId": 3167,
       "mpName": "Илия Димитров Лазаров",
       "beneficiaryEik": "121706255",
-      "beneficiaryName": "\"Национална компания индустриални зони\" ЕАД (НКИЗ ЕАД)",
+      "beneficiaryName": "\"Национална компания индустриални зони\" ЕАД (Нкиз ЕАД)",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -114,13 +256,38 @@
       "mpId": 2681,
       "mpName": "Борислав Иванов Борисов",
       "beneficiaryEik": "825203984",
-      "beneficiaryName": "ЮРИЙ ГАГАРИН АД",
+      "beneficiaryName": "Юрий гагарин АД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -138,6 +305,31 @@
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 3,
@@ -148,13 +340,38 @@
       "mpId": 2715,
       "mpName": "Борис Петков Кърчев",
       "beneficiaryEik": "101627341",
-      "beneficiaryName": "ШИПКОВАТА КЪЩА ЕООД",
+      "beneficiaryName": "Шипковата къща ЕООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -165,13 +382,38 @@
       "mpId": 805,
       "mpName": "Йордан Петков Йорданов",
       "beneficiaryEik": "175415627",
-      "beneficiaryName": "КОНТРАКС АД",
+      "beneficiaryName": "Контракс АД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "actual_owner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 5,
@@ -182,7 +424,7 @@
       "mpId": 50,
       "mpName": "Енчо Вълков Малев",
       "beneficiaryEik": "124121775",
-      "beneficiaryName": "ДОБРУДЖАНСКИ ХЛЯБ АД",
+      "beneficiaryName": "Добруджански хляб АД",
       "orgType": "Компания",
       "relations": [
         {
@@ -194,6 +436,56 @@
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -240,7 +532,7 @@
       "mpId": 3047,
       "mpName": "НИКОЛА ХРИСТОВ КРЪСТЕВ",
       "beneficiaryEik": "175081049",
-      "beneficiaryName": "ЦЕМА ЕООД",
+      "beneficiaryName": "Цема ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -259,13 +551,38 @@
       "mpId": 2984,
       "mpName": "Георги Александров Александров",
       "beneficiaryEik": "204133950",
-      "beneficiaryName": "\"ШИЙП ГРУП 2016\" ООД",
+      "beneficiaryName": "\"Шийп груп 2016\" ООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -276,13 +593,38 @@
       "mpId": 805,
       "mpName": "Йордан Петков Йорданов",
       "beneficiaryEik": "102151443",
-      "beneficiaryName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ ООД",
+      "beneficiaryName": "Комнет българия холдинг ООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -293,9 +635,34 @@
       "mpId": 4812,
       "mpName": "Гюнай Хюсмен Хюсмен",
       "beneficiaryEik": "826018141",
-      "beneficiaryName": "КАРАДЖА - ФАГ ООД",
+      "beneficiaryName": "Караджа - фаг ООД",
       "orgType": "Компания",
       "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "partner",
           "isCurrent": true,
@@ -317,13 +684,38 @@
       "mpId": 913,
       "mpName": "Евгений Василев Узунов",
       "beneficiaryEik": "104055430",
-      "beneficiaryName": "ВИНПРОМ АД",
+      "beneficiaryName": "Винпром АД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -341,6 +733,31 @@
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -351,13 +768,38 @@
       "mpId": 5205,
       "mpName": "Рашид Мехмедов Узунов",
       "beneficiaryEik": "116003561",
-      "beneficiaryName": "РАЛОМЕКС АД",
+      "beneficiaryName": "Раломекс АД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 4,
@@ -368,13 +810,38 @@
       "mpId": 5165,
       "mpName": "Валери Пламенов Лачовски",
       "beneficiaryEik": "106510662",
-      "beneficiaryName": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - КНЕЖА ЕООД",
+      "beneficiaryName": "Многопрофилна болница за активно лечение - кнежа ЕООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "procurator",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "procurator",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "procurator",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "procurator",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "procurator",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "procurator",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -385,13 +852,38 @@
       "mpId": 5160,
       "mpName": "Васил Тодоров Филев",
       "beneficiaryEik": "822090225",
-      "beneficiaryName": "ПАСАТ АНТЕНИ ООД",
+      "beneficiaryName": "Пасат антени ООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 5,
@@ -402,13 +894,38 @@
       "mpId": 5092,
       "mpName": "Богомил Иванов Петков",
       "beneficiaryEik": "110001952",
-      "beneficiaryName": "ОСЪМ ИНЖЕНЕРИНГ АД",
+      "beneficiaryName": "Осъм инженеринг АД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "actual_owner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -419,9 +936,34 @@
       "mpId": 4868,
       "mpName": "Венцислав Михайлов Асенов",
       "beneficiaryEik": "203219909",
-      "beneficiaryName": "МЕТАЛ - ВМ ЕООД",
+      "beneficiaryName": "Метал - вм ЕООД",
       "orgType": "Компания",
       "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "manager",
           "isCurrent": true,
@@ -443,7 +985,7 @@
       "mpId": 2946,
       "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
       "beneficiaryEik": "201498495",
-      "beneficiaryName": "ДЖИ ПИ ЕС СИСТЕМИ БЪЛГАРИЯ ООД",
+      "beneficiaryName": "Джи пи ЕС системи българия ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -481,7 +1023,7 @@
       "mpId": 4752,
       "mpName": "Даниел Петров Петров",
       "beneficiaryEik": "203125413",
-      "beneficiaryName": "МЕТАЛ ИНВЕСТ - ГАБРОВО ООД",
+      "beneficiaryName": "Метал инвест - габрово ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -500,7 +1042,7 @@
       "mpId": 4707,
       "mpName": "АНДРЕЙ ИВАНОВ ЦЕКОВ",
       "beneficiaryEik": "203105962",
-      "beneficiaryName": "ИНФИНИТУС ЕООД",
+      "beneficiaryName": "Инфинитус ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -519,9 +1061,34 @@
       "mpId": 4372,
       "mpName": "Радослав Красенов Василев",
       "beneficiaryEik": "123139451",
-      "beneficiaryName": "ТЕВА - ТМ ООД",
+      "beneficiaryName": "Тева - тм ООД",
       "orgType": "Компания",
       "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "partner",
           "isCurrent": true,
@@ -550,6 +1117,31 @@
           "kind": "actual_owner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 3,
@@ -560,7 +1152,7 @@
       "mpId": 2647,
       "mpName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
       "beneficiaryEik": "127003032",
-      "beneficiaryName": "АЛ И КО АД",
+      "beneficiaryName": "Ал и ко АД",
       "orgType": "Компания",
       "relations": [
         {
@@ -579,7 +1171,7 @@
       "mpId": 2657,
       "mpName": "Петър Христов Петров",
       "beneficiaryEik": "203161587",
-      "beneficiaryName": "ЗЕТТА СИСТЕМС ООД",
+      "beneficiaryName": "Зетта системс ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -591,6 +1183,56 @@
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -601,13 +1243,38 @@
       "mpId": 890,
       "mpName": "Галина Димитрова Банковска",
       "beneficiaryEik": "107515210",
-      "beneficiaryName": "ВЕДА ГРУП ЕООД",
+      "beneficiaryName": "Веда груп ЕООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -618,7 +1285,7 @@
       "mpId": 3047,
       "mpName": "НИКОЛА ХРИСТОВ КРЪСТЕВ",
       "beneficiaryEik": "200872545",
-      "beneficiaryName": "БАРДУКОВ ООД",
+      "beneficiaryName": "Бардуков ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -637,7 +1304,7 @@
       "mpId": 4022,
       "mpName": "Имрен Исметова Мехмедова",
       "beneficiaryEik": "125537379",
-      "beneficiaryName": "БИОЕЛИТ ЕООД",
+      "beneficiaryName": "Биоелит ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -656,7 +1323,7 @@
       "mpId": 5147,
       "mpName": "Димитър Георгиев Найденов",
       "beneficiaryEik": "102872963",
-      "beneficiaryName": "БИТЕКС ООД",
+      "beneficiaryName": "Битекс ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -675,13 +1342,38 @@
       "mpId": 5005,
       "mpName": "Стилиана Иванова Бобчева",
       "beneficiaryEik": "202918009",
-      "beneficiaryName": "НАЦИОНАЛЕН ПЕРИЛЕН КОМБИНАТ ООД",
+      "beneficiaryName": "Национален перилен комбинат ООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -692,13 +1384,38 @@
       "mpId": 3271,
       "mpName": "Георги Захаринин Попов",
       "beneficiaryEik": "831646048",
-      "beneficiaryName": "АВТОМАГИСТРАЛИ ЕАД",
+      "beneficiaryName": "Автомагистрали ЕАД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -709,7 +1426,7 @@
       "mpId": 2946,
       "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
       "beneficiaryEik": "040454345",
-      "beneficiaryName": "ДАИКС ООД",
+      "beneficiaryName": "Даикс ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -728,7 +1445,7 @@
       "mpId": 4441,
       "mpName": "Екатерина Спасова Гечева - Захариева",
       "beneficiaryEik": "131448846",
-      "beneficiaryName": "А И А АРХИТЕКТИ ООД",
+      "beneficiaryName": "А и а архитекти ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -747,7 +1464,7 @@
       "mpId": 4716,
       "mpName": "Венцислав Иванов Петков",
       "beneficiaryEik": "831635354",
-      "beneficiaryName": "НАЦИОНАЛНА СПОРТНА БАЗА ЕАД",
+      "beneficiaryName": "Национална спортна база ЕАД",
       "orgType": "Компания",
       "relations": [
         {
@@ -759,6 +1476,56 @@
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -769,13 +1536,38 @@
       "mpId": 5197,
       "mpName": "Йордан Йовчев Йовчев",
       "beneficiaryEik": "831635354",
-      "beneficiaryName": "НАЦИОНАЛНА СПОРТНА БАЗА ЕАД",
+      "beneficiaryName": "Национална спортна база ЕАД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -786,13 +1578,38 @@
       "mpId": 1070,
       "mpName": "Александър Стойчев Стойков",
       "beneficiaryEik": "128041947",
-      "beneficiaryName": "\"ИВАГО БЪЛГАРИЯ\" ООД",
+      "beneficiaryName": "\"Иваго българия\" ООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 3,
@@ -803,13 +1620,38 @@
       "mpId": 2760,
       "mpName": "Иван Димов Иванов",
       "beneficiaryEik": "123722347",
-      "beneficiaryName": "АГРО ИНВЕСТ ИД ООД",
+      "beneficiaryName": "Агро инвест ид ООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -820,9 +1662,34 @@
       "mpId": 4386,
       "mpName": "Драгомир Дамянов Драганов",
       "beneficiaryEik": "117050304",
-      "beneficiaryName": "ЖОКЕЙ ООД",
+      "beneficiaryName": "Жокей ООД",
       "orgType": "Компания",
       "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "partner",
           "isCurrent": true,
@@ -844,18 +1711,60 @@
       "mpId": 2695,
       "mpName": "Станислав Стоянов Иванов",
       "beneficiaryEik": "204276464",
-      "beneficiaryName": "СИ ПЛАСТ 04 ООД",
+      "beneficiaryName": "Си пласт 04 ООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
       "contractedEur": 134398.7,
       "paidEur": 63839.39
+    },
+    {
+      "mpId": 3608,
+      "mpName": "Александър Несторов Несторов",
+      "beneficiaryEik": "205337322",
+      "beneficiaryName": "Тотал 18 ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 127107.19,
+      "paidEur": 101079.2
     },
     {
       "mpId": 4720,
@@ -877,6 +1786,23 @@
       "paidEur": 25564.59
     },
     {
+      "mpId": 2237,
+      "mpName": "Димитър Георгиев Димитров",
+      "beneficiaryEik": "204909172",
+      "beneficiaryName": "\"Апис Мелифера България\" ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 119076.76,
+      "paidEur": 56459.85
+    },
+    {
       "mpId": 5205,
       "mpName": "Рашид Мехмедов Узунов",
       "beneficiaryEik": "204909172",
@@ -887,6 +1813,31 @@
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -904,6 +1855,31 @@
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -914,7 +1890,7 @@
       "mpId": 115,
       "mpName": "Добромир Христов Гущеров",
       "beneficiaryEik": "828050472",
-      "beneficiaryName": "ДАНУБЕ ТУРС АД",
+      "beneficiaryName": "Данубе турс АД",
       "orgType": "Компания",
       "relations": [
         {
@@ -926,6 +1902,56 @@
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -936,7 +1962,7 @@
       "mpId": 5086,
       "mpName": "Иво Севдалинов Цанев",
       "beneficiaryEik": "131476144",
-      "beneficiaryName": "КСБВ ЕООД",
+      "beneficiaryName": "Ксбв ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -955,13 +1981,38 @@
       "mpId": 233,
       "mpName": "Николай Петров Кънчев",
       "beneficiaryEik": "104054085",
-      "beneficiaryName": "ДРАГАЖЕН ФЛОТ - ИСТЪР АД",
+      "beneficiaryName": "Драгажен флот - истър АД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "actual_owner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -972,13 +2023,38 @@
       "mpId": 4663,
       "mpName": "Александър Атанасов Александров",
       "beneficiaryEik": "825095010",
-      "beneficiaryName": "МИКРО АСУ ООД",
+      "beneficiaryName": "Микро асу ООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -989,13 +2065,38 @@
       "mpId": 237,
       "mpName": "Светослав Иванов Спасов",
       "beneficiaryEik": "000649348",
-      "beneficiaryName": "НАЦИОНАЛНА ЕЛЕКТРИЧЕСКА КОМПАНИЯ ЕАД (НЕК)",
+      "beneficiaryName": "Национална електрическа компания ЕАД (НЕК)",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1006,7 +2107,7 @@
       "mpId": 5090,
       "mpName": "Иван Димитров Шишков",
       "beneficiaryEik": "115825739",
-      "beneficiaryName": "ИВАН КУОЛИТИ ЕООД",
+      "beneficiaryName": "Иван куолити ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1018,6 +2119,56 @@
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 2,
@@ -1028,13 +2179,38 @@
       "mpId": 4728,
       "mpName": "Светослав Тодоров Тодоров",
       "beneficiaryEik": "205220648",
-      "beneficiaryName": "ЯНКУЛОВИ ТРАНС ЕООД",
+      "beneficiaryName": "Янкулови транс ЕООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 3,
@@ -1064,7 +2240,7 @@
       "mpId": 4739,
       "mpName": "Димитър Стойков Николов",
       "beneficiaryEik": "200137677",
-      "beneficiaryName": "КОНКУРЕНТ НЮЗ ЕООД",
+      "beneficiaryName": "Конкурент нюз ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1083,7 +2259,7 @@
       "mpId": 3351,
       "mpName": "Мария Василева Капон",
       "beneficiaryEik": "115147345",
-      "beneficiaryName": "ФЕРНЕТ БЪЛГАРИЯ ООД",
+      "beneficiaryName": "Фернет българия ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1130,6 +2306,31 @@
           "confidence": "high"
         },
         {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
           "kind": "stake",
           "shareSize": "100 дяла, 100%",
           "valueEur": 51.12918811962185,
@@ -1145,7 +2346,7 @@
       "mpId": 2838,
       "mpName": "ГЕОРГИ ЙОРДАНОВ ЙОРДАНОВ",
       "beneficiaryEik": "115933138",
-      "beneficiaryName": "ВИТА ФАРМАСИ ЕООД",
+      "beneficiaryName": "Вита фармаси ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1164,7 +2365,7 @@
       "mpId": 2838,
       "mpName": "ГЕОРГИ ЙОРДАНОВ ЙОРДАНОВ",
       "beneficiaryEik": "160107050",
-      "beneficiaryName": "ГЛОБОФАРМ ЕООД",
+      "beneficiaryName": "Глобофарм ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1183,7 +2384,7 @@
       "mpId": 124,
       "mpName": "Митко Иванов Димитров",
       "beneficiaryEik": "203010044",
-      "beneficiaryName": "Мamp;М ГРУП 2014 ООД",
+      "beneficiaryName": "Мamp;М Груп 2014 ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1195,6 +2396,56 @@
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1205,7 +2456,7 @@
       "mpId": 124,
       "mpName": "Митко Иванов Димитров",
       "beneficiaryEik": "205310962",
-      "beneficiaryName": "СОД БЕРКУТ ЕООД",
+      "beneficiaryName": "Сод беркут ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1217,6 +2468,56 @@
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1227,7 +2528,7 @@
       "mpId": 819,
       "mpName": "Петър Димитров Попов",
       "beneficiaryEik": "825240527",
-      "beneficiaryName": "ПЛОВДИВИНВЕСТ АД",
+      "beneficiaryName": "Пловдивинвест АД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1239,6 +2540,56 @@
           "kind": "representative",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1249,7 +2600,7 @@
       "mpId": 2874,
       "mpName": "Александър Николаев Сабанов",
       "beneficiaryEik": "201738862",
-      "beneficiaryName": "ДАНАУ АД",
+      "beneficiaryName": "Данау АД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1261,6 +2612,56 @@
           "kind": "actual_owner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1271,7 +2672,7 @@
       "mpId": 3026,
       "mpName": "Антон Йорданов Адамов",
       "beneficiaryEik": "204124990",
-      "beneficiaryName": "ТЕАТРО ЛАЙВ ООД",
+      "beneficiaryName": "Театро лайв ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1290,13 +2691,38 @@
       "mpId": 3710,
       "mpName": "Пламен Николаев Николов",
       "beneficiaryEik": "831546464",
-      "beneficiaryName": "ФОРЕСТ ООД",
+      "beneficiaryName": "Форест ООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1307,7 +2733,7 @@
       "mpId": 4059,
       "mpName": "Цветелина Калинова Симеонова-Заркин",
       "beneficiaryEik": "121125663",
-      "beneficiaryName": "ЕКОТЕХПРОДУКТ ООД",
+      "beneficiaryName": "Екотехпродукт ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1326,13 +2752,68 @@
       "mpId": 5094,
       "mpName": "Николай Иванов Косев",
       "beneficiaryEik": "107564054",
-      "beneficiaryName": "ЕВРОХИМ ГРУП",
+      "beneficiaryName": "Еврохим груп",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": false,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": false,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": false,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": false,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": false,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "high"
         },
         {
           "kind": "partner",
@@ -1348,7 +2829,7 @@
       "mpId": 2695,
       "mpName": "Станислав Стоянов Иванов",
       "beneficiaryEik": "112669637",
-      "beneficiaryName": "КАРИ ООД",
+      "beneficiaryName": "Кари ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1377,6 +2858,31 @@
           "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1387,13 +2893,38 @@
       "mpId": 3932,
       "mpName": "Иван Косев Манев",
       "beneficiaryEik": "203289105",
-      "beneficiaryName": "МИГОТА ЕООД",
+      "beneficiaryName": "Мигота ЕООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "actual_owner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1404,13 +2935,43 @@
       "mpId": 4018,
       "mpName": "Николай Димитров Благоев",
       "beneficiaryEik": "123729167",
-      "beneficiaryName": "КЕМПЕС НБ ЕООД",
+      "beneficiaryName": "Кемпес нб ЕООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1421,7 +2982,7 @@
       "mpId": 176,
       "mpName": "Георги Йорданов Димитров",
       "beneficiaryEik": "204811835",
-      "beneficiaryName": "БАР - ЛИДЕР ООД",
+      "beneficiaryName": "Бар - лидер ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1433,6 +2994,56 @@
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1443,13 +3054,38 @@
       "mpId": 2440,
       "mpName": "Румен Иванов Иванов",
       "beneficiaryEik": "119622608",
-      "beneficiaryName": "ОЛИМПИА АУТО АД",
+      "beneficiaryName": "Олимпиа ауто АД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1460,13 +3096,38 @@
       "mpId": 2515,
       "mpName": "Валентин Любенов Павлов",
       "beneficiaryEik": "113567368",
-      "beneficiaryName": "ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА ДЕНТАЛНА ПОМОЩ ЕО ДЕНТ - 2 ООД",
+      "beneficiaryName": "Групова практика за първична дентална помощ ео дент - 2 ООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1477,7 +3138,7 @@
       "mpId": 2734,
       "mpName": "Тома Николов Томов",
       "beneficiaryEik": "175165180",
-      "beneficiaryName": "ДАТРА ЕООД",
+      "beneficiaryName": "Датра ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1489,6 +3150,56 @@
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1499,7 +3210,7 @@
       "mpId": 3346,
       "mpName": "Иво Ангелов Христов",
       "beneficiaryEik": "121755423",
-      "beneficiaryName": "ФЕРЕКСИМ ООД",
+      "beneficiaryName": "Ферексим ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1518,7 +3229,7 @@
       "mpId": 3351,
       "mpName": "Мария Василева Капон",
       "beneficiaryEik": "115814753",
-      "beneficiaryName": "ДЕКОДИЗАЙН ГРУП ООД",
+      "beneficiaryName": "Декодизайн груп ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1537,7 +3248,7 @@
       "mpId": 3415,
       "mpName": "Живка Михалева Железова",
       "beneficiaryEik": "123156493",
-      "beneficiaryName": "КИЛ - КОМЕРС ООД",
+      "beneficiaryName": "Кил - комерс ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1556,7 +3267,7 @@
       "mpId": 3681,
       "mpName": "Николина Панайотова Ангелкова",
       "beneficiaryEik": "130199413",
-      "beneficiaryName": "ИРИС ТРЕЙД КОНСУЛТ ЕООД",
+      "beneficiaryName": "Ирис трейд консулт ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1575,7 +3286,7 @@
       "mpId": 3847,
       "mpName": "Надежда Данаилова Самарджиева",
       "beneficiaryEik": "200165712",
-      "beneficiaryName": "ДАНА 2008 ЕООД",
+      "beneficiaryName": "Дана 2008 ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1594,13 +3305,38 @@
       "mpId": 3993,
       "mpName": "Георги Станчев Георгиев",
       "beneficiaryEik": "203311556",
-      "beneficiaryName": "ЖИТЕН КЛАС 14 ЕООД",
+      "beneficiaryName": "Житен клас 14 ЕООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1611,9 +3347,34 @@
       "mpId": 4324,
       "mpName": "Искрен Николаев Митев",
       "beneficiaryEik": "203326551",
-      "beneficiaryName": "3 ЕН 3 ООД",
+      "beneficiaryName": "3 Ен 3 ООД",
       "orgType": "Компания",
       "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "partner",
           "isCurrent": true,
@@ -1635,11 +3396,16 @@
       "mpId": 4386,
       "mpName": "Драгомир Дамянов Драганов",
       "beneficiaryEik": "117692885",
-      "beneficiaryName": "\"КОРЕКТА\" ЕООД",
+      "beneficiaryName": "\"Коректа\" ЕООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "sole_owner",
           "isCurrent": true,
           "confidence": "medium"
         }
@@ -1652,7 +3418,7 @@
       "mpId": 4768,
       "mpName": "Иван Тодоров Ибришимов",
       "beneficiaryEik": "201470058",
-      "beneficiaryName": "ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА ИЗВЪНБОЛНИЧНА ДЕНТАЛНА ПОМОЩ - Д-Р ИВАН ИБРИШИМОВ ООД",
+      "beneficiaryName": "Групова практика за първична извънболнична дентална помощ - Д-Р иван ибришимов ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1671,7 +3437,7 @@
       "mpId": 4846,
       "mpName": "Павлин Иванов Найденов",
       "beneficiaryEik": "130378264",
-      "beneficiaryName": "ГЛОБАЛ ГРУП ЕКО ЕООД",
+      "beneficiaryName": "Глобал груп еко ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1690,13 +3456,38 @@
       "mpId": 4989,
       "mpName": "Стефан Христов Маринов",
       "beneficiaryEik": "205499000",
-      "beneficiaryName": "ХОЛИДЕЙ БУРГАС ЕООД",
+      "beneficiaryName": "Холидей бургас ЕООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1726,13 +3517,38 @@
       "mpId": 5121,
       "mpName": "Атанас Петров Атанасов",
       "beneficiaryEik": "201832124",
-      "beneficiaryName": "ОЛИМПИЯ ШУМЕН ООД",
+      "beneficiaryName": "Олимпия шумен ООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1743,7 +3559,7 @@
       "mpId": 5133,
       "mpName": "МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ",
       "beneficiaryEik": "118550554",
-      "beneficiaryName": "ДМC ЕООД",
+      "beneficiaryName": "Дмc ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1762,13 +3578,38 @@
       "mpId": 1607,
       "mpName": "Любен Петров Татарски",
       "beneficiaryEik": "205497316",
-      "beneficiaryName": "ПИРИН ЕЛИТ ИМОТИ 2019 ООД",
+      "beneficiaryName": "Пирин елит имоти 2019 ООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1779,7 +3620,7 @@
       "mpId": 4610,
       "mpName": "Звезделина Камелиева Каравелова",
       "beneficiaryEik": "205129182",
-      "beneficiaryName": "ГОУ БГ ХОЛИДЕЙ ООД",
+      "beneficiaryName": "Гоу бг холидей ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1798,7 +3639,7 @@
       "mpId": 5092,
       "mpName": "Богомил Иванов Петков",
       "beneficiaryEik": "817076893",
-      "beneficiaryName": "БОКАЛ - ПЕТ ООД",
+      "beneficiaryName": "Бокал - пет ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1815,7 +3656,7 @@
       "mpId": 3351,
       "mpName": "Мария Василева Капон",
       "beneficiaryEik": "115505907",
-      "beneficiaryName": "ФЕЪР ТИЙМ ЕООД",
+      "beneficiaryName": "Феър тийм ЕООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1834,13 +3675,43 @@
       "mpId": 2681,
       "mpName": "Борислав Иванов Борисов",
       "beneficiaryEik": "201749264",
-      "beneficiaryName": "СЕКОНТ 2011 ЕООД",
+      "beneficiaryName": "Секонт 2011 ЕООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,
@@ -1851,9 +3722,34 @@
       "mpId": 3866,
       "mpName": "Албена Симеонова Върбанова",
       "beneficiaryEik": "114631877",
-      "beneficiaryName": "АЛБЕНА СИМЕОНОВА 1 ЕООД",
+      "beneficiaryName": "Албена симеонова 1 ЕООД",
       "orgType": "Компания",
       "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "manager",
           "isCurrent": true,
@@ -1875,13 +3771,43 @@
       "mpId": 5006,
       "mpName": "Ивелин Людмилов Михайлов",
       "beneficiaryEik": "206462706",
-      "beneficiaryName": "БРАНИТЕЛ ЕООД",
+      "beneficiaryName": "Бранител ЕООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,

@@ -9,6 +9,7 @@
 
 import * as XLSX from "xlsx";
 import { canonicalEik } from "./eik";
+import { normaliseOrgName } from "./normalize_name";
 import type { FundsProject } from "./projects_types";
 
 const EXPECTED_HEADERS = [
@@ -69,13 +70,17 @@ const splitProgram = (cell: string): { code: string; name: string } => {
 
 // Beneficiary cells follow the same convention as the rollup export:
 // "<EIK><spaces><name>". The leading numeric token is always stripped (even
-// when it's a 10-digit token we can't persist — see ./eik.ts).
+// when it's a 10-digit token we can't persist — see ./eik.ts). Names are
+// canonicalised to sentence case so downstream shards share one casing
+// with the rollup's per-EIK records.
 const splitBeneficiary = (
   cell: string,
 ): { eik: string | null; name: string } => {
   const m = cell.match(/^(\d+)\s+(.+)$/);
-  if (m) return { eik: canonicalEik(m[1]), name: m[2].trim() };
-  return { eik: null, name: cell };
+  const rawName = m ? m[2] : cell;
+  const name = normaliseOrgName(rawName.trim().replace(/\s+/g, " "));
+  if (m) return { eik: canonicalEik(m[1]), name };
+  return { eik: null, name };
 };
 
 export const parseProjects = (buf: Buffer): FundsProject[] => {

@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-05-27T12:04:08.967Z",
+  "generatedAt": "2026-05-27T14:08:43.068Z",
   "totals": {
-    "flaggedEiks": 286,
-    "mpOnly": 82,
+    "flaggedEiks": 287,
+    "mpOnly": 83,
     "officialOnly": 188,
     "both": 16,
     "debarredFlagged": 0,
-    "contractedEur": 659086124.92,
-    "paidEur": 166696194.21,
+    "contractedEur": 659213232.11,
+    "paidEur": 166797273.41,
     "procurementEur": 956638744.79
   },
   "top": [
     {
       "eik": "130316140",
-      "name": "ДЪРЖАВНО ПРЕДПРИЯТИЕ \"ПРИСТАНИЩНА ИНФРАСТРУКТУРА\"",
+      "name": "Държавно предприятие \"Пристанищна инфраструктура\"",
       "orgType": "Компания",
       "contractCount": 18,
       "contractedEur": 120192402.23,
@@ -100,7 +100,7 @@
     },
     {
       "eik": "824106518",
-      "name": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ЕООД, гр. Плевен",
+      "name": "Водоснабдяване и канализация ЕООД, гр. Плевен",
       "orgType": "Компания",
       "contractCount": 1,
       "contractedEur": 60547390.45,
@@ -134,12 +134,23 @@
     },
     {
       "eik": "831160078",
-      "name": "\"НАПОИТЕЛНИ СИСТЕМИ\" ЕАД",
+      "name": "\"Напоителни системи\" ЕАД",
       "orgType": "Компания",
       "contractCount": 24,
       "contractedEur": 55023459.24,
       "paidEur": 49484788.67,
       "mps": [
+        {
+          "mpId": 2115,
+          "mpName": "Пламен Иванов Иванов",
+          "relations": [
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "high"
+            }
+          ]
+        },
         {
           "mpId": 4649,
           "mpName": "Генади Събков Събков",
@@ -148,6 +159,31 @@
               "kind": "branch_manager",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "branch_manager",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "branch_manager",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "branch_manager",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "branch_manager",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "branch_manager",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -195,11 +231,11 @@
       "procurementEur": 4016103.44,
       "procurementContractCount": 41,
       "debarred": false,
-      "exposureScore": 23.77
+      "exposureScore": 23.99
     },
     {
       "eik": "123152884",
-      "name": "АРСЕНАЛ - 2000 АД",
+      "name": "Арсенал - 2000 АД",
       "orgType": "Компания",
       "contractCount": 1,
       "contractedEur": 48850711.46,
@@ -233,7 +269,7 @@
     },
     {
       "eik": "203635576",
-      "name": "ВМ ПЕТРОЛЕУМ ООД",
+      "name": "Вм петролеум ООД",
       "orgType": "Компания",
       "contractCount": 1,
       "contractedEur": 35488318.51,
@@ -261,7 +297,7 @@
     },
     {
       "eik": "833067612",
-      "name": "“АРСЕНАЛ” АД",
+      "name": "“Арсенал” АД",
       "orgType": "Компания",
       "contractCount": 5,
       "contractedEur": 33894749.11,
@@ -309,6 +345,31 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -321,7 +382,7 @@
     },
     {
       "eik": "836144932",
-      "name": "НЕОХИМ АД",
+      "name": "Неохим АД",
       "orgType": "Компания",
       "contractCount": 3,
       "contractedEur": 16707468.09,
@@ -361,7 +422,7 @@
     },
     {
       "eik": "131045382",
-      "name": "ПРЕДПРИЯТИЕ ЗА УПРАВЛЕНИЕ НА ДЕЙНОСТИТЕ ПО ОПАЗВАНЕ НА ОКОЛНАТА СРЕДА (ПУДООС)",
+      "name": "Предприятие за управление на дейностите по опазване на околната среда (ПУДООС)",
       "orgType": "Държавна администрация",
       "contractCount": 1,
       "contractedEur": 16625859.78,
@@ -401,7 +462,7 @@
     },
     {
       "eik": "836014515",
-      "name": "АБ АД",
+      "name": "Аб АД",
       "orgType": "Компания",
       "contractCount": 2,
       "contractedEur": 12238395.97,
@@ -441,7 +502,7 @@
     },
     {
       "eik": "201239464",
-      "name": "ГЕОСОЛАР КАМЕНЯК ЕООД",
+      "name": "Геосолар каменяк ЕООД",
       "orgType": "Компания",
       "contractCount": 1,
       "contractedEur": 11780059.11,
@@ -475,7 +536,7 @@
     },
     {
       "eik": "201617654",
-      "name": "ЮГОИЗТОЧНО ДЪРЖАВНО ПРЕДПРИЯТИЕ",
+      "name": "Югоизточно държавно предприятие",
       "orgType": "Държавна администрация",
       "contractCount": 3,
       "contractedEur": 7828898.46,
@@ -523,6 +584,31 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -535,7 +621,7 @@
     },
     {
       "eik": "114532352",
-      "name": "\"УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р ГЕОРГИ СТРАНСКИ\" ЕАД ГРАД ПЛЕВЕН",
+      "name": "\"Университетска многопрофилна болница за активно лечение - Д-Р георги странски\" ЕАД град плевен",
       "orgType": "Медицинско заведение",
       "contractCount": 3,
       "contractedEur": 5486561.92,
@@ -549,6 +635,31 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -561,7 +672,7 @@
     },
     {
       "eik": "121706255",
-      "name": "\"Национална компания индустриални зони\" ЕАД (НКИЗ ЕАД)",
+      "name": "\"Национална компания индустриални зони\" ЕАД (Нкиз ЕАД)",
       "orgType": "Компания",
       "contractCount": 2,
       "contractedEur": 4561740.51,
@@ -575,6 +686,31 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -613,7 +749,7 @@
     },
     {
       "eik": "202295544",
-      "name": "\"ЖИТОСВЯТ АГРО\" ЕООД",
+      "name": "\"Житосвят агро\" ЕООД",
       "orgType": "Компания",
       "contractCount": 5,
       "contractedEur": 4424811.07,
@@ -647,7 +783,7 @@
     },
     {
       "eik": "203133495",
-      "name": "\"КОМ АГРО\" ООД",
+      "name": "\"Ком агро\" ООД",
       "orgType": "Компания",
       "contractCount": 4,
       "contractedEur": 4022049.78,
@@ -681,7 +817,7 @@
     },
     {
       "eik": "201596039",
-      "name": "\"ГРУПА ОВОЩАРИ КАРНОБАТ\" ООД",
+      "name": "\"Група овощари карнобат\" ООД",
       "orgType": "Компания",
       "contractCount": 4,
       "contractedEur": 3891391.92,
@@ -715,7 +851,7 @@
     },
     {
       "eik": "832072001",
-      "name": "НИКИ ЕООД",
+      "name": "Ники ЕООД",
       "orgType": "Компания",
       "contractCount": 6,
       "contractedEur": 3152242.84,
@@ -749,7 +885,7 @@
     },
     {
       "eik": "825203984",
-      "name": "ЮРИЙ ГАГАРИН АД",
+      "name": "Юрий гагарин АД",
       "orgType": "Компания",
       "contractCount": 1,
       "contractedEur": 2806475.49,
@@ -763,6 +899,31 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -775,7 +936,7 @@
     },
     {
       "eik": "106530686",
-      "name": "АТОМЕНЕРГОРЕМОНТ АД",
+      "name": "Атоменергоремонт АД",
       "orgType": "Компания",
       "contractCount": 2,
       "contractedEur": 2752845.36,
@@ -843,7 +1004,7 @@
     },
     {
       "eik": "121100236",
-      "name": "БИ ЕМ ЕС ПРОДЪКШЪН ООД",
+      "name": "Би ем ЕС продъкшън ООД",
       "orgType": "Компания",
       "contractCount": 5,
       "contractedEur": 2476687.65,
@@ -877,7 +1038,7 @@
     },
     {
       "eik": "206841186",
-      "name": "ЖИЖО 85 ЕООД",
+      "name": "Жижо 85 ЕООД",
       "orgType": "Компания",
       "contractCount": 2,
       "contractedEur": 2162969.57,
@@ -925,6 +1086,31 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -971,7 +1157,7 @@
     },
     {
       "eik": "101627341",
-      "name": "ШИПКОВАТА КЪЩА ЕООД",
+      "name": "Шипковата къща ЕООД",
       "orgType": "Компания",
       "contractCount": 2,
       "contractedEur": 1802910.13,
@@ -985,6 +1171,31 @@
               "kind": "manager",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "manager",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "manager",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "manager",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "manager",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "manager",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -997,7 +1208,7 @@
     },
     {
       "eik": "175415627",
-      "name": "КОНТРАКС АД",
+      "name": "Контракс АД",
       "orgType": "Компания",
       "contractCount": 5,
       "contractedEur": 1747426.37,
@@ -1011,6 +1222,31 @@
               "kind": "actual_owner",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "actual_owner",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "actual_owner",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "actual_owner",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "actual_owner",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "actual_owner",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -1023,7 +1259,7 @@
     },
     {
       "eik": "110032086",
-      "name": "КАМАКС ООД",
+      "name": "Камакс ООД",
       "orgType": "Компания",
       "contractCount": 5,
       "contractedEur": 1523972.55,
@@ -1063,7 +1299,7 @@
     },
     {
       "eik": "124121775",
-      "name": "ДОБРУДЖАНСКИ ХЛЯБ АД",
+      "name": "Добруджански хляб АД",
       "orgType": "Компания",
       "contractCount": 1,
       "contractedEur": 1500000,
@@ -1082,6 +1318,56 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "representative",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "representative",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "representative",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "representative",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "high"
+            },
+            {
+              "kind": "representative",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -1120,7 +1406,7 @@
     },
     {
       "eik": "202605690",
-      "name": "\"РОДОПИ ТРЕЙД МЕНИДЖМЪНТ\" ЕООД",
+      "name": "\"Родопи трейд мениджмънт\" ЕООД",
       "orgType": "Компания",
       "contractCount": 4,
       "contractedEur": 1452670.21,
@@ -1182,7 +1468,7 @@
     },
     {
       "eik": "833105098",
-      "name": "АТЕ ПЛАСТ ООД",
+      "name": "Ате пласт ООД",
       "orgType": "Компания",
       "contractCount": 3,
       "contractedEur": 1378287.41,
@@ -1222,7 +1508,7 @@
     },
     {
       "eik": "175081049",
-      "name": "ЦЕМА ЕООД",
+      "name": "Цема ЕООД",
       "orgType": "Компания",
       "contractCount": 2,
       "contractedEur": 1377609.68,
@@ -1250,7 +1536,7 @@
     },
     {
       "eik": "204118464",
-      "name": "ДЕЛИОРМАН ГРУП ООД",
+      "name": "Делиорман груп ООД",
       "orgType": "Компания",
       "contractCount": 2,
       "contractedEur": 1364212.69,
@@ -1324,7 +1610,7 @@
     },
     {
       "eik": "204133950",
-      "name": "\"ШИЙП ГРУП 2016\" ООД",
+      "name": "\"Шийп груп 2016\" ООД",
       "orgType": "Компания",
       "contractCount": 2,
       "contractedEur": 1257846.04,
@@ -1338,6 +1624,31 @@
               "kind": "partner",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -1350,7 +1661,7 @@
     },
     {
       "eik": "175001761",
-      "name": "ДОМЕЙН ОРЯНОВО ЕООД",
+      "name": "Домейн оряново ЕООД",
       "orgType": "Компания",
       "contractCount": 2,
       "contractedEur": 1250640.59,
@@ -1384,7 +1695,7 @@
     },
     {
       "eik": "102151443",
-      "name": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ ООД",
+      "name": "Комнет българия холдинг ООД",
       "orgType": "Компания",
       "contractCount": 2,
       "contractedEur": 1222396.63,
@@ -1398,6 +1709,31 @@
               "kind": "partner",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -1468,7 +1804,7 @@
     },
     {
       "eik": "826018141",
-      "name": "КАРАДЖА - ФАГ ООД",
+      "name": "Караджа - фаг ООД",
       "orgType": "Компания",
       "contractCount": 3,
       "contractedEur": 1177045.33,
@@ -1478,6 +1814,31 @@
           "mpId": 4812,
           "mpName": "Гюнай Хюсмен Хюсмен",
           "relations": [
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "high"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "high"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "high"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "high"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": true,
+              "confidence": "high"
+            },
             {
               "kind": "partner",
               "isCurrent": true,
@@ -1521,7 +1882,7 @@
     },
     {
       "eik": "104055430",
-      "name": "ВИНПРОМ АД",
+      "name": "Винпром АД",
       "orgType": "Компания",
       "contractCount": 2,
       "contractedEur": 1150315.69,
@@ -1535,6 +1896,31 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -1547,7 +1933,7 @@
     },
     {
       "eik": "206692269",
-      "name": "КМС СОЛАР ООД",
+      "name": "Кмс солар ООД",
       "orgType": "Компания",
       "contractCount": 1,
       "contractedEur": 963650.21,
@@ -1595,6 +1981,31 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -1607,7 +2018,7 @@
     },
     {
       "eik": "116003561",
-      "name": "РАЛОМЕКС АД",
+      "name": "Раломекс АД",
       "orgType": "Компания",
       "contractCount": 4,
       "contractedEur": 847328.23,
@@ -1621,6 +2032,31 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "director",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -1633,7 +2069,7 @@
     },
     {
       "eik": "131240076",
-      "name": "ЕНЬО БОНЧЕВ ПРОДАКШЪН",
+      "name": "Еньо бончев продакшън",
       "orgType": "Компания",
       "contractCount": 1,
       "contractedEur": 816514.08,
@@ -1735,7 +2171,7 @@
     },
     {
       "eik": "106510662",
-      "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - КНЕЖА ЕООД",
+      "name": "Многопрофилна болница за активно лечение - кнежа ЕООД",
       "orgType": "Компания",
       "contractCount": 1,
       "contractedEur": 758723.04,
@@ -1749,6 +2185,31 @@
               "kind": "procurator",
               "isCurrent": true,
               "confidence": "medium"
+            },
+            {
+              "kind": "procurator",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "procurator",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "procurator",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "procurator",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "procurator",
+              "isCurrent": true,
+              "confidence": "high"
             }
           ]
         }
@@ -1868,6 +2329,7 @@
     "204944052",
     "205218485",
     "204923147",
+    "205337322",
     "104606078",
     "204572748",
     "203706639",

@@ -7,6 +7,17 @@
   "paidEur": 56459.85,
   "mps": [
     {
+      "mpId": 2237,
+      "mpName": "Димитър Георгиев Димитров",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ]
+    },
+    {
       "mpId": 5205,
       "mpName": "Рашид Мехмедов Узунов",
       "relations": [
@@ -14,6 +25,31 @@
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ]
     },
@@ -25,6 +61,31 @@
           "kind": "partner",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ]
     }
@@ -53,5 +114,5 @@
   "procurementEur": 0,
   "procurementContractCount": 0,
   "debarred": false,
-  "exposureScore": 13.07
+  "exposureScore": 13.3
 }

@@ -8,6 +8,7 @@
 
 import * as XLSX from "xlsx";
 import { canonicalEik } from "./eik";
+import { normaliseOrgName } from "./normalize_name";
 import type { FundsBeneficiary } from "./types";
 
 const EXPECTED_HEADERS = [
@@ -35,14 +36,19 @@ const toNumber = (v: unknown): number => {
 // The org-name cell is "<EIK><spaces><name>", e.g.
 // "175157251   ЕНТЪРПРАЙЗ КОМЮНИКЕЙШЪНС ГРУП ЕООД". The leading numeric token
 // is always stripped (even when it's a 10-digit ЕГН we won't persist).
+//
+// The raw export carries many names in ALL CAPS — we normalise to sentence
+// case at this single seam so every downstream artifact (per-EIK shards,
+// derivatives, joins) shares one casing.
 const splitNameAndEik = (
   cell: string,
 ): { eik: string | null; name: string } => {
   const m = cell.match(/^(\d+)\s+(.+)$/);
-  if (m) {
-    return { eik: canonicalEik(m[1]), name: m[2].trim().replace(/\s+/g, " ") };
-  }
-  return { eik: null, name: cell.trim().replace(/\s+/g, " ") };
+  const rawName = m ? m[2] : cell;
+  const collapsed = rawName.trim().replace(/\s+/g, " ");
+  const name = normaliseOrgName(collapsed);
+  if (m) return { eik: canonicalEik(m[1]), name };
+  return { eik: null, name };
 };
 
 export const parseBeneficiaries = (buf: Buffer): FundsBeneficiary[] => {

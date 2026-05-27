@@ -10,13 +10,38 @@
       "mpId": 890,
       "mpName": "Галина Димитрова Банковска",
       "beneficiaryEik": "107515210",
-      "beneficiaryName": "ВЕДА ГРУП ЕООД",
+      "beneficiaryName": "Веда груп ЕООД",
       "orgType": "Компания",
       "relations": [
         {
           "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ],
       "contractCount": 1,

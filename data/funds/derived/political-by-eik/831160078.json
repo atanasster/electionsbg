@@ -1,11 +1,22 @@
 {
   "eik": "831160078",
-  "name": "\"НАПОИТЕЛНИ СИСТЕМИ\" ЕАД",
+  "name": "\"Напоителни системи\" ЕАД",
   "orgType": "Компания",
   "contractCount": 24,
   "contractedEur": 55023459.24,
   "paidEur": 49484788.67,
   "mps": [
+    {
+      "mpId": 2115,
+      "mpName": "Пламен Иванов Иванов",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ]
+    },
     {
       "mpId": 4649,
       "mpName": "Генади Събков Събков",
@@ -14,6 +25,31 @@
           "kind": "branch_manager",
           "isCurrent": true,
           "confidence": "medium"
+        },
+        {
+          "kind": "branch_manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "branch_manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "branch_manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "branch_manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "branch_manager",
+          "isCurrent": true,
+          "confidence": "high"
         }
       ]
     }
@@ -61,5 +97,5 @@
   "procurementEur": 4016103.44,
   "procurementContractCount": 41,
   "debarred": false,
-  "exposureScore": 23.77
+  "exposureScore": 23.99
 }
