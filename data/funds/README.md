@@ -28,12 +28,41 @@ data/funds/
 │   ├── by-program/{code}.json              # Per-programme contract lists (committed)
 │   ├── by-program/{code}-summary.json      # Slim programme-page summary
 │   └── by-eik/{eik}.json                   # Per-beneficiary contract lists (gitignored)
+├── taxonomy.json                       # Per-programme period + fund-family lookup (committed)
 └── derived/                            # Cross-references built from siblings (no new external data)
     ├── mp_connected.json                   # EU-funds × MP-companies graph (committed)
     ├── per-mp/{mpId}.json                  # Per-MP shard for candidate pages (committed)
     ├── political_links.json                # Slim leaderboard of politically-tied beneficiaries (committed)
-    └── political-by-eik/{eik}.json         # Per-EIK detail for /company panels (committed, ~286 files)
+    ├── political-by-eik/{eik}.json         # Per-EIK detail for /company panels (committed, ~286 files)
+    ├── absorption.json                     # Per-period + per-programme absorption % (committed)
+    └── sankey.json                         # Fund → top-OP Sankey shape for /funds tile (committed)
 ```
+
+## Programme taxonomy (`taxonomy.json` + `derived/absorption.json` + `derived/sankey.json`)
+
+Phase-6 derivatives — programme classification by EU programming period and
+fund family.
+
+The CCI-code inference in `scripts/funds/taxonomy.ts` maps every ИСУН programme
+code (e.g. `2014BG16RFOP002`) to:
+
+- **period** — `2007-13` / `2014-20` / `2021-27` / `RRP` (Recovery Plan)
+- **fundType** — `ERDF` / `ESF` / `CF` / `EAFRD` / `EMFF` / `JTF` / `RRP` / `Other`
+- **bucket** — viz-friendly label, e.g. "ERDF 2014-20"
+
+No external taxonomy file is maintained — the inference is regex-only over the
+CCI prefix and stays current as 2021-27 / NRRP programmes appear.
+
+**Absorption file** rolls projects up by period, fund type, and (period × fund)
+bucket, plus a per-programme row with absorption% (paidEur / contractedEur).
+Drives the `AbsorptionByPeriodTile` on `/funds`.
+
+**Sankey file** is a precomputed Fund → top-N-programme graph
+(`{nodes, links, totalContracted, topN}`). Beneficiary tier is intentionally
+omitted — d3-sankey collapses node heights when the leaf-column count
+overflows the available height. Drill into beneficiaries via the linked
+`/funds/programme/{code}` pages instead.
+
 
 ## Political-economy join layer (`derived/political_links.json`)
 

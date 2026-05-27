@@ -231,6 +231,8 @@ Surfaces that are **intentionally non-fatal**:
 | `scripts/funds/parse.ts` | XLSX → `FundsBeneficiary[]` (header-schema guard, EIK extraction) |
 | `scripts/funds/cross_reference.ts` | EIK-keyed join against `companies-index.json` → `mp_connected.json` |
 | `scripts/funds/political_links.ts` | Political-economy join: MP + officials + АОП overlap + debarred → `political_links.json` + per-EIK shards |
+| `scripts/funds/taxonomy.ts` | Programme-code → period + fund-family inference (CCI pattern). Used by both ingest scripts. |
+| `scripts/funds/build_taxonomy_derivatives.ts` | Builds `data/funds/taxonomy.json`, `derived/absorption.json`, `derived/sankey.json` from the projects ingest. Runs at the end of `funds:ingest-projects`. |
 | `scripts/funds/eik.ts` | EIK/BULSTAT canonicalization (9-digit) |
 | `scripts/funds/types.ts` | Shared type definitions |
 | `scripts/watch/sources/isun_eu_funds.ts` | Watcher source — fingerprints the export corpus shape |
@@ -240,6 +242,9 @@ Surfaces that are **intentionally non-fatal**:
 | `data/funds/derived/mp_connected.json` | One entry per (MP, beneficiary) pair — the MP-tied journalism payload — committed |
 | `data/funds/derived/political_links.json` | Slim leaderboard of politically-tied beneficiaries (MP + non-MP officials + АОП overlap + debarred) — committed |
 | `data/funds/derived/political-by-eik/{EIK}.json` | Per-EIK political-economy shard for the `/company` panel — committed |
+| `data/funds/taxonomy.json` | Per-programme period + fund-family lookup (~10 KB) — committed |
+| `data/funds/derived/absorption.json` | Per-period / per-fund-type / per-programme absorption% rollup (~10 KB) — committed |
+| `data/funds/derived/sankey.json` | Precomputed Fund → top-OP Sankey for the `/funds` tile (~5 KB) — committed |
 | `data/_cache/funds/beneficiaries.xlsx` | Snapshot of the last downloaded export — gitignored |
 
 ## Quick command reference

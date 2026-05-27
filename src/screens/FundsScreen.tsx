@@ -19,6 +19,8 @@ import { TopProgramsTile } from "./funds/TopProgramsTile";
 import { GeographyMixTile } from "./funds/GeographyMixTile";
 import { FundsMuniMapTile } from "./funds/FundsMuniMapTile";
 import { PoliticalConflictsTile } from "./funds/PoliticalConflictsTile";
+import { AbsorptionByPeriodTile } from "./funds/AbsorptionByPeriodTile";
+import { FundsSankeyTile } from "./funds/FundsSankeyTile";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
 import { summarizeFundsRelations } from "@/data/funds/relationLabel";
 import { formatEur } from "@/lib/currency";
@@ -390,6 +392,8 @@ export const FundsScreen: FC = () => {
               <ProjectsStatusMixTile index={projectsIndex} />
               <GeographyMixTile index={projectsIndex} />
             </div>
+            <AbsorptionByPeriodTile />
+            <FundsSankeyTile />
             <TopProgramsTile index={projectsIndex} />
           </>
         ) : null}

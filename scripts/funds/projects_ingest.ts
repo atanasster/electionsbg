@@ -18,6 +18,10 @@ import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
 import { fetchProjectsExport, PROJECTS_EXPORT_URL } from "./projects_fetch";
 import { parseProjects } from "./projects_parse";
 import { buildResolver } from "./projects_resolve";
+import {
+  buildAll as buildTaxonomyDerivatives,
+  writeAll as writeTaxonomyDerivatives,
+} from "./build_taxonomy_derivatives";
 import type {
   FundsProject,
   FundsProjectsIndex,
@@ -867,6 +871,18 @@ const main = async (args: MainArgs): Promise<void> => {
     `  ${rows.length} contracts · ${eur(totalsFinal.totalEur)} total · ` +
       `${eur(totalsFinal.paidEur)} paid · ${withEik} with EIK ` +
       `(${((withEik / rows.length) * 100).toFixed(1)}%)`,
+  );
+
+  // Phase-6 derivatives: programme taxonomy (period + fund family), per-period
+  // absorption rollups, and the precomputed Fund → OP → top-N-beneficiary
+  // Sankey. All read from the just-written projects index + by-program shards.
+  console.log(`→ building taxonomy + absorption + Sankey derivatives`);
+  const phase6 = buildTaxonomyDerivatives();
+  writeTaxonomyDerivatives(phase6);
+  console.log(
+    `  ${phase6.taxonomy.programmes.length} programme(s) · ` +
+      `${phase6.sankey.nodes.length} Sankey node(s) · ` +
+      `${phase6.absorption.byProgramme.length} absorption row(s)`,
   );
   // Honour the convention from ./ingest.ts: TOP_N is informational only, not
   // serialised separately — the per-EIK shards already carry the top
