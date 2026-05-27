@@ -1,0 +1,73 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T21:06:55.318Z",
+  "obshtinaCode": "SFO10",
+  "municipalityName": "Горна Малина",
+  "oblastCode": "SFO",
+  "oblastName": "София област",
+  "rollup": {
+    "obshtinaCode": "SFO10",
+    "municipalityName": "Горна Малина",
+    "oblastCode": "SFO",
+    "oblastName": "София област",
+    "projectCount": 3,
+    "stalledCount": 2,
+    "agreementEur": 6443300.28,
+    "submittedEur": 120050.34,
+    "awaitingEur": 252882.84,
+    "paidEur": 1154383.66,
+    "mrrbPaidEur": 1154383.66,
+    "bbrPaidEur": 0,
+    "paidPct": 17.92
+  },
+  "projects": [
+    {
+      "id": "OP-24.001-1343",
+      "description": "Рехабилитация и реконструкция на общински път SFO 2170 / I-6, Долни Богров – Пирдоп / – Долна Малина – Априлово – от км 0+000 до км 4+380",
+      "oblastCode": "SFO",
+      "oblastName": "София област",
+      "obshtinaCode": "SFO10",
+      "municipalityName": "Горна Малина",
+      "agreementEur": 3553478.57,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
+      "id": "OP-24.001-1345",
+      "description": "Пристрояване на детска градина \"Вяра, Надежда и Любов\", с. Горна Малина",
+      "oblastCode": "SFO",
+      "oblastName": "София област",
+      "obshtinaCode": "SFO10",
+      "municipalityName": "Горна Малина",
+      "agreementEur": 1522780.61,
+      "submittedEur": 0,
+      "awaitingEur": 252882.84,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
+      "id": "OP-24.001-1344",
+      "description": "Рехабилитация и реконструкция на общински път SFO 3176 / I-6, Долни Богров – Пирдоп/ – с. Осойца – от км 0+000 до км 3+330",
+      "oblastCode": "SFO",
+      "oblastName": "София област",
+      "obshtinaCode": "SFO10",
+      "municipalityName": "Горна Малина",
+      "agreementEur": 1367041.1,
+      "submittedEur": 120050.34,
+      "awaitingEur": 0,
+      "paidEur": 1154383.66,
+      "mrrbPaidEur": 1154383.66,
+      "bbrPaidEur": 0,
+      "paidPct": 84.44,
+      "stalled": false
+    }
+  ]
+}

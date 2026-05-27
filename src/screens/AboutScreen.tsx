@@ -522,6 +522,10 @@ export const AboutScreen = () => {
                   href="https://www.montana.bg/свали/бюджет/32"
                   label={t("budget_capital_montana_source")}
                 />
+                <SourceItem
+                  href="https://ipop.mrrb.bg/reports_projects_export.php"
+                  label={t("budget_ipop_source")}
+                />
               </ul>
             </DataGroup>
 

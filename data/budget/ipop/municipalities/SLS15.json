@@ -1,0 +1,73 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T21:06:55.314Z",
+  "obshtinaCode": "SLS15",
+  "municipalityName": "Кайнарджа",
+  "oblastCode": "SLS",
+  "oblastName": "Силистра",
+  "rollup": {
+    "obshtinaCode": "SLS15",
+    "municipalityName": "Кайнарджа",
+    "oblastCode": "SLS",
+    "oblastName": "Силистра",
+    "projectCount": 3,
+    "stalledCount": 1,
+    "agreementEur": 2949080.44,
+    "submittedEur": 178787.69,
+    "awaitingEur": 4369.9,
+    "paidEur": 1114659.37,
+    "mrrbPaidEur": 509248.78,
+    "bbrPaidEur": 605410.5900000001,
+    "paidPct": 37.8
+  },
+  "projects": [
+    {
+      "id": "OP-24.001-2948",
+      "description": "Основен ремонт и рехабилитация на сграда с идентификатор 68357.90.273.9 по КК и КР на с. Средище, община Кайнарджа",
+      "oblastCode": "SLS",
+      "oblastName": "Силистра",
+      "obshtinaCode": "SLS15",
+      "municipalityName": "Кайнарджа",
+      "agreementEur": 1788447.87,
+      "submittedEur": 40392.06,
+      "awaitingEur": 0,
+      "paidEur": 300536.83,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 300536.83,
+      "paidPct": 16.8,
+      "stalled": false
+    },
+    {
+      "id": "OP-24.001-1113",
+      "description": "Изграждане на физкултурен салон към ПГМСС \"Никола Й. Вапцаров\", село Средище",
+      "oblastCode": "SLS",
+      "oblastName": "Силистра",
+      "obshtinaCode": "SLS15",
+      "municipalityName": "Кайнарджа",
+      "agreementEur": 971607.96,
+      "submittedEur": 0,
+      "awaitingEur": 4369.9,
+      "paidEur": 814122.54,
+      "mrrbPaidEur": 509248.78,
+      "bbrPaidEur": 304873.76,
+      "paidPct": 83.79,
+      "stalled": false
+    },
+    {
+      "id": "OP-24.001-2949",
+      "description": "Реконструкция на водопровод от каптаж \"Дюлгера\" до началото на вътрешната водопроводна мрежа, с. Давидово, община Кайнарджа",
+      "oblastCode": "SLS",
+      "oblastName": "Силистра",
+      "obshtinaCode": "SLS15",
+      "municipalityName": "Кайнарджа",
+      "agreementEur": 189024.61,
+      "submittedEur": 138395.63,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    }
+  ]
+}

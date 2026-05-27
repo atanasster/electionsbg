@@ -1,0 +1,41 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T21:06:55.296Z",
+  "obshtinaCode": "VID03",
+  "municipalityName": "Бойница",
+  "oblastCode": "VID",
+  "oblastName": "Видин",
+  "rollup": {
+    "obshtinaCode": "VID03",
+    "municipalityName": "Бойница",
+    "oblastCode": "VID",
+    "oblastName": "Видин",
+    "projectCount": 1,
+    "stalledCount": 0,
+    "agreementEur": 336430.06,
+    "submittedEur": 0,
+    "awaitingEur": 0,
+    "paidEur": 336174.88,
+    "mrrbPaidEur": 0,
+    "bbrPaidEur": 336174.88,
+    "paidPct": 99.92
+  },
+  "projects": [
+    {
+      "id": "OP-24.001-0391",
+      "description": "Закрито стрелбище Бойница, УПИ VIII-общ., кв. 19, с. Бойница",
+      "oblastCode": "VID",
+      "oblastName": "Видин",
+      "obshtinaCode": "VID03",
+      "municipalityName": "Бойница",
+      "agreementEur": 336430.06,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 336174.88,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 336174.88,
+      "paidPct": 99.92,
+      "stalled": false
+    }
+  ]
+}

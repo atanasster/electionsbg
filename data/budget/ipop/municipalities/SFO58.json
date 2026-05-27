@@ -1,0 +1,57 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T21:06:55.320Z",
+  "obshtinaCode": "SFO58",
+  "municipalityName": "Челопеч",
+  "oblastCode": "SFO",
+  "oblastName": "София област",
+  "rollup": {
+    "obshtinaCode": "SFO58",
+    "municipalityName": "Челопеч",
+    "oblastCode": "SFO",
+    "oblastName": "София област",
+    "projectCount": 2,
+    "stalledCount": 0,
+    "agreementEur": 9203253.86,
+    "submittedEur": 2444926.07,
+    "awaitingEur": 0,
+    "paidEur": 3067751.29,
+    "mrrbPaidEur": 0,
+    "bbrPaidEur": 3067751.29,
+    "paidPct": 33.33
+  },
+  "projects": [
+    {
+      "id": "OP-24.001-1402",
+      "description": "Плувен комплекс в УПИ XVIII-325, 326, 327",
+      "oblastCode": "SFO",
+      "oblastName": "София област",
+      "obshtinaCode": "SFO58",
+      "municipalityName": "Челопеч",
+      "agreementEur": 6135502.57,
+      "submittedEur": 820806.68,
+      "awaitingEur": 0,
+      "paidEur": 2466983.33,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 2466983.33,
+      "paidPct": 40.21,
+      "stalled": false
+    },
+    {
+      "id": "OP-24.001-2618",
+      "description": "Довеждащи водопроводи на с. Челопеч",
+      "oblastCode": "SFO",
+      "oblastName": "София област",
+      "obshtinaCode": "SFO58",
+      "municipalityName": "Челопеч",
+      "agreementEur": 3067751.29,
+      "submittedEur": 1624119.39,
+      "awaitingEur": 0,
+      "paidEur": 600767.96,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 600767.96,
+      "paidPct": 19.58,
+      "stalled": false
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T21:06:55.290Z",
+  "obshtinaCode": "BGS08",
+  "municipalityName": "Камено",
+  "oblastCode": "BGS",
+  "oblastName": "Бургас",
+  "rollup": {
+    "obshtinaCode": "BGS08",
+    "municipalityName": "Камено",
+    "oblastCode": "BGS",
+    "oblastName": "Бургас",
+    "projectCount": 3,
+    "stalledCount": 0,
+    "agreementEur": 11308753.83,
+    "submittedEur": 0,
+    "awaitingEur": 0.01,
+    "paidEur": 8702772.99,
+    "mrrbPaidEur": 5427432.22,
+    "bbrPaidEur": 3275340.7699999996,
+    "paidPct": 76.96
+  },
+  "projects": [
+    {
+      "id": "OP-24.001-0157",
+      "description": "Интегриран проект за намаляване на загубите на вода на територията на община Камено:\nФаза 1: Реконструкция на вътрешна водопроводна мрежа в с. Полски извор;\nФаза 3: Реконструкция на улична водопроводна мрежа с. Константиново, община Камено",
+      "oblastCode": "BGS",
+      "oblastName": "Бургас",
+      "obshtinaCode": "BGS08",
+      "municipalityName": "Камено",
+      "agreementEur": 5804952.37,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 3238113.74,
+      "mrrbPaidEur": 524745.42,
+      "bbrPaidEur": 2713368.32,
+      "paidPct": 55.78,
+      "stalled": false
+    },
+    {
+      "id": "OP-24.001-0158",
+      "description": "Рехабилитация на път BGS1051 /път III-539/Русокастро-Ливада-Тръстиково-Константиново /участък от км 4+520 до км 7+320/ Ливада-Тръстиково",
+      "oblastCode": "BGS",
+      "oblastName": "Бургас",
+      "obshtinaCode": "BGS08",
+      "municipalityName": "Камено",
+      "agreementEur": 2957005.47,
+      "submittedEur": 0,
+      "awaitingEur": 0.01,
+      "paidEur": 2921954.14,
+      "mrrbPaidEur": 2642063.28,
+      "bbrPaidEur": 279890.86,
+      "paidPct": 98.81,
+      "stalled": false
+    },
+    {
+      "id": "OP-24.001-2707",
+      "description": "Рехабилитация на път BGS1051 /път III-539/Русокастро-Ливада-Тръстиково-Константиново /участък от км 9+000 до км 11+830/ Тръстиково-Константиново",
+      "oblastCode": "BGS",
+      "oblastName": "Бургас",
+      "obshtinaCode": "BGS08",
+      "municipalityName": "Камено",
+      "agreementEur": 2546795.99,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 2542705.11,
+      "mrrbPaidEur": 2260623.52,
+      "bbrPaidEur": 282081.59,
+      "paidPct": 99.84,
+      "stalled": false
+    }
+  ]
+}

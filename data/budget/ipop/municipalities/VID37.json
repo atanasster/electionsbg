@@ -1,0 +1,73 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T21:06:55.297Z",
+  "obshtinaCode": "VID37",
+  "municipalityName": "Чупрене",
+  "oblastCode": "VID",
+  "oblastName": "Видин",
+  "rollup": {
+    "obshtinaCode": "VID37",
+    "municipalityName": "Чупрене",
+    "oblastCode": "VID",
+    "oblastName": "Видин",
+    "projectCount": 3,
+    "stalledCount": 1,
+    "agreementEur": 1022583.76,
+    "submittedEur": 0,
+    "awaitingEur": 173837.39,
+    "paidEur": 24066.01,
+    "mrrbPaidEur": 12033.01,
+    "bbrPaidEur": 12033,
+    "paidPct": 2.35
+  },
+  "projects": [
+    {
+      "id": "OP-24.001-0446",
+      "description": "Асфалтиране на вътрешни улици в населени места от община Чупрене",
+      "oblastCode": "VID",
+      "oblastName": "Видин",
+      "obshtinaCode": "VID37",
+      "municipalityName": "Чупрене",
+      "agreementEur": 1022583.76,
+      "submittedEur": 0,
+      "awaitingEur": 173837.39,
+      "paidEur": 24066.01,
+      "mrrbPaidEur": 12033.01,
+      "bbrPaidEur": 12033,
+      "paidPct": 2.35,
+      "stalled": true
+    },
+    {
+      "id": "OP-25.001-0019",
+      "description": "Реконструкция и рехабилитация на участъци от общински път Върбово – Чупрене",
+      "oblastCode": "VID",
+      "oblastName": "Видин",
+      "obshtinaCode": "VID37",
+      "municipalityName": "Чупрене",
+      "agreementEur": 0,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": false
+    },
+    {
+      "id": "OP-25.001-0020",
+      "description": "Реконструкция и рехабилитация на участъци от общински път Долни Лом – Репляна",
+      "oblastCode": "VID",
+      "oblastName": "Видин",
+      "obshtinaCode": "VID37",
+      "municipalityName": "Чупрене",
+      "agreementEur": 0,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": false
+    }
+  ]
+}

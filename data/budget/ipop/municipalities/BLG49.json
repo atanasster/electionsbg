@@ -1,0 +1,57 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T21:06:55.290Z",
+  "obshtinaCode": "BLG49",
+  "municipalityName": "Струмяни",
+  "oblastCode": "BLG",
+  "oblastName": "Благоевград",
+  "rollup": {
+    "obshtinaCode": "BLG49",
+    "municipalityName": "Струмяни",
+    "oblastCode": "BLG",
+    "oblastName": "Благоевград",
+    "projectCount": 2,
+    "stalledCount": 1,
+    "agreementEur": 2123190.67,
+    "submittedEur": 0,
+    "awaitingEur": 0,
+    "paidEur": 0,
+    "mrrbPaidEur": 0,
+    "bbrPaidEur": 0,
+    "paidPct": 0
+  },
+  "projects": [
+    {
+      "id": "OP-24.001-0117",
+      "description": "Реконструкция и рехабилитация на общински път BLG1310/I-1/Струмяни – Илинденци/BLG3317/ от км 0+000 до км 2+485",
+      "oblastCode": "BLG",
+      "oblastName": "Благоевград",
+      "obshtinaCode": "BLG49",
+      "municipalityName": "Струмяни",
+      "agreementEur": 2123190.67,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
+      "id": "OP-24.001-0116",
+      "description": "Изграждане на пречиствателна станция за отпадъчни води (ПОСВ) за агломерация Микрево, община Струмяни",
+      "oblastCode": "BLG",
+      "oblastName": "Благоевград",
+      "obshtinaCode": "BLG49",
+      "municipalityName": "Струмяни",
+      "agreementEur": 0,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": false
+    }
+  ]
+}

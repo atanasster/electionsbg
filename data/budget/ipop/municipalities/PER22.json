@@ -1,0 +1,73 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T21:06:55.308Z",
+  "obshtinaCode": "PER22",
+  "municipalityName": "Ковачевци",
+  "oblastCode": "PER",
+  "oblastName": "Перник",
+  "rollup": {
+    "obshtinaCode": "PER22",
+    "municipalityName": "Ковачевци",
+    "oblastCode": "PER",
+    "oblastName": "Перник",
+    "projectCount": 3,
+    "stalledCount": 2,
+    "agreementEur": 3067751.2900000005,
+    "submittedEur": 300466.83,
+    "awaitingEur": 0,
+    "paidEur": 1130977.64,
+    "mrrbPaidEur": 1130977.64,
+    "bbrPaidEur": 0,
+    "paidPct": 36.87
+  },
+  "projects": [
+    {
+      "id": "OP-24.001-0876",
+      "description": "Подмяна на водопроводна мрежа на с. Егълница, община Ковачевци",
+      "oblastCode": "PER",
+      "oblastName": "Перник",
+      "obshtinaCode": "PER22",
+      "municipalityName": "Ковачевци",
+      "agreementEur": 2261443.99,
+      "submittedEur": 15338.76,
+      "awaitingEur": 0,
+      "paidEur": 1130977.64,
+      "mrrbPaidEur": 1130977.64,
+      "bbrPaidEur": 0,
+      "paidPct": 50.01,
+      "stalled": false
+    },
+    {
+      "id": "OP-24.001-2043",
+      "description": "Спортно-възстановителна база към спортен комплекс \"Димитровец\", с. Ковачевци",
+      "oblastCode": "PER",
+      "oblastName": "Перник",
+      "obshtinaCode": "PER22",
+      "municipalityName": "Ковачевци",
+      "agreementEur": 618663.18,
+      "submittedEur": 127752.41,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
+      "id": "OP-24.001-0878",
+      "description": "Изграждане на резервоар за питейна вода, село Лобош",
+      "oblastCode": "PER",
+      "oblastName": "Перник",
+      "obshtinaCode": "PER22",
+      "municipalityName": "Ковачевци",
+      "agreementEur": 187644.12,
+      "submittedEur": 157375.66,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    }
+  ]
+}

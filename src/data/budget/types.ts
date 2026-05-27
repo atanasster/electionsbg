@@ -1473,6 +1473,96 @@ export interface KazanlakCapitalProgramFile {
   bySettlement: KazanlakCapitalSettlementRollup[];
 }
 
+// МРРБ IPOP — Инвестиционна програма за общински проекти execution
+// feed (nationwide companion to the per-project PLAN data already in
+// data/budget/investment_program/{year}.json; same OP-YY.NNN-NNNN IDs).
+// Source: a CSV export from ipop.mrrb.bg with per-project agreement /
+// submitted / approved-awaiting / paid amounts in EUR, covering all
+// 264 municipalities that have MRRB-funded projects.
+//
+// Stalled-project flag = agreement >= EUR 100k AND paid_pct < 5%.
+
+export interface IpopProject {
+  id: string; // "OP-YY.NNN-NNNN"
+  description: string;
+  oblastCode: string;
+  oblastName: string;
+  obshtinaCode: string;
+  municipalityName: string;
+  agreementEur: number;
+  submittedEur: number;
+  awaitingEur: number;
+  paidEur: number;
+  mrrbPaidEur: number;
+  bbrPaidEur: number;
+  paidPct: number;
+  stalled: boolean;
+}
+
+export interface IpopMunicipalityRollup {
+  obshtinaCode: string;
+  municipalityName: string;
+  oblastCode: string;
+  oblastName: string;
+  projectCount: number;
+  stalledCount: number;
+  agreementEur: number;
+  submittedEur: number;
+  awaitingEur: number;
+  paidEur: number;
+  mrrbPaidEur: number;
+  bbrPaidEur: number;
+  paidPct: number;
+}
+
+export interface IpopOblastRollup {
+  oblastCode: string;
+  oblastName: string;
+  municipalityCount: number;
+  projectCount: number;
+  stalledCount: number;
+  agreementEur: number;
+  paidEur: number;
+  paidPct: number;
+}
+
+export interface IpopMunicipalityFile {
+  fiscalYear: number;
+  generatedAt: string;
+  obshtinaCode: string;
+  municipalityName: string;
+  oblastCode: string;
+  oblastName: string;
+  rollup: IpopMunicipalityRollup;
+  projects: IpopProject[];
+}
+
+export interface IpopNationalFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+  };
+  totals: {
+    projectCount: number;
+    municipalityCount: number;
+    oblastCount: number;
+    stalledCount: number;
+    agreementEur: number;
+    submittedEur: number;
+    awaitingEur: number;
+    paidEur: number;
+    mrrbPaidEur: number;
+    bbrPaidEur: number;
+    paidPct: number;
+  };
+  byMunicipality: IpopMunicipalityRollup[];
+  byOblast: IpopOblastRollup[];
+}
+
 // Монтана — single-município (MON29, EKATTE 48489) in Montana oblast.
 // 24 settlements (1 town + 23 villages). Source is the 5-page scanned
 // PDF "Капиталова програма за 2025 г." from montana.bg's budget portal.

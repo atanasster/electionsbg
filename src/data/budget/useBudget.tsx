@@ -46,6 +46,8 @@ import type {
   KazanlakCapitalProgramFile,
   KyustendilCapitalProgramFile,
   MontanaCapitalProgramFile,
+  IpopNationalFile,
+  IpopMunicipalityFile,
   VidinCapitalProgramFile,
   VatBreakdownFile,
 } from "./types";
@@ -631,6 +633,30 @@ export const useKarlovoCapitalProgram = (fiscalYear: number | undefined) =>
         `/budget/capital_programs/${fiscalYear}/karlovo.json`,
       ),
     enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// МРРБ IPOP — Инвестиционна програма за общински проекти. National
+// summary file (~80KB) carries totals + per-município / per-oblast
+// aggregates; per-município shard files carry the full project list
+// for that município.
+export const useIpopNational = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "ipop", "national", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<IpopNationalFile>(`/budget/ipop/${fiscalYear}.json`),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+export const useIpopMunicipality = (obshtinaCode: string | undefined) =>
+  useQuery({
+    queryKey: ["budget", "ipop", "municipality", obshtinaCode] as const,
+    queryFn: () =>
+      fetchJson<IpopMunicipalityFile>(
+        `/budget/ipop/municipalities/${obshtinaCode}.json`,
+      ),
+    enabled: !!obshtinaCode,
     staleTime: Infinity,
   });
 

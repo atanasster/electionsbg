@@ -1,0 +1,73 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T21:06:55.298Z",
+  "obshtinaCode": "VRC35",
+  "municipalityName": "Хайредин",
+  "oblastCode": "VRC",
+  "oblastName": "Враца",
+  "rollup": {
+    "obshtinaCode": "VRC35",
+    "municipalityName": "Хайредин",
+    "oblastCode": "VRC",
+    "oblastName": "Враца",
+    "projectCount": 3,
+    "stalledCount": 2,
+    "agreementEur": 2781427.83,
+    "submittedEur": 51047.38,
+    "awaitingEur": 0,
+    "paidEur": 0,
+    "mrrbPaidEur": 0,
+    "bbrPaidEur": 0,
+    "paidPct": 0
+  },
+  "projects": [
+    {
+      "id": "OP-24.001-1847",
+      "description": "Ремонт и реконструкция на съществуваща сграда в Домашен социален патронаж, находящ се в УПИ XVIII, пл. № 1849, кв. 111",
+      "oblastCode": "VRC",
+      "oblastName": "Враца",
+      "obshtinaCode": "VRC35",
+      "municipalityName": "Хайредин",
+      "agreementEur": 1533875.64,
+      "submittedEur": 25523.69,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
+      "id": "OP-24.001-0476",
+      "description": "Строително-ремонтни дейности на ДГ \"Славейче\" – филиална група, с. Рогозен, общ. Хайредин, обл. Враца",
+      "oblastCode": "VRC",
+      "oblastName": "Враца",
+      "obshtinaCode": "VRC35",
+      "municipalityName": "Хайредин",
+      "agreementEur": 1247552.19,
+      "submittedEur": 25523.69,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
+      "id": "OP-25.001-0389",
+      "description": "Ремонт и рехабилитация на околовръстен път с. Хайредин",
+      "oblastCode": "VRC",
+      "oblastName": "Враца",
+      "obshtinaCode": "VRC35",
+      "municipalityName": "Хайредин",
+      "agreementEur": 0,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": false
+    }
+  ]
+}

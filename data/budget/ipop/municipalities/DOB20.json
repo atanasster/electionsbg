@@ -1,0 +1,73 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T21:06:55.299Z",
+  "obshtinaCode": "DOB20",
+  "municipalityName": "Крушари",
+  "oblastCode": "DOB",
+  "oblastName": "Добрич",
+  "rollup": {
+    "obshtinaCode": "DOB20",
+    "municipalityName": "Крушари",
+    "oblastCode": "DOB",
+    "oblastName": "Добрич",
+    "projectCount": 3,
+    "stalledCount": 1,
+    "agreementEur": 6276158.97,
+    "submittedEur": 847754.66,
+    "awaitingEur": 0,
+    "paidEur": 1474715.34,
+    "mrrbPaidEur": 1474715.34,
+    "bbrPaidEur": 0,
+    "paidPct": 23.5
+  },
+  "projects": [
+    {
+      "id": "OP-24.001-0550",
+      "description": "Рехабилитация на общ. път DOB2171/III–7103/Телериг – Александрия/III-293/от км 0+000 до км 9+150",
+      "oblastCode": "DOB",
+      "oblastName": "Добрич",
+      "obshtinaCode": "DOB20",
+      "municipalityName": "Крушари",
+      "agreementEur": 4518235.22,
+      "submittedEur": 847754.66,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": true
+    },
+    {
+      "id": "OP-24.001-0551",
+      "description": "Рехабилитация на улица \"Първа\" в с. Лозенец, община Крушари, област Добрич",
+      "oblastCode": "DOB",
+      "oblastName": "Добрич",
+      "obshtinaCode": "DOB20",
+      "municipalityName": "Крушари",
+      "agreementEur": 1757923.75,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 1474715.34,
+      "mrrbPaidEur": 1474715.34,
+      "bbrPaidEur": 0,
+      "paidPct": 83.89,
+      "stalled": false
+    },
+    {
+      "id": "OP-24.001-0552",
+      "description": "Аварийно-възстановителни работи по дере, с. Северняк, община Крушари, област Добрич",
+      "oblastCode": "DOB",
+      "oblastName": "Добрич",
+      "obshtinaCode": "DOB20",
+      "municipalityName": "Крушари",
+      "agreementEur": 0,
+      "submittedEur": 0,
+      "awaitingEur": 0,
+      "paidEur": 0,
+      "mrrbPaidEur": 0,
+      "bbrPaidEur": 0,
+      "paidPct": 0,
+      "stalled": false
+    }
+  ]
+}

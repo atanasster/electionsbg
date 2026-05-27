@@ -35,6 +35,7 @@ import { napAnnual } from "./nap_annual";
 import { nssiB1 } from "./nssi_b1";
 import { dvInvestmentAnnex } from "./dv_investment_annex";
 import { capitalPrograms } from "./capital_programs";
+import { ipop } from "./ipop";
 import { bgpostPostcodes } from "./bgpost_postcodes";
 
 // cik is intentionally omitted — see ./cik.ts header. Re-add to this array
@@ -63,6 +64,7 @@ export const SOURCES: WatchSource[] = [
   nssiB1,
   dvInvestmentAnnex,
   capitalPrograms,
+  ipop,
   eurostat,
   eurostatRegional,
   ecBudgetPerMs,
