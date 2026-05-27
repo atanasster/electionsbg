@@ -186,8 +186,19 @@ const QUALITY_RANK: Record<OfficeMatchQuality, number> = {
  * For multi-office companies the highest-quality match wins for the
  * `hqMatchQuality` field; `ekatteHQ` collects the union of all resolved
  * EKATTEs across offices (deduplicated, ordered by declaration recency).
+ *
+ * Resolution sources, in priority order:
+ *   1. `registeredOffices[]` — the free-text field from cacbg declarations.
+ *   2. `tr.seat` — Commerce Registry registered seat for TR-enriched entries
+ *      that have no declared office (e.g. TR-only companies whose link to an
+ *      MP is purely via a manager/owner role, not a declared stake). Used
+ *      as a fallback only; existing high-quality declaration matches win.
+ *
  * Silently no-ops if reference data is missing — keeps the older pipeline
- * runnable on a fresh checkout that hasn't fetched the postcode table yet. */
+ * runnable on a fresh checkout that hasn't fetched the postcode table yet.
+ * Idempotent: safe to call multiple times. Calling once before TR
+ * integration + once after it lets the TR-seat fallback fill late-arriving
+ * entries without redoing the declaration-text work. */
 export const enrichWithEkatteHQ = (
   companies: CompanyIndexEntry[],
 ): { matched: number; total: number } => {
@@ -225,13 +236,55 @@ export const enrichWithEkatteHQ = (
       if (QUALITY_RANK[m.quality] > QUALITY_RANK[best]) best = m.quality;
       if (m.ekatte) ekattes.add(m.ekatte);
     }
+    // TR-seat fallback — only consult when the declared-offices path produced
+    // nothing. Treat tr.seat as a synthetic office string so the same
+    // resolver handles all the Sofia/postcode/typo edge cases for free.
+    if (ekattes.size === 0 && c.tr?.seat) {
+      const m = resolveOffice(c.tr.seat, idx, pc);
+      if (QUALITY_RANK[m.quality] > QUALITY_RANK[best]) best = m.quality;
+      if (m.ekatte) ekattes.add(m.ekatte);
+    }
+    // Fully replace — keeps the function deterministic across re-runs (a
+    // foreign entry that gained then lost a stale match in a prior pass must
+    // come back clean here, even though the resolver no longer matches).
     if (ekattes.size > 0) {
       c.ekatteHQ = Array.from(ekattes);
       matched++;
+    } else {
+      delete c.ekatteHQ;
     }
     c.hqMatchQuality = best;
   }
   return { matched, total: companies.length };
+};
+
+/** Re-run enrichWithEkatteHQ against the on-disk companies-index.json. Used
+ * for the post-TR / post-graph second pass: by the time integrateTr +
+ * buildConnectionsGraph have run, each entry's `tr.seat` is populated, so
+ * the seat-fallback path inside the resolver can fill in `ekatteHQ` for
+ * TR-only entries that had no declared office. Writes the file back. */
+export const reEnrichCompaniesIndex = ({
+  publicFolder,
+  stringify,
+}: BuildCompanyIndexArgs): void => {
+  const indexPath = path.join(
+    publicFolder,
+    "parliament",
+    "companies-index.json",
+  );
+  if (!fs.existsSync(indexPath)) return;
+  const file: CompaniesIndexFile = JSON.parse(
+    fs.readFileSync(indexPath, "utf-8"),
+  );
+  const before = file.companies.filter(
+    (c) => c.ekatteHQ && c.ekatteHQ.length > 0,
+  ).length;
+  const { matched, total } = enrichWithEkatteHQ(file.companies);
+  fs.writeFileSync(indexPath, stringify(file), "utf-8");
+  console.log(
+    `[declarations] re-enrich pass: ${matched}/${total} now resolved ` +
+      `(+${matched - before} via TR-seat fallback)`,
+  );
 };
 
 export const buildCompanyIndex = ({

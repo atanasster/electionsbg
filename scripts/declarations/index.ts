@@ -23,6 +23,7 @@ import { parseDeclarationXml } from "./parse_declaration";
 import {
   buildCompanyIndex,
   annotatePerMpDeclarationsWithSlugs,
+  reEnrichCompaniesIndex,
 } from "./build_company_index";
 import { integrateTr } from "./tr/integrate";
 import { buildConnectionsGraph } from "./build_connections_graph";
@@ -276,6 +277,10 @@ export const parseFinancialDeclarations = async ({
   // graph surfaces non-MP co-officers (the "spatial" payoff). Phase 2.5 folds
   // officials in as first-class nodes from the cross-reference above.
   buildConnectionsGraph({ publicFolder, rawFolder: dataFolder, stringify });
+
+  // Second-pass HQ resolution — now that `tr.seat` is on every TR-enriched
+  // entry, fall back to it for companies with no declared office string.
+  reEnrichCompaniesIndex({ publicFolder, stringify });
 
   // Per-settlement shards for the "Companies HQ'd here" tile. Reads the
   // now-graph-enriched companies-index.json (with `ekatteHQ` and `mpRoles`
