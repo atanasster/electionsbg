@@ -103,6 +103,9 @@ export const CAPITAL_PROGRAM_URLS: Record<
     ruse: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2024/Kapitalov_razchet_31.12.2024.xlsx",
     stara_zagora:
       "https://www.starazagora.bg/uploads/posts/2024/prilozhenia_byudzhet_2024.zip",
+    // 2024 Varna — text-extractable PDF (49 pages, January 2024 proposal).
+    varna:
+      "https://varnacouncil.bg/wp-content/uploads/2024/01/7.-Приложение-№-4.pdf",
   },
   2023: {
     sofia:
@@ -110,6 +113,9 @@ export const CAPITAL_PROGRAM_URLS: Record<
     ruse: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2023/Kapitalov razchet 31.12.2023.xlsx",
     stara_zagora:
       "https://starazagora.bg/uploads/posts/2023/prilozhenia_byudzhet2023.zip",
+    // 2023 Varna — rasterized scan, OCR pre-step required (same as 2025).
+    varna:
+      "https://varnacouncil.bg/wp-content/uploads/2023/09/9.-Приложение-№-4.pdf",
   },
   2022: {
     // 2022's budget itself adopted late (Aug 2023) due to political
@@ -127,6 +133,9 @@ export const CAPITAL_PROGRAM_URLS: Record<
       "https://www.burgas.bg/uploads/posts/2022/parvonachalen-plan-za-2022g-5202-burgas.xlsx",
     stara_zagora:
       "https://starazagora.bg/uploads/posts/2022/prilozhenia_byudzhet2022.zip",
+    // 2022 Varna — rasterized scan, OCR pre-step required.
+    varna:
+      "https://varnacouncil.bg/wp-content/uploads/2022/04/6-Приложение-№4-1.pdf",
   },
 };
 

@@ -35,6 +35,15 @@ const __dirname = dirname(__filename);
 
 const SOURCE_URLS: Record<number, string> = {
   2025: "https://varnacouncil.bg/wp-content/uploads/2025/04/7-9.-Приложение-4-капиталови-разходи-.pdf",
+  // 2024 — January proposal version (text-extractable, 49 pages).
+  // varnacouncil.bg also published an August 2024 update (26 pages);
+  // we ingest the January proposal for consistency with other Tier-1
+  // общини where the initial-plan version is the canonical artifact.
+  2024: "https://varnacouncil.bg/wp-content/uploads/2024/01/7.-Приложение-№-4.pdf",
+  // 2023 + 2022 — rasterized scans (≈50 text bytes from pdftotext),
+  // same OCR-pre-step path as 2025.
+  2023: "https://varnacouncil.bg/wp-content/uploads/2023/09/9.-Приложение-№-4.pdf",
+  2022: "https://varnacouncil.bg/wp-content/uploads/2022/04/6-Приложение-№4-1.pdf",
 };
 
 interface Money {
