@@ -481,6 +481,10 @@ export const AboutScreen = () => {
                   href="https://www.dupnitsa.bg/section-316-content.html"
                   label={t("budget_capital_dupnitsa_source")}
                 />
+                <SourceItem
+                  href="https://m.velingrad.bg/wp-content/uploads/2025/04/ПРОЕКТ-ПКР-2025.pdf"
+                  label={t("budget_capital_velingrad_source")}
+                />
               </ul>
             </DataGroup>
 

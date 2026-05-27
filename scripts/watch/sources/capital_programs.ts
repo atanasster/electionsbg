@@ -1,10 +1,10 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 20 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Each of the 21 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
 // Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin,
 // Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech,
-// Dupnitsa) publishes an annual "Капиталова програма" / "Поименен
-// списък на обектите за капиталови разходи" on its own website.
+// Dupnitsa, Velingrad) publishes an annual "Капиталова програма" /
+// "Поименен списък на обектите за капиталови разходи" on its own website.
 // URLs are opaque and change every year (some include the date, some a
 // content hash), so the catalogue is hand-curated below — mirrors the
 // SOURCE_URLS map in each município's parser under
@@ -73,7 +73,8 @@ type Municipality =
   | "yambol"
   | "kardzhali"
   | "lovech"
-  | "dupnitsa";
+  | "dupnitsa"
+  | "velingrad";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -154,6 +155,11 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // Referer header. Watcher tracks the landing page (the PHP UUID
     // changes when a new quarterly snapshot is published).
     dupnitsa: "https://www.dupnitsa.bg/section-316-content.html",
+    // Велинград (PAZ08) — Pazardjik-oblast município, 21 settlements.
+    // Born-digital PDF on m.velingrad.bg (mobile subdomain), found
+    // via Google. OCR via Gemini Vision.
+    velingrad:
+      "https://m.velingrad.bg/wp-content/uploads/2025/04/ПРОЕКТ-ПКР-2025.pdf",
     // Велико Търново (VTR04) — Tier-2 oblast capital, 89 settlements.
     // The 22-appendix master XLSX is a clean structured file with a
     // dedicated "Pril15" sheet (Инвестиционна програма). No OCR needed.

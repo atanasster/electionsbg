@@ -1028,6 +1028,46 @@ export interface VidinCapitalProgramFile {
   bySettlement: VidinCapitalSettlementRollup[];
 }
 
+// Велинград — single-município (PAZ08, EKATTE 10450) in Pazardjik
+// oblast. 21 settlements (city + 20 villages). Source is the council's
+// "ПРОЕКТ НА ПРОГРАМАТА ЗА КАПИТАЛОВИ РАЗХОДИ" — a clean born-digital
+// PDF on m.velingrad.bg (mobile-prefix subdomain). Discovered via
+// Google site search. OCR via Gemini Vision for robust extraction.
+export interface VelingradCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface VelingradCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface VelingradCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: VelingradCapitalProject[];
+  bySettlement: VelingradCapitalSettlementRollup[];
+}
+
 // Дупница — single-município (KNL48, EKATTE 68789). NOT an oblast
 // capital (Kyustendil oblast), 17 settlements (city + 16 villages).
 // Source is a clean born-digital MINFIN B3 PDF on dupnitsa.bg —

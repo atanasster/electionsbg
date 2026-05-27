@@ -33,6 +33,7 @@ import type {
   StaraZagoraCapitalProgramFile,
   DupnitsaCapitalProgramFile,
   GabrovoCapitalProgramFile,
+  VelingradCapitalProgramFile,
   HaskovoCapitalProgramFile,
   KardzhaliCapitalProgramFile,
   LovechCapitalProgramFile,
@@ -466,6 +467,19 @@ export const useVidinCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<VidinCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/vidin.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Велинград — Pazardjik-oblast município (PAZ08, 21 settlements).
+// Born-digital PDF on m.velingrad.bg; OCR via Gemini Vision.
+export const useVelingradCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "velingrad", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<VelingradCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/velingrad.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
