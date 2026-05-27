@@ -39,7 +39,10 @@ const INDEX_FILE = path.join(PROJECTS_DIR, "index.json");
 const MULTI_LOC_FILE = path.join(PROJECTS_DIR, "multi_location.json");
 const MUNI_MAP_FILE = path.join(PROJECTS_DIR, "muni-map.json");
 const SETTLEMENTS_FILE = path.resolve(__dirname, "../../data/settlements.json");
-const GRAO_FILE = path.resolve(__dirname, "../../data/grao_population.json");
+const CENSUS_SETTLEMENTS_FILE = path.resolve(
+  __dirname,
+  "../../data/census_2021_settlements.json",
+);
 
 const SOURCE_LABEL = "ИСУН 2020 — публичен модул, Проекти (2020.eufunds.bg)";
 const SOURCE_URL = "https://2020.eufunds.bg/bg/0/0/Project";
@@ -136,20 +139,37 @@ const resetDir = (dir: string): void => {
 };
 
 // Population / oblast lookup tables for the per-capita rank on the summary
-// shards. Loaded once per ingest from data/settlements.json + data/grao_population.json.
+// shards. Loaded once per ingest from data/settlements.json plus
+// data/census_2021_settlements.json — Census 2021 is the authoritative
+// population source and, crucially, carries EKATTE 68134 (the Sofia city
+// core) with its 1.18 M population. ГРАО (data/grao_population.json) is
+// more recent (quarterly) but does not list 68134, so per-capita on the
+// Stolichna муни would otherwise be inflated 13× against the village-only
+// denominator.
 interface PlaceLookup {
-  // EKATTE → permanent-address population (from ГРАО). Missing for Sofia
-  // (68134 not in ГРАО — the capital is reported at district grain S23xx /
-  // S24xx / S25xx, not as a single city EKATTE) and a tail of edge cases.
+  // EKATTE → census-2021 population. Covers Sofia (68134 = 1,183,400).
   popByEkatte: Map<string, number>;
   // EKATTE → oblast code (normalised).
   oblastByEkatte: Map<string, string>;
-  // обshtina → summed population across constituent settlements (ГРАО). Used
-  // as the денominator for the muni-level per-capita rank.
+  // обshtina → summed population across constituent settlements. The summed
+  // total includes the synthetic Sofia entry, so муни S22 (the synthetic
+  // Stolichna anchor used by this ingest) gets Sofia's full population.
   popByMuni: Map<string, number>;
   // обshtina → oblast code (from settlements.json — first match wins).
   oblastByMuni: Map<string, string>;
 }
+
+// Synthetic Sofia settlement row — Sofia city (EKATTE 68134) is missing
+// from data/settlements.json, which models the capital via the three
+// election-MIR pseudo-oblasts S23/S24/S25. The resolver in projects_resolve.ts
+// keeps the same synthetic mapping (see SOFIA_SYNTHETIC there); we mirror it
+// here so the population walk picks up the city core under the S22 obshtina
+// pseudo-code.
+const SYNTHETIC_SETTLEMENTS: Array<{
+  ekatte: string;
+  oblast: string;
+  obshtina: string;
+}> = [{ ekatte: "68134", oblast: "S22", obshtina: "S22" }];
 
 const loadPlaceLookup = (): PlaceLookup => {
   const settlements: Array<{
@@ -157,9 +177,14 @@ const loadPlaceLookup = (): PlaceLookup => {
     oblast: string;
     obshtina: string;
   }> = JSON.parse(fs.readFileSync(SETTLEMENTS_FILE, "utf-8"));
-  const grao: {
-    settlements: Record<string, { permanent: number; current: number }>;
-  } = JSON.parse(fs.readFileSync(GRAO_FILE, "utf-8"));
+  const census: Array<{ ekatte: string; population: number }> = JSON.parse(
+    fs.readFileSync(CENSUS_SETTLEMENTS_FILE, "utf-8"),
+  );
+
+  const popByCensusEkatte = new Map<string, number>();
+  for (const row of census) {
+    if (row.population > 0) popByCensusEkatte.set(row.ekatte, row.population);
+  }
 
   const popByEkatte = new Map<string, number>();
   const oblastByEkatte = new Map<string, string>();
@@ -168,12 +193,12 @@ const loadPlaceLookup = (): PlaceLookup => {
 
   const norm = (o: string): string => (o === "PDV-00" ? "PDV" : o);
 
-  for (const s of settlements) {
+  for (const s of [...settlements, ...SYNTHETIC_SETTLEMENTS]) {
     if (s.oblast === "32") continue; // foreign-country pseudo-rows
     const oblast = norm(s.oblast);
     oblastByEkatte.set(s.ekatte, oblast);
     if (!oblastByMuni.has(s.obshtina)) oblastByMuni.set(s.obshtina, oblast);
-    const pop = grao.settlements[s.ekatte]?.permanent ?? 0;
+    const pop = popByCensusEkatte.get(s.ekatte) ?? 0;
     if (pop > 0) {
       popByEkatte.set(s.ekatte, pop);
       popByMuni.set(s.obshtina, (popByMuni.get(s.obshtina) ?? 0) + pop);
@@ -540,23 +565,22 @@ const main = async (args: MainArgs): Promise<void> => {
     });
   }
   if (sofiaAgg.contractCount > 0) {
-    // Sofia per-capita is intentionally null: ГРАО does not list EKATTE
-    // 68134 (the city core), so the Stolichna population we can sum only
-    // covers the surrounding-village shell (~88k of the real ~1.2M). A
-    // ratio against that partial denominator would be 13x too high and
-    // dominate the choropleth legend. Until a reliable Sofia city
-    // population lands, the absolute and disbursement-rate metrics are
-    // the only honest ones to display for SOF00.
+    // Population sums the S22 synthetic anchor (Sofia city, EKATTE 68134
+    // ≈ 1.18 M from Census 2021) plus the surrounding-village obshtinas
+    // S23xx / S24xx / S25xx, so SOF00's per-capita is computed against
+    // ~1.27 M — matching the Census 2021 Стoлична община population.
+    const sofiaTotalPop = sofiaAgg.populationKnown ? sofiaAgg.population : 0;
     muniMapRows.push({
       muni: "SOF00",
       oblast: "S22",
       contractCount: sofiaAgg.contractCount,
       totalEur: round2(sofiaAgg.totalEur),
       paidEur: round2(sofiaAgg.paidEur),
-      perCapitaEur: null,
+      perCapitaEur:
+        sofiaTotalPop > 0 ? round2(sofiaAgg.totalEur / sofiaTotalPop) : null,
       perCapitaRank: null,
       cohortSize: null,
-      population: null,
+      population: sofiaTotalPop > 0 ? sofiaTotalPop : null,
     });
   }
   fs.writeFileSync(
