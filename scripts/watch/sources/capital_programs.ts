@@ -115,6 +115,12 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // Ruse's 2022 file is labelled "Капиталов отчет" (executed-only,
     // no separate refined-plan); same workbook structure.
     ruse: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2022/Капиталов отчет 31.12.2022.xlsx",
+    // Burgas 2022 is in the legacy MINFIN-template XLSX format (the
+    // same one Sofia used through 2022), parsed by burgas_2022.ts.
+    // 2024 and 2023 ship as PDF bundles instead — those years aren't
+    // catalogued here yet (need a PDF parser, see commit message).
+    burgas:
+      "https://www.burgas.bg/uploads/posts/2022/parvonachalen-plan-za-2022g-5202-burgas.xlsx",
   },
 };
 

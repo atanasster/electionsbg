@@ -11,13 +11,20 @@
 // page (/settlement/BGS04). Renders null silently when the obshtina
 // code isn't BGS04.
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { HardHat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useBurgasCapitalProgram } from "@/data/budget/useBudget";
 
-const BURGAS_CAPITAL_LATEST_YEAR = 2025;
+// Burgas's 2024 and 2023 budget dockets ship the capital programme
+// inside a 133-page "Приложения.pdf" bundle, with multi-line wrapping
+// of project descriptions that the existing parser doesn't handle —
+// those years are intentionally absent from the picker. 2022 reverts
+// to the older MINFIN-template XLSX, which the burgas_2022.ts parser
+// reads directly.
+const BURGAS_CAPITAL_YEARS = [2025, 2022] as const;
+const BURGAS_CAPITAL_LATEST_YEAR = BURGAS_CAPITAL_YEARS[0];
 const BURGAS_OBSHTINA = "BGS04";
 
 const compactEur = (v: number): string => {
@@ -61,8 +68,9 @@ export const BurgasCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("bg") ? "bg" : "en";
   const enabled = obshtinaCode === BURGAS_OBSHTINA;
+  const [year, setYear] = useState<number>(BURGAS_CAPITAL_LATEST_YEAR);
   const { data, isLoading } = useBurgasCapitalProgram(
-    enabled ? BURGAS_CAPITAL_LATEST_YEAR : undefined,
+    enabled ? year : undefined,
   );
 
   if (!enabled || isLoading || !data) return null;
@@ -80,10 +88,19 @@ export const BurgasCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <HardHat className="h-4 w-4" />
           {t("burgas_capital_tile_title")}
-          <span className="text-xs text-muted-foreground font-normal ml-1">
-            {data.fiscalYear}
-            {lang === "bg" ? " г." : ""}
-          </span>
+          <select
+            value={year}
+            onChange={(e) => setYear(Number(e.target.value))}
+            className="ml-auto text-xs font-normal bg-transparent border rounded px-1.5 py-0.5 tabular-nums cursor-pointer hover:bg-muted/40"
+            aria-label={t("sofia_capital_year_picker_label")}
+          >
+            {BURGAS_CAPITAL_YEARS.map((y) => (
+              <option key={y} value={y}>
+                {y}
+                {lang === "bg" ? " г." : ""}
+              </option>
+            ))}
+          </select>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {t("burgas_capital_tile_intro")}
