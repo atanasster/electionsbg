@@ -71,32 +71,30 @@ const StatusChip: FC<{ status: string }> = ({ status }) => {
   );
 };
 
+// A row links to the per-contract page (`/funds/contract/{number}`). The
+// per-contract shard there also exposes the beneficiary as a clickable
+// link, so this row keeps a single, consistent click target.
 const ContractRow: FC<{ row: FundsProjectsTopContract }> = ({ row }) => {
-  const body = (
-    <div className="flex items-start gap-2">
-      <div className="flex-1 min-w-0">
-        <div className="text-sm font-medium line-clamp-2">{row.title}</div>
-        <div className="text-xs text-muted-foreground line-clamp-1">
-          {row.beneficiaryName} · {row.programName}
-        </div>
-      </div>
-      <div className="flex flex-col items-end gap-1 shrink-0">
-        <div className="text-sm font-medium tabular-nums">
-          {compactEur(row.totalEur)}
-        </div>
-        <StatusChip status={row.status} />
-      </div>
-    </div>
-  );
-  return row.beneficiaryEik ? (
+  return (
     <Link
-      to={`/company/${row.beneficiaryEik}`}
+      to={`/funds/contract/${encodeURIComponent(row.contractNumber)}`}
       className="block rounded p-2 -mx-2 hover:bg-muted/50 transition-colors"
     >
-      {body}
+      <div className="flex items-start gap-2">
+        <div className="flex-1 min-w-0">
+          <div className="text-sm font-medium line-clamp-2">{row.title}</div>
+          <div className="text-xs text-muted-foreground line-clamp-1">
+            {row.beneficiaryName} · {row.programName}
+          </div>
+        </div>
+        <div className="flex flex-col items-end gap-1 shrink-0">
+          <div className="text-sm font-medium tabular-nums">
+            {compactEur(row.totalEur)}
+          </div>
+          <StatusChip status={row.status} />
+        </div>
+      </div>
     </Link>
-  ) : (
-    <div className="p-2 -mx-2">{body}</div>
   );
 };
 

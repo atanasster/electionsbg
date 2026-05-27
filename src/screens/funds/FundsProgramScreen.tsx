@@ -275,34 +275,29 @@ const TopContracts: FC<{
       <CardContent className="p-3 md:p-4">
         <ul className="divide-y divide-border/60">
           {rows.map((c, i) => (
-            <li key={c.contractNumber} className="py-2">
-              <div className="flex items-start gap-3 text-sm">
-                <span className="w-5 shrink-0 text-xs tabular-nums text-muted-foreground pt-0.5">
-                  {i + 1}
-                </span>
-                <div className="flex-1 min-w-0">
-                  <div className="font-medium line-clamp-2">{c.title}</div>
-                  <div className="text-xs text-muted-foreground line-clamp-1">
-                    {c.beneficiaryEik ? (
-                      <Link
-                        to={`/company/${c.beneficiaryEik}`}
-                        className="hover:underline"
-                      >
-                        {c.beneficiaryName}
-                      </Link>
-                    ) : (
-                      c.beneficiaryName
-                    )}{" "}
-                    · {c.locationRaw}
+            <li key={c.contractNumber}>
+              <Link
+                to={`/funds/contract/${encodeURIComponent(c.contractNumber)}`}
+                className="block rounded -mx-2 px-2 py-2 hover:bg-muted/50 transition-colors"
+              >
+                <div className="flex items-start gap-3 text-sm">
+                  <span className="w-5 shrink-0 text-xs tabular-nums text-muted-foreground pt-0.5">
+                    {i + 1}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium line-clamp-2">{c.title}</div>
+                    <div className="text-xs text-muted-foreground line-clamp-1">
+                      {c.beneficiaryName} · {c.locationRaw}
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-end gap-1 shrink-0">
+                    <div className="text-sm font-medium tabular-nums">
+                      {compactEur(c.totalEur)}
+                    </div>
+                    <StatusChip status={c.status} />
                   </div>
                 </div>
-                <div className="flex flex-col items-end gap-1 shrink-0">
-                  <div className="text-sm font-medium tabular-nums">
-                    {compactEur(c.totalEur)}
-                  </div>
-                  <StatusChip status={c.status} />
-                </div>
-              </div>
+              </Link>
             </li>
           ))}
         </ul>

@@ -208,6 +208,40 @@ export interface FundsProjectsMuniMapFile {
   munis: FundsProjectsMuniMapRow[];
 }
 
+// Single-contract record — one row of the ИСУН Project register with its
+// resolved location attached. Backed by
+// /funds/projects/by-contract/{contractNumber}.json (one file per signed
+// contract, ~1-2 KB each). Mirrors ResolvedFundsProject in
+// scripts/funds/projects_types.ts.
+export interface FundsProjectsContractFile {
+  programCode: string;
+  programName: string;
+  beneficiaryEik: string | null;
+  beneficiaryName: string;
+  orgType: string;
+  orgKind: string;
+  orgForm: string;
+  hqAddress: string;
+  locationRaw: string;
+  contractNumber: string;
+  title: string;
+  totalEur: number;
+  grantEur: number;
+  ownCofinanceEur: number;
+  paidEur: number;
+  durationMonths: number;
+  status: string;
+  location: {
+    kind: "settlement" | "muni" | "region" | "national" | "unresolved";
+    raw: string;
+    ekatte?: string;
+    munis?: string[];
+    oblasts?: string[];
+    nutsCodes?: string[];
+    ambiguousCandidates?: string[];
+  };
+}
+
 // Slim drill-down payload for a single programme. Backed by
 // /funds/projects/by-program/{code}-summary.json — see
 // scripts/funds/projects_types.ts for the source of truth.

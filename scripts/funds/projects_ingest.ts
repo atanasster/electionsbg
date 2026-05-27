@@ -36,6 +36,7 @@ const BY_EKATTE_DIR = path.join(PROJECTS_DIR, "by-ekatte");
 const BY_MUNI_DIR = path.join(PROJECTS_DIR, "by-muni");
 const BY_EIK_DIR = path.join(PROJECTS_DIR, "by-eik");
 const BY_PROGRAM_DIR = path.join(PROJECTS_DIR, "by-program");
+const BY_CONTRACT_DIR = path.join(PROJECTS_DIR, "by-contract");
 const INDEX_FILE = path.join(PROJECTS_DIR, "index.json");
 const MULTI_LOC_FILE = path.join(PROJECTS_DIR, "multi_location.json");
 const MUNI_MAP_FILE = path.join(PROJECTS_DIR, "muni-map.json");
@@ -788,6 +789,24 @@ const main = async (args: MainArgs): Promise<void> => {
     eikShardCount += 1;
   }
   console.log(`→ wrote ${eikShardCount} per-EIK shard(s)`);
+
+  // 8b. Per-contract shards — one file per signed contract. Backs the
+  // /funds/contract/{number} drill-down page. Each file is ~1-2 KB; the
+  // full ~80k-file tree (~160 MB) is gitignored and ships to the GCS
+  // bucket like the other per-X shards. ContractNumbers like
+  // "BG16RFOP002-2.002-0393" use only [-.0-9A-Z] (verified at ingest),
+  // so they're safe both as filenames and as URL path segments.
+  resetDir(BY_CONTRACT_DIR);
+  let contractShardCount = 0;
+  for (const r of resolved) {
+    if (!r.contractNumber) continue;
+    fs.writeFileSync(
+      path.join(BY_CONTRACT_DIR, `${r.contractNumber}.json`),
+      canonicalJson(r),
+    );
+    contractShardCount += 1;
+  }
+  console.log(`→ wrote ${contractShardCount} per-contract shard(s)`);
 
   // 9. Multi-location file — region / national / unresolved rows that can't
   // attach to a single муни. Kept whole so a future "horizontal projects"
