@@ -5,13 +5,17 @@
 // the year-end execution report ("Отчет капиталови разходи"), not
 // the planned-programme, so the headline reflects executed amounts.
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { HardHat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useVidinCapitalProgram } from "@/data/budget/useBudget";
 
-const VIDIN_CAPITAL_LATEST_YEAR = 2023;
+// Vidin publishes year-end execution reports (Отчет за капиталови
+// разходи) as .doc inside RAR archives. 2022 and 2023 are on disk;
+// older years exist on vidin.bg but haven't been operator-fetched.
+const VIDIN_CAPITAL_YEARS = [2023, 2022] as const;
+const VIDIN_CAPITAL_LATEST_YEAR = VIDIN_CAPITAL_YEARS[0];
 const VIDIN_OBSHTINA = "VID09";
 
 const compactEur = (v: number): string => {
@@ -27,8 +31,9 @@ export const VidinCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("bg") ? "bg" : "en";
   const enabled = obshtinaCode === VIDIN_OBSHTINA;
+  const [year, setYear] = useState<number>(VIDIN_CAPITAL_LATEST_YEAR);
   const { data, isLoading } = useVidinCapitalProgram(
-    enabled ? VIDIN_CAPITAL_LATEST_YEAR : undefined,
+    enabled ? year : undefined,
   );
 
   if (!enabled || isLoading || !data) return null;
@@ -46,10 +51,19 @@ export const VidinCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <HardHat className="h-4 w-4" />
           {t("vidin_capital_tile_title")}
-          <span className="text-xs text-muted-foreground font-normal ml-1">
-            {data.fiscalYear}
-            {lang === "bg" ? " г." : ""}
-          </span>
+          <select
+            value={year}
+            onChange={(e) => setYear(Number(e.target.value))}
+            className="ml-auto text-xs font-normal bg-transparent border rounded px-1.5 py-0.5 tabular-nums cursor-pointer hover:bg-muted/40"
+            aria-label={t("sofia_capital_year_picker_label")}
+          >
+            {VIDIN_CAPITAL_YEARS.map((y) => (
+              <option key={y} value={y}>
+                {y}
+                {lang === "bg" ? " г." : ""}
+              </option>
+            ))}
+          </select>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {t("vidin_capital_tile_intro")}

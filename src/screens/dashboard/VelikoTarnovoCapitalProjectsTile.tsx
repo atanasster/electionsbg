@@ -6,13 +6,16 @@
 // програма), parsed directly via veliko_tarnovo.ts (no OCR — clean
 // XLSX). 2025 plan totals ~€47.1M across 382 projects, ~70% tagged.
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { HardHat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useVelikoTarnovoCapitalProgram } from "@/data/budget/useBudget";
 
-const VT_CAPITAL_LATEST_YEAR = 2025;
+// 2024 and 2025 are on disk; 2023 and earlier are not on the rebuilt
+// veliko-tarnovo.bg CMS (all 404). See parser header for details.
+const VT_CAPITAL_YEARS = [2025, 2024] as const;
+const VT_CAPITAL_LATEST_YEAR = VT_CAPITAL_YEARS[0];
 const VT_OBSHTINA = "VTR04";
 
 const compactEur = (v: number): string => {
@@ -28,8 +31,9 @@ export const VelikoTarnovoCapitalProjectsTile: FC<{
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("bg") ? "bg" : "en";
   const enabled = obshtinaCode === VT_OBSHTINA;
+  const [year, setYear] = useState<number>(VT_CAPITAL_LATEST_YEAR);
   const { data, isLoading } = useVelikoTarnovoCapitalProgram(
-    enabled ? VT_CAPITAL_LATEST_YEAR : undefined,
+    enabled ? year : undefined,
   );
 
   if (!enabled || isLoading || !data) return null;
@@ -47,10 +51,19 @@ export const VelikoTarnovoCapitalProjectsTile: FC<{
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <HardHat className="h-4 w-4" />
           {t("veliko_tarnovo_capital_tile_title")}
-          <span className="text-xs text-muted-foreground font-normal ml-1">
-            {data.fiscalYear}
-            {lang === "bg" ? " г." : ""}
-          </span>
+          <select
+            value={year}
+            onChange={(e) => setYear(Number(e.target.value))}
+            className="ml-auto text-xs font-normal bg-transparent border rounded px-1.5 py-0.5 tabular-nums cursor-pointer hover:bg-muted/40"
+            aria-label={t("sofia_capital_year_picker_label")}
+          >
+            {VT_CAPITAL_YEARS.map((y) => (
+              <option key={y} value={y}>
+                {y}
+                {lang === "bg" ? " г." : ""}
+              </option>
+            ))}
+          </select>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {t("veliko_tarnovo_capital_tile_intro")}
