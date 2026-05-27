@@ -43,6 +43,7 @@ import type {
   VarnaCapitalProgramFile,
   VelikoTarnovoCapitalProgramFile,
   KarlovoCapitalProgramFile,
+  KazanlakCapitalProgramFile,
   VidinCapitalProgramFile,
   VatBreakdownFile,
 } from "./types";
@@ -626,6 +627,22 @@ export const useKarlovoCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<KarlovoCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/karlovo.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Казанлък — Stara Zagora oblast município (SZR12, 20 settlements).
+// Source is the council's "Приложения" PDF (Приложение №4 — Проект на
+// инвестиционна програма); URL discovered via the kazanlak.bg Nuxt
+// _payload.json. OCR via Gemini Vision. 2025 plan covers 201 projects
+// totalling ~€7.9M.
+export const useKazanlakCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "kazanlak", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<KazanlakCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/kazanlak.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

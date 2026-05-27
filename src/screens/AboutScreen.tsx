@@ -341,6 +341,10 @@ export const AboutScreen = () => {
                   label={t("procurement_aop_debarred_source")}
                 />
               </ul>
+              <p className="mt-3 text-xs text-muted-foreground">
+                {t("about_procurement_by_settlement_note") ||
+                  'Procurement by settlement (/procurement/by-settlement) pins each contract to the buyer\'s headquarters. The classifier excludes central ministries, state agencies and nationally-operating state companies (Sofia HQ, national footprint) — they roll up into a separate "national procurement" card. The buyer-HQ → EKATTE resolver is postal-primary against the canonical NSI settlement catalog (5,267 entries with postal codes); 99.9% of buyers in the 2026 sample resolve to a single settlement. The tier classifier uses name heuristics plus a curated EIK override table for the long tail.'}
+              </p>
             </DataGroup>
 
             <DataGroup title={t("eu_funds_section")}>
@@ -501,6 +505,10 @@ export const AboutScreen = () => {
                 <SourceItem
                   href="https://karlovo.bg/inc/service/service-download-file.php?identifier=6d56fbd5-f78b-4a49-a311-a0fff162c643"
                   label={t("budget_capital_karlovo_source")}
+                />
+                <SourceItem
+                  href="https://www.kazanlak.bg/common/images/src/81/file/Приложения.pdf"
+                  label={t("budget_capital_kazanlak_source")}
                 />
               </ul>
             </DataGroup>

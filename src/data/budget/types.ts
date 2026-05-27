@@ -1429,6 +1429,50 @@ export interface VelikoTarnovoCapitalProgramFile {
   bySettlement: VelikoTarnovoCapitalSettlementRollup[];
 }
 
+// Казанлък — single-município (SZR12, EKATTE 35167) in Stara Zagora
+// oblast. 20 settlements (3 towns: Казанлък, Крън, Шипка + 17 villages).
+// Source is the council's "Приложения" PDF that accompanies the adopted
+// 2025 budget — born-digital, 17 pages, with the capital programme
+// (Приложение №4 — "Проект на инвестиционна програма и текущи ремонти")
+// on pages 9-17. The site (kazanlak.bg) is Nuxt-rendered; the file URL
+// was discovered via the page's _payload.json. The XLS budget file is
+// password-protected, so we use the PDF. OCR via Gemini Vision.
+// 2025: 201 projects, ~€7.9M (matches "Общо за Общината" exactly).
+export interface KazanlakCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface KazanlakCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface KazanlakCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: KazanlakCapitalProject[];
+  bySettlement: KazanlakCapitalSettlementRollup[];
+}
+
 // Карлово — single-município (PDV13, EKATTE 36498) in Plovdiv oblast.
 // 27 settlements (4 towns: Карлово, Калофер, Клисура, Баня + 23 villages).
 // Source is a clean XLSX (Приложение № 7) on karlovo.bg served via the

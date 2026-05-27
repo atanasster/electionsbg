@@ -1,0 +1,2811 @@
+{
+  "fiscalYear": 2025,
+  "generatedAt": "2026-05-27T17:23:03.390Z",
+  "source": {
+    "publisher": "Община Казанлък",
+    "documentTitle": "Проект на инвестиционна програма и текущи ремонти за 2025 г. (Приложение №4)",
+    "url": "https://www.kazanlak.bg/common/images/src/81/file/Приложения.pdf",
+    "fetchedAt": "2026-05-27T17:23:03.391Z",
+    "ocrModel": "gemini-2.5-pro",
+    "ocrGeneratedAt": "2026-05-27T17:22:08.333Z"
+  },
+  "municipalityCode": "SZR12",
+  "municipalityNameBg": "Казанлък",
+  "municipalityNameEn": "Kazanlak",
+  "currency": "BGN",
+  "recapitulation": {
+    "total": {
+      "amount": 15364852,
+      "currency": "BGN",
+      "amountEur": 7855924
+    }
+  },
+  "publishedRecap": {
+    "amount": 15364852,
+    "currency": "BGN",
+    "amountEur": 7855924
+  },
+  "projects": [
+    {
+      "id": 1,
+      "name": "Реконструкция и подмяна на водопроводната мрежа на гр. Шипка, община Казанлък - Етап 1",
+      "settlement": "гр. Шипка",
+      "total": {
+        "amount": 50640,
+        "currency": "BGN",
+        "amountEur": 25892
+      }
+    },
+    {
+      "id": 2,
+      "name": "Стълбове за улично осветление",
+      "settlement": null,
+      "total": {
+        "amount": 393708,
+        "currency": "BGN",
+        "amountEur": 201300
+      }
+    },
+    {
+      "id": 3,
+      "name": "Остатък за плащане по фактура, за която Община е \"пазач\" във връзка с запор. (обект пешеходна зона)",
+      "settlement": null,
+      "total": {
+        "amount": 49049,
+        "currency": "BGN",
+        "amountEur": 25078
+      }
+    },
+    {
+      "id": 4,
+      "name": "Проект „Съхранение и опазване на сградата на читалище \"Светлина 1861\" гр. Шипка“",
+      "settlement": "гр. Шипка",
+      "total": {
+        "amount": 11496,
+        "currency": "BGN",
+        "amountEur": 5878
+      }
+    },
+    {
+      "id": 5,
+      "name": "Разширение база на електробуси и подготовка монтаж на зарядни станции БТКП",
+      "settlement": null,
+      "total": {
+        "amount": 190035,
+        "currency": "BGN",
+        "amountEur": 97163
+      }
+    },
+    {
+      "id": 6,
+      "name": "Разширение база на елетробуси и подготовка монтаж на зарядни станции бетонна площадка",
+      "settlement": null,
+      "total": {
+        "amount": 48800,
+        "currency": "BGN",
+        "amountEur": 24951
+      }
+    },
+    {
+      "id": 7,
+      "name": "Газификация на ДГ №16",
+      "settlement": null,
+      "total": {
+        "amount": 120280,
+        "currency": "BGN",
+        "amountEur": 61498
+      }
+    },
+    {
+      "id": 8,
+      "name": "Автомобил 1 брой ЦНСТДМУ, с. Бузовград",
+      "settlement": "с. Бузовград",
+      "total": {
+        "amount": 30000,
+        "currency": "BGN",
+        "amountEur": 15339
+      }
+    },
+    {
+      "id": 9,
+      "name": "Витрини 5 бр., ИМ Искра",
+      "settlement": null,
+      "total": {
+        "amount": 45000,
+        "currency": "BGN",
+        "amountEur": 23008
+      }
+    },
+    {
+      "id": 10,
+      "name": "Изграждане на физкултурен салон ОУ А. Страшимиров",
+      "settlement": null,
+      "total": {
+        "amount": 26100,
+        "currency": "BGN",
+        "amountEur": 13345
+      }
+    },
+    {
+      "id": 11,
+      "name": "Изграждане на физкултурен салон към ОУ „Христо Ботев\", с. Енина",
+      "settlement": "с. Енина",
+      "total": {
+        "amount": 40000,
+        "currency": "BGN",
+        "amountEur": 20452
+      }
+    },
+    {
+      "id": 12,
+      "name": "Изграждане на физкултурен салон на ОУ „Мати Болгария\", гр. Казанлък",
+      "settlement": "гр. Казанлък",
+      "total": {
+        "amount": 205000,
+        "currency": "BGN",
+        "amountEur": 104815
+      }
+    },
+    {
+      "id": 13,
+      "name": "Изграждане на нов физкултурен салон към ОУ „Св. Паисий Хилендарски\", с. Хаджидимитрово",
+      "settlement": "с. Хаджидимитрово",
+      "total": {
+        "amount": 71000,
+        "currency": "BGN",
+        "amountEur": 36302
+      }
+    },
+    {
+      "id": 14,
+      "name": "Сушилня, ДПЛД \"Д.Папазов\"",
+      "settlement": null,
+      "total": {
+        "amount": 9760,
+        "currency": "BGN",
+        "amountEur": 4990
+      }
+    },
+    {
+      "id": 15,
+      "name": "Основен ремонт спортна площадка ОУ Г. Кирков",
+      "settlement": null,
+      "total": {
+        "amount": 126000,
+        "currency": "BGN",
+        "amountEur": 64423
+      }
+    },
+    {
+      "id": 16,
+      "name": "Ремонт на кмество Голямо Дряново - етап ІІІ",
+      "settlement": "с. Голямо Дряново",
+      "total": {
+        "amount": 78200,
+        "currency": "BGN",
+        "amountEur": 39983
+      }
+    },
+    {
+      "id": 17,
+      "name": "Проектиране и ремонт на общинска сграда за колеж етап І",
+      "settlement": null,
+      "total": {
+        "amount": 500000,
+        "currency": "BGN",
+        "amountEur": 255646
+      }
+    },
+    {
+      "id": 18,
+      "name": "Тракторна косачка 1 бр., км. Крън план-сметка",
+      "settlement": "гр. Крън",
+      "total": {
+        "amount": 5000,
+        "currency": "BGN",
+        "amountEur": 2556
+      }
+    },
+    {
+      "id": 19,
+      "name": "Самоходна тракторна косачка - 1 бр., км.Г. Черковище план-сметка",
+      "settlement": null,
+      "total": {
+        "amount": 5000,
+        "currency": "BGN",
+        "amountEur": 2556
+      }
+    },
+    {
+      "id": 20,
+      "name": "Компютърна конфигурация 1 бр., км. Кънчево",
+      "settlement": "с. Кънчево",
+      "total": {
+        "amount": 1500,
+        "currency": "BGN",
+        "amountEur": 767
+      }
+    },
+    {
+      "id": 21,
+      "name": "Машина за събиране на листа 1 бр., км. Розово",
+      "settlement": "с. Розово",
+      "total": {
+        "amount": 2000,
+        "currency": "BGN",
+        "amountEur": 1023
+      }
+    },
+    {
+      "id": 22,
+      "name": "Климатик 1 бр. км. Ръжена",
+      "settlement": "с. Ръжена",
+      "total": {
+        "amount": 1500,
+        "currency": "BGN",
+        "amountEur": 767
+      }
+    },
+    {
+      "id": 23,
+      "name": "Компютър 1 бр., км. Хаджидимитрово",
+      "settlement": "с. Хаджидимитрово",
+      "total": {
+        "amount": 1500,
+        "currency": "BGN",
+        "amountEur": 767
+      }
+    },
+    {
+      "id": 24,
+      "name": "Софтуер за нуждите на Общинска администрация",
+      "settlement": null,
+      "total": {
+        "amount": 8000,
+        "currency": "BGN",
+        "amountEur": 4090
+      }
+    },
+    {
+      "id": 25,
+      "name": "Офис мебели, зала \"ИНФРА\" - 23 броя",
+      "settlement": null,
+      "total": {
+        "amount": 63000,
+        "currency": "BGN",
+        "amountEur": 32211
+      }
+    },
+    {
+      "id": 26,
+      "name": "Енергийно обновяване сградата на Военен отдел",
+      "settlement": null,
+      "total": {
+        "amount": 26671,
+        "currency": "BGN",
+        "amountEur": 13637
+      }
+    },
+    {
+      "id": 27,
+      "name": "Изграждане на спален корпус и покриване на заден двор на ОУ с. Розово - Академия за таланти етап VI (стр. наздор и съфинан по КР)",
+      "settlement": "с. Розово",
+      "total": {
+        "amount": 170054,
+        "currency": "BGN",
+        "amountEur": 86947
+      }
+    },
+    {
+      "id": 28,
+      "name": "Мерки за ЕЕ ПХГ \"Св. Св. Кирил и Методий\"",
+      "settlement": null,
+      "total": {
+        "amount": 1123130,
+        "currency": "BGN",
+        "amountEur": 574247
+      }
+    },
+    {
+      "id": 29,
+      "name": "Ремонт ОДК \"ИВ. Рилски\"",
+      "settlement": null,
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 30,
+      "name": "Капиталов трансфер МБАЛ \"Д-р Хр. Стамболски\" - парен стерилизатор",
+      "settlement": null,
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 31,
+      "name": "Капиталов трансфер ДКЦ Поликлиника-Казанлък дигитален мамограф\"",
+      "settlement": "гр. Казанлък",
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 32,
+      "name": "Автомобили (проект-преходен остатък) - 3 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 158948,
+        "currency": "BGN",
+        "amountEur": 81269
+      }
+    },
+    {
+      "id": 33,
+      "name": "Канализация на ул. Цанко Минков авт. и строителен надзор",
+      "settlement": null,
+      "total": {
+        "amount": 30741,
+        "currency": "BGN",
+        "amountEur": 15718
+      }
+    },
+    {
+      "id": 34,
+      "name": "Изграждане на ул. \"Иглика\"",
+      "settlement": null,
+      "total": {
+        "amount": 320000,
+        "currency": "BGN",
+        "amountEur": 163613
+      }
+    },
+    {
+      "id": 35,
+      "name": "Проектиране на кръгово кръстовище между ул. \"Ген. Столевтов\" и \"Ф. Вожели\"",
+      "settlement": null,
+      "total": {
+        "amount": 18000,
+        "currency": "BGN",
+        "amountEur": 9203
+      }
+    },
+    {
+      "id": 36,
+      "name": "Проектиране на ул. Москва и ул. Севт III",
+      "settlement": null,
+      "total": {
+        "amount": 17328,
+        "currency": "BGN",
+        "amountEur": 8860
+      }
+    },
+    {
+      "id": 37,
+      "name": "Изграждане на междублоково пространство между ул. \"Цар Иван Шишман\", ул. \"К. Величков\" и ул. \"Кл. Охридски\"",
+      "settlement": null,
+      "total": {
+        "amount": 375031,
+        "currency": "BGN",
+        "amountEur": 191750
+      }
+    },
+    {
+      "id": 38,
+      "name": "Изграждане на междублоково пространство между ул. \"Трапезица\", бул. \"Н. Петков\" и бул. \"Ал. Батентерг\"",
+      "settlement": null,
+      "total": {
+        "amount": 510500,
+        "currency": "BGN",
+        "amountEur": 261015
+      }
+    },
+    {
+      "id": 39,
+      "name": "Изграждане на междублоково пространство между ул. \"Ф. Вожели\", ул. \"Войнишка\", ул. \"У. Гладстон\" и ул. \"Възраждане\"",
+      "settlement": null,
+      "total": {
+        "amount": 524500,
+        "currency": "BGN",
+        "amountEur": 268173
+      }
+    },
+    {
+      "id": 40,
+      "name": "Изграждане на междублоково пространство ул. \"24-ти Август\"",
+      "settlement": null,
+      "total": {
+        "amount": 231000,
+        "currency": "BGN",
+        "amountEur": 118108
+      }
+    },
+    {
+      "id": 41,
+      "name": "Три паркинга на ул.\"Москва\" в зоната под надлез \"КАТЕКС\"",
+      "settlement": null,
+      "total": {
+        "amount": 287000,
+        "currency": "BGN",
+        "amountEur": 146741
+      }
+    },
+    {
+      "id": 42,
+      "name": "Отчуждителни процедури гробищен парк и пътища",
+      "settlement": null,
+      "total": {
+        "amount": 40000,
+        "currency": "BGN",
+        "amountEur": 20452
+      }
+    },
+    {
+      "id": 43,
+      "name": "Проектиране и изграждане на автогара",
+      "settlement": null,
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 44,
+      "name": "Паркомати за платено паркране - 4 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 59900,
+        "currency": "BGN",
+        "amountEur": 30626
+      }
+    },
+    {
+      "id": 45,
+      "name": "Комбинирано детско съоръжение, км. Копринка парк център",
+      "settlement": "с. Копринка",
+      "total": {
+        "amount": 13000,
+        "currency": "BGN",
+        "amountEur": 6647
+      }
+    },
+    {
+      "id": 46,
+      "name": "Видеонаблюдение, км. Овощник",
+      "settlement": "с. Овощник",
+      "total": {
+        "amount": 1900,
+        "currency": "BGN",
+        "amountEur": 971
+      }
+    },
+    {
+      "id": 47,
+      "name": "План за улична регулация (сверено от ул. Толиати)",
+      "settlement": null,
+      "total": {
+        "amount": 17000,
+        "currency": "BGN",
+        "amountEur": 8692
+      }
+    },
+    {
+      "id": 48,
+      "name": "Изработване на ПУП и идейни проекти за нови паркинги и гаражи, включително ПУП-ове Община Казанлък",
+      "settlement": "гр. Казанлък",
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 49,
+      "name": "Хладилно помещение оранжерии Д. Изворово",
+      "settlement": null,
+      "total": {
+        "amount": 25000,
+        "currency": "BGN",
+        "amountEur": 12782
+      }
+    },
+    {
+      "id": 50,
+      "name": "Соларни панели оранжерии Д. Изворово",
+      "settlement": null,
+      "total": {
+        "amount": 4000,
+        "currency": "BGN",
+        "amountEur": 2045
+      }
+    },
+    {
+      "id": 51,
+      "name": "Ехограф за нуждите на приют за животни",
+      "settlement": null,
+      "total": {
+        "amount": 5000,
+        "currency": "BGN",
+        "amountEur": 2556
+      }
+    },
+    {
+      "id": 52,
+      "name": "Хематологичен анализатор за нуждите на приют за животни",
+      "settlement": null,
+      "total": {
+        "amount": 7000,
+        "currency": "BGN",
+        "amountEur": 3579
+      }
+    },
+    {
+      "id": 53,
+      "name": "Биохимичен анализатор за нуждите на приют за животни",
+      "settlement": null,
+      "total": {
+        "amount": 4000,
+        "currency": "BGN",
+        "amountEur": 2045
+      }
+    },
+    {
+      "id": 54,
+      "name": "Вакуумна машина за почистване 1 бр.- КДиПИС",
+      "settlement": null,
+      "total": {
+        "amount": 1600,
+        "currency": "BGN",
+        "amountEur": 818
+      }
+    },
+    {
+      "id": 55,
+      "name": "Къртач SDS-MAX - 1 бр.- КДиПИС",
+      "settlement": null,
+      "total": {
+        "amount": 1750,
+        "currency": "BGN",
+        "amountEur": 895
+      }
+    },
+    {
+      "id": 56,
+      "name": "Генератор малък 1 бр.- КДиПИС",
+      "settlement": null,
+      "total": {
+        "amount": 2000,
+        "currency": "BGN",
+        "amountEur": 1023
+      }
+    },
+    {
+      "id": 57,
+      "name": "Перфоратор, професионален акумулаторен 1 бр. КДИПИС",
+      "settlement": null,
+      "total": {
+        "amount": 1200,
+        "currency": "BGN",
+        "amountEur": 614
+      }
+    },
+    {
+      "id": 58,
+      "name": "Генератов, безинов 1 брой- КДиПИС",
+      "settlement": null,
+      "total": {
+        "amount": 3500,
+        "currency": "BGN",
+        "amountEur": 1790
+      }
+    },
+    {
+      "id": 59,
+      "name": "Моторен триеон, 1 бр. - ОП КДИПИС",
+      "settlement": null,
+      "total": {
+        "amount": 1860,
+        "currency": "BGN",
+        "amountEur": 951
+      }
+    },
+    {
+      "id": 60,
+      "name": "Прътова косачка 2 бр. ОП КДиПИС",
+      "settlement": null,
+      "total": {
+        "amount": 3120,
+        "currency": "BGN",
+        "amountEur": 1595
+      }
+    },
+    {
+      "id": 61,
+      "name": "Бензинова косачка 3 бр. ОП КДИПИС",
+      "settlement": null,
+      "total": {
+        "amount": 3792,
+        "currency": "BGN",
+        "amountEur": 1939
+      }
+    },
+    {
+      "id": 62,
+      "name": "Тримери 10 бр. ОП КДиПИС",
+      "settlement": null,
+      "total": {
+        "amount": 17000,
+        "currency": "BGN",
+        "amountEur": 8692
+      }
+    },
+    {
+      "id": 63,
+      "name": "Помпи сондажи 6 броя (НОВО от ПЕТЯ)",
+      "settlement": null,
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 64,
+      "name": "Контейнер за разделно събиране 5 бр., ОП КДиПИС план-сметка \"Чистота\"",
+      "settlement": null,
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 65,
+      "name": "Контейнер български 4 куб.м.- 30 бр., ОП КДиПИС план-сметка \"Чистота\"",
+      "settlement": null,
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 66,
+      "name": "Товарен автомобил раменен контейнеровоз, план-сметка \"Чистота\"",
+      "settlement": null,
+      "total": {
+        "amount": 207760,
+        "currency": "BGN",
+        "amountEur": 106226
+      }
+    },
+    {
+      "id": 67,
+      "name": "Самосвал 3.5 т. 2 броя, план-сметка \"Чистота\"",
+      "settlement": null,
+      "total": {
+        "amount": 215600,
+        "currency": "BGN",
+        "amountEur": 110235
+      }
+    },
+    {
+      "id": 68,
+      "name": "Сметосъбирач 8 куб.м. 1 бр., план-сметка \"Чистота\"",
+      "settlement": null,
+      "total": {
+        "amount": 205800,
+        "currency": "BGN",
+        "amountEur": 105224
+      }
+    },
+    {
+      "id": 69,
+      "name": "Лек автомобил (пикап) - 4*4, план-сметка \"Чистота\"",
+      "settlement": null,
+      "total": {
+        "amount": 95000,
+        "currency": "BGN",
+        "amountEur": 48573
+      }
+    },
+    {
+      "id": 70,
+      "name": "Спициализиран скенер за дигитализация 1бр. ИМ Искра",
+      "settlement": null,
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 71,
+      "name": "Климатик за админидтрация 1 бр., ИМ Искра",
+      "settlement": null,
+      "total": {
+        "amount": 2000,
+        "currency": "BGN",
+        "amountEur": 1023
+      }
+    },
+    {
+      "id": 72,
+      "name": "Влагоуловител 5 бр., ИМ Искра",
+      "settlement": null,
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 73,
+      "name": "Автомобил 1 бр., ИМ Искра",
+      "settlement": null,
+      "total": {
+        "amount": 70000,
+        "currency": "BGN",
+        "amountEur": 35790
+      }
+    },
+    {
+      "id": 74,
+      "name": "Машина за събиране на листа 1 бр., ИМ Искра",
+      "settlement": null,
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 75,
+      "name": "Преносим компютър - 1 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 2000,
+        "currency": "BGN",
+        "amountEur": 1023
+      }
+    },
+    {
+      "id": 76,
+      "name": "Видеонаблюдение 1 бр. за фото клуб Искра, МФИАВИ",
+      "settlement": null,
+      "total": {
+        "amount": 2100,
+        "currency": "BGN",
+        "amountEur": 1074
+      }
+    },
+    {
+      "id": 77,
+      "name": "Видеонаблюдение 1 бр. за, МФИАВИ",
+      "settlement": null,
+      "total": {
+        "amount": 2400,
+        "currency": "BGN",
+        "amountEur": 1227
+      }
+    },
+    {
+      "id": 78,
+      "name": "Климатик изложбена зала 1бр., МФИАВИ",
+      "settlement": null,
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 79,
+      "name": "Коллонни климатици 4 бр. ХГ-Казанлък (по проект)",
+      "settlement": "гр. Казанлък",
+      "total": {
+        "amount": 31745,
+        "currency": "BGN",
+        "amountEur": 16231
+      }
+    },
+    {
+      "id": 80,
+      "name": "Стъклени преградни стени 4 бр. ХГ-Казанлък (по проект)",
+      "settlement": "гр. Казанлък",
+      "total": {
+        "amount": 35186,
+        "currency": "BGN",
+        "amountEur": 17990
+      }
+    },
+    {
+      "id": 81,
+      "name": "Система за контролиран достъп 1 бр. ХГ-Казанлък (по проект)",
+      "settlement": "гр. Казанлък",
+      "total": {
+        "amount": 27036,
+        "currency": "BGN",
+        "amountEur": 13823
+      }
+    },
+    {
+      "id": 82,
+      "name": "Външен рекламен LED монитор 1 бр. ХГ-Казанлък (по проект)",
+      "settlement": "гр. Казанлък",
+      "total": {
+        "amount": 8325,
+        "currency": "BGN",
+        "amountEur": 4257
+      }
+    },
+    {
+      "id": 83,
+      "name": "Кмпютри - 5 бр. ОБ \"Искра\" (проект)",
+      "settlement": null,
+      "total": {
+        "amount": 5550,
+        "currency": "BGN",
+        "amountEur": 2838
+      }
+    },
+    {
+      "id": 84,
+      "name": "Лаптоп - 3 бр. ОБ \"Искра\" (проект)",
+      "settlement": null,
+      "total": {
+        "amount": 3240,
+        "currency": "BGN",
+        "amountEur": 1657
+      }
+    },
+    {
+      "id": 85,
+      "name": "Интерактивен дисплей и OPS модул 1 бр.. ОБ \"Искра\" (проект)",
+      "settlement": null,
+      "total": {
+        "amount": 4440,
+        "currency": "BGN",
+        "amountEur": 2270
+      }
+    },
+    {
+      "id": 86,
+      "name": "Компютърен модул 1 бр.. ОБ \"Искра\" (проект)",
+      "settlement": null,
+      "total": {
+        "amount": 2040,
+        "currency": "BGN",
+        "amountEur": 1043
+      }
+    },
+    {
+      "id": 87,
+      "name": "Образователен софтуер 1 бр.. ОБ \"Искра\" (проект)",
+      "settlement": null,
+      "total": {
+        "amount": 280,
+        "currency": "BGN",
+        "amountEur": 143
+      }
+    },
+    {
+      "id": 88,
+      "name": "Компютър, ОП Казанлък АРТ- бр. 1",
+      "settlement": "гр. Казанлък",
+      "total": {
+        "amount": 5000,
+        "currency": "BGN",
+        "amountEur": 2556
+      }
+    },
+    {
+      "id": 89,
+      "name": "Принтер, ОП Казанлък АРТ - бр. 1",
+      "settlement": "гр. Казанлък",
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 90,
+      "name": "Детски площадки ДГ№1, филиал с. Енина - 3 бр.",
+      "settlement": "с. Енина",
+      "total": {
+        "amount": 25000,
+        "currency": "BGN",
+        "amountEur": 12782
+      }
+    },
+    {
+      "id": 91,
+      "name": "Компюттри 4 бр. ДГ№7",
+      "settlement": null,
+      "total": {
+        "amount": 7200,
+        "currency": "BGN",
+        "amountEur": 3681
+      }
+    },
+    {
+      "id": 92,
+      "name": "Ремонт фасадата на ДГ№11, филиал с. Кънчево",
+      "settlement": "с. Кънчево",
+      "total": {
+        "amount": 18000,
+        "currency": "BGN",
+        "amountEur": 9203
+      }
+    },
+    {
+      "id": 93,
+      "name": "Проектиране и изграждане на осветление ДГ №13",
+      "settlement": null,
+      "total": {
+        "amount": 20350,
+        "currency": "BGN",
+        "amountEur": 10405
+      }
+    },
+    {
+      "id": 94,
+      "name": "Стерилизатор 1бр. ДГ №18",
+      "settlement": null,
+      "total": {
+        "amount": 3100,
+        "currency": "BGN",
+        "amountEur": 1585
+      }
+    },
+    {
+      "id": 95,
+      "name": "Интерактивен под (сензорна стая) 1бр. ДГ №18",
+      "settlement": null,
+      "total": {
+        "amount": 15000,
+        "currency": "BGN",
+        "amountEur": 7669
+      }
+    },
+    {
+      "id": 96,
+      "name": "Сглобяем контейнер - ДЦДУТС",
+      "settlement": null,
+      "total": {
+        "amount": 9000,
+        "currency": "BGN",
+        "amountEur": 4602
+      }
+    },
+    {
+      "id": 97,
+      "name": "Климатици 3 бр. ДЦПЛУ \"М.Стайнов\"",
+      "settlement": null,
+      "total": {
+        "amount": 7877,
+        "currency": "BGN",
+        "amountEur": 4027
+      }
+    },
+    {
+      "id": 98,
+      "name": "Мултимедия ДЦПЛУ \"М.Стайнов\"",
+      "settlement": null,
+      "total": {
+        "amount": 1958,
+        "currency": "BGN",
+        "amountEur": 1001
+      }
+    },
+    {
+      "id": 99,
+      "name": "Лаптоп 3 бр. ДЦПЛУ \"М.Стайнов\"",
+      "settlement": null,
+      "total": {
+        "amount": 3807,
+        "currency": "BGN",
+        "amountEur": 1946
+      }
+    },
+    {
+      "id": 100,
+      "name": "Климатици 8 бр. Дом за стари хора №1, П. Ганини",
+      "settlement": null,
+      "total": {
+        "amount": 30000,
+        "currency": "BGN",
+        "amountEur": 15339
+      }
+    },
+    {
+      "id": 101,
+      "name": "Климатици - 39 броя за детски ясли (ДЯ №4-12 бр, ДЯ№5 - 9бр., ДЯ №6 - 9 бр., ДЯ №8 - 9 бр.)",
+      "settlement": null,
+      "total": {
+        "amount": 128100,
+        "currency": "BGN",
+        "amountEur": 65496
+      }
+    },
+    {
+      "id": 102,
+      "name": "Преасфалтиране на част от ул. \"Пеньо Пенев\" в с. Бузовград",
+      "settlement": "с. Бузовград",
+      "total": {
+        "amount": 57000,
+        "currency": "BGN",
+        "amountEur": 29144
+      }
+    },
+    {
+      "id": 103,
+      "name": "Преасфалтиране на компрометираната част на асф. настилка в с. Горно Изворово",
+      "settlement": "с. Горно Изворово",
+      "total": {
+        "amount": 5900,
+        "currency": "BGN",
+        "amountEur": 3017
+      }
+    },
+    {
+      "id": 104,
+      "name": "Асф. настилка в с. Горно Изворово",
+      "settlement": "с. Горно Изворово",
+      "total": {
+        "amount": 9700,
+        "currency": "BGN",
+        "amountEur": 4960
+      }
+    },
+    {
+      "id": 105,
+      "name": "Преасфалтиране на част от ул. \"Бачо Киро\" в с Горно Черковище",
+      "settlement": "с. Горно Черковище",
+      "total": {
+        "amount": 38600,
+        "currency": "BGN",
+        "amountEur": 19736
+      }
+    },
+    {
+      "id": 106,
+      "name": "Преасфалтиране на част от улица на север от Детската градина в с. Долно Изворово",
+      "settlement": "с. Долно Изворово",
+      "total": {
+        "amount": 17500,
+        "currency": "BGN",
+        "amountEur": 8948
+      }
+    },
+    {
+      "id": 107,
+      "name": "Преасфалтиране на част от ул. \"Младост\" в с. Дунавци",
+      "settlement": "с. Дунавци",
+      "total": {
+        "amount": 18300,
+        "currency": "BGN",
+        "amountEur": 9357
+      }
+    },
+    {
+      "id": 108,
+      "name": "Преасфалтиране на част от ул. \"Стара планина\" в с. Енина",
+      "settlement": "с. Енина",
+      "total": {
+        "amount": 64300,
+        "currency": "BGN",
+        "amountEur": 32876
+      }
+    },
+    {
+      "id": 109,
+      "name": "Ремонт на съществуваща асфалтова настилка с изкърпване на ул. \"Хаджи Димитър Асенов\" в с. Копринка",
+      "settlement": "с. Копринка",
+      "total": {
+        "amount": 22400,
+        "currency": "BGN",
+        "amountEur": 11453
+      }
+    },
+    {
+      "id": 110,
+      "name": "Ремонт на съществуваща асфалтова настилка с изкърпване на ул. \"Ген. Вл. Заимов\" в с. Копринка",
+      "settlement": "с. Копринка",
+      "total": {
+        "amount": 20100,
+        "currency": "BGN",
+        "amountEur": 10277
+      }
+    },
+    {
+      "id": 111,
+      "name": "Ремонт на съществуваща асфалтова настилка с изкърпване на ул. \"Хемус\" в с. Копринка",
+      "settlement": "с. Копринка",
+      "total": {
+        "amount": 28300,
+        "currency": "BGN",
+        "amountEur": 14470
+      }
+    },
+    {
+      "id": 112,
+      "name": "Преасфалтиране на част от ул. \"Роза\" в гр. Крън",
+      "settlement": "гр. Крън",
+      "total": {
+        "amount": 32500,
+        "currency": "BGN",
+        "amountEur": 16617
+      }
+    },
+    {
+      "id": 113,
+      "name": "Преасфалтиране на част от ул. \"Перуника\" в гр. Крън",
+      "settlement": "гр. Крън",
+      "total": {
+        "amount": 56000,
+        "currency": "BGN",
+        "amountEur": 28632
+      }
+    },
+    {
+      "id": 114,
+      "name": "Довършване асфалтиране на ул. \"Дунав\" в с. Кънчево",
+      "settlement": "с. Кънчево",
+      "total": {
+        "amount": 20200,
+        "currency": "BGN",
+        "amountEur": 10328
+      }
+    },
+    {
+      "id": 115,
+      "name": "Поставяне на бордюри за асфалтиране на част от ул. \"Мир\" в с. Кънчево",
+      "settlement": "с. Кънчево",
+      "total": {
+        "amount": 33900,
+        "currency": "BGN",
+        "amountEur": 17333
+      }
+    },
+    {
+      "id": 116,
+      "name": "Довършване асфалтирането на част от ул. \"Орлово гнездо\" в с. Кънчево",
+      "settlement": "с. Кънчево",
+      "total": {
+        "amount": 36400,
+        "currency": "BGN",
+        "amountEur": 18611
+      }
+    },
+    {
+      "id": 117,
+      "name": "Асфалтиране на част от ул. \"Септември\" от кръстовището с ул. \"Г. Тихолов\" до кръстовището с ул. \"Ален Мак\" в с. Овощник",
+      "settlement": "с. Овощник",
+      "total": {
+        "amount": 45000,
+        "currency": "BGN",
+        "amountEur": 23008
+      }
+    },
+    {
+      "id": 118,
+      "name": "Завършване асфалтирането на ул. \"Пролет\" в с. Розово",
+      "settlement": "с. Розово",
+      "total": {
+        "amount": 19500,
+        "currency": "BGN",
+        "amountEur": 9970
+      }
+    },
+    {
+      "id": 119,
+      "name": "Ремонт на тоалетна в парк в с. Розово",
+      "settlement": "с. Розово",
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 120,
+      "name": "Ремонт сграда на автоспирка с. Средногорово (с пормяна на предназначение)",
+      "settlement": "с. Средногорово",
+      "total": {
+        "amount": 8000,
+        "currency": "BGN",
+        "amountEur": 4090
+      }
+    },
+    {
+      "id": 121,
+      "name": "Ремонт на покрива и сградата на НЧ \"Светлина-1928\" в с. Ръжена",
+      "settlement": "с. Ръжена",
+      "total": {
+        "amount": 32700,
+        "currency": "BGN",
+        "amountEur": 16719
+      }
+    },
+    {
+      "id": 122,
+      "name": "Чакълиране на ул. \"Стефан Караджа\" в с. Средногорово",
+      "settlement": "с. Средногорово",
+      "total": {
+        "amount": 7200,
+        "currency": "BGN",
+        "amountEur": 3681
+      }
+    },
+    {
+      "id": 123,
+      "name": "Асфалтиране на част от ул. \"Зорница\" в с. Хаджидимитрово",
+      "settlement": "с. Хаджидимитрово",
+      "total": {
+        "amount": 44000,
+        "currency": "BGN",
+        "amountEur": 22497
+      }
+    },
+    {
+      "id": 124,
+      "name": "Асфалтиране на част от ул. \"Иван Вазов\" в с. Черганово",
+      "settlement": "с. Черганово",
+      "total": {
+        "amount": 26000,
+        "currency": "BGN",
+        "amountEur": 13294
+      }
+    },
+    {
+      "id": 125,
+      "name": "Асфалтиране на част от ул. \"Малуша\" в с. Шейново",
+      "settlement": "с. Шейново",
+      "total": {
+        "amount": 53000,
+        "currency": "BGN",
+        "amountEur": 27098
+      }
+    },
+    {
+      "id": 126,
+      "name": "Асфалтиране/изкърване на ул. \"Шейново\" в гр. Шипка",
+      "settlement": "гр. Шипка",
+      "total": {
+        "amount": 37000,
+        "currency": "BGN",
+        "amountEur": 18918
+      }
+    },
+    {
+      "id": 127,
+      "name": "Частично асфалтирането на отсечка на ул. \"Ген. Скобелев\" в с. Ясеново",
+      "settlement": "с. Ясеново",
+      "total": {
+        "amount": 22200,
+        "currency": "BGN",
+        "amountEur": 11351
+      }
+    },
+    {
+      "id": 128,
+      "name": "Ремонт на зала \"Инфра\" (Общински съвет)",
+      "settlement": null,
+      "total": {
+        "amount": 85000,
+        "currency": "BGN",
+        "amountEur": 43460
+      }
+    },
+    {
+      "id": 129,
+      "name": "Ремонт на тротоари Община Казанлък",
+      "settlement": "гр. Казанлък",
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 130,
+      "name": "Текущ ремонт на участъци на улици кърпежи Община Казанлък",
+      "settlement": "гр. Казанлък",
+      "total": {
+        "amount": 106765,
+        "currency": "BGN",
+        "amountEur": 54588
+      }
+    },
+    {
+      "id": 131,
+      "name": "Ремонт на общинска пътна мрежа IV-ти клас",
+      "settlement": null,
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 132,
+      "name": "Асфалтиране на ул. \"Стара планина\" (пред поликлиниата до кръговото на бул. \"Освобождение\"",
+      "settlement": null,
+      "total": {
+        "amount": 265000,
+        "currency": "BGN",
+        "amountEur": 135492
+      }
+    },
+    {
+      "id": 133,
+      "name": "Асфалтиране на ул. \"П. Ганин\" от ул. \"Кап. Петко Войвода\" до ул. \"Петрова нива\"",
+      "settlement": null,
+      "total": {
+        "amount": 294000,
+        "currency": "BGN",
+        "amountEur": 150320
+      }
+    },
+    {
+      "id": 134,
+      "name": "Асфалтиране на ул. \"Старовекова\" (до ДГ№8)",
+      "settlement": null,
+      "total": {
+        "amount": 88400,
+        "currency": "BGN",
+        "amountEur": 45198
+      }
+    },
+    {
+      "id": 135,
+      "name": "Асфалтиране на ул. \"Братя Жекови\"",
+      "settlement": null,
+      "total": {
+        "amount": 180000,
+        "currency": "BGN",
+        "amountEur": 92033
+      }
+    },
+    {
+      "id": 136,
+      "name": "Изместване на спирка кв. \"Изток\", ул. \"Кап. П. Войвода\"",
+      "settlement": null,
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 137,
+      "name": "Ремонт на таван и стени ІІ-ро ниво спортна зала \"Севтополис\"",
+      "settlement": null,
+      "total": {
+        "amount": 68000,
+        "currency": "BGN",
+        "amountEur": 34768
+      }
+    },
+    {
+      "id": 138,
+      "name": "Междублоково пространство на ул. \"Добри Кехайов\" - 2500 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 264000,
+        "currency": "BGN",
+        "amountEur": 134981
+      }
+    },
+    {
+      "id": 139,
+      "name": "Междублоково пространство бл.27, бл.29 кв. \"Изток\" - 2000 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 124000,
+        "currency": "BGN",
+        "amountEur": 63400
+      }
+    },
+    {
+      "id": 140,
+      "name": "Междублоково пространство бл.35, кв. \"В.Левски\" 1600 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 92000,
+        "currency": "BGN",
+        "amountEur": 47039
+      }
+    },
+    {
+      "id": 141,
+      "name": "Асфалтиране на ул. \"Средна гора\" в участъка от ул. \"Христо Ботев\" до главната улица 1400 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 88000,
+        "currency": "BGN",
+        "amountEur": 44994
+      }
+    },
+    {
+      "id": 142,
+      "name": "Асфалтиране на ул. \"Христо Смирненски\" от ул. \"Явор\" до ул. \"Радецка\" 1300 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 106000,
+        "currency": "BGN",
+        "amountEur": 54197
+      }
+    },
+    {
+      "id": 143,
+      "name": "Бордюри на ул. \"Георги Раковски\" /едностранно/ - 300 м",
+      "settlement": null,
+      "total": {
+        "amount": 30000,
+        "currency": "BGN",
+        "amountEur": 15339
+      }
+    },
+    {
+      "id": 144,
+      "name": "Асфалтиране на ул. \"Васил Левски\" - 700 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 36000,
+        "currency": "BGN",
+        "amountEur": 18407
+      }
+    },
+    {
+      "id": 145,
+      "name": "Полагане на основа от трошен камък на улица на север от центъра в с. Голямо Дряново 1350 кв.м., изграждане на бордюри - 600 м",
+      "settlement": "с. Голямо Дряново",
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 146,
+      "name": "Асфалтиране на улица източно от площада в с. Горно Изворово 785 кв.м., изграждане на бордюри 400 м",
+      "settlement": "с. Горно Изворово",
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 147,
+      "name": "Частично асфалтиране на ул. \"Иван Вазов\" 750 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 39000,
+        "currency": "BGN",
+        "amountEur": 19940
+      }
+    },
+    {
+      "id": 148,
+      "name": "Частично асфалтиране на ул. \"Средна гора\" 700 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 42000,
+        "currency": "BGN",
+        "amountEur": 21474
+      }
+    },
+    {
+      "id": 149,
+      "name": "Частично асфалтиране на ул. \"Георги Бенковски\" 1000 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 56000,
+        "currency": "BGN",
+        "amountEur": 28632
+      }
+    },
+    {
+      "id": 150,
+      "name": "Преасфалтиране на моста на ул. \"Средна гора\" 1200 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 63000,
+        "currency": "BGN",
+        "amountEur": 32211
+      }
+    },
+    {
+      "id": 151,
+      "name": "Асфалтиране на улица в централната част на кв. \"Долно Изворово\" ограждащи сградата на кметството в с. Долно Изворово 1750 кв.м.",
+      "settlement": "с. Долно Изворово",
+      "total": {
+        "amount": 80000,
+        "currency": "BGN",
+        "amountEur": 40903
+      }
+    },
+    {
+      "id": 152,
+      "name": "Асфалтиране на улица източно от сградата на кметството в с. Долно Изворово 600 кв.м.",
+      "settlement": "с. Долно Изворово",
+      "total": {
+        "amount": 31000,
+        "currency": "BGN",
+        "amountEur": 15850
+      }
+    },
+    {
+      "id": 153,
+      "name": "Асфалтиране на улица свързваща двата квартала в с. Долно Изворово 900 кв.м.",
+      "settlement": "с. Долно Изворово",
+      "total": {
+        "amount": 45000,
+        "currency": "BGN",
+        "amountEur": 23008
+      }
+    },
+    {
+      "id": 154,
+      "name": "Асфалтиране на улица на север от ДГ в с. Долно Изворово 700 кв.м.",
+      "settlement": "с. Долно Изворово",
+      "total": {
+        "amount": 44000,
+        "currency": "BGN",
+        "amountEur": 22497
+      }
+    },
+    {
+      "id": 155,
+      "name": "Асфалтиране на ул. \"Земеделска\"- 700 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 33000,
+        "currency": "BGN",
+        "amountEur": 16873
+      }
+    },
+    {
+      "id": 156,
+      "name": "Асфалтиране на улица южно от сградата на кметството в с. Дунавци, 500 кв.м.",
+      "settlement": "с. Дунавци",
+      "total": {
+        "amount": 27000,
+        "currency": "BGN",
+        "amountEur": 13805
+      }
+    },
+    {
+      "id": 157,
+      "name": "Асфалтиране на ул. \"Крайречна\" 840 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 45000,
+        "currency": "BGN",
+        "amountEur": 23008
+      }
+    },
+    {
+      "id": 158,
+      "name": "Асфалтиране на ул. \"Мургаш\" 420 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 159,
+      "name": "Асфалтиране на ул. \"Зорница\" 840 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 39000,
+        "currency": "BGN",
+        "amountEur": 19940
+      }
+    },
+    {
+      "id": 160,
+      "name": "Асфалтиране на ул. \"Шипка\" 900 кв.м.",
+      "settlement": "гр. Шипка",
+      "total": {
+        "amount": 36000,
+        "currency": "BGN",
+        "amountEur": 18407
+      }
+    },
+    {
+      "id": 161,
+      "name": "Асфалтиране на ул. \"Люляк\" 2075 кв.м., изграждане на бордюри - 640м",
+      "settlement": null,
+      "total": {
+        "amount": 223000,
+        "currency": "BGN",
+        "amountEur": 114018
+      }
+    },
+    {
+      "id": 162,
+      "name": "Асфалтиране на ул. \"Незабравка\", 540 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 37000,
+        "currency": "BGN",
+        "amountEur": 18918
+      }
+    },
+    {
+      "id": 163,
+      "name": "Асфалтиране на ул. \"Васил Левски\", 1400 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 69000,
+        "currency": "BGN",
+        "amountEur": 35279
+      }
+    },
+    {
+      "id": 164,
+      "name": "Асфалтиране на ул. \"Плиска\", 990 кв.м., частична подмяна на бордюри - 220м",
+      "settlement": null,
+      "total": {
+        "amount": 96000,
+        "currency": "BGN",
+        "amountEur": 49084
+      }
+    },
+    {
+      "id": 165,
+      "name": "Асфалтиране на ул. \"Пирин\" в 650 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 40000,
+        "currency": "BGN",
+        "amountEur": 20452
+      }
+    },
+    {
+      "id": 166,
+      "name": "Асфалтиране на ул. \"Пирин\" на изток от ул. \"Искра\", 600 кв.м., подмяна на бордюри - 250 м",
+      "settlement": null,
+      "total": {
+        "amount": 73000,
+        "currency": "BGN",
+        "amountEur": 37324
+      }
+    },
+    {
+      "id": 167,
+      "name": "Асфалтиране на ул. \"Първи май\", 900 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 42000,
+        "currency": "BGN",
+        "amountEur": 21474
+      }
+    },
+    {
+      "id": 168,
+      "name": "Асфалтиране на ул. \"Орешака\" в гр. Крън 2500 кв.м., частична подмяна на бордюри",
+      "settlement": "гр. Крън",
+      "total": {
+        "amount": 244000,
+        "currency": "BGN",
+        "amountEur": 124755
+      }
+    },
+    {
+      "id": 169,
+      "name": "Асфалтиране на ул. \"Работническа\" в гр. Крън 2060 кв.м., частична подмяна на бордюри",
+      "settlement": "гр. Крън",
+      "total": {
+        "amount": 155000,
+        "currency": "BGN",
+        "amountEur": 79250
+      }
+    },
+    {
+      "id": 170,
+      "name": "Асфалтиране на ул. \"Иван Димитров\" в гр. Крън 2700 кв.м., частична подмяна на бордюри",
+      "settlement": "гр. Крън",
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 171,
+      "name": "Асфалтиране на ул. \"Комуна\" в гр. Крън 1600 кв.м.",
+      "settlement": "гр. Крън",
+      "total": {
+        "amount": 120000,
+        "currency": "BGN",
+        "amountEur": 61355
+      }
+    },
+    {
+      "id": 172,
+      "name": "Асфалтиране на ул. \"Елтемир\" в гр. Крън 1000 кв.м.",
+      "settlement": "гр. Крън",
+      "total": {
+        "amount": 81000,
+        "currency": "BGN",
+        "amountEur": 41415
+      }
+    },
+    {
+      "id": 173,
+      "name": "Асфалтиране на ул. \"Първи май\", 1400 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 96000,
+        "currency": "BGN",
+        "amountEur": 49084
+      }
+    },
+    {
+      "id": 174,
+      "name": "Асфалтиране на ул. \"Искра\", 1600 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 104000,
+        "currency": "BGN",
+        "amountEur": 53174
+      }
+    },
+    {
+      "id": 175,
+      "name": "Асфалтиране на ул. \"Опълченска\" 1380 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 120000,
+        "currency": "BGN",
+        "amountEur": 61355
+      }
+    },
+    {
+      "id": 176,
+      "name": "Бордюри и трошен камък на ул. \"Рила\", 910 м.бордюри, 1560 кв.м.тр.камък",
+      "settlement": null,
+      "total": {
+        "amount": 140000,
+        "currency": "BGN",
+        "amountEur": 71581
+      }
+    },
+    {
+      "id": 177,
+      "name": "Ремонт на алеи в парк с. Розово 850 кв.м., подмяна градински бордюри - 705 м",
+      "settlement": "с. Розово",
+      "total": {
+        "amount": 71000,
+        "currency": "BGN",
+        "amountEur": 36302
+      }
+    },
+    {
+      "id": 178,
+      "name": "Асфалтиране на част от ул. \"Зорница\", 630 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 42000,
+        "currency": "BGN",
+        "amountEur": 21474
+      }
+    },
+    {
+      "id": 179,
+      "name": "Асфалтиране на част от ул. \"Рожен\" 700 кв.м., изграждане на бордюри 280 м",
+      "settlement": null,
+      "total": {
+        "amount": 87000,
+        "currency": "BGN",
+        "amountEur": 44482
+      }
+    },
+    {
+      "id": 180,
+      "name": "Асфалтиране на улица западно от ДГ в с. Ръжена, 500 кв.м.",
+      "settlement": "с. Ръжена",
+      "total": {
+        "amount": 27000,
+        "currency": "BGN",
+        "amountEur": 13805
+      }
+    },
+    {
+      "id": 181,
+      "name": "Асфалтиране на ул. \"Искра\", 960 кв.м., изграждане на бордюри 470 м",
+      "settlement": null,
+      "total": {
+        "amount": 120000,
+        "currency": "BGN",
+        "amountEur": 61355
+      }
+    },
+    {
+      "id": 182,
+      "name": "Тротоари в центъра на с. Ръжена, 470 кв.м.",
+      "settlement": "с. Ръжена",
+      "total": {
+        "amount": 53000,
+        "currency": "BGN",
+        "amountEur": 27098
+      }
+    },
+    {
+      "id": 183,
+      "name": "Асфалтиране на ул. \"Високата могила\"- 245 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 15000,
+        "currency": "BGN",
+        "amountEur": 7669
+      }
+    },
+    {
+      "id": 184,
+      "name": "Асфалтиране на ул. \"Тодор Юлиев\" - 480 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 24000,
+        "currency": "BGN",
+        "amountEur": 12271
+      }
+    },
+    {
+      "id": 185,
+      "name": "Асфалтиране на ул. \"Бели Бряг\" 380 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 19000,
+        "currency": "BGN",
+        "amountEur": 9715
+      }
+    },
+    {
+      "id": 186,
+      "name": "Асфалтиране на ул. \"Пено Корарев\" - 700 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 34000,
+        "currency": "BGN",
+        "amountEur": 17384
+      }
+    },
+    {
+      "id": 187,
+      "name": "Кръпки на ул. \"Казанка\" - 160 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 8000,
+        "currency": "BGN",
+        "amountEur": 4090
+      }
+    },
+    {
+      "id": 188,
+      "name": "Асфалтиране на ул. \"Заря\" 600 кв.м. с изграждане на напречен дъждоотток",
+      "settlement": null,
+      "total": {
+        "amount": 55000,
+        "currency": "BGN",
+        "amountEur": 28121
+      }
+    },
+    {
+      "id": 189,
+      "name": "Асфалтиране на ул. \"Козлодуй\"-1170 кв.м., изграждане на бордюри - 440м",
+      "settlement": null,
+      "total": {
+        "amount": 135000,
+        "currency": "BGN",
+        "amountEur": 69024
+      }
+    },
+    {
+      "id": 190,
+      "name": "Изграждане на бордюри на част ул. \"Единство\" 350 м.",
+      "settlement": null,
+      "total": {
+        "amount": 35000,
+        "currency": "BGN",
+        "amountEur": 17895
+      }
+    },
+    {
+      "id": 191,
+      "name": "Изграждане на бордюри на част от ул. \"Пролет\" 350 м.",
+      "settlement": null,
+      "total": {
+        "amount": 35000,
+        "currency": "BGN",
+        "amountEur": 17895
+      }
+    },
+    {
+      "id": 192,
+      "name": "Афалтиране на ул. \"Розова долина\" - 1360 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 82000,
+        "currency": "BGN",
+        "amountEur": 41926
+      }
+    },
+    {
+      "id": 193,
+      "name": "Асфалтиране на ул. \"Иван Вазов\" - 1170 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 76000,
+        "currency": "BGN",
+        "amountEur": 38858
+      }
+    },
+    {
+      "id": 194,
+      "name": "Асфалтиране на ул. \"Георги Бенковски\" - 630 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 42000,
+        "currency": "BGN",
+        "amountEur": 21474
+      }
+    },
+    {
+      "id": 195,
+      "name": "Тротоари на изток от центъра на с. Шейново, 1230 кв.м., изграждане на бордюри 1130 м",
+      "settlement": "с. Шейново",
+      "total": {
+        "amount": 260000,
+        "currency": "BGN",
+        "amountEur": 132936
+      }
+    },
+    {
+      "id": 196,
+      "name": "Асфалтиране на ул. \"Петрана Чирпанлиева\", 1000 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 197,
+      "name": "Асфалтиране на ул. \"Стефан Караджа\", 720 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 43000,
+        "currency": "BGN",
+        "amountEur": 21986
+      }
+    },
+    {
+      "id": 198,
+      "name": "Асфалтиране на ул. \"Генерал Дзержински\", 810 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 42000,
+        "currency": "BGN",
+        "amountEur": 21474
+      }
+    },
+    {
+      "id": 199,
+      "name": "Асфалтиране на ул. \"Здравец\", 570 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 28000,
+        "currency": "BGN",
+        "amountEur": 14316
+      }
+    },
+    {
+      "id": 200,
+      "name": "Асфалтиране на ул. \"Осми март\", 750 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 37000,
+        "currency": "BGN",
+        "amountEur": 18918
+      }
+    },
+    {
+      "id": 201,
+      "name": "Асфалтиране на участъци от ул. \"Дружба\" и ул. \"Септемврийци\", 2760 кв.м.",
+      "settlement": null,
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    }
+  ],
+  "bySettlement": [
+    {
+      "name": "гр. Крън",
+      "projectCount": 8,
+      "total": {
+        "amount": 893500,
+        "currency": "BGN",
+        "amountEur": 456839
+      },
+      "topProjects": [
+        {
+          "id": 168,
+          "name": "Асфалтиране на ул. \"Орешака\" в гр. Крън 2500 кв.м., частична подмяна на бордюри",
+          "total": {
+            "amount": 244000,
+            "currency": "BGN",
+            "amountEur": 124755
+          }
+        },
+        {
+          "id": 170,
+          "name": "Асфалтиране на ул. \"Иван Димитров\" в гр. Крън 2700 кв.м., частична подмяна на бордюри",
+          "total": {
+            "amount": 200000,
+            "currency": "BGN",
+            "amountEur": 102258
+          }
+        },
+        {
+          "id": 169,
+          "name": "Асфалтиране на ул. \"Работническа\" в гр. Крън 2060 кв.м., частична подмяна на бордюри",
+          "total": {
+            "amount": 155000,
+            "currency": "BGN",
+            "amountEur": 79250
+          }
+        },
+        {
+          "id": 171,
+          "name": "Асфалтиране на ул. \"Комуна\" в гр. Крън 1600 кв.м.",
+          "total": {
+            "amount": 120000,
+            "currency": "BGN",
+            "amountEur": 61355
+          }
+        },
+        {
+          "id": 172,
+          "name": "Асфалтиране на ул. \"Елтемир\" в гр. Крън 1000 кв.м.",
+          "total": {
+            "amount": 81000,
+            "currency": "BGN",
+            "amountEur": 41415
+          }
+        }
+      ]
+    },
+    {
+      "name": "гр. Казанлък",
+      "projectCount": 11,
+      "total": {
+        "amount": 742057,
+        "currency": "BGN",
+        "amountEur": 379408
+      },
+      "topProjects": [
+        {
+          "id": 12,
+          "name": "Изграждане на физкултурен салон на ОУ „Мати Болгария\", гр. Казанлък",
+          "total": {
+            "amount": 205000,
+            "currency": "BGN",
+            "amountEur": 104815
+          }
+        },
+        {
+          "id": 129,
+          "name": "Ремонт на тротоари Община Казанлък",
+          "total": {
+            "amount": 200000,
+            "currency": "BGN",
+            "amountEur": 102258
+          }
+        },
+        {
+          "id": 130,
+          "name": "Текущ ремонт на участъци на улици кърпежи Община Казанлък",
+          "total": {
+            "amount": 106765,
+            "currency": "BGN",
+            "amountEur": 54588
+          }
+        },
+        {
+          "id": 31,
+          "name": "Капиталов трансфер ДКЦ Поликлиника-Казанлък дигитален мамограф\"",
+          "total": {
+            "amount": 100000,
+            "currency": "BGN",
+            "amountEur": 51129
+          }
+        },
+        {
+          "id": 80,
+          "name": "Стъклени преградни стени 4 бр. ХГ-Казанлък (по проект)",
+          "total": {
+            "amount": 35186,
+            "currency": "BGN",
+            "amountEur": 17990
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Шейново",
+      "projectCount": 2,
+      "total": {
+        "amount": 313000,
+        "currency": "BGN",
+        "amountEur": 160034
+      },
+      "topProjects": [
+        {
+          "id": 195,
+          "name": "Тротоари на изток от центъра на с. Шейново, 1230 кв.м., изграждане на бордюри 1130 м",
+          "total": {
+            "amount": 260000,
+            "currency": "BGN",
+            "amountEur": 132936
+          }
+        },
+        {
+          "id": 125,
+          "name": "Асфалтиране на част от ул. \"Малуша\" в с. Шейново",
+          "total": {
+            "amount": 53000,
+            "currency": "BGN",
+            "amountEur": 27098
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Розово",
+      "projectCount": 5,
+      "total": {
+        "amount": 272554,
+        "currency": "BGN",
+        "amountEur": 139355
+      },
+      "topProjects": [
+        {
+          "id": 27,
+          "name": "Изграждане на спален корпус и покриване на заден двор на ОУ с. Розово - Академия за таланти етап VI (стр. наздор и съфинан по КР)",
+          "total": {
+            "amount": 170054,
+            "currency": "BGN",
+            "amountEur": 86947
+          }
+        },
+        {
+          "id": 177,
+          "name": "Ремонт на алеи в парк с. Розово 850 кв.м., подмяна градински бордюри - 705 м",
+          "total": {
+            "amount": 71000,
+            "currency": "BGN",
+            "amountEur": 36302
+          }
+        },
+        {
+          "id": 118,
+          "name": "Завършване асфалтирането на ул. \"Пролет\" в с. Розово",
+          "total": {
+            "amount": 19500,
+            "currency": "BGN",
+            "amountEur": 9970
+          }
+        },
+        {
+          "id": 119,
+          "name": "Ремонт на тоалетна в парк в с. Розово",
+          "total": {
+            "amount": 10000,
+            "currency": "BGN",
+            "amountEur": 5113
+          }
+        },
+        {
+          "id": 21,
+          "name": "Машина за събиране на листа 1 бр., км. Розово",
+          "total": {
+            "amount": 2000,
+            "currency": "BGN",
+            "amountEur": 1023
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Долно Изворово",
+      "projectCount": 5,
+      "total": {
+        "amount": 217500,
+        "currency": "BGN",
+        "amountEur": 111206
+      },
+      "topProjects": [
+        {
+          "id": 151,
+          "name": "Асфалтиране на улица в централната част на кв. \"Долно Изворово\" ограждащи сградата на кметството в с. Долно Изворово 1750 кв.м.",
+          "total": {
+            "amount": 80000,
+            "currency": "BGN",
+            "amountEur": 40903
+          }
+        },
+        {
+          "id": 153,
+          "name": "Асфалтиране на улица свързваща двата квартала в с. Долно Изворово 900 кв.м.",
+          "total": {
+            "amount": 45000,
+            "currency": "BGN",
+            "amountEur": 23008
+          }
+        },
+        {
+          "id": 154,
+          "name": "Асфалтиране на улица на север от ДГ в с. Долно Изворово 700 кв.м.",
+          "total": {
+            "amount": 44000,
+            "currency": "BGN",
+            "amountEur": 22497
+          }
+        },
+        {
+          "id": 152,
+          "name": "Асфалтиране на улица източно от сградата на кметството в с. Долно Изворово 600 кв.м.",
+          "total": {
+            "amount": 31000,
+            "currency": "BGN",
+            "amountEur": 15850
+          }
+        },
+        {
+          "id": 106,
+          "name": "Преасфалтиране на част от улица на север от Детската градина в с. Долно Изворово",
+          "total": {
+            "amount": 17500,
+            "currency": "BGN",
+            "amountEur": 8948
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Голямо Дряново",
+      "projectCount": 2,
+      "total": {
+        "amount": 178200,
+        "currency": "BGN",
+        "amountEur": 91112
+      },
+      "topProjects": [
+        {
+          "id": 145,
+          "name": "Полагане на основа от трошен камък на улица на север от центъра в с. Голямо Дряново 1350 кв.м., изграждане на бордюри - 600 м",
+          "total": {
+            "amount": 100000,
+            "currency": "BGN",
+            "amountEur": 51129
+          }
+        },
+        {
+          "id": 16,
+          "name": "Ремонт на кмество Голямо Дряново - етап ІІІ",
+          "total": {
+            "amount": 78200,
+            "currency": "BGN",
+            "amountEur": 39983
+          }
+        }
+      ]
+    },
+    {
+      "name": "гр. Шипка",
+      "projectCount": 4,
+      "total": {
+        "amount": 135136,
+        "currency": "BGN",
+        "amountEur": 69094
+      },
+      "topProjects": [
+        {
+          "id": 1,
+          "name": "Реконструкция и подмяна на водопроводната мрежа на гр. Шипка, община Казанлък - Етап 1",
+          "total": {
+            "amount": 50640,
+            "currency": "BGN",
+            "amountEur": 25892
+          }
+        },
+        {
+          "id": 126,
+          "name": "Асфалтиране/изкърване на ул. \"Шейново\" в гр. Шипка",
+          "total": {
+            "amount": 37000,
+            "currency": "BGN",
+            "amountEur": 18918
+          }
+        },
+        {
+          "id": 160,
+          "name": "Асфалтиране на ул. \"Шипка\" 900 кв.м.",
+          "total": {
+            "amount": 36000,
+            "currency": "BGN",
+            "amountEur": 18407
+          }
+        },
+        {
+          "id": 4,
+          "name": "Проект „Съхранение и опазване на сградата на читалище \"Светлина 1861\" гр. Шипка“",
+          "total": {
+            "amount": 11496,
+            "currency": "BGN",
+            "amountEur": 5878
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Енина",
+      "projectCount": 3,
+      "total": {
+        "amount": 129300,
+        "currency": "BGN",
+        "amountEur": 66110
+      },
+      "topProjects": [
+        {
+          "id": 108,
+          "name": "Преасфалтиране на част от ул. \"Стара планина\" в с. Енина",
+          "total": {
+            "amount": 64300,
+            "currency": "BGN",
+            "amountEur": 32876
+          }
+        },
+        {
+          "id": 11,
+          "name": "Изграждане на физкултурен салон към ОУ „Христо Ботев\", с. Енина",
+          "total": {
+            "amount": 40000,
+            "currency": "BGN",
+            "amountEur": 20452
+          }
+        },
+        {
+          "id": 90,
+          "name": "Детски площадки ДГ№1, филиал с. Енина - 3 бр.",
+          "total": {
+            "amount": 25000,
+            "currency": "BGN",
+            "amountEur": 12782
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Хаджидимитрово",
+      "projectCount": 3,
+      "total": {
+        "amount": 116500,
+        "currency": "BGN",
+        "amountEur": 59566
+      },
+      "topProjects": [
+        {
+          "id": 13,
+          "name": "Изграждане на нов физкултурен салон към ОУ „Св. Паисий Хилендарски\", с. Хаджидимитрово",
+          "total": {
+            "amount": 71000,
+            "currency": "BGN",
+            "amountEur": 36302
+          }
+        },
+        {
+          "id": 123,
+          "name": "Асфалтиране на част от ул. \"Зорница\" в с. Хаджидимитрово",
+          "total": {
+            "amount": 44000,
+            "currency": "BGN",
+            "amountEur": 22497
+          }
+        },
+        {
+          "id": 23,
+          "name": "Компютър 1 бр., км. Хаджидимитрово",
+          "total": {
+            "amount": 1500,
+            "currency": "BGN",
+            "amountEur": 767
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Горно Изворово",
+      "projectCount": 3,
+      "total": {
+        "amount": 115600,
+        "currency": "BGN",
+        "amountEur": 59105
+      },
+      "topProjects": [
+        {
+          "id": 146,
+          "name": "Асфалтиране на улица източно от площада в с. Горно Изворово 785 кв.м., изграждане на бордюри 400 м",
+          "total": {
+            "amount": 100000,
+            "currency": "BGN",
+            "amountEur": 51129
+          }
+        },
+        {
+          "id": 104,
+          "name": "Асф. настилка в с. Горно Изворово",
+          "total": {
+            "amount": 9700,
+            "currency": "BGN",
+            "amountEur": 4960
+          }
+        },
+        {
+          "id": 103,
+          "name": "Преасфалтиране на компрометираната част на асф. настилка в с. Горно Изворово",
+          "total": {
+            "amount": 5900,
+            "currency": "BGN",
+            "amountEur": 3017
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Ръжена",
+      "projectCount": 4,
+      "total": {
+        "amount": 114200,
+        "currency": "BGN",
+        "amountEur": 58390
+      },
+      "topProjects": [
+        {
+          "id": 182,
+          "name": "Тротоари в центъра на с. Ръжена, 470 кв.м.",
+          "total": {
+            "amount": 53000,
+            "currency": "BGN",
+            "amountEur": 27098
+          }
+        },
+        {
+          "id": 121,
+          "name": "Ремонт на покрива и сградата на НЧ \"Светлина-1928\" в с. Ръжена",
+          "total": {
+            "amount": 32700,
+            "currency": "BGN",
+            "amountEur": 16719
+          }
+        },
+        {
+          "id": 180,
+          "name": "Асфалтиране на улица западно от ДГ в с. Ръжена, 500 кв.м.",
+          "total": {
+            "amount": 27000,
+            "currency": "BGN",
+            "amountEur": 13805
+          }
+        },
+        {
+          "id": 22,
+          "name": "Климатик 1 бр. км. Ръжена",
+          "total": {
+            "amount": 1500,
+            "currency": "BGN",
+            "amountEur": 767
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Кънчево",
+      "projectCount": 5,
+      "total": {
+        "amount": 110000,
+        "currency": "BGN",
+        "amountEur": 56242
+      },
+      "topProjects": [
+        {
+          "id": 116,
+          "name": "Довършване асфалтирането на част от ул. \"Орлово гнездо\" в с. Кънчево",
+          "total": {
+            "amount": 36400,
+            "currency": "BGN",
+            "amountEur": 18611
+          }
+        },
+        {
+          "id": 115,
+          "name": "Поставяне на бордюри за асфалтиране на част от ул. \"Мир\" в с. Кънчево",
+          "total": {
+            "amount": 33900,
+            "currency": "BGN",
+            "amountEur": 17333
+          }
+        },
+        {
+          "id": 114,
+          "name": "Довършване асфалтиране на ул. \"Дунав\" в с. Кънчево",
+          "total": {
+            "amount": 20200,
+            "currency": "BGN",
+            "amountEur": 10328
+          }
+        },
+        {
+          "id": 92,
+          "name": "Ремонт фасадата на ДГ№11, филиал с. Кънчево",
+          "total": {
+            "amount": 18000,
+            "currency": "BGN",
+            "amountEur": 9203
+          }
+        },
+        {
+          "id": 20,
+          "name": "Компютърна конфигурация 1 бр., км. Кънчево",
+          "total": {
+            "amount": 1500,
+            "currency": "BGN",
+            "amountEur": 767
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Бузовград",
+      "projectCount": 2,
+      "total": {
+        "amount": 87000,
+        "currency": "BGN",
+        "amountEur": 44482
+      },
+      "topProjects": [
+        {
+          "id": 102,
+          "name": "Преасфалтиране на част от ул. \"Пеньо Пенев\" в с. Бузовград",
+          "total": {
+            "amount": 57000,
+            "currency": "BGN",
+            "amountEur": 29144
+          }
+        },
+        {
+          "id": 8,
+          "name": "Автомобил 1 брой ЦНСТДМУ, с. Бузовград",
+          "total": {
+            "amount": 30000,
+            "currency": "BGN",
+            "amountEur": 15339
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Копринка",
+      "projectCount": 4,
+      "total": {
+        "amount": 83800,
+        "currency": "BGN",
+        "amountEur": 42846
+      },
+      "topProjects": [
+        {
+          "id": 111,
+          "name": "Ремонт на съществуваща асфалтова настилка с изкърпване на ул. \"Хемус\" в с. Копринка",
+          "total": {
+            "amount": 28300,
+            "currency": "BGN",
+            "amountEur": 14470
+          }
+        },
+        {
+          "id": 109,
+          "name": "Ремонт на съществуваща асфалтова настилка с изкърпване на ул. \"Хаджи Димитър Асенов\" в с. Копринка",
+          "total": {
+            "amount": 22400,
+            "currency": "BGN",
+            "amountEur": 11453
+          }
+        },
+        {
+          "id": 110,
+          "name": "Ремонт на съществуваща асфалтова настилка с изкърпване на ул. \"Ген. Вл. Заимов\" в с. Копринка",
+          "total": {
+            "amount": 20100,
+            "currency": "BGN",
+            "amountEur": 10277
+          }
+        },
+        {
+          "id": 45,
+          "name": "Комбинирано детско съоръжение, км. Копринка парк център",
+          "total": {
+            "amount": 13000,
+            "currency": "BGN",
+            "amountEur": 6647
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Овощник",
+      "projectCount": 2,
+      "total": {
+        "amount": 46900,
+        "currency": "BGN",
+        "amountEur": 23980
+      },
+      "topProjects": [
+        {
+          "id": 117,
+          "name": "Асфалтиране на част от ул. \"Септември\" от кръстовището с ул. \"Г. Тихолов\" до кръстовището с ул. \"Ален Мак\" в с. Овощник",
+          "total": {
+            "amount": 45000,
+            "currency": "BGN",
+            "amountEur": 23008
+          }
+        },
+        {
+          "id": 46,
+          "name": "Видеонаблюдение, км. Овощник",
+          "total": {
+            "amount": 1900,
+            "currency": "BGN",
+            "amountEur": 971
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Дунавци",
+      "projectCount": 2,
+      "total": {
+        "amount": 45300,
+        "currency": "BGN",
+        "amountEur": 23162
+      },
+      "topProjects": [
+        {
+          "id": 156,
+          "name": "Асфалтиране на улица южно от сградата на кметството в с. Дунавци, 500 кв.м.",
+          "total": {
+            "amount": 27000,
+            "currency": "BGN",
+            "amountEur": 13805
+          }
+        },
+        {
+          "id": 107,
+          "name": "Преасфалтиране на част от ул. \"Младост\" в с. Дунавци",
+          "total": {
+            "amount": 18300,
+            "currency": "BGN",
+            "amountEur": 9357
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Горно Черковище",
+      "projectCount": 1,
+      "total": {
+        "amount": 38600,
+        "currency": "BGN",
+        "amountEur": 19736
+      },
+      "topProjects": [
+        {
+          "id": 105,
+          "name": "Преасфалтиране на част от ул. \"Бачо Киро\" в с Горно Черковище",
+          "total": {
+            "amount": 38600,
+            "currency": "BGN",
+            "amountEur": 19736
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Черганово",
+      "projectCount": 1,
+      "total": {
+        "amount": 26000,
+        "currency": "BGN",
+        "amountEur": 13294
+      },
+      "topProjects": [
+        {
+          "id": 124,
+          "name": "Асфалтиране на част от ул. \"Иван Вазов\" в с. Черганово",
+          "total": {
+            "amount": 26000,
+            "currency": "BGN",
+            "amountEur": 13294
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Ясеново",
+      "projectCount": 1,
+      "total": {
+        "amount": 22200,
+        "currency": "BGN",
+        "amountEur": 11351
+      },
+      "topProjects": [
+        {
+          "id": 127,
+          "name": "Частично асфалтирането на отсечка на ул. \"Ген. Скобелев\" в с. Ясеново",
+          "total": {
+            "amount": 22200,
+            "currency": "BGN",
+            "amountEur": 11351
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Средногорово",
+      "projectCount": 2,
+      "total": {
+        "amount": 15200,
+        "currency": "BGN",
+        "amountEur": 7772
+      },
+      "topProjects": [
+        {
+          "id": 120,
+          "name": "Ремонт сграда на автоспирка с. Средногорово (с пормяна на предназначение)",
+          "total": {
+            "amount": 8000,
+            "currency": "BGN",
+            "amountEur": 4090
+          }
+        },
+        {
+          "id": 122,
+          "name": "Чакълиране на ул. \"Стефан Караджа\" в с. Средногорово",
+          "total": {
+            "amount": 7200,
+            "currency": "BGN",
+            "amountEur": 3681
+          }
+        }
+      ]
+    }
+  ]
+}

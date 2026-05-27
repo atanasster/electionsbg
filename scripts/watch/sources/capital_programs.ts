@@ -1,9 +1,9 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 23 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Each of the 24 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
 // Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin,
 // Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech,
-// Dupnitsa, Velingrad, Samokov, Karlovo) publishes an annual "Капиталова
+// Dupnitsa, Velingrad, Samokov, Karlovo, Kazanlak) publishes an annual "Капиталова
 // програма" / "Поименен списък на обектите за капиталови разходи" on
 // its own website.
 // URLs are opaque and change every year (some include the date, some a
@@ -77,7 +77,8 @@ type Municipality =
   | "dupnitsa"
   | "velingrad"
   | "samokov"
-  | "karlovo";
+  | "karlovo"
+  | "kazanlak";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -179,6 +180,15 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // is the standalone annual plan — no OCR needed.
     karlovo:
       "https://karlovo.bg/inc/service/service-download-file.php?identifier=6d56fbd5-f78b-4a49-a311-a0fff162c643",
+    // Казанлък (SZR12) — Stara Zagora-oblast município, 20 settlements
+    // (3 towns: Казанлък, Крън, Шипка + 17 villages). kazanlak.bg is
+    // Nuxt-rendered; the budget appendices PDF URL was discovered via
+    // the /2025-1 page's _payload.json (the file URL contains Cyrillic
+    // characters in the path — "Приложения.pdf"). The accompanying
+    // Budget_2025_7404.xls is password-protected and unusable, so we
+    // parse the PDF's Приложение №4 (pages 9-17) via Gemini Vision OCR.
+    kazanlak:
+      "https://www.kazanlak.bg/common/images/src/81/file/Приложения.pdf",
     // Vidin (VID09) 2025 — PLAN year. RAR contains an XLS (paragraph
     // aggregates) + scanned Resolution PDF whose annex only itemises
     // the ЦС (Targeted Subsidy) portion (2.89M BGN of the 7.47M plan).

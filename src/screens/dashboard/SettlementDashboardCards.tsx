@@ -20,6 +20,7 @@ import { TopSectionsTile } from "./TopSectionsTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
 import { EuFundsTile } from "./EuFundsTile";
+import { SettlementProcurementTile } from "../components/procurement/SettlementProcurementTile";
 import { SofiaCapitalProjectsTile } from "./SofiaCapitalProjectsTile";
 import { PlovdivCapitalProjectsTile } from "./PlovdivCapitalProjectsTile";
 import { VarnaCapitalProjectsTile } from "./VarnaCapitalProjectsTile";
@@ -43,6 +44,7 @@ import { DupnitsaCapitalProjectsTile } from "./DupnitsaCapitalProjectsTile";
 import { VelingradCapitalProjectsTile } from "./VelingradCapitalProjectsTile";
 import { SamokovCapitalProjectsTile } from "./SamokovCapitalProjectsTile";
 import { KarlovoCapitalProjectsTile } from "./KarlovoCapitalProjectsTile";
+import { KazanlakCapitalProjectsTile } from "./KazanlakCapitalProjectsTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
@@ -174,6 +176,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
           >
             <MunicipalityTransfersTile municipalityCode={obshtinaCode} />
             <EuFundsTile kind="ekatte" ekatte={ekatte} />
+            <SettlementProcurementTile ekatte={ekatte} />
             <SofiaCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <PlovdivCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <VarnaCapitalProjectsTile obshtinaCode={obshtinaCode} />
@@ -197,6 +200,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
             <VelingradCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <SamokovCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <KarlovoCapitalProjectsTile obshtinaCode={obshtinaCode} />
+            <KazanlakCapitalProjectsTile obshtinaCode={obshtinaCode} />
           </DashboardSection>
         ) : null}
 
