@@ -19,6 +19,7 @@ import { SectionsMapTile } from "./SectionsMapTile";
 import { TopSectionsTile } from "./TopSectionsTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
+import { EuFundsTile } from "./EuFundsTile";
 import { SofiaCapitalProjectsTile } from "./SofiaCapitalProjectsTile";
 import { PlovdivCapitalProjectsTile } from "./PlovdivCapitalProjectsTile";
 import { VarnaCapitalProjectsTile } from "./VarnaCapitalProjectsTile";
@@ -29,6 +30,7 @@ import { PlevenCapitalProjectsTile } from "./PlevenCapitalProjectsTile";
 import { SlivenCapitalProjectsTile } from "./SlivenCapitalProjectsTile";
 import { DobrichCapitalProjectsTile } from "./DobrichCapitalProjectsTile";
 import { AsenovgradCapitalProjectsTile } from "./AsenovgradCapitalProjectsTile";
+import { ShumenCapitalProjectsTile } from "./ShumenCapitalProjectsTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
@@ -159,6 +161,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
             icon={Coins}
           >
             <MunicipalityTransfersTile municipalityCode={obshtinaCode} />
+            <EuFundsTile kind="ekatte" ekatte={ekatte} />
             <SofiaCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <PlovdivCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <VarnaCapitalProjectsTile obshtinaCode={obshtinaCode} />
@@ -169,6 +172,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
             <SlivenCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <DobrichCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <AsenovgradCapitalProjectsTile obshtinaCode={obshtinaCode} />
+            <ShumenCapitalProjectsTile obshtinaCode={obshtinaCode} />
           </DashboardSection>
         ) : null}
 

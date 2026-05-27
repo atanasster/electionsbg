@@ -20,6 +20,7 @@ import { TopSettlementsTile } from "./TopSettlementsTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { IndicatorsTile } from "./IndicatorsTile";
 import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
+import { EuFundsTile } from "./EuFundsTile";
 import { SofiaCapitalProjectsTile } from "./SofiaCapitalProjectsTile";
 import { PlovdivCapitalProjectsTile } from "./PlovdivCapitalProjectsTile";
 import { VarnaCapitalProjectsTile } from "./VarnaCapitalProjectsTile";
@@ -30,6 +31,7 @@ import { PlevenCapitalProjectsTile } from "./PlevenCapitalProjectsTile";
 import { SlivenCapitalProjectsTile } from "./SlivenCapitalProjectsTile";
 import { DobrichCapitalProjectsTile } from "./DobrichCapitalProjectsTile";
 import { AsenovgradCapitalProjectsTile } from "./AsenovgradCapitalProjectsTile";
+import { ShumenCapitalProjectsTile } from "./ShumenCapitalProjectsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
@@ -146,6 +148,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           icon={Coins}
         >
           <MunicipalityTransfersTile municipalityCode={municipalityCode} />
+          <EuFundsTile kind="muni" obshtina={municipalityCode} />
           <SofiaCapitalProjectsTile obshtinaCode={municipalityCode} />
           <PlovdivCapitalProjectsTile obshtinaCode={municipalityCode} />
           <VarnaCapitalProjectsTile obshtinaCode={municipalityCode} />
@@ -156,6 +159,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           <SlivenCapitalProjectsTile obshtinaCode={municipalityCode} />
           <DobrichCapitalProjectsTile obshtinaCode={municipalityCode} />
           <AsenovgradCapitalProjectsTile obshtinaCode={municipalityCode} />
+          <ShumenCapitalProjectsTile obshtinaCode={municipalityCode} />
         </DashboardSection>
 
         <DashboardSection

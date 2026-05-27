@@ -1,7 +1,7 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 10 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
-// Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad) publishes an annual "Капиталова програма" /
+// Each of the 11 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen) publishes an annual "Капиталова програма" /
 // "Поименен списък на обектите за капиталови разходи" on its own website.
 // URLs are opaque and change every year (some include the date, some a
 // content hash), so the catalogue is hand-curated below — mirrors the
@@ -61,7 +61,8 @@ type Municipality =
   | "pleven"
   | "sliven"
   | "dobrich"
-  | "asenovgrad";
+  | "asenovgrad"
+  | "shumen";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -106,6 +107,11 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // settlements. 10-page born-digital PDF; OCR for robustness.
     asenovgrad:
       "https://www.asenovgrad.bg/uploads/MyDocuments//rkr_mv_2025_oc-02052025.pdf",
+    // Shumen (SHU30) — Tier-2 oblast capital, 27 settlements. Прил. №6
+    // to the council budget — 15-page born-digital PDF on shumen.bg.
+    // URL discovered via the Playwright harvest.ts tool (the shumen.bg
+    // budget portal is JS-rendered).
+    shumen: "https://www.shumen.bg/uploads/deinosti/budjet/25051314.pdf",
   },
   // Sofia historical back-years (2022-2024). The Sofia portal occasionally
   // re-uploads corrected versions of older files; tracking these means a

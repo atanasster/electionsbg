@@ -988,6 +988,46 @@ export interface StaraZagoraCapitalProgramFile {
   bySettlement: StaraZagoraCapitalSettlementRollup[];
 }
 
+// Shumen — single-município (SHU30, EKATTE 83510). Oblast capital with
+// 27 settlements (the city + 26 villages). Source is a 15-page
+// born-digital PDF on shumen.bg (Приложение №6 — ПЛАН ЗА ФИНАНСИРАНЕ
+// НА КАПИТАЛОВИТЕ РАЗХОДИ), discovered via the Playwright harvester.
+// Ingested through the Gemini Vision OCR pre-step (shumen_ocr.ts).
+export interface ShumenCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface ShumenCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface ShumenCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: ShumenCapitalProject[];
+  bySettlement: ShumenCapitalSettlementRollup[];
+}
+
 // Asenovgrad — single-município (PDV01, EKATTE 00702). Plovdiv oblast,
 // 29 settlements (1 city + 28 villages). Source is a 10-page born-digital
 // PDF on asenovgrad.bg, ingested through the Gemini Vision OCR pre-step

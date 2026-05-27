@@ -437,6 +437,10 @@ export const AboutScreen = () => {
                   href="https://www.asenovgrad.bg/bg/kapitalovi-razhodi/"
                   label={t("budget_capital_asenovgrad_source")}
                 />
+                <SourceItem
+                  href="https://www.shumen.bg/bg/byudzhet/2025"
+                  label={t("budget_capital_shumen_source")}
+                />
               </ul>
             </DataGroup>
 

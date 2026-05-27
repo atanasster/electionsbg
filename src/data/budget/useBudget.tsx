@@ -27,6 +27,7 @@ import type {
   PlevenCapitalProgramFile,
   PlovdivCapitalProgramFile,
   RuseCapitalProgramFile,
+  ShumenCapitalProgramFile,
   SlivenCapitalProgramFile,
   SofiaCapitalProgramFile,
   StaraZagoraCapitalProgramFile,
@@ -383,6 +384,20 @@ export const useStaraZagoraCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<StaraZagoraCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/stara_zagora.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Shumen — Tier-2 oblast capital (SHU30, 27 settlements). 15-page
+// born-digital PDF found via the Playwright budget-portal harvester.
+// Same shape as Sliven (per-village rollup + top projects).
+export const useShumenCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "shumen", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<ShumenCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/shumen.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
