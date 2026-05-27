@@ -66,12 +66,12 @@ export const ParliamentCohesionScreen: FC = () => {
   };
 
   return (
-    <div className="w-full px-4 md:px-8">
+    <>
       <Title description={t("cohesion_description") || pageTitle}>
         {pageTitle}
       </Title>
 
-      <div className="max-w-5xl mx-auto pb-12 space-y-6">
+      <div className="pb-12 space-y-6">
         <p className="text-sm text-muted-foreground">
           {t("cohesion_intro") ||
             "How unified each parliamentary group is when its members vote. Cohesion = share of the group voting the same way per item, averaged across every item the group participated in. 1.00 means every member voted the same way every time; 0.50 is an even split. Absences are excluded."}
@@ -185,6 +185,6 @@ export const ParliamentCohesionScreen: FC = () => {
           </>
         )}
       </div>
-    </div>
+    </>
   );
 };
