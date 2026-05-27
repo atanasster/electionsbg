@@ -13,6 +13,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { MpAvatar } from "./components/candidates/MpAvatar";
 import { useFundsIndex } from "@/data/funds/useFundsIndex";
 import { useFundsMpConnectedFile } from "@/data/funds/useMpConnectedFunds";
+import { useFundsProjectsIndex } from "@/data/funds/useFundsProjectsIndex";
+import { ProjectsStatusMixTile } from "./funds/ProjectsStatusMixTile";
+import { TopProgramsTile } from "./funds/TopProgramsTile";
+import { GeographyMixTile } from "./funds/GeographyMixTile";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
 import { summarizeFundsRelations } from "@/data/funds/relationLabel";
 import { formatEur } from "@/lib/currency";
@@ -233,6 +237,7 @@ export const FundsScreen: FC = () => {
   const { t } = useTranslation();
   const { data: index, isLoading } = useFundsIndex();
   const { data: mpFile } = useFundsMpConnectedFile();
+  const { data: projectsIndex } = useFundsProjectsIndex();
 
   const title = t("funds_index_title") || "EU funds";
   const description =
@@ -365,6 +370,26 @@ export const FundsScreen: FC = () => {
           <BreakdownCard index={index} />
           <TopBeneficiariesCard rows={index.topByContracted} />
         </div>
+
+        {projectsIndex ? (
+          <>
+            <div className="mt-2 flex items-baseline justify-between gap-3">
+              <h2 className="text-lg font-semibold tracking-tight">
+                {t("funds_projects_section_title")}
+              </h2>
+              <span className="text-xs text-muted-foreground">
+                {t("funds_projects_section_subtitle", {
+                  contracts: numFmt.format(projectsIndex.totals.contractCount),
+                })}
+              </span>
+            </div>
+            <div className="grid gap-4 xl:grid-cols-2">
+              <ProjectsStatusMixTile index={projectsIndex} />
+              <GeographyMixTile index={projectsIndex} />
+            </div>
+            <TopProgramsTile index={projectsIndex} />
+          </>
+        ) : null}
 
         {mpFile && mpFile.entries.length > 0 ? (
           <MpConnectedCard file={mpFile} />
