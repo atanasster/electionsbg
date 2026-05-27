@@ -340,6 +340,10 @@ export const AboutScreen = () => {
                   href="https://2020.eufunds.bg/bg/0/0/Beneficiary"
                   label={t("eu_funds_isun_source")}
                 />
+                <SourceItem
+                  href="https://2020.eufunds.bg/bg/0/0/Project"
+                  label={t("eu_funds_isun_projects_source")}
+                />
               </ul>
             </DataGroup>
 

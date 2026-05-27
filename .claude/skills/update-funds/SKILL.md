@@ -88,11 +88,29 @@ drop means EIK parsing regressed. `byOrgForm` carries the public-law vs
 private-law split; `crossReference.pairCount` (the MP-tied payload) should sit
 in the low hundreds.
 
-## Step 3 — Commit + deploy
+## Step 3 — Contract-level ingest (Проекти)
+
+```bash
+npm run funds:ingest-projects
+```
+
+This pulls the sibling **Проекти** export from `https://2020.eufunds.bg/bg/0/0/Project/ExportToExcel` (one row per signed contract, ~80k rows, ~10 MB XLSX). Unlike the beneficiary rollup it carries a **per-contract implementation location** (`Местонахождение`) which is resolved against `data/settlements.json` + `data/municipalities.json` into:
+
+- single-settlement EKATTE (~85% of rows) → `data/funds/projects/by-ekatte/{ekatte}.json`
+- single- or multi-муни label (~10%) → `data/funds/projects/by-muni/{muni}.json`
+- NUTS-region label (~1%) → folded into `multi_location.json`
+- national / foreign / TA (~3%) → folded into `multi_location.json`
+- unresolved (~0.1%, mostly settlements missing from settlements.json plus genuinely ambiguous bare names) → folded into `multi_location.json`
+
+Also writes per-beneficiary contract lists to `data/funds/projects/by-eik/{eik}.json` (gitignored, same convention as `beneficiaries-by-eik`) and per-programme lists to `by-program/{code}.json`. The top-level `index.json` carries corpus totals, the location-kind histogram, per-programme rollups, and per-status rollups.
+
+Flags mirror Step 1 — `--dry-run`, `--file PATH`.
+
+## Step 4 — Commit + deploy
 
 ```bash
 git add data/funds/
-git commit -m "funds: refresh ИСУН EU-funds beneficiaries"
+git commit -m "funds: refresh ИСУН EU-funds beneficiaries + projects"
 npm run bucket:sync       # push data/ to gs://data-electionsbg-com
 ```
 

@@ -38,6 +38,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `data.egov.bg АОП` (procurement) | `update-procurement` |
 | `АОП debarred-suppliers register` | `update-procurement` (Step 5 — debarred-list refresh) |
 | `ИСУН EU funds` (beneficiaries) | `update-funds` |
+| `ИСУН EU funds` (projects) | `update-funds` (Step 2 — contract-level ingest; runs `npm run funds:ingest-projects` after the beneficiaries ingest) |
 | `data.egov.bg бюджет` (budget execution) | `update-budget` |
 | `Per-ministry execution reports` (програмен бюджет) | `update-budget` |
 | `Доклад за състоянието на администрацията (IISDA)` | `update-budget` (resolve new file id first — see `iisda_doklad` describe-line) |
@@ -187,6 +188,7 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `egov_procurement` | `update-procurement` |
 | `aop_debarred` | `update-procurement` (Step 5 — debarred-list refresh) |
 | `isun_eu_funds` | `update-funds` |
+| `isun_eu_funds_projects` | `update-funds` (Step 2 — contract-level ingest; runs `npm run funds:ingest-projects` after the beneficiaries ingest) |
 | `egov_budget_execution` | `update-budget` |
 | `ministry_execution_reports` | `update-budget` |
 | `iisda_doklad` | `update-budget` |

@@ -10,6 +10,7 @@ import { egovCommerce } from "./egov_commerce";
 import { egovProcurement } from "./egov_procurement";
 import { aopDebarred } from "./aop_debarred";
 import { isunEuFunds } from "./isun_eu_funds";
+import { isunEuFundsProjects } from "./isun_eu_funds_projects";
 import { egovBudgetExecution } from "./egov_budget_execution";
 import { ministryExecutionReports } from "./ministry_execution_reports";
 import { iisdaDoklad } from "./iisda_doklad";
@@ -51,6 +52,7 @@ export const SOURCES: WatchSource[] = [
   egovProcurement,
   aopDebarred,
   isunEuFunds,
+  isunEuFundsProjects,
   egovBudgetExecution,
   ministryExecutionReports,
   iisdaDoklad,
