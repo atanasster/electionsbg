@@ -36,6 +36,7 @@ import { VelikoTarnovoCapitalProjectsTile } from "./VelikoTarnovoCapitalProjects
 import { PernikCapitalProjectsTile } from "./PernikCapitalProjectsTile";
 import { HaskovoCapitalProjectsTile } from "./HaskovoCapitalProjectsTile";
 import { GabrovoCapitalProjectsTile } from "./GabrovoCapitalProjectsTile";
+import { YambolCapitalProjectsTile } from "./YambolCapitalProjectsTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
@@ -183,6 +184,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
             <PernikCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <HaskovoCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <GabrovoCapitalProjectsTile obshtinaCode={obshtinaCode} />
+            <YambolCapitalProjectsTile obshtinaCode={obshtinaCode} />
           </DashboardSection>
         ) : null}
 

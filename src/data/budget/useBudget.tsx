@@ -33,6 +33,7 @@ import type {
   StaraZagoraCapitalProgramFile,
   GabrovoCapitalProgramFile,
   HaskovoCapitalProgramFile,
+  YambolCapitalProgramFile,
   PernikCapitalProgramFile,
   VarnaCapitalProgramFile,
   VelikoTarnovoCapitalProgramFile,
@@ -462,6 +463,20 @@ export const useVidinCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<VidinCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/vidin.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Ямбол — Oblast capital (JAM26), single-settlement. Capital list
+// from Прил. 4 (2022-2024) / Прил. 5 (2025) inside the council budget
+// archive. PDF via Gemini Vision OCR.
+export const useYambolCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "yambol", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<YambolCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/yambol.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

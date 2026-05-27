@@ -1028,6 +1028,39 @@ export interface VidinCapitalProgramFile {
   bySettlement: VidinCapitalSettlementRollup[];
 }
 
+// Ямбол — single-município (JAM26, EKATTE 87374). Oblast capital,
+// single-settlement (just the city — no surrounding villages, those
+// are separate общини in Yambol oblast). Source is "Приложение 4/5
+// Разчет за финансиране на капиталовите разходи" inside a RAR (2024+)
+// or ZIP (2022-2023) bundled with the council budget on yambol.bg.
+// PDF is born-digital (Excel-rendered) but column-positioned →
+// Gemini Vision OCR for reliable extraction. No bySettlement.
+export interface YambolCapitalProject {
+  id: number;
+  name: string;
+  total: Money;
+}
+
+export interface YambolCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: YambolCapitalProject[];
+}
+
 // Габрово — single-município (GAB05, EKATTE 14218). Oblast capital
 // with 134 settlements (city + 133 villages — the largest village
 // count in the fleet). Source is the council's "Инвестиционна програма"

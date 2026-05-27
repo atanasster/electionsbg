@@ -465,6 +465,10 @@ export const AboutScreen = () => {
                   href="https://gabrovo.bg/files/budjet2025/izmenenia/20.5.pdf"
                   label={t("budget_capital_gabrovo_source")}
                 />
+                <SourceItem
+                  href="https://yambol.bg/byudzhet"
+                  label={t("budget_capital_yambol_source")}
+                />
               </ul>
             </DataGroup>
 

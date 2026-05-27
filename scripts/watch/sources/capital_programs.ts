@@ -1,8 +1,8 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 16 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Each of the 17 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
 // Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin,
-// Veliko Tarnovo, Pernik, Haskovo, Gabrovo) publishes an annual
+// Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol) publishes an annual
 // "Капиталова програма" / "Поименен списък на обектите за капиталови
 // разходи" on its own website.
 // URLs are opaque and change every year (some include the date, some a
@@ -69,7 +69,8 @@ type Municipality =
   | "veliko_tarnovo"
   | "pernik"
   | "haskovo"
-  | "gabrovo";
+  | "gabrovo"
+  | "yambol";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -130,6 +131,10 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // via Google indexing (gabrovo.bg's portal is JS-rendered). 2025
     // December actualisation; OCR via Gemini Vision.
     gabrovo: "https://gabrovo.bg/files/budjet2025/izmenenia/20.5.pdf",
+    // Ямбол (JAM26) — single-settlement oblast capital. Budget archive
+    // (RAR for 2024+, ZIP for 2022-23) on yambol.bg/byudzhet contains
+    // Прил. 5 (Прил. 4 in earlier years) — capital expenditure list.
+    yambol: "https://yambol.bg/uploads/F78A27D981721A6CE39F7EC33D6B09B2",
     // Велико Търново (VTR04) — Tier-2 oblast capital, 89 settlements.
     // The 22-appendix master XLSX is a clean structured file with a
     // dedicated "Pril15" sheet (Инвестиционна програма). No OCR needed.
@@ -186,6 +191,8 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // Asenovgrad 2024 — same OCR pipeline as 2025.
     asenovgrad:
       "https://www.asenovgrad.bg/uploads/MyDocuments//rkr_2024_oc-01032024.pdf",
+    // Yambol 2024 — RAR archive of budget on yambol.bg, Прил. 4 inside.
+    yambol: "https://yambol.bg/uploads/E2799BB345CA60C59FADC2893CA59B8F",
   },
   2023: {
     sofia:
@@ -209,11 +216,15 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // Asenovgrad 2023 — same OCR pipeline as 2025.
     asenovgrad:
       "https://www.asenovgrad.bg/uploads/MyDocuments//rkr_mv_20092023_oc-21092023.pdf",
+    // Yambol 2023 — ZIP archive (Cyrillic filenames need CP866 unzip).
+    yambol: "https://yambol.bg/uploads/A70C407EA08879FEF3B5CCE86AD91A62",
   },
   2022: {
     // Asenovgrad 2022 — same OCR pipeline as 2025.
     asenovgrad:
       "https://www.asenovgrad.bg/uploads/MyDocuments//raz_kapitalovi-razhodi26042022-1.pdf",
+    // Yambol 2022 — ZIP archive (Cyrillic filenames need CP866 unzip).
+    yambol: "https://yambol.bg/uploads/3E82C93B98F495133D0C965CBAAF957C",
     // Vidin 2022 — .doc inside 4-то тримесечие 2022 RAR; same workflow
     // as 2023. NB: source recap has an internal inconsistency (states
     // 7.15M but section totals + bullets sum to 12.6M); see vidin.ts.
