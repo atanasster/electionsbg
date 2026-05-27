@@ -88,6 +88,8 @@ const bucketFor = (urlPath: string): string => {
   if (p.startsWith("/elections/")) return "static";
   if (p.startsWith("/articles")) return "static";
   if (p.startsWith("/budget/ministry/")) return "budget";
+  if (p.startsWith("/funds/")) return "funds";
+  if (p === "/funds") return "funds";
   return "static";
 };
 
@@ -270,6 +272,49 @@ const enumerateCabinets = (
   }
 };
 
+// /funds/focus/{slug} — one URL per editorial theme listed in
+// data/funds/themes.json. The shard build re-runs on every funds ingest, so
+// the file's mtime is a reasonable lastmod for the whole set. Themes with
+// zero matches are skipped (see FundsFocusTile.tsx — it also hides them).
+const enumerateFundsThemes = (rootUrl: string, routes: string[]) => {
+  const file = `${projectPath}/data/funds/themes.json`;
+  if (!fs.existsSync(file)) return;
+  let payload: {
+    themes?: Array<{ slug: string; contractCount?: number }>;
+  };
+  try {
+    payload = JSON.parse(fs.readFileSync(file, "utf-8"));
+  } catch {
+    return;
+  }
+  const themes = payload.themes ?? [];
+  const lastmod = safeFileMod(file);
+  for (const th of themes) {
+    if (!th.slug) continue;
+    if (typeof th.contractCount === "number" && th.contractCount === 0)
+      continue;
+    pushUrl(`${rootUrl}/${routes[0]}${th.slug}`, lastmod);
+    pushUrl(`/en${rootUrl}/${routes[0]}${th.slug}`, lastmod);
+  }
+};
+
+// /funds/programme/{code} — one URL per operational programme that has its
+// own summary shard under data/funds/projects/by-program. Each shard's
+// mtime is the lastmod for that programme's URL.
+const enumerateFundsProgrammes = (rootUrl: string, routes: string[]) => {
+  const dir = `${projectPath}/data/funds/projects/by-program`;
+  if (!fs.existsSync(dir)) return;
+  const summaries = fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith("-summary.json"));
+  for (const f of summaries) {
+    const code = f.replace(/-summary\.json$/, "");
+    const lastmod = safeFileMod(path.join(dir, f));
+    pushUrl(`${rootUrl}/${routes[0]}${code}`, lastmod);
+    pushUrl(`/en${rootUrl}/${routes[0]}${code}`, lastmod);
+  }
+};
+
 const enumerateElections = (rootUrl: string, routes: string[]) => {
   // electionsFile is loaded at module init.
   const lastmod = safeFileMod(electionsFile);
@@ -389,6 +434,10 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateOfficials(route, rootUrl, routes);
     if (route.file === "cabinets-list")
       return enumerateCabinets(route, rootUrl, routes);
+    if (route.file === "funds-themes-list")
+      return enumerateFundsThemes(rootUrl, routes);
+    if (route.file === "funds-programmes-list")
+      return enumerateFundsProgrammes(rootUrl, routes);
     // Generic ":id" expansion against a folder of files (e.g. municipalities/by/{id}).
     const folders = route.file?.split(":id");
     if (!folders) throw new Error("Must assign file property: " + route.path);

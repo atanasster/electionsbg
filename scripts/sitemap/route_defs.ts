@@ -60,6 +60,10 @@ export const ENGLISH_STATIC_PAGES = [
   "procurement/contractors",
   "procurement/awarders",
   "procurement/mps",
+  "funds",
+  "funds/political",
+  "funds/integrity",
+  "funds/rrf",
   "parliament",
   "parliament/cohesion",
   "parliament/embedding",
@@ -172,6 +176,14 @@ export const routeDefs = (year: string): RouteDefs => [
     file: `src/screens/TopAwardersScreen.tsx`,
   },
   { path: "procurement/mps", file: `src/screens/TopMpsScreen.tsx` },
+
+  // EU funds — ИСУН 2020 corpus.
+  { path: "funds", file: `data/funds/index.json` },
+  { path: "funds/political", file: `data/funds/derived/political_links.json` },
+  { path: "funds/integrity", file: `data/funds/derived/integrity.json` },
+  { path: "funds/rrf", file: `data/funds/rrf_context.json` },
+  { path: "funds/focus/:id", file: `funds-themes-list` },
+  { path: "funds/programme/:id", file: `funds-programmes-list` },
 
   {
     path: "parliament",

@@ -1715,6 +1715,159 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Тук са секциите с най-голямо отклонение между двете броения — по обща сума, по партия и по тип разлика (партия → партия, партия → недействителна).</p>`.trim(),
   }),
   staticPage({
+    path: "funds",
+    title:
+      "Европейски средства за България — бенефициенти, договори, политически връзки | electionsbg.com",
+    description:
+      "Над 80 000 договора за €43 млрд. европейско финансиране от ИСУН 2020 — карта по общини, топ бенефициенти, програми и възложители, потоци пари към свързани с депутати фирми и редфлагове за почтеност.",
+    breadcrumbName: "Европейски средства",
+    ogImage: "/og/funds.png",
+    bodyHtml: `
+<h1>Европейски средства за България</h1>
+<p>Целият корпус от договори за европейско финансиране, публикуван от ИСУН 2020 (Информационна система за управление и наблюдение на средствата от ЕС) — над 80 000 договора за около €43 млрд. договорено и €16 млрд. изплатено. Данните покриват оперативните програми и ПВУ, с карта по общини, топ бенефициенти, програми и възложители.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Карта по общини</strong> — choropleth на договорените средства, нормализирана по население.</li>
+<li><strong>Топ бенефициенти</strong> — фирми и държавни структури с най-голям обем европейско финансиране.</li>
+<li><strong>Програми</strong> — разбивка по оперативна програма и фонд (ЕФРР, ЕСФ, ЕЗФРСР и др.), с топ договори и бенефициенти.</li>
+<li><a href="${SITE_URL}/funds/political">Политическа икономия</a> — фирми с европейско финансиране и свързан депутат/официално лице.</li>
+<li><a href="${SITE_URL}/funds/integrity">Почтеност</a> — концентрация (HHI), серийни победители, дебарирани изпълнители.</li>
+<li><a href="${SITE_URL}/funds/rrf">ПВУ (RRF)</a> — Планът за възстановяване и устойчивост: реформи и инвестиции по стълбове.</li>
+<li><strong>Тематичен фокус</strong> — редакционни лещи (къщи за гости, пътища, земеделие, училища, общинска инфраструктура).</li>
+</ul>
+<p>Източник: <a href="https://2020.eufunds.bg/bg/0/0/Beneficiary" rel="nofollow noopener">ИСУН 2020 — публичен модул, Бенефициенти</a>. Свързаните политически фигури идват от <a href="${SITE_URL}/connections">граф на бизнес-връзките на депутатите</a> (декларации в Сметна палата + Търговския регистър).</p>`.trim(),
+    english: {
+      title:
+        "EU Funds for Bulgaria — Beneficiaries, Contracts, Political Links | electionsbg.com",
+      description:
+        "Over 80,000 contracts for €43B of EU funding from ИСУН 2020 — choropleth by municipality, top beneficiaries, programmes and awarders, money flows to MP-connected companies, and integrity red flags.",
+      breadcrumbName: "EU funds",
+      bodyHtml: `
+<h1>EU funds for Bulgaria</h1>
+<p>The full corpus of EU-funding contracts published by ИСУН 2020 (the Bulgarian Management Information System for EU Funds) — over 80,000 contracts for ~€43B contracted and ~€16B paid. Coverage spans operational programmes and the Recovery and Resilience Facility, with a choropleth by municipality, top beneficiaries, programmes and awarders.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>Map by municipality</strong> — choropleth of contracted funds, normalised by population.</li>
+<li><strong>Top beneficiaries</strong> — companies and state entities with the largest EU-funding receipts.</li>
+<li><strong>Programmes</strong> — breakdown by operational programme and fund (ERDF, ESF, EAFRD, etc.) with top contracts and beneficiaries.</li>
+<li><a href="${SITE_URL}/en/funds/political">Political economy</a> — companies that received EU funds and have a connected MP or senior official.</li>
+<li><a href="${SITE_URL}/en/funds/integrity">Integrity</a> — concentration (HHI), serial winners, debarred contractors.</li>
+<li><a href="${SITE_URL}/en/funds/rrf">RRF</a> — Recovery and Resilience Plan: reforms and investments by pillar.</li>
+<li><strong>Editorial focus</strong> — themes such as guest houses, roads, agriculture, schools, municipal infrastructure.</li>
+</ul>
+<p>Source: <a href="https://2020.eufunds.bg/bg/0/0/Beneficiary" rel="nofollow noopener">ИСУН 2020 — public module, Beneficiaries</a>. Connected politicians come from the <a href="${SITE_URL}/en/connections">MP business-connections graph</a> (Court of Audit declarations + Commerce Registry).</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "funds/political",
+    title:
+      "Политическа икономия на европейските средства — фирми с депутатска връзка | electionsbg.com",
+    description:
+      "Бенефициенти на ЕС-средства, чиито собственици или управители са депутати, министри или висши официални лица — обща сума, брой фирми и съответните политически фигури.",
+    breadcrumbName: "Политическа икономия",
+    ogImage: "/og/funds-political.png",
+    bodyHtml: `
+<h1>Политическа икономия на европейските средства</h1>
+<p>Фирми-бенефициенти на ИСУН 2020, чиито собственици или управители съвпадат с действащ депутат, кабинетен министър, заместник-министър или висш официален държавен служител, декларирал бизнес-интерес в Сметната палата.</p>
+<h2>Какво се вижда тук</h2>
+<ul>
+<li>Топ свързани фирми по обем европейско финансиране (договорено / изплатено).</li>
+<li>Съответната политическа фигура с роля (собственик, управител, член на УС).</li>
+<li>Връзка към <a href="${SITE_URL}/connections">графа на бизнес-връзките</a> и към профила на депутата.</li>
+</ul>
+<p>Източник на бизнес-връзките: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (имуществени декларации) + Търговски регистър. Източник на договорите: ИСУН 2020.</p>`.trim(),
+    english: {
+      title:
+        "Political Economy of EU Funds — MP-Connected Beneficiaries | electionsbg.com",
+      description:
+        "EU-funds beneficiaries whose owners or directors are sitting Bulgarian MPs, ministers or senior officials — totals, company counts, and the corresponding political figures.",
+      breadcrumbName: "Political economy",
+      bodyHtml: `
+<h1>Political economy of EU funds</h1>
+<p>Beneficiary companies in the ИСУН 2020 corpus whose owners or directors are a sitting Bulgarian MP, cabinet minister, deputy minister, or senior official with a declared business interest at the Court of Audit.</p>
+<h2>What you'll find</h2>
+<ul>
+<li>Top connected companies by EU-funding volume (contracted and paid).</li>
+<li>The matching political figure with their role (owner, director, board member).</li>
+<li>Cross-links into the <a href="${SITE_URL}/en/connections">business-connections graph</a> and the MP's candidate profile.</li>
+</ul>
+<p>Business-connection sources: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (property declarations) and the Commerce Registry. Contract source: ИСУН 2020.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "funds/integrity",
+    title:
+      "Почтеност на европейските средства — HHI, серийни победители, дебарирани | electionsbg.com",
+    description:
+      "Редфлагове в разпределението на ЕС-средствата: концентрация по програма (HHI), бенефициенти с подозрително висок дял на договорите, и фирми, фигуриращи в регистъра на дебарираните по АОП.",
+    breadcrumbName: "Почтеност",
+    ogImage: "/og/funds-integrity.png",
+    bodyHtml: `
+<h1>Почтеност на европейските средства</h1>
+<p>Структурни редфлагове в разпределението на европейските средства, изчислени за всяка оперативна програма и общо за корпуса.</p>
+<h2>Сигнали</h2>
+<ul>
+<li><strong>Концентрация (HHI)</strong> — Herfindahl–Hirschman индекс на разпределението на договори по бенефициент.</li>
+<li><strong>Серийни победители</strong> — фирми с подозрително висок дял на договорите в дадена програма.</li>
+<li><strong>Дебарирани изпълнители</strong> — съответствие с регистъра на дебарираните доставчици по Закона за обществените поръчки (АОП).</li>
+</ul>
+<p>Източници: ИСУН 2020 (договори), АОП — регистър на дебарираните по чл. 55 от ЗОП. Резултатите не са обвинение, а индикатори за по-задълбочена проверка.</p>`.trim(),
+    english: {
+      title:
+        "Integrity of EU Funds — HHI, Serial Winners, Debarred Contractors | electionsbg.com",
+      description:
+        "Structural red flags in EU-funds allocation: per-programme concentration (HHI), beneficiaries with a suspiciously high contract share, and matches against the АОП debarred-supplier register.",
+      breadcrumbName: "Integrity",
+      bodyHtml: `
+<h1>Integrity of EU funds</h1>
+<p>Structural red flags in EU-funds allocation, computed per operational programme and across the full corpus.</p>
+<h2>Signals</h2>
+<ul>
+<li><strong>Concentration (HHI)</strong> — Herfindahl–Hirschman index of the distribution of contracts across beneficiaries.</li>
+<li><strong>Serial winners</strong> — companies with a suspiciously high share of contracts in a single programme.</li>
+<li><strong>Debarred contractors</strong> — matches against the АОП register of suppliers debarred under art. 55 of the Public Procurement Act.</li>
+</ul>
+<p>Sources: ИСУН 2020 (contracts) and the АОП debarred-supplier register. The output is not an accusation — it flags cases that warrant a closer look.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "funds/rrf",
+    title:
+      "ПВУ — План за възстановяване и устойчивост на България | electionsbg.com",
+    description:
+      "Дашборд на Плана за възстановяване и устойчивост (ПВУ / RRF) — стълбове, реформи и инвестиции, договорени и изплатени средства, контекст спрямо ЕС.",
+    breadcrumbName: "ПВУ (RRF)",
+    ogImage: "/og/funds-rrf.png",
+    bodyHtml: `
+<h1>ПВУ — План за възстановяване и устойчивост</h1>
+<p>Дашборд на българския Национален план за възстановяване и устойчивост (ПВУ / RRF). Прегледи по стълбове, реформи и инвестиции, индикатори за договорени и изплатени средства, и контекст спрямо плановете на останалите държави-членки на ЕС.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li>Разбивка по четирите стълба: иновативна, зелена, свързана и справедлива България.</li>
+<li>Топ договори по обем и съответната реформа/инвестиция.</li>
+<li>Топ бенефициенти и обвързаните общини.</li>
+<li>Контекст спрямо ЕС: алокация на държава, темп на изплащане.</li>
+</ul>
+<p>Източници: ИСУН 2020 (договори по фонд "ПВУ"), Европейска комисия — RRF Scoreboard.</p>`.trim(),
+    english: {
+      title: "Recovery and Resilience Plan — Bulgaria's RRF | electionsbg.com",
+      description:
+        "Dashboard for Bulgaria's National Recovery and Resilience Plan (RRF) — pillars, reforms and investments, contracted and paid amounts, with EU peer context.",
+      breadcrumbName: "RRF",
+      bodyHtml: `
+<h1>Recovery and Resilience Plan — Bulgaria</h1>
+<p>Dashboard of Bulgaria's National Recovery and Resilience Plan (RRF). Breakdown by pillar, reforms and investments, indicators for contracted and paid amounts, and peer context across the EU member states.</p>
+<h2>What you'll find</h2>
+<ul>
+<li>Breakdown across the four pillars: innovative, green, connected and fair Bulgaria.</li>
+<li>Top contracts by volume and the matching reform / investment.</li>
+<li>Top beneficiaries and the municipalities they reach.</li>
+<li>EU context — per-country allocation and disbursement pace.</li>
+</ul>
+<p>Sources: ИСУН 2020 (contracts under the RRF fund) and the European Commission's RRF Scoreboard.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "parliament",
     title:
       "Парламент — анализ на гласуванията в Народното събрание | electionsbg.com",
@@ -1984,5 +2137,152 @@ if (fs.existsSync(GOVERNMENTS_FILE)) {
     }
   } catch (err) {
     console.warn("prerender: failed to enumerate cabinet detail pages", err);
+  }
+}
+
+// Per-theme focus pages /funds/focus/<slug>. One staticPage per theme listed
+// in data/funds/themes.json — same source the in-app /funds focus tile uses.
+// Themes with zero matched contracts are skipped so we don't ship dead pages
+// to the index.
+type FundsThemeEntry = {
+  slug: string;
+  labelBg: string;
+  labelEn: string;
+  summaryBg?: string;
+  summaryEn?: string;
+  contractCount?: number;
+  beneficiaryCount?: number;
+  totalEur?: number;
+};
+const FUNDS_THEMES_FILE = path.join(PROJECT_ROOT, "data/funds/themes.json");
+if (fs.existsSync(FUNDS_THEMES_FILE)) {
+  try {
+    const payload = JSON.parse(fs.readFileSync(FUNDS_THEMES_FILE, "utf8")) as {
+      themes?: FundsThemeEntry[];
+    };
+    const themes = (payload.themes ?? []).filter(
+      (th) => th.slug && (th.contractCount ?? 0) > 0,
+    );
+    for (const th of themes) {
+      const labelBg = th.labelBg || th.slug;
+      const labelEn = th.labelEn || th.slug;
+      prerenderRoutes.push(
+        staticPage({
+          path: `funds/focus/${th.slug}`,
+          title: `${labelBg} — европейско финансиране | electionsbg.com`,
+          description:
+            (th.summaryBg && th.summaryBg.slice(0, 240)) ||
+            `Тематичен фокус върху европейските средства: ${labelBg}. Топ бенефициенти, програми, география и журналистически източници.`,
+          breadcrumbName: labelBg,
+          ogImage: "/og/funds-focus.png",
+          bodyHtml: `
+<h1>${labelBg} — европейско финансиране</h1>
+${th.summaryBg ? `<p>${th.summaryBg}</p>` : ""}
+<p>Тематична извадка от корпуса на ИСУН 2020 за <strong>${labelBg.toLowerCase()}</strong>. Страницата показва топ бенефициенти и договори, разбивка по програма и общини, плюс препратки към разследваща журналистика по темата.</p>
+<p>Виж и <a href="${SITE_URL}/funds">общия преглед на европейските средства</a> или <a href="${SITE_URL}/funds/political">политическата икономия</a>.</p>`.trim(),
+          english: {
+            title: `${labelEn} — EU funding focus | electionsbg.com`,
+            description:
+              (th.summaryEn && th.summaryEn.slice(0, 240)) ||
+              `Editorial focus on EU funds: ${labelEn}. Top beneficiaries, programmes, geography, and investigative-journalism sources.`,
+            breadcrumbName: labelEn,
+            bodyHtml: `
+<h1>${labelEn} — EU funding focus</h1>
+${th.summaryEn ? `<p>${th.summaryEn}</p>` : ""}
+<p>A thematic slice of the ИСУН 2020 corpus filtered to <strong>${labelEn.toLowerCase()}</strong>. The page shows top beneficiaries and contracts, programme and municipality breakdowns, plus pointers to investigative-journalism sources on the topic.</p>
+<p>See also the <a href="${SITE_URL}/en/funds">EU-funds overview</a> or the <a href="${SITE_URL}/en/funds/political">political-economy view</a>.</p>`.trim(),
+          },
+        }),
+      );
+    }
+  } catch (err) {
+    console.warn("prerender: failed to enumerate funds theme pages", err);
+  }
+}
+
+// Per-programme detail pages /funds/programme/<code>. One staticPage per
+// operational-programme summary shard. Crawlers without JS see the
+// programme name, fund, contract count and €-volumes as indexable content
+// instead of an empty SPA shell.
+type FundsProgrammeSummary = {
+  programCode: string;
+  programName?: string;
+  programNameEn?: string;
+  fundLabel?: string;
+  rollup?: {
+    contractCount?: number;
+    beneficiaryCount?: number;
+    totalEur?: number;
+    paidEur?: number;
+  };
+};
+const FUNDS_BY_PROGRAM_DIR = path.join(
+  PROJECT_ROOT,
+  "data/funds/projects/by-program",
+);
+if (fs.existsSync(FUNDS_BY_PROGRAM_DIR)) {
+  const eurFmt = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  });
+  const numFmtBg = new Intl.NumberFormat("bg-BG");
+  const numFmtEn = new Intl.NumberFormat("en-US");
+  const summaryFiles = fs
+    .readdirSync(FUNDS_BY_PROGRAM_DIR)
+    .filter((f) => f.endsWith("-summary.json"));
+  for (const fileName of summaryFiles) {
+    const full = path.join(FUNDS_BY_PROGRAM_DIR, fileName);
+    let summary: FundsProgrammeSummary | null = null;
+    try {
+      summary = JSON.parse(fs.readFileSync(full, "utf8"));
+    } catch {
+      continue;
+    }
+    if (!summary?.programCode) continue;
+    const code = summary.programCode;
+    const nameBg = summary.programName || code;
+    const nameEn = summary.programNameEn || nameBg;
+    const fundLabel = summary.fundLabel || "";
+    const contracts = summary.rollup?.contractCount ?? 0;
+    const beneficiaries = summary.rollup?.beneficiaryCount ?? 0;
+    const totalEur = summary.rollup?.totalEur ?? 0;
+    const paidEur = summary.rollup?.paidEur ?? 0;
+    const stats =
+      contracts > 0
+        ? `${numFmtBg.format(contracts)} договора · ${numFmtBg.format(beneficiaries)} бенефициенти · ${eurFmt.format(totalEur)} договорени · ${eurFmt.format(paidEur)} изплатени`
+        : "";
+    const statsEn =
+      contracts > 0
+        ? `${numFmtEn.format(contracts)} contracts · ${numFmtEn.format(beneficiaries)} beneficiaries · ${eurFmt.format(totalEur)} contracted · ${eurFmt.format(paidEur)} paid`
+        : "";
+    prerenderRoutes.push(
+      staticPage({
+        path: `funds/programme/${code}`,
+        title: `${nameBg} (${code}) — европейско финансиране | electionsbg.com`,
+        description:
+          `${nameBg} — оперативна програма от ИСУН 2020${fundLabel ? ` (${fundLabel})` : ""}. ${stats}`.trim(),
+        breadcrumbName: nameBg,
+        ogImage: "/og/funds.png",
+        bodyHtml: `
+<h1>${nameBg}</h1>
+<p><strong>${code}</strong>${fundLabel ? ` · ${fundLabel}` : ""}</p>
+${stats ? `<p>${stats}.</p>` : ""}
+<p>Топ договори, бенефициенти и общини за оперативна програма ${nameBg}, извлечени от корпуса на ИСУН 2020.</p>
+<p>Виж и <a href="${SITE_URL}/funds">общия преглед на ЕС-средствата</a>, <a href="${SITE_URL}/funds/political">политическата икономия</a> или <a href="${SITE_URL}/funds/integrity">сигналите за почтеност</a>.</p>`.trim(),
+        english: {
+          title: `${nameEn} (${code}) — EU funding | electionsbg.com`,
+          description:
+            `${nameEn} — operational programme from ИСУН 2020${fundLabel ? ` (${fundLabel})` : ""}. ${statsEn}`.trim(),
+          breadcrumbName: nameEn,
+          bodyHtml: `
+<h1>${nameEn}</h1>
+<p><strong>${code}</strong>${fundLabel ? ` · ${fundLabel}` : ""}</p>
+${statsEn ? `<p>${statsEn}.</p>` : ""}
+<p>Top contracts, beneficiaries and municipalities for operational programme ${nameEn}, extracted from the ИСУН 2020 corpus.</p>
+<p>See also the <a href="${SITE_URL}/en/funds">EU-funds overview</a>, <a href="${SITE_URL}/en/funds/political">political-economy view</a>, or <a href="${SITE_URL}/en/funds/integrity">integrity signals</a>.</p>`.trim(),
+        },
+      }),
+    );
   }
 }
