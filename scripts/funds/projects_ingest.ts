@@ -37,6 +37,7 @@ const BY_EIK_DIR = path.join(PROJECTS_DIR, "by-eik");
 const BY_PROGRAM_DIR = path.join(PROJECTS_DIR, "by-program");
 const INDEX_FILE = path.join(PROJECTS_DIR, "index.json");
 const MULTI_LOC_FILE = path.join(PROJECTS_DIR, "multi_location.json");
+const MUNI_MAP_FILE = path.join(PROJECTS_DIR, "muni-map.json");
 const SETTLEMENTS_FILE = path.resolve(__dirname, "../../data/settlements.json");
 const GRAO_FILE = path.resolve(__dirname, "../../data/grao_population.json");
 
@@ -484,6 +485,89 @@ const main = async (args: MainArgs): Promise<void> => {
     );
   }
   console.log(`→ wrote ${muniShards.length} per-муни shard(s) + summaries`);
+
+  // 7b. Choropleth map data — denormalised one-row-per-муни payload for the
+  // /funds map tile. Tiny (<10 KB) so the map renders without 200+ fetches.
+  // Sofia is special: гр.София contracts land in obshtina "S22" (the
+  // synthetic Stolichna anchor) while Sofia-district villages land in
+  // S23xx / S24xx / S25xx. The municipality map geometry only carries the
+  // district codes (no S22 feature), so we emit a synthetic "SOF00" entry
+  // that aggregates Sofia city + all its district shards — the choropleth
+  // component falls back to SOF00 when hovering any Sofia district feature,
+  // matching the IndicatorsChoroplethMap convention.
+  const isSofiaMuni = (code: string): boolean =>
+    code === "S22" || /^S2[2-5]\d{2}$/.test(code);
+
+  const muniMapRows: Array<{
+    muni: string;
+    oblast: string | null;
+    contractCount: number;
+    totalEur: number;
+    paidEur: number;
+    perCapitaEur: number | null;
+    perCapitaRank: number | null;
+    cohortSize: number | null;
+    population: number | null;
+  }> = [];
+  const sofiaAgg = {
+    contractCount: 0,
+    totalEur: 0,
+    paidEur: 0,
+    population: 0,
+    populationKnown: false,
+  };
+  for (const s of muniSummaries) {
+    if (isSofiaMuni(s.placeId)) {
+      sofiaAgg.contractCount += s.rollup.contractCount;
+      sofiaAgg.totalEur += s.rollup.totalEur;
+      sofiaAgg.paidEur += s.rollup.paidEur;
+      if (s.population != null) {
+        sofiaAgg.population += s.population;
+        sofiaAgg.populationKnown = true;
+      }
+      continue;
+    }
+    muniMapRows.push({
+      muni: s.placeId,
+      oblast: s.oblastCode,
+      contractCount: s.rollup.contractCount,
+      totalEur: s.rollup.totalEur,
+      paidEur: s.rollup.paidEur,
+      perCapitaEur: s.perCapitaEur,
+      perCapitaRank: s.perCapitaRank,
+      cohortSize: s.cohortSize,
+      population: s.population,
+    });
+  }
+  if (sofiaAgg.contractCount > 0) {
+    // Sofia per-capita is intentionally null: ГРАО does not list EKATTE
+    // 68134 (the city core), so the Stolichna population we can sum only
+    // covers the surrounding-village shell (~88k of the real ~1.2M). A
+    // ratio against that partial denominator would be 13x too high and
+    // dominate the choropleth legend. Until a reliable Sofia city
+    // population lands, the absolute and disbursement-rate metrics are
+    // the only honest ones to display for SOF00.
+    muniMapRows.push({
+      muni: "SOF00",
+      oblast: "S22",
+      contractCount: sofiaAgg.contractCount,
+      totalEur: round2(sofiaAgg.totalEur),
+      paidEur: round2(sofiaAgg.paidEur),
+      perCapitaEur: null,
+      perCapitaRank: null,
+      cohortSize: null,
+      population: null,
+    });
+  }
+  fs.writeFileSync(
+    MUNI_MAP_FILE,
+    canonicalJson({
+      generatedAt: new Date().toISOString(),
+      muniCount: muniMapRows.length,
+      munis: muniMapRows.sort((a, b) => a.muni.localeCompare(b.muni)),
+    }),
+  );
+  console.log(`→ wrote muni-map.json (${muniMapRows.length} muni row(s))`);
 
   // 8. Per-EIK shards — every contract grouped by the beneficiary EIK.
   // Gitignored (~40k files), same convention as data/funds/beneficiaries-by-eik.

@@ -184,6 +184,30 @@ export interface FundsProjectsIndexFile {
   multiLocationCount: number;
 }
 
+// One муни row in the contract-level choropleth-map data file. Backed by
+// data/funds/projects/muni-map.json — denormalised so the /funds map tile
+// renders without 274 fan-out fetches. The synthetic "SOF00" entry
+// aggregates всички Sofia obshtinas (S22 + S23xx + S24xx + S25xx); per-capita
+// is intentionally null for it because ГРАО doesn't carry the Sofia city
+// EKATTE.
+export interface FundsProjectsMuniMapRow {
+  muni: string;
+  oblast: string | null;
+  contractCount: number;
+  totalEur: number;
+  paidEur: number;
+  perCapitaEur: number | null;
+  perCapitaRank: number | null;
+  cohortSize: number | null;
+  population: number | null;
+}
+
+export interface FundsProjectsMuniMapFile {
+  generatedAt: string;
+  muniCount: number;
+  munis: FundsProjectsMuniMapRow[];
+}
+
 // Slim "tile-ready" summary for a single place. Backed by
 // funds/projects/by-ekatte/{ekatte}-summary.json and
 // funds/projects/by-muni/{obshtina}-summary.json — see

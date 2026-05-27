@@ -17,6 +17,7 @@ import { useFundsProjectsIndex } from "@/data/funds/useFundsProjectsIndex";
 import { ProjectsStatusMixTile } from "./funds/ProjectsStatusMixTile";
 import { TopProgramsTile } from "./funds/TopProgramsTile";
 import { GeographyMixTile } from "./funds/GeographyMixTile";
+import { FundsMuniMapTile } from "./funds/FundsMuniMapTile";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
 import { summarizeFundsRelations } from "@/data/funds/relationLabel";
 import { formatEur } from "@/lib/currency";
@@ -383,6 +384,7 @@ export const FundsScreen: FC = () => {
                 })}
               </span>
             </div>
+            <FundsMuniMapTile />
             <div className="grid gap-4 xl:grid-cols-2">
               <ProjectsStatusMixTile index={projectsIndex} />
               <GeographyMixTile index={projectsIndex} />
