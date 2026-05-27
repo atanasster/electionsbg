@@ -500,6 +500,11 @@ export type MunicipalIndexEntry = {
   roleRaw: string;
   /** Municipality / district — the registry's `Institution` name. */
   municipality: string;
+  /** Verbatim "Район X" label when the entry is a sub-район folded into a
+   *  larger city's obshtina (Plovdiv / Varna). Absent for Sofia районs —
+   *  each Sofia район is its own obshtina with its own shard. Absent for
+   *  ordinary obshtina officials. Additive field; older consumers ignore. */
+  district?: string;
   latestDeclarationYear: number;
 };
 
@@ -509,6 +514,35 @@ export type MunicipalIndexFile = {
   years: number[];
   total: number;
   /** Count per role bucket. */
+  byRole: Record<MunicipalOfficialRole, number>;
+  entries: MunicipalIndexEntry[];
+};
+
+/** Per-obshtina shard emitted by scripts/officials/municipal.ts at
+ * `data/officials/municipal/by_obshtina/{code}.json`. One file per obshtina
+ * that has at least one official in the current snapshot — typically 14-72
+ * entries, 1-12 KB raw / 0.3-3 KB gzipped. The municipality-page roster
+ * tiles fetch only their own shard; the 2.2 MB global index.json is
+ * reserved for cross-cutting (search) consumers.
+ *
+ * `entries` are pre-sorted at build time in roster-display order (mayor →
+ * deputies → council chair → chief architect → councillors alpha) so the
+ * SPA can `.slice(0, N)` without re-sorting on every render.
+ *
+ * `byRole` is duplicated at the file head so the Composition tile can
+ * render counts without iterating the entries array. */
+export type MunicipalityRosterFile = {
+  /** App's obshtina code (e.g. "BLG14"), or the synthetic "SFO_CITY" code
+   *  for the Sofia city-wide administration tier (mayor + deputies + city
+   *  council + chief architects) — that file is staged but not yet
+   *  consumed by any SPA page. */
+  obshtina: string;
+  /** Verbatim "Institution" name from the CACBG registry for the dominant
+   *  entry in this shard. Provenance / debugging aid; the SPA renders the
+   *  municipality name from data/municipalities.json instead. */
+  registryName: string;
+  generatedAt: string;
+  years: number[];
   byRole: Record<MunicipalOfficialRole, number>;
   entries: MunicipalIndexEntry[];
 };

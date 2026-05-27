@@ -45,6 +45,7 @@ import {
   fetchDeclaration,
   writeJson,
 } from "./shared";
+import { emitShards } from "./build_municipal_shards";
 
 const OUT_DIR = path.join(ROOT, "data", "officials", "municipal");
 const DECL_DIR = path.join(OUT_DIR, "declarations");
@@ -305,6 +306,37 @@ const cmd = command({
         `${byRole.mayor} mayors, ${byRole.deputy_mayor} dep. mayors, ` +
         `${byRole.council_chair} chairs, ${byRole.councillor} councillors, ` +
         `${byRole.chief_architect} architects, ${byRole.other} other)`,
+    );
+
+    // 3. Per-obshtina shards. The SPA's municipality page fetches only its
+    //    own slice — never the 2.2 MB global index.json above — so each
+    //    shard ships ~1-3 KB gzipped. See ./build_municipal_shards.ts for
+    //    the same routine, invokable standalone after an alias-map edit.
+    const shardResult = emitShards(indexEntries, {
+      generatedAt: indexFile.generatedAt,
+      years: indexFile.years,
+    });
+
+    // Fail loud at the same threshold as the parse-failure guard above —
+    // an unmatched count above 10 signals an upstream rename or a new
+    // municipality, both of which need an operator edit to
+    // scripts/officials/_aliases.json before the SPA gets a wrong-page
+    // roster. Dry-run the join helper to see the unmatched list:
+    //   tsx scripts/officials/municipality_join.ts --dry-run
+    if (shardResult.unmatched.length > 10) {
+      console.error(
+        "unmatched (first 20):",
+        shardResult.unmatched.slice(0, 20).map((u) => u.municipality),
+      );
+      throw new Error(
+        `${shardResult.unmatched.length} roster entries did not map to an obshtina — add aliases in scripts/officials/_aliases.json`,
+      );
+    }
+    for (const u of shardResult.unmatched) {
+      console.warn(`  ⚠ unmatched: ${u.municipality} (${u.name})`);
+    }
+    console.log(
+      `  wrote ${shardResult.shardsWritten} per-obshtina shard(s) to ${path.join(OUT_DIR, "by_obshtina")} (max ${shardResult.maxShardBytes} bytes)`,
     );
   },
 });
