@@ -101,11 +101,15 @@ export const CAPITAL_PROGRAM_URLS: Record<
     sofia:
       "https://www.sofia.bg/documents/d/guest/prilozenie-3_-razcet-za-finansirane-na-kapitalovite-razhodi-2024-g-",
     ruse: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2024/Kapitalov_razchet_31.12.2024.xlsx",
+    stara_zagora:
+      "https://www.starazagora.bg/uploads/posts/2024/prilozhenia_byudzhet_2024.zip",
   },
   2023: {
     sofia:
       "https://www.sofia.bg/documents/d/guest/4-kapitalova-programa-za-2023-g",
     ruse: "https://obshtinaruse.bg/editor/files/Бюджет/Разчет за пап. разходи/2023/Kapitalov razchet 31.12.2023.xlsx",
+    stara_zagora:
+      "https://starazagora.bg/uploads/posts/2023/prilozhenia_byudzhet2023.zip",
   },
   2022: {
     // 2022's budget itself adopted late (Aug 2023) due to political
@@ -121,6 +125,8 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // catalogued here yet (need a PDF parser, see commit message).
     burgas:
       "https://www.burgas.bg/uploads/posts/2022/parvonachalen-plan-za-2022g-5202-burgas.xlsx",
+    stara_zagora:
+      "https://starazagora.bg/uploads/posts/2022/prilozhenia_byudzhet2022.zip",
   },
 };
 

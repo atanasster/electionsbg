@@ -1,0 +1,3147 @@
+{
+  "fiscalYear": 2024,
+  "generatedAt": "2026-05-27T07:08:42.358Z",
+  "source": {
+    "publisher": "Община Стара Загора",
+    "documentTitle": "Капиталова програма 2024 г. (Приложение №4)",
+    "url": "",
+    "fetchedAt": "2026-05-27T07:08:42.359Z"
+  },
+  "municipalityCode": "SZR31",
+  "municipalityNameBg": "Стара Загора",
+  "municipalityNameEn": "Stara Zagora",
+  "currency": "BGN",
+  "recapitulation": {
+    "total": {
+      "amount": 28062121,
+      "currency": "BGN",
+      "amountEur": 14347935
+    }
+  },
+  "publishedRecap": {
+    "amount": 30500315,
+    "currency": "BGN",
+    "amountEur": 15594563
+  },
+  "projects": [
+    {
+      "id": 1,
+      "name": "ОР - енергийна ефективност на сграда ДГ № 66 \"Детски рай\"",
+      "settlement": null,
+      "total": {
+        "amount": 7380,
+        "currency": "BGN",
+        "amountEur": 3773
+      }
+    },
+    {
+      "id": 2,
+      "name": "ОР-енергийна ефективност на сграда ДГ № 31 \"Слънце\"",
+      "settlement": null,
+      "total": {
+        "amount": 2803445,
+        "currency": "BGN",
+        "amountEur": 1433379
+      }
+    },
+    {
+      "id": 3,
+      "name": "Благоустрояване на дворно пространство на ДГ № 23 \"Кипарис\"",
+      "settlement": null,
+      "total": {
+        "amount": 2100,
+        "currency": "BGN",
+        "amountEur": 1074
+      }
+    },
+    {
+      "id": 4,
+      "name": "Благоустрояване на дворно пространство на ДГ № 4 \"Бреза\"",
+      "settlement": null,
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 5,
+      "name": "ОР - Енергийна ефективност сграда НУ \"Зора\" и ДГ № 33 \"Люляк\"",
+      "settlement": null,
+      "total": {
+        "amount": 2610494,
+        "currency": "BGN",
+        "amountEur": 1334724
+      }
+    },
+    {
+      "id": 6,
+      "name": "Основен ремонт на СУ \"Максим Горки - преустройство на стаи",
+      "settlement": null,
+      "total": {
+        "amount": 53140,
+        "currency": "BGN",
+        "amountEur": 27170
+      }
+    },
+    {
+      "id": 7,
+      "name": "ОР - на сграда ОУ \"Хр.Ботев\" с.Загоре",
+      "settlement": "Загоре",
+      "total": {
+        "amount": 260799,
+        "currency": "BGN",
+        "amountEur": 133344
+      }
+    },
+    {
+      "id": 8,
+      "name": "ОР - на сграда ОУ \"Отец Паисий\" с.Калояновец",
+      "settlement": "Калояновец",
+      "total": {
+        "amount": 297357,
+        "currency": "BGN",
+        "amountEur": 152036
+      }
+    },
+    {
+      "id": 9,
+      "name": "ОР - на сграда ОУ с.Братя Кунчеви",
+      "settlement": "Братя Кунчеви",
+      "total": {
+        "amount": 291274,
+        "currency": "BGN",
+        "amountEur": 148926
+      }
+    },
+    {
+      "id": 10,
+      "name": "ППР - преструктуриране на кухненски блок на V ОУ \"М.Станев\"",
+      "settlement": null,
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 11,
+      "name": "ППР - преустройство на разливна в топла кухня на СУ \"Железник\"",
+      "settlement": null,
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 12,
+      "name": "Ремонт на физкултурен салон на V ОУ \"М.Станев\"",
+      "settlement": null,
+      "total": {
+        "amount": 118590,
+        "currency": "BGN",
+        "amountEur": 60634
+      }
+    },
+    {
+      "id": 13,
+      "name": "Обследване за енергийна ефективност на сграда Младежки дом",
+      "settlement": null,
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 14,
+      "name": "Основен ремонт на дворно пространство на ДЯ № 9",
+      "settlement": null,
+      "total": {
+        "amount": 388001,
+        "currency": "BGN",
+        "amountEur": 198382
+      }
+    },
+    {
+      "id": 15,
+      "name": "Основен ремонт на вентилационна система на Детска кухня",
+      "settlement": null,
+      "total": {
+        "amount": 21720,
+        "currency": "BGN",
+        "amountEur": 11105
+      }
+    },
+    {
+      "id": 16,
+      "name": "ППР и ОР - на сграда на ДЯ № 9",
+      "settlement": null,
+      "total": {
+        "amount": 90000,
+        "currency": "BGN",
+        "amountEur": 46016
+      }
+    },
+    {
+      "id": 17,
+      "name": "ППР - на покрив на пункт за раздаване на храна бул.\"П.Евтимий\" 121 Детска кухня",
+      "settlement": null,
+      "total": {
+        "amount": 32000,
+        "currency": "BGN",
+        "amountEur": 16361
+      }
+    },
+    {
+      "id": 18,
+      "name": "ППР - преустройство на гаражни клетки Детска кухня",
+      "settlement": null,
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 19,
+      "name": "ППР - Благоустрояване на двора на ЦНСТ на пълнолетни лица",
+      "settlement": null,
+      "total": {
+        "amount": 2280,
+        "currency": "BGN",
+        "amountEur": 1166
+      }
+    },
+    {
+      "id": 20,
+      "name": "ППР - СМР на сграда на \"Дом за стари хора\" парк \"Дъбова гора\" с.Старозагорски бани",
+      "settlement": "Старозагорски бани",
+      "total": {
+        "amount": 112000,
+        "currency": "BGN",
+        "amountEur": 57265
+      }
+    },
+    {
+      "id": 21,
+      "name": "ППР - на сграда в кв. \"Три Чучура\" - юг",
+      "settlement": null,
+      "total": {
+        "amount": 47000,
+        "currency": "BGN",
+        "amountEur": 24031
+      }
+    },
+    {
+      "id": 22,
+      "name": "ППР - на административна сграда за социална услуга на ул. \"Д.Кожухаров\"",
+      "settlement": null,
+      "total": {
+        "amount": 45000,
+        "currency": "BGN",
+        "amountEur": 23008
+      }
+    },
+    {
+      "id": 23,
+      "name": "ОР - на уличен водопровод на ул.\"Гьоновец\" кв.\"Лозенец\"",
+      "settlement": null,
+      "total": {
+        "amount": 172487,
+        "currency": "BGN",
+        "amountEur": 88191
+      }
+    },
+    {
+      "id": 24,
+      "name": "ППР и авт.надзор за реконструкция на канализация ул.\"Орфей\"",
+      "settlement": null,
+      "total": {
+        "amount": 7200,
+        "currency": "BGN",
+        "amountEur": 3681
+      }
+    },
+    {
+      "id": 25,
+      "name": "Улично осветление - градско",
+      "settlement": null,
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 26,
+      "name": "ОР - на ул.\"Гьоновец\" кв.\"Лозенец\"",
+      "settlement": null,
+      "total": {
+        "amount": 387500,
+        "currency": "BGN",
+        "amountEur": 198126
+      }
+    },
+    {
+      "id": 27,
+      "name": "ОР - на бул.\"Патриарх Евтимий\"",
+      "settlement": null,
+      "total": {
+        "amount": 756499,
+        "currency": "BGN",
+        "amountEur": 386792
+      }
+    },
+    {
+      "id": 28,
+      "name": "ППР - реконструкция на бул.\"Цар Симеон Велики\" в участъка м/у бул.\"Крайречен\" и бул.\"Никола Петков\"",
+      "settlement": null,
+      "total": {
+        "amount": 42240,
+        "currency": "BGN",
+        "amountEur": 21597
+      }
+    },
+    {
+      "id": 29,
+      "name": "ОР ул. \"Промишлена\" в кв. \"Индустриален\"",
+      "settlement": null,
+      "total": {
+        "amount": 7800,
+        "currency": "BGN",
+        "amountEur": 3988
+      }
+    },
+    {
+      "id": 30,
+      "name": "ОР - Благоустрояване и подобряване на физическата среда на улици в кв. \"Три чучура-юг\" - етап I и II",
+      "settlement": null,
+      "total": {
+        "amount": 4301513,
+        "currency": "BGN",
+        "amountEur": 2199329
+      }
+    },
+    {
+      "id": 31,
+      "name": "Реконструкция на ул. \"Св. Княз Борис I\" (ул.Св.Отец Паисий/бул.М.М.Кусев)",
+      "settlement": null,
+      "total": {
+        "amount": 22000,
+        "currency": "BGN",
+        "amountEur": 11248
+      }
+    },
+    {
+      "id": 32,
+      "name": "ППР и авт.надзор за реконструкция на ул.\"Свети Георги Победоносец\" кв.\"Железник\"",
+      "settlement": null,
+      "total": {
+        "amount": 22900,
+        "currency": "BGN",
+        "amountEur": 11709
+      }
+    },
+    {
+      "id": 33,
+      "name": "ППР за преработка на проект за площад \"Берое\"",
+      "settlement": null,
+      "total": {
+        "amount": 7600,
+        "currency": "BGN",
+        "amountEur": 3886
+      }
+    },
+    {
+      "id": 34,
+      "name": "ППР - ул. \"Хр.Войвода\" кв.Зора",
+      "settlement": null,
+      "total": {
+        "amount": 35000,
+        "currency": "BGN",
+        "amountEur": 17895
+      }
+    },
+    {
+      "id": 35,
+      "name": "ППР - Реконструкция на ул.\"Сърнена гора\" в кв.Железник",
+      "settlement": null,
+      "total": {
+        "amount": 8000,
+        "currency": "BGN",
+        "amountEur": 4090
+      }
+    },
+    {
+      "id": 36,
+      "name": "ППР - бул.\"Св. Патриарх Евтимий\" в участъка от ул. \"Ген. Столетов\" до ул. \"Хан аспарух\"",
+      "settlement": null,
+      "total": {
+        "amount": 21000,
+        "currency": "BGN",
+        "amountEur": 10737
+      }
+    },
+    {
+      "id": 37,
+      "name": "ППР - бул. \"Цар Симеон Велики\" в участъка от бул. \"Свети Партиарх Евтимий \" до бул. \"Крайречен\"",
+      "settlement": null,
+      "total": {
+        "amount": 10680,
+        "currency": "BGN",
+        "amountEur": 5461
+      }
+    },
+    {
+      "id": 38,
+      "name": "ППР - Реконструкция на бул.\"Славянски\" от бул. \"Св. Патриарх Евтимий\" до ДЗУ",
+      "settlement": null,
+      "total": {
+        "amount": 9000,
+        "currency": "BGN",
+        "amountEur": 4602
+      }
+    },
+    {
+      "id": 39,
+      "name": "ППР - Реконструкция на кр-во кр-ще на бул.\"Цар С.Велики\"/ул.\"Д-р Т.Стоянович\"",
+      "settlement": null,
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 40,
+      "name": "ППР - Реконструкция на кр-во кр-ще на бул.\"Св.П.Евтимий\"/ул.\"Д.Маджаров\"",
+      "settlement": null,
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 41,
+      "name": "ППР - Реконструкция на кр-во кр-ще на бул.\"Св.П.Евтимий\"/ул.\"Промишлена\"",
+      "settlement": null,
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 42,
+      "name": "Благоустрояване и подобряване на физ.среда на градина \"Ал.Стамболийски\"",
+      "settlement": null,
+      "total": {
+        "amount": 42000,
+        "currency": "BGN",
+        "amountEur": 21474
+      }
+    },
+    {
+      "id": 43,
+      "name": "Благоустрояване и подобряване на физ.среда на градина \"Пети октомври\"",
+      "settlement": null,
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 44,
+      "name": "Благоустрояване на междублоково пространство на ул.\"Хан Аспарух\" №31",
+      "settlement": null,
+      "total": {
+        "amount": 98602,
+        "currency": "BGN",
+        "amountEur": 50414
+      }
+    },
+    {
+      "id": 45,
+      "name": "Благоустрояване на междублоково пространство на ул.\"Хан Аспарух\" №33",
+      "settlement": null,
+      "total": {
+        "amount": 26703,
+        "currency": "BGN",
+        "amountEur": 13653
+      }
+    },
+    {
+      "id": 46,
+      "name": "Благоустрояване на междублоково пространство на ул.\"Хан Аспарух\" №35",
+      "settlement": null,
+      "total": {
+        "amount": 101105,
+        "currency": "BGN",
+        "amountEur": 51694
+      }
+    },
+    {
+      "id": 47,
+      "name": "ППР - Реконструкция на детска площадка на ул.\"Отец Паисий\" 104",
+      "settlement": null,
+      "total": {
+        "amount": 2000,
+        "currency": "BGN",
+        "amountEur": 1023
+      }
+    },
+    {
+      "id": 48,
+      "name": "Обследване за енергийна ефективност на сграда на бул.\"Руски\" 44",
+      "settlement": null,
+      "total": {
+        "amount": 90000,
+        "currency": "BGN",
+        "amountEur": 46016
+      }
+    },
+    {
+      "id": 49,
+      "name": "ППР - на сграда с административен адрес ул.\"К.Ганчев\" 62",
+      "settlement": null,
+      "total": {
+        "amount": 33000,
+        "currency": "BGN",
+        "amountEur": 16873
+      }
+    },
+    {
+      "id": 50,
+      "name": "Обследване за енергийна ефективност на сградата на банята в с.Старозагорски бани",
+      "settlement": "Старозагорски бани",
+      "total": {
+        "amount": 30000,
+        "currency": "BGN",
+        "amountEur": 15339
+      }
+    },
+    {
+      "id": 51,
+      "name": "ОР - лекоатлетическа писта на тренировъчен стадион Берое",
+      "settlement": null,
+      "total": {
+        "amount": 674458,
+        "currency": "BGN",
+        "amountEur": 344845
+      }
+    },
+    {
+      "id": 52,
+      "name": "ППР - вътрешно преустройство на спортна зала \"Иван Вазов\"",
+      "settlement": null,
+      "total": {
+        "amount": 23000,
+        "currency": "BGN",
+        "amountEur": 11760
+      }
+    },
+    {
+      "id": 53,
+      "name": "Обновяване и реконструкция на Летен театър в парк \"М.М.Кусев\"",
+      "settlement": null,
+      "total": {
+        "amount": 100164,
+        "currency": "BGN",
+        "amountEur": 51213
+      }
+    },
+    {
+      "id": 54,
+      "name": "Реконструкция, обновяване, модернизация на сграда \"Драматичен театър Гео Милев“",
+      "settlement": null,
+      "total": {
+        "amount": 3625312,
+        "currency": "BGN",
+        "amountEur": 1853593
+      }
+    },
+    {
+      "id": 55,
+      "name": "ОР - на фондохранилище на Художествена галерия",
+      "settlement": null,
+      "total": {
+        "amount": 33000,
+        "currency": "BGN",
+        "amountEur": 16873
+      }
+    },
+    {
+      "id": 56,
+      "name": "ОР - Реконструкция на път между селата Калояновец и Ловец",
+      "settlement": null,
+      "total": {
+        "amount": 14728,
+        "currency": "BGN",
+        "amountEur": 7530
+      }
+    },
+    {
+      "id": 57,
+      "name": "ППР и авт.надзор на общински път с.Християново - с.Калояновец",
+      "settlement": "Християново",
+      "total": {
+        "amount": 33000,
+        "currency": "BGN",
+        "amountEur": 16873
+      }
+    },
+    {
+      "id": 58,
+      "name": "ППР и авт.надзор на общински път с.Християново - с.Ловец/с.Калояновец - с.Арнаутито/",
+      "settlement": "Християново",
+      "total": {
+        "amount": 22560,
+        "currency": "BGN",
+        "amountEur": 11535
+      }
+    },
+    {
+      "id": 59,
+      "name": "ППР и авт.надзор на общински път Стара Загора - Чирпан / с.Ракитница /",
+      "settlement": "Ракитница",
+      "total": {
+        "amount": 33000,
+        "currency": "BGN",
+        "amountEur": 16873
+      }
+    },
+    {
+      "id": 60,
+      "name": "ППР - Реконструкция на общински път с.Михайлово - с.Самуилово /от табела до табела/",
+      "settlement": "Михайлово",
+      "total": {
+        "amount": 4000,
+        "currency": "BGN",
+        "amountEur": 2045
+      }
+    },
+    {
+      "id": 61,
+      "name": "ППР - Реконструкция на общински път с.Бъдеще - с.Стрелец /от разклона/",
+      "settlement": "Стрелец",
+      "total": {
+        "amount": 4000,
+        "currency": "BGN",
+        "amountEur": 2045
+      }
+    },
+    {
+      "id": 62,
+      "name": "Подопочистваща машина за Общинска администрация",
+      "settlement": null,
+      "total": {
+        "amount": 8626,
+        "currency": "BGN",
+        "amountEur": 4410
+      }
+    },
+    {
+      "id": 63,
+      "name": "Сигнално-оповестителна система в сграда на Общинска администрация",
+      "settlement": null,
+      "total": {
+        "amount": 15000,
+        "currency": "BGN",
+        "amountEur": 7669
+      }
+    },
+    {
+      "id": 64,
+      "name": "Компютърни конфигурации за Общинска администрация - 60 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 65,
+      "name": "Сървъри за Общинска администрация - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 66,
+      "name": "Принтери за офиси на МДТ",
+      "settlement": null,
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 67,
+      "name": "Копирна машина за Общинска администрация - 3 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 21000,
+        "currency": "BGN",
+        "amountEur": 10737
+      }
+    },
+    {
+      "id": 68,
+      "name": "Лаптоп за отдел \"Инвестиции\"",
+      "settlement": null,
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 69,
+      "name": "Цветен принтер за отдел \"Инвестиции\"",
+      "settlement": null,
+      "total": {
+        "amount": 4000,
+        "currency": "BGN",
+        "amountEur": 2045
+      }
+    },
+    {
+      "id": 70,
+      "name": "Мултифункционално цветно устройство за общинска администрация - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 14376,
+        "currency": "BGN",
+        "amountEur": 7350
+      }
+    },
+    {
+      "id": 71,
+      "name": "Изграждане на Център за данъци и такси",
+      "settlement": null,
+      "total": {
+        "amount": 454200,
+        "currency": "BGN",
+        "amountEur": 232229
+      }
+    },
+    {
+      "id": 72,
+      "name": "С-ма за радиационно детектиране на отпадъците ПМС 352/ 10.12.2020г.",
+      "settlement": null,
+      "total": {
+        "amount": 76080,
+        "currency": "BGN",
+        "amountEur": 38899
+      }
+    },
+    {
+      "id": 73,
+      "name": "Пречиствателна станция за БФБ - аератор ПМС 352/ 10.12.2020г.",
+      "settlement": null,
+      "total": {
+        "amount": 21000,
+        "currency": "BGN",
+        "amountEur": 10737
+      }
+    },
+    {
+      "id": 74,
+      "name": "Биофилтри към компостираща инсталация - 2 бр ПМС 352/ 10.12.2020г.",
+      "settlement": null,
+      "total": {
+        "amount": 257118,
+        "currency": "BGN",
+        "amountEur": 131462
+      }
+    },
+    {
+      "id": 75,
+      "name": "Ел.табла с електронно и ел.оборудване ПМС 352/ 10.12.2020г.",
+      "settlement": null,
+      "total": {
+        "amount": 69048,
+        "currency": "BGN",
+        "amountEur": 35304
+      }
+    },
+    {
+      "id": 76,
+      "name": "Високопроходим автомобил за доброволни формирования",
+      "settlement": null,
+      "total": {
+        "amount": 22000,
+        "currency": "BGN",
+        "amountEur": 11248
+      }
+    },
+    {
+      "id": 77,
+      "name": "Компютър за Щаба за защита",
+      "settlement": null,
+      "total": {
+        "amount": 1500,
+        "currency": "BGN",
+        "amountEur": 767
+      }
+    },
+    {
+      "id": 78,
+      "name": "Климатик за офис въвеждане на глоби - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 4000,
+        "currency": "BGN",
+        "amountEur": 2045
+      }
+    },
+    {
+      "id": 79,
+      "name": "ППР за играждане на нова Детска градина в кв.\"Железник\"",
+      "settlement": null,
+      "total": {
+        "amount": 40000,
+        "currency": "BGN",
+        "amountEur": 20452
+      }
+    },
+    {
+      "id": 80,
+      "name": "Лаптоп за ДГ № 58 \"Звездица\" - 3 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 3800,
+        "currency": "BGN",
+        "amountEur": 1943
+      }
+    },
+    {
+      "id": 81,
+      "name": "Ел. печка за ДГ № 58 \"Звездица\" - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 18000,
+        "currency": "BGN",
+        "amountEur": 9203
+      }
+    },
+    {
+      "id": 82,
+      "name": "Шкаф маса крайстенна за ДГ № 4 \"Бреза\" - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 4673,
+        "currency": "BGN",
+        "amountEur": 2389
+      }
+    },
+    {
+      "id": 83,
+      "name": "Шкаф двукрилен за ДГ № 4 \"Бреза\" - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 3617,
+        "currency": "BGN",
+        "amountEur": 1849
+      }
+    },
+    {
+      "id": 84,
+      "name": "Стерилизатор за ДГ № 4 \"Бреза\" - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 3828,
+        "currency": "BGN",
+        "amountEur": 1957
+      }
+    },
+    {
+      "id": 85,
+      "name": "ППР - изграждане на физкултурен салон в ДГ № 25 \"Ален мак\"",
+      "settlement": null,
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 86,
+      "name": "ППР и изграждане на столова към ОУ \"Кольо Ганчев\"",
+      "settlement": null,
+      "total": {
+        "amount": 182000,
+        "currency": "BGN",
+        "amountEur": 93055
+      }
+    },
+    {
+      "id": 87,
+      "name": "Изграждане на спортни площадки в СУ \"В.Левски\" (баскетбол и волейбол)",
+      "settlement": null,
+      "total": {
+        "amount": 223000,
+        "currency": "BGN",
+        "amountEur": 114018
+      }
+    },
+    {
+      "id": 88,
+      "name": "Изграждане на спортни площадки по футбол и баскетбол в двора на ППМГ \" Гео Милев\"",
+      "settlement": null,
+      "total": {
+        "amount": 199994,
+        "currency": "BGN",
+        "amountEur": 102255
+      }
+    },
+    {
+      "id": 89,
+      "name": "Котел за ППМГ \"Гео Милев\"",
+      "settlement": null,
+      "total": {
+        "amount": 30000,
+        "currency": "BGN",
+        "amountEur": 15339
+      }
+    },
+    {
+      "id": 90,
+      "name": "Горелка за котел за ППМГ \"Гео Милев\"",
+      "settlement": null,
+      "total": {
+        "amount": 15000,
+        "currency": "BGN",
+        "amountEur": 7669
+      }
+    },
+    {
+      "id": 91,
+      "name": "Кухненска вентилация за ученически стол на ОУ \"Георги Райчев\"",
+      "settlement": null,
+      "total": {
+        "amount": 26456,
+        "currency": "BGN",
+        "amountEur": 13527
+      }
+    },
+    {
+      "id": 92,
+      "name": "Кухненска вентилация за ученически стол на XI ОУ \"Н.Лилиев\"",
+      "settlement": null,
+      "total": {
+        "amount": 26456,
+        "currency": "BGN",
+        "amountEur": 13527
+      }
+    },
+    {
+      "id": 93,
+      "name": "Климатик за ХII ОУ \"Стефан Караджа\" - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 3600,
+        "currency": "BGN",
+        "amountEur": 1841
+      }
+    },
+    {
+      "id": 94,
+      "name": "Климатик за ОУ \"Хр. Ботев\" с. Хрищени - 3 бр.",
+      "settlement": "Хрищени",
+      "total": {
+        "amount": 3600,
+        "currency": "BGN",
+        "amountEur": 1841
+      }
+    },
+    {
+      "id": 95,
+      "name": "Компютри за СУ \"Иван Вазов\" - 5 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 8264,
+        "currency": "BGN",
+        "amountEur": 4225
+      }
+    },
+    {
+      "id": 96,
+      "name": "Кухненски плот с шкафове и мивка, помещение възпитател за ПГКНМА - 3 бр",
+      "settlement": null,
+      "total": {
+        "amount": 3600,
+        "currency": "BGN",
+        "amountEur": 1841
+      }
+    },
+    {
+      "id": 97,
+      "name": "Кухненски плот с шкафове и мивка, помещение занималня за ПГКНМА - 3 бр",
+      "settlement": null,
+      "total": {
+        "amount": 5994,
+        "currency": "BGN",
+        "amountEur": 3065
+      }
+    },
+    {
+      "id": 98,
+      "name": "Работен плот за подготовка на храна, помещение кухня за ПГКНМА",
+      "settlement": null,
+      "total": {
+        "amount": 1440,
+        "currency": "BGN",
+        "amountEur": 736
+      }
+    },
+    {
+      "id": 99,
+      "name": "Работен плот от неръждаема стомана, помещение кухня за ПГКНМА",
+      "settlement": null,
+      "total": {
+        "amount": 1752,
+        "currency": "BGN",
+        "amountEur": 896
+      }
+    },
+    {
+      "id": 100,
+      "name": "Работен плот от неръждаема стомана, студена кухня за ПГКНМА",
+      "settlement": null,
+      "total": {
+        "amount": 2058,
+        "currency": "BGN",
+        "amountEur": 1052
+      }
+    },
+    {
+      "id": 101,
+      "name": "Стелаж за склад хранителни стоки, студена кухня за ПГКНМА",
+      "settlement": null,
+      "total": {
+        "amount": 2940,
+        "currency": "BGN",
+        "amountEur": 1503
+      }
+    },
+    {
+      "id": 102,
+      "name": "Двугнездова мивка с душ, студена кухня за ПГКНМА",
+      "settlement": null,
+      "total": {
+        "amount": 1548,
+        "currency": "BGN",
+        "amountEur": 791
+      }
+    },
+    {
+      "id": 103,
+      "name": "Работен плот за разливна, столова за ПГКНМА - 2 бр",
+      "settlement": null,
+      "total": {
+        "amount": 2730,
+        "currency": "BGN",
+        "amountEur": 1396
+      }
+    },
+    {
+      "id": 104,
+      "name": "Стелаж за склад хранителни стоки, столова за ПГКНМА",
+      "settlement": null,
+      "total": {
+        "amount": 1242,
+        "currency": "BGN",
+        "amountEur": 635
+      }
+    },
+    {
+      "id": 105,
+      "name": "Работен плот с двугнездова мивка за помещение подготовка на плодове ПГКНМА",
+      "settlement": null,
+      "total": {
+        "amount": 1644,
+        "currency": "BGN",
+        "amountEur": 841
+      }
+    },
+    {
+      "id": 106,
+      "name": "Кухненски плот за подаване на мръсни съдове от столова ПГКНМА",
+      "settlement": null,
+      "total": {
+        "amount": 2124,
+        "currency": "BGN",
+        "amountEur": 1086
+      }
+    },
+    {
+      "id": 107,
+      "name": "Проточен бойлер за почивна станция в местност Каваци гр.Созопол - 10 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 12000,
+        "currency": "BGN",
+        "amountEur": 6136
+      }
+    },
+    {
+      "id": 108,
+      "name": "Специални посетителски столове за залата на Планетариум - 30 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 45000,
+        "currency": "BGN",
+        "amountEur": 23008
+      }
+    },
+    {
+      "id": 109,
+      "name": "Бели дъски за учебни кабинети на АО - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 110,
+      "name": "Мултимедийни проектори за АО - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 111,
+      "name": "Климатици за учебни кабинети на АО - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 6000,
+        "currency": "BGN",
+        "amountEur": 3068
+      }
+    },
+    {
+      "id": 112,
+      "name": "Лаптоп за АО - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 2000,
+        "currency": "BGN",
+        "amountEur": 1023
+      }
+    },
+    {
+      "id": 113,
+      "name": "Проекционни екрани за учебни кабинети на АО - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 114,
+      "name": "Климатик за ЦПЛР - 8 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 16650,
+        "currency": "BGN",
+        "amountEur": 8513
+      }
+    },
+    {
+      "id": 115,
+      "name": "Изграждане на ВЕИ за Международен младежки център",
+      "settlement": null,
+      "total": {
+        "amount": 134020,
+        "currency": "BGN",
+        "amountEur": 68523
+      }
+    },
+    {
+      "id": 116,
+      "name": "Автомобил-пикап за Детска кухня - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 117,
+      "name": "Котлон с 6 квадратни обединени плочи за Детска кухня, Стара Загора",
+      "settlement": null,
+      "total": {
+        "amount": 11040,
+        "currency": "BGN",
+        "amountEur": 5645
+      }
+    },
+    {
+      "id": 118,
+      "name": "Парен казан електрически 150л. за Детска кухня, Стара Загора",
+      "settlement": null,
+      "total": {
+        "amount": 21648,
+        "currency": "BGN",
+        "amountEur": 11068
+      }
+    },
+    {
+      "id": 119,
+      "name": "Професионален вертикален хладилен шкаф за Детска кухня, Стара Загора",
+      "settlement": null,
+      "total": {
+        "amount": 10320,
+        "currency": "BGN",
+        "amountEur": 5277
+      }
+    },
+    {
+      "id": 120,
+      "name": "Крайстенен аспиратор за кухня за ДЯ № 1",
+      "settlement": null,
+      "total": {
+        "amount": 1800,
+        "currency": "BGN",
+        "amountEur": 920
+      }
+    },
+    {
+      "id": 121,
+      "name": "Печка електричиска с 6 плочи за ДЯ № 13",
+      "settlement": null,
+      "total": {
+        "amount": 6840,
+        "currency": "BGN",
+        "amountEur": 3497
+      }
+    },
+    {
+      "id": 122,
+      "name": "Зеленчукорезачка с комплект ножове за ДЯ № 1,2,7,8,9,12,13 - 7 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 12600,
+        "currency": "BGN",
+        "amountEur": 6442
+      }
+    },
+    {
+      "id": 123,
+      "name": "Климатик за ДЯ № 8-4бр.",
+      "settlement": null,
+      "total": {
+        "amount": 8880,
+        "currency": "BGN",
+        "amountEur": 4540
+      }
+    },
+    {
+      "id": 124,
+      "name": "Сушилня професионална 9 кг. За ДЯ № 9",
+      "settlement": null,
+      "total": {
+        "amount": 4320,
+        "currency": "BGN",
+        "amountEur": 2209
+      }
+    },
+    {
+      "id": 125,
+      "name": "Ел. пекарна на две нива за ДЯ № 13",
+      "settlement": null,
+      "total": {
+        "amount": 4500,
+        "currency": "BGN",
+        "amountEur": 2301
+      }
+    },
+    {
+      "id": 126,
+      "name": "Картофобелачка за ДЯ № 12",
+      "settlement": null,
+      "total": {
+        "amount": 1740,
+        "currency": "BGN",
+        "amountEur": 890
+      }
+    },
+    {
+      "id": 127,
+      "name": "Професионална тестомесачка 25 кг. - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 4140,
+        "currency": "BGN",
+        "amountEur": 2117
+      }
+    },
+    {
+      "id": 128,
+      "name": "Котлон 4 плочи за ДЯ № 9",
+      "settlement": null,
+      "total": {
+        "amount": 4260,
+        "currency": "BGN",
+        "amountEur": 2178
+      }
+    },
+    {
+      "id": 129,
+      "name": "Фризер вертикален със седем отделения за ДЯ № 9",
+      "settlement": null,
+      "total": {
+        "amount": 1980,
+        "currency": "BGN",
+        "amountEur": 1012
+      }
+    },
+    {
+      "id": 130,
+      "name": "Свободностоящ фризер за ДЯ № 6",
+      "settlement": null,
+      "total": {
+        "amount": 1920,
+        "currency": "BGN",
+        "amountEur": 982
+      }
+    },
+    {
+      "id": 131,
+      "name": "Професионален вертикален хладилен шкаф за ДЯ № 6",
+      "settlement": null,
+      "total": {
+        "amount": 3300,
+        "currency": "BGN",
+        "amountEur": 1687
+      }
+    },
+    {
+      "id": 132,
+      "name": "Компютърни конфигурации за Детска кухня - 9 бр",
+      "settlement": null,
+      "total": {
+        "amount": 7964,
+        "currency": "BGN",
+        "amountEur": 4072
+      }
+    },
+    {
+      "id": 133,
+      "name": "Газови готварски печки с ел.фурна за ДЯ 1 - 2 бр. ДЯ 6 - 2 бр. ДЯ 8 - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 33000,
+        "currency": "BGN",
+        "amountEur": 16873
+      }
+    },
+    {
+      "id": 134,
+      "name": "Ел.конвектомат със странично отваряне за ДЯ № 6",
+      "settlement": null,
+      "total": {
+        "amount": 7000,
+        "currency": "BGN",
+        "amountEur": 3579
+      }
+    },
+    {
+      "id": 135,
+      "name": "Планетарен миксер за ДЯ № 3",
+      "settlement": null,
+      "total": {
+        "amount": 1200,
+        "currency": "BGN",
+        "amountEur": 614
+      }
+    },
+    {
+      "id": 136,
+      "name": "Мултифункционално устройство за ДЯ № 12",
+      "settlement": null,
+      "total": {
+        "amount": 1200,
+        "currency": "BGN",
+        "amountEur": 614
+      }
+    },
+    {
+      "id": 137,
+      "name": "Компютърни конфигурации за ДЯ № 8 - 2 бр. и ДЯ № 12",
+      "settlement": null,
+      "total": {
+        "amount": 4500,
+        "currency": "BGN",
+        "amountEur": 2301
+      }
+    },
+    {
+      "id": 138,
+      "name": "Климатици за ДЯ № 1,3,6,8,12,13 - 11 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 23980,
+        "currency": "BGN",
+        "amountEur": 12261
+      }
+    },
+    {
+      "id": 139,
+      "name": "Професионални перални машини за ДЯ № 1,2,3,5,6,7,8,9,12 - 9 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 61560,
+        "currency": "BGN",
+        "amountEur": 31475
+      }
+    },
+    {
+      "id": 140,
+      "name": "ППР - изграждане на база за здравно обслужване в кв.\"К.Ганчев\"",
+      "settlement": null,
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 141,
+      "name": "ППР-Помещение за ПЕТ скенер към КОЦ Ст.Загора",
+      "settlement": null,
+      "total": {
+        "amount": 36000,
+        "currency": "BGN",
+        "amountEur": 18407
+      }
+    },
+    {
+      "id": 142,
+      "name": "ППР-Помещение за линеен ускорител, копютърен томограф към КОЦ Ст.Загора",
+      "settlement": null,
+      "total": {
+        "amount": 36000,
+        "currency": "BGN",
+        "amountEur": 18407
+      }
+    },
+    {
+      "id": 143,
+      "name": "Лек автомобил за разнос - тип пикап",
+      "settlement": null,
+      "total": {
+        "amount": 60000,
+        "currency": "BGN",
+        "amountEur": 30678
+      }
+    },
+    {
+      "id": 144,
+      "name": "Климатик за пенсионерски клуб на ул.\"Христо Ботев\" 4",
+      "settlement": null,
+      "total": {
+        "amount": 3600,
+        "currency": "BGN",
+        "amountEur": 1841
+      }
+    },
+    {
+      "id": 145,
+      "name": "Климатик за пенсионерски клуб на ул.\"Хан Аспарух\" 23",
+      "settlement": null,
+      "total": {
+        "amount": 3600,
+        "currency": "BGN",
+        "amountEur": 1841
+      }
+    },
+    {
+      "id": 146,
+      "name": "Климатик за пенсионерски клуб на ул.\"Граф Игнатиев\" 41",
+      "settlement": null,
+      "total": {
+        "amount": 2500,
+        "currency": "BGN",
+        "amountEur": 1278
+      }
+    },
+    {
+      "id": 147,
+      "name": "Климатик - 8 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 12000,
+        "currency": "BGN",
+        "amountEur": 6136
+      }
+    },
+    {
+      "id": 148,
+      "name": "Климатик за Кризисен център \"Самарянска къща\"",
+      "settlement": null,
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 149,
+      "name": "Лекотоварен автомобил 4+1",
+      "settlement": null,
+      "total": {
+        "amount": 64800,
+        "currency": "BGN",
+        "amountEur": 33132
+      }
+    },
+    {
+      "id": 150,
+      "name": "Котел за ЦНСТ",
+      "settlement": null,
+      "total": {
+        "amount": 40000,
+        "currency": "BGN",
+        "amountEur": 20452
+      }
+    },
+    {
+      "id": 151,
+      "name": "Климатик за ЦНСТДМУ",
+      "settlement": null,
+      "total": {
+        "amount": 6000,
+        "currency": "BGN",
+        "amountEur": 3068
+      }
+    },
+    {
+      "id": 152,
+      "name": "Лекотоварен автомобил – мини ван 7 местен",
+      "settlement": null,
+      "total": {
+        "amount": 69670,
+        "currency": "BGN",
+        "amountEur": 35622
+      }
+    },
+    {
+      "id": 153,
+      "name": "Климатик за кв.\"Зора\" - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 4440,
+        "currency": "BGN",
+        "amountEur": 2270
+      }
+    },
+    {
+      "id": 154,
+      "name": "ДВХФУ гр.Стара Загора",
+      "settlement": null,
+      "total": {
+        "amount": 319480,
+        "currency": "BGN",
+        "amountEur": 163348
+      }
+    },
+    {
+      "id": 155,
+      "name": "Лек автомобил 4+1",
+      "settlement": null,
+      "total": {
+        "amount": 64800,
+        "currency": "BGN",
+        "amountEur": 33132
+      }
+    },
+    {
+      "id": 156,
+      "name": "Специализиран автомобил с рампа",
+      "settlement": null,
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 157,
+      "name": "Професионална пералня със сушилня",
+      "settlement": null,
+      "total": {
+        "amount": 25040,
+        "currency": "BGN",
+        "amountEur": 12803
+      }
+    },
+    {
+      "id": 158,
+      "name": "СРМ апарат за пасивно раздвижване на крайници - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 9600,
+        "currency": "BGN",
+        "amountEur": 4908
+      }
+    },
+    {
+      "id": 159,
+      "name": "Канален ЕКГ апарат",
+      "settlement": null,
+      "total": {
+        "amount": 2200,
+        "currency": "BGN",
+        "amountEur": 1125
+      }
+    },
+    {
+      "id": 160,
+      "name": "Стерилизатор, електрически, алуминиева камера - 4 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 12200,
+        "currency": "BGN",
+        "amountEur": 6238
+      }
+    },
+    {
+      "id": 161,
+      "name": "Дом с.Лясково",
+      "settlement": "Лясково",
+      "total": {
+        "amount": 69670,
+        "currency": "BGN",
+        "amountEur": 35622
+      }
+    },
+    {
+      "id": 162,
+      "name": "Лекотоварен автомобил - мини ван 7 местен",
+      "settlement": null,
+      "total": {
+        "amount": 69670,
+        "currency": "BGN",
+        "amountEur": 35622
+      }
+    },
+    {
+      "id": 163,
+      "name": "Детско съоръжение за игра и баланс",
+      "settlement": null,
+      "total": {
+        "amount": 1270,
+        "currency": "BGN",
+        "amountEur": 649
+      }
+    },
+    {
+      "id": 164,
+      "name": "Катерушка дървена",
+      "settlement": null,
+      "total": {
+        "amount": 1500,
+        "currency": "BGN",
+        "amountEur": 767
+      }
+    },
+    {
+      "id": 165,
+      "name": "ДЦПЛУ Стара Загора",
+      "settlement": null,
+      "total": {
+        "amount": 132410,
+        "currency": "BGN",
+        "amountEur": 67700
+      }
+    },
+    {
+      "id": 166,
+      "name": "Столче за изкачване на стълби за трудно подвижни хора",
+      "settlement": null,
+      "total": {
+        "amount": 7410,
+        "currency": "BGN",
+        "amountEur": 3789
+      }
+    },
+    {
+      "id": 167,
+      "name": "Микробус 8+1 места",
+      "settlement": null,
+      "total": {
+        "amount": 125000,
+        "currency": "BGN",
+        "amountEur": 63911
+      }
+    },
+    {
+      "id": 168,
+      "name": "ДЦДМУ Стара Загора",
+      "settlement": null,
+      "total": {
+        "amount": 34880,
+        "currency": "BGN",
+        "amountEur": 17834
+      }
+    },
+    {
+      "id": 169,
+      "name": "Стерилизатор",
+      "settlement": null,
+      "total": {
+        "amount": 1800,
+        "currency": "BGN",
+        "amountEur": 920
+      }
+    },
+    {
+      "id": 170,
+      "name": "Професионален вертикален хладилен шкаф",
+      "settlement": null,
+      "total": {
+        "amount": 3780,
+        "currency": "BGN",
+        "amountEur": 1933
+      }
+    },
+    {
+      "id": 171,
+      "name": "Зеленчукорезачка",
+      "settlement": null,
+      "total": {
+        "amount": 1600,
+        "currency": "BGN",
+        "amountEur": 818
+      }
+    },
+    {
+      "id": 172,
+      "name": "Електрически конвектомат",
+      "settlement": null,
+      "total": {
+        "amount": 10900,
+        "currency": "BGN",
+        "amountEur": 5573
+      }
+    },
+    {
+      "id": 173,
+      "name": "Картофобелачка",
+      "settlement": null,
+      "total": {
+        "amount": 1800,
+        "currency": "BGN",
+        "amountEur": 920
+      }
+    },
+    {
+      "id": 174,
+      "name": "ППР - детска площадка за детски център \"Алтернатива\"",
+      "settlement": null,
+      "total": {
+        "amount": 2000,
+        "currency": "BGN",
+        "amountEur": 1023
+      }
+    },
+    {
+      "id": 175,
+      "name": "Интерактивен под за сензорна стимулация",
+      "settlement": null,
+      "total": {
+        "amount": 13000,
+        "currency": "BGN",
+        "amountEur": 6647
+      }
+    },
+    {
+      "id": 176,
+      "name": "Специализиран автомобил с рампа",
+      "settlement": null,
+      "total": {
+        "amount": 200000,
+        "currency": "BGN",
+        "amountEur": 102258
+      }
+    },
+    {
+      "id": 177,
+      "name": "Компютърна конфигурация - 3 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 178,
+      "name": "Климатик - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 179,
+      "name": "Офис шкаф - 3 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 4000,
+        "currency": "BGN",
+        "amountEur": 2045
+      }
+    },
+    {
+      "id": 180,
+      "name": "Компютърни конфигурации - 10 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 8849,
+        "currency": "BGN",
+        "amountEur": 4524
+      }
+    },
+    {
+      "id": 181,
+      "name": "Мултифункционално устройство - 4 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 3113,
+        "currency": "BGN",
+        "amountEur": 1592
+      }
+    },
+    {
+      "id": 182,
+      "name": "Лаптоп - 10 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 12076,
+        "currency": "BGN",
+        "amountEur": 6174
+      }
+    },
+    {
+      "id": 183,
+      "name": "ППР - на велосипедна и пешеходна алеи от бул.\"П.Евтимий\"/надлез кв.\"К.Ганчев\"",
+      "settlement": null,
+      "total": {
+        "amount": 5000,
+        "currency": "BGN",
+        "amountEur": 2556
+      }
+    },
+    {
+      "id": 184,
+      "name": "ППР - на велосипедна и пешеходна алеи от бул.\"Ц.С.Велики\"/Тракийски университет",
+      "settlement": null,
+      "total": {
+        "amount": 13200,
+        "currency": "BGN",
+        "amountEur": 6749
+      }
+    },
+    {
+      "id": 185,
+      "name": "Разширение на на ул.\"Капитан Петко войвода\" - етап II",
+      "settlement": null,
+      "total": {
+        "amount": 1226989,
+        "currency": "BGN",
+        "amountEur": 627350
+      }
+    },
+    {
+      "id": 186,
+      "name": "Част от ул.\"Хр.Ботев\" с о.т.1359-о.т.8173А гр.Стара Загора /премостване река Азмака/",
+      "settlement": null,
+      "total": {
+        "amount": 103552,
+        "currency": "BGN",
+        "amountEur": 52945
+      }
+    },
+    {
+      "id": 187,
+      "name": "Пешеходно преминаване над река Азмака",
+      "settlement": null,
+      "total": {
+        "amount": 62313,
+        "currency": "BGN",
+        "amountEur": 31860
+      }
+    },
+    {
+      "id": 188,
+      "name": "Водосток от кахони при входа на с.Казанка",
+      "settlement": "Казанка",
+      "total": {
+        "amount": 147841,
+        "currency": "BGN",
+        "amountEur": 75590
+      }
+    },
+    {
+      "id": 189,
+      "name": "ППР - бул. \"Славянски\"/ул.\"Капитан П.Войвода\" до бул.\"България\"",
+      "settlement": null,
+      "total": {
+        "amount": 120000,
+        "currency": "BGN",
+        "amountEur": 61355
+      }
+    },
+    {
+      "id": 190,
+      "name": "Изграждане на фундамент и табела на северен вход на гр. Ст.Загора",
+      "settlement": null,
+      "total": {
+        "amount": 51190,
+        "currency": "BGN",
+        "amountEur": 26173
+      }
+    },
+    {
+      "id": 191,
+      "name": "Изграждане на площадка за хора с увреждания в парк \"Артилерийски\"",
+      "settlement": null,
+      "total": {
+        "amount": 102000,
+        "currency": "BGN",
+        "amountEur": 52152
+      }
+    },
+    {
+      "id": 192,
+      "name": "Мултифункционално устройство",
+      "settlement": null,
+      "total": {
+        "amount": 6000,
+        "currency": "BGN",
+        "amountEur": 3068
+      }
+    },
+    {
+      "id": 193,
+      "name": "Офис контейнери и оборудване",
+      "settlement": null,
+      "total": {
+        "amount": 45000,
+        "currency": "BGN",
+        "amountEur": 23008
+      }
+    },
+    {
+      "id": 194,
+      "name": "Битов контейнер за база на ул.\"Хр.Морфова\" - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 14000,
+        "currency": "BGN",
+        "amountEur": 7158
+      }
+    },
+    {
+      "id": 195,
+      "name": "Платформа за транспорт за градинска и комунална техника",
+      "settlement": null,
+      "total": {
+        "amount": 9500,
+        "currency": "BGN",
+        "amountEur": 4857
+      }
+    },
+    {
+      "id": 196,
+      "name": "Ремарке за трактор",
+      "settlement": null,
+      "total": {
+        "amount": 30000,
+        "currency": "BGN",
+        "amountEur": 15339
+      }
+    },
+    {
+      "id": 197,
+      "name": "Метачна машина",
+      "settlement": null,
+      "total": {
+        "amount": 70000,
+        "currency": "BGN",
+        "amountEur": 35790
+      }
+    },
+    {
+      "id": 198,
+      "name": "Шредер/Мулчер",
+      "settlement": null,
+      "total": {
+        "amount": 18000,
+        "currency": "BGN",
+        "amountEur": 9203
+      }
+    },
+    {
+      "id": 199,
+      "name": "Изграждане на поливни системи",
+      "settlement": null,
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 200,
+      "name": "ППР - поливна система на ул.\"Герасим Папазчев\" от бул.\"Руски\"/ул.Х.Д.Асенов\"",
+      "settlement": null,
+      "total": {
+        "amount": 6000,
+        "currency": "BGN",
+        "amountEur": 3068
+      }
+    },
+    {
+      "id": 201,
+      "name": "ППР - поливна система на бул.\"Цар Симеон Велики\"",
+      "settlement": null,
+      "total": {
+        "amount": 5000,
+        "currency": "BGN",
+        "amountEur": 2556
+      }
+    },
+    {
+      "id": 202,
+      "name": "ППР - поливна система на ул.\"Х.Д.Асенов\"",
+      "settlement": null,
+      "total": {
+        "amount": 2000,
+        "currency": "BGN",
+        "amountEur": 1023
+      }
+    },
+    {
+      "id": 203,
+      "name": "ППР - поливна система на ул.\"Св.Княз Борис\"",
+      "settlement": null,
+      "total": {
+        "amount": 4000,
+        "currency": "BGN",
+        "amountEur": 2045
+      }
+    },
+    {
+      "id": 204,
+      "name": "ППР - водопровод и поливна система на бул.\"Цар Симеон Велики\" от ул.\"Ив. Пашинов\"/ул.\"К.П.Войвода\"",
+      "settlement": null,
+      "total": {
+        "amount": 6000,
+        "currency": "BGN",
+        "amountEur": 3068
+      }
+    },
+    {
+      "id": 205,
+      "name": "Изграждане на Клетка 2 от РЦУО - строителен и авт.надзор",
+      "settlement": null,
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 206,
+      "name": "ППР - идеен проект за изграждане на инсталация за третиране на отпадъци",
+      "settlement": null,
+      "total": {
+        "amount": 30000,
+        "currency": "BGN",
+        "amountEur": 15339
+      }
+    },
+    {
+      "id": 207,
+      "name": "Оборудване на площадка за предаване на разделно събрани отпадъци от домакинства",
+      "settlement": null,
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 208,
+      "name": "Климатик за офис контейнер на площадка за отпадъци",
+      "settlement": null,
+      "total": {
+        "amount": 1500,
+        "currency": "BGN",
+        "amountEur": 767
+      }
+    },
+    {
+      "id": 209,
+      "name": "Информационно табло за спортна зала \"Иван Вазов\"",
+      "settlement": null,
+      "total": {
+        "amount": 30000,
+        "currency": "BGN",
+        "amountEur": 15339
+      }
+    },
+    {
+      "id": 210,
+      "name": "ППР - Изграждане на спортна зала в парк \"Артилерийски\"",
+      "settlement": null,
+      "total": {
+        "amount": 9809,
+        "currency": "BGN",
+        "amountEur": 5015
+      }
+    },
+    {
+      "id": 211,
+      "name": "Конвектори за отопление на зала за худ.гимнастика \"Никола Петков\" 1 - 5 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 36000,
+        "currency": "BGN",
+        "amountEur": 18407
+      }
+    },
+    {
+      "id": 212,
+      "name": "Влагоуловител за Летен театър Стара Загора - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 15000,
+        "currency": "BGN",
+        "amountEur": 7669
+      }
+    },
+    {
+      "id": 213,
+      "name": "Тромпети за Общински духов оркестър - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 214,
+      "name": "Акордеон за Общински фолклорен ансамбъл",
+      "settlement": null,
+      "total": {
+        "amount": 6000,
+        "currency": "BGN",
+        "amountEur": 3068
+      }
+    },
+    {
+      "id": 215,
+      "name": "Закупуване на сграда за читалището в с.Бъдеще",
+      "settlement": "Бъдеще",
+      "total": {
+        "amount": 160000,
+        "currency": "BGN",
+        "amountEur": 81807
+      }
+    },
+    {
+      "id": 216,
+      "name": "Компютри за Художествена галерия - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 217,
+      "name": "Мултифункционално устройство за Художествена галерия",
+      "settlement": null,
+      "total": {
+        "amount": 2000,
+        "currency": "BGN",
+        "amountEur": 1023
+      }
+    },
+    {
+      "id": 218,
+      "name": "Климатик за Художествена галерия - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 35000,
+        "currency": "BGN",
+        "amountEur": 17895
+      }
+    },
+    {
+      "id": 219,
+      "name": "Цветен принтер за Художествена галерия",
+      "settlement": null,
+      "total": {
+        "amount": 4000,
+        "currency": "BGN",
+        "amountEur": 2045
+      }
+    },
+    {
+      "id": 220,
+      "name": "Проектор за Художествена галерия - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 6000,
+        "currency": "BGN",
+        "amountEur": 3068
+      }
+    },
+    {
+      "id": 221,
+      "name": "Компютър за Художествена галерия - 3 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 6000,
+        "currency": "BGN",
+        "amountEur": 3068
+      }
+    },
+    {
+      "id": 222,
+      "name": "Платежен терминал за Художествена галерия",
+      "settlement": null,
+      "total": {
+        "amount": 1200,
+        "currency": "BGN",
+        "amountEur": 614
+      }
+    },
+    {
+      "id": 223,
+      "name": "Фискално устройство за валидиране на билети за РИМ Ст.Загора",
+      "settlement": null,
+      "total": {
+        "amount": 1500,
+        "currency": "BGN",
+        "amountEur": 767
+      }
+    },
+    {
+      "id": 224,
+      "name": "Платежен терминал за РИМ Ст.Загора - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 2400,
+        "currency": "BGN",
+        "amountEur": 1227
+      }
+    },
+    {
+      "id": 225,
+      "name": "Изграждане на фондохранилище на РИМ Ст.Загора",
+      "settlement": null,
+      "total": {
+        "amount": 191640,
+        "currency": "BGN",
+        "amountEur": 97984
+      }
+    },
+    {
+      "id": 226,
+      "name": "Компютър за къща музей \"Гео Милев\" - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 3600,
+        "currency": "BGN",
+        "amountEur": 1841
+      }
+    },
+    {
+      "id": 227,
+      "name": "Платежен терминал за музей \"Литературна Стара Загора\"",
+      "settlement": null,
+      "total": {
+        "amount": 1200,
+        "currency": "BGN",
+        "amountEur": 614
+      }
+    },
+    {
+      "id": 228,
+      "name": "Изграждане на Гробищен парк гр.Стара Загора - нов",
+      "settlement": null,
+      "total": {
+        "amount": 1011015,
+        "currency": "BGN",
+        "amountEur": 516924
+      }
+    },
+    {
+      "id": 229,
+      "name": "Микробус 8+1 места за ОП \"Гробищни паркове\"",
+      "settlement": null,
+      "total": {
+        "amount": 30000,
+        "currency": "BGN",
+        "amountEur": 15339
+      }
+    },
+    {
+      "id": 230,
+      "name": "Метална конструкция тип костница",
+      "settlement": null,
+      "total": {
+        "amount": 37680,
+        "currency": "BGN",
+        "amountEur": 19265
+      }
+    },
+    {
+      "id": 231,
+      "name": "Климатик за Ритуална зала - 3 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 11000,
+        "currency": "BGN",
+        "amountEur": 5624
+      }
+    },
+    {
+      "id": 232,
+      "name": "Дробилка за клони за ОП \"Гробищен парк\"",
+      "settlement": null,
+      "total": {
+        "amount": 14320,
+        "currency": "BGN",
+        "amountEur": 7322
+      }
+    },
+    {
+      "id": 233,
+      "name": "Мини багер за ОП \"Гробищен парк\"",
+      "settlement": null,
+      "total": {
+        "amount": 58320,
+        "currency": "BGN",
+        "amountEur": 29819
+      }
+    },
+    {
+      "id": 234,
+      "name": "Контейнер (фургон) за ОП \"Гробищен парк\" - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 15680,
+        "currency": "BGN",
+        "amountEur": 8017
+      }
+    },
+    {
+      "id": 235,
+      "name": "ППР-Изграждане на ритуална зала за сключване на граждански брак",
+      "settlement": null,
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 236,
+      "name": "3Д принтер за Зоопарк",
+      "settlement": null,
+      "total": {
+        "amount": 2500,
+        "currency": "BGN",
+        "amountEur": 1278
+      }
+    },
+    {
+      "id": 237,
+      "name": "Мултифункционално устройство за Зоопарк",
+      "settlement": null,
+      "total": {
+        "amount": 1000,
+        "currency": "BGN",
+        "amountEur": 511
+      }
+    },
+    {
+      "id": 238,
+      "name": "Електрическа селско-стопанска триколка за Зоопарк - 2 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 239,
+      "name": "Лек товарен автомобил пътнически за Зоопарк",
+      "settlement": null,
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 240,
+      "name": "Информационен киоск за обявления и кабина за Зоопарк",
+      "settlement": null,
+      "total": {
+        "amount": 9000,
+        "currency": "BGN",
+        "amountEur": 4602
+      }
+    },
+    {
+      "id": 241,
+      "name": "Машина за монети за Зоопарк",
+      "settlement": null,
+      "total": {
+        "amount": 7500,
+        "currency": "BGN",
+        "amountEur": 3835
+      }
+    },
+    {
+      "id": 242,
+      "name": "Метална хранилка за понита за Зоопарк",
+      "settlement": null,
+      "total": {
+        "amount": 1260,
+        "currency": "BGN",
+        "amountEur": 644
+      }
+    },
+    {
+      "id": 243,
+      "name": "Доставка и монтаж на укрепващи съоръжения за две клетки за малки мечета в Зоопарк Стара Загора",
+      "settlement": null,
+      "total": {
+        "amount": 106044,
+        "currency": "BGN",
+        "amountEur": 54219
+      }
+    },
+    {
+      "id": 244,
+      "name": "Климатик за библ.\"З.Княжески\" - 4 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 19000,
+        "currency": "BGN",
+        "amountEur": 9715
+      }
+    },
+    {
+      "id": 245,
+      "name": "RFID система за защита на библиотечния фонд за библ.\"З.Княжески\"",
+      "settlement": null,
+      "total": {
+        "amount": 15000,
+        "currency": "BGN",
+        "amountEur": 7669
+      }
+    },
+    {
+      "id": 246,
+      "name": "Климатик за библ.\"Родина\" филиал Ав.Траяна",
+      "settlement": null,
+      "total": {
+        "amount": 1300,
+        "currency": "BGN",
+        "amountEur": 665
+      }
+    },
+    {
+      "id": 247,
+      "name": "Климатик за библ.\"Родина\" отдел \"КОК на БФ\"",
+      "settlement": null,
+      "total": {
+        "amount": 2600,
+        "currency": "BGN",
+        "amountEur": 1329
+      }
+    },
+    {
+      "id": 248,
+      "name": "Лаптоп за библ. \"Родина\"",
+      "settlement": null,
+      "total": {
+        "amount": 1500,
+        "currency": "BGN",
+        "amountEur": 767
+      }
+    },
+    {
+      "id": 249,
+      "name": "Изграждане на паметник \"Св.Св.Кирил и Методий\"",
+      "settlement": null,
+      "total": {
+        "amount": 70000,
+        "currency": "BGN",
+        "amountEur": 35790
+      }
+    },
+    {
+      "id": 250,
+      "name": "Изграждане на паметник Тодор Александров",
+      "settlement": null,
+      "total": {
+        "amount": 84000,
+        "currency": "BGN",
+        "amountEur": 42949
+      }
+    },
+    {
+      "id": 251,
+      "name": "Специализирани устройства разчитащи регистрационни номера на МПС - 11 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 35992,
+        "currency": "BGN",
+        "amountEur": 18402
+      }
+    },
+    {
+      "id": 252,
+      "name": "Видеонаблюдение на кр-во кр-ще в кв.\"Кольо Ганчев\"/бул.\"Св.П.Евтимий\"",
+      "settlement": null,
+      "total": {
+        "amount": 5000,
+        "currency": "BGN",
+        "amountEur": 2556
+      }
+    },
+    {
+      "id": 253,
+      "name": "ППР - Спиркови заслони",
+      "settlement": null,
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 254,
+      "name": "Защитно ограждение на Античен форум",
+      "settlement": null,
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 255,
+      "name": "Бариера за общински пазар \"Васил Шаханов\"",
+      "settlement": null,
+      "total": {
+        "amount": 8000,
+        "currency": "BGN",
+        "amountEur": 4090
+      }
+    },
+    {
+      "id": 256,
+      "name": "Товарен микробус за Приют за безстопанствени животни",
+      "settlement": null,
+      "total": {
+        "amount": 35000,
+        "currency": "BGN",
+        "amountEur": 17895
+      }
+    },
+    {
+      "id": 257,
+      "name": "Ел.печка с 4 котлона за ОП Ученическо хранене - 3 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 18057,
+        "currency": "BGN",
+        "amountEur": 9232
+      }
+    },
+    {
+      "id": 258,
+      "name": "Ел.пекарна за ОП Ученическо хранене - 4 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 17856,
+        "currency": "BGN",
+        "amountEur": 9130
+      }
+    },
+    {
+      "id": 259,
+      "name": "Конвектомат за ОП Ученическо хранене",
+      "settlement": null,
+      "total": {
+        "amount": 9802,
+        "currency": "BGN",
+        "amountEur": 5012
+      }
+    },
+    {
+      "id": 260,
+      "name": "Вендинг автомат за монети с нумизматична стойност",
+      "settlement": null,
+      "total": {
+        "amount": 7920,
+        "currency": "BGN",
+        "amountEur": 4049
+      }
+    },
+    {
+      "id": 261,
+      "name": "Изложбен щанд",
+      "settlement": null,
+      "total": {
+        "amount": 2000,
+        "currency": "BGN",
+        "amountEur": 1023
+      }
+    },
+    {
+      "id": 262,
+      "name": "Автомобилен репатратор",
+      "settlement": null,
+      "total": {
+        "amount": 262390,
+        "currency": "BGN",
+        "amountEur": 134158
+      }
+    },
+    {
+      "id": 263,
+      "name": "Мрежова защитна стена",
+      "settlement": null,
+      "total": {
+        "amount": 30000,
+        "currency": "BGN",
+        "amountEur": 15339
+      }
+    },
+    {
+      "id": 264,
+      "name": "Лиценз за актуализация на Sophos 310 XG",
+      "settlement": null,
+      "total": {
+        "amount": 7178,
+        "currency": "BGN",
+        "amountEur": 3670
+      }
+    },
+    {
+      "id": 265,
+      "name": "Софтуер за автоматизация на обработка на административни услуги в община Стара Загора",
+      "settlement": null,
+      "total": {
+        "amount": 84000,
+        "currency": "BGN",
+        "amountEur": 42949
+      }
+    },
+    {
+      "id": 266,
+      "name": "Софтуер за мониторинг и одитиране на локалната мрежа",
+      "settlement": null,
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 267,
+      "name": "Софтуер за индексиране и търсене в електронни масиви",
+      "settlement": null,
+      "total": {
+        "amount": 6500,
+        "currency": "BGN",
+        "amountEur": 3323
+      }
+    },
+    {
+      "id": 268,
+      "name": "Лицензи за Autocad за д-я \"Строителство и инвестиции\"",
+      "settlement": null,
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 269,
+      "name": "Платформа за публични регистри, справки и функц. в с-мата за електронен обмен",
+      "settlement": null,
+      "total": {
+        "amount": 12500,
+        "currency": "BGN",
+        "amountEur": 6391
+      }
+    },
+    {
+      "id": 270,
+      "name": "Програмен продукт за електронни търгове за ОССП",
+      "settlement": null,
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 271,
+      "name": "Лиценз за софтуер за управление на човешките ресурси",
+      "settlement": null,
+      "total": {
+        "amount": 5460,
+        "currency": "BGN",
+        "amountEur": 2792
+      }
+    },
+    {
+      "id": 272,
+      "name": "Софтуер NetSupport School за СУ \"Иван Вазов\" - 28 бр.",
+      "settlement": null,
+      "total": {
+        "amount": 4436,
+        "currency": "BGN",
+        "amountEur": 2268
+      }
+    },
+    {
+      "id": 273,
+      "name": "ПП за счетоводен отдел",
+      "settlement": null,
+      "total": {
+        "amount": 2118,
+        "currency": "BGN",
+        "amountEur": 1083
+      }
+    },
+    {
+      "id": 274,
+      "name": "ПУП-ПРЗ на с.Старозагорски бани",
+      "settlement": "Старозагорски бани",
+      "total": {
+        "amount": 36000,
+        "currency": "BGN",
+        "amountEur": 18407
+      }
+    },
+    {
+      "id": 275,
+      "name": "ПУП-ПРЗ на парк „М.М.Кусев“",
+      "settlement": null,
+      "total": {
+        "amount": 12000,
+        "currency": "BGN",
+        "amountEur": 6136
+      }
+    },
+    {
+      "id": 276,
+      "name": "ПУП-ПРЗ на КР 210, 211, 212, 213 по КККР на гр.Стара Загора",
+      "settlement": null,
+      "total": {
+        "amount": 76800,
+        "currency": "BGN",
+        "amountEur": 39267
+      }
+    },
+    {
+      "id": 277,
+      "name": "ПУП - ПРЗ Централна градска част",
+      "settlement": null,
+      "total": {
+        "amount": 12000,
+        "currency": "BGN",
+        "amountEur": 6136
+      }
+    },
+    {
+      "id": 278,
+      "name": "ПУП-Парк \"Бедечка\"",
+      "settlement": null,
+      "total": {
+        "amount": 12000,
+        "currency": "BGN",
+        "amountEur": 6136
+      }
+    },
+    {
+      "id": 279,
+      "name": "Цифров модел на планове за регулация на територията на Стара Загора",
+      "settlement": null,
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 280,
+      "name": "Изработване на сайт за ОП \"Гробищни паркове\"",
+      "settlement": null,
+      "total": {
+        "amount": 1000,
+        "currency": "BGN",
+        "amountEur": 511
+      }
+    },
+    {
+      "id": 281,
+      "name": "Софтуер за RFID оборудване с модул ПП \"Автоматизирана библиотека\" за библ.\"З.Княжески\"",
+      "settlement": null,
+      "total": {
+        "amount": 12000,
+        "currency": "BGN",
+        "amountEur": 6136
+      }
+    },
+    {
+      "id": 282,
+      "name": "Уебсайт \"Цветовете на джаза\"",
+      "settlement": null,
+      "total": {
+        "amount": 7000,
+        "currency": "BGN",
+        "amountEur": 3579
+      }
+    },
+    {
+      "id": 283,
+      "name": "Лиценз за Adobe Creative cloud за обработка на снимки за Туристически инфо. Център",
+      "settlement": null,
+      "total": {
+        "amount": 2000,
+        "currency": "BGN",
+        "amountEur": 1023
+      }
+    },
+    {
+      "id": 284,
+      "name": "Изработване на софтуер за регистрация на кучета",
+      "settlement": null,
+      "total": {
+        "amount": 20000,
+        "currency": "BGN",
+        "amountEur": 10226
+      }
+    },
+    {
+      "id": 285,
+      "name": "Отчуждаване на земя",
+      "settlement": null,
+      "total": {
+        "amount": 300000,
+        "currency": "BGN",
+        "amountEur": 153388
+      }
+    }
+  ],
+  "bySettlement": [
+    {
+      "name": "Калояновец",
+      "projectCount": 1,
+      "total": {
+        "amount": 297357,
+        "currency": "BGN",
+        "amountEur": 152036
+      },
+      "topProjects": [
+        {
+          "id": 8,
+          "name": "ОР - на сграда ОУ \"Отец Паисий\" с.Калояновец",
+          "total": {
+            "amount": 297357,
+            "currency": "BGN",
+            "amountEur": 152036
+          }
+        }
+      ]
+    },
+    {
+      "name": "Братя Кунчеви",
+      "projectCount": 1,
+      "total": {
+        "amount": 291274,
+        "currency": "BGN",
+        "amountEur": 148926
+      },
+      "topProjects": [
+        {
+          "id": 9,
+          "name": "ОР - на сграда ОУ с.Братя Кунчеви",
+          "total": {
+            "amount": 291274,
+            "currency": "BGN",
+            "amountEur": 148926
+          }
+        }
+      ]
+    },
+    {
+      "name": "Загоре",
+      "projectCount": 1,
+      "total": {
+        "amount": 260799,
+        "currency": "BGN",
+        "amountEur": 133344
+      },
+      "topProjects": [
+        {
+          "id": 7,
+          "name": "ОР - на сграда ОУ \"Хр.Ботев\" с.Загоре",
+          "total": {
+            "amount": 260799,
+            "currency": "BGN",
+            "amountEur": 133344
+          }
+        }
+      ]
+    },
+    {
+      "name": "Старозагорски бани",
+      "projectCount": 3,
+      "total": {
+        "amount": 178000,
+        "currency": "BGN",
+        "amountEur": 91010
+      },
+      "topProjects": [
+        {
+          "id": 20,
+          "name": "ППР - СМР на сграда на \"Дом за стари хора\" парк \"Дъбова гора\" с.Старозагорски бани",
+          "total": {
+            "amount": 112000,
+            "currency": "BGN",
+            "amountEur": 57265
+          }
+        },
+        {
+          "id": 274,
+          "name": "ПУП-ПРЗ на с.Старозагорски бани",
+          "total": {
+            "amount": 36000,
+            "currency": "BGN",
+            "amountEur": 18407
+          }
+        },
+        {
+          "id": 50,
+          "name": "Обследване за енергийна ефективност на сградата на банята в с.Старозагорски бани",
+          "total": {
+            "amount": 30000,
+            "currency": "BGN",
+            "amountEur": 15339
+          }
+        }
+      ]
+    },
+    {
+      "name": "Бъдеще",
+      "projectCount": 1,
+      "total": {
+        "amount": 160000,
+        "currency": "BGN",
+        "amountEur": 81807
+      },
+      "topProjects": [
+        {
+          "id": 215,
+          "name": "Закупуване на сграда за читалището в с.Бъдеще",
+          "total": {
+            "amount": 160000,
+            "currency": "BGN",
+            "amountEur": 81807
+          }
+        }
+      ]
+    },
+    {
+      "name": "Казанка",
+      "projectCount": 1,
+      "total": {
+        "amount": 147841,
+        "currency": "BGN",
+        "amountEur": 75590
+      },
+      "topProjects": [
+        {
+          "id": 188,
+          "name": "Водосток от кахони при входа на с.Казанка",
+          "total": {
+            "amount": 147841,
+            "currency": "BGN",
+            "amountEur": 75590
+          }
+        }
+      ]
+    },
+    {
+      "name": "Лясково",
+      "projectCount": 1,
+      "total": {
+        "amount": 69670,
+        "currency": "BGN",
+        "amountEur": 35622
+      },
+      "topProjects": [
+        {
+          "id": 161,
+          "name": "Дом с.Лясково",
+          "total": {
+            "amount": 69670,
+            "currency": "BGN",
+            "amountEur": 35622
+          }
+        }
+      ]
+    },
+    {
+      "name": "Християново",
+      "projectCount": 2,
+      "total": {
+        "amount": 55560,
+        "currency": "BGN",
+        "amountEur": 28407
+      },
+      "topProjects": [
+        {
+          "id": 57,
+          "name": "ППР и авт.надзор на общински път с.Християново - с.Калояновец",
+          "total": {
+            "amount": 33000,
+            "currency": "BGN",
+            "amountEur": 16873
+          }
+        },
+        {
+          "id": 58,
+          "name": "ППР и авт.надзор на общински път с.Християново - с.Ловец/с.Калояновец - с.Арнаутито/",
+          "total": {
+            "amount": 22560,
+            "currency": "BGN",
+            "amountEur": 11535
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ракитница",
+      "projectCount": 1,
+      "total": {
+        "amount": 33000,
+        "currency": "BGN",
+        "amountEur": 16873
+      },
+      "topProjects": [
+        {
+          "id": 59,
+          "name": "ППР и авт.надзор на общински път Стара Загора - Чирпан / с.Ракитница /",
+          "total": {
+            "amount": 33000,
+            "currency": "BGN",
+            "amountEur": 16873
+          }
+        }
+      ]
+    },
+    {
+      "name": "Михайлово",
+      "projectCount": 1,
+      "total": {
+        "amount": 4000,
+        "currency": "BGN",
+        "amountEur": 2045
+      },
+      "topProjects": [
+        {
+          "id": 60,
+          "name": "ППР - Реконструкция на общински път с.Михайлово - с.Самуилово /от табела до табела/",
+          "total": {
+            "amount": 4000,
+            "currency": "BGN",
+            "amountEur": 2045
+          }
+        }
+      ]
+    },
+    {
+      "name": "Стрелец",
+      "projectCount": 1,
+      "total": {
+        "amount": 4000,
+        "currency": "BGN",
+        "amountEur": 2045
+      },
+      "topProjects": [
+        {
+          "id": 61,
+          "name": "ППР - Реконструкция на общински път с.Бъдеще - с.Стрелец /от разклона/",
+          "total": {
+            "amount": 4000,
+            "currency": "BGN",
+            "amountEur": 2045
+          }
+        }
+      ]
+    },
+    {
+      "name": "Хрищени",
+      "projectCount": 1,
+      "total": {
+        "amount": 3600,
+        "currency": "BGN",
+        "amountEur": 1841
+      },
+      "topProjects": [
+        {
+          "id": 94,
+          "name": "Климатик за ОУ \"Хр. Ботев\" с. Хрищени - 3 бр.",
+          "total": {
+            "amount": 3600,
+            "currency": "BGN",
+            "amountEur": 1841
+          }
+        }
+      ]
+    }
+  ]
+}

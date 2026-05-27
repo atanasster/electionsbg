@@ -45,6 +45,14 @@ const __dirname = dirname(__filename);
 
 const SOURCE_URLS: Record<number, string> = {
   2025: "https://www.starazagora.bg/uploads/posts/2025/2025_05_29_prilozhenia_byudzhet_2025.zip",
+  // Back-years: the budget-decision ZIP contains the same "поименен
+  // списък на капиталови разходи" PDF, just under a slightly different
+  // filename inside the archive (2024: "pr 4 KV 2024 .pdf", 2023/2022:
+  // "pr 13 KV PROEKT YYYY.pdf"). The parser entry-point is the
+  // unpacked PDF at raw_data/budget/capital_programs/stara_zagora-YYYY.pdf.
+  2024: "https://www.starazagora.bg/uploads/posts/2024/prilozhenia_byudzhet_2024.zip",
+  2023: "https://starazagora.bg/uploads/posts/2023/prilozhenia_byudzhet2023.zip",
+  2022: "https://starazagora.bg/uploads/posts/2022/prilozhenia_byudzhet2022.zip",
 };
 
 interface Money {
