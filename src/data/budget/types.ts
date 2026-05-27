@@ -1028,6 +1028,46 @@ export interface VidinCapitalProgramFile {
   bySettlement: VidinCapitalSettlementRollup[];
 }
 
+// Хасково — single-município (HKV34, EKATTE 77195). Oblast capital
+// with 37 settlements (city + 36 villages). Source is a 19-page born-
+// digital landscape PDF on haskovo.bg (Прил. №7 МИНФИН B3 template);
+// project descriptions wrap across lines, so the pipeline OCRs via
+// Gemini Vision (haskovo_ocr.ts) for robust multi-line joins.
+export interface HaskovoCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface HaskovoCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface HaskovoCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: HaskovoCapitalProject[];
+  bySettlement: HaskovoCapitalSettlementRollup[];
+}
+
 // Перник — single-município (PER32, EKATTE 55871). Oblast capital
 // with 24 settlements (city + town Батановци + 22 villages). Source
 // is a clean single-sheet XLS on pernik.bg, already denominated in

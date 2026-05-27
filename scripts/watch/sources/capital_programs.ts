@@ -1,9 +1,10 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 14 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Each of the 15 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
 // Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin,
-// Veliko Tarnovo, Pernik) publishes an annual "Капиталова програма" /
-// "Поименен списък на обектите за капиталови разходи" on its own website.
+// Veliko Tarnovo, Pernik, Haskovo) publishes an annual "Капиталова
+// програма" / "Поименен списък на обектите за капиталови разходи" on
+// its own website.
 // URLs are opaque and change every year (some include the date, some a
 // content hash), so the catalogue is hand-curated below — mirrors the
 // SOURCE_URLS map in each município's parser under
@@ -66,7 +67,8 @@ type Municipality =
   | "shumen"
   | "vidin"
   | "veliko_tarnovo"
-  | "pernik";
+  | "pernik"
+  | "haskovo";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -135,6 +137,10 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // long comment in scripts/budget/capital_programs/vidin.ts. Watcher
     // tracks the article landing page (RAR URL is session-bound).
     vidin: "https://vidin.bg/",
+    // Pernik 2025 — the published "ПРОЕКТ-Поименен-списък..." XLS
+    // (operator-confirmed final version). BGN.
+    pernik:
+      "https://pernik.bg/wp-content/uploads/2025/04/ПРОЕКТ-Поименен-списък-на-капиталовите-разходи.xls",
   },
   // Sofia historical back-years (2022-2024). The Sofia portal occasionally
   // re-uploads corrected versions of older files; tracking these means a
@@ -161,6 +167,13 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // row at index 4 (vs 6 for 2025). 162 projects, ~28.3M EUR.
     veliko_tarnovo:
       "https://www.veliko-tarnovo.bg/uploads/posts/2024/03_07_97-priloj_1-22.xlsx",
+    // Pernik 2024 — same XLS shape as 2026 but in BGN (pre-euro).
+    pernik:
+      "https://pernik.bg/wp-content/uploads/2024/01/Poimenen-spisak_-2024_Budjet.xls",
+    // Haskovo 2024 — 19-page born-digital landscape PDF (MINFIN B3
+    // template). Multi-line project names → Gemini Vision OCR.
+    haskovo:
+      "https://www.haskovo.bg/uploads/posts/2024/e02aef94db43a6123034f1947c9b9479.pdf",
   },
   2023: {
     sofia:

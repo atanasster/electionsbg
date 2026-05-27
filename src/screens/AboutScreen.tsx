@@ -457,6 +457,10 @@ export const AboutScreen = () => {
                   href="https://www.pernik.bg/bg/byudzhet"
                   label={t("budget_capital_pernik_source")}
                 />
+                <SourceItem
+                  href="https://www.haskovo.bg/bg/kapitalovi-razhodi"
+                  label={t("budget_capital_haskovo_source")}
+                />
               </ul>
             </DataGroup>
 

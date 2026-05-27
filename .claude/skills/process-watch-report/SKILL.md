@@ -93,7 +93,7 @@ If the user says "skip governments for this run", drop it from the plan without 
 
 ### Capital-programmes ingest (`capital_programs`)
 
-The 14 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
+The 15 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik, Haskovo) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
 
 Each município has its own parser script:
 - **XLSX/XLS**: Sofia, Burgas, Ruse, Veliko Tarnovo (sheet "Pril15"), Pernik (post-euro EUR figures), Burgas 2022.
@@ -126,6 +126,9 @@ Output schema is shared under `data/budget/capital_programs/{year}/{muni}.json`.
    tsx scripts/budget/capital_programs/asenovgrad.ts --year <year>
    tsx scripts/budget/capital_programs/veliko_tarnovo.ts --year <year>
    tsx scripts/budget/capital_programs/pernik.ts --year <year>
+   # Haskovo: OCR via Gemini Vision first, then rollup:
+   tsx scripts/budget/capital_programs/haskovo_ocr.ts --year <year>
+   tsx scripts/budget/capital_programs/haskovo.ts --year <year>
    # Vidin: unar extract + textutil convert the .doc first, then:
    tsx scripts/budget/capital_programs/vidin.ts --year <year>
    ```

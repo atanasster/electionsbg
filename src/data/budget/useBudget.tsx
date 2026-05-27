@@ -31,6 +31,7 @@ import type {
   SlivenCapitalProgramFile,
   SofiaCapitalProgramFile,
   StaraZagoraCapitalProgramFile,
+  HaskovoCapitalProgramFile,
   PernikCapitalProgramFile,
   VarnaCapitalProgramFile,
   VelikoTarnovoCapitalProgramFile,
@@ -460,6 +461,19 @@ export const useVidinCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<VidinCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/vidin.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Хасково — Oblast capital (HKV34, 37 settlements). 19-page born-
+// digital landscape PDF on haskovo.bg; OCR via Gemini Vision.
+export const useHaskovoCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "haskovo", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<HaskovoCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/haskovo.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

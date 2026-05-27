@@ -42,7 +42,18 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const SOURCE_URLS: Record<number, string> = {
+  2024: "https://pernik.bg/wp-content/uploads/2024/01/Poimenen-spisak_-2024_Budjet.xls",
+  2025: "https://pernik.bg/wp-content/uploads/2025/04/ПРОЕКТ-Поименен-списък-на-капиталовите-разходи.xls",
   2026: "https://pernik.bg/wp-content/uploads/2026/04/Poimenen-spisak-EURO.xls",
+};
+
+// Currency mode by fiscal year — files from 2026 onward are post-euro
+// (values already in EUR with back-converted fractional cents); earlier
+// years carry BGN values that we convert to EUR at the 1.95583 peg.
+const SOURCE_CURRENCY: Record<number, "BGN" | "EUR"> = {
+  2024: "BGN",
+  2025: "BGN",
+  2026: "EUR",
 };
 
 interface Money {
@@ -56,6 +67,15 @@ const eurToMoney = (amountEur: number): Money => ({
   currency: "BGN",
   amountEur: Math.round(amountEur),
 });
+
+const bgnToMoney = (amountBgn: number): Money => ({
+  amount: Math.round(amountBgn),
+  currency: "BGN",
+  amountEur: Math.round(amountBgn / BGN_PER_EUR),
+});
+
+const sourceToMoney = (amount: number, source: "BGN" | "EUR"): Money =>
+  source === "EUR" ? eurToMoney(amount) : bgnToMoney(amount);
 
 interface PernikCapitalProject {
   id: number;
@@ -148,6 +168,7 @@ const main = () => {
   const args = process.argv.slice(2);
   const yearIdx = args.indexOf("--year");
   const fiscalYear = yearIdx >= 0 ? Number(args[yearIdx + 1]) : 2026;
+  const sourceCurrency = SOURCE_CURRENCY[fiscalYear] ?? "BGN";
 
   const xlsxPath = resolve(
     __dirname,
@@ -170,31 +191,32 @@ const main = () => {
 
   // Locate "ОБЩО :" grand-total row (published recap headline).
   // It sits in col 1 (or sometimes col 0) within the first ~15 rows.
-  let publishedRecapEur: number | null = null;
+  let publishedRecapRaw: number | null = null;
   for (let i = 0; i < Math.min(15, aoa.length); i++) {
     const c0 = String(aoa[i][0] || "").trim();
     const c1 = String(aoa[i][1] || "").trim();
     if (/^ОБЩО/.test(c0) || /^ОБЩО/.test(c1)) {
       const total = Number(aoa[i][2] || 0);
-      if (total > 0) publishedRecapEur = total;
+      if (total > 0) publishedRecapRaw = total;
       break;
     }
   }
 
   // Project rows: col 0 is a pure decimal integer (Arabic digits),
-  // col 1 has the project description, col 2 has the EUR amount.
+  // col 1 has the project description, col 2 has the amount in the
+  // source currency (BGN for ≤2025, EUR for ≥2026).
   const projects: PernikCapitalProject[] = [];
   for (let i = 0; i < aoa.length; i++) {
     const c0 = String(aoa[i][0] || "").trim();
     if (!/^\d+$/.test(c0)) continue; // skip non-numbered rows (headers, romans)
     const name = String(aoa[i][1] || "").trim();
-    const totalEur = Number(aoa[i][2] || 0);
-    if (!name || !Number.isFinite(totalEur) || totalEur <= 0) continue;
+    const totalRaw = Number(aoa[i][2] || 0);
+    if (!name || !Number.isFinite(totalRaw) || totalRaw <= 0) continue;
     projects.push({
       id: projects.length + 1,
       name,
       settlement: extractSettlement(name),
-      total: eurToMoney(totalEur),
+      total: sourceToMoney(totalRaw, sourceCurrency),
     });
   }
   console.log(`[pernik-capital] matched ${projects.length} project rows`);
@@ -226,6 +248,8 @@ const main = () => {
     }))
     .sort((a, b) => b.total.amountEur - a.total.amountEur);
 
+  // Rollups are accumulated in EUR (Money.amountEur), so eurToMoney
+  // is the right convertor regardless of source-file currency.
   const itemisedTotalEur = projects.reduce((s, p) => s + p.total.amountEur, 0);
   const itemisedTotal = eurToMoney(itemisedTotalEur);
 
@@ -244,7 +268,9 @@ const main = () => {
     currency: "BGN",
     recapitulation: { total: itemisedTotal },
     publishedRecap:
-      publishedRecapEur != null ? eurToMoney(publishedRecapEur) : null,
+      publishedRecapRaw != null
+        ? sourceToMoney(publishedRecapRaw, sourceCurrency)
+        : null,
     projects,
     bySettlement,
   };
