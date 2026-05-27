@@ -1,0 +1,1634 @@
+{
+  "fiscalYear": 2023,
+  "generatedAt": "2026-05-27T07:45:48.948Z",
+  "source": {
+    "publisher": "Община Плевен",
+    "documentTitle": "Капиталова програма 2023 г. (Приложения №4 + №10А)",
+    "url": "https://www.pleven.bg/uploads/posts/byudzhet-2023.pdf",
+    "fetchedAt": "2026-05-27T07:45:48.948Z",
+    "ocrModel": "gemini-2.5-pro",
+    "ocrGeneratedAt": "2026-05-27T07:45:03.669Z"
+  },
+  "municipalityCode": "PVN24",
+  "municipalityNameBg": "Плевен",
+  "municipalityNameEn": "Pleven",
+  "currency": "BGN",
+  "recapitulation": {
+    "total": {
+      "amount": 17197132,
+      "currency": "BGN",
+      "amountEur": 8792754
+    }
+  },
+  "publishedRecap": {
+    "prilozhenie4": {
+      "amount": 14209266,
+      "currency": "BGN",
+      "amountEur": 7265082
+    },
+    "prilozhenie10A": {
+      "amount": 2987866,
+      "currency": "BGN",
+      "amountEur": 1527672
+    },
+    "combined": {
+      "amount": 17197132,
+      "currency": "BGN",
+      "amountEur": 8792754
+    }
+  },
+  "projects": [
+    {
+      "id": 1,
+      "name": "Противопожарна с-ма Панорама \"Плевенска епопея\"",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 238600,
+        "currency": "BGN",
+        "amountEur": 121994
+      }
+    },
+    {
+      "id": 2,
+      "name": "Летен театър парк \"Кайлъка\"",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 26400,
+        "currency": "BGN",
+        "amountEur": 13498
+      }
+    },
+    {
+      "id": 3,
+      "name": "Основен ремонт на Пешеходна зона от ДКТ \"Ив. Радоев\" до ул. \"Полк. инж. Цветан Лазаров\"",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 43200,
+        "currency": "BGN",
+        "amountEur": 22088
+      }
+    },
+    {
+      "id": 4,
+      "name": "ОР местен общински път ПИ 56722,29,32",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 758665,
+        "currency": "BGN",
+        "amountEur": 387899
+      }
+    },
+    {
+      "id": 5,
+      "name": "ПМС 207/2021 Укрепване на периодично активно свлачище № PVN 24.567222.13, прекъсващо общински път PVN 2141 при км 4+000",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 384615,
+        "currency": "BGN",
+        "amountEur": 196651
+      }
+    },
+    {
+      "id": 6,
+      "name": "ПМС 395/2022 Укрепване на периодично активно свлачище № PVN 24.567222.13, прекъсващо общински път PVN 2141 при км 4+000",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 260215,
+        "currency": "BGN",
+        "amountEur": 133046
+      }
+    },
+    {
+      "id": 7,
+      "name": "ПМС 471/2021 \"Инженерно и хидрогеоложко проучване на съвременно, периодично - активно свлачище PVN 24.62116.02, регистрирано на общ.път LOV1054 с. Ралево",
+      "settlement": "с. Ралево",
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 455000,
+        "currency": "BGN",
+        "amountEur": 232638
+      }
+    },
+    {
+      "id": 8,
+      "name": "ПМС 188 и 300/2022 \"Инженерно и хидрогеоложко проучване на съвременно, периодично - активно свлачище PVN 24.62116.02, регистрирано на общ.път LOV1054 с. Ралево",
+      "settlement": "с. Ралево",
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 455275,
+        "currency": "BGN",
+        "amountEur": 232778
+      }
+    },
+    {
+      "id": 9,
+      "name": "ОВИ зала \"Спартак\" (трансфер ММС)",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 678598,
+        "currency": "BGN",
+        "amountEur": 346962
+      }
+    },
+    {
+      "id": 10,
+      "name": "PMC 711/2022 ОР ул. \"Кара Кольо\" Участък 1 от ул. \"Българска авиация\" до бул. \"Георги Кочев\" (от ОК 78 до ОК 118)",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 396635,
+        "currency": "BGN",
+        "amountEur": 202796
+      }
+    },
+    {
+      "id": 11,
+      "name": "ул. \"Кара Кольо\"",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 219921,
+        "currency": "BGN",
+        "amountEur": 112444
+      }
+    },
+    {
+      "id": 12,
+      "name": "ул. \"Митрополит Климент\"",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 206000,
+        "currency": "BGN",
+        "amountEur": 105326
+      }
+    },
+    {
+      "id": 13,
+      "name": "ул. \"Столетов\"",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 76863,
+        "currency": "BGN",
+        "amountEur": 39299
+      }
+    },
+    {
+      "id": 14,
+      "name": "ПМС 376/2021 Общински път PVN3123/III-304, Трънчовица-Новачене / Бацова махала-община (Никопол-Плевен)-Славяново/PVN2145",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 2100000,
+        "currency": "BGN",
+        "amountEur": 1073713
+      }
+    },
+    {
+      "id": 15,
+      "name": "ПМС 269/2022 Сп.площадка ОУ \"Цв.Спасов\"",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 149739,
+        "currency": "BGN",
+        "amountEur": 76560
+      }
+    },
+    {
+      "id": 16,
+      "name": "ПМС 269/2022 Сп.площадка СУ \"Ст.Заимов\"",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 146338,
+        "currency": "BGN",
+        "amountEur": 74821
+      }
+    },
+    {
+      "id": 17,
+      "name": "ПМС 269/2022 Сп.площадка СУ \"Д-р П.Берон\"",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 132627,
+        "currency": "BGN",
+        "amountEur": 67811
+      }
+    },
+    {
+      "id": 18,
+      "name": "Реконструкция на с-ма за улично осветление",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 660000,
+        "currency": "BGN",
+        "amountEur": 337453
+      }
+    },
+    {
+      "id": 19,
+      "name": "ул. \"Кара Кольо\"",
+      "settlement": null,
+      "fundingSource": "TRANSITIONAL_BALANCES",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 600000,
+        "currency": "BGN",
+        "amountEur": 306775
+      }
+    },
+    {
+      "id": 20,
+      "name": "Изграждане на спортна площадка",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 424015,
+        "currency": "BGN",
+        "amountEur": 216795
+      }
+    },
+    {
+      "id": 21,
+      "name": "ул. \"Източка\"",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 315000,
+        "currency": "BGN",
+        "amountEur": 161057
+      }
+    },
+    {
+      "id": 22,
+      "name": "ул. \"Брацигово\"",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 252000,
+        "currency": "BGN",
+        "amountEur": 128846
+      }
+    },
+    {
+      "id": 23,
+      "name": "ул. \"Гургулят\"",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 206085,
+        "currency": "BGN",
+        "amountEur": 105370
+      }
+    },
+    {
+      "id": 24,
+      "name": "Скейтборд площадка",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 415100,
+        "currency": "BGN",
+        "amountEur": 212237
+      }
+    },
+    {
+      "id": 25,
+      "name": "ул. \"Пиер Кюри\"",
+      "settlement": null,
+      "fundingSource": "TARGETED_SUBSIDY",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 315000,
+        "currency": "BGN",
+        "amountEur": 161057
+      }
+    },
+    {
+      "id": 26,
+      "name": "Сървъри, компютри, хардуер",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 36000,
+        "currency": "BGN",
+        "amountEur": 18407
+      }
+    },
+    {
+      "id": 27,
+      "name": "Изграждане видеонаблюдение - Община Плевен",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 165360,
+        "currency": "BGN",
+        "amountEur": 84547
+      }
+    },
+    {
+      "id": 28,
+      "name": "Изграждане ново улично осветление на бул. \"Г. Кочев\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 138375,
+        "currency": "BGN",
+        "amountEur": 70750
+      }
+    },
+    {
+      "id": 29,
+      "name": "Изграждане ново улично осветление в ж.к. \"Дружба\" от бл.428 до бл.427",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 15625,
+        "currency": "BGN",
+        "amountEur": 7989
+      }
+    },
+    {
+      "id": 30,
+      "name": "Изграждане ново улично осветление на ул. \"Кара Кольо\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 110000,
+        "currency": "BGN",
+        "amountEur": 56242
+      }
+    },
+    {
+      "id": 31,
+      "name": "Основен ремонт тротоар на бул. \"Данаил Попов\" от площад \"Ст. Стамболов\" до ул. \"Цар Борис III\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 305000,
+        "currency": "BGN",
+        "amountEur": 155944
+      }
+    },
+    {
+      "id": 32,
+      "name": "Противопожарна с-ма Панорама \"Плевенска епопея\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 600000,
+        "currency": "BGN",
+        "amountEur": 306775
+      }
+    },
+    {
+      "id": 33,
+      "name": "Летен театър парк \"Кайлъка\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 35000,
+        "currency": "BGN",
+        "amountEur": 17895
+      }
+    },
+    {
+      "id": 34,
+      "name": "ОУ \"Валери Петров\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 102300,
+        "currency": "BGN",
+        "amountEur": 52305
+      }
+    },
+    {
+      "id": 35,
+      "name": "ХГ \"Илия Бешков\" - канализация",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 136900,
+        "currency": "BGN",
+        "amountEur": 69996
+      }
+    },
+    {
+      "id": 36,
+      "name": "Укрепване на периодично активно свлачище № PVN 24.567222.13, прекъсващо общински път PVN 2141 при км 4+000",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 37,
+      "name": "Зала \"Спартак\" (енергийно обследване и техническа паспортизация)",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 70000,
+        "currency": "BGN",
+        "amountEur": 35790
+      }
+    },
+    {
+      "id": 38,
+      "name": "С-ма за видеонаблюдение парк \"Гривица\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 35980,
+        "currency": "BGN",
+        "amountEur": 18396
+      }
+    },
+    {
+      "id": 39,
+      "name": "Придобиване земя",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 50000,
+        "currency": "BGN",
+        "amountEur": 25565
+      }
+    },
+    {
+      "id": 40,
+      "name": "ОР тоалетни и ВиК Артцентър 3",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 31000,
+        "currency": "BGN",
+        "amountEur": 15850
+      }
+    },
+    {
+      "id": 41,
+      "name": "Скейтборд площадка",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 623900,
+        "currency": "BGN",
+        "amountEur": 318995
+      }
+    },
+    {
+      "id": 42,
+      "name": "ОР пл. \"Македония\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 35424,
+        "currency": "BGN",
+        "amountEur": 18112
+      }
+    },
+    {
+      "id": 43,
+      "name": "Лекотоварен автомобил ОП \"Акварел\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 21600,
+        "currency": "BGN",
+        "amountEur": 11044
+      }
+    },
+    {
+      "id": 44,
+      "name": "ОР ВИК КЦЖДПН",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 36000,
+        "currency": "BGN",
+        "amountEur": 18407
+      }
+    },
+    {
+      "id": 45,
+      "name": "Изместване пешеходна п-ка ул. \"Дойран\" № 4",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 75000,
+        "currency": "BGN",
+        "amountEur": 38347
+      }
+    },
+    {
+      "id": 46,
+      "name": "Детска площадка УПИ І, кв.349",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 11400,
+        "currency": "BGN",
+        "amountEur": 5829
+      }
+    },
+    {
+      "id": 47,
+      "name": "Детска площадка УПИ І, кв.134а",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 10500,
+        "currency": "BGN",
+        "amountEur": 5369
+      }
+    },
+    {
+      "id": 48,
+      "name": "Детска площадка УПИ І, кв.703",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 12000,
+        "currency": "BGN",
+        "amountEur": 6136
+      }
+    },
+    {
+      "id": 49,
+      "name": "Детска площадка УПИ І, кв.700а",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 11800,
+        "currency": "BGN",
+        "amountEur": 6033
+      }
+    },
+    {
+      "id": 50,
+      "name": "Детска площадка УПИ І, кв.206",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 12100,
+        "currency": "BGN",
+        "amountEur": 6187
+      }
+    },
+    {
+      "id": 51,
+      "name": "Детска площадка УПИ І, кв.314",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 12000,
+        "currency": "BGN",
+        "amountEur": 6136
+      }
+    },
+    {
+      "id": 52,
+      "name": "ДГ \"Иглика\" дворно пространство (\"Красива България\")",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 154255,
+        "currency": "BGN",
+        "amountEur": 78869
+      }
+    },
+    {
+      "id": 53,
+      "name": "Разширение на ГП \"Чаира\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 275540,
+        "currency": "BGN",
+        "amountEur": 140881
+      }
+    },
+    {
+      "id": 54,
+      "name": "Видеонаблюдение км. Брестовец",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 3000,
+        "currency": "BGN",
+        "amountEur": 1534
+      }
+    },
+    {
+      "id": 55,
+      "name": "Високопродим автомобил Общински инспекторат",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 48000,
+        "currency": "BGN",
+        "amountEur": 24542
+      }
+    },
+    {
+      "id": 56,
+      "name": "Водоснабдяване с. Горталово",
+      "settlement": "с. Горталово",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 405000,
+        "currency": "BGN",
+        "amountEur": 207073
+      }
+    },
+    {
+      "id": 57,
+      "name": "Микробус ДСХ с. Бохот",
+      "settlement": "с. Бохот",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 36000,
+        "currency": "BGN",
+        "amountEur": 18407
+      }
+    },
+    {
+      "id": 58,
+      "name": "ул. \"Цар Самуил\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 59,
+      "name": "Лекотоварен автомобил за ДСПатронаж",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 100000,
+        "currency": "BGN",
+        "amountEur": 51129
+      }
+    },
+    {
+      "id": 60,
+      "name": "Коледна украса",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 3700,
+        "currency": "BGN",
+        "amountEur": 1892
+      }
+    },
+    {
+      "id": 61,
+      "name": "Товарен микробус за звено „ПВНБЖ\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 24000,
+        "currency": "BGN",
+        "amountEur": 12271
+      }
+    },
+    {
+      "id": 62,
+      "name": "Шкаф за съхранение на регулационни планове",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1565,
+        "currency": "BGN",
+        "amountEur": 800
+      }
+    },
+    {
+      "id": 63,
+      "name": "Аератор за езеро в парк „Кайлъка\", ПИ 56722.621.34",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 31200,
+        "currency": "BGN",
+        "amountEur": 15952
+      }
+    },
+    {
+      "id": 64,
+      "name": "Скулптурна композиция „Двете сърнета\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 17000,
+        "currency": "BGN",
+        "amountEur": 8692
+      }
+    },
+    {
+      "id": 65,
+      "name": "Детска площадка ДГ \"9ти май\" гр. Славяново",
+      "settlement": "гр. Славяново",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 10000,
+        "currency": "BGN",
+        "amountEur": 5113
+      }
+    },
+    {
+      "id": 66,
+      "name": "Климатик за ДГ \"9ти май\" гр. Славяново",
+      "settlement": "гр. Славяново",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 2670,
+        "currency": "BGN",
+        "amountEur": 1365
+      }
+    },
+    {
+      "id": 67,
+      "name": "Алея м/у спортни игрища ОУ \"Д-р П. Берон\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 50841,
+        "currency": "BGN",
+        "amountEur": 25995
+      }
+    },
+    {
+      "id": 68,
+      "name": "STEM център ОУ \"Ив. Вазов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 17479,
+        "currency": "BGN",
+        "amountEur": 8937
+      }
+    },
+    {
+      "id": 69,
+      "name": "ДГ \"Кокиче\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 33240,
+        "currency": "BGN",
+        "amountEur": 16995
+      }
+    },
+    {
+      "id": 70,
+      "name": "Лаптоп ОУ \"В.Левски\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1674,
+        "currency": "BGN",
+        "amountEur": 856
+      }
+    },
+    {
+      "id": 71,
+      "name": "Принтер ОСО Плевен",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 609,
+        "currency": "BGN",
+        "amountEur": 311
+      }
+    },
+    {
+      "id": 72,
+      "name": "Лаптопи тъчскрийн СУ \"Ив.Вазов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 16900,
+        "currency": "BGN",
+        "amountEur": 8641
+      }
+    },
+    {
+      "id": 73,
+      "name": "Лаптоп ПГМХТ",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 599,
+        "currency": "BGN",
+        "amountEur": 306
+      }
+    },
+    {
+      "id": 74,
+      "name": "Лаптоп НР СУ \"Ст.Заимов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 899,
+        "currency": "BGN",
+        "amountEur": 460
+      }
+    },
+    {
+      "id": 75,
+      "name": "Интерактивен диспл. ДГ \"Кокиче\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1640,
+        "currency": "BGN",
+        "amountEur": 839
+      }
+    },
+    {
+      "id": 76,
+      "name": "Архивираща с-ма НУ \"П.Евтимиий\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 580,
+        "currency": "BGN",
+        "amountEur": 297
+      }
+    },
+    {
+      "id": 77,
+      "name": "Интерактивен диспл. НУ \"П.Евтимий\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 16431,
+        "currency": "BGN",
+        "amountEur": 8401
+      }
+    },
+    {
+      "id": 78,
+      "name": "Компютърна к-я СУ \"Ст. Заимов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 981,
+        "currency": "BGN",
+        "amountEur": 502
+      }
+    },
+    {
+      "id": 79,
+      "name": "Интерактивен диспл. СУ \"Ст.Заимов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 4200,
+        "currency": "BGN",
+        "amountEur": 2147
+      }
+    },
+    {
+      "id": 80,
+      "name": "Компютърни к-ии СУ \"Ив. Вазов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 16005,
+        "currency": "BGN",
+        "amountEur": 8183
+      }
+    },
+    {
+      "id": 81,
+      "name": "Компютърни к-ии ОУ \"Хр. Ботев\" с. Мечка",
+      "settlement": "с. Мечка",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1654,
+        "currency": "BGN",
+        "amountEur": 846
+      }
+    },
+    {
+      "id": 82,
+      "name": "Лаптоп ДГ \"Трети март\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 829,
+        "currency": "BGN",
+        "amountEur": 424
+      }
+    },
+    {
+      "id": 83,
+      "name": "Климатик ДГ \"Юнско въстание\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1170,
+        "currency": "BGN",
+        "amountEur": 598
+      }
+    },
+    {
+      "id": 84,
+      "name": "Климатик ОУ \"Цв. Спасов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1249,
+        "currency": "BGN",
+        "amountEur": 639
+      }
+    },
+    {
+      "id": 85,
+      "name": "Климатик НУ \"Отец Паисий\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1649,
+        "currency": "BGN",
+        "amountEur": 843
+      }
+    },
+    {
+      "id": 86,
+      "name": "Лед табло ОУ \"Цв. Спасов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 3430,
+        "currency": "BGN",
+        "amountEur": 1754
+      }
+    },
+    {
+      "id": 87,
+      "name": "Шкаф за зареждане на лаптопи СУ \"Ив. Вазов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1728,
+        "currency": "BGN",
+        "amountEur": 884
+      }
+    },
+    {
+      "id": 88,
+      "name": "LED Табло ОСО",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 10470,
+        "currency": "BGN",
+        "amountEur": 5353
+      }
+    },
+    {
+      "id": 89,
+      "name": "Пожароизвестителна, адресна централа СУ \"Ив.Вазов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 3720,
+        "currency": "BGN",
+        "amountEur": 1902
+      }
+    },
+    {
+      "id": 90,
+      "name": "Волейболни игрища ОУ \"Д-р Пл Берон\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 57626,
+        "currency": "BGN",
+        "amountEur": 29464
+      }
+    },
+    {
+      "id": 91,
+      "name": "DVR МГ \"Гео Милев\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1457,
+        "currency": "BGN",
+        "amountEur": 745
+      }
+    },
+    {
+      "id": 92,
+      "name": "Озвучителна с-ма НУ \"Отец Паисий\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 3698,
+        "currency": "BGN",
+        "amountEur": 1891
+      }
+    },
+    {
+      "id": 93,
+      "name": "ЛЕД табло СУ \"Ив. Вазов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 2620,
+        "currency": "BGN",
+        "amountEur": 1340
+      }
+    },
+    {
+      "id": 94,
+      "name": "Климатици ОУ \"Хр.Ботев\" с. Мечка",
+      "settlement": "с. Мечка",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1596,
+        "currency": "BGN",
+        "amountEur": 816
+      }
+    },
+    {
+      "id": 95,
+      "name": "Сцена на открито ОУ \"Д-р П.Берон\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 3533,
+        "currency": "BGN",
+        "amountEur": 1806
+      }
+    },
+    {
+      "id": 96,
+      "name": "Картофобелачка ДГ \"Слънце\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1250,
+        "currency": "BGN",
+        "amountEur": 639
+      }
+    },
+    {
+      "id": 97,
+      "name": "Гимнастически скрин СУ \"Ив.Вазов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1250,
+        "currency": "BGN",
+        "amountEur": 639
+      }
+    },
+    {
+      "id": 98,
+      "name": "Синтезатор KORG СУ \"П.Яворов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1380,
+        "currency": "BGN",
+        "amountEur": 706
+      }
+    },
+    {
+      "id": 99,
+      "name": "Синтезатор НУ \"Отец Паисий\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 4780,
+        "currency": "BGN",
+        "amountEur": 2444
+      }
+    },
+    {
+      "id": 100,
+      "name": "Флейта СУ \"Ив. Вазов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1500,
+        "currency": "BGN",
+        "amountEur": 767
+      }
+    },
+    {
+      "id": 101,
+      "name": "Мебелно обзавеждане СУ \"Ив.Вазов\"",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 9220,
+        "currency": "BGN",
+        "amountEur": 4714
+      }
+    },
+    {
+      "id": 102,
+      "name": "Микробус ДЦПЛУ",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 34200,
+        "currency": "BGN",
+        "amountEur": 17486
+      }
+    },
+    {
+      "id": 103,
+      "name": "Доставка и монтаж на стълбищна платформа СУ \"Хр.Ботев\" гр. Славяново",
+      "settlement": "гр. Славяново",
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 17988,
+        "currency": "BGN",
+        "amountEur": 9197
+      }
+    },
+    {
+      "id": 104,
+      "name": "Тестомесачка ОДСП Плевен",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 6360,
+        "currency": "BGN",
+        "amountEur": 3252
+      }
+    },
+    {
+      "id": 105,
+      "name": "Климатик Общинска администрация",
+      "settlement": null,
+      "fundingSource": "OTHER_BUDGET",
+      "appendix": "PRILOZHENIE_4",
+      "total": {
+        "amount": 1746,
+        "currency": "BGN",
+        "amountEur": 893
+      }
+    },
+    {
+      "id": 106,
+      "name": "ОП Региони в растеж, подкрепа на Община Плевен за ефективно и ефикасно изпълнение на Програма \"Региони в развитие\" - доставка на 12 бр. лаптопи, Договор № № BG16RFOP001-8.006-0005",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 39068,
+        "currency": "BGN",
+        "amountEur": 19975
+      }
+    },
+    {
+      "id": 107,
+      "name": "ОП \"Региони в растеж\", подкрепа на Община Плевен за ефективно и ефикасно изпълнение на Програма \"Региони в развитие\" - доставка на 6 бр. скенер, Договор № № BG16RFOP001-8.006-0005",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 10844,
+        "currency": "BGN",
+        "amountEur": 5544
+      }
+    },
+    {
+      "id": 108,
+      "name": "ОП \"РЕГИОНИ в растеж\", подкрепа на Община Плевен за ефективно и ефикасно изпълнение на Програма \"Региони в развитие\" - доставка на 1 бр. мултимедиен проектор, Договор № № BG16RFOP001-8.006-0005",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 8142,
+        "currency": "BGN",
+        "amountEur": 4163
+      }
+    },
+    {
+      "id": 109,
+      "name": "ОП \"Региони в растеж\", Подкрепа на Община Плевен за ефективно и ефикасно изпълнение на Програма \"Региони в развитие\" - доставка на 3 бр. принтери, Договор № № BG16RFOP001-8.006-0005",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 6102,
+        "currency": "BGN",
+        "amountEur": 3120
+      }
+    },
+    {
+      "id": 110,
+      "name": "ОП \"РЕГИОНИ в растеж\", подкрепа на Община Плевен за ефективно и ефикасно изпълнение на Програма \"Региони в развитие\" - доставка на 1 бр. интерактивен дисплей, Договор № № BG16RFOP001-8.006-0005",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 9834,
+        "currency": "BGN",
+        "amountEur": 5028
+      }
+    },
+    {
+      "id": 111,
+      "name": "ОП \"Трансгранично сътрудничество Румъния-България\", Проект \"проект \"Устойчиви трансгранични туристически продукти за мемориален парк Гривица и крепост Турну\"\", Договор № ROBG-397. Обект Военно-етнографски комплекс Гривица",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 920442,
+        "currency": "BGN",
+        "amountEur": 470615
+      }
+    },
+    {
+      "id": 112,
+      "name": "ОП \"Развитие на човешките ресурси\", \"Реформиране на системата от социални услуги BG05SFRP002-2.002-0095-C01",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 3600,
+        "currency": "BGN",
+        "amountEur": 1841
+      }
+    },
+    {
+      "id": 113,
+      "name": "\"Обновяване, оборудване и прилагане на мерки за енергийна ефективност на зала \"Катя Попова\" Договор № BG16RFOP001-1.007-0005-CO1 основен ремонт",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 1548128,
+        "currency": "BGN",
+        "amountEur": 791545
+      }
+    },
+    {
+      "id": 114,
+      "name": "\"Обновяване, оборудване и прилагане на мерки за енергийна ефективност на зала \"Катя Попова\" Договор № BG16RFOP001-1.007-0005-CO1 компютърна к-я",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 1140,
+        "currency": "BGN",
+        "amountEur": 583
+      }
+    },
+    {
+      "id": 115,
+      "name": "\"Обновяване, оборудване и прилагане на мерки за енергийна ефективност на зала \"Катя Попова\" Договор № BG16RFOP001-1.007-0005-CO1 таблет",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 3418,
+        "currency": "BGN",
+        "amountEur": 1748
+      }
+    },
+    {
+      "id": 116,
+      "name": "Обновяване, оборудване и прилагане на мерки за енергийна ефективност на зала \"Катя Попова\" Договор № BG16RFOP001-1.007-0005-CO1 акустично оборудване",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 132460,
+        "currency": "BGN",
+        "amountEur": 67726
+      }
+    },
+    {
+      "id": 117,
+      "name": "Проект \"Грижа за дома в Община Плевен\" FPR002-2.001-0165-C01 климатици 2 бр.",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 4368,
+        "currency": "BGN",
+        "amountEur": 2233
+      }
+    },
+    {
+      "id": 118,
+      "name": "Дог. № BG16M1OP002-5.004-0006-С01 Изграждане на местата на зарядни станции в двете депа на оператора и осигуряване на електрозахранването на зарядните станции",
+      "settlement": null,
+      "fundingSource": "EU_PROJECTS",
+      "appendix": "PRILOZHENIE_10A",
+      "total": {
+        "amount": 300320,
+        "currency": "BGN",
+        "amountEur": 153551
+      }
+    }
+  ],
+  "bySettlement": [
+    {
+      "name": "с. Ралево",
+      "projectCount": 2,
+      "total": {
+        "amount": 910275,
+        "currency": "BGN",
+        "amountEur": 465416
+      },
+      "topProjects": [
+        {
+          "id": 8,
+          "name": "ПМС 188 и 300/2022 \"Инженерно и хидрогеоложко проучване на съвременно, периодично - активно свлачище PVN 24.62116.02, регистрирано на общ.път LOV1054 с. Ралево",
+          "total": {
+            "amount": 455275,
+            "currency": "BGN",
+            "amountEur": 232778
+          }
+        },
+        {
+          "id": 7,
+          "name": "ПМС 471/2021 \"Инженерно и хидрогеоложко проучване на съвременно, периодично - активно свлачище PVN 24.62116.02, регистрирано на общ.път LOV1054 с. Ралево",
+          "total": {
+            "amount": 455000,
+            "currency": "BGN",
+            "amountEur": 232638
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Горталово",
+      "projectCount": 1,
+      "total": {
+        "amount": 405000,
+        "currency": "BGN",
+        "amountEur": 207073
+      },
+      "topProjects": [
+        {
+          "id": 56,
+          "name": "Водоснабдяване с. Горталово",
+          "total": {
+            "amount": 405000,
+            "currency": "BGN",
+            "amountEur": 207073
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Бохот",
+      "projectCount": 1,
+      "total": {
+        "amount": 36000,
+        "currency": "BGN",
+        "amountEur": 18407
+      },
+      "topProjects": [
+        {
+          "id": 57,
+          "name": "Микробус ДСХ с. Бохот",
+          "total": {
+            "amount": 36000,
+            "currency": "BGN",
+            "amountEur": 18407
+          }
+        }
+      ]
+    },
+    {
+      "name": "гр. Славяново",
+      "projectCount": 3,
+      "total": {
+        "amount": 30658,
+        "currency": "BGN",
+        "amountEur": 15675
+      },
+      "topProjects": [
+        {
+          "id": 103,
+          "name": "Доставка и монтаж на стълбищна платформа СУ \"Хр.Ботев\" гр. Славяново",
+          "total": {
+            "amount": 17988,
+            "currency": "BGN",
+            "amountEur": 9197
+          }
+        },
+        {
+          "id": 65,
+          "name": "Детска площадка ДГ \"9ти май\" гр. Славяново",
+          "total": {
+            "amount": 10000,
+            "currency": "BGN",
+            "amountEur": 5113
+          }
+        },
+        {
+          "id": 66,
+          "name": "Климатик за ДГ \"9ти май\" гр. Славяново",
+          "total": {
+            "amount": 2670,
+            "currency": "BGN",
+            "amountEur": 1365
+          }
+        }
+      ]
+    },
+    {
+      "name": "с. Мечка",
+      "projectCount": 2,
+      "total": {
+        "amount": 3250,
+        "currency": "BGN",
+        "amountEur": 1662
+      },
+      "topProjects": [
+        {
+          "id": 81,
+          "name": "Компютърни к-ии ОУ \"Хр. Ботев\" с. Мечка",
+          "total": {
+            "amount": 1654,
+            "currency": "BGN",
+            "amountEur": 846
+          }
+        },
+        {
+          "id": 94,
+          "name": "Климатици ОУ \"Хр.Ботев\" с. Мечка",
+          "total": {
+            "amount": 1596,
+            "currency": "BGN",
+            "amountEur": 816
+          }
+        }
+      ]
+    }
+  ],
+  "byFundingSource": [
+    {
+      "code": "TRANSITIONAL_BALANCES",
+      "projectCount": 19,
+      "total": {
+        "amount": 7988691,
+        "currency": "BGN",
+        "amountEur": 4084553
+      }
+    },
+    {
+      "code": "OTHER_BUDGET",
+      "projectCount": 80,
+      "total": {
+        "amount": 4293375,
+        "currency": "BGN",
+        "amountEur": 2195168
+      }
+    },
+    {
+      "code": "EU_PROJECTS",
+      "projectCount": 13,
+      "total": {
+        "amount": 2987866,
+        "currency": "BGN",
+        "amountEur": 1527672
+      }
+    },
+    {
+      "code": "TARGETED_SUBSIDY",
+      "projectCount": 6,
+      "total": {
+        "amount": 1927200,
+        "currency": "BGN",
+        "amountEur": 985362
+      }
+    }
+  ]
+}

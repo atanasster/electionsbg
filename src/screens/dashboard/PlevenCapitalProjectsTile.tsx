@@ -11,13 +11,14 @@
 // page (/settlement/PVN24). Renders null silently when the obshtina code
 // isn't PVN24.
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { HardHat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { usePlevenCapitalProgram } from "@/data/budget/useBudget";
 
-const PLEVEN_CAPITAL_LATEST_YEAR = 2025;
+const PLEVEN_CAPITAL_YEARS = [2025, 2024, 2023, 2022] as const;
+const PLEVEN_CAPITAL_LATEST_YEAR = PLEVEN_CAPITAL_YEARS[0];
 const PLEVEN_OBSHTINA = "PVN24";
 
 const compactEur = (v: number): string => {
@@ -50,8 +51,9 @@ export const PlevenCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("bg") ? "bg" : "en";
   const enabled = obshtinaCode === PLEVEN_OBSHTINA;
+  const [year, setYear] = useState<number>(PLEVEN_CAPITAL_LATEST_YEAR);
   const { data, isLoading } = usePlevenCapitalProgram(
-    enabled ? PLEVEN_CAPITAL_LATEST_YEAR : undefined,
+    enabled ? year : undefined,
   );
 
   if (!enabled || isLoading || !data) return null;
@@ -69,10 +71,19 @@ export const PlevenCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <HardHat className="h-4 w-4" />
           {t("pleven_capital_tile_title")}
-          <span className="text-xs text-muted-foreground font-normal ml-1">
-            {data.fiscalYear}
-            {lang === "bg" ? " г." : ""}
-          </span>
+          <select
+            value={year}
+            onChange={(e) => setYear(Number(e.target.value))}
+            className="ml-auto text-xs font-normal bg-transparent border rounded px-1.5 py-0.5 tabular-nums cursor-pointer hover:bg-muted/40"
+            aria-label={t("sofia_capital_year_picker_label")}
+          >
+            {PLEVEN_CAPITAL_YEARS.map((y) => (
+              <option key={y} value={y}>
+                {y}
+                {lang === "bg" ? " г." : ""}
+              </option>
+            ))}
+          </select>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {t("pleven_capital_tile_intro")}

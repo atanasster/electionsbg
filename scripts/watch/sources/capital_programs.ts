@@ -106,6 +106,9 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // 2024 Varna — text-extractable PDF (49 pages, January 2024 proposal).
     varna:
       "https://varnacouncil.bg/wp-content/uploads/2024/01/7.-Приложение-№-4.pdf",
+    // 2024 Pleven — full budget docket scan (45 MB, 67 pages); OCR
+    // pre-step finds Прил. №4 + №10А by in-document anchors.
+    pleven: "https://www.pleven.bg/uploads/posts/byudzhet-2024.pdf",
   },
   2023: {
     sofia:
@@ -116,6 +119,7 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // 2023 Varna — rasterized scan, OCR pre-step required (same as 2025).
     varna:
       "https://varnacouncil.bg/wp-content/uploads/2023/09/9.-Приложение-№-4.pdf",
+    pleven: "https://www.pleven.bg/uploads/posts/byudzhet-2023.pdf",
   },
   2022: {
     // 2022's budget itself adopted late (Aug 2023) due to political
@@ -136,6 +140,7 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // 2022 Varna — rasterized scan, OCR pre-step required.
     varna:
       "https://varnacouncil.bg/wp-content/uploads/2022/04/6-Приложение-№4-1.pdf",
+    pleven: "https://www.pleven.bg/uploads/posts/byudzhet-2022.pdf",
   },
 };
 

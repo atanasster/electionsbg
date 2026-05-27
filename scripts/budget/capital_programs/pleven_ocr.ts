@@ -72,7 +72,7 @@ type GeminiResponse = {
   };
 };
 
-const PROMPT = `You are an OCR + structured extraction engine for two appendices of Община Плевен's 2025 budget docket: Приложение №4 (Разчет за финансиране на капиталови разходи) and Приложение №10А (Капиталови разходи по проекти на ЕС). The input is an 8-page PDF; pages 1-5 are Приложение №4 and pages 6-8 are Приложение №10А.
+const PROMPT = `You are an OCR + structured extraction engine for two appendices of an Община Плевен annual budget docket: Приложение №4 (Разчет за финансиране на капиталови разходи) and Приложение №10А (Капиталови разходи по проекти на ЕС). For 2025 the input is the 8-page focused slice (pages 1-5 = Прил.№4, pages 6-8 = Прил.№10А). For back-years (2022-2024) the input is the FULL budget docket (~50-80 scanned pages) and you must FIND the two capital appendices by their title-page anchors ("Приложение № 4 — Разчет за финансиране на капиталови разходи през YYYY г." and "Приложение № 10А" / variant naming). Skip every other appendix.
 
 CRITICAL: extract every individual project row, NOT category rollups.
 
@@ -102,9 +102,9 @@ DO NOT extract these (subtotals / headers / rollups):
 For each individual project row, return:
 - description: full project name VERBATIM from the cell, including all parentheticals, addresses, and quoted parts. Strip rotated-text leakage from the funding-source column.
 - fundingSource: one of TRANSITIONAL_BALANCES, TARGETED_SUBSIDY, OTHER_BUDGET, EU_PROJECTS, or another SCREAMING_SNAKE_CASE label if a different group appears.
-- appendix: "PRILOZHENIE_4" for rows from pages 1-5, "PRILOZHENIE_10A" for rows from pages 6-8.
+- appendix: "PRILOZHENIE_4" or "PRILOZHENIE_10A" based on which appendix's pages the row appears on (anchor via the title page "Приложение № 4" / "Приложение № 10А").
 - amount: integer BGN (use the "План" column for Прил. №4, the "Уточнен план" column for Прил. №10А — no thousands separator, no currency suffix).
-- page: 1-indexed page number in the 8-page PDF.
+- page: 1-indexed page number IN THE INPUT PDF (could be page 1-8 for the 2025 slice OR page 1-80 for a back-year full docket).
 
 Output JSON shape — no prose, no fences, no extra keys:
 {
@@ -188,15 +188,25 @@ const main = async () => {
   const yearIdx = args.indexOf("--year");
   const fiscalYear = yearIdx >= 0 ? Number(args[yearIdx + 1]) : 2025;
 
-  const pdfPath = resolve(
+  // Prefer the page-sliced PDF when present (2025 path); fall back to
+  // the full docket when not (back-years where the capital appendix
+  // pages aren't known a priori — Gemini Vision is told to find Прил.
+  // №4 + №10А by the in-document anchors).
+  const slicedPath = resolve(
     __dirname,
     "../../../raw_data/budget/capital_programs",
     `pleven-${fiscalYear}-capital-pages.pdf`,
   );
+  const fullPath = resolve(
+    __dirname,
+    "../../../raw_data/budget/capital_programs",
+    `pleven-${fiscalYear}.pdf`,
+  );
+  const pdfPath = existsSync(slicedPath) ? slicedPath : fullPath;
   if (!existsSync(pdfPath)) {
     throw new Error(
-      `Missing focused-pages PDF at ${pdfPath} — run the pypdf extract first ` +
-        `(see comment block at the top of pleven.ts for the page ranges)`,
+      `Missing PDF — tried ${slicedPath} and ${fullPath}. For back-years ` +
+        `download the full docket from www.pleven.bg/uploads/posts/byudzhet-YYYY.pdf.`,
     );
   }
   const size = statSync(pdfPath).size;

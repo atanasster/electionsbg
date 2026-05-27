@@ -46,6 +46,14 @@ const __dirname = dirname(__filename);
 
 const SOURCE_URLS: Record<number, string> = {
   2025: "https://obs.pleven.bg/uploads/posts/prilozheniya-kam-reshenie-659.pdf",
+  // Back-years: pleven.bg publishes a single byudzhet-YYYY.pdf per year
+  // bundling all appendices. They're rasterized scans (57-76 pages),
+  // so pleven_ocr.ts OCRs the full docket and finds Прил. №4 + №10А
+  // by their in-document title-page anchors rather than the 2025
+  // sliced-pages path.
+  2024: "https://www.pleven.bg/uploads/posts/byudzhet-2024.pdf",
+  2023: "https://www.pleven.bg/uploads/posts/byudzhet-2023.pdf",
+  2022: "https://www.pleven.bg/uploads/posts/byudzhet-2022.pdf",
 };
 
 interface Money {
