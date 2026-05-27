@@ -477,6 +477,10 @@ export const AboutScreen = () => {
                   href="https://www.lovech.bg/bg/byudzhet"
                   label={t("budget_capital_lovech_source")}
                 />
+                <SourceItem
+                  href="https://www.dupnitsa.bg/section-316-content.html"
+                  label={t("budget_capital_dupnitsa_source")}
+                />
               </ul>
             </DataGroup>
 

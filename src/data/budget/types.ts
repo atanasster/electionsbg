@@ -1028,6 +1028,48 @@ export interface VidinCapitalProgramFile {
   bySettlement: VidinCapitalSettlementRollup[];
 }
 
+// Дупница — single-município (KNL48, EKATTE 68789). NOT an oblast
+// capital (Kyustendil oblast), 17 settlements (city + 16 villages).
+// Source is a clean born-digital MINFIN B3 PDF on dupnitsa.bg —
+// the September 2025 quarterly execution snapshot, accessed via the
+// site's PHP service-download endpoint (requires Referer header).
+// Text IS extractable but the layout is column-positional, so OCR
+// via Gemini Vision for robust extraction (same template as Haskovo).
+export interface DupnitsaCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface DupnitsaCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface DupnitsaCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: DupnitsaCapitalProject[];
+  bySettlement: DupnitsaCapitalSettlementRollup[];
+}
+
 // Ловеч — single-município (LOV18, EKATTE 43952). Oblast capital
 // with 35 settlements (city + 34 villages). Source is the council's
 // "Бюджет и капиталови разходи" — a 77-page scanned Konica Minolta

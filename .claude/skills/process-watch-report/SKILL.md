@@ -93,7 +93,7 @@ If the user says "skip governments for this run", drop it from the plan without 
 
 ### Capital-programmes ingest (`capital_programs`)
 
-The 19 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
+The 20 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora, Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech, Dupnitsa) each publish an annual капиталова програма on their own website. The watcher tracks all sources under one fingerprint; its describe-line names exactly which `<year>/<muni>` entries flipped.
 
 Each município has its own parser script:
 - **XLSX/XLS**: Sofia, Burgas, Ruse, Veliko Tarnovo (sheet "Pril15"), Pernik (post-euro EUR figures), Burgas 2022.
@@ -146,6 +146,9 @@ Output schema is shared under `data/budget/capital_programs/{year}/{muni}.json`.
    # open('raw_data/budget/capital_programs/lovech-<year>-capital-pages.pdf','wb').write(w)"
    tsx scripts/budget/capital_programs/lovech_ocr.ts --year <year>
    tsx scripts/budget/capital_programs/lovech.ts --year <year>
+   # Dupnitsa: download via PHP service-endpoint (needs Referer), then OCR:
+   tsx scripts/budget/capital_programs/dupnitsa_ocr.ts --year <year>
+   tsx scripts/budget/capital_programs/dupnitsa.ts --year <year>
    # Vidin: unar extract + textutil convert the .doc first, then:
    tsx scripts/budget/capital_programs/vidin.ts --year <year>
    ```

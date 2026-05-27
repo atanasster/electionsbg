@@ -1,10 +1,10 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 19 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Each of the 20 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
 // Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin,
-// Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech)
-// publishes an annual "Капиталова програма" / "Поименен списък на
-// обектите за капиталови разходи" on its own website.
+// Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech,
+// Dupnitsa) publishes an annual "Капиталова програма" / "Поименен
+// списък на обектите за капиталови разходи" on its own website.
 // URLs are opaque and change every year (some include the date, some a
 // content hash), so the catalogue is hand-curated below — mirrors the
 // SOURCE_URLS map in each município's parser under
@@ -72,7 +72,8 @@ type Municipality =
   | "gabrovo"
   | "yambol"
   | "kardzhali"
-  | "lovech";
+  | "lovech"
+  | "dupnitsa";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -147,6 +148,12 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // because OCR can mis-pick a multi-year column.
     lovech:
       "https://www.lovech.bg/uploads/posts/2025/byudzhet-i-kapitalovi-razhodi-na-obshtina-lovech-za-2025-g.pdf",
+    // Дупница (KNL48) — Kyustendil-oblast município, 17 settlements.
+    // The capital file is on dupnitsa.bg/section-316-content.html, but
+    // downloads route through a PHP service endpoint that needs a
+    // Referer header. Watcher tracks the landing page (the PHP UUID
+    // changes when a new quarterly snapshot is published).
+    dupnitsa: "https://www.dupnitsa.bg/section-316-content.html",
     // Велико Търново (VTR04) — Tier-2 oblast capital, 89 settlements.
     // The 22-appendix master XLSX is a clean structured file with a
     // dedicated "Pril15" sheet (Инвестиционна програма). No OCR needed.

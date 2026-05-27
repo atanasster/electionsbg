@@ -31,6 +31,7 @@ import type {
   SlivenCapitalProgramFile,
   SofiaCapitalProgramFile,
   StaraZagoraCapitalProgramFile,
+  DupnitsaCapitalProgramFile,
   GabrovoCapitalProgramFile,
   HaskovoCapitalProgramFile,
   KardzhaliCapitalProgramFile,
@@ -465,6 +466,19 @@ export const useVidinCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<VidinCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/vidin.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Дупница — Kyustendil-oblast município (KNL48, 17 settlements).
+// Born-digital MINFIN B3 PDF on dupnitsa.bg; OCR via Gemini Vision.
+export const useDupnitsaCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "dupnitsa", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<DupnitsaCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/dupnitsa.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
