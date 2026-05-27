@@ -626,6 +626,11 @@ const MunicipalityRecountScreen = lazy(() =>
     default: m.MunicipalityRecountScreen,
   })),
 );
+const SettlementCompaniesScreen = lazy(() =>
+  import("./screens/SettlementCompaniesScreen").then((m) => ({
+    default: m.SettlementCompaniesScreen,
+  })),
+);
 const MunicipalitySettlementsScreen = lazy(() =>
   import("./screens/MunicipalitySettlementsScreen").then((m) => ({
     default: m.MunicipalitySettlementsScreen,
@@ -1019,6 +1024,14 @@ export const AuthRoutes = () => {
           }
         />
         <Route
+          path="sofia/companies"
+          element={
+            <LayoutScreen>
+              <SettlementCompaniesScreen sofia />
+            </LayoutScreen>
+          }
+        />
+        <Route
           path="about"
           element={
             <LayoutScreen>
@@ -1127,6 +1140,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <MunicipalitySettlementsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="settlement/:id/companies"
+          element={
+            <LayoutScreen>
+              <SettlementCompaniesScreen />
             </LayoutScreen>
           }
         />

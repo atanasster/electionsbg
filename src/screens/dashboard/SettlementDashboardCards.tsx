@@ -20,6 +20,7 @@ import { TopSectionsTile } from "./TopSectionsTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
 import { EuFundsTile } from "./EuFundsTile";
+import { CompaniesHqTile } from "./CompaniesHqTile";
 import { SettlementProcurementTile } from "../components/procurement/SettlementProcurementTile";
 import { SofiaCapitalProjectsTile } from "./SofiaCapitalProjectsTile";
 import { PlovdivCapitalProjectsTile } from "./PlovdivCapitalProjectsTile";
@@ -177,6 +178,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
             <MunicipalityTransfersTile municipalityCode={obshtinaCode} />
             <EuFundsTile kind="ekatte" ekatte={ekatte} />
             <SettlementProcurementTile ekatte={ekatte} />
+            <CompaniesHqTile ekatte={ekatte} />
             <SofiaCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <PlovdivCapitalProjectsTile obshtinaCode={obshtinaCode} />
             <VarnaCapitalProjectsTile obshtinaCode={obshtinaCode} />

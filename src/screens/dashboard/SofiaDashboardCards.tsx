@@ -18,6 +18,7 @@ import { PartyResultsTile } from "./PartyResultsTile";
 import { SofiaMapTile } from "./SofiaMapTile";
 import { SofiaMpsTile } from "./SofiaMpsTile";
 import { MpConnectionsTile } from "./MpConnectionsTile";
+import { CompaniesHqTile } from "./CompaniesHqTile";
 import { CarMakesTile } from "./CarMakesTile";
 import { MpAssetsTile } from "./MpAssetsTile";
 import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
@@ -166,6 +167,7 @@ export const SofiaDashboardCards: FC = () => {
           <MpConnectionsTile regionCodes={SOFIA_REGIONS} />
           <CarMakesTile regionCodes={SOFIA_REGIONS} hideProvenance />
         </div>
+        <CompaniesHqTile ekatte="68134" />
         <MpAssetsTile regionCodes={SOFIA_REGIONS} />
       </DashboardSection>
     </section>
