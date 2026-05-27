@@ -988,6 +988,46 @@ export interface StaraZagoraCapitalProgramFile {
   bySettlement: StaraZagoraCapitalSettlementRollup[];
 }
 
+// Asenovgrad — single-município (PDV01, EKATTE 00702). Plovdiv oblast,
+// 29 settlements (1 city + 28 villages). Source is a 10-page born-digital
+// PDF on asenovgrad.bg, ingested through the Gemini Vision OCR pre-step
+// in asenovgrad_ocr.ts + asenovgrad.ts rollup. Output shape mirrors
+// Stara Zagora / Sliven.
+export interface AsenovgradCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface AsenovgradCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface AsenovgradCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: AsenovgradCapitalProject[];
+  bySettlement: AsenovgradCapitalSettlementRollup[];
+}
+
 // Dobrich — single-município single-settlement (DOB28, EKATTE 72624).
 // The city's villages live in a separate "Добрич-селска" rural община
 // (DOB15). Source is an inline HTML table on dobrich.bg — no OCR or PDF

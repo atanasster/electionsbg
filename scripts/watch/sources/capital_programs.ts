@@ -1,7 +1,7 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 9 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
-// Ruse, Varna, Pleven, Sliven, Dobrich) publishes an annual "Капиталова програма" /
+// Each of the 10 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad) publishes an annual "Капиталова програма" /
 // "Поименен списък на обектите за капиталови разходи" on its own website.
 // URLs are opaque and change every year (some include the date, some a
 // content hash), so the catalogue is hand-curated below — mirrors the
@@ -60,7 +60,8 @@ type Municipality =
   | "varna"
   | "pleven"
   | "sliven"
-  | "dobrich";
+  | "dobrich"
+  | "asenovgrad";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -101,6 +102,10 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // The URL points at the latest October-2025 actualisation snapshot.
     dobrich:
       "https://www.dobrich.bg/bg/programa-za-kapitalovi-razhodi-na-obshtina-grad-dobrich/aktualizatsiya-na-programa-za-kapitalovite-razhodi-na-obshtina-grad-dobrich-za-2025-g-prieta-s-reshenie-26-1/28102025-g",
+    // Asenovgrad (PDV01) — large second-tier town in Plovdiv oblast, 29
+    // settlements. 10-page born-digital PDF; OCR for robustness.
+    asenovgrad:
+      "https://www.asenovgrad.bg/uploads/MyDocuments//rkr_mv_2025_oc-02052025.pdf",
   },
   // Sofia historical back-years (2022-2024). The Sofia portal occasionally
   // re-uploads corrected versions of older files; tracking these means a

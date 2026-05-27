@@ -429,6 +429,10 @@ export const AboutScreen = () => {
                   href="https://www.dobrich.bg/bg/kapitalovi-razhodi-na-obshtina-grad-dobrich-1/"
                   label={t("budget_capital_dobrich_source")}
                 />
+                <SourceItem
+                  href="https://www.asenovgrad.bg/bg/kapitalovi-razhodi/"
+                  label={t("budget_capital_asenovgrad_source")}
+                />
               </ul>
             </DataGroup>
 

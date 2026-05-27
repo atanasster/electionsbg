@@ -18,6 +18,7 @@ import type {
   MunicipalTransfersTotalsFile,
   InvestmentProgramFile,
   InvestmentProgramIndexFile,
+  AsenovgradCapitalProgramFile,
   BurgasCapitalProgramFile,
   DobrichCapitalProgramFile,
   NoiFundsFile,
@@ -382,6 +383,20 @@ export const useStaraZagoraCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<StaraZagoraCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/stara_zagora.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Asenovgrad — large second-tier town (PDV01, Plovdiv oblast). Single
+// município with 29 settlements; OCR-derived from a 10-page born-digital
+// PDF. Same shape as Sliven (per-village rollup + top projects).
+export const useAsenovgradCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "asenovgrad", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<AsenovgradCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/asenovgrad.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
