@@ -23,6 +23,7 @@ import {
   normaliseOrgName,
   stripDefiniteArticle,
   sentenceCaseLabel,
+  repairTitleCasedAcronym,
 } from "../lib/normalize_name";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -83,7 +84,11 @@ const normaliseInPlace = (
 ): { value: unknown; changed: boolean } => {
   if (typeof value === "string") {
     if (parentKey && NAME_FIELDS.has(parentKey)) {
+      // Two passes: first normalise (no-op on already-mixed-case strings),
+      // then the title-cased-acronym repair which DOES fire on previously-
+      // normalised "Вм петролеум" → "ВМ Петролеум" remnants.
       let out = normaliseOrgName(value);
+      out = repairTitleCasedAcronym(out);
       if (DEFINITE_ARTICLE_FIELDS.has(parentKey))
         out = stripDefiniteArticle(out);
       if (out !== value) return { value: out, changed: true };

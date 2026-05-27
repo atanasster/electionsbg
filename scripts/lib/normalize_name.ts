@@ -339,6 +339,28 @@ const buildWord = (raw: string): Word => {
       titleCased: false,
     };
   }
+  // 3b. Short all-upper tokens (2-3 letters) are almost always acronyms —
+  // brand initials like "ВМ Петролеум" / "СК Билдинг" / "АИВ Груп" that
+  // aren't worth maintaining in the explicit acronym list. Treat as
+  // acronym (keep upper, NOT title-cased). This also catches "СК", "АД"
+  // (already in the list) — idempotent. The function-word check above
+  // already protected single-letter prepositions ("В", "С") and the
+  // short ones ("на", "и", "от", "до", …) from getting captured here.
+  if (
+    upperCore.length >= 2 &&
+    upperCore.length <= 3 &&
+    /^[\p{L}]+$/u.test(upperCore)
+  ) {
+    return {
+      raw,
+      isWhitespace: false,
+      prefix,
+      core: upperCore,
+      suffix,
+      out: prefix + upperCore + suffix,
+      titleCased: false,
+    };
+  }
   // 4. Default: title-case (first upper, rest lower).
   const titled = titleCase(upperCore);
   return {
@@ -407,6 +429,40 @@ export const normaliseOrgName = (name: string): string => {
   // Last pass: settlement-name pattern — "Община пловдив" → "Община
   // Пловдив". The mixed-case input wouldn't otherwise trigger any branch.
   return fixSettlementCasing(words.map((w) => w.out).join(""));
+};
+
+/**
+ * Repair the "title-cased first-letter-acronym" pattern that earlier
+ * normalisation passes (before the 2-3-letter acronym heuristic landed)
+ * left in the data: "Вм петролеум ООД" → "ВМ Петролеум ООД". Only kicks
+ * in when the first content word is exactly 2-3 Cyrillic/Latin letters
+ * with the FIRST letter uppercase and the REST lowercase (the signature
+ * of a previously-titled all-caps token). The next word, if present and
+ * all-lowercase, is upper-cased on its first letter.
+ *
+ * Idempotent on already-correct names: "ВМ Петролеум ООД" stays as-is
+ * because the first word doesn't match `[А-Я][а-я]+`. Safe to apply
+ * across the whole on-disk corpus.
+ */
+// Separator matched between the acronym prefix and the following word —
+// accepts plain whitespace OR a dash with optional surrounding spaces
+// ("Гбс - пловдив" → "ГБС - Пловдив").
+const REPAIR_PREFIX_RE = /^([\p{Lu}][\p{Ll}]{1,2})(\s+|\s*-\s*)([\p{Ll}])/u;
+
+export const repairTitleCasedAcronym = (name: string): string => {
+  if (!name) return name;
+  const m = REPAIR_PREFIX_RE.exec(name);
+  if (!m) return name;
+  const [, prefix, sep, nextFirst] = m;
+  // Skip Bulgarian function-word starts ("На", "За", "По", "Че", "Със",
+  // "Без" etc) — those are mid-sentence words that genuinely belong in
+  // title case at the start of a name.
+  if (LOWERCASE_FUNCTION_WORDS.has(prefix.toLowerCase())) return name;
+  // Defensive — regex wouldn't have matched, but guard against changes.
+  if (prefix.toUpperCase() === prefix) return name;
+  const upper = prefix.toUpperCase();
+  const nextUpper = nextFirst.toUpperCase();
+  return name.replace(REPAIR_PREFIX_RE, `${upper}${sep}${nextUpper}`);
 };
 
 /**
