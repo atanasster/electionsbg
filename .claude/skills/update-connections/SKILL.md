@@ -51,6 +51,7 @@ Use this after editing any of the three scripts — it keeps the per-MP `declara
 - `register.cacbg.bg/{year}/list.xml` — directory of all declarants for that filing year. Walked under the "Народни представители" category only.
 - `register.cacbg.bg/{year}/{xmlFile}` — per-MP declaration XML. Cached under `raw_data/declarations/{year}/`.
 - `raw_data/tr/state.sqlite` (~120 MB) — reconstructed Commerce Registry. **Optional**: phases 5 + 6 degrade gracefully without it. See "TR refresh playbook".
+- `data/postcode_ekatte.json` — BG Post postcode → EKATTE settlement map. Joined against the free-text `registeredOffice` field to assign each company a `ekatteHQ[]`, so the "Companies HQ'd here" tile (`/sofia` + every settlement page) can list MP-linked firms by HQ address. Regenerate from upstream with `npx tsx scripts/parliament/build_postcode_ekatte.ts` — triggered automatically by the watcher when `bgpost_postcodes` flips. Missing/empty file degrades to name-only matching: ~16 village ambiguities (Лозен, Лясково, …) get picked arbitrarily.
 
 ## Outputs
 
@@ -64,6 +65,7 @@ All under `public/parliament/`:
 | `connections.json` | 2.5 MB / 218 KB / 136 KB | Cross-MP/company/person graph for `/connections`. Lazily fetched on that route only. |
 | `mp-connections/{mpId}.json` × ~600 | ~4.2 MB total (median ~1.8 KB / max ~190 KB raw) | Per-MP 1-hop + co-officer-2-hop subgraph. Loaded on each candidate page (`MpConnectionsMini`). MPs with no neighbourhood get no file (fetch 404 → component renders nothing). |
 | `connections-rankings.json` | 791 KB / 74 KB / 55 KB | Top-MPs / top-companies for the dashboard tile + `/connections` rankings card. **Loaded on every dashboard view** — keep it lean. |
+| `companies-by-ekatte/{ekatte}-summary.json` × ~97 + `{ekatte}-page-NNN.json` paginated (50 companies / page) + `index.json` | ~1 MB total | Per-settlement shards backing the "Companies HQ'd here (MP-linked)" tile on settlement and Sofia capital pages, and the paginated detail screen at `/settlement/:id/companies` (or `/sofia/companies`). Sofia (`68134`) is the only place that needs >1 page today (7). Built from `companies-index.json`'s `ekatteHQ[]` field by `scripts/parliament/build_companies_by_settlement.ts`, after the connections-graph pass populates `mpRoles`. |
 
 The four aggregate files at the bottom are **regenerated end-to-end on every run** of phases 2/5/6. The per-MP declaration files are append-only (one file per MP id; rewriting one file does not affect others).
 

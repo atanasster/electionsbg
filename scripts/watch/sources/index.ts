@@ -35,6 +35,7 @@ import { napAnnual } from "./nap_annual";
 import { nssiB1 } from "./nssi_b1";
 import { dvInvestmentAnnex } from "./dv_investment_annex";
 import { capitalPrograms } from "./capital_programs";
+import { bgpostPostcodes } from "./bgpost_postcodes";
 
 // cik is intentionally omitted — see ./cik.ts header. Re-add to this array
 // once a Playwright-based fetch (or alternate endpoint) bypasses Cloudflare.
@@ -49,6 +50,7 @@ export const SOURCES: WatchSource[] = [
   smetnaPalata,
   financingReports,
   egovCommerce,
+  bgpostPostcodes,
   egovProcurement,
   aopDebarred,
   isunEuFunds,

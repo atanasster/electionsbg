@@ -65,7 +65,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `ГРАО: население по постоянен и настоящ адрес` | `update-grao` |
 | `CIK news` (if re-enabled) | _no skill yet — surface as TODO_ |
 
-Some sources map to the same skill (`update-connections` handles both declarations and Commerce Registry); dedupe so it only runs once.
+Some sources map to the same skill (`update-connections` handles declarations, Commerce Registry, AND the BG Post postcode→EKATTE refresh); dedupe so it only runs once.
 
 ### Governments: manual edit first
 
@@ -238,6 +238,7 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `cacbg_officials` | `update-officials` |
 | `cacbg_local` | `update-officials` (Step 1b — municipal ingest) |
 | `egov_commerce` | `update-connections` |
+| `bgpost_postcodes` | `update-connections` (re-runs `scripts/parliament/build_postcode_ekatte.ts` before the declarations pipeline so the postcode→EKATTE table is fresh for the HQ-resolution step) |
 | `egov_procurement` | `update-procurement` |
 | `aop_debarred` | `update-procurement` (Step 5 — debarred-list refresh) |
 | `isun_eu_funds` | `update-funds` |
