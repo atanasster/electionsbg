@@ -54,12 +54,20 @@ const CANDIDATES: Candidate[] = [
   {
     slug: "vidin",
     obshtinaCode: "VID22",
-    urls: ["https://vidin.bg/", "https://vidin.bg/byudzhet"],
+    urls: [
+      "https://vidin.bg/wps/portal/vidin-municipality/administration/budget",
+      "https://vidin.bg/wps/portal/vidin-municipality/administration/budget/finance-budget",
+    ],
+    notes:
+      "IBM WebSphere Portal — content loads via JS; needs hydration",
   },
   {
     slug: "targovishte",
     obshtinaCode: "TGV35",
-    urls: ["https://targovishte.bg/", "https://targovishte.bg/byudzhet"],
+    urls: [
+      "https://targovishte.bg/wps/portal/municipality-targovishte/administration/activities/budget-and-financial-reports",
+    ],
+    notes: "IBM WebSphere Portal",
   },
   {
     slug: "lovech",
@@ -67,15 +75,18 @@ const CANDIDATES: Candidate[] = [
     urls: ["https://lovech.bg/bg/byudzhet"],
   },
   {
+    slug: "haskovo",
+    obshtinaCode: "HSK10",
+    urls: [
+      "https://haskovo.bg/bg/byudzhet",
+      "https://haskovo.bg/bg/byudzhet-i-finansi",
+    ],
+  },
+  {
     slug: "kyustendil",
     obshtinaCode: "KNL38",
     urls: ["https://kyustendil.bg/byudzhet"],
     notes: "Joomla jdownloads plugin — URLs are /index.php?...&id=NNN",
-  },
-  {
-    slug: "haskovo",
-    obshtinaCode: "HSK10",
-    urls: ["https://haskovo.bg/bg/byudzhet", "https://haskovo.bg/"],
   },
   {
     slug: "shumen",
@@ -165,28 +176,50 @@ const main = async () => {
     console.log(`\n=== ${muni.slug} (${muni.obshtinaCode}) ===`);
     if (muni.notes) console.log(`  note: ${muni.notes}`);
 
-    const seen = new Map<string, string>(); // href → text
+    const documents = new Map<string, string>(); // href → text (file-extension URLs)
+    const pages = new Map<string, string>(); // href → text (keyword-tagged non-file URLs, candidates for 2nd-level harvest)
     for (const url of muni.urls) {
       console.log(`  fetching: ${url}`);
       const links = await renderAndExtract(page, url);
       console.log(`    rendered → ${links.length} anchors`);
       for (const { href, text } of links) {
         if (!KEYWORD_RE.test(href) && !KEYWORD_RE.test(text)) continue;
-        if (!/\.(pdf|xlsx|xls|doc|docx|zip)(\?|$)/i.test(href)) continue;
-        if (seen.has(href)) continue;
-        seen.set(href, text);
+        if (/\.(pdf|xlsx|xls|doc|docx|zip)(\?|$|#)/i.test(href)) {
+          if (!documents.has(href)) documents.set(href, text);
+        } else if (
+          new URL(href, url).origin === new URL(url).origin &&
+          href !== url
+        ) {
+          if (!pages.has(href)) pages.set(href, text);
+        }
       }
     }
 
-    if (seen.size === 0) {
-      console.log(`  → no capital-keyword document links found`);
+    if (documents.size === 0 && pages.size === 0) {
+      console.log(`  → no capital-keyword links found`);
       continue;
     }
-    console.log(`  → ${seen.size} candidate document(s):`);
-    let i = 1;
-    for (const [href, text] of seen) {
-      console.log(`    ${i++}. ${text || "(no anchor text)"}`);
-      console.log(`       ${href}`);
+    if (documents.size > 0) {
+      console.log(`  → ${documents.size} document(s) (PDF/XLSX/ZIP):`);
+      let i = 1;
+      for (const [href, text] of documents) {
+        console.log(`    ${i++}. ${text || "(no anchor text)"}`);
+        console.log(`       ${href}`);
+      }
+    }
+    if (pages.size > 0) {
+      console.log(
+        `  → ${pages.size} keyword-tagged subpage(s) — candidates for 2nd-level harvest:`,
+      );
+      let i = 1;
+      for (const [href, text] of pages) {
+        if (i > 10) {
+          console.log(`    … (${pages.size - 10} more, truncated)`);
+          break;
+        }
+        console.log(`    ${i++}. ${text || "(no anchor text)"}`);
+        console.log(`       ${href}`);
+      }
     }
   }
 
