@@ -17,13 +17,12 @@ import { HardHat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useBurgasCapitalProgram } from "@/data/budget/useBudget";
 
-// Burgas's 2024 and 2023 budget dockets ship the capital programme
-// inside a 133-page "Приложения.pdf" bundle, with multi-line wrapping
-// of project descriptions that the existing parser doesn't handle —
-// those years are intentionally absent from the picker. 2022 reverts
-// to the older MINFIN-template XLSX, which the burgas_2022.ts parser
-// reads directly.
-const BURGAS_CAPITAL_YEARS = [2025, 2022] as const;
+// Burgas back-years ingest paths:
+//   2025 — standalone XLSX (burgas.ts)
+//   2024 — Приложения.pdf bundle via Gemini Vision OCR (burgas_ocr.ts → burgas_pdf.ts)
+//   2023 — same as 2024
+//   2022 — legacy MINFIN-template XLSX (burgas_2022.ts)
+const BURGAS_CAPITAL_YEARS = [2025, 2024, 2023, 2022] as const;
 const BURGAS_CAPITAL_LATEST_YEAR = BURGAS_CAPITAL_YEARS[0];
 const BURGAS_OBSHTINA = "BGS04";
 

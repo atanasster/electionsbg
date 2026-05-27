@@ -42,11 +42,14 @@ const __dirname = dirname(__filename);
 const SOURCE_URLS: Record<number, string> = {
   2025: "https://burgas.bg/uploads/posts/2025/88b526bffed7c988521911ecb2eb0086.xlsx",
   // 2024 + 2023 ship the capital programme inside a 133-page
-  // "Приложения.pdf" bundle (council-adopted decision), not a
-  // standalone XLSX. Those years aren't ingested here — see
-  // scripts/budget/capital_programs/burgas_2022.ts for the legacy
-  // XLSX path, and the back-years catalogue in
-  // scripts/watch/sources/capital_programs.ts for the watcher entry.
+  // "Приложения.pdf" bundle (council-adopted decision); those years
+  // are ingested through the OCR path in burgas_ocr.ts + burgas_pdf.ts.
+  // The URLs below are the council-decision PDFs (used by the watcher
+  // for fingerprinting).
+  2024: "https://www.burgas.bg/uploads/posts/2024/3886aef5966458387457a988d50be8ea.pdf",
+  2023: "https://www.burgas.bg/uploads/posts/2023/6fb48388025aacb5ea37b9ee33a36030.pdf",
+  // 2022 reverts to a standalone XLSX in the legacy MINFIN template —
+  // see scripts/budget/capital_programs/burgas_2022.ts.
   2022: "https://www.burgas.bg/uploads/posts/2022/parvonachalen-plan-za-2022g-5202-burgas.xlsx",
 };
 

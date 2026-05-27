@@ -109,6 +109,10 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // 2024 Pleven — full budget docket scan (45 MB, 67 pages); OCR
     // pre-step finds Прил. №4 + №10А by in-document anchors.
     pleven: "https://www.pleven.bg/uploads/posts/byudzhet-2024.pdf",
+    // 2024 Burgas — 133-page Приложения.pdf council bundle; the OCR
+    // path (burgas_ocr.ts → burgas_pdf.ts) extracts Прил. №3.
+    burgas:
+      "https://www.burgas.bg/uploads/posts/2024/3886aef5966458387457a988d50be8ea.pdf",
   },
   2023: {
     sofia:
@@ -120,6 +124,8 @@ export const CAPITAL_PROGRAM_URLS: Record<
     varna:
       "https://varnacouncil.bg/wp-content/uploads/2023/09/9.-Приложение-№-4.pdf",
     pleven: "https://www.pleven.bg/uploads/posts/byudzhet-2023.pdf",
+    burgas:
+      "https://www.burgas.bg/uploads/posts/2023/6fb48388025aacb5ea37b9ee33a36030.pdf",
   },
   2022: {
     // 2022's budget itself adopted late (Aug 2023) due to political
