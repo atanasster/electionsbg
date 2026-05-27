@@ -1,9 +1,9 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 24 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Each of the 25 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
 // Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin,
 // Veliko Tarnovo, Pernik, Haskovo, Gabrovo, Yambol, Kardzhali, Lovech,
-// Dupnitsa, Velingrad, Samokov, Karlovo, Kazanlak) publishes an annual "Капиталова
+// Dupnitsa, Velingrad, Samokov, Karlovo, Kazanlak, Kyustendil) publishes an annual "Капиталова
 // програма" / "Поименен списък на обектите за капиталови разходи" on
 // its own website.
 // URLs are opaque and change every year (some include the date, some a
@@ -78,7 +78,8 @@ type Municipality =
   | "velingrad"
   | "samokov"
   | "karlovo"
-  | "kazanlak";
+  | "kazanlak"
+  | "kyustendil";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -189,6 +190,14 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // parse the PDF's Приложение №4 (pages 9-17) via Gemini Vision OCR.
     kazanlak:
       "https://www.kazanlak.bg/common/images/src/81/file/Приложения.pdf",
+    // Кюстендил (KNL29) — Kyustendil-oblast capital, 72 settlements
+    // (city + 71 villages — second-largest village count after Gabrovo).
+    // Source is Приложение №6 inside the council's "Окончателен годишен
+    // план" — a 41-page mixed scan + born-digital PDF in obs.kyustendil.bg's
+    // DnevenRed folder. Operator pre-slices pages 30-40 into a focused
+    // PDF then runs Gemini Vision OCR.
+    kyustendil:
+      "https://obs.kyustendil.bg/Documents/DnevenRed/30/ДЗ 61-00-3216.pdf",
     // Vidin (VID09) 2025 — PLAN year. RAR contains an XLS (paragraph
     // aggregates) + scanned Resolution PDF whose annex only itemises
     // the ЦС (Targeted Subsidy) portion (2.89M BGN of the 7.47M plan).

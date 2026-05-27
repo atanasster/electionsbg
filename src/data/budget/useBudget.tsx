@@ -44,6 +44,7 @@ import type {
   VelikoTarnovoCapitalProgramFile,
   KarlovoCapitalProgramFile,
   KazanlakCapitalProgramFile,
+  KyustendilCapitalProgramFile,
   VidinCapitalProgramFile,
   VatBreakdownFile,
 } from "./types";
@@ -627,6 +628,21 @@ export const useKarlovoCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<KarlovoCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/karlovo.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Кюстендил — Kyustendil oblast capital (KNL29, 72 settlements).
+// Source is Прил. №6 inside the council's "Окончателен годишен план"
+// PDF on obs.kyustendil.bg — OCR via Gemini Vision after pre-slicing
+// pages 30-40. 2025 final plan: 246 projects, ~€11.0M.
+export const useKyustendilCapitalProgram = (fiscalYear: number | undefined) =>
+  useQuery({
+    queryKey: ["budget", "capital_programs", "kyustendil", fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<KyustendilCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/kyustendil.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,

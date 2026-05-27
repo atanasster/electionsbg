@@ -1473,6 +1473,50 @@ export interface KazanlakCapitalProgramFile {
   bySettlement: KazanlakCapitalSettlementRollup[];
 }
 
+// Кюстендил — single-município (KNL29, EKATTE 41112) in Kyustendil
+// oblast. 72 settlements (city + 71 villages — second-largest village
+// count in the fleet after Gabrovo's 134). Source is the council's
+// "Окончателен годишен план" PDF (a 41-page mixed scan + born-digital
+// docket on obs.kyustendil.bg's DnevenRed folder); the capital
+// programme is Приложение №6 on pages 30-40. Operator pre-slices those
+// pages into -capital-pages.pdf before OCR via Gemini Vision.
+// 2025 final plan: 246 projects, ~€11.0M (perfect recap match with
+// "ОБЩО Капиталови разходи").
+export interface KyustendilCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface KyustendilCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface KyustendilCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+    ocrModel: string;
+    ocrGeneratedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: KyustendilCapitalProject[];
+  bySettlement: KyustendilCapitalSettlementRollup[];
+}
+
 // Карлово — single-município (PDV13, EKATTE 36498) in Plovdiv oblast.
 // 27 settlements (4 towns: Карлово, Калофер, Клисура, Баня + 23 villages).
 // Source is a clean XLSX (Приложение № 7) on karlovo.bg served via the

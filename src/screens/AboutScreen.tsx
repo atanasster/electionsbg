@@ -514,6 +514,10 @@ export const AboutScreen = () => {
                   href="https://www.kazanlak.bg/common/images/src/81/file/Приложения.pdf"
                   label={t("budget_capital_kazanlak_source")}
                 />
+                <SourceItem
+                  href="https://obs.kyustendil.bg/Documents/DnevenRed/30/ДЗ 61-00-3216.pdf"
+                  label={t("budget_capital_kyustendil_source")}
+                />
               </ul>
             </DataGroup>
 
