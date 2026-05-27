@@ -219,6 +219,15 @@ export const AboutScreen = () => {
               </ul>
             </DataGroup>
 
+            <DataGroup title={t("local_government_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://register.cacbg.bg/"
+                  label={t("local_government_roster_source")}
+                />
+              </ul>
+            </DataGroup>
+
             <DataGroup title={t("census_section")}>
               <ul className="space-y-2">
                 <SourceItem
@@ -488,6 +497,10 @@ export const AboutScreen = () => {
                 <SourceItem
                   href="https://www.samokov.bg/documents/d/samokov/prilozenie-5"
                   label={t("budget_capital_samokov_source")}
+                />
+                <SourceItem
+                  href="https://karlovo.bg/inc/service/service-download-file.php?identifier=6d56fbd5-f78b-4a49-a311-a0fff162c643"
+                  label={t("budget_capital_karlovo_source")}
                 />
               </ul>
             </DataGroup>

@@ -80,6 +80,7 @@ Separate ingest for the local-government tier. The script:
 2. Filters Category nodes to the `Кметове…` family (mayors, deputy-mayors, council chairs, municipal councillors, chief architects).
 3. Maps each declarant's `Position/Name` role label to a role bucket, fetches + parses the per-person XML (same shared parser and `raw_data/officials/` cache as the executive ingest), and writes one JSON per slug under `data/officials/municipal/declarations/`.
 4. Builds `data/officials/municipal/index.json` — a roster with `byRole` counts and one entry per official (slug, name, role, municipality).
+5. **Emits per-obshtina shards** under `data/officials/municipal/by_obshtina/{code}.json` (~288 files; SPA's `/settlement/{обshtina}` page fetches only its own slice). Each shard pre-sorts entries in roster-display order so the dashboard tiles render without re-sorting. Sofia районs each get their own S23xx code; Plovdiv (PDV22) and Varna (VAR06) aggregate районs under a single shard with a `district` tag on each entry; the synthetic `SFO_CITY` shard carries the Sofia city-wide tier (mayor + city council + 9 deputies + 2 architects) and is staged for a future Sofia-wide tile — not yet wired into any SPA page.
 
 Expected output:
 
@@ -89,9 +90,22 @@ Expected output:
   processed 6521 declaration(s) for ~6400 unique official(s)
   wrote ~6400 per-official file(s) to data/officials/municipal/declarations
   wrote index.json (~6400 official(s): ~290 mayors, ~700 dep. mayors, ~260 chairs, ~4800 councillors, ~310 architects, 0 other)
+  wrote 288 per-obshtina shard(s) to data/officials/municipal/by_obshtina (max ~36000 bytes)
 ```
 
-Cold start takes ~30–50 minutes (~6,500 per-declaration fetches at a 150 ms politeness sleep). Re-runs are far faster — raw XMLs are cached. Sanity: `byRole.councillor` should dominate (~75%), `byRole.mayor` ≈ 290, `byRole.other` should be 0 (a non-zero `other` count means an unmapped role label — inspect `mapRole` in `scripts/officials/municipal.ts`).
+Cold start takes ~30–50 minutes (~6,500 per-declaration fetches at a 150 ms politeness sleep). Re-runs are far faster — raw XMLs are cached. Sanity: `byRole.councillor` should dominate (~75%), `byRole.mayor` ≈ 290, `byRole.other` should be 0 (a non-zero `other` count means an unmapped role label — inspect `mapRole` in `scripts/officials/municipal.ts`). Shard count should be ≈ 288 (varies as new municipalities enter the registry); `ls data/officials/municipal/by_obshtina | wc -l` for a quick spot check.
+
+If the run aborts with `N roster entries did not map to an obshtina — add aliases in scripts/officials/_aliases.json`, the registry has introduced a new entity name (or renamed an existing one). Dry-run the resolver to enumerate the unmatched strings without re-scraping:
+
+```bash
+npx tsx scripts/officials/municipality_join.ts --dry-run
+```
+
+Add aliases to `scripts/officials/_aliases.json` (key = verbatim registry name, value = obshtina code from `data/municipalities.json`, or the synthetic `SFO_CITY` for Sofia city-wide). After fixing aliases you can re-emit shards in seconds without re-scraping the whole register:
+
+```bash
+npx tsx scripts/officials/build_municipal_shards.ts
+```
 
 ## Step 1c — Company cross-reference + connections
 
@@ -208,10 +222,12 @@ Fails loud rather than write partial data:
 | `assets-rankings.json` total drops > 20% | Likely a regression in category filtering | Inspect diff; do NOT commit until cause is identified |
 | Zero entries in the `Кметове…` category | Upstream renamed the municipal category | `municipal.ts` throws |
 | > 2% (or > 20) of municipal declarations fail to parse | Upstream schema drift, not isolated bad records | `municipal.ts` throws; failures below that bar are skipped + logged, not fatal |
+| `> 10 roster entries did not map to an obshtina` | Upstream rename / new municipality / new район | `municipal.ts` throws; dry-run `scripts/officials/municipality_join.ts --dry-run`, add aliases to `scripts/officials/_aliases.json`, then re-emit with `scripts/officials/build_municipal_shards.ts` |
+| Shard for a known обshtina exceeds 40 KB raw | A big city's районs proliferated, or `byRole.councillor` ballooned | Warns (does not throw); consider splitting the shard if the SPA Roster tile becomes janky |
 
 ## What this skill does NOT do
 
-- Does NOT build any UI for the municipal tier. `municipal.ts` writes data only (`data/officials/municipal/`), staged for the connections graph — there is no `/officials/assets`-style screen or ranking for mayors / councillors.
+- Does NOT build a ranking page for the municipal tier. `municipal.ts` writes per-slug declarations + the global `index.json` + per-obshtina shards under `data/officials/municipal/by_obshtina/` (consumed by the Local government section on every `/settlement/{обshtina}` page); the `/officials/assets`-style sortable ranking remains MP / executive-only because the municipal tier carries no party affiliation.
 - Does NOT scrape the judiciary (ВКС/ВАС/прокурори/съдии). Same register, different editorial scope.
 - Does NOT cross-reference officials to MP-connected companies. That join lives in `data/procurement/derived/mp_connected.json` and is keyed on MP ids, not official slugs. A follow-up could add an "officials connected contractors" rollup if/when the editorial use case justifies it.
 - Does NOT update the `cacbg_declarations` watcher source (that one is mapped to `/update-connections` and tracks the MP scope). The two watchers fingerprint independent slices of the same register.
