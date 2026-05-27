@@ -22,6 +22,7 @@ import {
   buildAll as buildTaxonomyDerivatives,
   writeAll as writeTaxonomyDerivatives,
 } from "./build_taxonomy_derivatives";
+import { buildIntegrity, writeIntegrity } from "./integrity";
 import type {
   FundsProject,
   FundsProjectsIndex,
@@ -883,6 +884,18 @@ const main = async (args: MainArgs): Promise<void> => {
     `  ${phase6.taxonomy.programmes.length} programme(s) · ` +
       `${phase6.sankey.nodes.length} Sankey node(s) · ` +
       `${phase6.absorption.byProgramme.length} absorption row(s)`,
+  );
+
+  // Phase-7 derivative: red-flags / integrity rollup (HHI per programme +
+  // serial winners + debarred-supplier matches). Same lazy contract — pure
+  // join over already-written shards.
+  console.log(`→ building integrity (red-flags) derivative`);
+  const integrity = buildIntegrity();
+  writeIntegrity(integrity);
+  const it = integrity.index.totals;
+  console.log(
+    `  ${it.programmeCount} programme(s) — ${it.highConcentrationCount} high-HHI, ` +
+      `${it.moderateConcentrationCount} moderate, ${it.debarredOverlapCount} debarred-overlap`,
   );
   // Honour the convention from ./ingest.ts: TOP_N is informational only, not
   // serialised separately — the per-EIK shards already carry the top

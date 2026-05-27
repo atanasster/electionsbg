@@ -219,6 +219,11 @@ const FundsPoliticalScreen = lazy(() =>
     default: m.FundsPoliticalScreen,
   })),
 );
+const FundsIntegrityScreen = lazy(() =>
+  import("./screens/funds/FundsIntegrityScreen").then((m) => ({
+    default: m.FundsIntegrityScreen,
+  })),
+);
 const TopContractorsScreen = lazy(() =>
   import("./screens/TopContractorsScreen").then((m) => ({
     default: m.TopContractorsScreen,
@@ -1388,6 +1393,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <FundsPoliticalScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="funds/integrity"
+          element={
+            <LayoutScreen>
+              <FundsIntegrityScreen />
             </LayoutScreen>
           }
         />

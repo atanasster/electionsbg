@@ -35,7 +35,9 @@ data/funds/
     ├── political_links.json                # Slim leaderboard of politically-tied beneficiaries (committed)
     ├── political-by-eik/{eik}.json         # Per-EIK detail for /company panels (committed, ~286 files)
     ├── absorption.json                     # Per-period + per-programme absorption % (committed)
-    └── sankey.json                         # Fund → top-OP Sankey shape for /funds tile (committed)
+    ├── sankey.json                         # Fund → top-OP Sankey shape for /funds tile (committed)
+    ├── integrity.json                      # Concentration / serial-winner / debarred leaderboard (committed)
+    └── integrity-by-program/{code}.json    # Per-programme HHI + top-10 beneficiaries + debarred (committed)
 ```
 
 ## Programme taxonomy (`taxonomy.json` + `derived/absorption.json` + `derived/sankey.json`)
@@ -62,6 +64,31 @@ Drives the `AbsorptionByPeriodTile` on `/funds`.
 omitted — d3-sankey collapses node heights when the leaf-column count
 overflows the available height. Drill into beneficiaries via the linked
 `/funds/programme/{code}` pages instead.
+
+## Integrity / red-flags layer (`derived/integrity.json` + per-programme shards)
+
+Phase-7 derivative — concentration and risk indicators per programme.
+
+For each operational programme `scripts/funds/integrity.ts` computes:
+
+- **Herfindahl-Hirschman index (HHI)** on contracted EUR. <1500 unconcentrated
+  / 1500-2500 moderate / >2500 high — the standard antitrust bands.
+- **Top-1 share** and **top-5 share** — quick read on dominance.
+- **Top-10 beneficiaries** for the programme drill-down.
+- **Debarred-supplier match** — name-normalised join against
+  `data/procurement/debarred.json`.
+
+Cross-cutting metrics in the slim index:
+
+- **Serial winners** — beneficiaries appearing in the top-10 of two or more
+  programmes, ranked by `log(EUR) × programmeCount`.
+- **Debarred overlap** — total EUR of EU-funds contracts going to currently-
+  debarred suppliers.
+
+What is **NOT** computed (limitation of the upstream feed): single-bidder
+rate per EU-funded contract. The АОП OCDS feed surfaces bid counts only on
+tender records, not on the contract-grain rows we ingest. A future ingest
+of the tender-grain feed would unlock that metric.
 
 
 ## Political-economy join layer (`derived/political_links.json`)
