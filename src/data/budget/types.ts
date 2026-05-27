@@ -1028,6 +1028,46 @@ export interface VidinCapitalProgramFile {
   bySettlement: VidinCapitalSettlementRollup[];
 }
 
+// Велико Търново — single-município (VTR04, EKATTE 10447). Tier-2
+// oblast capital with 89 settlements (city + town Дебелец + town
+// Килифарево + 86 villages). Source is the council's "Приложения 1-22"
+// XLSX on veliko-tarnovo.bg, sheet "Pril15" = Инвестиционна програма.
+// Clean structured data — no OCR. 2025 plan is 92.16M BGN (~€47.1M)
+// across 382 projects, of which ~70% carry an explicit settlement tag.
+// The city of Велико Търново holds the lion's share (~60% by amount).
+export interface VelikoTarnovoCapitalProject {
+  id: number;
+  name: string;
+  settlement: string | null;
+  total: Money;
+}
+
+export interface VelikoTarnovoCapitalSettlementRollup {
+  name: string;
+  projectCount: number;
+  total: Money;
+  topProjects: Array<{ id: number; name: string; total: Money }>;
+}
+
+export interface VelikoTarnovoCapitalProgramFile {
+  fiscalYear: number;
+  generatedAt: string;
+  source: {
+    publisher: string;
+    documentTitle: string;
+    url: string;
+    fetchedAt: string;
+  };
+  municipalityCode: string;
+  municipalityNameBg: string;
+  municipalityNameEn: string;
+  currency: "BGN" | "EUR";
+  recapitulation: { total: Money };
+  publishedRecap: Money | null;
+  projects: VelikoTarnovoCapitalProject[];
+  bySettlement: VelikoTarnovoCapitalSettlementRollup[];
+}
+
 // Shumen — single-município (SHU30, EKATTE 83510). Oblast capital with
 // 27 settlements (the city + 26 villages). Source is a 15-page
 // born-digital PDF on shumen.bg (Приложение №6 — ПЛАН ЗА ФИНАНСИРАНЕ

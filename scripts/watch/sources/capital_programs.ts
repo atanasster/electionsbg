@@ -1,7 +1,8 @@
 // Municipal capital programmes watcher.
 //
-// Each of the 12 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
-// Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin) publishes an annual "Капиталова програма" /
+// Each of the 13 ingested общини (Sofia, Plovdiv, Burgas, Stara Zagora,
+// Ruse, Varna, Pleven, Sliven, Dobrich, Asenovgrad, Shumen, Vidin, Veliko Tarnovo)
+// publishes an annual "Капиталова програма" /
 // "Поименен списък на обектите за капиталови разходи" on its own website.
 // URLs are opaque and change every year (some include the date, some a
 // content hash), so the catalogue is hand-curated below — mirrors the
@@ -63,7 +64,8 @@ type Municipality =
   | "dobrich"
   | "asenovgrad"
   | "shumen"
-  | "vidin";
+  | "vidin"
+  | "veliko_tarnovo";
 
 export const CAPITAL_PROGRAM_URLS: Record<
   number,
@@ -113,6 +115,11 @@ export const CAPITAL_PROGRAM_URLS: Record<
     // URL discovered via the Playwright harvest.ts tool (the shumen.bg
     // budget portal is JS-rendered).
     shumen: "https://www.shumen.bg/uploads/deinosti/budjet/25051314.pdf",
+    // Велико Търново (VTR04) — Tier-2 oblast capital, 89 settlements.
+    // The 22-appendix master XLSX is a clean structured file with a
+    // dedicated "Pril15" sheet (Инвестиционна програма). No OCR needed.
+    veliko_tarnovo:
+      "https://www.veliko-tarnovo.bg/uploads/posts/2025/2025_05_07_2025_04_30_572-2-prilozheniya1-22.xlsx",
     // Vidin (VID09) 2025 — PLAN year. RAR contains an XLS (paragraph
     // aggregates) + scanned Resolution PDF whose annex only itemises
     // the ЦС (Targeted Subsidy) portion (2.89M BGN of the 7.47M plan).

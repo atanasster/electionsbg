@@ -445,6 +445,10 @@ export const AboutScreen = () => {
                   href="https://vidin.bg/"
                   label={t("budget_capital_vidin_source")}
                 />
+                <SourceItem
+                  href="https://www.veliko-tarnovo.bg/bg/byudzhet-i-finansi/byudzhet-2025/"
+                  label={t("budget_capital_veliko_tarnovo_source")}
+                />
               </ul>
             </DataGroup>
 

@@ -32,6 +32,7 @@ import type {
   SofiaCapitalProgramFile,
   StaraZagoraCapitalProgramFile,
   VarnaCapitalProgramFile,
+  VelikoTarnovoCapitalProgramFile,
   VidinCapitalProgramFile,
   VatBreakdownFile,
 } from "./types";
@@ -458,6 +459,27 @@ export const useVidinCapitalProgram = (fiscalYear: number | undefined) =>
     queryFn: () =>
       fetchJson<VidinCapitalProgramFile>(
         `/budget/capital_programs/${fiscalYear}/vidin.json`,
+      ),
+    enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Велико Търново — Tier-2 oblast capital (VTR04, 89 settlements). Source
+// is a clean XLSX with a dedicated "Pril15" sheet (Инвестиционна програма) —
+// no OCR. 2025 plan covers 382 projects totalling ~€47.1M.
+export const useVelikoTarnovoCapitalProgram = (
+  fiscalYear: number | undefined,
+) =>
+  useQuery({
+    queryKey: [
+      "budget",
+      "capital_programs",
+      "veliko_tarnovo",
+      fiscalYear,
+    ] as const,
+    queryFn: () =>
+      fetchJson<VelikoTarnovoCapitalProgramFile>(
+        `/budget/capital_programs/${fiscalYear}/veliko_tarnovo.json`,
       ),
     enabled: !!fiscalYear,
     staleTime: Infinity,
