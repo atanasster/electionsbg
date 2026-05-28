@@ -1,1 +1,86 @@
-[{"mpId":4371,"declarantName":"Росица Василева Пандова-Йовкова","institution":"49-то Народно събрание","declarationYear":2024,"fiscalYear":2023,"declarationType":"Annualy","filedAt":"2024-04-25","entryNumber":"Г1493","controlHash":"85716C15","sourceUrl":"https://register.cacbg.bg/2024/53638696-F8A4-4DA9-93A3-982D0DB1F50C182414.xml","ownershipStakes":[{"table":"10","itemType":"ЕООД","shareSize":"100","companyName":"МЕЛИТУС Д ЕООД","registeredOffice":"София (столица)","valueEur":511.29188119621847,"holderName":"Росица Василева Пандова","legalBasis":"други","fundsOrigin":"заплата","companySlug":"МЕЛИТУС-Д-ЕООД"}],"income":[{"parent":"I. Облагаем доход от","category":"Годишна данъчна основа от трудови доходи","amountEurDeclarant":34220.765608462905,"amountEurSpouse":16956.995239872587},{"parent":null,"category":"Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност","amountEurDeclarant":2630.085436873348,"amountEurSpouse":null},{"parent":null,"category":"Годишна данъчна основа за доходи от друга стопанска дейност","amountEurDeclarant":525.0967619885164,"amountEurSpouse":null}],"assets":[{"category":"bank","description":null,"detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":70000,"valueEur":35790.431683735296,"holderName":"Росица Василева Пандова-Йовкова","isSpouse":false,"legalBasis":null,"fundsOrigin":"заплата"},{"category":"bank","description":null,"detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":30000,"valueEur":15338.756435886555,"holderName":"Венцислав Петров Йовков","isSpouse":true,"legalBasis":null,"fundsOrigin":"заплата"}]}]
+[
+  {
+    "mpId": 4371,
+    "declarantName": "Росица Василева Пандова-Йовкова",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-25",
+    "entryNumber": "Г1493",
+    "controlHash": "85716C15",
+    "sourceUrl": "https://register.cacbg.bg/2024/53638696-F8A4-4DA9-93A3-982D0DB1F50C182414.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ЕООД",
+        "shareSize": "100",
+        "companyName": "МЕЛИТУС Д ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 511.29188119621847,
+        "holderName": "Росица Василева Пандова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "Мелитус-д-ЕООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34220.765608462905,
+        "amountEurSpouse": 16956.995239872587
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2630.085436873348,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 525.0967619885164,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Росица Василева Пандова-Йовкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Венцислав Петров Йовков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]
