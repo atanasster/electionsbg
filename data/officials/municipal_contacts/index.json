@@ -1,6 +1,1045 @@
 {
-  "source": "namrb.org (Национално сдружение на общините в РБ) + per-município websites",
-  "indexName": "Municipal contact details",
-  "contactsByObshtina": {},
-  "note": "Pending ingest. See scripts/officials/municipal_contacts/README.md. Each entry: { phone, email, website, address, mayor_office_phone?, council_chair_phone?, fax? }. The MyAreaContactsTile auto-lights up once entries appear."
+  "source": "iisda.government.bg (Административен регистър)",
+  "sourceUrl": "https://iisda.government.bg/ras/governing_bodies/gb_municipality_administrations",
+  "indexName": "Municipal mayor contacts (email only; iisda doesn't publish phone/website here)",
+  "scrapedAt": "2026-05-28T10:54:52.019Z",
+  "contactsByObshtina": {
+    "BLG01": {
+      "email": "s.banenski@bansko.bg",
+      "iisda_id": 4400
+    },
+    "BLG02": {
+      "email": "rrevanski@mail.bg",
+      "iisda_id": 4402
+    },
+    "BLG03": {
+      "email": "kmet@blagoevgrad.bg",
+      "iisda_id": 4404
+    },
+    "BLG11": {
+      "email": "obshtina@gotsedelchev.bg",
+      "iisda_id": 4406
+    },
+    "BLG13": {
+      "email": "kmet@garmen.bg",
+      "iisda_id": 4408
+    },
+    "BLG28": {
+      "email": "obshtina_kresna@abv.bg",
+      "iisda_id": 4410
+    },
+    "BLG33": {
+      "email": "oapetrich@petrich.bg",
+      "iisda_id": 4412
+    },
+    "BLG37": {
+      "email": "kmet@razlog.bg",
+      "iisda_id": 4414
+    },
+    "BLG40": {
+      "email": "a.stoyanov@sandanski.bg",
+      "iisda_id": 4416
+    },
+    "BLG42": {
+      "email": "kmet@satovcha.bg",
+      "iisda_id": 4418
+    },
+    "BLG44": {
+      "email": "oba@simitli.bg",
+      "iisda_id": 4420
+    },
+    "BLG49": {
+      "email": "kmet@strumyani.egov.bg",
+      "iisda_id": 4422
+    },
+    "BLG52": {
+      "email": "obshtina_hadjidimovo@mail.bg",
+      "iisda_id": 4424
+    },
+    "BLG53": {
+      "email": "obshtina@yakoruda.egov.bg",
+      "iisda_id": 4426
+    },
+    "BGS01": {
+      "email": "ras@government.bg",
+      "iisda_id": 4428
+    },
+    "BGS04": {
+      "email": "obshtina@burgas.bg",
+      "iisda_id": 4430
+    },
+    "BGS06": {
+      "email": "info@sredets.bg",
+      "iisda_id": 4432
+    },
+    "BGS08": {
+      "email": "kmet@kameno.bg",
+      "iisda_id": 4434
+    },
+    "BGS09": {
+      "email": "karnobat@mail.bg",
+      "iisda_id": 4436
+    },
+    "BGS12": {
+      "email": "mt_kmet@mail.bg",
+      "iisda_id": 4438
+    },
+    "BGS13": {
+      "email": "marin.d.kirov@gmail.com",
+      "iisda_id": 4440
+    },
+    "BGS15": {
+      "email": "mer@nesebar.bg",
+      "iisda_id": 4442
+    },
+    "BGS17": {
+      "email": "mayor@pomorie.bg",
+      "iisda_id": 4444
+    },
+    "BGS18": {
+      "email": "ruen@ruen.egov.bg",
+      "iisda_id": 4446
+    },
+    "BGS21": {
+      "email": "obshtina@sozopol.bg",
+      "iisda_id": 4448
+    },
+    "BGS23": {
+      "email": "kmetsungurlare@abv.bg",
+      "iisda_id": 4450
+    },
+    "BGS27": {
+      "email": "obshtina@primorsko.bg",
+      "iisda_id": 4452
+    },
+    "VAR01": {
+      "email": "kmet@avren.bg",
+      "iisda_id": 4454
+    },
+    "VAR02": {
+      "email": "aksakovo@mail.orbitel.bg",
+      "iisda_id": 4456
+    },
+    "VAR04": {
+      "email": "obshtina_beloslav@beloslav.org",
+      "iisda_id": 4458
+    },
+    "VAR05": {
+      "email": "byala.rs@byala.bg",
+      "iisda_id": 4736
+    },
+    "VAR06": {
+      "email": "kmet@varna.bg",
+      "iisda_id": 4462
+    },
+    "VAR08": {
+      "email": "obshtina@vetrino.bg",
+      "iisda_id": 4464
+    },
+    "VAR09": {
+      "email": "kmet@valchidol.bg",
+      "iisda_id": 4466
+    },
+    "VAR13": {
+      "email": "obshtina@dolnichiflik.bg",
+      "iisda_id": 4468
+    },
+    "VAR14": {
+      "email": "kmet@devnia.bg",
+      "iisda_id": 4470
+    },
+    "VAR16": {
+      "email": "kmet@dalgopol.egov.bg",
+      "iisda_id": 4472
+    },
+    "VAR24": {
+      "email": "d_dimov@provadia.bg",
+      "iisda_id": 4474
+    },
+    "VAR26": {
+      "email": "suvorovo_kmet@abv.bg",
+      "iisda_id": 4476
+    },
+    "VTR04": {
+      "email": "obshtina@veliko-tarnovo.bg",
+      "iisda_id": 4478
+    },
+    "VTR06": {
+      "email": "kmet@g-oryahovica.org",
+      "iisda_id": 4480
+    },
+    "VTR13": {
+      "email": "kmet@elena.bg",
+      "iisda_id": 4482
+    },
+    "VTR14": {
+      "email": "kmet@zlataritsa.bg",
+      "iisda_id": 4484
+    },
+    "VTR20": {
+      "email": "obshtina@lyaskovets.bg",
+      "iisda_id": 4486
+    },
+    "VTR22": {
+      "email": "e_manolov@pavlikeni.bg",
+      "iisda_id": 4488
+    },
+    "VTR26": {
+      "email": "obshtina@trambesh.egov.bg",
+      "iisda_id": 4490
+    },
+    "VTR28": {
+      "email": "genchev@svishtov.bg",
+      "iisda_id": 4492
+    },
+    "VTR31": {
+      "email": "kmet@strazhitsa.egov.bg",
+      "iisda_id": 4494
+    },
+    "VTR32": {
+      "email": "plamen.chernev@suhindol.egov.bg",
+      "iisda_id": 4496
+    },
+    "VID01": {
+      "email": "kmet@belogradchik.egov.bg",
+      "iisda_id": 4498
+    },
+    "VID03": {
+      "email": "boinica@mail.orbitel.bg",
+      "iisda_id": 4500
+    },
+    "VID06": {
+      "email": "kmet@bregovo.bg",
+      "iisda_id": 4502
+    },
+    "VID09": {
+      "email": "kmet@vidin.bg",
+      "iisda_id": 4504
+    },
+    "VID15": {
+      "email": "obstina_gramada@abv.bg",
+      "iisda_id": 4506
+    },
+    "VID16": {
+      "email": "obstina_dimovo@abv.bg",
+      "iisda_id": 4508
+    },
+    "VID22": {
+      "email": "obshtina@kula.egov.bg",
+      "iisda_id": 4510
+    },
+    "VID25": {
+      "email": "makresh@b-trust.org",
+      "iisda_id": 4512
+    },
+    "VID30": {
+      "email": "obshtina-novoselo@abv.bg",
+      "iisda_id": 4514
+    },
+    "VID33": {
+      "email": "rujinci@abv.bg",
+      "iisda_id": 4516
+    },
+    "VID37": {
+      "email": "kmet@chuprene.egov.bg",
+      "iisda_id": 4518
+    },
+    "VRC05": {
+      "email": "ob.borovan@borovan.egov.bg",
+      "iisda_id": 4520
+    },
+    "VRC08": {
+      "email": "bslatina@oabsl.bg",
+      "iisda_id": 4522
+    },
+    "VRC10": {
+      "email": "kmet@vratza.bg",
+      "iisda_id": 4524
+    },
+    "PVN39": {
+      "email": "obstina_kneja@abv.bg",
+      "iisda_id": 4526
+    },
+    "VRC20": {
+      "email": "kmet@kozloduy.bg",
+      "iisda_id": 4528
+    },
+    "VRC21": {
+      "email": "krivodol@mbox.is-bg.net",
+      "iisda_id": 4530
+    },
+    "VRC27": {
+      "email": "iv.asparuhov@mail.bg",
+      "iisda_id": 4532
+    },
+    "VRC28": {
+      "email": "valia.bercheva@mizia.egov.bg",
+      "iisda_id": 4534
+    },
+    "VRC31": {
+      "email": "kmet@oryahovo.egov.bg",
+      "iisda_id": 4536
+    },
+    "VRC32": {
+      "email": "roman@roman.bg",
+      "iisda_id": 4538
+    },
+    "VRC35": {
+      "email": "todor.aleksiev.l2@gmail.com",
+      "iisda_id": 4540
+    },
+    "GAB05": {
+      "email": "t.hristova@gabrovo.bg",
+      "iisda_id": 4542
+    },
+    "GAB12": {
+      "email": "kmet@dryanovo.bg",
+      "iisda_id": 4544
+    },
+    "GAB29": {
+      "email": "ivanov@sevlievo.bg",
+      "iisda_id": 4546
+    },
+    "GAB35": {
+      "email": "dencho.minev@tryavna.bg",
+      "iisda_id": 4548
+    },
+    "DOB03": {
+      "email": "mayor@balchik.bg",
+      "iisda_id": 4550
+    },
+    "DOB12": {
+      "email": "mail@toshevo.org",
+      "iisda_id": 4552
+    },
+    "DOB15": {
+      "email": "kmet@dobrichka.bg",
+      "iisda_id": 4554
+    },
+    "DOB17": {
+      "email": "obshtina@kavarna.bg",
+      "iisda_id": 4556
+    },
+    "DOB20": {
+      "email": "i_mustedjeb@abv.bg",
+      "iisda_id": 4558
+    },
+    "DOB27": {
+      "email": "tervel@tervel.bg",
+      "iisda_id": 4560
+    },
+    "DOB29": {
+      "email": "mayor@ob-shabla.org",
+      "iisda_id": 4562
+    },
+    "KRZ02": {
+      "email": "iz_shaban@abv.bg",
+      "iisda_id": 4564
+    },
+    "KRZ08": {
+      "email": "kmet@dzhebel.bg",
+      "iisda_id": 4566
+    },
+    "KRZ14": {
+      "email": "s.suleyman@kirkovo.bg",
+      "iisda_id": 4568
+    },
+    "KRZ15": {
+      "email": "minkrum@krumovgrad.bg",
+      "iisda_id": 4570
+    },
+    "KRZ16": {
+      "email": "mayor@kardjali.bg",
+      "iisda_id": 4572
+    },
+    "KRZ21": {
+      "email": "ilknurkazim@momchilgrad.bg",
+      "iisda_id": 4574
+    },
+    "KRZ35": {
+      "email": "obshtina_chernoohene@abv.bg",
+      "iisda_id": 4576
+    },
+    "KNL04": {
+      "email": "kmet@bobovdol.egov.bg",
+      "iisda_id": 4578
+    },
+    "KNL05": {
+      "email": "obshtina@boboshevo.egov.bg",
+      "iisda_id": 4580
+    },
+    "KNL27": {
+      "email": "obst_kocherinovo@mail.bg",
+      "iisda_id": 4582
+    },
+    "KNL29": {
+      "email": "mayor@kyustendil.bg",
+      "iisda_id": 4584
+    },
+    "KNL31": {
+      "email": "dstamenkov@abv.bg",
+      "iisda_id": 4586
+    },
+    "KNL38": {
+      "email": "kabzimalski@mbox.is-bg.net",
+      "iisda_id": 4588
+    },
+    "KNL41": {
+      "email": "kalin.1964@abv.bg",
+      "iisda_id": 4590
+    },
+    "KNL48": {
+      "email": "p.dangov@dupnitsa.bg",
+      "iisda_id": 4592
+    },
+    "KNL50": {
+      "email": "obshtina_treklqno@abv.bg",
+      "iisda_id": 4594
+    },
+    "LOV02": {
+      "email": "tihomir.kukenski@obshtina-apriltsi.com",
+      "iisda_id": 4596
+    },
+    "LOV17": {
+      "email": "kmet@letnitsa.bg",
+      "iisda_id": 4598
+    },
+    "LOV18": {
+      "email": "kmet@lovech.bg",
+      "iisda_id": 4600
+    },
+    "LOV19": {
+      "email": "kmet@lukovit.bg",
+      "iisda_id": 4602
+    },
+    "LOV33": {
+      "email": "mayor@teteven.bg",
+      "iisda_id": 4604
+    },
+    "LOV34": {
+      "email": "mayor@troyan.bg",
+      "iisda_id": 4606
+    },
+    "LOV36": {
+      "email": "obshtina@ugarchin.com",
+      "iisda_id": 4608
+    },
+    "LOV38": {
+      "email": "kmet@yablanitsa.bg",
+      "iisda_id": 4610
+    },
+    "MON02": {
+      "email": "ob@berkovitsa.com",
+      "iisda_id": 4612
+    },
+    "MON04": {
+      "email": "kmet@boychinovtsi.bg",
+      "iisda_id": 4614
+    },
+    "MON07": {
+      "email": "obshtina@brusartsi.egov.bg",
+      "iisda_id": 4616
+    },
+    "MON11": {
+      "email": "kmet@valchedram.egov.bg",
+      "iisda_id": 4618
+    },
+    "MON12": {
+      "email": "kmet_varshets@abv.bg",
+      "iisda_id": 4620
+    },
+    "MON14": {
+      "email": "gd3470@mail.bg",
+      "iisda_id": 4622
+    },
+    "MON24": {
+      "email": "Tsvetan.Petrov@lom.egov.bg",
+      "iisda_id": 4624
+    },
+    "MON26": {
+      "email": "veromir@mail.bg",
+      "iisda_id": 4626
+    },
+    "MON29": {
+      "email": "mayor@montana.bg",
+      "iisda_id": 4628
+    },
+    "MON36": {
+      "email": "chiprovci@mail.bg",
+      "iisda_id": 4630
+    },
+    "MON38": {
+      "email": "qkimovo@net-surf.net",
+      "iisda_id": 4632
+    },
+    "PAZ03": {
+      "email": "mncplt_batak@abv.bg",
+      "iisda_id": 4634
+    },
+    "PAZ04": {
+      "email": "kmet@belovo.bg",
+      "iisda_id": 4636
+    },
+    "PAZ06": {
+      "email": "kmet@bratsigovo.egov.bg",
+      "iisda_id": 4638
+    },
+    "PAZ08": {
+      "email": "d.buhova@velingrad.bg",
+      "iisda_id": 4640
+    },
+    "PAZ14": {
+      "email": "oba_lesichovo@abv.bg",
+      "iisda_id": 4642
+    },
+    "PAZ19": {
+      "email": "secretary@pazardjik.bg",
+      "iisda_id": 4644
+    },
+    "PAZ20": {
+      "email": "kmet@panagyurishte.bg",
+      "iisda_id": 4646
+    },
+    "PAZ21": {
+      "email": "mayor@peshtera.bg",
+      "iisda_id": 4648
+    },
+    "PAZ24": {
+      "email": "rakitovo@rakitovo.bg",
+      "iisda_id": 4650
+    },
+    "PAZ29": {
+      "email": "municipality@septemvri.org",
+      "iisda_id": 4652
+    },
+    "PAZ32": {
+      "email": "kmet.strelcha@gimail.com",
+      "iisda_id": 4654
+    },
+    "PER08": {
+      "email": "kmet@breznik.egov.bg",
+      "iisda_id": 4656
+    },
+    "PER19": {
+      "email": "obshtina_zemen@abv.bg",
+      "iisda_id": 4658
+    },
+    "PER22": {
+      "email": "oba@kovachevtsi.egov.bg",
+      "iisda_id": 4660
+    },
+    "PER32": {
+      "email": "obshtina@pernik.bg",
+      "iisda_id": 4662
+    },
+    "PER36": {
+      "email": "k.stoev@radomir.bg",
+      "iisda_id": 4664
+    },
+    "PER51": {
+      "email": "cvetislava1976@abv.bg",
+      "iisda_id": 4666
+    },
+    "PVN03": {
+      "email": "obshtinabl@abv.bg",
+      "iisda_id": 4668
+    },
+    "PVN08": {
+      "email": "obshtina_gulianci@mail.bg",
+      "iisda_id": 4670
+    },
+    "PVN10": {
+      "email": "dolnamitropolia@el-soft.com",
+      "iisda_id": 4672
+    },
+    "PVN11": {
+      "email": "dolnidabnik@dolnidabnik.egov.bg",
+      "iisda_id": 4674
+    },
+    "PVN16": {
+      "email": "obshtina@oblevski.egov.bg",
+      "iisda_id": 4676
+    },
+    "PVN21": {
+      "email": "obshtina@nikopol-bg.com",
+      "iisda_id": 4678
+    },
+    "PVN23": {
+      "email": "iskar@iskarbg.bg",
+      "iisda_id": 4680
+    },
+    "PVN24": {
+      "email": "mayor@pleven.bg",
+      "iisda_id": 4682
+    },
+    "PVN27": {
+      "email": "obshtina_pordim@abv.bg",
+      "iisda_id": 4684
+    },
+    "PVN37": {
+      "email": "municipality@chervenbryag.bg",
+      "iisda_id": 4686
+    },
+    "PDV01": {
+      "email": "hristogrudeva5@mail.bg",
+      "iisda_id": 4688
+    },
+    "PDV07": {
+      "email": "kmet@brezovo.bg",
+      "iisda_id": 4690
+    },
+    "PDV12": {
+      "email": "obshtina.kaloyanovo@gmail.com",
+      "iisda_id": 4692
+    },
+    "PDV13": {
+      "email": "kmet@karlovo.bg",
+      "iisda_id": 4694
+    },
+    "PDV15": {
+      "email": "laki@laki.egov.bg",
+      "iisda_id": 4696
+    },
+    "PDV17": {
+      "email": "obshtina@maritsa.bg",
+      "iisda_id": 4698
+    },
+    "PDV22": {
+      "email": "k_dimitrov@plovdiv.bg",
+      "iisda_id": 4700
+    },
+    "PDV23": {
+      "email": "obaparv@parvomai.bg",
+      "iisda_id": 4702
+    },
+    "PDV25": {
+      "email": "gudjerov@gmail.com",
+      "iisda_id": 4704
+    },
+    "PDV26": {
+      "email": "kmet@rodopi.bg",
+      "iisda_id": 4706
+    },
+    "PDV28": {
+      "email": "obsadowo@abv.bg",
+      "iisda_id": 4708
+    },
+    "PDV33": {
+      "email": "oba_saedinenie@abv.bg",
+      "iisda_id": 4710
+    },
+    "PDV37": {
+      "email": "contacts@hisarya.bg",
+      "iisda_id": 4712
+    },
+    "PDV39": {
+      "email": "delovodstvo@krichim.egov.bg",
+      "iisda_id": 4714
+    },
+    "PDV40": {
+      "email": "obshtina@perushtitsa.egov.bg",
+      "iisda_id": 4716
+    },
+    "PDV41": {
+      "email": "obshtina@stamboliyski.egov.bg",
+      "iisda_id": 4718
+    },
+    "RAZ11": {
+      "email": "veliev@zavet-bg.com",
+      "iisda_id": 4720
+    },
+    "RAZ14": {
+      "email": "isperih@isperih.bg",
+      "iisda_id": 4722
+    },
+    "RAZ16": {
+      "email": "m.yordanov@kubrat.org",
+      "iisda_id": 4724
+    },
+    "RAZ17": {
+      "email": "snazim@abv.bg",
+      "iisda_id": 4726
+    },
+    "RAZ26": {
+      "email": "kmet@razgrad.bg",
+      "iisda_id": 4728
+    },
+    "RAZ29": {
+      "email": "kmet@samuil.bg",
+      "iisda_id": 4730
+    },
+    "RAZ36": {
+      "email": "kmet@tsarkaloyan.bg",
+      "iisda_id": 4732
+    },
+    "RSE03": {
+      "email": "borovo@borovo.org",
+      "iisda_id": 4734
+    },
+    "RSE05": {
+      "email": "vetovo@vetovo.bg",
+      "iisda_id": 4738
+    },
+    "RSE08": {
+      "email": "kmet@dvemogili.egov.bg",
+      "iisda_id": 4740
+    },
+    "RSE13": {
+      "email": "obshtina@ivanovo.bg",
+      "iisda_id": 4742
+    },
+    "RSE27": {
+      "email": "mayor@ruse-bg.eu",
+      "iisda_id": 4744
+    },
+    "RSE33": {
+      "email": "slivopole@slivopole.bg",
+      "iisda_id": 4746
+    },
+    "RSE37": {
+      "email": "kmet@tsenovo.bg",
+      "iisda_id": 4748
+    },
+    "SLS01": {
+      "email": "obshtina_alfatar@abv.bg",
+      "iisda_id": 4750
+    },
+    "SLS07": {
+      "email": "obshtina@glavinitsa.bg",
+      "iisda_id": 4752
+    },
+    "SLS10": {
+      "email": "obshtina@dulovo.bg",
+      "iisda_id": 4754
+    },
+    "SLS15": {
+      "email": "mun-kaynardzha@obmen.bg",
+      "iisda_id": 4756
+    },
+    "SLS31": {
+      "email": "mayor@silistra.bg",
+      "iisda_id": 4758
+    },
+    "SLS32": {
+      "email": "sitovo@mail.bg",
+      "iisda_id": 4760
+    },
+    "SLS34": {
+      "email": "tutrakan@b-trust.org",
+      "iisda_id": 4762
+    },
+    "SLV11": {
+      "email": "kmet@kotel.bg",
+      "iisda_id": 4764
+    },
+    "SLV16": {
+      "email": "obshtina@nova-zagora.org",
+      "iisda_id": 4766
+    },
+    "SLV20": {
+      "email": "kmet@sliven.bg",
+      "iisda_id": 4768
+    },
+    "SLV24": {
+      "email": "obshtina@tvarditsa.bg",
+      "iisda_id": 4770
+    },
+    "SML02": {
+      "email": "banite@banite.egov.bg",
+      "iisda_id": 4772
+    },
+    "SML05": {
+      "email": "obshtina@borino.egov.bg",
+      "iisda_id": 4774
+    },
+    "SML09": {
+      "email": "kmet@devin.bg",
+      "iisda_id": 4776
+    },
+    "SML10": {
+      "email": "Obshtina.Dospat@dospat.egov.bg",
+      "iisda_id": 4778
+    },
+    "SML11": {
+      "email": "yanchev.miroslav@gmail.bg",
+      "iisda_id": 4780
+    },
+    "SML16": {
+      "email": "fahri_molaisenov@abv.bg",
+      "iisda_id": 4782
+    },
+    "SML18": {
+      "email": "kmet@nedelino.bg",
+      "iisda_id": 4784
+    },
+    "SML27": {
+      "email": "kmet@rudozem.bg",
+      "iisda_id": 4786
+    },
+    "SML31": {
+      "email": "obshtina@smolyan.egov.bg",
+      "iisda_id": 4788
+    },
+    "SML38": {
+      "email": "mail@chepelare.bg",
+      "iisda_id": 4790
+    },
+    "SOF00": {
+      "email": "sm@sofia.bg",
+      "iisda_id": 4792
+    },
+    "SFO06": {
+      "email": "g.dimov@bozhurishte.bg",
+      "iisda_id": 4794
+    },
+    "SFO07": {
+      "email": "Kmet@botevgrad.org",
+      "iisda_id": 4796
+    },
+    "SFO09": {
+      "email": "obshtina_godech@abv.bg",
+      "iisda_id": 4798
+    },
+    "SFO10": {
+      "email": "gmalina@gornamalina.bg",
+      "iisda_id": 4800
+    },
+    "SFO16": {
+      "email": "obshtina_dragoman@abv.bg",
+      "iisda_id": 4802
+    },
+    "SFO17": {
+      "email": "kmet@elinpelin.bg",
+      "iisda_id": 4804
+    },
+    "SFO18": {
+      "email": "obstina@etropolebg.com",
+      "iisda_id": 4806
+    },
+    "SFO20": {
+      "email": "k.iliev@ihtiman.bg",
+      "iisda_id": 4808
+    },
+    "SFO24": {
+      "email": "m.toromanova@koprivshtitsa.egov.bg",
+      "iisda_id": 4810
+    },
+    "SFO25": {
+      "email": "y.angelov@kostenetz.com",
+      "iisda_id": 4812
+    },
+    "SFO26": {
+      "email": "trayko_mladenov@abv.bg",
+      "iisda_id": 4814
+    },
+    "SFO34": {
+      "email": "kmet@pravets.bg",
+      "iisda_id": 4816
+    },
+    "SFO39": {
+      "email": "samokov@samokov.bg",
+      "iisda_id": 4818
+    },
+    "SFO43": {
+      "email": "kmet@svoge.bg",
+      "iisda_id": 4820
+    },
+    "SFO45": {
+      "email": "vasko.stoilkov@gmail.com",
+      "iisda_id": 4822
+    },
+    "SFO47": {
+      "email": "kao@zlatitsa.bg",
+      "iisda_id": 4824
+    },
+    "SFO54": {
+      "email": "obanton@abv.bg",
+      "iisda_id": 4826
+    },
+    "SFO55": {
+      "email": "obshtina_pirdop05@abv.bg",
+      "iisda_id": 4828
+    },
+    "SFO56": {
+      "email": "info@mirkovo.bg",
+      "iisda_id": 4830
+    },
+    "SFO57": {
+      "email": "obchavdar@abv.bg",
+      "iisda_id": 4832
+    },
+    "SFO58": {
+      "email": "kmet@chelopech.egov.bg",
+      "iisda_id": 4834
+    },
+    "SFO59": {
+      "email": "obshtinadb@abv.bg",
+      "iisda_id": 4836
+    },
+    "SZR04": {
+      "email": "kmet@brdaskalovi.egov.bg",
+      "iisda_id": 4838
+    },
+    "SZR07": {
+      "email": "ntonev1@gmail.com",
+      "iisda_id": 4840
+    },
+    "SZR22": {
+      "email": "obshtina@maglizh.bg",
+      "iisda_id": 4844
+    },
+    "SZR23": {
+      "email": "mayor@opan.bg",
+      "iisda_id": 4846
+    },
+    "SZR24": {
+      "email": "mayor@pavelbanya.bg",
+      "iisda_id": 4848
+    },
+    "SZR27": {
+      "email": "obshtina@radnevo.net",
+      "iisda_id": 4850
+    },
+    "SZR31": {
+      "email": "mayor@starazagora.bg",
+      "iisda_id": 4852
+    },
+    "SZR36": {
+      "email": "kmet@chirpan.bg",
+      "iisda_id": 4854
+    },
+    "SZR37": {
+      "email": "kmet@gurkovo.bg",
+      "iisda_id": 4856
+    },
+    "SZR38": {
+      "email": "obnikolaevo@nikolaevo.net",
+      "iisda_id": 4858
+    },
+    "TGV02": {
+      "email": "ob-antonovo@abv.bg",
+      "iisda_id": 4860
+    },
+    "TGV22": {
+      "email": "obshtina_omurtag@abv.bg",
+      "iisda_id": 4862
+    },
+    "TGV23": {
+      "email": "obstinaopaka@abv.bg",
+      "iisda_id": 4864
+    },
+    "TGV24": {
+      "email": "obstina@popovo.bg",
+      "iisda_id": 4866
+    },
+    "TGV35": {
+      "email": "kmet@targovishte.bg",
+      "iisda_id": 4868
+    },
+    "HKV09": {
+      "email": "kmet@dimitrovgrad.bg",
+      "iisda_id": 4870
+    },
+    "HKV11": {
+      "email": "oba_ivaylovgrad@abv.bg",
+      "iisda_id": 4872
+    },
+    "HKV17": {
+      "email": "oba@lyubimets.bg",
+      "iisda_id": 4874
+    },
+    "HKV18": {
+      "email": "madjarovo@abv.bg",
+      "iisda_id": 4876
+    },
+    "HKV19": {
+      "email": "min_bani@abv.bg",
+      "iisda_id": 4878
+    },
+    "HKV28": {
+      "email": "kmet@svilengrad.bg",
+      "iisda_id": 4880
+    },
+    "HKV29": {
+      "email": "obshtina@simeonovgrad.bg",
+      "iisda_id": 4882
+    },
+    "HKV30": {
+      "email": "kmet@stambolovo.bg",
+      "iisda_id": 4884
+    },
+    "HKV32": {
+      "email": "obshtina@topolovgrad.bg",
+      "iisda_id": 4886
+    },
+    "HKV33": {
+      "email": "obshtina@harmanli.bg",
+      "iisda_id": 4888
+    },
+    "HKV34": {
+      "email": "kmet@haskovo.bg",
+      "iisda_id": 4890
+    },
+    "SHU07": {
+      "email": "kmet@venets.bg",
+      "iisda_id": 4892
+    },
+    "SHU10": {
+      "email": "kmet@varbitsa.bg",
+      "iisda_id": 4894
+    },
+    "SHU11": {
+      "email": "kmet@hitrino.bg",
+      "iisda_id": 4896
+    },
+    "SHU18": {
+      "email": "info@kaolinovo.bg",
+      "iisda_id": 4898
+    },
+    "SHU19": {
+      "email": "kmet@kaspichan.org",
+      "iisda_id": 4900
+    },
+    "SHU21": {
+      "email": "obshtina@nikolakozlevo.bg",
+      "iisda_id": 4902
+    },
+    "SHU22": {
+      "email": "g.georgiev@novipazar.bg",
+      "iisda_id": 4904
+    },
+    "SHU23": {
+      "email": "info@velikipreslav.bg",
+      "iisda_id": 4906
+    },
+    "SHU25": {
+      "email": "obshtina_smiadovo@abv.bg",
+      "iisda_id": 4908
+    },
+    "SHU30": {
+      "email": "mayor@shumen.bg",
+      "iisda_id": 4910
+    },
+    "JAM03": {
+      "email": "obstina@bolyarovo.bg",
+      "iisda_id": 4912
+    },
+    "JAM07": {
+      "email": "kmet@elhovo.bg",
+      "iisda_id": 4914
+    },
+    "JAM22": {
+      "email": "straldjainf@yahoo.com",
+      "iisda_id": 4916
+    },
+    "JAM25": {
+      "email": "contact@tundzha.bg",
+      "iisda_id": 4918
+    },
+    "JAM26": {
+      "email": "kmet@yambol.bg",
+      "iisda_id": 4920
+    }
+  },
+  "note": "Scraped 260 mayor detail pages from iisda's ID range 4400–4950; matched 260 to municipalities.json. 0 unmatched (likely name-ambiguity edge cases — see scrape log)."
 }

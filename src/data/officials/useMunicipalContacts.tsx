@@ -29,12 +29,23 @@ const fetchContacts = async (): Promise<MunicipalContactsFile> => {
   return r.json();
 };
 
+// Sofia's citywide kmet contact is keyed under SOF00 — the 24 районы
+// (S23xx/S24xx/S25xx) share that contact. Mirrors the useIndicators /
+// useSchools fallback pattern.
+const SOFIA_CITY_KEY = "SOF00";
+const isSofiaDistrict = (obshtina: string): boolean =>
+  /^S2[3-5]\d{2}$/i.test(obshtina);
+
 export const useMunicipalContacts = (obshtina?: string | null) => {
   const { data } = useQuery({
     queryKey: ["municipal_contacts"],
     queryFn: fetchContacts,
     staleTime: Infinity,
   });
-  const contact = obshtina ? data?.contactsByObshtina[obshtina] : undefined;
+  if (!obshtina) return { data, contact: undefined };
+  let contact = data?.contactsByObshtina[obshtina];
+  if (!contact && isSofiaDistrict(obshtina)) {
+    contact = data?.contactsByObshtina[SOFIA_CITY_KEY];
+  }
   return { data, contact };
 };
