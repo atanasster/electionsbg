@@ -101,7 +101,14 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
         <Landmark className="size-4 text-primary" />
         <h2 className="text-sm font-semibold">{t("my_area_your_mps")}</h2>
         <span className="text-[11px] text-muted-foreground tabular-nums ml-auto">
-          {rows.length} {t("mps_short")}
+          {rows.length}{" "}
+          {lang === "bg"
+            ? rows.length === 1
+              ? "народен представител"
+              : "народни представители"
+            : rows.length === 1
+              ? "MP"
+              : "MPs"}
         </span>
       </div>
       <div className="flex flex-wrap gap-2">

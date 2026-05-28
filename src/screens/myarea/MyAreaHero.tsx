@@ -28,16 +28,6 @@ type Props = {
   area: ResolvedArea;
 };
 
-const parseLoc = (loc?: string): { lat: number; lon: number } | null => {
-  if (!loc) return null;
-  const [lonStr, latStr] = loc.split(",");
-  if (!lonStr || !latStr) return null;
-  const lat = Number(latStr);
-  const lon = Number(lonStr);
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
-  return { lat, lon };
-};
-
 const formatNumber = (n: number | undefined, lang: "bg" | "en"): string => {
   if (n == null || !Number.isFinite(n)) return "—";
   return n.toLocaleString(lang === "bg" ? "bg-BG" : "en-GB");
@@ -88,8 +78,6 @@ export const MyAreaHero: FC<Props> = ({ area }) => {
       ? regionNameRaw.replace(/\s+област$/u, "").trim()
       : regionNameRaw.replace(/\s+region$/iu, "").trim()
     : null;
-
-  const loc = isSettlement ? parseLoc(area.settlement.loc) : null;
 
   // Per-settlement ГРАО — both current-address and permanent-address
   // headcounts plus the source date. Surfaced here so users see the
@@ -196,13 +184,20 @@ export const MyAreaHero: FC<Props> = ({ area }) => {
     );
   };
 
+  // Compact, single-row hero. The previous version had a three-line
+  // structure (eyebrow + H1 + narrative + a separate ГРАО block + a
+  // lat/lon column) that ate ~30% of the visible viewport on first
+  // paint. We now:
+  //   - drop the "МОЯТ РАЙОН" eyebrow (H1 + breadcrumb already say it)
+  //   - drop the lat/lon column (developer info, not citizen info)
+  //   - inline the breadcrumb narrative directly under the H1
+  //   - render ГРАО as a single chip row beside the narrative on wide
+  //     screens, wrapping below on mobile
   return (
     <Card className="p-4 md:p-5">
-      <div className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-4">
+      <div className="flex items-start gap-3">
+        <MapPin className="size-5 text-primary mt-1 shrink-0" />
         <div className="flex-1 min-w-0">
-          <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">
-            {t("my_area_dashboard")}
-          </div>
           <h1 className="text-2xl md:text-3xl font-bold truncate">
             {isSettlement && settlementType && lang === "bg"
               ? `${settlementType} ${name}`
@@ -211,42 +206,32 @@ export const MyAreaHero: FC<Props> = ({ area }) => {
           <p className="text-sm text-muted-foreground mt-1">
             {renderNarrative()}
           </p>
-          {/* ГРАО registered-population block. Two-row table on the same
-              line so it doesn't push the hero too tall on mobile. */}
           {graoRow ? (
-            <div className="mt-3 text-sm">
-              <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">
+            <div className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs">
+              <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
                 {graoAsOf
                   ? t("grao_tile_heading", { date: graoAsOf })
                   : t("grao_population_label")}
-              </div>
-              <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-6">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-xs text-muted-foreground">
-                    {t("grao_current_address")}
-                  </span>
-                  <span className="font-semibold tabular-nums">
-                    {formatNumber(graoRow.current, lang)}
-                  </span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-xs text-muted-foreground">
-                    {t("grao_permanent_address")}
-                  </span>
-                  <span className="font-semibold tabular-nums">
-                    {formatNumber(graoRow.permanent, lang)}
-                  </span>
-                </div>
-              </div>
+              </span>
+              <span className="flex items-baseline gap-1.5">
+                <span className="text-muted-foreground">
+                  {t("grao_current_address")}
+                </span>
+                <span className="font-semibold tabular-nums">
+                  {formatNumber(graoRow.current, lang)}
+                </span>
+              </span>
+              <span className="flex items-baseline gap-1.5">
+                <span className="text-muted-foreground">
+                  {t("grao_permanent_address")}
+                </span>
+                <span className="font-semibold tabular-nums">
+                  {formatNumber(graoRow.permanent, lang)}
+                </span>
+              </span>
             </div>
           ) : null}
         </div>
-        {loc ? (
-          <div className="flex items-center gap-2 text-xs text-muted-foreground tabular-nums shrink-0">
-            <MapPin className="size-4 text-primary" />
-            {loc.lat.toFixed(3)}°N, {loc.lon.toFixed(3)}°E
-          </div>
-        ) : null}
       </div>
     </Card>
   );

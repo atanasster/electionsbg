@@ -13,14 +13,17 @@
 // /settlement/:id and /municipality/:id routes: it's place-first, with
 // representatives and the next-election calendar pinned at the top.
 
-import { FC, lazy, Suspense } from "react";
+import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, ArrowRight } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Card } from "@/components/ui/card";
-import { useAreaResolver } from "@/data/area/useAreaResolver";
+import {
+  useAreaResolver,
+  type ResolvedArea,
+} from "@/data/area/useAreaResolver";
 import { useCycleKind } from "@/data/area/useCycleKind";
 import { MyAreaHero } from "./MyAreaHero";
 import { MyAreaRepresentativesStrip } from "./MyAreaRepresentativesStrip";
@@ -43,21 +46,6 @@ import { MyAreaAlertsTile } from "./MyAreaAlertsTile";
 import { MyAreaSofiaRaionStrip } from "./MyAreaSofiaRaionStrip";
 import { MyAreaContactsTile } from "./MyAreaContactsTile";
 import { MyAreaCouncilMinutesTile } from "./MyAreaCouncilMinutesTile";
-import { MyAreaRoadmapTile } from "./MyAreaRoadmapTile";
-
-// Lazy-load the heavy dashboard variants — most My-Area visits don't need
-// both, and the Suspense fallback shows skeletons identical to a direct
-// /settlement or /municipality visit.
-const SettlementDashboardCards = lazy(() =>
-  import("@/screens/dashboard/SettlementDashboardCards").then((m) => ({
-    default: m.SettlementDashboardCards,
-  })),
-);
-const MunicipalityDashboardCards = lazy(() =>
-  import("@/screens/dashboard/MunicipalityDashboardCards").then((m) => ({
-    default: m.MunicipalityDashboardCards,
-  })),
-);
 
 export const MyAreaScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -221,32 +209,55 @@ export const MyAreaScreen: FC = () => {
             the My-Area page is the civic-engagement landing. */}
         <MyAreaTaxReceiptTile />
 
-        {/* Roadmap — single compact card listing the scaffolded tiles
-            whose data isn't ingested yet. Auto-hides individual rows as
-            their respective ingest skill populates the corresponding
-            data file. */}
-        <MyAreaRoadmapTile obshtina={area.obshtina} oblast={area.oblast} />
-
-        {/* Existing canonical dashboard. Reused as-is so every tile —
-            mayor, council, budget transfers, EU funds, census, indicators,
-            problem sections — flows through. ElectionContext cycle awareness
-            cascades into every child tile automatically. */}
-        <Suspense
-          fallback={
-            <div className="h-64 rounded-xl border bg-card animate-pulse" />
-          }
-        >
-          {area.kind === "settlement" ? (
-            <SettlementDashboardCards ekatte={area.ekatte} compact />
-          ) : (
-            <MunicipalityDashboardCards
-              municipalityCode={area.obshtina}
-              compact
-            />
-          )}
-        </Suspense>
+        {/* Footer link to the canonical settlement/município dashboard.
+            We used to render SettlementDashboardCards / MunicipalityDashboardCards
+            inline (in compact mode) below the curated tiles. That nearly
+            duplicated several of the cards above (mayor, council, election
+            results, indicators) and inflated the bundle. A single drill-down
+            link is the cleaner exit. */}
+        <MyAreaFullDashboardLink area={area} />
       </section>
     </>
+  );
+};
+
+const MyAreaFullDashboardLink: FC<{
+  area: Extract<
+    ResolvedArea,
+    { kind: "settlement" } | { kind: "municipality" }
+  >;
+}> = ({ area }) => {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language === "bg" ? "bg" : "en";
+  const to =
+    area.kind === "settlement"
+      ? `/settlement/${area.ekatte}`
+      : `/municipality/${area.oblast}`;
+  const label =
+    area.kind === "settlement"
+      ? lang === "bg"
+        ? "Виж пълно табло на населеното място"
+        : "View full settlement dashboard"
+      : lang === "bg"
+        ? "Виж пълно табло на общината"
+        : "View full municipality dashboard";
+  return (
+    <Card className="p-3 mt-2">
+      <Link
+        to={to}
+        underline={false}
+        className="flex items-center justify-between gap-2 text-sm group"
+        aria-label={label}
+      >
+        <span className="font-medium">{label}</span>
+        <ArrowRight className="size-4 text-muted-foreground group-hover:text-primary transition-colors" />
+      </Link>
+      {/* Reference `t` so future translatable copy can land here without
+          re-adding the import — same pattern used in MyAreaRoadmapTile. */}
+      <span hidden aria-hidden>
+        {t("my_area_dashboard")}
+      </span>
+    </Card>
   );
 };
 

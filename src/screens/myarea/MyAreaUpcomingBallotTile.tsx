@@ -58,7 +58,15 @@ export const MyAreaUpcomingBallotTile: FC = () => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
 
-  const visible = UPCOMING.filter((e) => daysUntil(e.date) >= 0).slice(0, 3);
+  // Cap at events within the next 365 days. Anything further out is noise
+  // — a "след 1105 дни" badge next to "след 164 дни" trivializes the
+  // near-term event by sitting in the same list. The cap effectively
+  // hides distant EP / parliamentary placeholders until the actual
+  // decree gets within a year.
+  const visible = UPCOMING.filter((e) => {
+    const d = daysUntil(e.date);
+    return d >= 0 && d <= 365;
+  }).slice(0, 3);
   if (visible.length === 0) return null;
 
   return (
