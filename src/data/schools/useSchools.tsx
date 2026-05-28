@@ -32,12 +32,24 @@ const fetchSchools = async (): Promise<SchoolsFile> => {
   return r.json();
 };
 
+// Sofia районы (S23xx/S24xx/S25xx) have no per-район slice in the schools
+// dataset — МОН publishes Столична община as a single SOF00 aggregate.
+// Fall back from район code to SOF00 so Sofia районы see all Столична
+// schools instead of an empty tile. Same pattern as useIndicators.
+const SOFIA_CITY_KEY = "SOF00";
+const isSofiaDistrict = (obshtina: string): boolean =>
+  /^S2[3-5]\d{2}$/i.test(obshtina);
+
 export const useSchools = (obshtina?: string | null) => {
   const { data } = useQuery({
     queryKey: ["schools"],
     queryFn: fetchSchools,
     staleTime: Infinity,
   });
-  const schools = obshtina ? (data?.schoolsByObshtina[obshtina] ?? []) : [];
+  if (!obshtina) return { data, schools: [] as SchoolRecord[] };
+  let schools = data?.schoolsByObshtina[obshtina] ?? [];
+  if (schools.length === 0 && isSofiaDistrict(obshtina)) {
+    schools = data?.schoolsByObshtina[SOFIA_CITY_KEY] ?? [];
+  }
   return { data, schools };
 };
