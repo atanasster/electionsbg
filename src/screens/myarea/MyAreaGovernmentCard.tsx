@@ -9,15 +9,16 @@
 //   - useLocalMunicipality   →  council party composition (CIK localPartyName + mandatesWon)
 //   - useCanonicalParties    →  canonical party color/name lookup
 
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Crown, ArrowRight, Landmark } from "lucide-react";
+import { Crown, ArrowRight, Landmark, ChevronDown } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/ux/Link";
 import { useMunicipalOfficials } from "@/data/officials/useMunicipalOfficials";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
+import type { LocalCouncilParty } from "@/data/local/types";
 
 type Props = {
   obshtina: string;
@@ -28,9 +29,23 @@ type CouncilSegment = {
   label: string;
   color: string;
   seats: number;
+  party: LocalCouncilParty;
 };
 
-const FALLBACK_COLOR = "#888";
+// Distinguishable shades for council parties that have no canonical color
+// (independents and local coalitions). Cycled in sort order so adjacent
+// unmapped parties never collapse into the same grey blob.
+const UNMAPPED_PALETTE = [
+  "#94A3B8", // slate-400
+  "#A78BFA", // violet-400
+  "#FBBF24", // amber-400
+  "#34D399", // emerald-400
+  "#F472B6", // pink-400
+  "#FB923C", // orange-400
+  "#22D3EE", // cyan-400
+  "#C084FC", // purple-400
+];
+const INDEPENDENT_COLOR = "#6B7280"; // slate-500 — reserved for "Независим"
 
 export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
   const { t, i18n } = useTranslation();
@@ -39,6 +54,7 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
   const { municipality: localBundle } = useLocalMunicipality(obshtina);
   const { displayNameForId, colorFor } = useCanonicalParties();
   const { findMunicipality } = useMunicipalities();
+  const [expanded, setExpanded] = useState(false);
 
   // Mayor + chair + deputy count — same logic as MunicipalMayorTile so the
   // settlement-view detail matches what /municipality/:id shows.
@@ -76,29 +92,66 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
 
   // Council composition as a stacked bar. Each segment is one local
   // party's mandate count (no merges) — but we colour by canonical id so
-  // visually-related parties share a hue.
+  // visually-related parties share a hue. Unmapped local coalitions rotate
+  // through a small palette so adjacent grey segments stay distinguishable.
   const councilSegments = useMemo<CouncilSegment[]>(() => {
     if (!localBundle) return [];
     const parties = localBundle.council
       .filter((p) => p.mandatesWon > 0)
       .sort((a, b) => b.mandatesWon - a.mandatesWon);
+    let unmappedIdx = 0;
     return parties.map((p) => {
       const canonicalId = p.primaryCanonicalId;
       const label =
         (canonicalId ? displayNameForId(canonicalId) : null) ??
         p.localPartyName;
-      const color =
-        (canonicalId ? colorFor(label) : null) ??
-        (p.isIndependent ? "#777" : FALLBACK_COLOR);
+      const canonicalColor = canonicalId ? colorFor(label) : undefined;
+      let color: string;
+      if (canonicalColor) {
+        color = canonicalColor;
+      } else if (p.isIndependent) {
+        color = INDEPENDENT_COLOR;
+      } else {
+        color = UNMAPPED_PALETTE[unmappedIdx % UNMAPPED_PALETTE.length];
+        unmappedIdx++;
+      }
       return {
         key: `${p.localPartyNum}-${p.localPartyName}`,
         label,
         color,
         seats: p.mandatesWon,
+        party: p,
       };
     });
   }, [localBundle, displayNameForId, colorFor]);
   const totalSeats = councilSegments.reduce((s, x) => s + x.seats, 0);
+
+  // Roster index: normalized-name → slug. Lets us link elected councillor /
+  // deputy names in the expanded list to their /officials/<slug> page when
+  // the registry carries a matching declaration.
+  const slugByNormalized = useMemo(() => {
+    const m = new Map<string, string>();
+    if (!roster) return m;
+    for (const e of roster.entries) {
+      if (e.normalizedName) m.set(e.normalizedName, e.slug);
+      m.set(e.name.toLocaleUpperCase("bg"), e.slug);
+    }
+    return m;
+  }, [roster]);
+
+  const deputyMayors = useMemo(() => {
+    if (!roster) return [];
+    return roster.entries.filter(
+      (e) => e.role === "deputy_mayor" && !e.district,
+    );
+  }, [roster]);
+
+  const chiefArchitect = useMemo(() => {
+    if (!roster) return null;
+    return roster.entries.find((e) => e.role === "chief_architect") ?? null;
+  }, [roster]);
+
+  const totalOfficials = roster?.entries.length ?? 0;
 
   // The card auto-hides if the município has no roster *and* no local
   // bundle — both ingests would have to be missing. Otherwise we render
@@ -303,7 +356,7 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
                 ))}
               </div>
               <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px]">
-                {councilSegments.slice(0, 5).map((s) => (
+                {councilSegments.map((s) => (
                   <li key={s.key} className="flex items-center gap-1.5 min-w-0">
                     <span
                       className="size-2 rounded-sm shrink-0"
@@ -317,11 +370,6 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
                     </span>
                   </li>
                 ))}
-                {councilSegments.length > 5 ? (
-                  <li className="text-muted-foreground tabular-nums">
-                    +{councilSegments.length - 5}
-                  </li>
-                ) : null}
               </ul>
             </>
           ) : (
@@ -362,6 +410,142 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
           </div>
         </div>
       </div>
+
+      {totalOfficials > 0 ? (
+        <div className="mt-3 pt-3 border-t">
+          <button
+            type="button"
+            onClick={() => setExpanded((v) => !v)}
+            aria-expanded={expanded}
+            className="flex items-center gap-1 text-[11px] font-medium text-primary hover:underline"
+          >
+            <ChevronDown
+              className={`size-3 transition-transform ${expanded ? "rotate-180" : ""}`}
+            />
+            {expanded
+              ? lang === "bg"
+                ? "Скрий списъка"
+                : "Hide list"
+              : lang === "bg"
+                ? `Виж всички ${totalOfficials} длъжностни лица`
+                : `Show all ${totalOfficials} officials`}
+          </button>
+
+          {expanded ? (
+            <div className="mt-3 grid gap-3 sm:grid-cols-2 text-xs">
+              {deputyMayors.length > 0 ? (
+                <RosterSection
+                  title={lang === "bg" ? "Заместник-кметове" : "Deputy mayors"}
+                  obshtina={obshtina}
+                  entries={deputyMayors.map((e) => ({
+                    name: e.name,
+                    slug: e.slug,
+                  }))}
+                />
+              ) : null}
+              {chiefArchitect ? (
+                <RosterSection
+                  title={lang === "bg" ? "Главен архитект" : "Chief architect"}
+                  obshtina={obshtina}
+                  entries={[
+                    {
+                      name: chiefArchitect.name,
+                      slug: chiefArchitect.slug,
+                    },
+                  ]}
+                />
+              ) : null}
+
+              {councilSegments.length > 0 ? (
+                <div className="sm:col-span-2">
+                  <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1.5">
+                    {lang === "bg" ? "Общински съветници" : "Councillors"}
+                  </div>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    {councilSegments.map((s) => {
+                      const elected = s.party.candidates.filter(
+                        (c) => c.isElected,
+                      );
+                      if (elected.length === 0) return null;
+                      return (
+                        <div key={s.key} className="min-w-0">
+                          <div className="flex items-center gap-1.5 mb-0.5">
+                            <span
+                              className="size-2 rounded-sm shrink-0"
+                              style={{ backgroundColor: s.color }}
+                            />
+                            <span
+                              className="text-[11px] font-medium truncate"
+                              title={s.label}
+                            >
+                              {s.label}
+                            </span>
+                            <span className="text-[10px] tabular-nums text-muted-foreground shrink-0">
+                              {elected.length}
+                            </span>
+                          </div>
+                          <ul className="ml-3.5 space-y-0.5">
+                            {elected.map((c) => {
+                              const slug =
+                                slugByNormalized.get(
+                                  c.name.toLocaleUpperCase("bg"),
+                                ) ?? slugByNormalized.get(c.name);
+                              return (
+                                <li key={c.listPos} className="truncate">
+                                  {slug ? (
+                                    <Link
+                                      to={`/officials/${slug}?from=${obshtina}`}
+                                      underline={false}
+                                      className="hover:underline"
+                                    >
+                                      {c.name}
+                                    </Link>
+                                  ) : (
+                                    <span className="text-muted-foreground">
+                                      {c.name}
+                                    </span>
+                                  )}
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
     </Card>
   );
 };
+
+type RosterEntry = { name: string; slug: string };
+
+const RosterSection: FC<{
+  title: string;
+  obshtina: string;
+  entries: RosterEntry[];
+}> = ({ title, obshtina, entries }) => (
+  <div className="min-w-0">
+    <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">
+      {title}
+    </div>
+    <ul className="space-y-0.5">
+      {entries.map((e) => (
+        <li key={e.slug} className="truncate">
+          <Link
+            to={`/officials/${e.slug}?from=${obshtina}`}
+            underline={false}
+            className="hover:underline"
+          >
+            {e.name}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
