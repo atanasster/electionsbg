@@ -142,6 +142,33 @@ export const MyAreaScreen: FC = () => {
           <MyAreaUpcomingBallotTile />
         </div>
 
+        {/* Band C — Accountability. The freshest, most actionable
+            signals about how the município is governed: recent activity,
+            council minutes, then the trust-signals duo (LISI score +
+            contacts). Promoted above the local-government block because
+            "what's happening" beats "who's in charge" for return visits. */}
+
+        {/* "Recent activity" simulated feed — materialized from existing
+            per-município data (procurement, EU funds, capital programmes,
+            local-election cycle, and plenary debates that mention this
+            município). V1 substitute for email alerts until auth ships. */}
+        <MyAreaAlertsTile obshtina={area.obshtina} />
+
+        {/* Council minutes — AI-summarised digest of what the общински
+            съвет is voting on. MyTownView pattern. Auto-hides until
+            update-council-minutes populates the data file. */}
+        <MyAreaCouncilMinutesTile obshtina={area.obshtina} />
+
+        {/* Transparency + Contacts duo. Both auto-hide independently when
+            their respective data is unavailable; the grid wrapper collapses
+            with them so we don't reserve dead space. */}
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+          <MyAreaTransparencyTile obshtina={area.obshtina} />
+          <MyAreaContactsTile obshtina={area.obshtina} />
+        </div>
+
+        {/* Band D — Local government. */}
+
         {/* Kметство (sub-municipal village mayor) only renders when the
             resolved area is a settlement AND that settlement appears in the
             município's kmetstva[]. Auto-hides otherwise so most settlements
@@ -165,7 +192,10 @@ export const MyAreaScreen: FC = () => {
 
             The heading line above the block names the município and
             links to its dedicated page so the user knows which place
-            the data describes, with a one-click drill-up. */}
+            the data describes, with a one-click drill-up.
+
+            Phase 5 of the my-area redesign will collapse this 3-tile
+            block into a single compact card. */}
         {area.kind === "settlement" ? (
           <>
             <MyAreaMuniSectionHeading obshtina={area.obshtina} />
@@ -177,45 +207,26 @@ export const MyAreaScreen: FC = () => {
           </>
         ) : null}
 
-        {/* TI-BG Local Integrity System Index — composite + 9-pillar
-            municipal transparency score from transparency-bg.org. Renders
-            nothing while data is missing (see scripts/transparency/). */}
-        <MyAreaTransparencyTile obshtina={area.obshtina} />
+        {/* Band E — Money. Tax receipt (national budget COFOG split for
+            this user's personal income tax) sits next to the EU-funded
+            projects map on wide screens — both answer "where does the
+            money around me go". TaxReceiptTile stays collapsed-by-default
+            so the ~30 KB COFOG payload only loads when the user engages;
+            ProjectsMapTile is collapsed-by-default for the same reason
+            with the much heavier Leaflet chunk. */}
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+          <MyAreaTaxReceiptTile />
+          <MyAreaProjectsMapTile obshtina={area.obshtina} />
+        </div>
 
-        {/* Municipal contacts (phone / email / website / address) —
-            auto-hides until update-municipal-contacts populates the data. */}
-        <MyAreaContactsTile obshtina={area.obshtina} />
-
-        {/* Council minutes — AI-summarised digest of what the общински
-            съвет is voting on. MyTownView pattern. Auto-hides until
-            update-council-minutes populates the data file. */}
-        <MyAreaCouncilMinutesTile obshtina={area.obshtina} />
-
-        {/* "Recent activity" simulated feed — materialized from existing
-            per-município data (procurement, EU funds, capital programmes,
-            local-election cycle, and plenary debates that mention this
-            município). V1 substitute for email alerts until auth ships. */}
-        <MyAreaAlertsTile obshtina={area.obshtina} />
-
-        {/* EU-funded projects map — geocoded contracts as Leaflet pins,
-            OSM tiles. Collapsed by default; expanding the tile lazy-loads
-            the Leaflet chunk (~150 KB gz) and the slim per-município geo
-            JSON. Auto-hides when no geocoded contracts are available. */}
-        <MyAreaProjectsMapTile obshtina={area.obshtina} />
-
-        {/* Scaffolded tiles for Phases 6/7/8/9 — all auto-hide until the
-            corresponding ingest skill populates their data file. See the
-            respective scripts/<source>/README.md for the planned scrape. */}
+        {/* Band F — Quality of life. Scaffolded tiles for Phases 6/7/8/9 —
+            all auto-hide until the corresponding ingest skill populates
+            their data file. Phase 7 of the my-area redesign will collapse
+            this 4-tile sequence into a single 4-up summary strip. */}
         <MyAreaSchoolsTile obshtina={area.obshtina} />
         <MyAreaServicesTile obshtina={area.obshtina} />
         <MyAreaAirTile obshtina={area.obshtina} />
         <MyAreaCrimeTile oblast={area.oblast} />
-
-        {/* "Where do my taxes go" personalized receipt. Collapsed by
-            default — the COFOG payload only fetches when the user expands.
-            Same for every area (national budget mix); placed here because
-            the My-Area page is the civic-engagement landing. */}
-        <MyAreaTaxReceiptTile />
 
         {/* Footer link to the canonical settlement/município dashboard.
             We used to render SettlementDashboardCards / MunicipalityDashboardCards
