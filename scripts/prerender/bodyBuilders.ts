@@ -921,11 +921,45 @@ export const buildSettlementBody = (input: SettlementBodyInput): string => {
   parts.push(
     `<p>Резултати на парламентарните избори в България в ${escapeHtml(placeLabel)} — гласуване по партии, преференции, машинно и хартиено гласуване, отклонения по секции.</p>`,
   );
+  // Note: buildMyAreaBody (below) targets the same EKATTE from a different
+  // angle — see comments there for the framing split between the two pages.
   const navLinks: string[] = [
     `<a href="${SITE_URL}/sections/${ekatte}">Секции в ${escapeHtml(settlement)}</a>`,
     `<a href="${SITE_URL}/sections/${ekatte}/parties">Партии</a>`,
     `<a href="${SITE_URL}/sections/${ekatte}/preferences">Преференции</a>`,
     `<a href="${SITE_URL}/sections/${ekatte}/recount">Повторно преброяване</a>`,
+  ];
+  if (oblastCode && oblastName) {
+    navLinks.unshift(
+      `<a href="${SITE_URL}/municipality/${oblastCode}">обл. ${escapeHtml(oblastName)}</a>`,
+    );
+  }
+  parts.push(`<p>${navLinks.join(" · ")}</p>`);
+  return parts.join("\n");
+};
+
+// ------------------------------------------------------------------
+// My-Area settlement body — same EKATTE input as buildSettlementBody but
+// the indexable HTML emphasises the "everything about your place"
+// framing (mayor, council, budget, EU funds, census) rather than the
+// election-by-section framing. Two doors into the same dashboard data;
+// crawlers see distinct titles + descriptions and can rank each on its
+// own intent.
+// ------------------------------------------------------------------
+
+export const buildMyAreaBody = (input: SettlementBodyInput): string => {
+  const { ekatte, settlement, oblastName, oblastCode } = input;
+  const placeLabel = oblastName
+    ? `${settlement}, обл. ${oblastName}`
+    : settlement;
+  const parts: string[] = [];
+  parts.push(`<h1>Моят район — ${escapeHtml(placeLabel)}</h1>`);
+  parts.push(
+    `<p>Обобщено табло за ${escapeHtml(placeLabel)}: народни представители за многомандатния избирателен район, кмет и общински съвет, общинско финансиране (Чл. 53), капиталови програми, проекти финансирани от еврофондовете, обществени поръчки, преброяване 2021 и регистрирано население по ГРАО.</p>`,
+  );
+  const navLinks: string[] = [
+    `<a href="${SITE_URL}/sections/${ekatte}">Секции и резултати в ${escapeHtml(settlement)}</a>`,
+    `<a href="${SITE_URL}/settlement/${ekatte}">Партии</a>`,
   ];
   if (oblastCode && oblastName) {
     navLinks.unshift(

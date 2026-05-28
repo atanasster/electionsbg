@@ -32,6 +32,7 @@ import {
   buildSectionBody,
   buildSectionsListBody,
   buildSettlementBody,
+  buildMyAreaBody,
   formatElectionDateEn,
 } from "./bodyBuilders";
 import { buildArticleRoutes } from "./articleRoutes";
@@ -320,6 +321,86 @@ export const buildSettlementRoutes = (
           oblastName,
           oblastCode: s.oblast,
         }),
+        jsonLd: [
+          buildWebPageLd({ title, description, url }),
+          buildBreadcrumbLd(breadcrumb),
+        ],
+      });
+    }
+  }
+  return result;
+};
+
+// /my-area/{ekatte} — the personalized "My Area" dashboard's settlement
+// landing page. Prerendered so each of the ~5,000 settlements gets indexable
+// HTML with its own <title>, <meta description>, and OG card. Only settlement
+// pages prerender — the município variant is reachable from the search
+// index already (via /municipality/{obshtina}) and the file count would
+// otherwise grow uncontrollably (we're below the Firebase 453k ceiling and
+// want to stay there).
+//
+// SEO body emphasises the "everything about this place" framing rather than
+// the election-by-section framing of buildSettlementRoutes — same data,
+// different door, so crawlers can index both.
+export const buildMyAreaRoutes = (
+  publicFolder: string,
+  latestElection: string,
+  oblastNames: Map<string, string>,
+): PrerenderRoute[] => {
+  const byDir = path.join(publicFolder, latestElection, "settlements", "by");
+  if (!fs.existsSync(byDir)) return [];
+  const files = fs.readdirSync(byDir).filter((f) => f.endsWith(".json"));
+  const seen = new Set<string>();
+  const result: PrerenderRoute[] = [];
+  for (const f of files) {
+    const raw = fs.readFileSync(path.join(byDir, f), "utf-8");
+    let bundle: SettlementBundleEntry[];
+    try {
+      bundle = JSON.parse(raw);
+    } catch {
+      continue;
+    }
+    for (const s of bundle) {
+      if (!s.ekatte || seen.has(s.ekatte)) continue;
+      seen.add(s.ekatte);
+      const fullName = `${s.t_v_m ? s.t_v_m + " " : ""}${s.name ?? ""}`.trim();
+      const oblastName = s.oblast ? oblastNames.get(s.oblast) : undefined;
+      const labelWithOblast = oblastName
+        ? `${fullName}, обл. ${oblastName}`
+        : fullName;
+      const url = `${SITE_URL}/my-area/${s.ekatte}`;
+      const title = `Моят район — ${labelWithOblast} | electionsbg.com`;
+      const description = `Обобщено табло за ${labelWithOblast}: народни представители, кмет и общински съвет, бюджет, еврофондове, преброяване и още — всичко за вашия район на едно място.`;
+      const breadcrumb = oblastName
+        ? [
+            { name: "Начало", url: `${SITE_URL}/` },
+            { name: "Моят район", url: `${SITE_URL}/my-area` },
+            {
+              name: `Област ${oblastName}`,
+              url: `${SITE_URL}/municipality/${s.oblast}`,
+            },
+            { name: fullName, url },
+          ]
+        : [
+            { name: "Начало", url: `${SITE_URL}/` },
+            { name: "Моят район", url: `${SITE_URL}/my-area` },
+            { name: fullName, url },
+          ];
+      // The body emphasises the My-Area framing — what a citizen can do at
+      // this URL — rather than the election-results framing of the
+      // /settlement/ variant. Both pages link to the same underlying tiles
+      // via the dashboard React render.
+      const bodyHtml = buildMyAreaBody({
+        ekatte: s.ekatte,
+        settlement: fullName,
+        oblastName,
+        oblastCode: s.oblast,
+      });
+      result.push({
+        path: `my-area/${s.ekatte}`,
+        title,
+        description,
+        bodyHtml,
         jsonLd: [
           buildWebPageLd({ title, description, url }),
           buildBreadcrumbLd(breadcrumb),
@@ -2435,6 +2516,7 @@ export const buildDynamicRoutes = async (
     ...oblastRoutes,
     ...buildOblastSubTabRoutes(regions, oblastParents),
     ...buildSettlementRoutes(publicFolder, latest, oblastNames),
+    ...buildMyAreaRoutes(publicFolder, latest, oblastNames),
     ...buildSectionsListRoutes(publicFolder, latest, oblastNames),
     ...buildSectionRoutes(publicFolder, latest, oblastNames),
     ...candidateRoutes,

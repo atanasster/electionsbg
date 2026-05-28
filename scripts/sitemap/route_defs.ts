@@ -249,6 +249,14 @@ export const routeDefs = (year: string): RouteDefs => [
     path: "settlement/:id",
     file: `settlements`,
   },
+  // /my-area/:ekatte mirrors /settlement/:ekatte at the same grain but
+  // surfaces the personalized-dashboard framing. Indexed alongside so
+  // crawlers see both doors; the rel=canonical inside each variant keeps
+  // them from competing for the same query.
+  {
+    path: "my-area/:id",
+    file: `settlements`,
+  },
   { path: "sections/:id", file: `sections-by-ekatte` },
   { path: "section/:id", file: `sections-index` },
   { path: "financing", file: `data/${year}/parties/financing.json` },
