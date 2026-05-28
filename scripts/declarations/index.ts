@@ -26,6 +26,7 @@ import {
   reEnrichCompaniesIndex,
 } from "./build_company_index";
 import { integrateTr } from "./tr/integrate";
+import { buildCompanyConnections } from "./tr/build_company_connections";
 import { buildConnectionsGraph } from "./build_connections_graph";
 import { buildOfficialsCompanyLinks } from "./build_officials_company_links";
 import { buildOfficialsConnections } from "./build_officials_connections";
@@ -277,6 +278,12 @@ export const parseFinancialDeclarations = async ({
   // graph surfaces non-MP co-officers (the "spatial" payoff). Phase 2.5 folds
   // officials in as first-class nodes from the cross-reference above.
   buildConnectionsGraph({ publicFolder, rawFolder: dataFolder, stringify });
+
+  // Phase 7: per-EIK Commerce-Registry connections to people in power,
+  // consumed by the /company/:eik page. Reads state.sqlite + the just-
+  // refreshed connections-search.json + officials indexes. Skips with a
+  // warning if state.sqlite is absent (same contract as integrateTr).
+  buildCompanyConnections();
 
   // Second-pass HQ resolution — now that `tr.seat` is on every TR-enriched
   // entry, fall back to it for companies with no declared office string.

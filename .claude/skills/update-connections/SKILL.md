@@ -66,6 +66,7 @@ All under `public/parliament/`:
 | `mp-connections/{mpId}.json` × ~600 | ~4.2 MB total (median ~1.8 KB / max ~190 KB raw) | Per-MP 1-hop + co-officer-2-hop subgraph. Loaded on each candidate page (`MpConnectionsMini`). MPs with no neighbourhood get no file (fetch 404 → component renders nothing). |
 | `connections-rankings.json` | 791 KB / 74 KB / 55 KB | Top-MPs / top-companies for the dashboard tile + `/connections` rankings card. **Loaded on every dashboard view** — keep it lean. |
 | `companies-by-ekatte/{ekatte}-summary.json` × ~97 + `{ekatte}-page-NNN.json` paginated (50 companies / page) + `index.json` | ~1 MB total | Per-settlement shards backing the "Companies HQ'd here (MP-linked)" tile on settlement and Sofia capital pages, and the paginated detail screen at `/settlement/:id/companies` (or `/sofia/companies`). Sofia (`68134`) is the only place that needs >1 page today (7). Built from `companies-index.json`'s `ekatteHQ[]` field by `scripts/parliament/build_companies_by_settlement.ts`, after the connections-graph pass populates `mpRoles`. |
+| `company-connections/{eik}.json` × ~6,900 (gitignored — `data/parliament/`) + `company-connections-stats.json` | ~25 MB total / 350 B | Per-EIK Commerce-Registry connections to people in power — read by `/company/:eik`. Lists the company's officers who personally hold public office (direct) and politicians reached one company-hop away (bridged). Built by `scripts/declarations/tr/build_company_connections.ts` from `state.sqlite` + `connections-search.json` + the executive & municipal officials indexes. The per-EIK dir is a regenerable build artifact (uploaded via `bucket:sync`); the stats summary IS committed. |
 
 The four aggregate files at the bottom are **regenerated end-to-end on every run** of phases 2/5/6. The per-MP declaration files are append-only (one file per MP id; rewriting one file does not affect others).
 
@@ -98,9 +99,16 @@ public/parliament/declarations/         [Phase 4] state.sqlite
               connections.json
               mp-connections/{mpId}.json
               connections-rankings.json
+              connections-search.json ──┐
+                                        │
+                  [Phase 7] buildCompanyConnections (+ state.sqlite
+                            + officials + officials/municipal indexes)
+                                        ▼
+                                  company-connections/{eik}.json
+                                  company-connections-stats.json
 ```
 
-Phases 1, 2, 5, 6 chain inside `parseFinancialDeclarations` (`scripts/declarations/index.ts:244-255`). Phases 3, 4 are kept out of `npm run prod` because they take 30-60 min and produce a 12 GB intermediate.
+Phases 1, 2, 5, 6, 7 chain inside `parseFinancialDeclarations` (`scripts/declarations/index.ts`). Phase 7 skips with a warning when `raw_data/tr/state.sqlite` is absent — same graceful-degradation contract as phases 5 and 6. Phases 3, 4 are kept out of `npm run prod` because they take 30-60 min and produce a 12 GB intermediate.
 
 ## TR refresh playbook
 
@@ -166,7 +174,8 @@ When a new filing season opens (typically May for prior fiscal year):
    ```bash
    git add public/parliament/declarations public/parliament/companies-index.json \
            public/parliament/mp-management public/parliament/connections.json \
-           public/parliament/mp-connections public/parliament/connections-rankings.json
+           public/parliament/mp-connections public/parliament/connections-rankings.json \
+           data/parliament/company-connections-stats.json
    git commit -m "Refresh declarations for 2026 filing year"
    ```
 
@@ -380,6 +389,7 @@ For the TR side, `--limit N` on `--reconstruct` replays only the first N days (s
 | `scripts/declarations/tr/cli.ts` | Phase 3 + 4 entry. Bulk + incremental + reconstruct subcommands. |
 | `scripts/declarations/tr/integrate.ts` | Phase 5. Joins TR SQLite into companies-index + emits mp-management/. |
 | `scripts/declarations/build_connections_graph.ts` | Phase 6. Builds graph + per-MP neighbourhoods + rankings. Defines `nsFoldersForMp` backfill. |
+| `scripts/declarations/tr/build_company_connections.ts` | Phase 7. Per-EIK company → people-in-power connections (direct officers + one-hop bridges) consumed by `/company/:eik`. Standalone via `npm run tr:build-company-connections`; also chained from `parseFinancialDeclarations` after phase 6. |
 | `src/data/parliament/useCompanyIndex.tsx` | React Query hook for companies-index. Defines `CompanyIndexStake` mirror. |
 | `src/data/parliament/useConnectionsGraph.tsx` | RQ hook for connections.json. |
 | `src/data/parliament/useConnectionsRankings.tsx` | RQ hook for rankings (dashboard tile). |

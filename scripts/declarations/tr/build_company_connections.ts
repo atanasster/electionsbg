@@ -288,7 +288,16 @@ type CompanyFile = {
   truncated: boolean;
 };
 
-const main = (): void => {
+export const buildCompanyConnections = (): void => {
+  // Graceful degradation when the TR SQLite hasn't been reconstructed yet —
+  // matches the same behaviour `integrateTr` and `buildConnectionsGraph` have.
+  // Keeps `npm run data -- --declarations` working on a fresh clone.
+  if (!fs.existsSync(SQLITE_PATH)) {
+    console.warn(
+      `[company-connections] ${SQLITE_PATH} not found — skipping (run the TR reconstruct first).`,
+    );
+    return;
+  }
   console.log("[company-connections] loading power people…");
   const { byName: powerByName, counts: powerCounts } = buildPowerPeople();
   console.log(
@@ -426,4 +435,9 @@ const main = (): void => {
   );
 };
 
-main();
+// CLI entry point — also exported for the `--declarations` chain in
+// scripts/declarations/index.ts (Phase 7), where this is called after
+// buildConnectionsGraph has refreshed connections-search.json.
+if (import.meta.url === `file://${process.argv[1]}`) {
+  buildCompanyConnections();
+}
