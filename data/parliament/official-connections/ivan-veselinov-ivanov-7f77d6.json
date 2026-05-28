@@ -1,1 +1,233 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:ivan-veselinov-ivanov-7f77d6","nodes":[{"id":"official:ivan-veselinov-ivanov-7f77d6","type":"official","slug":"ivan-veselinov-ivanov-7f77d6","label":"Иван Веселинов Иванов","tier":"municipal","role":"councillor","municipality":"Тервел"},{"id":"company:tr:206031556","type":"company","label":"ПРЕСТИЖ - 94260","slug":null,"uic":"206031556","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206251709","type":"company","label":"Иванови Фадели","slug":null,"uic":"206251709","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205762992","type":"company","label":"КОРЕКТ 9194","slug":null,"uic":"205762992","legalForm":null,"status":null,"seat":null},{"id":"company:tr:204027484","type":"company","label":"КАЛАТА МАШИН","slug":null,"uic":"204027484","legalForm":null,"status":null,"seat":null},{"id":"company:tr:208819263","type":"company","label":"ТАНДЕМ АГРО 88","slug":null,"uic":"208819263","legalForm":null,"status":null,"seat":null},{"id":"person:НЕЛИ ВЕСЛИНОВА ИВАНОВА","type":"person","label":"Нели Веслинова Иванова"},{"id":"person:НЕЛИ ВЕСЕЛИНОВА ИВАНОВА","type":"person","label":"Нели Веселинова Иванова"},{"id":"person:ДАМЯН ЯНКОВ ДИМОВ","type":"person","label":"Дамян Янков Димов"},{"id":"person:СВЕТОСЛАВ СТОЯНОВ ПАСКАЛЕВ","type":"person","label":"Светослав Стоянов Паскалев"},{"id":"person:ВАЛЕНТИН ДИМИТРОВ ЛЕНКОВ","type":"person","label":"Валентин Димитров Ленков"},{"id":"person:ВАЛЕНТИН ПЕТРОВ ПЕТРОВ","type":"person","label":"Валентин Петров Петров"}],"edges":[{"source":"official:ivan-veselinov-ivanov-7f77d6","target":"company:tr:206031556","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-veselinov-ivanov-7f77d6","target":"company:tr:206251709","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-veselinov-ivanov-7f77d6","target":"company:tr:206251709","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-veselinov-ivanov-7f77d6","target":"company:tr:205762992","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-veselinov-ivanov-7f77d6","target":"company:tr:205762992","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-veselinov-ivanov-7f77d6","target":"company:tr:204027484","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-veselinov-ivanov-7f77d6","target":"company:tr:208819263","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-veselinov-ivanov-7f77d6","target":"company:tr:208819263","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-veselinov-ivanov-7f77d6","target":"company:tr:206031556","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:НЕЛИ ВЕСЛИНОВА ИВАНОВА","target":"company:tr:206251709","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИ ВЕСЕЛИНОВА ИВАНОВА","target":"company:tr:206251709","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДАМЯН ЯНКОВ ДИМОВ","target":"company:tr:205762992","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ СТОЯНОВ ПАСКАЛЕВ","target":"company:tr:205762992","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ СТОЯНОВ ПАСКАЛЕВ","target":"company:tr:205762992","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ДИМИТРОВ ЛЕНКОВ","target":"company:tr:204027484","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ДИМИТРОВ ЛЕНКОВ","target":"company:tr:204027484","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ПЕТРОВ ПЕТРОВ","target":"company:tr:208819263","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:ivan-veselinov-ivanov-7f77d6",
+  "nodes": [
+    {
+      "id": "official:ivan-veselinov-ivanov-7f77d6",
+      "type": "official",
+      "slug": "ivan-veselinov-ivanov-7f77d6",
+      "label": "Иван Веселинов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тервел"
+    },
+    {
+      "id": "company:tr:206031556",
+      "type": "company",
+      "label": "ПРЕСТИЖ - 94260",
+      "slug": null,
+      "uic": "206031556",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206251709",
+      "type": "company",
+      "label": "Иванови Фадели",
+      "slug": null,
+      "uic": "206251709",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205762992",
+      "type": "company",
+      "label": "КОРЕКТ 9194",
+      "slug": null,
+      "uic": "205762992",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204027484",
+      "type": "company",
+      "label": "КАЛАТА МАШИН",
+      "slug": null,
+      "uic": "204027484",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208819263",
+      "type": "company",
+      "label": "ТАНДЕМ АГРО 88",
+      "slug": null,
+      "uic": "208819263",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕЛИ ВЕСЛИНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Нели Веслинова Иванова"
+    },
+    {
+      "id": "person:НЕЛИ ВЕСЕЛИНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Нели Веселинова Иванова"
+    },
+    {
+      "id": "person:ДАМЯН ЯНКОВ ДИМОВ",
+      "type": "person",
+      "label": "Дамян Янков Димов"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ СТОЯНОВ ПАСКАЛЕВ",
+      "type": "person",
+      "label": "Светослав Стоянов Паскалев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ДИМИТРОВ ЛЕНКОВ",
+      "type": "person",
+      "label": "Валентин Димитров Ленков"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Валентин Петров Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-veselinov-ivanov-7f77d6",
+      "target": "company:tr:206031556",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-veselinov-ivanov-7f77d6",
+      "target": "company:tr:206251709",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-veselinov-ivanov-7f77d6",
+      "target": "company:tr:206251709",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-veselinov-ivanov-7f77d6",
+      "target": "company:tr:205762992",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-veselinov-ivanov-7f77d6",
+      "target": "company:tr:205762992",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-veselinov-ivanov-7f77d6",
+      "target": "company:tr:204027484",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-veselinov-ivanov-7f77d6",
+      "target": "company:tr:208819263",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-veselinov-ivanov-7f77d6",
+      "target": "company:tr:208819263",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-veselinov-ivanov-7f77d6",
+      "target": "company:tr:206031556",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕЛИ ВЕСЛИНОВА ИВАНОВА",
+      "target": "company:tr:206251709",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ВЕСЕЛИНОВА ИВАНОВА",
+      "target": "company:tr:206251709",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАМЯН ЯНКОВ ДИМОВ",
+      "target": "company:tr:205762992",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ СТОЯНОВ ПАСКАЛЕВ",
+      "target": "company:tr:205762992",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ СТОЯНОВ ПАСКАЛЕВ",
+      "target": "company:tr:205762992",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ДИМИТРОВ ЛЕНКОВ",
+      "target": "company:tr:204027484",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ДИМИТРОВ ЛЕНКОВ",
+      "target": "company:tr:204027484",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:208819263",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

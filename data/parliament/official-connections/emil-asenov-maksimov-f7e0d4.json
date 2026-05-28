@@ -1,1 +1,118 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:emil-asenov-maksimov-f7e0d4","nodes":[{"id":"official:emil-asenov-maksimov-f7e0d4","type":"official","slug":"emil-asenov-maksimov-f7e0d4","label":"Емил Асенов Максимов","tier":"municipal","role":"councillor","municipality":"Тетевен"},{"id":"company:tr:110032086","type":"company","label":"Камакс ООД","slug":null,"uic":"110032086","legalForm":null,"status":null,"seat":null},{"id":"company:tr:110524283","type":"company","label":"Трейдмакс ООД","slug":null,"uic":"110524283","legalForm":null,"status":null,"seat":null},{"id":"company:tr:110553356","type":"company","label":"Турмакс ООД","slug":null,"uic":"110553356","legalForm":null,"status":null,"seat":null},{"id":"person:КАРЕЛ ПЕЛЦАРСКИ","type":"person","label":"Карел Пелцарски"},{"id":"person:АСЕН ЕМИЛОВ МАКСИМОВ","type":"person","label":"Асен Емилов Максимов"},{"id":"person:ПАВЕЛ ХАВЛИЧЕК КУБА","type":"person","label":"Павел Хавличек Куба"}],"edges":[{"source":"official:emil-asenov-maksimov-f7e0d4","target":"company:tr:110032086","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:emil-asenov-maksimov-f7e0d4","target":"company:tr:110524283","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:emil-asenov-maksimov-f7e0d4","target":"company:tr:110553356","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:emil-asenov-maksimov-f7e0d4","target":"company:tr:110032086","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:КАРЕЛ ПЕЛЦАРСКИ","target":"company:tr:110032086","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН ЕМИЛОВ МАКСИМОВ","target":"company:tr:110032086","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ ХАВЛИЧЕК КУБА","target":"company:tr:110032086","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:emil-asenov-maksimov-f7e0d4",
+  "nodes": [
+    {
+      "id": "official:emil-asenov-maksimov-f7e0d4",
+      "type": "official",
+      "slug": "emil-asenov-maksimov-f7e0d4",
+      "label": "Емил Асенов Максимов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тетевен"
+    },
+    {
+      "id": "company:tr:110032086",
+      "type": "company",
+      "label": "Камакс ООД",
+      "slug": null,
+      "uic": "110032086",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:110524283",
+      "type": "company",
+      "label": "Трейдмакс ООД",
+      "slug": null,
+      "uic": "110524283",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:110553356",
+      "type": "company",
+      "label": "Турмакс ООД",
+      "slug": null,
+      "uic": "110553356",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАРЕЛ ПЕЛЦАРСКИ",
+      "type": "person",
+      "label": "Карел Пелцарски"
+    },
+    {
+      "id": "person:АСЕН ЕМИЛОВ МАКСИМОВ",
+      "type": "person",
+      "label": "Асен Емилов Максимов"
+    },
+    {
+      "id": "person:ПАВЕЛ ХАВЛИЧЕК КУБА",
+      "type": "person",
+      "label": "Павел Хавличек Куба"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-asenov-maksimov-f7e0d4",
+      "target": "company:tr:110032086",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emil-asenov-maksimov-f7e0d4",
+      "target": "company:tr:110524283",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emil-asenov-maksimov-f7e0d4",
+      "target": "company:tr:110553356",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emil-asenov-maksimov-f7e0d4",
+      "target": "company:tr:110032086",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАРЕЛ ПЕЛЦАРСКИ",
+      "target": "company:tr:110032086",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ЕМИЛОВ МАКСИМОВ",
+      "target": "company:tr:110032086",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ХАВЛИЧЕК КУБА",
+      "target": "company:tr:110032086",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

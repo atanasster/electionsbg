@@ -1,1 +1,95 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:sashko-mihailov-vezenkov-5aef04","nodes":[{"id":"official:sashko-mihailov-vezenkov-5aef04","type":"official","slug":"sashko-mihailov-vezenkov-5aef04","label":"Сашко Михайлов Везенков","tier":"municipal","role":"councillor","municipality":"Ботевград"},{"id":"company:tr:121746417","type":"company","label":"ПРОФЕСИОНАЛЕН БАСКЕТБОЛЕН КЛУБ АКАДЕМИК","slug":null,"uic":"121746417","legalForm":null,"status":null,"seat":null},{"id":"company:tr:130969084","type":"company","label":"АГЕНЦИЯ ЗА МЕНИДЖМЪНТ И РЕКЛАМА В СПОРТА","slug":null,"uic":"130969084","legalForm":null,"status":null,"seat":null},{"id":"person:ПРЕСЛАВ ПЛАМЕНОВ ПЕШЕВ","type":"person","label":"Преслав Пламенов Пешев"},{"id":"person:ЮЛИЙ НИКОЛОВ БЕЛЕВ","type":"person","label":"Юлий Николов Белев"}],"edges":[{"source":"official:sashko-mihailov-vezenkov-5aef04","target":"company:tr:121746417","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:sashko-mihailov-vezenkov-5aef04","target":"company:tr:130969084","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ПРЕСЛАВ ПЛАМЕНОВ ПЕШЕВ","target":"company:tr:121746417","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИЙ НИКОЛОВ БЕЛЕВ","target":"company:tr:121746417","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИЙ НИКОЛОВ БЕЛЕВ","target":"company:tr:130969084","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПРЕСЛАВ ПЛАМЕНОВ ПЕШЕВ","target":"company:tr:130969084","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:sashko-mihailov-vezenkov-5aef04",
+  "nodes": [
+    {
+      "id": "official:sashko-mihailov-vezenkov-5aef04",
+      "type": "official",
+      "slug": "sashko-mihailov-vezenkov-5aef04",
+      "label": "Сашко Михайлов Везенков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ботевград"
+    },
+    {
+      "id": "company:tr:121746417",
+      "type": "company",
+      "label": "ПРОФЕСИОНАЛЕН БАСКЕТБОЛЕН КЛУБ АКАДЕМИК",
+      "slug": null,
+      "uic": "121746417",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:130969084",
+      "type": "company",
+      "label": "АГЕНЦИЯ ЗА МЕНИДЖМЪНТ И РЕКЛАМА В СПОРТА",
+      "slug": null,
+      "uic": "130969084",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПРЕСЛАВ ПЛАМЕНОВ ПЕШЕВ",
+      "type": "person",
+      "label": "Преслав Пламенов Пешев"
+    },
+    {
+      "id": "person:ЮЛИЙ НИКОЛОВ БЕЛЕВ",
+      "type": "person",
+      "label": "Юлий Николов Белев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sashko-mihailov-vezenkov-5aef04",
+      "target": "company:tr:121746417",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:sashko-mihailov-vezenkov-5aef04",
+      "target": "company:tr:130969084",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПРЕСЛАВ ПЛАМЕНОВ ПЕШЕВ",
+      "target": "company:tr:121746417",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЙ НИКОЛОВ БЕЛЕВ",
+      "target": "company:tr:121746417",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЙ НИКОЛОВ БЕЛЕВ",
+      "target": "company:tr:130969084",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПРЕСЛАВ ПЛАМЕНОВ ПЕШЕВ",
+      "target": "company:tr:130969084",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

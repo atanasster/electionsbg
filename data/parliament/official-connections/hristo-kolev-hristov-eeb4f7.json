@@ -1,1 +1,474 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:hristo-kolev-hristov-eeb4f7","nodes":[{"id":"official:hristo-kolev-hristov-eeb4f7","type":"official","slug":"hristo-kolev-hristov-eeb4f7","label":"Христо Колев Христов","tier":"municipal","role":"councillor","municipality":"Търговище"},{"id":"company:tr:201590495","type":"company","label":"АГРО ТРЕЗОР","slug":null,"uic":"201590495","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206422505","type":"company","label":"ПЛАНТС СОУЛ АГРО","slug":null,"uic":"206422505","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206134197","type":"company","label":"ФИТНЕС ЦЕНТЪР  ГЛАДИАТОР","slug":null,"uic":"206134197","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205682546","type":"company","label":"БЕТ ГЕЙМ","slug":null,"uic":"205682546","legalForm":null,"status":null,"seat":null},{"id":"company:tr:104032530","type":"company","label":"ЖИЛСТРОЙ - 96","slug":null,"uic":"104032530","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207225090","type":"company","label":"СИД ЕНЕРДЖИ","slug":null,"uic":"207225090","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН БОРИСОВ БОТЕВ","type":"person","label":"Иван Борисов Ботев"},{"id":"person:СТАНИМИРА ИВАНОВА ВЕЛИКОВА","type":"person","label":"Станимира Иванова Великова"},{"id":"person:ДИМИТЪР ВЕЛИКОВ ВЕЛИКОВ","type":"person","label":"Димитър Великов Великов"},{"id":"person:СЛЪНЧО 99","type":"person","label":"Слънчо 99"},{"id":"person:КИРИЛ ИВАНОВ БАДАЛОВ","type":"person","label":"Кирил Иванов Бадалов"},{"id":"company:name:СИТИ РФ","type":"company","label":"СИТИ РФ  ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:КАТЯ ЙОРДАНОВА ЛОЛОВА","type":"person","label":"Катя Йорданова Лолова"},{"id":"person:ЦВЕТОСЛАВ ГЕОРГИЕВ ПАНАЙОТОВ","type":"person","label":"Цветослав Георгиев Панайотов"},{"id":"person:КАТЯ ПЕТРОВА ТАТАРОВА","type":"person","label":"Катя Петрова Татарова"},{"id":"person:МАРИЯ ЙОРДАНОВА ГЕОРГИЕВА","type":"person","label":"Мария Йорданова Георгиева"},{"id":"person:МАРИЯ ГЕНЕВА ПЕНЧЕВА","type":"person","label":"Мария Генева Пенчева"},{"id":"person:СТЕФЧО АТАНАСОВ ГЕНОВСКИ","type":"person","label":"Стефчо Атанасов Геновски"},{"id":"person:ДИМИТЪР ХРИСТОВ МАНДРОВ","type":"person","label":"Димитър Христов Мандров"},{"id":"person:МИТКО АНГЕЛОВ ДИМИТРОВ","type":"person","label":"Митко Ангелов Димитров"},{"id":"person:ДИМИТЪР МАТЕЕВ ВАСИЛЕВ","type":"person","label":"Димитър Матеев Василев"},{"id":"person:ИВАН РАДЕВ ИВАНОВ","type":"person","label":"Иван Радев Иванов"},{"id":"person:МАРИЯ ПЕТРОВА ТОДОРОВА","type":"person","label":"Мария Петрова Тодорова"},{"id":"person:ЧАВДАР БОРИСОВ ФЕРДИНАНДОВ","type":"person","label":"Чавдар Борисов Фердинандов"},{"id":"person:МАРИН ВЕЛИЧКОВ ПАУНОВ","type":"person","label":"Марин Величков Паунов"},{"id":"person:МИРКО ХРИСТОВ КУМАНОВ","type":"person","label":"Мирко Христов Куманов"},{"id":"person:НЕЗАБРАВКА ТОДОРОВА АПОСТОЛОВА, КРАСИМИРА ТОДОРОВА ГЕНОВСКА, РОСИЦА МИНЧЕВА КОСТОВА","type":"person","label":"Незабравка Тодорова Апостолова, Красимира Тодорова Геновска, Росица Минчева Костова"}],"edges":[{"source":"official:hristo-kolev-hristov-eeb4f7","target":"company:tr:201590495","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-kolev-hristov-eeb4f7","target":"company:tr:206422505","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-kolev-hristov-eeb4f7","target":"company:tr:206134197","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-kolev-hristov-eeb4f7","target":"company:tr:205682546","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-kolev-hristov-eeb4f7","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-kolev-hristov-eeb4f7","target":"company:tr:207225090","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН БОРИСОВ БОТЕВ","target":"company:tr:201590495","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИМИРА ИВАНОВА ВЕЛИКОВА","target":"company:tr:201590495","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ВЕЛИКОВ ВЕЛИКОВ","target":"company:tr:201590495","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СЛЪНЧО 99","target":"company:tr:201590495","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ИВАНОВ БАДАЛОВ","target":"company:tr:206422505","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН БОРИСОВ БОТЕВ","target":"company:tr:206422505","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ИВАНОВ БАДАЛОВ","target":"company:tr:206422505","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИМИРА ИВАНОВА ВЕЛИКОВА","target":"company:tr:206422505","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН БОРИСОВ БОТЕВ","target":"company:tr:205682546","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:СИТИ РФ","target":"company:tr:205682546","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ЙОРДАНОВА ЛОЛОВА","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТОСЛАВ ГЕОРГИЕВ ПАНАЙОТОВ","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ПЕТРОВА ТАТАРОВА","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ЙОРДАНОВА ГЕОРГИЕВА","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГЕНЕВА ПЕНЧЕВА","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФЧО АТАНАСОВ ГЕНОВСКИ","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ХРИСТОВ МАНДРОВ","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИТКО АНГЕЛОВ ДИМИТРОВ","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР МАТЕЕВ ВАСИЛЕВ","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН РАДЕВ ИВАНОВ","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ПЕТРОВА ТОДОРОВА","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЧАВДАР БОРИСОВ ФЕРДИНАНДОВ","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИН ВЕЛИЧКОВ ПАУНОВ","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИРКО ХРИСТОВ КУМАНОВ","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НЕЗАБРАВКА ТОДОРОВА АПОСТОЛОВА, КРАСИМИРА ТОДОРОВА ГЕНОВСКА, РОСИЦА МИНЧЕВА КОСТОВА","target":"company:tr:104032530","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:hristo-kolev-hristov-eeb4f7",
+  "nodes": [
+    {
+      "id": "official:hristo-kolev-hristov-eeb4f7",
+      "type": "official",
+      "slug": "hristo-kolev-hristov-eeb4f7",
+      "label": "Христо Колев Христов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Търговище"
+    },
+    {
+      "id": "company:tr:201590495",
+      "type": "company",
+      "label": "АГРО ТРЕЗОР",
+      "slug": null,
+      "uic": "201590495",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206422505",
+      "type": "company",
+      "label": "ПЛАНТС СОУЛ АГРО",
+      "slug": null,
+      "uic": "206422505",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206134197",
+      "type": "company",
+      "label": "ФИТНЕС ЦЕНТЪР  ГЛАДИАТОР",
+      "slug": null,
+      "uic": "206134197",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205682546",
+      "type": "company",
+      "label": "БЕТ ГЕЙМ",
+      "slug": null,
+      "uic": "205682546",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:104032530",
+      "type": "company",
+      "label": "ЖИЛСТРОЙ - 96",
+      "slug": null,
+      "uic": "104032530",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207225090",
+      "type": "company",
+      "label": "СИД ЕНЕРДЖИ",
+      "slug": null,
+      "uic": "207225090",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН БОРИСОВ БОТЕВ",
+      "type": "person",
+      "label": "Иван Борисов Ботев"
+    },
+    {
+      "id": "person:СТАНИМИРА ИВАНОВА ВЕЛИКОВА",
+      "type": "person",
+      "label": "Станимира Иванова Великова"
+    },
+    {
+      "id": "person:ДИМИТЪР ВЕЛИКОВ ВЕЛИКОВ",
+      "type": "person",
+      "label": "Димитър Великов Великов"
+    },
+    {
+      "id": "person:СЛЪНЧО 99",
+      "type": "person",
+      "label": "Слънчо 99"
+    },
+    {
+      "id": "person:КИРИЛ ИВАНОВ БАДАЛОВ",
+      "type": "person",
+      "label": "Кирил Иванов Бадалов"
+    },
+    {
+      "id": "company:name:СИТИ РФ",
+      "type": "company",
+      "label": "СИТИ РФ  ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАТЯ ЙОРДАНОВА ЛОЛОВА",
+      "type": "person",
+      "label": "Катя Йорданова Лолова"
+    },
+    {
+      "id": "person:ЦВЕТОСЛАВ ГЕОРГИЕВ ПАНАЙОТОВ",
+      "type": "person",
+      "label": "Цветослав Георгиев Панайотов"
+    },
+    {
+      "id": "person:КАТЯ ПЕТРОВА ТАТАРОВА",
+      "type": "person",
+      "label": "Катя Петрова Татарова"
+    },
+    {
+      "id": "person:МАРИЯ ЙОРДАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Мария Йорданова Георгиева"
+    },
+    {
+      "id": "person:МАРИЯ ГЕНЕВА ПЕНЧЕВА",
+      "type": "person",
+      "label": "Мария Генева Пенчева"
+    },
+    {
+      "id": "person:СТЕФЧО АТАНАСОВ ГЕНОВСКИ",
+      "type": "person",
+      "label": "Стефчо Атанасов Геновски"
+    },
+    {
+      "id": "person:ДИМИТЪР ХРИСТОВ МАНДРОВ",
+      "type": "person",
+      "label": "Димитър Христов Мандров"
+    },
+    {
+      "id": "person:МИТКО АНГЕЛОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Митко Ангелов Димитров"
+    },
+    {
+      "id": "person:ДИМИТЪР МАТЕЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Димитър Матеев Василев"
+    },
+    {
+      "id": "person:ИВАН РАДЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Радев Иванов"
+    },
+    {
+      "id": "person:МАРИЯ ПЕТРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Мария Петрова Тодорова"
+    },
+    {
+      "id": "person:ЧАВДАР БОРИСОВ ФЕРДИНАНДОВ",
+      "type": "person",
+      "label": "Чавдар Борисов Фердинандов"
+    },
+    {
+      "id": "person:МАРИН ВЕЛИЧКОВ ПАУНОВ",
+      "type": "person",
+      "label": "Марин Величков Паунов"
+    },
+    {
+      "id": "person:МИРКО ХРИСТОВ КУМАНОВ",
+      "type": "person",
+      "label": "Мирко Христов Куманов"
+    },
+    {
+      "id": "person:НЕЗАБРАВКА ТОДОРОВА АПОСТОЛОВА, КРАСИМИРА ТОДОРОВА ГЕНОВСКА, РОСИЦА МИНЧЕВА КОСТОВА",
+      "type": "person",
+      "label": "Незабравка Тодорова Апостолова, Красимира Тодорова Геновска, Росица Минчева Костова"
+    },
+    {
+      "id": "person:МИЛКА ЙОНКОВА АРАБАДЖИЕВА-ФЕРДИНАНДОВА, БОЯН ЧАВДАРОВ БОРИСОВ,НЕВЕНА ЧАВДАРОВА БОРИСОВА-ЧАКАЛОВА",
+      "type": "person",
+      "label": "Милка Йонкова Арабаджиева-Фердинандова, Боян Чавдаров Борисов,невена Чавдарова Борисова-Чакалова"
+    },
+    {
+      "id": "person:РОСИЦА МИНЧЕВА КОСТОВА, НЕЗАБРАВКА ТОДОРОВА АПОСТОЛОВА,КРАСИМИРА ТОДОРОВА ГЕНОВСКА",
+      "type": "person",
+      "label": "Росица Минчева Костова, Незабравка Тодорова Апостолова,красимира Тодорова Геновска"
+    },
+    {
+      "id": "person:СИЙКА САВОВА МАНДРОВА, ХРИСТО ДИМИТРОВ МАНДРОВ, СВЕТОСЛАВ ДИМИТРОВ МАНДРОВ",
+      "type": "person",
+      "label": "Сийка Савова Мандрова, Христо Димитров Мандров, Светослав Димитров Мандров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-kolev-hristov-eeb4f7",
+      "target": "company:tr:201590495",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-kolev-hristov-eeb4f7",
+      "target": "company:tr:206422505",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-kolev-hristov-eeb4f7",
+      "target": "company:tr:206134197",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-kolev-hristov-eeb4f7",
+      "target": "company:tr:205682546",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-kolev-hristov-eeb4f7",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-kolev-hristov-eeb4f7",
+      "target": "company:tr:207225090",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН БОРИСОВ БОТЕВ",
+      "target": "company:tr:201590495",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИРА ИВАНОВА ВЕЛИКОВА",
+      "target": "company:tr:201590495",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЕЛИКОВ ВЕЛИКОВ",
+      "target": "company:tr:201590495",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛЪНЧО 99",
+      "target": "company:tr:201590495",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ БАДАЛОВ",
+      "target": "company:tr:206422505",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН БОРИСОВ БОТЕВ",
+      "target": "company:tr:206422505",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ БАДАЛОВ",
+      "target": "company:tr:206422505",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИРА ИВАНОВА ВЕЛИКОВА",
+      "target": "company:tr:206422505",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН БОРИСОВ БОТЕВ",
+      "target": "company:tr:205682546",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СИТИ РФ",
+      "target": "company:tr:205682546",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ЙОРДАНОВА ЛОЛОВА",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОСЛАВ ГЕОРГИЕВ ПАНАЙОТОВ",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ПЕТРОВА ТАТАРОВА",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ЙОРДАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕНЕВА ПЕНЧЕВА",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФЧО АТАНАСОВ ГЕНОВСКИ",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ХРИСТОВ МАНДРОВ",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО АНГЕЛОВ ДИМИТРОВ",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР МАТЕЕВ ВАСИЛЕВ",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН РАДЕВ ИВАНОВ",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ПЕТРОВА ТОДОРОВА",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР БОРИСОВ ФЕРДИНАНДОВ",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ВЕЛИЧКОВ ПАУНОВ",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРКО ХРИСТОВ КУМАНОВ",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЗАБРАВКА ТОДОРОВА АПОСТОЛОВА, КРАСИМИРА ТОДОРОВА ГЕНОВСКА, РОСИЦА МИНЧЕВА КОСТОВА",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ЙОНКОВА АРАБАДЖИЕВА-ФЕРДИНАНДОВА, БОЯН ЧАВДАРОВ БОРИСОВ,НЕВЕНА ЧАВДАРОВА БОРИСОВА-ЧАКАЛОВА",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА МИНЧЕВА КОСТОВА, НЕЗАБРАВКА ТОДОРОВА АПОСТОЛОВА,КРАСИМИРА ТОДОРОВА ГЕНОВСКА",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЙКА САВОВА МАНДРОВА, ХРИСТО ДИМИТРОВ МАНДРОВ, СВЕТОСЛАВ ДИМИТРОВ МАНДРОВ",
+      "target": "company:tr:104032530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

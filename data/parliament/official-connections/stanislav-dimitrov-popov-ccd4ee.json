@@ -1,1 +1,53 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:stanislav-dimitrov-popov-ccd4ee","nodes":[{"id":"official:stanislav-dimitrov-popov-ccd4ee","type":"official","slug":"stanislav-dimitrov-popov-ccd4ee","label":"Станислав Димитров Попов","tier":"municipal","role":"councillor","municipality":"Сапарева баня"},{"id":"company:tr:201755776","type":"company","label":"КРИСМАРИ","slug":null,"uic":"201755776","legalForm":null,"status":null,"seat":null},{"id":"company:name:РИЛА ДРИЙМС ХОТЕЛС 1989","type":"company","label":"\"РИЛА ДРИЙМС ХОТЕЛС 1989\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:stanislav-dimitrov-popov-ccd4ee","target":"company:tr:201755776","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"company:name:РИЛА ДРИЙМС ХОТЕЛС 1989","target":"company:tr:201755776","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:stanislav-dimitrov-popov-ccd4ee",
+  "nodes": [
+    {
+      "id": "official:stanislav-dimitrov-popov-ccd4ee",
+      "type": "official",
+      "slug": "stanislav-dimitrov-popov-ccd4ee",
+      "label": "Станислав Димитров Попов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сапарева баня"
+    },
+    {
+      "id": "company:tr:201755776",
+      "type": "company",
+      "label": "КРИСМАРИ",
+      "slug": null,
+      "uic": "201755776",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:РИЛА ДРИЙМС ХОТЕЛС 1989",
+      "type": "company",
+      "label": "\"РИЛА ДРИЙМС ХОТЕЛС 1989\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanislav-dimitrov-popov-ccd4ee",
+      "target": "company:tr:201755776",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:РИЛА ДРИЙМС ХОТЕЛС 1989",
+      "target": "company:tr:201755776",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

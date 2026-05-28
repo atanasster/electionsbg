@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:mito-dimitrov-mitev-1708be","nodes":[{"id":"official:mito-dimitrov-mitev-1708be","type":"official","slug":"mito-dimitrov-mitev-1708be","label":"Митьо Димитров Митев","tier":"municipal","role":"councillor","municipality":"Севлиево"},{"id":"company:tr:107561599","type":"company","label":"Инна Агро ЕООД","slug":null,"uic":"107561599","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:mito-dimitrov-mitev-1708be","target":"company:tr:107561599","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:mito-dimitrov-mitev-1708be",
+  "nodes": [
+    {
+      "id": "official:mito-dimitrov-mitev-1708be",
+      "type": "official",
+      "slug": "mito-dimitrov-mitev-1708be",
+      "label": "Митьо Димитров Митев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Севлиево"
+    },
+    {
+      "id": "company:tr:107561599",
+      "type": "company",
+      "label": "Инна Агро ЕООД",
+      "slug": null,
+      "uic": "107561599",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mito-dimitrov-mitev-1708be",
+      "target": "company:tr:107561599",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

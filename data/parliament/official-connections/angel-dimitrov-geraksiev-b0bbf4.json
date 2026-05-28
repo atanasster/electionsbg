@@ -1,1 +1,198 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:angel-dimitrov-geraksiev-b0bbf4","nodes":[{"id":"official:angel-dimitrov-geraksiev-b0bbf4","type":"official","slug":"angel-dimitrov-geraksiev-b0bbf4","label":"Ангел Димитров Гераксиев","tier":"municipal","role":"councillor","municipality":"Гоце Делчев"},{"id":"company:ПИРИН-ВАТ","type":"company","label":"ПИРИН ВАТ","slug":"ПИРИН-ВАТ","uic":"130922953","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:101779954","type":"company","label":"РПК - КООП","slug":null,"uic":"101779954","legalForm":null,"status":null,"seat":null},{"id":"company:tr:101133531","type":"company","label":"НОРА - Г","slug":null,"uic":"101133531","legalForm":null,"status":null,"seat":null},{"id":"person:СТОЯН ЙОРДАНОВ ХРИСТОВ","type":"person","label":"Стоян Йорданов Христов"},{"id":"mp:4706","type":"mp","mpId":4706,"label":"Кирил Николаев Добрев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["40","41","42","43","44"]},{"id":"person:АНГЕЛ ТОДОРОВ ДЕРМЕНДЖИЕВ","type":"person","label":"Ангел Тодоров Дерменджиев"},{"id":"person:ЕЛЕНКО ГЕОРГИЕВ БОЖКОВ","type":"person","label":"Еленко Георгиев Божков"},{"id":"person:НИНА АЛБЕНОВА КАЧАКОВА","type":"person","label":"Нина Албенова Качакова"},{"id":"person:СПИРО ИВАНОВ ИЛЧЕВ","type":"person","label":"Спиро Иванов Илчев"},{"id":"company:name:МВСО","type":"company","label":"МВСО ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:РОСЕН БОЯНОВ ДУМАНОВ","type":"person","label":"Росен Боянов Думанов"}],"edges":[{"source":"official:angel-dimitrov-geraksiev-b0bbf4","target":"company:ПИРИН-ВАТ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:angel-dimitrov-geraksiev-b0bbf4","target":"company:tr:101779954","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:angel-dimitrov-geraksiev-b0bbf4","target":"company:tr:101133531","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:СТОЯН ЙОРДАНОВ ХРИСТОВ","target":"company:ПИРИН-ВАТ","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4706","target":"company:ПИРИН-ВАТ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ТОДОРОВ ДЕРМЕНДЖИЕВ","target":"company:ПИРИН-ВАТ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНКО ГЕОРГИЕВ БОЖКОВ","target":"company:ПИРИН-ВАТ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИНА АЛБЕНОВА КАЧАКОВА","target":"company:tr:101779954","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СПИРО ИВАНОВ ИЛЧЕВ","target":"company:tr:101779954","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:name:МВСО","target":"company:tr:101133531","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СПИРО ИВАНОВ ИЛЧЕВ","target":"company:tr:101133531","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН БОЯНОВ ДУМАНОВ","target":"company:tr:101133531","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:angel-dimitrov-geraksiev-b0bbf4",
+  "nodes": [
+    {
+      "id": "official:angel-dimitrov-geraksiev-b0bbf4",
+      "type": "official",
+      "slug": "angel-dimitrov-geraksiev-b0bbf4",
+      "label": "Ангел Димитров Гераксиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гоце Делчев"
+    },
+    {
+      "id": "company:tr:130922953",
+      "type": "company",
+      "label": "ПИРИН ВАТ",
+      "slug": null,
+      "uic": "130922953",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:101779954",
+      "type": "company",
+      "label": "РПК - КООП",
+      "slug": null,
+      "uic": "101779954",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:101133531",
+      "type": "company",
+      "label": "НОРА - Г",
+      "slug": null,
+      "uic": "101133531",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "mp:4706",
+      "type": "mp",
+      "mpId": 4706,
+      "label": "Кирил Николаев Добрев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "40",
+        "41",
+        "42",
+        "43",
+        "44"
+      ]
+    },
+    {
+      "id": "person:СТОЯН ЙОРДАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Стоян Йорданов Христов"
+    },
+    {
+      "id": "person:АНГЕЛ ТОДОРОВ ДЕРМЕНДЖИЕВ",
+      "type": "person",
+      "label": "Ангел Тодоров Дерменджиев"
+    },
+    {
+      "id": "person:ЕЛЕНКО ГЕОРГИЕВ БОЖКОВ",
+      "type": "person",
+      "label": "Еленко Георгиев Божков"
+    },
+    {
+      "id": "person:НИНА АЛБЕНОВА КАЧАКОВА",
+      "type": "person",
+      "label": "Нина Албенова Качакова"
+    },
+    {
+      "id": "person:СПИРО ИВАНОВ ИЛЧЕВ",
+      "type": "person",
+      "label": "Спиро Иванов Илчев"
+    },
+    {
+      "id": "company:name:МВСО",
+      "type": "company",
+      "label": "МВСО ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСЕН БОЯНОВ ДУМАНОВ",
+      "type": "person",
+      "label": "Росен Боянов Думанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angel-dimitrov-geraksiev-b0bbf4",
+      "target": "company:tr:130922953",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-dimitrov-geraksiev-b0bbf4",
+      "target": "company:tr:101779954",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-dimitrov-geraksiev-b0bbf4",
+      "target": "company:tr:101133531",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4706",
+      "target": "company:tr:130922953",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН ЙОРДАНОВ ХРИСТОВ",
+      "target": "company:tr:130922953",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ТОДОРОВ ДЕРМЕНДЖИЕВ",
+      "target": "company:tr:130922953",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНКО ГЕОРГИЕВ БОЖКОВ",
+      "target": "company:tr:130922953",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА АЛБЕНОВА КАЧАКОВА",
+      "target": "company:tr:101779954",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПИРО ИВАНОВ ИЛЧЕВ",
+      "target": "company:tr:101779954",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:МВСО",
+      "target": "company:tr:101133531",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПИРО ИВАНОВ ИЛЧЕВ",
+      "target": "company:tr:101133531",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН БОЯНОВ ДУМАНОВ",
+      "target": "company:tr:101133531",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

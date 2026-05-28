@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:yulian-dimitrov-ivanov-b4171c","nodes":[{"id":"official:yulian-dimitrov-ivanov-b4171c","type":"official","slug":"yulian-dimitrov-ivanov-b4171c","label":"Юлиан Димитров Иванов","tier":"municipal","role":"councillor","municipality":"Долни Чифлик"},{"id":"company:tr:103768337","type":"company","label":"\"Шери Ю\" ЕООД","slug":null,"uic":"103768337","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:yulian-dimitrov-ivanov-b4171c","target":"company:tr:103768337","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:yulian-dimitrov-ivanov-b4171c",
+  "nodes": [
+    {
+      "id": "official:yulian-dimitrov-ivanov-b4171c",
+      "type": "official",
+      "slug": "yulian-dimitrov-ivanov-b4171c",
+      "label": "Юлиан Димитров Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Долни Чифлик"
+    },
+    {
+      "id": "company:tr:103768337",
+      "type": "company",
+      "label": "\"Шери Ю\" ЕООД",
+      "slug": null,
+      "uic": "103768337",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yulian-dimitrov-ivanov-b4171c",
+      "target": "company:tr:103768337",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

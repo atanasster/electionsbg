@@ -1,1 +1,66 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:atanas-hristov-atanasov-03f0ca","nodes":[{"id":"official:atanas-hristov-atanasov-03f0ca","type":"official","slug":"atanas-hristov-atanasov-03f0ca","label":"Атанас Христов Атанасов","tier":"municipal","role":"councillor","municipality":"Твърдица"},{"id":"company:tr:177154115","type":"company","label":"МЕСТНА ИНИЦИАТИВНА ГРУПА ТВЪРДИЦА - СЛИВЕН- ДОЛИНАТА НА ПРАСКОВИТЕ","slug":null,"uic":"177154115","legalForm":null,"status":null,"seat":null},{"id":"company:tr:208608056","type":"company","label":"РЕТРО 777","slug":null,"uic":"208608056","legalForm":null,"status":null,"seat":null},{"id":"person:МИРОСЛАВ ЕВГЕНИЕВ ЛАЗАРОВ","type":"person","label":"Мирослав Евгениев Лазаров"}],"edges":[{"source":"official:atanas-hristov-atanasov-03f0ca","target":"company:tr:177154115","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"official:atanas-hristov-atanasov-03f0ca","target":"company:tr:208608056","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:МИРОСЛАВ ЕВГЕНИЕВ ЛАЗАРОВ","target":"company:tr:208608056","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:atanas-hristov-atanasov-03f0ca",
+  "nodes": [
+    {
+      "id": "official:atanas-hristov-atanasov-03f0ca",
+      "type": "official",
+      "slug": "atanas-hristov-atanasov-03f0ca",
+      "label": "Атанас Христов Атанасов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Твърдица"
+    },
+    {
+      "id": "company:tr:177154115",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА ТВЪРДИЦА - СЛИВЕН- ДОЛИНАТА НА ПРАСКОВИТЕ",
+      "slug": null,
+      "uic": "177154115",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208608056",
+      "type": "company",
+      "label": "РЕТРО 777",
+      "slug": null,
+      "uic": "208608056",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИРОСЛАВ ЕВГЕНИЕВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Мирослав Евгениев Лазаров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-hristov-atanasov-03f0ca",
+      "target": "company:tr:177154115",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-hristov-atanasov-03f0ca",
+      "target": "company:tr:208608056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВ ЕВГЕНИЕВ ЛАЗАРОВ",
+      "target": "company:tr:208608056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

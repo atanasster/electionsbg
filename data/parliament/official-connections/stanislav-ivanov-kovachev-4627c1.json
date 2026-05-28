@@ -1,1 +1,77 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:stanislav-ivanov-kovachev-4627c1","nodes":[{"id":"official:stanislav-ivanov-kovachev-4627c1","type":"official","slug":"stanislav-ivanov-kovachev-4627c1","label":"Станислав Иванов Ковачев","tier":"municipal","role":"councillor","municipality":"Силистра"},{"id":"company:tr:206653583","type":"company","label":"Лактоком 1991","slug":null,"uic":"206653583","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206653679","type":"company","label":"СТАС - ТЕЛ СИЛИСТРА","slug":null,"uic":"206653679","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:stanislav-ivanov-kovachev-4627c1","target":"company:tr:206653583","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:stanislav-ivanov-kovachev-4627c1","target":"company:tr:206653583","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:stanislav-ivanov-kovachev-4627c1","target":"company:tr:206653679","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:stanislav-ivanov-kovachev-4627c1","target":"company:tr:206653583","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:stanislav-ivanov-kovachev-4627c1","target":"company:tr:206653679","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:stanislav-ivanov-kovachev-4627c1",
+  "nodes": [
+    {
+      "id": "official:stanislav-ivanov-kovachev-4627c1",
+      "type": "official",
+      "slug": "stanislav-ivanov-kovachev-4627c1",
+      "label": "Станислав Иванов Ковачев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Силистра"
+    },
+    {
+      "id": "company:tr:206653583",
+      "type": "company",
+      "label": "Лактоком 1991",
+      "slug": null,
+      "uic": "206653583",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206653679",
+      "type": "company",
+      "label": "СТАС - ТЕЛ СИЛИСТРА",
+      "slug": null,
+      "uic": "206653679",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanislav-ivanov-kovachev-4627c1",
+      "target": "company:tr:206653583",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stanislav-ivanov-kovachev-4627c1",
+      "target": "company:tr:206653583",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanislav-ivanov-kovachev-4627c1",
+      "target": "company:tr:206653679",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanislav-ivanov-kovachev-4627c1",
+      "target": "company:tr:206653583",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanislav-ivanov-kovachev-4627c1",
+      "target": "company:tr:206653679",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

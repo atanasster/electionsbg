@@ -1,1 +1,616 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:nikolai-ivanov-ivanov-6576f1","nodes":[{"id":"official:nikolai-ivanov-ivanov-6576f1","type":"official","slug":"nikolai-ivanov-ivanov-6576f1","label":"Николай Иванов Иванов","tier":"municipal","role":"councillor","municipality":"Стамболийски"},{"id":"company:tr:160106272","type":"company","label":"ИРНИ-Л","slug":null,"uic":"160106272","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206342564","type":"company","label":"В ШОП","slug":null,"uic":"206342564","legalForm":null,"status":null,"seat":null},{"id":"company:tr:825363234","type":"company","label":"АЛКИДЕМ","slug":null,"uic":"825363234","legalForm":null,"status":null,"seat":null},{"id":"company:tr:000437644","type":"company","label":"ХИСАР","slug":null,"uic":"000437644","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206422843","type":"company","label":"НОВА ЗВЕЗДА КАРГО","slug":null,"uic":"206422843","legalForm":null,"status":null,"seat":null},{"id":"company:tr:202432384","type":"company","label":"КУХАРЕНКО ЛИЗИНГ","slug":null,"uic":"202432384","legalForm":null,"status":null,"seat":null},{"id":"company:tr:148085812","type":"company","label":"СНС-РЕНТА КАР","slug":null,"uic":"148085812","legalForm":null,"status":null,"seat":null},{"id":"company:tr:202803761","type":"company","label":"ДЖЕЙ ЕЛ ИНВЕСТМЪНТ","slug":null,"uic":"202803761","legalForm":null,"status":null,"seat":null},{"id":"company:tr:202787296","type":"company","label":"ДЖЕЙ ЕЛ КЕПИТЪЛ","slug":null,"uic":"202787296","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206612209","type":"company","label":"Копи Трейдингс","slug":null,"uic":"206612209","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206616549","type":"company","label":"РЕАЛТИКО ИНВЕСТ","slug":null,"uic":"206616549","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206643539","type":"company","label":"ГН моторс","slug":null,"uic":"206643539","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206664711","type":"company","label":"МайЛайфПланс","slug":null,"uic":"206664711","legalForm":null,"status":null,"seat":null},{"id":"company:tr:147152172","type":"company","label":"ВИА СОЛДИ","slug":null,"uic":"147152172","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206830752","type":"company","label":"КИЙ КОНСУЛТАНТ","slug":null,"uic":"206830752","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206881533","type":"company","label":"ВИП АКАУНТИНГ","slug":null,"uic":"206881533","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206125482","type":"company","label":"ЕН АЙ ПАРТНЕР","slug":null,"uic":"206125482","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207004996","type":"company","label":"ИВАНОВ-НИКИ 87","slug":null,"uic":"207004996","legalForm":null,"status":null,"seat":null},{"id":"person:КАТЯ АТАНАСОВА ИВАНОВА","type":"person","label":"Катя Атанасова Иванова"},{"id":"person:СТОЯН ДИМИТРОВ ПОПОВ","type":"person","label":"Стоян Димитров Попов"},{"id":"person:ИВАН ВИДОЛОВ ИВАНОВ","type":"person","label":"Иван Видолов Иванов"},{"id":"person:ВИТАЛИЙ КУХАРЕНКО","type":"person","label":"Виталий Кухаренко"},{"id":"person:ДЕСИСЛАВА ОГНЕМИРОВА ШИШКОВА-ЧЕРНОМОРСКА","type":"person","label":"Десислава Огнемирова Шишкова-Черноморска"},{"id":"person:ИВАН НИКОЛОВ ИВАНОВ","type":"person","label":"Иван Николов Иванов"},{"id":"person:ВАНЯ ГЕОРГИЕВА ИВАНОВА","type":"person","label":"Ваня Георгиева Иванова"},{"id":"person:ТОДОР КИРИЛОВ ФАЧИКОВ","type":"person","label":"Тодор Кирилов Фачиков"},{"id":"official:georgi-valentinov-georgiev-f8a190","type":"official","slug":"georgi-valentinov-georgiev-f8a190","label":"Георги Валентинов Георгиев","tier":"executive","role":"cabinet","municipality":null},{"id":"person:САВКО СТОЯНОВ СТАВРЕВ","type":"person","label":"Савко Стоянов Ставрев"},{"id":"person:СЛАВИ ДАНАИЛОВ МИКИНСКИ","type":"person","label":"Слави Данаилов Микински"}],"edges":[{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:160106272","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206342564","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206342564","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:825363234","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:000437644","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206422843","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:202432384","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:148085812","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:202803761","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:202787296","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206612209","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206616549","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206616549","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206643539","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206664711","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:147152172","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206830752","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206881533","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206125482","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:207004996","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:160106272","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:825363234","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206422843","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206612209","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206664711","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206830752","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206881533","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:206125482","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-ivanov-ivanov-6576f1","target":"company:tr:207004996","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:КАТЯ АТАНАСОВА ИВАНОВА","target":"company:tr:206342564","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ДИМИТРОВ ПОПОВ","target":"company:tr:000437644","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ВИДОЛОВ ИВАНОВ","target":"company:tr:000437644","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВИТАЛИЙ КУХАРЕНКО","target":"company:tr:202432384","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ОГНЕМИРОВА ШИШКОВА-ЧЕРНОМОРСКА","target":"company:tr:148085812","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН НИКОЛОВ ИВАНОВ","target":"company:tr:202803761","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ГЕОРГИЕВА ИВАНОВА","target":"company:tr:202803761","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН НИКОЛОВ ИВАНОВ","target":"company:tr:202787296","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ГЕОРГИЕВА ИВАНОВА","target":"company:tr:202787296","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР КИРИЛОВ ФАЧИКОВ","target":"company:tr:206616549","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР КИРИЛОВ ФАЧИКОВ","target":"company:tr:206616549","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"official:georgi-valentinov-georgiev-f8a190","target":"company:tr:206643539","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-valentinov-georgiev-f8a190","target":"company:tr:206643539","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:САВКО СТОЯНОВ СТАВРЕВ","target":"company:tr:147152172","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:САВКО СТОЯНОВ СТАВРЕВ","target":"company:tr:147152172","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СЛАВИ ДАНАИЛОВ МИКИНСКИ","target":"company:tr:206881533","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:nikolai-ivanov-ivanov-6576f1",
+  "nodes": [
+    {
+      "id": "official:nikolai-ivanov-ivanov-6576f1",
+      "type": "official",
+      "slug": "nikolai-ivanov-ivanov-6576f1",
+      "label": "Николай Иванов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стамболийски"
+    },
+    {
+      "id": "company:tr:160106272",
+      "type": "company",
+      "label": "ИРНИ-Л",
+      "slug": null,
+      "uic": "160106272",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206342564",
+      "type": "company",
+      "label": "В ШОП",
+      "slug": null,
+      "uic": "206342564",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:825363234",
+      "type": "company",
+      "label": "АЛКИДЕМ",
+      "slug": null,
+      "uic": "825363234",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:000437644",
+      "type": "company",
+      "label": "ХИСАР",
+      "slug": null,
+      "uic": "000437644",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206422843",
+      "type": "company",
+      "label": "НОВА ЗВЕЗДА КАРГО",
+      "slug": null,
+      "uic": "206422843",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202432384",
+      "type": "company",
+      "label": "КУХАРЕНКО ЛИЗИНГ",
+      "slug": null,
+      "uic": "202432384",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:148085812",
+      "type": "company",
+      "label": "СНС-РЕНТА КАР",
+      "slug": null,
+      "uic": "148085812",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202803761",
+      "type": "company",
+      "label": "ДЖЕЙ ЕЛ ИНВЕСТМЪНТ",
+      "slug": null,
+      "uic": "202803761",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202787296",
+      "type": "company",
+      "label": "ДЖЕЙ ЕЛ КЕПИТЪЛ",
+      "slug": null,
+      "uic": "202787296",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206612209",
+      "type": "company",
+      "label": "Копи Трейдингс",
+      "slug": null,
+      "uic": "206612209",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206616549",
+      "type": "company",
+      "label": "РЕАЛТИКО ИНВЕСТ",
+      "slug": null,
+      "uic": "206616549",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206643539",
+      "type": "company",
+      "label": "ГН моторс",
+      "slug": null,
+      "uic": "206643539",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206664711",
+      "type": "company",
+      "label": "МайЛайфПланс",
+      "slug": null,
+      "uic": "206664711",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:147152172",
+      "type": "company",
+      "label": "ВИА СОЛДИ",
+      "slug": null,
+      "uic": "147152172",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206830752",
+      "type": "company",
+      "label": "КИЙ КОНСУЛТАНТ",
+      "slug": null,
+      "uic": "206830752",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206881533",
+      "type": "company",
+      "label": "ВИП АКАУНТИНГ",
+      "slug": null,
+      "uic": "206881533",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206125482",
+      "type": "company",
+      "label": "ЕН АЙ ПАРТНЕР",
+      "slug": null,
+      "uic": "206125482",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207004996",
+      "type": "company",
+      "label": "ИВАНОВ-НИКИ 87",
+      "slug": null,
+      "uic": "207004996",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАТЯ АТАНАСОВА ИВАНОВА",
+      "type": "person",
+      "label": "Катя Атанасова Иванова"
+    },
+    {
+      "id": "person:СТОЯН ДИМИТРОВ ПОПОВ",
+      "type": "person",
+      "label": "Стоян Димитров Попов"
+    },
+    {
+      "id": "person:ИВАН ВИДОЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Видолов Иванов"
+    },
+    {
+      "id": "person:ВИТАЛИЙ КУХАРЕНКО",
+      "type": "person",
+      "label": "Виталий Кухаренко"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ОГНЕМИРОВА ШИШКОВА-ЧЕРНОМОРСКА",
+      "type": "person",
+      "label": "Десислава Огнемирова Шишкова-Черноморска"
+    },
+    {
+      "id": "person:ИВАН НИКОЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Николов Иванов"
+    },
+    {
+      "id": "person:ВАНЯ ГЕОРГИЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Ваня Георгиева Иванова"
+    },
+    {
+      "id": "person:ТОДОР КИРИЛОВ ФАЧИКОВ",
+      "type": "person",
+      "label": "Тодор Кирилов Фачиков"
+    },
+    {
+      "id": "official:georgi-valentinov-georgiev-f8a190",
+      "type": "official",
+      "slug": "georgi-valentinov-georgiev-f8a190",
+      "label": "Георги Валентинов Георгиев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "person:САВКО СТОЯНОВ СТАВРЕВ",
+      "type": "person",
+      "label": "Савко Стоянов Ставрев"
+    },
+    {
+      "id": "person:СЛАВИ ДАНАИЛОВ МИКИНСКИ",
+      "type": "person",
+      "label": "Слави Данаилов Микински"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:160106272",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206342564",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206342564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:825363234",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:000437644",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206422843",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:202432384",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:148085812",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:202803761",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:202787296",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206612209",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206616549",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206616549",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206643539",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206664711",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:147152172",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206830752",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206881533",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206125482",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:207004996",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:160106272",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:825363234",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206422843",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206612209",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206664711",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206830752",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206881533",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:206125482",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-ivanov-6576f1",
+      "target": "company:tr:207004996",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАТЯ АТАНАСОВА ИВАНОВА",
+      "target": "company:tr:206342564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ДИМИТРОВ ПОПОВ",
+      "target": "company:tr:000437644",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ВИДОЛОВ ИВАНОВ",
+      "target": "company:tr:000437644",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИТАЛИЙ КУХАРЕНКО",
+      "target": "company:tr:202432384",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ОГНЕМИРОВА ШИШКОВА-ЧЕРНОМОРСКА",
+      "target": "company:tr:148085812",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НИКОЛОВ ИВАНОВ",
+      "target": "company:tr:202803761",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:202803761",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НИКОЛОВ ИВАНОВ",
+      "target": "company:tr:202787296",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:202787296",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР КИРИЛОВ ФАЧИКОВ",
+      "target": "company:tr:206616549",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР КИРИЛОВ ФАЧИКОВ",
+      "target": "company:tr:206616549",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-valentinov-georgiev-f8a190",
+      "target": "company:tr:206643539",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-valentinov-georgiev-f8a190",
+      "target": "company:tr:206643539",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:САВКО СТОЯНОВ СТАВРЕВ",
+      "target": "company:tr:147152172",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САВКО СТОЯНОВ СТАВРЕВ",
+      "target": "company:tr:147152172",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВИ ДАНАИЛОВ МИКИНСКИ",
+      "target": "company:tr:206881533",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:mariya-iosifova-gieva-3daa55","nodes":[{"id":"official:mariya-iosifova-gieva-3daa55","type":"official","slug":"mariya-iosifova-gieva-3daa55","label":"Мария Йосифова Гиева","tier":"municipal","role":"council_chair","municipality":"Раковски"},{"id":"company:tr:205206700","type":"company","label":"\"Бийони 19\" ЕООД","slug":null,"uic":"205206700","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:mariya-iosifova-gieva-3daa55","target":"company:tr:205206700","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:mariya-iosifova-gieva-3daa55",
+  "nodes": [
+    {
+      "id": "official:mariya-iosifova-gieva-3daa55",
+      "type": "official",
+      "slug": "mariya-iosifova-gieva-3daa55",
+      "label": "Мария Йосифова Гиева",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Раковски"
+    },
+    {
+      "id": "company:tr:205206700",
+      "type": "company",
+      "label": "\"Бийони 19\" ЕООД",
+      "slug": null,
+      "uic": "205206700",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-iosifova-gieva-3daa55",
+      "target": "company:tr:205206700",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,48 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:vasil-dimitrov-hristov-fa7718","nodes":[{"id":"official:vasil-dimitrov-hristov-fa7718","type":"official","slug":"vasil-dimitrov-hristov-fa7718","label":"Васил Димитров Христов","tier":"municipal","role":"mayor","municipality":"Лясковец"},{"id":"company:tr:101042680","type":"company","label":"АВТОТРАНС","slug":null,"uic":"101042680","legalForm":null,"status":null,"seat":null},{"id":"person:ЙОРДАНКА ЯНКОВА ПЕТРОВА","type":"person","label":"Йорданка Янкова Петрова"}],"edges":[{"source":"official:vasil-dimitrov-hristov-fa7718","target":"company:tr:101042680","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЙОРДАНКА ЯНКОВА ПЕТРОВА","target":"company:tr:101042680","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:vasil-dimitrov-hristov-fa7718",
+  "nodes": [
+    {
+      "id": "official:vasil-dimitrov-hristov-fa7718",
+      "type": "official",
+      "slug": "vasil-dimitrov-hristov-fa7718",
+      "label": "Васил Димитров Христов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Лясковец"
+    },
+    {
+      "id": "company:tr:101042680",
+      "type": "company",
+      "label": "АВТОТРАНС",
+      "slug": null,
+      "uic": "101042680",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАНКА ЯНКОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Йорданка Янкова Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-dimitrov-hristov-fa7718",
+      "target": "company:tr:101042680",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАНКА ЯНКОВА ПЕТРОВА",
+      "target": "company:tr:101042680",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

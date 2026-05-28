@@ -1,1 +1,56 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:nikolai-svetoslavov-georgiev-34bee8","nodes":[{"id":"official:nikolai-svetoslavov-georgiev-34bee8","type":"official","slug":"nikolai-svetoslavov-georgiev-34bee8","label":"Николай Светославов Георгиев","tier":"municipal","role":"councillor","municipality":"Бяла/Варна/"},{"id":"company:tr:205044344","type":"company","label":"ЯНСС ООД","slug":null,"uic":"205044344","legalForm":null,"status":null,"seat":null},{"id":"person:ЯНКА СЛАВОВА ГЕОРГИЕВА","type":"person","label":"Янка Славова Георгиева"}],"edges":[{"source":"official:nikolai-svetoslavov-georgiev-34bee8","target":"company:tr:205044344","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:nikolai-svetoslavov-georgiev-34bee8","target":"company:tr:205044344","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЯНКА СЛАВОВА ГЕОРГИЕВА","target":"company:tr:205044344","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:nikolai-svetoslavov-georgiev-34bee8",
+  "nodes": [
+    {
+      "id": "official:nikolai-svetoslavov-georgiev-34bee8",
+      "type": "official",
+      "slug": "nikolai-svetoslavov-georgiev-34bee8",
+      "label": "Николай Светославов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла/Варна/"
+    },
+    {
+      "id": "company:tr:205044344",
+      "type": "company",
+      "label": "ЯНСС ООД",
+      "slug": null,
+      "uic": "205044344",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯНКА СЛАВОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Янка Славова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-svetoslavov-georgiev-34bee8",
+      "target": "company:tr:205044344",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-svetoslavov-georgiev-34bee8",
+      "target": "company:tr:205044344",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯНКА СЛАВОВА ГЕОРГИЕВА",
+      "target": "company:tr:205044344",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

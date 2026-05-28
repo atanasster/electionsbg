@@ -5,6 +5,19 @@
   "count": 6,
   "companies": [
     {
+      "slug": "МИД-2000-ООД",
+      "displayName": "“МИД 2000” ООД",
+      "registeredOffice": "Разград",
+      "mps": [
+        {
+          "mpId": 3738,
+          "mpName": "Ива Митева Йорданова-Рупчева",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "КАРАДЖА-ФАГ",
       "displayName": "КАРАДЖА-ФАГ",
       "registeredOffice": "Разград",
@@ -24,20 +37,7 @@
       ]
     },
     {
-      "slug": "МИД-2000-ООД",
-      "displayName": "“Мид 2000” ООД",
-      "registeredOffice": "Разград",
-      "mps": [
-        {
-          "mpId": 3738,
-          "mpName": "Ива Митева Йорданова-Рупчева",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "АБРАЗ-ЕООД",
+      "slug": "Абраз-ЕООД",
       "displayName": "Абраз ЕООД",
       "registeredOffice": "Разград",
       "mps": [
@@ -76,7 +76,7 @@
       ]
     },
     {
-      "slug": "СЕВЕРАГРО-ЕООД",
+      "slug": "Северагро-ЕООД",
       "displayName": "Северагро ЕООД",
       "registeredOffice": "РАЗГРАД",
       "mps": [

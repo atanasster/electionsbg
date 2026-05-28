@@ -1,12 +1,31 @@
 {
   "obshtina": "BLG33",
-  "count": 2,
-  "mpCount": 2,
+  "count": 3,
+  "mpCount": 3,
   "totalPages": 1,
   "topCompanies": [
     {
+      "slug": "ЛОДЖИКОС",
+      "displayName": "ЛОДЖИКОС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Петрич, 2850",
+      "mps": [
+        {
+          "mpId": 724,
+          "mpName": "Коста Георгиев Костов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 724,
+          "mpName": "Коста Георгиев Костов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "МОУШЪНСПОРТС",
-      "displayName": "Моушънспортс",
+      "displayName": "МОУШЪНСПОРТС",
       "registeredOffice": "БЪЛГАРИЯ, гр. Петрич, 2850",
       "mps": [
         {
@@ -25,7 +44,7 @@
     },
     {
       "slug": "АВГУСТИН-&amp;-ТУРНОВ",
-      "displayName": "Августин &amp; Турнов",
+      "displayName": "АВГУСТИН &amp; ТУРНОВ",
       "registeredOffice": "БЪЛГАРИЯ, гр. Петрич, 2890",
       "mps": [
         {

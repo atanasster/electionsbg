@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:dimitr-angelov-pumpalov-acafe0","nodes":[{"id":"official:dimitr-angelov-pumpalov-acafe0","type":"official","slug":"dimitr-angelov-pumpalov-acafe0","label":"Димитър Ангелов Пумпалов","tier":"municipal","role":"councillor","municipality":"Хаджидимово"},{"id":"company:tr:101646142","type":"company","label":"Кетиан ЕООД","slug":null,"uic":"101646142","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:dimitr-angelov-pumpalov-acafe0","target":"company:tr:101646142","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:dimitr-angelov-pumpalov-acafe0",
+  "nodes": [
+    {
+      "id": "official:dimitr-angelov-pumpalov-acafe0",
+      "type": "official",
+      "slug": "dimitr-angelov-pumpalov-acafe0",
+      "label": "Димитър Ангелов Пумпалов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хаджидимово"
+    },
+    {
+      "id": "company:tr:101646142",
+      "type": "company",
+      "label": "Кетиан ЕООД",
+      "slug": null,
+      "uic": "101646142",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-angelov-pumpalov-acafe0",
+      "target": "company:tr:101646142",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

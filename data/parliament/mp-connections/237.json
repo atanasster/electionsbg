@@ -1,1 +1,176 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:237","nodes":[{"id":"mp:237","type":"mp","mpId":237,"label":"Светослав Иванов Спасов","partyGroupShort":null,"isCurrent":false,"nsFolders":["39"]},{"id":"company:НАЦИОНАЛНА-ЕЛЕКТРИЧЕСКА-КОМПАНИЯ","type":"company","label":"НАЦИОНАЛНА ЕЛЕКТРИЧЕСКА КОМПАНИЯ","slug":"НАЦИОНАЛНА-ЕЛЕКТРИЧЕСКА-КОМПАНИЯ","uic":"000649348","legalForm":"EAD","status":"active","seat":null},{"id":"company:tr:207053048","type":"company","label":"Ес Макс Солар","slug":null,"uic":"207053048","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1612"},{"id":"person:ИВАН ТОДОРОВ ЙОНЧЕВ","type":"person","label":"Иван Тодоров Йончев"},{"id":"person:ХРИСТО ВЕЛИЧКОВ ГЕОРГИЕВ","type":"person","label":"Христо Величков Георгиев"},{"id":"person:МОМЧИЛ ВЕКИЛОВ ВАНОВ","type":"person","label":"Момчил Векилов Ванов"},{"id":"person:ВАСЯ МИХАЙЛОВА НИКОЛОВСКА","type":"person","label":"Вася Михайлова Николовска"},{"id":"person:ВЕСЕЛИН МИРЧЕВ ПЕТРОВ","type":"person","label":"Веселин Мирчев Петров"},{"id":"person:ИРЕНА МИЛЧЕВА БЕЛОРЕШКА","type":"person","label":"Ирена Милчева Белорешка"},{"id":"person:МАРТИН ИВАНОВ ГЕОРГИЕВ","type":"person","label":"Мартин Иванов Георгиев"},{"id":"person:ИВАНЧО СПАСОВ ИВАНОВ","type":"person","label":"Иванчо Спасов Иванов"}],"edges":[{"source":"mp:237","target":"company:НАЦИОНАЛНА-ЕЛЕКТРИЧЕСКА-КОМПАНИЯ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:237","target":"company:tr:207053048","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ТОДОРОВ ЙОНЧЕВ","target":"company:НАЦИОНАЛНА-ЕЛЕКТРИЧЕСКА-КОМПАНИЯ","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ВЕЛИЧКОВ ГЕОРГИЕВ","target":"company:НАЦИОНАЛНА-ЕЛЕКТРИЧЕСКА-КОМПАНИЯ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МОМЧИЛ ВЕКИЛОВ ВАНОВ","target":"company:НАЦИОНАЛНА-ЕЛЕКТРИЧЕСКА-КОМПАНИЯ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАСЯ МИХАЙЛОВА НИКОЛОВСКА","target":"company:НАЦИОНАЛНА-ЕЛЕКТРИЧЕСКА-КОМПАНИЯ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ТОДОРОВ ЙОНЧЕВ","target":"company:НАЦИОНАЛНА-ЕЛЕКТРИЧЕСКА-КОМПАНИЯ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН МИРЧЕВ ПЕТРОВ","target":"company:НАЦИОНАЛНА-ЕЛЕКТРИЧЕСКА-КОМПАНИЯ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА МИЛЧЕВА БЕЛОРЕШКА","target":"company:НАЦИОНАЛНА-ЕЛЕКТРИЧЕСКА-КОМПАНИЯ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ИВАНОВ ГЕОРГИЕВ","target":"company:НАЦИОНАЛНА-ЕЛЕКТРИЧЕСКА-КОМПАНИЯ","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ИВАНОВ ГЕОРГИЕВ","target":"company:НАЦИОНАЛНА-ЕЛЕКТРИЧЕСКА-КОМПАНИЯ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНЧО СПАСОВ ИВАНОВ","target":"company:tr:207053048","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:237",
+  "nodes": [
+    {
+      "id": "mp:237",
+      "type": "mp",
+      "mpId": 237,
+      "label": "Светослав Иванов Спасов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "company:tr:207053048",
+      "type": "company",
+      "label": "Ес Макс Солар",
+      "slug": null,
+      "uic": "207053048",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1612"
+    },
+    {
+      "id": "company:tr:000649348",
+      "type": "company",
+      "label": "НАЦИОНАЛНА ЕЛЕКТРИЧЕСКА КОМПАНИЯ",
+      "slug": null,
+      "uic": "000649348",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНЧО СПАСОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иванчо Спасов Иванов"
+    },
+    {
+      "id": "person:ИВАН ТОДОРОВ ЙОНЧЕВ",
+      "type": "person",
+      "label": "Иван Тодоров Йончев"
+    },
+    {
+      "id": "person:ХРИСТО ВЕЛИЧКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Христо Величков Георгиев"
+    },
+    {
+      "id": "person:МОМЧИЛ ВЕКИЛОВ ВАНОВ",
+      "type": "person",
+      "label": "Момчил Векилов Ванов"
+    },
+    {
+      "id": "person:ВАСЯ МИХАЙЛОВА НИКОЛОВСКА",
+      "type": "person",
+      "label": "Вася Михайлова Николовска"
+    },
+    {
+      "id": "person:ВЕСЕЛИН МИРЧЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Веселин Мирчев Петров"
+    },
+    {
+      "id": "person:ИРЕНА МИЛЧЕВА БЕЛОРЕШКА",
+      "type": "person",
+      "label": "Ирена Милчева Белорешка"
+    },
+    {
+      "id": "person:МАРТИН ИВАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Мартин Иванов Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:237",
+      "target": "company:tr:207053048",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:237",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНЧО СПАСОВ ИВАНОВ",
+      "target": "company:tr:207053048",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ ЙОНЧЕВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ВЕЛИЧКОВ ГЕОРГИЕВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОМЧИЛ ВЕКИЛОВ ВАНОВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСЯ МИХАЙЛОВА НИКОЛОВСКА",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ ЙОНЧЕВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН МИРЧЕВ ПЕТРОВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА МИЛЧЕВА БЕЛОРЕШКА",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

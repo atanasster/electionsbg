@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:aldin-dochev-nachkov-153370","nodes":[{"id":"official:aldin-dochev-nachkov-153370","type":"official","slug":"aldin-dochev-nachkov-153370","label":"Алдин Дочев Начков","tier":"municipal","role":"councillor","municipality":"Ловеч"},{"id":"company:tr:110530756","type":"company","label":"МЕДИЦИНСКИ ЦЕНТЪР - ЛОВЕЧ","slug":null,"uic":"110530756","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:aldin-dochev-nachkov-153370","target":"company:tr:110530756","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:aldin-dochev-nachkov-153370",
+  "nodes": [
+    {
+      "id": "official:aldin-dochev-nachkov-153370",
+      "type": "official",
+      "slug": "aldin-dochev-nachkov-153370",
+      "label": "Алдин Дочев Начков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ловеч"
+    },
+    {
+      "id": "company:tr:110530756",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР - ЛОВЕЧ",
+      "slug": null,
+      "uic": "110530756",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aldin-dochev-nachkov-153370",
+      "target": "company:tr:110530756",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

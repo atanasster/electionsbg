@@ -1,1 +1,300 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:petr-todorov-petrov-d3d88b","nodes":[{"id":"official:petr-todorov-petrov-d3d88b","type":"official","slug":"petr-todorov-petrov-d3d88b","label":"Петър Тодоров Петров","tier":"municipal","role":"chief_architect","municipality":"Пордим"},{"id":"company:tr:176611319","type":"company","label":"ИНТЕЛИГЕНТНИ ЕНЕРГИЙНИ СИСТЕМИ","slug":null,"uic":"176611319","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205004499","type":"company","label":"Т - КОЗМЕТИКС","slug":null,"uic":"205004499","legalForm":null,"status":null,"seat":null},{"id":"company:tr:147053854","type":"company","label":"ФАКТОРИНГ 9000","slug":null,"uic":"147053854","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205646991","type":"company","label":"МАГАЗИН ЗА ИНТЕРНЕТ ТЪРГОВИЯ","slug":null,"uic":"205646991","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206712177","type":"company","label":"Петьо Ауто","slug":null,"uic":"206712177","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205617519","type":"company","label":"ТРЕЙД КРАФТ","slug":null,"uic":"205617519","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206954489","type":"company","label":"ПЕТРОВ П ГРУП","slug":null,"uic":"206954489","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207227376","type":"company","label":"П енд П Студио","slug":null,"uic":"207227376","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207312015","type":"company","label":"Некса БГ","slug":null,"uic":"207312015","legalForm":null,"status":null,"seat":null},{"id":"person:ТОДОР ПЕТРОВ ПЕТРОВ","type":"person","label":"Тодор Петров Петров"},{"id":"person:НИКОЛА ГЕОРГИЕВ ШИНИН","type":"person","label":"Никола Георгиев Шинин"},{"id":"person:ИВАН ПЛАМЕНОВ ПЕТКОВ","type":"person","label":"Иван Пламенов Петков"},{"id":"person:ПЛАМЕН ТОДОРОВ ПЕТРОВ","type":"person","label":"Пламен Тодоров Петров"},{"id":"person:ГЕОРГИ БОРИСЛАВОВ ПЕТКОВ","type":"person","label":"Георги Бориславов Петков"}],"edges":[{"source":"official:petr-todorov-petrov-d3d88b","target":"company:tr:176611319","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"official:petr-todorov-petrov-d3d88b","target":"company:tr:205004499","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:petr-todorov-petrov-d3d88b","target":"company:tr:205004499","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:petr-todorov-petrov-d3d88b","target":"company:tr:147053854","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:petr-todorov-petrov-d3d88b","target":"company:tr:205646991","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:petr-todorov-petrov-d3d88b","target":"company:tr:206712177","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:petr-todorov-petrov-d3d88b","target":"company:tr:205617519","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:petr-todorov-petrov-d3d88b","target":"company:tr:206954489","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:petr-todorov-petrov-d3d88b","target":"company:tr:207227376","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:petr-todorov-petrov-d3d88b","target":"company:tr:207312015","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:petr-todorov-petrov-d3d88b","target":"company:tr:206712177","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:petr-todorov-petrov-d3d88b","target":"company:tr:205617519","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:petr-todorov-petrov-d3d88b","target":"company:tr:206954489","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ТОДОР ПЕТРОВ ПЕТРОВ","target":"company:tr:205004499","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ПЕТРОВ ПЕТРОВ","target":"company:tr:205004499","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ГЕОРГИЕВ ШИНИН","target":"company:tr:147053854","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ГЕОРГИЕВ ШИНИН","target":"company:tr:147053854","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ПЛАМЕНОВ ПЕТКОВ","target":"company:tr:205646991","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ТОДОРОВ ПЕТРОВ","target":"company:tr:207227376","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ТОДОРОВ ПЕТРОВ","target":"company:tr:207312015","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ БОРИСЛАВОВ ПЕТКОВ","target":"company:tr:207312015","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:petr-todorov-petrov-d3d88b",
+  "nodes": [
+    {
+      "id": "official:petr-todorov-petrov-d3d88b",
+      "type": "official",
+      "slug": "petr-todorov-petrov-d3d88b",
+      "label": "Петър Тодоров Петров",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Пордим"
+    },
+    {
+      "id": "company:tr:176611319",
+      "type": "company",
+      "label": "ИНТЕЛИГЕНТНИ ЕНЕРГИЙНИ СИСТЕМИ",
+      "slug": null,
+      "uic": "176611319",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205004499",
+      "type": "company",
+      "label": "Т - КОЗМЕТИКС",
+      "slug": null,
+      "uic": "205004499",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:147053854",
+      "type": "company",
+      "label": "ФАКТОРИНГ 9000",
+      "slug": null,
+      "uic": "147053854",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205646991",
+      "type": "company",
+      "label": "МАГАЗИН ЗА ИНТЕРНЕТ ТЪРГОВИЯ",
+      "slug": null,
+      "uic": "205646991",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206712177",
+      "type": "company",
+      "label": "Петьо Ауто",
+      "slug": null,
+      "uic": "206712177",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205617519",
+      "type": "company",
+      "label": "ТРЕЙД КРАФТ",
+      "slug": null,
+      "uic": "205617519",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206954489",
+      "type": "company",
+      "label": "ПЕТРОВ П ГРУП",
+      "slug": null,
+      "uic": "206954489",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207227376",
+      "type": "company",
+      "label": "П енд П Студио",
+      "slug": null,
+      "uic": "207227376",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207312015",
+      "type": "company",
+      "label": "Некса БГ",
+      "slug": null,
+      "uic": "207312015",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОР ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Тодор Петров Петров"
+    },
+    {
+      "id": "person:НИКОЛА ГЕОРГИЕВ ШИНИН",
+      "type": "person",
+      "label": "Никола Георгиев Шинин"
+    },
+    {
+      "id": "person:ИВАН ПЛАМЕНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Иван Пламенов Петков"
+    },
+    {
+      "id": "person:ПЛАМЕН ТОДОРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Пламен Тодоров Петров"
+    },
+    {
+      "id": "person:ГЕОРГИ БОРИСЛАВОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Георги Бориславов Петков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-todorov-petrov-d3d88b",
+      "target": "company:tr:176611319",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-todorov-petrov-d3d88b",
+      "target": "company:tr:205004499",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-todorov-petrov-d3d88b",
+      "target": "company:tr:205004499",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-todorov-petrov-d3d88b",
+      "target": "company:tr:147053854",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-todorov-petrov-d3d88b",
+      "target": "company:tr:205646991",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-todorov-petrov-d3d88b",
+      "target": "company:tr:206712177",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-todorov-petrov-d3d88b",
+      "target": "company:tr:205617519",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-todorov-petrov-d3d88b",
+      "target": "company:tr:206954489",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-todorov-petrov-d3d88b",
+      "target": "company:tr:207227376",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-todorov-petrov-d3d88b",
+      "target": "company:tr:207312015",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-todorov-petrov-d3d88b",
+      "target": "company:tr:206712177",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-todorov-petrov-d3d88b",
+      "target": "company:tr:205617519",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-todorov-petrov-d3d88b",
+      "target": "company:tr:206954489",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОР ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:205004499",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:205004499",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ГЕОРГИЕВ ШИНИН",
+      "target": "company:tr:147053854",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ГЕОРГИЕВ ШИНИН",
+      "target": "company:tr:147053854",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПЛАМЕНОВ ПЕТКОВ",
+      "target": "company:tr:205646991",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ТОДОРОВ ПЕТРОВ",
+      "target": "company:tr:207227376",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ТОДОРОВ ПЕТРОВ",
+      "target": "company:tr:207312015",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ БОРИСЛАВОВ ПЕТКОВ",
+      "target": "company:tr:207312015",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

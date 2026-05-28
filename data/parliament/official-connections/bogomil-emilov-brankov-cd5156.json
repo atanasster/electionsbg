@@ -1,1 +1,56 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:bogomil-emilov-brankov-cd5156","nodes":[{"id":"official:bogomil-emilov-brankov-cd5156","type":"official","slug":"bogomil-emilov-brankov-cd5156","label":"Богомил Емилов Бранков","tier":"municipal","role":"council_chair","municipality":"Елин Пелин"},{"id":"company:tr:202176967","type":"company","label":"Бранков комерс ООД","slug":null,"uic":"202176967","legalForm":null,"status":null,"seat":null},{"id":"person:ОЛЕГ ЕМИЛОВ БРАНКОВ","type":"person","label":"Олег Емилов Бранков"}],"edges":[{"source":"official:bogomil-emilov-brankov-cd5156","target":"company:tr:202176967","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:bogomil-emilov-brankov-cd5156","target":"company:tr:202176967","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ОЛЕГ ЕМИЛОВ БРАНКОВ","target":"company:tr:202176967","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:bogomil-emilov-brankov-cd5156",
+  "nodes": [
+    {
+      "id": "official:bogomil-emilov-brankov-cd5156",
+      "type": "official",
+      "slug": "bogomil-emilov-brankov-cd5156",
+      "label": "Богомил Емилов Бранков",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Елин Пелин"
+    },
+    {
+      "id": "company:tr:202176967",
+      "type": "company",
+      "label": "Бранков комерс ООД",
+      "slug": null,
+      "uic": "202176967",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОЛЕГ ЕМИЛОВ БРАНКОВ",
+      "type": "person",
+      "label": "Олег Емилов Бранков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bogomil-emilov-brankov-cd5156",
+      "target": "company:tr:202176967",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:bogomil-emilov-brankov-cd5156",
+      "target": "company:tr:202176967",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОЛЕГ ЕМИЛОВ БРАНКОВ",
+      "target": "company:tr:202176967",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

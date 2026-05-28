@@ -1,1 +1,140 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:dimitr-ivanov-iovnov-511788","nodes":[{"id":"official:dimitr-ivanov-iovnov-511788","type":"official","slug":"dimitr-ivanov-iovnov-511788","label":"Димитър Иванов Йовнов","tier":"municipal","role":"councillor","municipality":"Царево"},{"id":"company:tr:206374284","type":"company","label":"Тренди пропърти ООД","slug":null,"uic":"206374284","legalForm":null,"status":null,"seat":null},{"id":"company:tr:202486040","type":"company","label":"КЕЙ-ДИ-2013","slug":null,"uic":"202486040","legalForm":null,"status":null,"seat":null},{"id":"person:КРИСТИЯН АНАСТАСОВ КОЛЕВ","type":"person","label":"Кристиян Анастасов Колев"},{"id":"person:СИМЕОН СИМЕОНОВ ЩЕРЕВ","type":"person","label":"Симеон Симеонов Щерев"},{"id":"person:КИРИЛ ИВАНОВ ЙОВНОВ","type":"person","label":"Кирил Иванов Йовнов"}],"edges":[{"source":"official:dimitr-ivanov-iovnov-511788","target":"company:tr:206374284","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:dimitr-ivanov-iovnov-511788","target":"company:tr:206374284","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-ivanov-iovnov-511788","target":"company:tr:206374284","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-ivanov-iovnov-511788","target":"company:tr:202486040","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-ivanov-iovnov-511788","target":"company:tr:202486040","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:КРИСТИЯН АНАСТАСОВ КОЛЕВ","target":"company:tr:206374284","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН СИМЕОНОВ ЩЕРЕВ","target":"company:tr:206374284","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ИВАНОВ ЙОВНОВ","target":"company:tr:206374284","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИЯН АНАСТАСОВ КОЛЕВ","target":"company:tr:206374284","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН СИМЕОНОВ ЩЕРЕВ","target":"company:tr:206374284","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ИВАНОВ ЙОВНОВ","target":"company:tr:206374284","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:dimitr-ivanov-iovnov-511788",
+  "nodes": [
+    {
+      "id": "official:dimitr-ivanov-iovnov-511788",
+      "type": "official",
+      "slug": "dimitr-ivanov-iovnov-511788",
+      "label": "Димитър Иванов Йовнов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Царево"
+    },
+    {
+      "id": "company:tr:206374284",
+      "type": "company",
+      "label": "Тренди пропърти ООД",
+      "slug": null,
+      "uic": "206374284",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202486040",
+      "type": "company",
+      "label": "КЕЙ-ДИ-2013",
+      "slug": null,
+      "uic": "202486040",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРИСТИЯН АНАСТАСОВ КОЛЕВ",
+      "type": "person",
+      "label": "Кристиян Анастасов Колев"
+    },
+    {
+      "id": "person:СИМЕОН СИМЕОНОВ ЩЕРЕВ",
+      "type": "person",
+      "label": "Симеон Симеонов Щерев"
+    },
+    {
+      "id": "person:КИРИЛ ИВАНОВ ЙОВНОВ",
+      "type": "person",
+      "label": "Кирил Иванов Йовнов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:206374284",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:206374284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:206374284",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:202486040",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:202486040",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРИСТИЯН АНАСТАСОВ КОЛЕВ",
+      "target": "company:tr:206374284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН СИМЕОНОВ ЩЕРЕВ",
+      "target": "company:tr:206374284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ ЙОВНОВ",
+      "target": "company:tr:206374284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН АНАСТАСОВ КОЛЕВ",
+      "target": "company:tr:206374284",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН СИМЕОНОВ ЩЕРЕВ",
+      "target": "company:tr:206374284",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ ЙОВНОВ",
+      "target": "company:tr:206374284",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,56 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:boris-vladov-angelov-a8c60e","nodes":[{"id":"official:boris-vladov-angelov-a8c60e","type":"official","slug":"boris-vladov-angelov-a8c60e","label":"Борис Владов Ангелов","tier":"municipal","role":"councillor","municipality":"Трън"},{"id":"company:tr:204667025","type":"company","label":"ТРЪН","slug":null,"uic":"204667025","legalForm":null,"status":null,"seat":null},{"id":"person:КРУМ БОРИСОВ АНГЕЛОВ","type":"person","label":"Крум Борисов Ангелов"}],"edges":[{"source":"official:boris-vladov-angelov-a8c60e","target":"company:tr:204667025","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:boris-vladov-angelov-a8c60e","target":"company:tr:204667025","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:КРУМ БОРИСОВ АНГЕЛОВ","target":"company:tr:204667025","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:boris-vladov-angelov-a8c60e",
+  "nodes": [
+    {
+      "id": "official:boris-vladov-angelov-a8c60e",
+      "type": "official",
+      "slug": "boris-vladov-angelov-a8c60e",
+      "label": "Борис Владов Ангелов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Трън"
+    },
+    {
+      "id": "company:tr:204667025",
+      "type": "company",
+      "label": "ТРЪН",
+      "slug": null,
+      "uic": "204667025",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРУМ БОРИСОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Крум Борисов Ангелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boris-vladov-angelov-a8c60e",
+      "target": "company:tr:204667025",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:boris-vladov-angelov-a8c60e",
+      "target": "company:tr:204667025",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРУМ БОРИСОВ АНГЕЛОВ",
+      "target": "company:tr:204667025",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

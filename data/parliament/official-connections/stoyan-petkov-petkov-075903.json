@@ -1,1 +1,62 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:stoyan-petkov-petkov-075903","nodes":[{"id":"official:stoyan-petkov-petkov-075903","type":"official","slug":"stoyan-petkov-petkov-075903","label":"Стоян Петков Петков","tier":"municipal","role":"deputy_mayor","municipality":"Тунджа"},{"id":"company:ПЕТКОВ-55","type":"company","label":"ПЕТКОВ 55","slug":"ПЕТКОВ-55","uic":"206874738","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Ямбол, 8600"},{"id":"mp:5290","type":"mp","mpId":5290,"label":"Стоян Петков Петков","partyGroupShort":"ПГ на Прогресивна България","isCurrent":true,"nsFolders":["52"]}],"edges":[{"source":"official:stoyan-petkov-petkov-075903","target":"company:ПЕТКОВ-55","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5290","target":"company:ПЕТКОВ-55","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5290","target":"company:ПЕТКОВ-55","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:stoyan-petkov-petkov-075903",
+  "nodes": [
+    {
+      "id": "official:stoyan-petkov-petkov-075903",
+      "type": "official",
+      "slug": "stoyan-petkov-petkov-075903",
+      "label": "Стоян Петков Петков",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Тунджа"
+    },
+    {
+      "id": "company:tr:206874738",
+      "type": "company",
+      "label": "ПЕТКОВ 55",
+      "slug": null,
+      "uic": "206874738",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Ямбол, 8600"
+    },
+    {
+      "id": "mp:5290",
+      "type": "mp",
+      "mpId": 5290,
+      "label": "Стоян Петков Петков",
+      "partyGroupShort": "ПГ на Прогресивна България",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-petkov-petkov-075903",
+      "target": "company:tr:206874738",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5290",
+      "target": "company:tr:206874738",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5290",
+      "target": "company:tr:206874738",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

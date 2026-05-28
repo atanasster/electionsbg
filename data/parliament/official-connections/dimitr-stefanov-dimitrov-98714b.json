@@ -1,1 +1,392 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:dimitr-stefanov-dimitrov-98714b","nodes":[{"id":"official:dimitr-stefanov-dimitrov-98714b","type":"official","slug":"dimitr-stefanov-dimitrov-98714b","label":"Димитър Стефанов Димитров","tier":"municipal","role":"councillor","municipality":"Земен"},{"id":"company:tr:200204294","type":"company","label":"КЕТЪРИНГ ВТ","slug":null,"uic":"200204294","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206376883","type":"company","label":"КиВ Билд Инженеринг","slug":null,"uic":"206376883","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206604575","type":"company","label":"ДУЕНДЕ 2020","slug":null,"uic":"206604575","legalForm":null,"status":null,"seat":null},{"id":"company:ЕВРО-ФЕРТ","type":"company","label":"ЕВРО ФЕРТ","slug":"ЕВРО-ФЕРТ","uic":"126180065","legalForm":"AD","status":"active","seat":"БЪЛГАРИЯ, гр. Димитровград, 6400"},{"id":"company:tr:204831318","type":"company","label":"МЕДОНИ","slug":null,"uic":"204831318","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206821493","type":"company","label":"Стефан 2012","slug":null,"uic":"206821493","legalForm":null,"status":null,"seat":null},{"id":"company:tr:126665054","type":"company","label":"ЕВРОФИН","slug":null,"uic":"126665054","legalForm":null,"status":null,"seat":null},{"id":"company:tr:126739227","type":"company","label":"ПАЗАРИ","slug":null,"uic":"126739227","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206877830","type":"company","label":"ЕС ДЖИ ЕМ ЛИМИТЕТ","slug":null,"uic":"206877830","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206998344","type":"company","label":"ФючърСофт","slug":null,"uic":"206998344","legalForm":null,"status":null,"seat":null},{"id":"person:ВЕСЕЛИН ДИМОВ ДИМОВ","type":"person","label":"Веселин Димов Димов"},{"id":"person:АНГЕЛ НЕНЧЕВ ДОНЧЕВ","type":"person","label":"Ангел Ненчев Дончев"},{"id":"person:ВИКТОРИЯ ИЛИЕВА ЦЕНОВА","type":"person","label":"Виктория Илиева Ценова"},{"id":"mp:1586","type":"mp","mpId":1586,"label":"Йордан Георгиев Стойков","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"person:ПЕТЪР ТОМОВ КРЪСТЕВ","type":"person","label":"Петър Томов Кръстев"},{"id":"official:daniel-rumenov-gargov-c309b6","type":"official","slug":"daniel-rumenov-gargov-c309b6","label":"Даниел Руменов Гаргов","tier":"municipal","role":"councillor","municipality":"Хасково"},{"id":"person:КАТЯ ГОСПОДИНОВА ПЕТРОВА","type":"person","label":"Катя Господинова Петрова"}],"edges":[{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:200204294","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:206376883","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:206604575","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:ЕВРО-ФЕРТ","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:ЕВРО-ФЕРТ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:ЕВРО-ФЕРТ","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:204831318","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:206821493","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:126665054","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:126739227","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:206877830","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:206998344","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:206376883","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:206604575","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:206821493","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:206877830","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-stefanov-dimitrov-98714b","target":"company:tr:206998344","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕСЕЛИН ДИМОВ ДИМОВ","target":"company:tr:200204294","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ НЕНЧЕВ ДОНЧЕВ","target":"company:ЕВРО-ФЕРТ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОРИЯ ИЛИЕВА ЦЕНОВА","target":"company:ЕВРО-ФЕРТ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:1586","target":"company:ЕВРО-ФЕРТ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ТОМОВ КРЪСТЕВ","target":"company:ЕВРО-ФЕРТ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ТОМОВ КРЪСТЕВ","target":"company:ЕВРО-ФЕРТ","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"mp:1586","target":"company:ЕВРО-ФЕРТ","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"mp:1586","target":"company:ЕВРО-ФЕРТ","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"official:daniel-rumenov-gargov-c309b6","target":"company:tr:126665054","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:КАТЯ ГОСПОДИНОВА ПЕТРОВА","target":"company:tr:126665054","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"official:daniel-rumenov-gargov-c309b6","target":"company:tr:126739227","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:КАТЯ ГОСПОДИНОВА ПЕТРОВА","target":"company:tr:126739227","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:dimitr-stefanov-dimitrov-98714b",
+  "nodes": [
+    {
+      "id": "official:dimitr-stefanov-dimitrov-98714b",
+      "type": "official",
+      "slug": "dimitr-stefanov-dimitrov-98714b",
+      "label": "Димитър Стефанов Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Земен"
+    },
+    {
+      "id": "company:tr:200204294",
+      "type": "company",
+      "label": "КЕТЪРИНГ ВТ",
+      "slug": null,
+      "uic": "200204294",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206376883",
+      "type": "company",
+      "label": "КиВ Билд Инженеринг",
+      "slug": null,
+      "uic": "206376883",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206604575",
+      "type": "company",
+      "label": "ДУЕНДЕ 2020",
+      "slug": null,
+      "uic": "206604575",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:126180065",
+      "type": "company",
+      "label": "ЕВРО ФЕРТ",
+      "slug": null,
+      "uic": "126180065",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204831318",
+      "type": "company",
+      "label": "МЕДОНИ",
+      "slug": null,
+      "uic": "204831318",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206821493",
+      "type": "company",
+      "label": "Стефан 2012",
+      "slug": null,
+      "uic": "206821493",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:126665054",
+      "type": "company",
+      "label": "ЕВРОФИН",
+      "slug": null,
+      "uic": "126665054",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:126739227",
+      "type": "company",
+      "label": "ПАЗАРИ",
+      "slug": null,
+      "uic": "126739227",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206877830",
+      "type": "company",
+      "label": "ЕС ДЖИ ЕМ ЛИМИТЕТ",
+      "slug": null,
+      "uic": "206877830",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206998344",
+      "type": "company",
+      "label": "ФючърСофт",
+      "slug": null,
+      "uic": "206998344",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛИН ДИМОВ ДИМОВ",
+      "type": "person",
+      "label": "Веселин Димов Димов"
+    },
+    {
+      "id": "person:АНГЕЛ НЕНЧЕВ ДОНЧЕВ",
+      "type": "person",
+      "label": "Ангел Ненчев Дончев"
+    },
+    {
+      "id": "person:ВИКТОРИЯ ИЛИЕВА ЦЕНОВА",
+      "type": "person",
+      "label": "Виктория Илиева Ценова"
+    },
+    {
+      "id": "mp:1586",
+      "type": "mp",
+      "mpId": 1586,
+      "label": "Йордан Георгиев Стойков",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ПЕТЪР ТОМОВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Петър Томов Кръстев"
+    },
+    {
+      "id": "official:daniel-rumenov-gargov-c309b6",
+      "type": "official",
+      "slug": "daniel-rumenov-gargov-c309b6",
+      "label": "Даниел Руменов Гаргов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково"
+    },
+    {
+      "id": "person:КАТЯ ГОСПОДИНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Катя Господинова Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:200204294",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:206376883",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:206604575",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:126180065",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:126180065",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:126180065",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:204831318",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:206821493",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:126665054",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:126739227",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:206877830",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:206998344",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:206376883",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:206604575",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:206821493",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:206877830",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stefanov-dimitrov-98714b",
+      "target": "company:tr:206998344",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ДИМОВ ДИМОВ",
+      "target": "company:tr:200204294",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ НЕНЧЕВ ДОНЧЕВ",
+      "target": "company:tr:126180065",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ИЛИЕВА ЦЕНОВА",
+      "target": "company:tr:126180065",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1586",
+      "target": "company:tr:126180065",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ТОМОВ КРЪСТЕВ",
+      "target": "company:tr:126180065",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ТОМОВ КРЪСТЕВ",
+      "target": "company:tr:126180065",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1586",
+      "target": "company:tr:126180065",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1586",
+      "target": "company:tr:126180065",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-rumenov-gargov-c309b6",
+      "target": "company:tr:126665054",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАТЯ ГОСПОДИНОВА ПЕТРОВА",
+      "target": "company:tr:126665054",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:daniel-rumenov-gargov-c309b6",
+      "target": "company:tr:126739227",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАТЯ ГОСПОДИНОВА ПЕТРОВА",
+      "target": "company:tr:126739227",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

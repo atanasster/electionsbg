@@ -1,1 +1,48 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:peicho-kolev-kolev-630237","nodes":[{"id":"official:peicho-kolev-kolev-630237","type":"official","slug":"peicho-kolev-kolev-630237","label":"Пейчо Колев Колев","tier":"municipal","role":"councillor","municipality":"Несебър"},{"id":"company:tr:203576601","type":"company","label":"КО ЕНД КА ГРУП","slug":null,"uic":"203576601","legalForm":null,"status":null,"seat":null},{"id":"person:КАЛОЯН ПЕТКОВ РАЙНОВ","type":"person","label":"Калоян Петков Райнов"}],"edges":[{"source":"official:peicho-kolev-kolev-630237","target":"company:tr:203576601","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:КАЛОЯН ПЕТКОВ РАЙНОВ","target":"company:tr:203576601","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:peicho-kolev-kolev-630237",
+  "nodes": [
+    {
+      "id": "official:peicho-kolev-kolev-630237",
+      "type": "official",
+      "slug": "peicho-kolev-kolev-630237",
+      "label": "Пейчо Колев Колев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Несебър"
+    },
+    {
+      "id": "company:tr:203576601",
+      "type": "company",
+      "label": "КО ЕНД КА ГРУП",
+      "slug": null,
+      "uic": "203576601",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАЛОЯН ПЕТКОВ РАЙНОВ",
+      "type": "person",
+      "label": "Калоян Петков Райнов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:peicho-kolev-kolev-630237",
+      "target": "company:tr:203576601",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАЛОЯН ПЕТКОВ РАЙНОВ",
+      "target": "company:tr:203576601",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

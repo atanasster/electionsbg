@@ -1,1 +1,48 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:mehmed-mehmed-mehmed-87534d","nodes":[{"id":"official:mehmed-mehmed-mehmed-87534d","type":"official","slug":"mehmed-mehmed-mehmed-87534d","label":"Мехмед Мехмед Мехмед","tier":"municipal","role":"councillor","municipality":"Руен"},{"id":"company:tr:205158426","type":"company","label":"ВИКИ - 2А","slug":null,"uic":"205158426","legalForm":null,"status":null,"seat":null},{"id":"person:АЛИ МЕХМЕДОВ КАНДЕВ","type":"person","label":"Али Мехмедов Кандев"}],"edges":[{"source":"official:mehmed-mehmed-mehmed-87534d","target":"company:tr:205158426","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:АЛИ МЕХМЕДОВ КАНДЕВ","target":"company:tr:205158426","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:mehmed-mehmed-mehmed-87534d",
+  "nodes": [
+    {
+      "id": "official:mehmed-mehmed-mehmed-87534d",
+      "type": "official",
+      "slug": "mehmed-mehmed-mehmed-87534d",
+      "label": "Мехмед Мехмед Мехмед",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Руен"
+    },
+    {
+      "id": "company:tr:205158426",
+      "type": "company",
+      "label": "ВИКИ - 2А",
+      "slug": null,
+      "uic": "205158426",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛИ МЕХМЕДОВ КАНДЕВ",
+      "type": "person",
+      "label": "Али Мехмедов Кандев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mehmed-mehmed-mehmed-87534d",
+      "target": "company:tr:205158426",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛИ МЕХМЕДОВ КАНДЕВ",
+      "target": "company:tr:205158426",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

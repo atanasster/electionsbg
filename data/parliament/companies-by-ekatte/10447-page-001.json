@@ -12,14 +12,14 @@
         {
           "mpId": 3796,
           "mpName": "Николай Георгиев Ангов",
-          "role": "partner",
-          "isCurrent": false
+          "role": "sole_owner",
+          "isCurrent": true
         },
         {
           "mpId": 3796,
           "mpName": "Николай Георгиев Ангов",
-          "role": "sole_owner",
-          "isCurrent": true
+          "role": "partner",
+          "isCurrent": false
         },
         {
           "mpId": 4598,
@@ -37,7 +37,7 @@
     },
     {
       "slug": "ПЕТИ-КОРПУС",
-      "displayName": "Пети корпус",
+      "displayName": "ПЕТИ КОРПУС",
       "registeredOffice": "БЪЛГАРИЯ, гр. Велико Търново, 5000",
       "mps": [
         {
@@ -62,7 +62,7 @@
     },
     {
       "slug": "РЕЗОРТ-ПРОПЪРТИ-МЕНИДЖМЪНТ",
-      "displayName": "Резорт пропърти мениджмънт",
+      "displayName": "РЕЗОРТ ПРОПЪРТИ МЕНИДЖМЪНТ",
       "registeredOffice": "БЪЛГАРИЯ, гр. Велико Търново, 5000",
       "mps": [
         {
@@ -81,13 +81,52 @@
     },
     {
       "slug": "ВИНПРОМ",
-      "displayName": "Винпром",
+      "displayName": "ВИНПРОМ",
       "registeredOffice": "БЪЛГАРИЯ, гр. Велико Търново, 5000",
       "mps": [
         {
           "mpId": 913,
           "mpName": "Евгений Василев Узунов",
           "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИК-Знаме-ЕАД",
+      "displayName": "ИК Знаме ЕАД",
+      "registeredOffice": "Велико Търново",
+      "mps": [
+        {
+          "mpId": 4739,
+          "mpName": "Димитър Стойков Николов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИК-Компакт-медиа-ООД",
+      "displayName": "ИК Компакт медиа ООД",
+      "registeredOffice": "Велико Търново",
+      "mps": [
+        {
+          "mpId": 4739,
+          "mpName": "Димитър Стойков Николов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Компакт-медиа-ЕООД",
+      "displayName": "Компакт медиа ЕООД",
+      "registeredOffice": "Велико Търново",
+      "mps": [
+        {
+          "mpId": 4739,
+          "mpName": "Димитър Стойков Николов",
+          "role": "declared_stake",
           "isCurrent": true
         }
       ]
@@ -107,7 +146,7 @@
     },
     {
       "slug": "СИТИ-РЕЙ-ИЗТОК",
-      "displayName": "Сити рей изток",
+      "displayName": "СИТИ РЕЙ ИЗТОК",
       "registeredOffice": "БЪЛГАРИЯ, гр. Велико Търново, 5000",
       "mps": [
         {
@@ -119,47 +158,8 @@
       ]
     },
     {
-      "slug": "ИК-ЗНАМЕ-ЕАД",
-      "displayName": "ИК Знаме ЕАД",
-      "registeredOffice": "Велико Търново",
-      "mps": [
-        {
-          "mpId": 4739,
-          "mpName": "Димитър Стойков Николов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ИК-КОМПАКТ-МЕДИА-ООД",
-      "displayName": "ИК Компакт медиа ООД",
-      "registeredOffice": "Велико Търново",
-      "mps": [
-        {
-          "mpId": 4739,
-          "mpName": "Димитър Стойков Николов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "КОМПАКТ-МЕДИА-ЕООД",
-      "displayName": "Компакт медиа ЕООД",
-      "registeredOffice": "Велико Търново",
-      "mps": [
-        {
-          "mpId": 4739,
-          "mpName": "Димитър Стойков Николов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ЧЕРНОМОРСКИ-ФАР",
-      "displayName": "Черноморски фар",
+      "slug": "Черноморски-ФАР",
+      "displayName": "Черноморски ФАР",
       "registeredOffice": "Велико Търново",
       "mps": [
         {

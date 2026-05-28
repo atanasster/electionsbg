@@ -1,1 +1,103 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:velizar-krumov-krumov-1b852b","nodes":[{"id":"official:velizar-krumov-krumov-1b852b","type":"official","slug":"velizar-krumov-krumov-1b852b","label":"Велизар Крумов Крумов","tier":"municipal","role":"councillor","municipality":"Своге"},{"id":"company:tr:201202932","type":"company","label":"Сокър Дриймс ООД","slug":null,"uic":"201202932","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206585559","type":"company","label":"Сдружение футболен клуб сините орли","slug":null,"uic":"206585559","legalForm":null,"status":null,"seat":null},{"id":"person:СТЕФАН СТЕФАНОВ СПАСОВ","type":"person","label":"Стефан Стефанов Спасов"},{"id":"person:МИЛЕН ИВАНОВ ПЕТКОВ","type":"person","label":"Милен Иванов Петков"}],"edges":[{"source":"official:velizar-krumov-krumov-1b852b","target":"company:tr:201202932","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:velizar-krumov-krumov-1b852b","target":"company:tr:206585559","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:velizar-krumov-krumov-1b852b","target":"company:tr:201202932","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФАН СТЕФАНОВ СПАСОВ","target":"company:tr:201202932","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ИВАНОВ ПЕТКОВ","target":"company:tr:201202932","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН СТЕФАНОВ СПАСОВ","target":"company:tr:201202932","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ИВАНОВ ПЕТКОВ","target":"company:tr:201202932","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:velizar-krumov-krumov-1b852b",
+  "nodes": [
+    {
+      "id": "official:velizar-krumov-krumov-1b852b",
+      "type": "official",
+      "slug": "velizar-krumov-krumov-1b852b",
+      "label": "Велизар Крумов Крумов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Своге"
+    },
+    {
+      "id": "company:tr:201202932",
+      "type": "company",
+      "label": "Сокър Дриймс ООД",
+      "slug": null,
+      "uic": "201202932",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206585559",
+      "type": "company",
+      "label": "Сдружение футболен клуб сините орли",
+      "slug": null,
+      "uic": "206585559",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН СТЕФАНОВ СПАСОВ",
+      "type": "person",
+      "label": "Стефан Стефанов Спасов"
+    },
+    {
+      "id": "person:МИЛЕН ИВАНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Милен Иванов Петков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velizar-krumov-krumov-1b852b",
+      "target": "company:tr:201202932",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:velizar-krumov-krumov-1b852b",
+      "target": "company:tr:206585559",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:velizar-krumov-krumov-1b852b",
+      "target": "company:tr:201202932",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН СТЕФАНОВ СПАСОВ",
+      "target": "company:tr:201202932",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:201202932",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН СТЕФАНОВ СПАСОВ",
+      "target": "company:tr:201202932",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:201202932",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

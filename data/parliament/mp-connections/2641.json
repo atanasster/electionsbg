@@ -1,1 +1,136 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:2641","nodes":[{"id":"mp:2641","type":"mp","mpId":2641,"label":"Евгения Даниелова Ангелова","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["43"]},{"id":"company:АЛФА-И-ЗЕТ-БЪЛГАРИЯ","type":"company","label":"АЛФА И ЗЕТ БЪЛГАРИЯ","slug":"АЛФА-И-ЗЕТ-БЪЛГАРИЯ","uic":"202974157","legalForm":"AD","status":"active","seat":null},{"id":"company:tr:126645742","type":"company","label":"БАЛКАН ТАБАК","slug":null,"uic":"126645742","legalForm":"AD","status":"active","seat":null},{"id":"person:ДАНИЕЛ ТЕНЧЕВ АНГЕЛОВ","type":"person","label":"Даниел Тенчев Ангелов"},{"id":"person:НИКОЛАЙ ХАРАЛАНОВ ЗАХАРИЕВ","type":"person","label":"Николай Хараланов Захариев"},{"id":"official:evgeniya-danielova-angelova-34260c","type":"official","slug":"evgeniya-danielova-angelova-34260c","label":"Евгения Даниелова Ангелова","tier":"municipal","role":"councillor","municipality":"Хасково"},{"id":"person:ДИАНА ИВАНОВА ИВАНОВА","type":"person","label":"Диана Иванова Иванова"}],"edges":[{"source":"mp:2641","target":"company:АЛФА-И-ЗЕТ-БЪЛГАРИЯ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:2641","target":"company:tr:126645742","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ДАНИЕЛ ТЕНЧЕВ АНГЕЛОВ","target":"company:АЛФА-И-ЗЕТ-БЪЛГАРИЯ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ХАРАЛАНОВ ЗАХАРИЕВ","target":"company:АЛФА-И-ЗЕТ-БЪЛГАРИЯ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"official:evgeniya-danielova-angelova-34260c","target":"company:АЛФА-И-ЗЕТ-БЪЛГАРИЯ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:evgeniya-danielova-angelova-34260c","target":"company:tr:126645742","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ДАНИЕЛ ТЕНЧЕВ АНГЕЛОВ","target":"company:tr:126645742","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА ИВАНОВА ИВАНОВА","target":"company:tr:126645742","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ХАРАЛАНОВ ЗАХАРИЕВ","target":"company:tr:126645742","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:2641",
+  "nodes": [
+    {
+      "id": "mp:2641",
+      "type": "mp",
+      "mpId": 2641,
+      "label": "Евгения Даниелова Ангелова",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "43"
+      ]
+    },
+    {
+      "id": "company:tr:126645742",
+      "type": "company",
+      "label": "БАЛКАН ТАБАК",
+      "slug": null,
+      "uic": "126645742",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:202974157",
+      "type": "company",
+      "label": "АЛФА И ЗЕТ БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "202974157",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "official:evgeniya-danielova-angelova-34260c",
+      "type": "official",
+      "slug": "evgeniya-danielova-angelova-34260c",
+      "label": "Евгения Даниелова Ангелова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково"
+    },
+    {
+      "id": "person:ДАНИЕЛ ТЕНЧЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Даниел Тенчев Ангелов"
+    },
+    {
+      "id": "person:ДИАНА ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Диана Иванова Иванова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ХАРАЛАНОВ ЗАХАРИЕВ",
+      "type": "person",
+      "label": "Николай Хараланов Захариев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2641",
+      "target": "company:tr:126645742",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2641",
+      "target": "company:tr:202974157",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:evgeniya-danielova-angelova-34260c",
+      "target": "company:tr:126645742",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛ ТЕНЧЕВ АНГЕЛОВ",
+      "target": "company:tr:126645742",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ИВАНОВА ИВАНОВА",
+      "target": "company:tr:126645742",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ХАРАЛАНОВ ЗАХАРИЕВ",
+      "target": "company:tr:126645742",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:evgeniya-danielova-angelova-34260c",
+      "target": "company:tr:202974157",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛ ТЕНЧЕВ АНГЕЛОВ",
+      "target": "company:tr:202974157",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ХАРАЛАНОВ ЗАХАРИЕВ",
+      "target": "company:tr:202974157",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,1 +1,69 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:zornitsa-valentinova-vasileva-9f3ff7","nodes":[{"id":"official:zornitsa-valentinova-vasileva-9f3ff7","type":"official","slug":"zornitsa-valentinova-vasileva-9f3ff7","label":"Зорница Валентинова Василева","tier":"municipal","role":"councillor","municipality":"Варна"},{"id":"company:tr:201861509","type":"company","label":"Амонит","slug":null,"uic":"201861509","legalForm":null,"status":null,"seat":null},{"id":"person:ВЕНЕЛИН НИКОЛАЕВ ИВАНОВ","type":"person","label":"Венелин Николаев Иванов"},{"id":"person:СТОЯН ИВАНОВ СТОЯНОВ","type":"person","label":"Стоян Иванов Стоянов"}],"edges":[{"source":"official:zornitsa-valentinova-vasileva-9f3ff7","target":"company:tr:201861509","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕНЕЛИН НИКОЛАЕВ ИВАНОВ","target":"company:tr:201861509","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ИВАНОВ СТОЯНОВ","target":"company:tr:201861509","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕЛИН НИКОЛАЕВ ИВАНОВ","target":"company:tr:201861509","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:zornitsa-valentinova-vasileva-9f3ff7",
+  "nodes": [
+    {
+      "id": "official:zornitsa-valentinova-vasileva-9f3ff7",
+      "type": "official",
+      "slug": "zornitsa-valentinova-vasileva-9f3ff7",
+      "label": "Зорница Валентинова Василева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна"
+    },
+    {
+      "id": "company:tr:201861509",
+      "type": "company",
+      "label": "Амонит",
+      "slug": null,
+      "uic": "201861509",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕНЕЛИН НИКОЛАЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Венелин Николаев Иванов"
+    },
+    {
+      "id": "person:СТОЯН ИВАНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стоян Иванов Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zornitsa-valentinova-vasileva-9f3ff7",
+      "target": "company:tr:201861509",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕНЕЛИН НИКОЛАЕВ ИВАНОВ",
+      "target": "company:tr:201861509",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ИВАНОВ СТОЯНОВ",
+      "target": "company:tr:201861509",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН НИКОЛАЕВ ИВАНОВ",
+      "target": "company:tr:201861509",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

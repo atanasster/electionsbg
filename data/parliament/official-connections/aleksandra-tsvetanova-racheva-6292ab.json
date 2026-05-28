@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:aleksandra-tsvetanova-racheva-6292ab","nodes":[{"id":"official:aleksandra-tsvetanova-racheva-6292ab","type":"official","slug":"aleksandra-tsvetanova-racheva-6292ab","label":"Александра Цветанова Рачева","tier":"municipal","role":"councillor","municipality":"Видин"},{"id":"company:tr:202509343","type":"company","label":"РВР Партнер Груп ООД","slug":null,"uic":"202509343","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:aleksandra-tsvetanova-racheva-6292ab","target":"company:tr:202509343","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:aleksandra-tsvetanova-racheva-6292ab",
+  "nodes": [
+    {
+      "id": "official:aleksandra-tsvetanova-racheva-6292ab",
+      "type": "official",
+      "slug": "aleksandra-tsvetanova-racheva-6292ab",
+      "label": "Александра Цветанова Рачева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Видин"
+    },
+    {
+      "id": "company:tr:202509343",
+      "type": "company",
+      "label": "РВР Партнер Груп ООД",
+      "slug": null,
+      "uic": "202509343",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandra-tsvetanova-racheva-6292ab",
+      "target": "company:tr:202509343",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

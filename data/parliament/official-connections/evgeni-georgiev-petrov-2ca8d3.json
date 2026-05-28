@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:evgeni-georgiev-petrov-2ca8d3","nodes":[{"id":"official:evgeni-georgiev-petrov-2ca8d3","type":"official","slug":"evgeni-georgiev-petrov-2ca8d3","label":"Евгени Георгиев Петров","tier":"municipal","role":"councillor","municipality":"Айтос"},{"id":"company:tr:147199880","type":"company","label":"Среброви ООД","slug":null,"uic":"147199880","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:evgeni-georgiev-petrov-2ca8d3","target":"company:tr:147199880","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:evgeni-georgiev-petrov-2ca8d3",
+  "nodes": [
+    {
+      "id": "official:evgeni-georgiev-petrov-2ca8d3",
+      "type": "official",
+      "slug": "evgeni-georgiev-petrov-2ca8d3",
+      "label": "Евгени Георгиев Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Айтос"
+    },
+    {
+      "id": "company:tr:147199880",
+      "type": "company",
+      "label": "Среброви ООД",
+      "slug": null,
+      "uic": "147199880",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:evgeni-georgiev-petrov-2ca8d3",
+      "target": "company:tr:147199880",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

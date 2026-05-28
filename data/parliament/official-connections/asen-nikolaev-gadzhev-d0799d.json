@@ -1,1 +1,56 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:asen-nikolaev-gadzhev-d0799d","nodes":[{"id":"official:asen-nikolaev-gadzhev-d0799d","type":"official","slug":"asen-nikolaev-gadzhev-d0799d","label":"Асен Николаев Гаджев","tier":"municipal","role":"councillor","municipality":"Септември"},{"id":"company:tr:206556237","type":"company","label":"\"Кипра-27\" ЕООД","slug":null,"uic":"206556237","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАНКА ГЕОРГИЕВА ГАДЖЕВА","type":"person","label":"Иванка Георгиева Гаджева"}],"edges":[{"source":"official:asen-nikolaev-gadzhev-d0799d","target":"company:tr:206556237","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ГЕОРГИЕВА ГАДЖЕВА","target":"company:tr:206556237","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ГЕОРГИЕВА ГАДЖЕВА","target":"company:tr:206556237","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:asen-nikolaev-gadzhev-d0799d",
+  "nodes": [
+    {
+      "id": "official:asen-nikolaev-gadzhev-d0799d",
+      "type": "official",
+      "slug": "asen-nikolaev-gadzhev-d0799d",
+      "label": "Асен Николаев Гаджев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Септември"
+    },
+    {
+      "id": "company:tr:206556237",
+      "type": "company",
+      "label": "\"Кипра-27\" ЕООД",
+      "slug": null,
+      "uic": "206556237",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНКА ГЕОРГИЕВА ГАДЖЕВА",
+      "type": "person",
+      "label": "Иванка Георгиева Гаджева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:asen-nikolaev-gadzhev-d0799d",
+      "target": "company:tr:206556237",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ГЕОРГИЕВА ГАДЖЕВА",
+      "target": "company:tr:206556237",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ГЕОРГИЕВА ГАДЖЕВА",
+      "target": "company:tr:206556237",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

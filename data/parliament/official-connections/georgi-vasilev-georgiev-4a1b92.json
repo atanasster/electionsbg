@@ -1,1 +1,659 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:georgi-vasilev-georgiev-4a1b92","nodes":[{"id":"official:georgi-vasilev-georgiev-4a1b92","type":"official","slug":"georgi-vasilev-georgiev-4a1b92","label":"Георги Василев Георгиев","tier":"municipal","role":"councillor","municipality":"Дупница"},{"id":"company:tr:130255125","type":"company","label":"ПАК - 1","slug":null,"uic":"130255125","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201415122","type":"company","label":"БАНСКО БИЛД 3","slug":null,"uic":"201415122","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201875359","type":"company","label":"СТАРКРИСТАЛС","slug":null,"uic":"201875359","legalForm":null,"status":null,"seat":null},{"id":"company:tr:175146550","type":"company","label":"МАР 2005","slug":null,"uic":"175146550","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206481126","type":"company","label":"Диамант 52","slug":null,"uic":"206481126","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206502467","type":"company","label":"ХАМБАРА","slug":null,"uic":"206502467","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206517743","type":"company","label":"ВАСИЛИАН 21","slug":null,"uic":"206517743","legalForm":null,"status":null,"seat":null},{"id":"company:tr:175301328","type":"company","label":"СТАР БЕНТ","slug":null,"uic":"175301328","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206565492","type":"company","label":"ГЕОРГИЕВ АКАУНТИНГ","slug":null,"uic":"206565492","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206607544","type":"company","label":"Георгиев Инжинеринг","slug":null,"uic":"206607544","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206684906","type":"company","label":"ТЕРАИНВЕСТ СТРОЙ","slug":null,"uic":"206684906","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203400852","type":"company","label":"ЕВОЛЕКС","slug":null,"uic":"203400852","legalForm":null,"status":null,"seat":null},{"id":"company:tr:111587169","type":"company","label":"И ЕНД М","slug":null,"uic":"111587169","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203404822","type":"company","label":"АЛТЕРНА 11","slug":null,"uic":"203404822","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206832529","type":"company","label":"ДЖИ ЕЛ ТРАНС 22","slug":null,"uic":"206832529","legalForm":null,"status":null,"seat":null},{"id":"company:tr:147026266","type":"company","label":"СЪНСЕТ РИЗОРТ МЕНИДЖМЪНТ","slug":null,"uic":"147026266","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206942139","type":"company","label":"СИ ИН СИ","slug":null,"uic":"206942139","legalForm":null,"status":null,"seat":null},{"id":"company:tr:131483288","type":"company","label":"Е Г КАПИТАЛ","slug":null,"uic":"131483288","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207068600","type":"company","label":"Графит Интернешънъл","slug":null,"uic":"207068600","legalForm":null,"status":null,"seat":null},{"id":"company:tr:208786621","type":"company","label":"ХАЛФ УОЛК","slug":null,"uic":"208786621","legalForm":null,"status":null,"seat":null},{"id":"person:СВИЛЕН ЙОРДАНОВ ГОСПОДИНОВ","type":"person","label":"Свилен Йорданов Господинов"},{"id":"person:ТИХОМИР КЕРАНОВ ТАНЕВ","type":"person","label":"Тихомир Керанов Танев"},{"id":"company:name:ДЖОЙНТ ВЕНЧЪР","type":"company","label":"ДЖОЙНТ ВЕНЧЪР ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:МИЛКА ВАСИЛЕВА ГЕОРГИЕВА","type":"person","label":"Милка Василева Георгиева"},{"id":"person:РУМЕН ДИМИТРОВ ПЕНЧЕВ","type":"person","label":"Румен Димитров Пенчев"},{"id":"person:ВАНЯ ПЛАМЕНОВА ИВАНОВА","type":"person","label":"Ваня Пламенова Иванова"},{"id":"person:ДИМИТЪР ЙОРДАНОВ ЧИЛИНГИРОВ","type":"person","label":"Димитър Йорданов Чилингиров"},{"id":"person:АТАНАС ГРУДЕВ ВЪЛЧЕВ","type":"person","label":"Атанас Грудев Вълчев"},{"id":"person:МАРИН ПЛАМЕНОВ ЦЕНОВ","type":"person","label":"Марин Пламенов Ценов"}],"edges":[{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:130255125","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:130255125","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:201415122","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:201875359","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:175146550","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206481126","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206502467","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206502467","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206517743","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:175301328","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206565492","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206607544","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206684906","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:203400852","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:111587169","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:203404822","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206832529","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:147026266","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206942139","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:131483288","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:207068600","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:208786621","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206517743","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206565492","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206607544","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:111587169","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206832529","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:147026266","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:206942139","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:131483288","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-georgiev-4a1b92","target":"company:tr:207068600","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:СВИЛЕН ЙОРДАНОВ ГОСПОДИНОВ","target":"company:tr:130255125","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР КЕРАНОВ ТАНЕВ","target":"company:tr:130255125","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР КЕРАНОВ ТАНЕВ","target":"company:tr:130255125","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:ДЖОЙНТ ВЕНЧЪР","target":"company:tr:201415122","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"company:name:ДЖОЙНТ ВЕНЧЪР","target":"company:tr:175146550","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛКА ВАСИЛЕВА ГЕОРГИЕВА","target":"company:tr:206481126","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛКА ВАСИЛЕВА ГЕОРГИЕВА","target":"company:tr:206481126","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ДИМИТРОВ ПЕНЧЕВ","target":"company:tr:206502467","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ПЛАМЕНОВА ИВАНОВА","target":"company:tr:206502467","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ДИМИТРОВ ПЕНЧЕВ","target":"company:tr:206502467","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ЙОРДАНОВ ЧИЛИНГИРОВ","target":"company:tr:175301328","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ЙОРДАНОВ ЧИЛИНГИРОВ","target":"company:tr:175301328","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ГРУДЕВ ВЪЛЧЕВ","target":"company:tr:206684906","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ГРУДЕВ ВЪЛЧЕВ","target":"company:tr:206684906","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ДЖОЙНТ ВЕНЧЪР","target":"company:tr:203400852","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"company:name:ДЖОЙНТ ВЕНЧЪР","target":"company:tr:203404822","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИН ПЛАМЕНОВ ЦЕНОВ","target":"company:tr:208786621","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИН ПЛАМЕНОВ ЦЕНОВ","target":"company:tr:208786621","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:georgi-vasilev-georgiev-4a1b92",
+  "nodes": [
+    {
+      "id": "official:georgi-vasilev-georgiev-4a1b92",
+      "type": "official",
+      "slug": "georgi-vasilev-georgiev-4a1b92",
+      "label": "Георги Василев Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дупница"
+    },
+    {
+      "id": "company:tr:130255125",
+      "type": "company",
+      "label": "ПАК - 1",
+      "slug": null,
+      "uic": "130255125",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201415122",
+      "type": "company",
+      "label": "БАНСКО БИЛД 3",
+      "slug": null,
+      "uic": "201415122",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201875359",
+      "type": "company",
+      "label": "СТАРКРИСТАЛС",
+      "slug": null,
+      "uic": "201875359",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:175146550",
+      "type": "company",
+      "label": "МАР 2005",
+      "slug": null,
+      "uic": "175146550",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206481126",
+      "type": "company",
+      "label": "Диамант 52",
+      "slug": null,
+      "uic": "206481126",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206502467",
+      "type": "company",
+      "label": "ХАМБАРА",
+      "slug": null,
+      "uic": "206502467",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206517743",
+      "type": "company",
+      "label": "ВАСИЛИАН 21",
+      "slug": null,
+      "uic": "206517743",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:175301328",
+      "type": "company",
+      "label": "СТАР БЕНТ",
+      "slug": null,
+      "uic": "175301328",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206565492",
+      "type": "company",
+      "label": "ГЕОРГИЕВ АКАУНТИНГ",
+      "slug": null,
+      "uic": "206565492",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206607544",
+      "type": "company",
+      "label": "Георгиев Инжинеринг",
+      "slug": null,
+      "uic": "206607544",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206684906",
+      "type": "company",
+      "label": "ТЕРАИНВЕСТ СТРОЙ",
+      "slug": null,
+      "uic": "206684906",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203400852",
+      "type": "company",
+      "label": "ЕВОЛЕКС",
+      "slug": null,
+      "uic": "203400852",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:111587169",
+      "type": "company",
+      "label": "И ЕНД М",
+      "slug": null,
+      "uic": "111587169",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203404822",
+      "type": "company",
+      "label": "АЛТЕРНА 11",
+      "slug": null,
+      "uic": "203404822",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206832529",
+      "type": "company",
+      "label": "ДЖИ ЕЛ ТРАНС 22",
+      "slug": null,
+      "uic": "206832529",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:147026266",
+      "type": "company",
+      "label": "СЪНСЕТ РИЗОРТ МЕНИДЖМЪНТ",
+      "slug": null,
+      "uic": "147026266",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206942139",
+      "type": "company",
+      "label": "СИ ИН СИ",
+      "slug": null,
+      "uic": "206942139",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:131483288",
+      "type": "company",
+      "label": "Е Г КАПИТАЛ",
+      "slug": null,
+      "uic": "131483288",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207068600",
+      "type": "company",
+      "label": "Графит Интернешънъл",
+      "slug": null,
+      "uic": "207068600",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208786621",
+      "type": "company",
+      "label": "ХАЛФ УОЛК",
+      "slug": null,
+      "uic": "208786621",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВИЛЕН ЙОРДАНОВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Свилен Йорданов Господинов"
+    },
+    {
+      "id": "person:ТИХОМИР КЕРАНОВ ТАНЕВ",
+      "type": "person",
+      "label": "Тихомир Керанов Танев"
+    },
+    {
+      "id": "company:name:ДЖОЙНТ ВЕНЧЪР",
+      "type": "company",
+      "label": "ДЖОЙНТ ВЕНЧЪР ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛКА ВАСИЛЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Милка Василева Георгиева"
+    },
+    {
+      "id": "person:РУМЕН ДИМИТРОВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Румен Димитров Пенчев"
+    },
+    {
+      "id": "person:ВАНЯ ПЛАМЕНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Ваня Пламенова Иванова"
+    },
+    {
+      "id": "person:ДИМИТЪР ЙОРДАНОВ ЧИЛИНГИРОВ",
+      "type": "person",
+      "label": "Димитър Йорданов Чилингиров"
+    },
+    {
+      "id": "person:АТАНАС ГРУДЕВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Атанас Грудев Вълчев"
+    },
+    {
+      "id": "person:МАРИН ПЛАМЕНОВ ЦЕНОВ",
+      "type": "person",
+      "label": "Марин Пламенов Ценов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:130255125",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:130255125",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:201415122",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:201875359",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:175146550",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206481126",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206502467",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206502467",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206517743",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:175301328",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206565492",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206607544",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206684906",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:203400852",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:111587169",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:203404822",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206832529",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:147026266",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206942139",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:131483288",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:207068600",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:208786621",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206517743",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206565492",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206607544",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:111587169",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206832529",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:147026266",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:206942139",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:131483288",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-georgiev-4a1b92",
+      "target": "company:tr:207068600",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВИЛЕН ЙОРДАНОВ ГОСПОДИНОВ",
+      "target": "company:tr:130255125",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР КЕРАНОВ ТАНЕВ",
+      "target": "company:tr:130255125",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР КЕРАНОВ ТАНЕВ",
+      "target": "company:tr:130255125",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДЖОЙНТ ВЕНЧЪР",
+      "target": "company:tr:201415122",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДЖОЙНТ ВЕНЧЪР",
+      "target": "company:tr:175146550",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ВАСИЛЕВА ГЕОРГИЕВА",
+      "target": "company:tr:206481126",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ВАСИЛЕВА ГЕОРГИЕВА",
+      "target": "company:tr:206481126",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ДИМИТРОВ ПЕНЧЕВ",
+      "target": "company:tr:206502467",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ПЛАМЕНОВА ИВАНОВА",
+      "target": "company:tr:206502467",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ДИМИТРОВ ПЕНЧЕВ",
+      "target": "company:tr:206502467",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ ЧИЛИНГИРОВ",
+      "target": "company:tr:175301328",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ ЧИЛИНГИРОВ",
+      "target": "company:tr:175301328",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ГРУДЕВ ВЪЛЧЕВ",
+      "target": "company:tr:206684906",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ГРУДЕВ ВЪЛЧЕВ",
+      "target": "company:tr:206684906",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДЖОЙНТ ВЕНЧЪР",
+      "target": "company:tr:203400852",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДЖОЙНТ ВЕНЧЪР",
+      "target": "company:tr:203404822",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ПЛАМЕНОВ ЦЕНОВ",
+      "target": "company:tr:208786621",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ПЛАМЕНОВ ЦЕНОВ",
+      "target": "company:tr:208786621",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,210 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:valentin-vasilev-georgiev-8dfdc8","nodes":[{"id":"official:valentin-vasilev-georgiev-8dfdc8","type":"official","slug":"valentin-vasilev-georgiev-8dfdc8","label":"Валентин Василев Георгиев","tier":"municipal","role":"councillor","municipality":"Драгоман"},{"id":"company:tr:201210822","type":"company","label":"Грийнтех Инженеринг Солюшънс","slug":null,"uic":"201210822","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203038474","type":"company","label":"ВЪЗХОД ВАЛЕНТИНОВИ","slug":null,"uic":"203038474","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206716058","type":"company","label":"Соларис Енерджи Инвестмънт","slug":null,"uic":"206716058","legalForm":null,"status":null,"seat":null},{"id":"person:ТОДОР МИРОСЛАВОВ НИКОЛОВ","type":"person","label":"Тодор Мирославов Николов"},{"id":"person:КИРО ГЕОРГИЕВ КИРОВ","type":"person","label":"Киро Георгиев Киров"},{"id":"person:ДИМИТЪР СТЕФАНОВ ВЪРТИГОВ","type":"person","label":"Димитър Стефанов Въртигов"},{"id":"person:РУМЕН ИВАНОВ НАНОВ","type":"person","label":"Румен Иванов Нанов"},{"id":"person:САШО АНГЕЛОВ ДИМИТРОВ","type":"person","label":"Сашо Ангелов Димитров"},{"id":"person:ГЕОРГИЕ ВАЛЕНТИНОВ ДИМИТРОВ","type":"person","label":"Георгие Валентинов Димитров"},{"id":"person:ГЕОРГИ ВАЛЕНТИНОВ ДИМИТРОВ","type":"person","label":"Георги Валентинов Димитров"}],"edges":[{"source":"official:valentin-vasilev-georgiev-8dfdc8","target":"company:tr:201210822","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:valentin-vasilev-georgiev-8dfdc8","target":"company:tr:201210822","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"official:valentin-vasilev-georgiev-8dfdc8","target":"company:tr:203038474","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:valentin-vasilev-georgiev-8dfdc8","target":"company:tr:206716058","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:valentin-vasilev-georgiev-8dfdc8","target":"company:tr:206716058","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ТОДОР МИРОСЛАВОВ НИКОЛОВ","target":"company:tr:201210822","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КИРО ГЕОРГИЕВ КИРОВ","target":"company:tr:201210822","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР СТЕФАНОВ ВЪРТИГОВ","target":"company:tr:201210822","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ИВАНОВ НАНОВ","target":"company:tr:201210822","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:САШО АНГЕЛОВ ДИМИТРОВ","target":"company:tr:201210822","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:САШО АНГЕЛОВ ДИМИТРОВ","target":"company:tr:201210822","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР МИРОСЛАВОВ НИКОЛОВ","target":"company:tr:206716058","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИЕ ВАЛЕНТИНОВ ДИМИТРОВ","target":"company:tr:206716058","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР МИРОСЛАВОВ НИКОЛОВ","target":"company:tr:206716058","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ВАЛЕНТИНОВ ДИМИТРОВ","target":"company:tr:206716058","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ВАЛЕНТИНОВ ДИМИТРОВ","target":"company:tr:206716058","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:valentin-vasilev-georgiev-8dfdc8",
+  "nodes": [
+    {
+      "id": "official:valentin-vasilev-georgiev-8dfdc8",
+      "type": "official",
+      "slug": "valentin-vasilev-georgiev-8dfdc8",
+      "label": "Валентин Василев Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Драгоман"
+    },
+    {
+      "id": "company:tr:201210822",
+      "type": "company",
+      "label": "Грийнтех Инженеринг Солюшънс",
+      "slug": null,
+      "uic": "201210822",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203038474",
+      "type": "company",
+      "label": "ВЪЗХОД ВАЛЕНТИНОВИ",
+      "slug": null,
+      "uic": "203038474",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206716058",
+      "type": "company",
+      "label": "Соларис Енерджи Инвестмънт",
+      "slug": null,
+      "uic": "206716058",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОР МИРОСЛАВОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Тодор Мирославов Николов"
+    },
+    {
+      "id": "person:КИРО ГЕОРГИЕВ КИРОВ",
+      "type": "person",
+      "label": "Киро Георгиев Киров"
+    },
+    {
+      "id": "person:ДИМИТЪР СТЕФАНОВ ВЪРТИГОВ",
+      "type": "person",
+      "label": "Димитър Стефанов Въртигов"
+    },
+    {
+      "id": "person:РУМЕН ИВАНОВ НАНОВ",
+      "type": "person",
+      "label": "Румен Иванов Нанов"
+    },
+    {
+      "id": "person:САШО АНГЕЛОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Сашо Ангелов Димитров"
+    },
+    {
+      "id": "person:ГЕОРГИЕ ВАЛЕНТИНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Георгие Валентинов Димитров"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАЛЕНТИНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Георги Валентинов Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-vasilev-georgiev-8dfdc8",
+      "target": "company:tr:201210822",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentin-vasilev-georgiev-8dfdc8",
+      "target": "company:tr:201210822",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentin-vasilev-georgiev-8dfdc8",
+      "target": "company:tr:203038474",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentin-vasilev-georgiev-8dfdc8",
+      "target": "company:tr:206716058",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentin-vasilev-georgiev-8dfdc8",
+      "target": "company:tr:206716058",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОР МИРОСЛАВОВ НИКОЛОВ",
+      "target": "company:tr:201210822",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРО ГЕОРГИЕВ КИРОВ",
+      "target": "company:tr:201210822",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТЕФАНОВ ВЪРТИГОВ",
+      "target": "company:tr:201210822",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ИВАНОВ НАНОВ",
+      "target": "company:tr:201210822",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО АНГЕЛОВ ДИМИТРОВ",
+      "target": "company:tr:201210822",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО АНГЕЛОВ ДИМИТРОВ",
+      "target": "company:tr:201210822",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР МИРОСЛАВОВ НИКОЛОВ",
+      "target": "company:tr:206716058",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИЕ ВАЛЕНТИНОВ ДИМИТРОВ",
+      "target": "company:tr:206716058",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР МИРОСЛАВОВ НИКОЛОВ",
+      "target": "company:tr:206716058",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАЛЕНТИНОВ ДИМИТРОВ",
+      "target": "company:tr:206716058",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАЛЕНТИНОВ ДИМИТРОВ",
+      "target": "company:tr:206716058",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

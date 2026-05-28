@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:iva-stefanova-hristova-92142e","nodes":[{"id":"official:iva-stefanova-hristova-92142e","type":"official","slug":"iva-stefanova-hristova-92142e","label":"Ива Стефанова Христова","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:175189847","type":"company","label":"ЦИТОЛАБ МИКРО-САМОСТОЯТЕЛНА МЕДИКО-ДИАГНОСТИЧНА ЛАБОРАТОРИЯ","slug":null,"uic":"175189847","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:iva-stefanova-hristova-92142e","target":"company:tr:175189847","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:iva-stefanova-hristova-92142e",
+  "nodes": [
+    {
+      "id": "official:iva-stefanova-hristova-92142e",
+      "type": "official",
+      "slug": "iva-stefanova-hristova-92142e",
+      "label": "Ива Стефанова Христова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175189847",
+      "type": "company",
+      "label": "ЦИТОЛАБ МИКРО-САМОСТОЯТЕЛНА МЕДИКО-ДИАГНОСТИЧНА ЛАБОРАТОРИЯ",
+      "slug": null,
+      "uic": "175189847",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iva-stefanova-hristova-92142e",
+      "target": "company:tr:175189847",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,1 +1,82 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:petko-stefanov-tarandzhiev-85fecb","nodes":[{"id":"official:petko-stefanov-tarandzhiev-85fecb","type":"official","slug":"petko-stefanov-tarandzhiev-85fecb","label":"Петко Стефанов Таранджиев","tier":"municipal","role":"councillor","municipality":"Твърдица"},{"id":"company:tr:206476086","type":"company","label":"ПИПИ Комерс","slug":null,"uic":"206476086","legalForm":null,"status":null,"seat":null},{"id":"company:tr:208809671","type":"company","label":"ТАРЛЬО","slug":null,"uic":"208809671","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕНКА ЙОРДАНОВА СТОЯНОВА","type":"person","label":"Пенка Йорданова Стоянова"}],"edges":[{"source":"official:petko-stefanov-tarandzhiev-85fecb","target":"company:tr:206476086","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:petko-stefanov-tarandzhiev-85fecb","target":"company:tr:206476086","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:petko-stefanov-tarandzhiev-85fecb","target":"company:tr:208809671","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:petko-stefanov-tarandzhiev-85fecb","target":"company:tr:208809671","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕНКА ЙОРДАНОВА СТОЯНОВА","target":"company:tr:206476086","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:petko-stefanov-tarandzhiev-85fecb",
+  "nodes": [
+    {
+      "id": "official:petko-stefanov-tarandzhiev-85fecb",
+      "type": "official",
+      "slug": "petko-stefanov-tarandzhiev-85fecb",
+      "label": "Петко Стефанов Таранджиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Твърдица"
+    },
+    {
+      "id": "company:tr:206476086",
+      "type": "company",
+      "label": "ПИПИ Комерс",
+      "slug": null,
+      "uic": "206476086",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208809671",
+      "type": "company",
+      "label": "ТАРЛЬО",
+      "slug": null,
+      "uic": "208809671",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕНКА ЙОРДАНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Пенка Йорданова Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petko-stefanov-tarandzhiev-85fecb",
+      "target": "company:tr:206476086",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petko-stefanov-tarandzhiev-85fecb",
+      "target": "company:tr:206476086",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petko-stefanov-tarandzhiev-85fecb",
+      "target": "company:tr:208809671",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petko-stefanov-tarandzhiev-85fecb",
+      "target": "company:tr:208809671",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕНКА ЙОРДАНОВА СТОЯНОВА",
+      "target": "company:tr:206476086",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

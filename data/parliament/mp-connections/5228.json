@@ -1,1 +1,39 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:5228","nodes":[{"id":"mp:5228","type":"mp","mpId":5228,"label":"Айлин Нуридин Пехливанова","partyGroupShort":"ПГ на Продължаваме Промяната","isCurrent":true,"nsFolders":["51","52"]},{"id":"company:ДЕМИР-АГРО-ЕООД","type":"company","label":"\"ДЕМИР АГРО\" ЕООД","slug":"ДЕМИР-АГРО-ЕООД","uic":null,"legalForm":null,"status":null,"seat":"Шумен"}],"edges":[{"source":"mp:5228","target":"company:ДЕМИР-АГРО-ЕООД","kind":"declared_stake","role":"transferred_share","isCurrent":false,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:5228",
+  "nodes": [
+    {
+      "id": "mp:5228",
+      "type": "mp",
+      "mpId": 5228,
+      "label": "Айлин Нуридин Пехливанова",
+      "partyGroupShort": "ПГ на Продължаваме Промяната",
+      "isCurrent": true,
+      "nsFolders": [
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Демир-агро-ЕООД",
+      "type": "company",
+      "label": "\"Демир агро\" ЕООД",
+      "slug": "Демир-агро-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Шумен"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5228",
+      "target": "company:Демир-агро-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

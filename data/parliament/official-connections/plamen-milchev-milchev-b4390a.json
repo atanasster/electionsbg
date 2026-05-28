@@ -1,1 +1,61 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:plamen-milchev-milchev-b4390a","nodes":[{"id":"official:plamen-milchev-milchev-b4390a","type":"official","slug":"plamen-milchev-milchev-b4390a","label":"Пламен Милчев Милчев","tier":"municipal","role":"councillor","municipality":"Главиница"},{"id":"company:tr:828066334","type":"company","label":"ЗОРА-АД","slug":null,"uic":"828066334","legalForm":null,"status":null,"seat":null},{"id":"person:АНТОН ГЕОРГИЕВ ГЕОРГИЕВ","type":"person","label":"Антон Георгиев Георгиев"},{"id":"person:ГИНКА ИВАНОВА МИЛЧЕВА","type":"person","label":"Гинка Иванова Милчева"}],"edges":[{"source":"official:plamen-milchev-milchev-b4390a","target":"company:tr:828066334","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:АНТОН ГЕОРГИЕВ ГЕОРГИЕВ","target":"company:tr:828066334","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГИНКА ИВАНОВА МИЛЧЕВА","target":"company:tr:828066334","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:plamen-milchev-milchev-b4390a",
+  "nodes": [
+    {
+      "id": "official:plamen-milchev-milchev-b4390a",
+      "type": "official",
+      "slug": "plamen-milchev-milchev-b4390a",
+      "label": "Пламен Милчев Милчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Главиница"
+    },
+    {
+      "id": "company:tr:828066334",
+      "type": "company",
+      "label": "ЗОРА-АД",
+      "slug": null,
+      "uic": "828066334",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТОН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Антон Георгиев Георгиев"
+    },
+    {
+      "id": "person:ГИНКА ИВАНОВА МИЛЧЕВА",
+      "type": "person",
+      "label": "Гинка Иванова Милчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-milchev-milchev-b4390a",
+      "target": "company:tr:828066334",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:828066334",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА ИВАНОВА МИЛЧЕВА",
+      "target": "company:tr:828066334",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

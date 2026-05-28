@@ -2,199 +2,43 @@
   "ekatte": "68134",
   "page": 6,
   "totalPages": 7,
-  "count": 316,
+  "count": 315,
   "companies": [
     {
-      "slug": "ИБЕРАНН",
-      "displayName": "Иберанн",
-      "registeredOffice": "София (столица)",
+      "slug": "Кеплер-1980",
+      "displayName": "Кеплер 1980",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1404",
       "mps": [
         {
-          "mpId": 2960,
-          "mpName": "АННА НИКОЛАЕВА СЛАВОВА",
-          "role": "declared_stake",
+          "mpId": 655,
+          "mpName": "Димитър Милков Ламбовски",
+          "role": "manager",
           "isCurrent": true
         }
       ]
     },
     {
-      "slug": "Ивени-Консулт-ЕООД",
-      "displayName": "Ивени Консулт ЕООД",
-      "registeredOffice": "София (столица)",
+      "slug": "КИДО-ЕНЕРДЖИ-БЪЛГАРИЯ",
+      "displayName": "КИДО ЕНЕРДЖИ БЪЛГАРИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1172",
       "mps": [
         {
-          "mpId": 2671,
-          "mpName": "Жельо Иванов Бойчев",
-          "role": "declared_stake",
+          "mpId": 3294,
+          "mpName": "Георги Милчев Чепишев",
+          "role": "partner",
           "isCurrent": true
         }
       ]
     },
     {
-      "slug": "Издателство-Захарий-Стоянов",
-      "displayName": "Издателство \"Захарий Стоянов\"",
-      "registeredOffice": "София",
+      "slug": "КОРПОРЪТ-ЕНД-ТРЪСТ-СЪРВИСИЗ",
+      "displayName": "КОРПОРЪТ ЕНД ТРЪСТ СЪРВИСИЗ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
       "mps": [
         {
-          "mpId": 3537,
-          "mpName": "Иван Йорданов Димитров",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Имобилария-платиниум",
-      "displayName": "Имобилария платиниум",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 4838,
-          "mpName": "Александър Руменов Ненков",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Импекс-Билд-ЕООД",
-      "displayName": "Импекс Билд ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 3288,
-          "mpName": "МАРТИН ПЕТРОВ АНДОНОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ИНЕКС-АГРО-ООД",
-      "displayName": "Инекс агро ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 3346,
-          "mpName": "Иво Ангелов Христов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ИНЕКС-ПРОПЪРТИС-ООД",
-      "displayName": "Инекс пропъртис ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 3346,
-          "mpName": "Иво Ангелов Христов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ИНТЕРСОЛ-ООД",
-      "displayName": "Интерсол ООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 4999,
-          "mpName": "Явор Илиев Хайтов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ИНТЕРФАРМ-2012-ЕООД",
-      "displayName": "Интерфарм 2012 ЕООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 2659,
-          "mpName": "Гергана Желязкова Стефанова",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Исторически-къщи-ЕООД",
-      "displayName": "Исторически къщи ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 4434,
-          "mpName": "ИРЕНА НИКОЛАЕВА НЕГИНОВА",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Итера-431-ЕООД",
-      "displayName": "Итера 431 ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 3395,
-          "mpName": "Арман Агоп Бабикян",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Кадиев-Глобал-ЕООД",
-      "displayName": "Кадиев Глобал ЕООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 3410,
-          "mpName": "Георги  Стоянов Кадиев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Каза-Натура-ЕООД",
-      "displayName": "Каза Натура ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 4059,
-          "mpName": "Цветелина Калинова Симеонова-Заркин",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Камибо-ЕООД",
-      "displayName": "Камибо ЕООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 2947,
-          "mpName": "Станислав Иванов Попов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "КЕМПЕН-БГ",
-      "displayName": "Кемпен бг",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 5208,
-          "mpName": "Атидже Байрямова Алиева-Вели",
-          "role": "declared_stake",
+          "mpId": 1791,
+          "mpName": "Димитър Иванов Абаджиев",
+          "role": "partner",
           "isCurrent": true
         }
       ]
@@ -213,7 +57,7 @@
       ]
     },
     {
-      "slug": "КСБВ-ЕООД",
+      "slug": "Ксбв-ЕООД",
       "displayName": "Ксбв ЕООД",
       "registeredOffice": "София (столица)",
       "mps": [
@@ -265,8 +109,21 @@
       ]
     },
     {
-      "slug": "М-БЕТ-СТРОЙ-ЕООД",
-      "displayName": "М бет строй ЕООД",
+      "slug": "ЛЕМАРК-ИНВЕСТ",
+      "displayName": "ЛЕМАРК ИНВЕСТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1421",
+      "mps": [
+        {
+          "mpId": 5270,
+          "mpName": "Здравко Марков Марков",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "М-БЕТ-строй-ЕООД",
+      "displayName": "М БЕТ строй ЕООД",
       "registeredOffice": "София (столица)",
       "mps": [
         {
@@ -304,7 +161,7 @@
       ]
     },
     {
-      "slug": "МАРКЕТ-УИНГ-СЪРВИСИС-ООД",
+      "slug": "Маркет-уинг-сървисис-ООД",
       "displayName": "Маркет уинг сървисис ООД",
       "registeredOffice": "СОФИЯ",
       "mps": [
@@ -330,7 +187,7 @@
       ]
     },
     {
-      "slug": "МЕДИАРТ-СТУДИО",
+      "slug": "Медиарт-студио",
       "displayName": "Медиарт студио",
       "registeredOffice": "София (столица)",
       "mps": [
@@ -356,7 +213,7 @@
       ]
     },
     {
-      "slug": "МЕЛИТУС-Д-ЕООД",
+      "slug": "Мелитус-д-ЕООД",
       "displayName": "Мелитус д ЕООД",
       "registeredOffice": "София (столица)",
       "mps": [
@@ -364,6 +221,19 @@
           "mpId": 4371,
           "mpName": "Росица Василева Пандова-Йовкова",
           "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МЕТАВЪРС",
+      "displayName": "МЕТАВЪРС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1164",
+      "mps": [
+        {
+          "mpId": 2385,
+          "mpName": "Красимир Петров Петров",
+          "role": "partner",
           "isCurrent": true
         }
       ]
@@ -408,6 +278,45 @@
       ]
     },
     {
+      "slug": "МНОГОПРОФИЛНА-БОЛНИЦА-ЗА-АКТИВНО-ЛЕЧЕНИЕ-&quot;КНЯГИНЯ-КЛЕМЕНТИНА&quot;-СОФИЯ",
+      "displayName": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;КНЯГИНЯ КЛЕМЕНТИНА&quot; - СОФИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1233",
+      "mps": [
+        {
+          "mpId": 2960,
+          "mpName": "Анна Николаева Славова",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "НАПОИТЕЛНИ-СИСТЕМИ",
+      "displayName": "НАПОИТЕЛНИ СИСТЕМИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1186",
+      "mps": [
+        {
+          "mpId": 4649,
+          "mpName": "Генади Събков Събков",
+          "role": "branch_manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "НАЦИОНАЛНА-КОМПАНИЯ-ИНДУСТРИАЛНИ-ЗОНИ",
+      "displayName": "НАЦИОНАЛНА КОМПАНИЯ ИНДУСТРИАЛНИ ЗОНИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 3167,
+          "mpName": "Илия Димитров Лазаров",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Нефтогассервиз-АД",
       "displayName": "Нефтогассервиз АД",
       "registeredOffice": "София (столица)",
@@ -421,8 +330,8 @@
       ]
     },
     {
-      "slug": "НО-ДО-ГАРД-ЕООД",
-      "displayName": "НО До гард ЕООД",
+      "slug": "НО-до-Гард-ЕООД",
+      "displayName": "НО до Гард ЕООД",
       "registeredOffice": "София (столица)",
       "mps": [
         {
@@ -434,7 +343,7 @@
       ]
     },
     {
-      "slug": "НОВОСОЛАР-ООД",
+      "slug": "Новосолар-ООД",
       "displayName": "Новосолар ООД",
       "registeredOffice": "СОФИЯ",
       "mps": [
@@ -460,7 +369,7 @@
       ]
     },
     {
-      "slug": "НЮ-КЕЪР-ФАРМА-ЕООД",
+      "slug": "НЮ-Кеър-фарма-ЕООД",
       "displayName": "НЮ Кеър фарма ЕООД",
       "registeredOffice": "София (столица)",
       "mps": [
@@ -487,7 +396,7 @@
     },
     {
       "slug": "Пет-могили-ЕООД",
-      "displayName": "ПЕТ Могили ЕООД",
+      "displayName": "Пет могили ЕООД",
       "registeredOffice": "София (столица)",
       "mps": [
         {
@@ -499,8 +408,8 @@
       ]
     },
     {
-      "slug": "ПИ-ЕЙ-КОНСУЛТИНГ-ООД",
-      "displayName": "ПИ Ей консултинг ООД",
+      "slug": "ПИ-ЕЙ-Консултинг-ООД",
+      "displayName": "ПИ ЕЙ Консултинг ООД",
       "registeredOffice": "София (столица)",
       "mps": [
         {
@@ -512,7 +421,20 @@
       ]
     },
     {
-      "slug": "ПИТАЙ-МЕ",
+      "slug": "Пирин-голф-2022",
+      "displayName": "Пирин голф 2022",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1797",
+      "mps": [
+        {
+          "mpId": 5138,
+          "mpName": "Ирина Славчова Асиова-Диамант",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Питай-МЕ",
       "displayName": "Питай МЕ",
       "registeredOffice": "София (столица)",
       "mps": [
@@ -526,7 +448,7 @@
     },
     {
       "slug": "ПК-Пропърти",
-      "displayName": "Пк Пропърти",
+      "displayName": "ПК Пропърти",
       "registeredOffice": "София",
       "mps": [
         {
@@ -564,8 +486,21 @@
       ]
     },
     {
+      "slug": "Родопа-Енерджи",
+      "displayName": "Родопа Енерджи",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1618",
+      "mps": [
+        {
+          "mpId": 1504,
+          "mpName": "Явор Бориславов Куюмджиев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "САС-Ходингс-Груп-АД",
-      "displayName": "Сас Ходингс Груп АД",
+      "displayName": "САС Ходингс Груп АД",
       "registeredOffice": "София (столица)",
       "mps": [
         {
@@ -577,7 +512,7 @@
       ]
     },
     {
-      "slug": "СИАЛ-2018-ЕООД",
+      "slug": "Сиал-2018-ЕООД",
       "displayName": "Сиал 2018 ЕООД",
       "registeredOffice": "София",
       "mps": [
@@ -616,7 +551,7 @@
       ]
     },
     {
-      "slug": "СОЛВО-ООД",
+      "slug": "Солво-ООД",
       "displayName": "Солво ООД",
       "registeredOffice": "София",
       "mps": [
@@ -642,13 +577,78 @@
       ]
     },
     {
-      "slug": "ТЕОЛИ-ООД-не-активно",
+      "slug": "СТИЛКОРД",
+      "displayName": "СТИЛКОРД",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1612",
+      "mps": [
+        {
+          "mpId": 2723,
+          "mpName": "Маргарита Николаева Николова",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Теоли-ООД-не-активно",
       "displayName": "Теоли ООД не активно",
       "registeredOffice": "София (столица)",
       "mps": [
         {
           "mpId": 4500,
           "mpName": "Христо Танчев Проданов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Тетнус-България-ООД",
+      "displayName": "Тетнус България ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4938,
+          "mpName": "Силви Кирилов Петров",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "УинПроджект-ЕООД",
+      "displayName": "УинПроджект ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4551,
+          "mpName": "Виктория Димитрова Василева",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ФАРМАДЖЕН-БГ",
+      "displayName": "ФАРМАДЖЕН БГ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 5245,
+          "mpName": "Мартин Димитров Димитров",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Фармация-2012-ЕООД",
+      "displayName": "Фармация 2012 ЕООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 2659,
+          "mpName": "Гергана Желязкова Стефанова",
           "role": "declared_stake",
           "isCurrent": true
         }

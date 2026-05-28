@@ -1,1 +1,233 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:nikolai-stefanov-petkov-aadd68","nodes":[{"id":"official:nikolai-stefanov-petkov-aadd68","type":"official","slug":"nikolai-stefanov-petkov-aadd68","label":"Николай Стефанов Петков","tier":"municipal","role":"councillor","municipality":"Чирпан"},{"id":"company:tr:206477462","type":"company","label":"ПРИОРИТЕТ ГРУП","slug":null,"uic":"206477462","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203000655","type":"company","label":"АЛТЕО БГ","slug":null,"uic":"203000655","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205199597","type":"company","label":"СИКОНИЯ","slug":null,"uic":"205199597","legalForm":null,"status":null,"seat":null},{"id":"company:tr:115754135","type":"company","label":"НЕРЪЖДАЕМА АРМАТУРА","slug":null,"uic":"115754135","legalForm":null,"status":null,"seat":null},{"id":"person:ХРИСТО ИВАНОВ ПАВЛОВ","type":"person","label":"Христо Иванов Павлов"},{"id":"person:КИРИЛ ИЛКОВ ПАВЛОВ","type":"person","label":"Кирил Илков Павлов"},{"id":"person:ПЛАМЕН ЩЕРЕВ СТЕФАНОВ","type":"person","label":"Пламен Щерев Стефанов"},{"id":"person:КАЛИН СЕВДАЛИНОВ ЙОРДАНОВ","type":"person","label":"Калин Севдалинов Йорданов"},{"id":"person:КАЛИН СТОЯНЧЕВ ИВАНОВ","type":"person","label":"Калин Стоянчев Иванов"},{"id":"person:СИЛВИЯ КАРОЙ МЮЛЕР","type":"person","label":"Силвия Карой Мюлер"},{"id":"person:МИЛКО ХРИСТОВ ЦВЕТКОВ","type":"person","label":"Милко Христов Цветков"},{"id":"person:ИВАН КЪНЕВ КЪНЕВ","type":"person","label":"Иван Кънев Кънев"}],"edges":[{"source":"official:nikolai-stefanov-petkov-aadd68","target":"company:tr:206477462","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-stefanov-petkov-aadd68","target":"company:tr:203000655","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-stefanov-petkov-aadd68","target":"company:tr:205199597","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-stefanov-petkov-aadd68","target":"company:tr:115754135","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-stefanov-petkov-aadd68","target":"company:tr:115754135","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТО ИВАНОВ ПАВЛОВ","target":"company:tr:206477462","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ИЛКОВ ПАВЛОВ","target":"company:tr:206477462","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ЩЕРЕВ СТЕФАНОВ","target":"company:tr:206477462","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН СЕВДАЛИНОВ ЙОРДАНОВ","target":"company:tr:206477462","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ИЛКОВ ПАВЛОВ","target":"company:tr:206477462","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИВАНОВ ПАВЛОВ","target":"company:tr:206477462","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН СТОЯНЧЕВ ИВАНОВ","target":"company:tr:203000655","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН СТОЯНЧЕВ ИВАНОВ","target":"company:tr:203000655","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ КАРОЙ МЮЛЕР","target":"company:tr:205199597","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ КАРОЙ МЮЛЕР","target":"company:tr:205199597","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛКО ХРИСТОВ ЦВЕТКОВ","target":"company:tr:115754135","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН КЪНЕВ КЪНЕВ","target":"company:tr:115754135","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:nikolai-stefanov-petkov-aadd68",
+  "nodes": [
+    {
+      "id": "official:nikolai-stefanov-petkov-aadd68",
+      "type": "official",
+      "slug": "nikolai-stefanov-petkov-aadd68",
+      "label": "Николай Стефанов Петков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Чирпан"
+    },
+    {
+      "id": "company:tr:206477462",
+      "type": "company",
+      "label": "ПРИОРИТЕТ ГРУП",
+      "slug": null,
+      "uic": "206477462",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203000655",
+      "type": "company",
+      "label": "АЛТЕО БГ",
+      "slug": null,
+      "uic": "203000655",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205199597",
+      "type": "company",
+      "label": "СИКОНИЯ",
+      "slug": null,
+      "uic": "205199597",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:115754135",
+      "type": "company",
+      "label": "НЕРЪЖДАЕМА АРМАТУРА",
+      "slug": null,
+      "uic": "115754135",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ИВАНОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Христо Иванов Павлов"
+    },
+    {
+      "id": "person:КИРИЛ ИЛКОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Кирил Илков Павлов"
+    },
+    {
+      "id": "person:ПЛАМЕН ЩЕРЕВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Пламен Щерев Стефанов"
+    },
+    {
+      "id": "person:КАЛИН СЕВДАЛИНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Калин Севдалинов Йорданов"
+    },
+    {
+      "id": "person:КАЛИН СТОЯНЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Калин Стоянчев Иванов"
+    },
+    {
+      "id": "person:СИЛВИЯ КАРОЙ МЮЛЕР",
+      "type": "person",
+      "label": "Силвия Карой Мюлер"
+    },
+    {
+      "id": "person:МИЛКО ХРИСТОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Милко Христов Цветков"
+    },
+    {
+      "id": "person:ИВАН КЪНЕВ КЪНЕВ",
+      "type": "person",
+      "label": "Иван Кънев Кънев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-stefanov-petkov-aadd68",
+      "target": "company:tr:206477462",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-stefanov-petkov-aadd68",
+      "target": "company:tr:203000655",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-stefanov-petkov-aadd68",
+      "target": "company:tr:205199597",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-stefanov-petkov-aadd68",
+      "target": "company:tr:115754135",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-stefanov-petkov-aadd68",
+      "target": "company:tr:115754135",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ ПАВЛОВ",
+      "target": "company:tr:206477462",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИЛКОВ ПАВЛОВ",
+      "target": "company:tr:206477462",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЩЕРЕВ СТЕФАНОВ",
+      "target": "company:tr:206477462",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН СЕВДАЛИНОВ ЙОРДАНОВ",
+      "target": "company:tr:206477462",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИЛКОВ ПАВЛОВ",
+      "target": "company:tr:206477462",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ ПАВЛОВ",
+      "target": "company:tr:206477462",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН СТОЯНЧЕВ ИВАНОВ",
+      "target": "company:tr:203000655",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН СТОЯНЧЕВ ИВАНОВ",
+      "target": "company:tr:203000655",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ КАРОЙ МЮЛЕР",
+      "target": "company:tr:205199597",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ КАРОЙ МЮЛЕР",
+      "target": "company:tr:205199597",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКО ХРИСТОВ ЦВЕТКОВ",
+      "target": "company:tr:115754135",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КЪНЕВ КЪНЕВ",
+      "target": "company:tr:115754135",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

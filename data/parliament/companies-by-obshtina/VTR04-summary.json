@@ -12,14 +12,14 @@
         {
           "mpId": 3796,
           "mpName": "Николай Георгиев Ангов",
-          "role": "partner",
-          "isCurrent": false
+          "role": "sole_owner",
+          "isCurrent": true
         },
         {
           "mpId": 3796,
           "mpName": "Николай Георгиев Ангов",
-          "role": "sole_owner",
-          "isCurrent": true
+          "role": "partner",
+          "isCurrent": false
         },
         {
           "mpId": 4598,
@@ -37,7 +37,7 @@
     },
     {
       "slug": "ПЕТИ-КОРПУС",
-      "displayName": "Пети корпус",
+      "displayName": "ПЕТИ КОРПУС",
       "registeredOffice": "БЪЛГАРИЯ, гр. Велико Търново, 5000",
       "mps": [
         {
@@ -62,7 +62,7 @@
     },
     {
       "slug": "РЕЗОРТ-ПРОПЪРТИ-МЕНИДЖМЪНТ",
-      "displayName": "Резорт пропърти мениджмънт",
+      "displayName": "РЕЗОРТ ПРОПЪРТИ МЕНИДЖМЪНТ",
       "registeredOffice": "БЪЛГАРИЯ, гр. Велико Търново, 5000",
       "mps": [
         {
@@ -81,7 +81,7 @@
     },
     {
       "slug": "ВИНПРОМ",
-      "displayName": "Винпром",
+      "displayName": "ВИНПРОМ",
       "registeredOffice": "БЪЛГАРИЯ, гр. Велико Търново, 5000",
       "mps": [
         {
@@ -93,14 +93,14 @@
       ]
     },
     {
-      "slug": "Никел-Проект",
-      "displayName": "Никел Проект",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Велико Търново, 5000",
+      "slug": "ИК-Знаме-ЕАД",
+      "displayName": "ИК Знаме ЕАД",
+      "registeredOffice": "Велико Търново",
       "mps": [
         {
-          "mpId": 4590,
-          "mpName": "Петър Николаев Николов",
-          "role": "manager",
+          "mpId": 4739,
+          "mpName": "Димитър Стойков Николов",
+          "role": "declared_stake",
           "isCurrent": true
         }
       ]

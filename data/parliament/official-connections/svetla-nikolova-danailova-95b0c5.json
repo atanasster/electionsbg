@@ -1,1 +1,100 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:svetla-nikolova-danailova-95b0c5","nodes":[{"id":"official:svetla-nikolova-danailova-95b0c5","type":"official","slug":"svetla-nikolova-danailova-95b0c5","label":"Светла Николова Данаилова","tier":"municipal","role":"council_chair","municipality":"Петрич"},{"id":"company:tr:200615611","type":"company","label":"КОНКОРД КБГ","slug":null,"uic":"200615611","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206770084","type":"company","label":"Ай Ви Уай Проджект","slug":null,"uic":"206770084","legalForm":null,"status":null,"seat":null},{"id":"company:name:ПИ ВИ КОНСУЛТ","type":"company","label":"ПИ ВИ КОНСУЛТ ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН ХРИСТОВ КОСТОВ","type":"person","label":"Иван Христов Костов"}],"edges":[{"source":"official:svetla-nikolova-danailova-95b0c5","target":"company:tr:200615611","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:svetla-nikolova-danailova-95b0c5","target":"company:tr:206770084","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:svetla-nikolova-danailova-95b0c5","target":"company:tr:206770084","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"company:name:ПИ ВИ КОНСУЛТ","target":"company:tr:200615611","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ХРИСТОВ КОСТОВ","target":"company:tr:206770084","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ХРИСТОВ КОСТОВ","target":"company:tr:206770084","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:svetla-nikolova-danailova-95b0c5",
+  "nodes": [
+    {
+      "id": "official:svetla-nikolova-danailova-95b0c5",
+      "type": "official",
+      "slug": "svetla-nikolova-danailova-95b0c5",
+      "label": "Светла Николова Данаилова",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Петрич"
+    },
+    {
+      "id": "company:tr:200615611",
+      "type": "company",
+      "label": "КОНКОРД КБГ",
+      "slug": null,
+      "uic": "200615611",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206770084",
+      "type": "company",
+      "label": "Ай Ви Уай Проджект",
+      "slug": null,
+      "uic": "206770084",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ПИ ВИ КОНСУЛТ",
+      "type": "company",
+      "label": "ПИ ВИ КОНСУЛТ ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ХРИСТОВ КОСТОВ",
+      "type": "person",
+      "label": "Иван Христов Костов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetla-nikolova-danailova-95b0c5",
+      "target": "company:tr:200615611",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetla-nikolova-danailova-95b0c5",
+      "target": "company:tr:206770084",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetla-nikolova-danailova-95b0c5",
+      "target": "company:tr:206770084",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:ПИ ВИ КОНСУЛТ",
+      "target": "company:tr:200615611",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ КОСТОВ",
+      "target": "company:tr:206770084",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ КОСТОВ",
+      "target": "company:tr:206770084",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

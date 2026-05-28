@@ -1,9 +1,47 @@
 {
   "obshtina": "SZR31",
-  "count": 26,
-  "mpCount": 16,
+  "count": 28,
+  "mpCount": 17,
   "totalPages": 1,
   "topCompanies": [
+    {
+      "slug": "Тева-ТМ-ООД",
+      "displayName": "Тева-ТМ ООД",
+      "registeredOffice": "Стара Загора",
+      "mps": [
+        {
+          "mpId": 4372,
+          "mpName": "Радослав Красенов Василев",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4372,
+          "mpName": "Радослав Красенов Василев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Медия-вижън",
+      "displayName": "Медия вижън",
+      "registeredOffice": "Стара Загора",
+      "mps": [
+        {
+          "mpId": 2715,
+          "mpName": "Борис Петков Кърчев",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2715,
+          "mpName": "Борис Петков Кърчев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "Фотокристиан-ЕООД",
       "displayName": "Фотокристиан ЕООД",
@@ -30,65 +68,8 @@
       ]
     },
     {
-      "slug": "ФРЕЙМ-ВИЖЪН",
-      "displayName": "Фрейм вижън",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
-      "mps": [
-        {
-          "mpId": 5331,
-          "mpName": "Мирослав Недялков Митков",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 5331,
-          "mpName": "Мирослав Недялков Митков",
-          "role": "partner",
-          "isCurrent": false
-        }
-      ]
-    },
-    {
-      "slug": "Тева-ТМ-ООД",
-      "displayName": "Тева-ТМ ООД",
-      "registeredOffice": "Стара Загора",
-      "mps": [
-        {
-          "mpId": 4372,
-          "mpName": "Радослав Красенов Василев",
-          "role": "partner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4372,
-          "mpName": "Радослав Красенов Василев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "МЕДИЯ-ВИЖЪН",
-      "displayName": "Медия вижън",
-      "registeredOffice": "Стара Загора",
-      "mps": [
-        {
-          "mpId": 2715,
-          "mpName": "Борис Петков Кърчев",
-          "role": "partner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2715,
-          "mpName": "Борис Петков Кърчев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
       "slug": "АМБУЛАТОРИЯ-ИНДИВИДУАЛНА-ПРАКТИКА-ЗА-ПЪРВИЧНА-МЕДИЦИНСКА-ПОМОЩ-Д-Р-СТОЯН-ГЕОРГИЕВ",
-      "displayName": "АМБУЛАТОРИЯ-ИНДИВИДУАЛНА Практика за първична Медицинска ПОМОЩ-Д-Р стоян Георгиев",
+      "displayName": "АМБУЛАТОРИЯ-ИНДИВИДУАЛНА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ-Д-Р СТОЯН ГЕОРГИЕВ",
       "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
       "mps": [
         {
@@ -101,6 +82,19 @@
           "mpId": 4273,
           "mpName": "Стоян Иванов Георгиев",
           "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Богданов-инвест",
+      "displayName": "Богданов инвест",
+      "registeredOffice": "Стара Загора",
+      "mps": [
+        {
+          "mpId": 2715,
+          "mpName": "Борис Петков Кърчев",
+          "role": "declared_stake",
           "isCurrent": true
         }
       ]

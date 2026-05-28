@@ -1,0 +1,44 @@
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:746",
+  "nodes": [
+    {
+      "id": "mp:746",
+      "type": "mp",
+      "mpId": 746,
+      "label": "Никола Богданов Николов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:205762191",
+      "type": "company",
+      "label": "ТОРНАДО КЛИЙН",
+      "slug": null,
+      "uic": "205762191",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:746",
+      "target": "company:tr:205762191",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:746",
+      "target": "company:tr:205762191",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

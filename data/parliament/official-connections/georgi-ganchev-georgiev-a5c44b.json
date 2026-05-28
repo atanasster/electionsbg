@@ -1,1 +1,118 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:georgi-ganchev-georgiev-a5c44b","nodes":[{"id":"official:georgi-ganchev-georgiev-a5c44b","type":"official","slug":"georgi-ganchev-georgiev-a5c44b","label":"Георги Ганчев Георгиев","tier":"executive","role":"regional_governor","municipality":null},{"id":"company:tr:203833679","type":"company","label":"ДЕНС 7/8","slug":null,"uic":"203833679","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206803545","type":"company","label":"АИК ЕНЕРДЖИ БЪЛГАРИЯ","slug":null,"uic":"206803545","legalForm":null,"status":null,"seat":null},{"id":"company:tr:204670441","type":"company","label":"НАЦИОНАЛЕН ИНСТИТУТ ЗА ЕНЕРГИЙНА ЕФЕКТИВНОСТ","slug":null,"uic":"204670441","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕТЯ ИЛИЕВА ГЕОРГИЕВА","type":"person","label":"Петя Илиева Георгиева"},{"id":"person:АИК ЕНЕРДЖИ ИНТЕРНЕШЪНЪЛ ЛТД","type":"person","label":"Аик Енерджи Интернешънъл Лтд"},{"id":"person:АУРЕЛИЯ ДОБРИН","type":"person","label":"Аурелия Добрин"}],"edges":[{"source":"official:georgi-ganchev-georgiev-a5c44b","target":"company:tr:203833679","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-ganchev-georgiev-a5c44b","target":"company:tr:203833679","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-ganchev-georgiev-a5c44b","target":"company:tr:206803545","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-ganchev-georgiev-a5c44b","target":"company:tr:204670441","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЯ ИЛИЕВА ГЕОРГИЕВА","target":"company:tr:203833679","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АИК ЕНЕРДЖИ ИНТЕРНЕШЪНЪЛ ЛТД","target":"company:tr:206803545","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:АУРЕЛИЯ ДОБРИН","target":"company:tr:206803545","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:georgi-ganchev-georgiev-a5c44b",
+  "nodes": [
+    {
+      "id": "official:georgi-ganchev-georgiev-a5c44b",
+      "type": "official",
+      "slug": "georgi-ganchev-georgiev-a5c44b",
+      "label": "Георги Ганчев Георгиев",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203833679",
+      "type": "company",
+      "label": "ДЕНС 7/8",
+      "slug": null,
+      "uic": "203833679",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206803545",
+      "type": "company",
+      "label": "АИК ЕНЕРДЖИ БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "206803545",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204670441",
+      "type": "company",
+      "label": "НАЦИОНАЛЕН ИНСТИТУТ ЗА ЕНЕРГИЙНА ЕФЕКТИВНОСТ",
+      "slug": null,
+      "uic": "204670441",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЯ ИЛИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Петя Илиева Георгиева"
+    },
+    {
+      "id": "person:АИК ЕНЕРДЖИ ИНТЕРНЕШЪНЪЛ ЛТД",
+      "type": "person",
+      "label": "Аик Енерджи Интернешънъл Лтд"
+    },
+    {
+      "id": "person:АУРЕЛИЯ ДОБРИН",
+      "type": "person",
+      "label": "Аурелия Добрин"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-ganchev-georgiev-a5c44b",
+      "target": "company:tr:203833679",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-ganchev-georgiev-a5c44b",
+      "target": "company:tr:203833679",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-ganchev-georgiev-a5c44b",
+      "target": "company:tr:206803545",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-ganchev-georgiev-a5c44b",
+      "target": "company:tr:204670441",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЯ ИЛИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:203833679",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АИК ЕНЕРДЖИ ИНТЕРНЕШЪНЪЛ ЛТД",
+      "target": "company:tr:206803545",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АУРЕЛИЯ ДОБРИН",
+      "target": "company:tr:206803545",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

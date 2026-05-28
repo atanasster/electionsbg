@@ -1,1 +1,74 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:teodor-naidenov-radev-643ebb","nodes":[{"id":"official:teodor-naidenov-radev-643ebb","type":"official","slug":"teodor-naidenov-radev-643ebb","label":"Теодор Найденов Радев","tier":"municipal","role":"councillor","municipality":"Попово"},{"id":"company:tr:206361881","type":"company","label":"ОТБРАНИ","slug":null,"uic":"206361881","legalForm":null,"status":null,"seat":null},{"id":"person:НАЙДЕН РАДЕВ ПЕТРОВ","type":"person","label":"Найден Радев Петров"},{"id":"person:МАЯ НЕЙДЕНОВА ЯНЕВА","type":"person","label":"Мая Нейденова Янева"},{"id":"person:СТАРТ 2005","type":"person","label":"Старт 2005"}],"edges":[{"source":"official:teodor-naidenov-radev-643ebb","target":"company:tr:206361881","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:НАЙДЕН РАДЕВ ПЕТРОВ","target":"company:tr:206361881","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАЯ НЕЙДЕНОВА ЯНЕВА","target":"company:tr:206361881","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТАРТ 2005","target":"company:tr:206361881","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:teodor-naidenov-radev-643ebb",
+  "nodes": [
+    {
+      "id": "official:teodor-naidenov-radev-643ebb",
+      "type": "official",
+      "slug": "teodor-naidenov-radev-643ebb",
+      "label": "Теодор Найденов Радев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Попово"
+    },
+    {
+      "id": "company:tr:206361881",
+      "type": "company",
+      "label": "ОТБРАНИ",
+      "slug": null,
+      "uic": "206361881",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАЙДЕН РАДЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Найден Радев Петров"
+    },
+    {
+      "id": "person:МАЯ НЕЙДЕНОВА ЯНЕВА",
+      "type": "person",
+      "label": "Мая Нейденова Янева"
+    },
+    {
+      "id": "person:СТАРТ 2005",
+      "type": "person",
+      "label": "Старт 2005"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:teodor-naidenov-radev-643ebb",
+      "target": "company:tr:206361881",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАЙДЕН РАДЕВ ПЕТРОВ",
+      "target": "company:tr:206361881",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ НЕЙДЕНОВА ЯНЕВА",
+      "target": "company:tr:206361881",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАРТ 2005",
+      "target": "company:tr:206361881",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -5,144 +5,40 @@
   "count": 95,
   "companies": [
     {
-      "slug": "Алпина-фармъси-ООД",
-      "displayName": "Алпина фармъси ООД",
-      "registeredOffice": "Варна",
-      "mps": [
-        {
-          "mpId": 2760,
-          "mpName": "Иван Димов Иванов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Битов-ресторант-ООД",
-      "displayName": "Битов ресторант ООД",
-      "registeredOffice": "Варна",
-      "mps": [
-        {
-          "mpId": 2760,
-          "mpName": "Иван Димов Иванов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "БОЛЯРСКИ-ДОМ-АД",
-      "displayName": "Болярски дом АД",
-      "registeredOffice": "ВАРНА",
-      "mps": [
-        {
-          "mpId": 5007,
-          "mpName": "Красимира Петкова Нинова-Катинчарова",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Брадърс-Трейд-Тим-ООД",
-      "displayName": "Брадърс Трейд Тим ООД",
-      "registeredOffice": "Варна",
-      "mps": [
-        {
-          "mpId": 4734,
-          "mpName": "Бранимир Николаев Балачев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Бургас-Петролеум-Трейд-ЕООД",
-      "displayName": "Бургас Петролеум Трейд ЕООД",
-      "registeredOffice": "Варна",
-      "mps": [
-        {
-          "mpId": 2659,
-          "mpName": "Гергана Желязкова Стефанова",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ВЕЛИЧИЕ-АД",
-      "displayName": "Величие АД",
-      "registeredOffice": "Варна",
-      "mps": [
-        {
-          "mpId": 5007,
-          "mpName": "Красимира Петкова Нинова-Катинчарова",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Вешев-ЕООД",
-      "displayName": "Вешев ЕООД",
-      "registeredOffice": "Варна",
-      "mps": [
-        {
-          "mpId": 4887,
-          "mpName": "Веселин Миленов Вешев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ВИТАГЕР-ЕООД",
-      "displayName": "Витагер ЕООД",
-      "registeredOffice": "Варна",
-      "mps": [
-        {
-          "mpId": 2659,
-          "mpName": "Гергана Желязкова Стефанова",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ВМ-Имоти-2015-ООД",
-      "displayName": "Вм Имоти 2015 ООД",
-      "registeredOffice": "Варна",
-      "mps": [
-        {
-          "mpId": 2706,
-          "mpName": "Веселин Найденов Марешки",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ВМ-Ойл-ООД",
-      "displayName": "Вм Ойл ООД",
-      "registeredOffice": "Варна",
-      "mps": [
-        {
-          "mpId": 2706,
-          "mpName": "Веселин Найденов Марешки",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
       "slug": "ВМ-Петролеум-ООД",
-      "displayName": "Вм Петролеум ООД",
+      "displayName": "ВМ Петролеум ООД",
       "registeredOffice": "Варна",
       "mps": [
         {
           "mpId": 2706,
           "mpName": "Веселин Найденов Марешки",
           "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ВН-ИМОТИ",
+      "displayName": "ВН ИМОТИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "mps": [
+        {
+          "mpId": 141,
+          "mpName": "Константин Стефанов Димитров",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ВОЯДЖ-ЕР",
+      "displayName": "ВОЯДЖ ЕР",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "mps": [
+        {
+          "mpId": 2562,
+          "mpName": "Полина Кръстева Карастоянова",
+          "role": "manager",
           "isCurrent": true
         }
       ]
@@ -187,6 +83,19 @@
       ]
     },
     {
+      "slug": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН-ЦЕНТЪР-МЛАДОСТ-М-ВАРНА",
+      "displayName": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН ЦЕНТЪР МЛАДОСТ- М ВАРНА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9020",
+      "mps": [
+        {
+          "mpId": 2853,
+          "mpName": "Дора Стоянова Христова",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Дибо-Варна-ООД",
       "displayName": "Дибо Варна ООД",
       "registeredOffice": "Варна",
@@ -214,7 +123,7 @@
     },
     {
       "slug": "ДИД-12-ЕООД",
-      "displayName": "Дид 12 ЕООД",
+      "displayName": "ДИД 12 ЕООД",
       "registeredOffice": "Варна",
       "mps": [
         {
@@ -227,7 +136,7 @@
     },
     {
       "slug": "ДИД-15-ЕООД",
-      "displayName": "Дид 15 ЕООД",
+      "displayName": "ДИД 15 ЕООД",
       "registeredOffice": "Варна",
       "mps": [
         {
@@ -240,7 +149,7 @@
     },
     {
       "slug": "ДИД-16-ЕООД",
-      "displayName": "Дид 16 ЕООД",
+      "displayName": "ДИД 16 ЕООД",
       "registeredOffice": "Варна",
       "mps": [
         {
@@ -253,7 +162,7 @@
     },
     {
       "slug": "ДИД-2008-ООД",
-      "displayName": "Дид 2008 ООД",
+      "displayName": "ДИД 2008 ООД",
       "registeredOffice": "Варна",
       "mps": [
         {
@@ -266,7 +175,7 @@
     },
     {
       "slug": "ДИД-Цвети-ЕООД",
-      "displayName": "Дид Цвети ЕООД",
+      "displayName": "ДИД Цвети ЕООД",
       "registeredOffice": "Варна",
       "mps": [
         {
@@ -304,14 +213,40 @@
       ]
     },
     {
+      "slug": "ИВАНОВИ-КОНСТРУКШЪН",
+      "displayName": "ИВАНОВИ КОНСТРУКШЪН",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "mps": [
+        {
+          "mpId": 5111,
+          "mpName": "Калоян Тошков Иванов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "ИКО-2010",
-      "displayName": "Ико 2010",
+      "displayName": "ИКО 2010",
       "registeredOffice": "Варна",
       "mps": [
         {
           "mpId": 3899,
           "mpName": "Йорданка Яникова Костадинова",
           "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИКОН-ГРУП",
+      "displayName": "ИКОН ГРУП",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9010",
+      "mps": [
+        {
+          "mpId": 5111,
+          "mpName": "Калоян Тошков Иванов",
+          "role": "partner",
           "isCurrent": true
         }
       ]
@@ -330,7 +265,7 @@
       ]
     },
     {
-      "slug": "ИСТОРИЧЕСКО-СЕЛИЩЕ-АД",
+      "slug": "Историческо-селище-АД",
       "displayName": "Историческо селище АД",
       "registeredOffice": "ВАРНА",
       "mps": [
@@ -343,7 +278,7 @@
       ]
     },
     {
-      "slug": "КРОУЛИ-ИНВЕСТ-ООД",
+      "slug": "Кроули-инвест-ООД",
       "displayName": "Кроули инвест ООД",
       "registeredOffice": "ВАРНА",
       "mps": [
@@ -351,6 +286,19 @@
           "mpId": 4190,
           "mpName": "КАЛОЯН ТОНЕВ ИКОНОМОВ",
           "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЛОРД.Т-ИНВЕСТ",
+      "displayName": "ЛОРД.Т ИНВЕСТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "mps": [
+        {
+          "mpId": 3710,
+          "mpName": "Пламен Николаев Николов",
+          "role": "manager",
           "isCurrent": true
         }
       ]
@@ -390,6 +338,19 @@
           "mpId": 2706,
           "mpName": "Веселин Найденов Марешки",
           "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МДА-ИНВЕСТ",
+      "displayName": "МДА ИНВЕСТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "mps": [
+        {
+          "mpId": 5071,
+          "mpName": "Миролюб Адамов Адамов",
+          "role": "manager",
           "isCurrent": true
         }
       ]
@@ -447,8 +408,21 @@
       ]
     },
     {
+      "slug": "Риали-Про",
+      "displayName": "Риали Про",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9009",
+      "mps": [
+        {
+          "mpId": 42,
+          "mpName": "Йордан Димитров Костадинов",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "РСВ-14-ЕООД",
-      "displayName": "Рсв 14 ЕООД",
+      "displayName": "РСВ 14 ЕООД",
       "registeredOffice": "Варна",
       "mps": [
         {
@@ -460,7 +434,7 @@
       ]
     },
     {
-      "slug": "СБОБАЛ-2000",
+      "slug": "Сбобал-2000",
       "displayName": "Сбобал 2000",
       "registeredOffice": "Варна",
       "mps": [
@@ -486,7 +460,20 @@
       ]
     },
     {
-      "slug": "СТАР-СПОРТ",
+      "slug": "Соломон-Майер-1772",
+      "displayName": "Соломон Майер 1772",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "mps": [
+        {
+          "mpId": 2395,
+          "mpName": "Георги Александров Ковачев",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Стар-спорт",
       "displayName": "Стар спорт",
       "registeredOffice": "Варна",
       "mps": [
@@ -512,7 +499,7 @@
       ]
     },
     {
-      "slug": "ТСМ-ИНВЕСТ-2018",
+      "slug": "ТСМ-Инвест-2018",
       "displayName": "ТСМ Инвест 2018",
       "registeredOffice": "Варна",
       "mps": [
@@ -585,6 +572,19 @@
           "mpId": 2760,
           "mpName": "Иван Димов Иванов",
           "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЯМ-КЕПИТЪЛ",
+      "displayName": "ЯМ КЕПИТЪЛ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "mps": [
+        {
+          "mpId": 3710,
+          "mpName": "Пламен Николаев Николов",
+          "role": "manager",
           "isCurrent": true
         }
       ]

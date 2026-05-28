@@ -1,1 +1,56 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:boiko-lyubomirov-klechkov-298aa7","nodes":[{"id":"official:boiko-lyubomirov-klechkov-298aa7","type":"official","slug":"boiko-lyubomirov-klechkov-298aa7","label":"Бойко Любомиров Клечков","tier":"municipal","role":"deputy_mayor","municipality":"Кюстендил"},{"id":"company:АВТО-ГРУП-ООД","type":"company","label":"АВТО ГРУП ООД","slug":"АВТО-ГРУП-ООД","uic":"109606502","legalForm":"OOD","status":"active","seat":"Кюстендил"},{"id":"mp:3908","type":"mp","mpId":3908,"label":"Бойко Любомиров Клечков","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["46","47","48"]}],"edges":[{"source":"official:boiko-lyubomirov-klechkov-298aa7","target":"company:АВТО-ГРУП-ООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:3908","target":"company:АВТО-ГРУП-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:boiko-lyubomirov-klechkov-298aa7",
+  "nodes": [
+    {
+      "id": "official:boiko-lyubomirov-klechkov-298aa7",
+      "type": "official",
+      "slug": "boiko-lyubomirov-klechkov-298aa7",
+      "label": "Бойко Любомиров Клечков",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Кюстендил"
+    },
+    {
+      "id": "company:Авто-груп-ООД",
+      "type": "company",
+      "label": "Авто груп ООД",
+      "slug": "Авто-груп-ООД",
+      "uic": "109606502",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Кюстендил"
+    },
+    {
+      "id": "mp:3908",
+      "type": "mp",
+      "mpId": 3908,
+      "label": "Бойко Любомиров Клечков",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "46",
+        "47",
+        "48"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boiko-lyubomirov-klechkov-298aa7",
+      "target": "company:Авто-груп-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3908",
+      "target": "company:Авто-груп-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

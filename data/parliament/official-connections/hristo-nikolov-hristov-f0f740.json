@@ -1,1 +1,165 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:hristo-nikolov-hristov-f0f740","nodes":[{"id":"official:hristo-nikolov-hristov-f0f740","type":"official","slug":"hristo-nikolov-hristov-f0f740","label":"Христо Николов Христов","tier":"municipal","role":"councillor","municipality":"Севлиево"},{"id":"company:tr:117015342","type":"company","label":"ДИСКОРДИА","slug":null,"uic":"117015342","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206654165","type":"company","label":"ХРИСТОВИ ЛЕС 2019","slug":null,"uic":"206654165","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206766611","type":"company","label":"НИКОЛОВ ТРАНС 2021","slug":null,"uic":"206766611","legalForm":null,"status":null,"seat":null},{"id":"person:ДИМИТЪР ГЕОРГИЕВ СЕКУЛОВ","type":"person","label":"Димитър Георгиев Секулов"},{"id":"person:АЛЕКСАНДЪР ЯНКОВ АТАНАСОВ","type":"person","label":"Александър Янков Атанасов"},{"id":"person:ХРИСТО ПЛАМЕНОВ АПОСТОЛОВ","type":"person","label":"Христо Пламенов Апостолов"},{"id":"person:ГАЛИНА ХРИСТОВА ХРИСТОВА","type":"person","label":"Галина Христова Христова"},{"id":"person:КАЛИН КОСТАДИНОВ ПЕТРОВ","type":"person","label":"Калин Костадинов Петров"},{"id":"person:ОЛЕКСАНДРА ОНИЩУК","type":"person","label":"Олександра Онищук"}],"edges":[{"source":"official:hristo-nikolov-hristov-f0f740","target":"company:tr:117015342","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-nikolov-hristov-f0f740","target":"company:tr:206654165","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-nikolov-hristov-f0f740","target":"company:tr:206766611","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-nikolov-hristov-f0f740","target":"company:tr:206654165","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-nikolov-hristov-f0f740","target":"company:tr:206766611","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМИТЪР ГЕОРГИЕВ СЕКУЛОВ","target":"company:tr:117015342","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ЯНКОВ АТАНАСОВ","target":"company:tr:117015342","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ПЛАМЕНОВ АПОСТОЛОВ","target":"company:tr:117015342","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ХРИСТОВА ХРИСТОВА","target":"company:tr:117015342","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН КОСТАДИНОВ ПЕТРОВ","target":"company:tr:117015342","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ОЛЕКСАНДРА ОНИЩУК","target":"company:tr:117015342","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:hristo-nikolov-hristov-f0f740",
+  "nodes": [
+    {
+      "id": "official:hristo-nikolov-hristov-f0f740",
+      "type": "official",
+      "slug": "hristo-nikolov-hristov-f0f740",
+      "label": "Христо Николов Христов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Севлиево"
+    },
+    {
+      "id": "company:tr:117015342",
+      "type": "company",
+      "label": "ДИСКОРДИА",
+      "slug": null,
+      "uic": "117015342",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206654165",
+      "type": "company",
+      "label": "ХРИСТОВИ ЛЕС 2019",
+      "slug": null,
+      "uic": "206654165",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206766611",
+      "type": "company",
+      "label": "НИКОЛОВ ТРАНС 2021",
+      "slug": null,
+      "uic": "206766611",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ СЕКУЛОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Секулов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЯНКОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Александър Янков Атанасов"
+    },
+    {
+      "id": "person:ХРИСТО ПЛАМЕНОВ АПОСТОЛОВ",
+      "type": "person",
+      "label": "Христо Пламенов Апостолов"
+    },
+    {
+      "id": "person:ГАЛИНА ХРИСТОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Галина Христова Христова"
+    },
+    {
+      "id": "person:КАЛИН КОСТАДИНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Калин Костадинов Петров"
+    },
+    {
+      "id": "person:ОЛЕКСАНДРА ОНИЩУК",
+      "type": "person",
+      "label": "Олександра Онищук"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-nikolov-hristov-f0f740",
+      "target": "company:tr:117015342",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-nikolov-hristov-f0f740",
+      "target": "company:tr:206654165",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-nikolov-hristov-f0f740",
+      "target": "company:tr:206766611",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-nikolov-hristov-f0f740",
+      "target": "company:tr:206654165",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-nikolov-hristov-f0f740",
+      "target": "company:tr:206766611",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ СЕКУЛОВ",
+      "target": "company:tr:117015342",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЯНКОВ АТАНАСОВ",
+      "target": "company:tr:117015342",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ПЛАМЕНОВ АПОСТОЛОВ",
+      "target": "company:tr:117015342",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ХРИСТОВА ХРИСТОВА",
+      "target": "company:tr:117015342",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН КОСТАДИНОВ ПЕТРОВ",
+      "target": "company:tr:117015342",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОЛЕКСАНДРА ОНИЩУК",
+      "target": "company:tr:117015342",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

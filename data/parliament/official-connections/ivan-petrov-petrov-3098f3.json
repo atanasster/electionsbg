@@ -1,1 +1,451 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:ivan-petrov-petrov-3098f3","nodes":[{"id":"official:ivan-petrov-petrov-3098f3","type":"official","slug":"ivan-petrov-petrov-3098f3","label":"Иван Петров Петров","tier":"municipal","role":"councillor","municipality":"Монтана"},{"id":"company:tr:206281798","type":"company","label":"СЪРКЪЛ МЕДИЯ","slug":null,"uic":"206281798","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201500843","type":"company","label":"БОНАСИ-ТИМ","slug":null,"uic":"201500843","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205531067","type":"company","label":"МИЛЬКО","slug":null,"uic":"205531067","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206406547","type":"company","label":"ВАНКО 64","slug":null,"uic":"206406547","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206635784","type":"company","label":"ПВН ГРУП","slug":null,"uic":"206635784","legalForm":null,"status":null,"seat":null},{"id":"company:tr:204763073","type":"company","label":"ИПП СЪРВИСИС","slug":null,"uic":"204763073","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206765831","type":"company","label":"Тенис Джеди","slug":null,"uic":"206765831","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206782072","type":"company","label":"Ван 55","slug":null,"uic":"206782072","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206872502","type":"company","label":"ГРАДУС - МИ","slug":null,"uic":"206872502","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206872598","type":"company","label":"ИНОВИТЕК","slug":null,"uic":"206872598","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206874193","type":"company","label":"И.П ТРАНС-75","slug":null,"uic":"206874193","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207014570","type":"company","label":"Петров Техно","slug":null,"uic":"207014570","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207014667","type":"company","label":"Стандарт Минус","slug":null,"uic":"207014667","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207014684","type":"company","label":"Петрович Инвест","slug":null,"uic":"207014684","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207059957","type":"company","label":"КАРАТ-ПЕРФЕКТ 2005","slug":null,"uic":"207059957","legalForm":null,"status":null,"seat":null},{"id":"person:НАДЯ ДАМЯНОВА ФОТЕВА","type":"person","label":"Надя Дамянова Фотева"},{"id":"person:ДОМИНГО ХАВИЕР МЕДИНА ВАЛИДО","type":"person","label":"Доминго Хавиер Медина Валидо"},{"id":"person:ДИАНА ЛЮБОМИРОВА НИКОЛОВА","type":"person","label":"Диана Любомирова Николова"},{"id":"person:ГОРДАНА БЕКИРОВИЧ","type":"person","label":"Гордана Бекирович"}],"edges":[{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206281798","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:201500843","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:205531067","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206406547","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206635784","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:204763073","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206765831","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206782072","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206872502","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206872502","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206872598","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206874193","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:207014570","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:207014667","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:207014684","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:207059957","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206281798","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206406547","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206635784","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206765831","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206782072","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206872598","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:206874193","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-petrov-petrov-3098f3","target":"company:tr:207059957","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:НАДЯ ДАМЯНОВА ФОТЕВА","target":"company:tr:201500843","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДОМИНГО ХАВИЕР МЕДИНА ВАЛИДО","target":"company:tr:204763073","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА ЛЮБОМИРОВА НИКОЛОВА","target":"company:tr:206872502","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГОРДАНА БЕКИРОВИЧ","target":"company:tr:207014570","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ГОРДАНА БЕКИРОВИЧ","target":"company:tr:207014570","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГОРДАНА БЕКИРОВИЧ","target":"company:tr:207014667","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ГОРДАНА БЕКИРОВИЧ","target":"company:tr:207014667","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГОРДАНА БЕКИРОВИЧ","target":"company:tr:207014684","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ГОРДАНА БЕКИРОВИЧ","target":"company:tr:207014684","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:ivan-petrov-petrov-3098f3",
+  "nodes": [
+    {
+      "id": "official:ivan-petrov-petrov-3098f3",
+      "type": "official",
+      "slug": "ivan-petrov-petrov-3098f3",
+      "label": "Иван Петров Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана"
+    },
+    {
+      "id": "company:tr:206281798",
+      "type": "company",
+      "label": "СЪРКЪЛ МЕДИЯ",
+      "slug": null,
+      "uic": "206281798",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201500843",
+      "type": "company",
+      "label": "БОНАСИ-ТИМ",
+      "slug": null,
+      "uic": "201500843",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205531067",
+      "type": "company",
+      "label": "МИЛЬКО",
+      "slug": null,
+      "uic": "205531067",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206406547",
+      "type": "company",
+      "label": "ВАНКО 64",
+      "slug": null,
+      "uic": "206406547",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206635784",
+      "type": "company",
+      "label": "ПВН ГРУП",
+      "slug": null,
+      "uic": "206635784",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204763073",
+      "type": "company",
+      "label": "ИПП СЪРВИСИС",
+      "slug": null,
+      "uic": "204763073",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206765831",
+      "type": "company",
+      "label": "Тенис Джеди",
+      "slug": null,
+      "uic": "206765831",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206782072",
+      "type": "company",
+      "label": "Ван 55",
+      "slug": null,
+      "uic": "206782072",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206872502",
+      "type": "company",
+      "label": "ГРАДУС - МИ",
+      "slug": null,
+      "uic": "206872502",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206872598",
+      "type": "company",
+      "label": "ИНОВИТЕК",
+      "slug": null,
+      "uic": "206872598",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206874193",
+      "type": "company",
+      "label": "И.П ТРАНС-75",
+      "slug": null,
+      "uic": "206874193",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207014570",
+      "type": "company",
+      "label": "Петров Техно",
+      "slug": null,
+      "uic": "207014570",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207014667",
+      "type": "company",
+      "label": "Стандарт Минус",
+      "slug": null,
+      "uic": "207014667",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207014684",
+      "type": "company",
+      "label": "Петрович Инвест",
+      "slug": null,
+      "uic": "207014684",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207059957",
+      "type": "company",
+      "label": "КАРАТ-ПЕРФЕКТ 2005",
+      "slug": null,
+      "uic": "207059957",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАДЯ ДАМЯНОВА ФОТЕВА",
+      "type": "person",
+      "label": "Надя Дамянова Фотева"
+    },
+    {
+      "id": "person:ДОМИНГО ХАВИЕР МЕДИНА ВАЛИДО",
+      "type": "person",
+      "label": "Доминго Хавиер Медина Валидо"
+    },
+    {
+      "id": "person:ДИАНА ЛЮБОМИРОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Диана Любомирова Николова"
+    },
+    {
+      "id": "person:ГОРДАНА БЕКИРОВИЧ",
+      "type": "person",
+      "label": "Гордана Бекирович"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206281798",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:201500843",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:205531067",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206406547",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206635784",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:204763073",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206765831",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206782072",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206872502",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206872502",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206872598",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206874193",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:207014570",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:207014667",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:207014684",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:207059957",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206281798",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206406547",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206635784",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206765831",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206782072",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206872598",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:206874193",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-petrov-petrov-3098f3",
+      "target": "company:tr:207059957",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАДЯ ДАМЯНОВА ФОТЕВА",
+      "target": "company:tr:201500843",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОМИНГО ХАВИЕР МЕДИНА ВАЛИДО",
+      "target": "company:tr:204763073",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ЛЮБОМИРОВА НИКОЛОВА",
+      "target": "company:tr:206872502",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРДАНА БЕКИРОВИЧ",
+      "target": "company:tr:207014570",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРДАНА БЕКИРОВИЧ",
+      "target": "company:tr:207014570",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРДАНА БЕКИРОВИЧ",
+      "target": "company:tr:207014667",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРДАНА БЕКИРОВИЧ",
+      "target": "company:tr:207014667",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРДАНА БЕКИРОВИЧ",
+      "target": "company:tr:207014684",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРДАНА БЕКИРОВИЧ",
+      "target": "company:tr:207014684",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

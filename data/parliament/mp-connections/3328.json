@@ -1,1 +1,150 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:3328","nodes":[{"id":"mp:3328","type":"mp","mpId":3328,"label":"Дилян Господинов Господинов","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["45"]},{"id":"company:Хонекс-ЕООД","type":"company","label":"Хонекс ЕООД","slug":"Хонекс-ЕООД","uic":"204127602","legalForm":"EOOD","status":"active","seat":"Добрич"},{"id":"company:БГагроимпекс","type":"company","label":"БГагроимпекс","slug":"БГагроимпекс","uic":"201002554","legalForm":"EOOD","status":"active","seat":null},{"id":"company:ВитаЯна-Нутришън","type":"company","label":"ВитаЯна Нутришън","slug":"ВитаЯна-Нутришън","uic":"207539536","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":null},{"id":"company:МЕД-ХОНИГ-ВНОС,-ИЗНОС","type":"company","label":"МЕД-ХОНИГ ВНОС, ИЗНОС","slug":"МЕД-ХОНИГ-ВНОС,-ИЗНОС","uic":"130539321","legalForm":"EOOD","status":"active","seat":null},{"id":"person:ЯНА ЛЮБЧЕВА ГОСПОДИНОВА","type":"person","label":"Яна Любчева Господинова"},{"id":"person:ШЮТЕ ХЪНИ ГМБХ &AMP; КО. КГ","type":"person","label":"Шюте Хъни Гмбх &amp; Ко. Кг"}],"edges":[{"source":"mp:3328","target":"company:Хонекс-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3328","target":"company:Хонекс-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:3328","target":"company:БГагроимпекс","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:3328","target":"company:БГагроимпекс","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:3328","target":"company:ВитаЯна-Нутришън","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:3328","target":"company:ВитаЯна-Нутришън","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:3328","target":"company:МЕД-ХОНИГ-ВНОС,-ИЗНОС","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ЛЮБЧЕВА ГОСПОДИНОВА","target":"company:Хонекс-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ЛЮБЧЕВА ГОСПОДИНОВА","target":"company:МЕД-ХОНИГ-ВНОС,-ИЗНОС","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ШЮТЕ ХЪНИ ГМБХ &AMP; КО. КГ","target":"company:МЕД-ХОНИГ-ВНОС,-ИЗНОС","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:3328",
+  "nodes": [
+    {
+      "id": "mp:3328",
+      "type": "mp",
+      "mpId": 3328,
+      "label": "Дилян Господинов Господинов",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45"
+      ]
+    },
+    {
+      "id": "company:Хонекс-ЕООД",
+      "type": "company",
+      "label": "Хонекс ЕООД",
+      "slug": "Хонекс-ЕООД",
+      "uic": "204127602",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Добрич"
+    },
+    {
+      "id": "company:tr:207539536",
+      "type": "company",
+      "label": "ВитаЯна Нутришън",
+      "slug": null,
+      "uic": "207539536",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:130539321",
+      "type": "company",
+      "label": "МЕД-ХОНИГ ВНОС, ИЗНОС",
+      "slug": null,
+      "uic": "130539321",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:201002554",
+      "type": "company",
+      "label": "БГагроимпекс",
+      "slug": null,
+      "uic": "201002554",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ЯНА ЛЮБЧЕВА ГОСПОДИНОВА",
+      "type": "person",
+      "label": "Яна Любчева Господинова"
+    },
+    {
+      "id": "person:ШЮТЕ ХЪНИ ГМБХ &AMP; КО. КГ",
+      "type": "person",
+      "label": "Шюте Хъни Гмбх &amp; Ко. Кг"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3328",
+      "target": "company:Хонекс-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3328",
+      "target": "company:Хонекс-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3328",
+      "target": "company:tr:207539536",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3328",
+      "target": "company:tr:207539536",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3328",
+      "target": "company:tr:130539321",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3328",
+      "target": "company:tr:201002554",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3328",
+      "target": "company:tr:201002554",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯНА ЛЮБЧЕВА ГОСПОДИНОВА",
+      "target": "company:Хонекс-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШЮТЕ ХЪНИ ГМБХ &AMP; КО. КГ",
+      "target": "company:tr:130539321",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ЛЮБЧЕВА ГОСПОДИНОВА",
+      "target": "company:tr:130539321",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

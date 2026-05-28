@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:stanimir-mitkov-chaushev-4f07f8","nodes":[{"id":"official:stanimir-mitkov-chaushev-4f07f8","type":"official","slug":"stanimir-mitkov-chaushev-4f07f8","label":"Станимир Митков Чаушев","tier":"municipal","role":"councillor","municipality":"Златоград"},{"id":"company:tr:202605690","type":"company","label":"\"Родопи Трейд Мениджмънт\" ЕООД","slug":null,"uic":"202605690","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:stanimir-mitkov-chaushev-4f07f8","target":"company:tr:202605690","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:stanimir-mitkov-chaushev-4f07f8",
+  "nodes": [
+    {
+      "id": "official:stanimir-mitkov-chaushev-4f07f8",
+      "type": "official",
+      "slug": "stanimir-mitkov-chaushev-4f07f8",
+      "label": "Станимир Митков Чаушев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Златоград"
+    },
+    {
+      "id": "company:tr:202605690",
+      "type": "company",
+      "label": "\"Родопи Трейд Мениджмънт\" ЕООД",
+      "slug": null,
+      "uic": "202605690",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanimir-mitkov-chaushev-4f07f8",
+      "target": "company:tr:202605690",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

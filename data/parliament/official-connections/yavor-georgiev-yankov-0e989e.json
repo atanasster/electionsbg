@@ -1,1 +1,92 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:yavor-georgiev-yankov-0e989e","nodes":[{"id":"official:yavor-georgiev-yankov-0e989e","type":"official","slug":"yavor-georgiev-yankov-0e989e","label":"Явор Георгиев Янков","tier":"municipal","role":"councillor","municipality":"Пордим"},{"id":"company:tr:206515048","type":"company","label":"АГРИДО ТРЕЙД","slug":null,"uic":"206515048","legalForm":null,"status":null,"seat":null},{"id":"company:tr:202722430","type":"company","label":"ЕЛЕЯ ТРЕЙД","slug":null,"uic":"202722430","legalForm":null,"status":null,"seat":null},{"id":"person:АГРИДО САЙЪНС","type":"person","label":"Агридо Сайънс"},{"id":"person:ПАВЕЛ ВЕСЕЛИНОВ ИГНАТОВ","type":"person","label":"Павел Веселинов Игнатов"},{"id":"person:ЕЛЕНА ПЕЕВА ГЕОРГИЕВА","type":"person","label":"Елена Пеева Георгиева"}],"edges":[{"source":"official:yavor-georgiev-yankov-0e989e","target":"company:tr:206515048","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:yavor-georgiev-yankov-0e989e","target":"company:tr:202722430","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:АГРИДО САЙЪНС","target":"company:tr:206515048","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ ВЕСЕЛИНОВ ИГНАТОВ","target":"company:tr:206515048","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ПЕЕВА ГЕОРГИЕВА","target":"company:tr:202722430","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:yavor-georgiev-yankov-0e989e",
+  "nodes": [
+    {
+      "id": "official:yavor-georgiev-yankov-0e989e",
+      "type": "official",
+      "slug": "yavor-georgiev-yankov-0e989e",
+      "label": "Явор Георгиев Янков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пордим"
+    },
+    {
+      "id": "company:tr:206515048",
+      "type": "company",
+      "label": "АГРИДО ТРЕЙД",
+      "slug": null,
+      "uic": "206515048",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202722430",
+      "type": "company",
+      "label": "ЕЛЕЯ ТРЕЙД",
+      "slug": null,
+      "uic": "202722430",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АГРИДО САЙЪНС",
+      "type": "person",
+      "label": "Агридо Сайънс"
+    },
+    {
+      "id": "person:ПАВЕЛ ВЕСЕЛИНОВ ИГНАТОВ",
+      "type": "person",
+      "label": "Павел Веселинов Игнатов"
+    },
+    {
+      "id": "person:ЕЛЕНА ПЕЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Елена Пеева Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yavor-georgiev-yankov-0e989e",
+      "target": "company:tr:206515048",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yavor-georgiev-yankov-0e989e",
+      "target": "company:tr:202722430",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АГРИДО САЙЪНС",
+      "target": "company:tr:206515048",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ВЕСЕЛИНОВ ИГНАТОВ",
+      "target": "company:tr:206515048",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ПЕЕВА ГЕОРГИЕВА",
+      "target": "company:tr:202722430",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

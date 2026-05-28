@@ -1,1 +1,166 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:prodan-vasilev-prodanov-fd7965","nodes":[{"id":"official:prodan-vasilev-prodanov-fd7965","type":"official","slug":"prodan-vasilev-prodanov-fd7965","label":"Продан Василев Проданов","tier":"municipal","role":"councillor","municipality":"Стралджа"},{"id":"company:tr:205670889","type":"company","label":"ВОГ-2019","slug":null,"uic":"205670889","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206412781","type":"company","label":"ПЕРФЕКТСТРОЙ 2018","slug":null,"uic":"206412781","legalForm":null,"status":null,"seat":null},{"id":"company:tr:208813407","type":"company","label":"ВОГ-2026","slug":null,"uic":"208813407","legalForm":null,"status":null,"seat":null},{"id":"person:ТОДОР ИВАНОВ ПЕТКОВ","type":"person","label":"Тодор Иванов Петков"},{"id":"person:ЖЕЛЬО ЛЪЧЕЗАРОВ БАЛЕВСКИ","type":"person","label":"Жельо Лъчезаров Балевски"},{"id":"person:ЗДРАВКО СЕРГЕЕВ СЕРАФИМОВ","type":"person","label":"Здравко Сергеев Серафимов"}],"edges":[{"source":"official:prodan-vasilev-prodanov-fd7965","target":"company:tr:205670889","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:prodan-vasilev-prodanov-fd7965","target":"company:tr:205670889","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:prodan-vasilev-prodanov-fd7965","target":"company:tr:206412781","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:prodan-vasilev-prodanov-fd7965","target":"company:tr:208813407","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:prodan-vasilev-prodanov-fd7965","target":"company:tr:208813407","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:prodan-vasilev-prodanov-fd7965","target":"company:tr:206412781","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ТОДОР ИВАНОВ ПЕТКОВ","target":"company:tr:205670889","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕЛЬО ЛЪЧЕЗАРОВ БАЛЕВСКИ","target":"company:tr:205670889","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ИВАНОВ ПЕТКОВ","target":"company:tr:205670889","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЗДРАВКО СЕРГЕЕВ СЕРАФИМОВ","target":"company:tr:205670889","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ИВАНОВ ПЕТКОВ","target":"company:tr:208813407","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ИВАНОВ ПЕТКОВ","target":"company:tr:208813407","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕЛЬО ЛЪЧЕЗАРОВ БАЛЕВСКИ","target":"company:tr:208813407","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:prodan-vasilev-prodanov-fd7965",
+  "nodes": [
+    {
+      "id": "official:prodan-vasilev-prodanov-fd7965",
+      "type": "official",
+      "slug": "prodan-vasilev-prodanov-fd7965",
+      "label": "Продан Василев Проданов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стралджа"
+    },
+    {
+      "id": "company:tr:205670889",
+      "type": "company",
+      "label": "ВОГ-2019",
+      "slug": null,
+      "uic": "205670889",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206412781",
+      "type": "company",
+      "label": "ПЕРФЕКТСТРОЙ 2018",
+      "slug": null,
+      "uic": "206412781",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208813407",
+      "type": "company",
+      "label": "ВОГ-2026",
+      "slug": null,
+      "uic": "208813407",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОР ИВАНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Тодор Иванов Петков"
+    },
+    {
+      "id": "person:ЖЕЛЬО ЛЪЧЕЗАРОВ БАЛЕВСКИ",
+      "type": "person",
+      "label": "Жельо Лъчезаров Балевски"
+    },
+    {
+      "id": "person:ЗДРАВКО СЕРГЕЕВ СЕРАФИМОВ",
+      "type": "person",
+      "label": "Здравко Сергеев Серафимов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:prodan-vasilev-prodanov-fd7965",
+      "target": "company:tr:205670889",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:prodan-vasilev-prodanov-fd7965",
+      "target": "company:tr:205670889",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:prodan-vasilev-prodanov-fd7965",
+      "target": "company:tr:206412781",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:prodan-vasilev-prodanov-fd7965",
+      "target": "company:tr:208813407",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:prodan-vasilev-prodanov-fd7965",
+      "target": "company:tr:208813407",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:prodan-vasilev-prodanov-fd7965",
+      "target": "company:tr:206412781",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОР ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:205670889",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЬО ЛЪЧЕЗАРОВ БАЛЕВСКИ",
+      "target": "company:tr:205670889",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:205670889",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО СЕРГЕЕВ СЕРАФИМОВ",
+      "target": "company:tr:205670889",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:208813407",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:208813407",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЬО ЛЪЧЕЗАРОВ БАЛЕВСКИ",
+      "target": "company:tr:208813407",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

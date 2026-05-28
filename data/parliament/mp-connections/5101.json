@@ -1,1 +1,61 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:5101","nodes":[{"id":"mp:5101","type":"mp","mpId":5101,"label":"Георги Николаев Георгиев","partyGroupShort":"ПГ на ВЪЗРАЖДАНЕ","isCurrent":true,"nsFolders":["47","48","49","50","51","52"]},{"id":"company:Стейлър","type":"company","label":"Стейлър","slug":"Стейлър","uic":"206970238","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:Блу-Уейл-Капитал","type":"company","label":"Блу Уейл Капитал","slug":"Блу-Уейл-Капитал","uic":"208785252","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1303"},{"id":"company:ГЕОРГИ-ГЕОРГИЕВ-2021","type":"company","label":"ГЕОРГИ  ГЕОРГИЕВ 2021","slug":"ГЕОРГИ-ГЕОРГИЕВ-2021","uic":"206381154","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Ямбол, 8600"},{"id":"company:Георгиев-0777","type":"company","label":"Георгиев 0777","slug":"Георгиев-0777","uic":"206424552","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Благоевград, 2700"},{"id":"company:ЕПИК-КОЛЕКТИВ","type":"company","label":"ЕПИК КОЛЕКТИВ","slug":"ЕПИК-КОЛЕКТИВ","uic":"206739548","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1142"},{"id":"company:МИТРОВИ-2021","type":"company","label":"МИТРОВИ 2021","slug":"МИТРОВИ-2021","uic":"206594375","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Луковит, 5770"},{"id":"company:ПРОФЕСИОНАЛНИ-УСЛУГИ","type":"company","label":"ПРОФЕСИОНАЛНИ УСЛУГИ","slug":"ПРОФЕСИОНАЛНИ-УСЛУГИ","uic":"206156976","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":null},{"id":"company:ЧИНАР-ПБ","type":"company","label":"ЧИНАР-ПБ","slug":"ЧИНАР-ПБ","uic":"131461270","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1680"},{"id":"company:БГ-ПРОГРЕСС","type":"company","label":"БГ ПРОГРЕСС","slug":"БГ-ПРОГРЕСС","uic":"202284206","legalForm":"OOD","status":"active","seat":"Хасково"},{"id":"company:Голдмайнд","type":"company","label":"Голдмайнд","slug":"Голдмайнд","uic":"205184887","legalForm":"OOD","status":"active","seat":"Пловдив"},{"id":"person:ВАЛЕНТИН ДИМИТРОВ ВЪЛЕВ","type":"person","label":"Валентин Димитров Вълев"},{"id":"company:name:ИНОВЕЙШЪН КЕПИТЪЛ ФОНД","type":"company","label":"„Иновейшън Кепитъл Фонд“ КДА","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","type":"person","label":"Георги Николаев Георгиев"},{"id":"person:ДЕЛЯН БОРИСЛАВОВ БОНЕВ","type":"person","label":"Делян Бориславов Бонев"},{"id":"person:ИЛОНА ЮРИЕВНА ИВАНОВА","type":"person","label":"Илона Юриевна Иванова"},{"id":"person:МИРОСЛАВ ПРОЙНОВ ИВАНОВ","type":"person","label":"Мирослав Пройнов Иванов"},{"id":"person:АНТОН ГЕОРГИЕВ ЛЬОЛЕВ","type":"person","label":"Антон Георгиев Льолев"},{"id":"company:Хоумхиид-ООД","type":"company","label":"Хоумхиид ООД","slug":"Хоумхиид-ООД","uic":"205494731","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1463"},{"id":"mp:4144","type":"mp","mpId":4144,"label":"Михал Григоров Камбарев","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47","48"]}],"edges":[{"source":"mp:5101","target":"company:Стейлър","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:Стейлър","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:Блу-Уейл-Капитал","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:Блу-Уейл-Капитал","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:ГЕОРГИ-ГЕОРГИЕВ-2021","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:ГЕОРГИ-ГЕОРГИЕВ-2021","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:Георгиев-0777","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:Георгиев-0777","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:ЕПИК-КОЛЕКТИВ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:МИТРОВИ-2021","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:МИТРОВИ-2021","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:ПРОФЕСИОНАЛНИ-УСЛУГИ","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:ПРОФЕСИОНАЛНИ-УСЛУГИ","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:ЧИНАР-ПБ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:БГ-ПРОГРЕСС","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:Голдмайнд","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ДИМИТРОВ ВЪЛЕВ","target":"company:Стейлър","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ДИМИТРОВ ВЪЛЕВ","target":"company:Стейлър","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ИНОВЕЙШЪН КЕПИТЪЛ ФОНД","target":"company:Стейлър","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:Стейлър","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:Стейлър","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:Блу-Уейл-Капитал","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:Блу-Уейл-Капитал","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:ГЕОРГИ-ГЕОРГИЕВ-2021","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:ГЕОРГИ-ГЕОРГИЕВ-2021","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:Георгиев-0777","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:Георгиев-0777","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЯН БОРИСЛАВОВ БОНЕВ","target":"company:ЕПИК-КОЛЕКТИВ","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЯН БОРИСЛАВОВ БОНЕВ","target":"company:ЕПИК-КОЛЕКТИВ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:ЕПИК-КОЛЕКТИВ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:МИТРОВИ-2021","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:МИТРОВИ-2021","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:ПРОФЕСИОНАЛНИ-УСЛУГИ","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:ПРОФЕСИОНАЛНИ-УСЛУГИ","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИЛОНА ЮРИЕВНА ИВАНОВА","target":"company:ЧИНАР-ПБ","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИЛОНА ЮРИЕВНА ИВАНОВА","target":"company:ЧИНАР-ПБ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ ПРОЙНОВ ИВАНОВ","target":"company:ЧИНАР-ПБ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН ГЕОРГИЕВ ЛЬОЛЕВ","target":"company:ЧИНАР-ПБ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ","target":"company:ЧИНАР-ПБ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ИНОВЕЙШЪН КЕПИТЪЛ ФОНД","target":"company:Хоумхиид-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4144","target":"company:Хоумхиид-ООД","kind":"declared_stake","role":"transferred_share","isCurrent":false,"confidence":"high"},{"source":"mp:4144","target":"company:Хоумхиид-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:4144","length":4,"nodeIds":["mp:5101","company:Стейлър","company:name:ИНОВЕЙШЪН КЕПИТЪЛ ФОНД","company:Хоумхиид-ООД","mp:4144"],"isAllCurrent":true,"isAllHighConfidence":true}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:5101",
+  "nodes": [
+    {
+      "id": "mp:5101",
+      "type": "mp",
+      "mpId": 5101,
+      "label": "Георги Николаев Георгиев",
+      "partyGroupShort": "ПГ на ВЪЗРАЖДАНЕ",
+      "isCurrent": true,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:БГ-Прогресс",
+      "type": "company",
+      "label": "БГ Прогресс",
+      "slug": "БГ-Прогресс",
+      "uic": "202284206",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Хасково"
+    },
+    {
+      "id": "company:Голдмайнд",
+      "type": "company",
+      "label": "Голдмайнд",
+      "slug": "Голдмайнд",
+      "uic": "205184887",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5101",
+      "target": "company:БГ-Прогресс",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5101",
+      "target": "company:Голдмайнд",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

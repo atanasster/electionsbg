@@ -1,1 +1,56 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:anton-garo-hekimyan-802da7","nodes":[{"id":"official:anton-garo-hekimyan-802da7","type":"official","slug":"anton-garo-hekimyan-802da7","label":"Антон Гаро Хекимян","tier":"municipal","role":"councillor","municipality":"Столична община"},{"id":"company:tr:208780974","type":"company","label":"77АТ","slug":null,"uic":"208780974","legalForm":null,"status":null,"seat":null},{"id":"person:ТУНДЖАЙ САБРИ МУСТАФА","type":"person","label":"Тунджай Сабри Мустафа"}],"edges":[{"source":"official:anton-garo-hekimyan-802da7","target":"company:tr:208780974","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ТУНДЖАЙ САБРИ МУСТАФА","target":"company:tr:208780974","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТУНДЖАЙ САБРИ МУСТАФА","target":"company:tr:208780974","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:anton-garo-hekimyan-802da7",
+  "nodes": [
+    {
+      "id": "official:anton-garo-hekimyan-802da7",
+      "type": "official",
+      "slug": "anton-garo-hekimyan-802da7",
+      "label": "Антон Гаро Хекимян",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:208780974",
+      "type": "company",
+      "label": "77АТ",
+      "slug": null,
+      "uic": "208780974",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТУНДЖАЙ САБРИ МУСТАФА",
+      "type": "person",
+      "label": "Тунджай Сабри Мустафа"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anton-garo-hekimyan-802da7",
+      "target": "company:tr:208780974",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТУНДЖАЙ САБРИ МУСТАФА",
+      "target": "company:tr:208780974",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТУНДЖАЙ САБРИ МУСТАФА",
+      "target": "company:tr:208780974",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

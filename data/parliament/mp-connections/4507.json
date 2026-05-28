@@ -1,1 +1,44 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:4507","nodes":[{"id":"mp:4507","type":"mp","mpId":4507,"label":"Владимир Андонов Данаилов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:АКОРД-КЕПИТАЛ","type":"company","label":"АКОРД КЕПИТАЛ","slug":"АКОРД-КЕПИТАЛ","uic":"208808612","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1463"}],"edges":[{"source":"mp:4507","target":"company:АКОРД-КЕПИТАЛ","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4507","target":"company:АКОРД-КЕПИТАЛ","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:4507",
+  "nodes": [
+    {
+      "id": "mp:4507",
+      "type": "mp",
+      "mpId": 4507,
+      "label": "Владимир Андонов Данаилов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208808612",
+      "type": "company",
+      "label": "АКОРД КЕПИТАЛ",
+      "slug": null,
+      "uic": "208808612",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1463"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4507",
+      "target": "company:tr:208808612",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4507",
+      "target": "company:tr:208808612",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

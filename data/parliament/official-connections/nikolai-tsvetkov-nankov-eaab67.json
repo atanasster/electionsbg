@@ -1,1 +1,69 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:nikolai-tsvetkov-nankov-eaab67","nodes":[{"id":"official:nikolai-tsvetkov-nankov-eaab67","type":"official","slug":"nikolai-tsvetkov-nankov-eaab67","label":"Николай Цветков Нанков","tier":"municipal","role":"chief_architect","municipality":"Борован"},{"id":"company:tr:201683985","type":"company","label":"АЛАТИР ООД","slug":null,"uic":"201683985","legalForm":null,"status":null,"seat":null},{"id":"official:nikolai-tsvetkov-nankov-06c3b7","type":"official","slug":"nikolai-tsvetkov-nankov-06c3b7","label":"Николай Цветков Нанков","tier":"municipal","role":"chief_architect","municipality":"Криводол"},{"id":"official:nikolai-tsvetkov-nankov-c8b4d5","type":"official","slug":"nikolai-tsvetkov-nankov-c8b4d5","label":"Николай Цветков Нанков","tier":"municipal","role":"chief_architect","municipality":"Хайредин"}],"edges":[{"source":"official:nikolai-tsvetkov-nankov-eaab67","target":"company:tr:201683985","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:nikolai-tsvetkov-nankov-06c3b7","target":"company:tr:201683985","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:nikolai-tsvetkov-nankov-c8b4d5","target":"company:tr:201683985","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:nikolai-tsvetkov-nankov-eaab67",
+  "nodes": [
+    {
+      "id": "official:nikolai-tsvetkov-nankov-eaab67",
+      "type": "official",
+      "slug": "nikolai-tsvetkov-nankov-eaab67",
+      "label": "Николай Цветков Нанков",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Борован"
+    },
+    {
+      "id": "company:tr:201683985",
+      "type": "company",
+      "label": "АЛАТИР ООД",
+      "slug": null,
+      "uic": "201683985",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nikolai-tsvetkov-nankov-06c3b7",
+      "type": "official",
+      "slug": "nikolai-tsvetkov-nankov-06c3b7",
+      "label": "Николай Цветков Нанков",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Криводол"
+    },
+    {
+      "id": "official:nikolai-tsvetkov-nankov-c8b4d5",
+      "type": "official",
+      "slug": "nikolai-tsvetkov-nankov-c8b4d5",
+      "label": "Николай Цветков Нанков",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Хайредин"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-tsvetkov-nankov-eaab67",
+      "target": "company:tr:201683985",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-tsvetkov-nankov-06c3b7",
+      "target": "company:tr:201683985",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-tsvetkov-nankov-c8b4d5",
+      "target": "company:tr:201683985",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,64 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:mladen-ventsislavov-manov-354305","nodes":[{"id":"official:mladen-ventsislavov-manov-354305","type":"official","slug":"mladen-ventsislavov-manov-354305","label":"Младен Венциславов Манов","tier":"municipal","role":"councillor","municipality":"Пещера"},{"id":"company:tr:206490043","type":"company","label":"МУЛТИЛОГИСТИК","slug":null,"uic":"206490043","legalForm":null,"status":null,"seat":null},{"id":"person:БОРИС ВАСИЛЕВ ХАДЖИНИКОЛОВ","type":"person","label":"Борис Василев Хаджиниколов"}],"edges":[{"source":"official:mladen-ventsislavov-manov-354305","target":"company:tr:206490043","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:mladen-ventsislavov-manov-354305","target":"company:tr:206490043","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:БОРИС ВАСИЛЕВ ХАДЖИНИКОЛОВ","target":"company:tr:206490043","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БОРИС ВАСИЛЕВ ХАДЖИНИКОЛОВ","target":"company:tr:206490043","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:mladen-ventsislavov-manov-354305",
+  "nodes": [
+    {
+      "id": "official:mladen-ventsislavov-manov-354305",
+      "type": "official",
+      "slug": "mladen-ventsislavov-manov-354305",
+      "label": "Младен Венциславов Манов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пещера"
+    },
+    {
+      "id": "company:tr:206490043",
+      "type": "company",
+      "label": "МУЛТИЛОГИСТИК",
+      "slug": null,
+      "uic": "206490043",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРИС ВАСИЛЕВ ХАДЖИНИКОЛОВ",
+      "type": "person",
+      "label": "Борис Василев Хаджиниколов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mladen-ventsislavov-manov-354305",
+      "target": "company:tr:206490043",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mladen-ventsislavov-manov-354305",
+      "target": "company:tr:206490043",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИС ВАСИЛЕВ ХАДЖИНИКОЛОВ",
+      "target": "company:tr:206490043",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС ВАСИЛЕВ ХАДЖИНИКОЛОВ",
+      "target": "company:tr:206490043",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

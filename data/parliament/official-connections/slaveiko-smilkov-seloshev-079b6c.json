@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:slaveiko-smilkov-seloshev-079b6c","nodes":[{"id":"official:slaveiko-smilkov-seloshev-079b6c","type":"official","slug":"slaveiko-smilkov-seloshev-079b6c","label":"Славейко Смилков Сельошев","tier":"municipal","role":"deputy_mayor","municipality":"Доспат"},{"id":"company:tr:200098466","type":"company","label":"Славена трейд ЕООД","slug":null,"uic":"200098466","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:slaveiko-smilkov-seloshev-079b6c","target":"company:tr:200098466","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:slaveiko-smilkov-seloshev-079b6c",
+  "nodes": [
+    {
+      "id": "official:slaveiko-smilkov-seloshev-079b6c",
+      "type": "official",
+      "slug": "slaveiko-smilkov-seloshev-079b6c",
+      "label": "Славейко Смилков Сельошев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Доспат"
+    },
+    {
+      "id": "company:tr:200098466",
+      "type": "company",
+      "label": "Славена трейд ЕООД",
+      "slug": null,
+      "uic": "200098466",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:slaveiko-smilkov-seloshev-079b6c",
+      "target": "company:tr:200098466",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

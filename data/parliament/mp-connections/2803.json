@@ -1,1 +1,65 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:2803","nodes":[{"id":"mp:2803","type":"mp","mpId":2803,"label":"Валери Мирчев Жаблянов","partyGroupShort":"БСП-ОЛ","isCurrent":false,"nsFolders":["42","43"]},{"id":"company:МАЙ-ДИЕНЕЙ-МАЧ-ООД","type":"company","label":"\"МАЙ ДИЕНЕЙ МАЧ\" ООД","slug":"МАЙ-ДИЕНЕЙ-МАЧ-ООД","uic":"205375903","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1124"},{"id":"person:МИРЕЛА ВАЛЕРИ МИШЕВА","type":"person","label":"Мирела Валери Мишева"},{"id":"person:ИВЕТ СТЕФАНОВА ЖАБЛЯНОВА","type":"person","label":"Ивет Стефанова Жаблянова"}],"edges":[{"source":"mp:2803","target":"company:МАЙ-ДИЕНЕЙ-МАЧ-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:МИРЕЛА ВАЛЕРИ МИШЕВА","target":"company:МАЙ-ДИЕНЕЙ-МАЧ-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕТ СТЕФАНОВА ЖАБЛЯНОВА","target":"company:МАЙ-ДИЕНЕЙ-МАЧ-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:2803",
+  "nodes": [
+    {
+      "id": "mp:2803",
+      "type": "mp",
+      "mpId": 2803,
+      "label": "Валери Мирчев Жаблянов",
+      "partyGroupShort": "БСП-ОЛ",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "company:МАЙ-Диеней-МАЧ-ООД",
+      "type": "company",
+      "label": "\"МАЙ Диеней МАЧ\" ООД",
+      "slug": "МАЙ-Диеней-МАЧ-ООД",
+      "uic": "205375903",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1124"
+    },
+    {
+      "id": "person:МИРЕЛА ВАЛЕРИ МИШЕВА",
+      "type": "person",
+      "label": "Мирела Валери Мишева"
+    },
+    {
+      "id": "person:ИВЕТ СТЕФАНОВА ЖАБЛЯНОВА",
+      "type": "person",
+      "label": "Ивет Стефанова Жаблянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2803",
+      "target": "company:МАЙ-Диеней-МАЧ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРЕЛА ВАЛЕРИ МИШЕВА",
+      "target": "company:МАЙ-Диеней-МАЧ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕТ СТЕФАНОВА ЖАБЛЯНОВА",
+      "target": "company:МАЙ-Диеней-МАЧ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

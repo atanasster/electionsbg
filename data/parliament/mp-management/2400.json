@@ -1,13 +1,27 @@
 {
   "mpId": 2400,
   "mpName": "Иван Кирилов Иванов",
-  "generatedAt": "2026-05-23T13:45:42.023Z",
-  "total": 5,
+  "generatedAt": "2026-05-28T08:24:32.256Z",
+  "total": 6,
   "roles": [
     {
+      "uic": "103788546",
+      "companyName": "ДОБРЕВ И МИХАЙЛОВ",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-05-21T13:31:52",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
       "uic": "206785353",
-      "companyName": "Лабшоко",
-      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "companyName": "ЛАБШОКО",
+      "legalForm": "EOOD",
       "seat": "БЪЛГАРИЯ, гр. София, 1680",
       "status": "active",
       "role": "manager",
@@ -20,8 +34,8 @@
     },
     {
       "uic": "206785353",
-      "companyName": "Лабшоко",
-      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "companyName": "ЛАБШОКО",
+      "legalForm": "EOOD",
       "seat": "БЪЛГАРИЯ, гр. София, 1680",
       "status": "active",
       "role": "sole_owner",
@@ -34,7 +48,7 @@
     },
     {
       "uic": "206762792",
-      "companyName": "СИ Логистик",
+      "companyName": "СИ ЛОГИСТИК",
       "legalForm": "Дружество с ограничена отговорност",
       "seat": "БЪЛГАРИЯ, гр. София, 1700",
       "status": "active",
@@ -48,7 +62,7 @@
     },
     {
       "uic": "206762792",
-      "companyName": "СИ Логистик",
+      "companyName": "СИ ЛОГИСТИК",
       "legalForm": "Дружество с ограничена отговорност",
       "seat": "БЪЛГАРИЯ, гр. София, 1700",
       "status": "active",
@@ -62,7 +76,7 @@
     },
     {
       "uic": "206467703",
-      "companyName": "МАЙ Партнерс",
+      "companyName": "МАЙ ПАРТНЕРС",
       "legalForm": "Дружество с ограничена отговорност",
       "seat": "БЪЛГАРИЯ, гр. Пловдив, 4015",
       "status": "active",

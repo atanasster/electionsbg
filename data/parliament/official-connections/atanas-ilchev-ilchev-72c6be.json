@@ -1,1 +1,224 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:atanas-ilchev-ilchev-72c6be","nodes":[{"id":"official:atanas-ilchev-ilchev-72c6be","type":"official","slug":"atanas-ilchev-ilchev-72c6be","label":"Атанас Илчев Илчев","tier":"municipal","role":"councillor","municipality":"Ямбол"},{"id":"company:tr:205767690","type":"company","label":"Спешъл сикюрити груп ООД","slug":null,"uic":"205767690","legalForm":null,"status":null,"seat":null},{"id":"company:tr:838101940","type":"company","label":"БИОСИМ","slug":null,"uic":"838101940","legalForm":null,"status":null,"seat":null},{"id":"company:tr:128029350","type":"company","label":"ДИАНА КАБЕЛ ТВ","slug":null,"uic":"128029350","legalForm":null,"status":null,"seat":null},{"id":"official:evgeni-ivanov-ivanov-1d0d30","type":"official","slug":"evgeni-ivanov-ivanov-1d0d30","label":"Евгени Иванов Иванов","tier":"municipal","role":"councillor","municipality":"Ямбол"},{"id":"person:ИВАН БОРИСОВ БОТЕВ","type":"person","label":"Иван Борисов Ботев"},{"id":"person:ИЛЧО АТАНАСОВ ИЛЧЕВ","type":"person","label":"Илчо Атанасов Илчев"},{"id":"person:ПАВЛИНА ИЛЧЕВА ИЛЧЕВА","type":"person","label":"Павлина Илчева Илчева"},{"id":"person:ЖУЛИЕТА АХМЕДОВА ГОСПОДИНОВА","type":"person","label":"Жулиета Ахмедова Господинова"},{"id":"person:ЦВЕТАН ВАЛЕНТИНОВ РЕВАНСКИ","type":"person","label":"Цветан Валентинов Ревански"},{"id":"person:ЕМИЛ ЦВЕТАНОВ РЕВАНСКИ","type":"person","label":"Емил Цветанов Ревански"},{"id":"person:МИЛЕН ТОДОРОВ СТАНЧЕВ","type":"person","label":"Милен Тодоров Станчев"},{"id":"person:МИГЛЕНА ГОСПОДИНОВА ИЛИЕВА-КОСТАДИНОВА","type":"person","label":"Миглена Господинова Илиева-Костадинова"}],"edges":[{"source":"official:atanas-ilchev-ilchev-72c6be","target":"company:tr:205767690","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:atanas-ilchev-ilchev-72c6be","target":"company:tr:838101940","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:atanas-ilchev-ilchev-72c6be","target":"company:tr:128029350","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:atanas-ilchev-ilchev-72c6be","target":"company:tr:128029350","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:evgeni-ivanov-ivanov-1d0d30","target":"company:tr:205767690","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:evgeni-ivanov-ivanov-1d0d30","target":"company:tr:205767690","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН БОРИСОВ БОТЕВ","target":"company:tr:205767690","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИЛЧО АТАНАСОВ ИЛЧЕВ","target":"company:tr:838101940","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА ИЛЧЕВА ИЛЧЕВА","target":"company:tr:838101940","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЖУЛИЕТА АХМЕДОВА ГОСПОДИНОВА","target":"company:tr:128029350","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ВАЛЕНТИНОВ РЕВАНСКИ","target":"company:tr:128029350","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИЛЧО АТАНАСОВ ИЛЧЕВ","target":"company:tr:128029350","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ВАЛЕНТИНОВ РЕВАНСКИ","target":"company:tr:128029350","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ЦВЕТАНОВ РЕВАНСКИ","target":"company:tr:128029350","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ТОДОРОВ СТАНЧЕВ","target":"company:tr:128029350","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИГЛЕНА ГОСПОДИНОВА ИЛИЕВА-КОСТАДИНОВА","target":"company:tr:128029350","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:atanas-ilchev-ilchev-72c6be",
+  "nodes": [
+    {
+      "id": "official:atanas-ilchev-ilchev-72c6be",
+      "type": "official",
+      "slug": "atanas-ilchev-ilchev-72c6be",
+      "label": "Атанас Илчев Илчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол"
+    },
+    {
+      "id": "company:tr:205767690",
+      "type": "company",
+      "label": "Спешъл сикюрити груп ООД",
+      "slug": null,
+      "uic": "205767690",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:838101940",
+      "type": "company",
+      "label": "БИОСИМ",
+      "slug": null,
+      "uic": "838101940",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:128029350",
+      "type": "company",
+      "label": "ДИАНА КАБЕЛ ТВ",
+      "slug": null,
+      "uic": "128029350",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:evgeni-ivanov-ivanov-1d0d30",
+      "type": "official",
+      "slug": "evgeni-ivanov-ivanov-1d0d30",
+      "label": "Евгени Иванов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол"
+    },
+    {
+      "id": "person:ИВАН БОРИСОВ БОТЕВ",
+      "type": "person",
+      "label": "Иван Борисов Ботев"
+    },
+    {
+      "id": "person:ИЛЧО АТАНАСОВ ИЛЧЕВ",
+      "type": "person",
+      "label": "Илчо Атанасов Илчев"
+    },
+    {
+      "id": "person:ПАВЛИНА ИЛЧЕВА ИЛЧЕВА",
+      "type": "person",
+      "label": "Павлина Илчева Илчева"
+    },
+    {
+      "id": "person:ЖУЛИЕТА АХМЕДОВА ГОСПОДИНОВА",
+      "type": "person",
+      "label": "Жулиета Ахмедова Господинова"
+    },
+    {
+      "id": "person:ЦВЕТАН ВАЛЕНТИНОВ РЕВАНСКИ",
+      "type": "person",
+      "label": "Цветан Валентинов Ревански"
+    },
+    {
+      "id": "person:ЕМИЛ ЦВЕТАНОВ РЕВАНСКИ",
+      "type": "person",
+      "label": "Емил Цветанов Ревански"
+    },
+    {
+      "id": "person:МИЛЕН ТОДОРОВ СТАНЧЕВ",
+      "type": "person",
+      "label": "Милен Тодоров Станчев"
+    },
+    {
+      "id": "person:МИГЛЕНА ГОСПОДИНОВА ИЛИЕВА-КОСТАДИНОВА",
+      "type": "person",
+      "label": "Миглена Господинова Илиева-Костадинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-ilchev-ilchev-72c6be",
+      "target": "company:tr:205767690",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atanas-ilchev-ilchev-72c6be",
+      "target": "company:tr:838101940",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-ilchev-ilchev-72c6be",
+      "target": "company:tr:128029350",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-ilchev-ilchev-72c6be",
+      "target": "company:tr:128029350",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:evgeni-ivanov-ivanov-1d0d30",
+      "target": "company:tr:205767690",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:evgeni-ivanov-ivanov-1d0d30",
+      "target": "company:tr:205767690",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН БОРИСОВ БОТЕВ",
+      "target": "company:tr:205767690",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛЧО АТАНАСОВ ИЛЧЕВ",
+      "target": "company:tr:838101940",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ИЛЧЕВА ИЛЧЕВА",
+      "target": "company:tr:838101940",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖУЛИЕТА АХМЕДОВА ГОСПОДИНОВА",
+      "target": "company:tr:128029350",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ВАЛЕНТИНОВ РЕВАНСКИ",
+      "target": "company:tr:128029350",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛЧО АТАНАСОВ ИЛЧЕВ",
+      "target": "company:tr:128029350",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ВАЛЕНТИНОВ РЕВАНСКИ",
+      "target": "company:tr:128029350",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ЦВЕТАНОВ РЕВАНСКИ",
+      "target": "company:tr:128029350",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ТОДОРОВ СТАНЧЕВ",
+      "target": "company:tr:128029350",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА ГОСПОДИНОВА ИЛИЕВА-КОСТАДИНОВА",
+      "target": "company:tr:128029350",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

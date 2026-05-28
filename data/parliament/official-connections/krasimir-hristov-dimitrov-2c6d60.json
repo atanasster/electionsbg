@@ -1,1 +1,82 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:krasimir-hristov-dimitrov-2c6d60","nodes":[{"id":"official:krasimir-hristov-dimitrov-2c6d60","type":"official","slug":"krasimir-hristov-dimitrov-2c6d60","label":"Красимир Христов Димитров","tier":"municipal","role":"councillor","municipality":"Силистра"},{"id":"company:tr:206518457","type":"company","label":"Криптомат БГ","slug":null,"uic":"206518457","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ ВЕНЦИСЛАВОВ СТОЯНОВ","type":"person","label":"Георги Венциславов Стоянов"},{"id":"person:СТЕФАН АНГЕЛОВ АСЕНОВ","type":"person","label":"Стефан Ангелов Асенов"},{"id":"person:СТЕФАН АСЕНОВ АНГЕЛОВ","type":"person","label":"Стефан Асенов Ангелов"}],"edges":[{"source":"official:krasimir-hristov-dimitrov-2c6d60","target":"company:tr:206518457","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ ВЕНЦИСЛАВОВ СТОЯНОВ","target":"company:tr:206518457","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН АНГЕЛОВ АСЕНОВ","target":"company:tr:206518457","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН АСЕНОВ АНГЕЛОВ","target":"company:tr:206518457","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ВЕНЦИСЛАВОВ СТОЯНОВ","target":"company:tr:206518457","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:krasimir-hristov-dimitrov-2c6d60",
+  "nodes": [
+    {
+      "id": "official:krasimir-hristov-dimitrov-2c6d60",
+      "type": "official",
+      "slug": "krasimir-hristov-dimitrov-2c6d60",
+      "label": "Красимир Христов Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Силистра"
+    },
+    {
+      "id": "company:tr:206518457",
+      "type": "company",
+      "label": "Криптомат БГ",
+      "slug": null,
+      "uic": "206518457",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ВЕНЦИСЛАВОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Георги Венциславов Стоянов"
+    },
+    {
+      "id": "person:СТЕФАН АНГЕЛОВ АСЕНОВ",
+      "type": "person",
+      "label": "Стефан Ангелов Асенов"
+    },
+    {
+      "id": "person:СТЕФАН АСЕНОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Стефан Асенов Ангелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-hristov-dimitrov-2c6d60",
+      "target": "company:tr:206518457",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ВЕНЦИСЛАВОВ СТОЯНОВ",
+      "target": "company:tr:206518457",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АНГЕЛОВ АСЕНОВ",
+      "target": "company:tr:206518457",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АСЕНОВ АНГЕЛОВ",
+      "target": "company:tr:206518457",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВЕНЦИСЛАВОВ СТОЯНОВ",
+      "target": "company:tr:206518457",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

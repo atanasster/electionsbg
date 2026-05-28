@@ -1,1 +1,52 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:3957","nodes":[{"id":"mp:3957","type":"mp","mpId":3957,"label":"Рена Енчева Стефанова","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47","48"]},{"id":"company:Лега-Консулт-ООД","type":"company","label":"Лега Консулт ООД","slug":"Лега-Консулт-ООД","uic":"123562519","legalForm":"OOD","status":"active","seat":"Русе"},{"id":"person:РУМЕН ЖЕЛЕВ МАНЧЕВ","type":"person","label":"Румен Желев Манчев"}],"edges":[{"source":"mp:3957","target":"company:Лега-Консулт-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ЖЕЛЕВ МАНЧЕВ","target":"company:Лега-Консулт-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:3957",
+  "nodes": [
+    {
+      "id": "mp:3957",
+      "type": "mp",
+      "mpId": 3957,
+      "label": "Рена Енчева Стефанова",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "company:Лега-Консулт-ООД",
+      "type": "company",
+      "label": "Лега Консулт ООД",
+      "slug": "Лега-Консулт-ООД",
+      "uic": "123562519",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Русе"
+    },
+    {
+      "id": "person:РУМЕН ЖЕЛЕВ МАНЧЕВ",
+      "type": "person",
+      "label": "Румен Желев Манчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3957",
+      "target": "company:Лега-Консулт-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ЖЕЛЕВ МАНЧЕВ",
+      "target": "company:Лега-Консулт-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

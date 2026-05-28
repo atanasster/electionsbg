@@ -1,1 +1,190 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:vasil-georgiev-vasilev-ba9f3d","nodes":[{"id":"official:vasil-georgiev-vasilev-ba9f3d","type":"official","slug":"vasil-georgiev-vasilev-ba9f3d","label":"Васил Георгиев Василев","tier":"municipal","role":"councillor","municipality":"Етрополе"},{"id":"company:tr:203706952","type":"company","label":"Х ДИЗАЙН БУРГАС","slug":null,"uic":"203706952","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206360651","type":"company","label":"ОЛИМПИЙЦИ - МАТЕМАТИКА","slug":null,"uic":"206360651","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206425323","type":"company","label":"СЪНИ БИЙЧ КОМ","slug":null,"uic":"206425323","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206889836","type":"company","label":"Бранко Метал Груп","slug":null,"uic":"206889836","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207065675","type":"company","label":"ТЕМПО СТАРТ 91","slug":null,"uic":"207065675","legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛАЙ ХРИСТОВ ГРИГОРОВ","type":"person","label":"Николай Христов Григоров"},{"id":"person:ТАНЬО СТОЙКОВ ТАНЕВ","type":"person","label":"Таньо Стойков Танев"},{"id":"official:georgi-vasilev-dimitrov-2f5615","type":"official","slug":"georgi-vasilev-dimitrov-2f5615","label":"Георги Василев Димитров","tier":"municipal","role":"councillor","municipality":"Ветово"}],"edges":[{"source":"official:vasil-georgiev-vasilev-ba9f3d","target":"company:tr:203706952","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:vasil-georgiev-vasilev-ba9f3d","target":"company:tr:203706952","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:vasil-georgiev-vasilev-ba9f3d","target":"company:tr:206360651","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:vasil-georgiev-vasilev-ba9f3d","target":"company:tr:206425323","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:vasil-georgiev-vasilev-ba9f3d","target":"company:tr:206889836","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"medium"},{"source":"official:vasil-georgiev-vasilev-ba9f3d","target":"company:tr:207065675","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:vasil-georgiev-vasilev-ba9f3d","target":"company:tr:206360651","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:vasil-georgiev-vasilev-ba9f3d","target":"company:tr:207065675","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ ХРИСТОВ ГРИГОРОВ","target":"company:tr:203706952","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЬО СТОЙКОВ ТАНЕВ","target":"company:tr:206425323","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЬО СТОЙКОВ ТАНЕВ","target":"company:tr:206425323","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"official:georgi-vasilev-dimitrov-2f5615","target":"company:tr:206889836","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-vasilev-dimitrov-2f5615","target":"company:tr:206889836","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:vasil-georgiev-vasilev-ba9f3d",
+  "nodes": [
+    {
+      "id": "official:vasil-georgiev-vasilev-ba9f3d",
+      "type": "official",
+      "slug": "vasil-georgiev-vasilev-ba9f3d",
+      "label": "Васил Георгиев Василев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Етрополе"
+    },
+    {
+      "id": "company:tr:203706952",
+      "type": "company",
+      "label": "Х ДИЗАЙН БУРГАС",
+      "slug": null,
+      "uic": "203706952",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206360651",
+      "type": "company",
+      "label": "ОЛИМПИЙЦИ - МАТЕМАТИКА",
+      "slug": null,
+      "uic": "206360651",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206425323",
+      "type": "company",
+      "label": "СЪНИ БИЙЧ КОМ",
+      "slug": null,
+      "uic": "206425323",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206889836",
+      "type": "company",
+      "label": "Бранко Метал Груп",
+      "slug": null,
+      "uic": "206889836",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207065675",
+      "type": "company",
+      "label": "ТЕМПО СТАРТ 91",
+      "slug": null,
+      "uic": "207065675",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ХРИСТОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Николай Христов Григоров"
+    },
+    {
+      "id": "person:ТАНЬО СТОЙКОВ ТАНЕВ",
+      "type": "person",
+      "label": "Таньо Стойков Танев"
+    },
+    {
+      "id": "official:georgi-vasilev-dimitrov-2f5615",
+      "type": "official",
+      "slug": "georgi-vasilev-dimitrov-2f5615",
+      "label": "Георги Василев Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ветово"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-georgiev-vasilev-ba9f3d",
+      "target": "company:tr:203706952",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vasil-georgiev-vasilev-ba9f3d",
+      "target": "company:tr:203706952",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vasil-georgiev-vasilev-ba9f3d",
+      "target": "company:tr:206360651",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vasil-georgiev-vasilev-ba9f3d",
+      "target": "company:tr:206425323",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vasil-georgiev-vasilev-ba9f3d",
+      "target": "company:tr:206889836",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vasil-georgiev-vasilev-ba9f3d",
+      "target": "company:tr:207065675",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vasil-georgiev-vasilev-ba9f3d",
+      "target": "company:tr:206360651",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vasil-georgiev-vasilev-ba9f3d",
+      "target": "company:tr:207065675",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ХРИСТОВ ГРИГОРОВ",
+      "target": "company:tr:203706952",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЬО СТОЙКОВ ТАНЕВ",
+      "target": "company:tr:206425323",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЬО СТОЙКОВ ТАНЕВ",
+      "target": "company:tr:206425323",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-vasilev-dimitrov-2f5615",
+      "target": "company:tr:206889836",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-dimitrov-2f5615",
+      "target": "company:tr:206889836",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

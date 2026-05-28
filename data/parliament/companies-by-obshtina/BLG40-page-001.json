@@ -6,7 +6,7 @@
   "companies": [
     {
       "slug": "ГАБИАННА-ТРАНС",
-      "displayName": "Габианна транс",
+      "displayName": "ГАБИАННА ТРАНС",
       "registeredOffice": "БЪЛГАРИЯ, гр. Сандански, 2800",
       "mps": [
         {
@@ -25,32 +25,19 @@
     },
     {
       "slug": "ТОП-АУТО-2022",
-      "displayName": "ТОП Ауто 2022",
+      "displayName": "ТОП АУТО 2022",
       "registeredOffice": "БЪЛГАРИЯ, с. Поленица, 2804",
       "mps": [
         {
           "mpId": 2681,
           "mpName": "Борислав Иванов Борисов",
-          "role": "manager",
+          "role": "sole_owner",
           "isCurrent": true
         },
         {
           "mpId": 2681,
           "mpName": "Борислав Иванов Борисов",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Търговски-център-Сандански",
-      "displayName": "Търговски център Сандански",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Сандански, 2800",
-      "mps": [
-        {
-          "mpId": 1618,
-          "mpName": "Митко Живков Захов",
-          "role": "partner",
+          "role": "manager",
           "isCurrent": true
         }
       ]
@@ -64,6 +51,19 @@
           "mpId": 5113,
           "mpName": "Георги Иванов Георгиев",
           "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Търговски-център-Сандански",
+      "displayName": "Търговски център Сандански",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Сандански, 2800",
+      "mps": [
+        {
+          "mpId": 1618,
+          "mpName": "Митко Живков Захов",
+          "role": "partner",
           "isCurrent": true
         }
       ]

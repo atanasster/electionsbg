@@ -1,1 +1,131 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:atanas-kolev-atanasov-9636ab","nodes":[{"id":"official:atanas-kolev-atanasov-9636ab","type":"official","slug":"atanas-kolev-atanasov-9636ab","label":"Атанас Колев Атанасов","tier":"municipal","role":"councillor","municipality":"Маджарово"},{"id":"company:tr:200621546","type":"company","label":"СМАРТ ПРОДАКШЪНС","slug":null,"uic":"200621546","legalForm":null,"status":null,"seat":null},{"id":"company:tr:200704298","type":"company","label":"БУЛЕНЕРДЖИ КООПЕРЕЙШЪН","slug":null,"uic":"200704298","legalForm":null,"status":null,"seat":null},{"id":"person:ДМИТРО ДЕРЯГА","type":"person","label":"Дмитро Деряга"},{"id":"person:НИКОЛАЙ КОСТОВ ПЧЕЛАРОВ","type":"person","label":"Николай Костов Пчеларов"},{"id":"person:МАРИН ДОЧЕВ ВАЦОВ","type":"person","label":"Марин Дочев Вацов"},{"id":"person:АСТРА КОЗМЕТИКС","type":"person","label":"Астра Козметикс"},{"id":"person:МАРИНА ВЕНЦИСЛАВОВА СТАНКОВА","type":"person","label":"Марина Венциславова Станкова"},{"id":"person:ИВЕЛИН ЗДРАВКОВ ГАБРОВСКИ","type":"person","label":"Ивелин Здравков Габровски"}],"edges":[{"source":"official:atanas-kolev-atanasov-9636ab","target":"company:tr:200621546","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:atanas-kolev-atanasov-9636ab","target":"company:tr:200704298","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДМИТРО ДЕРЯГА","target":"company:tr:200621546","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КОСТОВ ПЧЕЛАРОВ","target":"company:tr:200621546","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИН ДОЧЕВ ВАЦОВ","target":"company:tr:200704298","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АСТРА КОЗМЕТИКС","target":"company:tr:200704298","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНА ВЕНЦИСЛАВОВА СТАНКОВА","target":"company:tr:200704298","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИН ЗДРАВКОВ ГАБРОВСКИ","target":"company:tr:200704298","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:atanas-kolev-atanasov-9636ab",
+  "nodes": [
+    {
+      "id": "official:atanas-kolev-atanasov-9636ab",
+      "type": "official",
+      "slug": "atanas-kolev-atanasov-9636ab",
+      "label": "Атанас Колев Атанасов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Маджарово"
+    },
+    {
+      "id": "company:tr:200621546",
+      "type": "company",
+      "label": "СМАРТ ПРОДАКШЪНС",
+      "slug": null,
+      "uic": "200621546",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200704298",
+      "type": "company",
+      "label": "БУЛЕНЕРДЖИ КООПЕРЕЙШЪН",
+      "slug": null,
+      "uic": "200704298",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДМИТРО ДЕРЯГА",
+      "type": "person",
+      "label": "Дмитро Деряга"
+    },
+    {
+      "id": "person:НИКОЛАЙ КОСТОВ ПЧЕЛАРОВ",
+      "type": "person",
+      "label": "Николай Костов Пчеларов"
+    },
+    {
+      "id": "person:МАРИН ДОЧЕВ ВАЦОВ",
+      "type": "person",
+      "label": "Марин Дочев Вацов"
+    },
+    {
+      "id": "person:АСТРА КОЗМЕТИКС",
+      "type": "person",
+      "label": "Астра Козметикс"
+    },
+    {
+      "id": "person:МАРИНА ВЕНЦИСЛАВОВА СТАНКОВА",
+      "type": "person",
+      "label": "Марина Венциславова Станкова"
+    },
+    {
+      "id": "person:ИВЕЛИН ЗДРАВКОВ ГАБРОВСКИ",
+      "type": "person",
+      "label": "Ивелин Здравков Габровски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-kolev-atanasov-9636ab",
+      "target": "company:tr:200621546",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-kolev-atanasov-9636ab",
+      "target": "company:tr:200704298",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДМИТРО ДЕРЯГА",
+      "target": "company:tr:200621546",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КОСТОВ ПЧЕЛАРОВ",
+      "target": "company:tr:200621546",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ДОЧЕВ ВАЦОВ",
+      "target": "company:tr:200704298",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСТРА КОЗМЕТИКС",
+      "target": "company:tr:200704298",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА ВЕНЦИСЛАВОВА СТАНКОВА",
+      "target": "company:tr:200704298",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН ЗДРАВКОВ ГАБРОВСКИ",
+      "target": "company:tr:200704298",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

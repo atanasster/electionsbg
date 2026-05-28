@@ -1,1 +1,375 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:dimitr-georgiev-petrov-41e750","nodes":[{"id":"official:dimitr-georgiev-petrov-41e750","type":"official","slug":"dimitr-georgiev-petrov-41e750","label":"Димитър Георгиев Петров","tier":"municipal","role":"mayor","municipality":"Район Красна поляна"},{"id":"company:tr:203588653","type":"company","label":"Европроект консулт 2014-2020","slug":null,"uic":"203588653","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206357363","type":"company","label":"ГЕТ.БГ 2020","slug":null,"uic":"206357363","legalForm":null,"status":null,"seat":null},{"id":"company:tr:200653747","type":"company","label":"ЕВРО - МОБИЛ - МД","slug":null,"uic":"200653747","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205131482","type":"company","label":"Нола Трейдинг","slug":null,"uic":"205131482","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206481700","type":"company","label":"ДИМИ ГРИП ХАУС 1984","slug":null,"uic":"206481700","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206774830","type":"company","label":"Без рецепта","slug":null,"uic":"206774830","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206879920","type":"company","label":"ЛИГЪЛ КОНСУЛТИНГ СОЛЮШЪНС","slug":null,"uic":"206879920","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205993725","type":"company","label":"КАДЕСЕ ВАРНА","slug":null,"uic":"205993725","legalForm":null,"status":null,"seat":null},{"id":"company:tr:208802659","type":"company","label":"ТЕХНОЛОГИЧНИ ИНОВАЦИИ И РАЗВИТИЕ","slug":null,"uic":"208802659","legalForm":null,"status":null,"seat":null},{"id":"person:ДАНИЕЛА ЕМИЛОВА КЕТЕНЛИЕВА","type":"person","label":"Даниела Емилова Кетенлиева"},{"id":"person:МИРЯНА БОРИСЛАВОВА САРАНДЕВА-ТАКОВА","type":"person","label":"Миряна Бориславова Сарандева-Такова"},{"id":"person:КАТЯ МОМЧИЛОВА ШУНИНА-СПАСОВА","type":"person","label":"Катя Момчилова Шунина-Спасова"},{"id":"person:ЕКАТЕРИНА КОСТОВА ПЕНЕВА","type":"person","label":"Екатерина Костова Пенева"},{"id":"person:МИРАБО ГРУП","type":"person","label":"Мирабо Груп"},{"id":"person:МАРИО ДИМИТРОВ ГЕОРГИЕВ","type":"person","label":"Марио Димитров Георгиев"},{"id":"official:ivan-romanov-tsvetkov-dcb299","type":"official","slug":"ivan-romanov-tsvetkov-dcb299","label":"Иван Романов Цветков","tier":"municipal","role":"councillor","municipality":"Тетевен"},{"id":"person:ЯНА ДИМИТРОВА ПЕТРОВА","type":"person","label":"Яна Димитрова Петрова"}],"edges":[{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:203588653","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:206357363","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:200653747","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:200653747","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:205131482","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:206481700","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:206774830","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:206879920","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:206879920","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:205993725","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:205993725","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:208802659","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:203588653","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:205131482","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:206481700","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:206774830","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-georgiev-petrov-41e750","target":"company:tr:208802659","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ДАНИЕЛА ЕМИЛОВА КЕТЕНЛИЕВА","target":"company:tr:206357363","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИРЯНА БОРИСЛАВОВА САРАНДЕВА-ТАКОВА","target":"company:tr:206357363","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ МОМЧИЛОВА ШУНИНА-СПАСОВА","target":"company:tr:206357363","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕКАТЕРИНА КОСТОВА ПЕНЕВА","target":"company:tr:206357363","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИРАБО ГРУП","target":"company:tr:206357363","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИО ДИМИТРОВ ГЕОРГИЕВ","target":"company:tr:200653747","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИО ДИМИТРОВ ГЕОРГИЕВ","target":"company:tr:200653747","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"official:ivan-romanov-tsvetkov-dcb299","target":"company:tr:206879920","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-romanov-tsvetkov-dcb299","target":"company:tr:206879920","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЯНА ДИМИТРОВА ПЕТРОВА","target":"company:tr:205993725","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ДИМИТРОВА ПЕТРОВА","target":"company:tr:205993725","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:dimitr-georgiev-petrov-41e750",
+  "nodes": [
+    {
+      "id": "official:dimitr-georgiev-petrov-41e750",
+      "type": "official",
+      "slug": "dimitr-georgiev-petrov-41e750",
+      "label": "Димитър Георгиев Петров",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Район Красна поляна"
+    },
+    {
+      "id": "company:tr:203588653",
+      "type": "company",
+      "label": "Европроект консулт 2014-2020",
+      "slug": null,
+      "uic": "203588653",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206357363",
+      "type": "company",
+      "label": "ГЕТ.БГ 2020",
+      "slug": null,
+      "uic": "206357363",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200653747",
+      "type": "company",
+      "label": "ЕВРО - МОБИЛ - МД",
+      "slug": null,
+      "uic": "200653747",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205131482",
+      "type": "company",
+      "label": "Нола Трейдинг",
+      "slug": null,
+      "uic": "205131482",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206481700",
+      "type": "company",
+      "label": "ДИМИ ГРИП ХАУС 1984",
+      "slug": null,
+      "uic": "206481700",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206774830",
+      "type": "company",
+      "label": "Без рецепта",
+      "slug": null,
+      "uic": "206774830",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206879920",
+      "type": "company",
+      "label": "ЛИГЪЛ КОНСУЛТИНГ СОЛЮШЪНС",
+      "slug": null,
+      "uic": "206879920",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205993725",
+      "type": "company",
+      "label": "КАДЕСЕ ВАРНА",
+      "slug": null,
+      "uic": "205993725",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208802659",
+      "type": "company",
+      "label": "ТЕХНОЛОГИЧНИ ИНОВАЦИИ И РАЗВИТИЕ",
+      "slug": null,
+      "uic": "208802659",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАНИЕЛА ЕМИЛОВА КЕТЕНЛИЕВА",
+      "type": "person",
+      "label": "Даниела Емилова Кетенлиева"
+    },
+    {
+      "id": "person:МИРЯНА БОРИСЛАВОВА САРАНДЕВА-ТАКОВА",
+      "type": "person",
+      "label": "Миряна Бориславова Сарандева-Такова"
+    },
+    {
+      "id": "person:КАТЯ МОМЧИЛОВА ШУНИНА-СПАСОВА",
+      "type": "person",
+      "label": "Катя Момчилова Шунина-Спасова"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА КОСТОВА ПЕНЕВА",
+      "type": "person",
+      "label": "Екатерина Костова Пенева"
+    },
+    {
+      "id": "person:МИРАБО ГРУП",
+      "type": "person",
+      "label": "Мирабо Груп"
+    },
+    {
+      "id": "person:МАРИО ДИМИТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Марио Димитров Георгиев"
+    },
+    {
+      "id": "official:ivan-romanov-tsvetkov-dcb299",
+      "type": "official",
+      "slug": "ivan-romanov-tsvetkov-dcb299",
+      "label": "Иван Романов Цветков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тетевен"
+    },
+    {
+      "id": "person:ЯНА ДИМИТРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Яна Димитрова Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:203588653",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:206357363",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:200653747",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:200653747",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:205131482",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:206481700",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:206774830",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:206879920",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:206879920",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:205993725",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:205993725",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:208802659",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:203588653",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:205131482",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:206481700",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:206774830",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-petrov-41e750",
+      "target": "company:tr:208802659",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛА ЕМИЛОВА КЕТЕНЛИЕВА",
+      "target": "company:tr:206357363",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРЯНА БОРИСЛАВОВА САРАНДЕВА-ТАКОВА",
+      "target": "company:tr:206357363",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ МОМЧИЛОВА ШУНИНА-СПАСОВА",
+      "target": "company:tr:206357363",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА КОСТОВА ПЕНЕВА",
+      "target": "company:tr:206357363",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРАБО ГРУП",
+      "target": "company:tr:206357363",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО ДИМИТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:200653747",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО ДИМИТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:200653747",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-romanov-tsvetkov-dcb299",
+      "target": "company:tr:206879920",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-romanov-tsvetkov-dcb299",
+      "target": "company:tr:206879920",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯНА ДИМИТРОВА ПЕТРОВА",
+      "target": "company:tr:205993725",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ДИМИТРОВА ПЕТРОВА",
+      "target": "company:tr:205993725",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

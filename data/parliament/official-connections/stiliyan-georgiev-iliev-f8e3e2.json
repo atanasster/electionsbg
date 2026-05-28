@@ -1,1 +1,82 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:stiliyan-georgiev-iliev-f8e3e2","nodes":[{"id":"official:stiliyan-georgiev-iliev-f8e3e2","type":"official","slug":"stiliyan-georgiev-iliev-f8e3e2","label":"Стилиян Георгиев Илиев","tier":"municipal","role":"councillor","municipality":"Ямбол"},{"id":"company:tr:206604109","type":"company","label":"ХЮМАН АДВЪРТАЙЗИНГ","slug":null,"uic":"206604109","legalForm":null,"status":null,"seat":null},{"id":"person:КОНСТАНТИН ВЛАДИМИРОВ ТРЕНДАФИЛОВ","type":"person","label":"Константин Владимиров Трендафилов"},{"id":"person:НИКОЛА ИВАНОВ ЦАНОВ","type":"person","label":"Никола Иванов Цанов"},{"id":"person:АЛЕКСАНДЪР ЗАФИРОВ БРАТИМИРОВ","type":"person","label":"Александър Зафиров Братимиров"}],"edges":[{"source":"official:stiliyan-georgiev-iliev-f8e3e2","target":"company:tr:206604109","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:КОНСТАНТИН ВЛАДИМИРОВ ТРЕНДАФИЛОВ","target":"company:tr:206604109","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ИВАНОВ ЦАНОВ","target":"company:tr:206604109","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН ВЛАДИМИРОВ ТРЕНДАФИЛОВ","target":"company:tr:206604109","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ЗАФИРОВ БРАТИМИРОВ","target":"company:tr:206604109","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:stiliyan-georgiev-iliev-f8e3e2",
+  "nodes": [
+    {
+      "id": "official:stiliyan-georgiev-iliev-f8e3e2",
+      "type": "official",
+      "slug": "stiliyan-georgiev-iliev-f8e3e2",
+      "label": "Стилиян Георгиев Илиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол"
+    },
+    {
+      "id": "company:tr:206604109",
+      "type": "company",
+      "label": "ХЮМАН АДВЪРТАЙЗИНГ",
+      "slug": null,
+      "uic": "206604109",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОНСТАНТИН ВЛАДИМИРОВ ТРЕНДАФИЛОВ",
+      "type": "person",
+      "label": "Константин Владимиров Трендафилов"
+    },
+    {
+      "id": "person:НИКОЛА ИВАНОВ ЦАНОВ",
+      "type": "person",
+      "label": "Никола Иванов Цанов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЗАФИРОВ БРАТИМИРОВ",
+      "type": "person",
+      "label": "Александър Зафиров Братимиров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stiliyan-georgiev-iliev-f8e3e2",
+      "target": "company:tr:206604109",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КОНСТАНТИН ВЛАДИМИРОВ ТРЕНДАФИЛОВ",
+      "target": "company:tr:206604109",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ИВАНОВ ЦАНОВ",
+      "target": "company:tr:206604109",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ВЛАДИМИРОВ ТРЕНДАФИЛОВ",
+      "target": "company:tr:206604109",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЗАФИРОВ БРАТИМИРОВ",
+      "target": "company:tr:206604109",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

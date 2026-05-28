@@ -1,1 +1,56 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:ivan-marinov-dzhundrov-de4d78","nodes":[{"id":"official:ivan-marinov-dzhundrov-de4d78","type":"official","slug":"ivan-marinov-dzhundrov-de4d78","label":"Иван Маринов Джундров","tier":"municipal","role":"councillor","municipality":"Ботевград"},{"id":"company:tr:175211392","type":"company","label":"Дон Марин Къмпани ООД","slug":null,"uic":"175211392","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕРГАНА ВАСИЛЕВА СЛАВКОВА-ДЖУНДРОВА","type":"person","label":"Гергана Василева Славкова-Джундрова"}],"edges":[{"source":"official:ivan-marinov-dzhundrov-de4d78","target":"company:tr:175211392","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ivan-marinov-dzhundrov-de4d78","target":"company:tr:175211392","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕРГАНА ВАСИЛЕВА СЛАВКОВА-ДЖУНДРОВА","target":"company:tr:175211392","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:ivan-marinov-dzhundrov-de4d78",
+  "nodes": [
+    {
+      "id": "official:ivan-marinov-dzhundrov-de4d78",
+      "type": "official",
+      "slug": "ivan-marinov-dzhundrov-de4d78",
+      "label": "Иван Маринов Джундров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ботевград"
+    },
+    {
+      "id": "company:tr:175211392",
+      "type": "company",
+      "label": "Дон Марин Къмпани ООД",
+      "slug": null,
+      "uic": "175211392",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕРГАНА ВАСИЛЕВА СЛАВКОВА-ДЖУНДРОВА",
+      "type": "person",
+      "label": "Гергана Василева Славкова-Джундрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-marinov-dzhundrov-de4d78",
+      "target": "company:tr:175211392",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-marinov-dzhundrov-de4d78",
+      "target": "company:tr:175211392",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕРГАНА ВАСИЛЕВА СЛАВКОВА-ДЖУНДРОВА",
+      "target": "company:tr:175211392",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

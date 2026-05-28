@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:pavel-enev-ralichkov-576b67","nodes":[{"id":"official:pavel-enev-ralichkov-576b67","type":"official","slug":"pavel-enev-ralichkov-576b67","label":"Павел Енев Раличков","tier":"municipal","role":"councillor","municipality":"Варна"},{"id":"company:tr:201413228","type":"company","label":"Малега ЕООД","slug":null,"uic":"201413228","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:pavel-enev-ralichkov-576b67","target":"company:tr:201413228","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:pavel-enev-ralichkov-576b67",
+  "nodes": [
+    {
+      "id": "official:pavel-enev-ralichkov-576b67",
+      "type": "official",
+      "slug": "pavel-enev-ralichkov-576b67",
+      "label": "Павел Енев Раличков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна"
+    },
+    {
+      "id": "company:tr:201413228",
+      "type": "company",
+      "label": "Малега ЕООД",
+      "slug": null,
+      "uic": "201413228",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pavel-enev-ralichkov-576b67",
+      "target": "company:tr:201413228",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "obshtina": "PVN24",
-  "count": 21,
-  "mpCount": 10,
+  "count": 22,
+  "mpCount": 11,
   "totalPages": 1,
   "topCompanies": [
     {
@@ -24,20 +24,7 @@
       ]
     },
     {
-      "slug": "ЗОДИАК-КОНСУЛТ",
-      "displayName": "Зодиак консулт",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Плевен, 5800",
-      "mps": [
-        {
-          "mpId": 823,
-          "mpName": "Съби Давидов Събев",
-          "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ВИРТУС-10-ООД",
+      "slug": "Виртус-10-ООД",
       "displayName": "Виртус 10 ООД",
       "registeredOffice": "Плевен",
       "mps": [
@@ -50,7 +37,7 @@
       ]
     },
     {
-      "slug": "ГОРЧЕВ-И-СИНОВЕ-ЕООД",
+      "slug": "Горчев-и-синове-ЕООД",
       "displayName": "Горчев и синове ЕООД",
       "registeredOffice": "Плевен",
       "mps": [
@@ -63,8 +50,21 @@
       ]
     },
     {
-      "slug": "ГОРЧЕВ-МЕД",
-      "displayName": "Горчев мед",
+      "slug": "Горчев-МЕД",
+      "displayName": "Горчев МЕД",
+      "registeredOffice": "Плевен",
+      "mps": [
+        {
+          "mpId": 3185,
+          "mpName": "ГРИГОР АНГЕЛОВ ГОРЧЕВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Грег-и-АЛЛ-ЕООД",
+      "displayName": "Грег и АЛЛ ЕООД",
       "registeredOffice": "Плевен",
       "mps": [
         {

@@ -1,1 +1,87 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:deyan-ivanov-nedkov-02c8d0","nodes":[{"id":"official:deyan-ivanov-nedkov-02c8d0","type":"official","slug":"deyan-ivanov-nedkov-02c8d0","label":"Деян Иванов Недков","tier":"municipal","role":"councillor","municipality":"Русе"},{"id":"company:tr:200105380","type":"company","label":"Брокер Инс Русе ЕООД","slug":null,"uic":"200105380","legalForm":null,"status":null,"seat":null},{"id":"company:tr:117610009","type":"company","label":"НЮАГРО","slug":null,"uic":"117610009","legalForm":null,"status":null,"seat":null},{"id":"person:БОРИЛ ПАНАЙОТОВ ПАНАЙОТОВ","type":"person","label":"Борил Панайотов Панайотов"},{"id":"person:ВЕСЕЛИНКА ЙОРДАНОВА ПАНАЙОТОВА","type":"person","label":"Веселинка Йорданова Панайотова"}],"edges":[{"source":"official:deyan-ivanov-nedkov-02c8d0","target":"company:tr:200105380","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:deyan-ivanov-nedkov-02c8d0","target":"company:tr:117610009","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:БОРИЛ ПАНАЙОТОВ ПАНАЙОТОВ","target":"company:tr:117610009","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИНКА ЙОРДАНОВА ПАНАЙОТОВА","target":"company:tr:117610009","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:БОРИЛ ПАНАЙОТОВ ПАНАЙОТОВ","target":"company:tr:117610009","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:deyan-ivanov-nedkov-02c8d0",
+  "nodes": [
+    {
+      "id": "official:deyan-ivanov-nedkov-02c8d0",
+      "type": "official",
+      "slug": "deyan-ivanov-nedkov-02c8d0",
+      "label": "Деян Иванов Недков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Русе"
+    },
+    {
+      "id": "company:tr:200105380",
+      "type": "company",
+      "label": "Брокер Инс Русе ЕООД",
+      "slug": null,
+      "uic": "200105380",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:117610009",
+      "type": "company",
+      "label": "НЮАГРО",
+      "slug": null,
+      "uic": "117610009",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРИЛ ПАНАЙОТОВ ПАНАЙОТОВ",
+      "type": "person",
+      "label": "Борил Панайотов Панайотов"
+    },
+    {
+      "id": "person:ВЕСЕЛИНКА ЙОРДАНОВА ПАНАЙОТОВА",
+      "type": "person",
+      "label": "Веселинка Йорданова Панайотова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:deyan-ivanov-nedkov-02c8d0",
+      "target": "company:tr:200105380",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:deyan-ivanov-nedkov-02c8d0",
+      "target": "company:tr:117610009",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИЛ ПАНАЙОТОВ ПАНАЙОТОВ",
+      "target": "company:tr:117610009",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНКА ЙОРДАНОВА ПАНАЙОТОВА",
+      "target": "company:tr:117610009",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИЛ ПАНАЙОТОВ ПАНАЙОТОВ",
+      "target": "company:tr:117610009",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

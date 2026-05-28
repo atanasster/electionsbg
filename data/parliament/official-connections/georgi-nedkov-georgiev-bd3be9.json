@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:georgi-nedkov-georgiev-bd3be9","nodes":[{"id":"official:georgi-nedkov-georgiev-bd3be9","type":"official","slug":"georgi-nedkov-georgiev-bd3be9","label":"Георги Недков Георгиев","tier":"municipal","role":"councillor","municipality":"Крушари"},{"id":"company:tr:205336697","type":"company","label":"2 + 1 архитекти","slug":null,"uic":"205336697","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:georgi-nedkov-georgiev-bd3be9","target":"company:tr:205336697","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:georgi-nedkov-georgiev-bd3be9",
+  "nodes": [
+    {
+      "id": "official:georgi-nedkov-georgiev-bd3be9",
+      "type": "official",
+      "slug": "georgi-nedkov-georgiev-bd3be9",
+      "label": "Георги Недков Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Крушари"
+    },
+    {
+      "id": "company:tr:205336697",
+      "type": "company",
+      "label": "2 + 1 архитекти",
+      "slug": null,
+      "uic": "205336697",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-nedkov-georgiev-bd3be9",
+      "target": "company:tr:205336697",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

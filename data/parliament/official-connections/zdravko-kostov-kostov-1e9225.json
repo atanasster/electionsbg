@@ -1,1 +1,99 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:zdravko-kostov-kostov-1e9225","nodes":[{"id":"official:zdravko-kostov-kostov-1e9225","type":"official","slug":"zdravko-kostov-kostov-1e9225","label":"Здравко Костов Костов","tier":"municipal","role":"councillor","municipality":"Айтос"},{"id":"company:tr:202739741","type":"company","label":"ТЕМИЗЕЛА","slug":null,"uic":"202739741","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206674253","type":"company","label":"АЕТОС ИНВЕСТ","slug":null,"uic":"206674253","legalForm":null,"status":null,"seat":null},{"id":"official:petr-valentinov-haralambov-2efba0","type":"official","slug":"petr-valentinov-haralambov-2efba0","label":"Петър Валентинов Хараламбов","tier":"municipal","role":"councillor","municipality":"Айтос"},{"id":"person:ТОДОР ГЕОРГИЕВ КИРЯЗОВ","type":"person","label":"Тодор Георгиев Кирязов"}],"edges":[{"source":"official:zdravko-kostov-kostov-1e9225","target":"company:tr:202739741","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:zdravko-kostov-kostov-1e9225","target":"company:tr:206674253","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:zdravko-kostov-kostov-1e9225","target":"company:tr:202739741","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:petr-valentinov-haralambov-2efba0","target":"company:tr:206674253","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:petr-valentinov-haralambov-2efba0","target":"company:tr:206674253","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ТОДОР ГЕОРГИЕВ КИРЯЗОВ","target":"company:tr:206674253","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:zdravko-kostov-kostov-1e9225",
+  "nodes": [
+    {
+      "id": "official:zdravko-kostov-kostov-1e9225",
+      "type": "official",
+      "slug": "zdravko-kostov-kostov-1e9225",
+      "label": "Здравко Костов Костов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Айтос"
+    },
+    {
+      "id": "company:tr:202739741",
+      "type": "company",
+      "label": "ТЕМИЗЕЛА",
+      "slug": null,
+      "uic": "202739741",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206674253",
+      "type": "company",
+      "label": "АЕТОС ИНВЕСТ",
+      "slug": null,
+      "uic": "206674253",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:petr-valentinov-haralambov-2efba0",
+      "type": "official",
+      "slug": "petr-valentinov-haralambov-2efba0",
+      "label": "Петър Валентинов Хараламбов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Айтос"
+    },
+    {
+      "id": "person:ТОДОР ГЕОРГИЕВ КИРЯЗОВ",
+      "type": "person",
+      "label": "Тодор Георгиев Кирязов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zdravko-kostov-kostov-1e9225",
+      "target": "company:tr:202739741",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zdravko-kostov-kostov-1e9225",
+      "target": "company:tr:206674253",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zdravko-kostov-kostov-1e9225",
+      "target": "company:tr:202739741",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-valentinov-haralambov-2efba0",
+      "target": "company:tr:206674253",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-valentinov-haralambov-2efba0",
+      "target": "company:tr:206674253",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОР ГЕОРГИЕВ КИРЯЗОВ",
+      "target": "company:tr:206674253",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,129 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:stefan-ivanov-dimov-71b06c","nodes":[{"id":"official:stefan-ivanov-dimov-71b06c","type":"official","slug":"stefan-ivanov-dimov-71b06c","label":"Стефан Иванов Димов","tier":"municipal","role":"councillor","municipality":"Добричка"},{"id":"company:tr:204720022","type":"company","label":"Блу енерджи газ - Пазарджик ЕООД","slug":null,"uic":"204720022","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203096214","type":"company","label":"ГАЗ ПО ДОМОВЕТЕ","slug":null,"uic":"203096214","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206659073","type":"company","label":"ДИАНА ГАЗ И ОЙЛ","slug":null,"uic":"206659073","legalForm":null,"status":null,"seat":null},{"id":"person:МАРТИН ГРОЗЕВ МАРИНОВ","type":"person","label":"Мартин Грозев Маринов"},{"id":"person:ВЕНЦИСЛАВ ВЕСЕЛИНОВ РАЙЧЕВ","type":"person","label":"Венцислав Веселинов Райчев"}],"edges":[{"source":"official:stefan-ivanov-dimov-71b06c","target":"company:tr:204720022","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:stefan-ivanov-dimov-71b06c","target":"company:tr:203096214","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:stefan-ivanov-dimov-71b06c","target":"company:tr:203096214","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:stefan-ivanov-dimov-71b06c","target":"company:tr:206659073","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:stefan-ivanov-dimov-71b06c","target":"company:tr:206659073","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:МАРТИН ГРОЗЕВ МАРИНОВ","target":"company:tr:203096214","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ГРОЗЕВ МАРИНОВ","target":"company:tr:203096214","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ ВЕСЕЛИНОВ РАЙЧЕВ","target":"company:tr:206659073","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ ВЕСЕЛИНОВ РАЙЧЕВ","target":"company:tr:206659073","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:stefan-ivanov-dimov-71b06c",
+  "nodes": [
+    {
+      "id": "official:stefan-ivanov-dimov-71b06c",
+      "type": "official",
+      "slug": "stefan-ivanov-dimov-71b06c",
+      "label": "Стефан Иванов Димов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добричка"
+    },
+    {
+      "id": "company:tr:204720022",
+      "type": "company",
+      "label": "Блу енерджи газ - Пазарджик ЕООД",
+      "slug": null,
+      "uic": "204720022",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203096214",
+      "type": "company",
+      "label": "ГАЗ ПО ДОМОВЕТЕ",
+      "slug": null,
+      "uic": "203096214",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206659073",
+      "type": "company",
+      "label": "ДИАНА ГАЗ И ОЙЛ",
+      "slug": null,
+      "uic": "206659073",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРТИН ГРОЗЕВ МАРИНОВ",
+      "type": "person",
+      "label": "Мартин Грозев Маринов"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ВЕСЕЛИНОВ РАЙЧЕВ",
+      "type": "person",
+      "label": "Венцислав Веселинов Райчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-ivanov-dimov-71b06c",
+      "target": "company:tr:204720022",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-ivanov-dimov-71b06c",
+      "target": "company:tr:203096214",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-ivanov-dimov-71b06c",
+      "target": "company:tr:203096214",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-ivanov-dimov-71b06c",
+      "target": "company:tr:206659073",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-ivanov-dimov-71b06c",
+      "target": "company:tr:206659073",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРТИН ГРОЗЕВ МАРИНОВ",
+      "target": "company:tr:203096214",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ГРОЗЕВ МАРИНОВ",
+      "target": "company:tr:203096214",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ВЕСЕЛИНОВ РАЙЧЕВ",
+      "target": "company:tr:206659073",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ВЕСЕЛИНОВ РАЙЧЕВ",
+      "target": "company:tr:206659073",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

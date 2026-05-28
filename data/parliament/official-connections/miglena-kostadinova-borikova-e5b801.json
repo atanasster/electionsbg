@@ -1,1 +1,56 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:miglena-kostadinova-borikova-e5b801","nodes":[{"id":"official:miglena-kostadinova-borikova-e5b801","type":"official","slug":"miglena-kostadinova-borikova-e5b801","label":"Миглена Костадинова Борикова","tier":"municipal","role":"councillor","municipality":"Сандански"},{"id":"company:tr:206420625","type":"company","label":"\"Атанас Илиев 2021\" ЕООД","slug":null,"uic":"206420625","legalForm":null,"status":null,"seat":null},{"id":"person:АТАНАС КРЪСТЕВ ИЛИЕВ","type":"person","label":"Атанас Кръстев Илиев"}],"edges":[{"source":"official:miglena-kostadinova-borikova-e5b801","target":"company:tr:206420625","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС КРЪСТЕВ ИЛИЕВ","target":"company:tr:206420625","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС КРЪСТЕВ ИЛИЕВ","target":"company:tr:206420625","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:miglena-kostadinova-borikova-e5b801",
+  "nodes": [
+    {
+      "id": "official:miglena-kostadinova-borikova-e5b801",
+      "type": "official",
+      "slug": "miglena-kostadinova-borikova-e5b801",
+      "label": "Миглена Костадинова Борикова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански"
+    },
+    {
+      "id": "company:tr:206420625",
+      "type": "company",
+      "label": "\"Атанас Илиев 2021\" ЕООД",
+      "slug": null,
+      "uic": "206420625",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АТАНАС КРЪСТЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Атанас Кръстев Илиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miglena-kostadinova-borikova-e5b801",
+      "target": "company:tr:206420625",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС КРЪСТЕВ ИЛИЕВ",
+      "target": "company:tr:206420625",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС КРЪСТЕВ ИЛИЕВ",
+      "target": "company:tr:206420625",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

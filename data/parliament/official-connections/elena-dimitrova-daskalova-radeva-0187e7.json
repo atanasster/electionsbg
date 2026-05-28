@@ -1,1 +1,79 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:elena-dimitrova-daskalova-radeva-0187e7","nodes":[{"id":"official:elena-dimitrova-daskalova-radeva-0187e7","type":"official","slug":"elena-dimitrova-daskalova-radeva-0187e7","label":"Елена Димитрова Даскалова-Радева","tier":"municipal","role":"councillor","municipality":"Смолян"},{"id":"company:tr:200093426","type":"company","label":"ПЕРЕЛИК ИНФРАСТРУКТУРНА КОМПАНИЯ","slug":null,"uic":"200093426","legalForm":null,"status":null,"seat":null},{"id":"company:name:КАНТОРА АПОСТОЛОВИ","type":"company","label":"„Кантора Апостолови“ ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ЕЛЕНА ДИМИТРОВА ДАСКАЛОВА- РАДЕВА","type":"person","label":"Елена Димитрова Даскалова- Радева"},{"id":"person:КИРИЛ ИВАНОВ АСЕНОВ","type":"person","label":"Кирил Иванов Асенов"}],"edges":[{"source":"official:elena-dimitrova-daskalova-radeva-0187e7","target":"company:tr:200093426","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"company:name:КАНТОРА АПОСТОЛОВИ","target":"company:tr:200093426","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ДИМИТРОВА ДАСКАЛОВА- РАДЕВА","target":"company:tr:200093426","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ИВАНОВ АСЕНОВ","target":"company:tr:200093426","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:elena-dimitrova-daskalova-radeva-0187e7",
+  "nodes": [
+    {
+      "id": "official:elena-dimitrova-daskalova-radeva-0187e7",
+      "type": "official",
+      "slug": "elena-dimitrova-daskalova-radeva-0187e7",
+      "label": "Елена Димитрова Даскалова-Радева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Смолян"
+    },
+    {
+      "id": "company:tr:200093426",
+      "type": "company",
+      "label": "ПЕРЕЛИК ИНФРАСТРУКТУРНА КОМПАНИЯ",
+      "slug": null,
+      "uic": "200093426",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:КАНТОРА АПОСТОЛОВИ",
+      "type": "company",
+      "label": "„Кантора Апостолови“ ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕНА ДИМИТРОВА ДАСКАЛОВА- РАДЕВА",
+      "type": "person",
+      "label": "Елена Димитрова Даскалова- Радева"
+    },
+    {
+      "id": "person:КИРИЛ ИВАНОВ АСЕНОВ",
+      "type": "person",
+      "label": "Кирил Иванов Асенов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-dimitrova-daskalova-radeva-0187e7",
+      "target": "company:tr:200093426",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:КАНТОРА АПОСТОЛОВИ",
+      "target": "company:tr:200093426",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДИМИТРОВА ДАСКАЛОВА- РАДЕВА",
+      "target": "company:tr:200093426",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ АСЕНОВ",
+      "target": "company:tr:200093426",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

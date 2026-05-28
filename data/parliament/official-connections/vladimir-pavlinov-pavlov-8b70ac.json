@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:vladimir-pavlinov-pavlov-8b70ac","nodes":[{"id":"official:vladimir-pavlinov-pavlov-8b70ac","type":"official","slug":"vladimir-pavlinov-pavlov-8b70ac","label":"Владимир Павлинов Павлов","tier":"municipal","role":"councillor","municipality":"Бургас"},{"id":"company:tr:147226605","type":"company","label":"\"ВИП СТАНДАРТ\" ЕООД","slug":null,"uic":"147226605","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:vladimir-pavlinov-pavlov-8b70ac","target":"company:tr:147226605","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:vladimir-pavlinov-pavlov-8b70ac",
+  "nodes": [
+    {
+      "id": "official:vladimir-pavlinov-pavlov-8b70ac",
+      "type": "official",
+      "slug": "vladimir-pavlinov-pavlov-8b70ac",
+      "label": "Владимир Павлинов Павлов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас"
+    },
+    {
+      "id": "company:tr:147226605",
+      "type": "company",
+      "label": "\"ВИП СТАНДАРТ\" ЕООД",
+      "slug": null,
+      "uic": "147226605",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-pavlinov-pavlov-8b70ac",
+      "target": "company:tr:147226605",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

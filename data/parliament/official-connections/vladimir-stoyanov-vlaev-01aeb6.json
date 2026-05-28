@@ -1,1 +1,48 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:vladimir-stoyanov-vlaev-01aeb6","nodes":[{"id":"official:vladimir-stoyanov-vlaev-01aeb6","type":"official","slug":"vladimir-stoyanov-vlaev-01aeb6","label":"Владимир Стоянов Влаев","tier":"municipal","role":"councillor","municipality":"Габрово"},{"id":"company:tr:825283304","type":"company","label":"БУЛТРЕЙД - 94","slug":null,"uic":"825283304","legalForm":null,"status":null,"seat":null},{"id":"person:ЖАНА ГЕОРГИЕВА ВЛАЕВА","type":"person","label":"Жана Георгиева Влаева"}],"edges":[{"source":"official:vladimir-stoyanov-vlaev-01aeb6","target":"company:tr:825283304","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЖАНА ГЕОРГИЕВА ВЛАЕВА","target":"company:tr:825283304","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:vladimir-stoyanov-vlaev-01aeb6",
+  "nodes": [
+    {
+      "id": "official:vladimir-stoyanov-vlaev-01aeb6",
+      "type": "official",
+      "slug": "vladimir-stoyanov-vlaev-01aeb6",
+      "label": "Владимир Стоянов Влаев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Габрово"
+    },
+    {
+      "id": "company:tr:825283304",
+      "type": "company",
+      "label": "БУЛТРЕЙД - 94",
+      "slug": null,
+      "uic": "825283304",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЖАНА ГЕОРГИЕВА ВЛАЕВА",
+      "type": "person",
+      "label": "Жана Георгиева Влаева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-stoyanov-vlaev-01aeb6",
+      "target": "company:tr:825283304",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖАНА ГЕОРГИЕВА ВЛАЕВА",
+      "target": "company:tr:825283304",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

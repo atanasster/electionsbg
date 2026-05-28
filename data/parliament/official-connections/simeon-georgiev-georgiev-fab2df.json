@@ -1,1 +1,90 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:simeon-georgiev-georgiev-fab2df","nodes":[{"id":"official:simeon-georgiev-georgiev-fab2df","type":"official","slug":"simeon-georgiev-georgiev-fab2df","label":"Симеон Георгиев Георгиев","tier":"municipal","role":"chief_architect","municipality":"Девня"},{"id":"company:tr:206785855","type":"company","label":"ЗД Гaрден Център","slug":null,"uic":"206785855","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206888454","type":"company","label":"Сорс Код","slug":null,"uic":"206888454","legalForm":null,"status":null,"seat":null},{"id":"person:ЛИЛИЯ КРАСИМИРОВА ЯЗОВА","type":"person","label":"Лилия Красимирова Язова"}],"edges":[{"source":"official:simeon-georgiev-georgiev-fab2df","target":"company:tr:206785855","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:simeon-georgiev-georgiev-fab2df","target":"company:tr:206785855","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:simeon-georgiev-georgiev-fab2df","target":"company:tr:206888454","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:simeon-georgiev-georgiev-fab2df","target":"company:tr:206888454","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ЛИЛИЯ КРАСИМИРОВА ЯЗОВА","target":"company:tr:206785855","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛИЯ КРАСИМИРОВА ЯЗОВА","target":"company:tr:206785855","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:simeon-georgiev-georgiev-fab2df",
+  "nodes": [
+    {
+      "id": "official:simeon-georgiev-georgiev-fab2df",
+      "type": "official",
+      "slug": "simeon-georgiev-georgiev-fab2df",
+      "label": "Симеон Георгиев Георгиев",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Девня"
+    },
+    {
+      "id": "company:tr:206785855",
+      "type": "company",
+      "label": "ЗД Гaрден Център",
+      "slug": null,
+      "uic": "206785855",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206888454",
+      "type": "company",
+      "label": "Сорс Код",
+      "slug": null,
+      "uic": "206888454",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛИЛИЯ КРАСИМИРОВА ЯЗОВА",
+      "type": "person",
+      "label": "Лилия Красимирова Язова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:simeon-georgiev-georgiev-fab2df",
+      "target": "company:tr:206785855",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:simeon-georgiev-georgiev-fab2df",
+      "target": "company:tr:206785855",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:simeon-georgiev-georgiev-fab2df",
+      "target": "company:tr:206888454",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:simeon-georgiev-georgiev-fab2df",
+      "target": "company:tr:206888454",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛИЛИЯ КРАСИМИРОВА ЯЗОВА",
+      "target": "company:tr:206785855",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ КРАСИМИРОВА ЯЗОВА",
+      "target": "company:tr:206785855",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

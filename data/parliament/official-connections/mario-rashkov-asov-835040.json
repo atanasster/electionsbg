@@ -1,1 +1,64 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:mario-rashkov-asov-835040","nodes":[{"id":"official:mario-rashkov-asov-835040","type":"official","slug":"mario-rashkov-asov-835040","label":"Марио Рашков Асьов","tier":"municipal","role":"deputy_mayor","municipality":"Якоруда"},{"id":"company:tr:206977357","type":"company","label":"Мар-К Електрик 22","slug":null,"uic":"206977357","legalForm":null,"status":null,"seat":null},{"id":"person:КИРИЛ НИКОЛАЕВ СТЕФАНОВ","type":"person","label":"Кирил Николаев Стефанов"}],"edges":[{"source":"official:mario-rashkov-asov-835040","target":"company:tr:206977357","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:mario-rashkov-asov-835040","target":"company:tr:206977357","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:КИРИЛ НИКОЛАЕВ СТЕФАНОВ","target":"company:tr:206977357","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ НИКОЛАЕВ СТЕФАНОВ","target":"company:tr:206977357","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:mario-rashkov-asov-835040",
+  "nodes": [
+    {
+      "id": "official:mario-rashkov-asov-835040",
+      "type": "official",
+      "slug": "mario-rashkov-asov-835040",
+      "label": "Марио Рашков Асьов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Якоруда"
+    },
+    {
+      "id": "company:tr:206977357",
+      "type": "company",
+      "label": "Мар-К Електрик 22",
+      "slug": null,
+      "uic": "206977357",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КИРИЛ НИКОЛАЕВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Кирил Николаев Стефанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mario-rashkov-asov-835040",
+      "target": "company:tr:206977357",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mario-rashkov-asov-835040",
+      "target": "company:tr:206977357",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КИРИЛ НИКОЛАЕВ СТЕФАНОВ",
+      "target": "company:tr:206977357",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ НИКОЛАЕВ СТЕФАНОВ",
+      "target": "company:tr:206977357",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

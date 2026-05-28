@@ -1,1 +1,74 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:todor-vasilev-iordanov-32b21a","nodes":[{"id":"official:todor-vasilev-iordanov-32b21a","type":"official","slug":"todor-vasilev-iordanov-32b21a","label":"Тодор Василев Йорданов","tier":"municipal","role":"councillor","municipality":"Раковски"},{"id":"company:tr:131069903","type":"company","label":"САНТОРИНИ - БЪЛГАРИЯ","slug":null,"uic":"131069903","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203166214","type":"company","label":"Контадо","slug":null,"uic":"203166214","legalForm":null,"status":null,"seat":null},{"id":"person:ВАСИЛКА КОСТАДИНОВА МИЛЕВА-ЙОРДАНОВА","type":"person","label":"Василка Костадинова Милева-Йорданова"}],"edges":[{"source":"official:todor-vasilev-iordanov-32b21a","target":"company:tr:131069903","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:todor-vasilev-iordanov-32b21a","target":"company:tr:203166214","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:todor-vasilev-iordanov-32b21a","target":"company:tr:203166214","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ВАСИЛКА КОСТАДИНОВА МИЛЕВА-ЙОРДАНОВА","target":"company:tr:131069903","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:todor-vasilev-iordanov-32b21a",
+  "nodes": [
+    {
+      "id": "official:todor-vasilev-iordanov-32b21a",
+      "type": "official",
+      "slug": "todor-vasilev-iordanov-32b21a",
+      "label": "Тодор Василев Йорданов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Раковски"
+    },
+    {
+      "id": "company:tr:131069903",
+      "type": "company",
+      "label": "САНТОРИНИ - БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "131069903",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203166214",
+      "type": "company",
+      "label": "Контадо",
+      "slug": null,
+      "uic": "203166214",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАСИЛКА КОСТАДИНОВА МИЛЕВА-ЙОРДАНОВА",
+      "type": "person",
+      "label": "Василка Костадинова Милева-Йорданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todor-vasilev-iordanov-32b21a",
+      "target": "company:tr:131069903",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:todor-vasilev-iordanov-32b21a",
+      "target": "company:tr:203166214",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:todor-vasilev-iordanov-32b21a",
+      "target": "company:tr:203166214",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛКА КОСТАДИНОВА МИЛЕВА-ЙОРДАНОВА",
+      "target": "company:tr:131069903",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

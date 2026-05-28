@@ -5,6 +5,19 @@
   "totalPages": 1,
   "topCompanies": [
     {
+      "slug": "Биоелит",
+      "displayName": "\"Биоелит\"",
+      "registeredOffice": "Търговище",
+      "mps": [
+        {
+          "mpId": 4022,
+          "mpName": "Имрен Исметова Мехмедова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Омуртаг-Енерджи",
       "displayName": "Омуртаг Енерджи",
       "registeredOffice": "БЪЛГАРИЯ, с. Разбойна, 7707",
@@ -25,7 +38,7 @@
     },
     {
       "slug": "ПАНАЦЕЯ-1",
-      "displayName": "Панацея 1",
+      "displayName": "ПАНАЦЕЯ 1",
       "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
       "mps": [
         {
@@ -44,7 +57,7 @@
     },
     {
       "slug": "КДА-ЕНЕРДЖИ",
-      "displayName": "КДА Енерджи",
+      "displayName": "КДА ЕНЕРДЖИ",
       "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
       "mps": [
         {
@@ -57,26 +70,13 @@
     },
     {
       "slug": "С-и-Д-Партнърс",
-      "displayName": "с и Д Партнърс",
+      "displayName": "С и Д Партнърс",
       "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
       "mps": [
         {
           "mpId": 3239,
           "mpName": "Александър Петров Александров",
           "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ТРАКИЯ-ГЛАС-БЪЛГАРИЯ",
-      "displayName": "Тракия глас българия",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
-      "mps": [
-        {
-          "mpId": 64,
-          "mpName": "Лидия Сантова Шулева",
-          "role": "director",
           "isCurrent": true
         }
       ]

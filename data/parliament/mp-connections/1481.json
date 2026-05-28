@@ -1,1 +1,46 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:1481","nodes":[{"id":"mp:1481","type":"mp","mpId":1481,"label":"Тунджай Османов Наимов","partyGroupShort":"ДПС-НН","isCurrent":false,"nsFolders":["41"]},{"id":"company:АРТ-СТОУН-2017","type":"company","label":"АРТ СТОУН 2017","slug":"АРТ-СТОУН-2017","uic":"204616486","legalForm":"EOOD","status":"active","seat":null}],"edges":[{"source":"mp:1481","target":"company:АРТ-СТОУН-2017","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:1481","target":"company:АРТ-СТОУН-2017","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:1481",
+  "nodes": [
+    {
+      "id": "mp:1481",
+      "type": "mp",
+      "mpId": 1481,
+      "label": "Тунджай Османов Наимов",
+      "partyGroupShort": "ДПС-НН",
+      "isCurrent": false,
+      "nsFolders": [
+        "41"
+      ]
+    },
+    {
+      "id": "company:tr:204616486",
+      "type": "company",
+      "label": "АРТ СТОУН 2017",
+      "slug": null,
+      "uic": "204616486",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1481",
+      "target": "company:tr:204616486",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1481",
+      "target": "company:tr:204616486",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

@@ -5,27 +5,8 @@
   "count": 7,
   "companies": [
     {
-      "slug": "КМ-ПРОПЪРТИС",
-      "displayName": "КМ Пропъртис",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Перник, 2304",
-      "mps": [
-        {
-          "mpId": 933,
-          "mpName": "Владислав Евгениев Димитров",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 933,
-          "mpName": "Владислав Евгениев Димитров",
-          "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
       "slug": "Арт-таун",
-      "displayName": "АРТ Таун",
+      "displayName": "Арт таун",
       "registeredOffice": "БЪЛГАРИЯ, гр. Перник, 2300",
       "mps": [
         {
@@ -38,6 +19,25 @@
           "mpId": 4752,
           "mpName": "Даниел Петров Петров",
           "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "КМ-ПРОПЪРТИС",
+      "displayName": "КМ ПРОПЪРТИС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Перник, 2304",
+      "mps": [
+        {
+          "mpId": 933,
+          "mpName": "Владислав Евгениев Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 933,
+          "mpName": "Владислав Евгениев Димитров",
+          "role": "partner",
           "isCurrent": true
         }
       ]
@@ -62,8 +62,8 @@
       ]
     },
     {
-      "slug": "ВИ-8-СТУДИОС-ЕООД",
-      "displayName": "\"Ви 8 студиос\" ЕООД",
+      "slug": "ВИ-8-Студиос-ЕООД",
+      "displayName": "\"ВИ 8 Студиос\" ЕООД",
       "registeredOffice": "Перник",
       "mps": [
         {
@@ -75,7 +75,7 @@
       ]
     },
     {
-      "slug": "ХИЛС-ИНВЕСТМЪНТ-АД",
+      "slug": "Хилс-инвестмънт-АД",
       "displayName": "\"Хилс инвестмънт\" АД",
       "registeredOffice": "Перник",
       "mps": [
@@ -102,7 +102,7 @@
     },
     {
       "slug": "Стройкомплект-АБ-ООД",
-      "displayName": "Стройкомплект Аб ООД",
+      "displayName": "Стройкомплект АБ ООД",
       "registeredOffice": "Перник",
       "mps": [
         {

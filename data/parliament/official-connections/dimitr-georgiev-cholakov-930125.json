@@ -1,1 +1,56 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:dimitr-georgiev-cholakov-930125","nodes":[{"id":"official:dimitr-georgiev-cholakov-930125","type":"official","slug":"dimitr-georgiev-cholakov-930125","label":"Димитър Георгиев Чолаков","tier":"municipal","role":"councillor","municipality":"Марица"},{"id":"company:tr:202480393","type":"company","label":"ТРАНС ЧОЛАКОВИ","slug":null,"uic":"202480393","legalForm":null,"status":null,"seat":null},{"id":"person:СТЕЛА ЛЮБЕНОВА ЧОЛАКОВА","type":"person","label":"Стела Любенова Чолакова"}],"edges":[{"source":"official:dimitr-georgiev-cholakov-930125","target":"company:tr:202480393","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕЛА ЛЮБЕНОВА ЧОЛАКОВА","target":"company:tr:202480393","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТЕЛА ЛЮБЕНОВА ЧОЛАКОВА","target":"company:tr:202480393","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:dimitr-georgiev-cholakov-930125",
+  "nodes": [
+    {
+      "id": "official:dimitr-georgiev-cholakov-930125",
+      "type": "official",
+      "slug": "dimitr-georgiev-cholakov-930125",
+      "label": "Димитър Георгиев Чолаков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Марица"
+    },
+    {
+      "id": "company:tr:202480393",
+      "type": "company",
+      "label": "ТРАНС ЧОЛАКОВИ",
+      "slug": null,
+      "uic": "202480393",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕЛА ЛЮБЕНОВА ЧОЛАКОВА",
+      "type": "person",
+      "label": "Стела Любенова Чолакова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-georgiev-cholakov-930125",
+      "target": "company:tr:202480393",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕЛА ЛЮБЕНОВА ЧОЛАКОВА",
+      "target": "company:tr:202480393",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛА ЛЮБЕНОВА ЧОЛАКОВА",
+      "target": "company:tr:202480393",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

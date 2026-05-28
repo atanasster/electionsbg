@@ -1,1 +1,74 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:mariya-ivanova-nedyalkova-413a7d","nodes":[{"id":"official:mariya-ivanova-nedyalkova-413a7d","type":"official","slug":"mariya-ivanova-nedyalkova-413a7d","label":"Мария Иванова Недялкова","tier":"municipal","role":"councillor","municipality":"Силистра"},{"id":"company:tr:200767512","type":"company","label":"Индустриални терени и складове","slug":null,"uic":"200767512","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ ХРИСТОВ ХРИСТОВ","type":"person","label":"Георги Христов Христов"},{"id":"person:АЙСЕХЕЛ ХАЙРЕДИН РУФИ-ХЮСМЕН","type":"person","label":"Айсехел Хайредин Руфи-Хюсмен"},{"id":"person:ТИХОМИР ВАЛЕНДОНОВ МАРКОВ","type":"person","label":"Тихомир Валендонов Марков"}],"edges":[{"source":"official:mariya-ivanova-nedyalkova-413a7d","target":"company:tr:200767512","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ ХРИСТОВ ХРИСТОВ","target":"company:tr:200767512","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЙСЕХЕЛ ХАЙРЕДИН РУФИ-ХЮСМЕН","target":"company:tr:200767512","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР ВАЛЕНДОНОВ МАРКОВ","target":"company:tr:200767512","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:mariya-ivanova-nedyalkova-413a7d",
+  "nodes": [
+    {
+      "id": "official:mariya-ivanova-nedyalkova-413a7d",
+      "type": "official",
+      "slug": "mariya-ivanova-nedyalkova-413a7d",
+      "label": "Мария Иванова Недялкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Силистра"
+    },
+    {
+      "id": "company:tr:200767512",
+      "type": "company",
+      "label": "Индустриални терени и складове",
+      "slug": null,
+      "uic": "200767512",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Георги Христов Христов"
+    },
+    {
+      "id": "person:АЙСЕХЕЛ ХАЙРЕДИН РУФИ-ХЮСМЕН",
+      "type": "person",
+      "label": "Айсехел Хайредин Руфи-Хюсмен"
+    },
+    {
+      "id": "person:ТИХОМИР ВАЛЕНДОНОВ МАРКОВ",
+      "type": "person",
+      "label": "Тихомир Валендонов Марков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-ivanova-nedyalkova-413a7d",
+      "target": "company:tr:200767512",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:200767512",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙСЕХЕЛ ХАЙРЕДИН РУФИ-ХЮСМЕН",
+      "target": "company:tr:200767512",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ВАЛЕНДОНОВ МАРКОВ",
+      "target": "company:tr:200767512",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

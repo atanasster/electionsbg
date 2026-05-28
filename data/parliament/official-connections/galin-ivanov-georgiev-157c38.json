@@ -1,1 +1,64 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:galin-ivanov-georgiev-157c38","nodes":[{"id":"official:galin-ivanov-georgiev-157c38","type":"official","slug":"galin-ivanov-georgiev-157c38","label":"Галин Иванов Георгиев","tier":"municipal","role":"councillor","municipality":"Никола Козлево"},{"id":"company:tr:206896485","type":"company","label":"ФРАНКИ 20","slug":null,"uic":"206896485","legalForm":null,"status":null,"seat":null},{"id":"person:СЛАВИ КРАСИМИРОВ САВОВ","type":"person","label":"Слави Красимиров Савов"}],"edges":[{"source":"official:galin-ivanov-georgiev-157c38","target":"company:tr:206896485","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:galin-ivanov-georgiev-157c38","target":"company:tr:206896485","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:СЛАВИ КРАСИМИРОВ САВОВ","target":"company:tr:206896485","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СЛАВИ КРАСИМИРОВ САВОВ","target":"company:tr:206896485","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:galin-ivanov-georgiev-157c38",
+  "nodes": [
+    {
+      "id": "official:galin-ivanov-georgiev-157c38",
+      "type": "official",
+      "slug": "galin-ivanov-georgiev-157c38",
+      "label": "Галин Иванов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Никола Козлево"
+    },
+    {
+      "id": "company:tr:206896485",
+      "type": "company",
+      "label": "ФРАНКИ 20",
+      "slug": null,
+      "uic": "206896485",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЛАВИ КРАСИМИРОВ САВОВ",
+      "type": "person",
+      "label": "Слави Красимиров Савов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galin-ivanov-georgiev-157c38",
+      "target": "company:tr:206896485",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galin-ivanov-georgiev-157c38",
+      "target": "company:tr:206896485",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЛАВИ КРАСИМИРОВ САВОВ",
+      "target": "company:tr:206896485",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВИ КРАСИМИРОВ САВОВ",
+      "target": "company:tr:206896485",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

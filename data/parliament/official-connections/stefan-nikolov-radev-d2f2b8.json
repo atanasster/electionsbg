@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:stefan-nikolov-radev-d2f2b8","nodes":[{"id":"official:stefan-nikolov-radev-d2f2b8","type":"official","slug":"stefan-nikolov-radev-d2f2b8","label":"Стефан Николов Радев","tier":"municipal","role":"mayor","municipality":"Сливен"},{"id":"company:tr:200816913","type":"company","label":"Фантакс ЕООД","slug":null,"uic":"200816913","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:stefan-nikolov-radev-d2f2b8","target":"company:tr:200816913","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:stefan-nikolov-radev-d2f2b8",
+  "nodes": [
+    {
+      "id": "official:stefan-nikolov-radev-d2f2b8",
+      "type": "official",
+      "slug": "stefan-nikolov-radev-d2f2b8",
+      "label": "Стефан Николов Радев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Сливен"
+    },
+    {
+      "id": "company:tr:200816913",
+      "type": "company",
+      "label": "Фантакс ЕООД",
+      "slug": null,
+      "uic": "200816913",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-nikolov-radev-d2f2b8",
+      "target": "company:tr:200816913",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

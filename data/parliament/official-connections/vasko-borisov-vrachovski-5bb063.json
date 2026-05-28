@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:vasko-borisov-vrachovski-5bb063","nodes":[{"id":"official:vasko-borisov-vrachovski-5bb063","type":"official","slug":"vasko-borisov-vrachovski-5bb063","label":"Васко Борисов Врачовски","tier":"municipal","role":"councillor","municipality":"Враца"},{"id":"company:tr:203300229","type":"company","label":"Арт-фото плюс ЕООД","slug":null,"uic":"203300229","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:vasko-borisov-vrachovski-5bb063","target":"company:tr:203300229","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:vasko-borisov-vrachovski-5bb063",
+  "nodes": [
+    {
+      "id": "official:vasko-borisov-vrachovski-5bb063",
+      "type": "official",
+      "slug": "vasko-borisov-vrachovski-5bb063",
+      "label": "Васко Борисов Врачовски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Враца"
+    },
+    {
+      "id": "company:tr:203300229",
+      "type": "company",
+      "label": "Арт-фото плюс ЕООД",
+      "slug": null,
+      "uic": "203300229",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasko-borisov-vrachovski-5bb063",
+      "target": "company:tr:203300229",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

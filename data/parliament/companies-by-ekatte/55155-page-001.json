@@ -2,7 +2,7 @@
   "ekatte": "55155",
   "page": 1,
   "totalPages": 1,
-  "count": 7,
+  "count": 5,
   "companies": [
     {
       "slug": "Дон-Камило",
@@ -24,27 +24,8 @@
       ]
     },
     {
-      "slug": "НИКИ-ТРАНС-21",
-      "displayName": "Ники транс - 21",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пазарджик, 4400",
-      "mps": [
-        {
-          "mpId": 1639,
-          "mpName": "Николай Петков Петков",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 1639,
-          "mpName": "Николай Петков Петков",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "РАДИО-СОТ-ООД",
-      "displayName": "Радио сот ООД",
+      "slug": "Радио-СОТ-ООД",
+      "displayName": "Радио СОТ ООД",
       "registeredOffice": "Пазарджик",
       "mps": [
         {
@@ -62,40 +43,8 @@
       ]
     },
     {
-      "slug": "Хоум-Клима-МД",
-      "displayName": "Хоум Клима-МД",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пазарджик, 4400",
-      "mps": [
-        {
-          "mpId": 2747,
-          "mpName": "Димитър Стоянов Стоянов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2747,
-          "mpName": "Димитър Стоянов Стоянов",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "СИ-ПЛАСТ-04",
-      "displayName": "СИ Пласт 04",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пазарджик, 4400",
-      "mps": [
-        {
-          "mpId": 2695,
-          "mpName": "Станислав Стоянов Иванов",
-          "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "РАДИО-СОТ-ООДД",
-      "displayName": "Радио сот оодд",
+      "slug": "Радио-СОТ-оодд",
+      "displayName": "Радио СОТ оодд",
       "registeredOffice": "Пазарджик",
       "mps": [
         {
@@ -115,6 +64,19 @@
           "mpId": 3240,
           "mpName": "Десислава Ангелова Тодорова",
           "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СИ-ПЛАСТ-04",
+      "displayName": "СИ ПЛАСТ 04",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Пазарджик, 4400",
+      "mps": [
+        {
+          "mpId": 2695,
+          "mpName": "Станислав Стоянов Иванов",
+          "role": "partner",
           "isCurrent": true
         }
       ]

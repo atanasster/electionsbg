@@ -1,1 +1,178 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:dimitr-hristov-petrov-13b8e2","nodes":[{"id":"official:dimitr-hristov-petrov-13b8e2","type":"official","slug":"dimitr-hristov-petrov-13b8e2","label":"Димитър Христов Петров","tier":"municipal","role":"councillor","municipality":"Столична община"},{"id":"company:tr:030264696","type":"company","label":"ОПТИКОМ","slug":null,"uic":"030264696","legalForm":null,"status":null,"seat":null},{"id":"person:ВАЛЕРИЙ ИВАНОВ ШИНЕВ","type":"person","label":"Валерий Иванов Шинев"},{"id":"person:АНЕЛИЯ ЛЮБЕНОВА КЪНЕВА","type":"person","label":"Анелия Любенова Кънева"},{"id":"company:name:ОПТИКОМ ХОЛДИНГ","type":"company","label":"\"ОПТИКОМ ХОЛДИНГ\" АД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛАЙ ПЕТРОВ ВАСИЛЕВ","type":"person","label":"Николай Петров Василев"},{"id":"person:СЕРГЕЙ ГЕНОВ ГЕНОВ","type":"person","label":"Сергей Генов Генов"},{"id":"person:СВЕТОСЛАВ ЙОРДАНОВ ДАМЯНОВ","type":"person","label":"Светослав Йорданов Дамянов"},{"id":"person:ВЕСЕЛИН ТЕНЕВ ГЕНЕВ","type":"person","label":"Веселин Тенев Генев"},{"id":"person:ЕМИЛ ФИЛИПОВ ЛУПАНОВ","type":"person","label":"Емил Филипов Лупанов"},{"id":"person:ГАНКА БОРИСОВА ШИЛИГАРСКА","type":"person","label":"Ганка Борисова Шилигарска"},{"id":"person:ВАНЯ ПЕТРОВА МИХАЛЕВА","type":"person","label":"Ваня Петрова Михалева"}],"edges":[{"source":"official:dimitr-hristov-petrov-13b8e2","target":"company:tr:030264696","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ВАЛЕРИЙ ИВАНОВ ШИНЕВ","target":"company:tr:030264696","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ ЛЮБЕНОВА КЪНЕВА","target":"company:tr:030264696","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ОПТИКОМ ХОЛДИНГ","target":"company:tr:030264696","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ПЕТРОВ ВАСИЛЕВ","target":"company:tr:030264696","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СЕРГЕЙ ГЕНОВ ГЕНОВ","target":"company:tr:030264696","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ЙОРДАНОВ ДАМЯНОВ","target":"company:tr:030264696","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН ТЕНЕВ ГЕНЕВ","target":"company:tr:030264696","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ФИЛИПОВ ЛУПАНОВ","target":"company:tr:030264696","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГАНКА БОРИСОВА ШИЛИГАРСКА","target":"company:tr:030264696","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ПЕТРОВА МИХАЛЕВА","target":"company:tr:030264696","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН ТЕНЕВ ГЕНЕВ","target":"company:tr:030264696","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:dimitr-hristov-petrov-13b8e2",
+  "nodes": [
+    {
+      "id": "official:dimitr-hristov-petrov-13b8e2",
+      "type": "official",
+      "slug": "dimitr-hristov-petrov-13b8e2",
+      "label": "Димитър Христов Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:030264696",
+      "type": "company",
+      "label": "ОПТИКОМ",
+      "slug": null,
+      "uic": "030264696",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕРИЙ ИВАНОВ ШИНЕВ",
+      "type": "person",
+      "label": "Валерий Иванов Шинев"
+    },
+    {
+      "id": "person:АНЕЛИЯ ЛЮБЕНОВА КЪНЕВА",
+      "type": "person",
+      "label": "Анелия Любенова Кънева"
+    },
+    {
+      "id": "company:name:ОПТИКОМ ХОЛДИНГ",
+      "type": "company",
+      "label": "\"ОПТИКОМ ХОЛДИНГ\" АД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ПЕТРОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Николай Петров Василев"
+    },
+    {
+      "id": "person:СЕРГЕЙ ГЕНОВ ГЕНОВ",
+      "type": "person",
+      "label": "Сергей Генов Генов"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ЙОРДАНОВ ДАМЯНОВ",
+      "type": "person",
+      "label": "Светослав Йорданов Дамянов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ТЕНЕВ ГЕНЕВ",
+      "type": "person",
+      "label": "Веселин Тенев Генев"
+    },
+    {
+      "id": "person:ЕМИЛ ФИЛИПОВ ЛУПАНОВ",
+      "type": "person",
+      "label": "Емил Филипов Лупанов"
+    },
+    {
+      "id": "person:ГАНКА БОРИСОВА ШИЛИГАРСКА",
+      "type": "person",
+      "label": "Ганка Борисова Шилигарска"
+    },
+    {
+      "id": "person:ВАНЯ ПЕТРОВА МИХАЛЕВА",
+      "type": "person",
+      "label": "Ваня Петрова Михалева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-hristov-petrov-13b8e2",
+      "target": "company:tr:030264696",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕРИЙ ИВАНОВ ШИНЕВ",
+      "target": "company:tr:030264696",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ЛЮБЕНОВА КЪНЕВА",
+      "target": "company:tr:030264696",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ОПТИКОМ ХОЛДИНГ",
+      "target": "company:tr:030264696",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПЕТРОВ ВАСИЛЕВ",
+      "target": "company:tr:030264696",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕРГЕЙ ГЕНОВ ГЕНОВ",
+      "target": "company:tr:030264696",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ЙОРДАНОВ ДАМЯНОВ",
+      "target": "company:tr:030264696",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ТЕНЕВ ГЕНЕВ",
+      "target": "company:tr:030264696",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ФИЛИПОВ ЛУПАНОВ",
+      "target": "company:tr:030264696",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНКА БОРИСОВА ШИЛИГАРСКА",
+      "target": "company:tr:030264696",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ПЕТРОВА МИХАЛЕВА",
+      "target": "company:tr:030264696",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ТЕНЕВ ГЕНЕВ",
+      "target": "company:tr:030264696",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

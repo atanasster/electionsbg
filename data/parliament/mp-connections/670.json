@@ -1,0 +1,88 @@
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:670",
+  "nodes": [
+    {
+      "id": "mp:670",
+      "type": "mp",
+      "mpId": 670,
+      "label": "Борислав Славчев Борисов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:837074426",
+      "type": "company",
+      "label": "МОТОТЕХНИКА - ШУМЕН",
+      "slug": null,
+      "uic": "837074426",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ЙОРДАНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Иван Йорданов Йорданов"
+    },
+    {
+      "id": "person:СТОЯН ЙОРДАНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Стоян Йорданов Йорданов"
+    },
+    {
+      "id": "person:ПЕПО ПАНАЙОТОВ ПАНАЙОТОВ",
+      "type": "person",
+      "label": "Пепо Панайотов Панайотов"
+    },
+    {
+      "id": "person:МИХАЕЛА БОРИСЛАВОВА СЛАВЧЕВА",
+      "type": "person",
+      "label": "Михаела Бориславова Славчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:670",
+      "target": "company:tr:837074426",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ЙОРДАНОВ ЙОРДАНОВ",
+      "target": "company:tr:837074426",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ЙОРДАНОВ ЙОРДАНОВ",
+      "target": "company:tr:837074426",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕПО ПАНАЙОТОВ ПАНАЙОТОВ",
+      "target": "company:tr:837074426",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЕЛА БОРИСЛАВОВА СЛАВЧЕВА",
+      "target": "company:tr:837074426",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,1 +1,90 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:kosta-ivanov-kostov-56c3d6","nodes":[{"id":"official:kosta-ivanov-kostov-56c3d6","type":"official","slug":"kosta-ivanov-kostov-56c3d6","label":"Коста Иванов Костов","tier":"municipal","role":"councillor","municipality":"Генерал Тошево"},{"id":"company:tr:206753811","type":"company","label":"СОЛАР ИНВЕСТ 2021","slug":null,"uic":"206753811","legalForm":null,"status":null,"seat":null},{"id":"company:tr:208157735","type":"company","label":"Карма КК","slug":null,"uic":"208157735","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ МИТКОВ АНГЕЛОВ","type":"person","label":"Георги Митков Ангелов"}],"edges":[{"source":"official:kosta-ivanov-kostov-56c3d6","target":"company:tr:206753811","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:kosta-ivanov-kostov-56c3d6","target":"company:tr:206753811","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:kosta-ivanov-kostov-56c3d6","target":"company:tr:208157735","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:kosta-ivanov-kostov-56c3d6","target":"company:tr:208157735","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ МИТКОВ АНГЕЛОВ","target":"company:tr:206753811","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ МИТКОВ АНГЕЛОВ","target":"company:tr:206753811","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:kosta-ivanov-kostov-56c3d6",
+  "nodes": [
+    {
+      "id": "official:kosta-ivanov-kostov-56c3d6",
+      "type": "official",
+      "slug": "kosta-ivanov-kostov-56c3d6",
+      "label": "Коста Иванов Костов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Генерал Тошево"
+    },
+    {
+      "id": "company:tr:206753811",
+      "type": "company",
+      "label": "СОЛАР ИНВЕСТ 2021",
+      "slug": null,
+      "uic": "206753811",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208157735",
+      "type": "company",
+      "label": "Карма КК",
+      "slug": null,
+      "uic": "208157735",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ МИТКОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Георги Митков Ангелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kosta-ivanov-kostov-56c3d6",
+      "target": "company:tr:206753811",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kosta-ivanov-kostov-56c3d6",
+      "target": "company:tr:206753811",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kosta-ivanov-kostov-56c3d6",
+      "target": "company:tr:208157735",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kosta-ivanov-kostov-56c3d6",
+      "target": "company:tr:208157735",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ МИТКОВ АНГЕЛОВ",
+      "target": "company:tr:206753811",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ МИТКОВ АНГЕЛОВ",
+      "target": "company:tr:206753811",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

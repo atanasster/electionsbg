@@ -1,1 +1,442 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:4752","nodes":[{"id":"mp:4752","type":"mp","mpId":4752,"label":"Даниел Петров Петров","partyGroupShort":"Възраждане","isCurrent":false,"nsFolders":["47","48","49","50","51"]},{"id":"company:КД-Билд-Груп","type":"company","label":"КД Билд Груп","slug":"КД-Билд-Груп","uic":"206599562","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1700"},{"id":"company:АЛЛ-БРАНДС","type":"company","label":"АЛЛ БРАНДС","slug":"АЛЛ-БРАНДС","uic":"200430534","legalForm":"OOD","status":"active","seat":null},{"id":"company:Арт-таун","type":"company","label":"Арт таун","slug":"Арт-таун","uic":"206387164","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Перник, 2300"},{"id":"company:ДИДЖИТАЛ-УЪРЛД-2022","type":"company","label":"ДИДЖИТАЛ УЪРЛД 2022","slug":"ДИДЖИТАЛ-УЪРЛД-2022","uic":"206854721","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1618"},{"id":"company:Електротера","type":"company","label":"Електротера","slug":"Електротера","uic":"206911695","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Стара Загора, 6000"},{"id":"company:Вайсънс-ООД","type":"company","label":"Вайсънс ООД","slug":"Вайсънс-ООД","uic":"203125299","legalForm":"OOD","status":"active","seat":"Габрово"},{"id":"company:Метал-Инвест-Габрово-ООД","type":"company","label":"Метал Инвест - Габрово ООД","slug":"Метал-Инвест-Габрово-ООД","uic":"203125413","legalForm":"OOD","status":"active","seat":"Габрово"},{"id":"company:Металинвест-2002-ООД","type":"company","label":"Металинвест - 2002 ООД","slug":"Металинвест-2002-ООД","uic":"201064591","legalForm":"OOD","status":"active","seat":"Габрово"},{"id":"company:Стийл-Гардън-ООД","type":"company","label":"Стийл Гардън ООД","slug":"Стийл-Гардън-ООД","uic":"205402752","legalForm":"OOD","status":"active","seat":"Габрово"},{"id":"person:КИРИЛ ДИМИТРОВ ДИМИТРОВ","type":"person","label":"Кирил Димитров Димитров"},{"id":"official:daniel-petrov-petrov-fcc177","type":"official","slug":"daniel-petrov-petrov-fcc177","label":"Даниел Петров Петров","tier":"municipal","role":"councillor","municipality":"Сливен"},{"id":"person:ДИМИТЪР ЙОРДАНОВ ТОДОРОВ","type":"person","label":"Димитър Йорданов Тодоров"},{"id":"person:МАРТИНА МИЛЕНОВА СТОЙНОВА","type":"person","label":"Мартина Миленова Стойнова"},{"id":"person:АНЕЛИЯ КЪНЧЕВА КРЪСТЕВА-ПЕТРОВА","type":"person","label":"Анелия Кънчева Кръстева-Петрова"},{"id":"person:ИВАЙЛО ТИХОМИРОВ ДЕШЕВ","type":"person","label":"Ивайло Тихомиров Дешев"},{"id":"person:МИНА НИКОЛАЕВА ДАНЕВА","type":"person","label":"Мина Николаева Данева"},{"id":"person:НИКОЛАЙ МЕТОДИЕВ НИКОЛОВ","type":"person","label":"Николай Методиев Николов"},{"id":"company:name:ДИПОМ","type":"company","label":"\"ДИПОМ\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ИВАЙЛО РУМЕНОВ ВАСИЛЕВ","type":"person","label":"Ивайло Руменов Василев"},{"id":"person:ХРИСТО НИКОЛАЕВ КОЛЕВ","type":"person","label":"Христо Николаев Колев"}],"edges":[{"source":"mp:4752","target":"company:КД-Билд-Груп","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:КД-Билд-Груп","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:АЛЛ-БРАНДС","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:Арт-таун","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:Арт-таун","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:ДИДЖИТАЛ-УЪРЛД-2022","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:ДИДЖИТАЛ-УЪРЛД-2022","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:Електротера","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:Електротера","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:Вайсънс-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:Метал-Инвест-Габрово-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:Металинвест-2002-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:Стийл-Гардън-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ДИМИТРОВ ДИМИТРОВ","target":"company:КД-Билд-Груп","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ДИМИТРОВ ДИМИТРОВ","target":"company:КД-Билд-Груп","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"official:daniel-petrov-petrov-fcc177","target":"company:КД-Билд-Груп","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:daniel-petrov-petrov-fcc177","target":"company:КД-Билд-Груп","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМИТЪР ЙОРДАНОВ ТОДОРОВ","target":"company:АЛЛ-БРАНДС","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИНА МИЛЕНОВА СТОЙНОВА","target":"company:АЛЛ-БРАНДС","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ КЪНЧЕВА КРЪСТЕВА-ПЕТРОВА","target":"company:АЛЛ-БРАНДС","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ТИХОМИРОВ ДЕШЕВ","target":"company:АЛЛ-БРАНДС","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИНА НИКОЛАЕВА ДАНЕВА","target":"company:АЛЛ-БРАНДС","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ МЕТОДИЕВ НИКОЛОВ","target":"company:АЛЛ-БРАНДС","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ДИПОМ","target":"company:АЛЛ-БРАНДС","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО РУМЕНОВ ВАСИЛЕВ","target":"company:АЛЛ-БРАНДС","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"official:daniel-petrov-petrov-fcc177","target":"company:АЛЛ-БРАНДС","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:daniel-petrov-petrov-fcc177","target":"company:Арт-таун","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:daniel-petrov-petrov-fcc177","target":"company:ДИДЖИТАЛ-УЪРЛД-2022","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:daniel-petrov-petrov-fcc177","target":"company:Електротера","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТО НИКОЛАЕВ КОЛЕВ","target":"company:Вайсънс-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО НИКОЛАЕВ КОЛЕВ","target":"company:Метал-Инвест-Габрово-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО НИКОЛАЕВ КОЛЕВ","target":"company:Металинвест-2002-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО НИКОЛАЕВ КОЛЕВ","target":"company:Стийл-Гардън-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:4752",
+  "nodes": [
+    {
+      "id": "mp:4752",
+      "type": "mp",
+      "mpId": 4752,
+      "label": "Даниел Петров Петров",
+      "partyGroupShort": "Възраждане",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:Вайсънс-ООД",
+      "type": "company",
+      "label": "Вайсънс ООД",
+      "slug": "Вайсънс-ООД",
+      "uic": "203125299",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Габрово"
+    },
+    {
+      "id": "company:Метал-Инвест-Габрово-ООД",
+      "type": "company",
+      "label": "Метал Инвест - Габрово ООД",
+      "slug": "Метал-Инвест-Габрово-ООД",
+      "uic": "203125413",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Габрово"
+    },
+    {
+      "id": "company:Металинвест-2002-ООД",
+      "type": "company",
+      "label": "Металинвест - 2002 ООД",
+      "slug": "Металинвест-2002-ООД",
+      "uic": "201064591",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Габрово"
+    },
+    {
+      "id": "company:Стийл-Гардън-ООД",
+      "type": "company",
+      "label": "Стийл Гардън ООД",
+      "slug": "Стийл-Гардън-ООД",
+      "uic": "205402752",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Габрово"
+    },
+    {
+      "id": "company:tr:206911695",
+      "type": "company",
+      "label": "Електротера",
+      "slug": null,
+      "uic": "206911695",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Стара Загора, 6000"
+    },
+    {
+      "id": "company:tr:206854721",
+      "type": "company",
+      "label": "ДИДЖИТАЛ УЪРЛД 2022",
+      "slug": null,
+      "uic": "206854721",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "id": "company:tr:200430534",
+      "type": "company",
+      "label": "АЛЛ БРАНДС",
+      "slug": null,
+      "uic": "200430534",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206599562",
+      "type": "company",
+      "label": "КД Билд Груп",
+      "slug": null,
+      "uic": "206599562",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700"
+    },
+    {
+      "id": "company:tr:206387164",
+      "type": "company",
+      "label": "Арт таун",
+      "slug": null,
+      "uic": "206387164",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Перник, 2300"
+    },
+    {
+      "id": "person:ХРИСТО НИКОЛАЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Христо Николаев Колев"
+    },
+    {
+      "id": "official:daniel-petrov-petrov-fcc177",
+      "type": "official",
+      "slug": "daniel-petrov-petrov-fcc177",
+      "label": "Даниел Петров Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливен"
+    },
+    {
+      "id": "person:ДИМИТЪР ЙОРДАНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Димитър Йорданов Тодоров"
+    },
+    {
+      "id": "person:МАРТИНА МИЛЕНОВА СТОЙНОВА",
+      "type": "person",
+      "label": "Мартина Миленова Стойнова"
+    },
+    {
+      "id": "person:АНЕЛИЯ КЪНЧЕВА КРЪСТЕВА-ПЕТРОВА",
+      "type": "person",
+      "label": "Анелия Кънчева Кръстева-Петрова"
+    },
+    {
+      "id": "person:ИВАЙЛО ТИХОМИРОВ ДЕШЕВ",
+      "type": "person",
+      "label": "Ивайло Тихомиров Дешев"
+    },
+    {
+      "id": "person:МИНА НИКОЛАЕВА ДАНЕВА",
+      "type": "person",
+      "label": "Мина Николаева Данева"
+    },
+    {
+      "id": "person:НИКОЛАЙ МЕТОДИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Методиев Николов"
+    },
+    {
+      "id": "company:name:ДИПОМ",
+      "type": "company",
+      "label": "\"ДИПОМ\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО РУМЕНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Ивайло Руменов Василев"
+    },
+    {
+      "id": "person:КИРИЛ ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Кирил Димитров Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4752",
+      "target": "company:Вайсънс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:Метал-Инвест-Габрово-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:Металинвест-2002-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:Стийл-Гардън-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:tr:206911695",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:tr:206911695",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:tr:206854721",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:tr:206854721",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:tr:200430534",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:tr:206599562",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:tr:206599562",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:tr:206387164",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:tr:206387164",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО НИКОЛАЕВ КОЛЕВ",
+      "target": "company:Вайсънс-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НИКОЛАЕВ КОЛЕВ",
+      "target": "company:Метал-Инвест-Габрово-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НИКОЛАЕВ КОЛЕВ",
+      "target": "company:Металинвест-2002-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НИКОЛАЕВ КОЛЕВ",
+      "target": "company:Стийл-Гардън-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:daniel-petrov-petrov-fcc177",
+      "target": "company:tr:206911695",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-petrov-petrov-fcc177",
+      "target": "company:tr:206854721",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-petrov-petrov-fcc177",
+      "target": "company:tr:200430534",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ ТОДОРОВ",
+      "target": "company:tr:200430534",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИНА МИЛЕНОВА СТОЙНОВА",
+      "target": "company:tr:200430534",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ КЪНЧЕВА КРЪСТЕВА-ПЕТРОВА",
+      "target": "company:tr:200430534",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ТИХОМИРОВ ДЕШЕВ",
+      "target": "company:tr:200430534",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНА НИКОЛАЕВА ДАНЕВА",
+      "target": "company:tr:200430534",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МЕТОДИЕВ НИКОЛОВ",
+      "target": "company:tr:200430534",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДИПОМ",
+      "target": "company:tr:200430534",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО РУМЕНОВ ВАСИЛЕВ",
+      "target": "company:tr:200430534",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:daniel-petrov-petrov-fcc177",
+      "target": "company:tr:206599562",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-petrov-petrov-fcc177",
+      "target": "company:tr:206599562",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КИРИЛ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:206599562",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:206599562",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:daniel-petrov-petrov-fcc177",
+      "target": "company:tr:206387164",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

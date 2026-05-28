@@ -2,11 +2,11 @@
   "ekatte": "68134",
   "page": 2,
   "totalPages": 7,
-  "count": 316,
+  "count": 315,
   "companies": [
     {
       "slug": "БЕЛ-БРОКЕРС",
-      "displayName": "БЕЛ Брокерс",
+      "displayName": "БЕЛ БРОКЕРС",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1700",
       "mps": [
         {
@@ -43,20 +43,14 @@
       ]
     },
     {
-      "slug": "Блу-Уейл-Капитал",
-      "displayName": "Блу Уейл Капитал",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1303",
+      "slug": "Бонафиде-Адвайзърс",
+      "displayName": "Бонафиде Адвайзърс",
+      "registeredOffice": "София",
       "mps": [
         {
-          "mpId": 5101,
-          "mpName": "Георги Николаев Георгиев",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 5101,
-          "mpName": "Георги Николаев Георгиев",
-          "role": "sole_owner",
+          "mpId": 5128,
+          "mpName": "Красимир Георгиев Вълчев",
+          "role": "declared_stake",
           "isCurrent": true
         }
       ]
@@ -81,8 +75,65 @@
       ]
     },
     {
+      "slug": "БЪЛГАРИЯ-ХЕЛИ-МЕД-СЪРВИЗ",
+      "displayName": "БЪЛГАРИЯ ХЕЛИ МЕД СЪРВИЗ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1540",
+      "mps": [
+        {
+          "mpId": 3730,
+          "mpName": "Георги Йорданов Гвоздейков",
+          "role": "representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3730,
+          "mpName": "Георги Йорданов Гвоздейков",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Българско-дружество-за-управление-на-проекти",
+      "displayName": "Българско дружество за управление на проекти",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1612",
+      "mps": [
+        {
+          "mpId": 2558,
+          "mpName": "Мартин Стоянов Иванов",
+          "role": "representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2558,
+          "mpName": "Мартин Стоянов Иванов",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ВЕЙЗ-БЪЛГАРИЯ",
+      "displayName": "ВЕЙЗ БЪЛГАРИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1172",
+      "mps": [
+        {
+          "mpId": 3177,
+          "mpName": "Тодор Василев Василев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3177,
+          "mpName": "Тодор Василев Василев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "ВЕНЕРА-ИНВЕСТМЪНТ",
-      "displayName": "Венера инвестмънт",
+      "displayName": "ВЕНЕРА ИНВЕСТМЪНТ",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
       "mps": [
         {
@@ -95,6 +146,19 @@
           "mpId": 4038,
           "mpName": "Иван Валентинов Ганчев",
           "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Глобал-сървиз-ЕС-ЕООД",
+      "displayName": "Глобал сървиз ЕС ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3047,
+          "mpName": "НИКОЛА ХРИСТОВ КРЪСТЕВ",
+          "role": "declared_stake",
           "isCurrent": true
         }
       ]
@@ -119,6 +183,25 @@
       ]
     },
     {
+      "slug": "Грийн-касъл-груп-ЕООД",
+      "displayName": "Грийн касъл груп ЕООД",
+      "registeredOffice": "СОФИЯ",
+      "mps": [
+        {
+          "mpId": 4925,
+          "mpName": "Мюмюн Сали Мюмюн",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4925,
+          "mpName": "МЮМЮН САЛИ МЮМЮН",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "ГроутКонсулт",
       "displayName": "ГроутКонсулт",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1421",
@@ -133,6 +216,38 @@
           "mpId": 3537,
           "mpName": "Иван Йорданов Димитров",
           "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДАТРА",
+      "displayName": "ДАТРА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1618",
+      "mps": [
+        {
+          "mpId": 2734,
+          "mpName": "Тома Николов Томов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2734,
+          "mpName": "Тома Николов Томов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Демарко-ЕООД",
+      "displayName": "Демарко ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4295,
+          "mpName": "Настимир Ананиев Ананиев",
+          "role": "declared_stake",
           "isCurrent": true
         }
       ]
@@ -157,8 +272,27 @@
       ]
     },
     {
+      "slug": "ДЖЕНЕРИКС",
+      "displayName": "ДЖЕНЕРИКС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1538",
+      "mps": [
+        {
+          "mpId": 2478,
+          "mpName": "Чавдар Славчев Пейчев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2478,
+          "mpName": "Чавдар Славчев Пейчев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Джи-енд-джи-естейт",
-      "displayName": "ДЖИ Енд джи естейт",
+      "displayName": "Джи енд джи естейт",
       "registeredOffice": "София (столица)",
       "mps": [
         {
@@ -176,27 +310,8 @@
       ]
     },
     {
-      "slug": "ДИАВИТ",
-      "displayName": "Диавит",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1784",
-      "mps": [
-        {
-          "mpId": 2747,
-          "mpName": "Димитър Стоянов Стоянов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2747,
-          "mpName": "Димитър Стоянов Стоянов",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
       "slug": "ДИДЖИТАЛ-УЪРЛД-2022",
-      "displayName": "Диджитал уърлд 2022",
+      "displayName": "ДИДЖИТАЛ УЪРЛД 2022",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1618",
       "mps": [
         {
@@ -215,7 +330,7 @@
     },
     {
       "slug": "ДП-ИНДУСТРИАЛСТРОЙ",
-      "displayName": "ДП Индустриалстрой",
+      "displayName": "ДП ИНДУСТРИАЛСТРОЙ",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1463",
       "mps": [
         {
@@ -228,6 +343,25 @@
           "mpId": 2408,
           "mpName": "Иван Пенков Иванов",
           "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Дунав-мийт",
+      "displayName": "Дунав мийт",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 618,
+          "mpName": "Величко Стойчев Клингов",
+          "role": "representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 618,
+          "mpName": "Величко Стойчев Клингов",
+          "role": "director",
           "isCurrent": true
         }
       ]
@@ -271,39 +405,58 @@
       ]
     },
     {
-      "slug": "ЕЛИШ",
-      "displayName": "Елиш",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1784",
+      "slug": "ЕКРАНА-БГ",
+      "displayName": "ЕКРАНА БГ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София",
       "mps": [
         {
-          "mpId": 2747,
-          "mpName": "Димитър Стоянов Стоянов",
+          "mpId": 636,
+          "mpName": "Алекси Иванов Алексиев",
           "role": "manager",
           "isCurrent": true
         },
         {
-          "mpId": 2747,
-          "mpName": "Димитър Стоянов Стоянов",
+          "mpId": 636,
+          "mpName": "Алекси Иванов Алексиев",
           "role": "sole_owner",
           "isCurrent": true
         }
       ]
     },
     {
+      "slug": "Еленово-Солар",
+      "displayName": "Еленово Солар",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 5245,
+          "mpName": "Мартин Димитров Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5245,
+          "mpName": "Мартин Димитров Димитров",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
       "slug": "ЕРИМАНТ",
-      "displayName": "Еримант",
+      "displayName": "ЕРИМАНТ",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1421",
       "mps": [
         {
           "mpId": 209,
           "mpName": "Стела Димитрова Ангелова-Банкова",
-          "role": "manager",
+          "role": "sole_owner",
           "isCurrent": true
         },
         {
           "mpId": 209,
           "mpName": "Стела Димитрова Ангелова-Банкова",
-          "role": "sole_owner",
+          "role": "manager",
           "isCurrent": true
         }
       ]
@@ -328,8 +481,46 @@
       ]
     },
     {
+      "slug": "ЗЕТТА-СИСТЕМС",
+      "displayName": "ЗЕТТА СИСТЕМС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1407",
+      "mps": [
+        {
+          "mpId": 2657,
+          "mpName": "Петър Христов Петров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2657,
+          "mpName": "Петър Христов Петров",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "И-Ви-Лог",
+      "displayName": "И Ви Лог",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1715",
+      "mps": [
+        {
+          "mpId": 630,
+          "mpName": "Владимир Иванов Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 630,
+          "mpName": "Владимир Иванов Димитров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "ИВО-ДЕСИ-2021",
-      "displayName": "ИВО - Деси 2021",
+      "displayName": "ИВО - ДЕСИ 2021",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1404",
       "mps": [
         {
@@ -366,8 +557,27 @@
       ]
     },
     {
+      "slug": "ИИГП-СТРОЙ",
+      "displayName": "ИИГП - СТРОЙ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1463",
+      "mps": [
+        {
+          "mpId": 2408,
+          "mpName": "Иван Пенков Иванов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2408,
+          "mpName": "Иван Пенков Иванов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "ИМПЕТУС-ПГ",
-      "displayName": "Импетус - ПГ",
+      "displayName": "ИМПЕТУС - ПГ",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1113",
       "mps": [
         {
@@ -385,8 +595,65 @@
       ]
     },
     {
+      "slug": "ИмПулс-I",
+      "displayName": "ИмПулс I",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1784",
+      "mps": [
+        {
+          "mpId": 3725,
+          "mpName": "Марин Шишев Шишев",
+          "role": "director",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3725,
+          "mpName": "Марин Шишев Шишев",
+          "role": "actual_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИНИМ22",
+      "displayName": "ИНИМ22",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 854,
+          "mpName": "Стоян Иванов Иванов",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 854,
+          "mpName": "Стоян Иванов Иванов",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИНТЕРНЕШЪНЪЛ-МЕДИКЪЛ-ПАРТНЪРС",
+      "displayName": "ИНТЕРНЕШЪНЪЛ МЕДИКЪЛ ПАРТНЪРС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1505",
+      "mps": [
+        {
+          "mpId": 2655,
+          "mpName": "Волен Николов Сидеров",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2703,
+          "mpName": "Десислав Славов Чуколов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "ИП-НАПРЕДЪК",
-      "displayName": "ИП Напредък",
+      "displayName": "ИП НАПРЕДЪК",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1463",
       "mps": [
         {
@@ -404,8 +671,65 @@
       ]
     },
     {
+      "slug": "Йокс",
+      "displayName": "Йокс",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 5245,
+          "mpName": "Мартин Димитров Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5245,
+          "mpName": "Мартин Димитров Димитров",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "КАП-солар",
+      "displayName": "КАП-солар",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 564,
+          "mpName": "Димитър Илиев Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 564,
+          "mpName": "Димитър Илиев Димитров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "КАПИТАЛ-ГРУП",
+      "displayName": "КАПИТАЛ ГРУП",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1618",
+      "mps": [
+        {
+          "mpId": 2385,
+          "mpName": "Красимир Петров Петров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2385,
+          "mpName": "Красимир Петров Петров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "КАРГО-ХЕЛЛАС",
-      "displayName": "Карго хеллас",
+      "displayName": "КАРГО ХЕЛЛАС",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
       "mps": [
         {
@@ -418,6 +742,38 @@
           "mpId": 2734,
           "mpName": "Тома Николов Томов",
           "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "КД-Билд-Груп",
+      "displayName": "КД Билд Груп",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1700",
+      "mps": [
+        {
+          "mpId": 4752,
+          "mpName": "Даниел Петров Петров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4752,
+          "mpName": "Даниел Петров Петров",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Келтик-Проперти-Мениджмънт-ЕООД",
+      "displayName": "Келтик Проперти  Мениджмънт ЕООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4295,
+          "mpName": "Настимир Ананиев Ананиев",
+          "role": "declared_stake",
           "isCurrent": true
         }
       ]
@@ -443,7 +799,7 @@
     },
     {
       "slug": "КП-инвест-груп",
-      "displayName": "КП Инвест груп",
+      "displayName": "КП инвест груп",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1326",
       "mps": [
         {
@@ -462,7 +818,7 @@
     },
     {
       "slug": "ЛАБШОКО",
-      "displayName": "Лабшоко",
+      "displayName": "ЛАБШОКО",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1680",
       "mps": [
         {
@@ -480,8 +836,21 @@
       ]
     },
     {
+      "slug": "Лазарис-ЕАД",
+      "displayName": "Лазарис ЕАД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3167,
+          "mpName": "Илия Димитров Лазаров",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "ЛИБРЕКО",
-      "displayName": "Либреко",
+      "displayName": "ЛИБРЕКО",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
       "mps": [
         {
@@ -499,8 +868,40 @@
       ]
     },
     {
+      "slug": "ЛигълТрек",
+      "displayName": "ЛигълТрек",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1680",
+      "mps": [
+        {
+          "mpId": 3694,
+          "mpName": "Атанас Димитров Михнев",
+          "role": "representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3694,
+          "mpName": "Атанас Димитров Михнев",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Лондон-войс-ООД",
+      "displayName": "Лондон войс ООД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 3395,
+          "mpName": "Арман Агоп Бабикян",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "ЛУНИСОЛАР",
-      "displayName": "Лунисолар",
+      "displayName": "ЛУНИСОЛАР",
       "registeredOffice": "БЪЛГАРИЯ, гр. София, 1142",
       "mps": [
         {
@@ -512,443 +913,6 @@
         {
           "mpId": 1563,
           "mpName": "Димитър Димчев Димов",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "М-консулт-33-ЕООД",
-      "displayName": "М-консулт 33 ЕООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 3694,
-          "mpName": "Атанас Димитров Михнев",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 3694,
-          "mpName": "Атанас Димитров Михнев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "МЕДИЦИНСКИ-ЦЕНТЪР-ПО-РЕГЕНЕРАТИВНА-МЕДИЦИНА-И-ДЪЛГОЛЕТИЕ-ОКСИЛАЙФ",
-      "displayName": "Медицински център по регенеративна Медицина и дълголетие \"Оксилайф\"",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1404",
-      "mps": [
-        {
-          "mpId": 225,
-          "mpName": "Антония Стефанова Първанова",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 225,
-          "mpName": "Антония Стефанова Първанова",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Мелитус-Д",
-      "displayName": "Мелитус-Д",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1233",
-      "mps": [
-        {
-          "mpId": 4371,
-          "mpName": "Росица Василева Пандова-Йовкова",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4371,
-          "mpName": "Росица Василева Пандова-Йовкова",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Метал-ВМ-ЕООД",
-      "displayName": "Метал-ВМ ЕООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 4868,
-          "mpName": "Венцислав Михайлов Асенов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4868,
-          "mpName": "Венцислав Михайлов Асенов",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Монна-Интернешънъл",
-      "displayName": "Монна Интернешънъл",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1700",
-      "mps": [
-        {
-          "mpId": 3342,
-          "mpName": "Юлиян Милчев Ненчев",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 3342,
-          "mpName": "Юлиян Милчев Ненчев",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "НАПОИТЕЛНИ-СИСТЕМИ",
-      "displayName": "Напоителни системи",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1186",
-      "mps": [
-        {
-          "mpId": 4649,
-          "mpName": "Генади Събков Събков",
-          "role": "branch_manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2115,
-          "mpName": "Пламен Иванов Иванов",
-          "role": "director",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "НИНФЕА-АЛА-МОДА",
-      "displayName": "Нинфеа ала мода",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1614",
-      "mps": [
-        {
-          "mpId": 4748,
-          "mpName": "Деница Димитрова Симеонова",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4748,
-          "mpName": "Деница Димитрова Симеонова",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Омнио-ООД",
-      "displayName": "Омнио ООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 3694,
-          "mpName": "Атанас Димитров Михнев",
-          "role": "partner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 3694,
-          "mpName": "Атанас Димитров Михнев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ПЕТ-ЕН-ЕН-2021",
-      "displayName": "ПЕТ Ен ен 2021",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1799",
-      "mps": [
-        {
-          "mpId": 4590,
-          "mpName": "Петър Николаев Николов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4590,
-          "mpName": "Петър Николаев Николов",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "РЕНТ-ФИКС",
-      "displayName": "Рент фикс",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1415",
-      "mps": [
-        {
-          "mpId": 76,
-          "mpName": "Валентин Николов Милтенов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 76,
-          "mpName": "Валентин Николов Милтенов",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "РСЕЛЕНА",
-      "displayName": "Рселена",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1510",
-      "mps": [
-        {
-          "mpId": 5245,
-          "mpName": "Мартин Димитров Димитров",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 5245,
-          "mpName": "Мартин Димитров Димитров",
-          "role": "sole_owner",
-          "isCurrent": false
-        }
-      ]
-    },
-    {
-      "slug": "СЕКОНТ-2011",
-      "displayName": "Секонт 2011",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, -",
-      "mps": [
-        {
-          "mpId": 2681,
-          "mpName": "Борислав Иванов Борисов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2681,
-          "mpName": "Борислав Иванов Борисов",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Скайглас-ООД",
-      "displayName": "Скайглас ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 5159,
-          "mpName": "Димо Георгиев Дренчев",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4223,
-          "mpName": "Николай Георгиев Дренчев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "СМАРТ-ДИЗАЙН-ИНЖЕНЕРИНГ",
-      "displayName": "Смарт дизайн инженеринг",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1421",
-      "mps": [
-        {
-          "mpId": 2747,
-          "mpName": "Димитър Стоянов Стоянов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2747,
-          "mpName": "Димитър Стоянов Стоянов",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "СОНЕНДАХ",
-      "displayName": "Сонендах",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1618",
-      "mps": [
-        {
-          "mpId": 819,
-          "mpName": "Петър Димитров Попов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 819,
-          "mpName": "Петър Димитров Попов",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Стинки-Бариста-ООД",
-      "displayName": "Стинки Бариста ООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 3914,
-          "mpName": "Инна Владимирова Иванова",
-          "role": "partner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 3914,
-          "mpName": "Инна Владимирова Иванова",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Тентус-България-ООД",
-      "displayName": "Тентус България ООД",
-      "registeredOffice": "София (столица)",
-      "mps": [
-        {
-          "mpId": 4938,
-          "mpName": "Силви Кирилов Петров",
-          "role": "partner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4938,
-          "mpName": "Силви  Кирилов Петров",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Форекс-Капиталс-ЕООД",
-      "displayName": "Форекс Капиталс ЕООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 4295,
-          "mpName": "Настимир Ананиев Ананиев",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4295,
-          "mpName": "Настимир Ананиев Ананиев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ХЕДКОНСУЛТИНГ",
-      "displayName": "Хедконсултинг",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1113",
-      "mps": [
-        {
-          "mpId": 2769,
-          "mpName": "Цветан Генчев Цветанов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2769,
-          "mpName": "Цветан Генчев Цветанов",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ХОЛИВУД-1",
-      "displayName": "Холивуд 1",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1408",
-      "mps": [
-        {
-          "mpId": 3608,
-          "mpName": "Александър Несторов Несторов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 3608,
-          "mpName": "Александър Несторов Несторов",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Хоумхиид-ООД",
-      "displayName": "Хоумхиид ООД",
-      "registeredOffice": "София",
-      "mps": [
-        {
-          "mpId": 4144,
-          "mpName": "Михал Григоров Камбарев",
-          "role": "partner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4144,
-          "mpName": "Михал Григоров Камбарев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ЦЕНТЪР-ЗА-ТЕЛЕСНА-ПСИХОТЕРАПИЯ-И-РАБОТА-С-ТРАВМА",
-      "displayName": "Център за телесна психотерапия и работа с травма",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1700",
-      "mps": [
-        {
-          "mpId": 4221,
-          "mpName": "Ирена Тодорова Анастасова",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4221,
-          "mpName": "Ирена Тодорова Анастасова",
-          "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ШИЛЕН",
-      "displayName": "Шилен",
-      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1784",
-      "mps": [
-        {
-          "mpId": 2747,
-          "mpName": "Димитър Стоянов Стоянов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2747,
-          "mpName": "Димитър Стоянов Стоянов",
           "role": "sole_owner",
           "isCurrent": true
         }

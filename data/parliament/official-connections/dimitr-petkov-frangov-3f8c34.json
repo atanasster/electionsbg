@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:dimitr-petkov-frangov-3f8c34","nodes":[{"id":"official:dimitr-petkov-frangov-3f8c34","type":"official","slug":"dimitr-petkov-frangov-3f8c34","label":"Димитър Петков Франгов","tier":"municipal","role":"councillor","municipality":"Шабла"},{"id":"company:tr:203279272","type":"company","label":"Фратерра ООД","slug":null,"uic":"203279272","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:dimitr-petkov-frangov-3f8c34","target":"company:tr:203279272","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:dimitr-petkov-frangov-3f8c34",
+  "nodes": [
+    {
+      "id": "official:dimitr-petkov-frangov-3f8c34",
+      "type": "official",
+      "slug": "dimitr-petkov-frangov-3f8c34",
+      "label": "Димитър Петков Франгов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Шабла"
+    },
+    {
+      "id": "company:tr:203279272",
+      "type": "company",
+      "label": "Фратерра ООД",
+      "slug": null,
+      "uic": "203279272",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-petkov-frangov-3f8c34",
+      "target": "company:tr:203279272",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,68 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:2851","nodes":[{"id":"mp:2851","type":"mp","mpId":2851,"label":"Борис Янков Ячев","partyGroupShort":"СБ","isCurrent":false,"nsFolders":["40","43"]},{"id":"company:АБ-Инвестмънтс","type":"company","label":"АБ Инвестмънтс","slug":"АБ-Инвестмънтс","uic":"206909630","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1408"},{"id":"person:АДРИАНА РОСИНОВА РУСАНОВА","type":"person","label":"Адриана Росинова  Русанова"}],"edges":[{"source":"mp:2851","target":"company:АБ-Инвестмънтс","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:2851","target":"company:АБ-Инвестмънтс","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АДРИАНА РОСИНОВА РУСАНОВА","target":"company:АБ-Инвестмънтс","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АДРИАНА РОСИНОВА РУСАНОВА","target":"company:АБ-Инвестмънтс","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:2851",
+  "nodes": [
+    {
+      "id": "mp:2851",
+      "type": "mp",
+      "mpId": 2851,
+      "label": "Борис Янков Ячев",
+      "partyGroupShort": "СБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "40",
+        "43"
+      ]
+    },
+    {
+      "id": "company:tr:206909630",
+      "type": "company",
+      "label": "АБ Инвестмънтс",
+      "slug": null,
+      "uic": "206909630",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1408"
+    },
+    {
+      "id": "person:АДРИАНА РОСИНОВА РУСАНОВА",
+      "type": "person",
+      "label": "Адриана Росинова  Русанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2851",
+      "target": "company:tr:206909630",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2851",
+      "target": "company:tr:206909630",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АДРИАНА РОСИНОВА РУСАНОВА",
+      "target": "company:tr:206909630",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДРИАНА РОСИНОВА РУСАНОВА",
+      "target": "company:tr:206909630",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

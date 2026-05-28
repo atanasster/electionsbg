@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:svetlin-dimitrov-grbuzanov-856389","nodes":[{"id":"official:svetlin-dimitrov-grbuzanov-856389","type":"official","slug":"svetlin-dimitrov-grbuzanov-856389","label":"Светлин Димитров Гърбузанов","tier":"municipal","role":"councillor","municipality":"Полски Тръмбеш"},{"id":"company:tr:201697045","type":"company","label":"СТИН КОМЕРС ЕООД","slug":null,"uic":"201697045","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:svetlin-dimitrov-grbuzanov-856389","target":"company:tr:201697045","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:svetlin-dimitrov-grbuzanov-856389",
+  "nodes": [
+    {
+      "id": "official:svetlin-dimitrov-grbuzanov-856389",
+      "type": "official",
+      "slug": "svetlin-dimitrov-grbuzanov-856389",
+      "label": "Светлин Димитров Гърбузанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Полски Тръмбеш"
+    },
+    {
+      "id": "company:tr:201697045",
+      "type": "company",
+      "label": "СТИН КОМЕРС ЕООД",
+      "slug": null,
+      "uic": "201697045",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetlin-dimitrov-grbuzanov-856389",
+      "target": "company:tr:201697045",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -2,47 +2,8 @@
   "ekatte": "56784",
   "page": 2,
   "totalPages": 2,
-  "count": 78,
+  "count": 76,
   "companies": [
-    {
-      "slug": "оренда-тур-еоод",
-      "displayName": "оренда тур еоод",
-      "registeredOffice": "пловдив",
-      "mps": [
-        {
-          "mpId": 4826,
-          "mpName": "Борислав Климентов Петков",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ПиДжейТи-Фешън-ООД",
-      "displayName": "ПиДжейТи Фешън ООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 2847,
-          "mpName": "Георги Ченков Търновалийски",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ПРОПЪРТИ-ГРУП-ТУР-ЕООД",
-      "displayName": "Пропърти груп тур ЕООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4805,
-          "mpName": "Красимир Димчев Дончев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
     {
       "slug": "Сити-трейд-център-ЕООД",
       "displayName": "Сити трейд център ЕООД",
@@ -356,14 +317,27 @@
       ]
     },
     {
-      "slug": "ФОКУС-БГ-ЕООД",
-      "displayName": "Фокус бг ЕООД",
+      "slug": "Фокус-БГ-ЕООД",
+      "displayName": "Фокус БГ ЕООД",
       "registeredOffice": "Пловдив",
       "mps": [
         {
           "mpId": 2833,
           "mpName": "Спас Георгиев Гърневски",
           "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЮГ-МАРКЕТ-ФОНД-МЕНИДЖМЪНТ",
+      "displayName": "ЮГ МАРКЕТ ФОНД МЕНИДЖМЪНТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4003",
+      "mps": [
+        {
+          "mpId": 224,
+          "mpName": "Теодора Георгиева Якимова-Дренска",
+          "role": "procurator",
           "isCurrent": true
         }
       ]

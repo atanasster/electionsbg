@@ -1,1 +1,77 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:iordan-iliev-iliev-277c3a","nodes":[{"id":"official:iordan-iliev-iliev-277c3a","type":"official","slug":"iordan-iliev-iliev-277c3a","label":"Йордан Илиев Илиев","tier":"municipal","role":"councillor","municipality":"Пловдив"},{"id":"company:tr:205570579","type":"company","label":"Про Техно Трейд","slug":null,"uic":"205570579","legalForm":null,"status":null,"seat":null},{"id":"person:ЦВЕТОМИРА ВАЛЕНТИНОВА ПОПОВА","type":"person","label":"Цветомира Валентинова Попова"},{"id":"person:ЦВЕТЕЛИНА ВАЛЕНТИНОВА ПОПОВА","type":"person","label":"Цветелина Валентинова Попова"}],"edges":[{"source":"official:iordan-iliev-iliev-277c3a","target":"company:tr:205570579","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:iordan-iliev-iliev-277c3a","target":"company:tr:205570579","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЦВЕТОМИРА ВАЛЕНТИНОВА ПОПОВА","target":"company:tr:205570579","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТЕЛИНА ВАЛЕНТИНОВА ПОПОВА","target":"company:tr:205570579","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТОМИРА ВАЛЕНТИНОВА ПОПОВА","target":"company:tr:205570579","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:iordan-iliev-iliev-277c3a",
+  "nodes": [
+    {
+      "id": "official:iordan-iliev-iliev-277c3a",
+      "type": "official",
+      "slug": "iordan-iliev-iliev-277c3a",
+      "label": "Йордан Илиев Илиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив"
+    },
+    {
+      "id": "company:tr:205570579",
+      "type": "company",
+      "label": "Про Техно Трейд",
+      "slug": null,
+      "uic": "205570579",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТОМИРА ВАЛЕНТИНОВА ПОПОВА",
+      "type": "person",
+      "label": "Цветомира Валентинова Попова"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ВАЛЕНТИНОВА ПОПОВА",
+      "type": "person",
+      "label": "Цветелина Валентинова Попова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-iliev-iliev-277c3a",
+      "target": "company:tr:205570579",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-iliev-iliev-277c3a",
+      "target": "company:tr:205570579",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТОМИРА ВАЛЕНТИНОВА ПОПОВА",
+      "target": "company:tr:205570579",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ВАЛЕНТИНОВА ПОПОВА",
+      "target": "company:tr:205570579",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИРА ВАЛЕНТИНОВА ПОПОВА",
+      "target": "company:tr:205570579",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

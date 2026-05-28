@@ -1,1 +1,61 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:krasimir-nikolaev-kolev-970b67","nodes":[{"id":"official:krasimir-nikolaev-kolev-970b67","type":"official","slug":"krasimir-nikolaev-kolev-970b67","label":"Красимир Николаев Колев","tier":"municipal","role":"deputy_mayor","municipality":"Априлци"},{"id":"company:tr:104655989","type":"company","label":"ИНСТРУМЕНТАЛНА ЕКИПИРОВКА ВТ","slug":null,"uic":"104655989","legalForm":null,"status":null,"seat":null},{"id":"person:МОНО ИВАНОВ ИБРИШИМОВ","type":"person","label":"Моно Иванов Ибришимов"},{"id":"person:КРАСИМИР ХРИСТОВ ЙОРДАНОВ","type":"person","label":"Красимир Христов Йорданов"}],"edges":[{"source":"official:krasimir-nikolaev-kolev-970b67","target":"company:tr:104655989","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:МОНО ИВАНОВ ИБРИШИМОВ","target":"company:tr:104655989","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ХРИСТОВ ЙОРДАНОВ","target":"company:tr:104655989","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:krasimir-nikolaev-kolev-970b67",
+  "nodes": [
+    {
+      "id": "official:krasimir-nikolaev-kolev-970b67",
+      "type": "official",
+      "slug": "krasimir-nikolaev-kolev-970b67",
+      "label": "Красимир Николаев Колев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Априлци"
+    },
+    {
+      "id": "company:tr:104655989",
+      "type": "company",
+      "label": "ИНСТРУМЕНТАЛНА ЕКИПИРОВКА ВТ",
+      "slug": null,
+      "uic": "104655989",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МОНО ИВАНОВ ИБРИШИМОВ",
+      "type": "person",
+      "label": "Моно Иванов Ибришимов"
+    },
+    {
+      "id": "person:КРАСИМИР ХРИСТОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Красимир Христов Йорданов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-nikolaev-kolev-970b67",
+      "target": "company:tr:104655989",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МОНО ИВАНОВ ИБРИШИМОВ",
+      "target": "company:tr:104655989",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ХРИСТОВ ЙОРДАНОВ",
+      "target": "company:tr:104655989",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

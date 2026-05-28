@@ -1,1 +1,44 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:940","nodes":[{"id":"mp:940","type":"mp","mpId":940,"label":"Ивелин Николаев Николов","partyGroupShort":"Атака","isCurrent":false,"nsFolders":[]},{"id":"company:УНИ-ЕЛЕКТРИК","type":"company","label":"УНИ ЕЛЕКТРИК","slug":"УНИ-ЕЛЕКТРИК","uic":"206730912","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"}],"edges":[{"source":"mp:940","target":"company:УНИ-ЕЛЕКТРИК","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:940","target":"company:УНИ-ЕЛЕКТРИК","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:940",
+  "nodes": [
+    {
+      "id": "mp:940",
+      "type": "mp",
+      "mpId": 940,
+      "label": "Ивелин Николаев Николов",
+      "partyGroupShort": "Атака",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:206730912",
+      "type": "company",
+      "label": "УНИ ЕЛЕКТРИК",
+      "slug": null,
+      "uic": "206730912",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:940",
+      "target": "company:tr:206730912",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:940",
+      "target": "company:tr:206730912",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

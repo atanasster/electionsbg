@@ -1,1 +1,137 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:georgi-petrov-stefanov-bad4b6","nodes":[{"id":"official:georgi-petrov-stefanov-bad4b6","type":"official","slug":"georgi-petrov-stefanov-bad4b6","label":"Георги Петров Стефанов","tier":"municipal","role":"councillor","municipality":"Ямбол"},{"id":"company:tr:206722659","type":"company","label":"АСТРАЛ БИЛДИНГ","slug":null,"uic":"206722659","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206730990","type":"company","label":"ИНФИНО ДИЗАЙН","slug":null,"uic":"206730990","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ КОСТАДИНОВ ГАНДОЗОВ","type":"person","label":"Георги Костадинов Гандозов"},{"id":"person:НИКОЛАЙ СИМКОВ ХАРАСИМОВ","type":"person","label":"Николай Симков Харасимов"},{"id":"person:АЛЕКСАНДЪР БОРИСЛАВОВ РАЛЧЕВ","type":"person","label":"Александър Бориславов Ралчев"},{"id":"person:ИВАЙЛО МАКСИМОВ КРЪСТЕВ","type":"person","label":"Ивайло Максимов Кръстев"}],"edges":[{"source":"official:georgi-petrov-stefanov-bad4b6","target":"company:tr:206722659","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-petrov-stefanov-bad4b6","target":"company:tr:206730990","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ КОСТАДИНОВ ГАНДОЗОВ","target":"company:tr:206722659","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ СИМКОВ ХАРАСИМОВ","target":"company:tr:206722659","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР БОРИСЛАВОВ РАЛЧЕВ","target":"company:tr:206722659","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ КОСТАДИНОВ ГАНДОЗОВ","target":"company:tr:206722659","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО МАКСИМОВ КРЪСТЕВ","target":"company:tr:206730990","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО МАКСИМОВ КРЪСТЕВ","target":"company:tr:206730990","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР БОРИСЛАВОВ РАЛЧЕВ","target":"company:tr:206730990","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ КОСТАДИНОВ ГАНДОЗОВ","target":"company:tr:206730990","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:georgi-petrov-stefanov-bad4b6",
+  "nodes": [
+    {
+      "id": "official:georgi-petrov-stefanov-bad4b6",
+      "type": "official",
+      "slug": "georgi-petrov-stefanov-bad4b6",
+      "label": "Георги Петров Стефанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол"
+    },
+    {
+      "id": "company:tr:206722659",
+      "type": "company",
+      "label": "АСТРАЛ БИЛДИНГ",
+      "slug": null,
+      "uic": "206722659",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206730990",
+      "type": "company",
+      "label": "ИНФИНО ДИЗАЙН",
+      "slug": null,
+      "uic": "206730990",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ КОСТАДИНОВ ГАНДОЗОВ",
+      "type": "person",
+      "label": "Георги Костадинов Гандозов"
+    },
+    {
+      "id": "person:НИКОЛАЙ СИМКОВ ХАРАСИМОВ",
+      "type": "person",
+      "label": "Николай Симков Харасимов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР БОРИСЛАВОВ РАЛЧЕВ",
+      "type": "person",
+      "label": "Александър Бориславов Ралчев"
+    },
+    {
+      "id": "person:ИВАЙЛО МАКСИМОВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Ивайло Максимов Кръстев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-petrov-stefanov-bad4b6",
+      "target": "company:tr:206722659",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-petrov-stefanov-bad4b6",
+      "target": "company:tr:206730990",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ КОСТАДИНОВ ГАНДОЗОВ",
+      "target": "company:tr:206722659",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ СИМКОВ ХАРАСИМОВ",
+      "target": "company:tr:206722659",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР БОРИСЛАВОВ РАЛЧЕВ",
+      "target": "company:tr:206722659",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КОСТАДИНОВ ГАНДОЗОВ",
+      "target": "company:tr:206722659",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО МАКСИМОВ КРЪСТЕВ",
+      "target": "company:tr:206730990",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО МАКСИМОВ КРЪСТЕВ",
+      "target": "company:tr:206730990",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР БОРИСЛАВОВ РАЛЧЕВ",
+      "target": "company:tr:206730990",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КОСТАДИНОВ ГАНДОЗОВ",
+      "target": "company:tr:206730990",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

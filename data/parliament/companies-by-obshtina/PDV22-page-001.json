@@ -2,29 +2,30 @@
   "obshtina": "PDV22",
   "page": 1,
   "totalPages": 2,
-  "count": 78,
+  "count": 76,
   "companies": [
     {
-      "slug": "ПАЛЕРМО-2021",
-      "displayName": "Палермо 2021",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4004",
+      "slug": "Омега-2005-МГ-ЕООД",
+      "displayName": "\"Омега 2005 МГ\" ЕООД",
+      "registeredOffice": "Пловдив",
       "mps": [
         {
-          "mpId": 2545,
-          "mpName": "Здравко Димитров Димитров",
-          "role": "manager",
+          "mpId": 4809,
+          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
+          "role": "declared_stake",
           "isCurrent": true
-        },
+        }
+      ]
+    },
+    {
+      "slug": "Ралекс-ООД",
+      "displayName": "\"Ралекс\" ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
         {
-          "mpId": 2545,
-          "mpName": "Здравко Димитров Димитров",
-          "role": "partner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4465,
-          "mpName": "Николай Георгиев Марков",
-          "role": "partner",
+          "mpId": 4809,
+          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
+          "role": "declared_stake",
           "isCurrent": true
         }
       ]
@@ -55,8 +56,134 @@
       ]
     },
     {
+      "slug": "агри-дрон-еоод",
+      "displayName": "агри дрон еоод",
+      "registeredOffice": "пловдив",
+      "mps": [
+        {
+          "mpId": 4826,
+          "mpName": "Борислав Климентов Петков",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4826,
+          "mpName": "Борислав Климентов Петков",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4826,
+          "mpName": "Борислав Климентов Петков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ПАЛЕРМО-2021",
+      "displayName": "ПАЛЕРМО 2021",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4004",
+      "mps": [
+        {
+          "mpId": 2545,
+          "mpName": "Здравко Димитров Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2545,
+          "mpName": "Здравко Димитров Димитров",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4465,
+          "mpName": "Николай Георгиев Марков",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Смарт-чойс-пропърти-ООД",
+      "displayName": "Смарт чойс пропърти ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4805,
+          "mpName": "Красимир Димчев Дончев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4805,
+          "mpName": "Красимир Димчев Дончев",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4805,
+          "mpName": "Красимир Димчев Дончев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АГРОКОПТЕР-ЕВРОПА",
+      "displayName": "АГРОКОПТЕР ЕВРОПА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4000",
+      "mps": [
+        {
+          "mpId": 4826,
+          "mpName": "Борислав Климентов Петков",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4826,
+          "mpName": "Борислав Климентов Петков",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АРХИТИЙМ-ДИЗАЙН",
+      "displayName": "АРХИТИЙМ ДИЗАЙН",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4000",
+      "mps": [
+        {
+          "mpId": 5300,
+          "mpName": "Мирослав Николаев Иванов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5300,
+          "mpName": "Мирослав Николаев Иванов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Бардуков-ООД",
+      "displayName": "Бардуков ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 3047,
+          "mpName": "НИКОЛА ХРИСТОВ КРЪСТЕВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "ВАНЕСА-27",
-      "displayName": "Ванеса 27",
+      "displayName": "ВАНЕСА 27",
       "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4002",
       "mps": [
         {
@@ -93,134 +220,60 @@
       ]
     },
     {
-      "slug": "ДЕНТАЛЕН-ЦЕНТЪР-ВИТА-Г",
-      "displayName": "Дентален център вита г",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4000",
-      "mps": [
-        {
-          "mpId": 2838,
-          "mpName": "Георги Йорданов Йорданов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2838,
-          "mpName": "Георги Йорданов Йорданов",
-          "role": "partner",
-          "isCurrent": false
-        }
-      ]
-    },
-    {
-      "slug": "ЮГ-МАРКЕТ",
-      "displayName": "ЮГ Маркет",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4003",
-      "mps": [
-        {
-          "mpId": 224,
-          "mpName": "Теодора Георгиева Якимова-Дренска",
-          "role": "representative",
-          "isCurrent": true
-        },
-        {
-          "mpId": 224,
-          "mpName": "Теодора Георгиева Якимова-Дренска",
-          "role": "director",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "агри-дрон-еоод",
-      "displayName": "агри дрон еоод",
-      "registeredOffice": "пловдив",
-      "mps": [
-        {
-          "mpId": 4826,
-          "mpName": "Борислав Климентов Петков",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4826,
-          "mpName": "Борислав Климентов Петков",
-          "role": "sole_owner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4826,
-          "mpName": "Борислав Климентов Петков",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "СМАРТ-ЧОЙС-ПРОПЪРТИ-ООД",
-      "displayName": "Смарт чойс пропърти ООД",
+      "slug": "Даикс-ООД",
+      "displayName": "Даикс ООД",
       "registeredOffice": "Пловдив",
       "mps": [
         {
-          "mpId": 4805,
-          "mpName": "Красимир Димчев Дончев",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4805,
-          "mpName": "Красимир Димчев Дончев",
-          "role": "sole_owner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4805,
-          "mpName": "Красимир Димчев Дончев",
+          "mpId": 2946,
+          "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
           "role": "declared_stake",
           "isCurrent": true
         }
       ]
     },
     {
-      "slug": "АГРОКОПТЕР-ЕВРОПА",
-      "displayName": "Агрокоптер европа",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4000",
+      "slug": "Даиксс-ЕООД",
+      "displayName": "Даиксс ЕООД",
+      "registeredOffice": "Пловдив",
       "mps": [
         {
-          "mpId": 4826,
-          "mpName": "Борислав Климентов Петков",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4826,
-          "mpName": "Борислав Климентов Петков",
-          "role": "sole_owner",
+          "mpId": 2946,
+          "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+          "role": "declared_stake",
           "isCurrent": true
         }
       ]
     },
     {
-      "slug": "АРХИТИЙМ-ДИЗАЙН",
-      "displayName": "Архитийм дизайн",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4000",
+      "slug": "Декодизайн-Груп-ООД",
+      "displayName": "Декодизайн Груп ООД",
+      "registeredOffice": "Пловдив",
       "mps": [
         {
-          "mpId": 5300,
-          "mpName": "Мирослав Николаев Иванов",
-          "role": "manager",
+          "mpId": 3351,
+          "mpName": "Мария Василева Капон",
+          "role": "declared_stake",
           "isCurrent": true
-        },
+        }
+      ]
+    },
+    {
+      "slug": "ДЖИ-ПИ-ЕС-Системи-българия-ООД",
+      "displayName": "ДЖИ ПИ ЕС Системи българия ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
         {
-          "mpId": 5300,
-          "mpName": "Мирослав Николаев Иванов",
-          "role": "sole_owner",
+          "mpId": 2946,
+          "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+          "role": "declared_stake",
           "isCurrent": true
         }
       ]
     },
     {
       "slug": "К.И.Д.-ФУУД-1926",
-      "displayName": "К.И.Д. Фууд 1926",
+      "displayName": "К.И.Д. ФУУД 1926",
       "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4002",
       "mps": [
         {
@@ -258,7 +311,7 @@
     },
     {
       "slug": "ЛИТЕРАТУРНА-АГЕНЦИЯ-СОФИЯ",
-      "displayName": "Литературна агенция софия",
+      "displayName": "ЛИТЕРАТУРНА АГЕНЦИЯ СОФИЯ",
       "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4004",
       "mps": [
         {
@@ -277,7 +330,7 @@
     },
     {
       "slug": "МАРТИН-ДИМИТРОВ-2021",
-      "displayName": "Мартин Димитров 2021",
+      "displayName": "МАРТИН ДИМИТРОВ 2021",
       "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4000",
       "mps": [
         {
@@ -295,8 +348,21 @@
       ]
     },
     {
+      "slug": "Нупсън-ООД",
+      "displayName": "Нупсън ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 3351,
+          "mpName": "Мария Василева Капон",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "СЛАВАС-2",
-      "displayName": "Славас 2",
+      "displayName": "СЛАВАС 2",
       "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4000",
       "mps": [
         {
@@ -315,7 +381,7 @@
     },
     {
       "slug": "Солар-КИС",
-      "displayName": "Солар Кис",
+      "displayName": "Солар КИС",
       "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4003",
       "mps": [
         {
@@ -328,214 +394,6 @@
           "mpId": 854,
           "mpName": "Стоян Иванов Иванов",
           "role": "sole_owner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "БЕНДИДА-21",
-      "displayName": "Бендида 21",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4003",
-      "mps": [
-        {
-          "mpId": 5005,
-          "mpName": "Стилиана Иванова Бобчева",
-          "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ДАТА-ИНТЕНСИВ",
-      "displayName": "Дата интенсив",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4000",
-      "mps": [
-        {
-          "mpId": 3625,
-          "mpName": "Йордан Янков Маджунков",
-          "role": "manager",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ДЖЕЙ-МЕНИДЖМЪНТ",
-      "displayName": "Джей мениджмънт",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4003",
-      "mps": [
-        {
-          "mpId": 5197,
-          "mpName": "Йордан Йовчев Йовчев",
-          "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ДжиЕсТи-Медиа",
-      "displayName": "ДжиЕсТи Медиа",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4002",
-      "mps": [
-        {
-          "mpId": 909,
-          "mpName": "Емил Димитров Гущеров",
-          "role": "manager",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Екс-Ес-Консулт",
-      "displayName": "Екс Ес Консулт",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4002",
-      "mps": [
-        {
-          "mpId": 5192,
-          "mpName": "Христо Симеонов Симеонов",
-          "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "МАЙ-ПАРТНЕРС",
-      "displayName": "МАЙ Партнерс",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4015",
-      "mps": [
-        {
-          "mpId": 2400,
-          "mpName": "Иван Кирилов Иванов",
-          "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "СТИЛУКС",
-      "displayName": "Стилукс",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4000",
-      "mps": [
-        {
-          "mpId": 819,
-          "mpName": "Петър Димитров Попов",
-          "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ЮГ-МАРКЕТ-ФОНД-МЕНИДЖМЪНТ",
-      "displayName": "ЮГ Маркет фонд мениджмънт",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4003",
-      "mps": [
-        {
-          "mpId": 224,
-          "mpName": "Теодора Георгиева Якимова-Дренска",
-          "role": "procurator",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Омега-2005-МГ-ЕООД",
-      "displayName": "\"Омега 2005 Мг\" ЕООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4809,
-          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Ралекс-ООД",
-      "displayName": "\"Ралекс\" ООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 4809,
-          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "БАРДУКОВ-ООД",
-      "displayName": "Бардуков ООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 3047,
-          "mpName": "НИКОЛА ХРИСТОВ КРЪСТЕВ",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ДАИКС-ООД",
-      "displayName": "Даикс ООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 2946,
-          "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ДАИКСС-ЕООД",
-      "displayName": "Даиксс ЕООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 2946,
-          "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Декодизайн-Груп-ООД",
-      "displayName": "Декодизайн Груп ООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 3351,
-          "mpName": "Мария Василева Капон",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ДЖИ-ПИ-ЕС-СИСТЕМИ-БЪЛГАРИЯ-ООД",
-      "displayName": "ДЖИ Пи ЕС системи българия ООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 2946,
-          "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "Нупсън-ООД",
-      "displayName": "Нупсън ООД",
-      "registeredOffice": "Пловдив",
-      "mps": [
-        {
-          "mpId": 3351,
-          "mpName": "Мария Василева Капон",
-          "role": "declared_stake",
           "isCurrent": true
         }
       ]
@@ -555,7 +413,7 @@
     },
     {
       "slug": "Тракия-ЕДУ",
-      "displayName": "Тракия Еду",
+      "displayName": "Тракия ЕДУ",
       "registeredOffice": "Пловдив",
       "mps": [
         {
@@ -580,8 +438,8 @@
       ]
     },
     {
-      "slug": "ЮГ-МАРКЕТ-2",
-      "displayName": "ЮГ Маркет",
+      "slug": "ЮГ-МАРКЕТ",
+      "displayName": "ЮГ МАРКЕТ",
       "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4003",
       "mps": [
         {
@@ -599,8 +457,21 @@
       ]
     },
     {
+      "slug": "БЕНДИДА-21",
+      "displayName": "БЕНДИДА 21",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4003",
+      "mps": [
+        {
+          "mpId": 5005,
+          "mpName": "Стилиана Иванова Бобчева",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "БИО-ПАК-БГ-ООД",
-      "displayName": "БИО Пак бг ООД",
+      "displayName": "БИО ПАК БГ ООД",
       "registeredOffice": "Пловдив",
       "mps": [
         {
@@ -664,7 +535,7 @@
       ]
     },
     {
-      "slug": "ГЛОБАЛ-ЧОЙС-ЕООД",
+      "slug": "Глобал-чойс-ЕООД",
       "displayName": "Глобал чойс ЕООД",
       "registeredOffice": "Пловдив",
       "mps": [
@@ -703,7 +574,59 @@
       ]
     },
     {
-      "slug": "ИСИТ-ДОКУМЕНТИ-ООД",
+      "slug": "ДАТА-ИНТЕНСИВ",
+      "displayName": "ДАТА ИНТЕНСИВ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4000",
+      "mps": [
+        {
+          "mpId": 3625,
+          "mpName": "Йордан Янков Маджунков",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДЖЕЙ-МЕНИДЖМЪНТ",
+      "displayName": "ДЖЕЙ МЕНИДЖМЪНТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4003",
+      "mps": [
+        {
+          "mpId": 5197,
+          "mpName": "Йордан Йовчев Йовчев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДжиЕсТи-Медиа",
+      "displayName": "ДжиЕсТи Медиа",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4002",
+      "mps": [
+        {
+          "mpId": 909,
+          "mpName": "Емил Димитров Гущеров",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Екс-Ес-Консулт",
+      "displayName": "Екс Ес Консулт",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4002",
+      "mps": [
+        {
+          "mpId": 5192,
+          "mpName": "Христо Симеонов Симеонов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Исит-документи-ООД",
       "displayName": "Исит документи ООД",
       "registeredOffice": "Пловдив",
       "mps": [
@@ -716,7 +639,7 @@
       ]
     },
     {
-      "slug": "ИСИТ-ООД",
+      "slug": "Исит-ООД",
       "displayName": "Исит ООД",
       "registeredOffice": "Пловдив",
       "mps": [
@@ -742,6 +665,32 @@
       ]
     },
     {
+      "slug": "МАЙ-ПАРТНЕРС",
+      "displayName": "МАЙ ПАРТНЕРС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4015",
+      "mps": [
+        {
+          "mpId": 2400,
+          "mpName": "Иван Кирилов Иванов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МАРМИТ-БГ",
+      "displayName": "МАРМИТ БГ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Пловдив, 4016",
+      "mps": [
+        {
+          "mpId": 564,
+          "mpName": "Димитър Илиев Димитров",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "Меге-инвесмънт-еоод",
       "displayName": "Меге инвесмънт еоод",
       "registeredOffice": "Пловдив",
@@ -756,7 +705,7 @@
     },
     {
       "slug": "ММ-93-Изола-ООД",
-      "displayName": "Мм 93 Изола ООД",
+      "displayName": "ММ 93 Изола ООД",
       "registeredOffice": "Пловдив",
       "mps": [
         {
@@ -775,6 +724,45 @@
         {
           "mpId": 4826,
           "mpName": "Борислав Климентов Петков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "оренда-тур-еоод",
+      "displayName": "оренда тур еоод",
+      "registeredOffice": "пловдив",
+      "mps": [
+        {
+          "mpId": 4826,
+          "mpName": "Борислав Климентов Петков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ПиДжейТи-Фешън-ООД",
+      "displayName": "ПиДжейТи Фешън ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 2847,
+          "mpName": "Георги Ченков Търновалийски",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Пропърти-груп-ТУР-ЕООД",
+      "displayName": "Пропърти груп ТУР ЕООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4805,
+          "mpName": "Красимир Димчев Дончев",
           "role": "declared_stake",
           "isCurrent": true
         }

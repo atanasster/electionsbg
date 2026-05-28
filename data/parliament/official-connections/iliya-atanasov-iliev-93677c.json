@@ -1,1 +1,167 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:iliya-atanasov-iliev-93677c","nodes":[{"id":"official:iliya-atanasov-iliev-93677c","type":"official","slug":"iliya-atanasov-iliev-93677c","label":"Илия Атанасов Илиев","tier":"municipal","role":"deputy_mayor","municipality":"Любимец"},{"id":"company:tr:206613567","type":"company","label":"БАЙКС УЪРЛД","slug":null,"uic":"206613567","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206718924","type":"company","label":"НОВА КОЛОР 85","slug":null,"uic":"206718924","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206940615","type":"company","label":"БИП-АУТО","slug":null,"uic":"206940615","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207035372","type":"company","label":"КоРенд","slug":null,"uic":"207035372","legalForm":null,"status":null,"seat":null},{"id":"official:atanas-iliev-atanasov-6e3c18","type":"official","slug":"atanas-iliev-atanasov-6e3c18","label":"Атанас Илиев Атанасов","tier":"municipal","role":"councillor","municipality":"Балчик"},{"id":"person:РАЛИЦА ВАЛЕНТИНОВА СТАТЕВА","type":"person","label":"Ралица Валентинова Статева"}],"edges":[{"source":"official:iliya-atanasov-iliev-93677c","target":"company:tr:206613567","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:iliya-atanasov-iliev-93677c","target":"company:tr:206613567","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:iliya-atanasov-iliev-93677c","target":"company:tr:206718924","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:iliya-atanasov-iliev-93677c","target":"company:tr:206940615","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:iliya-atanasov-iliev-93677c","target":"company:tr:207035372","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:iliya-atanasov-iliev-93677c","target":"company:tr:207035372","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:iliya-atanasov-iliev-93677c","target":"company:tr:206718924","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:iliya-atanasov-iliev-93677c","target":"company:tr:206940615","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:atanas-iliev-atanasov-6e3c18","target":"company:tr:206613567","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:atanas-iliev-atanasov-6e3c18","target":"company:tr:206613567","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:РАЛИЦА ВАЛЕНТИНОВА СТАТЕВА","target":"company:tr:207035372","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РАЛИЦА ВАЛЕНТИНОВА СТАТЕВА","target":"company:tr:207035372","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:iliya-atanasov-iliev-93677c",
+  "nodes": [
+    {
+      "id": "official:iliya-atanasov-iliev-93677c",
+      "type": "official",
+      "slug": "iliya-atanasov-iliev-93677c",
+      "label": "Илия Атанасов Илиев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Любимец"
+    },
+    {
+      "id": "company:tr:206613567",
+      "type": "company",
+      "label": "БАЙКС УЪРЛД",
+      "slug": null,
+      "uic": "206613567",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206718924",
+      "type": "company",
+      "label": "НОВА КОЛОР 85",
+      "slug": null,
+      "uic": "206718924",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206940615",
+      "type": "company",
+      "label": "БИП-АУТО",
+      "slug": null,
+      "uic": "206940615",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207035372",
+      "type": "company",
+      "label": "КоРенд",
+      "slug": null,
+      "uic": "207035372",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:atanas-iliev-atanasov-6e3c18",
+      "type": "official",
+      "slug": "atanas-iliev-atanasov-6e3c18",
+      "label": "Атанас Илиев Атанасов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Балчик"
+    },
+    {
+      "id": "person:РАЛИЦА ВАЛЕНТИНОВА СТАТЕВА",
+      "type": "person",
+      "label": "Ралица Валентинова Статева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliya-atanasov-iliev-93677c",
+      "target": "company:tr:206613567",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliya-atanasov-iliev-93677c",
+      "target": "company:tr:206613567",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliya-atanasov-iliev-93677c",
+      "target": "company:tr:206718924",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliya-atanasov-iliev-93677c",
+      "target": "company:tr:206940615",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliya-atanasov-iliev-93677c",
+      "target": "company:tr:207035372",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliya-atanasov-iliev-93677c",
+      "target": "company:tr:207035372",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliya-atanasov-iliev-93677c",
+      "target": "company:tr:206718924",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliya-atanasov-iliev-93677c",
+      "target": "company:tr:206940615",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-iliev-atanasov-6e3c18",
+      "target": "company:tr:206613567",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-iliev-atanasov-6e3c18",
+      "target": "company:tr:206613567",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАЛИЦА ВАЛЕНТИНОВА СТАТЕВА",
+      "target": "company:tr:207035372",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ВАЛЕНТИНОВА СТАТЕВА",
+      "target": "company:tr:207035372",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

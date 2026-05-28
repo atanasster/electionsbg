@@ -1,1 +1,134 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:hristo-atanasov-hristov-0b8299","nodes":[{"id":"official:hristo-atanasov-hristov-0b8299","type":"official","slug":"hristo-atanasov-hristov-0b8299","label":"Христо Атанасов Христов","tier":"municipal","role":"mayor","municipality":"Шумен"},{"id":"company:tr:206666395","type":"company","label":"ЕЙ ЕС ТИ ИНВЕСТ","slug":null,"uic":"206666395","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206821422","type":"company","label":"Х ТЕРРА","slug":null,"uic":"206821422","legalForm":null,"status":null,"seat":null},{"id":"person:МУСТАФА ШЕНЙЪЛДЪЗ","type":"person","label":"Мустафа Шенйълдъз"},{"id":"person:ХИКМЕТ КЬОКДЖАМ","type":"person","label":"Хикмет Кьокджам"},{"id":"person:АДЕМ ЮГУТ","type":"person","label":"Адем Югут"},{"id":"person:МУАМЕР АТЕШ","type":"person","label":"Муамер Атеш"},{"id":"person:ЗЕЙНАЛ БАЙРАК","type":"person","label":"Зейнал Байрак"}],"edges":[{"source":"official:hristo-atanasov-hristov-0b8299","target":"company:tr:206666395","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-atanasov-hristov-0b8299","target":"company:tr:206666395","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-atanasov-hristov-0b8299","target":"company:tr:206821422","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-atanasov-hristov-0b8299","target":"company:tr:206821422","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:МУСТАФА ШЕНЙЪЛДЪЗ","target":"company:tr:206666395","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ХИКМЕТ КЬОКДЖАМ","target":"company:tr:206666395","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АДЕМ ЮГУТ","target":"company:tr:206666395","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МУАМЕР АТЕШ","target":"company:tr:206666395","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЗЕЙНАЛ БАЙРАК","target":"company:tr:206666395","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:hristo-atanasov-hristov-0b8299",
+  "nodes": [
+    {
+      "id": "official:hristo-atanasov-hristov-0b8299",
+      "type": "official",
+      "slug": "hristo-atanasov-hristov-0b8299",
+      "label": "Христо Атанасов Христов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Шумен"
+    },
+    {
+      "id": "company:tr:206666395",
+      "type": "company",
+      "label": "ЕЙ ЕС ТИ ИНВЕСТ",
+      "slug": null,
+      "uic": "206666395",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206821422",
+      "type": "company",
+      "label": "Х ТЕРРА",
+      "slug": null,
+      "uic": "206821422",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МУСТАФА ШЕНЙЪЛДЪЗ",
+      "type": "person",
+      "label": "Мустафа Шенйълдъз"
+    },
+    {
+      "id": "person:ХИКМЕТ КЬОКДЖАМ",
+      "type": "person",
+      "label": "Хикмет Кьокджам"
+    },
+    {
+      "id": "person:АДЕМ ЮГУТ",
+      "type": "person",
+      "label": "Адем Югут"
+    },
+    {
+      "id": "person:МУАМЕР АТЕШ",
+      "type": "person",
+      "label": "Муамер Атеш"
+    },
+    {
+      "id": "person:ЗЕЙНАЛ БАЙРАК",
+      "type": "person",
+      "label": "Зейнал Байрак"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-atanasov-hristov-0b8299",
+      "target": "company:tr:206666395",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-atanasov-hristov-0b8299",
+      "target": "company:tr:206666395",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-atanasov-hristov-0b8299",
+      "target": "company:tr:206821422",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-atanasov-hristov-0b8299",
+      "target": "company:tr:206821422",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МУСТАФА ШЕНЙЪЛДЪЗ",
+      "target": "company:tr:206666395",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХИКМЕТ КЬОКДЖАМ",
+      "target": "company:tr:206666395",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДЕМ ЮГУТ",
+      "target": "company:tr:206666395",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУАМЕР АТЕШ",
+      "target": "company:tr:206666395",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЕЙНАЛ БАЙРАК",
+      "target": "company:tr:206666395",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

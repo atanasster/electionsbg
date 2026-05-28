@@ -1,1 +1,116 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:mihail-vasilev-mihailov-60c3e1","nodes":[{"id":"official:mihail-vasilev-mihailov-60c3e1","type":"official","slug":"mihail-vasilev-mihailov-60c3e1","label":"Михаил Василев Михайлов","tier":"municipal","role":"councillor","municipality":"Самоков"},{"id":"company:tr:205675199","type":"company","label":"СИЯ - 2","slug":null,"uic":"205675199","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203480250","type":"company","label":"ММ 44","slug":null,"uic":"203480250","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206918501","type":"company","label":"Трейд 99","slug":null,"uic":"206918501","legalForm":null,"status":null,"seat":null},{"id":"person:РАДОСЛАВ ЛЮБЕНОВ КЕРЕМЕДЧИЙСКИ","type":"person","label":"Радослав Любенов Керемедчийски"}],"edges":[{"source":"official:mihail-vasilev-mihailov-60c3e1","target":"company:tr:205675199","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:mihail-vasilev-mihailov-60c3e1","target":"company:tr:203480250","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:mihail-vasilev-mihailov-60c3e1","target":"company:tr:203480250","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:mihail-vasilev-mihailov-60c3e1","target":"company:tr:206918501","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:mihail-vasilev-mihailov-60c3e1","target":"company:tr:205675199","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:mihail-vasilev-mihailov-60c3e1","target":"company:tr:206918501","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:РАДОСЛАВ ЛЮБЕНОВ КЕРЕМЕДЧИЙСКИ","target":"company:tr:203480250","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ ЛЮБЕНОВ КЕРЕМЕДЧИЙСКИ","target":"company:tr:203480250","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:mihail-vasilev-mihailov-60c3e1",
+  "nodes": [
+    {
+      "id": "official:mihail-vasilev-mihailov-60c3e1",
+      "type": "official",
+      "slug": "mihail-vasilev-mihailov-60c3e1",
+      "label": "Михаил Василев Михайлов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Самоков"
+    },
+    {
+      "id": "company:tr:205675199",
+      "type": "company",
+      "label": "СИЯ - 2",
+      "slug": null,
+      "uic": "205675199",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203480250",
+      "type": "company",
+      "label": "ММ 44",
+      "slug": null,
+      "uic": "203480250",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206918501",
+      "type": "company",
+      "label": "Трейд 99",
+      "slug": null,
+      "uic": "206918501",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДОСЛАВ ЛЮБЕНОВ КЕРЕМЕДЧИЙСКИ",
+      "type": "person",
+      "label": "Радослав Любенов Керемедчийски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-vasilev-mihailov-60c3e1",
+      "target": "company:tr:205675199",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mihail-vasilev-mihailov-60c3e1",
+      "target": "company:tr:203480250",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mihail-vasilev-mihailov-60c3e1",
+      "target": "company:tr:203480250",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mihail-vasilev-mihailov-60c3e1",
+      "target": "company:tr:206918501",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mihail-vasilev-mihailov-60c3e1",
+      "target": "company:tr:205675199",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mihail-vasilev-mihailov-60c3e1",
+      "target": "company:tr:206918501",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДОСЛАВ ЛЮБЕНОВ КЕРЕМЕДЧИЙСКИ",
+      "target": "company:tr:203480250",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ЛЮБЕНОВ КЕРЕМЕДЧИЙСКИ",
+      "target": "company:tr:203480250",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

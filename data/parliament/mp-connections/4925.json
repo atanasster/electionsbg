@@ -1,1 +1,136 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:4925","nodes":[{"id":"mp:4925","type":"mp","mpId":4925,"label":"Мюмюн Сали Мюмюн","partyGroupShort":"АПС","isCurrent":false,"nsFolders":["47","49","50"]},{"id":"company:ГРИЙН-КАСЪЛ-ГРУП-ЕООД","type":"company","label":"ГРИЙН КАСЪЛ ГРУП ЕООД","slug":"ГРИЙН-КАСЪЛ-ГРУП-ЕООД","uic":"206828527","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1700"},{"id":"company:ГРИЙН-КАСЪЛ-ЕООД","type":"company","label":"ГРИЙН КАСЪЛ ЕООД","slug":"ГРИЙН-КАСЪЛ-ЕООД","uic":"204960149","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1700"},{"id":"company:Джени-спорт-ЕООД","type":"company","label":"Джени спорт ЕООД","slug":"Джени-спорт-ЕООД","uic":"200502607","legalForm":"EOOD","status":"active","seat":"ХАСКОВО"},{"id":"company:МБМ-Гийн-Инценеринг","type":"company","label":"МБМ Гийн Инценеринг","slug":"МБМ-Гийн-Инценеринг","uic":null,"legalForm":null,"status":null,"seat":"ХАСКОВО"},{"id":"person:САЛИ МЮМЮН ФЕИМ","type":"person","label":"Сали Мюмюн Феим"},{"id":"person:СЕЙХАН САЛИ МЮМЮН","type":"person","label":"Сейхан Сали Мюмюн"}],"edges":[{"source":"mp:4925","target":"company:ГРИЙН-КАСЪЛ-ГРУП-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4925","target":"company:ГРИЙН-КАСЪЛ-ГРУП-ЕООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:4925","target":"company:ГРИЙН-КАСЪЛ-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4925","target":"company:Джени-спорт-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4925","target":"company:МБМ-Гийн-Инценеринг","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:САЛИ МЮМЮН ФЕИМ","target":"company:ГРИЙН-КАСЪЛ-ГРУП-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:САЛИ МЮМЮН ФЕИМ","target":"company:ГРИЙН-КАСЪЛ-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СЕЙХАН САЛИ МЮМЮН","target":"company:Джени-спорт-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:4925",
+  "nodes": [
+    {
+      "id": "mp:4925",
+      "type": "mp",
+      "mpId": 4925,
+      "label": "Мюмюн Сали Мюмюн",
+      "partyGroupShort": "АПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "company:Грийн-касъл-груп-ЕООД",
+      "type": "company",
+      "label": "Грийн касъл груп ЕООД",
+      "slug": "Грийн-касъл-груп-ЕООД",
+      "uic": "206828527",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700"
+    },
+    {
+      "id": "company:Грийн-касъл-ЕООД",
+      "type": "company",
+      "label": "Грийн касъл ЕООД",
+      "slug": "Грийн-касъл-ЕООД",
+      "uic": "204960149",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700"
+    },
+    {
+      "id": "company:Джени-спорт-ЕООД",
+      "type": "company",
+      "label": "Джени спорт ЕООД",
+      "slug": "Джени-спорт-ЕООД",
+      "uic": "200502607",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "ХАСКОВО"
+    },
+    {
+      "id": "company:МБМ-Гийн-Инценеринг",
+      "type": "company",
+      "label": "МБМ Гийн Инценеринг",
+      "slug": "МБМ-Гийн-Инценеринг",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "ХАСКОВО"
+    },
+    {
+      "id": "person:САЛИ МЮМЮН ФЕИМ",
+      "type": "person",
+      "label": "Сали Мюмюн Феим"
+    },
+    {
+      "id": "person:СЕЙХАН САЛИ МЮМЮН",
+      "type": "person",
+      "label": "Сейхан Сали Мюмюн"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4925",
+      "target": "company:Грийн-касъл-груп-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4925",
+      "target": "company:Грийн-касъл-груп-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4925",
+      "target": "company:Грийн-касъл-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4925",
+      "target": "company:Джени-спорт-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4925",
+      "target": "company:МБМ-Гийн-Инценеринг",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САЛИ МЮМЮН ФЕИМ",
+      "target": "company:Грийн-касъл-груп-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САЛИ МЮМЮН ФЕИМ",
+      "target": "company:Грийн-касъл-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЙХАН САЛИ МЮМЮН",
+      "target": "company:Джени-спорт-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

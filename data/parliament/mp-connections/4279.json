@@ -1,1 +1,47 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:4279","nodes":[{"id":"mp:4279","type":"mp","mpId":4279,"label":"Хатидже Мехмедова Георгиева","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["45","48"]},{"id":"company:ГХ-Премиум","type":"company","label":"ГХ Премиум","slug":"ГХ-Премиум","uic":"208815813","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, с. Садово, 8463"}],"edges":[{"source":"mp:4279","target":"company:ГХ-Премиум","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4279","target":"company:ГХ-Премиум","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:4279",
+  "nodes": [
+    {
+      "id": "mp:4279",
+      "type": "mp",
+      "mpId": 4279,
+      "label": "Хатидже Мехмедова Георгиева",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "48"
+      ]
+    },
+    {
+      "id": "company:tr:208815813",
+      "type": "company",
+      "label": "ГХ Премиум",
+      "slug": null,
+      "uic": "208815813",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Садово, 8463"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4279",
+      "target": "company:tr:208815813",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4279",
+      "target": "company:tr:208815813",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

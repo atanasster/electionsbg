@@ -1,11 +1,69 @@
 {
   "obshtina": "VAR06",
   "count": 95,
-  "mpCount": 45,
+  "mpCount": 44,
   "totalPages": 2,
   "topCompanies": [
     {
-      "slug": "ФАКЛА-ЕАД",
+      "slug": "Наба-Йистгруп-ООД",
+      "displayName": "Наба Йистгруп ООД",
+      "registeredOffice": "Варна",
+      "mps": [
+        {
+          "mpId": 4734,
+          "mpName": "Бранимир Николаев Балачев",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4734,
+          "mpName": "Бранимир Николаев Балачев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Горичански-път-ООД",
+      "displayName": "Горичански път ООД",
+      "registeredOffice": "ВАРНА",
+      "mps": [
+        {
+          "mpId": 4190,
+          "mpName": "КАЛОЯН ТОНЕВ ИКОНОМОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Перинея-ООД",
+      "displayName": "Перинея ООД",
+      "registeredOffice": "ВАРНА",
+      "mps": [
+        {
+          "mpId": 4190,
+          "mpName": "КАЛОЯН ТОНЕВ ИКОНОМОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Перинея-Балчик-ООД",
+      "displayName": "Перинея-Балчик ООД",
+      "registeredOffice": "ВАРНА",
+      "mps": [
+        {
+          "mpId": 4190,
+          "mpName": "КАЛОЯН ТОНЕВ ИКОНОМОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Факла-ЕАД",
       "displayName": "Факла ЕАД",
       "registeredOffice": "ВАРНА",
       "mps": [
@@ -31,82 +89,6 @@
           "mpId": 5007,
           "mpName": "Красимира Петкова Нинова-Катинчарова",
           "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "АМБУЛАТОРИЯ-ЗА-СПЕЦИАЛИЗИРАНА-МЕДИЦИНСКА-ПОМОЩ-ГРУПОВА-ПРАКТИКА-ОРТОЛАЙФ",
-      "displayName": "Амбулатория за специализирана Медицинска помощ - Групова практика \"Ортолайф\"",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9000",
-      "mps": [
-        {
-          "mpId": 854,
-          "mpName": "Стоян Иванов Иванов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 854,
-          "mpName": "Стоян Иванов Иванов",
-          "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "БАР-ЛИДЕР",
-      "displayName": "БАР - Лидер",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9010",
-      "mps": [
-        {
-          "mpId": 176,
-          "mpName": "Георги Йорданов Димитров",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 176,
-          "mpName": "Георги Йорданов Димитров",
-          "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "БМВ-ИНВЕСТ",
-      "displayName": "БМВ Инвест",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9004",
-      "mps": [
-        {
-          "mpId": 2679,
-          "mpName": "Боряна Любенова Георгиева",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2679,
-          "mpName": "Боряна Любенова Георгиева",
-          "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ГЛОРИ-ЛИЙВС",
-      "displayName": "Глори лийвс",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Варна, 9000",
-      "mps": [
-        {
-          "mpId": 5218,
-          "mpName": "Ивайло Христов Христов",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 5218,
-          "mpName": "Ивайло Христов Христов",
-          "role": "partner",
           "isCurrent": true
         }
       ]

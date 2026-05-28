@@ -1,1 +1,134 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:nikolai-stefanov-stefanov-8dbc8b","nodes":[{"id":"official:nikolai-stefanov-stefanov-8dbc8b","type":"official","slug":"nikolai-stefanov-stefanov-8dbc8b","label":"Николай Стефанов Стефанов","tier":"municipal","role":"councillor","municipality":"Варна"},{"id":"company:tr:103832672","type":"company","label":"ОВЪРСИЙЗ ШИПИНГ","slug":null,"uic":"103832672","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203351939","type":"company","label":"АВРОРА 2015","slug":null,"uic":"203351939","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205681636","type":"company","label":"КОРЕКТ РЕНТ ВАРНА","slug":null,"uic":"205681636","legalForm":null,"status":null,"seat":null},{"id":"person:РУБИН БИСЕРОВ КОЦЕВ","type":"person","label":"Рубин Бисеров Коцев"},{"id":"person:ДОБРОМИР БОРИСЛАВОВ АРНАУДОВ","type":"person","label":"Добромир Бориславов Арнаудов"},{"id":"person:СВЕТОСЛАВ ВЕСКОВ ИЛИЕВ","type":"person","label":"Светослав Весков Илиев"}],"edges":[{"source":"official:nikolai-stefanov-stefanov-8dbc8b","target":"company:tr:103832672","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-stefanov-stefanov-8dbc8b","target":"company:tr:203351939","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-stefanov-stefanov-8dbc8b","target":"company:tr:205681636","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-stefanov-stefanov-8dbc8b","target":"company:tr:205681636","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:РУБИН БИСЕРОВ КОЦЕВ","target":"company:tr:103832672","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРОМИР БОРИСЛАВОВ АРНАУДОВ","target":"company:tr:205681636","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ВЕСКОВ ИЛИЕВ","target":"company:tr:205681636","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ВЕСКОВ ИЛИЕВ","target":"company:tr:205681636","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРОМИР БОРИСЛАВОВ АРНАУДОВ","target":"company:tr:205681636","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:nikolai-stefanov-stefanov-8dbc8b",
+  "nodes": [
+    {
+      "id": "official:nikolai-stefanov-stefanov-8dbc8b",
+      "type": "official",
+      "slug": "nikolai-stefanov-stefanov-8dbc8b",
+      "label": "Николай Стефанов Стефанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна"
+    },
+    {
+      "id": "company:tr:103832672",
+      "type": "company",
+      "label": "ОВЪРСИЙЗ ШИПИНГ",
+      "slug": null,
+      "uic": "103832672",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203351939",
+      "type": "company",
+      "label": "АВРОРА 2015",
+      "slug": null,
+      "uic": "203351939",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205681636",
+      "type": "company",
+      "label": "КОРЕКТ РЕНТ ВАРНА",
+      "slug": null,
+      "uic": "205681636",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУБИН БИСЕРОВ КОЦЕВ",
+      "type": "person",
+      "label": "Рубин Бисеров Коцев"
+    },
+    {
+      "id": "person:ДОБРОМИР БОРИСЛАВОВ АРНАУДОВ",
+      "type": "person",
+      "label": "Добромир Бориславов Арнаудов"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ВЕСКОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Светослав Весков Илиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-stefanov-stefanov-8dbc8b",
+      "target": "company:tr:103832672",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-stefanov-stefanov-8dbc8b",
+      "target": "company:tr:203351939",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-stefanov-stefanov-8dbc8b",
+      "target": "company:tr:205681636",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-stefanov-stefanov-8dbc8b",
+      "target": "company:tr:205681636",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУБИН БИСЕРОВ КОЦЕВ",
+      "target": "company:tr:103832672",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР БОРИСЛАВОВ АРНАУДОВ",
+      "target": "company:tr:205681636",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ВЕСКОВ ИЛИЕВ",
+      "target": "company:tr:205681636",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ВЕСКОВ ИЛИЕВ",
+      "target": "company:tr:205681636",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР БОРИСЛАВОВ АРНАУДОВ",
+      "target": "company:tr:205681636",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

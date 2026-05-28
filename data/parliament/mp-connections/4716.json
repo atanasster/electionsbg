@@ -1,1 +1,254 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:4716","nodes":[{"id":"mp:4716","type":"mp","mpId":4716,"label":"Венцислав Иванов Петков","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["47"]},{"id":"company:НАЦИОНАЛНА-СПОРТНА-БАЗА","type":"company","label":"НАЦИОНАЛНА СПОРТНА БАЗА","slug":"НАЦИОНАЛНА-СПОРТНА-БАЗА","uic":"831635354","legalForm":"EAD","status":"active","seat":null},{"id":"person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ","type":"person","label":"Владислав Бисеров Божиков"},{"id":"person:МАРТИН ПРОДАНОВ АРСОВ","type":"person","label":"Мартин Проданов Арсов"},{"id":"person:НЕВЕНА МИНЧЕВА ПОЛИМЕНОВА-ТОШМАКОВА","type":"person","label":"Невена Минчева Полименова-Тошмакова"},{"id":"person:РУМЕН АНГЕЛОВ МУРАТЕВ","type":"person","label":"Румен Ангелов Муратев"},{"id":"person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ","type":"person","label":"Светослав Ивославов Русинов"},{"id":"person:ВИКТОР АНТОНОВ ПОПОВ","type":"person","label":"Виктор Антонов Попов"},{"id":"mp:5197","type":"mp","mpId":5197,"label":"Йордан Йовчев Йовчев","partyGroupShort":"ПГ на Прогресивна България","isCurrent":true,"nsFolders":["52"]},{"id":"person:ДАНАИЛ РУСЕВ ДИМОВ","type":"person","label":"Данаил Русев Димов"}],"edges":[{"source":"mp:4716","target":"company:НАЦИОНАЛНА-СПОРТНА-БАЗА","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"mp:4716","target":"company:НАЦИОНАЛНА-СПОРТНА-БАЗА","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ","target":"company:НАЦИОНАЛНА-СПОРТНА-БАЗА","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ПРОДАНОВ АРСОВ","target":"company:НАЦИОНАЛНА-СПОРТНА-БАЗА","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НЕВЕНА МИНЧЕВА ПОЛИМЕНОВА-ТОШМАКОВА","target":"company:НАЦИОНАЛНА-СПОРТНА-БАЗА","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН АНГЕЛОВ МУРАТЕВ","target":"company:НАЦИОНАЛНА-СПОРТНА-БАЗА","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ","target":"company:НАЦИОНАЛНА-СПОРТНА-БАЗА","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ","target":"company:НАЦИОНАЛНА-СПОРТНА-БАЗА","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОР АНТОНОВ ПОПОВ","target":"company:НАЦИОНАЛНА-СПОРТНА-БАЗА","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:5197","target":"company:НАЦИОНАЛНА-СПОРТНА-БАЗА","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДАНАИЛ РУСЕВ ДИМОВ","target":"company:НАЦИОНАЛНА-СПОРТНА-БАЗА","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:5197","length":2,"nodeIds":["mp:4716","company:НАЦИОНАЛНА-СПОРТНА-БАЗА","mp:5197"],"isAllCurrent":true,"isAllHighConfidence":true}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:4716",
+  "nodes": [
+    {
+      "id": "mp:4716",
+      "type": "mp",
+      "mpId": 4716,
+      "label": "Венцислав Иванов Петков",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47"
+      ]
+    },
+    {
+      "id": "company:tr:831635354",
+      "type": "company",
+      "label": "НАЦИОНАЛНА СПОРТНА БАЗА",
+      "slug": null,
+      "uic": "831635354",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:5197",
+      "type": "mp",
+      "mpId": 5197,
+      "label": "Йордан Йовчев Йовчев",
+      "partyGroupShort": "ПГ на Прогресивна България",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ",
+      "type": "person",
+      "label": "Владислав Бисеров Божиков"
+    },
+    {
+      "id": "person:МАРТИН ПРОДАНОВ АРСОВ",
+      "type": "person",
+      "label": "Мартин Проданов Арсов"
+    },
+    {
+      "id": "person:НЕВЕНА МИНЧЕВА ПОЛИМЕНОВА-ТОШМАКОВА",
+      "type": "person",
+      "label": "Невена Минчева Полименова-Тошмакова"
+    },
+    {
+      "id": "person:РУМЕН АНГЕЛОВ МУРАТЕВ",
+      "type": "person",
+      "label": "Румен Ангелов Муратев"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ",
+      "type": "person",
+      "label": "Светослав Ивославов Русинов"
+    },
+    {
+      "id": "person:ВИКТОР АНТОНОВ ПОПОВ",
+      "type": "person",
+      "label": "Виктор Антонов Попов"
+    },
+    {
+      "id": "person:ДАНАИЛ РУСЕВ ДИМОВ",
+      "type": "person",
+      "label": "Данаил Русев Димов"
+    },
+    {
+      "id": "company:tr:130345786",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ И СПЕШНА МЕДИЦИНА Н.И. ПИРОГОВ",
+      "slug": null,
+      "uic": "130345786",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3655",
+      "type": "mp",
+      "mpId": 3655,
+      "label": "Асен Георгиев Балтов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:3169",
+      "type": "mp",
+      "mpId": 3169,
+      "label": "Пламен Иванов Милев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4716",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4716",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5197",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ПРОДАНОВ АРСОВ",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА МИНЧЕВА ПОЛИМЕНОВА-ТОШМАКОВА",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН АНГЕЛОВ МУРАТЕВ",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР АНТОНОВ ПОПОВ",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ РУСЕВ ДИМОВ",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3169",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3655",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5197",
+      "length": 2,
+      "nodeIds": [
+        "mp:4716",
+        "company:tr:831635354",
+        "mp:5197"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3655",
+      "length": 4,
+      "nodeIds": [
+        "mp:4716",
+        "company:tr:831635354",
+        "person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ",
+        "company:tr:130345786",
+        "mp:3655"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3169",
+      "length": 4,
+      "nodeIds": [
+        "mp:4716",
+        "company:tr:831635354",
+        "person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ",
+        "company:tr:130345786",
+        "mp:3169"
+      ],
+      "isAllCurrent": false,
+      "isAllHighConfidence": false
+    }
+  ]
+}

@@ -1,1 +1,56 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:milcho-petrov-bashev-546985","nodes":[{"id":"official:milcho-petrov-bashev-546985","type":"official","slug":"milcho-petrov-bashev-546985","label":"Милчо Петров Башев","tier":"municipal","role":"mayor","municipality":"Грамада"},{"id":"company:tr:207069403","type":"company","label":"\"Екосолар-ДМ\"ЕООД","slug":null,"uic":"207069403","legalForm":null,"status":null,"seat":null},{"id":"person:ДАНИЕЛА ИВАНОВА БАШЕВА","type":"person","label":"Даниела Иванова Башева"}],"edges":[{"source":"official:milcho-petrov-bashev-546985","target":"company:tr:207069403","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ИВАНОВА БАШЕВА","target":"company:tr:207069403","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ИВАНОВА БАШЕВА","target":"company:tr:207069403","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:milcho-petrov-bashev-546985",
+  "nodes": [
+    {
+      "id": "official:milcho-petrov-bashev-546985",
+      "type": "official",
+      "slug": "milcho-petrov-bashev-546985",
+      "label": "Милчо Петров Башев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Грамада"
+    },
+    {
+      "id": "company:tr:207069403",
+      "type": "company",
+      "label": "\"Екосолар-ДМ\"ЕООД",
+      "slug": null,
+      "uic": "207069403",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАНИЕЛА ИВАНОВА БАШЕВА",
+      "type": "person",
+      "label": "Даниела Иванова Башева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milcho-petrov-bashev-546985",
+      "target": "company:tr:207069403",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ИВАНОВА БАШЕВА",
+      "target": "company:tr:207069403",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ИВАНОВА БАШЕВА",
+      "target": "company:tr:207069403",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,131 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:stefan-lyubomirov-kolarov-e75fbc","nodes":[{"id":"official:stefan-lyubomirov-kolarov-e75fbc","type":"official","slug":"stefan-lyubomirov-kolarov-e75fbc","label":"Стефан Любомиров Коларов","tier":"municipal","role":"councillor","municipality":"Ракитово"},{"id":"company:tr:205076908","type":"company","label":"БУЛЕКО ТРАНС ООД","slug":null,"uic":"205076908","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206057152","type":"company","label":"АВТОПОТРЕБИ ВЕЛИНГРАД ООД","slug":null,"uic":"206057152","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206715091","type":"company","label":"Ауто-Хоум Груп","slug":null,"uic":"206715091","legalForm":null,"status":null,"seat":null},{"id":"company:name:БУЛЕКО-2000","type":"company","label":"\"БУЛЕКО-2000\" ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ЕМИЛ СВЕТЛИНОВ ТАРАШЕВ","type":"person","label":"Емил Светлинов Тарашев"},{"id":"person:ЙОРДАН МАРИНОВ ТОДОРОВ","type":"person","label":"Йордан Маринов Тодоров"}],"edges":[{"source":"official:stefan-lyubomirov-kolarov-e75fbc","target":"company:tr:205076908","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:stefan-lyubomirov-kolarov-e75fbc","target":"company:tr:206057152","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:stefan-lyubomirov-kolarov-e75fbc","target":"company:tr:206057152","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:stefan-lyubomirov-kolarov-e75fbc","target":"company:tr:206715091","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"company:name:БУЛЕКО-2000","target":"company:tr:206057152","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ СВЕТЛИНОВ ТАРАШЕВ","target":"company:tr:206715091","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ СВЕТЛИНОВ ТАРАШЕВ","target":"company:tr:206715091","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН МАРИНОВ ТОДОРОВ","target":"company:tr:206715091","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:stefan-lyubomirov-kolarov-e75fbc",
+  "nodes": [
+    {
+      "id": "official:stefan-lyubomirov-kolarov-e75fbc",
+      "type": "official",
+      "slug": "stefan-lyubomirov-kolarov-e75fbc",
+      "label": "Стефан Любомиров Коларов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ракитово"
+    },
+    {
+      "id": "company:tr:205076908",
+      "type": "company",
+      "label": "БУЛЕКО ТРАНС ООД",
+      "slug": null,
+      "uic": "205076908",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206057152",
+      "type": "company",
+      "label": "АВТОПОТРЕБИ ВЕЛИНГРАД ООД",
+      "slug": null,
+      "uic": "206057152",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206715091",
+      "type": "company",
+      "label": "Ауто-Хоум Груп",
+      "slug": null,
+      "uic": "206715091",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:БУЛЕКО-2000",
+      "type": "company",
+      "label": "\"БУЛЕКО-2000\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕМИЛ СВЕТЛИНОВ ТАРАШЕВ",
+      "type": "person",
+      "label": "Емил Светлинов Тарашев"
+    },
+    {
+      "id": "person:ЙОРДАН МАРИНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Йордан Маринов Тодоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-lyubomirov-kolarov-e75fbc",
+      "target": "company:tr:205076908",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-lyubomirov-kolarov-e75fbc",
+      "target": "company:tr:206057152",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-lyubomirov-kolarov-e75fbc",
+      "target": "company:tr:206057152",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-lyubomirov-kolarov-e75fbc",
+      "target": "company:tr:206715091",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:БУЛЕКО-2000",
+      "target": "company:tr:206057152",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ СВЕТЛИНОВ ТАРАШЕВ",
+      "target": "company:tr:206715091",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ СВЕТЛИНОВ ТАРАШЕВ",
+      "target": "company:tr:206715091",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН МАРИНОВ ТОДОРОВ",
+      "target": "company:tr:206715091",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -5,7 +5,7 @@
   "totalPages": 1,
   "topCompanies": [
     {
-      "slug": "АКАУНТ-КОМЕРС-2",
+      "slug": "Акаунт-комерс-2",
       "displayName": "Акаунт комерс 2",
       "registeredOffice": "Кюстендил",
       "mps": [
@@ -24,7 +24,7 @@
       ]
     },
     {
-      "slug": "ЛАЙТ-ТРАНС-1",
+      "slug": "Лайт-транс-1",
       "displayName": "Лайт транс 1",
       "registeredOffice": "Кюстендил",
       "mps": [
@@ -43,20 +43,7 @@
       ]
     },
     {
-      "slug": "БЕЛЧИН-1",
-      "displayName": "Белчин 1",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Кюстендил, 2500",
-      "mps": [
-        {
-          "mpId": 3157,
-          "mpName": "Михаела Ясенова Крумова",
-          "role": "partner",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "АВТО-ГРУП-ООД",
+      "slug": "Авто-груп-ООД",
       "displayName": "Авто груп ООД",
       "registeredOffice": "Кюстендил",
       "mps": [
@@ -69,7 +56,7 @@
       ]
     },
     {
-      "slug": "АКАУНТ-КОМЕРС",
+      "slug": "Акаунт-комерс",
       "displayName": "Акаунт комерс",
       "registeredOffice": "Кюстендил",
       "mps": [
@@ -77,6 +64,19 @@
           "mpId": 4935,
           "mpName": "СНЕЖАНКА РАЙЧОВА ТРАЯНСКА",
           "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "БЕЛЧИН-1",
+      "displayName": "БЕЛЧИН 1",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Кюстендил, 2500",
+      "mps": [
+        {
+          "mpId": 3157,
+          "mpName": "Михаела Ясенова Крумова",
+          "role": "partner",
           "isCurrent": true
         }
       ]

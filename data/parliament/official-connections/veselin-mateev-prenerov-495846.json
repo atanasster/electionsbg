@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:veselin-mateev-prenerov-495846","nodes":[{"id":"official:veselin-mateev-prenerov-495846","type":"official","slug":"veselin-mateev-prenerov-495846","label":"Веселин Матеев Пренеров","tier":"municipal","role":"councillor","municipality":"Бургас"},{"id":"company:tr:203034013","type":"company","label":"Тулан Сателайт ЕООД","slug":null,"uic":"203034013","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:veselin-mateev-prenerov-495846","target":"company:tr:203034013","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:veselin-mateev-prenerov-495846",
+  "nodes": [
+    {
+      "id": "official:veselin-mateev-prenerov-495846",
+      "type": "official",
+      "slug": "veselin-mateev-prenerov-495846",
+      "label": "Веселин Матеев Пренеров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас"
+    },
+    {
+      "id": "company:tr:203034013",
+      "type": "company",
+      "label": "Тулан Сателайт ЕООД",
+      "slug": null,
+      "uic": "203034013",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselin-mateev-prenerov-495846",
+      "target": "company:tr:203034013",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:mariya-hristova-ilcheva-ivanova-88e42c","nodes":[{"id":"official:mariya-hristova-ilcheva-ivanova-88e42c","type":"official","slug":"mariya-hristova-ilcheva-ivanova-88e42c","label":"Мария Христова Илчева-Иванова","tier":"municipal","role":"councillor","municipality":"Силистра"},{"id":"company:tr:205339519","type":"company","label":"\"М.Илчева Дизайн\" ЕООД","slug":null,"uic":"205339519","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:mariya-hristova-ilcheva-ivanova-88e42c","target":"company:tr:205339519","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:mariya-hristova-ilcheva-ivanova-88e42c",
+  "nodes": [
+    {
+      "id": "official:mariya-hristova-ilcheva-ivanova-88e42c",
+      "type": "official",
+      "slug": "mariya-hristova-ilcheva-ivanova-88e42c",
+      "label": "Мария Христова Илчева-Иванова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Силистра"
+    },
+    {
+      "id": "company:tr:205339519",
+      "type": "company",
+      "label": "\"М.Илчева Дизайн\" ЕООД",
+      "slug": null,
+      "uic": "205339519",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-hristova-ilcheva-ivanova-88e42c",
+      "target": "company:tr:205339519",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

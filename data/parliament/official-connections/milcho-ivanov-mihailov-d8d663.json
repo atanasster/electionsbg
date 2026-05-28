@@ -1,1 +1,131 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:milcho-ivanov-mihailov-d8d663","nodes":[{"id":"official:milcho-ivanov-mihailov-d8d663","type":"official","slug":"milcho-ivanov-mihailov-d8d663","label":"Милчо Иванов Михайлов","tier":"municipal","role":"councillor","municipality":"Горна Малина"},{"id":"company:tr:106579808","type":"company","label":"ТК ТЕКС","slug":null,"uic":"106579808","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206410257","type":"company","label":"ИМ Ауто Транс","slug":null,"uic":"206410257","legalForm":null,"status":null,"seat":null},{"id":"person:ИНС ГБ","type":"person","label":"Инс Гб"},{"id":"person:РИЛЕНАТЕКС","type":"person","label":"Риленатекс"},{"id":"company:name:ТК-ЛИЗИНГ","type":"company","label":"ТК-Лизинг ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:МИЛЕНА ГЕОРГИЕВА ПЕТКОВА","type":"person","label":"Милена Георгиева Петкова"},{"id":"person:ИВЕЛИН МИЛЧЕВ МИХАЙЛОВ","type":"person","label":"Ивелин Милчев Михайлов"}],"edges":[{"source":"official:milcho-ivanov-mihailov-d8d663","target":"company:tr:106579808","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"official:milcho-ivanov-mihailov-d8d663","target":"company:tr:206410257","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:milcho-ivanov-mihailov-d8d663","target":"company:tr:206410257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ИНС ГБ","target":"company:tr:106579808","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РИЛЕНАТЕКС","target":"company:tr:106579808","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:name:ТК-ЛИЗИНГ","target":"company:tr:106579808","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ГЕОРГИЕВА ПЕТКОВА","target":"company:tr:106579808","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИН МИЛЧЕВ МИХАЙЛОВ","target":"company:tr:206410257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:milcho-ivanov-mihailov-d8d663",
+  "nodes": [
+    {
+      "id": "official:milcho-ivanov-mihailov-d8d663",
+      "type": "official",
+      "slug": "milcho-ivanov-mihailov-d8d663",
+      "label": "Милчо Иванов Михайлов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Горна Малина"
+    },
+    {
+      "id": "company:tr:106579808",
+      "type": "company",
+      "label": "ТК ТЕКС",
+      "slug": null,
+      "uic": "106579808",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206410257",
+      "type": "company",
+      "label": "ИМ Ауто Транс",
+      "slug": null,
+      "uic": "206410257",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИНС ГБ",
+      "type": "person",
+      "label": "Инс Гб"
+    },
+    {
+      "id": "person:РИЛЕНАТЕКС",
+      "type": "person",
+      "label": "Риленатекс"
+    },
+    {
+      "id": "company:name:ТК-ЛИЗИНГ",
+      "type": "company",
+      "label": "ТК-Лизинг ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЕНА ГЕОРГИЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Милена Георгиева Петкова"
+    },
+    {
+      "id": "person:ИВЕЛИН МИЛЧЕВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Ивелин Милчев Михайлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milcho-ivanov-mihailov-d8d663",
+      "target": "company:tr:106579808",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milcho-ivanov-mihailov-d8d663",
+      "target": "company:tr:206410257",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milcho-ivanov-mihailov-d8d663",
+      "target": "company:tr:206410257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИНС ГБ",
+      "target": "company:tr:106579808",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РИЛЕНАТЕКС",
+      "target": "company:tr:106579808",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ТК-ЛИЗИНГ",
+      "target": "company:tr:106579808",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ГЕОРГИЕВА ПЕТКОВА",
+      "target": "company:tr:106579808",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН МИЛЧЕВ МИХАЙЛОВ",
+      "target": "company:tr:206410257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

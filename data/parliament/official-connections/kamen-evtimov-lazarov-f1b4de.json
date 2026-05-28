@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:kamen-evtimov-lazarov-f1b4de","nodes":[{"id":"official:kamen-evtimov-lazarov-f1b4de","type":"official","slug":"kamen-evtimov-lazarov-f1b4de","label":"Камен Евтимов Лазаров","tier":"municipal","role":"chief_architect","municipality":"Никопол"},{"id":"company:tr:202707528","type":"company","label":"\"Архитект Лазаров\" ЕООД","slug":null,"uic":"202707528","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:kamen-evtimov-lazarov-f1b4de","target":"company:tr:202707528","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:kamen-evtimov-lazarov-f1b4de",
+  "nodes": [
+    {
+      "id": "official:kamen-evtimov-lazarov-f1b4de",
+      "type": "official",
+      "slug": "kamen-evtimov-lazarov-f1b4de",
+      "label": "Камен Евтимов Лазаров",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Никопол"
+    },
+    {
+      "id": "company:tr:202707528",
+      "type": "company",
+      "label": "\"Архитект Лазаров\" ЕООД",
+      "slug": null,
+      "uic": "202707528",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kamen-evtimov-lazarov-f1b4de",
+      "target": "company:tr:202707528",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

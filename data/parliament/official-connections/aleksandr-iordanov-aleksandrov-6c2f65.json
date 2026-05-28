@@ -1,1 +1,139 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:aleksandr-iordanov-aleksandrov-6c2f65","nodes":[{"id":"official:aleksandr-iordanov-aleksandrov-6c2f65","type":"official","slug":"aleksandr-iordanov-aleksandrov-6c2f65","label":"Александър Йорданов Александров","tier":"executive","role":"agency_head","municipality":null},{"id":"company:tr:200610354","type":"company","label":"ИЗОБГ","slug":null,"uic":"200610354","legalForm":null,"status":null,"seat":null},{"id":"company:tr:131295578","type":"company","label":"АЛЕКС-ЕА СЕРВИЗ","slug":null,"uic":"131295578","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207370367","type":"company","label":"АЕМ Холд","slug":null,"uic":"207370367","legalForm":null,"status":null,"seat":null},{"id":"company:tr:208209580","type":"company","label":"ЕАМ БИЛД","slug":null,"uic":"208209580","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЯ АЛЕКСАНДРОВА АЛЕКСАНДРОВА","type":"person","label":"Мария Александрова Александрова"},{"id":"person:АНТОН МАРИНОВ НАЙДЕНОВ","type":"person","label":"Антон Маринов Найденов"}],"edges":[{"source":"official:aleksandr-iordanov-aleksandrov-6c2f65","target":"company:tr:200610354","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:aleksandr-iordanov-aleksandrov-6c2f65","target":"company:tr:131295578","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:aleksandr-iordanov-aleksandrov-6c2f65","target":"company:tr:207370367","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:aleksandr-iordanov-aleksandrov-6c2f65","target":"company:tr:208209580","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:aleksandr-iordanov-aleksandrov-6c2f65","target":"company:tr:200610354","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЯ АЛЕКСАНДРОВА АЛЕКСАНДРОВА","target":"company:tr:131295578","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ АЛЕКСАНДРОВА АЛЕКСАНДРОВА","target":"company:tr:207370367","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН МАРИНОВ НАЙДЕНОВ","target":"company:tr:208209580","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ АЛЕКСАНДРОВА АЛЕКСАНДРОВА","target":"company:tr:208209580","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:aleksandr-iordanov-aleksandrov-6c2f65",
+  "nodes": [
+    {
+      "id": "official:aleksandr-iordanov-aleksandrov-6c2f65",
+      "type": "official",
+      "slug": "aleksandr-iordanov-aleksandrov-6c2f65",
+      "label": "Александър Йорданов Александров",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200610354",
+      "type": "company",
+      "label": "ИЗОБГ",
+      "slug": null,
+      "uic": "200610354",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:131295578",
+      "type": "company",
+      "label": "АЛЕКС-ЕА СЕРВИЗ",
+      "slug": null,
+      "uic": "131295578",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207370367",
+      "type": "company",
+      "label": "АЕМ Холд",
+      "slug": null,
+      "uic": "207370367",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208209580",
+      "type": "company",
+      "label": "ЕАМ БИЛД",
+      "slug": null,
+      "uic": "208209580",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ АЛЕКСАНДРОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Мария Александрова Александрова"
+    },
+    {
+      "id": "person:АНТОН МАРИНОВ НАЙДЕНОВ",
+      "type": "person",
+      "label": "Антон Маринов Найденов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-iordanov-aleksandrov-6c2f65",
+      "target": "company:tr:200610354",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-iordanov-aleksandrov-6c2f65",
+      "target": "company:tr:131295578",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-iordanov-aleksandrov-6c2f65",
+      "target": "company:tr:207370367",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-iordanov-aleksandrov-6c2f65",
+      "target": "company:tr:208209580",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-iordanov-aleksandrov-6c2f65",
+      "target": "company:tr:200610354",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ АЛЕКСАНДРОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:131295578",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АЛЕКСАНДРОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:207370367",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН МАРИНОВ НАЙДЕНОВ",
+      "target": "company:tr:208209580",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АЛЕКСАНДРОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:208209580",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

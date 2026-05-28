@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:stoyan-hristov-iordanov-d9804c","nodes":[{"id":"official:stoyan-hristov-iordanov-d9804c","type":"official","slug":"stoyan-hristov-iordanov-d9804c","label":"Стоян Христов Йорданов","tier":"municipal","role":"councillor","municipality":"Лясковец"},{"id":"company:tr:000129931","type":"company","label":"\"Стрела-92\" ООД","slug":null,"uic":"000129931","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:stoyan-hristov-iordanov-d9804c","target":"company:tr:000129931","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:stoyan-hristov-iordanov-d9804c",
+  "nodes": [
+    {
+      "id": "official:stoyan-hristov-iordanov-d9804c",
+      "type": "official",
+      "slug": "stoyan-hristov-iordanov-d9804c",
+      "label": "Стоян Христов Йорданов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Лясковец"
+    },
+    {
+      "id": "company:tr:000129931",
+      "type": "company",
+      "label": "\"Стрела-92\" ООД",
+      "slug": null,
+      "uic": "000129931",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-hristov-iordanov-d9804c",
+      "target": "company:tr:000129931",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

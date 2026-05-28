@@ -1,1 +1,103 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:stanislav-georgiev-strashimirov-144bcd","nodes":[{"id":"official:stanislav-georgiev-strashimirov-144bcd","type":"official","slug":"stanislav-georgiev-strashimirov-144bcd","label":"Станислав Георгиев Страшимиров","tier":"municipal","role":"councillor","municipality":"Дупница"},{"id":"company:tr:206485523","type":"company","label":"ЕМ ИНВЕСТ 21","slug":null,"uic":"206485523","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207070245","type":"company","label":"ПАРТС ЕНД СЪРВИС","slug":null,"uic":"207070245","legalForm":null,"status":null,"seat":null},{"id":"person:ЕМИЛ ИВАНОВ КАСТРЕВ","type":"person","label":"Емил Иванов Кастрев"},{"id":"person:ХРИСТО ДИМИТРОВ ПИГОВ","type":"person","label":"Христо Димитров Пигов"}],"edges":[{"source":"official:stanislav-georgiev-strashimirov-144bcd","target":"company:tr:206485523","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:stanislav-georgiev-strashimirov-144bcd","target":"company:tr:207070245","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:stanislav-georgiev-strashimirov-144bcd","target":"company:tr:207070245","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:stanislav-georgiev-strashimirov-144bcd","target":"company:tr:206485523","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ЕМИЛ ИВАНОВ КАСТРЕВ","target":"company:tr:206485523","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ДИМИТРОВ ПИГОВ","target":"company:tr:207070245","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ДИМИТРОВ ПИГОВ","target":"company:tr:207070245","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:stanislav-georgiev-strashimirov-144bcd",
+  "nodes": [
+    {
+      "id": "official:stanislav-georgiev-strashimirov-144bcd",
+      "type": "official",
+      "slug": "stanislav-georgiev-strashimirov-144bcd",
+      "label": "Станислав Георгиев Страшимиров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дупница"
+    },
+    {
+      "id": "company:tr:206485523",
+      "type": "company",
+      "label": "ЕМ ИНВЕСТ 21",
+      "slug": null,
+      "uic": "206485523",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207070245",
+      "type": "company",
+      "label": "ПАРТС ЕНД СЪРВИС",
+      "slug": null,
+      "uic": "207070245",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕМИЛ ИВАНОВ КАСТРЕВ",
+      "type": "person",
+      "label": "Емил Иванов Кастрев"
+    },
+    {
+      "id": "person:ХРИСТО ДИМИТРОВ ПИГОВ",
+      "type": "person",
+      "label": "Христо Димитров Пигов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanislav-georgiev-strashimirov-144bcd",
+      "target": "company:tr:206485523",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanislav-georgiev-strashimirov-144bcd",
+      "target": "company:tr:207070245",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanislav-georgiev-strashimirov-144bcd",
+      "target": "company:tr:207070245",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanislav-georgiev-strashimirov-144bcd",
+      "target": "company:tr:206485523",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИЛ ИВАНОВ КАСТРЕВ",
+      "target": "company:tr:206485523",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ДИМИТРОВ ПИГОВ",
+      "target": "company:tr:207070245",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ДИМИТРОВ ПИГОВ",
+      "target": "company:tr:207070245",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

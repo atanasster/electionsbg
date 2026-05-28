@@ -1,1 +1,140 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:stanislav-chavdarov-mladenov-0b1bfc","nodes":[{"id":"official:stanislav-chavdarov-mladenov-0b1bfc","type":"official","slug":"stanislav-chavdarov-mladenov-0b1bfc","label":"Станислав Чавдаров Младенов","tier":"municipal","role":"councillor","municipality":"Столична община"},{"id":"company:СВОБОДНА-ЗОНА-РУСЕ","type":"company","label":"СВОБОДНА ЗОНА-РУСЕ","slug":"СВОБОДНА-ЗОНА-РУСЕ","uic":"117001983","legalForm":"EAD","status":"active","seat":null},{"id":"person:МАГДАЛЕНА ДИМИТРОВА ИВАНОВА","type":"person","label":"Магдалена Димитрова Иванова"},{"id":"person:ИЛКО ХРИСТОВ ЧАМОВ","type":"person","label":"Илко Христов Чамов"},{"id":"person:ВАЛЕРИ АНДРЕЕВ МАРЕНСКИ","type":"person","label":"Валери Андреев Маренски"},{"id":"mp:2862","type":"mp","mpId":2862,"label":"Георги Георгиев Стоилов","partyGroupShort":"БСП","isCurrent":false,"nsFolders":[]},{"id":"mp:2724","type":"mp","mpId":2724,"label":"Таско Михайлов Ерменков","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["42","43"]},{"id":"person:АЛЕКСАНДЪР ВАЛЕНТИНОВ ПЕЕВ","type":"person","label":"Александър Валентинов Пеев"}],"edges":[{"source":"official:stanislav-chavdarov-mladenov-0b1bfc","target":"company:СВОБОДНА-ЗОНА-РУСЕ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:МАГДАЛЕНА ДИМИТРОВА ИВАНОВА","target":"company:СВОБОДНА-ЗОНА-РУСЕ","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ИЛКО ХРИСТОВ ЧАМОВ","target":"company:СВОБОДНА-ЗОНА-РУСЕ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИ АНДРЕЕВ МАРЕНСКИ","target":"company:СВОБОДНА-ЗОНА-РУСЕ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАГДАЛЕНА ДИМИТРОВА ИВАНОВА","target":"company:СВОБОДНА-ЗОНА-РУСЕ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:2862","target":"company:СВОБОДНА-ЗОНА-РУСЕ","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"mp:2724","target":"company:СВОБОДНА-ЗОНА-РУСЕ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:2862","target":"company:СВОБОДНА-ЗОНА-РУСЕ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ВАЛЕНТИНОВ ПЕЕВ","target":"company:СВОБОДНА-ЗОНА-РУСЕ","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:stanislav-chavdarov-mladenov-0b1bfc",
+  "nodes": [
+    {
+      "id": "official:stanislav-chavdarov-mladenov-0b1bfc",
+      "type": "official",
+      "slug": "stanislav-chavdarov-mladenov-0b1bfc",
+      "label": "Станислав Чавдаров Младенов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:117001983",
+      "type": "company",
+      "label": "СВОБОДНА ЗОНА-РУСЕ",
+      "slug": null,
+      "uic": "117001983",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2724",
+      "type": "mp",
+      "mpId": 2724,
+      "label": "Таско Михайлов Ерменков",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "mp:2862",
+      "type": "mp",
+      "mpId": 2862,
+      "label": "Георги Георгиев Стоилов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:МАГДАЛЕНА ДИМИТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Магдалена Димитрова Иванова"
+    },
+    {
+      "id": "person:ИЛКО ХРИСТОВ ЧАМОВ",
+      "type": "person",
+      "label": "Илко Христов Чамов"
+    },
+    {
+      "id": "person:ВАЛЕРИ АНДРЕЕВ МАРЕНСКИ",
+      "type": "person",
+      "label": "Валери Андреев Маренски"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ВАЛЕНТИНОВ ПЕЕВ",
+      "type": "person",
+      "label": "Александър Валентинов Пеев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanislav-chavdarov-mladenov-0b1bfc",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2724",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2862",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2862",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКО ХРИСТОВ ЧАМОВ",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ АНДРЕЕВ МАРЕНСКИ",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ВАЛЕНТИНОВ ПЕЕВ",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

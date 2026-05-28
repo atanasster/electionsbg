@@ -2,8 +2,46 @@
   "ekatte": "68850",
   "page": 1,
   "totalPages": 1,
-  "count": 26,
+  "count": 27,
   "companies": [
+    {
+      "slug": "Тева-ТМ-ООД",
+      "displayName": "Тева-ТМ ООД",
+      "registeredOffice": "Стара Загора",
+      "mps": [
+        {
+          "mpId": 4372,
+          "mpName": "Радослав Красенов Василев",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4372,
+          "mpName": "Радослав Красенов Василев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Медия-вижън",
+      "displayName": "Медия вижън",
+      "registeredOffice": "Стара Загора",
+      "mps": [
+        {
+          "mpId": 2715,
+          "mpName": "Борис Петков Кърчев",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2715,
+          "mpName": "Борис Петков Кърчев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
     {
       "slug": "Фотокристиан-ЕООД",
       "displayName": "Фотокристиан ЕООД",
@@ -30,65 +68,8 @@
       ]
     },
     {
-      "slug": "ФРЕЙМ-ВИЖЪН",
-      "displayName": "Фрейм вижън",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
-      "mps": [
-        {
-          "mpId": 5331,
-          "mpName": "Мирослав Недялков Митков",
-          "role": "manager",
-          "isCurrent": true
-        },
-        {
-          "mpId": 5331,
-          "mpName": "Мирослав Недялков Митков",
-          "role": "partner",
-          "isCurrent": false
-        }
-      ]
-    },
-    {
-      "slug": "Тева-ТМ-ООД",
-      "displayName": "Тева-ТМ ООД",
-      "registeredOffice": "Стара Загора",
-      "mps": [
-        {
-          "mpId": 4372,
-          "mpName": "Радослав Красенов Василев",
-          "role": "partner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 4372,
-          "mpName": "Радослав Красенов Василев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "МЕДИЯ-ВИЖЪН",
-      "displayName": "Медия вижън",
-      "registeredOffice": "Стара Загора",
-      "mps": [
-        {
-          "mpId": 2715,
-          "mpName": "Борис Петков Кърчев",
-          "role": "partner",
-          "isCurrent": true
-        },
-        {
-          "mpId": 2715,
-          "mpName": "Борис Петков Кърчев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
       "slug": "АМБУЛАТОРИЯ-ИНДИВИДУАЛНА-ПРАКТИКА-ЗА-ПЪРВИЧНА-МЕДИЦИНСКА-ПОМОЩ-Д-Р-СТОЯН-ГЕОРГИЕВ",
-      "displayName": "АМБУЛАТОРИЯ-ИНДИВИДУАЛНА Практика за първична Медицинска ПОМОЩ-Д-Р стоян Георгиев",
+      "displayName": "АМБУЛАТОРИЯ-ИНДИВИДУАЛНА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ-Д-Р СТОЯН ГЕОРГИЕВ",
       "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
       "mps": [
         {
@@ -106,8 +87,21 @@
       ]
     },
     {
+      "slug": "Богданов-инвест",
+      "displayName": "Богданов инвест",
+      "registeredOffice": "Стара Загора",
+      "mps": [
+        {
+          "mpId": 2715,
+          "mpName": "Борис Петков Кърчев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
       "slug": "БРАНДЕКС-1",
-      "displayName": "Брандекс 1",
+      "displayName": "БРАНДЕКС 1",
       "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
       "mps": [
         {
@@ -126,7 +120,7 @@
     },
     {
       "slug": "ВАНИТКА",
-      "displayName": "Ванитка",
+      "displayName": "ВАНИТКА",
       "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
       "mps": [
         {
@@ -145,7 +139,7 @@
     },
     {
       "slug": "ГАЛ-АТАНАСОВ",
-      "displayName": "Гал Атанасов",
+      "displayName": "ГАЛ АТАНАСОВ",
       "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
       "mps": [
         {
@@ -164,7 +158,7 @@
     },
     {
       "slug": "ДОБРЕВ-71",
-      "displayName": "Добрев  71",
+      "displayName": "ДОБРЕВ  71",
       "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
       "mps": [
         {
@@ -202,7 +196,7 @@
     },
     {
       "slug": "КОМПО-СИСТЕМС",
-      "displayName": "Компо системс",
+      "displayName": "КОМПО СИСТЕМС",
       "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
       "mps": [
         {
@@ -220,7 +214,26 @@
       ]
     },
     {
-      "slug": "ТРАКИЯ-МОБАЙЛ",
+      "slug": "ПОЛАРИС-МЕДИЯ",
+      "displayName": "ПОЛАРИС МЕДИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
+      "mps": [
+        {
+          "mpId": 564,
+          "mpName": "Димитър Илиев Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 564,
+          "mpName": "Димитър Илиев Димитров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Тракия-мобайл",
       "displayName": "Тракия мобайл",
       "registeredOffice": "Стара Загора",
       "mps": [
@@ -239,46 +252,26 @@
       ]
     },
     {
-      "slug": "НП-ИНВЕСТ-21",
-      "displayName": "НП Инвест 21",
+      "slug": "ФРЕЙМ-ВИЖЪН",
+      "displayName": "ФРЕЙМ ВИЖЪН",
       "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
       "mps": [
         {
-          "mpId": 4018,
-          "mpName": "Николай Димитров Благоев",
+          "mpId": 5331,
+          "mpName": "Мирослав Недялков Митков",
           "role": "manager",
           "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ТРАКИЯ-СОФТИНЖЕНЕРИНГ",
-      "displayName": "Тракия софтинженеринг",
-      "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
-      "mps": [
+        },
         {
-          "mpId": 1043,
-          "mpName": "Иван Дечков Колев",
-          "role": "manager",
-          "isCurrent": true
+          "mpId": 5331,
+          "mpName": "Мирослав Недялков Митков",
+          "role": "partner",
+          "isCurrent": false
         }
       ]
     },
     {
-      "slug": "БОГДАНОВ-ИНВЕСТ",
-      "displayName": "Богданов инвест",
-      "registeredOffice": "Стара Загора",
-      "mps": [
-        {
-          "mpId": 2715,
-          "mpName": "Борис Петков Кърчев",
-          "role": "declared_stake",
-          "isCurrent": true
-        }
-      ]
-    },
-    {
-      "slug": "ВКУС-КОМЕРС-2-ООД",
+      "slug": "Вкус-КОМЕРС-2-ООД",
       "displayName": "\"Вкус КОМЕРС-2\" ООД",
       "registeredOffice": "Стара Загора",
       "mps": [
@@ -291,7 +284,7 @@
       ]
     },
     {
-      "slug": "ВКУС-КОМЕРС-ООД",
+      "slug": "Вкус-комерс-ООД",
       "displayName": "\"Вкус комерс\" ООД",
       "registeredOffice": "Стара Загора",
       "mps": [
@@ -304,7 +297,7 @@
       ]
     },
     {
-      "slug": "ИНИКСА-ЕООД",
+      "slug": "Иникса-ЕООД",
       "displayName": "\"Иникса\" ЕООД",
       "registeredOffice": "Стара Загора",
       "mps": [
@@ -318,7 +311,7 @@
     },
     {
       "slug": "РИА-М-ЕООД",
-      "displayName": "\"Риа м\" ЕООД",
+      "displayName": "\"РИА М\" ЕООД",
       "registeredOffice": "Стара Загора",
       "mps": [
         {
@@ -330,8 +323,8 @@
       ]
     },
     {
-      "slug": "ЕМ-и-ЕР-ФЕШЪН",
-      "displayName": "ЕМ И ер фешън",
+      "slug": "ЕМ-и-ЕР-Фешън",
+      "displayName": "ЕМ и ЕР Фешън",
       "registeredOffice": "Стара Загора",
       "mps": [
         {
@@ -356,7 +349,7 @@
       ]
     },
     {
-      "slug": "МАГСИМ-ЕООД",
+      "slug": "Магсим-ЕООД",
       "displayName": "Магсим ЕООД",
       "registeredOffice": "Стара Загора",
       "mps": [
@@ -382,7 +375,7 @@
       ]
     },
     {
-      "slug": "МИРОЗА",
+      "slug": "Мироза",
       "displayName": "Мироза",
       "registeredOffice": "Стара Загора",
       "mps": [
@@ -395,7 +388,20 @@
       ]
     },
     {
-      "slug": "ТРАКИЯ-КАБЕЛ",
+      "slug": "НП-ИНВЕСТ-21",
+      "displayName": "НП ИНВЕСТ 21",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
+      "mps": [
+        {
+          "mpId": 4018,
+          "mpName": "Николай Димитров Благоев",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Тракия-кабел",
       "displayName": "Тракия кабел",
       "registeredOffice": "Стара Загора",
       "mps": [
@@ -403,6 +409,19 @@
           "mpId": 2715,
           "mpName": "Борис Петков Кърчев",
           "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ТРАКИЯ-СОФТИНЖЕНЕРИНГ",
+      "displayName": "ТРАКИЯ СОФТИНЖЕНЕРИНГ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Стара Загора, 6000",
+      "mps": [
+        {
+          "mpId": 1043,
+          "mpName": "Иван Дечков Колев",
+          "role": "manager",
           "isCurrent": true
         }
       ]

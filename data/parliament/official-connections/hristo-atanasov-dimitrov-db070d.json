@@ -1,1 +1,121 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:hristo-atanasov-dimitrov-db070d","nodes":[{"id":"official:hristo-atanasov-dimitrov-db070d","type":"official","slug":"hristo-atanasov-dimitrov-db070d","label":"Христо Атанасов Димитров","tier":"municipal","role":"council_chair","municipality":"Варна"},{"id":"company:tr:206868144","type":"company","label":"БУЛГАТА бук","slug":null,"uic":"206868144","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207225763","type":"company","label":"ПОЛИМИКС СТОУН","slug":null,"uic":"207225763","legalForm":null,"status":null,"seat":null},{"id":"company:tr:208809340","type":"company","label":"АУРА ЕДИШЪН","slug":null,"uic":"208809340","legalForm":null,"status":null,"seat":null},{"id":"person:АДРИАН БОЖИДАРОВ ДИМИТРОВ","type":"person","label":"Адриан Божидаров Димитров"},{"id":"person:ИЛИНА ГЕОРГИЕВА УЗУНОВА - АВРАМОВА","type":"person","label":"Илина Георгиева Узунова - Аврамова"}],"edges":[{"source":"official:hristo-atanasov-dimitrov-db070d","target":"company:tr:206868144","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-atanasov-dimitrov-db070d","target":"company:tr:207225763","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-atanasov-dimitrov-db070d","target":"company:tr:208809340","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-atanasov-dimitrov-db070d","target":"company:tr:208809340","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:hristo-atanasov-dimitrov-db070d","target":"company:tr:206868144","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:АДРИАН БОЖИДАРОВ ДИМИТРОВ","target":"company:tr:207225763","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИНА ГЕОРГИЕВА УЗУНОВА - АВРАМОВА","target":"company:tr:208809340","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИНА ГЕОРГИЕВА УЗУНОВА - АВРАМОВА","target":"company:tr:208809340","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:hristo-atanasov-dimitrov-db070d",
+  "nodes": [
+    {
+      "id": "official:hristo-atanasov-dimitrov-db070d",
+      "type": "official",
+      "slug": "hristo-atanasov-dimitrov-db070d",
+      "label": "Христо Атанасов Димитров",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Варна"
+    },
+    {
+      "id": "company:tr:206868144",
+      "type": "company",
+      "label": "БУЛГАТА бук",
+      "slug": null,
+      "uic": "206868144",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207225763",
+      "type": "company",
+      "label": "ПОЛИМИКС СТОУН",
+      "slug": null,
+      "uic": "207225763",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208809340",
+      "type": "company",
+      "label": "АУРА ЕДИШЪН",
+      "slug": null,
+      "uic": "208809340",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АДРИАН БОЖИДАРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Адриан Божидаров Димитров"
+    },
+    {
+      "id": "person:ИЛИНА ГЕОРГИЕВА УЗУНОВА - АВРАМОВА",
+      "type": "person",
+      "label": "Илина Георгиева Узунова - Аврамова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-atanasov-dimitrov-db070d",
+      "target": "company:tr:206868144",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-atanasov-dimitrov-db070d",
+      "target": "company:tr:207225763",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-atanasov-dimitrov-db070d",
+      "target": "company:tr:208809340",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-atanasov-dimitrov-db070d",
+      "target": "company:tr:208809340",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-atanasov-dimitrov-db070d",
+      "target": "company:tr:206868144",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АДРИАН БОЖИДАРОВ ДИМИТРОВ",
+      "target": "company:tr:207225763",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИНА ГЕОРГИЕВА УЗУНОВА - АВРАМОВА",
+      "target": "company:tr:208809340",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИНА ГЕОРГИЕВА УЗУНОВА - АВРАМОВА",
+      "target": "company:tr:208809340",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

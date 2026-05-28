@@ -1,1 +1,360 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:daniel-nikolaev-dimitrov-c1d7ec","nodes":[{"id":"official:daniel-nikolaev-dimitrov-c1d7ec","type":"official","slug":"daniel-nikolaev-dimitrov-c1d7ec","label":"Даниел Николаев Димитров","tier":"municipal","role":"councillor","municipality":"Гълъбово"},{"id":"company:tr:121160330","type":"company","label":"ЕКИ 96","slug":null,"uic":"121160330","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206590499","type":"company","label":"КОМЕТА - 2021","slug":null,"uic":"206590499","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206960991","type":"company","label":"КОМЕТА 2022","slug":null,"uic":"206960991","legalForm":null,"status":null,"seat":null},{"id":"company:tr:207034758","type":"company","label":"ЗАЛОЖНА КЪЩА СЕЙФ 22","slug":null,"uic":"207034758","legalForm":null,"status":null,"seat":null},{"id":"person:ВАЛЕНТИН СОФРОНИЕВ БЕДНИЧКИ","type":"person","label":"Валентин Софрониев Беднички"},{"id":"person:РУМЕН ИВАНОВ АНГЕЛОВ","type":"person","label":"Румен Иванов Ангелов"},{"id":"person:БИСЕРКА МЛАДЕНОВА АТАНАСОВА","type":"person","label":"Бисерка Младенова Атанасова"},{"id":"person:ДИМИТЪР ГОСПОДИНОВ ШЕВИКОВ","type":"person","label":"Димитър Господинов Шевиков"},{"id":"person:ПЕТРАНА КРЪСТЕВА НИКОЛОВА","type":"person","label":"Петрана Кръстева Николова"},{"id":"person:МЛАДЕН ДИМИТРОВ БЛАГОЕВ","type":"person","label":"Младен Димитров Благоев"},{"id":"person:МАРИЯ НИКОЛОВА МИТРЕНЦЕВА","type":"person","label":"Мария Николова Митренцева"},{"id":"person:ЦВЕТАНКА СТЕФАНОВА ДЕЛЧЕВА","type":"person","label":"Цветанка Стефанова Делчева"},{"id":"person:НИКОЛАЙ ЛАЗАРОВ СТОЯНОВ","type":"person","label":"Николай Лазаров Стоянов"},{"id":"person:ЛЮБОМИР ГЕОРГИЕВ ТОШЕВ","type":"person","label":"Любомир Георгиев Тошев"},{"id":"person:ИВАН АСЕНОВ ЯНКУЛОВ","type":"person","label":"Иван Асенов Янкулов"},{"id":"company:name:КРБ ФИНАНС","type":"company","label":"\"КРБ ФИНАНС\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:ТМ КРЕДИТ КОНСУЛТ","type":"company","label":"\"ТМ КРЕДИТ КОНСУЛТ\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ИРИНА АЛЕКСАНДРОВА КОЛЕВА","type":"person","label":"Ирина Александрова Колева"},{"id":"person:ГЕОРГИ ПЕТКОВ АТАНАСОВ","type":"person","label":"Георги Петков Атанасов"},{"id":"company:name:ЗАЛОЖНА КЪЩА ФИНАНС 22","type":"company","label":"\"ЗАЛОЖНА КЪЩА ФИНАНС 22\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:daniel-nikolaev-dimitrov-c1d7ec","target":"company:tr:121160330","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:daniel-nikolaev-dimitrov-c1d7ec","target":"company:tr:206590499","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:daniel-nikolaev-dimitrov-c1d7ec","target":"company:tr:206590499","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:daniel-nikolaev-dimitrov-c1d7ec","target":"company:tr:206960991","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:daniel-nikolaev-dimitrov-c1d7ec","target":"company:tr:206960991","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:daniel-nikolaev-dimitrov-c1d7ec","target":"company:tr:207034758","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ВАЛЕНТИН СОФРОНИЕВ БЕДНИЧКИ","target":"company:tr:121160330","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ИВАНОВ АНГЕЛОВ","target":"company:tr:121160330","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:БИСЕРКА МЛАДЕНОВА АТАНАСОВА","target":"company:tr:121160330","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ГОСПОДИНОВ ШЕВИКОВ","target":"company:tr:121160330","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТРАНА КРЪСТЕВА НИКОЛОВА","target":"company:tr:121160330","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МЛАДЕН ДИМИТРОВ БЛАГОЕВ","target":"company:tr:121160330","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ НИКОЛОВА МИТРЕНЦЕВА","target":"company:tr:121160330","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАНКА СТЕФАНОВА ДЕЛЧЕВА","target":"company:tr:121160330","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ЛАЗАРОВ СТОЯНОВ","target":"company:tr:121160330","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ГЕОРГИЕВ ТОШЕВ","target":"company:tr:121160330","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АСЕНОВ ЯНКУЛОВ","target":"company:tr:121160330","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:КРБ ФИНАНС","target":"company:tr:206590499","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ТМ КРЕДИТ КОНСУЛТ","target":"company:tr:206590499","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА АЛЕКСАНДРОВА КОЛЕВА","target":"company:tr:206590499","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА АЛЕКСАНДРОВА КОЛЕВА","target":"company:tr:206960991","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:КРБ ФИНАНС","target":"company:tr:206960991","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ПЕТКОВ АТАНАСОВ","target":"company:tr:207034758","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА АЛЕКСАНДРОВА КОЛЕВА","target":"company:tr:207034758","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ПЕТКОВ АТАНАСОВ","target":"company:tr:207034758","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ЗАЛОЖНА КЪЩА ФИНАНС 22","target":"company:tr:207034758","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:daniel-nikolaev-dimitrov-c1d7ec",
+  "nodes": [
+    {
+      "id": "official:daniel-nikolaev-dimitrov-c1d7ec",
+      "type": "official",
+      "slug": "daniel-nikolaev-dimitrov-c1d7ec",
+      "label": "Даниел Николаев Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гълъбово"
+    },
+    {
+      "id": "company:tr:121160330",
+      "type": "company",
+      "label": "ЕКИ 96",
+      "slug": null,
+      "uic": "121160330",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206590499",
+      "type": "company",
+      "label": "КОМЕТА - 2021",
+      "slug": null,
+      "uic": "206590499",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206960991",
+      "type": "company",
+      "label": "КОМЕТА 2022",
+      "slug": null,
+      "uic": "206960991",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207034758",
+      "type": "company",
+      "label": "ЗАЛОЖНА КЪЩА СЕЙФ 22",
+      "slug": null,
+      "uic": "207034758",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН СОФРОНИЕВ БЕДНИЧКИ",
+      "type": "person",
+      "label": "Валентин Софрониев Беднички"
+    },
+    {
+      "id": "person:РУМЕН ИВАНОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Румен Иванов Ангелов"
+    },
+    {
+      "id": "person:БИСЕРКА МЛАДЕНОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Бисерка Младенова Атанасова"
+    },
+    {
+      "id": "person:ДИМИТЪР ГОСПОДИНОВ ШЕВИКОВ",
+      "type": "person",
+      "label": "Димитър Господинов Шевиков"
+    },
+    {
+      "id": "person:ПЕТРАНА КРЪСТЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Петрана Кръстева Николова"
+    },
+    {
+      "id": "person:МЛАДЕН ДИМИТРОВ БЛАГОЕВ",
+      "type": "person",
+      "label": "Младен Димитров Благоев"
+    },
+    {
+      "id": "person:МАРИЯ НИКОЛОВА МИТРЕНЦЕВА",
+      "type": "person",
+      "label": "Мария Николова Митренцева"
+    },
+    {
+      "id": "person:ЦВЕТАНКА СТЕФАНОВА ДЕЛЧЕВА",
+      "type": "person",
+      "label": "Цветанка Стефанова Делчева"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЛАЗАРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Николай Лазаров Стоянов"
+    },
+    {
+      "id": "person:ЛЮБОМИР ГЕОРГИЕВ ТОШЕВ",
+      "type": "person",
+      "label": "Любомир Георгиев Тошев"
+    },
+    {
+      "id": "person:ИВАН АСЕНОВ ЯНКУЛОВ",
+      "type": "person",
+      "label": "Иван Асенов Янкулов"
+    },
+    {
+      "id": "company:name:КРБ ФИНАНС",
+      "type": "company",
+      "label": "\"КРБ ФИНАНС\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ТМ КРЕДИТ КОНСУЛТ",
+      "type": "company",
+      "label": "\"ТМ КРЕДИТ КОНСУЛТ\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИРИНА АЛЕКСАНДРОВА КОЛЕВА",
+      "type": "person",
+      "label": "Ирина Александрова Колева"
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТКОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Георги Петков Атанасов"
+    },
+    {
+      "id": "company:name:ЗАЛОЖНА КЪЩА ФИНАНС 22",
+      "type": "company",
+      "label": "\"ЗАЛОЖНА КЪЩА ФИНАНС 22\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-nikolaev-dimitrov-c1d7ec",
+      "target": "company:tr:121160330",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-nikolaev-dimitrov-c1d7ec",
+      "target": "company:tr:206590499",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-nikolaev-dimitrov-c1d7ec",
+      "target": "company:tr:206590499",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-nikolaev-dimitrov-c1d7ec",
+      "target": "company:tr:206960991",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-nikolaev-dimitrov-c1d7ec",
+      "target": "company:tr:206960991",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-nikolaev-dimitrov-c1d7ec",
+      "target": "company:tr:207034758",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН СОФРОНИЕВ БЕДНИЧКИ",
+      "target": "company:tr:121160330",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ИВАНОВ АНГЕЛОВ",
+      "target": "company:tr:121160330",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕРКА МЛАДЕНОВА АТАНАСОВА",
+      "target": "company:tr:121160330",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГОСПОДИНОВ ШЕВИКОВ",
+      "target": "company:tr:121160330",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРАНА КРЪСТЕВА НИКОЛОВА",
+      "target": "company:tr:121160330",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЛАДЕН ДИМИТРОВ БЛАГОЕВ",
+      "target": "company:tr:121160330",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НИКОЛОВА МИТРЕНЦЕВА",
+      "target": "company:tr:121160330",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА СТЕФАНОВА ДЕЛЧЕВА",
+      "target": "company:tr:121160330",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЛАЗАРОВ СТОЯНОВ",
+      "target": "company:tr:121160330",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ГЕОРГИЕВ ТОШЕВ",
+      "target": "company:tr:121160330",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АСЕНОВ ЯНКУЛОВ",
+      "target": "company:tr:121160330",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:КРБ ФИНАНС",
+      "target": "company:tr:206590499",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ТМ КРЕДИТ КОНСУЛТ",
+      "target": "company:tr:206590499",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА АЛЕКСАНДРОВА КОЛЕВА",
+      "target": "company:tr:206590499",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА АЛЕКСАНДРОВА КОЛЕВА",
+      "target": "company:tr:206960991",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:КРБ ФИНАНС",
+      "target": "company:tr:206960991",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТКОВ АТАНАСОВ",
+      "target": "company:tr:207034758",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА АЛЕКСАНДРОВА КОЛЕВА",
+      "target": "company:tr:207034758",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТКОВ АТАНАСОВ",
+      "target": "company:tr:207034758",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЗАЛОЖНА КЪЩА ФИНАНС 22",
+      "target": "company:tr:207034758",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

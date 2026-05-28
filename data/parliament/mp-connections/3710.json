@@ -1,1 +1,197 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","mpNodeId":"mp:3710","nodes":[{"id":"mp:3710","type":"mp","mpId":3710,"label":"Пламен Николаев Николов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["45","46"]},{"id":"company:ЕСПИ-ПАРТС","type":"company","label":"ЕСПИ ПАРТС","slug":"ЕСПИ-ПАРТС","uic":"203680308","legalForm":"OOD","status":"ceased","seat":null},{"id":"company:КП-инвест-груп","type":"company","label":"КП инвест груп","slug":"КП-инвест-груп","uic":"206867786","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1326"},{"id":"company:ПЛАНЕКС-ЕЛЕМЕНТ","type":"company","label":"ПЛАНЕКС ЕЛЕМЕНТ","slug":"ПЛАНЕКС-ЕЛЕМЕНТ","uic":"103109995","legalForm":"EOOD","status":"active","seat":null},{"id":"company:ФОРЕСТ","type":"company","label":"ФОРЕСТ","slug":"ФОРЕСТ","uic":"831546464","legalForm":"OOD","status":"active","seat":null},{"id":"company:name:ПЛАНЕКС ХОЛДИНГ","type":"company","label":"\"ПЛАНЕКС ХОЛДИНГ\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ВАЛЕНТИН ПЕТКОВ БОЙЧЕВ","type":"person","label":"Валентин Петков Бойчев"},{"id":"person:РОСИЦА ТОМЧЕВА ТОМОВА","type":"person","label":"Росица Томчева Томова"}],"edges":[{"source":"mp:3710","target":"company:ЕСПИ-ПАРТС","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"mp:3710","target":"company:КП-инвест-груп","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:3710","target":"company:КП-инвест-груп","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:3710","target":"company:ПЛАНЕКС-ЕЛЕМЕНТ","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:3710","target":"company:ФОРЕСТ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ПЛАНЕКС ХОЛДИНГ","target":"company:ПЛАНЕКС-ЕЛЕМЕНТ","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ПЕТКОВ БОЙЧЕВ","target":"company:ФОРЕСТ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ТОМЧЕВА ТОМОВА","target":"company:ФОРЕСТ","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "mpNodeId": "mp:3710",
+  "nodes": [
+    {
+      "id": "mp:3710",
+      "type": "mp",
+      "mpId": 3710,
+      "label": "Пламен Николаев Николов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46"
+      ]
+    },
+    {
+      "id": "company:tr:203653347",
+      "type": "company",
+      "label": "ЛОРД.Т ИНВЕСТ",
+      "slug": null,
+      "uic": "203653347",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:tr:204759783",
+      "type": "company",
+      "label": "ЯМ КЕПИТЪЛ",
+      "slug": null,
+      "uic": "204759783",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:tr:103109995",
+      "type": "company",
+      "label": "ПЛАНЕКС ЕЛЕМЕНТ",
+      "slug": null,
+      "uic": "103109995",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:831546464",
+      "type": "company",
+      "label": "ФОРЕСТ",
+      "slug": null,
+      "uic": "831546464",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:203680308",
+      "type": "company",
+      "label": "ЕСПИ ПАРТС",
+      "slug": null,
+      "uic": "203680308",
+      "legalForm": "OOD",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206867786",
+      "type": "company",
+      "label": "КП инвест груп",
+      "slug": null,
+      "uic": "206867786",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1326"
+    },
+    {
+      "id": "company:name:ПЛАНЕКС ХОЛДИНГ",
+      "type": "company",
+      "label": "\"ПЛАНЕКС ХОЛДИНГ\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН ПЕТКОВ БОЙЧЕВ",
+      "type": "person",
+      "label": "Валентин Петков Бойчев"
+    },
+    {
+      "id": "person:РОСИЦА ТОМЧЕВА ТОМОВА",
+      "type": "person",
+      "label": "Росица Томчева Томова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3710",
+      "target": "company:tr:203653347",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3710",
+      "target": "company:tr:204759783",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3710",
+      "target": "company:tr:103109995",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3710",
+      "target": "company:tr:831546464",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3710",
+      "target": "company:tr:203680308",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3710",
+      "target": "company:tr:103109995",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3710",
+      "target": "company:tr:206867786",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3710",
+      "target": "company:tr:206867786",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:ПЛАНЕКС ХОЛДИНГ",
+      "target": "company:tr:103109995",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ПЛАНЕКС ХОЛДИНГ",
+      "target": "company:tr:103109995",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ПЕТКОВ БОЙЧЕВ",
+      "target": "company:tr:831546464",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ТОМЧЕВА ТОМОВА",
+      "target": "company:tr:831546464",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

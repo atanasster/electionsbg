@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:valentin-petrov-kralev-5ae360","nodes":[{"id":"official:valentin-petrov-kralev-5ae360","type":"official","slug":"valentin-petrov-kralev-5ae360","label":"Валентин Петров Кралев","tier":"municipal","role":"councillor","municipality":"Казанлък"},{"id":"company:tr:202659777","type":"company","label":"ПРОФИКОМ ЕООД","slug":null,"uic":"202659777","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:valentin-petrov-kralev-5ae360","target":"company:tr:202659777","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:valentin-petrov-kralev-5ae360",
+  "nodes": [
+    {
+      "id": "official:valentin-petrov-kralev-5ae360",
+      "type": "official",
+      "slug": "valentin-petrov-kralev-5ae360",
+      "label": "Валентин Петров Кралев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Казанлък"
+    },
+    {
+      "id": "company:tr:202659777",
+      "type": "company",
+      "label": "ПРОФИКОМ ЕООД",
+      "slug": null,
+      "uic": "202659777",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-petrov-kralev-5ae360",
+      "target": "company:tr:202659777",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:milen-plamenov-milchev-995da4","nodes":[{"id":"official:milen-plamenov-milchev-995da4","type":"official","slug":"milen-plamenov-milchev-995da4","label":"Милен Пламенов Милчев","tier":"municipal","role":"councillor","municipality":"Видин"},{"id":"company:tr:201381606","type":"company","label":"\"ДЕМЕТРА 91\" ЕООД","slug":null,"uic":"201381606","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:milen-plamenov-milchev-995da4","target":"company:tr:201381606","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:milen-plamenov-milchev-995da4",
+  "nodes": [
+    {
+      "id": "official:milen-plamenov-milchev-995da4",
+      "type": "official",
+      "slug": "milen-plamenov-milchev-995da4",
+      "label": "Милен Пламенов Милчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Видин"
+    },
+    {
+      "id": "company:tr:201381606",
+      "type": "company",
+      "label": "\"ДЕМЕТРА 91\" ЕООД",
+      "slug": null,
+      "uic": "201381606",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-plamenov-milchev-995da4",
+      "target": "company:tr:201381606",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:ivalinka-todorova-tsankova-70d4f3","nodes":[{"id":"official:ivalinka-todorova-tsankova-70d4f3","type":"official","slug":"ivalinka-todorova-tsankova-70d4f3","label":"Ивалинка Тодорова Цанкова","tier":"municipal","role":"councillor","municipality":"Иваново"},{"id":"company:tr:206093796","type":"company","label":"ИТК Цанкови ЕООД","slug":null,"uic":"206093796","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:ivalinka-todorova-tsankova-70d4f3","target":"company:tr:206093796","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:ivalinka-todorova-tsankova-70d4f3",
+  "nodes": [
+    {
+      "id": "official:ivalinka-todorova-tsankova-70d4f3",
+      "type": "official",
+      "slug": "ivalinka-todorova-tsankova-70d4f3",
+      "label": "Ивалинка Тодорова Цанкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Иваново"
+    },
+    {
+      "id": "company:tr:206093796",
+      "type": "company",
+      "label": "ИТК Цанкови ЕООД",
+      "slug": null,
+      "uic": "206093796",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivalinka-todorova-tsankova-70d4f3",
+      "target": "company:tr:206093796",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

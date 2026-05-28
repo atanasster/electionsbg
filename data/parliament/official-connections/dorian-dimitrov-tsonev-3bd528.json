@@ -1,1 +1,121 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:dorian-dimitrov-tsonev-3bd528","nodes":[{"id":"official:dorian-dimitrov-tsonev-3bd528","type":"official","slug":"dorian-dimitrov-tsonev-3bd528","label":"Дориан Димитров Цонев","tier":"municipal","role":"councillor","municipality":"Ямбол"},{"id":"company:tr:206825075","type":"company","label":"ДИ АЙ ЕКСПЕРТ ХОСПИТАЛИТИ","slug":null,"uic":"206825075","legalForm":null,"status":null,"seat":null},{"id":"company:tr:200529105","type":"company","label":"КЛУБ ВАЛЕНТИН","slug":null,"uic":"200529105","legalForm":null,"status":null,"seat":null},{"id":"company:tr:128562052","type":"company","label":"ТРИНА","slug":null,"uic":"128562052","legalForm":null,"status":null,"seat":null},{"id":"company:tr:128562042","type":"company","label":"ВАЯ","slug":null,"uic":"128562042","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:dorian-dimitrov-tsonev-3bd528","target":"company:tr:206825075","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dorian-dimitrov-tsonev-3bd528","target":"company:tr:200529105","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dorian-dimitrov-tsonev-3bd528","target":"company:tr:128562052","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dorian-dimitrov-tsonev-3bd528","target":"company:tr:128562042","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dorian-dimitrov-tsonev-3bd528","target":"company:tr:206825075","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:dorian-dimitrov-tsonev-3bd528","target":"company:tr:200529105","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:dorian-dimitrov-tsonev-3bd528","target":"company:tr:128562052","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:dorian-dimitrov-tsonev-3bd528","target":"company:tr:128562042","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:dorian-dimitrov-tsonev-3bd528",
+  "nodes": [
+    {
+      "id": "official:dorian-dimitrov-tsonev-3bd528",
+      "type": "official",
+      "slug": "dorian-dimitrov-tsonev-3bd528",
+      "label": "Дориан Димитров Цонев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол"
+    },
+    {
+      "id": "company:tr:206825075",
+      "type": "company",
+      "label": "ДИ АЙ ЕКСПЕРТ ХОСПИТАЛИТИ",
+      "slug": null,
+      "uic": "206825075",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200529105",
+      "type": "company",
+      "label": "КЛУБ ВАЛЕНТИН",
+      "slug": null,
+      "uic": "200529105",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:128562052",
+      "type": "company",
+      "label": "ТРИНА",
+      "slug": null,
+      "uic": "128562052",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:128562042",
+      "type": "company",
+      "label": "ВАЯ",
+      "slug": null,
+      "uic": "128562042",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dorian-dimitrov-tsonev-3bd528",
+      "target": "company:tr:206825075",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dorian-dimitrov-tsonev-3bd528",
+      "target": "company:tr:200529105",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dorian-dimitrov-tsonev-3bd528",
+      "target": "company:tr:128562052",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dorian-dimitrov-tsonev-3bd528",
+      "target": "company:tr:128562042",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dorian-dimitrov-tsonev-3bd528",
+      "target": "company:tr:206825075",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dorian-dimitrov-tsonev-3bd528",
+      "target": "company:tr:200529105",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dorian-dimitrov-tsonev-3bd528",
+      "target": "company:tr:128562052",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dorian-dimitrov-tsonev-3bd528",
+      "target": "company:tr:128562042",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

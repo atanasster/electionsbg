@@ -1,1 +1,35 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:daniela-stoyanova-kurtakova-82e3bb","nodes":[{"id":"official:daniela-stoyanova-kurtakova-82e3bb","type":"official","slug":"daniela-stoyanova-kurtakova-82e3bb","label":"Даниела Стоянова Куртакова","tier":"municipal","role":"councillor","municipality":"Панагюрище"},{"id":"company:tr:201033756","type":"company","label":"Куртаков Трейд ООД","slug":null,"uic":"201033756","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:daniela-stoyanova-kurtakova-82e3bb","target":"company:tr:201033756","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:daniela-stoyanova-kurtakova-82e3bb",
+  "nodes": [
+    {
+      "id": "official:daniela-stoyanova-kurtakova-82e3bb",
+      "type": "official",
+      "slug": "daniela-stoyanova-kurtakova-82e3bb",
+      "label": "Даниела Стоянова Куртакова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Панагюрище"
+    },
+    {
+      "id": "company:tr:201033756",
+      "type": "company",
+      "label": "Куртаков Трейд ООД",
+      "slug": null,
+      "uic": "201033756",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-stoyanova-kurtakova-82e3bb",
+      "target": "company:tr:201033756",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

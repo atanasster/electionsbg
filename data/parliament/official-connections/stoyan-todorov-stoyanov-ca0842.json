@@ -1,1 +1,92 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:stoyan-todorov-stoyanov-ca0842","nodes":[{"id":"official:stoyan-todorov-stoyanov-ca0842","type":"official","slug":"stoyan-todorov-stoyanov-ca0842","label":"Стоян Тодоров Стоянов","tier":"municipal","role":"councillor","municipality":"Стражица"},{"id":"company:tr:205833368","type":"company","label":"Ножичка и гребенче","slug":null,"uic":"205833368","legalForm":null,"status":null,"seat":null},{"id":"company:tr:204382026","type":"company","label":"ДДЛС- БИОСИМ","slug":null,"uic":"204382026","legalForm":null,"status":null,"seat":null},{"id":"person:КРЕМЕНА СТОЯНОВА ДЕМИРОВА","type":"person","label":"Кремена Стоянова Демирова"},{"id":"person:СТЕФАН МИЛКОВ ДАСКАЛОВ","type":"person","label":"Стефан Милков Даскалов"},{"id":"person:МИЛЕН ДАМЯНОВ ДАМЯНОВ","type":"person","label":"Милен Дамянов Дамянов"}],"edges":[{"source":"official:stoyan-todorov-stoyanov-ca0842","target":"company:tr:205833368","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:stoyan-todorov-stoyanov-ca0842","target":"company:tr:204382026","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:КРЕМЕНА СТОЯНОВА ДЕМИРОВА","target":"company:tr:205833368","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН МИЛКОВ ДАСКАЛОВ","target":"company:tr:204382026","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ДАМЯНОВ ДАМЯНОВ","target":"company:tr:204382026","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:stoyan-todorov-stoyanov-ca0842",
+  "nodes": [
+    {
+      "id": "official:stoyan-todorov-stoyanov-ca0842",
+      "type": "official",
+      "slug": "stoyan-todorov-stoyanov-ca0842",
+      "label": "Стоян Тодоров Стоянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стражица"
+    },
+    {
+      "id": "company:tr:205833368",
+      "type": "company",
+      "label": "Ножичка и гребенче",
+      "slug": null,
+      "uic": "205833368",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204382026",
+      "type": "company",
+      "label": "ДДЛС- БИОСИМ",
+      "slug": null,
+      "uic": "204382026",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРЕМЕНА СТОЯНОВА ДЕМИРОВА",
+      "type": "person",
+      "label": "Кремена Стоянова Демирова"
+    },
+    {
+      "id": "person:СТЕФАН МИЛКОВ ДАСКАЛОВ",
+      "type": "person",
+      "label": "Стефан Милков Даскалов"
+    },
+    {
+      "id": "person:МИЛЕН ДАМЯНОВ ДАМЯНОВ",
+      "type": "person",
+      "label": "Милен Дамянов Дамянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-todorov-stoyanov-ca0842",
+      "target": "company:tr:205833368",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stoyan-todorov-stoyanov-ca0842",
+      "target": "company:tr:204382026",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРЕМЕНА СТОЯНОВА ДЕМИРОВА",
+      "target": "company:tr:205833368",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН МИЛКОВ ДАСКАЛОВ",
+      "target": "company:tr:204382026",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ДАМЯНОВ ДАМЯНОВ",
+      "target": "company:tr:204382026",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

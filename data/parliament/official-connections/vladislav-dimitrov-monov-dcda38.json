@@ -1,1 +1,87 @@
-{"generatedAt":"2026-05-23T13:45:42.529Z","officialNodeId":"official:vladislav-dimitrov-monov-dcda38","nodes":[{"id":"official:vladislav-dimitrov-monov-dcda38","type":"official","slug":"vladislav-dimitrov-monov-dcda38","label":"Владислав Димитров Монов","tier":"municipal","role":"councillor","municipality":"Плевен"},{"id":"company:tr:203221618","type":"company","label":"ПАОЛИНА 2011 ЕООД","slug":null,"uic":"203221618","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206873903","type":"company","label":"ИН ЯМ ФУУД ЕООД","slug":null,"uic":"206873903","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205349666","type":"company","label":"ТОХРИ 2019 ООД","slug":null,"uic":"205349666","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:vladislav-dimitrov-monov-dcda38","target":"company:tr:203221618","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vladislav-dimitrov-monov-dcda38","target":"company:tr:206873903","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vladislav-dimitrov-monov-dcda38","target":"company:tr:205349666","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:vladislav-dimitrov-monov-dcda38","target":"company:tr:206873903","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:vladislav-dimitrov-monov-dcda38","target":"company:tr:206873903","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "officialNodeId": "official:vladislav-dimitrov-monov-dcda38",
+  "nodes": [
+    {
+      "id": "official:vladislav-dimitrov-monov-dcda38",
+      "type": "official",
+      "slug": "vladislav-dimitrov-monov-dcda38",
+      "label": "Владислав Димитров Монов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "company:tr:203221618",
+      "type": "company",
+      "label": "ПАОЛИНА 2011 ЕООД",
+      "slug": null,
+      "uic": "203221618",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206873903",
+      "type": "company",
+      "label": "ИН ЯМ ФУУД ЕООД",
+      "slug": null,
+      "uic": "206873903",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205349666",
+      "type": "company",
+      "label": "ТОХРИ 2019 ООД",
+      "slug": null,
+      "uic": "205349666",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladislav-dimitrov-monov-dcda38",
+      "target": "company:tr:203221618",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladislav-dimitrov-monov-dcda38",
+      "target": "company:tr:206873903",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladislav-dimitrov-monov-dcda38",
+      "target": "company:tr:205349666",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladislav-dimitrov-monov-dcda38",
+      "target": "company:tr:206873903",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladislav-dimitrov-monov-dcda38",
+      "target": "company:tr:206873903",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}
