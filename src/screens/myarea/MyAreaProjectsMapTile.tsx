@@ -1,17 +1,16 @@
-// Leaflet map of EU-funded projects in the município. Each pin is one
-// contract from the geocoded slim file (top-200 by totalEur per município).
-// OpenStreetMap tiles per the architectural decision.
-//
-// Performance: map mounts inside an expand-to-show section so the Leaflet
-// chunk + tile fetches happen only when the user opts in. Most users want
-// the rest of the dashboard immediately; this tile is the "explore" path.
+// EU-funded projects in the município. Default view is a preview list of
+// the biggest projects (title + amount + status); the full geocoded
+// Leaflet map loads on demand via "view all on map". This follows the
+// "show some → view all" pattern: the project list is long (up to 200
+// per município) and the heavy interactive map (~150 KB gz Leaflet chunk
+// + tile fetches) stays off the first-paint path until the user asks.
 //
 // Auto-hides when the município has zero geocoded pins (small village
 // municipalities with no EU-funded activity).
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { MapPin, ChevronDown, ChevronUp } from "lucide-react";
+import { MapPin, Map as MapIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import {
   useFundsGeoPins,
@@ -21,6 +20,8 @@ import {
 type Props = {
   obshtina: string;
 };
+
+const PREVIEW_CAP = 5;
 
 const formatEur = (n: number): string =>
   new Intl.NumberFormat("bg-BG", {
@@ -157,19 +158,24 @@ const LeafletMap: FC<{ pins: FundsGeoPin[] }> = ({ pins }) => {
 };
 
 export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language === "bg" ? "bg" : "en";
   const data = useFundsGeoPins(obshtina);
-  const [expanded, setExpanded] = useState(false);
+  const [showMap, setShowMap] = useState(false);
+
+  // Top projects by money, for the default preview list.
+  const topPins = useMemo(() => {
+    if (!data) return [];
+    return [...data.pins]
+      .sort((a, b) => b.totalEur - a.totalEur)
+      .slice(0, PREVIEW_CAP);
+  }, [data]);
 
   if (!data || data.pins.length === 0) return null;
 
   return (
-    <Card className="p-4" id="myarea-projects-map">
-      <button
-        type="button"
-        onClick={() => setExpanded((x) => !x)}
-        className="w-full flex items-center gap-2 text-left"
-      >
+    <Card className="p-4 flex flex-col gap-3" id="myarea-projects-map">
+      <div className="flex items-center gap-2">
         <MapPin className="size-4 text-primary" />
         <h2 className="text-sm font-semibold flex-1">
           {t("my_area_projects_map_title")}
@@ -178,23 +184,58 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
           {data.pins.length}{" "}
           {data.pins.length === 1 ? t("project_singular") : t("project_plural")}
         </span>
-        {expanded ? (
-          <ChevronUp className="size-4 text-muted-foreground" />
-        ) : (
-          <ChevronDown className="size-4 text-muted-foreground" />
-        )}
-      </button>
-      {expanded ? (
-        <div className="mt-3">
+      </div>
+
+      {showMap ? (
+        <>
           <LeafletMap pins={data.pins} />
-          <p className="text-[10px] text-muted-foreground mt-2">
+          <p className="text-[10px] text-muted-foreground">
             {t("my_area_projects_map_caveat", {
               shown: data.pins.length,
               total: data.sourceContractCount,
             })}
           </p>
-        </div>
-      ) : null}
+        </>
+      ) : (
+        <>
+          {/* Default preview — the biggest projects by money. */}
+          <ul className="flex flex-col">
+            {topPins.map((p, i) => (
+              <li
+                key={`${p.contractNumber}-${i}`}
+                className="flex items-start gap-2 py-1.5 text-xs border-b last:border-b-0"
+              >
+                <span
+                  className="size-2 rounded-full shrink-0 mt-1"
+                  style={{ backgroundColor: colorForStatus(p.status) }}
+                  aria-hidden
+                />
+                <span className="flex-1 min-w-0">
+                  <span className="line-clamp-2" title={p.title}>
+                    {p.title}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground">
+                    {p.programName}
+                  </span>
+                </span>
+                <span className="tabular-nums font-medium shrink-0">
+                  {formatEur(p.totalEur)}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <button
+            type="button"
+            onClick={() => setShowMap(true)}
+            className="flex items-center justify-center gap-2 text-sm font-medium text-primary rounded-md border p-2 hover:bg-accent/40 transition-colors"
+          >
+            <MapIcon className="size-4" />
+            {lang === "bg"
+              ? `Виж всички ${data.pins.length} на карта`
+              : `View all ${data.pins.length} on the map`}
+          </button>
+        </>
+      )}
     </Card>
   );
 };
