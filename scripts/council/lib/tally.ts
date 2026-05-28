@@ -77,6 +77,28 @@ const SUMMARY_RE_SHORTHAND = new RegExp(
   "iu",
 );
 
+/**
+ * Pleven-style verbose label-first form. Each label sits on its own line
+ * with an em-dash separator + an optional "общински съветници" suffix +
+ * terminating punctuation:
+ *
+ *   За – 33 общински съветници;
+ *   Против – няма;
+ *   Въздържали се – няма.
+ *
+ * VERBOSE_SEP allows the suffix words ("общински съветници"), terminating
+ * punctuation, and newlines to sit between the captures.
+ */
+const VERBOSE_SEP = "(?:\\s*общински\\s+съветници)?[;,.\\s]+";
+const SUMMARY_RE_VERBOSE = new RegExp(
+  `${Q}\\s*За\\s*${Q}${DASH}(\\d+|няма|-)` +
+    VERBOSE_SEP +
+    `${Q}\\s*Против\\s*${Q}${DASH}(\\d+|няма|-)` +
+    VERBOSE_SEP +
+    `${Q}\\s*Въздържал[аи]?\\s*се\\s*${Q}${DASH}(\\d+|няма|-)`,
+  "iu",
+);
+
 /** Decisions can be voted via a name list too — we detect the marker for Phase 2 only. */
 const NAMED_VOTE_BLOCK_RE =
   /(?:Поименно\s+гласуване\s*:|^\s*1\.\s+[А-Я][а-я]+\s+[А-Я][а-я]+\s*:\s*(?:За|Против|Въздържал))/imu;
@@ -96,8 +118,10 @@ const parseCount = (raw: string): number => {
 export const extractTally = (text: string): CouncilTally | null => {
   const mDigit = text.match(SUMMARY_RE_DIGIT_FIRST);
   const mLabel = mDigit ? null : text.match(SUMMARY_RE_LABEL_FIRST);
-  const mShort = mDigit || mLabel ? null : text.match(SUMMARY_RE_SHORTHAND);
-  const m = mDigit ?? mLabel ?? mShort;
+  const mVerbose = mDigit || mLabel ? null : text.match(SUMMARY_RE_VERBOSE);
+  const mShort =
+    mDigit || mLabel || mVerbose ? null : text.match(SUMMARY_RE_SHORTHAND);
+  const m = mDigit ?? mLabel ?? mVerbose ?? mShort;
   if (!m) return null;
   const method: CouncilTally["method"] = NAMED_VOTE_BLOCK_RE.test(text)
     ? "named"
@@ -148,6 +172,8 @@ export const findAllTallies = (
   while ((m = reDigit.exec(text)) !== null) consume(m, false);
   const reLabel = new RegExp(SUMMARY_RE_LABEL_FIRST.source, "igu");
   while ((m = reLabel.exec(text)) !== null) consume(m, false);
+  const reVerbose = new RegExp(SUMMARY_RE_VERBOSE.source, "igu");
+  while ((m = reVerbose.exec(text)) !== null) consume(m, false);
   const reShort = new RegExp(SUMMARY_RE_SHORTHAND.source, "igu");
   while ((m = reShort.exec(text)) !== null) consume(m, true);
   // Re-sort by offset since we merged two streams.
@@ -181,13 +207,18 @@ export const classifyResult = (
   const back = text.slice(Math.max(0, tallyOffset - 120), tallyOffset);
   const fwd = text.slice(tallyOffset, Math.min(text.length, tallyOffset + 140));
 
-  // Word-order varies by município. V. Tarnovo: "беше прието" /
-  // "не беше прието" — predicate. Stara Zagora: "Приема се." /
-  // "Не се приема." — short reflexive form right after the tally line.
+  // Word-order varies by município.
+  //   V. Tarnovo:    "беше прието" / "не беше прието"   (passive predicate)
+  //   Stara Zagora:  "Приема се." / "Не се приема."      (reflexive, short)
+  //   Pleven:        "Общински съвет – Плевен прие следното"  (3rd-person aorist active)
+  // The Pleven form is matched by the trailing alternative — "прие"
+  // followed by whitespace + a Cyrillic word, with a lookbehind asserting
+  // we're not in the middle of a longer Cyrillic word.
   const REJECTED =
-    /(?:не\s+беше\s+прието|не\s+се\s+приема|не\s+приема\s+се|отхвърл)/iu;
+    /(?:не\s+беше\s+прието|не\s+се\s+приема|не\s+приема\s+се|отхвърл|(?<![а-я])не\s+прие\s+[а-я])/iu;
   const RETURNED = /върнат[аоои]?\s+за\s+ново\s+обсъждане/iu;
-  const ADOPTED = /(?:беше\s+прието|се\s+приема|приема\s+се|прие[ти][аоои]?)/iu;
+  const ADOPTED =
+    /(?:беше\s+прието|се\s+приема|приема\s+се|прие[ти][аоои]?|(?<![а-я])прие\s+[а-я])/iu;
 
   if (REJECTED.test(fwd) || REJECTED.test(back)) return "rejected";
   if (RETURNED.test(fwd) || RETURNED.test(back)) return "returned";
@@ -294,8 +325,12 @@ export const findResolutionMarkers = (
   text: string,
 ): Array<{ offset: number; number: string; title: string }> => {
   const out: Array<{ offset: number; number: string; title: string }> = [];
-  // (^|\n) + optional indent + all-caps РЕШЕНИЕ + № + digits.
-  const re = /(?:^|\n)[ \t]*РЕШЕНИЕ\s*№\s*(\d+)/gu;
+  // (^|\n) + optional indent + all-caps РЕШЕНИЕ (compact OR letter-spaced
+  // form "Р  Е  Ш  Е  Н  И  Е" — Pleven inflates the title block this way) +
+  // № + digits. Case-sensitivity is the discriminator vs inline lowercase
+  // "Решение № N" references, so we stay case-sensitive here.
+  const re =
+    /(?:^|\n)[ \t]*(?:РЕШЕНИЕ|Р\s+Е\s+Ш\s+Е\s+Н\s+И\s+Е)\s*№\s*(\d+)/gu;
   let m: RegExpExecArray | null;
   while ((m = re.exec(text)) !== null) {
     // m.index points at the (^|\n) boundary; nudge past it for the marker offset.
