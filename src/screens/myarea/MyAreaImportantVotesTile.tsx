@@ -141,14 +141,18 @@ export const MyAreaImportantVotesTile: FC<Props> = ({ oblast }) => {
   // made, so this is free from React Query's cache.
   const signals = useMpSignals(mpIds);
 
+  const dateFmt = useMemo(
+    () =>
+      new Intl.DateTimeFormat(lang === "bg" ? "bg-BG" : "en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }),
+    [lang],
+  );
+
   if (!isParliamentaryCycle || !mir || mpRows.length === 0) return null;
   if (!isLoading && items.length === 0) return null;
-
-  const dateFmt = new Intl.DateTimeFormat(lang === "bg" ? "bg-BG" : "en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
 
   return (
     <Card className="p-4 md:p-5">

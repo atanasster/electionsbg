@@ -57,8 +57,15 @@ export interface ImportantVotesSlice {
 const MAX_PER_NS = 15;
 const PREFIX_LEN = 60;
 
+// "процедура" matches only when it's the bare noun (no Cyrillic suffix
+// after) — that catches every procedural sub-vote pattern we've seen
+// ("процедура за …", "процедура от …", "процедура <MP name> за …") while
+// letting bills like "Закон за процедурата за …" / "процедурно …" survive
+// (their next char is a Cyrillic letter, not whitespace/punctuation).
+// The negated lookahead replicates a Cyrillic-aware word boundary —
+// JavaScript's `\b` does not assert between two Cyrillic chars.
 const PROCEDURAL =
-  /програма за работата|процедура|поименна проверка|регистрация/i;
+  /програма за работата|процедура(?=$|[^а-яёa-z])|поименна (?:проверка|регистрация)/i;
 const SECOND_READING = /(?:на\s+)?второ\s+(?:гласуване|четене)/i;
 const FIRST_READING = /(?:на\s+)?първо\s+(?:гласуване|четене)/i;
 const BUDGET_LAW =
