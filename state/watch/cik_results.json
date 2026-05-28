@@ -1,0 +1,25 @@
+{
+  "detail": "0/2 csv.zip bundles reachable (2 regular + 0 partial)",
+  "fingerprint": "f427dfdf27381ee4",
+  "lastChanged": "2026-05-28T06:09:23.614Z",
+  "lastChecked": "2026-05-28T06:09:23.614Z",
+  "meta": {
+    "cycles": [
+      {
+        "cycle": "mi2019",
+        "csvZipUrl": "https://results.cik.bg/mi2019/csv.zip",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 403
+      },
+      {
+        "cycle": "mi2023",
+        "csvZipUrl": "https://results.cik.bg/mi2023/csv.zip",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 403
+      }
+    ],
+    "discoveredAt": "2026-05-28T06:13:30.591Z"
+  }
+}
