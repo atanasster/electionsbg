@@ -6,11 +6,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { GraduationCap } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import {
-  useSchools,
-  type SchoolRecord,
-  type SchoolSubjectKey,
-} from "@/data/schools/useSchools";
+import { useSchools, type SchoolRecord } from "@/data/schools/useSchools";
 
 type Props = {
   obshtina: string;
@@ -74,9 +70,6 @@ export const MyAreaSchoolsTile: FC<Props> = ({ obshtina }) => {
   // schools (the same row would otherwise appear in both panels). Threshold
   // chosen to give the user a clear "best vs worst" contrast.
   const showBottom = schools.length >= 8 && bottom.length > 0;
-  // Reference SchoolSubjectKey so the import isn't dropped by future
-  // editors — the type underlies the score record we read.
-  type _Touch = SchoolSubjectKey; // eslint-disable-line @typescript-eslint/no-unused-vars
 
   return (
     <Card className="p-4">
