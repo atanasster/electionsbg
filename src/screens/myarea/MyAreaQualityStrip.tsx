@@ -25,12 +25,21 @@ type Props = {
   oblast: string;
 };
 
+type Comparison = {
+  /** Short "vs national" line, e.g. "над средното · 1483 / 1102 средно". */
+  text: string;
+  /** "good" → green (this area beats the national avg on a metric where
+   *  higher/lower is better), "bad" → rose, "neutral" → muted. */
+  tone: "good" | "bad" | "neutral";
+};
+
 type Column = {
   key: string;
   icon: typeof GraduationCap;
   label: string;
   value: string;
   caption?: string;
+  comparison?: Comparison;
   to: string;
 };
 
@@ -38,6 +47,52 @@ const formatNumber = (n: number, lang: "bg" | "en"): string =>
   n.toLocaleString(lang === "bg" ? "bg-BG" : "en-GB", {
     maximumFractionDigits: 1,
   });
+
+// Build a "vs national average" comparison line. `higherIsBetter` flips
+// the good/bad tone (crime: lower is better; school grades: higher is
+// better). Returns null when there's no meaningful national reference.
+const buildComparison = (
+  value: number,
+  nationalAvg: number | null,
+  higherIsBetter: boolean,
+  formatted: string,
+  lang: "bg" | "en",
+): Comparison | null => {
+  if (
+    nationalAvg == null ||
+    !Number.isFinite(nationalAvg) ||
+    nationalAvg <= 0
+  ) {
+    return null;
+  }
+  const above = value > nationalAvg;
+  const better = higherIsBetter ? above : !above;
+  // Within ±3% of the national average reads as "about average".
+  const ratio = Math.abs(value - nationalAvg) / nationalAvg;
+  const isAvg = ratio < 0.03;
+  const avgLabel = lang === "bg" ? "ср. за страната" : "national avg";
+  if (isAvg) {
+    return {
+      tone: "neutral",
+      text:
+        lang === "bg"
+          ? `около средното · ${formatted} ${avgLabel}`
+          : `about average · ${formatted} ${avgLabel}`,
+    };
+  }
+  const word =
+    lang === "bg"
+      ? above
+        ? "над средното"
+        : "под средното"
+      : above
+        ? "above avg"
+        : "below avg";
+  return {
+    tone: better ? "good" : "bad",
+    text: `${word} · ${formatted} ${avgLabel}`,
+  };
+};
 
 export const MyAreaQualityStrip: FC<Props> = ({ obshtina, oblast }) => {
   const { t, i18n } = useTranslation();
@@ -48,6 +103,45 @@ export const MyAreaQualityStrip: FC<Props> = ({ obshtina, oblast }) => {
   const { services } = useServices(obshtina);
   const { data: airFile, stations } = useAirQuality(obshtina);
   const { data: crimeFile, yearly: crimeYearly } = useCrime(oblast);
+
+  // National crime average for the latest year — mean of every oblast's
+  // total rate. The crime file already carries yearlyByOblast for all
+  // oblasts, so this is a pure in-memory reduce (no extra fetch).
+  const nationalCrimeAvg = useMemo<number | null>(() => {
+    if (!crimeFile?.latestYear) return null;
+    const yr = crimeFile.latestYear;
+    const rates: number[] = [];
+    for (const oblastData of Object.values(crimeFile.yearlyByOblast)) {
+      const total = oblastData?.[yr]?.total;
+      if (typeof total === "number" && Number.isFinite(total) && total > 0) {
+        rates.push(total);
+      }
+    }
+    if (rates.length === 0) return null;
+    return rates.reduce((s, x) => s + x, 0) / rates.length;
+  }, [crimeFile]);
+
+  // National school composite average — mean composite across every
+  // school in every município for the latest year. schoolsByObshtina is
+  // already loaded, so this is an in-memory reduce.
+  const nationalSchoolAvg = useMemo<number | null>(() => {
+    if (!schoolsFile?.latestYear) return null;
+    const yr = String(schoolsFile.latestYear);
+    const composites: number[] = [];
+    for (const list of Object.values(schoolsFile.schoolsByObshtina)) {
+      for (const s of list) {
+        const yearScores = s.scoresByYear[yr];
+        if (!yearScores) continue;
+        const vals = Object.values(yearScores).filter(
+          (v): v is number => typeof v === "number" && Number.isFinite(v),
+        );
+        if (vals.length === 0) continue;
+        composites.push(vals.reduce((sum, v) => sum + v, 0) / vals.length);
+      }
+    }
+    if (composites.length === 0) return null;
+    return composites.reduce((s, x) => s + x, 0) / composites.length;
+  }, [schoolsFile]);
 
   const cols = useMemo<Column[]>(() => {
     const out: Column[] = [];
@@ -67,6 +161,14 @@ export const MyAreaQualityStrip: FC<Props> = ({ obshtina, oblast }) => {
             lang === "bg"
               ? `на 10 000 души · ${crimeFile.latestYear} г.`
               : `per 10,000 · ${crimeFile.latestYear}`,
+          comparison:
+            buildComparison(
+              latest.total,
+              nationalCrimeAvg,
+              false, // lower crime is better
+              formatNumber(nationalCrimeAvg ?? 0, lang),
+              lang,
+            ) ?? undefined,
           to: oblastHref,
         });
       }
@@ -120,6 +222,14 @@ export const MyAreaQualityStrip: FC<Props> = ({ obshtina, oblast }) => {
             lang === "bg"
               ? `среден успех · ${composites.length} ${composites.length === 1 ? "училище" : "училища"}`
               : `avg grade · ${composites.length} ${composites.length === 1 ? "school" : "schools"}`,
+          comparison:
+            buildComparison(
+              avg,
+              nationalSchoolAvg,
+              true, // higher grade is better
+              (nationalSchoolAvg ?? 0).toFixed(2),
+              lang,
+            ) ?? undefined,
           to: muniHref,
         });
       }
@@ -158,6 +268,8 @@ export const MyAreaQualityStrip: FC<Props> = ({ obshtina, oblast }) => {
     lang,
     obshtina,
     oblast,
+    nationalCrimeAvg,
+    nationalSchoolAvg,
   ]);
 
   // Don't render a near-empty strip — if only one column has data, the
@@ -196,6 +308,19 @@ export const MyAreaQualityStrip: FC<Props> = ({ obshtina, oblast }) => {
               {c.caption ? (
                 <div className="text-[10px] text-muted-foreground mt-0.5">
                   {c.caption}
+                </div>
+              ) : null}
+              {c.comparison ? (
+                <div
+                  className={`text-[10px] mt-1 font-medium ${
+                    c.comparison.tone === "good"
+                      ? "text-emerald-600"
+                      : c.comparison.tone === "bad"
+                        ? "text-rose-600"
+                        : "text-muted-foreground"
+                  }`}
+                >
+                  {c.comparison.text}
                 </div>
               ) : null}
             </Link>
