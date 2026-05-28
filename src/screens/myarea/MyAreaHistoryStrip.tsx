@@ -29,8 +29,6 @@ type Props = {
 type TurnoutPoint = {
   cycle: string; // election name (folder slug)
   turnout: number; // 0..1
-  voters: number;
-  registered: number;
 };
 
 const formatPct = (n: number, lang: "bg" | "en"): string =>
@@ -58,12 +56,7 @@ const SettlementHistoryBody: FC<{ ekatte: string; lang: "bg" | "en" }> = ({
       const reg = p?.numRegisteredVoters ?? 0;
       const voters = p?.totalActualVoters ?? 0;
       if (reg > 0 && voters > 0) {
-        out.push({
-          cycle: e.name,
-          turnout: voters / reg,
-          voters,
-          registered: reg,
-        });
+        out.push({ cycle: e.name, turnout: voters / reg });
       }
     }
     // Sort ascending by cycle name (date-shaped folder slugs sort

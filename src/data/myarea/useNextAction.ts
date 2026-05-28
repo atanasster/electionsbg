@@ -30,11 +30,6 @@ export type NextAction =
       daysOut: number;
     }
   | {
-      kind: "election_default";
-      election: UpcomingElection;
-      daysOut: number;
-    }
-  | {
       kind: "council_recent";
       obshtina: string;
       resolution: CouncilResolution;
@@ -113,10 +108,10 @@ export const useNextAction = (obshtina?: string | null): NextAction | null => {
     };
   }
 
-  // Tier 4 — default soft countdown to the next election.
-  if (upcoming) {
-    return { kind: "election_default", election: upcoming, daysOut };
-  }
-
+  // Nothing urgent. We deliberately do NOT echo the next election here —
+  // the standalone MyAreaUpcomingBallotTile right below already shows the
+  // calendar, and a "default countdown" action card duplicated it. The
+  // band only earns its place when something is genuinely time-sensitive
+  // (imminent vote / fresh council decision / fresh procurement flag).
   return null;
 };

@@ -9,13 +9,7 @@
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  CalendarClock,
-  Vote,
-  AlertTriangle,
-  CalendarDays,
-  ArrowRight,
-} from "lucide-react";
+import { CalendarClock, Vote, AlertTriangle, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/ux/Link";
 import { useNextAction, type NextAction } from "@/data/myarea/useNextAction";
@@ -115,26 +109,6 @@ const renderBody = (
               external: true,
             }
           : undefined,
-      };
-    }
-    case "election_default": {
-      const e = action.election;
-      const dateLabel = formatLongDate(e.date, lang);
-      const kindLabel = t(`election_kind_${e.kind}`);
-      return {
-        icon: CalendarDays,
-        toneClass: "",
-        eyebrow: lang === "bg" ? "Следващи избори" : "Next election",
-        lead:
-          lang === "bg"
-            ? `${kindLabel} след ${action.daysOut} дни`
-            : `${kindLabel} in ${action.daysOut} days`,
-        detail:
-          e.confidence === "estimated"
-            ? lang === "bg"
-              ? `${dateLabel} · ориентировъчно`
-              : `${dateLabel} · estimated`
-            : dateLabel,
       };
     }
   }

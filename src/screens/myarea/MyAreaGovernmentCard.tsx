@@ -166,14 +166,16 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
   return (
     <Card className="p-4">
       <div className="flex items-center gap-2 mb-3">
-        <Landmark className="size-4 text-primary" />
+        <Landmark className="size-4 text-primary shrink-0" />
         <h2 className="text-sm font-semibold flex items-baseline gap-2 flex-1 min-w-0">
-          {t("my_area_municipality_section_label")}
+          <span className="whitespace-nowrap">
+            {t("my_area_municipality_section_label")}
+          </span>
           <span className="text-xs font-normal text-muted-foreground">·</span>
           <Link
             to={muniHref}
             underline
-            className="text-sm font-semibold truncate"
+            className="text-sm font-semibold truncate min-w-0"
           >
             {muniName
               ? lang === "bg"
@@ -185,9 +187,12 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
         <Link
           to={muniHref}
           underline={false}
+          aria-label={lang === "bg" ? "Виж детайли" : "View details"}
           className="flex items-center gap-1 text-[11px] font-medium text-primary hover:underline shrink-0"
         >
-          {lang === "bg" ? "Виж детайли" : "View details"}
+          <span className="hidden sm:inline">
+            {lang === "bg" ? "Виж детайли" : "View details"}
+          </span>
           <ArrowRight className="size-3" />
         </Link>
       </div>
