@@ -56,6 +56,7 @@ import { KarlovoCapitalProjectsTile } from "./KarlovoCapitalProjectsTile";
 import { KazanlakCapitalProjectsTile } from "./KazanlakCapitalProjectsTile";
 import { KyustendilCapitalProjectsTile } from "./KyustendilCapitalProjectsTile";
 import { MontanaCapitalProjectsTile } from "./MontanaCapitalProjectsTile";
+import { MunicipalBudgetExecutionTile } from "./MunicipalBudgetExecutionTile";
 import { IpopExecutionTile } from "./IpopExecutionTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
@@ -261,6 +262,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({
           <KyustendilCapitalProjectsTile obshtinaCode={municipalityCode} />
           <MontanaCapitalProjectsTile obshtinaCode={municipalityCode} />
           <IpopExecutionTile obshtinaCode={municipalityCode} />
+          <MunicipalBudgetExecutionTile obshtinaCode={municipalityCode} />
         </DashboardSection>
 
         {/* Anomalies section is election forensics — hidden in compact

@@ -23,7 +23,14 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as XLSX from "xlsx";
 import { BGN_PER_EUR } from "../../../src/lib/currency";
+import {
+  listDatasets,
+  getResourceData,
+  findBudgetResource,
+} from "../lib/egov_api";
 import { SOFIA_RAYONS, lookupRayonCode } from "./sofia_rayons";
+
+const SOFIA_ORG_ID = 485; // Столична община on data.egov.bg
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -220,11 +227,29 @@ const classifyRow = (raw: string): { kind: RowKind; code: string } => {
 
 interface ParseOptions {
   fiscalYear: number;
-  xlsxPath: string;
   currency: "BGN" | "EUR";
+  // Override the source provenance written to the JSON (egov path supplies the
+  // portal dataset URL + resource title; the XLSX path falls back to SOURCE_URLS).
+  source?: { publisher: string; documentTitle: string; url: string };
 }
 
-const parse = (opts: ParseOptions): SofiaCapitalProgramFile => {
+// Load the workbook's first sheet as a 2D row array — the same shape
+// data.egov.bg's getResourceData returns, so both sources feed parseRows().
+const loadXlsxRows = (xlsxPath: string): unknown[][] => {
+  const buf = readFileSync(xlsxPath);
+  const wb = XLSX.read(buf, { type: "buffer" });
+  const ws = wb.Sheets[wb.SheetNames[0]];
+  return XLSX.utils.sheet_to_json(ws, {
+    header: 1,
+    raw: false,
+    defval: "",
+  }) as unknown[][];
+};
+
+const parseRows = (
+  rows: unknown[][],
+  opts: ParseOptions,
+): SofiaCapitalProgramFile => {
   const cfg = COLUMN_CONFIGS[opts.fiscalYear];
   if (!cfg) {
     throw new Error(
@@ -232,15 +257,6 @@ const parse = (opts: ParseOptions): SofiaCapitalProgramFile => {
         `or use the dedicated sofia_2022.ts parser for the legacy layout.`,
     );
   }
-  const buf = readFileSync(opts.xlsxPath);
-  const wb = XLSX.read(buf, { type: "buffer" });
-  const sheetName = wb.SheetNames[0];
-  const ws = wb.Sheets[sheetName];
-  const rows = XLSX.utils.sheet_to_json(ws, {
-    header: 1,
-    raw: false,
-    defval: "",
-  }) as unknown[][];
 
   // ---- Recapitulation (rows ~12-36) -----------------------------------
   // We capture the §51-§55 paragraph totals if labelled here, but the
@@ -336,6 +352,17 @@ const parse = (opts: ParseOptions): SofiaCapitalProgramFile => {
     });
   }
 
+  // Layout guard: a zero-project parse means the column anchors didn't line
+  // up — most likely the egov CSV export shifted columns relative to the
+  // sofia.bg XLSX that COLUMN_CONFIGS was tuned against. Fail loudly rather
+  // than silently emitting an empty programme.
+  if (projects.length === 0) {
+    throw new Error(
+      `parsed 0 projects for fiscal year ${opts.fiscalYear} — the source ` +
+        `column layout likely differs from COLUMN_CONFIGS[${opts.fiscalYear}]`,
+    );
+  }
+
   if (!totalAmounts) {
     // Fallback: sum the itemised projects ourselves.
     totalAmounts = projects.reduce<AmountColumns>(
@@ -395,9 +422,11 @@ const parse = (opts: ParseOptions): SofiaCapitalProgramFile => {
     fiscalYear: opts.fiscalYear,
     generatedAt: new Date().toISOString(),
     source: {
-      publisher: "Столична община",
-      documentTitle: `Капиталова програма ${opts.fiscalYear} г. — Приложение №3`,
-      url: SOURCE_URLS[opts.fiscalYear] ?? "",
+      publisher: opts.source?.publisher ?? "Столична община",
+      documentTitle:
+        opts.source?.documentTitle ??
+        `Капиталова програма ${opts.fiscalYear} г. — Приложение №3`,
+      url: opts.source?.url ?? SOURCE_URLS[opts.fiscalYear] ?? "",
       fetchedAt: new Date().toISOString(),
     },
     currency: opts.currency,
@@ -428,25 +457,72 @@ const addMoney = (a: Money, b: Money): Money => {
 
 // ---- CLI entry point -------------------------------------------------
 
-const main = () => {
+// Resolve the rows for a fiscal year from data.egov.bg. Returns null when the
+// portal has no matching resource yet (it lags the sofia.bg site by ~12 months).
+const loadEgovRows = async (
+  fiscalYear: number,
+): Promise<{
+  rows: unknown[][];
+  source: { publisher: string; documentTitle: string; url: string };
+} | null> => {
+  const datasets = await listDatasets(SOFIA_ORG_ID);
+  const match = findBudgetResource(datasets, fiscalYear, "capital");
+  if (!match) return null;
+  console.log(
+    `[sofia-capital] egov resource: ${match.resource.name} (${match.resource.uri})`,
+  );
+  const rows = await getResourceData(match.resource.uri);
+  return {
+    rows,
+    source: {
+      publisher: "Столична община",
+      documentTitle: match.resource.name,
+      url: `https://data.egov.bg/data/view/${match.dataset.uri}`,
+    },
+  };
+};
+
+const main = async () => {
   const args = process.argv.slice(2);
   const yearIdx = args.indexOf("--year");
   const fiscalYear = yearIdx >= 0 ? Number(args[yearIdx + 1]) : 2025;
-  const xlsxIdx = args.indexOf("--xlsx");
-  const defaultPath = resolve(
-    __dirname,
-    "../../../raw_data/budget/capital_programs",
-    `sofia-${fiscalYear}.xlsx`,
-  );
-  const xlsxPath = xlsxIdx >= 0 ? args[xlsxIdx + 1] : defaultPath;
+  const sourceIdx = args.indexOf("--source");
+  const source = sourceIdx >= 0 ? args[sourceIdx + 1] : "xlsx";
 
   // The legal currency switched from BGN to EUR on 2026-01-01, so the
   // 2025 капиталова програма (drafted in 2024) is denominated in лева.
   // 2026+ files will be EUR — we lock that to the year here.
   const currency: "BGN" | "EUR" = fiscalYear >= 2026 ? "EUR" : "BGN";
 
-  console.log(`[sofia-capital] parsing ${xlsxPath} (year ${fiscalYear})`);
-  const parsed = parse({ fiscalYear, xlsxPath, currency });
+  let parsed: SofiaCapitalProgramFile;
+  if (source === "egov") {
+    console.log(
+      `[sofia-capital] fetching ${fiscalYear} capital programme from data.egov.bg (org ${SOFIA_ORG_ID})`,
+    );
+    const egov = await loadEgovRows(fiscalYear);
+    if (!egov) {
+      throw new Error(
+        `data.egov.bg has no ${fiscalYear} capital-programme resource for ` +
+          `Столична община yet — the portal lags the sofia.bg site by ~12 ` +
+          `months. Use the default --source xlsx path for the current year.`,
+      );
+    }
+    parsed = parseRows(egov.rows, {
+      fiscalYear,
+      currency,
+      source: egov.source,
+    });
+  } else {
+    const xlsxIdx = args.indexOf("--xlsx");
+    const defaultPath = resolve(
+      __dirname,
+      "../../../raw_data/budget/capital_programs",
+      `sofia-${fiscalYear}.xlsx`,
+    );
+    const xlsxPath = xlsxIdx >= 0 ? args[xlsxIdx + 1] : defaultPath;
+    console.log(`[sofia-capital] parsing ${xlsxPath} (year ${fiscalYear})`);
+    parsed = parseRows(loadXlsxRows(xlsxPath), { fiscalYear, currency });
+  }
 
   const outPath = resolve(
     __dirname,
@@ -480,4 +556,7 @@ const main = () => {
   }
 };
 
-main();
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

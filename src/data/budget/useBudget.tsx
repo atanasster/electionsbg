@@ -50,6 +50,8 @@ import type {
   IpopMunicipalityFile,
   VidinCapitalProgramFile,
   VatBreakdownFile,
+  MunicipalExecutionFile,
+  MunicipalExecutionIndexFile,
 } from "./types";
 
 const fetchJson = async <T,>(path: string): Promise<T | null> => {
@@ -704,5 +706,33 @@ export const useKazanlakCapitalProgram = (fiscalYear: number | undefined) =>
         `/budget/capital_programs/${fiscalYear}/kazanlak-tile.json`,
       ),
     enabled: !!fiscalYear,
+    staleTime: Infinity,
+  });
+
+// Municipal cash-execution (касово изпълнение по ЕБК) — plan-vs-actual revenue
+// and expense by economic paragraph, sourced from the MINFIN B3 report a few
+// общини publish to data.egov.bg. The index lists covered munis + years; the
+// per-(muni, year) file is small (~12 KB), so no tile-shrink sidecar.
+export const useMunicipalExecutionIndex = () =>
+  useQuery({
+    queryKey: ["budget", "municipal-execution", "index"] as const,
+    queryFn: () =>
+      fetchJson<MunicipalExecutionIndexFile>(
+        "/budget/municipal_execution/index.json",
+      ),
+    staleTime: Infinity,
+  });
+
+export const useMunicipalExecution = (
+  muniSlug: string | undefined,
+  fiscalYear: number | undefined,
+) =>
+  useQuery({
+    queryKey: ["budget", "municipal-execution", muniSlug, fiscalYear] as const,
+    queryFn: () =>
+      fetchJson<MunicipalExecutionFile>(
+        `/budget/municipal_execution/${muniSlug}/${fiscalYear}.json`,
+      ),
+    enabled: !!muniSlug && !!fiscalYear,
     staleTime: Infinity,
   });

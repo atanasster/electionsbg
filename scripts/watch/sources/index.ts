@@ -12,6 +12,7 @@ import { aopDebarred } from "./aop_debarred";
 import { isunEuFunds } from "./isun_eu_funds";
 import { isunEuFundsProjects } from "./isun_eu_funds_projects";
 import { egovBudgetExecution } from "./egov_budget_execution";
+import { egovMunicipalExecution } from "./egov_municipal_execution";
 import { ministryExecutionReports } from "./ministry_execution_reports";
 import { iisdaDoklad } from "./iisda_doklad";
 import { eurostat } from "./eurostat";
@@ -64,6 +65,7 @@ export const SOURCES: WatchSource[] = [
   isunEuFunds,
   isunEuFundsProjects,
   egovBudgetExecution,
+  egovMunicipalExecution,
   ministryExecutionReports,
   iisdaDoklad,
   customsRevenue,

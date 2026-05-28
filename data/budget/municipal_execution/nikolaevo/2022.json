@@ -1,0 +1,396 @@
+{
+  "obshtina": "SZR38",
+  "muniSlug": "nikolaevo",
+  "muniNameBg": "Николаево",
+  "muniNameEn": "Nikolaevo",
+  "fiscalYear": 2022,
+  "period": {
+    "start": "2022-01-01",
+    "end": "2022-12-31",
+    "isFullYear": true,
+    "labelBg": "01.01.2022 – 31.12.2022"
+  },
+  "currency": "BGN",
+  "generatedAt": "2026-05-28T21:40:51.796Z",
+  "source": {
+    "publisher": "Община Николаево",
+    "datasetUrl": "https://data.egov.bg/data/view/af009fc4-c25d-42d1-bd92-b66302e095d1",
+    "resourceUri": "119e2569-f302-4a93-b402-e6f3684e065e",
+    "fetchedAt": "2026-05-28T21:40:51.796Z"
+  },
+  "revenue": {
+    "plan": {
+      "amount": 531615,
+      "currency": "BGN",
+      "amountEur": 271810
+    },
+    "actual": {
+      "amount": 599695,
+      "currency": "BGN",
+      "amountEur": 306619
+    },
+    "executionPct": 112.8,
+    "byParagraph": [
+      {
+        "code": "27-00",
+        "name": "Общински такси",
+        "plan": {
+          "amount": 234884,
+          "currency": "BGN",
+          "amountEur": 120094
+        },
+        "actual": {
+          "amount": 261102,
+          "currency": "BGN",
+          "amountEur": 133499
+        },
+        "executionPct": 111.2
+      },
+      {
+        "code": "13-00",
+        "name": "Имуществени и други местни данъци :",
+        "plan": {
+          "amount": 165100,
+          "currency": "BGN",
+          "amountEur": 84414
+        },
+        "actual": {
+          "amount": 197094,
+          "currency": "BGN",
+          "amountEur": 100773
+        },
+        "executionPct": 119.4
+      },
+      {
+        "code": "36-00",
+        "name": "Други приходи",
+        "plan": {
+          "amount": 56901,
+          "currency": "BGN",
+          "amountEur": 29093
+        },
+        "actual": {
+          "amount": 55201,
+          "currency": "BGN",
+          "amountEur": 28224
+        },
+        "executionPct": 97
+      },
+      {
+        "code": "24-00",
+        "name": "Приходи и доходи от собственост",
+        "plan": {
+          "amount": 37608,
+          "currency": "BGN",
+          "amountEur": 19229
+        },
+        "actual": {
+          "amount": 47874,
+          "currency": "BGN",
+          "amountEur": 24478
+        },
+        "executionPct": 127.3
+      },
+      {
+        "code": "28-00",
+        "name": "Глоби, санкции и наказателни лихви",
+        "plan": {
+          "amount": 28000,
+          "currency": "BGN",
+          "amountEur": 14316
+        },
+        "actual": {
+          "amount": 21887,
+          "currency": "BGN",
+          "amountEur": 11191
+        },
+        "executionPct": 78.2
+      },
+      {
+        "code": "40-00",
+        "name": "Постъпления от продажба на нефинансови активи (без § 40-71)",
+        "plan": {
+          "amount": 5000,
+          "currency": "BGN",
+          "amountEur": 2556
+        },
+        "actual": {
+          "amount": 12829,
+          "currency": "BGN",
+          "amountEur": 6559
+        },
+        "executionPct": 256.6
+      },
+      {
+        "code": "01-00",
+        "name": "Данък върху доходите на физически лица:",
+        "plan": {
+          "amount": 2300,
+          "currency": "BGN",
+          "amountEur": 1176
+        },
+        "actual": {
+          "amount": 2741,
+          "currency": "BGN",
+          "amountEur": 1401
+        },
+        "executionPct": 119.2
+      },
+      {
+        "code": "41-00",
+        "name": "Приходи от концесии",
+        "plan": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        },
+        "actual": {
+          "amount": 1838,
+          "currency": "BGN",
+          "amountEur": 940
+        },
+        "executionPct": null
+      },
+      {
+        "code": "20-00",
+        "name": "Други данъци",
+        "plan": {
+          "amount": 2800,
+          "currency": "BGN",
+          "amountEur": 1432
+        },
+        "actual": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        },
+        "executionPct": 0
+      },
+      {
+        "code": "37-00",
+        "name": "Внесени ДДС и други данъци върху продажбите",
+        "plan": {
+          "amount": -978,
+          "currency": "BGN",
+          "amountEur": -500
+        },
+        "actual": {
+          "amount": -871,
+          "currency": "BGN",
+          "amountEur": -445
+        },
+        "executionPct": null
+      }
+    ]
+  },
+  "expense": {
+    "plan": {
+      "amount": 9581358,
+      "currency": "BGN",
+      "amountEur": 4898871
+    },
+    "actual": {
+      "amount": 7996686,
+      "currency": "BGN",
+      "amountEur": 4088641
+    },
+    "executionPct": 83.5,
+    "byParagraph": [
+      {
+        "code": "01-00",
+        "name": "Заплати и възнаграждения за персонала, нает по трудови и служебни правоотношения",
+        "plan": {
+          "amount": 4524601,
+          "currency": "BGN",
+          "amountEur": 2313392
+        },
+        "actual": {
+          "amount": 4316459,
+          "currency": "BGN",
+          "amountEur": 2206970
+        },
+        "executionPct": 95.4
+      },
+      {
+        "code": "10-00",
+        "name": "Издръжка",
+        "plan": {
+          "amount": 2356977,
+          "currency": "BGN",
+          "amountEur": 1205103
+        },
+        "actual": {
+          "amount": 1703284,
+          "currency": "BGN",
+          "amountEur": 870875
+        },
+        "executionPct": 72.3
+      },
+      {
+        "code": "05-00",
+        "name": "Задължителни осигурителни вноски от работодатели",
+        "plan": {
+          "amount": 1012287,
+          "currency": "BGN",
+          "amountEur": 517574
+        },
+        "actual": {
+          "amount": 949988,
+          "currency": "BGN",
+          "amountEur": 485721
+        },
+        "executionPct": 93.8
+      },
+      {
+        "code": "02-00",
+        "name": "Други възнаграждения и плащания за персонала",
+        "plan": {
+          "amount": 415685,
+          "currency": "BGN",
+          "amountEur": 212536
+        },
+        "actual": {
+          "amount": 354748,
+          "currency": "BGN",
+          "amountEur": 181380
+        },
+        "executionPct": 85.3
+      },
+      {
+        "code": "51-00",
+        "name": "Основен ремонт на дълготрайни материални активи",
+        "plan": {
+          "amount": 825447,
+          "currency": "BGN",
+          "amountEur": 422044
+        },
+        "actual": {
+          "amount": 325698,
+          "currency": "BGN",
+          "amountEur": 166527
+        },
+        "executionPct": 39.5
+      },
+      {
+        "code": "52-00",
+        "name": "Придобиване на дълготрайни материални активи",
+        "plan": {
+          "amount": 189703,
+          "currency": "BGN",
+          "amountEur": 96994
+        },
+        "actual": {
+          "amount": 135935,
+          "currency": "BGN",
+          "amountEur": 69502
+        },
+        "executionPct": 71.7
+      },
+      {
+        "code": "45-00",
+        "name": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел",
+        "plan": {
+          "amount": 123735,
+          "currency": "BGN",
+          "amountEur": 63265
+        },
+        "actual": {
+          "amount": 123735,
+          "currency": "BGN",
+          "amountEur": 63265
+        },
+        "executionPct": 100
+      },
+      {
+        "code": "42-00",
+        "name": "Текущи трансфери, обезщетения и помощи за домакинствата",
+        "plan": {
+          "amount": 36552,
+          "currency": "BGN",
+          "amountEur": 18689
+        },
+        "actual": {
+          "amount": 32873,
+          "currency": "BGN",
+          "amountEur": 16808
+        },
+        "executionPct": 89.9
+      },
+      {
+        "code": "55-00",
+        "name": "Капиталови трансфери",
+        "plan": {
+          "amount": 20000,
+          "currency": "BGN",
+          "amountEur": 10226
+        },
+        "actual": {
+          "amount": 20000,
+          "currency": "BGN",
+          "amountEur": 10226
+        },
+        "executionPct": 100
+      },
+      {
+        "code": "19-00",
+        "name": "Платени данъци, такси и административни санкции",
+        "plan": {
+          "amount": 28912,
+          "currency": "BGN",
+          "amountEur": 14782
+        },
+        "actual": {
+          "amount": 16588,
+          "currency": "BGN",
+          "amountEur": 8481
+        },
+        "executionPct": 57.4
+      },
+      {
+        "code": "40-00",
+        "name": "Стипендии",
+        "plan": {
+          "amount": 40759,
+          "currency": "BGN",
+          "amountEur": 20840
+        },
+        "actual": {
+          "amount": 13125,
+          "currency": "BGN",
+          "amountEur": 6711
+        },
+        "executionPct": 32.2
+      },
+      {
+        "code": "46-00",
+        "name": "Разходи за членски внос и участие в нетърговски организации и дейности",
+        "plan": {
+          "amount": 3700,
+          "currency": "BGN",
+          "amountEur": 1892
+        },
+        "actual": {
+          "amount": 3176,
+          "currency": "BGN",
+          "amountEur": 1624
+        },
+        "executionPct": 85.8
+      },
+      {
+        "code": "22-00",
+        "name": "Разходи за лихви по заеми от страната",
+        "plan": {
+          "amount": 3000,
+          "currency": "BGN",
+          "amountEur": 1534
+        },
+        "actual": {
+          "amount": 1077,
+          "currency": "BGN",
+          "amountEur": 551
+        },
+        "executionPct": 35.9
+      }
+    ]
+  }
+}

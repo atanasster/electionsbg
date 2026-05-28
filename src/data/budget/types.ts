@@ -1926,3 +1926,61 @@ export interface PlevenCapitalProgramFile {
   bySettlement: PlevenCapitalSettlementRollup[];
   byFundingSource: PlevenCapitalFundingRollup[];
 }
+
+// --- Municipal cash-execution (касово изпълнение по ЕБК) -------------------
+// Plan-vs-actual revenue/expense by economic paragraph, parsed from the MINFIN
+// B3 ЕБК report a few общини publish to data.egov.bg. Mirror of
+// scripts/budget/municipal_execution/types.ts.
+
+export interface MunicipalExecutionParagraph {
+  code: string; // "01-00", "13-00"
+  name: string;
+  plan: Money; // Уточнен план
+  actual: Money; // Отчет
+  executionPct: number | null;
+}
+
+export interface MunicipalExecutionSide {
+  plan: Money;
+  actual: Money;
+  executionPct: number | null;
+  byParagraph: MunicipalExecutionParagraph[];
+}
+
+export interface MunicipalExecutionFile {
+  obshtina: string;
+  muniSlug: string;
+  muniNameBg: string;
+  muniNameEn: string;
+  fiscalYear: number;
+  period: {
+    start: string;
+    end: string;
+    isFullYear: boolean;
+    labelBg: string;
+  };
+  currency: "BGN" | "EUR";
+  generatedAt: string;
+  source: {
+    publisher: string;
+    datasetUrl: string;
+    resourceUri: string;
+    fetchedAt: string;
+  };
+  revenue: MunicipalExecutionSide;
+  expense: MunicipalExecutionSide;
+}
+
+export interface MunicipalExecutionIndexEntry {
+  muniSlug: string;
+  obshtina: string;
+  muniNameBg: string;
+  muniNameEn: string;
+  years: number[];
+  latestFullYear: number | null;
+}
+
+export interface MunicipalExecutionIndexFile {
+  generatedAt: string;
+  municipalities: MunicipalExecutionIndexEntry[];
+}
