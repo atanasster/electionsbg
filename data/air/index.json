@@ -1,14 +1,517 @@
 {
-  "source": "EEA + ИАОС (Изпълнителна агенция по околна среда)",
-  "indexName": "Air quality monitoring stations",
+  "source": "ИАОС (Изпълнителна агенция по околна среда) via data.egov.bg",
+  "indexName": "Air quality monitoring stations — quarterly averages",
   "pollutants": {
-    "pm10": { "bg": "ФПЧ10", "en": "PM10", "unit": "µg/m³", "euLimit": 50 },
-    "pm25": { "bg": "ФПЧ2.5", "en": "PM2.5", "unit": "µg/m³", "euLimit": 25 },
-    "no2": { "bg": "Азотен диоксид", "en": "NO₂", "unit": "µg/m³", "euLimit": 40 },
-    "o3": { "bg": "Озон", "en": "O₃", "unit": "µg/m³", "euLimit": 120 },
-    "so2": { "bg": "Серен диоксид", "en": "SO₂", "unit": "µg/m³", "euLimit": 125 }
+    "pm10": {
+      "bg": "ФПЧ10",
+      "en": "PM10",
+      "unit": "µg/m³",
+      "euLimit": 50
+    },
+    "pm25": {
+      "bg": "ФПЧ2.5",
+      "en": "PM2.5",
+      "unit": "µg/m³",
+      "euLimit": 25
+    },
+    "no2": {
+      "bg": "Азотен диоксид",
+      "en": "NO₂",
+      "unit": "µg/m³",
+      "euLimit": 40
+    },
+    "o3": {
+      "bg": "Озон",
+      "en": "O₃",
+      "unit": "µg/m³",
+      "euLimit": 120
+    },
+    "so2": {
+      "bg": "Серен диоксид",
+      "en": "SO₂",
+      "unit": "µg/m³",
+      "euLimit": 125
+    }
   },
-  "stations": [],
-  "snapshotAsOf": null,
-  "note": "Pending ingest. Stations entries will carry { id, name, loc, obshtina, latestReadings: { pm10, pm25, no2, ... } } — only municipalities containing at least one station show the tile."
+  "stations": [
+    {
+      "id": "Перник - Църква",
+      "name": "Перник - Църква",
+      "obshtina": "PER32",
+      "latestReadings": {
+        "pm10": 30.77073097229,
+        "pm25": 21.24
+      },
+      "maxObserved": {
+        "pm10": 83.599998474121,
+        "pm25": 57.599998474121
+      }
+    },
+    {
+      "id": "София - Дружба",
+      "name": "София - Дружба",
+      "obshtina": "SOF00",
+      "latestReadings": {
+        "pm10": 27.712240219116
+      },
+      "maxObserved": {
+        "pm10": 57.231060028076
+      }
+    },
+    {
+      "id": "София - ИАОС/Павлово",
+      "name": "София - ИАОС/Павлово",
+      "obshtina": "SOF00",
+      "latestReadings": {
+        "pm10": 25.249534606934
+      },
+      "maxObserved": {
+        "pm10": 54.209060668945
+      }
+    },
+    {
+      "id": "София - Младост",
+      "name": "София - Младост",
+      "obshtina": "SOF00",
+      "latestReadings": {
+        "pm10": 22.169309616089
+      },
+      "maxObserved": {
+        "pm10": 45.747928619385
+      }
+    },
+    {
+      "id": "София - Надежда",
+      "name": "София - Надежда",
+      "obshtina": "SOF00",
+      "latestReadings": {
+        "pm10": 26.961116790771
+      },
+      "maxObserved": {
+        "pm10": 68.825325012207
+      }
+    },
+    {
+      "id": "София - Хиподрума",
+      "name": "София - Хиподрума",
+      "obshtina": "SOF00",
+      "latestReadings": {
+        "pm10": 29.071067810059,
+        "pm25": 13.014650344849
+      },
+      "maxObserved": {
+        "pm10": 60.790626525879,
+        "pm25": 29.622844696045
+      }
+    },
+    {
+      "id": "Пловдив - Каменица",
+      "name": "Пловдив - Каменица",
+      "obshtina": "PDV22",
+      "latestReadings": {
+        "pm10": 27.006380081177,
+        "pm25": 12.217778205872
+      },
+      "maxObserved": {
+        "pm10": 58.589542388916,
+        "pm25": 34
+      }
+    },
+    {
+      "id": "Пловдив - ж.к. Тракия",
+      "name": "Пловдив - ж.к. Тракия",
+      "obshtina": "PDV22",
+      "latestReadings": {
+        "pm10": 34.185531616211
+      },
+      "maxObserved": {
+        "pm10": 78.035781860352
+      }
+    },
+    {
+      "id": "Варна - СОУ Ангел Кънчев",
+      "name": "Варна - СОУ Ангел Кънчев",
+      "obshtina": "VAR06",
+      "latestReadings": {
+        "pm10": 23.665100097656,
+        "pm25": 11.11865234375
+      },
+      "maxObserved": {
+        "pm10": 56.382194519043,
+        "pm25": 31.56107711792
+      }
+    },
+    {
+      "id": "Девня - Изворите",
+      "name": "Девня - Изворите",
+      "obshtina": "VAR14",
+      "latestReadings": {
+        "pm10": 24.879825592041
+      },
+      "maxObserved": {
+        "pm10": 31.579679489136
+      }
+    },
+    {
+      "id": "Варна - Чайка",
+      "name": "Варна - Чайка",
+      "obshtina": "VAR06",
+      "latestReadings": {
+        "pm10": 18.612222671509
+      },
+      "maxObserved": {
+        "pm10": 56.099998474121
+      }
+    },
+    {
+      "id": "В.Търново - РИОСВ",
+      "name": "В.Търново - РИОСВ",
+      "obshtina": "VTR04",
+      "latestReadings": {
+        "pm10": 26.397674560547,
+        "pm25": 16.869318008423
+      },
+      "maxObserved": {
+        "pm10": 76.5,
+        "pm25": 45.799999237061
+      }
+    },
+    {
+      "id": "Видин 2",
+      "name": "Видин 2",
+      "obshtina": "VID09",
+      "latestReadings": {
+        "pm10": 36.645050048828
+      },
+      "maxObserved": {
+        "pm10": 88.342163085938
+      }
+    },
+    {
+      "id": "Враца - ЖП Гара",
+      "name": "Враца - ЖП Гара",
+      "obshtina": "VRC10",
+      "latestReadings": {
+        "pm10": 15.268534660339
+      },
+      "maxObserved": {
+        "pm10": 34.874099731445
+      }
+    },
+    {
+      "id": "Г.Оряховица",
+      "name": "Г.Оряховица",
+      "obshtina": "VTR06",
+      "latestReadings": {
+        "pm10": 31.333604812622
+      },
+      "maxObserved": {
+        "pm10": 80.167205810547
+      }
+    },
+    {
+      "id": "Добрич - ОУ Хан Аспарух",
+      "name": "Добрич - ОУ Хан Аспарух",
+      "obshtina": "DOB28",
+      "latestReadings": {
+        "pm10": 20.204223632812
+      },
+      "maxObserved": {
+        "pm10": 45.24732208252
+      }
+    },
+    {
+      "id": "Ловеч",
+      "name": "Ловеч",
+      "obshtina": "LOV18",
+      "latestReadings": {
+        "pm10": 23.302906036377
+      },
+      "maxObserved": {
+        "pm10": 57.305107116699
+      }
+    },
+    {
+      "id": "Монтана - РИОСВ",
+      "name": "Монтана - РИОСВ",
+      "obshtina": "MON29",
+      "latestReadings": {
+        "pm10": 29.16
+      },
+      "maxObserved": {
+        "pm10": 85.900001525879
+      }
+    },
+    {
+      "id": "Русе - Възраждане",
+      "name": "Русе - Възраждане",
+      "obshtina": "RSE27",
+      "latestReadings": {
+        "pm10": 35.986846923828,
+        "pm25": 18.170648574829
+      },
+      "maxObserved": {
+        "pm10": 100.51737976074,
+        "pm25": 64.049430847168
+      }
+    },
+    {
+      "id": "Шумен",
+      "name": "Шумен",
+      "obshtina": "SHU30",
+      "latestReadings": {
+        "pm10": 23.386117935181
+      },
+      "maxObserved": {
+        "pm10": 49.208293914795
+      }
+    },
+    {
+      "id": "Благоевград",
+      "name": "Благоевград",
+      "obshtina": "BLG03",
+      "latestReadings": {
+        "pm10": 18.290952682495
+      },
+      "maxObserved": {
+        "pm10": 46.660049438477
+      }
+    },
+    {
+      "id": "Кърджали - Студен кладенец",
+      "name": "Кърджали - Студен кладенец",
+      "obshtina": "KRZ16",
+      "latestReadings": {
+        "pm10": 22.296510696411
+      },
+      "maxObserved": {
+        "pm10": 40.799999237061
+      }
+    },
+    {
+      "id": "Перник - Център",
+      "name": "Перник - Център",
+      "obshtina": "PER32",
+      "latestReadings": {
+        "pm10": 34.013324737549
+      },
+      "maxObserved": {
+        "pm10": 78.311584472656
+      }
+    },
+    {
+      "id": "Пирдоп",
+      "name": "Пирдоп",
+      "obshtina": "SFO55",
+      "latestReadings": {
+        "pm10": 20.894594192505
+      },
+      "maxObserved": {
+        "pm10": 78.800003051758
+      }
+    },
+    {
+      "id": "Смолян - Библиотеката",
+      "name": "Смолян - Библиотеката",
+      "obshtina": "SML31",
+      "latestReadings": {
+        "pm10": 26.116539001465
+      },
+      "maxObserved": {
+        "pm10": 111.7947845459
+      }
+    },
+    {
+      "id": "Бургас - кв. Долно Езерово",
+      "name": "Бургас - кв. Долно Езерово",
+      "obshtina": "BGS04",
+      "latestReadings": {
+        "pm10": 29.957473754883
+      },
+      "maxObserved": {
+        "pm10": 65.724983215332
+      }
+    },
+    {
+      "id": "Бургас - кв. Меден Рудник",
+      "name": "Бургас - кв. Меден Рудник",
+      "obshtina": "BGS04",
+      "latestReadings": {
+        "pm10": 20.980409622192
+      },
+      "maxObserved": {
+        "pm10": 47.350891113281
+      }
+    },
+    {
+      "id": "Димитровград - Раковски",
+      "name": "Димитровград - Раковски",
+      "obshtina": "HKV09",
+      "latestReadings": {
+        "pm10": 27.010688781738
+      },
+      "maxObserved": {
+        "pm10": 83.882568359375
+      }
+    },
+    {
+      "id": "Несебър",
+      "name": "Несебър",
+      "obshtina": "BGS15",
+      "latestReadings": {
+        "pm10": 21.213983535767
+      },
+      "maxObserved": {
+        "pm10": 43.237300872803
+      }
+    },
+    {
+      "id": "Пазарджик - РИОСВ",
+      "name": "Пазарджик - РИОСВ",
+      "obshtina": "PAZ19",
+      "latestReadings": {
+        "pm10": 28.716667175293
+      },
+      "maxObserved": {
+        "pm10": 57
+      }
+    },
+    {
+      "id": "Сливен",
+      "name": "Сливен",
+      "obshtina": "SLV20",
+      "latestReadings": {
+        "pm10": 26.459135055542
+      },
+      "maxObserved": {
+        "pm10": 64.968757629395
+      }
+    },
+    {
+      "id": "Стара Загора - Зелен Клин",
+      "name": "Стара Загора - Зелен Клин",
+      "obshtina": "SZR31",
+      "latestReadings": {
+        "pm10": 21.164413452148
+      },
+      "maxObserved": {
+        "pm10": 61.357398986816
+      }
+    },
+    {
+      "id": "Хасково - РИОСВ",
+      "name": "Хасково - РИОСВ",
+      "obshtina": "HKV34",
+      "latestReadings": {
+        "pm10": 21.570369720459
+      },
+      "maxObserved": {
+        "pm10": 38.900001525879
+      }
+    },
+    {
+      "id": "Бургас - ДОАС",
+      "name": "Бургас - ДОАС",
+      "obshtina": "BGS04",
+      "latestReadings": {
+        "pm10": 23.072414398193
+      },
+      "maxObserved": {
+        "pm10": 35.5
+      }
+    },
+    {
+      "id": "Гълъбово",
+      "name": "Гълъбово",
+      "obshtina": "SZR07",
+      "latestReadings": {
+        "pm10": 21.098888397217
+      },
+      "maxObserved": {
+        "pm10": 36.400001525879
+      }
+    },
+    {
+      "id": "София - Копитото",
+      "name": "София - Копитото",
+      "obshtina": "SOF00",
+      "latestReadings": {
+        "pm25": 16.739412307739
+      },
+      "maxObserved": {
+        "pm25": 23.206888198853
+      }
+    },
+    {
+      "id": "Стара Загора - РИОСВ",
+      "name": "Стара Загора - РИОСВ",
+      "obshtina": "SZR31",
+      "latestReadings": {
+        "pm25": 20.96555519104
+      },
+      "maxObserved": {
+        "pm25": 35.099998474121
+      }
+    }
+  ],
+  "backgroundStations": [
+    {
+      "name": "Гара Яна",
+      "pm10": 19.162921905518
+    },
+    {
+      "name": "Копитото",
+      "pm10": 10.002040863037
+    },
+    {
+      "name": "Долни Воден",
+      "pm10": 34.345554351807
+    },
+    {
+      "name": "Никопол ДОАС",
+      "pm10": 44.811111450195
+    },
+    {
+      "name": "Плевен – НУ Патриарх Евтимий",
+      "pm10": 28.278017044067
+    },
+    {
+      "name": "Свищов ДОАС",
+      "pm10": 40.958889007568
+    },
+    {
+      "name": "Силистра ДОАС S1",
+      "pm10": 23.783332824707
+    },
+    {
+      "name": "Рожен - КФС",
+      "pm10": 3.1091954708099
+    },
+    {
+      "name": "ДОАС - Ръжена",
+      "pm10": 16.353244781494
+    },
+    {
+      "name": "Витиня - ЕС1",
+      "pm10": 13.789525985718
+    },
+    {
+      "name": "Юндола - ЕС2",
+      "pm10": 7.7213716506958
+    },
+    {
+      "name": "Старо Оряхово - ЕС3",
+      "pm10": 15.62575340271
+    },
+    {
+      "name": "Витиня",
+      "pm10": 9.82
+    },
+    {
+      "name": "Рожен - КФС",
+      "pm10": 1.359090924263
+    }
+  ],
+  "snapshotAsOf": "2026-03-31",
+  "note": "Source CSVs do not carry station coordinates; município attribution is via station name parsing. PM10 + PM2.5 only in this first cut. NO2 and CO datasets exist on data.egov.bg but require navigation through the dataset page for the per-resource UUID."
 }

@@ -33,14 +33,24 @@ const fetchAir = async (): Promise<AirFile> => {
   return r.json();
 };
 
+// Sofia районы share Sofia citywide stations under SOF00. Mirror the
+// useIndicators / useSchools / useMunicipalContacts fallback so every
+// район dashboard sees the 6+ Sofia stations.
+const SOFIA_CITY_KEY = "SOF00";
+const isSofiaDistrict = (obshtina: string): boolean =>
+  /^S2[3-5]\d{2}$/i.test(obshtina);
+
 export const useAirQuality = (obshtina?: string | null) => {
   const { data } = useQuery({
     queryKey: ["air"],
     queryFn: fetchAir,
     staleTime: Infinity,
   });
-  const stations = obshtina
-    ? (data?.stations.filter((s) => s.obshtina === obshtina) ?? [])
-    : [];
+  if (!obshtina) return { data, stations: [] as AirStation[] };
+  let stations = data?.stations.filter((s) => s.obshtina === obshtina) ?? [];
+  if (stations.length === 0 && isSofiaDistrict(obshtina)) {
+    stations =
+      data?.stations.filter((s) => s.obshtina === SOFIA_CITY_KEY) ?? [];
+  }
   return { data, stations };
 };
