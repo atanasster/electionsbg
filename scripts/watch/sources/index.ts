@@ -38,6 +38,10 @@ import { capitalPrograms } from "./capital_programs";
 import { ipop } from "./ipop";
 import { bgpostPostcodes } from "./bgpost_postcodes";
 import { cikResults } from "./cik_results";
+import { iisdaMayors } from "./iisda_mayors";
+import { iaosAirQuality } from "./iaos_air_quality";
+import { tiBgLisi } from "./ti_bg_lisi";
+import { govDataVizCrime } from "./govdataviz_crime";
 
 // `cik` (news/decisions index) is still intentionally omitted — see ./cik.ts
 // header. The new `cik_results` source below uses the Playwright bypass
@@ -83,4 +87,8 @@ export const SOURCES: WatchSource[] = [
   transparencyCpi,
   worldbankWgi,
   cikResults,
+  iisdaMayors,
+  iaosAirQuality,
+  tiBgLisi,
+  govDataVizCrime,
 ];

@@ -38,7 +38,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `data.egov.bg АОП` (procurement) | `update-procurement` (also re-runs the funds political-economy join — `npx tsx scripts/funds/political_links.ts` — since АОП award totals overlay the EU-funds political flags) |
 | `АОП debarred-suppliers register` | `update-procurement` (Step 5 — debarred-list refresh; debarred flags on flagged EU-funds beneficiaries refresh via the same political_links step) |
 | `ИСУН EU funds` (beneficiaries) | `update-funds` |
-| `ИСУН EU funds` (projects) | `update-funds` (Step 2 — contract-level ingest; runs `npm run funds:ingest-projects` after the beneficiaries ingest) |
+| `ИСУН EU funds` (projects) | `update-funds` (Step 2 — contract-level ingest; runs `npm run funds:ingest-projects` after the beneficiaries ingest. Step 3 — `npx tsx scripts/funds/build_geo_pins.ts` rebuilds the slim per-município geo-pin JSON files under `data/funds/projects/by-muni-geo/` that the My-Area projects-map Leaflet tile reads.) |
 | `data.egov.bg бюджет` (budget execution) | `update-budget` |
 | `Per-ministry execution reports` (програмен бюджет) | `update-budget` |
 | `Доклад за състоянието на администрацията (IISDA)` | `update-budget` (resolve new file id first — see `iisda_doklad` describe-line) |
@@ -60,12 +60,16 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `МВнР programmatic execution reports` (via Wayback) | `update-budget` (when a new fiscal-year ZIP lands at `mfa.bg/upload/<id>/...програмен отчет МВнР <date>.zip`, add an `xlsx-in-zip` entry to `EXECUTION_REPORTS` with `entryName: "1100-Otchet programi <YYYY>12_MVnR.xlsx"` — the existing FY2023 entry is the template) |
 | `Eurostat regional` (BG) | `update-regional` |
 | `AZ (Агенция по заетостта)` | `update-indicators` + `update-regional` |
-| `МОН: ДЗИ резултати` | `update-indicators` |
+| `МОН: ДЗИ резултати` | `update-indicators` (also re-runs the My-Area per-school schools index — `npx tsx scripts/schools/build_index.ts` — reuses the per-school CSVs into `data/schools/index.json`) |
 | `НСИ: население по общини` | `update-indicators` |
 | `НСИ: раждания, умирания и миграция по общини` | `update-indicators` |
 | `ГРАО: население по постоянен и настоящ адрес` | `update-grao` |
-| `CIK local-elections results bundles` | `update-local-elections` (downloads csv.zip + per-município HTML for every cycle named in the watcher's describe-line; Cloudflare bypass via headless Playwright; idempotent on the HTML mirror so re-runs are cheap; run one `--local-ingest <cycleSlug>` per changed cycle) |
+| `CIK local-elections results bundles` | `update-local-elections` (downloads csv.zip + per-município HTML for every cycle named in the watcher's describe-line; Cloudflare bypass via headless Playwright; idempotent on the HTML mirror so re-runs are cheap; run one `--local-ingest <cycleSlug>` per changed cycle. Final step — `npx tsx scripts/parsers_local/backfill_kmetstvo_ekatte.ts` refreshes the kметство → EKATTE lookup the My-Area village-mayor tile reads.) |
 | `CIK news` (if re-enabled) | _no skill yet — surface as TODO_ |
+| `iisda.government.bg — Кметове на общини` | `update-municipal-contacts` (re-scrape iisda mayor pages for the My-Area municipal contacts tile) |
+| `ИАОС air quality (data.egov.bg)` | `update-air-quality` (refresh PM10 + PM2.5 quarterly CSVs for the My-Area air-quality tile) |
+| `Прозрачност без граници — LISI` | `update-transparency-lisi` (manual paste — 27 new oblast-capital scores into `LISI_2024` array, then rebuild `data/municipal_transparency/index.json`) |
+| `governmentbg/data-viz — MVR crime CSVs` | `update-crime-stats` (refresh per-oblast crime rates for the My-Area crime tile) |
 
 Some sources map to the same skill (`update-connections` handles declarations, Commerce Registry, AND the BG Post postcode→EKATTE refresh); dedupe so it only runs once.
 
@@ -263,7 +267,7 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `egov_procurement` | `update-procurement` |
 | `aop_debarred` | `update-procurement` (Step 5 — debarred-list refresh) |
 | `isun_eu_funds` | `update-funds` |
-| `isun_eu_funds_projects` | `update-funds` (Step 2 — contract-level ingest; runs `npm run funds:ingest-projects` after the beneficiaries ingest) |
+| `isun_eu_funds_projects` | `update-funds` (Step 2 — contract-level ingest; runs `npm run funds:ingest-projects` after the beneficiaries ingest. Step 3 — `npx tsx scripts/funds/build_geo_pins.ts` rebuilds the slim My-Area projects-map geo-pin JSONs.) |
 | `egov_budget_execution` | `update-budget` |
 | `ministry_execution_reports` | `update-budget` |
 | `iisda_doklad` | `update-budget` |
@@ -285,11 +289,15 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `mfa_program_otchet` | `update-budget` (when a new MVnR fiscal year lands in Wayback, add an `xlsx-in-zip` entry to `EXECUTION_REPORTS`. The describe-line shows the latest period; the FY2023 entry in `fetch_sources.ts` is the template) |
 | `eurostat_regional` | `update-regional` |
 | `indicators_az` | `update-indicators` + `update-regional` |
-| `indicators_mon_dzi` | `update-indicators` |
+| `indicators_mon_dzi` | `update-indicators` (also re-runs the My-Area per-school index — `npx tsx scripts/schools/build_index.ts` — since it reuses the same per-school МОН CSVs that `update-indicators` already downloads into `raw_data/indicators/mon/`) |
 | `indicators_nsi_pop` | `update-indicators` |
 | `indicators_nsi_vital` | `update-indicators` |
 | `grao` | `update-grao` |
 | `cik` (if re-enabled) | _no skill yet — surface as TODO_ |
+| `iisda_mayors` | `update-municipal-contacts` (re-runs `npx tsx scripts/officials/municipal_contacts/scrape_iisda.ts` — scans the governing_body ID range 4400..4950, caches HTML to `raw_data/officials/iisda_mayors/`, extracts mayor email + município name, rewrites `data/officials/municipal_contacts/index.json`) |
+| `iaos_air_quality` | `update-air-quality` (re-runs `npx tsx scripts/air/build_index.ts` — fetches the latest PM10/PM2.5 quarterly CSVs from data.egov.bg, parses station names → município codes, rewrites `data/air/index.json`) |
+| `ti_bg_lisi` | `update-transparency-lisi` (gated — see "TI-BG LISI: manual paste first" below. lisi.transparency.bg is a heavy SPA; operator copies the new year's 27 município scores into the `LISI_2024`-style array in `scripts/transparency/build_lisi.ts`, then runs `npx tsx scripts/transparency/build_lisi.ts`) |
+| `govdataviz_crime` | `update-crime-stats` (re-runs `npx tsx scripts/crime/build_index.ts` — fetches `mvr-aggr-13-perth-full.csv` from the governmentbg/data-viz gh-pages branch, parses 28 oblasts × N years, rewrites `data/crime/index.json`. Upstream is dormant since 2015 so this rarely fires; when the gh-pages crime directory comes back to life it'll auto-pick up the new years.) |
 
 ## Procedure
 
@@ -353,6 +361,14 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
    ```
 
    Use the same `--summary` text as the stamp — keeping the two in sync means `git log -p state/ingest/` and the public page tell the same story. The script is also defensive: it auto-skips when the summary matches no-op patterns (`bootstrap:`, `unchanged`, `no data changes`, `only fetchedAt diff`, `timestamp-only diff`, `no run`), so a stray call won't pollute the page — but `git diff --stat` is the cleaner upstream gate.
+
+6. **Final post-step: rebuild the My-Area alerts feed.** After every queued skill has run (or the queue was empty), unconditionally run:
+
+   ```bash
+   npx tsx scripts/myarea/build_alerts.ts
+   ```
+
+   The script materialises the per-município "Последна активност" feed (`data/myarea/alerts/<obshtina>.json`) from already-ingested data — procurement awards, EU-fund contracts, capital programmes, local elections, plenary keyword hits. It's cheap (<5 s) and its output is a function of whatever's now in `data/`, so running it last keeps the feed in sync with whatever the orchestrator just changed. Don't stamp this as a separate skill — it's a derived rebuild, not an upstream ingest.
 
    **Specifically do NOT append for:**
    - Bootstrap stamps (option (a) from "Bootstrap" above — `"bootstrap: marker seeded, no run"`).
