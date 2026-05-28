@@ -33,6 +33,7 @@ import { MyAreaSchoolsTile } from "./MyAreaSchoolsTile";
 import { MyAreaServicesTile } from "./MyAreaServicesTile";
 import { MyAreaAirTile } from "./MyAreaAirTile";
 import { MyAreaCrimeTile } from "./MyAreaCrimeTile";
+import { MyAreaProjectsMapTile } from "./MyAreaProjectsMapTile";
 
 // Lazy-load the heavy dashboard variants — most My-Area visits don't need
 // both, and the Suspense fallback shows skeletons identical to a direct
@@ -152,6 +153,12 @@ export const MyAreaScreen: FC = () => {
             municipal transparency score from transparency-bg.org. Renders
             nothing while data is missing (see scripts/transparency/). */}
         <MyAreaTransparencyTile obshtina={area.obshtina} />
+
+        {/* EU-funded projects map — geocoded contracts as Leaflet pins,
+            OSM tiles. Collapsed by default; expanding the tile lazy-loads
+            the Leaflet chunk (~150 KB gz) and the slim per-município geo
+            JSON. Auto-hides when no geocoded contracts are available. */}
+        <MyAreaProjectsMapTile obshtina={area.obshtina} />
 
         {/* Scaffolded tiles for Phases 6/7/8/9 — all auto-hide until the
             corresponding ingest skill populates their data file. See the
