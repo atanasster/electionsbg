@@ -16,20 +16,16 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle, ArrowRight } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Card } from "@/components/ui/card";
-import {
-  useAreaResolver,
-  type ResolvedArea,
-} from "@/data/area/useAreaResolver";
+import { useAreaResolver } from "@/data/area/useAreaResolver";
 import { useCycleKind } from "@/data/area/useCycleKind";
 import { MyAreaHero } from "./MyAreaHero";
 import { MyAreaRepresentativesStrip } from "./MyAreaRepresentativesStrip";
 import { MyAreaUpcomingBallotTile } from "./MyAreaUpcomingBallotTile";
 import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
-import { Link } from "@/ux/Link";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
 import { MyAreaQualityStrip } from "./MyAreaQualityStrip";
@@ -40,6 +36,7 @@ import { MyAreaContactsTile } from "./MyAreaContactsTile";
 import { MyAreaCouncilMinutesTile } from "./MyAreaCouncilMinutesTile";
 import { MyAreaActionBand } from "./MyAreaActionBand";
 import { MyAreaGovernmentCard } from "./MyAreaGovernmentCard";
+import { MyAreaHistoryStrip } from "./MyAreaHistoryStrip";
 
 export const MyAreaScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -205,54 +202,19 @@ export const MyAreaScreen: FC = () => {
             canonical /settlement and /municipality routes. */}
         <MyAreaQualityStrip obshtina={area.obshtina} oblast={area.oblast} />
 
-        {/* Footer link to the canonical settlement/município dashboard.
-            We used to render SettlementDashboardCards / MunicipalityDashboardCards
-            inline (in compact mode) below the curated tiles. That nearly
-            duplicated several of the cards above (mayor, council, election
-            results, indicators) and inflated the bundle. A single drill-down
-            link is the cleaner exit. */}
-        <MyAreaFullDashboardLink area={area} />
+        {/* Footer — collapsed-by-default "Area history" details card.
+            Holds the cycle-over-cycle turnout sparkline (settlement
+            view) plus the drill-down link to the full canonical
+            settlement / município dashboard. Used to be a flat
+            "Виж пълно табло" link card (Phase 1); Phase 8 wraps it in
+            a <details> with the turnout history attached so power users
+            can see the long-term trend without inflating the default
+            page weight. */}
+        <MyAreaHistoryStrip area={area} />
       </section>
     </>
   );
 };
 
-const MyAreaFullDashboardLink: FC<{
-  area: Extract<
-    ResolvedArea,
-    { kind: "settlement" } | { kind: "municipality" }
-  >;
-}> = ({ area }) => {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language === "bg" ? "bg" : "en";
-  const to =
-    area.kind === "settlement"
-      ? `/settlement/${area.ekatte}`
-      : `/municipality/${area.oblast}`;
-  const label =
-    area.kind === "settlement"
-      ? lang === "bg"
-        ? "Виж пълно табло на населеното място"
-        : "View full settlement dashboard"
-      : lang === "bg"
-        ? "Виж пълно табло на общината"
-        : "View full municipality dashboard";
-  return (
-    <Card className="p-3 mt-2">
-      <Link
-        to={to}
-        underline={false}
-        className="flex items-center justify-between gap-2 text-sm group"
-        aria-label={label}
-      >
-        <span className="font-medium">{label}</span>
-        <ArrowRight className="size-4 text-muted-foreground group-hover:text-primary transition-colors" />
-      </Link>
-      {/* Reference `t` so future translatable copy can land here without
-          re-adding the import — same pattern used in MyAreaRoadmapTile. */}
-      <span hidden aria-hidden>
-        {t("my_area_dashboard")}
-      </span>
-    </Card>
-  );
-};
+// (Phase 8: MyAreaFullDashboardLink was folded into MyAreaHistoryStrip
+// as the drill-down link inside its expanded body.)
