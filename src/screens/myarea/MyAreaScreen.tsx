@@ -29,12 +29,7 @@ import { MyAreaHero } from "./MyAreaHero";
 import { MyAreaRepresentativesStrip } from "./MyAreaRepresentativesStrip";
 import { MyAreaUpcomingBallotTile } from "./MyAreaUpcomingBallotTile";
 import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
-import { MunicipalMayorTile } from "@/screens/dashboard/MunicipalMayorTile";
-import { MunicipalCouncilCompositionTile } from "@/screens/dashboard/MunicipalCouncilCompositionTile";
-import { MunicipalOfficialsRosterTile } from "@/screens/dashboard/MunicipalOfficialsRosterTile";
-import { Landmark } from "lucide-react";
 import { Link } from "@/ux/Link";
-import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
 import { MyAreaSchoolsTile } from "./MyAreaSchoolsTile";
@@ -47,6 +42,7 @@ import { MyAreaSofiaRaionStrip } from "./MyAreaSofiaRaionStrip";
 import { MyAreaContactsTile } from "./MyAreaContactsTile";
 import { MyAreaCouncilMinutesTile } from "./MyAreaCouncilMinutesTile";
 import { MyAreaActionBand } from "./MyAreaActionBand";
+import { MyAreaGovernmentCard } from "./MyAreaGovernmentCard";
 
 export const MyAreaScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -181,31 +177,16 @@ export const MyAreaScreen: FC = () => {
           />
         ) : null}
 
-        {/* Município mayor + council on the SETTLEMENT view as well.
-            MunicipalityDashboardCards already renders these on the
-            município route, but the settlement route's
-            SettlementDashboardCards doesn't include the local_government
-            section — so a user looking at с. Пролеша would never see
-            who governs община Божурище. Surface the parent município's
-            mayor / council / roster here too so the chain
-            kметство → община → МИР is fully visible.
-
-            The heading line above the block names the município and
-            links to its dedicated page so the user knows which place
-            the data describes, with a one-click drill-up.
-
-            Phase 5 of the my-area redesign will collapse this 3-tile
-            block into a single compact card. */}
-        {area.kind === "settlement" ? (
-          <>
-            <MyAreaMuniSectionHeading obshtina={area.obshtina} />
-            <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-              <MunicipalMayorTile obshtinaCode={area.obshtina} />
-              <MunicipalCouncilCompositionTile obshtinaCode={area.obshtina} />
-            </div>
-            <MunicipalOfficialsRosterTile obshtinaCode={area.obshtina} />
-          </>
-        ) : null}
+        {/* Município government compact card — collapses Mayor +
+            Council composition + Officials roster into one. Renders for
+            both settlement and município views: on the município view it
+            replaces the three separate tiles that used to live inside
+            MunicipalityDashboardCards' local_government section; on the
+            settlement view it gives the user a "who governs the parent
+            obshtina" summary that SettlementDashboardCards never showed.
+            The full versions still ship on /municipality/:id and
+            /settlement/:id direct routes. */}
+        <MyAreaGovernmentCard obshtina={area.obshtina} />
 
         {/* Band E — Money. Tax receipt (national budget COFOG split for
             this user's personal income tax) sits next to the EU-funded
@@ -277,33 +258,5 @@ const MyAreaFullDashboardLink: FC<{
         {t("my_area_dashboard")}
       </span>
     </Card>
-  );
-};
-
-// Small heading + link line that introduces the município-level tile
-// block on the settlement view. Tells the user the next three tiles
-// describe the parent община, with a click-through to its dedicated page.
-const MyAreaMuniSectionHeading: FC<{ obshtina: string }> = ({ obshtina }) => {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language === "bg" ? "bg" : "en";
-  const { findMunicipality } = useMunicipalities();
-  const m = findMunicipality(obshtina);
-  if (!m) return null;
-  const muniName = lang === "bg" ? m.name : m.name_en;
-  return (
-    <div className="flex items-center gap-2 mt-2">
-      <Landmark className="size-4 text-primary" />
-      <h2 className="text-sm font-semibold flex items-baseline gap-2">
-        {t("my_area_municipality_section_label")}
-        <span className="text-xs font-normal text-muted-foreground">·</span>
-        <Link
-          to={`/settlement/${obshtina}`}
-          underline
-          className="text-sm font-semibold"
-        >
-          {lang === "bg" ? `община ${muniName}` : `${muniName} municipality`}
-        </Link>
-      </h2>
-    </div>
   );
 };
