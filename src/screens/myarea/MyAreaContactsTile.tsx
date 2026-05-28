@@ -13,8 +13,13 @@ type Props = {
   obshtina: string;
 };
 
+// Total channels we track. Any future channel (e.g. социална мрежа)
+// would bump this and the completeness badge updates automatically.
+const TOTAL_CHANNELS = 4;
+
 export const MyAreaContactsTile: FC<Props> = ({ obshtina }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language === "bg" ? "bg" : "en";
   const { contact } = useMunicipalContacts(obshtina);
 
   if (!contact) return null;
@@ -62,7 +67,18 @@ export const MyAreaContactsTile: FC<Props> = ({ obshtina }) => {
     <Card className="p-4">
       <div className="flex items-center gap-2 mb-3">
         <Phone className="size-4 text-primary" />
-        <h2 className="text-sm font-semibold">{t("my_area_contacts_title")}</h2>
+        <h2 className="text-sm font-semibold flex-1">
+          {t("my_area_contacts_title")}
+        </h2>
+        {/* Completeness badge — "X от Y канала" / "X of Y channels".
+            Gives the user a quick signal that we may not have every
+            contact channel even when the tile renders. */}
+        <span className="text-[10px] tabular-nums px-1.5 py-0.5 rounded border text-muted-foreground">
+          {rows.length}
+          {lang === "bg"
+            ? ` от ${TOTAL_CHANNELS} канала`
+            : ` of ${TOTAL_CHANNELS}`}
+        </span>
       </div>
       <div className="flex flex-col gap-2">
         {rows.map((r, i) => {

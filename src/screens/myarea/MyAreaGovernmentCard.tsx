@@ -110,6 +110,18 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
   const muniHref = `/settlement/${obshtina}`;
 
   const declaredYear = roster?.years[0];
+
+  // Local-election turnout (избирателна активност) for the cycle the
+  // current mayor was elected in. A one-line context badge below the
+  // mayor name — gives users a sense of how strongly the result was
+  // mandated.
+  const localTurnout = (() => {
+    const p = localBundle?.protocol;
+    if (!p || !p.numRegisteredVoters || p.numRegisteredVoters <= 0) return null;
+    if (!p.totalActualVoters) return null;
+    return p.totalActualVoters / p.numRegisteredVoters;
+  })();
+
   const cycleLabel = localBundle
     ? (() => {
         // cycle is e.g. "2023_10_29_mi" → "октомври 2023" / "October 2023"
@@ -196,25 +208,40 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
               >
                 {mayor.name}
               </Link>
-              <div className="text-xs text-muted-foreground mt-0.5">
-                {mayorPartyLabel ? (
-                  <>
-                    {mayorPartyLabel}
-                    {cycleLabel ? (
-                      <>
-                        {" · "}
-                        {lang === "bg"
-                          ? `избран ${cycleLabel}`
-                          : `elected ${cycleLabel}`}
-                      </>
-                    ) : null}
-                  </>
-                ) : cycleLabel ? (
-                  lang === "bg" ? (
-                    `избран ${cycleLabel}`
-                  ) : (
-                    `elected ${cycleLabel}`
-                  )
+              <div className="text-xs text-muted-foreground mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                <span>
+                  {mayorPartyLabel ? (
+                    <>
+                      {mayorPartyLabel}
+                      {cycleLabel ? (
+                        <>
+                          {" · "}
+                          {lang === "bg"
+                            ? `избран ${cycleLabel}`
+                            : `elected ${cycleLabel}`}
+                        </>
+                      ) : null}
+                    </>
+                  ) : cycleLabel ? (
+                    lang === "bg" ? (
+                      `избран ${cycleLabel}`
+                    ) : (
+                      `elected ${cycleLabel}`
+                    )
+                  ) : null}
+                </span>
+                {localTurnout != null ? (
+                  <span
+                    className="text-[10px] tabular-nums px-1.5 py-0.5 rounded border border-primary/30 text-primary leading-none"
+                    title={
+                      lang === "bg"
+                        ? "Избирателна активност на тези местни избори"
+                        : "Voter turnout at this local election"
+                    }
+                  >
+                    {lang === "bg" ? "активност" : "turnout"}{" "}
+                    {(localTurnout * 100).toFixed(1)}%
+                  </span>
                 ) : null}
               </div>
             </>
