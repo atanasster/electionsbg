@@ -199,7 +199,7 @@ export const MyAreaScreen: FC = () => {
             ProjectsMapTile is collapsed-by-default for the same reason
             with the much heavier Leaflet chunk. */}
         <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-          <MyAreaTaxReceiptTile />
+          <MyAreaTaxReceiptTile obshtina={area.obshtina} oblast={area.oblast} />
           <MyAreaProjectsMapTile obshtina={area.obshtina} />
         </div>
 

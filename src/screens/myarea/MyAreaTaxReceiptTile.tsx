@@ -1,30 +1,32 @@
 // "Where do my taxes go" personalized receipt — Civio-style. The user
-// enters their annual gross income; we compute their headline 10% flat
-// personal income tax and split it across COFOG functional categories
-// using the latest gov_10a_exp shares.
+// enters their MONTHLY gross salary (the way Bulgarians actually think about
+// pay); we compute their headline 10% flat personal income tax and split it
+// across COFOG functional categories using the latest gov_10a_exp shares.
+//
+// Two questions answered on one card:
+//   1. WHERE NATIONALLY does my income tax go — the COFOG breakdown, shown
+//      per month so the figures are tangible ("12 €/мес for defence").
+//   2. HOW MUCH COMES BACK to my município — the per-resident state transfer
+//      envelope (Article 53 of the State Budget Law) ÷ registered population.
 //
 // Honest framing matters here:
 //   - We model PERSONAL INCOME TAX only (the 10% flat rate). VAT, social
-//     security contributions, and corporate tax are NOT included in the
-//     user's number — they would dwarf personal income tax and make the
-//     receipt huge but largely abstract.
+//     security contributions, and corporate tax are NOT included.
 //   - The COFOG allocation reflects total gov spending mix, not how each
-//     individual ден is earmarked. It's a fair "if your contribution were
-//     spent like the budget overall" model.
-//   - We surface the latest-year COFOG ratios; the data file refreshes
-//     annually via update-macro.
-//
-// This is a tool — not a tile that derives from the area context — but it
-// belongs on the My-Area page because the page is the "civic dashboard"
-// landing surface. The national budget mix shows by default (percentages);
-// entering an income switches the breakdown to personal лв. amounts.
+//     individual ден is earmarked.
+//   - The municipal-return figure is a STATE TRANSFER funded from the whole
+//     tax mix (VAT dominates) — NOT "your income tax coming back". Personal
+//     income tax is a central tax in BG; 0% is assigned directly to munis.
+//     We word it as "the state sends X per resident", never "your tax".
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator } from "lucide-react";
+import { Calculator, Landmark } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Card } from "@/components/ui/card";
 import { dataUrl } from "@/data/dataUrl";
+import { useMunicipalTransfersForOblast } from "@/data/budget/useBudget";
+import { useGraoMunicipalitySlice } from "@/data/grao/useGraoPopulation";
 
 const PERSONAL_INCOME_TAX_RATE = 0.1; // BG flat 10%
 
@@ -86,12 +88,40 @@ const cofogLabel = (
   return { label: entry[lang], color: entry.color };
 };
 
-const formatBgn = (n: number, lang: "bg" | "en"): string => {
-  const fmt = new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
+// Bulgaria adopted the euro on 2026-01-01, so all amounts are in €. Match
+// the app-wide convention (see MyAreaProjectsMapTile): number-then-€ in BG,
+// €-then-number in EN.
+const formatEur = (n: number, lang: "bg" | "en"): string => {
+  const num = new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
     maximumFractionDigits: 0,
-  });
-  const num = fmt.format(Math.round(n));
-  return lang === "bg" ? `${num} лв.` : `BGN ${num}`;
+  }).format(Math.round(n));
+  return lang === "bg" ? `${num} €` : `€${num}`;
+};
+
+// Append a /мес or /год period suffix to a formatted € amount.
+const formatEurPer = (
+  n: number,
+  lang: "bg" | "en",
+  period: "mo" | "yr",
+): string => {
+  const suffix =
+    lang === "bg"
+      ? period === "mo"
+        ? "/мес"
+        : "/год"
+      : period === "mo"
+        ? "/mo"
+        : "/yr";
+  return `${formatEur(n, lang)}${suffix}`;
+};
+
+// Derive the 3-letter oblast shard code from an obshtina code as a fallback
+// when the resolved area didn't carry one. (BLG03 → BLG, S2309/SOF00 → SOF.)
+const oblastFromObshtina = (code: string): string | null => {
+  if (/^S2\d{3}$/.test(code)) return "SOF";
+  if (/^SOF\d*$/.test(code)) return "SOF";
+  const m = code.match(/^([A-Z]{3})\d{2}$/);
+  return m ? m[1] : null;
 };
 
 const fetchCofog = async (): Promise<CofogFile> => {
@@ -100,7 +130,10 @@ const fetchCofog = async (): Promise<CofogFile> => {
   return r.json();
 };
 
-export const MyAreaTaxReceiptTile: FC = () => {
+export const MyAreaTaxReceiptTile: FC<{
+  obshtina: string;
+  oblast: string;
+}> = ({ obshtina, oblast }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const [income, setIncome] = useState<string>("");
@@ -108,11 +141,42 @@ export const MyAreaTaxReceiptTile: FC = () => {
     queryKey: ["cofog"],
     queryFn: fetchCofog,
     staleTime: Infinity,
-    // The budget mix (~30 KB gzipped) is shown by default now — the
-    // national COFOG split is interesting on its own, before the user
-    // types an income — so we fetch eagerly rather than gating behind a
-    // toggle.
   });
+
+  // Place-based municipal-return inputs. Both are small/cached: the ГРАО
+  // slice is already fetched by MyAreaHero, and the oblast transfer shard is
+  // a ~5-50 KB file shared with the region/município dashboards.
+  const oblastCode = oblast || oblastFromObshtina(obshtina) || undefined;
+  const { data: transfersShard } = useMunicipalTransfersForOblast(oblastCode);
+  const { data: graoSlice } = useGraoMunicipalitySlice(obshtina);
+
+  // Latest-year transfer total (€) for THIS município ÷ registered
+  // (permanent-address) population — the same denominator the equalization
+  // grant formula uses. We match the shard row by obshtina code, so Sofia
+  // районs (whose slice is район-only) find no row and the line auto-hides
+  // rather than dividing a city-wide total by a район population.
+  const municipalReturn = useMemo(() => {
+    if (!transfersShard || !graoSlice) return null;
+    const years = transfersShard.years;
+    if (years.length === 0) return null;
+    const latest = years[years.length - 1];
+    const row = latest.municipalities.find((m) => m.obshtinaCode === obshtina);
+    const totalEur = row?.total?.amountEur ?? 0;
+    if (!row || totalEur <= 0) return null;
+    const population = Object.values(graoSlice.settlements).reduce(
+      (sum, s) => sum + (s.permanent ?? 0),
+      0,
+    );
+    if (population <= 0) return null;
+    const perYear = totalEur / population;
+    return {
+      year: latest.fiscalYear,
+      nameBg: row.nameBg,
+      nameEn: row.nameEn,
+      perYear,
+      perMonth: perYear / 12,
+    };
+  }, [transfersShard, graoSlice, obshtina]);
 
   // Compute allocation. TOTAL is the denominator; each GF0n category gives
   // its share. Filter to non-zero categories and sort by share descending.
@@ -134,13 +198,20 @@ export const MyAreaTaxReceiptTile: FC = () => {
     return { year: latest, rows };
   }, [cofog]);
 
-  const parsedIncome = (() => {
+  // Input is MONTHLY gross salary. Annual tax = monthly × 12 × 10%.
+  const monthlyGross = (() => {
     const n = Number(income.replace(/\s+/g, "").replace(",", "."));
     return Number.isFinite(n) && n > 0 ? n : 0;
   })();
-  const tax = parsedIncome * PERSONAL_INCOME_TAX_RATE;
+  const monthlyTax = monthlyGross * PERSONAL_INCOME_TAX_RATE;
+  const annualTax = monthlyTax * 12;
+  const hasIncome = monthlyGross > 0;
 
-  const hasIncome = parsedIncome > 0;
+  const muniName = municipalReturn
+    ? lang === "bg"
+      ? municipalReturn.nameBg
+      : municipalReturn.nameEn
+    : "";
 
   return (
     <Card className="p-4 flex flex-col gap-3">
@@ -155,8 +226,39 @@ export const MyAreaTaxReceiptTile: FC = () => {
         {t("my_area_tax_receipt_explainer")}
       </p>
 
-      {/* Income input — inline, always visible. Entering it switches the
-          breakdown below from %-of-budget to your personal лв. amounts. */}
+      {/* Headline — how much the state sends back to this município per
+          resident. Place-based, independent of the income input. */}
+      {municipalReturn ? (
+        <div className="rounded-md border bg-muted/40 p-3 flex flex-col gap-1">
+          <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+            <Landmark className="size-3.5" aria-hidden />
+            <span className="truncate">
+              {t("my_area_tax_receipt_municipal_return_label", {
+                name: muniName,
+              })}
+            </span>
+          </div>
+          <div className="flex items-baseline gap-2 flex-wrap">
+            <span className="text-lg font-semibold tabular-nums">
+              {formatEurPer(municipalReturn.perYear, lang, "yr")}
+            </span>
+            <span className="text-xs text-muted-foreground">
+              {t("my_area_tax_receipt_per_resident")}
+            </span>
+            <span className="text-xs text-muted-foreground tabular-nums">
+              · {formatEurPer(municipalReturn.perMonth, lang, "mo")}
+            </span>
+          </div>
+          <p className="text-[10px] text-muted-foreground leading-snug">
+            {t("my_area_tax_receipt_municipal_return_note", {
+              year: municipalReturn.year,
+            })}
+          </p>
+        </div>
+      ) : null}
+
+      {/* Income input — monthly gross salary. Entering it switches the
+          breakdown below from %-of-budget to your personal лв./мес amounts. */}
       <div className="flex items-center gap-2">
         <label
           htmlFor="myarea-tax-income"
@@ -169,43 +271,50 @@ export const MyAreaTaxReceiptTile: FC = () => {
           type="number"
           inputMode="numeric"
           min={0}
-          step={500}
+          step={100}
           value={income}
           onChange={(e) => setIncome(e.target.value)}
-          placeholder="24000"
+          placeholder="1500"
           className="flex-1 min-w-0 border rounded px-2 py-1 text-sm bg-background"
         />
         <span className="text-xs text-muted-foreground">
-          {lang === "bg" ? "лв./год" : "BGN/yr"}
+          {t("my_area_tax_receipt_income_suffix")}
         </span>
       </div>
 
       {hasIncome ? (
         <div className="text-sm">
           {t("my_area_tax_receipt_income_label")}:{" "}
-          <span className="font-semibold">{formatBgn(parsedIncome, lang)}</span>{" "}
+          <span className="font-semibold">
+            {formatEurPer(monthlyGross, lang, "mo")}
+          </span>{" "}
           · {lang === "bg" ? "данък общ доход (10%)" : "income tax (10%)"}:{" "}
-          <span className="font-semibold">{formatBgn(tax, lang)}</span>
+          <span className="font-semibold">
+            {formatEurPer(monthlyTax, lang, "mo")}
+          </span>{" "}
+          <span className="text-muted-foreground">
+            ({formatEurPer(annualTax, lang, "yr")})
+          </span>
         </div>
       ) : null}
 
       {/* Breakdown — ALWAYS shown once the budget mix loads. Without an
           income it's the national budget split (% only); with an income
-          each row also carries the personal лв. amount. */}
+          each row also carries the personal лв./мес amount. */}
       {allocation ? (
         <div className="flex flex-col gap-1.5">
           <p className="text-[11px] text-muted-foreground">
             {hasIncome
               ? lang === "bg"
-                ? `Разпределение според бюджет ${allocation.year}:`
-                : `Allocated per ${allocation.year} budget mix:`
+                ? `Разпределение според бюджет ${allocation.year} (на месец):`
+                : `Allocated per ${allocation.year} budget mix (per month):`
               : lang === "bg"
-                ? `Бюджетен микс ${allocation.year} (въведете доход за вашите суми):`
-                : `${allocation.year} budget mix (enter income for your amounts):`}
+                ? `Бюджетен микс ${allocation.year} (въведете заплата за вашите суми):`
+                : `${allocation.year} budget mix (enter salary for your amounts):`}
           </p>
           {allocation.rows.map((r) => {
             const { label, color } = cofogLabel(r.code, lang);
-            const amount = tax * r.share;
+            const amountMonthly = monthlyTax * r.share;
             return (
               <div key={r.code} className="flex items-center gap-2 text-xs">
                 <span
@@ -218,7 +327,7 @@ export const MyAreaTaxReceiptTile: FC = () => {
                 </span>
                 {hasIncome ? (
                   <span className="tabular-nums shrink-0 font-medium">
-                    {formatBgn(amount, lang)}
+                    {formatEurPer(amountMonthly, lang, "mo")}
                   </span>
                 ) : null}
                 <span className="tabular-nums text-muted-foreground shrink-0 text-[10px] w-10 text-right">
