@@ -58,13 +58,14 @@
     },
     "SZR01": {
       "name": "Община Стара Загора",
-      "tier": "C",
+      "tier": "A",
       "indexUrl": "https://www.starazagora.bg/bg/resheniya-i-protokoli/",
-      "indexNote": "HTML index works. The per-decision text page exists, BUT per-councillor / per-vote totals are published ONLY as a scanned image PDF (skanirani-glasuvaniya-na-obshtsavetnitsi-sesiya-DDMMYY.pdf, Konica Minolta scan, no text layer). OCR-only — Phase 3.",
+      "indexNote": "Upgraded from tier C to A on 2026-05-29: SZR now publishes per-decision NATIVE TEXT PDFs at /uploads/posts/{YYYY}/prepis_{NNNN}.pdf, each carrying one Решение + ОТНОСНО:/ПО ТОЧКА... headers + aggregate tally in label-first form ('Гласуване: за – N, против - N и въздържали се – N'). Older protocols (pre-2024) still have scanned-only voting; the parser routes those through Gemini OCR when --ocr is passed.",
       "fetch": "static",
-      "format": "pdf-scan",
-      "decisionUrlPattern": "/bg/resheniya-i-protokoli/resheniya-ot-protokol-(\\d+)-ot-(\\d{8})g",
-      "tallyStrategy": "gemini-ocr",
+      "format": "pdf-text",
+      "decisionUrlPattern": "/bg/resheniya-i-protokoli/resheniya-ot-protokol-(\\d+)-ot-(\\d{8})g?",
+      "filePattern": "/uploads/posts/(\\d{4})/prepis[_-](\\d+)\\.pdf",
+      "tallyStrategy": "label-first-regex",
       "perCouncillor": false
     },
     "RSE01": {

@@ -22,6 +22,7 @@ import { command, flag, number, optional, option, run, string } from "cmd-ts";
 import type { MuniRecipe, SourcesFile, MuniScrapeResult } from "./lib/types";
 import { mergeMuniResult } from "./lib/index_writer";
 import { scrapeVTR } from "./parsers/vtr";
+import { scrapeSZR } from "./parsers/szr";
 
 const STATE_DIR = join(process.cwd(), "state/ingest");
 const SOURCES_PATH = join(process.cwd(), "data/council/sources.json");
@@ -33,6 +34,7 @@ type Dispatcher = (
     sinceDate?: string;
     maxProtocols?: number;
     perCouncillor?: boolean;
+    ocr?: boolean;
   },
 ) => Promise<MuniScrapeResult>;
 
@@ -43,7 +45,8 @@ type Dispatcher = (
  */
 const DISPATCHERS: Record<string, Dispatcher> = {
   VTR01: scrapeVTR,
-  // SOF, RSE01, PVN01, VAR01, BGS01, PDV01 land here as each parser ships.
+  SZR01: scrapeSZR,
+  // SOF, RSE01, PVN01, VAR01, BGS01, PDV01, SLV01 land here as each parser ships.
 };
 
 type IngestState = {
@@ -118,6 +121,11 @@ const cli = command({
       description:
         "Phase 2 — extract per-councillor named-vote blocks and join to the data/officials/municipal/ roster. Slower; adds tally.perCouncillor[].",
     }),
+    ocr: flag({
+      long: "ocr",
+      description:
+        "Phase 3 — opt in to Gemini Vision OCR fallback for scanned PDFs. Costs real money per page; only used when pdftotext returns near-zero text. Requires GEMINI_API_KEY in .env.local.",
+    }),
     dry: flag({
       long: "dry",
       description:
@@ -171,6 +179,7 @@ const cli = command({
           sinceDate,
           maxProtocols: args.max,
           perCouncillor: args.perCouncillor,
+          ocr: args.ocr,
         });
         for (const e of result.errors) errors.push({ key, ...e });
         if (args.dry) {

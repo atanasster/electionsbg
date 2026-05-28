@@ -25,16 +25,55 @@ import type { CouncilTally, CouncilTallyResult } from "./types";
 const Q = '[""„“”\'‘’]?';
 
 /**
- * One canonical summary-line regex covering the four common phrasings.
- * Captures: 1=for, 2=against, 3=abstain. Each capture is either a digit
- * group (`\d+`) or the literal "няма" (zero).
+ * Two summary-line regexes covering V. Tarnovo + Sofia + Stara Zagora
+ * phrasings. Captures: 1=for, 2=against, 3=abstain. Each capture is a
+ * digit group, "няма", or "-" (= 0).
+ *
+ * DIGIT_FIRST matches phrasings where the count precedes the label:
+ *   25 „за", 4 „против", 1 „въздържал се"     (V. Tarnovo prose)
+ *   34 „за", „против" няма, „въздържал се" няма
+ *
+ * LABEL_FIRST matches the SZR format where the label precedes the count
+ * with an em-dash / hyphen separator:
+ *   за – 46, против - 0 и въздържали се – 0
+ *   Гласуване: за 33, против 0, въздържали се 0
+ *
+ * "и" (Bulgarian "and") is allowed as the separator between the
+ * against and abstain pair.
  */
-const SUMMARY_RE = new RegExp(
+const SEP = "[\\s,и]+";
+const DASH = "[\\s–—\\-:]*";
+
+const SUMMARY_RE_DIGIT_FIRST = new RegExp(
   `(\\d+|няма|-)\\s*${Q}\\s*за\\s*${Q}` +
-    `[\\s,]+` +
+    SEP +
     `(?:${Q}\\s*)?(\\d+|няма|-)\\s*${Q}\\s*против\\s*${Q}` +
-    `[\\s,]+` +
+    SEP +
     `(?:${Q}\\s*)?(\\d+|няма|-)\\s*${Q}\\s*въздържал[аи]?\\s*се\\s*${Q}`,
+  "iu",
+);
+
+const SUMMARY_RE_LABEL_FIRST = new RegExp(
+  `${Q}\\s*за\\s*${Q}${DASH}(\\d+|няма|-)` +
+    SEP +
+    `${Q}\\s*против\\s*${Q}${DASH}(\\d+|няма|-)` +
+    SEP +
+    `${Q}\\s*въздържал[аи]?\\s*се\\s*${Q}${DASH}(\\d+|няма|-)`,
+  "iu",
+);
+
+/**
+ * SZR-specific shorthand when против AND въздържал се BOTH equal the
+ * same value (typically няма/0):
+ *
+ *   Гласуване: за – 47, против и въздържали се – няма
+ *
+ * One digit/няма is captured and applied to both against AND abstain.
+ */
+const SUMMARY_RE_SHORTHAND = new RegExp(
+  `${Q}\\s*за\\s*${Q}${DASH}(\\d+|няма|-)` +
+    SEP +
+    `${Q}\\s*против\\s+и\\s+въздържал[аи]?\\s*се\\s*${Q}${DASH}(\\d+|няма|-)`,
   "iu",
 );
 
@@ -50,11 +89,15 @@ const parseCount = (raw: string): number => {
 };
 
 /**
- * Extract one aggregate tally from a span of text. Returns null if no
- * summary line could be matched.
+ * Extract one aggregate tally from a span of text. Tries the digit-first
+ * phrasing first (V. Tarnovo / Sofia prose form), then label-first (SZR
+ * "Гласуване: за – N" form). Returns null if neither matches.
  */
 export const extractTally = (text: string): CouncilTally | null => {
-  const m = text.match(SUMMARY_RE);
+  const mDigit = text.match(SUMMARY_RE_DIGIT_FIRST);
+  const mLabel = mDigit ? null : text.match(SUMMARY_RE_LABEL_FIRST);
+  const mShort = mDigit || mLabel ? null : text.match(SUMMARY_RE_SHORTHAND);
+  const m = mDigit ?? mLabel ?? mShort;
   if (!m) return null;
   const method: CouncilTally["method"] = NAMED_VOTE_BLOCK_RE.test(text)
     ? "named"
@@ -62,40 +105,53 @@ export const extractTally = (text: string): CouncilTally | null => {
   return {
     for: parseCount(m[1]),
     against: parseCount(m[2]),
-    abstain: parseCount(m[3]),
+    abstain: parseCount(m === mShort ? m[2] : m[3]),
     method,
   };
 };
 
 /**
  * Walk text and yield every (offset, tally) pair found, in document order.
- * Used by per-município parsers that need to associate each tally with the
- * resolution it belongs to.
+ * Runs both regex variants and merges hits (deduped by offset, preferring
+ * the digit-first match when both fire on the same span).
  */
 export const findAllTallies = (
   text: string,
 ): Array<{ offset: number; length: number; tally: CouncilTally }> => {
   const out: Array<{ offset: number; length: number; tally: CouncilTally }> =
     [];
-  const re = new RegExp(SUMMARY_RE.source, "igu");
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(text)) !== null) {
+  const seen = new Set<number>();
+  const consume = (m: RegExpExecArray, shorthand: boolean) => {
+    if (seen.has(m.index)) return;
+    seen.add(m.index);
     const method: CouncilTally["method"] = NAMED_VOTE_BLOCK_RE.test(
       text.slice(Math.max(0, m.index - 4000), m.index),
     )
       ? "named"
       : "open";
+    const againstCount = parseCount(m[2]);
     out.push({
       offset: m.index,
       length: m[0].length,
       tally: {
         for: parseCount(m[1]),
-        against: parseCount(m[2]),
-        abstain: parseCount(m[3]),
+        against: againstCount,
+        // In the shorthand "против и въздържал се – X" form, both groups
+        // share the count captured in m[2].
+        abstain: shorthand ? againstCount : parseCount(m[3]),
         method,
       },
     });
-  }
+  };
+  const reDigit = new RegExp(SUMMARY_RE_DIGIT_FIRST.source, "igu");
+  let m: RegExpExecArray | null;
+  while ((m = reDigit.exec(text)) !== null) consume(m, false);
+  const reLabel = new RegExp(SUMMARY_RE_LABEL_FIRST.source, "igu");
+  while ((m = reLabel.exec(text)) !== null) consume(m, false);
+  const reShort = new RegExp(SUMMARY_RE_SHORTHAND.source, "igu");
+  while ((m = reShort.exec(text)) !== null) consume(m, true);
+  // Re-sort by offset since we merged two streams.
+  out.sort((a, b) => a.offset - b.offset);
   return out;
 };
 
@@ -125,9 +181,13 @@ export const classifyResult = (
   const back = text.slice(Math.max(0, tallyOffset - 120), tallyOffset);
   const fwd = text.slice(tallyOffset, Math.min(text.length, tallyOffset + 140));
 
-  const REJECTED = /(?:не\s+беше\s+прието|не\s+се\s+приема|отхвърл)/iu;
+  // Word-order varies by município. V. Tarnovo: "беше прието" /
+  // "не беше прието" — predicate. Stara Zagora: "Приема се." /
+  // "Не се приема." — short reflexive form right after the tally line.
+  const REJECTED =
+    /(?:не\s+беше\s+прието|не\s+се\s+приема|не\s+приема\s+се|отхвърл)/iu;
   const RETURNED = /върнат[аоои]?\s+за\s+ново\s+обсъждане/iu;
-  const ADOPTED = /(?:беше\s+прието|се\s+приема|прие[ти][аоои]?)/iu;
+  const ADOPTED = /(?:беше\s+прието|се\s+приема|приема\s+се|прие[ти][аоои]?)/iu;
 
   if (REJECTED.test(fwd) || REJECTED.test(back)) return "rejected";
   if (RETURNED.test(fwd) || RETURNED.test(back)) return "returned";
