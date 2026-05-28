@@ -85,6 +85,11 @@ export const MyAreaAlertsTile: FC<Props> = ({ obshtina }) => {
     const Icon = ICONS[e.kind] ?? Activity;
     const color = COLOR[e.kind] ?? "#888";
     const headline = lang === "bg" ? e.headline_bg : e.headline_en;
+    // EU funds contracts have no real per-contract date — only the
+    // programme code's prefix year. Rendering it as a literal "1 Jan 2014"
+    // mislead users in dev; suppress the date label for this kind and let
+    // the programme name (event.detail) carry the temporal signal instead.
+    const showDate = e.kind !== "eu_funds";
     const dateLabel =
       lang === "bg" ? formatDateBg(e.date) : formatDateEn(e.date);
     return (
@@ -101,8 +106,9 @@ export const MyAreaAlertsTile: FC<Props> = ({ obshtina }) => {
         <div className="flex-1 min-w-0">
           <div className="text-xs leading-snug">{headline}</div>
           <div className="text-[10px] text-muted-foreground tabular-nums mt-0.5">
-            {dateLabel}
-            {e.detail ? <span> · {e.detail}</span> : null}
+            {showDate ? dateLabel : null}
+            {showDate && e.detail ? <span> · </span> : null}
+            {e.detail ? <span>{e.detail}</span> : null}
           </div>
         </div>
       </li>

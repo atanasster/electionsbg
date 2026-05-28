@@ -200,12 +200,25 @@ const buildProcurementEvents = (
   return events;
 };
 
+// EU contracts don't carry per-contract dates — only a programCode whose
+// prefix indicates the programming period (2014BG.. = 2014-2020 frame,
+// 2021BG.. = 2021-2027 frame including RRP). Showing a contract from the
+// 2014-2020 frame as "1 Jan 2014" in a "Recent activity" feed is
+// misleading; the contract could be from any year in that range and is
+// probably already closed.
+//
+// Filter to "В изпълнение" (in-progress) status — those are actively
+// running contracts so "recent" framing is honest. The tile renders these
+// events without a literal date label (see MyAreaAlertsTile).
 const buildFundsEvents = (obshtina: string): AlertEvent[] => {
   const file = readJson<FundsMuniFile>(
     path.join(FUNDS_BY_MUNI, `${obshtina}.json`),
   );
   if (!file?.contracts) return [];
-  const top = file.contracts
+  const inProgress = file.contracts.filter((c) =>
+    (c.status ?? "").includes("изпълнение"),
+  );
+  const top = inProgress
     .slice()
     .sort((a, b) => (b.totalEur ?? 0) - (a.totalEur ?? 0))
     .slice(0, FUNDS_TOP_N);
