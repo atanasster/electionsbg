@@ -16,12 +16,12 @@
 //
 // This is a tool — not a tile that derives from the area context — but it
 // belongs on the My-Area page because the page is the "civic dashboard"
-// landing surface. Mounted as an expandable section so it doesn't
-// dominate the page by default.
+// landing surface. The national budget mix shows by default (percentages);
+// entering an income switches the breakdown to personal лв. amounts.
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, ChevronDown, ChevronUp } from "lucide-react";
+import { Calculator } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Card } from "@/components/ui/card";
 import { dataUrl } from "@/data/dataUrl";
@@ -103,16 +103,15 @@ const fetchCofog = async (): Promise<CofogFile> => {
 export const MyAreaTaxReceiptTile: FC = () => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
-  const [expanded, setExpanded] = useState(false);
   const [income, setIncome] = useState<string>("");
   const { data: cofog } = useQuery({
     queryKey: ["cofog"],
     queryFn: fetchCofog,
     staleTime: Infinity,
-    // Only fetch once the user expands the section — the receipt is gated
-    // behind a click anyway, so the COFOG payload (~30 KB gzipped) stays
-    // off the critical path for everyone who doesn't open it.
-    enabled: expanded,
+    // The budget mix (~30 KB gzipped) is shown by default now — the
+    // national COFOG split is interesting on its own, before the user
+    // types an income — so we fetch eagerly rather than gating behind a
+    // toggle.
   });
 
   // Compute allocation. TOTAL is the denominator; each GF0n category gives
@@ -141,109 +140,103 @@ export const MyAreaTaxReceiptTile: FC = () => {
   })();
   const tax = parsedIncome * PERSONAL_INCOME_TAX_RATE;
 
+  const hasIncome = parsedIncome > 0;
+
   return (
-    <Card className="p-4">
-      <button
-        type="button"
-        onClick={() => setExpanded((x) => !x)}
-        className="w-full flex items-center gap-2 text-left"
-      >
+    <Card className="p-4 flex flex-col gap-3">
+      <div className="flex items-center gap-2">
         <Calculator className="size-4 text-primary" />
         <h2 className="text-sm font-semibold flex-1">
           {t("my_area_tax_receipt_title")}
         </h2>
-        {expanded ? (
-          <ChevronUp className="size-4 text-muted-foreground" />
-        ) : (
-          <ChevronDown className="size-4 text-muted-foreground" />
-        )}
-      </button>
-      {expanded ? (
-        <div className="mt-4 flex flex-col gap-3">
-          <p className="text-xs text-muted-foreground">
-            {t("my_area_tax_receipt_explainer")}
-          </p>
-          <div className="flex items-center gap-2">
-            <label
-              htmlFor="myarea-tax-income"
-              className="text-sm whitespace-nowrap"
-            >
-              {t("my_area_tax_receipt_income_label")}
-            </label>
-            <input
-              id="myarea-tax-income"
-              type="number"
-              inputMode="numeric"
-              min={0}
-              step={500}
-              value={income}
-              onChange={(e) => setIncome(e.target.value)}
-              placeholder="24000"
-              className="flex-1 border rounded px-2 py-1 text-sm bg-background"
-            />
-            <span className="text-xs text-muted-foreground">
-              {lang === "bg" ? "лв./год" : "BGN/yr"}
-            </span>
-          </div>
-          {parsedIncome > 0 ? (
-            <>
-              <div className="text-sm">
-                {t("my_area_tax_receipt_income_label")}:{" "}
-                <span className="font-semibold">
-                  {formatBgn(parsedIncome, lang)}
-                </span>{" "}
-                · {lang === "bg" ? "данък общ доход (10%)" : "income tax (10%)"}
-                : <span className="font-semibold">{formatBgn(tax, lang)}</span>
-              </div>
-              {allocation ? (
-                <div className="flex flex-col gap-1.5">
-                  <p className="text-[11px] text-muted-foreground">
-                    {lang === "bg"
-                      ? `Разпределение според бюджет ${allocation.year}:`
-                      : `Allocated per ${allocation.year} budget mix:`}
-                  </p>
-                  {allocation.rows.map((r) => {
-                    const { label, color } = cofogLabel(r.code, lang);
-                    const amount = tax * r.share;
-                    return (
-                      <div
-                        key={r.code}
-                        className="flex items-center gap-2 text-xs"
-                      >
-                        <span
-                          className="inline-block h-2.5 w-2.5 rounded-sm shrink-0"
-                          style={{ backgroundColor: color }}
-                          aria-hidden
-                        />
-                        <span className="flex-1 truncate" title={label}>
-                          {label}
-                        </span>
-                        <span className="tabular-nums shrink-0 font-medium">
-                          {formatBgn(amount, lang)}
-                        </span>
-                        <span className="tabular-nums text-muted-foreground shrink-0 text-[10px] w-10 text-right">
-                          {(r.share * 100).toFixed(1)}%
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="text-xs text-muted-foreground">
-                  {t("my_area_tax_receipt_loading")}
-                </div>
-              )}
-              <p className="text-[10px] text-muted-foreground mt-2 italic">
-                {t("my_area_tax_receipt_disclaimer")}
-              </p>
-            </>
-          ) : (
-            <p className="text-xs text-muted-foreground">
-              {t("my_area_tax_receipt_prompt")}
-            </p>
-          )}
+      </div>
+
+      <p className="text-xs text-muted-foreground">
+        {t("my_area_tax_receipt_explainer")}
+      </p>
+
+      {/* Income input — inline, always visible. Entering it switches the
+          breakdown below from %-of-budget to your personal лв. amounts. */}
+      <div className="flex items-center gap-2">
+        <label
+          htmlFor="myarea-tax-income"
+          className="text-sm whitespace-nowrap"
+        >
+          {t("my_area_tax_receipt_income_label")}
+        </label>
+        <input
+          id="myarea-tax-income"
+          type="number"
+          inputMode="numeric"
+          min={0}
+          step={500}
+          value={income}
+          onChange={(e) => setIncome(e.target.value)}
+          placeholder="24000"
+          className="flex-1 min-w-0 border rounded px-2 py-1 text-sm bg-background"
+        />
+        <span className="text-xs text-muted-foreground">
+          {lang === "bg" ? "лв./год" : "BGN/yr"}
+        </span>
+      </div>
+
+      {hasIncome ? (
+        <div className="text-sm">
+          {t("my_area_tax_receipt_income_label")}:{" "}
+          <span className="font-semibold">{formatBgn(parsedIncome, lang)}</span>{" "}
+          · {lang === "bg" ? "данък общ доход (10%)" : "income tax (10%)"}:{" "}
+          <span className="font-semibold">{formatBgn(tax, lang)}</span>
         </div>
       ) : null}
+
+      {/* Breakdown — ALWAYS shown once the budget mix loads. Without an
+          income it's the national budget split (% only); with an income
+          each row also carries the personal лв. amount. */}
+      {allocation ? (
+        <div className="flex flex-col gap-1.5">
+          <p className="text-[11px] text-muted-foreground">
+            {hasIncome
+              ? lang === "bg"
+                ? `Разпределение според бюджет ${allocation.year}:`
+                : `Allocated per ${allocation.year} budget mix:`
+              : lang === "bg"
+                ? `Бюджетен микс ${allocation.year} (въведете доход за вашите суми):`
+                : `${allocation.year} budget mix (enter income for your amounts):`}
+          </p>
+          {allocation.rows.map((r) => {
+            const { label, color } = cofogLabel(r.code, lang);
+            const amount = tax * r.share;
+            return (
+              <div key={r.code} className="flex items-center gap-2 text-xs">
+                <span
+                  className="inline-block h-2.5 w-2.5 rounded-sm shrink-0"
+                  style={{ backgroundColor: color }}
+                  aria-hidden
+                />
+                <span className="flex-1 truncate" title={label}>
+                  {label}
+                </span>
+                {hasIncome ? (
+                  <span className="tabular-nums shrink-0 font-medium">
+                    {formatBgn(amount, lang)}
+                  </span>
+                ) : null}
+                <span className="tabular-nums text-muted-foreground shrink-0 text-[10px] w-10 text-right">
+                  {(r.share * 100).toFixed(1)}%
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="text-xs text-muted-foreground">
+          {t("my_area_tax_receipt_loading")}
+        </div>
+      )}
+
+      <p className="text-[10px] text-muted-foreground italic">
+        {t("my_area_tax_receipt_disclaimer")}
+      </p>
     </Card>
   );
 };
