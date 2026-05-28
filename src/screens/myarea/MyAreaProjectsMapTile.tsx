@@ -16,12 +16,20 @@ import {
   useFundsGeoPins,
   type FundsGeoPin,
 } from "@/data/funds/useFundsGeoPins";
+import { useFundsForMuni } from "@/data/funds/useFundsForPlace";
 
 type Props = {
   obshtina: string;
 };
 
 const PREVIEW_CAP = 5;
+
+const formatPerCapita = (eur: number, lang: "bg" | "en"): string => {
+  const v = new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
+    maximumFractionDigits: 0,
+  }).format(eur);
+  return lang === "bg" ? `${v} €/жител` : `€${v}/capita`;
+};
 
 const formatEur = (n: number): string =>
   new Intl.NumberFormat("bg-BG", {
@@ -161,6 +169,9 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const data = useFundsGeoPins(obshtina);
+  // Slim (<5 KB) per-município summary carrying the pre-computed
+  // per-capita EUR and the cohort rank — the comparison context.
+  const { data: summary } = useFundsForMuni(obshtina);
   const [showMap, setShowMap] = useState(false);
 
   // Top projects by money, for the default preview list.
@@ -172,6 +183,13 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
   }, [data]);
 
   if (!data || data.pins.length === 0) return null;
+
+  const perCapita =
+    summary?.perCapitaEur != null && summary.perCapitaEur > 0
+      ? summary.perCapitaEur
+      : null;
+  const rank = summary?.perCapitaRank ?? null;
+  const cohort = summary?.cohortSize ?? null;
 
   return (
     <Card className="p-4 flex flex-col gap-3" id="myarea-projects-map">
@@ -185,6 +203,25 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
           {data.pins.length === 1 ? t("project_singular") : t("project_plural")}
         </span>
       </div>
+
+      {/* Per-capita comparison line — EU funds per resident + cohort rank.
+          Comes pre-computed from the funds summary; renders only when the
+          município has a population-normalised figure. */}
+      {perCapita != null ? (
+        <div className="text-xs text-muted-foreground -mt-1">
+          <span className="font-semibold text-foreground tabular-nums">
+            {formatPerCapita(perCapita, lang)}
+          </span>
+          {rank != null && cohort != null ? (
+            <>
+              {" · "}
+              {lang === "bg"
+                ? `място ${rank} от ${cohort} общини`
+                : `rank ${rank} of ${cohort} municipalities`}
+            </>
+          ) : null}
+        </div>
+      ) : null}
 
       {showMap ? (
         <>
