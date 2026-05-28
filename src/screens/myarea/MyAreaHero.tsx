@@ -33,6 +33,107 @@ const formatNumber = (n: number | undefined, lang: "bg" | "en"): string => {
   return n.toLocaleString(lang === "bg" ? "bg-BG" : "en-GB");
 };
 
+// Settlement/município centroids in our data files are stored as
+// "lon,lat" strings. Returns null if either coord can't be parsed —
+// callers branch on the result to skip rendering.
+const parseLoc = (loc?: string): { lat: number; lon: number } | null => {
+  if (!loc) return null;
+  const [lonStr, latStr] = loc.split(",");
+  if (!lonStr || !latStr) return null;
+  const lat = Number(latStr);
+  const lon = Number(lonStr);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+  return { lat, lon };
+};
+
+// Single-tile OSM static thumbnail. We don't pull Leaflet in for this —
+// that would cost ~150 KB gz on the hero path (see MyAreaProjectsMapTile
+// for the lazy-loaded variant). Instead we compute the fractional tile
+// coords for the centroid at a fixed zoom and crop a 2×2 tile mosaic so
+// the centroid sits at the middle of the visible thumbnail, then drop a
+// CSS pin on top. No bundle cost beyond a few KB of JSX and four cached
+// 256×256 PNGs from tile.openstreetmap.org.
+const TILE_SIZE = 256;
+const ZOOM = 12; // ~5 km across — good for "where in the oblast is this".
+const THUMB_W = 144;
+const THUMB_H = 96;
+
+const StaticOsmThumbnail: FC<{
+  lat: number;
+  lon: number;
+  alt: string;
+}> = ({ lat, lon, alt }) => {
+  const n = Math.pow(2, ZOOM);
+  const fx = ((lon + 180) / 360) * n;
+  const latRad = (lat * Math.PI) / 180;
+  const fy =
+    ((1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2) * n;
+  const tx = Math.floor(fx);
+  const ty = Math.floor(fy);
+  // Offset of the point inside the top-left tile (pixels).
+  const ox = (fx - tx) * TILE_SIZE;
+  const oy = (fy - ty) * TILE_SIZE;
+  // Translate the 2×2 mosaic so the point lands at the thumbnail center.
+  const shiftX = THUMB_W / 2 - ox;
+  const shiftY = THUMB_H / 2 - oy;
+  const tiles: Array<{
+    x: number;
+    y: number;
+    sub: string;
+    left: number;
+    top: number;
+  }> = [
+    { x: tx, y: ty, sub: "a", left: 0, top: 0 },
+    { x: tx + 1, y: ty, sub: "b", left: TILE_SIZE, top: 0 },
+    { x: tx, y: ty + 1, sub: "c", left: 0, top: TILE_SIZE },
+    { x: tx + 1, y: ty + 1, sub: "a", left: TILE_SIZE, top: TILE_SIZE },
+  ];
+  return (
+    <div
+      className="relative rounded-md overflow-hidden border bg-muted"
+      style={{ width: THUMB_W, height: THUMB_H }}
+      aria-label={alt}
+      role="img"
+    >
+      <div
+        className="absolute"
+        style={{
+          left: shiftX,
+          top: shiftY,
+          width: TILE_SIZE * 2,
+          height: TILE_SIZE * 2,
+        }}
+      >
+        {tiles.map((tile) => (
+          <img
+            key={`${tile.x}-${tile.y}`}
+            src={`https://${tile.sub}.tile.openstreetmap.org/${ZOOM}/${tile.x}/${tile.y}.png`}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="absolute select-none pointer-events-none"
+            style={{
+              left: tile.left,
+              top: tile.top,
+              width: TILE_SIZE,
+              height: TILE_SIZE,
+            }}
+          />
+        ))}
+      </div>
+      {/* Centered pin marking the centroid. Pure CSS — no SVG asset. */}
+      <span
+        className="absolute size-2.5 rounded-full bg-primary ring-2 ring-background shadow"
+        style={{
+          left: THUMB_W / 2,
+          top: THUMB_H / 2,
+          transform: "translate(-50%, -50%)",
+        }}
+      />
+    </div>
+  );
+};
+
 export const MyAreaHero: FC<Props> = ({ area }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
@@ -87,6 +188,13 @@ export const MyAreaHero: FC<Props> = ({ area }) => {
       ? graoSlice.settlements[area.settlement.ekatte]
       : undefined;
   const graoAsOf = isSettlement ? (graoSlice?.asOf ?? null) : null;
+
+  // Centroid for the static map thumbnail. Both settlements and municípios
+  // carry a `loc` field ("lon,lat"). Settlements override on .settlement,
+  // municípios on .municipality. Falls back to null which hides the thumb.
+  const loc = isSettlement
+    ? parseLoc(area.settlement.loc)
+    : parseLoc(area.municipality.loc);
 
   // muniHref / regionHref drive the inline links in the narrative —
   // /settlement/:id accepts an obshtina code (despite the route name),
@@ -193,6 +301,9 @@ export const MyAreaHero: FC<Props> = ({ area }) => {
   //   - inline the breadcrumb narrative directly under the H1
   //   - render ГРАО as a single chip row beside the narrative on wide
   //     screens, wrapping below on mobile
+  const thumbAlt =
+    lang === "bg" ? `Карта на района — ${name}` : `Area map — ${name}`;
+
   return (
     <Card className="p-4 md:p-5">
       <div className="flex items-start gap-3">
@@ -232,6 +343,21 @@ export const MyAreaHero: FC<Props> = ({ area }) => {
             </div>
           ) : null}
         </div>
+        {/* Static OSM thumbnail. Clicking jumps to the EU-funded projects
+            map further down the page (id="myarea-projects-map"). If the
+            projects tile is hidden (no geocoded contracts), the anchor
+            no-ops and the browser stays put — better than removing the
+            map link entirely. Hidden on small screens to keep the
+            two-column hero from collapsing awkwardly. */}
+        {loc ? (
+          <a
+            href="#myarea-projects-map"
+            className="hidden sm:block shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md"
+            aria-label={thumbAlt}
+          >
+            <StaticOsmThumbnail lat={loc.lat} lon={loc.lon} alt={thumbAlt} />
+          </a>
+        ) : null}
       </div>
     </Card>
   );

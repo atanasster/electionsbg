@@ -164,7 +164,7 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
   if (!data || data.pins.length === 0) return null;
 
   return (
-    <Card className="p-4">
+    <Card className="p-4" id="myarea-projects-map">
       <button
         type="button"
         onClick={() => setExpanded((x) => !x)}
