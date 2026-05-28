@@ -22,7 +22,7 @@ export const AREA_ANCHOR_PARAM = "area";
  *  settlement (EKATTE 5-digit numeric), municipality (obshtina alphanumeric
  *  like BLG52), Sofia район (alphanumeric SOF NN sub-code). The Sofia район
  *  case is not yet emitted by the resolver in Phase 1 — placeholder for
- *  Phase 2's районы drill-in. */
+ *  Phase 2's райони drill-in. */
 export type AreaKind = "settlement" | "municipality" | "raion";
 
 export type AreaAnchor = {

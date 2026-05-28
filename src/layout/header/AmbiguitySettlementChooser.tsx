@@ -59,7 +59,7 @@ export const AmbiguitySettlementChooser: FC<Props> = ({
   //     Naïvely prefixing "общ. {muni.name}" then gave "общ. общ. Средец"
   //     in the chooser. For these, the settlement IS its own município,
   //     so we drop both the t_v_m prefix and the município name and let
-  //     the oblast (which on Sofia районы is "София 24 МИР" or similar)
+  //     the oblast (which on Sofia райони is "София 24 МИР" or similar)
   //     carry the "Sofia район" signal.
   const parentLine = (settlement: SettlementInfo): string => {
     const isOwnMunicipality = settlement.t_v_m === "общ.";

@@ -42,7 +42,7 @@ export type ResolvedArea =
 
 // True when the id looks settlement-shaped: starts with a digit. Settlement
 // EKATTEs include both purely-numeric (`65231`) and hyphenated composite
-// forms (`68134-2401` for Sofia районы), so a starts-with-digit check is
+// forms (`68134-2401` for Sofia райони), so a starts-with-digit check is
 // broader than the old `/^\d+$/` and catches both cases.
 const looksLikeSettlementId = (id: string): boolean => /^\d/.test(id);
 

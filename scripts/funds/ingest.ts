@@ -229,7 +229,7 @@ const main = async (args: {
   //
   // ИСУН lists sub-units (райони, териториални поделения, клонове) as
   // separate rows sharing the parent's EIK — e.g. EIK 000471504 has the
-  // main "Община Пловдив" row plus 6 separate районы rows. Aggregate by
+  // main "Община Пловдив" row plus 6 separate райони rows. Aggregate by
   // EIK first so the file carries the true per-EIK total. Without this,
   // /company/{eik} reads only whichever sub-unit was written last and
   // displays a fraction of the real funds amount.

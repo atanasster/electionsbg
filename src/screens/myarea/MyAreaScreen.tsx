@@ -125,9 +125,9 @@ export const MyAreaScreen: FC = () => {
       >
         <MyAreaHero area={area} />
 
-        {/* Sofia районы chip row — only renders for users in a Sofia
+        {/* Sofia райони chip row — only renders for users in a Sofia
             район (obshtina S2xxx). Auto-hides everywhere else. Helps
-            users jump between районы without bouncing through search. */}
+            users jump between райони without bouncing through search. */}
         <MyAreaSofiaRaionStrip activeObshtina={area.obshtina} />
 
         {showChmiBanner ? (
