@@ -201,6 +201,60 @@ const extractRayons = (description: string): string[] => {
   return out;
 };
 
+// Source project names SHOUT in uppercase — wholly (data.egov.bg CSV) or in
+// embedded phrases (the sofia.bg XLSX mixes an upper-case description with a
+// lower-case trailing clause). Lower-case each all-upper Cyrillic word for
+// readability while preserving: words that already carry lower-case letters
+// (proper nouns / mixed-case like ВиК), Latin-bearing tokens (programme codes
+// like BG-RRP, roman numerals), and an allowlist of institution / programme
+// abbreviations. Then re-capitalise the first letter of the name and the first
+// letter inside each quoted segment (район / object proper nouns —
+// район "МЛАДОСТ" → район "Младост").
+const CAPS_ACRONYMS = new Set([
+  "ДГ",
+  "ОДЗ",
+  "ЦДГ",
+  "ДЯ",
+  "ДКЦ",
+  "СУ",
+  "ОУ",
+  "НУ",
+  "СОУ",
+  "ПГ",
+  "ДМА",
+  "ДНА",
+  "ППР",
+  "ПВУ",
+  "ПМС",
+  "ОП",
+  "ОР",
+  "УПИ",
+  "ПУП",
+  "ПИ",
+  "ЕООД",
+  "ЕАД",
+  "ООД",
+  "СО",
+]);
+
+const normalizeName = (raw: string): string => {
+  let out = raw.replace(/[A-Za-zА-Яа-я]+/g, (tok) => {
+    if (/[A-Za-z]/.test(tok)) return tok; // Latin codes / roman numerals
+    if (/[а-я]/.test(tok)) return tok; // already has lower-case → leave as-is
+    if (CAPS_ACRONYMS.has(tok)) return tok; // institution / programme acronym
+    return tok.toLowerCase();
+  });
+  // First alphabetic letter of the whole string → uppercase.
+  out = out.replace(/[a-zа-я]/, (c) => c.toUpperCase());
+  // A quote IMMEDIATELY followed by a letter is an OPENING quote — uppercase
+  // that letter (район "младост" → "Младост"). The no-space requirement rules
+  // out closing quotes (followed by a space/punct), so a straight-quote pair
+  // doesn't double-match — e.g. `"поляна" и "илинден"` leaves the conjunction
+  // lower-case and only capitalises the two proper nouns.
+  out = out.replace(/([„“"«])([a-zа-я])/g, (_m, q, c) => q + c.toUpperCase());
+  return out;
+};
+
 // Detect hierarchy markers in column A. Returns the bucket the row belongs
 // to: "paragraph", "function", "activity", "header", or null (project row).
 type RowKind = "paragraph" | "function" | "activity" | "header" | null;
@@ -343,7 +397,7 @@ const parseRows = (
     projectId += 1;
     projects.push({
       id: projectId,
-      name: desc.replace(/\s+/g, " ").trim(),
+      name: normalizeName(desc.replace(/\s+/g, " ").trim()),
       paragraph: currentParagraph,
       functionLabel: currentFunction,
       activityLabel: currentActivity,
