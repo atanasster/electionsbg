@@ -1,19 +1,16 @@
-// Collapsed-by-default footer card that holds the "deep history" of a
-// place — voter turnout sparkline over recent cycles plus the
-// drill-down link to the full canonical dashboard.
+// Footer card holding the "deep history" of a place — voter turnout
+// sparkline over recent cycles plus the drill-down link to the full
+// canonical dashboard. Content is always visible (no collapsible); the
+// sparkline is a single compact row so it doesn't bloat the page.
 //
 // Settlement view uses useSettlementStats (one fetch, all cycles for that
 // settlement). Município view falls back to a link-only card since
 // useMunicipalityStats keys by oblast and would mix cycles across multiple
 // settlements; that case can grow into its own variant later.
-//
-// Implemented as a native <details> element so collapsed state is free
-// (no React state, no JS to track open/close, keyboard-accessible by
-// default).
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, BarChart3, ChevronDown } from "lucide-react";
+import { ArrowRight, BarChart3 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/ux/Link";
 import type { ResolvedArea } from "@/data/area/useAreaResolver";
@@ -159,41 +156,36 @@ export const MyAreaHistoryStrip: FC<Props> = ({ area }) => {
         : "View full municipality dashboard";
 
   return (
-    <Card className="p-0 mt-2 overflow-hidden">
-      <details className="group">
-        <summary className="cursor-pointer list-none flex items-center gap-2 p-3 hover:bg-accent/30 transition-colors">
-          <BarChart3 className="size-4 text-primary shrink-0" />
-          <span className="text-sm font-medium flex-1">
-            {lang === "bg" ? "История на района" : "Area history"}
-          </span>
-          <ChevronDown className="size-4 text-muted-foreground transition-transform group-open:rotate-180" />
-        </summary>
-        <div className="px-4 pb-4 pt-2 border-t flex flex-col gap-3">
-          {area.kind === "settlement" ? (
-            <SettlementHistoryBody ekatte={area.ekatte} lang={lang} />
-          ) : (
-            <p className="text-xs text-muted-foreground">
-              {lang === "bg"
-                ? "Изборната история на общинско ниво е достъпна на пълното табло."
-                : "Cycle-by-cycle municipality history is available on the full dashboard."}
-            </p>
-          )}
-          <Link
-            to={fullHref}
-            underline={false}
-            className="flex items-center justify-between gap-2 text-sm rounded-md border p-2 hover:bg-accent/40 transition-colors group/full"
-            aria-label={fullLabel}
-          >
-            <span className="font-medium">{fullLabel}</span>
-            <ArrowRight className="size-4 text-muted-foreground group-hover/full:text-primary transition-colors" />
-          </Link>
-          {/* Reference `t` so future translatable copy lands here without
-              re-adding the import — same pattern as elsewhere. */}
-          <span hidden aria-hidden>
-            {t("my_area_dashboard")}
-          </span>
-        </div>
-      </details>
+    <Card className="p-4 mt-2 flex flex-col gap-3">
+      <div className="flex items-center gap-2">
+        <BarChart3 className="size-4 text-primary shrink-0" />
+        <h2 className="text-sm font-semibold flex-1">
+          {lang === "bg" ? "История на района" : "Area history"}
+        </h2>
+      </div>
+      {area.kind === "settlement" ? (
+        <SettlementHistoryBody ekatte={area.ekatte} lang={lang} />
+      ) : (
+        <p className="text-xs text-muted-foreground">
+          {lang === "bg"
+            ? "Изборната история на общинско ниво е достъпна на пълното табло."
+            : "Cycle-by-cycle municipality history is available on the full dashboard."}
+        </p>
+      )}
+      <Link
+        to={fullHref}
+        underline={false}
+        className="flex items-center justify-between gap-2 text-sm rounded-md border p-2 hover:bg-accent/40 transition-colors group/full"
+        aria-label={fullLabel}
+      >
+        <span className="font-medium">{fullLabel}</span>
+        <ArrowRight className="size-4 text-muted-foreground group-hover/full:text-primary transition-colors" />
+      </Link>
+      {/* Reference `t` so future translatable copy lands here without
+          re-adding the import — same pattern as elsewhere. */}
+      <span hidden aria-hidden>
+        {t("my_area_dashboard")}
+      </span>
     </Card>
   );
 };
