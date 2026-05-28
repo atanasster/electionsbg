@@ -34,6 +34,7 @@ import { MyAreaServicesTile } from "./MyAreaServicesTile";
 import { MyAreaAirTile } from "./MyAreaAirTile";
 import { MyAreaCrimeTile } from "./MyAreaCrimeTile";
 import { MyAreaProjectsMapTile } from "./MyAreaProjectsMapTile";
+import { MyAreaAlertsTile } from "./MyAreaAlertsTile";
 
 // Lazy-load the heavy dashboard variants — most My-Area visits don't need
 // both, and the Suspense fallback shows skeletons identical to a direct
@@ -153,6 +154,12 @@ export const MyAreaScreen: FC = () => {
             municipal transparency score from transparency-bg.org. Renders
             nothing while data is missing (see scripts/transparency/). */}
         <MyAreaTransparencyTile obshtina={area.obshtina} />
+
+        {/* "Recent activity" simulated feed — materialized from existing
+            per-município data (procurement, EU funds, capital programmes,
+            local-election cycle, and plenary debates that mention this
+            município). V1 substitute for email alerts until auth ships. */}
+        <MyAreaAlertsTile obshtina={area.obshtina} />
 
         {/* EU-funded projects map — geocoded contracts as Leaflet pins,
             OSM tiles. Collapsed by default; expanding the tile lazy-loads
