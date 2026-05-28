@@ -27,6 +27,9 @@ import { MyAreaHero } from "./MyAreaHero";
 import { MyAreaRepresentativesStrip } from "./MyAreaRepresentativesStrip";
 import { MyAreaUpcomingBallotTile } from "./MyAreaUpcomingBallotTile";
 import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
+import { MunicipalMayorTile } from "@/screens/dashboard/MunicipalMayorTile";
+import { MunicipalCouncilCompositionTile } from "@/screens/dashboard/MunicipalCouncilCompositionTile";
+import { MunicipalOfficialsRosterTile } from "@/screens/dashboard/MunicipalOfficialsRosterTile";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
 import { MyAreaSchoolsTile } from "./MyAreaSchoolsTile";
@@ -157,6 +160,24 @@ export const MyAreaScreen: FC = () => {
             settlementName={area.settlement.name}
             obshtina={area.obshtina}
           />
+        ) : null}
+
+        {/* Município mayor + council on the SETTLEMENT view as well.
+            MunicipalityDashboardCards already renders these on the
+            município route, but the settlement route's
+            SettlementDashboardCards doesn't include the local_government
+            section — so a user looking at с. Пролеша would never see
+            who governs община Божурище. Surface the parent município's
+            mayor / council / roster here too so the chain
+            kметство → община → МИР is fully visible. */}
+        {area.kind === "settlement" ? (
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+            <MunicipalMayorTile obshtinaCode={area.obshtina} />
+            <MunicipalCouncilCompositionTile obshtinaCode={area.obshtina} />
+          </div>
+        ) : null}
+        {area.kind === "settlement" ? (
+          <MunicipalOfficialsRosterTile obshtinaCode={area.obshtina} />
         ) : null}
 
         {/* TI-BG Local Integrity System Index — composite + 9-pillar

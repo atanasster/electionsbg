@@ -68,10 +68,20 @@ export const MyAreaHero: FC<Props> = ({ area }) => {
   const region = findRegion(area.oblast);
 
   const muniName = muni ? (lang === "bg" ? muni.name : muni.name_en) : null;
-  const regionName = region
+  const regionNameRaw = region
     ? lang === "bg"
       ? region.long_name || region.name
       : region.long_name_en || region.name_en
+    : null;
+  // Some region names already carry the "област" / "region" suffix in the
+  // source (notably SFO = "София област" / "Sofia region"). The narrative
+  // template prepends "област " / appends " oblast", so without stripping
+  // we'd produce "област София област" / "Sofia region oblast". Drop the
+  // tautological suffix before prefixing.
+  const regionName = regionNameRaw
+    ? lang === "bg"
+      ? regionNameRaw.replace(/\s+област$/u, "").trim()
+      : regionNameRaw.replace(/\s+region$/iu, "").trim()
     : null;
 
   const loc = isSettlement ? parseLoc(area.settlement.loc) : null;

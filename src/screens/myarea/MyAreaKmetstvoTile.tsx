@@ -20,6 +20,7 @@ import { Crown } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import type { LocalKmetstvoResult } from "@/data/local/types";
+import { titleCaseName } from "@/lib/utils";
 
 type Props = {
   /** EKATTE of the resolved settlement. */
@@ -83,7 +84,10 @@ export const MyAreaKmetstvoTile: FC<Props> = ({ settlementName, obshtina }) => {
       <div className="flex items-baseline gap-3">
         <div className="flex-1 min-w-0">
           <div className="font-semibold text-base truncate">
-            {elected.candidateName}
+            {/* CIK source carries candidate names in ALL CAPS. Title-case
+                them to match the MP-row convention so we don't read like
+                a ransom note. */}
+            {titleCaseName(elected.candidateName)}
           </div>
           <div className="text-xs text-muted-foreground truncate">
             {partyLabel}
