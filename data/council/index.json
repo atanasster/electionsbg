@@ -2,13 +2,720 @@
   "source": "265 общински съвет websites (heterogeneous) + Gemini Vision for PDF/HTML normalisation",
   "indexName": "Municipal council resolutions — AI-summarised digest",
   "tags": {
-    "financial": { "bg": "Финансово", "en": "Financial" },
-    "personnel": { "bg": "Кадрово", "en": "Personnel" },
-    "urban_planning": { "bg": "Устройство", "en": "Urban planning" },
-    "procurement": { "bg": "Обществени поръчки", "en": "Procurement" },
-    "social": { "bg": "Социално", "en": "Social" },
-    "other": { "bg": "Друго", "en": "Other" }
+    "financial": {
+      "bg": "Финансово",
+      "en": "Financial"
+    },
+    "personnel": {
+      "bg": "Кадрово",
+      "en": "Personnel"
+    },
+    "urban_planning": {
+      "bg": "Устройство",
+      "en": "Urban planning"
+    },
+    "procurement": {
+      "bg": "Обществени поръчки",
+      "en": "Procurement"
+    },
+    "social": {
+      "bg": "Социално",
+      "en": "Social"
+    },
+    "other": {
+      "bg": "Друго",
+      "en": "Other"
+    }
   },
-  "resolutionsByObshtina": {},
+  "resolutionsByObshtina": {
+    "VTR01": [
+      {
+        "id": "VTR01-2026-prot40-r997",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "997",
+        "title": "Извършени разходи за командировки в страната и чужбина от Венцислав Спирдонов – Председател на Великотърновски общински съвет, за периода 01.01.2026 - 31.03.2026 година, Вх.№ 2527/15.04.2026 г.",
+        "tally": {
+          "for": 25,
+          "against": 5,
+          "abstain": 4,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r996",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "996",
+        "title": "Извършени разходи за командировки в страната и чужбина от Даниел Панов - Кмет на Община Велико Търново за периода 01.01.2026 г. - 31.03.2026 г., Вх.№ 2530/15.04.2026 г.",
+        "tally": {
+          "for": 25,
+          "against": 5,
+          "abstain": 4,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r995",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "995",
+        "title": "Одобряване на Проект за изменение на Подробен устройствен план – План за регулация и План за застрояване за урегулирани поземлени имоти по подробния устройствен план на гр. Велико Търново, район Стара болница, Вх.№ 2534/15.04.2026 г.",
+        "tally": {
+          "for": 25,
+          "against": 5,
+          "abstain": 4,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r994",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "994",
+        "title": "Одобряване на Подробен устройствен план – План за регулация и план – схеми за вертикално планиране, електроснабдяване и водоснабдяване, с. Ресен, Вх.№ 2533/15.04.2026 г.",
+        "tally": {
+          "for": 25,
+          "against": 5,
+          "abstain": 4,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r993",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "993",
+        "title": "Одобряване на Проект за изменение на Общия устройствен план на Община Велико Търново, с цел обособяване на територия с Устройствен режим „Зона за извънселищен парк – Оз“ и с основно функционална предназначение за „Гробищен парк – Разширение“, гр. Килифарево, Вх.№ 2532/15.04.2026 г.",
+        "tally": {
+          "for": 25,
+          "against": 5,
+          "abstain": 4,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r992",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "992",
+        "title": "Одобряване на Проект за изменение на Общия устройствен план на Община Велико Търново, с цел обособяване на територия с Устройствен режим „ПП“ – Предимно производствена зона и с основно функционално предназначение за „техническа инфраструктура“, гр. Килифарево, Вх.№ 2531/15.04.2026г.",
+        "tally": {
+          "for": 25,
+          "against": 5,
+          "abstain": 4,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r991",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "991",
+        "title": "Отдаване под наем на част от имот публична общинска собственост, гр. Килифарево, Вх.№ 2400/11.03.2026 г.",
+        "tally": {
+          "for": 25,
+          "against": 5,
+          "abstain": 4,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r990",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "990",
+        "title": "Отдаване под наем на част от имот публична общинска собственост, гр. Велико Търново, Вх.№ 2535/15.04.2026 г.",
+        "tally": {
+          "for": 25,
+          "against": 5,
+          "abstain": 4,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r989",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "989",
+        "title": "Отдаване под наем на част от недвижим имот публична общинска собственост, гр. Велико Търново, Вх.№ 2523/14.04.2026 г.",
+        "tally": {
+          "for": 25,
+          "against": 5,
+          "abstain": 4,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r988",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "988",
+        "title": "(no title parsed)",
+        "tally": {
+          "for": 25,
+          "against": 5,
+          "abstain": 4,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r987",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "987",
+        "title": "Провеждане на процедури по предоставяне под наем на спортни обекти общинска собственост по реда на ЗФВС, гр. Велико Търново, Вх.№ 2536/15.04.2026 г.",
+        "tally": {
+          "for": 19,
+          "against": 3,
+          "abstain": 7,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r986",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "986",
+        "title": "Промяна на характера на собствеността от публична в частна общинска собственост на общински имот, с. Самоводене, Вх.№ 2524/14.04.2026 г.",
+        "tally": {
+          "for": 19,
+          "against": 3,
+          "abstain": 7,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r985",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "985",
+        "title": "Учредяване право на управление в полза на Община Велико Търново върху недвижим имот публична държавна собственост, гр. Велико Търново, Вх.№ 2525/14.04.2026 г.",
+        "tally": {
+          "for": 19,
+          "against": 3,
+          "abstain": 7,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r984",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "984",
+        "title": "Учредяване на право на строеж върху общинска земя, гр. Дебелец, Вх.№ 2526/14.04.2026 г.",
+        "tally": {
+          "for": 19,
+          "against": 3,
+          "abstain": 7,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r983",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "983",
+        "title": "Прекратяване на съсобственост чрез доброволна делба, с. Никюп, Вх.№ 2401/11.03.2026 г.",
+        "tally": {
+          "for": 19,
+          "against": 3,
+          "abstain": 7,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r982",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "982",
+        "title": "Продажба на недвижим имот – апартамент, гр. Велико Търново, Вх.№ 2520/14.04.2026 г.",
+        "tally": {
+          "for": 19,
+          "against": 3,
+          "abstain": 7,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r981",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "981",
+        "title": "Продажба на недвижим имот – апартамент, гр. Велико Търново, Вх.№ 2519/14.04.2026 г.",
+        "tally": {
+          "for": 20,
+          "against": 3,
+          "abstain": 8,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r980",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "980",
+        "title": "Предоставяне на безлихвен заем от фонд „Покриване на разходите за приватизация и следприватизационен контрол“ по План – сметката на Общинска агенция за приватизация за 2026 година, Вх.№ 2548/21.04.2026 г.",
+        "result": "unknown",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r979",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "979",
+        "title": "Отчет за изпълнение на План за контрол и поддръжка на площадките за игра на територията на Община Велико Търново за периода 01.01.2025 до 31.12.2025 година, вх. № 2486/31.03.2026 г.",
+        "result": "unknown",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r978",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "978",
+        "title": "Отчет за 2025 година за изпълнение на Програма за опазване на околната среда на територията на Община Велико Търново 2022- 2027 година, Вх. № 2487/31.03.2026 г.",
+        "result": "unknown",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r977",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "977",
+        "title": "Отпускане на средства за финансово подпомагане на изследвания и процедури, свързани с лечение на безплодие на семейства и лица, живеещи на семейни начала с репродуктивни проблеми на територията на Община Велико Търново, Вх.№ 2537/15.04.2026 г.",
+        "result": "unknown",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r976",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "976",
+        "title": "Определяне на общински съветник от Великотърновски общински съвет за участие в комисия във връзка с процедура за избор на членове на Съвета на децата, Вх.№ 2492/01.04.2026 г.",
+        "result": "unknown",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r975",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "975",
+        "title": "Информация за готовността на общинските училища и детски градини за прием на деца и ученици за учебната 2026/2027 година и Отчет за изпълнение на Бюджет 2025 година за общинските учебни институции, прилагащи делегиран бюджет, Вх.№ 2528/15.04.2026 г.",
+        "result": "unknown",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r974",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "974",
+        "title": "Доклади за осъществените дейности и за изразходваните от Бюджета средства за 2025 г. на народните читалища на територията на Община Велико Търново, Вх.№ 2509/14.04.2026 г.",
+        "result": "unknown",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r973",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "973",
+        "title": "Регистриран одитор за извършване на независим финансов одит на ГФО на „КОЦ – Велико Търново“ ЕООД за 2026 г., Вх.№ 2494/03.04.2026 г.",
+        "result": "unknown",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r972",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "972",
+        "title": "Възстановяване на разходите за наем и консумативи по предстоящо сключване на Договор за наем между „Пътнически превози“ АД и „Организация на движението, паркинги и гаражи“ ЕООД, със средства от Бюджета на Община Велико Търново, Вх.№ 2529/15.04.2026 г.",
+        "result": "unknown",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r971",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "971",
+        "title": "Информация за текущото изпълнение на общинските проекти, финансирани със средства от ЕС и държавния бюджет, Вх.№ 2538/15.04.2026 г.",
+        "result": "unknown",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot40-r970",
+        "date": "2026-05-07",
+        "session": "40",
+        "number": "970",
+        "title": "Актуализация на план за устойчива градска мобилност на град Велико Търново към новите изисквания за стратегическо планиране на регионалното и пространственото развитие, Вх.№2512/14.04.2026 г.",
+        "result": "unknown",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_05_07_pr_40.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot39-r969",
+        "date": "2026-04-29",
+        "session": "39",
+        "number": "969",
+        "title": "Провеждане на извънредно заседание на Общото събрание на Асоциация по ВиК на обособената територия, обслужвана от \"Водоснабдяване и канализация Йовковци\" ООД, гр. Велико Търново, Вх. № 2499 от 07.04.2026 г.",
+        "result": "unknown",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_04_29_pr_39.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r941",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "941",
+        "title": "Присъждане на Академична награда „Трети март“ на Община Велико Търново за 2026 година, Вх. № 2345/16.02.2026 г.",
+        "tally": {
+          "for": 5,
+          "against": 10,
+          "abstain": 8,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r940",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "940",
+        "title": "Одобряване на задание и разрешаване изработването на проект за изменение на подробен устройствен план",
+        "tally": {
+          "for": 5,
+          "against": 10,
+          "abstain": 8,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r939",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "939",
+        "title": "Одобряване на Проект за подробен устройствен план – план за регулация и застрояване, с цел обособяване на територия с Устройствен режим „Зона за извънселищен парк – Оз“ и с основно функционално предназначение за „Гробищен Парк – разширение“, с. Момин сбор, Вх.№ 2330/10.02.2026 г.",
+        "tally": {
+          "for": 5,
+          "against": 10,
+          "abstain": 8,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r938",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "938",
+        "title": "Предоставяне на пасища, мери и ливади от ОПФ, Вх.№ 2307/10.02.2026 г.",
+        "tally": {
+          "for": 20,
+          "against": 3,
+          "abstain": 9,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r937",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "937",
+        "title": "Предоставяне на имотите – полски пътища, попадащи в масивите за ползване за стопанската 2025/2026 г., в землищата на Община Велико Търново, Вх.№ 2308/10.02.2026г.",
+        "tally": {
+          "for": 20,
+          "against": 3,
+          "abstain": 9,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r936",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "936",
+        "title": "Актуализация на годишните наемни цени на земеделските земи от Общинския поземлен фонд, считано от 01.03.2026 година, Вх.№ 2306/10.02.2026 г.",
+        "tally": {
+          "for": 17,
+          "against": 3,
+          "abstain": 5,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r935",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "935",
+        "title": "Включване на имот – частна общинска собственост в Годишната програма за управление и разпореждане с имоти общинска собственост за 2026 година, гр. Велико Търново, Вх.№ 2321/10.02.2026 г.",
+        "tally": {
+          "for": 17,
+          "against": 3,
+          "abstain": 5,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r934",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "934",
+        "title": "Отдаване под наем на част от имот частна общинска собственост, с. Ново село, Вх.№ 2312/10.02.2026 г.",
+        "tally": {
+          "for": 17,
+          "against": 3,
+          "abstain": 5,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r933",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "933",
+        "title": "Отдаване под наем на част от имот частна общинска собственост, с. Самоводене, Вх.№ 2310/10.02.2026 г.",
+        "tally": {
+          "for": 17,
+          "against": 3,
+          "abstain": 5,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r932",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "932",
+        "title": "Отдаване под наем на част от имот частна общинска собственост, с. Самоводене, Вх.№ 2309/10.02.2026 г.",
+        "tally": {
+          "for": 17,
+          "against": 3,
+          "abstain": 5,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r931",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "931",
+        "title": "Отдаване под наем на част от имот частна общинска собственост, с. Ресен, Вх.№ 2313/10.02.2026 г.",
+        "tally": {
+          "for": 17,
+          "against": 3,
+          "abstain": 5,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r930",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "930",
+        "title": "Отдаване под наем на част от имот частна общинска собственост, с. Ресен, Вх.№ 2311/10.02.2026 г.",
+        "tally": {
+          "for": 17,
+          "against": 3,
+          "abstain": 5,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r929",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "929",
+        "title": "Отдаване под наем на част от имот публична общинска собственост, гр. Велико Търново, Вх.№ 2314/10.02.2026 г.",
+        "tally": {
+          "for": 17,
+          "against": 3,
+          "abstain": 5,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r928",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "928",
+        "title": "Учредяване на безвъзмездно право на ползване върху земеделски земи от ОПФ в полза на читалище, с. Пушево, Вх. № 2316/10.02.2026 г",
+        "tally": {
+          "for": 17,
+          "against": 3,
+          "abstain": 5,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r927",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "927",
+        "title": "Учредяване на безвъзмездно право на ползване върху земеделски земи от ОПФ на с. Хотница в полза на читалище с. Шемшево, Вх.№ 2315/10.02.2026 г.",
+        "tally": {
+          "for": 17,
+          "against": 3,
+          "abstain": 5,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r926",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "926",
+        "title": "Предоставяне на право на ползване върху общинска земя, с. Хотница, Вх.№ 2318/10.02.2026г.",
+        "tally": {
+          "for": 17,
+          "against": 3,
+          "abstain": 5,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r925",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "925",
+        "title": "Предоставяне на право на ползване върху общинска земя, с. Ялово, Вх.№ 2317/10.02.2026г.",
+        "tally": {
+          "for": 17,
+          "against": 3,
+          "abstain": 5,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r924",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "924",
+        "title": "Публичен търг с явно наддаване за продажба на недвижим имот, с. Габровци, Вх.№ 2319/10.02.2026 г.",
+        "tally": {
+          "for": 17,
+          "against": 3,
+          "abstain": 5,
+          "method": "named"
+        },
+        "result": "rejected",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r923",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "923",
+        "title": "Приемане анализ на правното състояние, начална цена и определяне метод на приватизация за продажба на общински нежилищен имот, със стопанско предназначение, с. Малки чифлик, Вх.№ 2349/17.02.2026 г.",
+        "tally": {
+          "for": 30,
+          "against": 2,
+          "abstain": 4,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r922",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "922",
+        "title": "(no title parsed)",
+        "tally": {
+          "for": 30,
+          "against": 2,
+          "abstain": 4,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      },
+      {
+        "id": "VTR01-2026-prot37-r921",
+        "date": "2026-03-05",
+        "session": "37",
+        "number": "921",
+        "title": "(no title parsed)",
+        "tally": {
+          "for": 30,
+          "against": 2,
+          "abstain": 4,
+          "method": "named"
+        },
+        "result": "adopted",
+        "sourceUrl": "https://savet.veliko-tarnovo.bg/uploads/posts/2026/2026_03_05_pr_37.pdf"
+      }
+    ]
+  },
+  "meta": {
+    "VTR01": {
+      "name": "Община Велико Търново",
+      "lastIngest": "2026-05-28T22:32:46.531Z",
+      "protocolsIngested": 6,
+      "resolutionCount": 59
+    }
+  },
   "note": "Pending ingest. See scripts/council/README.md. Each entry: { id, date, title, summary_bg, summary_en, tags, sourceUrl }. The MyAreaCouncilMinutesTile auto-lights up once entries appear."
 }
