@@ -41,9 +41,10 @@ const RESULT_CAP = 8;
 type GeoState =
   | { kind: "idle" }
   | { kind: "loading" }
-  | { kind: "denied" }
-  | { kind: "unavailable" }
-  | { kind: "no-match" };
+  | { kind: "denied" } // browser permission denied
+  | { kind: "blocked" } // browser allowed it but OS/system blocked (macOS Privacy & Security off for Chrome, etc.)
+  | { kind: "timeout" } // GPS fix didn't return in 10 s
+  | { kind: "no-match" }; // got coords but no settlement within range
 
 export const AreaSniperButton: FC = () => {
   const { t, i18n } = useTranslation();
@@ -79,7 +80,7 @@ export const AreaSniperButton: FC = () => {
 
   const requestLocation = useCallback(() => {
     if (!("geolocation" in navigator)) {
-      setGeo({ kind: "unavailable" });
+      setGeo({ kind: "blocked" });
       return;
     }
     setGeo({ kind: "loading" });
@@ -97,11 +98,18 @@ export const AreaSniperButton: FC = () => {
         }
       },
       (err) => {
-        setGeo(
-          err.code === err.PERMISSION_DENIED
-            ? { kind: "denied" }
-            : { kind: "unavailable" },
-        );
+        // The three GeolocationPositionError codes give us actionable
+        // detail. POSITION_UNAVAILABLE (2) on macOS Chrome typically
+        // means the OS-level Location Services switch is off for the
+        // browser — surface that as `blocked` so the UI can point the
+        // user at System Settings rather than just shrugging.
+        if (err.code === err.PERMISSION_DENIED) {
+          setGeo({ kind: "denied" });
+        } else if (err.code === err.TIMEOUT) {
+          setGeo({ kind: "timeout" });
+        } else {
+          setGeo({ kind: "blocked" });
+        }
       },
       // 10 s is enough for a cold GPS fix and matches the default browser
       // hint timeout. We don't need high-accuracy — settlement-grain works
@@ -262,9 +270,17 @@ export const AreaSniperButton: FC = () => {
                     {t("my_area_location_denied")}
                   </div>
                 ) : null}
-                {geo.kind === "unavailable" ? (
+                {geo.kind === "blocked" ? (
+                  <div className="text-[11px] text-muted-foreground px-1 flex flex-col gap-1">
+                    <span>{t("my_area_location_blocked")}</span>
+                    <span className="text-[10px]">
+                      {t("my_area_location_blocked_hint")}
+                    </span>
+                  </div>
+                ) : null}
+                {geo.kind === "timeout" ? (
                   <div className="text-[11px] text-muted-foreground px-1">
-                    {t("my_area_location_unavailable")}
+                    {t("my_area_location_timeout")}
                   </div>
                 ) : null}
                 {geo.kind === "no-match" ? (

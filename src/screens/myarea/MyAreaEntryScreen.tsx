@@ -33,7 +33,8 @@ type GeoState =
   | { kind: "idle" }
   | { kind: "loading" }
   | { kind: "denied" }
-  | { kind: "unavailable" }
+  | { kind: "blocked" }
+  | { kind: "timeout" }
   | { kind: "no-match" };
 
 export const MyAreaEntryScreen: FC = () => {
@@ -69,7 +70,7 @@ export const MyAreaEntryScreen: FC = () => {
 
   const requestLocation = useCallback(() => {
     if (!("geolocation" in navigator)) {
-      setGeo({ kind: "unavailable" });
+      setGeo({ kind: "blocked" });
       return;
     }
     setGeo({ kind: "loading" });
@@ -87,11 +88,17 @@ export const MyAreaEntryScreen: FC = () => {
         }
       },
       (err) => {
-        setGeo(
-          err.code === err.PERMISSION_DENIED
-            ? { kind: "denied" }
-            : { kind: "unavailable" },
-        );
+        // Mirror the granular handling in AreaSniperButton — see comments
+        // there for why we split blocked/timeout out of the old "unavailable"
+        // bucket. POSITION_UNAVAILABLE on macOS Chrome is almost always
+        // the OS-level Location Services switch being off for the browser.
+        if (err.code === err.PERMISSION_DENIED) {
+          setGeo({ kind: "denied" });
+        } else if (err.code === err.TIMEOUT) {
+          setGeo({ kind: "timeout" });
+        } else {
+          setGeo({ kind: "blocked" });
+        }
       },
       { timeout: 10_000, maximumAge: 60_000 },
     );
@@ -186,9 +193,17 @@ export const MyAreaEntryScreen: FC = () => {
                 {t("my_area_location_denied")}
               </div>
             ) : null}
-            {geo.kind === "unavailable" ? (
+            {geo.kind === "blocked" ? (
+              <div className="text-xs text-muted-foreground flex flex-col gap-1">
+                <span>{t("my_area_location_blocked")}</span>
+                <span className="text-[11px]">
+                  {t("my_area_location_blocked_hint")}
+                </span>
+              </div>
+            ) : null}
+            {geo.kind === "timeout" ? (
               <div className="text-xs text-muted-foreground">
-                {t("my_area_location_unavailable")}
+                {t("my_area_location_timeout")}
               </div>
             ) : null}
             {geo.kind === "no-match" ? (
