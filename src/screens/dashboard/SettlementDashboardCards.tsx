@@ -179,7 +179,14 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
           icon={Map}
         >
           <TopSectionsTile ekatte={ekatte} sections={settlement?.sections} />
-          <CensusDemographicsTile regionCode={ekatte} isSettlement />
+          <CensusDemographicsTile
+            regionCode={ekatte}
+            isSettlement
+            // The ГРАО registered-population block is surfaced at the
+            // top of MyAreaScreen (in MyAreaHero) when in compact mode,
+            // so suppress the duplicate here.
+            hideGrao={compact}
+          />
         </DashboardSection>
 
         {/* Anomalies section (FlashMemory / Suspicious / Recount) is

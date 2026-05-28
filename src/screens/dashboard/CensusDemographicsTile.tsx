@@ -28,12 +28,18 @@ type Props = {
    * (population + age + sex only — NSI doesn't publish ethnicity, religion
    * or education at this granularity). */
   isSettlement?: boolean;
+  /** Skip the trailing ГРАО (current + permanent address) sub-block. Used
+   * by My-Area, which surfaces the same data at the top of the page in
+   * MyAreaHero — without this flag the registered-population numbers
+   * would render twice. */
+  hideGrao?: boolean;
 };
 
 export const CensusDemographicsTile: FC<Props> = ({
   regionCode,
   isMunicipality,
   isSettlement,
+  hideGrao,
 }) => {
   const { t, i18n } = useTranslation();
   // Per-entity slices: ~1KB each, fetched only for the page we're on. The
@@ -169,7 +175,7 @@ export const CensusDemographicsTile: FC<Props> = ({
             })}
           </div>
         )}
-      {isSettlement && graoSlice?.settlements[regionCode] && (
+      {!hideGrao && isSettlement && graoSlice?.settlements[regionCode] && (
         <div className="mt-3 border-t pt-2">
           <div className="text-[11px] font-medium text-muted-foreground mb-1">
             {t("grao_tile_heading", { date: graoSlice.asOf })}
