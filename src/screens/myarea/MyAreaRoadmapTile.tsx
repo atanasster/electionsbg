@@ -56,7 +56,7 @@ export const MyAreaRoadmapTile: FC<Props> = ({ obshtina, oblast }) => {
   const { schools } = useSchools(obshtina);
   const { services } = useServices(obshtina);
   const { stations: airStations } = useAirQuality(obshtina);
-  const { monthly: crimeMonthly } = useCrime(oblast);
+  const { yearly: crimeYearly } = useCrime(oblast);
   const { contact } = useMunicipalContacts(obshtina);
   const { resolutions } = useCouncilMinutes(obshtina);
 
@@ -99,7 +99,7 @@ export const MyAreaRoadmapTile: FC<Props> = ({ obshtina, oblast }) => {
       label_bg: "Регистрирани престъпления",
       label_en: "Registered crimes",
       source: "МВР (на ниво ОДМВР)",
-      pending: !crimeMonthly,
+      pending: !crimeYearly,
     },
     {
       key: "contacts",
