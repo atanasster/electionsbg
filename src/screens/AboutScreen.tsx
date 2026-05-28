@@ -246,6 +246,10 @@ export const AboutScreen = () => {
                   href="https://register.cacbg.bg/"
                   label={t("local_government_roster_source")}
                 />
+                <SourceItem
+                  href="https://savet.veliko-tarnovo.bg/bg/protokoli"
+                  label={t("council_minutes_source")}
+                />
               </ul>
             </DataGroup>
 
@@ -594,7 +598,7 @@ export const AboutScreen = () => {
                   label={t("my_area_iaos_air_source")}
                 />
                 <SourceItem
-                  href="https://github.com/governmentbg/data-viz/tree/gh-pages/assets/data/crime"
+                  href="https://ec.europa.eu/eurostat/databrowser/view/crim_gen_reg/default/table"
                   label={t("my_area_crime_source")}
                 />
               </ul>

@@ -42,7 +42,8 @@ import { cikResults } from "./cik_results";
 import { iisdaMayors } from "./iisda_mayors";
 import { iaosAirQuality } from "./iaos_air_quality";
 import { tiBgLisi } from "./ti_bg_lisi";
-import { govDataVizCrime } from "./govdataviz_crime";
+import { eurostatCrime } from "./eurostat_crime";
+import { councilMinutes } from "./council_minutes";
 
 // `cik` (news/decisions index) is still intentionally omitted — see ./cik.ts
 // header. The new `cik_results` source below uses the Playwright bypass
@@ -92,5 +93,6 @@ export const SOURCES: WatchSource[] = [
   iisdaMayors,
   iaosAirQuality,
   tiBgLisi,
-  govDataVizCrime,
+  eurostatCrime,
+  councilMinutes,
 ];
