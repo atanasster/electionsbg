@@ -61,13 +61,33 @@ If `unmatched > 0` appears in the output, the script will print the unique munic
 
 ## Step B1 — refresh per-município naredba tier (Tier B)
 
-Tier B is not built yet in this PR — the dispatcher lands in a follow-up PR. When it does, this section will document:
-- The catalogue of per-município naredba sources in `scripts/local_taxes/parsers/`
-- The HTML/PDF parsing fallback chain (obshtini.bg wrapper → embedded PDF → OCR)
-- The `--ocr` flag gating Gemini Vision for scanned-only naredbi
-- The deep-merge behaviour that preserves Tier A data
+```bash
+# All wired munícipios (default)
+npx tsx scripts/local_taxes/run_naredba.ts
 
-For now: if the `municipal_naredba` watcher flips before Tier B ships, surface it as a manual TODO under the orchestrator's "Skipped" section.
+# Subset — pass obshtina codes either comma-separated or as individual args
+npx tsx scripts/local_taxes/run_naredba.ts SOF00,PDV01
+
+# Bypass the raw_data/local_taxes/naredba/ cache (re-fetch upstream PDF)
+npx tsx scripts/local_taxes/run_naredba.ts --force SOF00
+```
+
+The watcher's describe-line names exactly which munícipios' source URLs flipped (`N naredba(s) re-uploaded: SOF00, PDV01`) — run the dispatcher with that subset.
+
+What ships per município:
+- **ТБО basis flag** (промил / users / area / volume) — required; without it cross-município ТБО comparisons are noise.
+- **ТБО rate** — surfaced when the naredba carries it inline; many municípios (Sofia in particular) defer the per-year rate to a separate annual council decision, in which case the `rate` field stays absent and a Bulgarian note explains why.
+- **Tourist tax** — value + unit ("BGN/нощувка"), when the source document is the TAX naredba (туристически данък lives there, not in the FEES naredba).
+- **Dog tax** — value + unit ("BGN/година"), same caveat.
+
+Adding a new município:
+1. Write `scripts/local_taxes/parsers/<obshtina>.ts` exporting a `NaredbaParser` (see `parsers/sof.ts` as the template — fetches a PDF via `fetchNaredbaPdf`, extracts text, calls `buildNaredbaBlock`).
+2. Push it onto `NAREDBA_PARSERS` in `scripts/local_taxes/parsers/index.ts`.
+3. Re-run the dispatcher with just that código to verify the basis flag landed correctly.
+
+The dispatcher merges into `data/local_taxes/index.json` preserving the Tier A `ipi` blocks, and writes a per-município watermark at `state/ingest/local_taxes_<obshtina>.json` so future runs can short-circuit when the source PDF hasn't changed (sourceHash matches).
+
+OCR fallback (Gemini Vision) is not wired yet — the current parsers assume the upstream PDF carries a real text layer. When we hit a município with image-only naredbi (Сливен-style protocols), we'll add a `--ocr` flag mirroring the council-minutes pattern.
 
 ## Step 2 — verify
 
