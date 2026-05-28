@@ -24,6 +24,8 @@ import { Search } from "../search/Search";
 import { ElectionsSelect } from "./ElectionsSelect";
 import { Logo } from "./Logo";
 import { CabinetAnchorPill } from "./CabinetAnchorPill";
+import { AreaSniperButton } from "./AreaSniperButton";
+import { AreaPill } from "./AreaPill";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useArticles } from "@/data/articles/useArticles";
 
@@ -210,8 +212,10 @@ export const Header = () => {
         <div aria-hidden className="hidden sm:block h-6 w-px bg-border/70" />
         <ElectionsSelect />
         <CabinetAnchorPill />
+        <AreaPill />
       </div>
       <div className="flex flex-1 justify-end gap-3 items-center px-4 min-w-0">
+        <AreaSniperButton />
         <Search />
         {electionsMenu.map((topMenu, idx) => (
           <RenderTopMenu

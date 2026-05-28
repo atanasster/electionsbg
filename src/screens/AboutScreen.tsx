@@ -111,6 +111,14 @@ export const AboutScreen = () => {
           <p className="mt-8 text-lg md:text-xl leading-relaxed text-muted-foreground">
             {t("about_p_4")}
           </p>
+          {/* My-Area feature mention — sits at the bottom of the hero so
+              visitors who scan only the top of the page still learn it
+              exists. The "сниперът" sniper icon and pill in the header are
+              both wired to /my-area; this paragraph explains the input
+              affordances (search vs geolocation) in plain language. */}
+          <p className="mt-8 text-base md:text-lg leading-relaxed text-muted-foreground">
+            {t("about_my_area")}
+          </p>
         </header>
 
         {/* Team */}

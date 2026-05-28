@@ -2,6 +2,7 @@ import { FC, lazy, PropsWithChildren, Suspense, useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Layout } from "./layout/Layout";
 import { CabinetAnchorProvider } from "@/data/macro/cabinetAnchorContext";
+import { AreaAnchorProvider } from "@/data/area/AreaAnchorProvider";
 
 // Eagerly load the home screen so the landing page has no Suspense flash.
 import { DashboardScreen } from "@/screens/DashboardScreen";
@@ -901,6 +902,18 @@ const ProblemSectionRecountScreen = lazy(() =>
   ),
 );
 
+const MyAreaScreen = lazy(() =>
+  import("./screens/myarea/MyAreaScreen").then((m) => ({
+    default: m.MyAreaScreen,
+  })),
+);
+
+const MyAreaEntryScreen = lazy(() =>
+  import("./screens/myarea/MyAreaEntryScreen").then((m) => ({
+    default: m.MyAreaEntryScreen,
+  })),
+);
+
 const RouteFallback: FC = () => (
   <div className="flex items-center justify-center min-h-[40vh] w-full" />
 );
@@ -984,1473 +997,1495 @@ export const AuthRoutes = () => {
   return (
     <BrowserRouter basename={ROUTER_BASENAME}>
       <ScrollToTop />
-      <Routes>
-        <Route
-          index
-          element={
-            <LayoutScreen>
-              <DashboardScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="governance"
-          element={
-            <LayoutScreen>
-              <GovernanceScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sofia"
-          element={
-            <LayoutScreen>
-              <SofiaScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sofia/parties"
-          element={
-            <LayoutScreen>
-              <SofiaPartiesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sofia/preferences"
-          element={
-            <LayoutScreen>
-              <SofiaPreferencesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sofia/flash-memory"
-          element={
-            <LayoutScreen>
-              <SofiaFlashMemoryScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sofia/recount"
-          element={
-            <LayoutScreen>
-              <SofiaRecountScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sofia/companies"
-          element={
-            <LayoutScreen>
-              <SettlementCompaniesScreen sofia />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="about"
-          element={
-            <LayoutScreen>
-              <AboutScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="data-changes"
-          element={
-            <LayoutScreen>
-              <DataChangesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="local/:cycle"
-          element={
-            <LayoutScreen>
-              <LocalElectionScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="local/:cycle/:obshtinaCode"
-          element={
-            <LayoutScreen>
-              <LocalElectionScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sverka"
-          element={
-            <LayoutScreen>
-              <SverkaScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="local/chmi"
-          element={
-            <LayoutScreen>
-              <ChmiFeedScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="municipality/:id"
-          element={
-            <LayoutScreen>
-              <MunicipalitiesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="municipality/:id/parties"
-          element={
-            <LayoutScreen>
-              <RegionPartiesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="municipality/:id/preferences"
-          element={
-            <LayoutScreen>
-              <RegionPreferencesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="municipality/:id/flash-memory"
-          element={
-            <LayoutScreen>
-              <RegionFlashMemoryScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="municipality/:id/municipalities"
-          element={
-            <LayoutScreen>
-              <RegionMunicipalitiesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="municipality/:id/recount"
-          element={
-            <LayoutScreen>
-              <RegionRecountScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="settlement/:id"
-          element={
-            <LayoutScreen>
-              <SettlementsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="settlement/:id/parties"
-          element={
-            <LayoutScreen>
-              <MunicipalityPartiesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="settlement/:id/preferences"
-          element={
-            <LayoutScreen>
-              <MunicipalityPreferencesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="settlement/:id/flash-memory"
-          element={
-            <LayoutScreen>
-              <MunicipalityFlashMemoryScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="settlement/:id/recount"
-          element={
-            <LayoutScreen>
-              <MunicipalityRecountScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="settlement/:id/settlements"
-          element={
-            <LayoutScreen>
-              <MunicipalitySettlementsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="settlement/:id/companies"
-          element={
-            <LayoutScreen>
-              <SettlementCompaniesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sections/:id"
-          element={
-            <LayoutScreen>
-              <SectionsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sections/:id/parties"
-          element={
-            <LayoutScreen>
-              <SettlementPartiesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sections/:id/preferences"
-          element={
-            <LayoutScreen>
-              <SettlementPreferencesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sections/:id/flash-memory"
-          element={
-            <LayoutScreen>
-              <SettlementFlashMemoryScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sections/:id/recount"
-          element={
-            <LayoutScreen>
-              <SettlementRecountScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sections/:id/list"
-          element={
-            <LayoutScreen>
-              <SettlementSectionsListScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="section/:id"
-          element={
-            <LayoutScreen>
-              <SectionScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="section/:id/parties"
-          element={
-            <LayoutScreen>
-              <SectionPartiesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="section/:id/preferences"
-          element={
-            <LayoutScreen>
-              <SectionPreferencesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="section/:id/flash-memory"
-          element={
-            <LayoutScreen>
-              <SectionFlashMemoryScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="section/:id/recount"
-          element={
-            <LayoutScreen>
-              <SectionRecountScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="financing"
-          element={
-            <LayoutScreen>
-              <PartiesFinancing />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="financing/annual-reports"
-          element={
-            <LayoutScreen>
-              <PartyAnnualReportsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="financing/annual-reports/:slug"
-          element={
-            <LayoutScreen>
-              <PartyAnnualReportScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="party/:id"
-          element={
-            <LayoutScreen>
-              <PartyScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="party/:id/regions"
-          element={
-            <LayoutScreen>
-              <PartyRegionsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="party/:id/municipalities"
-          element={
-            <LayoutScreen>
-              <PartyMunicipalitiesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="party/:id/settlements"
-          element={
-            <LayoutScreen>
-              <PartySettlementsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="party/:id/preferences"
-          element={
-            <LayoutScreen>
-              <PartyPreferencesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="party/:id/donors"
-          element={
-            <LayoutScreen>
-              <PartyDonorsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="party/:id/donors/list"
-          element={
-            <LayoutScreen>
-              <PartyDonorsListScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="party/:id/income"
-          element={
-            <LayoutScreen>
-              <PartyIncomeScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="party/:id/expenses"
-          element={
-            <LayoutScreen>
-              <PartyExpensesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="candidate/:id"
-          element={
-            <LayoutScreen>
-              <CandidateScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="candidate/:id/regions"
-          element={
-            <LayoutScreen>
-              <CandidateRegionsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="candidate/:id/municipalities"
-          element={
-            <LayoutScreen>
-              <CandidateMunicipalitiesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="candidate/:id/settlements"
-          element={
-            <LayoutScreen>
-              <CandidateSettlementsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="candidate/:id/sections"
-          element={
-            <LayoutScreen>
-              <CandidateSectionsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="candidate/:id/donations"
-          element={
-            <LayoutScreen>
-              <CandidateDonationsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="candidate/:id/connections"
-          element={
-            <LayoutScreen>
-              <CandidateConnectionsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="candidate/:id/assets"
-          element={
-            <LayoutScreen>
-              <CandidateAssetsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="candidate/:id/procurement"
-          element={
-            <LayoutScreen>
-              <CandidateProcurementScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="procurement"
-          element={
-            <LayoutScreen>
-              <ProcurementScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="procurement/by-settlement"
-          element={
-            <LayoutScreen>
-              <ProcurementBySettlementScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="procurement/settlement/:ekatte"
-          element={
-            <LayoutScreen>
-              <ProcurementSettlementDetailScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="candidate/:id/funds"
-          element={
-            <LayoutScreen>
-              <CandidateFundsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="funds"
-          element={
-            <LayoutScreen>
-              <FundsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="funds/political"
-          element={
-            <LayoutScreen>
-              <FundsPoliticalScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="funds/integrity"
-          element={
-            <LayoutScreen>
-              <FundsIntegrityScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="funds/focus/:slug"
-          element={
-            <LayoutScreen>
-              <FundsFocusScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="funds/rrf"
-          element={
-            <LayoutScreen>
-              <FundsRrfScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="funds/programme/:code"
-          element={
-            <LayoutScreen>
-              <FundsProgramScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="funds/contract/:number"
-          element={
-            <LayoutScreen>
-              <FundsContractScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="procurement/contractors"
-          element={
-            <LayoutScreen>
-              <TopContractorsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="procurement/awarders"
-          element={
-            <LayoutScreen>
-              <TopAwardersScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="procurement/mps"
-          element={
-            <LayoutScreen>
-              <TopMpsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="procurement/contract/:id"
-          element={
-            <LayoutScreen>
-              <ContractDetailScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="company/:eik"
-          element={
-            <LayoutScreen>
-              <CompanyByEikScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="company/:eik/contracts"
-          element={
-            <LayoutScreen>
-              <CompanyContractsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="company/:eik/awarders"
-          element={
-            <LayoutScreen>
-              <CompanyAwardersScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="awarder/:eik"
-          element={
-            <LayoutScreen>
-              <AwarderByEikScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="awarder/:eik/contracts"
-          element={
-            <LayoutScreen>
-              <AwarderContractsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="awarder/:eik/contractors"
-          element={
-            <LayoutScreen>
-              <AwarderContractorsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="budget"
-          element={
-            <LayoutScreen>
-              <BudgetScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="budget/methodology"
-          element={
-            <LayoutScreen>
-              <BudgetMethodologyScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="budget/tax-calculator"
-          element={
-            <LayoutScreen>
-              <BudgetTaxCalculatorScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="budget/ministry/:id"
-          element={
-            <LayoutScreen>
-              <BudgetMinistryScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="votes"
-          element={
-            <LayoutScreen>
-              <SessionsIndexScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="votes/:date"
-          element={
-            <LayoutScreen>
-              <SessionScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="votes/:date/:slug"
-          element={
-            <LayoutScreen>
-              <SessionScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="votes/between/:pair"
-          element={
-            <LayoutScreen>
-              <PartyPairBreaksScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="parliament/cohesion"
-          element={
-            <LayoutScreen>
-              <ParliamentCohesionScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="parliament/similarity/:mpId"
-          element={
-            <LayoutScreen>
-              <MpSimilarityScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="parliament/embedding"
-          element={
-            <LayoutScreen>
-              <ParliamentEmbeddingScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="parliament"
-          element={
-            <LayoutScreen>
-              <ParliamentHubScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="mp/companies"
-          element={
-            <LayoutScreen>
-              <AllMpCompaniesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="mp-assets"
-          element={
-            <LayoutScreen>
-              <AllMpAssetsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="officials/assets"
-          element={
-            <LayoutScreen>
-              <OfficialsAssetsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="officials/:slug"
-          element={
-            <LayoutScreen>
-              <OfficialProfileScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="mp-cars"
-          element={
-            <LayoutScreen>
-              <MpCarsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="mp/company/:slug"
-          element={
-            <LayoutScreen>
-              <MpCompanyScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="connections"
-          element={
-            <LayoutScreen>
-              <ConnectionsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="simulator"
-          element={
-            <LayoutScreen>
-              <SimulatorScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="wasted-vote"
-          element={
-            <LayoutScreen>
-              <WastedVoteScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="wasted-vote/regions"
-          element={
-            <LayoutScreen>
-              <WastedVoteRegionsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="persistence"
-          element={
-            <LayoutScreen>
-              <PersistenceScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="benford"
-          element={
-            <LayoutScreen>
-              <BenfordScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="benford/methodology"
-          element={
-            <LayoutScreen>
-              <BenfordMethodologyScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="benford/:partyNum"
-          element={
-            <LayoutScreen>
-              <BenfordDetailScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="risk-analysis"
-          element={
-            <LayoutScreen>
-              <RiskAnalysisScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="risk-analysis/methodology"
-          element={
-            <LayoutScreen>
-              <RiskAnalysisMethodologyScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="risk-analysis/cluster/:id"
-          element={
-            <LayoutScreen>
-              <RiskClusterScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="risk-score"
-          element={
-            <LayoutScreen>
-              <RiskScoreScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="risk-score/methodology"
-          element={
-            <LayoutScreen>
-              <RiskScoreMethodologyScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="governments"
-          element={
-            <CabinetAnchoredLayoutScreen>
-              <GovernmentsScreen />
-            </CabinetAnchoredLayoutScreen>
-          }
-        />
-        <Route
-          path="governments/:slug"
-          element={
-            <CabinetAnchoredLayoutScreen>
-              <GovernmentDetailScreen />
-            </CabinetAnchoredLayoutScreen>
-          }
-        />
-        <Route
-          path="indicators"
-          element={
-            <CabinetAnchoredLayoutScreen>
-              <IndicatorsLandingScreen />
-            </CabinetAnchoredLayoutScreen>
-          }
-        />
-        <Route
-          path="indicators/economy"
-          element={
-            <CabinetAnchoredLayoutScreen>
-              <IndicatorsEconomyScreen />
-            </CabinetAnchoredLayoutScreen>
-          }
-        />
-        <Route
-          path="indicators/fiscal"
-          element={
-            <CabinetAnchoredLayoutScreen>
-              <IndicatorsFiscalScreen />
-            </CabinetAnchoredLayoutScreen>
-          }
-        />
-        <Route
-          path="indicators/governance"
-          element={
-            <CabinetAnchoredLayoutScreen>
-              <IndicatorsGovernanceScreen />
-            </CabinetAnchoredLayoutScreen>
-          }
-        />
-        <Route
-          path="indicators/society"
-          element={
-            <CabinetAnchoredLayoutScreen>
-              <IndicatorsSocietyScreen />
-            </CabinetAnchoredLayoutScreen>
-          }
-        />
-        <Route
-          path="indicators/compare"
-          element={
-            <CabinetAnchoredLayoutScreen>
-              <IndicatorsCompareScreen />
-            </CabinetAnchoredLayoutScreen>
-          }
-        />
-        <Route
-          path="observations"
-          element={
-            <LayoutScreen>
-              <ObservationsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="demographics"
-          element={
-            <LayoutScreen>
-              <DemographicsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="demographics/regions"
-          element={
-            <LayoutScreen>
-              <RegionsDemographicsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="demographics/municipalities"
-          element={
-            <LayoutScreen>
-              <MunicipalitiesDemographicsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="compare"
-          element={
-            <LayoutScreen>
-              <CompareScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="where-did-votes-go/methodology"
-          element={
-            <LayoutScreen>
-              <VoteFlowMethodologyScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="parties"
-          element={
-            <LayoutScreen>
-              <AllPartiesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="preferences"
-          element={
-            <LayoutScreen>
-              <AllPreferencesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="flash-memory"
-          element={
-            <LayoutScreen>
-              <AllFlashMemoryScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="recount"
-          element={
-            <LayoutScreen>
-              <AllRecountScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="regions"
-          element={
-            <LayoutScreen>
-              <AllRegionsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="polls"
-          element={
-            <LayoutScreen>
-              <PollsScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="polls/:agencyId"
-          element={
-            <LayoutScreen>
-              <PollsAgencyScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="elections/:date"
-          element={
-            <LayoutScreen>
-              <ElectionScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="articles"
-          element={
-            <LayoutScreen>
-              <ArticlesScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="articles/:slug"
-          element={
-            <LayoutScreen>
-              <ArticleScreen />
-            </LayoutScreen>
-          }
-        />
+      {/* AreaAnchorProvider is mounted globally so the persistent header
+          pill (rendered by Header) can read the user's chosen "My Area"
+          on every route — not only under /my-area. Sits inside BrowserRouter
+          because it depends on useSearchParams. */}
+      <AreaAnchorProvider>
+        <Routes>
+          <Route
+            index
+            element={
+              <LayoutScreen>
+                <DashboardScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="governance"
+            element={
+              <LayoutScreen>
+                <GovernanceScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sofia"
+            element={
+              <LayoutScreen>
+                <SofiaScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sofia/parties"
+            element={
+              <LayoutScreen>
+                <SofiaPartiesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sofia/preferences"
+            element={
+              <LayoutScreen>
+                <SofiaPreferencesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sofia/flash-memory"
+            element={
+              <LayoutScreen>
+                <SofiaFlashMemoryScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sofia/recount"
+            element={
+              <LayoutScreen>
+                <SofiaRecountScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sofia/companies"
+            element={
+              <LayoutScreen>
+                <SettlementCompaniesScreen sofia />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="about"
+            element={
+              <LayoutScreen>
+                <AboutScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="data-changes"
+            element={
+              <LayoutScreen>
+                <DataChangesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle"
+            element={
+              <LayoutScreen>
+                <LocalElectionScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/:obshtinaCode"
+            element={
+              <LayoutScreen>
+                <LocalElectionScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sverka"
+            element={
+              <LayoutScreen>
+                <SverkaScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/chmi"
+            element={
+              <LayoutScreen>
+                <ChmiFeedScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="municipality/:id"
+            element={
+              <LayoutScreen>
+                <MunicipalitiesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="municipality/:id/parties"
+            element={
+              <LayoutScreen>
+                <RegionPartiesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="municipality/:id/preferences"
+            element={
+              <LayoutScreen>
+                <RegionPreferencesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="municipality/:id/flash-memory"
+            element={
+              <LayoutScreen>
+                <RegionFlashMemoryScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="municipality/:id/municipalities"
+            element={
+              <LayoutScreen>
+                <RegionMunicipalitiesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="municipality/:id/recount"
+            element={
+              <LayoutScreen>
+                <RegionRecountScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="settlement/:id"
+            element={
+              <LayoutScreen>
+                <SettlementsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="settlement/:id/parties"
+            element={
+              <LayoutScreen>
+                <MunicipalityPartiesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="settlement/:id/preferences"
+            element={
+              <LayoutScreen>
+                <MunicipalityPreferencesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="settlement/:id/flash-memory"
+            element={
+              <LayoutScreen>
+                <MunicipalityFlashMemoryScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="settlement/:id/recount"
+            element={
+              <LayoutScreen>
+                <MunicipalityRecountScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="settlement/:id/settlements"
+            element={
+              <LayoutScreen>
+                <MunicipalitySettlementsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="settlement/:id/companies"
+            element={
+              <LayoutScreen>
+                <SettlementCompaniesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sections/:id"
+            element={
+              <LayoutScreen>
+                <SectionsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sections/:id/parties"
+            element={
+              <LayoutScreen>
+                <SettlementPartiesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sections/:id/preferences"
+            element={
+              <LayoutScreen>
+                <SettlementPreferencesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sections/:id/flash-memory"
+            element={
+              <LayoutScreen>
+                <SettlementFlashMemoryScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sections/:id/recount"
+            element={
+              <LayoutScreen>
+                <SettlementRecountScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sections/:id/list"
+            element={
+              <LayoutScreen>
+                <SettlementSectionsListScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="section/:id"
+            element={
+              <LayoutScreen>
+                <SectionScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="section/:id/parties"
+            element={
+              <LayoutScreen>
+                <SectionPartiesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="section/:id/preferences"
+            element={
+              <LayoutScreen>
+                <SectionPreferencesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="section/:id/flash-memory"
+            element={
+              <LayoutScreen>
+                <SectionFlashMemoryScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="section/:id/recount"
+            element={
+              <LayoutScreen>
+                <SectionRecountScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="financing"
+            element={
+              <LayoutScreen>
+                <PartiesFinancing />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="financing/annual-reports"
+            element={
+              <LayoutScreen>
+                <PartyAnnualReportsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="financing/annual-reports/:slug"
+            element={
+              <LayoutScreen>
+                <PartyAnnualReportScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="party/:id"
+            element={
+              <LayoutScreen>
+                <PartyScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="party/:id/regions"
+            element={
+              <LayoutScreen>
+                <PartyRegionsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="party/:id/municipalities"
+            element={
+              <LayoutScreen>
+                <PartyMunicipalitiesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="party/:id/settlements"
+            element={
+              <LayoutScreen>
+                <PartySettlementsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="party/:id/preferences"
+            element={
+              <LayoutScreen>
+                <PartyPreferencesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="party/:id/donors"
+            element={
+              <LayoutScreen>
+                <PartyDonorsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="party/:id/donors/list"
+            element={
+              <LayoutScreen>
+                <PartyDonorsListScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="party/:id/income"
+            element={
+              <LayoutScreen>
+                <PartyIncomeScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="party/:id/expenses"
+            element={
+              <LayoutScreen>
+                <PartyExpensesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="candidate/:id"
+            element={
+              <LayoutScreen>
+                <CandidateScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="candidate/:id/regions"
+            element={
+              <LayoutScreen>
+                <CandidateRegionsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="candidate/:id/municipalities"
+            element={
+              <LayoutScreen>
+                <CandidateMunicipalitiesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="candidate/:id/settlements"
+            element={
+              <LayoutScreen>
+                <CandidateSettlementsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="candidate/:id/sections"
+            element={
+              <LayoutScreen>
+                <CandidateSectionsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="candidate/:id/donations"
+            element={
+              <LayoutScreen>
+                <CandidateDonationsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="candidate/:id/connections"
+            element={
+              <LayoutScreen>
+                <CandidateConnectionsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="candidate/:id/assets"
+            element={
+              <LayoutScreen>
+                <CandidateAssetsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="candidate/:id/procurement"
+            element={
+              <LayoutScreen>
+                <CandidateProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement"
+            element={
+              <LayoutScreen>
+                <ProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/by-settlement"
+            element={
+              <LayoutScreen>
+                <ProcurementBySettlementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/settlement/:ekatte"
+            element={
+              <LayoutScreen>
+                <ProcurementSettlementDetailScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="candidate/:id/funds"
+            element={
+              <LayoutScreen>
+                <CandidateFundsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds"
+            element={
+              <LayoutScreen>
+                <FundsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds/political"
+            element={
+              <LayoutScreen>
+                <FundsPoliticalScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds/integrity"
+            element={
+              <LayoutScreen>
+                <FundsIntegrityScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds/focus/:slug"
+            element={
+              <LayoutScreen>
+                <FundsFocusScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds/rrf"
+            element={
+              <LayoutScreen>
+                <FundsRrfScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds/programme/:code"
+            element={
+              <LayoutScreen>
+                <FundsProgramScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="funds/contract/:number"
+            element={
+              <LayoutScreen>
+                <FundsContractScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/contractors"
+            element={
+              <LayoutScreen>
+                <TopContractorsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/awarders"
+            element={
+              <LayoutScreen>
+                <TopAwardersScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/mps"
+            element={
+              <LayoutScreen>
+                <TopMpsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/contract/:id"
+            element={
+              <LayoutScreen>
+                <ContractDetailScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="company/:eik"
+            element={
+              <LayoutScreen>
+                <CompanyByEikScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="company/:eik/contracts"
+            element={
+              <LayoutScreen>
+                <CompanyContractsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="company/:eik/awarders"
+            element={
+              <LayoutScreen>
+                <CompanyAwardersScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="awarder/:eik"
+            element={
+              <LayoutScreen>
+                <AwarderByEikScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="awarder/:eik/contracts"
+            element={
+              <LayoutScreen>
+                <AwarderContractsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="awarder/:eik/contractors"
+            element={
+              <LayoutScreen>
+                <AwarderContractorsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="budget"
+            element={
+              <LayoutScreen>
+                <BudgetScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="budget/methodology"
+            element={
+              <LayoutScreen>
+                <BudgetMethodologyScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="budget/tax-calculator"
+            element={
+              <LayoutScreen>
+                <BudgetTaxCalculatorScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="budget/ministry/:id"
+            element={
+              <LayoutScreen>
+                <BudgetMinistryScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="votes"
+            element={
+              <LayoutScreen>
+                <SessionsIndexScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="votes/:date"
+            element={
+              <LayoutScreen>
+                <SessionScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="votes/:date/:slug"
+            element={
+              <LayoutScreen>
+                <SessionScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="votes/between/:pair"
+            element={
+              <LayoutScreen>
+                <PartyPairBreaksScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="parliament/cohesion"
+            element={
+              <LayoutScreen>
+                <ParliamentCohesionScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="parliament/similarity/:mpId"
+            element={
+              <LayoutScreen>
+                <MpSimilarityScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="parliament/embedding"
+            element={
+              <LayoutScreen>
+                <ParliamentEmbeddingScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="parliament"
+            element={
+              <LayoutScreen>
+                <ParliamentHubScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="mp/companies"
+            element={
+              <LayoutScreen>
+                <AllMpCompaniesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="mp-assets"
+            element={
+              <LayoutScreen>
+                <AllMpAssetsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="officials/assets"
+            element={
+              <LayoutScreen>
+                <OfficialsAssetsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="officials/:slug"
+            element={
+              <LayoutScreen>
+                <OfficialProfileScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="mp-cars"
+            element={
+              <LayoutScreen>
+                <MpCarsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="mp/company/:slug"
+            element={
+              <LayoutScreen>
+                <MpCompanyScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="connections"
+            element={
+              <LayoutScreen>
+                <ConnectionsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="simulator"
+            element={
+              <LayoutScreen>
+                <SimulatorScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="wasted-vote"
+            element={
+              <LayoutScreen>
+                <WastedVoteScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="wasted-vote/regions"
+            element={
+              <LayoutScreen>
+                <WastedVoteRegionsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="persistence"
+            element={
+              <LayoutScreen>
+                <PersistenceScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="benford"
+            element={
+              <LayoutScreen>
+                <BenfordScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="benford/methodology"
+            element={
+              <LayoutScreen>
+                <BenfordMethodologyScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="benford/:partyNum"
+            element={
+              <LayoutScreen>
+                <BenfordDetailScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="risk-analysis"
+            element={
+              <LayoutScreen>
+                <RiskAnalysisScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="risk-analysis/methodology"
+            element={
+              <LayoutScreen>
+                <RiskAnalysisMethodologyScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="risk-analysis/cluster/:id"
+            element={
+              <LayoutScreen>
+                <RiskClusterScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="risk-score"
+            element={
+              <LayoutScreen>
+                <RiskScoreScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="risk-score/methodology"
+            element={
+              <LayoutScreen>
+                <RiskScoreMethodologyScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="governments"
+            element={
+              <CabinetAnchoredLayoutScreen>
+                <GovernmentsScreen />
+              </CabinetAnchoredLayoutScreen>
+            }
+          />
+          <Route
+            path="governments/:slug"
+            element={
+              <CabinetAnchoredLayoutScreen>
+                <GovernmentDetailScreen />
+              </CabinetAnchoredLayoutScreen>
+            }
+          />
+          <Route
+            path="indicators"
+            element={
+              <CabinetAnchoredLayoutScreen>
+                <IndicatorsLandingScreen />
+              </CabinetAnchoredLayoutScreen>
+            }
+          />
+          <Route
+            path="indicators/economy"
+            element={
+              <CabinetAnchoredLayoutScreen>
+                <IndicatorsEconomyScreen />
+              </CabinetAnchoredLayoutScreen>
+            }
+          />
+          <Route
+            path="indicators/fiscal"
+            element={
+              <CabinetAnchoredLayoutScreen>
+                <IndicatorsFiscalScreen />
+              </CabinetAnchoredLayoutScreen>
+            }
+          />
+          <Route
+            path="indicators/governance"
+            element={
+              <CabinetAnchoredLayoutScreen>
+                <IndicatorsGovernanceScreen />
+              </CabinetAnchoredLayoutScreen>
+            }
+          />
+          <Route
+            path="indicators/society"
+            element={
+              <CabinetAnchoredLayoutScreen>
+                <IndicatorsSocietyScreen />
+              </CabinetAnchoredLayoutScreen>
+            }
+          />
+          <Route
+            path="indicators/compare"
+            element={
+              <CabinetAnchoredLayoutScreen>
+                <IndicatorsCompareScreen />
+              </CabinetAnchoredLayoutScreen>
+            }
+          />
+          <Route
+            path="observations"
+            element={
+              <LayoutScreen>
+                <ObservationsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="demographics"
+            element={
+              <LayoutScreen>
+                <DemographicsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="demographics/regions"
+            element={
+              <LayoutScreen>
+                <RegionsDemographicsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="demographics/municipalities"
+            element={
+              <LayoutScreen>
+                <MunicipalitiesDemographicsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="compare"
+            element={
+              <LayoutScreen>
+                <CompareScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="where-did-votes-go/methodology"
+            element={
+              <LayoutScreen>
+                <VoteFlowMethodologyScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="parties"
+            element={
+              <LayoutScreen>
+                <AllPartiesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="preferences"
+            element={
+              <LayoutScreen>
+                <AllPreferencesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="flash-memory"
+            element={
+              <LayoutScreen>
+                <AllFlashMemoryScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="recount"
+            element={
+              <LayoutScreen>
+                <AllRecountScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="regions"
+            element={
+              <LayoutScreen>
+                <AllRegionsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="polls"
+            element={
+              <LayoutScreen>
+                <PollsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="polls/:agencyId"
+            element={
+              <LayoutScreen>
+                <PollsAgencyScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="elections/:date"
+            element={
+              <LayoutScreen>
+                <ElectionScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="articles"
+            element={
+              <LayoutScreen>
+                <ArticlesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="articles/:slug"
+            element={
+              <LayoutScreen>
+                <ArticleScreen />
+              </LayoutScreen>
+            }
+          />
 
-        <Route path="reports">
-          <Route path="settlement">
-            <Route
-              path="wasted-votes"
-              element={
-                <LayoutScreen>
-                  <SettlementsWastedVote />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="concentrated"
-              element={
-                <LayoutScreen>
-                  <SettlementsConcentration />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="top_gainers"
-              element={
-                <LayoutScreen>
-                  <SettlementsTopGainers />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="top_losers"
-              element={
-                <LayoutScreen>
-                  <SettlementsTopLosers />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="turnout"
-              element={
-                <LayoutScreen>
-                  <SettlementsTurnout />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="invalid_ballots"
-              element={
-                <LayoutScreen>
-                  <SettlementsInvalidBallots />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="additional_voters"
-              element={
-                <LayoutScreen>
-                  <SettlementsAdditionalVoters />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="supports_no_one"
-              element={
-                <LayoutScreen>
-                  <SettlementsSupportsNoOne />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="recount"
-              element={
-                <LayoutScreen>
-                  <SettlementsRecount />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="flash_memory"
-              element={
-                <LayoutScreen>
-                  <SettlementsSuemg />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="flash_memory_added"
-              element={
-                <LayoutScreen>
-                  <SettlementsSuemgAdded />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="flash_memory_removed"
-              element={
-                <LayoutScreen>
-                  <SettlementsSuemgRemoved />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="missing_flash_memory"
-              element={
-                <LayoutScreen>
-                  <SettlementsMissingSuemg />
-                </LayoutScreen>
-              }
-            />
+          <Route path="reports">
+            <Route path="settlement">
+              <Route
+                path="wasted-votes"
+                element={
+                  <LayoutScreen>
+                    <SettlementsWastedVote />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="concentrated"
+                element={
+                  <LayoutScreen>
+                    <SettlementsConcentration />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="top_gainers"
+                element={
+                  <LayoutScreen>
+                    <SettlementsTopGainers />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="top_losers"
+                element={
+                  <LayoutScreen>
+                    <SettlementsTopLosers />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="turnout"
+                element={
+                  <LayoutScreen>
+                    <SettlementsTurnout />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="invalid_ballots"
+                element={
+                  <LayoutScreen>
+                    <SettlementsInvalidBallots />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="additional_voters"
+                element={
+                  <LayoutScreen>
+                    <SettlementsAdditionalVoters />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="supports_no_one"
+                element={
+                  <LayoutScreen>
+                    <SettlementsSupportsNoOne />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="recount"
+                element={
+                  <LayoutScreen>
+                    <SettlementsRecount />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="flash_memory"
+                element={
+                  <LayoutScreen>
+                    <SettlementsSuemg />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="flash_memory_added"
+                element={
+                  <LayoutScreen>
+                    <SettlementsSuemgAdded />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="flash_memory_removed"
+                element={
+                  <LayoutScreen>
+                    <SettlementsSuemgRemoved />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="missing_flash_memory"
+                element={
+                  <LayoutScreen>
+                    <SettlementsMissingSuemg />
+                  </LayoutScreen>
+                }
+              />
+            </Route>
+            <Route path="municipality">
+              <Route
+                path="wasted-votes"
+                element={
+                  <LayoutScreen>
+                    <MunicipalitiesWastedVote />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="concentrated"
+                element={
+                  <LayoutScreen>
+                    <MunicipalitiesConcentration />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="top_gainers"
+                element={
+                  <LayoutScreen>
+                    <MunicipalitiesTopGainers />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="top_losers"
+                element={
+                  <LayoutScreen>
+                    <MunicipalitiesTopLosers />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="turnout"
+                element={
+                  <LayoutScreen>
+                    <MunicipalitiesTurnout />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="invalid_ballots"
+                element={
+                  <LayoutScreen>
+                    <MunicipalitiesInvalidBallots />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="additional_voters"
+                element={
+                  <LayoutScreen>
+                    <MunicipalitiesAdditionalVoters />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="supports_no_one"
+                element={
+                  <LayoutScreen>
+                    <MunicipalitiesSupportsNoOne />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="recount"
+                element={
+                  <LayoutScreen>
+                    <MunicipalitiesRecount />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="flash_memory"
+                element={
+                  <LayoutScreen>
+                    <MunicipalitiesSuemg />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="flash_memory_added"
+                element={
+                  <LayoutScreen>
+                    <MunicipalitiesSuemgAdded />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="flash_memory_removed"
+                element={
+                  <LayoutScreen>
+                    <MunicipalitiesSuemgRemoved />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="missing_flash_memory"
+                element={
+                  <LayoutScreen>
+                    <MunicipalitiesMissingSuemg />
+                  </LayoutScreen>
+                }
+              />
+            </Route>
+            <Route path="section">
+              <Route
+                path="wasted-votes"
+                element={
+                  <LayoutScreen>
+                    <SectionsWastedVote />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="concentrated"
+                element={
+                  <LayoutScreen>
+                    <SectionsConcentration />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="top_gainers"
+                element={
+                  <LayoutScreen>
+                    <SectionsTopGainers />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="top_losers"
+                element={
+                  <LayoutScreen>
+                    <SectionsTopLosers />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="turnout"
+                element={
+                  <LayoutScreen>
+                    <SectionsTurnout />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="invalid_ballots"
+                element={
+                  <LayoutScreen>
+                    <SectionsInvalidBallots />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="additional_voters"
+                element={
+                  <LayoutScreen>
+                    <SectionsAdditionalVoters />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="supports_no_one"
+                element={
+                  <LayoutScreen>
+                    <SectionsSupportsNoOne />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="recount"
+                element={
+                  <LayoutScreen>
+                    <SectionsRecount />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="recount_zero_votes"
+                element={
+                  <LayoutScreen>
+                    <SectionsRecountZeroVotes />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="flash_memory"
+                element={
+                  <LayoutScreen>
+                    <SectionsSuemg />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="flash_memory_added"
+                element={
+                  <LayoutScreen>
+                    <SectionsSuemgAdded />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="flash_memory_removed"
+                element={
+                  <LayoutScreen>
+                    <SectionsSuemgRemoved />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="missing_flash_memory"
+                element={
+                  <LayoutScreen>
+                    <SectionsMissingSuemg />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="problem_sections"
+                element={
+                  <LayoutScreen>
+                    <ProblemSections />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="problem_sections/:id"
+                element={
+                  <LayoutScreen>
+                    <ProblemSectionDetail />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="problem_sections/:id/list"
+                element={
+                  <LayoutScreen>
+                    <ProblemSectionListScreen />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="problem_sections/:id/parties"
+                element={
+                  <LayoutScreen>
+                    <ProblemSectionPartiesScreen />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="problem_sections/:id/flash-memory"
+                element={
+                  <LayoutScreen>
+                    <ProblemSectionFlashMemoryScreen />
+                  </LayoutScreen>
+                }
+              />
+              <Route
+                path="problem_sections/:id/recount"
+                element={
+                  <LayoutScreen>
+                    <ProblemSectionRecountScreen />
+                  </LayoutScreen>
+                }
+              />
+            </Route>
           </Route>
-          <Route path="municipality">
-            <Route
-              path="wasted-votes"
-              element={
-                <LayoutScreen>
-                  <MunicipalitiesWastedVote />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="concentrated"
-              element={
-                <LayoutScreen>
-                  <MunicipalitiesConcentration />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="top_gainers"
-              element={
-                <LayoutScreen>
-                  <MunicipalitiesTopGainers />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="top_losers"
-              element={
-                <LayoutScreen>
-                  <MunicipalitiesTopLosers />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="turnout"
-              element={
-                <LayoutScreen>
-                  <MunicipalitiesTurnout />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="invalid_ballots"
-              element={
-                <LayoutScreen>
-                  <MunicipalitiesInvalidBallots />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="additional_voters"
-              element={
-                <LayoutScreen>
-                  <MunicipalitiesAdditionalVoters />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="supports_no_one"
-              element={
-                <LayoutScreen>
-                  <MunicipalitiesSupportsNoOne />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="recount"
-              element={
-                <LayoutScreen>
-                  <MunicipalitiesRecount />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="flash_memory"
-              element={
-                <LayoutScreen>
-                  <MunicipalitiesSuemg />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="flash_memory_added"
-              element={
-                <LayoutScreen>
-                  <MunicipalitiesSuemgAdded />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="flash_memory_removed"
-              element={
-                <LayoutScreen>
-                  <MunicipalitiesSuemgRemoved />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="missing_flash_memory"
-              element={
-                <LayoutScreen>
-                  <MunicipalitiesMissingSuemg />
-                </LayoutScreen>
-              }
-            />
-          </Route>
-          <Route path="section">
-            <Route
-              path="wasted-votes"
-              element={
-                <LayoutScreen>
-                  <SectionsWastedVote />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="concentrated"
-              element={
-                <LayoutScreen>
-                  <SectionsConcentration />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="top_gainers"
-              element={
-                <LayoutScreen>
-                  <SectionsTopGainers />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="top_losers"
-              element={
-                <LayoutScreen>
-                  <SectionsTopLosers />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="turnout"
-              element={
-                <LayoutScreen>
-                  <SectionsTurnout />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="invalid_ballots"
-              element={
-                <LayoutScreen>
-                  <SectionsInvalidBallots />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="additional_voters"
-              element={
-                <LayoutScreen>
-                  <SectionsAdditionalVoters />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="supports_no_one"
-              element={
-                <LayoutScreen>
-                  <SectionsSupportsNoOne />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="recount"
-              element={
-                <LayoutScreen>
-                  <SectionsRecount />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="recount_zero_votes"
-              element={
-                <LayoutScreen>
-                  <SectionsRecountZeroVotes />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="flash_memory"
-              element={
-                <LayoutScreen>
-                  <SectionsSuemg />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="flash_memory_added"
-              element={
-                <LayoutScreen>
-                  <SectionsSuemgAdded />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="flash_memory_removed"
-              element={
-                <LayoutScreen>
-                  <SectionsSuemgRemoved />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="missing_flash_memory"
-              element={
-                <LayoutScreen>
-                  <SectionsMissingSuemg />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="problem_sections"
-              element={
-                <LayoutScreen>
-                  <ProblemSections />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="problem_sections/:id"
-              element={
-                <LayoutScreen>
-                  <ProblemSectionDetail />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="problem_sections/:id/list"
-              element={
-                <LayoutScreen>
-                  <ProblemSectionListScreen />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="problem_sections/:id/parties"
-              element={
-                <LayoutScreen>
-                  <ProblemSectionPartiesScreen />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="problem_sections/:id/flash-memory"
-              element={
-                <LayoutScreen>
-                  <ProblemSectionFlashMemoryScreen />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="problem_sections/:id/recount"
-              element={
-                <LayoutScreen>
-                  <ProblemSectionRecountScreen />
-                </LayoutScreen>
-              }
-            />
-          </Route>
-        </Route>
-        <Route
-          path="*"
-          element={
-            <LayoutScreen>
-              <NotFound />
-            </LayoutScreen>
-          }
-        />
-      </Routes>
+          <Route
+            path="my-area"
+            element={
+              <LayoutScreen>
+                <MyAreaEntryScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="my-area/:id"
+            element={
+              <LayoutScreen>
+                <MyAreaScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <LayoutScreen>
+                <NotFound />
+              </LayoutScreen>
+            }
+          />
+        </Routes>
+      </AreaAnchorProvider>
     </BrowserRouter>
   );
 };
