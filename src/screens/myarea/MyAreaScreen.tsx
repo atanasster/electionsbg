@@ -32,10 +32,7 @@ import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 import { Link } from "@/ux/Link";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
-import { MyAreaSchoolsTile } from "./MyAreaSchoolsTile";
-import { MyAreaServicesTile } from "./MyAreaServicesTile";
-import { MyAreaAirTile } from "./MyAreaAirTile";
-import { MyAreaCrimeTile } from "./MyAreaCrimeTile";
+import { MyAreaQualityStrip } from "./MyAreaQualityStrip";
 import { MyAreaProjectsMapTile } from "./MyAreaProjectsMapTile";
 import { MyAreaAlertsTile } from "./MyAreaAlertsTile";
 import { MyAreaSofiaRaionStrip } from "./MyAreaSofiaRaionStrip";
@@ -200,14 +197,13 @@ export const MyAreaScreen: FC = () => {
           <MyAreaProjectsMapTile obshtina={area.obshtina} />
         </div>
 
-        {/* Band F — Quality of life. Scaffolded tiles for Phases 6/7/8/9 —
-            all auto-hide until the corresponding ingest skill populates
-            their data file. Phase 7 of the my-area redesign will collapse
-            this 4-tile sequence into a single 4-up summary strip. */}
-        <MyAreaSchoolsTile obshtina={area.obshtina} />
-        <MyAreaServicesTile obshtina={area.obshtina} />
-        <MyAreaAirTile obshtina={area.obshtina} />
-        <MyAreaCrimeTile oblast={area.oblast} />
+        {/* Band F — Quality of life. A 4-up strip summarising
+            crime / air / schools / services with one headline number
+            per column; each column links to the full canonical page
+            for the município. Auto-hides when fewer than 2 columns
+            have data. The full per-tile detail still ships on the
+            canonical /settlement and /municipality routes. */}
+        <MyAreaQualityStrip obshtina={area.obshtina} oblast={area.oblast} />
 
         {/* Footer link to the canonical settlement/município dashboard.
             We used to render SettlementDashboardCards / MunicipalityDashboardCards
