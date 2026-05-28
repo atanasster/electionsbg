@@ -24,6 +24,7 @@ import { useRegions } from "@/data/regions/useRegions";
 import { Link } from "@/ux/Link";
 import { initials, normalizeMpName as normalize } from "@/lib/utils";
 import { useCycleKind } from "@/data/area/useCycleKind";
+import { useMpSignals } from "@/data/myarea/useMpSignals";
 
 type Props = {
   oblast: string;
@@ -88,6 +89,12 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
     });
   }, [nsFolder, mir, findMpsByRegion, cikByName, lookupParliamentGroup]);
 
+  // Per-MP signal badge (attendance / dissent). One file fetch shared
+  // across all MPs in the strip. Empty map when the loyalty slice is
+  // still loading or the selected NS has no roll-call data.
+  const mpIds = useMemo(() => rows.map((r) => r.mp.id), [rows]);
+  const signals = useMpSignals(mpIds);
+
   // Don't render the section for local/EU/presidential cycles or when the
   // MIR mapping is missing — the strip would be empty otherwise and the
   // header alone would feel like a broken state.
@@ -115,15 +122,32 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
         {rows.map((r) => {
           const display = mpName(r.mp);
           const partyLabel = displayNameFor(r.partyNickName) ?? r.partyNickName;
+          const signal = signals.get(r.mp.id) ?? null;
+          const badgeLabel = signal
+            ? lang === "bg"
+              ? signal.label_bg
+              : signal.label_en
+            : null;
+          // Tone the badge background by signal severity. Absence is
+          // the louder signal; loyalty dissent is amber.
+          const badgeToneClass = signal
+            ? signal.kind === "absent"
+              ? "bg-rose-500/10 text-rose-600 border-rose-500/30"
+              : "bg-amber-500/10 text-amber-700 border-amber-500/30"
+            : "";
           return (
             <Link
               key={r.mp.id}
               to={candidateUrlForMp(r.mp.id)}
               underline={false}
               className="block group"
-              aria-label={`${display} — ${partyLabel}`}
+              aria-label={
+                badgeLabel
+                  ? `${display} — ${partyLabel} — ${badgeLabel}`
+                  : `${display} — ${partyLabel}`
+              }
             >
-              <div className="flex items-center gap-2 px-2 py-1.5 rounded-md border bg-card/50 hover:bg-accent/40 transition-colors max-w-[200px]">
+              <div className="flex items-center gap-2 px-2 py-1.5 rounded-md border bg-card/50 hover:bg-accent/40 transition-colors max-w-[220px]">
                 <Avatar
                   className="h-8 w-8 ring-2 shrink-0"
                   style={{ ["--tw-ring-color" as string]: r.color }}
@@ -152,6 +176,14 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
                   >
                     {partyLabel}
                   </span>
+                  {badgeLabel ? (
+                    <span
+                      className={`mt-0.5 inline-block self-start text-[9px] tabular-nums px-1.5 py-0.5 rounded border ${badgeToneClass} leading-none`}
+                      title={badgeLabel}
+                    >
+                      {badgeLabel}
+                    </span>
+                  ) : null}
                 </div>
               </div>
             </Link>
