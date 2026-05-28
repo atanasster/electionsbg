@@ -79,6 +79,18 @@ type Options = {
   maxCandidates?: number;
 };
 
+// settlements.json includes ~88 "diaspora" entries — one per foreign
+// country in МИР 32 (the abroad-voters district). They carry ISO codes
+// as ekatte (AU, DE, FR, BG itself…) and ALL share Sofia coordinates as
+// a placeholder loc. Including them in the haversine sweep returns the
+// country named "България" (село sense → actually МИР 32's BG bucket)
+// as ~0 km away for anyone in Sofia, which is the bug surfaced in dev.
+//
+// Real BG settlements have a 3-letter oblast code (BLG, VAR, SOF...);
+// diaspora entries have oblast === "32". Skip those for the geo sweep.
+const isDiasporaEntry = (oblast: string | undefined): boolean =>
+  oblast === "32";
+
 export const useNearestSettlement = () => {
   const { settlements } = useSettlementsInfo();
 
@@ -95,6 +107,7 @@ export const useNearestSettlement = () => {
       const radiusForFilter = Math.max(confidentRadiusKm * 2, 5);
 
       for (const s of settlements) {
+        if (isDiasporaEntry(s.oblast)) continue;
         const p = parseLoc(s.loc);
         if (!p) continue;
         if (!inBoundingBox(lat, lon, p.lat, p.lon, radiusForFilter)) {

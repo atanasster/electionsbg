@@ -119,8 +119,19 @@ export const AreaSniperButton: FC = () => {
   }, [nearest, goTo]);
 
   const results = query.trim().length > 0 ? (search(query) ?? []) : [];
+  // Exclude diaspora-bucket entries (МИР 32 / oblast === "32") — those
+  // are country-shaped pseudo-settlements used by the global search for
+  // diaspora election results, not real BG settlements one can anchor
+  // their My-Area dashboard to.
   const filtered = results
-    .filter((r) => AREA_TYPES.has(r.item.type))
+    .filter((r) => {
+      if (!AREA_TYPES.has(r.item.type)) return false;
+      if (r.item.type === "s") {
+        const s = findSettlement(r.item.key);
+        if (s?.oblast === "32") return false;
+      }
+      return true;
+    })
     .slice(0, RESULT_CAP);
 
   // Resolve the active anchor name for the "Моят район" display.

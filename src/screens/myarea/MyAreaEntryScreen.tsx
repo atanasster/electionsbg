@@ -23,6 +23,7 @@ import { H1 } from "@/ux/H1";
 import { useAreaAnchor, useSetAreaAnchor } from "@/data/area/areaAnchor";
 import { useNearestSettlement } from "@/data/area/useNearestSettlement";
 import { useSearchItems } from "@/data/search/useSearchItems";
+import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import type { SettlementInfo } from "@/data/dataTypes";
 import { AmbiguitySettlementChooser } from "@/layout/header/AmbiguitySettlementChooser";
 
@@ -45,6 +46,7 @@ export const MyAreaEntryScreen: FC = () => {
   const setAnchor = useSetAreaAnchor();
   const { search } = useSearchItems();
   const nearest = useNearestSettlement();
+  const { findSettlement } = useSettlementsInfo();
 
   const [query, setQuery] = useState("");
   const [geo, setGeo] = useState<GeoState>({ kind: "idle" });
@@ -105,8 +107,18 @@ export const MyAreaEntryScreen: FC = () => {
   }, [nearest, goTo]);
 
   const results = query.trim().length > 0 ? (search(query) ?? []) : [];
+  // Same filter as the AreaSniperButton popover — exclude diaspora-bucket
+  // pseudo-settlements (МИР 32 / oblast === "32"); see useNearestSettlement
+  // for the matching geo-sweep filter.
   const filtered = results
-    .filter((r) => AREA_TYPES.has(r.item.type))
+    .filter((r) => {
+      if (!AREA_TYPES.has(r.item.type)) return false;
+      if (r.item.type === "s") {
+        const s = findSettlement(r.item.key);
+        if (s?.oblast === "32") return false;
+      }
+      return true;
+    })
     .slice(0, RESULT_CAP);
 
   return (
