@@ -22,11 +22,12 @@ type Props = {
 };
 
 const colorForScore = (s: number): string => {
-  // Linear color ramp from red (0) to green (10) — same logic
-  // regionalprofiles.bg uses for its oblast colouring.
-  if (s >= 7) return "#56A86F";
-  if (s >= 5) return "#9BB856";
-  if (s >= 3) return "#E0A22C";
+  // TI-BG LISI is published on a 0-5 scale. Color ramp picks bands
+  // proportional to that: ≥4 → strong, ≥3 → moderate (national average is
+  // 3.27 for 2024), ≥2 → weak, <2 → critical.
+  if (s >= 4) return "#56A86F";
+  if (s >= 3) return "#9BB856";
+  if (s >= 2) return "#E0A22C";
   return "#D74A56";
 };
 
@@ -67,7 +68,10 @@ export const MyAreaTransparencyTile: FC<Props> = ({ obshtina }) => {
           style={{ color: colorForScore(score.composite) }}
         >
           {score.composite.toFixed(2)}
-          <span className="text-base text-muted-foreground"> / 10</span>
+          <span className="text-base text-muted-foreground">
+            {" / "}
+            {data.scoreScale?.max ?? 5}
+          </span>
         </div>
         <div className="text-xs text-muted-foreground">
           {lang === "bg"

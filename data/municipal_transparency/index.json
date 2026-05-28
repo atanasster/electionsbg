@@ -1,9 +1,13 @@
 {
-  "source": "transparency-bg.org",
-  "sourceUrl": "https://transparency-bg.org",
+  "source": "Асоциация „Прозрачност без граници“ (TI-BG)",
+  "sourceUrl": "https://lisi.transparency.bg/",
   "indexName": "Local Integrity System Index (LISI)",
-  "year": null,
-  "nationalAverage": null,
+  "year": 2024,
+  "nationalAverage": 3.27,
+  "scoreScale": {
+    "min": 0,
+    "max": 5
+  },
   "pillarLabels": {
     "procurement_transparency": {
       "bg": "Прозрачност на обществените поръчки",
@@ -42,6 +46,142 @@
       "en": "Integrity response"
     }
   },
-  "scoresByObshtina": {},
-  "note": "Pending ingest. See scripts/transparency/README.md for the planned scrape design. When `update-municipal-transparency` runs, this file is rewritten with per-município composite scores + nine pillar sub-scores + national rank."
+  "scoresByObshtina": {
+    "BGS04": {
+      "composite": 3.71,
+      "pillars": {},
+      "nationalRank": 1
+    },
+    "RSE27": {
+      "composite": 3.7,
+      "pillars": {},
+      "nationalRank": 2
+    },
+    "SOF00": {
+      "composite": 3.61,
+      "pillars": {},
+      "nationalRank": 3
+    },
+    "PDV22": {
+      "composite": 3.53,
+      "pillars": {},
+      "nationalRank": 4
+    },
+    "MON29": {
+      "composite": 3.44,
+      "pillars": {},
+      "nationalRank": 5
+    },
+    "RAZ26": {
+      "composite": 3.43,
+      "pillars": {},
+      "nationalRank": 6
+    },
+    "DOB28": {
+      "composite": 3.41,
+      "pillars": {},
+      "nationalRank": 7
+    },
+    "BLG03": {
+      "composite": 3.38,
+      "pillars": {},
+      "nationalRank": 8
+    },
+    "VTR04": {
+      "composite": 3.38,
+      "pillars": {},
+      "nationalRank": 9
+    },
+    "SZR31": {
+      "composite": 3.37,
+      "pillars": {},
+      "nationalRank": 10
+    },
+    "VID09": {
+      "composite": 3.33,
+      "pillars": {},
+      "nationalRank": 11
+    },
+    "PER32": {
+      "composite": 3.31,
+      "pillars": {},
+      "nationalRank": 12
+    },
+    "TGV35": {
+      "composite": 3.29,
+      "pillars": {},
+      "nationalRank": 13
+    },
+    "JAM26": {
+      "composite": 3.28,
+      "pillars": {},
+      "nationalRank": 14
+    },
+    "GAB05": {
+      "composite": 3.26,
+      "pillars": {},
+      "nationalRank": 15
+    },
+    "KNL29": {
+      "composite": 3.23,
+      "pillars": {},
+      "nationalRank": 16
+    },
+    "LOV18": {
+      "composite": 3.23,
+      "pillars": {},
+      "nationalRank": 17
+    },
+    "SLV20": {
+      "composite": 3.23,
+      "pillars": {},
+      "nationalRank": 18
+    },
+    "VRC10": {
+      "composite": 3.22,
+      "pillars": {},
+      "nationalRank": 19
+    },
+    "HKV34": {
+      "composite": 3.14,
+      "pillars": {},
+      "nationalRank": 20
+    },
+    "PVN24": {
+      "composite": 3.12,
+      "pillars": {},
+      "nationalRank": 21
+    },
+    "SML31": {
+      "composite": 3.11,
+      "pillars": {},
+      "nationalRank": 22
+    },
+    "PAZ19": {
+      "composite": 3.09,
+      "pillars": {},
+      "nationalRank": 23
+    },
+    "VAR06": {
+      "composite": 3.08,
+      "pillars": {},
+      "nationalRank": 24
+    },
+    "SHU30": {
+      "composite": 3.05,
+      "pillars": {},
+      "nationalRank": 25
+    },
+    "SLS31": {
+      "composite": 2.71,
+      "pillars": {},
+      "nationalRank": 26
+    },
+    "KRZ16": {
+      "composite": 2.63,
+      "pillars": {},
+      "nationalRank": 27
+    }
+  },
+  "note": "LISI surveys only the 27 oblast-center municipalities. The hook returns undefined for the other 238 municípios, which makes the tile auto-hide elsewhere. Per-pillar sub-scores are exposed in the source's interactive UI but not published as downloadable data — pillars{} is kept empty until a follow-up scrape lands."
 }

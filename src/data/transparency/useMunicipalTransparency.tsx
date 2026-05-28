@@ -31,6 +31,9 @@ export type MunicipalTransparencyFile = {
   indexName: string;
   year: number | null;
   nationalAverage: number | null;
+  /** TI-BG publishes LISI on a 0-5 scale. The tile reads .max for the
+   *  "/ N" suffix; older scaffold defaulted this to 10. */
+  scoreScale?: { min: number; max: number };
   pillarLabels: Record<
     MunicipalTransparencyPillarKey,
     { bg: string; en: string }
