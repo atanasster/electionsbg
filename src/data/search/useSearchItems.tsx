@@ -9,7 +9,7 @@ import { useElectionContext } from "../ElectionContext";
 import { useCandidates } from "../preferences/useCandidates";
 import { useMps } from "../parliament/useMps";
 import { dataUrl } from "@/data/dataUrl";
-import type { TopicIndexFile } from "../parliament/votes/types";
+import type { SearchVoteIndexFile } from "../parliament/votes/types";
 
 // Per-year ministry rosters from data/budget/derived/admin_flow.json. We
 // dedupe across years to get the union set of unique spending units; each
@@ -44,33 +44,29 @@ const useBudgetMinistriesForSearch = () =>
     staleTime: Infinity,
   });
 
-// Roll-call topic index — fetched on first search activation alongside the
-// other heavy artifacts. Gzipped to ~580 KB; we cap the projection to the
-// top-N most-contested titled items per NS so Fuse memory stays bounded.
-const fetchTopicIndex = async (): Promise<TopicIndexFile | null> => {
+// Slim per-NS search projection emitted by the derived runner. ~80 KB
+// gzipped vs. the ~580 KB topic_index.json that the header used to pull
+// on every page. The ranking + per-NS cap (most-contested titled items
+// first, newest-first as a tiebreaker, top-N) is baked in at build time
+// — see scripts/parliament/derived/search_index.ts.
+const fetchSearchVoteIndex = async (): Promise<SearchVoteIndexFile | null> => {
   try {
     const r = await fetch(
-      dataUrl("/parliament/votes/derived/topic_index.json"),
+      dataUrl("/parliament/votes/derived/search_index.json"),
     );
     if (!r.ok) return null;
-    return (await r.json()) as TopicIndexFile;
+    return (await r.json()) as SearchVoteIndexFile;
   } catch {
     return null;
   }
 };
 
-const useTopicIndexForSearch = () =>
+const useSearchVoteIndex = () =>
   useQuery({
-    queryKey: ["search", "topic-index"] as const,
-    queryFn: fetchTopicIndex,
+    queryKey: ["search", "vote-index"] as const,
+    queryFn: fetchSearchVoteIndex,
     staleTime: Infinity,
   });
-
-// Per-NS cap on indexed vote items. Picks the most-contested titled entries
-// first (contestScore ↓), then newest-first as a tiebreaker. Procedural
-// unanimous items would otherwise crowd out substantive contested votes
-// without ever being searched for.
-const VOTES_PER_NS_LIMIT = 200;
 
 const queryFn = async ({
   queryKey,
@@ -109,7 +105,7 @@ export const useSearchItems = () => {
   const { regions } = useRegions();
   const { findMpByName } = useMps();
   const { data: adminFlow } = useBudgetMinistriesForSearch();
-  const { data: topicIndex } = useTopicIndexForSearch();
+  const { data: voteIndex } = useSearchVoteIndex();
   const fuse = useMemo(() => {
     if (settlements && municipalities && sections && candidates) {
       const regionByCode = new Map(regions.map((r) => [r.oblast, r]));
@@ -210,24 +206,16 @@ export const useSearchItems = () => {
         }
       }
 
-      // Roll-call vote items. We cap per NS so a single noisy parliament
-      // doesn't crowd out the others. Ranking: contestScore desc, then
-      // recency desc — substantive contested votes win over unanimous
-      // procedural ones, which is what users type keywords to find.
-      if (topicIndex?.byNs) {
-        for (const slice of Object.values(topicIndex.byNs)) {
-          const titled = slice.entries.filter((e) => e.title);
-          titled.sort((a, b) => {
-            if (b.contestScore !== a.contestScore) {
-              return b.contestScore - a.contestScore;
-            }
-            return b.date.localeCompare(a.date);
-          });
-          for (const e of titled.slice(0, VOTES_PER_NS_LIMIT)) {
+      // Roll-call vote items. Per-NS ranking + cap already applied at build
+      // time by scripts/parliament/derived/search_index.ts — we just flatten
+      // every slice into the searchItems list.
+      if (voteIndex?.byNs) {
+        for (const slice of Object.values(voteIndex.byNs)) {
+          for (const e of slice.entries) {
             searchItems.push({
               type: "v",
               key: `${e.date}|${e.slug}`,
-              name: e.title!,
+              name: e.title,
               parentName: e.date,
             });
           }
@@ -254,7 +242,7 @@ export const useSearchItems = () => {
     regions,
     sections,
     settlements,
-    topicIndex,
+    voteIndex,
   ]);
   const search = (searchTern: string) => {
     return fuse?.search(searchTern);

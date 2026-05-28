@@ -202,11 +202,11 @@ The walker walks FORWARD. To backfill older data, pass `--session-id <oldId>` fo
 | `scripts/parliament/rollcall/parse.ts` | CSV → canonical SessionItem[] |
 | `scripts/parliament/rollcall/validate.ts` | Schema + canary + diff-cap checks |
 | `scripts/parliament/derived/index.ts` | Weekly derived-metrics runner |
-| `scripts/parliament/derived/{loyalty,similarity,cohesion}.ts` | Per-metric writers |
+| `scripts/parliament/derived/{loyalty,similarity,cohesion,embedding,party_correlation,topic_index,search_index,important_votes,dissents,party_pair_breaks,per_mp_shards}.ts` | Per-metric writers |
 | `scripts/lib/upload.ts` | Shared GCS upload helper (gsutil cp -Z wrapper) |
 | `data/parliament/votes/index.json` | Session catalog — committed |
 | `data/parliament/votes/sessions/<YYYY-MM-DD>.json` | One file per plenary day — committed |
-| `data/parliament/votes/derived/{loyalty,similarity,cohesion}.json` | Weekly outputs — committed |
+| `data/parliament/votes/derived/{loyalty,similarity,cohesion,embedding,party_correlation,topic_index,search_index,dissents,party_pair_breaks}.json` + `derived/important_votes/<ns>.json` + `derived/per-mp/<ns>/<mpId>.json` | Weekly outputs — committed |
 | `tests/fixtures/parliament/votes/canary.json` | Pinned parser regression baseline — committed |
 
 ## Quick command reference

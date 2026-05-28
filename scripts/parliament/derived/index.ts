@@ -19,6 +19,7 @@ import { computeCohesion } from "./cohesion";
 import { computeEmbedding } from "./embedding";
 import { computePartyCorrelation } from "./party_correlation";
 import { computeTopicIndex } from "./topic_index";
+import { computeSearchIndex } from "./search_index";
 import { computeImportantVotes } from "./important_votes";
 import { computeDissents } from "./dissents";
 import { computePartyPairBreaks } from "./party_pair_breaks";
@@ -174,6 +175,25 @@ const main = async (args: { upload: boolean }): Promise<void> => {
     `  ✓ ${nsKeys.map((k) => `${k}:${topicIndexByNs[k].entries.length}`).join(", ")} topic entries`,
   );
 
+  // Slim search projection — top-N-per-NS contested-titled subset that the
+  // header search bar's Fuse index needs. Lets /my-area (and every other
+  // page that mounts the header) avoid downloading the full topic_index
+  // monolith on first interaction.
+  console.log(`→ computing slim search index per NS`);
+  const searchIndexByNs: Record<
+    string,
+    ReturnType<typeof computeSearchIndex>
+  > = {};
+  for (const ns of nsKeys)
+    searchIndexByNs[ns] = computeSearchIndex(byNs.get(ns)!);
+  writeJson(path.join(DERIVED_DIR, "search_index.json"), {
+    computedAt: nowIso,
+    byNs: searchIndexByNs,
+  });
+  console.log(
+    `  ✓ ${nsKeys.map((k) => `${k}:${searchIndexByNs[k].entries.length}`).join(", ")} search entries`,
+  );
+
   // Important-votes shards: the curated subset MyAreaImportantVotesTile
   // needs per-MP votes for. Sharded per NS — each slice is the only one
   // the tile ever consumes for a given election, so a per-NS file lets
@@ -259,6 +279,7 @@ const main = async (args: { upload: boolean }): Promise<void> => {
       "embedding.json",
       "party_correlation.json",
       "topic_index.json",
+      "search_index.json",
       "dissents.json",
       "party_pair_breaks.json",
     ]) {

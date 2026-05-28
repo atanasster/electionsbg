@@ -94,6 +94,26 @@ export interface TopicIndexFile {
   byNs: Record<string, TopicIndexSlice>;
 }
 
+// Slim search projection emitted by scripts/parliament/derived/search_index.ts.
+// Top-N titled items per NS pre-sorted by (contestScore desc, date desc) —
+// shared by the header search bar so every page that mounts the header
+// doesn't have to pull the full topic_index.json (~580 KB gzipped).
+export interface SearchVoteEntry {
+  date: string;
+  slug: string;
+  title: string;
+  contestScore: number;
+}
+
+export interface SearchVoteSlice {
+  entries: SearchVoteEntry[];
+}
+
+export interface SearchVoteIndexFile {
+  computedAt: string;
+  byNs: Record<string, SearchVoteSlice>;
+}
+
 export interface RollcallIndexEntry {
   date: string;
   stenogramId: number;
