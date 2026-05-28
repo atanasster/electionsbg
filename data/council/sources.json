@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "note": "Per-município ingest recipes for council resolutions + vote tallies. See scripts/council/README.md for the phased plan. Keys = MyArea obshtina id (matches area.obshtina). Run `npx tsx scripts/council/discover.ts --check` to re-validate liveness; --verbose dumps tally regex hits.",
+  "tallyRegexes": {
+    "primary": "(\\d+|-)\\s+(?:гласа?)?\\s*[,.]?\\s*(\\d+|-)\\s+против\\s*[,.]?\\s*(\\d+|-)\\s+въздържал",
+    "blockHeader": "Поименно гласуване\\s*:",
+    "blockKeys": {
+      "for": "(?:^|\\b)За\\b\\s+(\\d+|-)",
+      "against": "(?:^|\\b)Против\\b\\s+(\\d+|-)",
+      "abstain": "Въздържал(?:и се|се|и)\\s+(\\d+|-)"
+    },
+    "noteDashIsZero": true
+  },
+  "munisByObshtina": {
+    "SOF": {
+      "name": "Столична община",
+      "tier": "A",
+      "indexUrl": "https://council.sofia.bg/",
+      "indexNote": "Liferay SPA. Full Council protocols + Постоянни комисии (ПК) protocols both surface as /documents/d/guest/protokol-<slug> PDFs. Discovery via Liferay search API or Playwright enumeration; direct curl on the search page returns the SPA shell only.",
+      "fetch": "playwright",
+      "format": "pdf-text",
+      "tallyStrategy": "blockKeys",
+      "samplePdf": "https://council.sofia.bg/documents/d/guest/protokol-92-2023-06-14",
+      "sampleConfirmedTally": "Поименно гласуване block with За/Против/Въздържали се (dash = 0)",
+      "perCouncillor": true,
+      "perCouncillorNote": "Phase 2 — Sofia is the only confirmed-text per-councillor source; join to data/officials/municipal/ by normalised name."
+    },
+    "PDV01": {
+      "name": "Община Пловдив",
+      "tier": "B",
+      "indexUrl": "https://plovdiv.bg/obs/category/%d0%b4%d0%b5%d0%b9%d1%81%d1%82%d0%b2%d0%b0%d1%89%d0%b8-%d0%b0%d0%ba%d1%82%d0%be%d0%b2%d0%b5/%d1%80%d0%b5%d1%88%d0%b5%d0%bd%d0%b8%d1%8f/",
+      "indexNote": "WordPress category. WebFetch hits 403 (UA-based block); direct curl with browser UA works for HEAD but index links are JS-paginated. Use Playwright for enumeration. Separate document store at plovdiv.obshtini.bg may also carry full protocols.",
+      "fetch": "playwright",
+      "format": "html",
+      "tallyStrategy": "regex-on-page",
+      "perCouncillor": false
+    },
+    "VAR01": {
+      "name": "Община Варна",
+      "tier": "B",
+      "indexUrl": "https://varnacouncil.bg/reshenija-na-obshtinski-savet-varna-mandat-2023-2027/",
+      "indexNote": "Static HTML index of decisions by mandate. Individual decisions link to PDF protokol attachments; aggregate tally typically inside the PDF body.",
+      "fetch": "static",
+      "format": "pdf-text",
+      "tallyStrategy": "regex-on-pdf",
+      "perCouncillor": false
+    },
+    "BGS01": {
+      "name": "Община Бургас",
+      "tier": "B",
+      "indexUrl": "https://burgascouncil.org/reshenia",
+      "indexNote": "Custom CMS with /node/<id> URL pattern per session. Aggregate vote totals not on the HTML index — embedded in the linked protocol documents. Drill-in by enumerating node ids.",
+      "fetch": "static",
+      "format": "mixed",
+      "nodeIdPattern": "/node/(\\d+)",
+      "tallyStrategy": "regex-on-pdf",
+      "perCouncillor": false
+    },
+    "SZR01": {
+      "name": "Община Стара Загора",
+      "tier": "C",
+      "indexUrl": "https://www.starazagora.bg/bg/resheniya-i-protokoli/",
+      "indexNote": "HTML index works. The per-decision text page exists, BUT per-councillor / per-vote totals are published ONLY as a scanned image PDF (skanirani-glasuvaniya-na-obshtsavetnitsi-sesiya-DDMMYY.pdf, Konica Minolta scan, no text layer). OCR-only — Phase 3.",
+      "fetch": "static",
+      "format": "pdf-scan",
+      "decisionUrlPattern": "/bg/resheniya-i-protokoli/resheniya-ot-protokol-(\\d+)-ot-(\\d{8})g",
+      "tallyStrategy": "gemini-ocr",
+      "perCouncillor": false
+    },
+    "RSE01": {
+      "name": "Община Русе",
+      "tier": "A",
+      "indexUrl": "https://obs.ruse-bg.eu/document-category/протоколи/",
+      "indexNote": "WordPress document archive. Files are DOCX (occasional PDF) under /wp-content/uploads/YYYY/MM/. File naming inconsistent: 'протокол-33.docx', 'ПРОТОКОЛ_32.docx', '29-1.docx'. Date / session number is in the archive page metadata, not in the filename — index walk must capture both.",
+      "fetch": "static",
+      "format": "docx",
+      "uploadPathPattern": "/wp-content/uploads/(\\d{4})/(\\d{2})/(.+\\.(?:docx?|pdf))",
+      "tallyStrategy": "regex-on-docx",
+      "perCouncillor": false
+    },
+    "PVN01": {
+      "name": "Община Плевен",
+      "tier": "A",
+      "indexUrl": "https://obs.pleven.bg/bg/protokoli-i-resheniya/",
+      "indexNote": "Custom CMS. Protocols at uploads/posts/protokol{N|-N}{|1}.{docx,pdf} (mixed conventions). Index page is reliable for enumeration; date + session number must be read from the surrounding HTML cells, not the filename.",
+      "fetch": "static",
+      "format": "docx",
+      "fileUrlPattern": "uploads/posts/protokol[-_]?(\\d+)(\\d?)\\.(docx?|pdf)",
+      "tallyStrategy": "regex-on-docx",
+      "perCouncillor": false
+    },
+    "VTR01": {
+      "name": "Община Велико Търново",
+      "tier": "A",
+      "indexUrl": "https://savet.veliko-tarnovo.bg/bg/resheniya/",
+      "indexNote": "Per-year sub-pages at /bg/resheniya-{YYYY}-godina/. Slug pattern resheniya-saglasno-protokol-N-ot-DDMMYYYY-g. Aggregate tally typically on the HTML decision page.",
+      "fetch": "static",
+      "format": "html",
+      "yearIndexPattern": "/bg/resheniya-(\\d{4})-godina/",
+      "decisionUrlPattern": "resheniya-saglasno-protokol-(\\d+)-ot-(\\d{8})-g",
+      "tallyStrategy": "regex-on-page",
+      "perCouncillor": false
+    },
+    "BLG03": {
+      "name": "Община Благоевград",
+      "tier": "C",
+      "indexUrl": "https://blagoevgrad.bg/",
+      "indexNote": "Legacy /files/ObS/Resheniq/ directory listing is GONE (was a 308→404 redirect on 2026-05-29). The município migrated to e-obs.online SaaS; live system requires auth to enumerate. Phase 1 should DEFER Blagoevgrad until the new public surface is found. Old .doc files for back years (2014-2019) may still be reachable via archive.org.",
+      "fetch": "static",
+      "format": "doc",
+      "tallyStrategy": "regex-on-doc",
+      "perCouncillor": false,
+      "phase1Defer": true,
+      "deferReason": "Legacy ObS/Resheniq directory listing returns 404; e-obs.online migration. Re-discover before scraping."
+    }
+  },
+  "phase3OcrCandidates": ["SZR01", "SLV01"],
+  "phase3Sliven": {
+    "obshtinaCode": "SLV01",
+    "name": "Община Сливен",
+    "tier": "C",
+    "indexUrl": "https://obs.sliven.bg/decisions",
+    "indexNote": "Per-vote published as scanned image PDFs with opaque hash filenames (/uploads/<HEX>). Selective publication. Phase 3 only.",
+    "format": "pdf-scan",
+    "tallyStrategy": "gemini-ocr",
+    "perCouncillor": false
+  }
+}
