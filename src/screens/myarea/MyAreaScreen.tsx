@@ -13,7 +13,7 @@
 // /settlement/:id and /municipality/:id routes: it's place-first, with
 // representatives and the next-election calendar pinned at the top.
 
-import { FC, lazy, Suspense, useEffect } from "react";
+import { FC, lazy, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { AlertTriangle } from "lucide-react";
@@ -21,7 +21,6 @@ import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Card } from "@/components/ui/card";
 import { useAreaResolver } from "@/data/area/useAreaResolver";
-import { useAreaAnchor, useSetAreaAnchor } from "@/data/area/areaAnchor";
 import { useCycleKind } from "@/data/area/useCycleKind";
 import { MyAreaHero } from "./MyAreaHero";
 import { MyAreaRepresentativesStrip } from "./MyAreaRepresentativesStrip";
@@ -63,18 +62,12 @@ export const MyAreaScreen: FC = () => {
   const { id } = useParams<{ id: string }>();
   const area = useAreaResolver(id);
   const cycle = useCycleKind();
-  const anchor = useAreaAnchor();
-  const setAnchor = useSetAreaAnchor();
 
-  // Keep `?area=<id>` in sync with the path when the user lands here via a
-  // direct link (e.g. a shared My-Area URL). Without this, the persistent
-  // header pill wouldn't show until the user re-picked the area through
-  // the sniper button.
-  useEffect(() => {
-    if (id && anchor?.id !== id) {
-      setAnchor(id);
-    }
-  }, [id, anchor, setAnchor]);
+  // No need to mirror the path :id into `?area=` — AreaAnchorProvider now
+  // reads from the path directly on the /my-area/<id> route. That removed
+  // both the URL dupe (path + query carrying the same code) AND the race
+  // where setAnchor(null) on the pill or popover got immediately re-set
+  // here from the path. See AreaAnchorProvider for the precedence rules.
 
   if (!id) {
     return (

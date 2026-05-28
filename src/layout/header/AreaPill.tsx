@@ -8,7 +8,7 @@
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MapPin, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAreaAnchor, useSetAreaAnchor } from "@/data/area/areaAnchor";
@@ -22,6 +22,7 @@ export const AreaPill: FC = () => {
   const anchor = useAreaAnchor();
   const setAnchor = useSetAreaAnchor();
   const navigate = useNavigate();
+  const location = useLocation();
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
 
@@ -72,7 +73,17 @@ export const AreaPill: FC = () => {
       <button
         type="button"
         aria-label={clearLabel}
-        onClick={() => setAnchor(null)}
+        onClick={() => {
+          setAnchor(null);
+          // When the user is currently ON a /my-area/<id> route, the
+          // path itself is what AreaAnchorProvider reads — clearing
+          // ?area= alone would leave the path-derived anchor live and
+          // the pill would re-render immediately. Navigate away first
+          // so the clear sticks.
+          if (/^(?:\/en)?\/my-area\/.+/.test(location.pathname)) {
+            navigate("/my-area");
+          }
+        }}
         className={cn(
           "flex items-center px-1.5 text-muted-foreground transition-colors",
           "hover:bg-primary/[0.18] hover:text-foreground",
