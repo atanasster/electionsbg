@@ -24,6 +24,7 @@ import { useAreaResolver } from "@/data/area/useAreaResolver";
 import { useCycleKind } from "@/data/area/useCycleKind";
 import { MyAreaHero } from "./MyAreaHero";
 import { MyAreaRepresentativesStrip } from "./MyAreaRepresentativesStrip";
+import { MyAreaImportantVotesTile } from "./MyAreaImportantVotesTile";
 import { MyAreaUpcomingBallotTile } from "./MyAreaUpcomingBallotTile";
 import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
@@ -32,7 +33,6 @@ import { MyAreaQualityStrip } from "./MyAreaQualityStrip";
 import { MyAreaProjectsMapTile } from "./MyAreaProjectsMapTile";
 import { MyAreaAlertsTile } from "./MyAreaAlertsTile";
 import { MyAreaSofiaRaionStrip } from "./MyAreaSofiaRaionStrip";
-import { MyAreaContactsTile } from "./MyAreaContactsTile";
 import { MyAreaCouncilMinutesTile } from "./MyAreaCouncilMinutesTile";
 import { MyAreaActionBand } from "./MyAreaActionBand";
 import { MyAreaGovernmentCard } from "./MyAreaGovernmentCard";
@@ -133,6 +133,12 @@ export const MyAreaScreen: FC = () => {
           <MyAreaUpcomingBallotTile />
         </div>
 
+        {/* "Как гласуваха" — voting record of the area's MPs on the most
+            consequential roll-call items from the currently-selected NS.
+            Auto-hides for non-parliamentary cycles, empty MIRs, or NSes
+            with no important items in topic_index. */}
+        <MyAreaImportantVotesTile oblast={area.oblast} />
+
         {/* "Where do I vote?" — lists every CIK polling section assigned
             to this settlement's ekatte for the currently-selected
             election. Settlement-only. Auto-hides when no sections are
@@ -158,13 +164,9 @@ export const MyAreaScreen: FC = () => {
             update-council-minutes populates the data file. */}
         <MyAreaCouncilMinutesTile obshtina={area.obshtina} />
 
-        {/* Transparency + Contacts duo. Both auto-hide independently when
-            their respective data is unavailable; the grid wrapper collapses
-            with them so we don't reserve dead space. */}
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-          <MyAreaTransparencyTile obshtina={area.obshtina} />
-          <MyAreaContactsTile obshtina={area.obshtina} />
-        </div>
+        {/* Transparency tile — official contact emails moved inline next
+            to each name on MyAreaGovernmentCard. */}
+        <MyAreaTransparencyTile obshtina={area.obshtina} />
 
         {/* Band D — Local government. */}
 

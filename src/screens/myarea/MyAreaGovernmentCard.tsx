@@ -11,14 +11,35 @@
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Crown, ArrowRight, Landmark, ChevronDown } from "lucide-react";
+import { Crown, ArrowRight, Landmark, ChevronDown, Mail } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/ux/Link";
 import { useMunicipalOfficials } from "@/data/officials/useMunicipalOfficials";
+import { useMunicipalContacts } from "@/data/officials/useMunicipalContacts";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import type { LocalCouncilParty } from "@/data/local/types";
+
+// Small clickable mail-icon chip rendered next to an official's name
+// when iisda's directory has an email for them. Visually unobtrusive
+// (size-3 icon, no surrounding text) so it doesn't compete with the
+// person's name for attention. The mailto: opens the user's default
+// mail client.
+const MailLink: FC<{ email: string; nameForAria: string }> = ({
+  email,
+  nameForAria,
+}) => (
+  <a
+    href={`mailto:${email}`}
+    onClick={(e) => e.stopPropagation()}
+    aria-label={`Email ${nameForAria} (${email})`}
+    title={email}
+    className="inline-flex items-center text-muted-foreground hover:text-primary align-middle"
+  >
+    <Mail className="size-3" />
+  </a>
+);
 
 type Props = {
   obshtina: string;
@@ -51,6 +72,7 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const { roster } = useMunicipalOfficials(obshtina);
+  const { emailForName } = useMunicipalContacts(obshtina);
   const { municipality: localBundle } = useLocalMunicipality(obshtina);
   const { displayNameForId, colorFor } = useCanonicalParties();
   const { findMunicipality } = useMunicipalities();
@@ -259,13 +281,21 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
           </div>
           {mayor ? (
             <>
-              <Link
-                to={`/officials/${mayor.slug}?from=${obshtina}`}
-                underline={false}
-                className="text-base font-semibold leading-tight hover:underline"
-              >
-                {mayor.name}
-              </Link>
+              <div className="flex items-baseline gap-1.5 flex-wrap">
+                <Link
+                  to={`/officials/${mayor.slug}?from=${obshtina}`}
+                  underline={false}
+                  className="text-base font-semibold leading-tight hover:underline"
+                >
+                  {mayor.name}
+                </Link>
+                {(() => {
+                  const email = emailForName(mayor.name);
+                  return email ? (
+                    <MailLink email={email} nameForAria={mayor.name} />
+                  ) : null;
+                })()}
+              </div>
               <div className="text-xs text-muted-foreground mt-0.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
                 <span>
                   {mayorPartyLabel ? (
@@ -315,13 +345,21 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
               <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-0.5">
                 {lang === "bg" ? "Председател на ОбС" : "Council chair"}
               </div>
-              <Link
-                to={`/officials/${chair.slug}?from=${obshtina}`}
-                underline={false}
-                className="text-sm font-medium hover:underline"
-              >
-                {chair.name}
-              </Link>
+              <div className="flex items-baseline gap-1.5 flex-wrap">
+                <Link
+                  to={`/officials/${chair.slug}?from=${obshtina}`}
+                  underline={false}
+                  className="text-sm font-medium hover:underline"
+                >
+                  {chair.name}
+                </Link>
+                {(() => {
+                  const email = emailForName(chair.name);
+                  return email ? (
+                    <MailLink email={email} nameForAria={chair.name} />
+                  ) : null;
+                })()}
+              </div>
             </div>
           ) : null}
         </div>
@@ -440,6 +478,7 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
                   entries={deputyMayors.map((e) => ({
                     name: e.name,
                     slug: e.slug,
+                    email: emailForName(e.name),
                   }))}
                 />
               ) : null}
@@ -451,6 +490,7 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
                     {
                       name: chiefArchitect.name,
                       slug: chiefArchitect.slug,
+                      email: emailForName(chiefArchitect.name),
                     },
                   ]}
                 />
@@ -523,7 +563,7 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
   );
 };
 
-type RosterEntry = { name: string; slug: string };
+type RosterEntry = { name: string; slug: string; email?: string };
 
 const RosterSection: FC<{
   title: string;
@@ -544,6 +584,12 @@ const RosterSection: FC<{
           >
             {e.name}
           </Link>
+          {e.email ? (
+            <>
+              {" "}
+              <MailLink email={e.email} nameForAria={e.name} />
+            </>
+          ) : null}
         </li>
       ))}
     </ul>

@@ -1,12 +1,13 @@
-// Scrape mayor email addresses from the iisda.government.bg
-// "Кметове на общини" registry.
+// Scrape mayor + deputy-mayor email addresses from the
+// iisda.government.bg "Кметове на общини" registry.
 //
 // The registry uses an xajax-based pagination that's awkward to drive
 // programmatically. The detail-page URLs are predictable
 // (/ras/governing_bodies/governing_body/<id>) and mayor IDs sit in a
 // contiguous block around 4400..4920, so we scan that range, filter
-// pages whose body contains "Кмет на община", and extract the email +
-// município name.
+// pages whose body contains "Кмет на община", and extract every
+// person-block on the page (mayor + Заместници section) — each carries
+// a role label, full name, and `mailto:` email.
 //
 // Run: `npx tsx scripts/officials/municipal_contacts/scrape_iisda.ts`
 // Writes: data/officials/municipal_contacts/index.json
@@ -86,18 +87,61 @@ const parseRegistryHeader = (html: string): { municipality: string } | null => {
   return { municipality: m[1].trim() };
 };
 
-const extractEmail = (html: string): string | null => {
-  // The mayor's email shows up as plain text on the page; first @ token
-  // that looks like a real email wins.
-  const m = html.match(/[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
-  return m ? m[0] : null;
+type PersonRole = "mayor" | "deputy_mayor" | "other";
+
+type Person = {
+  role: PersonRole;
+  /** Verbatim role label, e.g. "Кмет на община" or "Заместник-кмет". */
+  roleRaw: string;
+  /** Full name as it appears on the page. */
+  name: string;
+  email: string;
 };
 
-const extractMayorName = (html: string): string | null => {
-  // "Заемащ длъжността" or the name shows up after "Имена" / "Име" labels.
-  const m = html.match(/Заемащ\s+длъжността[^<]*<[^>]+>\s*([^<]+?)\s*</);
-  if (m) return m[1].trim();
-  return null;
+const roleSlug = (raw: string): PersonRole => {
+  if (/Заместник[\s-]?кмет/iu.test(raw)) return "deputy_mayor";
+  if (/Кмет\s+на\s+(?:община|район|кметство)/iu.test(raw)) return "mayor";
+  return "other";
+};
+
+// Walk every <li class="level-1"> block in the document and pull
+// (role, name, email) out of each. The page renders one such block per
+// person: top text node carries the role label, the name lives in a
+// <span class="li-sub-text-name">, and the email is the first
+// `mailto:` href inside the block. Blocks that don't carry all three
+// (e.g. the "Степен на разпоредител с бюджет" block) are skipped.
+const extractPeople = (html: string): Person[] => {
+  const out: Person[] = [];
+  const re =
+    /<li class="level-1">([\s\S]*?)<\/li>\s*(?=<li class="level-1"|<\/ul>)/g;
+  for (const m of html.matchAll(re)) {
+    const block = m[1];
+    // Role: first non-empty text inside <div class="level-1-content">
+    // up to the first <br>. Strip tags + collapse whitespace.
+    const roleMatch = block.match(
+      /<div class="level-1-content">([\s\S]*?)<br\s*\/?>/,
+    );
+    const roleRaw = roleMatch
+      ? roleMatch[1]
+          .replace(/<[^>]+>/g, " ")
+          .replace(/\s+/g, " ")
+          .trim()
+      : "";
+    const nameMatch = block.match(
+      /<span class="li-sub-text-name">\s*([^<]+?)\s*<\/span>/,
+    );
+    const emailMatch = block.match(
+      /href="mailto:([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})"/,
+    );
+    if (!roleRaw || !nameMatch || !emailMatch) continue;
+    out.push({
+      role: roleSlug(roleRaw),
+      roleRaw,
+      name: nameMatch[1].normalize("NFC").replace(/\s+/g, " ").trim(),
+      email: emailMatch[1],
+    });
+  }
+  return out;
 };
 
 const normName = (s: string): string =>
@@ -138,9 +182,21 @@ const main = async () => {
   // we see; not strictly needed but useful for ambiguity tie-break.
   // (Empty placeholder — we use the iisda oblast string directly.)
 
+  type OfficialEntry = {
+    role: PersonRole;
+    roleRaw: string;
+    name: string;
+    email: string;
+  };
   const out: Record<
     string,
-    { phone?: string; email?: string; mayor?: string; iisda_id: number }
+    {
+      phone?: string;
+      email?: string;
+      mayor?: string;
+      iisda_id: number;
+      officials?: OfficialEntry[];
+    }
   > = {};
   let scanned = 0;
   let mayorsFound = 0;
@@ -158,8 +214,10 @@ const main = async () => {
       ) {
         mayorsFound++;
         const header = parseRegistryHeader(html);
-        const email = extractEmail(html);
-        const mayor = extractMayorName(html);
+        const people = extractPeople(html);
+        const mayorPerson = people.find((p) => p.role === "mayor") ?? null;
+        const email = mayorPerson?.email;
+        const mayor = mayorPerson?.name;
         if (header) {
           const key = normName(header.municipality);
           const candidates = byName.get(key) ?? [];
@@ -185,10 +243,19 @@ const main = async () => {
           }
           if (code) {
             matched++;
+            const officials: OfficialEntry[] = people
+              .filter((p) => p.role !== "other")
+              .map((p) => ({
+                role: p.role,
+                roleRaw: p.roleRaw,
+                name: p.name,
+                email: p.email,
+              }));
             out[code] = {
-              email: email ?? undefined,
-              mayor: mayor ?? undefined,
+              email,
+              mayor,
               iisda_id: id,
+              officials: officials.length > 0 ? officials : undefined,
             };
           } else {
             unmatched.push({
@@ -218,7 +285,7 @@ const main = async () => {
     sourceUrl:
       "https://iisda.government.bg/ras/governing_bodies/gb_municipality_administrations",
     indexName:
-      "Municipal mayor contacts (email only; iisda doesn't publish phone/website here)",
+      "Municipal officials contacts (mayor + deputy mayors; email only — iisda doesn't publish phone/website here)",
     scrapedAt: new Date().toISOString(),
     contactsByObshtina: out,
     note: `Scraped ${mayorsFound} mayor detail pages from iisda's ID range ${ID_RANGE_START}–${ID_RANGE_END}; matched ${matched} to municipalities.json. ${unmatched.length} unmatched (likely name-ambiguity edge cases — see scrape log).`,

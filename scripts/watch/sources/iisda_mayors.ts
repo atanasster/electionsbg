@@ -2,19 +2,25 @@
 //
 // The registry's master list page is xajax-paginated and doesn't expose
 // a stable per-page snapshot, but the page header reports the total
-// mayor count ("$.pagination(265, ...)"). We fingerprint the count.
+// mayor count ("$.pagination(265, ...)"). We fingerprint the count plus
+// the first-page IDs (so re-indexed mayors after a successor lands also
+// flip the fingerprint even when the count is unchanged).
 //
-// In practice the mayor roster shifts only on:
+// In practice the roster shifts only on:
 //   - regular local-election cycles (~ every 4 years)
 //   - chmi partial-election cycles (every few months across the country)
 //   - manual resignation / death replacements (rare)
+//   - individual zам.-кмет appointments / dismissals (a deputy block on
+//     the mayor's detail page changes, but the master-list fingerprint
+//     stays the same — these are picked up only when chmi or count flips
+//     happen to coincide; a forced rescrape with `--force` catches them)
 // so the count itself is a coarse but reliable change signal.
 //
 // Downstream `update-municipal-contacts` re-scrapes the full 4400..4950
 // detail-page range (cached HTML in raw_data/officials/iisda_mayors/)
-// when invoked. Cadence: monthly — chmi cycles happen often enough that
-// quarterly would lose timely signal, daily would hammer iisda for no
-// useful reason.
+// when invoked — extracts mayor + every deputy-mayor email per município.
+// Cadence: monthly — chmi cycles happen often enough that quarterly
+// would lose timely signal, daily would hammer iisda for no useful reason.
 
 import { createHash } from "crypto";
 import type { WatchSource, Fingerprint } from "../types";
