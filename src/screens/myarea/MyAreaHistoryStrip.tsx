@@ -15,6 +15,7 @@ import { Card } from "@/components/ui/card";
 import { Link } from "@/ux/Link";
 import type { ResolvedArea } from "@/data/area/useAreaResolver";
 import { useSettlementStats } from "@/data/settlements/useSettlementStats";
+import { useElectionContext } from "@/data/ElectionContext";
 
 type Props = {
   area: Extract<
@@ -45,6 +46,21 @@ const SettlementHistoryBody: FC<{ ekatte: string; lang: "bg" | "en" }> = ({
   lang,
 }) => {
   const { stats } = useSettlementStats(ekatte);
+  // National turnout per cycle — from the statically-imported
+  // elections.json (no fetch). Lets us tag the latest settlement cycle
+  // with a "vs national" comparison.
+  const { stats: nationalStats } = useElectionContext();
+  const nationalTurnoutByCycle = useMemo<Map<string, number>>(() => {
+    const m = new Map<string, number>();
+    for (const e of nationalStats ?? []) {
+      const p = e.results?.protocol;
+      const reg = p?.numRegisteredVoters ?? 0;
+      const voters = p?.totalActualVoters ?? 0;
+      if (reg > 0 && voters > 0) m.set(e.name, voters / reg);
+    }
+    return m;
+  }, [nationalStats]);
+
   const points = useMemo<TurnoutPoint[]>(() => {
     if (!stats || stats.length === 0) return [];
     const out: TurnoutPoint[] = [];
@@ -92,6 +108,17 @@ const SettlementHistoryBody: FC<{ ekatte: string; lang: "bg" | "en" }> = ({
   const first = points[0];
   const delta = last.turnout - first.turnout;
 
+  // "vs national turnout" for the latest cycle. Higher turnout reads as
+  // stronger civic engagement → green when above the national figure.
+  const nationalLast = nationalTurnoutByCycle.get(last.cycle) ?? null;
+  const vsNational =
+    nationalLast != null
+      ? {
+          diff: last.turnout - nationalLast,
+          nationalPct: formatPct(nationalLast, lang),
+        }
+      : null;
+
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-end gap-4">
@@ -103,6 +130,27 @@ const SettlementHistoryBody: FC<{ ekatte: string; lang: "bg" | "en" }> = ({
             {lang === "bg" ? "избирателна активност" : "voter turnout"} ·{" "}
             {formatCycleShort(last.cycle)}
           </span>
+          {vsNational ? (
+            <span
+              className={`text-[10px] font-medium mt-0.5 ${
+                Math.abs(vsNational.diff) < 0.01
+                  ? "text-muted-foreground"
+                  : vsNational.diff > 0
+                    ? "text-emerald-600"
+                    : "text-rose-600"
+              }`}
+            >
+              {Math.abs(vsNational.diff) < 0.01
+                ? lang === "bg"
+                  ? `≈ ср. за страната (${vsNational.nationalPct})`
+                  : `≈ national (${vsNational.nationalPct})`
+                : `${vsNational.diff > 0 ? "+" : ""}${(vsNational.diff * 100).toFixed(1)} ${
+                    lang === "bg" ? "пр.пр. спрямо" : "pp vs"
+                  } ${vsNational.nationalPct} ${
+                    lang === "bg" ? "нац." : "nat."
+                  }`}
+            </span>
+          ) : null}
         </div>
         <div className="flex flex-col">
           <svg width={W} height={H} aria-hidden className="text-primary">
