@@ -23,6 +23,7 @@ import type { MuniRecipe, SourcesFile, MuniScrapeResult } from "./lib/types";
 import { mergeMuniResult } from "./lib/index_writer";
 import { scrapeVTR } from "./parsers/vtr";
 import { scrapeSZR } from "./parsers/szr";
+import { scrapeRSE } from "./parsers/rse";
 
 const STATE_DIR = join(process.cwd(), "state/ingest");
 const SOURCES_PATH = join(process.cwd(), "data/council/sources.json");
@@ -46,7 +47,8 @@ type Dispatcher = (
 const DISPATCHERS: Record<string, Dispatcher> = {
   VTR01: scrapeVTR,
   SZR01: scrapeSZR,
-  // SOF, RSE01, PVN01, VAR01, BGS01, PDV01, SLV01 land here as each parser ships.
+  RSE01: scrapeRSE,
+  // SOF, PVN01, VAR01, BGS01, PDV01, SLV01 land here as each parser ships.
 };
 
 type IngestState = {

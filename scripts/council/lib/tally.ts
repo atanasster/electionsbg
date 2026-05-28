@@ -280,21 +280,22 @@ export const extractNamedVoteBlock = (
  *
  *  - All-caps РЕШЕНИЕ vs lowercased Решение (the latter is always a
  *    reference like "съгласно Решение № 70 от Протокол 14").
- *  - Headers sit on their own line, often centered (significant leading
- *    whitespace), occasionally with a trailing annotation like
- *    "– приложение към протокола".
+ *  - Headers sit on their own line. V. Tarnovo PDFs CENTER them with
+ *    heavy whitespace; Ruse DOCX flush-lefts them; Stara Zagora prepis-
+ *    PDFs use a blank-line + centered indent. The unifying signal is
+ *    "starts a line" — leading whitespace is optional.
  *
- * The regex requires line-start + leading whitespace + all-caps РЕШЕНИЕ.
- * Returns each marker's offset, captured number, and the best-effort
- * title pulled from the most recent preceding ОТНОСНО: clause (looked
- * back up to ~6000 chars to span a debate).
+ * The regex requires line-start (or file-start) + optional whitespace +
+ * all-caps РЕШЕНИЕ. Returns each marker's offset, captured number, and
+ * the best-effort title pulled from the most recent preceding ОТНОСНО:
+ * clause (looked back up to ~6000 chars to span a debate).
  */
 export const findResolutionMarkers = (
   text: string,
 ): Array<{ offset: number; number: string; title: string }> => {
   const out: Array<{ offset: number; number: string; title: string }> = [];
-  // (^|\n) + indent + all-caps РЕШЕНИЕ + № + digits.
-  const re = /(?:^|\n)[ \t]+РЕШЕНИЕ\s*№\s*(\d+)/gu;
+  // (^|\n) + optional indent + all-caps РЕШЕНИЕ + № + digits.
+  const re = /(?:^|\n)[ \t]*РЕШЕНИЕ\s*№\s*(\d+)/gu;
   let m: RegExpExecArray | null;
   while ((m = re.exec(text)) !== null) {
     // m.index points at the (^|\n) boundary; nudge past it for the marker offset.
