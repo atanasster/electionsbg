@@ -13,7 +13,7 @@
 import { FC, useCallback, useState } from "react";
 import { Crosshair, Loader2, MapPin, X } from "lucide-react";
 import { Command as CommandPrimitive } from "cmdk";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Popover,
@@ -63,6 +63,13 @@ export const AreaSniperButton: FC = () => {
   const [ambiguous, setAmbiguous] = useState<{
     candidates: Array<{ settlement: SettlementInfo; distanceKm: number }>;
   } | null>(null);
+  // Force the search view even when an anchor exists. Set by 'Change area'.
+  // MyAreaScreen has a useEffect that re-syncs the anchor from the URL path,
+  // so simply calling setAnchor(null) would snap right back. This override
+  // lets the popover show the search input regardless of anchor state, and
+  // gets reset on close.
+  const [showSearchOverride, setShowSearchOverride] = useState(false);
+  const location = useLocation();
 
   const goTo = useCallback(
     (id: string) => {
@@ -148,7 +155,18 @@ export const AreaSniperButton: FC = () => {
 
   return (
     <>
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover
+        open={open}
+        onOpenChange={(next) => {
+          setOpen(next);
+          // Closing the popover resets the override so the next open
+          // starts in the "anchored" view (when an anchor exists).
+          if (!next) {
+            setShowSearchOverride(false);
+            setQuery("");
+          }
+        }}
+      >
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
@@ -168,7 +186,7 @@ export const AreaSniperButton: FC = () => {
           // 320 px so the popover content remains readable on iPhone SE.
           className="w-[320px] p-0"
         >
-          {anchor ? (
+          {anchor && !showSearchOverride ? (
             <div className="p-3 flex flex-col gap-2">
               <div className="text-xs text-muted-foreground uppercase tracking-wide">
                 {t("my_area_label")}
@@ -194,6 +212,15 @@ export const AreaSniperButton: FC = () => {
                   size="sm"
                   onClick={() => {
                     setAnchor(null);
+                    // If we're on /my-area/<id>, the route's useEffect will
+                    // re-sync the anchor from the path the moment we clear
+                    // it. Navigate to the entry screen first so there's no
+                    // path to sync from. Anywhere else, just clearing is
+                    // enough — the pill disappears, dashboard tiles that
+                    // read the anchor go inert.
+                    if (/^\/my-area\/.+/.test(location.pathname)) {
+                      navigate("/my-area");
+                    }
                     setOpen(false);
                   }}
                   aria-label={t("my_area_clear")}
@@ -204,7 +231,11 @@ export const AreaSniperButton: FC = () => {
               <button
                 type="button"
                 className="text-xs text-muted-foreground hover:text-foreground underline self-start mt-1"
-                onClick={() => setAnchor(null)}
+                // Local override flips the popover to the search view
+                // without touching the anchor — so the URL-anchor sync in
+                // MyAreaScreen doesn't fight us. When the user picks a new
+                // area, goTo() updates the anchor and navigates.
+                onClick={() => setShowSearchOverride(true)}
               >
                 {t("my_area_change")}
               </button>
