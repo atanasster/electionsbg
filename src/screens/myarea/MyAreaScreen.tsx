@@ -27,6 +27,7 @@ import { MyAreaHero } from "./MyAreaHero";
 import { MyAreaRepresentativesStrip } from "./MyAreaRepresentativesStrip";
 import { MyAreaUpcomingBallotTile } from "./MyAreaUpcomingBallotTile";
 import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
+import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 
 // Lazy-load the heavy dashboard variants — most My-Area visits don't need
 // both, and the Suspense fallback shows skeletons identical to a direct
@@ -141,6 +142,12 @@ export const MyAreaScreen: FC = () => {
             obshtina={area.obshtina}
           />
         ) : null}
+
+        {/* "Where do my taxes go" personalized receipt. Collapsed by
+            default — the COFOG payload only fetches when the user expands.
+            Same for every area (national budget mix); placed here because
+            the My-Area page is the civic-engagement landing. */}
+        <MyAreaTaxReceiptTile />
 
         {/* Existing canonical dashboard. Reused as-is so every tile —
             mayor, council, budget transfers, EU funds, census, indicators,
