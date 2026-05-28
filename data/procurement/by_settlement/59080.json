@@ -3,37 +3,37 @@
   "name": "Първомай",
   "province": "Пловдив",
   "obshtina": "Първомай",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 302,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 196,
   "awardCount": 0,
-  "totalEur": 62162481.733304076,
+  "totalEur": 60368241.053407505,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000471536",
       "name": "Община Първомай",
       "tier": "municipal",
-      "totalEur": 57491514.92373857,
+      "totalEur": 59979017.583738565,
       "totalOther": {},
-      "contractCount": 178,
-      "awardCount": 0
-    },
-    {
-      "eik": "115516059",
-      "name": "Многопрофилна болница за активно лечение - първомай ЕООД",
-      "tier": "hospital",
-      "totalEur": 4427223.559896566,
-      "totalOther": {},
-      "contractCount": 119,
+      "contractCount": 182,
       "awardCount": 0
     },
     {
       "eik": "000454768",
       "name": "Средно училище \"Професор Д-Р асен Златаров\" - гр. Първомай",
       "tier": "school",
-      "totalEur": 243743.24966893854,
+      "totalEur": 350511.16966893856,
       "totalOther": {},
-      "contractCount": 5,
+      "contractCount": 13,
+      "awardCount": 0
+    },
+    {
+      "eik": "000460408",
+      "name": "Основно училище \"Георги Караславов\" - кв. Дебър, гр. Първомай",
+      "tier": "school",
+      "totalEur": 38712.3,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -255,6 +255,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522427-814899%2F2026-02-23-award"
     },
     {
+      "key": "9608cb294d59",
+      "ocid": "ocds-e82gsb-555007",
+      "date": "2026-05-07",
+      "amount": 770034.22,
+      "currency": "EUR",
+      "amountEur": 770034.22,
+      "partyEik": "202082418",
+      "partyName": "Маридел 2012 ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-555007-852443%2F2026-05-07-award"
+    },
+    {
+      "key": "d0b5e68ece5a",
+      "ocid": "ocds-e82gsb-555007",
+      "date": "2026-05-07",
+      "amount": 770034.22,
+      "currency": "EUR",
+      "amountEur": 770034.22,
+      "partyEik": "208283723",
+      "partyName": "Е-МОНСЕЛ ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-555007-852443%2F2026-05-07-award"
+    },
+    {
+      "key": "e2eacc0de3a5",
+      "ocid": "ocds-e82gsb-555007",
+      "date": "2026-05-07",
+      "amount": 770034.22,
+      "currency": "EUR",
+      "amountEur": 770034.22,
+      "partyEik": "204960708",
+      "partyName": "Дръстър инженеринг ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-555007-852443%2F2026-05-07-award"
+    },
+    {
       "key": "a03f921db1dc",
       "ocid": "ocds-e82gsb-522427",
       "date": "2026-02-23",
@@ -471,18 +507,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
-      "key": "7ffbe495f3e1",
-      "ocid": "aop-legacy-2022-281062",
-      "date": "2022-10-03",
-      "amount": 643820.51,
-      "currency": "BGN",
-      "amountEur": 329180.1997106088,
-      "partyEik": "203215490",
-      "partyName": "Парсек груп ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
       "key": "ba2875d6b497",
       "ocid": "aop-legacy-2022-205613",
       "date": "2022-03-15",
@@ -493,18 +517,6 @@
       "partyName": "ЕВН България електроснабдяване ЕАД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "f4aedca0a3b9",
-      "ocid": "aop-legacy-2011-2015-573167",
-      "date": "2013-12-04",
-      "amount": 558853.9,
-      "currency": "BGN",
-      "amountEur": 285737.4618448434,
-      "partyEik": "103267194",
-      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
       "key": "f2e52de174ad",
@@ -579,18 +591,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
-      "key": "901fb06ee720",
-      "ocid": "ocds-e82gsb-543780",
-      "date": "2026-02-05",
-      "amount": 204516.75,
-      "currency": "EUR",
-      "amountEur": 204516.75,
-      "partyEik": "131085380",
-      "partyName": "Плъкси българия ЕООД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-543780-806940%2F2026-02-05-award"
-    },
-    {
       "key": "daab3876a51b",
       "ocid": "aop-legacy-2023-316795",
       "date": "2023-01-10",
@@ -627,42 +627,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
-      "key": "644392d25b2c",
-      "ocid": "aop-legacy-2011-2015-505361",
-      "date": "2012-10-23",
-      "amount": 379308.8,
+      "key": "94a212eb11fb",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-10-18",
+      "amount": 365262,
       "currency": "BGN",
-      "amountEur": 193937.5099062802,
-      "partyEik": "103267194",
-      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+      "amountEur": 186755.49510949315,
+      "partyEik": "200523611",
+      "partyName": "Класико проект  ЕООД",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 1938374.7053680534,
+      "totalEur": 1701988.1073508433,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 6
     },
     {
       "year": "2012",
-      "totalEur": 2023861.951192077,
+      "totalEur": 1638317.236160607,
       "totalOther": {},
-      "contractCount": 18
+      "contractCount": 7
     },
     {
       "year": "2013",
-      "totalEur": 16032655.604014663,
+      "totalEur": 15746918.14216982,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 13
     },
     {
       "year": "2014",
-      "totalEur": 2507171.6918137055,
+      "totalEur": 2362997.2952659484,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 5
     },
     {
       "year": "2015",
@@ -672,21 +672,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 911470.9918551204,
+      "totalEur": 313886.08416886954,
       "totalOther": {},
-      "contractCount": 21
+      "contractCount": 5
     },
     {
       "year": "2017",
-      "totalEur": 2012392.5443417884,
+      "totalEur": 1751902.7727358718,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 15
     },
     {
       "year": "2019",
-      "totalEur": 7264029.337928142,
+      "totalEur": 6551704.575551044,
       "totalOther": {},
-      "contractCount": 26
+      "contractCount": 13
     },
     {
       "year": "2020",
@@ -696,21 +696,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 5904776.596125432,
+      "totalEur": 5341732.1495222,
       "totalOther": {},
-      "contractCount": 54
+      "contractCount": 40
     },
     {
       "year": "2023",
-      "totalEur": 7046826.590245572,
+      "totalEur": 6009406.840062785,
       "totalOther": {},
-      "contractCount": 86
+      "contractCount": 45
     },
     {
       "year": "2026",
-      "totalEur": 16323038.070000004,
+      "totalEur": 18751504.2,
       "totalOther": {},
-      "contractCount": 31
+      "contractCount": 43
     }
   ]
 }

@@ -3,28 +3,19 @@
   "name": "Нови пазар",
   "province": "Шумен",
   "obshtina": "Нови пазар",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "generatedAt": "2026-05-28T08:40:27.221Z",
   "contractCount": 398,
   "awardCount": 0,
-  "totalEur": 54832876.19447821,
+  "totalEur": 56206289.64039089,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000931575",
       "name": "Община Нови пазар",
       "tier": "municipal",
-      "totalEur": 54416714.46039089,
+      "totalEur": 56206289.64039089,
       "totalOther": {},
-      "contractCount": 384,
-      "awardCount": 0
-    },
-    {
-      "eik": "000921734",
-      "name": "Средно училище \"Васил Левски\"",
-      "tier": "school",
-      "totalEur": 416161.73408731836,
-      "totalOther": {},
-      "contractCount": 14,
+      "contractCount": 398,
       "awardCount": 0
     }
   ],
@@ -160,6 +151,30 @@
       "partyName": "Декра - Строй ЕООД - Русе",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "21d67506a528",
+      "ocid": "ocds-e82gsb-436062",
+      "date": "2026-05-18",
+      "amount": 770464.18,
+      "currency": "EUR",
+      "amountEur": 770464.18,
+      "partyEik": "127519383",
+      "partyName": "Пътно поддържане нови пазар ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-436062-856390%2F2026-05-18-contractamendment"
+    },
+    {
+      "key": "cb47e5d5e2ff",
+      "ocid": "ocds-e82gsb-436062",
+      "date": "2026-05-18",
+      "amount": 770464.18,
+      "currency": "EUR",
+      "amountEur": 770464.18,
+      "partyEik": "103561242",
+      "partyName": "ПЪТСТРОЙ-ВАРНА ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-436062-856390%2F2026-05-18-contractamendment"
     },
     {
       "key": "89295394b87a",
@@ -604,44 +619,20 @@
       "partyName": "ДЗЗД Груп Консулт - Пловдив",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "8d8ab9f6d380",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-03-20",
-      "amount": 464576.33,
-      "currency": "BGN",
-      "amountEur": 237534.10572493522,
-      "partyEik": "177138399",
-      "partyName": "ДЗЗД  Профгруп - Нови пазар",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "ca640095e453",
-      "ocid": "aop-legacy-2017-777174",
-      "date": "2017-03-20",
-      "amount": 464576.33,
-      "currency": "BGN",
-      "amountEur": 237534.10572493522,
-      "partyEik": "177138399",
-      "partyName": "ДЗЗД  Профгруп - Нови пазар",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 523485.9727072394,
+      "totalEur": 513865.50467065134,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 11
     },
     {
       "year": "2012",
-      "totalEur": 3049842.972037447,
+      "totalEur": 2998713.783917825,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 14
     },
     {
       "year": "2013",
@@ -651,9 +642,9 @@
     },
     {
       "year": "2014",
-      "totalEur": 320162.18178471545,
+      "totalEur": 232662.424648359,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 7
     },
     {
       "year": "2015",
@@ -663,9 +654,9 @@
     },
     {
       "year": "2016",
-      "totalEur": 8231568.807104913,
+      "totalEur": 8154875.02492548,
       "totalOther": {},
-      "contractCount": 46
+      "contractCount": 45
     },
     {
       "year": "2017",
@@ -687,9 +678,9 @@
     },
     {
       "year": "2022",
-      "totalEur": 4201597.326966045,
+      "totalEur": 4109564.788350726,
       "totalOther": {},
-      "contractCount": 36
+      "contractCount": 35
     },
     {
       "year": "2023",
@@ -699,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 1258433.61,
+      "totalEur": 2948822.7900000005,
       "totalOther": {},
-      "contractCount": 30
+      "contractCount": 42
     }
   ]
 }

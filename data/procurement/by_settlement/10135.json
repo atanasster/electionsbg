@@ -3,10 +3,10 @@
   "name": "Варна",
   "province": "Варна",
   "obshtina": "Варна",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 8930,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 8493,
   "awardCount": 0,
-  "totalEur": 2576924304.252613,
+  "totalEur": 2388325056.306712,
   "totalOther": {
     "USD": 43391.979999999996
   },
@@ -15,414 +15,144 @@
       "eik": "000093442",
       "name": "Община Варна",
       "tier": "municipal",
-      "totalEur": 950887792.9302236,
+      "totalEur": 956312616.3402236,
       "totalOther": {},
-      "contractCount": 3191,
+      "contractCount": 3222,
       "awardCount": 0
     },
     {
       "eik": "103562052",
       "name": "Университетска многопрофилна болница за активно лечение \"Света Марина ЕАД",
       "tier": "hospital",
-      "totalEur": 369510198.5295936,
+      "totalEur": 369802804.0895936,
       "totalOther": {},
-      "contractCount": 1018,
+      "contractCount": 1022,
       "awardCount": 0
     },
     {
       "eik": "103002253",
       "name": "Водоснабдяване и канализация - варна ООД",
       "tier": "utility",
-      "totalEur": 350469806.28257,
+      "totalEur": 356850719.54257,
       "totalOther": {},
-      "contractCount": 497,
+      "contractCount": 500,
       "awardCount": 0
     },
     {
       "eik": "104518621",
       "name": "Електроразпределение север АД",
       "tier": "utility",
-      "totalEur": 337286849.85505646,
+      "totalEur": 341222477.6250565,
       "totalOther": {},
-      "contractCount": 762,
+      "contractCount": 777,
       "awardCount": 0
     },
     {
       "eik": "000090154",
       "name": "Специализирана болница за активно лечение на онкологични заболявания Д-Р марко Антонов МАРКОВ-ВАРНА ЕООД",
       "tier": "hospital",
-      "totalEur": 185437573.38357568,
+      "totalEur": 185442788.10357565,
       "totalOther": {},
-      "contractCount": 544,
-      "awardCount": 0
-    },
-    {
-      "eik": "000090019",
-      "name": "Многопрофилна болница за активно лечение света АННА-ВАРНА АД",
-      "tier": "hospital",
-      "totalEur": 110665703.89744611,
-      "totalOther": {},
-      "contractCount": 699,
+      "contractCount": 545,
       "awardCount": 0
     },
     {
       "eik": "000083633",
       "name": "Медицински УНИВЕРСИТЕТ-ВАРНА \"Проф. Д-Р Параскев ИВ.СТОЯНОВ\"",
       "tier": "university",
-      "totalEur": 80139330.31267735,
+      "totalEur": 84763780.63267735,
       "totalOther": {
         "USD": 43391.979999999996
       },
-      "contractCount": 752,
+      "contractCount": 764,
       "awardCount": 0
     },
     {
-      "eik": "103003668",
-      "name": "Градски транспорт ЕАД",
-      "tier": "utility",
-      "totalEur": 74165846.65189357,
-      "totalOther": {},
-      "contractCount": 79,
-      "awardCount": 0
-    },
-    {
-      "eik": "000093360",
-      "name": "Областна администрация - област варна",
+      "eik": "121858220",
+      "name": "Районна здравноосигурителна каса - варна",
       "tier": "regional_gov",
-      "totalEur": 31244512.845561784,
+      "totalEur": 71634376.09709401,
       "totalOther": {},
-      "contractCount": 27,
-      "awardCount": 0
-    },
-    {
-      "eik": "000083626",
-      "name": "Технически университет - варна",
-      "tier": "university",
-      "totalEur": 27646439.77656213,
-      "totalOther": {},
-      "contractCount": 106,
+      "contractCount": 1302,
       "awardCount": 0
     },
     {
       "eik": "103061301",
       "name": "Пристанище варна ЕАД",
       "tier": "utility",
-      "totalEur": 14595566.937824965,
+      "totalEur": 14995566.937824965,
       "totalOther": {},
-      "contractCount": 55,
-      "awardCount": 0
-    },
-    {
-      "eik": "000083619",
-      "name": "Икономически университет - варна",
-      "tier": "university",
-      "totalEur": 10088253.059604414,
-      "totalOther": {},
-      "contractCount": 98,
-      "awardCount": 0
-    },
-    {
-      "eik": "000091879",
-      "name": "Университетска специализирана болница по очни болести за активно ЛЕЧЕНИЕ-ВАРНА ЕООД",
-      "tier": "hospital",
-      "totalEur": 7839331.079218235,
-      "totalOther": {},
-      "contractCount": 47,
-      "awardCount": 0
-    },
-    {
-      "eik": "129009750",
-      "name": "Областна дирекция на МВР (ОДМВР) - Варна",
-      "tier": "regional_gov",
-      "totalEur": 4548692.795132399,
-      "totalOther": {},
-      "contractCount": 36,
-      "awardCount": 0
-    },
-    {
-      "eik": "000080936",
-      "name": "Детска Градина № 17 \"Д-Р петър берон\" /с яслена група/",
-      "tier": "school",
-      "totalEur": 1750718.9789245487,
-      "totalOther": {},
-      "contractCount": 15,
-      "awardCount": 0
-    },
-    {
-      "eik": "103552688",
-      "name": "Варненска Морска гимназия \"Св. Николай чудотворец\"",
-      "tier": "school",
-      "totalEur": 1393476.0224890711,
-      "totalOther": {},
-      "contractCount": 8,
-      "awardCount": 0
-    },
-    {
-      "eik": "175549476",
-      "name": "Средно училище \"Димчо Дебелянов\"",
-      "tier": "school",
-      "totalEur": 1160162.3813249618,
-      "totalOther": {},
-      "contractCount": 46,
-      "awardCount": 0
-    },
-    {
-      "eik": "175531126",
-      "name": "3 Основно училище \"Ангел Кънчев\"",
-      "tier": "school",
-      "totalEur": 974985.9631340146,
-      "totalOther": {},
-      "contractCount": 35,
-      "awardCount": 0
-    },
-    {
-      "eik": "000071129",
-      "name": "Регионална дирекция по горите - варна",
-      "tier": "regional_gov",
-      "totalEur": 850298.732751415,
-      "totalOther": {},
-      "contractCount": 11,
-      "awardCount": 0
-    },
-    {
-      "eik": "103514755",
-      "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център \"Чайка\" ЕООД",
-      "tier": "hospital",
-      "totalEur": 836630.3001794635,
-      "totalOther": {},
-      "contractCount": 3,
-      "awardCount": 0
-    },
-    {
-      "eik": "000082143",
-      "name": "Средно училище \"Свети климент Охридски\"",
-      "tier": "school",
-      "totalEur": 815489.2753006651,
-      "totalOther": {},
-      "contractCount": 91,
-      "awardCount": 0
-    },
-    {
-      "eik": "000082079",
-      "name": "Основно училище \"Черноризец храбър\"",
-      "tier": "school",
-      "totalEur": 707985.5804032047,
-      "totalOther": {},
-      "contractCount": 25,
-      "awardCount": 0
-    },
-    {
-      "eik": "000082150",
-      "name": "Основно училище \"СВ.СВ. кирил и Методий\"",
-      "tier": "school",
-      "totalEur": 677781.8853281726,
-      "totalOther": {},
-      "contractCount": 58,
-      "awardCount": 0
-    },
-    {
-      "eik": "000086939",
-      "name": "Средно училище с езиково обучение \"Александър сергеевич Пушкин\"",
-      "tier": "school",
-      "totalEur": 664577.2960891284,
-      "totalOther": {},
-      "contractCount": 52,
-      "awardCount": 0
-    },
-    {
-      "eik": "000083697",
-      "name": "Регионален Исторически музей - варна",
-      "tier": "regional_gov",
-      "totalEur": 652657.7667793212,
-      "totalOther": {},
-      "contractCount": 13,
-      "awardCount": 0
-    },
-    {
-      "eik": "000087699",
-      "name": "Средно училище за хуманитарни науки и изкуства \"Константин Преславски\"- гр. Варна",
-      "tier": "school",
-      "totalEur": 642608.6626495657,
-      "totalOther": {},
-      "contractCount": 26,
+      "contractCount": 56,
       "awardCount": 0
     },
     {
       "eik": "813152934",
       "name": "Диагностично - консултативен център V варна - света Екатерина ЕООД",
       "tier": "hospital",
-      "totalEur": 595169.3300000001,
+      "totalEur": 2568887.33,
       "totalOther": {},
-      "contractCount": 7,
+      "contractCount": 9,
       "awardCount": 0
     },
     {
       "eik": "000086191",
-      "name": "Средно училище \"Гео Милев\"",
+      "name": "Средно училище \"ГЕО Милев\"",
       "tier": "school",
-      "totalEur": 581815.9839716643,
+      "totalEur": 734237.7739716643,
       "totalOther": {},
-      "contractCount": 48,
+      "contractCount": 49,
       "awardCount": 0
     },
     {
       "eik": "000081568",
       "name": "Основно училище \"Свети патриарх Евтимий\"",
       "tier": "school",
-      "totalEur": 535478.6793582776,
+      "totalEur": 572790.7193582776,
       "totalOther": {},
-      "contractCount": 60,
-      "awardCount": 0
-    },
-    {
-      "eik": "000085851",
-      "name": "Детска Градина № 18 \"Чайка\" /с яслена група/",
-      "tier": "school",
-      "totalEur": 533574.5335739814,
-      "totalOther": {},
-      "contractCount": 10,
+      "contractCount": 61,
       "awardCount": 0
     },
     {
       "eik": "000082136",
-      "name": "Основно училище \"Цар симеон I\"",
+      "name": "Основно училище \"ЦАР симеон I\"",
       "tier": "school",
-      "totalEur": 514112.35616587324,
+      "totalEur": 559112.3561658732,
       "totalOther": {},
-      "contractCount": 28,
-      "awardCount": 0
-    },
-    {
-      "eik": "103194223",
-      "name": "Основно училище \"Георги сава Раковски\"",
-      "tier": "school",
-      "totalEur": 503483.61846377235,
-      "totalOther": {},
-      "contractCount": 33,
+      "contractCount": 34,
       "awardCount": 0
     },
     {
       "eik": "175779618",
       "name": "Второ основно училище \"Никола Йонков Вапцаров\"",
       "tier": "school",
-      "totalEur": 460986.1879978322,
+      "totalEur": 527086.1879978322,
       "totalOther": {},
-      "contractCount": 24,
-      "awardCount": 0
-    },
-    {
-      "eik": "000083074",
-      "name": "Основно училище \"Петко Рачев Славейков\"",
-      "tier": "school",
-      "totalEur": 456179.1745453338,
-      "totalOther": {},
-      "contractCount": 54,
-      "awardCount": 0
-    },
-    {
-      "eik": "000082218",
-      "name": "Основно училище \"Захари Стоянов\"",
-      "tier": "school",
-      "totalEur": 440878.0292177234,
-      "totalOther": {},
-      "contractCount": 24,
+      "contractCount": 30,
       "awardCount": 0
     },
     {
       "eik": "000083067",
       "name": "Първа Езикова гимназия",
       "tier": "school",
-      "totalEur": 408664.19146347075,
+      "totalEur": 443914.96146347077,
       "totalOther": {},
-      "contractCount": 9,
+      "contractCount": 18,
       "awardCount": 0
     },
     {
-      "eik": "000083291",
-      "name": "Професионална гимназия по горско стопанство и дървообработване \"Николай ХАЙТОВ\"-ВАРНА",
+      "eik": "000083213",
+      "name": "Професионална гимназия по СТРОИТЕЛСТВО,АРХИТЕКТУРА и геодезия \"Васил Левски\"",
       "tier": "school",
-      "totalEur": 382518.2778544148,
+      "totalEur": 399029.3087091925,
       "totalOther": {},
-      "contractCount": 9,
-      "awardCount": 0
-    },
-    {
-      "eik": "000082054",
-      "name": "Основно училище \"Добри Чинтулов\"",
-      "tier": "school",
-      "totalEur": 363386.4697284529,
-      "totalOther": {},
-      "contractCount": 28,
-      "awardCount": 0
-    },
-    {
-      "eik": "000083284",
-      "name": "Професионална гимназия по електротехника",
-      "tier": "school",
-      "totalEur": 342278.69938481355,
-      "totalOther": {},
-      "contractCount": 15,
-      "awardCount": 0
-    },
-    {
-      "eik": "176032507",
-      "name": "Регионална здравна инспекция - варна",
-      "tier": "regional_gov",
-      "totalEur": 322714.7001741971,
-      "totalOther": {},
-      "contractCount": 42,
-      "awardCount": 0
-    },
-    {
-      "eik": "813154554",
-      "name": "Диагностично консултативен център 3 - варна ЕООД",
-      "tier": "hospital",
-      "totalEur": 317388.57536544587,
-      "totalOther": {},
-      "contractCount": 17,
-      "awardCount": 0
-    },
-    {
-      "eik": "813116984",
-      "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център 4 - варна ЕООД",
-      "tier": "hospital",
-      "totalEur": 310495.3500412101,
-      "totalOther": {},
-      "contractCount": 16,
-      "awardCount": 0
-    },
-    {
-      "eik": "000083081",
-      "name": "Четвърта Езикова гимназия \"Фредерик жолио кюри\"",
-      "tier": "school",
-      "totalEur": 306420.812590307,
-      "totalOther": {},
-      "contractCount": 16,
+      "contractCount": 3,
       "awardCount": 0
     },
     {
       "eik": "000082196",
       "name": "Основно училище \"Христо Ботев\"",
       "tier": "school",
-      "totalEur": 303968.48019786994,
-      "totalOther": {},
-      "contractCount": 13,
-      "awardCount": 0
-    },
-    {
-      "eik": "175529335",
-      "name": "Средно училище \"Неофит бозвели\"",
-      "tier": "school",
-      "totalEur": 290498.5379172525,
-      "totalOther": {},
-      "contractCount": 16,
-      "awardCount": 0
-    },
-    {
-      "eik": "000082175",
-      "name": "Основно училище \"Стефан караджа\"",
-      "tier": "school",
-      "totalEur": 287310.79132644454,
+      "totalEur": 335568.48019786994,
       "totalOther": {},
       "contractCount": 20,
       "awardCount": 0
@@ -431,171 +161,45 @@
       "eik": "000087674",
       "name": "Основно училище \"Стоян Михайловски\"",
       "tier": "school",
-      "totalEur": 285091.31238400063,
+      "totalEur": 328660.37238400057,
       "totalOther": {},
-      "contractCount": 17,
-      "awardCount": 0
-    },
-    {
-      "eik": "000083317",
-      "name": "Професионална гимназия по химични и ХРАНИТЕЛНО-ВКУСОВИ технологии \"Д.И.МЕНДЕЛЕЕВ\"",
-      "tier": "school",
-      "totalEur": 239112.75076484153,
-      "totalOther": {},
-      "contractCount": 6,
-      "awardCount": 0
-    },
-    {
-      "eik": "103555093",
-      "name": "Професионална гимназия по текстил и моден дизайн",
-      "tier": "school",
-      "totalEur": 231557.6053619691,
-      "totalOther": {},
-      "contractCount": 4,
-      "awardCount": 0
-    },
-    {
-      "eik": "177422346",
-      "name": "Професионална гимназия по компютърно моделиране и компютърни системи \"Академик благовест Сендов\"",
-      "tier": "school",
-      "totalEur": 231159.09836729165,
-      "totalOther": {},
-      "contractCount": 12,
+      "contractCount": 24,
       "awardCount": 0
     },
     {
       "eik": "000086825",
       "name": "Средно училище \"Пейо КР.ЯВОРОВ\"",
       "tier": "school",
-      "totalEur": 222557.20625739451,
+      "totalEur": 266057.2062573945,
       "totalOther": {},
-      "contractCount": 11,
+      "contractCount": 19,
       "awardCount": 0
     },
     {
-      "eik": "000082428",
-      "name": "Основно училище \"Капитан петко войвода\"",
+      "eik": "175539863",
+      "name": "Първо основно училище \"Свети княз борис 1\"",
       "tier": "school",
-      "totalEur": 205828.8419699054,
+      "totalEur": 221230.91475230467,
       "totalOther": {},
-      "contractCount": 10,
-      "awardCount": 0
-    },
-    {
-      "eik": "000090026",
-      "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център 1 \"Света Клементина\" - варна ЕООД",
-      "tier": "hospital",
-      "totalEur": 200980.0487769387,
-      "totalOther": {},
-      "contractCount": 15,
-      "awardCount": 0
-    },
-    {
-      "eik": "000082022",
-      "name": "Основно училище \"Антон Страшимиров",
-      "tier": "school",
-      "totalEur": 185293.06228046404,
-      "totalOther": {},
-      "contractCount": 16,
-      "awardCount": 0
-    },
-    {
-      "eik": "000087877",
-      "name": "Професионална гимназия по икономика и технологии \"Д-Р иван Богоров\"",
-      "tier": "school",
-      "totalEur": 174074.95099139496,
-      "totalOther": {},
-      "contractCount": 5,
+      "contractCount": 17,
       "awardCount": 0
     },
     {
       "eik": "000083124",
       "name": "Математическа гимназия \"Д-Р петър берон\"",
       "tier": "school",
-      "totalEur": 172462.17410117446,
+      "totalEur": 212573.49410117444,
       "totalOther": {},
-      "contractCount": 4,
-      "awardCount": 0
-    },
-    {
-      "eik": "175539863",
-      "name": "Първо основно училище \"Свети княз борис 1",
-      "tier": "school",
-      "totalEur": 171230.91475230467,
-      "totalOther": {},
-      "contractCount": 16,
-      "awardCount": 0
-    },
-    {
-      "eik": "129010730",
-      "name": "Регионална дирекция \"Пожарна безопасност и защита на населението\" (РДПБЗН) - Варна",
-      "tier": "regional_gov",
-      "totalEur": 147751.34341941786,
-      "totalOther": {},
-      "contractCount": 7,
-      "awardCount": 0
-    },
-    {
-      "eik": "000083213",
-      "name": "Професионална гимназия по СТРОИТЕЛСТВО,АРХИТЕКТУРА и геодезия \"Васил Левски\"",
-      "tier": "school",
-      "totalEur": 113919.91870919251,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000082129",
-      "name": "Основно училище \"Йордан Йовков\"",
-      "tier": "school",
-      "totalEur": 112882.82354228129,
-      "totalOther": {},
-      "contractCount": 6,
-      "awardCount": 0
-    },
-    {
-      "eik": "000083264",
-      "name": "Професионална гимназия по туризъм \"ПРОФ.Д-Р асен Златаров\"",
-      "tier": "school",
-      "totalEur": 109280.7010291283,
-      "totalOther": {},
-      "contractCount": 6,
+      "contractCount": 15,
       "awardCount": 0
     },
     {
       "eik": "000082015",
       "name": "Основно училище \"Васил Друмев\"",
       "tier": "school",
-      "totalEur": 95783.25273730335,
+      "totalEur": 130777.83273730334,
       "totalOther": {},
-      "contractCount": 5,
-      "awardCount": 0
-    },
-    {
-      "eik": "000085463",
-      "name": "Регионална библиотека \"П.СЛАВЕЙКОВ",
-      "tier": "regional_gov",
-      "totalEur": 71579.84078370819,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000081995",
-      "name": "Основно училище \"Константин Арабаджиев\"",
-      "tier": "school",
-      "totalEur": 24885.760000000002,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000080854",
-      "name": "Детска Градина N-44 \"Валентина Терешкова",
-      "tier": "school",
-      "totalEur": 18278.68475276481,
-      "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 6,
       "awardCount": 0
     }
   ],
@@ -757,30 +361,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
     },
     {
-      "key": "2beff5c20440",
-      "ocid": "aop-legacy-2022-RL-1030152",
-      "date": "2022-02-21",
-      "amount": 36952360,
-      "currency": "BGN",
-      "amountEur": 18893441.659039896,
-      "partyEik": "180674688",
-      "partyName": "Консорциум Еко транспорт Варна",
-      "bundleUuid": "db3e39ba-37f9-44bf-847f-75f36acee513",
-      "sourceUrl": "https://data.egov.bg/data/view/db3e39ba-37f9-44bf-847f-75f36acee513"
-    },
-    {
-      "key": "e2c1266ae40a",
-      "ocid": "aop-legacy-2022-278410",
-      "date": "2022-10-10",
-      "amount": 31558962,
-      "currency": "BGN",
-      "amountEur": 16135841.049579974,
-      "partyEik": "131245283",
-      "partyName": "Сакса ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
       "key": "3c60c0641e8f",
       "ocid": "aop-legacy-2016-711174",
       "date": "2016-02-01",
@@ -803,18 +383,6 @@
       "partyName": "Софарма трейдинг АД",
       "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-552905-812869%2F2026-02-19-award"
-    },
-    {
-      "key": "cb1498d68af6",
-      "ocid": "aop-legacy-2022-RL-1031699",
-      "date": "2022-03-18",
-      "amount": 28751500,
-      "currency": "BGN",
-      "amountEur": 14700408.522213075,
-      "partyEik": "177492362",
-      "partyName": "Джи Ди Ей ДЗЗД",
-      "bundleUuid": "db3e39ba-37f9-44bf-847f-75f36acee513",
-      "sourceUrl": "https://data.egov.bg/data/view/db3e39ba-37f9-44bf-847f-75f36acee513"
     },
     {
       "key": "28386398acfb",
@@ -923,18 +491,6 @@
       "partyName": "Алта фармасютикълс ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "3a8252822091",
-      "ocid": "aop-legacy-2011-2015-581160",
-      "date": "2014-01-21",
-      "amount": 19087026,
-      "currency": "BGN",
-      "amountEur": 9759041.429981133,
-      "partyEik": "040859856",
-      "partyName": "Сико фарма ООД - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
       "key": "b72e5daf559e",
@@ -1199,88 +755,136 @@
       "partyName": "„Едас ексим“ С.Р.Л. - Румъния",
       "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
       "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-442338-796621%2F2026-01-15-award"
+    },
+    {
+      "key": "bbb646487df4",
+      "ocid": "aop-legacy-2023-358052",
+      "date": "2023-04-07",
+      "amount": 12965000,
+      "currency": "BGN",
+      "amountEur": 6628899.239708973,
+      "partyEik": "113570147",
+      "partyName": "Електрохолд Трейд ЕАД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "1d1ac7e8556f",
+      "ocid": "ocds-e82gsb-552905",
+      "date": "2026-02-10",
+      "amount": 6467833.11,
+      "currency": "EUR",
+      "amountEur": 6467833.11,
+      "partyEik": "202513217",
+      "partyName": "Фармнет ЕАД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-552905-808318%2F2026-02-10-award"
+    },
+    {
+      "key": "2d8f16bb9d81",
+      "ocid": "aop-legacy-2017-776601",
+      "date": "2017-03-17",
+      "amount": 12589843.33,
+      "currency": "BGN",
+      "amountEur": 6437084.680161363,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "a110a444f760",
+      "ocid": "ocds-e82gsb-449474",
+      "date": "2026-05-18",
+      "amount": 6135502.57,
+      "currency": "EUR",
+      "amountEur": 6135502.57,
+      "partyEik": "207298448",
+      "partyName": "ЕКО Рекуленд ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-449474-855111%2F2026-05-18-award"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 86587194.00322625,
+      "totalEur": 82424549.95952103,
       "totalOther": {},
-      "contractCount": 428
+      "contractCount": 340
     },
     {
       "year": "2012",
-      "totalEur": 234809285.71156493,
+      "totalEur": 231634560.68945158,
       "totalOther": {},
-      "contractCount": 408
+      "contractCount": 381
     },
     {
       "year": "2013",
-      "totalEur": 138529678.72974643,
+      "totalEur": 138100575.34652808,
       "totalOther": {},
-      "contractCount": 352
+      "contractCount": 261
     },
     {
       "year": "2014",
-      "totalEur": 181831965.15545833,
+      "totalEur": 133914129.3721847,
       "totalOther": {},
-      "contractCount": 553
+      "contractCount": 500
     },
     {
       "year": "2015",
-      "totalEur": 114686491.70940216,
+      "totalEur": 103426798.6788218,
       "totalOther": {},
-      "contractCount": 589
+      "contractCount": 528
     },
     {
       "year": "2016",
-      "totalEur": 241893853.5660053,
+      "totalEur": 233836425.4919907,
       "totalOther": {},
-      "contractCount": 869
+      "contractCount": 854
     },
     {
       "year": "2017",
-      "totalEur": 318518779.0656653,
+      "totalEur": 288300184.00372225,
       "totalOther": {},
-      "contractCount": 970
+      "contractCount": 1008
     },
     {
       "year": "2019",
-      "totalEur": 190106546.9953933,
+      "totalEur": 187432523.55266052,
       "totalOther": {},
-      "contractCount": 1039
+      "contractCount": 1102
     },
     {
       "year": "2020",
-      "totalEur": 17000947.827776443,
+      "totalEur": 16950873.577969454,
       "totalOther": {},
-      "contractCount": 79
+      "contractCount": 108
     },
     {
       "year": "2021",
-      "totalEur": 231449581.77346694,
+      "totalEur": 232415981.1844587,
       "totalOther": {},
-      "contractCount": 547
+      "contractCount": 507
     },
     {
       "year": "2022",
-      "totalEur": 279869409.87713635,
+      "totalEur": 216628762.34642065,
       "totalOther": {},
-      "contractCount": 1224
+      "contractCount": 1104
     },
     {
       "year": "2023",
-      "totalEur": 258031531.14534488,
+      "totalEur": 249949728.87214115,
       "totalOther": {},
-      "contractCount": 1139
+      "contractCount": 1081
     },
     {
       "year": "2026",
-      "totalEur": 283609038.6924243,
+      "totalEur": 273309963.230839,
       "totalOther": {
         "USD": 43391.979999999996
       },
-      "contractCount": 733
+      "contractCount": 719
     }
   ]
 }

@@ -3,23 +3,35 @@
   "name": "Друмево",
   "province": "Шумен",
   "obshtina": "Шумен",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 3,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 6,
   "awardCount": 0,
-  "totalEur": 12432.49,
+  "totalEur": 34680.17,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000922117",
       "name": "Обединено училище \"Христо Ботев\"",
       "tier": "school",
-      "totalEur": 12432.49,
+      "totalEur": 34680.17,
       "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 6,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "736b022410ad",
+      "ocid": "ocds-e82gsb-552898",
+      "date": "2026-05-14",
+      "amount": 20181.68,
+      "currency": "EUR",
+      "amountEur": 20181.68,
+      "partyEik": "127059038",
+      "partyName": "Аспект ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-552898-855097%2F2026-05-14-award"
+    },
     {
       "key": "aae740635ca8",
       "ocid": "ocds-e82gsb-536733",
@@ -55,14 +67,38 @@
       "partyName": "Кооперация Панда",
       "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-536733-807139%2F2026-02-05-award"
+    },
+    {
+      "key": "0ad2b760f3b8",
+      "ocid": "ocds-e82gsb-552898",
+      "date": "2026-05-14",
+      "amount": 1198,
+      "currency": "EUR",
+      "amountEur": 1198,
+      "partyEik": "201437250",
+      "partyName": "ВТ - Трейд ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-552898-855097%2F2026-05-14-award"
+    },
+    {
+      "key": "10d9cab2aaad",
+      "ocid": "ocds-e82gsb-552898",
+      "date": "2026-05-14",
+      "amount": 868,
+      "currency": "EUR",
+      "amountEur": 868,
+      "partyEik": "201437250",
+      "partyName": "ВТ - Трейд ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-552898-855097%2F2026-05-14-award"
     }
   ],
   "byYear": [
     {
       "year": "2026",
-      "totalEur": 12432.49,
+      "totalEur": 34680.17,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 6
     }
   ]
 }

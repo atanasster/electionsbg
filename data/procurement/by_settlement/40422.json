@@ -3,28 +3,19 @@
   "name": "Кубрат",
   "province": "Разград",
   "obshtina": "Кубрат",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 272,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 256,
   "awardCount": 0,
-  "totalEur": 55958843.46348333,
+  "totalEur": 55069395.955881596,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000505846",
       "name": "Община Кубрат",
       "tier": "municipal",
-      "totalEur": 55037696.955881596,
+      "totalEur": 55069395.955881596,
       "totalOther": {},
-      "contractCount": 255,
-      "awardCount": 0
-    },
-    {
-      "eik": "000498437",
-      "name": "Средно училище \"Христо Ботев\"",
-      "tier": "school",
-      "totalEur": 921146.5076017344,
-      "totalOther": {},
-      "contractCount": 17,
+      "contractCount": 256,
       "awardCount": 0
     }
   ],
@@ -342,18 +333,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "cd3e4e819816",
-      "ocid": "ocds-e82gsb-524509",
-      "date": "2026-04-30",
-      "amount": 423176.54,
-      "currency": "EUR",
-      "amountEur": 423176.54,
-      "partyEik": "205770804",
-      "partyName": "Инженеринг смр груп ЕООД",
-      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
-      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-524509-850731%2F2026-04-30-contractamendment"
-    },
-    {
       "key": "e30f28b1f227",
       "ocid": "aop-legacy-2023-382873",
       "date": "2023-06-16",
@@ -628,6 +607,18 @@
       "partyName": "Кооперация Потребителна кооперация \"Наркооп",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "815726f3d871",
+      "ocid": "aop-legacy-2022-306763",
+      "date": "2022-12-09",
+      "amount": 484170.83,
+      "currency": "BGN",
+      "amountEur": 247552.6144910345,
+      "partyEik": "000492377",
+      "partyName": "Кооперация Потребителна кооперация \"Наркооп",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -639,9 +630,9 @@
     },
     {
       "year": "2012",
-      "totalEur": 216509.25182659025,
+      "totalEur": 41436.264910549486,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 2
     },
     {
       "year": "2013",
@@ -651,15 +642,15 @@
     },
     {
       "year": "2014",
-      "totalEur": 2736534.964695295,
+      "totalEur": 2720575.213592183,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 11
     },
     {
       "year": "2015",
-      "totalEur": 3377623.6124816574,
+      "totalEur": 3370558.039297894,
       "totalOther": {},
-      "contractCount": 13
+      "contractCount": 10
     },
     {
       "year": "2016",
@@ -669,9 +660,9 @@
     },
     {
       "year": "2017",
-      "totalEur": 793113.2153612534,
+      "totalEur": 619273.975754539,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 4
     },
     {
       "year": "2019",
@@ -686,12 +677,6 @@
       "contractCount": 12
     },
     {
-      "year": "2021",
-      "totalEur": 76693.78217943278,
-      "totalOther": {},
-      "contractCount": 1
-    },
-    {
       "year": "2022",
       "totalEur": 3579195.262369429,
       "totalOther": {},
@@ -699,15 +684,15 @@
     },
     {
       "year": "2023",
-      "totalEur": 1339895.8907471506,
+      "totalEur": 1331049.40613448,
       "totalOther": {},
-      "contractCount": 58
+      "contractCount": 56
     },
     {
       "year": "2026",
-      "totalEur": 17029679.620000005,
+      "totalEur": 16597709.930000003,
       "totalOther": {},
-      "contractCount": 46
+      "contractCount": 45
     }
   ]
 }

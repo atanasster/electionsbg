@@ -3,23 +3,35 @@
   "name": "Пордим",
   "province": "Плевен",
   "obshtina": "Пордим",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 78,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 79,
   "awardCount": 0,
-  "totalEur": 9655282.567723114,
+  "totalEur": 10712298.437723115,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000413999",
       "name": "Община Пордим",
       "tier": "municipal",
-      "totalEur": 9655282.567723114,
+      "totalEur": 10712298.437723115,
       "totalOther": {},
-      "contractCount": 78,
+      "contractCount": 79,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "516b1dfba462",
+      "ocid": "ocds-e82gsb-563340",
+      "date": "2026-05-12",
+      "amount": 1057015.87,
+      "currency": "EUR",
+      "amountEur": 1057015.87,
+      "partyEik": "110052320",
+      "partyName": "Виастрой АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-563340-854310%2F2026-05-12-award"
+    },
     {
       "key": "db809909d6b7",
       "ocid": "aop-legacy-2023-332309",
@@ -607,18 +619,6 @@
       "partyName": "Николов и синове 2009 ООД - Пордим",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "2861b5ef0b67",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-12-27",
-      "amount": 95190,
-      "currency": "BGN",
-      "amountEur": 48669.87417106804,
-      "partyEik": "205613938",
-      "partyName": "Андреев 90 ойл ЕООД - Пордим",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 585648.53,
+      "totalEur": 1642664.4000000001,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 11
     }
   ]
 }

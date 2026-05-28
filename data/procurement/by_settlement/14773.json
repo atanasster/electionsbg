@@ -3,19 +3,19 @@
   "name": "Георги Дамяново",
   "province": "Монтана",
   "obshtina": "Георги Дамяново",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 95,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 96,
   "awardCount": 0,
-  "totalEur": 13089059.379779736,
+  "totalEur": 13154242.099779736,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000320694",
       "name": "Община Георги дамяново",
       "tier": "municipal",
-      "totalEur": 13089059.379779736,
+      "totalEur": 13154242.099779736,
       "totalOther": {},
-      "contractCount": 95,
+      "contractCount": 96,
       "awardCount": 0
     }
   ],
@@ -405,6 +405,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "c2058d41b29a",
+      "ocid": "ocds-e82gsb-560052",
+      "date": "2026-05-12",
+      "amount": 65182.72,
+      "currency": "EUR",
+      "amountEur": 65182.72,
+      "partyEik": "203959610",
+      "partyName": "Комунал сервиз ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-560052-854164%2F2026-05-12-award"
+    },
+    {
       "key": "9a7515415d39",
       "ocid": "aop-legacy-2016-752553",
       "date": "2016-10-11",
@@ -607,18 +619,6 @@
       "partyName": "Виктория 2012 ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "74365540e367",
-      "ocid": "aop-legacy-2022-191055",
-      "date": "2022-01-24",
-      "amount": 59174.64,
-      "currency": "BGN",
-      "amountEur": 30255.513004709,
-      "partyEik": "203959610",
-      "partyName": "Комунал сервиз ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 399258.62,
+      "totalEur": 464441.33999999997,
       "totalOther": {},
-      "contractCount": 13
+      "contractCount": 14
     }
   ]
 }

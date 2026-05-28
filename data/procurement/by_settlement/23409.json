@@ -3,28 +3,19 @@
   "name": "Драгоман",
   "province": "София",
   "obshtina": "Драгоман",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "generatedAt": "2026-05-28T08:40:27.221Z",
   "contractCount": 145,
   "awardCount": 0,
-  "totalEur": 15524302.94398598,
+  "totalEur": 15729013.43398598,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000776235",
       "name": "Община Драгоман",
       "tier": "municipal",
-      "totalEur": 15501737.94398598,
+      "totalEur": 15729013.43398598,
       "totalOther": {},
-      "contractCount": 143,
-      "awardCount": 0
-    },
-    {
-      "eik": "000758803",
-      "name": "Средно училище \"Христо Ботев\"",
-      "tier": "school",
-      "totalEur": 22565,
-      "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 145,
       "awardCount": 0
     }
   ],
@@ -292,6 +283,18 @@
       "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "ea81a57012b1",
+      "ocid": "ocds-e82gsb-550032",
+      "date": "2026-05-08",
+      "amount": 164376,
+      "currency": "EUR",
+      "amountEur": 164376,
+      "partyEik": "207619765",
+      "partyName": "ЕфектХ АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-550032-852417%2F2026-05-08-award"
     },
     {
       "key": "39533d8d612b",
@@ -582,6 +585,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-470098-795321%2F2026-01-12-contractamendment"
     },
     {
+      "key": "42143e4c24c5",
+      "ocid": "ocds-e82gsb-548665",
+      "date": "2026-05-08",
+      "amount": 62899.49,
+      "currency": "EUR",
+      "amountEur": 62899.49,
+      "partyEik": "200609341",
+      "partyName": "Костинброд ЕКО АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-548665-852308%2F2026-05-08-award"
+    },
+    {
       "key": "59245d4b5e00",
       "ocid": "aop-legacy-2023-316557",
       "date": "2023-01-03",
@@ -604,30 +619,6 @@
       "partyName": "ДЗЗД Инвест райс - София",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "f74a7ed1f436",
-      "ocid": "aop-legacy-2017-795192",
-      "date": "2017-07-10",
-      "amount": 115800,
-      "currency": "BGN",
-      "amountEur": 59207.599842522104,
-      "partyEik": "177159856",
-      "partyName": "ДЗЗД Инвест райс - София",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "7f02430db15c",
-      "ocid": "aop-legacy-2019-888113",
-      "date": "2019-01-14",
-      "amount": 113900,
-      "currency": "BGN",
-      "amountEur": 58236.14526824929,
-      "partyEik": "175251156",
-      "partyName": "Люник ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -699,7 +690,7 @@
     },
     {
       "year": "2026",
-      "totalEur": 1579047.2418032752,
+      "totalEur": 1783757.7318032752,
       "totalOther": {},
       "contractCount": 15
     }

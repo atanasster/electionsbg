@@ -3,28 +3,19 @@
   "name": "Костинброд",
   "province": "София",
   "obshtina": "Костинброд",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 151,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 152,
   "awardCount": 0,
-  "totalEur": 88803097.9898776,
+  "totalEur": 91507324.60611542,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000776363",
       "name": "Община Костинброд",
       "tier": "municipal",
-      "totalEur": 88668155.29611541,
+      "totalEur": 91507324.60611542,
       "totalOther": {},
-      "contractCount": 148,
-      "awardCount": 0
-    },
-    {
-      "eik": "000759638",
-      "name": "Средно училище \"Д-Р петър берон\"",
-      "tier": "school",
-      "totalEur": 134942.6937621879,
-      "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 152,
       "awardCount": 0
     }
   ],
@@ -138,6 +129,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "5b6cc34cd127",
+      "ocid": "ocds-e82gsb-553369",
+      "date": "2026-05-13",
+      "amount": 1497860.79,
+      "currency": "EUR",
+      "amountEur": 1497860.79,
+      "partyEik": "202082418",
+      "partyName": "Маридел 2012 ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-553369-854741%2F2026-05-13-award"
+    },
+    {
       "key": "0388c4dbe3a3",
       "ocid": "ocds-e82gsb-498359",
       "date": "2026-02-16",
@@ -172,6 +175,18 @@
       "partyName": "Ноел инженеринг ЕООД",
       "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-498359-811617%2F2026-02-16-award"
+    },
+    {
+      "key": "9262cbe1b185",
+      "ocid": "ocds-e82gsb-308187",
+      "date": "2026-05-14",
+      "amount": 1269265.12,
+      "currency": "EUR",
+      "amountEur": 1269265.12,
+      "partyEik": "131223059",
+      "partyName": "Стреза ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-308187-855364%2F2026-05-14-contractamendment"
     },
     {
       "key": "62fb11fd5351",
@@ -604,30 +619,6 @@
       "partyName": "Трейс-София  АД - /старо Трейс-София ЕАД",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "c23346c415f2",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-09-11",
-      "amount": 458333.33,
-      "currency": "BGN",
-      "amountEur": 234342.11051062722,
-      "partyEik": "175254451",
-      "partyName": "Трейс-София  АД - /старо Трейс-София ЕАД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "7c87e7093f58",
-      "ocid": "aop-legacy-2022-298990",
-      "date": "2022-11-18",
-      "amount": 420000,
-      "currency": "BGN",
-      "amountEur": 214742.59010241178,
-      "partyEik": "200609341",
-      "partyName": "Костинброд еко АД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -680,12 +671,6 @@
       "contractCount": 31
     },
     {
-      "year": "2020",
-      "totalEur": 95112.46376218792,
-      "totalOther": {},
-      "contractCount": 1
-    },
-    {
       "year": "2022",
       "totalEur": 5632544.914435303,
       "totalOther": {},
@@ -699,9 +684,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 9957577.280000001,
+      "totalEur": 12756916.360000003,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 16
     }
   ]
 }

@@ -3,19 +3,19 @@
   "name": "Антоново",
   "province": "Търговище",
   "obshtina": "Антоново",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 84,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 85,
   "awardCount": 0,
-  "totalEur": 18113299.471460097,
+  "totalEur": 18201168.561460096,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000875557",
       "name": "Община Антоново",
       "tier": "municipal",
-      "totalEur": 18113299.471460097,
+      "totalEur": 18201168.561460096,
       "totalOther": {},
-      "contractCount": 84,
+      "contractCount": 85,
       "awardCount": 0
     }
   ],
@@ -597,6 +597,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "f35fa0b23fd2",
+      "ocid": "ocds-e82gsb-571421",
+      "date": "2026-05-12",
+      "amount": 87869.09,
+      "currency": "EUR",
+      "amountEur": 87869.09,
+      "partyEik": "104637700",
+      "partyName": "БКС - Горна оряховица ЕАД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-571421-854139%2F2026-05-12-award"
+    },
+    {
       "key": "3abd123d1478",
       "ocid": "ocds-e82gsb-529307",
       "date": "2026-01-21",
@@ -607,18 +619,6 @@
       "partyName": "Строй бм 23 ЕООД",
       "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
       "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-529307-800332%2F2026-01-21-award"
-    },
-    {
-      "key": "f4d3f8f2bdf6",
-      "ocid": "ocds-e82gsb-561174",
-      "date": "2026-04-28",
-      "amount": 79538.36,
-      "currency": "EUR",
-      "amountEur": 79538.36,
-      "partyEik": "126729838",
-      "partyName": "ЕКО Традекс груп АД",
-      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
-      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-561174-849701%2F2026-04-28-award"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 1544725.26,
+      "totalEur": 1632594.35,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 12
     }
   ]
 }

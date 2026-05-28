@@ -3,32 +3,35 @@
   "name": "Симеоновград",
   "province": "Хасково",
   "obshtina": "Симеоновград",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 133,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 132,
   "awardCount": 0,
-  "totalEur": 26446774.826760042,
+  "totalEur": 30613099.6680464,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000903729",
       "name": "Община Симеоновград",
       "tier": "municipal",
-      "totalEur": 26316711.3580464,
+      "totalEur": 30613099.6680464,
       "totalOther": {},
-      "contractCount": 130,
-      "awardCount": 0
-    },
-    {
-      "eik": "000891419",
-      "name": "Средно училище \"Св. Климент Охридски\"",
-      "tier": "school",
-      "totalEur": 130063.46871364076,
-      "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 132,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "b3264d7f4eea",
+      "ocid": "ocds-e82gsb-457433",
+      "date": "2026-05-07",
+      "amount": 4289588.31,
+      "currency": "EUR",
+      "amountEur": 4289588.31,
+      "partyEik": "202314635",
+      "partyName": "Изоглас строй ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-457433-852259%2F2026-05-07-award"
+    },
     {
       "key": "8977df3a74f0",
       "ocid": "aop-legacy-2011-2015-664160",
@@ -616,18 +619,6 @@
       "partyName": "Проинвест  ЕООД - гр.Хасково",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "7011f38ce5dc",
-      "ocid": "aop-legacy-2023-436149",
-      "date": "2023-10-13",
-      "amount": 268100,
-      "currency": "BGN",
-      "amountEur": 137077.35334870618,
-      "partyEik": "126616737",
-      "partyName": "Арис ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -639,9 +630,9 @@
     },
     {
       "year": "2012",
-      "totalEur": 278043.0814539096,
+      "totalEur": 229470.35274026883,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 2
     },
     {
       "year": "2013",
@@ -705,7 +696,7 @@
     },
     {
       "year": "2026",
-      "totalEur": 1956895.8699999999,
+      "totalEur": 6171793.4399999995,
       "totalOther": {},
       "contractCount": 7
     }

@@ -3,37 +3,19 @@
   "name": "Дряново",
   "province": "Габрово",
   "obshtina": "Дряново",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 143,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 124,
   "awardCount": 0,
-  "totalEur": 31523500.471729595,
+  "totalEur": 32120603.455224328,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000215729",
       "name": "Община Дряново",
       "tier": "municipal",
-      "totalEur": 31056122.715224326,
+      "totalEur": 32120603.455224328,
       "totalOther": {},
-      "contractCount": 123,
-      "awardCount": 0
-    },
-    {
-      "eik": "000209992",
-      "name": "Средно училище \"Максим райкович\"",
-      "tier": "school",
-      "totalEur": 457008.75650526886,
-      "totalOther": {},
-      "contractCount": 19,
-      "awardCount": 0
-    },
-    {
-      "eik": "176733928",
-      "name": "Професионална гимназия по икономика и техника \"Рачо Стоянов\"",
-      "tier": "school",
-      "totalEur": 10369,
-      "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 124,
       "awardCount": 0
     }
   ],
@@ -109,6 +91,18 @@
       "partyName": "ДЗЗД Шипка 2019   -   Севлиево",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "35db6508d08e",
+      "ocid": "ocds-e82gsb-551152",
+      "date": "2026-05-11",
+      "amount": 1064480.74,
+      "currency": "EUR",
+      "amountEur": 1064480.74,
+      "partyEik": "175222941",
+      "partyName": "КОЗИРОГ-95 ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-551152-853686%2F2026-05-11-award"
     },
     {
       "key": "70d1a63e85bf",
@@ -625,18 +619,6 @@
       "partyName": "Инфра билд проект ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "cac944daace9",
-      "ocid": "aop-legacy-2022-299740",
-      "date": "2022-11-16",
-      "amount": 258200,
-      "currency": "BGN",
-      "amountEur": 132015.5637248636,
-      "partyEik": "107056950",
-      "partyName": "МОНОЛИТ-Т ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -648,9 +630,9 @@
     },
     {
       "year": "2012",
-      "totalEur": 660746.0771130415,
+      "totalEur": 616606.249009372,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 3
     },
     {
       "year": "2013",
@@ -672,21 +654,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 830236.2475266254,
+      "totalEur": 698123.5383443346,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 8
     },
     {
       "year": "2017",
-      "totalEur": 460709.01867749233,
+      "totalEur": 333145.7846540854,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 6
     },
     {
       "year": "2019",
-      "totalEur": 8083736.244970167,
+      "totalEur": 7977555.6464518905,
       "totalOther": {},
-      "contractCount": 22
+      "contractCount": 18
     },
     {
       "year": "2020",
@@ -702,21 +684,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 4667089.368707915,
+      "totalEur": 4654990.709826519,
       "totalOther": {},
-      "contractCount": 29
+      "contractCount": 27
     },
     {
       "year": "2023",
-      "totalEur": 5432008.809559112,
+      "totalEur": 5432006.871762883,
       "totalOther": {},
-      "contractCount": 24
+      "contractCount": 22
     },
     {
       "year": "2026",
-      "totalEur": 5135615.63,
+      "totalEur": 6154815.58,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 14
     }
   ]
 }

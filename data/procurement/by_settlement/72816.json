@@ -3,19 +3,19 @@
   "name": "Тополчане",
   "province": "Сливен",
   "obshtina": "Сливен",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 2,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 5,
   "awardCount": 0,
-  "totalEur": 48670.89675483043,
+  "totalEur": 85170.89675483044,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000582262",
-      "name": "Основно училище \"СВ.ПАИСИЙ Хилендарски",
+      "name": "Основно училище \"СВ.ПАИСИЙ Хилендарски\"",
       "tier": "school",
-      "totalEur": 48670.89675483043,
+      "totalEur": 85170.89675483044,
       "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 5,
       "awardCount": 0
     }
   ],
@@ -33,6 +33,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "45612538861b",
+      "ocid": "ocds-e82gsb-581072",
+      "date": "2026-05-12",
+      "amount": 27000,
+      "currency": "EUR",
+      "amountEur": 27000,
+      "partyEik": "131106522",
+      "partyName": "ПРОСВЕТА-СОФИЯ АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-581072-854199%2F2026-05-12-award"
+    },
+    {
       "key": "d3d972fcc42d",
       "ocid": "aop-legacy-2023-434930",
       "date": "2023-10-10",
@@ -43,6 +55,30 @@
       "partyName": "КЕЙ Енд ви ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "504ce2bf169c",
+      "ocid": "ocds-e82gsb-581072",
+      "date": "2026-05-12",
+      "amount": 8300,
+      "currency": "EUR",
+      "amountEur": 8300,
+      "partyEik": "130878827",
+      "partyName": "Клет българия ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-581072-854199%2F2026-05-12-award"
+    },
+    {
+      "key": "448db8703063",
+      "ocid": "ocds-e82gsb-581072",
+      "date": "2026-05-12",
+      "amount": 1200,
+      "currency": "EUR",
+      "amountEur": 1200,
+      "partyEik": "813044200",
+      "partyName": "С.А.Н.-ПРО ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-581072-854199%2F2026-05-12-award"
     }
   ],
   "byYear": [
@@ -51,6 +87,12 @@
       "totalEur": 48670.89675483043,
       "totalOther": {},
       "contractCount": 2
+    },
+    {
+      "year": "2026",
+      "totalEur": 36500,
+      "totalOther": {},
+      "contractCount": 3
     }
   ]
 }

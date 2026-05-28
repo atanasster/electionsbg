@@ -3,19 +3,19 @@
   "name": "Дългопол",
   "province": "Варна",
   "obshtina": "Дългопол",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 155,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 156,
   "awardCount": 0,
-  "totalEur": 22894962.45770961,
+  "totalEur": 23005072.45770961,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000093524",
       "name": "Община Дългопол",
       "tier": "municipal",
-      "totalEur": 22894962.45770961,
+      "totalEur": 23005072.45770961,
       "totalOther": {},
-      "contractCount": 155,
+      "contractCount": 156,
       "awardCount": 0
     }
   ],
@@ -549,6 +549,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "d70d8fb0cd6f",
+      "ocid": "ocds-e82gsb-562989",
+      "date": "2026-05-20",
+      "amount": 110110,
+      "currency": "EUR",
+      "amountEur": 110110,
+      "partyEik": "200358273",
+      "partyName": "Екосол българия АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-562989-857408%2F2026-05-20-award"
+    },
+    {
       "key": "2ea4bf8cb1cd",
       "ocid": "aop-legacy-2017-815940",
       "date": "2017-11-21",
@@ -607,18 +619,6 @@
       "partyName": "Арк - Билдинг ООД - Ямбол",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "7afe9bff9346",
-      "ocid": "aop-legacy-2019-916185",
-      "date": "2019-06-12",
-      "amount": 189352,
-      "currency": "BGN",
-      "amountEur": 96814.14028826637,
-      "partyEik": "103126934",
-      "partyName": "М. Н. Строй ООД - Дългопол",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 159396.34,
+      "totalEur": 269506.33999999997,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 5
     }
   ]
 }

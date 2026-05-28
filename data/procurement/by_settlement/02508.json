@@ -3,64 +3,19 @@
   "name": "Балчик",
   "province": "Добрич",
   "obshtina": "Балчик",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 242,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 190,
   "awardCount": 0,
-  "totalEur": 53532201.09755877,
+  "totalEur": 50759169.98915999,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000852544",
       "name": "Община Балчик",
       "tier": "municipal",
-      "totalEur": 50624403.76915999,
+      "totalEur": 50759169.98915999,
       "totalOther": {},
-      "contractCount": 187,
-      "awardCount": 0
-    },
-    {
-      "eik": "124504885",
-      "name": "Многопрофилна болница за активно лечение - балчик ЕООД",
-      "tier": "hospital",
-      "totalEur": 1569018.1502702178,
-      "totalOther": {},
-      "contractCount": 21,
-      "awardCount": 0
-    },
-    {
-      "eik": "124517480",
-      "name": "Специализирана болница за рехабилитация - тузлата ЕООД",
-      "tier": "hospital",
-      "totalEur": 1049117.503566261,
-      "totalOther": {},
-      "contractCount": 29,
-      "awardCount": 0
-    },
-    {
-      "eik": "000842678",
-      "name": "Средно училище \"Христо Ботев\"",
-      "tier": "school",
-      "totalEur": 130091.06,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000841829",
-      "name": "Основно училище \"Антим1",
-      "tier": "school",
-      "totalEur": 106729.43456230858,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000841811",
-      "name": "Основно училище \"Кирил и методи\"",
-      "tier": "school",
-      "totalEur": 52841.18,
-      "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 190,
       "awardCount": 0
     }
   ],
@@ -630,18 +585,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
-      "key": "abef675d3e15",
-      "ocid": "aop-legacy-2011-2015-481011",
-      "date": "2012-04-25",
-      "amount": 550000,
-      "currency": "BGN",
-      "amountEur": 281210.5346579202,
-      "partyEik": "102227154",
-      "partyName": "Фаркол АД - клон Шумен",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
       "key": "9820ca92a521",
       "ocid": "aop-legacy-2016-x",
       "date": "2016-07-28",
@@ -664,6 +607,18 @@
       "partyName": "Борд Eоод - Варна /ООД/",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "586a72a8acca",
+      "ocid": "aop-legacy-2011-2015-535891",
+      "date": "2013-04-09",
+      "amount": 511159.12,
+      "currency": "BGN",
+      "amountEur": 261351.5080554036,
+      "partyEik": "131086621",
+      "partyName": "Булстрой Груп ООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -675,21 +630,21 @@
     },
     {
       "year": "2012",
-      "totalEur": 2668613.4889024096,
+      "totalEur": 2335834.055107039,
       "totalOther": {},
-      "contractCount": 22
+      "contractCount": 20
     },
     {
       "year": "2013",
-      "totalEur": 7414815.28558208,
+      "totalEur": 7163832.326940481,
       "totalOther": {},
-      "contractCount": 38
+      "contractCount": 35
     },
     {
       "year": "2014",
-      "totalEur": 3268881.1399763785,
+      "totalEur": 3079739.9569492238,
       "totalOther": {},
-      "contractCount": 23
+      "contractCount": 19
     },
     {
       "year": "2015",
@@ -699,21 +654,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 7471384.077348236,
+      "totalEur": 6705130.670866077,
       "totalOther": {},
-      "contractCount": 27
+      "contractCount": 14
     },
     {
       "year": "2017",
-      "totalEur": 2531104.7483677007,
+      "totalEur": 2439072.2097523813,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 11
     },
     {
       "year": "2019",
-      "totalEur": 5678093.8169472795,
+      "totalEur": 5359988.460142241,
       "totalOther": {},
-      "contractCount": 30
+      "contractCount": 23
     },
     {
       "year": "2021",
@@ -723,21 +678,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 795200.6769504506,
+      "totalEur": 599465.8993879836,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 2
     },
     {
       "year": "2023",
-      "totalEur": 7046771.13041522,
+      "totalEur": 6628357.796945542,
       "totalOther": {},
-      "contractCount": 45
+      "contractCount": 34
     },
     {
       "year": "2026",
-      "totalEur": 2698848.48,
+      "totalEur": 2489260.3600000003,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 13
     }
   ]
 }

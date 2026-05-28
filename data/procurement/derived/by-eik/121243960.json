@@ -1,0 +1,39 @@
+{
+  "eik": "121243960",
+  "entries": [
+    {
+      "mpId": 594,
+      "mpName": "Бриго Христофоров Аспарухов",
+      "contractorEik": "121243960",
+      "contractorName": "Дару Кар АД - София",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 163613.40198278992,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 163613.40198278992,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000698427",
+          "name": "Национална служба за охрана /НСО/",
+          "contractCount": 2,
+          "totalEur": 163613.40198278992,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

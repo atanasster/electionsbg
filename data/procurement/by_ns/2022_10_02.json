@@ -2,7 +2,7 @@
   "electionDate": "2022_10_02",
   "start": "2022-10-02",
   "end": "2023-04-02",
-  "generatedAt": "2026-05-21T09:51:41.794Z",
+  "generatedAt": "2026-05-28T08:40:25.449Z",
   "totals": {
     "contracts": 16537,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 4189,
     "awarderCount": 1453,
     "totalEur": 3627366762.3306284,
-    "mpCount": 20,
-    "mpConnectedContractorCount": 21,
-    "mpConnectedTotalEur": 68137247.53685135
+    "mpCount": 18,
+    "mpConnectedContractorCount": 19,
+    "mpConnectedTotalEur": 68472457.03869967
   },
   "topContractors": [
     {
@@ -730,7 +730,7 @@
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
-        "АВТОМАГИСТРАЛИ ЕАД"
+        "Автомагистрали ЕАД"
       ],
       "confidence": "medium"
     },
@@ -741,7 +741,7 @@
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
-        "МИНИ МАРИЦА - ИЗТОК ЕАД"
+        "Мини марица - изток ЕАД"
       ],
       "confidence": "medium"
     },
@@ -752,7 +752,7 @@
       "contractCount": 3,
       "contractorCount": 1,
       "topContractorNames": [
-        "БУЛГАРГАЗ ЕАД"
+        "Булгаргаз ЕАД"
       ],
       "confidence": "medium"
     },
@@ -763,8 +763,8 @@
       "contractCount": 91,
       "contractorCount": 2,
       "topContractorNames": [
-        "КОНТРАКС АД",
-        "ДАЙРЕКТ СЪРВИСИЗ ООД"
+        "Контракс АД",
+        "Дайрект сървисиз ООД"
       ],
       "confidence": "medium"
     },
@@ -775,7 +775,7 @@
       "contractCount": 1,
       "contractorCount": 1,
       "topContractorNames": [
-        "НАЦИОНАЛНА ЕЛЕКТРИЧЕСКА КОМПАНИЯ ЕАД"
+        "Национална Електрическа компания ЕАД"
       ],
       "confidence": "medium"
     },
@@ -786,7 +786,7 @@
       "contractCount": 48,
       "contractorCount": 1,
       "topContractorNames": [
-        "БЪЛГАРСКИ ПОЩИ ЕАД"
+        "Български пощи ЕАД"
       ],
       "confidence": "medium"
     },
@@ -813,13 +813,24 @@
       "confidence": "medium"
     },
     {
+      "mpId": 1586,
+      "mpName": "Йордан Георгиев Стойков",
+      "totalEur": 508219.01699022925,
+      "contractCount": 6,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Евро ферт АД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 5005,
       "mpName": "Стилиана Иванова Бобчева",
       "totalEur": 443887.2499143586,
       "contractCount": 3,
       "contractorCount": 1,
       "topContractorNames": [
-        "НАЦИОНАЛЕН ПЕРИЛЕН КОМБИНАТ ООД"
+        "Национален перилен комбинат ООД"
       ],
       "confidence": "medium"
     },
@@ -830,7 +841,7 @@
       "contractCount": 7,
       "contractorCount": 1,
       "topContractorNames": [
-        "ХИГИЯМЕД ООД"
+        "Хигиямед ООД"
       ],
       "confidence": "medium"
     },
@@ -852,20 +863,9 @@
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
-        "АЛ И КО АД"
+        "АЛ И ко АД"
       ],
       "confidence": "high"
-    },
-    {
-      "mpId": 1639,
-      "mpName": "Николай Петков Петков",
-      "totalEur": 98233.0775169621,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "БРЕЙН ТРЪСТ СЕКЮРИТИ ООД"
-      ],
-      "confidence": "medium"
     },
     {
       "mpId": 4590,
@@ -879,35 +879,13 @@
       "confidence": "medium"
     },
     {
-      "mpId": 819,
-      "mpName": "Петър Димитров Попов",
-      "totalEur": 39037.13512933128,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ПЛОВДИВИНВЕСТ АД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 2440,
-      "mpName": "Румен Иванов Иванов",
-      "totalEur": 35739.30249561567,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ОЛИМПИА АУТО АД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 4456,
       "mpName": "Христо Симеонов Борисов",
       "totalEur": 35534.78574313718,
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
-        "ПЕТРОВ И БОРИСОВ АРХИТЕКТИ ЕООД"
+        "Петров и Борисов архитекти ЕООД"
       ],
       "confidence": "medium"
     },
@@ -918,7 +896,7 @@
       "contractCount": 1,
       "contractorCount": 1,
       "topContractorNames": [
-        "ЕКОТЕХПРОДУКТ ООД"
+        "Екотехпродукт ООД"
       ],
       "confidence": "high"
     },
@@ -929,7 +907,7 @@
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
-        "МЕДИЦИНСКИ ЦЕНТЪР МЛАДОСТ ВАРНА ООД"
+        "Медицински център младост варна ООД"
       ],
       "confidence": "medium"
     },
@@ -940,7 +918,7 @@
       "contractCount": 1,
       "contractorCount": 1,
       "topContractorNames": [
-        "НАПОИТЕЛНИ СИСТЕМИ ЕАД"
+        "Напоителни системи ЕАД"
       ],
       "confidence": "medium"
     }

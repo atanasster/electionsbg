@@ -3,28 +3,28 @@
   "name": "Гулянци",
   "province": "Плевен",
   "obshtina": "Гулянци",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 105,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 109,
   "awardCount": 0,
-  "totalEur": 36907149.06337008,
+  "totalEur": 37415666.56337007,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000413691",
       "name": "Община Гулянци",
       "tier": "municipal",
-      "totalEur": 36769555.305221364,
+      "totalEur": 37199660.90522136,
       "totalOther": {},
-      "contractCount": 104,
+      "contractCount": 106,
       "awardCount": 0
     },
     {
       "eik": "000402173",
-      "name": "Средно училище \"Христо Смирненски",
+      "name": "Средно училище \"Христо Смирненски\"",
       "tier": "school",
-      "totalEur": 137593.75814871435,
+      "totalEur": 216005.65814871434,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
@@ -366,6 +366,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
+      "key": "e38fffee2b88",
+      "ocid": "ocds-e82gsb-552671",
+      "date": "2026-05-18",
+      "amount": 240297.5,
+      "currency": "EUR",
+      "amountEur": 240297.5,
+      "partyEik": "175328503",
+      "partyName": "БМ-ГРУП-ИНЖЕНЕРИНГ ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-552671-855991%2F2026-05-18-award"
+    },
+    {
       "key": "9d99f3785e68",
       "ocid": "aop-legacy-2022-194122",
       "date": "2022-02-07",
@@ -460,6 +472,18 @@
       "partyName": "Луки ООД - с. Сомовит",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "3c2f39cff0d6",
+      "ocid": "ocds-e82gsb-575526",
+      "date": "2026-05-18",
+      "amount": 189808.1,
+      "currency": "EUR",
+      "amountEur": 189808.1,
+      "partyEik": "202603814",
+      "partyName": "Инфракънстракшън ЕАД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-575526-856004%2F2026-05-18-award"
     },
     {
       "key": "06c31a902e7a",
@@ -604,30 +628,6 @@
       "partyName": "Далия ЕООД, гр. Плевен",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "73842163d377",
-      "ocid": "aop-legacy-2023-444315",
-      "date": "2023-11-02",
-      "amount": 269110,
-      "currency": "BGN",
-      "amountEur": 137593.75814871435,
-      "partyEik": "130508678",
-      "partyName": "Епос груп ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "16f1ca564381",
-      "ocid": "aop-legacy-2019-932135",
-      "date": "2019-09-11",
-      "amount": 265851,
-      "currency": "BGN",
-      "amountEur": 135927.45790789588,
-      "partyEik": "131565689",
-      "partyName": "Тера корп ЕООД - гр. Костинброд",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -705,9 +705,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 5481964.17,
+      "totalEur": 5990481.67,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 9
     }
   ]
 }

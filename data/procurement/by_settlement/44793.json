@@ -3,19 +3,19 @@
   "name": "Лясковец",
   "province": "Велико Търново",
   "obshtina": "Лясковец",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 182,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 183,
   "awardCount": 0,
-  "totalEur": 20024397.393051803,
+  "totalEur": 20237174.393051803,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000133844",
       "name": "Община Лясковец",
       "tier": "municipal",
-      "totalEur": 20024397.393051803,
+      "totalEur": 20237174.393051803,
       "totalOther": {},
-      "contractCount": 182,
+      "contractCount": 183,
       "awardCount": 0
     }
   ],
@@ -259,6 +259,18 @@
       "partyName": "Пътни Строежи - Велико Търново\" АД , гр. Велико Търново /старо наименование Пътни Строежи - Велико Търново\" ЕАД /",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "26099f71c08b",
+      "ocid": "ocds-e82gsb-556092",
+      "date": "2026-05-18",
+      "amount": 212777,
+      "currency": "EUR",
+      "amountEur": 212777,
+      "partyEik": "130696746",
+      "partyName": "БИ ЕМ ЛИЗИНГ-ТРЕЙД АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-556092-855660%2F2026-05-18-award"
     },
     {
       "key": "96ada75460e1",
@@ -607,18 +619,6 @@
       "partyName": "Транс грейн ЕООД",
       "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-540990-792589%2F2026-01-06-award"
-    },
-    {
-      "key": "650e0365471f",
-      "ocid": "aop-legacy-2011-2015-447929",
-      "date": "2011-08-17",
-      "amount": 155166,
-      "currency": "BGN",
-      "amountEur": 79335.11603769244,
-      "partyEik": "104693344",
-      "partyName": "Пътни Строежи - Велико Търново\" АД , гр. Велико Търново /старо наименование Пътни Строежи - Велико Търново\" ЕАД /",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 1344586.7500000002,
+      "totalEur": 1557363.7500000002,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 17
     }
   ]
 }

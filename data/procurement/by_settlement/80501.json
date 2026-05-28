@@ -3,64 +3,19 @@
   "name": "Червен бряг",
   "province": "Плевен",
   "obshtina": "Червен бряг",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 175,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 164,
   "awardCount": 0,
-  "totalEur": 40376919.70154969,
+  "totalEur": 39374429.57329166,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000414154",
       "name": "Община Червен бряг",
       "tier": "municipal",
-      "totalEur": 39305916.46329166,
+      "totalEur": 39374429.57329166,
       "totalOther": {},
-      "contractCount": 156,
-      "awardCount": 0
-    },
-    {
-      "eik": "000402141",
-      "name": "Средно училище \"Д-Р петър берон\"",
-      "tier": "school",
-      "totalEur": 747644.01780937,
-      "totalOther": {},
-      "contractCount": 11,
-      "awardCount": 0
-    },
-    {
-      "eik": "000400966",
-      "name": "Детска Градина \"Бодра смяна\"",
-      "tier": "school",
-      "totalEur": 184579.0104486586,
-      "totalOther": {},
-      "contractCount": 4,
-      "awardCount": 0
-    },
-    {
-      "eik": "000402159",
-      "name": "Основно училище \"Христо Смирненски\"",
-      "tier": "school",
-      "totalEur": 54473.55,
-      "totalOther": {},
-      "contractCount": 1,
-      "awardCount": 0
-    },
-    {
-      "eik": "824106525",
-      "name": "Професионална гимназия по хранителни технологии \"Юрий Гагарин\"",
-      "tier": "school",
-      "totalEur": 44696.369999999995,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000403396",
-      "name": "Търговска гимназия \"Васил Евстатиев Априлов\"",
-      "tier": "school",
-      "totalEur": 39610.29,
-      "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 164,
       "awardCount": 0
     }
   ],
@@ -438,30 +393,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "19edf2556fcc",
-      "ocid": "ocds-e82gsb-384402",
-      "date": "2026-03-02",
-      "amount": 242703.09,
-      "currency": "EUR",
-      "amountEur": 242703.09,
-      "partyEik": "117613724",
-      "partyName": "ВЕГАК-ЕООД ЕООД",
-      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
-      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-384402-818309%2F2026-03-02-award"
-    },
-    {
-      "key": "d5a43bd810dd",
-      "ocid": "ocds-e82gsb-384402",
-      "date": "2026-03-02",
-      "amount": 242703.09,
-      "currency": "EUR",
-      "amountEur": 242703.09,
-      "partyEik": "117613724",
-      "partyName": "ВЕГАК-ЕООД ЕООД",
-      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
-      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-384402-818336%2F2026-03-02-contractamendment"
-    },
-    {
       "key": "759a184b11ed",
       "ocid": "aop-legacy-2017-820040",
       "date": "2017-12-15",
@@ -664,6 +595,30 @@
       "partyName": "ДЗЗД Водо - план 2016 - Стара Загора",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "490fa8481f53",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-09-28",
+      "amount": 285770.12,
+      "currency": "BGN",
+      "amountEur": 146111.9422444691,
+      "partyEik": "177070197",
+      "partyName": "ДЗЗД Водо - план 2016 - Стара Загора",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "63b2ee25c54b",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-05-09",
+      "amount": 279500,
+      "currency": "BGN",
+      "amountEur": 142906.08079434306,
+      "partyEik": "177348967",
+      "partyName": "ДЗЗД Интконс - Инфрам",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -717,9 +672,9 @@
     },
     {
       "year": "2020",
-      "totalEur": 286109.42668841366,
+      "totalEur": 250574.64094527645,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 5
     },
     {
       "year": "2022",
@@ -729,15 +684,15 @@
     },
     {
       "year": "2023",
-      "totalEur": 2628535.6549393353,
+      "totalEur": 2473017.542424444,
       "totalOther": {},
-      "contractCount": 30
+      "contractCount": 21
     },
     {
       "year": "2026",
-      "totalEur": 2835712.93,
+      "totalEur": 2024275.6999999997,
       "totalOther": {},
-      "contractCount": 19
+      "contractCount": 18
     }
   ]
 }

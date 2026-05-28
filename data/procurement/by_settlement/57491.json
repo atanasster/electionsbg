@@ -3,19 +3,19 @@
   "name": "Поморие",
   "province": "Бургас",
   "obshtina": "Поморие",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 423,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 424,
   "awardCount": 0,
-  "totalEur": 137170480.30387598,
+  "totalEur": 137580533.073876,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000057179",
       "name": "Община Поморие",
       "tier": "municipal",
-      "totalEur": 137170480.30387598,
+      "totalEur": 137580533.073876,
       "totalOther": {},
-      "contractCount": 423,
+      "contractCount": 424,
       "awardCount": 0
     }
   ],
@@ -573,6 +573,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "cbbb10241475",
+      "ocid": "ocds-e82gsb-527873",
+      "date": "2026-05-20",
+      "amount": 410052.77,
+      "currency": "EUR",
+      "amountEur": 410052.77,
+      "partyEik": "812211155",
+      "partyName": "Билдникс ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-527873-857452%2F2026-05-20-contractamendment"
+    },
+    {
       "key": "d219218ab94b",
       "ocid": "aop-legacy-2011-2015-516843",
       "date": "2013-01-08",
@@ -605,18 +617,6 @@
       "amountEur": 393694.7485210882,
       "partyEik": "203416917",
       "partyName": "Метастрой ЕООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "1fecda7e01a7",
-      "ocid": "aop-legacy-2017-766856",
-      "date": "2017-01-16",
-      "amount": 769900,
-      "currency": "BGN",
-      "amountEur": 393643.6193329686,
-      "partyEik": "200795209",
-      "partyName": "Дорослава Строй ООД - Каблешково",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 22112831.97554486,
+      "totalEur": 22522884.74554486,
       "totalOther": {},
-      "contractCount": 28
+      "contractCount": 29
     }
   ]
 }

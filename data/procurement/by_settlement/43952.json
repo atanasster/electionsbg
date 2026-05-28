@@ -3,136 +3,37 @@
   "name": "Ловеч",
   "province": "Ловеч",
   "obshtina": "Ловеч",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 1164,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 781,
   "awardCount": 0,
-  "totalEur": 123149143.4835591,
+  "totalEur": 112199191.09313832,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000291591",
       "name": "Община Ловеч",
       "tier": "municipal",
-      "totalEur": 97566626.70879495,
+      "totalEur": 98645392.21879496,
       "totalOther": {},
-      "contractCount": 677,
+      "contractCount": 685,
       "awardCount": 0
     },
     {
       "eik": "110549443",
       "name": "в и К АД",
       "tier": "utility",
-      "totalEur": 11380366.172775751,
+      "totalEur": 12288726.172775751,
       "totalOther": {},
-      "contractCount": 86,
-      "awardCount": 0
-    },
-    {
-      "eik": "110503990",
-      "name": "Многопрофилна болница за активно лечение - ПРОФ.Д-Р Параскев Стоянов АД",
-      "tier": "hospital",
-      "totalEur": 5207447.191218051,
-      "totalOther": {},
-      "contractCount": 122,
-      "awardCount": 0
-    },
-    {
-      "eik": "000289053",
-      "name": "Държавна психиатрична болница - ловеч",
-      "tier": "hospital",
-      "totalEur": 2343569.349045622,
-      "totalOther": {},
-      "contractCount": 158,
-      "awardCount": 0
-    },
-    {
-      "eik": "000291997",
-      "name": "Регионална дирекция по горите - ловеч",
-      "tier": "regional_gov",
-      "totalEur": 2040006.9944729346,
-      "totalOther": {},
-      "contractCount": 24,
-      "awardCount": 0
-    },
-    {
-      "eik": "820183588",
-      "name": "Център за спешна Медицинска помощ - ловеч",
-      "tier": "hospital",
-      "totalEur": 1939899.1957570955,
-      "totalOther": {},
-      "contractCount": 63,
+      "contractCount": 87,
       "awardCount": 0
     },
     {
       "eik": "000291335",
       "name": "Областна администрация - област ловеч",
       "tier": "regional_gov",
-      "totalEur": 1265069.8015676208,
+      "totalEur": 1265072.7015676207,
       "totalOther": {},
-      "contractCount": 8,
-      "awardCount": 0
-    },
-    {
-      "eik": "000282350",
-      "name": "Профилирана Езикова гимназия екзарх йосиф I",
-      "tier": "school",
-      "totalEur": 564347.1291727808,
-      "totalOther": {},
-      "contractCount": 3,
-      "awardCount": 0
-    },
-    {
-      "eik": "000281490",
-      "name": "Основно училище /ОУ/ \"Св. Св. Кирил и Методий\" гр. Ловеч",
-      "tier": "school",
-      "totalEur": 375451.85420000716,
-      "totalOther": {},
-      "contractCount": 6,
-      "awardCount": 0
-    },
-    {
-      "eik": "000281469",
-      "name": "Основно училище панайот Пипков",
-      "tier": "school",
-      "totalEur": 225479.7163383832,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000281106",
-      "name": "Основно училище \"Христо Никифоров\"",
-      "tier": "school",
-      "totalEur": 105981.83978234304,
-      "totalOther": {},
-      "contractCount": 6,
-      "awardCount": 0
-    },
-    {
-      "eik": "000281451",
-      "name": "Основно училище \"Професор димитър Димов\"",
-      "tier": "school",
-      "totalEur": 66047.66,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000282546",
-      "name": "Национална професионална гимназия по ветеринарна Медицина \"Проф. Д-Р димитър Димов\"",
-      "tier": "school",
-      "totalEur": 44395.47,
-      "totalOther": {},
-      "contractCount": 1,
-      "awardCount": 0
-    },
-    {
-      "eik": "000281444",
-      "name": "Основно училище \"Васил Левски",
-      "tier": "school",
-      "totalEur": 24454.400433575516,
-      "totalOther": {},
-      "contractCount": 6,
+      "contractCount": 9,
       "awardCount": 0
     }
   ],
@@ -364,6 +265,18 @@
       "partyName": "Пътинженеринг АД - Русе",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "dc07cdf913d9",
+      "ocid": "ocds-e82gsb-529099",
+      "date": "2026-05-18",
+      "amount": 908360,
+      "currency": "EUR",
+      "amountEur": 908360,
+      "partyEik": "130526402",
+      "partyName": "Идънред българия АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-529099-855253%2F2026-05-18-award"
     },
     {
       "key": "179ee24d9d1a",
@@ -724,98 +637,86 @@
       "partyName": "Алфа билд инженеринг ЕООД",
       "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
       "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
-      "key": "553debb2a4ef",
-      "ocid": "aop-legacy-2011-2015-517688",
-      "date": "2013-01-11",
-      "amount": 933344.11,
-      "currency": "BGN",
-      "amountEur": 477211.2658053103,
-      "partyEik": "176440868",
-      "partyName": "ДЗЗД Вароша - Ловеч",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 4932726.648021556,
+      "totalEur": 4645160.243988486,
       "totalOther": {},
-      "contractCount": 50
+      "contractCount": 41
     },
     {
       "year": "2012",
-      "totalEur": 4602166.374378142,
+      "totalEur": 4316495.0123477,
       "totalOther": {},
-      "contractCount": 56
+      "contractCount": 43
     },
     {
       "year": "2013",
-      "totalEur": 10375172.290025206,
+      "totalEur": 9190543.646431437,
       "totalOther": {},
-      "contractCount": 89
+      "contractCount": 74
     },
     {
       "year": "2014",
-      "totalEur": 6791675.9432057,
+      "totalEur": 6372393.730538955,
       "totalOther": {},
-      "contractCount": 62
+      "contractCount": 51
     },
     {
       "year": "2015",
-      "totalEur": 4761989.27820925,
+      "totalEur": 4421658.876282703,
       "totalOther": {},
-      "contractCount": 57
+      "contractCount": 45
     },
     {
       "year": "2016",
-      "totalEur": 4871950.532510495,
+      "totalEur": 3797638.3990428625,
       "totalOther": {},
-      "contractCount": 83
+      "contractCount": 60
     },
     {
       "year": "2017",
-      "totalEur": 21227126.65722481,
+      "totalEur": 18726507.129965283,
       "totalOther": {},
-      "contractCount": 227
+      "contractCount": 176
     },
     {
       "year": "2019",
-      "totalEur": 26214291.702244066,
+      "totalEur": 24197546.294923387,
       "totalOther": {},
-      "contractCount": 187
+      "contractCount": 126
     },
     {
       "year": "2020",
-      "totalEur": 156151.19923510734,
+      "totalEur": 83379.53707633076,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 5
     },
     {
       "year": "2021",
-      "totalEur": 13838428.835839517,
+      "totalEur": 13717055.960896399,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 16
     },
     {
       "year": "2022",
-      "totalEur": 13173098.67422015,
+      "totalEur": 11508721.437957283,
       "totalOther": {},
-      "contractCount": 133
+      "contractCount": 60
     },
     {
       "year": "2023",
-      "totalEur": 9077812.698445162,
+      "totalEur": 7312918.663687539,
       "totalOther": {},
-      "contractCount": 154
+      "contractCount": 63
     },
     {
       "year": "2026",
-      "totalEur": 3126552.6500000004,
+      "totalEur": 3909172.16,
       "totalOther": {},
-      "contractCount": 42
+      "contractCount": 21
     }
   ]
 }

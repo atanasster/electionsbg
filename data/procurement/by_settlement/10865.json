@@ -3,28 +3,19 @@
   "name": "Ветрино",
   "province": "Варна",
   "obshtina": "Ветрино",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 169,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 149,
   "awardCount": 0,
-  "totalEur": 23807352.75442257,
+  "totalEur": 23560112.539983176,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000093458",
       "name": "Община Ветрино",
       "tier": "municipal",
-      "totalEur": 23047419.359983176,
+      "totalEur": 23560112.539983176,
       "totalOther": {},
-      "contractCount": 147,
-      "awardCount": 0
-    },
-    {
-      "eik": "000082442",
-      "name": "Средно училище \"Христо Ботев\"",
-      "tier": "school",
-      "totalEur": 759933.3944393939,
-      "totalOther": {},
-      "contractCount": 22,
+      "contractCount": 149,
       "awardCount": 0
     }
   ],
@@ -184,6 +175,18 @@
       "partyName": "Солей 06 ООД",
       "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
       "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-540421-850685%2F2026-04-30-award"
+    },
+    {
+      "key": "dfb307c16317",
+      "ocid": "ocds-e82gsb-444265",
+      "date": "2026-05-08",
+      "amount": 496703.18,
+      "currency": "EUR",
+      "amountEur": 496703.18,
+      "partyEik": "181327594",
+      "partyName": "ВП Строй 2024",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-444265-852974%2F2026-05-08-contractamendment"
     },
     {
       "key": "71e0bfdf058e",
@@ -546,18 +549,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
-      "key": "5337d7699b48",
-      "ocid": "aop-legacy-2011-2015-506608",
-      "date": "2012-10-31",
-      "amount": 173671,
-      "currency": "BGN",
-      "amountEur": 88796.57229922846,
-      "partyEik": "103279225",
-      "partyName": "Хепи Лейди ООД - гр. Варна",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
       "key": "3b2d48b4ed9a",
       "ocid": "aop-legacy-2020-64822",
       "date": "2020-10-06",
@@ -639,27 +630,27 @@
     },
     {
       "year": "2012",
-      "totalEur": 561857.54896898,
+      "totalEur": 443917.339441567,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2013",
+      "totalEur": 247117.34148673454,
+      "totalOther": {},
+      "contractCount": 4
+    },
+    {
+      "year": "2014",
+      "totalEur": 211859.05728002943,
       "totalOther": {},
       "contractCount": 3
     },
     {
-      "year": "2013",
-      "totalEur": 295057.09085145436,
+      "year": "2015",
+      "totalEur": 859374.1582857406,
       "totalOther": {},
       "contractCount": 6
-    },
-    {
-      "year": "2014",
-      "totalEur": 260307.3733402187,
-      "totalOther": {},
-      "contractCount": 5
-    },
-    {
-      "year": "2015",
-      "totalEur": 925836.9899224371,
-      "totalOther": {},
-      "contractCount": 8
     },
     {
       "year": "2016",
@@ -669,15 +660,15 @@
     },
     {
       "year": "2017",
-      "totalEur": 537720.4869543877,
+      "totalEur": 372542.53181513736,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 12
     },
     {
       "year": "2019",
-      "totalEur": 2963636.6555375466,
+      "totalEur": 2803072.3631399455,
       "totalOther": {},
-      "contractCount": 29
+      "contractCount": 25
     },
     {
       "year": "2020",
@@ -687,21 +678,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 1916499.7060071684,
+      "totalEur": 1868673.4634400741,
       "totalOther": {},
-      "contractCount": 35
+      "contractCount": 34
     },
     {
       "year": "2023",
-      "totalEur": 7118185.35864569,
+      "totalEur": 7025797.64089926,
       "totalOther": {},
-      "contractCount": 29
+      "contractCount": 27
     },
     {
       "year": "2026",
-      "totalEur": 7116462.81,
+      "totalEur": 7615969.909999999,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 15
     }
   ]
 }

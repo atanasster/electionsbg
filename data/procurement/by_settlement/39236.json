@@ -1,0 +1,62 @@
+{
+  "ekatte": "39236",
+  "name": "Краводер",
+  "province": "Враца",
+  "obshtina": "Криводол",
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 72100.84856684886,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000182446",
+      "name": "Обединено училище \"СВ.СВ.КИРИЛ и Методий\"",
+      "tier": "school",
+      "totalEur": 72100.84856684886,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "0b5f796d4f09",
+      "ocid": "ocds-e82gsb-549344",
+      "date": "2026-05-13",
+      "amount": 39766.75,
+      "currency": "EUR",
+      "amountEur": 39766.75,
+      "partyEik": "203362451",
+      "partyName": "Химбокс ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-549344-854507%2F2026-05-13-award"
+    },
+    {
+      "key": "f803c2491857",
+      "ocid": "aop-legacy-2011-2015-537781",
+      "date": "2013-04-19",
+      "amount": 63240,
+      "currency": "BGN",
+      "amountEur": 32334.098566848857,
+      "partyEik": "201322700",
+      "partyName": "ЕТ Георги Иванов – Челси - Криводол",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2013",
+      "totalEur": 32334.098566848857,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 39766.75,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

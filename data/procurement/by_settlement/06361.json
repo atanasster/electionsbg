@@ -3,23 +3,47 @@
   "name": "Брезово",
   "province": "Пловдив",
   "obshtina": "Брезово",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 122,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 126,
   "awardCount": 0,
-  "totalEur": 9746923.427460207,
+  "totalEur": 19682646.127460208,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000471123",
       "name": "Община Брезово",
       "tier": "municipal",
-      "totalEur": 9746923.427460207,
+      "totalEur": 19682646.127460208,
       "totalOther": {},
-      "contractCount": 122,
+      "contractCount": 126,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "61edcc27be7d",
+      "ocid": "ocds-e82gsb-477349",
+      "date": "2026-05-20",
+      "amount": 3783048.63,
+      "currency": "EUR",
+      "amountEur": 3783048.63,
+      "partyEik": "205898070",
+      "partyName": "Аква конструкт груп ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-477349-856821%2F2026-05-20-award"
+    },
+    {
+      "key": "6f44b27896fb",
+      "ocid": "ocds-e82gsb-477349",
+      "date": "2026-05-20",
+      "amount": 3783048.63,
+      "currency": "EUR",
+      "amountEur": 3783048.63,
+      "partyEik": "831643461",
+      "partyName": "Славлен АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-477349-856821%2F2026-05-20-award"
+    },
     {
       "key": "e16f8c074e41",
       "ocid": "aop-legacy-2023-361681",
@@ -31,6 +55,30 @@
       "partyName": "ДЗЗД \"Гарант път",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "286cb303502f",
+      "ocid": "ocds-e82gsb-501663",
+      "date": "2026-05-20",
+      "amount": 1184812.72,
+      "currency": "EUR",
+      "amountEur": 1184812.72,
+      "partyEik": "115004094",
+      "partyName": "Европейски пътища АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-501663-857010%2F2026-05-20-award"
+    },
+    {
+      "key": "fe5ff94af016",
+      "ocid": "ocds-e82gsb-501663",
+      "date": "2026-05-20",
+      "amount": 1184812.72,
+      "currency": "EUR",
+      "amountEur": 1184812.72,
+      "partyEik": "101611650",
+      "partyName": "Грома Холд ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-501663-857010%2F2026-05-20-award"
     },
     {
       "key": "81d2a2b67d4c",
@@ -571,54 +619,6 @@
       "partyName": "Брезово Експрес ООД - Брезово",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "643add27df6f",
-      "ocid": "aop-legacy-2016-746476",
-      "date": "2016-08-26",
-      "amount": 95000,
-      "currency": "BGN",
-      "amountEur": 48572.728713640754,
-      "partyEik": "160013590",
-      "partyName": "Брезово Експрес ООД - Брезово",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "e08e31e7d109",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-08-26",
-      "amount": 95000,
-      "currency": "BGN",
-      "amountEur": 48572.728713640754,
-      "partyEik": "160013590",
-      "partyName": "Брезово Експрес ООД - Брезово",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "75baf241d5a4",
-      "ocid": "aop-legacy-2022-218973",
-      "date": "2022-04-05",
-      "amount": 94000,
-      "currency": "BGN",
-      "amountEur": 48061.43683244454,
-      "partyEik": "000471753",
-      "partyName": "Кооперация Районен кооперативен съюз - пловдив",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "bb09db5eb3c1",
-      "ocid": "aop-legacy-2023-318241",
-      "date": "2023-01-06",
-      "amount": 92777,
-      "currency": "BGN",
-      "amountEur": 47436.12686174156,
-      "partyEik": "130696746",
-      "partyName": "БИ Ем ЛИЗИНГ-ТРЕЙД АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 529248.65,
+      "totalEur": 10464971.350000001,
       "totalOther": {},
-      "contractCount": 9
+      "contractCount": 13
     }
   ]
 }

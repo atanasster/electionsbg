@@ -9,8 +9,8 @@
   "scorecard": {
     "value": 3632423.828128774,
     "rank": 12,
-    "cohortSize": 54,
-    "cohortMedian": 305399.75355731323
+    "cohortSize": 55,
+    "cohortMedian": 505258.64
   },
   "entries": [
     {
@@ -21,6 +21,11 @@
       "relations": [
         {
           "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "sole_owner",
           "isCurrent": true,
           "confidence": "medium"
         },

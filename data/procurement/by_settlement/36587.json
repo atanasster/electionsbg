@@ -3,37 +3,19 @@
   "name": "Каспичан",
   "province": "Шумен",
   "obshtina": "Каспичан",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "generatedAt": "2026-05-28T08:40:27.221Z",
   "contractCount": 116,
   "awardCount": 0,
-  "totalEur": 9112501.340451214,
+  "totalEur": 8948787.320451213,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000931511",
       "name": "Община Каспичан",
       "tier": "municipal",
-      "totalEur": 8708112.840451214,
+      "totalEur": 8948787.320451213,
       "totalOther": {},
-      "contractCount": 113,
-      "awardCount": 0
-    },
-    {
-      "eik": "000921727",
-      "name": "Средно училище \"Панайот Волов\"",
-      "tier": "school",
-      "totalEur": 292257.12,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000920511",
-      "name": "Детска Градина \"Снежанка\"",
-      "tier": "school",
-      "totalEur": 112131.38,
-      "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 116,
       "awardCount": 0
     }
   ],
@@ -219,30 +201,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
-      "key": "dc3258ae5c8a",
-      "ocid": "ocds-e82gsb-502730",
-      "date": "2026-03-16",
-      "amount": 146128.56,
-      "currency": "EUR",
-      "amountEur": 146128.56,
-      "partyEik": "127588059",
-      "partyName": "Гарант строй ООД",
-      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
-      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-502730-825684%2F2026-03-16-contractamendment"
-    },
-    {
-      "key": "7ac9e08639aa",
-      "ocid": "ocds-e82gsb-502730",
-      "date": "2026-01-30",
-      "amount": 146128.56,
-      "currency": "EUR",
-      "amountEur": 146128.56,
-      "partyEik": "127588059",
-      "partyName": "Гарант строй ООД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-502730-804552%2F2026-01-30-contractamendment"
-    },
-    {
       "key": "eb5f5cc4b2f8",
       "ocid": "aop-legacy-2011-2015-556543",
       "date": "2013-08-21",
@@ -375,16 +333,16 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "c2b6f84e7f83",
-      "ocid": "ocds-e82gsb-559912",
-      "date": "2026-04-23",
-      "amount": 112131.38,
+      "key": "233237afc564",
+      "ocid": "ocds-e82gsb-558281",
+      "date": "2026-05-19",
+      "amount": 114682.64,
       "currency": "EUR",
-      "amountEur": 112131.38,
-      "partyEik": "205037773",
-      "partyName": "Турман 2018 ЕООД",
-      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
-      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-559912-847664%2F2026-04-23-award"
+      "amountEur": 114682.64,
+      "partyEik": "119677914",
+      "partyName": "КЕЙ ЕНД ВИ ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-558281-856838%2F2026-05-19-award"
     },
     {
       "key": "754e035cb923",
@@ -445,6 +403,18 @@
       "partyName": "Инфра експерт АД",
       "bundleUuid": "db3e39ba-37f9-44bf-847f-75f36acee513",
       "sourceUrl": "https://data.egov.bg/data/view/db3e39ba-37f9-44bf-847f-75f36acee513"
+    },
+    {
+      "key": "44a13b82edd2",
+      "ocid": "ocds-e82gsb-541339",
+      "date": "2026-05-19",
+      "amount": 86131.52,
+      "currency": "EUR",
+      "amountEur": 86131.52,
+      "partyEik": "040242132",
+      "partyName": "БУЛ-МАРК ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-541339-857055%2F2026-05-19-award"
     },
     {
       "key": "0c58e2e08158",
@@ -637,6 +607,18 @@
       "partyName": "Деа ООД - Шумен",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "d6907648edb2",
+      "ocid": "aop-legacy-2022-251010",
+      "date": "2022-07-08",
+      "amount": 125000,
+      "currency": "BGN",
+      "amountEur": 63911.48514952731,
+      "partyEik": "201495727",
+      "partyName": "Инвестиционно проектиране ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -714,7 +696,7 @@
     },
     {
       "year": "2026",
-      "totalEur": 1932549.0899999999,
+      "totalEur": 1768835.0699999998,
       "totalOther": {},
       "contractCount": 13
     }

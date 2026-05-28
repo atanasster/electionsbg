@@ -3,55 +3,37 @@
   "name": "Берковица",
   "province": "Монтана",
   "obshtina": "Берковица",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 400,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 393,
   "awardCount": 0,
-  "totalEur": 48004463.79147804,
+  "totalEur": 48019084.866227016,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000320559",
       "name": "Община Берковица",
       "tier": "municipal",
-      "totalEur": 44444097.38576803,
+      "totalEur": 44525694.62576803,
       "totalOther": {},
-      "contractCount": 358,
+      "contractCount": 360,
       "awardCount": 0
     },
     {
       "eik": "000777262",
       "name": "Регионална дирекция по горите - берковица",
       "tier": "regional_gov",
-      "totalEur": 3157903.1699648225,
+      "totalEur": 3456812.789964822,
       "totalOther": {},
-      "contractCount": 29,
-      "awardCount": 0
-    },
-    {
-      "eik": "000311528",
-      "name": "Трето основно училище \"Иван Вазов\"",
-      "tier": "school",
-      "totalEur": 208310.59,
-      "totalOther": {},
-      "contractCount": 5,
-      "awardCount": 0
-    },
-    {
-      "eik": "000312523",
-      "name": "Лесотехническа професионална гимназия",
-      "tier": "school",
-      "totalEur": 167075.19525101874,
-      "totalOther": {},
-      "contractCount": 6,
+      "contractCount": 30,
       "awardCount": 0
     },
     {
       "eik": "000312377",
       "name": "Профилирана гимназия Д-Р иван Панов",
       "tier": "school",
-      "totalEur": 27077.450494163604,
+      "totalEur": 36577.450494163604,
       "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
@@ -343,6 +325,18 @@
       "partyName": "Силва 2003 ООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "5c4e79985e97",
+      "ocid": "ocds-e82gsb-185779",
+      "date": "2026-05-07",
+      "amount": 298909.62,
+      "currency": "EUR",
+      "amountEur": 298909.62,
+      "partyEik": "131129318",
+      "partyName": "Силва 2003 ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-185779-852078%2F2026-05-07-contractamendment"
     },
     {
       "key": "56d45ae978d7",
@@ -643,38 +637,26 @@
       "partyName": "Атиум ООД",
       "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
       "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-558945-851381%2F2026-05-04-award"
-    },
-    {
-      "key": "5aede50a3726",
-      "ocid": "aop-legacy-2011-2015-556805",
-      "date": "2013-08-23",
-      "amount": 280000,
-      "currency": "BGN",
-      "amountEur": 143161.72673494118,
-      "partyEik": "111042674",
-      "partyName": "ЕТ Иван Иванов - Мацдив - Берковица",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 3893795.9843135653,
-      "totalOther": {},
-      "contractCount": 14
-    },
-    {
-      "year": "2012",
-      "totalEur": 1199938.9057331157,
+      "totalEur": 3859712.0404125103,
       "totalOther": {},
       "contractCount": 13
     },
     {
-      "year": "2013",
-      "totalEur": 3499002.4593139486,
+      "year": "2012",
+      "totalEur": 1178202.9931026723,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 12
+    },
+    {
+      "year": "2013",
+      "totalEur": 3479509.456343343,
+      "totalOther": {},
+      "contractCount": 14
     },
     {
       "year": "2014",
@@ -684,9 +666,9 @@
     },
     {
       "year": "2015",
-      "totalEur": 9941613.32017609,
+      "totalEur": 9922501.229656974,
       "totalOther": {},
-      "contractCount": 29
+      "contractCount": 28
     },
     {
       "year": "2016",
@@ -720,9 +702,9 @@
     },
     {
       "year": "2022",
-      "totalEur": 1822020.4261106541,
+      "totalEur": 1761886.840880854,
       "totalOther": {},
-      "contractCount": 44
+      "contractCount": 43
     },
     {
       "year": "2023",
@@ -732,9 +714,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 4361026.55,
+      "totalEur": 4530206.16,
       "totalOther": {},
-      "contractCount": 42
+      "contractCount": 40
     }
   ]
 }

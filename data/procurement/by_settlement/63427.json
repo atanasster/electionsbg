@@ -3,361 +3,73 @@
   "name": "Русе",
   "province": "Русе",
   "obshtina": "Русе",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 3971,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 2929,
   "awardCount": 0,
-  "totalEur": 784963206.4276468,
+  "totalEur": 769425855.5423764,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000530632",
       "name": "Община Русе",
       "tier": "municipal",
-      "totalEur": 386016997.8743143,
+      "totalEur": 386126068.8743143,
       "totalOther": {},
-      "contractCount": 1088,
+      "contractCount": 1093,
       "awardCount": 0
     },
     {
       "eik": "117527022",
       "name": "Комплексен онкологичен център - русе ЕООД",
       "tier": "hospital",
-      "totalEur": 186119944.04493597,
+      "totalEur": 186572375.37493598,
       "totalOther": {},
-      "contractCount": 333,
+      "contractCount": 334,
       "awardCount": 0
     },
     {
       "eik": "827184123",
       "name": "Водоснабдяване и канализация ООД",
       "tier": "utility",
-      "totalEur": 87762311.0258348,
+      "totalEur": 88831729.45583479,
       "totalOther": {},
-      "contractCount": 207,
+      "contractCount": 215,
       "awardCount": 0
     },
     {
       "eik": "117505556",
       "name": "Университетска многопрофилна болница за активно лечение \"Канев\" АД",
       "tier": "hospital",
-      "totalEur": 80493911.00685285,
+      "totalEur": 80508827.34685285,
       "totalOther": {},
-      "contractCount": 902,
+      "contractCount": 903,
       "awardCount": 0
     },
     {
       "eik": "000522685",
       "name": "Русенски университет \"Ангел Кънчев\"",
       "tier": "university",
-      "totalEur": 13678679.772138938,
+      "totalEur": 13711384.772138938,
       "totalOther": {},
-      "contractCount": 202,
+      "contractCount": 209,
       "awardCount": 0
     },
     {
       "eik": "117005106",
       "name": "Топлофикация русе АД",
       "tier": "utility",
-      "totalEur": 13309297.919759385,
+      "totalEur": 13525213.919759385,
       "totalOther": {},
-      "contractCount": 154,
-      "awardCount": 0
-    },
-    {
-      "eik": "117525838",
-      "name": "Специализирана болница за активно лечение за пневмо- фтизиатрични заболявания Д-Р димитър ГРАМАТИКОВ-РУСЕ ЕООД",
-      "tier": "hospital",
-      "totalEur": 2968690.892017864,
-      "totalOther": {},
-      "contractCount": 145,
-      "awardCount": 0
-    },
-    {
-      "eik": "117526194",
-      "name": "Център за психично здраве - русе ЕООД",
-      "tier": "hospital",
-      "totalEur": 2845794.05617891,
-      "totalOther": {},
-      "contractCount": 51,
-      "awardCount": 0
-    },
-    {
-      "eik": "000523972",
-      "name": "Спортно училище \"Майор ат. Узунов\"",
-      "tier": "school",
-      "totalEur": 2088936.2112064955,
-      "totalOther": {},
-      "contractCount": 6,
-      "awardCount": 0
-    },
-    {
-      "eik": "117115549",
-      "name": "Диагностично - консултативен център - 1 - русе ЕООД",
-      "tier": "hospital",
-      "totalEur": 1592432.1381786761,
-      "totalOther": {},
-      "contractCount": 29,
-      "awardCount": 0
-    },
-    {
-      "eik": "827179902",
-      "name": "Регионална дирекция по горите - русе",
-      "tier": "regional_gov",
-      "totalEur": 1383753.705587909,
-      "totalOther": {},
-      "contractCount": 11,
-      "awardCount": 0
-    },
-    {
-      "eik": "000522347",
-      "name": "Професионална гимназия по СТРОИТЕЛСТВО,АРХИТЕКТУРА и геодезия \"Пеньо Пенев\"",
-      "tier": "school",
-      "totalEur": 553529.2407303804,
-      "totalOther": {},
-      "contractCount": 14,
-      "awardCount": 0
-    },
-    {
-      "eik": "000521423",
-      "name": "Средно училище \"Васил Левски\"",
-      "tier": "school",
-      "totalEur": 488792.7283475046,
-      "totalOther": {},
-      "contractCount": 47,
-      "awardCount": 0
-    },
-    {
-      "eik": "000521462",
-      "name": "Основно училище \"Иван Вазов\"",
-      "tier": "school",
-      "totalEur": 425656.96415767225,
-      "totalOther": {},
-      "contractCount": 24,
-      "awardCount": 0
-    },
-    {
-      "eik": "827144641",
-      "name": "Детска Градина \"Радост",
-      "tier": "school",
-      "totalEur": 424804.56379133154,
-      "totalOther": {},
-      "contractCount": 60,
-      "awardCount": 0
-    },
-    {
-      "eik": "827144673",
-      "name": "Детска Градина \"Иглика\"",
-      "tier": "school",
-      "totalEur": 406589.0009060092,
-      "totalOther": {},
-      "contractCount": 65,
-      "awardCount": 0
-    },
-    {
-      "eik": "827144634",
-      "name": "Детска Градина \"Чучулига",
-      "tier": "school",
-      "totalEur": 364700.92492701317,
-      "totalOther": {},
-      "contractCount": 69,
-      "awardCount": 0
-    },
-    {
-      "eik": "000524583",
-      "name": "Детска Градина \"Червената шапчица",
-      "tier": "school",
-      "totalEur": 349442.3441710169,
-      "totalOther": {},
-      "contractCount": 56,
-      "awardCount": 0
-    },
-    {
-      "eik": "827144698",
-      "name": "Детска Градина \"Русалка\"",
-      "tier": "school",
-      "totalEur": 323044.6575336815,
-      "totalOther": {},
-      "contractCount": 75,
-      "awardCount": 0
-    },
-    {
-      "eik": "000521474",
-      "name": "Средно училище с преподаване на Немски език \"Фридрих шилер\"",
-      "tier": "school",
-      "totalEur": 320742.67221046815,
-      "totalOther": {},
-      "contractCount": 46,
-      "awardCount": 0
-    },
-    {
-      "eik": "827144709",
-      "name": "Детска Градина \"Детелина\"",
-      "tier": "school",
-      "totalEur": 315690.9758575132,
-      "totalOther": {},
-      "contractCount": 59,
-      "awardCount": 0
-    },
-    {
-      "eik": "000522436",
-      "name": "Професионална гимназия по селско стопанство \"Ангел Кънчев",
-      "tier": "school",
-      "totalEur": 294108.42966924526,
-      "totalOther": {},
-      "contractCount": 9,
-      "awardCount": 0
-    },
-    {
-      "eik": "827144666",
-      "name": "Детска Градина \"Пинокио\"",
-      "tier": "school",
-      "totalEur": 263923.26410291286,
-      "totalOther": {},
-      "contractCount": 65,
-      "awardCount": 0
-    },
-    {
-      "eik": "827144659",
-      "name": "Детска Градина \"Слънце\"",
-      "tier": "school",
-      "totalEur": 243450.13380053485,
-      "totalOther": {},
-      "contractCount": 45,
-      "awardCount": 0
-    },
-    {
-      "eik": "000522240",
-      "name": "Средно училище за Европейски езици \"Свети КОНСТАНТИН-КИРИЛ философ",
-      "tier": "school",
-      "totalEur": 232322.2314822863,
-      "totalOther": {},
-      "contractCount": 66,
-      "awardCount": 0
-    },
-    {
-      "eik": "000522233",
-      "name": "Английска Езикова гимназия \"Гео Милев\"",
-      "tier": "school",
-      "totalEur": 223127.78,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000522322",
-      "name": "Професионална гимназия по електротехника и електроника \"Апостол Арнаудов\"",
-      "tier": "school",
-      "totalEur": 203241.237735386,
-      "totalOther": {},
-      "contractCount": 6,
-      "awardCount": 0
-    },
-    {
-      "eik": "000522361",
-      "name": "Професионална гимназия по икономика и управление \"Елиас канети - русе\"",
-      "tier": "school",
-      "totalEur": 173914.6649350915,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "827205133",
-      "name": "Център за спешна Медицинска помощ - русе",
-      "tier": "hospital",
-      "totalEur": 171538.41831912793,
-      "totalOther": {},
-      "contractCount": 9,
-      "awardCount": 0
-    },
-    {
-      "eik": "000522607",
-      "name": "Професионална гимназия по туризъм \"Иван п. Павлов\"",
-      "tier": "school",
-      "totalEur": 160093.43060654556,
-      "totalOther": {},
-      "contractCount": 5,
+      "contractCount": 155,
       "awardCount": 0
     },
     {
       "eik": "000521494",
       "name": "Основно училище \"Л. Каравелов\"",
       "tier": "school",
-      "totalEur": 132486.3585401083,
-      "totalOther": {},
-      "contractCount": 19,
-      "awardCount": 0
-    },
-    {
-      "eik": "827144730",
-      "name": "Детска Градина \"Звездица",
-      "tier": "school",
-      "totalEur": 128670.37012419278,
-      "totalOther": {},
-      "contractCount": 22,
-      "awardCount": 0
-    },
-    {
-      "eik": "000521537",
-      "name": "Основно училище \"Никола Обретенов\"",
-      "tier": "school",
-      "totalEur": 122685.6779730856,
-      "totalOther": {},
-      "contractCount": 6,
-      "awardCount": 0
-    },
-    {
-      "eik": "827144680",
-      "name": "Детска Градина \"Незабравка",
-      "tier": "school",
-      "totalEur": 87706.68718651416,
-      "totalOther": {},
-      "contractCount": 16,
-      "awardCount": 0
-    },
-    {
-      "eik": "000521430",
-      "name": "Средно училище \" йордан Йовков",
-      "tier": "school",
-      "totalEur": 80036.1585618382,
-      "totalOther": {},
-      "contractCount": 6,
-      "awardCount": 0
-    },
-    {
-      "eik": "000521505",
-      "name": "Основно училище \"Отец Паисий\"",
-      "tier": "school",
-      "totalEur": 79164.76722005491,
-      "totalOther": {},
-      "contractCount": 14,
-      "awardCount": 0
-    },
-    {
-      "eik": "000523989",
-      "name": "Средно училище \"Христо Ботев\"",
-      "tier": "school",
-      "totalEur": 68342.960073217,
-      "totalOther": {},
-      "contractCount": 11,
-      "awardCount": 0
-    },
-    {
-      "eik": "000524750",
-      "name": "Средно училище \"Възраждане",
-      "tier": "school",
-      "totalEur": 59635.16767817244,
+      "totalEur": 150255.7985401083,
       "totalOther": {},
       "contractCount": 20,
-      "awardCount": 0
-    },
-    {
-      "eik": "000522337",
-      "name": "Професионална гимназия по речно корабостроене и корабоплаване",
-      "tier": "school",
-      "totalEur": 5015.97,
-      "totalOther": {},
-      "contractCount": 5,
       "awardCount": 0
     }
   ],
@@ -966,57 +678,57 @@
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 17834609.267676637,
+      "totalEur": 17129497.136254173,
       "totalOther": {},
-      "contractCount": 184
+      "contractCount": 131
     },
     {
       "year": "2012",
-      "totalEur": 14924775.910994308,
+      "totalEur": 13456631.51194122,
       "totalOther": {},
-      "contractCount": 212
+      "contractCount": 144
     },
     {
       "year": "2013",
-      "totalEur": 26832383.658088896,
+      "totalEur": 25916520.576941766,
       "totalOther": {},
-      "contractCount": 215
+      "contractCount": 138
     },
     {
       "year": "2014",
-      "totalEur": 48500006.2224222,
+      "totalEur": 47442392.472760916,
       "totalOther": {},
-      "contractCount": 349
+      "contractCount": 237
     },
     {
       "year": "2015",
-      "totalEur": 38413149.2154226,
+      "totalEur": 37199101.45564798,
       "totalOther": {},
-      "contractCount": 161
+      "contractCount": 72
     },
     {
       "year": "2016",
-      "totalEur": 57336842.53345125,
+      "totalEur": 56547264.37993076,
       "totalOther": {},
-      "contractCount": 397
+      "contractCount": 347
     },
     {
       "year": "2017",
-      "totalEur": 88638757.63230957,
+      "totalEur": 87793835.01122285,
       "totalOther": {},
-      "contractCount": 442
+      "contractCount": 330
     },
     {
       "year": "2019",
-      "totalEur": 86784654.43172464,
+      "totalEur": 85171323.84573302,
       "totalOther": {},
-      "contractCount": 477
+      "contractCount": 403
     },
     {
       "year": "2020",
-      "totalEur": 8013792.149624456,
+      "totalEur": 7824238.287581231,
       "totalOther": {},
-      "contractCount": 107
+      "contractCount": 70
     },
     {
       "year": "2021",
@@ -1026,21 +738,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 56928981.78267027,
+      "totalEur": 54074453.65906035,
       "totalOther": {},
-      "contractCount": 482
+      "contractCount": 339
     },
     {
       "year": "2023",
-      "totalEur": 146886067.70527095,
+      "totalEur": 144463698.4349356,
       "totalOther": {},
-      "contractCount": 619
+      "contractCount": 453
     },
     {
       "year": "2026",
-      "totalEur": 126463773.41281426,
+      "totalEur": 125001486.26518951,
       "totalOther": {},
-      "contractCount": 310
+      "contractCount": 249
     }
   ]
 }

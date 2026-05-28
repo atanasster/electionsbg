@@ -3,28 +3,19 @@
   "name": "Нова Загора",
   "province": "Сливен",
   "obshtina": "Нова Загора",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 354,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 312,
   "awardCount": 0,
-  "totalEur": 49797119.95650354,
+  "totalEur": 51486715.063274994,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000590597",
       "name": "Община Нова загора",
       "tier": "municipal",
-      "totalEur": 48005738.103274986,
+      "totalEur": 51486715.063274994,
       "totalOther": {},
-      "contractCount": 309,
-      "awardCount": 0
-    },
-    {
-      "eik": "119502651",
-      "name": "Многопрофилна болница за активно лечение \"Света петка Българска\" ЕООД",
-      "tier": "hospital",
-      "totalEur": 1791381.8532285527,
-      "totalOther": {},
-      "contractCount": 45,
+      "contractCount": 312,
       "awardCount": 0
     }
   ],
@@ -102,6 +93,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "dbb0a0baa63c",
+      "ocid": "ocds-e82gsb-497835",
+      "date": "2026-05-14",
+      "amount": 1504075.78,
+      "currency": "EUR",
+      "amountEur": 1504075.78,
+      "partyEik": "206608342",
+      "partyName": "Спика инженеринг ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-497835-855132%2F2026-05-14-award"
+    },
+    {
+      "key": "88b45260f30d",
+      "ocid": "ocds-e82gsb-534512",
+      "date": "2026-05-18",
+      "amount": 1300900.79,
+      "currency": "EUR",
+      "amountEur": 1300900.79,
+      "partyEik": "119524605",
+      "partyName": "Пътно ПОДДЪРЖАНЕ-СЛИВЕН ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-534512-856112%2F2026-05-18-award"
+    },
+    {
       "key": "d2b8fc7e2ccc",
       "ocid": "aop-legacy-2011-2015-560416",
       "date": "2013-09-18",
@@ -160,6 +175,18 @@
       "partyName": "Сорико ООД, гр. Нова Загора",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "dc5d4a3e68d7",
+      "ocid": "ocds-e82gsb-534512",
+      "date": "2026-05-18",
+      "amount": 676000.39,
+      "currency": "EUR",
+      "amountEur": 676000.39,
+      "partyEik": "119524605",
+      "partyName": "Пътно ПОДДЪРЖАНЕ-СЛИВЕН ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-534512-856124%2F2026-05-18-award"
     },
     {
       "key": "b172f938d86e",
@@ -592,50 +619,14 @@
       "partyName": "Хидрострой инвест ЕООД - с. Братя Даскалови",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "82a1fb9d0db9",
-      "ocid": "aop-legacy-2011-2015-523096",
-      "date": "2013-02-11",
-      "amount": 557430.81,
-      "currency": "BGN",
-      "amountEur": 285009.84748163185,
-      "partyEik": "119628493",
-      "partyName": "Еко Глобъл ООД - Нова Загора",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "40e4391b58df",
-      "ocid": "aop-legacy-2011-2015-446557",
-      "date": "2011-08-04",
-      "amount": 553583,
-      "currency": "BGN",
-      "amountEur": 283042.49346824625,
-      "partyEik": "119536582",
-      "partyName": "Кооперация Меркурий 12 - Нова Загора",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "21dc5532ae02",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-07-08",
-      "amount": 550939,
-      "currency": "BGN",
-      "amountEur": 281690.63773436344,
-      "partyEik": "177040738",
-      "partyName": "ДЗЗД Обединение Раев строй",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 4336628.950368897,
+      "totalEur": 4191505.907977687,
       "totalOther": {},
-      "contractCount": 25
+      "contractCount": 21
     },
     {
       "year": "2012",
@@ -645,39 +636,39 @@
     },
     {
       "year": "2013",
-      "totalEur": 5276234.391537096,
-      "totalOther": {},
-      "contractCount": 12
-    },
-    {
-      "year": "2014",
-      "totalEur": 317782.22033612325,
+      "totalEur": 5098134.556684374,
       "totalOther": {},
       "contractCount": 10
     },
     {
-      "year": "2015",
-      "totalEur": 3031752.7136816597,
+      "year": "2014",
+      "totalEur": 199389.0062019705,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 6
+    },
+    {
+      "year": "2015",
+      "totalEur": 2904581.129239249,
+      "totalOther": {},
+      "contractCount": 12
     },
     {
       "year": "2016",
-      "totalEur": 16832781.397156198,
+      "totalEur": 16720890.793167097,
       "totalOther": {},
-      "contractCount": 39
+      "contractCount": 36
     },
     {
       "year": "2017",
-      "totalEur": 4688382.027067792,
+      "totalEur": 4547001.129955057,
       "totalOther": {},
-      "contractCount": 49
+      "contractCount": 46
     },
     {
       "year": "2019",
-      "totalEur": 2056460.827372522,
+      "totalEur": 1858590.8693495856,
       "totalOther": {},
-      "contractCount": 35
+      "contractCount": 33
     },
     {
       "year": "2020",
@@ -687,21 +678,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 2819060.342667819,
+      "totalEur": 2483806.6805397198,
       "totalOther": {},
-      "contractCount": 49
+      "contractCount": 37
     },
     {
       "year": "2023",
-      "totalEur": 2088550.2574354622,
+      "totalEur": 1652351.201280275,
       "totalOther": {},
-      "contractCount": 60
+      "contractCount": 50
     },
     {
       "year": "2026",
-      "totalEur": 6029759.010000001,
+      "totalEur": 9510735.970000003,
       "totalOther": {},
-      "contractCount": 42
+      "contractCount": 45
     }
   ]
 }

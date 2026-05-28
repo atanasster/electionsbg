@@ -3,19 +3,19 @@
   "name": "Койнаре",
   "province": "Плевен",
   "obshtina": "Червен бряг",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 3,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 5,
   "awardCount": 0,
-  "totalEur": 222761.65106374276,
+  "totalEur": 272792.46106374275,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000183152",
-      "name": "Средно училище \"Христо Смирненски",
+      "name": "Средно училище \"Христо Смирненски\"",
       "tier": "school",
-      "totalEur": 222761.65106374276,
+      "totalEur": 272792.46106374275,
       "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 5,
       "awardCount": 0
     }
   ],
@@ -55,6 +55,30 @@
       "partyName": "ЕТ Импорт-експорт 2000 - Величко Великов - Плевен",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "5a8c06c2958b",
+      "ocid": "ocds-e82gsb-581901",
+      "date": "2026-05-18",
+      "amount": 49146.09,
+      "currency": "EUR",
+      "amountEur": 49146.09,
+      "partyEik": "206547220",
+      "partyName": "Джей ЕНД ДЖИ едюкейшън ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-581901-856179%2F2026-05-18-award"
+    },
+    {
+      "key": "01bceb740a9a",
+      "ocid": "ocds-e82gsb-581901",
+      "date": "2026-05-18",
+      "amount": 884.72,
+      "currency": "EUR",
+      "amountEur": 884.72,
+      "partyEik": "206547220",
+      "partyName": "Джей ЕНД ДЖИ едюкейшън ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-581901-856179%2F2026-05-18-award"
     }
   ],
   "byYear": [
@@ -69,6 +93,12 @@
       "totalEur": 107197.35355322293,
       "totalOther": {},
       "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 50030.81,
+      "totalOther": {},
+      "contractCount": 2
     }
   ]
 }

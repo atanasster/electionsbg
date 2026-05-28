@@ -3,19 +3,19 @@
   "name": "Долна баня",
   "province": "София",
   "obshtina": "Долна баня",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 31,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 32,
   "awardCount": 0,
-  "totalEur": 9909513.972882356,
+  "totalEur": 10185513.972882356,
   "totalOther": {},
   "awarders": [
     {
       "eik": "122054941",
       "name": "Община Долна баня",
       "tier": "municipal",
-      "totalEur": 9909513.972882356,
+      "totalEur": 10185513.972882356,
       "totalOther": {},
-      "contractCount": 31,
+      "contractCount": 32,
       "awardCount": 0
     }
   ],
@@ -115,6 +115,18 @@
       "partyName": "ИВТ Дивелъпмънт ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "f323e188a9b7",
+      "ocid": "ocds-e82gsb-555673",
+      "date": "2026-05-11",
+      "amount": 276000,
+      "currency": "EUR",
+      "amountEur": 276000,
+      "partyEik": "175270007",
+      "partyName": "Криси 2007 ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-555673-852831%2F2026-05-11-award"
     },
     {
       "key": "cd8d58df7a7d",
@@ -462,9 +474,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 316737.75,
+      "totalEur": 592737.75,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 5
     }
   ]
 }

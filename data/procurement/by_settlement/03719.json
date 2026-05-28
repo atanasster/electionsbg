@@ -3,28 +3,19 @@
   "name": "Белослав",
   "province": "Варна",
   "obshtina": "Белослав",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 203,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 210,
   "awardCount": 0,
-  "totalEur": 19412192.021917444,
+  "totalEur": 19669572.181917444,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000093403",
       "name": "Община Белослав",
       "tier": "municipal",
-      "totalEur": 19382548.651917443,
+      "totalEur": 19669572.181917444,
       "totalOther": {},
-      "contractCount": 202,
-      "awardCount": 0
-    },
-    {
-      "eik": "000082346",
-      "name": "Средно училище \"СВ.СВ.КИРИЛ и Методий\"",
-      "tier": "school",
-      "totalEur": 29643.37,
-      "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 210,
       "awardCount": 0
     }
   ],
@@ -606,6 +597,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "c760b9d8521f",
+      "ocid": "ocds-e82gsb-542159",
+      "date": "2026-05-07",
+      "amount": 93344.92,
+      "currency": "EUR",
+      "amountEur": 93344.92,
+      "partyEik": "202230240",
+      "partyName": "ВИП Строй 2015 ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-542159-852283%2F2026-05-07-award"
+    },
+    {
       "key": "7c237841320d",
       "ocid": "aop-legacy-2011-2015-439884",
       "date": "2011-06-02",
@@ -616,18 +619,6 @@
       "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "822d042afad5",
-      "ocid": "ocds-e82gsb-546452",
-      "date": "2026-01-16",
-      "amount": 86000,
-      "currency": "EUR",
-      "amountEur": 86000,
-      "partyEik": "000646811",
-      "partyName": "МОТО-ПФОЕ ЕООД",
-      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
-      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-546452-798036%2F2026-01-16-award"
     }
   ],
   "byYear": [
@@ -699,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2421361.96,
+      "totalEur": 2678742.12,
       "totalOther": {},
-      "contractCount": 27
+      "contractCount": 34
     }
   ]
 }

@@ -3,19 +3,19 @@
   "name": "Ценово",
   "province": "Русе",
   "obshtina": "Ценово",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 90,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 91,
   "awardCount": 0,
-  "totalEur": 15828998.906068018,
+  "totalEur": 16305518.166068017,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000530671",
       "name": "Община Ценово",
       "tier": "municipal",
-      "totalEur": 15828998.906068018,
+      "totalEur": 16305518.166068017,
       "totalOther": {},
-      "contractCount": 90,
+      "contractCount": 91,
       "awardCount": 0
     }
   ],
@@ -91,6 +91,18 @@
       "partyName": "ДЗЗД Светлина 2013",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "704c91ebc259",
+      "ocid": "ocds-e82gsb-522639",
+      "date": "2026-05-12",
+      "amount": 476519.26,
+      "currency": "EUR",
+      "amountEur": 476519.26,
+      "partyEik": "117644424",
+      "partyName": "Булстрой ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-522639-854140%2F2026-05-12-award"
     },
     {
       "key": "738c66e91b5a",
@@ -607,18 +619,6 @@
       "partyName": "Агрола екоинвест ООД",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "bac79188726f",
-      "ocid": "aop-legacy-2023-398111",
-      "date": "2023-07-10",
-      "amount": 91129.25,
-      "currency": "BGN",
-      "amountEur": 46593.645664500495,
-      "partyEik": "117620882",
-      "partyName": "Бороимпекс АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -678,9 +678,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 67738.5,
+      "totalEur": 544257.76,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 3
     }
   ]
 }

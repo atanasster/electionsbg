@@ -1,0 +1,44 @@
+{
+  "ekatte": "21600",
+  "name": "Добролево",
+  "province": "Враца",
+  "obshtina": "Борован",
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 35478,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000182389",
+      "name": "Основно училище \"СВ.СВ.КИРИЛ и Методий\"",
+      "tier": "school",
+      "totalEur": 35478,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "28a8366d58fc",
+      "ocid": "ocds-e82gsb-577214",
+      "date": "2026-05-12",
+      "amount": 35478,
+      "currency": "EUR",
+      "amountEur": 35478,
+      "partyEik": "114600294",
+      "partyName": "Офис решения БГ ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-577214-853884%2F2026-05-12-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 35478,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

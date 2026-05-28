@@ -3,82 +3,28 @@
   "name": "Раковски",
   "province": "Пловдив",
   "obshtina": "Раковски",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 199,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 154,
   "awardCount": 0,
-  "totalEur": 40425711.1387324,
+  "totalEur": 41020142.30704663,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000471543",
       "name": "Община Раковски",
       "tier": "municipal",
-      "totalEur": 38627204.17026863,
+      "totalEur": 40846436.83026864,
       "totalOther": {},
-      "contractCount": 139,
-      "awardCount": 0
-    },
-    {
-      "eik": "115532871",
-      "name": "Многопрофилна болница за активно лечение - Раковски ЕООД",
-      "tier": "hospital",
-      "totalEur": 1110383.0468976854,
-      "totalOther": {},
-      "contractCount": 6,
-      "awardCount": 0
-    },
-    {
-      "eik": "000453356",
-      "name": "Основно училище \"Христо Ботев\" - гр. Раковски",
-      "tier": "school",
-      "totalEur": 248786.1526027313,
-      "totalOther": {},
-      "contractCount": 11,
+      "contractCount": 140,
       "awardCount": 0
     },
     {
       "eik": "000459135",
       "name": "Детска Градина \"Щастливо детство\" - гр. Раковски",
       "tier": "school",
-      "totalEur": 173704.18677799197,
+      "totalEur": 173705.47677799198,
       "totalOther": {},
-      "contractCount": 13,
-      "awardCount": 0
-    },
-    {
-      "eik": "000461200",
-      "name": "Детска Градина \"Детелина\" - гр. Раковски",
-      "tier": "school",
-      "totalEur": 112616.11398204343,
-      "totalOther": {},
-      "contractCount": 13,
-      "awardCount": 0
-    },
-    {
-      "eik": "000451409",
-      "name": "Детска Градина \"Иглика\" - гр. Раковски",
-      "tier": "school",
-      "totalEur": 84620.52159875858,
-      "totalOther": {},
-      "contractCount": 10,
-      "awardCount": 0
-    },
-    {
-      "eik": "181045844",
-      "name": "Детска Градина \"Феникс\" - гр. Раковски",
-      "tier": "school",
-      "totalEur": 55436.72,
-      "totalOther": {},
-      "contractCount": 1,
-      "awardCount": 0
-    },
-    {
-      "eik": "000453342",
-      "name": "Основно училище /ОУ/ \"Хр. Смирненски\" гр. Раковски",
-      "tier": "school",
-      "totalEur": 12960.226604561745,
-      "totalOther": {},
-      "contractCount": 6,
+      "contractCount": 14,
       "awardCount": 0
     }
   ],
@@ -94,6 +40,18 @@
       "partyName": "Обединение гбс - Раковски - 2012",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "8e792e091dac",
+      "ocid": "ocds-e82gsb-537640",
+      "date": "2026-05-12",
+      "amount": 2219232.66,
+      "currency": "EUR",
+      "amountEur": 2219232.66,
+      "partyEik": "203484487",
+      "partyName": "Алфа билд инженеринг ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-537640-853212%2F2026-05-12-award"
     },
     {
       "key": "5cfc4cfef175",
@@ -284,18 +242,6 @@
       "amountEur": 664242.7000301663,
       "partyEik": "831040520",
       "partyName": "Иса-2000 ЕООД - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "2e96728fa9b6",
-      "ocid": "aop-legacy-2011-2015-443645",
-      "date": "2011-07-07",
-      "amount": 1250000,
-      "currency": "BGN",
-      "amountEur": 639114.8514952731,
-      "partyEik": "115509050",
-      "partyName": "Йолито-Тодор Кочев  ЕТ - гр.Пловдив",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
@@ -612,18 +558,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
-      "key": "5bf426677db8",
-      "ocid": "aop-legacy-2016-709816",
-      "date": "2016-01-26",
-      "amount": 417719.41,
-      "currency": "BGN",
-      "amountEur": 213576.54295107446,
-      "partyEik": "120564924",
-      "partyName": "Артстрой ООД - Смолян",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "9b7cf0239fb4",
       "ocid": "aop-legacy-2023-364452",
       "date": "2023-04-24",
@@ -682,14 +616,26 @@
       "partyName": "Стройнорм ЕООД - гр.София - Стройнорм ООД (старо наименование)",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "113dac51d6f7",
+      "ocid": "aop-legacy-2022-207002",
+      "date": "2022-03-18",
+      "amount": 367000,
+      "currency": "BGN",
+      "amountEur": 187644.12039901217,
+      "partyEik": "825283119",
+      "partyName": "Масив - 4 ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 1850134.3675063783,
+      "totalEur": 1211019.5160111052,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2012",
@@ -705,21 +651,21 @@
     },
     {
       "year": "2014",
-      "totalEur": 1376761.4874503408,
+      "totalEur": 1342386.6082430477,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 3
     },
     {
       "year": "2015",
-      "totalEur": 837338.066191847,
+      "totalEur": 730485.6761579483,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 3
     },
     {
       "year": "2016",
-      "totalEur": 5061146.433994775,
+      "totalEur": 4847569.8910437,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 16
     },
     {
       "year": "2017",
@@ -741,21 +687,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 3075389.6811072533,
+      "totalEur": 3000974.1132920547,
       "totalOther": {},
-      "contractCount": 42
+      "contractCount": 32
     },
     {
       "year": "2023",
-      "totalEur": 8204108.199587897,
+      "totalEur": 8075550.799404855,
       "totalOther": {},
-      "contractCount": 42
+      "contractCount": 32
     },
     {
       "year": "2026",
-      "totalEur": 3109634.9,
+      "totalEur": 4900957.7,
       "totalOther": {},
-      "contractCount": 25
+      "contractCount": 16
     }
   ]
 }

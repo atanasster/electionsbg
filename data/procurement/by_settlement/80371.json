@@ -3,19 +3,19 @@
   "name": "Чепеларе",
   "province": "Смолян",
   "obshtina": "Чепеларе",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 111,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 112,
   "awardCount": 0,
-  "totalEur": 28027097.994919293,
+  "totalEur": 28801198.27491929,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000615164",
       "name": "Община Чепеларе",
       "tier": "municipal",
-      "totalEur": 28027097.994919293,
+      "totalEur": 28801198.27491929,
       "totalOther": {},
-      "contractCount": 111,
+      "contractCount": 112,
       "awardCount": 0
     }
   ],
@@ -127,6 +127,18 @@
       "partyName": "Еко Традекс Груп АД - Хасково",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "574e9b45336f",
+      "ocid": "ocds-e82gsb-553762",
+      "date": "2026-05-20",
+      "amount": 774100.28,
+      "currency": "EUR",
+      "amountEur": 774100.28,
+      "partyEik": "203728856",
+      "partyName": "СТ Клинър ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-553762-856645%2F2026-05-20-award"
     },
     {
       "key": "edc978fdb064",
@@ -607,18 +619,6 @@
       "partyName": "Щеревстрой ООД - Смолян",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "4cccdaf13f26",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-05-09",
-      "amount": 128554.59,
-      "currency": "BGN",
-      "amountEur": 65728.91815750858,
-      "partyEik": "120540695",
-      "partyName": "Строително монтажна компания - Перелик ООД - Смолян",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 1206754.1000000003,
+      "totalEur": 1980854.3800000004,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 8
     }
   ]
 }

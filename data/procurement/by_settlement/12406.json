@@ -3,19 +3,19 @@
   "name": "Въглен",
   "province": "Варна",
   "obshtina": "Аксаково",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 1,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 2,
   "awardCount": 0,
-  "totalEur": 28174.35,
+  "totalEur": 41704.85,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000081439",
       "name": "Основно училище \"Христо Смирненски\"",
       "tier": "school",
-      "totalEur": 28174.35,
+      "totalEur": 41704.85,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
@@ -31,14 +31,26 @@
       "partyName": "Дезон - бг ЕООД",
       "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-552065-809420%2F2026-02-11-award"
+    },
+    {
+      "key": "9c50fb1996f3",
+      "ocid": "ocds-e82gsb-573203",
+      "date": "2026-05-16",
+      "amount": 13530.5,
+      "currency": "EUR",
+      "amountEur": 13530.5,
+      "partyEik": "103904221",
+      "partyName": "Офис груп българия АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-573203-855988%2F2026-05-16-award"
     }
   ],
   "byYear": [
     {
       "year": "2026",
-      "totalEur": 28174.35,
+      "totalEur": 41704.85,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 2
     }
   ]
 }

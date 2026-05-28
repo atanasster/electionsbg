@@ -3,19 +3,19 @@
   "name": "Съединение",
   "province": "Пловдив",
   "obshtina": "Съединение",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 56,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 57,
   "awardCount": 0,
-  "totalEur": 15973013.980501525,
+  "totalEur": 16004293.980501525,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000471640",
       "name": "Община Съединение",
       "tier": "municipal",
-      "totalEur": 15973013.980501525,
+      "totalEur": 16004293.980501525,
       "totalOther": {},
-      "contractCount": 56,
+      "contractCount": 57,
       "awardCount": 0
     }
   ],
@@ -513,6 +513,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "b971f91e9386",
+      "ocid": "ocds-e82gsb-555794",
+      "date": "2026-05-13",
+      "amount": 31280,
+      "currency": "EUR",
+      "amountEur": 31280,
+      "partyEik": "202737585",
+      "partyName": "СД Консулт ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-555794-854899%2F2026-05-13-award"
+    },
+    {
       "key": "9677a2974ab1",
       "ocid": "aop-legacy-2011-2015-661501",
       "date": "2015-04-16",
@@ -607,18 +619,6 @@
       "partyName": "Тръст Билд Про ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "e6c0e1288b68",
-      "ocid": "aop-legacy-2011-2015-568455",
-      "date": "2013-11-06",
-      "amount": 27000,
-      "currency": "BGN",
-      "amountEur": 13804.8807922979,
-      "partyEik": "126638623",
-      "partyName": "Тони - 2004 ЕООД, Гр.Харманли",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -672,9 +672,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 4802172.21,
+      "totalEur": 4833452.21,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 8
     }
   ]
 }

@@ -3,28 +3,19 @@
   "name": "Белица",
   "province": "Благоевград",
   "obshtina": "Белица",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 123,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 124,
   "awardCount": 0,
-  "totalEur": 32726403.53019736,
+  "totalEur": 33867482.89539167,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000024688",
       "name": "Община Белица",
       "tier": "municipal",
-      "totalEur": 32569913.295391675,
+      "totalEur": 33867482.89539167,
       "totalOther": {},
-      "contractCount": 118,
-      "awardCount": 0
-    },
-    {
-      "eik": "000012515",
-      "name": "Средно училище \"Свети свети кирил и Методий\"",
-      "tier": "school",
-      "totalEur": 156490.23480568352,
-      "totalOther": {},
-      "contractCount": 5,
+      "contractCount": 124,
       "awardCount": 0
     }
   ],
@@ -222,6 +213,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "1cae200347bf",
+      "ocid": "ocds-e82gsb-492278",
+      "date": "2026-05-12",
+      "amount": 626732.25,
+      "currency": "EUR",
+      "amountEur": 626732.25,
+      "partyEik": "200562468",
+      "partyName": "Вера строй ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-492278-854282%2F2026-05-12-contractamendment"
+    },
+    {
       "key": "baa6ca88ac30",
       "ocid": "aop-legacy-2011-2015-559786",
       "date": "2013-09-13",
@@ -256,6 +259,18 @@
       "partyName": "ДЗЗД  ВиК Белица - гр.Доспат",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "5692905f7a07",
+      "ocid": "ocds-e82gsb-551267",
+      "date": "2026-05-20",
+      "amount": 426000,
+      "currency": "EUR",
+      "amountEur": 426000,
+      "partyEik": "181371480",
+      "partyName": "ДЗЗД\"ДЕНЕВ Билдинг\"",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-551267-857569%2F2026-05-20-award"
     },
     {
       "key": "c8672ab87eea",
@@ -400,6 +415,18 @@
       "partyName": "Колчева и Ко  ЕООД- гр.Разлог",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "987b2babb188",
+      "ocid": "ocds-e82gsb-539487",
+      "date": "2026-05-20",
+      "amount": 162509.16,
+      "currency": "EUR",
+      "amountEur": 162509.16,
+      "partyEik": "811130355",
+      "partyName": "Престиж БИЗНЕС-93 ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-539487-856576%2F2026-05-20-award"
     },
     {
       "key": "639d9bbcdc28",
@@ -592,42 +619,6 @@
       "partyName": "Лукойл-България ЕООД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "0e7d0ccd5e20",
-      "ocid": "aop-legacy-2011-2015-642469",
-      "date": "2015-01-14",
-      "amount": 152954.96,
-      "currency": "BGN",
-      "amountEur": 78204.62923669234,
-      "partyEik": "131112176",
-      "partyName": "Капитол груп ЕООД - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "57d31a2cceab",
-      "ocid": "aop-legacy-2023-352922",
-      "date": "2023-03-31",
-      "amount": 149258.33,
-      "currency": "BGN",
-      "amountEur": 76314.57232990596,
-      "partyEik": "830162763",
-      "partyName": "ЕТ АНРИ-64 - Андрей Кехайов",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "6ff201e2d711",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-04-28",
-      "amount": 145920.92,
-      "currency": "BGN",
-      "amountEur": 74608.1816926829,
-      "partyEik": "121452974",
-      "partyName": "Мея ЕООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -687,21 +678,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 4442898.493222826,
+      "totalEur": 4391641.482132905,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 9
     },
     {
       "year": "2023",
-      "totalEur": 4425088.95967441,
+      "totalEur": 4367573.735958647,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 14
     },
     {
       "year": "2026",
-      "totalEur": 5805137.73,
+      "totalEur": 7054989.330000001,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 17
     }
   ]
 }

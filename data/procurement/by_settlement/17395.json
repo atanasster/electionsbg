@@ -3,73 +3,37 @@
   "name": "Гоце Делчев",
   "province": "Благоевград",
   "obshtina": "Гоце Делчев",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 561,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 599,
   "awardCount": 0,
-  "totalEur": 94209998.37893777,
+  "totalEur": 93794093.38625078,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000024745",
       "name": "Община Гоце Делчев",
       "tier": "municipal",
-      "totalEur": 88483306.41276994,
+      "totalEur": 89557836.27276996,
       "totalOther": {},
-      "contractCount": 339,
+      "contractCount": 343,
       "awardCount": 0
     },
     {
       "eik": "000022025",
       "name": "Многопрофилна болница за активно лечение - иван Скендеров ЕООД",
       "tier": "hospital",
-      "totalEur": 3614516.6013745577,
+      "totalEur": 3739586.6513745575,
       "totalOther": {},
-      "contractCount": 204,
-      "awardCount": 0
-    },
-    {
-      "eik": "000014249",
-      "name": "Неврокопска професионална гимназия \"Димитър Талев\"",
-      "tier": "school",
-      "totalEur": 835261.0403358166,
-      "totalOther": {},
-      "contractCount": 4,
-      "awardCount": 0
-    },
-    {
-      "eik": "000010902",
-      "name": "Трето основно училище \"Братя миладинови\"",
-      "tier": "school",
-      "totalEur": 541367.6252888544,
-      "totalOther": {},
-      "contractCount": 4,
+      "contractCount": 248,
       "awardCount": 0
     },
     {
       "eik": "000014313",
       "name": "Професионална гимназия по механизация на селското стопанство \"Пейо к. Яворов\"",
       "tier": "school",
-      "totalEur": 486082.98210626695,
+      "totalEur": 496670.46210626693,
       "totalOther": {},
-      "contractCount": 5,
-      "awardCount": 0
-    },
-    {
-      "eik": "000012522",
-      "name": "Първо основно училище \"Свети свети кирил и Методий",
-      "tier": "school",
-      "totalEur": 137036.31706232135,
-      "totalOther": {},
-      "contractCount": 4,
-      "awardCount": 0
-    },
-    {
-      "eik": "000016951",
-      "name": "Детска Градина \"Брезичка\"",
-      "tier": "school",
-      "totalEur": 112427.4,
-      "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 8,
       "awardCount": 0
     }
   ],
@@ -339,6 +303,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "3a12df4ac087",
+      "ocid": "ocds-e82gsb-483483",
+      "date": "2026-05-13",
+      "amount": 945329.36,
+      "currency": "EUR",
+      "amountEur": 945329.36,
+      "partyEik": "811130355",
+      "partyName": "Престиж БИЗНЕС-93 ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-483483-854782%2F2026-05-13-contractamendment"
+    },
+    {
       "key": "8404f0dbef18",
       "ocid": "aop-legacy-2011-2015-451939",
       "date": "2011-09-30",
@@ -505,18 +481,6 @@
       "partyName": "ДЗЗД ТЕХНОСТРОЙ-2018   - Гоце Делчев",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "0a98840500e6",
-      "ocid": "ocds-e82gsb-551656",
-      "date": "2026-04-07",
-      "amount": 636844,
-      "currency": "EUR",
-      "amountEur": 636844,
-      "partyEik": "204983703",
-      "partyName": "БУЛ Билд 2018 ООД",
-      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
-      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-551656-841544%2F2026-04-07-award"
     },
     {
       "key": "df55980381c6",
@@ -720,9 +684,9 @@
     },
     {
       "year": "2019",
-      "totalEur": 11838676.92999903,
+      "totalEur": 11825798.7657414,
       "totalOther": {},
-      "contractCount": 25
+      "contractCount": 23
     },
     {
       "year": "2020",
@@ -738,21 +702,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 12869635.157452332,
+      "totalEur": 12413537.193927895,
       "totalOther": {},
-      "contractCount": 143
+      "contractCount": 141
     },
     {
       "year": "2023",
-      "totalEur": 4717427.90528829,
+      "totalEur": 4416019.940383365,
       "totalOther": {},
-      "contractCount": 85
+      "contractCount": 79
     },
     {
       "year": "2026",
-      "totalEur": 20058934.130000003,
+      "totalEur": 20413413.23,
       "totalOther": {},
-      "contractCount": 67
+      "contractCount": 115
     }
   ]
 }

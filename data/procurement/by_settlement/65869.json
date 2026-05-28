@@ -3,37 +3,19 @@
   "name": "Своге",
   "province": "София",
   "obshtina": "Своге",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 422,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 377,
   "awardCount": 0,
-  "totalEur": 53334155.53994843,
+  "totalEur": 52282205.70154867,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000776502",
       "name": "Община Своге",
       "tier": "municipal",
-      "totalEur": 51153307.341548674,
+      "totalEur": 52282205.70154867,
       "totalOther": {},
-      "contractCount": 368,
-      "awardCount": 0
-    },
-    {
-      "eik": "000770093",
-      "name": "Многопрофилна болница за активно лечение - своге ЕООД",
-      "tier": "hospital",
-      "totalEur": 1294607.208686031,
-      "totalOther": {},
-      "contractCount": 41,
-      "awardCount": 0
-    },
-    {
-      "eik": "000764445",
-      "name": "Професионална гимназия \"Велизар Пеев\"",
-      "tier": "school",
-      "totalEur": 886240.9897137276,
-      "totalOther": {},
-      "contractCount": 13,
+      "contractCount": 377,
       "awardCount": 0
     }
   ],
@@ -157,6 +139,18 @@
       "partyName": "ДЗЗД Виа Своге-ТРП",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "9138b3e75d6a",
+      "ocid": "ocds-e82gsb-543766",
+      "date": "2026-05-07",
+      "amount": 955947.17,
+      "currency": "EUR",
+      "amountEur": 955947.17,
+      "partyEik": "831211220",
+      "partyName": "АТЛАС-БАЛКАН ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-543766-852650%2F2026-05-07-award"
     },
     {
       "key": "42e3680931b4",
@@ -289,18 +283,6 @@
       "partyName": "ДЗЗД Обединение \"Евро Билд Своге",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "32f1b9d0b8c8",
-      "ocid": "aop-legacy-2023-424630",
-      "date": "2023-09-15",
-      "amount": 978064.55,
-      "currency": "BGN",
-      "amountEur": 500076.4637008329,
-      "partyEik": "177380790",
-      "partyName": "БСГ - Бояна",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
       "key": "2399fe44cf6a",
@@ -642,51 +624,51 @@
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 117830.74704856762,
+      "totalEur": 2795.1866982304186,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2012",
+      "totalEur": 151208.31053823695,
       "totalOther": {},
       "contractCount": 3
     },
     {
-      "year": "2012",
-      "totalEur": 314821.71252102684,
-      "totalOther": {},
-      "contractCount": 10
-    },
-    {
       "year": "2013",
-      "totalEur": 483977.2884146372,
+      "totalEur": 437072.39381745853,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 8
     },
     {
       "year": "2014",
-      "totalEur": 1596893.712643737,
+      "totalEur": 1458222.2125644868,
       "totalOther": {},
-      "contractCount": 27
+      "contractCount": 21
     },
     {
       "year": "2015",
-      "totalEur": 5801350.3320840765,
+      "totalEur": 5724143.519631051,
       "totalOther": {},
-      "contractCount": 24
+      "contractCount": 22
     },
     {
       "year": "2016",
-      "totalEur": 3637116.5438714,
+      "totalEur": 3542827.12198913,
       "totalOther": {},
-      "contractCount": 40
+      "contractCount": 39
     },
     {
       "year": "2017",
-      "totalEur": 2383458.904915049,
+      "totalEur": 2201465.6948712314,
       "totalOther": {},
-      "contractCount": 34
+      "contractCount": 32
     },
     {
       "year": "2019",
-      "totalEur": 9724800.371197907,
+      "totalEur": 9576433.053997537,
       "totalOther": {},
-      "contractCount": 60
+      "contractCount": 57
     },
     {
       "year": "2020",
@@ -702,21 +684,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 2917161.281911004,
+      "totalEur": 2826921.7109871507,
       "totalOther": {},
-      "contractCount": 74
+      "contractCount": 69
     },
     {
       "year": "2023",
-      "totalEur": 12553401.727143971,
+      "totalEur": 11524957.358257106,
       "totalOther": {},
-      "contractCount": 100
+      "contractCount": 82
     },
     {
       "year": "2026",
-      "totalEur": 10027733.310000002,
+      "totalEur": 11060549.530000001,
       "totalOther": {},
-      "contractCount": 30
+      "contractCount": 34
     }
   ]
 }

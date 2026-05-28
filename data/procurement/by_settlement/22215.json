@@ -3,19 +3,19 @@
   "name": "Долна Митрополия",
   "province": "Плевен",
   "obshtina": "Долна Митрополия",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 251,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 255,
   "awardCount": 0,
-  "totalEur": 76062819.61524113,
+  "totalEur": 78217585.59524111,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000413725",
       "name": "Община Долна митрополия",
       "tier": "municipal",
-      "totalEur": 76062819.61524113,
+      "totalEur": 78217585.59524111,
       "totalOther": {},
-      "contractCount": 251,
+      "contractCount": 255,
       "awardCount": 0
     }
   ],
@@ -127,6 +127,30 @@
       "partyName": "Люник ЕООД",
       "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-540480-820227%2F2026-03-06-award"
+    },
+    {
+      "key": "c3686aac5020",
+      "ocid": "ocds-e82gsb-553597",
+      "date": "2026-05-12",
+      "amount": 931044.09,
+      "currency": "EUR",
+      "amountEur": 931044.09,
+      "partyEik": "205415283",
+      "partyName": "ДК Инфра инвест ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-553597-854374%2F2026-05-12-award"
+    },
+    {
+      "key": "f629d302eadf",
+      "ocid": "ocds-e82gsb-553597",
+      "date": "2026-05-12",
+      "amount": 898658.84,
+      "currency": "EUR",
+      "amountEur": 898658.84,
+      "partyEik": "205415283",
+      "partyName": "ДК Инфра инвест ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-553597-854374%2F2026-05-12-award"
     },
     {
       "key": "77b63e873eb0",
@@ -247,6 +271,18 @@
       "partyName": "Главно Управление Строителство и Възстановяване ЕАД  Гусв - гр. София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "b0f8118ebb02",
+      "ocid": "ocds-e82gsb-563337",
+      "date": "2026-05-14",
+      "amount": 313518.41,
+      "currency": "EUR",
+      "amountEur": 313518.41,
+      "partyEik": "205415283",
+      "partyName": "ДК Инфра инвест ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-563337-855248%2F2026-05-14-award"
     },
     {
       "key": "65fecfaad9a2",
@@ -583,42 +619,6 @@
       "partyName": "Евелин Комерс ООД - гр. Плевен",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "e98222ae3904",
-      "ocid": "aop-legacy-2023-447733",
-      "date": "2023-11-15",
-      "amount": 174112.32,
-      "currency": "BGN",
-      "amountEur": 89022.21563223797,
-      "partyEik": "114613320",
-      "partyName": "Евелин комерс ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "7d9ea438ee6c",
-      "ocid": "aop-legacy-2011-2015-528777",
-      "date": "2013-03-11",
-      "amount": 149760,
-      "currency": "BGN",
-      "amountEur": 76571.07212794568,
-      "partyEik": "130149816",
-      "partyName": "Агро Форест Консултинг ООД,  София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "5f7b1df18e19",
-      "ocid": "aop-legacy-2022-281498",
-      "date": "2022-10-07",
-      "amount": 144375,
-      "currency": "BGN",
-      "amountEur": 73817.76534770404,
-      "partyEik": "203330788",
-      "partyName": "Биолес 2014 ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2252174.3699999996,
+      "totalEur": 4406940.35,
       "totalOther": {},
-      "contractCount": 21
+      "contractCount": 25
     }
   ]
 }

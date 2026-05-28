@@ -3,19 +3,19 @@
   "name": "Две могили",
   "province": "Русе",
   "obshtina": "Две могили",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 187,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 188,
   "awardCount": 0,
-  "totalEur": 72063325.06247072,
+  "totalEur": 72399573.38247073,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000530529",
-      "name": "Община Две могили",
+      "name": "Община ДВЕ могили",
       "tier": "municipal",
-      "totalEur": 72063325.06247072,
+      "totalEur": 72399573.38247073,
       "totalOther": {},
-      "contractCount": 187,
+      "contractCount": 188,
       "awardCount": 0
     }
   ],
@@ -187,6 +187,18 @@
       "partyName": "Инфра билд проект ЕООД",
       "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-515439-806272%2F2026-02-04-award"
+    },
+    {
+      "key": "f4c06a14b4cd",
+      "ocid": "ocds-e82gsb-556744",
+      "date": "2026-05-07",
+      "amount": 336248.32,
+      "currency": "EUR",
+      "amountEur": 336248.32,
+      "partyEik": "202920330",
+      "partyName": "Пътинженеринг АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-556744-852344%2F2026-05-07-award"
     },
     {
       "key": "981211f4394e",
@@ -607,18 +619,6 @@
       "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "cb44ee4f4473",
-      "ocid": "ocds-e82gsb-530724",
-      "date": "2026-02-05",
-      "amount": 48966.42,
-      "currency": "EUR",
-      "amountEur": 48966.42,
-      "partyEik": "202920330",
-      "partyName": "Пътинженеринг АД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-530724-807003%2F2026-02-05-award"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 6053392.869999999,
+      "totalEur": 6389641.1899999995,
       "totalOther": {},
-      "contractCount": 24
+      "contractCount": 25
     }
   ]
 }

@@ -3,91 +3,46 @@
   "name": "Кюстендил",
   "province": "Кюстендил",
   "obshtina": "Кюстендил",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 957,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 703,
   "awardCount": 0,
-  "totalEur": 116348827.78901821,
+  "totalEur": 101479705.94186975,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000261517",
       "name": "Община Кюстендил",
       "tier": "municipal",
-      "totalEur": 100610417.6470384,
+      "totalEur": 100686945.6470384,
       "totalOther": {},
-      "contractCount": 660,
-      "awardCount": 0
-    },
-    {
-      "eik": "109080582",
-      "name": "Многопрофилна болница за активно лечение - Д-Р никола Василиев АД",
-      "tier": "hospital",
-      "totalEur": 11455512.264336977,
-      "totalOther": {},
-      "contractCount": 218,
-      "awardCount": 0
-    },
-    {
-      "eik": "000261961",
-      "name": "Регионална дирекция по горите - кюстендил",
-      "tier": "regional_gov",
-      "totalEur": 2008624.384532398,
-      "totalOther": {},
-      "contractCount": 21,
-      "awardCount": 0
-    },
-    {
-      "eik": "129009817",
-      "name": "Областна дирекция на МВР (ОДМВР) - Кюстендил",
-      "tier": "regional_gov",
-      "totalEur": 849619.9575121048,
-      "totalOther": {},
-      "contractCount": 10,
-      "awardCount": 0
-    },
-    {
-      "eik": "109025529",
-      "name": "Център за спешна Медицинска помощ - кюстендил",
-      "tier": "hospital",
-      "totalEur": 612602.2148632037,
-      "totalOther": {},
-      "contractCount": 16,
+      "contractCount": 664,
       "awardCount": 0
     },
     {
       "eik": "000251764",
-      "name": "Основно училище \"Свети свети кирил и Методий",
+      "name": "Основно училище \"Свети свети кирил и Методий\"",
       "tier": "school",
-      "totalEur": 267510.4738141863,
+      "totalEur": 313600.4738141863,
       "totalOther": {},
-      "contractCount": 11,
+      "contractCount": 15,
       "awardCount": 0
     },
     {
       "eik": "000251807",
       "name": "Основно училище \"СВ.ПАИСИЙ Хилендарски\"",
       "tier": "school",
-      "totalEur": 240884.18940209527,
+      "totalEur": 273417.2094020953,
       "totalOther": {},
-      "contractCount": 11,
+      "contractCount": 18,
       "awardCount": 0
     },
     {
       "eik": "109069461",
       "name": "Областна администрация - област кюстендил",
       "tier": "regional_gov",
-      "totalEur": 167222.6116150688,
+      "totalEur": 205742.6116150688,
       "totalOther": {},
-      "contractCount": 5,
-      "awardCount": 0
-    },
-    {
-      "eik": "000251771",
-      "name": "Основно училище \"Марин Дринов",
-      "tier": "school",
-      "totalEur": 136434.04590378513,
-      "totalOther": {},
-      "contractCount": 5,
+      "contractCount": 6,
       "awardCount": 0
     }
   ],
@@ -163,18 +118,6 @@
       "partyName": "ДЗЗД Консорциум Кюстендил - Кюстендил",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "97cc177c3256",
-      "ocid": "ocds-e82gsb-437031",
-      "date": "2026-03-17",
-      "amount": 1424459.18,
-      "currency": "EUR",
-      "amountEur": 1424459.18,
-      "partyEik": "832018046",
-      "partyName": "Соломед ЕООД",
-      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
-      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-437031-825164%2F2026-03-17-contractamendment"
     },
     {
       "key": "5a6c3eef2178",
@@ -621,30 +564,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
-      "key": "c8cf5a5dfa68",
-      "ocid": "ocds-e82gsb-444719",
-      "date": "2026-02-18",
-      "amount": 657010.07,
-      "currency": "EUR",
-      "amountEur": 657010.07,
-      "partyEik": "204037902",
-      "partyName": "Шенбор ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-444719-813230%2F2026-02-18-award"
-    },
-    {
-      "key": "ca294d33539a",
-      "ocid": "ocds-e82gsb-437031",
-      "date": "2026-03-17",
-      "amount": 611505.09,
-      "currency": "EUR",
-      "amountEur": 611505.09,
-      "partyEik": "832018046",
-      "partyName": "Соломед ЕООД",
-      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
-      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-437031-825140%2F2026-03-17-contractamendment"
-    },
-    {
       "key": "b0b9664b7c49",
       "ocid": "aop-legacy-2016-742282",
       "date": "2016-07-28",
@@ -691,80 +610,116 @@
       "partyName": "Парсек груп ЕООД",
       "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
       "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-535811-824846%2F2026-03-16-award"
+    },
+    {
+      "key": "bacbe6169569",
+      "ocid": "aop-legacy-2016-747086",
+      "date": "2016-08-30",
+      "amount": 1122118.05,
+      "currency": "BGN",
+      "amountEur": 573729.8487087324,
+      "partyEik": "177006643",
+      "partyName": "ДЗЗД Обединение ГДС-Руен, Кюстендил",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "d8b6ed102c13",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-08-30",
+      "amount": 1122118.05,
+      "currency": "BGN",
+      "amountEur": 573729.8487087324,
+      "partyEik": "177006643",
+      "partyName": "ДЗЗД Обединение ГДС-Руен, Кюстендил",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "84afea02f1bb",
+      "ocid": "aop-legacy-2016-752636",
+      "date": "2016-10-11",
+      "amount": 1114167.25,
+      "currency": "BGN",
+      "amountEur": 569664.6692197175,
+      "partyEik": "101526851",
+      "partyName": "Бул Строй Инвест ЕООД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 3632210.457964138,
+      "totalEur": 3274463.7775266767,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 6
     },
     {
       "year": "2012",
-      "totalEur": 1716613.6371770552,
+      "totalEur": 519711.8256699202,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 3
     },
     {
       "year": "2013",
-      "totalEur": 3995671.4387242245,
+      "totalEur": 3495976.700428974,
       "totalOther": {},
-      "contractCount": 31
+      "contractCount": 21
     },
     {
       "year": "2014",
-      "totalEur": 7178689.686731463,
+      "totalEur": 6171667.307485824,
       "totalOther": {},
-      "contractCount": 71
+      "contractCount": 41
     },
     {
       "year": "2015",
-      "totalEur": 2099690.2542654527,
+      "totalEur": 1100661.68838805,
       "totalOther": {},
-      "contractCount": 50
+      "contractCount": 22
     },
     {
       "year": "2016",
-      "totalEur": 25427421.529478535,
+      "totalEur": 23587251.867493596,
+      "totalOther": {},
+      "contractCount": 82
+    },
+    {
+      "year": "2017",
+      "totalEur": 10326861.86938538,
+      "totalOther": {},
+      "contractCount": 98
+    },
+    {
+      "year": "2019",
+      "totalEur": 7502912.022006004,
+      "totalOther": {},
+      "contractCount": 74
+    },
+    {
+      "year": "2020",
+      "totalEur": 2421737.886217105,
+      "totalOther": {},
+      "contractCount": 33
+    },
+    {
+      "year": "2022",
+      "totalEur": 8352100.479080494,
+      "totalOther": {},
+      "contractCount": 110
+    },
+    {
+      "year": "2023",
+      "totalEur": 14273219.558959624,
       "totalOther": {},
       "contractCount": 116
     },
     {
-      "year": "2017",
-      "totalEur": 12994822.602168905,
-      "totalOther": {},
-      "contractCount": 141
-    },
-    {
-      "year": "2019",
-      "totalEur": 8776903.033494733,
-      "totalOther": {},
-      "contractCount": 111
-    },
-    {
-      "year": "2020",
-      "totalEur": 2483052.008610156,
-      "totalOther": {},
-      "contractCount": 35
-    },
-    {
-      "year": "2022",
-      "totalEur": 9178310.655834097,
-      "totalOther": {},
-      "contractCount": 130
-    },
-    {
-      "year": "2023",
-      "totalEur": 14857604.045341365,
-      "totalOther": {},
-      "contractCount": 137
-    },
-    {
       "year": "2026",
-      "totalEur": 24007838.439228106,
+      "totalEur": 20453140.959228106,
       "totalOther": {},
-      "contractCount": 103
+      "contractCount": 97
     }
   ]
 }

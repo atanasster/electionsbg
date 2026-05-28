@@ -3,19 +3,19 @@
   "name": "Ковачевци",
   "province": "Перник",
   "obshtina": "Ковачевци",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 85,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 86,
   "awardCount": 0,
-  "totalEur": 8035684.59533293,
+  "totalEur": 8097717.59533293,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000386694",
       "name": "Община Ковачевци",
       "tier": "municipal",
-      "totalEur": 8035684.59533293,
+      "totalEur": 8097717.59533293,
       "totalOther": {},
-      "contractCount": 85,
+      "contractCount": 86,
       "awardCount": 0
     }
   ],
@@ -321,6 +321,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "c4135c22d1f3",
+      "ocid": "ocds-e82gsb-564602",
+      "date": "2026-05-08",
+      "amount": 62033,
+      "currency": "EUR",
+      "amountEur": 62033,
+      "partyEik": "112547042",
+      "partyName": "Сити инженеринг 1993 ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-564602-852784%2F2026-05-08-award"
+    },
+    {
       "key": "ce6e7ded2ebb",
       "ocid": "aop-legacy-2022-229871",
       "date": "2022-05-11",
@@ -607,18 +619,6 @@
       "partyName": "Нивел Строй ЕООД - Брезник",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "fff3733dfe38",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-10-02",
-      "amount": 53999,
-      "currency": "BGN",
-      "amountEur": 27609.2502927146,
-      "partyEik": "113580690",
-      "partyName": "Нивел Строй ЕООД - Брезник",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -678,9 +678,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 108623,
+      "totalEur": 170656,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 3
     }
   ]
 }

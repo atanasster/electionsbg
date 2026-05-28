@@ -3,19 +3,19 @@
   "name": "Гърмен",
   "province": "Благоевград",
   "obshtina": "Гърмен",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 119,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 123,
   "awardCount": 0,
-  "totalEur": 19623067.198929146,
+  "totalEur": 20481839.948929146,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000024752",
       "name": "Община Гърмен",
       "tier": "municipal",
-      "totalEur": 19623067.198929146,
+      "totalEur": 20481839.948929146,
       "totalOther": {},
-      "contractCount": 119,
+      "contractCount": 123,
       "awardCount": 0
     }
   ],
@@ -127,6 +127,18 @@
       "partyName": "ДЗЗД Обединение Гърмен 2012",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "44359ddb3c24",
+      "ocid": "ocds-e82gsb-560505",
+      "date": "2026-05-13",
+      "amount": 595000,
+      "currency": "EUR",
+      "amountEur": 595000,
+      "partyEik": "101675959",
+      "partyName": "Билдинг компани ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-560505-854749%2F2026-05-13-award"
     },
     {
       "key": "cc9952a40916",
@@ -271,6 +283,18 @@
       "partyName": "Билдинг компани ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "83cd4ba223ad",
+      "ocid": "ocds-e82gsb-560505",
+      "date": "2026-05-11",
+      "amount": 218400,
+      "currency": "EUR",
+      "amountEur": 218400,
+      "partyEik": "101675959",
+      "partyName": "Билдинг компани ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-560505-853796%2F2026-05-11-award"
     },
     {
       "key": "1824ea6486dc",
@@ -595,30 +619,6 @@
       "partyName": "Билдинг компани ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "6949e469591d",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-02-25",
-      "amount": 162000,
-      "currency": "BGN",
-      "amountEur": 82829.28475378739,
-      "partyEik": "101611166",
-      "partyName": "ЕТ Руска Петрова - Екогруптранс - Гоце Делчев",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "fee9e20f2eef",
-      "ocid": "aop-legacy-2019-896622",
-      "date": "2019-02-25",
-      "amount": 162000,
-      "currency": "BGN",
-      "amountEur": 82829.28475378739,
-      "partyEik": "101611166",
-      "partyName": "ЕТ Руска Петрова - Екогруптранс - Гоце Делчев",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2067455.52,
+      "totalEur": 2926228.27,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 15
     }
   ]
 }

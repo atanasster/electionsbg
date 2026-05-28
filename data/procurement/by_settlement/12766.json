@@ -3,19 +3,19 @@
   "name": "Върбица",
   "province": "Шумен",
   "obshtina": "Върбица",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 199,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 200,
   "awardCount": 0,
-  "totalEur": 32455445.803435925,
+  "totalEur": 32885825.553435925,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000931415",
       "name": "Община Върбица",
       "tier": "municipal",
-      "totalEur": 32455445.803435925,
+      "totalEur": 32885825.553435925,
       "totalOther": {},
-      "contractCount": 199,
+      "contractCount": 200,
       "awardCount": 0
     }
   ],
@@ -187,6 +187,18 @@
       "partyName": "ДЗЗД Върбица 2014",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "d6025a723e41",
+      "ocid": "ocds-e82gsb-556724",
+      "date": "2026-05-20",
+      "amount": 430379.75,
+      "currency": "EUR",
+      "amountEur": 430379.75,
+      "partyEik": "127564930",
+      "partyName": "Строителство и строителни машини ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-556724-857504%2F2026-05-20-contractamendment"
     },
     {
       "key": "e2de766b7cfa",
@@ -607,18 +619,6 @@
       "partyName": "Строителство и строителни машини ЕООД - Върбица /Смядово/",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "74e74fcffb05",
-      "ocid": "aop-legacy-2019-938090",
-      "date": "2019-10-14",
-      "amount": 249077.24,
-      "currency": "BGN",
-      "amountEur": 127351.170602762,
-      "partyEik": "127564930",
-      "partyName": "Строителство и строителни машини ЕООД - Върбица /Смядово/",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -684,9 +684,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 3998202.27,
+      "totalEur": 4428582.02,
       "totalOther": {},
-      "contractCount": 38
+      "contractCount": 39
     }
   ]
 }

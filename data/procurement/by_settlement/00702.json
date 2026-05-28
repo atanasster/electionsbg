@@ -3,118 +3,37 @@
   "name": "Асеновград",
   "province": "Пловдив",
   "obshtina": "Асеновград",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 925,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 778,
   "awardCount": 0,
-  "totalEur": 198907472.3056529,
+  "totalEur": 198460803.241741,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000471059",
       "name": "Община Асеновград",
       "tier": "municipal",
-      "totalEur": 190624771.04318833,
+      "totalEur": 191668904.14318833,
       "totalOther": {},
-      "contractCount": 444,
+      "contractCount": 448,
       "awardCount": 0
     },
     {
       "eik": "115532654",
       "name": "Многопрофилна болница за активно лечение - асеновград ЕООД",
       "tier": "hospital",
-      "totalEur": 6673586.098552684,
+      "totalEur": 6706986.098552684,
       "totalOther": {},
-      "contractCount": 328,
+      "contractCount": 329,
       "awardCount": 0
     },
     {
-      "eik": "000459085",
-      "name": "Детска Градина \"Никола й. Вапцаров\" - гр. Асеновград",
+      "eik": "000454661",
+      "name": "Средно училище \"СВ. Княз борис Първи\" - гр. Асеновград",
       "tier": "school",
-      "totalEur": 446479.15530501114,
+      "totalEur": 84913,
       "totalOther": {},
-      "contractCount": 23,
-      "awardCount": 0
-    },
-    {
-      "eik": "115022092",
-      "name": "Детска Градина \"Зорница\" - гр. Асеновград",
-      "tier": "school",
-      "totalEur": 322239.39939468156,
-      "totalOther": {},
-      "contractCount": 25,
-      "awardCount": 0
-    },
-    {
-      "eik": "115016253",
-      "name": "Професионална гимназия \"Цар иван асен втори\"",
-      "tier": "school",
-      "totalEur": 150357.70291896534,
-      "totalOther": {},
-      "contractCount": 3,
-      "awardCount": 0
-    },
-    {
-      "eik": "000450848",
-      "name": "Детска Градина \"Асенова крепост\" - гр. Асеновград",
-      "tier": "school",
-      "totalEur": 132430.08799890583,
-      "totalOther": {},
-      "contractCount": 16,
-      "awardCount": 0
-    },
-    {
-      "eik": "000452824",
-      "name": "Средно училище \"СВ.СВ. кирил и Методий\" - гр. Асеновград",
-      "tier": "school",
-      "totalEur": 113741.67233875132,
-      "totalOther": {},
-      "contractCount": 15,
-      "awardCount": 0
-    },
-    {
-      "eik": "825211746",
-      "name": "Детска Градина \"Надежда\" - гр. Асеновград",
-      "tier": "school",
-      "totalEur": 100946.61438366321,
-      "totalOther": {},
-      "contractCount": 16,
-      "awardCount": 0
-    },
-    {
-      "eik": "000452863",
-      "name": "Основно училище \"Христо Ботев\" - гр. Асеновград",
-      "tier": "school",
-      "totalEur": 98278.94180240615,
-      "totalOther": {},
-      "contractCount": 11,
-      "awardCount": 0
-    },
-    {
-      "eik": "000450816",
-      "name": "Детска Градина \"Пролет\" - гр. Асеновград",
-      "tier": "school",
-      "totalEur": 92268.34808040576,
-      "totalOther": {},
-      "contractCount": 16,
-      "awardCount": 0
-    },
-    {
-      "eik": "000451487",
-      "name": "Детска Градина \"Радост\" - кв. Долни воден",
-      "tier": "school",
-      "totalEur": 85980.79225229187,
-      "totalOther": {},
-      "contractCount": 15,
-      "awardCount": 0
-    },
-    {
-      "eik": "000451964",
-      "name": "Основно училище \"Ангел Кънчев\" - гр. Асеновград",
-      "tier": "school",
-      "totalEur": 66392.44943676086,
-      "totalOther": {},
-      "contractCount": 13,
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -358,6 +277,18 @@
       "partyName": "ДЗЗД Евроконсултинг",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "9781e0bd5360",
+      "ocid": "ocds-e82gsb-555837",
+      "date": "2026-05-11",
+      "amount": 980000,
+      "currency": "EUR",
+      "amountEur": 980000,
+      "partyEik": "205606662",
+      "partyName": "Номад енерджи къмпани ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-555837-852665%2F2026-05-11-award"
     },
     {
       "key": "7bfa0d8017a8",
@@ -706,18 +637,6 @@
       "partyName": "Запрянови - 03 ООД - старо наименование запрянови - 03 ЕООД - Асеновград",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "1deaeb7b288c",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-08-03",
-      "amount": 1046021.34,
-      "currency": "BGN",
-      "amountEur": 534822.2186999893,
-      "partyEik": "200346132",
-      "partyName": "Ксм Строй - ООД - с. Буково",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -747,9 +666,9 @@
     },
     {
       "year": "2015",
-      "totalEur": 4065817.7806864604,
+      "totalEur": 3886303.201198468,
       "totalOther": {},
-      "contractCount": 57
+      "contractCount": 51
     },
     {
       "year": "2016",
@@ -759,21 +678,21 @@
     },
     {
       "year": "2017",
-      "totalEur": 7782739.512125287,
+      "totalEur": 7705668.652183472,
       "totalOther": {},
-      "contractCount": 62
+      "contractCount": 58
     },
     {
       "year": "2019",
-      "totalEur": 7602775.128717734,
+      "totalEur": 7410406.671336468,
       "totalOther": {},
-      "contractCount": 50
+      "contractCount": 43
     },
     {
       "year": "2020",
-      "totalEur": 191739.67573868894,
+      "totalEur": 113051.9728197236,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 2
     },
     {
       "year": "2021",
@@ -783,21 +702,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 15801121.37557968,
+      "totalEur": 15615781.760173433,
       "totalOther": {},
-      "contractCount": 148
+      "contractCount": 121
     },
     {
       "year": "2023",
-      "totalEur": 16194001.809973259,
+      "totalEur": 15799890.251197701,
       "totalOther": {},
-      "contractCount": 202
+      "contractCount": 149
     },
     {
       "year": "2026",
-      "totalEur": 2581527.97,
+      "totalEur": 3241951.6800000006,
       "totalOther": {},
-      "contractCount": 130
+      "contractCount": 81
     }
   ]
 }

@@ -3,28 +3,19 @@
   "name": "Годеч",
   "province": "София",
   "obshtina": "Годеч",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 123,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 126,
   "awardCount": 0,
-  "totalEur": 16774712.585272852,
+  "totalEur": 17527222.64527285,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000776160",
       "name": "Община Годеч",
       "tier": "municipal",
-      "totalEur": 16704712.585272852,
+      "totalEur": 17527222.64527285,
       "totalOther": {},
-      "contractCount": 122,
-      "awardCount": 0
-    },
-    {
-      "eik": "000757039",
-      "name": "Детска Градина \"Юрий Гагарин\"",
-      "tier": "school",
-      "totalEur": 70000,
-      "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 126,
       "awardCount": 0
     }
   ],
@@ -64,6 +55,18 @@
       "partyName": "ДЗЗД Мегаинвест - Пропърти Годеч 2016 - София",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "ca932e61dcc9",
+      "ocid": "ocds-e82gsb-563414",
+      "date": "2026-05-08",
+      "amount": 697847.56,
+      "currency": "EUR",
+      "amountEur": 697847.56,
+      "partyEik": "175215364",
+      "partyName": "АЙ ТИ ДИ Груп ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-563414-853088%2F2026-05-08-award"
     },
     {
       "key": "be1f6a5041b5",
@@ -534,6 +537,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "b8d5a9d5910a",
+      "ocid": "ocds-e82gsb-559305",
+      "date": "2026-05-19",
+      "amount": 110000,
+      "currency": "EUR",
+      "amountEur": 110000,
+      "partyEik": "202668908",
+      "partyName": "Синергон енерджи ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-559305-856774%2F2026-05-19-award"
+    },
+    {
       "key": "9f494c52dd86",
       "ocid": "aop-legacy-2017-771919",
       "date": "2017-02-13",
@@ -604,30 +619,6 @@
       "partyName": "Мегаинвест-холд ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "2e8037185c58",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-08-08",
-      "amount": 179400,
-      "currency": "BGN",
-      "amountEur": 91725.7634866016,
-      "partyEik": "177043976",
-      "partyName": "Обединение Проект Консулт",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "a1d4b9561521",
-      "ocid": "aop-legacy-2016-743803",
-      "date": "2016-08-08",
-      "amount": 179400,
-      "currency": "BGN",
-      "amountEur": 91725.7634866016,
-      "partyEik": "177043976",
-      "partyName": "Обединение Проект Консулт",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -699,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 334998.74,
+      "totalEur": 1087508.8,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 8
     }
   ]
 }

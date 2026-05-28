@@ -3,28 +3,28 @@
   "name": "Неделино",
   "province": "Смолян",
   "obshtina": "Неделино",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 229,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 231,
   "awardCount": 0,
-  "totalEur": 34679958.82815914,
+  "totalEur": 35190159.79815914,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000615043",
       "name": "Община Неделино",
       "tier": "municipal",
-      "totalEur": 34508690.41526027,
+      "totalEur": 34974993.38526027,
       "totalOther": {},
-      "contractCount": 226,
+      "contractCount": 227,
       "awardCount": 0
     },
     {
       "eik": "000608324",
-      "name": "Средно училище /СУ/„Св. Св. Кирил и Методий” гр. Неделино",
+      "name": "Средно училище \"СВ.СВ.КИРИЛ и Методий\"",
       "tier": "school",
-      "totalEur": 171268.41289887158,
+      "totalEur": 215166.41289887158,
       "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
@@ -196,6 +196,18 @@
       "partyName": "Иса-2000 ЕООД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "d65b8a81f216",
+      "ocid": "ocds-e82gsb-486498",
+      "date": "2026-05-08",
+      "amount": 466302.97,
+      "currency": "EUR",
+      "amountEur": 466302.97,
+      "partyEik": "204090404",
+      "partyName": "ЕМТ Строй ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-486498-852569%2F2026-05-08-contractamendment"
     },
     {
       "key": "45602f0dd4f3",
@@ -616,18 +628,6 @@
       "partyName": "Фаст билдинг 2009  ЕООД  - гр.Неделино",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "aaef12b7b3ef",
-      "ocid": "aop-legacy-2023-323391",
-      "date": "2023-01-25",
-      "amount": 286417,
-      "currency": "BGN",
-      "amountEur": 146442.6867365773,
-      "partyEik": "200358273",
-      "partyName": "Екосол българия АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -705,9 +705,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 502284.0455860172,
+      "totalEur": 1012485.0155860172,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 6
     }
   ]
 }

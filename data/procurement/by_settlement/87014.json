@@ -3,28 +3,19 @@
   "name": "Ябланица",
   "province": "Ловеч",
   "obshtina": "Ябланица",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "generatedAt": "2026-05-28T08:40:27.221Z",
   "contractCount": 52,
   "awardCount": 0,
-  "totalEur": 10974037.573758557,
+  "totalEur": 11044496.103758557,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000291723",
       "name": "Община Ябланица",
       "tier": "municipal",
-      "totalEur": 10926291.603758557,
+      "totalEur": 11044496.103758557,
       "totalOther": {},
-      "contractCount": 51,
-      "awardCount": 0
-    },
-    {
-      "eik": "000282400",
-      "name": "Средно училище васил Левски",
-      "tier": "school",
-      "totalEur": 47745.97,
-      "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 52,
       "awardCount": 0
     }
   ],
@@ -208,6 +199,18 @@
       "partyName": "Астон Сервиз ООД",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "865ef734944c",
+      "ocid": "ocds-e82gsb-559726",
+      "date": "2026-05-19",
+      "amount": 118204.5,
+      "currency": "EUR",
+      "amountEur": 118204.5,
+      "partyEik": "203959610",
+      "partyName": "Комунал сервиз ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-559726-856380%2F2026-05-19-award"
     },
     {
       "key": "78d833e08711",
@@ -412,18 +415,6 @@
       "partyName": "ШЕЛ България ЕАД",
       "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
       "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-560002-847616%2F2026-04-23-award"
-    },
-    {
-      "key": "d10be359ca0e",
-      "ocid": "ocds-e82gsb-541164",
-      "date": "2026-01-08",
-      "amount": 47745.97,
-      "currency": "EUR",
-      "amountEur": 47745.97,
-      "partyEik": "128049011",
-      "partyName": "КАН-УЧТЕХСПОРТ-БЪЛГАРИЯ ООД",
-      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
-      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-541164-793849%2F2026-01-07-award"
     },
     {
       "key": "9c58101fb54e",
@@ -693,7 +684,7 @@
     },
     {
       "year": "2026",
-      "totalEur": 142079.74,
+      "totalEur": 212538.27,
       "totalOther": {},
       "contractCount": 3
     }

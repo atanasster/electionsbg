@@ -3,19 +3,19 @@
   "name": "Димово",
   "province": "Видин",
   "obshtina": "Димово",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 82,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 85,
   "awardCount": 0,
-  "totalEur": 7586713.203955096,
+  "totalEur": 8944138.863955095,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000159554",
       "name": "Община Димово",
       "tier": "municipal",
-      "totalEur": 7586713.203955096,
+      "totalEur": 8944138.863955095,
       "totalOther": {},
-      "contractCount": 82,
+      "contractCount": 85,
       "awardCount": 0
     }
   ],
@@ -31,6 +31,18 @@
       "partyName": "ГБС - Инфраструктурно строителство АД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "63c26c06a526",
+      "ocid": "ocds-e82gsb-565031",
+      "date": "2026-05-19",
+      "amount": 714854.26,
+      "currency": "EUR",
+      "amountEur": 714854.26,
+      "partyEik": "105546399",
+      "partyName": "Виолина ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-565031-856874%2F2026-05-19-award"
     },
     {
       "key": "7ef16504b806",
@@ -55,6 +67,30 @@
       "partyName": "Виолина ООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "00d2724adb45",
+      "ocid": "ocds-e82gsb-563761",
+      "date": "2026-05-18",
+      "amount": 321285.7,
+      "currency": "EUR",
+      "amountEur": 321285.7,
+      "partyEik": "200132744",
+      "partyName": "Партнер строй ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-563761-856586%2F2026-05-18-award"
+    },
+    {
+      "key": "80b4fc9e571d",
+      "ocid": "ocds-e82gsb-563761",
+      "date": "2026-05-18",
+      "amount": 321285.7,
+      "currency": "EUR",
+      "amountEur": 321285.7,
+      "partyEik": "105546399",
+      "partyName": "Виолина ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-563761-856586%2F2026-05-18-award"
     },
     {
       "key": "fcec6998b23a",
@@ -583,42 +619,6 @@
       "partyName": "Електроизграждане ЕООД-гр.Бургас",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "8e783889a5b7",
-      "ocid": "aop-legacy-2011-2015-629716",
-      "date": "2014-10-21",
-      "amount": 77279,
-      "currency": "BGN",
-      "amountEur": 39512.12528696257,
-      "partyEik": "121479430",
-      "partyName": "Ого ЕООД-София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "ff7683f467d6",
-      "ocid": "ocds-e82gsb-541644",
-      "date": "2026-01-30",
-      "amount": 39050,
-      "currency": "EUR",
-      "amountEur": 39050,
-      "partyEik": "202170380",
-      "partyName": "Данима 69 ЕООД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-541644-803703%2F2026-01-30-award"
-    },
-    {
-      "key": "243821b69898",
-      "ocid": "aop-legacy-2022-195598",
-      "date": "2022-02-07",
-      "amount": 71849,
-      "currency": "BGN",
-      "amountEur": 36735.8103720671,
-      "partyEik": "109040673",
-      "partyName": "Рила - снм ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 475130.04999999993,
+      "totalEur": 1832555.71,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 14
     }
   ]
 }

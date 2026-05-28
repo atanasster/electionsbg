@@ -3,55 +3,37 @@
   "name": "Разлог",
   "province": "Благоевград",
   "obshtina": "Разлог",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 361,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 367,
   "awardCount": 0,
-  "totalEur": 62528515.82850701,
+  "totalEur": 63322798.60469927,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000024948",
       "name": "Община Разлог",
       "tier": "municipal",
-      "totalEur": 56844178.250956,
+      "totalEur": 57924068.750956,
       "totalOther": {},
-      "contractCount": 214,
+      "contractCount": 215,
       "awardCount": 0
     },
     {
       "eik": "000022044",
       "name": "\"Многопрофилна болница за активно лечение - Д-Р асен Велев\" ЕООД ЕООД",
       "tier": "hospital",
-      "totalEur": 5188613.849683459,
+      "totalEur": 5228166.009683459,
       "totalOther": {},
-      "contractCount": 138,
-      "awardCount": 0
-    },
-    {
-      "eik": "000014199",
-      "name": "Разложка професионална гимназия \"Никола Стойчев\"",
-      "tier": "school",
-      "totalEur": 283717.4911315912,
-      "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 140,
       "awardCount": 0
     },
     {
       "eik": "000013948",
       "name": "Средно училище \"Братя петър и иван каназиреви\"",
       "tier": "school",
-      "totalEur": 132724.59405981092,
+      "totalEur": 170563.84405981092,
       "totalOther": {},
-      "contractCount": 3,
-      "awardCount": 0
-    },
-    {
-      "eik": "000016855",
-      "name": "Професионална гимназия по транспорт",
-      "tier": "school",
-      "totalEur": 79281.64267615284,
-      "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 12,
       "awardCount": 0
     }
   ],
@@ -235,6 +217,18 @@
       "partyName": "Вдх АД - София - /Предишно име - Водстрой 98 АД - София/",
       "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
       "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "b5eb30c7d7b8",
+      "ocid": "ocds-e82gsb-418628",
+      "date": "2026-05-07",
+      "amount": 1079890.5,
+      "currency": "EUR",
+      "amountEur": 1079890.5,
+      "partyEik": "201317607",
+      "partyName": "Триада транспорт и логистик ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-418628-852460%2F2026-05-07-contractamendment"
     },
     {
       "key": "98dc00f34b64",
@@ -643,18 +637,6 @@
       "partyName": "Пиринстройинженеринг ЕАД",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "5fd6d30a0394",
-      "ocid": "aop-legacy-2011-2015-676331",
-      "date": "2015-07-08",
-      "amount": 411096,
-      "currency": "BGN",
-      "amountEur": 210190.04719224063,
-      "partyEik": "103267194",
-      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -714,21 +696,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 5991001.886667043,
+      "totalEur": 5878541.371182568,
       "totalOther": {},
-      "contractCount": 58
+      "contractCount": 57
     },
     {
       "year": "2023",
-      "totalEur": 8058900.431019056,
+      "totalEur": 7946666.985371939,
       "totalOther": {},
-      "contractCount": 32
+      "contractCount": 31
     },
     {
       "year": "2026",
-      "totalEur": 8674856.267093154,
+      "totalEur": 9693833.004417,
       "totalOther": {},
-      "contractCount": 51
+      "contractCount": 59
     }
   ]
 }

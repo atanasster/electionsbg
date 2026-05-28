@@ -3,28 +3,19 @@
   "name": "Белене",
   "province": "Плевен",
   "obshtina": "Белене",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 188,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 187,
   "awardCount": 0,
-  "totalEur": 35833775.105500065,
+  "totalEur": 36222227.96443975,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000413579",
       "name": "Община Белене",
       "tier": "municipal",
-      "totalEur": 35690477.96443975,
+      "totalEur": 36222227.96443975,
       "totalOther": {},
-      "contractCount": 185,
-      "awardCount": 0
-    },
-    {
-      "eik": "114542439",
-      "name": "МБАЛ-БЕЛЕНЕ ЕООД",
-      "tier": "hospital",
-      "totalEur": 143297.1410603171,
-      "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 187,
       "awardCount": 0
     }
   ],
@@ -280,6 +271,30 @@
       "partyName": "Нове холд ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "5f209d278d19",
+      "ocid": "ocds-e82gsb-552645",
+      "date": "2026-05-18",
+      "amount": 265875,
+      "currency": "EUR",
+      "amountEur": 265875,
+      "partyEik": "201849161",
+      "partyName": "Торнадо студио ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-552645-854894%2F2026-05-18-contractamendment"
+    },
+    {
+      "key": "4a50e9c3b90b",
+      "ocid": "ocds-e82gsb-552645",
+      "date": "2026-05-13",
+      "amount": 265875,
+      "currency": "EUR",
+      "amountEur": 265875,
+      "partyEik": "201849161",
+      "partyName": "Торнадо студио ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-552645-854063%2F2026-05-13-award"
     },
     {
       "key": "7fb0673c0964",
@@ -604,30 +619,6 @@
       "partyName": "Пътстрой - Ловеч ЕООД",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "8b787679a686",
-      "ocid": "aop-legacy-2023-362413",
-      "date": "2023-04-12",
-      "amount": 211222.03,
-      "currency": "BGN",
-      "amountEur": 107996.10906878409,
-      "partyEik": "813029821",
-      "partyName": "Пътища и мостове ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "164f3ff65f12",
-      "ocid": "aop-legacy-2011-2015-601975",
-      "date": "2014-04-30",
-      "amount": 208500,
-      "currency": "BGN",
-      "amountEur": 106604.35722941156,
-      "partyEik": "176664930",
-      "partyName": "ДЗЗД \"Белене Еко",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -645,9 +636,9 @@
     },
     {
       "year": "2013",
-      "totalEur": 1211061.5646554145,
+      "totalEur": 1147368.079025273,
       "totalOther": {},
-      "contractCount": 25
+      "contractCount": 24
     },
     {
       "year": "2014",
@@ -681,9 +672,9 @@
     },
     {
       "year": "2022",
-      "totalEur": 1115504.4507958256,
+      "totalEur": 1085680.7953656502,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 5
     },
     {
       "year": "2023",
@@ -693,9 +684,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2777917.94,
+      "totalEur": 3259887.94,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 13
     }
   ]
 }

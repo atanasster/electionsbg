@@ -2,17 +2,17 @@
   "electionDate": "2017_03_26",
   "start": "2017-03-26",
   "end": "2021-04-04",
-  "generatedAt": "2026-05-21T09:51:41.801Z",
+  "generatedAt": "2026-05-28T08:40:25.455Z",
   "totals": {
     "contracts": 58157,
     "amendments": 0,
     "awards": 0,
-    "contractorCount": 8134,
+    "contractorCount": 8131,
     "awarderCount": 1369,
     "totalEur": 18541328708.254032,
-    "mpCount": 30,
-    "mpConnectedContractorCount": 31,
-    "mpConnectedTotalEur": 187353100.49953216
+    "mpCount": 29,
+    "mpConnectedContractorCount": 30,
+    "mpConnectedTotalEur": 188533800.5961663
   },
   "topContractors": [
     {
@@ -750,7 +750,7 @@
       "contractCount": 97,
       "contractorCount": 1,
       "topContractorNames": [
-        "Български пощи /БП/ ЕАД - София"
+        "Български пощи /Бп/ ЕАД - София"
       ],
       "confidence": "medium"
     },
@@ -773,7 +773,7 @@
       "contractCount": 5,
       "contractorCount": 1,
       "topContractorNames": [
-        "МИНИ МАРИЦА - ИЗТОК ЕАД"
+        "Мини марица - изток ЕАД"
       ],
       "confidence": "medium"
     },
@@ -795,9 +795,21 @@
       "contractCount": 30,
       "contractorCount": 1,
       "topContractorNames": [
-        "АЛ И КО АД"
+        "АЛ И ко АД"
       ],
       "confidence": "high"
+    },
+    {
+      "mpId": 722,
+      "mpName": "Веселин Борисов Черкезов",
+      "totalEur": 1745209.9620110134,
+      "contractCount": 6,
+      "contractorCount": 2,
+      "topContractorNames": [
+        "Есп Златни пясъци ООД",
+        "ВиК-Златни пясъци ООД"
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5094,
@@ -817,7 +829,7 @@
       "contractCount": 13,
       "contractorCount": 1,
       "topContractorNames": [
-        "НАПОИТЕЛНИ СИСТЕМИ ЕАД КЛОН СРЕДЕН ДУНАВ ПЛЕВЕН"
+        "Напоителни системи ЕАД клон среден дунав плевен"
       ],
       "confidence": "medium"
     },
@@ -839,7 +851,7 @@
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
-        "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ И СПЕШНА МЕДИЦИНА Н.И. ПИРОГОВ ЕАД"
+        "Университетска многопрофилна болница за активно лечение и спешна Медицина Н.И. Пирогов ЕАД"
       ],
       "confidence": "medium"
     },
@@ -850,7 +862,7 @@
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
-        "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ И СПЕШНА МЕДИЦИНА Н.И. ПИРОГОВ ЕАД"
+        "Университетска многопрофилна болница за активно лечение и спешна Медицина Н.И. Пирогов ЕАД"
       ],
       "confidence": "medium"
     },
@@ -883,8 +895,8 @@
       "contractCount": 33,
       "contractorCount": 2,
       "topContractorNames": [
-        "Джи пи ес системи България ЕООД - Пловдив",
-        "РАДИО СОТ ООД"
+        "ДЖИ Пи ес системи България ЕООД - Пловдив",
+        "Радио сот ООД"
       ],
       "confidence": "high"
     },
@@ -906,21 +918,9 @@
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
-        "АЛЛ Фреш лайн ЕООД - Плевен"
+        "Алл Фреш лайн ЕООД - Плевен"
       ],
       "confidence": "high"
-    },
-    {
-      "mpId": 2440,
-      "mpName": "Румен Иванов Иванов",
-      "totalEur": 341373.1254761406,
-      "contractCount": 5,
-      "contractorCount": 2,
-      "topContractorNames": [
-        "НЮТЕК ИНЖЕНЕРИНГ ООД",
-        "ОЛИМПИА АУТО АД - гр. Сливен"
-      ],
-      "confidence": "medium"
     },
     {
       "mpId": 4745,
@@ -930,17 +930,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Фармапро ООД - София"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 819,
-      "mpName": "Петър Димитров Попов",
-      "totalEur": 312919.59423876315,
-      "contractCount": 25,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ПЛОВДИВИНВЕСТ АД"
       ],
       "confidence": "medium"
     },
@@ -967,6 +956,17 @@
       "confidence": "medium"
     },
     {
+      "mpId": 1586,
+      "mpName": "Йордан Георгиев Стойков",
+      "totalEur": 131749.69194664157,
+      "contractCount": 4,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Евро ферт АД  - Димитровград"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 5005,
       "mpName": "Стилиана Иванова Бобчева",
       "totalEur": 130643.45060664782,
@@ -974,17 +974,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Тедей – М"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 1639,
-      "mpName": "Николай Петков Петков",
-      "totalEur": 41966.837608585614,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "БРЕЙН ТРЪСТ СЕКЮРИТИ ООД - Пловдив"
       ],
       "confidence": "medium"
     },
@@ -1039,7 +1028,7 @@
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
-        "Конкурент НЮЗ ЕООД - Враца"
+        "Конкурент Нюз ЕООД - Враца"
       ],
       "confidence": "high"
     },
@@ -1050,7 +1039,7 @@
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
-        "КСБВ ЕООД - София"
+        "Ксбв ЕООД - София"
       ],
       "confidence": "high"
     }

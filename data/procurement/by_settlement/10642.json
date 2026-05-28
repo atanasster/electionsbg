@@ -3,28 +3,19 @@
   "name": "Венец",
   "province": "Шумен",
   "obshtina": "Венец",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 200,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 192,
   "awardCount": 0,
-  "totalEur": 18987994.643359594,
+  "totalEur": 18509979.571154546,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000931397",
       "name": "Община Венец",
       "tier": "municipal",
-      "totalEur": 18459783.491154544,
+      "totalEur": 18509979.571154546,
       "totalOther": {},
-      "contractCount": 190,
-      "awardCount": 0
-    },
-    {
-      "eik": "000921944",
-      "name": "Средно училище \"Никола Йонков Вапцаров\"",
-      "tier": "school",
-      "totalEur": 528211.1522050485,
-      "totalOther": {},
-      "contractCount": 10,
+      "contractCount": 192,
       "awardCount": 0
     }
   ],
@@ -570,18 +561,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "d658a8bc7d37",
-      "ocid": "aop-legacy-2011-2015-635753",
-      "date": "2014-12-04",
-      "amount": 159984,
-      "currency": "BGN",
-      "amountEur": 81798.52032129581,
-      "partyEik": "117679603",
-      "partyName": "Дмв ЕООД - Русе",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
       "key": "84ce50570e44",
       "ocid": "aop-legacy-2019-909061",
       "date": "2019-04-24",
@@ -606,18 +585,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "92196265874e",
-      "ocid": "aop-legacy-2017-779622",
-      "date": "2017-03-31",
-      "amount": 153450,
-      "currency": "BGN",
-      "amountEur": 78457.73916955973,
-      "partyEik": "117679603",
-      "partyName": "Дмв ЕООД - Русе",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "64f7c04458df",
       "ocid": "aop-legacy-2011-2015-694957",
       "date": "2015-10-30",
@@ -628,32 +595,56 @@
       "partyName": "Пътища АД - Шумен",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "58f229c81367",
+      "ocid": "aop-legacy-2011-2015-463727",
+      "date": "2012-01-10",
+      "amount": 149000,
+      "currency": "BGN",
+      "amountEur": 76182.49029823656,
+      "partyEik": "121699202",
+      "partyName": "Лукойл-България ЕООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "69ce596652a4",
+      "ocid": "aop-legacy-2011-2015-695380",
+      "date": "2015-11-03",
+      "amount": 144688.8,
+      "currency": "BGN",
+      "amountEur": 73978.20874002342,
+      "partyEik": "837035366",
+      "partyName": "Пътища АД - Шумен",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 263944.0033131714,
+      "totalEur": 212706.11453960722,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 9
     },
     {
       "year": "2012",
-      "totalEur": 3099393.69986144,
-      "totalOther": {},
-      "contractCount": 11
-    },
-    {
-      "year": "2013",
-      "totalEur": 676811.0111819534,
+      "totalEur": 3049804.522887981,
       "totalOther": {},
       "contractCount": 10
     },
     {
-      "year": "2014",
-      "totalEur": 4921276.389052218,
+      "year": "2013",
+      "totalEur": 631761.0835297545,
       "totalOther": {},
-      "contractCount": 19
+      "contractCount": 9
+    },
+    {
+      "year": "2014",
+      "totalEur": 4839477.868730922,
+      "totalOther": {},
+      "contractCount": 18
     },
     {
       "year": "2015",
@@ -669,21 +660,21 @@
     },
     {
       "year": "2017",
-      "totalEur": 725844.8075753006,
+      "totalEur": 647387.0684057408,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 14
     },
     {
       "year": "2019",
-      "totalEur": 3674746.8389379443,
+      "totalEur": 3591431.8268970205,
       "totalOther": {},
-      "contractCount": 32
+      "contractCount": 30
     },
     {
       "year": "2022",
-      "totalEur": 1092782.9463705944,
+      "totalEur": 1018544.8990965472,
       "totalOther": {},
-      "contractCount": 28
+      "contractCount": 27
     },
     {
       "year": "2023",
@@ -693,7 +684,7 @@
     },
     {
       "year": "2026",
-      "totalEur": 931982.643339145,
+      "totalEur": 917653.8833391451,
       "totalOther": {},
       "contractCount": 13
     }

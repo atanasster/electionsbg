@@ -3,19 +3,19 @@
   "name": "Угърчин",
   "province": "Ловеч",
   "obshtina": "Угърчин",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 159,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 160,
   "awardCount": 0,
-  "totalEur": 50879400.39814898,
+  "totalEur": 52864616.85814898,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000291716",
       "name": "Община Угърчин",
       "tier": "municipal",
-      "totalEur": 50879400.39814898,
+      "totalEur": 52864616.85814898,
       "totalOther": {},
-      "contractCount": 159,
+      "contractCount": 160,
       "awardCount": 0
     }
   ],
@@ -103,6 +103,18 @@
       "partyName": "ДЗЗД Инфра билд",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "8b69ec15847b",
+      "ocid": "ocds-e82gsb-561765",
+      "date": "2026-05-18",
+      "amount": 1985216.46,
+      "currency": "EUR",
+      "amountEur": 1985216.46,
+      "partyEik": "110052320",
+      "partyName": "Виастрой АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-561765-854942%2F2026-05-18-contractamendment"
     },
     {
       "key": "cb367f24b894",
@@ -607,18 +619,6 @@
       "partyName": "ДЗЗД Енинтермир",
       "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
       "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
-      "key": "fb008787f7a5",
-      "ocid": "aop-legacy-2011-2015-550485",
-      "date": "2013-07-15",
-      "amount": 390885.82,
-      "currency": "BGN",
-      "amountEur": 199856.74624072644,
-      "partyEik": "131018734",
-      "partyName": "Събев 2002 ЕООД - Пирдоп",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 7128668.989999999,
+      "totalEur": 9113885.45,
       "totalOther": {},
-      "contractCount": 13
+      "contractCount": 14
     }
   ]
 }

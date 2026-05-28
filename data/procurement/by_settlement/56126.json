@@ -3,55 +3,37 @@
   "name": "Петрич",
   "province": "Благоевград",
   "obshtina": "Петрич",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 441,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 438,
   "awardCount": 0,
-  "totalEur": 92834797.7639267,
+  "totalEur": 95162066.02187842,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000024916",
       "name": "Община Петрич",
       "tier": "municipal",
-      "totalEur": 91131108.40166475,
+      "totalEur": 94670101.25166476,
       "totalOther": {},
-      "contractCount": 416,
-      "awardCount": 0
-    },
-    {
-      "eik": "101005019",
-      "name": "в и К ЕООД",
-      "tier": "utility",
-      "totalEur": 1135913.4674133232,
-      "totalOther": {},
-      "contractCount": 15,
+      "contractCount": 422,
       "awardCount": 0
     },
     {
       "eik": "000012586",
       "name": "Средно училище \"Никола Йонков Вапцаров\"",
       "tier": "school",
-      "totalEur": 314848.43021366885,
+      "totalEur": 351909.0202136689,
       "totalOther": {},
-      "contractCount": 5,
-      "awardCount": 0
-    },
-    {
-      "eik": "000014231",
-      "name": "Професионална гимназия по механоелектротехника \"Юрий Гагарин\"",
-      "tier": "school",
-      "totalEur": 138372.06463496317,
-      "totalOther": {},
-      "contractCount": 4,
+      "contractCount": 12,
       "awardCount": 0
     },
     {
       "eik": "000012554",
       "name": "IV-ТО Основно училище \"ХР.СМИРНЕНСКИ\"",
       "tier": "school",
-      "totalEur": 114555.4,
+      "totalEur": 140055.75,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
@@ -345,6 +327,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "57a57fe65013",
+      "ocid": "ocds-e82gsb-517416",
+      "date": "2026-05-14",
+      "amount": 801092.12,
+      "currency": "EUR",
+      "amountEur": 801092.12,
+      "partyEik": "101105090",
+      "partyName": "Никмар кънстракшън ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-517416-854406%2F2026-05-14-contractamendment"
+    },
+    {
+      "key": "9f5625b23e58",
+      "ocid": "ocds-e82gsb-517416",
+      "date": "2026-05-14",
+      "amount": 801092.12,
+      "currency": "EUR",
+      "amountEur": 801092.12,
+      "partyEik": "101105090",
+      "partyName": "Никмар кънстракшън ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-517416-853498%2F2026-05-14-contractamendment"
+    },
+    {
       "key": "b4cb02cac344",
       "ocid": "ocds-e82gsb-517416",
       "date": "2026-03-13",
@@ -621,40 +627,16 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
-      "key": "85bcf4aa7a72",
-      "ocid": "aop-legacy-2022-231904",
-      "date": "2022-05-18",
-      "amount": 998663.07,
-      "currency": "BGN",
-      "amountEur": 510608.3197414908,
-      "partyEik": "202323253",
-      "partyName": "Анкер груп ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "459bfb3acfeb",
-      "ocid": "aop-legacy-2021-1004443",
-      "date": "2021-01-11",
-      "amount": 988176.2,
-      "currency": "BGN",
-      "amountEur": 505246.4682513306,
-      "partyEik": "177460304",
-      "partyName": "ДЗЗД  Сп 2020",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
-      "key": "f99655fe4374",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-01-11",
-      "amount": 988176.2,
-      "currency": "BGN",
-      "amountEur": 505246.4682513306,
-      "partyEik": "177460304",
-      "partyName": "ДЗЗД  Сп 2020",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+      "key": "0fe3abb1a966",
+      "ocid": "ocds-e82gsb-551090",
+      "date": "2026-05-19",
+      "amount": 511237.47,
+      "currency": "EUR",
+      "amountEur": 511237.47,
+      "partyEik": "120608662",
+      "partyName": "\"Заечки\" ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-551090-854966%2F2026-05-19-award"
     }
   ],
   "byYear": [
@@ -666,9 +648,9 @@
     },
     {
       "year": "2012",
-      "totalEur": 5603972.206173338,
+      "totalEur": 5484088.576205499,
       "totalOther": {},
-      "contractCount": 9
+      "contractCount": 8
     },
     {
       "year": "2013",
@@ -684,9 +666,9 @@
     },
     {
       "year": "2015",
-      "totalEur": 5481395.208172491,
+      "totalEur": 5304711.1405388005,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 14
     },
     {
       "year": "2016",
@@ -720,21 +702,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 6335605.671249546,
+      "totalEur": 6127048.107453102,
       "totalOther": {},
-      "contractCount": 46
+      "contractCount": 42
     },
     {
       "year": "2023",
-      "totalEur": 13429545.262113784,
+      "totalEur": 12894591.19146347,
       "totalOther": {},
-      "contractCount": 64
+      "contractCount": 55
     },
     {
       "year": "2026",
-      "totalEur": 22683359.16752519,
+      "totalEur": 26050706.757525187,
       "totalOther": {},
-      "contractCount": 64
+      "contractCount": 76
     }
   ]
 }

@@ -3,19 +3,19 @@
   "name": "Ракево",
   "province": "Враца",
   "obshtina": "Криводол",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 1,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 2,
   "awardCount": 0,
-  "totalEur": 85755.75586835256,
+  "totalEur": 124515.75586835256,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000182706",
-      "name": "Основно училище \"Васил Левски",
+      "name": "Основно училище \"Васил Левски\"",
       "tier": "school",
-      "totalEur": 85755.75586835256,
+      "totalEur": 124515.75586835256,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
@@ -31,12 +31,30 @@
       "partyName": "ГАРАНТ-90-ЦОНЕВ и Сие ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "06e8c17cb363",
+      "ocid": "ocds-e82gsb-566632",
+      "date": "2026-05-19",
+      "amount": 38760,
+      "currency": "EUR",
+      "amountEur": 38760,
+      "partyEik": "202119973",
+      "partyName": "Алехандро 2012 ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-566632-856851%2F2026-05-19-award"
     }
   ],
   "byYear": [
     {
       "year": "2023",
       "totalEur": 85755.75586835256,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 38760,
       "totalOther": {},
       "contractCount": 1
     }

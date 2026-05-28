@@ -3,19 +3,19 @@
   "name": "Кочериново",
   "province": "Кюстендил",
   "obshtina": "Кочериново",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 55,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 57,
   "awardCount": 0,
-  "totalEur": 15689122.993657216,
+  "totalEur": 18053878.613657217,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000261491",
       "name": "Община Кочериново",
       "tier": "municipal",
-      "totalEur": 15689122.993657216,
+      "totalEur": 18053878.613657217,
       "totalOther": {},
-      "contractCount": 55,
+      "contractCount": 57,
       "awardCount": 0
     }
   ],
@@ -67,6 +67,30 @@
       "partyName": "ИВТ Дивелъпмънт ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "4c9d91804546",
+      "ocid": "ocds-e82gsb-421150",
+      "date": "2026-05-20",
+      "amount": 1182377.81,
+      "currency": "EUR",
+      "amountEur": 1182377.81,
+      "partyEik": "113580690",
+      "partyName": "Нивел строй ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-421150-857545%2F2026-05-20-contractamendment"
+    },
+    {
+      "key": "dc5d39a59dd8",
+      "ocid": "ocds-e82gsb-421150",
+      "date": "2026-05-20",
+      "amount": 1182377.81,
+      "currency": "EUR",
+      "amountEur": 1182377.81,
+      "partyEik": "204293638",
+      "partyName": "Констрол ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-421150-857545%2F2026-05-20-contractamendment"
     },
     {
       "key": "ad1d169a7ff0",
@@ -595,30 +619,6 @@
       "partyName": "Аллур ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "e387c7a866c7",
-      "ocid": "aop-legacy-2022-249958",
-      "date": "2022-07-05",
-      "amount": 15225,
-      "currency": "BGN",
-      "amountEur": 7784.418891212426,
-      "partyEik": "101535576",
-      "partyName": "ЕТ Чавдар Трайков - невен 2000",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "a3e5409d1d85",
-      "ocid": "aop-legacy-2023-411543",
-      "date": "2023-08-11",
-      "amount": 8798,
-      "currency": "BGN",
-      "amountEur": 4498.345970764331,
-      "partyEik": "202896153",
-      "partyName": "Аллур ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -672,9 +672,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 658129.6200000001,
+      "totalEur": 3022885.24,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 8
     }
   ]
 }

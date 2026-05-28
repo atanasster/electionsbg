@@ -1,0 +1,44 @@
+{
+  "ekatte": "17484",
+  "name": "Градина",
+  "province": "Пловдив",
+  "obshtina": "Първомай",
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 40471.31,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000453614",
+      "name": "Основно училище \"Христо Ботев\" - с. Градина",
+      "tier": "school",
+      "totalEur": 40471.31,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "7c3c3545a2fd",
+      "ocid": "ocds-e82gsb-549225",
+      "date": "2026-05-07",
+      "amount": 40471.31,
+      "currency": "EUR",
+      "amountEur": 40471.31,
+      "partyEik": "202119973",
+      "partyName": "Алехандро 2012 ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-549225-852336%2F2026-05-07-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 40471.31,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

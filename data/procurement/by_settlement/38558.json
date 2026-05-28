@@ -3,19 +3,19 @@
   "name": "Копривщица",
   "province": "София",
   "obshtina": "Копривщица",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 39,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 40,
   "awardCount": 0,
-  "totalEur": 10519523.043786421,
+  "totalEur": 10550273.043786421,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000776331",
       "name": "Община Копривщица",
       "tier": "municipal",
-      "totalEur": 10519523.043786421,
+      "totalEur": 10550273.043786421,
       "totalOther": {},
-      "contractCount": 39,
+      "contractCount": 40,
       "awardCount": 0
     }
   ],
@@ -259,6 +259,18 @@
       "partyName": "Ина-2008  ЕООД - гр.Копривщица",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "16052b678546",
+      "ocid": "ocds-e82gsb-556897",
+      "date": "2026-05-12",
+      "amount": 30750,
+      "currency": "EUR",
+      "amountEur": 30750,
+      "partyEik": "208121365",
+      "partyName": "Фючър тръкс АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-556897-854075%2F2026-05-12-award"
     },
     {
       "key": "24833ee616a8",
@@ -552,9 +564,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 494561.36,
+      "totalEur": 525311.36,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 9
     }
   ]
 }

@@ -3,37 +3,37 @@
   "name": "Луковит",
   "province": "Ловеч",
   "obshtina": "Луковит",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 242,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 248,
   "awardCount": 0,
-  "totalEur": 58894673.37247486,
+  "totalEur": 59611469.87247486,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000291602",
       "name": "Община Луковит",
       "tier": "municipal",
-      "totalEur": 57708510.851972766,
+      "totalEur": 58341027.34197277,
       "totalOther": {},
-      "contractCount": 205,
+      "contractCount": 208,
       "awardCount": 0
     },
     {
       "eik": "110504291",
       "name": "Многопрофилна болница за активно лечение - луковит ЕООД",
       "tier": "hospital",
-      "totalEur": 999290.7781567927,
+      "totalEur": 1050340.3781567928,
       "totalOther": {},
-      "contractCount": 33,
+      "contractCount": 34,
       "awardCount": 0
     },
     {
       "eik": "000282382",
       "name": "Средно училище алеко Константинов",
       "tier": "school",
-      "totalEur": 186871.74234529585,
+      "totalEur": 220102.15234529588,
       "totalOther": {},
-      "contractCount": 4,
+      "contractCount": 6,
       "awardCount": 0
     }
   ],
@@ -289,6 +289,18 @@
       "partyName": "ДЗЗД Петревене 2014",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "c83f022041b2",
+      "ocid": "ocds-e82gsb-451701",
+      "date": "2026-05-18",
+      "amount": 544891.84,
+      "currency": "EUR",
+      "amountEur": 544891.84,
+      "partyEik": "114674768",
+      "partyName": "Еврострой РН ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-451701-855319%2F2026-05-18-award"
     },
     {
       "key": "f68d6555b037",
@@ -625,18 +637,6 @@
       "partyName": "Ззд Микс Инженер Консулт  - Пловдив",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "253647a7277f",
-      "ocid": "aop-legacy-2016-740798",
-      "date": "2016-07-18",
-      "amount": 467241,
-      "currency": "BGN",
-      "amountEur": 238896.52986200232,
-      "partyEik": "831838874",
-      "partyName": "Нск София ЕООД",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -708,9 +708,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 5622699.213166534,
+      "totalEur": 6339495.713166534,
       "totalOther": {},
-      "contractCount": 26
+      "contractCount": 32
     }
   ]
 }

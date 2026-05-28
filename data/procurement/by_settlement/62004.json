@@ -3,28 +3,28 @@
   "name": "Ракитово",
   "province": "Пазарджик",
   "obshtina": "Ракитово",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 157,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 163,
   "awardCount": 0,
-  "totalEur": 18047927.45856577,
+  "totalEur": 18747482.858565774,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000351795",
       "name": "Община Ракитово",
       "tier": "municipal",
-      "totalEur": 17541695.429197166,
+      "totalEur": 18215650.82919717,
       "totalOther": {},
-      "contractCount": 152,
+      "contractCount": 155,
       "awardCount": 0
     },
     {
       "eik": "000341770",
-      "name": "Средно училище \"Св. Климент Охридски",
+      "name": "Средно училище \"СВ. Климент Охридски\"",
       "tier": "school",
-      "totalEur": 506232.0293686057,
+      "totalEur": 531832.0293686057,
       "totalOther": {},
-      "contractCount": 5,
+      "contractCount": 8,
       "awardCount": 0
     }
   ],
@@ -64,6 +64,18 @@
       "partyName": "АТЛАС-БАЛКАН ООД",
       "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-525270-814230%2F2026-02-20-award"
+    },
+    {
+      "key": "510cff84d41a",
+      "ocid": "ocds-e82gsb-560666",
+      "date": "2026-05-07",
+      "amount": 585619.28,
+      "currency": "EUR",
+      "amountEur": 585619.28,
+      "partyEik": "201332388",
+      "partyName": "Делчев Инженеринг ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-560666-852219%2F2026-05-07-award"
     },
     {
       "key": "0347b90fbd6b",
@@ -616,18 +628,6 @@
       "partyName": "Делчев Инженеринг ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "fb82d1e6d71b",
-      "ocid": "aop-legacy-2011-2015-468983",
-      "date": "2012-02-16",
-      "amount": 202093,
-      "currency": "BGN",
-      "amountEur": 103328.51014658739,
-      "partyEik": "112036425",
-      "partyName": "ЕТ Дисон - Димитър Сестримски - Ракитово",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -705,9 +705,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2089371.49,
+      "totalEur": 2788926.89,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 14
     }
   ]
 }

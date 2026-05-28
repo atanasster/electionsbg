@@ -3,28 +3,19 @@
   "name": "Вълчи дол",
   "province": "Варна",
   "obshtina": "Вълчи дол",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 155,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 160,
   "awardCount": 0,
-  "totalEur": 33802879.01989642,
+  "totalEur": 36081829.5834585,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000093474",
-      "name": "Община Вълчи дол",
+      "name": "Община Вълчи ДОЛ",
       "tier": "municipal",
-      "totalEur": 33658439.06345849,
+      "totalEur": 36081829.5834585,
       "totalOther": {},
-      "contractCount": 153,
-      "awardCount": 0
-    },
-    {
-      "eik": "000082264",
-      "name": "Средно училище \"Васил Левски",
-      "tier": "school",
-      "totalEur": 144439.95643793172,
-      "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 160,
       "awardCount": 0
     }
   ],
@@ -232,6 +223,54 @@
       "partyName": "ЕТ АНРИ-64 - Андрей Кехайов",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "1ed2bae1de71",
+      "ocid": "ocds-e82gsb-529982",
+      "date": "2026-05-13",
+      "amount": 534422.88,
+      "currency": "EUR",
+      "amountEur": 534422.88,
+      "partyEik": "203559349",
+      "partyName": "СИС Билд ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-529982-854922%2F2026-05-13-contractamendment"
+    },
+    {
+      "key": "231f04fe5271",
+      "ocid": "ocds-e82gsb-529982",
+      "date": "2026-05-13",
+      "amount": 534422.88,
+      "currency": "EUR",
+      "amountEur": 534422.88,
+      "partyEik": "204660949",
+      "partyName": "СИС ЕЙЧ АР ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-529982-854922%2F2026-05-13-contractamendment"
+    },
+    {
+      "key": "3d529246ff95",
+      "ocid": "ocds-e82gsb-529982",
+      "date": "2026-05-13",
+      "amount": 534422.88,
+      "currency": "EUR",
+      "amountEur": 534422.88,
+      "partyEik": "200969065",
+      "partyName": "СИС Билдинг системс ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-529982-854922%2F2026-05-13-contractamendment"
+    },
+    {
+      "key": "830a13a42079",
+      "ocid": "ocds-e82gsb-529982",
+      "date": "2026-05-13",
+      "amount": 534422.88,
+      "currency": "EUR",
+      "amountEur": 534422.88,
+      "partyEik": "177342238",
+      "partyName": "СИС Инженеринг",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-529982-854922%2F2026-05-13-contractamendment"
     },
     {
       "key": "42a446f53e03",
@@ -580,54 +619,6 @@
       "partyName": "Радиан ЕООД - Варна",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "ae581fdd003c",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-11-28",
-      "amount": 250000,
-      "currency": "BGN",
-      "amountEur": 127822.97029905462,
-      "partyEik": "103511848",
-      "partyName": "Радиан ЕООД - Варна",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "ca794e8bd410",
-      "ocid": "aop-legacy-2023-403911",
-      "date": "2023-07-28",
-      "amount": 237675.6,
-      "currency": "BGN",
-      "amountEur": 121521.60463843995,
-      "partyEik": "121154745",
-      "partyName": "Интрейдинг ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "0c557d10be58",
-      "ocid": "aop-legacy-2022-280237",
-      "date": "2022-09-30",
-      "amount": 204500,
-      "currency": "BGN",
-      "amountEur": 104559.18970462668,
-      "partyEik": "813027681",
-      "partyName": "Булавто АД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "24277478001d",
-      "ocid": "aop-legacy-2011-2015-657912",
-      "date": "2015-03-30",
-      "amount": 200000,
-      "currency": "BGN",
-      "amountEur": 102258.37623924369,
-      "partyEik": "813101815",
-      "partyName": "Черноморска Технологична Компания АД - Варна",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -657,9 +648,9 @@
     },
     {
       "year": "2015",
-      "totalEur": 1373665.8400781252,
+      "totalEur": 1271407.4638388816,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 9
     },
     {
       "year": "2016",
@@ -699,15 +690,15 @@
     },
     {
       "year": "2023",
-      "totalEur": 1658454.6765311914,
+      "totalEur": 1616273.0963325035,
       "totalOther": {},
-      "contractCount": 19
+      "contractCount": 18
     },
     {
       "year": "2026",
-      "totalEur": 14056345.665770544,
+      "totalEur": 16479736.185770547,
       "totalOther": {},
-      "contractCount": 13
+      "contractCount": 20
     }
   ]
 }

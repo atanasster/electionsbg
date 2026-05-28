@@ -3,23 +3,35 @@
   "name": "Поликраище",
   "province": "Велико Търново",
   "obshtina": "Горна Оряховица",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 1,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 2,
   "awardCount": 0,
-  "totalEur": 4647.147246948866,
+  "totalEur": 36644.147246948865,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000123451",
-      "name": "Основно училище - Св.Св. Кирил и Методий, с. Поликраище",
+      "name": "Основно училище \"СВ. СВ. Кирил и Методий \"",
       "tier": "school",
-      "totalEur": 4647.147246948866,
+      "totalEur": 36644.147246948865,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "c40a5fb32001",
+      "ocid": "ocds-e82gsb-582110",
+      "date": "2026-05-19",
+      "amount": 31997,
+      "currency": "EUR",
+      "amountEur": 31997,
+      "partyEik": "104518906",
+      "partyName": "Вали компютърс ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-582110-856884%2F2026-05-19-award"
+    },
     {
       "key": "4f6c6117a694",
       "ocid": "aop-legacy-2011-2015-570980",
@@ -37,6 +49,12 @@
     {
       "year": "2013",
       "totalEur": 4647.147246948866,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 31997,
       "totalOther": {},
       "contractCount": 1
     }

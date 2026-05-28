@@ -3,19 +3,19 @@
   "name": "Макреш",
   "province": "Видин",
   "obshtina": "Макреш",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 19,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 20,
   "awardCount": 0,
-  "totalEur": 5810277.145354709,
+  "totalEur": 5829212.395354709,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000159636",
       "name": "Община Макреш",
       "tier": "municipal",
-      "totalEur": 5810277.145354709,
+      "totalEur": 5829212.395354709,
       "totalOther": {},
-      "contractCount": 19,
+      "contractCount": 20,
       "awardCount": 0
     }
   ],
@@ -237,6 +237,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-553250-820219%2F2026-03-06-award"
     },
     {
+      "key": "293e778fddf6",
+      "ocid": "ocds-e82gsb-575638",
+      "date": "2026-05-18",
+      "amount": 18935.25,
+      "currency": "EUR",
+      "amountEur": 18935.25,
+      "partyEik": "105012737",
+      "partyName": "УНИВЕРСАЛ-Ж ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-575638-856393%2F2026-05-18-award"
+    },
+    {
       "key": "8e4bedb59db9",
       "ocid": "aop-legacy-2023-419134",
       "date": "2023-08-31",
@@ -288,9 +300,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2041287.77,
+      "totalEur": 2060223.02,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 5
     }
   ]
 }

@@ -1,0 +1,44 @@
+{
+  "ekatte": "14012",
+  "name": "Габаре",
+  "province": "Враца",
+  "obshtina": "Бяла Слатина",
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 49752,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000182250",
+      "name": "Средно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 49752,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "36c9ab4bbecf",
+      "ocid": "ocds-e82gsb-577290",
+      "date": "2026-05-19",
+      "amount": 49752,
+      "currency": "EUR",
+      "amountEur": 49752,
+      "partyEik": "114600294",
+      "partyName": "Офис решения БГ ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-577290-856677%2F2026-05-19-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 49752,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

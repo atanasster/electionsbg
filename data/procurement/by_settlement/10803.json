@@ -3,19 +3,19 @@
   "name": "Ветово",
   "province": "Русе",
   "obshtina": "Ветово",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 118,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 119,
   "awardCount": 0,
-  "totalEur": 18960394.72361678,
+  "totalEur": 19456491.763616778,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000530504",
       "name": "Община Ветово",
       "tier": "municipal",
-      "totalEur": 18960394.72361678,
+      "totalEur": 19456491.763616778,
       "totalOther": {},
-      "contractCount": 118,
+      "contractCount": 119,
       "awardCount": 0
     }
   ],
@@ -139,6 +139,18 @@
       "partyName": "Техно - енерджи ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "742ed96e46ed",
+      "ocid": "ocds-e82gsb-529197",
+      "date": "2026-05-15",
+      "amount": 496097.04,
+      "currency": "EUR",
+      "amountEur": 496097.04,
+      "partyEik": "208006391",
+      "partyName": "Агама Билд ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-529197-855779%2F2026-05-15-contractamendment"
     },
     {
       "key": "4b06f1a102a3",
@@ -607,18 +619,6 @@
       "partyName": "Бороимпекс АД",
       "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
       "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
-    },
-    {
-      "key": "200a90c4e984",
-      "ocid": "aop-legacy-2022-208979",
-      "date": "2022-03-17",
-      "amount": 99777.77,
-      "currency": "BGN",
-      "amountEur": 51015.56372486361,
-      "partyEik": "201484467",
-      "partyName": "Автокам българия ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 5042377.58,
+      "totalEur": 5538474.62,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 13
     }
   ]
 }

@@ -1,0 +1,101 @@
+{
+  "mpId": 1586,
+  "summary": {
+    "totalEur": 758445.2636476585,
+    "totalOther": {},
+    "contractCount": 13,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 758445.2636476585,
+    "rank": 24,
+    "cohortSize": 55,
+    "cohortMedian": 505258.64
+  },
+  "entries": [
+    {
+      "mpId": 1586,
+      "mpName": "Йордан Георгиев Стойков",
+      "contractorEik": "126180065",
+      "contractorName": "Евро ферт АД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 758445.2636476585,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2019",
+          "contractCount": 4,
+          "totalEur": 131749.69194664157,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 1,
+          "totalEur": 165075.6967630111,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 8,
+          "totalEur": 461619.8749380059,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "123650036",
+          "name": "Институт по Полски култури",
+          "contractCount": 2,
+          "totalEur": 263933.98199229996,
+          "totalOther": {}
+        },
+        {
+          "eik": "000840410",
+          "name": "Добруджански Земеделски институт",
+          "contractCount": 1,
+          "totalEur": 160545.6506956126,
+          "totalOther": {}
+        },
+        {
+          "eik": "102674956",
+          "name": "Институт по земеделие - карнобат",
+          "contractCount": 3,
+          "totalEur": 141914.1745448224,
+          "totalOther": {}
+        },
+        {
+          "eik": "000450524",
+          "name": "Институт по растителни генетични ресурси - садово",
+          "contractCount": 3,
+          "totalEur": 109927.75445718698,
+          "totalOther": {}
+        },
+        {
+          "eik": "106524772",
+          "name": "Институт по царевицата",
+          "contractCount": 1,
+          "totalEur": 39880.76673330504,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

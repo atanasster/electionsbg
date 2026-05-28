@@ -3,64 +3,28 @@
   "name": "Велинград",
   "province": "Пазарджик",
   "obshtina": "Велинград",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 437,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 400,
   "awardCount": 0,
-  "totalEur": 74077559.64185101,
+  "totalEur": 76574799.64883892,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000351580",
       "name": "Община Велинград",
       "tier": "municipal",
-      "totalEur": 66352519.83163248,
+      "totalEur": 72181143.26163247,
       "totalOther": {},
-      "contractCount": 349,
+      "contractCount": 365,
       "awardCount": 0
     },
     {
       "eik": "112531538",
       "name": "\"Специализирана болница за рехабилитация - вита\" ЕООД",
       "tier": "hospital",
-      "totalEur": 4352811.987206454,
+      "totalEur": 4393656.387206454,
       "totalOther": {},
-      "contractCount": 32,
-      "awardCount": 0
-    },
-    {
-      "eik": "112059210",
-      "name": "Специализирана болница за продължително лечение и рехабилитация на пневмофтизиатрични заболявания „Света Петка Българска” ЕООД",
-      "tier": "hospital",
-      "totalEur": 2877262.389517954,
-      "totalOther": {},
-      "contractCount": 45,
-      "awardCount": 0
-    },
-    {
-      "eik": "000334231",
-      "name": "Професионална гимназия по икономика и туризъм \"Алеко Константинов\"",
-      "tier": "school",
-      "totalEur": 248199.16546468763,
-      "totalOther": {},
-      "contractCount": 8,
-      "awardCount": 0
-    },
-    {
-      "eik": "000341674",
-      "name": "Средно училище \"Св. Св. Кирил и Методий",
-      "tier": "school",
-      "totalEur": 151766.26802942998,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000341707",
-      "name": "Основно училище \"Георги Бенковски\"",
-      "tier": "school",
-      "totalEur": 95000,
-      "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 35,
       "awardCount": 0
     }
   ],
@@ -88,6 +52,18 @@
       "partyName": "Кмд ЕООД - Пловдив",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "86418bc81cb3",
+      "ocid": "ocds-e82gsb-438694",
+      "date": "2026-05-13",
+      "amount": 2294788.2,
+      "currency": "EUR",
+      "amountEur": 2294788.2,
+      "partyEik": "175410402",
+      "partyName": "Техно строй българия ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-438694-854547%2F2026-05-13-contractamendment"
     },
     {
       "key": "7107ff5a6db6",
@@ -210,6 +186,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "6c7d9de8cb95",
+      "ocid": "ocds-e82gsb-551788",
+      "date": "2026-05-13",
+      "amount": 1142633,
+      "currency": "EUR",
+      "amountEur": 1142633,
+      "partyEik": "201332388",
+      "partyName": "Делчев Инженеринг ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-551788-854776%2F2026-05-13-award"
+    },
+    {
       "key": "92737904b856",
       "ocid": "aop-legacy-2016-705450",
       "date": "2016-01-05",
@@ -232,6 +220,18 @@
       "partyName": "ДЗЗД Строителство и саниране",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "e365a285044b",
+      "ocid": "ocds-e82gsb-551819",
+      "date": "2026-05-13",
+      "amount": 1124300,
+      "currency": "EUR",
+      "amountEur": 1124300,
+      "partyEik": "201332388",
+      "partyName": "Делчев Инженеринг ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-551819-854921%2F2026-05-13-award"
     },
     {
       "key": "67ab12bce003",
@@ -364,6 +364,18 @@
       "partyName": "Делчев Инженеринг ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "dd5ea1a058b6",
+      "ocid": "ocds-e82gsb-551754",
+      "date": "2026-05-13",
+      "amount": 696520,
+      "currency": "EUR",
+      "amountEur": 696520,
+      "partyEik": "201332388",
+      "partyName": "Делчев Инженеринг ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-551754-854892%2F2026-05-13-award"
     },
     {
       "key": "41bcd27c8b5a",
@@ -616,110 +628,62 @@
       "partyName": "\" Екодин \" ЕООД",
       "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-417262-822287%2F2026-03-10-contractamendment"
-    },
-    {
-      "key": "e43c0fb7100b",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-01-05",
-      "amount": 871344,
-      "currency": "BGN",
-      "amountEur": 445511.11292903783,
-      "partyEik": "101646780",
-      "partyName": "Беатрис ООД - Разлог",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "f6e769f88945",
-      "ocid": "aop-legacy-2016-705450",
-      "date": "2016-01-05",
-      "amount": 871344,
-      "currency": "BGN",
-      "amountEur": 445511.11292903783,
-      "partyEik": "101646780",
-      "partyName": "Беатрис ООД - Разлог",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "9e1a56291815",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-03-14",
-      "amount": 841715.39,
-      "currency": "BGN",
-      "amountEur": 430362.24518490874,
-      "partyEik": "202917932",
-      "partyName": "Инфра билд проект ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "f0c06b627f19",
-      "ocid": "aop-legacy-2019-900638",
-      "date": "2019-03-14",
-      "amount": 841715.39,
-      "currency": "BGN",
-      "amountEur": 430362.24518490874,
-      "partyEik": "202917932",
-      "partyName": "Инфра билд проект ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 1517257.527494721,
+      "totalEur": 1367889.335985234,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 9
     },
     {
       "year": "2012",
-      "totalEur": 2028634.5899183466,
+      "totalEur": 1866634.6257087784,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 8
     },
     {
       "year": "2013",
-      "totalEur": 5114134.745862371,
+      "totalEur": 4894662.112760312,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 16
     },
     {
       "year": "2014",
-      "totalEur": 1623496.075834812,
+      "totalEur": 1518432.583609005,
       "totalOther": {},
-      "contractCount": 18
+      "contractCount": 14
     },
     {
       "year": "2015",
-      "totalEur": 4497313.340116472,
+      "totalEur": 4458483.6616679365,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 14
     },
     {
       "year": "2016",
-      "totalEur": 15834099.855304398,
+      "totalEur": 15259816.814344805,
       "totalOther": {},
-      "contractCount": 35
+      "contractCount": 33
     },
     {
       "year": "2017",
-      "totalEur": 4873412.413144291,
+      "totalEur": 4612923.423814953,
       "totalOther": {},
-      "contractCount": 71
+      "contractCount": 63
     },
     {
       "year": "2019",
-      "totalEur": 14573719.397902679,
+      "totalEur": 14141139.367940975,
       "totalOther": {},
-      "contractCount": 73
+      "contractCount": 67
     },
     {
       "year": "2020",
-      "totalEur": 330015.32853059826,
+      "totalEur": 248230.75625182147,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 8
     },
     {
       "year": "2021",
@@ -729,21 +693,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 7489018.585459882,
+      "totalEur": 7122618.606934141,
       "totalOther": {},
-      "contractCount": 60
+      "contractCount": 51
     },
     {
       "year": "2023",
-      "totalEur": 7779844.2911705,
+      "totalEur": 7075202.895957215,
       "totalOther": {},
-      "contractCount": 72
+      "contractCount": 66
     },
     {
       "year": "2026",
-      "totalEur": 7465398.9172481755,
+      "totalEur": 13057550.89,
       "totalOther": {},
-      "contractCount": 30
+      "contractCount": 41
     }
   ]
 }

@@ -3,19 +3,19 @@
   "name": "Ведраре",
   "province": "Пловдив",
   "obshtina": "Карлово",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 1,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 5,
   "awardCount": 0,
-  "totalEur": 130891.62145994285,
+  "totalEur": 178478.06145994284,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000453958",
-      "name": "Основно училище \"Св. Св. Кирил и Методий\" - с. Ведраре",
+      "name": "Основно училище \"СВ. СВ. Кирил и Методий\" - с. Ведраре",
       "tier": "school",
-      "totalEur": 130891.62145994285,
+      "totalEur": 178478.06145994284,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 5,
       "awardCount": 0
     }
   ],
@@ -31,6 +31,54 @@
       "partyName": "ГЛАВ-Проектинвест София ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "b6f1a813ce49",
+      "ocid": "ocds-e82gsb-543245",
+      "date": "2026-05-20",
+      "amount": 34706.34,
+      "currency": "EUR",
+      "amountEur": 34706.34,
+      "partyEik": "115819106",
+      "partyName": "ЕН ЕМ ЕР ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-543245-857274%2F2026-05-20-award"
+    },
+    {
+      "key": "210bb8b489bd",
+      "ocid": "ocds-e82gsb-552868",
+      "date": "2026-05-20",
+      "amount": 5827,
+      "currency": "EUR",
+      "amountEur": 5827,
+      "partyEik": "115819106",
+      "partyName": "ЕН ЕМ ЕР ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-552868-857276%2F2026-05-20-award"
+    },
+    {
+      "key": "3a2cd6d17acd",
+      "ocid": "ocds-e82gsb-552868",
+      "date": "2026-05-20",
+      "amount": 4558,
+      "currency": "EUR",
+      "amountEur": 4558,
+      "partyEik": "115819106",
+      "partyName": "ЕН ЕМ ЕР ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-552868-857276%2F2026-05-20-award"
+    },
+    {
+      "key": "d3644d3cb4c2",
+      "ocid": "ocds-e82gsb-543245",
+      "date": "2026-05-20",
+      "amount": 2495.1,
+      "currency": "EUR",
+      "amountEur": 2495.1,
+      "partyEik": "115819106",
+      "partyName": "ЕН ЕМ ЕР ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-543245-857274%2F2026-05-20-award"
     }
   ],
   "byYear": [
@@ -39,6 +87,12 @@
       "totalEur": 130891.62145994285,
       "totalOther": {},
       "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 47586.439999999995,
+      "totalOther": {},
+      "contractCount": 4
     }
   ]
 }

@@ -3,28 +3,19 @@
   "name": "Полски Тръмбеш",
   "province": "Велико Търново",
   "obshtina": "Полски Тръмбеш",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 172,
+  "generatedAt": "2026-05-28T08:40:27.221Z",
+  "contractCount": 173,
   "awardCount": 0,
-  "totalEur": 19338025.723082535,
+  "totalEur": 19596199.05084134,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000133933",
       "name": "Община Полски тръмбеш",
       "tier": "municipal",
-      "totalEur": 19283475.700841337,
+      "totalEur": 19596199.05084134,
       "totalOther": {},
-      "contractCount": 170,
-      "awardCount": 0
-    },
-    {
-      "eik": "000126426",
-      "name": "Детска Градина \"Детски свят",
-      "tier": "school",
-      "totalEur": 54550.022241196835,
-      "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 173,
       "awardCount": 0
     }
   ],
@@ -342,6 +333,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "5d4e5f6a9036",
+      "ocid": "ocds-e82gsb-561819",
+      "date": "2026-05-13",
+      "amount": 176736.89,
+      "currency": "EUR",
+      "amountEur": 176736.89,
+      "partyEik": "104070614",
+      "partyName": "Водстрой ВТ АД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-561819-854914%2F2026-05-13-award"
+    },
+    {
       "key": "6fd34055cb3a",
       "ocid": "aop-legacy-2022-263502",
       "date": "2022-08-12",
@@ -616,18 +619,6 @@
       "partyName": "Вирома - 2014 ЕООД - Полски Тръмбеш",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "664c531f4927",
-      "ocid": "aop-legacy-2011-2015-681026",
-      "date": "2015-08-05",
-      "amount": 200000,
-      "currency": "BGN",
-      "amountEur": 102258.37623924369,
-      "partyEik": "117683651",
-      "partyName": "Хармония - Р ЕООД - Русе",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -693,21 +684,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 2195895.7731500184,
+      "totalEur": 2168060.4858295457,
       "totalOther": {},
-      "contractCount": 44
+      "contractCount": 43
     },
     {
       "year": "2023",
-      "totalEur": 5213967.4664976,
+      "totalEur": 5187252.731576876,
       "totalOther": {},
-      "contractCount": 46
+      "contractCount": 45
     },
     {
       "year": "2026",
-      "totalEur": 1879469.55,
+      "totalEur": 2192192.9000000004,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 8
     }
   ]
 }
