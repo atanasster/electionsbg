@@ -27,6 +27,19 @@ export interface MpShard {
     windowTo: string;
     totalVoteItems: number;
   };
+  /** Chamber-wide stats so the candidate page can show "vs median" context
+   *  without fetching the full loyalty aggregate. Same values across every
+   *  MP in the NS — duplicated here to keep the shard self-contained. */
+  cohort: {
+    /** Number of MPs in the loyalty roster for this NS (excludes MPs who
+     *  never cast a vote — they have no entry). */
+    size: number;
+    /** Median votesCast across the cohort. Divide by `loyalty.totalVoteItems`
+     *  to get the median attendance fraction. */
+    votesCastMedian: number;
+    /** Median loyaltyPct (with-party share) across the cohort. 0..1. */
+    loyaltyPctMedian: number;
+  };
   dissents: {
     totalCast: number;
     dissentCount: number;
@@ -49,7 +62,16 @@ interface WriteContext {
     windowTo: string;
     totalVoteItems: number;
   };
+  cohort: MpShard["cohort"];
 }
+
+const medianOf = (values: number[]): number => {
+  if (values.length === 0) return 0;
+  const sorted = [...values].sort((a, b) => a - b);
+  const n = sorted.length;
+  if (n % 2 === 1) return sorted[(n - 1) >> 1];
+  return (sorted[n >> 1] + sorted[(n >> 1) - 1]) / 2;
+};
 
 const canonicalJson = (obj: unknown): string =>
   JSON.stringify(obj, null, 2) + "\n";
@@ -90,6 +112,7 @@ const buildShard = (mpId: number, ctx: WriteContext): MpShard | null => {
       windowTo: ctx.loyaltyMeta.windowTo,
       totalVoteItems: ctx.loyaltyMeta.totalVoteItems,
     },
+    cohort: ctx.cohort,
     dissents: {
       totalCast: d?.totalCast ?? l.votesCast,
       dissentCount: d?.dissentCount ?? 0,
@@ -130,6 +153,19 @@ export const writeMpShards = (
   const similarityByMp = new Map<number, SimilarityEntry>();
   for (const e of input.similarity.entries) similarityByMp.set(e.mpId, e);
 
+  // Cohort stats are identical for every MP in the NS — compute once and
+  // embed in each shard so the candidate page can show "vs median" context
+  // without having to fetch the full loyalty aggregate.
+  const cohortVotesCast = input.loyalty.entries.map((e) => e.votesCast);
+  const cohortLoyalty = input.loyalty.entries
+    .filter((e) => e.votesCast > 0)
+    .map((e) => e.loyaltyPct);
+  const cohort: MpShard["cohort"] = {
+    size: input.loyalty.entries.length,
+    votesCastMedian: medianOf(cohortVotesCast),
+    loyaltyPctMedian: medianOf(cohortLoyalty),
+  };
+
   const ctx: WriteContext = {
     ns: input.ns,
     outDir,
@@ -141,6 +177,7 @@ export const writeMpShards = (
       windowTo: input.loyalty.windowTo,
       totalVoteItems: input.loyalty.totalVoteItems,
     },
+    cohort,
   };
 
   const wantedFiles = new Set<string>();

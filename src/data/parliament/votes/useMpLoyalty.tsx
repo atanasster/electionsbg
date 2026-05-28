@@ -128,6 +128,9 @@ export const useMpLoyalty = (mpId?: number | null, name?: string | null) => {
     entries: slice?.entries ?? [],
     entry,
     byMpId,
+    /** Per-MP shard when loaded — carries cohort stats so the scorecard
+     *  can show "vs median" context without fetching the aggregate. */
+    shard,
     isLoading: aggregateEnabled ? aggregateLoading : false,
   };
 };

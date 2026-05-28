@@ -1,12 +1,8 @@
-// Per-MP signal badge selector for the My-Area representatives strip.
-// Picks ONE badge per MP from the most striking signal we can compute
-// without spawning a hook per MP — keeping the strip's network cost flat
-// at a single chamber-wide loyalty fetch (~50 KB gz per NS slice).
-//
-// Priority order per MP (first match wins):
-//   1. Attendance < 70%       →  "отсъства {pct}%"
-//   2. Loyalty   < 75%        →  "несъгласие {pct}%"
-//   3. (no badge)
+// Per-MP signal badges for the My-Area representatives strip. Every MP with
+// roll-call data gets an attendance badge (so the strip never has a "missing
+// %" gap); a separate dissent badge surfaces only when loyalty falls below
+// the alarm threshold. One chamber-wide loyalty fetch (~50 KB gz per NS
+// slice) feeds every MP in the strip.
 //
 // Net-worth and connected-contracts badges (e.g. "4 имота, 2 коли") are
 // deferred to a later phase — they would each require a per-MP shard
@@ -21,15 +17,28 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import type { LoyaltyFile } from "@/data/parliament/votes/types";
 
-export type MpSignal = {
-  kind: "absent" | "dissent";
-  /** 0..1 — share of votes missed or share of dissenting votes. */
+export type AttendanceSignal = {
+  /** 0..1 — share of vote items the MP cast a vote on. */
+  attendance: number;
+  /** True when attendance is below the alarm threshold (rose tint). */
+  severe: boolean;
+  label_bg: string;
+  label_en: string;
+};
+
+export type DissentSignal = {
+  /** 0..1 — share of votes that broke with the party majority. */
   pctValue: number;
   label_bg: string;
   label_en: string;
 };
 
-const ATTENDANCE_BADGE_THRESHOLD = 0.7;
+export type MpSignals = {
+  attendance: AttendanceSignal | null;
+  dissent: DissentSignal | null;
+};
+
+const ATTENDANCE_SEVERE_THRESHOLD = 0.7;
 const LOYALTY_BADGE_THRESHOLD = 0.75;
 
 const fetchLoyaltyFile = async (): Promise<LoyaltyFile | undefined> => {
@@ -39,7 +48,9 @@ const fetchLoyaltyFile = async (): Promise<LoyaltyFile | undefined> => {
   return r.json();
 };
 
-export const useMpSignals = (mpIds: number[]): Map<number, MpSignal | null> => {
+const EMPTY: MpSignals = { attendance: null, dissent: null };
+
+export const useMpSignals = (mpIds: number[]): Map<number, MpSignals> => {
   const { selected } = useElectionContext();
   const ns = electionToNsFolder(selected);
   const { data: file } = useQuery({
@@ -49,42 +60,38 @@ export const useMpSignals = (mpIds: number[]): Map<number, MpSignal | null> => {
   });
 
   return useMemo(() => {
-    const map = new Map<number, MpSignal | null>();
+    const map = new Map<number, MpSignals>();
     const slice = ns ? file?.byNs?.[ns] : undefined;
     if (!slice) {
-      for (const id of mpIds) map.set(id, null);
+      for (const id of mpIds) map.set(id, EMPTY);
       return map;
     }
     const totalItems = slice.totalVoteItems ?? 0;
     const byId = new Map(slice.entries.map((e) => [e.mpId, e]));
     for (const id of mpIds) {
       const e = byId.get(id);
-      if (!e || e.votesCast === 0) {
-        map.set(id, null);
+      if (!e || totalItems <= 0) {
+        map.set(id, EMPTY);
         continue;
       }
-      const attendance = totalItems > 0 ? e.votesCast / totalItems : null;
-      if (attendance !== null && attendance < ATTENDANCE_BADGE_THRESHOLD) {
-        const missedPct = Math.round((1 - attendance) * 100);
-        map.set(id, {
-          kind: "absent",
-          pctValue: 1 - attendance,
-          label_bg: `отсъства ${missedPct}%`,
-          label_en: `absent ${missedPct}%`,
-        });
-        continue;
-      }
-      if (e.loyaltyPct < LOYALTY_BADGE_THRESHOLD) {
+      const attendance = e.votesCast / totalItems;
+      const attendancePct = Math.round(attendance * 100);
+      const attendanceSignal: AttendanceSignal = {
+        attendance,
+        severe: attendance < ATTENDANCE_SEVERE_THRESHOLD,
+        label_bg: `присъствие ${attendancePct}%`,
+        label_en: `attendance ${attendancePct}%`,
+      };
+      let dissentSignal: DissentSignal | null = null;
+      if (e.votesCast > 0 && e.loyaltyPct < LOYALTY_BADGE_THRESHOLD) {
         const dissentPct = Math.round((1 - e.loyaltyPct) * 100);
-        map.set(id, {
-          kind: "dissent",
+        dissentSignal = {
           pctValue: 1 - e.loyaltyPct,
           label_bg: `несъгласие ${dissentPct}%`,
           label_en: `dissent ${dissentPct}%`,
-        });
-        continue;
+        };
       }
-      map.set(id, null);
+      map.set(id, { attendance: attendanceSignal, dissent: dissentSignal });
     }
     return map;
   }, [file, ns, mpIds]);

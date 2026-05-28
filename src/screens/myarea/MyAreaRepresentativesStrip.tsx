@@ -122,30 +122,34 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
         {rows.map((r) => {
           const display = mpName(r.mp);
           const partyLabel = displayNameFor(r.partyNickName) ?? r.partyNickName;
-          const signal = signals.get(r.mp.id) ?? null;
-          const badgeLabel = signal
+          const sig = signals.get(r.mp.id);
+          const attendance = sig?.attendance ?? null;
+          const dissent = sig?.dissent ?? null;
+          const attendanceLabel = attendance
             ? lang === "bg"
-              ? signal.label_bg
-              : signal.label_en
+              ? attendance.label_bg
+              : attendance.label_en
             : null;
-          // Tone the badge background by signal severity. Absence is
-          // the louder signal; loyalty dissent is amber.
-          const badgeToneClass = signal
-            ? signal.kind === "absent"
-              ? "bg-rose-500/10 text-rose-600 border-rose-500/30"
-              : "bg-amber-500/10 text-amber-700 border-amber-500/30"
-            : "";
+          const dissentLabel = dissent
+            ? lang === "bg"
+              ? dissent.label_bg
+              : dissent.label_en
+            : null;
+          // Severe attendance reads as the louder concern → rose; otherwise
+          // a muted neutral badge so the % is visible without alarming.
+          const attendanceToneClass = attendance?.severe
+            ? "bg-rose-500/10 text-rose-600 border-rose-500/30"
+            : "bg-muted/50 text-muted-foreground border-border";
+          const ariaParts = [display, partyLabel];
+          if (attendanceLabel) ariaParts.push(attendanceLabel);
+          if (dissentLabel) ariaParts.push(dissentLabel);
           return (
             <Link
               key={r.mp.id}
               to={candidateUrlForMp(r.mp.id)}
               underline={false}
               className="block group"
-              aria-label={
-                badgeLabel
-                  ? `${display} — ${partyLabel} — ${badgeLabel}`
-                  : `${display} — ${partyLabel}`
-              }
+              aria-label={ariaParts.join(" — ")}
             >
               <div className="flex items-center gap-2 px-2 py-1.5 rounded-md border bg-card/50 hover:bg-accent/40 transition-colors max-w-[220px]">
                 <Avatar
@@ -176,12 +180,24 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
                   >
                     {partyLabel}
                   </span>
-                  {badgeLabel ? (
-                    <span
-                      className={`mt-0.5 inline-block self-start text-[9px] tabular-nums px-1.5 py-0.5 rounded border ${badgeToneClass} leading-none`}
-                      title={badgeLabel}
-                    >
-                      {badgeLabel}
+                  {attendanceLabel || dissentLabel ? (
+                    <span className="mt-0.5 flex flex-wrap gap-1">
+                      {attendanceLabel ? (
+                        <span
+                          className={`inline-block text-[9px] tabular-nums px-1.5 py-0.5 rounded border ${attendanceToneClass} leading-none`}
+                          title={attendanceLabel}
+                        >
+                          {attendanceLabel}
+                        </span>
+                      ) : null}
+                      {dissentLabel ? (
+                        <span
+                          className="inline-block text-[9px] tabular-nums px-1.5 py-0.5 rounded border bg-amber-500/10 text-amber-700 border-amber-500/30 leading-none"
+                          title={dissentLabel}
+                        >
+                          {dissentLabel}
+                        </span>
+                      ) : null}
                     </span>
                   ) : null}
                 </div>

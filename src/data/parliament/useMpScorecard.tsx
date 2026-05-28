@@ -129,6 +129,7 @@ export const useMpScorecard = (
     entry: loyaltyEntry,
     entries: loyaltyEntries,
     file: loyaltySlice,
+    shard: loyaltyShard,
     isLoading: loyaltyLoading,
   } = useMpLoyalty(mpId, name);
 
@@ -177,11 +178,22 @@ export const useMpScorecard = (
       loyaltyEntry && loyaltyEntry.votesCast > 0
         ? loyaltyEntry.loyaltyPct
         : null;
+    // Prefer the shard's pre-computed cohort median when present (shard-only
+    // fast-path doesn't load the aggregate, so `loyaltyValues` is empty).
+    const loyaltyMedianFromAggregate = medianOf(loyaltyValues);
+    const loyaltyMedian =
+      loyaltyMedianFromAggregate ??
+      loyaltyShard?.cohort?.loyaltyPctMedian ??
+      null;
+    const loyaltyCohortSize =
+      loyaltyValues.length > 0
+        ? loyaltyValues.length
+        : (loyaltyShard?.cohort?.size ?? 0);
     const loyalty: ScorecardMetric = {
       value: loyaltyValue,
       rank: rankIn(loyaltyValue, loyaltyValues),
-      cohortSize: loyaltyValues.length,
-      median: medianOf(loyaltyValues),
+      cohortSize: loyaltyCohortSize,
+      median: loyaltyMedian,
     };
 
     // --- Attendance -------------------------------------------------------
@@ -196,12 +208,26 @@ export const useMpScorecard = (
       loyaltyEntry && totalItems > 0
         ? loyaltyEntry.votesCast / totalItems
         : null;
-    const attendanceMedian =
-      totalItems > 0 ? (medianOf(attendanceCounts) ?? 0) / totalItems : null;
+    const attendanceMedianCount = medianOf(attendanceCounts);
+    let attendanceMedian: number | null = null;
+    if (attendanceMedianCount != null && totalItems > 0) {
+      attendanceMedian = attendanceMedianCount / totalItems;
+    } else if (
+      loyaltyShard?.cohort?.votesCastMedian != null &&
+      totalItems > 0
+    ) {
+      // Shard-only mode: cohort sample isn't loaded, but the shard carries
+      // a pre-computed cohort median we can divide by the same denominator.
+      attendanceMedian = loyaltyShard.cohort.votesCastMedian / totalItems;
+    }
+    const attendanceCohortSize =
+      attendanceCounts.length > 0
+        ? attendanceCounts.length
+        : (loyaltyShard?.cohort?.size ?? 0);
     const attendance: ScorecardMetric = {
       value: attendanceValue,
       rank: rankIn(loyaltyEntry?.votesCast ?? null, attendanceCounts),
-      cohortSize: attendanceCounts.length,
+      cohortSize: attendanceCohortSize,
       median: attendanceMedian,
     };
 
@@ -284,6 +310,7 @@ export const useMpScorecard = (
     loyaltyEntry,
     loyaltyEntries,
     loyaltySlice,
+    loyaltyShard,
     assetsRollup,
     assetsRankings,
     ns,

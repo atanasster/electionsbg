@@ -239,6 +239,14 @@ export interface MpShard {
     windowTo: string;
     totalVoteItems: number;
   };
+  /** Chamber-wide stats so the candidate page can show "vs median" context
+   *  without fetching the full loyalty aggregate. Older shards (pre-cohort
+   *  embed) omit this — consumers must treat it as optional. */
+  cohort?: {
+    size: number;
+    votesCastMedian: number;
+    loyaltyPctMedian: number;
+  };
   dissents: {
     totalCast: number;
     dissentCount: number;
