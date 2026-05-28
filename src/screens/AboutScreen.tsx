@@ -597,10 +597,6 @@ export const AboutScreen = () => {
                   href="https://data.egov.bg/data/view/e3cccc25-6127-4b46-bc12-71ce068b35fe"
                   label={t("my_area_iaos_air_source")}
                 />
-                <SourceItem
-                  href="https://ec.europa.eu/eurostat/databrowser/view/crim_gen_reg/default/table"
-                  label={t("my_area_crime_source")}
-                />
               </ul>
             </DataGroup>
 

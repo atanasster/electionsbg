@@ -132,7 +132,6 @@ fi
 
 ## What this skill does NOT do
 
-- **Does not OCR МВР crime PDFs.** Air-quality only; crime stats live under `update-crime-stats`.
 - **Does not normalise to EU thresholds in the data.** Thresholds (`euLimit`) are part of the `pollutants` metadata in the output; the tile colour-codes against them client-side.
 
 ## File map

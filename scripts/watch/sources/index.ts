@@ -42,7 +42,6 @@ import { cikResults } from "./cik_results";
 import { iisdaMayors } from "./iisda_mayors";
 import { iaosAirQuality } from "./iaos_air_quality";
 import { tiBgLisi } from "./ti_bg_lisi";
-import { eurostatCrime } from "./eurostat_crime";
 import { councilMinutes } from "./council_minutes";
 
 // `cik` (news/decisions index) is still intentionally omitted — see ./cik.ts
@@ -93,6 +92,5 @@ export const SOURCES: WatchSource[] = [
   iisdaMayors,
   iaosAirQuality,
   tiBgLisi,
-  eurostatCrime,
   councilMinutes,
 ];

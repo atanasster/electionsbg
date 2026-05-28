@@ -202,7 +202,7 @@ export const MyAreaScreen: FC = () => {
             for the município. Auto-hides when fewer than 2 columns
             have data. The full per-tile detail still ships on the
             canonical /settlement and /municipality routes. */}
-        <MyAreaQualityStrip obshtina={area.obshtina} oblast={area.oblast} />
+        <MyAreaQualityStrip obshtina={area.obshtina} />
 
         {/* Footer — collapsed-by-default "Area history" details card.
             Holds the cycle-over-cycle turnout sparkline (settlement

@@ -1,28 +1,29 @@
-// Single 4-up "quality of life" strip — collapses the four separate
-// MyAreaSchoolsTile / MyAreaServicesTile / MyAreaAirTile / MyAreaCrimeTile
-// into one card with headline numbers. Each column auto-hides
-// individually if its data is missing; the whole strip auto-hides when
-// fewer than 2 columns have data, to avoid an awkward "1 stat alone in
-// a wide card" state.
+// Single "quality of life" strip — collapses MyAreaSchoolsTile /
+// MyAreaServicesTile / MyAreaAirTile into one card with headline numbers.
+// Each column auto-hides individually if its data is missing; the whole
+// strip auto-hides when fewer than 2 columns have data, to avoid an
+// awkward "1 stat alone in a wide card" state.
 //
 // The full per-tile detail is still available on the canonical
 // /settlement/<obshtina> and /municipality/<oblast> routes (the user
-// reaches them via the footer "Виж пълно табло" link card). Phase 7
-// removes the four separate tile mounts from the My-Area page.
+// reaches them via the footer "Виж пълно табло" link card).
+//
+// Crime is intentionally absent — Eurostat publishes its sub-national
+// crime series at NUTS 3 (oblast) only, which is too coarse for the
+// settlement-grain My-Area page. National crime trends now live on
+// /indicators/society under "Safety and criminal justice".
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { GraduationCap, Wind, Shield, Stethoscope } from "lucide-react";
+import { GraduationCap, Wind, Stethoscope } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/ux/Link";
 import { useSchools } from "@/data/schools/useSchools";
 import { useServices } from "@/data/services/useServices";
 import { useAirQuality } from "@/data/air/useAirQuality";
-import { useCrime } from "@/data/crime/useCrime";
 
 type Props = {
   obshtina: string;
-  oblast: string;
 };
 
 type Comparison = {
@@ -43,14 +44,9 @@ type Column = {
   to: string;
 };
 
-const formatNumber = (n: number, lang: "bg" | "en"): string =>
-  n.toLocaleString(lang === "bg" ? "bg-BG" : "en-GB", {
-    maximumFractionDigits: 1,
-  });
-
 // Build a "vs national average" comparison line. `higherIsBetter` flips
-// the good/bad tone (crime: lower is better; school grades: higher is
-// better). Returns null when there's no meaningful national reference.
+// the good/bad tone (school grades: higher is better). Returns null
+// when there's no meaningful national reference.
 const buildComparison = (
   value: number,
   nationalAvg: number | null,
@@ -94,32 +90,14 @@ const buildComparison = (
   };
 };
 
-export const MyAreaQualityStrip: FC<Props> = ({ obshtina, oblast }) => {
+export const MyAreaQualityStrip: FC<Props> = ({ obshtina }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
-  // All four data hooks fire in parallel; React Query dedupes them
+  // All three data hooks fire in parallel; React Query dedupes them
   // across other consumers (the full tiles on the canonical pages).
   const { data: schoolsFile, schools } = useSchools(obshtina);
   const { services } = useServices(obshtina);
   const { data: airFile, stations } = useAirQuality(obshtina);
-  const { data: crimeFile, yearly: crimeYearly } = useCrime(oblast);
-
-  // National crime average for the latest year — mean of every oblast's
-  // total rate. The crime file already carries yearlyByOblast for all
-  // oblasts, so this is a pure in-memory reduce (no extra fetch).
-  const nationalCrimeAvg = useMemo<number | null>(() => {
-    if (!crimeFile?.latestYear) return null;
-    const yr = crimeFile.latestYear;
-    const rates: number[] = [];
-    for (const oblastData of Object.values(crimeFile.yearlyByOblast)) {
-      const total = oblastData?.[yr]?.total;
-      if (typeof total === "number" && Number.isFinite(total) && total > 0) {
-        rates.push(total);
-      }
-    }
-    if (rates.length === 0) return null;
-    return rates.reduce((s, x) => s + x, 0) / rates.length;
-  }, [crimeFile]);
 
   // National school composite average — mean composite across every
   // school in every município for the latest year. schoolsByObshtina is
@@ -146,33 +124,6 @@ export const MyAreaQualityStrip: FC<Props> = ({ obshtina, oblast }) => {
   const cols = useMemo<Column[]>(() => {
     const out: Column[] = [];
     const muniHref = `/settlement/${obshtina}`;
-    const oblastHref = `/municipality/${oblast}`;
-
-    // Crime — latest year total rate per 10,000.
-    if (crimeFile?.latestYear && crimeYearly) {
-      const latest = crimeYearly[crimeFile.latestYear];
-      if (latest && latest.total) {
-        out.push({
-          key: "crime",
-          icon: Shield,
-          label: lang === "bg" ? "Престъпления" : "Crime",
-          value: formatNumber(latest.total, lang),
-          caption:
-            lang === "bg"
-              ? `на 10 000 души · ${crimeFile.latestYear} г.`
-              : `per 10,000 · ${crimeFile.latestYear}`,
-          comparison:
-            buildComparison(
-              latest.total,
-              nationalCrimeAvg,
-              false, // lower crime is better
-              formatNumber(nationalCrimeAvg ?? 0, lang),
-              lang,
-            ) ?? undefined,
-          to: oblastHref,
-        });
-      }
-    }
 
     // Air — average PM10 reading across all stations in the município.
     if (airFile && stations.length > 0) {
@@ -258,8 +209,6 @@ export const MyAreaQualityStrip: FC<Props> = ({ obshtina, oblast }) => {
 
     return out;
   }, [
-    crimeFile,
-    crimeYearly,
     airFile,
     stations,
     schoolsFile,
@@ -267,8 +216,6 @@ export const MyAreaQualityStrip: FC<Props> = ({ obshtina, oblast }) => {
     services,
     lang,
     obshtina,
-    oblast,
-    nationalCrimeAvg,
     nationalSchoolAvg,
   ]);
 
