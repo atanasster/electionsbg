@@ -1,0 +1,14 @@
+{
+  "source": "265 общински съвет websites (heterogeneous) + Gemini Vision for PDF/HTML normalisation",
+  "indexName": "Municipal council resolutions — AI-summarised digest",
+  "tags": {
+    "financial": { "bg": "Финансово", "en": "Financial" },
+    "personnel": { "bg": "Кадрово", "en": "Personnel" },
+    "urban_planning": { "bg": "Устройство", "en": "Urban planning" },
+    "procurement": { "bg": "Обществени поръчки", "en": "Procurement" },
+    "social": { "bg": "Социално", "en": "Social" },
+    "other": { "bg": "Друго", "en": "Other" }
+  },
+  "resolutionsByObshtina": {},
+  "note": "Pending ingest. See scripts/council/README.md. Each entry: { id, date, title, summary_bg, summary_en, tags, sourceUrl }. The MyAreaCouncilMinutesTile auto-lights up once entries appear."
+}

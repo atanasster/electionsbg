@@ -35,6 +35,9 @@ import { MyAreaAirTile } from "./MyAreaAirTile";
 import { MyAreaCrimeTile } from "./MyAreaCrimeTile";
 import { MyAreaProjectsMapTile } from "./MyAreaProjectsMapTile";
 import { MyAreaAlertsTile } from "./MyAreaAlertsTile";
+import { MyAreaSofiaRaionStrip } from "./MyAreaSofiaRaionStrip";
+import { MyAreaContactsTile } from "./MyAreaContactsTile";
+import { MyAreaCouncilMinutesTile } from "./MyAreaCouncilMinutesTile";
 
 // Lazy-load the heavy dashboard variants — most My-Area visits don't need
 // both, and the Suspense fallback shows skeletons identical to a direct
@@ -122,6 +125,11 @@ export const MyAreaScreen: FC = () => {
       >
         <MyAreaHero area={area} />
 
+        {/* Sofia районы chip row — only renders for users in a Sofia
+            район (obshtina S2xxx). Auto-hides everywhere else. Helps
+            users jump between районы without bouncing through search. */}
+        <MyAreaSofiaRaionStrip activeObshtina={area.obshtina} />
+
         {showChmiBanner ? (
           <Card className="p-3 border-amber-500/40 bg-amber-500/5 flex items-center gap-2">
             <AlertTriangle className="size-4 text-amber-500 shrink-0" />
@@ -154,6 +162,15 @@ export const MyAreaScreen: FC = () => {
             municipal transparency score from transparency-bg.org. Renders
             nothing while data is missing (see scripts/transparency/). */}
         <MyAreaTransparencyTile obshtina={area.obshtina} />
+
+        {/* Municipal contacts (phone / email / website / address) —
+            auto-hides until update-municipal-contacts populates the data. */}
+        <MyAreaContactsTile obshtina={area.obshtina} />
+
+        {/* Council minutes — AI-summarised digest of what the общински
+            съвет is voting on. MyTownView pattern. Auto-hides until
+            update-council-minutes populates the data file. */}
+        <MyAreaCouncilMinutesTile obshtina={area.obshtina} />
 
         {/* "Recent activity" simulated feed — materialized from existing
             per-município data (procurement, EU funds, capital programmes,
