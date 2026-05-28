@@ -1,6 +1,50 @@
 {
-  "updatedAt": "2026-05-23T07:15:29.135Z",
+  "updatedAt": "2026-05-28T08:42:59.077Z",
   "entries": [
+    {
+      "timestamp": "2026-05-28T08:42:59.077Z",
+      "date": "2026-05-28",
+      "skill": "update-rollcall",
+      "summary": "1 new session 2026-05-27 (id 11130): 10 item(s), 2400 rows; 239 CSV ids remapped to deduped-roster by name; index now 584 sessions",
+      "source": "Parliament roll-call votes (parliament.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-28T08:40:39.708Z",
+      "date": "2026-05-28",
+      "skill": "update-procurement",
+      "summary": "1 new fortnight 2026-05-07…2026-05-20: 2497 releases → 2623 rows (c=2273 m=350); 60 MP↔contractor pairs; 250472 total rows across 23379 contractors / 3442 awarders",
+      "source": "data.egov.bg АОП (Агенция за обществени поръчки)"
+    },
+    {
+      "timestamp": "2026-05-28T08:38:35.627Z",
+      "date": "2026-05-28",
+      "skill": "update-budget",
+      "summary": "kfp through 2026-03 (285 obs, 6 snapshots); 15 ministry execution reports; personnel: 123 programmes × 14 ministry-years + Доклад 2017-2025; customs 2022-2025; nap 2024; investment program 2025 (3065 projects, €3.6B); capital programmes sofia+plovdiv+burgas+stara_zagora 2025",
+      "source": "data.egov.bg бюджет + per-ministry execution reports + customs + NAP + capital programmes + investment annex"
+    },
+    {
+      "timestamp": "2026-05-28T08:25:48.787Z",
+      "date": "2026-05-28",
+      "skill": "update-connections",
+      "summary": "postcode→ekatte refresh (4249 codes); TR incremental +6 days (522 total, 578,152 companies, 3,080,438 events); companies-index 1146→1130 (-16, normal churn); 376 mp-management files (176 high-conf); connections 9818 nodes / 11657 edges",
+      "source": "data.egov.bg Commerce Registry + BG Post postcodes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_connections"
+        },
+        {
+          "to": "/mp-assets",
+          "labelKey": "data_changes_link_assets"
+        }
+      ]
+    },
     {
       "timestamp": "2026-05-23T07:15:29.135Z",
       "date": "2026-05-23",

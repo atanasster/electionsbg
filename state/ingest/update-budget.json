@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-05-17T21:14:07.181Z",
+  "lastSuccessfulIngest": "2026-05-28T08:38:34.448Z",
   "skill": "update-budget",
-  "summary": "budget ingest re-run: 285 КФП obs, 7 FY, 21 docs, 50 admin nodes; no committed-tree changes"
+  "summary": "kfp through 2026-03 (285 obs, 6 snapshots); 15 ministry execution reports; personnel: 123 programmes × 14 ministry-years + Доклад 2017-2025; customs 2022-2025; nap 2024; investment program 2025 (3065 projects, €3.6B); capital programmes sofia+plovdiv+burgas+stara_zagora 2025; re-seeded 5 stale canaries (kfp, law, headcount-{pdf,xlsx,docx}, doklad — schema drift from commits 6b16bcf7d + f71b62783); skipped ipop_mrrb (upstream fetch failed)"
 }
