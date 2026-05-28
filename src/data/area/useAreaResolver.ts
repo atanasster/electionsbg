@@ -1,15 +1,21 @@
 // Resolve a `:id` from the /my-area/:id route into a typed area record.
 //
-// IDs come in two shapes today:
-//   - 5-digit numeric EKATTE  → settlement (e.g. "65231" → Самоков)
-//   - alphanumeric obshtina   → municipality (e.g. "SFO00" → Столична)
+// IDs come in a few shapes:
+//   - 5-digit numeric EKATTE          → settlement (e.g. "65231" → Самоков)
+//   - composite "EKATTE-NNNN"         → Sofia район-as-settlement
+//                                       (e.g. "68134-2401" — Sofia city
+//                                       EKATTE 68134, район-sub-code 2401)
+//   - alphanumeric obshtina           → municipality (e.g. "S2410",
+//                                       "BGS01", "SOF00")
 //
-// The discriminator is identical to the one /settlement/:id uses in
-// SettlementsScreen.tsx — a single regex on the id. Resolution is cheap:
-// both lookup tables (settlements + municipalities) are already React
-// Query'd and live in memory after first load.
+// Município codes always start with letters; settlement IDs always start
+// with a digit. We use that as the primary dispatch, and fall back to the
+// other lookup if the primary one misses — keeps the resolver robust to
+// any future EKATTE shape changes (e.g. a new region introduces another
+// composite form).
 //
-// Returns a discriminated union: callers branch on `kind`.
+// Resolution is cheap: both lookup tables (settlements + municipalities)
+// are already React Query'd and live in memory after first load.
 
 import { useMemo } from "react";
 import { useSettlementsInfo } from "../settlements/useSettlements";
@@ -34,7 +40,11 @@ export type ResolvedArea =
     }
   | { kind: "unknown"; id: string };
 
-const isNumericEkatte = (id: string): boolean => /^\d+$/.test(id);
+// True when the id looks settlement-shaped: starts with a digit. Settlement
+// EKATTEs include both purely-numeric (`65231`) and hyphenated composite
+// forms (`68134-2401` for Sofia районы), so a starts-with-digit check is
+// broader than the old `/^\d+$/` and catches both cases.
+const looksLikeSettlementId = (id: string): boolean => /^\d/.test(id);
 
 export const useAreaResolver = (id?: string | null): ResolvedArea | null => {
   const { findSettlement, settlements } = useSettlementsInfo();
@@ -47,29 +57,39 @@ export const useAreaResolver = (id?: string | null): ResolvedArea | null => {
     // "unknown" flash that would mis-classify a valid id.
     if (!settlements || !municipalities) return null;
 
-    if (isNumericEkatte(id)) {
+    // Primary dispatch by shape, with cross-lookup fallback so a settlement
+    // id we don't yet recognise can still hit the município table and
+    // vice-versa — defensive against any future ID-shape changes upstream.
+    const tryAsSettlement = (): ResolvedArea | null => {
       const s = findSettlement(id);
-      if (s) {
-        return {
-          kind: "settlement",
-          id,
-          ekatte: s.ekatte,
-          obshtina: s.obshtina,
-          oblast: s.oblast,
-          settlement: s,
-        };
-      }
-    } else {
+      if (!s) return null;
+      return {
+        kind: "settlement",
+        id,
+        ekatte: s.ekatte,
+        obshtina: s.obshtina,
+        oblast: s.oblast,
+        settlement: s,
+      };
+    };
+    const tryAsMunicipality = (): ResolvedArea | null => {
       const m = findMunicipality(id);
-      if (m) {
-        return {
-          kind: "municipality",
-          id,
-          obshtina: m.obshtina,
-          oblast: m.oblast,
-          municipality: m,
-        };
-      }
+      if (!m) return null;
+      return {
+        kind: "municipality",
+        id,
+        obshtina: m.obshtina,
+        oblast: m.oblast,
+        municipality: m,
+      };
+    };
+
+    if (looksLikeSettlementId(id)) {
+      const hit = tryAsSettlement() ?? tryAsMunicipality();
+      if (hit) return hit;
+    } else {
+      const hit = tryAsMunicipality() ?? tryAsSettlement();
+      if (hit) return hit;
     }
     return { kind: "unknown", id };
   }, [id, settlements, municipalities, findSettlement, findMunicipality]);

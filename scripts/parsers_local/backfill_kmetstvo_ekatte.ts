@@ -43,10 +43,7 @@ const PROJECT_ROOT = path.resolve(
   "../..",
 );
 const SETTLEMENTS_FILE = path.join(PROJECT_ROOT, "data/settlements.json");
-const CYCLE_DIR = path.join(
-  PROJECT_ROOT,
-  "data/2023_10_29_mi/municipalities",
-);
+const CYCLE_DIR = path.join(PROJECT_ROOT, "data/2023_10_29_mi/municipalities");
 const OUT_DIR = path.join(PROJECT_ROOT, "data/local_mayors");
 const OUT_FILE = path.join(OUT_DIR, "kmetstvo_to_ekatte.json");
 
