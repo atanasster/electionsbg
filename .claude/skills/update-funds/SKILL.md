@@ -113,6 +113,16 @@ Per-capita uses **Census 2021** population (`data/census_2021_settlements.json`)
 
 Flags mirror Step 1 — `--dry-run`, `--file PATH`.
 
+## Step 3b — My-Area projects map (geo pins)
+
+```bash
+npx tsx scripts/funds/build_geo_pins.ts
+```
+
+Distils each município's heavy `by-muni/{обshtina}.json` corpus into a slim `by-muni-geo/{обshtina}.json` — the **top-200 contracts by money**, geocoded and non-geocoded together. Each contract that resolves to a `location.ekatte` carries `lat`/`lon` (joined against `data/settlements.json`); the rest carry none. Per-file schema: `sourceContractCount` (município total — the honest headline count), `geocodedCount` (how many resolved to a location), and `contracts[]` (the capped list).
+
+This one slim file backs the My-Area **"Проекти от еврофондовете"** tile: it renders the full `contracts` list (scrollable) and, on demand, a Leaflet map of just the subset carrying `lat`/`lon`. Always re-run after Step 3 rewrites `by-muni/` — the `isun_eu_funds_projects` watcher flips both together. Output is idempotent except the `generatedAt` stamp.
+
 ## Step 4 — Commit + deploy
 
 ```bash

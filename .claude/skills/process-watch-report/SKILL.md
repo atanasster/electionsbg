@@ -38,7 +38,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `data.egov.bg АОП` (procurement) | `update-procurement` (also re-runs the funds political-economy join — `npx tsx scripts/funds/political_links.ts` — since АОП award totals overlay the EU-funds political flags) |
 | `АОП debarred-suppliers register` | `update-procurement` (Step 5 — debarred-list refresh; debarred flags on flagged EU-funds beneficiaries refresh via the same political_links step) |
 | `ИСУН EU funds` (beneficiaries) | `update-funds` |
-| `ИСУН EU funds` (projects) | `update-funds` (Step 2 — contract-level ingest; runs `npm run funds:ingest-projects` after the beneficiaries ingest. Step 3 — `npx tsx scripts/funds/build_geo_pins.ts` rebuilds the slim per-município geo-pin JSON files under `data/funds/projects/by-muni-geo/` that the My-Area projects-map Leaflet tile reads.) |
+| `ИСУН EU funds` (projects) | `update-funds` (Step 2 — contract-level ingest; runs `npm run funds:ingest-projects` after the beneficiaries ingest, then `npx tsx scripts/funds/build_geo_pins.ts` to rebuild the slim per-município files under `data/funds/projects/by-muni-geo/` — top-200 contracts by money, geocoded + non-geocoded — that back the My-Area "Проекти от еврофондовете" tile: a scrollable project list plus an on-demand Leaflet map of the geocoded subset.) |
 | `data.egov.bg бюджет` (budget execution) | `update-budget` |
 | `Per-ministry execution reports` (програмен бюджет) | `update-budget` |
 | `Доклад за състоянието на администрацията (IISDA)` | `update-budget` (resolve new file id first — see `iisda_doklad` describe-line) |
@@ -268,7 +268,7 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `egov_procurement` | `update-procurement` |
 | `aop_debarred` | `update-procurement` (Step 5 — debarred-list refresh) |
 | `isun_eu_funds` | `update-funds` |
-| `isun_eu_funds_projects` | `update-funds` (Step 2 — contract-level ingest; runs `npm run funds:ingest-projects` after the beneficiaries ingest. Step 3 — `npx tsx scripts/funds/build_geo_pins.ts` rebuilds the slim My-Area projects-map geo-pin JSONs.) |
+| `isun_eu_funds_projects` | `update-funds` (Step 2 — contract-level ingest; runs `npm run funds:ingest-projects` after the beneficiaries ingest, then `npx tsx scripts/funds/build_geo_pins.ts` to rebuild the slim per-município `by-muni-geo` files — top-200 contracts; the My-Area projects tile renders the list and an on-demand map of the geocoded subset.) |
 | `egov_budget_execution` | `update-budget` |
 | `ministry_execution_reports` | `update-budget` |
 | `iisda_doklad` | `update-budget` |

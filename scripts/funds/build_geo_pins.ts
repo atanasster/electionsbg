@@ -1,13 +1,15 @@
-// Build slim per-municipio EU-funds project geo pins.
+// Build slim per-municipio EU-funds project list + geo pins.
 //
 // Reads the heavy data/funds/projects/by-muni/<obshtina>.json (can be 20+ MB
 // for Sofia) and emits a slim data/funds/projects/by-muni-geo/<obshtina>.json
-// with one pin per contract that has a resolved location.ekatte. Joined
-// against data/settlements.json for lat/lon.
+// with the top-N contracts by money — geocoded and non-geocoded together.
+// Each contract that resolves to a location.ekatte carries lat/lon (joined
+// against data/settlements.json); the rest carry none.
 //
-// The SPA tile (MyAreaProjectsMapTile) reads only the slim file, so the
-// "EU-funded projects in your área" Leaflet map loads on demand without
-// pulling the full corpus.
+// The SPA tile (MyAreaProjectsMapTile) reads only this slim file: it renders
+// the full list from `contracts` and the on-demand Leaflet map from the
+// subset that carries lat/lon — so neither the list nor the map needs the
+// full corpus.
 //
 // Run: `npx tsx scripts/funds/build_geo_pins.ts`
 //
@@ -40,26 +42,31 @@ type FundsMuniFile = {
   contracts: FundsContract[];
 };
 
-export type GeoPin = {
-  ekatte: string;
-  lat: number;
-  lon: number;
+export type GeoContract = {
+  contractNumber: string;
   title: string;
   totalEur: number;
   status: string;
-  contractNumber: string;
   programName?: string;
+  // Present only when the contract resolved to a settlement centroid —
+  // these are the ones the map can pin.
+  ekatte?: string;
+  lat?: number;
+  lon?: number;
 };
 
 export type GeoFile = {
   obshtina: string;
   generatedAt: string;
-  // Source: the size of the per-municipio JSON we read this from. Lets the
-  // SPA know there's a heavier source if a power-user wants the full list
-  // (which we don't yet expose).
+  // Total contracts in the per-municipio corpus. `contracts` below is
+  // capped, so this is the honest headline count for the tile.
   sourceContractCount: number;
+  // How many of the município's contracts resolved to a location (and so
+  // can become a map pin). May exceed contracts.length when the cap bites.
   geocodedCount: number;
-  pins: GeoPin[];
+  // Top-N contracts by money — geocoded and non-geocoded together. The list
+  // renders all of these; the map renders the subset carrying lat/lon.
+  contracts: GeoContract[];
 };
 
 const PROJECT_ROOT = path.resolve(
@@ -70,11 +77,11 @@ const SETTLEMENTS_FILE = path.join(PROJECT_ROOT, "data/settlements.json");
 const SRC_DIR = path.join(PROJECT_ROOT, "data/funds/projects/by-muni");
 const OUT_DIR = path.join(PROJECT_ROOT, "data/funds/projects/by-muni-geo");
 
-// Cap pins per município — the map only renders this many at a time anyway
-// and Sofia would otherwise produce ~30k pins (un-clusterable in Leaflet
-// without a clustering plugin). Top-N by totalEur preserves the
-// most-significant projects.
-const PINS_PER_MUNI_CAP = 200;
+// Cap contracts per município — the map can only render so many pins anyway
+// (Sofia would otherwise produce ~30k, un-clusterable in Leaflet without a
+// plugin) and the list stays scrollable. Top-N by totalEur preserves the
+// most-significant projects for both views.
+const CONTRACTS_PER_MUNI_CAP = 200;
 
 const parseLoc = (loc: string | undefined): [number, number] | null => {
   if (!loc) return null;
@@ -124,33 +131,31 @@ const main = () => {
     const obshtina = bundle.muni || path.basename(f, ".json");
     const contracts = bundle.contracts ?? [];
     totalIn += contracts.length;
-    const pins: GeoPin[] = [];
-    for (const c of contracts) {
-      const ekatte = c.location?.ekatte;
-      if (!ekatte) continue;
-      const ll = ekatteToLatLon.get(ekatte);
-      if (!ll) continue;
-      pins.push({
-        ekatte,
-        lat: ll[0],
-        lon: ll[1],
+    let geocodedCount = 0;
+    const enriched: GeoContract[] = contracts.map((c) => {
+      const ekatte = c.location?.ekatte ?? undefined;
+      const ll = ekatte ? ekatteToLatLon.get(ekatte) : undefined;
+      if (ll) geocodedCount += 1;
+      return {
+        contractNumber: c.contractNumber,
         title: c.title,
         totalEur: c.totalEur ?? 0,
         status: c.status,
-        contractNumber: c.contractNumber,
         programName: c.programName,
-      });
-    }
+        ...(ll ? { ekatte, lat: ll[0], lon: ll[1] } : {}),
+      };
+    });
     // Top-N by totalEur. Sort desc; the larger projects are the ones a user
-    // is most likely to want to know about.
-    pins.sort((a, b) => b.totalEur - a.totalEur);
-    const trimmed = pins.slice(0, PINS_PER_MUNI_CAP);
+    // is most likely to want to know about. Geocoded and non-geocoded share
+    // one ranking so the list and the map are drawn from the same set.
+    enriched.sort((a, b) => b.totalEur - a.totalEur);
+    const trimmed = enriched.slice(0, CONTRACTS_PER_MUNI_CAP);
     const out: GeoFile = {
       obshtina,
       generatedAt: new Date().toISOString(),
       sourceContractCount: contracts.length,
-      geocodedCount: pins.length,
-      pins: trimmed,
+      geocodedCount,
+      contracts: trimmed,
     };
     fs.writeFileSync(
       path.join(OUT_DIR, `${obshtina}.json`),
@@ -159,7 +164,7 @@ const main = () => {
     totalOut += trimmed.length;
   }
   console.log(
-    `Wrote ${files.length} per-município geo files, ${totalIn} contracts in → ${totalOut} pins out (cap ${PINS_PER_MUNI_CAP}/município)`,
+    `Wrote ${files.length} per-município geo files, ${totalIn} contracts in → ${totalOut} contracts out (cap ${CONTRACTS_PER_MUNI_CAP}/município)`,
   );
 };
 

@@ -1,16 +1,16 @@
-// EU-funded projects in the município. Default view is a preview list of
-// the biggest projects (title + amount + status); the full geocoded
-// Leaflet map loads on demand via "view all on map". This follows the
-// "show some → view all" pattern: the project list is long (up to 200
-// per município) and the heavy interactive map (~150 KB gz Leaflet chunk
-// + tile fetches) stays off the first-paint path until the user asks.
+// EU-funded projects in the município. Default view is a scrollable list of
+// every project (title + amount + status), biggest money first; a "view on
+// map" toggle swaps in the geocoded subset on a Leaflet map. The heavy
+// interactive map (~150 KB gz Leaflet chunk + tile fetches) stays off the
+// first-paint path until the user opens it. Both views read one slim file
+// (by-muni-geo/<obshtina>.json, top-200 contracts) — never the full corpus.
 //
-// Auto-hides when the município has zero geocoded pins (small village
-// municipalities with no EU-funded activity).
+// Auto-hides when the município has no EU-funded contracts at all. The map
+// toggle is hidden when none of the listed contracts carry coordinates.
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { MapPin, Map as MapIcon } from "lucide-react";
+import { MapPin, Map as MapIcon, List as ListIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import {
   useFundsGeoPins,
@@ -21,8 +21,6 @@ import { useFundsForMuni } from "@/data/funds/useFundsForPlace";
 type Props = {
   obshtina: string;
 };
-
-const PREVIEW_CAP = 5;
 
 const formatPerCapita = (eur: number, lang: "bg" | "en"): string => {
   const v = new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
@@ -172,17 +170,22 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
   // Slim (<5 KB) per-município summary carrying the pre-computed
   // per-capita EUR and the cohort rank — the comparison context.
   const { data: summary } = useFundsForMuni(obshtina);
-  const [showMap, setShowMap] = useState(false);
+  const [view, setView] = useState<"list" | "map">("list");
 
-  // Top projects by money, for the default preview list.
-  const topPins = useMemo(() => {
+  // All projects, largest money first — the scrollable list.
+  const contracts = useMemo(() => {
     if (!data) return [];
-    return [...data.pins]
-      .sort((a, b) => b.totalEur - a.totalEur)
-      .slice(0, PREVIEW_CAP);
+    return [...data.contracts].sort((a, b) => b.totalEur - a.totalEur);
   }, [data]);
 
-  if (!data || data.pins.length === 0) return null;
+  // The geocoded subset — the only ones the map can pin.
+  const pins = useMemo(
+    () =>
+      contracts.filter((c): c is FundsGeoPin => c.lat != null && c.lon != null),
+    [contracts],
+  );
+
+  if (!data || data.contracts.length === 0) return null;
 
   const perCapita =
     summary?.perCapitaEur != null && summary.perCapitaEur > 0
@@ -199,8 +202,10 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
           {t("my_area_projects_map_title")}
         </h2>
         <span className="text-[10px] text-muted-foreground tabular-nums">
-          {data.pins.length}{" "}
-          {data.pins.length === 1 ? t("project_singular") : t("project_plural")}
+          {data.sourceContractCount}{" "}
+          {data.sourceContractCount === 1
+            ? t("project_singular")
+            : t("project_plural")}
         </span>
       </div>
 
@@ -216,28 +221,36 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
             <>
               {" · "}
               {lang === "bg"
-                ? `място ${rank} от ${cohort} общини`
-                : `rank ${rank} of ${cohort} municipalities`}
+                ? `място ${rank} от ${cohort} общини в областта`
+                : `rank ${rank} of ${cohort} in the province`}
             </>
           ) : null}
         </div>
       ) : null}
 
-      {showMap ? (
+      {view === "map" ? (
         <>
-          <LeafletMap pins={data.pins} />
+          <LeafletMap pins={pins} />
           <p className="text-[10px] text-muted-foreground">
             {t("my_area_projects_map_caveat", {
-              shown: data.pins.length,
+              shown: pins.length,
               total: data.sourceContractCount,
             })}
           </p>
+          <button
+            type="button"
+            onClick={() => setView("list")}
+            className="flex items-center justify-center gap-2 text-sm font-medium text-primary rounded-md border p-2 hover:bg-accent/40 transition-colors"
+          >
+            <ListIcon className="size-4" />
+            {lang === "bg" ? "Към списъка с проекти" : "Back to project list"}
+          </button>
         </>
       ) : (
         <>
-          {/* Default preview — the biggest projects by money. */}
-          <ul className="flex flex-col">
-            {topPins.map((p, i) => (
+          {/* Full scrollable list of projects, biggest money first. */}
+          <ul className="flex flex-col max-h-[340px] overflow-y-auto pr-1">
+            {contracts.map((p, i) => (
               <li
                 key={`${p.contractNumber}-${i}`}
                 className="flex items-start gap-2 py-1.5 text-xs border-b last:border-b-0"
@@ -261,16 +274,24 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
               </li>
             ))}
           </ul>
-          <button
-            type="button"
-            onClick={() => setShowMap(true)}
-            className="flex items-center justify-center gap-2 text-sm font-medium text-primary rounded-md border p-2 hover:bg-accent/40 transition-colors"
-          >
-            <MapIcon className="size-4" />
-            {lang === "bg"
-              ? `Виж всички ${data.pins.length} на карта`
-              : `View all ${data.pins.length} on the map`}
-          </button>
+          {contracts.length < data.sourceContractCount ? (
+            <p className="text-[10px] text-muted-foreground">
+              {t("my_area_projects_list_caveat", {
+                shown: contracts.length,
+                total: data.sourceContractCount,
+              })}
+            </p>
+          ) : null}
+          {pins.length > 0 ? (
+            <button
+              type="button"
+              onClick={() => setView("map")}
+              className="flex items-center justify-center gap-2 text-sm font-medium text-primary rounded-md border p-2 hover:bg-accent/40 transition-colors"
+            >
+              <MapIcon className="size-4" />
+              {lang === "bg" ? "Виж на карта" : "View on map"}
+            </button>
+          ) : null}
         </>
       )}
     </Card>

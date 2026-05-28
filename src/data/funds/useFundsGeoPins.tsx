@@ -7,23 +7,30 @@
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 
-export type FundsGeoPin = {
-  ekatte: string;
-  lat: number;
-  lon: number;
+export type FundsGeoContract = {
+  contractNumber: string;
   title: string;
   totalEur: number;
   status: string;
-  contractNumber: string;
   programName?: string;
+  // Present only for contracts that resolved to a settlement centroid.
+  ekatte?: string;
+  lat?: number;
+  lon?: number;
 };
+
+// A contract that carries coordinates — safe to render as a map pin.
+export type FundsGeoPin = FundsGeoContract & { lat: number; lon: number };
 
 export type FundsGeoFile = {
   obshtina: string;
   generatedAt: string;
+  // Total contracts in the município (honest headline count; `contracts` is capped).
   sourceContractCount: number;
+  // How many contracts resolved to a location (and can be a map pin).
   geocodedCount: number;
-  pins: FundsGeoPin[];
+  // Top-N by money — geocoded and non-geocoded together.
+  contracts: FundsGeoContract[];
 };
 
 const fetchGeo = async (obshtina: string): Promise<FundsGeoFile | null> => {
