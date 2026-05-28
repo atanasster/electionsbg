@@ -14,6 +14,7 @@ import {
 } from "@/screens/components/governments/GovernmentTimeline";
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 import { PeerSnapshotStrip } from "@/screens/components/macro/PeerSnapshotStrip";
+import { PeerSnapshotStripAnnual } from "@/screens/components/macro/PeerSnapshotStripAnnual";
 import { CompareToggleButton } from "@/screens/components/macro/CompareToggleButton";
 import { IndicatorsNav } from "./indicatorsNav";
 import { ChartSources } from "./indicatorsShared";
@@ -165,6 +166,77 @@ export const IndicatorsSocietyScreen = () => {
               indicatorKeys={["povertyRate"]}
               yAxisFormatter={(v) => `${v}%`}
               unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
+              hideToggles
+              height={200}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-lg font-semibold mb-3">
+          {t("indicators_society_safety_title")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("indicators_society_safety_explainer")}
+        </p>
+        <ChartSources
+          prefix={t("governments_chart_sources_prefix")}
+          sources={[
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/crim_off_cat/default/table",
+              label:
+                "Eurostat crim_off_cat (police-recorded offences, ICCS0101 homicide)",
+            },
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/crim_pris_age/default/table",
+              label: "Eurostat crim_pris_age (prisoners by age and sex)",
+            },
+          ]}
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <div className="text-xs font-medium text-muted-foreground mb-1">
+              {macro?.indicators.intentionalHomicideRate &&
+                (lang === "bg"
+                  ? macro.indicators.intentionalHomicideRate.titleBg
+                  : macro.indicators.intentionalHomicideRate.titleEn)}
+            </div>
+            {compare && (
+              <PeerSnapshotStripAnnual
+                indicatorKey="intentionalHomicideRate"
+                formatValue={(v) => v.toFixed(2)}
+              />
+            )}
+            <GovernmentTimeline
+              governments={governments}
+              macro={macro}
+              indicatorKeys={["intentionalHomicideRate"]}
+              yAxisFormatter={(v) => v.toFixed(1)}
+              unitFormatter={(_k, v) => v.toFixed(2)}
+              hideToggles
+              height={200}
+            />
+          </div>
+          <div>
+            <div className="text-xs font-medium text-muted-foreground mb-1">
+              {macro?.indicators.prisonPopulationRate &&
+                (lang === "bg"
+                  ? macro.indicators.prisonPopulationRate.titleBg
+                  : macro.indicators.prisonPopulationRate.titleEn)}
+            </div>
+            {compare && (
+              <PeerSnapshotStripAnnual
+                indicatorKey="prisonPopulationRate"
+                formatValue={(v) => v.toFixed(0)}
+              />
+            )}
+            <GovernmentTimeline
+              governments={governments}
+              macro={macro}
+              indicatorKeys={["prisonPopulationRate"]}
+              yAxisFormatter={(v) => v.toFixed(0)}
+              unitFormatter={(_k, v) => v.toFixed(0)}
               hideToggles
               height={200}
             />

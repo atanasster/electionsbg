@@ -40,6 +40,9 @@ export type MacroIndicatorKey =
   | "housePricesYoY"
   | "gini"
   | "povertyRate"
+  // Eurostat — criminal justice (annual)
+  | "intentionalHomicideRate"
+  | "prisonPopulationRate"
   // Eurostat — annual
   | "gdpPerCapita"
   | "nominalGdp"

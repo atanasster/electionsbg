@@ -635,6 +635,40 @@ const EUROSTAT_INDICATORS: EurostatIndicator[] = [
     titleBg: "Под прага на бедността",
   },
   {
+    // Intentional homicide rate per 100K — the most cross-country comparable
+    // crime indicator (definition is universal under ICCS0101). Eurostat
+    // doesn't publish a sub-national breakdown for the full crime series,
+    // so this is national-grain only.
+    source: "eurostat",
+    key: "intentionalHomicideRate",
+    dataset: "crim_off_cat",
+    query: { geo: "BG", iccs: "ICCS0101", unit: "P_HTHAB", freq: "A" },
+    cadence: "annual",
+    // The dataset starts in 2008, so the standard 12-year floor is fine.
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/crim_off_cat/default/table",
+    unitLabelEn: "per 100,000 inhabitants",
+    unitLabelBg: "на 100 000 жители",
+    titleEn: "Intentional homicide rate",
+    titleBg: "Умишлени убийства",
+  },
+  {
+    // Prison population per 100K. Higher is not unambiguously worse —
+    // reflects both crime levels and punitiveness — so the rank pill on the
+    // peer overlay is intentionally suppressed (see fetch_eu_peers).
+    source: "eurostat",
+    key: "prisonPopulationRate",
+    dataset: "crim_pris_age",
+    query: { geo: "BG", age: "TOTAL", sex: "T", unit: "P_HTHAB", freq: "A" },
+    cadence: "annual",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/crim_pris_age/default/table",
+    unitLabelEn: "per 100,000 inhabitants",
+    unitLabelBg: "на 100 000 жители",
+    titleEn: "Prison population",
+    titleBg: "Затворници",
+  },
+  {
     source: "eurostat",
     key: "labourIncome",
     // Quarterly national accounts: compensation of employees (D1) in current

@@ -194,6 +194,29 @@ export const KPI_REGISTRY: Partial<Record<MacroIndicatorKey, KpiEntry>> = {
     sparklineYears: 10,
     peerEligible: false,
   },
+  intentionalHomicideRate: {
+    key: "intentionalHomicideRate",
+    domain: "society",
+    direction: "lower",
+    // Rate is small — typically 0.5-2 per 100K. Two decimals so YoY moves
+    // don't get rounded away on the headline.
+    format: (v: number) => v.toFixed(2),
+    deltaSuffix: "",
+    deltaDecimals: 2,
+    sparklineYears: 10,
+    peerEligible: true,
+  },
+  prisonPopulationRate: {
+    key: "prisonPopulationRate",
+    domain: "society",
+    direction: "none",
+    format: (v: number) => v.toFixed(0),
+    deltaSuffix: "",
+    deltaDecimals: 0,
+    sparklineYears: 10,
+    // No rank pill — direction is ambiguous (see fetch_eu_peers).
+    peerEligible: false,
+  },
   // Non-landing entries — also formatted here so domain pages can reuse the
   // formatters consistently.
   cpi: {
