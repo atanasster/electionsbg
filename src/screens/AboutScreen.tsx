@@ -576,6 +576,30 @@ export const AboutScreen = () => {
               </ul>
             </DataGroup>
 
+            {/* My-Area dashboard sources. Each is silent-cutover: the
+                corresponding tile auto-hides when the underlying data
+                file is empty, so a partial deploy renders cleanly. */}
+            <DataGroup title={t("my_area_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://iisda.government.bg/ras/governing_bodies/gb_municipality_administrations"
+                  label={t("my_area_iisda_mayors_source")}
+                />
+                <SourceItem
+                  href="https://lisi.transparency.bg/"
+                  label={t("my_area_lisi_source")}
+                />
+                <SourceItem
+                  href="https://data.egov.bg/data/view/e3cccc25-6127-4b46-bc12-71ce068b35fe"
+                  label={t("my_area_iaos_air_source")}
+                />
+                <SourceItem
+                  href="https://github.com/governmentbg/data-viz/tree/gh-pages/assets/data/crime"
+                  label={t("my_area_crime_source")}
+                />
+              </ul>
+            </DataGroup>
+
             <DataGroup title={t("party_reports_section")}>
               <ul className="space-y-2">
                 <SourceItem
