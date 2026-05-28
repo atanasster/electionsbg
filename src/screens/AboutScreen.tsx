@@ -253,6 +253,23 @@ export const AboutScreen = () => {
               </ul>
             </DataGroup>
 
+            <DataGroup title={t("local_taxes_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://www.265obshtini.bg/"
+                  label={t("local_taxes_ipi_source")}
+                />
+                <SourceItem
+                  href="https://www.regionalprofiles.bg/bg/mestni-danyci-i-taksi/"
+                  label={t("local_taxes_regional_profiles_source")}
+                />
+                <SourceItem
+                  href="https://sofia.obshtini.bg/"
+                  label={t("local_taxes_naredba_source")}
+                />
+              </ul>
+            </DataGroup>
+
             <DataGroup title={t("census_section")}>
               <ul className="space-y-2">
                 <SourceItem

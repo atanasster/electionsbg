@@ -28,6 +28,7 @@ import { MyAreaImportantVotesTile } from "./MyAreaImportantVotesTile";
 import { MyAreaUpcomingBallotTile } from "./MyAreaUpcomingBallotTile";
 import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
+import { MyAreaLocalTaxesTile } from "./MyAreaLocalTaxesTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
 import { MyAreaQualityStrip } from "./MyAreaQualityStrip";
 import { MyAreaProjectsMapTile } from "./MyAreaProjectsMapTile";
@@ -184,13 +185,14 @@ export const MyAreaScreen: FC = () => {
             /settlement/:id direct routes. */}
         <MyAreaGovernmentCard obshtina={area.obshtina} />
 
-        {/* Band E — Money. Tax receipt (national budget COFOG split for
-            this user's personal income tax) sits next to the EU-funded
-            projects map on wide screens — both answer "where does the
-            money around me go". TaxReceiptTile stays collapsed-by-default
-            so the ~30 KB COFOG payload only loads when the user engages;
-            ProjectsMapTile is collapsed-by-default for the same reason
-            with the much heavier Leaflet chunk. */}
+        {/* Band E — Money. Three pieces in a "what I pay → at what rate →
+            where it comes back" narrative: TaxReceiptTile (national-budget
+            COFOG split for the user's personal income tax) and the local
+            tax-rate strip on top, EU-funded projects map on the bottom.
+            TaxReceiptTile + ProjectsMap stay collapsed-by-default because
+            their COFOG payload and Leaflet chunk are heavy; the local-tax
+            strip is light and renders by default. */}
+        <MyAreaLocalTaxesTile obshtina={area.obshtina} />
         <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
           <MyAreaTaxReceiptTile obshtina={area.obshtina} oblast={area.oblast} />
           <MyAreaProjectsMapTile obshtina={area.obshtina} />
