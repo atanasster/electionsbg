@@ -136,6 +136,85 @@ export const classifyResult = (
 };
 
 /**
+ * Extract a per-councillor named-vote block immediately preceding a
+ * tally summary line. Looks back from `tallyOffset` up to ~8000 chars
+ * for a contiguous run of numbered "<N>. <Name>: <За|Против|Въздържал
+ * се>" entries, tolerating page-break headers ("Протокол № NN от
+ * заседание...") and blank lines that interrupt the list.
+ *
+ * Returns the parsed entries in original document order (1, 2, 3, ...),
+ * or an empty array if no block was found. The `normKey` field is the
+ * lowercase, diacritic-folded, whitespace-collapsed name used for
+ * roster joining.
+ */
+const VOTE_LINE_RE =
+  /^\s*(\d+)\.\s+([А-ЯЁA-Z][а-яёa-z]+(?:[-\s][А-ЯЁA-Z][а-яёa-z]+){1,3})\s*:\s*(За|Против|Въздържал(?:[аи]?\s*се)?)\s*$/u;
+
+const PAGE_HEADER_RE = /^\s*(?:Протокол\s+№|\d+\s*$|стр\.|—\s*\d+\s*—)/iu;
+
+export const normaliseCouncillorName = (raw: string): string =>
+  raw
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .replace(/[-\s]+/g, " ")
+    .trim();
+
+export type ParsedVoteEntry = {
+  name: string;
+  normKey: string;
+  vote: "for" | "against" | "abstain";
+  /** 1-based position in the protocol's vote list. */
+  position: number;
+};
+
+export const extractNamedVoteBlock = (
+  text: string,
+  tallyOffset: number,
+): ParsedVoteEntry[] => {
+  // Slice the look-back window. The block always sits BEFORE the tally
+  // summary; we scan upwards from tallyOffset gathering lines that match
+  // VOTE_LINE_RE until we hit a chunk of non-matching, non-blank, non-
+  // page-header content. That break heuristic keeps the parser from
+  // greedily eating the previous resolution's named-vote block.
+  const window = text.slice(Math.max(0, tallyOffset - 8000), tallyOffset);
+  const lines = window.split(/\r?\n/);
+
+  const matched: Array<{ idx: number; entry: ParsedVoteEntry }> = [];
+  for (let i = lines.length - 1; i >= 0; i--) {
+    const line = lines[i];
+    if (line.trim().length === 0 || PAGE_HEADER_RE.test(line)) continue;
+    const m = line.match(VOTE_LINE_RE);
+    if (!m) {
+      // Stop on first non-vote, non-skipped line — that's the resolution
+      // body (or the previous tally summary).
+      if (matched.length > 0) break;
+      continue;
+    }
+    const pos = parseInt(m[1], 10);
+    const name = m[2].trim();
+    const voteRaw = m[3];
+    const vote: ParsedVoteEntry["vote"] = /^За$/iu.test(voteRaw)
+      ? "for"
+      : /^Против$/iu.test(voteRaw)
+        ? "against"
+        : "abstain";
+    matched.push({
+      idx: i,
+      entry: {
+        name,
+        normKey: normaliseCouncillorName(name),
+        vote,
+        position: pos,
+      },
+    });
+  }
+  // Restore original (top-down) order.
+  matched.reverse();
+  return matched.map((m) => m.entry);
+};
+
+/**
  * Locate Решение № markers — the actual decision headers, not inline
  * cross-references. Two empirical signals distinguish them:
  *

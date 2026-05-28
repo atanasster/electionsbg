@@ -21,9 +21,15 @@ import { fetchHtml, resolveUrl, fetchToFile } from "../lib/fetch";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
 import {
   classifyResult,
+  extractNamedVoteBlock,
   findAllTallies,
   findResolutionMarkers,
 } from "../lib/tally";
+import {
+  buildMuniLookup,
+  joinVotesToRoster,
+  summariseJoin,
+} from "../lib/roster_join";
 import type {
   CouncilResolution,
   MuniRecipe,
@@ -88,14 +94,36 @@ const discoverProtocols = async (
 };
 
 /** Build council resolutions from one protocol PDF's text. */
-const parseProtocolText = (
+const parseProtocolText = async (
   text: string,
-  meta: { date: string; session: string; pdfUrl: string },
-): CouncilResolution[] => {
+  meta: {
+    date: string;
+    session: string;
+    pdfUrl: string;
+    perCouncillor?: boolean;
+  },
+): Promise<{
+  resolutions: CouncilResolution[];
+  joinStats: {
+    exact: number;
+    ambiguous: number;
+    unmatched: number;
+    total: number;
+  };
+}> => {
   const tallies = findAllTallies(text);
   const markers = findResolutionMarkers(text);
   const out: CouncilResolution[] = [];
   const yyyy = meta.date.slice(0, 4);
+
+  // Per-councillor join lookup loaded lazily — only when the flag is on
+  // AND we have at least one tally to wire to.
+  let lookup: Awaited<ReturnType<typeof buildMuniLookup>> | null = null;
+  const joinTotals = { exact: 0, ambiguous: 0, unmatched: 0, total: 0 };
+  if (meta.perCouncillor && tallies.length > 0) {
+    lookup = await buildMuniLookup("Велико Търново");
+  }
+
   for (const marker of markers) {
     // Find the latest tally whose offset precedes this resolution marker.
     let best: (typeof tallies)[number] | undefined;
@@ -103,7 +131,28 @@ const parseProtocolText = (
       if (t.offset < marker.offset) best = t;
       else break;
     }
-    const tally = best?.tally;
+    let tally = best?.tally;
+    if (tally && lookup && tally.method === "named") {
+      // Lift the per-councillor block sitting between the previous
+      // resolution and this tally, join to the roster, attach to the tally.
+      const votes = extractNamedVoteBlock(text, best!.offset);
+      if (votes.length > 0) {
+        const joined = joinVotesToRoster(votes, lookup);
+        const stats = summariseJoin(joined);
+        joinTotals.exact += stats.exact;
+        joinTotals.ambiguous += stats.ambiguous;
+        joinTotals.unmatched += stats.unmatched;
+        joinTotals.total += stats.total;
+        tally = {
+          ...tally,
+          perCouncillor: joined.map((j) => ({
+            name: j.matchedTo ?? j.name,
+            normKey: j.normKey,
+            vote: j.vote,
+          })),
+        };
+      }
+    }
     const result = best ? classifyResult(text, best.offset) : "unknown";
     const id = `${OBSHTINA}-${yyyy}-prot${meta.session}-r${marker.number}`;
     out.push({
@@ -117,12 +166,17 @@ const parseProtocolText = (
       sourceUrl: meta.pdfUrl,
     });
   }
-  return out;
+  return { resolutions: out, joinStats: joinTotals };
 };
 
 export const scrapeVTR = async (
   _recipe: MuniRecipe,
-  opts: { sinceYear?: number; sinceDate?: string; maxProtocols?: number },
+  opts: {
+    sinceYear?: number;
+    sinceDate?: string;
+    maxProtocols?: number;
+    perCouncillor?: boolean;
+  },
 ): Promise<MuniScrapeResult> => {
   const errors: MuniScrapeResult["errors"] = [];
   const resolutions: CouncilResolution[] = [];
@@ -181,11 +235,18 @@ export const scrapeVTR = async (
           });
           continue;
         }
-        const recs = parseProtocolText(text, p);
+        const { resolutions: recs, joinStats } = await parseProtocolText(text, {
+          ...p,
+          perCouncillor: opts.perCouncillor,
+        });
         resolutions.push(...recs);
         protocolsTouched++;
+        const joinLog =
+          opts.perCouncillor && joinStats.total > 0
+            ? ` · roster join ${joinStats.exact}/${joinStats.total} exact, ${joinStats.unmatched} unmatched`
+            : "";
         console.log(
-          `    + prot ${p.session} (${p.date}): ${recs.length} resolution(s)`,
+          `    + prot ${p.session} (${p.date}): ${recs.length} resolution(s)${joinLog}`,
         );
       } catch (err) {
         errors.push({

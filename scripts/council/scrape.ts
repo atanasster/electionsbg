@@ -28,7 +28,12 @@ const SOURCES_PATH = join(process.cwd(), "data/council/sources.json");
 
 type Dispatcher = (
   recipe: MuniRecipe,
-  opts: { sinceYear?: number; sinceDate?: string; maxProtocols?: number },
+  opts: {
+    sinceYear?: number;
+    sinceDate?: string;
+    maxProtocols?: number;
+    perCouncillor?: boolean;
+  },
 ) => Promise<MuniScrapeResult>;
 
 /**
@@ -108,6 +113,11 @@ const cli = command({
       long: "max",
       description: "Cap protocols per município (testing aid).",
     }),
+    perCouncillor: flag({
+      long: "per-councillor",
+      description:
+        "Phase 2 — extract per-councillor named-vote blocks and join to the data/officials/municipal/ roster. Slower; adds tally.perCouncillor[].",
+    }),
     dry: flag({
       long: "dry",
       description:
@@ -160,6 +170,7 @@ const cli = command({
           sinceYear: args.sinceYear,
           sinceDate,
           maxProtocols: args.max,
+          perCouncillor: args.perCouncillor,
         });
         for (const e of result.errors) errors.push({ key, ...e });
         if (args.dry) {
