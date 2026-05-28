@@ -6,8 +6,16 @@
 
 import type { NaredbaParser } from "../types";
 import { sofParser } from "./sof";
+import { varParser } from "./var";
+import { bgsParser } from "./bgs";
+import { pdvParser } from "./pdv";
 
-export const NAREDBA_PARSERS: NaredbaParser[] = [sofParser];
+export const NAREDBA_PARSERS: NaredbaParser[] = [
+  sofParser,
+  varParser,
+  bgsParser,
+  pdvParser,
+];
 
 export const parsersByObshtina = (): Map<string, NaredbaParser> => {
   const map = new Map<string, NaredbaParser>();

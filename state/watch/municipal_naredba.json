@@ -1,14 +1,31 @@
 {
-  "detail": "1 município(s) wired",
-  "fingerprint": "80a37d8c73f5f58b57255fd592faa28dd7eadaa68184a20dd32f0eeb4d2af0bc",
-  "lastChanged": "2026-05-28T23:40:53.580Z",
-  "lastChecked": "2026-05-28T23:40:53.580Z",
+  "detail": "4 município(s) wired",
+  "fingerprint": "b167f33d3b88d16c0f4a569d5c77eb153b4c1185b295be4f33825c3df6cc8818",
+  "lastChanged": "2026-05-28T23:52:13.177Z",
+  "lastChecked": "2026-05-28T23:52:13.177Z",
   "meta": {
     "perObshtina": {
       "SOF00": {
         "url": "https://iisda.government.bg/adm_services/service_regulatory_file/24499_137312",
         "status": 200,
         "length": "640174"
+      },
+      "VAR06": {
+        "url": "https://www.varna.bg/upload/20701/NAREDBA_na_ObS_Varna_za_opredelqneto_i_administriraneto_na_mestnite_taksi_i_ceni_na_uslugi_na_terito.pdf",
+        "status": 200,
+        "lastModified": "Mon, 23 Jun 2025 08:24:06 GMT"
+      },
+      "BGS04": {
+        "url": "https://burgascouncil.org/sites/default/files/2024-02/naredba_mestni_danci_i_ceni_na_uslugi_3.docx",
+        "status": 200,
+        "length": "284320",
+        "lastModified": "Fri, 02 Feb 2024 12:57:00 GMT"
+      },
+      "PDV22": {
+        "url": "https://plovdiv.obshtini.bg/doc/388893",
+        "status": 200,
+        "length": "722",
+        "lastModified": "Wed, 27 Aug 2025 06:17:29 GMT"
       }
     }
   }
