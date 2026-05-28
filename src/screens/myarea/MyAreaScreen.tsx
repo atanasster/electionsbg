@@ -26,6 +26,7 @@ import { useCycleKind } from "@/data/area/useCycleKind";
 import { MyAreaHero } from "./MyAreaHero";
 import { MyAreaRepresentativesStrip } from "./MyAreaRepresentativesStrip";
 import { MyAreaUpcomingBallotTile } from "./MyAreaUpcomingBallotTile";
+import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 
 // Lazy-load the heavy dashboard variants — most My-Area visits don't need
 // both, and the Suspense fallback shows skeletons identical to a direct
@@ -128,6 +129,18 @@ export const MyAreaScreen: FC = () => {
           <MyAreaRepresentativesStrip oblast={area.oblast} />
           <MyAreaUpcomingBallotTile />
         </div>
+
+        {/* Kметство (sub-municipal village mayor) only renders when the
+            resolved area is a settlement AND that settlement appears in the
+            município's kmetstva[]. Auto-hides otherwise so most settlements
+            don't see an empty tile. */}
+        {area.kind === "settlement" ? (
+          <MyAreaKmetstvoTile
+            ekatte={area.ekatte}
+            settlementName={area.settlement.name}
+            obshtina={area.obshtina}
+          />
+        ) : null}
 
         {/* Existing canonical dashboard. Reused as-is so every tile —
             mayor, council, budget transfers, EU funds, census, indicators,
