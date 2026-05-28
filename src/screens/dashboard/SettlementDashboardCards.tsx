@@ -8,6 +8,7 @@ import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useSettlementStats } from "@/data/settlements/useSettlementStats";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
+import { useProblemSections } from "@/data/reports/useProblemSections";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
 import { PaperMachineCard } from "./cards/PaperMachineCard";
@@ -86,6 +87,16 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
   const { findSettlement } = useSettlementsInfo();
   const { stats } = useSettlementStats(ekatte);
   const { data: problemSectionsStats } = useProblemSectionsStats();
+  // Hide the whole neighborhoods/risk-votes section when this settlement
+  // has no problem sections of its own — mirrors the município-level
+  // fix to stop the national HistoricalTrendsTile from being shown next
+  // to two empty per-settlement tiles, which read as "this settlement's
+  // risk votes" but is actually national data.
+  const { data: problemSectionsReport } = useProblemSections();
+  const settlementHasProblemSections =
+    problemSectionsReport?.neighborhoods?.some((n) =>
+      n.sections.some((s) => s.ekatte === ekatte),
+    );
   const obshtinaCode = settlement?.obshtina ?? findSettlement(ekatte)?.obshtina;
 
   const basePath = `/sections/${ekatte}`;
@@ -212,17 +223,19 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
           </DashboardSection>
         ) : null}
 
-        <DashboardSection
-          id="neighborhoods"
-          title={t("dashboard_section_neighborhoods")}
-          icon={Building2}
-        >
-          <ProblemSectionsTile parties={data.parties} ekatte={ekatte} />
-          <ProblemVotesByPartyTile ekatte={ekatte} />
-          {problemSectionsStats?.length ? (
-            <HistoricalTrendsTile stats={problemSectionsStats} />
-          ) : null}
-        </DashboardSection>
+        {settlementHasProblemSections ? (
+          <DashboardSection
+            id="neighborhoods"
+            title={t("dashboard_section_neighborhoods")}
+            icon={Building2}
+          >
+            <ProblemSectionsTile parties={data.parties} ekatte={ekatte} />
+            <ProblemVotesByPartyTile ekatte={ekatte} />
+            {problemSectionsStats?.length ? (
+              <HistoricalTrendsTile stats={problemSectionsStats} />
+            ) : null}
+          </DashboardSection>
+        ) : null}
       </section>
     </SectionArticlesProvider>
   );

@@ -14,6 +14,7 @@ import { useMunicipalitySummary } from "@/data/dashboard/useMunicipalitySummary"
 import { useMunicipalityVotes } from "@/data/municipalities/useMunicipalityVotes";
 import { useMunicipalityStats } from "@/data/municipalities/useMunicipalityStats";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
+import { useProblemSections } from "@/data/reports/useProblemSections";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
 import { PaperMachineCard } from "./cards/PaperMachineCard";
@@ -97,6 +98,16 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
   const { municipality } = useMunicipalityVotes(municipalityCode);
   const { stats } = useMunicipalityStats(municipalityCode);
   const { data: problemSectionsStats } = useProblemSectionsStats();
+  // The neighborhoods/risk-votes section is misleading when the município
+  // has no problem sections of its own — the per-município ProblemSections
+  // and ProblemVotes tiles render null, but the historical-trends chart
+  // beside them shows NATIONAL problem-section trends, which looks like
+  // município-specific data. Detect "no problem sections here" and hide
+  // the whole section to avoid the bait-and-switch.
+  const { data: problemSectionsReport } = useProblemSections();
+  const muniHasProblemSections = problemSectionsReport?.neighborhoods?.some(
+    (n) => n.sections.some((s) => s.obshtina === municipalityCode),
+  );
 
   const basePath = `/settlement/${municipalityCode}`;
 
@@ -247,20 +258,22 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           />
         </DashboardSection>
 
-        <DashboardSection
-          id="neighborhoods"
-          title={t("dashboard_section_neighborhoods")}
-          icon={Building2}
-        >
-          <ProblemSectionsTile
-            parties={data.parties}
-            municipalityCode={municipalityCode}
-          />
-          <ProblemVotesByPartyTile municipalityCode={municipalityCode} />
-          {problemSectionsStats?.length ? (
-            <HistoricalTrendsTile stats={problemSectionsStats} />
-          ) : null}
-        </DashboardSection>
+        {muniHasProblemSections ? (
+          <DashboardSection
+            id="neighborhoods"
+            title={t("dashboard_section_neighborhoods")}
+            icon={Building2}
+          >
+            <ProblemSectionsTile
+              parties={data.parties}
+              municipalityCode={municipalityCode}
+            />
+            <ProblemVotesByPartyTile municipalityCode={municipalityCode} />
+            {problemSectionsStats?.length ? (
+              <HistoricalTrendsTile stats={problemSectionsStats} />
+            ) : null}
+          </DashboardSection>
+        ) : null}
       </section>
     </SectionArticlesProvider>
   );

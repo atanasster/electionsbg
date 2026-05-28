@@ -38,6 +38,7 @@ import { MyAreaAlertsTile } from "./MyAreaAlertsTile";
 import { MyAreaSofiaRaionStrip } from "./MyAreaSofiaRaionStrip";
 import { MyAreaContactsTile } from "./MyAreaContactsTile";
 import { MyAreaCouncilMinutesTile } from "./MyAreaCouncilMinutesTile";
+import { MyAreaRoadmapTile } from "./MyAreaRoadmapTile";
 
 // Lazy-load the heavy dashboard variants — most My-Area visits don't need
 // both, and the Suspense fallback shows skeletons identical to a direct
@@ -197,6 +198,12 @@ export const MyAreaScreen: FC = () => {
             Same for every area (national budget mix); placed here because
             the My-Area page is the civic-engagement landing. */}
         <MyAreaTaxReceiptTile />
+
+        {/* Roadmap — single compact card listing the scaffolded tiles
+            whose data isn't ingested yet. Auto-hides individual rows as
+            their respective ingest skill populates the corresponding
+            data file. */}
+        <MyAreaRoadmapTile obshtina={area.obshtina} oblast={area.oblast} />
 
         {/* Existing canonical dashboard. Reused as-is so every tile —
             mayor, council, budget transfers, EU funds, census, indicators,
