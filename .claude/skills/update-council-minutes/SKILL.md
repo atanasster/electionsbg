@@ -121,20 +121,22 @@ The framework is parser-agnostic — `lib/tally.ts`, `lib/pdf_text.ts`, `lib/doc
 
 ## Currently wired municipalities
 
-See `data/council/sources.json` for the authoritative list. As of the initial Phase 1-3 ship:
+See `data/council/sources.json` for the authoritative list. As of 2026-05-29:
 
-| Obshtina | Tier | Format | Per-councillor? | Status |
-|---|---|---|---|---|
-| VTR01 (Велико Търново) | A | pdf-text | yes (Phase 2 wired) | shipped |
-| SZR01 (Стара Загора) | A | pdf-text | no | shipped |
-| SOF (Столична) | A | pdf-text | yes (planned) | parser pending (Playwright for index walk) |
-| RSE01 (Русе) | A | docx | no | parser pending |
-| PVN01 (Плевен) | A | docx | no | parser pending |
-| PDV01 (Пловдив) | B | html | no | parser pending (Playwright for index walk) |
-| VAR01 (Варна) | B | pdf-text | no | parser pending |
-| BGS01 (Бургас) | B | mixed | no | parser pending |
-| BLG03 (Благоевград) | C | doc | no | deferred (legacy URL dead) |
-| SLV01 (Сливен) | C | pdf-scan | no | OCR pipeline ready, parser not wired |
+| Obshtina | Tier | Format | Tally | Per-councillor | Status |
+|---|---|---|---|---|---|
+| VTR01 (Велико Търново) | A | pdf-text | yes | yes (~81% roster match) | full coverage |
+| SZR01 (Стара Загора) | A | pdf-text | yes | no | titles + tally + result |
+| RSE01 (Русе) | A | docx | yes | no | tally + result; titles empty (no ОТНОСНО marker in DOCX) |
+| PVN01 (Плевен) | A | docx | yes | no | tally + result; titles empty |
+| SLV01 (Сливен) | A | pdf-text | no | no | titles only (FineReader 15 clean Cyrillic, but ПРЕПИС format strips tallies) |
+| VAR01 (Варна) | B | pdf-text | no | no | titles only (Препис-извлечение format) |
+| BGS01 (Бургас) | B | pdf-text via Drupal /node | no | no | titles only (drill-in for session pages) |
+| PDV01 (Пловдив) | B | html via WP category | no | no | titles only (WordPress category listings, no Playwright needed) |
+| SOF (Столична) | A | pdf-text via Playwright | no | no | titles only via per-resolution PDFs; full protokol-N PDFs have ABBYY FineReader 14 Cyrillic→Latin mojibake — per-councillor unlock blocked on either a character remap or Gemini Vision re-OCR |
+| BLG03 (Благоевград) | C | doc | — | — | DEFERRED (legacy URL dead; município migrated to e-obs.online SaaS) |
+
+Total: 9 of 10 wired, 421 resolutions in the index across 9 municipalities.
 
 ## Troubleshooting
 
