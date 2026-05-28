@@ -105,14 +105,14 @@
     "BLG03": {
       "name": "Община Благоевград",
       "tier": "C",
-      "indexUrl": "https://blagoevgrad.bg/",
-      "indexNote": "Legacy /files/ObS/Resheniq/ directory listing is GONE (was a 308→404 redirect on 2026-05-29). The município migrated to e-obs.online SaaS; live system requires auth to enumerate. Phase 1 should DEFER Blagoevgrad until the new public surface is found. Old .doc files for back years (2014-2019) may still be reachable via archive.org.",
+      "indexUrl": "https://blagoevgrad.bg/header-menu/resheniia-na-obshtinski-suvet",
+      "indexNote": "Rediscovered 2026-05-29: the new path /header-menu/resheniia-na-obshtinski-suvet exists and links to per-year archive pages (/header-menu/resheniia-2026-godina, /header-menu/arhiv-na-resheniia-2025 through /header-menu/arhiv-na-resheniia-2012) and per-mandate pages (/header-menu/mandat-2023-2027-godina, /header-menu/mandat-2019-2023-godina). However, the year + mandate archive pages render only navigation chrome — NO decision PDFs / DOCX / HTML listings are published. Confirmed by direct Playwright probe of /resheniia-2026-godina, /arhiv-na-resheniia-2025, /arhiv-na-resheniia-2024, /arhiv-na-resheniia-2023, /arhiv-na-resheniia-2018, /mandat-2023-2027-godina, /mandat-2019-2023-godina — every relevant <a> href on these pages is either site navigation, language toggles, or government-portal externals. The município's news page mentions they BROADCAST sessions live ('обявление: Община Благоевград излъчва заседанията на Общински Съвет...') but document publication is not part of that. The earlier-rumoured e-obs.online migration is also unreachable: blagoevgrad.e-obs.online and e-obs.online/blagoevgrad return 000/404/526. Phase 1 stays DEFERRED — not a parser problem, a publication-policy gap.",
       "fetch": "static",
       "format": "doc",
-      "tallyStrategy": "regex-on-doc",
+      "tallyStrategy": "n/a",
       "perCouncillor": false,
       "phase1Defer": true,
-      "deferReason": "Legacy ObS/Resheniq directory listing returns 404; e-obs.online migration. Re-discover before scraping."
+      "deferReason": "Confirmed 2026-05-29: blagoevgrad.bg publishes navigation chrome only; no decision PDFs/DOCX in any year archive. e-obs.online SaaS unreachable. Awaiting either município publication-policy change or a discovered third-party mirror."
     },
     "SLV01": {
       "name": "Община Сливен",
