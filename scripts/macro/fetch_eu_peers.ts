@@ -629,6 +629,11 @@ interface AnnualPeerIndicatorConfig {
   // considers the fetch successful. SILC has full coverage from 2007 →
   // expect ~17 points by 2024.
   minYears?: number;
+  // For datasets where Eurostat does NOT publish the EU27_2020 aggregate
+  // (e.g. crim_off_cat, crim_pris_age), set this to compute an unweighted
+  // mean across the 27 member states year-by-year and stitch it into
+  // `series["EU27_2020"]`. Mirrors the WGI computed-EU27 pattern.
+  computeEu27FromMembers?: boolean;
 }
 
 const PEER_INDICATORS_ANNUAL: AnnualPeerIndicatorConfig[] = [
@@ -675,14 +680,47 @@ const PEER_INDICATORS_ANNUAL: AnnualPeerIndicatorConfig[] = [
       "https://ec.europa.eu/eurostat/databrowser/view/demo_mlexpec/default/table",
     minYears: 8,
   },
+  {
+    key: "intentionalHomicideRate",
+    dataset: "crim_off_cat",
+    query: { iccs: "ICCS0101", unit: "P_HTHAB" },
+    direction: "lower",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/crim_off_cat/default/table",
+    minYears: 8,
+    computeEu27FromMembers: true,
+  },
+  {
+    key: "prisonPopulationRate",
+    dataset: "crim_pris_age",
+    query: { age: "TOTAL", sex: "T", unit: "P_HTHAB" },
+    // High incarceration could reflect either crime or punitiveness — no
+    // clean "good direction" so we skip the rank pill.
+    direction: "none",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/crim_pris_age/default/table",
+    minYears: 8,
+    computeEu27FromMembers: true,
+  },
 ];
 
 const fetchAnnualIndicatorPeers = async (
   ind: AnnualPeerIndicatorConfig,
   geos: readonly Geo[],
 ): Promise<Record<string, AnnualSeriesPoint[]>> => {
+  // For datasets where Eurostat doesn't publish EU27_2020, also pull every
+  // member state in the same call so we can compute the EU27 mean below.
+  const memberGeosToFetch = ind.computeEu27FromMembers
+    ? (EU27_MEMBERS as readonly string[])
+    : [];
   const params = new URLSearchParams({ format: "JSON", lang: "EN" });
   for (const g of geos) params.append("geo", EUROSTAT_GEO_FOR(g));
+  for (const g of memberGeosToFetch) {
+    // GEOS already contains BG/RO/EL/HU/HR — don't double-add when the
+    // member roster overlaps the peer roster (URLSearchParams will happily
+    // duplicate them but Eurostat treats the union the same way).
+    params.append("geo", g);
+  }
   for (const [k, v] of Object.entries(ind.query)) params.append(k, v);
   params.append("freq", "A");
   const url = `${ind.dataset}?${params.toString()}`;
@@ -695,9 +733,15 @@ const fetchAnnualIndicatorPeers = async (
 
   const out: Record<string, AnnualSeriesPoint[]> = {};
   for (const geo of geos) out[geo] = [];
+
+  // When computing EU27 from members, accumulate every member's value
+  // per year — independent of the peer slice we ship to the consumer.
+  const memberByYear: Map<number, Map<string, number>> | null =
+    ind.computeEu27FromMembers ? new Map() : null;
+
   for (const r of rows) {
-    const geo = REWRITE_GEO_FROM_EUROSTAT(String(r.geo)) as Geo;
-    if (!(geos as readonly string[]).includes(geo)) continue;
+    const eurostatGeo = String(r.geo);
+    const geo = REWRITE_GEO_FROM_EUROSTAT(eurostatGeo) as Geo;
     const t = String(r.time);
     const m = /^(\d{4})$/.exec(t);
     if (!m) continue;
@@ -705,9 +749,35 @@ const fetchAnnualIndicatorPeers = async (
     if (year < START_YEAR_ANNUAL) continue;
     const v = Number(r.value);
     if (!Number.isFinite(v)) continue;
-    out[geo].push({ year, period: String(year), value: round(v, 2) });
+
+    if ((geos as readonly string[]).includes(geo)) {
+      out[geo].push({ year, period: String(year), value: round(v, 2) });
+    }
+    if (
+      memberByYear &&
+      (EU27_MEMBERS as readonly string[]).includes(eurostatGeo)
+    ) {
+      if (!memberByYear.has(year)) memberByYear.set(year, new Map());
+      memberByYear.get(year)!.set(eurostatGeo, v);
+    }
   }
   for (const g of geos) out[g].sort((a, b) => a.year - b.year);
+
+  if (memberByYear) {
+    const euSeries: AnnualSeriesPoint[] = [];
+    for (const [year, members] of [...memberByYear.entries()].sort(
+      (a, b) => a[0] - b[0],
+    )) {
+      // Require ≥20 of 27 members reporting before publishing the year —
+      // mirrors the WGI threshold to avoid lurchy EU27 means when coverage
+      // is thin.
+      if (members.size < 20) continue;
+      const sum = [...members.values()].reduce((a, b) => a + b, 0);
+      const mean = sum / members.size;
+      euSeries.push({ year, period: String(year), value: round(mean, 2) });
+    }
+    if (euSeries.length > 0) out["EU27_2020"] = euSeries;
+  }
   return out;
 };
 
@@ -769,7 +839,12 @@ const fetchAnnualIndicatorDistribution = async (
       if (v != null) memberValues.push(v);
     }
     if (memberValues.length < 20) continue;
-    const euAvg = byGeo.get("EU27_2020") ?? null;
+    // Some datasets (crim_off_cat, crim_pris_age) don't publish EU27_2020 —
+    // fall back to the unweighted mean across the members we just gathered.
+    const publishedEuAvg = byGeo.get("EU27_2020");
+    const euAvg = ind.computeEu27FromMembers
+      ? memberValues.reduce((a, b) => a + b, 0) / memberValues.length
+      : (publishedEuAvg ?? null);
     let rank: number;
     if (ind.direction === "lower") {
       rank = memberValues.filter((v) => v < bg).length + 1;

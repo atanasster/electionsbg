@@ -134,6 +134,20 @@ const DATASETS: { code: string; query: string }[] = [
     code: "gov_10a_main",
     query: "geo=BG&sector=S13&na_item=TR&unit=PC_GDP&freq=A",
   },
+  // Annual intentional-homicide rate per 100K (ICCS0101) — feeds the
+  // /indicators society screen via fetch_eu_peers.ts. Eurostat doesn't
+  // publish EU27_2020 for this dataset; we compute it from member-state
+  // means inside fetch_eu_peers.
+  {
+    code: "crim_off_cat",
+    query: "geo=BG&iccs=ICCS0101&unit=P_HTHAB&freq=A",
+  },
+  // Annual prisoners-per-100K (sex=T, age=TOTAL). Same EU27-from-members
+  // pattern as the homicide series.
+  {
+    code: "crim_pris_age",
+    query: "geo=BG&age=TOTAL&sex=T&unit=P_HTHAB&freq=A",
+  },
 ];
 
 const buildUrl = (code: string, query: string): string =>
@@ -150,7 +164,7 @@ const fetchUpdated = async (code: string, query: string): Promise<string> => {
 
 export const eurostat: WatchSource = {
   id: "eurostat",
-  label: "Eurostat macro (BG): 20 datasets",
+  label: "Eurostat macro (BG): 22 datasets",
   // Best representative URL for the report's link column — the rest live in
   // meta.
   url: "https://ec.europa.eu/eurostat/databrowser/",
