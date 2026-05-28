@@ -37,9 +37,12 @@ import { dvInvestmentAnnex } from "./dv_investment_annex";
 import { capitalPrograms } from "./capital_programs";
 import { ipop } from "./ipop";
 import { bgpostPostcodes } from "./bgpost_postcodes";
+import { cikResults } from "./cik_results";
 
-// cik is intentionally omitted — see ./cik.ts header. Re-add to this array
-// once a Playwright-based fetch (or alternate endpoint) bypasses Cloudflare.
+// `cik` (news/decisions index) is still intentionally omitted — see ./cik.ts
+// header. The new `cik_results` source below uses the Playwright bypass
+// helper at scripts/parsers_local/cik_fetch.ts; once that proves itself we
+// can flip `cik` over to the same helper.
 export const SOURCES: WatchSource[] = [
   parliamentVotes, // listed first — primary deliverable per PRD
   parliamentMps,
@@ -79,4 +82,5 @@ export const SOURCES: WatchSource[] = [
   grao,
   transparencyCpi,
   worldbankWgi,
+  cikResults,
 ];

@@ -1,8 +1,16 @@
 import { useCallback, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import allElections from "../data/json/elections.json";
+import allLocalElections from "../data/json/local_elections.json";
 import { ElectionInfo } from "./dataTypes";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
+
+export type LocalElectionEntry = {
+  name: string; // e.g. "2023_10_29_mi"
+  round1Date: string;
+  round2Date: string | null;
+  kind: "regular" | "partial";
+};
 
 export const useElectionContext = () => {
   const [election, setElection] = useSearchParam("elections", {
@@ -13,6 +21,13 @@ export const useElectionContext = () => {
   // wins over the `?elections=` query param so the URL stays canonical.
   const { date: pathDate } = useParams<{ date?: string }>();
   const elections = useMemo(() => allElections.map((e) => e.name), []);
+  // Local cycles live in their own catalogue and are surfaced to the
+  // selector via `localElections`. They never enter `elections` (the
+  // parliamentary array) so next/prev arrow navigation skips them.
+  const localElections = useMemo<LocalElectionEntry[]>(
+    () => allLocalElections as LocalElectionEntry[],
+    [],
+  );
   const selected = useMemo(() => {
     if (pathDate && elections.find((e) => e === pathDate)) {
       return pathDate;
@@ -52,6 +67,7 @@ export const useElectionContext = () => {
   }, [selected]);
   return {
     elections,
+    localElections,
     selected,
     setSelected,
     priorElections,

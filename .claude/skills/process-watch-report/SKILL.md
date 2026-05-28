@@ -64,6 +64,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `НСИ: население по общини` | `update-indicators` |
 | `НСИ: раждания, умирания и миграция по общини` | `update-indicators` |
 | `ГРАО: население по постоянен и настоящ адрес` | `update-grao` |
+| `CIK local-elections results bundles` | `update-local-elections` (downloads csv.zip + per-município HTML for every cycle named in the watcher's describe-line; Cloudflare bypass via headless Playwright; idempotent on the HTML mirror so re-runs are cheap; run one `--local-ingest <cycleSlug>` per changed cycle) |
 | `CIK news` (if re-enabled) | _no skill yet — surface as TODO_ |
 
 Some sources map to the same skill (`update-connections` handles declarations, Commerce Registry, AND the BG Post postcode→EKATTE refresh); dedupe so it only runs once.

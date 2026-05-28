@@ -59,6 +59,8 @@ import { IpopExecutionTile } from "./IpopExecutionTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
+import { MunicipalElectionTile } from "./MunicipalElectionTile";
+import { OfficialsDiffTile } from "./OfficialsDiffTile";
 import { MunicipalMayorTile } from "./MunicipalMayorTile";
 import { MunicipalCouncilCompositionTile } from "./MunicipalCouncilCompositionTile";
 import { MunicipalOfficialsRosterTile } from "./MunicipalOfficialsRosterTile";
@@ -175,10 +177,14 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           title={t("dashboard_section_local_government")}
           icon={Landmark}
         >
+          {/* Local-election tile sits above the current-officials tiles so
+              the narrative reads "elected by voters → currently sitting". */}
+          <MunicipalElectionTile obshtinaCode={municipalityCode} />
           <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
             <MunicipalMayorTile obshtinaCode={municipalityCode} />
             <MunicipalCouncilCompositionTile obshtinaCode={municipalityCode} />
           </div>
+          <OfficialsDiffTile obshtinaCode={municipalityCode} />
           <MunicipalOfficialsRosterTile obshtinaCode={municipalityCode} />
         </DashboardSection>
 

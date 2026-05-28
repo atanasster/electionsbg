@@ -63,6 +63,24 @@ const DataChangesScreen = lazy(() =>
     default: m.DataChangesScreen,
   })),
 );
+// Local-elections stub — step 1 placeholder. Hosts both the cycle
+// overview (/local/:cycle) and the per-município full results
+// (/local/:cycle/:obshtinaCode) until step 3 ships dedicated screens.
+const LocalElectionScreen = lazy(() =>
+  import("./screens/LocalElectionScreen").then((m) => ({
+    default: m.LocalElectionScreen,
+  })),
+);
+const SverkaScreen = lazy(() =>
+  import("./screens/SverkaScreen").then((m) => ({
+    default: m.SverkaScreen,
+  })),
+);
+const ChmiFeedScreen = lazy(() =>
+  import("./screens/ChmiFeedScreen").then((m) => ({
+    default: m.ChmiFeedScreen,
+  })),
+);
 const SofiaScreen = lazy(() =>
   import("./screens/SofiaScreen").then((m) => ({ default: m.SofiaScreen })),
 );
@@ -1044,6 +1062,38 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <DataChangesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="local/:cycle"
+          element={
+            <LayoutScreen>
+              <LocalElectionScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="local/:cycle/:obshtinaCode"
+          element={
+            <LayoutScreen>
+              <LocalElectionScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="sverka"
+          element={
+            <LayoutScreen>
+              <SverkaScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="local/chmi"
+          element={
+            <LayoutScreen>
+              <ChmiFeedScreen />
             </LayoutScreen>
           }
         />

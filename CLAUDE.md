@@ -68,6 +68,17 @@ There are no tests configured.
 - `?cabinet=<id>` — global cabinet anchor on `/governments*` and `/indicators*` (read by `cabinetAnchorContext`)
 - `?peers=RO,GR,HU,HR` — peer-country selection on `/indicators/compare` (read by `usePeerSelection`)
 
+### Local-elections routes
+
+Local cycles (`mi*`, `chmi*`) live alongside parliamentary but in their own data tree and URL space:
+
+- `/local/:cycle` — cycle overview (council vote share, mayors-won, município list with SOF pinned)
+- `/local/:cycle/:obshtinaCode` — full per-município results (mayor R1+R2, council with elected list, kmetstvo mayors, район mayors, chmi history)
+- `/local/chmi` — chronological feed of all extraordinary (partial + new) elections across cycles
+- `/sverka` — national officials-vs-CIK reconciliation table
+
+`<cycle>` is the raw-data folder name: `2023_10_29_mi`, `2019_10_27_mi`, `2024_06_23_chmi`, `2024_10_20_chmi_nov`, etc. The synthetic `SOF` obshtinaCode holds Sofia's city-wide bundle (Sofia районs are the 24 `S2***` shards). Partials never appear in the elections selector — they surface contextually via tile + `/local/chmi` only.
+
 ### Data Hook Pattern
 
 ```typescript
@@ -89,6 +100,7 @@ export const useResourceData = () => {
 
 - `scripts/main.ts` — CLI entry point (cmd-ts)
 - `scripts/parsers/` — Parse raw CSV/ZIP election data
+- `scripts/parsers_local/` — Parse local-elections data (mi2023, mi2019, chmi partials). HTML-only ingest from `results.cik.bg/mi{YYYY}/tur1/rezultati/{oikCode}.html` via headed Playwright (CF Turnstile bypass — see `cik_fetch.ts`). One município bundle per shard under `data/<cycle>/municipalities/<obshtinaCode>.json` + national rollups in `index.json` + officials-vs-CIK reconciliation in `officials_diff.json` + per-município sidecars `officials_diff/<obshtinaCode>.json`. Aggregated cross-cycle chmi history at `data/local_chmi_history.json`. CLI: `npm run data -- --local-ingest <slug>` (where slug is `mi2023`, `mi2019`, or `chmi2024-2026/<YYYY-MM-DD>_chastichen` / `_nov`); `--local --local-date <folder>` re-parses already-downloaded raw data.
 - `scripts/reports/` — Generate analytical reports (turnout, concentration, top gainers/losers, invalid ballots, recount metrics, machine flash memory)
 - `scripts/stats/` — Aggregate statistics
 - `scripts/search/` — Full-text search index generation

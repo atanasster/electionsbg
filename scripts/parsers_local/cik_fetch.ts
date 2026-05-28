@@ -33,11 +33,14 @@ const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 " +
   "(KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36";
 
-// The CF challenge page is a small (~5–35 KB) HTML doc whose title is "Just
-// a moment..." or "Един момент..." depending on Accept-Language. Real content
-// pages on results.cik.bg are >50 KB, so size + missing-challenge-string is
-// the most reliable "are we through?" signal.
-const REAL_CONTENT_MIN_SIZE = 40_000;
+// The CF challenge page has a title of "Just a moment..." / "Един момент..."
+// and pulls Turnstile from challenges.cloudflare.com. We detect "still on
+// challenge" by the presence of any of those markers in the document. Real
+// CIK pages carry "Резултати ::" in the <title> regardless of município
+// size — small municípios (no kmetstvo, single mayor candidate) can be
+// 9–35 KB; a strict size threshold falsely rejects them, so we rely on the
+// positive marker instead.
+const CIK_REAL_TITLE_MARKER = "Резултати ::";
 const CHALLENGE_MARKERS = [
   "Just a moment",
   "Един момент",
@@ -102,12 +105,13 @@ const initSession = async (): Promise<Session> => {
     await page
       .goto(ROOT_URL, { waitUntil: "load", timeout: 60_000 })
       .catch(() => {});
+    // Root warm-up: poll until the CF challenge markers disappear OR a
+    // generous max wait. The root page isn't a results page so it won't
+    // carry the "Резултати ::" marker — we accept any non-challenge body.
     for (let i = 0; i < 60; i++) {
       const content = await page.content().catch(() => "");
-      const isReal =
-        content.length > REAL_CONTENT_MIN_SIZE &&
-        !CHALLENGE_MARKERS.some((m) => content.includes(m));
-      if (isReal) break;
+      const onChallenge = CHALLENGE_MARKERS.some((m) => content.includes(m));
+      if (!onChallenge && content.length > 1000) break;
       await page.waitForTimeout(500);
     }
     const cookies = await ctx.cookies(ROOT_URL);
@@ -170,24 +174,27 @@ const gotoAndExtract = async (
   ) {
     return { status: 404, html: null };
   }
-  // Poll for real content (CF challenge clearing happens client-side after
-  // page.goto resolves).
-  const deadline = Date.now() + 30_000;
+  // Poll for the CIK results-page title to appear, the CF challenge to
+  // clear, or a 15 s deadline. The positive marker (Резултати ::) is the
+  // strongest signal we're past CF; we also accept any non-challenge body
+  // for non-results pages (the homepage, an oblast index, etc.).
+  const deadline = Date.now() + 15_000;
   while (Date.now() < deadline) {
     const html = await s.page.content().catch(() => "");
-    const isReal =
-      html.length > REAL_CONTENT_MIN_SIZE &&
-      !CHALLENGE_MARKERS.some((m) => html.includes(m));
-    if (isReal) {
-      return { status: finalStatus || 200, html };
+    const onChallenge = CHALLENGE_MARKERS.some((m) => html.includes(m));
+    if (onChallenge) {
+      await s.page.waitForTimeout(300);
+      continue;
     }
     if (html.includes("404 Not Found") && html.includes("nginx")) {
       return { status: 404, html: null };
     }
-    await s.page.waitForTimeout(500);
+    if (html.includes(CIK_REAL_TITLE_MARKER) || html.length > 1000) {
+      return { status: finalStatus || 200, html };
+    }
+    await s.page.waitForTimeout(300);
   }
-  // Timed out polling for real content — final fallback: return whatever's
-  // there so the caller can decide.
+  // Timed out — return whatever we have so the caller can decide.
   const html = await s.page.content().catch(() => "");
   return { status: finalStatus || 0, html: html || null };
 };

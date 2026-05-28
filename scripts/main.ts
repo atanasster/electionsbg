@@ -13,6 +13,9 @@ import { createPreferencesFiles } from "./preferences";
 import { parseMachinesFlashMemory } from "./machines_memory";
 import { backfillSectionCoords } from "./parsers/backfill_section_coords";
 import { generateVoteFlows } from "./voteFlows";
+import { parseLocalElections } from "./parsers_local/parse_local_elections";
+import { ingestCycles } from "./parsers_local/ingest_cycle";
+import { shutdownCikFetch } from "./parsers_local/cik_fetch";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -121,6 +124,30 @@ const app = command({
       short: "w",
       defaultValue: () => false,
     }),
+    // Local elections are parsed by a separate tree under scripts/parsers_local/
+    // because the data shape diverges substantially from parliamentary
+    // (per-OIK party numbering, multiple race types per município, two
+    // mayor rounds). `--all` does NOT auto-include locals — invoke with
+    // `--local --all` to rebuild every cycle in raw_data/*_mi/*_chmi.
+    local: flag({
+      type: optional(boolean),
+      long: "local",
+      short: "L",
+      defaultValue: () => false,
+    }),
+    localDate: option({
+      type: optional(string),
+      long: "local-date",
+    }),
+    // `--local-ingest <cycleSlug>` runs the automated end-to-end ingest:
+    // download csv.zip via Playwright-warmed Cloudflare cookie, extract with
+    // CP866 fix, mirror per-município HTML pages, then run the parser.
+    // The slug uses the CIK URL form, e.g. "mi2023" or
+    // "chmi2024-2026/2024-10-20_chastichen".
+    localIngest: option({
+      type: optional(string),
+      long: "local-ingest",
+    }),
   },
   handler: async ({
     all,
@@ -138,6 +165,9 @@ const app = command({
     coords,
     declarations,
     flows,
+    local,
+    localDate,
+    localIngest,
   }) => {
     production = prod;
     if (machines) {
@@ -196,6 +226,26 @@ const app = command({
     }
     if (flows || all) {
       generateVoteFlows({ publicFolder, stringify });
+    }
+    if (local || localDate) {
+      await parseLocalElections({
+        date: localDate,
+        all: local && !localDate,
+        publicFolder,
+        stringify,
+      });
+    }
+    if (localIngest) {
+      try {
+        await ingestCycles({
+          cycleSlugs: [localIngest],
+          publicFolder,
+          stringify,
+        });
+      } finally {
+        // Keep the headless Chromium from blocking process exit.
+        await shutdownCikFetch();
+      }
     }
   },
 });

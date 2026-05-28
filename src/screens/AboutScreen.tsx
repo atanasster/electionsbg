@@ -66,6 +66,15 @@ const electionResults: { date: string; href: string }[] = [
   { date: "25.06.2005", href: "https://pi2005.cik.bg/results/" },
 ];
 
+const localElectionResults: { date: string; href: string }[] = [
+  { date: "29.10.2023", href: "https://results.cik.bg/mi2023/tur1/index.html" },
+  { date: "27.10.2019", href: "https://results.cik.bg/mi2019/tur1/index.html" },
+  {
+    date: "2024–2027",
+    href: "https://results.cik.bg/chmi2024-2026/",
+  },
+];
+
 const campaignFinancing: { date: string; href: string }[] = [
   {
     date: "27.10.2024",
@@ -575,6 +584,17 @@ export const AboutScreen = () => {
             <DataGroup title={t("election_results")}>
               <div className="flex flex-wrap gap-2">
                 {electionResults.map((e) => (
+                  <ElectionDateLink key={e.date} date={e.date} href={e.href} />
+                ))}
+              </div>
+            </DataGroup>
+
+            <DataGroup title={t("local_election_results")}>
+              <p className="text-sm text-muted-foreground mb-3">
+                {t("local_election_section_intro")}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {localElectionResults.map((e) => (
                   <ElectionDateLink key={e.date} date={e.date} href={e.href} />
                 ))}
               </div>

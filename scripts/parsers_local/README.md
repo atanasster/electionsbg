@@ -1,0 +1,193 @@
+# Local-elections parser tree
+
+Parses Bulgarian local-election bundles published by ЦИК at
+`results.cik.bg/mi{YYYY}` (regular cycles) and
+`results.cik.bg/chmi{YYYY}-{YYYY}/{YYYY-MM-DD}_chastichen/` (partial
+elections triggered when a mayor resigns mid-term).
+
+Outputs per-município JSON bundles + a cycle catalogue under
+`data/<cycle>/`, mirroring the per-cycle layout of the parliamentary
+parser tree.
+
+> Step 1 of the local-elections integration is the parser + a minimal
+> município tile in the SPA. The Cloudflare-bypass watcher that
+> ingests new bundles automatically is step 2 (tracked separately).
+> Until then, **the data acquisition below is manual** — drop the files
+> into `raw_data/<cycle>/` once and run `npm run data -- --local --local-date <cycle>`.
+
+## Acquisition workflow
+
+### 1. Download `csv.zip` for the cycle
+
+`results.cik.bg` sits behind a Cloudflare anti-bot challenge — plain
+`curl` / `wget` returns HTTP 403. The simplest workaround is a browser
+session that has already cleared the challenge.
+
+For mi2023 (29.10.2023 / 5.11.2023):
+
+```
+https://results.cik.bg/mi2023/csv.zip
+```
+
+For mi2019 (27.10.2019 / 3.11.2019):
+
+```
+https://results.cik.bg/mi2019/csv.zip
+```
+
+For partials (the URL templates differ by cycle umbrella — check the
+selector at `https://results.cik.bg/chmi2024-2026/`):
+
+```
+https://results.cik.bg/chmi2024-2026/<YYYY-MM-DD>_chastichen/csv.zip
+```
+
+### 2. Extract with CP866 filename fix
+
+The zip uses CP866-encoded Cyrillic directory names ("ТУР1", "ОС", "КО",
+"КК", "КР") that Node's `unzipper` decodes as mojibake. The Python
+`zipfile` module hits the same issue but offers a clean fix path:
+
+```bash
+cd raw_data
+mkdir 2023_10_29_mi
+python3 - <<'PY'
+import zipfile, os
+src = "/path/to/downloaded/csv.zip"
+dst = "2023_10_29_mi"
+z = zipfile.ZipFile(src)
+for info in z.infolist():
+    info.filename = info.filename.encode("cp437").decode("cp866")
+    z.extract(info, dst)
+PY
+```
+
+After extraction the layout should be:
+
+```
+raw_data/2023_10_29_mi/
+  ТУР1/
+    readme_29.10.2023.txt
+    ОС/cik_parties_29.10.2023.txt
+    ОС/local_parties_29.10.2023.txt
+    ОС/local_candidates_29.10.2023.txt
+    ОС/sections_29.10.2023.txt
+    ОС/protocols_29.10.2023.txt
+    ОС/votes_29.10.2023.txt
+    ОС/preferences_29.10.2023.txt
+    КО/...  (no preferences)
+    КК/...
+    КР/...   (Sofia/Plovdiv/Varna only)
+  ТУР2/
+    readme_05.11.2023.txt
+    КО/...
+    КК/...
+    КР/...
+```
+
+The parser reads from `ТУР1/ОС/*` (council ballot — present for every
+município) as the source-of-truth for the OIK catalogue and for protocol
+totals. Other folders are read defensively (missing-file safe) since
+some cycles don't have all four race types.
+
+### 3. Mirror per-município HTML pages
+
+The TXT bundle has per-section votes but NOT the elected councillor
+list. That comes from `results.cik.bg/mi{YYYY}/tur{1,2}/rezultati/{oikCode}.html`
+where each council party row has a Мандати column and each candidate
+row carries a `candidate-elected` CSS class.
+
+To mirror ~265 pages without rate-limiting yourself off Cloudflare:
+
+1. Open `https://results.cik.bg/mi2023/tur1/index.html` in a browser
+   you'll use for the download.
+2. Open dev-tools → Network → reload → copy a successful request as
+   `cURL (bash)`. The `cf_clearance` cookie is the bit that matters.
+3. Save the curl flags to a file `~/.cik_cookie.sh`, e.g.:
+   ```bash
+   export CIK_COOKIE='cf_clearance=...; __cf_bm=...'
+   export CIK_UA='Mozilla/5.0 ...'  # match your browser's UA exactly
+   ```
+4. Mirror with sequential per-município pulls:
+   ```bash
+   source ~/.cik_cookie.sh
+   mkdir -p raw_data/2023_10_29_mi/html/tur1 raw_data/2023_10_29_mi/html/tur2
+   for oik in $(seq -f "%04g" 1 99 ; seq -f "%04g" 100 9999); do
+     # Skip already-downloaded files.
+     [ -s "raw_data/2023_10_29_mi/html/tur1/${oik}.html" ] && continue
+     curl -sS -A "$CIK_UA" -b "$CIK_COOKIE" \
+       -o "raw_data/2023_10_29_mi/html/tur1/${oik}.html" \
+       "https://results.cik.bg/mi2023/tur1/rezultati/${oik}.html"
+     sleep 1
+   done
+   # Drop 404s (most OIK codes don't exist; valid ones are sparse):
+   find raw_data/2023_10_29_mi/html/tur1 -name "*.html" -size -2k -delete
+   # Same for tur2 — many municípios didn't go to runoff so most pulls 404.
+   ```
+5. Sanity-check: the mi2023 cycle should leave ~265 non-empty tur1 files
+   and roughly 80–100 tur2 files.
+
+A future step-2 deliverable replaces all of the above with a
+Playwright/TLS-fingerprint watcher that runs from CI.
+
+### 4. Run the parser
+
+```bash
+npm run data -- --local --local-date 2023_10_29_mi
+```
+
+Or to reprocess every local cycle currently in `raw_data/`:
+
+```bash
+npm run data -- --local --all
+```
+
+The parser writes to `data/<cycle>/`:
+
+```
+data/2023_10_29_mi/
+  index.json                      ← cycle catalogue + national rollups
+  municipalities/BLG03.json       ← per-município bundle (mayor, council, kmetstva)
+  municipalities/SOF.json
+  ...
+  _unmatched_coalitions.json      ← coalition names whose canonical lookup failed
+```
+
+### 5. Curate unmatched coalitions
+
+If `_unmatched_coalitions.json` has entries, open it and add overrides
+to `scripts/parsers_local/local_coalition_overrides.ts`:
+
+```ts
+{
+  rawName: "Местна коалиция Граждани за X (ВМРО-БНД, БДЦ)",
+  primaryCanonicalId: "vmro",
+  memberCanonicalIds: ["vmro", "bdc"],
+}
+```
+
+…or, if the same fragment appears across many local coalitions:
+
+```ts
+{ fragment: "ВМРО-БНД", canonicalId: "vmro" }
+```
+
+Re-run the parser; the file should now be empty (or close to it).
+
+## Schema notes
+
+See [`types.ts`](./types.ts) for the canonical TypeScript shapes the
+parser emits. The front-end mirrors these in `src/data/local/types.ts`.
+
+Coalition handling follows the **primary-party credit** rule: the first
+canonical-party-id matched in the coalition string gets 100% of the
+votes credited in national rollups. Member ids are preserved on each
+record so the UI can show the full coalition on hover. Independent
+committees ("Инициативен комитет ...") bucket to the special
+`independent` canonical id.
+
+National vote rollup uses **council R1 votes only** — mayoral votes are
+person-centric, not party-centric, and conflating them with council
+votes would overweight charismatic independents. The per-município
+bundle keeps full mayor vote totals for display purposes; only the
+`index.json` `councilVoteShare` aggregate excludes them.

@@ -4,6 +4,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
@@ -16,12 +17,15 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  Landmark,
   Users,
 } from "lucide-react";
 import { FC, ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-type ElectionRow = {
+type ParliamentaryRow = {
+  kind: "parliamentary";
   name: string;
   local: string;
   winnerNick?: string;
@@ -30,15 +34,25 @@ type ElectionRow = {
   color?: string;
 };
 
+type LocalRow = {
+  kind: "local";
+  name: string;
+  local: string;
+};
+
+type ElectionRow = ParliamentaryRow | LocalRow;
+
 export const ElectionsSelect: FC = () => {
-  const { elections, selected, setSelected, stats } = useElectionContext();
+  const { elections, localElections, selected, setSelected, stats } =
+    useElectionContext();
   const { colorFor } = useCanonicalParties();
   const { t } = useTranslation();
   const isTouch = useTouch();
+  const navigate = useNavigate();
   const maybeHint = (text: string, node: ReactNode) =>
     isTouch ? node : <Hint text={text}>{node}</Hint>;
 
-  const rows: ElectionRow[] = useMemo(() => {
+  const parliamentaryRows: ParliamentaryRow[] = useMemo(() => {
     return elections.map((name) => {
       const info = stats.find((s) => s.name === name);
       const protocol = info?.results?.protocol;
@@ -58,6 +72,7 @@ export const ElectionsSelect: FC = () => {
           ? `${((protocol.totalActualVoters / protocol.numRegisteredVoters) * 100).toFixed(0)}%`
           : undefined;
       return {
+        kind: "parliamentary" as const,
         name,
         local: localDate(name),
         winnerNick: winner?.nickName,
@@ -68,9 +83,36 @@ export const ElectionsSelect: FC = () => {
     });
   }, [elections, stats, colorFor]);
 
+  // Local cycles use their own date string (round 1) for the display
+  // label rather than `localDate(name)`, which expects the YYYY_MM_DD
+  // parliamentary slug — our local names carry an `_mi` suffix.
+  const localRows: LocalRow[] = useMemo(() => {
+    return localElections
+      .slice()
+      .sort((a, b) => b.round1Date.localeCompare(a.round1Date))
+      .map((e) => ({
+        kind: "local" as const,
+        name: e.name,
+        local: localDate(e.round1Date.replace(/-/g, "_")),
+      }));
+  }, [localElections]);
+
+  // Next/prev arrows iterate parliamentary cycles only — per the design
+  // decision that locals appear in the dropdown but never become arrow
+  // targets.
   const currentIdx = elections.findIndex((v) => v === selected);
   const priorElection = elections[currentIdx + 1];
   const nextElection = currentIdx > 0 ? elections[currentIdx - 1] : undefined;
+
+  const onPickRow = (r: ElectionRow) => {
+    if (r.kind === "parliamentary") {
+      setSelected(r.name);
+    } else {
+      // Step 1 deliverable: local-cycle selection navigates to the cycle
+      // stub route (full overview screen is step 3).
+      navigate(`/local/${r.name}`);
+    }
+  };
 
   return (
     <div className="flex gap-1 items-center">
@@ -118,10 +160,10 @@ export const ElectionsSelect: FC = () => {
           align="start"
           className="min-w-[260px] max-h-96 overflow-y-auto"
         >
-          {rows.map((r) => (
+          {parliamentaryRows.map((r) => (
             <DropdownMenuItem
               key={r.name}
-              onSelect={() => setSelected(r.name)}
+              onSelect={() => onPickRow(r)}
               onMouseEnter={() => prefetchElection(r.name)}
               onFocus={() => prefetchElection(r.name)}
               className="relative flex w-full cursor-default select-none flex-col items-start gap-0.5 rounded-sm py-2 pl-3 pr-9"
@@ -157,6 +199,29 @@ export const ElectionsSelect: FC = () => {
               )}
             </DropdownMenuItem>
           ))}
+          {localRows.length > 0 ? (
+            <>
+              <DropdownMenuSeparator />
+              {localRows.map((r) => (
+                <DropdownMenuItem
+                  key={r.name}
+                  onSelect={() => onPickRow(r)}
+                  className="relative flex w-full cursor-default select-none flex-row items-center gap-2 rounded-sm py-2 pl-3 pr-9"
+                >
+                  <Landmark
+                    aria-hidden
+                    className="size-3.5 text-muted-foreground shrink-0"
+                  />
+                  <span className="flex-1 text-sm font-medium text-secondary-foreground tabular-nums">
+                    {r.local}
+                  </span>
+                  <span className="inline-flex items-center rounded-md border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                    {t("local_elections_badge")}
+                  </span>
+                </DropdownMenuItem>
+              ))}
+            </>
+          ) : null}
         </DropdownMenuContent>
       </DropdownMenu>
       {maybeHint(
