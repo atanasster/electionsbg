@@ -1,0 +1,14 @@
+{
+  "source": "МОН (Министерство на образованието и науката) via data.egov.bg",
+  "sourceUrl": "https://data.egov.bg/",
+  "indexName": "Per-school НВО (7th grade) + ДЗИ (12th grade) average scores",
+  "latestYear": null,
+  "subjects": {
+    "nvo_bel": { "bg": "НВО Български език и литература", "en": "NVO Bulgarian language" },
+    "nvo_math": { "bg": "НВО Математика", "en": "NVO Mathematics" },
+    "dzi_bel": { "bg": "ДЗИ Български език и литература", "en": "Matura Bulgarian language" },
+    "dzi_math": { "bg": "ДЗИ Математика", "en": "Matura Mathematics" }
+  },
+  "schoolsByObshtina": {},
+  "note": "Pending ingest. See scripts/schools/README.md for the planned scrape design. Each obshtina entry is an array of { id, name, address, scoresByYear: { 2024: { nvo_bel, nvo_math, dzi_bel, dzi_math } } }."
+}

@@ -3333,7 +3333,7 @@
   "grao_population_label": "Population (ГРАО)",
   "settlement_in_municipality": "in municipality",
   "settlement_in_municipality_short": "in municipality",
-  "about_my_area": "The new \"My Area\" page consolidates everything about your chosen settlement or municipality: MPs for your MIR, the mayor and council, Art. 53 transfers, capital programmes, EU-funded projects, census, indicators and more — all in one place. Reached via the crosshair icon in the top bar or directly via /my-area.",
+  "about_my_area": "The new \"My Area\" page consolidates everything about your chosen settlement or municipality: MPs for your MIR, the mayor and council, Art. 53 transfers, capital programmes, EU-funded projects, census, indicators and more — all in one place. Reached via the crosshair icon in the top bar or directly via /my-area. Additional layers (municipal transparency, schools, services, air quality, crime) appear automatically once their respective data is ingested.",
   "my_area_kmetstvo_mayor": "Village mayor (kметство)",
   "my_area_tax_receipt_title": "Where do my taxes go?",
   "my_area_tax_receipt_explainer": "Enter your annual gross income and see how your personal income tax (10%) is allocated across the government's functional spending categories.",
@@ -3343,5 +3343,15 @@
   "my_area_tax_receipt_loading": "Loading COFOG breakdown…",
   "my_area_transparency_title": "Local government transparency",
   "my_area_transparency_best": "Strongest pillar",
-  "my_area_transparency_worst": "Weakest pillar"
+  "my_area_transparency_worst": "Weakest pillar",
+  "my_area_schools_title": "Schools in this municipality",
+  "my_area_schools_best": "Best by average score",
+  "my_area_schools_worst": "Lowest by average score",
+  "my_area_schools_caveat": "Average of latest НВО (7th grade) + ДЗИ (matura) scores from МОН.",
+  "my_area_services_title": "Local services",
+  "my_area_services_more": "+ {{count}} more",
+  "my_area_air_title": "Air quality",
+  "my_area_air_caveat": "Readings from ИАОС + EEA stations. EU thresholds are colour-coded.",
+  "my_area_crime_title": "Registered crimes",
+  "my_area_crime_caveat": "Data is at the ОДМВР (oblast) level, not per municipality."
 }

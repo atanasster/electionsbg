@@ -1,0 +1,14 @@
+{
+  "source": "EEA + ИАОС (Изпълнителна агенция по околна среда)",
+  "indexName": "Air quality monitoring stations",
+  "pollutants": {
+    "pm10": { "bg": "ФПЧ10", "en": "PM10", "unit": "µg/m³", "euLimit": 50 },
+    "pm25": { "bg": "ФПЧ2.5", "en": "PM2.5", "unit": "µg/m³", "euLimit": 25 },
+    "no2": { "bg": "Азотен диоксид", "en": "NO₂", "unit": "µg/m³", "euLimit": 40 },
+    "o3": { "bg": "Озон", "en": "O₃", "unit": "µg/m³", "euLimit": 120 },
+    "so2": { "bg": "Серен диоксид", "en": "SO₂", "unit": "µg/m³", "euLimit": 125 }
+  },
+  "stations": [],
+  "snapshotAsOf": null,
+  "note": "Pending ingest. Stations entries will carry { id, name, loc, obshtina, latestReadings: { pm10, pm25, no2, ... } } — only municipalities containing at least one station show the tile."
+}

@@ -1,0 +1,16 @@
+{
+  "source": "МВР (Министерство на вътрешните работи)",
+  "indexName": "Crime statistics per Областна дирекция на МВР (RDVR)",
+  "grain": "oblast",
+  "categories": {
+    "property": { "bg": "Имуществени", "en": "Property" },
+    "violent": { "bg": "Тежки телесни", "en": "Violent" },
+    "drugs": { "bg": "Наркотици", "en": "Drugs" },
+    "traffic": { "bg": "Пътно-транспортни", "en": "Traffic" },
+    "fraud": { "bg": "Измами", "en": "Fraud" },
+    "other": { "bg": "Други", "en": "Other" }
+  },
+  "monthlyByOblast": {},
+  "latestMonth": null,
+  "note": "Pending ingest — МВР publishes monthly PDFs that require OCR (mirroring the Varna capital-programmes pipeline). See scripts/crime/README.md. Grain is oblast (28 units), not município, due to source limitations."
+}

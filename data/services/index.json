@@ -1,0 +1,14 @@
+{
+  "source": "Multiple registries: NHIF (GPs/specialists), МОН (schools), MoH/IAL (pharmacies), Български пощи",
+  "indexName": "Public services per municipality",
+  "categories": {
+    "gp": { "bg": "Личен лекар", "en": "GP" },
+    "specialist": { "bg": "Лекар-специалист", "en": "Specialist" },
+    "pharmacy": { "bg": "Аптека", "en": "Pharmacy" },
+    "school": { "bg": "Училище", "en": "School" },
+    "post": { "bg": "Поща", "en": "Post office" },
+    "kmetstvo": { "bg": "Кметство", "en": "Mayor's office" }
+  },
+  "servicesByObshtina": {},
+  "note": "Pending ingest. See scripts/services/README.md for the planned multi-source scrape."
+}

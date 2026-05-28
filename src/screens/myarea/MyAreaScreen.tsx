@@ -29,6 +29,10 @@ import { MyAreaUpcomingBallotTile } from "./MyAreaUpcomingBallotTile";
 import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
+import { MyAreaSchoolsTile } from "./MyAreaSchoolsTile";
+import { MyAreaServicesTile } from "./MyAreaServicesTile";
+import { MyAreaAirTile } from "./MyAreaAirTile";
+import { MyAreaCrimeTile } from "./MyAreaCrimeTile";
 
 // Lazy-load the heavy dashboard variants — most My-Area visits don't need
 // both, and the Suspense fallback shows skeletons identical to a direct
@@ -148,6 +152,14 @@ export const MyAreaScreen: FC = () => {
             municipal transparency score from transparency-bg.org. Renders
             nothing while data is missing (see scripts/transparency/). */}
         <MyAreaTransparencyTile obshtina={area.obshtina} />
+
+        {/* Scaffolded tiles for Phases 6/7/8/9 — all auto-hide until the
+            corresponding ingest skill populates their data file. See the
+            respective scripts/<source>/README.md for the planned scrape. */}
+        <MyAreaSchoolsTile obshtina={area.obshtina} />
+        <MyAreaServicesTile obshtina={area.obshtina} />
+        <MyAreaAirTile obshtina={area.obshtina} />
+        <MyAreaCrimeTile oblast={area.oblast} />
 
         {/* "Where do my taxes go" personalized receipt. Collapsed by
             default — the COFOG payload only fetches when the user expands.
