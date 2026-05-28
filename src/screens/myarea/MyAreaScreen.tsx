@@ -37,7 +37,6 @@ import { MyAreaCouncilMinutesTile } from "./MyAreaCouncilMinutesTile";
 import { MyAreaActionBand } from "./MyAreaActionBand";
 import { MyAreaGovernmentCard } from "./MyAreaGovernmentCard";
 import { MyAreaHistoryStrip } from "./MyAreaHistoryStrip";
-import { MyAreaPollingSectionTile } from "./MyAreaPollingSectionTile";
 
 export const MyAreaScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -138,14 +137,6 @@ export const MyAreaScreen: FC = () => {
             Auto-hides for non-parliamentary cycles, empty MIRs, or NSes
             with no important items in topic_index. */}
         <MyAreaImportantVotesTile oblast={area.oblast} />
-
-        {/* "Where do I vote?" — lists every CIK polling section assigned
-            to this settlement's ekatte for the currently-selected
-            election. Settlement-only. Auto-hides when no sections are
-            mapped (тираж settlements without their own section). */}
-        {area.kind === "settlement" ? (
-          <MyAreaPollingSectionTile oblast={area.oblast} ekatte={area.ekatte} />
-        ) : null}
 
         {/* Band C — Accountability. The freshest, most actionable
             signals about how the município is governed: recent activity,
