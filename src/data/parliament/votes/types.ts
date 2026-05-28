@@ -311,3 +311,31 @@ export interface PartyCorrelationFile {
   computedAt: string;
   byNs: Record<string, PartyCorrelationSlice>;
 }
+
+// Compact per-MP vote encoding used by the important-votes shard: y=yes,
+// n=no, a=abstain, x=absent. Saves ~10x over spelling out "abstain" etc.
+// in a ~240-MP matrix.
+export type CompactVote = "y" | "n" | "a" | "x";
+
+export interface ImportantVoteItem {
+  date: string;
+  item: number;
+  slug: string;
+  title: string;
+  topic: VoteTopic;
+  tally: { yes: number; no: number; abstain: number };
+  outcome: VoteOutcome;
+  /** Importance score that earned this row a slot — useful for debugging. */
+  score: number;
+  /** Per-MP vote map. Keyed by stringified mpId. */
+  mpVotes: Record<string, CompactVote>;
+}
+
+// Per-NS shard. Lives at derived/important_votes/{ns}.json — fetched
+// directly by NS so the SPA reads ~3-8 KB gzipped instead of the full
+// byNs envelope. Embeds the ns field so consumers can sanity-check.
+export interface ImportantVotesShard {
+  computedAt: string;
+  ns: string;
+  entries: ImportantVoteItem[];
+}

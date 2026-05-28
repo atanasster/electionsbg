@@ -19,6 +19,7 @@ import { computeCohesion } from "./cohesion";
 import { computeEmbedding } from "./embedding";
 import { computePartyCorrelation } from "./party_correlation";
 import { computeTopicIndex } from "./topic_index";
+import { computeImportantVotes } from "./important_votes";
 import { computeDissents } from "./dissents";
 import { computePartyPairBreaks } from "./party_pair_breaks";
 import { writeMpShards } from "./per_mp_shards";
@@ -173,6 +174,33 @@ const main = async (args: { upload: boolean }): Promise<void> => {
     `  ✓ ${nsKeys.map((k) => `${k}:${topicIndexByNs[k].entries.length}`).join(", ")} topic entries`,
   );
 
+  // Important-votes shards: the curated subset MyAreaImportantVotesTile
+  // needs per-MP votes for. Sharded per NS — each slice is the only one
+  // the tile ever consumes for a given election, so a per-NS file lets
+  // the SPA fetch ~3-8 KB gzipped instead of the full byNs envelope.
+  // Written compact (no indent) — mpVotes alone runs to ~3,600 chars per
+  // NS slice, and pretty-printing inflates that ~10×.
+  console.log(`→ computing important votes per NS (sharded)`);
+  let importantTotal = 0;
+  for (const ns of nsKeys) {
+    const slice = computeImportantVotes(byNs.get(ns)!);
+    fs.mkdirSync(path.join(DERIVED_DIR, "important_votes"), {
+      recursive: true,
+    });
+    fs.writeFileSync(
+      path.join(DERIVED_DIR, "important_votes", `${ns}.json`),
+      JSON.stringify({ computedAt: nowIso, ns, ...slice }),
+    );
+    importantTotal += slice.entries.length;
+  }
+  // Drop any legacy monolithic file from the prior layout so consumers
+  // don't accidentally fall back to it.
+  const legacyPath = path.join(DERIVED_DIR, "important_votes.json");
+  if (fs.existsSync(legacyPath)) fs.unlinkSync(legacyPath);
+  console.log(
+    `  ✓ ${importantTotal} important items across ${nsKeys.length} per-NS shards`,
+  );
+
   console.log(`→ computing per-MP dissents per NS`);
   const dissentsByNs: Record<string, ReturnType<typeof computeDissents>> = {};
   for (const ns of nsKeys) dissentsByNs[ns] = computeDissents(byNs.get(ns)!);
@@ -239,6 +267,13 @@ const main = async (args: { upload: boolean }): Promise<void> => {
         `parliament/votes/derived/${f}`,
       );
     }
+    // Important-votes shards: one tiny file per NS under
+    // derived/important_votes/<ns>.json. Same uploadTextTree flow as the
+    // per-MP shards.
+    await uploadTextTree(
+      path.join(DERIVED_DIR, "important_votes"),
+      "parliament/votes/derived/important_votes",
+    );
     // Per-MP shards live in per-mp/<ns>/<mpId>.json. ~2,400 files total
     // across the 9 ingested NSes (one per MP that ever cast a vote). On the
     // very first deploy after this code lands, expect ~2,400 net-new objects
