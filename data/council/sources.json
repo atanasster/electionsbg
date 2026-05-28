@@ -113,17 +113,17 @@
       "perCouncillor": false,
       "phase1Defer": true,
       "deferReason": "Legacy ObS/Resheniq directory listing returns 404; e-obs.online migration. Re-discover before scraping."
+    },
+    "SLV01": {
+      "name": "Община Сливен",
+      "tier": "A",
+      "indexUrl": "https://obs.sliven.bg/decisions",
+      "indexNote": "Upgraded from tier C to A on 2026-05-29: hash-named /uploads/<HEX32> PDFs are ABBYY FineReader 15 output with CLEAN Cyrillic text layer (unlike Sofia's FineReader 14 mojibake). One PDF per session bundles all decisions separated by 'Препис!' markers. The session date is encoded in the anchor label ('Взети решения на сесията на Общинския съвет на DD.MM.YYYY г.') since the hash filenames carry no metadata. ПРЕПИС-ИЗВЛЕЧЕНИЕ format = decision text only, NO vote tally published (same as Varna/Burgas/Plovdiv).",
+      "fetch": "static",
+      "format": "pdf-text",
+      "tallyStrategy": "none-published",
+      "perCouncillor": false
     }
   },
-  "phase3OcrCandidates": ["SZR01", "SLV01"],
-  "phase3Sliven": {
-    "obshtinaCode": "SLV01",
-    "name": "Община Сливен",
-    "tier": "C",
-    "indexUrl": "https://obs.sliven.bg/decisions",
-    "indexNote": "Per-vote published as scanned image PDFs with opaque hash filenames (/uploads/<HEX>). Selective publication. Phase 3 only.",
-    "format": "pdf-scan",
-    "tallyStrategy": "gemini-ocr",
-    "perCouncillor": false
-  }
+  "phase3OcrCandidates": []
 }
