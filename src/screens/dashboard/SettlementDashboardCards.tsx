@@ -145,7 +145,16 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
 
         <DashboardSection
           id="votes"
-          title={t("dashboard_section_votes")}
+          // On My-Area (compact) we render only the polling-sections map
+          // + top parties here; the MPs strip lives at the top of
+          // MyAreaScreen as its own block. The default title 'Votes & MPs'
+          // would mis-describe what's actually in this section. Use the
+          // shorter 'Votes' / 'Гласове' label in that mode.
+          title={t(
+            compact
+              ? "dashboard_section_votes_only"
+              : "dashboard_section_votes",
+          )}
           icon={Gauge}
         >
           <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">

@@ -3340,6 +3340,7 @@
   "my_area_section": "My Area",
   "my_area_full_election_breakdown_link": "Full election results breakdown →",
   "my_area_municipality_section_label": "Local government",
+  "dashboard_section_votes_only": "Votes",
   "my_area_iisda_mayors_source": "iisda.government.bg — Mayors of municipalities (Административен регистър): email addresses for 260 municipal mayors that power the \"Municipality contacts\" tile. Scraped from detail pages in the ID range 4400–4950 and matched to obshtina codes via municipalities.json.",
   "my_area_lisi_source": "Transparency International Bulgaria — Local Integrity System Index (LISI): 27 oblast-center municipalities scored across 9 institutional pillars (procurement, budget, council oversight, conflict of interest, citizen participation, audit, asset declarations, open data, integrity response), 0–5 scale. Powers the \"Local government transparency\" tile — 2024 national average 3.27, leaders Burgas 3.71 / Ruse 3.70 / Sofia 3.61.",
   "my_area_iaos_air_source": "ИАОС — air quality monitoring (data.egov.bg): quarterly per-pollutant CSVs for PM10 (47 stations) and PM2.5 (10 stations). Powers the \"Air quality\" tile; stations identified by name (\"София — Хиподрума\", \"Пловдив — Каменица\") and attached to municipalities via prefix parsing.",

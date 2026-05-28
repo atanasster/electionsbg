@@ -156,7 +156,15 @@ export const MunicipalityDashboardCards: FC<Props> = ({
 
         <DashboardSection
           id="votes"
-          title={t("dashboard_section_votes")}
+          // On My-Area (compact) the MPs strip lives at the top of
+          // MyAreaScreen as its own block — using the shorter 'Votes' /
+          // 'Гласове' label keeps the section title honest about what's
+          // actually rendered here (polling map + top parties only).
+          title={t(
+            compact
+              ? "dashboard_section_votes_only"
+              : "dashboard_section_votes",
+          )}
           icon={Gauge}
         >
           <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
