@@ -11,9 +11,11 @@ import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useTranslation } from "react-i18next";
 import {
   ArrowDown,
+  ArrowRightLeft,
   ArrowUp,
   Briefcase,
   Calendar,
+  Coins,
   ExternalLink,
   Landmark,
   MapPin,
@@ -30,6 +32,7 @@ import { ErrorSection } from "./components/ErrorSection";
 import { OfficialConnectionsSection } from "./components/OfficialConnectionsSection";
 import type {
   MpAssetCategory,
+  MpOwnershipStake,
   OfficialCategoryKind,
   OfficialDeclaration,
 } from "@/data/dataTypes";
@@ -153,6 +156,35 @@ export const OfficialProfileScreen: FC = () => {
           : null,
     };
   }, [latest, declarations]);
+
+  // Annual income rows from table 12 of the latest declaration — keep only
+  // rows where the declarant or spouse has a non-zero amount.
+  const incomeRows = useMemo(
+    () =>
+      (latest?.income ?? []).filter(
+        (r) =>
+          (r.amountEurDeclarant ?? 0) !== 0 || (r.amountEurSpouse ?? 0) !== 0,
+      ),
+    [latest],
+  );
+  const incomeTotalDeclarant = incomeRows.reduce(
+    (s, r) => s + (r.amountEurDeclarant ?? 0),
+    0,
+  );
+  const incomeTotalSpouse = incomeRows.reduce(
+    (s, r) => s + (r.amountEurSpouse ?? 0),
+    0,
+  );
+
+  // Ownership stakes from tables 10 (current) + 11 (transferred). Sorted so
+  // current holdings appear above transfers, then by company name.
+  const ownershipStakes: MpOwnershipStake[] = useMemo(() => {
+    const stakes = latest?.ownershipStakes ?? [];
+    return [...stakes].sort((a, b) => {
+      if (a.table !== b.table) return a.table === "10" ? -1 : 1;
+      return (a.companyName ?? "").localeCompare(b.companyName ?? "");
+    });
+  }, [latest]);
 
   if (officialLoading || declsLoading) {
     return (
@@ -373,7 +405,130 @@ export const OfficialProfileScreen: FC = () => {
             ) : null}
           </div>
         ) : null}
+
+        {incomeRows.length > 0 ? (
+          <div className="border-t pt-3 mt-3">
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2 flex items-center gap-2">
+              <Coins className="h-3.5 w-3.5" />
+              {t("mp_income_heading") || "Annual income"}
+              <span className="font-normal normal-case">
+                · {t("total") || "Total"}{" "}
+                {fmtEur(
+                  incomeTotalDeclarant + incomeTotalSpouse,
+                  i18n.language,
+                )}
+              </span>
+            </h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead className="text-muted-foreground">
+                  <tr className="border-b">
+                    <th className="text-left font-normal py-1 pr-2">
+                      {t("mp_income_category") || "Category"}
+                    </th>
+                    <th className="text-right font-normal py-1 px-2 tabular-nums">
+                      {t("mp_income_declarant") || "Declarant"}
+                    </th>
+                    <th className="text-right font-normal py-1 pl-2 tabular-nums">
+                      {t("mp_income_spouse") || "Spouse"}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {incomeRows.map((r, i) => (
+                    <tr key={i} className="border-b border-border/30">
+                      <td className="py-1 pr-2">{r.category ?? "—"}</td>
+                      <td className="py-1 px-2 text-right tabular-nums font-mono">
+                        {r.amountEurDeclarant
+                          ? fmtEur(r.amountEurDeclarant, i18n.language)
+                          : "—"}
+                      </td>
+                      <td className="py-1 pl-2 text-right tabular-nums font-mono">
+                        {r.amountEurSpouse
+                          ? fmtEur(r.amountEurSpouse, i18n.language)
+                          : "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ) : null}
       </section>
+
+      {ownershipStakes.length > 0 ? (
+        <section className="rounded-xl border bg-card p-4 shadow-sm">
+          <h2 className="text-base font-semibold flex items-center gap-2 mb-3">
+            <Briefcase className="h-4 w-4" />
+            {t("business_interests") || "Business interests"}
+            <span className="text-xs text-muted-foreground font-normal">
+              · {latestYear}
+            </span>
+          </h2>
+          <div>
+            {ownershipStakes.map((s, i) => {
+              const Icon = s.table === "11" ? ArrowRightLeft : Briefcase;
+              const subtitle = [s.itemType, s.registeredOffice]
+                .filter(Boolean)
+                .join(" · ");
+              const declarantBg = (latest?.declarantName ?? "").trim();
+              const holder = s.holderName?.trim() ?? null;
+              const heldByOther = !!(
+                holder && holder.toLowerCase() !== declarantBg.toLowerCase()
+              );
+              const valueParts: string[] = [];
+              if (s.shareSize) valueParts.push(s.shareSize);
+              if (s.valueEur != null)
+                valueParts.push(fmtEur(s.valueEur, i18n.language));
+              return (
+                <div
+                  key={`${s.table}-${i}`}
+                  className="grid grid-cols-[auto_1fr] gap-3 items-start py-2 border-b last:border-b-0"
+                >
+                  <Icon className="h-4 w-4 text-muted-foreground mt-0.5" />
+                  <div className="min-w-0">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <div className="text-sm font-medium truncate">
+                        {s.companySlug ? (
+                          <Link
+                            to={`/mp/company/${encodeURIComponent(s.companySlug)}`}
+                            className="hover:underline"
+                          >
+                            {s.companyName ?? "—"}
+                          </Link>
+                        ) : (
+                          (s.companyName ?? "—")
+                        )}
+                        {s.table === "11" && (
+                          <span className="ml-2 text-xs font-normal text-muted-foreground italic">
+                            {t("stake_transferred") || "transferred"}
+                          </span>
+                        )}
+                      </div>
+                      {valueParts.length > 0 && (
+                        <div className="text-xs tabular-nums font-mono shrink-0">
+                          {valueParts.join(" · ")}
+                        </div>
+                      )}
+                    </div>
+                    {subtitle && (
+                      <div className="text-xs text-muted-foreground truncate">
+                        {subtitle}
+                      </div>
+                    )}
+                    {heldByOther && holder && (
+                      <div className="text-xs text-muted-foreground italic truncate">
+                        {holder}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
 
       {slug ? <OfficialConnectionsSection slug={slug} /> : null}
 
