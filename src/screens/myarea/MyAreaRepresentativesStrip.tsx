@@ -20,6 +20,7 @@ import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
+import { useRegions } from "@/data/regions/useRegions";
 import { Link } from "@/ux/Link";
 import { initials, normalizeMpName as normalize } from "@/lib/utils";
 import { useCycleKind } from "@/data/area/useCycleKind";
@@ -45,6 +46,7 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
   const { lookup: lookupParliamentGroup } = useParliamentGroups();
   const { displayNameFor } = useCanonicalParties();
   const { mpName } = useCandidateName();
+  const { findRegion } = useRegions();
 
   // Non-parliamentary cycles don't seat MPs of their own — leave the strip
   // empty rather than guessing. The Mayor & council section below the hero
@@ -149,11 +151,27 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
           );
         })}
       </div>
-      <p className="text-[10px] text-muted-foreground mt-3">
-        {lang === "bg"
-          ? `Народни представители за МИР ${mir} (${cycle.slug})`
-          : `MPs for MIR ${mir} (${cycle.slug})`}
-      </p>
+      {/* Caption surfaces the region context with a link to the regional
+          dashboard, so users see exactly which area this MP list
+          represents and can click through to its full page. */}
+      {(() => {
+        const region = findRegion(oblast);
+        const regionName = region
+          ? lang === "bg"
+            ? region.long_name || region.name
+            : region.long_name_en || region.name_en
+          : null;
+        return (
+          <p className="text-[10px] text-muted-foreground mt-3">
+            {lang === "bg" ? "Народни представители за " : "MPs for "}
+            <Link to={`/municipality/${oblast}`} underline>
+              МИР {mir}
+              {regionName ? ` · ${regionName}` : ""}
+            </Link>{" "}
+            ({cycle.slug})
+          </p>
+        );
+      })()}
     </Card>
   );
 };

@@ -29,6 +29,9 @@ import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 import { MunicipalMayorTile } from "@/screens/dashboard/MunicipalMayorTile";
 import { MunicipalCouncilCompositionTile } from "@/screens/dashboard/MunicipalCouncilCompositionTile";
 import { MunicipalOfficialsRosterTile } from "@/screens/dashboard/MunicipalOfficialsRosterTile";
+import { Landmark } from "lucide-react";
+import { Link } from "@/ux/Link";
+import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
 import { MyAreaSchoolsTile } from "./MyAreaSchoolsTile";
@@ -162,15 +165,20 @@ export const MyAreaScreen: FC = () => {
             section — so a user looking at с. Пролеша would never see
             who governs община Божурище. Surface the parent município's
             mayor / council / roster here too so the chain
-            kметство → община → МИР is fully visible. */}
+            kметство → община → МИР is fully visible.
+
+            The heading line above the block names the município and
+            links to its dedicated page so the user knows which place
+            the data describes, with a one-click drill-up. */}
         {area.kind === "settlement" ? (
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-            <MunicipalMayorTile obshtinaCode={area.obshtina} />
-            <MunicipalCouncilCompositionTile obshtinaCode={area.obshtina} />
-          </div>
-        ) : null}
-        {area.kind === "settlement" ? (
-          <MunicipalOfficialsRosterTile obshtinaCode={area.obshtina} />
+          <>
+            <MyAreaMuniSectionHeading obshtina={area.obshtina} />
+            <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+              <MunicipalMayorTile obshtinaCode={area.obshtina} />
+              <MunicipalCouncilCompositionTile obshtinaCode={area.obshtina} />
+            </div>
+            <MunicipalOfficialsRosterTile obshtinaCode={area.obshtina} />
+          </>
         ) : null}
 
         {/* TI-BG Local Integrity System Index — composite + 9-pillar
@@ -239,5 +247,33 @@ export const MyAreaScreen: FC = () => {
         </Suspense>
       </section>
     </>
+  );
+};
+
+// Small heading + link line that introduces the município-level tile
+// block on the settlement view. Tells the user the next three tiles
+// describe the parent община, with a click-through to its dedicated page.
+const MyAreaMuniSectionHeading: FC<{ obshtina: string }> = ({ obshtina }) => {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language === "bg" ? "bg" : "en";
+  const { findMunicipality } = useMunicipalities();
+  const m = findMunicipality(obshtina);
+  if (!m) return null;
+  const muniName = lang === "bg" ? m.name : m.name_en;
+  return (
+    <div className="flex items-center gap-2 mt-2">
+      <Landmark className="size-4 text-primary" />
+      <h2 className="text-sm font-semibold flex items-baseline gap-2">
+        {t("my_area_municipality_section_label")}
+        <span className="text-xs font-normal text-muted-foreground">·</span>
+        <Link
+          to={`/settlement/${obshtina}`}
+          underline
+          className="text-sm font-semibold"
+        >
+          {lang === "bg" ? `община ${muniName}` : `${muniName} municipality`}
+        </Link>
+      </h2>
+    </div>
   );
 };
