@@ -1,0 +1,47 @@
+{
+  "source": "transparency-bg.org",
+  "sourceUrl": "https://transparency-bg.org",
+  "indexName": "Local Integrity System Index (LISI)",
+  "year": null,
+  "nationalAverage": null,
+  "pillarLabels": {
+    "procurement_transparency": {
+      "bg": "Прозрачност на обществените поръчки",
+      "en": "Procurement transparency"
+    },
+    "budget_transparency": {
+      "bg": "Бюджетна прозрачност",
+      "en": "Budget transparency"
+    },
+    "council_oversight": {
+      "bg": "Надзор от общинския съвет",
+      "en": "Council oversight"
+    },
+    "conflict_of_interest": {
+      "bg": "Конфликт на интереси",
+      "en": "Conflict of interest enforcement"
+    },
+    "citizen_participation": {
+      "bg": "Гражданско участие",
+      "en": "Citizen participation"
+    },
+    "audit": {
+      "bg": "Одит",
+      "en": "Audit"
+    },
+    "asset_declarations": {
+      "bg": "Декларации за имущество",
+      "en": "Asset declarations"
+    },
+    "public_data": {
+      "bg": "Публични данни",
+      "en": "Public data"
+    },
+    "integrity_response": {
+      "bg": "Реакция при сигнали",
+      "en": "Integrity response"
+    }
+  },
+  "scoresByObshtina": {},
+  "note": "Pending ingest. See scripts/transparency/README.md for the planned scrape design. When `update-municipal-transparency` runs, this file is rewritten with per-município composite scores + nine pillar sub-scores + national rank."
+}

@@ -28,6 +28,7 @@ import { MyAreaRepresentativesStrip } from "./MyAreaRepresentativesStrip";
 import { MyAreaUpcomingBallotTile } from "./MyAreaUpcomingBallotTile";
 import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
+import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
 
 // Lazy-load the heavy dashboard variants — most My-Area visits don't need
 // both, and the Suspense fallback shows skeletons identical to a direct
@@ -142,6 +143,11 @@ export const MyAreaScreen: FC = () => {
             obshtina={area.obshtina}
           />
         ) : null}
+
+        {/* TI-BG Local Integrity System Index — composite + 9-pillar
+            municipal transparency score from transparency-bg.org. Renders
+            nothing while data is missing (see scripts/transparency/). */}
+        <MyAreaTransparencyTile obshtina={area.obshtina} />
 
         {/* "Where do my taxes go" personalized receipt. Collapsed by
             default — the COFOG payload only fetches when the user expands.
