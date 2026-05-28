@@ -89,9 +89,17 @@ const SkeletonCard: FC<{ className?: string }> = ({
 
 type Props = {
   municipalityCode: string;
+  /** Compact mode hides election-deep-dive tiles (HistoricalTrendsTile +
+   *  the whole anomalies section) and surfaces a "Full elections
+   *  breakdown →" link. Used by MyAreaScreen. See the matching prop on
+   *  SettlementDashboardCards for the rationale. */
+  compact?: boolean;
 };
 
-export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
+export const MunicipalityDashboardCards: FC<Props> = ({
+  municipalityCode,
+  compact,
+}) => {
   const { t } = useTranslation();
   const { electionStats } = useElectionContext();
   const { data, isLoading } = useMunicipalitySummary(municipalityCode);
@@ -164,7 +172,18 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
               basePath={basePath}
             />
           ) : null}
-          <HistoricalTrendsTile stats={stats} />
+          {/* Multi-cycle time-series goes to the dedicated muni page
+              in compact mode (My-Area). */}
+          {compact ? (
+            <a
+              href={`/settlement/${municipalityCode}`}
+              className="text-xs text-primary underline self-start"
+            >
+              {t("my_area_full_election_breakdown_link")}
+            </a>
+          ) : (
+            <HistoricalTrendsTile stats={stats} />
+          )}
         </DashboardSection>
 
         <DashboardSection
@@ -236,27 +255,32 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           <IpopExecutionTile obshtinaCode={municipalityCode} />
         </DashboardSection>
 
-        <DashboardSection
-          id="anomalies"
-          title={t("dashboard_section_anomalies")}
-          icon={AlertTriangle}
-        >
-          <FlashMemoryTile
-            parties={data.parties}
-            results={municipality?.results}
-            basePath={basePath}
-          />
-          <SuspiciousSectionsTile
-            parties={data.parties}
-            municipalityCode={municipalityCode}
-          />
-          <RecountTile
-            parties={data.parties}
-            results={municipality?.results}
-            original={municipality?.original}
-            basePath={basePath}
-          />
-        </DashboardSection>
+        {/* Anomalies section is election forensics — hidden in compact
+            (My-Area) mode; the "Full elections breakdown →" link in the
+            votes section above covers the click-through. */}
+        {compact ? null : (
+          <DashboardSection
+            id="anomalies"
+            title={t("dashboard_section_anomalies")}
+            icon={AlertTriangle}
+          >
+            <FlashMemoryTile
+              parties={data.parties}
+              results={municipality?.results}
+              basePath={basePath}
+            />
+            <SuspiciousSectionsTile
+              parties={data.parties}
+              municipalityCode={municipalityCode}
+            />
+            <RecountTile
+              parties={data.parties}
+              results={municipality?.results}
+              original={municipality?.original}
+              basePath={basePath}
+            />
+          </DashboardSection>
+        )}
 
         {muniHasProblemSections ? (
           <DashboardSection

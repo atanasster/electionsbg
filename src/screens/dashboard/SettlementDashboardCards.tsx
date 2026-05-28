@@ -77,9 +77,16 @@ const SkeletonCard: FC<{ className?: string }> = ({
 
 type Props = {
   ekatte: string;
+  /** Compact mode hides election-deep-dive tiles (HistoricalTrendsTile +
+   *  the whole anomalies section: FlashMemory / SuspiciousSections /
+   *  Recount) and surfaces a "See full elections breakdown →" link to
+   *  the dedicated /sections/<ekatte> page. Used by MyAreaScreen — the
+   *  My-Area dashboard is the civic-engagement landing, not the
+   *  election forensic deep-dive. */
+  compact?: boolean;
 };
 
-export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
+export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
   const { t } = useTranslation();
   const { electionStats } = useElectionContext();
   const { data, isLoading } = useSettlementSummary(ekatte);
@@ -152,7 +159,18 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
               basePath={basePath}
             />
           ) : null}
-          <HistoricalTrendsTile stats={stats} />
+          {/* Multi-cycle time-series belongs on the dedicated election
+              page — in compact mode (My-Area) we surface a link instead. */}
+          {compact ? (
+            <a
+              href={`/sections/${ekatte}`}
+              className="text-xs text-primary underline self-start"
+            >
+              {t("my_area_full_election_breakdown_link")}
+            </a>
+          ) : (
+            <HistoricalTrendsTile stats={stats} />
+          )}
         </DashboardSection>
 
         <DashboardSection
@@ -164,24 +182,31 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
           <CensusDemographicsTile regionCode={ekatte} isSettlement />
         </DashboardSection>
 
-        <DashboardSection
-          id="anomalies"
-          title={t("dashboard_section_anomalies")}
-          icon={AlertTriangle}
-        >
-          <FlashMemoryTile
-            parties={data.parties}
-            results={settlement?.results}
-            basePath={basePath}
-          />
-          <SuspiciousSectionsTile parties={data.parties} ekatte={ekatte} />
-          <RecountTile
-            parties={data.parties}
-            results={settlement?.results}
-            original={settlement?.original}
-            basePath={basePath}
-          />
-        </DashboardSection>
+        {/* Anomalies section (FlashMemory / Suspicious / Recount) is
+            election forensics — power-user material that belongs on the
+            dedicated settlement page, not the My-Area civic landing.
+            Compact mode skips it; the "Full elections breakdown →" link
+            inside the votes section covers the click-through. */}
+        {compact ? null : (
+          <DashboardSection
+            id="anomalies"
+            title={t("dashboard_section_anomalies")}
+            icon={AlertTriangle}
+          >
+            <FlashMemoryTile
+              parties={data.parties}
+              results={settlement?.results}
+              basePath={basePath}
+            />
+            <SuspiciousSectionsTile parties={data.parties} ekatte={ekatte} />
+            <RecountTile
+              parties={data.parties}
+              results={settlement?.results}
+              original={settlement?.original}
+              basePath={basePath}
+            />
+          </DashboardSection>
+        )}
 
         {obshtinaCode ? (
           <DashboardSection

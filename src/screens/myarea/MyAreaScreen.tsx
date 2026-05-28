@@ -229,9 +229,12 @@ export const MyAreaScreen: FC = () => {
           }
         >
           {area.kind === "settlement" ? (
-            <SettlementDashboardCards ekatte={area.ekatte} />
+            <SettlementDashboardCards ekatte={area.ekatte} compact />
           ) : (
-            <MunicipalityDashboardCards municipalityCode={area.obshtina} />
+            <MunicipalityDashboardCards
+              municipalityCode={area.obshtina}
+              compact
+            />
           )}
         </Suspense>
       </section>
