@@ -24,9 +24,11 @@ import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
 import { useCycleKind } from "@/data/area/useCycleKind";
 import { Link } from "@/ux/Link";
+import { Tooltip } from "@/ux/Tooltip";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { initials } from "@/lib/utils";
 import { useAreaImportantVotes } from "@/data/myarea/useAreaImportantVotes";
+import { useMpSignals } from "@/data/myarea/useMpSignals";
 import type {
   VoteValue,
   VoteOutcome,
@@ -38,12 +40,14 @@ type Props = {
 };
 
 // Match the palette used in RollcallHeatmap / SessionVoteHemicycle so the
-// circles read consistently across the site.
+// circles read consistently across the site. `absent` is a touch darker
+// than the standard #9ca3af (gray-400) — on a small avatar the lighter
+// shade was visually identical to "no ring at all".
 const VOTE_COLOR: Record<VoteValue, string> = {
   yes: "#10b981",
   no: "#ef4444",
   abstain: "#f59e0b",
-  absent: "#9ca3af",
+  absent: "#6b7280",
 };
 
 const VOTE_LABEL_KEY: Record<VoteValue, string> = {
@@ -90,6 +94,7 @@ const outcomeToneClass = (outcome: VoteOutcome): string => {
 type MpRow = {
   mp: MpIndexEntry;
   displayName: string;
+  partyLabel: string;
   partyColor: string;
 };
 
@@ -99,7 +104,7 @@ export const MyAreaImportantVotesTile: FC<Props> = ({ oblast }) => {
   const { selected } = useElectionContext();
   const cycle = useCycleKind();
   const { findMpsByRegion } = useMps();
-  const { lookup: lookupParliamentGroup } = useParliamentGroups();
+  const { colorForPartyShort, labelForPartyShort } = useParliamentGroups();
   const { mpName } = useCandidateName();
 
   const isParliamentaryCycle = cycle.kind === "parliament";
@@ -112,14 +117,29 @@ export const MyAreaImportantVotesTile: FC<Props> = ({ oblast }) => {
   const mpRows: MpRow[] = useMemo(() => {
     if (!nsFolder || !mir) return [];
     return findMpsByRegion(mir, nsFolder).map((mp) => {
-      const groupOverride = lookupParliamentGroup(mp.currentPartyGroupShort);
-      const partyColor = groupOverride?.color ?? "#888";
-      return { mp, displayName: mpName(mp), partyColor };
+      // colorForPartyShort + labelForPartyShort already walk parliament_groups
+      // overrides → canonical_parties with whitespace/dash variants, so they
+      // resolve solid groups like "ГЕРБ – СДС" that the bare override lookup
+      // misses (those only have explicit entries for split coalitions).
+      const partyColor =
+        colorForPartyShort(mp.currentPartyGroupShort) ?? "#888";
+      const partyLabel = labelForPartyShort(mp.currentPartyGroupShort) || "—";
+      return { mp, displayName: mpName(mp), partyLabel, partyColor };
     });
-  }, [nsFolder, mir, findMpsByRegion, lookupParliamentGroup, mpName]);
+  }, [
+    nsFolder,
+    mir,
+    findMpsByRegion,
+    colorForPartyShort,
+    labelForPartyShort,
+    mpName,
+  ]);
 
   const mpIds = useMemo(() => mpRows.map((r) => r.mp.id), [mpRows]);
   const { items, isLoading } = useAreaImportantVotes(mpIds);
+  // Attendance / dissent signals — same fetch the strip above already
+  // made, so this is free from React Query's cache.
+  const signals = useMpSignals(mpIds);
 
   if (!isParliamentaryCycle || !mir || mpRows.length === 0) return null;
   if (!isLoading && items.length === 0) return null;
@@ -198,40 +218,96 @@ export const MyAreaImportantVotesTile: FC<Props> = ({ oblast }) => {
                 <span className="line-clamp-2">{it.title}</span>
                 <ChevronRight className="size-3 mt-0.5 shrink-0 opacity-50 group-hover:opacity-100 transition-opacity" />
               </Link>
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-1.5">
                 {mpRows.map((row) => {
                   const vote = it.mpVotes.get(row.mp.id) ?? "absent";
                   const voteColor = VOTE_COLOR[vote];
                   const voteLabel = t(VOTE_LABEL_KEY[vote]);
+                  const sig = signals.get(row.mp.id);
+                  const attendanceLabel = sig?.attendance
+                    ? lang === "bg"
+                      ? sig.attendance.label_bg
+                      : sig.attendance.label_en
+                    : null;
+                  const dissentLabel = sig?.dissent
+                    ? lang === "bg"
+                      ? sig.dissent.label_bg
+                      : sig.dissent.label_en
+                    : null;
                   const aria = `${row.displayName} — ${voteLabel}`;
                   return (
-                    <Link
+                    <Tooltip
                       key={row.mp.id}
-                      to={candidateUrlForMp(row.mp.id)}
-                      underline={false}
-                      aria-label={aria}
-                      title={aria}
-                      className="block"
+                      content={
+                        <div className="flex flex-col gap-1.5">
+                          <div className="font-semibold leading-tight">
+                            {row.displayName}
+                          </div>
+                          <div>
+                            {/* Colored chip — matches the CandidateNamesake
+                                pattern in src/screens/components/candidates/
+                                CandidateNamesakeChooser.tsx so party labels
+                                look consistent across the site. */}
+                            <span
+                              className="inline-block text-[10px] font-medium rounded px-1.5 py-0.5 text-white leading-none"
+                              style={{ backgroundColor: row.partyColor }}
+                            >
+                              {row.partyLabel}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                            <span
+                              className="inline-block h-2.5 w-2.5 rounded-full"
+                              style={{ backgroundColor: voteColor }}
+                            />
+                            <span
+                              className="text-xs font-medium"
+                              style={{ color: voteColor }}
+                            >
+                              {voteLabel}
+                            </span>
+                          </div>
+                          {attendanceLabel || dissentLabel ? (
+                            <div className="text-[10px] text-muted-foreground mt-0.5">
+                              {attendanceLabel}
+                              {attendanceLabel && dissentLabel ? " · " : ""}
+                              {dissentLabel}
+                            </div>
+                          ) : null}
+                          <div className="text-[10px] text-muted-foreground mt-1 italic">
+                            {lang === "bg"
+                              ? "Натиснете за профил"
+                              : "Click for profile"}
+                          </div>
+                        </div>
+                      }
                     >
-                      <Avatar
-                        className="h-6 w-6 ring-2 shrink-0 hover:scale-110 transition-transform"
-                        style={{ ["--tw-ring-color" as string]: voteColor }}
+                      <Link
+                        to={candidateUrlForMp(row.mp.id)}
+                        underline={false}
+                        aria-label={aria}
+                        className="block"
                       >
-                        {row.mp.photoUrl ? (
-                          <AvatarImage
-                            src={row.mp.photoUrl}
-                            alt={row.displayName}
-                            className="object-cover"
-                          />
-                        ) : null}
-                        <AvatarFallback
-                          className="text-[8px] font-bold text-white"
-                          style={{ backgroundColor: row.partyColor }}
+                        <Avatar
+                          className="h-7 w-7 shrink-0 ring-[3px] ring-offset-1 ring-offset-card hover:scale-110 transition-transform"
+                          style={{ ["--tw-ring-color" as string]: voteColor }}
                         >
-                          {initials(row.displayName)}
-                        </AvatarFallback>
-                      </Avatar>
-                    </Link>
+                          {row.mp.photoUrl ? (
+                            <AvatarImage
+                              src={row.mp.photoUrl}
+                              alt={row.displayName}
+                              className="object-cover"
+                            />
+                          ) : null}
+                          <AvatarFallback
+                            className="text-[9px] font-bold text-white"
+                            style={{ backgroundColor: row.partyColor }}
+                          >
+                            {initials(row.displayName)}
+                          </AvatarFallback>
+                        </Avatar>
+                      </Link>
+                    </Tooltip>
                   );
                 })}
               </div>
@@ -240,16 +316,14 @@ export const MyAreaImportantVotesTile: FC<Props> = ({ oblast }) => {
         })}
       </div>
 
-      {/* Legend — once at the bottom, not per row. */}
+      {/* Legend — once at the bottom, not per row. Solid swatches match
+          the avatar ring weight (3px) so the small dots remain readable. */}
       <div className="mt-3 pt-2 border-t flex flex-wrap gap-3 text-[10px] text-muted-foreground">
         {(["yes", "no", "abstain", "absent"] as VoteValue[]).map((v) => (
-          <span key={v} className="flex items-center gap-1">
+          <span key={v} className="flex items-center gap-1.5">
             <span
-              className="inline-block h-2.5 w-2.5 rounded-full ring-2"
-              style={{
-                ["--tw-ring-color" as string]: VOTE_COLOR[v],
-                backgroundColor: "var(--card)",
-              }}
+              className="inline-block h-3 w-3 rounded-full"
+              style={{ backgroundColor: VOTE_COLOR[v] }}
             />
             {t(VOTE_LABEL_KEY[v])}
           </span>
