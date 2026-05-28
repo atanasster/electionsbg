@@ -1,58 +1,16 @@
 // "What's next on the ballot" tile — Ballotpedia-style forward-looking
-// calendar. Phase 1 ships a hardcoded next-known-elections list since the
-// data isn't worth a new ingest yet:
-//   - mi2027 (autumn 2027, exact date TBA — placeholder Oct 24, 2027)
-//   - 53rd NS regular term would end Jul 2030 (placeholder)
-//   - next EP cycle: Jun 2029 (placeholder)
-//   - presidential: Nov 2026
-//
-// These are *anchors* — the moment the actual decree is published we'll
-// swap them. Marked `confidence: "scheduled" | "estimated"` so the UI can
-// disclose which.
+// calendar. The election anchors live in
+// src/data/myarea/upcomingElections.ts (shared with MyAreaActionBand).
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { CalendarClock } from "lucide-react";
 import { Card } from "@/components/ui/card";
-
-type UpcomingElection = {
-  /** ISO date — "2026-11-15". */
-  date: string;
-  /** What kind. Translated via the key {@link kind}_label. */
-  kind: "parliament" | "presidential" | "european" | "local";
-  confidence: "scheduled" | "estimated";
-};
-
-// Hand-curated list — kept short on purpose. Anything more than the next
-// 3 events is noise. Sort ascending by date.
-const UPCOMING: UpcomingElection[] = [
-  { date: "2026-11-08", kind: "presidential", confidence: "estimated" },
-  { date: "2027-10-24", kind: "local", confidence: "estimated" },
-  { date: "2029-06-06", kind: "european", confidence: "estimated" },
-];
-
-const daysUntil = (iso: string): number => {
-  const target = new Date(iso + "T00:00:00Z").getTime();
-  const now = Date.now();
-  return Math.ceil((target - now) / (1000 * 60 * 60 * 24));
-};
-
-const formatBgDate = (iso: string): string => {
-  const d = new Date(iso + "T00:00:00Z");
-  return new Intl.DateTimeFormat("bg-BG", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(d);
-};
-const formatEnDate = (iso: string): string => {
-  const d = new Date(iso + "T00:00:00Z");
-  return new Intl.DateTimeFormat("en-GB", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(d);
-};
+import {
+  UPCOMING_ELECTIONS,
+  daysUntil,
+  formatLongDate,
+} from "@/data/myarea/upcomingElections";
 
 export const MyAreaUpcomingBallotTile: FC = () => {
   const { t, i18n } = useTranslation();
@@ -63,7 +21,7 @@ export const MyAreaUpcomingBallotTile: FC = () => {
   // near-term event by sitting in the same list. The cap effectively
   // hides distant EP / parliamentary placeholders until the actual
   // decree gets within a year.
-  const visible = UPCOMING.filter((e) => {
+  const visible = UPCOMING_ELECTIONS.filter((e) => {
     const d = daysUntil(e.date);
     return d >= 0 && d <= 365;
   }).slice(0, 3);
@@ -80,12 +38,8 @@ export const MyAreaUpcomingBallotTile: FC = () => {
       <ul className="flex flex-col gap-2">
         {visible.map((e) => {
           const days = daysUntil(e.date);
-          const label =
-            lang === "bg"
-              ? t(`election_kind_${e.kind}`)
-              : t(`election_kind_${e.kind}`);
-          const dateLabel =
-            lang === "bg" ? formatBgDate(e.date) : formatEnDate(e.date);
+          const label = t(`election_kind_${e.kind}`);
+          const dateLabel = formatLongDate(e.date, lang);
           return (
             <li
               key={e.date + e.kind}

@@ -46,6 +46,7 @@ import { MyAreaAlertsTile } from "./MyAreaAlertsTile";
 import { MyAreaSofiaRaionStrip } from "./MyAreaSofiaRaionStrip";
 import { MyAreaContactsTile } from "./MyAreaContactsTile";
 import { MyAreaCouncilMinutesTile } from "./MyAreaCouncilMinutesTile";
+import { MyAreaActionBand } from "./MyAreaActionBand";
 
 export const MyAreaScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -128,6 +129,13 @@ export const MyAreaScreen: FC = () => {
             </p>
           </Card>
         ) : null}
+
+        {/* Action band — single high-priority "what to notice now" card.
+            Selector (useNextAction) picks one of: imminent election /
+            recent council vote / recent procurement red flag / default
+            countdown. Always renders one card so the band never feels
+            empty. See src/data/myarea/useNextAction.ts for priorities. */}
+        <MyAreaActionBand obshtina={area.obshtina} />
 
         <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
           <MyAreaRepresentativesStrip oblast={area.oblast} />
