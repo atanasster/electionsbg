@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T17:01:23.589Z",
+  "generatedAt": "2026-05-28T08:38:01.670Z",
   "country": "BG",
   "fiscalYear": 2024,
   "asOf": "2024-12-31",
@@ -12,7 +12,7 @@
   "lines": [
     {
       "id": "pit_employment_net",
-      "labelBg": "Ддфл от трудови правоотношения (нетно)",
+      "labelBg": "ДДФЛ от трудови правоотношения (нетно)",
       "labelEn": "Personal income tax — employment (net)",
       "amount": 5143300000,
       "amountEur": 2629727533,
@@ -29,7 +29,7 @@
     },
     {
       "id": "emp_revision_act",
-      "labelBg": "Плащане по Ра",
+      "labelBg": "Плащане по РА",
       "labelEn": "Payment by revision act",
       "amount": 2400000,
       "amountEur": 1227101,
@@ -38,7 +38,7 @@
     },
     {
       "id": "emp_interest",
-      "labelBg": "Плащане на лихви за Ддфл",
+      "labelBg": "Плащане на лихви за ДДФЛ",
       "labelEn": "Interest payments",
       "amount": 11000000,
       "amountEur": 5624211,
@@ -47,7 +47,7 @@
     },
     {
       "id": "emp_past_years",
-      "labelBg": "Плащане на Ддфл за минали години",
+      "labelBg": "Плащане на ДДФЛ за минали години",
       "labelEn": "Past-year arrears",
       "amount": 69900000,
       "amountEur": 35739302,
@@ -65,7 +65,7 @@
     },
     {
       "id": "pit_nonemployment_net",
-      "labelBg": "Ддфл от извънтрудови правоотношения (нетно)",
+      "labelBg": "ДДФЛ от извънтрудови правоотношения (нетно)",
       "labelEn": "Personal income tax — non-employment (net)",
       "amount": 463300000,
       "amountEur": 236881529,
@@ -91,7 +91,7 @@
     },
     {
       "id": "non_revision_act",
-      "labelBg": "Плащане по Ра",
+      "labelBg": "Плащане по РА",
       "labelEn": "Payment by revision act",
       "amount": 8000000,
       "amountEur": 4090335,
@@ -100,7 +100,7 @@
     },
     {
       "id": "non_interest",
-      "labelBg": "Плащане на лихви за Ддфл",
+      "labelBg": "Плащане на лихви за ДДФЛ",
       "labelEn": "Interest payments",
       "amount": 11500000,
       "amountEur": 5879857,

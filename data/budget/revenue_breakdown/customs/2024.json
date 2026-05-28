@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T17:01:22.723Z",
+  "generatedAt": "2026-05-28T08:37:37.092Z",
   "country": "BG",
   "fiscalYear": 2024,
   "asOf": "2024-12-31",
@@ -12,7 +12,7 @@
   "lines": [
     {
       "id": "total_collected",
-      "labelBg": "Общи постъпления (акцизи, Ддс при внос, мита, глоби)",
+      "labelBg": "Общи постъпления (акцизи, ДДС при внос, мита, глоби)",
       "labelEn": "Total collections (excise, import VAT, customs, fines)",
       "amount": 13803100000,
       "amountEur": 7057412965,
@@ -95,7 +95,7 @@
     },
     {
       "id": "import_vat_total",
-      "labelBg": "Ддс при внос",
+      "labelBg": "ДДС при внос",
       "labelEn": "Import VAT",
       "amount": 6551300000,
       "amountEur": 3349626501,
@@ -135,7 +135,7 @@
       "sharePct": 5.6
     },
     {
-      "name": "Сащ",
+      "name": "САЩ",
       "amount": 13400000,
       "amountEur": 6851311,
       "sharePct": 4.2

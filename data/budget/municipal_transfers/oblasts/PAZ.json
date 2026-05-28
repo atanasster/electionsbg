@@ -4,2278 +4,2278 @@
   "oblastNameEn": "Pazardzhik",
   "years": [
     {
-      "fiscalYear": 2020,
       "asOf": "2020-01-01",
-      "source": {
-        "documentId": "law-2020",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
-      },
-      "oblastTotals": {
-        "total": {
-          "amount": 164154400,
-          "currency": "BGN",
-          "amountEur": 83930812
-        },
-        "delegated": {
-          "amount": 138874600,
-          "currency": "BGN",
-          "amountEur": 71005456
-        },
-        "equalization": {
-          "amount": 18216100,
-          "currency": "BGN",
-          "amountEur": 9313746
-        },
-        "winter": {
-          "amount": 1137000,
-          "currency": "BGN",
-          "amountEur": 581340
-        },
-        "capital": {
-          "amount": 5926700,
-          "currency": "BGN",
-          "amountEur": 3030273
-        },
-        "otherTargeted": {
-          "amount": 0,
-          "currency": "BGN",
-          "amountEur": 0
-        }
-      },
+      "fiscalYear": 2020,
       "municipalities": [
         {
-          "ekatte": "55155",
-          "obshtinaCode": "PAZ19",
-          "nameBg": "Пазарджик",
-          "nameEn": "Pazardzhik",
-          "total": {
-            "amount": 64450600,
-            "currency": "BGN",
-            "amountEur": 32953069
+          "capital": {
+            "amount": 1690600,
+            "amountEur": 864390,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 55616600,
-            "currency": "BGN",
-            "amountEur": 28436316
+            "amountEur": 28436316,
+            "currency": "BGN"
           },
+          "ekatte": "55155",
           "equalization": {
             "amount": 6903000,
-            "currency": "BGN",
-            "amountEur": 3529448
+            "amountEur": 3529448,
+            "currency": "BGN"
+          },
+          "nameBg": "Пазарджик",
+          "nameEn": "Pazardzhik",
+          "obshtinaCode": "PAZ19",
+          "otherTargeted": null,
+          "total": {
+            "amount": 64450600,
+            "amountEur": 32953069,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 240400,
-            "currency": "BGN",
-            "amountEur": 122915
-          },
-          "capital": {
-            "amount": 1690600,
-            "currency": "BGN",
-            "amountEur": 864390
-          },
-          "otherTargeted": null
+            "amountEur": 122915,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "10450",
-          "obshtinaCode": "PAZ08",
-          "nameBg": "Велинград",
-          "nameEn": "Velingrad",
-          "total": {
-            "amount": 23802600,
-            "currency": "BGN",
-            "amountEur": 12170076
+          "capital": {
+            "amount": 746500,
+            "amountEur": 381679,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 20804700,
-            "currency": "BGN",
-            "amountEur": 10637274
+            "amountEur": 10637274,
+            "currency": "BGN"
           },
+          "ekatte": "10450",
           "equalization": {
             "amount": 2155700,
-            "currency": "BGN",
-            "amountEur": 1102192
+            "amountEur": 1102192,
+            "currency": "BGN"
+          },
+          "nameBg": "Велинград",
+          "nameEn": "Velingrad",
+          "obshtinaCode": "PAZ08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 23802600,
+            "amountEur": 12170076,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 95700,
-            "currency": "BGN",
-            "amountEur": 48931
-          },
-          "capital": {
-            "amount": 746500,
-            "currency": "BGN",
-            "amountEur": 381679
-          },
-          "otherTargeted": null
+            "amountEur": 48931,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "66264",
-          "obshtinaCode": "PAZ29",
-          "nameBg": "Септември",
-          "nameEn": "Septemvri",
-          "total": {
-            "amount": 14420300,
-            "currency": "BGN",
-            "amountEur": 7372982
+          "capital": {
+            "amount": 621300,
+            "amountEur": 317666,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 11629700,
-            "currency": "BGN",
-            "amountEur": 5946171
+            "amountEur": 5946171,
+            "currency": "BGN"
           },
+          "ekatte": "66264",
           "equalization": {
             "amount": 2035500,
-            "currency": "BGN",
-            "amountEur": 1040735
+            "amountEur": 1040735,
+            "currency": "BGN"
+          },
+          "nameBg": "Септември",
+          "nameEn": "Septemvri",
+          "obshtinaCode": "PAZ29",
+          "otherTargeted": null,
+          "total": {
+            "amount": 14420300,
+            "amountEur": 7372982,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 133800,
-            "currency": "BGN",
-            "amountEur": 68411
-          },
-          "capital": {
-            "amount": 621300,
-            "currency": "BGN",
-            "amountEur": 317666
-          },
-          "otherTargeted": null
+            "amountEur": 68411,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "55302",
-          "obshtinaCode": "PAZ20",
-          "nameBg": "Панагюрище",
-          "nameEn": "Panagyurishte",
-          "total": {
-            "amount": 12307200,
-            "currency": "BGN",
-            "amountEur": 6292571
+          "capital": {
+            "amount": 477100,
+            "amountEur": 243937,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 10426500,
-            "currency": "BGN",
-            "amountEur": 5330985
+            "amountEur": 5330985,
+            "currency": "BGN"
           },
+          "ekatte": "55302",
           "equalization": {
             "amount": 1310900,
-            "currency": "BGN",
-            "amountEur": 670253
+            "amountEur": 670253,
+            "currency": "BGN"
+          },
+          "nameBg": "Панагюрище",
+          "nameEn": "Panagyurishte",
+          "obshtinaCode": "PAZ20",
+          "otherTargeted": null,
+          "total": {
+            "amount": 12307200,
+            "amountEur": 6292571,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 92700,
-            "currency": "BGN",
-            "amountEur": 47397
-          },
-          "capital": {
-            "amount": 477100,
-            "currency": "BGN",
-            "amountEur": 243937
-          },
-          "otherTargeted": null
+            "amountEur": 47397,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "62004",
-          "obshtinaCode": "PAZ24",
-          "nameBg": "Ракитово",
-          "nameEn": "Rakitovo",
-          "total": {
-            "amount": 10751600,
-            "currency": "BGN",
-            "amountEur": 5497206
+          "capital": {
+            "amount": 374600,
+            "amountEur": 191530,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8740200,
-            "currency": "BGN",
-            "amountEur": 4468793
+            "amountEur": 4468793,
+            "currency": "BGN"
           },
+          "ekatte": "62004",
           "equalization": {
             "amount": 1483500,
-            "currency": "BGN",
-            "amountEur": 758502
+            "amountEur": 758502,
+            "currency": "BGN"
+          },
+          "nameBg": "Ракитово",
+          "nameEn": "Rakitovo",
+          "obshtinaCode": "PAZ24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 10751600,
+            "amountEur": 5497206,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 153300,
-            "currency": "BGN",
-            "amountEur": 78381
-          },
-          "capital": {
-            "amount": 374600,
-            "currency": "BGN",
-            "amountEur": 191530
-          },
-          "otherTargeted": null
+            "amountEur": 78381,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "56277",
-          "obshtinaCode": "PAZ21",
-          "nameBg": "Пещера",
-          "nameEn": "Peshtera",
-          "total": {
-            "amount": 10449500,
-            "currency": "BGN",
-            "amountEur": 5342745
+          "capital": {
+            "amount": 285500,
+            "amountEur": 145974,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 9181800,
-            "currency": "BGN",
-            "amountEur": 4694580
+            "amountEur": 4694580,
+            "currency": "BGN"
           },
+          "ekatte": "56277",
           "equalization": {
             "amount": 916000,
-            "currency": "BGN",
-            "amountEur": 468343
+            "amountEur": 468343,
+            "currency": "BGN"
+          },
+          "nameBg": "Пещера",
+          "nameEn": "Peshtera",
+          "obshtinaCode": "PAZ21",
+          "otherTargeted": null,
+          "total": {
+            "amount": 10449500,
+            "amountEur": 5342745,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 66200,
-            "currency": "BGN",
-            "amountEur": 33848
-          },
-          "capital": {
-            "amount": 285500,
-            "currency": "BGN",
-            "amountEur": 145974
-          },
-          "otherTargeted": null
+            "amountEur": 33848,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "06207",
-          "obshtinaCode": "PAZ06",
-          "nameBg": "Брацигово",
-          "nameEn": "Bratsigovo",
-          "total": {
-            "amount": 5877700,
-            "currency": "BGN",
-            "amountEur": 3005220
+          "capital": {
+            "amount": 366200,
+            "amountEur": 187235,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4600900,
-            "currency": "BGN",
-            "amountEur": 2352403
+            "amountEur": 2352403,
+            "currency": "BGN"
           },
+          "ekatte": "06207",
           "equalization": {
             "amount": 819800,
-            "currency": "BGN",
-            "amountEur": 419157
+            "amountEur": 419157,
+            "currency": "BGN"
+          },
+          "nameBg": "Брацигово",
+          "nameEn": "Bratsigovo",
+          "obshtinaCode": "PAZ06",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5877700,
+            "amountEur": 3005220,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 90800,
-            "currency": "BGN",
-            "amountEur": 46425
-          },
-          "capital": {
-            "amount": 366200,
-            "currency": "BGN",
-            "amountEur": 187235
-          },
-          "otherTargeted": null
+            "amountEur": 46425,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "02837",
-          "obshtinaCode": "PAZ03",
-          "nameBg": "Батак",
-          "nameEn": "Batak",
-          "total": {
-            "amount": 5430900,
-            "currency": "BGN",
-            "amountEur": 2776775
+          "capital": {
+            "amount": 287600,
+            "amountEur": 147048,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4631800,
-            "currency": "BGN",
-            "amountEur": 2368202
+            "amountEur": 2368202,
+            "currency": "BGN"
           },
+          "ekatte": "02837",
           "equalization": {
             "amount": 422300,
-            "currency": "BGN",
-            "amountEur": 215919
+            "amountEur": 215919,
+            "currency": "BGN"
+          },
+          "nameBg": "Батак",
+          "nameEn": "Batak",
+          "obshtinaCode": "PAZ03",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5430900,
+            "amountEur": 2776775,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 89200,
-            "currency": "BGN",
-            "amountEur": 45607
-          },
-          "capital": {
-            "amount": 287600,
-            "currency": "BGN",
-            "amountEur": 147048
-          },
-          "otherTargeted": null
+            "amountEur": 45607,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "03592",
-          "obshtinaCode": "PAZ04",
-          "nameBg": "Белово",
-          "nameEn": "Belovo",
-          "total": {
-            "amount": 5084000,
-            "currency": "BGN",
-            "amountEur": 2599408
+          "capital": {
+            "amount": 321200,
+            "amountEur": 164227,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4090200,
-            "currency": "BGN",
-            "amountEur": 2091286
+            "amountEur": 2091286,
+            "currency": "BGN"
           },
+          "ekatte": "03592",
           "equalization": {
             "amount": 636200,
-            "currency": "BGN",
-            "amountEur": 325284
+            "amountEur": 325284,
+            "currency": "BGN"
+          },
+          "nameBg": "Белово",
+          "nameEn": "Belovo",
+          "obshtinaCode": "PAZ04",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5084000,
+            "amountEur": 2599408,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 36400,
-            "currency": "BGN",
-            "amountEur": 18611
-          },
-          "capital": {
-            "amount": 321200,
-            "currency": "BGN",
-            "amountEur": 164227
-          },
-          "otherTargeted": null
+            "amountEur": 18611,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "43369",
-          "obshtinaCode": "PAZ14",
-          "nameBg": "Лесичово",
-          "nameEn": "Lesichovo",
-          "total": {
-            "amount": 4376500,
-            "currency": "BGN",
-            "amountEur": 2237669
+          "capital": {
+            "amount": 344800,
+            "amountEur": 176293,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3236100,
-            "currency": "BGN",
-            "amountEur": 1654592
+            "amountEur": 1654592,
+            "currency": "BGN"
           },
+          "ekatte": "43369",
           "equalization": {
             "amount": 715000,
-            "currency": "BGN",
-            "amountEur": 365574
+            "amountEur": 365574,
+            "currency": "BGN"
+          },
+          "nameBg": "Лесичово",
+          "nameEn": "Lesichovo",
+          "obshtinaCode": "PAZ14",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4376500,
+            "amountEur": 2237669,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 80600,
-            "currency": "BGN",
-            "amountEur": 41210
-          },
-          "capital": {
-            "amount": 344800,
-            "currency": "BGN",
-            "amountEur": 176293
-          },
-          "otherTargeted": null
+            "amountEur": 41210,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "70648",
-          "obshtinaCode": "PAZ39",
-          "nameBg": "Сърница",
-          "nameEn": "Sarnitsa",
-          "total": {
-            "amount": 4037000,
-            "currency": "BGN",
-            "amountEur": 2064085
+          "capital": {
+            "amount": 184300,
+            "amountEur": 94231,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3354500,
-            "currency": "BGN",
-            "amountEur": 1715129
+            "amountEur": 1715129,
+            "currency": "BGN"
           },
+          "ekatte": "70648",
           "equalization": {
             "amount": 466000,
-            "currency": "BGN",
-            "amountEur": 238262
+            "amountEur": 238262,
+            "currency": "BGN"
+          },
+          "nameBg": "Сърница",
+          "nameEn": "Sarnitsa",
+          "obshtinaCode": "PAZ39",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4037000,
+            "amountEur": 2064085,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 32200,
-            "currency": "BGN",
-            "amountEur": 16464
-          },
-          "capital": {
-            "amount": 184300,
-            "currency": "BGN",
-            "amountEur": 94231
-          },
-          "otherTargeted": null
+            "amountEur": 16464,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "69835",
-          "obshtinaCode": "PAZ32",
-          "nameBg": "Стрелча",
-          "nameEn": "Strelcha",
-          "total": {
-            "amount": 3166500,
-            "currency": "BGN",
-            "amountEur": 1619006
+          "capital": {
+            "amount": 227000,
+            "amountEur": 116063,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 2561600,
-            "currency": "BGN",
-            "amountEur": 1309725
+            "amountEur": 1309725,
+            "currency": "BGN"
           },
+          "ekatte": "69835",
           "equalization": {
             "amount": 352200,
-            "currency": "BGN",
-            "amountEur": 180077
+            "amountEur": 180077,
+            "currency": "BGN"
+          },
+          "nameBg": "Стрелча",
+          "nameEn": "Strelcha",
+          "obshtinaCode": "PAZ32",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3166500,
+            "amountEur": 1619006,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 25700,
-            "currency": "BGN",
-            "amountEur": 13140
-          },
-          "capital": {
-            "amount": 227000,
-            "currency": "BGN",
-            "amountEur": 116063
-          },
-          "otherTargeted": null
+            "amountEur": 13140,
+            "currency": "BGN"
+          }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2022,
-      "asOf": "2022-01-01",
-      "source": {
-        "documentId": "law-2022",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 212715800,
-          "currency": "BGN",
-          "amountEur": 108759862
+        "capital": {
+          "amount": 5926700,
+          "amountEur": 3030273,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 181138900,
-          "currency": "BGN",
-          "amountEur": 92614849
+          "amount": 138874600,
+          "amountEur": 71005456,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 21495800,
-          "currency": "BGN",
-          "amountEur": 10990629
-        },
-        "winter": {
-          "amount": 1303600,
-          "currency": "BGN",
-          "amountEur": 666521
-        },
-        "capital": {
-          "amount": 8777500,
-          "currency": "BGN",
-          "amountEur": 4487864
+          "amount": 18216100,
+          "amountEur": 9313746,
+          "currency": "BGN"
         },
         "otherTargeted": {
           "amount": 0,
-          "currency": "BGN",
-          "amountEur": 0
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 164154400,
+          "amountEur": 83930812,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1137000,
+          "amountEur": 581340,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2020",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2022-01-01",
+      "fiscalYear": 2022,
       "municipalities": [
         {
-          "ekatte": "55155",
-          "obshtinaCode": "PAZ19",
-          "nameBg": "Пазарджик",
-          "nameEn": "Pazardzhik",
-          "total": {
-            "amount": 82119400,
-            "currency": "BGN",
-            "amountEur": 41986983
+          "capital": {
+            "amount": 2516400,
+            "amountEur": 1286615,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 71636300,
-            "currency": "BGN",
-            "amountEur": 36627059
+            "amountEur": 36627059,
+            "currency": "BGN"
           },
+          "ekatte": "55155",
           "equalization": {
             "amount": 7707300,
-            "currency": "BGN",
-            "amountEur": 3940680
+            "amountEur": 3940680,
+            "currency": "BGN"
+          },
+          "nameBg": "Пазарджик",
+          "nameEn": "Pazardzhik",
+          "obshtinaCode": "PAZ19",
+          "otherTargeted": null,
+          "total": {
+            "amount": 82119400,
+            "amountEur": 41986983,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 259400,
-            "currency": "BGN",
-            "amountEur": 132629
-          },
-          "capital": {
-            "amount": 2516400,
-            "currency": "BGN",
-            "amountEur": 1286615
-          },
-          "otherTargeted": null
+            "amountEur": 132629,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "10450",
-          "obshtinaCode": "PAZ08",
-          "nameBg": "Велинград",
-          "nameEn": "Velingrad",
-          "total": {
-            "amount": 31656100,
-            "currency": "BGN",
-            "amountEur": 16185507
+          "capital": {
+            "amount": 1104300,
+            "amountEur": 564620,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 27959600,
-            "currency": "BGN",
-            "amountEur": 14295516
+            "amountEur": 14295516,
+            "currency": "BGN"
           },
+          "ekatte": "10450",
           "equalization": {
             "amount": 2491700,
-            "currency": "BGN",
-            "amountEur": 1273986
+            "amountEur": 1273986,
+            "currency": "BGN"
+          },
+          "nameBg": "Велинград",
+          "nameEn": "Velingrad",
+          "obshtinaCode": "PAZ08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 31656100,
+            "amountEur": 16185507,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 100500,
-            "currency": "BGN",
-            "amountEur": 51385
-          },
-          "capital": {
-            "amount": 1104300,
-            "currency": "BGN",
-            "amountEur": 564620
-          },
-          "otherTargeted": null
+            "amountEur": 51385,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "66264",
-          "obshtinaCode": "PAZ29",
-          "nameBg": "Септември",
-          "nameEn": "Septemvri",
-          "total": {
-            "amount": 19056400,
-            "currency": "BGN",
-            "amountEur": 9743383
+          "capital": {
+            "amount": 932700,
+            "amountEur": 476882,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 15573400,
-            "currency": "BGN",
-            "amountEur": 7962553
+            "amountEur": 7962553,
+            "currency": "BGN"
           },
+          "ekatte": "66264",
           "equalization": {
             "amount": 2403400,
-            "currency": "BGN",
-            "amountEur": 1228839
+            "amountEur": 1228839,
+            "currency": "BGN"
+          },
+          "nameBg": "Септември",
+          "nameEn": "Septemvri",
+          "obshtinaCode": "PAZ29",
+          "otherTargeted": null,
+          "total": {
+            "amount": 19056400,
+            "amountEur": 9743383,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 146900,
-            "currency": "BGN",
-            "amountEur": 75109
-          },
-          "capital": {
-            "amount": 932700,
-            "currency": "BGN",
-            "amountEur": 476882
-          },
-          "otherTargeted": null
+            "amountEur": 75109,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "55302",
-          "obshtinaCode": "PAZ20",
-          "nameBg": "Панагюрище",
-          "nameEn": "Panagyurishte",
-          "total": {
-            "amount": 16122000,
-            "currency": "BGN",
-            "amountEur": 8243048
+          "capital": {
+            "amount": 709900,
+            "amountEur": 362966,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 13499100,
-            "currency": "BGN",
-            "amountEur": 6901980
+            "amountEur": 6901980,
+            "currency": "BGN"
           },
+          "ekatte": "55302",
           "equalization": {
             "amount": 1809800,
-            "currency": "BGN",
-            "amountEur": 925336
+            "amountEur": 925336,
+            "currency": "BGN"
+          },
+          "nameBg": "Панагюрище",
+          "nameEn": "Panagyurishte",
+          "obshtinaCode": "PAZ20",
+          "otherTargeted": null,
+          "total": {
+            "amount": 16122000,
+            "amountEur": 8243048,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 103200,
-            "currency": "BGN",
-            "amountEur": 52765
-          },
-          "capital": {
-            "amount": 709900,
-            "currency": "BGN",
-            "amountEur": 362966
-          },
-          "otherTargeted": null
+            "amountEur": 52765,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "62004",
-          "obshtinaCode": "PAZ24",
-          "nameBg": "Ракитово",
-          "nameEn": "Rakitovo",
-          "total": {
-            "amount": 13725000,
-            "currency": "BGN",
-            "amountEur": 7017481
+          "capital": {
+            "amount": 546300,
+            "amountEur": 279319,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 11300200,
-            "currency": "BGN",
-            "amountEur": 5777701
+            "amountEur": 5777701,
+            "currency": "BGN"
           },
+          "ekatte": "62004",
           "equalization": {
             "amount": 1701400,
-            "currency": "BGN",
-            "amountEur": 869912
+            "amountEur": 869912,
+            "currency": "BGN"
+          },
+          "nameBg": "Ракитово",
+          "nameEn": "Rakitovo",
+          "obshtinaCode": "PAZ24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 13725000,
+            "amountEur": 7017481,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 177100,
-            "currency": "BGN",
-            "amountEur": 90550
-          },
-          "capital": {
-            "amount": 546300,
-            "currency": "BGN",
-            "amountEur": 279319
-          },
-          "otherTargeted": null
+            "amountEur": 90550,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "56277",
-          "obshtinaCode": "PAZ21",
-          "nameBg": "Пещера",
-          "nameEn": "Peshtera",
-          "total": {
-            "amount": 13415100,
-            "currency": "BGN",
-            "amountEur": 6859032
+          "capital": {
+            "amount": 425200,
+            "amountEur": 217401,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 11765400,
-            "currency": "BGN",
-            "amountEur": 6015553
+            "amountEur": 6015553,
+            "currency": "BGN"
           },
+          "ekatte": "56277",
           "equalization": {
             "amount": 1140600,
-            "currency": "BGN",
-            "amountEur": 583180
+            "amountEur": 583180,
+            "currency": "BGN"
+          },
+          "nameBg": "Пещера",
+          "nameEn": "Peshtera",
+          "obshtinaCode": "PAZ21",
+          "otherTargeted": null,
+          "total": {
+            "amount": 13415100,
+            "amountEur": 6859032,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 83900,
-            "currency": "BGN",
-            "amountEur": 42897
-          },
-          "capital": {
-            "amount": 425200,
-            "currency": "BGN",
-            "amountEur": 217401
-          },
-          "otherTargeted": null
+            "amountEur": 42897,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "06207",
-          "obshtinaCode": "PAZ06",
-          "nameBg": "Брацигово",
-          "nameEn": "Bratsigovo",
-          "total": {
-            "amount": 7480000,
-            "currency": "BGN",
-            "amountEur": 3824463
+          "capital": {
+            "amount": 531600,
+            "amountEur": 271803,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5830900,
-            "currency": "BGN",
-            "amountEur": 2981292
+            "amountEur": 2981292,
+            "currency": "BGN"
           },
+          "ekatte": "06207",
           "equalization": {
             "amount": 1016100,
-            "currency": "BGN",
-            "amountEur": 519524
+            "amountEur": 519524,
+            "currency": "BGN"
+          },
+          "nameBg": "Брацигово",
+          "nameEn": "Bratsigovo",
+          "obshtinaCode": "PAZ06",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7480000,
+            "amountEur": 3824463,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 101400,
-            "currency": "BGN",
-            "amountEur": 51845
-          },
-          "capital": {
-            "amount": 531600,
-            "currency": "BGN",
-            "amountEur": 271803
-          },
-          "otherTargeted": null
+            "amountEur": 51845,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "02837",
-          "obshtinaCode": "PAZ03",
-          "nameBg": "Батак",
-          "nameEn": "Batak",
-          "total": {
-            "amount": 7199000,
-            "currency": "BGN",
-            "amountEur": 3680790
+          "capital": {
+            "amount": 413400,
+            "amountEur": 211368,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6104700,
-            "currency": "BGN",
-            "amountEur": 3121284
+            "amountEur": 3121284,
+            "currency": "BGN"
           },
+          "ekatte": "02837",
           "equalization": {
             "amount": 578000,
-            "currency": "BGN",
-            "amountEur": 295527
+            "amountEur": 295527,
+            "currency": "BGN"
+          },
+          "nameBg": "Батак",
+          "nameEn": "Batak",
+          "obshtinaCode": "PAZ03",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7199000,
+            "amountEur": 3680790,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 102900,
-            "currency": "BGN",
-            "amountEur": 52612
-          },
-          "capital": {
-            "amount": 413400,
-            "currency": "BGN",
-            "amountEur": 211368
-          },
-          "otherTargeted": null
+            "amountEur": 52612,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "03592",
-          "obshtinaCode": "PAZ04",
-          "nameBg": "Белово",
-          "nameEn": "Belovo",
-          "total": {
-            "amount": 6674300,
-            "currency": "BGN",
-            "amountEur": 3412515
+          "capital": {
+            "amount": 463900,
+            "amountEur": 237188,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5334400,
-            "currency": "BGN",
-            "amountEur": 2727435
+            "amountEur": 2727435,
+            "currency": "BGN"
           },
+          "ekatte": "03592",
           "equalization": {
             "amount": 835900,
-            "currency": "BGN",
-            "amountEur": 427389
+            "amountEur": 427389,
+            "currency": "BGN"
+          },
+          "nameBg": "Белово",
+          "nameEn": "Belovo",
+          "obshtinaCode": "PAZ04",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6674300,
+            "amountEur": 3412515,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 40100,
-            "currency": "BGN",
-            "amountEur": 20503
-          },
-          "capital": {
-            "amount": 463900,
-            "currency": "BGN",
-            "amountEur": 237188
-          },
-          "otherTargeted": null
+            "amountEur": 20503,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "43369",
-          "obshtinaCode": "PAZ14",
-          "nameBg": "Лесичово",
-          "nameEn": "Lesichovo",
-          "total": {
-            "amount": 5801400,
-            "currency": "BGN",
-            "amountEur": 2966209
+          "capital": {
+            "amount": 501900,
+            "amountEur": 256617,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4465800,
-            "currency": "BGN",
-            "amountEur": 2283327
+            "amountEur": 2283327,
+            "currency": "BGN"
           },
+          "ekatte": "43369",
           "equalization": {
             "amount": 745800,
-            "currency": "BGN",
-            "amountEur": 381321
+            "amountEur": 381321,
+            "currency": "BGN"
+          },
+          "nameBg": "Лесичово",
+          "nameEn": "Lesichovo",
+          "obshtinaCode": "PAZ14",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5801400,
+            "amountEur": 2966209,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 87900,
-            "currency": "BGN",
-            "amountEur": 44943
-          },
-          "capital": {
-            "amount": 501900,
-            "currency": "BGN",
-            "amountEur": 256617
-          },
-          "otherTargeted": null
+            "amountEur": 44943,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "70648",
-          "obshtinaCode": "PAZ39",
-          "nameBg": "Сърница",
-          "nameEn": "Sarnitsa",
-          "total": {
-            "amount": 5117300,
-            "currency": "BGN",
-            "amountEur": 2616434
+          "capital": {
+            "amount": 306800,
+            "amountEur": 156864,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4190700,
-            "currency": "BGN",
-            "amountEur": 2142671
+            "amountEur": 2142671,
+            "currency": "BGN"
           },
+          "ekatte": "70648",
           "equalization": {
             "amount": 547300,
-            "currency": "BGN",
-            "amountEur": 279830
+            "amountEur": 279830,
+            "currency": "BGN"
+          },
+          "nameBg": "Сърница",
+          "nameEn": "Sarnitsa",
+          "obshtinaCode": "PAZ39",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5117300,
+            "amountEur": 2616434,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 72500,
-            "currency": "BGN",
-            "amountEur": 37069
-          },
-          "capital": {
-            "amount": 306800,
-            "currency": "BGN",
-            "amountEur": 156864
-          },
-          "otherTargeted": null
+            "amountEur": 37069,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "69835",
-          "obshtinaCode": "PAZ32",
-          "nameBg": "Стрелча",
-          "nameEn": "Strelcha",
-          "total": {
-            "amount": 4349800,
-            "currency": "BGN",
-            "amountEur": 2224017
+          "capital": {
+            "amount": 325100,
+            "amountEur": 166221,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3478400,
-            "currency": "BGN",
-            "amountEur": 1778478
+            "amountEur": 1778478,
+            "currency": "BGN"
           },
+          "ekatte": "69835",
           "equalization": {
             "amount": 518500,
-            "currency": "BGN",
-            "amountEur": 265105
+            "amountEur": 265105,
+            "currency": "BGN"
+          },
+          "nameBg": "Стрелча",
+          "nameEn": "Strelcha",
+          "obshtinaCode": "PAZ32",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4349800,
+            "amountEur": 2224017,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 27800,
-            "currency": "BGN",
-            "amountEur": 14214
-          },
-          "capital": {
-            "amount": 325100,
-            "currency": "BGN",
-            "amountEur": 166221
-          },
-          "otherTargeted": null
+            "amountEur": 14214,
+            "currency": "BGN"
+          }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2023,
-      "asOf": "2023-01-01",
-      "source": {
-        "documentId": "law-2023",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 260074400,
-          "currency": "BGN",
-          "amountEur": 132973928
+        "capital": {
+          "amount": 8777500,
+          "amountEur": 4487864,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 224036100,
-          "currency": "BGN",
-          "amountEur": 114547838
+          "amount": 181138900,
+          "amountEur": 92614849,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 22268700,
-          "currency": "BGN",
-          "amountEur": 11385805
-        },
-        "winter": {
-          "amount": 1300800,
-          "currency": "BGN",
-          "amountEur": 665089
-        },
-        "capital": {
-          "amount": 12468800,
-          "currency": "BGN",
-          "amountEur": 6375197
+          "amount": 21495800,
+          "amountEur": 10990629,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1368800,
-          "currency": "BGN",
-          "amountEur": 699856
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 212715800,
+          "amountEur": 108759862,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1303600,
+          "amountEur": 666521,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2022",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+      }
+    },
+    {
+      "asOf": "2023-01-01",
+      "fiscalYear": 2023,
       "municipalities": [
         {
-          "ekatte": "55155",
-          "obshtinaCode": "PAZ19",
-          "nameBg": "Пазарджик",
-          "nameEn": "Pazardzhik",
-          "total": {
-            "amount": 99592400,
-            "currency": "BGN",
-            "amountEur": 50920786
+          "capital": {
+            "amount": 3516600,
+            "amountEur": 1798009,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 88111200,
-            "currency": "BGN",
-            "amountEur": 45050541
+            "amountEur": 45050541,
+            "currency": "BGN"
           },
+          "ekatte": "55155",
           "equalization": {
             "amount": 7708100,
-            "currency": "BGN",
-            "amountEur": 3941089
+            "amountEur": 3941089,
+            "currency": "BGN"
+          },
+          "nameBg": "Пазарджик",
+          "nameEn": "Pazardzhik",
+          "obshtinaCode": "PAZ19",
+          "otherTargeted": {
+            "amount": 451900,
+            "amountEur": 231053,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 99592400,
+            "amountEur": 50920786,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 256500,
-            "currency": "BGN",
-            "amountEur": 131146
-          },
-          "capital": {
-            "amount": 3516600,
-            "currency": "BGN",
-            "amountEur": 1798009
-          },
-          "otherTargeted": {
-            "amount": 451900,
-            "currency": "BGN",
-            "amountEur": 231053
+            "amountEur": 131146,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "10450",
-          "obshtinaCode": "PAZ08",
-          "nameBg": "Велинград",
-          "nameEn": "Velingrad",
-          "total": {
-            "amount": 38386900,
-            "currency": "BGN",
-            "amountEur": 19626910
+          "capital": {
+            "amount": 1620500,
+            "amountEur": 828548,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 34172900,
-            "currency": "BGN",
-            "amountEur": 17472326
+            "amountEur": 17472326,
+            "currency": "BGN"
           },
+          "ekatte": "10450",
           "equalization": {
             "amount": 2492500,
-            "currency": "BGN",
-            "amountEur": 1274395
+            "amountEur": 1274395,
+            "currency": "BGN"
+          },
+          "nameBg": "Велинград",
+          "nameEn": "Velingrad",
+          "obshtinaCode": "PAZ08",
+          "otherTargeted": {
+            "amount": 119200,
+            "amountEur": 60946,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 38386900,
+            "amountEur": 19626910,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 101000,
-            "currency": "BGN",
-            "amountEur": 51640
-          },
-          "capital": {
-            "amount": 1620500,
-            "currency": "BGN",
-            "amountEur": 828548
-          },
-          "otherTargeted": {
-            "amount": 119200,
-            "currency": "BGN",
-            "amountEur": 60946
+            "amountEur": 51640,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "66264",
-          "obshtinaCode": "PAZ29",
-          "nameBg": "Септември",
-          "nameEn": "Septemvri",
-          "total": {
-            "amount": 23466100,
-            "currency": "BGN",
-            "amountEur": 11998026
+          "capital": {
+            "amount": 1340000,
+            "amountEur": 685131,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 19480500,
-            "currency": "BGN",
-            "amountEur": 9960221
+            "amountEur": 9960221,
+            "currency": "BGN"
           },
+          "ekatte": "66264",
           "equalization": {
             "amount": 2498900,
-            "currency": "BGN",
-            "amountEur": 1277667
+            "amountEur": 1277667,
+            "currency": "BGN"
+          },
+          "nameBg": "Септември",
+          "nameEn": "Septemvri",
+          "obshtinaCode": "PAZ29",
+          "otherTargeted": {
+            "amount": 64900,
+            "amountEur": 33183,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 23466100,
+            "amountEur": 11998026,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 146700,
-            "currency": "BGN",
-            "amountEur": 75007
-          },
-          "capital": {
-            "amount": 1340000,
-            "currency": "BGN",
-            "amountEur": 685131
-          },
-          "otherTargeted": {
-            "amount": 64900,
-            "currency": "BGN",
-            "amountEur": 33183
+            "amountEur": 75007,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "55302",
-          "obshtinaCode": "PAZ20",
-          "nameBg": "Панагюрище",
-          "nameEn": "Panagyurishte",
-          "total": {
-            "amount": 20511200,
-            "currency": "BGN",
-            "amountEur": 10487210
+          "capital": {
+            "amount": 1049300,
+            "amountEur": 536499,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 17261600,
-            "currency": "BGN",
-            "amountEur": 8825716
+            "amountEur": 8825716,
+            "currency": "BGN"
           },
+          "ekatte": "55302",
           "equalization": {
             "amount": 2096600,
-            "currency": "BGN",
-            "amountEur": 1071975
+            "amountEur": 1071975,
+            "currency": "BGN"
+          },
+          "nameBg": "Панагюрище",
+          "nameEn": "Panagyurishte",
+          "obshtinaCode": "PAZ20",
+          "otherTargeted": {
+            "amount": 228600,
+            "amountEur": 116881,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 20511200,
+            "amountEur": 10487210,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 103700,
-            "currency": "BGN",
-            "amountEur": 53021
-          },
-          "capital": {
-            "amount": 1049300,
-            "currency": "BGN",
-            "amountEur": 536499
-          },
-          "otherTargeted": {
-            "amount": 228600,
-            "currency": "BGN",
-            "amountEur": 116881
+            "amountEur": 53021,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "62004",
-          "obshtinaCode": "PAZ24",
-          "nameBg": "Ракитово",
-          "nameEn": "Rakitovo",
-          "total": {
-            "amount": 16716200,
-            "currency": "BGN",
-            "amountEur": 8546857
+          "capital": {
+            "amount": 772300,
+            "amountEur": 394871,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 13927500,
-            "currency": "BGN",
-            "amountEur": 7121018
+            "amountEur": 7121018,
+            "currency": "BGN"
           },
+          "ekatte": "62004",
           "equalization": {
             "amount": 1839400,
-            "currency": "BGN",
-            "amountEur": 940470
+            "amountEur": 940470,
+            "currency": "BGN"
+          },
+          "nameBg": "Ракитово",
+          "nameEn": "Rakitovo",
+          "obshtinaCode": "PAZ24",
+          "otherTargeted": {
+            "amount": 78900,
+            "amountEur": 40341,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 16716200,
+            "amountEur": 8546857,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 177000,
-            "currency": "BGN",
-            "amountEur": 90499
-          },
-          "capital": {
-            "amount": 772300,
-            "currency": "BGN",
-            "amountEur": 394871
-          },
-          "otherTargeted": {
-            "amount": 78900,
-            "currency": "BGN",
-            "amountEur": 40341
+            "amountEur": 90499,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "56277",
-          "obshtinaCode": "PAZ21",
-          "nameBg": "Пещера",
-          "nameEn": "Peshtera",
-          "total": {
-            "amount": 16391500,
-            "currency": "BGN",
-            "amountEur": 8380841
+          "capital": {
+            "amount": 589500,
+            "amountEur": 301407,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 14578100,
-            "currency": "BGN",
-            "amountEur": 7453664
+            "amountEur": 7453664,
+            "currency": "BGN"
           },
+          "ekatte": "56277",
           "equalization": {
             "amount": 1140600,
-            "currency": "BGN",
-            "amountEur": 583180
+            "amountEur": 583180,
+            "currency": "BGN"
+          },
+          "nameBg": "Пещера",
+          "nameEn": "Peshtera",
+          "obshtinaCode": "PAZ21",
+          "otherTargeted": {
+            "amount": 202200,
+            "amountEur": 103383,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 16391500,
+            "amountEur": 8380841,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 83300,
-            "currency": "BGN",
-            "amountEur": 42591
-          },
-          "capital": {
-            "amount": 589500,
-            "currency": "BGN",
-            "amountEur": 301407
-          },
-          "otherTargeted": {
-            "amount": 202200,
-            "currency": "BGN",
-            "amountEur": 103383
+            "amountEur": 42591,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "06207",
-          "obshtinaCode": "PAZ06",
-          "nameBg": "Брацигово",
-          "nameEn": "Bratsigovo",
-          "total": {
-            "amount": 9204700,
-            "currency": "BGN",
-            "amountEur": 4706288
+          "capital": {
+            "amount": 744100,
+            "amountEur": 380452,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 7326500,
-            "currency": "BGN",
-            "amountEur": 3745980
+            "amountEur": 3745980,
+            "currency": "BGN"
           },
+          "ekatte": "06207",
           "equalization": {
             "amount": 1032900,
-            "currency": "BGN",
-            "amountEur": 528113
+            "amountEur": 528113,
+            "currency": "BGN"
+          },
+          "nameBg": "Брацигово",
+          "nameEn": "Bratsigovo",
+          "obshtinaCode": "PAZ06",
+          "otherTargeted": {
+            "amount": 48200,
+            "amountEur": 24644,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 9204700,
+            "amountEur": 4706288,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 101200,
-            "currency": "BGN",
-            "amountEur": 51743
-          },
-          "capital": {
-            "amount": 744100,
-            "currency": "BGN",
-            "amountEur": 380452
-          },
-          "otherTargeted": {
-            "amount": 48200,
-            "currency": "BGN",
-            "amountEur": 24644
+            "amountEur": 51743,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "02837",
-          "obshtinaCode": "PAZ03",
-          "nameBg": "Батак",
-          "nameEn": "Batak",
-          "total": {
-            "amount": 8741300,
-            "currency": "BGN",
-            "amountEur": 4469356
+          "capital": {
+            "amount": 581800,
+            "amountEur": 297470,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 7459500,
-            "currency": "BGN",
-            "amountEur": 3813982
+            "amountEur": 3813982,
+            "currency": "BGN"
           },
+          "ekatte": "02837",
           "equalization": {
             "amount": 597100,
-            "currency": "BGN",
-            "amountEur": 305292
+            "amountEur": 305292,
+            "currency": "BGN"
+          },
+          "nameBg": "Батак",
+          "nameEn": "Batak",
+          "obshtinaCode": "PAZ03",
+          "otherTargeted": {
+            "amount": 36300,
+            "amountEur": 18560,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 8741300,
+            "amountEur": 4469356,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 102900,
-            "currency": "BGN",
-            "amountEur": 52612
-          },
-          "capital": {
-            "amount": 581800,
-            "currency": "BGN",
-            "amountEur": 297470
-          },
-          "otherTargeted": {
-            "amount": 36300,
-            "currency": "BGN",
-            "amountEur": 18560
+            "amountEur": 52612,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "03592",
-          "obshtinaCode": "PAZ04",
-          "nameBg": "Белово",
-          "nameEn": "Belovo",
-          "total": {
-            "amount": 8186000,
-            "currency": "BGN",
-            "amountEur": 4185435
+          "capital": {
+            "amount": 659700,
+            "amountEur": 337299,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6541300,
-            "currency": "BGN",
-            "amountEur": 3344514
+            "amountEur": 3344514,
+            "currency": "BGN"
           },
+          "ekatte": "03592",
           "equalization": {
             "amount": 944700,
-            "currency": "BGN",
-            "amountEur": 483017
+            "amountEur": 483017,
+            "currency": "BGN"
+          },
+          "nameBg": "Белово",
+          "nameEn": "Belovo",
+          "obshtinaCode": "PAZ04",
+          "otherTargeted": {
+            "amount": 24000,
+            "amountEur": 12271,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 8186000,
+            "amountEur": 4185435,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 40300,
-            "currency": "BGN",
-            "amountEur": 20605
-          },
-          "capital": {
-            "amount": 659700,
-            "currency": "BGN",
-            "amountEur": 337299
-          },
-          "otherTargeted": {
-            "amount": 24000,
-            "currency": "BGN",
-            "amountEur": 12271
+            "amountEur": 20605,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "43369",
-          "obshtinaCode": "PAZ14",
-          "nameBg": "Лесичово",
-          "nameEn": "Lesichovo",
-          "total": {
-            "amount": 7043500,
-            "currency": "BGN",
-            "amountEur": 3601284
+          "capital": {
+            "amount": 706000,
+            "amountEur": 360972,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5501400,
-            "currency": "BGN",
-            "amountEur": 2812821
+            "amountEur": 2812821,
+            "currency": "BGN"
           },
+          "ekatte": "43369",
           "equalization": {
             "amount": 748300,
-            "currency": "BGN",
-            "amountEur": 382600
+            "amountEur": 382600,
+            "currency": "BGN"
+          },
+          "nameBg": "Лесичово",
+          "nameEn": "Lesichovo",
+          "obshtinaCode": "PAZ14",
+          "otherTargeted": {
+            "amount": 15700,
+            "amountEur": 8027,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 7043500,
+            "amountEur": 3601284,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 87800,
-            "currency": "BGN",
-            "amountEur": 44891
-          },
-          "capital": {
-            "amount": 706000,
-            "currency": "BGN",
-            "amountEur": 360972
-          },
-          "otherTargeted": {
-            "amount": 15700,
-            "currency": "BGN",
-            "amountEur": 8027
+            "amountEur": 44891,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "70648",
-          "obshtinaCode": "PAZ39",
-          "nameBg": "Сърница",
-          "nameEn": "Sarnitsa",
-          "total": {
-            "amount": 6434000,
-            "currency": "BGN",
-            "amountEur": 3289652
+          "capital": {
+            "amount": 432500,
+            "amountEur": 221134,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5289400,
-            "currency": "BGN",
-            "amountEur": 2704427
+            "amountEur": 2704427,
+            "currency": "BGN"
           },
+          "ekatte": "70648",
           "equalization": {
             "amount": 639500,
-            "currency": "BGN",
-            "amountEur": 326971
+            "amountEur": 326971,
+            "currency": "BGN"
+          },
+          "nameBg": "Сърница",
+          "nameEn": "Sarnitsa",
+          "obshtinaCode": "PAZ39",
+          "otherTargeted": {
+            "amount": 15300,
+            "amountEur": 7823,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 6434000,
+            "amountEur": 3289652,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 72600,
-            "currency": "BGN",
-            "amountEur": 37120
-          },
-          "capital": {
-            "amount": 432500,
-            "currency": "BGN",
-            "amountEur": 221134
-          },
-          "otherTargeted": {
-            "amount": 15300,
-            "currency": "BGN",
-            "amountEur": 7823
+            "amountEur": 37120,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "69835",
-          "obshtinaCode": "PAZ32",
-          "nameBg": "Стрелча",
-          "nameEn": "Strelcha",
-          "total": {
-            "amount": 5400600,
-            "currency": "BGN",
-            "amountEur": 2761283
+          "capital": {
+            "amount": 456500,
+            "amountEur": 233405,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4386200,
-            "currency": "BGN",
-            "amountEur": 2242628
+            "amountEur": 2242628,
+            "currency": "BGN"
           },
+          "ekatte": "69835",
           "equalization": {
             "amount": 530100,
-            "currency": "BGN",
-            "amountEur": 271036
+            "amountEur": 271036,
+            "currency": "BGN"
+          },
+          "nameBg": "Стрелча",
+          "nameEn": "Strelcha",
+          "obshtinaCode": "PAZ32",
+          "otherTargeted": {
+            "amount": 83600,
+            "amountEur": 42744,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 5400600,
+            "amountEur": 2761283,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 27800,
-            "currency": "BGN",
-            "amountEur": 14214
-          },
-          "capital": {
-            "amount": 456500,
-            "currency": "BGN",
-            "amountEur": 233405
-          },
-          "otherTargeted": {
-            "amount": 83600,
-            "currency": "BGN",
-            "amountEur": 42744
+            "amountEur": 14214,
+            "currency": "BGN"
           }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2024,
-      "asOf": "2024-01-01",
-      "source": {
-        "documentId": "law-2024",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 290056800,
-          "currency": "BGN",
-          "amountEur": 148303686
+        "capital": {
+          "amount": 12468800,
+          "amountEur": 6375197,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 253831600,
-          "currency": "BGN",
-          "amountEur": 129782035
+          "amount": 224036100,
+          "amountEur": 114547838,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 22352600,
-          "currency": "BGN",
-          "amountEur": 11428702
-        },
-        "winter": {
-          "amount": 1301100,
-          "currency": "BGN",
-          "amountEur": 665244
-        },
-        "capital": {
-          "amount": 12571500,
-          "currency": "BGN",
-          "amountEur": 6427703
+          "amount": 22268700,
+          "amountEur": 11385805,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1642800,
-          "currency": "BGN",
-          "amountEur": 839950
+          "amount": 1368800,
+          "amountEur": 699856,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 260074400,
+          "amountEur": 132973928,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1300800,
+          "amountEur": 665089,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2023",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+      }
+    },
+    {
+      "asOf": "2024-01-01",
+      "fiscalYear": 2024,
       "municipalities": [
         {
-          "ekatte": "55155",
-          "obshtinaCode": "PAZ19",
-          "nameBg": "Пазарджик",
-          "nameEn": "Pazardzhik",
-          "total": {
-            "amount": 111773800,
-            "currency": "BGN",
-            "amountEur": 57149036
+          "capital": {
+            "amount": 3537700,
+            "amountEur": 1808797,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 100264700,
-            "currency": "BGN",
-            "amountEur": 51264527
+            "amountEur": 51264527,
+            "currency": "BGN"
           },
+          "ekatte": "55155",
           "equalization": {
             "amount": 7714700,
-            "currency": "BGN",
-            "amountEur": 3944463
+            "amountEur": 3944463,
+            "currency": "BGN"
+          },
+          "nameBg": "Пазарджик",
+          "nameEn": "Pazardzhik",
+          "obshtinaCode": "PAZ19",
+          "otherTargeted": {
+            "amount": 542300,
+            "amountEur": 277274,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 111773800,
+            "amountEur": 57149036,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 256700,
-            "currency": "BGN",
-            "amountEur": 131249
-          },
-          "capital": {
-            "amount": 3537700,
-            "currency": "BGN",
-            "amountEur": 1808797
-          },
-          "otherTargeted": {
-            "amount": 542300,
-            "currency": "BGN",
-            "amountEur": 277274
+            "amountEur": 131249,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "10450",
-          "obshtinaCode": "PAZ08",
-          "nameBg": "Велинград",
-          "nameEn": "Velingrad",
-          "total": {
-            "amount": 42915800,
-            "currency": "BGN",
-            "amountEur": 21942500
+          "capital": {
+            "amount": 1632800,
+            "amountEur": 834837,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 38682900,
-            "currency": "BGN",
-            "amountEur": 19778253
+            "amountEur": 19778253,
+            "currency": "BGN"
           },
+          "ekatte": "10450",
           "equalization": {
             "amount": 2499000,
-            "currency": "BGN",
-            "amountEur": 1277718
+            "amountEur": 1277718,
+            "currency": "BGN"
+          },
+          "nameBg": "Велинград",
+          "nameEn": "Velingrad",
+          "obshtinaCode": "PAZ08",
+          "otherTargeted": {
+            "amount": 143100,
+            "amountEur": 73166,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 42915800,
+            "amountEur": 21942500,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 101100,
-            "currency": "BGN",
-            "amountEur": 51692
-          },
-          "capital": {
-            "amount": 1632800,
-            "currency": "BGN",
-            "amountEur": 834837
-          },
-          "otherTargeted": {
-            "amount": 143100,
-            "currency": "BGN",
-            "amountEur": 73166
+            "amountEur": 51692,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "66264",
-          "obshtinaCode": "PAZ29",
-          "nameBg": "Септември",
-          "nameEn": "Septemvri",
-          "total": {
-            "amount": 26069900,
-            "currency": "BGN",
-            "amountEur": 13329328
+          "capital": {
+            "amount": 1346400,
+            "amountEur": 688403,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 22073000,
-            "currency": "BGN",
-            "amountEur": 11285746
+            "amountEur": 11285746,
+            "currency": "BGN"
           },
+          "ekatte": "66264",
           "equalization": {
             "amount": 2503800,
-            "currency": "BGN",
-            "amountEur": 1280173
+            "amountEur": 1280173,
+            "currency": "BGN"
+          },
+          "nameBg": "Септември",
+          "nameEn": "Septemvri",
+          "obshtinaCode": "PAZ29",
+          "otherTargeted": {
+            "amount": 77900,
+            "amountEur": 39830,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 26069900,
+            "amountEur": 13329328,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 146700,
-            "currency": "BGN",
-            "amountEur": 75007
-          },
-          "capital": {
-            "amount": 1346400,
-            "currency": "BGN",
-            "amountEur": 688403
-          },
-          "otherTargeted": {
-            "amount": 77900,
-            "currency": "BGN",
-            "amountEur": 39830
+            "amountEur": 75007,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "55302",
-          "obshtinaCode": "PAZ20",
-          "nameBg": "Панагюрище",
-          "nameEn": "Panagyurishte",
-          "total": {
-            "amount": 22623200,
-            "currency": "BGN",
-            "amountEur": 11567058
+          "capital": {
+            "amount": 1049500,
+            "amountEur": 536601,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 19373500,
-            "currency": "BGN",
-            "amountEur": 9905513
+            "amountEur": 9905513,
+            "currency": "BGN"
           },
+          "ekatte": "55302",
           "equalization": {
             "amount": 2096600,
-            "currency": "BGN",
-            "amountEur": 1071975
+            "amountEur": 1071975,
+            "currency": "BGN"
+          },
+          "nameBg": "Панагюрище",
+          "nameEn": "Panagyurishte",
+          "obshtinaCode": "PAZ20",
+          "otherTargeted": {
+            "amount": 274300,
+            "amountEur": 140247,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 22623200,
+            "amountEur": 11567058,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 103600,
-            "currency": "BGN",
-            "amountEur": 52970
-          },
-          "capital": {
-            "amount": 1049500,
-            "currency": "BGN",
-            "amountEur": 536601
-          },
-          "otherTargeted": {
-            "amount": 274300,
-            "currency": "BGN",
-            "amountEur": 140247
+            "amountEur": 52970,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "62004",
-          "obshtinaCode": "PAZ24",
-          "nameBg": "Ракитово",
-          "nameEn": "Rakitovo",
-          "total": {
-            "amount": 18485100,
-            "currency": "BGN",
-            "amountEur": 9451282
+          "capital": {
+            "amount": 776000,
+            "amountEur": 396762,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 15692600,
-            "currency": "BGN",
-            "amountEur": 8023499
+            "amountEur": 8023499,
+            "currency": "BGN"
           },
+          "ekatte": "62004",
           "equalization": {
             "amount": 1839400,
-            "currency": "BGN",
-            "amountEur": 940470
+            "amountEur": 940470,
+            "currency": "BGN"
+          },
+          "nameBg": "Ракитово",
+          "nameEn": "Rakitovo",
+          "obshtinaCode": "PAZ24",
+          "otherTargeted": {
+            "amount": 94600,
+            "amountEur": 48368,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 18485100,
+            "amountEur": 9451282,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 177100,
-            "currency": "BGN",
-            "amountEur": 90550
-          },
-          "capital": {
-            "amount": 776000,
-            "currency": "BGN",
-            "amountEur": 396762
-          },
-          "otherTargeted": {
-            "amount": 94600,
-            "currency": "BGN",
-            "amountEur": 48368
+            "amountEur": 90550,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "56277",
-          "obshtinaCode": "PAZ21",
-          "nameBg": "Пещера",
-          "nameEn": "Peshtera",
-          "total": {
-            "amount": 18270600,
-            "currency": "BGN",
-            "amountEur": 9341609
+          "capital": {
+            "amount": 630800,
+            "amountEur": 322523,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 16415900,
-            "currency": "BGN",
-            "amountEur": 8393316
+            "amountEur": 8393316,
+            "currency": "BGN"
           },
+          "ekatte": "56277",
           "equalization": {
             "amount": 1140600,
-            "currency": "BGN",
-            "amountEur": 583180
+            "amountEur": 583180,
+            "currency": "BGN"
+          },
+          "nameBg": "Пещера",
+          "nameEn": "Peshtera",
+          "obshtinaCode": "PAZ21",
+          "otherTargeted": {
+            "amount": 242600,
+            "amountEur": 124039,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 18270600,
+            "amountEur": 9341609,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 83300,
-            "currency": "BGN",
-            "amountEur": 42591
-          },
-          "capital": {
-            "amount": 630800,
-            "currency": "BGN",
-            "amountEur": 322523
-          },
-          "otherTargeted": {
-            "amount": 242600,
-            "currency": "BGN",
-            "amountEur": 124039
+            "amountEur": 42591,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "06207",
-          "obshtinaCode": "PAZ06",
-          "nameBg": "Брацигово",
-          "nameEn": "Bratsigovo",
-          "total": {
-            "amount": 10200300,
-            "currency": "BGN",
-            "amountEur": 5215331
+          "capital": {
+            "amount": 749600,
+            "amountEur": 383264,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8316600,
-            "currency": "BGN",
-            "amountEur": 4252210
+            "amountEur": 4252210,
+            "currency": "BGN"
           },
+          "ekatte": "06207",
           "equalization": {
             "amount": 1032900,
-            "currency": "BGN",
-            "amountEur": 528113
+            "amountEur": 528113,
+            "currency": "BGN"
+          },
+          "nameBg": "Брацигово",
+          "nameEn": "Bratsigovo",
+          "obshtinaCode": "PAZ06",
+          "otherTargeted": {
+            "amount": 57900,
+            "amountEur": 29604,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 10200300,
+            "amountEur": 5215331,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 101200,
-            "currency": "BGN",
-            "amountEur": 51743
-          },
-          "capital": {
-            "amount": 749600,
-            "currency": "BGN",
-            "amountEur": 383264
-          },
-          "otherTargeted": {
-            "amount": 57900,
-            "currency": "BGN",
-            "amountEur": 29604
+            "amountEur": 51743,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "02837",
-          "obshtinaCode": "PAZ03",
-          "nameBg": "Батак",
-          "nameEn": "Batak",
-          "total": {
-            "amount": 9898900,
-            "currency": "BGN",
-            "amountEur": 5061227
+          "capital": {
+            "amount": 582200,
+            "amountEur": 297674,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8602400,
-            "currency": "BGN",
-            "amountEur": 4398337
+            "amountEur": 4398337,
+            "currency": "BGN"
           },
+          "ekatte": "02837",
           "equalization": {
             "amount": 611400,
-            "currency": "BGN",
-            "amountEur": 312604
+            "amountEur": 312604,
+            "currency": "BGN"
+          },
+          "nameBg": "Батак",
+          "nameEn": "Batak",
+          "obshtinaCode": "PAZ03",
+          "otherTargeted": {
+            "amount": 43600,
+            "amountEur": 22292,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 9898900,
+            "amountEur": 5061227,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 102900,
-            "currency": "BGN",
-            "amountEur": 52612
-          },
-          "capital": {
-            "amount": 582200,
-            "currency": "BGN",
-            "amountEur": 297674
-          },
-          "otherTargeted": {
-            "amount": 43600,
-            "currency": "BGN",
-            "amountEur": 22292
+            "amountEur": 52612,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "03592",
-          "obshtinaCode": "PAZ04",
-          "nameBg": "Белово",
-          "nameEn": "Belovo",
-          "total": {
-            "amount": 8993100,
-            "currency": "BGN",
-            "amountEur": 4598099
+          "capital": {
+            "amount": 662000,
+            "amountEur": 338475,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 7346200,
-            "currency": "BGN",
-            "amountEur": 3756052
+            "amountEur": 3756052,
+            "currency": "BGN"
           },
+          "ekatte": "03592",
           "equalization": {
             "amount": 944700,
-            "currency": "BGN",
-            "amountEur": 483017
+            "amountEur": 483017,
+            "currency": "BGN"
+          },
+          "nameBg": "Белово",
+          "nameEn": "Belovo",
+          "obshtinaCode": "PAZ04",
+          "otherTargeted": {
+            "amount": 28800,
+            "amountEur": 14725,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 8993100,
+            "amountEur": 4598099,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 40200,
-            "currency": "BGN",
-            "amountEur": 20554
-          },
-          "capital": {
-            "amount": 662000,
-            "currency": "BGN",
-            "amountEur": 338475
-          },
-          "otherTargeted": {
-            "amount": 28800,
-            "currency": "BGN",
-            "amountEur": 14725
+            "amountEur": 20554,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "43369",
-          "obshtinaCode": "PAZ14",
-          "nameBg": "Лесичово",
-          "nameEn": "Lesichovo",
-          "total": {
-            "amount": 7889300,
-            "currency": "BGN",
-            "amountEur": 4033735
+          "capital": {
+            "amount": 710100,
+            "amountEur": 363068,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6323200,
-            "currency": "BGN",
-            "amountEur": 3233001
+            "amountEur": 3233001,
+            "currency": "BGN"
           },
+          "ekatte": "43369",
           "equalization": {
             "amount": 768200,
-            "currency": "BGN",
-            "amountEur": 392774
+            "amountEur": 392774,
+            "currency": "BGN"
+          },
+          "nameBg": "Лесичово",
+          "nameEn": "Lesichovo",
+          "obshtinaCode": "PAZ14",
+          "otherTargeted": {
+            "amount": 18900,
+            "amountEur": 9663,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 7889300,
+            "amountEur": 4033735,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 87800,
-            "currency": "BGN",
-            "amountEur": 44891
-          },
-          "capital": {
-            "amount": 710100,
-            "currency": "BGN",
-            "amountEur": 363068
-          },
-          "otherTargeted": {
-            "amount": 18900,
-            "currency": "BGN",
-            "amountEur": 9663
+            "amountEur": 44891,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "70648",
-          "obshtinaCode": "PAZ39",
-          "nameBg": "Сърница",
-          "nameEn": "Sarnitsa",
-          "total": {
-            "amount": 7053500,
-            "currency": "BGN",
-            "amountEur": 3606397
+          "capital": {
+            "amount": 435100,
+            "amountEur": 222463,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5874600,
-            "currency": "BGN",
-            "amountEur": 3003635
+            "amountEur": 3003635,
+            "currency": "BGN"
           },
+          "ekatte": "70648",
           "equalization": {
             "amount": 671200,
-            "currency": "BGN",
-            "amountEur": 343179
+            "amountEur": 343179,
+            "currency": "BGN"
+          },
+          "nameBg": "Сърница",
+          "nameEn": "Sarnitsa",
+          "obshtinaCode": "PAZ39",
+          "otherTargeted": {
+            "amount": 18400,
+            "amountEur": 9408,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 7053500,
+            "amountEur": 3606397,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 72600,
-            "currency": "BGN",
-            "amountEur": 37120
-          },
-          "capital": {
-            "amount": 435100,
-            "currency": "BGN",
-            "amountEur": 222463
-          },
-          "otherTargeted": {
-            "amount": 18400,
-            "currency": "BGN",
-            "amountEur": 9408
+            "amountEur": 37120,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "69835",
-          "obshtinaCode": "PAZ32",
-          "nameBg": "Стрелча",
-          "nameEn": "Strelcha",
-          "total": {
-            "amount": 5883300,
-            "currency": "BGN",
-            "amountEur": 3008084
+          "capital": {
+            "amount": 459300,
+            "amountEur": 234836,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4866000,
-            "currency": "BGN",
-            "amountEur": 2487946
+            "amountEur": 2487946,
+            "currency": "BGN"
           },
+          "ekatte": "69835",
           "equalization": {
             "amount": 530100,
-            "currency": "BGN",
-            "amountEur": 271036
+            "amountEur": 271036,
+            "currency": "BGN"
+          },
+          "nameBg": "Стрелча",
+          "nameEn": "Strelcha",
+          "obshtinaCode": "PAZ32",
+          "otherTargeted": {
+            "amount": 100400,
+            "amountEur": 51334,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 5883300,
+            "amountEur": 3008084,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 27900,
-            "currency": "BGN",
-            "amountEur": 14265
-          },
-          "capital": {
-            "amount": 459300,
-            "currency": "BGN",
-            "amountEur": 234836
-          },
-          "otherTargeted": {
-            "amount": 100400,
-            "currency": "BGN",
-            "amountEur": 51334
+            "amountEur": 14265,
+            "currency": "BGN"
           }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2025,
-      "asOf": "2025-01-01",
-      "source": {
-        "documentId": "law-2025",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 327058800,
-          "currency": "BGN",
-          "amountEur": 167222508
+        "capital": {
+          "amount": 12571500,
+          "amountEur": 6427703,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 287840400,
-          "currency": "BGN",
-          "amountEur": 147170459
+          "amount": 253831600,
+          "amountEur": 129782035,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 24515800,
-          "currency": "BGN",
-          "amountEur": 12534730
-        },
-        "winter": {
-          "amount": 1330100,
-          "currency": "BGN",
-          "amountEur": 680069
-        },
-        "capital": {
-          "amount": 13372500,
-          "currency": "BGN",
-          "amountEur": 6837251
+          "amount": 22352600,
+          "amountEur": 11428702,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1779500,
-          "currency": "BGN",
-          "amountEur": 909844
+          "amount": 1642800,
+          "amountEur": 839950,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 290056800,
+          "amountEur": 148303686,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1301100,
+          "amountEur": 665244,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2024",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
+      }
+    },
+    {
+      "asOf": "2025-01-01",
+      "fiscalYear": 2025,
       "municipalities": [
         {
-          "ekatte": "55155",
-          "obshtinaCode": "PAZ19",
-          "nameBg": "Пазарджик",
-          "nameEn": "Pazardzhik",
-          "total": {
-            "amount": 124896900,
-            "currency": "BGN",
-            "amountEur": 63858771
+          "capital": {
+            "amount": 3757900,
+            "amountEur": 1921384,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 113161600,
-            "currency": "BGN",
-            "amountEur": 57858607
+            "amountEur": 57858607,
+            "currency": "BGN"
           },
+          "ekatte": "55155",
           "equalization": {
             "amount": 7717200,
-            "currency": "BGN",
-            "amountEur": 3945742
+            "amountEur": 3945742,
+            "currency": "BGN"
+          },
+          "nameBg": "Пазарджик",
+          "nameEn": "Pazardzhik",
+          "obshtinaCode": "PAZ19",
+          "otherTargeted": {
+            "amount": 561100,
+            "amountEur": 286886,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 124896900,
+            "amountEur": 63858771,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 260200,
-            "currency": "BGN",
-            "amountEur": 133038
-          },
-          "capital": {
-            "amount": 3757900,
-            "currency": "BGN",
-            "amountEur": 1921384
-          },
-          "otherTargeted": {
-            "amount": 561100,
-            "currency": "BGN",
-            "amountEur": 286886
+            "amountEur": 133038,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "10450",
-          "obshtinaCode": "PAZ08",
-          "nameBg": "Велинград",
-          "nameEn": "Velingrad",
-          "total": {
-            "amount": 48463200,
-            "currency": "BGN",
-            "amountEur": 24778841
+          "capital": {
+            "amount": 1758700,
+            "amountEur": 899209,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 44083200,
-            "currency": "BGN",
-            "amountEur": 22539382
+            "amountEur": 22539382,
+            "currency": "BGN"
           },
+          "ekatte": "10450",
           "equalization": {
             "amount": 2508800,
-            "currency": "BGN",
-            "amountEur": 1282729
+            "amountEur": 1282729,
+            "currency": "BGN"
+          },
+          "nameBg": "Велинград",
+          "nameEn": "Velingrad",
+          "obshtinaCode": "PAZ08",
+          "otherTargeted": {
+            "amount": 152200,
+            "amountEur": 77819,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 48463200,
+            "amountEur": 24778841,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 112500,
-            "currency": "BGN",
-            "amountEur": 57520
-          },
-          "capital": {
-            "amount": 1758700,
-            "currency": "BGN",
-            "amountEur": 899209
-          },
-          "otherTargeted": {
-            "amount": 152200,
-            "currency": "BGN",
-            "amountEur": 77819
+            "amountEur": 57520,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "66264",
-          "obshtinaCode": "PAZ29",
-          "nameBg": "Септември",
-          "nameEn": "Septemvri",
-          "total": {
-            "amount": 29628200,
-            "currency": "BGN",
-            "amountEur": 15148658
+          "capital": {
+            "amount": 1431400,
+            "amountEur": 731863,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 25332100,
-            "currency": "BGN",
-            "amountEur": 12952097
+            "amountEur": 12952097,
+            "currency": "BGN"
           },
+          "ekatte": "66264",
           "equalization": {
             "amount": 2715900,
-            "currency": "BGN",
-            "amountEur": 1388618
+            "amountEur": 1388618,
+            "currency": "BGN"
+          },
+          "nameBg": "Септември",
+          "nameEn": "Septemvri",
+          "obshtinaCode": "PAZ29",
+          "otherTargeted": {
+            "amount": 80700,
+            "amountEur": 41261,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 29628200,
+            "amountEur": 15148658,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 148800,
-            "currency": "BGN",
-            "amountEur": 76080
-          },
-          "capital": {
-            "amount": 1431400,
-            "currency": "BGN",
-            "amountEur": 731863
-          },
-          "otherTargeted": {
-            "amount": 80700,
-            "currency": "BGN",
-            "amountEur": 41261
+            "amountEur": 76080,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "55302",
-          "obshtinaCode": "PAZ20",
-          "nameBg": "Панагюрище",
-          "nameEn": "Panagyurishte",
-          "total": {
-            "amount": 25510300,
-            "currency": "BGN",
-            "amountEur": 13043209
+          "capital": {
+            "amount": 1114200,
+            "amountEur": 569681,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 22061600,
-            "currency": "BGN",
-            "amountEur": 11279917
+            "amountEur": 11279917,
+            "currency": "BGN"
           },
+          "ekatte": "55302",
           "equalization": {
             "amount": 2229400,
-            "currency": "BGN",
-            "amountEur": 1139874
+            "amountEur": 1139874,
+            "currency": "BGN"
+          },
+          "nameBg": "Панагюрище",
+          "nameEn": "Panagyurishte",
+          "obshtinaCode": "PAZ20",
+          "otherTargeted": {
+            "amount": 308200,
+            "amountEur": 157580,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 25510300,
+            "amountEur": 13043209,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 105100,
-            "currency": "BGN",
-            "amountEur": 53737
-          },
-          "capital": {
-            "amount": 1114200,
-            "currency": "BGN",
-            "amountEur": 569681
-          },
-          "otherTargeted": {
-            "amount": 308200,
-            "currency": "BGN",
-            "amountEur": 157580
+            "amountEur": 53737,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "62004",
-          "obshtinaCode": "PAZ24",
-          "nameBg": "Ракитово",
-          "nameEn": "Rakitovo",
-          "total": {
-            "amount": 20764000,
-            "currency": "BGN",
-            "amountEur": 10616465
+          "capital": {
+            "amount": 832700,
+            "amountEur": 425753,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 17600000,
-            "currency": "BGN",
-            "amountEur": 8998737
+            "amountEur": 8998737,
+            "currency": "BGN"
           },
+          "ekatte": "62004",
           "equalization": {
             "amount": 2151300,
-            "currency": "BGN",
-            "amountEur": 1099942
+            "amountEur": 1099942,
+            "currency": "BGN"
+          },
+          "nameBg": "Ракитово",
+          "nameEn": "Rakitovo",
+          "obshtinaCode": "PAZ24",
+          "otherTargeted": {
+            "amount": 108700,
+            "amountEur": 55577,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 20764000,
+            "amountEur": 10616465,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 180000,
-            "currency": "BGN",
-            "amountEur": 92033
-          },
-          "capital": {
-            "amount": 832700,
-            "currency": "BGN",
-            "amountEur": 425753
-          },
-          "otherTargeted": {
-            "amount": 108700,
-            "currency": "BGN",
-            "amountEur": 55577
+            "amountEur": 92033,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "56277",
-          "obshtinaCode": "PAZ21",
-          "nameBg": "Пещера",
-          "nameEn": "Peshtera",
-          "total": {
-            "amount": 20249600,
-            "currency": "BGN",
-            "amountEur": 10353456
+          "capital": {
+            "amount": 672100,
+            "amountEur": 343639,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 18241500,
-            "currency": "BGN",
-            "amountEur": 9326731
+            "amountEur": 9326731,
+            "currency": "BGN"
           },
+          "ekatte": "56277",
           "equalization": {
             "amount": 1251500,
-            "currency": "BGN",
-            "amountEur": 639882
+            "amountEur": 639882,
+            "currency": "BGN"
+          },
+          "nameBg": "Пещера",
+          "nameEn": "Peshtera",
+          "obshtinaCode": "PAZ21",
+          "otherTargeted": {
+            "amount": 267600,
+            "amountEur": 136822,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 20249600,
+            "amountEur": 10353456,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 84500,
-            "currency": "BGN",
-            "amountEur": 43204
-          },
-          "capital": {
-            "amount": 672100,
-            "currency": "BGN",
-            "amountEur": 343639
-          },
-          "otherTargeted": {
-            "amount": 267600,
-            "currency": "BGN",
-            "amountEur": 136822
+            "amountEur": 43204,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "06207",
-          "obshtinaCode": "PAZ06",
-          "nameBg": "Брацигово",
-          "nameEn": "Bratsigovo",
-          "total": {
-            "amount": 11657000,
-            "currency": "BGN",
-            "amountEur": 5960129
+          "capital": {
+            "amount": 792600,
+            "amountEur": 405250,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 9459800,
-            "currency": "BGN",
-            "amountEur": 4836719
+            "amountEur": 4836719,
+            "currency": "BGN"
           },
+          "ekatte": "06207",
           "equalization": {
             "amount": 1301900,
-            "currency": "BGN",
-            "amountEur": 665651
+            "amountEur": 665651,
+            "currency": "BGN"
+          },
+          "nameBg": "Брацигово",
+          "nameEn": "Bratsigovo",
+          "obshtinaCode": "PAZ06",
+          "otherTargeted": {
+            "amount": 62900,
+            "amountEur": 32160,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 11657000,
+            "amountEur": 5960129,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 102700,
-            "currency": "BGN",
-            "amountEur": 52510
-          },
-          "capital": {
-            "amount": 792600,
-            "currency": "BGN",
-            "amountEur": 405250
-          },
-          "otherTargeted": {
-            "amount": 62900,
-            "currency": "BGN",
-            "amountEur": 32160
+            "amountEur": 52510,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "02837",
-          "obshtinaCode": "PAZ03",
-          "nameBg": "Батак",
-          "nameEn": "Batak",
-          "total": {
-            "amount": 11450300,
-            "currency": "BGN",
-            "amountEur": 5854445
+          "capital": {
+            "amount": 615300,
+            "amountEur": 314598,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 9857000,
-            "currency": "BGN",
-            "amountEur": 5039804
+            "amountEur": 5039804,
+            "currency": "BGN"
           },
+          "ekatte": "02837",
           "equalization": {
             "amount": 873600,
-            "currency": "BGN",
-            "amountEur": 446665
+            "amountEur": 446665,
+            "currency": "BGN"
+          },
+          "nameBg": "Батак",
+          "nameEn": "Batak",
+          "obshtinaCode": "PAZ03",
+          "otherTargeted": {
+            "amount": 48000,
+            "amountEur": 24542,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 11450300,
+            "amountEur": 5854445,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 104400,
-            "currency": "BGN",
-            "amountEur": 53379
-          },
-          "capital": {
-            "amount": 615300,
-            "currency": "BGN",
-            "amountEur": 314598
-          },
-          "otherTargeted": {
-            "amount": 48000,
-            "currency": "BGN",
-            "amountEur": 24542
+            "amountEur": 53379,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "03592",
-          "obshtinaCode": "PAZ04",
-          "nameBg": "Белово",
-          "nameEn": "Belovo",
-          "total": {
-            "amount": 10306800,
-            "currency": "BGN",
-            "amountEur": 5269783
+          "capital": {
+            "amount": 700700,
+            "amountEur": 358262,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8414700,
-            "currency": "BGN",
-            "amountEur": 4302368
+            "amountEur": 4302368,
+            "currency": "BGN"
           },
+          "ekatte": "03592",
           "equalization": {
             "amount": 1150600,
-            "currency": "BGN",
-            "amountEur": 588292
+            "amountEur": 588292,
+            "currency": "BGN"
+          },
+          "nameBg": "Белово",
+          "nameEn": "Belovo",
+          "obshtinaCode": "PAZ04",
+          "otherTargeted": {
+            "amount": 34600,
+            "amountEur": 17691,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 10306800,
+            "amountEur": 5269783,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 40800,
-            "currency": "BGN",
-            "amountEur": 20861
-          },
-          "capital": {
-            "amount": 700700,
-            "currency": "BGN",
-            "amountEur": 358262
-          },
-          "otherTargeted": {
-            "amount": 34600,
-            "currency": "BGN",
-            "amountEur": 17691
+            "amountEur": 20861,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "43369",
-          "obshtinaCode": "PAZ14",
-          "nameBg": "Лесичово",
-          "nameEn": "Lesichovo",
-          "total": {
-            "amount": 9234100,
-            "currency": "BGN",
-            "amountEur": 4721320
+          "capital": {
+            "amount": 754500,
+            "amountEur": 385770,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 7391900,
-            "currency": "BGN",
-            "amountEur": 3779418
+            "amountEur": 3779418,
+            "currency": "BGN"
           },
+          "ekatte": "43369",
           "equalization": {
             "amount": 998500,
-            "currency": "BGN",
-            "amountEur": 510525
+            "amountEur": 510525,
+            "currency": "BGN"
+          },
+          "nameBg": "Лесичово",
+          "nameEn": "Lesichovo",
+          "obshtinaCode": "PAZ14",
+          "otherTargeted": {
+            "amount": 19300,
+            "amountEur": 9868,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 9234100,
+            "amountEur": 4721320,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 89200,
-            "currency": "BGN",
-            "amountEur": 45607
-          },
-          "capital": {
-            "amount": 754500,
-            "currency": "BGN",
-            "amountEur": 385770
-          },
-          "otherTargeted": {
-            "amount": 19300,
-            "currency": "BGN",
-            "amountEur": 9868
+            "amountEur": 45607,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "70648",
-          "obshtinaCode": "PAZ39",
-          "nameBg": "Сърница",
-          "nameEn": "Sarnitsa",
-          "total": {
-            "amount": 8030900,
-            "currency": "BGN",
-            "amountEur": 4106134
+          "capital": {
+            "amount": 458900,
+            "amountEur": 234632,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6550700,
-            "currency": "BGN",
-            "amountEur": 3349320
+            "amountEur": 3349320,
+            "currency": "BGN"
           },
+          "ekatte": "70648",
           "equalization": {
             "amount": 947600,
-            "currency": "BGN",
-            "amountEur": 484500
+            "amountEur": 484500,
+            "currency": "BGN"
+          },
+          "nameBg": "Сърница",
+          "nameEn": "Sarnitsa",
+          "obshtinaCode": "PAZ39",
+          "otherTargeted": {
+            "amount": 23700,
+            "amountEur": 12118,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 8030900,
+            "amountEur": 4106134,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 73700,
-            "currency": "BGN",
-            "amountEur": 37682
-          },
-          "capital": {
-            "amount": 458900,
-            "currency": "BGN",
-            "amountEur": 234632
-          },
-          "otherTargeted": {
-            "amount": 23700,
-            "currency": "BGN",
-            "amountEur": 12118
+            "amountEur": 37682,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "69835",
-          "obshtinaCode": "PAZ32",
-          "nameBg": "Стрелча",
-          "nameEn": "Strelcha",
-          "total": {
-            "amount": 6867500,
-            "currency": "BGN",
-            "amountEur": 3511297
+          "capital": {
+            "amount": 483500,
+            "amountEur": 247210,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5686300,
-            "currency": "BGN",
-            "amountEur": 2907359
+            "amountEur": 2907359,
+            "currency": "BGN"
           },
+          "ekatte": "69835",
           "equalization": {
             "amount": 669500,
-            "currency": "BGN",
-            "amountEur": 342310
+            "amountEur": 342310,
+            "currency": "BGN"
+          },
+          "nameBg": "Стрелча",
+          "nameEn": "Strelcha",
+          "obshtinaCode": "PAZ32",
+          "otherTargeted": {
+            "amount": 112500,
+            "amountEur": 57520,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 6867500,
+            "amountEur": 3511297,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 28200,
-            "currency": "BGN",
-            "amountEur": 14418
-          },
-          "capital": {
-            "amount": 483500,
-            "currency": "BGN",
-            "amountEur": 247210
-          },
-          "otherTargeted": {
-            "amount": 112500,
-            "currency": "BGN",
-            "amountEur": 57520
+            "amountEur": 14418,
+            "currency": "BGN"
           }
         }
-      ]
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 13372500,
+          "amountEur": 6837251,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 287840400,
+          "amountEur": 147170459,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 24515800,
+          "amountEur": 12534730,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 1779500,
+          "amountEur": 909844,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 327058800,
+          "amountEur": 167222508,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1330100,
+          "amountEur": 680069,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2025",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
+      }
     }
   ]
 }

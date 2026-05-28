@@ -4,1934 +4,1934 @@
   "oblastNameEn": "Shumen",
   "years": [
     {
-      "fiscalYear": 2020,
       "asOf": "2020-01-01",
-      "source": {
-        "documentId": "law-2020",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
-      },
-      "oblastTotals": {
-        "total": {
-          "amount": 122212700,
-          "currency": "BGN",
-          "amountEur": 62486360
-        },
-        "delegated": {
-          "amount": 102886900,
-          "currency": "BGN",
-          "amountEur": 52605236
-        },
-        "equalization": {
-          "amount": 12020500,
-          "currency": "BGN",
-          "amountEur": 6145984
-        },
-        "winter": {
-          "amount": 1285700,
-          "currency": "BGN",
-          "amountEur": 657368
-        },
-        "capital": {
-          "amount": 6019600,
-          "currency": "BGN",
-          "amountEur": 3077773
-        },
-        "otherTargeted": {
-          "amount": 0,
-          "currency": "BGN",
-          "amountEur": 0
-        }
-      },
+      "fiscalYear": 2020,
       "municipalities": [
         {
-          "ekatte": "83510",
-          "obshtinaCode": "SHU30",
-          "nameBg": "Шумен",
-          "nameEn": "Shumen",
-          "total": {
-            "amount": 56351300,
-            "currency": "BGN",
-            "amountEur": 28811962
+          "capital": {
+            "amount": 1479900,
+            "amountEur": 756661,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 50855000,
-            "currency": "BGN",
-            "amountEur": 26001749
+            "amountEur": 26001749,
+            "currency": "BGN"
           },
+          "ekatte": "83510",
           "equalization": {
             "amount": 3712400,
-            "currency": "BGN",
-            "amountEur": 1898120
+            "amountEur": 1898120,
+            "currency": "BGN"
+          },
+          "nameBg": "Шумен",
+          "nameEn": "Shumen",
+          "obshtinaCode": "SHU30",
+          "otherTargeted": null,
+          "total": {
+            "amount": 56351300,
+            "amountEur": 28811962,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 304000,
-            "currency": "BGN",
-            "amountEur": 155433
-          },
-          "capital": {
-            "amount": 1479900,
-            "currency": "BGN",
-            "amountEur": 756661
-          },
-          "otherTargeted": null
+            "amountEur": 155433,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "52009",
-          "obshtinaCode": "SHU22",
-          "nameBg": "Нови пазар",
-          "nameEn": "Novi pazar",
-          "total": {
-            "amount": 14650700,
-            "currency": "BGN",
-            "amountEur": 7490784
+          "capital": {
+            "amount": 583800,
+            "amountEur": 298492,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 12578000,
-            "currency": "BGN",
-            "amountEur": 6431029
+            "amountEur": 6431029,
+            "currency": "BGN"
           },
+          "ekatte": "52009",
           "equalization": {
             "amount": 1338800,
-            "currency": "BGN",
-            "amountEur": 684518
+            "amountEur": 684518,
+            "currency": "BGN"
+          },
+          "nameBg": "Нови пазар",
+          "nameEn": "Novi pazar",
+          "obshtinaCode": "SHU22",
+          "otherTargeted": null,
+          "total": {
+            "amount": 14650700,
+            "amountEur": 7490784,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 150100,
-            "currency": "BGN",
-            "amountEur": 76745
-          },
-          "capital": {
-            "amount": 583800,
-            "currency": "BGN",
-            "amountEur": 298492
-          },
-          "otherTargeted": null
+            "amountEur": 76745,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "36079",
-          "obshtinaCode": "SHU18",
-          "nameBg": "Каолиново",
-          "nameEn": "Kaolinovo",
-          "total": {
-            "amount": 8710900,
-            "currency": "BGN",
-            "amountEur": 4453812
+          "capital": {
+            "amount": 571900,
+            "amountEur": 292408,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6731000,
-            "currency": "BGN",
-            "amountEur": 3441506
+            "amountEur": 3441506,
+            "currency": "BGN"
           },
+          "ekatte": "36079",
           "equalization": {
             "amount": 1303400,
-            "currency": "BGN",
-            "amountEur": 666418
+            "amountEur": 666418,
+            "currency": "BGN"
+          },
+          "nameBg": "Каолиново",
+          "nameEn": "Kaolinovo",
+          "obshtinaCode": "SHU18",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8710900,
+            "amountEur": 4453812,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 104600,
-            "currency": "BGN",
-            "amountEur": 53481
-          },
-          "capital": {
-            "amount": 571900,
-            "currency": "BGN",
-            "amountEur": 292408
-          },
-          "otherTargeted": null
+            "amountEur": 53481,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "58222",
-          "obshtinaCode": "SHU23",
-          "nameBg": "Велики Преслав",
-          "nameEn": "Veliki Preslav",
-          "total": {
-            "amount": 7699000,
-            "currency": "BGN",
-            "amountEur": 3936436
+          "capital": {
+            "amount": 465400,
+            "amountEur": 237955,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6071100,
-            "currency": "BGN",
-            "amountEur": 3104104
+            "amountEur": 3104104,
+            "currency": "BGN"
           },
+          "ekatte": "58222",
           "equalization": {
             "amount": 1042600,
-            "currency": "BGN",
-            "amountEur": 533073
+            "amountEur": 533073,
+            "currency": "BGN"
+          },
+          "nameBg": "Велики Преслав",
+          "nameEn": "Veliki Preslav",
+          "obshtinaCode": "SHU23",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7699000,
+            "amountEur": 3936436,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 119900,
-            "currency": "BGN",
-            "amountEur": 61304
-          },
-          "capital": {
-            "amount": 465400,
-            "currency": "BGN",
-            "amountEur": 237955
-          },
-          "otherTargeted": null
+            "amountEur": 61304,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "12766",
-          "obshtinaCode": "SHU10",
-          "nameBg": "Върбица",
-          "nameEn": "Varbitsa",
-          "total": {
-            "amount": 7336800,
-            "currency": "BGN",
-            "amountEur": 3751246
+          "capital": {
+            "amount": 557900,
+            "amountEur": 285250,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5557300,
-            "currency": "BGN",
-            "amountEur": 2841402
+            "amountEur": 2841402,
+            "currency": "BGN"
           },
+          "ekatte": "12766",
           "equalization": {
             "amount": 1127100,
-            "currency": "BGN",
-            "amountEur": 576277
+            "amountEur": 576277,
+            "currency": "BGN"
+          },
+          "nameBg": "Върбица",
+          "nameEn": "Varbitsa",
+          "obshtinaCode": "SHU10",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7336800,
+            "amountEur": 3751246,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 94500,
-            "currency": "BGN",
-            "amountEur": 48317
-          },
-          "capital": {
-            "amount": 557900,
-            "currency": "BGN",
-            "amountEur": 285250
-          },
-          "otherTargeted": null
+            "amountEur": 48317,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "67708",
-          "obshtinaCode": "SHU25",
-          "nameBg": "Смядово",
-          "nameEn": "Smyadovo",
-          "total": {
-            "amount": 6121300,
-            "currency": "BGN",
-            "amountEur": 3129771
+          "capital": {
+            "amount": 359900,
+            "amountEur": 184014,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5067500,
-            "currency": "BGN",
-            "amountEur": 2590972
+            "amountEur": 2590972,
+            "currency": "BGN"
           },
+          "ekatte": "67708",
           "equalization": {
             "amount": 643500,
-            "currency": "BGN",
-            "amountEur": 329016
+            "amountEur": 329016,
+            "currency": "BGN"
+          },
+          "nameBg": "Смядово",
+          "nameEn": "Smyadovo",
+          "obshtinaCode": "SHU25",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6121300,
+            "amountEur": 3129771,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 50400,
-            "currency": "BGN",
-            "amountEur": 25769
-          },
-          "capital": {
-            "amount": 359900,
-            "currency": "BGN",
-            "amountEur": 184014
-          },
-          "otherTargeted": null
+            "amountEur": 25769,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "51651",
-          "obshtinaCode": "SHU21",
-          "nameBg": "Никола Козлево",
-          "nameEn": "Nikola Kozlevo",
-          "total": {
-            "amount": 5921500,
-            "currency": "BGN",
-            "amountEur": 3027615
+          "capital": {
+            "amount": 393100,
+            "amountEur": 200989,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4777600,
-            "currency": "BGN",
-            "amountEur": 2442748
+            "amountEur": 2442748,
+            "currency": "BGN"
           },
+          "ekatte": "51651",
           "equalization": {
             "amount": 682600,
-            "currency": "BGN",
-            "amountEur": 349008
+            "amountEur": 349008,
+            "currency": "BGN"
+          },
+          "nameBg": "Никола Козлево",
+          "nameEn": "Nikola Kozlevo",
+          "obshtinaCode": "SHU21",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5921500,
+            "amountEur": 3027615,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 68200,
-            "currency": "BGN",
-            "amountEur": 34870
-          },
-          "capital": {
-            "amount": 393100,
-            "currency": "BGN",
-            "amountEur": 200989
-          },
-          "otherTargeted": null
+            "amountEur": 34870,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "36587",
-          "obshtinaCode": "SHU19",
-          "nameBg": "Каспичан",
-          "nameEn": "Kaspichan",
-          "total": {
-            "amount": 5732300,
-            "currency": "BGN",
-            "amountEur": 2930878
+          "capital": {
+            "amount": 379400,
+            "amountEur": 193984,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4626000,
-            "currency": "BGN",
-            "amountEur": 2365236
+            "amountEur": 2365236,
+            "currency": "BGN"
           },
+          "ekatte": "36587",
           "equalization": {
             "amount": 647500,
-            "currency": "BGN",
-            "amountEur": 331061
+            "amountEur": 331061,
+            "currency": "BGN"
+          },
+          "nameBg": "Каспичан",
+          "nameEn": "Kaspichan",
+          "obshtinaCode": "SHU19",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5732300,
+            "amountEur": 2930878,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 79400,
-            "currency": "BGN",
-            "amountEur": 40597
-          },
-          "capital": {
-            "amount": 379400,
-            "currency": "BGN",
-            "amountEur": 193984
-          },
-          "otherTargeted": null
+            "amountEur": 40597,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "10642",
-          "obshtinaCode": "SHU07",
-          "nameBg": "Венец",
-          "nameEn": "Venets",
-          "total": {
-            "amount": 5270600,
-            "currency": "BGN",
-            "amountEur": 2694815
+          "capital": {
+            "amount": 502800,
+            "amountEur": 257078,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3789300,
-            "currency": "BGN",
-            "amountEur": 1937438
+            "amountEur": 1937438,
+            "currency": "BGN"
           },
+          "ekatte": "10642",
           "equalization": {
             "amount": 852200,
-            "currency": "BGN",
-            "amountEur": 435723
+            "amountEur": 435723,
+            "currency": "BGN"
+          },
+          "nameBg": "Венец",
+          "nameEn": "Venets",
+          "obshtinaCode": "SHU07",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5270600,
+            "amountEur": 2694815,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 126300,
-            "currency": "BGN",
-            "amountEur": 64576
-          },
-          "capital": {
-            "amount": 502800,
-            "currency": "BGN",
-            "amountEur": 257078
-          },
-          "otherTargeted": null
+            "amountEur": 64576,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "14516",
-          "obshtinaCode": "SHU11",
-          "nameBg": "Хитрино",
-          "nameEn": "Hitrino",
-          "total": {
-            "amount": 4418300,
-            "currency": "BGN",
-            "amountEur": 2259041
+          "capital": {
+            "amount": 725500,
+            "amountEur": 370942,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 2834100,
-            "currency": "BGN",
-            "amountEur": 1449052
+            "amountEur": 1449052,
+            "currency": "BGN"
           },
+          "ekatte": "14516",
           "equalization": {
             "amount": 670400,
-            "currency": "BGN",
-            "amountEur": 342770
+            "amountEur": 342770,
+            "currency": "BGN"
+          },
+          "nameBg": "Хитрино",
+          "nameEn": "Hitrino",
+          "obshtinaCode": "SHU11",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4418300,
+            "amountEur": 2259041,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 188300,
-            "currency": "BGN",
-            "amountEur": 96276
-          },
-          "capital": {
-            "amount": 725500,
-            "currency": "BGN",
-            "amountEur": 370942
-          },
-          "otherTargeted": null
+            "amountEur": 96276,
+            "currency": "BGN"
+          }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2022,
-      "asOf": "2022-01-01",
-      "source": {
-        "documentId": "law-2022",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 159074800,
-          "currency": "BGN",
-          "amountEur": 81333655
+        "capital": {
+          "amount": 6019600,
+          "amountEur": 3077773,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 133348600,
-          "currency": "BGN",
-          "amountEur": 68180057
+          "amount": 102886900,
+          "amountEur": 52605236,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 15388700,
-          "currency": "BGN",
-          "amountEur": 7868118
-        },
-        "winter": {
-          "amount": 1432800,
-          "currency": "BGN",
-          "amountEur": 732580
-        },
-        "capital": {
-          "amount": 8904700,
-          "currency": "BGN",
-          "amountEur": 4552901
+          "amount": 12020500,
+          "amountEur": 6145984,
+          "currency": "BGN"
         },
         "otherTargeted": {
           "amount": 0,
-          "currency": "BGN",
-          "amountEur": 0
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 122212700,
+          "amountEur": 62486360,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1285700,
+          "amountEur": 657368,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2020",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2022-01-01",
+      "fiscalYear": 2022,
       "municipalities": [
         {
-          "ekatte": "83510",
-          "obshtinaCode": "SHU30",
-          "nameBg": "Шумен",
-          "nameEn": "Shumen",
-          "total": {
-            "amount": 76032300,
-            "currency": "BGN",
-            "amountEur": 38874698
+          "capital": {
+            "amount": 2214300,
+            "amountEur": 1132154,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 68371700,
-            "currency": "BGN",
-            "amountEur": 34957895
+            "amountEur": 34957895,
+            "currency": "BGN"
           },
+          "ekatte": "83510",
           "equalization": {
             "amount": 5107600,
-            "currency": "BGN",
-            "amountEur": 2611474
+            "amountEur": 2611474,
+            "currency": "BGN"
+          },
+          "nameBg": "Шумен",
+          "nameEn": "Shumen",
+          "obshtinaCode": "SHU30",
+          "otherTargeted": null,
+          "total": {
+            "amount": 76032300,
+            "amountEur": 38874698,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 338700,
-            "currency": "BGN",
-            "amountEur": 173175
-          },
-          "capital": {
-            "amount": 2214300,
-            "currency": "BGN",
-            "amountEur": 1132154
-          },
-          "otherTargeted": null
+            "amountEur": 173175,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "52009",
-          "obshtinaCode": "SHU22",
-          "nameBg": "Нови пазар",
-          "nameEn": "Novi pazar",
-          "total": {
-            "amount": 18158300,
-            "currency": "BGN",
-            "amountEur": 9284191
+          "capital": {
+            "amount": 870800,
+            "amountEur": 445233,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 15496600,
-            "currency": "BGN",
-            "amountEur": 7923286
+            "amountEur": 7923286,
+            "currency": "BGN"
           },
+          "ekatte": "52009",
           "equalization": {
             "amount": 1623700,
-            "currency": "BGN",
-            "amountEur": 830185
+            "amountEur": 830185,
+            "currency": "BGN"
+          },
+          "nameBg": "Нови пазар",
+          "nameEn": "Novi pazar",
+          "obshtinaCode": "SHU22",
+          "otherTargeted": null,
+          "total": {
+            "amount": 18158300,
+            "amountEur": 9284191,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 167200,
-            "currency": "BGN",
-            "amountEur": 85488
-          },
-          "capital": {
-            "amount": 870800,
-            "currency": "BGN",
-            "amountEur": 445233
-          },
-          "otherTargeted": null
+            "amountEur": 85488,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "36079",
-          "obshtinaCode": "SHU18",
-          "nameBg": "Каолиново",
-          "nameEn": "Kaolinovo",
-          "total": {
-            "amount": 10729300,
-            "currency": "BGN",
-            "amountEur": 5485804
+          "capital": {
+            "amount": 842200,
+            "amountEur": 430610,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8205500,
-            "currency": "BGN",
-            "amountEur": 4195406
+            "amountEur": 4195406,
+            "currency": "BGN"
           },
+          "ekatte": "36079",
           "equalization": {
             "amount": 1565000,
-            "currency": "BGN",
-            "amountEur": 800172
+            "amountEur": 800172,
+            "currency": "BGN"
+          },
+          "nameBg": "Каолиново",
+          "nameEn": "Kaolinovo",
+          "obshtinaCode": "SHU18",
+          "otherTargeted": null,
+          "total": {
+            "amount": 10729300,
+            "amountEur": 5485804,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 116600,
-            "currency": "BGN",
-            "amountEur": 59617
-          },
-          "capital": {
-            "amount": 842200,
-            "currency": "BGN",
-            "amountEur": 430610
-          },
-          "otherTargeted": null
+            "amountEur": 59617,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "58222",
-          "obshtinaCode": "SHU23",
-          "nameBg": "Велики Преслав",
-          "nameEn": "Veliki Preslav",
-          "total": {
-            "amount": 9545000,
-            "currency": "BGN",
-            "amountEur": 4880281
+          "capital": {
+            "amount": 695800,
+            "amountEur": 355757,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 7450400,
-            "currency": "BGN",
-            "amountEur": 3809329
+            "amountEur": 3809329,
+            "currency": "BGN"
           },
+          "ekatte": "58222",
           "equalization": {
             "amount": 1265200,
-            "currency": "BGN",
-            "amountEur": 646886
+            "amountEur": 646886,
+            "currency": "BGN"
+          },
+          "nameBg": "Велики Преслав",
+          "nameEn": "Veliki Preslav",
+          "obshtinaCode": "SHU23",
+          "otherTargeted": null,
+          "total": {
+            "amount": 9545000,
+            "amountEur": 4880281,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 133600,
-            "currency": "BGN",
-            "amountEur": 68309
-          },
-          "capital": {
-            "amount": 695800,
-            "currency": "BGN",
-            "amountEur": 355757
-          },
-          "otherTargeted": null
+            "amountEur": 68309,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "12766",
-          "obshtinaCode": "SHU10",
-          "nameBg": "Върбица",
-          "nameEn": "Varbitsa",
-          "total": {
-            "amount": 9178500,
-            "currency": "BGN",
-            "amountEur": 4692893
+          "capital": {
+            "amount": 820000,
+            "amountEur": 419259,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6806800,
-            "currency": "BGN",
-            "amountEur": 3480262
+            "amountEur": 3480262,
+            "currency": "BGN"
           },
+          "ekatte": "12766",
           "equalization": {
             "amount": 1446400,
-            "currency": "BGN",
-            "amountEur": 739533
+            "amountEur": 739533,
+            "currency": "BGN"
+          },
+          "nameBg": "Върбица",
+          "nameEn": "Varbitsa",
+          "obshtinaCode": "SHU10",
+          "otherTargeted": null,
+          "total": {
+            "amount": 9178500,
+            "amountEur": 4692893,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 105300,
-            "currency": "BGN",
-            "amountEur": 53839
-          },
-          "capital": {
-            "amount": 820000,
-            "currency": "BGN",
-            "amountEur": 419259
-          },
-          "otherTargeted": null
+            "amountEur": 53839,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "67708",
-          "obshtinaCode": "SHU25",
-          "nameBg": "Смядово",
-          "nameEn": "Smyadovo",
-          "total": {
-            "amount": 8633700,
-            "currency": "BGN",
-            "amountEur": 4414341
+          "capital": {
+            "amount": 523900,
+            "amountEur": 267866,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 7235200,
-            "currency": "BGN",
-            "amountEur": 3699299
+            "amountEur": 3699299,
+            "currency": "BGN"
           },
+          "ekatte": "67708",
           "equalization": {
             "amount": 818400,
-            "currency": "BGN",
-            "amountEur": 418441
+            "amountEur": 418441,
+            "currency": "BGN"
+          },
+          "nameBg": "Смядово",
+          "nameEn": "Smyadovo",
+          "obshtinaCode": "SHU25",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8633700,
+            "amountEur": 4414341,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 56200,
-            "currency": "BGN",
-            "amountEur": 28735
-          },
-          "capital": {
-            "amount": 523900,
-            "currency": "BGN",
-            "amountEur": 267866
-          },
-          "otherTargeted": null
+            "amountEur": 28735,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "36587",
-          "obshtinaCode": "SHU19",
-          "nameBg": "Каспичан",
-          "nameEn": "Kaspichan",
-          "total": {
-            "amount": 7564700,
-            "currency": "BGN",
-            "amountEur": 3867770
+          "capital": {
+            "amount": 554900,
+            "amountEur": 283716,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6066200,
-            "currency": "BGN",
-            "amountEur": 3101599
+            "amountEur": 3101599,
+            "currency": "BGN"
           },
+          "ekatte": "36587",
           "equalization": {
             "amount": 855000,
-            "currency": "BGN",
-            "amountEur": 437155
+            "amountEur": 437155,
+            "currency": "BGN"
+          },
+          "nameBg": "Каспичан",
+          "nameEn": "Kaspichan",
+          "obshtinaCode": "SHU19",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7564700,
+            "amountEur": 3867770,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 88600,
-            "currency": "BGN",
-            "amountEur": 45300
-          },
-          "capital": {
-            "amount": 554900,
-            "currency": "BGN",
-            "amountEur": 283716
-          },
-          "otherTargeted": null
+            "amountEur": 45300,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "51651",
-          "obshtinaCode": "SHU21",
-          "nameBg": "Никола Козлево",
-          "nameEn": "Nikola Kozlevo",
-          "total": {
-            "amount": 7230200,
-            "currency": "BGN",
-            "amountEur": 3696743
+          "capital": {
+            "amount": 573900,
+            "amountEur": 293430,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5692500,
-            "currency": "BGN",
-            "amountEur": 2910529
+            "amountEur": 2910529,
+            "currency": "BGN"
           },
+          "ekatte": "51651",
           "equalization": {
             "amount": 887700,
-            "currency": "BGN",
-            "amountEur": 453874
+            "amountEur": 453874,
+            "currency": "BGN"
+          },
+          "nameBg": "Никола Козлево",
+          "nameEn": "Nikola Kozlevo",
+          "obshtinaCode": "SHU21",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7230200,
+            "amountEur": 3696743,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 76100,
-            "currency": "BGN",
-            "amountEur": 38909
-          },
-          "capital": {
-            "amount": 573900,
-            "currency": "BGN",
-            "amountEur": 293430
-          },
-          "otherTargeted": null
+            "amountEur": 38909,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "10642",
-          "obshtinaCode": "SHU07",
-          "nameBg": "Венец",
-          "nameEn": "Venets",
-          "total": {
-            "amount": 6467900,
-            "currency": "BGN",
-            "amountEur": 3306985
+          "capital": {
+            "amount": 736000,
+            "amountEur": 376311,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4690300,
-            "currency": "BGN",
-            "amountEur": 2398112
+            "amountEur": 2398112,
+            "currency": "BGN"
           },
+          "ekatte": "10642",
           "equalization": {
             "amount": 901000,
-            "currency": "BGN",
-            "amountEur": 460674
+            "amountEur": 460674,
+            "currency": "BGN"
+          },
+          "nameBg": "Венец",
+          "nameEn": "Venets",
+          "obshtinaCode": "SHU07",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6467900,
+            "amountEur": 3306985,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 140600,
-            "currency": "BGN",
-            "amountEur": 71888
-          },
-          "capital": {
-            "amount": 736000,
-            "currency": "BGN",
-            "amountEur": 376311
-          },
-          "otherTargeted": null
+            "amountEur": 71888,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "14516",
-          "obshtinaCode": "SHU11",
-          "nameBg": "Хитрино",
-          "nameEn": "Hitrino",
-          "total": {
-            "amount": 5534900,
-            "currency": "BGN",
-            "amountEur": 2829949
+          "capital": {
+            "amount": 1072900,
+            "amountEur": 548565,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3333400,
-            "currency": "BGN",
-            "amountEur": 1704340
+            "amountEur": 1704340,
+            "currency": "BGN"
           },
+          "ekatte": "14516",
           "equalization": {
             "amount": 918700,
-            "currency": "BGN",
-            "amountEur": 469724
+            "amountEur": 469724,
+            "currency": "BGN"
+          },
+          "nameBg": "Хитрино",
+          "nameEn": "Hitrino",
+          "obshtinaCode": "SHU11",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5534900,
+            "amountEur": 2829949,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 209900,
-            "currency": "BGN",
-            "amountEur": 107320
-          },
-          "capital": {
-            "amount": 1072900,
-            "currency": "BGN",
-            "amountEur": 548565
-          },
-          "otherTargeted": null
+            "amountEur": 107320,
+            "currency": "BGN"
+          }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2023,
-      "asOf": "2023-01-01",
-      "source": {
-        "documentId": "law-2023",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 194096400,
-          "currency": "BGN",
-          "amountEur": 99239913
+        "capital": {
+          "amount": 8904700,
+          "amountEur": 4552901,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 164613700,
-          "currency": "BGN",
-          "amountEur": 84165648
+          "amount": 133348600,
+          "amountEur": 68180057,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 15453500,
-          "currency": "BGN",
-          "amountEur": 7901249
-        },
-        "winter": {
-          "amount": 1428900,
-          "currency": "BGN",
-          "amountEur": 730585
-        },
-        "capital": {
-          "amount": 12600300,
-          "currency": "BGN",
-          "amountEur": 6442430
+          "amount": 15388700,
+          "amountEur": 7868118,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1375700,
-          "currency": "BGN",
-          "amountEur": 703383
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 159074800,
+          "amountEur": 81333655,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1432800,
+          "amountEur": 732580,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2022",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+      }
+    },
+    {
+      "asOf": "2023-01-01",
+      "fiscalYear": 2023,
       "municipalities": [
         {
-          "ekatte": "83510",
-          "obshtinaCode": "SHU30",
-          "nameBg": "Шумен",
-          "nameEn": "Shumen",
-          "total": {
-            "amount": 92876300,
-            "currency": "BGN",
-            "amountEur": 47486898
+          "capital": {
+            "amount": 3167300,
+            "amountEur": 1619415,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 84263500,
-            "currency": "BGN",
-            "amountEur": 43083243
+            "amountEur": 43083243,
+            "currency": "BGN"
           },
+          "ekatte": "83510",
           "equalization": {
             "amount": 5107600,
-            "currency": "BGN",
-            "amountEur": 2611474
+            "amountEur": 2611474,
+            "currency": "BGN"
+          },
+          "nameBg": "Шумен",
+          "nameEn": "Shumen",
+          "obshtinaCode": "SHU30",
+          "otherTargeted": {
+            "amount": 866100,
+            "amountEur": 442830,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 92876300,
+            "amountEur": 47486898,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 337900,
-            "currency": "BGN",
-            "amountEur": 172766
-          },
-          "capital": {
-            "amount": 3167300,
-            "currency": "BGN",
-            "amountEur": 1619415
-          },
-          "otherTargeted": {
-            "amount": 866100,
-            "currency": "BGN",
-            "amountEur": 442830
+            "amountEur": 172766,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "52009",
-          "obshtinaCode": "SHU22",
-          "nameBg": "Нови пазар",
-          "nameEn": "Novi pazar",
-          "total": {
-            "amount": 22347600,
-            "currency": "BGN",
-            "amountEur": 11426146
+          "capital": {
+            "amount": 1257000,
+            "amountEur": 642694,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 19298000,
-            "currency": "BGN",
-            "amountEur": 9866911
+            "amountEur": 9866911,
+            "currency": "BGN"
           },
+          "ekatte": "52009",
           "equalization": {
             "amount": 1625500,
-            "currency": "BGN",
-            "amountEur": 831105
+            "amountEur": 831105,
+            "currency": "BGN"
+          },
+          "nameBg": "Нови пазар",
+          "nameEn": "Novi pazar",
+          "obshtinaCode": "SHU22",
+          "otherTargeted": {
+            "amount": 140200,
+            "amountEur": 71683,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 22347600,
+            "amountEur": 11426146,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 167100,
-            "currency": "BGN",
-            "amountEur": 85437
-          },
-          "capital": {
-            "amount": 1257000,
-            "currency": "BGN",
-            "amountEur": 642694
-          },
-          "otherTargeted": {
-            "amount": 140200,
-            "currency": "BGN",
-            "amountEur": 71683
+            "amountEur": 85437,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "36079",
-          "obshtinaCode": "SHU18",
-          "nameBg": "Каолиново",
-          "nameEn": "Kaolinovo",
-          "total": {
-            "amount": 12818800,
-            "currency": "BGN",
-            "amountEur": 6554148
+          "capital": {
+            "amount": 1175900,
+            "amountEur": 601228,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 9960400,
-            "currency": "BGN",
-            "amountEur": 5092672
+            "amountEur": 5092672,
+            "currency": "BGN"
           },
+          "ekatte": "36079",
           "equalization": {
             "amount": 1566500,
-            "currency": "BGN",
-            "amountEur": 800939
+            "amountEur": 800939,
+            "currency": "BGN"
+          },
+          "nameBg": "Каолиново",
+          "nameEn": "Kaolinovo",
+          "obshtinaCode": "SHU18",
+          "otherTargeted": {
+            "amount": 14100,
+            "amountEur": 7209,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 12818800,
+            "amountEur": 6554148,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 116000,
-            "currency": "BGN",
-            "amountEur": 59310
-          },
-          "capital": {
-            "amount": 1175900,
-            "currency": "BGN",
-            "amountEur": 601228
-          },
-          "otherTargeted": {
-            "amount": 14100,
-            "currency": "BGN",
-            "amountEur": 7209
+            "amountEur": 59310,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "58222",
-          "obshtinaCode": "SHU23",
-          "nameBg": "Велики Преслав",
-          "nameEn": "Veliki Preslav",
-          "total": {
-            "amount": 11674500,
-            "currency": "BGN",
-            "amountEur": 5969077
+          "capital": {
+            "amount": 990400,
+            "amountEur": 506383,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 9285700,
-            "currency": "BGN",
-            "amountEur": 4747703
+            "amountEur": 4747703,
+            "currency": "BGN"
           },
+          "ekatte": "58222",
           "equalization": {
             "amount": 1265200,
-            "currency": "BGN",
-            "amountEur": 646886
+            "amountEur": 646886,
+            "currency": "BGN"
+          },
+          "nameBg": "Велики Преслав",
+          "nameEn": "Veliki Preslav",
+          "obshtinaCode": "SHU23",
+          "otherTargeted": {
+            "amount": 48300,
+            "amountEur": 24695,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 11674500,
+            "amountEur": 5969077,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 133200,
-            "currency": "BGN",
-            "amountEur": 68104
-          },
-          "capital": {
-            "amount": 990400,
-            "currency": "BGN",
-            "amountEur": 506383
-          },
-          "otherTargeted": {
-            "amount": 48300,
-            "currency": "BGN",
-            "amountEur": 24695
+            "amountEur": 68104,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "67708",
-          "obshtinaCode": "SHU25",
-          "nameBg": "Смядово",
-          "nameEn": "Smyadovo",
-          "total": {
-            "amount": 11384000,
-            "currency": "BGN",
-            "amountEur": 5820547
+          "capital": {
+            "amount": 737300,
+            "amountEur": 376976,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 9712500,
-            "currency": "BGN",
-            "amountEur": 4965922
+            "amountEur": 4965922,
+            "currency": "BGN"
           },
+          "ekatte": "67708",
           "equalization": {
             "amount": 878100,
-            "currency": "BGN",
-            "amountEur": 448965
+            "amountEur": 448965,
+            "currency": "BGN"
+          },
+          "nameBg": "Смядово",
+          "nameEn": "Smyadovo",
+          "obshtinaCode": "SHU25",
+          "otherTargeted": {
+            "amount": 48300,
+            "amountEur": 24695,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 11384000,
+            "amountEur": 5820547,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 56100,
-            "currency": "BGN",
-            "amountEur": 28683
-          },
-          "capital": {
-            "amount": 737300,
-            "currency": "BGN",
-            "amountEur": 376976
-          },
-          "otherTargeted": {
-            "amount": 48300,
-            "currency": "BGN",
-            "amountEur": 24695
+            "amountEur": 28683,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "12766",
-          "obshtinaCode": "SHU10",
-          "nameBg": "Върбица",
-          "nameEn": "Varbitsa",
-          "total": {
-            "amount": 10914200,
-            "currency": "BGN",
-            "amountEur": 5580342
+          "capital": {
+            "amount": 1136500,
+            "amountEur": 581083,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8226800,
-            "currency": "BGN",
-            "amountEur": 4206296
+            "amountEur": 4206296,
+            "currency": "BGN"
           },
+          "ekatte": "12766",
           "equalization": {
             "amount": 1446400,
-            "currency": "BGN",
-            "amountEur": 739533
+            "amountEur": 739533,
+            "currency": "BGN"
+          },
+          "nameBg": "Върбица",
+          "nameEn": "Varbitsa",
+          "obshtinaCode": "SHU10",
+          "otherTargeted": {
+            "amount": 96500,
+            "amountEur": 49340,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 10914200,
+            "amountEur": 5580342,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 104500,
-            "currency": "BGN",
-            "amountEur": 53430
-          },
-          "capital": {
-            "amount": 1136500,
-            "currency": "BGN",
-            "amountEur": 581083
-          },
-          "otherTargeted": {
-            "amount": 96500,
-            "currency": "BGN",
-            "amountEur": 49340
+            "amountEur": 53430,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "36587",
-          "obshtinaCode": "SHU19",
-          "nameBg": "Каспичан",
-          "nameEn": "Kaspichan",
-          "total": {
-            "amount": 9063600,
-            "currency": "BGN",
-            "amountEur": 4634145
+          "capital": {
+            "amount": 775900,
+            "amountEur": 396711,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 7344400,
-            "currency": "BGN",
-            "amountEur": 3755132
+            "amountEur": 3755132,
+            "currency": "BGN"
           },
+          "ekatte": "36587",
           "equalization": {
             "amount": 855000,
-            "currency": "BGN",
-            "amountEur": 437155
+            "amountEur": 437155,
+            "currency": "BGN"
+          },
+          "nameBg": "Каспичан",
+          "nameEn": "Kaspichan",
+          "obshtinaCode": "SHU19",
+          "otherTargeted": {
+            "amount": 62300,
+            "amountEur": 31853,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 9063600,
+            "amountEur": 4634145,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 88300,
-            "currency": "BGN",
-            "amountEur": 45147
-          },
-          "capital": {
-            "amount": 775900,
-            "currency": "BGN",
-            "amountEur": 396711
-          },
-          "otherTargeted": {
-            "amount": 62300,
-            "currency": "BGN",
-            "amountEur": 31853
+            "amountEur": 45147,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "51651",
-          "obshtinaCode": "SHU21",
-          "nameBg": "Никола Козлево",
-          "nameEn": "Nikola Kozlevo",
-          "total": {
-            "amount": 8560900,
-            "currency": "BGN",
-            "amountEur": 4377119
+          "capital": {
+            "amount": 802800,
+            "amountEur": 410465,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6794600,
-            "currency": "BGN",
-            "amountEur": 3474024
+            "amountEur": 3474024,
+            "currency": "BGN"
           },
+          "ekatte": "51651",
           "equalization": {
             "amount": 887700,
-            "currency": "BGN",
-            "amountEur": 453874
+            "amountEur": 453874,
+            "currency": "BGN"
+          },
+          "nameBg": "Никола Козлево",
+          "nameEn": "Nikola Kozlevo",
+          "obshtinaCode": "SHU21",
+          "otherTargeted": {
+            "amount": 30100,
+            "amountEur": 15390,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 8560900,
+            "amountEur": 4377119,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 75800,
-            "currency": "BGN",
-            "amountEur": 38756
-          },
-          "capital": {
-            "amount": 802800,
-            "currency": "BGN",
-            "amountEur": 410465
-          },
-          "otherTargeted": {
-            "amount": 30100,
-            "currency": "BGN",
-            "amountEur": 15390
+            "amountEur": 38756,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "10642",
-          "obshtinaCode": "SHU07",
-          "nameBg": "Венец",
-          "nameEn": "Venets",
-          "total": {
-            "amount": 7703600,
-            "currency": "BGN",
-            "amountEur": 3938788
+          "capital": {
+            "amount": 1038100,
+            "amountEur": 530772,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5622300,
-            "currency": "BGN",
-            "amountEur": 2874636
+            "amountEur": 2874636,
+            "currency": "BGN"
           },
+          "ekatte": "10642",
           "equalization": {
             "amount": 902800,
-            "currency": "BGN",
-            "amountEur": 461594
+            "amountEur": 461594,
+            "currency": "BGN"
+          },
+          "nameBg": "Венец",
+          "nameEn": "Venets",
+          "obshtinaCode": "SHU07",
+          "otherTargeted": {
+            "amount": 48100,
+            "amountEur": 24593,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 7703600,
+            "amountEur": 3938788,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 140400,
-            "currency": "BGN",
-            "amountEur": 71785
-          },
-          "capital": {
-            "amount": 1038100,
-            "currency": "BGN",
-            "amountEur": 530772
-          },
-          "otherTargeted": {
-            "amount": 48100,
-            "currency": "BGN",
-            "amountEur": 24593
+            "amountEur": 71785,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "14516",
-          "obshtinaCode": "SHU11",
-          "nameBg": "Хитрино",
-          "nameEn": "Hitrino",
-          "total": {
-            "amount": 6752900,
-            "currency": "BGN",
-            "amountEur": 3452703
+          "capital": {
+            "amount": 1519100,
+            "amountEur": 776703,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4105500,
-            "currency": "BGN",
-            "amountEur": 2099109
+            "amountEur": 2099109,
+            "currency": "BGN"
           },
+          "ekatte": "14516",
           "equalization": {
             "amount": 918700,
-            "currency": "BGN",
-            "amountEur": 469724
+            "amountEur": 469724,
+            "currency": "BGN"
+          },
+          "nameBg": "Хитрино",
+          "nameEn": "Hitrino",
+          "obshtinaCode": "SHU11",
+          "otherTargeted": {
+            "amount": 21700,
+            "amountEur": 11095,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 6752900,
+            "amountEur": 3452703,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 209600,
-            "currency": "BGN",
-            "amountEur": 107167
-          },
-          "capital": {
-            "amount": 1519100,
-            "currency": "BGN",
-            "amountEur": 776703
-          },
-          "otherTargeted": {
-            "amount": 21700,
-            "currency": "BGN",
-            "amountEur": 11095
+            "amountEur": 107167,
+            "currency": "BGN"
           }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2024,
-      "asOf": "2024-01-01",
-      "source": {
-        "documentId": "law-2024",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 218299200,
-          "currency": "BGN",
-          "amountEur": 111614609
+        "capital": {
+          "amount": 12600300,
+          "amountEur": 6442430,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 188677300,
-          "currency": "BGN",
-          "amountEur": 96469171
+          "amount": 164613700,
+          "amountEur": 84165648,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 15491600,
-          "currency": "BGN",
-          "amountEur": 7920730
-        },
-        "winter": {
-          "amount": 1430000,
-          "currency": "BGN",
-          "amountEur": 731148
-        },
-        "capital": {
-          "amount": 12700300,
-          "currency": "BGN",
-          "amountEur": 6493560
+          "amount": 15453500,
+          "amountEur": 7901249,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1650800,
-          "currency": "BGN",
-          "amountEur": 844043
+          "amount": 1375700,
+          "amountEur": 703383,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 194096400,
+          "amountEur": 99239913,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1428900,
+          "amountEur": 730585,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2023",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+      }
+    },
+    {
+      "asOf": "2024-01-01",
+      "fiscalYear": 2024,
       "municipalities": [
         {
-          "ekatte": "83510",
-          "obshtinaCode": "SHU30",
-          "nameBg": "Шумен",
-          "nameEn": "Shumen",
-          "total": {
-            "amount": 105612800,
-            "currency": "BGN",
-            "amountEur": 53998967
+          "capital": {
+            "amount": 3182900,
+            "amountEur": 1627391,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 96984300,
-            "currency": "BGN",
-            "amountEur": 49587285
+            "amountEur": 49587285,
+            "currency": "BGN"
           },
+          "ekatte": "83510",
           "equalization": {
             "amount": 5107600,
-            "currency": "BGN",
-            "amountEur": 2611474
+            "amountEur": 2611474,
+            "currency": "BGN"
+          },
+          "nameBg": "Шумен",
+          "nameEn": "Shumen",
+          "obshtinaCode": "SHU30",
+          "otherTargeted": {
+            "amount": 1039300,
+            "amountEur": 531386,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 105612800,
+            "amountEur": 53998967,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 338000,
-            "currency": "BGN",
-            "amountEur": 172817
-          },
-          "capital": {
-            "amount": 3182900,
-            "currency": "BGN",
-            "amountEur": 1627391
-          },
-          "otherTargeted": {
-            "amount": 1039300,
-            "currency": "BGN",
-            "amountEur": 531386
+            "amountEur": 172817,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "52009",
-          "obshtinaCode": "SHU22",
-          "nameBg": "Нови пазар",
-          "nameEn": "Novi pazar",
-          "total": {
-            "amount": 24893200,
-            "currency": "BGN",
-            "amountEur": 12727691
+          "capital": {
+            "amount": 1266300,
+            "amountEur": 647449,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 21820500,
-            "currency": "BGN",
-            "amountEur": 11156644
+            "amountEur": 11156644,
+            "currency": "BGN"
           },
+          "ekatte": "52009",
           "equalization": {
             "amount": 1639200,
-            "currency": "BGN",
-            "amountEur": 838110
+            "amountEur": 838110,
+            "currency": "BGN"
+          },
+          "nameBg": "Нови пазар",
+          "nameEn": "Novi pazar",
+          "obshtinaCode": "SHU22",
+          "otherTargeted": {
+            "amount": 168300,
+            "amountEur": 86050,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 24893200,
+            "amountEur": 12727691,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 167200,
-            "currency": "BGN",
-            "amountEur": 85488
-          },
-          "capital": {
-            "amount": 1266300,
-            "currency": "BGN",
-            "amountEur": 647449
-          },
-          "otherTargeted": {
-            "amount": 168300,
-            "currency": "BGN",
-            "amountEur": 86050
+            "amountEur": 85488,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "58222",
-          "obshtinaCode": "SHU23",
-          "nameBg": "Велики Преслав",
-          "nameEn": "Veliki Preslav",
-          "total": {
-            "amount": 14463800,
-            "currency": "BGN",
-            "amountEur": 7395224
+          "capital": {
+            "amount": 996400,
+            "amountEur": 509451,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 12069000,
-            "currency": "BGN",
-            "amountEur": 6170782
+            "amountEur": 6170782,
+            "currency": "BGN"
           },
+          "ekatte": "58222",
           "equalization": {
             "amount": 1265200,
-            "currency": "BGN",
-            "amountEur": 646886
+            "amountEur": 646886,
+            "currency": "BGN"
+          },
+          "nameBg": "Велики Преслав",
+          "nameEn": "Veliki Preslav",
+          "obshtinaCode": "SHU23",
+          "otherTargeted": {
+            "amount": 57900,
+            "amountEur": 29604,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 14463800,
+            "amountEur": 7395224,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 133200,
-            "currency": "BGN",
-            "amountEur": 68104
-          },
-          "capital": {
-            "amount": 996400,
-            "currency": "BGN",
-            "amountEur": 509451
-          },
-          "otherTargeted": {
-            "amount": 57900,
-            "currency": "BGN",
-            "amountEur": 29604
+            "amountEur": 68104,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "36079",
-          "obshtinaCode": "SHU18",
-          "nameBg": "Каолиново",
-          "nameEn": "Kaolinovo",
-          "total": {
-            "amount": 13858700,
-            "currency": "BGN",
-            "amountEur": 7085841
+          "capital": {
+            "amount": 1189300,
+            "amountEur": 608079,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 10974900,
-            "currency": "BGN",
-            "amountEur": 5611377
+            "amountEur": 5611377,
+            "currency": "BGN"
           },
+          "ekatte": "36079",
           "equalization": {
             "amount": 1578300,
-            "currency": "BGN",
-            "amountEur": 806972
+            "amountEur": 806972,
+            "currency": "BGN"
+          },
+          "nameBg": "Каолиново",
+          "nameEn": "Kaolinovo",
+          "obshtinaCode": "SHU18",
+          "otherTargeted": {
+            "amount": 16900,
+            "amountEur": 8641,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 13858700,
+            "amountEur": 7085841,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 116200,
-            "currency": "BGN",
-            "amountEur": 59412
-          },
-          "capital": {
-            "amount": 1189300,
-            "currency": "BGN",
-            "amountEur": 608079
-          },
-          "otherTargeted": {
-            "amount": 16900,
-            "currency": "BGN",
-            "amountEur": 8641
+            "amountEur": 59412,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "67708",
-          "obshtinaCode": "SHU25",
-          "nameBg": "Смядово",
-          "nameEn": "Smyadovo",
-          "total": {
-            "amount": 13018800,
-            "currency": "BGN",
-            "amountEur": 6656407
+          "capital": {
+            "amount": 742800,
+            "amountEur": 379788,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 11341600,
-            "currency": "BGN",
-            "amountEur": 5798868
+            "amountEur": 5798868,
+            "currency": "BGN"
           },
+          "ekatte": "67708",
           "equalization": {
             "amount": 878200,
-            "currency": "BGN",
-            "amountEur": 449017
+            "amountEur": 449017,
+            "currency": "BGN"
+          },
+          "nameBg": "Смядово",
+          "nameEn": "Smyadovo",
+          "obshtinaCode": "SHU25",
+          "otherTargeted": {
+            "amount": 58000,
+            "amountEur": 29655,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 13018800,
+            "amountEur": 6656407,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 56200,
-            "currency": "BGN",
-            "amountEur": 28735
-          },
-          "capital": {
-            "amount": 742800,
-            "currency": "BGN",
-            "amountEur": 379788
-          },
-          "otherTargeted": {
-            "amount": 58000,
-            "currency": "BGN",
-            "amountEur": 29655
+            "amountEur": 28735,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "12766",
-          "obshtinaCode": "SHU10",
-          "nameBg": "Върбица",
-          "nameEn": "Varbitsa",
-          "total": {
-            "amount": 11740100,
-            "currency": "BGN",
-            "amountEur": 6002618
+          "capital": {
+            "amount": 1147400,
+            "amountEur": 586656,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 9041700,
-            "currency": "BGN",
-            "amountEur": 4622948
+            "amountEur": 4622948,
+            "currency": "BGN"
           },
+          "ekatte": "12766",
           "equalization": {
             "amount": 1446400,
-            "currency": "BGN",
-            "amountEur": 739533
+            "amountEur": 739533,
+            "currency": "BGN"
+          },
+          "nameBg": "Върбица",
+          "nameEn": "Varbitsa",
+          "obshtinaCode": "SHU10",
+          "otherTargeted": {
+            "amount": 115800,
+            "amountEur": 59208,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 11740100,
+            "amountEur": 6002618,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 104600,
-            "currency": "BGN",
-            "amountEur": 53481
-          },
-          "capital": {
-            "amount": 1147400,
-            "currency": "BGN",
-            "amountEur": 586656
-          },
-          "otherTargeted": {
-            "amount": 115800,
-            "currency": "BGN",
-            "amountEur": 59208
+            "amountEur": 53481,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "36587",
-          "obshtinaCode": "SHU19",
-          "nameBg": "Каспичан",
-          "nameEn": "Kaspichan",
-          "total": {
-            "amount": 10023400,
-            "currency": "BGN",
-            "amountEur": 5124883
+          "capital": {
+            "amount": 780700,
+            "amountEur": 399166,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8299300,
-            "currency": "BGN",
-            "amountEur": 4243365
+            "amountEur": 4243365,
+            "currency": "BGN"
           },
+          "ekatte": "36587",
           "equalization": {
             "amount": 855000,
-            "currency": "BGN",
-            "amountEur": 437155
+            "amountEur": 437155,
+            "currency": "BGN"
+          },
+          "nameBg": "Каспичан",
+          "nameEn": "Kaspichan",
+          "obshtinaCode": "SHU19",
+          "otherTargeted": {
+            "amount": 74800,
+            "amountEur": 38245,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 10023400,
+            "amountEur": 5124883,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 88400,
-            "currency": "BGN",
-            "amountEur": 45198
-          },
-          "capital": {
-            "amount": 780700,
-            "currency": "BGN",
-            "amountEur": 399166
-          },
-          "otherTargeted": {
-            "amount": 74800,
-            "currency": "BGN",
-            "amountEur": 38245
+            "amountEur": 45198,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "51651",
-          "obshtinaCode": "SHU21",
-          "nameBg": "Никола Козлево",
-          "nameEn": "Nikola Kozlevo",
-          "total": {
-            "amount": 9236100,
-            "currency": "BGN",
-            "amountEur": 4722343
+          "capital": {
+            "amount": 811300,
+            "amountEur": 414811,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 7461200,
-            "currency": "BGN",
-            "amountEur": 3814851
+            "amountEur": 3814851,
+            "currency": "BGN"
           },
+          "ekatte": "51651",
           "equalization": {
             "amount": 887700,
-            "currency": "BGN",
-            "amountEur": 453874
+            "amountEur": 453874,
+            "currency": "BGN"
+          },
+          "nameBg": "Никола Козлево",
+          "nameEn": "Nikola Kozlevo",
+          "obshtinaCode": "SHU21",
+          "otherTargeted": {
+            "amount": 36100,
+            "amountEur": 18458,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 9236100,
+            "amountEur": 4722343,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 75900,
-            "currency": "BGN",
-            "amountEur": 38807
-          },
-          "capital": {
-            "amount": 811300,
-            "currency": "BGN",
-            "amountEur": 414811
-          },
-          "otherTargeted": {
-            "amount": 36100,
-            "currency": "BGN",
-            "amountEur": 18458
+            "amountEur": 38807,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "10642",
-          "obshtinaCode": "SHU07",
-          "nameBg": "Венец",
-          "nameEn": "Venets",
-          "total": {
-            "amount": 8309800,
-            "currency": "BGN",
-            "amountEur": 4248733
+          "capital": {
+            "amount": 1047300,
+            "amountEur": 535476,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6206700,
-            "currency": "BGN",
-            "amountEur": 3173435
+            "amountEur": 3173435,
+            "currency": "BGN"
           },
+          "ekatte": "10642",
           "equalization": {
             "amount": 915300,
-            "currency": "BGN",
-            "amountEur": 467985
+            "amountEur": 467985,
+            "currency": "BGN"
+          },
+          "nameBg": "Венец",
+          "nameEn": "Venets",
+          "obshtinaCode": "SHU07",
+          "otherTargeted": {
+            "amount": 57700,
+            "amountEur": 29502,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 8309800,
+            "amountEur": 4248733,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 140500,
-            "currency": "BGN",
-            "amountEur": 71837
-          },
-          "capital": {
-            "amount": 1047300,
-            "currency": "BGN",
-            "amountEur": 535476
-          },
-          "otherTargeted": {
-            "amount": 57700,
-            "currency": "BGN",
-            "amountEur": 29502
+            "amountEur": 71837,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "14516",
-          "obshtinaCode": "SHU11",
-          "nameBg": "Хитрино",
-          "nameEn": "Hitrino",
-          "total": {
-            "amount": 7142500,
-            "currency": "BGN",
-            "amountEur": 3651902
+          "capital": {
+            "amount": 1535900,
+            "amountEur": 785293,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4478100,
-            "currency": "BGN",
-            "amountEur": 2289616
+            "amountEur": 2289616,
+            "currency": "BGN"
           },
+          "ekatte": "14516",
           "equalization": {
             "amount": 918700,
-            "currency": "BGN",
-            "amountEur": 469724
+            "amountEur": 469724,
+            "currency": "BGN"
+          },
+          "nameBg": "Хитрино",
+          "nameEn": "Hitrino",
+          "obshtinaCode": "SHU11",
+          "otherTargeted": {
+            "amount": 26000,
+            "amountEur": 13294,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 7142500,
+            "amountEur": 3651902,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 209800,
-            "currency": "BGN",
-            "amountEur": 107269
-          },
-          "capital": {
-            "amount": 1535900,
-            "currency": "BGN",
-            "amountEur": 785293
-          },
-          "otherTargeted": {
-            "amount": 26000,
-            "currency": "BGN",
-            "amountEur": 13294
+            "amountEur": 107269,
+            "currency": "BGN"
           }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2025,
-      "asOf": "2025-01-01",
-      "source": {
-        "documentId": "law-2025",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 243750700,
-          "currency": "BGN",
-          "amountEur": 124627755
+        "capital": {
+          "amount": 12700300,
+          "amountEur": 6493560,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 212034200,
-          "currency": "BGN",
-          "amountEur": 108411364
+          "amount": 188677300,
+          "amountEur": 96469171,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 16758200,
-          "currency": "BGN",
-          "amountEur": 8568331
-        },
-        "winter": {
-          "amount": 1451500,
-          "currency": "BGN",
-          "amountEur": 742140
-        },
-        "capital": {
-          "amount": 13506800,
-          "currency": "BGN",
-          "amountEur": 6905917
+          "amount": 15491600,
+          "amountEur": 7920730,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1960000,
-          "currency": "BGN",
-          "amountEur": 1002131
+          "amount": 1650800,
+          "amountEur": 844043,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 218299200,
+          "amountEur": 111614609,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1430000,
+          "amountEur": 731148,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2024",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
+      }
+    },
+    {
+      "asOf": "2025-01-01",
+      "fiscalYear": 2025,
       "municipalities": [
         {
-          "ekatte": "83510",
-          "obshtinaCode": "SHU30",
-          "nameBg": "Шумен",
-          "nameEn": "Shumen",
-          "total": {
-            "amount": 116278800,
-            "currency": "BGN",
-            "amountEur": 59452406
+          "capital": {
+            "amount": 3384100,
+            "amountEur": 1730263,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 107444200,
-            "currency": "BGN",
-            "amountEur": 54935347
+            "amountEur": 54935347,
+            "currency": "BGN"
           },
+          "ekatte": "83510",
           "equalization": {
             "amount": 5107600,
-            "currency": "BGN",
-            "amountEur": 2611474
+            "amountEur": 2611474,
+            "currency": "BGN"
+          },
+          "nameBg": "Шумен",
+          "nameEn": "Shumen",
+          "obshtinaCode": "SHU30",
+          "otherTargeted": {
+            "amount": 1271500,
+            "amountEur": 650108,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 116278800,
+            "amountEur": 59452406,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 342900,
-            "currency": "BGN",
-            "amountEur": 175322
-          },
-          "capital": {
-            "amount": 3384100,
-            "currency": "BGN",
-            "amountEur": 1730263
-          },
-          "otherTargeted": {
-            "amount": 1271500,
-            "currency": "BGN",
-            "amountEur": 650108
+            "amountEur": 175322,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "52009",
-          "obshtinaCode": "SHU22",
-          "nameBg": "Нови пазар",
-          "nameEn": "Novi pazar",
-          "total": {
-            "amount": 28167600,
-            "currency": "BGN",
-            "amountEur": 14401865
+          "capital": {
+            "amount": 1348500,
+            "amountEur": 689477,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 25000000,
-            "currency": "BGN",
-            "amountEur": 12782297
+            "amountEur": 12782297,
+            "currency": "BGN"
           },
+          "ekatte": "52009",
           "equalization": {
             "amount": 1649400,
-            "currency": "BGN",
-            "amountEur": 843325
+            "amountEur": 843325,
+            "currency": "BGN"
+          },
+          "nameBg": "Нови пазар",
+          "nameEn": "Novi pazar",
+          "obshtinaCode": "SHU22",
+          "otherTargeted": {
+            "amount": 188400,
+            "amountEur": 96327,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 28167600,
+            "amountEur": 14401865,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 169700,
-            "currency": "BGN",
-            "amountEur": 86766
-          },
-          "capital": {
-            "amount": 1348500,
-            "currency": "BGN",
-            "amountEur": 689477
-          },
-          "otherTargeted": {
-            "amount": 188400,
-            "currency": "BGN",
-            "amountEur": 96327
+            "amountEur": 86766,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "58222",
-          "obshtinaCode": "SHU23",
-          "nameBg": "Велики Преслав",
-          "nameEn": "Veliki Preslav",
-          "total": {
-            "amount": 16157400,
-            "currency": "BGN",
-            "amountEur": 8261147
+          "capital": {
+            "amount": 1060800,
+            "amountEur": 542378,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 13570500,
-            "currency": "BGN",
-            "amountEur": 6938486
+            "amountEur": 6938486,
+            "currency": "BGN"
           },
+          "ekatte": "58222",
           "equalization": {
             "amount": 1390900,
-            "currency": "BGN",
-            "amountEur": 711156
+            "amountEur": 711156,
+            "currency": "BGN"
+          },
+          "nameBg": "Велики Преслав",
+          "nameEn": "Veliki Preslav",
+          "obshtinaCode": "SHU23",
+          "otherTargeted": {
+            "amount": 67500,
+            "amountEur": 34512,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 16157400,
+            "amountEur": 8261147,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 135200,
-            "currency": "BGN",
-            "amountEur": 69127
-          },
-          "capital": {
-            "amount": 1060800,
-            "currency": "BGN",
-            "amountEur": 542378
-          },
-          "otherTargeted": {
-            "amount": 67500,
-            "currency": "BGN",
-            "amountEur": 34512
+            "amountEur": 69127,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "36079",
-          "obshtinaCode": "SHU18",
-          "nameBg": "Каолиново",
-          "nameEn": "Kaolinovo",
-          "total": {
-            "amount": 15559100,
-            "currency": "BGN",
-            "amountEur": 7955242
+          "capital": {
+            "amount": 1265700,
+            "amountEur": 647142,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 12402900,
-            "currency": "BGN",
-            "amountEur": 6341502
+            "amountEur": 6341502,
+            "currency": "BGN"
           },
+          "ekatte": "36079",
           "equalization": {
             "amount": 1772500,
-            "currency": "BGN",
-            "amountEur": 906265
+            "amountEur": 906265,
+            "currency": "BGN"
+          },
+          "nameBg": "Каолиново",
+          "nameEn": "Kaolinovo",
+          "obshtinaCode": "SHU18",
+          "otherTargeted": {
+            "amount": 15500,
+            "amountEur": 7925,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 15559100,
+            "amountEur": 7955242,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 118000,
-            "currency": "BGN",
-            "amountEur": 60332
-          },
-          "capital": {
-            "amount": 1265700,
-            "currency": "BGN",
-            "amountEur": 647142
-          },
-          "otherTargeted": {
-            "amount": 15500,
-            "currency": "BGN",
-            "amountEur": 7925
+            "amountEur": 60332,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "67708",
-          "obshtinaCode": "SHU25",
-          "nameBg": "Смядово",
-          "nameEn": "Smyadovo",
-          "total": {
-            "amount": 14969400,
-            "currency": "BGN",
-            "amountEur": 7653733
+          "capital": {
+            "amount": 786700,
+            "amountEur": 402233,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 13007600,
-            "currency": "BGN",
-            "amountEur": 6650680
+            "amountEur": 6650680,
+            "currency": "BGN"
           },
+          "ekatte": "67708",
           "equalization": {
             "amount": 1118100,
-            "currency": "BGN",
-            "amountEur": 571675
+            "amountEur": 571675,
+            "currency": "BGN"
+          },
+          "nameBg": "Смядово",
+          "nameEn": "Smyadovo",
+          "obshtinaCode": "SHU25",
+          "otherTargeted": {
+            "amount": 61500,
+            "amountEur": 31444,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 14969400,
+            "amountEur": 7653733,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 57000,
-            "currency": "BGN",
-            "amountEur": 29144
-          },
-          "capital": {
-            "amount": 786700,
-            "currency": "BGN",
-            "amountEur": 402233
-          },
-          "otherTargeted": {
-            "amount": 61500,
-            "currency": "BGN",
-            "amountEur": 31444
+            "amountEur": 29144,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "12766",
-          "obshtinaCode": "SHU10",
-          "nameBg": "Върбица",
-          "nameEn": "Varbitsa",
-          "total": {
-            "amount": 13104600,
-            "currency": "BGN",
-            "amountEur": 6700276
+          "capital": {
+            "amount": 1219500,
+            "amountEur": 623520,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 10223900,
-            "currency": "BGN",
-            "amountEur": 5227397
+            "amountEur": 5227397,
+            "currency": "BGN"
           },
+          "ekatte": "12766",
           "equalization": {
             "amount": 1555000,
-            "currency": "BGN",
-            "amountEur": 795059
+            "amountEur": 795059,
+            "currency": "BGN"
+          },
+          "nameBg": "Върбица",
+          "nameEn": "Varbitsa",
+          "obshtinaCode": "SHU10",
+          "otherTargeted": {
+            "amount": 131400,
+            "amountEur": 67184,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 13104600,
+            "amountEur": 6700276,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 106200,
-            "currency": "BGN",
-            "amountEur": 54299
-          },
-          "capital": {
-            "amount": 1219500,
-            "currency": "BGN",
-            "amountEur": 623520
-          },
-          "otherTargeted": {
-            "amount": 131400,
-            "currency": "BGN",
-            "amountEur": 67184
+            "amountEur": 54299,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "36587",
-          "obshtinaCode": "SHU19",
-          "nameBg": "Каспичан",
-          "nameEn": "Kaspichan",
-          "total": {
-            "amount": 11677400,
-            "currency": "BGN",
-            "amountEur": 5970560
+          "capital": {
+            "amount": 828100,
+            "amountEur": 423401,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 9729200,
-            "currency": "BGN",
-            "amountEur": 4974461
+            "amountEur": 4974461,
+            "currency": "BGN"
           },
+          "ekatte": "36587",
           "equalization": {
             "amount": 1030400,
-            "currency": "BGN",
-            "amountEur": 526835
+            "amountEur": 526835,
+            "currency": "BGN"
+          },
+          "nameBg": "Каспичан",
+          "nameEn": "Kaspichan",
+          "obshtinaCode": "SHU19",
+          "otherTargeted": {
+            "amount": 90900,
+            "amountEur": 46476,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 11677400,
+            "amountEur": 5970560,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 89700,
-            "currency": "BGN",
-            "amountEur": 45863
-          },
-          "capital": {
-            "amount": 828100,
-            "currency": "BGN",
-            "amountEur": 423401
-          },
-          "otherTargeted": {
-            "amount": 90900,
-            "currency": "BGN",
-            "amountEur": 46476
+            "amountEur": 45863,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "51651",
-          "obshtinaCode": "SHU21",
-          "nameBg": "Никола Козлево",
-          "nameEn": "Nikola Kozlevo",
-          "total": {
-            "amount": 10204500,
-            "currency": "BGN",
-            "amountEur": 5217478
+          "capital": {
+            "amount": 861400,
+            "amountEur": 440427,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8317500,
-            "currency": "BGN",
-            "amountEur": 4252670
+            "amountEur": 4252670,
+            "currency": "BGN"
           },
+          "ekatte": "51651",
           "equalization": {
             "amount": 948500,
-            "currency": "BGN",
-            "amountEur": 484960
+            "amountEur": 484960,
+            "currency": "BGN"
+          },
+          "nameBg": "Никола Козлево",
+          "nameEn": "Nikola Kozlevo",
+          "obshtinaCode": "SHU21",
+          "otherTargeted": {
+            "amount": 42700,
+            "amountEur": 21832,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 10204500,
+            "amountEur": 5217478,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 77100,
-            "currency": "BGN",
-            "amountEur": 39421
-          },
-          "capital": {
-            "amount": 861400,
-            "currency": "BGN",
-            "amountEur": 440427
-          },
-          "otherTargeted": {
-            "amount": 42700,
-            "currency": "BGN",
-            "amountEur": 21832
+            "amountEur": 39421,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "10642",
-          "obshtinaCode": "SHU07",
-          "nameBg": "Венец",
-          "nameEn": "Venets",
-          "total": {
-            "amount": 9416200,
-            "currency": "BGN",
-            "amountEur": 4814427
+          "capital": {
+            "amount": 1114300,
+            "amountEur": 569733,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6975800,
-            "currency": "BGN",
-            "amountEur": 3566670
+            "amountEur": 3566670,
+            "currency": "BGN"
           },
+          "ekatte": "10642",
           "equalization": {
             "amount": 1183400,
-            "currency": "BGN",
-            "amountEur": 605063
+            "amountEur": 605063,
+            "currency": "BGN"
+          },
+          "nameBg": "Венец",
+          "nameEn": "Venets",
+          "obshtinaCode": "SHU07",
+          "otherTargeted": {
+            "amount": 57300,
+            "amountEur": 29297,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 9416200,
+            "amountEur": 4814427,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 142700,
-            "currency": "BGN",
-            "amountEur": 72961
-          },
-          "capital": {
-            "amount": 1114300,
-            "currency": "BGN",
-            "amountEur": 569733
-          },
-          "otherTargeted": {
-            "amount": 57300,
-            "currency": "BGN",
-            "amountEur": 29297
+            "amountEur": 72961,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "14516",
-          "obshtinaCode": "SHU11",
-          "nameBg": "Хитрино",
-          "nameEn": "Hitrino",
-          "total": {
-            "amount": 8215700,
-            "currency": "BGN",
-            "amountEur": 4200621
+          "capital": {
+            "amount": 1637700,
+            "amountEur": 837343,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5362600,
-            "currency": "BGN",
-            "amountEur": 2741854
+            "amountEur": 2741854,
+            "currency": "BGN"
           },
+          "ekatte": "14516",
           "equalization": {
             "amount": 1002400,
-            "currency": "BGN",
-            "amountEur": 512519
+            "amountEur": 512519,
+            "currency": "BGN"
+          },
+          "nameBg": "Хитрино",
+          "nameEn": "Hitrino",
+          "obshtinaCode": "SHU11",
+          "otherTargeted": {
+            "amount": 33300,
+            "amountEur": 17026,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 8215700,
+            "amountEur": 4200621,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 213000,
-            "currency": "BGN",
-            "amountEur": 108905
-          },
-          "capital": {
-            "amount": 1637700,
-            "currency": "BGN",
-            "amountEur": 837343
-          },
-          "otherTargeted": {
-            "amount": 33300,
-            "currency": "BGN",
-            "amountEur": 17026
+            "amountEur": 108905,
+            "currency": "BGN"
           }
         }
-      ]
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 13506800,
+          "amountEur": 6905917,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 212034200,
+          "amountEur": 108411364,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 16758200,
+          "amountEur": 8568331,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 1960000,
+          "amountEur": 1002131,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 243750700,
+          "amountEur": 124627755,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1451500,
+          "amountEur": 742140,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2025",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
+      }
     }
   ]
 }

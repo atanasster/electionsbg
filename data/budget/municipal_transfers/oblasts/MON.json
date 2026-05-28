@@ -4,2098 +4,2098 @@
   "oblastNameEn": "Montana",
   "years": [
     {
-      "fiscalYear": 2020,
       "asOf": "2020-01-01",
-      "source": {
-        "documentId": "law-2020",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
-      },
-      "oblastTotals": {
-        "total": {
-          "amount": 96559300,
-          "currency": "BGN",
-          "amountEur": 49369986
-        },
-        "delegated": {
-          "amount": 79400000,
-          "currency": "BGN",
-          "amountEur": 40596574
-        },
-        "equalization": {
-          "amount": 11297200,
-          "currency": "BGN",
-          "amountEur": 5776167
-        },
-        "winter": {
-          "amount": 812900,
-          "currency": "BGN",
-          "amountEur": 415629
-        },
-        "capital": {
-          "amount": 5049200,
-          "currency": "BGN",
-          "amountEur": 2581616
-        },
-        "otherTargeted": {
-          "amount": 0,
-          "currency": "BGN",
-          "amountEur": 0
-        }
-      },
+      "fiscalYear": 2020,
       "municipalities": [
         {
-          "ekatte": "48489",
-          "obshtinaCode": "MON29",
-          "nameBg": "Монтана",
-          "nameEn": "Montana",
-          "total": {
-            "amount": 32268400,
-            "currency": "BGN",
-            "amountEur": 16498571
+          "capital": {
+            "amount": 970500,
+            "amountEur": 496209,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 27984900,
-            "currency": "BGN",
-            "amountEur": 14308452
+            "amountEur": 14308452,
+            "currency": "BGN"
           },
+          "ekatte": "48489",
           "equalization": {
             "amount": 3198200,
-            "currency": "BGN",
-            "amountEur": 1635214
+            "amountEur": 1635214,
+            "currency": "BGN"
+          },
+          "nameBg": "Монтана",
+          "nameEn": "Montana",
+          "obshtinaCode": "MON29",
+          "otherTargeted": null,
+          "total": {
+            "amount": 32268400,
+            "amountEur": 16498571,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 114800,
-            "currency": "BGN",
-            "amountEur": 58696
-          },
-          "capital": {
-            "amount": 970500,
-            "currency": "BGN",
-            "amountEur": 496209
-          },
-          "otherTargeted": null
+            "amountEur": 58696,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "44238",
-          "obshtinaCode": "MON24",
-          "nameBg": "Лом",
-          "nameEn": "Lom",
-          "total": {
-            "amount": 17433100,
-            "currency": "BGN",
-            "amountEur": 8913402
+          "capital": {
+            "amount": 523300,
+            "amountEur": 267559,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 14767100,
-            "currency": "BGN",
-            "amountEur": 7550298
+            "amountEur": 7550298,
+            "currency": "BGN"
           },
+          "ekatte": "44238",
           "equalization": {
             "amount": 2042200,
-            "currency": "BGN",
-            "amountEur": 1044160
+            "amountEur": 1044160,
+            "currency": "BGN"
+          },
+          "nameBg": "Лом",
+          "nameEn": "Lom",
+          "obshtinaCode": "MON24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 17433100,
+            "amountEur": 8913402,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 100500,
-            "currency": "BGN",
-            "amountEur": 51385
-          },
-          "capital": {
-            "amount": 523300,
-            "currency": "BGN",
-            "amountEur": 267559
-          },
-          "otherTargeted": null
+            "amountEur": 51385,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "03928",
-          "obshtinaCode": "MON02",
-          "nameBg": "Берковица",
-          "nameEn": "Berkovitsa",
-          "total": {
-            "amount": 13972900,
-            "currency": "BGN",
-            "amountEur": 7144230
+          "capital": {
+            "amount": 797000,
+            "amountEur": 407500,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 11484500,
-            "currency": "BGN",
-            "amountEur": 5871932
+            "amountEur": 5871932,
+            "currency": "BGN"
           },
+          "ekatte": "03928",
           "equalization": {
             "amount": 1488700,
-            "currency": "BGN",
-            "amountEur": 761160
+            "amountEur": 761160,
+            "currency": "BGN"
+          },
+          "nameBg": "Берковица",
+          "nameEn": "Berkovitsa",
+          "obshtinaCode": "MON02",
+          "otherTargeted": null,
+          "total": {
+            "amount": 13972900,
+            "amountEur": 7144230,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 202700,
-            "currency": "BGN",
-            "amountEur": 103639
-          },
-          "capital": {
-            "amount": 797000,
-            "currency": "BGN",
-            "amountEur": 407500
-          },
-          "otherTargeted": null
+            "amountEur": 103639,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "12543",
-          "obshtinaCode": "MON11",
-          "nameBg": "Вълчедръм",
-          "nameEn": "Valchedram",
-          "total": {
-            "amount": 6541300,
-            "currency": "BGN",
-            "amountEur": 3344514
+          "capital": {
+            "amount": 404600,
+            "amountEur": 206869,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5253000,
-            "currency": "BGN",
-            "amountEur": 2685816
+            "amountEur": 2685816,
+            "currency": "BGN"
           },
+          "ekatte": "12543",
           "equalization": {
             "amount": 839800,
-            "currency": "BGN",
-            "amountEur": 429383
+            "amountEur": 429383,
+            "currency": "BGN"
+          },
+          "nameBg": "Вълчедръм",
+          "nameEn": "Valchedram",
+          "obshtinaCode": "MON11",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6541300,
+            "amountEur": 3344514,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 43900,
-            "currency": "BGN",
-            "amountEur": 22446
-          },
-          "capital": {
-            "amount": 404600,
-            "currency": "BGN",
-            "amountEur": 206869
-          },
-          "otherTargeted": null
+            "amountEur": 22446,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "05236",
-          "obshtinaCode": "MON04",
-          "nameBg": "Бойчиновци",
-          "nameEn": "Boychinovtsi",
-          "total": {
-            "amount": 6007600,
-            "currency": "BGN",
-            "amountEur": 3071637
+          "capital": {
+            "amount": 439200,
+            "amountEur": 224559,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4580200,
-            "currency": "BGN",
-            "amountEur": 2341819
+            "amountEur": 2341819,
+            "currency": "BGN"
           },
+          "ekatte": "05236",
           "equalization": {
             "amount": 936400,
-            "currency": "BGN",
-            "amountEur": 478774
+            "amountEur": 478774,
+            "currency": "BGN"
+          },
+          "nameBg": "Бойчиновци",
+          "nameEn": "Boychinovtsi",
+          "obshtinaCode": "MON04",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6007600,
+            "amountEur": 3071637,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 51800,
-            "currency": "BGN",
-            "amountEur": 26485
-          },
-          "capital": {
-            "amount": 439200,
-            "currency": "BGN",
-            "amountEur": 224559
-          },
-          "otherTargeted": null
+            "amountEur": 26485,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "12961",
-          "obshtinaCode": "MON12",
-          "nameBg": "Вършец",
-          "nameEn": "Varshets",
-          "total": {
-            "amount": 5256300,
-            "currency": "BGN",
-            "amountEur": 2687504
+          "capital": {
+            "amount": 403300,
+            "amountEur": 206204,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4175100,
-            "currency": "BGN",
-            "amountEur": 2134695
+            "amountEur": 2134695,
+            "currency": "BGN"
           },
+          "ekatte": "12961",
           "equalization": {
             "amount": 592700,
-            "currency": "BGN",
-            "amountEur": 303043
+            "amountEur": 303043,
+            "currency": "BGN"
+          },
+          "nameBg": "Вършец",
+          "nameEn": "Varshets",
+          "obshtinaCode": "MON12",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5256300,
+            "amountEur": 2687504,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 85200,
-            "currency": "BGN",
-            "amountEur": 43562
-          },
-          "capital": {
-            "amount": 403300,
-            "currency": "BGN",
-            "amountEur": 206204
-          },
-          "otherTargeted": null
+            "amountEur": 43562,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "06570",
-          "obshtinaCode": "MON07",
-          "nameBg": "Брусарци",
-          "nameEn": "Brusartsi",
-          "total": {
-            "amount": 3591900,
-            "currency": "BGN",
-            "amountEur": 1836509
+          "capital": {
+            "amount": 351100,
+            "amountEur": 179515,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 2623600,
-            "currency": "BGN",
-            "amountEur": 1341425
+            "amountEur": 1341425,
+            "currency": "BGN"
           },
+          "ekatte": "06570",
           "equalization": {
             "amount": 566600,
-            "currency": "BGN",
-            "amountEur": 289698
+            "amountEur": 289698,
+            "currency": "BGN"
+          },
+          "nameBg": "Брусарци",
+          "nameEn": "Brusartsi",
+          "obshtinaCode": "MON07",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3591900,
+            "amountEur": 1836509,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 50600,
-            "currency": "BGN",
-            "amountEur": 25871
-          },
-          "capital": {
-            "amount": 351100,
-            "currency": "BGN",
-            "amountEur": 179515
-          },
-          "otherTargeted": null
+            "amountEur": 25871,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "14773",
-          "obshtinaCode": "MON14",
-          "nameBg": "Георги Дамяново",
-          "nameEn": "Georgi Damyanovo",
-          "total": {
-            "amount": 3329200,
-            "currency": "BGN",
-            "amountEur": 1702193
+          "capital": {
+            "amount": 393200,
+            "amountEur": 201040,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 2534200,
-            "currency": "BGN",
-            "amountEur": 1295716
+            "amountEur": 1295716,
+            "currency": "BGN"
           },
+          "ekatte": "14773",
           "equalization": {
             "amount": 338400,
-            "currency": "BGN",
-            "amountEur": 173021
+            "amountEur": 173021,
+            "currency": "BGN"
+          },
+          "nameBg": "Георги Дамяново",
+          "nameEn": "Georgi Damyanovo",
+          "obshtinaCode": "MON14",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3329200,
+            "amountEur": 1702193,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 63400,
-            "currency": "BGN",
-            "amountEur": 32416
-          },
-          "capital": {
-            "amount": 393200,
-            "currency": "BGN",
-            "amountEur": 201040
-          },
-          "otherTargeted": null
+            "amountEur": 32416,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "47593",
-          "obshtinaCode": "MON26",
-          "nameBg": "Медковец",
-          "nameEn": "Medkovets",
-          "total": {
-            "amount": 3326700,
-            "currency": "BGN",
-            "amountEur": 1700915
+          "capital": {
+            "amount": 216700,
+            "amountEur": 110797,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 2614400,
-            "currency": "BGN",
-            "amountEur": 1336721
+            "amountEur": 1336721,
+            "currency": "BGN"
           },
+          "ekatte": "47593",
           "equalization": {
             "amount": 470600,
-            "currency": "BGN",
-            "amountEur": 240614
+            "amountEur": 240614,
+            "currency": "BGN"
+          },
+          "nameBg": "Медковец",
+          "nameEn": "Medkovets",
+          "obshtinaCode": "MON26",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3326700,
+            "amountEur": 1700915,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 25000,
-            "currency": "BGN",
-            "amountEur": 12782
-          },
-          "capital": {
-            "amount": 216700,
-            "currency": "BGN",
-            "amountEur": 110797
-          },
-          "otherTargeted": null
+            "amountEur": 12782,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "87299",
-          "obshtinaCode": "MON38",
-          "nameBg": "Якимово",
-          "nameEn": "Yakimovo",
-          "total": {
-            "amount": 2776700,
-            "currency": "BGN",
-            "amountEur": 1419704
+          "capital": {
+            "amount": 231700,
+            "amountEur": 118466,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 2028300,
-            "currency": "BGN",
-            "amountEur": 1037053
+            "amountEur": 1037053,
+            "currency": "BGN"
           },
+          "ekatte": "87299",
           "equalization": {
             "amount": 474900,
-            "currency": "BGN",
-            "amountEur": 242813
+            "amountEur": 242813,
+            "currency": "BGN"
+          },
+          "nameBg": "Якимово",
+          "nameEn": "Yakimovo",
+          "obshtinaCode": "MON38",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2776700,
+            "amountEur": 1419704,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 41800,
-            "currency": "BGN",
-            "amountEur": 21372
-          },
-          "capital": {
-            "amount": 231700,
-            "currency": "BGN",
-            "amountEur": 118466
-          },
-          "otherTargeted": null
+            "amountEur": 21372,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "81390",
-          "obshtinaCode": "MON36",
-          "nameBg": "Чипровци",
-          "nameEn": "Chiprovtsi",
-          "total": {
-            "amount": 2055200,
-            "currency": "BGN",
-            "amountEur": 1050807
+          "capital": {
+            "amount": 318600,
+            "amountEur": 162898,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 1354700,
-            "currency": "BGN",
-            "amountEur": 692647
+            "amountEur": 692647,
+            "currency": "BGN"
           },
+          "ekatte": "81390",
           "equalization": {
             "amount": 348700,
-            "currency": "BGN",
-            "amountEur": 178287
+            "amountEur": 178287,
+            "currency": "BGN"
+          },
+          "nameBg": "Чипровци",
+          "nameEn": "Chiprovtsi",
+          "obshtinaCode": "MON36",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2055200,
+            "amountEur": 1050807,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 33200,
-            "currency": "BGN",
-            "amountEur": 16975
-          },
-          "capital": {
-            "amount": 318600,
-            "currency": "BGN",
-            "amountEur": 162898
-          },
-          "otherTargeted": null
+            "amountEur": 16975,
+            "currency": "BGN"
+          }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2022,
-      "asOf": "2022-01-01",
-      "source": {
-        "documentId": "law-2022",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 126031500,
-          "currency": "BGN",
-          "amountEur": 64438882
+        "capital": {
+          "amount": 5049200,
+          "amountEur": 2581616,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 103928900,
-          "currency": "BGN",
-          "amountEur": 53138004
+          "amount": 79400000,
+          "amountEur": 40596574,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 13770500,
-          "currency": "BGN",
-          "amountEur": 7040744
-        },
-        "winter": {
-          "amount": 887500,
-          "currency": "BGN",
-          "amountEur": 453770
-        },
-        "capital": {
-          "amount": 7444600,
-          "currency": "BGN",
-          "amountEur": 3806362
+          "amount": 11297200,
+          "amountEur": 5776167,
+          "currency": "BGN"
         },
         "otherTargeted": {
           "amount": 0,
-          "currency": "BGN",
-          "amountEur": 0
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 96559300,
+          "amountEur": 49369986,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 812900,
+          "amountEur": 415629,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2020",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2022-01-01",
+      "fiscalYear": 2022,
       "municipalities": [
         {
-          "ekatte": "48489",
-          "obshtinaCode": "MON29",
-          "nameBg": "Монтана",
-          "nameEn": "Montana",
-          "total": {
-            "amount": 42092900,
-            "currency": "BGN",
-            "amountEur": 21521758
+          "capital": {
+            "amount": 1436200,
+            "amountEur": 734317,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 36881800,
-            "currency": "BGN",
-            "amountEur": 18857365
+            "amountEur": 18857365,
+            "currency": "BGN"
           },
+          "ekatte": "48489",
           "equalization": {
             "amount": 3651000,
-            "currency": "BGN",
-            "amountEur": 1866727
+            "amountEur": 1866727,
+            "currency": "BGN"
+          },
+          "nameBg": "Монтана",
+          "nameEn": "Montana",
+          "obshtinaCode": "MON29",
+          "otherTargeted": null,
+          "total": {
+            "amount": 42092900,
+            "amountEur": 21521758,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 123900,
-            "currency": "BGN",
-            "amountEur": 63349
-          },
-          "capital": {
-            "amount": 1436200,
-            "currency": "BGN",
-            "amountEur": 734317
-          },
-          "otherTargeted": null
+            "amountEur": 63349,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "44238",
-          "obshtinaCode": "MON24",
-          "nameBg": "Лом",
-          "nameEn": "Lom",
-          "total": {
-            "amount": 22003700,
-            "currency": "BGN",
-            "amountEur": 11250313
+          "capital": {
+            "amount": 774700,
+            "amountEur": 396098,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 18863100,
-            "currency": "BGN",
-            "amountEur": 9644550
+            "amountEur": 9644550,
+            "currency": "BGN"
           },
+          "ekatte": "44238",
           "equalization": {
             "amount": 2258000,
-            "currency": "BGN",
-            "amountEur": 1154497
+            "amountEur": 1154497,
+            "currency": "BGN"
+          },
+          "nameBg": "Лом",
+          "nameEn": "Lom",
+          "obshtinaCode": "MON24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 22003700,
+            "amountEur": 11250313,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 107900,
-            "currency": "BGN",
-            "amountEur": 55168
-          },
-          "capital": {
-            "amount": 774700,
-            "currency": "BGN",
-            "amountEur": 396098
-          },
-          "otherTargeted": null
+            "amountEur": 55168,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "03928",
-          "obshtinaCode": "MON02",
-          "nameBg": "Берковица",
-          "nameEn": "Berkovitsa",
-          "total": {
-            "amount": 18830100,
-            "currency": "BGN",
-            "amountEur": 9627677
+          "capital": {
+            "amount": 1208400,
+            "amountEur": 617845,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 15562500,
-            "currency": "BGN",
-            "amountEur": 7956980
+            "amountEur": 7956980,
+            "currency": "BGN"
           },
+          "ekatte": "03928",
           "equalization": {
             "amount": 1831400,
-            "currency": "BGN",
-            "amountEur": 936380
+            "amountEur": 936380,
+            "currency": "BGN"
+          },
+          "nameBg": "Берковица",
+          "nameEn": "Berkovitsa",
+          "obshtinaCode": "MON02",
+          "otherTargeted": null,
+          "total": {
+            "amount": 18830100,
+            "amountEur": 9627677,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 227800,
-            "currency": "BGN",
-            "amountEur": 116472
-          },
-          "capital": {
-            "amount": 1208400,
-            "currency": "BGN",
-            "amountEur": 617845
-          },
-          "otherTargeted": null
+            "amountEur": 116472,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "12543",
-          "obshtinaCode": "MON11",
-          "nameBg": "Вълчедръм",
-          "nameEn": "Valchedram",
-          "total": {
-            "amount": 8715300,
-            "currency": "BGN",
-            "amountEur": 4456062
+          "capital": {
+            "amount": 587600,
+            "amountEur": 300435,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 7001800,
-            "currency": "BGN",
-            "amountEur": 3579963
+            "amountEur": 3579963,
+            "currency": "BGN"
           },
+          "ekatte": "12543",
           "equalization": {
             "amount": 1078500,
-            "currency": "BGN",
-            "amountEur": 551428
+            "amountEur": 551428,
+            "currency": "BGN"
+          },
+          "nameBg": "Вълчедръм",
+          "nameEn": "Valchedram",
+          "obshtinaCode": "MON11",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8715300,
+            "amountEur": 4456062,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 47400,
-            "currency": "BGN",
-            "amountEur": 24235
-          },
-          "capital": {
-            "amount": 587600,
-            "currency": "BGN",
-            "amountEur": 300435
-          },
-          "otherTargeted": null
+            "amountEur": 24235,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "05236",
-          "obshtinaCode": "MON04",
-          "nameBg": "Бойчиновци",
-          "nameEn": "Boychinovtsi",
-          "total": {
-            "amount": 7677900,
-            "currency": "BGN",
-            "amountEur": 3925648
+          "capital": {
+            "amount": 640500,
+            "amountEur": 327482,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5847900,
-            "currency": "BGN",
-            "amountEur": 2989984
+            "amountEur": 2989984,
+            "currency": "BGN"
           },
+          "ekatte": "05236",
           "equalization": {
             "amount": 1133600,
-            "currency": "BGN",
-            "amountEur": 579600
+            "amountEur": 579600,
+            "currency": "BGN"
+          },
+          "nameBg": "Бойчиновци",
+          "nameEn": "Boychinovtsi",
+          "obshtinaCode": "MON04",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7677900,
+            "amountEur": 3925648,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 55900,
-            "currency": "BGN",
-            "amountEur": 28581
-          },
-          "capital": {
-            "amount": 640500,
-            "currency": "BGN",
-            "amountEur": 327482
-          },
-          "otherTargeted": null
+            "amountEur": 28581,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "12961",
-          "obshtinaCode": "MON12",
-          "nameBg": "Вършец",
-          "nameEn": "Varshets",
-          "total": {
-            "amount": 6881800,
-            "currency": "BGN",
-            "amountEur": 3518608
+          "capital": {
+            "amount": 614000,
+            "amountEur": 313933,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5437500,
-            "currency": "BGN",
-            "amountEur": 2780150
+            "amountEur": 2780150,
+            "currency": "BGN"
           },
+          "ekatte": "12961",
           "equalization": {
             "amount": 737800,
-            "currency": "BGN",
-            "amountEur": 377231
+            "amountEur": 377231,
+            "currency": "BGN"
+          },
+          "nameBg": "Вършец",
+          "nameEn": "Varshets",
+          "obshtinaCode": "MON12",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6881800,
+            "amountEur": 3518608,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 92500,
-            "currency": "BGN",
-            "amountEur": 47294
-          },
-          "capital": {
-            "amount": 614000,
-            "currency": "BGN",
-            "amountEur": 313933
-          },
-          "otherTargeted": null
+            "amountEur": 47294,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "06570",
-          "obshtinaCode": "MON07",
-          "nameBg": "Брусарци",
-          "nameEn": "Brusartsi",
-          "total": {
-            "amount": 4776300,
-            "currency": "BGN",
-            "amountEur": 2442083
+          "capital": {
+            "amount": 508600,
+            "amountEur": 260043,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3537900,
-            "currency": "BGN",
-            "amountEur": 1808900
+            "amountEur": 1808900,
+            "currency": "BGN"
           },
+          "ekatte": "06570",
           "equalization": {
             "amount": 675300,
-            "currency": "BGN",
-            "amountEur": 345275
+            "amountEur": 345275,
+            "currency": "BGN"
+          },
+          "nameBg": "Брусарци",
+          "nameEn": "Brusartsi",
+          "obshtinaCode": "MON07",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4776300,
+            "amountEur": 2442083,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 54500,
-            "currency": "BGN",
-            "amountEur": 27865
-          },
-          "capital": {
-            "amount": 508600,
-            "currency": "BGN",
-            "amountEur": 260043
-          },
-          "otherTargeted": null
+            "amountEur": 27865,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "14773",
-          "obshtinaCode": "MON14",
-          "nameBg": "Георги Дамяново",
-          "nameEn": "Georgi Damyanovo",
-          "total": {
-            "amount": 4395700,
-            "currency": "BGN",
-            "amountEur": 2247486
+          "capital": {
+            "amount": 572900,
+            "amountEur": 292919,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3225500,
-            "currency": "BGN",
-            "amountEur": 1649172
+            "amountEur": 1649172,
+            "currency": "BGN"
           },
+          "ekatte": "14773",
           "equalization": {
             "amount": 528000,
-            "currency": "BGN",
-            "amountEur": 269962
+            "amountEur": 269962,
+            "currency": "BGN"
+          },
+          "nameBg": "Георги Дамяново",
+          "nameEn": "Georgi Damyanovo",
+          "obshtinaCode": "MON14",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4395700,
+            "amountEur": 2247486,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 69300,
-            "currency": "BGN",
-            "amountEur": 35433
-          },
-          "capital": {
-            "amount": 572900,
-            "currency": "BGN",
-            "amountEur": 292919
-          },
-          "otherTargeted": null
+            "amountEur": 35433,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "47593",
-          "obshtinaCode": "MON26",
-          "nameBg": "Медковец",
-          "nameEn": "Medkovets",
-          "total": {
-            "amount": 4115200,
-            "currency": "BGN",
-            "amountEur": 2104068
+          "capital": {
+            "amount": 308100,
+            "amountEur": 157529,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3147800,
-            "currency": "BGN",
-            "amountEur": 1609445
+            "amountEur": 1609445,
+            "currency": "BGN"
           },
+          "ekatte": "47593",
           "equalization": {
             "amount": 632400,
-            "currency": "BGN",
-            "amountEur": 323341
+            "amountEur": 323341,
+            "currency": "BGN"
+          },
+          "nameBg": "Медковец",
+          "nameEn": "Medkovets",
+          "obshtinaCode": "MON26",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4115200,
+            "amountEur": 2104068,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 26900,
-            "currency": "BGN",
-            "amountEur": 13754
-          },
-          "capital": {
-            "amount": 308100,
-            "currency": "BGN",
-            "amountEur": 157529
-          },
-          "otherTargeted": null
+            "amountEur": 13754,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "87299",
-          "obshtinaCode": "MON38",
-          "nameBg": "Якимово",
-          "nameEn": "Yakimovo",
-          "total": {
-            "amount": 3614600,
-            "currency": "BGN",
-            "amountEur": 1848116
+          "capital": {
+            "amount": 332400,
+            "amountEur": 169953,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 2508500,
-            "currency": "BGN",
-            "amountEur": 1282576
+            "amountEur": 1282576,
+            "currency": "BGN"
           },
+          "ekatte": "87299",
           "equalization": {
             "amount": 728800,
-            "currency": "BGN",
-            "amountEur": 372630
+            "amountEur": 372630,
+            "currency": "BGN"
+          },
+          "nameBg": "Якимово",
+          "nameEn": "Yakimovo",
+          "obshtinaCode": "MON38",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3614600,
+            "amountEur": 1848116,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 44900,
-            "currency": "BGN",
-            "amountEur": 22957
-          },
-          "capital": {
-            "amount": 332400,
-            "currency": "BGN",
-            "amountEur": 169953
-          },
-          "otherTargeted": null
+            "amountEur": 22957,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "81390",
-          "obshtinaCode": "MON36",
-          "nameBg": "Чипровци",
-          "nameEn": "Chiprovtsi",
-          "total": {
-            "amount": 2928000,
-            "currency": "BGN",
-            "amountEur": 1497063
+          "capital": {
+            "amount": 461200,
+            "amountEur": 235808,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 1914600,
-            "currency": "BGN",
-            "amountEur": 978919
+            "amountEur": 978919,
+            "currency": "BGN"
           },
+          "ekatte": "81390",
           "equalization": {
             "amount": 515700,
-            "currency": "BGN",
-            "amountEur": 263673
+            "amountEur": 263673,
+            "currency": "BGN"
+          },
+          "nameBg": "Чипровци",
+          "nameEn": "Chiprovtsi",
+          "obshtinaCode": "MON36",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2928000,
+            "amountEur": 1497063,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 36500,
-            "currency": "BGN",
-            "amountEur": 18662
-          },
-          "capital": {
-            "amount": 461200,
-            "currency": "BGN",
-            "amountEur": 235808
-          },
-          "otherTargeted": null
+            "amountEur": 18662,
+            "currency": "BGN"
+          }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2023,
-      "asOf": "2023-01-01",
-      "source": {
-        "documentId": "law-2023",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 152527900,
-          "currency": "BGN",
-          "amountEur": 77986279
+        "capital": {
+          "amount": 7444600,
+          "amountEur": 3806362,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 125802000,
-          "currency": "BGN",
-          "amountEur": 64321541
+          "amount": 103928900,
+          "amountEur": 53138004,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 15171300,
-          "currency": "BGN",
-          "amountEur": 7756962
-        },
-        "winter": {
-          "amount": 888300,
-          "currency": "BGN",
-          "amountEur": 454181
-        },
-        "capital": {
-          "amount": 10666300,
-          "currency": "BGN",
-          "amountEur": 5453592
+          "amount": 13770500,
+          "amountEur": 7040744,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 977200,
-          "currency": "BGN",
-          "amountEur": 499634
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 126031500,
+          "amountEur": 64438882,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 887500,
+          "amountEur": 453770,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2022",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+      }
+    },
+    {
+      "asOf": "2023-01-01",
+      "fiscalYear": 2023,
       "municipalities": [
         {
-          "ekatte": "48489",
-          "obshtinaCode": "MON29",
-          "nameBg": "Монтана",
-          "nameEn": "Montana",
-          "total": {
-            "amount": 51372700,
-            "currency": "BGN",
-            "amountEur": 26266444
+          "capital": {
+            "amount": 2121600,
+            "amountEur": 1084757,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 44682500,
-            "currency": "BGN",
-            "amountEur": 22845799
+            "amountEur": 22845799,
+            "currency": "BGN"
           },
+          "ekatte": "48489",
           "equalization": {
             "amount": 4443700,
-            "currency": "BGN",
-            "amountEur": 2272028
+            "amountEur": 2272028,
+            "currency": "BGN"
+          },
+          "nameBg": "Монтана",
+          "nameEn": "Montana",
+          "obshtinaCode": "MON29",
+          "otherTargeted": {
+            "amount": 322100,
+            "amountEur": 164687,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 51372700,
+            "amountEur": 26266444,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 124900,
-            "currency": "BGN",
-            "amountEur": 63860
-          },
-          "capital": {
-            "amount": 2121600,
-            "currency": "BGN",
-            "amountEur": 1084757
-          },
-          "otherTargeted": {
-            "amount": 322100,
-            "currency": "BGN",
-            "amountEur": 164687
+            "amountEur": 63860,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "44238",
-          "obshtinaCode": "MON24",
-          "nameBg": "Лом",
-          "nameEn": "Lom",
-          "total": {
-            "amount": 26603600,
-            "currency": "BGN",
-            "amountEur": 13602205
+          "capital": {
+            "amount": 1105900,
+            "amountEur": 565438,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 23035900,
-            "currency": "BGN",
-            "amountEur": 11778069
+            "amountEur": 11778069,
+            "currency": "BGN"
           },
+          "ekatte": "44238",
           "equalization": {
             "amount": 2354200,
-            "currency": "BGN",
-            "amountEur": 1203683
+            "amountEur": 1203683,
+            "currency": "BGN"
+          },
+          "nameBg": "Лом",
+          "nameEn": "Lom",
+          "obshtinaCode": "MON24",
+          "otherTargeted": {
+            "amount": 192900,
+            "amountEur": 98628,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 26603600,
+            "amountEur": 13602205,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 107600,
-            "currency": "BGN",
-            "amountEur": 55015
-          },
-          "capital": {
-            "amount": 1105900,
-            "currency": "BGN",
-            "amountEur": 565438
-          },
-          "otherTargeted": {
-            "amount": 192900,
-            "currency": "BGN",
-            "amountEur": 98628
+            "amountEur": 55015,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "03928",
-          "obshtinaCode": "MON02",
-          "nameBg": "Берковица",
-          "nameEn": "Berkovitsa",
-          "total": {
-            "amount": 23025000,
-            "currency": "BGN",
-            "amountEur": 11772496
+          "capital": {
+            "amount": 1740100,
+            "amountEur": 889699,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 19142100,
-            "currency": "BGN",
-            "amountEur": 9787200
+            "amountEur": 9787200,
+            "currency": "BGN"
           },
+          "ekatte": "03928",
           "equalization": {
             "amount": 1915200,
-            "currency": "BGN",
-            "amountEur": 979226
+            "amountEur": 979226,
+            "currency": "BGN"
+          },
+          "nameBg": "Берковица",
+          "nameEn": "Berkovitsa",
+          "obshtinaCode": "MON02",
+          "otherTargeted": {
+            "amount": 103900,
+            "amountEur": 53123,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 23025000,
+            "amountEur": 11772496,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 227600,
-            "currency": "BGN",
-            "amountEur": 116370
-          },
-          "capital": {
-            "amount": 1740100,
-            "currency": "BGN",
-            "amountEur": 889699
-          },
-          "otherTargeted": {
-            "amount": 103900,
-            "currency": "BGN",
-            "amountEur": 53123
+            "amountEur": 116370,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "12543",
-          "obshtinaCode": "MON11",
-          "nameBg": "Вълчедръм",
-          "nameEn": "Valchedram",
-          "total": {
-            "amount": 10545500,
-            "currency": "BGN",
-            "amountEur": 5391829
+          "capital": {
+            "amount": 833000,
+            "amountEur": 425906,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8479200,
-            "currency": "BGN",
-            "amountEur": 4335346
+            "amountEur": 4335346,
+            "currency": "BGN"
           },
+          "ekatte": "12543",
           "equalization": {
             "amount": 1185900,
-            "currency": "BGN",
-            "amountEur": 606341
+            "amountEur": 606341,
+            "currency": "BGN"
+          },
+          "nameBg": "Вълчедръм",
+          "nameEn": "Valchedram",
+          "obshtinaCode": "MON11",
+          "otherTargeted": {
+            "amount": 72600,
+            "amountEur": 37120,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 10545500,
+            "amountEur": 5391829,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 47400,
-            "currency": "BGN",
-            "amountEur": 24235
-          },
-          "capital": {
-            "amount": 833000,
-            "currency": "BGN",
-            "amountEur": 425906
-          },
-          "otherTargeted": {
-            "amount": 72600,
-            "currency": "BGN",
-            "amountEur": 37120
+            "amountEur": 24235,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "05236",
-          "obshtinaCode": "MON04",
-          "nameBg": "Бойчиновци",
-          "nameEn": "Boychinovtsi",
-          "total": {
-            "amount": 9402500,
-            "currency": "BGN",
-            "amountEur": 4807422
+          "capital": {
+            "amount": 913400,
+            "amountEur": 467014,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 7175800,
-            "currency": "BGN",
-            "amountEur": 3668928
+            "amountEur": 3668928,
+            "currency": "BGN"
           },
+          "ekatte": "05236",
           "equalization": {
             "amount": 1257300,
-            "currency": "BGN",
-            "amountEur": 642847
+            "amountEur": 642847,
+            "currency": "BGN"
+          },
+          "nameBg": "Бойчиновци",
+          "nameEn": "Boychinovtsi",
+          "obshtinaCode": "MON04",
+          "otherTargeted": {
+            "amount": 53000,
+            "amountEur": 27098,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 9402500,
+            "amountEur": 4807422,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 56000,
-            "currency": "BGN",
-            "amountEur": 28632
-          },
-          "capital": {
-            "amount": 913400,
-            "currency": "BGN",
-            "amountEur": 467014
-          },
-          "otherTargeted": {
-            "amount": 53000,
-            "currency": "BGN",
-            "amountEur": 27098
+            "amountEur": 28632,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "12961",
-          "obshtinaCode": "MON12",
-          "nameBg": "Вършец",
-          "nameEn": "Varshets",
-          "total": {
-            "amount": 8505200,
-            "currency": "BGN",
-            "amountEur": 4348640
+          "capital": {
+            "amount": 880100,
+            "amountEur": 449988,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6653200,
-            "currency": "BGN",
-            "amountEur": 3401727
+            "amountEur": 3401727,
+            "currency": "BGN"
           },
+          "ekatte": "12961",
           "equalization": {
             "amount": 879200,
-            "currency": "BGN",
-            "amountEur": 449528
+            "amountEur": 449528,
+            "currency": "BGN"
+          },
+          "nameBg": "Вършец",
+          "nameEn": "Varshets",
+          "obshtinaCode": "MON12",
+          "otherTargeted": {
+            "amount": 104600,
+            "amountEur": 53481,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 8505200,
+            "amountEur": 4348640,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 92700,
-            "currency": "BGN",
-            "amountEur": 47397
-          },
-          "capital": {
-            "amount": 880100,
-            "currency": "BGN",
-            "amountEur": 449988
-          },
-          "otherTargeted": {
-            "amount": 104600,
-            "currency": "BGN",
-            "amountEur": 53481
+            "amountEur": 47397,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "06570",
-          "obshtinaCode": "MON07",
-          "nameBg": "Брусарци",
-          "nameEn": "Brusartsi",
-          "total": {
-            "amount": 5963800,
-            "currency": "BGN",
-            "amountEur": 3049243
+          "capital": {
+            "amount": 721800,
+            "amountEur": 369050,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4458300,
-            "currency": "BGN",
-            "amountEur": 2279493
+            "amountEur": 2279493,
+            "currency": "BGN"
           },
+          "ekatte": "06570",
           "equalization": {
             "amount": 729100,
-            "currency": "BGN",
-            "amountEur": 372783
+            "amountEur": 372783,
+            "currency": "BGN"
+          },
+          "nameBg": "Брусарци",
+          "nameEn": "Brusartsi",
+          "obshtinaCode": "MON07",
+          "otherTargeted": {
+            "amount": 28300,
+            "amountEur": 14470,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 5963800,
+            "amountEur": 3049243,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 54600,
-            "currency": "BGN",
-            "amountEur": 27917
-          },
-          "capital": {
-            "amount": 721800,
-            "currency": "BGN",
-            "amountEur": 369050
-          },
-          "otherTargeted": {
-            "amount": 28300,
-            "currency": "BGN",
-            "amountEur": 14470
+            "amountEur": 27917,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "47593",
-          "obshtinaCode": "MON26",
-          "nameBg": "Медковец",
-          "nameEn": "Medkovets",
-          "total": {
-            "amount": 4839100,
-            "currency": "BGN",
-            "amountEur": 2474193
+          "capital": {
+            "amount": 427500,
+            "amountEur": 218577,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3752300,
-            "currency": "BGN",
-            "amountEur": 1918521
+            "amountEur": 1918521,
+            "currency": "BGN"
           },
+          "ekatte": "47593",
           "equalization": {
             "amount": 632400,
-            "currency": "BGN",
-            "amountEur": 323341
+            "amountEur": 323341,
+            "currency": "BGN"
+          },
+          "nameBg": "Медковец",
+          "nameEn": "Medkovets",
+          "obshtinaCode": "MON26",
+          "otherTargeted": {
+            "amount": 45100,
+            "amountEur": 23059,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 4839100,
+            "amountEur": 2474193,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 26900,
-            "currency": "BGN",
-            "amountEur": 13754
-          },
-          "capital": {
-            "amount": 427500,
-            "currency": "BGN",
-            "amountEur": 218577
-          },
-          "otherTargeted": {
-            "amount": 45100,
-            "currency": "BGN",
-            "amountEur": 23059
+            "amountEur": 13754,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "87299",
-          "obshtinaCode": "MON38",
-          "nameBg": "Якимово",
-          "nameEn": "Yakimovo",
-          "total": {
-            "amount": 4383600,
-            "currency": "BGN",
-            "amountEur": 2241299
+          "capital": {
+            "amount": 462200,
+            "amountEur": 236319,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3146700,
-            "currency": "BGN",
-            "amountEur": 1608882
+            "amountEur": 1608882,
+            "currency": "BGN"
           },
+          "ekatte": "87299",
           "equalization": {
             "amount": 729900,
-            "currency": "BGN",
-            "amountEur": 373192
+            "amountEur": 373192,
+            "currency": "BGN"
+          },
+          "nameBg": "Якимово",
+          "nameEn": "Yakimovo",
+          "obshtinaCode": "MON38",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4383600,
+            "amountEur": 2241299,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 44800,
-            "currency": "BGN",
-            "amountEur": 22906
-          },
-          "capital": {
-            "amount": 462200,
-            "currency": "BGN",
-            "amountEur": 236319
-          },
-          "otherTargeted": null
+            "amountEur": 22906,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "14773",
-          "obshtinaCode": "MON14",
-          "nameBg": "Георги Дамяново",
-          "nameEn": "Georgi Damyanovo",
-          "total": {
-            "amount": 4268800,
-            "currency": "BGN",
-            "amountEur": 2182603
+          "capital": {
+            "amount": 811400,
+            "amountEur": 414862,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 2860100,
-            "currency": "BGN",
-            "amountEur": 1462346
+            "amountEur": 1462346,
+            "currency": "BGN"
           },
+          "ekatte": "14773",
           "equalization": {
             "amount": 528000,
-            "currency": "BGN",
-            "amountEur": 269962
+            "amountEur": 269962,
+            "currency": "BGN"
+          },
+          "nameBg": "Георги Дамяново",
+          "nameEn": "Georgi Damyanovo",
+          "obshtinaCode": "MON14",
+          "otherTargeted": {
+            "amount": 29400,
+            "amountEur": 15032,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 4268800,
+            "amountEur": 2182603,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 69300,
-            "currency": "BGN",
-            "amountEur": 35433
-          },
-          "capital": {
-            "amount": 811400,
-            "currency": "BGN",
-            "amountEur": 414862
-          },
-          "otherTargeted": {
-            "amount": 29400,
-            "currency": "BGN",
-            "amountEur": 15032
+            "amountEur": 35433,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "81390",
-          "obshtinaCode": "MON36",
-          "nameBg": "Чипровци",
-          "nameEn": "Chiprovtsi",
-          "total": {
-            "amount": 3618100,
-            "currency": "BGN",
-            "amountEur": 1849905
+          "capital": {
+            "amount": 649300,
+            "amountEur": 331982,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 2415900,
-            "currency": "BGN",
-            "amountEur": 1235230
+            "amountEur": 1235230,
+            "currency": "BGN"
           },
+          "ekatte": "81390",
           "equalization": {
             "amount": 516400,
-            "currency": "BGN",
-            "amountEur": 264031
+            "amountEur": 264031,
+            "currency": "BGN"
+          },
+          "nameBg": "Чипровци",
+          "nameEn": "Chiprovtsi",
+          "obshtinaCode": "MON36",
+          "otherTargeted": {
+            "amount": 25300,
+            "amountEur": 12936,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 3618100,
+            "amountEur": 1849905,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 36500,
-            "currency": "BGN",
-            "amountEur": 18662
-          },
-          "capital": {
-            "amount": 649300,
-            "currency": "BGN",
-            "amountEur": 331982
-          },
-          "otherTargeted": {
-            "amount": 25300,
-            "currency": "BGN",
-            "amountEur": 12936
+            "amountEur": 18662,
+            "currency": "BGN"
           }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2024,
-      "asOf": "2024-01-01",
-      "source": {
-        "documentId": "law-2024",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 169877300,
-          "currency": "BGN",
-          "amountEur": 86856884
+        "capital": {
+          "amount": 10666300,
+          "amountEur": 5453592,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 143144700,
-          "currency": "BGN",
-          "amountEur": 73188724
+          "amount": 125802000,
+          "amountEur": 64321541,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 15212700,
-          "currency": "BGN",
-          "amountEur": 7778129
+          "amount": 15171300,
+          "amountEur": 7756962,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 977200,
+          "amountEur": 499634,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 152527900,
+          "amountEur": 77986279,
+          "currency": "BGN"
         },
         "winter": {
           "amount": 888300,
-          "currency": "BGN",
-          "amountEur": 454181
-        },
-        "capital": {
-          "amount": 10631600,
-          "currency": "BGN",
-          "amountEur": 5435849
-        },
-        "otherTargeted": {
-          "amount": 1172700,
-          "currency": "BGN",
-          "amountEur": 599591
+          "amountEur": 454181,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2023",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+      }
+    },
+    {
+      "asOf": "2024-01-01",
+      "fiscalYear": 2024,
       "municipalities": [
         {
-          "ekatte": "48489",
-          "obshtinaCode": "MON29",
-          "nameBg": "Монтана",
-          "nameEn": "Montana",
-          "total": {
-            "amount": 56940100,
-            "currency": "BGN",
-            "amountEur": 29113011
+          "capital": {
+            "amount": 2124300,
+            "amountEur": 1086137,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 50247300,
-            "currency": "BGN",
-            "amountEur": 25691037
+            "amountEur": 25691037,
+            "currency": "BGN"
           },
+          "ekatte": "48489",
           "equalization": {
             "amount": 4443700,
-            "currency": "BGN",
-            "amountEur": 2272028
+            "amountEur": 2272028,
+            "currency": "BGN"
+          },
+          "nameBg": "Монтана",
+          "nameEn": "Montana",
+          "obshtinaCode": "MON29",
+          "otherTargeted": {
+            "amount": 386500,
+            "amountEur": 197614,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 56940100,
+            "amountEur": 29113011,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 124800,
-            "currency": "BGN",
-            "amountEur": 63809
-          },
-          "capital": {
-            "amount": 2124300,
-            "currency": "BGN",
-            "amountEur": 1086137
-          },
-          "otherTargeted": {
-            "amount": 386500,
-            "currency": "BGN",
-            "amountEur": 197614
+            "amountEur": 63809,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "44238",
-          "obshtinaCode": "MON24",
-          "nameBg": "Лом",
-          "nameEn": "Lom",
-          "total": {
-            "amount": 30951200,
-            "currency": "BGN",
-            "amountEur": 15825097
+          "capital": {
+            "amount": 1105200,
+            "amountEur": 565080,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 27384300,
-            "currency": "BGN",
-            "amountEur": 14001370
+            "amountEur": 14001370,
+            "currency": "BGN"
           },
+          "ekatte": "44238",
           "equalization": {
             "amount": 2354200,
-            "currency": "BGN",
-            "amountEur": 1203683
+            "amountEur": 1203683,
+            "currency": "BGN"
+          },
+          "nameBg": "Лом",
+          "nameEn": "Lom",
+          "obshtinaCode": "MON24",
+          "otherTargeted": {
+            "amount": 231500,
+            "amountEur": 118364,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 30951200,
+            "amountEur": 15825097,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 107500,
-            "currency": "BGN",
-            "amountEur": 54964
-          },
-          "capital": {
-            "amount": 1105200,
-            "currency": "BGN",
-            "amountEur": 565080
-          },
-          "otherTargeted": {
-            "amount": 231500,
-            "currency": "BGN",
-            "amountEur": 118364
+            "amountEur": 54964,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "03928",
-          "obshtinaCode": "MON02",
-          "nameBg": "Берковица",
-          "nameEn": "Berkovitsa",
-          "total": {
-            "amount": 26217300,
-            "currency": "BGN",
-            "amountEur": 13404693
+          "capital": {
+            "amount": 1748900,
+            "amountEur": 894198,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 22325500,
-            "currency": "BGN",
-            "amountEur": 11414847
+            "amountEur": 11414847,
+            "currency": "BGN"
           },
+          "ekatte": "03928",
           "equalization": {
             "amount": 1915200,
-            "currency": "BGN",
-            "amountEur": 979226
+            "amountEur": 979226,
+            "currency": "BGN"
+          },
+          "nameBg": "Берковица",
+          "nameEn": "Berkovitsa",
+          "obshtinaCode": "MON02",
+          "otherTargeted": {
+            "amount": 124700,
+            "amountEur": 63758,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 26217300,
+            "amountEur": 13404693,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 227700,
-            "currency": "BGN",
-            "amountEur": 116421
-          },
-          "capital": {
-            "amount": 1748900,
-            "currency": "BGN",
-            "amountEur": 894198
-          },
-          "otherTargeted": {
-            "amount": 124700,
-            "currency": "BGN",
-            "amountEur": 63758
+            "amountEur": 116421,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "12543",
-          "obshtinaCode": "MON11",
-          "nameBg": "Вълчедръм",
-          "nameEn": "Valchedram",
-          "total": {
-            "amount": 11529000,
-            "currency": "BGN",
-            "amountEur": 5894684
+          "capital": {
+            "amount": 838600,
+            "amountEur": 428769,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 9457100,
-            "currency": "BGN",
-            "amountEur": 4835338
+            "amountEur": 4835338,
+            "currency": "BGN"
           },
+          "ekatte": "12543",
           "equalization": {
             "amount": 1185900,
-            "currency": "BGN",
-            "amountEur": 606341
+            "amountEur": 606341,
+            "currency": "BGN"
+          },
+          "nameBg": "Вълчедръм",
+          "nameEn": "Valchedram",
+          "obshtinaCode": "MON11",
+          "otherTargeted": {
+            "amount": 87200,
+            "amountEur": 44585,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 11529000,
+            "amountEur": 5894684,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 47400,
-            "currency": "BGN",
-            "amountEur": 24235
-          },
-          "capital": {
-            "amount": 838600,
-            "currency": "BGN",
-            "amountEur": 428769
-          },
-          "otherTargeted": {
-            "amount": 87200,
-            "currency": "BGN",
-            "amountEur": 44585
+            "amountEur": 24235,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "05236",
-          "obshtinaCode": "MON04",
-          "nameBg": "Бойчиновци",
-          "nameEn": "Boychinovtsi",
-          "total": {
-            "amount": 10291800,
-            "currency": "BGN",
-            "amountEur": 5262114
+          "capital": {
+            "amount": 919700,
+            "amountEur": 470235,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8058800,
-            "currency": "BGN",
-            "amountEur": 4120399
+            "amountEur": 4120399,
+            "currency": "BGN"
           },
+          "ekatte": "05236",
           "equalization": {
             "amount": 1257300,
-            "currency": "BGN",
-            "amountEur": 642847
+            "amountEur": 642847,
+            "currency": "BGN"
+          },
+          "nameBg": "Бойчиновци",
+          "nameEn": "Boychinovtsi",
+          "obshtinaCode": "MON04",
+          "otherTargeted": {
+            "amount": 63600,
+            "amountEur": 32518,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 10291800,
+            "amountEur": 5262114,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 56000,
-            "currency": "BGN",
-            "amountEur": 28632
-          },
-          "capital": {
-            "amount": 919700,
-            "currency": "BGN",
-            "amountEur": 470235
-          },
-          "otherTargeted": {
-            "amount": 63600,
-            "currency": "BGN",
-            "amountEur": 32518
+            "amountEur": 28632,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "12961",
-          "obshtinaCode": "MON12",
-          "nameBg": "Вършец",
-          "nameEn": "Varshets",
-          "total": {
-            "amount": 9177700,
-            "currency": "BGN",
-            "amountEur": 4692483
+          "capital": {
+            "amount": 843300,
+            "amountEur": 431172,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 7362500,
-            "currency": "BGN",
-            "amountEur": 3764386
+            "amountEur": 3764386,
+            "currency": "BGN"
           },
+          "ekatte": "12961",
           "equalization": {
             "amount": 879200,
-            "currency": "BGN",
-            "amountEur": 449528
+            "amountEur": 449528,
+            "currency": "BGN"
+          },
+          "nameBg": "Вършец",
+          "nameEn": "Varshets",
+          "obshtinaCode": "MON12",
+          "otherTargeted": {
+            "amount": 125600,
+            "amountEur": 64218,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 9177700,
+            "amountEur": 4692483,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 92700,
-            "currency": "BGN",
-            "amountEur": 47397
-          },
-          "capital": {
-            "amount": 843300,
-            "currency": "BGN",
-            "amountEur": 431172
-          },
-          "otherTargeted": {
-            "amount": 125600,
-            "currency": "BGN",
-            "amountEur": 64218
+            "amountEur": 47397,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "06570",
-          "obshtinaCode": "MON07",
-          "nameBg": "Брусарци",
-          "nameEn": "Brusartsi",
-          "total": {
-            "amount": 6414800,
-            "currency": "BGN",
-            "amountEur": 3279835
+          "capital": {
+            "amount": 685800,
+            "amountEur": 350644,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4917300,
-            "currency": "BGN",
-            "amountEur": 2514176
+            "amountEur": 2514176,
+            "currency": "BGN"
           },
+          "ekatte": "06570",
           "equalization": {
             "amount": 757100,
-            "currency": "BGN",
-            "amountEur": 387099
+            "amountEur": 387099,
+            "currency": "BGN"
+          },
+          "nameBg": "Брусарци",
+          "nameEn": "Brusartsi",
+          "obshtinaCode": "MON07",
+          "otherTargeted": {
+            "amount": 33900,
+            "amountEur": 17333,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 6414800,
+            "amountEur": 3279835,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 54600,
-            "currency": "BGN",
-            "amountEur": 27917
-          },
-          "capital": {
-            "amount": 685800,
-            "currency": "BGN",
-            "amountEur": 350644
-          },
-          "otherTargeted": {
-            "amount": 33900,
-            "currency": "BGN",
-            "amountEur": 17333
+            "amountEur": 27917,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "47593",
-          "obshtinaCode": "MON26",
-          "nameBg": "Медковец",
-          "nameEn": "Medkovets",
-          "total": {
-            "amount": 5350500,
-            "currency": "BGN",
-            "amountEur": 2735667
+          "capital": {
+            "amount": 429400,
+            "amountEur": 219549,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4261800,
-            "currency": "BGN",
-            "amountEur": 2179024
+            "amountEur": 2179024,
+            "currency": "BGN"
           },
+          "ekatte": "47593",
           "equalization": {
             "amount": 632400,
-            "currency": "BGN",
-            "amountEur": 323341
+            "amountEur": 323341,
+            "currency": "BGN"
+          },
+          "nameBg": "Медковец",
+          "nameEn": "Medkovets",
+          "obshtinaCode": "MON26",
+          "otherTargeted": {
+            "amount": 54100,
+            "amountEur": 27661,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 5350500,
+            "amountEur": 2735667,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 26900,
-            "currency": "BGN",
-            "amountEur": 13754
-          },
-          "capital": {
-            "amount": 429400,
-            "currency": "BGN",
-            "amountEur": 219549
-          },
-          "otherTargeted": {
-            "amount": 54100,
-            "currency": "BGN",
-            "amountEur": 27661
+            "amountEur": 13754,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "87299",
-          "obshtinaCode": "MON38",
-          "nameBg": "Якимово",
-          "nameEn": "Yakimovo",
-          "total": {
-            "amount": 4708500,
-            "currency": "BGN",
-            "amountEur": 2407418
+          "capital": {
+            "amount": 463100,
+            "amountEur": 236779,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3470700,
-            "currency": "BGN",
-            "amountEur": 1774541
+            "amountEur": 1774541,
+            "currency": "BGN"
           },
+          "ekatte": "87299",
           "equalization": {
             "amount": 729900,
-            "currency": "BGN",
-            "amountEur": 373192
+            "amountEur": 373192,
+            "currency": "BGN"
+          },
+          "nameBg": "Якимово",
+          "nameEn": "Yakimovo",
+          "obshtinaCode": "MON38",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4708500,
+            "amountEur": 2407418,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 44800,
-            "currency": "BGN",
-            "amountEur": 22906
-          },
-          "capital": {
-            "amount": 463100,
-            "currency": "BGN",
-            "amountEur": 236779
-          },
-          "otherTargeted": null
+            "amountEur": 22906,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "14773",
-          "obshtinaCode": "MON14",
-          "nameBg": "Георги Дамяново",
-          "nameEn": "Georgi Damyanovo",
-          "total": {
-            "amount": 4499500,
-            "currency": "BGN",
-            "amountEur": 2300558
+          "capital": {
+            "amount": 818500,
+            "amountEur": 418492,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3083600,
-            "currency": "BGN",
-            "amountEur": 1576620
+            "amountEur": 1576620,
+            "currency": "BGN"
           },
+          "ekatte": "14773",
           "equalization": {
             "amount": 528000,
-            "currency": "BGN",
-            "amountEur": 269962
+            "amountEur": 269962,
+            "currency": "BGN"
+          },
+          "nameBg": "Георги Дамяново",
+          "nameEn": "Georgi Damyanovo",
+          "obshtinaCode": "MON14",
+          "otherTargeted": {
+            "amount": 35200,
+            "amountEur": 17997,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 4499500,
+            "amountEur": 2300558,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 69400,
-            "currency": "BGN",
-            "amountEur": 35484
-          },
-          "capital": {
-            "amount": 818500,
-            "currency": "BGN",
-            "amountEur": 418492
-          },
-          "otherTargeted": {
-            "amount": 35200,
-            "currency": "BGN",
-            "amountEur": 17997
+            "amountEur": 35484,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "81390",
-          "obshtinaCode": "MON36",
-          "nameBg": "Чипровци",
-          "nameEn": "Chiprovtsi",
-          "total": {
-            "amount": 3796900,
-            "currency": "BGN",
-            "amountEur": 1941324
+          "capital": {
+            "amount": 654800,
+            "amountEur": 334794,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 2575800,
-            "currency": "BGN",
-            "amountEur": 1316986
+            "amountEur": 1316986,
+            "currency": "BGN"
           },
+          "ekatte": "81390",
           "equalization": {
             "amount": 529800,
-            "currency": "BGN",
-            "amountEur": 270882
+            "amountEur": 270882,
+            "currency": "BGN"
+          },
+          "nameBg": "Чипровци",
+          "nameEn": "Chiprovtsi",
+          "obshtinaCode": "MON36",
+          "otherTargeted": {
+            "amount": 30400,
+            "amountEur": 15543,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 3796900,
+            "amountEur": 1941324,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 36500,
-            "currency": "BGN",
-            "amountEur": 18662
-          },
-          "capital": {
-            "amount": 654800,
-            "currency": "BGN",
-            "amountEur": 334794
-          },
-          "otherTargeted": {
-            "amount": 30400,
-            "currency": "BGN",
-            "amountEur": 15543
+            "amountEur": 18662,
+            "currency": "BGN"
           }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2025,
-      "asOf": "2025-01-01",
-      "source": {
-        "documentId": "law-2025",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 192140200,
-          "currency": "BGN",
-          "amountEur": 98239725
+        "capital": {
+          "amount": 10631600,
+          "amountEur": 5435849,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 162081500,
-          "currency": "BGN",
-          "amountEur": 82870954
+          "amount": 143144700,
+          "amountEur": 73188724,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 17846500,
-          "currency": "BGN",
-          "amountEur": 9124770
-        },
-        "winter": {
-          "amount": 900900,
-          "currency": "BGN",
-          "amountEur": 460624
-        },
-        "capital": {
-          "amount": 11311300,
-          "currency": "BGN",
-          "amountEur": 5783376
+          "amount": 15212700,
+          "amountEur": 7778129,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1356500,
-          "currency": "BGN",
-          "amountEur": 693568
+          "amount": 1172700,
+          "amountEur": 599591,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 169877300,
+          "amountEur": 86856884,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 888300,
+          "amountEur": 454181,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2024",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
+      }
+    },
+    {
+      "asOf": "2025-01-01",
+      "fiscalYear": 2025,
       "municipalities": [
         {
-          "ekatte": "48489",
-          "obshtinaCode": "MON29",
-          "nameBg": "Монтана",
-          "nameEn": "Montana",
-          "total": {
-            "amount": 63615300,
-            "currency": "BGN",
-            "amountEur": 32525986
+          "capital": {
+            "amount": 2247900,
+            "amountEur": 1149333,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 56668000,
-            "currency": "BGN",
-            "amountEur": 28973888
+            "amountEur": 28973888,
+            "currency": "BGN"
           },
+          "ekatte": "48489",
           "equalization": {
             "amount": 4573100,
-            "currency": "BGN",
-            "amountEur": 2338189
+            "amountEur": 2338189,
+            "currency": "BGN"
+          },
+          "nameBg": "Монтана",
+          "nameEn": "Montana",
+          "obshtinaCode": "MON29",
+          "otherTargeted": {
+            "amount": 431800,
+            "amountEur": 220776,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 63615300,
+            "amountEur": 32525986,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 126300,
-            "currency": "BGN",
-            "amountEur": 64576
-          },
-          "capital": {
-            "amount": 2247900,
-            "currency": "BGN",
-            "amountEur": 1149333
-          },
-          "otherTargeted": {
-            "amount": 431800,
-            "currency": "BGN",
-            "amountEur": 220776
+            "amountEur": 64576,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "44238",
-          "obshtinaCode": "MON24",
-          "nameBg": "Лом",
-          "nameEn": "Lom",
-          "total": {
-            "amount": 35074100,
-            "currency": "BGN",
-            "amountEur": 17933103
+          "capital": {
+            "amount": 1170200,
+            "amountEur": 598314,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 31311100,
-            "currency": "BGN",
-            "amountEur": 16009111
+            "amountEur": 16009111,
+            "currency": "BGN"
           },
+          "ekatte": "44238",
           "equalization": {
             "amount": 2483900,
-            "currency": "BGN",
-            "amountEur": 1269998
+            "amountEur": 1269998,
+            "currency": "BGN"
+          },
+          "nameBg": "Лом",
+          "nameEn": "Lom",
+          "obshtinaCode": "MON24",
+          "otherTargeted": {
+            "amount": 250000,
+            "amountEur": 127823,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 35074100,
+            "amountEur": 17933103,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 108900,
-            "currency": "BGN",
-            "amountEur": 55680
-          },
-          "capital": {
-            "amount": 1170200,
-            "currency": "BGN",
-            "amountEur": 598314
-          },
-          "otherTargeted": {
-            "amount": 250000,
-            "currency": "BGN",
-            "amountEur": 127823
+            "amountEur": 55680,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "03928",
-          "obshtinaCode": "MON02",
-          "nameBg": "Берковица",
-          "nameEn": "Berkovitsa",
-          "total": {
-            "amount": 28759400,
-            "currency": "BGN",
-            "amountEur": 14704448
+          "capital": {
+            "amount": 1859900,
+            "amountEur": 950952,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 24457500,
-            "currency": "BGN",
-            "amountEur": 12504921
+            "amountEur": 12504921,
+            "currency": "BGN"
           },
+          "ekatte": "03928",
           "equalization": {
             "amount": 2211100,
-            "currency": "BGN",
-            "amountEur": 1130517
+            "amountEur": 1130517,
+            "currency": "BGN"
+          },
+          "nameBg": "Берковица",
+          "nameEn": "Berkovitsa",
+          "obshtinaCode": "MON02",
+          "otherTargeted": {
+            "amount": 150600,
+            "amountEur": 77001,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 28759400,
+            "amountEur": 14704448,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 230900,
-            "currency": "BGN",
-            "amountEur": 118057
-          },
-          "capital": {
-            "amount": 1859900,
-            "currency": "BGN",
-            "amountEur": 950952
-          },
-          "otherTargeted": {
-            "amount": 150600,
-            "currency": "BGN",
-            "amountEur": 77001
+            "amountEur": 118057,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "12543",
-          "obshtinaCode": "MON11",
-          "nameBg": "Вълчедръм",
-          "nameEn": "Valchedram",
-          "total": {
-            "amount": 13293100,
-            "currency": "BGN",
-            "amountEur": 6796654
+          "capital": {
+            "amount": 886400,
+            "amountEur": 453209,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 10958900,
-            "currency": "BGN",
-            "amountEur": 5603197
+            "amountEur": 5603197,
+            "currency": "BGN"
           },
+          "ekatte": "12543",
           "equalization": {
             "amount": 1399700,
-            "currency": "BGN",
-            "amountEur": 715655
+            "amountEur": 715655,
+            "currency": "BGN"
+          },
+          "nameBg": "Вълчедръм",
+          "nameEn": "Valchedram",
+          "obshtinaCode": "MON11",
+          "otherTargeted": {
+            "amount": 87300,
+            "amountEur": 44636,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 13293100,
+            "amountEur": 6796654,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 48100,
-            "currency": "BGN",
-            "amountEur": 24593
-          },
-          "capital": {
-            "amount": 886400,
-            "currency": "BGN",
-            "amountEur": 453209
-          },
-          "otherTargeted": {
-            "amount": 87300,
-            "currency": "BGN",
-            "amountEur": 44636
+            "amountEur": 24593,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "05236",
-          "obshtinaCode": "MON04",
-          "nameBg": "Бойчиновци",
-          "nameEn": "Boychinovtsi",
-          "total": {
-            "amount": 11529200,
-            "currency": "BGN",
-            "amountEur": 5894786
+          "capital": {
+            "amount": 977200,
+            "amountEur": 499634,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8992200,
-            "currency": "BGN",
-            "amountEur": 4597639
+            "amountEur": 4597639,
+            "currency": "BGN"
           },
+          "ekatte": "05236",
           "equalization": {
             "amount": 1502900,
-            "currency": "BGN",
-            "amountEur": 768421
+            "amountEur": 768421,
+            "currency": "BGN"
+          },
+          "nameBg": "Бойчиновци",
+          "nameEn": "Boychinovtsi",
+          "obshtinaCode": "MON04",
+          "otherTargeted": {
+            "amount": 71600,
+            "amountEur": 36608,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 11529200,
+            "amountEur": 5894786,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 56900,
-            "currency": "BGN",
-            "amountEur": 29093
-          },
-          "capital": {
-            "amount": 977200,
-            "currency": "BGN",
-            "amountEur": 499634
-          },
-          "otherTargeted": {
-            "amount": 71600,
-            "currency": "BGN",
-            "amountEur": 36608
+            "amountEur": 29093,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "12961",
-          "obshtinaCode": "MON12",
-          "nameBg": "Вършец",
-          "nameEn": "Varshets",
-          "total": {
-            "amount": 10616200,
-            "currency": "BGN",
-            "amountEur": 5427977
+          "capital": {
+            "amount": 937600,
+            "amountEur": 479387,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8531800,
-            "currency": "BGN",
-            "amountEur": 4362240
+            "amountEur": 4362240,
+            "currency": "BGN"
           },
+          "ekatte": "12961",
           "equalization": {
             "amount": 1052700,
-            "currency": "BGN",
-            "amountEur": 538237
+            "amountEur": 538237,
+            "currency": "BGN"
+          },
+          "nameBg": "Вършец",
+          "nameEn": "Varshets",
+          "obshtinaCode": "MON12",
+          "otherTargeted": {
+            "amount": 147100,
+            "amountEur": 75211,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 10616200,
+            "amountEur": 5427977,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 94100,
-            "currency": "BGN",
-            "amountEur": 48113
-          },
-          "capital": {
-            "amount": 937600,
-            "currency": "BGN",
-            "amountEur": 479387
-          },
-          "otherTargeted": {
-            "amount": 147100,
-            "currency": "BGN",
-            "amountEur": 75211
+            "amountEur": 48113,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "06570",
-          "obshtinaCode": "MON07",
-          "nameBg": "Брусарци",
-          "nameEn": "Brusartsi",
-          "total": {
-            "amount": 7568400,
-            "currency": "BGN",
-            "amountEur": 3869661
+          "capital": {
+            "amount": 726400,
+            "amountEur": 371402,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5680100,
-            "currency": "BGN",
-            "amountEur": 2904189
+            "amountEur": 2904189,
+            "currency": "BGN"
           },
+          "ekatte": "06570",
           "equalization": {
             "amount": 1106500,
-            "currency": "BGN",
-            "amountEur": 565744
+            "amountEur": 565744,
+            "currency": "BGN"
+          },
+          "nameBg": "Брусарци",
+          "nameEn": "Brusartsi",
+          "obshtinaCode": "MON07",
+          "otherTargeted": {
+            "amount": 40900,
+            "amountEur": 20912,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 7568400,
+            "amountEur": 3869661,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 55400,
-            "currency": "BGN",
-            "amountEur": 28326
-          },
-          "capital": {
-            "amount": 726400,
-            "currency": "BGN",
-            "amountEur": 371402
-          },
-          "otherTargeted": {
-            "amount": 40900,
-            "currency": "BGN",
-            "amountEur": 20912
+            "amountEur": 28326,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "47593",
-          "obshtinaCode": "MON26",
-          "nameBg": "Медковец",
-          "nameEn": "Medkovets",
-          "total": {
-            "amount": 6184800,
-            "currency": "BGN",
-            "amountEur": 3162238
+          "capital": {
+            "amount": 453600,
+            "amountEur": 231922,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4841300,
-            "currency": "BGN",
-            "amountEur": 2475317
+            "amountEur": 2475317,
+            "currency": "BGN"
           },
+          "ekatte": "47593",
           "equalization": {
             "amount": 862600,
-            "currency": "BGN",
-            "amountEur": 441040
+            "amountEur": 441040,
+            "currency": "BGN"
+          },
+          "nameBg": "Медковец",
+          "nameEn": "Medkovets",
+          "obshtinaCode": "MON26",
+          "otherTargeted": {
+            "amount": 63300,
+            "amountEur": 32365,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 6184800,
+            "amountEur": 3162238,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 27300,
-            "currency": "BGN",
-            "amountEur": 13958
-          },
-          "capital": {
-            "amount": 453600,
-            "currency": "BGN",
-            "amountEur": 231922
-          },
-          "otherTargeted": {
-            "amount": 63300,
-            "currency": "BGN",
-            "amountEur": 32365
+            "amountEur": 13958,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "14773",
-          "obshtinaCode": "MON14",
-          "nameBg": "Георги Дамяново",
-          "nameEn": "Georgi Damyanovo",
-          "total": {
-            "amount": 5525700,
-            "currency": "BGN",
-            "amountEur": 2825246
+          "capital": {
+            "amount": 868300,
+            "amountEur": 443955,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3763700,
-            "currency": "BGN",
-            "amountEur": 1924349
+            "amountEur": 1924349,
+            "currency": "BGN"
           },
+          "ekatte": "14773",
           "equalization": {
             "amount": 823300,
-            "currency": "BGN",
-            "amountEur": 420947
+            "amountEur": 420947,
+            "currency": "BGN"
+          },
+          "nameBg": "Георги Дамяново",
+          "nameEn": "Georgi Damyanovo",
+          "obshtinaCode": "MON14",
+          "otherTargeted": {
+            "amount": 52800,
+            "amountEur": 26996,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 5525700,
+            "amountEur": 2825246,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 70400,
-            "currency": "BGN",
-            "amountEur": 35995
-          },
-          "capital": {
-            "amount": 868300,
-            "currency": "BGN",
-            "amountEur": 443955
-          },
-          "otherTargeted": {
-            "amount": 52800,
-            "currency": "BGN",
-            "amountEur": 26996
+            "amountEur": 35995,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "87299",
-          "obshtinaCode": "MON38",
-          "nameBg": "Якимово",
-          "nameEn": "Yakimovo",
-          "total": {
-            "amount": 5419000,
-            "currency": "BGN",
-            "amountEur": 2770691
+          "capital": {
+            "amount": 490500,
+            "amountEur": 250789,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3821600,
-            "currency": "BGN",
-            "amountEur": 1953953
+            "amountEur": 1953953,
+            "currency": "BGN"
           },
+          "ekatte": "87299",
           "equalization": {
             "amount": 1061400,
-            "currency": "BGN",
-            "amountEur": 542685
+            "amountEur": 542685,
+            "currency": "BGN"
+          },
+          "nameBg": "Якимово",
+          "nameEn": "Yakimovo",
+          "obshtinaCode": "MON38",
+          "otherTargeted": {
+            "amount": 22600,
+            "amountEur": 11555,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 5419000,
+            "amountEur": 2770691,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 45500,
-            "currency": "BGN",
-            "amountEur": 23264
-          },
-          "capital": {
-            "amount": 490500,
-            "currency": "BGN",
-            "amountEur": 250789
-          },
-          "otherTargeted": {
-            "amount": 22600,
-            "currency": "BGN",
-            "amountEur": 11555
+            "amountEur": 23264,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "81390",
-          "obshtinaCode": "MON36",
-          "nameBg": "Чипровци",
-          "nameEn": "Chiprovtsi",
-          "total": {
-            "amount": 4555000,
-            "currency": "BGN",
-            "amountEur": 2328935
+          "capital": {
+            "amount": 693300,
+            "amountEur": 354479,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3055300,
-            "currency": "BGN",
-            "amountEur": 1562150
+            "amountEur": 1562150,
+            "currency": "BGN"
           },
+          "ekatte": "81390",
           "equalization": {
             "amount": 769300,
-            "currency": "BGN",
-            "amountEur": 393337
+            "amountEur": 393337,
+            "currency": "BGN"
+          },
+          "nameBg": "Чипровци",
+          "nameEn": "Chiprovtsi",
+          "obshtinaCode": "MON36",
+          "otherTargeted": {
+            "amount": 38500,
+            "amountEur": 19685,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 4555000,
+            "amountEur": 2328935,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 37100,
-            "currency": "BGN",
-            "amountEur": 18969
-          },
-          "capital": {
-            "amount": 693300,
-            "currency": "BGN",
-            "amountEur": 354479
-          },
-          "otherTargeted": {
-            "amount": 38500,
-            "currency": "BGN",
-            "amountEur": 19685
+            "amountEur": 18969,
+            "currency": "BGN"
           }
         }
-      ]
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 11311300,
+          "amountEur": 5783376,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 162081500,
+          "amountEur": 82870954,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 17846500,
+          "amountEur": 9124770,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 1356500,
+          "amountEur": 693568,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 192140200,
+          "amountEur": 98239725,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 900900,
+          "amountEur": 460624,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2025",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
+      }
     }
   ]
 }

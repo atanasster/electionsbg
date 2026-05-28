@@ -4,1074 +4,1074 @@
   "oblastNameEn": "Targovishte",
   "years": [
     {
-      "fiscalYear": 2020,
       "asOf": "2020-01-01",
-      "source": {
-        "documentId": "law-2020",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
-      },
-      "oblastTotals": {
-        "total": {
-          "amount": 76877300,
-          "currency": "BGN",
-          "amountEur": 39306740
-        },
-        "delegated": {
-          "amount": 60495200,
-          "currency": "BGN",
-          "amountEur": 30930704
-        },
-        "equalization": {
-          "amount": 8584300,
-          "currency": "BGN",
-          "amountEur": 4389082
-        },
-        "winter": {
-          "amount": 1649800,
-          "currency": "BGN",
-          "amountEur": 843530
-        },
-        "capital": {
-          "amount": 6148000,
-          "currency": "BGN",
-          "amountEur": 3143422
-        },
-        "otherTargeted": {
-          "amount": 0,
-          "currency": "BGN",
-          "amountEur": 0
-        }
-      },
+      "fiscalYear": 2020,
       "municipalities": [
         {
-          "ekatte": "73626",
-          "obshtinaCode": "TGV35",
-          "nameBg": "Търговище",
-          "nameEn": "Targovishte",
-          "total": {
-            "amount": 36941200,
-            "currency": "BGN",
-            "amountEur": 18887736
+          "capital": {
+            "amount": 1984200,
+            "amountEur": 1014505,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 30778700,
-            "currency": "BGN",
-            "amountEur": 15736899
+            "amountEur": 15736899,
+            "currency": "BGN"
           },
+          "ekatte": "73626",
           "equalization": {
             "amount": 3660600,
-            "currency": "BGN",
-            "amountEur": 1871635
+            "amountEur": 1871635,
+            "currency": "BGN"
+          },
+          "nameBg": "Търговище",
+          "nameEn": "Targovishte",
+          "obshtinaCode": "TGV35",
+          "otherTargeted": null,
+          "total": {
+            "amount": 36941200,
+            "amountEur": 18887736,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 517700,
-            "currency": "BGN",
-            "amountEur": 264696
-          },
-          "capital": {
-            "amount": 1984200,
-            "currency": "BGN",
-            "amountEur": 1014505
-          },
-          "otherTargeted": null
+            "amountEur": 264696,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "57649",
-          "obshtinaCode": "TGV24",
-          "nameBg": "Попово",
-          "nameEn": "Popovo",
-          "total": {
-            "amount": 17988300,
-            "currency": "BGN",
-            "amountEur": 9197272
+          "capital": {
+            "amount": 1346800,
+            "amountEur": 688608,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 14483100,
-            "currency": "BGN",
-            "amountEur": 7405091
+            "amountEur": 7405091,
+            "currency": "BGN"
           },
+          "ekatte": "57649",
           "equalization": {
             "amount": 1764300,
-            "currency": "BGN",
-            "amountEur": 902072
+            "amountEur": 902072,
+            "currency": "BGN"
+          },
+          "nameBg": "Попово",
+          "nameEn": "Popovo",
+          "obshtinaCode": "TGV24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 17988300,
+            "amountEur": 9197272,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 394100,
-            "currency": "BGN",
-            "amountEur": 201500
-          },
-          "capital": {
-            "amount": 1346800,
-            "currency": "BGN",
-            "amountEur": 688608
-          },
-          "otherTargeted": null
+            "amountEur": 201500,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "53535",
-          "obshtinaCode": "TGV22",
-          "nameBg": "Омуртаг",
-          "nameEn": "Omurtag",
-          "total": {
-            "amount": 12774100,
-            "currency": "BGN",
-            "amountEur": 6531294
+          "capital": {
+            "amount": 1301100,
+            "amountEur": 665242,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 9278800,
-            "currency": "BGN",
-            "amountEur": 4744175
+            "amountEur": 4744175,
+            "currency": "BGN"
           },
+          "ekatte": "53535",
           "equalization": {
             "amount": 1860100,
-            "currency": "BGN",
-            "amountEur": 951054
+            "amountEur": 951054,
+            "currency": "BGN"
+          },
+          "nameBg": "Омуртаг",
+          "nameEn": "Omurtag",
+          "obshtinaCode": "TGV22",
+          "otherTargeted": null,
+          "total": {
+            "amount": 12774100,
+            "amountEur": 6531294,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 334100,
-            "currency": "BGN",
-            "amountEur": 170823
-          },
-          "capital": {
-            "amount": 1301100,
-            "currency": "BGN",
-            "amountEur": 665242
-          },
-          "otherTargeted": null
+            "amountEur": 170823,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "00518",
-          "obshtinaCode": "TGV02",
-          "nameBg": "Антоново",
-          "nameEn": "Antonovo",
-          "total": {
-            "amount": 5171900,
-            "currency": "BGN",
-            "amountEur": 2644350
+          "capital": {
+            "amount": 1217500,
+            "amountEur": 622498,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 2948300,
-            "currency": "BGN",
-            "amountEur": 1507442
+            "amountEur": 1507442,
+            "currency": "BGN"
           },
+          "ekatte": "00518",
           "equalization": {
             "amount": 674300,
-            "currency": "BGN",
-            "amountEur": 344764
+            "amountEur": 344764,
+            "currency": "BGN"
+          },
+          "nameBg": "Антоново",
+          "nameEn": "Antonovo",
+          "obshtinaCode": "TGV02",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5171900,
+            "amountEur": 2644350,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 331800,
-            "currency": "BGN",
-            "amountEur": 169647
-          },
-          "capital": {
-            "amount": 1217500,
-            "currency": "BGN",
-            "amountEur": 622498
-          },
-          "otherTargeted": null
+            "amountEur": 169647,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "53552",
-          "obshtinaCode": "TGV23",
-          "nameBg": "Опака",
-          "nameEn": "Opaka",
-          "total": {
-            "amount": 4001800,
-            "currency": "BGN",
-            "amountEur": 2046088
+          "capital": {
+            "amount": 298400,
+            "amountEur": 152569,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3006300,
-            "currency": "BGN",
-            "amountEur": 1537097
+            "amountEur": 1537097,
+            "currency": "BGN"
           },
+          "ekatte": "53552",
           "equalization": {
             "amount": 625000,
-            "currency": "BGN",
-            "amountEur": 319557
+            "amountEur": 319557,
+            "currency": "BGN"
+          },
+          "nameBg": "Опака",
+          "nameEn": "Opaka",
+          "obshtinaCode": "TGV23",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4001800,
+            "amountEur": 2046088,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 72100,
-            "currency": "BGN",
-            "amountEur": 36864
-          },
-          "capital": {
-            "amount": 298400,
-            "currency": "BGN",
-            "amountEur": 152569
-          },
-          "otherTargeted": null
+            "amountEur": 36864,
+            "currency": "BGN"
+          }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2022,
-      "asOf": "2022-01-01",
-      "source": {
-        "documentId": "law-2022",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 99366700,
-          "currency": "BGN",
-          "amountEur": 50805387
+        "capital": {
+          "amount": 6148000,
+          "amountEur": 3143422,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 78868200,
-          "currency": "BGN",
-          "amountEur": 40324670
+          "amount": 60495200,
+          "amountEur": 30930704,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 9587600,
-          "currency": "BGN",
-          "amountEur": 4902062
-        },
-        "winter": {
-          "amount": 1845500,
-          "currency": "BGN",
-          "amountEur": 943589
-        },
-        "capital": {
-          "amount": 9065400,
-          "currency": "BGN",
-          "amountEur": 4635065
+          "amount": 8584300,
+          "amountEur": 4389082,
+          "currency": "BGN"
         },
         "otherTargeted": {
           "amount": 0,
-          "currency": "BGN",
-          "amountEur": 0
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 76877300,
+          "amountEur": 39306740,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1649800,
+          "amountEur": 843530,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2020",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2022-01-01",
+      "fiscalYear": 2022,
       "municipalities": [
         {
-          "ekatte": "73626",
-          "obshtinaCode": "TGV35",
-          "nameBg": "Търговище",
-          "nameEn": "Targovishte",
-          "total": {
-            "amount": 47725500,
-            "currency": "BGN",
-            "amountEur": 24401661
+          "capital": {
+            "amount": 2967500,
+            "amountEur": 1517259,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 40425900,
-            "currency": "BGN",
-            "amountEur": 20669434
+            "amountEur": 20669434,
+            "currency": "BGN"
           },
+          "ekatte": "73626",
           "equalization": {
             "amount": 3754300,
-            "currency": "BGN",
-            "amountEur": 1919543
+            "amountEur": 1919543,
+            "currency": "BGN"
+          },
+          "nameBg": "Търговище",
+          "nameEn": "Targovishte",
+          "obshtinaCode": "TGV35",
+          "otherTargeted": null,
+          "total": {
+            "amount": 47725500,
+            "amountEur": 24401661,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 577800,
-            "currency": "BGN",
-            "amountEur": 295424
-          },
-          "capital": {
-            "amount": 2967500,
-            "currency": "BGN",
-            "amountEur": 1517259
-          },
-          "otherTargeted": null
+            "amountEur": 295424,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "57649",
-          "obshtinaCode": "TGV24",
-          "nameBg": "Попово",
-          "nameEn": "Popovo",
-          "total": {
-            "amount": 23657000,
-            "currency": "BGN",
-            "amountEur": 12095632
+          "capital": {
+            "amount": 2006700,
+            "amountEur": 1026009,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 19336400,
-            "currency": "BGN",
-            "amountEur": 9886544
+            "amountEur": 9886544,
+            "currency": "BGN"
           },
+          "ekatte": "57649",
           "equalization": {
             "amount": 1875100,
-            "currency": "BGN",
-            "amountEur": 958723
+            "amountEur": 958723,
+            "currency": "BGN"
+          },
+          "nameBg": "Попово",
+          "nameEn": "Popovo",
+          "obshtinaCode": "TGV24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 23657000,
+            "amountEur": 12095632,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 438800,
-            "currency": "BGN",
-            "amountEur": 224355
-          },
-          "capital": {
-            "amount": 2006700,
-            "currency": "BGN",
-            "amountEur": 1026009
-          },
-          "otherTargeted": null
+            "amountEur": 224355,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "53535",
-          "obshtinaCode": "TGV22",
-          "nameBg": "Омуртаг",
-          "nameEn": "Omurtag",
-          "total": {
-            "amount": 15926800,
-            "currency": "BGN",
-            "amountEur": 8143244
+          "capital": {
+            "amount": 1943700,
+            "amountEur": 993798,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 11312600,
-            "currency": "BGN",
-            "amountEur": 5784041
+            "amountEur": 5784041,
+            "currency": "BGN"
           },
+          "ekatte": "53535",
           "equalization": {
             "amount": 2293200,
-            "currency": "BGN",
-            "amountEur": 1172495
+            "amountEur": 1172495,
+            "currency": "BGN"
+          },
+          "nameBg": "Омуртаг",
+          "nameEn": "Omurtag",
+          "obshtinaCode": "TGV22",
+          "otherTargeted": null,
+          "total": {
+            "amount": 15926800,
+            "amountEur": 8143244,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 377300,
-            "currency": "BGN",
-            "amountEur": 192910
-          },
-          "capital": {
-            "amount": 1943700,
-            "currency": "BGN",
-            "amountEur": 993798
-          },
-          "otherTargeted": null
+            "amountEur": 192910,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "00518",
-          "obshtinaCode": "TGV02",
-          "nameBg": "Антоново",
-          "nameEn": "Antonovo",
-          "total": {
-            "amount": 7172800,
-            "currency": "BGN",
-            "amountEur": 3667394
+          "capital": {
+            "amount": 1717700,
+            "amountEur": 878246,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4138000,
-            "currency": "BGN",
-            "amountEur": 2115726
+            "amountEur": 2115726,
+            "currency": "BGN"
           },
+          "ekatte": "00518",
           "equalization": {
             "amount": 945800,
-            "currency": "BGN",
-            "amountEur": 483580
+            "amountEur": 483580,
+            "currency": "BGN"
+          },
+          "nameBg": "Антоново",
+          "nameEn": "Antonovo",
+          "obshtinaCode": "TGV02",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7172800,
+            "amountEur": 3667394,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 371300,
-            "currency": "BGN",
-            "amountEur": 189843
-          },
-          "capital": {
-            "amount": 1717700,
-            "currency": "BGN",
-            "amountEur": 878246
-          },
-          "otherTargeted": null
+            "amountEur": 189843,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "53552",
-          "obshtinaCode": "TGV23",
-          "nameBg": "Опака",
-          "nameEn": "Opaka",
-          "total": {
-            "amount": 4884600,
-            "currency": "BGN",
-            "amountEur": 2497456
+          "capital": {
+            "amount": 429800,
+            "amountEur": 219753,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3655300,
-            "currency": "BGN",
-            "amountEur": 1868925
+            "amountEur": 1868925,
+            "currency": "BGN"
           },
+          "ekatte": "53552",
           "equalization": {
             "amount": 719200,
-            "currency": "BGN",
-            "amountEur": 367721
+            "amountEur": 367721,
+            "currency": "BGN"
+          },
+          "nameBg": "Опака",
+          "nameEn": "Opaka",
+          "obshtinaCode": "TGV23",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4884600,
+            "amountEur": 2497456,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 80300,
-            "currency": "BGN",
-            "amountEur": 41057
-          },
-          "capital": {
-            "amount": 429800,
-            "currency": "BGN",
-            "amountEur": 219753
-          },
-          "otherTargeted": null
+            "amountEur": 41057,
+            "currency": "BGN"
+          }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2023,
-      "asOf": "2023-01-01",
-      "source": {
-        "documentId": "law-2023",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 122132900,
-          "currency": "BGN",
-          "amountEur": 62445560
+        "capital": {
+          "amount": 9065400,
+          "amountEur": 4635065,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 97435200,
-          "currency": "BGN",
-          "amountEur": 49817827
+          "amount": 78868200,
+          "amountEur": 40324670,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 9898800,
-          "currency": "BGN",
-          "amountEur": 5061177
-        },
-        "winter": {
-          "amount": 1843400,
-          "currency": "BGN",
-          "amountEur": 942516
-        },
-        "capital": {
-          "amount": 12955500,
-          "currency": "BGN",
-          "amountEur": 6624042
+          "amount": 9587600,
+          "amountEur": 4902062,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1165700,
-          "currency": "BGN",
-          "amountEur": 596013
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 99366700,
+          "amountEur": 50805387,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1845500,
+          "amountEur": 943589,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2022",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+      }
+    },
+    {
+      "asOf": "2023-01-01",
+      "fiscalYear": 2023,
       "municipalities": [
         {
-          "ekatte": "73626",
-          "obshtinaCode": "TGV35",
-          "nameBg": "Търговище",
-          "nameEn": "Targovishte",
-          "total": {
-            "amount": 59443800,
-            "currency": "BGN",
-            "amountEur": 30393132
+          "capital": {
+            "amount": 4269100,
+            "amountEur": 2182756,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 50625900,
-            "currency": "BGN",
-            "amountEur": 25884612
+            "amountEur": 25884612,
+            "currency": "BGN"
           },
+          "ekatte": "73626",
           "equalization": {
             "amount": 3971600,
-            "currency": "BGN",
-            "amountEur": 2030647
+            "amountEur": 2030647,
+            "currency": "BGN"
+          },
+          "nameBg": "Търговище",
+          "nameEn": "Targovishte",
+          "obshtinaCode": "TGV35",
+          "otherTargeted": {
+            "amount": 722300,
+            "amountEur": 369306,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 59443800,
+            "amountEur": 30393132,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 577200,
-            "currency": "BGN",
-            "amountEur": 295118
-          },
-          "capital": {
-            "amount": 4269100,
-            "currency": "BGN",
-            "amountEur": 2182756
-          },
-          "otherTargeted": {
-            "amount": 722300,
-            "currency": "BGN",
-            "amountEur": 369306
+            "amountEur": 295118,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "57649",
-          "obshtinaCode": "TGV24",
-          "nameBg": "Попово",
-          "nameEn": "Popovo",
-          "total": {
-            "amount": 28896300,
-            "currency": "BGN",
-            "amountEur": 14774444
+          "capital": {
+            "amount": 2859800,
+            "amountEur": 1462193,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 23688100,
-            "currency": "BGN",
-            "amountEur": 12111533
+            "amountEur": 12111533,
+            "currency": "BGN"
           },
+          "ekatte": "57649",
           "equalization": {
             "amount": 1909700,
-            "currency": "BGN",
-            "amountEur": 976414
+            "amountEur": 976414,
+            "currency": "BGN"
+          },
+          "nameBg": "Попово",
+          "nameEn": "Popovo",
+          "obshtinaCode": "TGV24",
+          "otherTargeted": {
+            "amount": 218000,
+            "amountEur": 111462,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 28896300,
+            "amountEur": 14774444,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 438700,
-            "currency": "BGN",
-            "amountEur": 224304
-          },
-          "capital": {
-            "amount": 2859800,
-            "currency": "BGN",
-            "amountEur": 1462193
-          },
-          "otherTargeted": {
-            "amount": 218000,
-            "currency": "BGN",
-            "amountEur": 111462
+            "amountEur": 224304,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "53535",
-          "obshtinaCode": "TGV22",
-          "nameBg": "Омуртаг",
-          "nameEn": "Omurtag",
-          "total": {
-            "amount": 19075600,
-            "currency": "BGN",
-            "amountEur": 9753199
+          "capital": {
+            "amount": 2759500,
+            "amountEur": 1410910,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 13646000,
-            "currency": "BGN",
-            "amountEur": 6977089
+            "amountEur": 6977089,
+            "currency": "BGN"
           },
+          "ekatte": "53535",
           "equalization": {
             "amount": 2294000,
-            "currency": "BGN",
-            "amountEur": 1172904
+            "amountEur": 1172904,
+            "currency": "BGN"
+          },
+          "nameBg": "Омуртаг",
+          "nameEn": "Omurtag",
+          "obshtinaCode": "TGV22",
+          "otherTargeted": {
+            "amount": 144900,
+            "amountEur": 74086,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 19075600,
+            "amountEur": 9753199,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 376100,
-            "currency": "BGN",
-            "amountEur": 192297
-          },
-          "capital": {
-            "amount": 2759500,
-            "currency": "BGN",
-            "amountEur": 1410910
-          },
-          "otherTargeted": {
-            "amount": 144900,
-            "currency": "BGN",
-            "amountEur": 74086
+            "amountEur": 192297,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "00518",
-          "obshtinaCode": "TGV02",
-          "nameBg": "Антоново",
-          "nameEn": "Antonovo",
-          "total": {
-            "amount": 8790100,
-            "currency": "BGN",
-            "amountEur": 4494307
+          "capital": {
+            "amount": 2461000,
+            "amountEur": 1258289,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5012200,
-            "currency": "BGN",
-            "amountEur": 2562697
+            "amountEur": 2562697,
+            "currency": "BGN"
           },
+          "ekatte": "00518",
           "equalization": {
             "amount": 945800,
-            "currency": "BGN",
-            "amountEur": 483580
+            "amountEur": 483580,
+            "currency": "BGN"
+          },
+          "nameBg": "Антоново",
+          "nameEn": "Antonovo",
+          "obshtinaCode": "TGV02",
+          "otherTargeted": {
+            "amount": 57500,
+            "amountEur": 29399,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 8790100,
+            "amountEur": 4494307,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 371100,
-            "currency": "BGN",
-            "amountEur": 189740
-          },
-          "capital": {
-            "amount": 2461000,
-            "currency": "BGN",
-            "amountEur": 1258289
-          },
-          "otherTargeted": {
-            "amount": 57500,
-            "currency": "BGN",
-            "amountEur": 29399
+            "amountEur": 189740,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "53552",
-          "obshtinaCode": "TGV23",
-          "nameBg": "Опака",
-          "nameEn": "Opaka",
-          "total": {
-            "amount": 5927100,
-            "currency": "BGN",
-            "amountEur": 3030478
+          "capital": {
+            "amount": 606100,
+            "amountEur": 309894,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4463000,
-            "currency": "BGN",
-            "amountEur": 2281896
+            "amountEur": 2281896,
+            "currency": "BGN"
           },
+          "ekatte": "53552",
           "equalization": {
             "amount": 777700,
-            "currency": "BGN",
-            "amountEur": 397632
+            "amountEur": 397632,
+            "currency": "BGN"
+          },
+          "nameBg": "Опака",
+          "nameEn": "Opaka",
+          "obshtinaCode": "TGV23",
+          "otherTargeted": {
+            "amount": 23000,
+            "amountEur": 11760,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 5927100,
+            "amountEur": 3030478,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 80300,
-            "currency": "BGN",
-            "amountEur": 41057
-          },
-          "capital": {
-            "amount": 606100,
-            "currency": "BGN",
-            "amountEur": 309894
-          },
-          "otherTargeted": {
-            "amount": 23000,
-            "currency": "BGN",
-            "amountEur": 11760
+            "amountEur": 41057,
+            "currency": "BGN"
           }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2024,
-      "asOf": "2024-01-01",
-      "source": {
-        "documentId": "law-2024",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 135513600,
-          "currency": "BGN",
-          "amountEur": 69287003
+        "capital": {
+          "amount": 12955500,
+          "amountEur": 6624042,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 110795400,
-          "currency": "BGN",
-          "amountEur": 56648788
+          "amount": 97435200,
+          "amountEur": 49817827,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 9938800,
-          "currency": "BGN",
-          "amountEur": 5081628
-        },
-        "winter": {
-          "amount": 1844400,
-          "currency": "BGN",
-          "amountEur": 943027
-        },
-        "capital": {
-          "amount": 12935000,
-          "currency": "BGN",
-          "amountEur": 6613560
+          "amount": 9898800,
+          "amountEur": 5061177,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1398900,
-          "currency": "BGN",
-          "amountEur": 715247
+          "amount": 1165700,
+          "amountEur": 596013,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 122132900,
+          "amountEur": 62445560,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1843400,
+          "amountEur": 942516,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2023",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+      }
+    },
+    {
+      "asOf": "2024-01-01",
+      "fiscalYear": 2024,
       "municipalities": [
         {
-          "ekatte": "73626",
-          "obshtinaCode": "TGV35",
-          "nameBg": "Търговище",
-          "nameEn": "Targovishte",
-          "total": {
-            "amount": 67854100,
-            "currency": "BGN",
-            "amountEur": 34693250
+          "capital": {
+            "amount": 4300900,
+            "amountEur": 2199015,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 59004100,
-            "currency": "BGN",
-            "amountEur": 30168317
+            "amountEur": 30168317,
+            "currency": "BGN"
           },
+          "ekatte": "73626",
           "equalization": {
             "amount": 3971600,
-            "currency": "BGN",
-            "amountEur": 2030647
+            "amountEur": 2030647,
+            "currency": "BGN"
+          },
+          "nameBg": "Търговище",
+          "nameEn": "Targovishte",
+          "obshtinaCode": "TGV35",
+          "otherTargeted": {
+            "amount": 866700,
+            "amountEur": 443137,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 67854100,
+            "amountEur": 34693250,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 577500,
-            "currency": "BGN",
-            "amountEur": 295271
-          },
-          "capital": {
-            "amount": 4300900,
-            "currency": "BGN",
-            "amountEur": 2199015
-          },
-          "otherTargeted": {
-            "amount": 866700,
-            "currency": "BGN",
-            "amountEur": 443137
+            "amountEur": 295271,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "57649",
-          "obshtinaCode": "TGV24",
-          "nameBg": "Попово",
-          "nameEn": "Popovo",
-          "total": {
-            "amount": 31796400,
-            "currency": "BGN",
-            "amountEur": 16257241
+          "capital": {
+            "amount": 2875900,
+            "amountEur": 1470424,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 26568800,
-            "currency": "BGN",
-            "amountEur": 13584412
+            "amountEur": 13584412,
+            "currency": "BGN"
           },
+          "ekatte": "57649",
           "equalization": {
             "amount": 1912900,
-            "currency": "BGN",
-            "amountEur": 978050
+            "amountEur": 978050,
+            "currency": "BGN"
+          },
+          "nameBg": "Попово",
+          "nameEn": "Popovo",
+          "obshtinaCode": "TGV24",
+          "otherTargeted": {
+            "amount": 261600,
+            "amountEur": 133754,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 31796400,
+            "amountEur": 16257241,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 438800,
-            "currency": "BGN",
-            "amountEur": 224355
-          },
-          "capital": {
-            "amount": 2875900,
-            "currency": "BGN",
-            "amountEur": 1470424
-          },
-          "otherTargeted": {
-            "amount": 261600,
-            "currency": "BGN",
-            "amountEur": 133754
+            "amountEur": 224355,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "53535",
-          "obshtinaCode": "TGV22",
-          "nameBg": "Омуртаг",
-          "nameEn": "Omurtag",
-          "total": {
-            "amount": 20430700,
-            "currency": "BGN",
-            "amountEur": 10446051
+          "capital": {
+            "amount": 2787300,
+            "amountEur": 1425124,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 14966500,
-            "currency": "BGN",
-            "amountEur": 7652250
+            "amountEur": 7652250,
+            "currency": "BGN"
           },
+          "ekatte": "53535",
           "equalization": {
             "amount": 2300600,
-            "currency": "BGN",
-            "amountEur": 1176278
+            "amountEur": 1176278,
+            "currency": "BGN"
+          },
+          "nameBg": "Омуртаг",
+          "nameEn": "Omurtag",
+          "obshtinaCode": "TGV22",
+          "otherTargeted": {
+            "amount": 173900,
+            "amountEur": 88914,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 20430700,
+            "amountEur": 10446051,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 376300,
-            "currency": "BGN",
-            "amountEur": 192399
-          },
-          "capital": {
-            "amount": 2787300,
-            "currency": "BGN",
-            "amountEur": 1425124
-          },
-          "otherTargeted": {
-            "amount": 173900,
-            "currency": "BGN",
-            "amountEur": 88914
+            "amountEur": 192399,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "00518",
-          "obshtinaCode": "TGV02",
-          "nameBg": "Антоново",
-          "nameEn": "Antonovo",
-          "total": {
-            "amount": 8905800,
-            "currency": "BGN",
-            "amountEur": 4553463
+          "capital": {
+            "amount": 2361800,
+            "amountEur": 1207569,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5226700,
-            "currency": "BGN",
-            "amountEur": 2672369
+            "amountEur": 2672369,
+            "currency": "BGN"
           },
+          "ekatte": "00518",
           "equalization": {
             "amount": 945800,
-            "currency": "BGN",
-            "amountEur": 483580
+            "amountEur": 483580,
+            "currency": "BGN"
+          },
+          "nameBg": "Антоново",
+          "nameEn": "Antonovo",
+          "obshtinaCode": "TGV02",
+          "otherTargeted": {
+            "amount": 69000,
+            "amountEur": 35279,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 8905800,
+            "amountEur": 4553463,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 371500,
-            "currency": "BGN",
-            "amountEur": 189945
-          },
-          "capital": {
-            "amount": 2361800,
-            "currency": "BGN",
-            "amountEur": 1207569
-          },
-          "otherTargeted": {
-            "amount": 69000,
-            "currency": "BGN",
-            "amountEur": 35279
+            "amountEur": 189945,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "53552",
-          "obshtinaCode": "TGV23",
-          "nameBg": "Опака",
-          "nameEn": "Opaka",
-          "total": {
-            "amount": 6526600,
-            "currency": "BGN",
-            "amountEur": 3336998
+          "capital": {
+            "amount": 609100,
+            "amountEur": 311428,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5029300,
-            "currency": "BGN",
-            "amountEur": 2571440
+            "amountEur": 2571440,
+            "currency": "BGN"
           },
+          "ekatte": "53552",
           "equalization": {
             "amount": 807900,
-            "currency": "BGN",
-            "amountEur": 413073
+            "amountEur": 413073,
+            "currency": "BGN"
+          },
+          "nameBg": "Опака",
+          "nameEn": "Opaka",
+          "obshtinaCode": "TGV23",
+          "otherTargeted": {
+            "amount": 27700,
+            "amountEur": 14163,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 6526600,
+            "amountEur": 3336998,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 80300,
-            "currency": "BGN",
-            "amountEur": 41057
-          },
-          "capital": {
-            "amount": 609100,
-            "currency": "BGN",
-            "amountEur": 311428
-          },
-          "otherTargeted": {
-            "amount": 27700,
-            "currency": "BGN",
-            "amountEur": 14163
+            "amountEur": 41057,
+            "currency": "BGN"
           }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2025,
-      "asOf": "2025-01-01",
-      "source": {
-        "documentId": "law-2025",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 153169200,
-          "currency": "BGN",
-          "amountEur": 78314168
+        "capital": {
+          "amount": 12935000,
+          "amountEur": 6613560,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 126321100,
-          "currency": "BGN",
-          "amountEur": 64586953
+          "amount": 110795400,
+          "amountEur": 56648788,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 11121000,
-          "currency": "BGN",
-          "amountEur": 5686076
-        },
-        "winter": {
-          "amount": 1872000,
-          "currency": "BGN",
-          "amountEur": 957137
-        },
-        "capital": {
-          "amount": 13855100,
-          "currency": "BGN",
-          "amountEur": 7084000
+          "amount": 9938800,
+          "amountEur": 5081628,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1618300,
-          "currency": "BGN",
-          "amountEur": 827423
+          "amount": 1398900,
+          "amountEur": 715247,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 135513600,
+          "amountEur": 69287003,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1844400,
+          "amountEur": 943027,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2024",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
+      }
+    },
+    {
+      "asOf": "2025-01-01",
+      "fiscalYear": 2025,
       "municipalities": [
         {
-          "ekatte": "73626",
-          "obshtinaCode": "TGV35",
-          "nameBg": "Търговище",
-          "nameEn": "Targovishte",
-          "total": {
-            "amount": 77214000,
-            "currency": "BGN",
-            "amountEur": 39478891
+          "capital": {
+            "amount": 4581300,
+            "amountEur": 2342381,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 67553600,
-            "currency": "BGN",
-            "amountEur": 34539607
+            "amountEur": 34539607,
+            "currency": "BGN"
           },
+          "ekatte": "73626",
           "equalization": {
             "amount": 4493000,
-            "currency": "BGN",
-            "amountEur": 2297234
+            "amountEur": 2297234,
+            "currency": "BGN"
+          },
+          "nameBg": "Търговище",
+          "nameEn": "Targovishte",
+          "obshtinaCode": "TGV35",
+          "otherTargeted": {
+            "amount": 999200,
+            "amountEur": 510883,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 77214000,
+            "amountEur": 39478891,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 586100,
-            "currency": "BGN",
-            "amountEur": 299668
-          },
-          "capital": {
-            "amount": 4581300,
-            "currency": "BGN",
-            "amountEur": 2342381
-          },
-          "otherTargeted": {
-            "amount": 999200,
-            "currency": "BGN",
-            "amountEur": 510883
+            "amountEur": 299668,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "57649",
-          "obshtinaCode": "TGV24",
-          "nameBg": "Попово",
-          "nameEn": "Popovo",
-          "total": {
-            "amount": 36065100,
-            "currency": "BGN",
-            "amountEur": 18439793
+          "capital": {
+            "amount": 3060600,
+            "amountEur": 1564860,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 30485000,
-            "currency": "BGN",
-            "amountEur": 15586733
+            "amountEur": 15586733,
+            "currency": "BGN"
           },
+          "ekatte": "57649",
           "equalization": {
             "amount": 2074200,
-            "currency": "BGN",
-            "amountEur": 1060522
+            "amountEur": 1060522,
+            "currency": "BGN"
+          },
+          "nameBg": "Попово",
+          "nameEn": "Popovo",
+          "obshtinaCode": "TGV24",
+          "otherTargeted": {
+            "amount": 307600,
+            "amountEur": 157273,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 36065100,
+            "amountEur": 18439793,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 445300,
-            "currency": "BGN",
-            "amountEur": 227678
-          },
-          "capital": {
-            "amount": 3060600,
-            "currency": "BGN",
-            "amountEur": 1564860
-          },
-          "otherTargeted": {
-            "amount": 307600,
-            "currency": "BGN",
-            "amountEur": 157273
+            "amountEur": 227678,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "53535",
-          "obshtinaCode": "TGV22",
-          "nameBg": "Омуртаг",
-          "nameEn": "Omurtag",
-          "total": {
-            "amount": 22170600,
-            "currency": "BGN",
-            "amountEur": 11335648
+          "capital": {
+            "amount": 2969300,
+            "amountEur": 1518179,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 16513800,
-            "currency": "BGN",
-            "amountEur": 8443372
+            "amountEur": 8443372,
+            "currency": "BGN"
           },
+          "ekatte": "53535",
           "equalization": {
             "amount": 2305500,
-            "currency": "BGN",
-            "amountEur": 1178783
+            "amountEur": 1178783,
+            "currency": "BGN"
+          },
+          "nameBg": "Омуртаг",
+          "nameEn": "Omurtag",
+          "obshtinaCode": "TGV22",
+          "otherTargeted": {
+            "amount": 206000,
+            "amountEur": 105326,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 22170600,
+            "amountEur": 11335648,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 382000,
-            "currency": "BGN",
-            "amountEur": 195313
-          },
-          "capital": {
-            "amount": 2969300,
-            "currency": "BGN",
-            "amountEur": 1518179
-          },
-          "otherTargeted": {
-            "amount": 206000,
-            "currency": "BGN",
-            "amountEur": 105326
+            "amountEur": 195313,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "00518",
-          "obshtinaCode": "TGV02",
-          "nameBg": "Антоново",
-          "nameEn": "Antonovo",
-          "total": {
-            "amount": 10371000,
-            "currency": "BGN",
-            "amountEur": 5302608
+          "capital": {
+            "amount": 2600100,
+            "amountEur": 1329410,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6209300,
-            "currency": "BGN",
-            "amountEur": 3174765
+            "amountEur": 3174765,
+            "currency": "BGN"
           },
+          "ekatte": "00518",
           "equalization": {
             "amount": 1184500,
-            "currency": "BGN",
-            "amountEur": 605625
+            "amountEur": 605625,
+            "currency": "BGN"
+          },
+          "nameBg": "Антоново",
+          "nameEn": "Antonovo",
+          "obshtinaCode": "TGV02",
+          "otherTargeted": {
+            "amount": 72000,
+            "amountEur": 36813,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 10371000,
+            "amountEur": 5302608,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 377100,
-            "currency": "BGN",
-            "amountEur": 192808
-          },
-          "capital": {
-            "amount": 2600100,
-            "currency": "BGN",
-            "amountEur": 1329410
-          },
-          "otherTargeted": {
-            "amount": 72000,
-            "currency": "BGN",
-            "amountEur": 36813
+            "amountEur": 192808,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "53552",
-          "obshtinaCode": "TGV23",
-          "nameBg": "Опака",
-          "nameEn": "Opaka",
-          "total": {
-            "amount": 7348500,
-            "currency": "BGN",
-            "amountEur": 3757228
+          "capital": {
+            "amount": 643800,
+            "amountEur": 329170,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5559400,
-            "currency": "BGN",
-            "amountEur": 2842476
+            "amountEur": 2842476,
+            "currency": "BGN"
           },
+          "ekatte": "53552",
           "equalization": {
             "amount": 1063800,
-            "currency": "BGN",
-            "amountEur": 543912
+            "amountEur": 543912,
+            "currency": "BGN"
+          },
+          "nameBg": "Опака",
+          "nameEn": "Opaka",
+          "obshtinaCode": "TGV23",
+          "otherTargeted": {
+            "amount": 33500,
+            "amountEur": 17128,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 7348500,
+            "amountEur": 3757228,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 81500,
-            "currency": "BGN",
-            "amountEur": 41670
-          },
-          "capital": {
-            "amount": 643800,
-            "currency": "BGN",
-            "amountEur": 329170
-          },
-          "otherTargeted": {
-            "amount": 33500,
-            "currency": "BGN",
-            "amountEur": 17128
+            "amountEur": 41670,
+            "currency": "BGN"
           }
         }
-      ]
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 13855100,
+          "amountEur": 7084000,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 126321100,
+          "amountEur": 64586953,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 11121000,
+          "amountEur": 5686076,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 1618300,
+          "amountEur": 827423,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 153169200,
+          "amountEur": 78314168,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1872000,
+          "amountEur": 957137,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2025",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
+      }
     }
   ]
 }

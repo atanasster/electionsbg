@@ -4,902 +4,902 @@
   "oblastNameEn": "Sliven",
   "years": [
     {
-      "fiscalYear": 2020,
       "asOf": "2020-01-01",
-      "source": {
-        "documentId": "law-2020",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
-      },
-      "oblastTotals": {
-        "total": {
-          "amount": 121763400,
-          "currency": "BGN",
-          "amountEur": 62256639
-        },
-        "delegated": {
-          "amount": 103636500,
-          "currency": "BGN",
-          "amountEur": 52988501
-        },
-        "equalization": {
-          "amount": 11398200,
-          "currency": "BGN",
-          "amountEur": 5827807
-        },
-        "winter": {
-          "amount": 1305400,
-          "currency": "BGN",
-          "amountEur": 667440
-        },
-        "capital": {
-          "amount": 5423300,
-          "currency": "BGN",
-          "amountEur": 2772889
-        },
-        "otherTargeted": {
-          "amount": 0,
-          "currency": "BGN",
-          "amountEur": 0
-        }
-      },
+      "fiscalYear": 2020,
       "municipalities": [
         {
-          "ekatte": "67338",
-          "obshtinaCode": "SLV20",
-          "nameBg": "Сливен",
-          "nameEn": "Sliven",
-          "total": {
-            "amount": 72454600,
-            "currency": "BGN",
-            "amountEur": 37045449
+          "capital": {
+            "amount": 2572800,
+            "amountEur": 1315452,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 63663100,
-            "currency": "BGN",
-            "amountEur": 32550426
+            "amountEur": 32550426,
+            "currency": "BGN"
           },
+          "ekatte": "67338",
           "equalization": {
             "amount": 5607900,
-            "currency": "BGN",
-            "amountEur": 2867274
+            "amountEur": 2867274,
+            "currency": "BGN"
+          },
+          "nameBg": "Сливен",
+          "nameEn": "Sliven",
+          "obshtinaCode": "SLV20",
+          "otherTargeted": null,
+          "total": {
+            "amount": 72454600,
+            "amountEur": 37045449,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 610800,
-            "currency": "BGN",
-            "amountEur": 312297
-          },
-          "capital": {
-            "amount": 2572800,
-            "currency": "BGN",
-            "amountEur": 1315452
-          },
-          "otherTargeted": null
+            "amountEur": 312297,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "51809",
-          "obshtinaCode": "SLV16",
-          "nameBg": "Нова Загора",
-          "nameEn": "Nova Zagora",
-          "total": {
-            "amount": 23305300,
-            "currency": "BGN",
-            "amountEur": 11915811
+          "capital": {
+            "amount": 1245700,
+            "amountEur": 636916,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 19317300,
-            "currency": "BGN",
-            "amountEur": 9876779
+            "amountEur": 9876779,
+            "currency": "BGN"
           },
+          "ekatte": "51809",
           "equalization": {
             "amount": 2518500,
-            "currency": "BGN",
-            "amountEur": 1287689
+            "amountEur": 1287689,
+            "currency": "BGN"
+          },
+          "nameBg": "Нова Загора",
+          "nameEn": "Nova Zagora",
+          "obshtinaCode": "SLV16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 23305300,
+            "amountEur": 11915811,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 223800,
-            "currency": "BGN",
-            "amountEur": 114427
-          },
-          "capital": {
-            "amount": 1245700,
-            "currency": "BGN",
-            "amountEur": 636916
-          },
-          "otherTargeted": null
+            "amountEur": 114427,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "72165",
-          "obshtinaCode": "SLV24",
-          "nameBg": "Твърдица",
-          "nameEn": "Tvarditsa",
-          "total": {
-            "amount": 13239400,
-            "currency": "BGN",
-            "amountEur": 6769198
+          "capital": {
+            "amount": 664400,
+            "amountEur": 339702,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 10973800,
-            "currency": "BGN",
-            "amountEur": 5610815
+            "amountEur": 5610815,
+            "currency": "BGN"
           },
+          "ekatte": "72165",
           "equalization": {
             "amount": 1408400,
-            "currency": "BGN",
-            "amountEur": 720103
+            "amountEur": 720103,
+            "currency": "BGN"
+          },
+          "nameBg": "Твърдица",
+          "nameEn": "Tvarditsa",
+          "obshtinaCode": "SLV24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 13239400,
+            "amountEur": 6769198,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 192800,
-            "currency": "BGN",
-            "amountEur": 98577
-          },
-          "capital": {
-            "amount": 664400,
-            "currency": "BGN",
-            "amountEur": 339702
-          },
-          "otherTargeted": null
+            "amountEur": 98577,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "39030",
-          "obshtinaCode": "SLV11",
-          "nameBg": "Котел",
-          "nameEn": "Kotel",
-          "total": {
-            "amount": 12764100,
-            "currency": "BGN",
-            "amountEur": 6526181
+          "capital": {
+            "amount": 940400,
+            "amountEur": 480819,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 9682300,
-            "currency": "BGN",
-            "amountEur": 4950481
+            "amountEur": 4950481,
+            "currency": "BGN"
           },
+          "ekatte": "39030",
           "equalization": {
             "amount": 1863400,
-            "currency": "BGN",
-            "amountEur": 952741
+            "amountEur": 952741,
+            "currency": "BGN"
+          },
+          "nameBg": "Котел",
+          "nameEn": "Kotel",
+          "obshtinaCode": "SLV11",
+          "otherTargeted": null,
+          "total": {
+            "amount": 12764100,
+            "amountEur": 6526181,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 278000,
-            "currency": "BGN",
-            "amountEur": 142139
-          },
-          "capital": {
-            "amount": 940400,
-            "currency": "BGN",
-            "amountEur": 480819
-          },
-          "otherTargeted": null
+            "amountEur": 142139,
+            "currency": "BGN"
+          }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2022,
-      "asOf": "2022-01-01",
-      "source": {
-        "documentId": "law-2022",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 159494300,
-          "currency": "BGN",
-          "amountEur": 81548140
+        "capital": {
+          "amount": 5423300,
+          "amountEur": 2772889,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 137061700,
-          "currency": "BGN",
-          "amountEur": 70078534
+          "amount": 103636500,
+          "amountEur": 52988501,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 12965000,
-          "currency": "BGN",
-          "amountEur": 6628900
-        },
-        "winter": {
-          "amount": 1423300,
-          "currency": "BGN",
-          "amountEur": 727722
-        },
-        "capital": {
-          "amount": 8044300,
-          "currency": "BGN",
-          "amountEur": 4112986
+          "amount": 11398200,
+          "amountEur": 5827807,
+          "currency": "BGN"
         },
         "otherTargeted": {
           "amount": 0,
-          "currency": "BGN",
-          "amountEur": 0
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 121763400,
+          "amountEur": 62256639,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1305400,
+          "amountEur": 667440,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2020",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2022-01-01",
+      "fiscalYear": 2022,
       "municipalities": [
         {
-          "ekatte": "67338",
-          "obshtinaCode": "SLV20",
-          "nameBg": "Сливен",
-          "nameEn": "Sliven",
-          "total": {
-            "amount": 96105000,
-            "currency": "BGN",
-            "amountEur": 49137706
+          "capital": {
+            "amount": 3836700,
+            "amountEur": 1961674,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 85376800,
-            "currency": "BGN",
-            "amountEur": 43652465
+            "amountEur": 43652465,
+            "currency": "BGN"
           },
+          "ekatte": "67338",
           "equalization": {
             "amount": 6223300,
-            "currency": "BGN",
-            "amountEur": 3181923
+            "amountEur": 3181923,
+            "currency": "BGN"
+          },
+          "nameBg": "Сливен",
+          "nameEn": "Sliven",
+          "obshtinaCode": "SLV20",
+          "otherTargeted": null,
+          "total": {
+            "amount": 96105000,
+            "amountEur": 49137706,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 668200,
-            "currency": "BGN",
-            "amountEur": 341645
-          },
-          "capital": {
-            "amount": 3836700,
-            "currency": "BGN",
-            "amountEur": 1961674
-          },
-          "otherTargeted": null
+            "amountEur": 341645,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "51809",
-          "obshtinaCode": "SLV16",
-          "nameBg": "Нова Загора",
-          "nameEn": "Nova Zagora",
-          "total": {
-            "amount": 28847000,
-            "currency": "BGN",
-            "amountEur": 14749237
+          "capital": {
+            "amount": 1852900,
+            "amountEur": 947373,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 24213700,
-            "currency": "BGN",
-            "amountEur": 12380268
+            "amountEur": 12380268,
+            "currency": "BGN"
           },
+          "ekatte": "51809",
           "equalization": {
             "amount": 2539700,
-            "currency": "BGN",
-            "amountEur": 1298528
+            "amountEur": 1298528,
+            "currency": "BGN"
+          },
+          "nameBg": "Нова Загора",
+          "nameEn": "Nova Zagora",
+          "obshtinaCode": "SLV16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 28847000,
+            "amountEur": 14749237,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 240700,
-            "currency": "BGN",
-            "amountEur": 123068
-          },
-          "capital": {
-            "amount": 1852900,
-            "currency": "BGN",
-            "amountEur": 947373
-          },
-          "otherTargeted": null
+            "amountEur": 123068,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "72165",
-          "obshtinaCode": "SLV24",
-          "nameBg": "Твърдица",
-          "nameEn": "Tvarditsa",
-          "total": {
-            "amount": 18155100,
-            "currency": "BGN",
-            "amountEur": 9282555
+          "capital": {
+            "amount": 978200,
+            "amountEur": 500146,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 15160900,
-            "currency": "BGN",
-            "amountEur": 7751645
+            "amountEur": 7751645,
+            "currency": "BGN"
           },
+          "ekatte": "72165",
           "equalization": {
             "amount": 1809400,
-            "currency": "BGN",
-            "amountEur": 925132
+            "amountEur": 925132,
+            "currency": "BGN"
+          },
+          "nameBg": "Твърдица",
+          "nameEn": "Tvarditsa",
+          "obshtinaCode": "SLV24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 18155100,
+            "amountEur": 9282555,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 206600,
-            "currency": "BGN",
-            "amountEur": 105633
-          },
-          "capital": {
-            "amount": 978200,
-            "currency": "BGN",
-            "amountEur": 500146
-          },
-          "otherTargeted": null
+            "amountEur": 105633,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "39030",
-          "obshtinaCode": "SLV11",
-          "nameBg": "Котел",
-          "nameEn": "Kotel",
-          "total": {
-            "amount": 16387200,
-            "currency": "BGN",
-            "amountEur": 8378642
+          "capital": {
+            "amount": 1376500,
+            "amountEur": 703793,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 12310300,
-            "currency": "BGN",
-            "amountEur": 6294156
+            "amountEur": 6294156,
+            "currency": "BGN"
           },
+          "ekatte": "39030",
           "equalization": {
             "amount": 2392600,
-            "currency": "BGN",
-            "amountEur": 1223317
+            "amountEur": 1223317,
+            "currency": "BGN"
+          },
+          "nameBg": "Котел",
+          "nameEn": "Kotel",
+          "obshtinaCode": "SLV11",
+          "otherTargeted": null,
+          "total": {
+            "amount": 16387200,
+            "amountEur": 8378642,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 307800,
-            "currency": "BGN",
-            "amountEur": 157376
-          },
-          "capital": {
-            "amount": 1376500,
-            "currency": "BGN",
-            "amountEur": 703793
-          },
-          "otherTargeted": null
+            "amountEur": 157376,
+            "currency": "BGN"
+          }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2023,
-      "asOf": "2023-01-01",
-      "source": {
-        "documentId": "law-2023",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 195871500,
-          "currency": "BGN",
-          "amountEur": 100147507
+        "capital": {
+          "amount": 8044300,
+          "amountEur": 4112986,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 169027300,
-          "currency": "BGN",
-          "amountEur": 86422287
+          "amount": 137061700,
+          "amountEur": 70078534,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 13789300,
-          "currency": "BGN",
-          "amountEur": 7050357
-        },
-        "winter": {
-          "amount": 1423500,
-          "currency": "BGN",
-          "amountEur": 727824
-        },
-        "capital": {
-          "amount": 11631400,
-          "currency": "BGN",
-          "amountEur": 5947040
+          "amount": 12965000,
+          "amountEur": 6628900,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 897000,
-          "currency": "BGN",
-          "amountEur": 458629
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 159494300,
+          "amountEur": 81548140,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1423300,
+          "amountEur": 727722,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2022",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+      }
+    },
+    {
+      "asOf": "2023-01-01",
+      "fiscalYear": 2023,
       "municipalities": [
         {
-          "ekatte": "67338",
-          "obshtinaCode": "SLV20",
-          "nameBg": "Сливен",
-          "nameEn": "Sliven",
-          "total": {
-            "amount": 118712100,
-            "currency": "BGN",
-            "amountEur": 60696533
+          "capital": {
+            "amount": 5597200,
+            "amountEur": 2861803,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 105718500,
-            "currency": "BGN",
-            "amountEur": 54053011
+            "amountEur": 54053011,
+            "currency": "BGN"
           },
+          "ekatte": "67338",
           "equalization": {
             "amount": 6727100,
-            "currency": "BGN",
-            "amountEur": 3439512
+            "amountEur": 3439512,
+            "currency": "BGN"
+          },
+          "nameBg": "Сливен",
+          "nameEn": "Sliven",
+          "obshtinaCode": "SLV20",
+          "otherTargeted": {
+            "amount": 428700,
+            "amountEur": 219191,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 118712100,
+            "amountEur": 60696533,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 669300,
-            "currency": "BGN",
-            "amountEur": 342208
-          },
-          "capital": {
-            "amount": 5597200,
-            "currency": "BGN",
-            "amountEur": 2861803
-          },
-          "otherTargeted": {
-            "amount": 428700,
-            "currency": "BGN",
-            "amountEur": 219191
+            "amountEur": 342208,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "51809",
-          "obshtinaCode": "SLV16",
-          "nameBg": "Нова Загора",
-          "nameEn": "Nova Zagora",
-          "total": {
-            "amount": 34597800,
-            "currency": "BGN",
-            "amountEur": 17689574
+          "capital": {
+            "amount": 2646100,
+            "amountEur": 1352929,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 29170400,
-            "currency": "BGN",
-            "amountEur": 14914589
+            "amountEur": 14914589,
+            "currency": "BGN"
           },
+          "ekatte": "51809",
           "equalization": {
             "amount": 2541400,
-            "currency": "BGN",
-            "amountEur": 1299397
+            "amountEur": 1299397,
+            "currency": "BGN"
+          },
+          "nameBg": "Нова Загора",
+          "nameEn": "Nova Zagora",
+          "obshtinaCode": "SLV16",
+          "otherTargeted": {
+            "amount": 186400,
+            "amountEur": 95305,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 34597800,
+            "amountEur": 17689574,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 239900,
-            "currency": "BGN",
-            "amountEur": 122659
-          },
-          "capital": {
-            "amount": 2646100,
-            "currency": "BGN",
-            "amountEur": 1352929
-          },
-          "otherTargeted": {
-            "amount": 186400,
-            "currency": "BGN",
-            "amountEur": 95305
+            "amountEur": 122659,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "72165",
-          "obshtinaCode": "SLV24",
-          "nameBg": "Твърдица",
-          "nameEn": "Tvarditsa",
-          "total": {
-            "amount": 22489800,
-            "currency": "BGN",
-            "amountEur": 11498852
+          "capital": {
+            "amount": 1411600,
+            "amountEur": 721740,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 18775700,
-            "currency": "BGN",
-            "amountEur": 9599863
+            "amountEur": 9599863,
+            "currency": "BGN"
           },
+          "ekatte": "72165",
           "equalization": {
             "amount": 2095600,
-            "currency": "BGN",
-            "amountEur": 1071463
+            "amountEur": 1071463,
+            "currency": "BGN"
+          },
+          "nameBg": "Твърдица",
+          "nameEn": "Tvarditsa",
+          "obshtinaCode": "SLV24",
+          "otherTargeted": {
+            "amount": 141600,
+            "amountEur": 72399,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 22489800,
+            "amountEur": 11498852,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 206900,
-            "currency": "BGN",
-            "amountEur": 105786
-          },
-          "capital": {
-            "amount": 1411600,
-            "currency": "BGN",
-            "amountEur": 721740
-          },
-          "otherTargeted": {
-            "amount": 141600,
-            "currency": "BGN",
-            "amountEur": 72399
+            "amountEur": 105786,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "39030",
-          "obshtinaCode": "SLV11",
-          "nameBg": "Котел",
-          "nameEn": "Kotel",
-          "total": {
-            "amount": 20071800,
-            "currency": "BGN",
-            "amountEur": 10262548
+          "capital": {
+            "amount": 1976500,
+            "amountEur": 1010568,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 15362700,
-            "currency": "BGN",
-            "amountEur": 7854824
+            "amountEur": 7854824,
+            "currency": "BGN"
           },
+          "ekatte": "39030",
           "equalization": {
             "amount": 2425200,
-            "currency": "BGN",
-            "amountEur": 1239985
+            "amountEur": 1239985,
+            "currency": "BGN"
+          },
+          "nameBg": "Котел",
+          "nameEn": "Kotel",
+          "obshtinaCode": "SLV11",
+          "otherTargeted": {
+            "amount": 140300,
+            "amountEur": 71734,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 20071800,
+            "amountEur": 10262548,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 307400,
-            "currency": "BGN",
-            "amountEur": 157171
-          },
-          "capital": {
-            "amount": 1976500,
-            "currency": "BGN",
-            "amountEur": 1010568
-          },
-          "otherTargeted": {
-            "amount": 140300,
-            "currency": "BGN",
-            "amountEur": 71734
+            "amountEur": 157171,
+            "currency": "BGN"
           }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2024,
-      "asOf": "2024-01-01",
-      "source": {
-        "documentId": "law-2024",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 218302800,
-          "currency": "BGN",
-          "amountEur": 111616450
+        "capital": {
+          "amount": 11631400,
+          "amountEur": 5947040,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 191364800,
-          "currency": "BGN",
-          "amountEur": 97843269
+          "amount": 169027300,
+          "amountEur": 86422287,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 13811800,
-          "currency": "BGN",
-          "amountEur": 7061861
-        },
-        "winter": {
-          "amount": 1424200,
-          "currency": "BGN",
-          "amountEur": 728181
-        },
-        "capital": {
-          "amount": 11702000,
-          "currency": "BGN",
-          "amountEur": 5983137
+          "amount": 13789300,
+          "amountEur": 7050357,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1076500,
-          "currency": "BGN",
-          "amountEur": 550406
+          "amount": 897000,
+          "amountEur": 458629,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 195871500,
+          "amountEur": 100147507,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1423500,
+          "amountEur": 727824,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2023",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+      }
+    },
+    {
+      "asOf": "2024-01-01",
+      "fiscalYear": 2024,
       "municipalities": [
         {
-          "ekatte": "67338",
-          "obshtinaCode": "SLV20",
-          "nameBg": "Сливен",
-          "nameEn": "Sliven",
-          "total": {
-            "amount": 133182500,
-            "currency": "BGN",
-            "amountEur": 68095131
+          "capital": {
+            "amount": 5623900,
+            "amountEur": 2875454,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 120153200,
-            "currency": "BGN",
-            "amountEur": 61433356
+            "amountEur": 61433356,
+            "currency": "BGN"
           },
+          "ekatte": "67338",
           "equalization": {
             "amount": 6735900,
-            "currency": "BGN",
-            "amountEur": 3444011
+            "amountEur": 3444011,
+            "currency": "BGN"
+          },
+          "nameBg": "Сливен",
+          "nameEn": "Sliven",
+          "obshtinaCode": "SLV20",
+          "otherTargeted": {
+            "amount": 514500,
+            "amountEur": 263060,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 133182500,
+            "amountEur": 68095131,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 669500,
-            "currency": "BGN",
-            "amountEur": 342310
-          },
-          "capital": {
-            "amount": 5623900,
-            "currency": "BGN",
-            "amountEur": 2875454
-          },
-          "otherTargeted": {
-            "amount": 514500,
-            "currency": "BGN",
-            "amountEur": 263060
+            "amountEur": 342310,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "51809",
-          "obshtinaCode": "SLV16",
-          "nameBg": "Нова Загора",
-          "nameEn": "Nova Zagora",
-          "total": {
-            "amount": 38021000,
-            "currency": "BGN",
-            "amountEur": 19439829
+          "capital": {
+            "amount": 2666200,
+            "amountEur": 1363206,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 32559600,
-            "currency": "BGN",
-            "amountEur": 16647459
+            "amountEur": 16647459,
+            "currency": "BGN"
           },
+          "ekatte": "51809",
           "equalization": {
             "amount": 2555100,
-            "currency": "BGN",
-            "amountEur": 1306402
+            "amountEur": 1306402,
+            "currency": "BGN"
+          },
+          "nameBg": "Нова Загора",
+          "nameEn": "Nova Zagora",
+          "obshtinaCode": "SLV16",
+          "otherTargeted": {
+            "amount": 223700,
+            "amountEur": 114376,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 38021000,
+            "amountEur": 19439829,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 240100,
-            "currency": "BGN",
-            "amountEur": 122761
-          },
-          "capital": {
-            "amount": 2666200,
-            "currency": "BGN",
-            "amountEur": 1363206
-          },
-          "otherTargeted": {
-            "amount": 223700,
-            "currency": "BGN",
-            "amountEur": 114376
+            "amountEur": 122761,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "72165",
-          "obshtinaCode": "SLV24",
-          "nameBg": "Твърдица",
-          "nameEn": "Tvarditsa",
-          "total": {
-            "amount": 25209500,
-            "currency": "BGN",
-            "amountEur": 12889413
+          "capital": {
+            "amount": 1419600,
+            "amountEur": 725830,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 21487300,
-            "currency": "BGN",
-            "amountEur": 10986282
+            "amountEur": 10986282,
+            "currency": "BGN"
           },
+          "ekatte": "72165",
           "equalization": {
             "amount": 2095600,
-            "currency": "BGN",
-            "amountEur": 1071463
+            "amountEur": 1071463,
+            "currency": "BGN"
+          },
+          "nameBg": "Твърдица",
+          "nameEn": "Tvarditsa",
+          "obshtinaCode": "SLV24",
+          "otherTargeted": {
+            "amount": 169900,
+            "amountEur": 86868,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 25209500,
+            "amountEur": 12889413,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 207000,
-            "currency": "BGN",
-            "amountEur": 105837
-          },
-          "capital": {
-            "amount": 1419600,
-            "currency": "BGN",
-            "amountEur": 725830
-          },
-          "otherTargeted": {
-            "amount": 169900,
-            "currency": "BGN",
-            "amountEur": 86868
+            "amountEur": 105837,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "39030",
-          "obshtinaCode": "SLV11",
-          "nameBg": "Котел",
-          "nameEn": "Kotel",
-          "total": {
-            "amount": 21889800,
-            "currency": "BGN",
-            "amountEur": 11192077
+          "capital": {
+            "amount": 1992300,
+            "amountEur": 1018647,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 17164700,
-            "currency": "BGN",
-            "amountEur": 8776172
+            "amountEur": 8776172,
+            "currency": "BGN"
           },
+          "ekatte": "39030",
           "equalization": {
             "amount": 2425200,
-            "currency": "BGN",
-            "amountEur": 1239985
+            "amountEur": 1239985,
+            "currency": "BGN"
+          },
+          "nameBg": "Котел",
+          "nameEn": "Kotel",
+          "obshtinaCode": "SLV11",
+          "otherTargeted": {
+            "amount": 168400,
+            "amountEur": 86102,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 21889800,
+            "amountEur": 11192077,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 307600,
-            "currency": "BGN",
-            "amountEur": 157273
-          },
-          "capital": {
-            "amount": 1992300,
-            "currency": "BGN",
-            "amountEur": 1018647
-          },
-          "otherTargeted": {
-            "amount": 168400,
-            "currency": "BGN",
-            "amountEur": 86102
+            "amountEur": 157273,
+            "currency": "BGN"
           }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2025,
-      "asOf": "2025-01-01",
-      "source": {
-        "documentId": "law-2025",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 247102500,
-          "currency": "BGN",
-          "amountEur": 126341502
+        "capital": {
+          "amount": 11702000,
+          "amountEur": 5983137,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 217695200,
-          "currency": "BGN",
-          "amountEur": 111305788
+          "amount": 191364800,
+          "amountEur": 97843269,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 15502400,
-          "currency": "BGN",
-          "amountEur": 7926250
-        },
-        "winter": {
-          "amount": 1445100,
-          "currency": "BGN",
-          "amountEur": 738868
-        },
-        "capital": {
-          "amount": 12459800,
-          "currency": "BGN",
-          "amountEur": 6370595
+          "amount": 13811800,
+          "amountEur": 7061861,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1246000,
-          "currency": "BGN",
-          "amountEur": 637070
+          "amount": 1076500,
+          "amountEur": 550406,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 218302800,
+          "amountEur": 111616450,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1424200,
+          "amountEur": 728181,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2024",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
+      }
+    },
+    {
+      "asOf": "2025-01-01",
+      "fiscalYear": 2025,
       "municipalities": [
         {
-          "ekatte": "67338",
-          "obshtinaCode": "SLV20",
-          "nameBg": "Сливен",
-          "nameEn": "Sliven",
-          "total": {
-            "amount": 151467300,
-            "currency": "BGN",
-            "amountEur": 77444001
+          "capital": {
+            "amount": 5987900,
+            "amountEur": 3061565,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 137063100,
-            "currency": "BGN",
-            "amountEur": 70079250
+            "amountEur": 70079250,
+            "currency": "BGN"
           },
+          "ekatte": "67338",
           "equalization": {
             "amount": 7737000,
-            "currency": "BGN",
-            "amountEur": 3955865
+            "amountEur": 3955865,
+            "currency": "BGN"
+          },
+          "nameBg": "Сливен",
+          "nameEn": "Sliven",
+          "obshtinaCode": "SLV20",
+          "otherTargeted": {
+            "amount": 624000,
+            "amountEur": 319046,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 151467300,
+            "amountEur": 77444001,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 679300,
-            "currency": "BGN",
-            "amountEur": 347321
-          },
-          "capital": {
-            "amount": 5987900,
-            "currency": "BGN",
-            "amountEur": 3061565
-          },
-          "otherTargeted": {
-            "amount": 624000,
-            "currency": "BGN",
-            "amountEur": 319046
+            "amountEur": 347321,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "51809",
-          "obshtinaCode": "SLV16",
-          "nameBg": "Нова Загора",
-          "nameEn": "Nova Zagora",
-          "total": {
-            "amount": 41701300,
-            "currency": "BGN",
-            "amountEur": 21321536
+          "capital": {
+            "amount": 2840800,
+            "amountEur": 1452478,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 36051500,
-            "currency": "BGN",
-            "amountEur": 18432839
+            "amountEur": 18432839,
+            "currency": "BGN"
           },
+          "ekatte": "51809",
           "equalization": {
             "amount": 2565400,
-            "currency": "BGN",
-            "amountEur": 1311668
+            "amountEur": 1311668,
+            "currency": "BGN"
+          },
+          "nameBg": "Нова Загора",
+          "nameEn": "Nova Zagora",
+          "obshtinaCode": "SLV16",
+          "otherTargeted": {
+            "amount": 244300,
+            "amountEur": 124909,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 41701300,
+            "amountEur": 21321536,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 243600,
-            "currency": "BGN",
-            "amountEur": 124551
-          },
-          "capital": {
-            "amount": 2840800,
-            "currency": "BGN",
-            "amountEur": 1452478
-          },
-          "otherTargeted": {
-            "amount": 244300,
-            "currency": "BGN",
-            "amountEur": 124909
+            "amountEur": 124551,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "72165",
-          "obshtinaCode": "SLV24",
-          "nameBg": "Твърдица",
-          "nameEn": "Tvarditsa",
-          "total": {
-            "amount": 28929800,
-            "currency": "BGN",
-            "amountEur": 14791572
+          "capital": {
+            "amount": 1507700,
+            "amountEur": 770875,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 24857800,
-            "currency": "BGN",
-            "amountEur": 12709591
+            "amountEur": 12709591,
+            "currency": "BGN"
           },
+          "ekatte": "72165",
           "equalization": {
             "amount": 2354300,
-            "currency": "BGN",
-            "amountEur": 1203734
+            "amountEur": 1203734,
+            "currency": "BGN"
+          },
+          "nameBg": "Твърдица",
+          "nameEn": "Tvarditsa",
+          "obshtinaCode": "SLV24",
+          "otherTargeted": {
+            "amount": 192300,
+            "amountEur": 98321,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 28929800,
+            "amountEur": 14791572,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 210000,
-            "currency": "BGN",
-            "amountEur": 107371
-          },
-          "capital": {
-            "amount": 1507700,
-            "currency": "BGN",
-            "amountEur": 770875
-          },
-          "otherTargeted": {
-            "amount": 192300,
-            "currency": "BGN",
-            "amountEur": 98321
+            "amountEur": 107371,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "39030",
-          "obshtinaCode": "SLV11",
-          "nameBg": "Котел",
-          "nameEn": "Kotel",
-          "total": {
-            "amount": 25004100,
-            "currency": "BGN",
-            "amountEur": 12784393
+          "capital": {
+            "amount": 2123400,
+            "amountEur": 1085677,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 19722800,
-            "currency": "BGN",
-            "amountEur": 10084108
+            "amountEur": 10084108,
+            "currency": "BGN"
           },
+          "ekatte": "39030",
           "equalization": {
             "amount": 2845700,
-            "currency": "BGN",
-            "amountEur": 1454983
+            "amountEur": 1454983,
+            "currency": "BGN"
+          },
+          "nameBg": "Котел",
+          "nameEn": "Kotel",
+          "obshtinaCode": "SLV11",
+          "otherTargeted": {
+            "amount": 185400,
+            "amountEur": 94794,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 25004100,
+            "amountEur": 12784393,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 312200,
-            "currency": "BGN",
-            "amountEur": 159625
-          },
-          "capital": {
-            "amount": 2123400,
-            "currency": "BGN",
-            "amountEur": 1085677
-          },
-          "otherTargeted": {
-            "amount": 185400,
-            "currency": "BGN",
-            "amountEur": 94794
+            "amountEur": 159625,
+            "currency": "BGN"
           }
         }
-      ]
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 12459800,
+          "amountEur": 6370595,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 217695200,
+          "amountEur": 111305788,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 15502400,
+          "amountEur": 7926250,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 1246000,
+          "amountEur": 637070,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 247102500,
+          "amountEur": 126341502,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1445100,
+          "amountEur": 738868,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2025",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
+      }
     }
   ]
 }

@@ -4,1574 +4,1574 @@
   "oblastNameEn": "Dobrich",
   "years": [
     {
-      "fiscalYear": 2020,
       "asOf": "2020-01-01",
-      "source": {
-        "documentId": "law-2020",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
-      },
-      "oblastTotals": {
-        "total": {
-          "amount": 112432200,
-          "currency": "BGN",
-          "amountEur": 57485670
-        },
-        "delegated": {
-          "amount": 93878400,
-          "currency": "BGN",
-          "amountEur": 47999264
-        },
-        "equalization": {
-          "amount": 9968000,
-          "currency": "BGN",
-          "amountEur": 5096557
-        },
-        "winter": {
-          "amount": 1537600,
-          "currency": "BGN",
-          "amountEur": 786164
-        },
-        "capital": {
-          "amount": 7048200,
-          "currency": "BGN",
-          "amountEur": 3603687
-        },
-        "otherTargeted": {
-          "amount": 0,
-          "currency": "BGN",
-          "amountEur": 0
-        }
-      },
+      "fiscalYear": 2020,
       "municipalities": [
         {
-          "ekatte": "72624",
-          "obshtinaCode": "DOB28",
-          "nameBg": "Добрич",
-          "nameEn": "Dobrich",
-          "total": {
-            "amount": 48227500,
-            "currency": "BGN",
-            "amountEur": 24658329
+          "capital": {
+            "amount": 636100,
+            "amountEur": 325233,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 43121400,
-            "currency": "BGN",
-            "amountEur": 22047622
+            "amountEur": 22047622,
+            "currency": "BGN"
           },
+          "ekatte": "72624",
           "equalization": {
             "amount": 4416900,
-            "currency": "BGN",
-            "amountEur": 2258325
+            "amountEur": 2258325,
+            "currency": "BGN"
+          },
+          "nameBg": "Добрич",
+          "nameEn": "Dobrich",
+          "obshtinaCode": "DOB28",
+          "otherTargeted": null,
+          "total": {
+            "amount": 48227500,
+            "amountEur": 24658329,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 53100,
-            "currency": "BGN",
-            "amountEur": 27150
-          },
-          "capital": {
-            "amount": 636100,
-            "currency": "BGN",
-            "amountEur": 325233
-          },
-          "otherTargeted": null
+            "amountEur": 27150,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "72624",
-          "obshtinaCode": "DOB15",
-          "nameBg": "Добрич-селска",
-          "nameEn": "Dobrich-selska",
-          "total": {
-            "amount": 14655700,
-            "currency": "BGN",
-            "amountEur": 7493340
+          "capital": {
+            "amount": 2013900,
+            "amountEur": 1029691,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 10252000,
-            "currency": "BGN",
-            "amountEur": 5241764
+            "amountEur": 5241764,
+            "currency": "BGN"
           },
+          "ekatte": "72624",
           "equalization": {
             "amount": 1935700,
-            "currency": "BGN",
-            "amountEur": 989708
+            "amountEur": 989708,
+            "currency": "BGN"
+          },
+          "nameBg": "Добрич-селска",
+          "nameEn": "Dobrich-selska",
+          "obshtinaCode": "DOB15",
+          "otherTargeted": null,
+          "total": {
+            "amount": 14655700,
+            "amountEur": 7493340,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 454100,
-            "currency": "BGN",
-            "amountEur": 232178
-          },
-          "capital": {
-            "amount": 2013900,
-            "currency": "BGN",
-            "amountEur": 1029691
-          },
-          "otherTargeted": null
+            "amountEur": 232178,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "02508",
-          "obshtinaCode": "DOB03",
-          "nameBg": "Балчик",
-          "nameEn": "Balchik",
-          "total": {
-            "amount": 11138400,
-            "currency": "BGN",
-            "amountEur": 5694973
+          "capital": {
+            "amount": 825100,
+            "amountEur": 421867,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 10086800,
-            "currency": "BGN",
-            "amountEur": 5157299
+            "amountEur": 5157299,
+            "currency": "BGN"
           },
+          "ekatte": "02508",
           "equalization": {
             "amount": 0,
-            "currency": "BGN",
-            "amountEur": 0
+            "amountEur": 0,
+            "currency": "BGN"
+          },
+          "nameBg": "Балчик",
+          "nameEn": "Balchik",
+          "obshtinaCode": "DOB03",
+          "otherTargeted": null,
+          "total": {
+            "amount": 11138400,
+            "amountEur": 5694973,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 226500,
-            "currency": "BGN",
-            "amountEur": 115808
-          },
-          "capital": {
-            "amount": 825100,
-            "currency": "BGN",
-            "amountEur": 421867
-          },
-          "otherTargeted": null
+            "amountEur": 115808,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "72271",
-          "obshtinaCode": "DOB27",
-          "nameBg": "Тервел",
-          "nameEn": "Tervel",
-          "total": {
-            "amount": 10507300,
-            "currency": "BGN",
-            "amountEur": 5372297
+          "capital": {
+            "amount": 782000,
+            "amountEur": 399830,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8082600,
-            "currency": "BGN",
-            "amountEur": 4132568
+            "amountEur": 4132568,
+            "currency": "BGN"
           },
+          "ekatte": "72271",
           "equalization": {
             "amount": 1474000,
-            "currency": "BGN",
-            "amountEur": 753644
+            "amountEur": 753644,
+            "currency": "BGN"
+          },
+          "nameBg": "Тервел",
+          "nameEn": "Tervel",
+          "obshtinaCode": "DOB27",
+          "otherTargeted": null,
+          "total": {
+            "amount": 10507300,
+            "amountEur": 5372297,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 168700,
-            "currency": "BGN",
-            "amountEur": 86255
-          },
-          "capital": {
-            "amount": 782000,
-            "currency": "BGN",
-            "amountEur": 399830
-          },
-          "otherTargeted": null
+            "amountEur": 86255,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "35064",
-          "obshtinaCode": "DOB17",
-          "nameBg": "Каварна",
-          "nameEn": "Kavarna",
-          "total": {
-            "amount": 10474400,
-            "currency": "BGN",
-            "amountEur": 5355476
+          "capital": {
+            "amount": 696000,
+            "amountEur": 355859,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 9271200,
-            "currency": "BGN",
-            "amountEur": 4740289
+            "amountEur": 4740289,
+            "currency": "BGN"
           },
+          "ekatte": "35064",
           "equalization": {
             "amount": 338500,
-            "currency": "BGN",
-            "amountEur": 173072
+            "amountEur": 173072,
+            "currency": "BGN"
+          },
+          "nameBg": "Каварна",
+          "nameEn": "Kavarna",
+          "obshtinaCode": "DOB17",
+          "otherTargeted": null,
+          "total": {
+            "amount": 10474400,
+            "amountEur": 5355476,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 168700,
-            "currency": "BGN",
-            "amountEur": 86255
-          },
-          "capital": {
-            "amount": 696000,
-            "currency": "BGN",
-            "amountEur": 355859
-          },
-          "otherTargeted": null
+            "amountEur": 86255,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "14711",
-          "obshtinaCode": "DOB12",
-          "nameBg": "Генерал Тошево",
-          "nameEn": "General Toshevo",
-          "total": {
-            "amount": 9449600,
-            "currency": "BGN",
-            "amountEur": 4831504
+          "capital": {
+            "amount": 1118000,
+            "amountEur": 571624,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 7126500,
-            "currency": "BGN",
-            "amountEur": 3643722
+            "amountEur": 3643722,
+            "currency": "BGN"
           },
+          "ekatte": "14711",
           "equalization": {
             "amount": 980700,
-            "currency": "BGN",
-            "amountEur": 501424
+            "amountEur": 501424,
+            "currency": "BGN"
+          },
+          "nameBg": "Генерал Тошево",
+          "nameEn": "General Toshevo",
+          "obshtinaCode": "DOB12",
+          "otherTargeted": null,
+          "total": {
+            "amount": 9449600,
+            "amountEur": 4831504,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 224400,
-            "currency": "BGN",
-            "amountEur": 114734
-          },
-          "capital": {
-            "amount": 1118000,
-            "currency": "BGN",
-            "amountEur": 571624
-          },
-          "otherTargeted": null
+            "amountEur": 114734,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "40097",
-          "obshtinaCode": "DOB20",
-          "nameBg": "Крушари",
-          "nameEn": "Krushari",
-          "total": {
-            "amount": 4455700,
-            "currency": "BGN",
-            "amountEur": 2278163
+          "capital": {
+            "amount": 553500,
+            "amountEur": 283000,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3195700,
-            "currency": "BGN",
-            "amountEur": 1633935
+            "amountEur": 1633935,
+            "currency": "BGN"
           },
+          "ekatte": "40097",
           "equalization": {
             "amount": 576500,
-            "currency": "BGN",
-            "amountEur": 294760
+            "amountEur": 294760,
+            "currency": "BGN"
+          },
+          "nameBg": "Крушари",
+          "nameEn": "Krushari",
+          "obshtinaCode": "DOB20",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4455700,
+            "amountEur": 2278163,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 130000,
-            "currency": "BGN",
-            "amountEur": 66468
-          },
-          "capital": {
-            "amount": 553500,
-            "currency": "BGN",
-            "amountEur": 283000
-          },
-          "otherTargeted": null
+            "amountEur": 66468,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "83017",
-          "obshtinaCode": "DOB29",
-          "nameBg": "Шабла",
-          "nameEn": "Shabla",
-          "total": {
-            "amount": 3523600,
-            "currency": "BGN",
-            "amountEur": 1801588
+          "capital": {
+            "amount": 423600,
+            "amountEur": 216583,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 2742200,
-            "currency": "BGN",
-            "amountEur": 1402065
+            "amountEur": 1402065,
+            "currency": "BGN"
           },
+          "ekatte": "83017",
           "equalization": {
             "amount": 245700,
-            "currency": "BGN",
-            "amountEur": 125624
+            "amountEur": 125624,
+            "currency": "BGN"
+          },
+          "nameBg": "Шабла",
+          "nameEn": "Shabla",
+          "obshtinaCode": "DOB29",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3523600,
+            "amountEur": 1801588,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 112100,
-            "currency": "BGN",
-            "amountEur": 57316
-          },
-          "capital": {
-            "amount": 423600,
-            "currency": "BGN",
-            "amountEur": 216583
-          },
-          "otherTargeted": null
+            "amountEur": 57316,
+            "currency": "BGN"
+          }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2022,
-      "asOf": "2022-01-01",
-      "source": {
-        "documentId": "law-2022",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 147166700,
-          "currency": "BGN",
-          "amountEur": 75245141
+        "capital": {
+          "amount": 7048200,
+          "amountEur": 3603687,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 121996200,
-          "currency": "BGN",
-          "amountEur": 62375665
+          "amount": 93878400,
+          "amountEur": 47999264,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 12935100,
-          "currency": "BGN",
-          "amountEur": 6613613
-        },
-        "winter": {
-          "amount": 1710600,
-          "currency": "BGN",
-          "amountEur": 874617
-        },
-        "capital": {
-          "amount": 10524800,
-          "currency": "BGN",
-          "amountEur": 5381244
+          "amount": 9968000,
+          "amountEur": 5096557,
+          "currency": "BGN"
         },
         "otherTargeted": {
           "amount": 0,
-          "currency": "BGN",
-          "amountEur": 0
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 112432200,
+          "amountEur": 57485670,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1537600,
+          "amountEur": 786164,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2020",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2022-01-01",
+      "fiscalYear": 2022,
       "municipalities": [
         {
-          "ekatte": "72624",
-          "obshtinaCode": "DOB28",
-          "nameBg": "Добрич",
-          "nameEn": "Dobrich",
-          "total": {
-            "amount": 62431200,
-            "currency": "BGN",
-            "amountEur": 31920566
+          "capital": {
+            "amount": 935400,
+            "amountEur": 478262,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 56145600,
-            "currency": "BGN",
-            "amountEur": 28706789
+            "amountEur": 28706789,
+            "currency": "BGN"
           },
+          "ekatte": "72624",
           "equalization": {
             "amount": 5291500,
-            "currency": "BGN",
-            "amountEur": 2705501
+            "amountEur": 2705501,
+            "currency": "BGN"
+          },
+          "nameBg": "Добрич",
+          "nameEn": "Dobrich",
+          "obshtinaCode": "DOB28",
+          "otherTargeted": null,
+          "total": {
+            "amount": 62431200,
+            "amountEur": 31920566,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 58700,
-            "currency": "BGN",
-            "amountEur": 30013
-          },
-          "capital": {
-            "amount": 935400,
-            "currency": "BGN",
-            "amountEur": 478262
-          },
-          "otherTargeted": null
+            "amountEur": 30013,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "72624",
-          "obshtinaCode": "DOB15",
-          "nameBg": "Добрич-селска",
-          "nameEn": "Dobrich-selska",
-          "total": {
-            "amount": 20972200,
-            "currency": "BGN",
-            "amountEur": 10722916
+          "capital": {
+            "amount": 3011600,
+            "amountEur": 1539807,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 14671200,
-            "currency": "BGN",
-            "amountEur": 7501265
+            "amountEur": 7501265,
+            "currency": "BGN"
           },
+          "ekatte": "72624",
           "equalization": {
             "amount": 2783400,
-            "currency": "BGN",
-            "amountEur": 1423130
+            "amountEur": 1423130,
+            "currency": "BGN"
+          },
+          "nameBg": "Добрич-селска",
+          "nameEn": "Dobrich-selska",
+          "obshtinaCode": "DOB15",
+          "otherTargeted": null,
+          "total": {
+            "amount": 20972200,
+            "amountEur": 10722916,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 506000,
-            "currency": "BGN",
-            "amountEur": 258714
-          },
-          "capital": {
-            "amount": 3011600,
-            "currency": "BGN",
-            "amountEur": 1539807
-          },
-          "otherTargeted": null
+            "amountEur": 258714,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "02508",
-          "obshtinaCode": "DOB03",
-          "nameBg": "Балчик",
-          "nameEn": "Balchik",
-          "total": {
-            "amount": 14115700,
-            "currency": "BGN",
-            "amountEur": 7217243
+          "capital": {
+            "amount": 1234100,
+            "amountEur": 630985,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 12629200,
-            "currency": "BGN",
-            "amountEur": 6457207
+            "amountEur": 6457207,
+            "currency": "BGN"
           },
+          "ekatte": "02508",
           "equalization": null,
+          "nameBg": "Балчик",
+          "nameEn": "Balchik",
+          "obshtinaCode": "DOB03",
+          "otherTargeted": null,
+          "total": {
+            "amount": 14115700,
+            "amountEur": 7217243,
+            "currency": "BGN"
+          },
           "winter": {
             "amount": 252400,
-            "currency": "BGN",
-            "amountEur": 129050
-          },
-          "capital": {
-            "amount": 1234100,
-            "currency": "BGN",
-            "amountEur": 630985
-          },
-          "otherTargeted": null
+            "amountEur": 129050,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "72271",
-          "obshtinaCode": "DOB27",
-          "nameBg": "Тервел",
-          "nameEn": "Tervel",
-          "total": {
-            "amount": 13449000,
-            "currency": "BGN",
-            "amountEur": 6876365
+          "capital": {
+            "amount": 1168300,
+            "amountEur": 597342,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 10214300,
-            "currency": "BGN",
-            "amountEur": 5222489
+            "amountEur": 5222489,
+            "currency": "BGN"
           },
+          "ekatte": "72271",
           "equalization": {
             "amount": 1879400,
-            "currency": "BGN",
-            "amountEur": 960922
+            "amountEur": 960922,
+            "currency": "BGN"
+          },
+          "nameBg": "Тервел",
+          "nameEn": "Tervel",
+          "obshtinaCode": "DOB27",
+          "otherTargeted": null,
+          "total": {
+            "amount": 13449000,
+            "amountEur": 6876365,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 187000,
-            "currency": "BGN",
-            "amountEur": 95612
-          },
-          "capital": {
-            "amount": 1168300,
-            "currency": "BGN",
-            "amountEur": 597342
-          },
-          "otherTargeted": null
+            "amountEur": 95612,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "35064",
-          "obshtinaCode": "DOB17",
-          "nameBg": "Каварна",
-          "nameEn": "Kavarna",
-          "total": {
-            "amount": 13429800,
-            "currency": "BGN",
-            "amountEur": 6866548
+          "capital": {
+            "amount": 1038700,
+            "amountEur": 531079,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 11561800,
-            "currency": "BGN",
-            "amountEur": 5911454
+            "amountEur": 5911454,
+            "currency": "BGN"
           },
+          "ekatte": "35064",
           "equalization": {
             "amount": 641400,
-            "currency": "BGN",
-            "amountEur": 327943
+            "amountEur": 327943,
+            "currency": "BGN"
+          },
+          "nameBg": "Каварна",
+          "nameEn": "Kavarna",
+          "obshtinaCode": "DOB17",
+          "otherTargeted": null,
+          "total": {
+            "amount": 13429800,
+            "amountEur": 6866548,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 187900,
-            "currency": "BGN",
-            "amountEur": 96072
-          },
-          "capital": {
-            "amount": 1038700,
-            "currency": "BGN",
-            "amountEur": 531079
-          },
-          "otherTargeted": null
+            "amountEur": 96072,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "14711",
-          "obshtinaCode": "DOB12",
-          "nameBg": "Генерал Тошево",
-          "nameEn": "General Toshevo",
-          "total": {
-            "amount": 12218600,
-            "currency": "BGN",
-            "amountEur": 6247271
+          "capital": {
+            "amount": 1665400,
+            "amountEur": 851505,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 8997600,
-            "currency": "BGN",
-            "amountEur": 4600400
+            "amountEur": 4600400,
+            "currency": "BGN"
           },
+          "ekatte": "14711",
           "equalization": {
             "amount": 1306600,
-            "currency": "BGN",
-            "amountEur": 668054
+            "amountEur": 668054,
+            "currency": "BGN"
+          },
+          "nameBg": "Генерал Тошево",
+          "nameEn": "General Toshevo",
+          "obshtinaCode": "DOB12",
+          "otherTargeted": null,
+          "total": {
+            "amount": 12218600,
+            "amountEur": 6247271,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 249000,
-            "currency": "BGN",
-            "amountEur": 127312
-          },
-          "capital": {
-            "amount": 1665400,
-            "currency": "BGN",
-            "amountEur": 851505
-          },
-          "otherTargeted": null
+            "amountEur": 127312,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "40097",
-          "obshtinaCode": "DOB20",
-          "nameBg": "Крушари",
-          "nameEn": "Krushari",
-          "total": {
-            "amount": 5631100,
-            "currency": "BGN",
-            "amountEur": 2879136
+          "capital": {
+            "amount": 810600,
+            "amountEur": 414453,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4052100,
-            "currency": "BGN",
-            "amountEur": 2071806
+            "amountEur": 2071806,
+            "currency": "BGN"
           },
+          "ekatte": "40097",
           "equalization": {
             "amount": 623700,
-            "currency": "BGN",
-            "amountEur": 318893
+            "amountEur": 318893,
+            "currency": "BGN"
+          },
+          "nameBg": "Крушари",
+          "nameEn": "Krushari",
+          "obshtinaCode": "DOB20",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5631100,
+            "amountEur": 2879136,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 144700,
-            "currency": "BGN",
-            "amountEur": 73984
-          },
-          "capital": {
-            "amount": 810600,
-            "currency": "BGN",
-            "amountEur": 414453
-          },
-          "otherTargeted": null
+            "amountEur": 73984,
+            "currency": "BGN"
+          }
         },
         {
-          "ekatte": "83017",
-          "obshtinaCode": "DOB29",
-          "nameBg": "Шабла",
-          "nameEn": "Shabla",
-          "total": {
-            "amount": 4919100,
-            "currency": "BGN",
-            "amountEur": 2515096
+          "capital": {
+            "amount": 660700,
+            "amountEur": 337811,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 3724400,
-            "currency": "BGN",
-            "amountEur": 1904255
+            "amountEur": 1904255,
+            "currency": "BGN"
           },
+          "ekatte": "83017",
           "equalization": {
             "amount": 409100,
-            "currency": "BGN",
-            "amountEur": 209170
+            "amountEur": 209170,
+            "currency": "BGN"
+          },
+          "nameBg": "Шабла",
+          "nameEn": "Shabla",
+          "obshtinaCode": "DOB29",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4919100,
+            "amountEur": 2515096,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 124900,
-            "currency": "BGN",
-            "amountEur": 63860
-          },
-          "capital": {
-            "amount": 660700,
-            "currency": "BGN",
-            "amountEur": 337811
-          },
-          "otherTargeted": null
+            "amountEur": 63860,
+            "currency": "BGN"
+          }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2023,
-      "asOf": "2023-01-01",
-      "source": {
-        "documentId": "law-2023",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 179672800,
-          "currency": "BGN",
-          "amountEur": 91865244
+        "capital": {
+          "amount": 10524800,
+          "amountEur": 5381244,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 149787300,
-          "currency": "BGN",
-          "amountEur": 76585031
+          "amount": 121996200,
+          "amountEur": 62375665,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 13130700,
-          "currency": "BGN",
-          "amountEur": 6713622
-        },
-        "winter": {
-          "amount": 1706900,
-          "currency": "BGN",
-          "amountEur": 872724
-        },
-        "capital": {
-          "amount": 15047900,
-          "currency": "BGN",
-          "amountEur": 7693869
+          "amount": 12935100,
+          "amountEur": 6613613,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1495300,
-          "currency": "BGN",
-          "amountEur": 764534
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 147166700,
+          "amountEur": 75245141,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1710600,
+          "amountEur": 874617,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2022",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+      }
+    },
+    {
+      "asOf": "2023-01-01",
+      "fiscalYear": 2023,
       "municipalities": [
         {
-          "ekatte": "72624",
-          "obshtinaCode": "DOB28",
-          "nameBg": "Добрич",
-          "nameEn": "Dobrich",
-          "total": {
-            "amount": 75840500,
-            "currency": "BGN",
-            "amountEur": 38776632
+          "capital": {
+            "amount": 1314400,
+            "amountEur": 672042,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 69116800,
-            "currency": "BGN",
-            "amountEur": 35338859
+            "amountEur": 35338859,
+            "currency": "BGN"
           },
+          "ekatte": "72624",
           "equalization": {
             "amount": 5351500,
-            "currency": "BGN",
-            "amountEur": 2736179
+            "amountEur": 2736179,
+            "currency": "BGN"
+          },
+          "nameBg": "Добрич",
+          "nameEn": "Dobrich",
+          "obshtinaCode": "DOB28",
+          "otherTargeted": {
+            "amount": 552800,
+            "amountEur": 282642,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 75840500,
+            "amountEur": 38776632,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 57800,
-            "currency": "BGN",
-            "amountEur": 29553
-          },
-          "capital": {
-            "amount": 1314400,
-            "currency": "BGN",
-            "amountEur": 672042
-          },
-          "otherTargeted": {
-            "amount": 552800,
-            "currency": "BGN",
-            "amountEur": 282642
+            "amountEur": 29553,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "72624",
-          "obshtinaCode": "DOB15",
-          "nameBg": "Добрич-селска",
-          "nameEn": "Dobrich-selska",
-          "total": {
-            "amount": 25157900,
-            "currency": "BGN",
-            "amountEur": 12863030
+          "capital": {
+            "amount": 4316200,
+            "amountEur": 2206838,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 17552600,
-            "currency": "BGN",
-            "amountEur": 8974502
+            "amountEur": 8974502,
+            "currency": "BGN"
           },
+          "ekatte": "72624",
           "equalization": {
             "amount": 2784100,
-            "currency": "BGN",
-            "amountEur": 1423488
+            "amountEur": 1423488,
+            "currency": "BGN"
+          },
+          "nameBg": "Добрич-селска",
+          "nameEn": "Dobrich-selska",
+          "obshtinaCode": "DOB15",
+          "otherTargeted": {
+            "amount": 191200,
+            "amountEur": 97759,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 25157900,
+            "amountEur": 12863030,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 505000,
-            "currency": "BGN",
-            "amountEur": 258202
-          },
-          "capital": {
-            "amount": 4316200,
-            "currency": "BGN",
-            "amountEur": 2206838
-          },
-          "otherTargeted": {
-            "amount": 191200,
-            "currency": "BGN",
-            "amountEur": 97759
+            "amountEur": 258202,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "02508",
-          "obshtinaCode": "DOB03",
-          "nameBg": "Балчик",
-          "nameEn": "Balchik",
-          "total": {
-            "amount": 18615100,
-            "currency": "BGN",
-            "amountEur": 9517749
+          "capital": {
+            "amount": 1750600,
+            "amountEur": 895068,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 16612900,
-            "currency": "BGN",
-            "amountEur": 8494041
+            "amountEur": 8494041,
+            "currency": "BGN"
           },
+          "ekatte": "02508",
           "equalization": null,
-          "winter": {
-            "amount": 251600,
-            "currency": "BGN",
-            "amountEur": 128641
-          },
-          "capital": {
-            "amount": 1750600,
-            "currency": "BGN",
-            "amountEur": 895068
-          },
+          "nameBg": "Балчик",
+          "nameEn": "Balchik",
+          "obshtinaCode": "DOB03",
           "otherTargeted": {
             "amount": 307500,
-            "currency": "BGN",
-            "amountEur": 157222
+            "amountEur": 157222,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 18615100,
+            "amountEur": 9517749,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 251600,
+            "amountEur": 128641,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "35064",
-          "obshtinaCode": "DOB17",
-          "nameBg": "Каварна",
-          "nameEn": "Kavarna",
-          "total": {
-            "amount": 16615200,
-            "currency": "BGN",
-            "amountEur": 8495217
+          "capital": {
+            "amount": 1467800,
+            "amountEur": 750474,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 14184800,
-            "currency": "BGN",
-            "amountEur": 7252573
+            "amountEur": 7252573,
+            "currency": "BGN"
           },
+          "ekatte": "35064",
           "equalization": {
             "amount": 774500,
-            "currency": "BGN",
-            "amountEur": 395996
+            "amountEur": 395996,
+            "currency": "BGN"
+          },
+          "nameBg": "Каварна",
+          "nameEn": "Kavarna",
+          "obshtinaCode": "DOB17",
+          "otherTargeted": {
+            "amount": 107000,
+            "amountEur": 54708,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 16615200,
+            "amountEur": 8495217,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 188100,
-            "currency": "BGN",
-            "amountEur": 96174
-          },
-          "capital": {
-            "amount": 1467800,
-            "currency": "BGN",
-            "amountEur": 750474
-          },
-          "otherTargeted": {
-            "amount": 107000,
-            "currency": "BGN",
-            "amountEur": 54708
+            "amountEur": 96174,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "72271",
-          "obshtinaCode": "DOB27",
-          "nameBg": "Тервел",
-          "nameEn": "Tervel",
-          "total": {
-            "amount": 15880500,
-            "currency": "BGN",
-            "amountEur": 8119571
+          "capital": {
+            "amount": 1654400,
+            "amountEur": 845881,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 12160500,
-            "currency": "BGN",
-            "amountEur": 6217565
+            "amountEur": 6217565,
+            "currency": "BGN"
           },
+          "ekatte": "72271",
           "equalization": {
             "amount": 1879400,
-            "currency": "BGN",
-            "amountEur": 960922
+            "amountEur": 960922,
+            "currency": "BGN"
+          },
+          "nameBg": "Тервел",
+          "nameEn": "Tervel",
+          "obshtinaCode": "DOB27",
+          "otherTargeted": {
+            "amount": 126900,
+            "amountEur": 64883,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 15880500,
+            "amountEur": 8119571,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 186200,
-            "currency": "BGN",
-            "amountEur": 95203
-          },
-          "capital": {
-            "amount": 1654400,
-            "currency": "BGN",
-            "amountEur": 845881
-          },
-          "otherTargeted": {
-            "amount": 126900,
-            "currency": "BGN",
-            "amountEur": 64883
+            "amountEur": 95203,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "14711",
-          "obshtinaCode": "DOB12",
-          "nameBg": "Генерал Тошево",
-          "nameEn": "General Toshevo",
-          "total": {
-            "amount": 14659900,
-            "currency": "BGN",
-            "amountEur": 7495488
+          "capital": {
+            "amount": 2398800,
+            "amountEur": 1226487,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 10705500,
-            "currency": "BGN",
-            "amountEur": 5473635
+            "amountEur": 5473635,
+            "currency": "BGN"
           },
+          "ekatte": "14711",
           "equalization": {
             "amount": 1306900,
-            "currency": "BGN",
-            "amountEur": 668207
+            "amountEur": 668207,
+            "currency": "BGN"
+          },
+          "nameBg": "Генерал Тошево",
+          "nameEn": "General Toshevo",
+          "obshtinaCode": "DOB12",
+          "otherTargeted": {
+            "amount": 83900,
+            "amountEur": 42897,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 14659900,
+            "amountEur": 7495488,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 248700,
-            "currency": "BGN",
-            "amountEur": 127158
-          },
-          "capital": {
-            "amount": 2398800,
-            "currency": "BGN",
-            "amountEur": 1226487
-          },
-          "otherTargeted": {
-            "amount": 83900,
-            "currency": "BGN",
-            "amountEur": 42897
+            "amountEur": 127158,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "40097",
-          "obshtinaCode": "DOB20",
-          "nameBg": "Крушари",
-          "nameEn": "Krushari",
-          "total": {
-            "amount": 6959900,
-            "currency": "BGN",
-            "amountEur": 3558540
+          "capital": {
+            "amount": 1190700,
+            "amountEur": 608795,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5000200,
-            "currency": "BGN",
-            "amountEur": 2556562
+            "amountEur": 2556562,
+            "currency": "BGN"
           },
+          "ekatte": "40097",
           "equalization": {
             "amount": 624400,
-            "currency": "BGN",
-            "amountEur": 319251
+            "amountEur": 319251,
+            "currency": "BGN"
+          },
+          "nameBg": "Крушари",
+          "nameEn": "Krushari",
+          "obshtinaCode": "DOB20",
+          "otherTargeted": {
+            "amount": 32300,
+            "amountEur": 16515,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 6959900,
+            "amountEur": 3558540,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 144600,
-            "currency": "BGN",
-            "amountEur": 73933
-          },
-          "capital": {
-            "amount": 1190700,
-            "currency": "BGN",
-            "amountEur": 608795
-          },
-          "otherTargeted": {
-            "amount": 32300,
-            "currency": "BGN",
-            "amountEur": 16515
+            "amountEur": 73933,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "83017",
-          "obshtinaCode": "DOB29",
-          "nameBg": "Шабла",
-          "nameEn": "Shabla",
-          "total": {
-            "amount": 5943800,
-            "currency": "BGN",
-            "amountEur": 3039017
+          "capital": {
+            "amount": 955000,
+            "amountEur": 488284,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4454000,
-            "currency": "BGN",
-            "amountEur": 2277294
+            "amountEur": 2277294,
+            "currency": "BGN"
           },
+          "ekatte": "83017",
           "equalization": {
             "amount": 409900,
-            "currency": "BGN",
-            "amountEur": 209579
+            "amountEur": 209579,
+            "currency": "BGN"
+          },
+          "nameBg": "Шабла",
+          "nameEn": "Shabla",
+          "obshtinaCode": "DOB29",
+          "otherTargeted": {
+            "amount": 93700,
+            "amountEur": 47908,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 5943800,
+            "amountEur": 3039017,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 124900,
-            "currency": "BGN",
-            "amountEur": 63860
-          },
-          "capital": {
-            "amount": 955000,
-            "currency": "BGN",
-            "amountEur": 488284
-          },
-          "otherTargeted": {
-            "amount": 93700,
-            "currency": "BGN",
-            "amountEur": 47908
+            "amountEur": 63860,
+            "currency": "BGN"
           }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2024,
-      "asOf": "2024-01-01",
-      "source": {
-        "documentId": "law-2024",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 196621700,
-          "currency": "BGN",
-          "amountEur": 100531080
+        "capital": {
+          "amount": 15047900,
+          "amountEur": 7693869,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 166760200,
-          "currency": "BGN",
-          "amountEur": 85263136
+          "amount": 149787300,
+          "amountEur": 76585031,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 13153100,
-          "currency": "BGN",
-          "amountEur": 6725073
-        },
-        "winter": {
-          "amount": 1707900,
-          "currency": "BGN",
-          "amountEur": 873235
-        },
-        "capital": {
-          "amount": 15000500,
-          "currency": "BGN",
-          "amountEur": 7669634
+          "amount": 13130700,
+          "amountEur": 6713622,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 1794500,
-          "currency": "BGN",
-          "amountEur": 917513
+          "amount": 1495300,
+          "amountEur": 764534,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 179672800,
+          "amountEur": 91865244,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1706900,
+          "amountEur": 872724,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2023",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+      }
+    },
+    {
+      "asOf": "2024-01-01",
+      "fiscalYear": 2024,
       "municipalities": [
         {
-          "ekatte": "72624",
-          "obshtinaCode": "DOB28",
-          "nameBg": "Добрич",
-          "nameEn": "Dobrich",
-          "total": {
-            "amount": 84453300,
-            "currency": "BGN",
-            "amountEur": 43180287
+          "capital": {
+            "amount": 1296800,
+            "amountEur": 663043,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 77743900,
-            "currency": "BGN",
-            "amountEur": 39749825
+            "amountEur": 39749825,
+            "currency": "BGN"
           },
+          "ekatte": "72624",
           "equalization": {
             "amount": 5355200,
-            "currency": "BGN",
-            "amountEur": 2738070
+            "amountEur": 2738070,
+            "currency": "BGN"
+          },
+          "nameBg": "Добрич",
+          "nameEn": "Dobrich",
+          "obshtinaCode": "DOB28",
+          "otherTargeted": {
+            "amount": 663400,
+            "amountEur": 339191,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 84453300,
+            "amountEur": 43180287,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 57400,
-            "currency": "BGN",
-            "amountEur": 29348
-          },
-          "capital": {
-            "amount": 1296800,
-            "currency": "BGN",
-            "amountEur": 663043
-          },
-          "otherTargeted": {
-            "amount": 663400,
-            "currency": "BGN",
-            "amountEur": 339191
+            "amountEur": 29348,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "72624",
-          "obshtinaCode": "DOB15",
-          "nameBg": "Добрич-селска",
-          "nameEn": "Dobrich-selska",
-          "total": {
-            "amount": 27031400,
-            "currency": "BGN",
-            "amountEur": 13820935
+          "capital": {
+            "amount": 4322400,
+            "amountEur": 2210008,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 19414100,
-            "currency": "BGN",
-            "amountEur": 9926272
+            "amountEur": 9926272,
+            "currency": "BGN"
           },
+          "ekatte": "72624",
           "equalization": {
             "amount": 2789400,
-            "currency": "BGN",
-            "amountEur": 1426198
+            "amountEur": 1426198,
+            "currency": "BGN"
+          },
+          "nameBg": "Добрич-селска",
+          "nameEn": "Dobrich-selska",
+          "obshtinaCode": "DOB15",
+          "otherTargeted": {
+            "amount": 229400,
+            "amountEur": 117290,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 27031400,
+            "amountEur": 13820935,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 505500,
-            "currency": "BGN",
-            "amountEur": 258458
-          },
-          "capital": {
-            "amount": 4322400,
-            "currency": "BGN",
-            "amountEur": 2210008
-          },
-          "otherTargeted": {
-            "amount": 229400,
-            "currency": "BGN",
-            "amountEur": 117290
+            "amountEur": 258458,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "02508",
-          "obshtinaCode": "DOB03",
-          "nameBg": "Балчик",
-          "nameEn": "Balchik",
-          "total": {
-            "amount": 20099600,
-            "currency": "BGN",
-            "amountEur": 10276762
+          "capital": {
+            "amount": 1725900,
+            "amountEur": 882439,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 18121900,
-            "currency": "BGN",
-            "amountEur": 9265580
+            "amountEur": 9265580,
+            "currency": "BGN"
           },
+          "ekatte": "02508",
           "equalization": null,
-          "winter": {
-            "amount": 251800,
-            "currency": "BGN",
-            "amountEur": 128743
-          },
-          "capital": {
-            "amount": 1725900,
-            "currency": "BGN",
-            "amountEur": 882439
-          },
+          "nameBg": "Балчик",
+          "nameEn": "Balchik",
+          "obshtinaCode": "DOB03",
           "otherTargeted": {
             "amount": 369000,
-            "currency": "BGN",
-            "amountEur": 188667
+            "amountEur": 188667,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 20099600,
+            "amountEur": 10276762,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 251800,
+            "amountEur": 128743,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "35064",
-          "obshtinaCode": "DOB17",
-          "nameBg": "Каварна",
-          "nameEn": "Kavarna",
-          "total": {
-            "amount": 18191300,
-            "currency": "BGN",
-            "amountEur": 9301064
+          "capital": {
+            "amount": 1437100,
+            "amountEur": 734778,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 15792500,
-            "currency": "BGN",
-            "amountEur": 8074577
+            "amountEur": 8074577,
+            "currency": "BGN"
           },
+          "ekatte": "35064",
           "equalization": {
             "amount": 774500,
-            "currency": "BGN",
-            "amountEur": 395996
+            "amountEur": 395996,
+            "currency": "BGN"
+          },
+          "nameBg": "Каварна",
+          "nameEn": "Kavarna",
+          "obshtinaCode": "DOB17",
+          "otherTargeted": {
+            "amount": 128500,
+            "amountEur": 65701,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 18191300,
+            "amountEur": 9301064,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 187200,
-            "currency": "BGN",
-            "amountEur": 95714
-          },
-          "capital": {
-            "amount": 1437100,
-            "currency": "BGN",
-            "amountEur": 734778
-          },
-          "otherTargeted": {
-            "amount": 128500,
-            "currency": "BGN",
-            "amountEur": 65701
+            "amountEur": 95714,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "72271",
-          "obshtinaCode": "DOB27",
-          "nameBg": "Тервел",
-          "nameEn": "Tervel",
-          "total": {
-            "amount": 17207400,
-            "currency": "BGN",
-            "amountEur": 8798004
+          "capital": {
+            "amount": 1670800,
+            "amountEur": 854266,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 13470800,
-            "currency": "BGN",
-            "amountEur": 6887511
+            "amountEur": 6887511,
+            "currency": "BGN"
           },
+          "ekatte": "72271",
           "equalization": {
             "amount": 1879400,
-            "currency": "BGN",
-            "amountEur": 960922
+            "amountEur": 960922,
+            "currency": "BGN"
+          },
+          "nameBg": "Тервел",
+          "nameEn": "Tervel",
+          "obshtinaCode": "DOB27",
+          "otherTargeted": {
+            "amount": 152300,
+            "amountEur": 77870,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 17207400,
+            "amountEur": 8798004,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 186400,
-            "currency": "BGN",
-            "amountEur": 95305
-          },
-          "capital": {
-            "amount": 1670800,
-            "currency": "BGN",
-            "amountEur": 854266
-          },
-          "otherTargeted": {
-            "amount": 152300,
-            "currency": "BGN",
-            "amountEur": 77870
+            "amountEur": 95305,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "14711",
-          "obshtinaCode": "DOB12",
-          "nameBg": "Генерал Тошево",
-          "nameEn": "General Toshevo",
-          "total": {
-            "amount": 15825400,
-            "currency": "BGN",
-            "amountEur": 8091399
+          "capital": {
+            "amount": 2423100,
+            "amountEur": 1238911,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 11843400,
-            "currency": "BGN",
-            "amountEur": 6055434
+            "amountEur": 6055434,
+            "currency": "BGN"
           },
+          "ekatte": "14711",
           "equalization": {
             "amount": 1309000,
-            "currency": "BGN",
-            "amountEur": 669281
+            "amountEur": 669281,
+            "currency": "BGN"
+          },
+          "nameBg": "Генерал Тошево",
+          "nameEn": "General Toshevo",
+          "obshtinaCode": "DOB12",
+          "otherTargeted": {
+            "amount": 100700,
+            "amountEur": 51487,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 15825400,
+            "amountEur": 8091399,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 249900,
-            "currency": "BGN",
-            "amountEur": 127772
-          },
-          "capital": {
-            "amount": 2423100,
-            "currency": "BGN",
-            "amountEur": 1238911
-          },
-          "otherTargeted": {
-            "amount": 100700,
-            "currency": "BGN",
-            "amountEur": 51487
+            "amountEur": 127772,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "40097",
-          "obshtinaCode": "DOB20",
-          "nameBg": "Крушари",
-          "nameEn": "Krushari",
-          "total": {
-            "amount": 7528200,
-            "currency": "BGN",
-            "amountEur": 3849108
+          "capital": {
+            "amount": 1202000,
+            "amountEur": 614573,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5551900,
-            "currency": "BGN",
-            "amountEur": 2838641
+            "amountEur": 2838641,
+            "currency": "BGN"
           },
+          "ekatte": "40097",
           "equalization": {
             "amount": 629600,
-            "currency": "BGN",
-            "amountEur": 321909
+            "amountEur": 321909,
+            "currency": "BGN"
+          },
+          "nameBg": "Крушари",
+          "nameEn": "Krushari",
+          "obshtinaCode": "DOB20",
+          "otherTargeted": {
+            "amount": 38800,
+            "amountEur": 19838,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 7528200,
+            "amountEur": 3849108,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 144700,
-            "currency": "BGN",
-            "amountEur": 73984
-          },
-          "capital": {
-            "amount": 1202000,
-            "currency": "BGN",
-            "amountEur": 614573
-          },
-          "otherTargeted": {
-            "amount": 38800,
-            "currency": "BGN",
-            "amountEur": 19838
+            "amountEur": 73984,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "83017",
-          "obshtinaCode": "DOB29",
-          "nameBg": "Шабла",
-          "nameEn": "Shabla",
-          "total": {
-            "amount": 6285100,
-            "currency": "BGN",
-            "amountEur": 3213521
+          "capital": {
+            "amount": 922400,
+            "amountEur": 471616,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 4821700,
-            "currency": "BGN",
-            "amountEur": 2465296
+            "amountEur": 2465296,
+            "currency": "BGN"
           },
+          "ekatte": "83017",
           "equalization": {
             "amount": 416000,
-            "currency": "BGN",
-            "amountEur": 212697
+            "amountEur": 212697,
+            "currency": "BGN"
+          },
+          "nameBg": "Шабла",
+          "nameEn": "Shabla",
+          "obshtinaCode": "DOB29",
+          "otherTargeted": {
+            "amount": 112400,
+            "amountEur": 57469,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 6285100,
+            "amountEur": 3213521,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 125000,
-            "currency": "BGN",
-            "amountEur": 63911
-          },
-          "capital": {
-            "amount": 922400,
-            "currency": "BGN",
-            "amountEur": 471616
-          },
-          "otherTargeted": {
-            "amount": 112400,
-            "currency": "BGN",
-            "amountEur": 57469
+            "amountEur": 63911,
+            "currency": "BGN"
           }
         }
-      ]
-    },
-    {
-      "fiscalYear": 2025,
-      "asOf": "2025-01-01",
-      "source": {
-        "documentId": "law-2025",
-        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
-      },
+      ],
       "oblastTotals": {
-        "total": {
-          "amount": 220561700,
-          "currency": "BGN",
-          "amountEur": 112771406
+        "capital": {
+          "amount": 15000500,
+          "amountEur": 7669634,
+          "currency": "BGN"
         },
         "delegated": {
-          "amount": 189245700,
-          "currency": "BGN",
-          "amountEur": 96759790
+          "amount": 166760200,
+          "amountEur": 85263136,
+          "currency": "BGN"
         },
         "equalization": {
-          "amount": 13651600,
-          "currency": "BGN",
-          "amountEur": 6979952
-        },
-        "winter": {
-          "amount": 1733300,
-          "currency": "BGN",
-          "amountEur": 886222
-        },
-        "capital": {
-          "amount": 15931100,
-          "currency": "BGN",
-          "amountEur": 8145443
+          "amount": 13153100,
+          "amountEur": 6725073,
+          "currency": "BGN"
         },
         "otherTargeted": {
-          "amount": 2102000,
-          "currency": "BGN",
-          "amountEur": 1074736
+          "amount": 1794500,
+          "amountEur": 917513,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 196621700,
+          "amountEur": 100531080,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1707900,
+          "amountEur": 873235,
+          "currency": "BGN"
         }
       },
+      "source": {
+        "documentId": "law-2024",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
+      }
+    },
+    {
+      "asOf": "2025-01-01",
+      "fiscalYear": 2025,
       "municipalities": [
         {
-          "ekatte": "72624",
-          "obshtinaCode": "DOB28",
-          "nameBg": "Добрич",
-          "nameEn": "Dobrich",
-          "total": {
-            "amount": 93901900,
-            "currency": "BGN",
-            "amountEur": 48011279
+          "capital": {
+            "amount": 1356700,
+            "amountEur": 693670,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 87129500,
-            "currency": "BGN",
-            "amountEur": 44548606
+            "amountEur": 44548606,
+            "currency": "BGN"
           },
+          "ekatte": "72624",
           "equalization": {
             "amount": 5358000,
-            "currency": "BGN",
-            "amountEur": 2739502
+            "amountEur": 2739502,
+            "currency": "BGN"
+          },
+          "nameBg": "Добрич",
+          "nameEn": "Dobrich",
+          "obshtinaCode": "DOB28",
+          "otherTargeted": {
+            "amount": 693300,
+            "amountEur": 354479,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 93901900,
+            "amountEur": 48011279,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 57700,
-            "currency": "BGN",
-            "amountEur": 29502
-          },
-          "capital": {
-            "amount": 1356700,
-            "currency": "BGN",
-            "amountEur": 693670
-          },
-          "otherTargeted": {
-            "amount": 693300,
-            "currency": "BGN",
-            "amountEur": 354479
+            "amountEur": 29502,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "72624",
-          "obshtinaCode": "DOB15",
-          "nameBg": "Добрич-селска",
-          "nameEn": "Dobrich-selska",
-          "total": {
-            "amount": 30618100,
-            "currency": "BGN",
-            "amountEur": 15654786
+          "capital": {
+            "amount": 4617300,
+            "amountEur": 2360788,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 22568700,
-            "currency": "BGN",
-            "amountEur": 11539193
+            "amountEur": 11539193,
+            "currency": "BGN"
           },
+          "ekatte": "72624",
           "equalization": {
             "amount": 2918800,
-            "currency": "BGN",
-            "amountEur": 1492359
+            "amountEur": 1492359,
+            "currency": "BGN"
+          },
+          "nameBg": "Добрич-селска",
+          "nameEn": "Dobrich-selska",
+          "obshtinaCode": "DOB15",
+          "otherTargeted": {
+            "amount": 282700,
+            "amountEur": 144542,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 30618100,
+            "amountEur": 15654786,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 513300,
-            "currency": "BGN",
-            "amountEur": 262446
-          },
-          "capital": {
-            "amount": 4617300,
-            "currency": "BGN",
-            "amountEur": 2360788
-          },
-          "otherTargeted": {
-            "amount": 282700,
-            "currency": "BGN",
-            "amountEur": 144542
+            "amountEur": 262446,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "02508",
-          "obshtinaCode": "DOB03",
-          "nameBg": "Балчик",
-          "nameEn": "Balchik",
-          "total": {
-            "amount": 22430300,
-            "currency": "BGN",
-            "amountEur": 11468430
+          "capital": {
+            "amount": 1847000,
+            "amountEur": 944356,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 20327600,
-            "currency": "BGN",
-            "amountEur": 10393337
+            "amountEur": 10393337,
+            "currency": "BGN"
           },
+          "ekatte": "02508",
           "equalization": null,
-          "winter": {
-            "amount": 255700,
-            "currency": "BGN",
-            "amountEur": 130737
-          },
-          "capital": {
-            "amount": 1847000,
-            "currency": "BGN",
-            "amountEur": 944356
-          },
+          "nameBg": "Балчик",
+          "nameEn": "Balchik",
+          "obshtinaCode": "DOB03",
           "otherTargeted": {
             "amount": 436500,
-            "currency": "BGN",
-            "amountEur": 223179
+            "amountEur": 223179,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 22430300,
+            "amountEur": 11468430,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 255700,
+            "amountEur": 130737,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "35064",
-          "obshtinaCode": "DOB17",
-          "nameBg": "Каварна",
-          "nameEn": "Kavarna",
-          "total": {
-            "amount": 20390300,
-            "currency": "BGN",
-            "amountEur": 10425395
+          "capital": {
+            "amount": 1530500,
+            "amountEur": 782532,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 17895300,
-            "currency": "BGN",
-            "amountEur": 9149722
+            "amountEur": 9149722,
+            "currency": "BGN"
           },
+          "ekatte": "35064",
           "equalization": {
             "amount": 774500,
-            "currency": "BGN",
-            "amountEur": 395996
+            "amountEur": 395996,
+            "currency": "BGN"
+          },
+          "nameBg": "Каварна",
+          "nameEn": "Kavarna",
+          "obshtinaCode": "DOB17",
+          "otherTargeted": {
+            "amount": 224600,
+            "amountEur": 114836,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 20390300,
+            "amountEur": 10425395,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 190000,
-            "currency": "BGN",
-            "amountEur": 97145
-          },
-          "capital": {
-            "amount": 1530500,
-            "currency": "BGN",
-            "amountEur": 782532
-          },
-          "otherTargeted": {
-            "amount": 224600,
-            "currency": "BGN",
-            "amountEur": 114836
+            "amountEur": 97145,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "72271",
-          "obshtinaCode": "DOB27",
-          "nameBg": "Тервел",
-          "nameEn": "Tervel",
-          "total": {
-            "amount": 18974200,
-            "currency": "BGN",
-            "amountEur": 9701354
+          "capital": {
+            "amount": 1739000,
+            "amountEur": 889137,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 15166600,
-            "currency": "BGN",
-            "amountEur": 7754559
+            "amountEur": 7754559,
+            "currency": "BGN"
           },
+          "ekatte": "72271",
           "equalization": {
             "amount": 1879400,
-            "currency": "BGN",
-            "amountEur": 960922
+            "amountEur": 960922,
+            "currency": "BGN"
+          },
+          "nameBg": "Тервел",
+          "nameEn": "Tervel",
+          "obshtinaCode": "DOB27",
+          "otherTargeted": {
+            "amount": 179600,
+            "amountEur": 91828,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 18974200,
+            "amountEur": 9701354,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 189200,
-            "currency": "BGN",
-            "amountEur": 96736
-          },
-          "capital": {
-            "amount": 1739000,
-            "currency": "BGN",
-            "amountEur": 889137
-          },
-          "otherTargeted": {
-            "amount": 179600,
-            "currency": "BGN",
-            "amountEur": 91828
+            "amountEur": 96736,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "14711",
-          "obshtinaCode": "DOB12",
-          "nameBg": "Генерал Тошево",
-          "nameEn": "General Toshevo",
-          "total": {
-            "amount": 18322500,
-            "currency": "BGN",
-            "amountEur": 9368145
+          "capital": {
+            "amount": 2624700,
+            "amountEur": 1341988,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 13973900,
-            "currency": "BGN",
-            "amountEur": 7144742
+            "amountEur": 7144742,
+            "currency": "BGN"
           },
+          "ekatte": "14711",
           "equalization": {
             "amount": 1470300,
-            "currency": "BGN",
-            "amountEur": 751752
+            "amountEur": 751752,
+            "currency": "BGN"
+          },
+          "nameBg": "Генерал Тошево",
+          "nameEn": "General Toshevo",
+          "obshtinaCode": "DOB12",
+          "otherTargeted": {
+            "amount": 113200,
+            "amountEur": 57878,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 18322500,
+            "amountEur": 9368145,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 253600,
-            "currency": "BGN",
-            "amountEur": 129664
-          },
-          "capital": {
-            "amount": 2624700,
-            "currency": "BGN",
-            "amountEur": 1341988
-          },
-          "otherTargeted": {
-            "amount": 113200,
-            "currency": "BGN",
-            "amountEur": 57878
+            "amountEur": 129664,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "40097",
-          "obshtinaCode": "DOB20",
-          "nameBg": "Крушари",
-          "nameEn": "Krushari",
-          "total": {
-            "amount": 8655500,
-            "currency": "BGN",
-            "amountEur": 4425487
+          "capital": {
+            "amount": 1233800,
+            "amountEur": 630832,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 6444800,
-            "currency": "BGN",
-            "amountEur": 3295174
+            "amountEur": 3295174,
+            "currency": "BGN"
           },
+          "ekatte": "40097",
           "equalization": {
             "amount": 830000,
-            "currency": "BGN",
-            "amountEur": 424372
+            "amountEur": 424372,
+            "currency": "BGN"
+          },
+          "nameBg": "Крушари",
+          "nameEn": "Krushari",
+          "obshtinaCode": "DOB20",
+          "otherTargeted": {
+            "amount": 44700,
+            "amountEur": 22855,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 8655500,
+            "amountEur": 4425487,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 146900,
-            "currency": "BGN",
-            "amountEur": 75109
-          },
-          "capital": {
-            "amount": 1233800,
-            "currency": "BGN",
-            "amountEur": 630832
-          },
-          "otherTargeted": {
-            "amount": 44700,
-            "currency": "BGN",
-            "amountEur": 22855
+            "amountEur": 75109,
+            "currency": "BGN"
           }
         },
         {
-          "ekatte": "83017",
-          "obshtinaCode": "DOB29",
-          "nameBg": "Шабла",
-          "nameEn": "Shabla",
-          "total": {
-            "amount": 7268900,
-            "currency": "BGN",
-            "amountEur": 3716530
+          "capital": {
+            "amount": 982100,
+            "amountEur": 502140,
+            "currency": "BGN"
           },
           "delegated": {
             "amount": 5739300,
-            "currency": "BGN",
-            "amountEur": 2934457
+            "amountEur": 2934457,
+            "currency": "BGN"
           },
+          "ekatte": "83017",
           "equalization": {
             "amount": 420600,
-            "currency": "BGN",
-            "amountEur": 215049
+            "amountEur": 215049,
+            "currency": "BGN"
+          },
+          "nameBg": "Шабла",
+          "nameEn": "Shabla",
+          "obshtinaCode": "DOB29",
+          "otherTargeted": {
+            "amount": 127400,
+            "amountEur": 65139,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 7268900,
+            "amountEur": 3716530,
+            "currency": "BGN"
           },
           "winter": {
             "amount": 126900,
-            "currency": "BGN",
-            "amountEur": 64883
-          },
-          "capital": {
-            "amount": 982100,
-            "currency": "BGN",
-            "amountEur": 502140
-          },
-          "otherTargeted": {
-            "amount": 127400,
-            "currency": "BGN",
-            "amountEur": 65139
+            "amountEur": 64883,
+            "currency": "BGN"
           }
         }
-      ]
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 15931100,
+          "amountEur": 8145443,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 189245700,
+          "amountEur": 96759790,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 13651600,
+          "amountEur": 6979952,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 2102000,
+          "amountEur": 1074736,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 220561700,
+          "amountEur": 112771406,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1733300,
+          "amountEur": 886222,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2025",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
+      }
     }
   ]
 }

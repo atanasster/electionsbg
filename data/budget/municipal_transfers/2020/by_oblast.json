@@ -1,1018 +1,1018 @@
 {
-  "fiscalYear": 2020,
   "asOf": "2020-01-01",
-  "source": {
-    "documentId": "law-2020",
-    "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
-  },
+  "fiscalYear": 2020,
   "oblasts": [
     {
-      "oblastCode": "BGS",
-      "oblastNameBg": "Бургас",
-      "oblastNameEn": "Burgas",
-      "municipalityCount": 13,
-      "total": {
-        "amount": 253135100,
-        "currency": "BGN",
-        "amountEur": 129425920
+      "capital": {
+        "amount": 10699500,
+        "amountEur": 5470567,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 230603500,
-        "currency": "BGN",
-        "amountEur": 117905698
+        "amountEur": 117905698,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 9963600,
-        "currency": "BGN",
-        "amountEur": 5094308
+        "amountEur": 5094308,
+        "currency": "BGN"
+      },
+      "municipalityCount": 13,
+      "oblastCode": "BGS",
+      "oblastNameBg": "Бургас",
+      "oblastNameEn": "Burgas",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 253135100,
+        "amountEur": 129425920,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1868500,
-        "currency": "BGN",
-        "amountEur": 955350
-      },
-      "capital": {
-        "amount": 10699500,
-        "currency": "BGN",
-        "amountEur": 5470567
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 955350,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "BLG",
-      "oblastNameBg": "Благоевград",
-      "oblastNameEn": "Blagoevgrad",
-      "municipalityCount": 14,
-      "total": {
-        "amount": 217599900,
-        "currency": "BGN",
-        "amountEur": 111257062
+      "capital": {
+        "amount": 10561500,
+        "amountEur": 5400009,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 187811200,
-        "currency": "BGN",
-        "amountEur": 96026342
+        "amountEur": 96026342,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 16296500,
-        "currency": "BGN",
-        "amountEur": 8332270
+        "amountEur": 8332270,
+        "currency": "BGN"
+      },
+      "municipalityCount": 14,
+      "oblastCode": "BLG",
+      "oblastNameBg": "Благоевград",
+      "oblastNameEn": "Blagoevgrad",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 217599900,
+        "amountEur": 111257062,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 2930700,
-        "currency": "BGN",
-        "amountEur": 1498443
-      },
-      "capital": {
-        "amount": 10561500,
-        "currency": "BGN",
-        "amountEur": 5400009
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 1498443,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "DOB",
-      "oblastNameBg": "Добрич",
-      "oblastNameEn": "Dobrich",
-      "municipalityCount": 8,
-      "total": {
-        "amount": 112432200,
-        "currency": "BGN",
-        "amountEur": 57485670
+      "capital": {
+        "amount": 7048200,
+        "amountEur": 3603687,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 93878400,
-        "currency": "BGN",
-        "amountEur": 47999264
+        "amountEur": 47999264,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 9968000,
-        "currency": "BGN",
-        "amountEur": 5096557
+        "amountEur": 5096557,
+        "currency": "BGN"
+      },
+      "municipalityCount": 8,
+      "oblastCode": "DOB",
+      "oblastNameBg": "Добрич",
+      "oblastNameEn": "Dobrich",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 112432200,
+        "amountEur": 57485670,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1537600,
-        "currency": "BGN",
-        "amountEur": 786164
-      },
-      "capital": {
-        "amount": 7048200,
-        "currency": "BGN",
-        "amountEur": 3603687
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 786164,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "GAB",
-      "oblastNameBg": "Габрово",
-      "oblastNameEn": "Gabrovo",
-      "municipalityCount": 4,
-      "total": {
-        "amount": 71383200,
-        "currency": "BGN",
-        "amountEur": 36497650
+      "capital": {
+        "amount": 6266100,
+        "amountEur": 3203807,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 56945200,
-        "currency": "BGN",
-        "amountEur": 29115619
+        "amountEur": 29115619,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 6123200,
-        "currency": "BGN",
-        "amountEur": 3130743
+        "amountEur": 3130743,
+        "currency": "BGN"
+      },
+      "municipalityCount": 4,
+      "oblastCode": "GAB",
+      "oblastNameBg": "Габрово",
+      "oblastNameEn": "Gabrovo",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 71383200,
+        "amountEur": 36497650,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 2048700,
-        "currency": "BGN",
-        "amountEur": 1047484
-      },
-      "capital": {
-        "amount": 6266100,
-        "currency": "BGN",
-        "amountEur": 3203807
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 1047484,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "HKV",
-      "oblastNameBg": "Хасково",
-      "oblastNameEn": "Haskovo",
-      "municipalityCount": 11,
-      "total": {
-        "amount": 143202000,
-        "currency": "BGN",
-        "amountEur": 73218020
+      "capital": {
+        "amount": 8805100,
+        "amountEur": 4501976,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 119827200,
-        "currency": "BGN",
-        "amountEur": 61266673
+        "amountEur": 61266673,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 12953700,
-        "currency": "BGN",
-        "amountEur": 6623120
+        "amountEur": 6623120,
+        "currency": "BGN"
+      },
+      "municipalityCount": 11,
+      "oblastCode": "HKV",
+      "oblastNameBg": "Хасково",
+      "oblastNameEn": "Haskovo",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 143202000,
+        "amountEur": 73218020,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1616000,
-        "currency": "BGN",
-        "amountEur": 826247
-      },
-      "capital": {
-        "amount": 8805100,
-        "currency": "BGN",
-        "amountEur": 4501976
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 826247,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "JAM",
-      "oblastNameBg": "Ямбол",
-      "oblastNameEn": "Yambol",
-      "municipalityCount": 5,
-      "total": {
-        "amount": 80610600,
-        "currency": "BGN",
-        "amountEur": 41215545
+      "capital": {
+        "amount": 4091900,
+        "amountEur": 2092155,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 68149200,
-        "currency": "BGN",
-        "amountEur": 34844133
+        "amountEur": 34844133,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 7718400,
-        "currency": "BGN",
-        "amountEur": 3946355
+        "amountEur": 3946355,
+        "currency": "BGN"
+      },
+      "municipalityCount": 5,
+      "oblastCode": "JAM",
+      "oblastNameBg": "Ямбол",
+      "oblastNameEn": "Yambol",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 80610600,
+        "amountEur": 41215545,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 651100,
-        "currency": "BGN",
-        "amountEur": 332903
-      },
-      "capital": {
-        "amount": 4091900,
-        "currency": "BGN",
-        "amountEur": 2092155
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 332903,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "KNL",
-      "oblastNameBg": "Кюстендил",
-      "oblastNameEn": "Kyustendil",
-      "municipalityCount": 9,
-      "total": {
-        "amount": 76213200,
-        "currency": "BGN",
-        "amountEur": 38967192
+      "capital": {
+        "amount": 5739200,
+        "amountEur": 2934406,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 60587500,
-        "currency": "BGN",
-        "amountEur": 30977897
+        "amountEur": 30977897,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 8328100,
-        "currency": "BGN",
-        "amountEur": 4258089
+        "amountEur": 4258089,
+        "currency": "BGN"
+      },
+      "municipalityCount": 9,
+      "oblastCode": "KNL",
+      "oblastNameBg": "Кюстендил",
+      "oblastNameEn": "Kyustendil",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 76213200,
+        "amountEur": 38967192,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1558400,
-        "currency": "BGN",
-        "amountEur": 796799
-      },
-      "capital": {
-        "amount": 5739200,
-        "currency": "BGN",
-        "amountEur": 2934406
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 796799,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "KRZ",
-      "oblastNameBg": "Кърджали",
-      "oblastNameEn": "Kardzhali",
-      "municipalityCount": 7,
-      "total": {
-        "amount": 112802300,
-        "currency": "BGN",
-        "amountEur": 57674900
+      "capital": {
+        "amount": 12007600,
+        "amountEur": 6139387,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 85283700,
-        "currency": "BGN",
-        "amountEur": 43604863
+        "amountEur": 43604863,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 13221600,
-        "currency": "BGN",
-        "amountEur": 6760098
+        "amountEur": 6760098,
+        "currency": "BGN"
+      },
+      "municipalityCount": 7,
+      "oblastCode": "KRZ",
+      "oblastNameBg": "Кърджали",
+      "oblastNameEn": "Kardzhali",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 112802300,
+        "amountEur": 57674900,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 2289400,
-        "currency": "BGN",
-        "amountEur": 1170552
-      },
-      "capital": {
-        "amount": 12007600,
-        "currency": "BGN",
-        "amountEur": 6139387
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 1170552,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "LOV",
-      "oblastNameBg": "Ловеч",
-      "oblastNameEn": "Lovech",
-      "municipalityCount": 8,
-      "total": {
-        "amount": 91592800,
-        "currency": "BGN",
-        "amountEur": 46830655
+      "capital": {
+        "amount": 5291000,
+        "amountEur": 2705246,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 75978000,
-        "currency": "BGN",
-        "amountEur": 38846935
+        "amountEur": 38846935,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 8908000,
-        "currency": "BGN",
-        "amountEur": 4554589
+        "amountEur": 4554589,
+        "currency": "BGN"
+      },
+      "municipalityCount": 8,
+      "oblastCode": "LOV",
+      "oblastNameBg": "Ловеч",
+      "oblastNameEn": "Lovech",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 91592800,
+        "amountEur": 46830655,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1415800,
-        "currency": "BGN",
-        "amountEur": 723887
-      },
-      "capital": {
-        "amount": 5291000,
-        "currency": "BGN",
-        "amountEur": 2705246
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 723887,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "MON",
-      "oblastNameBg": "Монтана",
-      "oblastNameEn": "Montana",
-      "municipalityCount": 11,
-      "total": {
-        "amount": 96559300,
-        "currency": "BGN",
-        "amountEur": 49369986
+      "capital": {
+        "amount": 5049200,
+        "amountEur": 2581616,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 79400000,
-        "currency": "BGN",
-        "amountEur": 40596574
+        "amountEur": 40596574,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 11297200,
-        "currency": "BGN",
-        "amountEur": 5776167
+        "amountEur": 5776167,
+        "currency": "BGN"
+      },
+      "municipalityCount": 11,
+      "oblastCode": "MON",
+      "oblastNameBg": "Монтана",
+      "oblastNameEn": "Montana",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 96559300,
+        "amountEur": 49369986,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 812900,
-        "currency": "BGN",
-        "amountEur": 415629
-      },
-      "capital": {
-        "amount": 5049200,
-        "currency": "BGN",
-        "amountEur": 2581616
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 415629,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "PAZ",
-      "oblastNameBg": "Пазарджик",
-      "oblastNameEn": "Pazardzhik",
-      "municipalityCount": 12,
-      "total": {
-        "amount": 164154400,
-        "currency": "BGN",
-        "amountEur": 83930812
+      "capital": {
+        "amount": 5926700,
+        "amountEur": 3030273,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 138874600,
-        "currency": "BGN",
-        "amountEur": 71005456
+        "amountEur": 71005456,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 18216100,
-        "currency": "BGN",
-        "amountEur": 9313746
+        "amountEur": 9313746,
+        "currency": "BGN"
+      },
+      "municipalityCount": 12,
+      "oblastCode": "PAZ",
+      "oblastNameBg": "Пазарджик",
+      "oblastNameEn": "Pazardzhik",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 164154400,
+        "amountEur": 83930812,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1137000,
-        "currency": "BGN",
-        "amountEur": 581340
-      },
-      "capital": {
-        "amount": 5926700,
-        "currency": "BGN",
-        "amountEur": 3030273
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 581340,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "PDV",
-      "oblastNameBg": "Пловдив",
-      "oblastNameEn": "Plovdiv",
-      "municipalityCount": 18,
-      "total": {
-        "amount": 362831000,
-        "currency": "BGN",
-        "amountEur": 185512543
+      "capital": {
+        "amount": 11856600,
+        "amountEur": 6062181,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 324506900,
-        "currency": "BGN",
-        "amountEur": 165917743
+        "amountEur": 165917743,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 24413000,
-        "currency": "BGN",
-        "amountEur": 12482170
+        "amountEur": 12482170,
+        "currency": "BGN"
+      },
+      "municipalityCount": 18,
+      "oblastCode": "PDV",
+      "oblastNameBg": "Пловдив",
+      "oblastNameEn": "Plovdiv",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 362831000,
+        "amountEur": 185512543,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 2054500,
-        "currency": "BGN",
-        "amountEur": 1050449
-      },
-      "capital": {
-        "amount": 11856600,
-        "currency": "BGN",
-        "amountEur": 6062181
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 1050449,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "PER",
-      "oblastNameBg": "Перник",
-      "oblastNameEn": "Pernik",
-      "municipalityCount": 6,
-      "total": {
-        "amount": 70895100,
-        "currency": "BGN",
-        "amountEur": 36248089
+      "capital": {
+        "amount": 5192600,
+        "amountEur": 2654934,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 57658800,
-        "currency": "BGN",
-        "amountEur": 29480476
+        "amountEur": 29480476,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 6592200,
-        "currency": "BGN",
-        "amountEur": 3370539
+        "amountEur": 3370539,
+        "currency": "BGN"
+      },
+      "municipalityCount": 6,
+      "oblastCode": "PER",
+      "oblastNameBg": "Перник",
+      "oblastNameEn": "Pernik",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 70895100,
+        "amountEur": 36248089,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1451500,
-        "currency": "BGN",
-        "amountEur": 742141
-      },
-      "capital": {
-        "amount": 5192600,
-        "currency": "BGN",
-        "amountEur": 2654934
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 742141,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "PVN",
-      "oblastNameBg": "Плевен",
-      "oblastNameEn": "Pleven",
-      "municipalityCount": 11,
-      "total": {
-        "amount": 150484700,
-        "currency": "BGN",
-        "amountEur": 76941604
+      "capital": {
+        "amount": 6158100,
+        "amountEur": 3148588,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 128462700,
-        "currency": "BGN",
-        "amountEur": 65681936
+        "amountEur": 65681936,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 14806400,
-        "currency": "BGN",
-        "amountEur": 7570393
+        "amountEur": 7570393,
+        "currency": "BGN"
+      },
+      "municipalityCount": 11,
+      "oblastCode": "PVN",
+      "oblastNameBg": "Плевен",
+      "oblastNameEn": "Pleven",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 150484700,
+        "amountEur": 76941604,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1057500,
-        "currency": "BGN",
-        "amountEur": 540691
-      },
-      "capital": {
-        "amount": 6158100,
-        "currency": "BGN",
-        "amountEur": 3148588
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 540691,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "RAZ",
-      "oblastNameBg": "Разград",
-      "oblastNameEn": "Razgrad",
-      "municipalityCount": 7,
-      "total": {
-        "amount": 86855100,
-        "currency": "BGN",
-        "amountEur": 44408307
+      "capital": {
+        "amount": 4037900,
+        "amountEur": 2064545,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 73700100,
-        "currency": "BGN",
-        "amountEur": 37682263
+        "amountEur": 37682263,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 8253500,
-        "currency": "BGN",
-        "amountEur": 4219949
+        "amountEur": 4219949,
+        "currency": "BGN"
+      },
+      "municipalityCount": 7,
+      "oblastCode": "RAZ",
+      "oblastNameBg": "Разград",
+      "oblastNameEn": "Razgrad",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 86855100,
+        "amountEur": 44408307,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 863600,
-        "currency": "BGN",
-        "amountEur": 441551
-      },
-      "capital": {
-        "amount": 4037900,
-        "currency": "BGN",
-        "amountEur": 2064545
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 441551,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "RSE",
-      "oblastNameBg": "Русе",
-      "oblastNameEn": "Ruse",
-      "municipalityCount": 8,
-      "total": {
-        "amount": 118511900,
-        "currency": "BGN",
-        "amountEur": 60594173
+      "capital": {
+        "amount": 4935700,
+        "amountEur": 2523583,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 101093800,
-        "currency": "BGN",
-        "amountEur": 51688439
+        "amountEur": 51688439,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 11280700,
-        "currency": "BGN",
-        "amountEur": 5767730
+        "amountEur": 5767730,
+        "currency": "BGN"
+      },
+      "municipalityCount": 8,
+      "oblastCode": "RSE",
+      "oblastNameBg": "Русе",
+      "oblastNameEn": "Ruse",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 118511900,
+        "amountEur": 60594173,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1201700,
-        "currency": "BGN",
-        "amountEur": 614419
-      },
-      "capital": {
-        "amount": 4935700,
-        "currency": "BGN",
-        "amountEur": 2523583
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 614419,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "SFO",
-      "oblastNameBg": "Софийска",
-      "oblastNameEn": "Sofia (region)",
-      "municipalityCount": 22,
-      "total": {
-        "amount": 160564200,
-        "currency": "BGN",
-        "amountEur": 82095173
+      "capital": {
+        "amount": 11095400,
+        "amountEur": 5672988,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 132296200,
-        "currency": "BGN",
-        "amountEur": 67641973
+        "amountEur": 67641973,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 13437000,
-        "currency": "BGN",
-        "amountEur": 6870226
+        "amountEur": 6870226,
+        "currency": "BGN"
+      },
+      "municipalityCount": 22,
+      "oblastCode": "SFO",
+      "oblastNameBg": "Софийска",
+      "oblastNameEn": "Sofia (region)",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 160564200,
+        "amountEur": 82095173,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 3735600,
-        "currency": "BGN",
-        "amountEur": 1909981
-      },
-      "capital": {
-        "amount": 11095400,
-        "currency": "BGN",
-        "amountEur": 5672988
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 1909981,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "SHU",
-      "oblastNameBg": "Шумен",
-      "oblastNameEn": "Shumen",
-      "municipalityCount": 10,
-      "total": {
-        "amount": 122212700,
-        "currency": "BGN",
-        "amountEur": 62486360
+      "capital": {
+        "amount": 6019600,
+        "amountEur": 3077773,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 102886900,
-        "currency": "BGN",
-        "amountEur": 52605236
+        "amountEur": 52605236,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 12020500,
-        "currency": "BGN",
-        "amountEur": 6145984
+        "amountEur": 6145984,
+        "currency": "BGN"
+      },
+      "municipalityCount": 10,
+      "oblastCode": "SHU",
+      "oblastNameBg": "Шумен",
+      "oblastNameEn": "Shumen",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 122212700,
+        "amountEur": 62486360,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1285700,
-        "currency": "BGN",
-        "amountEur": 657368
-      },
-      "capital": {
-        "amount": 6019600,
-        "currency": "BGN",
-        "amountEur": 3077773
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 657368,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "SLS",
-      "oblastNameBg": "Силистра",
-      "oblastNameEn": "Silistra",
-      "municipalityCount": 7,
-      "total": {
-        "amount": 81213600,
-        "currency": "BGN",
-        "amountEur": 41523854
+      "capital": {
+        "amount": 4268400,
+        "amountEur": 2182397,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 66723700,
-        "currency": "BGN",
-        "amountEur": 34115286
+        "amountEur": 34115286,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 9355200,
-        "currency": "BGN",
-        "amountEur": 4783237
+        "amountEur": 4783237,
+        "currency": "BGN"
+      },
+      "municipalityCount": 7,
+      "oblastCode": "SLS",
+      "oblastNameBg": "Силистра",
+      "oblastNameEn": "Silistra",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 81213600,
+        "amountEur": 41523854,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 866300,
-        "currency": "BGN",
-        "amountEur": 442931
-      },
-      "capital": {
-        "amount": 4268400,
-        "currency": "BGN",
-        "amountEur": 2182397
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 442931,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "SLV",
-      "oblastNameBg": "Сливен",
-      "oblastNameEn": "Sliven",
-      "municipalityCount": 4,
-      "total": {
-        "amount": 121763400,
-        "currency": "BGN",
-        "amountEur": 62256639
+      "capital": {
+        "amount": 5423300,
+        "amountEur": 2772889,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 103636500,
-        "currency": "BGN",
-        "amountEur": 52988501
+        "amountEur": 52988501,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 11398200,
-        "currency": "BGN",
-        "amountEur": 5827807
+        "amountEur": 5827807,
+        "currency": "BGN"
+      },
+      "municipalityCount": 4,
+      "oblastCode": "SLV",
+      "oblastNameBg": "Сливен",
+      "oblastNameEn": "Sliven",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 121763400,
+        "amountEur": 62256639,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1305400,
-        "currency": "BGN",
-        "amountEur": 667440
-      },
-      "capital": {
-        "amount": 5423300,
-        "currency": "BGN",
-        "amountEur": 2772889
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 667440,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "SML",
-      "oblastNameBg": "Смолян",
-      "oblastNameEn": "Smolyan",
-      "municipalityCount": 10,
-      "total": {
-        "amount": 84746100,
-        "currency": "BGN",
-        "amountEur": 43329993
+      "capital": {
+        "amount": 7189200,
+        "amountEur": 3675779,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 68083500,
-        "currency": "BGN",
-        "amountEur": 34810541
+        "amountEur": 34810541,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 7064500,
-        "currency": "BGN",
-        "amountEur": 3612021
+        "amountEur": 3612021,
+        "currency": "BGN"
+      },
+      "municipalityCount": 10,
+      "oblastCode": "SML",
+      "oblastNameBg": "Смолян",
+      "oblastNameEn": "Smolyan",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 84746100,
+        "amountEur": 43329993,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 2408900,
-        "currency": "BGN",
-        "amountEur": 1231650
-      },
-      "capital": {
-        "amount": 7189200,
-        "currency": "BGN",
-        "amountEur": 3675779
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 1231650,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "SOF",
-      "oblastNameBg": "София-град",
-      "oblastNameEn": "Sofia (capital)",
-      "municipalityCount": 1,
-      "total": {
-        "amount": 556103200,
-        "currency": "BGN",
-        "amountEur": 284331051
+      "capital": {
+        "amount": 10394000,
+        "amountEur": 5314368,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 544839300,
-        "currency": "BGN",
-        "amountEur": 278571911
+        "amountEur": 278571911,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "municipalityCount": 1,
+      "oblastCode": "SOF",
+      "oblastNameBg": "София-град",
+      "oblastNameEn": "Sofia (capital)",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 556103200,
+        "amountEur": 284331051,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 869900,
-        "currency": "BGN",
-        "amountEur": 444773
-      },
-      "capital": {
-        "amount": 10394000,
-        "currency": "BGN",
-        "amountEur": 5314368
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 444773,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "SZR",
-      "oblastNameBg": "Стара Загора",
-      "oblastNameEn": "Stara Zagora",
-      "municipalityCount": 11,
-      "total": {
-        "amount": 194226300,
-        "currency": "BGN",
-        "amountEur": 99306330
+      "capital": {
+        "amount": 8366600,
+        "amountEur": 4277775,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 168353800,
-        "currency": "BGN",
-        "amountEur": 86077929
+        "amountEur": 86077929,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 16070200,
-        "currency": "BGN",
-        "amountEur": 8216565
+        "amountEur": 8216565,
+        "currency": "BGN"
+      },
+      "municipalityCount": 11,
+      "oblastCode": "SZR",
+      "oblastNameBg": "Стара Загора",
+      "oblastNameEn": "Stara Zagora",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 194226300,
+        "amountEur": 99306330,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1435700,
-        "currency": "BGN",
-        "amountEur": 734062
-      },
-      "capital": {
-        "amount": 8366600,
-        "currency": "BGN",
-        "amountEur": 4277775
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 734062,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "TGV",
-      "oblastNameBg": "Търговище",
-      "oblastNameEn": "Targovishte",
-      "municipalityCount": 5,
-      "total": {
-        "amount": 76877300,
-        "currency": "BGN",
-        "amountEur": 39306740
+      "capital": {
+        "amount": 6148000,
+        "amountEur": 3143422,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 60495200,
-        "currency": "BGN",
-        "amountEur": 30930704
+        "amountEur": 30930704,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 8584300,
-        "currency": "BGN",
-        "amountEur": 4389082
+        "amountEur": 4389082,
+        "currency": "BGN"
+      },
+      "municipalityCount": 5,
+      "oblastCode": "TGV",
+      "oblastNameBg": "Търговище",
+      "oblastNameEn": "Targovishte",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 76877300,
+        "amountEur": 39306740,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1649800,
-        "currency": "BGN",
-        "amountEur": 843530
-      },
-      "capital": {
-        "amount": 6148000,
-        "currency": "BGN",
-        "amountEur": 3143422
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 843530,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "VAR",
-      "oblastNameBg": "Варна",
-      "oblastNameEn": "Varna",
-      "municipalityCount": 12,
-      "total": {
-        "amount": 253584300,
-        "currency": "BGN",
-        "amountEur": 129655594
+      "capital": {
+        "amount": 8459200,
+        "amountEur": 4325120,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 235716500,
-        "currency": "BGN",
-        "amountEur": 120519932
+        "amountEur": 120519932,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 7835800,
-        "currency": "BGN",
-        "amountEur": 4006381
+        "amountEur": 4006381,
+        "currency": "BGN"
+      },
+      "municipalityCount": 12,
+      "oblastCode": "VAR",
+      "oblastNameBg": "Варна",
+      "oblastNameEn": "Varna",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 253584300,
+        "amountEur": 129655594,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1572800,
-        "currency": "BGN",
-        "amountEur": 804161
-      },
-      "capital": {
-        "amount": 8459200,
-        "currency": "BGN",
-        "amountEur": 4325120
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 804161,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "VID",
-      "oblastNameBg": "Видин",
-      "oblastNameEn": "Vidin",
-      "municipalityCount": 11,
-      "total": {
-        "amount": 69316800,
-        "currency": "BGN",
-        "amountEur": 35441118
+      "capital": {
+        "amount": 4839000,
+        "amountEur": 2474143,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 55847900,
-        "currency": "BGN",
-        "amountEur": 28554576
+        "amountEur": 28554576,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 7808500,
-        "currency": "BGN",
-        "amountEur": 3992424
+        "amountEur": 3992424,
+        "currency": "BGN"
+      },
+      "municipalityCount": 11,
+      "oblastCode": "VID",
+      "oblastNameBg": "Видин",
+      "oblastNameEn": "Vidin",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 69316800,
+        "amountEur": 35441118,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 821400,
-        "currency": "BGN",
-        "amountEur": 419974
-      },
-      "capital": {
-        "amount": 4839000,
-        "currency": "BGN",
-        "amountEur": 2474143
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 419974,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "VRC",
-      "oblastNameBg": "Враца",
-      "oblastNameEn": "Vratsa",
-      "municipalityCount": 10,
-      "total": {
-        "amount": 121743900,
-        "currency": "BGN",
-        "amountEur": 62246668
+      "capital": {
+        "amount": 5255900,
+        "amountEur": 2687300,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 103689800,
-        "currency": "BGN",
-        "amountEur": 53015753
+        "amountEur": 53015753,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 11834500,
-        "currency": "BGN",
-        "amountEur": 6050882
+        "amountEur": 6050882,
+        "currency": "BGN"
+      },
+      "municipalityCount": 10,
+      "oblastCode": "VRC",
+      "oblastNameBg": "Враца",
+      "oblastNameEn": "Vratsa",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 121743900,
+        "amountEur": 62246668,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 963700,
-        "currency": "BGN",
-        "amountEur": 492730
-      },
-      "capital": {
-        "amount": 5255900,
-        "currency": "BGN",
-        "amountEur": 2687300
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 492730,
+        "currency": "BGN"
       }
     },
     {
-      "oblastCode": "VTR",
-      "oblastNameBg": "Велико Търново",
-      "oblastNameEn": "Veliko Tarnovo",
-      "municipalityCount": 10,
-      "total": {
-        "amount": 150930900,
-        "currency": "BGN",
-        "amountEur": 77169744
+      "capital": {
+        "amount": 7984700,
+        "amountEur": 4082512,
+        "currency": "BGN"
       },
       "delegated": {
         "amount": 127855100,
-        "currency": "BGN",
-        "amountEur": 65371273
+        "amountEur": 65371273,
+        "currency": "BGN"
       },
       "equalization": {
         "amount": 13273100,
-        "currency": "BGN",
-        "amountEur": 6786429
+        "amountEur": 6786429,
+        "currency": "BGN"
+      },
+      "municipalityCount": 10,
+      "oblastCode": "VTR",
+      "oblastNameBg": "Велико Търново",
+      "oblastNameEn": "Veliko Tarnovo",
+      "otherTargeted": {
+        "amount": 0,
+        "amountEur": 0,
+        "currency": "BGN"
+      },
+      "total": {
+        "amount": 150930900,
+        "amountEur": 77169744,
+        "currency": "BGN"
       },
       "winter": {
         "amount": 1818000,
-        "currency": "BGN",
-        "amountEur": 929528
-      },
-      "capital": {
-        "amount": 7984700,
-        "currency": "BGN",
-        "amountEur": 4082512
-      },
-      "otherTargeted": {
-        "amount": 0,
-        "currency": "BGN",
-        "amountEur": 0
+        "amountEur": 929528,
+        "currency": "BGN"
       }
     }
-  ]
+  ],
+  "source": {
+    "documentId": "law-2020",
+    "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+  }
 }

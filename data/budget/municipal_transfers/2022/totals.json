@@ -1,64 +1,64 @@
 {
-  "fiscalYear": 2022,
   "asOf": "2022-01-01",
+  "fiscalYear": 2022,
+  "reconciliationDeltasEur": {},
+  "rowSum": {
+    "capital": {
+      "amount": 296310200,
+      "amountEur": 151501000,
+      "currency": "BGN"
+    },
+    "delegated": {
+      "amount": 4889285900,
+      "amountEur": 2499852186,
+      "currency": "BGN"
+    },
+    "equalization": {
+      "amount": 379000000,
+      "amountEur": 193779623,
+      "currency": "BGN"
+    },
+    "otherTargeted": {
+      "amount": 0,
+      "amountEur": 0,
+      "currency": "BGN"
+    },
+    "total": {
+      "amount": 5612824200,
+      "amountEur": 2869791444,
+      "currency": "BGN"
+    },
+    "winter": {
+      "amount": 48228100,
+      "amountEur": 24658636,
+      "currency": "BGN"
+    }
+  },
   "source": {
     "documentId": "law-2022",
     "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
   },
   "totals": {
-    "delegated": {
-      "amount": 4889285900,
-      "currency": "BGN",
-      "amountEur": 2499852186
-    },
-    "equalization": {
-      "amount": 379000000,
-      "currency": "BGN",
-      "amountEur": 193779623
-    },
-    "winter": {
-      "amount": 48228100,
-      "currency": "BGN",
-      "amountEur": 24658636
-    },
     "capital": {
       "amount": 296310200,
-      "currency": "BGN",
-      "amountEur": 151501000
-    },
-    "otherTargeted": null
-  },
-  "rowSum": {
-    "total": {
-      "amount": 5612824200,
-      "currency": "BGN",
-      "amountEur": 2869791444
+      "amountEur": 151501000,
+      "currency": "BGN"
     },
     "delegated": {
       "amount": 4889285900,
-      "currency": "BGN",
-      "amountEur": 2499852186
+      "amountEur": 2499852186,
+      "currency": "BGN"
     },
     "equalization": {
       "amount": 379000000,
-      "currency": "BGN",
-      "amountEur": 193779623
+      "amountEur": 193779623,
+      "currency": "BGN"
     },
+    "otherTargeted": null,
     "winter": {
       "amount": 48228100,
-      "currency": "BGN",
-      "amountEur": 24658636
-    },
-    "capital": {
-      "amount": 296310200,
-      "currency": "BGN",
-      "amountEur": 151501000
-    },
-    "otherTargeted": {
-      "amount": 0,
-      "currency": "BGN",
-      "amountEur": 0
+      "amountEur": 24658636,
+      "currency": "BGN"
     }
-  },
-  "reconciliationDeltasEur": {}
+  }
 }
