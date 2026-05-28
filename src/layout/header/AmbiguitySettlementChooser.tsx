@@ -48,20 +48,33 @@ export const AmbiguitySettlementChooser: FC<Props> = ({
   const { findMunicipality } = useMunicipalities();
   const { findRegion } = useRegions();
 
-  // Parent-context resolver — each candidate gets a "Settlement type · in
-  // município X, oblast Y" subtitle so duplicates like "България" the село
-  // can be told apart from the country, and the seven "Аврамово" villages
-  // can be told apart from each other. Settlement-type prefix (с. / гр.)
-  // also signals "this is a village, not the country" at a glance.
+  // Parent-context resolver — each candidate gets a subtitle so duplicates
+  // can be told apart (seven "Аврамово" villages, two "Средец" candidates,
+  // etc.).
+  //
+  // Settlement types we have to handle:
+  //   - Regular village (с.) / town (гр.) — show "т.в.м. · общ. X · обл. Y"
+  //   - Sofia район — its settlements.json record has t_v_m="общ." because
+  //     each район is administratively its own община within Sofia city.
+  //     Naïvely prefixing "общ. {muni.name}" then gave "общ. общ. Средец"
+  //     in the chooser. For these, the settlement IS its own município,
+  //     so we drop both the t_v_m prefix and the município name and let
+  //     the oblast (which on Sofia районы is "София 24 МИР" or similar)
+  //     carry the "Sofia район" signal.
   const parentLine = (settlement: SettlementInfo): string => {
-    const m = findMunicipality(settlement.obshtina);
+    const isOwnMunicipality = settlement.t_v_m === "общ.";
     const r = findRegion(settlement.oblast);
-    const muniName = m ? (lang === "bg" ? m.name : m.name_en) : null;
     const regionName = r
       ? lang === "bg"
         ? r.long_name || r.name
         : r.long_name_en || r.name_en
       : null;
+    if (isOwnMunicipality) {
+      if (!regionName) return "";
+      return lang === "bg" ? `обл. ${regionName}` : `${regionName} oblast`;
+    }
+    const m = findMunicipality(settlement.obshtina);
+    const muniName = m ? (lang === "bg" ? m.name : m.name_en) : null;
     if (lang === "bg") {
       const parts = [
         settlement.t_v_m,
