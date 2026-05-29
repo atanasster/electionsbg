@@ -58,6 +58,42 @@ const formatCycleShort = (cycle: string): string => {
   return `${m[2]}.${m[1].slice(2)}`;
 };
 
+// Reason the município has no bundle for this cycle. Sofia районs (S2***)
+// weren't elected separately until 2015 — pre-2015 cycles legitimately have
+// no per-район shard because the city-wide СОФ bundle covered them.
+// Everywhere else, a missing bundle just means CIK didn't publish results
+// for this município in this cycle (rare; mostly partial-cycle artefacts).
+const missingBundleReason = (
+  cycle: string,
+  obshtinaCode: string,
+  lang: "bg" | "en",
+): string => {
+  const yearMatch = cycle.match(/^(\d{4})/);
+  const year = yearMatch ? parseInt(yearMatch[1], 10) : 0;
+  const isSofiaRayon = /^S2\d{3}$/.test(obshtinaCode);
+  if (isSofiaRayon && year < 2015) {
+    return lang === "bg"
+      ? "Столичните райони не са избирани отделно преди 2015 г. — през този вот районът е представен от градския вот на София."
+      : "Sofia districts were not elected separately before 2015 — the район was covered by the city-wide Sofia ballot in this cycle.";
+  }
+  return lang === "bg"
+    ? "Няма данни за тази община за този вот."
+    : "No local-elections data published for this município in this cycle.";
+};
+
+const PlaceholderTooltipContent: FC<{
+  cycle: string;
+  reason: string;
+  lang: "bg" | "en";
+}> = ({ cycle, reason, lang }) => (
+  <div className="text-left max-w-[240px]">
+    <div className="text-[10px] uppercase tracking-wide opacity-70 mb-1">
+      {formatCycleLong(cycle, lang)}
+    </div>
+    <div className="text-[11px] leading-snug">{reason}</div>
+  </div>
+);
+
 const MONTHS_BG = [
   "януари",
   "февруари",
@@ -107,6 +143,7 @@ type MayorChipProps = {
   cycle: string;
   mayor: LocalMayorResult | null;
   wentToR2: boolean;
+  obshtinaCode: string;
   obshtinaName: string;
   lang: "bg" | "en";
   ringColor: string;
@@ -116,24 +153,36 @@ const MayorChip: FC<MayorChipProps> = ({
   cycle,
   mayor,
   wentToR2,
+  obshtinaCode,
   obshtinaName,
   lang,
   ringColor,
 }) => {
   const ring = mayor ? ringColor : "#e5e7eb";
   if (!mayor) {
+    const reason = missingBundleReason(cycle, obshtinaCode, lang);
     return (
-      <div className="flex flex-col items-center gap-1 min-w-[60px]">
-        <div
-          className="size-10 rounded-full border-2 border-dashed border-muted-foreground/30 flex items-center justify-center text-[10px] text-muted-foreground/50"
-          aria-hidden
-        >
-          —
+      <Tooltip
+        content={
+          <PlaceholderTooltipContent
+            cycle={cycle}
+            reason={reason}
+            lang={lang}
+          />
+        }
+      >
+        <div className="flex flex-col items-center gap-1 min-w-[60px] cursor-help">
+          <div
+            className="size-10 rounded-full border-2 border-dashed border-muted-foreground/30 flex items-center justify-center text-[10px] text-muted-foreground/50"
+            aria-label={reason}
+          >
+            —
+          </div>
+          <span className="text-[9px] text-muted-foreground tabular-nums">
+            {formatCycleShort(cycle)}
+          </span>
         </div>
-        <span className="text-[9px] text-muted-foreground tabular-nums">
-          {formatCycleShort(cycle)}
-        </span>
-      </div>
+      </Tooltip>
     );
   }
   const tooltipContent = (
@@ -205,6 +254,7 @@ const MayorChip: FC<MayorChipProps> = ({
 type CouncilBarProps = {
   cycle: string;
   council: LocalCouncilParty[];
+  obshtinaCode: string;
   obshtinaName: string;
   lang: "bg" | "en";
   resolveColor: (p: LocalCouncilParty) => string;
@@ -213,6 +263,7 @@ type CouncilBarProps = {
 const CouncilBar: FC<CouncilBarProps> = ({
   cycle,
   council,
+  obshtinaCode,
   obshtinaName,
   lang,
   resolveColor,
@@ -224,13 +275,25 @@ const CouncilBar: FC<CouncilBarProps> = ({
     .slice(0, 3);
   const numLocale = lang === "bg" ? "bg-BG" : "en-GB";
   if (totalMandates === 0 || top3.length === 0) {
+    const reason = missingBundleReason(cycle, obshtinaCode, lang);
     return (
-      <div className="flex flex-col gap-1">
-        <div className="h-5 rounded bg-muted/30" aria-hidden />
-        <span className="text-[9px] text-muted-foreground tabular-nums">
-          {formatCycleShort(cycle)} · {lang === "bg" ? "няма данни" : "no data"}
-        </span>
-      </div>
+      <Tooltip
+        content={
+          <PlaceholderTooltipContent
+            cycle={cycle}
+            reason={reason}
+            lang={lang}
+          />
+        }
+      >
+        <div className="flex flex-col gap-1 cursor-help">
+          <div className="h-5 rounded bg-muted/30" aria-label={reason} />
+          <span className="text-[9px] text-muted-foreground tabular-nums">
+            {formatCycleShort(cycle)} ·{" "}
+            {lang === "bg" ? "няма данни" : "no data"}
+          </span>
+        </div>
+      </Tooltip>
     );
   }
   const tooltipContent = (
@@ -375,6 +438,7 @@ export const MyAreaLocalHistoryStrip: FC<Props> = ({ obshtina }) => {
                     cycle={r.cycle}
                     mayor={mayor}
                     wentToR2={wentToR2}
+                    obshtinaCode={obshtina}
                     obshtinaName={r.bundle?.obshtinaName ?? obshtinaName}
                     lang={lang}
                     ringColor={ringColor}
@@ -445,6 +509,7 @@ export const MyAreaLocalHistoryStrip: FC<Props> = ({ obshtina }) => {
                 key={r.cycle}
                 cycle={r.cycle}
                 council={r.bundle?.council ?? []}
+                obshtinaCode={obshtina}
                 obshtinaName={r.bundle?.obshtinaName ?? obshtinaName}
                 lang={lang}
                 resolveColor={resolveColor}
