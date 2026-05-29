@@ -29,6 +29,7 @@ import { MyAreaUpcomingBallotTile } from "./MyAreaUpcomingBallotTile";
 import { hasUpcomingLocalBallot } from "@/data/myarea/upcomingElections";
 import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
+import { MyAreaMunicipalBudgetTile } from "./MyAreaMunicipalBudgetTile";
 import { MyAreaLocalTaxesTile } from "./MyAreaLocalTaxesTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
 import { MyAreaQualityStrip } from "./MyAreaQualityStrip";
@@ -229,10 +230,26 @@ export const MyAreaScreen: FC = () => {
           <MyAreaLocalTaxesTile obshtina={area.obshtina} />
           <MyAreaPropertyStockTile oblast={area.oblast} />
         </div>
+        {/* "Money in / money out" pair — Чл.53 state-budget envelope
+            (always present for the 265 общини, with an adaptive
+            касово-изпълнение sub-block for the 2 munis that publish a B3)
+            on the left, and the EU-funded projects list/map on the right.
+            ProjectsMapTile uses a sibling-driven height trick (lg:h-full +
+            lg:absolute lg:inset-0) so its scrollable contract list matches
+            whichever tile is taller — keeps the row aligned regardless of
+            whether the budget tile shows the execution sub-block. */}
         <div className="grid gap-3 grid-cols-1 lg:grid-cols-2 [&>*:only-child]:lg:col-span-2">
-          <MyAreaTaxReceiptTile obshtina={area.obshtina} oblast={area.oblast} />
+          <MyAreaMunicipalBudgetTile
+            obshtina={area.obshtina}
+            oblast={area.oblast}
+          />
           <MyAreaProjectsMapTile obshtina={area.obshtina} />
         </div>
+        {/* Personal-tax receipt calculator — content-rich (COFOG breakdown
+            + municipal-return line + local-tax estimate + capital-program
+            top items). Renders full-width on its own row so the calculator
+            chrome and the multi-section body have room to breathe. */}
+        <MyAreaTaxReceiptTile obshtina={area.obshtina} oblast={area.oblast} />
 
         {/* Band F — Quality of life. A 4-up strip summarising
             crime / air / schools / services with one headline number
