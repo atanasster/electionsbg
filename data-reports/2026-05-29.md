@@ -1,10 +1,10 @@
-# Watch report — 2026-05-29 (29.05.2026 г., 20:04 Europe/Sofia)
+# Watch report — 2026-05-29 (29.05.2026 г., 22:23 Europe/Sofia)
 
 ## Changed
-- **Общински наредби за местни данъци**: 4 naredba(s) re-uploaded: DOB03, RAZ26, SFO39, SZR22
+_(no changes — all upstreams stable)_
 
 ## Unchanged
-_(none)_
+- Общински наредби за местни данъци: unchanged (9 município(s) wired)
 
 ## Skipped (off-cadence)
 - Parliament roll-call votes (daily): 1 new session(s), 1 with roll-call CSV (latest id 11131, 2026-05-28) · next check 2026-05-30
@@ -58,4 +58,4 @@ _(none)_
 _(none)_
 
 ---
-_Watcher run at 2026-05-29T17:04:54.003Z UTC._
+_Watcher run at 2026-05-29T19:23:17.169Z UTC._
