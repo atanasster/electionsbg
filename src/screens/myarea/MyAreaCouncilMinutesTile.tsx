@@ -61,39 +61,50 @@ export const MyAreaCouncilMinutesTile: FC<Props> = ({ obshtina }) => {
         </span>
       </div>
       <ul className="flex flex-col gap-3">
-        {visible.map((r) => (
-          <li key={r.id} className="border-b last:border-b-0 pb-3 last:pb-0">
-            <div className="text-[10px] tabular-nums text-muted-foreground mb-0.5">
-              {formatDate(r.date, lang)}
-            </div>
-            <div className="font-medium text-sm mb-1">{r.title}</div>
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              {lang === "bg" ? r.summary_bg : r.summary_en}
-            </p>
-            <div className="flex items-center gap-1.5 mt-2 flex-wrap">
-              {r.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-[10px] px-1.5 py-0.5 rounded"
-                  style={{
-                    backgroundColor: `${TAG_COLOR[tag] ?? "#888"}22`,
-                    color: TAG_COLOR[tag] ?? "#888",
-                  }}
+        {visible.map((r) => {
+          // summary + tags only exist on records that went through the
+          // Phase-4 Gemini-digest pass. Sofia's OCR-recovered records
+          // ship without them today, so guard before .map / lang-dispatch
+          // — without this the tile crashes the moment SOF resolutions
+          // start surfacing through the councilObshtinaMap bridge.
+          const summary = lang === "bg" ? r.summary_bg : r.summary_en;
+          const tags = r.tags ?? [];
+          return (
+            <li key={r.id} className="border-b last:border-b-0 pb-3 last:pb-0">
+              <div className="text-[10px] tabular-nums text-muted-foreground mb-0.5">
+                {formatDate(r.date, lang)}
+              </div>
+              <div className="font-medium text-sm mb-1">{r.title}</div>
+              {summary ? (
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {summary}
+                </p>
+              ) : null}
+              <div className="flex items-center gap-1.5 mt-2 flex-wrap">
+                {tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[10px] px-1.5 py-0.5 rounded"
+                    style={{
+                      backgroundColor: `${TAG_COLOR[tag] ?? "#888"}22`,
+                      color: TAG_COLOR[tag] ?? "#888",
+                    }}
+                  >
+                    {data.tags[tag]?.[lang] ?? tag}
+                  </span>
+                ))}
+                <a
+                  href={r.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] text-primary underline ml-auto"
                 >
-                  {data.tags[tag]?.[lang] ?? tag}
-                </span>
-              ))}
-              <a
-                href={r.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[10px] text-primary underline ml-auto"
-              >
-                {t("my_area_council_source_link")}
-              </a>
-            </div>
-          </li>
-        ))}
+                  {t("my_area_council_source_link")}
+                </a>
+              </div>
+            </li>
+          );
+        })}
       </ul>
       <p className="text-[10px] text-muted-foreground mt-3 italic">
         {t("my_area_council_ai_disclaimer")}
