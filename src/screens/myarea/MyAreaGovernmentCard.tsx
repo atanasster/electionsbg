@@ -19,7 +19,7 @@ import { useMunicipalContacts } from "@/data/officials/useMunicipalContacts";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
-import type { LocalCouncilParty } from "@/data/local/types";
+import { buildCouncilSegments, type CouncilSegment } from "./councilSegments";
 
 // Small clickable mail-icon chip rendered next to an official's name
 // when iisda's directory has an email for them. Visually unobtrusive
@@ -44,29 +44,6 @@ const MailLink: FC<{ email: string; nameForAria: string }> = ({
 type Props = {
   obshtina: string;
 };
-
-type CouncilSegment = {
-  key: string;
-  label: string;
-  color: string;
-  seats: number;
-  party: LocalCouncilParty;
-};
-
-// Distinguishable shades for council parties that have no canonical color
-// (independents and local coalitions). Cycled in sort order so adjacent
-// unmapped parties never collapse into the same grey blob.
-const UNMAPPED_PALETTE = [
-  "#94A3B8", // slate-400
-  "#A78BFA", // violet-400
-  "#FBBF24", // amber-400
-  "#34D399", // emerald-400
-  "#F472B6", // pink-400
-  "#FB923C", // orange-400
-  "#22D3EE", // cyan-400
-  "#C084FC", // purple-400
-];
-const INDEPENDENT_COLOR = "#6B7280"; // slate-500 — reserved for "Независим"
 
 export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
   const { t, i18n } = useTranslation();
@@ -112,40 +89,14 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
     return local?.localPartyName ?? null;
   }, [localBundle, displayNameForId, lang]);
 
-  // Council composition as a stacked bar. Each segment is one local
-  // party's mandate count (no merges) — but we colour by canonical id so
-  // visually-related parties share a hue. Unmapped local coalitions rotate
-  // through a small palette so adjacent grey segments stay distinguishable.
-  const councilSegments = useMemo<CouncilSegment[]>(() => {
-    if (!localBundle) return [];
-    const parties = localBundle.council
-      .filter((p) => p.mandatesWon > 0)
-      .sort((a, b) => b.mandatesWon - a.mandatesWon);
-    let unmappedIdx = 0;
-    return parties.map((p) => {
-      const canonicalId = p.primaryCanonicalId;
-      const label =
-        (canonicalId ? displayNameForId(canonicalId) : null) ??
-        p.localPartyName;
-      const canonicalColor = canonicalId ? colorFor(label) : undefined;
-      let color: string;
-      if (canonicalColor) {
-        color = canonicalColor;
-      } else if (p.isIndependent) {
-        color = INDEPENDENT_COLOR;
-      } else {
-        color = UNMAPPED_PALETTE[unmappedIdx % UNMAPPED_PALETTE.length];
-        unmappedIdx++;
-      }
-      return {
-        key: `${p.localPartyNum}-${p.localPartyName}`,
-        label,
-        color,
-        seats: p.mandatesWon,
-        party: p,
-      };
-    });
-  }, [localBundle, displayNameForId, colorFor]);
+  // Council composition as a stacked bar — see councilSegments.ts for the
+  // palette / fallback rules (shared with MyAreaLocalHistoryStrip so the
+  // history row and this snapshot card render with the same colours).
+  const councilSegments = useMemo<CouncilSegment[]>(
+    () =>
+      buildCouncilSegments(localBundle?.council, displayNameForId, colorFor),
+    [localBundle, displayNameForId, colorFor],
+  );
   const totalSeats = councilSegments.reduce((s, x) => s + x.seats, 0);
 
   // Roster index: normalized-name → slug. Lets us link elected councillor /
