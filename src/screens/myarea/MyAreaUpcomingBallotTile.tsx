@@ -16,12 +16,13 @@ export const MyAreaUpcomingBallotTile: FC = () => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
 
-  // Cap at events within the next 365 days. Anything further out is noise
-  // — a "след 1105 дни" badge next to "след 164 дни" trivializes the
-  // near-term event by sitting in the same list. The cap effectively
-  // hides distant EP / parliamentary placeholders until the actual
-  // decree gets within a year.
+  // Scoped to local elections only — this is the "my-area" dashboard,
+  // and the only forward-looking event tied to the user's settlement is
+  // the next local cycle (mayor + council). Presidential / parliamentary
+  // / EP ballots surface elsewhere. Cap at 365 days so a placeholder
+  // four years out doesn't sit in the same list as a near-term event.
   const visible = UPCOMING_ELECTIONS.filter((e) => {
+    if (e.kind !== "local") return false;
     const d = daysUntil(e.date);
     return d >= 0 && d <= 365;
   }).slice(0, 3);

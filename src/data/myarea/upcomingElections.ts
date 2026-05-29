@@ -47,3 +47,15 @@ export const nextElection = (
   if (future.length === 0) return null;
   return future.sort((a, b) => a.date.localeCompare(b.date))[0];
 };
+
+/** True when a local election sits within the next 365 days — matches
+ * the visibility rule of MyAreaUpcomingBallotTile so callers can drop
+ * the side column when the tile would render empty. */
+export const hasUpcomingLocalBallot = (
+  list: UpcomingElection[] = UPCOMING_ELECTIONS,
+): boolean =>
+  list.some((e) => {
+    if (e.kind !== "local") return false;
+    const d = daysUntil(e.date);
+    return d >= 0 && d <= 365;
+  });

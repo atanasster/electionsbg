@@ -26,6 +26,7 @@ import { MyAreaHero } from "./MyAreaHero";
 import { MyAreaRepresentativesStrip } from "./MyAreaRepresentativesStrip";
 import { MyAreaImportantVotesTile } from "./MyAreaImportantVotesTile";
 import { MyAreaUpcomingBallotTile } from "./MyAreaUpcomingBallotTile";
+import { hasUpcomingLocalBallot } from "@/data/myarea/upcomingElections";
 import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 import { MyAreaLocalTaxesTile } from "./MyAreaLocalTaxesTile";
@@ -128,10 +129,14 @@ export const MyAreaScreen: FC = () => {
             empty. See src/data/myarea/useNextAction.ts for priorities. */}
         <MyAreaActionBand obshtina={area.obshtina} />
 
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+        {hasUpcomingLocalBallot() ? (
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+            <MyAreaRepresentativesStrip oblast={area.oblast} />
+            <MyAreaUpcomingBallotTile />
+          </div>
+        ) : (
           <MyAreaRepresentativesStrip oblast={area.oblast} />
-          <MyAreaUpcomingBallotTile />
-        </div>
+        )}
 
         {/* "Как гласуваха" — voting record of the area's MPs on the most
             consequential roll-call items from the currently-selected NS.
