@@ -185,6 +185,41 @@ export const MyAreaCouncilTile: FC<Props> = ({ obshtina }) => {
     [resolutions],
   );
 
+  // Standouts — top 3 by party-dissent + bottom 3 by attendance.
+  // Picks one name per (entry, metric) — the same councillor can show up
+  // on both lists if they're a low-attendance habitual dissenter.
+  // Independents / local-coalition councillors without a partyCanonicalId
+  // are excluded from the dissent leaderboard (no party reference frame).
+  // Avatars / parties come from the existing rosterByKey + candidateLink
+  // decoration so no extra fetch is needed.
+  const standouts = useMemo(() => {
+    const all = Array.from(rosterByKey.values())
+      .map((entry) => {
+        const sig = signalsBySlug.get(entry.slug);
+        if (!sig || sig.votesCast === 0) return null;
+        return {
+          entry,
+          attendance: sig.attendance?.attendance ?? 0,
+          dissent: sig.dissent?.pctValue ?? null,
+        };
+      })
+      .filter((x): x is NonNullable<typeof x> => x !== null);
+    // Lowest attendance (need ≥ 5 votes cast to be a meaningful sample so
+    // a one-vote no-shower doesn't dominate the leaderboard).
+    const byAttendance = all
+      .filter((x) => (signalsBySlug.get(x.entry.slug)?.votesCast ?? 0) >= 5)
+      .sort((a, b) => a.attendance - b.attendance)
+      .slice(0, 3);
+    // Highest party-dissent — drop nulls + only show entries above the
+    // useCouncillorSignals badge threshold (10%) so the chip isn't shown
+    // for a 1% deviation that's plausibly noise.
+    const byDissent = all
+      .filter((x) => x.dissent != null && x.dissent >= 0.1)
+      .sort((a, b) => (b.dissent ?? 0) - (a.dissent ?? 0))
+      .slice(0, 3);
+    return { byAttendance, byDissent };
+  }, [rosterByKey, signalsBySlug]);
+
   // Auto-hide when there's nothing for the município yet. All hooks above
   // this gate are unconditional — keep new hooks above too.
   if (!data || resolutions.length === 0) return null;
@@ -351,6 +386,104 @@ export const MyAreaCouncilTile: FC<Props> = ({ obshtina }) => {
           ? `Последни решения${muniName ? " — " + muniName : ""}`
           : `Recent decisions${muniName ? " — " + muniName : ""}`}
       </p>
+
+      {/* Standouts strip — top 3 dissenters + bottom 3 attendance. Auto-
+          hides when no councillor signals are available (e.g. before the
+          per-município ingest has run any named votes). */}
+      {standouts.byAttendance.length > 0 || standouts.byDissent.length > 0 ? (
+        <div className="grid gap-2 sm:grid-cols-2 mb-3 text-[11px]">
+          {standouts.byDissent.length > 0 ? (
+            <div className="rounded-md border bg-amber-500/5 p-2">
+              <div className="text-[10px] uppercase tracking-wide text-amber-700/80 mb-1">
+                {lang === "bg"
+                  ? "Гласуват против партията"
+                  : "Vote against party"}
+              </div>
+              <div className="flex flex-col gap-1">
+                {standouts.byDissent.map((s) => {
+                  const link = s.entry.candidateLink;
+                  const party = link?.partyCanonicalId
+                    ? partyById.get(link.partyCanonicalId)
+                    : null;
+                  const pct = Math.round((s.dissent ?? 0) * 100);
+                  return (
+                    <Link
+                      key={s.entry.slug}
+                      to={`/officials/${s.entry.slug}`}
+                      underline={false}
+                      className="flex items-center gap-2 hover:underline"
+                    >
+                      <Avatar className="h-5 w-5 shrink-0">
+                        {link?.photoUrl ? (
+                          <AvatarImage
+                            src={link.photoUrl}
+                            alt={s.entry.name}
+                            className="object-cover"
+                          />
+                        ) : null}
+                        <AvatarFallback
+                          className="text-[8px] font-bold text-white"
+                          style={{ backgroundColor: party?.color ?? "#9ca3af" }}
+                        >
+                          {initials(s.entry.name)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="truncate flex-1">{s.entry.name}</span>
+                      <span className="tabular-nums text-amber-700 font-medium">
+                        {pct}%
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
+          {standouts.byAttendance.length > 0 ? (
+            <div className="rounded-md border bg-rose-500/5 p-2">
+              <div className="text-[10px] uppercase tracking-wide text-rose-700/80 mb-1">
+                {lang === "bg" ? "Най-ниска посещаемост" : "Lowest attendance"}
+              </div>
+              <div className="flex flex-col gap-1">
+                {standouts.byAttendance.map((s) => {
+                  const link = s.entry.candidateLink;
+                  const party = link?.partyCanonicalId
+                    ? partyById.get(link.partyCanonicalId)
+                    : null;
+                  const pct = Math.round(s.attendance * 100);
+                  return (
+                    <Link
+                      key={s.entry.slug}
+                      to={`/officials/${s.entry.slug}`}
+                      underline={false}
+                      className="flex items-center gap-2 hover:underline"
+                    >
+                      <Avatar className="h-5 w-5 shrink-0">
+                        {link?.photoUrl ? (
+                          <AvatarImage
+                            src={link.photoUrl}
+                            alt={s.entry.name}
+                            className="object-cover"
+                          />
+                        ) : null}
+                        <AvatarFallback
+                          className="text-[8px] font-bold text-white"
+                          style={{ backgroundColor: party?.color ?? "#9ca3af" }}
+                        >
+                          {initials(s.entry.name)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="truncate flex-1">{s.entry.name}</span>
+                      <span className="tabular-nums text-rose-700 font-medium">
+                        {pct}%
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
 
       {/* Filter strip — single "Спорни" chip toggles the contested view */}
       {contestedCount > 0 ? (
