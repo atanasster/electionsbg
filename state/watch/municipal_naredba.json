@@ -1,8 +1,8 @@
 {
   "detail": "4 município(s) wired",
-  "fingerprint": "f0b32f942afcb791c7c99fd91e21652b63ef01c4d52234fd8799734148ddcdd9",
-  "lastChanged": "2026-05-29T16:38:16.082Z",
-  "lastChecked": "2026-05-29T16:38:27.963Z",
+  "fingerprint": "fe14096be373e83175c94367a4cb199bc5f99d86ce6393ce53ad99b455119408",
+  "lastChanged": "2026-05-29T16:54:26.342Z",
+  "lastChecked": "2026-05-29T16:54:26.342Z",
   "meta": {
     "perObshtina": {
       "SOF00": [
@@ -23,6 +23,12 @@
           "url": "https://www.varna.bg/upload/20701/NAREDBA_na_ObS_Varna_za_opredelqneto_i_administriraneto_na_mestnite_taksi_i_ceni_na_uslugi_na_terito.pdf",
           "status": 200,
           "lastModified": "Mon, 23 Jun 2025 08:24:06 GMT"
+        },
+        {
+          "url": "https://varna.obshtini.bg/doc/345772",
+          "status": 200,
+          "length": "722",
+          "lastModified": "Wed, 27 Aug 2025 06:17:29 GMT"
         }
       ],
       "BGS04": [
@@ -36,6 +42,12 @@
       "PDV22": [
         {
           "url": "https://plovdiv.obshtini.bg/doc/388893",
+          "status": 200,
+          "length": "722",
+          "lastModified": "Wed, 27 Aug 2025 06:17:29 GMT"
+        },
+        {
+          "url": "https://plovdiv.obshtini.bg/doc/388894",
           "status": 200,
           "length": "722",
           "lastModified": "Wed, 27 Aug 2025 06:17:29 GMT"
