@@ -14,7 +14,8 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Vote, ChevronRight } from "lucide-react";
+import { Vote, ChevronRight, ChevronDown, ChevronUp } from "lucide-react";
+import { useUrlExpandedSet } from "@/screens/utils/useUrlExpandedSet";
 import { Card } from "@/components/ui/card";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useMps, type MpIndexEntry } from "@/data/parliament/useMps";
@@ -137,6 +138,7 @@ export const MyAreaImportantVotesTile: FC<Props> = ({ oblast }) => {
 
   const mpIds = useMemo(() => mpRows.map((r) => r.mp.id), [mpRows]);
   const { items, isLoading } = useAreaImportantVotes(mpIds);
+  const { isExpanded, toggle } = useUrlExpandedSet("expandedVotes");
   // Attendance / dissent signals — same fetch the strip above already
   // made, so this is free from React Query's cache.
   const signals = useMpSignals(mpIds);
@@ -191,9 +193,11 @@ export const MyAreaImportantVotesTile: FC<Props> = ({ oblast }) => {
           const topicLabel = TOPIC_LABEL[it.topic][lang];
           const outcomeLabel = OUTCOME_LABEL[it.outcome][lang];
           const totalCast = it.tally.yes + it.tally.no + it.tally.abstain;
+          const rowId = `${it.date}-${it.item}`;
+          const expanded = isExpanded(rowId);
           return (
             <div
-              key={`${it.date}-${it.item}`}
+              key={rowId}
               className="rounded-md border bg-card/40 p-2.5 flex flex-col gap-2"
             >
               <div className="flex items-center gap-1.5 flex-wrap">
@@ -207,12 +211,33 @@ export const MyAreaImportantVotesTile: FC<Props> = ({ oblast }) => {
                 >
                   {outcomeLabel}
                 </span>
-                <span className="text-[10px] text-muted-foreground tabular-nums ml-auto">
-                  {dateFmt.format(new Date(it.date))}
-                  {totalCast > 0
-                    ? ` · ${it.tally.yes}–${it.tally.no}–${it.tally.abstain}`
-                    : ""}
-                </span>
+                <button
+                  type="button"
+                  onClick={() => toggle(rowId)}
+                  aria-expanded={expanded}
+                  aria-label={
+                    lang === "bg"
+                      ? expanded
+                        ? "Скрий как гласуваха"
+                        : "Виж как гласуваха"
+                      : expanded
+                        ? "Hide how they voted"
+                        : "Show how they voted"
+                  }
+                  className="ml-auto flex items-center gap-1 text-[10px] text-muted-foreground tabular-nums hover:text-foreground transition-colors"
+                >
+                  <span>
+                    {dateFmt.format(new Date(it.date))}
+                    {totalCast > 0
+                      ? ` · ${it.tally.yes}–${it.tally.no}–${it.tally.abstain}`
+                      : ""}
+                  </span>
+                  {expanded ? (
+                    <ChevronUp className="size-3" />
+                  ) : (
+                    <ChevronDown className="size-3" />
+                  )}
+                </button>
               </div>
               <Link
                 to={it.href}
@@ -222,99 +247,101 @@ export const MyAreaImportantVotesTile: FC<Props> = ({ oblast }) => {
                 <span className="line-clamp-2">{it.title}</span>
                 <ChevronRight className="size-3 mt-0.5 shrink-0 opacity-50 group-hover:opacity-100 transition-opacity" />
               </Link>
-              <div className="flex flex-wrap gap-1.5">
-                {mpRows.map((row) => {
-                  const vote = it.mpVotes.get(row.mp.id) ?? "absent";
-                  const voteColor = VOTE_COLOR[vote];
-                  const voteLabel = t(VOTE_LABEL_KEY[vote]);
-                  const sig = signals.get(row.mp.id);
-                  const attendanceLabel = sig?.attendance
-                    ? lang === "bg"
-                      ? sig.attendance.label_bg
-                      : sig.attendance.label_en
-                    : null;
-                  const dissentLabel = sig?.dissent
-                    ? lang === "bg"
-                      ? sig.dissent.label_bg
-                      : sig.dissent.label_en
-                    : null;
-                  const aria = `${row.displayName} — ${voteLabel}`;
-                  return (
-                    <Tooltip
-                      key={row.mp.id}
-                      content={
-                        <div className="flex flex-col gap-1.5">
-                          <div className="font-semibold leading-tight">
-                            {row.displayName}
-                          </div>
-                          <div>
-                            {/* Colored chip — matches the CandidateNamesake
+              {expanded ? (
+                <div className="flex flex-wrap gap-1.5">
+                  {mpRows.map((row) => {
+                    const vote = it.mpVotes.get(row.mp.id) ?? "absent";
+                    const voteColor = VOTE_COLOR[vote];
+                    const voteLabel = t(VOTE_LABEL_KEY[vote]);
+                    const sig = signals.get(row.mp.id);
+                    const attendanceLabel = sig?.attendance
+                      ? lang === "bg"
+                        ? sig.attendance.label_bg
+                        : sig.attendance.label_en
+                      : null;
+                    const dissentLabel = sig?.dissent
+                      ? lang === "bg"
+                        ? sig.dissent.label_bg
+                        : sig.dissent.label_en
+                      : null;
+                    const aria = `${row.displayName} — ${voteLabel}`;
+                    return (
+                      <Tooltip
+                        key={row.mp.id}
+                        content={
+                          <div className="flex flex-col gap-1.5">
+                            <div className="font-semibold leading-tight">
+                              {row.displayName}
+                            </div>
+                            <div>
+                              {/* Colored chip — matches the CandidateNamesake
                                 pattern in src/screens/components/candidates/
                                 CandidateNamesakeChooser.tsx so party labels
                                 look consistent across the site. */}
-                            <span
-                              className="inline-block text-[10px] font-medium rounded px-1.5 py-0.5 text-white leading-none"
+                              <span
+                                className="inline-block text-[10px] font-medium rounded px-1.5 py-0.5 text-white leading-none"
+                                style={{ backgroundColor: row.partyColor }}
+                              >
+                                {row.partyLabel}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1.5 mt-0.5">
+                              <span
+                                className="inline-block h-2.5 w-2.5 rounded-full"
+                                style={{ backgroundColor: voteColor }}
+                              />
+                              <span
+                                className="text-xs font-medium"
+                                style={{ color: voteColor }}
+                              >
+                                {voteLabel}
+                              </span>
+                            </div>
+                            {attendanceLabel || dissentLabel ? (
+                              <div className="text-[10px] text-muted-foreground mt-0.5">
+                                {attendanceLabel}
+                                {attendanceLabel && dissentLabel ? " · " : ""}
+                                {dissentLabel}
+                              </div>
+                            ) : null}
+                            <div className="text-[10px] text-muted-foreground mt-1 italic">
+                              {lang === "bg"
+                                ? "Натиснете за профил"
+                                : "Click for profile"}
+                            </div>
+                          </div>
+                        }
+                      >
+                        <Link
+                          to={candidateUrlForMp(row.mp.id)}
+                          underline={false}
+                          aria-label={aria}
+                          className="block"
+                        >
+                          <Avatar
+                            className="h-7 w-7 shrink-0 ring-[3px] ring-offset-1 ring-offset-card hover:scale-110 transition-transform"
+                            style={{ ["--tw-ring-color" as string]: voteColor }}
+                          >
+                            {row.mp.photoUrl ? (
+                              <AvatarImage
+                                src={row.mp.photoUrl}
+                                alt={row.displayName}
+                                className="object-cover"
+                              />
+                            ) : null}
+                            <AvatarFallback
+                              className="text-[9px] font-bold text-white"
                               style={{ backgroundColor: row.partyColor }}
                             >
-                              {row.partyLabel}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1.5 mt-0.5">
-                            <span
-                              className="inline-block h-2.5 w-2.5 rounded-full"
-                              style={{ backgroundColor: voteColor }}
-                            />
-                            <span
-                              className="text-xs font-medium"
-                              style={{ color: voteColor }}
-                            >
-                              {voteLabel}
-                            </span>
-                          </div>
-                          {attendanceLabel || dissentLabel ? (
-                            <div className="text-[10px] text-muted-foreground mt-0.5">
-                              {attendanceLabel}
-                              {attendanceLabel && dissentLabel ? " · " : ""}
-                              {dissentLabel}
-                            </div>
-                          ) : null}
-                          <div className="text-[10px] text-muted-foreground mt-1 italic">
-                            {lang === "bg"
-                              ? "Натиснете за профил"
-                              : "Click for profile"}
-                          </div>
-                        </div>
-                      }
-                    >
-                      <Link
-                        to={candidateUrlForMp(row.mp.id)}
-                        underline={false}
-                        aria-label={aria}
-                        className="block"
-                      >
-                        <Avatar
-                          className="h-7 w-7 shrink-0 ring-[3px] ring-offset-1 ring-offset-card hover:scale-110 transition-transform"
-                          style={{ ["--tw-ring-color" as string]: voteColor }}
-                        >
-                          {row.mp.photoUrl ? (
-                            <AvatarImage
-                              src={row.mp.photoUrl}
-                              alt={row.displayName}
-                              className="object-cover"
-                            />
-                          ) : null}
-                          <AvatarFallback
-                            className="text-[9px] font-bold text-white"
-                            style={{ backgroundColor: row.partyColor }}
-                          >
-                            {initials(row.displayName)}
-                          </AvatarFallback>
-                        </Avatar>
-                      </Link>
-                    </Tooltip>
-                  );
-                })}
-              </div>
+                              {initials(row.displayName)}
+                            </AvatarFallback>
+                          </Avatar>
+                        </Link>
+                      </Tooltip>
+                    );
+                  })}
+                </div>
+              ) : null}
             </div>
           );
         })}

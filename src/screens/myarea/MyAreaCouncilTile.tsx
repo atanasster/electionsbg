@@ -27,6 +27,7 @@
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Vote, ChevronRight, ChevronDown, ChevronUp } from "lucide-react";
+import { useUrlExpandedSet } from "@/screens/utils/useUrlExpandedSet";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/ux/Link";
 import { Tooltip } from "@/ux/Tooltip";
@@ -134,7 +135,8 @@ export const MyAreaCouncilTile: FC<Props> = ({ obshtina }) => {
   const { byId: partyById } = useCanonicalParties();
 
   const [contestedOnly, setContestedOnly] = useState(false);
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+  const { isExpanded, toggle: toggleExpand } =
+    useUrlExpandedSet("expandedCouncil");
 
   // First+last → roster entry; identical heuristic to the per-município
   // join in scripts/council/lib/roster_join.ts so the matched-rate matches
@@ -260,15 +262,6 @@ export const MyAreaCouncilTile: FC<Props> = ({ obshtina }) => {
 
   const visible = filtered.slice(0, PREVIEW_CAP);
   const muniName = (councilKey && data.meta?.[councilKey]?.name) || "";
-
-  const toggleExpand = (id: string) => {
-    setExpandedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
 
   // Per-row party resolver — uses candidateLink decoration when available,
   // falls back to neutral grey for local coalitions without a canonical id.
@@ -565,7 +558,7 @@ export const MyAreaCouncilTile: FC<Props> = ({ obshtina }) => {
                 return 0;
               })
             : [];
-          const expanded = expandedIds.has(r.id);
+          const expanded = isExpanded(r.id);
           return (
             <li
               key={r.id}
@@ -594,12 +587,42 @@ export const MyAreaCouncilTile: FC<Props> = ({ obshtina }) => {
                     {data.tags[tag]?.[lang] ?? tag}
                   </span>
                 ))}
-                <span className="text-[10px] text-muted-foreground tabular-nums ml-auto">
-                  {formatDate(r.date, lang)}
-                  {totalCast > 0
-                    ? ` · ${r.tally?.for ?? 0}–${r.tally?.against ?? 0}–${r.tally?.abstain ?? 0}`
-                    : ""}
-                </span>
+                {hasVotes ? (
+                  <button
+                    type="button"
+                    onClick={() => toggleExpand(r.id)}
+                    aria-expanded={expanded}
+                    aria-label={
+                      lang === "bg"
+                        ? expanded
+                          ? "Скрий как гласуваха"
+                          : "Виж как гласуваха"
+                        : expanded
+                          ? "Hide how they voted"
+                          : "Show how they voted"
+                    }
+                    className="ml-auto flex items-center gap-1 text-[10px] text-muted-foreground tabular-nums hover:text-foreground transition-colors"
+                  >
+                    <span>
+                      {formatDate(r.date, lang)}
+                      {totalCast > 0
+                        ? ` · ${r.tally?.for ?? 0}–${r.tally?.against ?? 0}–${r.tally?.abstain ?? 0}`
+                        : ""}
+                    </span>
+                    {expanded ? (
+                      <ChevronUp className="size-3" />
+                    ) : (
+                      <ChevronDown className="size-3" />
+                    )}
+                  </button>
+                ) : (
+                  <span className="text-[10px] text-muted-foreground tabular-nums ml-auto">
+                    {formatDate(r.date, lang)}
+                    {totalCast > 0
+                      ? ` · ${r.tally?.for ?? 0}–${r.tally?.against ?? 0}–${r.tally?.abstain ?? 0}`
+                      : ""}
+                  </span>
+                )}
               </div>
 
               {/* Title */}
@@ -626,30 +649,13 @@ export const MyAreaCouncilTile: FC<Props> = ({ obshtina }) => {
                 </p>
               ) : null}
 
-              {/* Expandable per-councillor strip — only when shard carries
-                  a named-vote breakdown for this resolution */}
-              {hasVotes ? (
-                <>
-                  <button
-                    type="button"
-                    onClick={() => toggleExpand(r.id)}
-                    className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground self-start"
-                  >
-                    {expanded ? (
-                      <ChevronUp className="size-3" />
-                    ) : (
-                      <ChevronDown className="size-3" />
-                    )}
-                    {lang === "bg"
-                      ? `${expanded ? "Скрий" : "Виж как гласуваха"} (${votes!.length})`
-                      : `${expanded ? "Hide" : "How they voted"} (${votes!.length})`}
-                  </button>
-                  {expanded ? (
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {sortedVotes.map((v) => renderAvatar(r, v))}
-                    </div>
-                  ) : null}
-                </>
+              {/* Expanded per-councillor strip — toggled from the tally
+                  chip in the top-right of the row. Only renders when the
+                  shard carries a named-vote breakdown for this resolution. */}
+              {hasVotes && expanded ? (
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {sortedVotes.map((v) => renderAvatar(r, v))}
+                </div>
               ) : null}
             </li>
           );
