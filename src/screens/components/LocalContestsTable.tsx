@@ -16,17 +16,15 @@ import { Link } from "react-router-dom";
 import { ArrowRight, History } from "lucide-react";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useOfficialLocalContests } from "@/data/local/useOfficialLocalContests";
+import {
+  friendlyCycleDate,
+  UNRESOLVED_PARTY_COLOR,
+} from "@/data/local/cycleDate";
 import type { LocalContestRole } from "@/data/local/useOfficialLocalContests";
 
 type Props = {
   obshtinaCode?: string | null;
   name?: string | null;
-};
-
-const friendlyCycleDate = (cycle: string): string => {
-  const m = cycle.match(/^(\d{4})_(\d{2})_(\d{2})/);
-  if (!m) return cycle;
-  return `${m[3]}.${m[2]}.${m[1]}`;
 };
 
 const ROLE_I18N: Record<LocalContestRole, string> = {
@@ -51,21 +49,24 @@ export const LocalContestsTable: FC<Props> = ({ obshtinaCode, name }) => {
       </h2>
       <div className="overflow-x-auto -mx-4 px-4">
         <table className="w-full text-[12px] tabular-nums">
+          <caption className="sr-only">
+            {t("local_contests_section_title")}
+          </caption>
           <thead>
             <tr className="text-[11px] uppercase tracking-wide text-muted-foreground text-left">
-              <th className="py-1 pr-2 font-normal">
+              <th scope="col" className="py-1 pr-2 font-normal">
                 {t("local_contests_col_cycle")}
               </th>
-              <th className="py-1 pr-2 font-normal">
+              <th scope="col" className="py-1 pr-2 font-normal">
                 {t("local_contests_col_role")}
               </th>
-              <th className="py-1 pr-2 font-normal">
+              <th scope="col" className="py-1 pr-2 font-normal">
                 {t("local_contests_col_party")}
               </th>
-              <th className="py-1 pr-2 font-normal text-right">
+              <th scope="col" className="py-1 pr-2 font-normal text-right">
                 {t("local_contests_col_votes")}
               </th>
-              <th className="py-1 pl-2 font-normal text-right">
+              <th scope="col" className="py-1 pl-2 font-normal text-right">
                 {t("local_contests_col_outcome")}
               </th>
             </tr>
@@ -87,12 +88,16 @@ export const LocalContestsTable: FC<Props> = ({ obshtinaCode, name }) => {
                   className="border-t border-border/60"
                 >
                   <td className="py-1.5 pr-2 whitespace-nowrap text-muted-foreground">
-                    <Link
-                      to={`/local/${r.cycle}/${obshtinaCode ?? ""}`}
-                      className="hover:underline"
-                    >
-                      {friendlyCycleDate(r.cycle)}
-                    </Link>
+                    {obshtinaCode ? (
+                      <Link
+                        to={`/local/${r.cycle}/${obshtinaCode}`}
+                        className="hover:underline"
+                      >
+                        {friendlyCycleDate(r.cycle)}
+                      </Link>
+                    ) : (
+                      friendlyCycleDate(r.cycle)
+                    )}
                   </td>
                   <td className="py-1.5 pr-2">
                     <span className="font-medium text-foreground">
@@ -108,7 +113,8 @@ export const LocalContestsTable: FC<Props> = ({ obshtinaCode, name }) => {
                       <span
                         className="inline-block h-2.5 w-2.5 rounded-sm shrink-0"
                         style={{
-                          backgroundColor: canonical?.color ?? "#9ca3af",
+                          backgroundColor:
+                            canonical?.color ?? UNRESOLVED_PARTY_COLOR,
                         }}
                         aria-hidden
                       />

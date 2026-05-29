@@ -20,6 +20,7 @@ import { ArrowRight, Landmark } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import { useChmiHistory } from "@/data/local/useChmiHistory";
+import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { StatCard } from "./StatCard";
 
 type Props = {
@@ -40,12 +41,6 @@ type Props = {
 const normalize = (s: string): string =>
   s.trim().toLocaleLowerCase("bg").replace(/\s+/g, " ");
 
-const friendlyCycleDate = (cycle: string): string => {
-  const m = cycle.match(/^(\d{4})_(\d{2})_(\d{2})/);
-  if (!m) return cycle;
-  return `${m[3]}.${m[2]}.${m[1]}`;
-};
-
 export const LocalContextTile: FC<Props> = ({
   obshtinaCode,
   ekatte,
@@ -60,8 +55,8 @@ export const LocalContextTile: FC<Props> = ({
   // the backfill ran); fall back to normalised-name compare for the
   // current mi2023 shape where ekatte is often empty — mirrors
   // MyAreaKmetstvoTile.
-  const { kmetstvo, kmetstvoMayor } = useMemo(() => {
-    if (!municipality?.kmetstva) return { kmetstvo: null, kmetstvoMayor: null };
+  const kmetstvoMayor = useMemo(() => {
+    if (!municipality?.kmetstva) return null;
     let found = ekatte
       ? municipality.kmetstva.find((k) => k.ekatte && k.ekatte === ekatte)
       : undefined;
@@ -71,13 +66,9 @@ export const LocalContextTile: FC<Props> = ({
         (k) => normalize(k.kmetstvoName) === target,
       );
     }
-    if (!found) return { kmetstvo: null, kmetstvoMayor: null };
-    return {
-      kmetstvo: found,
-      kmetstvoMayor: found.candidates.find((c) => c.isElected) ?? null,
-    };
+    if (!found) return null;
+    return found.candidates.find((c) => c.isElected) ?? null;
   }, [ekatte, settlementName, municipality]);
-  void kmetstvo;
 
   if (!obshtinaCode || !municipality) return null;
   const mayor = municipality.mayor.elected;

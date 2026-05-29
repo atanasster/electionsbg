@@ -25,18 +25,16 @@ import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
 import { usePriorLocalCycle } from "@/data/local/useLocalCycles";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
+import {
+  friendlyCycleDate,
+  UNRESOLVED_PARTY_COLOR,
+} from "@/data/local/cycleDate";
 import type { LocalCouncilParty, LocalMayorResult } from "@/data/local/types";
 import { StatCard } from "./StatCard";
 
 type Props = {
   regionCode: string;
   className?: string;
-};
-
-const friendlyCycleDate = (cycle: string): string => {
-  const m = cycle.match(/^(\d{4})_(\d{2})_(\d{2})/);
-  if (!m) return cycle;
-  return `${m[3]}.${m[2]}.${m[1]}`;
 };
 
 const groupKey = (mayor: LocalMayorResult): string =>
@@ -100,7 +98,7 @@ export const RegionLocalControlTile: FC<Props> = ({
         } else {
           mayorAgg.set(key, {
             displayName: canonical?.displayName ?? mayor.localPartyName,
-            color: canonical?.color ?? "#9ca3af",
+            color: canonical?.color ?? UNRESOLVED_PARTY_COLOR,
             canonicalId: mayor.primaryCanonicalId ?? null,
             count: 1,
           });
@@ -118,7 +116,7 @@ export const RegionLocalControlTile: FC<Props> = ({
         } else {
           seatAgg.set(key, {
             displayName: canonical?.displayName ?? p.localPartyName,
-            color: canonical?.color ?? "#9ca3af",
+            color: canonical?.color ?? UNRESOLVED_PARTY_COLOR,
             canonicalId: p.primaryCanonicalId ?? null,
             seats: p.mandatesWon,
           });
@@ -150,17 +148,17 @@ export const RegionLocalControlTile: FC<Props> = ({
         const leader = [...bundle.council]
           .filter((p) => p.mandatesWon > 0)
           .sort((a, b) => b.mandatesWon - a.mandatesWon)[0];
+        // Aggregate delta is only shown when BOTH sides resolve to the
+        // same primary canonical id — local-party name fallbacks
+        // produce spurious "↑+N / ↓-N" arrows on coalition rebrands
+        // ("Местна коалиция ГЕРБ /СДС/" ↔ "ПП ГЕРБ") at oblast scale.
+        // Phase 1's município tile already takes this conservative
+        // stance; mirror it here.
         let leaderDelta: number | undefined;
-        if (leader && r.priorBundle?.council) {
-          const priorMatch = leader.primaryCanonicalId
-            ? r.priorBundle.council.find(
-                (p) => p.primaryCanonicalId === leader.primaryCanonicalId,
-              )
-            : r.priorBundle.council.find(
-                (p) =>
-                  p.localPartyName.toLocaleLowerCase("bg") ===
-                  leader.localPartyName.toLocaleLowerCase("bg"),
-              );
+        if (leader?.primaryCanonicalId && r.priorBundle?.council) {
+          const priorMatch = r.priorBundle.council.find(
+            (p) => p.primaryCanonicalId === leader.primaryCanonicalId,
+          );
           if (priorMatch)
             leaderDelta = leader.mandatesWon - priorMatch.mandatesWon;
         }
@@ -175,7 +173,7 @@ export const RegionLocalControlTile: FC<Props> = ({
           obshtinaCode: bundle.obshtinaCode,
           obshtinaName: bundle.obshtinaName,
           mayorName: mayor?.candidateName ?? null,
-          mayorColor: mayorCanonical?.color ?? "#9ca3af",
+          mayorColor: mayorCanonical?.color ?? UNRESOLVED_PARTY_COLOR,
           leaderName: leader
             ? leader.primaryCanonicalId
               ? (canonicalById.get(leader.primaryCanonicalId)?.displayName ??
@@ -208,11 +206,13 @@ export const RegionLocalControlTile: FC<Props> = ({
 
   // Empty fallback — Sofia MIRs (parliamentary 23/24/25) and other
   // regions where useMunicipalitiesByRegion returns no rows that have a
-  // local-elections bundle.
-  if (muniRows.length === 0 || totalMayors === 0) return null;
+  // local-elections bundle. We only need at least one rendered muni
+  // row; totalMayors can be 0 when the prior cycle was a partial that
+  // didn't elect a mayor — keep the council half visible in that case.
+  if (muniRows.length === 0) return null;
 
   const cycleDate = friendlyCycleDate(cycle);
-  // Resolve human muni names for tooltips on the rare případ where the
+  // Resolve human muni names for tooltips on the rare case where the
   // bundle's obshtinaName is missing/abbreviated; falls back to the bundle name.
   const muniDisplay = (code: string, fallback: string): string => {
     return findMunicipality(code)?.name ?? fallback;
@@ -240,53 +240,57 @@ export const RegionLocalControlTile: FC<Props> = ({
       }
     >
       <div className="mt-1 grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div>
-          <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
-            {t("region_local_control_mayors_label", { count: totalMayors })}
+        {topMayors.length > 0 ? (
+          <div>
+            <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
+              {t("region_local_control_mayors_label", { count: totalMayors })}
+            </div>
+            <ul className="mt-1.5 flex flex-col gap-1">
+              {topMayors.map((m, i) => (
+                <li
+                  key={m.canonicalId ?? `m-${i}`}
+                  className="flex items-center gap-2 text-[12px]"
+                >
+                  <span
+                    className="inline-block h-2.5 w-2.5 rounded-sm shrink-0"
+                    style={{ backgroundColor: m.color }}
+                    aria-hidden
+                  />
+                  <span className="truncate flex-1" title={m.displayName}>
+                    {m.displayName}
+                  </span>
+                  <span className="tabular-nums font-semibold">{m.count}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="mt-1.5 flex flex-col gap-1">
-            {topMayors.map((m, i) => (
-              <li
-                key={m.canonicalId ?? `m-${i}`}
-                className="flex items-center gap-2 text-[12px]"
-              >
-                <span
-                  className="inline-block h-2.5 w-2.5 rounded-sm shrink-0"
-                  style={{ backgroundColor: m.color }}
-                  aria-hidden
-                />
-                <span className="truncate flex-1" title={m.displayName}>
-                  {m.displayName}
-                </span>
-                <span className="tabular-nums font-semibold">{m.count}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        ) : null}
 
-        <div>
-          <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
-            {t("region_local_control_seats_label", { count: totalSeats })}
+        {topCouncil.length > 0 ? (
+          <div>
+            <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
+              {t("region_local_control_seats_label", { count: totalSeats })}
+            </div>
+            <ul className="mt-1.5 flex flex-col gap-1">
+              {topCouncil.map((p, i) => (
+                <li
+                  key={p.canonicalId ?? `s-${i}`}
+                  className="flex items-center gap-2 text-[12px]"
+                >
+                  <span
+                    className="inline-block h-2.5 w-2.5 rounded-sm shrink-0"
+                    style={{ backgroundColor: p.color }}
+                    aria-hidden
+                  />
+                  <span className="truncate flex-1" title={p.displayName}>
+                    {p.displayName}
+                  </span>
+                  <span className="tabular-nums font-semibold">{p.seats}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="mt-1.5 flex flex-col gap-1">
-            {topCouncil.map((p, i) => (
-              <li
-                key={p.canonicalId ?? `s-${i}`}
-                className="flex items-center gap-2 text-[12px]"
-              >
-                <span
-                  className="inline-block h-2.5 w-2.5 rounded-sm shrink-0"
-                  style={{ backgroundColor: p.color }}
-                  aria-hidden
-                />
-                <span className="truncate flex-1" title={p.displayName}>
-                  {p.displayName}
-                </span>
-                <span className="tabular-nums font-semibold">{p.seats}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        ) : null}
       </div>
 
       {/* Per-município list — leading council party + swing arrow. Caps
@@ -302,6 +306,11 @@ export const RegionLocalControlTile: FC<Props> = ({
               <Link
                 to={`/local/${cycle}/${r.obshtinaCode}`}
                 className="flex items-center gap-2 rounded-md px-1 py-0.5 hover:bg-muted/50 transition"
+                aria-label={
+                  r.mayorName
+                    ? `${muniDisplay(r.obshtinaCode, r.obshtinaName)} — ${r.mayorName}`
+                    : muniDisplay(r.obshtinaCode, r.obshtinaName)
+                }
               >
                 <span
                   className="inline-block h-2.5 w-2.5 rounded-sm shrink-0"

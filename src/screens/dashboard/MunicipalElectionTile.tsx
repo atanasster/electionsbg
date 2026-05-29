@@ -18,18 +18,12 @@ import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import { usePriorLocalCycle } from "@/data/local/useLocalCycles";
 import { useChmiHistory } from "@/data/local/useChmiHistory";
+import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { StatCard } from "./StatCard";
 
 type Props = {
   obshtinaCode: string;
   className?: string;
-};
-
-// "2023_10_29_mi" → "29.10.2023"
-const friendlyCycleDate = (cycle: string): string => {
-  const m = cycle.match(/^(\d{4})_(\d{2})_(\d{2})/);
-  if (!m) return cycle;
-  return `${m[3]}.${m[2]}.${m[1]}`;
 };
 
 export const MunicipalElectionTile: FC<Props> = ({

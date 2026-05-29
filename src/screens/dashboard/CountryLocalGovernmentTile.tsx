@@ -21,13 +21,8 @@ import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
 import { usePriorLocalCycle } from "@/data/local/useLocalCycles";
 import { useChmiHistoryAll } from "@/data/local/useChmiHistory";
+import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { StatCard } from "./StatCard";
-
-const friendlyCycleDate = (cycle: string): string => {
-  const m = cycle.match(/^(\d{4})_(\d{2})_(\d{2})/);
-  if (!m) return cycle;
-  return `${m[3]}.${m[2]}.${m[1]}`;
-};
 
 export const CountryLocalGovernmentTile: FC<{ className?: string }> = ({
   className,

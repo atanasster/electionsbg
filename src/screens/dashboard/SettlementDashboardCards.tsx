@@ -14,6 +14,7 @@ import { useSettlementSummary } from "@/data/dashboard/useSettlementSummary";
 import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useSettlementStats } from "@/data/settlements/useSettlementStats";
+import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
 import { useProblemSections } from "@/data/reports/useProblemSections";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
@@ -114,6 +115,13 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
       n.sections.some((s) => s.ekatte === ekatte),
     );
   const obshtinaCode = settlement?.obshtina ?? findSettlement(ekatte)?.obshtina;
+  const { findMunicipality } = useMunicipalities();
+  // Abroad-territory ekattes resolve to one of the synthetic "32"
+  // oblast bundles (Oceania / Europe / …) which have no local-
+  // elections data. Gate the local_government section so we don't
+  // render an empty heading.
+  const muniLookup = obshtinaCode ? findMunicipality(obshtinaCode) : null;
+  const hasLocalContext = !!muniLookup && muniLookup.oblast !== "32";
 
   const basePath = `/sections/${ekatte}`;
 
@@ -211,7 +219,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
             settlement is a kmetstvo center) kmetstvo mayor. Compact
             mode skips it because MyArea already surfaces the same
             information via MyAreaGovernmentCard + MyAreaKmetstvoTile. */}
-        {compact ? null : (
+        {!compact && hasLocalContext ? (
           <DashboardSection
             id="local_government"
             title={t("dashboard_section_local_government")}
@@ -223,7 +231,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
               settlementName={settlement?.name ?? findSettlement(ekatte)?.name}
             />
           </DashboardSection>
-        )}
+        ) : null}
 
         {/* Anomalies section (FlashMemory / Suspicious / Recount) is
             election forensics — power-user material that belongs on the

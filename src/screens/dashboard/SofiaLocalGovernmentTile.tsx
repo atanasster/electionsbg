@@ -23,16 +23,14 @@ import { usePriorLocalCycle } from "@/data/local/useLocalCycles";
 import { useChmiHistory } from "@/data/local/useChmiHistory";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { SOFIA_RAYONS } from "@/data/budget/sofiaRayons";
+import {
+  friendlyCycleDate,
+  UNRESOLVED_PARTY_COLOR,
+} from "@/data/local/cycleDate";
 import type { LocalCouncilParty, LocalMayorResult } from "@/data/local/types";
 import { StatCard } from "./StatCard";
 
 type Props = { className?: string };
-
-const friendlyCycleDate = (cycle: string): string => {
-  const m = cycle.match(/^(\d{4})_(\d{2})_(\d{2})/);
-  if (!m) return cycle;
-  return `${m[3]}.${m[2]}.${m[1]}`;
-};
 
 const norm = (s: string): string =>
   s.trim().toLocaleLowerCase("bg").replace(/\s+/g, " ");
@@ -72,7 +70,7 @@ export const SofiaLocalGovernmentTile: FC<Props> = ({ className }) => {
         const priorMatch = findPrior(p);
         return {
           ...p,
-          color: canonical?.color ?? "#9ca3af",
+          color: canonical?.color ?? UNRESOLVED_PARTY_COLOR,
           displayName: canonical?.displayName ?? p.localPartyName,
           delta: priorMatch
             ? p.mandatesWon - priorMatch.mandatesWon
@@ -108,7 +106,7 @@ export const SofiaLocalGovernmentTile: FC<Props> = ({ className }) => {
         label: i18n.language === "bg" ? r.labelBg : r.labelEn,
         mayorName: elected?.candidateName ?? null,
         partyName: canonical?.displayName ?? elected?.localPartyName ?? "",
-        color: canonical?.color ?? "#9ca3af",
+        color: canonical?.color ?? UNRESOLVED_PARTY_COLOR,
       };
     });
   }, [municipality, canonicalById, i18n.language]);
@@ -225,6 +223,9 @@ export const SofiaLocalGovernmentTile: FC<Props> = ({ className }) => {
                   to={`/local/${cycle}/${r.code}`}
                   className="flex items-center gap-1.5 rounded-md px-1.5 py-1 text-[11px] hover:bg-muted/50 transition"
                   title={r.mayorName ? `${r.label} · ${r.mayorName}` : r.label}
+                  aria-label={
+                    r.mayorName ? `${r.label} — ${r.mayorName}` : r.label
+                  }
                 >
                   <span
                     className="inline-block h-2.5 w-2.5 rounded-sm shrink-0"

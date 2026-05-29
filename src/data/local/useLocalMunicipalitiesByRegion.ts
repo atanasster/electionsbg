@@ -44,7 +44,7 @@ type Row = {
 export const useLocalMunicipalitiesByRegion = (
   regionCode: string,
   priorCycle?: string,
-): { rows: Row[]; cycle: string; isLoading: boolean } => {
+): { rows: Row[]; isLoading: boolean } => {
   const cycle = useLatestLocalCycle();
   const munis = useMunicipalitiesByRegion(regionCode) ?? [];
   const codes = munis.map((m) => m.obshtina);
@@ -57,21 +57,30 @@ export const useLocalMunicipalitiesByRegion = (
     })),
   });
 
+  // Prior-cycle fan-out — when no priorCycle is requested we issue an
+  // empty queries array so we don't register `enabled:false` entries
+  // with a synthetic empty-string cycle key. Those entries don't fetch
+  // but they DO pollute the React-Query cache and would diverge from
+  // the canonical `["local_municipality", cycle, code]` key that
+  // useLocalMunicipality emits — so consumers that later look up the
+  // same código via useLocalMunicipality wouldn't dedupe against them.
   const priorQueries = useQueries({
-    queries: codes.map((code) => ({
-      queryKey: ["local_municipality", priorCycle ?? "", code],
-      queryFn: async () => fetchBundle(priorCycle ?? "", code),
-      enabled: !!code && !!priorCycle,
-    })),
+    queries: priorCycle
+      ? codes.map((code) => ({
+          queryKey: ["local_municipality", priorCycle, code],
+          queryFn: async () => fetchBundle(priorCycle, code),
+          enabled: !!code,
+        }))
+      : [],
   });
 
   const rows: Row[] = codes.map((code, i) => ({
     obshtinaCode: code,
     bundle: currentQueries[i].data,
-    priorBundle: priorQueries[i].data,
+    priorBundle: priorQueries[i]?.data,
   }));
 
   const isLoading = currentQueries.some((q) => q.isLoading);
 
-  return { rows, cycle, isLoading };
+  return { rows, isLoading };
 };

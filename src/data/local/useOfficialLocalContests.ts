@@ -63,16 +63,30 @@ export const useOfficialLocalContests = (
       if (!h.bundle) continue;
       const { cycle, round1Date } = h;
 
-      // Municipal-mayor candidates — both rounds.
-      const mayorRounds: {
-        round: 1 | 2;
-        rows: typeof h.bundle.mayor.round1;
-      }[] = [{ round: 1, rows: h.bundle.mayor.round1 }];
-      if (h.bundle.mayor.round2) {
-        mayorRounds.push({ round: 2, rows: h.bundle.mayor.round2 });
+      // Municipal-mayor candidates — one row per cycle per candidate,
+      // preferring R2 when the cycle went to runoff. CIK's parser carries
+      // `isElected: true` forward onto both R1 and R2 rows for the
+      // eventual winner, so emitting both rounds reads as "elected
+      // twice" — instead, surface the deciding round only.
+      const r2Rows = h.bundle.mayor.round2 ?? [];
+      const r2Matches = r2Rows.filter((m) => norm(m.candidateName) === target);
+      const usedR2 = r2Matches.length > 0;
+      for (const m of r2Matches) {
+        out.push({
+          cycle,
+          round1Date,
+          role: "mayor_obshtina",
+          partyName: m.localPartyName,
+          partyCanonicalId: m.primaryCanonicalId,
+          scopeLabel: null,
+          votes: m.votes,
+          pctOfValid: m.pctOfValid,
+          round: 2,
+          isElected: m.isElected,
+        });
       }
-      for (const { round, rows } of mayorRounds) {
-        for (const m of rows) {
+      if (!usedR2) {
+        for (const m of h.bundle.mayor.round1) {
           if (norm(m.candidateName) !== target) continue;
           out.push({
             cycle,
@@ -83,7 +97,7 @@ export const useOfficialLocalContests = (
             scopeLabel: null,
             votes: m.votes,
             pctOfValid: m.pctOfValid,
-            round,
+            round: 1,
             isElected: m.isElected,
           });
         }
