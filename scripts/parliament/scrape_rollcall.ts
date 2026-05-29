@@ -262,7 +262,7 @@ const ingestSession = async (
   }
 
   let rows: RawCsvRow[] | null = null;
-  let sourceKind: "csv" | "xlsx" | "" = "";
+  let sourceKind: "csv" | "xlsx" | "pdf" | "" = "";
   if (csvRef) {
     try {
       const csvText = await fetchCsv(csvRef.Pl_StenDfile);

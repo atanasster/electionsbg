@@ -21,7 +21,7 @@
 // orchestrator joins with vote totals from votes.txt.
 
 import { load, CheerioAPI, Cheerio } from "cheerio";
-import { Element } from "domhandler";
+import { AnyNode, Element } from "domhandler";
 import { CanonicalPartiesIndex } from "@/data/parties/canonicalPartyTypes";
 import {
   LocalCouncilCandidate,
@@ -49,7 +49,7 @@ const SECTION_HEADINGS = {
 };
 
 // Tidy whitespace from a TD's text.
-const txt = ($el: Cheerio<Element>): string =>
+const txt = ($el: Cheerio<AnyNode>): string =>
   $el
     .text()
     .replace(/\u00a0/g, " ") // &nbsp;
