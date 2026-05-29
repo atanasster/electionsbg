@@ -218,11 +218,11 @@ export const MyAreaScreen: FC = () => {
             and aligning them stops the local-taxes tile from looking
             island-y on a wide screen. Collapses back to one-column on
             < lg so each tile still has comfortable breathing room. */}
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2 [&>*:only-child]:lg:col-span-2">
           <MyAreaLocalTaxesTile obshtina={area.obshtina} />
           <MyAreaPropertyStockTile oblast={area.oblast} />
         </div>
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2 [&>*:only-child]:lg:col-span-2">
           <MyAreaTaxReceiptTile obshtina={area.obshtina} oblast={area.oblast} />
           <MyAreaProjectsMapTile obshtina={area.obshtina} />
         </div>
