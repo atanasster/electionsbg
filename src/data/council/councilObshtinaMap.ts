@@ -37,6 +37,7 @@ const STATIC_MAP: Record<string, string> = {
   GAB05: "GAB05",
   SZR12: "SZR12",
   HKV34: "HKV34",
+  DOB28: "DOB28",
 };
 
 /**

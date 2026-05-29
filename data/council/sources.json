@@ -124,6 +124,18 @@
       "tallyStrategy": "none-published",
       "perCouncillor": false
     },
+    "DOB28": {
+      "name": "Община град Добрич",
+      "tier": "B",
+      "indexUrl": "https://web.archive.org/cdx/search/cdx?url=dobrich.bg/uploads/posts/&matchType=prefix",
+      "indexNote": "Wired 2026-05-29. Full session protokols at dobrich.bg/uploads/posts/{YYYY}/protokol-{N}_{DD-MM-YYYY}.pdf. Discovery via Wayback CDX (live site partially JS-rendered). Born-digital text-layer (~200 pages per session, ~45 decisions each). Two layout quirks needed custom handling: (1) dual-numbered resolution markers 'РЕШЕНИЕ <session> – <item>:' instead of 'РЕШЕНИЕ № N' — parser uses its own MARKER_RE; (2) tally separator is a SEMICOLON ('„ЗА\" - 39; „ПРОТИВ\" - 0; „ВЪЗДЪРЖАЛИ СЕ\" - 0'), parser pre-processes the text to swap '; ' → ', ' inside ПОИМЕННО ГЛАСУВАЛИ blocks so the shared SUMMARY_RE_LABEL_FIRST matches. NO per-councillor block — protokol records only aggregate totals. Coverage tier B (decision metadata + tally + adopted/rejected, no perCouncillor).",
+      "fetch": "static",
+      "format": "pdf-text",
+      "tallyStrategy": "label-first-via-semicolon-rewrite",
+      "samplePdf": "https://www.dobrich.bg/uploads/posts/2024/protokol-3_19-12-2023.pdf",
+      "sampleConfirmedTally": "ПОИМЕННО ГЛАСУВАЛИ: „ЗА\" - 39; „ПРОТИВ\" - 0; „ВЪЗДЪРЖАЛИ СЕ\" - 0",
+      "perCouncillor": false
+    },
     "HKV34": {
       "name": "Община Хасково",
       "tier": "B",

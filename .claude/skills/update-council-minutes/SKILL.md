@@ -141,9 +141,10 @@ See `data/council/sources.json` for the authoritative list. As of 2026-05-29:
 | GAB05 (Габрово) | A | pdf-text via Wayback CDX | yes (244 across 12 protokols) | partial — 2025+ only (2024 protokols ship aggregate-only) | Apache directory listing 403-blocked; discovery uses Wayback CDX index. 2024 protokols have compact "Т. 1: За – 9 Против – 10 Въздържали се – 9" aggregate tallies but no per-councillor table; 2025+ added a full tabular per-councillor block (NN  Name  ЗА|ПРОТИВ|ВЪЗДЪРЖАЛИ СЕ|отсъства). |
 | SZR12 (Казанлък) | A | pdf-text via Wayback CDX + brute-force | yes | yes | Nuxt-rendered category page doesn't surface protokol links via curl; discovery is Wayback CDX + a focused brute-force probe (Protokol_{N}_SAIT.pdf across {YYYY-MM} dirs, current year only). Per-councillor block in standard "<N>. <Name>: <vote>" form. |
 | HKV34 (Хасково) | B | pdf-text via Wayback CDX | yes | no | 89 protokols at haskovo.bg/uploads/posts/{YYYY}/protokol-{N}.pdf. Born-digital text-layer. Tally form is novel — chair-announcement prose ("Т.ЗАХАРИЕВА: С 37 гласа „за\", без „против\" и „въздържали се\""); parser pre-processes the text to rewrite it into the canonical V. Tarnovo form so the shared SUMMARY_RE_DIGIT_FIRST matches. NO per-councillor block — protokol records the chair's totals, not the individual readout. |
+| DOB28 (Добрич) | B | pdf-text via Wayback CDX | yes | no | Full session protokols at dobrich.bg/uploads/posts/{YYYY}/protokol-{N}_{DD-MM-YYYY}.pdf, ~200 pages each, ~45 decisions per session. Two custom handlers: (1) dual-numbered "РЕШЕНИЕ <session> – <item>:" markers, (2) semicolon separators in the ПОИМЕННО ГЛАСУВАЛИ tally line, pre-processed to comma so the shared label-first regex matches. NO per-councillor block. |
 | BLG03 (Благоевград) | C | doc | — | — | DEFERRED (legacy URL dead; município migrated to e-obs.online SaaS) |
 
-Total: 12 of 12 wired. Per-councillor coverage surfaces in the unified "Общински съвет" MyArea tile (`MyAreaCouncilTile`) + on the public `/local/:cycle/:obshtinaCode` page + on each `/officials/<slug>` profile.
+Total: 13 of 13 wired. Per-councillor coverage surfaces in the unified "Общински съвет" MyArea tile (`MyAreaCouncilTile`) + on the public `/local/:cycle/:obshtinaCode` page + on each `/officials/<slug>` profile.
 
 ### One-shot: rebuild shards after pipeline change
 
