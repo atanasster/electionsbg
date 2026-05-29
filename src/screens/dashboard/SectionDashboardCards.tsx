@@ -52,8 +52,9 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
   // don't render an empty heading; DashboardSection's
   // renderable-children check can't peek into a tile that internally
   // returns null.
-  const muniLookup =
-    section?.obshtina ? findMunicipality(section.obshtina) : null;
+  const muniLookup = section?.obshtina
+    ? findMunicipality(section.obshtina)
+    : null;
   const hasLocalContext = !!muniLookup && muniLookup.oblast !== "32";
 
   const basePath = `/section/${sectionCode}`;
