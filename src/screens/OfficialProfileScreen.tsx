@@ -31,6 +31,8 @@ import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { ErrorSection } from "./components/ErrorSection";
 import { OfficialConnectionsSection } from "./components/OfficialConnectionsSection";
 import { CouncilActivitySection } from "./components/CouncilActivitySection";
+import { LocalContestsTable } from "./components/LocalContestsTable";
+import { useCouncillorProfile } from "@/data/council/useCouncillorProfile";
 import type {
   MpAssetCategory,
   MpOwnershipStake,
@@ -91,6 +93,14 @@ export const OfficialProfileScreen: FC = () => {
   // unrecognised.
   const fromObshtina = searchParams.get("from");
   const fromMunicipality = fromObshtina ? findMunicipality(fromObshtina) : null;
+  // Resolve the council-obshtina for the "Contests stood in" spine. The
+  // ?from= URL param is the primary signal (every municipal-page entry
+  // point passes it); we also fall back to the councillor signals when
+  // present, so direct profile loads work for the ~199 councillors with
+  // ingested vote data.
+  const { data: councillorProfile } = useCouncillorProfile(slug);
+  const localContestObshtina =
+    fromObshtina ?? councillorProfile?.obshtina ?? null;
 
   const latest = declarations[0] ?? null;
 
@@ -529,6 +539,19 @@ export const OfficialProfileScreen: FC = () => {
             })}
           </div>
         </section>
+      ) : null}
+
+      {/* Contests stood in — every local-election race this person
+          appeared in (mayor / councillor / kmetstvo / район) across all
+          regular cycles. Mirrors WhoCanIVoteFor's unified-profile spine.
+          Renders only when we can resolve a parent município (via
+          ?from= or councillor signals) and at least one candidate row
+          name-matches in that município's history. */}
+      {localContestObshtina && displayName ? (
+        <LocalContestsTable
+          obshtinaCode={localContestObshtina}
+          name={displayName}
+        />
       ) : null}
 
       {slug ? <OfficialConnectionsSection slug={slug} /> : null}
