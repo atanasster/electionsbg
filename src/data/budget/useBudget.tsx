@@ -716,12 +716,14 @@ export const useKazanlakCapitalProgram = (fiscalYear: number | undefined) =>
 // view — top N projects by amountEur + grand total + fiscal year —
 // suitable for surfacing on a card that doesn't need the full plan.
 //
-// All wired capital programmes are 2025-cycle as of writing. The hook
-// hard-codes that year rather than threading fiscalYear through every
-// caller — bump CAPITAL_PROGRAMS_LATEST_YEAR when more 2026 plans land.
+// Most wired municípios ship a 2025-cycle plan. CAPITAL_PROGRAMS_LATEST
+// records the most recent fiscal year on disk per município (2025 by
+// default; older for the few stragglers, 2026 for Pernik). When a new
+// year lands for a slug, update this table.
 
 const OBSHTINA_TO_CAPITAL_SLUG: Record<string, string> = {
   SOF00: "sofia",
+  SOF46: "sofia", // Sofia município shape (vs the per-район S2xxx)
   VAR06: "varna",
   PDV22: "plovdiv",
   BGS04: "burgas",
@@ -749,7 +751,14 @@ const OBSHTINA_TO_CAPITAL_SLUG: Record<string, string> = {
   SZR12: "kazanlak",
 };
 
-const CAPITAL_PROGRAMS_LATEST_YEAR = 2025;
+const CAPITAL_PROGRAMS_DEFAULT_YEAR = 2025;
+const CAPITAL_PROGRAMS_LATEST: Record<string, number> = {
+  pernik: 2026,
+  haskovo: 2024, // 2025 not yet ingested
+  vidin: 2023, // 2024-2025 not yet ingested
+};
+const capitalProgramLatestYear = (slug: string): number =>
+  CAPITAL_PROGRAMS_LATEST[slug] ?? CAPITAL_PROGRAMS_DEFAULT_YEAR;
 
 /** Resolve an obshtina code to its capital-programme slug. Sofia районs
  *  (S2xxx) roll up to "sofia" — the city-wide programme covers them. */
@@ -798,9 +807,13 @@ export const useCapitalProgramsTopProjects = (
     ] as const,
     queryFn: async (): Promise<CapitalProgramTileSlim | null> => {
       if (!slug) return null;
+      const year = capitalProgramLatestYear(slug);
       const file = await fetchJson<CapitalProgramRawTile>(
-        `/budget/capital_programs/${CAPITAL_PROGRAMS_LATEST_YEAR}/${slug}-tile.json`,
+        `/budget/capital_programs/${year}/${slug}-tile.json`,
       );
+      // fetchJson returns null on 404. Guard against that so a stale
+      // CAPITAL_PROGRAMS_LATEST entry doesn't surface as an exception.
+      if (!file) return null;
       const topProjects = (file.projects ?? [])
         .filter((p) => (p.total?.amountEur ?? 0) > 0 && !!p.name)
         .sort((a, b) => (b.total?.amountEur ?? 0) - (a.total?.amountEur ?? 0))

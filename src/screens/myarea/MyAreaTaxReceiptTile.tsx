@@ -112,6 +112,16 @@ const formatEur = (n: number, lang: "bg" | "en"): string => {
   return lang === "bg" ? `${num} €` : `€${num}`;
 };
 
+// Locale-aware decimal formatting for rate values surfaced inside i18n
+// interpolations. Without this, i18next stringifies floats with their
+// full machine precision (`1.875` → "1.875" in BG, where the convention
+// is "1,875"). Cap at 3 decimals — enough for promils, transfer-tax %
+// (one decimal in practice), and €/kW vehicle-tax rates.
+const formatRate = (n: number, lang: "bg" | "en"): string =>
+  new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
+    maximumFractionDigits: 3,
+  }).format(n);
+
 // Append a /мес or /год period suffix to a formatted € amount.
 const formatEurPer = (
   n: number,
@@ -447,7 +457,7 @@ export const MyAreaTaxReceiptTile: FC<{
             <div className="grid grid-cols-[1fr_auto] items-baseline gap-x-2 text-xs">
               <span className="leading-snug">
                 {t("my_area_tax_receipt_property_tax_row", {
-                  rate: localTaxEstimate.propertyRate,
+                  rate: formatRate(localTaxEstimate.propertyRate, lang),
                 })}
               </span>
               <span className="tabular-nums font-medium">
@@ -461,7 +471,7 @@ export const MyAreaTaxReceiptTile: FC<{
               <div className="grid grid-cols-[1fr_auto] items-baseline gap-x-2 text-xs">
                 <span className="leading-snug">
                   {t("my_area_tax_receipt_tbo_promil_row", {
-                    rate: localTaxEstimate.tbo.rate,
+                    rate: formatRate(localTaxEstimate.tbo.rate, lang),
                   })}
                 </span>
                 <span className="tabular-nums font-medium">
@@ -507,7 +517,7 @@ export const MyAreaTaxReceiptTile: FC<{
             <div className="grid grid-cols-[1fr_auto] items-baseline gap-x-2 text-xs">
               <span className="leading-snug">
                 {t("my_area_tax_receipt_vehicle_tax_row", {
-                  rate: localTaxEstimate.vehicleRate,
+                  rate: formatRate(localTaxEstimate.vehicleRate, lang),
                 })}
               </span>
               <span className="tabular-nums font-medium">
@@ -520,7 +530,7 @@ export const MyAreaTaxReceiptTile: FC<{
             <div className="grid grid-cols-[1fr_auto] items-baseline gap-x-2 text-xs">
               <span className="leading-snug">
                 {t("my_area_tax_receipt_transfer_tax_row", {
-                  rate: localTaxEstimate.transferRate,
+                  rate: formatRate(localTaxEstimate.transferRate, lang),
                 })}
               </span>
               <span className="text-[10px] text-muted-foreground">

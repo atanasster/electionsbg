@@ -228,16 +228,18 @@ export const buildNaredbaBlock = (
   block.dogTax = overrides.dogTax ?? extractDogTax(text) ?? undefined;
   if (!block.touristTax) delete block.touristTax;
   if (!block.dogTax) delete block.dogTax;
-  // Property tax on individuals — auto-detect from this document or use
-  // the parser's override. Parsers that combine FEES + TAX naredbi pass
-  // the TAX-naredba text in here so the auto-detect finds the Чл. 15
-  // rate clause.
-  const ptiRate =
-    overrides.propertyTaxIndividualsRate ??
-    extractPropertyTaxIndividualsRate(text) ??
-    null;
-  if (ptiRate != null) {
-    block.propertyTaxIndividuals = { rate: ptiRate, year: meta.year };
+  // Property tax on individuals — explicit-only. The extractor anchors
+  // tightly on "данък върху недвижими имоти … данъчна оценка" but
+  // running it against arbitrary text (e.g. a FEES naredba quoting ЗМДТ
+  // Чл. 22 in an explanatory note) risks lifting a stale or wrong rate.
+  // Parsers that want it pass `propertyTaxIndividualsRate` explicitly,
+  // having already run `extractPropertyTaxIndividualsRate` against the
+  // correct TAX-naredba text. (Sofia + Plovdiv: see parsers/sof.ts.)
+  if (overrides.propertyTaxIndividualsRate != null) {
+    block.propertyTaxIndividuals = {
+      rate: overrides.propertyTaxIndividualsRate,
+      year: meta.year,
+    };
     if (overrides.propertyTaxIndividualsNote) {
       block.propertyTaxIndividuals.note = overrides.propertyTaxIndividualsNote;
     }

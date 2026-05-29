@@ -101,14 +101,16 @@ const fetchShard = async (
   return r.json();
 };
 
-/** Sofia районs (S2xxx) inherit Sofia's città rates — the local-tax
- *  naredba is set by Столичен общински съвет and applies city-wide, not
- *  per-район. Map any район code to SOF00 so consumer tiles render
- *  meaningful rates for Sofia residents (the obshtinaCode in the URL is
- *  район-level for /my-area). All other obshtina codes pass through. */
+/** Sofia районs (S2xxx) and the município-shape Sofia code (SOF46)
+ *  both inherit Столична община's city-wide rates — the local-tax
+ *  naredba is set by Столичен общински съвет and applies regardless of
+ *  район. Map them to the SOF00 shard so consumer tiles render
+ *  meaningful rates for any Sofia user. All other obshtina codes pass
+ *  through unchanged. */
 const localTaxesShardKey = (obshtina?: string | null): string | null => {
   if (!obshtina) return null;
   if (/^S2\d{3}$/.test(obshtina)) return "SOF00";
+  if (obshtina === "SOF46") return "SOF00";
   return obshtina;
 };
 
