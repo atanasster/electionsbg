@@ -12,7 +12,8 @@ export type MyAreaAlertKind =
   | "eu_funds"
   | "local_election"
   | "capital_program"
-  | "plenary_keyword";
+  | "plenary_keyword"
+  | "council_resolution";
 
 export type MyAreaAlertEvent = {
   date: string;
@@ -22,6 +23,9 @@ export type MyAreaAlertEvent = {
   amountEur?: number;
   link?: string;
   detail?: string;
+  /** EU-funds rows only — "2014-2020", "2021-2027", "2021-RRP". When set,
+   * the tile renders this in place of the (programme-period midpoint) date. */
+  programPeriod?: string;
 };
 
 export type MyAreaAlertsFile = {

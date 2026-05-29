@@ -1,8 +1,13 @@
 // "Recent activity" feed tile — simulates the email-alerts feature the
 // site can't deliver until auth lands. Renders the top 20 events from the
-// per-município feed: procurement awards, EU-fund contracts, capital
-// programmes, the local-election cycle, and plenary debates that
-// mentioned the município by name.
+// per-município feed: council resolutions, procurement awards, EU-fund
+// contracts, capital programmes, the local-election cycle, and plenary
+// debates that mentioned the município by name.
+//
+// Rows with a source link are anchor-wrapped (hover row, ChevronRight at
+// row end) so the whole row is a click target. EU rows render
+// `programPeriod` ("2014-2020" etc.) instead of a fake date, since the
+// programCode prefix only identifies the programming frame.
 //
 // Auto-hides when the feed is empty (a handful of small municípios with
 // no matching data).
@@ -12,12 +17,14 @@ import { useTranslation } from "react-i18next";
 import {
   Activity,
   ChevronDown,
+  ChevronRight,
   ChevronUp,
   Coins,
   Crown,
   FileSearch,
   Hammer,
   Mic,
+  Vote,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import {
@@ -30,7 +37,7 @@ type Props = {
   obshtina: string;
 };
 
-const PREVIEW_CAP = 8;
+const PREVIEW_CAP = 10;
 const EXPANDED_CAP = 20;
 
 const ICONS: Record<MyAreaAlertKind, typeof Activity> = {
@@ -39,6 +46,7 @@ const ICONS: Record<MyAreaAlertKind, typeof Activity> = {
   local_election: Crown,
   capital_program: Hammer,
   plenary_keyword: Mic,
+  council_resolution: Vote,
 };
 
 const COLOR: Record<MyAreaAlertKind, string> = {
@@ -47,6 +55,9 @@ const COLOR: Record<MyAreaAlertKind, string> = {
   local_election: "#56A86F",
   capital_program: "#A6792F",
   plenary_keyword: "#C97AAA",
+  // Amber tint matches the band's old council-vote treatment so the
+  // visual continuity carries over now that council rows live here.
+  council_resolution: "#D97706",
 };
 
 const formatDateBg = (iso: string): string => {
@@ -85,18 +96,17 @@ export const MyAreaAlertsTile: FC<Props> = ({ obshtina }) => {
     const Icon = ICONS[e.kind] ?? Activity;
     const color = COLOR[e.kind] ?? "#888";
     const headline = lang === "bg" ? e.headline_bg : e.headline_en;
-    // EU funds contracts have no real per-contract date — only the
-    // programme code's prefix year. Rendering it as a literal "1 Jan 2014"
-    // mislead users in dev; suppress the date label for this kind and let
-    // the programme name (event.detail) carry the temporal signal instead.
-    const showDate = e.kind !== "eu_funds";
-    const dateLabel =
-      lang === "bg" ? formatDateBg(e.date) : formatDateEn(e.date);
-    return (
-      <li
-        key={`${e.date}-${i}-${e.kind}`}
-        className="flex items-start gap-2 py-1.5 border-b last:border-b-0"
-      >
+    // EU funds contracts have no real per-contract date — the build
+    // script emits a programPeriod label ("2014-2020", "2021-2027",
+    // "2021-RRP") in place of a fake "1 Jan YYYY". When present, we
+    // render the period instead of the date.
+    const temporalLabel = e.programPeriod
+      ? e.programPeriod
+      : lang === "bg"
+        ? formatDateBg(e.date)
+        : formatDateEn(e.date);
+    const inner = (
+      <>
         <div
           className="mt-0.5 shrink-0 rounded-full p-1"
           style={{ backgroundColor: `${color}22`, color }}
@@ -104,13 +114,31 @@ export const MyAreaAlertsTile: FC<Props> = ({ obshtina }) => {
           <Icon className="size-3" />
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-xs leading-snug">{headline}</div>
+          <div className="text-xs leading-snug line-clamp-2">{headline}</div>
           <div className="text-[10px] text-muted-foreground tabular-nums mt-0.5">
-            {showDate ? dateLabel : null}
-            {showDate && e.detail ? <span> · </span> : null}
-            {e.detail ? <span>{e.detail}</span> : null}
+            <span>{temporalLabel}</span>
+            {e.detail ? <span> · {e.detail}</span> : null}
           </div>
         </div>
+        {e.link ? (
+          <ChevronRight className="size-3 shrink-0 mt-1.5 text-muted-foreground opacity-50 group-hover:opacity-100 transition-opacity" />
+        ) : null}
+      </>
+    );
+    return (
+      <li key={`${e.date}-${i}-${e.kind}`} className="border-b last:border-b-0">
+        {e.link ? (
+          <a
+            href={e.link}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="group flex items-start gap-2 py-1.5 hover:bg-accent/30 rounded-sm -mx-1 px-1 transition-colors"
+          >
+            {inner}
+          </a>
+        ) : (
+          <div className="flex items-start gap-2 py-1.5">{inner}</div>
+        )}
       </li>
     );
   };
