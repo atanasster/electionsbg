@@ -607,17 +607,51 @@ const main = async (args: {
   const sessions = [...sessionsMap.values()].sort((a, b) =>
     a.date.localeCompare(b.date),
   );
-  const latestSten = stenograms[stenograms.length - 1];
+  // Advance the watermarks only past stenograms that were actually ingested,
+  // and only contiguously from the previous watermark. If a discovered
+  // stenogram was discovered-but-skipped (typical cause: parliament.bg
+  // uploaded only the group-aggregate CSV under the "Поименно гласуване"
+  // label before the per-MP file is ready), hold `lastStenogramId` at the
+  // last contiguously-ingested id so the next run retries the skipped one.
+  // Without this hold, a one-off upstream gap silently strands the session
+  // even after parliament.bg republishes a correct per-MP attachment.
+  const previousWatermark = existing?.lastStenogramId ?? 0;
+  const ingestedIds = new Set(ingested.map((r) => r.stenogramId));
+  const discoveredIds = stenograms
+    .map((s) => s.Pl_Sten_id)
+    .sort((a, b) => a - b);
+  const skippedIds: number[] = [];
+  let newWatermarkId = previousWatermark;
+  for (const id of discoveredIds) {
+    if (id <= previousWatermark) continue;
+    if (ingestedIds.has(id)) {
+      newWatermarkId = id;
+    } else {
+      skippedIds.push(id);
+      break;
+    }
+  }
+  if (skippedIds.length > 0) {
+    const skippedDates = stenograms
+      .filter((s) => skippedIds.includes(s.Pl_Sten_id))
+      .map((s) => `${s.Pl_Sten_date} (id ${s.Pl_Sten_id})`)
+      .join(", ");
+    console.log(
+      `  · holding watermark at id ${newWatermarkId} so next run can retry ` +
+        `discovered-but-skipped session(s): ${skippedDates}`,
+    );
+  }
+  const latestIngestedSten =
+    ingested.length > 0
+      ? (stenograms.find((s) => s.Pl_Sten_id === newWatermarkId) ?? null)
+      : null;
   const idx: IndexFile = {
     scrapedAt: new Date().toISOString(),
     ns: sessions.length
       ? deriveNsFromSession(sessions[sessions.length - 1].file)
       : "",
-    lastStenogramId: Math.max(
-      ...stenograms.map((s) => s.Pl_Sten_id),
-      existing?.lastStenogramId ?? 0,
-    ),
-    lastDate: latestSten?.Pl_Sten_date ?? existing?.lastDate ?? "",
+    lastStenogramId: newWatermarkId,
+    lastDate: latestIngestedSten?.Pl_Sten_date ?? existing?.lastDate ?? "",
     mpProfileByNs: buildMpProfileByNs(sessions),
     sessions,
   };
