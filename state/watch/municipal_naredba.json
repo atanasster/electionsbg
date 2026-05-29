@@ -1,8 +1,8 @@
 {
-  "detail": "4 município(s) wired",
-  "fingerprint": "fe14096be373e83175c94367a4cb199bc5f99d86ce6393ce53ad99b455119408",
-  "lastChanged": "2026-05-29T16:54:26.342Z",
-  "lastChecked": "2026-05-29T16:54:26.342Z",
+  "detail": "8 município(s) wired",
+  "fingerprint": "b997371cd6d752a477efa72f201a58f917032b578c84e53fdf6ab5463226a7fb",
+  "lastChanged": "2026-05-29T17:04:54.003Z",
+  "lastChecked": "2026-05-29T17:04:54.003Z",
   "meta": {
     "perObshtina": {
       "SOF00": [
@@ -48,6 +48,62 @@
         },
         {
           "url": "https://plovdiv.obshtini.bg/doc/388894",
+          "status": 200,
+          "length": "722",
+          "lastModified": "Wed, 27 Aug 2025 06:17:29 GMT"
+        }
+      ],
+      "RAZ26": [
+        {
+          "url": "https://razgrad.obshtini.bg/doc/6505930",
+          "status": 200,
+          "length": "722",
+          "lastModified": "Wed, 27 Aug 2025 06:17:29 GMT"
+        },
+        {
+          "url": "https://razgrad.obshtini.bg/doc/6505934",
+          "status": 200,
+          "length": "722",
+          "lastModified": "Wed, 27 Aug 2025 06:17:29 GMT"
+        }
+      ],
+      "SFO39": [
+        {
+          "url": "https://samokov.obshtini.bg/doc/5993006",
+          "status": 200,
+          "length": "722",
+          "lastModified": "Wed, 27 Aug 2025 06:17:29 GMT"
+        },
+        {
+          "url": "https://samokov.obshtini.bg/doc/5992724",
+          "status": 200,
+          "length": "722",
+          "lastModified": "Wed, 27 Aug 2025 06:17:29 GMT"
+        }
+      ],
+      "SZR22": [
+        {
+          "url": "https://maglizh.obshtini.bg/doc/5853991",
+          "status": 200,
+          "length": "722",
+          "lastModified": "Wed, 27 Aug 2025 06:17:29 GMT"
+        },
+        {
+          "url": "https://maglizh.obshtini.bg/doc/5822281",
+          "status": 200,
+          "length": "722",
+          "lastModified": "Wed, 27 Aug 2025 06:17:29 GMT"
+        }
+      ],
+      "DOB03": [
+        {
+          "url": "https://balchik.obshtini.bg/doc/6563059",
+          "status": 200,
+          "length": "722",
+          "lastModified": "Wed, 27 Aug 2025 06:17:29 GMT"
+        },
+        {
+          "url": "https://balchik.obshtini.bg/doc/6563060",
           "status": 200,
           "length": "722",
           "lastModified": "Wed, 27 Aug 2025 06:17:29 GMT"

@@ -18,7 +18,7 @@ The file has two tiers that merge into one structure:
 | Tier | Source | Coverage | Cadence | Cost |
 |---|---|---|---|---|
 | **A — ИПИ aggregator** | [265obshtini.bg](https://www.265obshtini.bg/) | All 265 общини × 5 tax indicators | Annual (Q3 publication) | Fully automated |
-| **B — Per-município naredba** | each município's FEES + TAX naredbi | Currently 4 wired (SOF00, VAR06, BGS04, PDV22): ТБО basis flag (4/4) · property tax for individuals (3/4 — Sofia 1.875‰, Plovdiv 1.8‰, Varna 2.0‰; Burgas blocked on a legacy .doc TAX-naredba) · tourist / dog tax (Sofia only — Plovdiv & Varna phrasings not yet caught by the regex). Other oblast capitals land as parsers are added. | Annual (Dec→Jan adoption) | Per-município parser; OCR fallback via Gemini Vision |
+| **B — Per-município naredba** | each município's FEES + TAX naredbi | Currently 8 wired: ТБО basis flag (8/8 — SOF/VAR/BGS/PDV/RAZ/SFO/MGL/BLC) · property tax for individuals (7/8 — Sofia 1.875‰, Plovdiv 1.8‰, Varna 2.0‰, Razgrad 3‰, Samokov 2.5‰, Мъглиж 3.5‰, Балчик 2.5‰; Burgas blocked on a legacy .doc TAX-naredba) · tourist / dog tax (Sofia only — other phrasings not yet caught by the regex). Other oblast capitals land as parsers are added. | Annual (Dec→Jan adoption) | Per-município parser via `createObshtiniBgNaredbaParser` factory when both naredbi are on the obshtini.bg platform; bespoke for direct PDFs |
 
 Tier B fills in the resident-side taxes ИПИ doesn't cover — most importantly the residential garbage-fee basis (промил / users / area / volume), which is the comparability metadata that lets the tile honestly show ТБО across municipalities.
 
