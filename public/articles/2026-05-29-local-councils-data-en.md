@@ -19,6 +19,14 @@ keywords:
   - Чл.53 ЗДБРБ
   - municipal data Bulgaria
   - electionsbg.com local government
+  - municipal local taxes
+  - property tax for individuals
+  - waste collection fee Bulgaria
+  - tourist tax bylaws
+  - dog tax Bulgaria
+  - НОРМД tax bylaw
+  - IME 265obshtini
+  - obshtini.bg JSON API
 ---
 
 # How Bulgarian municipal council votes — and their budgets — get into electionsbg.com
@@ -268,6 +276,73 @@ The top recipients by total transfer in 2025:
 Sofia gets roughly **€652M** in state transfers; the five smallest municipalities (Мирково, Грамада, Антон, Макреш, Чавдар) each get under **€2M**. The story isn't the absolute amounts — it's the structure: 89% of every município's envelope flows to delegated activities the council has no real discretion over, leaving the equalisation transfer + the capital transfer as the rough envelope of the council's actual fiscal decisions for the year. For Велико Търново in 2025 that's **€2.27M capital + €1.36M equalisation = €3.6M of "council-discretionary" state money**, against the €47.1M total capital programme — so roughly 92% of the capital programme comes from somewhere _other_ than the state's transfer (own revenue, EU programmes, debt).
 
 Universal coverage means this is the one place in the system where you can compare every município to every other on the same axis. The five-fiscal-year time series also gives a clean view of how the envelope has changed across cabinet mandates — the **210% growth between 2020 and 2025** is one of the most-quoted figures from the dashboard, and the structural split lets you see how much of that came from inflation-driven delegated raises versus genuine fiscal expansion.
+
+## Local taxes and fees
+
+Capital programmes and Article 53 transfers describe money flowing _from_ the state _to_ the município. Local taxes and fees describe the reverse flow — what the resident pays out-of-pocket to their own município. There are two layers of coverage here, together describing nine separate per-resident numbers.
+
+**Tier A — IME (Institute for Market Economics).** Annual FOI-collected survey of the five most-cited local taxes, published on [265obshtini.bg](https://www.265obshtini.bg/) — the only universal-coverage surface in the category:
+
+- Property tax (legal entities), ‰ of tax-assessment value
+- Property-transfer tax, %
+- Vehicle tax (74–110 kW band), €/kW
+- Patent tax — retail ≤ 100 m², €
+- Patent tax — taxi, €
+
+We re-fetch all five CSVs from `https://www.265obshtini.bg/downloadCSV/{ipiId}`, normalise the município name to a canonical obshtina code via `scripts/local_taxes/lib/match_obshtina.ts`, and compute a per-indicator national rank ascending by rate (#1 = lowest = cheapest for the taxpayer). **265 of 265 municípios resolve on the first pass** for the 2021–2025 window — five consecutive fiscal years, no missing rows. IME paused the taxi patent indicator after 2023 (monitoring shelved following the 2024 amendments to ЗМДТ Art. 61з), so for that row we surface 2023 as the latest available year with a dedicated label in the tile.
+
+**Tier B — per-município bylaws.** Four additional fields that IME doesn't track because they depend on each municipal council's annual vote. We parse them directly from **both bylaws** of each município — the bylaw determining the size of local taxes (НОРМД — *Наредба за определяне размера на местните данъци*) and the bylaw on local fees and service prices (НОАМТЦУ — *Наредба за определяне и администриране на местните такси и цени на услуги*):
+
+- **Property tax for individuals** — the actual rate citizens pay. IME formally tracks the legal-entities row; for most municípios both rates coincide under a common ЗМДТ Art. 22 clause, but not all (Petrich, for instance, has a separate 2.3 ‰ rate for non-residential of enterprises and 3 ‰ for all citizen-owned property).
+- **Residential garbage fee** (ТБО) — the basis flag (promille of tax valuation / per user / floor area / waste volume) plus the rate when the bylaw publishes one. Most large municípios defer the actual rate to an annual council resolution rather than codifying it in the bylaw — in that case we store the basis with an honest "set annually by council resolution" note.
+- **Tourist tax** — per-night rate by star category, lifted from the "1 star / 2 stars / …" tariff inside the tax bylaw. When the bylaw publishes dual BGN/EUR values we prefer the EUR side; converted-from-BGN values carry a small "(conv. from BGN)" qualifier in the tile.
+- **Dog tax** — annual fee. Lives in the fees bylaw (НОАМТЦУ) as a *такса* under ЗМДТ Art. 175(2) (veterinary-medicine authority), not in the tax bylaw — so extracting it requires fetching both documents.
+
+Tier B currently covers **9 municípios**: Sofia, Plovdiv, Varna, Burgas, Razgrad, Samokov, Maglizh, Balchik and Petrich. The sources are heterogeneous:
+
+| Code | Município | Fees bylaw (НОАМТЦУ) | Tax bylaw (НОРМД) | Fetch method |
+|------|---------|------------------|----------------|----------|
+| SOF00 | Sofia | iisda.government.bg (PDF) | sofia.obshtini.bg/doc/385434 | pdftotext + obshtini.bg JSON API |
+| PDV22 | Plovdiv | plovdiv.obshtini.bg/doc/388893 | plovdiv.obshtini.bg/doc/388894 | obshtini.bg JSON API |
+| VAR06 | Varna | varna.bg (PDF) | varna.obshtini.bg/doc/345772 | pdftotext + obshtini.bg JSON API |
+| BGS04 | Burgas | burgascouncil.org (DOCX) | burgascouncil.org legacy .doc | DOCX + macOS textutil |
+| RAZ26 | Razgrad | razgrad.obshtini.bg/doc/6505930 | razgrad.obshtini.bg/doc/6505934 | obshtini.bg JSON API |
+| SFO39 | Samokov | samokov.obshtini.bg/doc/5993006 | samokov.obshtini.bg/doc/5992724 | obshtini.bg JSON API |
+| SZR22 | Maglizh | maglizh.obshtini.bg/doc/5853991 | maglizh.obshtini.bg/doc/5822281 | obshtini.bg JSON API |
+| DOB03 | Balchik | balchik.obshtini.bg/doc/6563059 | balchik.obshtini.bg/doc/6563060 | obshtini.bg JSON API |
+| BLG33 | Petrich | petrich.obshtini.bg/doc/4416578 | petrich.obshtini.bg/doc/3103531 | obshtini.bg JSON API |
+
+Current rates from the extracted bylaws (fiscal year 2025, full 9/9 coverage on all four slots):
+
+| Município | Property (individuals) | ТБО basis | Tourist | Dog |
+|---|---:|---|---:|---:|
+| Sofia | 1.875 ‰ | promille | €0.51/night | €12.27/yr |
+| Plovdiv | 1.8 ‰ | waste volume | €0.20/night | €15.34/yr |
+| Varna | 2.0 ‰ | promille (1.5 ‰) | €0.26/night | €12.27/yr |
+| Burgas | 1.75 ‰ | promille (1.3 ‰) | €0.26/night | €15.34/yr |
+| Razgrad | 3.0 ‰ | promille | €0.31/night | €10.23/yr |
+| Samokov | 2.5 ‰ | promille | €0.45/night | €5.11/yr |
+| Maglizh | 3.5 ‰ | waste volume | €0.10/night | €10.23/yr |
+| Balchik | 2.5 ‰ | waste volume | €0.31/night | €5.11/yr |
+| Petrich | 3.0 ‰ | waste volume | €0.26/night | €10.23/yr |
+
+Euro values are computed at the fixed conversion rate 1 EUR = 1.95583 BGN adopted for the 2026-01-01 transition. Where the bylaw still publishes only lev, we convert and tag the unit "(conv. from BGN)" — so the user can see the math was ours, not the município's.
+
+### Local taxes — what's missing
+
+Tier A covers all 265 municípios; Tier B only nine. The reasons cluster:
+
+- **Roughly 150 municípios are on the obshtini.bg platform** (hosted by Apis for client municípios). These are parseable via the same JSON API we already use for the eight above — each new município is a 10-line config: canonical obshtina code, subdomain slug, and two `uniqueId`s for the fees and tax bylaws. The `scripts/local_taxes/probe_obshtini_all.ts` discovery script transliterates município names by the official BG-to-ASCII rules and probes which ones are on the platform; the first pass surfaced Razgrad, Samokov, Maglizh, Balchik and Petrich in about four minutes.
+- **The remaining ~100 municípios** publish bylaws on their own websites in mixed formats — PDF, DOCX, legacy .doc (Word 2003), Drupal modules, Joomla attachments. Each requires individual recon. Burgas's tax bylaw is a legacy .doc converted via macOS `textutil` (Linux operators swap in `antiword`); extracting the property-tax rate also requires a manual pin, because Article 18's text uses an anaphoric reference ("The tax is determined on the tax valuation…") rather than the canonical "property tax on real estate" anchor the generic extractor requires. Scaling to those 100 municípios takes a dedicated parser per bylaw.
+- **Varna's tourist tax tariff** lives in a separate Приложение № 2 not returned by the obshtini.bg JSON. The table above carries Varna's "2 stars" tier (`€0.26/night` — the lowest the bylaw declares inline), but the full schedule for registered "class B" accommodations is missing.
+
+A canonical side effect of the open obshtini.bg platform: municípios on it can revise their bylaws mid-year (as they often do after ЗМДТ amendments), and our weekly watcher catches the change immediately — HEAD-probing each of the two bylaws of each of the nine municípios, plus the IME CSV for Tier A. Municípios publishing PDFs on their own sites typically push only a new year-end version, so the lag can be up to 4 months until the annual cycle refreshes.
+
+### Where it surfaces in the dashboard
+
+The **"Local taxes"** tile on the My-Area page renders for any of the 265 municípios that has at least an IME block. It shows the five IME rows with colour-coded national rank (green = bottom quintile, red = top), plus a row for ТБО (basis and rate when published), plus a row each for tourist tax and dog tax when we have Tier B coverage for that município.
+
+For users from the 9 Tier-B municípios, the **"Where do my taxes go?"** tile on the same My-Area page combines these rates with a stylised household profile (apartment with €30,000 tax valuation + 85 kW vehicle) and shows the estimated annual local-tax bill — property tax, residential garbage fee, vehicle tax, and the one-time property-transfer tax. Next to it sits the distribution of the personal income tax (10%) across COFOG budget functions, so the user sees their whole personal tax-and-fee profile in one place.
 
 ## What you see in the My-Area dashboard today
 
