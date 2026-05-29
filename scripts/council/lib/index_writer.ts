@@ -20,7 +20,15 @@ import type {
 
 const DATA_DIR = join(process.cwd(), "data/council");
 const INDEX_PATH = join(DATA_DIR, "index.json");
-const PER_MUNI_LIMIT = 50;
+// Per-município index-slot cap. Bumped from 50 → 200 on 2026-05-29
+// after Sofia gained per-councillor data via --ocr: a single Sofia
+// session now ships up to 77 records, and the 50 cap was hiding
+// session 60's richer data behind session 61's metadata-only slot
+// in the MyArea tile (sessions are date-disjoint, and date-desc
+// sort buried the older-but-richer rows). 200 keeps the file under
+// a few MB even with full per-councillor blocks; per-resolution
+// shards on disk remain the durable source of truth.
+const PER_MUNI_LIMIT = 200;
 
 const readIndex = async (): Promise<CouncilIndexFile> => {
   const raw = await readFile(INDEX_PATH, "utf8");

@@ -114,31 +114,47 @@ const parseResolutionPdf = (
  * into the per-resolution records built from the clean
  * per-resolution PDFs.
  */
+type SofiaUnlockEntry = {
+  tally?: CouncilTally;
+  result: CouncilResolution["result"];
+};
+
 const unlockProtokolTallies = async (
   protokolUrl: string,
   sess: SofiaSession,
   dir: string,
   doPerCouncillor: boolean,
 ): Promise<{
-  byNumber: Map<
-    string,
-    {
-      tally?: CouncilTally;
-      result: CouncilResolution["result"];
-    }
-  >;
+  /** Keyed by the marker number (Решение № NNN if the OCR preserved
+   * it; Точка N otherwise). */
+  byNumber: Map<string, SofiaUnlockEntry>;
+  /** Markers in document order — supports positional fallback when the
+   * map keys turn out to be Точка numbers (1-80) that don't match
+   * decision numbers (303-380). */
+  inOrder: SofiaUnlockEntry[];
   cost: number;
   pages: number;
   joinExact: number;
   joinTotal: number;
+  /** Did findResolutionMarkers see "Решение № NNN" all-caps headers
+   * (in which case mapping by number is reliable)? */
+  hasReshenieHeaders: boolean;
 }> => {
-  const out = new Map<
-    string,
-    { tally?: CouncilTally; result: CouncilResolution["result"] }
-  >();
+  const out = new Map<string, SofiaUnlockEntry>();
+  const inOrder: SofiaUnlockEntry[] = [];
   const path = join(dir, `protokol_${sess.session}.pdf`);
   await fetchToFile(protokolUrl, path, { timeoutMs: 120000 });
   const { text, usage } = await ocrPdfChunked(path);
+
+  // Save the OCR output to /tmp for diagnostics — cleaned up on the next
+  // run of this session. Useful when debugging unmerged tallies; the
+  // upstream temp dir cleanup wipes the chunks immediately on exit.
+  try {
+    const { writeFile } = await import("node:fs/promises");
+    await writeFile(`/tmp/council/sof_${sess.session}_ocr.txt`, text, "utf8");
+  } catch {
+    /* best-effort only */
+  }
 
   const lookup = doPerCouncillor
     ? await buildMuniLookup("Столична община")
@@ -147,6 +163,17 @@ const unlockProtokolTallies = async (
   const markers = findResolutionMarkers(text);
   let joinExact = 0;
   let joinTotal = 0;
+  let hasReshenieHeaders = false;
+  // Heuristic: if the OCR text has more than 20 distinct "Решение № NNN"
+  // (large-N) headers, we trust mapping by number; otherwise fall back
+  // to positional. "Точка <N>" matches are small N (1-80) so they tip
+  // the average down — count distinct numbers > 100 as the signal.
+  for (const m of markers) {
+    if (parseInt(m.number, 10) > 100) {
+      hasReshenieHeaders = true;
+      break;
+    }
+  }
   for (const marker of markers) {
     // Sofia OCR places the aggregate tally AFTER the agenda marker:
     //   ... per-councillor block ...
@@ -185,14 +212,18 @@ const unlockProtokolTallies = async (
       }
     }
     const result = best ? classifyResult(text, best.offset) : "unknown";
-    out.set(marker.number, { tally, result });
+    const entry: SofiaUnlockEntry = { tally, result };
+    out.set(marker.number, entry);
+    if (tally) inOrder.push(entry);
   }
   return {
     byNumber: out,
+    inOrder,
     cost: usage.estUsd,
     pages: usage.outputTokens,
     joinExact,
     joinTotal,
+    hasReshenieHeaders,
   };
 };
 
@@ -306,19 +337,41 @@ export const scrapeSOF = async (
           );
           totalOcrCost += unlock.cost;
           let merged = 0;
-          for (const r of sessionRecs) {
-            const u = unlock.byNumber.get(r.number);
-            if (!u) continue;
-            r.tally = u.tally;
-            r.result = u.result;
-            merged++;
+          let mergeMethod: "number" | "positional" = "number";
+          // Path A: the OCR preserved "Решение № NNN" headers; join by
+          // exact number. Path B (Sofia today): the OCR surfaces only
+          // "Точка <N>" agenda markers — fall back to POSITIONAL
+          // matching: the Nth Точка with tally data is the decision
+          // whose number ranks Nth in ascending order within the
+          // session's per-resolution PDFs. This works because each
+          // adopted decision generates exactly one r-NNN-YYYY PDF in
+          // sequential numbering.
+          if (unlock.hasReshenieHeaders) {
+            for (const r of sessionRecs) {
+              const u = unlock.byNumber.get(r.number);
+              if (!u) continue;
+              r.tally = u.tally;
+              r.result = u.result;
+              merged++;
+            }
+          } else if (unlock.inOrder.length > 0) {
+            mergeMethod = "positional";
+            const sortedRecs = [...sessionRecs].sort(
+              (a, b) => parseInt(a.number, 10) - parseInt(b.number, 10),
+            );
+            const n = Math.min(sortedRecs.length, unlock.inOrder.length);
+            for (let i = 0; i < n; i++) {
+              sortedRecs[i].tally = unlock.inOrder[i].tally;
+              sortedRecs[i].result = unlock.inOrder[i].result;
+              merged++;
+            }
           }
           const joinPct =
             unlock.joinTotal > 0
               ? ` · join ${unlock.joinExact}/${unlock.joinTotal} (${Math.round((unlock.joinExact / unlock.joinTotal) * 100)}%)`
               : "";
           console.log(
-            `      ocr: $${unlock.cost.toFixed(4)}, merged tally into ${merged}/${refs.length}${joinPct}`,
+            `      ocr: $${unlock.cost.toFixed(4)} (${mergeMethod}), merged tally into ${merged}/${refs.length}${joinPct}`,
           );
         } catch (err) {
           errors.push({
