@@ -51,13 +51,41 @@ export const MunicipalElectionTile: FC<Props> = ({
   // appear in the elections selector — they surface contextually here.
   const chmiEvents = useChmiHistory(obshtinaCode);
 
+  // Top 3 council parties enriched with a Δ seats vs the prior cycle.
+  // Match strategy mirrors `partyFlipped` below: prefer primaryCanonicalId
+  // (most reliable), then fall back to a case-insensitive localPartyName
+  // match for unresolved canonicals. When the prior cycle has no data for
+  // this município (Sofia районs in pre-2019 cycles), delta is undefined and
+  // the arrow isn't rendered.
   const topCouncilParties = useMemo(() => {
     if (!municipality?.council) return [];
+    const findPrior = (
+      cur: (typeof municipality.council)[number],
+    ): { mandatesWon: number } | undefined => {
+      if (!priorBundle?.council) return undefined;
+      if (cur.primaryCanonicalId) {
+        const m = priorBundle.council.find(
+          (p) => p.primaryCanonicalId === cur.primaryCanonicalId,
+        );
+        if (m) return m;
+      }
+      const curName = cur.localPartyName.toLocaleLowerCase("bg");
+      return priorBundle.council.find(
+        (p) => p.localPartyName.toLocaleLowerCase("bg") === curName,
+      );
+    };
     return [...municipality.council]
       .filter((p) => p.mandatesWon > 0)
       .sort((a, b) => b.mandatesWon - a.mandatesWon)
-      .slice(0, 3);
-  }, [municipality]);
+      .slice(0, 3)
+      .map((p) => {
+        const prior = findPrior(p);
+        return {
+          ...p,
+          delta: prior ? p.mandatesWon - prior.mandatesWon : undefined,
+        };
+      });
+  }, [municipality, priorBundle]);
 
   const totalSeats = useMemo(
     () => municipality?.council.reduce((acc, p) => acc + p.mandatesWon, 0) ?? 0,
@@ -218,6 +246,20 @@ export const MunicipalElectionTile: FC<Props> = ({
                       {p.localPartyName}
                     </span>
                     <span className="font-semibold">{p.mandatesWon}</span>
+                    {p.delta !== undefined && p.delta !== 0 ? (
+                      <span
+                        className={
+                          p.delta > 0
+                            ? "text-emerald-600 font-medium"
+                            : "text-rose-600 font-medium"
+                        }
+                        aria-label={t("local_election_seat_change", {
+                          delta: p.delta > 0 ? `+${p.delta}` : String(p.delta),
+                        })}
+                      >
+                        {p.delta > 0 ? `↑+${p.delta}` : `↓${p.delta}`}
+                      </span>
+                    ) : null}
                   </span>
                 ))}
               </div>
