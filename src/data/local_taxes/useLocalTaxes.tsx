@@ -101,19 +101,31 @@ const fetchShard = async (
   return r.json();
 };
 
+/** Sofia районs (S2xxx) inherit Sofia's città rates — the local-tax
+ *  naredba is set by Столичен общински съвет and applies city-wide, not
+ *  per-район. Map any район code to SOF00 so consumer tiles render
+ *  meaningful rates for Sofia residents (the obshtinaCode in the URL is
+ *  район-level for /my-area). All other obshtina codes pass through. */
+const localTaxesShardKey = (obshtina?: string | null): string | null => {
+  if (!obshtina) return null;
+  if (/^S2\d{3}$/.test(obshtina)) return "SOF00";
+  return obshtina;
+};
+
 /** Returns the local-tax record for an obshtina, or `undefined` if the
  *  município isn't in the index. Fetches the slim index (once per
  *  session) and the per-município shard (once per município). */
 export const useLocalTaxes = (obshtina?: string | null) => {
+  const shardKey = localTaxesShardKey(obshtina);
   const { data } = useQuery({
     queryKey: ["local_taxes:index"],
     queryFn: fetchIndex,
     staleTime: Infinity,
   });
   const { data: shard } = useQuery({
-    queryKey: ["local_taxes:shard", obshtina],
-    queryFn: () => fetchShard(obshtina!),
-    enabled: !!obshtina,
+    queryKey: ["local_taxes:shard", shardKey],
+    queryFn: () => fetchShard(shardKey!),
+    enabled: !!shardKey,
     staleTime: Infinity,
   });
   const score: ScoreEntry | undefined = shard
