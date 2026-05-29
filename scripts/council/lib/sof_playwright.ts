@@ -46,6 +46,18 @@ export type SofiaResolutionRef = {
   pdfUrl: string;
 };
 
+export type SofiaSessionArtifacts = {
+  resolutions: SofiaResolutionRef[];
+  /**
+   * Full session protocol PDF URL — `/documents/d/guest/protokol-<N>`.
+   * Carries the per-councillor named-vote tables but extracts as
+   * mojibake via pdftotext (custom font, no ToUnicode CMap); Gemini
+   * OCR is the route to recovering the Cyrillic. Optional because not
+   * every session links one (rare).
+   */
+  protokolUrl?: string;
+};
+
 const MANDATE_URL = "https://council.sofia.bg/meetings-mandat-2023-2027";
 const PORTLET_INSTANCE = "yino";
 const UA =
@@ -125,15 +137,25 @@ export const enumerateSessions = async (
 };
 
 /**
- * Fetch one session detail page and return the per-resolution PDF
- * URLs. Matches `/documents/d/guest/r-<NNN>-<YYYY>` exactly — drops
- * the annex variants `r-NNN_pr-N`, the proposal documents
- * `soa<YY>-vk<NN>-<...>`, and the full-protokol PDF (which has the
- * ABBYY Cyrillic-to-Latin mojibake; see parsers/sof.ts header).
+ * Fetch one session detail page and return its per-resolution PDF
+ * URLs + the full session protokol URL (if linked). Matches:
+ *   /documents/d/guest/r-<NNN>-<YYYY>   → per-resolution decision
+ *   /documents/d/guest/protokol-<N>     → full session protocol
+ * Drops the annex variants `r-NNN_pr-N`, the proposal documents
+ * `soa<YY>-vk<NN>-<...>`, and anything else that doesn't match.
+ *
+ * Sofia sessions occasionally cross-link OTHER protocols too — most
+ * commonly a postoянна комисия (PK) protokol whose decision was
+ * cited as a reference inside one of this session's resolutions
+ * (e.g. `protokol-32-ot-19-08-2025-g-na-pk-tobd-pri-so`). To pick
+ * the right protokol we filter to those whose number MATCHES the
+ * current session number; only the bare `protokol-<sessionN>` slug
+ * (no extra suffix) is treated as the session's own.
  */
-export const enumerateResolutions = async (
+export const enumerateSessionArtifacts = async (
   sessionPageUrl: string,
-): Promise<SofiaResolutionRef[]> => {
+  sessionNumber?: string,
+): Promise<SofiaSessionArtifacts> => {
   const { page } = await ensureBrowser();
   await page.goto(sessionPageUrl, {
     waitUntil: "networkidle",
@@ -143,14 +165,39 @@ export const enumerateResolutions = async (
   const hrefs = await page.$$eval("a[href]", (els) =>
     els.map((a) => (a as HTMLAnchorElement).href),
   );
-  const out: SofiaResolutionRef[] = [];
+  const resolutions: SofiaResolutionRef[] = [];
   const seen = new Set<string>();
+  let protokolUrl: string | undefined;
   for (const href of hrefs) {
-    const m = href.match(/\/documents\/d\/guest\/r-(\d+)-\d{4}$/u);
-    if (!m) continue;
-    if (seen.has(m[1])) continue;
-    seen.add(m[1]);
-    out.push({ number: m[1], pdfUrl: href });
+    const mR = href.match(/\/documents\/d\/guest\/r-(\d+)-\d{4}$/u);
+    if (mR) {
+      if (!seen.has(mR[1])) {
+        seen.add(mR[1]);
+        resolutions.push({ number: mR[1], pdfUrl: href });
+      }
+      continue;
+    }
+    // Prefer the bare /documents/d/guest/protokol-<sessionN>$ form
+    // (no extra path segments). Sessions also cite PK protocols
+    // whose slug carries dates / committee suffixes —
+    // `protokol-32-ot-19-08-2025-g-na-pk-tobd-pri-so` — and those
+    // are NOT the current session's protokol.
+    const mP = href.match(/\/documents\/d\/guest\/protokol-(\d+)$/u);
+    if (mP && (!sessionNumber || mP[1] === sessionNumber) && !protokolUrl) {
+      protokolUrl = href;
+    }
   }
-  return out;
+  return { resolutions, protokolUrl };
+};
+
+/**
+ * Back-compat shim — returns only the per-resolution refs (the
+ * `enumerateResolutions()` shape used by the existing parser path
+ * before the full-protokol unlock).
+ */
+export const enumerateResolutions = async (
+  sessionPageUrl: string,
+): Promise<SofiaResolutionRef[]> => {
+  const a = await enumerateSessionArtifacts(sessionPageUrl);
+  return a.resolutions;
 };

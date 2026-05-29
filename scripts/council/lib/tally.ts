@@ -44,12 +44,18 @@ const Q = '[""„“”\'‘’]?';
 const SEP = "[\\s,и]+";
 const DASH = "[\\s–—\\-:]*";
 
+// Digit-first matches need to keep the digit and its "за" label on
+// the SAME physical line — otherwise Sofia's OCR output of
+//   "Общо гласували: 48\nЗа 45\nПротив 1\nВъздържали се 2"
+// trips the regex into reading 48 as the "за" count (off-by-one across
+// the newline). Replacing `\s*` with `[ \t]*` between the digit and
+// the label enforces same-line.
 const SUMMARY_RE_DIGIT_FIRST = new RegExp(
-  `(\\d+|няма|-)\\s*${Q}\\s*за\\s*${Q}` +
+  `(\\d+|няма|-)[ \\t]*${Q}[ \\t]*за\\s*${Q}` +
     SEP +
-    `(?:${Q}\\s*)?(\\d+|няма|-)\\s*${Q}\\s*против\\s*${Q}` +
+    `(?:${Q}\\s*)?(\\d+|няма|-)[ \\t]*${Q}[ \\t]*против\\s*${Q}` +
     SEP +
-    `(?:${Q}\\s*)?(\\d+|няма|-)\\s*${Q}\\s*въздържал[аи]?\\s*се\\s*${Q}`,
+    `(?:${Q}\\s*)?(\\d+|няма|-)[ \\t]*${Q}[ \\t]*въздържал[аи]?\\s*се\\s*${Q}`,
   "iu",
 );
 
@@ -86,12 +92,18 @@ const SUMMARY_RE_SHORTHAND = new RegExp(
  *   Против – няма;
  *   Въздържали се – няма.
  *
- * VERBOSE_SEP allows the suffix words ("общински съветници"), terminating
- * punctuation, and newlines to sit between the captures.
+ * Sofia OCR also produces label-on-own-line tallies, but those have a
+ * preceding "Общо гласували: <total>" line which the old VERBOSE
+ * pattern misinterpreted as the "За" digit (off-by-one bug). The
+ * preceding `(?<!Общо\s+гласували\s*:\s*)` lookbehind guards against
+ * that — only a За that is NOT directly after "Общо гласували:" counts.
+ *
+ * VERBOSE_SEP allows the Pleven "общински съветници" suffix words,
+ * terminating punctuation, and newlines to sit between the captures.
  */
 const VERBOSE_SEP = "(?:\\s*общински\\s+съветници)?[;,.\\s]+";
 const SUMMARY_RE_VERBOSE = new RegExp(
-  `${Q}\\s*За\\s*${Q}${DASH}(\\d+|няма|-)` +
+  `(?<!Общо\\s+гласували\\s*:\\s*)${Q}\\s*За\\s*${Q}${DASH}(\\d+|няма|-)` +
     VERBOSE_SEP +
     `${Q}\\s*Против\\s*${Q}${DASH}(\\d+|няма|-)` +
     VERBOSE_SEP +
@@ -238,10 +250,23 @@ export const classifyResult = (
  * lowercase, diacritic-folded, whitespace-collapsed name used for
  * roster joining.
  */
+// Sofia OCR output occasionally has hyphenated names with whitespace
+// between the dash and the next syllable ("Симеонова- Заркин",
+// "Терзирадева- Велкова"). Allow `[-\s]+` between chunks so the
+// regex matches both forms; cap the chunk count at 4 to avoid eating
+// later prose.
 const VOTE_LINE_RE =
-  /^\s*(\d+)\.\s+([А-ЯЁA-Z][а-яёa-z]+(?:[-\s][А-ЯЁA-Z][а-яёa-z]+){1,3})\s*:\s*(За|Против|Въздържал(?:[аи]?\s*се)?)\s*$/u;
+  /^\s*(\d+)\.\s+([А-ЯЁA-Z][а-яёa-z]+(?:[-\s]+[А-ЯЁA-Z][а-яёa-z]+){1,4})\s*:\s*(За|Против|Въздържал(?:[аи]?\s*се)?)\s*$/u;
 
-const PAGE_HEADER_RE = /^\s*(?:Протокол\s+№|\d+\s*$|стр\.|—\s*\d+\s*—)/iu;
+// Lines treated as page-break interstitials between vote rows. Sofia's
+// OCR output sandwiches an agenda-item header AND an aggregate-tally
+// header block between the per-councillor list and the start of the
+// next section ("Точка N (word)" + "Общо гласували: T" + "За X" +
+// "Против Y" + "Въздържали се Z"). Allowing those lines through the
+// breaker keeps the lookback pass connected to the actual per-
+// councillor block instead of stopping at the first "Точка" line.
+const PAGE_HEADER_RE =
+  /^\s*(?:Протокол\s+№|\d+\s*$|стр\.|—\s*\d+\s*—|Точка\s+\d+|Общо\s+гласували|За\s+\d+\s*$|Против\s+\d+\s*$|Въздържал[аи]?\s*се\s+\d+\s*$)/iu;
 
 export const normaliseCouncillorName = (raw: string): string =>
   raw
@@ -329,8 +354,14 @@ export const findResolutionMarkers = (
   // form "Р  Е  Ш  Е  Н  И  Е" — Pleven inflates the title block this way) +
   // № + digits. Case-sensitivity is the discriminator vs inline lowercase
   // "Решение № N" references, so we stay case-sensitive here.
+  //
+  // Sofia full-protocol PDFs that have been re-OCR'd via Gemini lose the
+  // "Решение № N" headers entirely and surface agenda items as
+  // "Точка <N>" / "Точка <N> (<number-as-word>)" instead — accept those
+  // as fallback markers. Other municipalities don't use bare "Точка N" on
+  // its own line so this alternative doesn't false-positive.
   const re =
-    /(?:^|\n)[ \t]*(?:РЕШЕНИЕ|Р\s+Е\s+Ш\s+Е\s+Н\s+И\s+Е)\s*№\s*(\d+)/gu;
+    /(?:^|\n)[ \t]*(?:РЕШЕНИЕ|Р\s+Е\s+Ш\s+Е\s+Н\s+И\s+Е|Точка)\s*(?:№\s*)?(\d+)/gu;
   let m: RegExpExecArray | null;
   while ((m = re.exec(text)) !== null) {
     // m.index points at the (^|\n) boundary; nudge past it for the marker offset.

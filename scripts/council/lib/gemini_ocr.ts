@@ -54,21 +54,30 @@ type GeminiResponse = {
   };
 };
 
-const OCR_PROMPT = `You are an OCR engine for Bulgarian municipal council voting records.
+const OCR_PROMPT = `You are an OCR engine for Bulgarian municipal council voting records (Столичен общински съвет full session protocols).
 
-The input is a scanned (image-only) PDF of "Поименно гласуване" sheets — one or more pages, each listing every councillor's vote on one motion as a numbered name list with a За / Против / Въздържал се column, followed by an aggregate count.
+OUTPUT REQUIREMENT — plain UTF-8 text, NOT JSON, NOT markdown. Preserve ALL of the following CRITICAL elements VERBATIM on their own lines:
 
-OUTPUT REQUIREMENT — plain UTF-8 text, NOT JSON, NOT markdown. Preserve the structure as faithfully as possible:
-
-  - One councillor per line in the form "<N>. <Name>: <За|Против|Въздържал се>"
-  - When a page ends with an aggregate summary line, transcribe it verbatim, e.g.
-      "Гласуване: за – 46, против - 0 и въздържали се – 0"
+  - Resolution-number headers: "Решение № <N>" OR "РЕШЕНИЕ № <N>" (including any spaced-letter forms like "Р Е Ш Е Н И Е № N")
+  - Agenda-item markers: "Точка <N>" or "Точка <N> (number-as-word)"
+  - Document references in the form "СОА<YY>-ВК<NN>-<digits>/<DD.MM.YYYY> г." or similar
+  - ОТНОСНО: / Относно: title clauses
+  - Numbered councillor name-vote rows: "<N>. <Name>: <За|Против|Въздържал се>" — one per line
+  - Aggregate vote counts — EACH on its own line:
+      "Общо гласували: <T>"
+      "За <X>"
+      "Против <Y>"
+      "Въздържали се <Z>"
+    OR the prose summary forms like
       "Предложението беше прието с 25 „за", 4 „против", 1 „въздържал се"."
-  - When a motion has a heading ("Решение №...", "ОТНОСНО:", "ПО ТОЧКА ...:"), transcribe that on its own line.
-  - Skip page-margin numbers, signatures, scribbles, and stamps.
-  - If a name is illegible mark it [неясно] (in square brackets) — do NOT guess.
+      "Гласуване: за – 46, против - 0 и въздържали се – 0"
+  - Result markers like "Приема се." / "Не се приема." — on their own line
 
-The downstream regex extractor expects exact spelling of За / Против / Въздържал(и) се. Use those exact capitalizations and not abbreviated forms.
+Skip page-margin numbers, headers/footers repeated on every page, signatures, scribbles, stamps, and the prose committee discussion between vote blocks.
+
+If a councillor name is illegible, mark it [неясно] — do NOT guess.
+
+Use exact spelling of За / Против / Въздържал(и) се with proper Bulgarian Cyrillic capitalization. Numbers stay as digits.
 
 Respond with [empty] if the image is unintelligible.`;
 

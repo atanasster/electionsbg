@@ -1,67 +1,60 @@
-// София (SOF) — Liferay-driven per-resolution PDF parser.
+// София (SOF) — Liferay-driven parser with two paths:
 //
-// CAVEAT (substantial): Sofia council protocols come in two flavours:
+// Path A (always): per-resolution PDFs at `/documents/d/guest/r-<N>-<YYYY>`.
+// Clean Cyrillic via pdftotext. Yields decision number, title (the
+// "За ..." preamble), date, sourceUrl — NO vote tally because Sofia
+// strips it from the per-decision Препис-извлечение.
 //
-// 1. **Per-resolution PDFs** at `/documents/d/guest/r-<N>-<YYYY>` —
-//    Properly-encoded Cyrillic text layer (ABBYY FineReader 14 OCR
-//    output). Each carries a single Решение №<N> with the decision
-//    body, but NO vote tally or per-councillor list. Useful for
-//    decision metadata (number, title, date, sourceUrl).
+// Path B (opt-in via `--ocr`): full session protokol at
+// `/documents/d/guest/protokol-<sessionN>`. Hundreds of pages,
+// contains the "Поименно гласуване:" tables + aggregate tallies. The
+// PDF's text layer is UNUSABLE — `pdffonts` reports Helvetica/WinAnsi
+// with no ToUnicode CMap, and pdftotext extracts gibberish where each
+// Cyrillic glyph is tagged with a Latin lookalike codepoint. Recovery
+// goes via Gemini Vision OCR through lib/pdf_chunk_ocr.ts (splits the
+// PDF into ~30-page chunks via ghostscript, OCRs each, concatenates).
 //
-// 2. **Full session protocol** at `/documents/d/guest/protokol-<sessionN>` —
-//    Hundreds of pages, contains the aggregate tally + per-councillor
-//    named-vote tables ("Поименно гласуване:"). The PDF's text layer is
-//    UNUSABLE: `pdffonts` reports Helvetica/WinAnsi encoding with NO
-//    ToUnicode CMap, and `pdftotext` extracts gibberish where each
-//    Cyrillic glyph is tagged with a Latin lookalike codepoint
-//    (С→C, Т→T, О→O, Л→J, И→I/H depending on context, Ч→4, Щ→IIII4,
-//    П→II, Б→E, ф→Q, г→r, к→x, в→e, у→y, л→n, etc).
+// Char-remap was ruled out 2026-05-29 — the cipher is not 1-to-1 (one
+// Latin char ↔ multiple Cyrillic possibilities), expansion is variable
+// (Щ→IIII4, Ш→III, П→II, Ъ→Cb), and multiple Cyrillic letters share
+// output (Е and Б both → E). Disambiguation would need n-gram language
+// modelling for ~60-70% glyph recovery. Gemini OCR delivers near-100%
+// clean Cyrillic at ~$0.10-$0.50 per Sofia session (210 pages, mostly
+// boilerplate; the input-token cost dominates at ~$0.075 since the
+// PDF goes in as one DOCUMENT modality, ~288 tokens/page).
 //
-//    **Char-remap recovery is NOT tractable** — investigated 2026-05-29:
-//      - The cipher is NOT 1-to-1: the same Latin char (e.g. "I") can
-//        come from И, Н, Л, П, or even the digit "1" depending on
-//        position.
-//      - Cyrillic letters are NOT all single chars in output: Щ → IIII4,
-//        Ш → III, П → II, Ъ → Cb (multi-char).
-//      - Some Cyrillic letters share output (Е → E AND Б → E).
-//    A char map could recover ~60-70% of glyphs but disambiguation
-//    needs n-gram language modelling against a Cyrillic dictionary —
-//    several days of work for brittle results.
+// Older PK (standing committee) protocols like protokol-92-2023-06-14
+// are NOT affected — clean Cyrillic via pdftotext. The encoding break
+// is specific to the FULL council protocols Sofia started publishing
+// around 2024-2025.
 //
-//    **Gemini Vision re-OCR is the recommended path**. lib/gemini_ocr.ts
-//    is wired and validated on SZR scanned PDFs. Sofia full protokols
-//    are ~22 MB / 210 pages each; estimated cost via gemini-2.5-pro is
-//    ~$1.25 per session (input ~$0.20 + output ~$1.05). For the
-//    2023-2027 mandate's ~68 sessions that's ~$85 one-time backfill,
-//    plus ~$1.25 per new session going forward. Validated approach
-//    was BLOCKED on a 2026-05-29 pilot when the .env.local
-//    GEMINI_API_KEY came back INVALID_ARGUMENT from the API; key
-//    rotation needed before pilot can run.
-//
-//    Older PK (standing committee) protocols like protokol-92-2023-06-14
-//    are NOT affected — they extract clean Cyrillic via pdftotext. The
-//    encoding break is specific to the FULL council protocols Sofia
-//    started publishing around 2024-2025.
-//
-// What this parser delivers TODAY: per-resolution metadata via path 1.
-// Title is the "За ..." preamble preceding the РЕШИ: clause. Tally
-// + result remain undefined/unknown until the full-protokol Gemini
-// OCR pilot runs and we wire the OCR path into a `--ocr` invocation.
-//
-// Enumeration uses Playwright because the AssetPublisher pagination
-// is server-rendered through a Liferay portlet — direct curl returns
-// the page shell only. See lib/sof_playwright.ts.
+// Enumeration uses Playwright because the AssetPublisher pagination is
+// server-rendered through a Liferay portlet — direct curl returns the
+// page shell only. See lib/sof_playwright.ts.
 
 import { fetchToFile } from "../lib/fetch";
 import { extractPdfText, looksLikeScannedPdf } from "../lib/pdf_text";
+import { ocrPdfChunked } from "../lib/pdf_chunk_ocr";
+import {
+  classifyResult,
+  extractNamedVoteBlock,
+  findAllTallies,
+  findResolutionMarkers,
+} from "../lib/tally";
+import {
+  buildMuniLookup,
+  joinVotesToRoster,
+  summariseJoin,
+} from "../lib/roster_join";
 import type {
   CouncilResolution,
+  CouncilTally,
   MuniRecipe,
   MuniScrapeResult,
 } from "../lib/types";
 import {
   closePlaywright,
-  enumerateResolutions,
+  enumerateSessionArtifacts,
   enumerateSessions,
   type SofiaSession,
 } from "../lib/sof_playwright";
@@ -112,17 +105,111 @@ const parseResolutionPdf = (
   };
 };
 
+/**
+ * When `--ocr` is on, fetch the session's full protokol-N PDF and run
+ * it through chunked Gemini Vision OCR (lib/pdf_chunk_ocr.ts), then
+ * run findAllTallies + findResolutionMarkers + extractNamedVoteBlock
+ * over the recovered Cyrillic. Returns a map keyed by resolution
+ * number → { tally, perCouncillor, result } so the caller can merge
+ * into the per-resolution records built from the clean
+ * per-resolution PDFs.
+ */
+const unlockProtokolTallies = async (
+  protokolUrl: string,
+  sess: SofiaSession,
+  dir: string,
+  doPerCouncillor: boolean,
+): Promise<{
+  byNumber: Map<
+    string,
+    {
+      tally?: CouncilTally;
+      result: CouncilResolution["result"];
+    }
+  >;
+  cost: number;
+  pages: number;
+  joinExact: number;
+  joinTotal: number;
+}> => {
+  const out = new Map<
+    string,
+    { tally?: CouncilTally; result: CouncilResolution["result"] }
+  >();
+  const path = join(dir, `protokol_${sess.session}.pdf`);
+  await fetchToFile(protokolUrl, path, { timeoutMs: 120000 });
+  const { text, usage } = await ocrPdfChunked(path);
+
+  const lookup = doPerCouncillor
+    ? await buildMuniLookup("Столична община")
+    : null;
+  const tallies = findAllTallies(text);
+  const markers = findResolutionMarkers(text);
+  let joinExact = 0;
+  let joinTotal = 0;
+  for (const marker of markers) {
+    // Sofia OCR places the aggregate tally AFTER the agenda marker:
+    //   ... per-councillor block ...
+    //   Точка <N>
+    //   Общо гласували: <T>
+    //   За <X>  Против <Y>  Въздържали се <Z>
+    // So pair each marker with the FIRST tally whose offset is > the
+    // marker (V. Tarnovo's pairing logic flips this).
+    let best: (typeof tallies)[number] | undefined;
+    for (const t of tallies) {
+      if (t.offset > marker.offset) {
+        best = t;
+        break;
+      }
+    }
+    // Lookback for the per-councillor block ALWAYS goes from the
+    // marker (the per-councillor list precedes Точка <N>) — never
+    // from the tally offset, because the tally is downstream.
+    let tally = best?.tally;
+    if (tally && lookup) {
+      const votes = extractNamedVoteBlock(text, marker.offset);
+      if (votes.length > 0) {
+        const joined = joinVotesToRoster(votes, lookup);
+        const stats = summariseJoin(joined);
+        joinExact += stats.exact;
+        joinTotal += stats.total;
+        tally = {
+          ...tally,
+          method: "named",
+          perCouncillor: joined.map((j) => ({
+            name: j.matchedTo ?? j.name,
+            normKey: j.normKey,
+            vote: j.vote,
+          })),
+        };
+      }
+    }
+    const result = best ? classifyResult(text, best.offset) : "unknown";
+    out.set(marker.number, { tally, result });
+  }
+  return {
+    byNumber: out,
+    cost: usage.estUsd,
+    pages: usage.outputTokens,
+    joinExact,
+    joinTotal,
+  };
+};
+
 export const scrapeSOF = async (
   _recipe: MuniRecipe,
   opts: {
     sinceYear?: number;
     sinceDate?: string;
     maxProtocols?: number;
+    perCouncillor?: boolean;
+    ocr?: boolean;
   },
 ): Promise<MuniScrapeResult> => {
   const errors: MuniScrapeResult["errors"] = [];
   const resolutions: CouncilResolution[] = [];
   let protocolsTouched = 0;
+  let totalOcrCost = 0;
 
   let sessions: SofiaSession[];
   try {
@@ -160,9 +247,12 @@ export const scrapeSOF = async (
   const dir = await mkdtemp(join(tmpdir(), "council-sof-"));
   try {
     for (const sess of sessions) {
-      let refs: Awaited<ReturnType<typeof enumerateResolutions>>;
+      let arts: Awaited<ReturnType<typeof enumerateSessionArtifacts>>;
       try {
-        refs = await enumerateResolutions(sess.pageUrl);
+        // Pass the session number so the artifact picker can
+        // disambiguate between protokol-<thisSession> and other
+        // protokols that get cross-linked from cited PK references.
+        arts = await enumerateSessionArtifacts(sess.pageUrl, sess.session);
       } catch (err) {
         errors.push({
           url: sess.pageUrl,
@@ -170,9 +260,13 @@ export const scrapeSOF = async (
         });
         continue;
       }
+      const refs = arts.resolutions;
       console.log(
-        `    + sess ${sess.session} (${sess.date}): ${refs.length} resolution PDF(s) discovered`,
+        `    + sess ${sess.session} (${sess.date}): ${refs.length} resolution PDF(s) discovered${arts.protokolUrl ? "; protokol available" : ""}`,
       );
+      // Step 1: pull per-resolution PDFs (clean Cyrillic, no tally) to
+      // build the decision-metadata records.
+      const sessionRecs: CouncilResolution[] = [];
       let pulled = 0;
       for (const ref of refs) {
         const pdfPath = join(dir, `r_${ref.number}.pdf`);
@@ -189,7 +283,7 @@ export const scrapeSOF = async (
           }
           const rec = parseResolutionPdf(text, ref.number, sess, ref.pdfUrl);
           if (rec) {
-            resolutions.push(rec);
+            sessionRecs.push(rec);
             pulled++;
           }
         } catch (err) {
@@ -199,6 +293,42 @@ export const scrapeSOF = async (
           });
         }
       }
+
+      // Step 2: when --ocr, OCR the full session protokol and merge
+      // tally + perCouncillor data into the existing records.
+      if (opts.ocr && arts.protokolUrl) {
+        try {
+          const unlock = await unlockProtokolTallies(
+            arts.protokolUrl,
+            sess,
+            dir,
+            opts.perCouncillor ?? false,
+          );
+          totalOcrCost += unlock.cost;
+          let merged = 0;
+          for (const r of sessionRecs) {
+            const u = unlock.byNumber.get(r.number);
+            if (!u) continue;
+            r.tally = u.tally;
+            r.result = u.result;
+            merged++;
+          }
+          const joinPct =
+            unlock.joinTotal > 0
+              ? ` · join ${unlock.joinExact}/${unlock.joinTotal} (${Math.round((unlock.joinExact / unlock.joinTotal) * 100)}%)`
+              : "";
+          console.log(
+            `      ocr: $${unlock.cost.toFixed(4)}, merged tally into ${merged}/${refs.length}${joinPct}`,
+          );
+        } catch (err) {
+          errors.push({
+            url: arts.protokolUrl,
+            message: `protokol OCR failed: ${err instanceof Error ? err.message : String(err)}`,
+          });
+        }
+      }
+
+      resolutions.push(...sessionRecs);
       protocolsTouched++;
       console.log(`      ${pulled}/${refs.length} parsed into records`);
     }
@@ -207,5 +337,9 @@ export const scrapeSOF = async (
     await closePlaywright();
   }
 
+  if (opts.ocr && totalOcrCost > 0)
+    console.log(
+      `  [${OBSHTINA}] cumulative OCR cost: $${totalOcrCost.toFixed(4)}`,
+    );
   return { obshtinaCode: OBSHTINA, resolutions, protocolsTouched, errors };
 };

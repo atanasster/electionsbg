@@ -10632,12 +10632,6 @@
       "protocolsIngested": 2,
       "resolutionCount": 46
     },
-    "SOF": {
-      "name": "Столична община",
-      "lastIngest": "2026-05-28T23:29:08.766Z",
-      "protocolsIngested": 1,
-      "resolutionCount": 55
-    },
     "PDV01": {
       "name": "Община Пловдив",
       "lastIngest": "2026-05-28T23:35:07.792Z",
@@ -10649,6 +10643,12 @@
       "lastIngest": "2026-05-28T23:43:03.006Z",
       "protocolsIngested": 3,
       "resolutionCount": 109
+    },
+    "SOF": {
+      "name": "Столична община",
+      "lastIngest": "2026-05-29T01:02:33.415Z",
+      "protocolsIngested": 2,
+      "resolutionCount": 132
     }
   },
   "note": "Pending ingest. See scripts/council/README.md. Each entry: { id, date, title, summary_bg, summary_en, tags, sourceUrl }. The MyAreaCouncilMinutesTile auto-lights up once entries appear."
