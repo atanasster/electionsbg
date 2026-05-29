@@ -130,7 +130,7 @@ export const SverkaScreen: FC = () => {
   return (
     <main className="container mx-auto px-4 py-6">
       <h1 className="text-2xl font-semibold">{t("sverka_title")}</h1>
-      <p className="mt-2 text-sm text-muted-foreground max-w-prose">
+      <p className="mt-2 text-sm text-muted-foreground">
         {t("sverka_intro")}
       </p>
       <p className="mt-1 text-xs text-muted-foreground tabular-nums">

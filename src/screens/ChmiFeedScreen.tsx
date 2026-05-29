@@ -7,12 +7,17 @@
 // reporting.
 
 import { FC, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/ux/Link";
 import { useTranslation } from "react-i18next";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useChmiHistoryAll } from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import { useElectionContext } from "@/data/ElectionContext";
+import { useMps } from "@/data/parliament/useMps";
+import { useMunicipalOfficialsByName } from "@/data/officials/useMunicipalOfficialsByName";
+import { useSettlementsInfo } from "@/data/settlements/useSettlements";
+import { partyHref } from "@/lib/utils";
 
 type KindFilter = "all" | ChmiHistoryEvent["kind"];
 
@@ -32,7 +37,7 @@ const KindBadge: FC<{ kind: ChmiHistoryEvent["kind"] }> = ({ kind }) => {
   const { t } = useTranslation();
   return (
     <span
-      className={`inline-flex items-center rounded-md border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide ${KIND_TONE[kind]}`}
+      className={`inline-flex items-center whitespace-nowrap rounded-md border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide ${KIND_TONE[kind]}`}
     >
       {t(KIND_LABEL_KEY[kind])}
     </span>
@@ -42,7 +47,19 @@ const KindBadge: FC<{ kind: ChmiHistoryEvent["kind"] }> = ({ kind }) => {
 export const ChmiFeedScreen: FC = () => {
   const { t } = useTranslation();
   const { data: history } = useChmiHistoryAll();
-  const { colorFor } = useCanonicalParties();
+  const { byId, displayNameForId, findCanonicalIdByLocalName } =
+    useCanonicalParties();
+  const { selected } = useElectionContext();
+  const { findMpByName, findMpById } = useMps();
+  const { findOfficialByName } = useMunicipalOfficialsByName();
+  const { settlements } = useSettlementsInfo();
+  const settlementEkatteByMuniName = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const s of settlements ?? []) {
+      if (s.obshtina && s.name) map.set(`${s.obshtina}::${s.name}`, s.ekatte);
+    }
+    return map;
+  }, [settlements]);
   const [kindFilter, setKindFilter] = useState<KindFilter>("all");
 
   const events = useMemo(() => history?.allEvents ?? [], [history]);
@@ -76,7 +93,7 @@ export const ChmiFeedScreen: FC = () => {
   return (
     <main className="container mx-auto px-4 py-6">
       <h1 className="text-2xl font-semibold">{t("chmi_feed_title")}</h1>
-      <p className="mt-2 text-sm text-muted-foreground max-w-prose">
+      <p className="mt-2 text-sm text-muted-foreground">
         {t("chmi_feed_intro")}
       </p>
       {summary ? (
@@ -117,10 +134,12 @@ export const ChmiFeedScreen: FC = () => {
               key={key}
               type="button"
               onClick={() => setKindFilter(key)}
-              className={`rounded-md border px-2 py-1 text-xs font-medium tabular-nums ${
+              aria-label={t("chmi_feed_filter_tooltip", { label, count })}
+              aria-pressed={active}
+              className={`rounded-md border px-2 py-1 text-xs font-medium tabular-nums transition-colors ${
                 active
                   ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-card text-muted-foreground hover:bg-accent"
+                  : "bg-card text-muted-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent"
               }`}
             >
               {label} · {count}
@@ -136,31 +155,69 @@ export const ChmiFeedScreen: FC = () => {
               <th className="py-2 px-3 text-left w-28">
                 {t("chmi_feed_th_date")}
               </th>
-              <th className="py-2 px-3 text-left w-36">
+              <th className="py-2 px-3 text-left w-40">
                 {t("chmi_feed_th_kind")}
               </th>
-              <th className="py-2 px-3 text-left">
+              <th className="py-2 px-3 text-left w-32">
                 {t("chmi_feed_th_municipality")}
               </th>
-              <th className="py-2 px-3 text-left">{t("chmi_feed_th_seat")}</th>
+              <th className="py-2 px-3 text-left w-32">
+                {t("chmi_feed_th_seat")}
+              </th>
               <th className="py-2 px-3 text-left">
                 {t("chmi_feed_th_winner")}
               </th>
-              <th className="py-2 px-3 text-left">{t("chmi_feed_th_party")}</th>
+              <th className="py-2 px-3 text-left w-56">
+                {t("chmi_feed_th_party")}
+              </th>
               <th className="py-2 px-3 text-right w-16">%</th>
             </tr>
           </thead>
           <tbody>
             {(filtered as ChmiHistoryEvent[]).map((e, i) => {
-              const color = e.primaryCanonicalId
-                ? colorFor(e.primaryCanonicalId)
+              const canonicalId =
+                e.primaryCanonicalId ??
+                findCanonicalIdByLocalName(e.localPartyName);
+              const canonicalParty = canonicalId
+                ? byId.get(canonicalId)
                 : undefined;
+              const partyForSelected = canonicalParty?.history.find(
+                (h) => h.election === selected,
+              );
+              const partyChipLabel = canonicalId
+                ? displayNameForId(canonicalId)
+                : undefined;
+              const resolvedMp =
+                findMpById(e.mpId) ?? findMpByName(e.candidateName);
+              const resolvedOfficial = resolvedMp
+                ? undefined
+                : findOfficialByName(e.candidateName, e.obshtinaName);
+              const candidateHref:
+                | Parameters<typeof Link>[0]["to"]
+                | undefined = resolvedMp
+                ? `/candidate/mp-${resolvedMp.id}`
+                : resolvedOfficial
+                  ? {
+                      pathname: `/officials/${encodeURIComponent(resolvedOfficial.slug)}`,
+                      search: { from: e.obshtinaCode },
+                    }
+                  : undefined;
+              const candidateInner = (
+                <div className="flex items-center gap-2">
+                  <MpAvatar
+                    name={e.candidateName}
+                    mpId={e.mpId}
+                    showPartyRing={false}
+                  />
+                  <span>{e.candidateName}</span>
+                </div>
+              );
               return (
                 <tr
                   key={`${e.cycle}-${e.obshtinaCode}-${e.kmetstvoName ?? "main"}-${i}`}
                   className="border-b last:border-b-0"
                 >
-                  <td className="py-2 px-3 tabular-nums text-muted-foreground">
+                  <td className="py-2 px-3 tabular-nums text-muted-foreground whitespace-nowrap">
                     {e.date}
                   </td>
                   <td className="py-2 px-3">
@@ -169,37 +226,67 @@ export const ChmiFeedScreen: FC = () => {
                   <td className="py-2 px-3">
                     <Link
                       to={`/settlement/${e.obshtinaCode}`}
-                      className="font-medium hover:underline"
+                      className="font-medium"
                     >
                       {e.obshtinaName}
                     </Link>
                   </td>
                   <td className="py-2 px-3 text-muted-foreground">
-                    {e.kmetstvoName ?? "—"}
+                    {(() => {
+                      if (!e.kmetstvoName) return "—";
+                      const ekatte = settlementEkatteByMuniName.get(
+                        `${e.obshtinaCode}::${e.kmetstvoName}`,
+                      );
+                      return ekatte ? (
+                        <Link to={`/settlement/${ekatte}`}>
+                          {e.kmetstvoName}
+                        </Link>
+                      ) : (
+                        e.kmetstvoName
+                      );
+                    })()}
                   </td>
                   <td className="py-2 px-3">
-                    <div className="flex items-center gap-2">
-                      <MpAvatar
-                        name={e.candidateName}
-                        mpId={e.mpId}
-                        showPartyRing={false}
-                      />
-                      <span>{e.candidateName}</span>
-                    </div>
+                    {candidateHref ? (
+                      <Link
+                        to={candidateHref}
+                        underline={false}
+                        className="hover:underline"
+                      >
+                        {candidateInner}
+                      </Link>
+                    ) : (
+                      candidateInner
+                    )}
                   </td>
-                  <td className="py-2 px-3 text-muted-foreground">
-                    <span className="flex items-center gap-1.5 min-w-0">
-                      {color ? (
-                        <span
-                          aria-hidden
-                          className="inline-block size-2 rounded-full ring-1 ring-border shrink-0"
-                          style={{ backgroundColor: color }}
-                        />
-                      ) : null}
-                      <span className="truncate" title={e.localPartyName}>
-                        {e.localPartyName}
+                  <td className="py-2 px-3 text-muted-foreground align-top">
+                    {canonicalParty && partyForSelected && partyChipLabel ? (
+                      <Link
+                        to={partyHref(partyForSelected.nickName)}
+                        underline={false}
+                        className="inline-flex items-center whitespace-nowrap rounded px-2 py-0.5 text-xs font-semibold"
+                        style={{
+                          backgroundColor: canonicalParty.color,
+                          color: "rgba(255,255,255,0.95)",
+                        }}
+                      >
+                        {partyChipLabel}
+                      </Link>
+                    ) : (
+                      <span
+                        className="flex items-start gap-1.5"
+                        title={e.localPartyName}
+                      >
+                        {canonicalParty ? (
+                          <span
+                            aria-hidden
+                            className="inline-block size-2 rounded-full ring-1 ring-border shrink-0 mt-1.5"
+                            style={{ backgroundColor: canonicalParty.color }}
+                          />
+                        ) : null}
+                        <span className="break-words">{e.localPartyName}</span>
                       </span>
-                    </span>
+                    )}
                   </td>
                   <td className="py-2 px-3 text-right tabular-nums">
                     {e.pctOfValid.toFixed(1)}%

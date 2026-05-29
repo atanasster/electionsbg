@@ -2,10 +2,16 @@
 // elections (partial + new) on the município pages they affected.
 //
 // Schema mirrors scripts/parsers_local/build_chmi_history.ts ChmiHistory.
+//
+// Both hooks anchor to the currently selected parliamentary election
+// (ElectionContext): events with a `date` after that election are dropped
+// so the chmi feed and per-município chmi section always reflect "what we
+// knew by the selected date".
 
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { dataUrl } from "@/data/dataUrl";
+import { useElectionContext } from "@/data/ElectionContext";
 
 export type ChmiHistoryEvent = {
   cycle: string;
@@ -45,11 +51,26 @@ const queryFn = async ({
   return response.json();
 };
 
-export const useChmiHistoryAll = () =>
-  useQuery({
+export const useChmiHistoryAll = () => {
+  const query = useQuery({
     queryKey: ["local_chmi_history"],
     queryFn,
   });
+  const { selected } = useElectionContext();
+  const asOfDate = selected ? selected.replaceAll("_", "-") : undefined;
+  const data = useMemo<ChmiHistory | undefined>(() => {
+    if (!query.data) return query.data;
+    if (!asOfDate) return query.data;
+    const allEvents = query.data.allEvents.filter((e) => e.date <= asOfDate);
+    const byObshtina: Record<string, ChmiHistoryEvent[]> = {};
+    for (const [code, events] of Object.entries(query.data.byObshtina)) {
+      const kept = events.filter((e) => e.date <= asOfDate);
+      if (kept.length > 0) byObshtina[code] = kept;
+    }
+    return { ...query.data, allEvents, byObshtina };
+  }, [query.data, asOfDate]);
+  return { ...query, data };
+};
 
 export const useChmiHistory = (
   obshtinaCode?: string | null,
