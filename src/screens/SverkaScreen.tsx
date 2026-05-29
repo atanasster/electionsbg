@@ -159,10 +159,10 @@ export const SverkaScreen: FC = () => {
               key={f}
               type="button"
               onClick={() => setFilter(f)}
-              className={`rounded-md border px-2 py-1 text-xs font-medium tabular-nums ${
+              className={`rounded-md border px-2 py-1 text-xs font-medium tabular-nums transition-colors ${
                 active
                   ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-card text-muted-foreground hover:bg-accent"
+                  : "bg-card text-muted-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent"
               }`}
             >
               {f === "all" ? "Всички" : t(STATUS_TONE[f].labelKey)} · {count}
