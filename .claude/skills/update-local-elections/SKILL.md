@@ -12,6 +12,8 @@ allowed-tools:
 
 Ingests Bulgarian local-elections data (общински съветници + кметове на община/кметство/район) from `results.cik.bg` into `data/<cycle>/`. Handles both regular cycles (`mi2019`, `mi2023`, future `mi2027`) and partial-elections dates under the rolling `chmi*` umbrella.
 
+Two historical archives are also supported as one-time backfills (not watched, since the data is frozen): `minr2015` (мест. избори + национален референдум, 2015-10-25) and `mipvr2011` (мест. избори + президентски избори, 2011-10-23). They use the same `--local-ingest <slug>` CLI but require parser tolerance the modern cycles don't (different URL pattern `mestni/` vs `rezultati/`, missing CSS class markers, 3- and 4-column council tables, район mayor races split into separate `NNNN_NNNNNr.html` subpages on Sofia/Plovdiv/Varna). See "Historical cycles" below.
+
 ## When to run
 
 | Trigger | Action |
@@ -175,6 +177,30 @@ When CIK publishes mi2027 (~Oct 2027):
    ```
 3. Add a single-entry catalogue update to `src/data/json/local_elections.json`.
 4. Ingest: `npm run data -- --local-ingest mi2027`.
+
+## Historical cycles (mi2015 / mipvr2011)
+
+The 2015 (`minr2015`) and 2011 (`mipvr2011`) archives are usable via the same CLI:
+
+```bash
+npm run data -- --local-ingest minr2015
+npm run data -- --local-ingest mipvr2011
+```
+
+They are **not watched** — the csv.zip fingerprint source intentionally only tracks `mi2019` / `mi2023` / chmi umbrellas because the older archives are frozen, and adding them to `REGULAR_CYCLES` in `scripts/watch/sources/cik_results.ts` would just add HEAD requests for files that never change. Re-run the backfill manually if `data/2015_10_25_mi/` or `data/2011_10_23_mi/` is missing on a clone.
+
+What's different from 2019+ — already handled in the parser, listed here so you can debug a re-run intelligently:
+
+- **URL pattern**: pages live under `mestni/` not `rezultati/`. `RESULTS_PATH` in `ingest_cycle.ts` maps per-slug.
+- **OIK discovery**: 2015's index dropdown is unnamed (not `#obl-select`); 2011's lists 28 oblast codes as bare 2-digit values (`01`–`28`) with a JS-constructed redirect. Both fall through to `readLocationSelectOptions` + `scrapeOikRefs`, which find the largest redirecting `<select>` and union all `NNNN.html` href patterns on the page.
+- **Race-section headings**: 2015 uses `<h3>Резултати за кмет на община</h3>` instead of 2019+'s `<h2>Обобщени данни от избор на кмет на община</h2>`. 2011 omits the race-type heading entirely. Parser regex broadened + no-heading fallback added.
+- **Winner/elected markers**: 2015 still ships `tr.elected` on the mayor table but drops `candidate-elected` for council. 2011 drops both. Mayor winner is post-pass-inferred (R1: `pctOfValid > 50`, R2: highest votes); per-councillor elected list is not populated (mandate count alone drives the seat-bar).
+- **Council column variants**: 2019+ has 5 cols (№ · Партия · Гласове · % · Мандати + interleaved candidate rows). 2011 has 4 (Партия · Гласове · % · Мандати, no № column). 2015 has only 3 (№ · Партия · Мандати — no votes, no %). `detectCouncilCols` in `parse_rezultati_html.ts` maps headers by name so all three layouts coexist.
+- **Sofia / Plovdiv / Varna район mayor races (2015 only)**: split into separate `mestni/NNNN_NNNNNr.html` subpages (e.g. `2246_02201r.html` = София район Средец). The OIK discovery's targeted second sweep visits the 3 known multi-район parents (2246/1622/0306) and harvests the extended stems via `scrapeRayonRefs`; the parser's post-pass walks `raw_data/<cycle>/html/tur1/` for `XXXX_NNNNNr.html` files and merges each into the parent's `districts[]`, keyed by the район name from the breadcrumb (`Резултати за община София, район Средец` → "Средец"). `fanOutSofiaRayons` then turns the SOF.districts[] into 24 per-район shards (S2302/S2401/…). Plovdiv (PDV22) and Varna (VAR06) районs stay inside the parent's `districts[]` since they aren't separate obshtinas in the catalogue.
+- **NAME_ALIASES additions**: pre-2019 CIK labels for cities differ — `софия` (2011/2015) maps to the synthetic `SOF`; `добрич-град` maps to `DOB28`; `бобовдол` maps to `KNL04`. Live in `parse_local_elections.ts`.
+- **Protocol totals**: HTML-only mode leaves voter-registration totals at zero (same as 2019+ HTML-only mode); the SPA's StatsGrid hides the Активност tile in that case.
+
+If a different historical cycle is ever added (`mi2007` lives on a separate host `mi2007.cik.bg` with a different URL grammar, `mi2003` similarly), it would need its own parser branch and a new `CYCLE_DATE_PREFIX` / `RESULTS_PATH` entry — those aren't supported today.
 
 ## Adding a new partial-elections umbrella
 

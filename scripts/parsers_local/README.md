@@ -1,9 +1,23 @@
 # Local-elections parser tree
 
-Parses Bulgarian local-election bundles published by ЦИК at
-`results.cik.bg/mi{YYYY}` (regular cycles) and
-`results.cik.bg/chmi{YYYY}-{YYYY}/{YYYY-MM-DD}_chastichen/` (partial
-elections triggered when a mayor resigns mid-term).
+Parses Bulgarian local-election bundles published by ЦИК. Three URL
+shapes are supported:
+
+- `results.cik.bg/mi{YYYY}/tur{1,2}/rezultati/{oik}.html` —
+  modern regular cycles (`mi2019`, `mi2023`, future `mi2027`).
+- `results.cik.bg/chmi{YYYY}-{YYYY}/{YYYY-MM-DD}_chastichen/` —
+  partial elections triggered when a mayor resigns mid-term.
+- `results.cik.bg/{minr2015,mipvr2011}/tur{1,2}/mestni/{oik}.html` —
+  historical joint-cycle archives (2015 was joint with the national
+  referendum; 2011 with the presidential election). Same shape, but
+  `mestni/` instead of `rezultati/`. The 2015 archive also splits
+  Sofia (24) / Plovdiv (6) / Varna (5) район mayor races into separate
+  `mestni/{parentOik}_{rayonOik}r.html` subpages, harvested by the
+  ingest cascade's targeted second sweep and merged into the parent
+  município's `districts[]` by the parser's post-pass.
+
+See [`.claude/skills/update-local-elections/SKILL.md`](../../.claude/skills/update-local-elections/SKILL.md)
+for the operator manual; this file documents the parser internals.
 
 Outputs per-município JSON bundles + a cycle catalogue under
 `data/<cycle>/`, mirroring the per-cycle layout of the parliamentary
