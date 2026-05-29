@@ -709,6 +709,118 @@ export const useKazanlakCapitalProgram = (fiscalYear: number | undefined) =>
     staleTime: Infinity,
   });
 
+// Generic top-projects-from-capital-programme reader for the My-Area
+// tile. The per-município hooks above each return tile-specific typed
+// shapes (Sofia has byRayon, Burgas has bySettlement, Pleven has
+// byFundingSource, etc.); this hook returns a slim, schema-agnostic
+// view — top N projects by amountEur + grand total + fiscal year —
+// suitable for surfacing on a card that doesn't need the full plan.
+//
+// All wired capital programmes are 2025-cycle as of writing. The hook
+// hard-codes that year rather than threading fiscalYear through every
+// caller — bump CAPITAL_PROGRAMS_LATEST_YEAR when more 2026 plans land.
+
+const OBSHTINA_TO_CAPITAL_SLUG: Record<string, string> = {
+  SOF00: "sofia",
+  VAR06: "varna",
+  PDV22: "plovdiv",
+  BGS04: "burgas",
+  PVN24: "pleven",
+  RSE25: "ruse",
+  SZR23: "stara_zagora",
+  SHU30: "shumen",
+  PDV01: "asenovgrad",
+  DOB28: "dobrich",
+  SLV20: "sliven",
+  VID09: "vidin",
+  SFO39: "samokov",
+  PAZ08: "velingrad",
+  KNL48: "dupnitsa",
+  LOV18: "lovech",
+  KRZ16: "kardzhali",
+  JAM26: "yambol",
+  GAB05: "gabrovo",
+  HKV34: "haskovo",
+  PER32: "pernik",
+  VTR04: "veliko_tarnovo",
+  PDV13: "karlovo",
+  MON29: "montana",
+  KNL29: "kyustendil",
+  SZR12: "kazanlak",
+};
+
+const CAPITAL_PROGRAMS_LATEST_YEAR = 2025;
+
+/** Resolve an obshtina code to its capital-programme slug. Sofia районs
+ *  (S2xxx) roll up to "sofia" — the city-wide programme covers them. */
+const capitalProgramSlugForObshtina = (
+  obshtina: string | undefined,
+): string | null => {
+  if (!obshtina) return null;
+  if (/^S2\d{3}$/.test(obshtina)) return "sofia";
+  return OBSHTINA_TO_CAPITAL_SLUG[obshtina] ?? null;
+};
+
+export type CapitalProgramTopProject = {
+  id?: number | string;
+  name: string;
+  totalEur: number;
+};
+
+export type CapitalProgramTileSlim = {
+  fiscalYear: number;
+  grandTotalEur: number;
+  topProjects: CapitalProgramTopProject[];
+};
+
+type CapitalProgramRawTile = {
+  fiscalYear: number;
+  recapitulation?: { total?: { amountEur?: number } };
+  projects?: Array<{
+    id?: number | string;
+    name?: string;
+    total?: { amountEur?: number };
+  }>;
+};
+
+export const useCapitalProgramsTopProjects = (
+  obshtina: string | undefined,
+  topN = 3,
+) => {
+  const slug = capitalProgramSlugForObshtina(obshtina);
+  return useQuery({
+    queryKey: [
+      "budget",
+      "capital_programs",
+      "top_projects",
+      slug,
+      topN,
+    ] as const,
+    queryFn: async (): Promise<CapitalProgramTileSlim | null> => {
+      if (!slug) return null;
+      const file = await fetchJson<CapitalProgramRawTile>(
+        `/budget/capital_programs/${CAPITAL_PROGRAMS_LATEST_YEAR}/${slug}-tile.json`,
+      );
+      const topProjects = (file.projects ?? [])
+        .filter((p) => (p.total?.amountEur ?? 0) > 0 && !!p.name)
+        .sort((a, b) => (b.total?.amountEur ?? 0) - (a.total?.amountEur ?? 0))
+        .slice(0, topN)
+        .map((p) => ({
+          id: p.id,
+          name: p.name!,
+          totalEur: p.total?.amountEur ?? 0,
+        }));
+      return {
+        fiscalYear: file.fiscalYear,
+        grandTotalEur: file.recapitulation?.total?.amountEur ?? 0,
+        topProjects,
+      };
+    },
+    enabled: !!slug,
+    staleTime: Infinity,
+  });
+};
+
 // Municipal cash-execution (касово изпълнение по ЕБК) — plan-vs-actual revenue
 // and expense by economic paragraph, sourced from the MINFIN B3 report a few
 // общини publish to data.egov.bg. The index lists covered munis + years; the
