@@ -21,14 +21,24 @@
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, Landmark } from "lucide-react";
+import { Calculator, Home, Landmark } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Card } from "@/components/ui/card";
 import { dataUrl } from "@/data/dataUrl";
 import { useMunicipalTransfersForOblast } from "@/data/budget/useBudget";
 import { useGraoMunicipalitySlice } from "@/data/grao/useGraoPopulation";
+import { useLocalTaxes } from "@/data/local_taxes/useLocalTaxes";
 
 const PERSONAL_INCOME_TAX_RATE = 0.1; // BG flat 10%
+
+// Stylised-household constants for the "local taxes you pay" estimate.
+// The figures are intentionally round so the caveat copy can call them
+// out as ESTIMATES — the user's actual bill depends on their property's
+// данъчна оценка and vehicle kW. ~30 000 € is a representative residential
+// tax valuation for an oblast-capital apartment; 85 kW is the midpoint of
+// the 74-110 kW vehicle-tax band that ИПИ tracks.
+const TYPICAL_VEHICLE_KW = 85;
+const TYPICAL_PROPERTY_VALUATION_EUR = 30_000;
 
 type CofogSeriesPoint = { year: number; valueEur: number };
 type CofogFile = {
@@ -177,6 +187,66 @@ export const MyAreaTaxReceiptTile: FC<{
       perMonth: perYear / 12,
     };
   }, [transfersShard, graoSlice, obshtina]);
+
+  // Local-tax estimate — bills the user actually pays to THIS município
+  // (property tax, vehicle tax, transfer tax, residential garbage fee).
+  // Driven by the município's own rates from useLocalTaxes; renders only
+  // the rows we have data for, so small municípios with no Tier-B naredba
+  // block still get the IPI-tier rows (vehicle / transfer).
+  const { score: localTaxScore } = useLocalTaxes(obshtina);
+  const localTaxEstimate = useMemo(() => {
+    if (!localTaxScore) return null;
+    const ipi = localTaxScore.ipi ?? {};
+    const naredba = localTaxScore.naredba;
+
+    const vehicleRate = ipi.vehicle_tax_74_110kw?.latestValue ?? null;
+    const vehicleAnnual =
+      vehicleRate != null ? vehicleRate * TYPICAL_VEHICLE_KW : null;
+
+    const transferRate = ipi.transfer_tax?.latestValue ?? null;
+
+    const pti = naredba?.propertyTaxIndividuals;
+    const propertyAnnual = pti
+      ? (pti.rate * TYPICAL_PROPERTY_VALUATION_EUR) / 1000
+      : null;
+
+    type TboRender =
+      | { kind: "promil_rate"; rate: number; annual: number }
+      | { kind: "promil_no_rate"; url?: string }
+      | { kind: "other_basis"; basis: "users" | "area" | "volume" };
+    let tbo: TboRender | null = null;
+    const tboSrc = naredba?.tboResidential;
+    if (tboSrc) {
+      if (tboSrc.basis === "promil") {
+        if (tboSrc.rate != null) {
+          tbo = {
+            kind: "promil_rate",
+            rate: tboSrc.rate,
+            annual: (tboSrc.rate * TYPICAL_PROPERTY_VALUATION_EUR) / 1000,
+          };
+        } else {
+          tbo = { kind: "promil_no_rate", url: naredba?.url };
+        }
+      } else {
+        tbo = { kind: "other_basis", basis: tboSrc.basis };
+      }
+    }
+
+    const hasAnyRow =
+      vehicleAnnual != null ||
+      transferRate != null ||
+      propertyAnnual != null ||
+      tbo != null;
+    if (!hasAnyRow) return null;
+    return {
+      vehicleRate,
+      vehicleAnnual,
+      transferRate,
+      propertyRate: pti?.rate ?? null,
+      propertyAnnual,
+      tbo,
+    };
+  }, [localTaxScore]);
 
   // Compute allocation. TOTAL is the denominator; each GF0n category gives
   // its share. Filter to non-zero categories and sort by share descending.
@@ -342,6 +412,118 @@ export const MyAreaTaxReceiptTile: FC<{
           {t("my_area_tax_receipt_loading")}
         </div>
       )}
+
+      {/* Local taxes you pay to your município — paired with the COFOG
+          breakdown above so the user reads "national tax I pay" next to
+          "local tax I pay" right next to "what the state returns to my
+          município" at the top of the card. */}
+      {localTaxEstimate ? (
+        <div className="rounded-md border bg-muted/30 p-3 flex flex-col gap-1.5">
+          <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+            <Home className="size-3.5" aria-hidden />
+            <span>{t("my_area_tax_receipt_local_taxes_heading")}</span>
+          </div>
+
+          {localTaxEstimate.propertyRate != null &&
+          localTaxEstimate.propertyAnnual != null ? (
+            <div className="flex items-center gap-2 text-xs">
+              <span className="flex-1 truncate">
+                {t("my_area_tax_receipt_property_tax_row", {
+                  rate: localTaxEstimate.propertyRate,
+                })}
+              </span>
+              <span className="tabular-nums font-medium shrink-0">
+                ~{formatEurPer(localTaxEstimate.propertyAnnual, lang, "yr")}
+              </span>
+            </div>
+          ) : null}
+
+          {localTaxEstimate.tbo ? (
+            <div className="flex items-center gap-2 text-xs">
+              {localTaxEstimate.tbo.kind === "promil_rate" ? (
+                <>
+                  <span className="flex-1 truncate">
+                    {t("my_area_tax_receipt_tbo_promil_row", {
+                      rate: localTaxEstimate.tbo.rate,
+                    })}
+                  </span>
+                  <span className="tabular-nums font-medium shrink-0">
+                    ~{formatEurPer(localTaxEstimate.tbo.annual, lang, "yr")}
+                  </span>
+                </>
+              ) : localTaxEstimate.tbo.kind === "promil_no_rate" ? (
+                <>
+                  <span className="flex-1 truncate">
+                    {t("my_area_tax_receipt_tbo_no_rate_row")}
+                  </span>
+                  {localTaxEstimate.tbo.url ? (
+                    <a
+                      href={localTaxEstimate.tbo.url}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="text-[10px] text-primary hover:underline shrink-0"
+                    >
+                      {t("my_area_tax_receipt_tbo_council_decides")}
+                    </a>
+                  ) : (
+                    <span className="text-[10px] text-muted-foreground shrink-0">
+                      {t("my_area_tax_receipt_tbo_council_decides")}
+                    </span>
+                  )}
+                </>
+              ) : (
+                <>
+                  <span className="flex-1 truncate">
+                    {t("my_area_tax_receipt_tbo_no_rate_row")}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground shrink-0">
+                    {t(
+                      `my_area_tax_receipt_tbo_basis_${localTaxEstimate.tbo.basis}`,
+                    )}
+                  </span>
+                </>
+              )}
+            </div>
+          ) : null}
+
+          {localTaxEstimate.vehicleRate != null &&
+          localTaxEstimate.vehicleAnnual != null ? (
+            <div className="flex items-center gap-2 text-xs">
+              <span className="flex-1 truncate">
+                {t("my_area_tax_receipt_vehicle_tax_row", {
+                  rate: localTaxEstimate.vehicleRate,
+                })}
+              </span>
+              <span className="tabular-nums font-medium shrink-0">
+                ~{formatEurPer(localTaxEstimate.vehicleAnnual, lang, "yr")}
+              </span>
+            </div>
+          ) : null}
+
+          {localTaxEstimate.transferRate != null ? (
+            <div className="flex items-center gap-2 text-xs">
+              <span className="flex-1 truncate">
+                {t("my_area_tax_receipt_transfer_tax_row", {
+                  rate: localTaxEstimate.transferRate,
+                })}
+              </span>
+              <span className="text-[10px] text-muted-foreground shrink-0">
+                {t("my_area_tax_receipt_transfer_tax_note")}
+              </span>
+            </div>
+          ) : null}
+
+          <p className="text-[10px] text-muted-foreground italic mt-0.5">
+            {t("my_area_tax_receipt_local_taxes_caveat")}
+          </p>
+          <a
+            href="#myarea-local-taxes"
+            className="text-[10px] text-primary hover:underline self-start"
+          >
+            {t("my_area_tax_receipt_local_taxes_full_link")}
+          </a>
+        </div>
+      ) : null}
 
       <p className="text-[10px] text-muted-foreground italic">
         {t("my_area_tax_receipt_disclaimer")}

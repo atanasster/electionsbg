@@ -88,7 +88,7 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
   const tboBasisLabel = tbo ? data.tboBasisLabels[tbo.basis] : undefined;
 
   return (
-    <Card className="p-4">
+    <Card id="myarea-local-taxes" className="p-4 scroll-mt-24">
       <div className="flex items-center gap-2 mb-3">
         <Coins className="size-4 text-primary" />
         <h2 className="text-sm font-semibold flex-1">
