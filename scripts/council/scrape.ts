@@ -36,6 +36,7 @@ import { scrapeHKV } from "./parsers/hkv";
 import { scrapeDOB } from "./parsers/dob";
 import { scrapeHKV09 } from "./parsers/hkv09";
 import { scrapeRAZ } from "./parsers/raz26";
+import { scrapePER } from "./parsers/per32";
 
 const STATE_DIR = join(process.cwd(), "state/ingest");
 const SOURCES_PATH = join(process.cwd(), "data/council/sources.json");
@@ -72,6 +73,7 @@ const DISPATCHERS: Record<string, Dispatcher> = {
   DOB28: scrapeDOB,
   HKV09: scrapeHKV09,
   RAZ26: scrapeRAZ,
+  PER32: scrapePER,
 };
 
 type IngestState = {

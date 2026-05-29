@@ -91,6 +91,7 @@ const COUNCIL_TO_OFFICIALS: Record<string, string> = {
   DOB28: "DOB28",
   HKV09: "HKV09",
   RAZ26: "RAZ26",
+  PER32: "PER32",
 };
 
 // --- Types ---------------------------------------------------------------

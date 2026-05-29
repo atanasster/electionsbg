@@ -23,7 +23,8 @@
       "samplePdf": "https://council.sofia.bg/documents/d/guest/protokol-92-2023-06-14",
       "sampleConfirmedTally": "Поименно гласуване block with За/Против/Въздържали се (dash = 0)",
       "perCouncillor": true,
-      "perCouncillorNote": "Phase 2 — Sofia is the only confirmed-text per-councillor source; join to data/officials/municipal/ by normalised name."
+      "perCouncillorNote": "Phase 2 — Sofia is the only confirmed-text per-councillor source; join to data/officials/municipal/ by normalised name.",
+      "watcherUrl": "https://council.sofia.bg/meetings-mandat-2023-2027"
     },
     "PDV01": {
       "name": "Община Пловдив",
@@ -100,7 +101,9 @@
       "yearIndexPattern": "/bg/resheniya-(\\d{4})-godina/",
       "decisionUrlPattern": "resheniya-saglasno-protokol-(\\d+)-ot-(\\d{8})-g",
       "tallyStrategy": "regex-on-page",
-      "perCouncillor": false
+      "perCouncillor": false,
+      "watcherUrl": "https://savet.veliko-tarnovo.bg/bg/resheniya-{YYYY}-godina/",
+      "watcherUrlNote": "Watcher substitutes {YYYY} with the current calendar year so the fingerprint follows the active year — December 31 → January 1 transition is automatic."
     },
     "BLG03": {
       "name": "Община Благоевград",
@@ -163,7 +166,7 @@
     "PER32": {
       "name": "Община Перник",
       "tier": "A",
-      "indexUrl": "https://www.obs-pernik.bg/category/zasedaniya/protokoli-zasedaniya/",
+      "indexUrl": "https://www.obs-pernik.bg/category/заседания/протоколи-заседания/",
       "indexNote": "Wired 2026-05-29. WordPress category with /page/N/ pagination, 10 posts per page. Each post slug: /protokol-N-DD-MM-YYYYg/ (Cyrillic in canonical form), one .docx attachment per session under /wp-content/uploads/{YYYY}/{MM}/. Tally form matches the shared SUMMARY_RE_LABEL_FIRST canonically. Per-councillor block sits BETWEEN the tally summary and the marker as UNGROUPED Name: vote lines (no leading position number) — parser ships its own PER_NAME_RE since the shared VOTE_LINE_RE requires a numbered prefix. Marker filter: real markers preceded by prie verb within 300 chars (agenda cross-references to past decisions get filtered out). Coverage tier A.",
       "fetch": "static",
       "format": "docx",

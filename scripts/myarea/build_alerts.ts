@@ -197,6 +197,8 @@ const COUNCIL_KEY_MAP: Record<string, string> = {
   HKV34: "HKV34",
   HKV09: "HKV09",
   DOB28: "DOB28",
+  RAZ26: "RAZ26",
+  PER32: "PER32",
 };
 
 const councilKeyFor = (obshtina: string): string | null => {
