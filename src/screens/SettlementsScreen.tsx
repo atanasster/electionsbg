@@ -18,10 +18,14 @@ export const SettlementsScreen = () => {
   if (!muniCode) {
     return null;
   }
-  // EKATTE codes are purely numeric (e.g. 69599); obshtina codes are letters+digits
-  // (e.g. TGV35). /settlement/{ekatte} URLs are prerendered + indexed by Google,
-  // so render the settlement view here instead of breaking the page.
-  if (/^\d+$/.test(muniCode)) {
+  // EKATTE codes start with a digit. Pure-numeric forms (e.g. "69599") are
+  // the common case; Sofia район-as-settlement uses composites like
+  // "68134-2401" (still starts with a digit). Obshtina codes always start
+  // with a letter (e.g. TGV35, S2401), so a leading-digit test cleanly
+  // separates the two without dropping the composite case. The plain
+  // settlement URLs are prerendered + indexed by Google, so route both
+  // shapes to the settlement view rather than breaking the page.
+  if (/^\d/.test(muniCode)) {
     return <SectionsScreen />;
   }
   const info = findMunicipality(muniCode);

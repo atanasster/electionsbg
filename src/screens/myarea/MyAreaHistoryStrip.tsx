@@ -1,7 +1,9 @@
-// Footer card holding the "deep history" of a place — voter turnout
-// sparkline over recent cycles plus the drill-down link to the full
-// canonical dashboard. Content is always visible (no collapsible); the
-// sparkline is a single compact row so it doesn't bloat the page.
+// Footer card holding the "deep history" of a place. Two panels sit
+// side-by-side on wide screens (stacked on narrow): turnout sparkline
+// over recent cycles, and a top-party-per-cycle strip so the reader
+// can compare "engagement trend" against "preference trend" without
+// leaving the dashboard. The drill-down link to the full canonical
+// dashboard sits below both.
 //
 // Settlement view uses useSettlementStats (one fetch, all cycles for that
 // settlement). Município view falls back to a link-only card since
@@ -10,12 +12,14 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, BarChart3 } from "lucide-react";
+import { ArrowRight, BarChart3, Trophy } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/ux/Link";
 import type { ResolvedArea } from "@/data/area/useAreaResolver";
 import { useSettlementStats } from "@/data/settlements/useSettlementStats";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import { Tooltip } from "@/ux/Tooltip";
 
 type Props = {
   area: Extract<
@@ -24,9 +28,19 @@ type Props = {
   >;
 };
 
-type TurnoutPoint = {
+type PartyShare = {
+  nickName: string;
+  totalVotes: number;
+  share: number; // totalVotes / sum-of-valid party votes for that cycle
+};
+
+type CyclePoint = {
   cycle: string; // election name (folder slug)
   turnout: number; // 0..1
+  // Top parties for the cycle, ranked descending by totalVotes. First entry
+  // is the winner and drives the bar's colour/height. We keep more than one
+  // so the tooltip can show the podium without re-derivation.
+  tops: PartyShare[];
 };
 
 const formatPct = (n: number, lang: "bg" | "en"): string =>
@@ -41,6 +55,44 @@ const formatCycleShort = (cycle: string): string => {
   return `${m[2]}.${m[1].slice(2)}`;
 };
 
+const MONTHS_BG = [
+  "януари",
+  "февруари",
+  "март",
+  "април",
+  "май",
+  "юни",
+  "юли",
+  "август",
+  "септември",
+  "октомври",
+  "ноември",
+  "декември",
+];
+const MONTHS_EN = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+const formatCycleLong = (cycle: string, lang: "bg" | "en"): string => {
+  const m = cycle.match(/^(\d{4})_(\d{2})_(\d{2})/);
+  if (!m) return cycle;
+  const [, y, mo, d] = m;
+  const mi = parseInt(mo, 10) - 1;
+  if (lang === "bg") return `${parseInt(d, 10)} ${MONTHS_BG[mi]} ${y}`;
+  return `${MONTHS_EN[mi]} ${parseInt(d, 10)}, ${y}`;
+};
+
 const SettlementHistoryBody: FC<{ ekatte: string; lang: "bg" | "en" }> = ({
   ekatte,
   lang,
@@ -50,6 +102,7 @@ const SettlementHistoryBody: FC<{ ekatte: string; lang: "bg" | "en" }> = ({
   // elections.json (no fetch). Lets us tag the latest settlement cycle
   // with a "vs national" comparison.
   const { stats: nationalStats } = useElectionContext();
+  const { colorFor } = useCanonicalParties();
   const nationalTurnoutByCycle = useMemo<Map<string, number>>(() => {
     const m = new Map<string, number>();
     for (const e of nationalStats ?? []) {
@@ -61,16 +114,32 @@ const SettlementHistoryBody: FC<{ ekatte: string; lang: "bg" | "en" }> = ({
     return m;
   }, [nationalStats]);
 
-  const points = useMemo<TurnoutPoint[]>(() => {
+  const points = useMemo<CyclePoint[]>(() => {
     if (!stats || stats.length === 0) return [];
-    const out: TurnoutPoint[] = [];
+    const out: CyclePoint[] = [];
     for (const e of stats) {
       const p = e.results?.protocol;
       const reg = p?.numRegisteredVoters ?? 0;
       const voters = p?.totalActualVoters ?? 0;
-      if (reg > 0 && voters > 0) {
-        out.push({ cycle: e.name, turnout: voters / reg });
-      }
+      if (!(reg > 0 && voters > 0)) continue;
+
+      const votes = e.results?.votes ?? [];
+      let sum = 0;
+      for (const v of votes) sum += v.totalVotes ?? 0;
+      const tops: PartyShare[] =
+        sum > 0
+          ? votes
+              .filter((v) => (v.totalVotes ?? 0) > 0)
+              .map((v) => ({
+                nickName: v.nickName,
+                totalVotes: v.totalVotes ?? 0,
+                share: (v.totalVotes ?? 0) / sum,
+              }))
+              .sort((a, b) => b.totalVotes - a.totalVotes)
+              .slice(0, 3)
+          : [];
+
+      out.push({ cycle: e.name, turnout: voters / reg, tops });
     }
     // Sort ascending by cycle name (date-shaped folder slugs sort
     // naturally). Cap at the last 8 cycles — beyond that the sparkline
@@ -119,70 +188,214 @@ const SettlementHistoryBody: FC<{ ekatte: string; lang: "bg" | "en" }> = ({
         }
       : null;
 
+  // Top-party panel: how often the current cycle's leader has carried
+  // this area in the same window, and whether the latest leader is on
+  // a streak.
+  const lastTop = last.tops[0] ?? null;
+  const winCount = lastTop
+    ? points.filter((p) => p.tops[0]?.nickName === lastTop.nickName).length
+    : 0;
+  let streak = 0;
+  if (lastTop) {
+    for (let i = points.length - 1; i >= 0; i--) {
+      if (points[i].tops[0]?.nickName === lastTop.nickName) streak++;
+      else break;
+    }
+  }
+
+  // Fallback color for parties not in the canonical color table — the
+  // muted-foreground swatch keeps the row legible without picking a
+  // colour that could be confused with a known brand.
+  const colorOrFallback = (nickName: string): string =>
+    colorFor(nickName) ?? "rgb(156 163 175)";
+
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex items-end gap-4">
-        <div className="flex flex-col">
-          <span className="text-2xl font-bold tabular-nums leading-tight">
-            {formatPct(last.turnout, lang)}
-          </span>
-          <span className="text-[10px] text-muted-foreground">
-            {lang === "bg" ? "избирателна активност" : "voter turnout"} ·{" "}
-            {formatCycleShort(last.cycle)}
-          </span>
-          {vsNational ? (
-            <span
-              className={`text-[10px] font-medium mt-0.5 ${
-                Math.abs(vsNational.diff) < 0.01
-                  ? "text-muted-foreground"
-                  : vsNational.diff > 0
-                    ? "text-emerald-600"
-                    : "text-rose-600"
-              }`}
-            >
-              {Math.abs(vsNational.diff) < 0.01
-                ? lang === "bg"
-                  ? `≈ ср. за страната (${vsNational.nationalPct})`
-                  : `≈ national (${vsNational.nationalPct})`
-                : `${vsNational.diff > 0 ? "+" : ""}${(vsNational.diff * 100).toFixed(1)} ${
-                    lang === "bg" ? "пр.пр. спрямо" : "pp vs"
-                  } ${vsNational.nationalPct} ${
-                    lang === "bg" ? "нац." : "nat."
-                  }`}
+    <div className="grid gap-4 lg:gap-6 grid-cols-1 lg:grid-cols-2">
+      {/* Left — turnout panel */}
+      <div className="flex flex-col gap-2">
+        <div className="flex items-end gap-4">
+          <div className="flex flex-col">
+            <span className="text-2xl font-bold tabular-nums leading-tight">
+              {formatPct(last.turnout, lang)}
             </span>
-          ) : null}
-        </div>
-        <div className="flex flex-col">
-          <svg width={W} height={H} aria-hidden className="text-primary">
-            <path
-              d={pathD}
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <div className="flex justify-between text-[9px] text-muted-foreground tabular-nums">
-            <span>{formatCycleShort(first.cycle)}</span>
-            <span>{formatCycleShort(last.cycle)}</span>
+            <span className="text-[10px] text-muted-foreground">
+              {lang === "bg" ? "избирателна активност" : "voter turnout"} ·{" "}
+              {formatCycleShort(last.cycle)}
+            </span>
+            {vsNational ? (
+              <span
+                className={`text-[10px] font-medium mt-0.5 ${
+                  Math.abs(vsNational.diff) < 0.01
+                    ? "text-muted-foreground"
+                    : vsNational.diff > 0
+                      ? "text-emerald-600"
+                      : "text-rose-600"
+                }`}
+              >
+                {Math.abs(vsNational.diff) < 0.01
+                  ? lang === "bg"
+                    ? `≈ ср. за страната (${vsNational.nationalPct})`
+                    : `≈ national (${vsNational.nationalPct})`
+                  : `${vsNational.diff > 0 ? "+" : ""}${(vsNational.diff * 100).toFixed(1)} ${
+                      lang === "bg" ? "пр.пр. спрямо" : "pp vs"
+                    } ${vsNational.nationalPct} ${
+                      lang === "bg" ? "нац." : "nat."
+                    }`}
+              </span>
+            ) : null}
+          </div>
+          <div className="flex flex-col">
+            <svg width={W} height={H} aria-hidden className="text-primary">
+              <path
+                d={pathD}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <div className="flex justify-between text-[9px] text-muted-foreground tabular-nums">
+              <span>{formatCycleShort(first.cycle)}</span>
+              <span>{formatCycleShort(last.cycle)}</span>
+            </div>
+          </div>
+          <div
+            className={`text-xs tabular-nums ${
+              delta >= 0 ? "text-emerald-600" : "text-rose-600"
+            }`}
+          >
+            {delta >= 0 ? "+" : ""}
+            {(delta * 100).toFixed(1)}
+            {lang === "bg" ? " пр.пр." : " pp"}
           </div>
         </div>
-        <div
-          className={`text-xs tabular-nums ${
-            delta >= 0 ? "text-emerald-600" : "text-rose-600"
-          }`}
-        >
-          {delta >= 0 ? "+" : ""}
-          {(delta * 100).toFixed(1)}
-          {lang === "bg" ? " пр.пр." : " pp"}
-        </div>
+        <p className="text-[10px] text-muted-foreground">
+          {lang === "bg"
+            ? `Базирано на протоколите от ${points.length} цикъла. Само за това населено място.`
+            : `Based on protocols from ${points.length} cycles. This settlement only.`}
+        </p>
       </div>
-      <p className="text-[10px] text-muted-foreground">
-        {lang === "bg"
-          ? `Базирано на протоколите от ${points.length} цикъла. Само за това населено място.`
-          : `Based on protocols from ${points.length} cycles. This settlement only.`}
-      </p>
+
+      {/* Right — top-party-per-cycle panel */}
+      {lastTop ? (
+        <div className="flex flex-col gap-2">
+          <div className="flex items-end gap-3">
+            <div className="flex flex-col">
+              <span className="flex items-center gap-1.5 text-2xl font-bold leading-tight">
+                <span
+                  className="inline-block size-3 rounded-sm shrink-0"
+                  style={{ background: colorOrFallback(lastTop.nickName) }}
+                  aria-hidden
+                />
+                <span className="truncate">{lastTop.nickName}</span>
+              </span>
+              <span className="text-[10px] text-muted-foreground">
+                {lang === "bg" ? "първа партия" : "top party"} ·{" "}
+                {formatPct(lastTop.share, lang)} ·{" "}
+                {formatCycleShort(last.cycle)}
+              </span>
+              <span className="text-[10px] text-muted-foreground mt-0.5">
+                {lang === "bg"
+                  ? `Печели в ${winCount} от ${points.length} цикъла`
+                  : `Wins ${winCount} of ${points.length} cycles`}
+                {streak >= 2
+                  ? lang === "bg"
+                    ? ` · ${streak} поредни`
+                    : ` · ${streak} consecutive`
+                  : ""}
+              </span>
+            </div>
+            <div className="flex flex-col flex-1 min-w-0">
+              <div className="flex items-end gap-[3px]" style={{ height: H }}>
+                {points.map((p) => {
+                  const winner = p.tops[0];
+                  const name = winner?.nickName ?? "";
+                  const share = winner?.share ?? 0;
+                  // Bar height proportional to share so the chip carries
+                  // two facts at once: who won (colour) + how decisive
+                  // the win was (height). Clamp at 6px so a tiny share
+                  // still renders a tappable bar.
+                  const h = Math.max(6, Math.round((H - 6) * share));
+                  const tooltipContent = (
+                    <div className="flex flex-col gap-1.5">
+                      <div className="text-xs text-muted-foreground">
+                        {formatCycleLong(p.cycle, lang)}
+                      </div>
+                      {p.tops.length > 0 ? (
+                        <ul className="flex flex-col gap-1">
+                          {p.tops.map((row, idx) => (
+                            <li
+                              key={row.nickName}
+                              className="flex items-baseline gap-1.5"
+                            >
+                              <span className="text-[10px] text-muted-foreground tabular-nums w-3 shrink-0">
+                                {idx + 1}.
+                              </span>
+                              <span
+                                className="inline-block size-2.5 rounded-sm shrink-0 translate-y-[1px]"
+                                style={{
+                                  background: colorOrFallback(row.nickName),
+                                }}
+                                aria-hidden
+                              />
+                              <span
+                                className={
+                                  idx === 0 ? "font-semibold" : "font-medium"
+                                }
+                              >
+                                {row.nickName}
+                              </span>
+                              <span className="text-muted-foreground tabular-nums">
+                                · {formatPct(row.share, lang)}
+                              </span>
+                              <span className="text-[10px] text-muted-foreground tabular-nums ml-auto">
+                                {row.totalVotes.toLocaleString(
+                                  lang === "bg" ? "bg-BG" : "en-GB",
+                                )}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div className="text-muted-foreground">
+                          {lang === "bg" ? "Няма данни" : "No data"}
+                        </div>
+                      )}
+                    </div>
+                  );
+                  return (
+                    <Tooltip
+                      key={p.cycle}
+                      content={tooltipContent}
+                      className="max-w-xs"
+                    >
+                      <div
+                        className="flex-1 min-w-[6px] rounded-sm cursor-default"
+                        style={{
+                          height: h,
+                          background: name ? colorOrFallback(name) : undefined,
+                          opacity:
+                            lastTop && name === lastTop.nickName ? 1 : 0.7,
+                        }}
+                      />
+                    </Tooltip>
+                  );
+                })}
+              </div>
+              <div className="flex justify-between text-[9px] text-muted-foreground tabular-nums">
+                <span>{formatCycleShort(first.cycle)}</span>
+                <span>{formatCycleShort(last.cycle)}</span>
+              </div>
+            </div>
+          </div>
+          <p className="text-[10px] text-muted-foreground">
+            {lang === "bg"
+              ? "Височина = дял за партията-победител в цикъла."
+              : "Bar height = winning party's share in that cycle."}
+          </p>
+        </div>
+      ) : null}
     </div>
   );
 };
@@ -210,6 +423,10 @@ export const MyAreaHistoryStrip: FC<Props> = ({ area }) => {
         <h2 className="text-sm font-semibold flex-1">
           {lang === "bg" ? "История на района" : "Area history"}
         </h2>
+        <Trophy
+          className="size-3.5 text-muted-foreground shrink-0"
+          aria-hidden
+        />
       </div>
       {area.kind === "settlement" ? (
         <SettlementHistoryBody ekatte={area.ekatte} lang={lang} />

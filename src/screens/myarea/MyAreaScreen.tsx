@@ -131,6 +131,12 @@ export const MyAreaScreen: FC = () => {
             empty. See src/data/myarea/useNextAction.ts for priorities. */}
         <MyAreaActionBand obshtina={area.obshtina} />
 
+        {/* Area history — the cycle-over-cycle turnout sparkline plus
+            top-party-per-cycle strip. Lives just above the "Your MPs"
+            block so the question "how does this place vote" lands
+            before the question "who represents it now". */}
+        <MyAreaHistoryStrip area={area} />
+
         {hasUpcomingLocalBallot() ? (
           <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
             <MyAreaRepresentativesStrip oblast={area.oblast} />
@@ -228,16 +234,6 @@ export const MyAreaScreen: FC = () => {
             have data. The full per-tile detail still ships on the
             canonical /settlement and /municipality routes. */}
         <MyAreaQualityStrip obshtina={area.obshtina} />
-
-        {/* Footer — collapsed-by-default "Area history" details card.
-            Holds the cycle-over-cycle turnout sparkline (settlement
-            view) plus the drill-down link to the full canonical
-            settlement / município dashboard. Used to be a flat
-            "Виж пълно табло" link card (Phase 1); Phase 8 wraps it in
-            a <details> with the turnout history attached so power users
-            can see the long-term trend without inflating the default
-            page weight. */}
-        <MyAreaHistoryStrip area={area} />
       </section>
     </>
   );
