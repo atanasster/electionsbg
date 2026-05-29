@@ -47,16 +47,30 @@ type SourcesFile = {
 
 /**
  * Heuristic per-município session-link count. We don't try to model the
- * 10 different CMSes — instead we count anchors on the index page whose
+ * 10+ different CMSes — instead we count anchors on the index page whose
  * href contains "reshen" OR "protokol" OR "prepis" (the universal
  * keywords across municipal CMSes), excluding navigation duplicates.
  * That's enough signal: a new sitting adds at least one such anchor.
+ *
+ * Two recipe forms have to be tolerated:
+ *   1. HTML/server-rendered município site — count href="…protokol…"
+ *      attributes.
+ *   2. Gabrovo's Wayback CDX index URL — JSON output. Count raw URL
+ *      substrings carrying "Protokol-zasedanie" / "protokol" instead.
+ *
+ * Falling through both paths gives a stable signal regardless of source
+ * shape.
  */
-const sessionCount = (html: string): number => {
-  const anchors = html.match(/href="[^"]*(?:reshen|protokol|prepis)[^"]*"/giu);
-  if (!anchors) return 0;
-  // Dedupe — same href can appear multiple times in a nav + sidebar.
-  return new Set(anchors).size;
+const sessionCount = (body: string): number => {
+  // HTML-style hrefs first.
+  const anchors = body.match(/href="[^"]*(?:reshen|protokol|prepis)[^"]*"/giu);
+  if (anchors && anchors.length > 0) return new Set(anchors).size;
+  // Raw URL substrings (covers CDX JSON output).
+  const urls = body.match(
+    /https?:\/\/[^"'\s]*(?:Protokol-zasedanie|protokol|prepis|reshen)[^"'\s]*/giu,
+  );
+  if (urls && urls.length > 0) return new Set(urls).size;
+  return 0;
 };
 
 const readSources = (): SourcesFile => {

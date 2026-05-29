@@ -127,16 +127,14 @@
     "GAB05": {
       "name": "Община Габрово",
       "tier": "A",
-      "indexUrl": "https://gabrovo.bg/files/OBS/zasedania/protokol/",
-      "indexNote": "Staged 2026-05-29 (parser pending). Apache /files/OBS/zasedania/protokol/{YYYY}/ directory returns 403 (no listing). Sample protokol confirmed at /files/OBS/zasedania/protokol/2025/Protokol-zasedanie-No8-2025.06.12.pdf — TEXT-LAYER PDF, no OCR needed. Per-councillor block uses uppercase tabular layout: 'NN  <Three-part name>  ЗА|ПРОТИВ|ВЪЗДЪРЖАЛИ СЕ|отсъства' (note the explicit отсъства/absent column, novel vs other parsers). Aggregate tally form: 'За – 29, против – 0, въздържали се – 0' (matches SUMMARY_RE_LABEL_FIRST). РЕШЕНИЕ № N markers anchor decisions. Discovery strategy when wiring: brute-force the URL pattern by walking session numbers 1..N for each known year, OR drive through a Google site: search for 'Protokol-zasedanie' on gabrovo.bg.",
+      "indexUrl": "https://web.archive.org/cdx/search/cdx?url=gabrovo.bg/files/OBS/zasedania/protokol/*",
+      "indexNote": "Wired 2026-05-29. Apache /files/OBS/zasedania/protokol/{YYYY}/ directory returns 403, so discovery uses the Wayback Machine CDX index for historical sessions + a brute-force probe of the current year (HEAD requests, ~25 sessions × 12 months × 31 days max, terminates fast on first hit per session). Born-digital text-layer PDFs. Per-councillor block uses uppercase tabular layout: 'NN  <Three-part name>  ЗА|ПРОТИВ|ВЪЗДЪРЖАЛИ СЕ|отсъста' (novel отсъства/absent column dropped at extractNamedVoteBlock). Aggregate tally form: 'За – 29, против – 0, въздържали се – 0' (matches SUMMARY_RE_LABEL_FIRST). РЕШЕНИЕ № N anchors; title sits 2-3 lines below after a date line.",
       "fetch": "static",
       "format": "pdf-text",
       "tallyStrategy": "label-first",
       "samplePdf": "https://gabrovo.bg/files/OBS/zasedania/protokol/2025/Protokol-zasedanie-No8-2025.06.12.pdf",
       "sampleConfirmedTally": "За – 29, против – 0, въздържали се – 0",
-      "perCouncillor": true,
-      "phase1Defer": true,
-      "deferReason": "Parser pending — protokol URL pattern is fixed and per-councillor data IS present, but the index page that would enumerate sessions returns 403 (Apache directory listing blocked). Wiring requires either a discovered listing endpoint or a brute-force walk over session numbers per year."
+      "perCouncillor": true
     }
   },
   "phase3OcrCandidates": [],

@@ -30,6 +30,7 @@ import { scrapeBGS } from "./parsers/bgs";
 import { scrapeSOF } from "./parsers/sof";
 import { scrapePDV } from "./parsers/pdv";
 import { scrapeSLV } from "./parsers/slv";
+import { scrapeGAB } from "./parsers/gab";
 
 const STATE_DIR = join(process.cwd(), "state/ingest");
 const SOURCES_PATH = join(process.cwd(), "data/council/sources.json");
@@ -60,6 +61,7 @@ const DISPATCHERS: Record<string, Dispatcher> = {
   SOF: scrapeSOF,
   PDV01: scrapePDV,
   SLV01: scrapeSLV,
+  GAB05: scrapeGAB,
 };
 
 type IngestState = {

@@ -138,9 +138,10 @@ See `data/council/sources.json` for the authoritative list. As of 2026-05-29:
 | BGS01 (Бургас) | A | pdf-text via Drupal /node | yes (86) | yes (~94% roster match) | full coverage via `--per-councillor` — pulls the parallel `protokol-N-sayt.pdf` from `/video` while keeping the za-sayta extraction for Phase-1 decision metadata |
 | PDV01 (Пловдив) | B | html via WP category | no | no | titles only (WordPress category listings, no Playwright needed) |
 | SOF (Столична) | A | pdf-text + Gemini OCR via Playwright | yes (77) | yes (75 sessions, ~89% roster match) | full coverage via `--ocr --per-councillor`; full protokol-N PDFs have ABBYY FineReader 14 Cyrillic→Latin mojibake so OCR is mandatory — costs ~$1.85/session |
+| GAB05 (Габрово) | A | pdf-text via Wayback CDX | yes (244 across 12 protokols) | partial — 2025+ only (2024 protokols ship aggregate-only) | Apache directory listing 403-blocked; discovery uses Wayback CDX index. 2024 protokols have compact "Т. 1: За – 9 Против – 10 Въздържали се – 9" aggregate tallies but no per-councillor table; 2025+ added a full tabular per-councillor block (NN  Name  ЗА|ПРОТИВ|ВЪЗДЪРЖАЛИ СЕ|отсъства). |
 | BLG03 (Благоевград) | C | doc | — | — | DEFERRED (legacy URL dead; município migrated to e-obs.online SaaS) |
 
-Total: 9 of 10 wired, 861 resolutions in the index across 9 municipalities. 199 carry per-councillor named-vote data (SOF 75 + BGS01 86 + VTR01 38) and surface in the "Как гласуваха в съвета" MyArea tile.
+Total: 10 of 10 wired, 1,105 resolutions in the index across 10 municipalities. 199 carry per-councillor named-vote data (SOF 75 + BGS01 86 + VTR01 38) and surface in the "Как гласуваха в съвета" MyArea tile. GAB05's per-councillor count will grow as Wayback snapshots more 2025+ protokols.
 
 ### One-shot: rebuild shards after pipeline change
 

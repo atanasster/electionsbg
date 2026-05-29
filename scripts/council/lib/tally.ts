@@ -279,8 +279,24 @@ export const classifyResult = (
 // "Терзирадева- Велкова"). Allow `[-\s]+` between chunks so the
 // regex matches both forms; cap the chunk count at 4 to avoid eating
 // later prose.
+//
+// Three syntactic shapes have to be tolerated:
+//   1. V. Tarnovo / Sofia OCR / Pleven inline:  "1. <Name>: За"
+//      (digit + period + space + name + colon + vote)
+//   2. Gabrovo tabular layout (pdftotext -layout preserves columns):
+//      "1    <Name>                          ЗА"
+//      (digit + spaces + name + spaces + uppercase vote, no period, no
+//      colon, ALL-CAPS vote labels including "ВЪЗДЪРЖАЛИ СЕ" multi-
+//      word). The Gabrovo table also has an absent column rendering
+//      "отсъства" — captured as the third alternative so the back-walk
+//      doesn't stop at that line.
+//
+// The leading `(\d+)[.\s]\s*` makes the period optional. The separator
+// before the vote is `\s+[:]?\s*` so a stray colon (V. Tarnovo) and pure
+// whitespace (Gabrovo) both work. Vote alternatives include the
+// uppercase / mixed-case forms.
 const VOTE_LINE_RE =
-  /^\s*(\d+)\.\s+([А-ЯЁA-Z][а-яёa-z]+(?:[-\s]+[А-ЯЁA-Z][а-яёa-z]+){1,4})\s*:\s*(За|Против|Въздържал(?:[аи]?\s*се)?)\s*$/u;
+  /^\s*(\d+)[.\s]\s*([А-ЯЁA-Z][а-яёa-z]+(?:[-\s]+[А-ЯЁA-Z][а-яёa-z]+){1,4})\s+:?\s*(За|ЗА|Против|ПРОТИВ|Въздържал[аи]?\s*се|ВЪЗДЪРЖАЛ[АИ]?\s*СЕ|отсъства|ОТСЪСТВА)\s*$/u;
 
 // Lines treated as page-break interstitials between vote rows. Sofia's
 // OCR output sandwiches an agenda-item header AND an aggregate-tally
@@ -337,6 +353,12 @@ export const extractNamedVoteBlock = (
     const pos = parseInt(m[1], 10);
     const name = m[2].trim();
     const voteRaw = m[3];
+    // Gabrovo's tabular protokols carry an explicit "отсъства" (absent)
+    // column. We don't store absences as votes — drop the line entirely
+    // (the back-walk still continues through it because we don't break).
+    if (/^отсъства$/iu.test(voteRaw)) {
+      continue;
+    }
     const vote: ParsedVoteEntry["vote"] = /^За$/iu.test(voteRaw)
       ? "for"
       : /^Против$/iu.test(voteRaw)
