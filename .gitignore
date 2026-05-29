@@ -48,6 +48,11 @@ dist.old-*
 # (doc.html + images/) is committed; the generated PDF is not.
 /scripts/stats-briefing/electionsbg-stats.pdf
 
+# obshtini.bg coverage survey — developer-discovery artifact produced by
+# scripts/local_taxes/probe_obshtini_all.ts. Regenerated on demand;
+# never the source of truth.
+/data-reports/obshtini_bg_survey.json
+
 # Commerce Registry (TR) raw dump — ~540 MB zip + ~12 GB extracted JSON.
 # Re-fetch with `npx tsx scripts/declarations/tr/cli.ts --bulk` (or `--incremental`).
 /raw_data/tr/
