@@ -10,7 +10,7 @@
 // The DOCX helper reuses scripts/council/lib/docx.ts (unzip + XML strip).
 
 import { fetchNaredbaDocx } from "../lib/fetch_docx";
-import { buildNaredbaBlock } from "../lib/extract_naredba";
+import { buildNaredbaBlock, extractDogTax } from "../lib/extract_naredba";
 import type { NaredbaParser } from "../types";
 
 const FEES_NAREDBA_URL =
@@ -37,6 +37,10 @@ export const bgsParser: NaredbaParser = {
         tboResidentialZone: "гр. Бургас + кварталите",
       },
     });
+    // Dog tax lives in the FEES naredba — Burgas's TAX naredba is still
+    // blocked on a legacy .doc, but дог такса is recoverable from FEES.
+    const dt = extractDogTax(text);
+    if (dt) block.dogTax = dt;
     return { obshtina: this.obshtina, block, sourceHash: hash };
   },
 };

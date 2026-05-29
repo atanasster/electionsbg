@@ -89,8 +89,7 @@ export const sofParser: NaredbaParser = {
         })
       : { year: NAREDBA_YEAR, url: FEES_NAREDBA_URL };
 
-    // Patch from the TAX naredba (separate document). Property tax,
-    // tourist tax, and dog tax live only in the TAX naredba.
+    // Property tax + tourist tax live in the TAX naredba.
     if (tax) {
       const ptiRate = extractPropertyTaxIndividualsRate(tax.text);
       if (ptiRate != null) {
@@ -98,9 +97,15 @@ export const sofParser: NaredbaParser = {
       }
       const tt = extractTouristTax(tax.text);
       if (tt) block.touristTax = tt;
-      const dt = extractDogTax(tax.text);
-      if (dt) block.dogTax = dt;
     }
+    // Dog tax lives in the FEES naredba (НОАМТЦУПСО "такси"),
+    // Чл. 78 + Приложение №8. Fall back to TAX text in case the rate
+    // moves between yearly amendments.
+    const dt =
+      (fees && extractDogTax(fees.text)) ||
+      (tax && extractDogTax(tax.text)) ||
+      null;
+    if (dt) block.dogTax = dt;
 
     // Combine sourceHash from only the sides that fetched, so the watch
     // watermark still flips when the surviving side changes upstream.

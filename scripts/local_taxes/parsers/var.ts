@@ -86,9 +86,13 @@ export const varParser: NaredbaParser = {
       }
       const tt = extractTouristTax(tax.text);
       if (tt) block.touristTax = tt;
-      const dt = extractDogTax(tax.text);
-      if (dt) block.dogTax = dt;
     }
+    // Dog tax lives in the FEES naredba (такси). Fall back to TAX text.
+    const dt =
+      (fees && extractDogTax(fees.text)) ||
+      (tax && extractDogTax(tax.text)) ||
+      null;
+    if (dt) block.dogTax = dt;
 
     const hashParts: string[] = [];
     if (fees) hashParts.push(`fees=${fees.hash}`);

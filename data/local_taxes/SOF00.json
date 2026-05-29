@@ -67,9 +67,17 @@
       "basis": "promil",
       "note": "Конкретната ставка се определя с ежегодно решение на общинския съвет"
     },
+    "dogTax": {
+      "value": 12.27,
+      "unit": "EUR/година (конв. от BGN)"
+    },
     "propertyTaxIndividuals": {
       "rate": 1.875,
       "year": 2026
+    },
+    "touristTax": {
+      "value": 0.51,
+      "unit": "EUR/нощ"
     }
   }
 }

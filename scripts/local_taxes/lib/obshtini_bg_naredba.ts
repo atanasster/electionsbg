@@ -122,9 +122,16 @@ export const createObshtiniBgNaredbaParser = (
         }
         const tt = extractTouristTax(tax.text);
         if (tt) block.touristTax = tt;
-        const dt = extractDogTax(tax.text);
-        if (dt) block.dogTax = dt;
       }
+      // Dog tax most commonly lives in the FEES naredba (НОАМТЦУ
+      // "такси"), but some municípios (Samokov) put it in TAX. Run
+      // against both; FEES wins because that's where ЗМДТ Чл. 175(2)
+      // is implemented for most municípios.
+      const dt =
+        (fees && extractDogTax(fees.text)) ||
+        (tax && extractDogTax(tax.text)) ||
+        null;
+      if (dt) block.dogTax = dt;
 
       const hashParts: string[] = [];
       if (fees) hashParts.push(`fees=${fees.hash}`);

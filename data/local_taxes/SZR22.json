@@ -69,6 +69,10 @@
     "propertyTaxIndividuals": {
       "rate": 3.5,
       "year": 2025
+    },
+    "touristTax": {
+      "value": 0.1,
+      "unit": "EUR/нощ"
     }
   }
 }

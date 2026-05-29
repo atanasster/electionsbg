@@ -171,32 +171,168 @@ export const extractPropertyTaxIndividualsRate = (
   return Math.max(...candidates);
 };
 
-const TOURIST_TAX_RX =
-  /туристическ(?:и|и я|ия)\s+данък[^]{0,400}?(\d+(?:[.,]\d+)?)\s*(?:лв|лева|BGN)\s*(?:за\s+(?:нощувк|реализирана\s+нощувка))/i;
+const BGN_PER_EUR = 1.95583;
 
-/** Tourist tax — typically published as "X лева за нощувка". */
+const numFromStr = (s: string): number => Number(s.replace(",", "."));
+
+/** Tourist tax — published in three common shapes:
+ *  A) Category-table: "1 звезда ... X лева/евро за нощ" (Plovdiv,
+ *     Балчик, Мъглиж, Петрич, Razgrad). We anchor on "1 звезда" / "една
+ *     звезда" because the 1-star row is the cheapest and the
+ *     representative minimum charge. Some naredbi list dual BGN+EUR
+ *     ("0,30 лева/0,15 евро"); we prefer EUR when both appear.
+ *  B) Range: "от X до Y евро за всяка нощ" (Samokov). Pick the low end.
+ *  C) Single-rate: "X лева за нощувка" (the original-pattern fallback).
+ *
+ *  Returns EUR/нощ. If only BGN is published, converts at 1 EUR =
+ *  1.95583 BGN (the Bulgarian euro-adoption rate). Sanity bounds:
+ *  0.05–3.00 EUR — ЗМДТ Чл. 60 caps tourist tax at 3 лв ≈ 1.53 EUR;
+ *  the upper bound catches lev-not-converted errors.
+ *
+ *  No section slicing: Plovdiv's "1 звезда" is at offset 43433, far
+ *  past any reasonable slice from the chapter heading. The "1 звезда"
+ *  anchor itself is specific enough (never appears outside a tourist-
+ *  tax tariff in BG naredbi). */
 export const extractTouristTax = (
   text: string,
 ): { value: number; unit: string } | null => {
-  const m = text.match(TOURIST_TAX_RX);
-  if (!m) return null;
-  const v = Number(m[1].replace(",", "."));
-  if (!Number.isFinite(v) || v <= 0 || v > 200) return null;
-  return { value: v, unit: "BGN/нощувка" };
+  const inBand = (v: number): boolean =>
+    Number.isFinite(v) && v >= 0.05 && v <= 3.0;
+
+  const fromBgn = (bgn: number): number => bgn / BGN_PER_EUR;
+
+  // A) Category table — 1-star row. Walk every "1 звезда" anchor and
+  //    look inside a 200-char window ahead. When BGN and EUR both
+  //    appear in the same row (dual-currency naredbi), we prefer EUR.
+  const oneStarCandidates: Array<{ eur: number; converted: boolean }> = [];
+  // No \b — `\b` in JS only matches ASCII word boundaries (Cyrillic
+  // letters are non-word in default mode, so "1 звезда\b" never
+  // matches). The phrase itself is specific enough; rely on the
+  // 200-char rate-lookahead window for further gating.
+  for (const a of text.matchAll(/(?:1\s+звезда|една\s+звезда)/gi)) {
+    const aEnd = (a.index ?? 0) + a[0].length;
+    const win = text.slice(aEnd, aEnd + 200);
+    // EUR first within window
+    const eurM = win.match(/(\d+(?:[.,]\d+)?)\s*(?:евро|EUR)/i);
+    if (eurM) {
+      const v = numFromStr(eurM[1]);
+      if (inBand(v)) {
+        oneStarCandidates.push({ eur: v, converted: false });
+        continue;
+      }
+    }
+    const bgnM = win.match(/(\d+(?:[.,]\d+)?)\s*(?:лв(?:\.?)|лева|BGN)/i);
+    if (bgnM) {
+      const bgn = numFromStr(bgnM[1]);
+      const eur = fromBgn(bgn);
+      if (inBand(eur)) {
+        oneStarCandidates.push({ eur, converted: true });
+      }
+    }
+  }
+  if (oneStarCandidates.length > 0) {
+    const eurNative = oneStarCandidates.filter((c) => !c.converted);
+    const pick = (eurNative.length > 0 ? eurNative : oneStarCandidates).reduce(
+      (best, c) => (c.eur < best.eur ? c : best),
+    );
+    return {
+      value: Math.round(pick.eur * 100) / 100,
+      unit: pick.converted ? "EUR/нощ (конв. от BGN)" : "EUR/нощ",
+    };
+  }
+
+  // B) Range form (Samokov) — pick the low end.
+  const range = text.match(
+    /от\s+(\d+(?:[.,]\d+)?)\s*(?:евро|EUR)\s*до\s+\d+(?:[.,]\d+)?\s*(?:евро|EUR)\s*за\s*(?:всяка\s+)?нощ/i,
+  );
+  if (range) {
+    const v = numFromStr(range[1]);
+    if (inBand(v)) return { value: v, unit: "EUR/нощ" };
+  }
+
+  // C) Legacy single-rate. BGN-only — convert.
+  const legacy = text.match(
+    /(?<!\d)(\d+(?:[.,]\d+)?)\s*(?:лв|лева|BGN)\s*за\s+(?:нощувк|реализирана\s+нощувка)/i,
+  );
+  if (legacy) {
+    const bgn = numFromStr(legacy[1]);
+    const eur = fromBgn(bgn);
+    if (inBand(eur)) {
+      return {
+        value: Math.round(eur * 100) / 100,
+        unit: "EUR/нощ (конв. от BGN)",
+      };
+    }
+  }
+
+  return null;
 };
 
-const DOG_TAX_RX =
-  /данък\s+(?:върху\s+)?(?:притежаването|притежаване)\s+(?:на\s+)?куче[^]{0,400}?(\d+(?:[.,]\d+)?)\s*(?:лв|лева|BGN)/i;
+// Dog tax lives in the FEES naredba (НОАМТЦУ) as a такса, not in the
+// TAX naredba (НОРМД) where property/tourist live. ЗМДТ Чл. 175(2)
+// puts it on the ветеринарномедицинска authority, hence the placement
+// in the такси document. Parsers must pass FEES text here.
+//
+// Sofia FEES is structured as: Чл. 2 lists every fee (куче appears in
+// the list), then much later Приложение №8 carries the per-year rate.
+// The naive "slice from first куче" approach misses Приложение entirely
+// (Sofia's Приложение №8 sits ~15 KB past Чл. 2). We instead walk
+// every "куче" mention in the whole document and gate each on a
+// "година"-anchored rate within a tight 150-char window — only the
+// rate-bearing mentions clear the gate.
 
-/** Dog tax — typically published as "X лева годишно". */
+/** Dog tax — published in three common shapes:
+ *  A) Inline:    "за притежаване на куче — X лв. на година" (Sofia 1990s
+ *                style — rate in the Приложение, not the body).
+ *  B) Tariff row: "Годишна такса ... куче ... NN лв NN.NN евро" (Plovdiv,
+ *                2025 dual-currency).
+ *  C) Per-zone tariff in the body (Maglizh, Balchik).
+ *
+ *  Returns EUR/година. Prefers EUR when both currencies appear in the
+ *  same row; otherwise converts BGN at the fixed adoption rate. Sanity
+ *  band 2–200 EUR (Bulgaria's historical range 5-300 BGN ≈ 2.5-150 EUR;
+ *  the upper bound catches lev-not-converted errors). */
 export const extractDogTax = (
   text: string,
 ): { value: number; unit: string } | null => {
-  const m = text.match(DOG_TAX_RX);
-  if (!m) return null;
-  const v = Number(m[1].replace(",", "."));
-  if (!Number.isFinite(v) || v <= 0 || v > 1000) return null;
-  return { value: v, unit: "BGN/година" };
+  const inBand = (v: number): boolean =>
+    Number.isFinite(v) && v >= 2 && v <= 200;
+
+  type Candidate = { eur: number; converted: boolean };
+  const candidates: Candidate[] = [];
+
+  // Walk every "куче" / "кучета" anchor in the document.
+  for (const a of text.matchAll(/(?:куче|кучета)/gi)) {
+    const aStart = a.index ?? 0;
+    const aEnd = aStart + a[0].length;
+    // Look 200 chars ahead for a rate + currency + "година"/"годишн".
+    // Tight on purpose — Sofia's body has many "куче" mentions without
+    // a rate; only the Приложение row carries the trio.
+    const window = text.slice(aEnd, aEnd + 200);
+    const rateRx =
+      /(\d+(?:[.,]\d+)?)\s*(лв(?:\.?)|лева|евро|EUR|BGN)[^.]{0,40}?(?:година|годишн|год\.)/i;
+    const m = rateRx.exec(window);
+    if (!m) continue;
+    const raw = Number(m[1].replace(",", "."));
+    const isBgn = /лв|лева|BGN/i.test(m[2]);
+    const eur = isBgn ? raw / BGN_PER_EUR : raw;
+    if (inBand(eur)) {
+      candidates.push({ eur, converted: isBgn });
+    }
+  }
+
+  if (candidates.length === 0) return null;
+  // Prefer EUR-native rates when present (they're more authoritative —
+  // dual-currency naredbi list both, and the EUR side is the post-2026
+  // canonical figure).
+  const eurNative = candidates.filter((c) => !c.converted);
+  const pick = (eurNative.length > 0 ? eurNative : candidates).reduce(
+    (best, c) => (c.eur < best.eur ? c : best),
+  );
+  return {
+    value: Math.round(pick.eur * 100) / 100,
+    unit: pick.converted ? "EUR/година (конв. от BGN)" : "EUR/година",
+  };
 };
 
 /** Detect the year referenced as "in force" — many naredbi carry
