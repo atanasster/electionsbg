@@ -347,6 +347,72 @@ export const parseLocalElection = async (opts: {
     }
   }
 
+  // Pre-2019 cycles (2015) split each Sofia/Plovdiv/Varna район mayor
+  // race into its own `mestni/NNNN_NNNNNr.html` page rather than nesting
+  // it under "Резултати за кмет на район" sections on the parent
+  // município page. The ingest mirrored these as `NNNN_NNNNNr.html`
+  // siblings of `NNNN.html` in raw_data/<cycle>/html/tur1/. Walk them
+  // here, parse each as a district mayor page, and append the resulting
+  // districts to the parent município's bundle so the Sofia fan-out
+  // below picks up район shards (S2***) for the older cycles too.
+  if (fs.existsSync(htmlT1)) {
+    const rayonFiles = fs
+      .readdirSync(htmlT1)
+      .filter((f) => /^(\d{4})_\d{5}r\.html$/.test(f));
+    for (const file of rayonFiles) {
+      const parentOik = file.match(/^(\d{4})_/)?.[1];
+      if (!parentOik) continue;
+      const parent = bundles.find((b) => b.oikCode === parentOik);
+      if (!parent) continue;
+      const t1Html = readHtmlIfExists(path.join(htmlT1, file));
+      if (!t1Html) continue;
+      const parsed = parseRezultatiHtml(t1Html, {
+        oikCode: parentOik,
+        round: 1,
+        canonical,
+      });
+      // 2015 standalone район pages title themselves
+      // "Резултати за община <city>, район <name>" in the breadcrumb but
+      // their H3 race-section heading is the bare "Резултати за кмет на
+      // район" (no суффикс) — so the parser's section.heading strip
+      // leaves districtName empty and fanOutSofiaRayons can't match it
+      // to S2401/S2302/…. Recover the район name from the breadcrumb
+      // explicitly and override.
+      const breadcrumbMatch = t1Html.match(
+        /Резултати за община\s+[^,]+,\s*район\s+([^<\n,|]+)/i,
+      );
+      const rayonName = breadcrumbMatch?.[1]?.trim() ?? parsed.municipalityName;
+      // The subpage's mayor[] holds the район кмет race (the parser
+      // sees it as the page's main mayor section because there's no
+      // parent município mayor on the standalone page). Promote those
+      // rows into a synthetic districts[] entry keyed by the breadcrumb
+      // район name. Fall back to the parser's own districts[] when the
+      // page happens to use the "кмет на район" heading shape instead
+      // — but override the (empty) districtName with the breadcrumb
+      // value so the downstream Sofia fan-out can match.
+      // Always override districtName with the breadcrumb-derived rayonName:
+      // each standalone subpage describes exactly one район and the page-
+      // level heading ("Резултати за кмет на район" without a suffix) is
+      // never the actual name. The breadcrumb is authoritative here.
+      if (parsed.districts.length > 0) {
+        for (const d of parsed.districts) {
+          parent.districts.push({ ...d, districtName: rayonName });
+        }
+      } else if (parsed.mayor.length > 0) {
+        parent.districts.push({
+          districtName: rayonName,
+          districtCode: "",
+          candidates: parsed.mayor,
+        });
+      }
+    }
+    if (rayonFiles.length > 0) {
+      console.log(
+        `[parsers_local] ${cycle}: merged ${rayonFiles.length} район subpage(s) into parent bundles`,
+      );
+    }
+  }
+
   // Sofia City fan-out: split the city-wide bundle (pinned under the
   // synthetic SOF code via NAME_ALIASES) into 24 per-район shards so
   // every район dashboard (S2302 Красно Село, S2308 Изгрев, S2315 Младост,

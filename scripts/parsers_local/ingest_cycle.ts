@@ -26,6 +26,7 @@ import {
   readSelectOptions,
   readLocationSelectOptions,
   scrapeOikRefs,
+  scrapeRayonRefs,
 } from "./cik_fetch";
 import { parseLocalElection } from "./parse_local_elections";
 
@@ -141,7 +142,9 @@ const readObshtinaOptions = async (
   return refs.filter((c) => c.startsWith(oblastPrefix));
 };
 
-const discoverOikCodes = async (cycleSlug: string): Promise<string[]> => {
+const discoverOikCodes = async (
+  cycleSlug: string,
+): Promise<{ oikCodes: string[]; rayonStems: string[] }> => {
   const inner = resultsPath(cycleSlug);
   const indexUrl = `${ROOT}/${cycleSlug}/tur1/${inner}/index.html`;
   await cikFetchText(indexUrl);
@@ -152,6 +155,7 @@ const discoverOikCodes = async (cycleSlug: string): Promise<string[]> => {
     );
   }
   const oikCodes = new Set<string>();
+  const rayonStems = new Set<string>();
   for (const opt of oblOptions) {
     const rawValue = optionValueRaw(opt.value);
     if (!rawValue) continue;
@@ -164,8 +168,33 @@ const discoverOikCodes = async (cycleSlug: string): Promise<string[]> => {
     await cikFetchText(oblastEntryUrl(cycleSlug, inner, rawValue));
     const obshtinaCodes = await readObshtinaOptions(cycleSlug, oblastPrefix);
     for (const code of obshtinaCodes) oikCodes.add(code);
+    // Harvest район refs while we're on the oblast capital page —
+    // Sofia/Plovdiv/Varna 2015 split each район mayor race into a
+    // separate `mestni/NNNN_NNNNNr.html` page that the bare 4-digit
+    // OIK discovery misses. Free for cycles where no such pattern
+    // exists (e.g. all 2011 pages).
+    const stems = await scrapeRayonRefs();
+    for (const s of stems) rayonStems.add(s);
   }
-  return Array.from(oikCodes).sort();
+  // Targeted район sweep for the multi-район cities whose pages aren't
+  // the alphabetically-first obshtina in their oblast (Plovdiv 1622 sits
+  // mid-list, behind Асеновград 1601; Varna 0306 sits behind Аврен 0301).
+  // Sofia (2246) happens to also be the oblast capital so the first pass
+  // already covered it, but listing it here is idempotent. Only fired
+  // for cycles where the inner folder is `mestni/` (pre-2019); 2019+
+  // cycles publish район mayors as in-page sub-sections instead.
+  if (inner === "mestni") {
+    for (const oik of ["2246", "1622", "0306"]) {
+      if (!oikCodes.has(oik)) continue;
+      await cikFetchText(`${ROOT}/${cycleSlug}/tur1/${inner}/${oik}.html`);
+      const stems = await scrapeRayonRefs();
+      for (const s of stems) rayonStems.add(s);
+    }
+  }
+  return {
+    oikCodes: Array.from(oikCodes).sort(),
+    rayonStems: Array.from(rayonStems).sort(),
+  };
 };
 
 /**
@@ -262,9 +291,10 @@ export const ingestCycle = async (opts: {
   console.log(
     `[ingest_cycle] ${cycleSlug} → ${rawFolder} :: discovering OIK catalogue`,
   );
-  const oikCodes = await discoverOikCodes(cycleSlug);
+  const { oikCodes, rayonStems } = await discoverOikCodes(cycleSlug);
   console.log(
-    `[ingest_cycle] ${cycleSlug} :: discovered ${oikCodes.length} OIK code(s)`,
+    `[ingest_cycle] ${cycleSlug} :: discovered ${oikCodes.length} OIK code(s)` +
+      (rayonStems.length > 0 ? ` + ${rayonStems.length} район subpage(s)` : ""),
   );
   if (oikCodes.length === 0) {
     throw new Error(
@@ -273,12 +303,12 @@ export const ingestCycle = async (opts: {
   }
 
   console.log(
-    `[ingest_cycle] ${cycleSlug} :: mirroring HTML for ${oikCodes.length} OIK(s)`,
+    `[ingest_cycle] ${cycleSlug} :: mirroring HTML for ${oikCodes.length + rayonStems.length} page(s)`,
   );
   const { tur1, tur2, tur1Missing } = await mirrorHtmlPages({
     cycleSlug,
     rawFolder,
-    oikCodes,
+    oikCodes: [...oikCodes, ...rayonStems],
     delayMs,
   });
   console.log(

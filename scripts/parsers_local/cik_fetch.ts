@@ -316,3 +316,24 @@ export const scrapeOikRefs = async (): Promise<string[]> => {
     return Array.from(codes).sort();
   });
 };
+
+/**
+ * Scrape extended-OIK refs of the form `NNNN_NNNNNr` on the currently-loaded
+ * page (Sofia/Plovdiv/Varna 2015: each район of a multi-район município
+ * has its own page at `mestni/NNNN_NNNNNr.html`). The `r` suffix on the file
+ * stem is part of the CIK convention; it's preserved so the parent join
+ * key stays unambiguous. Returns the bare stems (without `.html`).
+ */
+export const scrapeRayonRefs = async (): Promise<string[]> => {
+  const s = await initSession();
+  return s.page.evaluate(() => {
+    const stems = new Set<string>();
+    document.querySelectorAll("a[href]").forEach((el) => {
+      const raw = el.getAttribute("href");
+      if (!raw) return;
+      const m = raw.match(/(\d{4}_\d{5}r)\.html/);
+      if (m) stems.add(m[1]);
+    });
+    return Array.from(stems).sort();
+  });
+};
