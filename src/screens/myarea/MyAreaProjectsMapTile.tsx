@@ -10,6 +10,7 @@
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { MapPin, Map as MapIcon, List as ListIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import {
@@ -111,14 +112,14 @@ const LeafletMap: FC<{ pins: FundsGeoPin[] }> = ({ pins }) => {
 
   if (!mod || !bounds || pins.length === 0) {
     return (
-      <div className="h-[360px] w-full rounded-md border bg-card/50 animate-pulse" />
+      <div className="h-full w-full rounded-md border bg-card/50 animate-pulse" />
     );
   }
 
   const { MapContainer, TileLayer, CircleMarker, Tooltip } = mod;
 
   return (
-    <div className="h-[360px] w-full rounded-md overflow-hidden border">
+    <div className="h-full w-full rounded-md overflow-hidden border">
       <MapContainer
         center={bounds.center}
         bounds={[
@@ -195,105 +196,117 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
   const cohort = summary?.cohortSize ?? null;
 
   return (
-    <Card className="p-4 flex flex-col gap-3" id="myarea-projects-map">
-      <div className="flex items-center gap-2">
-        <MapPin className="size-4 text-primary" />
-        <h2 className="text-sm font-semibold flex-1">
-          {t("my_area_projects_map_title")}
-        </h2>
-        <span className="text-[10px] text-muted-foreground tabular-nums">
-          {data.sourceContractCount}{" "}
-          {data.sourceContractCount === 1
-            ? t("project_singular")
-            : t("project_plural")}
-        </span>
-      </div>
-
-      {/* Per-capita comparison line — EU funds per resident + cohort rank.
-          Comes pre-computed from the funds summary; renders only when the
-          município has a population-normalised figure. */}
-      {perCapita != null ? (
-        <div className="text-xs text-muted-foreground -mt-1">
-          <span className="font-semibold text-foreground tabular-nums">
-            {formatPerCapita(perCapita, lang)}
+    // On lg the Card matches its row-track height (sibling-driven) by having
+    // its content absolutely positioned — the Card itself contributes 0 to
+    // the grid auto-row sizing, so the row sizes to the taller sibling.
+    <Card className="lg:relative lg:h-full" id="myarea-projects-map">
+      <div className="p-4 flex flex-col gap-3 lg:absolute lg:inset-0">
+        <div className="flex items-center gap-2">
+          <MapPin className="size-4 text-primary" />
+          <h2 className="text-sm font-semibold flex-1">
+            {t("my_area_projects_map_title")}
+          </h2>
+          <span className="text-[10px] text-muted-foreground tabular-nums">
+            {data.sourceContractCount}{" "}
+            {data.sourceContractCount === 1
+              ? t("project_singular")
+              : t("project_plural")}
           </span>
-          {rank != null && cohort != null ? (
-            <>
-              {" · "}
-              {lang === "bg"
-                ? `място ${rank} от ${cohort} общини в областта`
-                : `rank ${rank} of ${cohort} in the province`}
-            </>
-          ) : null}
         </div>
-      ) : null}
 
-      {view === "map" ? (
-        <>
-          <LeafletMap pins={pins} />
-          <p className="text-[10px] text-muted-foreground">
-            {t("my_area_projects_map_caveat", {
-              shown: pins.length,
-              total: data.sourceContractCount,
-            })}
-          </p>
-          <button
-            type="button"
-            onClick={() => setView("list")}
-            className="flex items-center justify-center gap-2 text-sm font-medium text-primary rounded-md border p-2 hover:bg-accent/40 transition-colors"
-          >
-            <ListIcon className="size-4" />
-            {lang === "bg" ? "Към списъка с проекти" : "Back to project list"}
-          </button>
-        </>
-      ) : (
-        <>
-          {/* Full scrollable list of projects, biggest money first. */}
-          <ul className="flex flex-col max-h-[340px] overflow-y-auto pr-1">
-            {contracts.map((p, i) => (
-              <li
-                key={`${p.contractNumber}-${i}`}
-                className="flex items-start gap-2 py-1.5 text-xs border-b last:border-b-0"
-              >
-                <span
-                  className="size-2 rounded-full shrink-0 mt-1"
-                  style={{ backgroundColor: colorForStatus(p.status) }}
-                  aria-hidden
-                />
-                <span className="flex-1 min-w-0">
-                  <span className="line-clamp-2" title={p.title}>
-                    {p.title}
-                  </span>
-                  <span className="text-[10px] text-muted-foreground">
-                    {p.programName}
-                  </span>
-                </span>
-                <span className="tabular-nums font-medium shrink-0">
-                  {formatEur(p.totalEur)}
-                </span>
-              </li>
-            ))}
-          </ul>
-          {contracts.length < data.sourceContractCount ? (
+        {/* Per-capita comparison line — EU funds per resident + cohort rank.
+            Comes pre-computed from the funds summary; renders only when the
+            município has a population-normalised figure. */}
+        {perCapita != null ? (
+          <div className="text-xs text-muted-foreground -mt-1">
+            <span className="font-semibold text-foreground tabular-nums">
+              {formatPerCapita(perCapita, lang)}
+            </span>
+            {rank != null && cohort != null ? (
+              <>
+                {" · "}
+                {lang === "bg"
+                  ? `място ${rank} от ${cohort} общини в областта`
+                  : `rank ${rank} of ${cohort} in the province`}
+              </>
+            ) : null}
+          </div>
+        ) : null}
+
+        {view === "map" ? (
+          <>
+            <div className="h-[360px] lg:h-auto lg:flex-1 lg:min-h-[300px]">
+              <LeafletMap pins={pins} />
+            </div>
             <p className="text-[10px] text-muted-foreground">
-              {t("my_area_projects_list_caveat", {
-                shown: contracts.length,
+              {t("my_area_projects_map_caveat", {
+                shown: pins.length,
                 total: data.sourceContractCount,
               })}
             </p>
-          ) : null}
-          {pins.length > 0 ? (
             <button
               type="button"
-              onClick={() => setView("map")}
-              className="flex items-center justify-center gap-2 text-sm font-medium text-primary rounded-md border p-2 hover:bg-accent/40 transition-colors"
+              onClick={() => setView("list")}
+              className="mt-auto flex items-center justify-center gap-2 text-sm font-medium text-primary rounded-md border p-2 hover:bg-accent/40 transition-colors"
             >
-              <MapIcon className="size-4" />
-              {lang === "bg" ? "Виж на карта" : "View on map"}
+              <ListIcon className="size-4" />
+              {lang === "bg" ? "Към списъка с проекти" : "Back to project list"}
             </button>
-          ) : null}
-        </>
-      )}
+          </>
+        ) : (
+          <>
+            {/* Full scrollable list of projects, biggest money first. */}
+            <ul className="flex flex-col max-h-[340px] lg:max-h-none lg:flex-1 lg:min-h-0 overflow-y-auto pr-1">
+              {contracts.map((p, i) => (
+                <li
+                  key={`${p.contractNumber}-${i}`}
+                  className="border-b last:border-b-0"
+                >
+                  <Link
+                    to={`/funds/contract/${encodeURIComponent(p.contractNumber)}`}
+                    className="flex items-start gap-2 py-1.5 text-xs rounded hover:bg-muted/50 transition-colors -mx-1 px-1"
+                  >
+                    <span
+                      className="size-2 rounded-full shrink-0 mt-1"
+                      style={{ backgroundColor: colorForStatus(p.status) }}
+                      aria-hidden
+                    />
+                    <span className="flex-1 min-w-0">
+                      <span className="line-clamp-2" title={p.title}>
+                        {p.title}
+                      </span>
+                      <span className="text-[10px] text-muted-foreground">
+                        {p.programName}
+                      </span>
+                    </span>
+                    <span className="tabular-nums font-medium shrink-0">
+                      {formatEur(p.totalEur)}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            {contracts.length < data.sourceContractCount ? (
+              <p className="text-[10px] text-muted-foreground">
+                {t("my_area_projects_list_caveat", {
+                  shown: contracts.length,
+                  total: data.sourceContractCount,
+                })}
+              </p>
+            ) : null}
+            {pins.length > 0 ? (
+              <button
+                type="button"
+                onClick={() => setView("map")}
+                className="mt-auto flex items-center justify-center gap-2 text-sm font-medium text-primary rounded-md border p-2 hover:bg-accent/40 transition-colors"
+              >
+                <MapIcon className="size-4" />
+                {lang === "bg" ? "Виж на карта" : "View on map"}
+              </button>
+            ) : null}
+          </>
+        )}
+      </div>
     </Card>
   );
 };
