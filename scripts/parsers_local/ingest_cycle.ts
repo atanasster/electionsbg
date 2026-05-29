@@ -21,7 +21,12 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { cikFetchText, readSelectOptions } from "./cik_fetch";
+import {
+  cikFetchText,
+  readSelectOptions,
+  readLocationSelectOptions,
+  scrapeOikRefs,
+} from "./cik_fetch";
 import { parseLocalElection } from "./parse_local_elections";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -34,9 +39,24 @@ const INGEST_STATE = path.resolve(
 );
 
 const REGULAR_DATES: Record<string, string> = {
+  mipvr2011: "2011_10_23",
+  minr2015: "2015_10_25",
   mi2019: "2019_10_27",
   mi2023: "2023_10_29",
 };
+
+// CIK changed the per-município folder name between cycles: 2019+ uses
+// /rezultati/<oik>.html, but the joint-cycle archives (2011 with president,
+// 2015 with referendum) use /mestni/<oik>.html. Map per slug.
+const RESULTS_PATH: Record<string, string> = {
+  mipvr2011: "mestni",
+  minr2015: "mestni",
+  mi2019: "rezultati",
+  mi2023: "rezultati",
+};
+
+const resultsPath = (cycleSlug: string): string =>
+  RESULTS_PATH[cycleSlug] ?? "rezultati";
 
 export const cycleSlugToRawFolder = (cycleSlug: string): string => {
   if (cycleSlug in REGULAR_DATES) return `${REGULAR_DATES[cycleSlug]}_mi`;
@@ -63,14 +83,69 @@ const oikFromOption = (raw: string): string | null => {
   return m ? m[1] : null;
 };
 
+// 2011 (mipvr2011) is the outlier: its top-level dropdown lists 28 oblast
+// codes as bare 2-digit values and a JS-constructed redirect picks the
+// corresponding `mestni/XX.html` page. Recover the raw option value (2 or
+// 4 digit) so the cascade can build the right URL per cycle.
+const optionValueRaw = (raw: string): string | null => {
+  const m = raw.match(/(?:\/)?(\d{2,4})(?:\.html)?$/);
+  return m ? m[1] : null;
+};
+
+const oblastEntryUrl = (
+  cycleSlug: string,
+  inner: string,
+  optionValue: string,
+): string => `${ROOT}/${cycleSlug}/tur1/${inner}/${optionValue}.html`;
+
 /**
  * Walk the oblast → município dropdowns on the rezultati index pages to
  * enumerate every OIK code that has a results page in the given cycle.
  */
+// 2019/2023 use id'd dropdowns (#obl-select / #obs-select); 2011/2015
+// publish the same cascading list under unnamed or differently-id'd
+// <select onchange="window.location...">. `readLocationSelectOptions()` is
+// the schema-tolerant fallback that finds whichever redirecting <select>
+// has the most NNNN.html options on the current page.
+const READ_BY_ID: Record<string, { oblast: string; obshtina: string }> = {
+  mi2019: { oblast: "obl-select", obshtina: "obs-select" },
+  mi2023: { oblast: "obl-select", obshtina: "obs-select" },
+};
+
+const readOblastOptions = async (
+  cycleSlug: string,
+): Promise<{ value: string; text: string }[]> => {
+  const ids = READ_BY_ID[cycleSlug];
+  if (ids) return readSelectOptions(ids.oblast);
+  return readLocationSelectOptions();
+};
+
+// Per-oblast obshtina enumeration. 2019/2023 expose this as the #obs-select
+// dropdown on the oblast entry page. 2015/2011 don't — instead, every
+// município-page lists the other municípios of its oblast as inline anchor
+// links. The scrape fallback unions all NNNN.html refs on the loaded page,
+// filtered to the current oblast prefix so we don't drag in stray refs to
+// other oblasts' default pages.
+const readObshtinaOptions = async (
+  cycleSlug: string,
+  oblastPrefix: string,
+): Promise<string[]> => {
+  const ids = READ_BY_ID[cycleSlug];
+  if (ids) {
+    const opts = await readSelectOptions(ids.obshtina);
+    return opts
+      .map((o) => oikFromOption(o.value))
+      .filter((c): c is string => !!c);
+  }
+  const refs = await scrapeOikRefs();
+  return refs.filter((c) => c.startsWith(oblastPrefix));
+};
+
 const discoverOikCodes = async (cycleSlug: string): Promise<string[]> => {
-  const indexUrl = `${ROOT}/${cycleSlug}/tur1/rezultati/index.html`;
+  const inner = resultsPath(cycleSlug);
+  const indexUrl = `${ROOT}/${cycleSlug}/tur1/${inner}/index.html`;
   await cikFetchText(indexUrl);
-  const oblOptions = await readSelectOptions("obl-select");
+  const oblOptions = await readOblastOptions(cycleSlug);
   if (oblOptions.length === 0) {
     throw new Error(
       `Could not enumerate oblast dropdown on ${indexUrl} — page layout may have changed`,
@@ -78,16 +153,17 @@ const discoverOikCodes = async (cycleSlug: string): Promise<string[]> => {
   }
   const oikCodes = new Set<string>();
   for (const opt of oblOptions) {
-    const entryOik = oikFromOption(opt.value);
-    if (!entryOik) continue;
-    oikCodes.add(entryOik);
-    // Navigate to the oblast entry page and harvest its obs-select.
-    await cikFetchText(`${ROOT}/${cycleSlug}/tur1/rezultati/${entryOik}.html`);
-    const obsOptions = await readSelectOptions("obs-select");
-    for (const obsOpt of obsOptions) {
-      const obsOik = oikFromOption(obsOpt.value);
-      if (obsOik) oikCodes.add(obsOik);
+    const rawValue = optionValueRaw(opt.value);
+    if (!rawValue) continue;
+    // 2-digit oblast codes (2011) become oblast index pages; 4-digit codes
+    // (2015/2019/2023) directly identify the oblast capital's município.
+    const oblastPrefix = rawValue.slice(0, 2);
+    if (rawValue.length === 4) {
+      oikCodes.add(rawValue);
     }
+    await cikFetchText(oblastEntryUrl(cycleSlug, inner, rawValue));
+    const obshtinaCodes = await readObshtinaOptions(cycleSlug, oblastPrefix);
+    for (const code of obshtinaCodes) oikCodes.add(code);
   }
   return Array.from(oikCodes).sort();
 };
@@ -110,11 +186,12 @@ const mirrorHtmlPages = async (opts: {
   let tur1 = 0;
   let tur2 = 0;
   const tur1Missing: string[] = [];
+  const inner = resultsPath(cycleSlug);
   for (const oik of oikCodes) {
     const t1File = path.join(tur1Dir, `${oik}.html`);
     if (!fs.existsSync(t1File)) {
       const html = await cikFetchText(
-        `${ROOT}/${cycleSlug}/tur1/rezultati/${oik}.html`,
+        `${ROOT}/${cycleSlug}/tur1/${inner}/${oik}.html`,
         { allow404: true },
       );
       if (html) {
@@ -130,7 +207,7 @@ const mirrorHtmlPages = async (opts: {
     const t2File = path.join(tur2Dir, `${oik}.html`);
     if (!fs.existsSync(t2File)) {
       const html = await cikFetchText(
-        `${ROOT}/${cycleSlug}/tur2/rezultati/${oik}.html`,
+        `${ROOT}/${cycleSlug}/tur2/${inner}/${oik}.html`,
         { allow404: true },
       );
       if (html) {

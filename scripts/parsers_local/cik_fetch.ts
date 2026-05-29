@@ -254,3 +254,65 @@ export const readSelectOptions = async (
     }));
   }, selectId);
 };
+
+/**
+ * Locate the location-redirecting `<select>` on the currently-loaded page
+ * whose option values look like NNNN.html or bare NN/NNNN codes. Returns
+ * the option list. Used for pre-2019 cycles whose dropdowns aren't id'd
+ * (`minr2015` has no id; `mipvr2011` uses `id="location_select"` with bare
+ * numeric values and a JS-constructed redirect URL).
+ */
+export const readLocationSelectOptions = async (): Promise<
+  { value: string; text: string }[]
+> => {
+  const s = await initSession();
+  return s.page.evaluate(() => {
+    const selects = Array.from(document.querySelectorAll("select"));
+    const matches = selects
+      .filter((sel) => {
+        const onChange = sel.getAttribute("onchange") || "";
+        if (!/location|document\.location/.test(onChange)) return false;
+        const opts = Array.from(sel.options);
+        const codeOpts = opts.filter((o) =>
+          /^\s*\d{2,4}(\.html)?\s*$|\/\d{2,4}\.html/.test(o.value),
+        );
+        return codeOpts.length >= 2;
+      })
+      .sort((a, b) => b.options.length - a.options.length);
+    if (matches.length === 0) return [];
+    return Array.from(matches[0].options).map((o) => ({
+      value: o.value,
+      text: o.text.trim(),
+    }));
+  });
+};
+
+/**
+ * Scrape every NNNN.html reference appearing on the currently-loaded page
+ * (anchor hrefs + select options). Used as the broad-net OIK discovery
+ * fallback for the 2015 layout, which doesn't expose a nested obshtina
+ * dropdown — the navigation between municípios of an oblast happens via
+ * inline anchor links in the page body.
+ */
+export const scrapeOikRefs = async (): Promise<string[]> => {
+  const s = await initSession();
+  // Inline regex + Set construction — Playwright serializes the function to
+  // the page context where tsx-emitted helpers like __name don't exist, so
+  // helper-defs inside the evaluate body must be avoided.
+  return s.page.evaluate(() => {
+    const codes = new Set<string>();
+    document.querySelectorAll("a[href]").forEach((el) => {
+      const raw = el.getAttribute("href");
+      if (!raw) return;
+      const m = raw.match(/(\d{4})\.html/);
+      if (m) codes.add(m[1]);
+    });
+    document.querySelectorAll("option[value]").forEach((el) => {
+      const raw = el.getAttribute("value");
+      if (!raw) return;
+      const m = raw.match(/(\d{4})\.html/);
+      if (m) codes.add(m[1]);
+    });
+    return Array.from(codes).sort();
+  });
+};

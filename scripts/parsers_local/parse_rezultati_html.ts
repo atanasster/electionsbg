@@ -33,11 +33,18 @@ import {
 } from "./types";
 import { buildByNickNameLower, resolveLocalParty } from "./local_coalitions";
 
+// Heading regexes are deliberately broad: 2019/2023 use "Обобщени данни от
+// избор на ...", 2015 (minr2015) uses "Резултати за кмет на община" / "...
+// общински съвет", 2011 (mipvr2011) has no per-race headings at all and the
+// parser falls back to header-column classification on the bare tables.
 const SECTION_HEADINGS = {
-  mayorObshtina: /Обобщени данни от избор на кмет на община/i,
-  council: /Обобщени данни от избор на общински съвет/i,
-  mayorKmetstvo: /избор на кмет на кметство/i,
-  mayorDistrict: /избор на кмет на район/i,
+  mayorObshtina:
+    /(?:Обобщени данни от избор|Резултати за(?:\s+избор)?\s+на|Резултати за)\s+кмет\s+на\s+община/i,
+  council:
+    /(?:Обобщени данни от избор|Резултати за(?:\s+избор)?\s+на|Резултати за)(?:\s+избор\s+на)?\s+общински\s+съвет/i,
+  mayorKmetstvo:
+    /избор\s+на\s+кмет\s+на\s+кметство|Резултати за кмет на кметство/i,
+  mayorDistrict: /избор\s+на\s+кмет\s+на\s+район|Резултати за кмет на район/i,
 };
 
 // Tidy whitespace from a TD's text.
@@ -106,20 +113,38 @@ const collectSections = ($: CheerioAPI): Section[] => {
   return sections;
 };
 
-// Classify a table by its header row.
+// Classify a table by its header row. Falls back to scanning the first
+// row of <th> in <tr> when there's no explicit <thead> (2011/2015 layout).
 type TableKind = "mayor" | "council" | "unknown";
 const classifyTable = ($: CheerioAPI, $table: Cheerio<Element>): TableKind => {
-  const headers = $table
+  let headers = $table
     .find("thead th")
     .map((_, th) => txt($(th)))
     .get();
+  if (headers.length === 0) {
+    headers = $table
+      .find("tr")
+      .first()
+      .find("th")
+      .map((_, th) => txt($(th)))
+      .get();
+  }
   if (headers.some((h) => /Мандати/i.test(h))) return "council";
-  if (headers.some((h) => /Партия|Кандидат|Гласове/i.test(h))) return "mayor";
+  if (headers.some((h) => /Кандидат/i.test(h))) return "mayor";
+  // Some council tables (2015) lead with "Партия" — only flag mayor when a
+  // candidate column is present, otherwise let the council branch claim it.
+  if (headers.some((h) => /Гласове|Партия/i.test(h))) return "mayor";
   return "unknown";
 };
 
 // Parse a mayor-style table (4 cols: №, candidate+party, votes, %). The
 // candidate cell stacks <strong>NAME</strong><br/>PARTY_NAME.
+//
+// Tolerant to two pre-2019 variants:
+//   - 2011: 4 cols, no row-level classes → winner is inferred post-pass
+//   - 2015: 4 cols, "Разпределение" instead of "%" but same shape
+// Also tolerant when the first body row uses <th> cells (pre-2019 layouts
+// don't always carry a <thead>).
 const parseMayorTable = (
   $: CheerioAPI,
   $table: Cheerio<Element>,
@@ -127,28 +152,47 @@ const parseMayorTable = (
   byNickNameLower: Map<string, string>,
 ): LocalMayorResult[] => {
   const out: LocalMayorResult[] = [];
-  $table.find("tbody tr").each((_, tr) => {
+  const $rows = $table.find("tbody tr");
+  const rows = $rows.length > 0 ? $rows : $table.find("tr");
+  rows.each((_, tr) => {
     const $tr = $(tr);
     const cls = $tr.attr("class") ?? "";
     if (cls.includes("graph-row")) return;
     const tds = $tr.find("td");
-    if (tds.length < 4) return;
+    if (tds.length < 3) return;
     // Skip "Не подкрепям никого" rows (the № cell is "-").
     const numRaw = txt(tds.eq(0));
     if (!/^\d/.test(numRaw)) return;
     const localPartyNum = parseIntLoose(numRaw);
     const $name = tds.eq(1);
-    const candidateName = txt($name.find("strong").first()) || txt($name);
-    // The party name is the text node after <br/>, preserved by cheerio
-    // as a sibling text node. Recover it by stripping the candidate name
-    // from the cell.
-    const fullCellText = txt($name);
-    const partyName = fullCellText
-      .replace(candidateName, "")
-      .trim()
-      .replace(/^[,;:\s]+/, "");
+    // 2019/2023 wrap the candidate name in <strong>; 2015 swaps the
+    // wrappers, putting the party in <em> and leaving the candidate name
+    // as the bare text node. Try strong → em → split-on-br in that order.
+    const $strong = $name.find("strong").first();
+    const $em = $name.find("em").first();
+    let candidateName = txt($strong);
+    let partyName = "";
+    if (candidateName) {
+      partyName = txt($name)
+        .replace(candidateName, "")
+        .trim()
+        .replace(/^[,;:\s]+/, "");
+    } else if ($em.length > 0) {
+      partyName = txt($em);
+      candidateName = txt($name)
+        .replace(partyName, "")
+        .trim()
+        .replace(/[,;:\s]+$/, "");
+    } else {
+      const html = $name.html() ?? "";
+      const parts = html.split(/<br\s*\/?>/i);
+      candidateName = parts[0] ? txt($("<div>").append(parts[0])) : "";
+      partyName = parts[1]
+        ? txt($("<div>").append(parts.slice(1).join("<br>")))
+        : "";
+    }
     const votes = parseIntLoose(txt(tds.eq(2)));
-    const pct = parsePct(txt(tds.eq(3)));
+    const pct = tds.length >= 4 ? parsePct(txt(tds.eq(3))) : 0;
     const resolution = resolveLocalParty(partyName, byNickNameLower);
     out.push({
       candidateName,
@@ -163,37 +207,112 @@ const parseMayorTable = (
       isElected: cls.includes("elected"),
     });
   });
+  // Winner inference for 2011 (no per-row class marker): round 1 winner is
+  // a candidate with strictly > 50% of valid votes; round 2 winner is the
+  // candidate with the most votes (always exactly one). Skip if any row
+  // already carries the elected class — old cycles either all-or-nothing.
+  const anyMarked = out.some((m) => m.isElected);
+  if (!anyMarked && out.length > 0) {
+    if (round === 2) {
+      const max = out.reduce(
+        (acc, m) => (m.votes > acc.votes ? m : acc),
+        out[0],
+      );
+      max.isElected = true;
+    } else {
+      const over50 = out.find((m) => m.pctOfValid > 50);
+      if (over50) over50.isElected = true;
+    }
+  }
   return out;
 };
 
-// Parse a council-style table (5 cols: №, party, votes, %, mandates).
-// Party rows are followed by candidate rows (with `candidate` class)
-// belonging to that party, ending when the next party row appears.
+// Detect council-table column layout. Three shapes ship in the wild:
+//   A) 5-col current (2019/2023): № Партия Гласове % Мандати + candidate rows
+//   B) 4-col 2011 (mipvr2011):    Партия-with-embedded-list Гласове % Мандати
+//   C) 3-col 2015 (minr2015):     № Партия Мандати   (no votes/% at all)
+// We map each named column to its index by scanning the header row.
+type CouncilCols = {
+  hasNumCol: boolean;
+  nameCol: number;
+  voteCol: number | null;
+  pctCol: number | null;
+  mandateCol: number;
+};
+
+const detectCouncilCols = (
+  $: CheerioAPI,
+  $table: Cheerio<Element>,
+): CouncilCols => {
+  let heads = $table
+    .find("thead th")
+    .map((_, th) => txt($(th)))
+    .get();
+  if (heads.length === 0) {
+    heads = $table
+      .find("tr")
+      .first()
+      .find("th")
+      .map((_, th) => txt($(th)))
+      .get();
+  }
+  const cols: CouncilCols = {
+    hasNumCol: false,
+    nameCol: -1,
+    voteCol: null,
+    pctCol: null,
+    mandateCol: -1,
+  };
+  for (let i = 0; i < heads.length; i++) {
+    const h = heads[i];
+    if (/^№/.test(h.trim())) cols.hasNumCol = true;
+    if (
+      cols.nameCol === -1 &&
+      /Партия|Коалиция|Политически|Кандидат/i.test(h)
+    ) {
+      cols.nameCol = i;
+    } else if (/Гласове|Действителни/i.test(h)) cols.voteCol = i;
+    else if (/^%|Разпределение/i.test(h)) cols.pctCol = i;
+    else if (/Мандати/i.test(h)) cols.mandateCol = i;
+  }
+  if (cols.nameCol === -1) cols.nameCol = cols.hasNumCol ? 1 : 0;
+  return cols;
+};
+
+// Parse a council-style table. Per-candidate breakdown is only populated
+// for the 5-col layout (2019/2023, with `tr.candidate` rows); older cycles
+// either embed the list inside the party cell (2011) or omit it entirely
+// (2015) and we leave `candidates: []` — the downstream tile reads
+// `mandatesWon` from the party row directly.
 const parseCouncilTable = (
   $: CheerioAPI,
   $table: Cheerio<Element>,
   byNickNameLower: Map<string, string>,
 ): LocalCouncilParty[] => {
+  const cols = detectCouncilCols($, $table);
   const out: LocalCouncilParty[] = [];
   let current: LocalCouncilParty | null = null;
-  let totalValidVotes = 0; // approximated by summing party totals; used for pct fallback
-  $table.find("tbody tr").each((_, tr) => {
+  const $rows = $table.find("tbody tr");
+  const rows = $rows.length > 0 ? $rows : $table.find("tr").slice(1);
+  rows.each((_, tr) => {
     const $tr = $(tr);
     const cls = $tr.attr("class") ?? "";
     if (cls.includes("graph-row")) return;
     const tds = $tr.find("td");
-    if (tds.length < 4) return;
+    if (tds.length === 0) return;
     const isCandidate = cls.includes("candidate");
     if (isCandidate) {
       if (!current) return;
-      // Candidate cell text: " 101. Name Name Name "
-      const cellText = txt(tds.eq(1));
+      // 2019/2023 only — candidate cell text: " 101. Name Name Name "
+      const cellText = txt(tds.eq(cols.nameCol));
       const match = cellText.match(/^(\d+)\.\s*(.*)$/);
       if (!match) return;
       const listPos = parseInt(match[1], 10);
       const name = match[2].trim();
-      const prefVotes = parseIntLoose(txt(tds.eq(2)));
-      const prefPct = parsePct(txt(tds.eq(3)));
+      const prefVotes =
+        cols.voteCol != null ? parseIntLoose(txt(tds.eq(cols.voteCol))) : 0;
+      const prefPct =
+        cols.pctCol != null ? parsePct(txt(tds.eq(cols.pctCol))) : 0;
       const cand: LocalCouncilCandidate = {
         listPos,
         name,
@@ -204,19 +323,46 @@ const parseCouncilTable = (
       current.candidates.push(cand);
       return;
     }
-    // Party-summary row. № then party-name, votes, %, mandates.
-    const numRaw = txt(tds.eq(0));
-    if (!/^\d/.test(numRaw)) {
-      // "Не подкрепям никого" — skip; not a party.
-      current = null;
-      return;
+    // Party-summary row.
+    // Skip "Не подкрепям никого" / footer rows: the first cell must start
+    // with a digit when there's a № column, or the name cell's first chunk
+    // must look like a party name otherwise.
+    if (cols.hasNumCol) {
+      const numRaw = txt(tds.eq(0));
+      if (!/^\d/.test(numRaw)) {
+        current = null;
+        return;
+      }
     }
-    const localPartyNum = parseIntLoose(numRaw);
-    const partyName = txt(tds.eq(1).find("strong").first()) || txt(tds.eq(1));
-    const totalVotes = parseIntLoose(txt(tds.eq(2)));
-    const pct = parsePct(txt(tds.eq(3)));
-    const mandates = tds.length >= 5 ? parseIntLoose(txt(tds.eq(4))) : 0;
-    totalValidVotes += totalVotes;
+    const localPartyNum = cols.hasNumCol
+      ? parseIntLoose(txt(tds.eq(0)))
+      : (() => {
+          // 2011 embeds "N. PartyName<br>candidate-list..." in the name
+          // cell. Pull N off the prefix; if absent (independent), 0.
+          const lead = txt(tds.eq(cols.nameCol)).split(/\s+/)[0] ?? "";
+          return /^\d/.test(lead) ? parseIntLoose(lead) : 0;
+        })();
+    // Party name: take strong if present, else strip the leading "N. "
+    // (2011) and the candidate list that follows.
+    const $nameCell = tds.eq(cols.nameCol);
+    const strong = txt($nameCell.find("strong").first());
+    let partyName: string;
+    if (strong) {
+      partyName = strong;
+    } else {
+      const cellHtml = $nameCell.html() ?? "";
+      const firstChunk = cellHtml.split(/<br\s*\/?>/i)[0] ?? "";
+      partyName = txt($("<div>").append(firstChunk))
+        .replace(/^\d+\.\s*/, "")
+        .trim();
+    }
+    const totalVotes =
+      cols.voteCol != null ? parseIntLoose(txt(tds.eq(cols.voteCol))) : 0;
+    const pct = cols.pctCol != null ? parsePct(txt(tds.eq(cols.pctCol))) : 0;
+    const mandates =
+      cols.mandateCol >= 0 && tds.length > cols.mandateCol
+        ? parseIntLoose(txt(tds.eq(cols.mandateCol)))
+        : 0;
     const resolution = resolveLocalParty(partyName, byNickNameLower);
     current = {
       localPartyNum,
@@ -231,7 +377,6 @@ const parseCouncilTable = (
     };
     out.push(current);
   });
-  void totalValidVotes;
   return out;
 };
 
@@ -263,12 +408,18 @@ export type ParsedRezultatiPage = {
 // "<name>, област <oblast>" for some pages). We scan all h1 / .title-block
 // nodes for the "област" pattern and use whichever matches first.
 const MUNI_OBLAST_RE = /(?:Община\s+)?(.+?),\s*област\s+(.+?)(?:\s+\|.*)?$/i;
+// Pre-2019 cycles publish the município name as "Резултати за община NAME"
+// in a breadcrumb (2015) or H2 (2011), with the oblast missing — the
+// orchestrator backfills oblast from MUNICIPALITIES via resolveByName.
+const MUNI_ONLY_RE = /Резултати за община\s+([^,|]+?)(?:\s*[|<]|$)/i;
 
 const extractNames = (
   $: CheerioAPI,
 ): { municipalityName: string; oblastName: string } => {
   const candidates: string[] = [];
-  $("h1, .municipality-name, .obs-title, .title-block").each((_, el) => {
+  $(
+    "h1, h2, .municipality-name, .obs-title, .title-block, .breadcrumb li",
+  ).each((_, el) => {
     candidates.push(txt($(el)));
   });
   for (const text of candidates) {
@@ -282,6 +433,10 @@ const extractNames = (
         municipalityName: m[1].trim(),
         oblastName: m[2].trim(),
       };
+    }
+    const muniOnly = text.match(MUNI_ONLY_RE);
+    if (muniOnly && !/местни\s+избори/i.test(muniOnly[1])) {
+      return { municipalityName: muniOnly[1].trim(), oblastName: "" };
     }
   }
   // Last resort: scan <title>.
@@ -314,6 +469,41 @@ export const parseRezultatiHtml = (
   let mayorTableCount = 0;
   let councilTableCount = 0;
   let kmetstvoTableCount = 0;
+
+  // 2011 (mipvr2011) renders the per-município page with no race-type
+  // section headings — just an obshtina-name H2 followed by the mayor and
+  // council tables. When the heading-driven dispatch matches nothing, fall
+  // back to "first mayor-kind table = município mayor, first council-kind
+  // table = council" — safe because kmetstvo/района subtables didn't ship
+  // on the same page in that era.
+  const headingMatchedSomething = sections.some(
+    (s) =>
+      SECTION_HEADINGS.mayorObshtina.test(s.heading) ||
+      SECTION_HEADINGS.council.test(s.heading) ||
+      SECTION_HEADINGS.mayorKmetstvo.test(s.heading) ||
+      SECTION_HEADINGS.mayorDistrict.test(s.heading),
+  );
+  if (!headingMatchedSomething) {
+    const allTables = $("table").toArray();
+    let mayorTaken = false;
+    let councilTaken = false;
+    for (const node of allTables) {
+      const $table = $(node);
+      const kind = classifyTable($, $table);
+      if (!mayorTaken && kind === "mayor") {
+        const rows = parseMayorTable($, $table, opts.round, byNickNameLower);
+        mayor.push(...rows);
+        mayorTableCount++;
+        mayorTaken = true;
+      } else if (!councilTaken && kind === "council") {
+        const parties = parseCouncilTable($, $table, byNickNameLower);
+        council.push(...parties);
+        councilTableCount++;
+        councilTaken = true;
+      }
+      if (mayorTaken && councilTaken) break;
+    }
+  }
 
   for (const section of sections) {
     const isMayorObshtina = SECTION_HEADINGS.mayorObshtina.test(

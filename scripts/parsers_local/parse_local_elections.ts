@@ -94,6 +94,9 @@ const NAME_ALIASES: Record<string, string> = {
   // CIK uses "Добричка", the catalogue uses "Добрич-селска" (the rural município
   // around Добрич city).
   добричка: "DOB15",
+  // 2011 / 2015 cycles label Добрич city as "Добрич-град" (the modern label
+  // is just "Добрич"). DOB28 = the city município.
+  "добрич-град": "DOB28",
   // Sofia City has no city-wide entry in data/municipalities.json — the
   // catalogue only has the 24 районs (S23xx/S24xx/S25xx). We pin Sofia's
   // city-wide bundle under a synthetic `SOF` code so the район shards
@@ -102,6 +105,11 @@ const NAME_ALIASES: Record<string, string> = {
   // city-wide council data from this SOF bundle and replicates it onto
   // each S2*** shard.
   столична: "SOF",
+  // 2011 / 2015 cycles label Sofia city as just "София" (vs "Столична" in
+  // 2019+). Same target código.
+  софия: "SOF",
+  // Бобовдол → catalogue uses "Бобов дол" (with space).
+  бобовдол: "KNL04",
 };
 // Codes that aren't in data/municipalities.json but the parser may emit
 // as synthetic entries.
