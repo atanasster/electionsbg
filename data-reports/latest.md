@@ -1,21 +1,16 @@
-# Watch report — 2026-05-29 (29.05.2026 г., 09:08 Europe/Sofia)
+# Watch report — 2026-05-29 (29.05.2026 г., 20:04 Europe/Sofia)
 
 ## Changed
-- **Parliament roll-call votes**: 1 new roll-call session(s) since 2026-05-28 (latest: 2026-05-28)
-- **МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение**: IPOP CSV re-uploaded — re-run `tsx scripts/budget/ipop/ingest.ts`
+- **Общински наредби за местни данъци**: 4 naredba(s) re-uploaded: DOB03, RAZ26, SFO39, SZR22
 
 ## Unchanged
-- Parliament MPs (active roster): unchanged (52-ро Народно събрание — 240 MPs)
-- BG Wikipedia polls (2026 cycle): unchanged (113 poll table rows)
-- AZ (Агенция по заетостта): annual unemployment reviews: unchanged (18 annual reviews · latest 2025)
-- МОН: ДЗИ резултати (data.egov.bg): unchanged (10 resources)
-- НСИ: население по общини (timeseries XLSX): unchanged (351945 bytes)
-- НСИ: раждания, умирания и миграция по общини (timeseries XLSX): unchanged (568355 bytes)
-- ГРАО: население по постоянен и настоящ адрес (по населени места): unchanged (2026-03-15 · 505573 bytes)
-- CIK local-elections results bundles: unchanged (0/2 csv.zip bundles reachable (2 regular + 0 partial))
+_(none)_
 
 ## Skipped (off-cadence)
-- BG Wikipedia governments list (weekly): 111 cabinets · tail 84dce31615ac232c · next check 2026-05-29
+- Parliament roll-call votes (daily): 1 new session(s), 1 with roll-call CSV (latest id 11131, 2026-05-28) · next check 2026-05-30
+- Parliament MPs (active roster) (daily): 52-ро Народно събрание — 240 MPs · next check 2026-05-30
+- BG Wikipedia polls (2026 cycle) (daily): 113 poll table rows · next check 2026-05-30
+- BG Wikipedia governments list (weekly): 111 cabinets · tail 84dce31615ac232c · next check 2026-06-04
 - Сметна палата declarations registry (weekly): index hash f74f6ec3cebb3123 · next check 2026-06-03
 - Сметна палата declarations — executive (officials) (weekly): 489 declarations in scope, hash 7979da34e4e69db2 · next check 2026-06-04
 - Сметна палата declarations — municipal (mayors & councillors) (weekly): 6671 declarations in scope, hash 99dbfff1e68233b0 · next check 2026-06-04
@@ -36,6 +31,7 @@
 - НОИ — месечни B1 отчети по фондове (ДОО, УчПФ, ГВРС) (weekly): 1/6 B1 file(s) reachable · tracking 2025, 2026 × 3 funds · hash 239712d86f2bcf5b · next check 2026-06-01
 - ДВ — Инвестиционна програма за общински проекти (Приложение III) (weekly): 1 annex(es) tracked · latest 2025 · hash 8b3864d735288ebf · next check 2026-06-01
 - Общински капиталови програми (per-municipality capital lists) (weekly): 4 programme(s) tracked across 1 year(s) · latest 2025 (4 муни) · hash 165b62ef5e48767e · next check 2026-06-01
+- МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение (daily): IPOP CSV sample 32768B · hash 3725e60e7c57252e · next check 2026-05-30
 - Eurostat macro (BG): 22 datasets (monthly): 13 datasets · latest update 2026-05-13T11:00:00+0200 · next check 2026-06-13
 - Eurostat regional (BG): 3 NUTS3 datasets (monthly): 3 datasets · latest update 2026-05-05T11:00:00+0200 · next check 2026-06-13
 - EC EU budget per-MS spreadsheet (BG receipts/contributions) (weekly): BG receipts/contributions XLSX · years 2000-2023 · next check 2026-06-04
@@ -43,18 +39,23 @@
 - Minfin КФП monthly bulletins (via Wayback) (monthly): 370 bulletins cached · latest 2025-02 · next check 2026-06-16
 - Minfin programme-budget execution reports (via Wayback) (monthly): 27 report(s) cached · latest 2024-06 (H1) · next check 2026-06-24
 - МВнР programmatic execution reports (via Wayback) (monthly): 22 report(s) cached · latest 2025-12 (annual) · next check 2026-06-24
+- AZ (Агенция по заетостта): annual unemployment reviews (daily): 18 annual reviews · latest 2025 · next check 2026-05-30
+- МОН: ДЗИ резултати (data.egov.bg) (daily): 10 resources · next check 2026-05-30
+- НСИ: население по общини (timeseries XLSX) (daily): 351945 bytes · next check 2026-05-30
+- НСИ: раждания, умирания и миграция по общини (timeseries XLSX) (daily): 568355 bytes · next check 2026-05-30
 - НСИ: Баланс на територията (LANDUSE annex) (daily): 1 upcoming · 9.06.2026: Баланс на територията на Република България по вид територии - 2025 година · next check 2026-05-29
+- ГРАО: население по постоянен и настоящ адрес (по населени места) (daily): 2026-03-15 · 505573 bytes · next check 2026-05-30
 - Transparency International CPI (Bulgaria) (monthly): 2025 CPI = 40/100, rank 84/182 (-3 y/y) · next check 2026-06-13
 - World Bank WGI (Bulgaria, Rule of Law canary) (monthly): 20 year(s) · latest 2024 = -0.033 (Rule of Law) · next check 2026-06-13
+- CIK local-elections results bundles (daily): 0/2 csv.zip bundles reachable (2 regular + 0 partial) · next check 2026-05-30
 - iisda.government.bg — Кметове на общини (monthly): 265 mayors registered · page-1 sample of 30 IDs · next check 2026-06-27
 - ИАОС air quality (data.egov.bg) (weekly): 2 total resources · PM10 2 res · next check 2026-06-04
 - Прозрачност без граници — LISI (monthly): latest year on page: 2024 · next check 2026-06-27
 - Council resolutions + vote tallies (daily): 9 município(s) wired, 69 session-link(s) total · next check 2026-05-29
 - ИПИ — Местни данъци (265 общини) (monthly): 5/5 indicator CSVs · latest year 2025 · next check 2026-06-26
-- Общински наредби за местни данъци (weekly): 4 município(s) wired · next check 2026-06-03
 
 ## Errors
 _(none)_
 
 ---
-_Watcher run at 2026-05-29T06:08:35.979Z UTC._
+_Watcher run at 2026-05-29T17:04:54.003Z UTC._
