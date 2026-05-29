@@ -1,12 +1,14 @@
-# How Bulgarian municipal council votes get into electionsbg.com
+# How Bulgarian municipal council votes — and their budgets — get into electionsbg.com
 
-_Draft v1 — May 2026_
+_Draft v2 — May 2026_
 
-Bulgaria has 265 municipalities. Each runs an общински съвет that meets monthly, takes hundreds of decisions a year, and — in nearly every case — publishes the minutes somewhere on its own website. There is no central register of these votes: РМС 436/2017 only mandates the narrow чл.45 ЗМСМА "returned decisions" feed on data.egov.bg, and a sampling we did across 50 municipalities found that fewer than 4 in 10 publish anything in that category, more than 90% of which is just hyperlinks back to the município's own CMS.
+Bulgaria has 265 municipalities. Each runs an общински съвет that meets monthly, takes hundreds of decisions a year, and votes on a multi-million-euro annual budget — every municipality publishes some version of both on its own website. There is no central register of these votes or budgets: РМС 436/2017 only mandates the narrow чл.45 ЗМСМА "returned decisions" feed on data.egov.bg, and a sampling we did across 50 municipalities found that fewer than 4 in 10 publish anything in that category, more than 90% of which is just hyperlinks back to the município's own CMS.
 
-So we built our own ingest. As of this draft we cover **16 municipalities** holding roughly **8 of every 10 Bulgarians by population** — every oblast capital except seven, and the three biggest non-capitals. Across those 16 we've extracted **2,947 resolutions** with their adopted/rejected status and aggregate vote tallies, and for the six councils where the protokol publishes the per-councillor readout we've also matched **18,300 individual vote rows** to the Court-of-Audit roster (cacbg.bg), so a citizen searching for their councillor can see exactly how they voted on each motion.
+So we built our own ingest. As of this draft we cover **16 municipalities for council votes** and **26 municipalities for capital programmes** — every oblast capital except seven, plus secondary cities. The two coverages overlap in 13 municipalities where we have BOTH a council ingest AND a budget ingest, so the dashboard can answer the politically interesting question: "the council voted to approve €3M for the school renovation in village X — who voted for, who voted against, and did the project actually land in the capital programme?"
 
-The table below lists every municipality currently in the system. The "Сайт" column links to the council's own page — if your municipality is not yet covered, the council site is also where to write to your representatives directly.
+Across the 16 wired councils we've extracted **2,947 resolutions** with their adopted/rejected status and aggregate vote tallies, and for the six councils where the protokol publishes the per-councillor readout we've also matched **18,300 individual vote rows** to the Court-of-Audit roster (cacbg.bg). Across the 26 wired capital programmes we've itemised roughly **5,800 individual investment projects** worth **€1.06 billion** for fiscal year 2025 alone.
+
+The tables below list every municipality currently in the system. The "Council website" column links to the council's own page — if your municipality is not yet covered, the council site is also where to write to your representatives directly.
 
 ## Wired municipalities
 
@@ -32,6 +34,72 @@ The table below lists every municipality currently in the system. The "Сайт"
 **Tier A** means we extract everything the protocol carries: the decision number, the chair's adopted-or-rejected line, the aggregate vote (за / против / въздържал) and — where the municipality publishes a per-councillor readout — every councillor's individual vote, matched to their cacbg profile. **Tier B** means the same except for the per-councillor readout, because the published protocol records only the chair's announced totals.
 
 The "Decisions" column is what's currently visible in our index. The "Coverage period" shows the freshest and oldest dates we hold — for several Wayback-CDX-sourced councils (Габрово, Хасково, Добрич), the public site doesn't expose older protocols directly, so the dataset is whatever the Internet Archive has crawled.
+
+## Capital programmes (поименен списък на капиталовите разходи)
+
+Council votes tell you _what_ was decided. The capital programme — published every year as Приложение №3 / №4 / №7 to the budget law and re-amended after each council vote that moves money between line items — tells you _how much_ and _where_. We track 26 municipalities here, with the deepest history (2022→2025, four full fiscal years) for the eight municipalities that have published the longest.
+
+Each programme is a list of named investment projects (a school renovation, a road, a sewer-line extension) with a monetary value, a funding source (own funds / state subsidy / EU / carry-over), and — in the best-published programmes — the village or kmetstvo the project lives in. The dashboard reads this to surface a per-município "Капиталова програма" tile with funding-source breakdown, top projects, and the per-settlement rollup for the municipalities that tag projects to specific villages.
+
+| Слъг | Обл. център? | Years | 2025 total (€) | Projects (2025) | Per-village tagging | Source format |
+|------|:--:|------|--------:|--------:|--------:|---------------|
+| sofia | yes | 2022–2025 | 327.6M | 352 | 0% (paragraph-only) | XLSX (clean) |
+| varna | yes | 2022–2025 | 52.3M | 587 | 0% (rasterised scan) | PDF + OCR |
+| burgas | yes | 2022–2025 | 86.7M | 104 | 13% (city-quarters from Wikipedia) | XLSX (workbook with funding-source cols) |
+| ruse | yes | 2022–2025 | 26.2M | 1,052 | 7% (multi-sheet) | XLSX (per-kmetstvo sheets — highest data quality) |
+| stara_zagora | yes | 2022–2025 | 13.7M | 342 | 4% (51 villages tagged "с.") | PDF |
+| pleven | yes | 2022–2025 | 9.5M | 92 | 40% | PDF + OCR (fragmented layout) |
+| asenovgrad | no (Plovdiv obl.) | 2022–2025 | 22.5M | 229 | 60% | PDF + OCR |
+| yambol | yes | 2022–2025 | 7.0M | 184 | 0% (single-settlement município) | RAR/ZIP + PDF + OCR |
+| vidin | yes | 2022–2023 only | 17.0M (2023) | 176 | 90% | DOC inside RAR (textutil) |
+| sliven | yes | 2025 | 19.7M | 256 | 60% | PDF + OCR |
+| dobrich | yes | 2024–2025 | 23.2M | 82 | 0% (single-settlement) | HTML table (scraped) |
+| haskovo | yes | 2024 | 21.3M | 268 | 31% | PDF + OCR (multi-line projects) |
+| pernik | yes | 2024–2026 | 14.0M (2025) | 159 | 62% | XLS (BGN/EUR currency switch handled) |
+| veliko_tarnovo | yes | 2024–2025 | 47.1M | 382 | 70% | XLSX (89 settlements) |
+| kardzhali | yes | 2024–2025 | 16.7M | 104 | 70% | PDF + OCR (било/става amendment columns) |
+| plovdiv | yes | 2025 | 71.4M | 567 | 0% (paragraph-only) | XLSX |
+| gabrovo | yes | 2025 | 8.1M | 299 | 21% | PDF + OCR (Google-indexed URL) |
+| shumen | yes | 2025 | 14.9M | 324 | 25% | PDF + OCR (Playwright-harvested) |
+| kyustendil | yes | 2025 | 11.0M | 246 | 43% | PDF + OCR (council session annex) |
+| montana | yes | 2025 | 29.1M | 9 | 78% | PDF + OCR (consolidated page 5 only) |
+| lovech | yes | 2025 | 39.2M | 142 | 33% | PDF + OCR |
+| karlovo | no (Plovdiv obl.) | 2025 | 15.0M | 136 | 81% | XLSX (anti-hotlink Referer required) |
+| kazanlak | no (Stara Zagora obl.) | 2025 | 7.9M | 201 | 35% | PDF + OCR (Nuxt _payload.json discovery) |
+| samokov | no (Sofia obl.) | 2025 | 29.7M | 231 | 74% | PDF + OCR |
+| velingrad | no (Pazardzhik obl.) | 2025 | 19.0M | 159 | 74% | PDF + OCR |
+| dupnitsa | no (Kyustendil obl.) | 2025 | 6.7M | 137 | 42% | PDF + OCR |
+
+**26 municipalities** with capital programmes ingested, covering **20 of Bulgaria's 28 oblast capitals plus 6 secondary cities**. Combined 2025 value: **€1.06 billion** itemised across roughly 5,800 individual projects.
+
+The per-village tagging column varies enormously because it depends on how the município writes the programme. The highest-quality publishers (Ruse, Vidin, Veliko Tarnovo, Karlovo, Samokov, Velingrad) tag every project to a specific settlement via the workbook structure or a "с. <name>" / "гр. <name>" prefix. The lowest-quality publishers (Sofia, Plovdiv, Varna, Dobrich, Yambol) emit a paragraph-level breakdown only — you can see €5M went to "Основен ремонт на дълготрайни материални активи" but not which village it's in. Several intermediate publishers tag part of the list (the school renovations get a village; the centrally-purchased equipment doesn't).
+
+### Capital programmes — what's missing
+
+Eight oblast capitals don't have a capital programme ingested. The reasons cluster:
+
+| Oblast capital | Status | Why |
+|----------------|--------|------|
+| Благоевград | Not published | The município doesn't expose Приложение №3 / №4 to the budget on its website at all. Same publication gap as the council protokols — see above. |
+| Враца | Not published | Council site dormant; no recent budget docket discoverable. |
+| Пазарджик | Not published | Budget portal lists annual budget HTMLS, but no separate capital-programme annex with a per-project list. Велинград (in the oblast) IS covered. |
+| Разград | Not published | Same gap as the council protokols — the município publishes the аctualisation as appendices to individual decisions but no consolidated annual programme. |
+| Силистра | Not published | No capital-programme PDF / XLSX discoverable; the município publishes only the top-level summary. |
+| Смолян | Cloudflare-blocked | Same Cloudflare "Just a moment…" challenge as the council site. Unblocking that unlocks both surfaces at once. |
+| Търговище | TSPD bot guard | Same WPS-Portal / TSPD pattern as the council site. |
+| София (oblast) | n/a | Sofia city's capital programme (under SFO_CITY) covers the same geographic footprint administratively — there's no separate Sofia-oblast programme. |
+
+For the six "Not published" cases the gap is publication policy, not parsing. The municipality publishes the consolidated budget (often as a single PDF), but not the itemised capital-programme list that gives every project a name, value, and funding source. The unblock here is straightforward: ask the council to publish the same Приложение №3 / №4 their bigger peers (Sofia, Plovdiv, Bourgas, Varna) already do.
+
+Vidin is in a special category: the 2025 and 2026 forward plans aren't published as a discrete document — only the year-end execution report (отчет за капиталовите разходи) is available, which is what powers our 2022 and 2023 entries. The municipality has moved to a "report after we spend" cadence that loses prospective transparency.
+
+### Complementary budget surfaces
+
+Two other municipal-finance surfaces sit alongside the capital programmes:
+
+- **Article 53 transfers** — every year the State Budget Law allocates per-município subsidies (Bulgarian: Чл.53 на ЗДБ — обща изравнителна, общи целеви, ВКП от РУП и т.н.). We parse this from the law's HTML annex into `data/budget/municipal_transfers/`. Coverage is **all 265 municipalities** for fiscal years 2020, 2022, 2023, 2024, and 2025 — the only universal-coverage local-finance surface in the system. 2025 combined: **€4.53 billion** in state transfers to local government.
+
+- **Cash-execution actuals** — the município's monthly "Касов отчет" feed that shows what got spent vs what was planned. This is the surface that would close the loop on "did the council actually deliver Project X for €Y or did the money sit unspent?" Currently dormant: only **Русе** (2016–2025) and **Николаево** (2019–2024) publish it in a parseable format. Most municipalities post the monthly cash report as a scanned PDF that gets re-shot every month with a different layout, so there's no stable parsing target without per-município OCR work.
 
 ## What we don't have
 
@@ -113,6 +181,8 @@ When a new protokol lands on any of the 16 council websites, the daily watcher (
 ---
 
 _Open questions and editor's notes:_
-- Should we expand the table with a population column to make the population-weighted coverage claim visible?
+- Should we expand the council + capital-programmes tables with a population column to make the population-weighted coverage claim visible?
+- Should we cross-reference the council ↔ capital-programme overlap explicitly? 13 municipalities have both — that's the dashboard's sweet spot for "did the council vote on the project that ended up in the capital programme?" stories.
 - Should the "How to ask your council to publish" section include a sample email template in BG?
-- BG translation pass after content lock-in._
+- Worth a separate section on the **Article 53 transfers** (the universal-coverage surface) — every município's annual envelope from the state budget, broken down by transfer category? That's already on the dashboard but not surfaced as a comparable per-município page.
+- BG translation pass after content lock-in.
