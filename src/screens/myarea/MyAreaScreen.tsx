@@ -36,8 +36,7 @@ import { MyAreaProjectsMapTile } from "./MyAreaProjectsMapTile";
 import { MyAreaPropertyStockTile } from "./MyAreaPropertyStockTile";
 import { MyAreaAlertsTile } from "./MyAreaAlertsTile";
 import { MyAreaSofiaRaionStrip } from "./MyAreaSofiaRaionStrip";
-import { MyAreaCouncilMinutesTile } from "./MyAreaCouncilMinutesTile";
-import { MyAreaCouncilVotesTile } from "./MyAreaCouncilVotesTile";
+import { MyAreaCouncilTile } from "./MyAreaCouncilTile";
 import { MyAreaActionBand } from "./MyAreaActionBand";
 import { MyAreaGovernmentCard } from "./MyAreaGovernmentCard";
 import { MyAreaHistoryStrip } from "./MyAreaHistoryStrip";
@@ -164,18 +163,18 @@ export const MyAreaScreen: FC = () => {
             município). V1 substitute for email alerts until auth ships. */}
         <MyAreaAlertsTile obshtina={area.obshtina} />
 
-        {/* Council minutes — AI-summarised digest of what the общински
-            съвет is voting on. MyTownView pattern. Auto-hides until
-            update-council-minutes populates the data file. */}
-        <MyAreaCouncilMinutesTile obshtina={area.obshtina} />
-
-        {/* "Как гласуваха в съвета" — per-councillor named-vote
-            breakdown for recent resolutions. Mirrors MyAreaImportantVotesTile
-            (NS MPs) for the local council. Auto-hides when the município's
-            ingest doesn't yet have перCouncillor data (everywhere except
-            V. Tarnovo + Sofia today). Lazy-loads a per-município votes
-            shard to keep the index lean. */}
-        <MyAreaCouncilVotesTile obshtina={area.obshtina} />
+        {/* Общински съвет — unified council surface. Replaces the former
+            "Последни решения" + "Как гласуваха в съвета" pair (both drew
+            from the same resolution set; showing them side-by-side made
+            users scan the same decisions twice). Each row carries the
+            decision metadata + optional AI summary + an expand control
+            that reveals the per-councillor avatar strip for resolutions
+            that have a named-vote breakdown. A "Спорни" filter chip at
+            the top of the tile narrows the list to contested votes
+            (≥ 10% against + abstain). Auto-hides until the
+            update-council-minutes ingest has populated data for the
+            município. */}
+        <MyAreaCouncilTile obshtina={area.obshtina} />
 
         {/* Transparency tile — official contact emails moved inline next
             to each name on MyAreaGovernmentCard. */}
