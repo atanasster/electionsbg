@@ -16,6 +16,8 @@ import { command, run, flag, optional, boolean } from "cmd-ts";
 import { computeLoyalty } from "./loyalty";
 import { computeAttendance } from "./attendance";
 import { computeSimilarity } from "./similarity";
+import { computeSimilarityHeadline } from "./similarity_headline";
+import type { SimilarityHeadlineSlice } from "./similarity_headline";
 import { computeCohesion } from "./cohesion";
 import { computeEmbedding } from "./embedding";
 import { computePartyCorrelation } from "./party_correlation";
@@ -137,6 +139,27 @@ const main = async (args: { upload: boolean }): Promise<void> => {
   });
   console.log(
     `  ✓ ${nsKeys.map((k) => `${k}:${similarityByNs[k].entries.length}`).join(", ")} MP entries`,
+  );
+
+  // Pre-baked headline for the /parliament hub tile: the seed MP with the
+  // most cross-party twins per NS. Replaces a 1.45 MB gzipped fetch of the
+  // full similarity aggregate with a ~1 KB total file.
+  console.log(`→ computing similarity headline per NS`);
+  const similarityHeadlineByNs: Record<string, SimilarityHeadlineSlice> = {};
+  for (const ns of nsKeys) {
+    const sessions = byNs.get(ns)!;
+    const latest = sessions.reduce((a, b) => (b.date > a.date ? b : a));
+    const slice = computeSimilarityHeadline(similarityByNs[ns], latest);
+    if (slice) similarityHeadlineByNs[ns] = slice;
+  }
+  writeJson(path.join(DERIVED_DIR, "similarity_headline.json"), {
+    computedAt: nowIso,
+    byNs: similarityHeadlineByNs,
+  });
+  console.log(
+    `  ✓ ${Object.entries(similarityHeadlineByNs)
+      .map(([ns, s]) => `${ns}:${s.crossPartyCount}-cross`)
+      .join(", ")}`,
   );
 
   console.log(`→ computing party cohesion per NS`);
@@ -293,6 +316,7 @@ const main = async (args: { upload: boolean }): Promise<void> => {
       "loyalty.json",
       "attendance.json",
       "similarity.json",
+      "similarity_headline.json",
       "cohesion.json",
       "embedding.json",
       "party_correlation.json",

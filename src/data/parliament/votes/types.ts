@@ -214,6 +214,29 @@ export interface SimilarityFile {
   byNs: Record<string, SimilaritySlice>;
 }
 
+// Pre-baked "best cross-party MP" headline served at
+// /parliament/votes/derived/similarity_headline.json (~1 KB gzipped total
+// across all NSes). Drives the hub's ParliamentSimilarityMiniTile so it
+// doesn't fetch the 1.45 MB similarity aggregate. Detail screens still go
+// through the per-MP shard / aggregate path.
+export interface SimilarityHeadlineTwin {
+  mpId: number;
+  partyShort: string;
+  score: number;
+}
+
+export interface SimilarityHeadlineSlice {
+  seedId: number;
+  seedPartyShort: string;
+  crossPartyCount: number;
+  twins: SimilarityHeadlineTwin[];
+}
+
+export interface SimilarityHeadlineFile {
+  computedAt: string;
+  byNs: Record<string, SimilarityHeadlineSlice>;
+}
+
 // Per-MP dissent record — emitted by scripts/parliament/derived/dissents.ts.
 // One DissentItem per item where the MP's cast vote differed from the
 // party-plurality vote at that time.
