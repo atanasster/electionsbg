@@ -21,11 +21,14 @@
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, Home, Landmark } from "lucide-react";
+import { Calculator, HardHat, Home, Landmark } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Card } from "@/components/ui/card";
 import { dataUrl } from "@/data/dataUrl";
-import { useMunicipalTransfersForOblast } from "@/data/budget/useBudget";
+import {
+  useCapitalProgramsTopProjects,
+  useMunicipalTransfersForOblast,
+} from "@/data/budget/useBudget";
 import { useGraoMunicipalitySlice } from "@/data/grao/useGraoPopulation";
 import { useLocalTaxes } from "@/data/local_taxes/useLocalTaxes";
 
@@ -187,6 +190,13 @@ export const MyAreaTaxReceiptTile: FC<{
       perMonth: perYear / 12,
     };
   }, [transfersShard, graoSlice, obshtina]);
+
+  // Top capital-programme projects for THIS município — answers "where
+  // does my município actually spend the money it raises and receives".
+  // Coverage limited to the 26 wired municípios (oblast capitals + a few
+  // tier-2 cities); other municípios get nothing (hook returns null).
+  // Sofia районs roll up to the city-wide programme.
+  const { data: capitalPrograms } = useCapitalProgramsTopProjects(obshtina, 3);
 
   // Local-tax estimate — bills the user actually pays to THIS município
   // (property tax, vehicle tax, transfer tax, residential garbage fee).
@@ -522,6 +532,39 @@ export const MyAreaTaxReceiptTile: FC<{
           >
             {t("my_area_tax_receipt_local_taxes_full_link")}
           </a>
+        </div>
+      ) : null}
+
+      {/* Top-3 capital-programme projects — closes the loop on "where
+          does my municipality spend". Renders only for the 26 municípios
+          with a parsed capital programme on disk; everyone else gets
+          nothing here. */}
+      {capitalPrograms && capitalPrograms.topProjects.length > 0 ? (
+        <div className="rounded-md border bg-muted/30 p-3 flex flex-col gap-1.5">
+          <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+            <HardHat className="size-3.5" aria-hidden />
+            <span>
+              {t("my_area_tax_receipt_capital_programs_heading", {
+                year: capitalPrograms.fiscalYear,
+              })}
+            </span>
+          </div>
+          {capitalPrograms.topProjects.map((p, i) => (
+            <div key={p.id ?? i} className="flex items-baseline gap-2 text-xs">
+              <span
+                className="text-muted-foreground tabular-nums shrink-0"
+                aria-hidden
+              >
+                {i + 1}.
+              </span>
+              <span className="flex-1 line-clamp-2 leading-snug" title={p.name}>
+                {p.name}
+              </span>
+              <span className="tabular-nums font-medium shrink-0">
+                {formatEur(p.totalEur, lang)}
+              </span>
+            </div>
+          ))}
         </div>
       ) : null}
 
