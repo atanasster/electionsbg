@@ -11,6 +11,37 @@ import { useMps } from "../parliament/useMps";
 import { dataUrl } from "@/data/dataUrl";
 import type { SearchVoteIndexFile } from "../parliament/votes/types";
 
+// Slim municipal-officials roster for search — built by
+// scripts/officials/build_municipal_search.ts. ~915 KB raw → ~200 KB gz.
+// Lazy-fetched alongside the other heavy search indexes; React Query
+// caches forever.
+type MunicipalSearchFile = {
+  entries: Array<{
+    slug: string;
+    name: string;
+    role: string;
+    municipality: string;
+    district?: string;
+  }>;
+};
+
+const fetchMunicipalSearch = async (): Promise<MunicipalSearchFile | null> => {
+  try {
+    const r = await fetch(dataUrl("/officials/municipal/search_index.json"));
+    if (!r.ok) return null;
+    return (await r.json()) as MunicipalSearchFile;
+  } catch {
+    return null;
+  }
+};
+
+const useMunicipalSearchIndex = () =>
+  useQuery({
+    queryKey: ["search", "municipal-officials"] as const,
+    queryFn: fetchMunicipalSearch,
+    staleTime: Infinity,
+  });
+
 // Per-year ministry rosters from data/budget/derived/admin_flow.json. We
 // dedupe across years to get the union set of unique spending units; each
 // becomes a search-bar entry that routes to /budget/ministry/:nodeId.
@@ -84,8 +115,11 @@ const queryFn = async ({
 export type SearchIndexType = {
   // s=settlement, m=municipality, r=region, c=section, a=candidate/MP,
   // b=budget unit (ministry / spending unit on /budget/ministry/:id),
-  // v=roll-call vote item (key = "${date}|${slug}")
-  type: "s" | "m" | "r" | "c" | "a" | "b" | "v";
+  // v=roll-call vote item (key = "${date}|${slug}"),
+  // o=municipal official (mayor / chair / deputy mayor / councillor /
+  //   chief architect — from data/officials/municipal/. Key is the slug
+  //   used at /officials/<slug>.)
+  type: "s" | "m" | "r" | "c" | "a" | "b" | "v" | "o";
   key: string;
   name: string;
   name_en?: string;
@@ -106,6 +140,7 @@ export const useSearchItems = () => {
   const { findMpByName } = useMps();
   const { data: adminFlow } = useBudgetMinistriesForSearch();
   const { data: voteIndex } = useSearchVoteIndex();
+  const { data: municipalOfficials } = useMunicipalSearchIndex();
   const fuse = useMemo(() => {
     if (settlements && municipalities && sections && candidates) {
       const regionByCode = new Map(regions.map((r) => [r.oblast, r]));
@@ -206,6 +241,28 @@ export const useSearchItems = () => {
         }
       }
 
+      // Municipal officials — cacbg roster (mayors / chairs / deputy
+      // mayors / councillors / chief architects). The slim search file
+      // carries the {slug, name, role, municipality} projection only;
+      // the parentName surfaces the município so two homonymous
+      // councillors in different общини can be told apart in the
+      // dropdown.
+      if (municipalOfficials?.entries) {
+        for (const e of municipalOfficials.entries) {
+          searchItems.push({
+            type: "o",
+            key: e.slug,
+            name: e.name,
+            // No name_en — the cacbg roster doesn't carry transliterated
+            // names. The Fuse index includes name_en for other types
+            // (settlements, parties) so users can search in Latin script,
+            // but for municipal officials we lean on Cyrillic search.
+            parentName: e.municipality,
+            parentName_en: e.municipality,
+          });
+        }
+      }
+
       // Roll-call vote items. Per-NS ranking + cap already applied at build
       // time by scripts/parliament/derived/search_index.ts — we just flatten
       // every slice into the searchItems list.
@@ -239,6 +296,7 @@ export const useSearchItems = () => {
     candidates,
     findMpByName,
     municipalities,
+    municipalOfficials,
     regions,
     sections,
     settlements,

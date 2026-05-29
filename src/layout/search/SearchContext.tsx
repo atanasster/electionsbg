@@ -91,6 +91,7 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
         r: 2,
         c: 3,
         a: 4,
+        o: 4.5,
         b: 5,
         v: 6,
       };
@@ -103,8 +104,13 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
           // ("отбран" → Defence ministry, "Радев" → Radev, "корупция" → an
           // anti-corruption bill), so they get a looser threshold than
           // settlements/sections where the user usually types an exact name.
+          // Municipal officials (type "o") share the name-search loose
+          // threshold with candidates / MPs — users type partial names.
           const limit =
-            r.item.type === "a" || r.item.type === "b" || r.item.type === "v"
+            r.item.type === "a" ||
+            r.item.type === "b" ||
+            r.item.type === "v" ||
+            r.item.type === "o"
               ? 0.4
               : 0.1;
           return (r.score || 1) <= limit;

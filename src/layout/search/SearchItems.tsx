@@ -5,12 +5,20 @@ import { FuseResult, FuseResultMatch } from "fuse.js";
 import { FC, ReactNode, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { SearchContext } from "./SearchContext";
-import { Building2, MapPin, Map, Vote, Landmark, Gavel } from "lucide-react";
+import {
+  Building2,
+  MapPin,
+  Map,
+  Vote,
+  Landmark,
+  Gavel,
+  Users,
+} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type ItemType = SearchIndexType["type"];
 
-const TYPE_ORDER: ItemType[] = ["s", "m", "r", "c", "a", "b", "v"];
+const TYPE_ORDER: ItemType[] = ["s", "m", "r", "c", "a", "o", "b", "v"];
 
 const TYPE_ICON: Record<Exclude<ItemType, "a">, FC<{ className?: string }>> = {
   s: MapPin,
@@ -19,6 +27,7 @@ const TYPE_ICON: Record<Exclude<ItemType, "a">, FC<{ className?: string }>> = {
   c: Vote,
   b: Landmark,
   v: Gavel,
+  o: Users,
 };
 
 const Highlight: FC<{
@@ -64,6 +73,8 @@ export const SearchItems: FC<{
         return t("settlement");
       case "a":
         return t("candidate");
+      case "o":
+        return t("search_group_municipal_officials") || "Municipal officials";
       case "b":
         return t("budget_search_ministries") || "Ministries";
       case "v":
