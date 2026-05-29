@@ -7,7 +7,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const EKATTE = path.resolve(__dirname, "../data/ekatte_index.json");
+const EKATTE = path.resolve(__dirname, "../../data/ekatte_index.json");
 
 // BG Cyrillic → official-style ASCII transliteration. Diacritic handling
 // and digraphs match the Bulgarian Council of Ministers' 2009 system.
@@ -185,7 +185,7 @@ const main = async (): Promise<void> => {
 
   console.log(`\n${hits.length} obshtinas on the platform (excl. wired).`);
   fs.writeFileSync(
-    path.resolve(__dirname, "../data-reports/obshtini_bg_survey.json"),
+    path.resolve(__dirname, "../../data-reports/obshtini_bg_survey.json"),
     JSON.stringify(hits, null, 2) + "\n",
   );
   console.log("Wrote data-reports/obshtini_bg_survey.json");

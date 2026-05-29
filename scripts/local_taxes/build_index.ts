@@ -22,6 +22,7 @@ import {
   type IpiIndicatorKey,
 } from "./ipi";
 import { matchObshtina } from "./lib/match_obshtina";
+import type { NaredbaBlock } from "./types";
 
 const PROJECT_ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
@@ -41,19 +42,9 @@ type IpiPerIndicator = {
   nationalRank: number; // 1 = lowest rate (cheapest for taxpayer)
 };
 
-type NaredbaBlock = {
-  year: number;
-  url?: string;
-  tboResidential?: {
-    basis: "promil" | "users" | "area" | "volume";
-    rate?: number;
-    unit?: string;
-    zone?: string;
-    note?: string;
-  };
-  touristTax?: { value: number; unit: string };
-  dogTax?: { value: number; unit: string };
-};
+// NaredbaBlock imported from ./types — single source of truth shared
+// with the Tier-B parsers + the frontend mirror in
+// src/data/local_taxes/useLocalTaxes.tsx.
 
 type ScoreEntry = {
   ipi?: Partial<Record<IpiIndicatorKey, IpiPerIndicator>>;

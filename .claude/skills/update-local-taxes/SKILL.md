@@ -18,7 +18,7 @@ The file has two tiers that merge into one structure:
 | Tier | Source | Coverage | Cadence | Cost |
 |---|---|---|---|---|
 | **A — ИПИ aggregator** | [265obshtini.bg](https://www.265obshtini.bg/) | All 265 общини × 5 tax indicators | Annual (Q3 publication) | Fully automated |
-| **B — Per-município naredba** | each município's FEES + TAX naredbi | **9 wired, full 9/9 coverage on all four slots**: ТБО basis flag, property tax for individuals (Sofia 1.875‰, Plovdiv 1.8‰, Varna 2.0‰, Burgas 1.75‰ pinned, Razgrad 3‰, Samokov 2.5‰, Мъглиж 3.5‰, Балчик 2.5‰, Петрич 3‰), tourist tax (extractor walks every "[1-5] звезда/звезди" anchor — handles Varna which starts at 2-star — with a 200-char rate window; prefers EUR over BGN-converted; range / single-rate fallbacks), dog tax (extractor walks every "за притежаване на куче" / "такса куче" anchor with three rate-pattern fallbacks: anchored "в размер на X лв/евро", dual inline "X лв./Y евро", and tabular no-unit pair "куче NN.NN NN.NN" where the second number is EUR). Other oblast capitals land as parsers are added; `scripts/probe_obshtini_all.ts` enumerates obshtini.bg coverage for the remaining 257 municípios. | Annual (Dec→Jan adoption) | Per-município parser via `createObshtiniBgNaredbaParser` factory when both naredbi are on the obshtini.bg platform; bespoke for direct PDFs / DOCX / legacy .doc (Burgas — `lib/fetch_doc.ts` shells out to macOS `textutil`; Linux operators swap in `antiword`) |
+| **B — Per-município naredba** | each município's FEES + TAX naredbi | **9 wired, full 9/9 coverage on all four slots**: ТБО basis flag, property tax for individuals (Sofia 1.875‰, Plovdiv 1.8‰, Varna 2.0‰, Burgas 1.75‰ pinned, Razgrad 3‰, Samokov 2.5‰, Мъглиж 3.5‰, Балчик 2.5‰, Петрич 3‰), tourist tax (extractor walks every "[1-5] звезда/звезди" anchor — handles Varna which starts at 2-star — with a 200-char rate window; prefers EUR over BGN-converted; range / single-rate fallbacks), dog tax (extractor walks every "за притежаване на куче" / "такса куче" anchor with three rate-pattern fallbacks: anchored "в размер на X лв/евро", dual inline "X лв./Y евро", and tabular no-unit pair "куче NN.NN NN.NN" where the second number is EUR). Other oblast capitals land as parsers are added; `scripts/local_taxes/probe_obshtini_all.ts` enumerates obshtini.bg coverage for the remaining 257 municípios. | Annual (Dec→Jan adoption) | Per-município parser via `createObshtiniBgNaredbaParser` factory when both naredbi are on the obshtini.bg platform; bespoke for direct PDFs / DOCX / legacy .doc (Burgas — `lib/fetch_doc.ts` shells out to macOS `textutil`; Linux operators swap in `antiword`) |
 
 Tier B fills in the resident-side taxes ИПИ doesn't cover — most importantly the residential garbage-fee basis (промил / users / area / volume), which is the comparability metadata that lets the tile honestly show ТБО across municipalities.
 
@@ -140,12 +140,41 @@ fi
 
 ## File map
 
+**Tier A — ИПИ pipeline**
 | Path | Purpose |
 |---|---|
-| `scripts/local_taxes/ipi.ts` | Indicator catalogue (5 ids, labels, units, direction) |
+| `scripts/local_taxes/ipi.ts` | Indicator catalogue (5 ids, labels, units, direction, EUR conversion) |
 | `scripts/local_taxes/build_index.ts` | Tier A build script — re-fetches 5 CSVs, normalises names, ranks, writes |
 | `scripts/local_taxes/lib/match_obshtina.ts` | Município-name → obshtina-code resolver (manual aliases + oblast disambiguation) |
-| `data/local_taxes/index.json` | Output file — `scoresByObshtina` keyed by obshtina code |
-| `scripts/watch/sources/ipi_local_taxes.ts` | Watcher — fingerprints all 5 CSVs jointly + tracks the max year seen |
-| `src/data/local_taxes/useLocalTaxes.tsx` | React Query hook |
-| `src/screens/myarea/MyAreaLocalTaxesTile.tsx` | "Местни данъци" tile |
+
+**Tier B — naredba pipeline**
+| Path | Purpose |
+|---|---|
+| `scripts/local_taxes/types.ts` | Canonical `NaredbaBlock`, `NaredbaParser`, `NaredbaParserResult` (imported by build_index.ts and mirrored in src/data/local_taxes/useLocalTaxes.tsx) |
+| `scripts/local_taxes/run_naredba.ts` | Tier B dispatcher — runs one or all parsers, writes per-município shards + watermarks |
+| `scripts/local_taxes/lib/extract_naredba.ts` | Extractors: `detectTboBasis`, `extractResidentialTboRate`, `extractPropertyTaxIndividualsRate`, `extractTouristTax`, `extractDogTax`, `buildNaredbaBlock` |
+| `scripts/local_taxes/lib/fetch_pdf.ts` | Direct PDF fetch + pdftotext (Sofia FEES, Varna FEES) |
+| `scripts/local_taxes/lib/fetch_docx.ts` | DOCX fetch + XML strip (Burgas FEES) |
+| `scripts/local_taxes/lib/fetch_doc.ts` | Legacy .doc fetch + macOS `textutil` shell-out (Burgas TAX); swap in `antiword` on Linux |
+| `scripts/local_taxes/lib/fetch_obshtini_bg.ts` | obshtini.bg JSON-API fetcher (Sofia/Plovdiv/Varna/Razgrad/Samokov/Мъглиж/Балчик/Петрич TAX + most FEES) |
+| `scripts/local_taxes/lib/obshtini_bg_naredba.ts` | `createObshtiniBgNaredbaParser` factory for the multi-source obshtini.bg pattern |
+| `scripts/local_taxes/parsers/{sof,var,bgs,pdv,raz,sfo,mgl,blc,ptr}.ts` | 9 per-município parsers (3 bespoke for multi-platform, 6 thin factory wrappers) |
+| `scripts/local_taxes/parsers/index.ts` | Registry — push new parsers here |
+| `scripts/local_taxes/probe_obshtini_all.ts` | Discovery utility — transliterates every BG município and probes the obshtini.bg API for naredbi |
+
+**Watch + state**
+| Path | Purpose |
+|---|---|
+| `scripts/watch/sources/ipi_local_taxes.ts` | Tier A watcher — fingerprints all 5 CSVs jointly + tracks the max year seen |
+| `scripts/watch/sources/municipal_naredba.ts` | Tier B watcher — HEAD-probes each parser's `url` + `secondaryUrls` |
+| `state/ingest/local_taxes_<code>.json` | Per-município watermark (sourceHash + lastSuccessfulIngest) |
+| `state/watch/municipal_naredba.json` | Watcher fingerprint state |
+
+**Output + consumption**
+| Path | Purpose |
+|---|---|
+| `data/local_taxes/index.json` | Tier A output — indicator catalogue + ranking denominators + national averages |
+| `data/local_taxes/<obshtina>.json` | Per-município shard — `ipi` block (5 indicators) + optional `naredba` block (Tier B) |
+| `src/data/local_taxes/useLocalTaxes.tsx` | React Query hook + frontend `NaredbaBlock` mirror (Sofia район S2xxx and SOF46 → SOF00 fallback) |
+| `src/screens/myarea/MyAreaLocalTaxesTile.tsx` | "Местни данъци" rate-comparison tile (ИПИ rows + ТБО basis + tourist + dog) |
+| `src/screens/myarea/MyAreaTaxReceiptTile.tsx` | "Where do my taxes go" tile — local-tax estimate block using the same data |

@@ -10,6 +10,17 @@
 // don't pay for full PDF downloads here — the downstream
 // `update-local-taxes` skill does that on a flip.
 //
+// Known limitation: `*.obshtini.bg/doc/<id>` URLs return a static ~720-byte
+// Angular SPA shell on HEAD. Every doc on the platform fingerprints
+// identically — a mid-year naredba revision on obshtini.bg DOES NOT flip
+// the watcher until the SPA bundle itself rebuilds. The downstream
+// re-ingest still produces a sourceHash flip because it fetches the
+// actual JSON content, so operators can force-refresh via
+// `npx tsx scripts/local_taxes/run_naredba.ts --force <code>` to catch
+// missed revisions. A future improvement: GET-probe the
+// `web-api.apis.bg/api/obshtina-{slug}/DocInfo` endpoint instead of
+// HEAD-probing the SPA shell for that domain.
+//
 // The describe-line names exactly which municípios' source URLs flipped
 // since last run, so the operator can run a targeted re-parse:
 //   npx tsx scripts/local_taxes/run_naredba.ts SOF00,PDV01

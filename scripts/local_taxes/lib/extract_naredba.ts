@@ -89,28 +89,6 @@ export const extractResidentialTboRate = (text: string): number | null => {
   return Math.max(...inBand);
 };
 
-/** Lift the rate for residential ТБО when it appears in the standard
- *  "X на хиляда" / "X промила" form. Returns `null` if missing or
- *  ambiguous — most Sofia-tier municípios set the rate by annual
- *  council resolution rather than putting it in the naredba itself. */
-export const extractTboPromilRate = (text: string): number | null => {
-  const section = sliceTboSection(text);
-  // Look for patterns like "1,7 на хиляда", "0.8 промила", "промил 1,7"
-  // — accept comma OR dot as decimal separator.
-  const patterns = [
-    /(\d+(?:[.,]\d+)?)\s*(?:на\s+хиляда|‰|промил(?:а)?)/i,
-    /(?:в\s+размер\s+на|по\s+ставка)\s+(\d+(?:[.,]\d+)?)\s*(?:на\s+хиляда|‰|промил(?:а)?)/i,
-  ];
-  for (const rx of patterns) {
-    const m = section.match(rx);
-    if (m) {
-      const v = Number(m[1].replace(",", "."));
-      if (Number.isFinite(v) && v > 0 && v < 50) return v;
-    }
-  }
-  return null;
-};
-
 // Property tax on residential real estate — lives in the TAX naredba
 // (Наредба за определяне размера на местните данъци, typically Чл. 5-15
 // depending on the município). The anchoring is tight on purpose: we
@@ -368,23 +346,6 @@ export const extractDogTax = (
   };
 };
 
-/** Detect the year referenced as "in force" — many naredbi carry
- *  "в сила от 1.01.YYYY" in the header. Fallback: max 4-digit year seen
- *  in the first 5 KB of text. */
-export const extractInForceYear = (text: string, fallback: number): number => {
-  const m = text
-    .slice(0, 8000)
-    .match(/в\s+сила\s+от\s+\d{1,2}[.\s-]\d{1,2}[.\s-](\d{4})/i);
-  if (m) {
-    const y = Number(m[1]);
-    if (y >= 2000 && y < 2100) return y;
-  }
-  const years = Array.from(text.slice(0, 5000).matchAll(/(20\d{2})/g)).map(
-    (m) => Number(m[1]),
-  );
-  return years.length > 0 ? Math.max(...years) : fallback;
-};
-
 /** Roll up all auto-detected fields into a NaredbaBlock. Rate detection
  *  is *not* attempted by the generic extractor — too many naredbi have
  *  multiple zones / sub-rates / non-residential rates that overlap into
@@ -401,7 +362,6 @@ export const buildNaredbaBlock = (
       touristTax?: { value: number; unit: string };
       dogTax?: { value: number; unit: string };
       propertyTaxIndividualsRate?: number;
-      propertyTaxIndividualsNote?: string;
     };
   },
 ): NaredbaBlock => {
@@ -446,9 +406,6 @@ export const buildNaredbaBlock = (
       rate: overrides.propertyTaxIndividualsRate,
       year: meta.year,
     };
-    if (overrides.propertyTaxIndividualsNote) {
-      block.propertyTaxIndividuals.note = overrides.propertyTaxIndividualsNote;
-    }
   }
   return block;
 };

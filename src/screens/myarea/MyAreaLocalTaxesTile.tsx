@@ -10,7 +10,7 @@
 // Tile auto-hides when the município has no ipi block (e.g. data file
 // not yet ingested).
 
-import { FC } from "react";
+import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Coins } from "lucide-react";
 import { Card } from "@/components/ui/card";
@@ -37,6 +37,23 @@ const colorForRank = (rank: number, total: number): string => {
   return "#D74A56";
 };
 
+// Split a unit like "EUR/нощ (конв. от BGN)" into the canonical euro
+// suffix ("€/нощ") and any trailing parenthesised qualifier the caller
+// might want to render separately ("конв. от BGN"). Backend stores the
+// `EUR/` form so JSON readers from other contexts can parse a plain
+// ASCII unit; the tile collapses to the project's `€` convention.
+const splitUnit = (
+  unit: string,
+): { core: string; qualifier: string | null } => {
+  const qMatch = unit.match(/^(.+?)\s*\(([^)]+)\)\s*$/);
+  const core = (qMatch ? qMatch[1] : unit).trim();
+  const qualifier = qMatch ? qMatch[2].trim() : null;
+  // Normalise the literal "EUR" prefix the backend emits to the project's
+  // euro sign. "EUR/нощ" → "€/нощ"; "EUR" alone → "€".
+  const normalised = core.replace(/^EUR(?=\/)/, "€").replace(/^EUR$/, "€");
+  return { core: normalised, qualifier };
+};
+
 const formatValue = (
   value: number,
   unit: string,
@@ -47,13 +64,33 @@ const formatValue = (
   const fixed = value.toFixed(3).replace(/\.?0+$/, "");
   // Match the project-wide euro convention (see MyAreaTaxReceiptTile and
   // MyAreaProjectsMapTile): "${num} €" in BG, "€${num}" in EN. Compound
-  // units like "€/kW" stay glued to the number and follow the same
-  // ordering ("0.62 €/kW" / "€0.62/kW"). Non-currency units (‰, %) are
+  // units like "€/kW" / "€/нощ" / "€/година" stay glued to the number
+  // and follow the same ordering. Non-currency units (‰, %) are
   // suffix-only in both locales.
-  if (unit === "€") return lang === "bg" ? `${fixed} €` : `€${fixed}`;
-  if (unit.startsWith("€/"))
-    return lang === "bg" ? `${fixed} ${unit}` : `€${fixed}${unit.slice(1)}`;
-  return `${fixed} ${unit}`;
+  const { core } = splitUnit(unit);
+  if (core === "€") return lang === "bg" ? `${fixed} €` : `€${fixed}`;
+  if (core.startsWith("€/"))
+    return lang === "bg" ? `${fixed} ${core}` : `€${fixed}${core.slice(1)}`;
+  return `${fixed} ${core}`;
+};
+
+// Render qualifier when present — e.g. "(конв. от BGN)" on a tourist tax
+// rate originally published in lev that we converted at the fixed
+// adoption rate. Surfaces as a small muted note so users see we did the
+// math, not the município.
+const renderQualifier = (unit: string, lang: "bg" | "en"): React.ReactNode => {
+  const { qualifier } = splitUnit(unit);
+  if (!qualifier) return null;
+  // Translate the conversion qualifier; pass anything else through.
+  const text =
+    qualifier === "конв. от BGN"
+      ? lang === "bg"
+        ? "(конв. от BGN)"
+        : "(conv. from BGN)"
+      : `(${qualifier})`;
+  return (
+    <span className="text-[10px] text-muted-foreground ml-1">{" "}{text}</span>
+  );
 };
 
 export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
@@ -102,6 +139,14 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
       <ul className="space-y-0.5">
         {ipiRows.map(({ key, meta, value, rankTotal }) => {
           const color = colorForRank(value.nationalRank, rankTotal);
+          // Show the row's own year when it lags behind the tile-level
+          // latestYear. ИПИ paused patent_tax_taxi after 2023 even as
+          // the other four indicators kept ticking; without this hint
+          // the user reads the taxi rate under a "2025" tile header.
+          const yearTag =
+            value.latestYear !== data.latestYear
+              ? ` (${value.latestYear})`
+              : "";
           return (
             <li
               key={key}
@@ -109,6 +154,7 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
             >
               <span className="flex-1 min-w-0 truncate">
                 {meta.label[lang]}
+                {yearTag}
               </span>
               <span
                 className="font-semibold tabular-nums shrink-0"
@@ -158,6 +204,7 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
                   naredba.touristTax.unit,
                   lang,
                 )}
+                {renderQualifier(naredba.touristTax.unit, lang)}
               </div>
             </div>
           ) : null}
@@ -168,6 +215,7 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
               </div>
               <div className="font-semibold tabular-nums">
                 {formatValue(naredba.dogTax.value, naredba.dogTax.unit, lang)}
+                {renderQualifier(naredba.dogTax.unit, lang)}
               </div>
             </div>
           ) : null}
