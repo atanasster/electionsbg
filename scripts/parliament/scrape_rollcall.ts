@@ -41,6 +41,7 @@ import {
   type SessionItem,
 } from "./rollcall/parse";
 import { parseXlsx, readXlsxRows } from "./rollcall/parse_xlsx";
+import { parsePdf } from "./rollcall/parse_pdf";
 import { inferNs } from "./rollcall/ns";
 import {
   buildNameToIdMap,
@@ -166,6 +167,61 @@ const writeIndex = (idx: IndexFile): void => {
   fs.writeFileSync(INDEX_FILE, canonicalJson(idx));
 };
 
+// Build a (csvId → name, partyShort) lookup from the most recent
+// same-NS session whose source CSV/XLSX is parseable. Used by the PDF
+// fallback to fill in the mojibake fields the per-MP PDF can't supply.
+// Walks backward through the index until one session yields rows.
+const buildPriorSessionMpLookup = async (
+  ns: string,
+): Promise<Map<number, { name: string; partyShort: string }>> => {
+  const idx = readIndex();
+  if (!idx) return new Map();
+  const sameNs = (idx.sessions ?? [])
+    .filter((s) => (s.ns ?? "") === ns)
+    .sort((a, b) => b.date.localeCompare(a.date));
+  for (const cand of sameNs) {
+    const candSten = await fetchStenogram(cand.stenogramId);
+    if (!candSten) continue;
+    const candCsv = findRollcallCsv(candSten);
+    if (candCsv) {
+      try {
+        const text = await fetchCsv(candCsv.Pl_StenDfile);
+        const candRows = parseCsv(text, ns);
+        if (candRows.length > 0) {
+          const map = new Map<number, { name: string; partyShort: string }>();
+          for (const r of candRows) {
+            if (!map.has(r.mpId)) {
+              map.set(r.mpId, { name: r.mpName, partyShort: r.partyShort });
+            }
+          }
+          return map;
+        }
+      } catch {
+        // Fall through to XLSX / next session.
+      }
+    }
+    const candXlsx = findRollcallXlsx(candSten);
+    if (candXlsx) {
+      try {
+        const buf = await fetchBinary(candXlsx.Pl_StenDfile);
+        const candRows = parseXlsx(buf, ns);
+        if (candRows && candRows.length > 0) {
+          const map = new Map<number, { name: string; partyShort: string }>();
+          for (const r of candRows) {
+            if (!map.has(r.mpId)) {
+              map.set(r.mpId, { name: r.mpName, partyShort: r.partyShort });
+            }
+          }
+          return map;
+        }
+      } catch {
+        // Try the next session back.
+      }
+    }
+  }
+  return new Map();
+};
+
 const writeSession = (file: SessionFile): { path: string; isNew: boolean } => {
   fs.mkdirSync(SESSIONS_DIR, { recursive: true });
   const filename = `${file.date}.json`;
@@ -230,6 +286,36 @@ const ingestSession = async (
     const xlsxBuf = await fetchBinary(xlsxRef.Pl_StenDfile);
     rows = parseXlsx(xlsxBuf, inferredNs);
     if (rows) sourceKind = "xlsx";
+  }
+  if (!rows || sourceKind === "") {
+    // CSV + XLSX both unparseable (typical cause: parliament.bg uploaded the
+    // groups-aggregate file under the "Поименно гласуване" label and never
+    // published the real per-MP CSV/XLSX). Fall back to the per-MP PDF —
+    // born-digital, ASCII vote codes / ids extractable via pdftotext. MP
+    // names + parties come from re-fetching the most recent same-NS source
+    // (PDF text is mojibake for Cyrillic).
+    const pdfRef = findRollcallPdf(sten);
+    if (pdfRef) {
+      try {
+        const knownMpById = await buildPriorSessionMpLookup(inferredNs);
+        const pdfBuf = await fetchBinary(pdfRef.Pl_StenDfile);
+        rows = parsePdf(pdfBuf, {
+          fallbackNs: inferredNs,
+          knownMpById,
+        });
+        sourceKind = "pdf";
+        const unresolvedCount = rows.filter((r) =>
+          r.mpName.startsWith("MP "),
+        ).length;
+        console.log(
+          `  · ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}): per-MP PDF fallback parsed ${rows.length} vote tuple(s) (${unresolvedCount} with placeholder name)`,
+        );
+      } catch (e) {
+        console.log(
+          `  · ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}): PDF fallback failed (${(e as Error).message.slice(0, 100)}…)`,
+        );
+      }
+    }
   }
   if (!rows || sourceKind === "") {
     console.log(
