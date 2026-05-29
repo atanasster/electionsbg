@@ -295,8 +295,16 @@ export const classifyResult = (
 // before the vote is `\s+[:]?\s*` so a stray colon (V. Tarnovo) and pure
 // whitespace (Gabrovo) both work. Vote alternatives include the
 // uppercase / mixed-case forms.
+// Separator between name and vote: any amount of whitespace, an
+// OPTIONAL colon, more whitespace. Three forms in the wild:
+//   "Иванов: За"        (V. Tarnovo — colon, no leading ws)
+//   "Иванов : За"       (Kazanlak — colon with leading ws)
+//   "Иванов     ЗА"     (Gabrovo — table layout, no colon)
+// `\s*:?\s*` covers all three. Earlier `\s+:?` REQUIRED leading ws
+// which silently broke the V. Tarnovo / Kazanlak forms when the
+// colon hugged the name.
 const VOTE_LINE_RE =
-  /^\s*(\d+)[.\s]\s*([А-ЯЁA-Z][а-яёa-z]+(?:[-\s]+[А-ЯЁA-Z][а-яёa-z]+){1,4})\s+:?\s*(За|ЗА|Против|ПРОТИВ|Въздържал[аи]?\s*се|ВЪЗДЪРЖАЛ[АИ]?\s*СЕ|отсъства|ОТСЪСТВА)\s*$/u;
+  /^\s*(\d+)[.\s]\s*([А-ЯЁA-Z][а-яёa-z]+(?:[-\s]+[А-ЯЁA-Z][а-яёa-z]+){1,4})\s*:?\s*(За|ЗА|Против|ПРОТИВ|Въздържал[аи]?\s*се|ВЪЗДЪРЖАЛ[АИ]?\s*СЕ|отсъства|ОТСЪСТВА)\s*$/u;
 
 // Lines treated as page-break interstitials between vote rows. Sofia's
 // OCR output sandwiches an agenda-item header AND an aggregate-tally
@@ -327,56 +335,101 @@ export type ParsedVoteEntry = {
   position: number;
 };
 
-export const extractNamedVoteBlock = (
-  text: string,
-  tallyOffset: number,
-): ParsedVoteEntry[] => {
-  // Slice the look-back window. The block always sits BEFORE the tally
-  // summary; we scan upwards from tallyOffset gathering lines that match
-  // VOTE_LINE_RE until we hit a chunk of non-matching, non-blank, non-
-  // page-header content. That break heuristic keeps the parser from
-  // greedily eating the previous resolution's named-vote block.
+// Per-municípality convention for where the per-councillor list sits
+// relative to the tally summary line:
+//   - "before" (V. Tarnovo, Burgas, Gabrovo, Sofia OCR): the block
+//     precedes the tally. Walk BACKWARDS from tallyOffset.
+//   - "after"  (Казанлък): the prose tally is followed by "така:" and
+//     then the numbered roll. Walk FORWARDS from the tally summary.
+//   - "either" (default): try backward first, then forward — covers
+//     formats we haven't seen yet without breaking the existing parsers.
+export type NamedVoteBlockDirection = "before" | "after" | "either";
+
+const parseVoteLine = (
+  line: string,
+): { entry: ParsedVoteEntry; pos: number } | null => {
+  const m = line.match(VOTE_LINE_RE);
+  if (!m) return null;
+  const pos = parseInt(m[1], 10);
+  const name = m[2].trim();
+  const voteRaw = m[3];
+  if (/^отсъства$/iu.test(voteRaw)) return null;
+  const vote: ParsedVoteEntry["vote"] = /^За$/iu.test(voteRaw)
+    ? "for"
+    : /^Против$/iu.test(voteRaw)
+      ? "against"
+      : "abstain";
+  return {
+    entry: {
+      name,
+      normKey: normaliseCouncillorName(name),
+      vote,
+      position: pos,
+    },
+    pos,
+  };
+};
+
+const walkBack = (text: string, tallyOffset: number): ParsedVoteEntry[] => {
   const window = text.slice(Math.max(0, tallyOffset - 8000), tallyOffset);
   const lines = window.split(/\r?\n/);
-
-  const matched: Array<{ idx: number; entry: ParsedVoteEntry }> = [];
+  const matched: ParsedVoteEntry[] = [];
   for (let i = lines.length - 1; i >= 0; i--) {
     const line = lines[i];
     if (line.trim().length === 0 || PAGE_HEADER_RE.test(line)) continue;
-    const m = line.match(VOTE_LINE_RE);
-    if (!m) {
-      // Stop on first non-vote, non-skipped line — that's the resolution
-      // body (or the previous tally summary).
+    const parsed = parseVoteLine(line);
+    if (!parsed) {
       if (matched.length > 0) break;
       continue;
     }
-    const pos = parseInt(m[1], 10);
-    const name = m[2].trim();
-    const voteRaw = m[3];
-    // Gabrovo's tabular protokols carry an explicit "отсъства" (absent)
-    // column. We don't store absences as votes — drop the line entirely
-    // (the back-walk still continues through it because we don't break).
-    if (/^отсъства$/iu.test(voteRaw)) {
+    matched.push(parsed.entry);
+  }
+  matched.reverse();
+  return matched;
+};
+
+const walkForward = (text: string, tallyOffset: number): ParsedVoteEntry[] => {
+  // Start a few chars past the tally so we don't include the tally line
+  // itself, then read forward up to 8000 chars (~150 lines, fits the
+  // ~50-member roll plus the tail of the tally prose).
+  const window = text.slice(
+    tallyOffset,
+    Math.min(text.length, tallyOffset + 8000),
+  );
+  const lines = window.split(/\r?\n/);
+  const matched: ParsedVoteEntry[] = [];
+  let started = false;
+  for (const line of lines) {
+    if (line.trim().length === 0 || PAGE_HEADER_RE.test(line)) continue;
+    const parsed = parseVoteLine(line);
+    if (!parsed) {
+      // Once we've started collecting, break on the next non-vote line.
+      // Before any matches we keep scanning forward through the prose
+      // header ("Общинският съвет гласува поименно и със 'за' - 26…
+      // 0, така:") until the roll starts.
+      if (started) break;
       continue;
     }
-    const vote: ParsedVoteEntry["vote"] = /^За$/iu.test(voteRaw)
-      ? "for"
-      : /^Против$/iu.test(voteRaw)
-        ? "against"
-        : "abstain";
-    matched.push({
-      idx: i,
-      entry: {
-        name,
-        normKey: normaliseCouncillorName(name),
-        vote,
-        position: pos,
-      },
-    });
+    started = true;
+    matched.push(parsed.entry);
   }
-  // Restore original (top-down) order.
-  matched.reverse();
-  return matched.map((m) => m.entry);
+  return matched;
+};
+
+export const extractNamedVoteBlock = (
+  text: string,
+  tallyOffset: number,
+  direction: NamedVoteBlockDirection = "before",
+): ParsedVoteEntry[] => {
+  if (direction === "before") return walkBack(text, tallyOffset);
+  if (direction === "after") return walkForward(text, tallyOffset);
+  // "either": try back first, fall through to forward when the back-walk
+  // returns nothing. Keeps existing parsers unchanged (they explicitly
+  // request "before") while letting new parsers opt into "either" as a
+  // safe default during discovery.
+  const back = walkBack(text, tallyOffset);
+  if (back.length > 0) return back;
+  return walkForward(text, tallyOffset);
 };
 
 /**

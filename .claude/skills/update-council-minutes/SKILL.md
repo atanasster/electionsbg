@@ -139,9 +139,10 @@ See `data/council/sources.json` for the authoritative list. As of 2026-05-29:
 | PDV01 (Пловдив) | B | html via WP category | no | no | titles only (WordPress category listings, no Playwright needed) |
 | SOF (Столична) | A | pdf-text + Gemini OCR via Playwright | yes (77) | yes (75 sessions, ~89% roster match) | full coverage via `--ocr --per-councillor`; full protokol-N PDFs have ABBYY FineReader 14 Cyrillic→Latin mojibake so OCR is mandatory — costs ~$1.85/session |
 | GAB05 (Габрово) | A | pdf-text via Wayback CDX | yes (244 across 12 protokols) | partial — 2025+ only (2024 protokols ship aggregate-only) | Apache directory listing 403-blocked; discovery uses Wayback CDX index. 2024 protokols have compact "Т. 1: За – 9 Против – 10 Въздържали се – 9" aggregate tallies but no per-councillor table; 2025+ added a full tabular per-councillor block (NN  Name  ЗА|ПРОТИВ|ВЪЗДЪРЖАЛИ СЕ|отсъства). |
+| SZR12 (Казанлък) | A | pdf-text via Wayback CDX + brute-force | yes | yes | Nuxt-rendered category page doesn't surface protokol links via curl; discovery is Wayback CDX + a focused brute-force probe (Protokol_{N}_SAIT.pdf across {YYYY-MM} dirs, current year only). Per-councillor block in standard "<N>. <Name>: <vote>" form. |
 | BLG03 (Благоевград) | C | doc | — | — | DEFERRED (legacy URL dead; município migrated to e-obs.online SaaS) |
 
-Total: 10 of 10 wired, 1,105 resolutions in the index across 10 municipalities. 199 carry per-councillor named-vote data (SOF 75 + BGS01 86 + VTR01 38) and surface in the "Как гласуваха в съвета" MyArea tile. GAB05's per-councillor count will grow as Wayback snapshots more 2025+ protokols.
+Total: 11 of 11 wired. Per-councillor coverage surfaces in the unified "Общински съвет" MyArea tile (`MyAreaCouncilTile`) + on the public `/local/:cycle/:obshtinaCode` page + on each `/officials/<slug>` profile.
 
 ### One-shot: rebuild shards after pipeline change
 

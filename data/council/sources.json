@@ -124,6 +124,18 @@
       "tallyStrategy": "none-published",
       "perCouncillor": false
     },
+    "SZR12": {
+      "name": "Община Казанлък",
+      "tier": "A",
+      "indexUrl": "https://web.archive.org/cdx/search/cdx?url=obs.kazanlak.bg/&matchType=prefix",
+      "indexNote": "Wired 2026-05-29. Nuxt-rendered category page (cat-3.html) doesn't expose protokol links in curl output; discovery uses Wayback Machine CDX + a focused brute-force HEAD probe across {YYYY-MM} subdirectories. URL pattern: /common/docs/{YYYY-MM}/Protokol_{N}_SAIT.pdf (canonical 2024+) with legacy fallbacks Protokol_{N}.pdf / Protokol_{N}_{DD}_{MM}_{YYYY}.pdf / {N}_Protokol.pdf. Text-layer PDFs, no OCR. Per-councillor block uses '<N>. <Three-part name>: За|Против|Въздържал се' (standard VOTE_LINE_RE shape). Aggregate tally: 'Общинският съвет гласува поименно и със \"за\" - 26, \"против\" - 0 и \"въздържали се\" - 0' (matches SUMMARY_RE_LABEL_FIRST). РЕШЕНИЕ № N anchors.",
+      "fetch": "static",
+      "format": "pdf-text",
+      "tallyStrategy": "label-first",
+      "samplePdf": "https://obs.kazanlak.bg/common/docs/2020-07/Protokol_10_25_06_2020.pdf",
+      "sampleConfirmedTally": "Общинският съвет гласува поименно и със 'за' - 26, 'против' - 0 и 'въздържали се' - 0",
+      "perCouncillor": true
+    },
     "GAB05": {
       "name": "Община Габрово",
       "tier": "A",

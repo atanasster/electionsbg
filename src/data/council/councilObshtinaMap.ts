@@ -32,6 +32,10 @@ const STATIC_MAP: Record<string, string> = {
   // the frontend code (BLG03 = BLG03). Listed explicitly so the identity
   // mapping is visible in this file rather than implicit via fallback.
   BLG03: "BLG03",
+  // Gabrovo + Kazanlak — added after the discovery sweep. Both use
+  // their EKATTE codes directly as council keys (no remapping needed).
+  GAB05: "GAB05",
+  SZR12: "SZR12",
 };
 
 /**
