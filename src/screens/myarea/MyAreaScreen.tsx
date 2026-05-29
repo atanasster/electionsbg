@@ -124,11 +124,10 @@ export const MyAreaScreen: FC = () => {
           </Card>
         ) : null}
 
-        {/* Action band — single high-priority "what to notice now" card.
-            Selector (useNextAction) picks one of: imminent election /
-            recent council vote / recent procurement red flag / default
-            countdown. Always renders one card so the band never feels
-            empty. See src/data/myarea/useNextAction.ts for priorities. */}
+        {/* Action band — election-imminent countdown only (within 60
+            days). Past activity (council votes, procurement, EU
+            contracts) lives in MyAreaAlertsTile below. Auto-hides
+            outside the campaign window. */}
         <MyAreaActionBand obshtina={area.obshtina} />
 
         {/* Area history — the cycle-over-cycle turnout sparkline plus
