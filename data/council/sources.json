@@ -124,6 +124,18 @@
       "tallyStrategy": "none-published",
       "perCouncillor": false
     },
+    "HKV34": {
+      "name": "Община Хасково",
+      "tier": "B",
+      "indexUrl": "https://web.archive.org/cdx/search/cdx?url=haskovo.bg/uploads/posts/&matchType=prefix",
+      "indexNote": "Wired 2026-05-29. 89 protokol PDFs in Wayback CDX at the clean pattern haskovo.bg/uploads/posts/{YYYY}/protokol-{N}.pdf. Born-digital text-layer (~110 pages per session). Tally form is novel — chair-announcement prose ('Т.ЗАХАРИЕВА: С 37 гласа „за\", без „против\" и „въздържали се\"'). The parser PRE-PROCESSES the text to rewrite Хасково's form into the canonical V. Tarnovo form ('37 „за\", 0 „против\", 0 „въздържали се\"') so the shared SUMMARY_RE_DIGIT_FIRST matches without adding yet another municípality-specific variant to lib/tally.ts. NO per-councillor block — Хасково records only the chair's totals, not the individual vote tablet readout. Coverage tier B (aggregate tally + adopted/rejected, no perCouncillor), equivalent to SZR / RSE / Pleven.",
+      "fetch": "static",
+      "format": "pdf-text",
+      "tallyStrategy": "digit-first-via-rewrite",
+      "samplePdf": "https://www.haskovo.bg/uploads/posts/2022/protokol-31.pdf",
+      "sampleConfirmedTally": "Т.ЗАХАРИЕВА: С 37 гласа „за\", без „против\" и „въздържали се\"",
+      "perCouncillor": false
+    },
     "SZR12": {
       "name": "Община Казанлък",
       "tier": "A",

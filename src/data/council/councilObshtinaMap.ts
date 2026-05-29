@@ -36,6 +36,7 @@ const STATIC_MAP: Record<string, string> = {
   // their EKATTE codes directly as council keys (no remapping needed).
   GAB05: "GAB05",
   SZR12: "SZR12",
+  HKV34: "HKV34",
 };
 
 /**
