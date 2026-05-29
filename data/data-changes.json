@@ -1,6 +1,26 @@
 {
-  "updatedAt": "2026-05-28T08:42:59.077Z",
+  "updatedAt": "2026-05-29T08:15:43.046Z",
   "entries": [
+    {
+      "timestamp": "2026-05-29T08:15:43.046Z",
+      "date": "2026-05-29",
+      "skill": "update-funds",
+      "summary": "52,789 beneficiaries · 80,750 contracts · €43.5B contracted · €16.5B paid; 101 MP↔beneficiary pairs (87 MPs, 99 cos)",
+      "source": "ИСУН EU funds (2020.eufunds.bg)"
+    },
+    {
+      "timestamp": "2026-05-29T08:12:39.036Z",
+      "date": "2026-05-29",
+      "skill": "update-rollcall",
+      "summary": "session 11131 (2026-05-28) skipped — malformed CSV upstream; index bumped",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-05-28T08:42:59.077Z",
       "date": "2026-05-28",
