@@ -2,8 +2,8 @@
   "eik": "107564054",
   "name": "Еврохим груп",
   "orgType": "Компания",
-  "contractCount": 2,
-  "contractedEur": 25564.59,
+  "contractCount": 3,
+  "contractedEur": 148512.62,
   "paidEur": 25564.59,
   "mps": [
     {
@@ -16,59 +16,9 @@
           "confidence": "medium"
         },
         {
-          "kind": "partner",
-          "isCurrent": false,
-          "confidence": "medium"
-        },
-        {
-          "kind": "manager",
-          "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
-          "kind": "partner",
-          "isCurrent": false,
-          "confidence": "medium"
-        },
-        {
-          "kind": "manager",
-          "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
-          "kind": "partner",
-          "isCurrent": false,
-          "confidence": "medium"
-        },
-        {
-          "kind": "manager",
-          "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
-          "kind": "partner",
-          "isCurrent": false,
-          "confidence": "medium"
-        },
-        {
-          "kind": "manager",
-          "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
-          "kind": "partner",
-          "isCurrent": false,
-          "confidence": "medium"
-        },
-        {
-          "kind": "manager",
-          "isCurrent": true,
-          "confidence": "high"
-        },
-        {
           "kind": "sole_owner",
           "isCurrent": true,
-          "confidence": "high"
+          "confidence": "medium"
         },
         {
           "kind": "partner",
@@ -102,5 +52,5 @@
   "procurementEur": 3632423.83,
   "procurementContractCount": 52,
   "debarred": false,
-  "exposureScore": 15.78
+  "exposureScore": 17.54
 }

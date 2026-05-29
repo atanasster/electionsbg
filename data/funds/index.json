@@ -1,59 +1,59 @@
 {
-  "generatedAt": "2026-05-27T16:14:41.927Z",
-  "lastIngest": "2026-05-27T16:14:41.927Z",
+  "generatedAt": "2026-05-29T08:13:17.906Z",
+  "lastIngest": "2026-05-29T08:13:17.906Z",
   "source": {
     "label": "ИСУН 2020 — публичен модул, Бенефициенти (2020.eufunds.bg)",
     "url": "https://2020.eufunds.bg/bg/0/0/Beneficiary"
   },
   "totals": {
-    "beneficiaries": 52780,
-    "contractCount": 80706,
-    "contractedEur": 43501067038.09,
-    "paidEur": 16494799803.9,
-    "withEik": 45888
+    "beneficiaries": 52789,
+    "contractCount": 80750,
+    "contractedEur": 43517670661.9,
+    "paidEur": 16540838471.31,
+    "withEik": 45898
   },
   "byOrgType": [
     {
       "key": "Държавна администрация",
       "beneficiaries": 553,
-      "contractCount": 10513,
-      "contractedEur": 27828637321.32,
-      "paidEur": 10392511888.26
+      "contractCount": 10522,
+      "contractedEur": 27841600119.66,
+      "paidEur": 10427566513.81
     },
     {
       "key": "Компания",
-      "beneficiaries": 38516,
-      "contractCount": 54464,
-      "contractedEur": 13249947036.28,
-      "paidEur": 4669511423.48
+      "beneficiaries": 38527,
+      "contractCount": 54489,
+      "contractedEur": 13252310675.9,
+      "paidEur": 4675240572.65
     },
     {
       "key": "Друга",
-      "beneficiaries": 9170,
-      "contractCount": 9684,
-      "contractedEur": 951724175.7,
-      "paidEur": 642090422.19
+      "beneficiaries": 9168,
+      "contractCount": 9682,
+      "contractedEur": 951507261.1,
+      "paidEur": 642145073.93
     },
     {
       "key": "Учебно заведение",
-      "beneficiaries": 2311,
-      "contractCount": 2810,
-      "contractedEur": 849283347.2,
-      "paidEur": 493439591.2
+      "beneficiaries": 2310,
+      "contractCount": 2819,
+      "contractedEur": 850289893.89,
+      "paidEur": 497432717.47
     },
     {
       "key": "Нестопанска организация",
-      "beneficiaries": 2105,
-      "contractCount": 3031,
-      "contractedEur": 468546561.41,
-      "paidEur": 243354897.66
+      "beneficiaries": 2106,
+      "contractCount": 3034,
+      "contractedEur": 469034115.17,
+      "paidEur": 244461875.82
     },
     {
       "key": "Научноизследователска организация",
       "beneficiaries": 34,
       "contractCount": 99,
       "contractedEur": 71106436.88,
-      "paidEur": 15995102.17
+      "paidEur": 16095238.69
     },
     {
       "key": "Медицинско заведение",
@@ -80,17 +80,17 @@
   "byOrgForm": [
     {
       "key": "Публично правна",
-      "beneficiaries": 7515,
-      "contractCount": 20677,
-      "contractedEur": 35467125822.82,
-      "paidEur": 14045073622.83
+      "beneficiaries": 7514,
+      "contractCount": 20697,
+      "contractedEur": 35481580845.86,
+      "paidEur": 14086103507.38
     },
     {
       "key": "Частно правна",
-      "beneficiaries": 45265,
-      "contractCount": 60029,
-      "contractedEur": 8033941215.29,
-      "paidEur": 2449726181.07
+      "beneficiaries": 45275,
+      "contractCount": 60053,
+      "contractedEur": 8036089816.06,
+      "paidEur": 2454734963.93
     }
   ],
   "topByContracted": [
@@ -120,7 +120,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 71,
       "contractedEur": 2404732439.76,
-      "paidEur": 1002890331.87,
+      "paidEur": 1007206275.35,
       "mpTied": false,
       "mpIds": []
     },
@@ -130,7 +130,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 49,
       "contractedEur": 1814592541.32,
-      "paidEur": 624562624.21,
+      "paidEur": 624592688.17,
       "mpTied": false,
       "mpIds": []
     },
@@ -139,7 +139,7 @@
       "name": "Главна дирекция \"Европейски фондове за конкурентоспособност\" в Министерство на иновациите и растежа",
       "orgType": "Държавна администрация",
       "contractCount": 21,
-      "contractedEur": 1694680559.59,
+      "contractedEur": 1693185828.28,
       "paidEur": 47474997.42,
       "mpTied": false,
       "mpIds": []
@@ -160,7 +160,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 34,
       "contractedEur": 1463721584.79,
-      "paidEur": 958194189.48,
+      "paidEur": 961106300.07,
       "mpTied": false,
       "mpIds": []
     },
@@ -170,7 +170,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 32,
       "contractedEur": 1388213369.22,
-      "paidEur": 121960933,
+      "paidEur": 122076472.66,
       "mpTied": false,
       "mpIds": []
     },
@@ -200,7 +200,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 37,
       "contractedEur": 767970882.4,
-      "paidEur": 415323827.15,
+      "paidEur": 419158516.26,
       "mpTied": false,
       "mpIds": []
     },
@@ -210,7 +210,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 37,
       "contractedEur": 722313729.39,
-      "paidEur": 113402869.95,
+      "paidEur": 113853010.49,
       "mpTied": false,
       "mpIds": []
     },
@@ -220,7 +220,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 78,
       "contractedEur": 500061855.23,
-      "paidEur": 299898260.21,
+      "paidEur": 300502705.44,
       "mpTied": false,
       "mpIds": []
     },
@@ -248,9 +248,9 @@
       "eik": "121015056",
       "name": "Агенция за социално подпомагане",
       "orgType": "Държавна администрация",
-      "contractCount": 25,
-      "contractedEur": 353450236.53,
-      "paidEur": 287722353.25,
+      "contractCount": 26,
+      "contractedEur": 354508210.97,
+      "paidEur": 288058339.02,
       "mpTied": false,
       "mpIds": []
     },
@@ -260,7 +260,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 87,
       "contractedEur": 342818984.96,
-      "paidEur": 149350041.85,
+      "paidEur": 158615774.24,
       "mpTied": false,
       "mpIds": []
     },
@@ -270,7 +270,7 @@
       "orgType": "Компания",
       "contractCount": 2,
       "contractedEur": 313004624.8,
-      "paidEur": 84886195.66,
+      "paidEur": 85468159.7,
       "mpTied": false,
       "mpIds": []
     },
@@ -300,7 +300,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 73,
       "contractedEur": 233565425.67,
-      "paidEur": 144818212.1,
+      "paidEur": 144899641.02,
       "mpTied": false,
       "mpIds": []
     },
@@ -310,7 +310,7 @@
       "orgType": "Държавна администрация",
       "contractCount": 97,
       "contractedEur": 225180246.3,
-      "paidEur": 118907616.77,
+      "paidEur": 121528719.18,
       "mpTied": false,
       "mpIds": []
     },
@@ -329,8 +329,8 @@
       "name": "Община Стара загора",
       "orgType": "Държавна администрация",
       "contractCount": 116,
-      "contractedEur": 196983757.79,
-      "paidEur": 86330052.45,
+      "contractedEur": 196782712.79,
+      "paidEur": 86271982.1,
       "mpTied": false,
       "mpIds": []
     },
@@ -346,12 +346,12 @@
     }
   ],
   "crossReference": {
-    "generatedAt": "2026-05-27T16:14:41.690Z",
-    "mpCount": 89,
+    "generatedAt": "2026-05-29T08:13:17.668Z",
+    "mpCount": 87,
     "beneficiaryCount": 99,
-    "pairCount": 103,
-    "contractedEur": 223796805.4,
-    "paidEur": 110651385.54
+    "pairCount": 101,
+    "contractedEur": 168861612.31,
+    "paidEur": 61182476.29
   },
   "shards": [
     "0",

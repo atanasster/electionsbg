@@ -1,6 +1,6 @@
 {
   "slug": "agriculture",
-  "labelBg": "Земеделие и Дфз",
+  "labelBg": "Земеделие и ДФЗ",
   "labelEn": "Agriculture (ДФЗ)",
   "summaryBg": "Програмата за развитие на селските райони — субсидии за стопанства, инвестиции в селскостопанска инфраструктура и водеща мярка 4.1. Високи концентрации и повтарящи се бенефициенти.",
   "summaryEn": "Rural Development Programme — farm subsidies, agri-infrastructure investments, and the headline Measure 4.1. High concentration and serial winners.",
@@ -8,16 +8,16 @@
   "totals": {
     "contractCount": 12151,
     "beneficiaryCount": 5669,
-    "totalEur": 2073775887.3,
+    "totalEur": 2073775887.29,
     "paidEur": 1294529950.83
   },
   "topBeneficiaries": [
     {
       "eik": null,
-      "name": "Зп",
-      "contractCount": 374,
-      "totalEur": 56938921.36,
-      "paidEur": 25022070.99
+      "name": "ЗП",
+      "contractCount": 373,
+      "totalEur": 56776539.15,
+      "paidEur": 24940884.87
     },
     {
       "eik": "831160078",
@@ -42,21 +42,21 @@
     },
     {
       "eik": "119634934",
-      "name": "\"Джени ово \" ЕООД",
+      "name": "\"Джени ОВО \" ЕООД",
       "contractCount": 7,
       "totalEur": 8448166.12,
       "paidEur": 1606402.71
     },
     {
       "eik": "205075222",
-      "name": "„Ай ти агро” ЕООД",
+      "name": "„АЙ ТИ Агро” ЕООД",
       "contractCount": 3,
       "totalEur": 6632275.97,
       "paidEur": 3044315.86
     },
     {
       "eik": null,
-      "name": "Зс",
+      "name": "ЗС",
       "contractCount": 87,
       "totalEur": 6539535.02,
       "paidEur": 2973245.45
@@ -77,7 +77,7 @@
     },
     {
       "eik": "822089116",
-      "name": "ЕТ „Ангелов - иван ангелов”",
+      "name": "ЕТ „Ангелов - иван Ангелов”",
       "contractCount": 5,
       "totalEur": 6108727.86,
       "paidEur": 2747368.72
@@ -231,7 +231,7 @@
       "contractNumber": "BG06RDNP001-4.001-0517",
       "title": "Предприятие за преработка, сушене и замразяване на БИО плодове и БИО зеленчуци в с. Воден",
       "beneficiaryEik": "205075222",
-      "beneficiaryName": "„Ай ти агро” ЕООД",
+      "beneficiaryName": "„АЙ ТИ Агро” ЕООД",
       "programCode": "2014BG06RDNP001",
       "programName": "Програма за развитие на селските райони",
       "totalEur": 3647141.87,
@@ -322,7 +322,7 @@
       "programCode": "2014BG06RDNP001",
       "programName": "Програма за развитие на селските райони",
       "contractCount": 12151,
-      "totalEur": 2073775887.3,
+      "totalEur": 2073775887.29,
       "paidEur": 1294529950.83
     }
   ],

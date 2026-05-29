@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-05-27T16:14:41.862Z",
+  "generatedAt": "2026-05-29T08:13:17.868Z",
   "totals": {
-    "flaggedEiks": 287,
-    "mpOnly": 83,
-    "officialOnly": 188,
-    "both": 16,
+    "flaggedEiks": 288,
+    "mpOnly": 84,
+    "officialOnly": 189,
+    "both": 15,
     "debarredFlagged": 0,
-    "contractedEur": 659213232.11,
-    "paidEur": 166797273.41,
-    "procurementEur": 956638493.08
+    "contractedEur": 659547991.2,
+    "paidEur": 166905675.37,
+    "procurementEur": 1005957476.76
   },
   "top": [
     {
@@ -141,17 +141,6 @@
       "paidEur": 49484788.67,
       "mps": [
         {
-          "mpId": 2115,
-          "mpName": "Пламен Иванов Иванов",
-          "relations": [
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "high"
-            }
-          ]
-        },
-        {
           "mpId": 4649,
           "mpName": "Генади Събков Събков",
           "relations": [
@@ -159,31 +148,6 @@
               "kind": "branch_manager",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "branch_manager",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "branch_manager",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "branch_manager",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "branch_manager",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "branch_manager",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -231,7 +195,7 @@
       "procurementEur": 4016103.44,
       "procurementContractCount": 41,
       "debarred": false,
-      "exposureScore": 23.99
+      "exposureScore": 23.77
     },
     {
       "eik": "123152884",
@@ -345,31 +309,6 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -584,31 +523,6 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -635,31 +549,6 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -686,31 +575,6 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -899,31 +763,6 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -963,10 +802,10 @@
           ]
         }
       ],
-      "procurementEur": 188158110.61,
-      "procurementContractCount": 108,
+      "procurementEur": 235384574.61,
+      "procurementContractCount": 109,
       "debarred": false,
-      "exposureScore": 21.24
+      "exposureScore": 21.3
     },
     {
       "eik": "822120615",
@@ -1086,31 +925,6 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -1171,31 +985,6 @@
               "kind": "manager",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "manager",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "manager",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "manager",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "manager",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "manager",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -1222,38 +1011,13 @@
               "kind": "actual_owner",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "actual_owner",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "actual_owner",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "actual_owner",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "actual_owner",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "actual_owner",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
       ],
       "officials": [],
-      "procurementEur": 87688154.96,
-      "procurementContractCount": 804,
+      "procurementEur": 88078275.37,
+      "procurementContractCount": 809,
       "debarred": false,
       "exposureScore": 20.55
     },
@@ -1318,56 +1082,6 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "representative",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "representative",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "representative",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "representative",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "high"
-            },
-            {
-              "kind": "representative",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -1573,7 +1287,7 @@
       "name": "Камт АД",
       "orgType": "Компания",
       "contractCount": 6,
-      "contractedEur": 1335257.86,
+      "contractedEur": 1335257.84,
       "paidEur": 721307.08,
       "mps": [],
       "officials": [
@@ -1624,31 +1338,6 @@
               "kind": "partner",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -1709,31 +1398,6 @@
               "kind": "partner",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -1820,31 +1484,6 @@
               "confidence": "high"
             },
             {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "high"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "high"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "high"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "high"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": true,
-              "confidence": "high"
-            },
-            {
               "kind": "stake",
               "shareSize": "81%",
               "valueEur": 2070.732118844685,
@@ -1896,31 +1535,6 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -1981,31 +1595,6 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -2032,31 +1621,6 @@
               "kind": "director",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "director",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -2185,31 +1749,6 @@
               "kind": "procurator",
               "isCurrent": true,
               "confidence": "medium"
-            },
-            {
-              "kind": "procurator",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "procurator",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "procurator",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "procurator",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "procurator",
-              "isCurrent": true,
-              "confidence": "high"
             }
           ]
         }
@@ -2299,6 +1838,7 @@
     "200872545",
     "205395083",
     "125537379",
+    "203827288",
     "204083013",
     "204103188",
     "102872963",
@@ -2319,9 +1859,9 @@
     "201888095",
     "101159421",
     "128041947",
-    "203827288",
     "101055748",
     "123722347",
+    "107564054",
     "117050304",
     "206769445",
     "204276464",
@@ -2336,6 +1876,7 @@
     "204909172",
     "811204268",
     "828050472",
+    "202388240",
     "203458342",
     "121027425",
     "131476144",
@@ -2390,8 +1931,6 @@
     "205253066",
     "206881704",
     "202981340",
-    "107564054",
-    "825240527",
     "200423956",
     "200197279",
     "121125663",
@@ -2505,6 +2044,7 @@
     "114631877",
     "121683408",
     "130790423",
+    "175256096",
     "200528925",
     "203362889",
     "206030187",
