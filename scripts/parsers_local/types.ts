@@ -73,6 +73,11 @@ export type LocalPreference = {
 
 // Mayor result, scraped from the per-município HTML page. One per candidate
 // per round.
+//
+// `mpId` is a post-ingest decoration stamped by
+// scripts/parsers_local/decorate_local_mp_links.ts when the candidate's
+// normalised name matches a parliament.bg MP. Drives photo reuse via
+// `MpAvatar`; absent means no MP match.
 export type LocalMayorResult = {
   candidateName: string;
   localPartyNum: number;
@@ -84,6 +89,7 @@ export type LocalMayorResult = {
   votes: number;
   pctOfValid: number;
   isElected: boolean;
+  mpId?: number;
 };
 
 // Council result — one entry per party that ran in this município, scraped
@@ -107,6 +113,9 @@ export type LocalCouncilCandidate = {
   prefVotes: number;
   prefPct: number;
   isElected: boolean;
+  // Stamped by decorate_local_mp_links.ts when this councillor also served
+  // as an MP — drives photo reuse via `MpAvatar`.
+  mpId?: number;
 };
 
 // Kmetstvo mayor result — one block per village seat. Often unanimous /

@@ -127,7 +127,11 @@ export const MunicipalElectionTile: FC<Props> = ({
           {/* Mayor row */}
           {mayor ? (
             <div className="mt-1 flex items-start gap-2">
-              <MpAvatar name={mayor.candidateName} showPartyRing={false} />
+              <MpAvatar
+                name={mayor.candidateName}
+                mpId={mayor.mpId}
+                showPartyRing={false}
+              />
               <div className="min-w-0">
                 <div className="text-sm font-semibold leading-tight">
                   {mayor.candidateName}

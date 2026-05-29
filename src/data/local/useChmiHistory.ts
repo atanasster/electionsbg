@@ -21,6 +21,7 @@ export type ChmiHistoryEvent = {
   round: 1 | 2;
   pctOfValid: number;
   votes: number;
+  mpId?: number;
 };
 
 type ChmiHistory = {

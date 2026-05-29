@@ -192,7 +192,11 @@ const MayorTable: FC<{
                 </td>
                 <td className="py-2 px-3 align-top">
                   <div className="flex items-start gap-2 min-w-0">
-                    <MpAvatar name={c.candidateName} showPartyRing={false} />
+                    <MpAvatar
+                      name={c.candidateName}
+                      mpId={c.mpId}
+                      showPartyRing={false}
+                    />
                     <span className="font-medium break-words min-w-0">
                       {c.candidateName}
                     </span>
@@ -292,7 +296,7 @@ const CouncilPartyRow: FC<{ party: LocalCouncilParty }> = ({ party }) => {
                 key={c.listPos}
                 className="flex items-center gap-2 py-1 text-sm"
               >
-                <MpAvatar name={c.name} showPartyRing={false} />
+                <MpAvatar name={c.name} mpId={c.mpId} showPartyRing={false} />
                 <span className="font-medium">{c.name}</span>
                 <span className="text-xs text-muted-foreground tabular-nums">
                   · {formatThousands(c.prefVotes)} пр.
@@ -378,6 +382,7 @@ const KmetstvaSection: FC<{ kmetstva: LocalKmetstvoResult[] }> = ({
                     <div className="flex items-start gap-2 min-w-0">
                       <MpAvatar
                         name={r.winner.candidateName}
+                        mpId={r.winner.mpId}
                         showPartyRing={false}
                       />
                       <span className="break-words min-w-0">
@@ -455,6 +460,7 @@ const DistrictsSection: FC<{
                       <div className="flex items-start gap-2 min-w-0">
                         <MpAvatar
                           name={winner.candidateName}
+                          mpId={winner.mpId}
                           showPartyRing={false}
                         />
                         <span className="break-words min-w-0">
@@ -542,7 +548,11 @@ const ChmiHistorySection: FC<{ events: ChmiHistoryEvent[] }> = ({ events }) => {
                       </div>
                     ) : null}
                     <div className="flex items-center gap-2">
-                      <MpAvatar name={e.candidateName} showPartyRing={false} />
+                      <MpAvatar
+                        name={e.candidateName}
+                        mpId={e.mpId}
+                        showPartyRing={false}
+                      />
                       <span className="font-medium">{e.candidateName}</span>
                     </div>
                   </td>

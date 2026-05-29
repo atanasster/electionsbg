@@ -64,12 +64,28 @@ When parliament.bg's `coll-list-ns/bg` starts returning a NEW current NS (e.g. 5
 
 4. **Spot-check the preview** at `/?elections=<latest>` (e.g. `2026_04_19`) — the Top Candidates strip should show photos, and clicking a top candidate should show the MP profile header card with the new NS in the "Terms" line.
 
-5. **Commit**:
+5. **Re-decorate local-election bundles** (so any newly-seated MPs whose
+   `photoUrl` just appeared in the index also show their portrait on the
+   local-election mayor / council rows they ran on):
    ```bash
-   git add public/parliament/
+   npx tsx scripts/parsers_local/decorate_local_mp_links.ts
+   ```
+   This walks every `data/<cycle>/municipalities/<obshtinaCode>.json`
+   shard for all 9 local-election cycles, re-matching candidate names
+   against the refreshed parliament index. ~10 s, idempotent. Skip only
+   when this run added zero new MPs (`--refresh-current` on an already-up-
+   to-date NS) and you're certain no `photoUrl` changed. When in doubt,
+   re-run — it's a no-op when nothing changed and prevents stale `mpId`
+   stamps after parliament.bg renumbers an MP.
+
+6. **Commit**:
+   ```bash
+   git add public/parliament/ data/
    git commit -m "Update parliament data for 52nd NS"
    ```
-   The diff will mostly be in `index.json` plus 240-ish profile files (the sitting MPs' updated `oldnsList`).
+   The diff will mostly be in `index.json` plus 240-ish profile files (the
+   sitting MPs' updated `oldnsList`), and the `mpId` stamps the decorator
+   wrote across local-election bundles.
 
 ## Data-integrity contract
 

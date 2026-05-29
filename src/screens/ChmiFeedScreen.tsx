@@ -179,7 +179,11 @@ export const ChmiFeedScreen: FC = () => {
                   </td>
                   <td className="py-2 px-3">
                     <div className="flex items-center gap-2">
-                      <MpAvatar name={e.candidateName} showPartyRing={false} />
+                      <MpAvatar
+                        name={e.candidateName}
+                        mpId={e.mpId}
+                        showPartyRing={false}
+                      />
                       <span>{e.candidateName}</span>
                     </div>
                   </td>

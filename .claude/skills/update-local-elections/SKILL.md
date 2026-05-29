@@ -151,7 +151,31 @@ For mi2023 expect roughly:
 
 Visual check: `npm run dev` → visit `/settlement/BLG03` → the new "Местни избори · 29.10.2023" tile should show Илко Стоянов Стоянов as elected mayor with R2 result.
 
-## Step 5 — Stamp the ingest marker
+## Step 5 — Post-ingest decorators
+
+After the parser writes (or rewrites) the per-município bundles, run the two
+decorators that enrich the candidate rows. Both walk every
+`data/<cycle>/municipalities/*.json` shard, so they cost ~10 s combined and
+are idempotent — re-running them when nothing has changed is a no-op.
+
+```bash
+# Refresh kметство → EKATTE lookup the My-Area village-mayor tile reads.
+npx tsx scripts/parsers_local/backfill_kmetstvo_ekatte.ts
+
+# Stamp mpId on every mayor / councillor / kmetstvo / район candidate whose
+# normalised name matches an MP in data/parliament/index.json. Drives the
+# parliament.bg photo reuse in `MpAvatar`. Re-run automatically whenever
+# either local-election bundles OR parliament index changes — see
+# parliament-scrape SKILL.md for the inverse trigger.
+npx tsx scripts/parsers_local/decorate_local_mp_links.ts
+```
+
+The decorator's summary line reports `N/M candidate rows stamped (X%)`
+per cycle. National baseline is ~11% — most village councillors never sat
+in parliament. A sudden drop usually means the parliament index lost its
+`normalizedName` field; rerun `parliament-scrape` first.
+
+## Step 6 — Stamp the ingest marker
 
 `ingestCycles` writes `state/ingest/cik_local.json` automatically on success. If you ran the parser-only path (`--local --local-date …` rather than `--local-ingest …`), you can stamp manually:
 

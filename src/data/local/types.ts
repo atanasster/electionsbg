@@ -17,6 +17,10 @@ export type LocalMayorResult = {
   votes: number;
   pctOfValid: number;
   isElected: boolean;
+  // Stamped post-ingest by scripts/parsers_local/decorate_local_mp_links.ts
+  // when this candidate also served as an MP. Consumed by `MpAvatar` to
+  // reuse the parliament.bg portrait.
+  mpId?: number;
 };
 
 export type LocalCouncilCandidate = {
@@ -25,6 +29,7 @@ export type LocalCouncilCandidate = {
   prefVotes: number;
   prefPct: number;
   isElected: boolean;
+  mpId?: number;
 };
 
 export type LocalCouncilParty = {

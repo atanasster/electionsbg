@@ -43,6 +43,9 @@ export type ChmiHistoryEvent = {
   round: 1 | 2;
   pctOfValid: number;
   votes: number;
+  /** Carried over from the per-município bundle when the winner also served
+   * as an MP — drives `MpAvatar` photo reuse in the chmi feed. */
+  mpId?: number;
 };
 
 export type ChmiHistory = {
@@ -117,6 +120,7 @@ export const buildChmiHistory = (opts: {
           round: m.round,
           pctOfValid: m.pctOfValid,
           votes: m.votes,
+          mpId: m.mpId,
         });
       }
       for (const k of b.kmetstva) {
@@ -133,6 +137,7 @@ export const buildChmiHistory = (opts: {
           round: elected.round,
           pctOfValid: elected.pctOfValid,
           votes: elected.votes,
+          mpId: elected.mpId,
         });
       }
       // SOF.districts[] duplicates the per-район shards created by the
@@ -154,6 +159,7 @@ export const buildChmiHistory = (opts: {
             round: elected.round,
             pctOfValid: elected.pctOfValid,
             votes: elected.votes,
+            mpId: elected.mpId,
           });
         }
       }
