@@ -696,7 +696,7 @@ export const CabinetStrip: FC<{
                   : undefined
               }
               className={cn(
-                "h-full flex items-center justify-center text-[10px] font-medium overflow-hidden border-r border-background/40 last:border-r-0",
+                "h-full min-w-0 flex items-center justify-center text-[10px] font-medium overflow-hidden border-r border-background/40 last:border-r-0",
                 selectable
                   ? "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/60"
                   : "cursor-help",
