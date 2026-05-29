@@ -123,7 +123,56 @@
       "format": "pdf-text",
       "tallyStrategy": "none-published",
       "perCouncillor": false
+    },
+    "GAB05": {
+      "name": "Община Габрово",
+      "tier": "A",
+      "indexUrl": "https://gabrovo.bg/files/OBS/zasedania/protokol/",
+      "indexNote": "Staged 2026-05-29 (parser pending). Apache /files/OBS/zasedania/protokol/{YYYY}/ directory returns 403 (no listing). Sample protokol confirmed at /files/OBS/zasedania/protokol/2025/Protokol-zasedanie-No8-2025.06.12.pdf — TEXT-LAYER PDF, no OCR needed. Per-councillor block uses uppercase tabular layout: 'NN  <Three-part name>  ЗА|ПРОТИВ|ВЪЗДЪРЖАЛИ СЕ|отсъства' (note the explicit отсъства/absent column, novel vs other parsers). Aggregate tally form: 'За – 29, против – 0, въздържали се – 0' (matches SUMMARY_RE_LABEL_FIRST). РЕШЕНИЕ № N markers anchor decisions. Discovery strategy when wiring: brute-force the URL pattern by walking session numbers 1..N for each known year, OR drive through a Google site: search for 'Protokol-zasedanie' on gabrovo.bg.",
+      "fetch": "static",
+      "format": "pdf-text",
+      "tallyStrategy": "label-first",
+      "samplePdf": "https://gabrovo.bg/files/OBS/zasedania/protokol/2025/Protokol-zasedanie-No8-2025.06.12.pdf",
+      "sampleConfirmedTally": "За – 29, против – 0, въздържали се – 0",
+      "perCouncillor": true,
+      "phase1Defer": true,
+      "deferReason": "Parser pending — protokol URL pattern is fixed and per-councillor data IS present, but the index page that would enumerate sessions returns 403 (Apache directory listing blocked). Wiring requires either a discovered listing endpoint or a brute-force walk over session numbers per year."
     }
   },
-  "phase3OcrCandidates": []
+  "phase3OcrCandidates": [],
+  "discoverySweep2026_05_29": {
+    "note": "Triage of the next 24 unscraped municipalities by population. Tiers A/B/C/D match the README scheme. Use this as the working list when picking the next parser to wire.",
+    "tierA": [
+      {"obshtina": "GAB05", "name": "Габрово", "url": "https://gabrovo.bg/files/OBS/zasedania/protokol/{YYYY}/Protokol-zasedanie-No{N}-{DD.MM.YYYY}.pdf", "confirmed": "born-digital text-layer PDF with per-councillor block (1..N name vote columns including отсъства), aggregate tally 'За – N, против – M, въздържали се – K'"}
+    ],
+    "tierB_unverified": [
+      {"obshtina": "SHU30", "name": "Шумен", "url": "https://obs.shumen.bg/bg/zasedaniya-na-obshtinski-savet-mandat-2023-2027/"},
+      {"obshtina": "HKV34", "name": "Хасково", "url": "https://www.haskovo.bg/bg/resheniya/"},
+      {"obshtina": "PER32", "name": "Перник", "url": "https://www.obs-pernik.bg/category/архив/решения/"},
+      {"obshtina": "SZR12", "name": "Казанлък", "url": "https://obs.kazanlak.bg/cat-3.html"},
+      {"obshtina": "MON29", "name": "Монтана", "url": "https://www.montana.bg/общински-съвет/заседания"},
+      {"obshtina": "TGV35", "name": "Търговище", "url": "https://targovishte.bg/wps/portal/municipality-targovishte/municipal-council/protocols-and-decisions/"},
+      {"obshtina": "VTR06", "name": "Горна Оряховица", "url": "https://savet.gornaoryahovitsa.bg/"},
+      {"obshtina": "LOV18", "name": "Ловеч", "url": "https://os.lovech.bg/bg/resheniya/"},
+      {"obshtina": "VID09", "name": "Видин", "url": "https://vidin.bg/wps/portal/vidin-municipality/obshtinski-savet/os-protocols-solutions"},
+      {"obshtina": "SML31", "name": "Смолян", "url": "https://www.smolyan.bg/bg/menu/sl/10"},
+      {"obshtina": "HKV09", "name": "Димитровград", "url": "https://www.dimitrovgrad.bg/bg/obshtinski-savet/"}
+    ],
+    "tierC_prepisOnly": [
+      {"obshtina": "PAZ19", "name": "Пазарджик", "url": "https://obspazardzhik.com/"},
+      {"obshtina": "PDV01", "name": "Асеновград", "url": "https://www.asenovgrad.bg/bg/resheniya/"},
+      {"obshtina": "RAZ26", "name": "Разград", "url": "https://razgrad.bg/"},
+      {"obshtina": "SLS31", "name": "Силистра", "url": "https://silistra.government.bg/"},
+      {"obshtina": "KNL48", "name": "Дупница", "url": "https://www.dupnitsa.bg/section-88-content.html"},
+      {"obshtina": "JAM26", "name": "Ямбол", "url": "https://yambol.bg/obshtinski-savet"}
+    ],
+    "tierD_noPublicSite": [
+      "KNL29 (Кюстендил)",
+      "KRZ16 (Кърджали)",
+      "VRC10 (Враца — old.vratza.bg appears inactive)",
+      "BLG33 (Петрич)",
+      "BLG40 (Сандански)",
+      "DOB15 (Добрич-селска — punycode-only domain, no recent content)"
+    ]
+  }
 }
