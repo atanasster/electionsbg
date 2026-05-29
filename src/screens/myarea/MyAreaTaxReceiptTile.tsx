@@ -560,9 +560,13 @@ export const MyAreaTaxReceiptTile: FC<{
           <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-muted-foreground">
             <HardHat className="size-3.5" aria-hidden />
             <span>
-              {t("my_area_tax_receipt_capital_programs_heading", {
-                year: capitalPrograms.fiscalYear,
-              })}
+              {capitalPrograms.scope === "rayon"
+                ? t("my_area_tax_receipt_capital_programs_heading_rayon", {
+                    year: capitalPrograms.fiscalYear,
+                  })
+                : t("my_area_tax_receipt_capital_programs_heading", {
+                    year: capitalPrograms.fiscalYear,
+                  })}
             </span>
           </div>
           {capitalPrograms.topProjects.map((p, i) => (

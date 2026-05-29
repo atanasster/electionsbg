@@ -5,6 +5,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import { rayonFromObshtina } from "./sofiaRayons";
 import type {
   BudgetIndex,
   BudgetDocumentsFile,
@@ -780,6 +781,13 @@ export type CapitalProgramTileSlim = {
   fiscalYear: number;
   grandTotalEur: number;
   topProjects: CapitalProgramTopProject[];
+  /** "rayon" when the projects are filtered to a Sofia район (we found
+   *  enough tagged projects to fill the top-N); "city" when we're
+   *  showing the município-wide list. */
+  scope: "rayon" | "city";
+  /** When scope is "rayon", the район code we filtered by (e.g.
+   *  "SREDETS"). Null otherwise. */
+  rayonCode: string | null;
 };
 
 type CapitalProgramRawTile = {
@@ -789,6 +797,20 @@ type CapitalProgramRawTile = {
     id?: number | string;
     name?: string;
     total?: { amountEur?: number };
+    rayons?: string[];
+  }>;
+  // Sofia tile only: per-район rollup with the район's own topProjects
+  // list. tile.json's top-level `projects[]` carries only the city-wide
+  // top ~30 — too few to give most районs three rows. byRayon[].topProjects
+  // is pre-computed against the full project set.
+  byRayon?: Array<{
+    code: string;
+    projectCount: number;
+    topProjects?: Array<{
+      id?: number | string;
+      name?: string;
+      total?: { amountEur?: number };
+    }>;
   }>;
 };
 
@@ -797,12 +819,20 @@ export const useCapitalProgramsTopProjects = (
   topN = 3,
 ) => {
   const slug = capitalProgramSlugForObshtina(obshtina);
+  // For Sofia районs (S2xxx) we try to filter the city-wide capital
+  // programme to projects tagged with this район — more personally
+  // relevant than the city-wide top-3. The Sofia tile schema records
+  // each project's rayons[] (capital_programs/sofia.ts emits these from
+  // the район text in the project name + a curated mapping). If the
+  // район has fewer than topN tagged projects we fall back to city-wide.
+  const rayonCode = obshtina ? rayonFromObshtina(obshtina) : null;
   return useQuery({
     queryKey: [
       "budget",
       "capital_programs",
       "top_projects",
       slug,
+      rayonCode,
       topN,
     ] as const,
     queryFn: async (): Promise<CapitalProgramTileSlim | null> => {
@@ -814,19 +844,48 @@ export const useCapitalProgramsTopProjects = (
       // fetchJson returns null on 404. Guard against that so a stale
       // CAPITAL_PROGRAMS_LATEST entry doesn't surface as an exception.
       if (!file) return null;
-      const topProjects = (file.projects ?? [])
-        .filter((p) => (p.total?.amountEur ?? 0) > 0 && !!p.name)
+
+      const cityProjects = (file.projects ?? []).filter(
+        (p) => (p.total?.amountEur ?? 0) > 0 && !!p.name,
+      );
+      const cityTop = [...cityProjects]
         .sort((a, b) => (b.total?.amountEur ?? 0) - (a.total?.amountEur ?? 0))
-        .slice(0, topN)
-        .map((p) => ({
-          id: p.id,
-          name: p.name!,
-          totalEur: p.total?.amountEur ?? 0,
-        }));
+        .slice(0, topN);
+
+      // Sofia район path — use the pre-computed byRayon[].topProjects
+      // for the user's район (it ranks against the full project set,
+      // whereas tile.json's top-level `projects[]` is only the city-wide
+      // top ~30, which leaves most районs with 0-1 hits even when they
+      // have a dozen projects). Fall back to city-wide if the район
+      // isn't in byRayon or has < topN projects.
+      let scope: "rayon" | "city" = "city";
+      let topProjects: Array<{
+        id?: number | string;
+        name?: string;
+        total?: { amountEur?: number };
+      }> = cityTop;
+      if (rayonCode && slug === "sofia") {
+        const rayonEntry = file.byRayon?.find((r) => r.code === rayonCode);
+        const rayonTop = (rayonEntry?.topProjects ?? [])
+          .filter((p) => (p.total?.amountEur ?? 0) > 0 && !!p.name)
+          .slice(0, topN);
+        if (rayonTop.length >= topN) {
+          scope = "rayon";
+          topProjects = rayonTop;
+        }
+      }
+
+      const mapped = topProjects.map((p) => ({
+        id: p.id,
+        name: p.name!,
+        totalEur: p.total?.amountEur ?? 0,
+      }));
       return {
         fiscalYear: file.fiscalYear,
         grandTotalEur: file.recapitulation?.total?.amountEur ?? 0,
-        topProjects,
+        topProjects: mapped,
+        scope,
+        rayonCode: scope === "rayon" ? rayonCode : null,
       };
     },
     enabled: !!slug,
