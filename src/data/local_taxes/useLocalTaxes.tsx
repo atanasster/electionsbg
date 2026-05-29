@@ -42,6 +42,15 @@ export type NaredbaBlock = {
   };
   touristTax?: { value: number; unit: string };
   dogTax?: { value: number; unit: string };
+  // Single property-tax rate set per município (applies to both
+  // individuals and legal entities under ЗМДТ Чл. 22; 0.1-4.5‰ band).
+  // Surfaced only when the município's TAX naredba is reachable; absent
+  // until then. See scripts/local_taxes/types.ts for the full rationale.
+  propertyTaxIndividuals?: {
+    rate: number;
+    year: number;
+    note?: string;
+  };
 };
 
 export type ScoreEntry = {

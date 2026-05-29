@@ -111,6 +111,29 @@ export const extractTboPromilRate = (text: string): number | null => {
   return null;
 };
 
+// Property tax on residential real estate — lives in the TAX naredba
+// (Наредба за определяне размера на местните данъци, typically Чл. 5-15
+// depending on the município). The anchoring is tight on purpose: we
+// require "данък върху недвижими имоти" *before* the rate AND "данъчна
+// оценка" *after* it (within 80 chars). Without the post-anchor the
+// regex matches almost any rate-shaped number in the document.
+const PROPERTY_TAX_INDIVIDUALS_RX =
+  /данък(?:а|ът)?\s+върху\s+недвижими(?:те)?\s+имот(?:и|ите)[^.]{0,300}?(\d+(?:[.,]\d+)?)\s*(?:на\s+хиляда|‰|промил(?:а|и)?)[^.]{0,120}?данъчн(?:а|ата)\s+оценк/i;
+
+/** Lift the property-tax rate for individuals (in ‰ of данъчна оценка)
+ *  from a TAX naredba's text. Returns `null` if the document doesn't
+ *  carry the rate inline. Sanity bounds: 0.05-5‰ — the legal range is
+ *  0.1-4.5‰ per Чл. 22 ЗМДТ; a small margin catches edge phrasings. */
+export const extractPropertyTaxIndividualsRate = (
+  text: string,
+): number | null => {
+  const m = text.match(PROPERTY_TAX_INDIVIDUALS_RX);
+  if (!m) return null;
+  const v = Number(m[1].replace(",", "."));
+  if (!Number.isFinite(v) || v < 0.05 || v > 5) return null;
+  return v;
+};
+
 const TOURIST_TAX_RX =
   /туристическ(?:и|и я|ия)\s+данък[^]{0,400}?(\d+(?:[.,]\d+)?)\s*(?:лв|лева|BGN)\s*(?:за\s+(?:нощувк|реализирана\s+нощувка))/i;
 
@@ -171,6 +194,8 @@ export const buildNaredbaBlock = (
       tboResidentialZone?: string;
       touristTax?: { value: number; unit: string };
       dogTax?: { value: number; unit: string };
+      propertyTaxIndividualsRate?: number;
+      propertyTaxIndividualsNote?: string;
     };
   },
 ): NaredbaBlock => {
@@ -203,6 +228,20 @@ export const buildNaredbaBlock = (
   block.dogTax = overrides.dogTax ?? extractDogTax(text) ?? undefined;
   if (!block.touristTax) delete block.touristTax;
   if (!block.dogTax) delete block.dogTax;
+  // Property tax on individuals — auto-detect from this document or use
+  // the parser's override. Parsers that combine FEES + TAX naredbi pass
+  // the TAX-naredba text in here so the auto-detect finds the Чл. 15
+  // rate clause.
+  const ptiRate =
+    overrides.propertyTaxIndividualsRate ??
+    extractPropertyTaxIndividualsRate(text) ??
+    null;
+  if (ptiRate != null) {
+    block.propertyTaxIndividuals = { rate: ptiRate, year: meta.year };
+    if (overrides.propertyTaxIndividualsNote) {
+      block.propertyTaxIndividuals.note = overrides.propertyTaxIndividualsNote;
+    }
+  }
   return block;
 };
 

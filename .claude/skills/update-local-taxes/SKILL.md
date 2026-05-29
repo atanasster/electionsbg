@@ -1,6 +1,6 @@
 ---
 name: update-local-taxes
-description: Refresh the per-município local-tax rates (data/local_taxes/index.json) — five ИПИ indicators across all 265 общини (property tax on legal entities, property-transfer tax, vehicle tax 74-110 kW, retail patent tax ≤100 m², taxi patent tax) plus optional per-município naredba blocks (residential ТБО + basis flag, tourist tax, dog tax) for the oblast capitals. Use when the daily watch report flags `ipi_local_taxes` or `municipal_naredba` as changed, when the user asks to refresh local taxes / местни данъци / municipal-tax rates, after a new fiscal year of naredbi (typically December-January), or after a fresh git clone if data/local_taxes/index.json is missing or has an empty `scoresByObshtina`.
+description: Refresh the per-município local-tax rates (data/local_taxes/index.json) — five ИПИ indicators across all 265 общини (property tax on legal entities, property-transfer tax, vehicle tax 74-110 kW, retail patent tax ≤100 m², taxi patent tax) plus optional per-município naredba blocks (residential ТБО + basis flag, property tax for individuals where the TAX naredba is reachable, tourist tax, dog tax) for the oblast capitals. Use when the daily watch report flags `ipi_local_taxes` or `municipal_naredba` as changed, when the user asks to refresh local taxes / местни данъци / municipal-tax rates, after a new fiscal year of naredbi (typically December-January), or after a fresh git clone if data/local_taxes/index.json is missing or has an empty `scoresByObshtina`.
 allowed-tools:
   - Read
   - Bash
@@ -18,7 +18,7 @@ The file has two tiers that merge into one structure:
 | Tier | Source | Coverage | Cadence | Cost |
 |---|---|---|---|---|
 | **A — ИПИ aggregator** | [265obshtini.bg](https://www.265obshtini.bg/) | All 265 общини × 5 tax indicators | Annual (Q3 publication) | Fully automated |
-| **B — Per-município naredba** | each município's *Наредба за определяне размера на местните данъци* | Currently 27 oblast capitals × 3 resident-side taxes (ТБО, tourist, dog) + ТБО basis flag | Annual (Dec→Jan adoption) | Per-município parser; OCR fallback via Gemini Vision |
+| **B — Per-município naredba** | each município's FEES + TAX naredbi | Currently 4 wired (SOF00, VAR06, BGS04, PDV22): ТБО basis flag (4/4) · property tax for individuals (1/4 — Sofia) · tourist / dog tax (Sofia only). Other oblast capitals land as parsers are added. | Annual (Dec→Jan adoption) | Per-município parser; OCR fallback via Gemini Vision |
 
 Tier B fills in the resident-side taxes ИПИ doesn't cover — most importantly the residential garbage-fee basis (промил / users / area / volume), which is the comparability metadata that lets the tile honestly show ТБО across municipalities.
 

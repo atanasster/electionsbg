@@ -1,30 +1,39 @@
-// Plovdiv (Община Пловдив) naredba parser — DEFERRED.
+// Plovdiv (Община Пловдив) naredba parser.
 //
-// Plovdiv publishes the FEES naredba behind an Angular SPA at
-// plovdiv.obshtini.bg/doc/388893 (same platform as Sofia — Cloudflare-
-// fronted backend requires a session login to release the PDF) and
-// references it on plovdiv.bg/obs/действащи-актове/... but the canonical
-// document page returns 403 to non-browser User-Agents. None of the
-// candidate URLs surface a direct PDF download.
+// Plovdiv publishes its naredbi on the obshtini.bg Angular SPA platform:
+//   - FEES naredba (НОАМТЦУ): plovdiv.obshtini.bg/doc/388893 — carries
+//     ТБО (Раздел I) + service-fees tariff.
+//   - TAX naredba (НОРМД): doc ID not yet identified; until we wire that,
+//     property-tax / tourist-tax / dog-tax stay absent for Plovdiv.
 //
-// This parser is wired to demonstrate the catalog seat but throws a
-// "deferred" error so the dispatcher records the skip cleanly in the
-// per-município watermark. Replace once we add a Playwright bridge for
-// the obshtini.bg platform (would unblock Pl, Sofia TAX naredba, ~150
-// other small municípios that use the same platform).
+// Both naredbi are reachable directly via the web-api.apis.bg JSON-API
+// bridge (lib/fetch_obshtini_bg.ts) — no Playwright session required.
+// Previous parser revision was deferred on the assumption that a session
+// login was required; turns out the JSON API responds to plain GET.
 
+import { fetchObshtiniBgDocText } from "../lib/fetch_obshtini_bg";
+import { buildNaredbaBlock } from "../lib/extract_naredba";
 import type { NaredbaParser } from "../types";
+
+const FEES_NAREDBA_DOC_ID = 388893;
+const FEES_NAREDBA_URL = `https://plovdiv.obshtini.bg/doc/${FEES_NAREDBA_DOC_ID}`;
 
 export const pdvParser: NaredbaParser = {
   obshtina: "PDV22",
-  label:
-    "Община Пловдив — Наредба за местните такси (deferred — obshtini.bg SPA)",
-  url: "https://plovdiv.obshtini.bg/doc/388893",
+  label: "Община Пловдив — Наредба за местните такси (НОАМТЦУ)",
+  url: FEES_NAREDBA_URL,
   documentType: "fees",
 
   async parse() {
-    throw new Error(
-      "PDV22 parser deferred — plovdiv.obshtini.bg is an Angular SPA that requires a session login to release the PDF; needs a Playwright bridge",
+    const { text, hash } = await fetchObshtiniBgDocText(
+      "plovdiv",
+      FEES_NAREDBA_DOC_ID,
+      "pdv_fees",
     );
+    const block = buildNaredbaBlock(text, {
+      year: 2025,
+      url: FEES_NAREDBA_URL,
+    });
+    return { obshtina: this.obshtina, block, sourceHash: hash };
   },
 };
