@@ -99,10 +99,20 @@ const main = async () => {
           2,
         ) + "\n",
       );
+      // Surface partial-side state when a multi-source parser reports
+      // one side failed (e.g. Sofia FEES fetched but TAX naredba was
+      // unreachable). The block still ships with whatever was parsed.
+      const sidesNote = result.sides
+        ? ` · sides=${Object.entries(result.sides)
+            .map(([k, v]) => `${k}:${v}`)
+            .join(",")}`
+        : "";
+      const partial =
+        result.sides && Object.values(result.sides).some((s) => s === "failed");
       process.stdout.write(
-        ` ok · basis=${result.block.tboResidential?.basis ?? "?"} · rate=${
-          result.block.tboResidential?.rate ?? "?"
-        }\n`,
+        ` ${partial ? "ok (partial)" : "ok"} · basis=${
+          result.block.tboResidential?.basis ?? "?"
+        } · rate=${result.block.tboResidential?.rate ?? "?"}${sidesNote}\n`,
       );
       ok++;
       void force; // currently force-flag only matters at the fetch layer

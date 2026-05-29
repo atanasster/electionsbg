@@ -38,12 +38,25 @@ export type NaredbaParserResult = {
   obshtina: string;
   block: NaredbaBlock;
   sourceHash: string; // SHA-256 of the source bytes — feeds the watch fingerprint
+  // Per-side status for multi-source parsers (e.g. Sofia fetches a FEES
+  // PDF + a TAX naredba). Lets the dispatcher surface partial success so
+  // operators can see when one side fetched and the other didn't.
+  // `null` for single-source parsers.
+  sides?: Record<string, "ok" | "failed"> | null;
 };
 
 export type NaredbaParser = {
   obshtina: string;
   label: string;
   url: string;
+  /** Additional source URLs the parser also fetches at parse time.
+   *  Surfaced so the watcher can fingerprint every upstream document,
+   *  not just `url`. Sofia, for example, draws ТБО from the FEES PDF
+   *  (`url`) and property/tourist/dog tax from the TAX naredba
+   *  (`secondaryUrls`) — without listing the TAX URL here, a mid-year
+   *  TAX revision wouldn't flip the watcher until the FEES naredba
+   *  also changed. */
+  secondaryUrls?: string[];
   /** Document type the URL points at — drives which extractors run.
    *  "fees" → carries ТБО only; "tax" → carries tourist + dog; "both"
    *  → a single document covering everything (uncommon). */

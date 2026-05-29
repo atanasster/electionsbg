@@ -16,12 +16,10 @@
 //   - TAX → property tax on individuals (rate from Чл. 15), tourist tax,
 //     dog tax.
 //
-// Watch fingerprint: the municipal_naredba source HEAD-probes only the
-// FEES URL (parser.url field). The TAX naredba is fetched at parse time
-// and changes won't trigger a re-ingest until the FEES URL also flips.
-// In practice Sofia revises both naredbi together at end-of-year, so
-// the FEES fingerprint catches the common case. Force a re-parse with
-// `--force SOF00` if only the TAX naredba changed mid-year.
+// Watch fingerprint: the municipal_naredba source HEAD-probes the FEES
+// URL (parser.url) and the TAX naredba (parser.secondaryUrls), so a
+// change to either flips the watcher. In practice Sofia revises both
+// naredbi together at end-of-year. Force a re-parse with `--force SOF00`.
 
 import { createHash } from "node:crypto";
 import { fetchNaredbaPdf } from "../lib/fetch_pdf";
@@ -37,6 +35,7 @@ import type { NaredbaParser } from "../types";
 const FEES_NAREDBA_URL =
   "https://iisda.government.bg/adm_services/service_regulatory_file/24499_137312";
 const TAX_NAREDBA_DOC_ID = 385434;
+const TAX_NAREDBA_URL = `https://sofia.obshtini.bg/doc/${TAX_NAREDBA_DOC_ID}`;
 
 const NAREDBA_YEAR = 2026;
 
@@ -44,39 +43,82 @@ export const sofParser: NaredbaParser = {
   obshtina: "SOF00",
   label: "Столична община — Наредби за местните данъци и такси",
   url: FEES_NAREDBA_URL,
+  secondaryUrls: [TAX_NAREDBA_URL],
   documentType: "both",
 
   async parse() {
-    const fees = await fetchNaredbaPdf(FEES_NAREDBA_URL, "sof_fees");
-    const tax = await fetchObshtiniBgDocText(
-      "sofia",
-      TAX_NAREDBA_DOC_ID,
-      "sof_tax",
-    );
-
-    const block = buildNaredbaBlock(fees.text, {
-      year: NAREDBA_YEAR,
-      url: FEES_NAREDBA_URL,
-    });
-
-    // Patch from the TAX naredba (separate document). buildNaredbaBlock
-    // was called with FEES text, which doesn't carry property tax,
-    // tourist tax, or dog tax — those live in the TAX naredba only.
-    const ptiRate = extractPropertyTaxIndividualsRate(tax.text);
-    if (ptiRate != null) {
-      block.propertyTaxIndividuals = { rate: ptiRate, year: NAREDBA_YEAR };
+    // Fetch each side independently. iisda.government.bg has gone down
+    // before; web-api.apis.bg less so but still external. If one side
+    // fails we ship a partial block from the other rather than yielding
+    // nothing for SOF00.
+    let fees: Awaited<ReturnType<typeof fetchNaredbaPdf>> | null = null;
+    let feesErr: Error | null = null;
+    try {
+      fees = await fetchNaredbaPdf(FEES_NAREDBA_URL, "sof_fees");
+    } catch (e) {
+      feesErr = e instanceof Error ? e : new Error(String(e));
+      console.warn(`[SOF00] FEES naredba fetch failed: ${feesErr.message}`);
     }
-    const tt = extractTouristTax(tax.text);
-    if (tt) block.touristTax = tt;
-    const dt = extractDogTax(tax.text);
-    if (dt) block.dogTax = dt;
 
-    // Combined sourceHash so re-running with --force after EITHER naredba
-    // upstream-changes produces a fresh watermark.
+    let tax: Awaited<ReturnType<typeof fetchObshtiniBgDocText>> | null = null;
+    let taxErr: Error | null = null;
+    try {
+      tax = await fetchObshtiniBgDocText(
+        "sofia",
+        TAX_NAREDBA_DOC_ID,
+        "sof_tax",
+      );
+    } catch (e) {
+      taxErr = e instanceof Error ? e : new Error(String(e));
+      console.warn(`[SOF00] TAX naredba fetch failed: ${taxErr.message}`);
+    }
+
+    if (!fees && !tax) {
+      throw new Error(
+        `both sides failed — FEES: ${feesErr?.message ?? "?"} · TAX: ${taxErr?.message ?? "?"}`,
+      );
+    }
+
+    // FEES carries the ТБО basis + note; without it the block has no
+    // tboResidential. Skip buildNaredbaBlock entirely when FEES is gone
+    // — it would only set tboResidential from FEES text anyway.
+    const block = fees
+      ? buildNaredbaBlock(fees.text, {
+          year: NAREDBA_YEAR,
+          url: FEES_NAREDBA_URL,
+        })
+      : { year: NAREDBA_YEAR, url: FEES_NAREDBA_URL };
+
+    // Patch from the TAX naredba (separate document). Property tax,
+    // tourist tax, and dog tax live only in the TAX naredba.
+    if (tax) {
+      const ptiRate = extractPropertyTaxIndividualsRate(tax.text);
+      if (ptiRate != null) {
+        block.propertyTaxIndividuals = { rate: ptiRate, year: NAREDBA_YEAR };
+      }
+      const tt = extractTouristTax(tax.text);
+      if (tt) block.touristTax = tt;
+      const dt = extractDogTax(tax.text);
+      if (dt) block.dogTax = dt;
+    }
+
+    // Combine sourceHash from only the sides that fetched, so the watch
+    // watermark still flips when the surviving side changes upstream.
+    const hashParts: string[] = [];
+    if (fees) hashParts.push(`fees=${fees.hash}`);
+    if (tax) hashParts.push(`tax=${tax.hash}`);
     const combinedHash = createHash("sha256")
-      .update(`${fees.hash}::${tax.hash}`)
+      .update(hashParts.join("::"))
       .digest("hex");
 
-    return { obshtina: this.obshtina, block, sourceHash: combinedHash };
+    return {
+      obshtina: this.obshtina,
+      block,
+      sourceHash: combinedHash,
+      sides: {
+        fees: fees ? "ok" : "failed",
+        tax: tax ? "ok" : "failed",
+      } as const,
+    };
   },
 };
