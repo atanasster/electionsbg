@@ -1,6 +1,13 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle, Building2, Coins, Gauge, Map } from "lucide-react";
+import {
+  AlertTriangle,
+  Building2,
+  Coins,
+  Gauge,
+  Landmark,
+  Map,
+} from "lucide-react";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useSettlementSummary } from "@/data/dashboard/useSettlementSummary";
@@ -56,10 +63,12 @@ import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
 import { DashboardSection } from "./DashboardSection";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
+import { LocalContextTile } from "./LocalContextTile";
 
 const SECTION_TOPICS: readonly DashboardSectionId[] = [
   "votes",
   "geography",
+  "local_government",
   "anomalies",
   "neighborhoods",
 ];
@@ -197,6 +206,24 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
             hideGrao={compact}
           />
         </DashboardSection>
+
+        {/* Local-government context — município mayor + (if this
+            settlement is a kmetstvo center) kmetstvo mayor. Compact
+            mode skips it because MyArea already surfaces the same
+            information via MyAreaGovernmentCard + MyAreaKmetstvoTile. */}
+        {compact ? null : (
+          <DashboardSection
+            id="local_government"
+            title={t("dashboard_section_local_government")}
+            icon={Landmark}
+          >
+            <LocalContextTile
+              obshtinaCode={obshtinaCode}
+              ekatte={ekatte}
+              settlementName={settlement?.name ?? findSettlement(ekatte)?.name}
+            />
+          </DashboardSection>
+        )}
 
         {/* Anomalies section (FlashMemory / Suspicious / Recount) is
             election forensics — power-user material that belongs on the

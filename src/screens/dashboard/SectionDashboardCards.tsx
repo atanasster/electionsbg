@@ -1,10 +1,11 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle, Gauge } from "lucide-react";
+import { AlertTriangle, Gauge, Landmark } from "lucide-react";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useSectionSummary } from "@/data/dashboard/useSectionSummary";
 import { useSectionsVotes } from "@/data/sections/useSectionsVotes";
 import { useSectionStats } from "@/data/sections/useSectionStats";
+import { LocalContextTile } from "./LocalContextTile";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
 import { PaperMachineCard } from "./cards/PaperMachineCard";
@@ -17,7 +18,11 @@ import { SectionRiskHistoryTile } from "./cards/SectionRiskHistoryTile";
 import { DashboardSection } from "./DashboardSection";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
 
-const SECTION_TOPICS: readonly DashboardSectionId[] = ["votes", "anomalies"];
+const SECTION_TOPICS: readonly DashboardSectionId[] = [
+  "votes",
+  "local_government",
+  "anomalies",
+];
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[140px]",
@@ -83,6 +88,18 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
         >
           <PartyResultsTile parties={data.parties} basePath={basePath} />
           <HistoricalTrendsTile stats={stats} />
+        </DashboardSection>
+
+        <DashboardSection
+          id="local_government"
+          title={t("dashboard_section_local_government")}
+          icon={Landmark}
+        >
+          <LocalContextTile
+            obshtinaCode={section?.obshtina}
+            ekatte={section?.ekatte}
+            settlementName={section?.settlement}
+          />
         </DashboardSection>
 
         <DashboardSection
