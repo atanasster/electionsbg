@@ -148,6 +148,18 @@
       "sampleConfirmedTally": "гласували  „за\" – 29 общински съветници; „против\" – 0; „въздържали се\" – 1 – общо 30 гласували",
       "perCouncillor": false
     },
+    "RAZ26": {
+      "name": "Община Разград",
+      "tier": "B",
+      "indexUrl": "https://www.razgrad.bg/protokoli-i-zapisi-na-zasedania-na-obsinski-s-vet",
+      "indexNote": "Wired 2026-05-29. Joomla session-list with ?start={N} pagination — current mandate (2023-2027) sessions at /protokoli-i-zapisi-na-zasedania-na-obsinski-s-vet/protokol-no{N}. Each session page links a single .docx at /images/OBS_doc/2023-2027/{YYYY}/OS-{DD-MM-YYYY}/Protokol_{N}/Protokol_{N}.docx (born-digital text). Tally vocabulary is the most heterogeneous in the fleet — five distinct chair-narrated forms (split-quote SHORTHAND, без-form, partial-form, label-second NEGATIVE, digit-first with -ма Bulgarian numeral suffix). Parser pre-processes all five into the canonical SHORTHAND  so the shared SUMMARY_RE_SHORTHAND matches. РЕШЕНИЕ markers in standard  form. Tally PRECEDES marker (chair narrates result first). NO per-councillor block — only chair-announced totals. Coverage tier B (decision metadata + tally + adopted/rejected, no perCouncillor), equivalent to HKV09 / HKV34 / DOB28 / SZR / RSE / Pleven.",
+      "fetch": "static",
+      "format": "docx",
+      "tallyStrategy": "shorthand-via-rewrite",
+      "samplePdf": "https://www.razgrad.bg/images/OBS_doc/2023-2027/2026/OS-22-05-2026/Protokol_34/Protokol_34.docx",
+      "sampleConfirmedTally": "гласували ,,ЗА\" – 5, ,,против\" и ,,въздържали се\" – няма.",
+      "perCouncillor": false
+    },
     "HKV34": {
       "name": "Община Хасково",
       "tier": "B",
@@ -189,28 +201,108 @@
   "discoverySweep2026_05_29": {
     "note": "Triage of the next 24 unscraped municipalities by population. Tiers A/B/C/D match the README scheme. Use this as the working list when picking the next parser to wire.",
     "tierA": [
-      {"obshtina": "GAB05", "name": "Габрово", "url": "https://gabrovo.bg/files/OBS/zasedania/protokol/{YYYY}/Protokol-zasedanie-No{N}-{DD.MM.YYYY}.pdf", "confirmed": "born-digital text-layer PDF with per-councillor block (1..N name vote columns including отсъства), aggregate tally 'За – N, против – M, въздържали се – K'"}
+      {
+        "obshtina": "GAB05",
+        "name": "Габрово",
+        "url": "https://gabrovo.bg/files/OBS/zasedania/protokol/{YYYY}/Protokol-zasedanie-No{N}-{DD.MM.YYYY}.pdf",
+        "confirmed": "born-digital text-layer PDF with per-councillor block (1..N name vote columns including отсъства), aggregate tally 'За – N, против – M, въздържали се – K'"
+      }
     ],
     "tierB_unverified": [
-      {"obshtina": "SHU30", "name": "Шумен", "url": "https://obs.shumen.bg/bg/zasedaniya-na-obshtinski-savet-mandat-2023-2027/", "probedNote": "Probed 2026-05-29: session pages link only покана/agenda PDFs at uploads/posts/{YYYY}/. The PDFs are PDFium-produced with malformed flate streams → pdftotext silently outputs 0 bytes. No протоколи or решения index found yet. Needs deeper probe."},
-      {"obshtina": "HKV34", "name": "Хасково", "url": "https://www.haskovo.bg/uploads/posts/{YYYY}/protokol-{N}.pdf", "probedNote": "Probed 2026-05-29: 89 protokol PDFs in Wayback CDX at haskovo.bg/uploads/posts/{YYYY}/protokol-{N}.pdf — clean URL pattern. Born-digital text-layer (~110 pages per session, full prose). Aggregate tallies via chair's announcements ('Т.ЗАХАРИЕВА: С 37 гласа „за“, без „против“ и „въздържали се“') in a NOVEL form not matched by any existing tally regex variant (needs SUMMARY_RE for 'С N гласа „за“[, без|, M „против“][, без|, K „въздържали се“]'). NO per-councillor block — the protokol records the chair's announcement, not the individual vote tablet readout. Wiring would add aggregate-only coverage (tier B equivalent to SZR/RSE/Pleven) — meaningful but doesn't unlock per-councillor signals."},
-      {"obshtina": "PER32", "name": "Перник", "url": "https://www.obs-pernik.bg/category/архив/решения/", "probedNote": "Probed 2026-05-29: WordPress category #7 has count=0 (empty). WP REST API confirms zero posts. The archive category exists but contains no published decisions — possibly migrated to a different category or unpublished for 2023-2027 mandate."},
-      {"obshtina": "SZR12", "name": "Казанлък", "url": "https://obs.kazanlak.bg/cat-3.html"},
-      {"obshtina": "MON29", "name": "Монтана", "url": "https://www.montana.bg/общински-съвет/заседания", "probedNote": "Probed 2026-05-29: 37 protokol PDFs in Wayback CDX but all are committee minutes (Protokol-komisia, Protokol1-DSP_2017 etc) under wp-content/uploads/{YYYY-MM}/ — not full council protokols. The older /docs/os/z/ directory (where full protokols once lived) returns 404 on the live site and Wayback has only 2 stub copies. Site migrated but legacy URLs lost."},
-      {"obshtina": "TGV35", "name": "Търговище", "url": "https://targovishte.bg/wps/portal/municipality-targovishte/municipal-council/protocols-and-decisions/"},
-      {"obshtina": "VTR06", "name": "Горна Оряховица", "url": "https://savet.gornaoryahovitsa.bg/", "probedNote": "Probed 2026-05-29: Joomla K2 site at savet.gornaoryahovitsa.bg with categories per session ('заседание-N-DD-MM-YYYY'). Sub-category 'дневен ред, протоколи и решения - заседание N' EXISTS but currently only links the agenda item (item/{id}-dneven-red-zasedanie-{N}). Protokols / decisions are NOT yet published — across 10 historical sessions (cat 103..125) each had at most 1 item, none were a protokol. Files are stored on a separate Nextcloud at cloud.gornaoryahovitsa.bg/index.php/s/<token> with /download endpoint. Effectively tier C/D until publishing policy changes."},
-      {"obshtina": "LOV18", "name": "Ловеч", "url": "https://os.lovech.bg/bg/resheniya/", "probedNote": "Probed 2026-05-29: site stale — latest decision is from 2019-09-26. Decisions are scanned PDFs (CCITT grayscale, would need OCR). Not viable until publication resumes."},
-      {"obshtina": "VID09", "name": "Видин", "url": "https://vidin.bg/wps/portal/vidin-municipality/obshtinski-savet/os-protocols-solutions", "probedNote": "Probed 2026-05-29: WPS portal JS-rendered, TSPD anti-bot guard returns only '<a href=\"/TSPD/?type=25\">' on direct curl. Would need Playwright."},
-      {"obshtina": "SML31", "name": "Смолян", "url": "https://www.smolyan.bg/bg/menu/sl/10"},
-      {"obshtina": "HKV09", "name": "Димитровград", "url": "https://www.dimitrovgrad.bg/bg/obshtinski-savet/"}
+      {
+        "obshtina": "SHU30",
+        "name": "Шумен",
+        "url": "https://obs.shumen.bg/bg/zasedaniya-na-obshtinski-savet-mandat-2023-2027/",
+        "probedNote": "Probed 2026-05-29: session pages link only покана/agenda PDFs at uploads/posts/{YYYY}/. The PDFs are PDFium-produced with malformed flate streams → pdftotext silently outputs 0 bytes. No протоколи or решения index found yet. Needs deeper probe."
+      },
+      {
+        "obshtina": "HKV34",
+        "name": "Хасково",
+        "url": "https://www.haskovo.bg/uploads/posts/{YYYY}/protokol-{N}.pdf",
+        "probedNote": "Probed 2026-05-29: 89 protokol PDFs in Wayback CDX at haskovo.bg/uploads/posts/{YYYY}/protokol-{N}.pdf — clean URL pattern. Born-digital text-layer (~110 pages per session, full prose). Aggregate tallies via chair's announcements ('Т.ЗАХАРИЕВА: С 37 гласа „за“, без „против“ и „въздържали се“') in a NOVEL form not matched by any existing tally regex variant (needs SUMMARY_RE for 'С N гласа „за“[, без|, M „против“][, без|, K „въздържали се“]'). NO per-councillor block — the protokol records the chair's announcement, not the individual vote tablet readout. Wiring would add aggregate-only coverage (tier B equivalent to SZR/RSE/Pleven) — meaningful but doesn't unlock per-councillor signals."
+      },
+      {
+        "obshtina": "PER32",
+        "name": "Перник",
+        "url": "https://www.obs-pernik.bg/category/архив/решения/",
+        "probedNote": "Probed 2026-05-29: WordPress category #7 has count=0 (empty). WP REST API confirms zero posts. The archive category exists but contains no published decisions — possibly migrated to a different category or unpublished for 2023-2027 mandate."
+      },
+      {
+        "obshtina": "SZR12",
+        "name": "Казанлък",
+        "url": "https://obs.kazanlak.bg/cat-3.html"
+      },
+      {
+        "obshtina": "MON29",
+        "name": "Монтана",
+        "url": "https://www.montana.bg/общински-съвет/заседания",
+        "probedNote": "Probed 2026-05-29: 37 protokol PDFs in Wayback CDX but all are committee minutes (Protokol-komisia, Protokol1-DSP_2017 etc) under wp-content/uploads/{YYYY-MM}/ — not full council protokols. The older /docs/os/z/ directory (where full protokols once lived) returns 404 on the live site and Wayback has only 2 stub copies. Site migrated but legacy URLs lost."
+      },
+      {
+        "obshtina": "TGV35",
+        "name": "Търговище",
+        "url": "https://targovishte.bg/wps/portal/municipality-targovishte/municipal-council/protocols-and-decisions/"
+      },
+      {
+        "obshtina": "VTR06",
+        "name": "Горна Оряховица",
+        "url": "https://savet.gornaoryahovitsa.bg/",
+        "probedNote": "Probed 2026-05-29: Joomla K2 site at savet.gornaoryahovitsa.bg with categories per session ('заседание-N-DD-MM-YYYY'). Sub-category 'дневен ред, протоколи и решения - заседание N' EXISTS but currently only links the agenda item (item/{id}-dneven-red-zasedanie-{N}). Protokols / decisions are NOT yet published — across 10 historical sessions (cat 103..125) each had at most 1 item, none were a protokol. Files are stored on a separate Nextcloud at cloud.gornaoryahovitsa.bg/index.php/s/<token> with /download endpoint. Effectively tier C/D until publishing policy changes."
+      },
+      {
+        "obshtina": "LOV18",
+        "name": "Ловеч",
+        "url": "https://os.lovech.bg/bg/resheniya/",
+        "probedNote": "Probed 2026-05-29: site stale — latest decision is from 2019-09-26. Decisions are scanned PDFs (CCITT grayscale, would need OCR). Not viable until publication resumes."
+      },
+      {
+        "obshtina": "VID09",
+        "name": "Видин",
+        "url": "https://vidin.bg/wps/portal/vidin-municipality/obshtinski-savet/os-protocols-solutions",
+        "probedNote": "Probed 2026-05-29: WPS portal JS-rendered, TSPD anti-bot guard returns only '<a href=\"/TSPD/?type=25\">' on direct curl. Would need Playwright."
+      },
+      {
+        "obshtina": "SML31",
+        "name": "Смолян",
+        "url": "https://www.smolyan.bg/bg/menu/sl/10"
+      },
+      {
+        "obshtina": "HKV09",
+        "name": "Димитровград",
+        "url": "https://www.dimitrovgrad.bg/bg/obshtinski-savet/"
+      }
     ],
     "tierC_prepisOnly": [
-      {"obshtina": "PAZ19", "name": "Пазарджик", "url": "https://obspazardzhik.com/"},
-      {"obshtina": "PDV01", "name": "Асеновград", "url": "https://www.asenovgrad.bg/bg/resheniya/"},
-      {"obshtina": "RAZ26", "name": "Разград", "url": "https://razgrad.bg/"},
-      {"obshtina": "SLS31", "name": "Силистра", "url": "https://silistra.government.bg/"},
-      {"obshtina": "KNL48", "name": "Дупница", "url": "https://www.dupnitsa.bg/section-88-content.html"},
-      {"obshtina": "JAM26", "name": "Ямбол", "url": "https://yambol.bg/obshtinski-savet"}
+      {
+        "obshtina": "PAZ19",
+        "name": "Пазарджик",
+        "url": "https://obspazardzhik.com/"
+      },
+      {
+        "obshtina": "PDV01",
+        "name": "Асеновград",
+        "url": "https://www.asenovgrad.bg/bg/resheniya/"
+      },
+      {
+        "obshtina": "RAZ26",
+        "name": "Разград",
+        "url": "https://razgrad.bg/"
+      },
+      {
+        "obshtina": "SLS31",
+        "name": "Силистра",
+        "url": "https://silistra.government.bg/"
+      },
+      {
+        "obshtina": "KNL48",
+        "name": "Дупница",
+        "url": "https://www.dupnitsa.bg/section-88-content.html"
+      },
+      {
+        "obshtina": "JAM26",
+        "name": "Ямбол",
+        "url": "https://yambol.bg/obshtinski-savet"
+      }
     ],
     "tierD_noPublicSite": [
       "KNL29 (Кюстендил)",
