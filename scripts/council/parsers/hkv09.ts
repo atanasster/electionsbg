@@ -217,14 +217,28 @@ const convertDocToText = async (docBuffer: Buffer): Promise<string> => {
 
 // Dimitrovgrad's protokol uses LETTER-SPACED "Р  Е  Ш  Е  Н  И  Е" for
 // the marker (each glyph separated by whitespace from textutil), followed
-// by "№ NNN" + "От {date} г." Anchoring on the trailing "От \d" date
-// line is what distinguishes a true decision marker from a body-internal
-// cross-reference (e.g. "поправка на Решение № 556 от 26.6.2025 г.").
-const MARKER_RE = /Р\s*Е\s*Ш\s*Е\s*Н\s*И\s*Е\s+№\s*(\d{1,4})\s+От\s+\d/giu;
+// by "№ NNN" + "От {date} г." We require ALL-CAPS Cyrillic with whitespace
+// between every glyph (no `i` flag), so body-internal cross-references like
+// "Промяна на решение № 573 от 31.07.2025г." don't masquerade as markers.
+const MARKER_RE = /Р\s+Е\s+Ш\s+Е\s+Н\s+И\s+Е\s+№\s*(\d{1,4})\s+От\s+\d/gu;
+
+// Agenda-item header: "ПО ПЪРВА ТОЧКА ОТ ДНЕВНИЯ РЕД: ... относно: <TITLE>"
+// (also "ПО ВТОРА", "ПО ТРЕТА", ..., "ПО ДВАДЕСЕТА", etc.). The same
+// session protokol opens each numbered agenda item with this header, and
+// every Р Е Ш Е Н И Е inside that block shares the same subject. We use
+// the "относно:" payload as the canonical title. The payload usually
+// occupies a single line but occasionally continues across the next
+// non-blank lines (numbered sub-items) — see prot 31/2025 ТБО decision.
+const AGENDA_RE = /ПО\s+\S+\s+ТОЧКА(?:\s+ОТ\s+ДНЕВНИЯ\s+РЕД)?\s*:?\s*/giu;
 
 type Marker = {
   offset: number;
   number: string;
+};
+
+type AgendaItem = {
+  offset: number;
+  title: string;
 };
 
 const findHkv09Markers = (text: string): Marker[] => {
@@ -237,12 +251,51 @@ const findHkv09Markers = (text: string): Marker[] => {
   return out;
 };
 
+const trimTitle = (raw: string, maxLen = 240): string => {
+  let t = raw.replace(/\s+/g, " ").trim();
+  // Drop a trailing dangling " г." duplicate or stray punctuation.
+  t = t.replace(/\s*[;,.]\s*$/u, "");
+  if (t.length <= maxLen) return t;
+  // Cut on a word boundary so we don't slice a Cyrillic word mid-glyph.
+  const cut = t.lastIndexOf(" ", maxLen);
+  return (
+    (cut > Math.floor(maxLen * 0.5)
+      ? t.slice(0, cut)
+      : t.slice(0, maxLen)
+    ).trim() + "…"
+  );
+};
+
+const findAgendaItems = (text: string): AgendaItem[] => {
+  const out: AgendaItem[] = [];
+  const re = new RegExp(AGENDA_RE.source, AGENDA_RE.flags);
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text)) !== null) {
+    // Capture from the end of the header forward to the first blank line.
+    // That spans the same-line subject AND any continuation lines (e.g.
+    // numbered sub-items "1. … 2. …" when the chair stacks two items in
+    // one agenda point).
+    const tail = text.slice(re.lastIndex, re.lastIndex + 2000);
+    const para = tail.match(/^([^\n]*(?:\n[^\n]+)*)/u);
+    const block = (para?.[1] ?? "").trim();
+    if (!block) continue;
+    // Prefer the "относно:" payload — that's the descriptive subject. Fall
+    // back to the full block when the header omits "относно" (rare).
+    const otn = block.match(/относно\s*[:\-–]?\s*([\s\S]+)/iu);
+    const raw = otn ? otn[1] : block;
+    const title = trimTitle(raw);
+    if (title) out.push({ offset: m.index, title });
+  }
+  return out;
+};
+
 const parseProtokolText = (
   text: string,
   meta: ProtokolDoc,
 ): CouncilResolution[] => {
   const tallies = findAllTallies(text);
   const markers = findHkv09Markers(text);
+  const agenda = findAgendaItems(text);
   const out: CouncilResolution[] = [];
   const yyyy = meta.date.slice(0, 4);
 
@@ -260,9 +313,15 @@ const parseProtokolText = (
 
     const tally = candidate.tally;
     const result = classifyResult(text, candidate.offset);
-    // Title extraction skipped — Dimitrovgrad bodies open with the legal
-    // preamble "На основание чл.X от ЗМСМА", not a clean subject line.
-    const title = "(no title parsed)";
+    // Title = "относно:" payload of the most recent "ПО ХХХ ТОЧКА ОТ
+    // ДНЕВНИЯ РЕД" header before this marker. All Р Е Ш Е Н И Е inside
+    // one agenda block share the same subject. Decisions that fall outside
+    // any agenda block (rare procedural votes) fall through to "(no title
+    // parsed)".
+    const agendaItem = [...agenda]
+      .reverse()
+      .find((a) => a.offset < marker.offset);
+    const title = agendaItem?.title ?? "(no title parsed)";
 
     const id = `${OBSHTINA}-${yyyy}-prot${meta.session}-r${marker.number}`;
     out.push({
