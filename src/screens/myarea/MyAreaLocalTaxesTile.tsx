@@ -89,7 +89,7 @@ const renderQualifier = (unit: string, lang: "bg" | "en"): React.ReactNode => {
         : "(conv. from BGN)"
       : `(${qualifier})`;
   return (
-    <span className="text-[10px] text-muted-foreground ml-1">{" "}{text}</span>
+    <span className="text-[10px] text-muted-foreground ml-1"> {text}</span>
   );
 };
 
