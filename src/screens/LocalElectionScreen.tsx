@@ -23,6 +23,7 @@ import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import { useChmiHistory } from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import { MyAreaCouncilTile } from "./myarea/MyAreaCouncilTile";
 import { formatThousands } from "@/data/utils";
 import {
   LocalCouncilParty,
@@ -642,6 +643,17 @@ const MunicipalityResults: FC<{
       ) : (
         <CouncilSection bundle={municipality} />
       )}
+
+      {/* Council activity tile — same unified surface as MyAreaCouncilTile,
+          showing recent council decisions + per-councillor named-vote
+          breakdowns where ingested. Auto-hides for municípios whose council
+          ingest hasn't run yet (most of the 265 общини today). For the 9
+          wired municipalities the per-councillor avatars sit alongside the
+          slate results above, letting the public-facing per-município page
+          answer both "who got elected" and "how have they been voting since". */}
+      <div className="mt-4">
+        <MyAreaCouncilTile obshtina={obshtinaCode} />
+      </div>
 
       <KmetstvaSection kmetstva={municipality.kmetstva} />
       <DistrictsSection cycle={cycle} districts={municipality.districts} />

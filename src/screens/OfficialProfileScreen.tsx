@@ -30,6 +30,7 @@ import {
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { ErrorSection } from "./components/ErrorSection";
 import { OfficialConnectionsSection } from "./components/OfficialConnectionsSection";
+import { CouncilActivitySection } from "./components/CouncilActivitySection";
 import type {
   MpAssetCategory,
   MpOwnershipStake,
@@ -531,6 +532,13 @@ export const OfficialProfileScreen: FC = () => {
       ) : null}
 
       {slug ? <OfficialConnectionsSection slug={slug} /> : null}
+
+      {/* Council voting record — appears only when the official is a
+          councillor whose slug shows up in data/officials/derived/
+          councillor_signals.json (today: V. Tarnovo + Sofia + Burgas).
+          Auto-hides for cabinet members, regional governors, mayors who
+          don't sit on a council we ingest, etc. */}
+      {slug ? <CouncilActivitySection slug={slug} /> : null}
 
       {declarations.length > 0 ? (
         <section className="rounded-xl border bg-card p-4 shadow-sm">
