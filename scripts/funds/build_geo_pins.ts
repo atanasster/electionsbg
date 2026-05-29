@@ -109,7 +109,17 @@ const main = () => {
     console.error(`source dir missing: ${SRC_DIR}`);
     process.exit(1);
   }
-  fs.mkdirSync(OUT_DIR, { recursive: true });
+  // Reset OUT_DIR so previously-emitted shards for munis that no longer
+  // appear in by-muni (e.g. after a resolver fix that re-routed every
+  // contract elsewhere) don't linger as stale data the SPA would still
+  // fetch and render.
+  if (fs.existsSync(OUT_DIR)) {
+    for (const f of fs.readdirSync(OUT_DIR)) {
+      if (f.endsWith(".json")) fs.unlinkSync(path.join(OUT_DIR, f));
+    }
+  } else {
+    fs.mkdirSync(OUT_DIR, { recursive: true });
+  }
   const ekatteToLatLon = loadSettlements();
   console.log(`Loaded ${ekatteToLatLon.size} settlement centroids`);
 

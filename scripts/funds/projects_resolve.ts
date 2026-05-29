@@ -737,9 +737,59 @@ export const buildResolver = (): LocationResolver => {
       if (raw === "") return { kind: "unresolved", raw: "" };
       const hqOblast = parseHqOblast(hqAddress);
       const parts = splitTopLevel(raw, ",");
-      const partResults = parts.map((p) =>
-        resolveOnePart(indices, p, hqOblast),
-      );
+
+      // Pass 1: resolve each part with no hqOblast. Anything that comes back
+      // resolved here matched without needing an oblast tiebreaker — i.e. it
+      // had exactly one candidate or carried an explicit "(общ.X, обл.Y)"
+      // hint. Those are the confident parts.
+      const passOne = parts.map((p) => resolveOnePart(indices, p, null));
+
+      // Collect the oblasts of confident parts. These are stronger evidence
+      // than the HQ address: when a row says "Камено,Средец" and Камено
+      // anchors confidently to BGS, "Средец" should disambiguate to BGS06
+      // (Burgas муни) even when the beneficiary HQ is in Sofia — otherwise
+      // the resolver picks S2401 (Sofia район Средец) just because the HQ
+      // oblast group includes it.
+      const coLocatedOblasts: string[] = [];
+      const seenOblasts = new Set<string>();
+      for (const r of passOne) {
+        let oblast: string | null = null;
+        if (r.kind === "settlement") oblast = normalOblast(r.settlement.oblast);
+        else if (r.kind === "muni") oblast = normalOblast(r.muni.oblast);
+        if (oblast && !seenOblasts.has(oblast)) {
+          seenOblasts.add(oblast);
+          coLocatedOblasts.push(oblast);
+        }
+      }
+
+      // Pass 2: parts confident in pass 1 stay as-is. For the rest, try each
+      // co-located oblast in turn before falling back to hqOblast. Settles
+      // the same-name-different-oblast cases (Средец, Левски, Бяла, …) in
+      // favour of the oblast already evidenced by sibling parts.
+      const partResults = parts.map((p, i) => {
+        const confident = passOne[i];
+        if (
+          confident.kind === "settlement" ||
+          confident.kind === "muni" ||
+          confident.kind === "region" ||
+          confident.kind === "national"
+        ) {
+          return confident;
+        }
+        for (const oblast of coLocatedOblasts) {
+          const r = resolveOnePart(indices, p, oblast);
+          if (
+            r.kind === "settlement" ||
+            r.kind === "muni" ||
+            r.kind === "region" ||
+            r.kind === "national"
+          ) {
+            return r;
+          }
+        }
+        return resolveOnePart(indices, p, hqOblast);
+      });
+
       return aggregate(raw, partResults);
     },
   };

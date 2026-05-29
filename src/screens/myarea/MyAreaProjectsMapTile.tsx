@@ -164,13 +164,40 @@ const LeafletMap: FC<{ pins: FundsGeoPin[] }> = ({ pins }) => {
   );
 };
 
+// Sofia районы share the synthetic Stolichna anchor (S22) for EU-funds
+// attribution: ИСУН records гр.София contracts at EKATTE 68134 (the
+// city), not at район granularity. The resolver routes those into S22,
+// while районы with named kmet villages (Панчарево, Банкя, Кремиковци,
+// …) accumulate their own contracts from village-level attribution. So
+// when a район has its own contracts we render them; otherwise we fall
+// back to the citywide S22 list and label the tile accordingly.
+const SOFIA_CITY_KEY = "S22";
+const isSofiaDistrict = (obshtina: string): boolean =>
+  /^S2[3-5]\d{2}$/i.test(obshtina);
+
 export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
-  const data = useFundsGeoPins(obshtina);
+  const primary = useFundsGeoPins(obshtina);
+  // Only triggers a fetch for Sofia районы — `useFundsGeoPins` is
+  // disabled when its arg is null, so non-Sofia dashboards pay nothing.
+  const cityFallback = useFundsGeoPins(
+    isSofiaDistrict(obshtina) ? SOFIA_CITY_KEY : null,
+  );
+  // True when the район itself has zero EU-funded contracts and we're
+  // showing the citywide rollup instead. Drives the header label and the
+  // per-capita summary lookup.
+  const usingCityFallback =
+    isSofiaDistrict(obshtina) &&
+    (!primary || primary.contracts.length === 0) &&
+    !!cityFallback &&
+    cityFallback.contracts.length > 0;
+  const data = usingCityFallback ? cityFallback : primary;
   // Slim (<5 KB) per-município summary carrying the pre-computed
-  // per-capita EUR and the cohort rank — the comparison context.
-  const { data: summary } = useFundsForMuni(obshtina);
+  // per-capita EUR and the cohort rank — the comparison context. When
+  // we fell back to S22 we read its summary for the same per-capita.
+  const summaryKey = usingCityFallback ? SOFIA_CITY_KEY : obshtina;
+  const { data: summary } = useFundsForMuni(summaryKey);
   const [view, setView] = useState<"list" | "map">("list");
 
   // All projects, largest money first — the scrollable list.
@@ -205,6 +232,13 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
           <MapPin className="size-4 text-primary" />
           <h2 className="text-sm font-semibold flex-1">
             {t("my_area_projects_map_title")}
+            {usingCityFallback ? (
+              <span className="font-normal text-muted-foreground">
+                {lang === "bg"
+                  ? " — гр. София (общинско ниво)"
+                  : " — Sofia city (município level)"}
+              </span>
+            ) : null}
           </h2>
           <span className="text-[10px] text-muted-foreground tabular-nums">
             {data.sourceContractCount}{" "}
@@ -213,6 +247,13 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
               : t("project_plural")}
           </span>
         </div>
+        {usingCityFallback ? (
+          <p className="text-[11px] text-muted-foreground -mt-1 leading-snug">
+            {lang === "bg"
+              ? "ИСУН не разбива проектите по район — показваме сборните данни за Столична община."
+              : "ISUN doesn't break projects down by район — showing the citywide rollup for Stolichna obshtina."}
+          </p>
+        ) : null}
 
         {/* Per-capita comparison line — EU funds per resident + cohort rank.
             Comes pre-computed from the funds summary; renders only when the
