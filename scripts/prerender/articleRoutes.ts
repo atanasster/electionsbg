@@ -40,6 +40,11 @@ type ArticleMeta = {
   title: { bg: string; en: string };
   summary: { bg: string; en: string };
   ogImage?: string;
+  /** When true, the article is editorial draft material. Drafts surface
+   *  only on a Vite dev server (see useArticles.ts); prerender + sitemap
+   *  + llms-index must always skip them, otherwise we'd serve unfinished
+   *  drafts as static HTML in production. */
+  draft?: boolean;
 };
 
 type FrontmatterFields = {
@@ -186,9 +191,11 @@ export const buildArticleRoutes = async (
 ): Promise<PrerenderRoute[]> => {
   const indexFile = path.join(publicFolder, "articles", "index.json");
   if (!fs.existsSync(indexFile)) return [];
-  const articles: ArticleMeta[] = JSON.parse(
+  const allArticles: ArticleMeta[] = JSON.parse(
     fs.readFileSync(indexFile, "utf-8"),
   );
+  // Skip drafts — never prerender unfinished material into static HTML.
+  const articles = allArticles.filter((a) => !a.draft);
 
   // Pre-scan article images so the markdown renderer can stamp explicit
   // width/height on each <img> — prevents CLS when the prerendered shell

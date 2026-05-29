@@ -6,7 +6,7 @@ import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
 
 type SettlementBundleEntry = { ekatte?: string };
 type PollAgency = { id: string };
-type ArticleMeta = { slug: string; updatedAt?: string };
+type ArticleMeta = { slug: string; updatedAt?: string; draft?: boolean };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -419,6 +419,10 @@ const enumerateArticles = (rootUrl: string, routes: string[]) => {
   );
   for (const a of articles) {
     if (!a.slug) continue;
+    // Drafts never reach the sitemap — they only render on the Vite dev
+    // server (see useArticles.ts). Stops Google from discovering them
+    // even if a maintainer accidentally publishes the static build.
+    if (a.draft) continue;
     const lastmod = articleLastmod(a.slug, a.publishedAt, a.updatedAt);
     // BG (default) URL — emitted under the existing `articles` bucket.
     pushUrl(`${rootUrl}/${routes[0]}${a.slug}`, lastmod);

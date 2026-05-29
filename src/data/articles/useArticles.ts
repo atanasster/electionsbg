@@ -29,12 +29,24 @@ export type ArticleMeta = {
   summary: { bg: string; en: string };
   ogImage?: string;
   author?: string;
+  /** When true, the entry is editorial draft material. Loaded only on a
+   *  Vite dev server (import.meta.env.DEV === true). Production builds
+   *  silently drop these — they never reach the prerender/sitemap/llms
+   *  index either, see scripts/prerender/articleRoutes.ts. */
+  draft?: boolean;
 };
 
 const indexQueryFn = async (): Promise<ArticleMeta[]> => {
   const res = await fetch(`/articles/index.json`);
   if (!res.ok) return [];
-  return res.json();
+  const all = (await res.json()) as ArticleMeta[];
+  // Drafts surface only in dev. We don't gate by Vite mode keyword because
+  // a `vite preview` build of a production bundle still serves on
+  // localhost and shouldn't leak drafts — instead the runtime check
+  // against import.meta.env.DEV (which is `false` for `vite preview`)
+  // gives us the clean dev-only behaviour the editor wants.
+  if (import.meta.env.DEV) return all;
+  return all.filter((a) => !a.draft);
 };
 
 export const useArticles = () =>

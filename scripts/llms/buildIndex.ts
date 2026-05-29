@@ -24,6 +24,9 @@ type ArticleMeta = {
   topics?: string[];
   title: { bg: string; en: string };
   summary: { bg: string; en: string };
+  /** Editorial draft — kept out of the llms index, prerender, and sitemap.
+   *  Drafts only surface on the Vite dev server. */
+  draft?: boolean;
 };
 
 const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
@@ -212,7 +215,7 @@ const buildFeaturedAnalyses = (): string[] => {
   }
   if (!Array.isArray(articles) || !articles.length) return [];
   const sorted = [...articles]
-    .filter((a) => a?.slug && a.title?.en && a.title?.bg)
+    .filter((a) => a?.slug && a.title?.en && a.title?.bg && !a.draft)
     .sort((a, b) => (b.publishedAt || "").localeCompare(a.publishedAt || ""));
   return sorted.map((a) => {
     const enUrl = `${SITE_URL}/en/articles/${a.slug}`;
