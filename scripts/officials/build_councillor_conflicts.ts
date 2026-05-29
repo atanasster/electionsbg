@@ -160,7 +160,11 @@ type CompanyLinksFile = {
   >;
 };
 
-type VoteRow = { name: string; normKey: string; vote: "for" | "against" | "abstain" };
+type VoteRow = {
+  name: string;
+  normKey: string;
+  vote: "for" | "against" | "abstain";
+};
 
 type VotesShard = {
   obshtinaCode: string;
@@ -168,10 +172,7 @@ type VotesShard = {
 };
 
 type CouncilIndex = {
-  resolutionsByObshtina: Record<
-    string,
-    Array<{ id: string; title: string }>
-  >;
+  resolutionsByObshtina: Record<string, Array<{ id: string; title: string }>>;
 };
 
 type ConflictFlag = {
