@@ -129,7 +129,7 @@ See `data/council/sources.json` for the authoritative list. As of 2026-05-29:
 
 | Obshtina | Tier | Format | Tally | Per-councillor | Status |
 |---|---|---|---|---|---|
-| VTR01 (Велико Търново) | A | pdf-text | yes | yes (~81% roster match) | full coverage |
+| VTR01 (Велико Търново) | A | pdf-text | yes | yes (170 sessions, ~85% roster match) | full coverage; backfill 2026-05-29 re-ingested the entire 2024-2026 window (was 38 sessions) after the SZR12 VOTE_LINE_RE fix unlocked entries that previously silently failed on names without leading whitespace before the colon |
 | SZR01 (Стара Загора) | A | pdf-text | yes | no | titles + tally + result |
 | RSE01 (Русе) | A | docx | yes | no | tally + result; titles empty (no ОТНОСНО marker in DOCX) |
 | PVN01 (Плевен) | A | docx | yes | no | tally + result; titles empty |
