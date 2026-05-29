@@ -225,8 +225,15 @@ export const MyAreaProjectsMapTile: FC<Props> = ({ obshtina }) => {
   return (
     // On lg the Card matches its row-track height (sibling-driven) by having
     // its content absolutely positioned — the Card itself contributes 0 to
-    // the grid auto-row sizing, so the row sizes to the taller sibling.
-    <Card className="lg:relative lg:h-full" id="myarea-projects-map">
+    // the grid auto-row sizing, so the row sizes to the taller sibling. The
+    // lg:min-h is the fallback when there's no taller sibling (the paired
+    // tile auto-hid for this município, or this tile is row-standalone): it
+    // keeps the absolute-positioned inner div from collapsing to ~0 px and
+    // making the project list invisible.
+    <Card
+      className="lg:relative lg:h-full lg:min-h-[440px]"
+      id="myarea-projects-map"
+    >
       <div className="p-4 flex flex-col gap-3 lg:absolute lg:inset-0">
         <div className="flex items-center gap-2">
           <MapPin className="size-4 text-primary" />
