@@ -435,90 +435,95 @@ export const MyAreaTaxReceiptTile: FC<{
             <span>{t("my_area_tax_receipt_local_taxes_heading")}</span>
           </div>
 
+          {/* Row layout note: grid-cols-[1fr_auto] lets the (often long
+              Bulgarian) label wrap across multiple lines on narrow
+              viewports without truncating, while the amount/explainer
+              hugs the right edge. The ТБО no-rate / other-basis rows
+              stack vertically instead because their right-side text is a
+              long explainer link, not a price — grid would squeeze the
+              label to zero width on mobile. */}
           {localTaxEstimate.propertyRate != null &&
           localTaxEstimate.propertyAnnual != null ? (
-            <div className="flex items-center gap-2 text-xs">
-              <span className="flex-1 truncate">
+            <div className="grid grid-cols-[1fr_auto] items-baseline gap-x-2 text-xs">
+              <span className="leading-snug">
                 {t("my_area_tax_receipt_property_tax_row", {
                   rate: localTaxEstimate.propertyRate,
                 })}
               </span>
-              <span className="tabular-nums font-medium shrink-0">
+              <span className="tabular-nums font-medium">
                 ~{formatEurPer(localTaxEstimate.propertyAnnual, lang, "yr")}
               </span>
             </div>
           ) : null}
 
           {localTaxEstimate.tbo ? (
-            <div className="flex items-center gap-2 text-xs">
-              {localTaxEstimate.tbo.kind === "promil_rate" ? (
-                <>
-                  <span className="flex-1 truncate">
-                    {t("my_area_tax_receipt_tbo_promil_row", {
-                      rate: localTaxEstimate.tbo.rate,
-                    })}
+            localTaxEstimate.tbo.kind === "promil_rate" ? (
+              <div className="grid grid-cols-[1fr_auto] items-baseline gap-x-2 text-xs">
+                <span className="leading-snug">
+                  {t("my_area_tax_receipt_tbo_promil_row", {
+                    rate: localTaxEstimate.tbo.rate,
+                  })}
+                </span>
+                <span className="tabular-nums font-medium">
+                  ~{formatEurPer(localTaxEstimate.tbo.annual, lang, "yr")}
+                </span>
+              </div>
+            ) : localTaxEstimate.tbo.kind === "promil_no_rate" ? (
+              <div className="flex flex-col gap-0.5 text-xs">
+                <span className="leading-snug">
+                  {t("my_area_tax_receipt_tbo_no_rate_row")}
+                </span>
+                {localTaxEstimate.tbo.url ? (
+                  <a
+                    href={localTaxEstimate.tbo.url}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="text-[10px] text-primary hover:underline leading-snug"
+                  >
+                    {t("my_area_tax_receipt_tbo_council_decides")}
+                  </a>
+                ) : (
+                  <span className="text-[10px] text-muted-foreground leading-snug">
+                    {t("my_area_tax_receipt_tbo_council_decides")}
                   </span>
-                  <span className="tabular-nums font-medium shrink-0">
-                    ~{formatEurPer(localTaxEstimate.tbo.annual, lang, "yr")}
-                  </span>
-                </>
-              ) : localTaxEstimate.tbo.kind === "promil_no_rate" ? (
-                <>
-                  <span className="flex-1 truncate">
-                    {t("my_area_tax_receipt_tbo_no_rate_row")}
-                  </span>
-                  {localTaxEstimate.tbo.url ? (
-                    <a
-                      href={localTaxEstimate.tbo.url}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className="text-[10px] text-primary hover:underline shrink-0"
-                    >
-                      {t("my_area_tax_receipt_tbo_council_decides")}
-                    </a>
-                  ) : (
-                    <span className="text-[10px] text-muted-foreground shrink-0">
-                      {t("my_area_tax_receipt_tbo_council_decides")}
-                    </span>
+                )}
+              </div>
+            ) : (
+              <div className="flex flex-col gap-0.5 text-xs">
+                <span className="leading-snug">
+                  {t("my_area_tax_receipt_tbo_no_rate_row")}
+                </span>
+                <span className="text-[10px] text-muted-foreground leading-snug">
+                  {t(
+                    `my_area_tax_receipt_tbo_basis_${localTaxEstimate.tbo.basis}`,
                   )}
-                </>
-              ) : (
-                <>
-                  <span className="flex-1 truncate">
-                    {t("my_area_tax_receipt_tbo_no_rate_row")}
-                  </span>
-                  <span className="text-[10px] text-muted-foreground shrink-0">
-                    {t(
-                      `my_area_tax_receipt_tbo_basis_${localTaxEstimate.tbo.basis}`,
-                    )}
-                  </span>
-                </>
-              )}
-            </div>
+                </span>
+              </div>
+            )
           ) : null}
 
           {localTaxEstimate.vehicleRate != null &&
           localTaxEstimate.vehicleAnnual != null ? (
-            <div className="flex items-center gap-2 text-xs">
-              <span className="flex-1 truncate">
+            <div className="grid grid-cols-[1fr_auto] items-baseline gap-x-2 text-xs">
+              <span className="leading-snug">
                 {t("my_area_tax_receipt_vehicle_tax_row", {
                   rate: localTaxEstimate.vehicleRate,
                 })}
               </span>
-              <span className="tabular-nums font-medium shrink-0">
+              <span className="tabular-nums font-medium">
                 ~{formatEurPer(localTaxEstimate.vehicleAnnual, lang, "yr")}
               </span>
             </div>
           ) : null}
 
           {localTaxEstimate.transferRate != null ? (
-            <div className="flex items-center gap-2 text-xs">
-              <span className="flex-1 truncate">
+            <div className="grid grid-cols-[1fr_auto] items-baseline gap-x-2 text-xs">
+              <span className="leading-snug">
                 {t("my_area_tax_receipt_transfer_tax_row", {
                   rate: localTaxEstimate.transferRate,
                 })}
               </span>
-              <span className="text-[10px] text-muted-foreground shrink-0">
+              <span className="text-[10px] text-muted-foreground">
                 {t("my_area_tax_receipt_transfer_tax_note")}
               </span>
             </div>
@@ -551,17 +556,17 @@ export const MyAreaTaxReceiptTile: FC<{
             </span>
           </div>
           {capitalPrograms.topProjects.map((p, i) => (
-            <div key={p.id ?? i} className="flex items-baseline gap-2 text-xs">
-              <span
-                className="text-muted-foreground tabular-nums shrink-0"
-                aria-hidden
-              >
+            <div
+              key={p.id ?? i}
+              className="grid grid-cols-[auto_1fr_auto] items-baseline gap-x-2 text-xs"
+            >
+              <span className="text-muted-foreground tabular-nums" aria-hidden>
                 {i + 1}.
               </span>
-              <span className="flex-1 line-clamp-2 leading-snug" title={p.name}>
+              <span className="line-clamp-2 leading-snug" title={p.name}>
                 {p.name}
               </span>
-              <span className="tabular-nums font-medium shrink-0">
+              <span className="tabular-nums font-medium">
                 {formatEur(p.totalEur, lang)}
               </span>
             </div>
