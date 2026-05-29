@@ -37,6 +37,8 @@ type PartyShare = {
 type CyclePoint = {
   cycle: string; // election name (folder slug)
   turnout: number; // 0..1
+  registered: number; // numRegisteredVoters
+  voters: number; // totalActualVoters
   // Top parties for the cycle, ranked descending by totalVotes. First entry
   // is the winner and drives the bar's colour/height. We keep more than one
   // so the tooltip can show the podium without re-derivation.
@@ -139,7 +141,13 @@ const SettlementHistoryBody: FC<{ ekatte: string; lang: "bg" | "en" }> = ({
               .slice(0, 3)
           : [];
 
-      out.push({ cycle: e.name, turnout: voters / reg, tops });
+      out.push({
+        cycle: e.name,
+        turnout: voters / reg,
+        registered: reg,
+        voters,
+        tops,
+      });
     }
     // Sort ascending by cycle name (date-shaped folder slugs sort
     // naturally). Cap at the last 8 cycles — beyond that the sparkline
@@ -209,6 +217,8 @@ const SettlementHistoryBody: FC<{ ekatte: string; lang: "bg" | "en" }> = ({
   const colorOrFallback = (nickName: string): string =>
     colorFor(nickName) ?? "rgb(156 163 175)";
 
+  const numLocale = lang === "bg" ? "bg-BG" : "en-GB";
+
   return (
     <div className="grid gap-4 lg:gap-6 grid-cols-1 lg:grid-cols-2">
       {/* Left — turnout panel */}
@@ -245,16 +255,98 @@ const SettlementHistoryBody: FC<{ ekatte: string; lang: "bg" | "en" }> = ({
             ) : null}
           </div>
           <div className="flex flex-col">
-            <svg width={W} height={H} aria-hidden className="text-primary">
-              <path
-                d={pathD}
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <div className="relative" style={{ width: W, height: H }}>
+              <svg
+                width={W}
+                height={H}
+                aria-hidden
+                className="text-primary block"
+              >
+                <path
+                  d={pathD}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                {points.map((p, i) => {
+                  const x = (i / (points.length - 1)) * W;
+                  const y =
+                    H - padY - ((p.turnout - minT) / spread) * (H - padY * 2);
+                  return (
+                    <circle
+                      key={p.cycle}
+                      cx={x}
+                      cy={y}
+                      r={2}
+                      fill="currentColor"
+                    />
+                  );
+                })}
+              </svg>
+              {/* Invisible per-cycle hover bands stacked on top of the SVG
+                  — each one tooltips the cycle's turnout + counts. Kept
+                  absolutely positioned so they don't shift the SVG. */}
+              <div className="absolute inset-0 flex">
+                {points.map((p) => {
+                  const nat = nationalTurnoutByCycle.get(p.cycle) ?? null;
+                  const diffPp = nat != null ? (p.turnout - nat) * 100 : null;
+                  const content = (
+                    <div className="text-left">
+                      <div className="text-[10px] uppercase tracking-wide opacity-70 text-center mb-1">
+                        {formatCycleLong(p.cycle, lang)}
+                      </div>
+                      <div className="text-[11px] leading-tight space-y-0.5">
+                        <div className="flex items-baseline justify-between gap-3">
+                          <span className="opacity-80">
+                            {lang === "bg"
+                              ? "избирателна активност"
+                              : "voter turnout"}
+                          </span>
+                          <span className="font-semibold tabular-nums">
+                            {formatPct(p.turnout, lang)}
+                          </span>
+                        </div>
+                        <div className="flex items-baseline justify-between gap-3">
+                          <span className="opacity-80">
+                            {lang === "bg" ? "гласували" : "voters"}
+                          </span>
+                          <span className="tabular-nums">
+                            {p.voters.toLocaleString(numLocale)}
+                            <span className="opacity-60">
+                              {" / "}
+                              {p.registered.toLocaleString(numLocale)}
+                            </span>
+                          </span>
+                        </div>
+                        {diffPp != null && Math.abs(diffPp) >= 0.05 ? (
+                          <div
+                            className={`flex items-baseline justify-between gap-3 ${
+                              diffPp > 0 ? "text-emerald-500" : "text-rose-500"
+                            }`}
+                          >
+                            <span className="opacity-80">
+                              {lang === "bg" ? "спрямо нац." : "vs national"}
+                            </span>
+                            <span className="font-semibold tabular-nums">
+                              {diffPp > 0 ? "+" : ""}
+                              {diffPp.toFixed(1)}
+                              {lang === "bg" ? " пр.пр." : " pp"}
+                            </span>
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+                  );
+                  return (
+                    <Tooltip key={p.cycle} content={content}>
+                      <div className="flex-1 h-full cursor-default" />
+                    </Tooltip>
+                  );
+                })}
+              </div>
+            </div>
             <div className="flex justify-between text-[9px] text-muted-foreground tabular-nums">
               <span>{formatCycleShort(first.cycle)}</span>
               <span>{formatCycleShort(last.cycle)}</span>
@@ -318,58 +410,50 @@ const SettlementHistoryBody: FC<{ ekatte: string; lang: "bg" | "en" }> = ({
                   // still renders a tappable bar.
                   const h = Math.max(6, Math.round((H - 6) * share));
                   const tooltipContent = (
-                    <div className="flex flex-col gap-1.5">
-                      <div className="text-xs text-muted-foreground">
+                    <div className="text-left">
+                      <div className="text-[10px] uppercase tracking-wide opacity-70 text-center mb-1">
                         {formatCycleLong(p.cycle, lang)}
                       </div>
                       {p.tops.length > 0 ? (
-                        <ul className="flex flex-col gap-1">
-                          {p.tops.map((row, idx) => (
-                            <li
-                              key={row.nickName}
-                              className="flex items-baseline gap-1.5"
-                            >
-                              <span className="text-[10px] text-muted-foreground tabular-nums w-3 shrink-0">
-                                {idx + 1}.
-                              </span>
-                              <span
-                                className="inline-block size-2.5 rounded-sm shrink-0 translate-y-[1px]"
-                                style={{
-                                  background: colorOrFallback(row.nickName),
-                                }}
-                                aria-hidden
-                              />
-                              <span
-                                className={
-                                  idx === 0 ? "font-semibold" : "font-medium"
-                                }
-                              >
-                                {row.nickName}
-                              </span>
-                              <span className="text-muted-foreground tabular-nums">
-                                · {formatPct(row.share, lang)}
-                              </span>
-                              <span className="text-[10px] text-muted-foreground tabular-nums ml-auto">
-                                {row.totalVotes.toLocaleString(
-                                  lang === "bg" ? "bg-BG" : "en-GB",
-                                )}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
+                        <table className="w-full border-collapse text-[11px] leading-tight">
+                          <tbody>
+                            {p.tops.map((row) => (
+                              <tr key={row.nickName} className="font-medium">
+                                <td className="py-0.5 pr-2">
+                                  <div className="flex items-center gap-1.5 max-w-[140px]">
+                                    <span
+                                      aria-hidden
+                                      className="inline-block h-2 w-2 rounded-sm shrink-0"
+                                      style={{
+                                        backgroundColor: colorOrFallback(
+                                          row.nickName,
+                                        ),
+                                      }}
+                                    />
+                                    <span className="truncate">
+                                      {row.nickName}
+                                    </span>
+                                  </div>
+                                </td>
+                                <td className="py-0.5 pr-2 text-right tabular-nums opacity-90">
+                                  {row.totalVotes.toLocaleString(numLocale)}
+                                </td>
+                                <td className="py-0.5 text-right tabular-nums font-semibold">
+                                  {formatPct(row.share, lang)}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       ) : (
-                        <div className="text-muted-foreground">
+                        <div className="text-[11px] opacity-70">
                           {lang === "bg" ? "Няма данни" : "No data"}
                         </div>
                       )}
                     </div>
                   );
                   return (
-                    <Tooltip
-                      key={p.cycle}
-                      content={tooltipContent}
-                      className="max-w-xs"
-                    >
+                    <Tooltip key={p.cycle} content={tooltipContent}>
                       <div
                         className="flex-1 min-w-[6px] rounded-sm cursor-default"
                         style={{
@@ -410,18 +494,20 @@ export const MyAreaHistoryStrip: FC<Props> = ({ area }) => {
   const fullLabel =
     area.kind === "settlement"
       ? lang === "bg"
-        ? "Виж пълно табло на населеното място"
-        : "View full settlement dashboard"
+        ? "Виж пълно парламентарно табло за района"
+        : "View full parliamentary results for this area"
       : lang === "bg"
-        ? "Виж пълно табло на общината"
-        : "View full municipality dashboard";
+        ? "Виж пълно парламентарно табло за общината"
+        : "View full parliamentary results for this municipality";
 
   return (
     <Card className="p-4 mt-2 flex flex-col gap-3">
       <div className="flex items-center gap-2">
         <BarChart3 className="size-4 text-primary shrink-0" />
         <h2 className="text-sm font-semibold flex-1">
-          {lang === "bg" ? "История на района" : "Area history"}
+          {lang === "bg"
+            ? "История на парламентарния вот"
+            : "Parliamentary vote history"}
         </h2>
         <Trophy
           className="size-3.5 text-muted-foreground shrink-0"
@@ -433,8 +519,8 @@ export const MyAreaHistoryStrip: FC<Props> = ({ area }) => {
       ) : (
         <p className="text-xs text-muted-foreground">
           {lang === "bg"
-            ? "Изборната история на общинско ниво е достъпна на пълното табло."
-            : "Cycle-by-cycle municipality history is available on the full dashboard."}
+            ? "Историята на парламентарния вот за общината е достъпна на пълното табло."
+            : "Cycle-by-cycle parliamentary results for the municipality are available on the full dashboard."}
         </p>
       )}
       <Link
