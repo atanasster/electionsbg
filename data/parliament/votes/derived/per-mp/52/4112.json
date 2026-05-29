@@ -7,8 +7,8 @@
     "withParty": 4,
     "loyaltyPct": 1,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-05-27",
-    "totalVoteItems": 89
+    "windowTo": "2026-05-28",
+    "totalVoteItems": 178
   },
   "attendance": {
     "totalItems": 9,
@@ -18,9 +18,9 @@
   },
   "cohort": {
     "size": 265,
-    "votesCastMedian": 71,
-    "loyaltyPctMedian": 0.9873417721518988,
-    "presentPctMedian": 0.8089887640449438
+    "votesCastMedian": 136,
+    "loyaltyPctMedian": 0.9862068965517241,
+    "presentPctMedian": 0.7752808988764045
   },
   "dissents": {
     "totalCast": 4,
@@ -70,23 +70,8 @@
         "overlap": 4
       },
       {
-        "mpId": 5230,
-        "score": 0.3086066999241838,
-        "overlap": 4
-      },
-      {
         "mpId": 3972,
         "score": 0.2773500981126146,
-        "overlap": 4
-      },
-      {
-        "mpId": 5254,
-        "score": 0.27472112789737807,
-        "overlap": 4
-      },
-      {
-        "mpId": 5244,
-        "score": 0.26967994498529685,
         "overlap": 4
       },
       {
@@ -105,29 +90,44 @@
         "overlap": 4
       },
       {
+        "mpId": 3984,
+        "score": 0.2581988897471611,
+        "overlap": 4
+      },
+      {
+        "mpId": 5254,
+        "score": 0.2581988897471611,
+        "overlap": 4
+      },
+      {
+        "mpId": 5206,
+        "score": 0.254000254000381,
+        "overlap": 4
+      },
+      {
+        "mpId": 3945,
+        "score": 0.25,
+        "overlap": 4
+      },
+      {
+        "mpId": 3995,
+        "score": 0.25,
+        "overlap": 4
+      },
+      {
         "mpId": 5231,
-        "score": 0.26490647141300877,
+        "score": 0.22941573387056174,
         "overlap": 4
       },
       {
-        "mpId": 5283,
-        "score": 0.26490647141300877,
+        "mpId": 5230,
+        "score": 0.22360679774997896,
         "overlap": 4
       },
       {
-        "mpId": 5082,
-        "score": 0.2626128657194451,
-        "overlap": 4
-      },
-      {
-        "mpId": 5257,
-        "score": 0.2626128657194451,
-        "overlap": 4
-      },
-      {
-        "mpId": 5193,
-        "score": 0.26037782196164777,
-        "overlap": 4
+        "mpId": 5148,
+        "score": 0.2211629342323457,
+        "overlap": 3
       }
     ],
     "bottomK": []

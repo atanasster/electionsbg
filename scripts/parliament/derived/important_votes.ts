@@ -75,6 +75,13 @@ const CABINET_VOTE =
 const CONFIDENCE = /вот\s+на\s+(?:не)?доверие/i;
 const CONSTITUTION = /конституц/i;
 const RATIFICATION = /ратифи[кц]/i;
+// The "Правилник за организацията и дейността на Народното събрание" — the
+// rules of procedure adopted at the start of each NA term (and amended
+// occasionally). Foundational document, not procedural noise: it sets quorum
+// rules, voting methods, committee composition, etc. A new term's first
+// month is dominated by per-article votes on the new правилник.
+const PARLIAMENT_RULES =
+  /правилник\s+за\s+организацията\s+и\s+дейността\s+на\s+народното\s+събрание/i;
 const ZID =
   /зид\s+на\s+закона|закон\s+за\s+изменение\s+и\s+допълнение|^зи\s+на\s+закона/i;
 
@@ -110,6 +117,7 @@ const importanceScore = (title: string, contest: number): number => {
   if (CONSTITUTION.test(title)) return 85;
   if (RATIFICATION.test(title)) return 80;
   if (BUDGET_LAW.test(title)) return 75;
+  if (PARLIAMENT_RULES.test(title)) return 70;
   if (SECOND_READING.test(title)) return 60;
   if (ZID.test(title) && FIRST_READING.test(title) && contest > 0.1) return 45;
   if (contest >= 0.18 && FIRST_READING.test(title)) return 35;

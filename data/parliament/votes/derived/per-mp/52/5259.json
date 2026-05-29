@@ -3,29 +3,119 @@
   "ns": "52",
   "partyShort": "ГЕРБ - СДС",
   "loyalty": {
-    "votesCast": 62,
-    "withParty": 59,
-    "loyaltyPct": 0.9516129032258065,
+    "votesCast": 119,
+    "withParty": 107,
+    "loyaltyPct": 0.8991596638655462,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-05-27",
-    "totalVoteItems": 89
+    "windowTo": "2026-05-28",
+    "totalVoteItems": 178
   },
   "attendance": {
-    "totalItems": 89,
-    "presentCount": 62,
-    "absentCount": 27,
-    "presentPct": 0.6966292134831461
+    "totalItems": 178,
+    "presentCount": 119,
+    "absentCount": 59,
+    "presentPct": 0.6685393258426966
   },
   "cohort": {
     "size": 265,
-    "votesCastMedian": 71,
-    "loyaltyPctMedian": 0.9873417721518988,
-    "presentPctMedian": 0.8089887640449438
+    "votesCastMedian": 136,
+    "loyaltyPctMedian": 0.9862068965517241,
+    "presentPctMedian": 0.7752808988764045
   },
   "dissents": {
-    "totalCast": 62,
-    "dissentCount": 3,
+    "totalCast": 119,
+    "dissentCount": 12,
     "recent": [
+      {
+        "date": "2026-05-28",
+        "item": 86,
+        "slug": "86-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 89 - предложение от Атанас Славов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 6
+      },
+      {
+        "date": "2026-05-28",
+        "item": 84,
+        "slug": "84-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 83",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 6
+      },
+      {
+        "date": "2026-05-28",
+        "item": 78,
+        "slug": "78-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 80 - ал.3 и ал. 4",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 6
+      },
+      {
+        "date": "2026-05-28",
+        "item": 77,
+        "slug": "77-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 80 - предложение от Атанас Славов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 6
+      },
+      {
+        "date": "2026-05-28",
+        "item": 75,
+        "slug": "75-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 79",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 7
+      },
+      {
+        "date": "2026-05-28",
+        "item": 72,
+        "slug": "72-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 76 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 8
+      },
+      {
+        "date": "2026-05-28",
+        "item": 55,
+        "slug": "55-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 54 - предложение от Петър Петров - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
+      {
+        "date": "2026-05-28",
+        "item": 53,
+        "slug": "53-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 54 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2026-05-28",
+        "item": 5,
+        "slug": "5-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
+        "title": "Правилник за организацията и дейността на Народното събрание - член 5",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 19
+      },
       {
         "date": "2026-05-14",
         "item": 5,
@@ -62,205 +152,205 @@
     "topK": [
       {
         "mpId": 5062,
-        "score": 0.9032780266006145,
-        "overlap": 60
-      },
-      {
-        "mpId": 5267,
-        "score": 0.8872807226269156,
-        "overlap": 55
-      },
-      {
-        "mpId": 5061,
-        "score": 0.8817714069196475,
-        "overlap": 56
-      },
-      {
-        "mpId": 5249,
-        "score": 0.8792003816177455,
-        "overlap": 56
-      },
-      {
-        "mpId": 5075,
-        "score": 0.8769028133059115,
-        "overlap": 53
-      },
-      {
-        "mpId": 5216,
-        "score": 0.8735555046022884,
-        "overlap": 46
-      },
-      {
-        "mpId": 5091,
-        "score": 0.8602647872386805,
-        "overlap": 52
-      },
-      {
-        "mpId": 5133,
-        "score": 0.8600780775702334,
-        "overlap": 53
-      },
-      {
-        "mpId": 5274,
-        "score": 0.8549090976340066,
-        "overlap": 59
-      },
-      {
-        "mpId": 5207,
-        "score": 0.854418125785247,
-        "overlap": 56
-      },
-      {
-        "mpId": 5124,
-        "score": 0.834057656228299,
-        "overlap": 44
-      },
-      {
-        "mpId": 5128,
-        "score": 0.8319334382645827,
-        "overlap": 48
-      },
-      {
-        "mpId": 5117,
-        "score": 0.8190283593479221,
-        "overlap": 52
-      },
-      {
-        "mpId": 5126,
-        "score": 0.8190283593479221,
-        "overlap": 53
-      },
-      {
-        "mpId": 5284,
-        "score": 0.8132202844993979,
-        "overlap": 47
+        "score": 0.7830251122627312,
+        "overlap": 94
       },
       {
         "mpId": 5157,
-        "score": 0.8086937042208112,
-        "overlap": 56
+        "score": 0.7812510032096288,
+        "overlap": 112
       },
       {
-        "mpId": 5081,
-        "score": 0.805929773352382,
-        "overlap": 47
+        "mpId": 5061,
+        "score": 0.7703185150785586,
+        "overlap": 87
+      },
+      {
+        "mpId": 5274,
+        "score": 0.76811762227405,
+        "overlap": 93
+      },
+      {
+        "mpId": 5207,
+        "score": 0.7489474105994174,
+        "overlap": 87
+      },
+      {
+        "mpId": 5216,
+        "score": 0.7404332034517466,
+        "overlap": 96
       },
       {
         "mpId": 5220,
-        "score": 0.8043478260869565,
-        "overlap": 53
+        "score": 0.731011558859127,
+        "overlap": 106
       },
       {
-        "mpId": 5235,
-        "score": 0.7975116580467629,
-        "overlap": 44
+        "mpId": 5081,
+        "score": 0.7143348789350016,
+        "overlap": 102
       },
       {
-        "mpId": 5292,
-        "score": 0.78065375798434,
-        "overlap": 44
+        "mpId": 5267,
+        "score": 0.7018481197951987,
+        "overlap": 87
+      },
+      {
+        "mpId": 5126,
+        "score": 0.6972453170441932,
+        "overlap": 86
+      },
+      {
+        "mpId": 5117,
+        "score": 0.6823659780373569,
+        "overlap": 81
+      },
+      {
+        "mpId": 5095,
+        "score": 0.6820042482662665,
+        "overlap": 64
+      },
+      {
+        "mpId": 5124,
+        "score": 0.677962971772401,
+        "overlap": 63
+      },
+      {
+        "mpId": 5075,
+        "score": 0.6667326021094361,
+        "overlap": 73
+      },
+      {
+        "mpId": 5091,
+        "score": 0.6530779283082263,
+        "overlap": 68
+      },
+      {
+        "mpId": 5284,
+        "score": 0.6215326505832481,
+        "overlap": 52
+      },
+      {
+        "mpId": 5245,
+        "score": 0.6135181288128514,
+        "overlap": 117
+      },
+      {
+        "mpId": 5249,
+        "score": 0.6121175460132869,
+        "overlap": 64
+      },
+      {
+        "mpId": 5133,
+        "score": 0.611047812825809,
+        "overlap": 55
+      },
+      {
+        "mpId": 5291,
+        "score": 0.6045965028801422,
+        "overlap": 103
       }
     ],
     "bottomK": [
       {
-        "mpId": 5159,
-        "score": 0.0528680532637681,
-        "overlap": 58
-      },
-      {
-        "mpId": 5060,
-        "score": 0.06902710277284299,
-        "overlap": 61
-      },
-      {
-        "mpId": 5101,
-        "score": 0.06902710277284299,
-        "overlap": 61
-      },
-      {
-        "mpId": 5074,
-        "score": 0.06999256368514169,
-        "overlap": 59
-      },
-      {
-        "mpId": 5234,
-        "score": 0.07049073768502413,
-        "overlap": 61
-      },
-      {
-        "mpId": 5273,
-        "score": 0.07049073768502413,
-        "overlap": 57
-      },
-      {
-        "mpId": 5247,
-        "score": 0.07151985398521515,
-        "overlap": 61
-      },
-      {
-        "mpId": 5171,
-        "score": 0.08688100585711449,
-        "overlap": 60
-      },
-      {
-        "mpId": 5194,
-        "score": 0.10498884552771254,
-        "overlap": 59
-      },
-      {
-        "mpId": 5258,
-        "score": 0.15762208124782012,
-        "overlap": 53
-      },
-      {
         "mpId": 4099,
-        "score": 0.1978141420187361,
+        "score": 0.14221363894199318,
         "overlap": 5
       },
       {
         "mpId": 4105,
-        "score": 0.1978141420187361,
+        "score": 0.14221363894199318,
         "overlap": 5
       },
       {
         "mpId": 4110,
-        "score": 0.1978141420187361,
+        "score": 0.14221363894199318,
         "overlap": 5
       },
       {
-        "mpId": 5153,
-        "score": 0.2566635011696727,
-        "overlap": 26
+        "mpId": 5258,
+        "score": 0.1639956501641758,
+        "overlap": 79
+      },
+      {
+        "mpId": 5247,
+        "score": 0.16487498971248796,
+        "overlap": 80
       },
       {
         "mpId": 5148,
-        "score": 0.2608695652173913,
+        "score": 0.187545793137818,
         "overlap": 37
       },
       {
-        "mpId": 5185,
-        "score": 0.2658047665355975,
-        "overlap": 42
+        "mpId": 5060,
+        "score": 0.2053207407140647,
+        "overlap": 105
+      },
+      {
+        "mpId": 5273,
+        "score": 0.22083289166799167,
+        "overlap": 110
+      },
+      {
+        "mpId": 5159,
+        "score": 0.22238261518383703,
+        "overlap": 113
+      },
+      {
+        "mpId": 5074,
+        "score": 0.2239654295726457,
+        "overlap": 115
+      },
+      {
+        "mpId": 5101,
+        "score": 0.2273105942202103,
+        "overlap": 118
       },
       {
         "mpId": 4100,
-        "score": 0.3296902366978935,
+        "score": 0.23702273156998863,
         "overlap": 5
       },
       {
         "mpId": 4109,
-        "score": 0.3296902366978935,
+        "score": 0.23702273156998863,
         "overlap": 5
       },
       {
         "mpId": 4111,
-        "score": 0.3296902366978935,
+        "score": 0.23702273156998863,
         "overlap": 5
       },
       {
+        "mpId": 5234,
+        "score": 0.23719823898505513,
+        "overlap": 114
+      },
+      {
+        "mpId": 5171,
+        "score": 0.2415319314999002,
+        "overlap": 117
+      },
+      {
+        "mpId": 5194,
+        "score": 0.2492905315410888,
+        "overlap": 92
+      },
+      {
         "mpId": 4057,
-        "score": 0.3649002245998808,
+        "score": 0.2623360911485515,
         "overlap": 8
+      },
+      {
+        "mpId": 5186,
+        "score": 0.26816060926159635,
+        "overlap": 12
+      },
+      {
+        "mpId": 5169,
+        "score": 0.2702474937259707,
+        "overlap": 20
       }
     ]
   }
