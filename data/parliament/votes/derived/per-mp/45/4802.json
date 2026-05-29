@@ -10,10 +10,17 @@
     "windowTo": "2021-05-07",
     "totalVoteItems": 207
   },
+  "attendance": {
+    "totalItems": 207,
+    "presentCount": 156,
+    "absentCount": 51,
+    "presentPct": 0.7536231884057971
+  },
   "cohort": {
     "size": 240,
     "votesCastMedian": 144,
-    "loyaltyPctMedian": 0.9678585258809862
+    "loyaltyPctMedian": 0.9678585258809862,
+    "presentPctMedian": 0.6956521739130435
   },
   "dissents": {
     "totalCast": 156,

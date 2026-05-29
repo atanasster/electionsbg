@@ -10,10 +10,17 @@
     "windowTo": "2022-07-29",
     "totalVoteItems": 1933
   },
+  "attendance": {
+    "totalItems": 1933,
+    "presentCount": 1401,
+    "absentCount": 532,
+    "presentPct": 0.7247801345059492
+  },
   "cohort": {
     "size": 264,
     "votesCastMedian": 1279,
-    "loyaltyPctMedian": 0.9677601410934744
+    "loyaltyPctMedian": 0.9677601410934744,
+    "presentPctMedian": 0.7045717592592593
   },
   "dissents": {
     "totalCast": 1401,

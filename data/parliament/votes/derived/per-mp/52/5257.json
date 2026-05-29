@@ -10,10 +10,17 @@
     "windowTo": "2026-05-27",
     "totalVoteItems": 89
   },
+  "attendance": {
+    "totalItems": 98,
+    "presentCount": 66,
+    "absentCount": 32,
+    "presentPct": 0.673469387755102
+  },
   "cohort": {
     "size": 265,
     "votesCastMedian": 71,
-    "loyaltyPctMedian": 0.9873417721518988
+    "loyaltyPctMedian": 0.9873417721518988,
+    "presentPctMedian": 0.8089887640449438
   },
   "dissents": {
     "totalCast": 66,

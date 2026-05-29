@@ -10,10 +10,17 @@
     "windowTo": "2021-03-25",
     "totalVoteItems": 1036
   },
+  "attendance": {
+    "totalItems": 803,
+    "presentCount": 438,
+    "absentCount": 365,
+    "presentPct": 0.5454545454545454
+  },
   "cohort": {
     "size": 243,
     "votesCastMedian": 406,
-    "loyaltyPctMedian": 0.940677966101695
+    "loyaltyPctMedian": 0.940677966101695,
+    "presentPctMedian": 0.4015444015444015
   },
   "dissents": {
     "totalCast": 438,

@@ -1,6 +1,6 @@
 ---
 name: update-rollcall
-description: Ingest new parliament.bg roll-call vote sessions into data/parliament/votes/. Use when the daily watch report flags new sessions ("Parliament roll-call votes: N new sessions"), when the user asks to refresh roll-call data, backfill votes for a parliament, investigate a flagged canary mismatch, or rebuild the per-MP loyalty/similarity/cohesion metrics.
+description: Ingest new parliament.bg roll-call vote sessions into data/parliament/votes/. Use when the daily watch report flags new sessions ("Parliament roll-call votes: N new sessions"), when the user asks to refresh roll-call data, backfill votes for a parliament, investigate a flagged canary mismatch, or rebuild the per-MP loyalty/attendance/similarity/cohesion metrics.
 allowed-tools:
   - Read
   - Bash
@@ -10,7 +10,7 @@ allowed-tools:
 
 # Update Roll-call skill
 
-Pulls per-MP roll-call vote data from parliament.bg's stenogram CSV attachments ("Поименно гласуване") and writes canonical JSON to `data/parliament/votes/`. Optionally uploads to the GCS bucket and rebuilds the derived loyalty/similarity/cohesion metrics.
+Pulls per-MP roll-call vote data from parliament.bg's stenogram CSV attachments ("Поименно гласуване") and writes canonical JSON to `data/parliament/votes/`. Optionally uploads to the GCS bucket and rebuilds the derived loyalty/attendance/similarity/cohesion metrics.
 
 ## When to run
 
@@ -104,7 +104,7 @@ npm run derived:rebuild           # local only
 npm run derived:rebuild -- --upload  # write + upload
 ```
 
-Computes loyalty, similarity, and cohesion. Pass `--upload` to push the three derived JSONs to `parliament/votes/derived/`. Run weekly (Sunday is the convention; `.github/workflows/rebuild-derived.yml` schedules it automatically).
+Computes loyalty, attendance, similarity, cohesion, embedding, party correlation, topic/search index, dissents, party-pair breaks, and the per-MP shards. Pass `--upload` to push all derived JSONs to `parliament/votes/derived/`. Run weekly (Sunday is the convention; `.github/workflows/rebuild-derived.yml` schedules it automatically).
 
 ## Step 6 — Commit
 
@@ -202,11 +202,11 @@ The walker walks FORWARD. To backfill older data, pass `--session-id <oldId>` fo
 | `scripts/parliament/rollcall/parse.ts` | CSV → canonical SessionItem[] |
 | `scripts/parliament/rollcall/validate.ts` | Schema + canary + diff-cap checks |
 | `scripts/parliament/derived/index.ts` | Weekly derived-metrics runner |
-| `scripts/parliament/derived/{loyalty,similarity,cohesion,embedding,party_correlation,topic_index,search_index,important_votes,dissents,party_pair_breaks,per_mp_shards}.ts` | Per-metric writers |
+| `scripts/parliament/derived/{loyalty,attendance,similarity,cohesion,embedding,party_correlation,topic_index,search_index,important_votes,dissents,party_pair_breaks,per_mp_shards}.ts` | Per-metric writers |
 | `scripts/lib/upload.ts` | Shared GCS upload helper (gsutil cp -Z wrapper) |
 | `data/parliament/votes/index.json` | Session catalog — committed |
 | `data/parliament/votes/sessions/<YYYY-MM-DD>.json` | One file per plenary day — committed |
-| `data/parliament/votes/derived/{loyalty,similarity,cohesion,embedding,party_correlation,topic_index,search_index,dissents,party_pair_breaks}.json` + `derived/important_votes/<ns>.json` + `derived/per-mp/<ns>/<mpId>.json` | Weekly outputs — committed |
+| `data/parliament/votes/derived/{loyalty,attendance,similarity,cohesion,embedding,party_correlation,topic_index,search_index,dissents,party_pair_breaks}.json` + `derived/important_votes/<ns>.json` + `derived/per-mp/<ns>/<mpId>.json` | Weekly outputs — committed |
 | `tests/fixtures/parliament/votes/canary.json` | Pinned parser regression baseline — committed |
 
 ## Quick command reference

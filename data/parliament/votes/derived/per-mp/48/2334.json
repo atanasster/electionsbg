@@ -10,10 +10,17 @@
     "windowTo": "2023-02-02",
     "totalVoteItems": 1435
   },
+  "attendance": {
+    "totalItems": 1435,
+    "presentCount": 592,
+    "absentCount": 843,
+    "presentPct": 0.4125435540069686
+  },
   "cohort": {
     "size": 240,
     "votesCastMedian": 1098,
-    "loyaltyPctMedian": 0.978714272088513
+    "loyaltyPctMedian": 0.978714272088513,
+    "presentPctMedian": 0.7651567944250871
   },
   "dissents": {
     "totalCast": 592,

@@ -10,10 +10,17 @@
     "windowTo": "2024-06-02",
     "totalVoteItems": 3855
   },
+  "attendance": {
+    "totalItems": 776,
+    "presentCount": 109,
+    "absentCount": 667,
+    "presentPct": 0.1404639175257732
+  },
   "cohort": {
     "size": 263,
     "votesCastMedian": 2726,
-    "loyaltyPctMedian": 0.9660691421254801
+    "loyaltyPctMedian": 0.9660691421254801,
+    "presentPctMedian": 0.7377431906614786
   },
   "dissents": {
     "totalCast": 109,

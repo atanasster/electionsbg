@@ -14,6 +14,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { command, run, flag, optional, boolean } from "cmd-ts";
 import { computeLoyalty } from "./loyalty";
+import { computeAttendance } from "./attendance";
 import { computeSimilarity } from "./similarity";
 import { computeCohesion } from "./cohesion";
 import { computeEmbedding } from "./embedding";
@@ -106,6 +107,21 @@ const main = async (args: { upload: boolean }): Promise<void> => {
   });
   console.log(
     `  ✓ ${nsKeys.map((k) => `${k}:${loyaltyByNs[k].entries.length}`).join(", ")} MP entries`,
+  );
+
+  console.log(`→ computing attendance per NS`);
+  const attendanceByNs: Record<
+    string,
+    ReturnType<typeof computeAttendance>
+  > = {};
+  for (const ns of nsKeys)
+    attendanceByNs[ns] = computeAttendance(byNs.get(ns)!);
+  writeJson(path.join(DERIVED_DIR, "attendance.json"), {
+    computedAt: nowIso,
+    byNs: attendanceByNs,
+  });
+  console.log(
+    `  ✓ ${nsKeys.map((k) => `${k}:${attendanceByNs[k].entries.length}`).join(", ")} MP entries`,
   );
 
   console.log(`→ computing similarity per NS (cosine, top-K)`);
@@ -259,6 +275,7 @@ const main = async (args: { upload: boolean }): Promise<void> => {
     const res = writeMpShards(DERIVED_DIR, {
       ns,
       loyalty: loyaltyByNs[ns],
+      attendance: attendanceByNs[ns],
       similarity: similarityByNs[ns],
       dissents: dissentsByNs[ns],
     });
@@ -274,6 +291,7 @@ const main = async (args: { upload: boolean }): Promise<void> => {
     console.log(`→ uploading derived/ to bucket`);
     for (const f of [
       "loyalty.json",
+      "attendance.json",
       "similarity.json",
       "cohesion.json",
       "embedding.json",

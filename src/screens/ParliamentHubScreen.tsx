@@ -6,6 +6,8 @@ import { ParliamentCohesionMiniTile } from "./dashboard/ParliamentCohesionMiniTi
 import { ParliamentSimilarityMiniTile } from "./dashboard/ParliamentSimilarityMiniTile";
 import { ParliamentEmbeddingMiniTile } from "./dashboard/ParliamentEmbeddingMiniTile";
 import { ParliamentVotingTile } from "./dashboard/ParliamentVotingTile";
+import { ParliamentMostPresentMiniTile } from "./dashboard/ParliamentMostPresentMiniTile";
+import { ParliamentMostAbsentMiniTile } from "./dashboard/ParliamentMostAbsentMiniTile";
 
 export const ParliamentHubScreen: FC = () => {
   const { t } = useTranslation();
@@ -24,6 +26,8 @@ export const ParliamentHubScreen: FC = () => {
         <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
           <ParliamentSessionsTile />
           <ParliamentCohesionMiniTile />
+          <ParliamentMostPresentMiniTile />
+          <ParliamentMostAbsentMiniTile />
           <ParliamentVotingTile />
           <ParliamentSimilarityMiniTile />
           <ParliamentEmbeddingMiniTile />

@@ -220,6 +220,10 @@ export const AboutScreen = () => {
                   href="https://www.parliament.bg/"
                   label={t("mp_profiles_source")}
                 />
+                <SourceItem
+                  href="https://www.parliament.bg/bg/plenaryst"
+                  label={t("rollcall_votes_source")}
+                />
               </ul>
             </DataGroup>
 

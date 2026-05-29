@@ -166,6 +166,30 @@ export interface LoyaltyFile {
   byNs: Record<string, LoyaltySlice>;
 }
 
+// Per-MP attendance ratio. presentCount = items where the MP cast yes/no/
+// abstain; absentCount = items where the CSV recorded "absent". Denominator
+// scopes to items where the MP actually appears in the roll-call.
+export interface AttendanceEntry {
+  mpId: number;
+  partyShort: string;
+  totalItems: number;
+  presentCount: number;
+  absentCount: number;
+  presentPct: number;
+}
+
+export interface AttendanceSlice {
+  windowFrom: string;
+  windowTo: string;
+  totalVoteItems: number;
+  entries: AttendanceEntry[];
+}
+
+export interface AttendanceFile {
+  computedAt: string;
+  byNs: Record<string, AttendanceSlice>;
+}
+
 export interface SimilarityPeer {
   mpId: number;
   score: number;
@@ -259,6 +283,15 @@ export interface MpShard {
     windowTo: string;
     totalVoteItems: number;
   };
+  /** Per-MP attendance — items where the MP appears in the roll-call vs
+   *  items where they were recorded as "absent". Older shards predate this
+   *  field. */
+  attendance?: {
+    totalItems: number;
+    presentCount: number;
+    absentCount: number;
+    presentPct: number;
+  };
   /** Chamber-wide stats so the candidate page can show "vs median" context
    *  without fetching the full loyalty aggregate. Older shards (pre-cohort
    *  embed) omit this — consumers must treat it as optional. */
@@ -266,6 +299,7 @@ export interface MpShard {
     size: number;
     votesCastMedian: number;
     loyaltyPctMedian: number;
+    presentPctMedian?: number;
   };
   dissents: {
     totalCast: number;

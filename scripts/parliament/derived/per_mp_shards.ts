@@ -12,6 +12,7 @@
 import fs from "fs";
 import path from "path";
 import type { LoyaltyOutput, LoyaltyEntry } from "./loyalty";
+import type { AttendanceOutput, AttendanceEntry } from "./attendance";
 import type { SimilarityOutput, SimilarityEntry } from "./similarity";
 import type { DissentOutput, DissentEntry } from "./dissents";
 
@@ -27,6 +28,14 @@ export interface MpShard {
     windowTo: string;
     totalVoteItems: number;
   };
+  /** Per-MP attendance — items where the MP appears in the roll-call vs items
+   *  where they were recorded as "absent". Sourced from attendance.json. */
+  attendance?: {
+    totalItems: number;
+    presentCount: number;
+    absentCount: number;
+    presentPct: number;
+  };
   /** Chamber-wide stats so the candidate page can show "vs median" context
    *  without fetching the full loyalty aggregate. Same values across every
    *  MP in the NS — duplicated here to keep the shard self-contained. */
@@ -39,6 +48,9 @@ export interface MpShard {
     votesCastMedian: number;
     /** Median loyaltyPct (with-party share) across the cohort. 0..1. */
     loyaltyPctMedian: number;
+    /** Median presentPct across the cohort (0..1). Omitted when attendance
+     *  data isn't loaded — older shard runs lack this field. */
+    presentPctMedian?: number;
   };
   dissents: {
     totalCast: number;
@@ -55,6 +67,7 @@ interface WriteContext {
   ns: string;
   outDir: string; // <derivedDir>/per-mp/<ns>
   loyaltyByMp: Map<number, LoyaltyEntry>;
+  attendanceByMp: Map<number, AttendanceEntry>;
   dissentsByMp: Map<number, DissentEntry>;
   similarityByMp: Map<number, SimilarityEntry>;
   loyaltyMeta: {
@@ -99,6 +112,7 @@ const buildShard = (mpId: number, ctx: WriteContext): MpShard | null => {
 
   const s = ctx.similarityByMp.get(mpId);
   const d = ctx.dissentsByMp.get(mpId);
+  const a = ctx.attendanceByMp.get(mpId);
 
   return {
     mpId,
@@ -112,6 +126,14 @@ const buildShard = (mpId: number, ctx: WriteContext): MpShard | null => {
       windowTo: ctx.loyaltyMeta.windowTo,
       totalVoteItems: ctx.loyaltyMeta.totalVoteItems,
     },
+    attendance: a
+      ? {
+          totalItems: a.totalItems,
+          presentCount: a.presentCount,
+          absentCount: a.absentCount,
+          presentPct: a.presentPct,
+        }
+      : undefined,
     cohort: ctx.cohort,
     dissents: {
       totalCast: d?.totalCast ?? l.votesCast,
@@ -128,6 +150,7 @@ const buildShard = (mpId: number, ctx: WriteContext): MpShard | null => {
 export interface ShardRunInput {
   ns: string;
   loyalty: LoyaltyOutput;
+  attendance: AttendanceOutput;
   similarity: SimilarityOutput;
   dissents: DissentOutput;
 }
@@ -148,6 +171,8 @@ export const writeMpShards = (
 
   const loyaltyByMp = new Map<number, LoyaltyEntry>();
   for (const e of input.loyalty.entries) loyaltyByMp.set(e.mpId, e);
+  const attendanceByMp = new Map<number, AttendanceEntry>();
+  for (const e of input.attendance.entries) attendanceByMp.set(e.mpId, e);
   const dissentsByMp = new Map<number, DissentEntry>();
   for (const e of input.dissents.entries) dissentsByMp.set(e.mpId, e);
   const similarityByMp = new Map<number, SimilarityEntry>();
@@ -160,16 +185,23 @@ export const writeMpShards = (
   const cohortLoyalty = input.loyalty.entries
     .filter((e) => e.votesCast > 0)
     .map((e) => e.loyaltyPct);
+  const cohortPresent = input.attendance.entries
+    .filter((e) => e.totalItems > 0)
+    .map((e) => e.presentPct);
   const cohort: MpShard["cohort"] = {
     size: input.loyalty.entries.length,
     votesCastMedian: medianOf(cohortVotesCast),
     loyaltyPctMedian: medianOf(cohortLoyalty),
+    presentPctMedian: cohortPresent.length
+      ? medianOf(cohortPresent)
+      : undefined,
   };
 
   const ctx: WriteContext = {
     ns: input.ns,
     outDir,
     loyaltyByMp,
+    attendanceByMp,
     dissentsByMp,
     similarityByMp,
     loyaltyMeta: {

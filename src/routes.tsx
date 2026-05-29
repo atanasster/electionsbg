@@ -350,6 +350,11 @@ const ParliamentCohesionScreen = lazy(() =>
     default: m.ParliamentCohesionScreen,
   })),
 );
+const ParliamentAttendanceScreen = lazy(() =>
+  import("./screens/ParliamentAttendanceScreen").then((m) => ({
+    default: m.ParliamentAttendanceScreen,
+  })),
+);
 const MpSimilarityScreen = lazy(() =>
   import("./screens/MpSimilarityScreen").then((m) => ({
     default: m.MpSimilarityScreen,
@@ -1712,6 +1717,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <ParliamentCohesionScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="parliament/attendance"
+            element={
+              <LayoutScreen>
+                <ParliamentAttendanceScreen />
               </LayoutScreen>
             }
           />

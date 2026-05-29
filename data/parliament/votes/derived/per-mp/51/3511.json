@@ -10,10 +10,17 @@
     "windowTo": "2026-04-01",
     "totalVoteItems": 4187
   },
+  "attendance": {
+    "totalItems": 3284,
+    "presentCount": 1635,
+    "absentCount": 1649,
+    "presentPct": 0.49786845310596833
+  },
   "cohort": {
     "size": 307,
     "votesCastMedian": 2660,
-    "loyaltyPctMedian": 0.9776058631921825
+    "loyaltyPctMedian": 0.9776058631921825,
+    "presentPctMedian": 0.7740625746357774
   },
   "dissents": {
     "totalCast": 1635,

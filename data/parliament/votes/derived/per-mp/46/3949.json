@@ -10,10 +10,17 @@
     "windowTo": "2021-09-15",
     "totalVoteItems": 560
   },
+  "attendance": {
+    "totalItems": 560,
+    "presentCount": 438,
+    "absentCount": 122,
+    "presentPct": 0.7821428571428571
+  },
   "cohort": {
     "size": 240,
     "votesCastMedian": 384,
-    "loyaltyPctMedian": 0.9509607807480148
+    "loyaltyPctMedian": 0.9509607807480148,
+    "presentPctMedian": 0.6857142857142857
   },
   "dissents": {
     "totalCast": 438,
