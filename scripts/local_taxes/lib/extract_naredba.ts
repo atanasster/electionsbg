@@ -201,15 +201,22 @@ export const extractTouristTax = (
 
   const fromBgn = (bgn: number): number => bgn / BGN_PER_EUR;
 
-  // A) Category table — 1-star row. Walk every "1 звезда" anchor and
-  //    look inside a 200-char window ahead. When BGN and EUR both
-  //    appear in the same row (dual-currency naredbi), we prefer EUR.
+  // A) Category table — N-star row, walked to pick the minimum rate
+  //    (= cheapest accommodation = representative low tourist tax
+  //    burden). Most naredbi start at "1 звезда" but Varna's tariff
+  //    starts at "2 звезди" (smaller accommodations may be registered
+  //    under "клас В" only). The min-rate walk handles both.
+  //
+  //    When BGN and EUR both appear in the same row (dual-currency
+  //    naredbi), we prefer EUR. No \b — JS's `\b` only matches ASCII
+  //    word boundaries (Cyrillic letters are non-word in default mode,
+  //    so "звезда\b" never matches). The N-star phrasing is itself
+  //    specific enough; rely on the 200-char rate-lookahead window for
+  //    further gating.
   const oneStarCandidates: Array<{ eur: number; converted: boolean }> = [];
-  // No \b — `\b` in JS only matches ASCII word boundaries (Cyrillic
-  // letters are non-word in default mode, so "1 звезда\b" never
-  // matches). The phrase itself is specific enough; rely on the
-  // 200-char rate-lookahead window for further gating.
-  for (const a of text.matchAll(/(?:1\s+звезда|една\s+звезда)/gi)) {
+  for (const a of text.matchAll(
+    /(?:[1-5]\s+звезд(?:а|и)|(?:една|две|три|четири|пет)\s+звезд(?:а|и))/gi,
+  )) {
     const aEnd = (a.index ?? 0) + a[0].length;
     const win = text.slice(aEnd, aEnd + 200);
     // EUR first within window
@@ -282,16 +289,23 @@ export const extractTouristTax = (
 // rate-bearing mentions clear the gate.
 
 /** Dog tax — published in three common shapes:
- *  A) Inline:    "за притежаване на куче — X лв. на година" (Sofia 1990s
- *                style — rate in the Приложение, not the body).
- *  B) Tariff row: "Годишна такса ... куче ... NN лв NN.NN евро" (Plovdiv,
- *                2025 dual-currency).
- *  C) Per-zone tariff in the body (Maglizh, Balchik).
+ *  A) Anchored inline: "Такса за притежаване на куче ... в размер на X
+ *     лв/евро" (Razgrad, Maglizh, Petrich, Samokov-FEES). Often has
+ *     "годишна" between куче and the rate; sometimes not (Balchik).
+ *  B) Dual inline: "куче ... 10.00 лв./5.11 евро" (Balchik). Both
+ *     currencies in the same row separated by `/` or `,`.
+ *  C) Tabular no-unit pair: "куче 30.00 15.34" (Plovdiv) — the units
+ *     are in column headers far above; we recognise the "куче NN.NN
+ *     NN.NN" two-decimal pattern and take the second as EUR.
  *
- *  Returns EUR/година. Prefers EUR when both currencies appear in the
- *  same row; otherwise converts BGN at the fixed adoption rate. Sanity
- *  band 2–200 EUR (Bulgaria's historical range 5-300 BGN ≈ 2.5-150 EUR;
- *  the upper bound catches lev-not-converted errors). */
+ *  Anchors on specific dog-tax phrasings ("за притежаване на куче",
+ *  "такса за куче", "куче ... собственици"), not bare "куче" — that
+ *  avoids matching dog-related mentions in unrelated tariffs.
+ *
+ *  Returns EUR/година. Prefers EUR-native, converts BGN at the fixed
+ *  adoption rate. Picks the min EUR across candidates so multi-zone
+ *  tariffs surface the conservative lowest charge. Sanity band 2-200
+ *  EUR. */
 export const extractDogTax = (
   text: string,
 ): { value: number; unit: string } | null => {
@@ -301,30 +315,49 @@ export const extractDogTax = (
   type Candidate = { eur: number; converted: boolean };
   const candidates: Candidate[] = [];
 
-  // Walk every "куче" / "кучета" anchor in the document.
-  for (const a of text.matchAll(/(?:куче|кучета)/gi)) {
-    const aStart = a.index ?? 0;
-    const aEnd = aStart + a[0].length;
-    // Look 200 chars ahead for a rate + currency + "година"/"годишн".
-    // Tight on purpose — Sofia's body has many "куче" mentions without
-    // a rate; only the Приложение row carries the trio.
-    const window = text.slice(aEnd, aEnd + 200);
-    const rateRx =
-      /(\d+(?:[.,]\d+)?)\s*(лв(?:\.?)|лева|евро|EUR|BGN)[^.]{0,40}?(?:година|годишн|год\.)/i;
-    const m = rateRx.exec(window);
-    if (!m) continue;
-    const raw = Number(m[1].replace(",", "."));
-    const isBgn = /лв|лева|BGN/i.test(m[2]);
-    const eur = isBgn ? raw / BGN_PER_EUR : raw;
-    if (inBand(eur)) {
-      candidates.push({ eur, converted: isBgn });
+  // Specific dog-tax anchors only — bare "куче" matches too liberally.
+  const DOG_ANCHOR_RX =
+    /(?:за\s+)?(?:притежаване|притежаването)\s+(?:на\s+)?куче|такса\s+(?:за\s+)?куч[ае]|куч[ае][^.]{0,40}?собственик[аи]/gi;
+
+  for (const a of text.matchAll(DOG_ANCHOR_RX)) {
+    const aEnd = (a.index ?? 0) + a[0].length;
+    const win = text.slice(aEnd, aEnd + 300);
+
+    // A+B) Look for a rate + unit (optionally dual). Picks EUR when
+    //      both currencies appear in the same row.
+    const singleM = win.match(
+      /(\d+(?:[.,]\d+)?)\s*(лв(?:\.?)|лева|евро|EUR|BGN)/i,
+    );
+    if (singleM) {
+      // Try dual right after: "X лв./Y евро" or "X лв. / Y евро"
+      const dualWin = win.slice((singleM.index ?? 0) + singleM[0].length, 60);
+      const eurAfter = dualWin.match(
+        /[\s/,.-]+(\d+(?:[.,]\d+)?)\s*(?:евро|EUR)/i,
+      );
+      if (eurAfter) {
+        const eur = Number(eurAfter[1].replace(",", "."));
+        if (inBand(eur)) candidates.push({ eur, converted: false });
+      } else {
+        const raw = Number(singleM[1].replace(",", "."));
+        const isBgn = /лв|лева|BGN/i.test(singleM[2]);
+        const eur = isBgn ? raw / BGN_PER_EUR : raw;
+        if (inBand(eur)) candidates.push({ eur, converted: isBgn });
+      }
+      continue;
+    }
+
+    // C) Tabular no-unit pair: "куче NN.NN NN.NN" (Plovdiv). The two
+    //    numbers are BGN then EUR (column convention). Require two
+    //    consecutive 2-decimal numbers in close proximity — distinctive
+    //    enough to not false-positive on other tabular data.
+    const tabularM = win.match(/(\d+\.\d{2})\s+(\d+\.\d{2})(?!\d)/);
+    if (tabularM) {
+      const eur = Number(tabularM[2]);
+      if (inBand(eur)) candidates.push({ eur, converted: false });
     }
   }
 
   if (candidates.length === 0) return null;
-  // Prefer EUR-native rates when present (they're more authoritative —
-  // dual-currency naredbi list both, and the EUR side is the post-2026
-  // canonical figure).
   const eurNative = candidates.filter((c) => !c.converted);
   const pick = (eurNative.length > 0 ? eurNative : candidates).reduce(
     (best, c) => (c.eur < best.eur ? c : best),

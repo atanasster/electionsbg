@@ -66,6 +66,10 @@
     "tboResidential": {
       "basis": "volume"
     },
+    "dogTax": {
+      "value": 5.11,
+      "unit": "EUR/година"
+    },
     "propertyTaxIndividuals": {
       "rate": 2.5,
       "year": 2025
