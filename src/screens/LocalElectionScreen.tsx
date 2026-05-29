@@ -59,13 +59,29 @@ const StatsGrid: FC<{ bundle: LocalMunicipalityBundle }> = ({ bundle }) => {
   const partiesWithSeats = bundle.council.filter(
     (p) => p.mandatesWon > 0,
   ).length;
+  // CIK's rezultati HTML page doesn't carry voter-registration / turnout
+  // totals — those live on a separate "Активност" page that isn't ingested
+  // yet. Hide the tile rather than show "—" until that ingest lands.
   const turnoutPct =
     bundle.protocol.numRegisteredVoters > 0
       ? `${((bundle.protocol.totalActualVoters / bundle.protocol.numRegisteredVoters) * 100).toFixed(1)}%`
-      : "—";
+      : null;
+  // Valid votes: prefer the ingested protocol total; otherwise derive from
+  // the dominant ballot on this page. Sofia район shards replicate the
+  // city-wide council, so their район-specific denominator is the round-1
+  // mayor sum; everywhere else the council ballot is the canonical total.
+  const isSofiaRayon = /^S2\d{3}$/.test(bundle.obshtinaCode);
+  const derivedValidVotes = isSofiaRayon
+    ? bundle.mayor.round1.reduce((a, m) => a + m.votes, 0)
+    : bundle.council.reduce((a, p) => a + p.totalVotes, 0);
+  const validVotes =
+    bundle.protocol.numValidVotes > 0
+      ? bundle.protocol.numValidVotes
+      : derivedValidVotes;
   const mayor = bundle.mayor.elected;
+  const cols = turnoutPct ? "md:grid-cols-4" : "md:grid-cols-3";
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div className={`grid grid-cols-2 ${cols} gap-3`}>
       <StatItem
         label={t("local_election_stat_mayor")}
         value={
@@ -91,18 +107,20 @@ const StatsGrid: FC<{ bundle: LocalMunicipalityBundle }> = ({ bundle }) => {
           </span>
         }
       />
-      <StatItem
-        label={t("local_election_stat_turnout")}
-        value={<span className="tabular-nums">{turnoutPct}</span>}
-      />
-      <StatItem
-        label={t("local_election_stat_valid_votes")}
-        value={
-          <span className="tabular-nums">
-            {formatThousands(bundle.protocol.numValidVotes)}
-          </span>
-        }
-      />
+      {turnoutPct ? (
+        <StatItem
+          label={t("local_election_stat_turnout")}
+          value={<span className="tabular-nums">{turnoutPct}</span>}
+        />
+      ) : null}
+      {validVotes > 0 ? (
+        <StatItem
+          label={t("local_election_stat_valid_votes")}
+          value={
+            <span className="tabular-nums">{formatThousands(validVotes)}</span>
+          }
+        />
+      ) : null}
     </div>
   );
 };
@@ -511,7 +529,7 @@ const ChmiHistorySection: FC<{ events: ChmiHistoryEvent[] }> = ({ events }) => {
                   key={`${e.cycle}-${e.kmetstvoName ?? "main"}-${i}`}
                   className="border-b last:border-b-0"
                 >
-                  <td className="py-2 px-3 tabular-nums text-muted-foreground">
+                  <td className="py-2 px-3 tabular-nums text-muted-foreground whitespace-nowrap">
                     {e.date}
                   </td>
                   <td className="py-2 px-3 text-muted-foreground">
