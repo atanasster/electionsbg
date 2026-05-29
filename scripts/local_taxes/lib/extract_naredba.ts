@@ -115,23 +115,51 @@ export const extractTboPromilRate = (text: string): number | null => {
 // (Наредба за определяне размера на местните данъци, typically Чл. 5-15
 // depending on the município). The anchoring is tight on purpose: we
 // require "данък върху недвижими имоти" *before* the rate AND "данъчна
-// оценка" *after* it (within 80 chars). Without the post-anchor the
-// regex matches almost any rate-shaped number in the document.
-const PROPERTY_TAX_INDIVIDUALS_RX =
-  /данък(?:а|ът)?\s+върху\s+недвижими(?:те)?\s+имот(?:и|ите)[^.]{0,300}?(\d+(?:[.,]\d+)?)\s*(?:на\s+хиляда|‰|промил(?:а|и)?)[^.]{0,120}?данъчн(?:а|ата)\s+оценк/i;
+// оценка" *after* it. Without those anchors the regex matches almost
+// any rate-shaped number in the document.
+const PROPERTY_TAX_ANCHOR_RX =
+  /данък(?:а|ът)?\s+върху\s+недвижими(?:те)?\s+имот(?:и|ите)/gi;
+const PROPERTY_TAX_RATE_RX =
+  /(\d+(?:[.,]\d+)?)\s*(?:‰|на\s+хиляда|промил(?:а|и)?)/gi;
+const PROPERTY_TAX_TAIL_RX = /данъчн(?:а|ата)\s+оценк/i;
 
 /** Lift the property-tax rate for individuals (in ‰ of данъчна оценка)
- *  from a TAX naredba's text. Returns `null` if the document doesn't
- *  carry the rate inline. Sanity bounds: 0.05-5‰ — the legal range is
- *  0.1-4.5‰ per Чл. 22 ЗМДТ; a small margin catches edge phrasings. */
+ *  from a TAX naredba's text. Scans every (rate, ‰) hit, gates each on
+ *  an "данък върху недвижими имоти" anchor within 300 chars before AND
+ *  "данъчна оценка" within 120 chars after — rejecting either side if a
+ *  sentence-boundary period sits in between. Picks the *max* in-band
+ *  hit because some municípios (Plovdiv historically) publish a lower
+ *  promotional rate for new buildings alongside the standard rate; the
+ *  headline rate is the higher one. Sanity bounds: 0.05-5‰ — the legal
+ *  range is 0.1-4.5‰ per Чл. 22 ЗМДТ; a small margin catches edge
+ *  phrasings. Returns `null` if no candidate clears all gates. */
 export const extractPropertyTaxIndividualsRate = (
   text: string,
 ): number | null => {
-  const m = text.match(PROPERTY_TAX_INDIVIDUALS_RX);
-  if (!m) return null;
-  const v = Number(m[1].replace(",", "."));
-  if (!Number.isFinite(v) || v < 0.05 || v > 5) return null;
-  return v;
+  const candidates: number[] = [];
+  for (const m of text.matchAll(PROPERTY_TAX_RATE_RX)) {
+    const rateStart = m.index ?? 0;
+    const rateEnd = rateStart + m[0].length;
+    const lookback = text.slice(Math.max(0, rateStart - 300), rateStart);
+    // Walk every anchor occurrence in the lookback; the closest one
+    // wins. Reject if a period sits between that anchor and the rate.
+    let anchorEndLocal = -1;
+    for (const a of lookback.matchAll(
+      new RegExp(PROPERTY_TAX_ANCHOR_RX.source, "gi"),
+    )) {
+      anchorEndLocal = (a.index ?? 0) + a[0].length;
+    }
+    if (anchorEndLocal < 0) continue;
+    if (lookback.slice(anchorEndLocal).includes(".")) continue;
+    const lookahead = text.slice(rateEnd, rateEnd + 120);
+    const tail = PROPERTY_TAX_TAIL_RX.exec(lookahead);
+    if (!tail) continue;
+    if (lookahead.slice(0, tail.index).includes(".")) continue;
+    const v = Number(m[1].replace(",", "."));
+    if (Number.isFinite(v) && v >= 0.05 && v <= 5) candidates.push(v);
+  }
+  if (candidates.length === 0) return null;
+  return Math.max(...candidates);
 };
 
 const TOURIST_TAX_RX =
