@@ -44,7 +44,8 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
   const cycle = useCycleKind();
   const { findMpsByRegion } = useMps();
   const { candidates } = useCandidates();
-  const { lookup: lookupParliamentGroup } = useParliamentGroups();
+  const { lookup: lookupParliamentGroup, colorForPartyShort } =
+    useParliamentGroups();
   const { displayNameFor } = useCanonicalParties();
   const { mpName } = useCandidateName();
   const { findRegion } = useRegions();
@@ -72,14 +73,17 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
   const rows = useMemo<Row[]>(() => {
     if (!nsFolder || !mir) return [];
     const mps = findMpsByRegion(mir, nsFolder);
-    return mps.map((mp) => {
+    const built = mps.map((mp) => {
       const cik = cikByName.get(mp.normalizedName);
       const groupOverride = lookupParliamentGroup(mp.currentPartyGroupShort);
       const partyNickName =
         groupOverride?.displayName ??
         mp.currentPartyGroupShort?.replace(/^ПГ(\s+на)?\s+/, "").trim() ??
         "—";
-      const color = groupOverride?.color ?? "#888";
+      const color =
+        groupOverride?.color ??
+        colorForPartyShort(mp.currentPartyGroupShort) ??
+        "#888";
       return {
         mp,
         partyNum: cik?.partyNum ?? null,
@@ -87,7 +91,32 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
         color,
       };
     });
-  }, [nsFolder, mir, findMpsByRegion, cikByName, lookupParliamentGroup]);
+    // Group MPs from the same party together — easier to read "3 from ГЕРБ,
+    // 2 from ПрБ" than a shuffled strip. Within a party preserve the
+    // original ordering so the layout stays stable across renders.
+    const partyOrder = new Map<string, number>();
+    built.forEach((r) => {
+      if (!partyOrder.has(r.partyNickName)) {
+        partyOrder.set(r.partyNickName, partyOrder.size);
+      }
+    });
+    return built
+      .map((r, i) => ({ r, i }))
+      .sort((a, b) => {
+        const pa = partyOrder.get(a.r.partyNickName) ?? 0;
+        const pb = partyOrder.get(b.r.partyNickName) ?? 0;
+        if (pa !== pb) return pa - pb;
+        return a.i - b.i;
+      })
+      .map(({ r }) => r);
+  }, [
+    nsFolder,
+    mir,
+    findMpsByRegion,
+    cikByName,
+    lookupParliamentGroup,
+    colorForPartyShort,
+  ]);
 
   // Per-MP signal badge (attendance / dissent). One file fetch shared
   // across all MPs in the strip. Empty map when the loyalty slice is
@@ -175,8 +204,13 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
                     {display}
                   </span>
                   <span
-                    className="text-[10px] text-muted-foreground truncate leading-tight"
+                    className="inline-block self-start max-w-full truncate text-[10px] px-1.5 py-0.5 rounded border leading-none font-medium"
                     title={partyLabel}
+                    style={{
+                      backgroundColor: r.color,
+                      borderColor: r.color,
+                      color: "#fff",
+                    }}
                   >
                     {partyLabel}
                   </span>
