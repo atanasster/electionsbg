@@ -13,6 +13,7 @@ import { razParser } from "./raz";
 import { sfoParser } from "./sfo";
 import { mglParser } from "./mgl";
 import { blcParser } from "./blc";
+import { ptrParser } from "./ptr";
 
 export const NAREDBA_PARSERS: NaredbaParser[] = [
   sofParser,
@@ -23,6 +24,7 @@ export const NAREDBA_PARSERS: NaredbaParser[] = [
   sfoParser,
   mglParser,
   blcParser,
+  ptrParser,
 ];
 
 export const parsersByObshtina = (): Map<string, NaredbaParser> => {

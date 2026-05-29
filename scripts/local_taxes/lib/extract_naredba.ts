@@ -133,6 +133,14 @@ const PROPERTY_TAX_TAIL_RX = /данъчн(?:а|ата)\s+оценк/i;
  *  headline rate is the higher one. Sanity bounds: 0.05-5‰ — the legal
  *  range is 0.1-4.5‰ per Чл. 22 ЗМДТ; a small margin catches edge
  *  phrasings. Returns `null` if no candidate clears all gates. */
+// Strip decimal-internal periods (e.g. "2.3" → "__") before the
+// sentence-boundary check below. Without this, multi-rate clauses like
+// Petrich's "- 2,3 на хиляда /2.3 ‰ (нежилищни)... - 3 на хиляда /3 ‰
+// (жилищни)" reject the residential rate because the "2.3" decimal in
+// the preceding tariff entry looks like a sentence period.
+const hasSentencePeriod = (s: string): boolean =>
+  s.replace(/\d\.\d/g, "__").includes(".");
+
 export const extractPropertyTaxIndividualsRate = (
   text: string,
 ): number | null => {
@@ -142,7 +150,8 @@ export const extractPropertyTaxIndividualsRate = (
     const rateEnd = rateStart + m[0].length;
     const lookback = text.slice(Math.max(0, rateStart - 300), rateStart);
     // Walk every anchor occurrence in the lookback; the closest one
-    // wins. Reject if a period sits between that anchor and the rate.
+    // wins. Reject if a sentence-period sits between that anchor and
+    // the rate.
     let anchorEndLocal = -1;
     for (const a of lookback.matchAll(
       new RegExp(PROPERTY_TAX_ANCHOR_RX.source, "gi"),
@@ -150,11 +159,11 @@ export const extractPropertyTaxIndividualsRate = (
       anchorEndLocal = (a.index ?? 0) + a[0].length;
     }
     if (anchorEndLocal < 0) continue;
-    if (lookback.slice(anchorEndLocal).includes(".")) continue;
+    if (hasSentencePeriod(lookback.slice(anchorEndLocal))) continue;
     const lookahead = text.slice(rateEnd, rateEnd + 120);
     const tail = PROPERTY_TAX_TAIL_RX.exec(lookahead);
     if (!tail) continue;
-    if (lookahead.slice(0, tail.index).includes(".")) continue;
+    if (hasSentencePeriod(lookahead.slice(0, tail.index))) continue;
     const v = Number(m[1].replace(",", "."));
     if (Number.isFinite(v) && v >= 0.05 && v <= 5) candidates.push(v);
   }
