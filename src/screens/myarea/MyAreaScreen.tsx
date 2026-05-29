@@ -37,6 +37,7 @@ import { MyAreaPropertyStockTile } from "./MyAreaPropertyStockTile";
 import { MyAreaAlertsTile } from "./MyAreaAlertsTile";
 import { MyAreaSofiaRaionStrip } from "./MyAreaSofiaRaionStrip";
 import { MyAreaCouncilMinutesTile } from "./MyAreaCouncilMinutesTile";
+import { MyAreaCouncilVotesTile } from "./MyAreaCouncilVotesTile";
 import { MyAreaActionBand } from "./MyAreaActionBand";
 import { MyAreaGovernmentCard } from "./MyAreaGovernmentCard";
 import { MyAreaHistoryStrip } from "./MyAreaHistoryStrip";
@@ -161,6 +162,14 @@ export const MyAreaScreen: FC = () => {
             съвет is voting on. MyTownView pattern. Auto-hides until
             update-council-minutes populates the data file. */}
         <MyAreaCouncilMinutesTile obshtina={area.obshtina} />
+
+        {/* "Как гласуваха в съвета" — per-councillor named-vote
+            breakdown for recent resolutions. Mirrors MyAreaImportantVotesTile
+            (NS MPs) for the local council. Auto-hides when the município's
+            ingest doesn't yet have перCouncillor data (everywhere except
+            V. Tarnovo + Sofia today). Lazy-loads a per-município votes
+            shard to keep the index lean. */}
+        <MyAreaCouncilVotesTile obshtina={area.obshtina} />
 
         {/* Transparency tile — official contact emails moved inline next
             to each name on MyAreaGovernmentCard. */}

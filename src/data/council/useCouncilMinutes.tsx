@@ -5,6 +5,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import { councilKeyForObshtina } from "./councilObshtinaMap";
 
 export type CouncilTag =
   | "financial"
@@ -81,8 +82,14 @@ export const useCouncilMinutes = (obshtina?: string | null) => {
     queryFn: fetchCouncil,
     staleTime: Infinity,
   });
-  const resolutions = obshtina
-    ? (data?.resolutionsByObshtina[obshtina] ?? [])
+  // The hook takes the frontend's canonical obshtina code (BGS04, S2401,
+  // SFO_CITY, …) and resolves it through councilObshtinaMap to the
+  // council pipeline's key (BGS01, SOF, …). Without this hop the existing
+  // tile silently rendered nothing for every município we ingest — see
+  // src/data/council/councilObshtinaMap.ts for the historical mismatch.
+  const councilKey = councilKeyForObshtina(obshtina ?? null);
+  const resolutions = councilKey
+    ? (data?.resolutionsByObshtina[councilKey] ?? [])
     : [];
-  return { data, resolutions };
+  return { data, resolutions, councilKey };
 };

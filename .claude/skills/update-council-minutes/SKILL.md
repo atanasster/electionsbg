@@ -63,7 +63,11 @@ npm run council:scrape -- --only VTR01 --dry       # parse, don't write index/sh
    - Extracts text via `pdftotext -layout` (PDF), `unzip + strip <w:t>` (DOCX), or `cheerio` (HTML). Falls back to Gemini Vision OCR if `looksLikeScannedPdf` triggers and `--ocr` is on.
    - Runs the three tally regexes (digit-first / label-first / shorthand) to extract aggregate `{for, against, abstain, method}`; runs the resolution-marker regex to anchor each tally to a Решение №.
    - When `--per-councillor` is set, lifts the numbered name-vote block preceding each named-method tally and joins to `data/officials/municipal/` by normalised (first+last) name.
-3. Merges results into `data/council/index.json` via `lib/index_writer.ts` (preserves the original `tags`/`source`/`indexName` scaffolding; updates `resolutionsByObshtina[<obshtina>]` with the latest 50; writes per-resolution shards at `data/council/{obshtina}/{YYYY}/`).
+3. Merges results into `data/council/index.json` via `lib/index_writer.ts`:
+   - Preserves the original `tags`/`source`/`indexName` scaffolding;
+   - Updates `resolutionsByObshtina[<obshtina>]` with the latest 200 (slim — `tally.perCouncillor` stripped to keep the index lean);
+   - Writes per-município **votes shards** to `data/council/votes/<obshtina>.json` carrying the per-councillor breakdown keyed by resolution id (only for munis with named-vote data — VTR01 + SOF today). These power the "Как гласуваха в съвета" MyArea tile (`MyAreaCouncilVotesTile`);
+   - Writes per-resolution shards at `data/council/{obshtina}/{YYYY}/<id>.json` carrying the full record including perCouncillor (durable history).
 4. Writes the watermark to `state/ingest/council_<obshtina>.json` with the latest seen date.
 
 ### Expected output (one município)
@@ -133,10 +137,18 @@ See `data/council/sources.json` for the authoritative list. As of 2026-05-29:
 | VAR01 (Варна) | B | pdf-text | no | no | titles only (Препис-извлечение format) |
 | BGS01 (Бургас) | B | pdf-text via Drupal /node | no | no | titles only (drill-in for session pages) |
 | PDV01 (Пловдив) | B | html via WP category | no | no | titles only (WordPress category listings, no Playwright needed) |
-| SOF (Столична) | A | pdf-text via Playwright | no | no | titles only via per-resolution PDFs; full protokol-N PDFs have ABBYY FineReader 14 Cyrillic→Latin mojibake — per-councillor unlock blocked on either a character remap or Gemini Vision re-OCR |
+| SOF (Столична) | A | pdf-text + Gemini OCR via Playwright | yes (77) | yes (75 sessions, ~89% roster match) | full coverage via `--ocr --per-councillor`; full protokol-N PDFs have ABBYY FineReader 14 Cyrillic→Latin mojibake so OCR is mandatory — costs ~$1.85/session |
 | BLG03 (Благоевград) | C | doc | — | — | DEFERRED (legacy URL dead; município migrated to e-obs.online SaaS) |
 
-Total: 9 of 10 wired, 421 resolutions in the index across 9 municipalities.
+Total: 9 of 10 wired, 503 resolutions in the index across 9 municipalities. 113 carry per-councillor named-vote data (SOF 75 + VTR01 38) and surface in the "Как гласуваха в съвета" MyArea tile.
+
+### One-shot: rebuild shards after pipeline change
+
+`scripts/council/rebuild_shards.ts` regenerates the slim index + every per-município votes shard from whatever is currently on disk. Run after a `lib/index_writer.ts` shape change so the on-disk artefacts catch up without re-scraping every município:
+
+```bash
+npx tsx scripts/council/rebuild_shards.ts
+```
 
 ## Troubleshooting
 

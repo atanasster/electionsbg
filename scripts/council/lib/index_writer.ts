@@ -1,10 +1,19 @@
 // Merges per-município scrape results back into data/council/index.json
-// + writes per-resolution shards under data/council/{obshtina}/{year}/{id}.json.
+// + writes per-resolution shards under data/council/{obshtina}/{year}/{id}.json
+// + writes per-município "votes" shards under data/council/votes/{obshtina}.json
+// for the heavy per-councillor named-vote blocks.
 //
 // The index preserves the existing scaffolding fields (`source`,
 // `indexName`, `tags`) that the React hook reads, and adds:
-//   - `resolutionsByObshtina[<key>]`: most-recent-N resolutions (default 50)
+//   - `resolutionsByObshtina[<key>]`: most-recent-N resolutions (default 200);
+//     `tally.perCouncillor` is STRIPPED — that lives in the votes shard
 //   - `meta[<key>]`: per-município lastIngest + counts
+//
+// Per-município votes shards carry the per-councillor breakdown keyed by
+// resolution id, fetched lazily by the "How did they vote" MyArea tile
+// only when the user lands on a município with named-vote data. Splitting
+// them keeps the always-fetched index lean (was ~2 MB with all SOF +
+// VTR per-councillor blocks inline → ~780 KB without).
 //
 // Per-resolution shards aren't read directly by the frontend yet — they're
 // the durable history for backfills, summary regeneration, and audit
@@ -20,6 +29,7 @@ import type {
 
 const DATA_DIR = join(process.cwd(), "data/council");
 const INDEX_PATH = join(DATA_DIR, "index.json");
+const VOTES_DIR = join(DATA_DIR, "votes");
 // Per-município index-slot cap. Bumped from 50 → 200 on 2026-05-29
 // after Sofia gained per-councillor data via --ocr: a single Sofia
 // session now ships up to 77 records, and the 50 cap was hiding
@@ -35,18 +45,81 @@ const readIndex = async (): Promise<CouncilIndexFile> => {
   return JSON.parse(raw) as CouncilIndexFile;
 };
 
+// Per-município per-councillor shard. Keyed by resolution id so the
+// frontend can join against the slim index. Only resolutions that
+// actually carry a named-vote breakdown appear here.
+type CouncilVotesShard = {
+  obshtinaCode: string;
+  name: string;
+  lastIngest: string;
+  /** id → per-councillor rows, sorted by name as emitted by the parser. */
+  votesById: Record<
+    string,
+    NonNullable<CouncilResolution["tally"]>["perCouncillor"]
+  >;
+};
+
+/** Strip `tally.perCouncillor` from a resolution for inclusion in the slim
+ *  index. The full per-councillor data lives in the per-município votes
+ *  shard + per-resolution shards instead. */
+const stripPerCouncillor = (r: CouncilResolution): CouncilResolution => {
+  if (!r.tally?.perCouncillor) return r;
+  // Destructure-and-drop pattern: capturing perCouncillor into _ underscores
+  // the discard so eslint's no-unused-vars doesn't fire on it.
+  const { perCouncillor: _, ...rest } = r.tally;
+  void _;
+  return { ...r, tally: rest };
+};
+
 const writeIndex = async (idx: CouncilIndexFile): Promise<void> => {
   // Stable key order; readable formatting. The data/ bucket sync picks this
-  // up byte-for-byte so consistent serialisation matters.
+  // up byte-for-byte so consistent serialisation matters. Strip the heavy
+  // perCouncillor arrays — they live in data/council/votes/<obshtina>.json.
+  const slimResolutions: Record<string, CouncilResolution[]> = {};
+  for (const [code, rows] of Object.entries(idx.resolutionsByObshtina)) {
+    slimResolutions[code] = rows.map(stripPerCouncillor);
+  }
   const ordered: CouncilIndexFile = {
     source: idx.source,
     indexName: idx.indexName,
     tags: idx.tags,
-    resolutionsByObshtina: idx.resolutionsByObshtina,
+    resolutionsByObshtina: slimResolutions,
     meta: idx.meta,
     note: idx.note,
   };
   await writeFile(INDEX_PATH, JSON.stringify(ordered, null, 2) + "\n", "utf8");
+};
+
+const writeVotesShard = async (
+  obshtinaCode: string,
+  muniName: string,
+  resolutions: CouncilResolution[],
+): Promise<number> => {
+  const votesById: CouncilVotesShard["votesById"] = {};
+  let kept = 0;
+  for (const r of resolutions) {
+    const pc = r.tally?.perCouncillor;
+    if (!pc || pc.length === 0) continue;
+    votesById[r.id] = pc;
+    kept++;
+  }
+  // Skip writing a shard for munis with zero named-vote data — keeps the
+  // votes/ directory uncluttered until OCR or per-município work unlocks
+  // the data.
+  if (kept === 0) return 0;
+  await mkdir(VOTES_DIR, { recursive: true });
+  const shard: CouncilVotesShard = {
+    obshtinaCode,
+    name: muniName,
+    lastIngest: new Date().toISOString(),
+    votesById,
+  };
+  await writeFile(
+    join(VOTES_DIR, `${obshtinaCode}.json`),
+    JSON.stringify(shard, null, 2) + "\n",
+    "utf8",
+  );
+  return kept;
 };
 
 const sortByDateDesc = (a: CouncilResolution, b: CouncilResolution): number => {
@@ -104,7 +177,8 @@ export const mergeMuniResult = async (
 
   // Sort newest-first, cap to perMuniLimit for the index.
   const merged = Array.from(byId.values()).sort(sortByDateDesc);
-  idx.resolutionsByObshtina[result.obshtinaCode] = merged.slice(0, limit);
+  const capped = merged.slice(0, limit);
+  idx.resolutionsByObshtina[result.obshtinaCode] = capped;
 
   idx.meta = idx.meta ?? {};
   idx.meta[result.obshtinaCode] = {
@@ -116,7 +190,12 @@ export const mergeMuniResult = async (
     resolutionCount: merged.length,
   };
 
+  // Write the slim index first, then the votes shard for this município.
+  // Votes shard sees the SAME capped rows that the index shows, so the
+  // frontend's join is always consistent — no stale per-councillor data
+  // hanging around for rows that aged out of the index window.
   await writeIndex(idx);
+  await writeVotesShard(result.obshtinaCode, muniName, capped);
 
   if (!opts.skipShards) {
     for (const r of result.resolutions) {
@@ -125,4 +204,35 @@ export const mergeMuniResult = async (
   }
 
   return { added, updated, total: merged.length };
+};
+
+/**
+ * One-shot rebuilder for the slim index + all per-município votes shards
+ * from whatever is currently in data/council/index.json (treated as the
+ * unstripped truth). Used during the sharding rollout to regenerate the
+ * on-disk shape without re-scraping; afterwards mergeMuniResult keeps the
+ * two files in sync incrementally.
+ */
+export const rebuildShardsFromIndex = async (): Promise<{
+  munis: number;
+  shardsWritten: number;
+  votesTotal: number;
+}> => {
+  const idx = await readIndex();
+  let shardsWritten = 0;
+  let votesTotal = 0;
+  for (const [code, rows] of Object.entries(idx.resolutionsByObshtina)) {
+    const muniName = idx.meta?.[code]?.name ?? code;
+    const written = await writeVotesShard(code, muniName, rows);
+    if (written > 0) {
+      shardsWritten++;
+      votesTotal += written;
+    }
+  }
+  await writeIndex(idx);
+  return {
+    munis: Object.keys(idx.resolutionsByObshtina).length,
+    shardsWritten,
+    votesTotal,
+  };
 };
