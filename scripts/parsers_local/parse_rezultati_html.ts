@@ -32,6 +32,7 @@ import {
   LocalRound,
 } from "./types";
 import { buildByNickNameLower, resolveLocalParty } from "./local_coalitions";
+import { titleCasePersonName } from "./text";
 
 // Heading regexes are deliberately broad: 2019/2023 use "Обобщени данни от
 // избор на ...", 2015 (minr2015) uses "Резултати за кмет на община" / "...
@@ -195,7 +196,7 @@ const parseMayorTable = (
     const pct = tds.length >= 4 ? parsePct(txt(tds.eq(3))) : 0;
     const resolution = resolveLocalParty(partyName, byNickNameLower);
     out.push({
-      candidateName,
+      candidateName: titleCasePersonName(candidateName),
       localPartyNum,
       localPartyName: partyName,
       primaryCanonicalId: resolution.primaryCanonicalId,
@@ -315,7 +316,7 @@ const parseCouncilTable = (
         cols.pctCol != null ? parsePct(txt(tds.eq(cols.pctCol))) : 0;
       const cand: LocalCouncilCandidate = {
         listPos,
-        name,
+        name: titleCasePersonName(name),
         prefVotes,
         prefPct,
         isElected: cls.includes("candidate-elected"),

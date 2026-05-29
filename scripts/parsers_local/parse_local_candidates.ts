@@ -10,6 +10,7 @@
 import fs from "fs";
 import { parse } from "csv-parse";
 import { LocalCandidate } from "./types";
+import { titleCasePersonName } from "./text";
 
 export const parseLocalCandidates = (
   inFolder: string,
@@ -38,7 +39,7 @@ export const parseLocalCandidates = (
             localPartyNum,
             localPartyName: (row[3] ?? "").trim(),
             listPos,
-            candidateName: (row[5] ?? "").trim(),
+            candidateName: titleCasePersonName((row[5] ?? "").trim()),
           });
         }
         resolve(out);

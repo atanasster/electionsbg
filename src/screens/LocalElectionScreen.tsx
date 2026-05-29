@@ -138,20 +138,20 @@ const MayorTable: FC<{
     );
   }
   return (
-    <div className="rounded-xl border bg-card overflow-x-auto">
-      <table className="w-full text-sm">
+    <div className="rounded-xl border bg-card">
+      <table className="w-full text-sm table-fixed">
         <thead className="text-xs uppercase tracking-wide text-muted-foreground border-b">
           <tr>
             <th className="py-2 px-3 text-left w-10">
               {t("local_election_th_rank")}
             </th>
-            <th className="py-2 px-3 text-left">
+            <th className="py-2 px-3 text-left w-2/5">
               {t("local_election_th_candidate")}
             </th>
             <th className="py-2 px-3 text-left">
               {t("local_election_th_party")}
             </th>
-            <th className="py-2 px-3 text-right w-24">
+            <th className="py-2 px-3 text-right w-20">
               {t("local_election_th_votes")}
             </th>
             <th className="py-2 px-3 text-right w-16">
@@ -169,13 +169,13 @@ const MayorTable: FC<{
                 key={`${c.localPartyNum}-${c.candidateName}`}
                 className={`border-b last:border-b-0 ${c.isElected ? "bg-accent/30" : ""}`}
               >
-                <td className="py-2 px-3 tabular-nums text-muted-foreground">
+                <td className="py-2 px-3 tabular-nums text-muted-foreground align-top">
                   {i + 1}
                 </td>
-                <td className="py-2 px-3">
-                  <div className="flex items-center gap-2 min-w-0">
+                <td className="py-2 px-3 align-top">
+                  <div className="flex items-start gap-2 min-w-0">
                     <MpAvatar name={c.candidateName} showPartyRing={false} />
-                    <span className="font-medium truncate">
+                    <span className="font-medium break-words min-w-0">
                       {c.candidateName}
                     </span>
                     {c.isElected ? (
@@ -185,24 +185,24 @@ const MayorTable: FC<{
                     ) : null}
                   </div>
                 </td>
-                <td className="py-2 px-3 text-muted-foreground">
-                  <span className="flex items-center gap-1.5 min-w-0">
+                <td className="py-2 px-3 text-muted-foreground align-top">
+                  <span className="flex items-start gap-1.5 min-w-0">
                     {color ? (
                       <span
                         aria-hidden
-                        className="inline-block size-2 rounded-full ring-1 ring-border shrink-0"
+                        className="inline-block size-2 rounded-full ring-1 ring-border shrink-0 mt-1.5"
                         style={{ backgroundColor: color }}
                       />
                     ) : null}
-                    <span className="truncate" title={c.localPartyName}>
+                    <span className="break-words min-w-0">
                       {c.localPartyName}
                     </span>
                   </span>
                 </td>
-                <td className="py-2 px-3 text-right tabular-nums">
+                <td className="py-2 px-3 text-right tabular-nums align-top">
                   {formatThousands(c.votes)}
                 </td>
-                <td className="py-2 px-3 text-right tabular-nums">
+                <td className="py-2 px-3 text-right tabular-nums align-top">
                   {c.pctOfValid.toFixed(2)}%
                 </td>
               </tr>
@@ -331,20 +331,20 @@ const KmetstvaSection: FC<{ kmetstva: LocalKmetstvoResult[] }> = ({
   });
   return (
     <Section title={t("local_election_sec_kmetstva")}>
-      <div className="rounded-xl border bg-card overflow-x-auto">
-        <table className="w-full text-sm">
+      <div className="rounded-xl border bg-card">
+        <table className="w-full text-sm table-fixed">
           <thead className="text-xs uppercase tracking-wide text-muted-foreground border-b">
             <tr>
-              <th className="py-2 px-3 text-left">
+              <th className="py-2 px-3 text-left w-1/5">
                 {t("local_election_th_kmetstvo")}
               </th>
-              <th className="py-2 px-3 text-left">
+              <th className="py-2 px-3 text-left w-1/3">
                 {t("local_election_th_candidate")}
               </th>
               <th className="py-2 px-3 text-left">
                 {t("local_election_th_party")}
               </th>
-              <th className="py-2 px-3 text-right w-24">
+              <th className="py-2 px-3 text-right w-20">
                 {t("local_election_th_votes")}
               </th>
             </tr>
@@ -352,27 +352,28 @@ const KmetstvaSection: FC<{ kmetstva: LocalKmetstvoResult[] }> = ({
           <tbody>
             {rows.map((r) => (
               <tr key={r.kmetstvo} className="border-b last:border-b-0">
-                <td className="py-2 px-3 font-medium">{r.kmetstvo}</td>
-                <td className="py-2 px-3">
+                <td className="py-2 px-3 font-medium align-top break-words">
+                  {r.kmetstvo}
+                </td>
+                <td className="py-2 px-3 align-top">
                   {r.winner ? (
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-start gap-2 min-w-0">
                       <MpAvatar
                         name={r.winner.candidateName}
                         showPartyRing={false}
                       />
-                      <span>{r.winner.candidateName}</span>
+                      <span className="break-words min-w-0">
+                        {r.winner.candidateName}
+                      </span>
                     </div>
                   ) : (
                     <span className="text-muted-foreground">—</span>
                   )}
                 </td>
-                <td
-                  className="py-2 px-3 text-muted-foreground truncate"
-                  title={r.winner?.localPartyName}
-                >
+                <td className="py-2 px-3 text-muted-foreground align-top break-words">
                   {r.winner?.localPartyName ?? ""}
                 </td>
-                <td className="py-2 px-3 text-right tabular-nums">
+                <td className="py-2 px-3 text-right tabular-nums align-top">
                   {r.winner ? formatThousands(r.winner.votes) : ""}
                 </td>
               </tr>
@@ -396,20 +397,20 @@ const DistrictsSection: FC<{
   // row links to the district shard's full results.
   return (
     <Section title={t("local_election_sec_districts")}>
-      <div className="rounded-xl border bg-card overflow-x-auto">
-        <table className="w-full text-sm">
+      <div className="rounded-xl border bg-card">
+        <table className="w-full text-sm table-fixed">
           <thead className="text-xs uppercase tracking-wide text-muted-foreground border-b">
             <tr>
-              <th className="py-2 px-3 text-left">
+              <th className="py-2 px-3 text-left w-1/5">
                 {t("local_election_th_district")}
               </th>
-              <th className="py-2 px-3 text-left">
+              <th className="py-2 px-3 text-left w-1/3">
                 {t("local_election_th_candidate")}
               </th>
               <th className="py-2 px-3 text-left">
                 {t("local_election_th_party")}
               </th>
-              <th className="py-2 px-3 text-right w-24">
+              <th className="py-2 px-3 text-right w-20">
                 {t("local_election_th_votes")}
               </th>
               <th className="py-2 px-3 text-right w-16">
@@ -423,7 +424,7 @@ const DistrictsSection: FC<{
                 d.candidates.find((c) => c.isElected) ?? d.candidates[0];
               return (
                 <tr key={d.districtName} className="border-b last:border-b-0">
-                  <td className="py-2 px-3 font-medium">
+                  <td className="py-2 px-3 font-medium align-top break-words">
                     <Link
                       to={`/local/${cycle}/by-name/${encodeURIComponent(d.districtName)}`}
                       className="hover:underline"
@@ -431,27 +432,26 @@ const DistrictsSection: FC<{
                       {d.districtName}
                     </Link>
                   </td>
-                  <td className="py-2 px-3">
+                  <td className="py-2 px-3 align-top">
                     {winner ? (
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-start gap-2 min-w-0">
                         <MpAvatar
                           name={winner.candidateName}
                           showPartyRing={false}
                         />
-                        <span>{winner.candidateName}</span>
+                        <span className="break-words min-w-0">
+                          {winner.candidateName}
+                        </span>
                       </div>
                     ) : null}
                   </td>
-                  <td
-                    className="py-2 px-3 text-muted-foreground truncate"
-                    title={winner?.localPartyName}
-                  >
+                  <td className="py-2 px-3 text-muted-foreground align-top break-words">
                     {winner?.localPartyName ?? ""}
                   </td>
-                  <td className="py-2 px-3 text-right tabular-nums">
+                  <td className="py-2 px-3 text-right tabular-nums align-top">
                     {winner ? formatThousands(winner.votes) : ""}
                   </td>
-                  <td className="py-2 px-3 text-right tabular-nums">
+                  <td className="py-2 px-3 text-right tabular-nums align-top">
                     {winner ? `${winner.pctOfValid.toFixed(2)}%` : ""}
                   </td>
                 </tr>
