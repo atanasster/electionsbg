@@ -215,7 +215,11 @@ export const MyAreaCouncilVotesTile: FC<Props> = ({ obshtina }) => {
                 {votes.map((v) => {
                   const voteColor = VOTE_COLOR[v.vote];
                   const voteLabel = VOTE_LABEL[v.vote][lang];
-                  const match = rosterByKey.get(v.normKey);
+                  // Burgas + Sofia normKeys carry the full 3-part name
+                  // (given + middle + family); roster keys are first+last.
+                  // Re-fold here so the lookup works for both forms —
+                  // V. Tarnovo's 2-part normKey falls through unchanged.
+                  const match = rosterByKey.get(firstLastKey(v.name));
                   const displayName = match?.name ?? v.name;
                   const slug = match?.slug;
                   const profileUrl = slug ? `/officials/${slug}` : null;

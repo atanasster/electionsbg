@@ -135,12 +135,12 @@ See `data/council/sources.json` for the authoritative list. As of 2026-05-29:
 | PVN01 (Плевен) | A | docx | yes | no | tally + result; titles empty |
 | SLV01 (Сливен) | A | pdf-text | no | no | titles only (FineReader 15 clean Cyrillic, but ПРЕПИС format strips tallies) |
 | VAR01 (Варна) | B | pdf-text | no | no | titles only (Препис-извлечение format) |
-| BGS01 (Бургас) | B | pdf-text via Drupal /node | no | no | titles only (drill-in for session pages) |
+| BGS01 (Бургас) | A | pdf-text via Drupal /node | yes (86) | yes (~94% roster match) | full coverage via `--per-councillor` — pulls the parallel `protokol-N-sayt.pdf` from `/video` while keeping the za-sayta extraction for Phase-1 decision metadata |
 | PDV01 (Пловдив) | B | html via WP category | no | no | titles only (WordPress category listings, no Playwright needed) |
 | SOF (Столична) | A | pdf-text + Gemini OCR via Playwright | yes (77) | yes (75 sessions, ~89% roster match) | full coverage via `--ocr --per-councillor`; full protokol-N PDFs have ABBYY FineReader 14 Cyrillic→Latin mojibake so OCR is mandatory — costs ~$1.85/session |
 | BLG03 (Благоевград) | C | doc | — | — | DEFERRED (legacy URL dead; município migrated to e-obs.online SaaS) |
 
-Total: 9 of 10 wired, 503 resolutions in the index across 9 municipalities. 113 carry per-councillor named-vote data (SOF 75 + VTR01 38) and surface in the "Как гласуваха в съвета" MyArea tile.
+Total: 9 of 10 wired, 861 resolutions in the index across 9 municipalities. 199 carry per-councillor named-vote data (SOF 75 + BGS01 86 + VTR01 38) and surface in the "Как гласуваха в съвета" MyArea tile.
 
 ### One-shot: rebuild shards after pipeline change
 

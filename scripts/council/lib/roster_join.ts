@@ -87,12 +87,24 @@ export type JoinedVoteEntry = ParsedVoteEntry & {
   matchConfidence: "exact" | "ambiguous" | "unmatched";
 };
 
+/** Strip the vote's name down to first+last for the roster lookup —
+ *  Burgas + Sofia protokols list 3-part names (given + middle + family),
+ *  while the roster is keyed first+last. Falling back to the raw normKey
+ *  when the name is already a 2-part form preserves the V. Tarnovo
+ *  pipeline which lists names in shortened form already. */
+const firstLastKey = (rawName: string): string => {
+  const parts = rawName.split(/\s+/).filter(Boolean);
+  if (parts.length < 3) return normaliseCouncillorName(rawName);
+  return normaliseCouncillorName(`${parts[0]} ${parts[parts.length - 1]}`);
+};
+
 export const joinVotesToRoster = (
   votes: ParsedVoteEntry[],
   lookup: RosterLookup,
 ): JoinedVoteEntry[] => {
   return votes.map((v) => {
-    const hits = lookup.byKey.get(v.normKey) ?? [];
+    const lookupKey = firstLastKey(v.name);
+    const hits = lookup.byKey.get(lookupKey) ?? [];
     if (hits.length === 0) return { ...v, matchConfidence: "unmatched" };
     if (hits.length > 1)
       // Two roster entries with the same first+last in this município —

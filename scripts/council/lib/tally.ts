@@ -50,12 +50,31 @@ const DASH = "[\\s–—\\-:]*";
 // trips the regex into reading 48 as the "за" count (off-by-one across
 // the newline). Replacing `\s*` with `[ \t]*` between the digit and
 // the label enforces same-line.
+// Burgas protokols write the prose form with an "гл." (глас = vote)
+// abbreviation between the digit and the quoted label:
+//   "42 гл. „за", 0 гл. „против", 0 гл. „въздържали се""
+// Allowing an optional `гл.` (with surrounding whitespace) after the
+// digit unifies that form with the V. Tarnovo "42 „за"" form. The
+// pattern stays contextually safe — only appears between count + label.
+const GL = "(?:\\s*гл\\.)?";
+// Constrain inter-token whitespace to "few whitespace chars, possibly
+// crossing a single line wrap" — otherwise prose containing the word
+// "въздържал" elsewhere in the document can greedily skip ahead to
+// the next "се" hundreds of lines later, swallowing every tally in
+// between. {0,3} permits "label\n  next-line" wrapping but rejects
+// long gaps.
+const SHORT_WS = "[ \\t\\r\\n]{0,3}";
+// Between digit (+optional "гл.") and the opening quote, Burgas
+// protokols sometimes wrap a line break — "0 гл.\n„въздържали се"".
+// SHORT_WS (up to 3 whitespace chars incl. one newline) covers that
+// without re-introducing the unbounded gap that breaks multi-tally
+// scanning.
 const SUMMARY_RE_DIGIT_FIRST = new RegExp(
-  `(\\d+|няма|-)[ \\t]*${Q}[ \\t]*за\\s*${Q}` +
+  `(\\d+|няма|-)${GL}${SHORT_WS}${Q}[ \\t]*за\\s*${Q}` +
     SEP +
-    `(?:${Q}\\s*)?(\\d+|няма|-)[ \\t]*${Q}[ \\t]*против\\s*${Q}` +
+    `(?:${Q}\\s*)?(\\d+|няма|-)${GL}${SHORT_WS}${Q}[ \\t]*против\\s*${Q}` +
     SEP +
-    `(?:${Q}\\s*)?(\\d+|няма|-)[ \\t]*${Q}[ \\t]*въздържал[аи]?\\s*се\\s*${Q}`,
+    `(?:${Q}\\s*)?(\\d+|няма|-)${GL}${SHORT_WS}${Q}[ \\t]*въздържал[аи]?${SHORT_WS}се\\s*${Q}`,
   "iu",
 );
 
@@ -111,9 +130,14 @@ const SUMMARY_RE_VERBOSE = new RegExp(
   "iu",
 );
 
-/** Decisions can be voted via a name list too — we detect the marker for Phase 2 only. */
+/** Decisions can be voted via a name list too — we detect the marker
+ * for Phase 2 only. Three signal variants we have observed:
+ *   - "Поименно гласуване:" + colon (V. Tarnovo full protocol)
+ *   - "в резултат на поименно гласуване, с …"  (Burgas full protokol —
+ *      inline, lowercase, comma-tail; no colon)
+ *   - numbered roll line of the form "1. <First> <Last>: За" (Sofia OCR) */
 const NAMED_VOTE_BLOCK_RE =
-  /(?:Поименно\s+гласуване\s*:|^\s*1\.\s+[А-Я][а-я]+\s+[А-Я][а-я]+\s*:\s*(?:За|Против|Въздържал))/imu;
+  /(?:Поименно\s+гласуване\s*:|[Пп]оименно\s+гласуване\s*[,.]|^\s*1\.\s+[А-Я][а-я]+\s+[А-Я][а-я]+\s*:\s*(?:За|Против|Въздържал))/imu;
 
 const parseCount = (raw: string): number => {
   const t = raw.trim().toLowerCase();
@@ -265,8 +289,11 @@ const VOTE_LINE_RE =
 // "Против Y" + "Въздържали се Z"). Allowing those lines through the
 // breaker keeps the lookback pass connected to the actual per-
 // councillor block instead of stopping at the first "Точка" line.
+// Burgas adds "Протокол <N> / <DD.MM.YYYY> г." page footers — same role
+// as V. Tarnovo's "Протокол № <N>" headers. Accept both forms so the
+// per-councillor block's page boundary doesn't break the back-walk.
 const PAGE_HEADER_RE =
-  /^\s*(?:Протокол\s+№|\d+\s*$|стр\.|—\s*\d+\s*—|Точка\s+\d+|Общо\s+гласували|За\s+\d+\s*$|Против\s+\d+\s*$|Въздържал[аи]?\s*се\s+\d+\s*$)/iu;
+  /^\s*(?:Протокол\s+(?:№|\d+\s*\/)|\d+\s*$|стр\.|—\s*\d+\s*—|Точка\s+\d+|Общо\s+гласували|За\s+\d+\s*$|Против\s+\d+\s*$|Въздържал[аи]?\s*се\s+\d+\s*$)/iu;
 
 export const normaliseCouncillorName = (raw: string): string =>
   raw
