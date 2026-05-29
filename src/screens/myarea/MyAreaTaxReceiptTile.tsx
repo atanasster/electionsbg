@@ -20,8 +20,9 @@
 //     We word it as "the state sends X per resident", never "your tax".
 
 import { FC, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Calculator, HardHat, Home, Landmark } from "lucide-react";
+import { ArrowRight, Calculator, HardHat, Home, Landmark } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Card } from "@/components/ui/card";
 import { dataUrl } from "@/data/dataUrl";
@@ -571,6 +572,17 @@ export const MyAreaTaxReceiptTile: FC<{
       <p className="text-[10px] text-muted-foreground italic">
         {t("my_area_tax_receipt_disclaimer")}
       </p>
+
+      {/* Bridge to the full calculator — picks up where this tile stops:
+          social-security contributions, VAT estimate, and pension
+          projection. */}
+      <Link
+        to="/budget/tax-calculator"
+        className="text-xs text-primary hover:underline self-start inline-flex items-center gap-1"
+      >
+        {t("my_area_tax_receipt_calculator_cta")}
+        <ArrowRight className="size-3" aria-hidden />
+      </Link>
     </Card>
   );
 };
