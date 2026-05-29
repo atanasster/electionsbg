@@ -10,20 +10,43 @@
 //
 // 2. **Full session protocol** at `/documents/d/guest/protokol-<sessionN>` —
 //    Hundreds of pages, contains the aggregate tally + per-councillor
-//    named-vote tables ("Поименно гласуване:"). BUT the OCR output uses
-//    a custom font where Cyrillic glyphs are tagged with Latin
-//    codepoints (C→С, O→О, T→Т, 4→Ч, 6→б, etc.) — pdftotext extracts
-//    "garbled" text that needs character remapping to recover the
-//    original Cyrillic. Older PK (standing committee) protocols like
-//    protokol-92-2023-06-14 are NOT affected; the encoding break is
-//    specific to the full council protocols Sofia started publishing
-//    around 2024-2025.
+//    named-vote tables ("Поименно гласуване:"). The PDF's text layer is
+//    UNUSABLE: `pdffonts` reports Helvetica/WinAnsi encoding with NO
+//    ToUnicode CMap, and `pdftotext` extracts gibberish where each
+//    Cyrillic glyph is tagged with a Latin lookalike codepoint
+//    (С→C, Т→T, О→O, Л→J, И→I/H depending on context, Ч→4, Щ→IIII4,
+//    П→II, Б→E, ф→Q, г→r, к→x, в→e, у→y, л→n, etc).
+//
+//    **Char-remap recovery is NOT tractable** — investigated 2026-05-29:
+//      - The cipher is NOT 1-to-1: the same Latin char (e.g. "I") can
+//        come from И, Н, Л, П, or even the digit "1" depending on
+//        position.
+//      - Cyrillic letters are NOT all single chars in output: Щ → IIII4,
+//        Ш → III, П → II, Ъ → Cb (multi-char).
+//      - Some Cyrillic letters share output (Е → E AND Б → E).
+//    A char map could recover ~60-70% of glyphs but disambiguation
+//    needs n-gram language modelling against a Cyrillic dictionary —
+//    several days of work for brittle results.
+//
+//    **Gemini Vision re-OCR is the recommended path**. lib/gemini_ocr.ts
+//    is wired and validated on SZR scanned PDFs. Sofia full protokols
+//    are ~22 MB / 210 pages each; estimated cost via gemini-2.5-pro is
+//    ~$1.25 per session (input ~$0.20 + output ~$1.05). For the
+//    2023-2027 mandate's ~68 sessions that's ~$85 one-time backfill,
+//    plus ~$1.25 per new session going forward. Validated approach
+//    was BLOCKED on a 2026-05-29 pilot when the .env.local
+//    GEMINI_API_KEY came back INVALID_ARGUMENT from the API; key
+//    rotation needed before pilot can run.
+//
+//    Older PK (standing committee) protocols like protokol-92-2023-06-14
+//    are NOT affected — they extract clean Cyrillic via pdftotext. The
+//    encoding break is specific to the FULL council protocols Sofia
+//    started publishing around 2024-2025.
 //
 // What this parser delivers TODAY: per-resolution metadata via path 1.
 // Title is the "За ..." preamble preceding the РЕШИ: clause. Tally
-// + result remain undefined/unknown until either (a) the encoding
-// remap is built or (b) tallies are re-OCR'd via Gemini Vision. Both
-// follow-ups are documented in the README's "Phase 2.5" section.
+// + result remain undefined/unknown until the full-protokol Gemini
+// OCR pilot runs and we wire the OCR path into a `--ocr` invocation.
 //
 // Enumeration uses Playwright because the AssetPublisher pagination
 // is server-rendered through a Liferay portlet — direct curl returns

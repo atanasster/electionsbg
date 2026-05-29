@@ -37,10 +37,22 @@ const colorForRank = (rank: number, total: number): string => {
   return "#D74A56";
 };
 
-const formatValue = (value: number, unit: string): string => {
-  // Patent-tax BGN values are integer-ish; per-kW rates and promilles have
+const formatValue = (
+  value: number,
+  unit: string,
+  lang: "bg" | "en",
+): string => {
+  // Patent-tax EUR values are integer-ish; per-kW rates and promilles have
   // fractional precision. Keep up to 3 decimals, strip trailing zeros.
   const fixed = value.toFixed(3).replace(/\.?0+$/, "");
+  // Match the project-wide euro convention (see MyAreaTaxReceiptTile and
+  // MyAreaProjectsMapTile): "${num} €" in BG, "€${num}" in EN. Compound
+  // units like "€/kW" stay glued to the number and follow the same
+  // ordering ("0.62 €/kW" / "€0.62/kW"). Non-currency units (‰, %) are
+  // suffix-only in both locales.
+  if (unit === "€") return lang === "bg" ? `${fixed} €` : `€${fixed}`;
+  if (unit.startsWith("€/"))
+    return lang === "bg" ? `${fixed} ${unit}` : `€${fixed}${unit.slice(1)}`;
   return `${fixed} ${unit}`;
 };
 
@@ -101,7 +113,7 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
                 className="font-semibold tabular-nums shrink-0"
                 style={{ color }}
               >
-                {formatValue(value.latestValue, meta.unit)}
+                {formatValue(value.latestValue, meta.unit, lang)}
               </span>
               <span className="text-[11px] text-muted-foreground tabular-nums shrink-0 w-16 text-right">
                 {lang === "bg"
@@ -121,7 +133,7 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
           <div className="flex items-baseline gap-2">
             {tbo.rate != null ? (
               <span className="font-semibold tabular-nums">
-                {formatValue(tbo.rate, tbo.unit ?? "‰")}
+                {formatValue(tbo.rate, tbo.unit ?? "‰", lang)}
               </span>
             ) : null}
             <span className="text-muted-foreground">
@@ -140,7 +152,11 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
                 {t("my_area_local_taxes_tourist")}
               </div>
               <div className="font-semibold tabular-nums">
-                {formatValue(naredba.touristTax.value, naredba.touristTax.unit)}
+                {formatValue(
+                  naredba.touristTax.value,
+                  naredba.touristTax.unit,
+                  lang,
+                )}
               </div>
             </div>
           ) : null}
@@ -150,7 +166,7 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
                 {t("my_area_local_taxes_dog")}
               </div>
               <div className="font-semibold tabular-nums">
-                {formatValue(naredba.dogTax.value, naredba.dogTax.unit)}
+                {formatValue(naredba.dogTax.value, naredba.dogTax.unit, lang)}
               </div>
             </div>
           ) : null}

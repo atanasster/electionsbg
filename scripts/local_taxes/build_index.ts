@@ -14,7 +14,13 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { IPI_INDICATORS, IPI_CSV_URL, type IpiIndicatorKey } from "./ipi";
+import {
+  IPI_INDICATORS,
+  IPI_CSV_URL,
+  EUR_PER_BGN,
+  CURRENCY_INDICATORS,
+  type IpiIndicatorKey,
+} from "./ipi";
 import { matchObshtina } from "./lib/match_obshtina";
 
 const PROJECT_ROOT = path.resolve(
@@ -149,6 +155,25 @@ const splitCsvRow = (row: string): string[] => {
   return cells;
 };
 
+/** Round to a sensible number of decimals: 2 for values ≥ 1, 3 below. */
+const roundEur = (v: number): number =>
+  v >= 1 ? Math.round(v * 100) / 100 : Math.round(v * 1000) / 1000;
+
+/** Convert a BGN value to EUR using the fixed eurozone-entry rate. */
+const bgnToEur = (v: number): number => roundEur(v * EUR_PER_BGN);
+
+/** Apply BGN→EUR to every year of an indicator's per-município series.
+ *  Ratio indicators (promille, percent) are pass-through. */
+const convertSeriesToEur = (
+  key: IpiIndicatorKey,
+  values: YearSeries,
+): YearSeries => {
+  if (!CURRENCY_INDICATORS.has(key)) return values;
+  const out: YearSeries = {};
+  for (const [year, v] of Object.entries(values)) out[year] = bgnToEur(v);
+  return out;
+};
+
 const fetchCsv = async (url: string): Promise<string> => {
   const res = await fetch(url, {
     headers: {
@@ -200,7 +225,8 @@ const main = async () => {
     const latestYear = Math.max(...years);
     overallLatestYear = Math.max(overallLatestYear, latestYear);
 
-    // Match each row's município name → obshtina code.
+    // Match each row's município name → obshtina code, then convert the
+    // CSV's BGN values to EUR if this is a currency indicator.
     type Resolved = {
       code: string;
       name: string;
@@ -215,9 +241,15 @@ const main = async () => {
         unmatchedNames.add(r.name);
         continue;
       }
-      const latestValue = r.values[String(latestYear)];
+      const converted = convertSeriesToEur(indicator.key, r.values);
+      const latestValue = converted[String(latestYear)];
       if (latestValue == null) continue;
-      resolved.push({ code, name: r.name, values: r.values, latestValue });
+      resolved.push({
+        code,
+        name: r.name,
+        values: converted,
+        latestValue,
+      });
     }
 
     // Rank by latest-year value ascending (1 = lowest rate).
