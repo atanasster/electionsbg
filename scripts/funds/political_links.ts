@@ -544,17 +544,33 @@ export const buildPoliticalLinks = (): {
     entry,
   }));
 
-  // Loud-fail safety net for the debarred join: if the upstream debarred
-  // register has rows but no funds beneficiary matched, the most likely
-  // cause is a normalisation drift between the two sides (which is exactly
-  // what caused the silent `debarredFlagged: 0` regression flagged in the
-  // ingest audit). Warn but don't throw — the ingest must still complete.
+  // Loud-fail safety net for the debarred join. Both sides go through the
+  // same normaliser (`debarredJoinKey` is re-exported from debarred.ts), so
+  // a *drift* can only happen on a code change. To distinguish the two
+  // failure modes — (a) debarred firms simply aren't ИСУН recipients (true
+  // negative, benign) vs (b) a real normaliser regression — probe the FULL
+  // beneficiary corpus, not just the politically-flagged subset.
   if (debarredListSize > 0 && debarredFlagged === 0) {
-    console.log(
-      `  ⚠ debarred-list has ${debarredListSize} row(s) but the funds join ` +
-        `matched 0 — check that scripts/procurement/debarred.ts and the funds ` +
-        `match key (debarredJoinKey) still use compatible normalisation`,
-    );
+    let debarredInCorpus = false;
+    for (const b of aggregated.values()) {
+      if (debarredNames.has(debarredJoinKey(b.name))) {
+        debarredInCorpus = true;
+        break;
+      }
+    }
+    if (debarredInCorpus) {
+      console.log(
+        `  ⚠ debarred-list has ${debarredListSize} row(s) — at least one ` +
+          `matches an unflagged ИСУН beneficiary, so the join key is healthy. ` +
+          `0 flagged means no debarred firm is also politically linked.`,
+      );
+    } else {
+      console.log(
+        `  · debarred-list has ${debarredListSize} row(s); no name match in ` +
+          `the ИСУН corpus (true negative — debarred firms aren't EU-funds ` +
+          `recipients).`,
+      );
+    }
   }
 
   return { index, shards };

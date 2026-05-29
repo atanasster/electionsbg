@@ -237,11 +237,58 @@ const detectPeriod = (
   };
 };
 
+// Some egov responses return each row as a bare object keyed by stringified
+// column indices ({"0": "...", "1": "..."}) rather than a flat array of
+// cells. Normalise both shapes to the array form so the same regex paths
+// work either way.
+const flattenRow = (raw: unknown): unknown[] | null => {
+  if (Array.isArray(raw)) {
+    // Some files wrap the object in a single-element array: [{"0": ...}].
+    if (raw.length === 1) {
+      const inner = flattenRow(raw[0]);
+      if (inner) return inner;
+    }
+    return raw;
+  }
+  if (typeof raw !== "object" || raw === null) return null;
+  const entries = Object.entries(raw as Record<string, unknown>);
+  if (entries.length === 0) return null;
+  const numericOnly = entries.every(([k]) => /^\d+$/.test(k));
+  if (!numericOnly) return null;
+  const max = entries.reduce((m, [k]) => Math.max(m, Number(k)), -1);
+  const flat: unknown[] = new Array(max + 1).fill("");
+  for (const [k, v] of entries) flat[Number(k)] = v;
+  return flat;
+};
+
+// "ОТЧЕТ ЗА КАСОВОТО ИЗПЪЛНЕНИЕ" (per-group narrative format used by some
+// municipalities pre-2019) carries plan/actual totals by named group, not by
+// §§ paragraph code. The B3 parser can't roll it up; detect and skip cleanly.
+const LEGACY_TEMPLATE_RE =
+  /ОТЧЕТ\s+ЗА\s+КАСОВОТО\s+ИЗПЪЛНЕНИЕ\s+НА\s+БЮДЖЕТА.*ЧУЖДИТЕ\s+СРЕДСТВА/i;
+
 export const parseB3 = (opts: ParseB3Options): MunicipalExecutionFile => {
   const { fiscalYear } = opts;
-  // Some resources carry malformed trailing rows that aren't arrays — drop them.
-  const rows = opts.rows.filter((r): r is unknown[] => Array.isArray(r));
+  // Some resources carry malformed trailing rows; drop them. Other resources
+  // (the pre-B3 template variants) ship each row as a bare object instead of
+  // an array, so normalise both shapes via flattenRow.
+  const rows = opts.rows
+    .map(flattenRow)
+    .filter((r): r is unknown[] => r !== null);
   const currency: "BGN" | "EUR" = fiscalYear >= 2026 ? "EUR" : "BGN";
+
+  // Sniff the legacy pre-B3 narrative template before the section finder runs
+  // so the operator gets a meaningful "not yet supported" message instead of
+  // "could not locate the I. ПРИХОДИ section".
+  for (let i = 0; i < Math.min(20, rows.length); i++) {
+    if (LEGACY_TEMPLATE_RE.test(joinRow(rows[i]))) {
+      throw new Error(
+        "legacy 'Отчет за касовото изпълнение на бюджета, сметките за СЕС и " +
+          "чуждите средства' template — no §§-paragraph column to roll up. " +
+          "Not yet supported; the B3 template was adopted from FY2019 onward.",
+      );
+    }
+  }
 
   const revSec = findSection(rows, REVENUE_RE);
   if (!revSec) throw new Error("could not locate the I. ПРИХОДИ section");
