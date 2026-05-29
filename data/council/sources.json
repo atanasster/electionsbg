@@ -136,6 +136,18 @@
       "sampleConfirmedTally": "ПОИМЕННО ГЛАСУВАЛИ: „ЗА\" - 39; „ПРОТИВ\" - 0; „ВЪЗДЪРЖАЛИ СЕ\" - 0",
       "perCouncillor": false
     },
+    "HKV09": {
+      "name": "Община Димитровград",
+      "tier": "B",
+      "indexUrl": "https://www.dimitrovgrad.bg/bg/protokoli-ot-zasedaniyata-na-obshtinskiya-savet",
+      "indexNote": "Wired 2026-05-29. Static paginated HTML index (/page/10, /page/20, ...) with 220+ pages of sessions back to 2009. Each session page links a single .doc (Word 97-2003 binary, codepage 1251) under /uploads/posts/{YYYY}/{DDMMYYYY}-za-publ.doc — full protokol with chair-narrated tallies. Per-decision .docx files (r-{N}-{slug}.docx) are also published on the companion /bg/resheniya-na-obs page but contain only the signed body, no tally. Parser converts the .doc via macOS textutil (matches scripts/budget/capital_programs/vidin.ts convention). Tally form is VERBOSE label-first with semicolon separators and quoted Bulgarian-style labels ('„за\" – 22 общински съветници; „против\" – 2; „въздържали се\" – 0'), already matched by the shared SUMMARY_RE_VERBOSE — no pre-processing needed. РЕШЕНИЕ markers use letter-spaced 'Р  Е  Ш  Е  Н  И  Е № NNN' (textutil output). Tally PRECEDES the marker (chair narrates result first). NO per-councillor block. Coverage tier B (aggregate tally + adopted/rejected, no perCouncillor).",
+      "fetch": "static",
+      "format": "doc-binary",
+      "tallyStrategy": "verbose-label-first",
+      "samplePdf": "https://www.dimitrovgrad.bg/uploads/posts/2026/26032026-za-publ.doc",
+      "sampleConfirmedTally": "гласували  „за\" – 29 общински съветници; „против\" – 0; „въздържали се\" – 1 – общо 30 гласували",
+      "perCouncillor": false
+    },
     "HKV34": {
       "name": "Община Хасково",
       "tier": "B",

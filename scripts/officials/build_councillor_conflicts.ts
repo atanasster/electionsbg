@@ -88,6 +88,7 @@ const COUNCIL_TO_OFFICIALS: Record<string, string> = {
   SZR12: "SZR12",
   HKV34: "HKV34",
   DOB28: "DOB28",
+  HKV09: "HKV09",
 };
 
 // Words / fragments that appear in nearly every council resolution and so
