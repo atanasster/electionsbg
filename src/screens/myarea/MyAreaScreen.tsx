@@ -33,6 +33,7 @@ import { MyAreaLocalTaxesTile } from "./MyAreaLocalTaxesTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
 import { MyAreaQualityStrip } from "./MyAreaQualityStrip";
 import { MyAreaProjectsMapTile } from "./MyAreaProjectsMapTile";
+import { MyAreaPropertyStockTile } from "./MyAreaPropertyStockTile";
 import { MyAreaAlertsTile } from "./MyAreaAlertsTile";
 import { MyAreaSofiaRaionStrip } from "./MyAreaSofiaRaionStrip";
 import { MyAreaCouncilMinutesTile } from "./MyAreaCouncilMinutesTile";
@@ -197,7 +198,15 @@ export const MyAreaScreen: FC = () => {
             TaxReceiptTile + ProjectsMap stay collapsed-by-default because
             their COFOG payload and Leaflet chunk are heavy; the local-tax
             strip is light and renders by default. */}
-        <MyAreaLocalTaxesTile obshtina={area.obshtina} />
+        {/* Pair local-tax rates with the area's land-use composition —
+            both are "what the place is" facts, both fit the same width,
+            and aligning them stops the local-taxes tile from looking
+            island-y on a wide screen. Collapses back to one-column on
+            < lg so each tile still has comfortable breathing room. */}
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+          <MyAreaLocalTaxesTile obshtina={area.obshtina} />
+          <MyAreaPropertyStockTile oblast={area.oblast} />
+        </div>
         <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
           <MyAreaTaxReceiptTile obshtina={area.obshtina} oblast={area.oblast} />
           <MyAreaProjectsMapTile obshtina={area.obshtina} />

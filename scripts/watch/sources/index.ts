@@ -26,6 +26,7 @@ import { indicatorsAz } from "./indicators_az";
 import { indicatorsMonDzi } from "./indicators_mon_dzi";
 import { indicatorsNsiPop } from "./indicators_nsi_pop";
 import { indicatorsNsiVital } from "./indicators_nsi_vital";
+import { nsiLanduse } from "./nsi_landuse";
 import { grao } from "./grao";
 import { smetnaPalata } from "./smetna_palata";
 import { financingReports } from "./financing_reports";
@@ -87,6 +88,7 @@ export const SOURCES: WatchSource[] = [
   indicatorsMonDzi,
   indicatorsNsiPop,
   indicatorsNsiVital,
+  nsiLanduse,
   grao,
   transparencyCpi,
   worldbankWgi,

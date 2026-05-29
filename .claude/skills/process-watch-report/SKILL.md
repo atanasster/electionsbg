@@ -64,6 +64,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `МОН: ДЗИ резултати` | `update-indicators` (also re-runs the My-Area per-school schools index — `npx tsx scripts/schools/build_index.ts` — reuses the per-school CSVs into `data/schools/index.json`) |
 | `НСИ: население по общини` | `update-indicators` |
 | `НСИ: раждания, умирания и миграция по общини` | `update-indicators` |
+| `НСИ: Баланс на територията` (LANDUSE annex) | `update-landuse` (operator pastes the new year's PDF URL into `LANDUSE_REPORTS` in `scripts/landuse/sources.ts`, then runs `npx tsx scripts/landuse/fetch.ts --year <year>` — re-parses the 28-oblast / 8-category land-use composition into `data/landuse/index.json` for the My-Area "Property stock" tile) |
 | `ГРАО: население по постоянен и настоящ адрес` | `update-grao` |
 | `CIK local-elections results bundles` | `update-local-elections` (downloads csv.zip + per-município HTML for every cycle named in the watcher's describe-line; Cloudflare bypass via headless Playwright; idempotent on the HTML mirror so re-runs are cheap; run one `--local-ingest <cycleSlug>` per changed cycle. Final step — `npx tsx scripts/parsers_local/backfill_kmetstvo_ekatte.ts` refreshes the kметство → EKATTE lookup the My-Area village-mayor tile reads.) |
 | `CIK news` (if re-enabled) | _no skill yet — surface as TODO_ |
@@ -295,6 +296,7 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `indicators_mon_dzi` | `update-indicators` (also re-runs the My-Area per-school index — `npx tsx scripts/schools/build_index.ts` — since it reuses the same per-school МОН CSVs that `update-indicators` already downloads into `raw_data/indicators/mon/`) |
 | `indicators_nsi_pop` | `update-indicators` |
 | `indicators_nsi_vital` | `update-indicators` |
+| `nsi_landuse` | `update-landuse` (operator pastes the new year's PDF URL into `LANDUSE_REPORTS` in `scripts/landuse/sources.ts`, then runs `npx tsx scripts/landuse/fetch.ts --year <year>`; ingests the 28-oblast land-use composition published annually as NSI's Баланс на територията press-release annex) |
 | `grao` | `update-grao` |
 | `cik` (if re-enabled) | _no skill yet — surface as TODO_ |
 | `iisda_mayors` | `update-municipal-contacts` (re-runs `npx tsx scripts/officials/municipal_contacts/scrape_iisda.ts` — scans the governing_body ID range 4400..4950, caches HTML to `raw_data/officials/iisda_mayors/`, walks every `<li class="level-1">` block to extract mayor + every Заместник-кмет (role, name, email), rewrites `data/officials/municipal_contacts/index.json` with `{email, mayor, iisda_id, officials[]}` per município) |

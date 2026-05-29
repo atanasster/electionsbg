@@ -357,6 +357,10 @@ export const AboutScreen = () => {
                   label={t("indicators_nsi_vital_source")}
                 />
                 <SourceItem
+                  href="https://www.nsi.bg/bg/content/2536"
+                  label={t("indicators_nsi_landuse_source")}
+                />
+                <SourceItem
                   href="https://www.grao.bg/tables.html"
                   label={t("indicators_grao_source")}
                 />

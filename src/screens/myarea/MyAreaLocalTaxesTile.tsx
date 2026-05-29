@@ -99,13 +99,13 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
         </span>
       </div>
 
-      <ul className="space-y-2">
+      <ul className="space-y-0.5">
         {ipiRows.map(({ key, meta, value, rankTotal }) => {
           const color = colorForRank(value.nationalRank, rankTotal);
           return (
             <li
               key={key}
-              className="flex items-center gap-3 text-sm border-b border-dashed border-border/40 pb-2 last:border-0 last:pb-0"
+              className="flex items-center gap-3 text-xs border-b border-dashed border-border/40 py-1 last:border-0"
             >
               <span className="flex-1 min-w-0 truncate">
                 {meta.label[lang]}
@@ -116,7 +116,7 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
               >
                 {formatValue(value.latestValue, meta.unit, lang)}
               </span>
-              <span className="text-[11px] text-muted-foreground tabular-nums shrink-0 w-16 text-right">
+              <span className="text-[10px] text-muted-foreground tabular-nums shrink-0 w-14 text-right">
                 {lang === "bg"
                   ? `№${value.nationalRank}/${rankTotal}`
                   : `#${value.nationalRank}/${rankTotal}`}
