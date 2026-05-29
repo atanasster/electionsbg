@@ -20,15 +20,15 @@ const PROJECT_ROOT = path.resolve(
   "..",
   "..",
 );
-const OUT_FILE = path.join(PROJECT_ROOT, "data/local_taxes/index.json");
+const OUT_DIR = path.join(PROJECT_ROOT, "data/local_taxes");
+const INDEX_FILE = path.join(OUT_DIR, "index.json");
+const SHARD_PATH = (code: string): string => path.join(OUT_DIR, `${code}.json`);
 const INGEST_DIR = path.join(PROJECT_ROOT, "state/ingest");
 
-type ExistingFile = {
-  scoresByObshtina: Record<
-    string,
-    { ipi?: Record<string, unknown>; naredba?: NaredbaBlock }
-  >;
-  [k: string]: unknown;
+type ShardFile = {
+  obshtina: string;
+  ipi?: Record<string, unknown>;
+  naredba?: NaredbaBlock;
 };
 
 const parseArgs = (argv: string[]): { force: boolean; targets: string[] } => {
@@ -46,14 +46,11 @@ const parseArgs = (argv: string[]): { force: boolean; targets: string[] } => {
 
 const main = async () => {
   const { force, targets } = parseArgs(process.argv);
-  if (!fs.existsSync(OUT_FILE)) {
+  if (!fs.existsSync(INDEX_FILE)) {
     throw new Error(
-      `${OUT_FILE} not found — run scripts/local_taxes/build_index.ts (Tier A) first`,
+      `${INDEX_FILE} not found — run scripts/local_taxes/build_index.ts (Tier A) first`,
     );
   }
-  const existing = JSON.parse(
-    fs.readFileSync(OUT_FILE, "utf-8"),
-  ) as ExistingFile;
 
   const allParsers = parsersByObshtina();
   const queue =
@@ -73,13 +70,19 @@ const main = async () => {
     process.stdout.write(`· ${parser.obshtina} (${parser.label})…`);
     try {
       const result = await parser.parse();
-      // Merge into the scoresByObshtina entry, preserving any ipi block
-      // Tier A already wrote.
-      const prev = existing.scoresByObshtina[result.obshtina] ?? {};
-      existing.scoresByObshtina[result.obshtina] = {
-        ...prev,
-        naredba: result.block,
-      };
+      // Merge the new naredba block into the per-município shard,
+      // preserving any ipi block Tier A already wrote.
+      const shardFile = SHARD_PATH(result.obshtina);
+      let shard: ShardFile = { obshtina: result.obshtina };
+      if (fs.existsSync(shardFile)) {
+        try {
+          shard = JSON.parse(fs.readFileSync(shardFile, "utf-8")) as ShardFile;
+        } catch {
+          // fall through with a fresh shard
+        }
+      }
+      shard.naredba = result.block;
+      fs.writeFileSync(shardFile, JSON.stringify(shard, null, 2) + "\n");
 
       // Watermark per-município so the watch source can short-circuit
       // when the source PDF hasn't changed byte-for-byte.
@@ -110,9 +113,9 @@ const main = async () => {
     }
   }
 
-  fs.writeFileSync(OUT_FILE, JSON.stringify(existing, null, 2) + "\n");
+  // Per-município shards were written inline above — nothing to flush here.
   console.log(
-    `\nwrote ${path.relative(PROJECT_ROOT, OUT_FILE)} · ${ok} parsed · ${failed} failed`,
+    `\nwrote ${ok} naredba shard(s) under ${path.relative(PROJECT_ROOT, OUT_DIR)}/ · ${ok} parsed · ${failed} failed`,
   );
   if (failed > 0) process.exit(1);
 };

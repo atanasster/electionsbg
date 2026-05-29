@@ -1,0 +1,63 @@
+{
+  "obshtina": "VID09",
+  "ipi": {
+    "property_tax_legal": {
+      "values": {
+        "2021": 1.5,
+        "2022": 1.5,
+        "2023": 2.2,
+        "2024": 2.2,
+        "2025": 2.2
+      },
+      "latestYear": 2025,
+      "latestValue": 2.2,
+      "nationalRank": 116
+    },
+    "transfer_tax": {
+      "values": {
+        "2021": 2.5,
+        "2022": 2.5,
+        "2023": 3,
+        "2024": 3,
+        "2025": 3
+      },
+      "latestYear": 2025,
+      "latestValue": 3,
+      "nationalRank": 138
+    },
+    "vehicle_tax_74_110kw": {
+      "values": {
+        "2021": 0.619,
+        "2022": 0.619,
+        "2023": 0.619,
+        "2024": 0.787,
+        "2025": 0.787
+      },
+      "latestYear": 2025,
+      "latestValue": 0.787,
+      "nationalRank": 153
+    },
+    "patent_tax_retail": {
+      "values": {
+        "2021": 2.05,
+        "2022": 2.05,
+        "2023": 2.05,
+        "2024": 2.05,
+        "2025": 2.05
+      },
+      "latestYear": 2025,
+      "latestValue": 2.05,
+      "nationalRank": 29
+    },
+    "patent_tax_taxi": {
+      "values": {
+        "2021": 153.39,
+        "2022": 153.39,
+        "2023": 153.39
+      },
+      "latestYear": 2023,
+      "latestValue": 153.39,
+      "nationalRank": 59
+    }
+  }
+}

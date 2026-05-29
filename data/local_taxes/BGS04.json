@@ -1,0 +1,73 @@
+{
+  "obshtina": "BGS04",
+  "ipi": {
+    "property_tax_legal": {
+      "values": {
+        "2021": 1.75,
+        "2022": 1.75,
+        "2023": 1.75,
+        "2024": 1.75,
+        "2025": 2.2
+      },
+      "latestYear": 2025,
+      "latestValue": 2.2,
+      "nationalRank": 114
+    },
+    "transfer_tax": {
+      "values": {
+        "2021": 3,
+        "2022": 3,
+        "2023": 3,
+        "2024": 3,
+        "2025": 3
+      },
+      "latestYear": 2025,
+      "latestValue": 3,
+      "nationalRank": 128
+    },
+    "vehicle_tax_74_110kw": {
+      "values": {
+        "2021": 1.01,
+        "2022": 1.01,
+        "2023": 1.01,
+        "2024": 1.01,
+        "2025": 1.01
+      },
+      "latestYear": 2025,
+      "latestValue": 1.01,
+      "nationalRank": 252
+    },
+    "patent_tax_retail": {
+      "values": {
+        "2021": 9.2,
+        "2022": 9.2,
+        "2023": 9.2,
+        "2024": 9.2,
+        "2025": 9.2
+      },
+      "latestYear": 2025,
+      "latestValue": 9.2,
+      "nationalRank": 247
+    },
+    "patent_tax_taxi": {
+      "values": {
+        "2021": 337.45,
+        "2022": 337.45,
+        "2023": 337.45
+      },
+      "latestYear": 2023,
+      "latestValue": 337.45,
+      "nationalRank": 262
+    }
+  },
+  "naredba": {
+    "year": 2024,
+    "url": "https://burgascouncil.org/sites/default/files/2024-02/naredba_mestni_danci_i_ceni_na_uslugi_3.docx",
+    "tboResidential": {
+      "basis": "promil",
+      "rate": 1.3,
+      "unit": "‰",
+      "zone": "гр. Бургас + кварталите"
+    }
+  }
+}

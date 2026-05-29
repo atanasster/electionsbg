@@ -1,0 +1,63 @@
+{
+  "obshtina": "SLV24",
+  "ipi": {
+    "property_tax_legal": {
+      "values": {
+        "2021": 1.95,
+        "2022": 1.95,
+        "2023": 1.95,
+        "2024": 1.95,
+        "2025": 1.95
+      },
+      "latestYear": 2025,
+      "latestValue": 1.95,
+      "nationalRank": 60
+    },
+    "transfer_tax": {
+      "values": {
+        "2021": 2,
+        "2022": 2,
+        "2023": 2,
+        "2024": 2,
+        "2025": 2
+      },
+      "latestYear": 2025,
+      "latestValue": 2,
+      "nationalRank": 19
+    },
+    "vehicle_tax_74_110kw": {
+      "values": {
+        "2021": 0.716,
+        "2022": 0.716,
+        "2023": 0.716,
+        "2024": 0.716,
+        "2025": 0.716
+      },
+      "latestYear": 2025,
+      "latestValue": 0.716,
+      "nationalRank": 109
+    },
+    "patent_tax_retail": {
+      "values": {
+        "2021": 2.56,
+        "2022": 2.56,
+        "2023": 2.56,
+        "2024": 2.56,
+        "2025": 2.56
+      },
+      "latestYear": 2025,
+      "latestValue": 2.56,
+      "nationalRank": 71
+    },
+    "patent_tax_taxi": {
+      "values": {
+        "2021": 153.39,
+        "2022": 153.39,
+        "2023": 153.39
+      },
+      "latestYear": 2023,
+      "latestValue": 153.39,
+      "nationalRank": 191
+    }
+  }
+}

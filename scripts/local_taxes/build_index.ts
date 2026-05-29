@@ -28,7 +28,9 @@ const PROJECT_ROOT = path.resolve(
   "..",
   "..",
 );
-const OUT_FILE = path.join(PROJECT_ROOT, "data/local_taxes/index.json");
+const OUT_DIR = path.join(PROJECT_ROOT, "data/local_taxes");
+const OUT_FILE = path.join(OUT_DIR, "index.json");
+const SHARD_PATH = (code: string): string => path.join(OUT_DIR, `${code}.json`);
 
 type YearSeries = Record<string, number>;
 
@@ -58,28 +60,46 @@ type ScoreEntry = {
   naredba?: NaredbaBlock;
 };
 
-type LocalTaxesFile = {
+type Indicator = {
+  key: IpiIndicatorKey;
+  ipiId: number;
+  unit: string;
+  direction: "lower-better";
+  label: { bg: string; en: string };
+};
+
+type TboBasisLabels = Record<
+  "promil" | "users" | "area" | "volume",
+  { bg: string; en: string }
+>;
+
+/** Slim index — everything that's global (meta, indicators, labels,
+ *  national averages, rank denominators). ~5-10 KB. The tile reads
+ *  this once per session for the indicator labels and rank context. */
+type LocalTaxesIndexFile = {
   source: string;
   sourceUrl: string;
   indexName: string;
   latestYear: number;
-  indicators: Array<{
-    key: IpiIndicatorKey;
-    ipiId: number;
-    unit: string;
-    direction: "lower-better";
-    label: { bg: string; en: string };
-  }>;
-  tboBasisLabels: Record<
-    "promil" | "users" | "area" | "volume",
-    { bg: string; en: string }
-  >;
+  indicators: Indicator[];
+  tboBasisLabels: TboBasisLabels;
   nationalAverages: Partial<Record<IpiIndicatorKey, number>>;
-  scoresByObshtina: Record<string, ScoreEntry>;
+  /** Rank denominator per indicator — how many municípios are ranked
+   *  for this indicator (varies if some indicators have missing data). */
+  rankTotals: Partial<Record<IpiIndicatorKey, number>>;
   fetchedAt: string;
 };
 
-const TBO_BASIS_LABELS: LocalTaxesFile["tboBasisLabels"] = {
+/** Per-município shard — the actual ipi block + optional naredba block.
+ *  ~1-2 KB each. The tile lazy-fetches one shard per município the user
+ *  visits; React Query caches them forever. */
+type LocalTaxesObshtinaFile = {
+  obshtina: string;
+  ipi?: Partial<Record<IpiIndicatorKey, IpiPerIndicator>>;
+  naredba?: NaredbaBlock;
+};
+
+const TBO_BASIS_LABELS: TboBasisLabels = {
   promil: {
     bg: "промил от данъчната оценка",
     en: "promille of tax-assessment value",
@@ -187,28 +207,39 @@ const fetchCsv = async (url: string): Promise<string> => {
   return await res.text();
 };
 
-const loadExisting = (): LocalTaxesFile | null => {
-  if (!fs.existsSync(OUT_FILE)) return null;
-  try {
-    return JSON.parse(fs.readFileSync(OUT_FILE, "utf-8")) as LocalTaxesFile;
-  } catch {
-    return null;
+/** Read existing per-município shards so we can carry forward the
+ *  `naredba` blocks that Tier B parsers wrote — the Tier A rebuild
+ *  shouldn't wipe them. */
+const loadExistingShards = (): Record<string, LocalTaxesObshtinaFile> => {
+  const out: Record<string, LocalTaxesObshtinaFile> = {};
+  if (!fs.existsSync(OUT_DIR)) return out;
+  for (const f of fs.readdirSync(OUT_DIR)) {
+    if (!f.endsWith(".json") || f === "index.json") continue;
+    try {
+      const obshtina = f.replace(/\.json$/, "");
+      const data = JSON.parse(
+        fs.readFileSync(path.join(OUT_DIR, f), "utf-8"),
+      ) as LocalTaxesObshtinaFile;
+      out[obshtina] = data;
+    } catch {
+      // skip malformed shards — they'll be rewritten cleanly
+    }
   }
+  return out;
 };
 
 const main = async () => {
-  const existing = loadExisting();
+  const existingShards = loadExistingShards();
   const scoresByObshtina: Record<string, ScoreEntry> = {};
   // Carry forward any existing `naredba` blocks Tier B parsers wrote.
-  if (existing?.scoresByObshtina) {
-    for (const [code, entry] of Object.entries(existing.scoresByObshtina)) {
-      if (entry.naredba) {
-        scoresByObshtina[code] = { naredba: entry.naredba };
-      }
+  for (const [code, shard] of Object.entries(existingShards)) {
+    if (shard.naredba) {
+      scoresByObshtina[code] = { naredba: shard.naredba };
     }
   }
 
   const nationalAverages: Partial<Record<IpiIndicatorKey, number>> = {};
+  const rankTotals: Partial<Record<IpiIndicatorKey, number>> = {};
   let overallLatestYear = 0;
   let totalUnmatched = 0;
   const unmatchedNames = new Set<string>();
@@ -260,6 +291,7 @@ const main = async () => {
     for (let i = 0; i < ranked.length; i++) {
       rankByCode.set(ranked[i].code, i + 1);
     }
+    rankTotals[indicator.key] = resolved.length;
 
     for (const r of resolved) {
       const entry: ScoreEntry = scoresByObshtina[r.code] ?? {};
@@ -295,7 +327,7 @@ const main = async () => {
     }
   }
 
-  const out: LocalTaxesFile = {
+  const indexOut: LocalTaxesIndexFile = {
     source: "Институт за пазарна икономика — 265 общини",
     sourceUrl: "https://www.265obshtini.bg/",
     indexName: "Местни данъци и такси",
@@ -303,12 +335,42 @@ const main = async () => {
     indicators: IPI_INDICATORS,
     tboBasisLabels: TBO_BASIS_LABELS,
     nationalAverages,
-    scoresByObshtina,
+    rankTotals,
     fetchedAt: new Date().toISOString(),
   };
 
-  fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
-  fs.writeFileSync(OUT_FILE, JSON.stringify(out, null, 2) + "\n");
+  // Write the slim index plus one shard per município that has any data.
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+  fs.writeFileSync(OUT_FILE, JSON.stringify(indexOut, null, 2) + "\n");
+
+  // Track which shards we've written so we can clean up stale ones from
+  // previous runs (e.g. if an alias change moves data to a different
+  // obshtina code).
+  const writtenShards = new Set<string>();
+  for (const [code, entry] of Object.entries(scoresByObshtina)) {
+    if (!entry.ipi && !entry.naredba) continue;
+    const shardOut: LocalTaxesObshtinaFile = { obshtina: code };
+    if (entry.ipi) shardOut.ipi = entry.ipi;
+    if (entry.naredba) shardOut.naredba = entry.naredba;
+    fs.writeFileSync(
+      SHARD_PATH(code),
+      JSON.stringify(shardOut, null, 2) + "\n",
+    );
+    writtenShards.add(code);
+  }
+
+  // Prune shards that didn't get written this run — keeps the dir clean
+  // when an obshtina drops out of all indicators (rare, but possible).
+  let pruned = 0;
+  for (const f of fs.readdirSync(OUT_DIR)) {
+    if (!f.endsWith(".json") || f === "index.json") continue;
+    const code = f.replace(/\.json$/, "");
+    if (!writtenShards.has(code)) {
+      fs.unlinkSync(path.join(OUT_DIR, f));
+      pruned++;
+    }
+  }
+
   const ipiCount = Object.values(scoresByObshtina).filter(
     (e) => e.ipi && Object.keys(e.ipi).length > 0,
   ).length;
@@ -316,7 +378,7 @@ const main = async () => {
     (e) => e.naredba,
   ).length;
   console.log(
-    `\nwrote ${path.relative(PROJECT_ROOT, OUT_FILE)} · ipi: ${ipiCount} municípios · naredba: ${naredbaCount} (preserved) · total unmatched cell-rows: ${totalUnmatched}`,
+    `\nwrote ${path.relative(PROJECT_ROOT, OUT_FILE)} (slim index) · ${writtenShards.size} per-município shard(s) · ipi: ${ipiCount} municípios · naredba: ${naredbaCount} (preserved) · total unmatched cell-rows: ${totalUnmatched}${pruned > 0 ? ` · pruned ${pruned} stale shard(s)` : ""}`,
   );
 };
 

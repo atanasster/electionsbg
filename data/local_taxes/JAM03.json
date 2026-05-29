@@ -1,0 +1,63 @@
+{
+  "obshtina": "JAM03",
+  "ipi": {
+    "property_tax_legal": {
+      "values": {
+        "2021": 1.8,
+        "2022": 1.8,
+        "2023": 1.8,
+        "2024": 1.8,
+        "2025": 2
+      },
+      "latestYear": 2025,
+      "latestValue": 2,
+      "nationalRank": 68
+    },
+    "transfer_tax": {
+      "values": {
+        "2021": 3,
+        "2022": 3,
+        "2023": 3,
+        "2024": 3,
+        "2025": 2.6
+      },
+      "latestYear": 2025,
+      "latestValue": 2.6,
+      "nationalRank": 79
+    },
+    "vehicle_tax_74_110kw": {
+      "values": {
+        "2021": 0.69,
+        "2022": 0.69,
+        "2023": 0.69,
+        "2024": 0.69,
+        "2025": 0.762
+      },
+      "latestYear": 2025,
+      "latestValue": 0.762,
+      "nationalRank": 135
+    },
+    "patent_tax_retail": {
+      "values": {
+        "2021": 4.09,
+        "2022": 4.09,
+        "2023": 4.09,
+        "2024": 4.09,
+        "2025": 6.14
+      },
+      "latestYear": 2025,
+      "latestValue": 6.14,
+      "nationalRank": 220
+    },
+    "patent_tax_taxi": {
+      "values": {
+        "2021": 0,
+        "2022": 153.39,
+        "2023": 153.39
+      },
+      "latestYear": 2023,
+      "latestValue": 153.39,
+      "nationalRank": 42
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "obshtina": "TGV24",
+  "ipi": {
+    "property_tax_legal": {
+      "values": {
+        "2021": 2,
+        "2022": 2,
+        "2023": 2,
+        "2024": 2,
+        "2025": 2.5
+      },
+      "latestYear": 2025,
+      "latestValue": 2.5,
+      "nationalRank": 146
+    },
+    "transfer_tax": {
+      "values": {
+        "2021": 2.8,
+        "2022": 2.8,
+        "2023": 2.8,
+        "2024": 2.8,
+        "2025": 2.8
+      },
+      "latestYear": 2025,
+      "latestValue": 2.8,
+      "nationalRank": 104
+    },
+    "vehicle_tax_74_110kw": {
+      "values": {
+        "2021": 0.931,
+        "2022": 0.931,
+        "2023": 0.931,
+        "2024": 0.931,
+        "2025": 0.931
+      },
+      "latestYear": 2025,
+      "latestValue": 0.931,
+      "nationalRank": 239
+    },
+    "patent_tax_retail": {
+      "values": {
+        "2021": 3.58,
+        "2022": 3.58,
+        "2023": 3.58,
+        "2024": 3.58,
+        "2025": 3.58
+      },
+      "latestYear": 2025,
+      "latestValue": 3.58,
+      "nationalRank": 128
+    },
+    "patent_tax_taxi": {
+      "values": {
+        "2021": 153.39,
+        "2022": 153.39,
+        "2023": 153.39
+      },
+      "latestYear": 2023,
+      "latestValue": 153.39,
+      "nationalRank": 152
+    }
+  }
+}

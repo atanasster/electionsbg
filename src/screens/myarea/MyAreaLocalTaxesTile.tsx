@@ -63,20 +63,21 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
 
   if (!data || !score || !score.ipi) return null;
 
-  const totalRanked = Object.keys(data.scoresByObshtina).filter(
-    (k) => data.scoresByObshtina[k].ipi,
-  ).length;
-
   // Surface only the indicators the município actually has data for.
   type Row = {
     key: IpiIndicatorKey;
     meta: LocalTaxIndicatorMeta;
     value: IpiPerIndicator;
+    rankTotal: number;
   };
   const ipiRows: Row[] = data.indicators
     .map((meta) => {
       const value = score.ipi?.[meta.key];
-      return value ? { key: meta.key, meta, value } : null;
+      if (!value) return null;
+      // Per-indicator denominator comes from the slim index — varies if
+      // some indicators have missing data for a subset of municípios.
+      const rankTotal = data.rankTotals[meta.key] ?? 0;
+      return { key: meta.key, meta, value, rankTotal };
     })
     .filter((row): row is Row => row != null);
 
@@ -99,8 +100,8 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
       </div>
 
       <ul className="space-y-2">
-        {ipiRows.map(({ key, meta, value }) => {
-          const color = colorForRank(value.nationalRank, totalRanked);
+        {ipiRows.map(({ key, meta, value, rankTotal }) => {
+          const color = colorForRank(value.nationalRank, rankTotal);
           return (
             <li
               key={key}
@@ -117,8 +118,8 @@ export const MyAreaLocalTaxesTile: FC<Props> = ({ obshtina }) => {
               </span>
               <span className="text-[11px] text-muted-foreground tabular-nums shrink-0 w-16 text-right">
                 {lang === "bg"
-                  ? `№${value.nationalRank}/${totalRanked}`
-                  : `#${value.nationalRank}/${totalRanked}`}
+                  ? `№${value.nationalRank}/${rankTotal}`
+                  : `#${value.nationalRank}/${rankTotal}`}
               </span>
             </li>
           );

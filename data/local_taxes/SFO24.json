@@ -1,0 +1,63 @@
+{
+  "obshtina": "SFO24",
+  "ipi": {
+    "property_tax_legal": {
+      "values": {
+        "2021": 2,
+        "2022": 2,
+        "2023": 2,
+        "2024": 2,
+        "2025": 2
+      },
+      "latestYear": 2025,
+      "latestValue": 2,
+      "nationalRank": 88
+    },
+    "transfer_tax": {
+      "values": {
+        "2021": 3,
+        "2022": 3,
+        "2023": 3,
+        "2024": 3,
+        "2025": 3
+      },
+      "latestYear": 2025,
+      "latestValue": 3,
+      "nationalRank": 178
+    },
+    "vehicle_tax_74_110kw": {
+      "values": {
+        "2021": 0.675,
+        "2022": 0.675,
+        "2023": 0.675,
+        "2024": 0.675,
+        "2025": 0.675
+      },
+      "latestYear": 2025,
+      "latestValue": 0.675,
+      "nationalRank": 91
+    },
+    "patent_tax_retail": {
+      "values": {
+        "2021": 2.56,
+        "2022": 2.56,
+        "2023": 2.56,
+        "2024": 2.56,
+        "2025": 2.56
+      },
+      "latestYear": 2025,
+      "latestValue": 2.56,
+      "nationalRank": 64
+    },
+    "patent_tax_taxi": {
+      "values": {
+        "2021": 153.39,
+        "2022": 153.39,
+        "2023": 153.39
+      },
+      "latestYear": 2023,
+      "latestValue": 153.39,
+      "nationalRank": 105
+    }
+  }
+}

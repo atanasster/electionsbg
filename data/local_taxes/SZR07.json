@@ -1,0 +1,63 @@
+{
+  "obshtina": "SZR07",
+  "ipi": {
+    "property_tax_legal": {
+      "values": {
+        "2021": 2,
+        "2022": 2,
+        "2023": 2,
+        "2024": 3,
+        "2025": 3
+      },
+      "latestYear": 2025,
+      "latestValue": 3,
+      "nationalRank": 181
+    },
+    "transfer_tax": {
+      "values": {
+        "2021": 2.5,
+        "2022": 2.5,
+        "2023": 2.5,
+        "2024": 2.5,
+        "2025": 2.5
+      },
+      "latestYear": 2025,
+      "latestValue": 2.5,
+      "nationalRank": 42
+    },
+    "vehicle_tax_74_110kw": {
+      "values": {
+        "2021": 0.931,
+        "2022": 0.931,
+        "2023": 0.931,
+        "2024": 0.931,
+        "2025": 0.931
+      },
+      "latestYear": 2025,
+      "latestValue": 0.931,
+      "nationalRank": 234
+    },
+    "patent_tax_retail": {
+      "values": {
+        "2021": 3.58,
+        "2022": 3.58,
+        "2023": 3.58,
+        "2024": 3.58,
+        "2025": 3.58
+      },
+      "latestYear": 2025,
+      "latestValue": 3.58,
+      "nationalRank": 122
+    },
+    "patent_tax_taxi": {
+      "values": {
+        "2021": 153.39,
+        "2022": 153.39,
+        "2023": 153.39
+      },
+      "latestYear": 2023,
+      "latestValue": 153.39,
+      "nationalRank": 69
+    }
+  }
+}

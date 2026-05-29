@@ -1,0 +1,63 @@
+{
+  "obshtina": "KNL41",
+  "ipi": {
+    "property_tax_legal": {
+      "values": {
+        "2021": 2,
+        "2022": 2.5,
+        "2023": 2.5,
+        "2024": 2.5,
+        "2025": 2.5
+      },
+      "latestYear": 2025,
+      "latestValue": 2.5,
+      "nationalRank": 148
+    },
+    "transfer_tax": {
+      "values": {
+        "2021": 2.6,
+        "2022": 2.6,
+        "2023": 2.6,
+        "2024": 2.6,
+        "2025": 2.6
+      },
+      "latestYear": 2025,
+      "latestValue": 2.6,
+      "nationalRank": 95
+    },
+    "vehicle_tax_74_110kw": {
+      "values": {
+        "2021": 0.619,
+        "2022": 0.619,
+        "2023": 0.619,
+        "2024": 0.619,
+        "2025": 0.619
+      },
+      "latestYear": 2025,
+      "latestValue": 0.619,
+      "nationalRank": 59
+    },
+    "patent_tax_retail": {
+      "values": {
+        "2021": 5.11,
+        "2022": 5.37,
+        "2023": 5.11,
+        "2024": 5.11,
+        "2025": 5.11
+      },
+      "latestYear": 2025,
+      "latestValue": 5.11,
+      "nationalRank": 203
+    },
+    "patent_tax_taxi": {
+      "values": {
+        "2021": 153.39,
+        "2022": 153.39,
+        "2023": 153.39
+      },
+      "latestYear": 2023,
+      "latestValue": 153.39,
+      "nationalRank": 169
+    }
+  }
+}

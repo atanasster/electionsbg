@@ -1,11 +1,15 @@
 // Per-município local-tax rates — five ИПИ indicators across all 265 общини
 // plus optional naredba blocks (residential ТБО / tourist tax / dog tax)
-// for the oblast capitals.
+// for the municípios where Tier B parsers ran.
 //
-// File ships with all 265 ipi blocks populated by
-// `update-local-taxes` (Tier A). naredba blocks fill in as Tier B parsers
-// land. The hook returns `undefined` for any município not in the index —
-// the consuming tile renders nothing in that case (silent absence).
+// Storage shape (per-município sharding):
+//   - data/local_taxes/index.json — slim global meta (~5-10 KB): indicators
+//     catalogue, tboBasisLabels, nationalAverages, rankTotals. Fetched once
+//     per session and cached forever.
+//   - data/local_taxes/{obshtina}.json — per-município ipi + naredba block
+//     (~1-2 KB each). Fetched lazily when a tile reads one município.
+//
+// Total per-page-view download: ~10 KB instead of 390 KB.
 
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
@@ -53,7 +57,8 @@ export type LocalTaxIndicatorMeta = {
   label: { bg: string; en: string };
 };
 
-export type LocalTaxesFile = {
+/** Slim index — global metadata + per-indicator rank denominators. */
+export type LocalTaxesIndex = {
   source: string;
   sourceUrl: string;
   indexName: string;
@@ -61,25 +66,49 @@ export type LocalTaxesFile = {
   indicators: LocalTaxIndicatorMeta[];
   tboBasisLabels: Record<TboBasis, { bg: string; en: string }>;
   nationalAverages: Partial<Record<IpiIndicatorKey, number>>;
-  scoresByObshtina: Record<string, ScoreEntry>;
+  rankTotals: Partial<Record<IpiIndicatorKey, number>>;
   fetchedAt?: string;
 };
 
-const fetchLocalTaxes = async (): Promise<LocalTaxesFile> => {
+/** Per-município shard — the actual ipi block + optional naredba block. */
+export type LocalTaxesObshtinaShard = {
+  obshtina: string;
+  ipi?: Partial<Record<IpiIndicatorKey, IpiPerIndicator>>;
+  naredba?: NaredbaBlock;
+};
+
+const fetchIndex = async (): Promise<LocalTaxesIndex> => {
   const r = await fetch(dataUrl("/local_taxes/index.json"));
-  if (!r.ok) throw new Error("local taxes fetch failed");
+  if (!r.ok) throw new Error("local-taxes index fetch failed");
+  return r.json();
+};
+
+const fetchShard = async (
+  obshtina: string,
+): Promise<LocalTaxesObshtinaShard | null> => {
+  const r = await fetch(dataUrl(`/local_taxes/${obshtina}.json`));
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error(`local-taxes shard ${obshtina} fetch failed`);
   return r.json();
 };
 
 /** Returns the local-tax record for an obshtina, or `undefined` if the
- *  município isn't in the index (or the data isn't ingested yet). The
- *  consuming tile checks `ipi` for presence — `naredba` is optional. */
+ *  município isn't in the index. Fetches the slim index (once per
+ *  session) and the per-município shard (once per município). */
 export const useLocalTaxes = (obshtina?: string | null) => {
   const { data } = useQuery({
-    queryKey: ["local_taxes"],
-    queryFn: fetchLocalTaxes,
+    queryKey: ["local_taxes:index"],
+    queryFn: fetchIndex,
     staleTime: Infinity,
   });
-  const score = obshtina ? data?.scoresByObshtina[obshtina] : undefined;
+  const { data: shard } = useQuery({
+    queryKey: ["local_taxes:shard", obshtina],
+    queryFn: () => fetchShard(obshtina!),
+    enabled: !!obshtina,
+    staleTime: Infinity,
+  });
+  const score: ScoreEntry | undefined = shard
+    ? { ipi: shard.ipi, naredba: shard.naredba }
+    : undefined;
   return { data, score };
 };

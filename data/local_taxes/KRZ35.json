@@ -1,0 +1,63 @@
+{
+  "obshtina": "KRZ35",
+  "ipi": {
+    "property_tax_legal": {
+      "values": {
+        "2021": 1.5,
+        "2022": 1.5,
+        "2023": 1.5,
+        "2024": 1.5,
+        "2025": 1.5
+      },
+      "latestYear": 2025,
+      "latestValue": 1.5,
+      "nationalRank": 34
+    },
+    "transfer_tax": {
+      "values": {
+        "2021": 3,
+        "2022": 3,
+        "2023": 3,
+        "2024": 3,
+        "2025": 3
+      },
+      "latestYear": 2025,
+      "latestValue": 3,
+      "nationalRank": 260
+    },
+    "vehicle_tax_74_110kw": {
+      "values": {
+        "2021": 0.762,
+        "2022": 0.762,
+        "2023": 0.762,
+        "2024": 0.762,
+        "2025": 0.762
+      },
+      "latestYear": 2025,
+      "latestValue": 0.762,
+      "nationalRank": 138
+    },
+    "patent_tax_retail": {
+      "values": {
+        "2021": 3.07,
+        "2022": 3.07,
+        "2023": 3.07,
+        "2024": 3.07,
+        "2025": 3.07
+      },
+      "latestYear": 2025,
+      "latestValue": 3.07,
+      "nationalRank": 117
+    },
+    "patent_tax_taxi": {
+      "values": {
+        "2021": 153.39,
+        "2022": 153.39,
+        "2023": 153.39
+      },
+      "latestYear": 2023,
+      "latestValue": 153.39,
+      "nationalRank": 207
+    }
+  }
+}

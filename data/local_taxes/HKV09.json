@@ -1,0 +1,63 @@
+{
+  "obshtina": "HKV09",
+  "ipi": {
+    "property_tax_legal": {
+      "values": {
+        "2021": 2,
+        "2022": 2,
+        "2023": 2,
+        "2024": 2,
+        "2025": 3
+      },
+      "latestYear": 2025,
+      "latestValue": 3,
+      "nationalRank": 182
+    },
+    "transfer_tax": {
+      "values": {
+        "2021": 2.5,
+        "2022": 2.5,
+        "2023": 2.5,
+        "2024": 2.5,
+        "2025": 3
+      },
+      "latestYear": 2025,
+      "latestValue": 3,
+      "nationalRank": 152
+    },
+    "vehicle_tax_74_110kw": {
+      "values": {
+        "2021": 0.844,
+        "2022": 0.844,
+        "2023": 0.844,
+        "2024": 0.844,
+        "2025": 0.844
+      },
+      "latestYear": 2025,
+      "latestValue": 0.844,
+      "nationalRank": 193
+    },
+    "patent_tax_retail": {
+      "values": {
+        "2021": 5.11,
+        "2022": 5.11,
+        "2023": 5.11,
+        "2024": 5.11,
+        "2025": 5.11
+      },
+      "latestYear": 2025,
+      "latestValue": 5.11,
+      "nationalRank": 185
+    },
+    "patent_tax_taxi": {
+      "values": {
+        "2021": 178.95,
+        "2022": 178.95,
+        "2023": 178.95
+      },
+      "latestYear": 2023,
+      "latestValue": 178.95,
+      "nationalRank": 218
+    }
+  }
+}
