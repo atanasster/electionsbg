@@ -160,6 +160,16 @@
       "sampleConfirmedTally": "гласували ,,ЗА\" – 5, ,,против\" и ,,въздържали се\" – няма.",
       "perCouncillor": false
     },
+    "PER32": {
+      "name": "Община Перник",
+      "tier": "A",
+      "indexUrl": "https://www.obs-pernik.bg/category/zasedaniya/protokoli-zasedaniya/",
+      "indexNote": "Wired 2026-05-29. WordPress category with /page/N/ pagination, 10 posts per page. Each post slug: /protokol-N-DD-MM-YYYYg/ (Cyrillic in canonical form), one .docx attachment per session under /wp-content/uploads/{YYYY}/{MM}/. Tally form matches the shared SUMMARY_RE_LABEL_FIRST canonically. Per-councillor block sits BETWEEN the tally summary and the marker as UNGROUPED Name: vote lines (no leading position number) — parser ships its own PER_NAME_RE since the shared VOTE_LINE_RE requires a numbered prefix. Marker filter: real markers preceded by prie verb within 300 chars (agenda cross-references to past decisions get filtered out). Coverage tier A.",
+      "fetch": "static",
+      "format": "docx",
+      "tallyStrategy": "label-first",
+      "perCouncillor": true
+    },
     "HKV34": {
       "name": "Община Хасково",
       "tier": "B",
@@ -216,23 +226,6 @@
         "probedNote": "Probed 2026-05-29: session pages link only покана/agenda PDFs at uploads/posts/{YYYY}/. The PDFs are PDFium-produced with malformed flate streams → pdftotext silently outputs 0 bytes. No протоколи or решения index found yet. Needs deeper probe."
       },
       {
-        "obshtina": "HKV34",
-        "name": "Хасково",
-        "url": "https://www.haskovo.bg/uploads/posts/{YYYY}/protokol-{N}.pdf",
-        "probedNote": "Probed 2026-05-29: 89 protokol PDFs in Wayback CDX at haskovo.bg/uploads/posts/{YYYY}/protokol-{N}.pdf — clean URL pattern. Born-digital text-layer (~110 pages per session, full prose). Aggregate tallies via chair's announcements ('Т.ЗАХАРИЕВА: С 37 гласа „за“, без „против“ и „въздържали се“') in a NOVEL form not matched by any existing tally regex variant (needs SUMMARY_RE for 'С N гласа „за“[, без|, M „против“][, без|, K „въздържали се“]'). NO per-councillor block — the protokol records the chair's announcement, not the individual vote tablet readout. Wiring would add aggregate-only coverage (tier B equivalent to SZR/RSE/Pleven) — meaningful but doesn't unlock per-councillor signals."
-      },
-      {
-        "obshtina": "PER32",
-        "name": "Перник",
-        "url": "https://www.obs-pernik.bg/category/архив/решения/",
-        "probedNote": "Probed 2026-05-29: WordPress category #7 has count=0 (empty). WP REST API confirms zero posts. The archive category exists but contains no published decisions — possibly migrated to a different category or unpublished for 2023-2027 mandate."
-      },
-      {
-        "obshtina": "SZR12",
-        "name": "Казанлък",
-        "url": "https://obs.kazanlak.bg/cat-3.html"
-      },
-      {
         "obshtina": "MON29",
         "name": "Монтана",
         "url": "https://www.montana.bg/общински-съвет/заседания",
@@ -241,7 +234,8 @@
       {
         "obshtina": "TGV35",
         "name": "Търговище",
-        "url": "https://targovishte.bg/wps/portal/municipality-targovishte/municipal-council/protocols-and-decisions/"
+        "url": "https://targovishte.bg/wps/portal/municipality-targovishte/municipal-council/protocols-and-decisions/",
+        "probedNote": "Probed 2026-05-29 via Playwright: the index at /wps/portal/.../protocols-and-decisions/ProtokoliObS LOADS but the document list is fetched via the WPS Portal contenthandler/searchfeed/search Atom API (returns 282 KB XML). Same TSPD bot-guard flakiness as Видин — initial probe captured the Atom feed, retry returned ERR_EMPTY_RESPONSE. Defer to a focused unlock pass with TSPD-stable browser fingerprint."
       },
       {
         "obshtina": "VTR06",
@@ -259,17 +253,13 @@
         "obshtina": "VID09",
         "name": "Видин",
         "url": "https://vidin.bg/wps/portal/vidin-municipality/obshtinski-savet/os-protocols-solutions",
-        "probedNote": "Probed 2026-05-29: WPS portal JS-rendered, TSPD anti-bot guard returns only '<a href=\"/TSPD/?type=25\">' on direct curl. Would need Playwright."
+        "probedNote": "Probed 2026-05-29 via Playwright: the current-mandate index at /wps/portal/.../obshtinski-savet/os-protocols-solutions/os-protocols/protokoli-23-27 LOADS but the document list is fetched via a separate XHR to /customSearchWCM/query?context=vidin.bg-4606 — and the WPS Portal TSPD bot guard returns ERR_EMPTY_RESPONSE intermittently to headless Playwright. One probe captured the search XHR fine; a retry minutes later timed out. Workable but needs a TSPD-stable browser fingerprint (playwright-extra stealth, FlareSolverr, or a persistent residential proxy). Defer to a focused unlock pass."
       },
       {
         "obshtina": "SML31",
         "name": "Смолян",
-        "url": "https://www.smolyan.bg/bg/menu/sl/10"
-      },
-      {
-        "obshtina": "HKV09",
-        "name": "Димитровград",
-        "url": "https://www.dimitrovgrad.bg/bg/obshtinski-savet/"
+        "url": "https://www.smolyan.bg/bg/menu/sl/10",
+        "probedNote": "Probed 2026-05-29 via Playwright: Cloudflare Just-a-Moment challenge blocks even headless Chromium with realistic UA. Would need Cloudflare-bypass tooling (FlareSolverr, residential proxy, or playwright-extra with stealth + cf-clearance). Defer."
       }
     ],
     "tierC_prepisOnly": [
@@ -282,11 +272,6 @@
         "obshtina": "PDV01",
         "name": "Асеновград",
         "url": "https://www.asenovgrad.bg/bg/resheniya/"
-      },
-      {
-        "obshtina": "RAZ26",
-        "name": "Разград",
-        "url": "https://razgrad.bg/"
       },
       {
         "obshtina": "SLS31",
