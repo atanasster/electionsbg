@@ -144,15 +144,15 @@
       {"obshtina": "GAB05", "name": "Габрово", "url": "https://gabrovo.bg/files/OBS/zasedania/protokol/{YYYY}/Protokol-zasedanie-No{N}-{DD.MM.YYYY}.pdf", "confirmed": "born-digital text-layer PDF with per-councillor block (1..N name vote columns including отсъства), aggregate tally 'За – N, против – M, въздържали се – K'"}
     ],
     "tierB_unverified": [
-      {"obshtina": "SHU30", "name": "Шумен", "url": "https://obs.shumen.bg/bg/zasedaniya-na-obshtinski-savet-mandat-2023-2027/"},
+      {"obshtina": "SHU30", "name": "Шумен", "url": "https://obs.shumen.bg/bg/zasedaniya-na-obshtinski-savet-mandat-2023-2027/", "probedNote": "Probed 2026-05-29: session pages link only покана/agenda PDFs at uploads/posts/{YYYY}/. The PDFs are PDFium-produced with malformed flate streams → pdftotext silently outputs 0 bytes. No протоколи or решения index found yet. Needs deeper probe."},
       {"obshtina": "HKV34", "name": "Хасково", "url": "https://www.haskovo.bg/bg/resheniya/"},
       {"obshtina": "PER32", "name": "Перник", "url": "https://www.obs-pernik.bg/category/архив/решения/"},
       {"obshtina": "SZR12", "name": "Казанлък", "url": "https://obs.kazanlak.bg/cat-3.html"},
       {"obshtina": "MON29", "name": "Монтана", "url": "https://www.montana.bg/общински-съвет/заседания"},
       {"obshtina": "TGV35", "name": "Търговище", "url": "https://targovishte.bg/wps/portal/municipality-targovishte/municipal-council/protocols-and-decisions/"},
-      {"obshtina": "VTR06", "name": "Горна Оряховица", "url": "https://savet.gornaoryahovitsa.bg/"},
-      {"obshtina": "LOV18", "name": "Ловеч", "url": "https://os.lovech.bg/bg/resheniya/"},
-      {"obshtina": "VID09", "name": "Видин", "url": "https://vidin.bg/wps/portal/vidin-municipality/obshtinski-savet/os-protocols-solutions"},
+      {"obshtina": "VTR06", "name": "Горна Оряховица", "url": "https://savet.gornaoryahovitsa.bg/", "probedNote": "Probed 2026-05-29: Joomla K2 site at savet.gornaoryahovitsa.bg with categories per session ('заседание-N-DD-MM-YYYY'). Sub-category 'дневен ред, протоколи и решения - заседание N' EXISTS but currently only links the agenda item (item/{id}-dneven-red-zasedanie-{N}). Protokols / decisions are NOT yet published — across 10 historical sessions (cat 103..125) each had at most 1 item, none were a protokol. Files are stored on a separate Nextcloud at cloud.gornaoryahovitsa.bg/index.php/s/<token> with /download endpoint. Effectively tier C/D until publishing policy changes."},
+      {"obshtina": "LOV18", "name": "Ловеч", "url": "https://os.lovech.bg/bg/resheniya/", "probedNote": "Probed 2026-05-29: site stale — latest decision is from 2019-09-26. Decisions are scanned PDFs (CCITT grayscale, would need OCR). Not viable until publication resumes."},
+      {"obshtina": "VID09", "name": "Видин", "url": "https://vidin.bg/wps/portal/vidin-municipality/obshtinski-savet/os-protocols-solutions", "probedNote": "Probed 2026-05-29: WPS portal JS-rendered, TSPD anti-bot guard returns only '<a href=\"/TSPD/?type=25\">' on direct curl. Would need Playwright."},
       {"obshtina": "SML31", "name": "Смолян", "url": "https://www.smolyan.bg/bg/menu/sl/10"},
       {"obshtina": "HKV09", "name": "Димитровград", "url": "https://www.dimitrovgrad.bg/bg/obshtinski-savet/"}
     ],
