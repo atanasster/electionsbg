@@ -175,14 +175,48 @@ export const MyAreaCouncilTile: FC<Props> = ({ obshtina }) => {
   );
   const signalsBySlug = useCouncillorSignals(rosterShard, councillorSlugs);
 
-  // Filtered + capped resolution list driving the visible rows.
-  const filtered = useMemo(() => {
-    if (!contestedOnly) return resolutions;
-    return resolutions.filter((r) => dissentRatio(r) >= CONTESTED_RATIO);
-  }, [resolutions, contestedOnly]);
-  const contestedCount = useMemo(
-    () => resolutions.filter((r) => dissentRatio(r) >= CONTESTED_RATIO).length,
+  // Most councils publish the per-resolution PDF as soon as the session
+  // wraps but the full session protokol (the source for vote tallies via
+  // the OCR pass) lands days-to-weeks later. With PREVIEW_CAP = 5 and a
+  // 2-week lag, users who got to the dashboard during the gap window would
+  // see only untallied rows — and by the time tallies arrived, fresh
+  // untallied rows would have replaced them on top. So we de-rank rows
+  // without a tally: prefer the freshest tallied rows for the visible
+  // cap, and surface a small "N awaiting protocol" hint footer when we
+  // are hiding any. Falls back to the full list when the município has
+  // zero tallied rows at all (PDV/VAR don't publish tally-bearing
+  // protokoli — there's no "pending" to wait for).
+  const hasAnyTallied = useMemo(
+    () => resolutions.some((r) => r.tally != null),
     [resolutions],
+  );
+  const filtered = useMemo(() => {
+    const base = hasAnyTallied
+      ? resolutions.filter((r) => r.tally != null)
+      : resolutions;
+    if (!contestedOnly) return base;
+    return base.filter((r) => dissentRatio(r) >= CONTESTED_RATIO);
+  }, [resolutions, contestedOnly, hasAnyTallied]);
+  // Count of fresh untallied rows we're hiding behind the tally filter —
+  // shown as a "N awaiting protocol" footer note. Only counts rows newer
+  // than the most recent tallied row, so older one-off gaps don't trigger
+  // a misleading "pending" indicator.
+  const pendingTallyCount = useMemo(() => {
+    if (!hasAnyTallied) return 0;
+    const latestTalliedDate = resolutions
+      .filter((r) => r.tally != null)
+      .reduce((acc, r) => (r.date > acc ? r.date : acc), "");
+    return resolutions.filter(
+      (r) => r.tally == null && r.date > latestTalliedDate,
+    ).length;
+  }, [resolutions, hasAnyTallied]);
+  const contestedCount = useMemo(
+    () =>
+      (hasAnyTallied
+        ? resolutions.filter((r) => r.tally != null)
+        : resolutions
+      ).filter((r) => dissentRatio(r) >= CONTESTED_RATIO).length,
+    [resolutions, hasAnyTallied],
   );
 
   // Standouts — top 3 by party-dissent + bottom 3 by attendance.
@@ -628,6 +662,20 @@ export const MyAreaCouncilTile: FC<Props> = ({ obshtina }) => {
           </li>
         ) : null}
       </ul>
+
+      {/* "N awaiting protocol" footer note — councils typically publish
+          per-resolution PDFs immediately after a session but the full
+          protokol with the vote tally lands days-to-weeks later. Without
+          this hint the tile silently de-ranks the freshest decisions and
+          a user familiar with what just happened in the chamber would
+          assume the data is broken. */}
+      {pendingTallyCount > 0 ? (
+        <p className="mt-2 text-[10px] text-muted-foreground italic leading-snug">
+          {lang === "bg"
+            ? `${pendingTallyCount} по-нови решения чакат публикуване на протокола за гласовете.`
+            : `${pendingTallyCount} more recent decisions are awaiting protocol publication for vote tallies.`}
+        </p>
+      ) : null}
 
       {/* Bottom strip: legend + AI disclaimer */}
       <div className="mt-3 pt-2 border-t flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-muted-foreground">
