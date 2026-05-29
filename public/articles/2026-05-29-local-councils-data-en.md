@@ -25,7 +25,7 @@ keywords:
 
 Bulgaria has 265 municipalities. Each runs an **общински съвет** that meets monthly, takes hundreds of decisions a year, and votes on a multi-million-euro annual budget — every municipality publishes some version of both on its own website. There is no central register of these votes or budgets: РМС 436/2017 only mandates the narrow чл.45 ЗМСМА "returned decisions" feed on data.egov.bg, and a sampling we did across 50 municipalities found that fewer than 4 in 10 publish anything in that category, more than 90% of which is just hyperlinks back to the município's own CMS.
 
-So we built our own ingest. As of this draft we cover **16 municipalities for council votes** and **26 municipalities for capital programmes** — every oblast capital except seven, plus secondary cities. The two coverages overlap in 13 municipalities where we have BOTH a council ingest AND a budget ingest, so the dashboard can answer the politically interesting question: "the council voted to approve €3M for the school renovation in village X — who voted for, who voted against, and did the project actually land in the capital programme?"
+So we built our own ingest. As of this draft we cover **16 municipalities for council votes** and **26 municipalities for capital programmes** — every oblast capital except seven, plus secondary cities. The two coverages overlap in **14 municipalities** where we have BOTH a council ingest AND a budget ingest, so the dashboard can answer the politically interesting question: "the council voted to approve €3M for the school renovation in village X — who voted for, who voted against, and did the project actually land in the capital programme?"
 
 Across the 16 wired councils we've extracted **2,947 resolutions** with their adopted/rejected status and aggregate vote tallies, and for the six councils where the protokol publishes the per-councillor readout we've also matched **18,300 individual vote rows** to the Court-of-Audit roster (cacbg.bg). Across the 26 wired capital programmes we've itemised roughly **5,800 individual investment projects** worth **€1.06 billion** for fiscal year 2025 alone.
 
@@ -185,6 +185,89 @@ A concrete ask works well: "Publish the full protokol of session N as a download
 ### Long term (the rest of the 256)
 
 The big-population councils above account for the heavy lifting; the next 50 we'd target are the secondary administrative centres (Велинград, Карлово, Дупница, Самоков, Кърджали, Видин — once unblocked — and similar). After that the count climbs into small rural municipalities where the council meets quarterly or less and where the marginal civic value of per-councillor coverage is lower. Our staged plan is to keep doubling the population-weighted coverage every quarter, rather than chasing the muni-count number for its own sake.
+
+## Where the two surfaces meet: the 14-município overlap
+
+The most useful single feature of the dashboard isn't either surface in isolation — it's the **overlap**. Fourteen municipalities have BOTH a council ingest and a capital-programme ingest: Sofia, Burgas, Velikko Tarnovo, Kazanlak, Pernik, Gabrovo, Stara Zagora, Ruse, Pleven, Sliven, Plovdiv, Varna, Haskovo and Dobrich. In those fourteen the dashboard can answer the question that matters most for a citizen looking at a council vote: _did the project this resolution authorises actually land in the capital programme — and at what amount?_
+
+### Concrete example — Велико Търново, 5 March 2026
+
+On 5 March 2026, Velikko Tarnovo's council took up agenda item Решение №914: "Индикативен разчет на капиталови разходи за 2026 г." — the formal indicative reckoning of the capital expenditure for the 2026 fiscal year. This is the resolution that approves the year's capital programme as a block.
+
+The aggregate vote was **30 за – 2 против – 4 въздържал → adopted**. With our per-councillor data, we can name everyone who didn't vote yes:
+
+- **Against**: Александра Тодорова Тодорова, Венцислава Маринова Йорданова
+- **Abstain**: Дончо Иванов Бораджиев, Калоян Милков Янков, Лили Матева, Стефан Николаев Войчев
+
+That's six councillors who, in March 2026, didn't endorse the 2026 capital programme as written. The dashboard surfaces this on each of their `/officials/<slug>` profile pages — a "voted against the 2026 capital programme" line item with the vote-row, the link to the decision, and the date.
+
+The other half of the story is what's IN the programme they were voting on. The 2025 capital programme (the most recent we have fully itemised) lists **382 projects worth €47.1M total**. The top eight by amount:
+
+| Amount (€) | Settlement | Project |
+|------:|---|---|
+| 5,266K | с. Беляковец | Проектиране на водопровод и изграждане на ВиК мрежа на с. Беляковец — фаза 1 |
+| 4,602K | гр. Велико Търново | Проектиране и основен ремонт с мерки за енергийна ефективност на ДКС „Васил Левски" |
+| 3,426K | гр. Велико Търново | Реконструкция на ул. „Никола Габровски" (ОК 233 – ОК 72) |
+| 2,562K | гр. Велико Търново | Реформиране на Дома за стари хора „Венета Ботева" |
+| 2,546K | гр. Велико Търново | Реконструкция на ул. „Мармарлийска" |
+| 2,213K | с. Водолей | Общински път VTR1012 — с. Водолей – с. Дичин |
+| 1,778K | гр. Велико Търново | Модернизация на Профилирана езикова гимназия „Проф. д-р Асен Златаров" |
+| 1,684K | гр. Велико Търново | Изграждане на обслужващи улици: 8905-8907; 8909-8908; 8906-8911 |
+
+The per-settlement rollup is the second halftime of the join: of the 382 projects, **203 are tagged to гр. Велико Търново**, **18 to гр. Дебелец**, **15 to гр. Килифарево**, plus 6 villages with at least 2 projects each (Балван, Ресен, Самоводене, Ветринци, Ново село, Водолей). A citizen in с. Беляковец can now see: my village got the largest single line item in the 2026 programme; here are the six councillors who didn't vote for the programme; here's how each of those six voted on the other 25 capital-related decisions of the mandate.
+
+This is the kind of cross-surface answer that no Bulgarian municipal site or central register exposes today — and it's the central editorial bet of the dashboard.
+
+### Same pattern, every município
+
+The pattern repeats across all fourteen overlap municípios:
+
+- **Sofia** — 33 capital-related decisions in the council ingest (out of 110 with titles), against a capital programme of €327.6M / 352 projects.
+- **Burgas** — 54 capital-related decisions, against €86.7M / 104 projects.
+- **Stara Zagora**, **Ruse**, **Pleven**, **Varna**, **Plovdiv** — same shape, smaller absolute numbers, all under €100M annual programmes.
+
+Where the council still publishes only aggregate tallies (Tier B — Plovdiv, Varna, Sliven, Haskovo, Dobrich), the dashboard shows the for–against–abstain numbers without councillor names, but the link from the decision back to the projects in the capital programme is intact.
+
+## Article 53 — the universal complement
+
+The capital programmes are about how each município _spends_ its money. The third major surface — the only one with universal coverage — is about how each município _gets_ its money. Article 53 of the State Budget Law (Чл.53 ЗДБРБ) carries the annual envelope of state transfers to every one of Bulgaria's 265 municipalities, broken down into five transfer categories. We parse this from the law's HTML annex into `data/budget/municipal_transfers/`.
+
+| Fiscal year | Grand total (€) | Munis covered |
+|:--:|--------:|:--:|
+| 2020 | 2.15 B | 265 |
+| 2022 | 2.87 B | 265 |
+| 2023 | 3.56 B | 265 |
+| 2024 | 3.99 B | 265 |
+| 2025 | 4.53 B | 265 |
+
+The 2025 €4.53 billion breaks down by category like this:
+
+| Category | Amount (€) | What it is |
+|---|------:|---|
+| **Delegated activities** (delegated) | 4.04 B (89%) | Pre-set per-pupil / per-pensioner / per-protected-person rates the state subsidises directly. Mostly schools and social services. The município has no discretion over how this is spent. |
+| **Equalisation transfer** (equalization) | 235 M (5%) | The redistributive transfer that smooths capacity-to-revenue differences between rich and poor municipalities. Free-use money. |
+| **Capital transfer** (capital) | 232 M (5%) | The state's contribution to the município's own capital programme. Pairs with the capital-programmes surface above. |
+| **Winter maintenance** (winter) | 25 M (0.6%) | Targeted transfer for the road-clearing / heating season; only the relevant municipalities get it. |
+| **Other targeted** (otherTargeted) | 36 M (0.8%) | Catch-all for specific named programmes. |
+
+The top recipients by total transfer in 2025:
+
+| Code | Município | 2025 transfer (€) | Of which delegated | Of which capital |
+|---|---|------:|------:|------:|
+| SOF | Столична община | 652.0M | 638.6M | 12.9M |
+| PDV22 | Пловдив | 206.8M | 200.2M | 3.0M |
+| VAR06 | Варна | 183.4M | 180.1M | 3.2M |
+| BGS04 | Бургас | 136.8M | 132.7M | 2.2M |
+| SZR31 | Стара Загора | 95.1M | 87.6M | 3.2M |
+| RSE27 | Русе | 84.8M | 78.9M | 1.9M |
+| SLV20 | Сливен | 77.4M | 70.1M | 3.1M |
+| PVN24 | Плевен | 69.4M | 65.1M | 2.0M |
+| PAZ19 | Пазарджик | 63.9M | 57.9M | 1.9M |
+| VTR04 | Велико Търново | 62.9M | 59.0M | 2.3M |
+
+Sofia gets roughly **€652M** in state transfers; the five smallest municipalities (Мирково, Грамада, Антон, Макреш, Чавдар) each get under **€2M**. The story isn't the absolute amounts — it's the structure: 89% of every município's envelope flows to delegated activities the council has no real discretion over, leaving the equalisation transfer + the capital transfer as the rough envelope of the council's actual fiscal decisions for the year. For Велико Търново in 2025 that's **€2.27M capital + €1.36M equalisation = €3.6M of "council-discretionary" state money**, against the €47.1M total capital programme — so roughly 92% of the capital programme comes from somewhere _other_ than the state's transfer (own revenue, EU programmes, debt).
+
+Universal coverage means this is the one place in the system where you can compare every município to every other on the same axis. The five-fiscal-year time series also gives a clean view of how the envelope has changed across cabinet mandates — the **210% growth between 2020 and 2025** is one of the most-quoted figures from the dashboard, and the structural split lets you see how much of that came from inflation-driven delegated raises versus genuine fiscal expansion.
 
 ## What you see in the My-Area dashboard today
 
