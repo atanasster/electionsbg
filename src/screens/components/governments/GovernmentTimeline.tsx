@@ -114,6 +114,9 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   housePricesYoY: "#a16207",
   gini: "#7c3aed",
   povertyRate: "#be185d",
+  // criminal justice
+  intentionalHomicideRate: "#b91c1c",
+  prisonPopulationRate: "#475569",
   // governance / curated
   wgiRuleOfLaw: "#0ea5e9",
   wgiControlOfCorruption: "#8b5cf6",
