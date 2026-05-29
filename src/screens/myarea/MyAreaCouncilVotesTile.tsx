@@ -4,29 +4,32 @@
 // поименно (named-vote) breakdown; each row carries a strip of mini-
 // avatars — one per councillor — colored by how they voted.
 //
+// Visual encoding per avatar:
+//   - Ring colour = vote outcome (green за / red против / amber въздържал)
+//   - Fill colour = party affiliation (canonical-parties palette, falls
+//     back to the vote colour for local-coalition / unmatched councillors)
+//   - AvatarImage = parliament photo when the councillor also served in NS
+//     (~3% of all councillors today via the candidate-link decoration)
+//
+// Dissenters first: within each row, avatars are sorted Против → Въздържал →
+// За so the politically meaningful minority is left-aligned and visible at a
+// glance instead of buried in the long За tail.
+//
 // Data flow:
 //   1. useCouncilMinutes(area.obshtina) returns the slim resolution
 //      records (date, title, tally aggregate, sourceUrl).
 //   2. useCouncilVotes(area.obshtina) lazy-fetches the per-município
 //      votes shard with the perCouncillor[] arrays keyed by resolution id.
 //   3. useMunicipalOfficials(rosterShardForObshtina(area.obshtina))
-//      gives us photos + slugs for clickable avatars that link to the
-//      official's profile.
+//      gives us photos + slugs + the optional `candidateLink` enrichment
+//      (party id, MP id, photo URL) written by
+//      scripts/officials/decorate_candidate_links.ts.
+//   4. useCanonicalParties().byId resolves the candidate-link's
+//      partyCanonicalId to a palette colour.
 //
-// Auto-hides when:
-//   - council data for the município hasn't been ingested yet
-//   - no resolutions in the shard carry перCouncillor data
-//   - the votes shard hasn't been generated (404 on GCS)
-//
-// Today (2026-05-29) renders for V. Tarnovo (38 named votes) and Sofia
-// (75 named votes via Gemini OCR). Other 7 munis carry aggregate tallies
-// only — the tile auto-hides there.
-//
-// Roster join: name-based, same first+last folding as the ingest pipeline
-// (see scripts/council/lib/tally.ts normaliseCouncillorName +
-// scripts/council/lib/roster_join.ts). Unmatched councillors still
-// render as initials, no link, so the row always shows the full
-// per-councillor strip even when the cacbg roster is stale.
+// Auto-hides when council data hasn't been ingested for this município
+// yet, when no resolutions in the shard carry перCouncillor data, or
+// when the votes shard 404s on the GCS bucket.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -34,14 +37,18 @@ import { Vote, ChevronRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/ux/Link";
 import { Tooltip } from "@/ux/Tooltip";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { initials } from "@/lib/utils";
 import { useCouncilMinutes } from "@/data/council/useCouncilMinutes";
 import { useCouncilVotes } from "@/data/council/useCouncilVotes";
 import { useMunicipalOfficials } from "@/data/officials/useMunicipalOfficials";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { rosterShardForObshtina } from "@/data/council/councilObshtinaMap";
 import type { MunicipalIndexEntry } from "@/data/dataTypes";
-import type { CouncilVoteValue } from "@/data/council/useCouncilVotes";
+import type {
+  CouncilVoteValue,
+  CouncilVoteRow,
+} from "@/data/council/useCouncilVotes";
 
 type Props = {
   obshtina: string;
@@ -60,6 +67,13 @@ const VOTE_LABEL: Record<CouncilVoteValue, { bg: string; en: string }> = {
   for: { bg: "За", en: "For" },
   against: { bg: "Против", en: "Against" },
   abstain: { bg: "Въздържал се", en: "Abstain" },
+};
+
+// Sort key — dissenters first. Против leads, Въздържал next, then За.
+const VOTE_PRIORITY: Record<CouncilVoteValue, number> = {
+  against: 0,
+  abstain: 1,
+  for: 2,
 };
 
 const PREVIEW_CAP = 5;
@@ -99,6 +113,7 @@ export const MyAreaCouncilVotesTile: FC<Props> = ({ obshtina }) => {
   const { resolutions, data, councilKey } = useCouncilMinutes(obshtina);
   const { shard, isLoading } = useCouncilVotes(obshtina);
   const { roster } = useMunicipalOfficials(rosterShardForObshtina(obshtina));
+  const { byId: partyById } = useCanonicalParties();
 
   // Roster lookup: normalised first+last → entry. Mirrors the ingest-side
   // join in scripts/council/lib/roster_join.ts.
@@ -131,7 +146,17 @@ export const MyAreaCouncilVotesTile: FC<Props> = ({ obshtina }) => {
     if (!shard) return [];
     return resolutions
       .filter((r) => shard.votesById[r.id]?.length)
-      .map((r) => ({ res: r, votes: shard.votesById[r.id] }));
+      .map((r) => {
+        // Sort dissenters first so the politically interesting rows lead.
+        // Within a vote group keep the stable name order from the source.
+        const sortedVotes = [...shard.votesById[r.id]].sort((a, b) => {
+          const va = VOTE_PRIORITY[a.vote];
+          const vb = VOTE_PRIORITY[b.vote];
+          if (va !== vb) return va - vb;
+          return 0;
+        });
+        return { res: r, votes: sortedVotes };
+      });
   }, [resolutions, shard]);
 
   // Auto-hide when there's nothing to show. Wait for either the votes
@@ -143,6 +168,111 @@ export const MyAreaCouncilVotesTile: FC<Props> = ({ obshtina }) => {
   const visible = itemsWithVotes.slice(0, PREVIEW_CAP);
   // data.meta is keyed by council key (SOF, VTR01), not frontend code.
   const muniName = (councilKey && data.meta?.[councilKey]?.name) || "";
+
+  // Local helper: resolve party colour + display label for a councillor.
+  // candidateLink is written by scripts/officials/decorate_candidate_links.ts;
+  // when absent (or when the slate was a local coalition without a canonical
+  // id) we fall through to a neutral grey fill so the avatar still reads.
+  const resolveParty = (
+    entry: MunicipalIndexEntry | undefined,
+  ): { color: string; label: string | null } => {
+    const link = entry?.candidateLink;
+    if (!link) return { color: "#9ca3af", label: null };
+    const canonical = link.partyCanonicalId
+      ? partyById.get(link.partyCanonicalId)
+      : null;
+    return {
+      color: canonical?.color ?? "#9ca3af",
+      label: canonical?.displayName ?? link.partyName ?? null,
+    };
+  };
+
+  const renderAvatar = (
+    res: { id: string },
+    v: CouncilVoteRow,
+  ): React.ReactNode => {
+    const voteColor = VOTE_COLOR[v.vote];
+    const voteLabel = VOTE_LABEL[v.vote][lang];
+    const match = rosterByKey.get(firstLastKey(v.name));
+    const displayName = match?.name ?? v.name;
+    const slug = match?.slug;
+    const profileUrl = slug ? `/officials/${slug}` : null;
+    const aria = `${displayName} — ${voteLabel}`;
+    const party = resolveParty(match);
+    const photoUrl = match?.candidateLink?.photoUrl;
+
+    const avatar = (
+      <Avatar
+        className="h-7 w-7 shrink-0 ring-[3px] ring-offset-1 ring-offset-card hover:scale-110 transition-transform"
+        style={{ ["--tw-ring-color" as string]: voteColor }}
+      >
+        {photoUrl ? (
+          <AvatarImage
+            src={photoUrl}
+            alt={displayName}
+            className="object-cover"
+          />
+        ) : null}
+        <AvatarFallback
+          className="text-[9px] font-bold text-white"
+          style={{ backgroundColor: party.color }}
+        >
+          {initials(displayName)}
+        </AvatarFallback>
+      </Avatar>
+    );
+
+    return (
+      <Tooltip
+        key={`${res.id}-${v.normKey}-${v.name}`}
+        content={
+          <div className="flex flex-col gap-1.5">
+            <div className="font-semibold leading-tight">{displayName}</div>
+            {party.label ? (
+              <div>
+                <span
+                  className="inline-block text-[10px] font-medium rounded px-1.5 py-0.5 text-white leading-none"
+                  style={{ backgroundColor: party.color }}
+                >
+                  {party.label}
+                </span>
+              </div>
+            ) : null}
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <span
+                className="inline-block h-2.5 w-2.5 rounded-full"
+                style={{ backgroundColor: voteColor }}
+              />
+              <span
+                className="text-xs font-medium"
+                style={{ color: voteColor }}
+              >
+                {voteLabel}
+              </span>
+            </div>
+            {profileUrl ? (
+              <div className="text-[10px] text-muted-foreground mt-1 italic">
+                {lang === "bg" ? "Натиснете за профил" : "Click for profile"}
+              </div>
+            ) : null}
+          </div>
+        }
+      >
+        {profileUrl ? (
+          <Link
+            to={profileUrl}
+            underline={false}
+            aria-label={aria}
+            className="block"
+          >
+            {avatar}
+          </Link>
+        ) : (
+          <div aria-label={aria}>{avatar}</div>
+        )}
+      </Tooltip>
+    );
+  };
 
   return (
     <Card className="p-4 md:p-5">
@@ -212,95 +342,32 @@ export const MyAreaCouncilVotesTile: FC<Props> = ({ obshtina }) => {
                 </div>
               )}
               <div className="flex flex-wrap gap-1.5">
-                {votes.map((v) => {
-                  const voteColor = VOTE_COLOR[v.vote];
-                  const voteLabel = VOTE_LABEL[v.vote][lang];
-                  // Burgas + Sofia normKeys carry the full 3-part name
-                  // (given + middle + family); roster keys are first+last.
-                  // Re-fold here so the lookup works for both forms —
-                  // V. Tarnovo's 2-part normKey falls through unchanged.
-                  const match = rosterByKey.get(firstLastKey(v.name));
-                  const displayName = match?.name ?? v.name;
-                  const slug = match?.slug;
-                  const profileUrl = slug ? `/officials/${slug}` : null;
-                  const aria = `${displayName} — ${voteLabel}`;
-
-                  const avatar = (
-                    <Avatar
-                      className="h-7 w-7 shrink-0 ring-[3px] ring-offset-1 ring-offset-card hover:scale-110 transition-transform"
-                      style={{ ["--tw-ring-color" as string]: voteColor }}
-                    >
-                      <AvatarFallback
-                        className="text-[9px] font-bold text-white"
-                        style={{ backgroundColor: voteColor }}
-                      >
-                        {initials(displayName)}
-                      </AvatarFallback>
-                    </Avatar>
-                  );
-
-                  return (
-                    <Tooltip
-                      key={`${res.id}-${v.normKey}-${v.name}`}
-                      content={
-                        <div className="flex flex-col gap-1.5">
-                          <div className="font-semibold leading-tight">
-                            {displayName}
-                          </div>
-                          <div className="flex items-center gap-1.5">
-                            <span
-                              className="inline-block h-2.5 w-2.5 rounded-full"
-                              style={{ backgroundColor: voteColor }}
-                            />
-                            <span
-                              className="text-xs font-medium"
-                              style={{ color: voteColor }}
-                            >
-                              {voteLabel}
-                            </span>
-                          </div>
-                          {profileUrl ? (
-                            <div className="text-[10px] text-muted-foreground mt-1 italic">
-                              {lang === "bg"
-                                ? "Натиснете за профил"
-                                : "Click for profile"}
-                            </div>
-                          ) : null}
-                        </div>
-                      }
-                    >
-                      {profileUrl ? (
-                        <Link
-                          to={profileUrl}
-                          underline={false}
-                          aria-label={aria}
-                          className="block"
-                        >
-                          {avatar}
-                        </Link>
-                      ) : (
-                        <div aria-label={aria}>{avatar}</div>
-                      )}
-                    </Tooltip>
-                  );
-                })}
+                {votes.map((v) => renderAvatar(res, v))}
               </div>
             </div>
           );
         })}
       </div>
 
-      {/* Legend pinned at the bottom, matches MyAreaImportantVotesTile. */}
+      {/* Legend pinned at the bottom — explains the ring colour (vote) and
+          notes that the fill carries party. */}
       <div className="mt-3 pt-2 border-t flex flex-wrap gap-3 text-[10px] text-muted-foreground">
-        {(["for", "against", "abstain"] as CouncilVoteValue[]).map((v) => (
-          <span key={v} className="flex items-center gap-1.5">
-            <span
-              className="inline-block h-3 w-3 rounded-full"
-              style={{ backgroundColor: VOTE_COLOR[v] }}
-            />
-            {VOTE_LABEL[v][lang]}
-          </span>
-        ))}
+        <span className="flex items-center gap-1.5">
+          {(["against", "abstain", "for"] as CouncilVoteValue[]).map((v) => (
+            <span key={v} className="inline-flex items-center gap-1 mr-2">
+              <span
+                className="inline-block h-3 w-3 rounded-full ring-[3px] ring-offset-0 bg-muted"
+                style={{ ["--tw-ring-color" as string]: VOTE_COLOR[v] }}
+              />
+              {VOTE_LABEL[v][lang]}
+            </span>
+          ))}
+        </span>
+        <span className="text-muted-foreground">
+          {lang === "bg"
+            ? "· пръстен = вот, цвят на кръга = партия"
+            : "· ring = vote, fill = party"}
+        </span>
       </div>
     </Card>
   );

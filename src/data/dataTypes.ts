@@ -489,6 +489,37 @@ export type MunicipalOfficialRole =
   | "chief_architect"
   | "other";
 
+/** Optional enrichment written by scripts/officials/decorate_candidate_links.ts.
+ *  Joins the cacbg roster entry to its corresponding local-election slate row
+ *  (party affiliation, ballot position, preference votes, elected status) and
+ *  — for the small subset who also served in parliament — to the MP photo.
+ *
+ *  These two sources cover different gaps: local slates give party for ~95% of
+ *  councillors; parliament photos cover the ~2-5% who later won a seat in NS.
+ *  The frontend uses the party canonical id to colour the avatar fill, and the
+ *  photo URL (when present) to upgrade the AvatarFallback to a real face. */
+export type OfficialCandidateLink = {
+  /** Local-election cycle this slate row was lifted from, e.g. "2023_10_29_mi". */
+  cycle: string;
+  /** Verbatim party / coalition name from the slate. */
+  partyName: string;
+  /** Canonical party id (joins to canonical_parties.json for colour + label). */
+  partyCanonicalId: string | null;
+  /** 1-based ballot position within the slate (preserves CIK's listPos). */
+  listPos: number;
+  /** Preference votes received. */
+  prefVotes: number;
+  /** Whether the candidate was elected from this slate. Some roster entries
+   *  match a slate row that was on the same list but did not win the seat
+   *  (alternate / следващ); keep them but flag. */
+  isElected: boolean;
+  /** Parliament MP id (joins to data/parliament/index.json mps[].id) — only
+   *  for the small overlap of councillors who also served in NS. */
+  mpId?: number;
+  /** Parliament photo URL (mirrors mps[].photoUrl), resolved from mpId. */
+  photoUrl?: string;
+};
+
 export type MunicipalIndexEntry = {
   slug: string;
   name: string;
@@ -506,6 +537,8 @@ export type MunicipalIndexEntry = {
    *  ordinary obshtina officials. Additive field; older consumers ignore. */
   district?: string;
   latestDeclarationYear: number;
+  /** Optional local-election + parliament join — see OfficialCandidateLink. */
+  candidateLink?: OfficialCandidateLink;
 };
 
 export type MunicipalIndexFile = {
