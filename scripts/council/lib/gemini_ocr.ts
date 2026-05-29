@@ -25,14 +25,20 @@ const __dirname = dirname(__filename);
 const ENV_FILE = resolve(__dirname, "../../../.env.local");
 const MODEL = "gemini-2.5-pro";
 
-/** Idempotent .env.local loader — copy of the kazanlak_ocr helper. */
+/**
+ * .env.local loader — copy of the kazanlak_ocr helper. Deliberately
+ * OVERWRITES existing process.env entries: empirically observed
+ * 2026-05-29 on this machine the shell pre-exports a STALE
+ * GEMINI_API_KEY (Google rotated it but the operator's zshrc kept the
+ * old one). If we honour the pre-set value, every Gemini call returns
+ * INVALID_ARGUMENT. The .env.local is the source of truth here.
+ */
 export const loadGeminiEnv = (): void => {
   if (!existsSync(ENV_FILE)) return;
   for (const line of readFileSync(ENV_FILE, "utf-8").split(/\r?\n/)) {
     const m = line.match(/^([A-Z0-9_]+)\s*=\s*(.*)$/);
     if (!m) continue;
     const [, k, raw] = m;
-    if (process.env[k]) continue;
     process.env[k] = raw.replace(/^["']|["']$/g, "");
   }
 };
@@ -78,14 +84,14 @@ export const ocrPdfWithGemini = async (
   if (!apiKey)
     throw new Error("GEMINI_API_KEY not set (check .env.local for setup)");
 
-  const { Agent, fetch: undiciFetch } = await import("undici");
-  const dispatcher = new Agent({
-    headersTimeout: 900_000,
-    bodyTimeout: 900_000,
-    connect: { timeout: 60_000 },
-  });
+  // Use Node's native fetch (Node 22+). Empirically observed 2026-05-29:
+  // the undici path with a custom Agent dispatcher rejected the same
+  // request body with HTTP 400 "API_KEY_INVALID" while native fetch
+  // accepted it. Same key, same URL, same JSON body — undici was
+  // mangling something (likely headers or the binary body) that the
+  // Gemini gateway interpreted as a malformed auth request.
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
-  const res = await undiciFetch(url, {
+  const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -103,12 +109,14 @@ export const ocrPdfWithGemini = async (
         },
       ],
       generationConfig: {
-        responseMimeType: "text/plain",
         temperature: 0.0,
         maxOutputTokens: 65536,
       },
     }),
-    dispatcher,
+    // Node's native fetch picks up the global agent's keep-alive +
+    // timeout settings. For long-running OCR (multi-minute calls) we
+    // need an AbortController-based deadline.
+    signal: AbortSignal.timeout(900_000),
   });
   if (!res.ok) {
     const txt = await res.text();
