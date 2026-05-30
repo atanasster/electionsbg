@@ -26,6 +26,7 @@ export function useMapElements<DType extends GeoJSONProps>({
   findVotes,
   findShift,
   onClick,
+  showMarkers = true,
   ...tooltipEvents
 }: {
   mapGeo?: GeoJSONMap<DType>;
@@ -36,6 +37,11 @@ export function useMapElements<DType extends GeoJSONProps>({
   findInfo: (props: DType) => LocationInfo | undefined;
   findShift?: (props: DType) => RegionShift | undefined;
   onClick: (props: DType) => NavigateParams;
+  // When false, the per-region pin/dot fallback (`MapMarker`) is suppressed —
+  // only `MapShiftArrow` may render in the markers slot. Used by the diaspora
+  // map (МИР 32): pins are reserved for capital/city locations on regional
+  // maps and look out of place at continent scale.
+  showMarkers?: boolean;
 } & TooltipEvents): MapElementsList & {
   bounds: [[number, number], [number, number]];
   scale: number;
@@ -95,7 +101,7 @@ export function useMapElements<DType extends GeoJSONProps>({
                       projection={projection}
                       shift={shift}
                     />
-                  ) : (
+                  ) : showMarkers ? (
                     <MapMarker
                       info={info}
                       key={`label-${idx}`}
@@ -104,7 +110,7 @@ export function useMapElements<DType extends GeoJSONProps>({
                       maxVotes={maxVotes}
                       votes={v?.results.votes}
                     />
-                  ),
+                  ) : undefined,
                 ],
               };
             },
@@ -125,6 +131,7 @@ export function useMapElements<DType extends GeoJSONProps>({
       projection,
       minVotes,
       maxVotes,
+      showMarkers,
     ]),
   };
 }

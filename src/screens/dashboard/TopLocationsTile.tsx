@@ -11,9 +11,16 @@ import { StatCard } from "./StatCard";
 type Props = {
   variant: "diaspora" | "cities";
   items: TopLocation[];
+  // Hide the "see details →" link when the tile is already on its own
+  // detail page (/municipality/32), where the link would point to itself.
+  hideDetailsLink?: boolean;
 };
 
-export const TopLocationsTile: FC<Props> = ({ variant, items }) => {
+export const TopLocationsTile: FC<Props> = ({
+  variant,
+  items,
+  hideDetailsLink,
+}) => {
   const { t, i18n } = useTranslation();
   const { displayNameFor } = useCanonicalParties();
 
@@ -47,7 +54,7 @@ export const TopLocationsTile: FC<Props> = ({ variant, items }) => {
               <span>{t(labelKey)}</span>
             </div>
           </Hint>
-          {variant === "diaspora" ? (
+          {variant === "diaspora" && !hideDetailsLink ? (
             <Link
               to="/municipality/32"
               className="text-[10px] normal-case text-primary hover:underline"

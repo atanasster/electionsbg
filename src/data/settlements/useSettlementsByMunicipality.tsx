@@ -27,3 +27,18 @@ export const useSettlementsByMunicipality = (obshtina: string) => {
   });
   return data;
 };
+
+// Same fetch keyed on an explicit election date — used to load the prior cycle
+// so we can compute per-settlement shifts (gainer/loser) for the SettlementsMap
+// shift-arrows toggle. Mirrors `useMunicipalitiesByRegionFor`.
+export const useSettlementsByMunicipalityFor = (
+  obshtina: string,
+  electionDate?: string | null,
+) => {
+  const { data } = useQuery({
+    queryKey: ["settlements_by_municipality", electionDate ?? "", obshtina],
+    queryFn,
+    enabled: !!electionDate && !!obshtina,
+  });
+  return data;
+};

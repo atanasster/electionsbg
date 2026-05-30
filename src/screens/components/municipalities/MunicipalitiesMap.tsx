@@ -61,6 +61,10 @@ export const MunicipalitiesMap: React.FC<{
       mapGeo,
       size,
       votes,
+      // МИР 32 is the abroad district — the "municipalities" are continents.
+      // Pin markers are reserved for capital-city locations on regional maps,
+      // so suppress the fallback at continent scale (shift arrows still render).
+      showMarkers: region !== "32",
       onClick: (props) => ({
         pathname: `/settlement/${props.nuts4}`,
       }),

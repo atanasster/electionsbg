@@ -24,7 +24,8 @@ type Props = {
     | "budget-journey"
     | "annual-reports"
     | "funds"
-    | "finances";
+    | "finances"
+    | "diaspora_faq";
   title?: ReactNode;
   subtitle?: ReactNode;
   icon?: LucideIcon;

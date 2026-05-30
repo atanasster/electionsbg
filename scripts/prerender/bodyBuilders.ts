@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { PartyInfo, RegionInfo } from "@/data/dataTypes";
+import { DIASPORA_FAQ } from "@/data/diaspora/diasporaFaq";
 import { SITE_URL } from "./routes";
 
 // ── Site-wide section navigation ──────────────────────────────────────────
@@ -1067,5 +1068,76 @@ export const buildOblastBody = (region: RegionInfo): string => {
   parts.push(
     `<p><a href="${SITE_URL}/municipality/${code}/parties">Партии</a> · <a href="${SITE_URL}/municipality/${code}/preferences">Преференции</a> · <a href="${SITE_URL}/municipality/${code}/municipalities">Общини</a> · <a href="${SITE_URL}/municipality/${code}/recount">Повторно преброяване</a></p>`,
   );
+  return parts.join("\n");
+};
+
+// ------------------------------------------------------------------
+// Diaspora ("voting abroad") landing body — /municipality/32.
+// МИР 32 is the abroad electoral district; the generic oblast prerender
+// excludes it (no municipalities/census/local-government make sense), so
+// it had NO crawlable HTML at all. This body targets the verified-demand
+// "секции за гласуване в чужбина" / "избирателни секции в <държава>"
+// cluster: a country list linking each /sections/<code> page, plus the
+// shared voting-abroad FAQ (also emitted as FAQPage JSON-LD).
+// ------------------------------------------------------------------
+
+export type DiasporaCountry = {
+  code: string; // 2-letter country code → /sections/<code>
+  name: string;
+  name_en?: string;
+  sections: number;
+  voters?: number;
+  winnerNickName?: string;
+};
+
+export const buildDiasporaBody = (
+  lang: "bg" | "en",
+  countries: DiasporaCountry[],
+  electionDateLabel: string,
+): string => {
+  const en = lang === "en";
+  const base = en ? `${SITE_URL}/en` : SITE_URL;
+  const parts: string[] = [];
+  parts.push(
+    en
+      ? `<h1>Voting abroad — Bulgarian polling sections by country</h1>`
+      : `<h1>Гласуване в чужбина — избирателни секции по държави</h1>`,
+  );
+  parts.push(
+    en
+      ? `<p>Where Bulgarian citizens abroad voted in the ${escapeHtml(electionDateLabel)} parliamentary election — polling sections, addresses, turnout and party results by country. Pick a country to see every section and its address.</p>`
+      : `<p>Къде гласуваха българските граждани в чужбина на парламентарния вот ${escapeHtml(electionDateLabel)} — избирателни секции, адреси, активност и резултати по партии за всяка държава. Изберете държава, за да видите всички секции и адресите им.</p>`,
+  );
+  if (countries.length) {
+    parts.push(
+      en
+        ? `<h2>Countries with polling sections</h2>`
+        : `<h2>Държави със секции</h2>`,
+    );
+    parts.push(
+      en
+        ? `<table><thead><tr><th>Country</th><th>Sections</th><th>Voters</th><th>Leading party</th></tr></thead><tbody>`
+        : `<table><thead><tr><th>Държава</th><th>Секции</th><th>Гласували</th><th>Водеща партия</th></tr></thead><tbody>`,
+    );
+    for (const c of countries) {
+      const label = escapeHtml(en && c.name_en ? c.name_en : c.name);
+      const voters = c.voters ? fmtInt(c.voters) : "";
+      const winner = c.winnerNickName ? escapeHtml(c.winnerNickName) : "";
+      parts.push(
+        `<tr><td><a href="${base}/sections/${escapeHtml(c.code)}">${label}</a></td><td>${fmtInt(c.sections)}</td><td>${voters}</td><td>${winner}</td></tr>`,
+      );
+    }
+    parts.push(`</tbody></table>`);
+  }
+  parts.push(
+    en
+      ? `<h2>Frequently asked questions</h2>`
+      : `<h2>Често задавани въпроси</h2>`,
+  );
+  for (const item of DIASPORA_FAQ[lang]) {
+    parts.push(
+      `<p><strong>${escapeHtml(item.q)}</strong> ${escapeHtml(item.a)}</p>`,
+    );
+  }
   return parts.join("\n");
 };

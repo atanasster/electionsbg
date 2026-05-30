@@ -33,9 +33,12 @@ import {
   buildSectionsListBody,
   buildSettlementBody,
   buildMyAreaBody,
+  buildDiasporaBody,
   formatElectionDateEn,
+  type DiasporaCountry,
 } from "./bodyBuilders";
 import { buildArticleRoutes } from "./articleRoutes";
+import { DIASPORA_FAQ } from "@/data/diaspora/diasporaFaq";
 
 const BG_MONTHS = [
   "януари",
@@ -260,6 +263,104 @@ export const buildOblastRoutes = (
         ],
       };
     });
+};
+
+// /municipality/32 — the abroad ("чужбина") electoral district. The generic
+// oblast prerender above excludes oblast 32 (no municipalities/census/local
+// government apply), so this page had NO crawlable HTML — Googlebot saw nothing
+// for the verified-demand "секции за гласуване в чужбина" cluster. This builder
+// gives it a prerendered landing: a country list (from national_summary's
+// topDiaspora) linking each /sections/<code> page, plus the voting-abroad FAQ
+// as visible text AND FAQPage JSON-LD. BG + EN (/en/municipality/32) variants.
+export const buildDiasporaRoutes = (
+  publicFolder: string,
+  latest: string,
+): PrerenderRoute[] => {
+  const file = path.join(publicFolder, latest, "national_summary.json");
+  if (!fs.existsSync(file)) return [];
+  let summary: { topDiaspora?: DiasporaCountry[] };
+  try {
+    const raw: {
+      topDiaspora?: Array<{
+        ekatte: string;
+        name: string;
+        name_en?: string;
+        sections: number;
+        voters?: number;
+        winnerNickName?: string;
+      }>;
+    } = JSON.parse(fs.readFileSync(file, "utf-8"));
+    summary = {
+      topDiaspora: (raw.topDiaspora ?? []).map((c) => ({
+        code: c.ekatte,
+        name: c.name,
+        name_en: c.name_en,
+        sections: c.sections,
+        voters: c.voters,
+        winnerNickName: c.winnerNickName,
+      })),
+    };
+  } catch {
+    return [];
+  }
+  const countries = summary.topDiaspora ?? [];
+  const dateBg = formatElectionDateBg(latest);
+  const dateEn = formatElectionDateEn(latest);
+  const url = `${SITE_URL}/municipality/32`;
+  const enUrl = `${SITE_URL}/en/municipality/32`;
+
+  const title =
+    "Гласуване в чужбина — избирателни секции по държави | electionsbg.com";
+  const description =
+    "Къде гласуват българите в чужбина — избирателни секции, адреси и резултати по държави на парламентарните избори, плюс отговори на често задавани въпроси за вота извън страната.";
+  const titleEn =
+    "Voting Abroad — Bulgarian Polling Sections by Country | electionsbg.com";
+  const descriptionEn =
+    "Where Bulgarians abroad vote — polling sections, addresses and results by country in the parliamentary elections, plus answers to frequently asked questions about voting outside Bulgaria.";
+
+  const faqBg = DIASPORA_FAQ.bg.map((it) => ({
+    question: it.q,
+    answer: it.a,
+  }));
+  const faqEn = DIASPORA_FAQ.en.map((it) => ({
+    question: it.q,
+    answer: it.a,
+  }));
+
+  return [
+    {
+      path: "municipality/32",
+      title,
+      description,
+      bodyHtml: buildDiasporaBody("bg", countries, dateBg),
+      jsonLd: [
+        buildWebPageLd({ title, description, url }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Гласуване в чужбина", url },
+        ]),
+        buildFaqLd(faqBg),
+      ],
+      english: {
+        title: titleEn,
+        description: descriptionEn,
+        bodyHtml: buildDiasporaBody("en", countries, dateEn),
+        jsonLd: [
+          buildWebPageLd({
+            title: titleEn,
+            description: descriptionEn,
+            url: enUrl,
+            inLanguage: "en",
+          }),
+          buildBreadcrumbLd([
+            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Voting abroad", url: enUrl },
+          ]),
+          buildFaqLd(faqEn),
+        ],
+      },
+    },
+  ];
 };
 
 type SettlementBundleEntry = {
@@ -2734,6 +2835,7 @@ export const buildDynamicRoutes = async (
     ...buildPartySubTabRoutes(parties, partyParents),
     ...oblastRoutes,
     ...buildOblastSubTabRoutes(regions, oblastParents),
+    ...buildDiasporaRoutes(publicFolder, latest),
     ...buildLocalCycleRoutes(projectRoot),
     ...buildLocalRegionRoutes(projectRoot, regions),
     ...buildLocalMunicipalityRoutes(projectRoot),

@@ -5,6 +5,7 @@ import {
   Briefcase,
   Building2,
   Gauge,
+  HelpCircle,
   Landmark,
   Map,
 } from "lucide-react";
@@ -37,6 +38,15 @@ import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
 import { DashboardSection } from "./DashboardSection";
 import { RegionLocalControlTile } from "./RegionLocalControlTile";
+import { TopLocationsTile } from "./TopLocationsTile";
+import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
+import { DIASPORA_FAQ, isDiasporaRegion } from "@/data/diaspora/diasporaFaq";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[140px]",
@@ -54,9 +64,16 @@ type Props = {
 };
 
 export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language === "en" ? "en" : "bg";
+  // МИР 32 (abroad). Has no municipalities/census/local-government, so those
+  // sections self-hide; we additionally swap the municipality map for the
+  // per-country tile and append a voting-abroad FAQ (mirrors the prerendered
+  // SEO body for /municipality/32).
+  const diaspora = isDiasporaRegion(regionCode);
   const { electionStats } = useElectionContext();
   const { data, isLoading } = useRegionSummary(regionCode);
+  const { data: national } = useNationalSummary();
   const { data: problemSectionsStats } = useProblemSectionsStats();
   const declarationsHaveContent = useRegionDeclarationsHasContent({
     regionCode,
@@ -86,10 +103,15 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <PartyChangeCard variant="gainer" change={data.topGainer} />
         <PartyChangeCard variant="loser" change={data.topLoser} />
-        <TurnoutCard
-          turnout={data.turnout}
-          priorElection={data.priorElection}
-        />
+        {/* Abroad sections register voters at the booth, so
+            numRegisteredVoters is unreliable (turnout reads >100%); hide the
+            card for МИР 32, as the prerendered SEO body already does. */}
+        {diaspora ? null : (
+          <TurnoutCard
+            turnout={data.turnout}
+            priorElection={data.priorElection}
+          />
+        )}
         <PaperMachineCard
           paperMachine={data.paperMachine}
           priorElection={data.priorElection}
@@ -102,9 +124,20 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
         icon={Gauge}
       >
         <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+          {/* МИР 32 (abroad) loads the continents/world geo from
+              /maps/regions/32.json — same tile, different map. */}
           <RegionMunicipalitiesMapTile regionCode={regionCode} />
           <PartyResultsTile parties={data.parties} regionCode={regionCode} />
         </div>
+        {/* Diaspora-only: per-country results table beneath the continents
+            map (each country links to its /sections/<code> page). */}
+        {diaspora && national?.topDiaspora?.length ? (
+          <TopLocationsTile
+            variant="diaspora"
+            items={national.topDiaspora}
+            hideDetailsLink
+          />
+        ) : null}
         {electionStats?.hasPreferences ? (
           <TopCandidatesStrip parties={data.parties} regionCode={regionCode} />
         ) : null}
@@ -131,13 +164,17 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
         <MunicipalTransfersTile regionCode={regionCode} />
       </DashboardSection>
 
-      <DashboardSection
-        id="local_government"
-        title={t("dashboard_section_local_government")}
-        icon={Landmark}
-      >
-        <RegionLocalControlTile regionCode={regionCode} />
-      </DashboardSection>
+      {/* No municipalities/mayors/councils abroad — hide local government for
+          МИР 32 (same rationale as the risk-sections section below). */}
+      {diaspora ? null : (
+        <DashboardSection
+          id="local_government"
+          title={t("dashboard_section_local_government")}
+          icon={Landmark}
+        >
+          <RegionLocalControlTile regionCode={regionCode} />
+        </DashboardSection>
+      )}
 
       <DashboardSection
         id="anomalies"
@@ -152,17 +189,21 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
         <RecountTile parties={data.parties} regionCode={regionCode} />
       </DashboardSection>
 
-      <DashboardSection
-        id="neighborhoods"
-        title={t("dashboard_section_neighborhoods")}
-        icon={Building2}
-      >
-        <ProblemSectionsTile parties={data.parties} regionCode={regionCode} />
-        <ProblemVotesByPartyTile regionCode={regionCode} />
-        {problemSectionsStats?.length ? (
-          <HistoricalTrendsTile stats={problemSectionsStats} />
-        ) : null}
-      </DashboardSection>
+      {/* "Рискови гласове" flags Roma-neighbourhood polling sections inside
+          Bulgaria — there are no such sections abroad, so hide it for МИР 32. */}
+      {diaspora ? null : (
+        <DashboardSection
+          id="neighborhoods"
+          title={t("dashboard_section_neighborhoods")}
+          icon={Building2}
+        >
+          <ProblemSectionsTile parties={data.parties} regionCode={regionCode} />
+          <ProblemVotesByPartyTile regionCode={regionCode} />
+          {problemSectionsStats?.length ? (
+            <HistoricalTrendsTile stats={problemSectionsStats} />
+          ) : null}
+        </DashboardSection>
+      )}
 
       {declarationsHaveContent && (
         <DashboardSection
@@ -178,6 +219,31 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
           <MpAssetsTile regionCode={regionCode} />
         </DashboardSection>
       )}
+
+      {diaspora ? (
+        <DashboardSection
+          id="diaspora_faq"
+          title={
+            lang === "en"
+              ? "Voting abroad — FAQ"
+              : "Гласуване в чужбина — въпроси"
+          }
+          icon={HelpCircle}
+        >
+          <Accordion type="single" collapsible className="w-full">
+            {DIASPORA_FAQ[lang].map((item, i) => (
+              <AccordionItem key={item.q} value={`faq-${i}`}>
+                <AccordionTrigger className="text-left text-base font-medium">
+                  {item.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">
+                  {item.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </DashboardSection>
+      ) : null}
     </section>
   );
 };

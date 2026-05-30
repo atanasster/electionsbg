@@ -16,6 +16,9 @@ export const MunicipalitiesScreen = () => {
     (i18n.language === "bg"
       ? info?.long_name || info?.name
       : info?.long_name_en || info?.name_en) || "";
+  // RegionDashboardCards is diaspora-aware: for МИР 32 (abroad) it swaps the
+  // municipality map for the per-country tile and appends a voting-abroad FAQ,
+  // while the municipality/census/local-government sections self-hide.
   return (
     <>
       <Title description="Interactive map of a municipality in the elections in Bulgaria">
