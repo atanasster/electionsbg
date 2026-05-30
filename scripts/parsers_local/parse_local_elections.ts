@@ -30,6 +30,7 @@ import {
   ObshtinaResolution,
 } from "./build_municipality_json";
 import { buildIndex } from "./build_index_json";
+import { buildRegionRollups } from "./build_region_json";
 import { reconcileOfficials } from "./reconcile_officials";
 import { buildChmiHistory } from "./build_chmi_history";
 import municipalitiesData from "../../data/municipalities.json";
@@ -466,6 +467,14 @@ export const parseLocalElection = async (opts: {
     stringify(unmatchedByRawName),
     "utf-8",
   );
+
+  // Per-oblast rollups + the national regions_summary, derived from the
+  // bundles + index just written. Regular _mi cycles only — chmi partials are
+  // single-município and carry no region dimension. Folded in here so the
+  // standard watcher → update-local-elections flow keeps them fresh.
+  if (cycle.endsWith("_mi")) {
+    buildRegionRollups({ publicFolder, cycle, stringify });
+  }
 
   // Aggregate every ingested chmi (partial/new) cycle into a single
   // per-município history index so the SPA can surface "Извънредни

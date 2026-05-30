@@ -57,7 +57,7 @@ export const useChmiHistoryAll = () => {
     queryFn,
   });
   const { selected } = useElectionContext();
-  const asOfDate = selected ? selected.replaceAll("_", "-") : undefined;
+  const asOfDate = selected ? selected.replace(/_/g, "-") : undefined;
   const data = useMemo<ChmiHistory | undefined>(() => {
     if (!query.data) return query.data;
     if (!asOfDate) return query.data;

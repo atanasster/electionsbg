@@ -174,3 +174,74 @@ export type CycleOfficialsDiff = {
   };
   municipalities: MunicipalityOfficialsDiff[];
 };
+
+// === Region rollups ======================================================
+// Mirror of scripts/parsers_local/build_region_json.ts. Per-oblast rollup
+// (one fetch per region dashboard) + the national region-control summary
+// that drives the mayors-control choropleth and the top-regions table.
+
+export type LocalPartyTally = {
+  canonicalId: string;
+  displayName: string;
+  color: string;
+  count: number;
+};
+
+export type LocalPartySeats = {
+  canonicalId: string;
+  displayName: string;
+  color: string;
+  seats: number;
+};
+
+export type LocalTurnout = {
+  numRegisteredVoters: number;
+  totalActualVoters: number;
+  numValidVotes: number;
+  pct: number | null;
+};
+
+export type LocalRegionMunicipalityRow = {
+  obshtinaCode: string;
+  name: string;
+  hadRound2: boolean;
+  councilSeats: number;
+  electedMayor: {
+    candidateName: string;
+    canonicalId: string;
+    displayName: string;
+    color: string;
+    localPartyName: string;
+  } | null;
+  turnout: LocalTurnout;
+};
+
+export type LocalRegionRollup = {
+  cycle: string;
+  oblast: string;
+  round1Date: string;
+  round2Date: string | null;
+  municipalityCount: number;
+  runoffCount: number;
+  turnout: LocalTurnout;
+  mayorsWon: LocalPartyTally[];
+  councilSeats: LocalPartySeats[];
+  municipalities: LocalRegionMunicipalityRow[];
+};
+
+export type LocalRegionsSummaryRow = {
+  oblast: string;
+  municipalityCount: number;
+  runoffCount: number;
+  totalCouncilSeats: number;
+  turnoutPct: number | null;
+  topMayor: LocalPartyTally | null;
+  topCouncil: LocalPartySeats | null;
+};
+
+export type LocalRegionsSummary = {
+  cycle: string;
+  round1Date: string;
+  round2Date: string | null;
+  regions: LocalRegionsSummaryRow[];
+};

@@ -82,6 +82,11 @@ const ChmiFeedScreen = lazy(() =>
     default: m.ChmiFeedScreen,
   })),
 );
+const LocalRegionDashboardScreen = lazy(() =>
+  import("./screens/LocalRegionDashboardScreen").then((m) => ({
+    default: m.LocalRegionDashboardScreen,
+  })),
+);
 const SofiaScreen = lazy(() =>
   import("./screens/SofiaScreen").then((m) => ({ default: m.SofiaScreen })),
 );
@@ -1093,6 +1098,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <LocalElectionScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/region/:oblast"
+            element={
+              <LayoutScreen>
+                <LocalRegionDashboardScreen />
               </LayoutScreen>
             }
           />

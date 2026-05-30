@@ -17,6 +17,7 @@ import { parseLocalElections } from "./parsers_local/parse_local_elections";
 import { ingestCycles } from "./parsers_local/ingest_cycle";
 import { shutdownCikFetch } from "./parsers_local/cik_fetch";
 import { resolveCanonicalsForAllLocalCycles } from "./parsers_local/resolve_canonicals";
+import { buildLocalRollups } from "./parsers_local/build_region_json";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -158,6 +159,15 @@ const app = command({
       long: "resolve-local-canonicals",
       defaultValue: () => false,
     }),
+    // Additive bundle-only pass: rebuild per-oblast region rollups
+    // (data/<cycle>/region/<oblast>.json) + the national regions_summary.json
+    // from already-ingested município bundles. Scope to one cycle with
+    // --local-date, else every regular cycle. Never re-fetches CIK HTML.
+    localRollups: flag({
+      type: optional(boolean),
+      long: "local-rollups",
+      defaultValue: () => false,
+    }),
   },
   handler: async ({
     all,
@@ -179,6 +189,7 @@ const app = command({
     localDate,
     localIngest,
     resolveLocalCanonicals,
+    localRollups,
   }) => {
     production = prod;
     if (machines) {
@@ -264,6 +275,9 @@ const app = command({
     }
     if (resolveLocalCanonicals) {
       resolveCanonicalsForAllLocalCycles({ publicFolder, stringify });
+    }
+    if (localRollups) {
+      buildLocalRollups({ publicFolder, cycle: localDate, stringify });
     }
   },
 });

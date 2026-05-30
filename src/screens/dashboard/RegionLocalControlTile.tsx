@@ -230,7 +230,7 @@ export const RegionLocalControlTile: FC<Props> = ({
             </span>
           </div>
           <Link
-            to={`/local/${cycle}`}
+            to={`/local/${cycle}/region/${regionCode}`}
             className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline normal-case shrink-0"
           >
             {t("local_election_view_details")}

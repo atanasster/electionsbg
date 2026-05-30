@@ -20,9 +20,13 @@ import { ArrowRight, ChevronDown, ChevronRight } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
+import { useLocalRegionsSummary } from "@/data/local/useLocalRegionsSummary";
 import { useChmiHistory } from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import { useRegions } from "@/data/regions/useRegions";
+import { LocalMayorsControlMapTile } from "./dashboard/local/LocalMayorsControlMapTile";
+import { PartyChip, RankedBar } from "./components/local/LocalRankedBar";
 import { MyAreaCouncilTile } from "./myarea/MyAreaCouncilTile";
 import { formatThousands } from "@/data/utils";
 import {
@@ -697,54 +701,114 @@ const MunicipalityResults: FC<{
 
 // === Cycle overview =====================================================
 
-// A simple horizontal bar (svg-free) for ranked lists where width = pct of
-// the leader's value. Used for both the "mayors won" and "council vote
-// share" sections so the visualisation reads identically across the two.
-const RankedBar: FC<{
-  label: string;
-  value: number;
-  pct: number;
-  leaderValue: number;
-  color: string;
-  suffix?: string;
-}> = ({ label, value, pct, leaderValue, color, suffix }) => {
-  const widthPct = leaderValue > 0 ? (value / leaderValue) * 100 : 0;
+// National top-regions table: which party controls each oblast's mayoralties.
+const TopRegionsTable: FC<{ cycle: string }> = ({ cycle }) => {
+  const { t, i18n } = useTranslation();
+  const { data: summary } = useLocalRegionsSummary(cycle);
+  const { findRegion } = useRegions();
+  const rows = useMemo(
+    () =>
+      summary
+        ? [...summary.regions].sort(
+            (a, b) => b.municipalityCount - a.municipalityCount,
+          )
+        : [],
+    [summary],
+  );
+  if (rows.length === 0) return null;
+  const regionName = (code: string): string => {
+    const info = findRegion(code);
+    if (!info) return code === "SOF" ? t("local_region_sofia_city") : code;
+    return (
+      (i18n.language === "bg"
+        ? info.long_name || info.name
+        : info.long_name_en || info.name_en) || code
+    );
+  };
+  const regionPath = (code: string): string =>
+    code === "SOF" ? `/local/${cycle}/SOF` : `/local/${cycle}/region/${code}`;
   return (
-    <li className="grid grid-cols-[minmax(0,1fr)_56px_64px] gap-2 items-center py-1.5">
-      <div className="min-w-0">
-        <div className="flex items-center gap-1.5 min-w-0">
-          <span
-            aria-hidden
-            className="inline-block size-2 rounded-full ring-1 ring-border shrink-0"
-            style={{ backgroundColor: color }}
-          />
-          <span className="text-sm truncate" title={label}>
-            {label}
-          </span>
-        </div>
-        <div className="mt-1 h-1 rounded bg-muted overflow-hidden">
-          <div
-            className="h-full"
-            style={{ width: `${widthPct}%`, backgroundColor: color }}
-          />
-        </div>
+    <section>
+      <h2 className="text-lg font-semibold mb-3">
+        {t("local_national_regions_section")}
+      </h2>
+      <div className="rounded-xl border bg-card overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead className="text-xs uppercase tracking-wide text-muted-foreground border-b">
+            <tr>
+              <th className="py-2 px-3 text-left">
+                {t("local_region_th_region")}
+              </th>
+              <th className="py-2 px-3 text-left">
+                {t("local_region_th_control")}
+              </th>
+              <th className="hidden py-2 px-3 text-right w-20 sm:table-cell">
+                {t("local_election_stat_council_seats")}
+              </th>
+              <th className="py-2 px-3 text-right w-16">
+                {t("local_region_th_municipalities")}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.oblast} className="border-b last:border-b-0">
+                <td className="py-2 px-3">
+                  <Link
+                    to={regionPath(r.oblast)}
+                    className="font-medium hover:underline"
+                  >
+                    {regionName(r.oblast)}
+                  </Link>
+                </td>
+                <td className="py-2 px-3">
+                  {r.topMayor ? (
+                    <PartyChip
+                      name={r.topMayor.displayName}
+                      color={r.topMayor.color}
+                      suffix={t("local_region_mayors_count", {
+                        count: r.topMayor.count,
+                      })}
+                    />
+                  ) : (
+                    <span className="text-muted-foreground">—</span>
+                  )}
+                </td>
+                <td className="hidden py-2 px-3 text-right tabular-nums sm:table-cell">
+                  {formatThousands(r.totalCouncilSeats)}
+                </td>
+                <td className="py-2 px-3 text-right tabular-nums">
+                  {r.municipalityCount}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      <div className="text-right text-sm tabular-nums font-medium">
-        {formatThousands(value)}
-        {suffix ?? ""}
-      </div>
-      <div className="text-right text-xs tabular-nums text-muted-foreground">
-        {pct.toFixed(2)}%
-      </div>
-    </li>
+    </section>
   );
 };
 
 const CycleOverview: FC<{ cycle: string }> = ({ cycle }) => {
   const { t } = useTranslation();
   const { data: index } = useLocalElectionIndex(cycle);
+  // Município-mayor runoffs only — exclude the 24 Sofia район shards (район
+  // mayor balotage isn't a "община с балотаж"); keeps the count consistent
+  // with the per-oblast region rollups.
   const runoffCount = useMemo(
-    () => index?.municipalities.filter((m) => m.hadRound2).length ?? 0,
+    () =>
+      index?.municipalities.filter(
+        (m) => m.hadRound2 && !/^S2\d{3}$/.test(m.obshtinaCode),
+      ).length ?? 0,
+    [index],
+  );
+  // Real município count excludes the 24 replicated Sofia район shards.
+  const municipalityCount = useMemo(
+    () =>
+      index
+        ? index.municipalities.filter((m) => !/^S2\d{3}$/.test(m.obshtinaCode))
+            .length
+        : 0,
     [index],
   );
   const topMayors = useMemo(
@@ -767,7 +831,7 @@ const CycleOverview: FC<{ cycle: string }> = ({ cycle }) => {
         {index ? (
           <p className="mt-1 text-xs text-muted-foreground tabular-nums">
             {t("local_cycle_overview_municipalities", {
-              count: index.municipalities.length,
+              count: municipalityCount,
             })}{" "}
             · {t("local_cycle_overview_runoffs", { count: runoffCount })}
           </p>
@@ -799,6 +863,56 @@ const CycleOverview: FC<{ cycle: string }> = ({ cycle }) => {
           ) : null}
         </div>
       </header>
+
+      {/* Stat header */}
+      {index ? (
+        <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
+          <StatItem
+            label={t("local_national_top_mayor_party")}
+            value={
+              topMayors[0] ? (
+                <PartyChip
+                  name={topMayors[0].displayName}
+                  color={topMayors[0].color}
+                  suffix={t("local_region_mayors_count", {
+                    count: topMayors[0].count,
+                  })}
+                />
+              ) : (
+                "—"
+              )
+            }
+          />
+          <StatItem
+            label={t("local_national_top_council_party")}
+            value={
+              topCouncil[0] ? (
+                <PartyChip
+                  name={topCouncil[0].displayName}
+                  color={topCouncil[0].color}
+                  suffix={`${topCouncil[0].pctOfValid.toFixed(1)}%`}
+                />
+              ) : (
+                "—"
+              )
+            }
+          />
+          <StatItem
+            label={t("local_national_municipalities")}
+            value={<span className="tabular-nums">{municipalityCount}</span>}
+          />
+          <StatItem
+            label={t("local_national_runoffs")}
+            value={<span className="tabular-nums">{runoffCount}</span>}
+          />
+        </div>
+      ) : null}
+
+      {/* Mayors-control choropleth: which party holds each oblast. */}
+      <LocalMayorsControlMapTile cycle={cycle} />
+
+      {/* Top regions by município count + controlling party. */}
+      <TopRegionsTable cycle={cycle} />
 
       {topMayors.length > 0 ? (
         <section>

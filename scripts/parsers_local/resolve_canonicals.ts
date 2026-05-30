@@ -33,6 +33,7 @@ import {
   resolveLocalParty,
 } from "./local_coalitions";
 import { buildIndex } from "./build_index_json";
+import { buildRegionRollups } from "./build_region_json";
 import { reconcileOfficials } from "./reconcile_officials";
 import { buildChmiHistory } from "./build_chmi_history";
 
@@ -192,6 +193,12 @@ export const resolveCanonicalsForCycle = (opts: {
     stringify(unmatched),
     "utf-8",
   );
+
+  // Canonical displayName/color shifts flow into the region rollups too, so
+  // rebuild them alongside index.json. Regular _mi cycles only.
+  if (cycle.endsWith("_mi")) {
+    buildRegionRollups({ publicFolder, cycle, stringify });
+  }
 
   // Only regular _mi cycles produce officials_diff (chmi partials don't —
   // see parse_local_elections.ts for the rationale).
