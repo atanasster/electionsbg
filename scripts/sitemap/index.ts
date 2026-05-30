@@ -16,6 +16,20 @@ const electionsFile = path.join(projectPath, "src/data/json/elections.json");
 const elections: ElectionInfo[] = JSON.parse(
   fs.readFileSync(electionsFile, "utf-8"),
 );
+// Local-election cycles live in their own catalogue. Only regular `_mi` cycles
+// get dashboard URLs (partials surface contextually, never as a cycle page).
+const localElectionsFile = path.join(
+  projectPath,
+  "src/data/json/local_elections.json",
+);
+const regularLocalCycles: string[] = (
+  JSON.parse(fs.readFileSync(localElectionsFile, "utf-8")) as {
+    name: string;
+    kind: string;
+  }[]
+)
+  .filter((c) => c.kind === "regular")
+  .map((c) => c.name);
 // Use the same latest election as the prerender step to keep URL inventories
 // in sync. Fall back to a stable older one if elections.json is empty.
 const election = elections[0]?.name ?? "2024_10_27";
@@ -86,6 +100,7 @@ const bucketFor = (urlPath: string): string => {
   if (p.startsWith("/votes")) return "votes";
   if (p.startsWith("/parliament/")) return "votes";
   if (p.startsWith("/elections/")) return "static";
+  if (p.startsWith("/local/")) return "local";
   if (p.startsWith("/articles")) return "static";
   if (p.startsWith("/budget/ministry/")) return "budget";
   if (p.startsWith("/funds/")) return "funds";
@@ -218,6 +233,70 @@ const enumerateBudgetMinistries = (
     pushUrl(`${rootUrl}/${routes[0]}${slug}`, lastmod);
     pushUrl(`/en${rootUrl}/${routes[0]}${slug}`, lastmod);
     void route; // route currently has no sub-tabs; reserved for symmetry.
+  }
+};
+
+// Local-elections dashboard URLs. Cycles from local_elections.json; regions +
+// municipalities from each cycle's data files. BG + EN mirror each (the SPA
+// serves /en via the Firebase /en/** rewrite). Region "SOF" is skipped — it
+// redirects to the Sofia município page.
+const enumerateLocalCycles = (rootUrl: string, routes: string[]) => {
+  for (const cycle of regularLocalCycles) {
+    const idxFile = `${projectPath}/data/${cycle}/index.json`;
+    if (!fs.existsSync(idxFile)) continue;
+    const lastmod = safeFileMod(idxFile);
+    pushUrl(`${rootUrl}/${routes[0]}${cycle}`, lastmod);
+    pushUrl(`${rootUrl}/en/${routes[0]}${cycle}`, lastmod);
+  }
+};
+
+const enumerateLocalRegions = (rootUrl: string, routes: string[]) => {
+  for (const cycle of regularLocalCycles) {
+    const rsFile = `${projectPath}/data/${cycle}/regions_summary.json`;
+    if (!fs.existsSync(rsFile)) continue;
+    const lastmod = safeFileMod(rsFile);
+    let regions: { oblast: string }[];
+    try {
+      regions = JSON.parse(fs.readFileSync(rsFile, "utf-8")).regions ?? [];
+    } catch {
+      continue;
+    }
+    for (const r of regions) {
+      if (r.oblast === "SOF") continue;
+      pushUrl(
+        `${rootUrl}/${routes[0]}${cycle}${routes[1]}${r.oblast}`,
+        lastmod,
+      );
+      pushUrl(
+        `${rootUrl}/en/${routes[0]}${cycle}${routes[1]}${r.oblast}`,
+        lastmod,
+      );
+    }
+  }
+};
+
+const enumerateLocalMunicipalities = (rootUrl: string, routes: string[]) => {
+  for (const cycle of regularLocalCycles) {
+    const idxFile = `${projectPath}/data/${cycle}/index.json`;
+    if (!fs.existsSync(idxFile)) continue;
+    const lastmod = safeFileMod(idxFile);
+    let municipalities: { obshtinaCode: string }[];
+    try {
+      municipalities =
+        JSON.parse(fs.readFileSync(idxFile, "utf-8")).municipalities ?? [];
+    } catch {
+      continue;
+    }
+    for (const m of municipalities) {
+      pushUrl(
+        `${rootUrl}/${routes[0]}${cycle}${routes[1]}${m.obshtinaCode}`,
+        lastmod,
+      );
+      pushUrl(
+        `${rootUrl}/en/${routes[0]}${cycle}${routes[1]}${m.obshtinaCode}`,
+        lastmod,
+      );
+    }
   }
 };
 
@@ -449,6 +528,12 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateCandidates(route, rootUrl, routes);
     if (route.file === "elections-list")
       return enumerateElections(rootUrl, routes);
+    if (route.file === "local-cycles")
+      return enumerateLocalCycles(rootUrl, routes);
+    if (route.file === "local-regions")
+      return enumerateLocalRegions(rootUrl, routes);
+    if (route.file === "local-municipalities")
+      return enumerateLocalMunicipalities(rootUrl, routes);
     if (route.file === "articles-list")
       return enumerateArticles(rootUrl, routes);
     if (route.file === "budget-ministries-list")

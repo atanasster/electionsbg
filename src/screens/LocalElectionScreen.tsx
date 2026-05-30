@@ -23,6 +23,7 @@ import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import { useLocalRegionsSummary } from "@/data/local/useLocalRegionsSummary";
 import { useChmiHistory } from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
+import { useKmetstvoEkatte } from "@/data/local/useKmetstvoEkatte";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useRegions } from "@/data/regions/useRegions";
 import { LocalMayorsControlMapTile } from "./dashboard/local/LocalMayorsControlMapTile";
@@ -346,14 +347,21 @@ const CouncilSection: FC<{ bundle: LocalMunicipalityBundle }> = ({
 
 // === Kmetstvo mayors table ===============================================
 
-const KmetstvaSection: FC<{ kmetstva: LocalKmetstvoResult[] }> = ({
-  kmetstva,
-}) => {
+const KmetstvaSection: FC<{
+  kmetstva: LocalKmetstvoResult[];
+  obshtinaCode: string;
+  cycle: string;
+}> = ({ kmetstva, obshtinaCode, cycle }) => {
   const { t } = useTranslation();
+  const { ekatteFor } = useKmetstvoEkatte();
   if (kmetstva.length === 0) return null;
   const rows = kmetstva.map((k) => {
     const winner = k.candidates.find((c) => c.isElected) ?? k.candidates[0];
-    return { kmetstvo: k.kmetstvoName, winner };
+    return {
+      kmetstvo: k.kmetstvoName,
+      winner,
+      ekatte: ekatteFor(obshtinaCode, k.kmetstvoName),
+    };
   });
   return (
     <Section title={t("local_election_sec_kmetstva")}>
@@ -379,7 +387,16 @@ const KmetstvaSection: FC<{ kmetstva: LocalKmetstvoResult[] }> = ({
             {rows.map((r) => (
               <tr key={r.kmetstvo} className="border-b last:border-b-0">
                 <td className="py-2 px-3 font-medium align-top break-words">
-                  {r.kmetstvo}
+                  {r.ekatte ? (
+                    <Link
+                      to={`/local/${cycle}/settlement/${r.ekatte}`}
+                      className="hover:underline"
+                    >
+                      {r.kmetstvo}
+                    </Link>
+                  ) : (
+                    r.kmetstvo
+                  )}
                 </td>
                 <td className="py-2 px-3 align-top">
                   {r.winner ? (
@@ -692,7 +709,11 @@ const MunicipalityResults: FC<{
         <MyAreaCouncilTile obshtina={obshtinaCode} />
       </div>
 
-      <KmetstvaSection kmetstva={municipality.kmetstva} />
+      <KmetstvaSection
+        kmetstva={municipality.kmetstva}
+        obshtinaCode={obshtinaCode}
+        cycle={cycle}
+      />
       <DistrictsSection cycle={cycle} districts={municipality.districts} />
       <ChmiHistorySection events={chmiEvents} />
     </main>

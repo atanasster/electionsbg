@@ -87,6 +87,11 @@ const LocalRegionDashboardScreen = lazy(() =>
     default: m.LocalRegionDashboardScreen,
   })),
 );
+const LocalSettlementDashboardScreen = lazy(() =>
+  import("./screens/LocalSettlementDashboardScreen").then((m) => ({
+    default: m.LocalSettlementDashboardScreen,
+  })),
+);
 const SofiaScreen = lazy(() =>
   import("./screens/SofiaScreen").then((m) => ({ default: m.SofiaScreen })),
 );
@@ -1106,6 +1111,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <LocalRegionDashboardScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/settlement/:ekatte"
+            element={
+              <LayoutScreen>
+                <LocalSettlementDashboardScreen />
               </LayoutScreen>
             }
           />

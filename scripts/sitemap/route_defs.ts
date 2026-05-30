@@ -234,6 +234,17 @@ export const routeDefs = (year: string): RouteDefs => [
   // Per-election landing pages — one URL per cycle in elections.json.
   { path: "elections/:id", file: `elections-list` },
 
+  // Local elections (общински избори) dashboard tree. Cycles come from
+  // src/data/json/local_elections.json (regular `_mi` cycles only); regions +
+  // municipalities are enumerated from each cycle's data files. Settlement
+  // pages (/local/:cycle/settlement/:ekatte) are intentionally omitted —
+  // canonicalised to the município page to keep the URL count bounded.
+  { path: "sverka", file: `src/screens/SverkaScreen.tsx` },
+  { path: "local/chmi", file: `src/screens/ChmiFeedScreen.tsx` },
+  { path: "local/:id", file: `local-cycles` },
+  { path: "local/:id/region/:id", file: `local-regions` },
+  { path: "local/:id/:id", file: `local-municipalities` },
+
   {
     path: "municipality/:id",
     file: `data/${year}/municipalities/by/:id`,
