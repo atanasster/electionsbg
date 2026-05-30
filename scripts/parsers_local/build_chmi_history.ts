@@ -186,7 +186,27 @@ export const buildChmiHistory = (opts: {
   };
   const outFile = path.join(DATA_ROOT, "local_chmi_history.json");
   fs.writeFileSync(outFile, stringify(history), "utf-8");
+
+  // Per-município shards: every município page (and the settlement dashboard's
+  // kметство-event filter) previously pulled the full 61KB global file just to
+  // read byObshtina[code]. Shard so each município page fetches its own ≤1KB
+  // file — or 404s, which is treated as "no events" by the consumer hook.
+  // Keep the global file for the /local/chmi feed which needs everything.
+  const shardDir = path.join(DATA_ROOT, "chmi_history");
+  // Wipe and rewrite the shard dir so deleted municípios don't leak stale
+  // events between runs. The directory is tiny (≤300 files, ≤1KB each).
+  if (fs.existsSync(shardDir))
+    fs.rmSync(shardDir, { recursive: true, force: true });
+  fs.mkdirSync(shardDir, { recursive: true });
+  for (const [code, events] of Object.entries(byObshtina)) {
+    fs.writeFileSync(
+      path.join(shardDir, `${code}.json`),
+      stringify({ obshtinaCode: code, events }),
+      "utf-8",
+    );
+  }
+
   console.log(
-    `[build_chmi_history] wrote ${outFile} (${chmiFolders.length} cycle(s), ${Object.keys(byObshtina).length} município(s) touched)`,
+    `[build_chmi_history] wrote ${outFile} + ${Object.keys(byObshtina).length} chmi_history/<code>.json shards (${chmiFolders.length} cycle(s))`,
   );
 };

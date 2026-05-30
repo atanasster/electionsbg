@@ -25,7 +25,14 @@ type Props = {
     | "annual-reports"
     | "funds"
     | "finances"
-    | "diaspora_faq";
+    | "diaspora_faq"
+    | "local-maps"
+    | "local-mayors"
+    | "local-councils"
+    | "local-trends"
+    | "local-extraordinary"
+    | "local-history"
+    | "local-overview";
   title?: ReactNode;
   subtitle?: ReactNode;
   icon?: LucideIcon;

@@ -65,18 +65,31 @@ const isSofiaRayon = (code: string): boolean => /^S2\d{3}$/.test(code);
 const oblastCodeOf = (b: LocalMunicipalityBundle): string =>
   b.obshtinaCode === "SOF" ? "SOF" : b.oblastName;
 
+type PartyRef = {
+  canonicalId: string;
+  displayName: string;
+  color: string;
+};
+
 type RegionMunicipalityRow = {
   obshtinaCode: string;
   name: string;
   hadRound2: boolean;
   councilSeats: number;
-  electedMayor: {
-    candidateName: string;
-    canonicalId: string;
-    displayName: string;
-    color: string;
-    localPartyName: string;
-  } | null;
+  electedMayor:
+    | (PartyRef & { candidateName: string; localPartyName: string })
+    | null;
+  // Party leading this município's council (most seats; ties broken by votes).
+  // Distinct from electedMayor — the mayoralty is winner-take-all/personality,
+  // the council is the proportional party signal. Drives the council-support
+  // choropleth alongside the mayors-control one.
+  topCouncil:
+    | (PartyRef & {
+        localPartyName: string;
+        seats: number;
+        pctOfValid: number;
+      })
+    | null;
   turnout: {
     numRegisteredVoters: number;
     totalActualVoters: number;
@@ -143,6 +156,63 @@ export type RegionsSummary = {
   regions: RegionsSummaryRow[];
 };
 
+// === National leader tiles ===============================================
+// Precomputed cross-município leaderboards for the country dashboard, so the
+// SPA renders them from one fetch instead of pulling all ~265 bundles.
+
+type CandidateRef = {
+  candidateName: string;
+  mpId?: number;
+  party: PartyRef & { localPartyName: string };
+  pctOfValid: number;
+  votes: number;
+};
+
+type NationalMayorLeader = {
+  obshtinaCode: string;
+  obshtinaName: string;
+  oblast: string;
+  round: 1 | 2;
+} & CandidateRef;
+
+type ClosestRace = {
+  obshtinaCode: string;
+  obshtinaName: string;
+  oblast: string;
+  round: 1 | 2;
+  marginPct: number; // winner.pctOfValid − runnerUp.pctOfValid in the decisive round
+  winner: CandidateRef;
+  runnerUp: CandidateRef;
+};
+
+type SplitControlRow = {
+  obshtinaCode: string;
+  obshtinaName: string;
+  oblast: string;
+  candidateName: string;
+  mayor: PartyRef;
+  council: PartyRef;
+};
+
+type IndependentMayorRow = {
+  obshtinaCode: string;
+  obshtinaName: string;
+  oblast: string;
+  candidateName: string;
+  mpId?: number;
+  pctOfValid: number;
+};
+
+export type NationalLeaders = {
+  cycle: string;
+  round1Date: string;
+  round2Date: string | null;
+  topMayorsByPct: NationalMayorLeader[];
+  closestRaces: ClosestRace[];
+  splitControl: { count: number; rows: SplitControlRow[] };
+  independentMayors: { count: number; rows: IndependentMayorRow[] };
+};
+
 const sorted = <T extends { count?: number; seats?: number }>(arr: T[]): T[] =>
   arr
     .slice()
@@ -183,6 +253,69 @@ export const buildRegionRollups = (opts: {
       ? { displayName: fallbackName, color: "#9CA3AF" }
       : FALLBACK_META);
 
+  // Leading council party for one município, bucketed the same way as the
+  // rollups. Most seats wins; ties broken by votes (also covers councils not
+  // yet seat-allocated — falls back to the vote leader).
+  const leadingCouncil = (
+    b: LocalMunicipalityBundle,
+  ): RegionMunicipalityRow["topCouncil"] => {
+    const agg = new Map<
+      string,
+      { seats: number; votes: number; localPartyName: string }
+    >();
+    for (const p of b.council) {
+      const id = councilBucketId(p);
+      const cur = agg.get(id) ?? {
+        seats: 0,
+        votes: 0,
+        localPartyName: p.localPartyName,
+      };
+      cur.seats += p.mandatesWon;
+      cur.votes += p.totalVotes;
+      agg.set(id, cur);
+    }
+    let bestId: string | null = null;
+    let best = { seats: -1, votes: -1, localPartyName: "" };
+    for (const [id, v] of agg) {
+      if (
+        v.seats > best.seats ||
+        (v.seats === best.seats && v.votes > best.votes)
+      ) {
+        bestId = id;
+        best = v;
+      }
+    }
+    if (!bestId) return null;
+    const totalVotes = b.council.reduce((a, p) => a + p.totalVotes, 0);
+    const meta = metaFor(bestId, best.localPartyName);
+    return {
+      canonicalId: bestId,
+      displayName: meta.displayName,
+      color: meta.color,
+      localPartyName: best.localPartyName,
+      seats: best.seats,
+      pctOfValid: totalVotes > 0 ? (best.votes / totalVotes) * 100 : 0,
+    };
+  };
+
+  // CandidateRef from a mayor result, bucketed for party identity/colour.
+  const candidateRef = (c: LocalMayorResult): CandidateRef => {
+    const id = mayorBucketId(c);
+    const meta = metaFor(id, c.localPartyName);
+    return {
+      candidateName: c.candidateName,
+      mpId: c.mpId,
+      party: {
+        canonicalId: id,
+        displayName: meta.displayName,
+        color: meta.color,
+        localPartyName: c.localPartyName,
+      },
+      pctOfValid: c.pctOfValid,
+      votes: c.votes,
+    };
+  };
+
   // Load every município bundle, skipping the replicated Sofia район shards
   // (they duplicate the SOF city council and would double-count).
   const bundles: LocalMunicipalityBundle[] = [];
@@ -209,6 +342,12 @@ export const buildRegionRollups = (opts: {
   fs.mkdirSync(path.join(cycleDir, "region"), { recursive: true });
 
   const summaryRows: RegionsSummaryRow[] = [];
+
+  // National leaderboards, accumulated across every oblast.
+  const topMayorsByPct: NationalMayorLeader[] = [];
+  const closestRaces: ClosestRace[] = [];
+  const splitControl: SplitControlRow[] = [];
+  const independentMayors: IndependentMayorRow[] = [];
 
   for (const [oblast, group] of byOblast) {
     const mayorsWon = new Map<string, number>();
@@ -245,12 +384,72 @@ export const buildRegionRollups = (opts: {
         val += b.protocol.numValidVotes;
         const hadRound2 = !!b.mayor.round2 && b.mayor.round2.length > 0;
         if (hadRound2) runoffs += 1;
+        const topCouncilRow = leadingCouncil(b);
+
+        // National leaderboards. The decisive round is the runoff when held,
+        // else round 1; uncontested 1-candidate races are skipped so the
+        // "strongest mandates" / "closest races" lists stay meaningful.
+        if (elected && mayorRow) {
+          const decisive = hadRound2 ? b.mayor.round2! : b.mayor.round1;
+          const ranked = [...decisive].sort((a, c) => c.votes - a.votes);
+          const roundNum: 1 | 2 = hadRound2 ? 2 : 1;
+          if (ranked.length >= 2) {
+            topMayorsByPct.push({
+              obshtinaCode: b.obshtinaCode,
+              obshtinaName: b.obshtinaName,
+              oblast,
+              round: roundNum,
+              ...candidateRef(ranked[0]),
+            });
+            closestRaces.push({
+              obshtinaCode: b.obshtinaCode,
+              obshtinaName: b.obshtinaName,
+              oblast,
+              round: roundNum,
+              marginPct: ranked[0].pctOfValid - ranked[1].pctOfValid,
+              winner: candidateRef(ranked[0]),
+              runnerUp: candidateRef(ranked[1]),
+            });
+          }
+          if (elected.isIndependent) {
+            independentMayors.push({
+              obshtinaCode: b.obshtinaCode,
+              obshtinaName: b.obshtinaName,
+              oblast,
+              candidateName: elected.candidateName,
+              mpId: elected.mpId,
+              pctOfValid: elected.pctOfValid,
+            });
+          }
+          if (
+            topCouncilRow &&
+            topCouncilRow.canonicalId !== mayorRow.canonicalId
+          ) {
+            splitControl.push({
+              obshtinaCode: b.obshtinaCode,
+              obshtinaName: b.obshtinaName,
+              oblast,
+              candidateName: elected.candidateName,
+              mayor: {
+                canonicalId: mayorRow.canonicalId,
+                displayName: mayorRow.displayName,
+                color: mayorRow.color,
+              },
+              council: {
+                canonicalId: topCouncilRow.canonicalId,
+                displayName: topCouncilRow.displayName,
+                color: topCouncilRow.color,
+              },
+            });
+          }
+        }
         return {
           obshtinaCode: b.obshtinaCode,
           name: b.obshtinaName,
           hadRound2,
           councilSeats: seats,
           electedMayor: mayorRow,
+          topCouncil: topCouncilRow,
           turnout: {
             numRegisteredVoters: b.protocol.numRegisteredVoters,
             totalActualVoters: b.protocol.totalActualVoters,
@@ -337,8 +536,54 @@ export const buildRegionRollups = (opts: {
     "utf-8",
   );
 
+  topMayorsByPct.sort((a, b) => b.pctOfValid - a.pctOfValid);
+  closestRaces.sort((a, b) => a.marginPct - b.marginPct);
+  splitControl.sort((a, b) =>
+    a.obshtinaName.localeCompare(b.obshtinaName, "bg"),
+  );
+  independentMayors.sort((a, b) =>
+    a.obshtinaName.localeCompare(b.obshtinaName, "bg"),
+  );
+  const nationalLeaders: NationalLeaders = {
+    cycle,
+    round1Date: index.round1Date,
+    round2Date: index.round2Date,
+    topMayorsByPct: topMayorsByPct.slice(0, 12),
+    closestRaces: closestRaces.slice(0, 12),
+    splitControl: {
+      count: splitControl.length,
+      rows: splitControl.slice(0, 80),
+    },
+    independentMayors: {
+      count: independentMayors.length,
+      rows: independentMayors.slice(0, 80),
+    },
+  };
+  fs.writeFileSync(
+    path.join(cycleDir, "national_leaders.json"),
+    stringify(nationalLeaders),
+    "utf-8",
+  );
+
+  // Lightweight trends sidecar: the cross-cycle trends tile fans out across
+  // every cycle's index.json (4× ~100KB) but only ever needs the two rollup
+  // arrays. Emit a trimmed copy so the country dashboard pulls ~40KB instead
+  // of ~480KB across cycles.
+  const indexTrends = {
+    cycle,
+    round1Date: index.round1Date,
+    round2Date: index.round2Date,
+    councilVoteShare: index.councilVoteShare,
+    mayorsByCanonical: index.mayorsByCanonical,
+  };
+  fs.writeFileSync(
+    path.join(cycleDir, "index_trends.json"),
+    stringify(indexTrends),
+    "utf-8",
+  );
+
   console.log(
-    `[parsers_local] ${cycle}: wrote ${summaryRows.length} oblast rollup(s) + regions_summary.json`,
+    `[parsers_local] ${cycle}: wrote ${summaryRows.length} oblast rollup(s) + regions_summary.json + national_leaders.json + index_trends.json`,
   );
   return summaryRows.length;
 };

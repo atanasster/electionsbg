@@ -45,12 +45,16 @@ raw_data/<YYYY_MM_DD_(mi|chmi)>/
 data/<cycle>/
   index.json                            ← national rollup (council R1 votes by canonical party + mayors-won)
   municipalities/<obshtinaCode>.json    ← per-município bundle
-  region/<oblast>.json                  ← per-oblast rollup (region dashboard — one fetch)
-  regions_summary.json                  ← national per-oblast control (mayors-control choropleth + top-regions)
+  region/<oblast>.json                  ← per-oblast rollup (region dashboard — one fetch; each município row carries electedMayor AND topCouncil to drive the council-support choropleth)
+  regions_summary.json                  ← national per-oblast control (mayoral + council choropleths, top-regions); each row has topMayor + topCouncil
+  national_leaders.json                 ← precomputed country-dashboard leaderboards (top mayors by %, closest races, split-control list, independent mayors) — one fetch instead of fanning out 265 município bundles
+  index_trends.json                     ← trimmed sidecar (just councilVoteShare + mayorsByCanonical) so the cross-cycle trends tile pulls ~50 KB per cycle instead of ~100 KB
   _unmatched_coalitions.json            ← operator-review queue
 ```
 
-`region/<oblast>.json` + `regions_summary.json` are produced by `scripts/parsers_local/build_region_json.ts` (`buildRegionRollups`), an additive bundle-only pass folded into the tail of `parseLocalElection` (and `resolveCanonicalsForCycle`). They regenerate automatically on every `--local-ingest` / `--local` / `--resolve-local-canonicals` run for regular `_mi` cycles, so no extra step is needed — chmi partials skip them (single-município, no region dimension). To rebuild only the rollups without re-fetching CIK HTML: `npm run data -- --local-rollups [--local-date <cycle>]`.
+`region/<oblast>.json` + `regions_summary.json` + `national_leaders.json` + `index_trends.json` are all produced by `scripts/parsers_local/build_region_json.ts` (`buildRegionRollups`), an additive bundle-only pass folded into the tail of `parseLocalElection` (and `resolveCanonicalsForCycle`). They regenerate automatically on every `--local-ingest` / `--local` / `--resolve-local-canonicals` run for regular `_mi` cycles, so no extra step is needed — chmi partials skip them (single-município, no region dimension). To rebuild only the rollups without re-fetching CIK HTML: `npm run data -- --local-rollups [--local-date <cycle>]`.
+
+Cross-cycle chmi history (`data/local_chmi_history.json`) is built by `scripts/parsers_local/build_chmi_history.ts` (`buildChmiHistory`) at the tail of `parseLocalElection` and `resolveCanonicalsForCycle`. The same builder additionally writes per-município shards to `data/chmi_history/<obshtinaCode>.json` (rewritten from scratch each run) so the município page + settlement dashboard fetch their own ≤ 1 KB file instead of pulling the 61 KB global. The global file is kept for the national `/local/chmi` feed which needs every event.
 
 The fingerprint source `cik_results` in `scripts/watch/sources/cik_results.ts` HEADs each cycle's `csv.zip` for `Last-Modified` + `Content-Length` once a day — when those change, this skill is queued by `process-watch-report`.
 

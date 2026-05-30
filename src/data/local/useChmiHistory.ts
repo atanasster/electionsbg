@@ -1,12 +1,18 @@
-// Fetch the per-município chmi history index. Surfaces extraordinary
-// elections (partial + new) on the município pages they affected.
+// Fetch chmi (partial + new election) history.
 //
-// Schema mirrors scripts/parsers_local/build_chmi_history.ts ChmiHistory.
+// Two access patterns, two file shapes — both anchored to the currently
+// selected parliamentary election via ElectionContext (events with a `date`
+// after that election are dropped):
 //
-// Both hooks anchor to the currently selected parliamentary election
-// (ElectionContext): events with a `date` after that election are dropped
-// so the chmi feed and per-município chmi section always reflect "what we
-// knew by the selected date".
+//   useChmiHistoryAll()        → /local_chmi_history.json (global, ~61KB)
+//     For the national /local/chmi feed which needs every event.
+//
+//   useChmiHistory(code)       → /chmi_history/<code>.json (per município, ~1KB)
+//     For the per-município page + settlement dashboard which only need that
+//     município's events. Município codes without any chmi history 404 → []
+//     (treated as "no events").
+//
+// Schema mirrors scripts/parsers_local/build_chmi_history.ts.
 
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
@@ -72,12 +78,40 @@ export const useChmiHistoryAll = () => {
   return { ...query, data };
 };
 
+type ChmiHistoryShard = {
+  obshtinaCode: string;
+  events: ChmiHistoryEvent[];
+};
+
+const shardQueryFn = async ({
+  queryKey,
+}: QueryFunctionContext<[string, string]>): Promise<
+  ChmiHistoryShard | undefined
+> => {
+  const code = queryKey[1];
+  const response = await fetch(dataUrl(`/chmi_history/${code}.json`));
+  if (response.status === 404) return undefined;
+  if (!response.ok) {
+    throw new Error(
+      `chmi history shard fetch failed: ${response.status} ${response.url}`,
+    );
+  }
+  return response.json();
+};
+
 export const useChmiHistory = (
   obshtinaCode?: string | null,
 ): ChmiHistoryEvent[] => {
-  const { data } = useChmiHistoryAll();
+  const { data } = useQuery({
+    queryKey: ["local_chmi_history_shard", obshtinaCode ?? ""],
+    queryFn: shardQueryFn,
+    enabled: !!obshtinaCode,
+  });
+  const { selected } = useElectionContext();
+  const asOfDate = selected ? selected.replace(/_/g, "-") : undefined;
   return useMemo(() => {
-    if (!data || !obshtinaCode) return [];
-    return data.byObshtina[obshtinaCode] ?? [];
-  }, [data, obshtinaCode]);
+    if (!data) return [];
+    if (!asOfDate) return data.events;
+    return data.events.filter((e) => e.date <= asOfDate);
+  }, [data, asOfDate]);
 };

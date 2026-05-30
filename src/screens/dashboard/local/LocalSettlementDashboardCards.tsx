@@ -22,6 +22,7 @@ import type {
   LocalMunicipalityBundle,
 } from "@/data/local/types";
 import { StatCard } from "../StatCard";
+import { DashboardSection } from "../DashboardSection";
 import { PartyChip } from "@/screens/components/local/LocalRankedBar";
 
 const normalize = (s: string): string =>
@@ -220,66 +221,75 @@ export const LocalSettlementDashboardCards: FC<{
   }
 
   return (
-    <div className="space-y-6">
-      {kmetstvo ? (
-        <KmetstvoMayorCard kmetstvo={kmetstvo} />
-      ) : (
-        <StatCard
-          label={
-            <div className="flex items-center gap-2">
-              <Crown className="h-4 w-4" />
-              <span>{t("local_settlement_kmetstvo_mayor")}</span>
-            </div>
-          }
-        >
-          <p className="text-sm text-muted-foreground">
-            {t("local_settlement_no_kmetstvo", {
-              municipality: municipality.obshtinaName,
-            })}
-          </p>
-        </StatCard>
-      )}
+    <div>
+      <DashboardSection id="local-mayors" title={t("local_sec_mayors")}>
+        {kmetstvo ? (
+          <KmetstvoMayorCard kmetstvo={kmetstvo} />
+        ) : (
+          <StatCard
+            label={
+              <div className="flex items-center gap-2">
+                <Crown className="h-4 w-4" />
+                <span>{t("local_settlement_kmetstvo_mayor")}</span>
+              </div>
+            }
+          >
+            <p className="text-sm text-muted-foreground">
+              {t("local_settlement_no_kmetstvo", {
+                municipality: municipality.obshtinaName,
+              })}
+            </p>
+          </StatCard>
+        )}
+      </DashboardSection>
 
-      <ParentMunicipalityCard bundle={municipality} cycle={cycle} />
+      <DashboardSection id="local-overview" title={t("local_sec_councils")}>
+        <ParentMunicipalityCard bundle={municipality} cycle={cycle} />
+      </DashboardSection>
 
       {kmetstvoEvents.length > 0 ? (
-        <StatCard label={t("local_election_chmi_section")}>
-          <ul className="mt-1 flex flex-col divide-y">
-            {kmetstvoEvents.map((e, i) => {
-              const color = e.primaryCanonicalId
-                ? colorFor(e.primaryCanonicalId)
-                : undefined;
-              return (
-                <li
-                  key={`${e.cycle}-${i}`}
-                  className="flex items-center gap-2 py-2 text-sm"
-                >
-                  <span className="text-xs text-muted-foreground tabular-nums w-20 shrink-0">
-                    {e.date}
-                  </span>
-                  <MpAvatar
-                    name={e.candidateName}
-                    mpId={e.mpId}
-                    showPartyRing={false}
-                  />
-                  <span className="font-medium truncate">
-                    {titleCaseName(e.candidateName)}
-                  </span>
-                  <span className="ml-auto flex items-center gap-1.5 text-xs text-muted-foreground min-w-0">
-                    {color ? (
-                      <span
-                        aria-hidden
-                        className="inline-block size-2 rounded-full ring-1 ring-border shrink-0"
-                        style={{ backgroundColor: color }}
-                      />
-                    ) : null}
-                    <span className="truncate">{e.localPartyName}</span>
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        </StatCard>
+        <DashboardSection
+          id="local-history"
+          title={t("local_election_chmi_section")}
+        >
+          <StatCard label={t("local_election_chmi_section")}>
+            <ul className="mt-1 flex flex-col divide-y">
+              {kmetstvoEvents.map((e, i) => {
+                const color = e.primaryCanonicalId
+                  ? colorFor(e.primaryCanonicalId)
+                  : undefined;
+                return (
+                  <li
+                    key={`${e.cycle}-${i}`}
+                    className="flex items-center gap-2 py-2 text-sm"
+                  >
+                    <span className="text-xs text-muted-foreground tabular-nums w-20 shrink-0">
+                      {e.date}
+                    </span>
+                    <MpAvatar
+                      name={e.candidateName}
+                      mpId={e.mpId}
+                      showPartyRing={false}
+                    />
+                    <span className="font-medium truncate">
+                      {titleCaseName(e.candidateName)}
+                    </span>
+                    <span className="ml-auto flex items-center gap-1.5 text-xs text-muted-foreground min-w-0">
+                      {color ? (
+                        <span
+                          aria-hidden
+                          className="inline-block size-2 rounded-full ring-1 ring-border shrink-0"
+                          style={{ backgroundColor: color }}
+                        />
+                      ) : null}
+                      <span className="truncate">{e.localPartyName}</span>
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </StatCard>
+        </DashboardSection>
       ) : null}
     </div>
   );

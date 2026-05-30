@@ -1,10 +1,12 @@
 // Region (oblast) local-elections dashboard — one fetch (region/<oblast>.json).
-// Stacked tiles, no tabs (per UX standard): stat header, municipalities
-// choropleth, mayors-won + council-seats bars, and the município directory.
+// Dashboard sections (no tabs): stat header, mayoral + council choropleths,
+// mayor/council leaderboards, split-control list, and the full A-Z município
+// directory (which the country page intentionally drops).
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { GitFork } from "lucide-react";
 import { useLocalRegion } from "@/data/local/useLocalRegion";
 import {
   PartyChip,
@@ -12,6 +14,7 @@ import {
 } from "@/screens/components/local/LocalRankedBar";
 import { formatThousands } from "@/data/utils";
 import { StatCard } from "../StatCard";
+import { DashboardSection } from "../DashboardSection";
 import { LocalRegionMapTile } from "./LocalRegionMapTile";
 
 export const LocalRegionDashboardCards: FC<{
@@ -27,6 +30,18 @@ export const LocalRegionDashboardCards: FC<{
   );
   const totalCouncilSeats = useMemo(
     () => region?.councilSeats.reduce((a, r) => a + r.seats, 0) ?? 0,
+    [region],
+  );
+  // Split control derives directly from the rollup: mayor's party vs the
+  // município's leading council party.
+  const splitRows = useMemo(
+    () =>
+      (region?.municipalities ?? []).filter(
+        (m) =>
+          m.electedMayor &&
+          m.topCouncil &&
+          m.electedMayor.canonicalId !== m.topCouncil.canonicalId,
+      ),
     [region],
   );
 
@@ -45,9 +60,9 @@ export const LocalRegionDashboardCards: FC<{
   const topCouncil = region.councilSeats[0];
 
   return (
-    <div className="space-y-6">
+    <div>
       {/* Stat header */}
-      <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
         <StatCard label={t("local_national_top_mayor_party")}>
           {topMayor ? (
             <PartyChip
@@ -73,28 +88,35 @@ export const LocalRegionDashboardCards: FC<{
           )}
         </StatCard>
         <StatCard label={t("local_national_municipalities")}>
-          <span className="tabular-nums text-base font-semibold">
+          <span className="text-base font-semibold tabular-nums">
             {region.municipalityCount}
           </span>
         </StatCard>
         <StatCard label={t("local_national_runoffs")}>
-          <span className="tabular-nums text-base font-semibold">
+          <span className="text-base font-semibold tabular-nums">
             {region.runoffCount}
+          </span>
+        </StatCard>
+        <StatCard label={t("local_national_split_control")}>
+          <span className="text-base font-semibold tabular-nums">
+            {splitRows.length}
           </span>
         </StatCard>
       </div>
 
-      {/* Municipalities choropleth */}
-      <LocalRegionMapTile cycle={cycle} oblast={oblast} />
+      {/* Maps: mayoral control + council support. */}
+      <DashboardSection id="local-maps" title={t("local_sec_maps")}>
+        <div className="grid gap-4 lg:grid-cols-2">
+          <LocalRegionMapTile cycle={cycle} oblast={oblast} metric="mayor" />
+          <LocalRegionMapTile cycle={cycle} oblast={oblast} metric="council" />
+        </div>
+      </DashboardSection>
 
-      {/* Mayors-won + council-seats rankings */}
-      <div className="grid gap-3 lg:grid-cols-2">
+      {/* Mayors. */}
+      <DashboardSection id="local-mayors" title={t("local_sec_mayors")}>
         {region.mayorsWon.length > 0 ? (
-          <section>
-            <h2 className="text-lg font-semibold mb-3">
-              {t("local_region_mayors_section")}
-            </h2>
-            <ul className="rounded-xl border bg-card p-3">
+          <StatCard label={t("local_region_mayors_section")}>
+            <ul>
               {region.mayorsWon.map((p) => (
                 <RankedBar
                   key={p.canonicalId}
@@ -106,38 +128,89 @@ export const LocalRegionDashboardCards: FC<{
                 />
               ))}
             </ul>
-          </section>
+          </StatCard>
         ) : null}
-        {region.councilSeats.length > 0 ? (
-          <section>
-            <h2 className="text-lg font-semibold mb-3">
-              {t("local_region_council_section")}
-            </h2>
-            <ul className="rounded-xl border bg-card p-3">
-              {region.councilSeats.map((p) => (
-                <RankedBar
-                  key={p.canonicalId}
-                  label={p.displayName}
-                  value={p.seats}
-                  pct={
-                    totalCouncilSeats > 0
-                      ? (p.seats / totalCouncilSeats) * 100
-                      : 0
-                  }
-                  leaderValue={topCouncil?.seats ?? 0}
-                  color={p.color}
-                />
-              ))}
-            </ul>
-          </section>
-        ) : null}
-      </div>
+      </DashboardSection>
 
-      {/* Município directory */}
-      <section>
-        <h2 className="text-lg font-semibold mb-3">
-          {t("local_cycle_overview_municipalities_section")}
-        </h2>
+      {/* Councils + split control. */}
+      <DashboardSection id="local-councils" title={t("local_sec_councils")}>
+        <div className="grid gap-4 lg:grid-cols-2">
+          {region.councilSeats.length > 0 ? (
+            <StatCard label={t("local_region_council_section")}>
+              <ul>
+                {region.councilSeats.map((p) => (
+                  <RankedBar
+                    key={p.canonicalId}
+                    label={p.displayName}
+                    value={p.seats}
+                    pct={
+                      totalCouncilSeats > 0
+                        ? (p.seats / totalCouncilSeats) * 100
+                        : 0
+                    }
+                    leaderValue={topCouncil?.seats ?? 0}
+                    color={p.color}
+                  />
+                ))}
+              </ul>
+            </StatCard>
+          ) : null}
+          {splitRows.length > 0 ? (
+            <StatCard
+              label={
+                <div className="flex items-center gap-2">
+                  <GitFork className="h-4 w-4" />
+                  <span>{t("local_split_control_title")}</span>
+                </div>
+              }
+              hint={t("local_split_control_hint")}
+            >
+              <ul className="flex flex-col divide-y">
+                {splitRows.map((m) => (
+                  <li
+                    key={m.obshtinaCode}
+                    className="flex items-center gap-2 py-2 text-sm"
+                  >
+                    <Link
+                      to={`/local/${cycle}/${m.obshtinaCode}`}
+                      className="w-28 shrink-0 truncate font-medium hover:underline"
+                    >
+                      {m.name}
+                    </Link>
+                    <span className="flex min-w-0 items-center gap-1.5">
+                      <span
+                        aria-hidden
+                        className="inline-block size-2 rounded-full ring-1 ring-border shrink-0"
+                        style={{ backgroundColor: m.electedMayor!.color }}
+                      />
+                      <span className="truncate text-muted-foreground">
+                        {m.electedMayor!.displayName}
+                      </span>
+                    </span>
+                    <span className="shrink-0 opacity-50">→</span>
+                    <span className="flex min-w-0 items-center gap-1.5">
+                      <span
+                        aria-hidden
+                        className="inline-block size-2 rounded-full ring-1 ring-border shrink-0"
+                        style={{ backgroundColor: m.topCouncil!.color }}
+                      />
+                      <span className="truncate text-muted-foreground">
+                        {m.topCouncil!.displayName}
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </StatCard>
+          ) : null}
+        </div>
+      </DashboardSection>
+
+      {/* Município directory (the full A-Z list lives here). */}
+      <DashboardSection
+        id="local-overview"
+        title={t("local_cycle_overview_municipalities_section")}
+      >
         <div className="rounded-xl border bg-card overflow-x-auto">
           <table className="w-full text-sm">
             <thead className="text-xs uppercase tracking-wide text-muted-foreground border-b">
@@ -147,6 +220,9 @@ export const LocalRegionDashboardCards: FC<{
                 </th>
                 <th className="py-2 px-3 text-left">
                   {t("local_election_stat_mayor")}
+                </th>
+                <th className="hidden py-2 px-3 text-left md:table-cell">
+                  {t("local_national_top_council_party")}
                 </th>
                 <th className="py-2 px-3 text-right w-20">
                   {t("local_election_stat_council_seats")}
@@ -179,6 +255,16 @@ export const LocalRegionDashboardCards: FC<{
                       <span className="text-muted-foreground">—</span>
                     )}
                   </td>
+                  <td className="hidden py-2 px-3 md:table-cell">
+                    {m.topCouncil ? (
+                      <PartyChip
+                        name={m.topCouncil.displayName}
+                        color={m.topCouncil.color}
+                      />
+                    ) : (
+                      <span className="text-muted-foreground">—</span>
+                    )}
+                  </td>
                   <td className="py-2 px-3 text-right tabular-nums">
                     {formatThousands(m.councilSeats)}
                   </td>
@@ -187,7 +273,7 @@ export const LocalRegionDashboardCards: FC<{
             </tbody>
           </table>
         </div>
-      </section>
+      </DashboardSection>
     </div>
   );
 };

@@ -20,14 +20,17 @@ import { ArrowRight, ChevronDown, ChevronRight } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
-import { useLocalRegionsSummary } from "@/data/local/useLocalRegionsSummary";
 import { useChmiHistory } from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 import { useKmetstvoEkatte } from "@/data/local/useKmetstvoEkatte";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
-import { useRegions } from "@/data/regions/useRegions";
-import { LocalMayorsControlMapTile } from "./dashboard/local/LocalMayorsControlMapTile";
-import { PartyChip, RankedBar } from "./components/local/LocalRankedBar";
+import { friendlyCycleDate } from "@/data/local/cycleDate";
+import { LocalCountryDashboardCards } from "./dashboard/local/LocalCountryDashboardCards";
+import { LocalSofiaRayonMapTile } from "./dashboard/local/LocalSofiaRayonMapTile";
+import {
+  MayorVsCouncilTile,
+  TopCouncillorsTile,
+} from "./dashboard/local/LocalMunicipalityExtras";
 import { MyAreaCouncilTile } from "./myarea/MyAreaCouncilTile";
 import { formatThousands } from "@/data/utils";
 import {
@@ -37,12 +40,6 @@ import {
   LocalMayorResult,
   LocalMunicipalityBundle,
 } from "@/data/local/types";
-
-// "2023_10_29_mi" → "29.10.2023"
-const friendlyCycleDate = (cycle: string): string => {
-  const m = cycle.match(/^(\d{4})_(\d{2})_(\d{2})/);
-  return m ? `${m[3]}.${m[2]}.${m[1]}` : cycle;
-};
 
 // === Stats grid ===========================================================
 
@@ -637,6 +634,7 @@ const MunicipalityResults: FC<{
   }
 
   const isSofiaRayon = /^S2\d{3}$/.test(municipality.obshtinaCode);
+  const isSofiaCity = municipality.obshtinaCode === "SOF";
   const mayorSectionTitle = isSofiaRayon
     ? t("local_election_sec_mayor_rayon")
     : t("local_election_sec_mayor_obshtina");
@@ -666,6 +664,26 @@ const MunicipalityResults: FC<{
       ) : null}
 
       <StatsGrid bundle={municipality} />
+
+      {/* Sofia city: both район choropleths at the top of the page so the
+          24-район map reads as the primary geographic view, alongside the
+          standard district-mayor table further down. */}
+      {isSofiaCity && municipality.districts.length > 0 ? (
+        <Section title={t("local_sec_maps")}>
+          <div className="grid gap-4 lg:grid-cols-2">
+            <LocalSofiaRayonMapTile cycle={cycle} metric="mayor" />
+            <LocalSofiaRayonMapTile cycle={cycle} metric="council" />
+          </div>
+        </Section>
+      ) : null}
+
+      {/* Mayor vs council split indicator — hides for Sofia район shards
+          (they replicate the city council, so the comparison is meaningless). */}
+      {!isSofiaRayon ? (
+        <div className="mt-4">
+          <MayorVsCouncilTile bundle={municipality} />
+        </div>
+      ) : null}
 
       {/* Mayor: round 1 always; round 2 if present. */}
       <Section title={mayorSectionTitle}>
@@ -709,6 +727,16 @@ const MunicipalityResults: FC<{
         <MyAreaCouncilTile obshtina={obshtinaCode} />
       </div>
 
+      {/* Top councillors by preference — only shown when at least one slate
+          recorded preferential votes (some pre-2019 cycles do not). */}
+      {municipality.council.some((p) =>
+        p.candidates.some((c) => c.isElected && c.prefVotes > 0),
+      ) ? (
+        <Section title={t("local_top_councillors_title")}>
+          <TopCouncillorsTile bundle={municipality} />
+        </Section>
+      ) : null}
+
       <KmetstvaSection
         kmetstva={municipality.kmetstva}
         obshtinaCode={obshtinaCode}
@@ -720,128 +748,18 @@ const MunicipalityResults: FC<{
   );
 };
 
-// === Cycle overview =====================================================
+// === Country overview ===================================================
 
-// National top-regions table: which party controls each oblast's mayoralties.
-const TopRegionsTable: FC<{ cycle: string }> = ({ cycle }) => {
-  const { t, i18n } = useTranslation();
-  const { data: summary } = useLocalRegionsSummary(cycle);
-  const { findRegion } = useRegions();
-  const rows = useMemo(
-    () =>
-      summary
-        ? [...summary.regions].sort(
-            (a, b) => b.municipalityCount - a.municipalityCount,
-          )
-        : [],
-    [summary],
-  );
-  if (rows.length === 0) return null;
-  const regionName = (code: string): string => {
-    const info = findRegion(code);
-    if (!info) return code === "SOF" ? t("local_region_sofia_city") : code;
-    return (
-      (i18n.language === "bg"
-        ? info.long_name || info.name
-        : info.long_name_en || info.name_en) || code
-    );
-  };
-  const regionPath = (code: string): string =>
-    code === "SOF" ? `/local/${cycle}/SOF` : `/local/${cycle}/region/${code}`;
-  return (
-    <section>
-      <h2 className="text-lg font-semibold mb-3">
-        {t("local_national_regions_section")}
-      </h2>
-      <div className="rounded-xl border bg-card overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="text-xs uppercase tracking-wide text-muted-foreground border-b">
-            <tr>
-              <th className="py-2 px-3 text-left">
-                {t("local_region_th_region")}
-              </th>
-              <th className="py-2 px-3 text-left">
-                {t("local_region_th_control")}
-              </th>
-              <th className="hidden py-2 px-3 text-right w-20 sm:table-cell">
-                {t("local_election_stat_council_seats")}
-              </th>
-              <th className="py-2 px-3 text-right w-16">
-                {t("local_region_th_municipalities")}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.oblast} className="border-b last:border-b-0">
-                <td className="py-2 px-3">
-                  <Link
-                    to={regionPath(r.oblast)}
-                    className="font-medium hover:underline"
-                  >
-                    {regionName(r.oblast)}
-                  </Link>
-                </td>
-                <td className="py-2 px-3">
-                  {r.topMayor ? (
-                    <PartyChip
-                      name={r.topMayor.displayName}
-                      color={r.topMayor.color}
-                      suffix={t("local_region_mayors_count", {
-                        count: r.topMayor.count,
-                      })}
-                    />
-                  ) : (
-                    <span className="text-muted-foreground">—</span>
-                  )}
-                </td>
-                <td className="hidden py-2 px-3 text-right tabular-nums sm:table-cell">
-                  {formatThousands(r.totalCouncilSeats)}
-                </td>
-                <td className="py-2 px-3 text-right tabular-nums">
-                  {r.municipalityCount}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-  );
-};
-
-const CycleOverview: FC<{ cycle: string }> = ({ cycle }) => {
+const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
   const { t } = useTranslation();
   const { data: index } = useLocalElectionIndex(cycle);
-  // Município-mayor runoffs only — exclude the 24 Sofia район shards (район
-  // mayor balotage isn't a "община с балотаж"); keeps the count consistent
-  // with the per-oblast region rollups.
-  const runoffCount = useMemo(
-    () =>
-      index?.municipalities.filter(
-        (m) => m.hadRound2 && !/^S2\d{3}$/.test(m.obshtinaCode),
-      ).length ?? 0,
-    [index],
+  const realMunis = (index?.municipalities ?? []).filter(
+    (m) => !/^S2\d{3}$/.test(m.obshtinaCode),
   );
-  // Real município count excludes the 24 replicated Sofia район shards.
-  const municipalityCount = useMemo(
-    () =>
-      index
-        ? index.municipalities.filter((m) => !/^S2\d{3}$/.test(m.obshtinaCode))
-            .length
-        : 0,
-    [index],
-  );
-  const topMayors = useMemo(
-    () => (index ? index.mayorsByCanonical.slice(0, 8) : []),
-    [index],
-  );
-  const topMayorLeader = topMayors[0]?.count ?? 0;
-  const topCouncil = useMemo(
-    () => (index ? index.councilVoteShare.slice(0, 10) : []),
-    [index],
-  );
-  const topCouncilLeader = topCouncil[0]?.totalVotes ?? 0;
+  const municipalityCount = realMunis.length;
+  const runoffCount = realMunis.filter((m) => m.hadRound2).length;
+  const hasSof =
+    index?.municipalities.some((m) => m.obshtinaCode === "SOF") ?? false;
 
   return (
     <main className="container mx-auto px-4 py-6 space-y-6">
@@ -870,11 +788,7 @@ const CycleOverview: FC<{ cycle: string }> = ({ cycle }) => {
           >
             {t("chmi_feed_title")} →
           </Link>
-          {/* Sofia city-wide synthetic shard isn't in the catalogue's
-              município list (it's not in data/municipalities.json) — link
-              to it explicitly so users can reach the city-wide council +
-              mayor + all 24 districts from here. */}
-          {index?.municipalities.some((m) => m.obshtinaCode === "SOF") ? (
+          {hasSof ? (
             <Link
               to={`/local/${cycle}/SOF`}
               className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
@@ -885,149 +799,7 @@ const CycleOverview: FC<{ cycle: string }> = ({ cycle }) => {
         </div>
       </header>
 
-      {/* Stat header */}
-      {index ? (
-        <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
-          <StatItem
-            label={t("local_national_top_mayor_party")}
-            value={
-              topMayors[0] ? (
-                <PartyChip
-                  name={topMayors[0].displayName}
-                  color={topMayors[0].color}
-                  suffix={t("local_region_mayors_count", {
-                    count: topMayors[0].count,
-                  })}
-                />
-              ) : (
-                "—"
-              )
-            }
-          />
-          <StatItem
-            label={t("local_national_top_council_party")}
-            value={
-              topCouncil[0] ? (
-                <PartyChip
-                  name={topCouncil[0].displayName}
-                  color={topCouncil[0].color}
-                  suffix={`${topCouncil[0].pctOfValid.toFixed(1)}%`}
-                />
-              ) : (
-                "—"
-              )
-            }
-          />
-          <StatItem
-            label={t("local_national_municipalities")}
-            value={<span className="tabular-nums">{municipalityCount}</span>}
-          />
-          <StatItem
-            label={t("local_national_runoffs")}
-            value={<span className="tabular-nums">{runoffCount}</span>}
-          />
-        </div>
-      ) : null}
-
-      {/* Mayors-control choropleth: which party holds each oblast. */}
-      <LocalMayorsControlMapTile cycle={cycle} />
-
-      {/* Top regions by município count + controlling party. */}
-      <TopRegionsTable cycle={cycle} />
-
-      {topMayors.length > 0 ? (
-        <section>
-          <h2 className="text-lg font-semibold mb-3">
-            {t("local_cycle_overview_mayors_section")}
-          </h2>
-          <ul className="rounded-xl border bg-card p-3">
-            {topMayors.map((p) => (
-              <RankedBar
-                key={p.canonicalId}
-                label={p.displayName}
-                value={p.count}
-                pct={
-                  index
-                    ? (p.count /
-                        index.mayorsByCanonical.reduce(
-                          (a, x) => a + x.count,
-                          0,
-                        )) *
-                      100
-                    : 0
-                }
-                leaderValue={topMayorLeader}
-                color={p.color}
-              />
-            ))}
-          </ul>
-        </section>
-      ) : null}
-
-      {topCouncil.length > 0 ? (
-        <section>
-          <h2 className="text-lg font-semibold mb-3">
-            {t("local_cycle_overview_council_section")}
-          </h2>
-          <ul className="rounded-xl border bg-card p-3">
-            {topCouncil.map((p) => (
-              <RankedBar
-                key={p.canonicalId}
-                label={p.displayName}
-                value={p.totalVotes}
-                pct={p.pctOfValid}
-                leaderValue={topCouncilLeader}
-                color={p.color}
-              />
-            ))}
-          </ul>
-        </section>
-      ) : null}
-
-      {index?.municipalities.length ? (
-        <section>
-          <h2 className="text-lg font-semibold mb-3">
-            {t("local_cycle_overview_municipalities_section")}
-          </h2>
-          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1 text-sm">
-            {index.municipalities
-              .slice()
-              .sort((a, b) =>
-                // Pin SOF first so the city-wide entry stands out from
-                // its 24 район shards.
-                a.obshtinaCode === "SOF"
-                  ? -1
-                  : b.obshtinaCode === "SOF"
-                    ? 1
-                    : a.name.localeCompare(b.name, "bg"),
-              )
-              .map((m) => (
-                <li key={m.obshtinaCode}>
-                  <Link
-                    to={`/local/${cycle}/${m.obshtinaCode}`}
-                    className={`block py-1 px-2 rounded hover:bg-accent hover:underline ${
-                      m.obshtinaCode === "SOF"
-                        ? "font-semibold text-primary"
-                        : ""
-                    }`}
-                  >
-                    {m.name}
-                    {m.obshtinaCode === "SOF" ? (
-                      <span className="ml-1 inline-flex items-center rounded-md border border-primary/40 bg-primary/10 px-1 py-0 text-[9px] font-medium uppercase tracking-wide text-primary">
-                        {t("local_cycle_overview_sof_badge")}
-                      </span>
-                    ) : null}
-                    {m.hadRound2 ? (
-                      <span className="ml-1 text-[10px] uppercase tracking-wide text-muted-foreground">
-                        II
-                      </span>
-                    ) : null}
-                  </Link>
-                </li>
-              ))}
-          </ul>
-        </section>
-      ) : null}
+      <LocalCountryDashboardCards cycle={cycle} />
     </main>
   );
 };
@@ -1043,5 +815,5 @@ export const LocalElectionScreen: FC = () => {
   if (obshtinaCode) {
     return <MunicipalityResults cycle={cycle} obshtinaCode={obshtinaCode} />;
   }
-  return <CycleOverview cycle={cycle} />;
+  return <CountryDashboard cycle={cycle} />;
 };

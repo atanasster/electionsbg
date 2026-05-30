@@ -76,8 +76,15 @@ export const useCanonicalParties = () => {
     );
   };
 
-  const colorFor = (nickName: string): string | undefined => {
-    const id = resolveCanonicalId(nickName);
+  // Accepts either a nickName ("ГЕРБ") or a canonical id ("gerb", "p_67").
+  // Local-elections code stamps `primaryCanonicalId` as the canonical id, not a
+  // nickName, so the byId fallback is what lights up colour dots in the council
+  // dropdown, the chmi history, the Sofia район choropleth, etc.
+  const colorFor = (input: string): string | undefined => {
+    if (!input) return undefined;
+    const direct = byId.get(input)?.color;
+    if (direct) return direct;
+    const id = resolveCanonicalId(input);
     if (!id) return undefined;
     return byId.get(id)?.color;
   };

@@ -213,6 +213,16 @@ export type LocalRegionMunicipalityRow = {
     color: string;
     localPartyName: string;
   } | null;
+  // Party leading this município's council (most seats; ties by votes). The
+  // proportional party signal, distinct from the winner-take-all mayoralty.
+  topCouncil: {
+    canonicalId: string;
+    displayName: string;
+    color: string;
+    localPartyName: string;
+    seats: number;
+    pctOfValid: number;
+  } | null;
   turnout: LocalTurnout;
 };
 
@@ -244,4 +254,67 @@ export type LocalRegionsSummary = {
   round1Date: string;
   round2Date: string | null;
   regions: LocalRegionsSummaryRow[];
+};
+
+// === National leader tiles ===============================================
+// Mirror of NationalLeaders in scripts/parsers_local/build_region_json.ts.
+// Precomputed cross-município leaderboards for the country dashboard.
+
+export type LocalPartyRef = {
+  canonicalId: string;
+  displayName: string;
+  color: string;
+};
+
+export type LocalCandidateRef = {
+  candidateName: string;
+  mpId?: number;
+  party: LocalPartyRef & { localPartyName: string };
+  pctOfValid: number;
+  votes: number;
+};
+
+export type LocalNationalMayorLeader = LocalCandidateRef & {
+  obshtinaCode: string;
+  obshtinaName: string;
+  oblast: string;
+  round: LocalRound;
+};
+
+export type LocalClosestRace = {
+  obshtinaCode: string;
+  obshtinaName: string;
+  oblast: string;
+  round: LocalRound;
+  marginPct: number;
+  winner: LocalCandidateRef;
+  runnerUp: LocalCandidateRef;
+};
+
+export type LocalSplitControlRow = {
+  obshtinaCode: string;
+  obshtinaName: string;
+  oblast: string;
+  candidateName: string;
+  mayor: LocalPartyRef;
+  council: LocalPartyRef;
+};
+
+export type LocalIndependentMayorRow = {
+  obshtinaCode: string;
+  obshtinaName: string;
+  oblast: string;
+  candidateName: string;
+  mpId?: number;
+  pctOfValid: number;
+};
+
+export type LocalNationalLeaders = {
+  cycle: string;
+  round1Date: string;
+  round2Date: string | null;
+  topMayorsByPct: LocalNationalMayorLeader[];
+  closestRaces: LocalClosestRace[];
+  splitControl: { count: number; rows: LocalSplitControlRow[] };
+  independentMayors: { count: number; rows: LocalIndependentMayorRow[] };
 };
