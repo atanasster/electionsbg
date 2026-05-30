@@ -2472,6 +2472,225 @@ export const buildOfficialRoutes = (projectRoot: string): PrerenderRoute[] => {
   return out;
 };
 
+// === Local elections =====================================================
+// National / region / município dashboard pages for each regular local cycle.
+// Cycles come from src/data/json/local_elections.json; region + município
+// lists from each cycle's data files. Settlement pages are canonicalised to
+// the município page and not prerendered. OG image falls back to the default
+// (no per-route local card yet).
+
+// "2023_10_29_mi" → "29.10.2023".
+const formatLocalCycleDate = (cycle: string): string => {
+  const m = /^(\d{4})_(\d{2})_(\d{2})/.exec(cycle);
+  return m ? `${m[3]}.${m[2]}.${m[1]}` : cycle;
+};
+
+const regularLocalCyclesFor = (projectRoot: string): string[] => {
+  const f = path.join(projectRoot, "src/data/json/local_elections.json");
+  if (!fs.existsSync(f)) return [];
+  try {
+    return (
+      JSON.parse(fs.readFileSync(f, "utf-8")) as {
+        name: string;
+        kind: string;
+      }[]
+    )
+      .filter((c) => c.kind === "regular")
+      .map((c) => c.name);
+  } catch {
+    return [];
+  }
+};
+
+const isRayonShard = (code: string): boolean => /^S2\d{3}$/.test(code);
+
+type LocalIndexFile = {
+  municipalities?: Array<{
+    obshtinaCode: string;
+    name: string;
+    oblast: string;
+  }>;
+  mayorsByCanonical?: Array<{ displayName: string; count: number }>;
+  councilVoteShare?: Array<{ displayName: string; pctOfValid: number }>;
+};
+
+export const buildLocalCycleRoutes = (
+  projectRoot: string,
+): PrerenderRoute[] => {
+  const publicFolder = path.join(projectRoot, "data");
+  const out: PrerenderRoute[] = [];
+  for (const cycle of regularLocalCyclesFor(projectRoot)) {
+    const idxFile = path.join(publicFolder, cycle, "index.json");
+    if (!fs.existsSync(idxFile)) continue;
+    let index: LocalIndexFile;
+    try {
+      index = JSON.parse(fs.readFileSync(idxFile, "utf-8"));
+    } catch {
+      continue;
+    }
+    const date = formatLocalCycleDate(cycle);
+    const muniCount = (index.municipalities ?? []).filter(
+      (m) => !isRayonShard(m.obshtinaCode),
+    ).length;
+    const topMayor = (index.mayorsByCanonical ?? [])[0];
+    const url = `${SITE_URL}/local/${cycle}`;
+    const title = `Местни избори ${date} — резултати | electionsbg.com`;
+    const description = `Резултати от местните избори на ${date} в България — кметове на общини и общински съветници по области и общини${
+      topMayor ? `. Водеща партия по кметове: ${topMayor.displayName}` : ""
+    }.`;
+    const titleEn = `Bulgarian Local Elections ${date} — Results | electionsbg.com`;
+    const descriptionEn = `Results of the ${date} Bulgarian local elections — municipal mayors and councillors by region and municipality.`;
+    const bodyHtml = `<h1>Местни избори ${date}</h1><p>Резултати по ${muniCount} общини — кметове на общини, общински съветници, кметове на кметства и районни кметове. Разгледайте по области и общини.</p>`;
+    const bodyHtmlEn = `<h1>Bulgarian local elections ${date}</h1><p>Results across ${muniCount} municipalities — municipal mayors, councillors, village mayors and district mayors. Browse by region and municipality.</p>`;
+    out.push({
+      path: `local/${cycle}`,
+      title,
+      description,
+      ogImage: `/og/local/${cycle}.png`,
+      bodyHtml,
+      jsonLd: [
+        buildWebPageLd({ title, description, url }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: `Местни избори ${date}`, url },
+        ]),
+      ],
+      english: {
+        title: titleEn,
+        description: descriptionEn,
+        bodyHtml: bodyHtmlEn,
+        jsonLd: [
+          buildWebPageLd({
+            title: titleEn,
+            description: descriptionEn,
+            url: `${SITE_URL}/en/local/${cycle}`,
+          }),
+        ],
+      },
+    });
+  }
+  return out;
+};
+
+export const buildLocalRegionRoutes = (
+  projectRoot: string,
+  regions: RegionInfo[],
+): PrerenderRoute[] => {
+  const publicFolder = path.join(projectRoot, "data");
+  const nameOf = new Map(regions.map((r) => [r.oblast, oblastDisplayName(r)]));
+  const nameEnOf = new Map(
+    regions.map((r) => [r.oblast, oblastDisplayNameEn(r)]),
+  );
+  const out: PrerenderRoute[] = [];
+  for (const cycle of regularLocalCyclesFor(projectRoot)) {
+    const rsFile = path.join(publicFolder, cycle, "regions_summary.json");
+    if (!fs.existsSync(rsFile)) continue;
+    let rs: { regions?: Array<{ oblast: string }> };
+    try {
+      rs = JSON.parse(fs.readFileSync(rsFile, "utf-8"));
+    } catch {
+      continue;
+    }
+    const date = formatLocalCycleDate(cycle);
+    for (const r of rs.regions ?? []) {
+      if (r.oblast === "SOF") continue; // redirects to the município page
+      const display = nameOf.get(r.oblast) ?? r.oblast;
+      const displayEn = nameEnOf.get(r.oblast) ?? r.oblast;
+      const url = `${SITE_URL}/local/${cycle}/region/${r.oblast}`;
+      const title = `Местни избори ${date} — област ${display} | electionsbg.com`;
+      const description = `Резултати от местните избори на ${date} в област ${display} — кметове по общини и места в общинските съвети по партии.`;
+      const titleEn = `Local Elections ${date} — ${displayEn} | electionsbg.com`;
+      const descriptionEn = `${date} Bulgarian local-election results in ${displayEn} region — mayors by municipality and council seats by party.`;
+      out.push({
+        path: `local/${cycle}/region/${r.oblast}`,
+        title,
+        description,
+        ogImage: `/og/local/region/${cycle}/${r.oblast}.png`,
+        bodyHtml: `<h1>Местни избори ${date} — област ${escapeHtmlSimple(display)}</h1><p>Кметове по общини и разпределение на местата в общинските съвети по партии.</p>`,
+        jsonLd: [
+          buildWebPageLd({ title, description, url }),
+          buildBreadcrumbLd([
+            { name: "Начало", url: `${SITE_URL}/` },
+            {
+              name: `Местни избори ${date}`,
+              url: `${SITE_URL}/local/${cycle}`,
+            },
+            { name: display, url },
+          ]),
+        ],
+        english: {
+          title: titleEn,
+          description: descriptionEn,
+          bodyHtml: `<h1>Local elections ${date} — ${escapeHtmlSimple(displayEn)}</h1><p>Mayors by municipality and council-seat distribution by party.</p>`,
+          jsonLd: [
+            buildWebPageLd({
+              title: titleEn,
+              description: descriptionEn,
+              url: `${SITE_URL}/en/local/${cycle}/region/${r.oblast}`,
+            }),
+          ],
+        },
+      });
+    }
+  }
+  return out;
+};
+
+export const buildLocalMunicipalityRoutes = (
+  projectRoot: string,
+): PrerenderRoute[] => {
+  const publicFolder = path.join(projectRoot, "data");
+  const out: PrerenderRoute[] = [];
+  for (const cycle of regularLocalCyclesFor(projectRoot)) {
+    const idxFile = path.join(publicFolder, cycle, "index.json");
+    if (!fs.existsSync(idxFile)) continue;
+    let index: LocalIndexFile;
+    try {
+      index = JSON.parse(fs.readFileSync(idxFile, "utf-8"));
+    } catch {
+      continue;
+    }
+    const date = formatLocalCycleDate(cycle);
+    for (const m of index.municipalities ?? []) {
+      const url = `${SITE_URL}/local/${cycle}/${m.obshtinaCode}`;
+      const title = `Местни избори ${date} — ${m.name} | electionsbg.com`;
+      const description = `Резултати от местните избори на ${date} в община ${m.name} — кмет на община, общински съвет с избрани съветници и кметове на кметства.`;
+      const titleEn = `Local Elections ${date} — ${m.name} | electionsbg.com`;
+      const descriptionEn = `${date} Bulgarian local-election results in ${m.name} municipality — municipal mayor, council with elected councillors, and village mayors.`;
+      out.push({
+        path: `local/${cycle}/${m.obshtinaCode}`,
+        title,
+        description,
+        bodyHtml: `<h1>Местни избори ${date} — ${escapeHtmlSimple(m.name)}</h1><p>Кмет на община, разпределение на местата в общинския съвет и избрани общински съветници, кметове на кметства.</p>`,
+        jsonLd: [
+          buildWebPageLd({ title, description, url }),
+          buildBreadcrumbLd([
+            { name: "Начало", url: `${SITE_URL}/` },
+            {
+              name: `Местни избори ${date}`,
+              url: `${SITE_URL}/local/${cycle}`,
+            },
+            { name: m.name, url },
+          ]),
+        ],
+        english: {
+          title: titleEn,
+          description: descriptionEn,
+          bodyHtml: `<h1>Local elections ${date} — ${escapeHtmlSimple(m.name)}</h1><p>Municipal mayor, council-seat distribution, elected councillors and village mayors.</p>`,
+          jsonLd: [
+            buildWebPageLd({
+              title: titleEn,
+              description: descriptionEn,
+              url: `${SITE_URL}/en/local/${cycle}/${m.obshtinaCode}`,
+            }),
+          ],
+        },
+      });
+    }
+  }
+  return out;
+};
+
 export const buildDynamicRoutes = async (
   projectRoot: string,
 ): Promise<PrerenderRoute[]> => {
@@ -2515,6 +2734,9 @@ export const buildDynamicRoutes = async (
     ...buildPartySubTabRoutes(parties, partyParents),
     ...oblastRoutes,
     ...buildOblastSubTabRoutes(regions, oblastParents),
+    ...buildLocalCycleRoutes(projectRoot),
+    ...buildLocalRegionRoutes(projectRoot, regions),
+    ...buildLocalMunicipalityRoutes(projectRoot),
     ...buildSettlementRoutes(publicFolder, latest, oblastNames),
     ...buildMyAreaRoutes(publicFolder, latest, oblastNames),
     ...buildSectionsListRoutes(publicFolder, latest, oblastNames),

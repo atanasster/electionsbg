@@ -20,6 +20,8 @@ export const ENGLISH_STATIC_PAGES = [
   "sofia/flash-memory",
   "sofia/recount",
   "about",
+  "sverka",
+  "local/chmi",
   "data-changes",
   "simulator",
   "compare",

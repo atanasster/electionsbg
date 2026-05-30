@@ -563,6 +563,105 @@ const main = async () => {
     });
   }
 
+  // Local-elections cards: one per regular cycle + one per oblast (except SOF,
+  // which redirects to the município page). Referenced as og:image by the
+  // prerendered local cycle / region pages.
+  type LocalParty = { displayName: string; color: string };
+  type LocalIdx = {
+    municipalities?: { obshtinaCode: string; hadRound2: boolean }[];
+    mayorsByCanonical?: LocalParty[];
+    councilVoteShare?: LocalParty[];
+  };
+  type LocalRegionRow = {
+    oblast: string;
+    municipalityCount: number;
+    runoffCount: number;
+    topMayor: LocalParty | null;
+    topCouncil: LocalParty | null;
+  };
+  const localCyclesFile = path.join(
+    PROJECT_ROOT,
+    "src/data/json/local_elections.json",
+  );
+  const regularLocalCycles: string[] = fs.existsSync(localCyclesFile)
+    ? (
+        JSON.parse(fs.readFileSync(localCyclesFile, "utf-8")) as {
+          name: string;
+          kind: string;
+        }[]
+      )
+        .filter((c) => c.kind === "regular")
+        .map((c) => c.name)
+    : [];
+  const regionNameOf = new Map(
+    regions.map((r) => [r.oblast, r.long_name || r.name]),
+  );
+  for (const cycle of regularLocalCycles) {
+    const idxFile = path.join(publicFolder, cycle, "index.json");
+    if (!fs.existsSync(idxFile)) continue;
+    let index: LocalIdx;
+    try {
+      index = JSON.parse(fs.readFileSync(idxFile, "utf-8"));
+    } catch {
+      continue;
+    }
+    const munis = (index.municipalities ?? []).filter(
+      (m) => !/^S2\d{3}$/.test(m.obshtinaCode),
+    );
+    const runoffs = munis.filter((m) => m.hadRound2).length;
+    const tm = (index.mayorsByCanonical ?? [])[0];
+    const tc = (index.councilVoteShare ?? [])[0];
+    renderStaticPageCard(
+      `Местни избори ${localizeDate(cycle)}`,
+      "Резултати по области и общини",
+      [
+        { label: "общини", value: `${munis.length}` },
+        {
+          label: "водеща по кметове",
+          value: tm?.displayName ?? "—",
+          accent: tm?.color,
+        },
+        {
+          label: "водеща в съветите",
+          value: tc?.displayName ?? "—",
+          accent: tc?.color,
+        },
+        { label: "балотажи", value: `${runoffs}` },
+      ],
+      `local/${cycle}.png`,
+    );
+    const rsFile = path.join(publicFolder, cycle, "regions_summary.json");
+    if (!fs.existsSync(rsFile)) continue;
+    let rs: { regions?: LocalRegionRow[] };
+    try {
+      rs = JSON.parse(fs.readFileSync(rsFile, "utf-8"));
+    } catch {
+      continue;
+    }
+    for (const r of rs.regions ?? []) {
+      if (r.oblast === "SOF") continue;
+      renderStaticPageCard(
+        `Местни избори — ${regionNameOf.get(r.oblast) ?? r.oblast}`,
+        localizeDate(cycle),
+        [
+          { label: "общини", value: `${r.municipalityCount}` },
+          {
+            label: "контрол (кметове)",
+            value: r.topMayor?.displayName ?? "—",
+            accent: r.topMayor?.color,
+          },
+          {
+            label: "места в съветите",
+            value: r.topCouncil?.displayName ?? "—",
+            accent: r.topCouncil?.color,
+          },
+          { label: "балотажи", value: `${r.runoffCount}` },
+        ],
+        `local/region/${cycle}/${r.oblast}.png`,
+      );
+    }
+  }
+
   // Push every renderCard()-based job through the incremental cache. The
   // CardSpec is the complete visual input, so it is the cache fingerprint.
   const cache = createOgCache(PROJECT_ROOT);

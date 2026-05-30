@@ -225,6 +225,38 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   },
   staticPage({
+    path: "sverka",
+    title:
+      "Сверка на местните избори — длъжностни лица срещу ЦИК | electionsbg.com",
+    description:
+      "Национална сверка на избраните на местните избори срещу настоящите длъжностни лица — кметове на общини и общински съветници по общини.",
+    breadcrumbName: "Сверка",
+    bodyHtml: `<h1>Сверка на местните избори с настоящи длъжностни лица</h1><p>Съпоставка между избраните кметове и общински съветници по ЦИК и настоящия състав на длъжностните лица по общини, с маркиране на разминаванията и замените след извънредни избори.</p>`,
+    english: {
+      title:
+        "Local-Elections Reconciliation — Officials vs. CIK | electionsbg.com",
+      description:
+        "National reconciliation of local-election winners against the sitting officials — municipal mayors and councillors by municipality.",
+      breadcrumbName: "Reconciliation",
+      bodyHtml: `<h1>Local-elections reconciliation with sitting officials</h1><p>Mayors and councillors elected per the CIK results compared against the current roster of officials by municipality, flagging mismatches and post-election replacements.</p>`,
+    },
+  }),
+  staticPage({
+    path: "local/chmi",
+    title: "Извънредни местни избори в България | electionsbg.com",
+    description:
+      "Хронологичен преглед на всички извънредни (частични и нови) местни избори за кметове на общини, кметства и райони.",
+    breadcrumbName: "Извънредни местни избори",
+    bodyHtml: `<h1>Извънредни местни избори</h1><p>Хронология на частичните и новите местни избори между редовните цикли — кметове на общини, кметове на кметства и районни кметове.</p>`,
+    english: {
+      title: "Extraordinary Local Elections in Bulgaria | electionsbg.com",
+      description:
+        "Chronological feed of all extraordinary (partial and new) local elections for municipal, village and district mayors.",
+      breadcrumbName: "Extraordinary local elections",
+      bodyHtml: `<h1>Extraordinary local elections</h1><p>A chronology of partial and new local elections between the regular cycles — municipal mayors, village mayors and district mayors.</p>`,
+    },
+  }),
+  staticPage({
     path: "sofia",
     title: "Резултати в София — Парламентарни избори | electionsbg.com",
     description:
