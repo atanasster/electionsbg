@@ -8,6 +8,7 @@ import {
   prerenderRoutes,
 } from "./routes";
 import { buildDynamicRoutes } from "./dynamicRoutes";
+import { buildSiteNav } from "./bodyBuilders";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -111,7 +112,10 @@ const renderSeoBlock = (
 };
 
 const renderBodyBlock = (variant: RenderVariant): string => {
-  const inner = variant.bodyHtml ?? "";
+  // Per-page body (may be empty for thin routes) followed by the shared
+  // section navigation, so every prerendered page carries a crawlable
+  // internal link to each data hub. See bodyBuilders.buildSiteNav.
+  const inner = (variant.bodyHtml ?? "") + buildSiteNav(variant.lang);
   return `<!-- BODY -->\n    <div id="ssg-content" hidden>${inner}</div>\n    <!-- /BODY -->`;
 };
 

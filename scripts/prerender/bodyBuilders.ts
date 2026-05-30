@@ -3,6 +3,88 @@ import path from "path";
 import { PartyInfo, RegionInfo } from "@/data/dataTypes";
 import { SITE_URL } from "./routes";
 
+// ── Site-wide section navigation ──────────────────────────────────────────
+// A crawlable link block appended to the (hidden) #ssg-content body of EVERY
+// prerendered page (see index.ts renderBodyBlock). Before this existed, the
+// homepage body linked only to /elections and /articles, so Googlebot had no
+// internal-link path to the broader data hubs (/budget, /procurement,
+// /connections, …) — six months of GSC showed ~0 impressions for all of them
+// despite each being fully prerendered. A sitemap is a discovery hint, not an
+// authority signal; these links give every hub a real internal link from all
+// ~84k pages, the home page included. See memory: project_seo_discovery_gap.
+//
+// INVARIANT: only list a path that has a real prerendered landing page (a static
+// entry in routes.ts or a dynamic index in dynamicRoutes). Linking a path with
+// no prerendered landing would route a no-JS crawler through the Firebase
+// **→/index.html rewrite, serving the HOMEPAGE prerender (canonical=/) at that
+// URL — a soft-duplicate. transparency/landuse/officials are intentionally
+// absent until they get landing pages.
+// `bgOnly` marks hubs whose dynamic landing emits no /en mirror — their EN-nav
+// link must point at the BG (canonical) URL, not a non-existent /en/<path> that
+// would fall through the SPA rewrite to the homepage.
+const NAV_HUBS: { path: string; bg: string; en: string; bgOnly?: true }[] = [
+  { path: "parliament", bg: "Народно събрание", en: "National Assembly" },
+  {
+    path: "votes",
+    bg: "Поименни гласувания",
+    en: "Roll-call votes",
+    bgOnly: true,
+  },
+  { path: "governments", bg: "Правителства", en: "Governments" },
+  {
+    path: "connections",
+    bg: "Бизнес-връзки на депутати",
+    en: "MP business connections",
+  },
+  { path: "procurement", bg: "Обществени поръчки", en: "Public procurement" },
+  { path: "budget", bg: "Държавен бюджет", en: "State budget" },
+  { path: "funds", bg: "Европейски средства", en: "EU funds" },
+  { path: "indicators", bg: "Индикатори", en: "Indicators" },
+  { path: "financing", bg: "Партийно финансиране", en: "Party financing" },
+  {
+    path: "polls",
+    bg: "Социологически проучвания",
+    en: "Opinion polls",
+    bgOnly: true,
+  },
+  { path: "simulator", bg: "Симулатор за мандати", en: "Seat simulator" },
+  { path: "parties", bg: "Партии", en: "Parties" },
+  { path: "regions", bg: "Резултати по области", en: "Results by region" },
+  {
+    path: "local/chmi",
+    bg: "Извънредни местни избори",
+    en: "Extraordinary local elections",
+  },
+  {
+    path: "sverka",
+    bg: "Сверка на местните избори",
+    en: "Local-elections reconciliation",
+  },
+  { path: "sofia", bg: "София", en: "Sofia" },
+  { path: "about", bg: "За проекта", en: "About the project" },
+];
+
+// Builds the shared section-navigation block. Language-aware: the EN variant
+// points at the /en/* prerendered mirrors. Appended once per page by the
+// prerender renderer (index.ts), so it must NOT be added to per-page bodies.
+export const buildSiteNav = (lang: "bg" | "en"): string => {
+  const base = lang === "en" ? `${SITE_URL}/en` : SITE_URL;
+  const heading = lang === "en" ? "Explore the data" : "Разгледайте данните";
+  const homeLabel = lang === "en" ? "Home" : "Начало";
+  const items = [
+    `<li><a href="${base}/">${escapeHtml(homeLabel)}</a></li>`,
+    ...NAV_HUBS.map((h) => {
+      const label = escapeHtml(lang === "en" ? h.en : h.bg);
+      // bgOnly hubs have no /en mirror — link EN nav to the BG URL.
+      const hrefBase = lang === "en" && h.bgOnly ? SITE_URL : base;
+      return `<li><a href="${hrefBase}/${h.path}">${label}</a></li>`;
+    }),
+  ].join("");
+  return `<nav aria-label="${escapeHtml(
+    heading,
+  )}"><h2>${escapeHtml(heading)}</h2><ul>${items}</ul></nav>`;
+};
+
 const escapeHtml = (s: string): string =>
   String(s)
     .replace(/&/g, "&amp;")
