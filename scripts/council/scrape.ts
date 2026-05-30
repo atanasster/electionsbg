@@ -232,7 +232,7 @@ const cli = command({
         totalUpdated += merge.updated;
         totalTouched += result.protocolsTouched;
         console.log(
-          `  ${key}: +${merge.added} new, ${merge.updated} updated, ${merge.total} total in index`,
+          `  ${key}: +${merge.added} new, ${merge.updated} updated, ${merge.total} total`,
         );
       } catch (err) {
         const msg = err instanceof Error ? err.message : String(err);

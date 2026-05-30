@@ -19,7 +19,8 @@
 // the durable history for backfills, summary regeneration, and audit
 // trails. The index gives the UI its small page-level snapshot.
 
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import type { Dirent } from "node:fs";
 import { join } from "node:path";
 import type {
   CouncilIndexFile,
@@ -43,6 +44,40 @@ const PER_MUNI_LIMIT = 200;
 const readIndex = async (): Promise<CouncilIndexFile> => {
   const raw = await readFile(INDEX_PATH, "utf8");
   return JSON.parse(raw) as CouncilIndexFile;
+};
+
+// Distinct resolution ids that have a durable shard on disk for a município:
+// data/council/{code}/{YYYY}/{id}.json. This shard tree — not the slim index
+// slot — is the source of truth for the historical resolution total. The
+// index slot is capped at PER_MUNI_LIMIT, so its length under-reports any
+// município whose history exceeds the cap. Counting shards keeps
+// meta.resolutionCount honest and, unlike a monotonic max(existing, …), still
+// shrinks if resolutions (and their shards) are legitimately removed. Returns
+// an empty set for a município with no shard directory yet.
+const listDurableShardIds = async (
+  obshtinaCode: string,
+): Promise<Set<string>> => {
+  const muniDir = join(DATA_DIR, obshtinaCode);
+  const ids = new Set<string>();
+  let years: Dirent[];
+  try {
+    years = await readdir(muniDir, { withFileTypes: true });
+  } catch {
+    return ids; // município has no shard directory yet
+  }
+  for (const year of years) {
+    if (!year.isDirectory()) continue;
+    let files: string[];
+    try {
+      files = await readdir(join(muniDir, year.name));
+    } catch {
+      continue;
+    }
+    for (const f of files) {
+      if (f.endsWith(".json")) ids.add(f.slice(0, -".json".length));
+    }
+  }
+  return ids;
 };
 
 // Per-município per-councillor shard. Keyed by resolution id so the
@@ -180,6 +215,16 @@ export const mergeMuniResult = async (
   const capped = merged.slice(0, limit);
   idx.resolutionsByObshtina[result.obshtinaCode] = capped;
 
+  // True historical total = distinct resolution ids in the durable shard tree
+  // folded with this run's ids. Must NOT be `merged.length`: `merged` is built
+  // from the already-capped index slot (`prev`), so on an incremental scrape
+  // that adds nothing to a município with > PER_MUNI_LIMIT history it would
+  // collapse to the cap and silently under-report. The shard tree is the
+  // source of truth.
+  const trueIds = await listDurableShardIds(result.obshtinaCode);
+  for (const r of result.resolutions) trueIds.add(r.id);
+  const resolutionCount = trueIds.size;
+
   idx.meta = idx.meta ?? {};
   idx.meta[result.obshtinaCode] = {
     name: muniName,
@@ -187,7 +232,7 @@ export const mergeMuniResult = async (
     protocolsIngested:
       (idx.meta[result.obshtinaCode]?.protocolsIngested ?? 0) +
       result.protocolsTouched,
-    resolutionCount: merged.length,
+    resolutionCount,
   };
 
   // Write the slim index first, then the votes shard for this município.
@@ -203,7 +248,7 @@ export const mergeMuniResult = async (
     }
   }
 
-  return { added, updated, total: merged.length };
+  return { added, updated, total: resolutionCount };
 };
 
 /**
@@ -227,6 +272,13 @@ export const rebuildShardsFromIndex = async (): Promise<{
     if (written > 0) {
       shardsWritten++;
       votesTotal += written;
+    }
+    // Resync meta.resolutionCount from the durable shard tree. The slim index
+    // slot (`rows`) is capped at PER_MUNI_LIMIT and under-reports any município
+    // whose history exceeds the cap; counting shards restores the true total.
+    // Only patch existing meta entries — don't fabricate name/lastIngest here.
+    if (idx.meta?.[code]) {
+      idx.meta[code].resolutionCount = (await listDurableShardIds(code)).size;
     }
   }
   await writeIndex(idx);
