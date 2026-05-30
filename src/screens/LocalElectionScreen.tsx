@@ -9,7 +9,7 @@
 //   2. Mayor section — full candidate ranking, R1 then R2 if applicable
 //   3. Council section — party-by-party seat breakdown with expandable
 //      elected-councillor lists
-//   4. Kmetstvo mayors (only when present — empty for Sofia районs)
+//   4. Kmetstvo mayors (only when present — empty for Sofia districts)
 //   5. District (район) mayors (only for the SOF city-wide shard)
 //   6. Cross-link from Sofia район shards back to the SOF city-wide bundle
 
@@ -783,7 +783,7 @@ const CycleOverview: FC<{ cycle: string }> = ({ cycle }) => {
           {/* Sofia city-wide synthetic shard isn't in the catalogue's
               município list (it's not in data/municipalities.json) — link
               to it explicitly so users can reach the city-wide council +
-              mayor + all 24 районs from here. */}
+              mayor + all 24 districts from here. */}
           {index?.municipalities.some((m) => m.obshtinaCode === "SOF") ? (
             <Link
               to={`/local/${cycle}/SOF`}

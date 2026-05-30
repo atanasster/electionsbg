@@ -12,7 +12,7 @@
 // frontend boundary is cheaper and contained.
 //
 // Sofia is the only multi-obshtina mapping — the Столичен общински
-// съвет represents the whole city, so all 24 районs (S2***) and the
+// съвет represents the whole city, so all 24 districts (S2***) and the
 // synthetic SFO_CITY bundle all collapse to the SOF council key.
 
 const STATIC_MAP: Record<string, string> = {
@@ -63,7 +63,7 @@ export const councilKeyForObshtina = (
 /**
  * For roster joins: the обтщина shard at
  * `/officials/municipal/by_obshtina/<key>.json` that holds the council
- * roster for this município. Mostly the identity, but Sofia районs
+ * roster for this município. Mostly the identity, but Sofia districts
  * (S2***) all hit the city-wide SFO_CITY shard since the Stolichen
  * Council members live there, not in any single район's slate.
  */

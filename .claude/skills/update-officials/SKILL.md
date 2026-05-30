@@ -80,7 +80,7 @@ Separate ingest for the local-government tier. The script:
 2. Filters Category nodes to the `Кметове…` family (mayors, deputy-mayors, council chairs, municipal councillors, chief architects).
 3. Maps each declarant's `Position/Name` role label to a role bucket, fetches + parses the per-person XML (same shared parser and `raw_data/officials/` cache as the executive ingest), and writes one JSON per slug under `data/officials/municipal/declarations/`.
 4. Builds `data/officials/municipal/index.json` — a roster with `byRole` counts and one entry per official (slug, name, role, municipality).
-5. **Emits per-obshtina shards** under `data/officials/municipal/by_obshtina/{code}.json` (~288 files; SPA's `/settlement/{обshtina}` page fetches only its own slice). Each shard pre-sorts entries in roster-display order so the dashboard tiles render without re-sorting. Sofia районs each get their own S23xx code; Plovdiv (PDV22) and Varna (VAR06) aggregate районs under a single shard with a `district` tag on each entry; the synthetic `SFO_CITY` shard carries the Sofia city-wide tier (mayor + city council + 9 deputies + 2 architects) and is staged for a future Sofia-wide tile — not yet wired into any SPA page.
+5. **Emits per-obshtina shards** under `data/officials/municipal/by_obshtina/{code}.json` (~288 files; SPA's `/settlement/{обshtina}` page fetches only its own slice). Each shard pre-sorts entries in roster-display order so the dashboard tiles render without re-sorting. Sofia districts each get their own S23xx code; Plovdiv (PDV22) and Varna (VAR06) aggregate districts under a single shard with a `district` tag on each entry; the synthetic `SFO_CITY` shard carries the Sofia city-wide tier (mayor + city council + 9 deputies + 2 architects) and is staged for a future Sofia-wide tile — not yet wired into any SPA page.
 
 Expected output:
 
@@ -223,7 +223,7 @@ Fails loud rather than write partial data:
 | Zero entries in the `Кметове…` category | Upstream renamed the municipal category | `municipal.ts` throws |
 | > 2% (or > 20) of municipal declarations fail to parse | Upstream schema drift, not isolated bad records | `municipal.ts` throws; failures below that bar are skipped + logged, not fatal |
 | `> 10 roster entries did not map to an obshtina` | Upstream rename / new municipality / new район | `municipal.ts` throws; dry-run `scripts/officials/municipality_join.ts --dry-run`, add aliases to `scripts/officials/_aliases.json`, then re-emit with `scripts/officials/build_municipal_shards.ts` |
-| Shard for a known обshtina exceeds 40 KB raw | A big city's районs proliferated, or `byRole.councillor` ballooned | Warns (does not throw); consider splitting the shard if the SPA Roster tile becomes janky |
+| Shard for a known обshtina exceeds 40 KB raw | A big city's districts proliferated, or `byRole.councillor` ballooned | Warns (does not throw); consider splitting the shard if the SPA Roster tile becomes janky |
 
 ## What this skill does NOT do
 

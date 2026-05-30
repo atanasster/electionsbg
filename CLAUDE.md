@@ -77,7 +77,7 @@ Local cycles (`mi*`, `chmi*`) live alongside parliamentary but in their own data
 - `/local/chmi` — chronological feed of all extraordinary (partial + new) elections across cycles
 - `/sverka` — national officials-vs-CIK reconciliation table
 
-`<cycle>` is the raw-data folder name: `2023_10_29_mi`, `2019_10_27_mi`, `2024_06_23_chmi`, `2024_10_20_chmi_nov`, etc. The synthetic `SOF` obshtinaCode holds Sofia's city-wide bundle (Sofia районs are the 24 `S2***` shards). Partials never appear in the elections selector — they surface contextually via tile + `/local/chmi` only.
+`<cycle>` is the raw-data folder name: `2023_10_29_mi`, `2019_10_27_mi`, `2024_06_23_chmi`, `2024_10_20_chmi_nov`, etc. The synthetic `SOF` obshtinaCode holds Sofia's city-wide bundle (Sofia districts are the 24 `S2***` shards). Partials never appear in the elections selector — they surface contextually via tile + `/local/chmi` only.
 
 ### Data Hook Pattern
 

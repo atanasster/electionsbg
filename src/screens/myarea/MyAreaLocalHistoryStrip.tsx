@@ -13,8 +13,8 @@
 // município (if any) as small pills.
 //
 // Auto-hides when the município has no usable mayor data for the most
-// recent regular cycle in the catalogue (e.g. Sofia районs returned 404 on
-// pre-2019 cycles before районs were elected separately — those rows
+// recent regular cycle in the catalogue (e.g. Sofia districts returned 404 on
+// pre-2019 cycles before districts were elected separately — those rows
 // simply render as dashed placeholders, but the latest cycle's row drives
 // auto-hide).
 //
@@ -42,7 +42,7 @@ const formatCycleShort = (cycle: string): string => {
   return `${m[2]}.${m[1].slice(2)}`;
 };
 
-// Reason the município has no bundle for this cycle. Sofia районs (S2***)
+// Reason the município has no bundle for this cycle. Sofia districts (S2***)
 // weren't elected separately until 2015 — pre-2015 cycles legitimately have
 // no per-район shard because the city-wide СОФ bundle covered them.
 // Everywhere else, a missing bundle just means CIK didn't publish results

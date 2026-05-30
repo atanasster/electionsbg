@@ -10,7 +10,7 @@
 // /settlement/<obshtinaCode> or /local/<cycle>/<obshtinaCode> reads from
 // the React-Query cache.
 //
-// Auto-hides when there's no município bundle (Sofia районs pre-2019,
+// Auto-hides when there's no município bundle (Sofia districts pre-2019,
 // abroad sections — which have obshtina "32"/"NMB" — etc.).
 
 import { FC, useMemo } from "react";

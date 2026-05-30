@@ -1,7 +1,7 @@
 // Fans out useLocalMunicipality across every cycle in the catalogue so a
 // dashboard tile can render mayor / council history without a per-cycle
 // boilerplate. Returns an array sorted oldest → newest with a stable shape;
-// cycles where the município has no data (e.g. Sofia районs in pre-2019
+// cycles where the município has no data (e.g. Sofia districts in pre-2019
 // cycles when the район wasn't elected separately) become entries with
 // `bundle: undefined` so the consumer can render placeholder chips.
 

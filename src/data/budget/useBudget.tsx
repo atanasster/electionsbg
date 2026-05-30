@@ -761,7 +761,7 @@ const CAPITAL_PROGRAMS_LATEST: Record<string, number> = {
 const capitalProgramLatestYear = (slug: string): number =>
   CAPITAL_PROGRAMS_LATEST[slug] ?? CAPITAL_PROGRAMS_DEFAULT_YEAR;
 
-/** Resolve an obshtina code to its capital-programme slug. Sofia районs
+/** Resolve an obshtina code to its capital-programme slug. Sofia districts
  *  (S2xxx) roll up to "sofia" — the city-wide programme covers them. */
 const capitalProgramSlugForObshtina = (
   obshtina: string | undefined,
@@ -801,7 +801,7 @@ type CapitalProgramRawTile = {
   }>;
   // Sofia tile only: per-район rollup with the район's own topProjects
   // list. tile.json's top-level `projects[]` carries only the city-wide
-  // top ~30 — too few to give most районs three rows. byRayon[].topProjects
+  // top ~30 — too few to give most districts three rows. byRayon[].topProjects
   // is pre-computed against the full project set.
   byRayon?: Array<{
     code: string;
@@ -819,7 +819,7 @@ export const useCapitalProgramsTopProjects = (
   topN = 3,
 ) => {
   const slug = capitalProgramSlugForObshtina(obshtina);
-  // For Sofia районs (S2xxx) we try to filter the city-wide capital
+  // For Sofia districts (S2xxx) we try to filter the city-wide capital
   // programme to projects tagged with this район — more personally
   // relevant than the city-wide top-3. The Sofia tile schema records
   // each project's rayons[] (capital_programs/sofia.ts emits these from
@@ -855,7 +855,7 @@ export const useCapitalProgramsTopProjects = (
       // Sofia район path — use the pre-computed byRayon[].topProjects
       // for the user's район (it ranks against the full project set,
       // whereas tile.json's top-level `projects[]` is only the city-wide
-      // top ~30, which leaves most районs with 0-1 hits even when they
+      // top ~30, which leaves most districts with 0-1 hits even when they
       // have a dozen projects). Fall back to city-wide if the район
       // isn't in byRayon or has < topN projects.
       let scope: "rayon" | "city" = "city";

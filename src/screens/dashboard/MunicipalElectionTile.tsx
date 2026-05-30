@@ -49,7 +49,7 @@ export const MunicipalElectionTile: FC<Props> = ({
   // Match strategy mirrors `partyFlipped` below: prefer primaryCanonicalId
   // (most reliable), then fall back to a case-insensitive localPartyName
   // match for unresolved canonicals. When the prior cycle has no data for
-  // this município (Sofia районs in pre-2019 cycles), delta is undefined and
+  // this município (Sofia districts in pre-2019 cycles), delta is undefined and
   // the arrow isn't rendered.
   const topCouncilParties = useMemo(() => {
     if (!municipality?.council) return [];

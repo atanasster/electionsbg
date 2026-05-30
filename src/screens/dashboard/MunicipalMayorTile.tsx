@@ -20,7 +20,7 @@ export const MunicipalMayorTile: FC<Props> = ({ obshtinaCode, className }) => {
   const { t } = useTranslation();
   const { roster } = useMunicipalOfficials(obshtinaCode);
 
-  // For obshtini that aggregate районs into a single shard (Plovdiv PDV22,
+  // For obshtini that aggregate districts into a single shard (Plovdiv PDV22,
   // Varna VAR06), each район also has a mayor — pick the city-wide one (no
   // `district` tag) when available, fall back to whichever the sort placed
   // first. Same logic for the council chair.

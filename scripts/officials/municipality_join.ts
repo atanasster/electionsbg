@@ -14,8 +14,8 @@
 //      a manual pin.
 //
 //   2. 'Район "<NAME>" - <CITY>' → the CITY's obshtina, with `district:
-//      "Район <NAME>"`. Covers Пловдив (6 районs aggregated under PDV22),
-//      Варна (5 районs under VAR06), and any other large city the registry
+//      "Район <NAME>"`. Covers Пловдив (6 districts aggregated under PDV22),
+//      Варна (5 districts under VAR06), and any other large city the registry
 //      might split in future.
 //
 //   3. 'Район <NAME>' (no city suffix) → Sofia район. Each Sofia район is
@@ -87,7 +87,7 @@ export type ResolveResult = {
   /** App's obshtina code, e.g. "BLG14", "S2309", "PDV22". */
   code: string;
   /** True when the registry entry is a sub-район folded into a larger city's
-   *  obshtina (Plovdiv / Varna). The Sofia районs each have their own code
+   *  obshtina (Plovdiv / Varna). The Sofia districts each have their own code
    *  and are NOT marked as districts. */
   isDistrict: boolean;
   /** Verbatim "Район X" label, set only when isDistrict is true. */
@@ -133,10 +133,10 @@ export const buildResolver = (): Resolver => {
   // 1. Generic name → code map, deduped by obshtina. The data file already
   //    carries one row per obshtina, so dedupe is just a guard.
   const byName = new Map<string, string>();
-  // 2. Sofia районs (S23/S24/S25) keyed by район name only — i.e. without
+  // 2. Sofia districts (S23/S24/S25) keyed by район name only — i.e. without
   //    the "Район " prefix.
   const sofiaRayonByName = new Map<string, string>();
-  // 3. City-with-районs lookup, filled from data/municipalities.json.
+  // 3. City-with-districts lookup, filled from data/municipalities.json.
   const cityRayonObshtina = new Map<string, string>();
 
   for (const m of municipalities) {

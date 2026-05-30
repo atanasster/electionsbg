@@ -16,7 +16,7 @@
 //
 // Auto-hide layers:
 //   - Whole tile returns null if the transfers shard has no row for this
-//     obshtina (newly-created общини, Sofia районs whose code doesn't match
+//     obshtina (newly-created общини, Sofia districts whose code doesn't match
 //     the SOF shard's single Столична row, etc.).
 //   - Execution sub-block conditionally renders; nothing structural changes
 //     on the 263 muni dashboards without it.
@@ -43,7 +43,7 @@ type Props = {
 };
 
 // Derive the 3-letter oblast shard code from an obshtina code, matching the
-// helper in MyAreaTaxReceiptTile / MunicipalityTransfersTile. Sofia районs
+// helper in MyAreaTaxReceiptTile / MunicipalityTransfersTile. Sofia districts
 // (S2xxx) and the Sofia city aliases (SOF, SOFnn) all resolve to the SOF
 // shard, which carries Столична by ekatte 68134.
 const oblastFromObshtina = (code: string): string | null => {
@@ -173,7 +173,7 @@ export const MyAreaMunicipalBudgetTile: FC<Props> = ({ obshtina, oblast }) => {
       : null;
 
   const population = graoSlice ? sumPermanent(graoSlice.settlements) : 0;
-  // Sofia районs don't have a single-row match in the SOF shard, so they're
+  // Sofia districts don't have a single-row match in the SOF shard, so they're
   // already filtered out above. For everything else we expect a population
   // number; if GRAO is still loading, fall back to absolute total + omit
   // per-capita rather than show a half-baked card.

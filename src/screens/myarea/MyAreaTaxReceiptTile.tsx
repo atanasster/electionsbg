@@ -177,7 +177,7 @@ export const MyAreaTaxReceiptTile: FC<{
   // Latest-year transfer total (€) for THIS município ÷ registered
   // (permanent-address) population — the same denominator the equalization
   // grant formula uses. We match the shard row by obshtina code, so Sofia
-  // районs (whose slice is район-only) find no row and the line auto-hides
+  // districts (whose slice is district-only) find no row and the line auto-hides
   // rather than dividing a city-wide total by a район population.
   const municipalReturn = useMemo(() => {
     if (!transfersShard || !graoSlice) return null;
@@ -206,7 +206,7 @@ export const MyAreaTaxReceiptTile: FC<{
   // does my município actually spend the money it raises and receives".
   // Coverage limited to the 26 wired municípios (oblast capitals + a few
   // tier-2 cities); other municípios get nothing (hook returns null).
-  // Sofia районs roll up to the city-wide programme.
+  // Sofia districts roll up to the city-wide programme.
   const { data: capitalPrograms } = useCapitalProgramsTopProjects(obshtina, 3);
 
   // Local-tax estimate — bills the user actually pays to THIS município

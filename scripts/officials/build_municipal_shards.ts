@@ -28,7 +28,7 @@ const OUT_DIR = path.join(ROOT, "data", "officials", "municipal");
 const SHARD_DIR = path.join(OUT_DIR, "by_obshtina");
 const INDEX_PATH = path.join(OUT_DIR, "index.json");
 
-// Per-shard size ceiling, raw bytes. Plovdiv (aggregates 6 районs into
+// Per-shard size ceiling, raw bytes. Plovdiv (aggregates 6 districts into
 // PDV22) tops out at ~36 KB / 5.5 KB gz, Varna at ~33 KB / 5.1 KB gz, Sofia
 // city-wide at ~27 KB / 4.3 KB gz; p50 across all 288 shards is ~7 KB /
 // ~1.5 KB gz. The 40 KB raw threshold is the "we've gained a new big city

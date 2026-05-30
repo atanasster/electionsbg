@@ -101,7 +101,7 @@ const fetchShard = async (
   return r.json();
 };
 
-/** Sofia районs (S2xxx) and the município-shape Sofia code (SOF46)
+/** Sofia districts (S2xxx) and the município-shape Sofia code (SOF46)
  *  both inherit Столична община's city-wide rates — the local-tax
  *  naredba is set by Столичен общински съвет and applies regardless of
  *  район. Map them to the SOF00 shard so consumer tiles render

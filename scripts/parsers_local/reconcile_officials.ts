@@ -253,7 +253,7 @@ const computeOverall = (
 ): MunicipalityOfficialsDiff["overallStatus"] => {
   if (mayorStatus === "missing_cik") return "missing";
   if (mayorStatus === "missing_official") return "missing";
-  // No council to compare (e.g. Sofia районs) — base overall on mayor only.
+  // No council to compare (e.g. Sofia districts) — base overall on mayor only.
   if (council.cikElectedCount === 0) {
     return mayorStatus === "match" ? "match" : "mismatch";
   }
@@ -292,11 +292,11 @@ export const reconcileOfficials = (opts: {
     ) as LocalMunicipalityBundle;
     // Skip the synthetic SOF entry — Sofia city-wide has no single
     // officials roster to compare against (the catalogue splits into 24
-    // районs, each with its own roster).
+    // districts, each with its own roster).
     if (bundle.obshtinaCode === "SOF") continue;
     const shard = readOfficialsShard(bundle.obshtinaCode);
     const mayor = computeMayorDiff(bundle, shard);
-    // Sofia районs don't have their own council — the município council
+    // Sofia districts don't have their own council — the município council
     // is elected city-wide. Suppress council comparison on район shards
     // (council was replicated from SOF for display purposes; comparing
     // against the район-level roster would produce false 0/61 mismatches).

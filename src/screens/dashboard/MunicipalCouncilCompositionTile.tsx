@@ -52,7 +52,7 @@ export const MunicipalCouncilCompositionTile: FC<Props> = ({
   const { t } = useTranslation();
   const { roster } = useMunicipalOfficials(obshtinaCode);
 
-  // For obshtini that aggregate районs into a single shard (Plovdiv PDV22,
+  // For obshtini that aggregate districts into a single shard (Plovdiv PDV22,
   // Varna VAR06), the Composition tile shows the city-wide counts only —
   // an aggregate "7 mayors" reads wrong for a municipality. A footnote
   // surfaces the cross-район total so the data isn't hidden.

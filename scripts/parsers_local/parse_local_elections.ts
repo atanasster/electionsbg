@@ -98,7 +98,7 @@ const NAME_ALIASES: Record<string, string> = {
   // is just "Добрич"). DOB28 = the city município.
   "добрич-град": "DOB28",
   // Sofia City has no city-wide entry in data/municipalities.json — the
-  // catalogue only has the 24 районs (S23xx/S24xx/S25xx). We pin Sofia's
+  // catalogue only has the 24 districts (S23xx/S24xx/S25xx). We pin Sofia's
   // city-wide bundle under a synthetic `SOF` code so the район shards
   // (including S2302 Красно Село) can hold their per-район mayor results
   // unobstructed. The Sofia/район fan-out in fanOutSofiaRayons() reads
@@ -115,7 +115,7 @@ const NAME_ALIASES: Record<string, string> = {
 // as synthetic entries.
 const SYNTHETIC_OBSHTINA_CODES = new Set(["SOF"]);
 
-// Sofia City has 24 районs (S2***). The parser produces ONE city-wide
+// Sofia City has 24 districts (S2***). The parser produces ONE city-wide
 // bundle for Столична (pinned under S2302); this helper splits its
 // `districts` array into per-район bundles so the SPA's S2*** dashboards
 // each pick up their район mayor.

@@ -210,7 +210,7 @@ export const SofiaLocalGovernmentTile: FC<Props> = ({ className }) => {
         </div>
       ) : null}
 
-      {/* 24 районs strip */}
+      {/* 24 districts strip */}
       {rayonRows.length > 0 ? (
         <div className="mt-3 pt-2 border-t">
           <div className="text-[11px] uppercase tracking-wide text-muted-foreground">

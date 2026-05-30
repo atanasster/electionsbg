@@ -532,7 +532,7 @@ export type MunicipalIndexEntry = {
   /** Municipality / district — the registry's `Institution` name. */
   municipality: string;
   /** Verbatim "Район X" label when the entry is a sub-район folded into a
-   *  larger city's obshtina (Plovdiv / Varna). Absent for Sofia районs —
+   *  larger city's obshtina (Plovdiv / Varna). Absent for Sofia districts —
    *  each Sofia район is its own obshtina with its own shard. Absent for
    *  ordinary obshtina officials. Additive field; older consumers ignore. */
   district?: string;
