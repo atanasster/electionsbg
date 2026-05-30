@@ -16,6 +16,7 @@ import { generateVoteFlows } from "./voteFlows";
 import { parseLocalElections } from "./parsers_local/parse_local_elections";
 import { ingestCycles } from "./parsers_local/ingest_cycle";
 import { shutdownCikFetch } from "./parsers_local/cik_fetch";
+import { resolveCanonicalsForAllLocalCycles } from "./parsers_local/resolve_canonicals";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -148,6 +149,15 @@ const app = command({
       type: optional(string),
       long: "local-ingest",
     }),
+    // Re-resolve `primaryCanonicalId` on every already-ingested local-cycle
+    // bundle against the current canonical_parties.json, without re-fetching
+    // CIK HTML. Fast, idempotent — use after editing manualCanonicals,
+    // partyOverrides, or local_coalition_overrides.
+    resolveLocalCanonicals: flag({
+      type: optional(boolean),
+      long: "resolve-local-canonicals",
+      defaultValue: () => false,
+    }),
   },
   handler: async ({
     all,
@@ -168,6 +178,7 @@ const app = command({
     local,
     localDate,
     localIngest,
+    resolveLocalCanonicals,
   }) => {
     production = prod;
     if (machines) {
@@ -199,6 +210,10 @@ const app = command({
     if (summary) {
       generateSummariesOnly(stringify, election);
       generateCanonicalParties({ publicFolder, stringify });
+      // Canonical regen → refresh every local cycle's baked primaryCanonicalId
+      // so they pick up new manualCanonicals / partyOverrides additions
+      // without a CIK re-fetch.
+      resolveCanonicalsForAllLocalCycles({ publicFolder, stringify });
     }
     if (search) {
       generateAllSearchFIles({
@@ -246,6 +261,9 @@ const app = command({
         // Keep the headless Chromium from blocking process exit.
         await shutdownCikFetch();
       }
+    }
+    if (resolveLocalCanonicals) {
+      resolveCanonicalsForAllLocalCycles({ publicFolder, stringify });
     }
   },
 });

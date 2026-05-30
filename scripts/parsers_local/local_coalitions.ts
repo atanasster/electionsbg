@@ -108,6 +108,13 @@ const applyRawOverrides = (
   };
 };
 
+// Strip Bulgarian party-form prefixes ("ПП ", "КП ", "КПП ", "Партия ",
+// "Коалиция ", "Местна коалиция ") from a lowered key so local-ballot
+// strings like "ПП СЪЮЗ НА СВОБОДНИТЕ ДЕМОКРАТИ" match a canonical
+// history.name registered without the prefix (and vice versa).
+const STRIP_FORM_PREFIX_RE =
+  /^(пп|кп|кпп|партия|коалиция|местна\s+коалиция)\s+/u;
+
 export const buildByNickNameLower = (
   canonical: CanonicalPartiesIndex | undefined,
 ): Map<string, string> => {
@@ -132,6 +139,25 @@ export const buildByNickNameLower = (
     )) {
       const key = nick.toLocaleLowerCase("bg");
       if (!map.has(key)) map.set(key, id);
+    }
+  }
+  // Finally, fold in every history.name across every canonical party — both
+  // verbatim (lower-trim) and with the Bulgarian party-form prefix stripped.
+  // This is what catches "ПП СЪЮЗ НА СВОБОДНИТЕ ДЕМОКРАТИ" on chmi rows
+  // against the canonical ССД entry whose history.name is the same string.
+  // Stops the ingest from leaving primaryCanonicalId=null and forcing the
+  // frontend to re-resolve at render time.
+  if (canonical.parties) {
+    for (const party of canonical.parties) {
+      for (const h of party.history) {
+        if (!h.name) continue;
+        const key = h.name.toLocaleLowerCase("bg").trim();
+        if (key && !map.has(key)) map.set(key, party.id);
+        const stripped = key.replace(STRIP_FORM_PREFIX_RE, "");
+        if (stripped && stripped !== key && !map.has(stripped)) {
+          map.set(stripped, party.id);
+        }
+      }
     }
   }
   return map;

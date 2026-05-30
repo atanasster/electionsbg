@@ -10,6 +10,7 @@ import {
 import { cikPartiesFileName } from "scripts/consts";
 import { partyOverrides } from "./partyOverrides";
 import { partyEnglishNames } from "./partyEnglishNames";
+import { manualCanonicals } from "./manualCanonicals";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -178,6 +179,27 @@ export const generateCanonicalParties = ({
         `partyEnglishNames: id "${e.id}" not found in canonical parties (orphaned English override)`,
       );
     }
+  });
+
+  // Append hand-curated canonicals (parties that only ever surface in
+  // chmi/mi partial races as a localPartyName). These are self-contained:
+  // displayName/displayNameEn/color/history are taken verbatim, bypassing
+  // the membership/override/english-override pipeline above.
+  manualCanonicals.forEach((m) => {
+    if (canonicalIds.has(m.id)) {
+      console.warn(
+        `manualCanonicals: id "${m.id}" collides with a generated canonical — skipping`,
+      );
+      return;
+    }
+    canonicals.push({
+      id: m.id,
+      displayName: m.displayName,
+      displayNameEn: m.displayNameEn,
+      color: m.color,
+      history: m.history,
+    });
+    canonicalIds.add(m.id);
   });
 
   canonicals.sort((a, b) => a.id.localeCompare(b.id));

@@ -176,43 +176,6 @@ export const useCanonicalParties = () => {
       : party.displayName;
   };
 
-  // Normalized index of full-form party names (history[].name) → canonical id.
-  // Used to recognize "loose" local-ballot names like
-  // "КОАЛИЦИЯ ПРОДЪЛЖАВАМЕ ПРОМЯНАТА – ДЕМОКРАТИЧНА БЪЛГАРИЯ" or
-  // "Местна коалиция ГЕРБ /СДС/" that don't appear in `byNickName`.
-  const idByHistoryName = useMemo(() => {
-    const map = new Map<string, string>();
-    if (!data?.parties) return map;
-    for (const p of data.parties) {
-      for (const h of p.history) {
-        if (!h.name) continue;
-        const k = normalizePartyFullName(h.name);
-        if (k && !map.has(k)) map.set(k, p.id);
-      }
-    }
-    return map;
-  }, [data]);
-
-  // Resolve a full-form local-ballot party name to a canonical id by
-  // matching against any history entry's `.name` field (normalized). Tries
-  // the input as-is, then with common Bulgarian party-prefixes stripped
-  // ("ПП ", "КП ", "Партия ", "Коалиция ", "Местна коалиция ").
-  const findCanonicalIdByLocalName = (
-    localName: string,
-  ): string | undefined => {
-    if (!localName) return undefined;
-    const k = normalizePartyFullName(localName);
-    if (!k) return undefined;
-    const direct = idByHistoryName.get(k);
-    if (direct) return direct;
-    const stripped = k.replace(
-      /^(пп|кп|кпп|партия|коалиция|местна коалиция)\s+/u,
-      "",
-    );
-    if (stripped !== k) return idByHistoryName.get(stripped);
-    return undefined;
-  };
-
   return {
     data,
     byId,
@@ -220,17 +183,9 @@ export const useCanonicalParties = () => {
     canonicalIdFor,
     consolidationIdFor,
     findCanonicalNickName,
-    findCanonicalIdByLocalName,
     fullNameFor,
     displayNameFor,
     displayNameForId,
     partyGroupShortLabel,
   };
 };
-
-const normalizePartyFullName = (s: string): string =>
-  s
-    .normalize("NFC")
-    .toLocaleLowerCase("bg")
-    .replace(/[\s/.,"«»„"()–—-]+/g, " ")
-    .trim();

@@ -47,8 +47,7 @@ const KindBadge: FC<{ kind: ChmiHistoryEvent["kind"] }> = ({ kind }) => {
 export const ChmiFeedScreen: FC = () => {
   const { t } = useTranslation();
   const { data: history } = useChmiHistoryAll();
-  const { byId, displayNameForId, findCanonicalIdByLocalName } =
-    useCanonicalParties();
+  const { byId, displayNameForId } = useCanonicalParties();
   const { selected } = useElectionContext();
   const { findMpByName, findMpById } = useMps();
   const { findOfficialByName } = useMunicipalOfficialsByName();
@@ -175,9 +174,7 @@ export const ChmiFeedScreen: FC = () => {
           </thead>
           <tbody>
             {(filtered as ChmiHistoryEvent[]).map((e, i) => {
-              const canonicalId =
-                e.primaryCanonicalId ??
-                findCanonicalIdByLocalName(e.localPartyName);
+              const canonicalId = e.primaryCanonicalId;
               const canonicalParty = canonicalId
                 ? byId.get(canonicalId)
                 : undefined;
