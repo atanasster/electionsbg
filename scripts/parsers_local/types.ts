@@ -130,7 +130,15 @@ export type LocalKmetstvoResult = {
 export type LocalDistrictMayorResult = {
   districtName: string;
   districtCode: string; // район code, e.g. "23-46-08"
-  candidates: LocalMayorResult[];
+  candidates: LocalMayorResult[]; // round 1
+  // Round-2 (балотаж) table, present only when the район went to a runoff.
+  // CIK's round-1 page marks BOTH finalists with isElected ("advanced to
+  // the runoff"), so the round-1 flags can't decide the winner — the
+  // round-2 table (single elected row) is authoritative.
+  round2?: LocalMayorResult[];
+  // Resolved winner: the round-2 winner when there was a runoff, else the
+  // round-1 outright (>50%) winner. Null only on an unfinished/garbled page.
+  elected?: LocalMayorResult | null;
 };
 
 // The full per-município bundle written to data/{cycle}/municipalities/{obshtinaCode}.json

@@ -443,8 +443,13 @@ const DistrictsSection: FC<{
           </thead>
           <tbody>
             {districts.map((d) => {
+              // Prefer the round-2-resolved winner: CIK flags both finalists
+              // elected in round 1, so candidates.find(isElected) can return
+              // the runoff loser.
               const winner =
-                d.candidates.find((c) => c.isElected) ?? d.candidates[0];
+                d.elected ??
+                d.candidates.find((c) => c.isElected) ??
+                d.candidates[0];
               return (
                 <tr key={d.districtName} className="border-b last:border-b-0">
                   <td className="py-2 px-3 font-medium align-top break-words">

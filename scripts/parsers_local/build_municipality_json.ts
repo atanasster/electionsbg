@@ -14,7 +14,11 @@
 
 import { ParsedRezultatiPage } from "./parse_rezultati_html";
 import { LocalProtocolRow } from "./parse_local_protocols";
-import { LocalMayorResult, LocalMunicipalityBundle } from "./types";
+import {
+  LocalDistrictMayorResult,
+  LocalMayorResult,
+  LocalMunicipalityBundle,
+} from "./types";
 
 export type ObshtinaResolution = {
   oikCode: string;
@@ -35,7 +39,7 @@ const sumProtocols = (rows: LocalProtocolRow[], oikCode: string) => {
   );
 };
 
-const pickElectedMayor = (
+export const pickElectedMayor = (
   tur1: LocalMayorResult[],
   tur2?: LocalMayorResult[],
 ): LocalMayorResult | null => {
@@ -49,6 +53,41 @@ const pickElectedMayor = (
   // (defensive — shouldn't happen on a fully-counted result).
   const sorted = [...tur1].sort((a, b) => b.votes - a.votes);
   return sorted[0] ?? null;
+};
+
+// Normalize a район name for cross-round matching (lowercase, strip
+// parentheticals, collapse whitespace) — mirrors normName in
+// parse_local_elections.ts.
+const normDistrict = (s: string): string =>
+  s
+    .toLocaleLowerCase("bg")
+    .replace(/\(.*?\)/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+// Attach the round-2 (балотаж) table to each район and resolve its winner.
+// CIK's round-1 page marks BOTH runoff finalists with isElected, so the
+// winner of a район that went to a runoff is only knowable from round 2 —
+// reuse pickElectedMayor (round-2-first) exactly as for município mayors.
+// Without this, the Sofia fan-out / district display read the round-1 page
+// and arbitrarily picked the lower-ballot-number finalist (often the loser).
+const mergeDistrictRounds = (
+  tur1Districts: LocalDistrictMayorResult[],
+  tur2Districts: LocalDistrictMayorResult[] | undefined,
+): LocalDistrictMayorResult[] => {
+  const tur2ByName = new Map<string, LocalDistrictMayorResult>();
+  for (const d of tur2Districts ?? []) {
+    tur2ByName.set(normDistrict(d.districtName), d);
+  }
+  return tur1Districts.map((d) => {
+    const r2 = tur2ByName.get(normDistrict(d.districtName));
+    const round2 = r2?.candidates.length ? r2.candidates : undefined;
+    return {
+      ...d,
+      round2,
+      elected: pickElectedMayor(d.candidates, round2),
+    };
+  });
 };
 
 export const buildMunicipalityBundle = (opts: {
@@ -78,6 +117,6 @@ export const buildMunicipalityBundle = (opts: {
     },
     council: tur1.council,
     kmetstva: tur1.kmetstva,
-    districts: tur1.districts,
+    districts: mergeDistrictRounds(tur1.districts, tur2?.districts),
   };
 };

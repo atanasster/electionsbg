@@ -44,6 +44,41 @@ const normName = (s: string): string =>
     .toLocaleLowerCase("bg")
     .trim();
 
+// Levenshtein edit distance, capped — only used to forgive single-character
+// typos (Тороманова/Троманова, Монев/Монов, Фейзи/Хейзи) on a per-token basis.
+const editDistance = (a: string, b: string): number => {
+  if (Math.abs(a.length - b.length) > 2) return 9;
+  let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    const curr = [i];
+    for (let j = 1; j <= b.length; j++) {
+      curr[j] = Math.min(
+        prev[j] + 1,
+        curr[j - 1] + 1,
+        prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1),
+      );
+    }
+    prev = curr;
+  }
+  return prev[b.length];
+};
+
+// Same token count where every token matches except exactly one, which
+// differs by a single character. Guards: ≥3 tokens and the differing token
+// ≥4 chars, so we don't conflate genuinely-different short names.
+const oneTypoApart = (pa: string[], pb: string[]): boolean => {
+  if (pa.length !== pb.length || pa.length < 3) return false;
+  let diffs = 0;
+  for (let i = 0; i < pa.length; i++) {
+    if (pa[i] === pb[i]) continue;
+    diffs++;
+    if (diffs > 1) return false;
+    if (Math.min(pa[i].length, pb[i].length) < 4) return false;
+    if (editDistance(pa[i], pb[i]) > 1) return false;
+  }
+  return diffs === 1;
+};
+
 // Compare two names ignoring whitespace + diacritics + dashes. Also accept
 // a "missing middle name" as a soft match — e.g. "Иван Петров" matches
 // "Иван Стоянов Петров" (first + last present, middle differs/missing).
@@ -57,16 +92,33 @@ const namesMatch = (a: string, b: string): boolean => {
   if (partsA.length < 2 || partsB.length < 2) return false;
   // First + last token match → soft match (covers "missing middle" and
   // married-name variants like "Петкова" vs "Петкова Иванова").
-  return (
+  if (
     partsA[0] === partsB[0] &&
     partsA[partsA.length - 1] === partsB[partsB.length - 1]
-  );
+  ) {
+    return true;
+  }
+  // Hyphenated / expanded married surnames: same given name + patronymic and
+  // a shared surname token. normName already split the hyphen into separate
+  // tokens, so "Иванка Петрова Дончева" matches "…Дончева-Славова" and
+  // "Ива Емилова Добрева" matches "…Добрева-Чуклева". Requiring both the
+  // first and patronymic to match keeps this from over-joining strangers.
+  if (partsA[0] === partsB[0] && partsA[1] === partsB[1]) {
+    const surA = new Set(partsA.slice(2));
+    if (partsB.slice(2).some((t) => surA.has(t))) return true;
+  }
+  // Single-character typo in exactly one name part.
+  if (oneTypoApart(partsA, partsB)) return true;
+  return false;
 };
 
 type OfficialEntry = {
   slug: string;
   name: string;
   role: string;
+  // Set on район-aggregating city shards (Plovdiv/Varna): a "Район <NAME>"
+  // mayor entry carries the район label here; the city mayor has none.
+  district?: string;
 };
 
 type OfficialsShard = {
@@ -84,6 +136,40 @@ const readOfficialsShard = (obshtinaCode: string): OfficialsShard | null => {
   } catch {
     return null;
   }
+};
+
+type ChmiMayorEvent = { name: string; date: string; cycle: string };
+
+// Latest município-wide mayor partial/new election per obshtina, read from
+// the chmi history index (built just before reconcile runs). Lets a
+// "replaced" mayor be explained by the extraordinary election that installed
+// the current officer rather than reading as an unexplained mismatch.
+const loadChmiMayors = (): Map<string, ChmiMayorEvent> => {
+  const file = path.resolve(__dirname, "../../data/local_chmi_history.json");
+  const map = new Map<string, ChmiMayorEvent>();
+  if (!fs.existsSync(file)) return map;
+  try {
+    const history = JSON.parse(fs.readFileSync(file, "utf-8")) as {
+      byObshtina: Record<
+        string,
+        { kind: string; candidateName: string; date: string; cycle: string }[]
+      >;
+    };
+    for (const [code, events] of Object.entries(history.byObshtina)) {
+      // events arrive sorted date-descending → first obshtina_mayor is newest.
+      const latest = events.find((e) => e.kind === "obshtina_mayor");
+      if (latest) {
+        map.set(code, {
+          name: latest.candidateName,
+          date: latest.date,
+          cycle: latest.cycle,
+        });
+      }
+    }
+  } catch {
+    /* best-effort enrichment — a missing/garbled index just skips it */
+  }
+  return map;
 };
 
 export type MayorDiffStatus =
@@ -110,6 +196,16 @@ export type MunicipalityOfficialsDiff = {
     officialSlug: string | null;
     officialYear: number | null;
     status: MayorDiffStatus;
+    // When status is "replaced" and a later partial/new election (chmi)
+    // installed the sitting officer, the winning result that explains the
+    // change. `matchesOfficial` is true when that chmi winner is the current
+    // roster mayor — i.e. the "mismatch" is fully accounted for.
+    replacedBy?: {
+      name: string;
+      date: string;
+      cycle: string;
+      matchesOfficial: boolean;
+    } | null;
   };
   council: {
     cikSeats: number;
@@ -142,9 +238,17 @@ export type CycleOfficialsDiff = {
 const computeMayorDiff = (
   bundle: LocalMunicipalityBundle,
   shard: OfficialsShard | null,
+  chmiMayor: ChmiMayorEvent | null,
 ): MunicipalityOfficialsDiff["mayor"] => {
   const cik = bundle.mayor.elected;
-  const officialMayor = shard?.entries.find((e) => e.role === "mayor") ?? null;
+  // Plovdiv/Varna shards fold every район mayor (each tagged with a
+  // `district`) under the city's obshtina alongside the city mayor (no
+  // district). The CIK bundle's elected mayor is the CITY mayor, so prefer
+  // the district-less entry — otherwise `.find` returns whichever район
+  // mayor happens to sort first and the city mayor reads as "replaced".
+  const mayorEntries = shard?.entries.filter((e) => e.role === "mayor") ?? [];
+  const officialMayor =
+    mayorEntries.find((e) => !e.district) ?? mayorEntries[0] ?? null;
   const officialYear = shard?.years?.[0] ?? null;
   if (!cik && !officialMayor) {
     return {
@@ -180,6 +284,15 @@ const computeMayorDiff = (
     };
   }
   const isMatch = namesMatch(cik.candidateName, officialMayor.name);
+  const replacedBy =
+    !isMatch && chmiMayor
+      ? {
+          name: chmiMayor.name,
+          date: chmiMayor.date,
+          cycle: chmiMayor.cycle,
+          matchesOfficial: namesMatch(chmiMayor.name, officialMayor.name),
+        }
+      : null;
   return {
     cikName: cik.candidateName,
     cikParty: cik.localPartyName,
@@ -188,6 +301,7 @@ const computeMayorDiff = (
     officialSlug: officialMayor.slug,
     officialYear,
     status: isMatch ? "match" : "replaced",
+    replacedBy,
   };
 };
 
@@ -277,6 +391,7 @@ export const reconcileOfficials = (opts: {
     return;
   }
   const muniFiles = fs.readdirSync(muniDir).filter((f) => f.endsWith(".json"));
+  const chmiMayors = loadChmiMayors();
   const out: MunicipalityOfficialsDiff[] = [];
   let mayorMatches = 0;
   let mayorReplaced = 0;
@@ -295,7 +410,11 @@ export const reconcileOfficials = (opts: {
     // districts, each with its own roster).
     if (bundle.obshtinaCode === "SOF") continue;
     const shard = readOfficialsShard(bundle.obshtinaCode);
-    const mayor = computeMayorDiff(bundle, shard);
+    const mayor = computeMayorDiff(
+      bundle,
+      shard,
+      chmiMayors.get(bundle.obshtinaCode) ?? null,
+    );
     // Sofia districts don't have their own council — the município council
     // is elected city-wide. Suppress council comparison on район shards
     // (council was replicated from SOF for display purposes; comparing

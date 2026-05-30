@@ -70,6 +70,7 @@ const StatusPill: FC<{ status: OfficialsDiffOverall }> = ({ status }) => {
 };
 
 const MayorCell: FC<{ m: MunicipalityOfficialsDiff["mayor"] }> = ({ m }) => {
+  const { t } = useTranslation();
   switch (m.status) {
     case "match":
       return (
@@ -81,6 +82,13 @@ const MayorCell: FC<{ m: MunicipalityOfficialsDiff["mayor"] }> = ({ m }) => {
           <span>{m.cikName}</span>
           <span className="mx-1.5 text-muted-foreground">→</span>
           <span className="text-amber-700">{m.officialName}</span>
+          {m.replacedBy?.matchesOfficial ? (
+            <span className="mt-0.5 block text-[11px] text-muted-foreground">
+              {t("sverka_replaced_via_partial", {
+                date: m.replacedBy.date.split("-").reverse().join("."),
+              })}
+            </span>
+          ) : null}
         </span>
       );
     case "missing_official":
@@ -130,9 +138,7 @@ export const SverkaScreen: FC = () => {
   return (
     <main className="container mx-auto px-4 py-6">
       <h1 className="text-2xl font-semibold">{t("sverka_title")}</h1>
-      <p className="mt-2 text-sm text-muted-foreground">
-        {t("sverka_intro")}
-      </p>
+      <p className="mt-2 text-sm text-muted-foreground">{t("sverka_intro")}</p>
       <p className="mt-1 text-xs text-muted-foreground tabular-nums">
         {t("sverka_summary", {
           checked: s.municipalitiesChecked,

@@ -95,9 +95,10 @@ export const SofiaLocalGovernmentTile: FC<Props> = ({ className }) => {
     }
     return SOFIA_RAYONS.map((r) => {
       const d = byName.get(norm(r.labelBg));
-      const elected: LocalMayorResult | undefined = d?.candidates.find(
-        (c) => c.isElected,
-      );
+      // Prefer the round-2-resolved winner — both runoff finalists carry
+      // isElected in round 1, so the raw find can return the loser.
+      const elected: LocalMayorResult | undefined =
+        d?.elected ?? d?.candidates.find((c) => c.isElected) ?? undefined;
       const canonical = elected?.primaryCanonicalId
         ? canonicalById.get(elected.primaryCanonicalId)
         : undefined;

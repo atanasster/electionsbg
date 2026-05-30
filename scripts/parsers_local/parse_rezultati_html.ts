@@ -39,10 +39,16 @@ import { titleCasePersonName } from "./text";
 // общински съвет", 2011 (mipvr2011) has no per-race headings at all and the
 // parser falls back to header-column classification on the bare tables.
 const SECTION_HEADINGS = {
+  // The 2023 mirror renders "Обобщени данни от избор НА кмет на община" — the
+  // "на" after "избор" was missing from the original prefix, so the obshtina
+  // mayor + council sections went unmatched and (because the kmetstvo heading
+  // still tripped headingMatchedSomething) the table-classification fallback
+  // was skipped, leaving mayor[]/council[] empty. Make the "на" optional so
+  // both "…от избор на кмет" and the older "…от избор кмет" shapes match.
   mayorObshtina:
-    /(?:Обобщени данни от избор|Резултати за(?:\s+избор)?\s+на|Резултати за)\s+кмет\s+на\s+община/i,
+    /(?:Обобщени данни от избор(?:\s+на)?|Резултати за(?:\s+избор)?\s+на|Резултати за)\s+кмет\s+на\s+община/i,
   council:
-    /(?:Обобщени данни от избор|Резултати за(?:\s+избор)?\s+на|Резултати за)(?:\s+избор\s+на)?\s+общински\s+съвет/i,
+    /(?:Обобщени данни от избор(?:\s+на)?|Резултати за(?:\s+избор)?\s+на|Резултати за)(?:\s+избор\s+на)?\s+общински\s+съвет/i,
   mayorKmetstvo:
     /избор\s+на\s+кмет\s+на\s+кметство|Резултати за кмет на кметство/i,
   mayorDistrict: /избор\s+на\s+кмет\s+на\s+район|Резултати за кмет на район/i,

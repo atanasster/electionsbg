@@ -33,6 +33,7 @@ import { buildIndex } from "./build_index_json";
 import { reconcileOfficials } from "./reconcile_officials";
 import { buildChmiHistory } from "./build_chmi_history";
 import municipalitiesData from "../../data/municipalities.json";
+import { LATEST_LOCAL_CYCLE } from "@/data/local/useLatestLocalCycle";
 import { LocalMunicipalityBundle } from "./types";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -130,7 +131,11 @@ const fanOutSofiaRayons = (
     if (!districtName) continue;
     const match = sofiaRayons.find((r) => normName(r.name) === districtName);
     if (!match) continue;
-    const elected = district.candidates.find((c) => c.isElected) ?? null;
+    // `district.elected` is the round-2-resolved winner (set in
+    // mergeDistrictRounds). Fall back to the round-1 flag only for legacy
+    // districts that predate that field (e.g. pre-2019 subpage ingest).
+    const elected =
+      district.elected ?? district.candidates.find((c) => c.isElected) ?? null;
     rayonShards.push({
       cycle: cityBundle.cycle,
       // Use the район code as the "OIK" so the per-район shard is keyed
@@ -144,7 +149,7 @@ const fanOutSofiaRayons = (
       protocol: cityBundle.protocol,
       mayor: {
         round1: district.candidates,
-        round2: undefined,
+        round2: district.round2,
         elected,
       },
       // Cross-link by replicating the city-wide council on each район
@@ -462,23 +467,26 @@ export const parseLocalElection = async (opts: {
     "utf-8",
   );
 
-  // Reconcile CIK winners against the Сметна палата currently-sitting
-  // officials roster. Writes officials_diff.json — consumed by the
-  // OfficialsDiffTile on each município page + the /sverka national screen.
-  //
-  // Chmi cycles ingest village-level (kmetstvo) partials — the município
-  // mayor is unchanged and the official roster doesn't track kmetstvo
-  // mayors, so a comparison there produces only false-positive 0/0
-  // mismatches. Restrict reconciliation to regular _mi cycles.
-  if (cycle.endsWith("_mi")) {
-    reconcileOfficials({ cycle, publicFolder, stringify });
-  }
-
   // Aggregate every ingested chmi (partial/new) cycle into a single
   // per-município history index so the SPA can surface "Извънредни
   // избори" inline on the município page. Runs unconditionally — cheap
   // and idempotent; it always reflects the current state of data/*_chmi/.
+  // Built BEFORE reconcile so the latter can cross-link a "replaced" mayor
+  // to the later partial/new election that installed the current officer.
   buildChmiHistory({ stringify });
+
+  // Reconcile CIK winners against the Сметна палата currently-sitting
+  // officials roster. Writes officials_diff.json — consumed by the
+  // OfficialsDiffTile on each município page + the /sverka national screen.
+  //
+  // Only the LATEST regular cycle is reconciled: the officials roster is
+  // always today's declarations, so comparing a prior cycle's winners
+  // against present-day officials isn't meaningful (one or more elections
+  // sit in between) and nothing in the SPA surfaces it. Chmi cycles ingest
+  // only kmetstvo/район partials, which the roster doesn't track at all.
+  if (cycle === LATEST_LOCAL_CYCLE) {
+    reconcileOfficials({ cycle, publicFolder, stringify });
+  }
 
   console.log(
     `[parsers_local] ${cycle}: wrote ${bundles.length} município bundles to ${outFolder}`,

@@ -53,7 +53,13 @@ export type LocalKmetstvoResult = {
 export type LocalDistrictMayorResult = {
   districtName: string;
   districtCode: string;
-  candidates: LocalMayorResult[];
+  candidates: LocalMayorResult[]; // round 1
+  // Round-2 (балотаж) table — present only when the район went to a runoff.
+  round2?: LocalMayorResult[];
+  // Resolved winner: round-2 winner when there was a runoff, else the
+  // round-1 outright winner. CIK marks both finalists elected in round 1,
+  // so consumers must prefer this over `candidates.find(isElected)`.
+  elected?: LocalMayorResult | null;
 };
 
 export type LocalMunicipalityBundle = {
@@ -128,6 +134,15 @@ export type MunicipalityOfficialsDiff = {
     officialSlug: string | null;
     officialYear: number | null;
     status: MayorDiffStatus;
+    // When status is "replaced" and a later partial/new election installed
+    // the sitting officer. matchesOfficial = that chmi winner is the current
+    // roster mayor (the mismatch is fully explained).
+    replacedBy?: {
+      name: string;
+      date: string;
+      cycle: string;
+      matchesOfficial: boolean;
+    } | null;
   };
   council: {
     cikSeats: number;

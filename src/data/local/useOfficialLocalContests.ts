@@ -143,9 +143,18 @@ export const useOfficialLocalContests = (
       }
 
       // Район mayor races — Sofia districts, Plovdiv / Varna inner shards.
+      // Mirror the município logic: CIK marks both finalists elected in R1,
+      // so surface the deciding round only — prefer R2 matches when the
+      // район went to a runoff.
       for (const d of h.bundle.districts) {
-        for (const c of d.candidates) {
-          if (norm(c.candidateName) !== target) continue;
+        const r2Matches = (d.round2 ?? []).filter(
+          (c) => norm(c.candidateName) === target,
+        );
+        const rows =
+          r2Matches.length > 0
+            ? r2Matches
+            : d.candidates.filter((c) => norm(c.candidateName) === target);
+        for (const c of rows) {
           out.push({
             cycle,
             round1Date,
