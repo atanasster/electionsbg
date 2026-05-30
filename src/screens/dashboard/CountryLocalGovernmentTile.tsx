@@ -1,5 +1,7 @@
-// Country-home tile: snapshot of Bulgaria's local government from the most
-// recent regular local-elections cycle (default: mi2023).
+// Country-home tile: snapshot of Bulgaria's local government, anchored in time
+// to the selected parliamentary election — it shows the most recent regular
+// local-elections cycle that had already concluded by the selected date (so
+// selecting the Oct-2022 vote surfaces mi2019, not mi2023).
 //
 // Surfaces three things at a glance:
 //   1. Mayors won by party — top 5 with Δ vs the prior cycle.
