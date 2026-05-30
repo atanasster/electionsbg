@@ -55,6 +55,21 @@ const transliterate = (s: string): string => {
     .replace(/^_|_$/g, "");
 };
 
+// obshtini.bg subdomains use inconsistent word separators for multi-word
+// município names — some concatenate ("starazagora"), some underscore
+// ("stara_zagora"), some hyphenate. The original probe only tried the
+// underscore form and silently missed every concatenated tenant (Stara
+// Zagora et al). Try all distinct variants, most-likely first.
+const slugVariants = (nameBg: string): string[] => {
+  const base = transliterate(nameBg);
+  const variants = [
+    base.replace(/_/g, ""), // concatenated  — starazagora
+    base, // underscore     — stara_zagora
+    base.replace(/_/g, "-"), // hyphenated   — stara-zagora
+  ];
+  return [...new Set(variants)].filter((s) => s.length >= 3);
+};
+
 type EkRow = {
   ekatte: string;
   name: string;
@@ -92,18 +107,30 @@ const main = async (): Promise<void> => {
     "SFO39",
     "SZR22",
     "DOB03",
+    "BLG33",
   ]);
 
   for (const [nameBg, obshtinaCode] of obshtinas) {
     if (alreadyWired.has(obshtinaCode)) continue;
-    const slug = transliterate(nameBg);
-    if (!slug || slug.length < 3) continue;
+    const variants = slugVariants(nameBg);
+    if (variants.length === 0) continue;
     try {
-      const r = await fetch(
-        `https://web-api.apis.bg/api/obshtina-${slug}/Folders`,
-        { signal: AbortSignal.timeout(5000) },
-      );
-      if (!r.ok) continue;
+      // Probe each slug variant until one tenant responds 200.
+      let slug = "";
+      let folderRes: Response | null = null;
+      for (const cand of variants) {
+        const r = await fetch(
+          `https://web-api.apis.bg/api/obshtina-${cand}/Folders`,
+          { signal: AbortSignal.timeout(5000) },
+        );
+        if (r.ok) {
+          slug = cand;
+          folderRes = r;
+          break;
+        }
+      }
+      if (!folderRes) continue;
+      const r = folderRes;
       const j = (await r.json()) as {
         folders: { id: number; value: string; children?: unknown }[];
       };
