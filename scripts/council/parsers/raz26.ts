@@ -258,6 +258,49 @@ const preprocessTally = (text: string): string => {
 
 const MARKER_RE = /Р\s*Е\s*Ш\s*Е\s*Н\s*И\s*Е\s*№\s*(\d{1,5})/giu;
 
+// Title extraction. Razgrad opens each agenda item with a докладна
+// записка carrying a structured "ОТНОСНО: <subject>" line — the subject
+// IS the decision's human-readable title (e.g. "Наредба за изменение и
+// допълнение на Наредба № 30…"). This is the structured-field case;
+// contrast Добрич, whose verbatim transcript scatters conversational
+// "относно …" that is NOT a title field, so this approach is wired for
+// Разград only. The ОТНОСНО precedes the chair's tally and the
+// "Р Е Ш Е Н И Е №" marker, so for each decision we take the last
+// ОТНОСНО before its pairing offset and after the previous marker.
+const OTNOSNO_RE =
+  /ОТНОСНО\s*:?\s*([\s\S]{6,400}?)(?=\n\s*\n|ДОКЛАДВА|Вносител|Внесен|Р\s*Е\s*Ш\s*Е\s*Н\s*И\s*Е|На основание|\.\s*\n|$)/giu;
+
+type TitleAnchor = { offset: number; title: string };
+
+const collectOtnosno = (text: string): TitleAnchor[] => {
+  const out: TitleAnchor[] = [];
+  const re = new RegExp(OTNOSNO_RE.source, OTNOSNO_RE.flags);
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text)) !== null) {
+    const title = m[1]
+      .replace(/\s+/g, " ")
+      .trim()
+      .replace(/[;:,.–—-]+$/u, "")
+      .trim();
+    if (title.length >= 6) out.push({ offset: m.index, title });
+  }
+  return out;
+};
+
+/** Last ОТНОСНО whose offset falls between the previous marker and this
+ *  decision's pairing point — that agenda item's subject. */
+const titleFor = (
+  anchors: TitleAnchor[],
+  pairOffset: number,
+  prevMarkerOffset: number,
+): string => {
+  for (let i = anchors.length - 1; i >= 0; i--) {
+    const a = anchors[i];
+    if (a.offset < pairOffset && a.offset > prevMarkerOffset) return a.title;
+  }
+  return "(no title parsed)";
+};
+
 type Marker = { offset: number; number: string };
 
 const findMarkers = (text: string): Marker[] => {
@@ -277,6 +320,7 @@ const parseProtokolText = (
   const text = preprocessTally(rawText);
   const tallies = findAllTallies(text);
   const markers = findMarkers(text);
+  const titleAnchors = collectOtnosno(text);
   const out: CouncilResolution[] = [];
   const yyyy = meta.date.slice(0, 4);
 
@@ -290,6 +334,13 @@ const parseProtokolText = (
     const candidate = [...tallies]
       .reverse()
       .find((t) => t.offset < marker.offset && t.offset > prevMarkerOffset);
+    // Title = the agenda item's ОТНОСНО subject, anchored before the
+    // tally (when present) else before the marker.
+    const title = titleFor(
+      titleAnchors,
+      candidate?.offset ?? marker.offset,
+      prevMarkerOffset,
+    );
     if (!candidate) {
       // Decision has no extractable tally — record an empty tally so
       // the resolution still surfaces with metadata + adopted-by-
@@ -299,7 +350,7 @@ const parseProtokolText = (
         date: meta.date,
         session: meta.session,
         number: marker.number,
-        title: "(no title parsed)",
+        title,
         tally: { for: 0, against: 0, abstain: 0, method: "open" },
         result: "adopted",
         sourceUrl: meta.docxUrl,
@@ -311,7 +362,7 @@ const parseProtokolText = (
       date: meta.date,
       session: meta.session,
       number: marker.number,
-      title: "(no title parsed)",
+      title,
       tally: candidate.tally,
       result: classifyResult(text, candidate.offset),
       sourceUrl: meta.docxUrl,
