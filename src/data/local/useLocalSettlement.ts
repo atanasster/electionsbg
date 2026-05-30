@@ -20,10 +20,8 @@ const normalize = (s: string): string =>
 
 export type LocalSettlementResult = {
   ekatte?: string;
-  /** Settlement display names + type prefix (с. / гр.). */
+  /** Settlement Bulgarian name — used for the kметство name-match. */
   name?: string;
-  nameEn?: string;
-  typePrefix?: string;
   /** Parent município code (e.g. "BGS01"). */
   obshtina?: string;
   /** The parent município's full local-election bundle. */
@@ -57,8 +55,6 @@ export const useLocalSettlement = (
   return {
     ekatte,
     name: settlement?.name,
-    nameEn: settlement?.name_en,
-    typePrefix: settlement?.t_v_m,
     obshtina,
     municipality,
     kmetstvo,
