@@ -17,7 +17,7 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, Landmark } from "lucide-react";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
@@ -30,6 +30,7 @@ export const CountryLocalGovernmentTile: FC<{ className?: string }> = ({
   className,
 }) => {
   const { t, i18n } = useTranslation();
+  const { search } = useLocation();
   const cycle = useLatestLocalCycle();
   const { data: index } = useLocalElectionIndex(cycle);
   const priorCycle = usePriorLocalCycle(cycle);
@@ -103,7 +104,7 @@ export const CountryLocalGovernmentTile: FC<{ className?: string }> = ({
             </span>
           </div>
           <Link
-            to={`/local/${cycle}`}
+            to={{ pathname: `/local/${cycle}`, search }}
             className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline normal-case shrink-0"
           >
             {t("local_election_view_details")}
@@ -191,7 +192,7 @@ export const CountryLocalGovernmentTile: FC<{ className?: string }> = ({
       {partialSummary ? (
         <div className="mt-3 pt-2 border-t text-[11px] text-muted-foreground">
           <Link
-            to="/local/chmi"
+            to={{ pathname: "/local/chmi", search }}
             className="inline-flex items-center rounded-md border border-blue-500/40 bg-blue-50 px-1.5 py-0.5 font-medium uppercase tracking-wide text-blue-700 mr-1.5 hover:underline"
           >
             {t("country_local_gov_partials_chip")}
