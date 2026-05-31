@@ -120,6 +120,7 @@ export interface FiscalYearSummary {
 
 export type BudgetDocKind =
   | "law"
+  | "interim-law"
   | "amendment"
   | "execution-report"
   | "audit-report"

@@ -23,10 +23,11 @@ import type {
 
 const STAGE_ORDER: Record<BudgetDocument["kind"], number> = {
   law: 0,
-  amendment: 1,
-  "execution-report": 2,
-  "audit-report": 3,
-  "kfp-feed": 4,
+  "interim-law": 1,
+  amendment: 2,
+  "execution-report": 3,
+  "audit-report": 4,
+  "kfp-feed": 5,
 };
 
 const ROLE_PRIORITY: BudgetDocumentSource["role"][] = [

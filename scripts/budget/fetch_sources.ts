@@ -36,7 +36,10 @@ export const BULNAO_AUDIT_URL =
 // `idMat` is the DV material id; the law text + per-spending-unit appropriation
 // tables are served as HTML at showMaterialDV.jsp?idMat=<id>. Hand-curated —
 // add a new year when its budget law is promulgated (resolve the idMat from
-// dv.parliament.bg). The 2026 law is intentionally absent until promulgated.
+// dv.parliament.bg). The 2026 ЗДБ is intentionally absent — it was not adopted
+// on time: the Dec-2025 draft was withdrawn after mass protests, so FY2026 runs
+// on an interim bridging law instead (see INTERIM_BUDGET_LAWS below). Add the
+// 2026 row here when the real State Budget Law is finally promulgated.
 export const LAW_DV_MATERIALS: Record<number, string> = {
   2020: "143562", // ДВ бр.100 от 2019-12-20
   // 2021 intentionally absent — caretaker year, no adopted budget law
@@ -44,6 +47,8 @@ export const LAW_DV_MATERIALS: Record<number, string> = {
   2023: "198020", // ДВ бр.66 от 2023-08-01 (delayed adoption due to political instability)
   2024: "202168", // ДВ бр.108 от 2023-12-30
   2025: "233694", // ДВ бр.26 от 2025-03-27
+  // 2026 intentionally absent — ЗДБ not yet adopted; interim law in force (see
+  // INTERIM_BUDGET_LAWS). Add `2026: "<idMat>"` here once it is promulgated.
 };
 
 // Mid-year amendments to a State Budget Law ("Закон за изменение [и допълнение]
@@ -84,6 +89,54 @@ export const AMENDMENT_DV_MATERIALS: AmendmentDvMaterial[] = [
     title:
       "Закон за изменение на Закона за държавния бюджет на Република " +
       "България за 2024 г.",
+  },
+];
+
+// Interim "collection of revenue and execution of expenditure" laws — the
+// stopgap instrument Parliament adopts when no State Budget Law is in force at
+// the start of a fiscal year (a "удължителен закон" under the Public Finance
+// Act, capped at three months of bridging). For FY2026 the regular ЗДБ was
+// withdrawn after the Dec-2025 protests, so Bulgaria entered the euro and ran
+// the year on this bridging law instead of a budget. Catalogued for provenance
+// only — like AMENDMENT_DV_MATERIALS, the DV HTML carries no per-spending-unit
+// appropriation tables, so no figures are parsed; the entry exists so the
+// budget-journey index honestly shows FY2026 opened without a State Budget Law.
+// `seq` 0 = the base bridging law, 1..N = its mid-life изменение и допълнение
+// acts. Resolve the idMat from dv.parliament.bg and add a row when a new
+// bridging law (or a ЗИД to one) is promulgated.
+export interface InterimBudgetLaw {
+  fiscalYear: number;
+  seq: number; // 0 = base bridging law, 1..N = ЗИД amendments to it
+  idMat: string;
+  promulgationDate: string; // ISO — the Държавен вестник promulgation date
+  dvIssue: string; // "ДВ бр. 113 от 2025 г." — for the source label
+  title: string;
+}
+
+export const INTERIM_BUDGET_LAWS: InterimBudgetLaw[] = [
+  {
+    fiscalYear: 2026,
+    seq: 0,
+    idMat: "240166",
+    promulgationDate: "2025-12-23",
+    dvIssue: "ДВ бр. 113 от 2025 г.",
+    title:
+      "Закон за събирането на приходи и извършването на разходи през 2026 г. " +
+      "до приемането на Закона за държавния бюджет на Република България за " +
+      "2026 г., Закона за бюджета на държавното обществено осигуряване за " +
+      "2026 г. и Закона за бюджета на Националната здравноосигурителна каса " +
+      "за 2026 г.",
+  },
+  {
+    fiscalYear: 2026,
+    seq: 1,
+    idMat: "242170",
+    promulgationDate: "2026-03-27",
+    dvIssue: "ДВ бр. 30 от 2026 г.",
+    title:
+      "Закон за изменение и допълнение на Закона за събирането на приходи и " +
+      "извършването на разходи през 2026 г. до приемането на Закона за " +
+      "държавния бюджет на Република България за 2026 г.",
   },
 ];
 

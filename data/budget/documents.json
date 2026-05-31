@@ -397,11 +397,47 @@
       "title": "Закон за държавния бюджет на Република България за 2025 г."
     },
     {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2026,
+      "id": "interim-law-2026-0",
+      "kind": "interim-law",
+      "notes": "Interim bridging law — adopted because no State Budget Law was in force at the start of the fiscal year. Catalogued for provenance; the DV HTML carries no per-spending-unit appropriation tables.",
+      "promulgationDate": "2025-12-23",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — ДВ бр. 113 от 2025 г.",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=240166"
+        }
+      ],
+      "title": "Закон за събирането на приходи и извършването на разходи през 2026 г. до приемането на Закона за държавния бюджет на Република България за 2026 г., Закона за бюджета на държавното обществено осигуряване за 2026 г. и Закона за бюджета на Националната здравноосигурителна каса за 2026 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2026,
+      "id": "interim-law-2026-1",
+      "kind": "interim-law",
+      "notes": "Amendment to the interim bridging law — catalogued for provenance.",
+      "promulgationDate": "2026-03-27",
+      "seq": 1,
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — ДВ бр. 30 от 2026 г.",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=242170"
+        }
+      ],
+      "title": "Закон за изменение и допълнение на Закона за събирането на приходи и извършването на разходи през 2026 г. до приемането на Закона за държавния бюджет на Република България за 2026 г."
+    },
+    {
       "discovery": "auto",
       "fiscalYear": 2026,
       "id": "law-2026",
       "kind": "law",
-      "notes": "Placeholder — resolve the Държавен вестник idMat and add it to LAW_DV_MATERIALS in scripts/budget/fetch_sources.ts.",
+      "notes": "Placeholder — no State Budget Law was adopted for 2026 г.; an interim bridging law is in force instead (see the interim-law entries for this year). Add the idMat to LAW_DV_MATERIALS once the ЗДБ is finally promulgated.",
       "seq": 0,
       "sources": [],
       "title": "Закон за държавния бюджет на Република България за 2026 г."
@@ -766,5 +802,5 @@
       "title": "КФП — state budget execution by major budget indicators"
     }
   ],
-  "generatedAt": "2026-05-25T21:49:52.701Z"
+  "generatedAt": "2026-05-31T15:11:41.612Z"
 }

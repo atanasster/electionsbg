@@ -19,6 +19,7 @@ import {
   BULNAO_AUDIT_URL,
   LAW_DV_MATERIALS,
   AMENDMENT_DV_MATERIALS,
+  INTERIM_BUDGET_LAWS,
   EXECUTION_REPORTS,
   lawDvUrl,
 } from "./fetch_sources";
@@ -73,6 +74,7 @@ const buildKfpDocument = (parsed: ParsedResource[]): BudgetDocument => {
 // HTML source (and are parsed for per-ministry appropriations); the rest stay
 // as placeholders until their idMat is resolved.
 const buildLawDocuments = (parsed: ParsedResource[]): BudgetDocument[] => {
+  const interimYears = new Set(INTERIM_BUDGET_LAWS.map((l) => l.fiscalYear));
   const years = new Set<number>(parsed.map((p) => p.header.fiscalYear));
   for (const y of Object.keys(LAW_DV_MATERIALS)) years.add(parseInt(y, 10));
   return [...years]
@@ -107,9 +109,13 @@ const buildLawDocuments = (parsed: ParsedResource[]): BudgetDocument[] => {
         title,
         sources: [],
         discovery: "auto" as const,
-        notes:
-          "Placeholder — resolve the Държавен вестник idMat and add it to " +
-          "LAW_DV_MATERIALS in scripts/budget/fetch_sources.ts.",
+        notes: interimYears.has(year)
+          ? `Placeholder — no State Budget Law was adopted for ${year} г.; an ` +
+            "interim bridging law is in force instead (see the interim-law " +
+            "entries for this year). Add the idMat to LAW_DV_MATERIALS once " +
+            "the ЗДБ is finally promulgated."
+          : "Placeholder — resolve the Държавен вестник idMat and add it to " +
+            "LAW_DV_MATERIALS in scripts/budget/fetch_sources.ts.",
       };
     });
 };
@@ -138,6 +144,37 @@ const buildAmendmentDocuments = (): BudgetDocument[] =>
       "Mid-year amendment to the State Budget Law — catalogued for provenance. " +
       "The DV HTML carries no per-spending-unit appropriation tables; the " +
       "amended per-ministry appropriation comes from the year-end execution report.",
+  }));
+
+// One "interim-law" entry per interim "collection of revenue and execution of
+// expenditure" (bridging) law and each of its ЗИД amendments. These exist for a
+// fiscal year that opened with no adopted State Budget Law (FY2026); catalogued
+// for provenance so the budget-journey UI shows the year ran on a stopgap law.
+// Like amendments, the DV HTML carries no per-spending-unit tables — no figures
+// are parsed.
+const buildInterimLawDocuments = (): BudgetDocument[] =>
+  INTERIM_BUDGET_LAWS.map((l) => ({
+    id: `interim-law-${l.fiscalYear}-${l.seq}`,
+    kind: "interim-law" as const,
+    fiscalYear: l.fiscalYear,
+    seq: l.seq,
+    title: l.title,
+    sources: [
+      {
+        role: "promulgated" as const,
+        url: lawDvUrl(l.idMat),
+        format: "html" as const,
+        label: `Държавен вестник — ${l.dvIssue}`,
+      },
+    ],
+    promulgationDate: l.promulgationDate,
+    discovery: "auto-confirmed" as const,
+    notes:
+      l.seq === 0
+        ? "Interim bridging law — adopted because no State Budget Law was in " +
+          "force at the start of the fiscal year. Catalogued for provenance; " +
+          "the DV HTML carries no per-spending-unit appropriation tables."
+        : "Amendment to the interim bridging law — catalogued for provenance.",
   }));
 
 // One "execution-report" entry per curated ministry program-budget execution
@@ -248,6 +285,7 @@ export const buildDocuments = (
   const fresh: BudgetDocument[] = [
     buildKfpDocument(parsed),
     ...buildLawDocuments(parsed),
+    ...buildInterimLawDocuments(),
     ...buildAmendmentDocuments(),
     ...buildExecutionDocuments(),
   ];

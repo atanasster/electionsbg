@@ -33,9 +33,9 @@ keywords:
 
 Bulgaria has 265 municipalities. Each operates a municipal council (**общински съвет**) that convenes monthly, makes hundreds of decisions annually, and votes on a multi-million-euro annual budget — every municipality publishes some version of both on its own website. There is no central register of these votes or budgets: РМС 436/2017 only mandates the narrow чл.45 ЗМСМА "returned decisions" feed on data.egov.bg, and a sampling we did across 50 municipalities found that fewer than 4 in 10 publish anything in that category, more than 90% of which is just hyperlinks pointing back to the municipality's own content management system (CMS).
 
-To address this, we built a custom data ingestion pipeline. Currently, our system covers **16 municipalities for council voting records** and **26 municipalities for capital programmes** — every oblast capital except seven, plus secondary cities. The two coverages overlap in **14 municipalities** where we have BOTH a council ingest AND a budget ingest, so our platform can address politically significant questions, such as: "the council voted to approve €3M for the school renovation in village X — who voted for, who voted against, and did the project actually land in the capital programme?"
+To address this, we built a custom data ingestion pipeline. Currently, our system covers **16 municipalities for council voting records** and **26 municipalities for capital programmes** — every oblast capital except eight, plus secondary cities. The two coverages overlap in **14 municipalities** where we have BOTH a council ingest AND a budget ingest, so our platform can address politically significant questions, such as: "the council voted to approve €3M for the school renovation in village X — who voted for, who voted against, and did the project actually land in the capital programme?"
 
-Across the 16 integrated councils we've extracted **2,947 resolutions** with their adopted/rejected status and aggregate vote tallies, and for the five councils where the protokol publishes the individual councillor voting records we've also matched **18,300 individual vote rows** to the National Audit Office registry (cacbg.bg). Across the 26 integrated capital programmes we've itemised roughly **6,800 individual investment projects** worth **€957 million** (each municipality's most recent published budget year, 2023–2025).
+Across the 16 integrated councils we've extracted **3,515 resolutions** with their adopted/rejected status and aggregate vote tallies, and for the five councils where the protokol publishes the individual councillor voting records we've also matched **18,300 individual vote rows** to the National Audit Office registry (cacbg.bg). Across the 26 integrated capital programmes we've itemised roughly **6,800 individual investment projects** worth **€957 million** (each municipality's most recent published budget year, 2023–2025).
 
 The tables below list every municipality currently in the system. The "Council website" column links to the council's own page — if your municipality is not yet covered, the council site is also where to write to your representatives directly.
 
@@ -44,21 +44,21 @@ The tables below list every municipality currently in the system. The "Council w
 | Code | Municipality | Tier | Decisions | Per-councillor rows | Councillors in roster | Coverage period | Council website |
 |------|---------|------|----------:|--------------------:|----------------------:|-----------------|-----------------|
 | SOF | Столична община | A | 132 | 2,964 | — | Apr–May 2026 | https://council.sofia.bg/ |
-| BGS01 | Община Бургас | A | 319 | 3,966 | 46 | Mar 2025 – Mar 2026 | https://burgascouncil.org/ |
-| VTR01 | Община Велико Търново | A | 413 | 5,139 | 35 | Jul 2025 – May 2026 | https://savet.veliko-tarnovo.bg/ |
-| SZR12 | Община Казанлък | A | 212 | 3,227 | 35 | Dec 2020 – Jun 2025 | https://obs.kazanlak.bg/ |
-| PER32 | Община Перник | A | 464 | 3,004 | 34 | Sep 2025 – Apr 2026 | https://www.obs-pernik.bg/ |
-| GAB05 | Община Габрово | A | 244 | — | 30 | Apr–Sep 2024 | https://gabrovo.bg/ |
-| SZR01 | Община Стара Загора | A | 50 | — | 51 | Apr–May 2026 | https://www.starazagora.bg/ |
-| RSE01 | Община Русе | A | 50 | — | 47 | Mar–Apr 2026 | https://obs.ruse-bg.eu/ |
-| PVN01 | Община Плевен | A | 50 | — | 36 | Mar–Apr 2026 | https://obs.pleven.bg/ |
-| SLV01 | Община Сливен | A | 50 | — | 40 | Mar–Apr 2026 | https://obs.sliven.bg/ |
+| BGS01 | Община Бургас | A | 319 | 3,966 | 46 | Jan 2025 – Mar 2026 | https://burgascouncil.org/ |
+| VTR01 | Община Велико Търново | A | 413 | 5,139 | 35 | Feb 2025 – May 2026 | https://savet.veliko-tarnovo.bg/ |
+| SZR12 | Община Казанлък | A | 333 | 3,227 | 35 | Mar 2020 – Jun 2025 | https://obs.kazanlak.bg/ |
+| PER32 | Община Перник | A | 464 | 3,004 | 34 | Jan 2025 – Apr 2026 | https://www.obs-pernik.bg/ |
+| GAB05 | Община Габрово | A | 244 | — | 30 | Feb–Sep 2024 | https://gabrovo.bg/ |
+| SZR01 | Община Стара Загора | A | 67 | — | 51 | Apr–May 2026 | https://www.starazagora.bg/ |
+| RSE01 | Община Русе | A | 58 | — | 47 | Mar–Apr 2026 | https://obs.ruse-bg.eu/ |
+| PVN01 | Община Плевен | A | 76 | — | 36 | Mar–Apr 2026 | https://obs.pleven.bg/ |
+| SLV01 | Община Сливен | B | 109 | — | 40 | Feb–Apr 2026 | https://obs.sliven.bg/ |
 | PDV01 | Община Пловдив | B | 30 | — | 50 | Apr–May 2026 | https://plovdiv.bg/obs/ |
 | VAR01 | Община Варна | B | 45 | — | 47 | Dec 2025 – Apr 2026 | https://varnacouncil.bg/ |
 | HKV34 | Община Хасково | B | 387 | — | 39 | Jan 2022 | https://www.haskovo.bg/ |
 | DOB28 | Община град Добрич | B | 50 | — | 41 | Nov–Dec 2023 | https://www.dobrich.bg/ |
-| HKV09 | Община Димитровград | B | 197 | — | 32 | Jun 2025 – Apr 2026 | https://www.dimitrovgrad.bg/ |
-| RAZ26 | Община Разград | B | 254 | — | 31 | Oct 2025 – May 2026 | https://www.razgrad.bg/ |
+| HKV09 | Община Димитровград | B | 534 | — | 32 | Jan 2024 – Apr 2026 | https://www.dimitrovgrad.bg/ |
+| RAZ26 | Община Разград | B | 254 | — | 31 | Aug 2025 – May 2026 | https://www.razgrad.bg/ |
 
 **Tier A** means we extract everything the protocol carries: the decision number, the chairperson's official declaration of adoption or rejection, the aggregate vote (за / против / въздържал) and — where the municipality publishes a individual councillor voting records — every councillor's individual vote, matched to their cacbg profile. **Tier B** means the same except for the individual councillor voting records, because the published protocol records only the chair's announced totals.
 
@@ -151,13 +151,13 @@ The shortlist of municipalities NOT yet wired but actively publishing protocols:
 
 ### Per-decision limitations
 
-- **No decision title** for one remaining Tier-B source (Добрич). Title extraction via "ОТНОСНО:" / "ПО ХХ ТОЧКА" agenda headers is wired for Димитровград and now **Разград** (whose докладна записка carries a clean structured "ОТНОСНО: <subject>" line). Добрич stays open: its protocol is a verbatim stenographic transcript where "относно" appears in councillors' spoken discussion ("относно цените…"), not as a structured field, so the title has to come from a different anchor (the докладна subject) — a separate parser task, not a quick port. Where no title is recovered, the resolution surfaces by id.
+- **No decision title** for two remaining Tier-B sources (Добрич, Разград). Title extraction via "ОТНОСНО:" / "ПО ХХ ТОЧКА" agenda headers is wired for Димитровград; **Разград** is the next candidate (its докладна записка carries a clean structured "ОТНОСНО: <subject>" line), but its titles are **not yet populated** — every Разград resolution still surfaces by id. Добрич is harder: its protocol is a verbatim stenographic transcript where "относно" appears in councillors' spoken discussion ("относно цените…"), not as a structured field, so the title has to come from a different anchor (the докладна subject) — a separate parser task, not a quick port. Where no title is recovered, the resolution surfaces by id.
 - **No body text** indexed for conflict-of-interest matching. We have the decision metadata + vote, but the body of each resolution isn't stored — meaning we can't yet flag "councillor X voted on a contract awarded to company Y where they're a director". The processing pipeline is implemented (see `data/officials/derived/councillor_conflicts.json`), but with 0 matches today because no municipality's resolution body is indexed.
-- **Stale Wayback windows** for Габрово (Apr–Sep 2024), Хасково (Jan 2022 only), Добрич (Nov–Dec 2023). The Internet Archive crawls these sites only occasionally; the dataset will get fresher as Wayback re-crawls.
+- **Stale Wayback windows** for Габрово (Feb–Sep 2024), Хасково (Jan 2022 only), Добрич (Nov–Dec 2023). The Internet Archive crawls these sites only occasionally; the dataset will get fresher as Wayback re-crawls.
 
 ### What the Tier-B coverage misses
 
-Of the 16 integrated councils, **10 are Tier B** — we have the aggregate tally and the result, but not the individual councillor voting records. The reason varies:
+Of the 16 integrated councils, **7 are Tier B** — we have the aggregate tally and the result, but not the individual councillor voting records. The reason varies:
 
 - **Препис-извлечение format** (Пловдив, Варна, Сливен): the municipality publishes a decision extract that strips the deliberation portion of the minutes. Tally + adopted/rejected only.
 - **Chairperson's verbal summary** (Хасково, Димитровград, Добрич, Разград): the protokol records the chair's voiced totals ("Председателят обяви, че решението се приема с 22 за, 0 против, 1 въздържал се"), not the individual readout. Even the full minutes don't carry the per-councillor data.
@@ -169,7 +169,7 @@ Of the 16 integrated councils, **10 are Tier B** — we have the aggregate tally
 
 1. **TSPD / Cloudflare bypass** — Видин, Търговище, Смолян, and four others sit behind enterprise bot guards. Our local-elections skill already handles this for ЦИК via a Playwright session with a persistent `cf_clearance` cookie; applying this same pattern to the council data ingestion would unlock at least 3 more oblast capitals (Видин, Търговище, Смолян + likely Кърджали, Кюстендил, Враца).
 2. **Body indexing for Tier A councils** — store each resolution's body text under `data/council/bodies/<obshtina>/<id>.json`. This enables conflict-of-interest detection (councillor ↔ company tie) and full-text search over the corpus.
-3. **Title extraction for the remaining Tier-B sources** — the two cases aren't equally easy (verified against live sessions). **Разград** is done: its protocol carries clean structured "ОТНОСНО: …" blocks (e.g. "Наредба за изменение и допълнение на Наредба № 30…"), so porting the Димитровград agenda-header logic was direct — already wired in the parser, populating titles on the next ingest. **Добрич** is harder: its verbatim transcript scatters conversational "относно …" that isn't a title field, so the title must come from a different anchor (the докладна subject) — a separate parser task, not a 30-minute port. Either way, each decision gets a human-readable subject in the My-Area "Последна активност" feed.
+3. **Title extraction for the remaining Tier-B sources** — the two cases aren't equally easy (verified against live sessions). **Разград** is the more tractable: its protocol carries clean structured "ОТНОСНО: …" blocks (e.g. "Наредба за изменение и допълнение на Наредба № 30…"), so porting the Димитровград agenda-header logic is direct — but its titles are **not yet populated** in the current data (every Разград resolution still surfaces by id, pending a working ingest). **Добрич** is harder: its verbatim transcript scatters conversational "относно …" that isn't a title field, so the title must come from a different anchor (the докладна subject) — a separate parser task, not a 30-minute port. Either way, once wired each decision gets a human-readable subject in the My-Area "Последна активност" feed.
 
 ### Medium term (data publication itself)
 
@@ -234,7 +234,7 @@ The pattern repeats across all fourteen overlap municipalities:
 - **Burgas** — 54 capital-related decisions, against €86.7M / 104 projects.
 - **Stara Zagora**, **Ruse**, **Pleven**, **Varna**, **Plovdiv** — same shape, smaller absolute numbers, all under €100M annual programmes.
 
-Where the council still publishes only aggregate tallies (Tier B — Plovdiv, Varna, Sliven, Haskovo, Dobrich), the platform shows the for–against–abstain numbers without councillor names, but the link from the decision back to the projects in the capital programme is intact.
+Where the council still publishes only aggregate tallies (Tier B — Plovdiv, Varna, Sliven, Haskovo, Dobrich, Dimitrovgrad, Razgrad), the platform shows the for–against–abstain numbers without councillor names, but the link from the decision back to the projects in the capital programme is intact.
 
 ## Article 53 — the universal counterpart
 
@@ -313,7 +313,7 @@ Tier B currently covers **10 municipalities**: Sofia, Plovdiv, Varna, Burgas, St
 | BLG33 | Petrich | petrich.obshtini.bg/doc/4416578 | petrich.obshtini.bg/doc/3103531 | obshtini.bg JSON API |
 | SZR31 | Stara Zagora | starazagora.obshtini.bg/doc/564999 | starazagora.obshtini.bg/doc/338011 | obshtini.bg JSON API |
 
-Current rates from the extracted bylaws (fiscal year 2025, full 10/10 coverage on all four slots):
+Current rates from the extracted bylaws (latest published bylaw per municipality, full 10/10 coverage on all four slots):
 
 | Municipality | Property (individuals) | ТБО basis | Tourist | Dog |
 |---|---:|---|---:|---:|
