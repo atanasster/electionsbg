@@ -107,13 +107,13 @@ export const LocalVoteFlowTile: FC<{ cycle: string; oblast?: string }> = ({
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <GitFork className="h-4 w-4" />
-            <span>{t("vote_flow_title")}</span>
+            <span>{t("vote_flow_tile_title")}</span>
           </div>
           <Link
-            to="/methodology/vote-flow"
+            to="/where-did-votes-go/methodology"
             className="text-xs font-medium text-primary hover:underline"
           >
-            {t("vote_flow_how_link")}
+            {t("vote_flow_tile_methodology_link")}
           </Link>
         </div>
       }
