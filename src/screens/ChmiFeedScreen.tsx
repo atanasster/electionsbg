@@ -25,12 +25,14 @@ const KIND_LABEL_KEY: Record<ChmiHistoryEvent["kind"], string> = {
   obshtina_mayor: "local_election_chmi_kind_obshtina",
   kmetstvo_mayor: "local_election_chmi_kind_kmetstvo",
   rayon_mayor: "local_election_chmi_kind_rayon",
+  council: "local_election_chmi_kind_council",
 };
 
 const KIND_TONE: Record<ChmiHistoryEvent["kind"], string> = {
   obshtina_mayor: "border-red-500/40 bg-red-50 text-red-700",
   kmetstvo_mayor: "border-blue-500/40 bg-blue-50 text-blue-700",
   rayon_mayor: "border-purple-500/40 bg-purple-50 text-purple-700",
+  council: "border-amber-500/40 bg-amber-50 text-amber-700",
 };
 
 const KindBadge: FC<{ kind: ChmiHistoryEvent["kind"] }> = ({ kind }) => {
@@ -84,6 +86,7 @@ export const ChmiFeedScreen: FC = () => {
       obshtina_mayor: 0,
       kmetstvo_mayor: 0,
       rayon_mayor: 0,
+      council: 0,
     };
     for (const e of events as ChmiHistoryEvent[]) counts[e.kind]++;
     return counts;
@@ -124,6 +127,11 @@ export const ChmiFeedScreen: FC = () => {
               "rayon_mayor",
               t("local_election_chmi_kind_rayon"),
               kindCounts.rayon_mayor,
+            ],
+            [
+              "council",
+              t("local_election_chmi_kind_council"),
+              kindCounts.council,
             ],
           ] as const
         ).map(([key, label, count]) => {
@@ -185,10 +193,13 @@ export const ChmiFeedScreen: FC = () => {
                 ? displayNameForId(canonicalId)
                 : undefined;
               const resolvedMp =
-                findMpById(e.mpId) ?? findMpByName(e.candidateName);
-              const resolvedOfficial = resolvedMp
-                ? undefined
-                : findOfficialByName(e.candidateName, e.obshtinaName);
+                e.kind === "council"
+                  ? undefined
+                  : (findMpById(e.mpId) ?? findMpByName(e.candidateName));
+              const resolvedOfficial =
+                resolvedMp || e.kind === "council"
+                  ? undefined
+                  : findOfficialByName(e.candidateName, e.obshtinaName);
               const candidateHref:
                 | Parameters<typeof Link>[0]["to"]
                 | undefined = resolvedMp
@@ -199,16 +210,24 @@ export const ChmiFeedScreen: FC = () => {
                       search: { from: e.obshtinaCode },
                     }
                   : undefined;
-              const candidateInner = (
-                <div className="flex items-center gap-2">
-                  <MpAvatar
-                    name={e.candidateName}
-                    mpId={e.mpId}
-                    showPartyRing={false}
-                  />
-                  <span>{e.candidateName}</span>
-                </div>
-              );
+              const candidateInner =
+                e.kind === "council" ? (
+                  <span className="text-muted-foreground">
+                    {t("local_election_chmi_council_seats", {
+                      won: e.councilSeatsWon ?? 0,
+                      total: e.councilTotalSeats ?? 0,
+                    })}
+                  </span>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <MpAvatar
+                      name={e.candidateName}
+                      mpId={e.mpId}
+                      showPartyRing={false}
+                    />
+                    <span>{e.candidateName}</span>
+                  </div>
+                );
               return (
                 <tr
                   key={`${e.cycle}-${e.obshtinaCode}-${e.kmetstvoName ?? "main"}-${i}`}

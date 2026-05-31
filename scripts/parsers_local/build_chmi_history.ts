@@ -27,8 +27,10 @@ export type ChmiHistoryEvent = {
   /** ISO date the partial was held (round 1). */
   date: string;
   /** "obshtina_mayor" when a município-wide mayor seat was contested,
-   * "kmetstvo_mayor" for a village seat. */
-  kind: "obshtina_mayor" | "kmetstvo_mayor" | "rayon_mayor";
+   * "kmetstvo_mayor" for a village seat, "rayon_mayor" for a Sofia/Plovdiv/
+   * Varna район, "council" for a full council re-election (нови избори за
+   * общински съветници — the whole съвет dissolved and re-elected). */
+  kind: "obshtina_mayor" | "kmetstvo_mayor" | "rayon_mayor" | "council";
   /** Município this event belongs to. Duplicated from the byObshtina key
    * so a flat national feed doesn't need an extra join. */
   obshtinaCode: string;
@@ -46,6 +48,11 @@ export type ChmiHistoryEvent = {
   /** Carried over from the per-município bundle when the winner also served
    * as an MP — drives `MpAvatar` photo reuse in the chmi feed. */
   mpId?: number;
+  /** Council events only: seats the leading party won, and the council size.
+   * For a council re-election the "winner" is the party with the most seats,
+   * so `candidateName` is empty and `localPartyName` holds that party. */
+  councilSeatsWon?: number;
+  councilTotalSeats?: number;
 };
 
 export type ChmiHistory = {
@@ -122,6 +129,37 @@ export const buildChmiHistory = (opts: {
           votes: m.votes,
           mpId: m.mpId,
         });
+      }
+      // Full council re-election ("нови избори за общински съветници"): the
+      // only chmi shape that carries a populated council table, so seats > 0
+      // is a clean signal. Headline = the party with the most seats.
+      const councilTotalSeats = b.council.reduce(
+        (a, p) => a + p.mandatesWon,
+        0,
+      );
+      if (councilTotalSeats > 0 && !isSofiaRayon) {
+        const lead = [...b.council]
+          .filter((p) => p.mandatesWon > 0)
+          .sort(
+            (a, b) =>
+              b.mandatesWon - a.mandatesWon || b.totalVotes - a.totalVotes,
+          )[0];
+        if (lead) {
+          events.push({
+            ...base,
+            kind: "council",
+            kmetstvoName: null,
+            candidateName: "",
+            localPartyName: lead.localPartyName,
+            primaryCanonicalId: lead.primaryCanonicalId,
+            isIndependent: lead.isIndependent,
+            round: 1,
+            pctOfValid: lead.pctOfValid,
+            votes: lead.totalVotes,
+            councilSeatsWon: lead.mandatesWon,
+            councilTotalSeats,
+          });
+        }
       }
       for (const k of b.kmetstva) {
         const elected = k.candidates.find((c) => c.isElected);

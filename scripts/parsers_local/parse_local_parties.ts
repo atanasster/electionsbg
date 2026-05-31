@@ -9,15 +9,16 @@
 // Unmatched fragments are aggregated into a single array per cycle so the
 // orchestrator can dump them for hand-curation.
 
-import fs from "fs";
 import { parse } from "csv-parse";
+import fs from "fs";
 import { CanonicalPartiesIndex } from "@/data/parties/canonicalPartyTypes";
 import { CikParty, LocalParty } from "./types";
 import { buildByNickNameLower, resolveLocalParty } from "./local_coalitions";
+import { resolveRaceFile } from "./csv_files";
 
 export const parseCikParties = (inFolder: string): Promise<CikParty[]> => {
-  const file = `${inFolder}/cik_parties.txt`;
-  if (!fs.existsSync(file)) return Promise.resolve([]);
+  const file = resolveRaceFile(inFolder, "cik_parties");
+  if (!file) return Promise.resolve([]);
   const rows: string[][] = [];
   return new Promise((resolve, reject) =>
     fs
@@ -51,8 +52,8 @@ export const parseLocalParties = (
   inFolder: string,
   canonical: CanonicalPartiesIndex | undefined,
 ): Promise<LocalPartiesResult> => {
-  const file = `${inFolder}/local_parties.txt`;
-  if (!fs.existsSync(file)) {
+  const file = resolveRaceFile(inFolder, "local_parties");
+  if (!file) {
     return Promise.resolve({ parties: [], unmatchedByRawName: {} });
   }
   const byNickNameLower = buildByNickNameLower(canonical);

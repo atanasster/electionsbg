@@ -22,7 +22,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 export type ChmiHistoryEvent = {
   cycle: string;
   date: string;
-  kind: "obshtina_mayor" | "kmetstvo_mayor" | "rayon_mayor";
+  kind: "obshtina_mayor" | "kmetstvo_mayor" | "rayon_mayor" | "council";
   obshtinaCode: string;
   obshtinaName: string;
   kmetstvoName: string | null;
@@ -34,6 +34,9 @@ export type ChmiHistoryEvent = {
   pctOfValid: number;
   votes: number;
   mpId?: number;
+  // Council re-election events only: leading party's seats + council size.
+  councilSeatsWon?: number;
+  councilTotalSeats?: number;
 };
 
 type ChmiHistory = {

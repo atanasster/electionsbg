@@ -199,6 +199,62 @@ const gotoAndExtract = async (
   return { status: finalStatus || 0, html: html || null };
 };
 
+/**
+ * Download a binary resource (the per-cycle `mi{YYYY}.zip` section bundle)
+ * through the CF-cleared Playwright session. The page-navigation path is the
+ * one that clears Cloudflare (the raw context.request path is still
+ * TLS-fingerprinted to 403), so we trigger a real browser download:
+ * navigating to a `Content-Disposition: attachment` / `application/zip`
+ * resource makes Chromium fire a `download` event and abort the navigation
+ * (hence the swallowed goto rejection).
+ *
+ * `warmUrl` (a sibling HTML page of the same cycle) is visited first so the
+ * cf_clearance cookie is fresh for the same path prefix — verified necessary
+ * for the live mi2019/mi2023 archives whose per-resource Turnstile is
+ * stricter than the static minr2015/mipvr2011 ones.
+ *
+ * Returns the absolute path on success, or null on timeout / failure so the
+ * caller can fall back to the manual operator drop.
+ */
+export const cikDownloadFile = async (
+  url: string,
+  destPath: string,
+  opts: { timeoutMs?: number; warmUrl?: string } = {},
+): Promise<string | null> => {
+  const { timeoutMs = 120_000, warmUrl } = opts;
+  const s = await initSession();
+  fs.mkdirSync(path.dirname(destPath), { recursive: true });
+  if (warmUrl) {
+    await s.page
+      .goto(warmUrl, { waitUntil: "load", timeout: 60_000 })
+      .catch(() => {});
+    for (let i = 0; i < 40; i++) {
+      const c = await s.page.content().catch(() => "");
+      const onChallenge = CHALLENGE_MARKERS.some((m) => c.includes(m));
+      if (!onChallenge && c.length > 1000) break;
+      await s.page.waitForTimeout(400);
+    }
+  }
+  try {
+    // waitForEvent races the navigation; page.goto rejects with ERR_ABORTED
+    // once the download takes over — that rejection is expected.
+    const [download] = await Promise.all([
+      s.page.waitForEvent("download", { timeout: timeoutMs }),
+      s.page.goto(url, { timeout: timeoutMs }).catch(() => null),
+    ]);
+    await download.saveAs(destPath);
+    const stat = fs.statSync(destPath);
+    if (stat.size < 1024) {
+      // A sub-1 KB "zip" is almost certainly a CF challenge HTML page saved
+      // under the wrong extension — treat as failure.
+      return null;
+    }
+    return destPath;
+  } catch {
+    return null;
+  }
+};
+
 export type CikHeadResult = {
   status: number;
   lastModified: string | null;

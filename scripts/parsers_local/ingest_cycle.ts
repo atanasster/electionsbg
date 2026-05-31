@@ -93,31 +93,39 @@ const optionValueRaw = (raw: string): string | null => {
   return m ? m[1] : null;
 };
 
+// "tur1/" for the usual two-round cycles; "" for roundless cycles — the
+// single-round "нови избори за общински съветници" chmi partials publish
+// results at `<cycle>/rezultati/...` with no tur1/tur2 split.
+const roundSeg = (roundless: boolean, round: 1 | 2): string =>
+  roundless ? "" : `tur${round}/`;
+
 const oblastEntryUrl = (
   cycleSlug: string,
   inner: string,
   optionValue: string,
-): string => `${ROOT}/${cycleSlug}/tur1/${inner}/${optionValue}.html`;
+  roundless: boolean,
+): string =>
+  `${ROOT}/${cycleSlug}/${roundSeg(roundless, 1)}${inner}/${optionValue}.html`;
 
 /**
  * Walk the oblast → município dropdowns on the rezultati index pages to
  * enumerate every OIK code that has a results page in the given cycle.
  */
-// 2019/2023 use id'd dropdowns (#obl-select / #obs-select); 2011/2015
-// publish the same cascading list under unnamed or differently-id'd
-// <select onchange="window.location...">. `readLocationSelectOptions()` is
-// the schema-tolerant fallback that finds whichever redirecting <select>
-// has the most NNNN.html options on the current page.
-const READ_BY_ID: Record<string, { oblast: string; obshtina: string }> = {
-  mi2019: { oblast: "obl-select", obshtina: "obs-select" },
-  mi2023: { oblast: "obl-select", obshtina: "obs-select" },
-};
+// 2019/2023 AND every chmi partial use id'd dropdowns (#obl-select /
+// #obs-select) — note the chmi dropdowns carry NO inline `onchange` (a JS
+// listener drives navigation), so the `readLocationSelectOptions()` fallback
+// (which keys off an onchange="window.location...") finds nothing for them.
+// 2011/2015 publish the same cascading list under unnamed redirecting
+// <select onchange=...> and rely on that fallback.
+const usesIdSelects = (cycleSlug: string): boolean =>
+  cycleSlug === "mi2019" ||
+  cycleSlug === "mi2023" ||
+  cycleSlug.startsWith("chmi");
 
 const readOblastOptions = async (
   cycleSlug: string,
 ): Promise<{ value: string; text: string }[]> => {
-  const ids = READ_BY_ID[cycleSlug];
-  if (ids) return readSelectOptions(ids.oblast);
+  if (usesIdSelects(cycleSlug)) return readSelectOptions("obl-select");
   return readLocationSelectOptions();
 };
 
@@ -131,9 +139,8 @@ const readObshtinaOptions = async (
   cycleSlug: string,
   oblastPrefix: string,
 ): Promise<string[]> => {
-  const ids = READ_BY_ID[cycleSlug];
-  if (ids) {
-    const opts = await readSelectOptions(ids.obshtina);
+  if (usesIdSelects(cycleSlug)) {
+    const opts = await readSelectOptions("obs-select");
     return opts
       .map((o) => oikFromOption(o.value))
       .filter((c): c is string => !!c);
@@ -144,9 +151,10 @@ const readObshtinaOptions = async (
 
 const discoverOikCodes = async (
   cycleSlug: string,
+  roundless: boolean,
 ): Promise<{ oikCodes: string[]; rayonStems: string[] }> => {
   const inner = resultsPath(cycleSlug);
-  const indexUrl = `${ROOT}/${cycleSlug}/tur1/${inner}/index.html`;
+  const indexUrl = `${ROOT}/${cycleSlug}/${roundSeg(roundless, 1)}${inner}/index.html`;
   await cikFetchText(indexUrl);
   const oblOptions = await readOblastOptions(cycleSlug);
   if (oblOptions.length === 0) {
@@ -165,7 +173,7 @@ const discoverOikCodes = async (
     if (rawValue.length === 4) {
       oikCodes.add(rawValue);
     }
-    await cikFetchText(oblastEntryUrl(cycleSlug, inner, rawValue));
+    await cikFetchText(oblastEntryUrl(cycleSlug, inner, rawValue, roundless));
     const obshtinaCodes = await readObshtinaOptions(cycleSlug, oblastPrefix);
     for (const code of obshtinaCodes) oikCodes.add(code);
     // Harvest район refs while we're on the oblast capital page —
@@ -205,9 +213,12 @@ const mirrorHtmlPages = async (opts: {
   cycleSlug: string;
   rawFolder: string;
   oikCodes: string[];
+  roundless: boolean;
   delayMs?: number;
 }): Promise<{ tur1: number; tur2: number; tur1Missing: string[] }> => {
-  const { cycleSlug, rawFolder, oikCodes, delayMs = 200 } = opts;
+  const { cycleSlug, rawFolder, oikCodes, roundless, delayMs = 200 } = opts;
+  // Roundless cycles have a single round; we still store it under html/tur1
+  // so the parser (which always reads html/tur1) finds it unchanged.
   const tur1Dir = path.join(rawFolder, "html", "tur1");
   const tur2Dir = path.join(rawFolder, "html", "tur2");
   fs.mkdirSync(tur1Dir, { recursive: true });
@@ -220,7 +231,7 @@ const mirrorHtmlPages = async (opts: {
     const t1File = path.join(tur1Dir, `${oik}.html`);
     if (!fs.existsSync(t1File)) {
       const html = await cikFetchText(
-        `${ROOT}/${cycleSlug}/tur1/${inner}/${oik}.html`,
+        `${ROOT}/${cycleSlug}/${roundSeg(roundless, 1)}${inner}/${oik}.html`,
         { allow404: true },
       );
       if (html) {
@@ -233,6 +244,7 @@ const mirrorHtmlPages = async (opts: {
     } else {
       tur1++;
     }
+    if (roundless) continue; // no tur2 for single-round cycles
     const t2File = path.join(tur2Dir, `${oik}.html`);
     if (!fs.existsSync(t2File)) {
       const html = await cikFetchText(
@@ -288,10 +300,23 @@ export const ingestCycle = async (opts: {
   const rawFolder = path.join(RAW_ROOT, folder);
   fs.mkdirSync(rawFolder, { recursive: true });
 
+  // Detect single-round ("roundless") cycles: the council-only "нови избори"
+  // chmi partials publish at <cycle>/rezultati/... with no tur1/tur2 split, so
+  // the usual tur1 index 404s. Probe it; fall back to the roundless layout.
+  const inner = resultsPath(cycleSlug);
+  const tur1Index = `${ROOT}/${cycleSlug}/tur1/${inner}/index.html`;
+  const tur1IndexHtml = await cikFetchText(tur1Index, { allow404: true });
+  const roundless = tur1IndexHtml === null;
+  if (roundless) {
+    console.log(
+      `[ingest_cycle] ${cycleSlug} :: no tur1/ — single-round (roundless) cycle`,
+    );
+  }
+
   console.log(
     `[ingest_cycle] ${cycleSlug} → ${rawFolder} :: discovering OIK catalogue`,
   );
-  const { oikCodes, rayonStems } = await discoverOikCodes(cycleSlug);
+  const { oikCodes, rayonStems } = await discoverOikCodes(cycleSlug, roundless);
   console.log(
     `[ingest_cycle] ${cycleSlug} :: discovered ${oikCodes.length} OIK code(s)` +
       (rayonStems.length > 0 ? ` + ${rayonStems.length} район subpage(s)` : ""),
@@ -309,6 +334,7 @@ export const ingestCycle = async (opts: {
     cycleSlug,
     rawFolder,
     oikCodes: [...oikCodes, ...rayonStems],
+    roundless,
     delayMs,
   });
   console.log(

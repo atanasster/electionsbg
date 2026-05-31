@@ -27,6 +27,7 @@ import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { LocalCountryDashboardCards } from "./dashboard/local/LocalCountryDashboardCards";
 import { LocalSofiaRayonMapTile } from "./dashboard/local/LocalSofiaRayonMapTile";
+import { LocalSectionsTile } from "./dashboard/local/LocalSectionsTile";
 import {
   MayorVsCouncilTile,
   TopCouncillorsTile,
@@ -61,9 +62,11 @@ const StatsGrid: FC<{ bundle: LocalMunicipalityBundle }> = ({ bundle }) => {
   const partiesWithSeats = bundle.council.filter(
     (p) => p.mandatesWon > 0,
   ).length;
-  // CIK's rezultati HTML page doesn't carry voter-registration / turnout
-  // totals — those live on a separate "Активност" page that isn't ingested
-  // yet. Hide the tile rather than show "—" until that ingest lands.
+  // Turnout comes from the council-ballot protocol totals, populated for
+  // cycles whose section CSV bundle was ingested (2015, 2019). The HTML-only
+  // rezultati page carries no registration totals, so cycles without the CSV
+  // (2011, 2023) leave numRegisteredVoters at 0 — hide the tile then rather
+  // than show "—".
   const turnoutPct =
     bundle.protocol.numRegisteredVoters > 0
       ? `${((bundle.protocol.totalActualVoters / bundle.protocol.numRegisteredVoters) * 100).toFixed(1)}%`
@@ -520,7 +523,9 @@ const ChmiKindLabel: FC<{ kind: ChmiHistoryEvent["kind"] }> = ({ kind }) => {
       ? "local_election_chmi_kind_kmetstvo"
       : kind === "rayon_mayor"
         ? "local_election_chmi_kind_rayon"
-        : "local_election_chmi_kind_obshtina";
+        : kind === "council"
+          ? "local_election_chmi_kind_council"
+          : "local_election_chmi_kind_obshtina";
   return <>{t(key)}</>;
 };
 
@@ -565,19 +570,30 @@ const ChmiHistorySection: FC<{ events: ChmiHistoryEvent[] }> = ({ events }) => {
                     <ChmiKindLabel kind={e.kind} />
                   </td>
                   <td className="py-2 px-3">
-                    {e.kmetstvoName ? (
-                      <div className="text-xs text-muted-foreground">
-                        {e.kmetstvoName}
-                      </div>
-                    ) : null}
-                    <div className="flex items-center gap-2">
-                      <MpAvatar
-                        name={e.candidateName}
-                        mpId={e.mpId}
-                        showPartyRing={false}
-                      />
-                      <span className="font-medium">{e.candidateName}</span>
-                    </div>
+                    {e.kind === "council" ? (
+                      <span className="font-medium">
+                        {t("local_election_chmi_council_seats", {
+                          won: e.councilSeatsWon ?? 0,
+                          total: e.councilTotalSeats ?? 0,
+                        })}
+                      </span>
+                    ) : (
+                      <>
+                        {e.kmetstvoName ? (
+                          <div className="text-xs text-muted-foreground">
+                            {e.kmetstvoName}
+                          </div>
+                        ) : null}
+                        <div className="flex items-center gap-2">
+                          <MpAvatar
+                            name={e.candidateName}
+                            mpId={e.mpId}
+                            showPartyRing={false}
+                          />
+                          <span className="font-medium">{e.candidateName}</span>
+                        </div>
+                      </>
+                    )}
                   </td>
                   <td className="py-2 px-3 text-muted-foreground">
                     <span className="flex items-center gap-1.5 min-w-0">
@@ -743,6 +759,12 @@ const MunicipalityResults: FC<{
         cycle={cycle}
       />
       <DistrictsSection cycle={cycle} districts={municipality.districts} />
+
+      {/* Per-polling-station council results + turnout — self-hides for cycles
+          / municípios without an ingested section shard (e.g. Sofia район
+          shards, whose sections live under the SOF bundle). */}
+      <LocalSectionsTile cycle={cycle} obshtinaCode={obshtinaCode} />
+
       <ChmiHistorySection events={chmiEvents} />
     </main>
   );

@@ -14,7 +14,12 @@ import { parseMachinesFlashMemory } from "./machines_memory";
 import { backfillSectionCoords } from "./parsers/backfill_section_coords";
 import { generateVoteFlows } from "./voteFlows";
 import { parseLocalElections } from "./parsers_local/parse_local_elections";
-import { ingestCycles } from "./parsers_local/ingest_cycle";
+import {
+  ingestCycles,
+  cycleSlugToRawFolder,
+} from "./parsers_local/ingest_cycle";
+import { ingestLegacyChmiCycle } from "./parsers_local/ingest_legacy_chmi";
+import { downloadCsvBundle } from "./parsers_local/download_csv_bundle";
 import { shutdownCikFetch } from "./parsers_local/cik_fetch";
 import { resolveCanonicalsForAllLocalCycles } from "./parsers_local/resolve_canonicals";
 import { buildLocalRollups } from "./parsers_local/build_region_json";
@@ -150,6 +155,15 @@ const app = command({
       type: optional(string),
       long: "local-ingest",
     }),
+    // `--local-csv <cycleSlug>` downloads the section-level CSV bundle
+    // (votes.txt / sections.txt / protocols.txt) via the CF-clearing headed
+    // Playwright session, extracts it (CP866) under raw_data/<folder>/ТУР1/,
+    // then re-parses the cycle so council vote share + per-station section
+    // shards get backfilled. Flag-gated operator step (pops a browser window).
+    localCsv: option({
+      type: optional(string),
+      long: "local-csv",
+    }),
     // Re-resolve `primaryCanonicalId` on every already-ingested local-cycle
     // bundle against the current canonical_parties.json, without re-fetching
     // CIK HTML. Fast, idempotent — use after editing manualCanonicals,
@@ -188,6 +202,7 @@ const app = command({
     local,
     localDate,
     localIngest,
+    localCsv,
     resolveLocalCanonicals,
     localRollups,
   }) => {
@@ -263,13 +278,40 @@ const app = command({
     }
     if (localIngest) {
       try {
-        await ingestCycles({
-          cycleSlugs: [localIngest],
-          publicFolder,
-          stringify,
-        });
+        // The legacy umbrellas (chmi2012-2015 … chmi2019-2023) publish one
+        // numbered page per kmetstvo/mayor race rather than per OIK município,
+        // so they take a dedicated ingest path.
+        if (/^chmi20(12-2015|16-2018|19-2023)\//.test(localIngest)) {
+          await ingestLegacyChmiCycle({
+            cycleSlug: localIngest,
+            publicFolder,
+            stringify,
+          });
+        } else {
+          await ingestCycles({
+            cycleSlugs: [localIngest],
+            publicFolder,
+            stringify,
+          });
+        }
       } finally {
         // Keep the headless Chromium from blocking process exit.
+        await shutdownCikFetch();
+      }
+    }
+    if (localCsv) {
+      try {
+        const result = await downloadCsvBundle(localCsv);
+        if (result) {
+          // Re-parse the cycle so the freshly-extracted section CSV backfills
+          // council vote share + emits per-station section shards.
+          await parseLocalElections({
+            date: cycleSlugToRawFolder(localCsv),
+            publicFolder,
+            stringify,
+          });
+        }
+      } finally {
         await shutdownCikFetch();
       }
     }

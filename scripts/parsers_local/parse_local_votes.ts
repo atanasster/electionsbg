@@ -1,14 +1,26 @@
 // Parse votes.txt for a local election race-type folder.
 //
-// Per CIK's mi2019/mi2023 readme, each row is:
-//   section_code ; admin_unit_id ; <triplets of: party_num ; valid_votes ; invalid_votes>
+// Two on-disk shapes, auto-detected per row:
 //
-// The triplets repeat for every party that ran in the OIK; missing parties
-// have no entry (not a zero). We emit one record per (section, party) so
-// downstream rollups can sum cleanly.
+//   A) minr2015 / mi2019 (paper only):
+//        section_code ; admin_unit_id ; <triplets: party_num ; valid ; invalid>
+//
+//   B) mi2023 (machine voting added):
+//        form_id ; section_code ; admin_unit_id ;
+//          <quadruplets: party_num ; total_valid ; paper ; machine>
+//      (total_valid = paper + machine — that's the action-vote total we want.)
+//
+// We tell them apart by whether the SECOND field is a full 9-digit section
+// code: in shape A field[1] is the short admin_unit_id (3–4 digits for the
+// council ballot), in shape B the leading form_id pushes the 9-digit section
+// into field[1]. In both shapes the votes value is the field right after the
+// party number.
+//
+// One record is emitted per (section, party) so downstream rollups sum cleanly.
 
 import fs from "fs";
 import { parse } from "csv-parse";
+import { resolveRaceFile } from "./csv_files";
 
 export type LocalVoteRow = {
   sectionCode: string;
@@ -18,9 +30,12 @@ export type LocalVoteRow = {
   invalidVotes: number;
 };
 
+const isFullSection = (s: string | undefined): boolean =>
+  /^\d{9}$/.test((s ?? "").trim());
+
 export const parseLocalVotes = (inFolder: string): Promise<LocalVoteRow[]> => {
-  const file = `${inFolder}/votes.txt`;
-  if (!fs.existsSync(file)) return Promise.resolve([]);
+  const file = resolveRaceFile(inFolder, "votes");
+  if (!file) return Promise.resolve([]);
   const rows: string[][] = [];
   return new Promise((resolve, reject) =>
     fs
@@ -32,34 +47,37 @@ export const parseLocalVotes = (inFolder: string): Promise<LocalVoteRow[]> => {
       .on("end", () => {
         const out: LocalVoteRow[] = [];
         for (const row of rows) {
-          if (!row[0]) continue;
-          const sectionCode = row[0].trim();
-          const oikDigits = (row[1] ?? "").replace(/\D+/g, "");
+          // Shape B carries a leading form_id, so the 9-digit section lands in
+          // field[1]; shape A starts with the section directly.
+          const formIdPrefixed = isFullSection(row[1]);
+          const sectionCode = (formIdPrefixed ? row[1] : row[0])?.trim() ?? "";
           if (!sectionCode) continue;
+          const oikDigits = ((formIdPrefixed ? row[2] : row[1]) ?? "").replace(
+            /\D+/g,
+            "",
+          );
           const oikCode = oikDigits
             ? oikDigits.slice(0, 4).padStart(4, "0")
             : "";
-          // Walk the triplets starting at column 2.
-          let j = 2;
-          while (j + 2 < row.length) {
+          const start = formIdPrefixed ? 3 : 2;
+          const step = formIdPrefixed ? 4 : 3; // quadruplets vs triplets
+          for (let j = start; j + step - 1 < row.length; j += step) {
             const partyRaw = row[j];
-            if (!partyRaw || partyRaw.trim() === "") {
-              j += 3;
-              continue;
-            }
+            if (!partyRaw || partyRaw.trim() === "") continue;
             const partyNum = parseInt(partyRaw, 10);
+            if (Number.isNaN(partyNum)) continue;
+            // Field right after the party number is the (total) valid votes in
+            // both shapes; the trailing field(s) are paper/machine or invalid.
             const valid = parseInt(row[j + 1] ?? "0", 10) || 0;
-            const invalid = parseInt(row[j + 2] ?? "0", 10) || 0;
-            if (!Number.isNaN(partyNum)) {
-              out.push({
-                sectionCode,
-                oikCode,
-                localPartyNum: partyNum,
-                validVotes: valid,
-                invalidVotes: invalid,
-              });
-            }
-            j += 3;
+            const invalid =
+              step === 3 ? parseInt(row[j + 2] ?? "0", 10) || 0 : 0;
+            out.push({
+              sectionCode,
+              oikCode,
+              localPartyNum: partyNum,
+              validVotes: valid,
+              invalidVotes: invalid,
+            });
           }
         }
         resolve(out);

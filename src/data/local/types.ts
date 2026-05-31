@@ -109,6 +109,37 @@ export type LocalElectionIndex = {
   }[];
 };
 
+// === Per-polling-station (section) council results =======================
+// Mirror of LocalSectionResult / LocalSectionShard in
+// scripts/parsers_local/types.ts. Loaded on demand from
+// data/<cycle>/sections/<obshtinaCode>.json — present only for cycles whose
+// section CSV bundle was ingested (2015, 2019, 2023).
+
+export type LocalSectionResult = {
+  sectionCode: string;
+  settlement: string;
+  ekatte: string;
+  isMobile: boolean;
+  numRegisteredVoters: number;
+  totalActualVoters: number;
+  numValidVotes: number;
+  partyVotes: { localPartyNum: number; votes: number }[];
+};
+
+export type LocalSectionShard = {
+  cycle: string;
+  obshtinaCode: string;
+  oikCode: string;
+  obshtinaName: string;
+  parties: {
+    localPartyNum: number;
+    localPartyName: string;
+    primaryCanonicalId: string | null;
+    color: string;
+  }[];
+  sections: LocalSectionResult[];
+};
+
 // === Officials-vs-CIK reconciliation =====================================
 
 export type MayorDiffStatus =

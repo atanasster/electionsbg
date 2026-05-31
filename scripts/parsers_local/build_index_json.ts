@@ -25,7 +25,7 @@ const independentDisplayName = (
   };
 };
 
-const displayMeta = (
+export const displayMeta = (
   canonicalId: string | null,
   canonical: CanonicalPartiesIndex | undefined,
 ): { displayName: string; color: string } => {

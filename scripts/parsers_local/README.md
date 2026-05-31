@@ -23,13 +23,48 @@ Outputs per-município JSON bundles + a cycle catalogue under
 `data/<cycle>/`, mirroring the per-cycle layout of the parliamentary
 parser tree.
 
-> Step 1 of the local-elections integration is the parser + a minimal
-> município tile in the SPA. The Cloudflare-bypass watcher that
-> ingests new bundles automatically is step 2 (tracked separately).
-> Until then, **the data acquisition below is manual** — drop the files
-> into `raw_data/<cycle>/` once and run `npm run data -- --local --local-date <cycle>`.
+## Section-level CSV ingest (votes / turnout per polling station)
 
-## Acquisition workflow
+The per-município HTML pages carry the council **mandates** but not always
+the council **votes** — 2015's summary page is mandates-only, so its
+`council[].totalVotes` shipped all-zero. The per-section vote/turnout data
+lives only in CIK's CSV bundle. `--local-csv <slug>` automates the whole
+acquisition:
+
+```bash
+npm run data -- --local-csv minr2015   # or mi2019
+```
+
+It downloads the bundle through the CF-clearing headed Playwright session
+(`cikDownloadFile`, see [`cik_fetch.ts`](./cik_fetch.ts)), extracts it with a
+dependency-free CP866-aware reader ([`extract_bundle.ts`](./extract_bundle.ts))
+under `raw_data/<folder>/ТУР1/`, then re-parses the cycle. The bundle URL is
+**not** a uniform `csv.zip` — see [`download_csv_bundle.ts`](./download_csv_bundle.ts)
+for the per-cycle map (`minr2015/tur1/mi2015.zip`, `mi2019/csv.zip`, …).
+
+On re-parse, [`augment_sections.ts`](./augment_sections.ts) + the HTML bundles
+combine additively (the HTML still drives obshtina resolution + the elected
+list): council `totalVotes`/`pctOfValid` get backfilled (and vote-winning
+seatless parties appended), the council-ballot `protocol` gets real
+registered/actual/valid turnout, and per-município section shards are written
+to `data/<cycle>/sections/<obshtinaCode>.json` (consumed by `LocalSectionsTile`).
+
+**Cycle coverage:** 2011 + 2015 + 2019 + 2023 ingested. The `votes.txt` shape
+varies by era: 2015/2019 are **triplets** (`party ; valid ; invalid`); 2023
+added machine voting → a leading `№ формуляр` field + **quadruplets**
+(`party ; total ; paper ; machine`); `parseLocalVotes` auto-detects both.
+**2011** is a separate schema entirely (CP1251 content, `общински съветници`
+folder, `coalitions` file, **pairs** `party ; votes`, no admin/serials columns)
+handled by a dedicated reader, `augment_sections_2011.ts` — the orchestrator
+falls back to it when the modern ОС folder is absent. (2011's HTML council
+table was incomplete — it omitted also-ran parties — so the section CSV both
+completes the vote share and adds turnout + per-station data.)
+
+## Manual acquisition (fallback)
+
+> The Cloudflare-bypass automation above (`--local-csv`) is the normal path.
+> If it fails (e.g. CIK moves a bundle), drop the files into
+> `raw_data/<cycle>/` by hand and run `npm run data -- --local --local-date <cycle>`.
 
 ### 1. Download `csv.zip` for the cycle
 

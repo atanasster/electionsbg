@@ -152,7 +152,7 @@ const classifyTable = ($: CheerioAPI, $table: Cheerio<Element>): TableKind => {
 //   - 2015: 4 cols, "Разпределение" instead of "%" but same shape
 // Also tolerant when the first body row uses <th> cells (pre-2019 layouts
 // don't always carry a <thead>).
-const parseMayorTable = (
+export const parseMayorTable = (
   $: CheerioAPI,
   $table: Cheerio<Element>,
   round: LocalRound,
@@ -291,7 +291,7 @@ const detectCouncilCols = (
 // either embed the list inside the party cell (2011) or omit it entirely
 // (2015) and we leave `candidates: []` — the downstream tile reads
 // `mandatesWon` from the party row directly.
-const parseCouncilTable = (
+export const parseCouncilTable = (
   $: CheerioAPI,
   $table: Cheerio<Element>,
   byNickNameLower: Map<string, string>,

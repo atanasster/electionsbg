@@ -20,9 +20,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { CanonicalPartiesIndex } from "@/data/parties/canonicalPartyTypes";
-import { parseLocalSections } from "./parse_local_sections";
-import { parseCikParties, parseLocalParties } from "./parse_local_parties";
-import { parseLocalProtocols } from "./parse_local_protocols";
+import { parseLocalParties } from "./parse_local_parties";
 import { parseRezultatiHtml } from "./parse_rezultati_html";
 import type { ParsedRezultatiPage } from "./parse_rezultati_html";
 import {
@@ -30,6 +28,12 @@ import {
   ObshtinaResolution,
 } from "./build_municipality_json";
 import { buildIndex } from "./build_index_json";
+import { aggregateSections, SectionAggregation } from "./augment_sections";
+import { aggregate2011Sections } from "./augment_sections_2011";
+import {
+  applyCouncilVotes,
+  buildSectionShard,
+} from "./apply_section_augmentation";
 import { buildRegionRollups } from "./build_region_json";
 import { reconcileOfficials } from "./reconcile_officials";
 import { buildChmiHistory } from "./build_chmi_history";
@@ -47,39 +51,6 @@ type MunicipalityRef = {
   oblast: string;
 };
 const MUNICIPALITIES = municipalitiesData as MunicipalityRef[];
-
-// CSV-mode resolution: OIK ekatte set → obshtinaCode via municipalities.json.
-const resolveByEkatte = (
-  oikCode: string,
-  oikName: string,
-  ekattes: Set<string>,
-): ObshtinaResolution | null => {
-  const obshtinaCounts = new Map<string, number>();
-  let sampleOblast = "";
-  let sampleName = "";
-  for (const ekatte of ekattes) {
-    if (!ekatte) continue;
-    const padded = ekatte.padStart(5, "0");
-    const match = MUNICIPALITIES.find((m) => m.ekatte === padded);
-    if (!match) continue;
-    obshtinaCounts.set(
-      match.obshtina,
-      (obshtinaCounts.get(match.obshtina) ?? 0) + 1,
-    );
-    if (!sampleOblast) sampleOblast = match.oblast;
-    if (!sampleName) sampleName = match.name;
-  }
-  if (obshtinaCounts.size === 0) return null;
-  const sorted = Array.from(obshtinaCounts.entries()).sort(
-    (a, b) => b[1] - a[1],
-  );
-  return {
-    oikCode,
-    obshtinaCode: sorted[0][0],
-    obshtinaName: oikName.replace(/^\d+\.\s*/, "").trim() || sampleName,
-    oblastName: sampleOblast,
-  };
-};
 
 // Normalise for the name → obshtinaCode lookup (case-insensitive, strip
 // "(столица)" etc.).
@@ -262,47 +233,48 @@ export const parseLocalElection = async (opts: {
 
   const canonical = loadCanonicalParties(publicFolder);
 
-  // Detect CSV mode by presence of ТУР1/ОС folder.
+  // Município structure + obshtina resolution always come from the mirrored
+  // per-município HTML pages (the proven path: handles Sofia/район aliases +
+  // fan-out, gives mayor + council mandates + elected lists). Section-level
+  // votes/turnout from the CSV bundle are layered on additively below via
+  // aggregateSections — they NEVER drive resolution. (The old "CSV mode"
+  // ekatte-resolution fork mis-resolved ~25 municípios vs the HTML path and
+  // never actually ran end-to-end — the parsers looked for un-dated filenames
+  // the real bundles don't use — so it's been removed.)
   const tur1OS = path.join(inFolder, "ТУР1", "ОС");
-  const csvMode = fs.existsSync(tur1OS);
-
-  let oikToEkattes = new Map<string, Set<string>>();
-  const oikToName = new Map<string, string>();
+  const hasCsv = fs.existsSync(tur1OS);
   let unmatchedByRawName: Record<string, string[]> = {};
-  let councilProtocols: Awaited<ReturnType<typeof parseLocalProtocols>> = [];
-
-  if (csvMode) {
-    console.log(`[parsers_local] ${cycle}: CSV mode (sections.txt present)`);
-    const sections = await parseLocalSections(tur1OS);
-    councilProtocols = await parseLocalProtocols(tur1OS);
+  if (hasCsv) {
+    // The CSV lists every party that ran (not just the HTML's mandate-winners),
+    // so it's the richer source for the coalition-unmatched curation report.
     const parsed = await parseLocalParties(tur1OS, canonical);
     unmatchedByRawName = parsed.unmatchedByRawName;
-    await parseCikParties(tur1OS); // sanity read, ignored
-
-    for (const s of sections) {
-      if (!s.oikCode) continue;
-      if (!oikToEkattes.has(s.oikCode)) oikToEkattes.set(s.oikCode, new Set());
-      oikToEkattes.get(s.oikCode)!.add(s.ekatte);
-    }
-    for (const p of parsed.parties) {
-      if (!oikToName.has(p.oikCode) && p.oikName) {
-        oikToName.set(p.oikCode, p.oikName);
-      }
-    }
-  } else {
-    console.log(
-      `[parsers_local] ${cycle}: HTML-only mode (no sections.txt — using rezultati pages)`,
-    );
-    const htmlOiks = oikCodesFromHtml(inFolder);
-    if (htmlOiks.length === 0) {
-      throw new Error(
-        `${cycle}: neither ТУР1/ОС/sections.txt nor html/tur1/*.html present in ${inFolder}`,
-      );
-    }
-    // Seed the iterate-list with HTML-discovered OIKs and let the per-OIK
-    // resolution happen against the município-name from the parsed page.
-    oikToEkattes = new Map(htmlOiks.map((o) => [o, new Set<string>()]));
   }
+
+  const htmlOiks = oikCodesFromHtml(inFolder);
+  if (htmlOiks.length === 0) {
+    // Legacy chmi folders (chmi2012-2015 … chmi2019-2023) mirror numbered
+    // pages (1.html, 2.html, …) that oikCodesFromHtml's 4-digit filter
+    // ignores; their bundles are written directly by ingest_legacy_chmi, so
+    // the modern parser has nothing to do here. Skip rather than throw so
+    // `--local --all` glides over them.
+    const tur1Dir = path.join(inFolder, "html", "tur1");
+    const hasLegacyPages =
+      fs.existsSync(tur1Dir) &&
+      fs.readdirSync(tur1Dir).some((f) => /^\d+\.html$/.test(f));
+    console.warn(
+      `[parsers_local] ${cycle}: no OIK-município HTML pages — ${
+        hasLegacyPages
+          ? "legacy chmi folder, skipping modern parse"
+          : "skipping"
+      }.`,
+    );
+    return;
+  }
+  console.log(
+    `[parsers_local] ${cycle}: ${htmlOiks.length} OIK HTML page(s)` +
+      (hasCsv ? " + section CSV bundle" : " (no section CSV)"),
+  );
 
   const htmlT1 = path.join(inFolder, "html", "tur1");
   const htmlT2 = path.join(inFolder, "html", "tur2");
@@ -311,7 +283,7 @@ export const parseLocalElection = async (opts: {
   const unresolvedOiks: string[] = [];
   const missingHtml: string[] = [];
 
-  for (const [oikCode, ekattes] of oikToEkattes.entries()) {
+  for (const oikCode of htmlOiks) {
     const t1Html = readHtmlIfExists(path.join(htmlT1, `${oikCode}.html`));
     const t2Html = readHtmlIfExists(path.join(htmlT2, `${oikCode}.html`));
     if (!t1Html) {
@@ -326,10 +298,7 @@ export const parseLocalElection = async (opts: {
     const tur2 = t2Html
       ? parseRezultatiHtml(t2Html, { oikCode, round: 2, canonical })
       : null;
-    const resolution = csvMode
-      ? (resolveByEkatte(oikCode, oikToName.get(oikCode) ?? "", ekattes) ??
-        resolveByName(oikCode, tur1))
-      : resolveByName(oikCode, tur1);
+    const resolution = resolveByName(oikCode, tur1);
     if (!resolution) {
       unresolvedOiks.push(`${oikCode}(${tur1.municipalityName || "?"})`);
       continue;
@@ -339,7 +308,9 @@ export const parseLocalElection = async (opts: {
       resolution,
       tur1,
       tur2,
-      councilProtocols,
+      // Council-ballot turnout is set by the section augmentation below; the
+      // HTML pages carry no protocol totals, so seed empty here.
+      councilProtocols: [],
     });
     if (!bundle) continue;
     const existing = bundles.find(
@@ -351,6 +322,31 @@ export const parseLocalElection = async (opts: {
     } else {
       bundles.push(bundle);
     }
+  }
+
+  // Section-level CSV augmentation. When the extracted bundle's ОС (council)
+  // folder is present, sum its per-section votes per OIK to (a) backfill the
+  // council `totalVotes`/`pctOfValid` that the HTML summary page omits — the
+  // root cause of 2015's all-zero council vote share — and complete the
+  // council with vote-winning-but-seatless parties, and (b) replace the
+  // council-ballot turnout with the real protocol totals. Runs BEFORE the
+  // Sofia fan-out so the район shards inherit the augmented city-wide council
+  // by reference. The aggregation is reused below to emit section shards.
+  let sectionAgg: SectionAggregation | null = null;
+  sectionAgg = await aggregateSections({ rawFolder: inFolder, canonical });
+  // 2011's bundle ("общински съветници", CP1251, pair-encoded votes) needs a
+  // dedicated reader — falls through here when the modern ОС folder is absent.
+  if (!sectionAgg) {
+    sectionAgg = aggregate2011Sections({ rawFolder: inFolder, canonical });
+  }
+  if (sectionAgg) {
+    let augmented = 0;
+    for (const b of bundles) {
+      if (applyCouncilVotes(b, sectionAgg)) augmented++;
+    }
+    console.log(
+      `[parsers_local] ${cycle}: backfilled council votes + turnout for ${augmented} município(s) from section CSV`,
+    );
   }
 
   // Pre-2019 cycles (2015) split each Sofia/Plovdiv/Varna район mayor
@@ -446,6 +442,33 @@ export const parseLocalElection = async (opts: {
       `${b.obshtinaCode}.json`,
     );
     fs.writeFileSync(file, stringify(b), "utf-8");
+  }
+
+  // Per-município section shards (council per-polling-station results +
+  // turnout), emitted only when the section CSV covered the cycle.
+  if (sectionAgg) {
+    const sectionsDir = path.join(outFolder, "sections");
+    // Clear stale shards first — obshtina codes can shift between runs (e.g.
+    // an earlier район-fan-out bug), and a left-behind shard would surface
+    // outdated per-station data on its page.
+    fs.rmSync(sectionsDir, { recursive: true, force: true });
+    fs.mkdirSync(sectionsDir, { recursive: true });
+    let shardCount = 0;
+    let sectionTotal = 0;
+    for (const b of bundles) {
+      const shard = buildSectionShard(b, sectionAgg, canonical);
+      if (!shard) continue;
+      fs.writeFileSync(
+        path.join(sectionsDir, `${b.obshtinaCode}.json`),
+        stringify(shard),
+        "utf-8",
+      );
+      shardCount++;
+      sectionTotal += shard.sections.length;
+    }
+    console.log(
+      `[parsers_local] ${cycle}: wrote ${shardCount} section shard(s) covering ${sectionTotal} polling section(s)`,
+    );
   }
 
   const dates = dateFromCycle(cycle);

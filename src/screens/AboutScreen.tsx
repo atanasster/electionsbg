@@ -70,6 +70,14 @@ const localElectionResults: { date: string; href: string }[] = [
   { date: "29.10.2023", href: "https://results.cik.bg/mi2023/tur1/index.html" },
   { date: "27.10.2019", href: "https://results.cik.bg/mi2019/tur1/index.html" },
   {
+    date: "25.10.2015",
+    href: "https://results.cik.bg/minr2015/tur1/mestni/index.html",
+  },
+  {
+    date: "23.10.2011",
+    href: "https://results.cik.bg/mipvr2011/tur1/mestni/index.html",
+  },
+  {
     date: "2024–2027",
     href: "https://results.cik.bg/chmi2024-2026/",
   },
@@ -425,6 +433,10 @@ export const AboutScreen = () => {
                   label={t("budget_law_dv_source")}
                 />
                 <SourceItem
+                  href="https://dv.parliament.bg/"
+                  label={t("budget_interim_law_source")}
+                />
+                <SourceItem
                   href="https://www.minfin.bg/"
                   label={t("budget_ministry_execution_source")}
                 />
@@ -459,6 +471,10 @@ export const AboutScreen = () => {
                 <SourceItem
                   href="https://dv.parliament.bg/"
                   label={t("budget_investment_program_source")}
+                />
+                <SourceItem
+                  href="https://data.egov.bg/"
+                  label={t("budget_municipal_execution_source")}
                 />
                 <SourceItem
                   href="https://www.nssi.bg/budjet-i-finansi/otkrito-upravlenie/otcheti-i-balansi/"

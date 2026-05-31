@@ -9,6 +9,7 @@
 import fs from "fs";
 import { parse } from "csv-parse";
 import { LocalSection } from "./types";
+import { resolveRaceFile } from "./csv_files";
 
 const oikFromAdminUnitId = (raw: string): string => {
   // OIK codes in mi2023 are 4 digits ("0103"). Older cycles may use shorter
@@ -21,8 +22,8 @@ const oikFromAdminUnitId = (raw: string): string => {
 export const parseLocalSections = (
   inFolder: string,
 ): Promise<LocalSection[]> => {
-  const file = `${inFolder}/sections.txt`;
-  if (!fs.existsSync(file)) return Promise.resolve([]);
+  const file = resolveRaceFile(inFolder, "sections");
+  if (!file) return Promise.resolve([]);
   const result: string[][] = [];
   const sections: LocalSection[] = [];
   return new Promise((resolve, reject) =>

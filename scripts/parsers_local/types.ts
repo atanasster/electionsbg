@@ -165,6 +165,38 @@ export type LocalMunicipalityBundle = {
   districts: LocalDistrictMayorResult[]; // empty for non-Sofia/Plovdiv/Varna
 };
 
+// Per-section council result, written into the section shard
+// data/{cycle}/sections/{obshtinaCode}.json. Built by aggregating the ОС
+// (council) votes.txt + protocols.txt of the CSV bundle.
+export type LocalSectionResult = {
+  sectionCode: string; // 9 digits
+  settlement: string;
+  ekatte: string;
+  isMobile: boolean;
+  numRegisteredVoters: number;
+  totalActualVoters: number;
+  numValidVotes: number; // Σ partyVotes (= действителни гласове)
+  // Council votes at this section, by ballot number, descending.
+  partyVotes: { localPartyNum: number; votes: number }[];
+};
+
+// The per-município section shard written to
+// data/{cycle}/sections/{obshtinaCode}.json. `parties` is the legend so the
+// SPA can render section tables without re-loading the município bundle.
+export type LocalSectionShard = {
+  cycle: string;
+  obshtinaCode: string;
+  oikCode: string;
+  obshtinaName: string;
+  parties: {
+    localPartyNum: number;
+    localPartyName: string;
+    primaryCanonicalId: string | null;
+    color: string;
+  }[];
+  sections: LocalSectionResult[];
+};
+
 // The cycle-level catalogue written to data/{cycle}/index.json
 export type LocalElectionIndex = {
   cycle: string;
