@@ -23,6 +23,7 @@ import fs from "fs";
 import path from "path";
 import { INDEPENDENT_CANONICAL_ID } from "./local_coalitions";
 import type {
+  LocalDistrictMayorResult,
   LocalElectionIndex,
   LocalMayorResult,
   LocalMunicipalityBundle,
@@ -51,6 +52,13 @@ const mayorBucketId = (elected: LocalMayorResult): string => {
   if (elected.primaryCanonicalId) return elected.primaryCanonicalId;
   return `local:${elected.localPartyName.toLocaleLowerCase("bg")}`;
 };
+
+// CIK marks both runoff finalists elected in round 1, so prefer the
+// runoff-resolved winner. Mirrors the SPA's resolveDistrictMayor.
+const resolveDistrictMayor = (
+  d: LocalDistrictMayorResult,
+): LocalMayorResult | undefined =>
+  d.elected ?? d.candidates.find((c) => c.isElected) ?? d.candidates[0];
 
 const isSofiaRayon = (code: string): boolean => /^S2\d{3}$/.test(code);
 
@@ -162,6 +170,17 @@ export type RegionsSummaryRow = {
     displayName: string;
     color: string;
     seats: number;
+  }[];
+  // Sofia only: the 24 районни кметове (directly-elected district mayors)
+  // tallied by party. The national mayor map surfaces this on hover instead of
+  // the single city mayoralty in `mayorsWon` (which stays on the Sofia-city
+  // skyline shortcut). Absent for every other oblast and for cycles with no
+  // Sofia district data.
+  districtMayors?: {
+    canonicalId: string;
+    displayName: string;
+    color: string;
+    count: number;
   }[];
 };
 
@@ -505,6 +524,43 @@ export const buildRegionRollups = (opts: {
     );
     const turnoutPct = reg > 0 ? (act / reg) * 100 : null;
 
+    // Sofia: tally the directly-elected районни кметове across the SOF bundle's
+    // 24 districts so the national mayor map can break Sofia down by district
+    // mayoralty rather than showing the lone city mayor.
+    let districtMayors: RegionsSummaryRow["districtMayors"];
+    if (oblast === "SOF") {
+      const tally = new Map<
+        string,
+        { count: number; localPartyName: string }
+      >();
+      for (const b of group) {
+        for (const d of b.districts ?? []) {
+          const winner = resolveDistrictMayor(d);
+          if (!winner) continue;
+          const id = mayorBucketId(winner);
+          const cur = tally.get(id) ?? {
+            count: 0,
+            localPartyName: winner.localPartyName,
+          };
+          cur.count += 1;
+          tally.set(id, cur);
+        }
+      }
+      if (tally.size > 0) {
+        districtMayors = sorted(
+          Array.from(tally.entries()).map(([id, v]) => {
+            const meta = metaFor(id, v.localPartyName);
+            return {
+              canonicalId: id,
+              displayName: meta.displayName,
+              color: meta.color,
+              count: v.count,
+            };
+          }),
+        );
+      }
+    }
+
     const rollup: RegionRollup = {
       cycle,
       oblast,
@@ -538,6 +594,7 @@ export const buildRegionRollups = (opts: {
       topCouncil: councilRollup[0] ?? null,
       mayorsWon: mayorsRollup,
       councilSeats: councilRollup,
+      districtMayors,
     });
   }
 

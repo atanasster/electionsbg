@@ -283,6 +283,11 @@ export type LocalRegionsSummaryRow = {
   // (pre-breakdown) still type-check; the tooltip falls back to topMayor.
   mayorsWon?: LocalPartyTally[];
   councilSeats?: LocalPartySeats[];
+  // Sofia only: the directly-elected районни кметове (24 district mayors)
+  // tallied by party. The national mayor map shows this on hover instead of
+  // the single city mayoralty; the Sofia-city skyline shortcut keeps the city
+  // aggregate. Absent for every other oblast.
+  districtMayors?: LocalPartyTally[];
 };
 
 export type LocalRegionsSummary = {

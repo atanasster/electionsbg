@@ -96,6 +96,26 @@ export const LocalRegionsControlMapTile: FC<{
     return { rows, total, header };
   };
 
+  // Sofia's mayor map breaks the city down by its 24 directly-elected районни
+  // кметове instead of the single city mayoralty (which lives on the skyline
+  // shortcut). Precomputed into the SOF summary row by build_region_json.
+  const districtMayorBreakdown = (
+    row: LocalRegionsSummaryRow,
+  ): { rows: LocalBreakdownRow[]; total: number; header: string } => {
+    const rows: LocalBreakdownRow[] = (row.districtMayors ?? []).map((p) => ({
+      id: p.canonicalId,
+      name: p.displayName,
+      color: p.color,
+      value: p.count,
+    }));
+    const total = rows.reduce((a, r) => a + r.value, 0);
+    return {
+      rows,
+      total,
+      header: t("local_region_district_mayors_count", { count: total }),
+    };
+  };
+
   return (
     <StatCard
       label={
@@ -125,11 +145,23 @@ export const LocalRegionsControlMapTile: FC<{
             }}
             tooltipOf={(p) => {
               const oblast = nuts3ToOblast(p.nuts3);
-              const { rows, total, header } = breakdownOf(byOblast.get(oblast));
+              const row = byOblast.get(oblast);
+              // Sofia + mayor map → district-mayor breakdown; everything else
+              // (incl. Sofia's council map) keeps the oblast aggregate.
+              const showDistricts =
+                isMayor &&
+                oblast === "SOF" &&
+                (row?.districtMayors?.length ?? 0) > 0;
+              const { rows, total, header } = showDistricts
+                ? districtMayorBreakdown(row!)
+                : breakdownOf(row);
+              const title = showDistricts
+                ? t("local_region_sofia_districts")
+                : regionName(oblast);
               return (
                 <div className="text-left">
                   <div className="text-sm font-semibold text-center pb-1">
-                    {regionName(oblast)}
+                    {title}
                   </div>
                   {rows.length ? (
                     <LocalPartyBreakdownXS
