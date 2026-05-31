@@ -243,6 +243,10 @@ export type LocalRegionMunicipalityRow = {
     displayName: string;
     color: string;
     localPartyName: string;
+    mpId?: number;
+    isIndependent: boolean;
+    // Vote share in the decisive round (independent-mayors list page).
+    pctOfValid: number;
   } | null;
   // Party leading this município's council (most seats; ties by votes). The
   // proportional party signal, distinct from the winner-take-all mayoralty.
@@ -268,6 +272,22 @@ export type LocalRegionRollup = {
   mayorsWon: LocalPartyTally[];
   councilSeats: LocalPartySeats[];
   municipalities: LocalRegionMunicipalityRow[];
+};
+
+// National per-município directory — every município row tagged with its
+// oblast, concatenated across all oblasti. Mirror of NationalMunicipalities in
+// scripts/parsers_local/build_region_json.ts. The single fetch behind the
+// standalone stat-tile pages on the country dashboard (all municipalities /
+// runoffs / split control / independent mayors).
+export type LocalNationalMunicipalityRow = LocalRegionMunicipalityRow & {
+  oblast: string;
+};
+
+export type LocalNationalMunicipalities = {
+  cycle: string;
+  round1Date: string;
+  round2Date: string | null;
+  municipalities: LocalNationalMunicipalityRow[];
 };
 
 export type LocalRegionsSummaryRow = {

@@ -103,22 +103,34 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
             <span className="text-muted-foreground">—</span>
           )}
         </StatCard>
-        <StatCard label={t("local_national_municipalities")}>
+        <StatCard
+          label={t("local_national_municipalities")}
+          to={`/local/${cycle}/municipalities`}
+        >
           <span className="text-base font-semibold tabular-nums">
             {municipalityCount}
           </span>
         </StatCard>
-        <StatCard label={t("local_national_runoffs")}>
+        <StatCard
+          label={t("local_national_runoffs")}
+          to={`/local/${cycle}/runoffs`}
+        >
           <span className="text-base font-semibold tabular-nums">
             {runoffCount}
           </span>
         </StatCard>
-        <StatCard label={t("local_national_split_control")}>
+        <StatCard
+          label={t("local_national_split_control")}
+          to={`/local/${cycle}/split-control`}
+        >
           <span className="text-base font-semibold tabular-nums">
             {leaders ? leaders.splitControl.count : "—"}
           </span>
         </StatCard>
-        <StatCard label={t("local_national_independents")}>
+        <StatCard
+          label={t("local_national_independents")}
+          to={`/local/${cycle}/independents`}
+        >
           <span className="text-base font-semibold tabular-nums">
             {leaders ? leaders.independentMayors.count : "—"}
           </span>
