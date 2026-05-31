@@ -87,6 +87,11 @@ const LocalRegionDashboardScreen = lazy(() =>
     default: m.LocalRegionDashboardScreen,
   })),
 );
+const LocalAllRegionsScreen = lazy(() =>
+  import("./screens/LocalAllRegionsScreen").then((m) => ({
+    default: m.LocalAllRegionsScreen,
+  })),
+);
 const LocalSettlementDashboardScreen = lazy(() =>
   import("./screens/LocalSettlementDashboardScreen").then((m) => ({
     default: m.LocalSettlementDashboardScreen,
@@ -1103,6 +1108,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <LocalElectionScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/regions"
+            element={
+              <LayoutScreen>
+                <LocalAllRegionsScreen />
               </LayoutScreen>
             }
           />

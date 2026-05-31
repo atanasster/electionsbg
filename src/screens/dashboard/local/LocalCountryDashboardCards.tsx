@@ -7,19 +7,16 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
-import { useLocalRegionsSummary } from "@/data/local/useLocalRegionsSummary";
 import { useLocalNationalLeaders } from "@/data/local/useLocalNationalLeaders";
-import { useRegions } from "@/data/regions/useRegions";
 import {
   PartyChip,
   RankedBar,
 } from "@/screens/components/local/LocalRankedBar";
-import { formatThousands } from "@/data/utils";
 import { StatCard } from "../StatCard";
 import { DashboardSection } from "../DashboardSection";
 import { LocalRegionsControlMapTile } from "./LocalRegionsControlMapTile";
+import { LocalRegionsTable } from "./LocalRegionsTable";
 import {
   LocalTopMayorsTile,
   LocalClosestRacesTile,
@@ -30,88 +27,9 @@ import { LocalExtraordinaryTile } from "./LocalExtraordinaryTile";
 
 const isSofiaRayon = (code: string): boolean => /^S2\d{3}$/.test(code);
 
-// National top-regions table: which party controls each oblast's mayoralties.
-const TopRegionsTable: FC<{ cycle: string }> = ({ cycle }) => {
-  const { t, i18n } = useTranslation();
-  const { data: summary } = useLocalRegionsSummary(cycle);
-  const { findRegion } = useRegions();
-  const rows = useMemo(
-    () =>
-      summary
-        ? [...summary.regions].sort(
-            (a, b) => b.municipalityCount - a.municipalityCount,
-          )
-        : [],
-    [summary],
-  );
-  if (rows.length === 0) return null;
-  const regionName = (code: string): string => {
-    const info = findRegion(code);
-    if (!info) return code === "SOF" ? t("local_region_sofia_city") : code;
-    return (
-      (i18n.language === "bg"
-        ? info.long_name || info.name
-        : info.long_name_en || info.name_en) || code
-    );
-  };
-  const regionPath = (code: string): string =>
-    code === "SOF" ? `/local/${cycle}/SOF` : `/local/${cycle}/region/${code}`;
-  return (
-    <div className="rounded-xl border bg-card overflow-x-auto">
-      <table className="w-full text-sm">
-        <thead className="text-xs uppercase tracking-wide text-muted-foreground border-b">
-          <tr>
-            <th className="py-2 px-3 text-left">
-              {t("local_region_th_region")}
-            </th>
-            <th className="py-2 px-3 text-left">
-              {t("local_region_th_control")}
-            </th>
-            <th className="hidden py-2 px-3 text-right w-20 sm:table-cell">
-              {t("local_election_stat_council_seats")}
-            </th>
-            <th className="py-2 px-3 text-right w-16">
-              {t("local_region_th_municipalities")}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r) => (
-            <tr key={r.oblast} className="border-b last:border-b-0">
-              <td className="py-2 px-3">
-                <Link
-                  to={regionPath(r.oblast)}
-                  className="font-medium hover:underline"
-                >
-                  {regionName(r.oblast)}
-                </Link>
-              </td>
-              <td className="py-2 px-3">
-                {r.topMayor ? (
-                  <PartyChip
-                    name={r.topMayor.displayName}
-                    color={r.topMayor.color}
-                    suffix={t("local_region_mayors_count", {
-                      count: r.topMayor.count,
-                    })}
-                  />
-                ) : (
-                  <span className="text-muted-foreground">—</span>
-                )}
-              </td>
-              <td className="hidden py-2 px-3 text-right tabular-nums sm:table-cell">
-                {formatThousands(r.totalCouncilSeats)}
-              </td>
-              <td className="py-2 px-3 text-right tabular-nums">
-                {r.municipalityCount}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-};
+// Number of oblasti shown in the dashboard tile before the "see details" link
+// opens the full table on /local/:cycle/regions.
+const REGION_TILE_LIMIT = 8;
 
 export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
   cycle,
@@ -212,7 +130,7 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
           <LocalRegionsControlMapTile cycle={cycle} metric="mayor" />
           <LocalRegionsControlMapTile cycle={cycle} metric="council" />
         </div>
-        <TopRegionsTable cycle={cycle} />
+        <LocalRegionsTable cycle={cycle} limit={REGION_TILE_LIMIT} />
       </DashboardSection>
 
       {/* Mayors: who governs. */}
