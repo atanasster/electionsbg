@@ -914,6 +914,8 @@
   "dashboard_demographic_cleavages_hint": "How the top parties' municipal vote shares correlate with each demographic dimension across all 265 municipalities. Wider spread between dots = the dimension was a sharper dividing line in this election. Click any row for the cross-tab scatter.",
   "dashboard_demographic_cleavages_spread": "Spread",
   "dashboard_demographic_cleavages_note": "Each dot is one party that cleared the 4% threshold; horizontal position is the Pearson r between that party's municipal vote share and the demographic.",
+  "local_demographic_cleavages_hint": "How the leading council parties' vote shares correlate with each demographic dimension across municipalities. Wider spread between dots = the dimension was a sharper dividing line in this cycle.",
+  "local_demographic_cleavages_note": "Each dot is one of the leading council parties; horizontal position is the Pearson r between its council vote share by municipality and the demographic.",
   "dashboard_share_of_party": "Share of party",
   "dashboard_pct_of_region": "% region",
   "dashboard_pct_local": "% local",

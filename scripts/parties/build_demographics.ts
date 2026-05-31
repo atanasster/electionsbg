@@ -33,7 +33,7 @@ import type {
 } from "@/data/census/censusTypes";
 import { cikPartiesFileName } from "../consts";
 
-const PERCENT_METRICS: CensusMetric[] = [
+export const PERCENT_METRICS: CensusMetric[] = [
   "ethnicBulgarian",
   "ethnicTurkish",
   "ethnicRoma",
@@ -77,7 +77,7 @@ const sumEducation = (e?: CensusEntity["education"]) =>
 
 // 0..1 share for percentage-like metrics. Mirrors censusMetricValue() in
 // src/data/census/useCensus.tsx.
-const censusMetricShare = (
+export const censusMetricShare = (
   e: CensusEntity,
   metric: CensusMetric,
 ): number | undefined => {
@@ -155,7 +155,7 @@ const censusMetricShare = (
   }
 };
 
-const pearson = (xs: number[], ys: number[]): number => {
+export const pearson = (xs: number[], ys: number[]): number => {
   const n = xs.length;
   if (n < 3) return 0;
   let sx = 0;
@@ -180,7 +180,7 @@ const pearson = (xs: number[], ys: number[]): number => {
   return denom === 0 ? 0 : num / denom;
 };
 
-const round3 = (n: number) => Math.round(n * 1000) / 1000;
+export const round3 = (n: number) => Math.round(n * 1000) / 1000;
 
 export type PartyDemographicCorrelation = {
   metric: CensusMetric;

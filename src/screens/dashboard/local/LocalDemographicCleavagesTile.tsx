@@ -1,24 +1,29 @@
+// Council-vote × Census 2021 demographic cleavages for a local-election cycle.
+// The local analogue of DemographicCleavagesTile: each leading council party
+// is a dot whose horizontal position is the Pearson r between its council vote
+// share across municipalities and the demographic on that row. Reads the
+// precomputed per-cycle aggregate; parties are keyed by canonical id and carry
+// no per-party page, so the legend is plain (no links) and rows aren't
+// clickable (there is no local cross-tab scatter explorer).
+
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { Users } from "lucide-react";
-import { useDemographicCleavages } from "@/data/dashboard/useDemographicCleavages";
-import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import { useLocalDemographicCleavages } from "@/data/local/useLocalDemographicCleavages";
 import { useTooltip } from "@/ux/useTooltip";
 import { Hint } from "@/ux/Hint";
 import { METRIC_BY_KEY } from "@/screens/components/demographics/censusMetrics";
-import { StatCard } from "./StatCard";
-import { selectCleavageRows } from "./selectCleavageRows";
-import { partyHref } from "@/lib/utils";
+import { StatCard } from "../StatCard";
+import { selectCleavageRows } from "../selectCleavageRows";
 
 const fmtR = (r: number) => `${r > 0 ? "+" : ""}${r.toFixed(2)}`;
 
-export const DemographicCleavagesTile: FC = () => {
-  const { t, i18n } = useTranslation();
-  const { data: payload } = useDemographicCleavages();
+export const LocalDemographicCleavagesTile: FC<{ cycle: string }> = ({
+  cycle,
+}) => {
+  const { t } = useTranslation();
+  const { data: payload } = useLocalDemographicCleavages(cycle);
   const { tooltip, ...tooltipEvents } = useTooltip();
-  const { displayNameFor } = useCanonicalParties();
-  const isBg = i18n.language === "bg";
 
   const rows = useMemo(
     () => (payload ? selectCleavageRows(payload.rows) : []),
@@ -27,51 +32,33 @@ export const DemographicCleavagesTile: FC = () => {
 
   if (!payload || rows.length === 0) return null;
 
-  const partyName = (p: (typeof payload.parties)[number]) =>
-    isBg ? p.nickName : (displayNameFor(p.nickName) ?? p.nickName);
-
   // Maps r in [-1, 1] to a 0..100 horizontal position in the row track.
   const xPct = (r: number) => 50 + Math.max(-1, Math.min(1, r)) * 50;
 
   return (
     <StatCard
       label={
-        <div className="flex items-center justify-between w-full">
-          <Hint
-            text={t("dashboard_demographic_cleavages_hint")}
-            underline={false}
-          >
-            <div className="flex items-center gap-2">
-              <Users className="h-4 w-4" />
-              <span>{t("dashboard_demographic_cleavages")}</span>
-            </div>
-          </Hint>
-          <Link
-            to="/demographics"
-            className="text-[10px] normal-case text-primary hover:underline"
-          >
-            {t("dashboard_see_details")} →
-          </Link>
-        </div>
+        <Hint text={t("local_demographic_cleavages_hint")} underline={false}>
+          <div className="flex items-center gap-2">
+            <Users className="h-4 w-4" />
+            <span>{t("dashboard_demographic_cleavages")}</span>
+          </div>
+        </Hint>
       }
     >
       {/* Party legend */}
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2 mb-3 text-[11px]">
         {payload.parties.map((p) => (
-          <Link
-            key={p.partyNum}
-            to={partyHref(p.nickName)}
-            className="flex items-center gap-1 hover:underline"
-          >
+          <span key={p.canonicalId} className="flex items-center gap-1">
             <span
               className="inline-block h-2.5 w-2.5 rounded-full"
               style={{ backgroundColor: p.color ?? "#888" }}
             />
-            <span className="font-medium">{partyName(p)}</span>
+            <span className="font-medium">{p.displayName}</span>
             <span className="text-muted-foreground tabular-nums">
               {p.pctNational.toFixed(1)}%
             </span>
-          </Link>
+          </span>
         ))}
       </div>
 
@@ -93,16 +80,12 @@ export const DemographicCleavagesTile: FC = () => {
         {rows.map((row) => {
           const def = METRIC_BY_KEY[row.metric];
           const label = def ? t(def.i18nKey) : row.metric;
-          const scatterTo = `/demographics?scatter=${row.metric}#scatter`;
           return (
-            <Link
+            <div
               key={row.metric}
-              to={scatterTo}
-              className="grid grid-cols-[minmax(0,1fr)_minmax(160px,2.5fr)_auto] gap-x-3 items-center text-xs hover:bg-muted/50 rounded px-1 py-0.5 -mx-1 group"
+              className="grid grid-cols-[minmax(0,1fr)_minmax(160px,2.5fr)_auto] gap-x-3 items-center text-xs px-1 py-0.5 -mx-1"
             >
-              <span className="leading-tight group-hover:underline">
-                {label}
-              </span>
+              <span className="leading-tight">{label}</span>
               <div className="relative h-5">
                 {/* Track + zero line */}
                 <div className="absolute inset-x-0 top-1/2 h-px bg-border -translate-y-1/2" />
@@ -112,7 +95,7 @@ export const DemographicCleavagesTile: FC = () => {
                   const p = payload.parties[i];
                   return (
                     <span
-                      key={p.partyNum}
+                      key={p.canonicalId}
                       className="absolute top-1/2 h-2.5 w-2.5 rounded-full border border-background -translate-x-1/2 -translate-y-1/2 cursor-pointer"
                       style={{
                         left: `${xPct(r)}%`,
@@ -127,7 +110,7 @@ export const DemographicCleavagesTile: FC = () => {
                             </div>
                             <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-0.5">
                               <span className="text-muted-foreground">
-                                {partyName(p)}
+                                {p.displayName}
                               </span>
                               <span
                                 className="font-semibold tabular-nums text-right"
@@ -153,13 +136,13 @@ export const DemographicCleavagesTile: FC = () => {
               <span className="text-xs font-semibold tabular-nums text-right w-12 text-muted-foreground">
                 {row.spread.toFixed(2)}
               </span>
-            </Link>
+            </div>
           );
         })}
       </div>
       {tooltip}
       <p className="text-[10px] text-muted-foreground italic mt-3">
-        {t("dashboard_demographic_cleavages_note")}
+        {t("local_demographic_cleavages_note")}
       </p>
     </StatCard>
   );
