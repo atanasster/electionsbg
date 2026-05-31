@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigateParams } from "@/ux/useNavigateParams";
 import { useTooltip } from "@/ux/useTooltip";
 import { useRegions } from "@/data/regions/useRegions";
-import { useRegionsMap } from "@/data/regions/useRegionsMap";
+import { useSofiaMergedRegionsMap } from "@/data/regions/useSofiaMergedRegionsMap";
 import {
   useRegional,
   formatRegionalValue,
@@ -31,6 +31,13 @@ const buildLatestByOblast = (
     if (!series.length) continue;
     out.set(code, series[series.length - 1].value);
   }
+  // The map draws Sofia as one polygon keyed "SOF", but Eurostat publishes the
+  // city (BG411) under the three МИР codes (S23/S24/S25, all identical). Alias
+  // "SOF" to that shared value so the merged polygon is filled.
+  if (!out.has("SOF")) {
+    const sofia = out.get("S23") ?? out.get("S24") ?? out.get("S25");
+    if (sofia !== undefined) out.set("SOF", sofia);
+  }
   return out;
 };
 
@@ -38,9 +45,11 @@ export const RegionalChoroplethMap: React.FC<{
   indicator: RegionalIndicatorKey;
   size: MapCoordinates;
 }> = ({ indicator, size }) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { tooltip, ...tooltipEvents } = useTooltip();
-  const mapGeo = useRegionsMap();
+  // Sofia drawn as one Столична-община polygon (keyed "SOF") instead of the
+  // three МИР, since Eurostat reports the city (BG411) as a single NUTS3 unit.
+  const mapGeo = useSofiaMergedRegionsMap();
   const { findRegion } = useRegions();
   const { data: payload } = useRegional();
   const navigate = useNavigateParams();
@@ -148,8 +157,11 @@ export const RegionalChoroplethMap: React.FC<{
                 fillColor={fill}
                 feature={feature}
                 onClick={() => {
-                  if (info?.oblast)
-                    navigate({ pathname: `/municipality/${info.oblast}` });
+                  // The merged Sofia polygon is keyed "SOF" (no region entry);
+                  // drill into the city via a representative МИР, matching the
+                  // pre-merge click target.
+                  const target = oblastCode === "SOF" ? "S23" : info?.oblast;
+                  if (target) navigate({ pathname: `/municipality/${target}` });
                 }}
                 onMouseEnter={(e) =>
                   tooltipEvents.onMouseEnter(
@@ -160,7 +172,9 @@ export const RegionalChoroplethMap: React.FC<{
                           ? lang === "bg"
                             ? info.long_name || info.name
                             : info.long_name_en || info.name_en
-                          : oblastCode}
+                          : oblastCode === "SOF"
+                            ? t("local_region_sofia_city")
+                            : oblastCode}
                       </div>
                       <div className="text-sm">
                         {indicatorLabel}:{" "}

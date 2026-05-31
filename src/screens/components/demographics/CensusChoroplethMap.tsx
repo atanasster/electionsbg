@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigateParams } from "@/ux/useNavigateParams";
 import { useTooltip } from "@/ux/useTooltip";
 import { useRegions } from "@/data/regions/useRegions";
-import { useRegionsMap } from "@/data/regions/useRegionsMap";
+import { useSofiaMergedRegionsMap } from "@/data/regions/useSofiaMergedRegionsMap";
 import {
   useCensus,
   censusMetricValue,
@@ -27,7 +27,9 @@ export const CensusChoroplethMap: React.FC<{
 }> = ({ metric, size }) => {
   const { t, i18n } = useTranslation();
   const { tooltip, ...tooltipEvents } = useTooltip();
-  const mapGeo = useRegionsMap();
+  // Sofia drawn as one Столична-община polygon (keyed "SOF") instead of the
+  // three МИР, since the census reports the city as a single oblast.
+  const mapGeo = useSofiaMergedRegionsMap();
   const { findRegion } = useRegions();
   const { data: census } = useCensus();
   const navigate = useNavigateParams();
@@ -135,8 +137,12 @@ export const CensusChoroplethMap: React.FC<{
                 fillColor={fill}
                 feature={feature}
                 onClick={() => {
-                  if (info?.oblast)
-                    navigate({ pathname: `/municipality/${info.oblast}` });
+                  // The merged Sofia polygon is keyed "SOF" (no region entry);
+                  // drill into the city via a representative МИР, matching the
+                  // pre-merge click target.
+                  const target =
+                    feature.properties.nuts3 === "SOF" ? "S23" : info?.oblast;
+                  if (target) navigate({ pathname: `/municipality/${target}` });
                 }}
                 onMouseEnter={(e) =>
                   tooltipEvents.onMouseEnter(
@@ -147,7 +153,9 @@ export const CensusChoroplethMap: React.FC<{
                           ? lang === "bg"
                             ? info.long_name || info.name
                             : info.long_name_en || info.name_en
-                          : feature.properties.nuts3}
+                          : feature.properties.nuts3 === "SOF"
+                            ? t("local_region_sofia_city")
+                            : feature.properties.nuts3}
                       </div>
                       <div className="text-sm">
                         {metricLabel}:{" "}
