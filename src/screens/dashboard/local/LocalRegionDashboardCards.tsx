@@ -16,6 +16,7 @@ import { formatThousands } from "@/data/utils";
 import { StatCard } from "../StatCard";
 import { DashboardSection } from "../DashboardSection";
 import { LocalRegionMapTile } from "./LocalRegionMapTile";
+import { LocalVoteFlowTile } from "./LocalVoteFlowTile";
 
 export const LocalRegionDashboardCards: FC<{
   cycle: string;
@@ -87,17 +88,26 @@ export const LocalRegionDashboardCards: FC<{
             <span className="text-muted-foreground">—</span>
           )}
         </StatCard>
-        <StatCard label={t("local_national_municipalities")}>
+        <StatCard
+          label={t("local_national_municipalities")}
+          to={`/local/${cycle}/region/${oblast}/municipalities`}
+        >
           <span className="text-base font-semibold tabular-nums">
             {region.municipalityCount}
           </span>
         </StatCard>
-        <StatCard label={t("local_national_runoffs")}>
+        <StatCard
+          label={t("local_national_runoffs")}
+          to={`/local/${cycle}/region/${oblast}/runoffs`}
+        >
           <span className="text-base font-semibold tabular-nums">
             {region.runoffCount}
           </span>
         </StatCard>
-        <StatCard label={t("local_national_split_control")}>
+        <StatCard
+          label={t("local_national_split_control")}
+          to={`/local/${cycle}/region/${oblast}/split-control`}
+        >
           <span className="text-base font-semibold tabular-nums">
             {splitRows.length}
           </span>
@@ -204,6 +214,11 @@ export const LocalRegionDashboardCards: FC<{
             </StatCard>
           ) : null}
         </div>
+      </DashboardSection>
+
+      {/* Estimated council vote flow vs the previous cycle, for this oblast. */}
+      <DashboardSection id="local-flows" title={t("local_sec_flows")}>
+        <LocalVoteFlowTile cycle={cycle} oblast={oblast} />
       </DashboardSection>
 
       {/* Município directory (the full A-Z list lives here). */}

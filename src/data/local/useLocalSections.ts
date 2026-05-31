@@ -32,13 +32,18 @@ const queryFn = async ({
 export const useLocalSections = (
   obshtinaCode?: string | null,
   cycle?: string,
+  // Gate the fetch. The section shard is the heaviest payload on the município
+  // page (Sofia's SOF shard is ~3.9MB), so the section tile defers it until it
+  // scrolls into view rather than paying it on every page load. Defaults to
+  // true for callers that genuinely need it immediately.
+  enabled: boolean = true,
 ) => {
   const fallback = useLatestLocalCycle();
   const active = cycle ?? fallback;
   const { data, isLoading, error } = useQuery({
     queryKey: ["local_sections", active, obshtinaCode],
     queryFn,
-    enabled: !!obshtinaCode,
+    enabled: !!obshtinaCode && enabled,
   });
   return { shard: data, isLoading, error, cycle: active };
 };

@@ -85,7 +85,15 @@ type RegionMunicipalityRow = {
   hadRound2: boolean;
   councilSeats: number;
   electedMayor:
-    | (PartyRef & { candidateName: string; localPartyName: string })
+    | (PartyRef & {
+        candidateName: string;
+        localPartyName: string;
+        mpId?: number;
+        isIndependent: boolean;
+        // Vote share in the decisive round — surfaced by the standalone
+        // município-list pages (independent-mayors table).
+        pctOfValid: number;
+      })
     | null;
   // Party leading this município's council (most seats; ties broken by votes).
   // Distinct from electedMayor — the mayoralty is winner-take-all/personality,
@@ -189,6 +197,22 @@ export type RegionsSummary = {
   round1Date: string;
   round2Date: string | null;
   regions: RegionsSummaryRow[];
+};
+
+// National per-município directory — every município row (mayor + leading
+// council party + runoff flag), concatenated across oblasti and tagged with
+// the oblast code. The single fetch behind the standalone stat-tile pages
+// (all municipalities / runoffs / split control / independent mayors) on the
+// country dashboard, so they don't fan out across all ~265 bundles.
+export type NationalMunicipalityRow = RegionMunicipalityRow & {
+  oblast: string;
+};
+
+export type NationalMunicipalities = {
+  cycle: string;
+  round1Date: string;
+  round2Date: string | null;
+  municipalities: NationalMunicipalityRow[];
 };
 
 // === National leader tiles ===============================================
@@ -384,6 +408,9 @@ export const buildRegionRollups = (opts: {
   const splitControl: SplitControlRow[] = [];
   const independentMayors: IndependentMayorRow[] = [];
 
+  // National município directory — every row tagged with its oblast.
+  const nationalMunicipalities: NationalMunicipalityRow[] = [];
+
   for (const [oblast, group] of byOblast) {
     const mayorsWon = new Map<string, number>();
     const councilSeats = new Map<string, number>();
@@ -412,6 +439,9 @@ export const buildRegionRollups = (opts: {
             displayName: meta.displayName,
             color: meta.color,
             localPartyName: elected.localPartyName,
+            mpId: elected.mpId,
+            isIndependent: elected.isIndependent,
+            pctOfValid: elected.pctOfValid,
           };
         }
         reg += b.protocol.numRegisteredVoters;
@@ -499,6 +529,9 @@ export const buildRegionRollups = (opts: {
         };
       })
       .sort((a, b) => a.name.localeCompare(b.name, "bg"));
+
+    for (const m of municipalities)
+      nationalMunicipalities.push({ ...m, oblast });
 
     const mayorsRollup = sorted(
       Array.from(mayorsWon.entries()).map(([id, count]) => {
@@ -640,6 +673,19 @@ export const buildRegionRollups = (opts: {
     "utf-8",
   );
 
+  nationalMunicipalities.sort((a, b) => a.name.localeCompare(b.name, "bg"));
+  const nationalMunicipalitiesDoc: NationalMunicipalities = {
+    cycle,
+    round1Date: index.round1Date,
+    round2Date: index.round2Date,
+    municipalities: nationalMunicipalities,
+  };
+  fs.writeFileSync(
+    path.join(cycleDir, "national_municipalities.json"),
+    stringify(nationalMunicipalitiesDoc),
+    "utf-8",
+  );
+
   // Lightweight trends sidecar: the cross-cycle trends tile fans out across
   // every cycle's index.json (4× ~100KB) but only ever needs the two rollup
   // arrays. Emit a trimmed copy so the country dashboard pulls ~40KB instead
@@ -658,7 +704,7 @@ export const buildRegionRollups = (opts: {
   );
 
   console.log(
-    `[parsers_local] ${cycle}: wrote ${summaryRows.length} oblast rollup(s) + regions_summary.json + national_leaders.json + index_trends.json`,
+    `[parsers_local] ${cycle}: wrote ${summaryRows.length} oblast rollup(s) + regions_summary.json + national_leaders.json + national_municipalities.json + index_trends.json`,
   );
   return summaryRows.length;
 };

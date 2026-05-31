@@ -92,6 +92,11 @@ const LocalAllRegionsScreen = lazy(() =>
     default: m.LocalAllRegionsScreen,
   })),
 );
+const LocalMunicipalityListScreen = lazy(() =>
+  import("./screens/LocalMunicipalityListScreen").then((m) => ({
+    default: m.LocalMunicipalityListScreen,
+  })),
+);
 const LocalSettlementDashboardScreen = lazy(() =>
   import("./screens/LocalSettlementDashboardScreen").then((m) => ({
     default: m.LocalSettlementDashboardScreen,
@@ -1120,10 +1125,66 @@ export const AuthRoutes = () => {
             }
           />
           <Route
+            path="local/:cycle/municipalities"
+            element={
+              <LayoutScreen>
+                <LocalMunicipalityListScreen list="all" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/runoffs"
+            element={
+              <LayoutScreen>
+                <LocalMunicipalityListScreen list="runoffs" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/split-control"
+            element={
+              <LayoutScreen>
+                <LocalMunicipalityListScreen list="split" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/independents"
+            element={
+              <LayoutScreen>
+                <LocalMunicipalityListScreen list="independents" />
+              </LayoutScreen>
+            }
+          />
+          <Route
             path="local/:cycle/region/:oblast"
             element={
               <LayoutScreen>
                 <LocalRegionDashboardScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/region/:oblast/municipalities"
+            element={
+              <LayoutScreen>
+                <LocalMunicipalityListScreen list="all" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/region/:oblast/runoffs"
+            element={
+              <LayoutScreen>
+                <LocalMunicipalityListScreen list="runoffs" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/region/:oblast/split-control"
+            element={
+              <LayoutScreen>
+                <LocalMunicipalityListScreen list="split" />
               </LayoutScreen>
             }
           />

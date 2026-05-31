@@ -25,6 +25,7 @@ import {
 import { LocalCrossCycleTile } from "./LocalCrossCycleTile";
 import { LocalExtraordinaryTile } from "./LocalExtraordinaryTile";
 import { LocalDemographicCleavagesTile } from "./LocalDemographicCleavagesTile";
+import { LocalVoteFlowTile } from "./LocalVoteFlowTile";
 
 const isSofiaRayon = (code: string): boolean => /^S2\d{3}$/.test(code);
 
@@ -103,22 +104,34 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
             <span className="text-muted-foreground">—</span>
           )}
         </StatCard>
-        <StatCard label={t("local_national_municipalities")}>
+        <StatCard
+          label={t("local_national_municipalities")}
+          to={`/local/${cycle}/municipalities`}
+        >
           <span className="text-base font-semibold tabular-nums">
             {municipalityCount}
           </span>
         </StatCard>
-        <StatCard label={t("local_national_runoffs")}>
+        <StatCard
+          label={t("local_national_runoffs")}
+          to={`/local/${cycle}/runoffs`}
+        >
           <span className="text-base font-semibold tabular-nums">
             {runoffCount}
           </span>
         </StatCard>
-        <StatCard label={t("local_national_split_control")}>
+        <StatCard
+          label={t("local_national_split_control")}
+          to={`/local/${cycle}/split-control`}
+        >
           <span className="text-base font-semibold tabular-nums">
             {leaders ? leaders.splitControl.count : "—"}
           </span>
         </StatCard>
-        <StatCard label={t("local_national_independents")}>
+        <StatCard
+          label={t("local_national_independents")}
+          to={`/local/${cycle}/independents`}
+        >
           <span className="text-base font-semibold tabular-nums">
             {leaders ? leaders.independentMayors.count : "—"}
           </span>
@@ -178,6 +191,11 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
         {/* How each leading council party's vote correlates with the
             municipality's demographics. */}
         <LocalDemographicCleavagesTile cycle={cycle} />
+      </DashboardSection>
+
+      {/* Estimated council vote flow vs the previous cycle. */}
+      <DashboardSection id="local-flows" title={t("local_sec_flows")}>
+        <LocalVoteFlowTile cycle={cycle} />
       </DashboardSection>
 
       {/* Cross-cycle trends. The grid wrapper gives the tile a definite-width
