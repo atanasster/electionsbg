@@ -34,6 +34,7 @@ import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { LocalCountryDashboardCards } from "./dashboard/local/LocalCountryDashboardCards";
 import { LocalSofiaRayonMapTile } from "./dashboard/local/LocalSofiaRayonMapTile";
+import { LocalCouncilHemicycleTile } from "./dashboard/local/LocalCouncilHemicycleTile";
 import { LocalSectionsTile } from "./dashboard/local/LocalSectionsTile";
 import { ToParliamentaryLink } from "@/screens/components/CrossElectionLink";
 import { DashboardSection } from "./dashboard/DashboardSection";
@@ -348,6 +349,9 @@ const CouncilSection: FC<{ bundle: LocalMunicipalityBundle }> = ({
   );
   return (
     <Section title={t("local_election_sec_council")}>
+      <div className="mb-4">
+        <LocalCouncilHemicycleTile council={bundle.council} />
+      </div>
       <div className="rounded-xl border bg-card overflow-hidden">
         <div className="text-xs uppercase tracking-wide text-muted-foreground border-b py-2 px-3 grid grid-cols-[16px_1fr_96px_64px_48px] gap-3 items-center">
           <span />
