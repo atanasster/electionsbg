@@ -1,0 +1,724 @@
+{
+  "from": "2019_10_27_mi",
+  "to": "2023_10_29_mi",
+  "scope": "SOF",
+  "matrix": {
+    "fromNodes": [
+      {
+        "id": "gerb",
+        "label": "ГЕРБ-СДС",
+        "labelEn": "GERB-SDS",
+        "color": "rgb(12, 69, 135)",
+        "votes": 130854
+      },
+      {
+        "id": "bsp",
+        "label": "БСП-ОЛ",
+        "labelEn": "BSP-UL",
+        "color": "rgb(237, 28, 36)",
+        "votes": 72463
+      },
+      {
+        "id": "p_16",
+        "label": "ДПС",
+        "labelEn": "DPS",
+        "color": "rgb(33, 125, 223)",
+        "votes": 5110
+      },
+      {
+        "id": "p_6",
+        "label": "ПП-ДБ",
+        "labelEn": "PP-DB",
+        "color": "rgb(66, 0, 255)",
+        "votes": 58198
+      },
+      {
+        "id": "p_7",
+        "label": "Възраждане",
+        "labelEn": "Vazrazhdane",
+        "color": "rgb(51, 51, 51)",
+        "votes": 4321
+      },
+      {
+        "id": "p_51",
+        "label": "ВМРО",
+        "labelEn": "VMRO",
+        "color": "rgb(202, 40, 36)",
+        "votes": 19372
+      },
+      {
+        "id": "p_67",
+        "label": "ПП",
+        "labelEn": "PP",
+        "color": "rgb(66, 0, 255)",
+        "votes": 0
+      },
+      {
+        "id": "p_0",
+        "label": "ИТН",
+        "labelEn": "ITN",
+        "color": "rgb(75, 185, 222)",
+        "votes": 0
+      },
+      {
+        "id": "p_126",
+        "label": "СДС",
+        "labelEn": "SDS",
+        "color": "rgb(8, 70, 159)",
+        "votes": 0
+      },
+      {
+        "id": "p_48",
+        "label": "Левицата",
+        "labelEn": "The Left",
+        "color": "rgb(186, 19, 60)",
+        "votes": 0
+      },
+      {
+        "id": "p_76",
+        "label": "Воля",
+        "labelEn": "Volya",
+        "color": "lightslategrey",
+        "votes": 3251
+      },
+      {
+        "id": "p_1",
+        "label": "ПД",
+        "labelEn": "PD",
+        "color": "lightslategrey",
+        "votes": 578
+      },
+      {
+        "id": "p_59",
+        "label": "КОД",
+        "labelEn": "KOD",
+        "color": "rgb(0, 74, 121)",
+        "votes": 0
+      },
+      {
+        "id": "ataka",
+        "label": "Атака",
+        "labelEn": "Ataka",
+        "color": "#006400",
+        "votes": 7511
+      },
+      {
+        "id": "p_39",
+        "label": "БВ",
+        "labelEn": "BV",
+        "color": "#007bff",
+        "votes": 0
+      },
+      {
+        "id": "__local_other",
+        "label": "Местни и други партии",
+        "labelEn": "Local & other parties",
+        "color": "#94a3b8",
+        "votes": 99297,
+        "pseudo": true
+      },
+      {
+        "id": "__abstain__",
+        "label": "Не гласували",
+        "labelEn": "Did not vote",
+        "color": "#cbd5e1",
+        "votes": 653497,
+        "pseudo": true
+      }
+    ],
+    "toNodes": [
+      {
+        "id": "gerb",
+        "label": "ГЕРБ-СДС",
+        "labelEn": "GERB-SDS",
+        "color": "rgb(12, 69, 135)",
+        "votes": 64305
+      },
+      {
+        "id": "bsp",
+        "label": "БСП-ОЛ",
+        "labelEn": "BSP-UL",
+        "color": "rgb(237, 28, 36)",
+        "votes": 44624
+      },
+      {
+        "id": "p_16",
+        "label": "ДПС",
+        "labelEn": "DPS",
+        "color": "rgb(33, 125, 223)",
+        "votes": 1238
+      },
+      {
+        "id": "p_6",
+        "label": "ПП-ДБ",
+        "labelEn": "PP-DB",
+        "color": "rgb(66, 0, 255)",
+        "votes": 0
+      },
+      {
+        "id": "p_7",
+        "label": "Възраждане",
+        "labelEn": "Vazrazhdane",
+        "color": "rgb(51, 51, 51)",
+        "votes": 35896
+      },
+      {
+        "id": "p_51",
+        "label": "ВМРО",
+        "labelEn": "VMRO",
+        "color": "rgb(202, 40, 36)",
+        "votes": 5673
+      },
+      {
+        "id": "p_67",
+        "label": "ПП",
+        "labelEn": "PP",
+        "color": "rgb(66, 0, 255)",
+        "votes": 110305
+      },
+      {
+        "id": "p_0",
+        "label": "ИТН",
+        "labelEn": "ITN",
+        "color": "rgb(75, 185, 222)",
+        "votes": 14492
+      },
+      {
+        "id": "p_126",
+        "label": "СДС",
+        "labelEn": "SDS",
+        "color": "rgb(8, 70, 159)",
+        "votes": 0
+      },
+      {
+        "id": "p_48",
+        "label": "Левицата",
+        "labelEn": "The Left",
+        "color": "rgb(186, 19, 60)",
+        "votes": 0
+      },
+      {
+        "id": "p_76",
+        "label": "Воля",
+        "labelEn": "Volya",
+        "color": "lightslategrey",
+        "votes": 0
+      },
+      {
+        "id": "p_1",
+        "label": "ПД",
+        "labelEn": "PD",
+        "color": "lightslategrey",
+        "votes": 2154
+      },
+      {
+        "id": "p_59",
+        "label": "КОД",
+        "labelEn": "KOD",
+        "color": "rgb(0, 74, 121)",
+        "votes": 14953
+      },
+      {
+        "id": "ataka",
+        "label": "Атака",
+        "labelEn": "Ataka",
+        "color": "#006400",
+        "votes": 0
+      },
+      {
+        "id": "p_39",
+        "label": "БВ",
+        "labelEn": "BV",
+        "color": "#007bff",
+        "votes": 4599
+      },
+      {
+        "id": "__local_other",
+        "label": "Местни и други партии",
+        "labelEn": "Local & other parties",
+        "color": "#94a3b8",
+        "votes": 23526,
+        "pseudo": true
+      },
+      {
+        "id": "__abstain__",
+        "label": "Не гласували",
+        "labelEn": "Did not vote",
+        "color": "#cbd5e1",
+        "votes": 720724,
+        "pseudo": true
+      },
+      {
+        "id": "__exited__",
+        "label": "Отпаднали от списъците",
+        "labelEn": "Removed from rolls",
+        "color": "#fca5a5",
+        "votes": 11963,
+        "pseudo": true
+      }
+    ],
+    "flows": [
+      {
+        "from": "gerb",
+        "to": "gerb",
+        "votes": 54294
+      },
+      {
+        "from": "gerb",
+        "to": "p_16",
+        "votes": 527
+      },
+      {
+        "from": "gerb",
+        "to": "p_7",
+        "votes": 7634
+      },
+      {
+        "from": "gerb",
+        "to": "p_0",
+        "votes": 1471
+      },
+      {
+        "from": "gerb",
+        "to": "p_1",
+        "votes": 136
+      },
+      {
+        "from": "gerb",
+        "to": "p_59",
+        "votes": 1427
+      },
+      {
+        "from": "gerb",
+        "to": "__local_other",
+        "votes": 6516
+      },
+      {
+        "from": "gerb",
+        "to": "__abstain__",
+        "votes": 57514
+      },
+      {
+        "from": "gerb",
+        "to": "__exited__",
+        "votes": 1336
+      },
+      {
+        "from": "bsp",
+        "to": "bsp",
+        "votes": 29332
+      },
+      {
+        "from": "bsp",
+        "to": "p_7",
+        "votes": 6112
+      },
+      {
+        "from": "bsp",
+        "to": "p_67",
+        "votes": 4590
+      },
+      {
+        "from": "bsp",
+        "to": "p_0",
+        "votes": 1168
+      },
+      {
+        "from": "bsp",
+        "to": "p_1",
+        "votes": 371
+      },
+      {
+        "from": "bsp",
+        "to": "p_39",
+        "votes": 1599
+      },
+      {
+        "from": "bsp",
+        "to": "__local_other",
+        "votes": 2420
+      },
+      {
+        "from": "bsp",
+        "to": "__abstain__",
+        "votes": 25061
+      },
+      {
+        "from": "bsp",
+        "to": "__exited__",
+        "votes": 1810
+      },
+      {
+        "from": "p_16",
+        "to": "bsp",
+        "votes": 182
+      },
+      {
+        "from": "p_16",
+        "to": "__abstain__",
+        "votes": 3594
+      },
+      {
+        "from": "p_16",
+        "to": "__exited__",
+        "votes": 1286
+      },
+      {
+        "from": "p_6",
+        "to": "p_16",
+        "votes": 481
+      },
+      {
+        "from": "p_6",
+        "to": "p_7",
+        "votes": 239
+      },
+      {
+        "from": "p_6",
+        "to": "p_67",
+        "votes": 40454
+      },
+      {
+        "from": "p_6",
+        "to": "p_1",
+        "votes": 192
+      },
+      {
+        "from": "p_6",
+        "to": "p_59",
+        "votes": 12178
+      },
+      {
+        "from": "p_6",
+        "to": "p_39",
+        "votes": 702
+      },
+      {
+        "from": "p_6",
+        "to": "__local_other",
+        "votes": 3160
+      },
+      {
+        "from": "p_6",
+        "to": "__exited__",
+        "votes": 741
+      },
+      {
+        "from": "p_7",
+        "to": "gerb",
+        "votes": 972
+      },
+      {
+        "from": "p_7",
+        "to": "bsp",
+        "votes": 114
+      },
+      {
+        "from": "p_7",
+        "to": "p_16",
+        "votes": 79
+      },
+      {
+        "from": "p_7",
+        "to": "p_7",
+        "votes": 801
+      },
+      {
+        "from": "p_7",
+        "to": "p_67",
+        "votes": 904
+      },
+      {
+        "from": "p_7",
+        "to": "p_0",
+        "votes": 173
+      },
+      {
+        "from": "p_7",
+        "to": "p_59",
+        "votes": 325
+      },
+      {
+        "from": "p_7",
+        "to": "p_39",
+        "votes": 174
+      },
+      {
+        "from": "p_7",
+        "to": "__local_other",
+        "votes": 347
+      },
+      {
+        "from": "p_7",
+        "to": "__abstain__",
+        "votes": 88
+      },
+      {
+        "from": "p_7",
+        "to": "__exited__",
+        "votes": 343
+      },
+      {
+        "from": "p_51",
+        "to": "gerb",
+        "votes": 5261
+      },
+      {
+        "from": "p_51",
+        "to": "bsp",
+        "votes": 1295
+      },
+      {
+        "from": "p_51",
+        "to": "p_7",
+        "votes": 3225
+      },
+      {
+        "from": "p_51",
+        "to": "p_51",
+        "votes": 3484
+      },
+      {
+        "from": "p_51",
+        "to": "p_0",
+        "votes": 1267
+      },
+      {
+        "from": "p_51",
+        "to": "p_1",
+        "votes": 134
+      },
+      {
+        "from": "p_51",
+        "to": "p_59",
+        "votes": 819
+      },
+      {
+        "from": "p_51",
+        "to": "p_39",
+        "votes": 230
+      },
+      {
+        "from": "p_51",
+        "to": "__local_other",
+        "votes": 1218
+      },
+      {
+        "from": "p_51",
+        "to": "__abstain__",
+        "votes": 1376
+      },
+      {
+        "from": "p_51",
+        "to": "__exited__",
+        "votes": 1062
+      },
+      {
+        "from": "p_76",
+        "to": "gerb",
+        "votes": 919
+      },
+      {
+        "from": "p_76",
+        "to": "p_16",
+        "votes": 85
+      },
+      {
+        "from": "p_76",
+        "to": "p_7",
+        "votes": 331
+      },
+      {
+        "from": "p_76",
+        "to": "p_51",
+        "votes": 92
+      },
+      {
+        "from": "p_76",
+        "to": "p_67",
+        "votes": 347
+      },
+      {
+        "from": "p_76",
+        "to": "p_0",
+        "votes": 190
+      },
+      {
+        "from": "p_76",
+        "to": "__local_other",
+        "votes": 404
+      },
+      {
+        "from": "p_76",
+        "to": "__abstain__",
+        "votes": 434
+      },
+      {
+        "from": "p_76",
+        "to": "__exited__",
+        "votes": 401
+      },
+      {
+        "from": "p_1",
+        "to": "p_59",
+        "votes": 61
+      },
+      {
+        "from": "p_1",
+        "to": "__abstain__",
+        "votes": 62
+      },
+      {
+        "from": "p_1",
+        "to": "__exited__",
+        "votes": 443
+      },
+      {
+        "from": "ataka",
+        "to": "gerb",
+        "votes": 2815
+      },
+      {
+        "from": "ataka",
+        "to": "bsp",
+        "votes": 618
+      },
+      {
+        "from": "ataka",
+        "to": "p_7",
+        "votes": 1556
+      },
+      {
+        "from": "ataka",
+        "to": "p_51",
+        "votes": 298
+      },
+      {
+        "from": "ataka",
+        "to": "p_67",
+        "votes": 266
+      },
+      {
+        "from": "ataka",
+        "to": "p_0",
+        "votes": 567
+      },
+      {
+        "from": "ataka",
+        "to": "p_59",
+        "votes": 121
+      },
+      {
+        "from": "ataka",
+        "to": "p_39",
+        "votes": 174
+      },
+      {
+        "from": "ataka",
+        "to": "__local_other",
+        "votes": 525
+      },
+      {
+        "from": "ataka",
+        "to": "__exited__",
+        "votes": 498
+      },
+      {
+        "from": "__local_other",
+        "to": "bsp",
+        "votes": 10134
+      },
+      {
+        "from": "__local_other",
+        "to": "p_7",
+        "votes": 9794
+      },
+      {
+        "from": "__local_other",
+        "to": "p_67",
+        "votes": 60288
+      },
+      {
+        "from": "__local_other",
+        "to": "p_0",
+        "votes": 2922
+      },
+      {
+        "from": "__local_other",
+        "to": "p_1",
+        "votes": 946
+      },
+      {
+        "from": "__local_other",
+        "to": "p_39",
+        "votes": 1719
+      },
+      {
+        "from": "__local_other",
+        "to": "__local_other",
+        "votes": 8902
+      },
+      {
+        "from": "__local_other",
+        "to": "__abstain__",
+        "votes": 2689
+      },
+      {
+        "from": "__local_other",
+        "to": "__exited__",
+        "votes": 1902
+      },
+      {
+        "from": "__abstain__",
+        "to": "bsp",
+        "votes": 2940
+      },
+      {
+        "from": "__abstain__",
+        "to": "p_7",
+        "votes": 6203
+      },
+      {
+        "from": "__abstain__",
+        "to": "p_51",
+        "votes": 1796
+      },
+      {
+        "from": "__abstain__",
+        "to": "p_67",
+        "votes": 3457
+      },
+      {
+        "from": "__abstain__",
+        "to": "p_0",
+        "votes": 6733
+      },
+      {
+        "from": "__abstain__",
+        "to": "p_1",
+        "votes": 320
+      },
+      {
+        "from": "__abstain__",
+        "to": "__abstain__",
+        "votes": 629906
+      },
+      {
+        "from": "__abstain__",
+        "to": "__exited__",
+        "votes": 2141
+      }
+    ]
+  },
+  "persistence": {
+    "stayedVotes": 87932,
+    "votedBothNamed": 190985,
+    "stayRate": 0.46041004364181476,
+    "topDefection": {
+      "fromId": "p_6",
+      "toId": "p_67",
+      "votes": 40454,
+      "share": 0.7450491520604555
+    }
+  }
+}

@@ -16,6 +16,7 @@ import { formatThousands } from "@/data/utils";
 import { StatCard } from "../StatCard";
 import { DashboardSection } from "../DashboardSection";
 import { LocalRegionMapTile } from "./LocalRegionMapTile";
+import { LocalVoteFlowTile } from "./LocalVoteFlowTile";
 
 export const LocalRegionDashboardCards: FC<{
   cycle: string;
@@ -213,6 +214,11 @@ export const LocalRegionDashboardCards: FC<{
             </StatCard>
           ) : null}
         </div>
+      </DashboardSection>
+
+      {/* Estimated council vote flow vs the previous cycle, for this oblast. */}
+      <DashboardSection id="local-flows" title={t("local_sec_flows")}>
+        <LocalVoteFlowTile cycle={cycle} oblast={oblast} />
       </DashboardSection>
 
       {/* Município directory (the full A-Z list lives here). */}

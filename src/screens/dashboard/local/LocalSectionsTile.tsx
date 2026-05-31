@@ -13,6 +13,7 @@ import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Search } from "lucide-react";
 import { useLocalSections } from "@/data/local/useLocalSections";
+import { useInView } from "@/ux/useInView";
 import { formatThousands } from "@/data/utils";
 import type { LocalSectionResult } from "@/data/local/types";
 
@@ -30,7 +31,12 @@ export const LocalSectionsTile: FC<{
   obshtinaCode: string;
 }> = ({ cycle, obshtinaCode }) => {
   const { t } = useTranslation();
-  const { shard } = useLocalSections(obshtinaCode, cycle);
+  // The section shard is the heaviest payload on the município page — most are
+  // ~18KB, but the big cities are huge (Sofia ~3.7MB, Plovdiv/Varna >1MB). This
+  // tile sits below the mayor/council tiles, so defer the fetch until it scrolls
+  // near the viewport: a page the user never scrolls through pays nothing for it.
+  const { ref: sentinelRef, inView } = useInView<HTMLDivElement>();
+  const { shard } = useLocalSections(obshtinaCode, cycle, inView);
   const [query, setQuery] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("section");
   const [limit, setLimit] = useState(PAGE);
@@ -64,6 +70,12 @@ export const LocalSectionsTile: FC<{
     return sorted;
   }, [shard, query, sortKey]);
 
+  // Until the tile scrolls into view, render only the sentinel (the
+  // IntersectionObserver target) so no fetch fires. Reserve a sliver of height
+  // so the observer has a real box to track.
+  if (!inView) {
+    return <div ref={sentinelRef} aria-hidden style={{ minHeight: 1 }} />;
+  }
   if (!shard || shard.sections.length === 0) return null;
 
   const visible = filteredSorted.slice(0, limit);

@@ -25,6 +25,7 @@ import {
 import { LocalCrossCycleTile } from "./LocalCrossCycleTile";
 import { LocalExtraordinaryTile } from "./LocalExtraordinaryTile";
 import { LocalDemographicCleavagesTile } from "./LocalDemographicCleavagesTile";
+import { LocalVoteFlowTile } from "./LocalVoteFlowTile";
 
 const isSofiaRayon = (code: string): boolean => /^S2\d{3}$/.test(code);
 
@@ -190,6 +191,11 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
         {/* How each leading council party's vote correlates with the
             municipality's demographics. */}
         <LocalDemographicCleavagesTile cycle={cycle} />
+      </DashboardSection>
+
+      {/* Estimated council vote flow vs the previous cycle. */}
+      <DashboardSection id="local-flows" title={t("local_sec_flows")}>
+        <LocalVoteFlowTile cycle={cycle} />
       </DashboardSection>
 
       {/* Cross-cycle trends. The grid wrapper gives the tile a definite-width

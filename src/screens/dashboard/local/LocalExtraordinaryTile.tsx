@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, CalendarClock } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useChmiHistoryAll } from "@/data/local/useChmiHistory";
-import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import { ChmiPartyBadge } from "@/screens/local/ChmiPartyBadge";
 import { titleCaseName } from "@/lib/utils";
 import { StatCard } from "../StatCard";
 
@@ -23,7 +23,6 @@ const kindKey = (kind: string): string =>
 export const LocalExtraordinaryTile: FC = () => {
   const { t } = useTranslation();
   const { data } = useChmiHistoryAll();
-  const { colorFor } = useCanonicalParties();
 
   const recent = useMemo(
     () =>
@@ -57,9 +56,6 @@ export const LocalExtraordinaryTile: FC = () => {
     >
       <ul className="flex flex-col divide-y">
         {recent.map((e, i) => {
-          const color = e.primaryCanonicalId
-            ? colorFor(e.primaryCanonicalId)
-            : undefined;
           return (
             <li
               key={`${e.cycle}-${e.obshtinaCode}-${e.kmetstvoName ?? "main"}-${i}`}
@@ -86,16 +82,12 @@ export const LocalExtraordinaryTile: FC = () => {
                   {e.obshtinaName}
                 </div>
               </div>
-              <span className="flex min-w-0 items-center gap-1.5 text-xs text-muted-foreground shrink-0 max-w-[40%]">
-                {color ? (
-                  <span
-                    aria-hidden
-                    className="inline-block size-2 rounded-full ring-1 ring-border shrink-0"
-                    style={{ backgroundColor: color }}
-                  />
-                ) : null}
-                <span className="truncate">{e.localPartyName}</span>
-              </span>
+              <div className="shrink-0 max-w-[45%] text-xs text-muted-foreground">
+                <ChmiPartyBadge
+                  primaryCanonicalId={e.primaryCanonicalId}
+                  localPartyName={e.localPartyName}
+                />
+              </div>
             </li>
           );
         })}

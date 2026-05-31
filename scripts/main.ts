@@ -13,6 +13,7 @@ import { createPreferencesFiles } from "./preferences";
 import { parseMachinesFlashMemory } from "./machines_memory";
 import { backfillSectionCoords } from "./parsers/backfill_section_coords";
 import { generateVoteFlows } from "./voteFlows";
+import { generateLocalVoteFlows } from "./voteFlows/local_index";
 import { parseLocalElections } from "./parsers_local/parse_local_elections";
 import {
   ingestCycles,
@@ -182,6 +183,16 @@ const app = command({
       long: "local-rollups",
       defaultValue: () => false,
     }),
+    // Estimated council vote-flow ("where did the votes go") between every
+    // consecutive pair of regular local cycles. Reads the already-ingested
+    // per-município section shards; writes data/transitions_local/. Council
+    // ballot only, national + oblast scope. Flag-gated — local cycles land
+    // every ~4 years, so it's not part of `--all`.
+    localFlows: flag({
+      type: optional(boolean),
+      long: "local-flows",
+      defaultValue: () => false,
+    }),
   },
   handler: async ({
     all,
@@ -205,6 +216,7 @@ const app = command({
     localCsv,
     resolveLocalCanonicals,
     localRollups,
+    localFlows,
   }) => {
     production = prod;
     if (machines) {
@@ -320,6 +332,9 @@ const app = command({
     }
     if (localRollups) {
       buildLocalRollups({ publicFolder, cycle: localDate, stringify });
+    }
+    if (localFlows) {
+      generateLocalVoteFlows({ publicFolder, stringify });
     }
   },
 });

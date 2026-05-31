@@ -12,12 +12,10 @@ import { useTranslation } from "react-i18next";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useChmiHistoryAll } from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
-import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
-import { useElectionContext } from "@/data/ElectionContext";
+import { ChmiPartyBadge } from "@/screens/local/ChmiPartyBadge";
 import { useMps } from "@/data/parliament/useMps";
 import { useMunicipalOfficialsByName } from "@/data/officials/useMunicipalOfficialsByName";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
-import { partyHref } from "@/lib/utils";
 
 type KindFilter = "all" | ChmiHistoryEvent["kind"];
 
@@ -49,8 +47,6 @@ const KindBadge: FC<{ kind: ChmiHistoryEvent["kind"] }> = ({ kind }) => {
 export const ChmiFeedScreen: FC = () => {
   const { t } = useTranslation();
   const { data: history } = useChmiHistoryAll();
-  const { byId, displayNameForId } = useCanonicalParties();
-  const { selected } = useElectionContext();
   const { findMpByName, findMpById } = useMps();
   const { findOfficialByName } = useMunicipalOfficialsByName();
   const { settlements } = useSettlementsInfo();
@@ -182,16 +178,6 @@ export const ChmiFeedScreen: FC = () => {
           </thead>
           <tbody>
             {(filtered as ChmiHistoryEvent[]).map((e, i) => {
-              const canonicalId = e.primaryCanonicalId;
-              const canonicalParty = canonicalId
-                ? byId.get(canonicalId)
-                : undefined;
-              const partyForSelected = canonicalParty?.history.find(
-                (h) => h.election === selected,
-              );
-              const partyChipLabel = canonicalId
-                ? displayNameForId(canonicalId)
-                : undefined;
               const resolvedMp =
                 e.kind === "council"
                   ? undefined
@@ -276,33 +262,10 @@ export const ChmiFeedScreen: FC = () => {
                     )}
                   </td>
                   <td className="py-2 px-3 text-muted-foreground align-top">
-                    {canonicalParty && partyForSelected && partyChipLabel ? (
-                      <Link
-                        to={partyHref(partyForSelected.nickName)}
-                        underline={false}
-                        className="inline-flex items-center whitespace-nowrap rounded px-2 py-0.5 text-xs font-semibold"
-                        style={{
-                          backgroundColor: canonicalParty.color,
-                          color: "rgba(255,255,255,0.95)",
-                        }}
-                      >
-                        {partyChipLabel}
-                      </Link>
-                    ) : (
-                      <span
-                        className="flex items-start gap-1.5"
-                        title={e.localPartyName}
-                      >
-                        {canonicalParty ? (
-                          <span
-                            aria-hidden
-                            className="inline-block size-2 rounded-full ring-1 ring-border shrink-0 mt-1.5"
-                            style={{ backgroundColor: canonicalParty.color }}
-                          />
-                        ) : null}
-                        <span className="break-words">{e.localPartyName}</span>
-                      </span>
-                    )}
+                    <ChmiPartyBadge
+                      primaryCanonicalId={e.primaryCanonicalId}
+                      localPartyName={e.localPartyName}
+                    />
                   </td>
                   <td className="py-2 px-3 text-right tabular-nums">
                     {e.pctOfValid.toFixed(1)}%
