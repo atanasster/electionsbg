@@ -11,21 +11,16 @@
 //     it (район→МИР via the район's nuts4 digit). The three polygons can show
 //     three different leaders, and their sub-tallies sum to the 24-район city
 //     tally.
-//   • council → the three МИР polygons are dissolved into one SOF polygon
-//     (unioned at runtime with polygon-clipping — no single Sofia município
-//     polygon ships in regions_map) so the council map reads the city as one
-//     entity, matching how local government treats it.
+//   • council → the three МИР polygons are replaced by the single Столична
+//     община boundary (useSofiaObshtinaMap, keyed nuts3 "SOF") so the council
+//     map reads the city as one entity, matching how local government treats it.
 
 import { FC, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Map as MapIcon } from "lucide-react";
-import polygonClipping, {
-  Geom as PCGeom,
-  MultiPolygon as PCMultiPolygon,
-  Polygon as PCPolygon,
-} from "polygon-clipping";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { useRegionsMap } from "@/data/regions/useRegionsMap";
+import { useSofiaObshtinaMap } from "@/data/regions/useSofiaObshtinaMap";
 import { useRegions } from "@/data/regions/useRegions";
 import {
   RegionGeoJSON,
@@ -97,6 +92,8 @@ export const LocalRegionsControlMapTile: FC<{
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<MapCoordinates | undefined>();
   const regionsMap = useRegionsMap();
+  // Council map only: the single Столична-община outline that replaces the 3 МИР.
+  const sofiaObshtina = useSofiaObshtinaMap();
   const { data: summary } = useLocalRegionsSummary(cycle);
   const { findRegion } = useRegions();
   const { byId } = useCanonicalParties();
@@ -159,39 +156,21 @@ export const LocalRegionsControlMapTile: FC<{
     return m;
   }, [isMayor, sof, byId, isEn]);
 
-  // Council map only: dissolve the three Sofia МИР polygons into one SOF
-  // feature (unioned with polygon-clipping). The mayor map keeps the original
-  // 3-МИР geometry so each constituency can be coloured independently.
+  // Council map only: drop the three Sofia МИР polygons and append the single
+  // Столична-община outline (keyed nuts3 "SOF") so the city reads as one
+  // council entity. The mayor map keeps the original 3-МИР geometry so each
+  // constituency can be coloured independently.
   const councilMapGeo = useMemo((): RegionGeoJSON | undefined => {
     if (!regionsMap) return undefined;
     const nonSofia = regionsMap.features.filter(
       (f) => !isSofiaMir(f.properties.nuts3),
     );
-    const sofiaGeoms: PCGeom[] = [];
-    for (const f of regionsMap.features) {
-      if (!isSofiaMir(f.properties.nuts3)) continue;
-      const g = f.geometry;
-      if (g.type === "Polygon") {
-        sofiaGeoms.push(g.coordinates as unknown as PCPolygon);
-      } else if (g.type === "MultiPolygon") {
-        sofiaGeoms.push(g.coordinates as unknown as PCMultiPolygon);
-      }
-    }
-    if (sofiaGeoms.length === 0) return { ...regionsMap, features: nonSofia };
-    const unioned = polygonClipping.union(
-      sofiaGeoms[0],
-      ...sofiaGeoms.slice(1),
-    );
-    const sofiaFeature: RegionGeoJSON["features"][number] = {
-      type: "Feature",
-      properties: { nuts3: "SOF" },
-      geometry: {
-        type: "MultiPolygon",
-        coordinates: unioned as unknown as [][][],
-      },
+    if (!sofiaObshtina) return { ...regionsMap, features: nonSofia };
+    return {
+      ...regionsMap,
+      features: [...nonSofia, ...sofiaObshtina.features],
     };
-    return { ...regionsMap, features: [...nonSofia, sofiaFeature] };
-  }, [regionsMap]);
+  }, [regionsMap, sofiaObshtina]);
 
   const mapGeo = isMayor ? regionsMap : councilMapGeo;
 
