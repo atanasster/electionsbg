@@ -199,8 +199,16 @@ data/2023_10_29_mi/
   municipalities/BLG03.json       ← per-município bundle (mayor, council, kmetstva)
   municipalities/SOF.json
   ...
+  dashboard/demographic_cleavages.json  ← leading council parties × Census 2021
+                                          Pearson correlations (cycle dashboard tile)
   _unmatched_coalitions.json      ← coalition names whose canonical lookup failed
 ```
+
+`dashboard/demographic_cleavages.json` is emitted automatically for every
+regular `_mi` cycle by `build_local_demographics.ts` (the council-vote analogue
+of the parliamentary `scripts/parties/build_demographics.ts`). To regenerate it
+for all cycles straight from the already-written bundles — no HTML re-parse —
+run `npx tsx scripts/parsers_local/build_local_demographics.ts [cycle]`.
 
 ### 5. Curate unmatched coalitions
 

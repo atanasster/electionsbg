@@ -35,6 +35,7 @@ import {
   buildSectionShard,
 } from "./apply_section_augmentation";
 import { buildRegionRollups } from "./build_region_json";
+import { buildLocalDemographics } from "./build_local_demographics";
 import { reconcileOfficials } from "./reconcile_officials";
 import { buildChmiHistory } from "./build_chmi_history";
 import municipalitiesData from "../../data/municipalities.json";
@@ -497,6 +498,15 @@ export const parseLocalElection = async (opts: {
   // standard watcher → update-local-elections flow keeps them fresh.
   if (cycle.endsWith("_mi")) {
     buildRegionRollups({ publicFolder, cycle, stringify });
+    // Council-vote × Census 2021 demographic correlations for the cycle
+    // dashboard. Regular cycles only — chmi partials are single-município.
+    buildLocalDemographics({
+      publicFolder,
+      cycle,
+      bundles,
+      councilVoteShare: index.councilVoteShare,
+      stringify,
+    });
   }
 
   // Aggregate every ingested chmi (partial/new) cycle into a single
