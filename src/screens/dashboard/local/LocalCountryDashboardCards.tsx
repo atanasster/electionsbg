@@ -180,9 +180,14 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
         <LocalDemographicCleavagesTile cycle={cycle} />
       </DashboardSection>
 
-      {/* Cross-cycle trends. */}
+      {/* Cross-cycle trends. The grid wrapper gives the tile a definite-width
+          track so its ResponsiveContainer chart can't collapse during reflow —
+          a lone flex child has no width floor once the chart is the only
+          content (matches how the other dashboard chart tiles are wrapped). */}
       <DashboardSection id="local-trends" title={t("local_sec_trends")}>
-        <LocalCrossCycleTile />
+        <div className="grid gap-4">
+          <LocalCrossCycleTile />
+        </div>
       </DashboardSection>
 
       {/* Extraordinary elections. */}
