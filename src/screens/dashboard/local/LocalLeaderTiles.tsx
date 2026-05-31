@@ -39,13 +39,18 @@ const RoundBadge: FC<{ round: 1 | 2 }> = ({ round }) =>
     </span>
   ) : null;
 
-export const LocalTopMayorsTile: FC<{ cycle: string }> = ({ cycle }) => {
+export const LocalTopMayorsTile: FC<{
+  cycle: string;
+  bodyMaxHeight?: string;
+}> = ({ cycle, bodyMaxHeight }) => {
   const { t } = useTranslation();
   const { data } = useLocalNationalLeaders(cycle);
   const rows = data?.topMayorsByPct ?? [];
   if (rows.length === 0) return null;
   return (
     <StatCard
+      titleCase
+      bodyMaxHeight={bodyMaxHeight}
       label={<TileLabel icon={Crown} text={t("local_top_mayors_title")} />}
       hint={t("local_top_mayors_hint")}
     >
@@ -84,13 +89,18 @@ export const LocalTopMayorsTile: FC<{ cycle: string }> = ({ cycle }) => {
   );
 };
 
-export const LocalClosestRacesTile: FC<{ cycle: string }> = ({ cycle }) => {
+export const LocalClosestRacesTile: FC<{
+  cycle: string;
+  bodyMaxHeight?: string;
+}> = ({ cycle, bodyMaxHeight }) => {
   const { t } = useTranslation();
   const { data } = useLocalNationalLeaders(cycle);
   const rows = data?.closestRaces ?? [];
   if (rows.length === 0) return null;
   return (
     <StatCard
+      titleCase
+      bodyMaxHeight={bodyMaxHeight}
       label={<TileLabel icon={Scale} text={t("local_closest_races_title")} />}
       hint={t("local_closest_races_hint")}
     >
@@ -123,13 +133,18 @@ export const LocalClosestRacesTile: FC<{ cycle: string }> = ({ cycle }) => {
   );
 };
 
-export const LocalSplitControlTile: FC<{ cycle: string }> = ({ cycle }) => {
+export const LocalSplitControlTile: FC<{
+  cycle: string;
+  bodyMaxHeight?: string;
+}> = ({ cycle, bodyMaxHeight }) => {
   const { t } = useTranslation();
   const { data } = useLocalNationalLeaders(cycle);
   const split = data?.splitControl;
   if (!split || split.count === 0) return null;
   return (
     <StatCard
+      titleCase
+      bodyMaxHeight={bodyMaxHeight}
       label={<TileLabel icon={GitFork} text={t("local_split_control_title")} />}
       hint={t("local_split_control_hint")}
     >

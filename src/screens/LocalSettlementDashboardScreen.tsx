@@ -12,6 +12,7 @@ import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { LocalSettlementDashboardCards } from "./dashboard/local/LocalSettlementDashboardCards";
+import { ToParliamentaryLink } from "@/screens/components/CrossElectionLink";
 
 export const LocalSettlementDashboardScreen: FC = () => {
   const { cycle, ekatte } = useParams<{ cycle: string; ekatte: string }>();
@@ -34,23 +35,26 @@ export const LocalSettlementDashboardScreen: FC = () => {
 
   return (
     <main className="container mx-auto px-4 py-6 space-y-6">
-      <div className="text-xs text-muted-foreground">
-        <Link to={`/local/${cycle}`} className="hover:underline">
-          {t("local_election_screen_back")}
-        </Link>
-        {settlement?.obshtina && muniName ? (
-          <>
-            <span className="mx-2">·</span>
-            <Link
-              to={`/local/${cycle}/${settlement.obshtina}`}
-              className="hover:underline"
-            >
-              {muniName}
-            </Link>
-          </>
-        ) : null}
-        <span className="mx-2">·</span>
-        <span>{friendlyCycleDate(cycle)}</span>
+      <div className="flex items-center justify-between gap-3">
+        <div className="text-xs text-muted-foreground">
+          <Link to={`/local/${cycle}`} className="hover:underline">
+            {t("local_election_screen_back")}
+          </Link>
+          {settlement?.obshtina && muniName ? (
+            <>
+              <span className="mx-2">·</span>
+              <Link
+                to={`/local/${cycle}/${settlement.obshtina}`}
+                className="hover:underline"
+              >
+                {muniName}
+              </Link>
+            </>
+          ) : null}
+          <span className="mx-2">·</span>
+          <span>{friendlyCycleDate(cycle)}</span>
+        </div>
+        <ToParliamentaryLink level="settlement" ekatte={ekatte} />
       </div>
       <h1 className="text-2xl font-semibold">{name}</h1>
       <LocalSettlementDashboardCards ekatte={ekatte} cycle={cycle} />

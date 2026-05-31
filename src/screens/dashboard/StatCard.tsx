@@ -11,6 +11,13 @@ type Props = {
   // When set, the whole card becomes a link to this route (drill-down to a
   // standalone detail page) with a hover affordance + a corner chevron.
   to?: string;
+  // Render the label in sentence case (drops the uppercase eyebrow styling).
+  // Use for long tile titles where ALL-CAPS Cyrillic hurts scannability;
+  // short kicker labels stay uppercase (the default).
+  titleCase?: boolean;
+  // Cap the body to this CSS height with internal vertical scroll, so a long
+  // list tile doesn't tower over its grid-row neighbour. e.g. "22rem".
+  bodyMaxHeight?: string;
 };
 
 export const StatCard: FC<PropsWithChildren<Props>> = ({
@@ -18,10 +25,17 @@ export const StatCard: FC<PropsWithChildren<Props>> = ({
   hint,
   className,
   to,
+  titleCase,
+  bodyMaxHeight,
   children,
 }) => {
   const labelEl = (
-    <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+    <div
+      className={cn(
+        "font-medium text-muted-foreground",
+        titleCase ? "text-sm" : "text-xs uppercase tracking-wide",
+      )}
+    >
       {label}
     </div>
   );
@@ -34,7 +48,15 @@ export const StatCard: FC<PropsWithChildren<Props>> = ({
       ) : (
         labelEl
       )}
-      <div className="flex flex-col gap-1">{children}</div>
+      <div
+        className={cn(
+          "flex flex-col gap-1",
+          bodyMaxHeight && "overflow-y-auto",
+        )}
+        style={bodyMaxHeight ? { maxHeight: bodyMaxHeight } : undefined}
+      >
+        {children}
+      </div>
     </>
   );
   const shell =

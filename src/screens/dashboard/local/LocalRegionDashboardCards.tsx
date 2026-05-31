@@ -18,6 +18,10 @@ import { DashboardSection } from "../DashboardSection";
 import { LocalRegionMapTile } from "./LocalRegionMapTile";
 import { LocalVoteFlowTile } from "./LocalVoteFlowTile";
 
+// Shared cap for list-style tiles so a long leaderboard doesn't tower over its
+// grid-row neighbour on a desktop viewport (internal scroll past this height).
+const LIST_MAX_H = "24rem";
+
 export const LocalRegionDashboardCards: FC<{
   cycle: string;
   oblast: string;
@@ -125,7 +129,11 @@ export const LocalRegionDashboardCards: FC<{
       {/* Mayors. */}
       <DashboardSection id="local-mayors" title={t("local_sec_mayors")}>
         {region.mayorsWon.length > 0 ? (
-          <StatCard label={t("local_region_mayors_section")}>
+          <StatCard
+            titleCase
+            bodyMaxHeight={LIST_MAX_H}
+            label={t("local_region_mayors_section")}
+          >
             <ul>
               {region.mayorsWon.map((p) => (
                 <RankedBar
@@ -146,7 +154,11 @@ export const LocalRegionDashboardCards: FC<{
       <DashboardSection id="local-councils" title={t("local_sec_councils")}>
         <div className="grid gap-4 lg:grid-cols-2">
           {region.councilSeats.length > 0 ? (
-            <StatCard label={t("local_region_council_section")}>
+            <StatCard
+              titleCase
+              bodyMaxHeight={LIST_MAX_H}
+              label={t("local_region_council_section")}
+            >
               <ul>
                 {region.councilSeats.map((p) => (
                   <RankedBar
@@ -167,6 +179,8 @@ export const LocalRegionDashboardCards: FC<{
           ) : null}
           {splitRows.length > 0 ? (
             <StatCard
+              titleCase
+              bodyMaxHeight={LIST_MAX_H}
               label={
                 <div className="flex items-center gap-2">
                   <GitFork className="h-4 w-4" />

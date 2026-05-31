@@ -33,6 +33,10 @@ const isSofiaRayon = (code: string): boolean => /^S2\d{3}$/.test(code);
 // opens the full table on /local/:cycle/regions.
 const REGION_TILE_LIMIT = 8;
 
+// Shared cap for list-style tiles so a long leaderboard doesn't tower over its
+// grid-row neighbour on a desktop viewport (internal scroll past this height).
+const LIST_MAX_H = "24rem";
+
 export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
   cycle,
 }) => {
@@ -147,10 +151,18 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
         <LocalRegionsTable cycle={cycle} limit={REGION_TILE_LIMIT} />
       </DashboardSection>
 
-      {/* Mayors: who governs. */}
+      {/* Mayors: who governs. The bar-list summary pairs with the strongest-
+          mandates leaderboard (both height-capped so the row stays balanced);
+          the closest-races leaderboard sits full-width below — mirroring the
+          councils section's full-width demographic-cleavages tile, and avoiding
+          a 3-into-2 grid that would leave a ragged empty cell. */}
       <DashboardSection id="local-mayors" title={t("local_sec_mayors")}>
         <div className="grid gap-4 lg:grid-cols-2">
-          <StatCard label={t("local_cycle_overview_mayors_section")}>
+          <StatCard
+            titleCase
+            bodyMaxHeight={LIST_MAX_H}
+            label={t("local_cycle_overview_mayors_section")}
+          >
             <ul>
               {topMayors.map((p) => (
                 <RankedBar
@@ -164,15 +176,19 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
               ))}
             </ul>
           </StatCard>
-          <LocalTopMayorsTile cycle={cycle} />
-          <LocalClosestRacesTile cycle={cycle} />
+          <LocalTopMayorsTile cycle={cycle} bodyMaxHeight={LIST_MAX_H} />
         </div>
+        <LocalClosestRacesTile cycle={cycle} bodyMaxHeight={LIST_MAX_H} />
       </DashboardSection>
 
       {/* Councils: the proportional party signal. */}
       <DashboardSection id="local-councils" title={t("local_sec_councils")}>
         <div className="grid gap-4 lg:grid-cols-2">
-          <StatCard label={t("local_cycle_overview_council_section")}>
+          <StatCard
+            titleCase
+            bodyMaxHeight={LIST_MAX_H}
+            label={t("local_cycle_overview_council_section")}
+          >
             <ul>
               {topCouncil.map((p) => (
                 <RankedBar
@@ -186,7 +202,7 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
               ))}
             </ul>
           </StatCard>
-          <LocalSplitControlTile cycle={cycle} />
+          <LocalSplitControlTile cycle={cycle} bodyMaxHeight={LIST_MAX_H} />
         </div>
         {/* How each leading council party's vote correlates with the
             municipality's demographics. */}

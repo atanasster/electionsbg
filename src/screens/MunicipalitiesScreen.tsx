@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { useRegions } from "@/data/regions/useRegions";
 import { RegionDashboardCards } from "./dashboard/RegionDashboardCards";
+import { ToLocalLink } from "@/screens/components/CrossElectionLink";
 
 export const MunicipalitiesScreen = () => {
   const { id: region } = useParams();
@@ -24,6 +25,9 @@ export const MunicipalitiesScreen = () => {
       <Title description="Interactive map of a municipality in the elections in Bulgaria">
         {title}
       </Title>
+      <div className="-mt-4 mb-6 flex justify-center">
+        <ToLocalLink level="region" oblast={region} />
+      </div>
       <RegionDashboardCards regionCode={region} />
     </>
   );

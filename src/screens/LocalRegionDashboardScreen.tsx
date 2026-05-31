@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useRegions } from "@/data/regions/useRegions";
 import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { LocalRegionDashboardCards } from "./dashboard/local/LocalRegionDashboardCards";
+import { ToParliamentaryLink } from "@/screens/components/CrossElectionLink";
 
 export const LocalRegionDashboardScreen: FC = () => {
   const { cycle, oblast } = useParams<{ cycle: string; oblast: string }>();
@@ -37,12 +38,15 @@ export const LocalRegionDashboardScreen: FC = () => {
 
   return (
     <main className="container mx-auto px-4 py-6 space-y-6">
-      <div className="text-xs text-muted-foreground">
-        <Link to={`/local/${cycle}`} className="hover:underline">
-          {t("local_election_screen_back")}
-        </Link>
-        <span className="mx-2">·</span>
-        <span>{friendlyCycleDate(cycle)}</span>
+      <div className="flex items-center justify-between gap-3">
+        <div className="text-xs text-muted-foreground">
+          <Link to={`/local/${cycle}`} className="hover:underline">
+            {t("local_election_screen_back")}
+          </Link>
+          <span className="mx-2">·</span>
+          <span>{friendlyCycleDate(cycle)}</span>
+        </div>
+        <ToParliamentaryLink level="region" oblast={oblast} />
       </div>
       <h1 className="text-2xl font-semibold">{name}</h1>
       <LocalRegionDashboardCards cycle={cycle} oblast={oblast} />

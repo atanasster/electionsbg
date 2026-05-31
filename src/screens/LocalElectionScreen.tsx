@@ -28,6 +28,7 @@ import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { LocalCountryDashboardCards } from "./dashboard/local/LocalCountryDashboardCards";
 import { LocalSofiaRayonMapTile } from "./dashboard/local/LocalSofiaRayonMapTile";
 import { LocalSectionsTile } from "./dashboard/local/LocalSectionsTile";
+import { ToParliamentaryLink } from "@/screens/components/CrossElectionLink";
 import {
   MayorVsCouncilTile,
   TopCouncillorsTile,
@@ -657,12 +658,18 @@ const MunicipalityResults: FC<{
 
   return (
     <main className="container mx-auto px-4 py-6">
-      <div className="text-xs text-muted-foreground mb-2">
-        <Link to={`/local/${cycle}`} className="hover:underline">
-          {t("local_election_screen_back")}
-        </Link>
-        <span className="mx-2">·</span>
-        <span>{cycleDate}</span>
+      <div className="mb-2 flex items-center justify-between gap-3">
+        <div className="text-xs text-muted-foreground">
+          <Link to={`/local/${cycle}`} className="hover:underline">
+            {t("local_election_screen_back")}
+          </Link>
+          <span className="mx-2">·</span>
+          <span>{cycleDate}</span>
+        </div>
+        <ToParliamentaryLink
+          level="municipality"
+          obshtinaCode={municipality.obshtinaCode}
+        />
       </div>
       <h1 className="text-2xl font-semibold mb-1">
         {municipality.obshtinaName}
@@ -786,9 +793,12 @@ const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
   return (
     <main className="container mx-auto px-4 py-6 space-y-6">
       <header>
-        <h1 className="text-2xl font-semibold">
-          {t("local_election_cycle_stub_title")} · {friendlyCycleDate(cycle)}
-        </h1>
+        <div className="flex items-start justify-between gap-3">
+          <h1 className="text-2xl font-semibold">
+            {t("local_election_cycle_stub_title")} · {friendlyCycleDate(cycle)}
+          </h1>
+          <ToParliamentaryLink level="country" />
+        </div>
         {index ? (
           <p className="mt-1 text-xs text-muted-foreground tabular-nums">
             {t("local_cycle_overview_municipalities", {
