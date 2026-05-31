@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigateParams } from "@/ux/useNavigateParams";
 import { useTooltip } from "@/ux/useTooltip";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
-import { useNationMunicipalitiesMap } from "@/data/municipalities/useNationMunicipalitiesMap";
+import { useSofiaMergedNationMap } from "@/data/municipalities/useSofiaMergedNationMap";
 import {
   formatIndicatorValue,
   indicatorHigherIsBetter,
@@ -44,7 +44,10 @@ export const IndicatorsChoroplethMap: React.FC<{
 }> = ({ indicator, size }) => {
   const { t, i18n } = useTranslation();
   const { tooltip, ...tooltipEvents } = useTooltip();
-  const mapGeo = useNationMunicipalitiesMap();
+  // Sofia drawn as one Столична-община polygon (keyed nuts4 "SOF00") instead of
+  // its 24 районни shards, since indicators are published only for the whole
+  // city. The SOF00 aggregate is resolved directly by resolveValue.
+  const mapGeo = useSofiaMergedNationMap();
   const { findMunicipality } = useMunicipalities();
   const { data: payload } = useIndicators();
   const navigate = useNavigateParams();
@@ -172,16 +175,13 @@ export const IndicatorsChoroplethMap: React.FC<{
                   navigate({ pathname: `/settlement/${code}` });
                 }}
                 onMouseEnter={(e) => {
-                  // Sofia districts get the city aggregate value AND a city
-                  // label; non-Sofia munis use their own name. Falling back
-                  // to the muni code preserves a sensible label if the
-                  // lookup somehow misses.
+                  // The merged Sofia polygon is keyed SOF00 (no município
+                  // entry); give it the city label. Other munis use their own
+                  // name, falling back to the code if the lookup misses.
                   const info = findMunicipality(code);
-                  const isSofiaFallback = cell?.fallback === "sofia-city";
-                  const displayName = isSofiaFallback
-                    ? lang === "bg"
-                      ? "София (столица)"
-                      : "Sofia (city)"
+                  const isSofiaCity = code === SOFIA_CITY_KEY;
+                  const displayName = isSofiaCity
+                    ? t("local_region_sofia_city")
                     : info
                       ? lang === "bg"
                         ? info.long_name || info.name
@@ -202,11 +202,6 @@ export const IndicatorsChoroplethMap: React.FC<{
                           {unitLabel}
                         </span>
                       </div>
-                      {isSofiaFallback && (
-                        <div className="text-[10px] italic text-muted-foreground mt-1">
-                          {t("indicators_sofia_city_footnote")}
-                        </div>
-                      )}
                     </div>,
                   );
                 }}

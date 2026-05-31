@@ -13,7 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useNavigateParams } from "@/ux/useNavigateParams";
 import { useTooltip } from "@/ux/useTooltip";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
-import { useNationMunicipalitiesMap } from "@/data/municipalities/useNationMunicipalitiesMap";
+import { useSofiaMergedNationMap } from "@/data/municipalities/useSofiaMergedNationMap";
 import { useFundsMuniMap } from "@/data/funds/useFundsMuniMap";
 import { LeafletMap } from "../components/maps/LeafletMap";
 import { SVGMapContainer } from "../components/maps/SVGMapContainer";
@@ -82,7 +82,10 @@ const FundsMuniMapInner: FC<{
 }> = ({ data, metric, size }) => {
   const { t, i18n } = useTranslation();
   const { tooltip, ...tooltipEvents } = useTooltip();
-  const mapGeo = useNationMunicipalitiesMap();
+  // Sofia drawn as one Столична-община polygon (keyed nuts4 "SOF00") instead of
+  // its 24 районни shards, since EU-funds are aggregated to the whole city. The
+  // SOF00 row is resolved directly by resolveRow.
+  const mapGeo = useSofiaMergedNationMap();
   const { findMunicipality } = useMunicipalities();
   const navigate = useNavigateParams();
   const lang = i18n.language;
@@ -242,15 +245,14 @@ const FundsMuniMapInner: FC<{
                 }}
                 onMouseEnter={(e) => {
                   const info = findMunicipality(code);
-                  const displayName = cell?.sofiaFallback
-                    ? lang === "bg"
-                      ? "София (столица)"
-                      : "Sofia (city)"
-                    : info
-                      ? lang === "bg"
-                        ? info.long_name || info.name
-                        : info.long_name_en || info.name_en
-                      : code;
+                  const displayName =
+                    code === SOFIA_SYNTH
+                      ? t("local_region_sofia_city")
+                      : info
+                        ? lang === "bg"
+                          ? info.long_name || info.name
+                          : info.long_name_en || info.name_en
+                        : code;
                   tooltipEvents.onMouseEnter(
                     { pageX: e.pageX, pageY: e.pageY },
                     cell ? (
