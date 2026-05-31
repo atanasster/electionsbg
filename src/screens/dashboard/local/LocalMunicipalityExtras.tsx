@@ -61,12 +61,14 @@ export const MayorVsCouncilTile: FC<{ bundle: LocalMunicipalityBundle }> = ({
     leadingCouncil.localPartyName,
   );
   const aligned = mayorPid === councilPid;
-  const mayorColor = mayor.primaryCanonicalId
-    ? colorFor(mayor.primaryCanonicalId)
-    : "#9CA3AF";
-  const councilColor = leadingCouncil.primaryCanonicalId
-    ? colorFor(leadingCouncil.primaryCanonicalId)
-    : "#9CA3AF";
+  const mayorColor =
+    (mayor.primaryCanonicalId
+      ? colorFor(mayor.primaryCanonicalId)
+      : "#9CA3AF") ?? "#9CA3AF";
+  const councilColor =
+    (leadingCouncil.primaryCanonicalId
+      ? colorFor(leadingCouncil.primaryCanonicalId)
+      : "#9CA3AF") ?? "#9CA3AF";
   return (
     <StatCard
       label={
@@ -116,9 +118,10 @@ export const TopCouncillorsTile: FC<{ bundle: LocalMunicipalityBundle }> = ({
           prefVotes: c.prefVotes,
           prefPct: c.prefPct,
           partyName: p.localPartyName,
-          color: p.primaryCanonicalId
-            ? colorFor(p.primaryCanonicalId)
-            : "#9CA3AF",
+          color:
+            (p.primaryCanonicalId
+              ? colorFor(p.primaryCanonicalId)
+              : "#9CA3AF") ?? "#9CA3AF",
         })),
     );
     return all.sort((a, b) => b.prefVotes - a.prefVotes).slice(0, 8);
