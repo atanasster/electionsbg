@@ -1,25 +1,37 @@
-// Sofia район choropleth. One tile, two metrics:
-//   metric="mayor"   → fill by each район's elected mayor party
-//   metric="council" → fill by the район shard's leading council party
-//     (which mirrors the city council since SOF shards replicate it; the
-//     metric is kept for parity with country/region so the dashboard reads
-//     consistently — most районы will share Sofia's dominant council party)
-// Polygons come from merging S23/S24/S25 parliamentary GeoJSON; the join key
-// is `nuts4` (S2*** district code).
+// Sofia choropleth. One tile, two metrics:
+//   metric="mayor"   → the 24 administrative районы, each filled by its
+//     elected район mayor's party. Polygons come from merging S23/S24/S25
+//     parliamentary GeoJSON; the join key is `nuts4` (S2*** district code).
+//   metric="council" → Sofia has a single city-wide council (Столичен
+//     общински съвет), so — exactly like the national council map treats the
+//     city — the районы are dropped and the single Столична-община polygon is
+//     drawn instead, filled by the leading council party and showing the full
+//     per-party seat breakdown on hover. Colouring 24 районы that share one
+//     council would imply per-район councils that don't exist.
 
 import { FC, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Map as MapIcon } from "lucide-react";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
-import { MunicipalityJSONProps } from "@/screens/components/maps/mapTypes";
+import {
+  MunicipalityJSONProps,
+  RegionJSONProps,
+} from "@/screens/components/maps/mapTypes";
 import { LocalChoropleth } from "@/screens/components/local/LocalChoropleth";
+import {
+  LocalPartyBreakdownXS,
+  LocalBreakdownRow,
+} from "@/screens/components/local/LocalPartyBreakdownXS";
 import { useSofiaRayonsMap } from "@/data/local/useSofiaRayonsMap";
+import { useSofiaObshtinaMap } from "@/data/regions/useSofiaObshtinaMap";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import { SOFIA_RAYONS } from "@/data/budget/sofiaRayons";
 import { StatCard } from "../StatCard";
 import { LocalMapMetric } from "./LocalRegionsControlMapTile";
 import { LocalDistrictMayorResult, LocalMayorResult } from "@/data/local/types";
+
+const IND_COLOR = "#9CA3AF";
 
 // district display name → S2*** nuts4 code (the SOF bundle's districts carry
 // districtName like "Красно село" but an empty districtCode, so resolve via
@@ -49,19 +61,17 @@ export const LocalSofiaRayonMapTile: FC<{
   cycle: string;
   metric: LocalMapMetric;
 }> = ({ cycle, metric }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { byId } = useCanonicalParties();
+  const isEn = i18n.language === "en";
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<MapCoordinates | undefined>();
-  const mapGeo = useSofiaRayonsMap();
+  const rayonsMap = useSofiaRayonsMap(); // mayor metric: the 24 районы
+  const sofiaObshtina = useSofiaObshtinaMap(); // council metric: one SOF polygon
   const { municipality: sof } = useLocalMunicipality("SOF", cycle);
   const isMayor = metric === "mayor";
 
-  // Build a lookup keyed by nuts4 (S2***):
-  //   - mayor metric → that район's mayor party
-  //   - council metric → the район shard's leading council party (read by
-  //     fetching the shard separately would multiply requests, so we
-  //     surface the city-wide top instead at this level — kept simple)
+  // Mayor metric — район (nuts4) → elected mayor party + candidate.
   const byDistrict = useMemo(() => {
     const m = new Map<
       string,
@@ -74,8 +84,8 @@ export const LocalSofiaRayonMapTile: FC<{
       const winner = resolveDistrictMayor(d);
       if (!winner) continue;
       const color = winner.primaryCanonicalId
-        ? (byId.get(winner.primaryCanonicalId)?.color ?? "#9CA3AF")
-        : "#9CA3AF";
+        ? (byId.get(winner.primaryCanonicalId)?.color ?? IND_COLOR)
+        : IND_COLOR;
       m.set(nuts4, {
         partyName: winner.localPartyName,
         color,
@@ -84,6 +94,33 @@ export const LocalSofiaRayonMapTile: FC<{
     }
     return m;
   }, [sof, byId]);
+
+  // Council metric — the city-wide council seat breakdown, sorted desc, ready
+  // for LocalPartyBreakdownXS (the same tooltip body the national council map
+  // uses). Independents keep their local list name and a gray swatch.
+  const council = useMemo(() => {
+    const rows: LocalBreakdownRow[] = (sof?.council ?? [])
+      .filter((p) => p.mandatesWon > 0)
+      .map((p) => {
+        const party = p.primaryCanonicalId
+          ? byId.get(p.primaryCanonicalId)
+          : undefined;
+        const name = party
+          ? ((isEn ? party.displayNameEn : party.displayName) ??
+            party.displayName ??
+            p.localPartyName)
+          : p.localPartyName;
+        return {
+          id: p.primaryCanonicalId ?? `ind:${p.localPartyNum}`,
+          name,
+          color: party?.color ?? IND_COLOR,
+          value: p.mandatesWon,
+        };
+      })
+      .sort((a, b) => b.value - a.value);
+    const total = rows.reduce((a, r) => a + r.value, 0);
+    return { rows, total, topColor: rows[0]?.color };
+  }, [sof, byId, isEn]);
 
   useLayoutEffect(() => {
     const el = ref.current;
@@ -115,10 +152,10 @@ export const LocalSofiaRayonMapTile: FC<{
       }
     >
       <div ref={ref} className="w-full h-[360px] md:h-[440px]">
-        {size && (
+        {size && isMayor && (
           <LocalChoropleth<MunicipalityJSONProps>
             size={size}
-            mapGeo={mapGeo}
+            mapGeo={rayonsMap}
             colorOf={(p) => byDistrict.get(p.nuts4)?.color}
             tooltipOf={(p) => {
               const r = byDistrict.get(p.nuts4);
@@ -148,6 +185,34 @@ export const LocalSofiaRayonMapTile: FC<{
               );
             }}
             onClickPath={(p) => ({ pathname: `/local/${cycle}/${p.nuts4}` })}
+          />
+        )}
+        {size && !isMayor && (
+          <LocalChoropleth<RegionJSONProps>
+            size={size}
+            mapGeo={sofiaObshtina}
+            colorOf={() => council.topColor}
+            tooltipOf={() => (
+              <div className="text-left">
+                <div className="text-sm font-semibold text-center pb-1">
+                  {t("local_sofia_council_title")}
+                </div>
+                {council.rows.length ? (
+                  <LocalPartyBreakdownXS
+                    header={t("local_region_seats_count", {
+                      count: council.total,
+                    })}
+                    rows={council.rows}
+                    total={council.total}
+                  />
+                ) : (
+                  <div className="text-xs opacity-70">
+                    {t("local_election_no_data")}
+                  </div>
+                )}
+              </div>
+            )}
+            onClickPath={() => ({ pathname: `/local/${cycle}/SOF` })}
           />
         )}
       </div>
