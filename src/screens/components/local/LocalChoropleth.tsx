@@ -23,12 +23,17 @@ export function LocalChoropleth<DType extends GeoJSONProps>({
   colorOf,
   tooltipOf,
   onClickPath,
+  overlay,
 }: {
   size: MapCoordinates;
   mapGeo?: GeoJSONMap<DType>;
   colorOf: (props: DType) => string | undefined;
   tooltipOf: (props: DType) => ReactNode;
   onClickPath: (props: DType) => NavigateParams;
+  // Absolutely-positioned corner overlay(s) rendered over the map — e.g. the
+  // Sofia-city shortcut tile. Positioned by the overlay itself relative to
+  // `size`, matching the parliamentary RegionsMap (SofiaCity / WorldLink).
+  overlay?: ReactNode;
 }) {
   const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip();
   const navigate = useNavigateParams();
@@ -66,6 +71,7 @@ export function LocalChoropleth<DType extends GeoJSONProps>({
             />
           ))}
         </SVGMapContainer>
+        {overlay}
       </div>
       {tooltip}
     </div>

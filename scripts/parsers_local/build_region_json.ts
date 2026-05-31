@@ -147,6 +147,22 @@ export type RegionsSummaryRow = {
     color: string;
     seats: number;
   } | null;
+  // Full party breakdowns (sorted desc) so the map tooltip can list the top
+  // parties — not just the leader — mirroring the parliamentary votes map.
+  // topMayor / topCouncil remain the [0] entries (kept for the choropleth fill
+  // + top-regions table).
+  mayorsWon: {
+    canonicalId: string;
+    displayName: string;
+    color: string;
+    count: number;
+  }[];
+  councilSeats: {
+    canonicalId: string;
+    displayName: string;
+    color: string;
+    seats: number;
+  }[];
 };
 
 export type RegionsSummary = {
@@ -520,6 +536,8 @@ export const buildRegionRollups = (opts: {
       turnoutPct,
       topMayor: mayorsRollup[0] ?? null,
       topCouncil: councilRollup[0] ?? null,
+      mayorsWon: mayorsRollup,
+      councilSeats: councilRollup,
     });
   }
 

@@ -13,9 +13,14 @@ import { useRegionsMap } from "@/data/regions/useRegionsMap";
 import { useRegions } from "@/data/regions/useRegions";
 import { RegionJSONProps } from "@/screens/components/maps/mapTypes";
 import { LocalChoropleth } from "@/screens/components/local/LocalChoropleth";
+import {
+  LocalPartyBreakdownXS,
+  LocalBreakdownRow,
+} from "@/screens/components/local/LocalPartyBreakdownXS";
 import { useLocalRegionsSummary } from "@/data/local/useLocalRegionsSummary";
 import { LocalRegionsSummaryRow } from "@/data/local/types";
 import { StatCard } from "../StatCard";
+import { LocalSofiaCityLink } from "./LocalSofiaCityLink";
 
 export type LocalMapMetric = "mayor" | "council";
 
@@ -63,6 +68,34 @@ export const LocalRegionsControlMapTile: FC<{
     );
   };
 
+  // Top-parties breakdown for one oblast — the richer tooltip body, mirroring
+  // the parliamentary votes map. Falls back to the single topMayor/topCouncil
+  // leader for older summaries that predate the full arrays.
+  const breakdownOf = (
+    row?: LocalRegionsSummaryRow,
+  ): { rows: LocalBreakdownRow[]; total: number; header: string } => {
+    const rows: LocalBreakdownRow[] = isMayor
+      ? (row?.mayorsWon ?? (row?.topMayor ? [row.topMayor] : [])).map((p) => ({
+          id: p.canonicalId,
+          name: p.displayName,
+          color: p.color,
+          value: p.count,
+        }))
+      : (row?.councilSeats ?? (row?.topCouncil ? [row.topCouncil] : [])).map(
+          (p) => ({
+            id: p.canonicalId,
+            name: p.displayName,
+            color: p.color,
+            value: p.seats,
+          }),
+        );
+    const total = rows.reduce((a, r) => a + r.value, 0);
+    const header = isMayor
+      ? t("local_region_mayors_count", { count: total })
+      : t("local_region_seats_count", { count: total });
+    return { rows, total, header };
+  };
+
   return (
     <StatCard
       label={
@@ -92,34 +125,18 @@ export const LocalRegionsControlMapTile: FC<{
             }}
             tooltipOf={(p) => {
               const oblast = nuts3ToOblast(p.nuts3);
-              const row = byOblast.get(oblast);
-              const party = isMayor ? row?.topMayor : row?.topCouncil;
-              const suffix = isMayor
-                ? row?.topMayor
-                  ? t("local_region_mayors_count", {
-                      count: row.topMayor.count,
-                    })
-                  : ""
-                : row?.topCouncil
-                  ? t("local_region_seats_count", {
-                      count: row.topCouncil.seats,
-                    })
-                  : "";
+              const { rows, total, header } = breakdownOf(byOblast.get(oblast));
               return (
                 <div className="text-left">
-                  <div className="text-sm font-semibold pb-1">
+                  <div className="text-sm font-semibold text-center pb-1">
                     {regionName(oblast)}
                   </div>
-                  {party ? (
-                    <div className="flex items-center gap-1.5 text-xs">
-                      <span
-                        aria-hidden
-                        className="inline-block size-2 rounded-sm shrink-0"
-                        style={{ backgroundColor: party.color }}
-                      />
-                      <span className="font-medium">{party.displayName}</span>
-                      <span className="opacity-70 tabular-nums">{suffix}</span>
-                    </div>
+                  {rows.length ? (
+                    <LocalPartyBreakdownXS
+                      header={header}
+                      rows={rows}
+                      total={total}
+                    />
                   ) : (
                     <div className="text-xs opacity-70">
                       {t("local_election_no_data")}
@@ -134,6 +151,14 @@ export const LocalRegionsControlMapTile: FC<{
                 ? { pathname: `/local/${cycle}/SOF` }
                 : { pathname: `/local/${cycle}/region/${oblast}` };
             }}
+            overlay={
+              <LocalSofiaCityLink
+                cycle={cycle}
+                size={size}
+                metric={metric}
+                row={byOblast.get("SOF")}
+              />
+            }
           />
         )}
       </div>

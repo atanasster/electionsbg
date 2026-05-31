@@ -247,6 +247,11 @@ export type LocalRegionsSummaryRow = {
   turnoutPct: number | null;
   topMayor: LocalPartyTally | null;
   topCouncil: LocalPartySeats | null;
+  // Full per-party breakdowns (sorted desc) for the map tooltip. topMayor /
+  // topCouncil are the [0] entries. Optional so older cached summaries
+  // (pre-breakdown) still type-check; the tooltip falls back to topMayor.
+  mayorsWon?: LocalPartyTally[];
+  councilSeats?: LocalPartySeats[];
 };
 
 export type LocalRegionsSummary = {
