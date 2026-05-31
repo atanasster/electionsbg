@@ -16,7 +16,14 @@
 import { FC, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, ChevronDown, ChevronRight } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronDown,
+  ChevronRight,
+  Coins,
+  Landmark,
+  Map,
+} from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
@@ -29,6 +36,17 @@ import { LocalCountryDashboardCards } from "./dashboard/local/LocalCountryDashbo
 import { LocalSofiaRayonMapTile } from "./dashboard/local/LocalSofiaRayonMapTile";
 import { LocalSectionsTile } from "./dashboard/local/LocalSectionsTile";
 import { ToParliamentaryLink } from "@/screens/components/CrossElectionLink";
+import { DashboardSection } from "./dashboard/DashboardSection";
+import { CensusDemographicsTile } from "./dashboard/CensusDemographicsTile";
+import { IndicatorsTile } from "./dashboard/IndicatorsTile";
+import { MunicipalityTransfersTile } from "./dashboard/MunicipalityTransfersTile";
+import { EuFundsTile } from "./dashboard/EuFundsTile";
+import { CompaniesHqTile } from "./dashboard/CompaniesHqTile";
+import { MunicipalCapitalProjectsTiles } from "./dashboard/MunicipalCapitalProjectsTiles";
+import { IpopExecutionTile } from "./dashboard/IpopExecutionTile";
+import { MunicipalBudgetExecutionTile } from "./dashboard/MunicipalBudgetExecutionTile";
+import { OfficialsDiffTile } from "./dashboard/OfficialsDiffTile";
+import { MunicipalOfficialsRosterTile } from "./dashboard/MunicipalOfficialsRosterTile";
 import {
   MayorVsCouncilTile,
   TopCouncillorsTile,
@@ -773,6 +791,46 @@ const MunicipalityResults: FC<{
       <LocalSectionsTile cycle={cycle} obshtinaCode={obshtinaCode} />
 
       <ChmiHistorySection events={chmiEvents} />
+
+      {/* Supplementary place data — the same geography / finances / current-
+          officials tiles the parliamentary município page carries, keyed by the
+          shared obshtina code. Each tile self-hides without data; the whole
+          block is skipped for Sofia район shards (sub-units, not real
+          municipalities for these datasets). */}
+      {!isSofiaRayon ? (
+        <>
+          <DashboardSection
+            id="geography"
+            title={t("dashboard_section_geography")}
+            icon={Map}
+          >
+            <CensusDemographicsTile regionCode={obshtinaCode} isMunicipality />
+            <IndicatorsTile obshtinaCode={obshtinaCode} />
+          </DashboardSection>
+
+          <DashboardSection
+            id="local_government"
+            title={t("dashboard_section_local_government")}
+            icon={Landmark}
+          >
+            <OfficialsDiffTile obshtinaCode={obshtinaCode} />
+            <MunicipalOfficialsRosterTile obshtinaCode={obshtinaCode} />
+          </DashboardSection>
+
+          <DashboardSection
+            id="finances"
+            title={t("dashboard_section_finances")}
+            icon={Coins}
+          >
+            <MunicipalityTransfersTile municipalityCode={obshtinaCode} />
+            <EuFundsTile kind="muni" obshtina={obshtinaCode} />
+            <CompaniesHqTile kind="muni" obshtina={obshtinaCode} />
+            <MunicipalCapitalProjectsTiles obshtinaCode={obshtinaCode} />
+            <IpopExecutionTile obshtinaCode={obshtinaCode} />
+            <MunicipalBudgetExecutionTile obshtinaCode={obshtinaCode} />
+          </DashboardSection>
+        </>
+      ) : null}
     </main>
   );
 };
