@@ -79,6 +79,9 @@ export const LocalSectionsMap: FC<{
         bounds={bounds}
         boundsOptions={{ padding: [20, 20] }}
         scrollWheelZoom
+        // Render the markers on a single canvas instead of one SVG node each —
+        // Sofia has ~1,640 stations, which is far smoother as canvas.
+        preferCanvas
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

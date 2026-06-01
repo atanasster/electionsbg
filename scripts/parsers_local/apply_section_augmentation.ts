@@ -10,14 +10,22 @@
 //
 // Plus a per-município section shard for data/<cycle>/sections/<obshtina>.json.
 
+import fs from "fs";
+import path from "path";
 import { CanonicalPartiesIndex } from "@/data/parties/canonicalPartyTypes";
 import { displayMeta } from "./build_index_json";
 import { SectionAggregation } from "./augment_sections";
 import {
   LocalCouncilParty,
   LocalMunicipalityBundle,
+  LocalSectionDetail,
   LocalSectionShard,
 } from "./types";
+
+// The município section index keeps only the top few parties per station — the
+// map (winner dot + top-4 tooltip) and the table/leaderboard (winner) never
+// need more. The full per-party breakdown lives in the per-station detail file.
+const INDEX_TOP_VOTES = 5;
 
 const round2 = (n: number): number => Math.round(n * 100) / 100;
 
@@ -116,4 +124,60 @@ export const buildSectionShard = (
     parties,
     sections,
   };
+};
+
+/**
+ * Write one município's section data as TWO tiers, minimising what each page
+ * loads (sections/<obshtina>.json was ~74% partyVotes and Sofia ~2MB):
+ *
+ *   1. sections/<obshtina>.json — LIGHT index: every station, but partyVotes
+ *      trimmed to the top few. Drives the map + top-sections + table.
+ *   2. sections/<obshtina>/<sectionCode>.json — per-station full breakdown.
+ *      The detail page fetches just this (~1–2KB) instead of the whole shard.
+ *
+ * Returns the station count written. Idempotent within a run — the caller
+ * clears sections/ first (obshtina codes can shift between runs).
+ */
+export const emitSectionFiles = (
+  shard: LocalSectionShard,
+  sectionsDir: string,
+  stringify: (o: object) => string,
+): number => {
+  // Per-station full detail files under sections/<obshtina>/.
+  const detailDir = path.join(sectionsDir, shard.obshtinaCode);
+  fs.mkdirSync(detailDir, { recursive: true });
+  for (const s of shard.sections) {
+    const present = new Set(s.partyVotes.map((pv) => pv.localPartyNum));
+    const detail: LocalSectionDetail = {
+      cycle: shard.cycle,
+      obshtinaCode: shard.obshtinaCode,
+      obshtinaName: shard.obshtinaName,
+      section: s,
+      parties: shard.parties.filter((p) => present.has(p.localPartyNum)),
+    };
+    fs.writeFileSync(
+      path.join(detailDir, `${s.sectionCode}.json`),
+      stringify(detail),
+      "utf-8",
+    );
+  }
+
+  // Light index — same shape, partyVotes trimmed to the top few (sort defensively
+  // by votes desc so [0] is the winner regardless of source ordering).
+  const index: LocalSectionShard = {
+    ...shard,
+    sections: shard.sections.map((s) => ({
+      ...s,
+      partyVotes: [...s.partyVotes]
+        .sort((a, b) => b.votes - a.votes)
+        .slice(0, INDEX_TOP_VOTES),
+    })),
+  };
+  fs.writeFileSync(
+    path.join(sectionsDir, `${shard.obshtinaCode}.json`),
+    stringify(index),
+    "utf-8",
+  );
+
+  return shard.sections.length;
 };

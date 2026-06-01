@@ -33,6 +33,7 @@ import { aggregate2011Sections } from "./augment_sections_2011";
 import {
   applyCouncilVotes,
   buildSectionShard,
+  emitSectionFiles,
 } from "./apply_section_augmentation";
 import { buildRegionRollups } from "./build_region_json";
 import { buildLocalDemographics } from "./build_local_demographics";
@@ -459,13 +460,9 @@ export const parseLocalElection = async (opts: {
     for (const b of bundles) {
       const shard = buildSectionShard(b, sectionAgg, canonical);
       if (!shard) continue;
-      fs.writeFileSync(
-        path.join(sectionsDir, `${b.obshtinaCode}.json`),
-        stringify(shard),
-        "utf-8",
-      );
+      // Two tiers: light index + per-station detail files (see emitSectionFiles).
+      sectionTotal += emitSectionFiles(shard, sectionsDir, stringify);
       shardCount++;
-      sectionTotal += shard.sections.length;
     }
     console.log(
       `[parsers_local] ${cycle}: wrote ${shardCount} section shard(s) covering ${sectionTotal} polling section(s)`,

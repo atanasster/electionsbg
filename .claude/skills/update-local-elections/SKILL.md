@@ -116,7 +116,7 @@ For **regular cycles only** (2015/2019/2023), `--local-csv <slug>` additionally 
 npm run data -- --local-csv mi2023   # or minr2015 / mi2019
 ```
 
-This fixes the council vote share for cycles whose HTML summary omits it (2015), fills real `protocol` turnout, and writes `data/<cycle>/sections/<obshtina>.json` (the `LocalSectionsTile`). Per-cycle bundle URLs + the cp866 extractor live in `download_csv_bundle.ts` / `extract_bundle.ts`. chmi partials are HTML-only — they have no section bundle, so `--local-csv` does not apply to them.
+This fixes the council vote share for cycles whose HTML summary omits it (2015), fills real `protocol` turnout, and writes the two-tier section data — `data/<cycle>/sections/<obshtina>.json` (light index: the map + top-sections + `LocalSectionsTile` table) + `data/<cycle>/sections/<obshtina>/<sectionCode>.json` (per-station full breakdown for the detail page). Follow with `--local-coords` (Step 5.5) to stamp GPS/address. Per-cycle bundle URLs + the cp866 extractor live in `download_csv_bundle.ts` / `extract_bundle.ts`. chmi partials are HTML-only — they have no section bundle, so `--local-csv` does not apply to them.
 
 **Cloudflare cookie**: the first request of the run launches headless Chromium to solve the JS challenge, captures `cf_clearance`, and persists it to `state/cik_clearance.json`. Subsequent requests in the same run use plain `fetch` with that cookie. The cookie typically lives ~30 min — long enough for one cycle's ~530 HTTP requests.
 
@@ -199,6 +199,24 @@ The decorator's summary line reports `N/M candidate rows stamped (X%)`
 per cycle. National baseline is ~11% — most village councillors never sat
 in parliament. A sudden drop usually means the parliament index lost its
 `normalizedName` field; rerun `parliament-scrape` first.
+
+## Step 5.5 — Section coordinates (powers the per-município section map)
+
+The local section shards carry no GPS of their own — stamp coordinates +
+building address onto the section index from the parliamentary section archive:
+
+```bash
+npm run data -- --local-coords
+```
+
+Idempotent; walks every cycle. The join is settlement-name-gated (local and
+parliamentary section codes/numbers diverge — see
+`backfill_local_section_coords.ts`); ~98% coverage. Run after any section data
+lands, **and** after a new parliamentary election adds fresh section coordinates.
+Note the section data is now two-tier — every ingest/parse path emits a light
+`sections/<obshtina>.json` index (top-5 parties/station; drives the map +
+top-sections + table) plus per-station `sections/<obshtina>/<sectionCode>.json`
+full-breakdown files (the detail page fetches just one) via `emitSectionFiles`.
 
 ## Step 6 — Stamp the ingest marker
 

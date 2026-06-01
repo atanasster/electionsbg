@@ -146,6 +146,24 @@ export type LocalSectionShard = {
   sections: LocalSectionResult[];
 };
 
+// Per-station full detail (data/{cycle}/sections/{obshtinaCode}/{sectionCode}.json).
+// The shard above is a LIGHT index (partyVotes trimmed to the top few) driving
+// the map + top-sections + table; the per-station detail page fetches just this
+// one tiny file for the full party-vote breakdown. `parties` is the legend for
+// only the parties present in this section.
+export type LocalSectionDetail = {
+  cycle: string;
+  obshtinaCode: string;
+  obshtinaName: string;
+  section: LocalSectionResult;
+  parties: {
+    localPartyNum: number;
+    localPartyName: string;
+    primaryCanonicalId: string | null;
+    color: string;
+  }[];
+};
+
 // === Officials-vs-CIK reconciliation =====================================
 
 export type MayorDiffStatus =

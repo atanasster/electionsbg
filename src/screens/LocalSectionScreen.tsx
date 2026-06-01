@@ -10,7 +10,7 @@
 import { FC, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useLocalSections } from "@/data/local/useLocalSections";
+import { useLocalSection } from "@/data/local/useLocalSection";
 import { RankedBar } from "@/screens/components/local/LocalRankedBar";
 import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { formatThousands } from "@/data/utils";
@@ -22,19 +22,22 @@ export const LocalSectionScreen: FC = () => {
     sectionCode: string;
   }>();
   const { t } = useTranslation();
-  const { shard } = useLocalSections(obshtinaCode, cycle, true);
+  // The per-station detail file carries this one section's full breakdown — a
+  // tiny fetch, not the whole município shard.
+  const { detail, isLoading } = useLocalSection(
+    obshtinaCode,
+    sectionCode,
+    cycle,
+  );
 
   const partyById = useMemo(() => {
     const m = new Map<number, { name: string; color: string }>();
-    for (const p of shard?.parties ?? [])
+    for (const p of detail?.parties ?? [])
       m.set(p.localPartyNum, { name: p.localPartyName, color: p.color });
     return m;
-  }, [shard]);
+  }, [detail]);
 
-  const section = useMemo(
-    () => shard?.sections.find((s) => s.sectionCode === sectionCode),
-    [shard, sectionCode],
-  );
+  const section = detail?.section;
 
   const bars = useMemo(() => {
     if (!section) return [];
@@ -55,14 +58,14 @@ export const LocalSectionScreen: FC = () => {
       </Link>
       <span className="mx-2">·</span>
       <Link to={`/local/${cycle}/${obshtinaCode}`} className="hover:underline">
-        {shard?.obshtinaName ?? obshtinaCode}
+        {detail?.obshtinaName ?? obshtinaCode}
       </Link>
       <span className="mx-2">·</span>
       <span>{friendlyCycleDate(cycle)}</span>
     </div>
   );
 
-  if (shard && !section) {
+  if (!isLoading && !section) {
     return (
       <main className="container mx-auto px-4 py-6">
         {back}
