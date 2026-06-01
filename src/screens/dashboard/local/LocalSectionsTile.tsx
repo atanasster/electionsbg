@@ -40,12 +40,29 @@ export const LocalSectionsTile: FC<{
   obshtinaCode: string;
 }> = ({ cycle, obshtinaCode }) => {
   const { t } = useTranslation();
-  // The section shard is the heaviest payload on the município page — most are
-  // ~18KB, but the big cities are huge (Sofia ~3.7MB, Plovdiv/Varna >1MB). This
-  // tile sits below the mayor/council tiles, so defer the fetch until it scrolls
-  // near the viewport: a page the user never scrolls through pays nothing for it.
+  // Sofia район shards (S2***) have no section file of their own — the city's
+  // stations all live in the synthetic SOF bundle, tagged by район in the
+  // section code (chars 4-5 == the район shard code's last two digits, e.g.
+  // S2401 Средец → "01"). So load SOF and filter to this район.
+  const isSofiaRayon = /^S2\d{3}$/.test(obshtinaCode);
+  const sectionBundle = isSofiaRayon ? "SOF" : obshtinaCode;
+  const rayonDigit = isSofiaRayon ? obshtinaCode.slice(-2) : null;
+  // The section index is the heaviest payload on the page (Sofia ~730KB; most
+  // municípios are tiny). This tile sits below the mayor/council tiles, so defer
+  // the fetch until it scrolls near the viewport. Across all 24 районы + the SOF
+  // page React Query serves the one SOF index from cache.
   const { ref: sentinelRef, inView } = useInView<HTMLDivElement>();
-  const { shard } = useLocalSections(obshtinaCode, cycle, inView);
+  const { shard: rawShard } = useLocalSections(sectionBundle, cycle, inView);
+  // For a район, narrow the city-wide bundle to this район's stations.
+  const shard = useMemo(() => {
+    if (!rawShard || !rayonDigit) return rawShard;
+    return {
+      ...rawShard,
+      sections: rawShard.sections.filter(
+        (s) => s.sectionCode.slice(4, 6) === rayonDigit,
+      ),
+    };
+  }, [rawShard, rayonDigit]);
   const [query, setQuery] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("section");
   const [limit, setLimit] = useState(PAGE);

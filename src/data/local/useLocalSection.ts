@@ -17,8 +17,11 @@ const queryFn = async ({
   [string, string, string | null | undefined, string | null | undefined]
 >): Promise<LocalSectionDetail | undefined> => {
   if (!queryKey[2] || !queryKey[3]) return undefined;
+  // Sofia район stations live under the city-wide SOF bundle, not a per-район
+  // folder — resolve S2*** to SOF for the detail-file path.
+  const bundle = /^S2\d{3}$/.test(queryKey[2]) ? "SOF" : queryKey[2];
   const response = await fetch(
-    dataUrl(`/${queryKey[1]}/sections/${queryKey[2]}/${queryKey[3]}.json`),
+    dataUrl(`/${queryKey[1]}/sections/${bundle}/${queryKey[3]}.json`),
   );
   if (response.status === 404) return undefined;
   if (!response.ok) {
