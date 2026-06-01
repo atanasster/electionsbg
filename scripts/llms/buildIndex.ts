@@ -93,9 +93,9 @@ const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
   // Government + parliament dashboards
   {
     url: "/governance",
-    label: "Governance scorecard",
+    label: "Governance",
     description:
-      "cabinet stability, institutional trust, WGI indicators, OSCE/ODIHR cycle",
+      "country node of the Governance view — parliament roll-calls, MP declarations, state budget execution, public procurement, party financing and macro/governance context; also the top of a place ladder that drills country → region (/governance/region/{oblast}) → município or settlement (/governance/{id}) for the local governance picture (the place's MPs, mayor & council, Чл.53 transfers, EU funds, local taxes, census, transparency)",
   },
   {
     url: "/parliament",
@@ -196,6 +196,8 @@ const URL_PATTERNS: string[] = [
   "`/party/{nickName}` — results for a specific party across years and territories. Sub-paths: `/regions`, `/municipalities`, `/settlements`, `/preferences`, `/donors`, `/income`, `/expenses`.",
   "`/municipality/{oblastCode}` — oblast-level results and per-section anomalies.",
   "`/settlement/{ekatte}` — settlement-level results by section.",
+  "`/governance/region/{oblastCode}` — region (oblast) node of the Governance view: the area's MPs and declarations, the Чл.53 transfer envelope, regional indicators, census and land-use.",
+  "`/governance/{id}` — place node of the Governance view, where `{id}` is an obshtina code (município) or EKATTE (settlement): everything about how that place is governed — representation, mayor & council, municipal budget and capital programme, EU-funded projects, procurement, local taxes, census, transparency (LISI) and quality-of-life.",
   "`/section/{sectionId}` — individual polling-section detail.",
   "`/candidate/{name}` — candidate profile with sub-paths `/regions`, `/municipalities`, `/settlements`, `/sections`, `/donations`, `/connections`, `/assets`.",
   "`/elections/{YYYY_MM_DD}` — landing for one parliamentary vote (national + regional).",

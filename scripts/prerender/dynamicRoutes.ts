@@ -32,10 +32,15 @@ import {
   buildSectionBody,
   buildSectionsListBody,
   buildSettlementBody,
-  buildMyAreaBody,
+  buildGovernancePlaceBody,
+  buildGovernanceMuniBody,
+  buildGovernanceRegionBody,
+  buildProcurementSettlementBody,
+  buildFundsThemeBody,
   buildDiasporaBody,
   formatElectionDateEn,
   type DiasporaCountry,
+  type GovernanceRegionMuni,
 } from "./bodyBuilders";
 import { buildArticleRoutes } from "./articleRoutes";
 import { DIASPORA_FAQ } from "@/data/diaspora/diasporaFaq";
@@ -432,18 +437,16 @@ export const buildSettlementRoutes = (
   return result;
 };
 
-// /my-area/{ekatte} — the personalized "My Area" dashboard's settlement
-// landing page. Prerendered so each of the ~5,000 settlements gets indexable
-// HTML with its own <title>, <meta description>, and OG card. Only settlement
-// pages prerender — the município variant is reachable from the search
-// index already (via /municipality/{obshtina}) and the file count would
-// otherwise grow uncontrollably (we're below the Firebase 453k ceiling and
-// want to stay there).
+// /governance/{ekatte} — settlement-grain place node of the Governance view
+// (renamed from the never-deployed /my-area/{ekatte}). Prerendered so each of
+// the ~5,000 settlements gets indexable HTML with its own <title>, <meta
+// description>, and the place-governance body. The município variant is
+// emitted separately by buildGovernanceMuniRoutes below.
 //
-// SEO body emphasises the "everything about this place" framing rather than
+// SEO body emphasises the "how this place is governed" framing rather than
 // the election-by-section framing of buildSettlementRoutes — same data,
 // different door, so crawlers can index both.
-export const buildMyAreaRoutes = (
+export const buildGovernancePlaceRoutes = (
   publicFolder: string,
   latestElection: string,
   oblastNames: Map<string, string>,
@@ -469,36 +472,32 @@ export const buildMyAreaRoutes = (
       const labelWithOblast = oblastName
         ? `${fullName}, обл. ${oblastName}`
         : fullName;
-      const url = `${SITE_URL}/my-area/${s.ekatte}`;
-      const title = `Моят район — ${labelWithOblast} | electionsbg.com`;
-      const description = `Обобщено табло за ${labelWithOblast}: народни представители, кмет и общински съвет, бюджет, еврофондове, преброяване и още — всичко за вашия район на едно място.`;
+      const url = `${SITE_URL}/governance/${s.ekatte}`;
+      const title = `Управление — ${labelWithOblast} | electionsbg.com`;
+      const description = `Обобщено табло за управлението на ${labelWithOblast}: народни представители, кмет и общински съвет, бюджет, еврофондове, преброяване и още — всичко за вашия район на едно място.`;
       const breadcrumb = oblastName
         ? [
             { name: "Начало", url: `${SITE_URL}/` },
-            { name: "Моят район", url: `${SITE_URL}/my-area` },
+            { name: "Управление", url: `${SITE_URL}/governance` },
             {
               name: `Област ${oblastName}`,
-              url: `${SITE_URL}/municipality/${s.oblast}`,
+              url: `${SITE_URL}/governance/region/${s.oblast}`,
             },
             { name: fullName, url },
           ]
         : [
             { name: "Начало", url: `${SITE_URL}/` },
-            { name: "Моят район", url: `${SITE_URL}/my-area` },
+            { name: "Управление", url: `${SITE_URL}/governance` },
             { name: fullName, url },
           ];
-      // The body emphasises the My-Area framing — what a citizen can do at
-      // this URL — rather than the election-results framing of the
-      // /settlement/ variant. Both pages link to the same underlying tiles
-      // via the dashboard React render.
-      const bodyHtml = buildMyAreaBody({
+      const bodyHtml = buildGovernancePlaceBody({
         ekatte: s.ekatte,
         settlement: fullName,
         oblastName,
         oblastCode: s.oblast,
       });
       result.push({
-        path: `my-area/${s.ekatte}`,
+        path: `governance/${s.ekatte}`,
         title,
         description,
         bodyHtml,
@@ -508,6 +507,290 @@ export const buildMyAreaRoutes = (
         ],
       });
     }
+  }
+  return result;
+};
+
+type MunicipalityInfoFile = {
+  obshtina: string;
+  name: string;
+  name_en?: string;
+  oblast?: string;
+};
+
+// Synthetic Sofia-city aggregate — not a row in municipalities.json (it spans
+// the three Sofia МИР), but the place node /governance/SOF00 is a real
+// dashboard the region SOF redirect targets, so it needs a prerendered file.
+const SOFIA_CITY_MUNI: MunicipalityInfoFile = {
+  obshtina: "SOF00",
+  name: "София (столица)",
+  name_en: "Sofia (capital)",
+  oblast: "S23",
+};
+
+const readMunicipalities = (projectRoot: string): MunicipalityInfoFile[] => {
+  const file = path.join(projectRoot, "data", "municipalities.json");
+  if (!fs.existsSync(file)) return [];
+  try {
+    const all: MunicipalityInfoFile[] = JSON.parse(
+      fs.readFileSync(file, "utf-8"),
+    );
+    return all.filter((m) => m.obshtina && m.oblast !== "32");
+  } catch {
+    return [];
+  }
+};
+
+// /governance/{obshtina} — município-grain place node. The earlier my-area
+// prerender skipped municipalities entirely; the Governance view now makes
+// each of the 265 общини (+ Sofia districts + the Sofia city aggregate) an
+// indexable place-governance landing.
+export const buildGovernanceMuniRoutes = (
+  projectRoot: string,
+  oblastNames: Map<string, string>,
+): PrerenderRoute[] => {
+  const munis = [...readMunicipalities(projectRoot), SOFIA_CITY_MUNI];
+  const result: PrerenderRoute[] = [];
+  const seen = new Set<string>();
+  for (const m of munis) {
+    if (seen.has(m.obshtina)) continue;
+    seen.add(m.obshtina);
+    const oblastName = m.oblast ? oblastNames.get(m.oblast) : undefined;
+    const url = `${SITE_URL}/governance/${m.obshtina}`;
+    const title = `Управление — община ${m.name} | electionsbg.com`;
+    const description = `Обобщено табло за управлението на община ${m.name}: депутати и декларации, кмет и общински съвет, общинско финансиране, еврофондове, обществени поръчки, местни данъци, преброяване и прозрачност.`;
+    const breadcrumb = oblastName
+      ? [
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Управление", url: `${SITE_URL}/governance` },
+          {
+            name: `Област ${oblastName}`,
+            url: `${SITE_URL}/governance/region/${m.oblast}`,
+          },
+          { name: `Община ${m.name}`, url },
+        ]
+      : [
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Управление", url: `${SITE_URL}/governance` },
+          { name: `Община ${m.name}`, url },
+        ];
+    const bodyHtml = buildGovernanceMuniBody({
+      name: m.name,
+      oblastCode: m.oblast,
+      oblastName,
+    });
+    result.push({
+      path: `governance/${m.obshtina}`,
+      title,
+      description,
+      bodyHtml,
+      jsonLd: [
+        buildWebPageLd({ title, description, url }),
+        buildBreadcrumbLd(breadcrumb),
+      ],
+    });
+  }
+  return result;
+};
+
+// /governance/region/{oblast} — region (oblast) node of the Governance view.
+// A brand-new tier with no my-area equivalent: the regional money +
+// representation picture, minus the elected-local-government block. Each page
+// lists its municipalities (from municipalities.json) linking to their place
+// nodes, giving crawlers a real country → region → município path.
+export const buildGovernanceRegionRoutes = (
+  projectRoot: string,
+  regions: RegionInfo[],
+): PrerenderRoute[] => {
+  const munisByOblast = new Map<string, GovernanceRegionMuni[]>();
+  for (const m of readMunicipalities(projectRoot)) {
+    if (!m.oblast) continue;
+    const arr = munisByOblast.get(m.oblast) ?? [];
+    arr.push({ obshtina: m.obshtina, name: m.name, name_en: m.name_en });
+    munisByOblast.set(m.oblast, arr);
+  }
+  return regions
+    .filter((r) => r.oblast !== "32")
+    .map((r) => {
+      const displayName = r.long_name || r.name;
+      const displayNameEn = r.long_name_en || r.name_en || r.name;
+      const url = `${SITE_URL}/governance/region/${r.oblast}`;
+      const enUrl = `${SITE_URL}/en/governance/region/${r.oblast}`;
+      const title = `Управление — област ${displayName} | electionsbg.com`;
+      const description = `Регионален разрез на управлението в област ${displayName}: депутати и декларации, средства по Чл. 53, регионални индикатори, преброяване и поземлено покритие.`;
+      const titleEn = `Governance — ${displayNameEn} province | electionsbg.com`;
+      const descriptionEn = `A regional cut of governance in ${displayNameEn} province: MPs and declarations, Article 53 transfers, regional indicators, census and land-use.`;
+      const munis = munisByOblast.get(r.oblast) ?? [];
+      return {
+        path: `governance/region/${r.oblast}`,
+        title,
+        description,
+        ogImage: `/og/region/${r.oblast}.png`,
+        bodyHtml: buildGovernanceRegionBody(r, munis, "bg"),
+        jsonLd: [
+          buildWebPageLd({ title, description, url }),
+          buildBreadcrumbLd([
+            { name: "Начало", url: `${SITE_URL}/` },
+            { name: "Управление", url: `${SITE_URL}/governance` },
+            { name: `Област ${displayName}`, url },
+          ]),
+        ],
+        english: {
+          title: titleEn,
+          description: descriptionEn,
+          bodyHtml: buildGovernanceRegionBody(r, munis, "en"),
+          jsonLd: [
+            buildWebPageLd({
+              title: titleEn,
+              description: descriptionEn,
+              url: enUrl,
+              inLanguage: "en",
+            }),
+            buildBreadcrumbLd([
+              { name: "Home", url: `${SITE_URL}/en/` },
+              { name: "Governance", url: `${SITE_URL}/en/governance` },
+              { name: `${displayNameEn} province`, url: enUrl },
+            ]),
+          ],
+        },
+      };
+    });
+};
+
+type ProcurementSettlementEntry = {
+  ekatte: string;
+  name: string;
+  province?: string;
+  contractCount: number;
+  totalEur: number;
+  awarderCount: number;
+};
+
+// /procurement/settlement/{ekatte} — per-settlement procurement detail. Real
+// SPA route (ProcurementSettlementDetailScreen) that previously had NO
+// prerendered HTML, so a no-JS crawler hit the SPA rewrite → homepage
+// soft-duplicate. Enumerated from the same by_settlement index the sitemap
+// uses. BG only (matches the sitemap).
+export const buildProcurementSettlementRoutes = (
+  projectRoot: string,
+): PrerenderRoute[] => {
+  const file = path.join(
+    projectRoot,
+    "data",
+    "procurement",
+    "by_settlement",
+    "index.json",
+  );
+  if (!fs.existsSync(file)) return [];
+  let payload: { settlements?: ProcurementSettlementEntry[] };
+  try {
+    payload = JSON.parse(fs.readFileSync(file, "utf-8"));
+  } catch {
+    return [];
+  }
+  const settlements = payload.settlements ?? [];
+  const result: PrerenderRoute[] = [];
+  for (const s of settlements) {
+    if (!s.ekatte) continue;
+    const place =
+      s.province && s.province !== s.name ? `${s.name}, ${s.province}` : s.name;
+    const url = `${SITE_URL}/procurement/settlement/${s.ekatte}`;
+    const title = `Обществени поръчки — ${place} | electionsbg.com`;
+    const description = `Обществени поръчки на възложители със седалище в ${place} — брой договори, обща стойност и водещи възложители по данни от АОП.`;
+    result.push({
+      path: `procurement/settlement/${s.ekatte}`,
+      title,
+      description,
+      bodyHtml: buildProcurementSettlementBody("bg", s),
+      jsonLd: [
+        buildWebPageLd({ title, description, url }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Обществени поръчки", url: `${SITE_URL}/procurement` },
+          {
+            name: "По населено място",
+            url: `${SITE_URL}/procurement/by-settlement`,
+          },
+          { name: s.name, url },
+        ]),
+      ],
+    });
+  }
+  return result;
+};
+
+type FundsThemeEntry = {
+  slug: string;
+  labelBg: string;
+  labelEn: string;
+  summaryBg?: string;
+  summaryEn?: string;
+  contractCount?: number;
+};
+
+// /funds/focus/{slug} — themed lens on the EU-funds corpus (FundsFocusScreen).
+// Real SPA route with no prerendered HTML before this. Enumerated from
+// data/funds/themes.json (same source + zero-contract skip as the sitemap).
+// BG + EN, since the sitemap emits both.
+export const buildFundsThemeRoutes = (
+  projectRoot: string,
+): PrerenderRoute[] => {
+  const file = path.join(projectRoot, "data", "funds", "themes.json");
+  if (!fs.existsSync(file)) return [];
+  let payload: { themes?: FundsThemeEntry[] };
+  try {
+    payload = JSON.parse(fs.readFileSync(file, "utf-8"));
+  } catch {
+    return [];
+  }
+  const themes = payload.themes ?? [];
+  const result: PrerenderRoute[] = [];
+  for (const th of themes) {
+    if (!th.slug) continue;
+    if (typeof th.contractCount === "number" && th.contractCount === 0)
+      continue;
+    const url = `${SITE_URL}/funds/focus/${th.slug}`;
+    const enUrl = `${SITE_URL}/en/funds/focus/${th.slug}`;
+    const title = `Европейски средства — ${th.labelBg} | electionsbg.com`;
+    const description =
+      th.summaryBg ||
+      `Тематичен разрез на европейските средства: ${th.labelBg} — поръчки, бенефициенти и програми по данни от ИСУН 2020.`;
+    const titleEn = `EU funds — ${th.labelEn} | electionsbg.com`;
+    const descriptionEn =
+      th.summaryEn ||
+      `A themed lens on EU funds: ${th.labelEn} — contracts, beneficiaries and programmes from the ИСУН 2020 register.`;
+    result.push({
+      path: `funds/focus/${th.slug}`,
+      title,
+      description,
+      bodyHtml: buildFundsThemeBody("bg", th),
+      jsonLd: [
+        buildWebPageLd({ title, description, url }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Европейски средства", url: `${SITE_URL}/funds` },
+          { name: th.labelBg, url },
+        ]),
+      ],
+      english: {
+        title: titleEn,
+        description: descriptionEn,
+        bodyHtml: buildFundsThemeBody("en", th),
+        jsonLd: [
+          buildWebPageLd({
+            title: titleEn,
+            description: descriptionEn,
+            url: enUrl,
+            inLanguage: "en",
+          }),
+          buildBreadcrumbLd([
+            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "EU funds", url: `${SITE_URL}/en/funds` },
+            { name: th.labelEn, url: enUrl },
+          ]),
+        ],
+      },
+    });
   }
   return result;
 };
@@ -2327,6 +2610,23 @@ export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
           { name: "Поименни гласувания", url: indexUrl },
         ]),
       ],
+      // EN index mirror — the per-session pages below already emit /en/votes/{date},
+      // so the /en/votes hub must resolve too (the sitemap lists it).
+      english: {
+        title:
+          "Roll-call votes in the National Assembly — per-item data | electionsbg.com",
+        description: `Roll-call votes in Bulgaria's National Assembly. ${idx.sessions.length} sittings, ${totalItems} items in total, with a per-MP and per-group breakdown for each item.`,
+        bodyHtml: `
+<h1>Roll-call votes in the National Assembly</h1>
+<p>An archive of every plenary sitting in which the National Assembly held a roll-call vote. For each item we record how every MP voted — "for", "against", "abstained" or "absent" — together with a per-parliamentary-group breakdown.</p>
+<p>Data is extracted from the parliament.bg stenographic records.</p>`.trim(),
+        jsonLd: [
+          buildBreadcrumbLd([
+            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Roll-call votes", url: `${SITE_URL}/en/votes` },
+          ]),
+        ],
+      },
     },
   ];
 
@@ -2840,7 +3140,11 @@ export const buildDynamicRoutes = async (
     ...buildLocalRegionRoutes(projectRoot, regions),
     ...buildLocalMunicipalityRoutes(projectRoot),
     ...buildSettlementRoutes(publicFolder, latest, oblastNames),
-    ...buildMyAreaRoutes(publicFolder, latest, oblastNames),
+    // Governance view — place ladder (country node is a static page in
+    // routes.ts; these are the region + município + settlement nodes).
+    ...buildGovernanceRegionRoutes(projectRoot, regions),
+    ...buildGovernanceMuniRoutes(projectRoot, oblastNames),
+    ...buildGovernancePlaceRoutes(publicFolder, latest, oblastNames),
     ...buildSectionsListRoutes(publicFolder, latest, oblastNames),
     ...buildSectionRoutes(publicFolder, latest, oblastNames),
     ...candidateRoutes,
@@ -2857,5 +3161,7 @@ export const buildDynamicRoutes = async (
     ...(await buildArticleRoutes(path.join(projectRoot, "public"))),
     ...buildBudgetMinistryRoutes(projectRoot),
     ...buildOfficialRoutes(projectRoot),
+    ...buildProcurementSettlementRoutes(projectRoot),
+    ...buildFundsThemeRoutes(projectRoot),
   ];
 };

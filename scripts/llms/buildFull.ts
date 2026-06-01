@@ -161,6 +161,10 @@ const COPY = {
     articleMdBg: "Markdown (BG)",
     articleMdEn: "Markdown (EN)",
     regionsHeading: "Области (МИР) — бързи връзки",
+    governanceHeading:
+      "Управление — местна йерархия (страна → област → община → населено място)",
+    governanceIntro: (siteUrl: string) =>
+      `Изгледът „Управление" е стълба от места: ${siteUrl}/governance (страна) → ${siteUrl}/governance/region/{област} → ${siteUrl}/governance/{код} за община (код на община) или населено място (ЕКАТТЕ). Всеки възел показва как се управлява мястото — депутати и декларации, кмет и общински съвет, общинско финансиране (Чл. 53), капиталови програми, еврофондове, обществени поръчки, местни данъци, преброяване, прозрачност (LISI) и качество на средата. Страниците за община и населено място са само на български; страниците за област имат и английски версии. Връзки към областните възли:`,
   },
   en: {
     heading: "electionsbg.com — full long-form corpus",
@@ -202,6 +206,10 @@ const COPY = {
     articleMdBg: "Markdown (BG)",
     articleMdEn: "Markdown (EN)",
     regionsHeading: "Regions (MIR) — quick links",
+    governanceHeading:
+      "Governance — place ladder (country → region → município → settlement)",
+    governanceIntro: (siteUrl: string) =>
+      `The "Governance" view is a place ladder: ${siteUrl}/governance (country) → ${siteUrl}/governance/region/{oblast} → ${siteUrl}/governance/{id} for a município (obshtina code) or settlement (EKATTE). Each node shows how the place is governed — MPs and declarations, mayor & council, municipal financing (Article 53 transfers), capital programmes, EU funds, public procurement, local taxes, census, transparency (LISI) and quality-of-life. The município and settlement place pages are Bulgarian-only; the region pages have English mirrors. Links to the region nodes:`,
   },
 } as const;
 
@@ -430,6 +438,27 @@ const buildCorpus = (lang: Lang): string => {
           `- ${name}: ${SITE_URL}${langPrefix}/municipality/${r.oblast}`,
         );
       }
+      lines.push("");
+
+      // Governance place ladder — region-node links. Region pages have /en
+      // mirrors; the Sofia-city place node (SOF00) is BG-only, so it always
+      // carries the BG URL.
+      lines.push(`## ${t.governanceHeading}`);
+      lines.push("");
+      lines.push(t.governanceIntro(SITE_URL));
+      lines.push("");
+      for (const r of valid) {
+        const name =
+          lang === "en"
+            ? r.long_name_en || r.name_en || r.name
+            : r.long_name || r.name;
+        lines.push(
+          `- ${name}: ${SITE_URL}${langPrefix}/governance/region/${r.oblast}`,
+        );
+      }
+      lines.push(
+        `- ${lang === "en" ? "Sofia (capital)" : "София (столица)"}: ${SITE_URL}/governance/SOF00`,
+      );
       lines.push("");
     }
   }

@@ -24,6 +24,7 @@ import { SITE_URL } from "./routes";
 // link must point at the BG (canonical) URL, not a non-existent /en/<path> that
 // would fall through the SPA rewrite to the homepage.
 const NAV_HUBS: { path: string; bg: string; en: string; bgOnly?: true }[] = [
+  { path: "governance", bg: "Управление", en: "Governance" },
   { path: "parliament", bg: "Народно събрание", en: "National Assembly" },
   {
     path: "votes",
@@ -1004,8 +1005,9 @@ export const buildSettlementBody = (input: SettlementBodyInput): string => {
   parts.push(
     `<p>Резултати на парламентарните избори в България в ${escapeHtml(placeLabel)} — гласуване по партии, преференции, машинно и хартиено гласуване, отклонения по секции.</p>`,
   );
-  // Note: buildMyAreaBody (below) targets the same EKATTE from a different
-  // angle — see comments there for the framing split between the two pages.
+  // Note: buildGovernancePlaceBody (below) targets the same EKATTE from a
+  // different angle — see comments there for the framing split between the
+  // /settlement (election-by-section) and /governance (place-governance) pages.
   const navLinks: string[] = [
     `<a href="${SITE_URL}/sections/${ekatte}">Секции в ${escapeHtml(settlement)}</a>`,
     `<a href="${SITE_URL}/sections/${ekatte}/parties">Партии</a>`,
@@ -1022,34 +1024,139 @@ export const buildSettlementBody = (input: SettlementBodyInput): string => {
 };
 
 // ------------------------------------------------------------------
-// My-Area settlement body — same EKATTE input as buildSettlementBody but
-// the indexable HTML emphasises the "everything about your place"
-// framing (mayor, council, budget, EU funds, census) rather than the
-// election-by-section framing. Two doors into the same dashboard data;
-// crawlers see distinct titles + descriptions and can rank each on its
-// own intent.
+// Governance — place node of the Governance view.
+//
+// The Governance view is a place ladder: country (/governance) → region
+// (/governance/region/{oblast}) → município/settlement (/governance/{id}).
+// These three builders emit the indexable HTML for the region and place
+// nodes. The framing is "everything about how this place is governed"
+// (representation, mayor & council, money, services) rather than the
+// election-by-section framing of /settlement and /municipality — two doors
+// into the same data, so crawlers see distinct titles and can rank each on
+// its own intent.
 // ------------------------------------------------------------------
 
-export const buildMyAreaBody = (input: SettlementBodyInput): string => {
+// Settlement-grain place node — /governance/{ekatte}.
+export const buildGovernancePlaceBody = (
+  input: SettlementBodyInput,
+): string => {
   const { ekatte, settlement, oblastName, oblastCode } = input;
   const placeLabel = oblastName
     ? `${settlement}, обл. ${oblastName}`
     : settlement;
   const parts: string[] = [];
-  parts.push(`<h1>Моят район — ${escapeHtml(placeLabel)}</h1>`);
+  parts.push(`<h1>Управление — ${escapeHtml(placeLabel)}</h1>`);
   parts.push(
-    `<p>Обобщено табло за ${escapeHtml(placeLabel)}: народни представители за многомандатния избирателен район, кмет и общински съвет, общинско финансиране (Чл. 53), капиталови програми, проекти финансирани от еврофондовете, обществени поръчки, преброяване 2021 и регистрирано население по ГРАО.</p>`,
+    `<p>Обобщено табло за управлението на ${escapeHtml(placeLabel)}: народни представители за многомандатния избирателен район, кмет и общински съвет, общинско финансиране (Чл. 53), капиталови програми, проекти финансирани от еврофондовете, обществени поръчки, преброяване 2021 и регистрирано население по ГРАО.</p>`,
   );
   const navLinks: string[] = [
-    `<a href="${SITE_URL}/sections/${ekatte}">Секции и резултати в ${escapeHtml(settlement)}</a>`,
-    `<a href="${SITE_URL}/settlement/${ekatte}">Партии</a>`,
+    `<a href="${SITE_URL}/governance">Управление (страна)</a>`,
   ];
   if (oblastCode && oblastName) {
-    navLinks.unshift(
-      `<a href="${SITE_URL}/municipality/${oblastCode}">обл. ${escapeHtml(oblastName)}</a>`,
+    navLinks.push(
+      `<a href="${SITE_URL}/governance/region/${oblastCode}">Управление — обл. ${escapeHtml(oblastName)}</a>`,
+    );
+  }
+  navLinks.push(
+    `<a href="${SITE_URL}/sections/${ekatte}">Секции и резултати в ${escapeHtml(settlement)}</a>`,
+    `<a href="${SITE_URL}/settlement/${ekatte}">Резултати по партии</a>`,
+  );
+  parts.push(`<p>${navLinks.join(" · ")}</p>`);
+  return parts.join("\n");
+};
+
+// Município-grain place node — /governance/{obshtina}.
+export type GovernanceMuniInput = {
+  name: string;
+  oblastCode?: string;
+  oblastName?: string;
+};
+
+export const buildGovernanceMuniBody = (input: GovernanceMuniInput): string => {
+  const { name, oblastCode, oblastName } = input;
+  const parts: string[] = [];
+  parts.push(`<h1>Управление — община ${escapeHtml(name)}</h1>`);
+  parts.push(
+    `<p>Обобщено табло за управлението на община ${escapeHtml(name)}: народни представители и техните декларации, кмет и общински съвет, общинско финансиране (Чл. 53 от ЗДБ), капиталова програма, проекти по еврофондовете, обществени поръчки, местни данъци, преброяване 2021, прозрачност (LISI) и качество на средата — престъпност, въздух и училища.</p>`,
+  );
+  const navLinks: string[] = [
+    `<a href="${SITE_URL}/governance">Управление (страна)</a>`,
+  ];
+  if (oblastCode && oblastName) {
+    navLinks.push(
+      `<a href="${SITE_URL}/governance/region/${oblastCode}">Управление — обл. ${escapeHtml(oblastName)}</a>`,
+      `<a href="${SITE_URL}/municipality/${oblastCode}">Резултати в обл. ${escapeHtml(oblastName)}</a>`,
     );
   }
   parts.push(`<p>${navLinks.join(" · ")}</p>`);
+  return parts.join("\n");
+};
+
+// Region (oblast) node — /governance/region/{oblast}. Lists the oblast's
+// municipalities, each linking to its place node, so crawlers get a real
+// internal path country → region → município → settlement.
+export type GovernanceRegionMuni = {
+  obshtina: string;
+  name: string;
+  name_en?: string;
+};
+
+// Region (oblast) node body. The EN variant only /en-prefixes links whose
+// target actually has an EN mirror — i.e. the country node (/en/governance).
+// The oblast election-results page and the município/settlement place pages
+// are BG-only, so EN links to them point at their BG canonical URLs (linking
+// /en/… there would fall through the SPA rewrite to the homepage).
+export const buildGovernanceRegionBody = (
+  region: RegionInfo,
+  munis: GovernanceRegionMuni[],
+  lang: "bg" | "en" = "bg",
+): string => {
+  const en = lang === "en";
+  const displayName = en
+    ? region.long_name_en || region.name_en || region.name
+    : region.long_name || region.name;
+  const parts: string[] = [];
+  if (en) {
+    parts.push(`<h1>Governance — ${escapeHtml(displayName)} province</h1>`);
+    parts.push(
+      `<p>A regional cut of governance for ${escapeHtml(displayName)} province: the area's MPs and their asset declarations, the per-municipality transfer envelope (Article 53 of the State Budget Law), regional indicators (registered unemployment, matura scores), the 2021 census and land-use composition. A province has no elected council — local self-government is shown at the municipality level below.</p>`,
+    );
+    parts.push(
+      `<p><a href="${SITE_URL}/en/governance">Governance (country)</a> · <a href="${SITE_URL}/municipality/${region.oblast}">Election results in ${escapeHtml(displayName)}</a></p>`,
+    );
+  } else {
+    parts.push(`<h1>Управление — област ${escapeHtml(displayName)}</h1>`);
+    parts.push(
+      `<p>Регионален разрез на управлението за област ${escapeHtml(displayName)}: народни представители от областта и техните имуществени декларации, разпределение на средства по места (Чл. 53 от ЗДБ), регионални индикатори (регистрирана безработица, матури), преброяване 2021 и поземлено покритие. Областта няма избран съвет — местното самоуправление се вижда на ниво община по-долу.</p>`,
+    );
+    parts.push(
+      `<p><a href="${SITE_URL}/governance">Управление (страна)</a> · <a href="${SITE_URL}/municipality/${region.oblast}">Резултати в обл. ${escapeHtml(displayName)}</a></p>`,
+    );
+  }
+  if (munis.length) {
+    const muniLabel = (m: GovernanceRegionMuni) =>
+      en ? m.name_en || m.name : m.name;
+    parts.push(
+      en
+        ? `<h2>Municipalities in ${escapeHtml(displayName)} province</h2>`
+        : `<h2>Общини в област ${escapeHtml(displayName)}</h2>`,
+    );
+    const sorted = [...munis].sort((a, b) =>
+      muniLabel(a).localeCompare(muniLabel(b), en ? "en" : "bg"),
+    );
+    parts.push(
+      `<ul>${sorted
+        .map(
+          (m) =>
+            `<li><a href="${SITE_URL}/governance/${m.obshtina}">${
+              en
+                ? `${escapeHtml(muniLabel(m))} municipality`
+                : `община ${escapeHtml(muniLabel(m))}`
+            }</a></li>`,
+        )
+        .join("")}</ul>`,
+    );
+  }
   return parts.join("\n");
 };
 
@@ -1139,5 +1246,83 @@ export const buildDiasporaBody = (
       `<p><strong>${escapeHtml(item.q)}</strong> ${escapeHtml(item.a)}</p>`,
     );
   }
+  return parts.join("\n");
+};
+
+// ------------------------------------------------------------------
+// Procurement-by-settlement body — /procurement/settlement/{ekatte}.
+// Bulgaria adopted the euro on 2026-01-01, so amounts display as "{n} €"
+// (BG) / "€{n}" (EN). One door per settlement into the AOP corpus, keyed by
+// the buyer's HQ address.
+// ------------------------------------------------------------------
+
+export type ProcurementSettlementInput = {
+  name: string;
+  province?: string;
+  contractCount: number;
+  totalEur: number;
+  awarderCount: number;
+};
+
+export const buildProcurementSettlementBody = (
+  lang: "bg" | "en",
+  input: ProcurementSettlementInput,
+): string => {
+  const en = lang === "en";
+  const base = en ? `${SITE_URL}/en` : SITE_URL;
+  const { name, province, contractCount, totalEur, awarderCount } = input;
+  const eur = en ? `€${fmtIntEn(totalEur)}` : `${fmtInt(totalEur)} €`;
+  const place = province && province !== name ? `${name}, ${province}` : name;
+  const parts: string[] = [];
+  parts.push(
+    en
+      ? `<h1>Public procurement — ${escapeHtml(place)}</h1>`
+      : `<h1>Обществени поръчки — ${escapeHtml(place)}</h1>`,
+  );
+  parts.push(
+    en
+      ? `<p>${fmtIntEn(contractCount)} public-procurement contracts worth ${eur}, awarded by ${fmtIntEn(awarderCount)} contracting authorities based in ${escapeHtml(place)} — municipalities, schools, hospitals, universities, regional offices and utilities. Sourced from the АОП register (data.egov.bg).</p>`
+      : `<p>${fmtInt(contractCount)} обществени поръчки на стойност ${eur}, възложени от ${fmtInt(awarderCount)} възложители със седалище в ${escapeHtml(place)} — общини, училища, болници, университети, регионални структури и комунални дружества. По данни от регистъра на АОП (data.egov.bg).</p>`,
+  );
+  parts.push(
+    en
+      ? `<p><a href="${base}/procurement/by-settlement">All settlements</a> · <a href="${base}/procurement">Procurement dashboard</a></p>`
+      : `<p><a href="${base}/procurement/by-settlement">Всички населени места</a> · <a href="${base}/procurement">Табло за обществените поръчки</a></p>`,
+  );
+  return parts.join("\n");
+};
+
+// ------------------------------------------------------------------
+// EU-funds theme body — /funds/focus/{slug}. A curated lens on the ИСУН
+// corpus; the body uses the theme's editorial label + summary.
+// ------------------------------------------------------------------
+
+export type FundsThemeInput = {
+  labelBg: string;
+  labelEn: string;
+  summaryBg?: string;
+  summaryEn?: string;
+};
+
+export const buildFundsThemeBody = (
+  lang: "bg" | "en",
+  input: FundsThemeInput,
+): string => {
+  const en = lang === "en";
+  const base = en ? `${SITE_URL}/en` : SITE_URL;
+  const label = en ? input.labelEn : input.labelBg;
+  const summary = en ? input.summaryEn : input.summaryBg;
+  const parts: string[] = [];
+  parts.push(
+    en
+      ? `<h1>EU funds — ${escapeHtml(label)}</h1>`
+      : `<h1>Европейски средства — ${escapeHtml(label)}</h1>`,
+  );
+  if (summary) parts.push(`<p>${escapeHtml(summary)}</p>`);
+  parts.push(
+    en
+      ? `<p>Contracts, beneficiaries, programmes and the municipalities where the money landed for this theme — drawn from the ИСУН 2020 EU-funds register. <a href="${base}/funds">Back to EU funds</a>.</p>`
+      : `<p>Поръчки, бенефициенти, програми и общините, в които са достигнали средствата по тази тема — по данни от регистъра на ИСУН 2020. <a href="${base}/funds">Към европейските средства</a>.</p>`,
+  );
   return parts.join("\n");
 };

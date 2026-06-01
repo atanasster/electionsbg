@@ -262,12 +262,17 @@ export const routeDefs = (year: string): RouteDefs => [
     path: "settlement/:id",
     file: `settlements`,
   },
-  // /my-area/:ekatte mirrors /settlement/:ekatte at the same grain but
-  // surfaces the personalized-dashboard framing. Indexed alongside so
-  // crawlers see both doors; the rel=canonical inside each variant keeps
-  // them from competing for the same query.
+  // Governance view — place ladder. The country node (/governance) is a static
+  // entry above; these enumerate the region → município → settlement nodes.
+  // BG only (no /en), matching /settlement and /municipality.
+  // Region tier — one URL per oblast.
+  { path: "governance/region/:id", file: `governance-regions` },
+  // Município-grain place nodes — one URL per obshtina (from municipalities.json).
+  { path: "governance/:id", file: `governance-municipalities` },
+  // Settlement-grain place nodes — one URL per EKATTE (same source as
+  // /settlement/:id). Surfaces the place-governance framing at /governance/:id.
   {
-    path: "my-area/:id",
+    path: "governance/:id",
     file: `settlements`,
   },
   { path: "sections/:id", file: `sections-by-ekatte` },
@@ -333,10 +338,9 @@ export const routeDefs = (year: string): RouteDefs => [
             path: "recount",
             file: `data/${year}/reports/municipality/recount.json`,
           },
-          {
-            path: "recount_zero_votes",
-            file: `data/${year}/reports/municipality/recount_zero_votes.json`,
-          },
+          // recount_zero_votes is section-only in the prerender
+          // (MUNICIPALITY_REPORTS omits it) — keeping it here would emit a
+          // sitemap URL with no prerendered page.
           {
             path: "flash_memory",
             file: `data/${year}/reports/municipality/suemg.json`,
@@ -390,10 +394,9 @@ export const routeDefs = (year: string): RouteDefs => [
             path: "recount",
             file: `data/${year}/reports/settlement/recount.json`,
           },
-          {
-            path: "recount_zero_votes",
-            file: `data/${year}/reports/settlement/recount_zero_votes.json`,
-          },
+          // recount_zero_votes is section-only in the prerender
+          // (SETTLEMENT_REPORTS omits it) — keeping it here would emit a
+          // sitemap URL with no prerendered page.
           {
             path: "flash_memory",
             file: `data/${year}/reports/settlement/suemg.json`,

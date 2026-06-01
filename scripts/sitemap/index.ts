@@ -191,25 +191,116 @@ const enumerateEkatteFromBundles = (
   }
 };
 
+// Governance view — region tier (/governance/region/:oblast). One URL per
+// oblast from regions.json (excluding 32 / abroad). Mirrors the parliamentary
+// oblast set so every region has a governance sibling. BG + EN — the region
+// node is the only place-ladder tier with an /en mirror (the município and
+// settlement place nodes stay BG-only).
+const enumerateGovernanceRegions = (rootUrl: string, routes: string[]) => {
+  const file = `${projectPath}/src/data/json/regions.json`;
+  if (!fs.existsSync(file)) return;
+  const regions: { oblast: string }[] = JSON.parse(
+    fs.readFileSync(file, "utf-8"),
+  );
+  const lastmod = safeFileMod(file);
+  for (const r of regions) {
+    if (!r.oblast || r.oblast === "32") continue;
+    pushUrl(`${rootUrl}/${routes[0]}${r.oblast}`, lastmod);
+    pushUrl(`/en${rootUrl}/${routes[0]}${r.oblast}`, lastmod);
+  }
+};
+
+// Governance view — município-grain place nodes (/governance/:obshtina). One
+// URL per obshtina from municipalities.json (excluding abroad), plus the
+// synthetic Sofia-city aggregate (SOF00) which is prerendered but not a row in
+// municipalities.json. Settlement-grain place nodes are enumerated separately
+// via the shared "settlements" token.
+const enumerateGovernanceMunicipalities = (
+  rootUrl: string,
+  routes: string[],
+) => {
+  const file = `${projectPath}/data/municipalities.json`;
+  if (!fs.existsSync(file)) return;
+  const munis: { obshtina: string; oblast?: string }[] = JSON.parse(
+    fs.readFileSync(file, "utf-8"),
+  );
+  const lastmod = safeFileMod(file);
+  const seen = new Set<string>();
+  for (const m of munis) {
+    if (!m.obshtina || m.oblast === "32" || seen.has(m.obshtina)) continue;
+    seen.add(m.obshtina);
+    pushUrl(`${rootUrl}/${routes[0]}${m.obshtina}`, lastmod);
+  }
+  if (!seen.has("SOF00")) pushUrl(`${rootUrl}/${routes[0]}SOF00`, lastmod);
+};
+
+// Candidate name slugs — the SAME source the prerender uses
+// (buildCandidateRoutes reads each election's candidates.json and keys by
+// `.name`). Enumerating the candidate *directories* instead would over-list:
+// some dirs exist with no candidates.json entry, so the sitemap would point at
+// /candidate/<name> URLs that have no prerendered HTML (soft-duplicates).
+const collectCandidateNames = (): Set<string> => {
+  const dataDir = path.resolve(projectPath, "data");
+  const names = new Set<string>();
+  if (!fs.existsSync(dataDir)) return names;
+  const electionDirs = fs
+    .readdirSync(dataDir)
+    .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d));
+  for (const ed of electionDirs) {
+    const candFile = path.join(dataDir, ed, "candidates.json");
+    if (!fs.existsSync(candFile)) continue;
+    let cands: Array<{ name?: string }>;
+    try {
+      cands = JSON.parse(fs.readFileSync(candFile, "utf-8"));
+    } catch {
+      continue;
+    }
+    for (const c of cands) {
+      if (c?.name) names.add(c.name);
+    }
+  }
+  return names;
+};
+
+// /sections/{ekatte} — the prerender (buildSectionsListRoutes) emits a page
+// only for EKATTE codes that actually appear in sections/by-oblast, NOT every
+// settlement. Enumerating from the settlement bundles instead (as the shared
+// "settlements" token does) over-lists ~1,100 settlements with zero sections +
+// 33 diaspora codes → soft-duplicates. Mirror the prerender's source here.
+const enumerateSectionsEkatte = (
+  route: RouteDef,
+  rootUrl: string,
+  routes: string[],
+) => {
+  const byOblastDir = `${projectPath}/data/${election}/sections/by-oblast`;
+  if (!fs.existsSync(byOblastDir)) return;
+  const seen = new Set<string>();
+  for (const f of fs.readdirSync(byOblastDir)) {
+    if (!f.endsWith(".json")) continue;
+    let data: Record<string, { ekatte?: string }>;
+    try {
+      data = JSON.parse(fs.readFileSync(path.join(byOblastDir, f), "utf-8"));
+    } catch {
+      continue;
+    }
+    for (const sec of Object.values(data)) {
+      if (!sec.ekatte || seen.has(sec.ekatte)) continue;
+      seen.add(sec.ekatte);
+      expandWithSubTabs(
+        `${rootUrl}/${routes[0]}${sec.ekatte}`,
+        route.subTabs,
+        latestElectionDate,
+      );
+    }
+  }
+};
+
 const enumerateCandidates = (
   route: RouteDef,
   rootUrl: string,
   routes: string[],
 ) => {
-  const dataDir = path.resolve(projectPath, "data");
-  const electionDirs = fs
-    .readdirSync(dataDir)
-    .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d));
-  const names = new Set<string>();
-  for (const ed of electionDirs) {
-    const candDir = path.join(dataDir, ed, "candidates");
-    if (!fs.existsSync(candDir)) continue;
-    for (const n of fs.readdirSync(candDir)) {
-      if (n.startsWith(".")) continue;
-      names.add(n);
-    }
-  }
-  for (const name of names) {
+  for (const name of collectCandidateNames()) {
     expandWithSubTabs(
       `${rootUrl}/${routes[0]}${name}`,
       route.subTabs,
@@ -522,8 +613,14 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateParties(route, rootUrl, routes);
     if (route.file === "sections-index")
       return enumerateSections(route, rootUrl, routes);
-    if (route.file === "sections-by-ekatte" || route.file === "settlements")
+    if (route.file === "sections-by-ekatte")
+      return enumerateSectionsEkatte(route, rootUrl, routes);
+    if (route.file === "settlements")
       return enumerateEkatteFromBundles(route, rootUrl, routes);
+    if (route.file === "governance-regions")
+      return enumerateGovernanceRegions(rootUrl, routes);
+    if (route.file === "governance-municipalities")
+      return enumerateGovernanceMunicipalities(rootUrl, routes);
     if (route.file === "candidates")
       return enumerateCandidates(route, rootUrl, routes);
     if (route.file === "elections-list")
@@ -560,7 +657,11 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
         const p = routes.join(fileParts[0]);
         const baseUrl = `${rootUrl}/${p}`;
         const lastmod = electionAwareMod(fileName);
-        expandWithSubTabs(baseUrl, route.subTabs, lastmod);
+        // Oblast 32 (abroad) renders as the diaspora landing (buildDiasporaRoutes)
+        // which has NO sub-tabs, so /municipality/32/{parties,recount,…} are not
+        // prerendered. Emit the base URL only for it.
+        const subTabs = fileParts[0] === "32" ? undefined : route.subTabs;
+        expandWithSubTabs(baseUrl, subTabs, lastmod);
       }
     }
     return;
@@ -619,21 +720,7 @@ enumerateEnglishParties();
 // /candidate/{name}); the EN variant just adds the /en/ prefix and gets a
 // localized title/description from prerender. Hreflang ties them together.
 const enumerateEnglishCandidates = () => {
-  const dataDir = path.resolve(projectPath, "data");
-  if (!fs.existsSync(dataDir)) return;
-  const electionDirs = fs
-    .readdirSync(dataDir)
-    .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d));
-  const names = new Set<string>();
-  for (const ed of electionDirs) {
-    const candDir = path.join(dataDir, ed, "candidates");
-    if (!fs.existsSync(candDir)) continue;
-    for (const n of fs.readdirSync(candDir)) {
-      if (n.startsWith(".")) continue;
-      names.add(n);
-    }
-  }
-  for (const name of names) {
+  for (const name of collectCandidateNames()) {
     pushUrl(`/en/candidate/${name}`, latestElectionDate);
   }
 };

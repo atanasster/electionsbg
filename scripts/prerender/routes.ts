@@ -67,6 +67,62 @@ const PROJECT_ROOT = path.resolve(__dirname, "../..");
 const DATA_FOLDER = path.join(PROJECT_ROOT, "data");
 const PUBLIC_ASSETS_FOLDER = path.join(PROJECT_ROOT, "public");
 const ELECTIONS_FILE = path.join(PROJECT_ROOT, "src/data/json/elections.json");
+const REGIONS_FILE = path.join(PROJECT_ROOT, "src/data/json/regions.json");
+
+// Crawlable "browse by region" block for the country /governance body. Gives
+// the prerendered region-tier pages a real internal link from the well-linked
+// country node (which sits in NAV_HUBS), so the ladder country → region →
+// município → settlement is fully discoverable. Both langs: the region node is
+// the only place-ladder tier with an /en mirror, so the EN block links
+// /en/governance/region/{oblast}; the Sofia-city place node is BG-only, so its
+// link points at the BG canonical from both bodies.
+const buildGovernanceRegionBrowse = (lang: "bg" | "en"): string => {
+  if (!fs.existsSync(REGIONS_FILE)) return "";
+  try {
+    const regions: {
+      oblast: string;
+      name: string;
+      name_en?: string;
+      long_name?: string;
+      long_name_en?: string;
+    }[] = JSON.parse(fs.readFileSync(REGIONS_FILE, "utf-8"));
+    const en = lang === "en";
+    const base = en ? `${SITE_URL}/en` : SITE_URL;
+    const items = regions
+      .filter((r) => r.oblast !== "32")
+      .map((r) => ({
+        oblast: r.oblast,
+        name: en
+          ? r.long_name_en || r.name_en || r.name
+          : r.long_name || r.name,
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name, en ? "en" : "bg"));
+    if (!items.length) return "";
+    const lis = items
+      .map(
+        (r) =>
+          `<li><a href="${base}/governance/region/${r.oblast}">${
+            en ? `${r.name} province` : `област ${r.name}`
+          }</a></li>`,
+      )
+      .join("");
+    return en
+      ? `
+<h2>Browse governance by province</h2>
+<p>Pick a province for the regional cut — representation, Article 53 transfers and regional indicators — and drill down to each municipality and settlement:</p>
+<ul>${lis}</ul>
+<p><a href="${SITE_URL}/governance/SOF00">Governance — Sofia (capital)</a></p>`
+      : `
+<h2>Разгледайте управлението по област</h2>
+<p>Изберете област за регионалния разрез — представителство, средства по Чл. 53 и регионални индикатори — и оттам надолу към всяка община и населено място:</p>
+<ul>${lis}</ul>
+<p><a href="${SITE_URL}/governance/SOF00">Управление — София (столица)</a></p>`;
+  } catch {
+    return "";
+  }
+};
+const governanceRegionBrowseHtml = buildGovernanceRegionBrowse("bg");
+const governanceRegionBrowseHtmlEn = buildGovernanceRegionBrowse("en");
 
 const joinBody = (...sections: string[]): string =>
   sections.filter(Boolean).join("\n");
@@ -1067,7 +1123,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/procurement">Обществени поръчки</a> — възложители, изпълнители и потоци от АОП (data.egov.bg).</li>
 <li><a href="${SITE_URL}/financing">Финансиране на партии</a> — годишни финансови отчети от Сметната палата.</li>
 <li><a href="${SITE_URL}/governments">Правителства</a> и <a href="${SITE_URL}/indicators">индикатори</a> — макроикономически и управленски контекст по мандати.</li>
-</ul>`.trim(),
+</ul>${governanceRegionBrowseHtml}`.trim(),
     english: {
       title:
         "Governance Dashboard — Parliament, Budget, Procurement | electionsbg.com",
@@ -1085,7 +1141,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/en/procurement">Public procurement</a> — awarders, contractors and contract flows from AOP (data.egov.bg).</li>
 <li><a href="${SITE_URL}/en/financing">Party financing</a> — annual financial reports from the Court of Audit.</li>
 <li><a href="${SITE_URL}/en/governments">Governments</a> and <a href="${SITE_URL}/en/indicators">indicators</a> — macroeconomic and governance context per cabinet.</li>
-</ul>`.trim(),
+</ul>${governanceRegionBrowseHtmlEn}`.trim(),
     },
   }),
   staticPage({
