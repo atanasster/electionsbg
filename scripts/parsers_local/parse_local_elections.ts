@@ -495,13 +495,14 @@ export const parseLocalElection = async (opts: {
   // standard watcher → update-local-elections flow keeps them fresh.
   if (cycle.endsWith("_mi")) {
     buildRegionRollups({ publicFolder, cycle, stringify });
-    // Council-vote × Census 2021 demographic correlations for the cycle
-    // dashboard. Regular cycles only — chmi partials are single-município.
+    // Council-vote and mayoral-vote × Census 2021 demographic correlations for
+    // the cycle dashboard. Regular cycles only — chmi partials are single-município.
     buildLocalDemographics({
       publicFolder,
       cycle,
       bundles,
       councilVoteShare: index.councilVoteShare,
+      mayorsByCanonical: index.mayorsByCanonical,
       stringify,
     });
   }

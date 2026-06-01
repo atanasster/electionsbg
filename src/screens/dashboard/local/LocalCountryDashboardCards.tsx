@@ -168,6 +168,9 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
           limit={PREVIEW}
           seeMoreTo={`/local/${cycle}/closest-races`}
         />
+        {/* How each leading party's first-round mayoral vote correlates with
+            the municipality's demographics. */}
+        <LocalDemographicCleavagesTile cycle={cycle} race="mayor" />
       </DashboardSection>
 
       {/* Councils: the proportional party signal. */}

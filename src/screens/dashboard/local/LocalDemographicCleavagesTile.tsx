@@ -1,15 +1,19 @@
-// Council-vote × Census 2021 demographic cleavages for a local-election cycle.
-// The local analogue of DemographicCleavagesTile: each leading council party
-// is a dot whose horizontal position is the Pearson r between its council vote
-// share across municipalities and the demographic on that row. Reads the
-// precomputed per-cycle aggregate; parties are keyed by canonical id and carry
-// no per-party page, so the legend is plain (no links) and rows aren't
-// clickable (there is no local cross-tab scatter explorer).
+// Vote × Census 2021 demographic cleavages for a local-election cycle. The
+// local analogue of DemographicCleavagesTile: each leading party is a dot whose
+// horizontal position is the Pearson r between its vote share across
+// municipalities and the demographic on that row. The correlated signal is the
+// proportional council vote (default) or the first-round mayoral vote
+// (`race="mayor"`). Reads the precomputed per-cycle aggregate; parties are
+// keyed by canonical id and carry no per-party page, so the legend is plain (no
+// links) and rows aren't clickable (there is no local cross-tab scatter explorer).
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Users } from "lucide-react";
-import { useLocalDemographicCleavages } from "@/data/local/useLocalDemographicCleavages";
+import {
+  useLocalDemographicCleavages,
+  type LocalCleavageRace,
+} from "@/data/local/useLocalDemographicCleavages";
 import { useTooltip } from "@/ux/useTooltip";
 import { Hint } from "@/ux/Hint";
 import { METRIC_BY_KEY } from "@/screens/components/demographics/censusMetrics";
@@ -18,11 +22,12 @@ import { selectCleavageRows } from "../selectCleavageRows";
 
 const fmtR = (r: number) => `${r > 0 ? "+" : ""}${r.toFixed(2)}`;
 
-export const LocalDemographicCleavagesTile: FC<{ cycle: string }> = ({
-  cycle,
-}) => {
+export const LocalDemographicCleavagesTile: FC<{
+  cycle: string;
+  race?: LocalCleavageRace;
+}> = ({ cycle, race = "council" }) => {
   const { t } = useTranslation();
-  const { data: payload } = useLocalDemographicCleavages(cycle);
+  const { data: payload } = useLocalDemographicCleavages(cycle, race);
   const { tooltip, ...tooltipEvents } = useTooltip();
 
   const rows = useMemo(
@@ -32,13 +37,22 @@ export const LocalDemographicCleavagesTile: FC<{ cycle: string }> = ({
 
   if (!payload || rows.length === 0) return null;
 
+  const hintKey =
+    race === "mayor"
+      ? "local_mayor_demographic_cleavages_hint"
+      : "local_demographic_cleavages_hint";
+  const noteKey =
+    race === "mayor"
+      ? "local_mayor_demographic_cleavages_note"
+      : "local_demographic_cleavages_note";
+
   // Maps r in [-1, 1] to a 0..100 horizontal position in the row track.
   const xPct = (r: number) => 50 + Math.max(-1, Math.min(1, r)) * 50;
 
   return (
     <StatCard
       label={
-        <Hint text={t("local_demographic_cleavages_hint")} underline={false}>
+        <Hint text={t(hintKey)} underline={false}>
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4" />
             <span>{t("dashboard_demographic_cleavages")}</span>
@@ -142,7 +156,7 @@ export const LocalDemographicCleavagesTile: FC<{ cycle: string }> = ({
       </div>
       {tooltip}
       <p className="text-[10px] text-muted-foreground italic mt-3">
-        {t("local_demographic_cleavages_note")}
+        {t(noteKey)}
       </p>
     </StatCard>
   );
