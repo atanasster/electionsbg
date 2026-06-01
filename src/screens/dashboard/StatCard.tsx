@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren, ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Hint } from "@/ux/Hint";
 
@@ -14,6 +15,11 @@ type Props = {
   // Cap the body to this CSS height with internal vertical scroll, so a long
   // list tile doesn't tower over its grid-row neighbour. e.g. "22rem".
   bodyMaxHeight?: string;
+  // When set, render a small "see details →" link in the header's top-right —
+  // the top-N preview pattern that drills down to a full-list page. Unlike
+  // `to`, only the link is clickable; the rest of the card stays static (so the
+  // body can hold its own row links). Ignored when `to` is also set.
+  seeMoreTo?: string;
 };
 
 // Tile titles are sentence case (not an ALL-CAPS eyebrow): forced uppercase
@@ -25,19 +31,36 @@ export const StatCard: FC<PropsWithChildren<Props>> = ({
   className,
   to,
   bodyMaxHeight,
+  seeMoreTo,
   children,
 }) => {
+  const { t } = useTranslation();
   const labelEl = (
     <div className="text-sm font-medium text-muted-foreground">{label}</div>
   );
+  const labelWithHint = hint ? (
+    <Hint text={hint} underline={false}>
+      {labelEl}
+    </Hint>
+  ) : (
+    labelEl
+  );
+  const showSeeMore = !!seeMoreTo && !to;
   const inner = (
     <>
-      {hint ? (
-        <Hint text={hint} underline={false}>
-          {labelEl}
-        </Hint>
+      {showSeeMore ? (
+        <div className="flex items-start justify-between gap-2">
+          {labelWithHint}
+          <Link
+            to={seeMoreTo!}
+            className="inline-flex shrink-0 items-center gap-1 text-xs font-normal text-primary hover:underline"
+          >
+            {t("dashboard_see_details")}
+            <ArrowRight className="h-3 w-3" />
+          </Link>
+        </div>
       ) : (
-        labelEl
+        labelWithHint
       )}
       <div
         className={cn(

@@ -379,3 +379,15 @@ export type LocalNationalLeaders = {
   splitControl: { count: number; rows: LocalSplitControlRow[] };
   independentMayors: { count: number; rows: LocalIndependentMayorRow[] };
 };
+
+// Uncapped companion to LocalNationalLeaders — every contested município's
+// strongest mandate + closest race (national_leaders.json caps both at 12 for
+// the dashboard tiles; this fuller file is fetched lazily on the standalone
+// "see details" pages).
+export type LocalNationalLeadersFull = {
+  cycle: string;
+  round1Date: string;
+  round2Date: string | null;
+  topMayorsByPct: LocalNationalMayorLeader[];
+  closestRaces: LocalClosestRace[];
+};

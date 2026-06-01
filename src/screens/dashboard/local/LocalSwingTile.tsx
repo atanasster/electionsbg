@@ -10,11 +10,14 @@ import { ArrowUpRight, ArrowDownRight, Minus } from "lucide-react";
 import { useLocalCrossCycle } from "@/data/local/useLocalCrossCycle";
 import { StatCard } from "../StatCard";
 
-export const LocalSwingTile: FC<{ bodyMaxHeight?: string }> = ({
-  bodyMaxHeight,
-}) => {
+export const LocalSwingTile: FC<{
+  // Top-N preview when set; every party's swing otherwise.
+  limit?: number;
+  seeMoreTo?: string;
+}> = ({ limit, seeMoreTo }) => {
   const { t } = useTranslation();
-  const { data } = useLocalCrossCycle(8);
+  // Tile shows a handful of parties; the full page surfaces the long tail.
+  const { data } = useLocalCrossCycle(limit != null ? 8 : 60);
 
   const swing = useMemo(() => {
     if (!data) return null;
@@ -44,14 +47,16 @@ export const LocalSwingTile: FC<{ bodyMaxHeight?: string }> = ({
 
   if (!swing || swing.rows.length === 0) return null;
 
+  const rows = limit != null ? swing.rows.slice(0, limit) : swing.rows;
+
   return (
     <StatCard
-      bodyMaxHeight={bodyMaxHeight}
+      seeMoreTo={seeMoreTo}
       label={t("local_swing_title")}
       hint={t("local_swing_hint", { from: swing.from, to: swing.to })}
     >
       <ul className="flex flex-col divide-y">
-        {swing.rows.map((r) => {
+        {rows.map((r) => {
           const up = r.delta > 0.05;
           const down = r.delta < -0.05;
           const Icon = up ? ArrowUpRight : down ? ArrowDownRight : Minus;

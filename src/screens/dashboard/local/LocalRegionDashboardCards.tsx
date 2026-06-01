@@ -8,20 +8,21 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { GitFork } from "lucide-react";
 import { useLocalRegion } from "@/data/local/useLocalRegion";
-import {
-  PartyChip,
-  RankedBar,
-} from "@/screens/components/local/LocalRankedBar";
+import { PartyChip } from "@/screens/components/local/LocalRankedBar";
 import { formatThousands } from "@/data/utils";
 import { StatCard } from "../StatCard";
 import { DashboardSection } from "../DashboardSection";
 import { LocalRegionMapTile } from "./LocalRegionMapTile";
 import { LocalVoteFlowTile } from "./LocalVoteFlowTile";
 import { LocalCouncilControlTile } from "./LocalCouncilControlTile";
+import {
+  LocalRegionMayorsTile,
+  LocalRegionCouncilSeatsTile,
+} from "./LocalRegionPartyBarTiles";
 
-// Shared cap for list-style tiles so a long leaderboard doesn't tower over its
-// grid-row neighbour on a desktop viewport (internal scroll past this height).
-const LIST_MAX_H = "24rem";
+// Rows shown in each list tile before its "see details →" link opens the full
+// standalone page (matches the country dashboard's PREVIEW).
+const PREVIEW = 6;
 
 export const LocalRegionDashboardCards: FC<{
   cycle: string;
@@ -30,14 +31,6 @@ export const LocalRegionDashboardCards: FC<{
   const { t } = useTranslation();
   const { data: region, isLoading } = useLocalRegion(oblast, cycle);
 
-  const totalMayors = useMemo(
-    () => region?.mayorsWon.reduce((a, r) => a + r.count, 0) ?? 0,
-    [region],
-  );
-  const totalCouncilSeats = useMemo(
-    () => region?.councilSeats.reduce((a, r) => a + r.seats, 0) ?? 0,
-    [region],
-  );
   // Split control derives directly from the rollup: mayor's party vs the
   // município's leading council party.
   const splitRows = useMemo(
@@ -129,57 +122,27 @@ export const LocalRegionDashboardCards: FC<{
 
       {/* Mayors. */}
       <DashboardSection id="local-mayors" title={t("local_sec_mayors")}>
-        {region.mayorsWon.length > 0 ? (
-          <StatCard
-            bodyMaxHeight={LIST_MAX_H}
-            label={t("local_region_mayors_section")}
-          >
-            <ul>
-              {region.mayorsWon.map((p) => (
-                <RankedBar
-                  key={p.canonicalId}
-                  label={p.displayName}
-                  value={p.count}
-                  pct={totalMayors > 0 ? (p.count / totalMayors) * 100 : 0}
-                  leaderValue={topMayor?.count ?? 0}
-                  color={p.color}
-                />
-              ))}
-            </ul>
-          </StatCard>
-        ) : null}
+        <LocalRegionMayorsTile
+          cycle={cycle}
+          oblast={oblast}
+          limit={PREVIEW}
+          seeMoreTo={`/local/${cycle}/region/${oblast}/mayors-by-party`}
+        />
       </DashboardSection>
 
       {/* Councils + split control. */}
       <DashboardSection id="local-councils" title={t("local_sec_councils")}>
         <LocalCouncilControlTile cycle={cycle} oblast={oblast} />
         <div className="grid gap-4 lg:grid-cols-2">
-          {region.councilSeats.length > 0 ? (
-            <StatCard
-              bodyMaxHeight={LIST_MAX_H}
-              label={t("local_region_council_section")}
-            >
-              <ul>
-                {region.councilSeats.map((p) => (
-                  <RankedBar
-                    key={p.canonicalId}
-                    label={p.displayName}
-                    value={p.seats}
-                    pct={
-                      totalCouncilSeats > 0
-                        ? (p.seats / totalCouncilSeats) * 100
-                        : 0
-                    }
-                    leaderValue={topCouncil?.seats ?? 0}
-                    color={p.color}
-                  />
-                ))}
-              </ul>
-            </StatCard>
-          ) : null}
+          <LocalRegionCouncilSeatsTile
+            cycle={cycle}
+            oblast={oblast}
+            limit={PREVIEW}
+            seeMoreTo={`/local/${cycle}/region/${oblast}/council-seats`}
+          />
           {splitRows.length > 0 ? (
             <StatCard
-              bodyMaxHeight={LIST_MAX_H}
+              seeMoreTo={`/local/${cycle}/region/${oblast}/split-control`}
               label={
                 <div className="flex items-center gap-2">
                   <GitFork className="h-4 w-4" />
@@ -189,7 +152,7 @@ export const LocalRegionDashboardCards: FC<{
               hint={t("local_split_control_hint")}
             >
               <ul className="flex flex-col divide-y">
-                {splitRows.map((m) => (
+                {splitRows.slice(0, PREVIEW).map((m) => (
                   <li
                     key={m.obshtinaCode}
                     className="flex items-center gap-2 py-2 text-sm"

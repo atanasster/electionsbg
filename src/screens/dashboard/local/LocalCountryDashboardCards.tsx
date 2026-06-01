@@ -9,14 +9,15 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
 import { useLocalNationalLeaders } from "@/data/local/useLocalNationalLeaders";
-import {
-  PartyChip,
-  RankedBar,
-} from "@/screens/components/local/LocalRankedBar";
+import { PartyChip } from "@/screens/components/local/LocalRankedBar";
 import { StatCard } from "../StatCard";
 import { DashboardSection } from "../DashboardSection";
 import { LocalRegionsControlMapTile } from "./LocalRegionsControlMapTile";
 import { LocalRegionsTable } from "./LocalRegionsTable";
+import {
+  LocalMayorsByPartyTile,
+  LocalCouncilVotesTile,
+} from "./LocalPartyBarTiles";
 import {
   LocalTopMayorsTile,
   LocalClosestRacesTile,
@@ -35,9 +36,10 @@ const isSofiaRayon = (code: string): boolean => /^S2\d{3}$/.test(code);
 // opens the full table on /local/:cycle/regions.
 const REGION_TILE_LIMIT = 8;
 
-// Shared cap for list-style tiles so a long leaderboard doesn't tower over its
-// grid-row neighbour on a desktop viewport (internal scroll past this height).
-const LIST_MAX_H = "24rem";
+// Rows shown in each list/bar tile before its "see details →" link opens the
+// full standalone page. Small enough that paired tiles stay the same height
+// and no tile scrolls internally.
+const PREVIEW = 6;
 
 export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
   cycle,
@@ -59,20 +61,10 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
     [realMunis],
   );
 
-  const topMayors = useMemo(
-    () => (index ? index.mayorsByCanonical.slice(0, 8) : []),
-    [index],
-  );
-  const totalMayors = useMemo(
-    () => index?.mayorsByCanonical.reduce((a, x) => a + x.count, 0) ?? 0,
-    [index],
-  );
-  const topMayorLeader = topMayors[0]?.count ?? 0;
-  const topCouncil = useMemo(
-    () => (index ? index.councilVoteShare.slice(0, 10) : []),
-    [index],
-  );
-  const topCouncilLeader = topCouncil[0]?.totalVotes ?? 0;
+  // Just the leader of each ranking — the full bar lists live in their own
+  // tiles (LocalMayorsByPartyTile / LocalCouncilVotesTile) below.
+  const topMayor = index?.mayorsByCanonical[0];
+  const topCouncilParty = index?.councilVoteShare[0];
 
   if (!index) {
     return (
@@ -87,12 +79,12 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
       {/* Stat header */}
       <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
         <StatCard label={t("local_national_top_mayor_party")}>
-          {topMayors[0] ? (
+          {topMayor ? (
             <PartyChip
-              name={topMayors[0].displayName}
-              color={topMayors[0].color}
+              name={topMayor.displayName}
+              color={topMayor.color}
               suffix={t("local_region_mayors_count", {
-                count: topMayors[0].count,
+                count: topMayor.count,
               })}
             />
           ) : (
@@ -100,11 +92,11 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
           )}
         </StatCard>
         <StatCard label={t("local_national_top_council_party")}>
-          {topCouncil[0] ? (
+          {topCouncilParty ? (
             <PartyChip
-              name={topCouncil[0].displayName}
-              color={topCouncil[0].color}
-              suffix={`${topCouncil[0].pctOfValid.toFixed(1)}%`}
+              name={topCouncilParty.displayName}
+              color={topCouncilParty.color}
+              suffix={`${topCouncilParty.pctOfValid.toFixed(1)}%`}
             />
           ) : (
             <span className="text-muted-foreground">—</span>
@@ -160,50 +152,38 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
           a 3-into-2 grid that would leave a ragged empty cell. */}
       <DashboardSection id="local-mayors" title={t("local_sec_mayors")}>
         <div className="grid gap-4 lg:grid-cols-2">
-          <StatCard
-            bodyMaxHeight={LIST_MAX_H}
-            label={t("local_cycle_overview_mayors_section")}
-          >
-            <ul>
-              {topMayors.map((p) => (
-                <RankedBar
-                  key={p.canonicalId}
-                  label={p.displayName}
-                  value={p.count}
-                  pct={totalMayors > 0 ? (p.count / totalMayors) * 100 : 0}
-                  leaderValue={topMayorLeader}
-                  color={p.color}
-                />
-              ))}
-            </ul>
-          </StatCard>
-          <LocalTopMayorsTile cycle={cycle} bodyMaxHeight={LIST_MAX_H} />
+          <LocalMayorsByPartyTile
+            cycle={cycle}
+            limit={PREVIEW}
+            seeMoreTo={`/local/${cycle}/mayors-by-party`}
+          />
+          <LocalTopMayorsTile
+            cycle={cycle}
+            limit={PREVIEW}
+            seeMoreTo={`/local/${cycle}/strongest-mandates`}
+          />
         </div>
-        <LocalClosestRacesTile cycle={cycle} bodyMaxHeight={LIST_MAX_H} />
+        <LocalClosestRacesTile
+          cycle={cycle}
+          limit={PREVIEW}
+          seeMoreTo={`/local/${cycle}/closest-races`}
+        />
       </DashboardSection>
 
       {/* Councils: the proportional party signal. */}
       <DashboardSection id="local-councils" title={t("local_sec_councils")}>
         <LocalCouncilControlTile cycle={cycle} />
         <div className="grid gap-4 lg:grid-cols-2">
-          <StatCard
-            bodyMaxHeight={LIST_MAX_H}
-            label={t("local_cycle_overview_council_section")}
-          >
-            <ul>
-              {topCouncil.map((p) => (
-                <RankedBar
-                  key={p.canonicalId}
-                  label={p.displayName}
-                  value={p.totalVotes}
-                  pct={p.pctOfValid}
-                  leaderValue={topCouncilLeader}
-                  color={p.color}
-                />
-              ))}
-            </ul>
-          </StatCard>
-          <LocalSplitControlTile cycle={cycle} bodyMaxHeight={LIST_MAX_H} />
+          <LocalCouncilVotesTile
+            cycle={cycle}
+            limit={PREVIEW}
+            seeMoreTo={`/local/${cycle}/council-votes`}
+          />
+          <LocalSplitControlTile
+            cycle={cycle}
+            limit={PREVIEW}
+            seeMoreTo={`/local/${cycle}/split-control`}
+          />
         </div>
         {/* How each leading council party's vote correlates with the
             municipality's demographics. */}
@@ -222,7 +202,7 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
       <DashboardSection id="local-trends" title={t("local_sec_trends")}>
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
           <LocalCrossCycleTile />
-          <LocalSwingTile bodyMaxHeight={LIST_MAX_H} />
+          <LocalSwingTile limit={PREVIEW} seeMoreTo={`/local/${cycle}/swing`} />
         </div>
       </DashboardSection>
 

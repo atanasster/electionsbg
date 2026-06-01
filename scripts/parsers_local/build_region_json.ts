@@ -673,6 +673,24 @@ export const buildRegionRollups = (opts: {
     "utf-8",
   );
 
+  // Uncapped companion to national_leaders.json. The dashboard tiles read the
+  // small capped file above (fetched on every load); the standalone "see
+  // details" pages for strongest-mandates / closest-races fetch this fuller
+  // file lazily, so the full ranked lists never bloat the common dashboard
+  // payload. Same row shapes as national_leaders.json.
+  const nationalLeadersFull = {
+    cycle,
+    round1Date: index.round1Date,
+    round2Date: index.round2Date,
+    topMayorsByPct,
+    closestRaces,
+  };
+  fs.writeFileSync(
+    path.join(cycleDir, "national_leaders_full.json"),
+    stringify(nationalLeadersFull),
+    "utf-8",
+  );
+
   nationalMunicipalities.sort((a, b) => a.name.localeCompare(b.name, "bg"));
   const nationalMunicipalitiesDoc: NationalMunicipalities = {
     cycle,
@@ -704,7 +722,7 @@ export const buildRegionRollups = (opts: {
   );
 
   console.log(
-    `[parsers_local] ${cycle}: wrote ${summaryRows.length} oblast rollup(s) + regions_summary.json + national_leaders.json + national_municipalities.json + index_trends.json`,
+    `[parsers_local] ${cycle}: wrote ${summaryRows.length} oblast rollup(s) + regions_summary.json + national_leaders.json + national_leaders_full.json + national_municipalities.json + index_trends.json`,
   );
   return summaryRows.length;
 };

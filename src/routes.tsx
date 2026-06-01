@@ -97,6 +97,16 @@ const LocalMunicipalityListScreen = lazy(() =>
     default: m.LocalMunicipalityListScreen,
   })),
 );
+const LocalLeaderboardScreen = lazy(() =>
+  import("./screens/LocalLeaderboardScreen").then((m) => ({
+    default: m.LocalLeaderboardScreen,
+  })),
+);
+const LocalRegionLeaderboardScreen = lazy(() =>
+  import("./screens/LocalRegionLeaderboardScreen").then((m) => ({
+    default: m.LocalRegionLeaderboardScreen,
+  })),
+);
 const LocalSettlementDashboardScreen = lazy(() =>
   import("./screens/LocalSettlementDashboardScreen").then((m) => ({
     default: m.LocalSettlementDashboardScreen,
@@ -1130,6 +1140,46 @@ export const AuthRoutes = () => {
             }
           />
           <Route
+            path="local/:cycle/mayors-by-party"
+            element={
+              <LayoutScreen>
+                <LocalLeaderboardScreen view="mayors-by-party" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/council-votes"
+            element={
+              <LayoutScreen>
+                <LocalLeaderboardScreen view="council-votes" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/strongest-mandates"
+            element={
+              <LayoutScreen>
+                <LocalLeaderboardScreen view="strongest-mandates" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/closest-races"
+            element={
+              <LayoutScreen>
+                <LocalLeaderboardScreen view="closest-races" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/swing"
+            element={
+              <LayoutScreen>
+                <LocalLeaderboardScreen view="swing" />
+              </LayoutScreen>
+            }
+          />
+          <Route
             path="local/:cycle/municipalities"
             element={
               <LayoutScreen>
@@ -1166,6 +1216,22 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <LocalRegionDashboardScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/region/:oblast/mayors-by-party"
+            element={
+              <LayoutScreen>
+                <LocalRegionLeaderboardScreen view="mayors-by-party" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/region/:oblast/council-seats"
+            element={
+              <LayoutScreen>
+                <LocalRegionLeaderboardScreen view="council-seats" />
               </LayoutScreen>
             }
           />

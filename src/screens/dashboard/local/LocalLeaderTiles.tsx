@@ -11,6 +11,10 @@ import { Link } from "react-router-dom";
 import { Crown, Scale, GitFork, LucideIcon } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useLocalNationalLeaders } from "@/data/local/useLocalNationalLeaders";
+import type {
+  LocalNationalMayorLeader,
+  LocalClosestRace,
+} from "@/data/local/types";
 import { titleCaseName } from "@/lib/utils";
 import { StatCard } from "../StatCard";
 
@@ -41,15 +45,20 @@ const RoundBadge: FC<{ round: 1 | 2 }> = ({ round }) =>
 
 export const LocalTopMayorsTile: FC<{
   cycle: string;
-  bodyMaxHeight?: string;
-}> = ({ cycle, bodyMaxHeight }) => {
+  // Top-N preview when set; the full ranked list otherwise.
+  limit?: number;
+  seeMoreTo?: string;
+  // Full-page override: the uncapped topMayorsByPct from national_leaders_full.
+  rows?: LocalNationalMayorLeader[];
+}> = ({ cycle, limit, seeMoreTo, rows: rowsProp }) => {
   const { t } = useTranslation();
   const { data } = useLocalNationalLeaders(cycle);
-  const rows = data?.topMayorsByPct ?? [];
+  const allRows = rowsProp ?? data?.topMayorsByPct ?? [];
+  const rows = limit != null ? allRows.slice(0, limit) : allRows;
   if (rows.length === 0) return null;
   return (
     <StatCard
-      bodyMaxHeight={bodyMaxHeight}
+      seeMoreTo={seeMoreTo}
       label={<TileLabel icon={Crown} text={t("local_top_mayors_title")} />}
       hint={t("local_top_mayors_hint")}
     >
@@ -90,15 +99,20 @@ export const LocalTopMayorsTile: FC<{
 
 export const LocalClosestRacesTile: FC<{
   cycle: string;
-  bodyMaxHeight?: string;
-}> = ({ cycle, bodyMaxHeight }) => {
+  // Top-N preview when set; the full ranked list otherwise.
+  limit?: number;
+  seeMoreTo?: string;
+  // Full-page override: the uncapped closestRaces from national_leaders_full.
+  rows?: LocalClosestRace[];
+}> = ({ cycle, limit, seeMoreTo, rows: rowsProp }) => {
   const { t } = useTranslation();
   const { data } = useLocalNationalLeaders(cycle);
-  const rows = data?.closestRaces ?? [];
+  const allRows = rowsProp ?? data?.closestRaces ?? [];
+  const rows = limit != null ? allRows.slice(0, limit) : allRows;
   if (rows.length === 0) return null;
   return (
     <StatCard
-      bodyMaxHeight={bodyMaxHeight}
+      seeMoreTo={seeMoreTo}
       label={<TileLabel icon={Scale} text={t("local_closest_races_title")} />}
       hint={t("local_closest_races_hint")}
     >
@@ -133,15 +147,18 @@ export const LocalClosestRacesTile: FC<{
 
 export const LocalSplitControlTile: FC<{
   cycle: string;
-  bodyMaxHeight?: string;
-}> = ({ cycle, bodyMaxHeight }) => {
+  // Top-N preview when set; the full list otherwise.
+  limit?: number;
+  seeMoreTo?: string;
+}> = ({ cycle, limit, seeMoreTo }) => {
   const { t } = useTranslation();
   const { data } = useLocalNationalLeaders(cycle);
   const split = data?.splitControl;
   if (!split || split.count === 0) return null;
+  const rows = limit != null ? split.rows.slice(0, limit) : split.rows;
   return (
     <StatCard
-      bodyMaxHeight={bodyMaxHeight}
+      seeMoreTo={seeMoreTo}
       label={<TileLabel icon={GitFork} text={t("local_split_control_title")} />}
       hint={t("local_split_control_hint")}
     >
@@ -149,7 +166,7 @@ export const LocalSplitControlTile: FC<{
         {t("local_split_control_count", { count: split.count })}
       </div>
       <ul className="mt-1 flex flex-col divide-y">
-        {split.rows.map((r) => (
+        {rows.map((r) => (
           <li
             key={r.obshtinaCode}
             className="flex items-center gap-2 py-2 text-sm"
