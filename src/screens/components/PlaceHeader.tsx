@@ -74,12 +74,13 @@ const parseLoc = (loc?: string): { lat: number; lon: number } | null => {
 };
 
 // Single-tile OSM static thumbnail — no Leaflet on the hero path. Computes
-// the fractional tile coords for the centroid at a fixed zoom and crops a
-// 2×2 tile mosaic so the centroid sits at the middle, then drops a CSS pin.
+// the fractional tile coords for the centroid at a fixed zoom and lays down a
+// 3×3 tile mosaic so the centroid sits at the middle, then drops a CSS pin.
 const TILE_SIZE = 256;
 const ZOOM = 12; // ~5 km across — good for "where in the oblast is this".
 const THUMB_W = 144;
 const THUMB_H = 96;
+const SUBDOMAINS = ["a", "b", "c"];
 
 const StaticOsmThumbnail: FC<{ lat: number; lon: number; alt: string }> = ({
   lat,
@@ -93,22 +94,31 @@ const StaticOsmThumbnail: FC<{ lat: number; lon: number; alt: string }> = ({
     ((1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2) * n;
   const tx = Math.floor(fx);
   const ty = Math.floor(fy);
-  const ox = (fx - tx) * TILE_SIZE;
-  const oy = (fy - ty) * TILE_SIZE;
-  const shiftX = THUMB_W / 2 - ox;
-  const shiftY = THUMB_H / 2 - oy;
+  // 3×3 mosaic centred on the centroid's tile, each tile placed so the centroid
+  // lands at the thumbnail centre. A 3×3 grid (vs a 2×2) is what guarantees the
+  // thumbnail is fully covered no matter where the centroid sits within its
+  // tile — a 2×2 leaves a bare strip when the centroid is near the tile's top
+  // or left edge (e.g. Plovdiv: map "cut off at the top").
   const tiles: Array<{
     x: number;
     y: number;
     sub: string;
     left: number;
     top: number;
-  }> = [
-    { x: tx, y: ty, sub: "a", left: 0, top: 0 },
-    { x: tx + 1, y: ty, sub: "b", left: TILE_SIZE, top: 0 },
-    { x: tx, y: ty + 1, sub: "c", left: 0, top: TILE_SIZE },
-    { x: tx + 1, y: ty + 1, sub: "a", left: TILE_SIZE, top: TILE_SIZE },
-  ];
+  }> = [];
+  for (let dy = -1; dy <= 1; dy++) {
+    for (let dx = -1; dx <= 1; dx++) {
+      const x = tx + dx;
+      const y = ty + dy;
+      tiles.push({
+        x,
+        y,
+        sub: SUBDOMAINS[(((x + y) % 3) + 3) % 3],
+        left: THUMB_W / 2 + (x - fx) * TILE_SIZE,
+        top: THUMB_H / 2 + (y - fy) * TILE_SIZE,
+      });
+    }
+  }
   return (
     <div
       className="relative rounded-md overflow-hidden border bg-muted"
@@ -116,32 +126,22 @@ const StaticOsmThumbnail: FC<{ lat: number; lon: number; alt: string }> = ({
       aria-label={alt}
       role="img"
     >
-      <div
-        className="absolute"
-        style={{
-          left: shiftX,
-          top: shiftY,
-          width: TILE_SIZE * 2,
-          height: TILE_SIZE * 2,
-        }}
-      >
-        {tiles.map((tile) => (
-          <img
-            key={`${tile.x}-${tile.y}`}
-            src={`https://${tile.sub}.tile.openstreetmap.org/${ZOOM}/${tile.x}/${tile.y}.png`}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            className="absolute select-none pointer-events-none"
-            style={{
-              left: tile.left,
-              top: tile.top,
-              width: TILE_SIZE,
-              height: TILE_SIZE,
-            }}
-          />
-        ))}
-      </div>
+      {tiles.map((tile) => (
+        <img
+          key={`${tile.x}-${tile.y}`}
+          src={`https://${tile.sub}.tile.openstreetmap.org/${ZOOM}/${tile.x}/${tile.y}.png`}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="absolute select-none pointer-events-none"
+          style={{
+            left: tile.left,
+            top: tile.top,
+            width: TILE_SIZE,
+            height: TILE_SIZE,
+          }}
+        />
+      ))}
       <span
         className="absolute size-2.5 rounded-full bg-primary ring-2 ring-background shadow"
         style={{
