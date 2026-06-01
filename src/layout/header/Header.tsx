@@ -280,9 +280,9 @@ export const Header = () => {
   return (
     <nav
       ref={navRef}
-      className="flex shadow-sm fixed w-full z-10 top-0 gap-2 bg-muted border-b-2 justify-between items-center"
+      className="flex shadow-sm fixed w-full z-10 top-0 gap-1 sm:gap-2 bg-muted border-b-2 justify-between items-center"
     >
-      <div className="flex text-xl text-primary flex-wrap items-center gap-3 p-4">
+      <div className="flex text-xl text-primary flex-wrap items-center gap-1.5 p-2 sm:gap-2 sm:px-3 sm:py-4">
         <Link to="/" className="flex flex-row items-center">
           <span className="sr-only">Elections in Bulgaria data statistics</span>
           <Logo className="size-7" />
@@ -293,12 +293,12 @@ export const Header = () => {
             <div className="font-semibold uppercase">{t("bg")}</div>
           </div>
         </Link>
-        <div aria-hidden className="hidden sm:block h-6 w-px bg-border/70" />
+        <div aria-hidden className="hidden lg:block h-6 w-px bg-border/70" />
         <ElectionsSelect />
         <CabinetAnchorPill />
         <AreaPill />
       </div>
-      <div className="flex flex-1 justify-end gap-3 items-center px-4 min-w-0">
+      <div className="flex shrink-0 justify-end gap-1 sm:gap-2 items-center px-2 sm:px-3">
         <AreaSniperButton />
         <Search />
         {electionsMenu.map((topMenu, idx) => (
