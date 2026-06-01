@@ -216,7 +216,7 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
           </Link>
         </h2>
         <Link
-          to={muniHref}
+          to={localHref}
           underline={false}
           aria-label={lang === "bg" ? "Виж детайли" : "View details"}
           className="flex items-center gap-1 text-[11px] font-medium text-primary hover:underline shrink-0"
