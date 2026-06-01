@@ -12,9 +12,8 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, BarChart3, Trophy } from "lucide-react";
+import { BarChart3, Trophy } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Link } from "@/ux/Link";
 import type { ResolvedArea } from "@/data/area/useAreaResolver";
 import { useSettlementStats } from "@/data/settlements/useSettlementStats";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -487,18 +486,6 @@ const SettlementHistoryBody: FC<{ ekatte: string; lang: "bg" | "en" }> = ({
 export const MyAreaHistoryStrip: FC<Props> = ({ area }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
-  const fullHref =
-    area.kind === "settlement"
-      ? `/settlement/${area.ekatte}`
-      : `/municipality/${area.oblast}`;
-  const fullLabel =
-    area.kind === "settlement"
-      ? lang === "bg"
-        ? "Виж пълно парламентарно табло за района"
-        : "View full parliamentary results for this area"
-      : lang === "bg"
-        ? "Виж пълно парламентарно табло за общината"
-        : "View full parliamentary results for this municipality";
 
   return (
     <Card className="p-4 mt-2 flex flex-col gap-3">
@@ -523,15 +510,6 @@ export const MyAreaHistoryStrip: FC<Props> = ({ area }) => {
             : "Cycle-by-cycle parliamentary results for the municipality are available on the full dashboard."}
         </p>
       )}
-      <Link
-        to={fullHref}
-        underline={false}
-        className="flex items-center justify-between gap-2 text-sm rounded-md border p-2 hover:bg-accent/40 transition-colors group/full"
-        aria-label={fullLabel}
-      >
-        <span className="font-medium">{fullLabel}</span>
-        <ArrowRight className="size-4 text-muted-foreground group-hover/full:text-primary transition-colors" />
-      </Link>
       {/* Reference `t` so future translatable copy lands here without
           re-adding the import — same pattern as elsewhere. */}
       <span hidden aria-hidden>
