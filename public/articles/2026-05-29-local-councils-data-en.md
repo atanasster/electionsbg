@@ -358,9 +358,9 @@ For users from the 10 Tier-B municipalities, the **"Where do my taxes go?"** til
 
 Every municipality with at least one decision in our index gets:
 
-- A **"Общински съвет" tile** on the Governance page showing the freshest 3 decisions, each with its title (where parsed), date, adopted/rejected status, and the aggregate vote (за–против–въздържал).
+- A **"Общински съвет" tile** on the Governance page showing the freshest 5 decisions, each with its title (where parsed), date, adopted/rejected status, and the aggregate vote (за–против–въздържал) — with a "Спорни" (contested) chip that narrows the list to decisions where dissent plus abstentions exceed 10% of the votes cast.
 - An expandable view that shows the per-councillor breakdown when the council publishes it — one mini-avatar per councillor, coloured by their vote, with the cacbg-roster profile link on hover.
-- A **"Standouts" strip** for the Tier-A councils — the top dissenters and the lowest-attendance councillors in the last 6 months, computed from the votes shard at `data/council/votes/<obshtina>.json`.
+- A **"Standouts" strip** for the Tier-A councils — the top dissenters and the lowest-attendance councillors across the council's named-vote record, computed from the votes shard at `data/council/votes/<obshtina>.json`.
 - A council search feature in the global header — every councillor in the cacbg roster is searchable by name across the 16 wired municipalities.
 - An "Последна активност" timeline that mixes the freshest council decisions with the municipality's EU-funds disbursements, procurement awards, capital programme additions, and local-election results — one unified feed of "what just happened in your municipality".
 
