@@ -19,7 +19,6 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Search, Map as MapIcon } from "lucide-react";
 import { useLocalSections } from "@/data/local/useLocalSections";
-import { useInView } from "@/ux/useInView";
 import { formatThousands } from "@/data/utils";
 import type { LocalSectionResult } from "@/data/local/types";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
@@ -47,12 +46,11 @@ export const LocalSectionsTile: FC<{
   const isSofiaRayon = /^S2\d{3}$/.test(obshtinaCode);
   const sectionBundle = isSofiaRayon ? "SOF" : obshtinaCode;
   const rayonDigit = isSofiaRayon ? obshtinaCode.slice(-2) : null;
-  // The section index is the heaviest payload on the page (Sofia ~730KB; most
-  // municípios are tiny). This tile sits below the mayor/council tiles, so defer
-  // the fetch until it scrolls near the viewport. Across all 24 районы + the SOF
-  // page React Query serves the one SOF index from cache.
-  const { ref: sentinelRef, inView } = useInView<HTMLDivElement>();
-  const { shard: rawShard } = useLocalSections(sectionBundle, cycle, inView);
+  // Load the (light) section index directly, like the parliamentary section
+  // map. It's modest now — most municípios are a few KB, the SOF index ~150KB
+  // gzipped and shared from cache across all 24 районы — so an
+  // IntersectionObserver gate isn't worth the risk of the block never appearing.
+  const { shard: rawShard } = useLocalSections(sectionBundle, cycle);
   // For a район, narrow the city-wide bundle to this район's stations.
   const shard = useMemo(() => {
     if (!rawShard || !rayonDigit) return rawShard;
@@ -96,12 +94,6 @@ export const LocalSectionsTile: FC<{
     return sorted;
   }, [shard, query, sortKey]);
 
-  // Until the tile scrolls into view, render only the sentinel (the
-  // IntersectionObserver target) so no fetch fires. Reserve a sliver of height
-  // so the observer has a real box to track.
-  if (!inView) {
-    return <div ref={sentinelRef} aria-hidden style={{ minHeight: 1 }} />;
-  }
   if (!shard || shard.sections.length === 0) return null;
 
   const visible = filteredSorted.slice(0, limit);
