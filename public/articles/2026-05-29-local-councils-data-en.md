@@ -31,9 +31,9 @@ keywords:
 
 # How Bulgarian municipal council voting and budget data are integrated into electionsbg.com
 
-![The "Municipal council" tile on a My-Area dashboard — Veliko Tarnovo. Each decision carries its adopted/rejected outcome, the за–против–въздържал tally, and — where the protocol publishes it — every councillor's individual vote as a colour-ringed avatar (ring colour = how they voted, fill = party).](/articles/images/local_government/01-council-tile.png)
+![The "Municipal council" tile on a place's Governance dashboard — Veliko Tarnovo. Each decision carries its adopted/rejected outcome, the за–против–въздържал tally, and — where the protocol publishes it — every councillor's individual vote as a colour-ringed avatar (ring colour = how they voted, fill = party).](/articles/images/local_government/01-council-tile.png)
 
-Everything described below surfaces in one place: **My Area** — the per-place dashboard on electionsbg.com that every Bulgarian municipality and settlement gets. It pulls together who represents you, how they vote, and where your municipality's money comes from and where it goes. Two of its tiles are the subject of this article: the **"Municipal council"** tile shown above — every council decision with its outcome, the за–против–въздържал tally, and, where the protocol publishes it, each councillor's individual vote — and the **"Capital programme"** tile further down, which itemises every investment project for the year with its value, funding source, and the village it lands in.
+Everything described below surfaces in one place: the **Governance** view — the per-place dashboard on electionsbg.com that every Bulgarian municipality and settlement gets. It pulls together who represents you, how they vote, and where your municipality's money comes from and where it goes. Two of its tiles are the subject of this article: the **"Municipal council"** tile shown above — every council decision with its outcome, the за–против–въздържал tally, and, where the protocol publishes it, each councillor's individual vote — and the **"Capital programme"** tile further down, which itemises every investment project for the year with its value, funding source, and the village it lands in.
 
 The data behind both tiles has to be assembled municipality by municipality, because none of it exists as a national dataset. The rest of this article is an audit of how far we've got — and an honest map of what's still missing, and why.
 
@@ -177,7 +177,7 @@ Of the 16 integrated councils, **7 are Tier B** — we have the aggregate tally 
 
 1. **TSPD / Cloudflare bypass** — Видин, Търговище, Смолян, and four others sit behind enterprise bot guards. Our local-elections skill already handles this for ЦИК via a Playwright session with a persistent `cf_clearance` cookie; applying this same pattern to the council data ingestion would unlock at least 3 more oblast capitals (Видин, Търговище, Смолян + likely Кърджали, Кюстендил, Враца).
 2. **Body indexing for Tier A councils** — store each resolution's body text under `data/council/bodies/<obshtina>/<id>.json`. This enables conflict-of-interest detection (councillor ↔ company tie) and full-text search over the corpus.
-3. **Title extraction for the remaining Tier-B sources** — the two cases aren't equally easy (verified against live sessions). **Разград** is the more tractable: its protocol carries clean structured "ОТНОСНО: …" blocks (e.g. "Наредба за изменение и допълнение на Наредба № 30…"), so porting the Димитровград agenda-header logic is direct — but its titles are **not yet populated** in the current data (every Разград resolution still surfaces by id, pending a working ingest). **Добрич** is harder: its verbatim transcript scatters conversational "относно …" that isn't a title field, so the title must come from a different anchor (the докладна subject) — a separate parser task, not a 30-minute port. Either way, once wired each decision gets a human-readable subject in the My-Area "Последна активност" feed.
+3. **Title extraction for the remaining Tier-B sources** — the two cases aren't equally easy (verified against live sessions). **Разград** is the more tractable: its protocol carries clean structured "ОТНОСНО: …" blocks (e.g. "Наредба за изменение и допълнение на Наредба № 30…"), so porting the Димитровград agenda-header logic is direct — but its titles are **not yet populated** in the current data (every Разград resolution still surfaces by id, pending a working ingest). **Добрич** is harder: its verbatim transcript scatters conversational "относно …" that isn't a title field, so the title must come from a different anchor (the докладна subject) — a separate parser task, not a 30-minute port. Either way, once wired each decision gets a human-readable subject in the Governance view's "Последна активност" feed.
 
 ### Medium term (data publication itself)
 
@@ -350,15 +350,15 @@ A notable positive side effect of the open obshtini.bg platform is that municipa
 
 ### Integration within the platform
 
-The **"Local taxes"** tile on the My-Area page renders for any of the 265 municipalities that has at least an IME block. It shows the five IME rows with colour-coded national rank (green = bottom quintile, red = top), plus a row for ТБО (basis and rate when published), plus a row each for tourist tax and dog tax when we have Tier B coverage for that municipality.
+The **"Local taxes"** tile on the Governance page renders for any of the 265 municipalities that has at least an IME block. It shows the five IME rows with colour-coded national rank (green = bottom quintile, red = top), plus a row for ТБО (basis and rate when published), plus a row each for tourist tax and dog tax when we have Tier B coverage for that municipality.
 
-For users from the 10 Tier-B municipalities, the **"Where do my taxes go?"** tile on the same My-Area page combines these rates with a stylised household profile (apartment with €30,000 tax valuation + 85 kW vehicle) and shows the estimated annual local-tax bill — property tax, residential garbage fee, vehicle tax, and the one-time property-transfer tax. Next to it sits the distribution of the personal income tax (10%) across COFOG budget functions, so the user sees their whole personal tax-and-fee profile in one place.
+For users from the 10 Tier-B municipalities, the **"Where do my taxes go?"** tile on the same Governance page combines these rates with a stylised household profile (apartment with €30,000 tax valuation + 85 kW vehicle) and shows the estimated annual local-tax bill — property tax, residential garbage fee, vehicle tax, and the one-time property-transfer tax. Next to it sits the distribution of the personal income tax (10%) across COFOG budget functions, so the user sees their whole personal tax-and-fee profile in one place.
 
-## What you see in the My-Area platform today
+## What you see in the Governance view today
 
 Every municipality with at least one decision in our index gets:
 
-- A **"Общински съвет" tile** on the My-Area page showing the freshest 3 decisions, each with its title (where parsed), date, adopted/rejected status, and the aggregate vote (за–против–въздържал).
+- A **"Общински съвет" tile** on the Governance page showing the freshest 3 decisions, each with its title (where parsed), date, adopted/rejected status, and the aggregate vote (за–против–въздържал).
 - An expandable view that shows the per-councillor breakdown when the council publishes it — one mini-avatar per councillor, coloured by their vote, with the cacbg-roster profile link on hover.
 - A **"Standouts" strip** for the Tier-A councils — the top dissenters and the lowest-attendance councillors in the last 6 months, computed from the votes shard at `data/council/votes/<obshtina>.json`.
 - A council search feature in the global header — every councillor in the cacbg roster is searchable by name across the 16 wired municipalities.
