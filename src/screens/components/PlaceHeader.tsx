@@ -133,7 +133,11 @@ const StaticOsmThumbnail: FC<{ lat: number; lon: number; alt: string }> = ({
           alt=""
           loading="lazy"
           decoding="async"
-          className="absolute select-none pointer-events-none"
+          // max-w-none: Tailwind preflight's `img { max-width: 100% }` would
+          // otherwise clamp each tile to the 144px-wide thumbnail box (squishing
+          // 256→142px and breaking the mosaic alignment). The old 2×2 wrapper
+          // hid this by sizing the tiles' container to 512px.
+          className="absolute select-none pointer-events-none max-w-none"
           style={{
             left: tile.left,
             top: tile.top,
