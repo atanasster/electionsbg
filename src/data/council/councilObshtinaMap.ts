@@ -16,8 +16,12 @@
 // synthetic SFO_CITY bundle all collapse to the SOF council key.
 
 const STATIC_MAP: Record<string, string> = {
-  // Sofia city-wide bundle.
+  // Sofia city-wide bundle. SFO_CITY is the council ingest's own alias; SOF00
+  // is the code the city-wide My-Area dashboard keys on; SOF is the local
+  // bundle code — all three are the one Столичен общински съвет.
   SFO_CITY: "SOF",
+  SOF00: "SOF",
+  SOF: "SOF",
   // Big-city munis whose council keys differ from the frontend's
   // EKATTE-ordering obshtina codes.
   VTR04: "VTR01",
@@ -71,6 +75,11 @@ export const rosterShardForObshtina = (
   obshtina: string | null | undefined,
 ): string | null => {
   if (!obshtina) return null;
-  if (obshtina.startsWith("S2") || obshtina === "SFO_CITY") return "SFO_CITY";
+  if (
+    obshtina.startsWith("S2") ||
+    obshtina === "SFO_CITY" ||
+    obshtina === "SOF00"
+  )
+    return "SFO_CITY";
   return obshtina;
 };

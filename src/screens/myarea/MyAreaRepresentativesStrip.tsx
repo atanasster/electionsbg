@@ -28,6 +28,13 @@ import { useMpSignals } from "@/data/myarea/useMpSignals";
 
 type Props = {
   oblast: string;
+  // When set, aggregate MPs across these oblasts instead of the single
+  // `oblast`. Sofia city spans МИР 23/24/25, so its city-wide My-Area passes
+  // all three; the caption then points at regionHref/regionLabel (the city
+  // page) rather than a single МИР. Omitted everywhere else.
+  oblasts?: string[];
+  regionLabel?: string;
+  regionHref?: string;
 };
 
 type Row = {
@@ -37,7 +44,12 @@ type Row = {
   color: string;
 };
 
-export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
+export const MyAreaRepresentativesStrip: FC<Props> = ({
+  oblast,
+  oblasts,
+  regionLabel,
+  regionHref,
+}) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const { selected } = useElectionContext();
@@ -55,24 +67,39 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
   // covers local cycles instead.
   const isParliamentaryCycle = cycle.kind === "parliament";
   const nsFolder = isParliamentaryCycle ? electionToNsFolder(selected) : null;
-  const mir = oblastToMir(oblast);
+  // Effective oblast list — one for most places, three for the Sofia city
+  // aggregate. The МИР codes drive the per-region MP fetch.
+  const oblastList = useMemo(
+    () => (oblasts && oblasts.length ? oblasts : [oblast]),
+    [oblasts, oblast],
+  );
+  const isMulti = oblastList.length > 1;
+  const mirs = useMemo(
+    () =>
+      oblastList
+        .map((o) => oblastToMir(o))
+        .filter((m): m is string => Boolean(m)),
+    [oblastList],
+  );
 
   // CIK candidate index: maps a normalized MP name → that name's CIK partyNum
-  // in this oblast. Lets us tag each MP with the canonical party color.
+  // across the effective oblast(s). Lets us tag each MP with the canonical
+  // party color.
   const cikByName = useMemo(() => {
     const m = new Map<string, { partyNum: number }>();
     if (!candidates) return m;
+    const set = new Set(oblastList);
     for (const c of candidates) {
-      if (c.oblast !== oblast) continue;
+      if (!set.has(c.oblast)) continue;
       const k = normalize(c.name);
       if (!m.has(k)) m.set(k, { partyNum: c.partyNum });
     }
     return m;
-  }, [candidates, oblast]);
+  }, [candidates, oblastList]);
 
   const rows = useMemo<Row[]>(() => {
-    if (!nsFolder || !mir) return [];
-    const mps = findMpsByRegion(mir, nsFolder);
+    if (!nsFolder || mirs.length === 0) return [];
+    const mps = mirs.flatMap((mir) => findMpsByRegion(mir, nsFolder));
     const built = mps.map((mp) => {
       const cik = cikByName.get(mp.normalizedName);
       const groupOverride = lookupParliamentGroup(mp.currentPartyGroupShort);
@@ -111,7 +138,7 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
       .map(({ r }) => r);
   }, [
     nsFolder,
-    mir,
+    mirs,
     findMpsByRegion,
     cikByName,
     lookupParliamentGroup,
@@ -127,7 +154,7 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
   // Don't render the section for local/EU/presidential cycles or when the
   // MIR mapping is missing — the strip would be empty otherwise and the
   // header alone would feel like a broken state.
-  if (!isParliamentaryCycle || !mir || rows.length === 0) {
+  if (!isParliamentaryCycle || mirs.length === 0 || rows.length === 0) {
     return null;
   }
 
@@ -244,6 +271,20 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
           dashboard, so users see exactly which area this MP list
           represents and can click through to its full page. */}
       {(() => {
+        // Multi-region (Sofia city): point at the supplied city page and
+        // label instead of a single МИР.
+        if (isMulti) {
+          return (
+            <p className="text-[10px] text-muted-foreground mt-3">
+              {lang === "bg" ? "Народни представители за " : "MPs for "}
+              <Link to={regionHref ?? `/municipality/${oblast}`} underline>
+                {regionLabel ??
+                  mirs.map((m) => `МИР ${m}`).join(lang === "bg" ? ", " : ", ")}
+              </Link>{" "}
+              ({cycle.slug})
+            </p>
+          );
+        }
         const region = findRegion(oblast);
         const regionName = region
           ? lang === "bg"
@@ -254,7 +295,7 @@ export const MyAreaRepresentativesStrip: FC<Props> = ({ oblast }) => {
           <p className="text-[10px] text-muted-foreground mt-3">
             {lang === "bg" ? "Народни представители за " : "MPs for "}
             <Link to={`/municipality/${oblast}`} underline>
-              МИР {mir}
+              МИР {mirs[0]}
               {regionName ? ` · ${regionName}` : ""}
             </Link>{" "}
             ({cycle.slug})

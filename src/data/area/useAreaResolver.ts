@@ -46,6 +46,24 @@ export type ResolvedArea =
 // broader than the old `/^\d+$/` and catches both cases.
 const looksLikeSettlementId = (id: string): boolean => /^\d/.test(id);
 
+// Sofia city has no single município row in municipalities.json — the city is
+// split into 24 районы (S2xxx) across МИР 23/24/25. But it does have a
+// city-wide My-Area dashboard, keyed SOF00 (the code officials / LISI /
+// indicators / transfers use; the local bundle is the synthetic SOF). We
+// synthesize the município record here so the generic MyAreaScreen can render
+// it like any other obshtina. oblast S23 is a representative МИР (the
+// oblast-keyed strips show one МИР's slice); obshtina-keyed governance tiles
+// derive the SOF shard from the code and cover the whole city.
+const SOFIA_CITY_MUNICIPALITY: MunicipalityInfo = {
+  ekatte: "68134",
+  name: "София (столица)",
+  name_en: "Sofia (capital)",
+  obshtina: "SOF00",
+  oblast: "S23",
+  loc: "23.3219,42.6977",
+};
+const isSofiaCityId = (id: string): boolean => id === "SOF00" || id === "SOF";
+
 export const useAreaResolver = (id?: string | null): ResolvedArea | null => {
   const { findSettlement, settlements } = useSettlementsInfo();
   const { findMunicipality, municipalities } = useMunicipalities();
@@ -56,6 +74,17 @@ export const useAreaResolver = (id?: string | null): ResolvedArea | null => {
     // hand we return null so the screen renders its skeleton instead of an
     // "unknown" flash that would mis-classify a valid id.
     if (!settlements || !municipalities) return null;
+
+    // Sofia city aggregate — synthetic município (not in municipalities.json).
+    if (isSofiaCityId(id)) {
+      return {
+        kind: "municipality",
+        id,
+        obshtina: SOFIA_CITY_MUNICIPALITY.obshtina,
+        oblast: SOFIA_CITY_MUNICIPALITY.oblast,
+        municipality: SOFIA_CITY_MUNICIPALITY,
+      };
+    }
 
     // Primary dispatch by shape, with cross-lookup fallback so a settlement
     // id we don't yet recognise can still hit the município table and

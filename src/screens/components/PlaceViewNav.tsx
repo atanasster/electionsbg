@@ -25,6 +25,7 @@ import {
   myAreaUrl,
   parliamentaryUrl,
   localUrl,
+  isSofiaCityObshtina,
 } from "@/data/local/placeViews";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
@@ -61,12 +62,16 @@ export const PlaceViewNav: FC<Props> = ({
 
   // Local availability: the place's município (or, for a region, any of its
   // municípios) must be present in the active cycle's index. Sofia районs are
-  // their own município (S2xxx), so the obshtina guard covers them too.
+  // their own município (S2xxx), so the obshtina guard covers them too. The
+  // Sofia city aggregate is keyed SOF00 in the parliamentary/my-area trees but
+  // lives under the synthetic SOF bundle in the local index — check that.
   const localAvailable =
     !!index &&
     (level === "region"
       ? index.municipalities.some((m) => m.oblast === oblast)
-      : index.municipalities.some((m) => m.obshtinaCode === obshtina));
+      : isSofiaCityObshtina(obshtina)
+        ? index.municipalities.some((m) => m.obshtinaCode === "SOF")
+        : index.municipalities.some((m) => m.obshtinaCode === obshtina));
 
   const urlFor = (view: PlaceView): string | null => {
     if (view === "myarea") return myAreaUrl(place);

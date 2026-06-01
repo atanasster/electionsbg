@@ -723,10 +723,12 @@ const MunicipalityResults: FC<{
 
   return (
     <section className="my-4">
-      {/* Unified place header. Sofia city aggregate keeps a single
-          "→ parliamentary" pill (it maps to /sofia) in place of the
-          three-way switcher; every real município + Sofia район gets the
-          full switcher. Sofia районs also surface a "→ all of Sofia" link. */}
+      {/* Unified place header with the full three-way switcher (My-Area
+          governance / Parliamentary / Local). The Sofia city aggregate now
+          has a city-wide My-Area dashboard too, so it gets the same switcher
+          as every other município — placeViews maps its SOF code to /sofia
+          and /my-area/SOF00. Sofia районs also surface a "→ all of Sofia"
+          link. */}
       <PlaceHeader
         active="local"
         level={isSofiaRayon ? "settlement" : "municipality"}
@@ -744,14 +746,6 @@ const MunicipalityResults: FC<{
               {t("local_election_sofia_rayon_link")}
               <ArrowRight className="size-3" />
             </Link>
-          ) : undefined
-        }
-        navSlot={
-          isSofiaCity ? (
-            <ToParliamentaryLink
-              level="municipality"
-              obshtinaCode={municipality.obshtinaCode}
-            />
           ) : undefined
         }
         className="mb-4"
@@ -884,8 +878,12 @@ const MunicipalityResults: FC<{
           officials tiles the parliamentary município page carries, keyed by the
           shared obshtina code. Each tile self-hides without data; the whole
           block is skipped for Sofia район shards (sub-units, not real
-          municipalities for these datasets). */}
-      {!isSofiaRayon ? (
+          municipalities for these datasets) AND for the Sofia city aggregate
+          (its datasets key on SOF00, not the local SOF code, so every tile here
+          would self-hide and leave empty section shells — that geography +
+          governance content lives on the city My-Area dashboard, linked from
+          the header switcher above). */}
+      {!isSofiaRayon && !isSofiaCity ? (
         <>
           <DashboardSection
             id="geography"

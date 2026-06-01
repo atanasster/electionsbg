@@ -44,6 +44,8 @@ import { MunicipalCapitalProjectsTiles } from "@/screens/dashboard/MunicipalCapi
 import { IpopExecutionTile } from "@/screens/dashboard/IpopExecutionTile";
 import { CompaniesHqTile } from "@/screens/dashboard/CompaniesHqTile";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
+import { isSofiaCityObshtina } from "@/data/local/placeViews";
+import { SOFIA_REGIONS } from "@/data/dataTypes";
 
 export const MyAreaScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -97,6 +99,21 @@ export const MyAreaScreen: FC = () => {
       ? `${t("my_area_dashboard")} — ${lang === "bg" ? area.settlement.name : area.settlement.name_en}`
       : `${t("my_area_dashboard")} — ${lang === "bg" ? area.municipality.name : area.municipality.name_en}`;
 
+  // Sofia city aggregate — no município row, so its header needs an explicit
+  // fallback name and its МИР oblast suppressed from the breadcrumb.
+  const sofiaCity =
+    area.kind === "municipality" && isSofiaCityObshtina(area.obshtina);
+  // The MP strip is МИР-scoped; Sofia city spans all three (S23/S24/S25), so
+  // hand it the full set and caption it to the city page rather than one МИР.
+  const repsProps = sofiaCity
+    ? {
+        oblast: area.oblast,
+        oblasts: SOFIA_REGIONS,
+        regionLabel: lang === "bg" ? "София" : "Sofia",
+        regionHref: "/sofia",
+      }
+    : { oblast: area.oblast };
+
   // chmi banner: when the selected cycle is a partial local election, the
   // mayor card downstream may show a freshly elected replacement. Surface
   // that context above the dashboard so users don't miss the framing.
@@ -117,7 +134,18 @@ export const MyAreaScreen: FC = () => {
           level={area.kind === "settlement" ? "settlement" : "municipality"}
           ekatte={area.kind === "settlement" ? area.ekatte : undefined}
           obshtina={area.obshtina}
-          oblast={area.oblast}
+          // Sofia city has no município row, so its oblast is a representative
+          // МИР (S23) used only by the governance tiles below — passing it to
+          // the header would mis-label the breadcrumb ("област София 23 МИР").
+          // Suppress it there and let fallbackName supply the title instead.
+          oblast={sofiaCity ? undefined : area.oblast}
+          fallbackName={
+            area.kind === "municipality"
+              ? lang === "bg"
+                ? area.municipality.name
+                : area.municipality.name_en
+              : undefined
+          }
         />
 
         {/* Sofia райони chip row — only renders for users in a Sofia
@@ -150,11 +178,11 @@ export const MyAreaScreen: FC = () => {
 
         {hasUpcomingLocalBallot() ? (
           <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-            <MyAreaRepresentativesStrip oblast={area.oblast} />
+            <MyAreaRepresentativesStrip {...repsProps} />
             <MyAreaUpcomingBallotTile />
           </div>
         ) : (
-          <MyAreaRepresentativesStrip oblast={area.oblast} />
+          <MyAreaRepresentativesStrip {...repsProps} />
         )}
 
         {/* "Как гласуваха" — voting record of the area's MPs on the most

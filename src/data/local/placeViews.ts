@@ -37,16 +37,31 @@ export interface PlaceRef {
 const isSofiaRayonObshtina = (code?: string): boolean =>
   /^S2\d{3}$/.test(code ?? "");
 
+// Sofia city aggregate. Like the район case it carries no 1:1 mapping across
+// the three trees: the parliamentary view is the dedicated /sofia page (it
+// fans the city across МИР 23/24/25), the local view is the synthetic SOF
+// bundle, and the My-Area view is keyed SOF00 (the code officials / LISI /
+// indicators / transfers all use). `SOF00` is the canonical My-Area id;
+// `SOF` (the local code) is accepted too so the local SOF page's switcher
+// resolves the same triad.
+export const SOFIA_CITY_MYAREA_ID = "SOF00";
+export const isSofiaCityObshtina = (code?: string): boolean =>
+  code === "SOF00" || code === "SOF";
+
 // My-Area dashboard URL. Returns null for regions (there is no oblast-level
 // My-Area dashboard — the personal view is settlement/município only).
 export const myAreaUrl = (p: PlaceRef): string | null => {
   if (p.level === "settlement" && p.ekatte) return `/my-area/${p.ekatte}`;
+  if (p.level === "municipality" && isSofiaCityObshtina(p.obshtina))
+    return `/my-area/${SOFIA_CITY_MYAREA_ID}`;
   if (p.level === "municipality" && p.obshtina) return `/my-area/${p.obshtina}`;
   return null;
 };
 
 // Parliamentary-elections results URL.
 export const parliamentaryUrl = (p: PlaceRef): string | null => {
+  if (p.level === "municipality" && isSofiaCityObshtina(p.obshtina))
+    return "/sofia";
   if (p.level === "settlement" && p.ekatte) return `/sections/${p.ekatte}`;
   if (p.level === "municipality" && p.obshtina)
     return `/settlement/${p.obshtina}`;
@@ -58,6 +73,9 @@ export const parliamentaryUrl = (p: PlaceRef): string | null => {
 // responsible for confirming the place actually has local data in that cycle
 // (PlaceViewNav guards via the cycle index before rendering the pill).
 export const localUrl = (p: PlaceRef, cycle: string): string | null => {
+  // Sofia city aggregate: the synthetic SOF bundle, never SOF00.
+  if (p.level === "municipality" && isSofiaCityObshtina(p.obshtina))
+    return `/local/${cycle}/SOF`;
   // Sofia район: settlement in the parliamentary tree, município in local.
   if (isSofiaRayonObshtina(p.obshtina)) return `/local/${cycle}/${p.obshtina}`;
   if (p.level === "settlement" && p.ekatte)

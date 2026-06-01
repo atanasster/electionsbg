@@ -12,8 +12,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { MapPin, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAreaAnchor, useSetAreaAnchor } from "@/data/area/areaAnchor";
-import { useSettlementsInfo } from "@/data/settlements/useSettlements";
-import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
+import { useAreaResolver } from "@/data/area/useAreaResolver";
 import { Tooltip as UxTooltip } from "@/ux/Tooltip";
 
 export const AreaPill: FC = () => {
@@ -23,21 +22,19 @@ export const AreaPill: FC = () => {
   const setAnchor = useSetAreaAnchor();
   const navigate = useNavigate();
   const location = useLocation();
-  const { findSettlement } = useSettlementsInfo();
-  const { findMunicipality } = useMunicipalities();
+  // Resolve via the shared area resolver (O(1) over already-cached React
+  // Query data) so synthetic aggregates like Sofia city (SOF00 — no
+  // município row) get a localized name instead of the raw code. The pill
+  // renders fine with the raw id while data is loading on first paint.
+  const area = useAreaResolver(anchor?.id);
 
   if (!anchor) return null;
 
-  // Resolve the name on demand — both lookups are O(1) over already-cached
-  // React Query data, no fetch cost. The pill renders fine with the raw id
-  // while data is loading on first paint.
   let name: string | null = null;
-  if (/^\d+$/.test(anchor.id)) {
-    const s = findSettlement(anchor.id);
-    if (s) name = lang === "bg" ? s.name : s.name_en;
-  } else {
-    const m = findMunicipality(anchor.id);
-    if (m) name = lang === "bg" ? m.name : m.name_en;
+  if (area?.kind === "settlement") {
+    name = lang === "bg" ? area.settlement.name : area.settlement.name_en;
+  } else if (area?.kind === "municipality") {
+    name = lang === "bg" ? area.municipality.name : area.municipality.name_en;
   }
   const display = name ?? anchor.id;
   const labelPrefix = t("area_pill_label");

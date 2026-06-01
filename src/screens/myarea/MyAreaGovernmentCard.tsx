@@ -17,6 +17,7 @@ import { Link } from "@/ux/Link";
 import { useMunicipalOfficials } from "@/data/officials/useMunicipalOfficials";
 import { useMunicipalContacts } from "@/data/officials/useMunicipalContacts";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
+import { isSofiaCityObshtina } from "@/data/local/placeViews";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { buildCouncilSegments, type CouncilSegment } from "./councilSegments";
@@ -48,10 +49,14 @@ type Props = {
 export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
+  // Sofia city aggregate keys officials/contacts as SOF00 but its local
+  // bundle (mayor + council) lives under the synthetic SOF code.
+  const sofiaCity = isSofiaCityObshtina(obshtina);
+  const localCode = sofiaCity ? "SOF" : obshtina;
   const { roster } = useMunicipalOfficials(obshtina);
   const { emailForName } = useMunicipalContacts(obshtina);
   const { municipality: localBundle, cycle: localCycle } =
-    useLocalMunicipality(obshtina);
+    useLocalMunicipality(localCode);
   const { displayNameForId, colorFor } = useCanonicalParties();
   const { findMunicipality } = useMunicipalities();
   const [expanded, setExpanded] = useState(false);
@@ -132,13 +137,24 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
   if (!roster && !localBundle) return null;
 
   const muni = findMunicipality(obshtina);
-  const muniName = muni ? (lang === "bg" ? muni.name : muni.name_en) : null;
-  const muniHref = `/settlement/${obshtina}`;
+  const muniName = sofiaCity
+    ? lang === "bg"
+      ? "София"
+      : "Sofia"
+    : muni
+      ? lang === "bg"
+        ? muni.name
+        : muni.name_en
+      : null;
+  // Sofia has no /settlement/SOF00 page — its parliamentary view is /sofia.
+  const muniHref = sofiaCity ? "/sofia" : `/settlement/${obshtina}`;
   // "View details" should land on the local-election dashboard for this
   // município (council, mayor, sections) — not the parliamentary settlement
   // page. Only viable when we have a local bundle (and thus a cycle); fall
   // back to the settlement page otherwise.
-  const localHref = localBundle ? `/local/${localCycle}/${obshtina}` : muniHref;
+  const localHref = localBundle
+    ? `/local/${localCycle}/${localCode}`
+    : muniHref;
 
   const declaredYear = roster?.years[0];
 
