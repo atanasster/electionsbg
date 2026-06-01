@@ -40,7 +40,6 @@ import { MyAreaCouncilTile } from "./MyAreaCouncilTile";
 import { MyAreaActionBand } from "./MyAreaActionBand";
 import { MyAreaGovernmentCard } from "./MyAreaGovernmentCard";
 import { MyAreaHistoryStrip } from "./MyAreaHistoryStrip";
-import { MyAreaLocalHistoryStrip } from "./MyAreaLocalHistoryStrip";
 import { MunicipalCapitalProjectsTiles } from "@/screens/dashboard/MunicipalCapitalProjectsTiles";
 import { IpopExecutionTile } from "@/screens/dashboard/IpopExecutionTile";
 import { CompaniesHqTile } from "@/screens/dashboard/CompaniesHqTile";
@@ -206,14 +205,6 @@ export const MyAreaScreen: FC = () => {
             obshtina={area.obshtina}
           />
         ) : null}
-
-        {/* Local-vote history — cycle-over-cycle mayor chip strip + council
-            seat-bars across every regular local-election cycle, plus a
-            partial-election (chmi) sub-row. Sits just above the
-            who-governs-now card so the historical context lands before
-            the snapshot. Auto-hides when the município has no usable
-            mayor data in the latest cycle. */}
-        <MyAreaLocalHistoryStrip obshtina={area.obshtina} />
 
         {/* Município government compact card — collapses Mayor +
             Council composition + Officials roster into one. Renders for

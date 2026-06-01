@@ -487,6 +487,12 @@ export const MyAreaHistoryStrip: FC<Props> = ({ area }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
 
+  // Município view only ever had a link-only placeholder here (the
+  // settlement-keyed stats hook can't be reused for a município), so the
+  // card rendered empty. Skip it entirely — the full dashboard already
+  // carries the cycle-by-cycle breakdown.
+  if (area.kind !== "settlement") return null;
+
   return (
     <Card className="p-4 mt-2 flex flex-col gap-3">
       <div className="flex items-center gap-2">
@@ -501,15 +507,7 @@ export const MyAreaHistoryStrip: FC<Props> = ({ area }) => {
           aria-hidden
         />
       </div>
-      {area.kind === "settlement" ? (
-        <SettlementHistoryBody ekatte={area.ekatte} lang={lang} />
-      ) : (
-        <p className="text-xs text-muted-foreground">
-          {lang === "bg"
-            ? "Историята на парламентарния вот за общината е достъпна на пълното табло."
-            : "Cycle-by-cycle parliamentary results for the municipality are available on the full dashboard."}
-        </p>
-      )}
+      <SettlementHistoryBody ekatte={area.ekatte} lang={lang} />
       {/* Reference `t` so future translatable copy lands here without
           re-adding the import — same pattern as elsewhere. */}
       <span hidden aria-hidden>

@@ -1,8 +1,6 @@
-// Shared council-composition palette + segment builder used by both
-// MyAreaLocalHistoryStrip (per-cycle row bars) and MyAreaGovernmentCard
-// (current-cycle headline bar). Keeps the colours consistent so the same
-// município reads the same way in the history row and the snapshot card
-// directly below it.
+// Council-composition palette + segment builder for MyAreaGovernmentCard's
+// current-cycle headline bar. Kept as a standalone module so the palette /
+// fallback rules can be reused if another council-bar view is added later.
 
 import type { LocalCouncilParty } from "@/data/local/types";
 

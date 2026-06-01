@@ -50,7 +50,8 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
   const lang = i18n.language === "bg" ? "bg" : "en";
   const { roster } = useMunicipalOfficials(obshtina);
   const { emailForName } = useMunicipalContacts(obshtina);
-  const { municipality: localBundle } = useLocalMunicipality(obshtina);
+  const { municipality: localBundle, cycle: localCycle } =
+    useLocalMunicipality(obshtina);
   const { displayNameForId, colorFor } = useCanonicalParties();
   const { findMunicipality } = useMunicipalities();
   const [expanded, setExpanded] = useState(false);
@@ -90,8 +91,7 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
   }, [localBundle, displayNameForId, lang]);
 
   // Council composition as a stacked bar — see councilSegments.ts for the
-  // palette / fallback rules (shared with MyAreaLocalHistoryStrip so the
-  // history row and this snapshot card render with the same colours).
+  // palette / fallback rules.
   const councilSegments = useMemo<CouncilSegment[]>(
     () =>
       buildCouncilSegments(localBundle?.council, displayNameForId, colorFor),
@@ -134,6 +134,11 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
   const muni = findMunicipality(obshtina);
   const muniName = muni ? (lang === "bg" ? muni.name : muni.name_en) : null;
   const muniHref = `/settlement/${obshtina}`;
+  // "View details" should land on the local-election dashboard for this
+  // município (council, mayor, sections) — not the parliamentary settlement
+  // page. Only viable when we have a local bundle (and thus a cycle); fall
+  // back to the settlement page otherwise.
+  const localHref = localBundle ? `/local/${localCycle}/${obshtina}` : muniHref;
 
   const declaredYear = roster?.years[0];
 
