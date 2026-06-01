@@ -31,6 +31,12 @@ keywords:
 
 # How Bulgarian municipal council voting and budget data are integrated into electionsbg.com
 
+![The "Municipal council" tile on a My-Area dashboard — Veliko Tarnovo. Each decision carries its adopted/rejected outcome, the за–против–въздържал tally, and — where the protocol publishes it — every councillor's individual vote as a colour-ringed avatar (ring colour = how they voted, fill = party).](/articles/images/local_government/01-council-tile.png)
+
+Everything described below surfaces in one place: **My Area** — the per-place dashboard on electionsbg.com that every Bulgarian municipality and settlement gets. It pulls together who represents you, how they vote, and where your municipality's money comes from and where it goes. Two of its tiles are the subject of this article: the **"Municipal council"** tile shown above — every council decision with its outcome, the за–против–въздържал tally, and, where the protocol publishes it, each councillor's individual vote — and the **"Capital programme"** tile further down, which itemises every investment project for the year with its value, funding source, and the village it lands in.
+
+The data behind both tiles has to be assembled municipality by municipality, because none of it exists as a national dataset. The rest of this article is an audit of how far we've got — and an honest map of what's still missing, and why.
+
 Bulgaria has 265 municipalities. Each operates a municipal council (**общински съвет**) that convenes monthly, makes hundreds of decisions annually, and votes on a multi-million-euro annual budget — every municipality publishes some version of both on its own website. There is no central register of these votes or budgets: РМС 436/2017 only mandates the narrow чл.45 ЗМСМА "returned decisions" feed on data.egov.bg, and a sampling we did across 50 municipalities found that fewer than 4 in 10 publish anything in that category, more than 90% of which is just hyperlinks pointing back to the municipality's own content management system (CMS).
 
 To address this, we built a custom data ingestion pipeline. Currently, our system covers **16 municipalities for council voting records** and **26 municipalities for capital programmes** — every oblast capital except eight, plus secondary cities. The two coverages overlap in **14 municipalities** where we have BOTH a council ingest AND a budget ingest, so our platform can address politically significant questions, such as: "the council voted to approve €3M for the school renovation in village X — who voted for, who voted against, and did the project actually land in the capital programme?"
@@ -69,6 +75,8 @@ The "Decisions" column is what's currently visible in our index. The "Coverage p
 Council votes tell you _what_ was decided. The capital programme — published every year as Приложение №3 / №4 / №7 to the budget law and re-amended after each council vote that moves money between line items — tells you _how much_ and _where_. We track 26 municipalities here, with the deepest history (2022→2025, four full fiscal years) for the eight municipalities that have published the longest.
 
 Each programme is a list of named investment projects (a school renovation, a road, a sewer-line extension) with a monetary value, a funding source (own funds / state subsidy / EU / carry-over), and — in the best-published programmes — the village or mayoral district (kmetstvo) where the project is located. The platform reads this to surface a per-municipality "Капиталова програма" tile with funding-source breakdown, top projects, and the per-settlement rollup for the municipalities that tag projects to specific villages.
+
+![The "Capital programme" tile for Veliko Tarnovo — €47.1M across 382 projects for 2025, broken down by settlement and listed largest-first, parsed straight from Annex 15 of the municipal budget.](/articles/images/local_government/02-capital-programme.png)
 
 | Slug | Regional (Oblast) Center? | Years | 2025 total (€) | Projects (2025) | Per-village tagging | Source format |
 |------|:--:|------|--------:|--------:|--------:|---------------|
@@ -196,11 +204,11 @@ The big-population councils above account for the bulk of the population coverag
 
 ## Where the two data domains intersect: the 14-municipality overlap
 
-The most useful single feature of the platform isn't either surface in isolation — it's the **overlap**. Fourteen municipalities have BOTH a council ingest and a capital-programme ingest: Sofia, Burgas, Velikko Tarnovo, Kazanlak, Pernik, Gabrovo, Stara Zagora, Ruse, Pleven, Sliven, Plovdiv, Varna, Haskovo and Dobrich. In those fourteen the platform can answer the question that matters most for a citizen looking at a council vote: _did the project this resolution authorises actually land in the capital programme — and at what amount?_
+The most useful single feature of the platform isn't either surface in isolation — it's the **overlap**. Fourteen municipalities have BOTH a council ingest and a capital-programme ingest: Sofia, Burgas, Veliko Tarnovo, Kazanlak, Pernik, Gabrovo, Stara Zagora, Ruse, Pleven, Sliven, Plovdiv, Varna, Haskovo and Dobrich. In those fourteen the platform can answer the question that matters most for a citizen looking at a council vote: _did the project this resolution authorises actually land in the capital programme — and at what amount?_
 
 ### Concrete example — Велико Търново, 5 March 2026
 
-On 5 March 2026, Velikko Tarnovo's council took up agenda item Решение №914: "Индикативен разчет на капиталови разходи за 2026 г." — the formal indicative reckoning of the capital expenditure for the 2026 fiscal year. This is the resolution that approves the year's capital programme as a block.
+On 5 March 2026, Veliko Tarnovo's council took up agenda item Решение №914: "Индикативен разчет на капиталови разходи за 2026 г." — the formal indicative reckoning of the capital expenditure for the 2026 fiscal year. This is the resolution that approves the year's capital programme as a block.
 
 The aggregate vote was **30 за – 2 против – 4 въздържал → adopted**. With our per-councillor data, we can name everyone who didn't vote yes:
 
@@ -256,7 +264,7 @@ The 2025 €4.53 billion breaks down by category like this:
 | **Equalisation transfer** (equalization) | 235 M (5%) | The redistributive transfer that balances capacity-to-revenue disparities between rich and poor municipalities. Free-use money. |
 | **Capital transfer** (capital) | 232 M (5%) | The state's contribution to the municipality's own capital programme. Pairs with the capital-programmes surface above. |
 | **Winter maintenance** (winter) | 25 M (0.6%) | Targeted transfer for the road-clearing / heating season; only the relevant municipalities get it. |
-| **Other targeted** (otherTargeted) | 36 M (0.8%) | Catch-all category for specific targeted programs. |
+| **Other targeted** (otherTargeted) | 36 M (0.8%) | Catch-all category for specific targeted programmes. |
 
 The top recipients by total transfer in 2025:
 

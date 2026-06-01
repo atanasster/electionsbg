@@ -8,7 +8,6 @@
       "budget"
     ],
     "author": "Claude Opus 4.7",
-    "draft": true,
     "title": {
       "bg": "Местни съвети и капиталови програми — какво извличаме и какво ни липсва",
       "en": "Local councils and capital programmes — what we ingest and what's missing"
@@ -16,7 +15,8 @@
     "summary": {
       "bg": "Преглед на всичките 16 общини с включени гласувания на общинския съвет и 26-те с включени капиталови програми в electionsbg.com. Данни в таблици, пропуски по причини (политика на публикуване, Cloudflare / TSPD анти-бот защити, сканирани PDF-и, остарели CMS-и) и осемте областни центъра, чиито жители могат да поискат публикуване от съветите си — каквото вече правят по-големите им съседи.",
       "en": "An audit of all 16 municipalities with council-votes data and 26 with capital-programme data on electionsbg.com. Data tables, gaps grouped by issue (publication policy, Cloudflare/TSPD bot guards, scanned PDFs, stale CMSes), and the eight oblast capitals where readers can ask their councils to publish what their bigger peers already do."
-    }
+    },
+    "ogImage": "/articles/images/local_government/01-council-tile.png"
   },
   {
     "slug": "2026-05-24-cabinets-analysis",
