@@ -10,6 +10,7 @@
 // the full set; a "show more" control caps the DOM node count).
 
 import { FC, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Search } from "lucide-react";
 import { useLocalSections } from "@/data/local/useLocalSections";
@@ -173,7 +174,12 @@ export const LocalSectionsTile: FC<{
                 return (
                   <tr key={s.sectionCode} className="border-b last:border-b-0">
                     <td className="py-2 px-3 tabular-nums whitespace-nowrap font-medium">
-                      {s.sectionCode}
+                      <Link
+                        to={`/local/${cycle}/${obshtinaCode}/section/${s.sectionCode}`}
+                        className="text-primary hover:underline"
+                      >
+                        {s.sectionCode}
+                      </Link>
                       {s.isMobile ? (
                         <span className="ml-1.5 inline-flex items-center rounded border border-border bg-muted px-1 py-0.5 text-[10px] uppercase tracking-wide text-muted-foreground">
                           {t("local_sections_mobile_badge")}
