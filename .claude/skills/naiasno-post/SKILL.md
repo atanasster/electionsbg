@@ -44,10 +44,19 @@ topic ─▶ dup-check (post_tool check) ─▶ ground in data/  ─▶ confirm 
 
 ## Step 1 — Pick the topic / angle
 
-From the user's request, or surface one from the latest data: skim
-`data-reports/latest.md` (what the watcher just found) or the freshest files in
-`data/procurement`, `data/funds`, `data/budget`, `data/officials`,
-`data/parliament`, etc. Pick ONE concrete, surprising, checkable fact.
+Two ways in:
+
+- **From the user's request** — a named topic or entity.
+- **From fresh data (the watcher).** Open `data-reports/latest.md`. Every item in
+  its **Changed** section is a post candidate — map it to a vein via the Step 3
+  table and lead with what just moved. If there are no changes, fall back to the
+  freshest files in any vein, or an evergreen "important" item (e.g. a top-scoring
+  NS vote, a notable council decision).
+
+Pick ONE concrete, surprising, checkable fact. Recurring high-value veins to
+rotate: **important NS votes** ("Парламентът тази седмица"), **municipal council
+decisions** ("твоят град"), follow-the-money (procurement / funds / financing /
+declarations), and EU comparisons.
 
 ## Step 2 — Duplicate check (before any work)
 
@@ -59,20 +68,50 @@ existing post. Do not proceed on a near-duplicate.
 
 ## Step 3 — Ground the number in our data
 
-Find the exact figure in the data and the on-site deep link. Common homes:
+Find the exact figure in the data and the on-site deep link. Data homes:
 
-| Topic | Data | Deep link (base: electionsbg.com — naiasno.bg later) |
+| Vein | Data | Deep link (base: electionsbg.com — naiasno.bg later) |
 |---|---|---|
+| Important NS votes | `data/parliament/votes/derived/important_votes/{ns}.json`, `…/sessions/{date}.json` | `/votes/:date/:slug`, `/votes/:date` |
+| NS dissent / party splits | `…/derived/dissents.json`, `…/party_pair_breaks.json` | `/votes/between/:pair`, `/votes/:date/:slug` |
+| NS attendance / loyalty / cohesion | `…/derived/attendance.json`, `loyalty.json`, `cohesion.json` | `/parliament/attendance`, `/parliament/cohesion`, `/parliament` |
+| Municipal council votes | `data/council/index.json` (`resolutionsByObshtina`), `data/council/votes/{key}.json` | `/local/:cycle/:obshtinaCode` |
 | Procurement | `data/procurement/*` | `/procurement`, `/company/:eik`, `/awarder/:eik` |
 | EU funds | `data/funds/*` | `/funds`, `/funds/programme/:code` |
 | Budget | `data/budget/*` | `/budget`, `/budget/ministry/:id` |
-| MP assets/cars/connections | `public/parliament/*` | `/mp-assets`, `/mp-cars`, `/connections`, `/candidate/:id` |
-| Parliament votes | `data/parliament/votes/*` | `/votes/:date`, `/parliament` |
+| MP assets / cars / connections | `public/parliament/*` | `/mp-assets`, `/mp-cars`, `/connections`, `/candidate/:id` |
+| Officials' declarations | `data/officials/*` | `/officials/assets`, `/officials/:slug` |
 | Party financing | `data/financing/*` | `/financing`, `/party/:id/donors` |
 | Elections | `public/<date>/*` | `/`, `/municipality/:id`, `/section/:id` |
-| Indicators/macro | `data/indicators.json`, `data/macro.json` | `/indicators`, `/indicators/compare` |
+| Local elections | `data/<cycle>/*` | `/local/:cycle`, `/local/:cycle/:obshtinaCode` |
+| Polls | `data/polls/*` | `/polls`, `/polls/:agencyId` |
+| Macro / EU comparison | `data/macro.json`, `data/macro_peers.json` | `/indicators`, `/indicators/compare` |
+| Sub-national indicators | `data/indicators.json`, `data/regional.json` | `/indicators`, `/indicators/economy` |
+| Demographics / census | `data/census_2021.json`, `data/census/*` | `/demographics`, `/demographics/regions` |
+| Transparency / taxes / land use / air | `data/municipal_transparency`, `data/local_taxes`, `data/landuse`, `data/air` | relevant `/indicators` or município page |
 
 Record: the exact value, the dataset path, and the deep link.
+
+### Vote posts — importance rubric (NS + municipal)
+
+Never post a random vote — pick a meaningful one.
+
+- **National Assembly** ("Парламентът тази седмица"). Read
+  `data/parliament/votes/derived/important_votes/{ns}.json` (current NS = the
+  highest-numbered file, e.g. `52.json`). Each entry has `score`, `title`,
+  `topic`, `tally {yes,no,abstain}`, `outcome`, `slug`. Rank by `score` and take a
+  recent high-scorer. **Prefer final-adoption votes** — title contains "второ
+  гласуване" / "на второ четене" / "окончателно" — over first readings (same
+  convention as long-form articles). Card value = the tally or margin (e.g.
+  "126 «за»"); deep link `/votes/:date/:slug`. For a "who broke ranks" angle use
+  `dissents.json` / `party_pair_breaks.json` (link `/votes/between/:pair`).
+- **Municipal council** ("твоят град"). `data/council/votes/{key}.json` holds
+  resolutions with за/против/въздържал tallies and named per-councillor votes
+  where available (16 munis wired; resolve `key` from the município code via
+  `src/data/council/councilObshtinaMap.ts`). Lead with ONE notable, checkable
+  decision in a NAMED município (budget, concession, procurement, наредба); deep
+  link the município page `/local/:cycle/:obshtinaCode`. In Step 4 confirm against
+  the council's own published protocol / minutes.
 
 ## Step 4 — Confirm against a public source
 
