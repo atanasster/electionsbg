@@ -137,33 +137,34 @@ export const TopCouncillorsTile: FC<{ bundle: LocalMunicipalityBundle }> = ({
       }
       hint={t("local_top_councillors_hint")}
     >
-      <ul className="flex flex-col divide-y">
+      {/* Avatar cards, mirroring the parliamentary TopCandidatesStrip. */}
+      <div className="flex flex-wrap gap-3 mt-1">
         {rows.map((c, i) => (
-          <li
+          <div
             key={`${i}-${c.name}`}
-            className="flex items-center gap-2 py-2 text-sm"
+            className="flex items-center gap-3 p-2 rounded-lg border border-border/60 min-w-0 flex-1 basis-[180px] max-w-[260px]"
           >
-            <MpAvatar name={c.name} mpId={c.mpId} showPartyRing={false} />
-            <div className="min-w-0 flex-1">
-              <div className="truncate font-medium">
+            <MpAvatar
+              name={c.name}
+              mpId={c.mpId}
+              showPartyRing={false}
+              className="h-10 w-10"
+            />
+            <div className="flex flex-col min-w-0">
+              <span className="text-sm font-semibold truncate">
                 {titleCaseName(c.name)}
-              </div>
-              <div className="flex items-center gap-1.5 min-w-0 text-xs text-muted-foreground">
+              </span>
+              <span className="text-[11px] text-muted-foreground flex items-center gap-1.5 min-w-0">
                 <Dot color={c.color} />
                 <span className="truncate">{c.partyName}</span>
-              </div>
+              </span>
+              <span className="text-[11px] text-muted-foreground tabular-nums">
+                {formatThousands(c.prefVotes)} · {c.prefPct.toFixed(1)}%
+              </span>
             </div>
-            <div className="text-right shrink-0 tabular-nums">
-              <div className="font-semibold">
-                {formatThousands(c.prefVotes)}
-              </div>
-              <div className="text-[10px] text-muted-foreground">
-                {c.prefPct.toFixed(1)}%
-              </div>
-            </div>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </StatCard>
   );
 };

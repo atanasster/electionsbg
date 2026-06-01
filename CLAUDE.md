@@ -73,7 +73,9 @@ There are no tests configured.
 Local cycles (`mi*`, `chmi*`) live alongside parliamentary but in their own data tree and URL space:
 
 - `/local/:cycle` — cycle overview (council vote share, mayors-won, município list with SOF pinned)
-- `/local/:cycle/:obshtinaCode` — full per-município results (mayor R1+R2, council with elected list, kmetstvo mayors, район mayors, chmi history)
+- `/local/:cycle/:obshtinaCode` — per-município dashboard (section map + compact mayor-candidate & council-party tiles, council hemicycle, kmetstvo mayors, район mayors, top councillors, chmi history). The compact tiles' "see full results" links drill into the dedicated full-breakdown pages below.
+- `/local/:cycle/:obshtinaCode/mayor` — full mayor candidate ranking (R1 + R2)
+- `/local/:cycle/:obshtinaCode/council` — full council party-by-party breakdown (expandable elected-councillor lists) + hemicycle + top councillors
 - `/local/chmi` — chronological feed of all extraordinary (partial + new) elections across cycles
 - `/sverka` — national officials-vs-CIK reconciliation table
 

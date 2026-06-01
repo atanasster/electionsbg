@@ -1,15 +1,14 @@
 // Per-polling-station (section) council results for one município — the
 // local-elections counterpart of the parliamentary settlement section block.
 //
-// Loads data/<cycle>/sections/<obshtinaCode>.json (present for every regular
-// cycle whose section CSV bundle was ingested — 2011/2015/2019/2023) ONCE and
-// feeds three views from the single shard:
-//   1. a Leaflet map of every polling station, coloured by leading council
-//      party (LocalSectionsMapTile);
-//   2. a "largest sections" leaderboard (LocalTopSectionsTile);
-//   3. the full searchable / sortable table below.
-// Self-hides when the cycle/município has no section shard (e.g. Sofia район
-// shards — their sections live under the SOF bundle).
+// Reads the per-município section shard (via useLocalSectionShard, which serves
+// Sofia район shards from the city-wide SOF bundle) and feeds two views:
+//   1. a "largest sections" leaderboard (LocalTopSectionsTile);
+//   2. the full searchable / sortable table below.
+// The station MAP that used to live here moved up into the mayor + council
+// rows of MunicipalityResults (LocalSectionsMapTile); the shard is shared via
+// React Query so this consumer pays no extra fetch.
+// Self-hides when the cycle/município has no section shard.
 //
 // Scales to Sofia's ~1,550 sections via incremental rendering (search filters
 // the full set; a "show more" control caps the DOM node count).
@@ -17,12 +16,11 @@
 import { FC, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Search, Map as MapIcon } from "lucide-react";
-import { useLocalSections } from "@/data/local/useLocalSections";
+import { Search, Vote } from "lucide-react";
+import { useLocalSectionShard } from "@/data/local/useLocalSectionShard";
 import { formatThousands } from "@/data/utils";
 import type { LocalSectionResult } from "@/data/local/types";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
-import { LocalSectionsMapTile } from "./LocalSectionsMapTile";
 import { LocalTopSectionsTile } from "./LocalTopSectionsTile";
 
 const PAGE = 50;
@@ -39,28 +37,12 @@ export const LocalSectionsTile: FC<{
   obshtinaCode: string;
 }> = ({ cycle, obshtinaCode }) => {
   const { t } = useTranslation();
-  // Sofia район shards (S2***) have no section file of their own — the city's
-  // stations all live in the synthetic SOF bundle, tagged by район in the
-  // section code (chars 4-5 == the район shard code's last two digits, e.g.
-  // S2401 Средец → "01"). So load SOF and filter to this район.
-  const isSofiaRayon = /^S2\d{3}$/.test(obshtinaCode);
-  const sectionBundle = isSofiaRayon ? "SOF" : obshtinaCode;
-  const rayonDigit = isSofiaRayon ? obshtinaCode.slice(-2) : null;
-  // Load the (light) section index directly, like the parliamentary section
-  // map. It's modest now — most municípios are a few KB, the SOF index ~150KB
-  // gzipped and shared from cache across all 24 районы — so an
-  // IntersectionObserver gate isn't worth the risk of the block never appearing.
-  const { shard: rawShard } = useLocalSections(sectionBundle, cycle);
-  // For a район, narrow the city-wide bundle to this район's stations.
-  const shard = useMemo(() => {
-    if (!rawShard || !rayonDigit) return rawShard;
-    return {
-      ...rawShard,
-      sections: rawShard.sections.filter(
-        (s) => s.sectionCode.slice(4, 6) === rayonDigit,
-      ),
-    };
-  }, [rawShard, rayonDigit]);
+  // The council section map lives in the mayor + council rows at the top of the
+  // município page now; here we keep the "largest sections" leaderboard and the
+  // full searchable per-station table. The shard (Sofia район shards are served
+  // from the city-wide SOF bundle, narrowed by район) is shared via React Query
+  // so this second consumer pays no extra fetch.
+  const { shard } = useLocalSectionShard(cycle, obshtinaCode);
   const [query, setQuery] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("section");
   const [limit, setLimit] = useState(PAGE);
@@ -99,12 +81,8 @@ export const LocalSectionsTile: FC<{
   const visible = filteredSorted.slice(0, limit);
   const total = shard.sections.length;
 
-  const hasCoords = shard.sections.some(
-    (s) => typeof s.longitude === "number" && typeof s.latitude === "number",
-  );
-  // The geo section (map + leaderboard) only has something to show when there
-  // are coordinates to plot or at least two sections to rank.
-  const showGeo = hasCoords || total >= 2;
+  // The leaderboard needs at least two sections to rank.
+  const showGeo = total >= 2;
 
   const sortBtn = (key: SortKey, label: string) => (
     <button
@@ -126,15 +104,8 @@ export const LocalSectionsTile: FC<{
         <DashboardSection
           id="local-sections"
           title={t("local_sections_group_title")}
-          icon={MapIcon}
+          icon={Vote}
         >
-          {/* Stacked full-width (not side-by-side): the top-sections table
-              carries the section address, which collapses in a narrow column. */}
-          <LocalSectionsMapTile
-            shard={shard}
-            cycle={cycle}
-            obshtinaCode={obshtinaCode}
-          />
           <LocalTopSectionsTile
             shard={shard}
             cycle={cycle}

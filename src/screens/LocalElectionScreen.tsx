@@ -37,6 +37,10 @@ import { LocalSofiaRayonMapTile } from "./dashboard/local/LocalSofiaRayonMapTile
 import { LocalCouncilHemicycleTile } from "./dashboard/local/LocalCouncilHemicycleTile";
 import { LocalMayorRunoffBar } from "./dashboard/local/LocalMayorRunoffBar";
 import { LocalSectionsTile } from "./dashboard/local/LocalSectionsTile";
+import { LocalSectionsMapTile } from "./dashboard/local/LocalSectionsMapTile";
+import { TopMayorsTile } from "./dashboard/local/TopMayorsTile";
+import { TopCouncilPartiesTile } from "./dashboard/local/TopCouncilPartiesTile";
+import { useLocalSectionShard } from "@/data/local/useLocalSectionShard";
 import { ToParliamentaryLink } from "@/screens/components/CrossElectionLink";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
@@ -336,7 +340,11 @@ const CouncilPartyRow: FC<{ party: LocalCouncilParty }> = ({ party }) => {
   );
 };
 
-const CouncilSection: FC<{ bundle: LocalMunicipalityBundle }> = ({
+// Full party-by-party council table with expandable elected-councillor lists.
+// The header `<Section>` is owned by the caller (so the Sofia район "council is
+// replicated" note and the single "Общински съвет" heading aren't duplicated);
+// this is the "see full results" expansion behind the compact parties tile.
+const CouncilFullTable: FC<{ bundle: LocalMunicipalityBundle }> = ({
   bundle,
 }) => {
   const { t } = useTranslation();
@@ -350,23 +358,18 @@ const CouncilSection: FC<{ bundle: LocalMunicipalityBundle }> = ({
     [bundle],
   );
   return (
-    <Section title={t("local_election_sec_council")}>
-      <div className="mb-4">
-        <LocalCouncilHemicycleTile council={bundle.council} />
+    <div className="rounded-xl border bg-card overflow-hidden">
+      <div className="text-xs uppercase tracking-wide text-muted-foreground border-b py-2 px-3 grid grid-cols-[16px_1fr_96px_64px_48px] gap-3 items-center">
+        <span />
+        <span>{t("local_election_th_party")}</span>
+        <span className="text-right">{t("local_election_th_votes")}</span>
+        <span className="text-right">{t("local_election_th_pct")}</span>
+        <span className="text-right">{t("local_election_th_seats")}</span>
       </div>
-      <div className="rounded-xl border bg-card overflow-hidden">
-        <div className="text-xs uppercase tracking-wide text-muted-foreground border-b py-2 px-3 grid grid-cols-[16px_1fr_96px_64px_48px] gap-3 items-center">
-          <span />
-          <span>{t("local_election_th_party")}</span>
-          <span className="text-right">{t("local_election_th_votes")}</span>
-          <span className="text-right">{t("local_election_th_pct")}</span>
-          <span className="text-right">{t("local_election_th_seats")}</span>
-        </div>
-        {sorted.map((p) => (
-          <CouncilPartyRow key={p.localPartyNum} party={p} />
-        ))}
-      </div>
-    </Section>
+      {sorted.map((p) => (
+        <CouncilPartyRow key={p.localPartyNum} party={p} />
+      ))}
+    </div>
   );
 };
 
@@ -658,6 +661,9 @@ const MunicipalityResults: FC<{
   const chmiEvents = useChmiHistory(obshtinaCode);
   const { settlements } = useSettlementsInfo();
   const cycleDate = friendlyCycleDate(cycle);
+  // Council polling-station shard drives the map shown beside both the mayor
+  // and council tiles (Sofia район shards read from the city-wide SOF bundle).
+  const { shard, hasCoords } = useLocalSectionShard(cycle, obshtinaCode);
 
   if (!municipality) {
     return (
@@ -687,6 +693,28 @@ const MunicipalityResults: FC<{
   const mayorSectionTitle = isSofiaRayon
     ? t("local_election_sec_mayor_rayon")
     : t("local_election_sec_mayor_obshtina");
+
+  // A race row: the council polling-station map (when stations carry
+  // coordinates) beside the compact tile, mirroring the parliamentary
+  // map + top-parties layout. Collapses to the tile alone when there's no
+  // mappable section data (e.g. cycles whose stations didn't geocode).
+  //
+  // Sofia city already renders the two район choropleths above as its
+  // geographic view, so it skips the duplicate ~1,640-marker station map here
+  // (it would otherwise mount the same heavy Leaflet layer twice for one page).
+  const raceRow = (tile: React.ReactNode) =>
+    hasCoords && shard && !isSofiaCity ? (
+      <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <LocalSectionsMapTile
+          shard={shard}
+          cycle={cycle}
+          obshtinaCode={obshtinaCode}
+        />
+        {tile}
+      </div>
+    ) : (
+      tile
+    );
 
   return (
     <section className="my-4">
@@ -746,54 +774,58 @@ const MunicipalityResults: FC<{
         </div>
       ) : null}
 
-      {/* Mayor: round 1 always; round 2 if present. */}
+      {/* Mayor — the section-vote map beside a compact candidate tile
+          (mirrors the parliamentary map + top-parties row); the full candidate
+          ranking lives on the dedicated /mayor page the tile links to. For
+          runoff races the head-to-head bar leads. */}
       <Section title={mayorSectionTitle}>
         {municipality.mayor.round2 && municipality.mayor.round2.length > 0 ? (
-          <>
+          <div className="mb-3">
             <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
               {t("local_election_sec_round_2")}
             </div>
             <LocalMayorRunoffBar round2={municipality.mayor.round2} />
-            <MayorTable candidates={municipality.mayor.round2} />
-            <div className="text-xs uppercase tracking-wide text-muted-foreground mt-4 mb-2">
-              {t("local_election_sec_round_1")}
-            </div>
-            <MayorTable candidates={municipality.mayor.round1} />
-          </>
-        ) : (
-          <MayorTable candidates={municipality.mayor.round1} />
+          </div>
+        ) : null}
+        {raceRow(
+          <TopMayorsTile
+            candidates={municipality.mayor.round1}
+            electedName={municipality.mayor.elected?.candidateName ?? null}
+            to={`/local/${cycle}/${obshtinaCode}/mayor`}
+          />,
         )}
       </Section>
 
-      {isSofiaRayon ? (
-        <Section title={t("local_election_sec_council")}>
-          <p className="text-sm text-muted-foreground">
+      {/* Council — one "Общински съвет" heading (the nested duplicate that
+          Sofia район shards used to show is gone). Composition hemicycle, then
+          the section-vote map beside the compact parties tile; the full
+          party-by-party table lives on the dedicated /council page the tile
+          links to; top councillors by preference close the block. */}
+      <Section title={t("local_election_sec_council")}>
+        {isSofiaRayon ? (
+          <p className="text-sm text-muted-foreground mb-3">
             {t("local_election_council_replicated")}
           </p>
-          <div className="mt-3">
-            <CouncilSection bundle={municipality} />
+        ) : null}
+        <div className="mb-3">
+          <LocalCouncilHemicycleTile council={municipality.council} />
+        </div>
+        {raceRow(
+          <TopCouncilPartiesTile
+            council={municipality.council}
+            to={`/local/${cycle}/${obshtinaCode}/council`}
+          />,
+        )}
+        {/* Top councillors by preference — only when at least one slate
+            recorded preferential votes (some pre-2019 cycles do not). */}
+        {municipality.council.some((p) =>
+          p.candidates.some((c) => c.isElected && c.prefVotes > 0),
+        ) ? (
+          <div className="mt-4">
+            <TopCouncillorsTile bundle={municipality} />
           </div>
-        </Section>
-      ) : (
-        <CouncilSection bundle={municipality} />
-      )}
-
-      {/* Post-election council *activity* (recent decisions + per-councillor
-          named votes) used to live here, but it duplicates the unified
-          "Общински съвет" surface on the place's My-Area dashboard — now one
-          tap away via the view switcher at the top of this page. This page
-          stays focused on the election result itself (who got elected); the
-          "how have they voted since" governance view lives on /my-area. */}
-
-      {/* Top councillors by preference — only shown when at least one slate
-          recorded preferential votes (some pre-2019 cycles do not). */}
-      {municipality.council.some((p) =>
-        p.candidates.some((c) => c.isElected && c.prefVotes > 0),
-      ) ? (
-        <Section title={t("local_top_councillors_title")}>
-          <TopCouncillorsTile bundle={municipality} />
-        </Section>
-      ) : null}
+        ) : null}
+      </Section>
 
       <KmetstvaSection
         kmetstva={municipality.kmetstva}
@@ -849,6 +881,115 @@ const MunicipalityResults: FC<{
         </>
       ) : null}
     </section>
+  );
+};
+
+// === Full mayor / council results sub-pages =============================
+// /local/:cycle/:obshtinaCode/mayor and .../council — the complete breakdown
+// behind the "see full results" link on each compact tile of the município
+// page. The município page itself stays at-a-glance (map + compact tile).
+
+const LocalRaceResults: FC<{
+  cycle: string;
+  obshtinaCode: string;
+  race: "mayor" | "council";
+}> = ({ cycle, obshtinaCode, race }) => {
+  const { t } = useTranslation();
+  const { municipality } = useLocalMunicipality(obshtinaCode, cycle);
+
+  const back = (
+    <div className="mb-2 text-xs text-muted-foreground">
+      <Link to={`/local/${cycle}`} className="hover:underline">
+        {t("local_election_screen_back")}
+      </Link>
+      <span className="mx-2">·</span>
+      <Link to={`/local/${cycle}/${obshtinaCode}`} className="hover:underline">
+        {municipality?.obshtinaName ?? obshtinaCode}
+      </Link>
+      <span className="mx-2">·</span>
+      <span>{friendlyCycleDate(cycle)}</span>
+    </div>
+  );
+
+  if (!municipality) {
+    return (
+      <section className="my-4">
+        {back}
+        <p className="text-sm text-muted-foreground">
+          {t("local_election_no_data")}
+        </p>
+      </section>
+    );
+  }
+
+  const isSofiaRayon = /^S2\d{3}$/.test(municipality.obshtinaCode);
+  const hasRound2 =
+    !!municipality.mayor.round2 && municipality.mayor.round2.length > 0;
+  const title =
+    race === "mayor"
+      ? isSofiaRayon
+        ? t("local_election_sec_mayor_rayon")
+        : t("local_election_sec_mayor_obshtina")
+      : t("local_election_sec_council");
+
+  return (
+    <section className="my-4">
+      {back}
+      <h1 className="text-2xl font-semibold">{title}</h1>
+      <p className="mb-4 text-sm text-muted-foreground">
+        {municipality.obshtinaName}
+      </p>
+
+      {race === "mayor" ? (
+        hasRound2 ? (
+          <>
+            <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
+              {t("local_election_sec_round_2")}
+            </div>
+            <LocalMayorRunoffBar round2={municipality.mayor.round2!} />
+            <MayorTable candidates={municipality.mayor.round2!} />
+            <div className="text-xs uppercase tracking-wide text-muted-foreground mt-4 mb-2">
+              {t("local_election_sec_round_1")}
+            </div>
+            <MayorTable candidates={municipality.mayor.round1} />
+          </>
+        ) : (
+          <MayorTable candidates={municipality.mayor.round1} />
+        )
+      ) : (
+        <>
+          {isSofiaRayon ? (
+            <p className="text-sm text-muted-foreground mb-3">
+              {t("local_election_council_replicated")}
+            </p>
+          ) : null}
+          <div className="mb-4">
+            <LocalCouncilHemicycleTile council={municipality.council} />
+          </div>
+          <CouncilFullTable bundle={municipality} />
+          {municipality.council.some((p) =>
+            p.candidates.some((c) => c.isElected && c.prefVotes > 0),
+          ) ? (
+            <div className="mt-6">
+              <TopCouncillorsTile bundle={municipality} />
+            </div>
+          ) : null}
+        </>
+      )}
+    </section>
+  );
+};
+
+export const LocalRaceScreen: FC<{ race: "mayor" | "council" }> = ({
+  race,
+}) => {
+  const { cycle, obshtinaCode } = useParams<{
+    cycle: string;
+    obshtinaCode: string;
+  }>();
+  if (!cycle || !obshtinaCode) return null;
+  return (
+    <LocalRaceResults cycle={cycle} obshtinaCode={obshtinaCode} race={race} />
   );
 };
 

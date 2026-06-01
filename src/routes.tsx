@@ -72,6 +72,11 @@ const LocalElectionScreen = lazy(() =>
     default: m.LocalElectionScreen,
   })),
 );
+const LocalRaceScreen = lazy(() =>
+  import("./screens/LocalElectionScreen").then((m) => ({
+    default: m.LocalRaceScreen,
+  })),
+);
 const SverkaScreen = lazy(() =>
   import("./screens/SverkaScreen").then((m) => ({
     default: m.SverkaScreen,
@@ -1272,6 +1277,22 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <LocalSectionScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/:obshtinaCode/mayor"
+            element={
+              <LayoutScreen>
+                <LocalRaceScreen race="mayor" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/:obshtinaCode/council"
+            element={
+              <LayoutScreen>
+                <LocalRaceScreen race="council" />
               </LayoutScreen>
             }
           />
