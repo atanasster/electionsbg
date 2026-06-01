@@ -35,6 +35,7 @@ import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { LocalCountryDashboardCards } from "./dashboard/local/LocalCountryDashboardCards";
 import { LocalSofiaRayonMapTile } from "./dashboard/local/LocalSofiaRayonMapTile";
 import { LocalCouncilHemicycleTile } from "./dashboard/local/LocalCouncilHemicycleTile";
+import { LocalMayorRunoffBar } from "./dashboard/local/LocalMayorRunoffBar";
 import { LocalSectionsTile } from "./dashboard/local/LocalSectionsTile";
 import { ToParliamentaryLink } from "@/screens/components/CrossElectionLink";
 import { DashboardSection } from "./dashboard/DashboardSection";
@@ -737,6 +738,7 @@ const MunicipalityResults: FC<{
             <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
               {t("local_election_sec_round_2")}
             </div>
+            <LocalMayorRunoffBar round2={municipality.mayor.round2} />
             <MayorTable candidates={municipality.mayor.round2} />
             <div className="text-xs uppercase tracking-wide text-muted-foreground mt-4 mb-2">
               {t("local_election_sec_round_1")}
