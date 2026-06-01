@@ -178,6 +178,12 @@ export type LocalSectionResult = {
   numValidVotes: number; // Σ partyVotes (= действителни гласове)
   // Council votes at this section, by ballot number, descending.
   partyVotes: { localPartyNum: number; votes: number }[];
+  // Stamped post-ingest by backfill_local_section_coords.ts from the latest
+  // parliamentary section bundle (same 9-digit CIK section code). Absent when
+  // the section has no parliamentary match (renumbered / new station).
+  address?: string;
+  longitude?: number;
+  latitude?: number;
 };
 
 // The per-município section shard written to

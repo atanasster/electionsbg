@@ -12,6 +12,7 @@ import { runPartyStats } from "./party_stats";
 import { createPreferencesFiles } from "./preferences";
 import { parseMachinesFlashMemory } from "./machines_memory";
 import { backfillSectionCoords } from "./parsers/backfill_section_coords";
+import { backfillLocalSectionCoords } from "./parsers_local/backfill_local_section_coords";
 import { generateVoteFlows } from "./voteFlows";
 import { generateLocalVoteFlows } from "./voteFlows/local_index";
 import { parseLocalElections } from "./parsers_local/parse_local_elections";
@@ -193,6 +194,17 @@ const app = command({
       long: "local-flows",
       defaultValue: () => false,
     }),
+    // Additive pass: stamp lat/lon (+ building address) onto every local-cycle
+    // section shard from the latest parliamentary election that ships GPS
+    // (shared 9-digit CIK section codes). Powers the local section map +
+    // top-sections tiles. Idempotent; reads no network. Run after a fresh
+    // parliamentary cycle adds coordinates, or after re-ingesting local
+    // sections. Also folded into `--all`.
+    localCoords: flag({
+      type: optional(boolean),
+      long: "local-coords",
+      defaultValue: () => false,
+    }),
   },
   handler: async ({
     all,
@@ -217,6 +229,7 @@ const app = command({
     resolveLocalCanonicals,
     localRollups,
     localFlows,
+    localCoords,
   }) => {
     production = prod;
     if (machines) {
@@ -232,6 +245,12 @@ const app = command({
         dataFolder: inFolder,
         stringify,
       });
+    }
+    // Transfer the (now backfilled) parliamentary GPS/address onto the local
+    // section shards — shared 9-digit CIK section codes. Runs after the
+    // parliamentary backfill so the freshest coordinates are available.
+    if (localCoords || all) {
+      backfillLocalSectionCoords({ publicFolder, stringify });
     }
     if (stats) {
       runStats(stringify);

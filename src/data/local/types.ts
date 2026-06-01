@@ -124,6 +124,12 @@ export type LocalSectionResult = {
   totalActualVoters: number;
   numValidVotes: number;
   partyVotes: { localPartyNum: number; votes: number }[];
+  // Stamped post-ingest from the parliamentary section bundle (same 9-digit
+  // CIK section code). Absent when there is no parliamentary match. Feed the
+  // section map + top-sections tiles.
+  address?: string;
+  longitude?: number;
+  latitude?: number;
 };
 
 export type LocalSectionShard = {

@@ -49,6 +49,24 @@ seatless parties appended), the council-ballot `protocol` gets real
 registered/actual/valid turnout, and per-município section shards are written
 to `data/<cycle>/sections/<obshtinaCode>.json` (consumed by `LocalSectionsTile`).
 
+### Section coordinates (map + top-sections tiles)
+
+The section shards ship turnout + per-party council votes but **no GPS**. A
+separate idempotent pass stamps `longitude`/`latitude`/`address` onto each
+section from the latest parliamentary election that ships coordinates — the
+9-digit CIK section code is shared across parliamentary and local cycles, so
+the parliamentary GPS transfers verbatim:
+
+```
+npm run data -- --local-coords
+```
+
+[`backfill_local_section_coords.ts`](./backfill_local_section_coords.ts) reads
+`data/<YYYY_MM_DD>/sections/by-oblast/*.json` (parliamentary) and patches every
+local `data/<cycle>/sections/<obshtinaCode>.json`. Re-run after a new
+parliamentary cycle lands fresh coordinates, or after re-ingesting local
+sections. It is also folded into `--all`. Commit the patched shards.
+
 **Cycle coverage:** 2011 + 2015 + 2019 + 2023 ingested. The `votes.txt` shape
 varies by era: 2015/2019 are **triplets** (`party ; valid ; invalid`); 2023
 added machine voting → a leading `№ формуляр` field + **quadruplets**

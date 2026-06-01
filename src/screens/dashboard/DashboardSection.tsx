@@ -29,6 +29,7 @@ type Props = {
     | "local-maps"
     | "local-mayors"
     | "local-councils"
+    | "local-sections"
     | "local-flows"
     | "local-trends"
     | "local-extraordinary"
