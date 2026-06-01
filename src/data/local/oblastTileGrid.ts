@@ -61,3 +61,11 @@ export const tileTextColor = (hex?: string): string => {
   const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   return lum > 0.62 ? "#1f2937" : "#ffffff";
 };
+
+// Map a turnout percentage to a fill alpha (more turnout → more saturated).
+// Bulgarian local turnout sits roughly in the 30–75% band per oblast.
+export const turnoutAlpha = (pct: number | null | undefined): number => {
+  if (pct == null) return 0.18;
+  const a = (pct - 30) / (75 - 30);
+  return Math.max(0.22, Math.min(1, a));
+};

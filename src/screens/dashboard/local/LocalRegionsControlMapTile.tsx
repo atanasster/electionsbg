@@ -24,7 +24,7 @@ import {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { Map as MapIcon, LayoutGrid } from "lucide-react";
+import { Map as MapIcon, LayoutGrid, Activity } from "lucide-react";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { useTooltip } from "@/ux/useTooltip";
 import { useNavigateParams } from "@/ux/useNavigateParams";
@@ -32,6 +32,7 @@ import {
   OBLAST_TILE_GRID,
   OBLAST_TILE_COLS,
   tileTextColor,
+  turnoutAlpha,
 } from "@/data/local/oblastTileGrid";
 import { useRegionsMap } from "@/data/regions/useRegionsMap";
 import { useSofiaObshtinaMap } from "@/data/regions/useSofiaObshtinaMap";
@@ -105,7 +106,7 @@ export const LocalRegionsControlMapTile: FC<{
   const { t, i18n } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<MapCoordinates | undefined>();
-  const [view, setView] = useState<"map" | "tiles">("map");
+  const [view, setView] = useState<"map" | "tiles" | "turnout">("map");
   const {
     tooltip: tileTooltip,
     onMouseEnter: tipEnter,
@@ -259,7 +260,8 @@ export const LocalRegionsControlMapTile: FC<{
     return isMayor ? row?.topMayor?.color : row?.topCouncil?.color;
   };
   const oblastTooltip = (code: string): ReactNode => {
-    const { rows, total, header } = breakdownOf(byOblast.get(code));
+    const row = byOblast.get(code);
+    const { rows, total, header } = breakdownOf(row);
     return (
       <div className="text-left">
         <div className="pb-1 text-center text-sm font-semibold">
@@ -272,6 +274,11 @@ export const LocalRegionsControlMapTile: FC<{
             {t("local_election_no_data")}
           </div>
         )}
+        {row?.turnoutPct != null ? (
+          <div className="mt-1 border-t pt-1 text-xs">
+            {t("local_election_stat_turnout")}: {row.turnoutPct.toFixed(1)}%
+          </div>
+        ) : null}
       </div>
     );
   };
@@ -294,6 +301,7 @@ export const LocalRegionsControlMapTile: FC<{
       : name.slice(0, 3);
   };
 
+  const turnoutMode = view === "turnout";
   const tileMap = (
     <div className="w-full py-2">
       <div
@@ -303,6 +311,7 @@ export const LocalRegionsControlMapTile: FC<{
         }}
       >
         {OBLAST_TILE_GRID.map(({ code, x, y }) => {
+          const row = byOblast.get(code);
           const color = oblastColor(code);
           return (
             <button
@@ -311,12 +320,16 @@ export const LocalRegionsControlMapTile: FC<{
               style={{
                 gridColumnStart: x + 1,
                 gridRowStart: y + 1,
-                ...(color
-                  ? { backgroundColor: color, color: tileTextColor(color) }
-                  : {}),
+                ...(turnoutMode || !color
+                  ? {}
+                  : { backgroundColor: color, color: tileTextColor(color) }),
               }}
-              className={`flex aspect-square items-center justify-center rounded-md text-[10px] font-semibold ring-1 ring-black/10 transition-transform hover:z-10 hover:scale-110 hover:ring-2 hover:ring-primary sm:text-xs ${
-                color ? "" : "bg-muted text-muted-foreground"
+              className={`relative flex aspect-square items-center justify-center overflow-hidden rounded-md text-[10px] font-semibold ring-1 ring-black/10 transition-transform hover:z-10 hover:scale-110 hover:ring-2 hover:ring-primary sm:text-xs ${
+                turnoutMode
+                  ? "bg-muted/40"
+                  : color
+                    ? ""
+                    : "bg-muted text-muted-foreground"
               }`}
               onMouseEnter={(e) =>
                 tipEnter(
@@ -329,11 +342,35 @@ export const LocalRegionsControlMapTile: FC<{
               onClick={() => navigate(oblastPath(code))}
               aria-label={regionName(code)}
             >
-              {tileLabel(code)}
+              {turnoutMode && color ? (
+                <span
+                  aria-hidden
+                  className="absolute inset-0"
+                  style={{
+                    backgroundColor: color,
+                    opacity: turnoutAlpha(row?.turnoutPct),
+                  }}
+                />
+              ) : null}
+              <span
+                className="relative"
+                style={
+                  turnoutMode
+                    ? { color: "#fff", textShadow: "0 1px 2px rgba(0,0,0,0.8)" }
+                    : undefined
+                }
+              >
+                {tileLabel(code)}
+              </span>
             </button>
           );
         })}
       </div>
+      {turnoutMode ? (
+        <p className="mx-auto mt-2 max-w-[560px] text-center text-xs text-muted-foreground">
+          {t("local_map_turnout_note")}
+        </p>
+      ) : null}
       {tileTooltip}
     </div>
   );
@@ -377,6 +414,19 @@ export const LocalRegionsControlMapTile: FC<{
             >
               <LayoutGrid className="h-3.5 w-3.5" />
             </button>
+            <button
+              type="button"
+              onClick={() => setView("turnout")}
+              aria-label={t("local_map_view_turnout")}
+              title={t("local_map_view_turnout")}
+              className={`rounded p-1 transition-colors ${
+                view === "turnout"
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted-foreground hover:bg-accent"
+              }`}
+            >
+              <Activity className="h-3.5 w-3.5" />
+            </button>
           </div>
         </div>
       }
@@ -386,7 +436,7 @@ export const LocalRegionsControlMapTile: FC<{
           : t("local_national_council_map_hint")
       }
     >
-      {view === "tiles" ? (
+      {view !== "map" ? (
         tileMap
       ) : (
         <div ref={ref} className="w-full h-[360px] md:h-[480px]">
