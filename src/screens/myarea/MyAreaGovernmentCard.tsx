@@ -204,7 +204,7 @@ export const MyAreaGovernmentCard: FC<Props> = ({ obshtina }) => {
           </span>
           <span className="text-xs font-normal text-muted-foreground">·</span>
           <Link
-            to={muniHref}
+            to={localHref}
             underline
             className="text-sm font-semibold truncate min-w-0"
           >
