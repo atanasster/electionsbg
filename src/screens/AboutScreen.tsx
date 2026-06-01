@@ -78,6 +78,10 @@ const localElectionResults: { date: string; href: string }[] = [
     href: "https://results.cik.bg/mipvr2011/tur1/mestni/index.html",
   },
   {
+    date: "28.10.2007",
+    href: "https://mi2007.cik.bg/results1/",
+  },
+  {
     date: "2024–2027",
     href: "https://results.cik.bg/chmi2024-2026/",
   },

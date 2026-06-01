@@ -13,6 +13,7 @@ import { createPreferencesFiles } from "./preferences";
 import { parseMachinesFlashMemory } from "./machines_memory";
 import { backfillSectionCoords } from "./parsers/backfill_section_coords";
 import { backfillLocalSectionCoords } from "./parsers_local/backfill_local_section_coords";
+import { generateLocalProblemSections } from "./parsers_local/problem_sections_local";
 import { generateVoteFlows } from "./voteFlows";
 import { generateLocalVoteFlows } from "./voteFlows/local_index";
 import { parseLocalElections } from "./parsers_local/parse_local_elections";
@@ -21,6 +22,8 @@ import {
   cycleSlugToRawFolder,
 } from "./parsers_local/ingest_cycle";
 import { ingestLegacyChmiCycle } from "./parsers_local/ingest_legacy_chmi";
+import { ingestMi2007 } from "./parsers_local/ingest_mi2007";
+import { ingestChmi2009, CHMI2009_SLUG } from "./parsers_local/ingest_chmi2009";
 import { downloadCsvBundle } from "./parsers_local/download_csv_bundle";
 import { shutdownCikFetch } from "./parsers_local/cik_fetch";
 import { resolveCanonicalsForAllLocalCycles } from "./parsers_local/resolve_canonicals";
@@ -205,6 +208,18 @@ const app = command({
       long: "local-coords",
       defaultValue: () => false,
     }),
+    // Additive pass: flag the curated Roma-neighborhood polling sections inside
+    // the local council data — the council-ballot analogue of the parliamentary
+    // problem_sections report. Reads the already-ingested section shards + the
+    // per-station detail files and writes data/<cycle>/problem_sections.json for
+    // every regular `_mi` cycle. Must run AFTER --local-coords (the address
+    // keyword match relies on the `address` field that backfill stamps onto the
+    // shards). Idempotent, no network. Also folded into `--all`.
+    localProblemSections: flag({
+      type: optional(boolean),
+      long: "local-problem-sections",
+      defaultValue: () => false,
+    }),
   },
   handler: async ({
     all,
@@ -230,6 +245,7 @@ const app = command({
     localRollups,
     localFlows,
     localCoords,
+    localProblemSections,
   }) => {
     production = prod;
     if (machines) {
@@ -251,6 +267,12 @@ const app = command({
     // parliamentary backfill so the freshest coordinates are available.
     if (localCoords || all) {
       backfillLocalSectionCoords({ publicFolder, stringify });
+    }
+    // Roma-neighborhood "problem sections" for local councils. Runs AFTER the
+    // coords/address backfill above — the address keyword match depends on the
+    // `address` field that backfillLocalSectionCoords stamps onto the shards.
+    if (localProblemSections || all) {
+      generateLocalProblemSections({ publicFolder, stringify });
     }
     if (stats) {
       runStats(stringify);
@@ -309,10 +331,20 @@ const app = command({
     }
     if (localIngest) {
       try {
+        // 2007 (mi2007) is a separate ЦИКМИ archive (mi2007.cik.bg) with a
+        // per-place static-HTML model — its own end-to-end ingest.
+        if (localIngest === "mi2007") {
+          await ingestMi2007({ publicFolder, stringify });
+        }
+        // The single pre-2012 partial (2009-11-15 Sofia by-election) is a
+        // caption-based single page, not the numbered-page legacy model.
+        else if (localIngest === CHMI2009_SLUG) {
+          await ingestChmi2009({ publicFolder, stringify });
+        }
         // The legacy umbrellas (chmi2012-2015 … chmi2019-2023) publish one
         // numbered page per kmetstvo/mayor race rather than per OIK município,
         // so they take a dedicated ingest path.
-        if (/^chmi20(12-2015|16-2018|19-2023)\//.test(localIngest)) {
+        else if (/^chmi20(12-2015|16-2018|19-2023)\//.test(localIngest)) {
           await ingestLegacyChmiCycle({
             cycleSlug: localIngest,
             publicFolder,

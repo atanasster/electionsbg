@@ -67,7 +67,46 @@ local `data/<cycle>/sections/<obshtinaCode>.json`. Re-run after a new
 parliamentary cycle lands fresh coordinates, or after re-ingesting local
 sections. It is also folded into `--all`. Commit the patched shards.
 
-**Cycle coverage:** 2011 + 2015 + 2019 + 2023 ingested. The `votes.txt` shape
+**2007 (regular cycle) — separate ЦИКМИ archive.** The oldest regular cycle,
+2007, predates BOTH the modern results.cik.bg page model and the section-CSV
+bundle. It lives on its own legacy domain `mi2007.cik.bg`, shipped as two
+static-HTML ZIPs: `results_1.zip` (round 1: mayor + full council + kmetstva +
+район mayors) and `results_2.zip` (round-2 runoffs). One UTF-8 page per place,
+organised by oblast folder (`<oblast2>/<obshtina4>.html`,
+`<oblast2>/<settlement8>.html`, `<oblast2>/r<code>.html`); tables are keyed by
+`<caption>` and resolution comes from the `<ol id="breadcrumbs">`. Ingested by a
+dedicated path that reuses the shared `parseMayorTable` (the mayor/kmetstvo/район
+tables are 2007-template-identical) plus a 2007-specific council parser
+(`parseMi2007Council`, for the `<p><span>N.</span>NAME</p><ol><li>` cell). One
+manual operator step — the data has not changed since 2007, so it is NOT in the
+watcher or `--all`:
+
+```bash
+npm run data -- --local-ingest mi2007            # downloads + extracts both ZIPs (Playwright/CF), parses, writes data/2007_10_28_mi/
+```
+
+Turnout stays `{0,0,0}` (2007 publishes activity only in a separate `activity1/`
+archive, like the other HTML-only cycles). Gotcha burned: the Добрич city/rural
+pair is labelled inconsistently — the CITY obshtina page reads "община град
+Добрич" and the RURAL município's villages split between "Добричка" and a bare
+"Добрич"; `MI2007_OBSHTINA_RENAME` in `ingest_mi2007.ts` maps both to the
+canonical labels before resolution.
+
+**2008–2011 partials.** results.cik.bg archives exactly ONE partial in the
+2007-2011 council term: the **2009-11-15** Sofia by-election (Столична mayor —
+Йорданка Фандъкова — + Район Панчарево), under the `chmi2008-2010` umbrella. It
+is a single caption-based page (2007 template), ingested by `ingest_chmi2009.ts`
+and surfaced on `/local/chmi`. Also a one-off manual step:
+
+```bash
+npm run data -- --local-ingest "chmi2008-2010/2009-11-15_chastichen"
+```
+
+(An older `chmi2004-2006` umbrella exists on results.cik.bg with many 2004-2006
+partials, but it predates the parliamentary-coverage floor of 2005 and is not
+ingested.)
+
+**Cycle coverage:** 2007 + 2011 + 2015 + 2019 + 2023 ingested. The `votes.txt` shape
 varies by era: 2015/2019 are **triplets** (`party ; valid ; invalid`); 2023
 added machine voting → a leading `№ формуляр` field + **quadruplets**
 (`party ; total ; paper ; machine`); `parseLocalVotes` auto-detects both.

@@ -40,6 +40,10 @@ const INGEST_STATE = path.resolve(
 );
 
 const REGULAR_DATES: Record<string, string> = {
+  // 2007 is ingested by the dedicated ingest_mi2007 path (separate ЦИКМИ
+  // archive + per-place HTML model), but keep the slug→folder mapping here so
+  // cycleSlugToRawFolder stays total across every regular cycle.
+  mi2007: "2007_10_28",
   mipvr2011: "2011_10_23",
   minr2015: "2015_10_25",
   mi2019: "2019_10_27",

@@ -57,7 +57,7 @@ const NAME_ALIASES: Record<string, string> = {
   бобовдол: "KNL04",
 };
 
-type Resolution = {
+export type Resolution = {
   obshtinaCode: string;
   obshtinaName: string;
   oblastName: string;
@@ -129,7 +129,7 @@ const OBLAST_NAME_TO_CODE: Record<string, string> = {
   ямбол: "JAM",
 };
 
-const resolveByOblastName = (
+export const resolveByOblastName = (
   obshtinaName: string,
   oblastName: string | null,
 ): Resolution | null => {
