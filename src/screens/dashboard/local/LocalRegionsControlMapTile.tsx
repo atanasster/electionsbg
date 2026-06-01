@@ -15,10 +15,24 @@
 //     община boundary (useSofiaObshtinaMap, keyed nuts3 "SOF") so the council
 //     map reads the city as one entity, matching how local government treats it.
 
-import { FC, useLayoutEffect, useMemo, useRef, useState } from "react";
+import {
+  FC,
+  ReactNode,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
-import { Map as MapIcon } from "lucide-react";
+import { Map as MapIcon, LayoutGrid } from "lucide-react";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
+import { useTooltip } from "@/ux/useTooltip";
+import { useNavigateParams } from "@/ux/useNavigateParams";
+import {
+  OBLAST_TILE_GRID,
+  OBLAST_TILE_COLS,
+  tileTextColor,
+} from "@/data/local/oblastTileGrid";
 import { useRegionsMap } from "@/data/regions/useRegionsMap";
 import { useSofiaObshtinaMap } from "@/data/regions/useSofiaObshtinaMap";
 import { useRegions } from "@/data/regions/useRegions";
@@ -91,6 +105,14 @@ export const LocalRegionsControlMapTile: FC<{
   const { t, i18n } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<MapCoordinates | undefined>();
+  const [view, setView] = useState<"map" | "tiles">("map");
+  const {
+    tooltip: tileTooltip,
+    onMouseEnter: tipEnter,
+    onMouseMove: tipMove,
+    onMouseLeave: tipLeave,
+  } = useTooltip();
+  const navigate = useNavigateParams();
   const regionsMap = useRegionsMap();
   // Council map only: the single Столична-община outline that replaces the 3 МИР.
   const sofiaObshtina = useSofiaObshtinaMap();
@@ -228,16 +250,134 @@ export const LocalRegionsControlMapTile: FC<{
     return { rows, total, header };
   };
 
+  // === Tile-map (cartogram) view ===
+  // One equal-size cell per oblast (Sofia is the single SOF cell — no МИР
+  // split), coloured by the same leader as the choropleth. Tooltip + drill-down
+  // mirror the map; a short Cyrillic abbreviation labels each cell.
+  const oblastColor = (code: string): string | undefined => {
+    const row = byOblast.get(code);
+    return isMayor ? row?.topMayor?.color : row?.topCouncil?.color;
+  };
+  const oblastTooltip = (code: string): ReactNode => {
+    const { rows, total, header } = breakdownOf(byOblast.get(code));
+    return (
+      <div className="text-left">
+        <div className="pb-1 text-center text-sm font-semibold">
+          {regionName(code)}
+        </div>
+        {rows.length ? (
+          <LocalPartyBreakdownXS header={header} rows={rows} total={total} />
+        ) : (
+          <div className="text-xs opacity-70">
+            {t("local_election_no_data")}
+          </div>
+        )}
+      </div>
+    );
+  };
+  const oblastPath = (code: string) =>
+    code === "SOF"
+      ? { pathname: `/local/${cycle}/SOF` }
+      : { pathname: `/local/${cycle}/region/${code}` };
+  const tileLabel = (code: string): string => {
+    if (code === "SOF") return "СФ";
+    if (code === "SFO") return "СО";
+    // Strip an "обл." prefix some region names carry (e.g. "обл. Пловдив").
+    const name = regionName(code).replace(/^обл\.?\s*/i, "");
+    const words = name.split(/\s+/).filter(Boolean);
+    return words.length >= 2
+      ? words
+          .map((w) => w[0])
+          .join("")
+          .slice(0, 3)
+          .toLocaleUpperCase("bg")
+      : name.slice(0, 3);
+  };
+
+  const tileMap = (
+    <div className="w-full py-2">
+      <div
+        className="mx-auto grid w-full max-w-[560px] gap-1"
+        style={{
+          gridTemplateColumns: `repeat(${OBLAST_TILE_COLS}, minmax(0, 1fr))`,
+        }}
+      >
+        {OBLAST_TILE_GRID.map(({ code, x, y }) => {
+          const color = oblastColor(code);
+          return (
+            <button
+              key={code}
+              type="button"
+              style={{
+                gridColumnStart: x + 1,
+                gridRowStart: y + 1,
+                ...(color
+                  ? { backgroundColor: color, color: tileTextColor(color) }
+                  : {}),
+              }}
+              className={`flex aspect-square items-center justify-center rounded-md text-[10px] font-semibold ring-1 ring-black/10 transition-transform hover:z-10 hover:scale-110 hover:ring-2 hover:ring-primary sm:text-xs ${
+                color ? "" : "bg-muted text-muted-foreground"
+              }`}
+              onMouseEnter={(e) =>
+                tipEnter(
+                  { pageX: e.pageX, pageY: e.pageY },
+                  oblastTooltip(code),
+                )
+              }
+              onMouseMove={(e) => tipMove({ pageX: e.pageX, pageY: e.pageY })}
+              onMouseLeave={tipLeave}
+              onClick={() => navigate(oblastPath(code))}
+              aria-label={regionName(code)}
+            >
+              {tileLabel(code)}
+            </button>
+          );
+        })}
+      </div>
+      {tileTooltip}
+    </div>
+  );
+
   return (
     <StatCard
       label={
-        <div className="flex items-center gap-2">
-          <MapIcon className="h-4 w-4" />
-          <span>
-            {isMayor
-              ? t("local_national_mayors_map")
-              : t("local_national_council_map")}
-          </span>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <MapIcon className="h-4 w-4" />
+            <span>
+              {isMayor
+                ? t("local_national_mayors_map")
+                : t("local_national_council_map")}
+            </span>
+          </div>
+          <div className="flex items-center gap-0.5 rounded-md border p-0.5">
+            <button
+              type="button"
+              onClick={() => setView("map")}
+              aria-label={t("local_map_view_map")}
+              title={t("local_map_view_map")}
+              className={`rounded p-1 transition-colors ${
+                view === "map"
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted-foreground hover:bg-accent"
+              }`}
+            >
+              <MapIcon className="h-3.5 w-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setView("tiles")}
+              aria-label={t("local_map_view_tiles")}
+              title={t("local_map_view_tiles")}
+              className={`rounded p-1 transition-colors ${
+                view === "tiles"
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted-foreground hover:bg-accent"
+              }`}
+            >
+              <LayoutGrid className="h-3.5 w-3.5" />
+            </button>
+          </div>
         </div>
       }
       hint={
@@ -246,34 +386,60 @@ export const LocalRegionsControlMapTile: FC<{
           : t("local_national_council_map_hint")
       }
     >
-      <div ref={ref} className="w-full h-[360px] md:h-[480px]">
-        {size && (
-          <LocalChoropleth<RegionJSONProps>
-            size={size}
-            mapGeo={mapGeo}
-            colorOf={(p) => {
-              // Mayor map: each Sofia МИР gets ITS OWN plurality colour.
-              if (isMayor && isSofiaMir(p.nuts3))
-                return mirBreakdowns.get(p.nuts3)?.topColor;
-              const row = byOblast.get(nuts3ToOblast(p.nuts3));
-              return isMayor ? row?.topMayor?.color : row?.topCouncil?.color;
-            }}
-            tooltipOf={(p) => {
-              // Mayor map + a Sofia МИР → that МИР's районни-кмет breakdown.
-              if (isMayor && isSofiaMir(p.nuts3)) {
-                const mir = mirBreakdowns.get(p.nuts3);
-                const rows = mir?.rows ?? [];
-                const total = mir?.total ?? 0;
+      {view === "tiles" ? (
+        tileMap
+      ) : (
+        <div ref={ref} className="w-full h-[360px] md:h-[480px]">
+          {size && (
+            <LocalChoropleth<RegionJSONProps>
+              size={size}
+              mapGeo={mapGeo}
+              colorOf={(p) => {
+                // Mayor map: each Sofia МИР gets ITS OWN plurality colour.
+                if (isMayor && isSofiaMir(p.nuts3))
+                  return mirBreakdowns.get(p.nuts3)?.topColor;
+                const row = byOblast.get(nuts3ToOblast(p.nuts3));
+                return isMayor ? row?.topMayor?.color : row?.topCouncil?.color;
+              }}
+              tooltipOf={(p) => {
+                // Mayor map + a Sofia МИР → that МИР's районни-кмет breakdown.
+                if (isMayor && isSofiaMir(p.nuts3)) {
+                  const mir = mirBreakdowns.get(p.nuts3);
+                  const rows = mir?.rows ?? [];
+                  const total = mir?.total ?? 0;
+                  return (
+                    <div className="text-left">
+                      <div className="text-sm font-semibold text-center pb-1">
+                        {mirLabel(p.nuts3)}
+                      </div>
+                      {rows.length ? (
+                        <LocalPartyBreakdownXS
+                          header={t("local_region_district_mayors_count", {
+                            count: total,
+                          })}
+                          rows={rows}
+                          total={total}
+                        />
+                      ) : (
+                        <div className="text-xs opacity-70">
+                          {t("local_election_no_data")}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+                const oblast = nuts3ToOblast(p.nuts3);
+                const row = byOblast.get(oblast);
+                const { rows, total, header } = breakdownOf(row);
+                const title = regionName(oblast);
                 return (
                   <div className="text-left">
                     <div className="text-sm font-semibold text-center pb-1">
-                      {mirLabel(p.nuts3)}
+                      {title}
                     </div>
                     {rows.length ? (
                       <LocalPartyBreakdownXS
-                        header={t("local_region_district_mayors_count", {
-                          count: total,
-                        })}
+                        header={header}
                         rows={rows}
                         total={total}
                       />
@@ -284,47 +450,25 @@ export const LocalRegionsControlMapTile: FC<{
                     )}
                   </div>
                 );
+              }}
+              onClickPath={(p) => {
+                const oblast = nuts3ToOblast(p.nuts3);
+                return oblast === "SOF"
+                  ? { pathname: `/local/${cycle}/SOF` }
+                  : { pathname: `/local/${cycle}/region/${oblast}` };
+              }}
+              overlay={
+                <LocalSofiaCityLink
+                  cycle={cycle}
+                  size={size}
+                  metric={metric}
+                  row={byOblast.get("SOF")}
+                />
               }
-              const oblast = nuts3ToOblast(p.nuts3);
-              const row = byOblast.get(oblast);
-              const { rows, total, header } = breakdownOf(row);
-              const title = regionName(oblast);
-              return (
-                <div className="text-left">
-                  <div className="text-sm font-semibold text-center pb-1">
-                    {title}
-                  </div>
-                  {rows.length ? (
-                    <LocalPartyBreakdownXS
-                      header={header}
-                      rows={rows}
-                      total={total}
-                    />
-                  ) : (
-                    <div className="text-xs opacity-70">
-                      {t("local_election_no_data")}
-                    </div>
-                  )}
-                </div>
-              );
-            }}
-            onClickPath={(p) => {
-              const oblast = nuts3ToOblast(p.nuts3);
-              return oblast === "SOF"
-                ? { pathname: `/local/${cycle}/SOF` }
-                : { pathname: `/local/${cycle}/region/${oblast}` };
-            }}
-            overlay={
-              <LocalSofiaCityLink
-                cycle={cycle}
-                size={size}
-                metric={metric}
-                row={byOblast.get("SOF")}
-              />
-            }
-          />
-        )}
-      </div>
+            />
+          )}
+        </div>
+      )}
     </StatCard>
   );
 };
