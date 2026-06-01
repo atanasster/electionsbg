@@ -1,19 +1,28 @@
-// URL builders for the three "views" of a single place — the personal
-// My-Area dashboard, the parliamentary-elections results, and the
-// local-elections results. The three page trees key off identifiers that
-// are shared verbatim (EKATTE, obshtina code, oblast code), so each view's
-// URL is a pure rewrite with no lookup table.
+// URL builders for the three "views" of a single place — the Governance
+// dashboard (how the place is run now), the parliamentary-elections results,
+// and the local-elections results. The three page trees key off identifiers
+// that are shared verbatim (EKATTE, obshtina code, oblast code), so each
+// view's URL is a pure rewrite with no lookup table.
+//
+// Governance is the renamed/expanded "My-Area" view: it now spans the full
+// place ladder — country, region (oblast), município, settlement — so the
+// national /governance page is simply its country node, and a new oblast
+// node (/governance/region/:oblast) shows the regional money + representation
+// picture minus the elected-local-government block (oblasts have no council).
+// The possessive "My Area" framing survives only as the geolocate ENTRY
+// funnel (/my-area), which resolves a user into /governance/:id.
 //
 // This powers PlaceViewNav, the segmented switcher mounted at the top of all
 // three screens. It is intentionally separate from crossElectionLink.ts —
 // that helper bridges only parliamentary↔local and is keyed on a different
-// level vocabulary; this one adds the My-Area dimension and fixes the Sofia
+// level vocabulary; this one adds the Governance dimension and fixes the Sofia
 // район mapping (see below).
 //
 // Route schemes (the "off by one" naming is historical, see crossElectionLink):
-//   settlement   my-area /my-area/:ekatte   parl /sections/:ekatte
-//   município    my-area /my-area/:obshtina parl /settlement/:obshtina
-//   region       —                          parl /municipality/:oblast
+//   country      gov /governance              parl /
+//   region       gov /governance/region/:oblast parl /municipality/:oblast
+//   município    gov /governance/:obshtina    parl /settlement/:obshtina
+//   settlement   gov /governance/:ekatte      parl /sections/:ekatte
 //   local        /local/:cycle/:obshtina  (settlement → /local/:cycle/settlement/:ekatte)
 //
 // Sofia район special case: a район (e.g. Средец) is a single "settlement"
@@ -28,7 +37,7 @@ export type PlaceLevel =
   | "municipality"
   | "settlement"
   | "section";
-export type PlaceView = "myarea" | "parliamentary" | "local";
+export type PlaceView = "governance" | "parliamentary" | "local";
 
 export interface PlaceRef {
   level: PlaceLevel;
@@ -45,23 +54,30 @@ const isSofiaRayonObshtina = (code?: string): boolean =>
 // Sofia city aggregate. Like the район case it carries no 1:1 mapping across
 // the three trees: the parliamentary view is the dedicated /sofia page (it
 // fans the city across МИР 23/24/25), the local view is the synthetic SOF
-// bundle, and the My-Area view is keyed SOF00 (the code officials / LISI /
-// indicators / transfers all use). `SOF00` is the canonical My-Area id;
+// bundle, and the Governance view is keyed SOF00 (the code officials / LISI /
+// indicators / transfers all use). `SOF00` is the canonical Governance id;
 // `SOF` (the local code) is accepted too so the local SOF page's switcher
 // resolves the same triad.
-export const SOFIA_CITY_MYAREA_ID = "SOF00";
+export const SOFIA_CITY_GOVERNANCE_ID = "SOF00";
 export const isSofiaCityObshtina = (code?: string): boolean =>
   code === "SOF00" || code === "SOF";
 
-// My-Area dashboard URL. Returns null for the country, regions and sections
-// (there is no oblast/national/station-level My-Area dashboard — the personal
-// view is settlement/município only). This null is also what drops the
-// "My Area" pill from the switcher on those levels.
-export const myAreaUrl = (p: PlaceRef): string | null => {
-  if (p.level === "settlement" && p.ekatte) return `/my-area/${p.ekatte}`;
+// Governance dashboard URL. Resolves for every tier except a polling section
+// (which has no governance of its own — it drops to its settlement via the
+// nav, same as the other two views). A null here is what drops the
+// "Governance" pill from the switcher on that level.
+//   country      → /governance              (the national governance page)
+//   region       → /governance/region/:oblast
+//   município    → /governance/:obshtina    (Sofia city → /governance/SOF00)
+//   settlement   → /governance/:ekatte
+export const governanceUrl = (p: PlaceRef): string | null => {
+  if (p.level === "country") return "/governance";
+  if (p.level === "region" && p.oblast) return `/governance/region/${p.oblast}`;
+  if (p.level === "settlement" && p.ekatte) return `/governance/${p.ekatte}`;
   if (p.level === "municipality" && isSofiaCityObshtina(p.obshtina))
-    return `/my-area/${SOFIA_CITY_MYAREA_ID}`;
-  if (p.level === "municipality" && p.obshtina) return `/my-area/${p.obshtina}`;
+    return `/governance/${SOFIA_CITY_GOVERNANCE_ID}`;
+  if (p.level === "municipality" && p.obshtina)
+    return `/governance/${p.obshtina}`;
   return null;
 };
 

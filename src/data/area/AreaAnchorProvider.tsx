@@ -3,21 +3,23 @@
 // route.
 //
 // Anchor source-of-truth, in order:
-//   1. URL path `/my-area/<id>`         — authoritative when on the My-Area route
+//   1. URL path `/governance/<id>`      — authoritative when on the place node
 //   2. URL query `?area=<id>`           — global persistence on any other route
 //
-// Path takes precedence on /my-area/<id> so the URL stays clean (no
+// Path takes precedence on /governance/<id> so the URL stays clean (no
 // duplicate `id` in path + query). On any other route we read only
 // `?area=`, which is set by the sniper-icon popover when the user picks
-// a place from somewhere else.
+// a place from somewhere else. The country (/governance) and region
+// (/governance/region/<oblast>) nodes are NOT personal anchors, so the
+// regex deliberately skips them.
 //
 // setAnchor(null) ONLY clears `?area=`. The path-derived anchor is
 // implicit in the route — to clear that, the caller must navigate away.
 // AreaPill's × handler does both: setAnchor(null) + navigate('/my-area')
-// when on /my-area/<id>.
+// when on /governance/<id>.
 //
 // Pattern mirrors CabinetAnchorProvider — see cabinetAnchorContext.tsx,
-// but extended with the path fallback because /my-area/:id is itself an
+// but extended with the path fallback because /governance/:id is itself an
 // anchor expression while /governments has no analogous path-encoded
 // cabinet.
 
@@ -30,13 +32,15 @@ import {
   type AreaAnchor,
 } from "./areaAnchor";
 
-// Extract `<id>` from a `/my-area/<id>` pathname. Matches both `/my-area/`
-// and `/en/my-area/` (the English-locale prefix) so the anchor survives
-// language switches.
-const MY_AREA_PATH_RE = /^(?:\/en)?\/my-area\/([^/?#]+)/;
+// Extract `<id>` from a `/governance/<id>` pathname. Matches both
+// `/governance/` and `/en/governance/` (the English-locale prefix) so the
+// anchor survives language switches. The `region/` segment is excluded via a
+// negative lookahead — the oblast node is not a personal anchor; the bare
+// `/governance` country node has no trailing segment and so never matches.
+const AREA_PATH_RE = /^(?:\/en)?\/governance\/(?!region(?:\/|$))([^/?#]+)/;
 
 const extractPathId = (pathname: string): string | null => {
-  const m = MY_AREA_PATH_RE.exec(pathname);
+  const m = AREA_PATH_RE.exec(pathname);
   return m ? decodeURIComponent(m[1]) : null;
 };
 
@@ -48,7 +52,7 @@ export const AreaAnchorProvider = ({ children }: PropsWithChildren) => {
   const queryId = params.get(AREA_ANCHOR_PARAM);
 
   // Path wins over query — see the file-level comment for the rationale.
-  // This is what stops `/my-area/58606?area=58606` from being a thing.
+  // This is what stops `/governance/58606?area=58606` from being a thing.
   const id = pathId ?? queryId;
 
   const value = useMemo<AreaAnchor | null>(() => {

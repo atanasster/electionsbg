@@ -78,7 +78,7 @@ export const AreaSniperButton: FC = () => {
       // chosen area. A separate "open dashboard" link in the popover offers
       // the explicit navigation. (Behaviour decision: choosing an area is a
       // context act, not a navigation act.)
-      navigate(`/my-area/${id}`);
+      navigate(`/governance/${id}`);
       setOpen(false);
       setQuery("");
     },
@@ -201,7 +201,7 @@ export const AreaSniperButton: FC = () => {
                   size="sm"
                   className="flex-1"
                   onClick={() => {
-                    navigate(`/my-area/${anchor.id}`);
+                    navigate(`/governance/${anchor.id}`);
                     setOpen(false);
                   }}
                 >
@@ -212,13 +212,17 @@ export const AreaSniperButton: FC = () => {
                   size="sm"
                   onClick={() => {
                     setAnchor(null);
-                    // If we're on /my-area/<id>, the route's useEffect will
-                    // re-sync the anchor from the path the moment we clear
-                    // it. Navigate to the entry screen first so there's no
-                    // path to sync from. Anywhere else, just clearing is
-                    // enough — the pill disappears, dashboard tiles that
-                    // read the anchor go inert.
-                    if (/^\/my-area\/.+/.test(location.pathname)) {
+                    // If we're on /governance/<id>, the path itself re-syncs
+                    // the anchor the moment we clear ?area=. Navigate to the
+                    // entry screen first so there's no path to sync from.
+                    // Anywhere else, just clearing is enough — the pill
+                    // disappears, dashboard tiles that read the anchor go
+                    // inert. (region/country governance nodes aren't anchors.)
+                    if (
+                      /^(?:\/en)?\/governance\/(?!region(?:\/|$)).+/.test(
+                        location.pathname,
+                      )
+                    ) {
                       navigate("/my-area");
                     }
                     setOpen(false);

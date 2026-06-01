@@ -7,7 +7,7 @@
 //
 // Class strings are full literals so Tailwind's content scan keeps them.
 
-import { MapPin, Landmark, Building2, LucideIcon } from "lucide-react";
+import { Scale, Landmark, Building2, LucideIcon } from "lucide-react";
 import type { PlaceView } from "@/data/local/placeViews";
 
 export const PLACE_VIEW_META: Record<
@@ -20,9 +20,9 @@ export const PLACE_VIEW_META: Record<
     activePill: string;
   }
 > = {
-  myarea: {
-    icon: MapPin,
-    labelKey: "my_area_dashboard",
+  governance: {
+    icon: Scale,
+    labelKey: "cross_to_governance",
     border: "border-l-primary",
     text: "text-primary",
     activePill: "bg-primary text-primary-foreground",

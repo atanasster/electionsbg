@@ -5,6 +5,7 @@ import {
   Route,
   Routes,
   useLocation,
+  useParams,
 } from "react-router-dom";
 import { Layout } from "./layout/Layout";
 import { CabinetAnchorProvider } from "@/data/macro/cabinetAnchorContext";
@@ -969,6 +970,20 @@ const MyAreaEntryScreen = lazy(() =>
     default: m.MyAreaEntryScreen,
   })),
 );
+
+const RegionGovernanceScreen = lazy(() =>
+  import("./screens/RegionGovernanceScreen").then((m) => ({
+    default: m.RegionGovernanceScreen,
+  })),
+);
+
+// Back-compat: the place dashboards moved from /my-area/:id to /governance/:id
+// (the possessive /my-area entry funnel stays). Redirect any stale id link.
+const MyAreaIdRedirect: FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const { search } = useLocation();
+  return <Navigate to={{ pathname: `/governance/${id}`, search }} replace />;
+};
 
 const RouteFallback: FC = () => (
   <div className="flex items-center justify-center min-h-[40vh] w-full" />
@@ -2696,6 +2711,8 @@ export const AuthRoutes = () => {
               />
             </Route>
           </Route>
+          {/* /my-area is the possessive geolocate ENTRY funnel — it resolves a
+              user into /governance/:id (the place node of the Governance view). */}
           <Route
             path="my-area"
             element={
@@ -2704,8 +2721,20 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
+          <Route path="my-area/:id" element={<MyAreaIdRedirect />} />
+          {/* Region (oblast) node of the Governance view — the regional money +
+              representation picture, minus the elected-local-government block. */}
           <Route
-            path="my-area/:id"
+            path="governance/region/:oblast"
+            element={
+              <LayoutScreen>
+                <RegionGovernanceScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* Município / settlement node — the renamed My-Area dashboard. */}
+          <Route
+            path="governance/:id"
             element={
               <LayoutScreen>
                 <MyAreaScreen />

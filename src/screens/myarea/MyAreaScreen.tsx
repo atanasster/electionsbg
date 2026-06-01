@@ -130,7 +130,7 @@ export const MyAreaScreen: FC = () => {
             three-way view switcher (parliamentary / local). Local pill
             self-hides when the place has no data in the active cycle. */}
         <PlaceHeader
-          active="myarea"
+          active="governance"
           level={area.kind === "settlement" ? "settlement" : "municipality"}
           ekatte={area.kind === "settlement" ? area.ekatte : undefined}
           obshtina={area.obshtina}

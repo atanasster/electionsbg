@@ -1,7 +1,9 @@
 // Segmented switcher mounted at the top of a place's three "views" — the
-// personal My-Area dashboard, the parliamentary-elections results, and the
-// local-elections results. It lets a reader pivot between the three angles
-// on the SAME place (e.g. район Средец) without going back through search.
+// Governance dashboard (how the place is run now), the parliamentary-elections
+// results, and the local-elections results. It lets a reader pivot between the
+// three angles on the SAME place (e.g. район Средец) without going back through
+// search. The Governance pill resolves at every tier (country → settlement)
+// except a polling section.
 //
 // All three URLs are pure rewrites of the shared geographic identifiers —
 // see placeViews.ts. The local pill self-hides when the place has no data
@@ -22,7 +24,7 @@ import { useTranslation } from "react-i18next";
 import {
   PlaceLevel,
   PlaceView,
-  myAreaUrl,
+  governanceUrl,
   parliamentaryUrl,
   localUrl,
   isSofiaCityObshtina,
@@ -32,7 +34,7 @@ import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
 import { PLACE_VIEW_META } from "./placeViewMeta";
 
 // Stable left-to-right order of the three views.
-const ORDER: PlaceView[] = ["myarea", "parliamentary", "local"];
+const ORDER: PlaceView[] = ["governance", "parliamentary", "local"];
 
 type Props = {
   active: PlaceView;
@@ -78,7 +80,7 @@ export const PlaceViewNav: FC<Props> = ({
           : index.municipalities.some((m) => m.obshtinaCode === obshtina));
 
   const urlFor = (view: PlaceView): string | null => {
-    if (view === "myarea") return myAreaUrl(place);
+    if (view === "governance") return governanceUrl(place);
     if (view === "parliamentary") return parliamentaryUrl(place);
     return localAvailable ? localUrl(place, cycle) : null;
   };

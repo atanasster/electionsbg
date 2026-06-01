@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { Title } from "@/ux/Title";
+import { SEO } from "@/ux/SEO";
 import { useHashScroll } from "@/ux/useHashScroll";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { GovernanceCards } from "./governance/GovernanceCards";
 
 export const GovernanceScreen = () => {
@@ -15,7 +16,11 @@ export const GovernanceScreen = () => {
     "Parliament voting, MP declarations, state budget, public procurement, party financing and macroeconomic context for Bulgaria.";
   return (
     <>
-      <Title description={description}>{title}</Title>
+      <SEO title={title} description={description} />
+      {/* Country node of the Governance view — the unified place header
+          carries the Governance eyebrow + the switcher across to the
+          parliamentary home (/) and the local-country overview. */}
+      <PlaceHeader active="governance" level="country" className="my-4" />
       <GovernanceCards />
     </>
   );

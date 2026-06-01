@@ -165,7 +165,7 @@ export const CouncilActivitySection: FC<Props> = ({ slug }) => {
             : `Coverage: the most recent ${data.totalResolutions} named-vote resolutions in this município.`}
         </span>
         <Link
-          to={`/my-area/${data.obshtina}#council`}
+          to={`/governance/${data.obshtina}#council`}
           underline={false}
           className="inline-flex items-center gap-0.5 hover:text-foreground"
         >

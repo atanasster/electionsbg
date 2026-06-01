@@ -1,7 +1,8 @@
-// Unified header for the three "views" of a single place — the personal
-// My-Area dashboard (/my-area/:id), the parliamentary-elections results
-// (/sections/:ekatte, /settlement/:obshtina), and the local-elections
-// results (/local/:cycle/...). Before this component each screen rolled its
+// Unified header for the three "views" of a single place — the Governance
+// dashboard (/governance, /governance/region/:oblast, /governance/:id), the
+// parliamentary-elections results (/sections/:ekatte, /settlement/:obshtina),
+// and the local-elections results (/local/:cycle/...). Before this component
+// each screen rolled its
 // own header (a Card hero, a centered serif H1, a plain inline <h1>), so the
 // same place looked like three unrelated pages and nothing but the small
 // switcher told you which dashboard you were on.
@@ -513,11 +514,11 @@ export const PlaceHeader: FC<Props> = ({
             ) : null}
             {extra ? <div className="mt-2">{extra}</div> : null}
           </div>
-          {/* Static OSM thumbnail. On My-Area it jumps to the projects map
-              further down the page; elsewhere that anchor doesn't exist, so
-              we render it static. Hidden on small screens. */}
+          {/* Static OSM thumbnail. On the Governance place dashboard it jumps
+              to the projects map further down the page; elsewhere that anchor
+              doesn't exist, so we render it static. Hidden on small screens. */}
           {loc ? (
-            active === "myarea" ? (
+            active === "governance" ? (
               <a
                 href="#myarea-projects-map"
                 className="hidden sm:block shrink-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"

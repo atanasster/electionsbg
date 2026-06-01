@@ -58,14 +58,14 @@ export const MyAreaEntryScreen: FC = () => {
   // chooser is open so the post-pick navigation isn't pre-empted.
   useEffect(() => {
     if (anchor?.id && !ambiguous) {
-      navigate(`/my-area/${anchor.id}`, { replace: true });
+      navigate(`/governance/${anchor.id}`, { replace: true });
     }
   }, [anchor, navigate, ambiguous]);
 
   const goTo = useCallback(
     (id: string) => {
       setAnchor(id);
-      navigate(`/my-area/${id}`);
+      navigate(`/governance/${id}`);
     },
     [setAnchor, navigate],
   );

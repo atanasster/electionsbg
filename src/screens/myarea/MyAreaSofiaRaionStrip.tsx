@@ -64,7 +64,7 @@ export const MyAreaSofiaRaionStrip: FC<Props> = ({ activeObshtina }) => {
           return (
             <Link
               key={r.obshtina}
-              to={`/my-area/${r.obshtina}`}
+              to={`/governance/${r.obshtina}`}
               underline={false}
               onClick={() => setAnchor(r.obshtina)}
               className={`shrink-0 px-2.5 py-1 rounded-md text-xs whitespace-nowrap transition-colors ${

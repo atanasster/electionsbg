@@ -4,7 +4,7 @@
 // Unlike the cabinet pill, the area pill is GLOBAL — the AreaAnchorProvider
 // is mounted at the root, so this chip auto-hides only when no `?area=` is
 // set (independent of which route the user is on). Clicking the body
-// navigates to /my-area/<id>; × clears the anchor.
+// navigates to /governance/<id>; × clears the anchor.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -52,7 +52,7 @@ export const AreaPill: FC = () => {
         <button
           type="button"
           aria-label={t("area_pill_aria", { name: display })}
-          onClick={() => navigate(`/my-area/${anchor.id}`)}
+          onClick={() => navigate(`/governance/${anchor.id}`)}
           className={cn(
             "flex items-center gap-1.5 px-2 py-1 whitespace-nowrap transition-colors",
             "text-foreground hover:bg-primary/[0.12]",
@@ -72,12 +72,16 @@ export const AreaPill: FC = () => {
         aria-label={clearLabel}
         onClick={() => {
           setAnchor(null);
-          // When the user is currently ON a /my-area/<id> route, the
+          // When the user is currently ON a /governance/<id> route, the
           // path itself is what AreaAnchorProvider reads — clearing
           // ?area= alone would leave the path-derived anchor live and
           // the pill would re-render immediately. Navigate away first
-          // so the clear sticks.
-          if (/^(?:\/en)?\/my-area\/.+/.test(location.pathname)) {
+          // so the clear sticks. (region/country nodes aren't anchors.)
+          if (
+            /^(?:\/en)?\/governance\/(?!region(?:\/|$)).+/.test(
+              location.pathname,
+            )
+          ) {
             navigate("/my-area");
           }
         }}
