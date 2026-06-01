@@ -13,6 +13,12 @@ import { useMemo } from "react";
 import { useQueries } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import { LocalElectionIndex } from "./types";
+import {
+  CrossCycleData,
+  CrossCycleParty,
+  bucketId,
+  yearOf,
+} from "./crossCycleShape";
 
 // Subset of LocalElectionIndex that the trends sidecar carries — no
 // `municipalities` catalogue.
@@ -26,46 +32,11 @@ type LocalIndexTrends = Pick<
 >;
 import { useLocalElectionList } from "./useLocalCycles";
 
-export type CrossCyclePoint = {
-  cycle: string;
-  year: string;
-  councilPct: number | null;
-  mayors: number | null;
-};
-
-export type CrossCycleParty = {
-  canonicalId: string;
-  displayName: string;
-  color: string;
-  points: CrossCyclePoint[]; // aligned 1:1 to cyclesAsc
-  latestCouncilPct: number;
-};
-
-export type CrossCycleData = {
-  cyclesAsc: { cycle: string; year: string }[];
-  parties: CrossCycleParty[];
-};
-
-const yearOf = (round1Date: string): string => round1Date.slice(0, 4);
-
-// Bucket alias: stable across cycles when canonical lineage is sparse.
-// Pre-2019 local cycles credit some major parties to a `local:*` bucket
-// (e.g. 2011 BSP as `local:пп "българска социалистическа партия"`) because
-// canonical_parties.json has no entry for that local-party row. The mapping
-// here folds those back into the canonical bucket so a single line spans the
-// full series instead of fragmenting per cycle.
-const ALIASES: Array<{ pattern: RegExp; canonicalId: string }> = [
-  { pattern: /\bбългарска социалистическа партия\b/i, canonicalId: "bsp" },
-  { pattern: /\bгерб\b/i, canonicalId: "gerb" },
-  { pattern: /\bдпс\b/i, canonicalId: "p_16" },
-];
-
-const aliasId = (canonicalId: string, displayName: string): string => {
-  if (!canonicalId.startsWith("local:")) return canonicalId;
-  const hay = `${canonicalId} ${displayName}`;
-  for (const a of ALIASES) if (a.pattern.test(hay)) return a.canonicalId;
-  return canonicalId;
-};
+export type {
+  CrossCyclePoint,
+  CrossCycleParty,
+  CrossCycleData,
+} from "./crossCycleShape";
 
 const fetchIndex = async (
   cycle: string,
@@ -134,7 +105,7 @@ export const useLocalCrossCycle = (
       const usableCouncil = cycleHasCouncilSignal(idx);
       if (usableCouncil) {
         for (const r of idx.councilVoteShare) {
-          const id = aliasId(r.canonicalId, r.displayName);
+          const id = bucketId(r.canonicalId, r.displayName);
           // Prefer canonical display name/color when aliasing into a canonical
           // bucket — the local-row displayName is the raw uppercase party name.
           const isAlias = id !== r.canonicalId;
@@ -150,7 +121,7 @@ export const useLocalCrossCycle = (
         }
       }
       for (const r of idx.mayorsByCanonical) {
-        const id = aliasId(r.canonicalId, r.displayName);
+        const id = bucketId(r.canonicalId, r.displayName);
         const isAlias = id !== r.canonicalId;
         const a = ensure(
           id,

@@ -20,7 +20,6 @@ import {
   ArrowRight,
   ChevronDown,
   ChevronRight,
-  Coins,
   Landmark,
   Map,
 } from "lucide-react";
@@ -40,6 +39,8 @@ import { LocalSectionsTile } from "./dashboard/local/LocalSectionsTile";
 import { LocalSectionsMapTile } from "./dashboard/local/LocalSectionsMapTile";
 import { TopMayorsTile } from "./dashboard/local/TopMayorsTile";
 import { TopCouncilPartiesTile } from "./dashboard/local/TopCouncilPartiesTile";
+import { LocalMayorTimelineTile } from "./dashboard/local/LocalMayorTimelineTile";
+import { LocalCouncilTrendsTile } from "./dashboard/local/LocalCouncilTrendsTile";
 import { useLocalSectionShard } from "@/data/local/useLocalSectionShard";
 import { ToParliamentaryLink } from "@/screens/components/CrossElectionLink";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
@@ -47,12 +48,6 @@ import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { CensusDemographicsTile } from "./dashboard/CensusDemographicsTile";
 import { IndicatorsTile } from "./dashboard/IndicatorsTile";
-import { MunicipalityTransfersTile } from "./dashboard/MunicipalityTransfersTile";
-import { EuFundsTile } from "./dashboard/EuFundsTile";
-import { CompaniesHqTile } from "./dashboard/CompaniesHqTile";
-import { MunicipalCapitalProjectsTiles } from "./dashboard/MunicipalCapitalProjectsTiles";
-import { IpopExecutionTile } from "./dashboard/IpopExecutionTile";
-import { MunicipalBudgetExecutionTile } from "./dashboard/MunicipalBudgetExecutionTile";
 import { OfficialsDiffTile } from "./dashboard/OfficialsDiffTile";
 import { MunicipalOfficialsRosterTile } from "./dashboard/MunicipalOfficialsRosterTile";
 import {
@@ -794,6 +789,9 @@ const MunicipalityResults: FC<{
             to={`/local/${cycle}/${obshtinaCode}/mayor`}
           />,
         )}
+        {/* Who governed before — elected mayor in each prior cycle, newest
+            first. Self-hides for municípios with under two cycles of data. */}
+        <LocalMayorTimelineTile obshtinaCode={obshtinaCode} className="mt-4" />
       </Section>
 
       {/* Council — one "Общински съвет" heading (the nested duplicate that
@@ -824,6 +822,17 @@ const MunicipalityResults: FC<{
           <div className="mt-4">
             <TopCouncillorsTile bundle={municipality} />
           </div>
+        ) : null}
+        {/* Council vote share per party across the prior local cycles — the
+            place-scoped sibling of the national trend tile. Skipped for Sofia
+            район shards (their council replicates the city-wide bundle, so a
+            per-район trend would just duplicate the city line). Self-hides
+            otherwise when there are under two cycles of council signal. */}
+        {!isSofiaRayon ? (
+          <LocalCouncilTrendsTile
+            obshtinaCode={obshtinaCode}
+            className="mt-4"
+          />
         ) : null}
       </Section>
 
@@ -866,18 +875,12 @@ const MunicipalityResults: FC<{
             <MunicipalOfficialsRosterTile obshtinaCode={obshtinaCode} />
           </DashboardSection>
 
-          <DashboardSection
-            id="finances"
-            title={t("dashboard_section_finances")}
-            icon={Coins}
-          >
-            <MunicipalityTransfersTile municipalityCode={obshtinaCode} />
-            <EuFundsTile kind="muni" obshtina={obshtinaCode} />
-            <CompaniesHqTile kind="muni" obshtina={obshtinaCode} />
-            <MunicipalCapitalProjectsTiles obshtinaCode={obshtinaCode} />
-            <IpopExecutionTile obshtinaCode={obshtinaCode} />
-            <MunicipalBudgetExecutionTile obshtinaCode={obshtinaCode} />
-          </DashboardSection>
+          {/* Municipal finances (state-budget transfers, EU funds, capital
+              programme, IPOP execution, MP-linked companies) intentionally
+              live only on the personal /my-area dashboard now — the place
+              switcher in the header above links straight to it. Keeping the
+              finances block out of this election-results page avoids the
+              duplicate heavy budget/funds fetches on every município view. */}
         </>
       ) : null}
     </section>
