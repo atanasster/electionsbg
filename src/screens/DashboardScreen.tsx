@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { Title } from "@/ux/Title";
+import { SEO } from "@/ux/SEO";
 import { useElectionContext } from "@/data/ElectionContext";
 import { localDate } from "@/data/utils";
 import { DashboardCards } from "./dashboard/DashboardCards";
-import { ToLocalLink } from "@/screens/components/CrossElectionLink";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 
 export const DashboardScreen = () => {
   const { t } = useTranslation();
@@ -11,12 +11,11 @@ export const DashboardScreen = () => {
   const title = `${t("general_elections")} ${localDate(selected)}`;
   return (
     <>
-      <Title description="Interactive country map of the elections in Bulgaria">
-        {title}
-      </Title>
-      <div className="-mt-4 mb-6 flex justify-center">
-        <ToLocalLink level="country" />
-      </div>
+      <SEO
+        title={title}
+        description="Interactive country map of the elections in Bulgaria"
+      />
+      <PlaceHeader active="parliamentary" level="country" className="my-4" />
       <DashboardCards />
     </>
   );

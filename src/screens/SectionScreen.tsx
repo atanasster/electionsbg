@@ -17,8 +17,8 @@ import { useProblemSections } from "@/data/reports/useProblemSections";
 import { useClusterPersistence } from "@/data/riskScore/useClusterPersistence";
 import { useElectionContext } from "@/data/ElectionContext";
 import { SEO } from "@/ux/SEO";
-import { H1 } from "@/ux/H1";
 import { Link } from "@/ux/Link";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { SectionDashboardCards } from "./dashboard/SectionDashboardCards";
 import { SectionRiskBadge } from "./components/riskScore/SectionRiskBadge";
 
@@ -85,47 +85,18 @@ export const SectionScreen = () => {
       : settlement.name_en
     : "";
   const sectionLabel = `${t("section")} ${sectionCode}`;
-
-  const title = (
-    <>
-      {region ? (
-        <Link to={`/municipality/${region.oblast}`}>{regionName}</Link>
-      ) : null}
-      {region && municipality ? " / " : null}
-      {municipality ? (
-        <Link to={`/settlement/${municipality.obshtina}`}>
-          {municipalityName}
-        </Link>
-      ) : null}
-      {(region || municipality) && settlement ? " / " : null}
-      {settlement ? (
-        <Link to={`/sections/${settlement.ekatte}`}>{settlementName}</Link>
-      ) : null}
-      {region || municipality || settlement ? " / " : null}
-      {sectionLabel}
-    </>
-  );
   const titleStr = [regionName, municipalityName, settlementName, sectionLabel]
     .filter(Boolean)
     .join(" / ");
-  const address = section?.address ? `, ${section.address}` : "";
-  const subtitle = section ? `${section.settlement}${address}` : "";
 
-  return (
-    <>
-      <SEO
-        title={`${t("section")} ${sectionCode}${settlementName ? " · " + settlementName : ""}`}
-        description={titleStr}
-      />
-      <H1>{title}</H1>
-      {/* Subtitle line is always rendered so it reserves the same vertical
-        space whether or not section data has loaded yet. Without this, the
-        line drops in once `useSectionsVotes` resolves and pushes the
-        dashboard cards below it down by ~24px. */}
-      <p className="text-center text-sm text-muted-foreground -mt-2 mb-2 min-h-[1.25rem]">
-        {subtitle}
-      </p>
-      <div className="flex justify-center gap-2 mb-2 flex-wrap">
+  // Audit chips + street address live under the breadcrumb in the unified
+  // header, mirroring the cross-link "extra" slot the local pages use.
+  const headerExtra = (
+    <div className="space-y-2">
+      {section?.address ? (
+        <p className="text-sm text-muted-foreground">{section.address}</p>
+      ) : null}
+      <div className="flex flex-wrap gap-2">
         {problemNeighborhood ? (
           <Link
             to={`/reports/section/problem_sections/${problemNeighborhood.id}`}
@@ -173,6 +144,25 @@ export const SectionScreen = () => {
           />
         ) : null}
       </div>
+    </div>
+  );
+
+  return (
+    <>
+      <SEO
+        title={`${t("section")} ${sectionCode}${settlementName ? " · " + settlementName : ""}`}
+        description={titleStr}
+      />
+      <PlaceHeader
+        active="parliamentary"
+        level="section"
+        sectionCode={sectionCode}
+        ekatte={section?.ekatte}
+        obshtina={section?.obshtina}
+        oblast={section?.oblast}
+        extra={headerExtra}
+        className="my-4"
+      />
       <SectionDashboardCards sectionCode={sectionCode} />
     </>
   );

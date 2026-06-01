@@ -1,10 +1,10 @@
 import { useParams, Navigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Title } from "@/ux/Title";
+import { SEO } from "@/ux/SEO";
 import { useRegions } from "@/data/regions/useRegions";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { RegionDashboardCards } from "./dashboard/RegionDashboardCards";
-import { ToLocalLink } from "@/screens/components/CrossElectionLink";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 
 export const MunicipalitiesScreen = () => {
   const { id: region } = useParams();
@@ -44,12 +44,17 @@ export const MunicipalitiesScreen = () => {
   // while the municipality/census/local-government sections self-hide.
   return (
     <>
-      <Title description="Interactive map of a municipality in the elections in Bulgaria">
-        {title}
-      </Title>
-      <div className="-mt-4 mb-6 flex justify-center">
-        <ToLocalLink level="region" oblast={region} />
-      </div>
+      <SEO
+        title={title}
+        description="Interactive map of a municipality in the elections in Bulgaria"
+      />
+      <PlaceHeader
+        active="parliamentary"
+        level="region"
+        oblast={region}
+        fallbackName={title}
+        className="my-4"
+      />
       <RegionDashboardCards regionCode={region} />
     </>
   );

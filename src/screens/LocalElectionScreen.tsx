@@ -45,7 +45,6 @@ import { TopCouncilPartiesTile } from "./dashboard/local/TopCouncilPartiesTile";
 import { LocalMayorTimelineTile } from "./dashboard/local/LocalMayorTimelineTile";
 import { LocalCouncilTrendsTile } from "./dashboard/local/LocalCouncilTrendsTile";
 import { useLocalSectionShard } from "@/data/local/useLocalSectionShard";
-import { ToParliamentaryLink } from "@/screens/components/CrossElectionLink";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { DashboardSection } from "./dashboard/DashboardSection";
@@ -1039,44 +1038,45 @@ const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
 
   return (
     <section className="my-4 space-y-6">
-      <header>
-        <div className="flex items-start justify-between gap-3">
-          <h1 className="text-2xl font-semibold">
-            {t("local_election_cycle_stub_title")} · {friendlyCycleDate(cycle)}
-          </h1>
-          <ToParliamentaryLink level="country" />
-        </div>
-        {index ? (
-          <p className="mt-1 text-xs text-muted-foreground tabular-nums">
-            {t("local_cycle_overview_municipalities", {
-              count: municipalityCount,
-            })}{" "}
-            · {t("local_cycle_overview_runoffs", { count: runoffCount })}
-          </p>
-        ) : null}
-        <div className="mt-2 flex flex-wrap gap-4">
-          <Link
-            to="/sverka"
-            className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-          >
-            {t("local_cycle_overview_sverka_link")}
-          </Link>
-          <Link
-            to="/local/chmi"
-            className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-          >
-            {t("chmi_feed_title")} →
-          </Link>
-          {hasSof ? (
-            <Link
-              to={`/local/${cycle}/SOF`}
-              className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-            >
-              {t("local_cycle_overview_sof_link")}
-            </Link>
-          ) : null}
-        </div>
-      </header>
+      <PlaceHeader
+        active="local"
+        level="country"
+        eyebrowSuffix={friendlyCycleDate(cycle)}
+        extra={
+          <div className="space-y-2">
+            {index ? (
+              <p className="text-xs text-muted-foreground tabular-nums">
+                {t("local_cycle_overview_municipalities", {
+                  count: municipalityCount,
+                })}{" "}
+                · {t("local_cycle_overview_runoffs", { count: runoffCount })}
+              </p>
+            ) : null}
+            <div className="flex flex-wrap gap-4">
+              <Link
+                to="/sverka"
+                className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+              >
+                {t("local_cycle_overview_sverka_link")}
+              </Link>
+              <Link
+                to="/local/chmi"
+                className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+              >
+                {t("chmi_feed_title")} →
+              </Link>
+              {hasSof ? (
+                <Link
+                  to={`/local/${cycle}/SOF`}
+                  className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                >
+                  {t("local_cycle_overview_sof_link")}
+                </Link>
+              ) : null}
+            </div>
+          </div>
+        }
+      />
 
       <LocalCountryDashboardCards cycle={cycle} />
     </section>

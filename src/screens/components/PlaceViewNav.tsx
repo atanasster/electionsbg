@@ -61,17 +61,21 @@ export const PlaceViewNav: FC<Props> = ({
   const place = { level, ekatte, obshtina, oblast };
 
   // Local availability: the place's município (or, for a region, any of its
-  // municípios) must be present in the active cycle's index. Sofia районs are
-  // their own município (S2xxx), so the obshtina guard covers them too. The
-  // Sofia city aggregate is keyed SOF00 in the parliamentary/my-area trees but
-  // lives under the synthetic SOF bundle in the local index — check that.
+  // municípios) must be present in the active cycle's index. The country always
+  // resolves when an index exists. Sections share their parent obshtina, so the
+  // obshtina guard covers them (the pill drops to the settlement page). Sofia
+  // районs are their own município (S2xxx), so the obshtina guard covers them
+  // too. The Sofia city aggregate is keyed SOF00 in the parliamentary/my-area
+  // trees but lives under the synthetic SOF bundle in the local index.
   const localAvailable =
     !!index &&
-    (level === "region"
-      ? index.municipalities.some((m) => m.oblast === oblast)
-      : isSofiaCityObshtina(obshtina)
-        ? index.municipalities.some((m) => m.obshtinaCode === "SOF")
-        : index.municipalities.some((m) => m.obshtinaCode === obshtina));
+    (level === "country"
+      ? true
+      : level === "region"
+        ? index.municipalities.some((m) => m.oblast === oblast)
+        : isSofiaCityObshtina(obshtina)
+          ? index.municipalities.some((m) => m.obshtinaCode === "SOF")
+          : index.municipalities.some((m) => m.obshtinaCode === obshtina));
 
   const urlFor = (view: PlaceView): string | null => {
     if (view === "myarea") return myAreaUrl(place);

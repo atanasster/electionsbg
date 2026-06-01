@@ -47,6 +47,9 @@ type Props = {
   // Title to show when the codes resolve to nothing (defensive / synthetic
   // aggregates like Sofia's SOF bundle).
   fallbackName?: string;
+  // The polling-station code for level="section" — the title becomes
+  // "Section {code}" and the breadcrumb drills up to the parent settlement.
+  sectionCode?: string;
   // Per-view cross-link rendered under the breadcrumb (e.g. район → all of
   // Sofia).
   extra?: ReactNode;
@@ -167,6 +170,7 @@ export const PlaceHeader: FC<Props> = ({
   eyebrowTo,
   eyebrowSuffix,
   fallbackName,
+  sectionCode,
   extra,
   navSlot,
   className,
@@ -178,12 +182,20 @@ export const PlaceHeader: FC<Props> = ({
   const { findRegion } = useRegions();
 
   const isSettlement = level === "settlement";
+  const isSection = level === "section";
+  const isCountry = level === "country";
+  const isRegion = level === "region";
+  // Settlement + section both anchor on a settlement EKATTE — a section drills
+  // one level below its settlement, which we surface in its breadcrumb.
+  const usesSettlement = isSettlement || isSection;
   // For a Sofia район the caller passes the район's parliamentary EKATTE as
   // `ekatte` (level "settlement") and the S2xxx code as `obshtina` (used only
   // by the switcher). Resolving the settlement gives us its real parent
   // município for the breadcrumb.
-  const settlement = isSettlement ? findSettlement(ekatte) : undefined;
-  const obshtinaForName = isSettlement ? settlement?.obshtina : obshtina;
+  const settlement = usesSettlement ? findSettlement(ekatte) : undefined;
+  const obshtinaForName = usesSettlement
+    ? (settlement?.obshtina ?? obshtina)
+    : obshtina;
   const muni = obshtinaForName ? findMunicipality(obshtinaForName) : undefined;
   const oblastCode = oblast ?? settlement?.oblast ?? muni?.oblast;
   const region = oblastCode ? findRegion(oblastCode) : undefined;
@@ -195,19 +207,13 @@ export const PlaceHeader: FC<Props> = ({
   const meta = PLACE_VIEW_META[active];
   const Icon = meta.icon;
 
-  const settlementType = isSettlement ? settlement?.t_v_m : null;
-  const resolvedName = isSettlement
-    ? settlement
-      ? lang === "bg"
-        ? settlement.name
-        : settlement.name_en
-      : undefined
-    : muni
-      ? lang === "bg"
-        ? muni.name
-        : muni.name_en
-      : undefined;
-  const name = resolvedName ?? fallbackName ?? ekatte ?? obshtina ?? "";
+  const settlementType = usesSettlement ? settlement?.t_v_m : null;
+  const settlementName = settlement
+    ? lang === "bg"
+      ? settlement.name
+      : settlement.name_en
+    : undefined;
+  const muniName = muni ? (lang === "bg" ? muni.name : muni.name_en) : null;
 
   // Strip the tautological "област"/"region" suffix some region names carry
   // (SFO = "София област") — the narrative template re-adds it.
@@ -221,7 +227,24 @@ export const PlaceHeader: FC<Props> = ({
       ? regionNameRaw.replace(/\s+област$/u, "").trim()
       : regionNameRaw.replace(/\s+region$/iu, "").trim()
     : null;
-  const muniName = muni ? (lang === "bg" ? muni.name : muni.name_en) : null;
+
+  // The h1 text, per level. Settlement/município resolve to their localized
+  // name; region uses its full (unstripped) name; the country card is the
+  // nation; a section is "Section {code}".
+  const resolvedName = isSettlement
+    ? settlementName
+    : isCountry
+      ? t("bulgaria")
+      : isRegion
+        ? (regionNameRaw ?? undefined)
+        : isSection
+          ? `${t("section")} ${sectionCode ?? ""}`.trim()
+          : muni
+            ? lang === "bg"
+              ? muni.name
+              : muni.name_en
+            : undefined;
+  const name = resolvedName ?? fallbackName ?? ekatte ?? obshtina ?? "";
 
   const graoRow =
     isSettlement && graoSlice && settlement
@@ -229,15 +252,104 @@ export const PlaceHeader: FC<Props> = ({
       : undefined;
   const graoAsOf = isSettlement ? (graoSlice?.asOf ?? null) : null;
 
-  const loc = isSettlement ? parseLoc(settlement?.loc) : parseLoc(muni?.loc);
+  // Country/region carry no centroid; a section borrows its settlement's.
+  const loc = usesSettlement
+    ? parseLoc(settlement?.loc)
+    : isRegion || isCountry
+      ? null
+      : parseLoc(muni?.loc);
 
-  const muniHref =
-    isSettlement && settlement ? `/settlement/${settlement.obshtina}` : null;
+  const muniHref = settlement ? `/settlement/${settlement.obshtina}` : null;
   const regionHref = oblastCode ? `/municipality/${oblastCode}` : null;
+  const settlementHref = settlement ? `/sections/${settlement.ekatte}` : null;
 
   // Composed breadcrumb narrative — município and oblast are links so the
   // reader can drill up the hierarchy.
   const renderNarrative = () => {
+    // Country: the nation is the top of the hierarchy — no parent to link to.
+    if (isCountry) return null;
+    // Region: drill up to the national dashboard.
+    if (isRegion) {
+      if (lang === "bg") {
+        return (
+          <>
+            Област в{" "}
+            <Link to="/" underline>
+              България
+            </Link>
+          </>
+        );
+      }
+      return (
+        <>
+          Oblast in{" "}
+          <Link to="/" underline>
+            Bulgaria
+          </Link>
+        </>
+      );
+    }
+    // Section: settlement (link) → município (link) → oblast (link).
+    if (isSection) {
+      const typedSettlement =
+        settlementType && lang === "bg"
+          ? `${settlementType} ${settlementName ?? ""}`.trim()
+          : (settlementName ?? "");
+      const settlementNode = settlementHref ? (
+        <Link to={settlementHref} underline>
+          {typedSettlement}
+        </Link>
+      ) : (
+        typedSettlement
+      );
+      if (lang === "bg") {
+        return (
+          <>
+            {settlementNode}
+            {muniName && muniHref ? (
+              <>
+                {" "}
+                в община{" "}
+                <Link to={muniHref} underline>
+                  {muniName}
+                </Link>
+              </>
+            ) : null}
+            {regionName && regionHref ? (
+              <>
+                , област{" "}
+                <Link to={regionHref} underline>
+                  {regionName}
+                </Link>
+              </>
+            ) : null}
+          </>
+        );
+      }
+      return (
+        <>
+          {settlementNode}
+          {muniName && muniHref ? (
+            <>
+              {" in "}
+              <Link to={muniHref} underline>
+                {muniName}
+              </Link>{" "}
+              municipality
+            </>
+          ) : null}
+          {regionName && regionHref ? (
+            <>
+              ,{" "}
+              <Link to={regionHref} underline>
+                {regionName}
+              </Link>{" "}
+              oblast
+            </>
+          ) : null}
+        </>
+      );
+    }
     if (!isSettlement) {
       // Município view: "Община {name}, област {region}".
       if (lang === "bg") {
@@ -325,8 +437,13 @@ export const PlaceHeader: FC<Props> = ({
     isSettlement && settlementType && lang === "bg"
       ? `${settlementType} ${name}`
       : name;
+  // A section's thumbnail shows its settlement, so label the map with that.
+  const thumbName = isSection ? (settlementName ?? name) : name;
   const thumbAlt =
-    lang === "bg" ? `Карта на района — ${name}` : `Area map — ${name}`;
+    lang === "bg"
+      ? `Карта на района — ${thumbName}`
+      : `Area map — ${thumbName}`;
+  const narrative = renderNarrative();
 
   const eyebrowInner = (
     <>
@@ -366,9 +483,9 @@ export const PlaceHeader: FC<Props> = ({
             <h1 className="text-2xl md:text-3xl font-bold truncate">
               {titleText}
             </h1>
-            <p className="text-sm text-muted-foreground mt-1">
-              {renderNarrative()}
-            </p>
+            {narrative ? (
+              <p className="text-sm text-muted-foreground mt-1">{narrative}</p>
+            ) : null}
             {graoRow ? (
               <div className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs">
                 <span className="text-[10px] uppercase tracking-wide text-muted-foreground">

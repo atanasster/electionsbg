@@ -7,12 +7,12 @@
 // dashboard, not here.
 
 import { FC } from "react";
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useRegions } from "@/data/regions/useRegions";
 import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { LocalRegionDashboardCards } from "./dashboard/local/LocalRegionDashboardCards";
-import { ToParliamentaryLink } from "@/screens/components/CrossElectionLink";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 
 export const LocalRegionDashboardScreen: FC = () => {
   const { cycle, oblast } = useParams<{ cycle: string; oblast: string }>();
@@ -38,17 +38,14 @@ export const LocalRegionDashboardScreen: FC = () => {
 
   return (
     <section className="my-4 space-y-6">
-      <div className="flex items-center justify-between gap-3">
-        <div className="text-xs text-muted-foreground">
-          <Link to={`/local/${cycle}`} className="hover:underline">
-            {t("local_election_screen_back")}
-          </Link>
-          <span className="mx-2">·</span>
-          <span>{friendlyCycleDate(cycle)}</span>
-        </div>
-        <ToParliamentaryLink level="region" oblast={oblast} />
-      </div>
-      <h1 className="text-2xl font-semibold">{name}</h1>
+      <PlaceHeader
+        active="local"
+        level="region"
+        oblast={oblast}
+        eyebrowTo={`/local/${cycle}`}
+        eyebrowSuffix={friendlyCycleDate(cycle)}
+        fallbackName={name}
+      />
       <LocalRegionDashboardCards cycle={cycle} oblast={oblast} />
     </section>
   );

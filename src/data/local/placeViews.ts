@@ -22,7 +22,12 @@
 // município page, never a settlement page — detected via the S2xxx obshtina
 // shape.
 
-export type PlaceLevel = "settlement" | "municipality" | "region";
+export type PlaceLevel =
+  | "country"
+  | "region"
+  | "municipality"
+  | "settlement"
+  | "section";
 export type PlaceView = "myarea" | "parliamentary" | "local";
 
 export interface PlaceRef {
@@ -48,8 +53,10 @@ export const SOFIA_CITY_MYAREA_ID = "SOF00";
 export const isSofiaCityObshtina = (code?: string): boolean =>
   code === "SOF00" || code === "SOF";
 
-// My-Area dashboard URL. Returns null for regions (there is no oblast-level
-// My-Area dashboard — the personal view is settlement/município only).
+// My-Area dashboard URL. Returns null for the country, regions and sections
+// (there is no oblast/national/station-level My-Area dashboard — the personal
+// view is settlement/município only). This null is also what drops the
+// "My Area" pill from the switcher on those levels.
 export const myAreaUrl = (p: PlaceRef): string | null => {
   if (p.level === "settlement" && p.ekatte) return `/my-area/${p.ekatte}`;
   if (p.level === "municipality" && isSofiaCityObshtina(p.obshtina))
@@ -60,9 +67,14 @@ export const myAreaUrl = (p: PlaceRef): string | null => {
 
 // Parliamentary-elections results URL.
 export const parliamentaryUrl = (p: PlaceRef): string | null => {
+  if (p.level === "country") return "/";
   if (p.level === "municipality" && isSofiaCityObshtina(p.obshtina))
     return "/sofia";
   if (p.level === "settlement" && p.ekatte) return `/sections/${p.ekatte}`;
+  // A polling section drops to its parent settlement's parliamentary page:
+  // section numbering isn't stable across local↔parliamentary cycles, so the
+  // settlement is the finest granularity that cross-links reliably.
+  if (p.level === "section" && p.ekatte) return `/sections/${p.ekatte}`;
   if (p.level === "municipality" && p.obshtina)
     return `/settlement/${p.obshtina}`;
   if (p.level === "region" && p.oblast) return `/municipality/${p.oblast}`;
@@ -73,12 +85,17 @@ export const parliamentaryUrl = (p: PlaceRef): string | null => {
 // responsible for confirming the place actually has local data in that cycle
 // (PlaceViewNav guards via the cycle index before rendering the pill).
 export const localUrl = (p: PlaceRef, cycle: string): string | null => {
+  if (p.level === "country") return `/local/${cycle}`;
   // Sofia city aggregate: the synthetic SOF bundle, never SOF00.
   if (p.level === "municipality" && isSofiaCityObshtina(p.obshtina))
     return `/local/${cycle}/SOF`;
   // Sofia район: settlement in the parliamentary tree, município in local.
   if (isSofiaRayonObshtina(p.obshtina)) return `/local/${cycle}/${p.obshtina}`;
   if (p.level === "settlement" && p.ekatte)
+    return `/local/${cycle}/settlement/${p.ekatte}`;
+  // A polling section drops to its parent settlement's local page — see
+  // parliamentaryUrl for why the settlement is the finest reliable granularity.
+  if (p.level === "section" && p.ekatte)
     return `/local/${cycle}/settlement/${p.ekatte}`;
   if (p.level === "municipality" && p.obshtina)
     return `/local/${cycle}/${p.obshtina}`;

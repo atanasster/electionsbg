@@ -8,12 +8,13 @@
 // wouldn't reliably resolve to the matching parliamentary station.
 
 import { FC, useMemo } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLocalSection } from "@/data/local/useLocalSection";
 import { RankedBar } from "@/screens/components/local/LocalRankedBar";
 import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { formatThousands } from "@/data/utils";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 
 export const LocalSectionScreen: FC = () => {
   const { cycle, obshtinaCode, sectionCode } = useParams<{
@@ -51,27 +52,34 @@ export const LocalSectionScreen: FC = () => {
 
   if (!cycle || !obshtinaCode || !sectionCode) return null;
 
-  const back = (
-    <div className="mb-2 text-xs text-muted-foreground">
-      <Link to={`/local/${cycle}`} className="hover:underline">
-        {t("local_election_screen_back")}
-      </Link>
-      <span className="mx-2">·</span>
-      <Link to={`/local/${cycle}/${obshtinaCode}`} className="hover:underline">
-        {detail?.obshtinaName ?? obshtinaCode}
-      </Link>
-      <span className="mx-2">·</span>
-      <span>{friendlyCycleDate(cycle)}</span>
-    </div>
+  // Unified place header — eyebrow links back to the cycle overview, the
+  // breadcrumb drills up the settlement → município → oblast chain, and the
+  // Parliamentary pill drops to the parent settlement (section codes don't map
+  // across cycles). The mobile-station badge rides in the extra slot.
+  const header = (
+    <PlaceHeader
+      active="local"
+      level="section"
+      sectionCode={sectionCode}
+      ekatte={section?.ekatte}
+      obshtina={obshtinaCode}
+      eyebrowTo={`/local/${cycle}`}
+      eyebrowSuffix={friendlyCycleDate(cycle)}
+      extra={
+        section?.isMobile ? (
+          <span className="inline-flex rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-muted-foreground">
+            {t("local_sections_mobile_badge")}
+          </span>
+        ) : undefined
+      }
+      className="mb-4"
+    />
   );
 
   if (!isLoading && !section) {
     return (
       <section className="my-4">
-        {back}
-        <h1 className="mb-1 text-2xl font-semibold">
-          {t("local_section_page_title", { code: sectionCode })}
-        </h1>
+        {header}
         <p className="text-sm text-muted-foreground">
           {t("local_section_not_found")}
         </p>
@@ -87,20 +95,7 @@ export const LocalSectionScreen: FC = () => {
 
   return (
     <section className="my-4">
-      {back}
-      <h1 className="mb-1 flex flex-wrap items-center gap-2 text-2xl font-semibold tabular-nums">
-        {t("local_section_page_title", { code: sectionCode })}
-        {section?.isMobile ? (
-          <span className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-muted-foreground">
-            {t("local_sections_mobile_badge")}
-          </span>
-        ) : null}
-      </h1>
-      {section ? (
-        <p className="mb-4 text-sm text-muted-foreground">
-          {section.settlement}
-        </p>
-      ) : null}
+      {header}
 
       {/* Stat header. */}
       {section ? (
