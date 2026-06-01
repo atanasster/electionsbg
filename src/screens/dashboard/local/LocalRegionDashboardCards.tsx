@@ -17,6 +17,7 @@ import { StatCard } from "../StatCard";
 import { DashboardSection } from "../DashboardSection";
 import { LocalRegionMapTile } from "./LocalRegionMapTile";
 import { LocalVoteFlowTile } from "./LocalVoteFlowTile";
+import { LocalCouncilControlTile } from "./LocalCouncilControlTile";
 
 // Shared cap for list-style tiles so a long leaderboard doesn't tower over its
 // grid-row neighbour on a desktop viewport (internal scroll past this height).
@@ -152,6 +153,7 @@ export const LocalRegionDashboardCards: FC<{
 
       {/* Councils + split control. */}
       <DashboardSection id="local-councils" title={t("local_sec_councils")}>
+        <LocalCouncilControlTile cycle={cycle} oblast={oblast} />
         <div className="grid gap-4 lg:grid-cols-2">
           {region.councilSeats.length > 0 ? (
             <StatCard

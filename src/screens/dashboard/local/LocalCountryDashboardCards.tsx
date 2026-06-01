@@ -26,6 +26,7 @@ import { LocalCrossCycleTile } from "./LocalCrossCycleTile";
 import { LocalExtraordinaryTile } from "./LocalExtraordinaryTile";
 import { LocalDemographicCleavagesTile } from "./LocalDemographicCleavagesTile";
 import { LocalVoteFlowTile } from "./LocalVoteFlowTile";
+import { LocalCouncilControlTile } from "./LocalCouncilControlTile";
 
 const isSofiaRayon = (code: string): boolean => /^S2\d{3}$/.test(code);
 
@@ -183,6 +184,7 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
 
       {/* Councils: the proportional party signal. */}
       <DashboardSection id="local-councils" title={t("local_sec_councils")}>
+        <LocalCouncilControlTile cycle={cycle} />
         <div className="grid gap-4 lg:grid-cols-2">
           <StatCard
             titleCase
