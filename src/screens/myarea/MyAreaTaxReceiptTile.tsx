@@ -170,7 +170,11 @@ export const MyAreaTaxReceiptTile: FC<{
   // Place-based municipal-return inputs. Both are small/cached: the ГРАО
   // slice is already fetched by PlaceHeader, and the oblast transfer shard is
   // a ~5-50 KB file shared with the region/município dashboards.
-  const oblastCode = oblast || oblastFromObshtina(obshtina) || undefined;
+  // Derive the transfer-shard oblast code from the obshtina prefix (the
+  // reliable source — see MyAreaMunicipalBudgetTile), not area.oblast, whose
+  // format varies in the municipalities data ("PDV" vs "PDV-00" vs "32").
+  const oblastCode =
+    oblastFromObshtina(obshtina) ?? oblast?.replace(/-\d+$/, "") ?? undefined;
   const { data: transfersShard } = useMunicipalTransfersForOblast(oblastCode);
   const { data: graoSlice } = useGraoMunicipalitySlice(obshtina);
 

@@ -41,6 +41,9 @@ import { MyAreaActionBand } from "./MyAreaActionBand";
 import { MyAreaGovernmentCard } from "./MyAreaGovernmentCard";
 import { MyAreaHistoryStrip } from "./MyAreaHistoryStrip";
 import { MyAreaLocalHistoryStrip } from "./MyAreaLocalHistoryStrip";
+import { MunicipalCapitalProjectsTiles } from "@/screens/dashboard/MunicipalCapitalProjectsTiles";
+import { IpopExecutionTile } from "@/screens/dashboard/IpopExecutionTile";
+import { CompaniesHqTile } from "@/screens/dashboard/CompaniesHqTile";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 
 export const MyAreaScreen: FC = () => {
@@ -259,6 +262,19 @@ export const MyAreaScreen: FC = () => {
             top items). Renders full-width on its own row so the calculator
             chrome and the multi-section body have room to breathe. */}
         <MyAreaTaxReceiptTile obshtina={area.obshtina} oblast={area.oblast} />
+
+        {/* The remaining canonical finance tiles, consolidated here so the
+            local-elections município page can drop its duplicate finances
+            block and just link across to /my-area: the full per-object +
+            per-district capital programme (the tax-receipt above carries only
+            a top-3 teaser), the МРРБ investment-programme (IPOP) execution,
+            and the MP-linked companies HQ'd in the município. Each self-hides
+            without data; all are obshtina-scoped, so a settlement view shows
+            its parent município's figures — same convention as the money
+            tiles above. */}
+        <MunicipalCapitalProjectsTiles obshtinaCode={area.obshtina} />
+        <IpopExecutionTile obshtinaCode={area.obshtina} />
+        <CompaniesHqTile kind="muni" obshtina={area.obshtina} />
 
         {/* Band F — Quality of life. A 4-up strip summarising
             crime / air / schools / services with one headline number

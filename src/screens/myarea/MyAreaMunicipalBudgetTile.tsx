@@ -122,7 +122,16 @@ export const MyAreaMunicipalBudgetTile: FC<Props> = ({ obshtina, oblast }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
 
-  const oblastCode = oblast || oblastFromObshtina(obshtina) || undefined;
+  // The transfer shards are keyed by the bare 3-letter oblast code
+  // ("PDV.json"). area.oblast can't be trusted for that — the municipalities
+  // data formats it inconsistently ("PDV" for most, but "PDV-00", "32",
+  // "S23" for a few), and those malformed values fetch a non-existent shard
+  // (silently hiding this tile). Derive from the obshtina code first — its
+  // 3-letter prefix always equals the shard name, same as the canonical
+  // MunicipalityTransfersTile — and only fall back to a suffix-stripped
+  // oblast prop.
+  const oblastCode =
+    oblastFromObshtina(obshtina) ?? oblast?.replace(/-\d+$/, "") ?? undefined;
   const { data: shard } = useMunicipalTransfersForOblast(oblastCode);
   const { data: graoSlice } = useGraoMunicipalitySlice(obshtina);
 

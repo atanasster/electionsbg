@@ -76,8 +76,12 @@ const MUNI_NAME_OVERRIDES: Record<string, string> = {
   // data/municipalities.json splits Stolichna into 24 раиони under
   // S23/S24/S25; IPOP treats it as one entity, so we mirror that).
   "SOF|Столична": "SOF22",
-  // Plovdiv city special code in our data.
-  "PDV|Пловдив": "PDV-00",
+  // Plovdiv city. Its record in data/municipalities.json is stored under the
+  // synthetic oblast key "PDV-00" (Plovdiv-city electoral district), not "PDV",
+  // so the OBLAST_NAME_TO_CODE-derived lookup ("PDV"|"Пловдив") misses. The
+  // обshtina code is "PDV22" (what every município page + the IpopExecutionTile
+  // request) — NOT the oblast code "PDV-00".
+  "PDV|Пловдив": "PDV22",
   // Spelling / case fixes.
   "DOB|Добричка": "DOB15", // Добрич-селска
   "SFO|Долна Баня": "SFO59", // Долна баня (lowercase б)
