@@ -25,7 +25,6 @@ import {
   ShieldAlert,
 } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
-import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import { useChmiHistory } from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
@@ -1026,58 +1025,19 @@ export const LocalRaceScreen: FC<{ race: "mayor" | "council" }> = ({
 // === Country overview ===================================================
 
 const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
-  const { t } = useTranslation();
-  const { data: index } = useLocalElectionIndex(cycle);
-  const realMunis = (index?.municipalities ?? []).filter(
-    (m) => !/^S2\d{3}$/.test(m.obshtinaCode),
-  );
-  const municipalityCount = realMunis.length;
-  const runoffCount = realMunis.filter((m) => m.hadRound2).length;
-  const hasSof =
-    index?.municipalities.some((m) => m.obshtinaCode === "SOF") ?? false;
-
   return (
     <section className="my-4 space-y-6">
+      {/* Header stays eyebrow + title + switcher only, matching the
+          parliamentary (/) and governance (/governance) country headers so
+          toggling the view pills doesn't jump the layout. The reconciliation /
+          extraordinary / Sofia cross-links that used to sit here are dropped:
+          /sverka lives in the reports menu, the extraordinary feed has its own
+          dashboard section below, and Sofia city-wide opens from its map tile. */}
       <PlaceHeader
         active="local"
         level="country"
         eyebrowSuffix={friendlyCycleDate(cycle)}
-        extra={
-          <div className="space-y-2">
-            {index ? (
-              <p className="text-xs text-muted-foreground tabular-nums">
-                {t("local_cycle_overview_municipalities", {
-                  count: municipalityCount,
-                })}{" "}
-                · {t("local_cycle_overview_runoffs", { count: runoffCount })}
-              </p>
-            ) : null}
-            <div className="flex flex-wrap gap-4">
-              <Link
-                to="/sverka"
-                className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-              >
-                {t("local_cycle_overview_sverka_link")}
-              </Link>
-              <Link
-                to="/local/chmi"
-                className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-              >
-                {t("chmi_feed_title")} →
-              </Link>
-              {hasSof ? (
-                <Link
-                  to={`/local/${cycle}/SOF`}
-                  className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-                >
-                  {t("local_cycle_overview_sof_link")}
-                </Link>
-              ) : null}
-            </div>
-          </div>
-        }
       />
-
       <LocalCountryDashboardCards cycle={cycle} />
     </section>
   );
