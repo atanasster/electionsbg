@@ -1,10 +1,12 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { ArticleLayout } from "@/components/article/ArticleLayout";
-import { proseClasses } from "@/components/article/proseClasses";
+import { Database, Download, History } from "lucide-react";
+import { Title } from "@/ux/Title";
+import { useHashScroll } from "@/ux/useHashScroll";
 import { Card, CardContent } from "@/ux/Card";
 import { Anchor } from "@/ux/Anchor";
+import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { DataSources } from "@/screens/components/DataSources";
 import {
   useDataChanges,
@@ -45,56 +47,54 @@ const NavPill: React.FC<{ href: string; children: React.ReactNode }> = ({
   </a>
 );
 
-const SectionHeading: React.FC<{ id: string; children: React.ReactNode }> = ({
-  id,
-  children,
-}) => (
-  <h2 id={id} className={`scroll-mt-24 ${proseClasses.h2}`}>
-    {children}
-  </h2>
-);
-
 export const DataScreen = () => {
   const { t } = useTranslation();
+  // Re-run on every render so a `#sources`/`#changes`/`#downloads` deep link
+  // catches up after the cards render asynchronously.
+  useHashScroll([]);
 
   return (
-    <ArticleLayout
-      title={t("data_title")}
-      description={t("data_description")}
-      breadcrumb={null}
-      seoType="website"
-    >
-      <nav className="mb-10 flex flex-wrap gap-2">
-        <NavPill href="#sources">{t("data_sources_heading")}</NavPill>
-        <NavPill href="#changes">{t("data_recent_changes_heading")}</NavPill>
-        <NavPill href="#downloads">{t("data_downloads_heading")}</NavPill>
-      </nav>
-
-      <section className="mb-14">
-        <SectionHeading id="sources">
-          {t("data_sources_heading")}
-        </SectionHeading>
-        <p className={`${proseClasses.p} mb-8`}>{t("data_sources_intro")}</p>
-        <DataSources />
-      </section>
-
-      <section className="mb-14">
-        <SectionHeading id="changes">
-          {t("data_recent_changes_heading")}
-        </SectionHeading>
-        <p className={`${proseClasses.p} mb-6`}>
-          {t("data_changes_description")}
+    <>
+      <Title description={t("data_description")}>{t("data_title")}</Title>
+      <div className="-mt-4 mb-6 flex flex-col items-center gap-4">
+        <p className="max-w-2xl text-center text-sm text-muted-foreground md:text-base">
+          {t("data_description")}
         </p>
-        <RecentChanges />
-      </section>
+        <nav className="flex flex-wrap justify-center gap-2">
+          <NavPill href="#sources">{t("data_sources_heading")}</NavPill>
+          <NavPill href="#changes">{t("data_recent_changes_heading")}</NavPill>
+          <NavPill href="#downloads">{t("data_downloads_heading")}</NavPill>
+        </nav>
+      </div>
 
-      <section>
-        <SectionHeading id="downloads">
-          {t("data_downloads_heading")}
-        </SectionHeading>
-        <Downloads />
+      <section aria-label={t("data_title")} className="my-4">
+        <DashboardSection
+          id="sources"
+          title={t("data_sources_heading")}
+          subtitle={t("data_sources_intro")}
+          icon={Database}
+        >
+          <DataSources />
+        </DashboardSection>
+
+        <DashboardSection
+          id="changes"
+          title={t("data_recent_changes_heading")}
+          subtitle={t("data_changes_description")}
+          icon={History}
+        >
+          <RecentChanges />
+        </DashboardSection>
+
+        <DashboardSection
+          id="downloads"
+          title={t("data_downloads_heading")}
+          icon={Download}
+        >
+          <Downloads />
+        </DashboardSection>
       </section>
-    </ArticleLayout>
+    </>
   );
 };
 
@@ -115,10 +115,10 @@ const RecentChanges = () => {
     );
 
   if (isLoading) {
-    return <p className={proseClasses.p}>{t("loading")}</p>;
+    return <p className="text-muted-foreground">{t("loading")}</p>;
   }
   if (groups.length === 0) {
-    return <p className={proseClasses.p}>{t("data_changes_empty")}</p>;
+    return <p className="text-muted-foreground">{t("data_changes_empty")}</p>;
   }
   return (
     <div className="space-y-8">
@@ -127,7 +127,7 @@ const RecentChanges = () => {
           <h3 className="scroll-mt-24 font-display text-xl md:text-2xl font-bold tracking-tight text-foreground">
             {formatDate(g.date)}
           </h3>
-          <div className="mt-4 grid grid-cols-1 gap-3">
+          <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3 items-start">
             {g.entries.map((e) => (
               <EntryCard key={`${e.timestamp}-${e.skill}`} entry={e} />
             ))}
@@ -182,58 +182,62 @@ const Downloads = () => {
   const linkClass =
     "text-accent underline underline-offset-4 decoration-accent/40 hover:decoration-accent transition-colors";
   return (
-    <div className="space-y-4">
-      <p className={proseClasses.p}>{t("data_downloads_intro")}</p>
-      <ul className="space-y-3">
-        <li className="flex items-start">
-          <span
-            aria-hidden
-            className="mr-2 mt-2 h-1.5 w-1.5 rounded-full bg-accent shrink-0"
-          />
-          <span>
-            <Anchor
-              href="https://creativecommons.org/licenses/by/4.0/"
-              target="_blank"
-              rel="noreferrer"
-              className={linkClass}
-            >
-              {t("data_downloads_license_label")}
-            </Anchor>
-            {" — "}
-            {t("data_downloads_license_note")}
-          </span>
-        </li>
-        <li className="flex items-start">
-          <span
-            aria-hidden
-            className="mr-2 mt-2 h-1.5 w-1.5 rounded-full bg-accent shrink-0"
-          />
-          <span>
-            <Anchor
-              href={REPO_URL}
-              target="_blank"
-              rel="noreferrer"
-              className={linkClass}
-            >
-              {t("data_downloads_repo_label")}
-            </Anchor>
-            {" — "}
-            {t("data_downloads_repo_note")}
-          </span>
-        </li>
-        <li className="flex items-start">
-          <span
-            aria-hidden
-            className="mr-2 mt-2 h-1.5 w-1.5 rounded-full bg-accent shrink-0"
-          />
-          <span>
-            {t("data_downloads_json_note")}{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 text-[13px]">
-              {BUCKET_URL}/&lt;YYYY_MM_DD&gt;/cik_parties.json
-            </code>
-          </span>
-        </li>
-      </ul>
-    </div>
+    <Card>
+      <CardContent className="p-5 md:p-6 space-y-4">
+        <p className="text-sm md:text-base text-muted-foreground">
+          {t("data_downloads_intro")}
+        </p>
+        <ul className="space-y-3">
+          <li className="flex items-start">
+            <span
+              aria-hidden
+              className="mr-2 mt-2 h-1.5 w-1.5 rounded-full bg-accent shrink-0"
+            />
+            <span>
+              <Anchor
+                href="https://creativecommons.org/licenses/by/4.0/"
+                target="_blank"
+                rel="noreferrer"
+                className={linkClass}
+              >
+                {t("data_downloads_license_label")}
+              </Anchor>
+              {" — "}
+              {t("data_downloads_license_note")}
+            </span>
+          </li>
+          <li className="flex items-start">
+            <span
+              aria-hidden
+              className="mr-2 mt-2 h-1.5 w-1.5 rounded-full bg-accent shrink-0"
+            />
+            <span>
+              <Anchor
+                href={REPO_URL}
+                target="_blank"
+                rel="noreferrer"
+                className={linkClass}
+              >
+                {t("data_downloads_repo_label")}
+              </Anchor>
+              {" — "}
+              {t("data_downloads_repo_note")}
+            </span>
+          </li>
+          <li className="flex items-start">
+            <span
+              aria-hidden
+              className="mr-2 mt-2 h-1.5 w-1.5 rounded-full bg-accent shrink-0"
+            />
+            <span>
+              {t("data_downloads_json_note")}{" "}
+              <code className="rounded bg-muted px-1.5 py-0.5 text-[13px]">
+                {BUCKET_URL}/&lt;YYYY_MM_DD&gt;/cik_parties.json
+              </code>
+            </span>
+          </li>
+        </ul>
+      </CardContent>
+    </Card>
   );
 };

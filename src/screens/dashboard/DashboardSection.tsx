@@ -35,7 +35,10 @@ type Props = {
     | "local-trends"
     | "local-extraordinary"
     | "local-history"
-    | "local-overview";
+    | "local-overview"
+    | "sources"
+    | "changes"
+    | "downloads";
   title?: ReactNode;
   subtitle?: ReactNode;
   icon?: LucideIcon;

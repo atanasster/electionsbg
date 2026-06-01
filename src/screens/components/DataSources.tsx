@@ -127,7 +127,7 @@ const campaignFinancing: { date: string; href: string }[] = [
   },
 ];
 
-const gridClass = "mt-6 grid gap-6 md:grid-cols-2 items-start";
+const gridClass = "mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3 items-start";
 
 export const DataSources = () => {
   const { t } = useTranslation();
