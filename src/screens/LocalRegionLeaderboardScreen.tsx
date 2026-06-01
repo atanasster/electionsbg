@@ -46,7 +46,7 @@ export const LocalRegionLeaderboardScreen: FC<{
         : info.long_name_en || info.name_en) || oblast;
 
   return (
-    <main className="container mx-auto px-4 py-6 space-y-6">
+    <section className="my-4 space-y-6">
       <div className="text-xs text-muted-foreground">
         <Link
           to={`/local/${cycle}/region/${oblast}`}
@@ -66,6 +66,6 @@ export const LocalRegionLeaderboardScreen: FC<{
       ) : (
         <LocalRegionCouncilSeatsTile cycle={cycle} oblast={oblast} />
       )}
-    </main>
+    </section>
   );
 };

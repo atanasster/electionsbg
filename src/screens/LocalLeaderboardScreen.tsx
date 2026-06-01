@@ -54,7 +54,7 @@ export const LocalLeaderboardScreen: FC<{ view: LocalLeaderboardView }> = ({
   if (!cycle) return null;
 
   return (
-    <main className="container mx-auto px-4 py-6 space-y-6">
+    <section className="my-4 space-y-6">
       <div className="text-xs text-muted-foreground">
         <Link to={`/local/${cycle}`} className="hover:underline">
           {t("local_election_screen_back")}
@@ -75,6 +75,6 @@ export const LocalLeaderboardScreen: FC<{ view: LocalLeaderboardView }> = ({
       ) : (
         <LocalSwingTile />
       )}
-    </main>
+    </section>
   );
 };

@@ -20,10 +20,10 @@ export const ProblemSectionDetail: FC = () => {
 
   if (!neighborhood) {
     return (
-      <div className="w-full px-4 md:px-8">
+      <>
         <H1>{t("problem_sections")}</H1>
         <ErrorSection title={t("problem_sections_not_available")} />
-      </div>
+      </>
     );
   }
 
@@ -32,7 +32,7 @@ export const ProblemSectionDetail: FC = () => {
   const title = `${name} · ${city}`;
 
   return (
-    <div className="w-full">
+    <>
       <SEO
         title={`${name} — ${t("problem_sections")}`}
         description={`${name}, ${city}: ${t("problem_sections_description")}`}
@@ -45,23 +45,21 @@ export const ProblemSectionDetail: FC = () => {
           "купен вот",
         ]}
       />
-      <div className="px-4 md:px-8">
-        <H1>{title}</H1>
-        <div className="flex items-center justify-center gap-3 pb-2 text-sm text-muted-foreground">
-          <span>
-            {neighborhood.sections.length} {t("dashboard_sections")}
-          </span>
-          <a
-            href={neighborhood.source_url}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1 text-primary hover:underline"
-          >
-            {t("source")} <ExternalLink className="h-3 w-3" />
-          </a>
-        </div>
-        <ProblemSectionDashboardCards neighborhood={neighborhood} />
+      <H1>{title}</H1>
+      <div className="flex items-center justify-center gap-3 pb-2 text-sm text-muted-foreground">
+        <span>
+          {neighborhood.sections.length} {t("dashboard_sections")}
+        </span>
+        <a
+          href={neighborhood.source_url}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1 text-primary hover:underline"
+        >
+          {t("source")} <ExternalLink className="h-3 w-3" />
+        </a>
       </div>
-    </div>
+      <ProblemSectionDashboardCards neighborhood={neighborhood} />
+    </>
   );
 };

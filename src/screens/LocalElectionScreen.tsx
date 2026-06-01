@@ -661,7 +661,7 @@ const MunicipalityResults: FC<{
 
   if (!municipality) {
     return (
-      <main className="container mx-auto px-4 py-6 space-y-4">
+      <section className="my-4 space-y-4">
         <div className="text-xs text-muted-foreground">
           <Link to={`/local/${cycle}`} className="hover:underline">
             {t("local_election_screen_back")}
@@ -671,7 +671,7 @@ const MunicipalityResults: FC<{
         <p className="text-sm text-muted-foreground">
           {t("local_election_no_data")}
         </p>
-      </main>
+      </section>
     );
   }
 
@@ -689,7 +689,7 @@ const MunicipalityResults: FC<{
     : t("local_election_sec_mayor_obshtina");
 
   return (
-    <main className="container mx-auto px-4 py-6">
+    <section className="my-4">
       {/* Unified place header. Sofia city aggregate keeps a single
           "→ parliamentary" pill (it maps to /sofia) in place of the
           three-way switcher; every real município + Sofia район gets the
@@ -848,7 +848,7 @@ const MunicipalityResults: FC<{
           </DashboardSection>
         </>
       ) : null}
-    </main>
+    </section>
   );
 };
 
@@ -866,7 +866,7 @@ const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
     index?.municipalities.some((m) => m.obshtinaCode === "SOF") ?? false;
 
   return (
-    <main className="container mx-auto px-4 py-6 space-y-6">
+    <section className="my-4 space-y-6">
       <header>
         <div className="flex items-start justify-between gap-3">
           <h1 className="text-2xl font-semibold">
@@ -907,7 +907,7 @@ const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
       </header>
 
       <LocalCountryDashboardCards cycle={cycle} />
-    </main>
+    </section>
   );
 };
 

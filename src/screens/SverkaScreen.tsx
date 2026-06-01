@@ -124,19 +124,19 @@ export const SverkaScreen: FC = () => {
 
   if (!data) {
     return (
-      <main className="container mx-auto px-4 py-6">
+      <section className="my-4">
         <h1 className="text-2xl font-semibold">{t("sverka_title")}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {t("local_election_no_data")}
         </p>
-      </main>
+      </section>
     );
   }
 
   const s = data.summary;
 
   return (
-    <main className="container mx-auto px-4 py-6">
+    <section className="my-4">
       <h1 className="text-2xl font-semibold">{t("sverka_title")}</h1>
       <p className="mt-2 text-sm text-muted-foreground">{t("sverka_intro")}</p>
       <p className="mt-1 text-xs text-muted-foreground tabular-nums">
@@ -227,6 +227,6 @@ export const SverkaScreen: FC = () => {
           </tbody>
         </table>
       </div>
-    </main>
+    </section>
   );
 };

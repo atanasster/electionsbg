@@ -16,7 +16,7 @@ export const LocalAllRegionsScreen: FC = () => {
   const { t } = useTranslation();
   if (!cycle) return null;
   return (
-    <main className="container mx-auto px-4 py-6 space-y-6">
+    <section className="my-4 space-y-6">
       <div className="text-xs text-muted-foreground">
         <Link to={`/local/${cycle}`} className="hover:underline">
           {t("local_election_screen_back")}
@@ -26,6 +26,6 @@ export const LocalAllRegionsScreen: FC = () => {
       </div>
       <h1 className="text-2xl font-semibold">{t("local_all_regions")}</h1>
       <LocalRegionsTable cycle={cycle} />
-    </main>
+    </section>
   );
 };

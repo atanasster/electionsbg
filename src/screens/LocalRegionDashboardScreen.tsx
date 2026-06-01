@@ -37,7 +37,7 @@ export const LocalRegionDashboardScreen: FC = () => {
       : oblast;
 
   return (
-    <main className="container mx-auto px-4 py-6 space-y-6">
+    <section className="my-4 space-y-6">
       <div className="flex items-center justify-between gap-3">
         <div className="text-xs text-muted-foreground">
           <Link to={`/local/${cycle}`} className="hover:underline">
@@ -50,6 +50,6 @@ export const LocalRegionDashboardScreen: FC = () => {
       </div>
       <h1 className="text-2xl font-semibold">{name}</h1>
       <LocalRegionDashboardCards cycle={cycle} oblast={oblast} />
-    </main>
+    </section>
   );
 };

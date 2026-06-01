@@ -34,7 +34,7 @@ export const LocalSettlementDashboardScreen: FC = () => {
   const muniName = muni ? (bg ? muni.name : muni.name_en || muni.name) : null;
 
   return (
-    <main className="container mx-auto px-4 py-6 space-y-6">
+    <section className="my-4 space-y-6">
       <PlaceHeader
         active="local"
         level="settlement"
@@ -56,6 +56,6 @@ export const LocalSettlementDashboardScreen: FC = () => {
         }
       />
       <LocalSettlementDashboardCards ekatte={ekatte} cycle={cycle} />
-    </main>
+    </section>
   );
 };

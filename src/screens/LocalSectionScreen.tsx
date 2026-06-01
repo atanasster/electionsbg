@@ -67,7 +67,7 @@ export const LocalSectionScreen: FC = () => {
 
   if (!isLoading && !section) {
     return (
-      <main className="container mx-auto px-4 py-6">
+      <section className="my-4">
         {back}
         <h1 className="mb-1 text-2xl font-semibold">
           {t("local_section_page_title", { code: sectionCode })}
@@ -75,7 +75,7 @@ export const LocalSectionScreen: FC = () => {
         <p className="text-sm text-muted-foreground">
           {t("local_section_not_found")}
         </p>
-      </main>
+      </section>
     );
   }
 
@@ -86,7 +86,7 @@ export const LocalSectionScreen: FC = () => {
   const leaderVotes = bars[0]?.votes ?? 0;
 
   return (
-    <main className="container mx-auto px-4 py-6">
+    <section className="my-4">
       {back}
       <h1 className="mb-1 flex flex-wrap items-center gap-2 text-2xl font-semibold tabular-nums">
         {t("local_section_page_title", { code: sectionCode })}
@@ -162,6 +162,6 @@ export const LocalSectionScreen: FC = () => {
       ) : (
         <p className="text-sm text-muted-foreground">{t("loading")}</p>
       )}
-    </main>
+    </section>
   );
 };

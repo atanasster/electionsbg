@@ -375,7 +375,7 @@ export const LocalMunicipalityListScreen: FC<{
   const showOblast = !isRegional;
 
   return (
-    <main className="container mx-auto px-4 py-6 space-y-6">
+    <section className="my-4 space-y-6">
       <div className="text-xs text-muted-foreground">
         <Link to={backTo} className="hover:underline">
           {t("local_election_screen_back")}
@@ -418,6 +418,6 @@ export const LocalMunicipalityListScreen: FC<{
           markRunoff={list === "all"}
         />
       )}
-    </main>
+    </section>
   );
 };

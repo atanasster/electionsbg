@@ -59,39 +59,35 @@ export const ProblemSections = () => {
     // this the page is empty until data resolves, then injects ~1500px of
     // content — a sitewide CLS source on this report.
     return (
-      <div className="w-full">
-        <div className="px-4 md:px-8">
-          <H1>{title}</H1>
-          <div className="min-h-[1200px]" />
-        </div>
-      </div>
+      <>
+        <H1>{title}</H1>
+        <div className="min-h-[1200px]" />
+      </>
     );
   }
 
   if (!data || !data.neighborhoods.length) {
     return (
-      <div className="w-full px-4 md:px-8">
+      <>
         <H1>{title}</H1>
         <ErrorSection title={t("problem_sections_not_available")} />
-      </div>
+      </>
     );
   }
 
   return (
-    <div className="w-full">
+    <>
       <SEO
         title={title}
         description="Polling sections in Bulgarian Roma neighborhoods widely reported as vote-buying risk areas"
         keywords={["roma", "vote buying", "problem sections", "купен вот"]}
       />
-      <div className="px-4 md:px-8">
-        <H1>{title}</H1>
-        <p className="text-sm text-muted-foreground text-center pb-4 max-w-3xl mx-auto">
-          {t("problem_sections_description")}
-        </p>
-        <NeighborhoodsLegend neighborhoods={data.neighborhoods} />
-        <ProblemSectionDashboardCards />
-      </div>
-    </div>
+      <H1>{title}</H1>
+      <p className="text-sm text-muted-foreground text-center pb-4 max-w-3xl mx-auto">
+        {t("problem_sections_description")}
+      </p>
+      <NeighborhoodsLegend neighborhoods={data.neighborhoods} />
+      <ProblemSectionDashboardCards />
+    </>
   );
 };

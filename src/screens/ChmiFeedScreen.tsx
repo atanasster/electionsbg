@@ -89,7 +89,7 @@ export const ChmiFeedScreen: FC = () => {
   }, [events]);
 
   return (
-    <main className="container mx-auto px-4 py-6">
+    <section className="my-4">
       <h1 className="text-2xl font-semibold">{t("chmi_feed_title")}</h1>
       <p className="mt-2 text-sm text-muted-foreground">
         {t("chmi_feed_intro")}
@@ -276,6 +276,6 @@ export const ChmiFeedScreen: FC = () => {
           </tbody>
         </table>
       </div>
-    </main>
+    </section>
   );
 };
