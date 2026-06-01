@@ -21,11 +21,11 @@ export const Footer = () => {
         </li>
         <li>
           <Link
-            to="/data-changes"
+            to="/data"
             underline={false}
             className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
           >
-            {t("data_changes_title")}
+            {t("data_title")}
           </Link>
         </li>
         <li>

@@ -1,5 +1,11 @@
 import { FC, lazy, PropsWithChildren, Suspense, useEffect } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import { Layout } from "./layout/Layout";
 import { CabinetAnchorProvider } from "@/data/macro/cabinetAnchorContext";
 import { AreaAnchorProvider } from "@/data/area/AreaAnchorProvider";
@@ -59,9 +65,9 @@ const SectionRecountScreen = lazy(() =>
 const AboutScreen = lazy(() =>
   import("./screens/AboutScreen").then((m) => ({ default: m.AboutScreen })),
 );
-const DataChangesScreen = lazy(() =>
-  import("./screens/DataChangesScreen").then((m) => ({
-    default: m.DataChangesScreen,
+const DataScreen = lazy(() =>
+  import("./screens/DataScreen").then((m) => ({
+    default: m.DataScreen,
   })),
 );
 // Local-elections stub — step 1 placeholder. Hosts both the cycle
@@ -1126,12 +1132,16 @@ export const AuthRoutes = () => {
             }
           />
           <Route
-            path="data-changes"
+            path="data"
             element={
               <LayoutScreen>
-                <DataChangesScreen />
+                <DataScreen />
               </LayoutScreen>
             }
+          />
+          <Route
+            path="data-changes"
+            element={<Navigate to="/data" replace />}
           />
           <Route
             path="local/:cycle"

@@ -46,6 +46,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import {
   buildBreadcrumbLd,
+  buildDataCatalogLd,
   buildDatasetLd,
   buildOrganizationLd,
   buildWebPageLd,
@@ -125,11 +126,20 @@ type StaticPageOpts = {
   breadcrumbName: string;
   bodyHtml?: string;
   ogImage?: string;
+  // When set, <link rel="canonical"> points here instead of the page's own URL
+  // (and hreflang alternates are suppressed). Used by /data-changes to
+  // consolidate signal onto the /data hub it now redirects to.
+  canonicalUrl?: string;
+  // Extra JSON-LD appended after the WebPage + BreadcrumbList nodes (e.g. a
+  // DataCatalog on /data).
+  extraJsonLd?: object[];
   english?: {
     title: string;
     description: string;
     breadcrumbName: string;
     bodyHtml?: string;
+    canonicalUrl?: string;
+    extraJsonLd?: object[];
   };
 };
 
@@ -142,6 +152,7 @@ const staticPage = (opts: StaticPageOpts): PrerenderRoute => {
     description: opts.description,
     ogImage: opts.ogImage,
     bodyHtml: opts.bodyHtml,
+    ...(opts.canonicalUrl ? { canonicalUrl: opts.canonicalUrl } : {}),
     jsonLd: [
       buildWebPageLd({
         title: opts.title,
@@ -152,6 +163,7 @@ const staticPage = (opts: StaticPageOpts): PrerenderRoute => {
         { name: "Начало", url: `${SITE_URL}/` },
         { name: opts.breadcrumbName, url },
       ]),
+      ...(opts.extraJsonLd ?? []),
     ],
     ...(opts.english
       ? {
@@ -159,6 +171,9 @@ const staticPage = (opts: StaticPageOpts): PrerenderRoute => {
             title: opts.english.title,
             description: opts.english.description,
             bodyHtml: opts.english.bodyHtml,
+            ...(opts.english.canonicalUrl
+              ? { canonicalUrl: opts.english.canonicalUrl }
+              : {}),
             jsonLd: [
               buildWebPageLd({
                 title: opts.english.title,
@@ -169,12 +184,265 @@ const staticPage = (opts: StaticPageOpts): PrerenderRoute => {
                 { name: "Home", url: `${SITE_URL}/en/` },
                 { name: opts.english.breadcrumbName, url: enUrl },
               ]),
+              ...(opts.english.extraJsonLd ?? []),
             ],
           },
         }
       : {}),
   };
 };
+
+// Headline datasets the site publishes for download, surfaced as a schema.org
+// DataCatalog on /data so Google Dataset Search can ingest them. Distribution
+// URLs point at the public GCS bucket (DATA_URL) the app itself fetches from.
+const LATEST_ELECTION = (() => {
+  try {
+    return getLatestElection(ELECTIONS_FILE);
+  } catch {
+    return "2026_04_19";
+  }
+})();
+
+type CatalogLang = {
+  name: string;
+  description: string;
+  distName: string;
+  keywords: string[];
+};
+type CatalogSpec = {
+  page: string; // path after the site root ("" = home)
+  dist: string; // path after DATA_URL
+  bg: CatalogLang;
+  en: CatalogLang;
+};
+
+const CATALOG_SPECS: CatalogSpec[] = [
+  {
+    page: "",
+    dist: `/${LATEST_ELECTION}/cik_parties.json`,
+    bg: {
+      name: "Парламентарни избори — резултати по партии",
+      description:
+        "Гласове и проценти по партии за всички парламентарни избори в България от 2005 г. насам, по области, общини, населени места и секции.",
+      distName: "Резултати по партии (JSON)",
+      keywords: ["парламентарни избори", "резултати", "България"],
+    },
+    en: {
+      name: "Parliamentary elections — results by party",
+      description:
+        "Votes and percentages by party for every Bulgarian parliamentary election since 2005, broken down by region, municipality, settlement and polling section.",
+      distName: "Results by party (JSON)",
+      keywords: ["parliamentary elections", "results", "Bulgaria"],
+    },
+  },
+  {
+    page: "local/2023_10_29_mi",
+    dist: "/2023_10_29_mi/index.json",
+    bg: {
+      name: "Местни избори — резултати",
+      description:
+        "Резултати за общински съветници и кметове от местните избори, по общини и населени места.",
+      distName: "Национални обобщения (JSON)",
+      keywords: ["местни избори", "кметове", "общински съвети"],
+    },
+    en: {
+      name: "Local elections — results",
+      description:
+        "Council and mayoral results from the local elections, by municipality and settlement.",
+      distName: "National rollups (JSON)",
+      keywords: ["local elections", "mayors", "municipal councils"],
+    },
+  },
+  {
+    page: "parliament",
+    dist: "/parliament/votes/index.json",
+    bg: {
+      name: "Поименни гласувания в Народното събрание",
+      description:
+        "Поименни гласувания по сесии с показатели за лоялност, кохезия и сходство по парламентарни групи.",
+      distName: "Индекс на гласуванията (JSON)",
+      keywords: ["поименни гласувания", "Народно събрание", "лоялност"],
+    },
+    en: {
+      name: "Parliament roll-call votes",
+      description:
+        "Roll-call votes by session with loyalty, cohesion and group-similarity metrics.",
+      distName: "Votes index (JSON)",
+      keywords: ["roll-call votes", "parliament", "loyalty"],
+    },
+  },
+  {
+    page: "parliament",
+    dist: "/parliament/connections.json",
+    bg: {
+      name: "Народни представители и бизнес връзки",
+      description:
+        "Профили на народните представители и граф на бизнес връзките им от имуществените декларации и Търговския регистър.",
+      distName: "Граф на връзките (JSON)",
+      keywords: ["народни представители", "декларации", "бизнес интереси"],
+    },
+    en: {
+      name: "MPs and business connections",
+      description:
+        "MP profiles and a graph of their business connections from asset declarations and the Commerce Registry.",
+      distName: "Connections graph (JSON)",
+      keywords: ["members of parliament", "declarations", "business interests"],
+    },
+  },
+  {
+    page: "financing",
+    dist: "/financing/reports.json",
+    bg: {
+      name: "Финансиране на партии",
+      description:
+        "Годишни финансови отчети на партиите от Сметната палата — статус на подаване по години.",
+      distName: "Каталог на отчетите (JSON)",
+      keywords: ["финансиране", "партии", "Сметна палата"],
+    },
+    en: {
+      name: "Party financing",
+      description:
+        "Party annual financial reports from the Court of Audit — filing status by year.",
+      distName: "Reports catalogue (JSON)",
+      keywords: ["financing", "parties", "Court of Audit"],
+    },
+  },
+  {
+    page: "governments",
+    dist: "/governments.json",
+    bg: {
+      name: "Правителства на България",
+      description: "Състав и продължителност на българските правителства.",
+      distName: "Правителства (JSON)",
+      keywords: ["правителства", "кабинети", "България"],
+    },
+    en: {
+      name: "Governments of Bulgaria",
+      description: "Composition and tenure of Bulgarian governments.",
+      distName: "Governments (JSON)",
+      keywords: ["governments", "cabinets", "Bulgaria"],
+    },
+  },
+  {
+    page: "demographics",
+    dist: "/census_2021.json",
+    bg: {
+      name: "Преброяване 2021",
+      description:
+        "Демографски данни от Преброяване 2021 на НСИ — по области, общини и населени места.",
+      distName: "Преброяване 2021 (JSON)",
+      keywords: ["преброяване", "демография", "НСИ"],
+    },
+    en: {
+      name: "Census 2021",
+      description:
+        "Demographic data from the NSI Census 2021 — by region, municipality and settlement.",
+      distName: "Census 2021 (JSON)",
+      keywords: ["census", "demographics", "NSI"],
+    },
+  },
+  {
+    page: "indicators",
+    dist: "/macro.json",
+    bg: {
+      name: "Макроикономически индикатори",
+      description:
+        "Времеви редове за макроикономически индикатори от Евростат, Световната банка и НСИ.",
+      distName: "Макро индикатори (JSON)",
+      keywords: ["макроикономика", "Евростат", "индикатори"],
+    },
+    en: {
+      name: "Macroeconomic indicators",
+      description:
+        "Time series of macroeconomic indicators from Eurostat, the World Bank and the NSI.",
+      distName: "Macro indicators (JSON)",
+      keywords: ["macroeconomics", "Eurostat", "indicators"],
+    },
+  },
+  {
+    page: "indicators/economy",
+    dist: "/regional.json",
+    bg: {
+      name: "Регионални индикатори (NUTS 3)",
+      description:
+        "Регионални индикатори по области — БВП на човек, население и нетна миграция от Евростат.",
+      distName: "Регионални индикатори (JSON)",
+      keywords: ["региони", "NUTS 3", "БВП"],
+    },
+    en: {
+      name: "Regional indicators (NUTS 3)",
+      description:
+        "Sub-national indicators by region — GDP per capita, population and net migration from Eurostat.",
+      distName: "Regional indicators (JSON)",
+      keywords: ["regions", "NUTS 3", "GDP"],
+    },
+  },
+  {
+    page: "funds",
+    dist: "/funds/index.json",
+    bg: {
+      name: "Европейски фондове (ИСУН)",
+      description:
+        "Бенефициенти и договори по европейските фондове от публичния регистър ИСУН.",
+      distName: "ЕС фондове (JSON)",
+      keywords: ["еврофондове", "ИСУН", "бенефициенти"],
+    },
+    en: {
+      name: "EU funds (ISUN)",
+      description:
+        "Beneficiaries and contracts under the EU funds from the public ISUN register.",
+      distName: "EU funds (JSON)",
+      keywords: ["EU funds", "ISUN", "beneficiaries"],
+    },
+  },
+  {
+    page: "procurement",
+    dist: "/procurement/index.json",
+    bg: {
+      name: "Обществени поръчки (АОП)",
+      description:
+        "Обществени поръчки от Агенцията по обществени поръчки — възложители, изпълнители и суми.",
+      distName: "Поръчки (JSON)",
+      keywords: ["обществени поръчки", "АОП", "договори"],
+    },
+    en: {
+      name: "Public procurement (AOP)",
+      description:
+        "Public procurement from the Public Procurement Agency — buyers, contractors and amounts.",
+      distName: "Procurement (JSON)",
+      keywords: ["public procurement", "AOP", "contracts"],
+    },
+  },
+];
+
+const buildDataCatalog = (lang: "bg" | "en") =>
+  buildDataCatalogLd({
+    name:
+      lang === "bg"
+        ? "Отворени данни за изборите и управлението в България"
+        : "Open data on Bulgarian elections and governance",
+    description:
+      lang === "bg"
+        ? "Каталог на наборите от данни, които electionsbg.com публикува за свободно изтегляне — резултати от избори, гласувания, декларации, финансиране, бюджет и индикатори."
+        : "Catalog of the datasets electionsbg.com publishes for free download — election results, roll-call votes, declarations, financing, budget, and indicators.",
+    url: `${SITE_URL}/${lang === "en" ? "en/data" : "data"}`,
+    datasets: CATALOG_SPECS.map((s) =>
+      buildDatasetLd({
+        name: s[lang].name,
+        description: s[lang].description,
+        url: `${SITE_URL}/${lang === "en" ? "en/" : ""}${s.page}`,
+        spatialCoverage: lang === "bg" ? "България" : "Bulgaria",
+        keywords: s[lang].keywords,
+        distribution: [
+          {
+            url: `${DATA_URL}${s.dist}`,
+            format: "application/json",
+            name: s[lang].distName,
+          },
+        ],
+      }),
+    ),
+  });
 
 export const prerenderRoutes: PrerenderRoute[] = [
   {
@@ -997,12 +1265,53 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "data",
+    title: "Данни — източници, обновявания и изтегляне | electionsbg.com",
+    description:
+      "Източниците на данни на electionsbg.com, дневникът на обновяванията и връзки за изтегляне на готовите набори от данни — на едно място.",
+    breadcrumbName: "Данни",
+    ogImage: "/og/data-changes.png",
+    extraJsonLd: [buildDataCatalog("bg")],
+    bodyHtml: `
+<h1>Данни на electionsbg.com</h1>
+<p>На една страница: източниците на данни зад платформата, дневникът на обновяванията и връзки за изтегляне на готовите набори от данни. Обработените данни са свободни за преизползване под лиценз Creative Commons BY 4.0.</p>
+<h2>Какво се публикува</h2>
+<ul>
+<li><a href="${SITE_URL}/">Парламентарни избори</a> — резултати по партии, области, общини, населени места и секции.</li>
+<li><a href="${SITE_URL}/local/2023_10_29_mi">Местни избори</a> — общински съветници и кметове.</li>
+<li><a href="${SITE_URL}/parliament">Народно събрание</a> — поименни гласувания и бизнес връзки на народните представители.</li>
+<li><a href="${SITE_URL}/financing">Финансиране на партии</a> и <a href="${SITE_URL}/governments">правителства</a>.</li>
+<li><a href="${SITE_URL}/indicators">Макроикономически</a> и <a href="${SITE_URL}/indicators/economy">регионални индикатори</a>, <a href="${SITE_URL}/demographics">демография</a>.</li>
+<li><a href="${SITE_URL}/funds">Европейски фондове</a> и <a href="${SITE_URL}/procurement">обществени поръчки</a>.</li>
+</ul>`.trim(),
+    english: {
+      title: "Data — sources, updates and downloads | electionsbg.com",
+      description:
+        "The data sources behind electionsbg.com, the refresh log, and download links for the ready-made datasets — all in one place.",
+      breadcrumbName: "Data",
+      extraJsonLd: [buildDataCatalog("en")],
+      bodyHtml: `
+<h1>Data on electionsbg.com</h1>
+<p>One page for the data sources behind the platform, the public refresh log, and download links for the ready-made datasets. The processed data is free to reuse under a Creative Commons BY 4.0 licence.</p>
+<h2>What is published</h2>
+<ul>
+<li><a href="${SITE_URL}/en/">Parliamentary elections</a> — results by party, region, municipality, settlement and section.</li>
+<li><a href="${SITE_URL}/en/local/2023_10_29_mi">Local elections</a> — municipal councillors and mayors.</li>
+<li><a href="${SITE_URL}/en/parliament">Parliament</a> — roll-call votes and MP business connections.</li>
+<li><a href="${SITE_URL}/en/financing">Party financing</a> and <a href="${SITE_URL}/en/governments">governments</a>.</li>
+<li><a href="${SITE_URL}/en/indicators">Macroeconomic</a> and <a href="${SITE_URL}/en/indicators/economy">regional indicators</a>, <a href="${SITE_URL}/en/demographics">demographics</a>.</li>
+<li><a href="${SITE_URL}/en/funds">EU funds</a> and <a href="${SITE_URL}/en/procurement">public procurement</a>.</li>
+</ul>`.trim(),
+    },
+  }),
+  staticPage({
     path: "data-changes",
     title: "Промени в данните на electionsbg.com | electionsbg.com",
     description:
       "Дневник на обновяванията — кога и какво е обновено в наборите от данни на сайта: парламентарни гласувания, имуществени декларации, социологически проучвания, макро и регионални индикатори.",
     breadcrumbName: "Промени в данните",
     ogImage: "/og/data-changes.png",
+    canonicalUrl: `${SITE_URL}/data`,
     bodyHtml: `
 <h1>Промени в данните на electionsbg.com</h1>
 <p>Сайтът публикува редовно нови или актуализирани набори от данни — от парламентарни гласувания и имуществени декларации на народните представители до макроикономически и регионални индикатори. Тази страница е публичният дневник на тези обновявания: коя дата кое е било подменено и накъде може да се отиде, за да се види то в действие.</p>
@@ -1021,6 +1330,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
       description:
         "Public update log — when and what was refreshed in the site's datasets: roll-call votes, MP property declarations, polling, macro and regional indicators.",
       breadcrumbName: "Data changes",
+      canonicalUrl: `${SITE_URL}/en/data`,
       bodyHtml: `
 <h1>Data changes on electionsbg.com</h1>
 <p>The site regularly publishes new or updated datasets — from parliamentary roll-call votes and MP property declarations through macroeconomic and regional indicators. This page is the public log of those refreshes: on which date what was replaced, and where to look to see it in action.</p>

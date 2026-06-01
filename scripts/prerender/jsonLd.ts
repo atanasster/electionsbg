@@ -95,6 +95,33 @@ export const buildDatasetLd = (params: {
     : {}),
 });
 
+// DataCatalog wraps the headline datasets the site publishes for download into
+// a single node Google Dataset Search can ingest as one catalog. Children are
+// full Dataset objects (built via buildDatasetLd) with their @context stripped
+// — a DataCatalog's `dataset` entries live in the catalog's own graph, so a
+// repeated @context per child is noise.
+export const buildDataCatalogLd = (params: {
+  name: string;
+  description: string;
+  url: string;
+  datasets: object[];
+}) => ({
+  "@context": "https://schema.org",
+  "@type": "DataCatalog",
+  "@id": `${SITE_URL}/#datacatalog`,
+  name: params.name,
+  description: params.description,
+  url: params.url,
+  publisher: ORG_REF,
+  inLanguage: ["bg", "en"],
+  license: "https://creativecommons.org/licenses/by/4.0/",
+  dataset: params.datasets.map((d) => {
+    const copy: Record<string, unknown> = { ...(d as Record<string, unknown>) };
+    delete copy["@context"];
+    return copy;
+  }),
+});
+
 export const buildPersonLd = (params: {
   name: string;
   url: string;
