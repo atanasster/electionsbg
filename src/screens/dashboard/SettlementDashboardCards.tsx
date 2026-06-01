@@ -1,13 +1,11 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle, Building2, Gauge, Landmark, Map } from "lucide-react";
+import { AlertTriangle, Building2, Gauge, Map } from "lucide-react";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useSettlementSummary } from "@/data/dashboard/useSettlementSummary";
 import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
-import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useSettlementStats } from "@/data/settlements/useSettlementStats";
-import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
 import { useProblemSections } from "@/data/reports/useProblemSections";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
@@ -26,12 +24,10 @@ import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
 import { DashboardSection } from "./DashboardSection";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
-import { LocalContextTile } from "./LocalContextTile";
 
 const SECTION_TOPICS: readonly DashboardSectionId[] = [
   "votes",
   "geography",
-  "local_government",
   "anomalies",
   "neighborhoods",
 ];
@@ -63,7 +59,6 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
   const { electionStats } = useElectionContext();
   const { data, isLoading } = useSettlementSummary(ekatte);
   const { settlement } = useSettlementVotes(ekatte);
-  const { findSettlement } = useSettlementsInfo();
   const { stats } = useSettlementStats(ekatte);
   const { data: problemSectionsStats } = useProblemSectionsStats();
   // Hide the whole neighborhoods/risk-votes section when this settlement
@@ -76,14 +71,6 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
     problemSectionsReport?.neighborhoods?.some((n) =>
       n.sections.some((s) => s.ekatte === ekatte),
     );
-  const obshtinaCode = settlement?.obshtina ?? findSettlement(ekatte)?.obshtina;
-  const { findMunicipality } = useMunicipalities();
-  // Abroad-territory ekattes resolve to one of the synthetic "32"
-  // oblast bundles (Oceania / Europe / …) which have no local-
-  // elections data. Gate the local_government section so we don't
-  // render an empty heading.
-  const muniLookup = obshtinaCode ? findMunicipality(obshtinaCode) : null;
-  const hasLocalContext = !!muniLookup && muniLookup.oblast !== "32";
 
   const basePath = `/sections/${ekatte}`;
 
@@ -176,24 +163,6 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
             hideGrao={compact}
           />
         </DashboardSection>
-
-        {/* Local-government context — município mayor + (if this
-            settlement is a kmetstvo center) kmetstvo mayor. Compact
-            mode skips it because MyArea already surfaces the same
-            information via MyAreaGovernmentCard + MyAreaKmetstvoTile. */}
-        {!compact && hasLocalContext ? (
-          <DashboardSection
-            id="local_government"
-            title={t("dashboard_section_local_government")}
-            icon={Landmark}
-          >
-            <LocalContextTile
-              obshtinaCode={obshtinaCode}
-              ekatte={ekatte}
-              settlementName={settlement?.name ?? findSettlement(ekatte)?.name}
-            />
-          </DashboardSection>
-        ) : null}
 
         {/* Anomalies section (FlashMemory / Suspicious / Recount) is
             election forensics — power-user material that belongs on the

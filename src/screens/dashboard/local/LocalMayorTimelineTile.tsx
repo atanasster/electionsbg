@@ -1,8 +1,8 @@
 // Mayor timeline: who was elected mayor of this município in each regular
 // local cycle, newest at the top. Fans out useLocalMunicipalityHistory and
 // reads each bundle's `mayor.elected`. A party change between consecutive
-// cycles is flagged with the shared "flip" pill (same affiliation comparison
-// the compact MunicipalElectionTile uses). Self-hides for municípios with
+// cycles is flagged with the shared "flip" pill (tiered affiliation
+// comparison — see `flipped` below). Self-hides for municípios with
 // fewer than two cycles of elected-mayor data.
 
 import { FC, useMemo } from "react";
@@ -32,7 +32,7 @@ type TimelineEntry = {
 // A "flip" is a change of political affiliation between the current entry and
 // the older one beneath it. Tiered: independent↔party always flips; both
 // canonical → compare ids; otherwise treat as "no flip" rather than guess
-// (avoids spurious flips on coalition rebrands). Mirrors MunicipalElectionTile.
+// (avoids spurious flips on coalition rebrands).
 const flipped = (cur: LocalMayorResult, prev: LocalMayorResult): boolean => {
   if (cur.isIndependent !== prev.isIndependent) return true;
   if (cur.primaryCanonicalId && prev.primaryCanonicalId)

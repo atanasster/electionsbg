@@ -1,13 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  AlertTriangle,
-  Briefcase,
-  Building2,
-  Gauge,
-  Landmark,
-  Map,
-} from "lucide-react";
+import { AlertTriangle, Briefcase, Building2, Gauge, Map } from "lucide-react";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useSofiaSummary } from "@/data/dashboard/useSofiaSummary";
 import { useSofiaStats } from "@/data/country/useSofiaStats";
@@ -39,7 +32,6 @@ import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
 import { DashboardSection } from "./DashboardSection";
-import { SofiaLocalGovernmentTile } from "./SofiaLocalGovernmentTile";
 
 const SOFIA_BASE_PATH = "/sofia";
 
@@ -130,14 +122,6 @@ export const SofiaDashboardCards: FC = () => {
         <CensusDemographicsTile regionCode="SOF" />
         <IndicatorsTile obshtinaCode="SOF00" />
         <MunicipalityTransfersTile municipalityCode="SOF00" />
-      </DashboardSection>
-
-      <DashboardSection
-        id="local_government"
-        title={t("dashboard_section_local_government")}
-        icon={Landmark}
-      >
-        <SofiaLocalGovernmentTile />
       </DashboardSection>
 
       <DashboardSection

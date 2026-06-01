@@ -6,7 +6,6 @@ import {
   CalendarDays,
   Coins,
   Gauge,
-  Landmark,
   Map,
 } from "lucide-react";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
@@ -54,14 +53,12 @@ const AccuracyTrendsTile = lazy(() =>
   })),
 );
 import { ArticlesTile } from "./ArticlesTile";
-import { CountryLocalGovernmentTile } from "./CountryLocalGovernmentTile";
 import { DashboardSection } from "./DashboardSection";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
 
 const SECTION_TOPICS: readonly DashboardSectionId[] = [
   "votes",
   "geography",
-  "local_government",
   "anomalies",
   "neighborhoods",
   "financing",
@@ -185,15 +182,6 @@ export const DashboardCards: FC = () => {
               ) : null}
             </div>
           ) : null}
-        </DashboardSection>
-
-        <DashboardSection
-          id="local_government"
-          title={t("dashboard_section_local_government")}
-          icon={Landmark}
-          articleTopic="local_government"
-        >
-          <CountryLocalGovernmentTile />
         </DashboardSection>
 
         <DashboardSection

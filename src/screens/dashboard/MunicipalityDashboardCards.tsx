@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle, Building2, Gauge, Landmark, Map } from "lucide-react";
+import { AlertTriangle, Building2, Gauge, Map } from "lucide-react";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useMunicipalitySummary } from "@/data/dashboard/useMunicipalitySummary";
@@ -23,18 +23,12 @@ import { IndicatorsTile } from "./IndicatorsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
-import { MunicipalElectionTile } from "./MunicipalElectionTile";
-import { OfficialsDiffTile } from "./OfficialsDiffTile";
-import { MunicipalMayorTile } from "./MunicipalMayorTile";
-import { MunicipalCouncilCompositionTile } from "./MunicipalCouncilCompositionTile";
-import { MunicipalOfficialsRosterTile } from "./MunicipalOfficialsRosterTile";
 import { DashboardSection } from "./DashboardSection";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
 
 const SECTION_TOPICS: readonly DashboardSectionId[] = [
   "votes",
   "geography",
-  "local_government",
   "anomalies",
   "neighborhoods",
 ];
@@ -171,22 +165,6 @@ export const MunicipalityDashboardCards: FC<Props> = ({
             isMunicipality
           />
           <IndicatorsTile obshtinaCode={municipalityCode} />
-        </DashboardSection>
-
-        <DashboardSection
-          id="local_government"
-          title={t("dashboard_section_local_government")}
-          icon={Landmark}
-        >
-          {/* Local-election tile sits above the current-officials tiles so
-              the narrative reads "elected by voters → currently sitting". */}
-          <MunicipalElectionTile obshtinaCode={municipalityCode} />
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-            <MunicipalMayorTile obshtinaCode={municipalityCode} />
-            <MunicipalCouncilCompositionTile obshtinaCode={municipalityCode} />
-          </div>
-          <OfficialsDiffTile obshtinaCode={municipalityCode} />
-          <MunicipalOfficialsRosterTile obshtinaCode={municipalityCode} />
         </DashboardSection>
 
         {/* Anomalies section is election forensics — hidden in compact

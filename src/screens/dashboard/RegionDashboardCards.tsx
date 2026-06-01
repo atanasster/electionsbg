@@ -6,7 +6,6 @@ import {
   Building2,
   Gauge,
   HelpCircle,
-  Landmark,
   Map,
 } from "lucide-react";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -37,7 +36,6 @@ import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
 import { DashboardSection } from "./DashboardSection";
-import { RegionLocalControlTile } from "./RegionLocalControlTile";
 import { TopLocationsTile } from "./TopLocationsTile";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
 import { DIASPORA_FAQ, isDiasporaRegion } from "@/data/diaspora/diasporaFaq";
@@ -163,18 +161,6 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
         <RegionalIndicatorsTile regionCode={regionCode} />
         <MunicipalTransfersTile regionCode={regionCode} />
       </DashboardSection>
-
-      {/* No municipalities/mayors/councils abroad — hide local government for
-          МИР 32 (same rationale as the risk-sections section below). */}
-      {diaspora ? null : (
-        <DashboardSection
-          id="local_government"
-          title={t("dashboard_section_local_government")}
-          icon={Landmark}
-        >
-          <RegionLocalControlTile regionCode={regionCode} />
-        </DashboardSection>
-      )}
 
       <DashboardSection
         id="anomalies"

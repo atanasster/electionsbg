@@ -1,12 +1,10 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle, Gauge, Landmark } from "lucide-react";
+import { AlertTriangle, Gauge } from "lucide-react";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useSectionSummary } from "@/data/dashboard/useSectionSummary";
 import { useSectionsVotes } from "@/data/sections/useSectionsVotes";
 import { useSectionStats } from "@/data/sections/useSectionStats";
-import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
-import { LocalContextTile } from "./LocalContextTile";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
 import { PaperMachineCard } from "./cards/PaperMachineCard";
@@ -19,11 +17,7 @@ import { SectionRiskHistoryTile } from "./cards/SectionRiskHistoryTile";
 import { DashboardSection } from "./DashboardSection";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
 
-const SECTION_TOPICS: readonly DashboardSectionId[] = [
-  "votes",
-  "local_government",
-  "anomalies",
-];
+const SECTION_TOPICS: readonly DashboardSectionId[] = ["votes", "anomalies"];
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[140px]",
@@ -45,17 +39,6 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
   const { data, isLoading } = useSectionSummary(sectionCode);
   const section = useSectionsVotes(sectionCode);
   const { stats } = useSectionStats(sectionCode);
-  const { findMunicipality } = useMunicipalities();
-  // Abroad sections live under the synthetic "32" oblast (continent
-  // bundles like OC = Oceania, EU = Europe, …) and have no local-
-  // elections data. Gate the local_government section here so we
-  // don't render an empty heading; DashboardSection's
-  // renderable-children check can't peek into a tile that internally
-  // returns null.
-  const muniLookup = section?.obshtina
-    ? findMunicipality(section.obshtina)
-    : null;
-  const hasLocalContext = !!muniLookup && muniLookup.oblast !== "32";
 
   const basePath = `/section/${sectionCode}`;
 
@@ -101,20 +84,6 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
           <PartyResultsTile parties={data.parties} basePath={basePath} />
           <HistoricalTrendsTile stats={stats} />
         </DashboardSection>
-
-        {hasLocalContext ? (
-          <DashboardSection
-            id="local_government"
-            title={t("dashboard_section_local_government")}
-            icon={Landmark}
-          >
-            <LocalContextTile
-              obshtinaCode={section?.obshtina}
-              ekatte={section?.ekatte}
-              settlementName={section?.settlement}
-            />
-          </DashboardSection>
-        ) : null}
 
         <DashboardSection
           id="anomalies"

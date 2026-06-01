@@ -1,8 +1,8 @@
-// Compact "Местна власт" card — collapses the three separate tiles
-// (MunicipalMayorTile, MunicipalCouncilCompositionTile,
-// MunicipalOfficialsRosterTile) into one. The full versions still
-// render on the direct /settlement/<obshtina> and /municipality/<oblast>
-// routes; only the My-Area dashboard uses this slimmer composition.
+// Compact "Местна власт" card — mayor + council composition + officials
+// roster collapsed into one. This is where the My-Area dashboard surfaces
+// local government; the full per-município breakdown lives on the
+// local-elections dashboard (/local/<cycle>/<obshtina>), reachable via the
+// place switcher in the header.
 //
 // Data sources (both already cached upstream — no new network hops):
 //   - useMunicipalOfficials  →  roster of mayor, deputies, chair, councillors
