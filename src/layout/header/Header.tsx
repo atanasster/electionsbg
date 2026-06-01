@@ -1,5 +1,5 @@
 import { FC, useContext, useLayoutEffect, useRef } from "react";
-import { Moon, SunMedium, Menu, Check, ChevronDown } from "lucide-react";
+import { Menu, Check, ChevronDown, MoreHorizontal } from "lucide-react";
 import { useLocation } from "react-router-dom";
 
 import {
@@ -19,7 +19,12 @@ import { ThemeContext } from "@/theme/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { Link } from "@/ux/Link";
-import { MenuItem, electionsMenu, governanceMenu } from "./reportMenus";
+import {
+  MenuItem,
+  electionsMenu,
+  localMenu,
+  governanceMenu,
+} from "./reportMenus";
 import { Search } from "../search/Search";
 import { ElectionsSelect } from "./ElectionsSelect";
 import { Logo } from "./Logo";
@@ -30,9 +35,10 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { useArticles } from "@/data/articles/useArticles";
 
 // Pathname prefixes that mark a page as "in" the Governance world for the
-// active-dropdown underline. Everything else is treated as elections —
-// including /reports/* and /risk-score, which are election-cycle anomaly
-// analyses folded into the Elections dropdown.
+// active-dropdown tint. The Local set marks the parallel municipal-elections
+// tree. Everything else is treated as elections — including /reports/* and
+// /risk-score, which are election-cycle anomaly analyses folded into the
+// Elections dropdown.
 const GOVERNANCE_PREFIXES = [
   "/governance",
   "/parliament",
@@ -50,6 +56,8 @@ const GOVERNANCE_PREFIXES = [
   "/observations",
 ];
 
+const LOCAL_PREFIXES = ["/local", "/sverka"];
+
 const isInSection = (pathname: string, prefixes: string[]): boolean =>
   prefixes.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 
@@ -61,7 +69,8 @@ export const Header = () => {
   const navRef = useRef<HTMLElement>(null);
   const location = useLocation();
   const inGovernance = isInSection(location.pathname, GOVERNANCE_PREFIXES);
-  const inElections = !inGovernance;
+  const inLocal = isInSection(location.pathname, LOCAL_PREFIXES);
+  const inElections = !inGovernance && !inLocal;
 
   // The nav is `position: fixed`, so the page content is offset by its
   // height via the `--header-height` CSS variable (see Layout.tsx). On
@@ -91,7 +100,15 @@ export const Header = () => {
     articlesForSelectedElection.length === 1
       ? `/articles/${articlesForSelectedElection[0].slug}`
       : "/articles";
-  const RenderMenuItem: FC<{ item: MenuItem }> = ({ item }) => {
+  const RenderMenuItem: FC<{ item: MenuItem; isMobile?: boolean }> = ({
+    item,
+    isMobile,
+  }) => {
+    // `mobileOnly` items (section "Overview" home links) appear only in the
+    // hamburger tree — on desktop the split-button title already links there.
+    if (item.mobileOnly && !isMobile) {
+      return null;
+    }
     if (item.category === "financials" && !electionStats?.hasFinancials) {
       return null;
     }
@@ -114,7 +131,11 @@ export const Header = () => {
           <DropdownMenuPortal>
             <DropdownMenuSubContent>
               {item.subMenu.map((sub, idx) => (
-                <RenderMenuItem key={`${sub.title}-${idx}`} item={sub} />
+                <RenderMenuItem
+                  key={`${sub.title}-${idx}`}
+                  item={sub}
+                  isMobile={isMobile}
+                />
               ))}
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
@@ -145,7 +166,7 @@ export const Header = () => {
     <DropdownMenu modal={false}>
       <div
         className={cn(
-          "hidden lg:inline-flex items-stretch overflow-hidden rounded-md border text-sm font-medium transition-colors",
+          "hidden lg:inline-flex shrink-0 items-stretch overflow-hidden rounded-md border text-sm font-medium transition-colors",
           active
             ? "border-primary/50 bg-primary/[0.07]"
             : "border-border/70 hover:border-border",
@@ -182,7 +203,13 @@ export const Header = () => {
           />
         </DropdownMenuTrigger>
       </div>
-      <DropdownMenuContent align="end" sideOffset={8} className="w-56">
+      <DropdownMenuContent
+        align="end"
+        sideOffset={8}
+        // Flat grouped panels can run tall (governance has four groups) — cap
+        // to the space Radix leaves before collision and scroll past it.
+        className="w-56 max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto"
+      >
         {topMenu.subMenu?.map((menu, idx) => (
           <RenderMenuItem key={`${menu.title}-${idx}`} item={menu} />
         ))}
@@ -193,6 +220,63 @@ export const Header = () => {
     i18n.changeLanguage(language);
     localStorage.setItem("language", language);
   };
+  // The low-frequency controls (analysis link, language, theme) that used to
+  // sit inline on desktop. They now live in the gear overflow on desktop and
+  // the hamburger on mobile — one shared block so the two stay in sync.
+  const SettingsItems: FC = () => (
+    <>
+      {articles && articles.length > 0 && (
+        <>
+          <DropdownMenuItem asChild>
+            <Link to={analysisHref}>{t("analysis_title")}</Link>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+        </>
+      )}
+      <DropdownMenuSub>
+        <DropdownMenuSubTrigger>{t("language")}</DropdownMenuSubTrigger>
+        <DropdownMenuPortal>
+          <DropdownMenuSubContent>
+            <DropdownMenuItem
+              className="flex justify-between"
+              onSelect={() => changeLanguage("en")}
+            >
+              <span className="mr-4">{t("english")}</span>
+              {i18n.language === "en" && <Check />}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="flex justify-between"
+              onSelect={() => changeLanguage("bg")}
+            >
+              <span className="mr-4">{t("bulgarian")}</span>
+              {i18n.language === "bg" && <Check />}
+            </DropdownMenuItem>
+          </DropdownMenuSubContent>
+        </DropdownMenuPortal>
+      </DropdownMenuSub>
+      <DropdownMenuSub>
+        <DropdownMenuSubTrigger>{t("skin")}</DropdownMenuSubTrigger>
+        <DropdownMenuPortal>
+          <DropdownMenuSubContent>
+            <DropdownMenuItem
+              className="flex justify-between"
+              onSelect={() => setTheme(themeLight)}
+            >
+              <span className="mr-4">{t("light")}</span>
+              {theme === themeLight && <Check />}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="flex justify-between"
+              onSelect={() => setTheme(themeDark)}
+            >
+              <span className="mr-4">{t("dark")}</span>
+              {theme === themeDark && <Check />}
+            </DropdownMenuItem>
+          </DropdownMenuSubContent>
+        </DropdownMenuPortal>
+      </DropdownMenuSub>
+    </>
+  );
   return (
     <nav
       ref={navRef}
@@ -224,6 +308,13 @@ export const Header = () => {
             active={inElections}
           />
         ))}
+        {localMenu.map((topMenu, idx) => (
+          <RenderTopMenu
+            key={`local-${topMenu.title}-${idx}`}
+            topMenu={topMenu}
+            active={inLocal}
+          />
+        ))}
         {governanceMenu.map((topMenu, idx) => (
           <RenderTopMenu
             key={`gov-${topMenu.title}-${idx}`}
@@ -231,42 +322,22 @@ export const Header = () => {
             active={inGovernance}
           />
         ))}
-        {articles && articles.length > 0 && (
-          <Link
-            to={analysisHref}
-            underline={false}
-            className="text-sm font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
-          >
-            {t("analysis_title")}
-          </Link>
-        )}
-
-        <button
-          className="text-sm font-medium hidden lg:block text-secondary-foreground"
-          aria-label={`${t("change_language_to")} ${t("changeLanguageTo")}`}
-          onClick={() => {
-            if (i18n.language === "bg") {
-              changeLanguage("en");
-            } else {
-              changeLanguage("bg");
-            }
-          }}
-        >
-          {t("changeLanguageTo")}
-        </button>
-        <button
-          onClick={() => setTheme(theme === themeDark ? themeLight : themeDark)}
-          id="theme-toggle"
-          type="button"
-          aria-label="switch theme dark mode"
-          className="hidden lg:flex items-center p-2 w-10 h-10 justify-center rounded-lg text-muted-foreground hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-2 focus:ring-ring"
-        >
-          {theme === themeDark ? (
-            <SunMedium className="size-4" />
-          ) : (
-            <Moon className="size-4" />
-          )}
-        </button>
+        {/* Desktop overflow: the analysis link + language + theme toggles,
+            moved off the bar to make room for the three section menus. */}
+        <DropdownMenu modal={false}>
+          <DropdownMenuTrigger asChild>
+            <button
+              type="button"
+              aria-label={t("more")}
+              className="hidden lg:flex items-center p-2 w-10 h-10 justify-center rounded-lg text-muted-foreground hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-2 focus:ring-ring data-[state=open]:bg-accent/10"
+            >
+              <MoreHorizontal className="size-4" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" sideOffset={8} className="w-48">
+            <SettingsItems />
+          </DropdownMenuContent>
+        </DropdownMenu>
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <button
@@ -282,67 +353,28 @@ export const Header = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
             {electionsMenu.map((main, idx) => (
-              <RenderMenuItem key={`m-elec-${main.title}-${idx}`} item={main} />
+              <RenderMenuItem
+                key={`m-elec-${main.title}-${idx}`}
+                item={main}
+                isMobile
+              />
+            ))}
+            {localMenu.map((main, idx) => (
+              <RenderMenuItem
+                key={`m-local-${main.title}-${idx}`}
+                item={main}
+                isMobile
+              />
             ))}
             {governanceMenu.map((main, idx) => (
-              <RenderMenuItem key={`m-gov-${main.title}-${idx}`} item={main} />
+              <RenderMenuItem
+                key={`m-gov-${main.title}-${idx}`}
+                item={main}
+                isMobile
+              />
             ))}
-            {articles && articles.length > 0 && (
-              <DropdownMenuItem asChild>
-                <Link to={analysisHref}>{t("analysis_title")}</Link>
-              </DropdownMenuItem>
-            )}
             <DropdownMenuSeparator />
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>{t("language")}</DropdownMenuSubTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuSubContent>
-                  <DropdownMenuItem>
-                    <button
-                      className="flex justify-between w-full"
-                      onClick={() => changeLanguage("en")}
-                    >
-                      <div className="mr-4">{t("english")}</div>
-                      {i18n.language === "en" && <Check />}
-                    </button>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <button
-                      className="flex justify-between w-full"
-                      onClick={() => changeLanguage("bg")}
-                    >
-                      <div className="mr-4">{t("bulgarian")}</div>
-                      {i18n.language === "bg" && <Check />}
-                    </button>
-                  </DropdownMenuItem>
-                </DropdownMenuSubContent>
-              </DropdownMenuPortal>
-            </DropdownMenuSub>
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>{t("skin")}</DropdownMenuSubTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuSubContent>
-                  <DropdownMenuItem>
-                    <button
-                      className="flex justify-between w-full"
-                      onClick={() => setTheme(themeLight)}
-                    >
-                      <div className="mr-4">{t("light")}</div>
-                      {theme === themeLight && <Check />}
-                    </button>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <button
-                      className="flex justify-between w-full"
-                      onClick={() => setTheme(themeDark)}
-                    >
-                      <div className="mr-4">{t("dark")}</div>
-                      {theme === themeDark && <Check />}
-                    </button>
-                  </DropdownMenuItem>
-                </DropdownMenuSubContent>
-              </DropdownMenuPortal>
-            </DropdownMenuSub>
+            <SettingsItems />
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

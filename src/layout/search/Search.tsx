@@ -59,7 +59,10 @@ const SearchInternal: FC = () => {
     },
     [setSearchTerm],
   );
-  const isMedium = useMediaQueryMatch("lg");
+  // Expand into the inline command bar only on the widest screens; below that
+  // the header is too crowded (logo + date + area pill + three section menus),
+  // so search stays a compact icon that opens the same command in a popover.
+  const isWide = useMediaQueryMatch("2xl");
   const handleSelectOption = useCallback(
     (selectedOption: FuseResult<SearchIndexType>) => {
       // Track search result selection in Google Analytics
@@ -167,7 +170,7 @@ const SearchInternal: FC = () => {
           ref={inputRef}
           value={value}
           onValueChange={handleValueChange}
-          onBlur={isMedium ? handleBlur : undefined}
+          onBlur={isWide ? handleBlur : undefined}
           onFocus={() => {
             // Mount the heavy SearchContextProvider on first focus so the
             // ~2.7 MB search index starts loading while the user is still
@@ -196,7 +199,7 @@ const SearchInternal: FC = () => {
       </div>
     </CommandPrimitive>
   );
-  return isMedium ? (
+  return isWide ? (
     command
   ) : (
     <Popover
