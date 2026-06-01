@@ -804,6 +804,16 @@ const MunicipalityResults: FC<{
         <LocalMayorTimelineTile obshtinaCode={obshtinaCode} className="mt-4" />
       </Section>
 
+      {/* Kmetstvo + район mayors — sub-municipal mayor tier, grouped with the
+          Municipal mayor section above (not council). Each self-hides when the
+          município has no kmetstva / districts. */}
+      <KmetstvaSection
+        kmetstva={municipality.kmetstva}
+        obshtinaCode={obshtinaCode}
+        cycle={cycle}
+      />
+      <DistrictsSection cycle={cycle} districts={municipality.districts} />
+
       {/* Council — one "Общински съвет" heading (the nested duplicate that
           Sofia район shards used to show is gone). Composition hemicycle, then
           the section-vote map beside the compact parties tile; the full
@@ -845,13 +855,6 @@ const MunicipalityResults: FC<{
           />
         ) : null}
       </Section>
-
-      <KmetstvaSection
-        kmetstva={municipality.kmetstva}
-        obshtinaCode={obshtinaCode}
-        cycle={cycle}
-      />
-      <DistrictsSection cycle={cycle} districts={municipality.districts} />
 
       {/* Per-polling-station council results + turnout — self-hides for cycles
           / municípios without an ingested section shard (e.g. Sofia район
