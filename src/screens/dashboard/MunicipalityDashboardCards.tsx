@@ -1,13 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  AlertTriangle,
-  Building2,
-  Coins,
-  Gauge,
-  Landmark,
-  Map,
-} from "lucide-react";
+import { AlertTriangle, Building2, Gauge, Landmark, Map } from "lucide-react";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useMunicipalitySummary } from "@/data/dashboard/useMunicipalitySummary";
@@ -27,12 +20,6 @@ import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopSettlementsTile } from "./TopSettlementsTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { IndicatorsTile } from "./IndicatorsTile";
-import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
-import { EuFundsTile } from "./EuFundsTile";
-import { CompaniesHqTile } from "./CompaniesHqTile";
-import { MunicipalCapitalProjectsTiles } from "./MunicipalCapitalProjectsTiles";
-import { MunicipalBudgetExecutionTile } from "./MunicipalBudgetExecutionTile";
-import { IpopExecutionTile } from "./IpopExecutionTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
@@ -200,19 +187,6 @@ export const MunicipalityDashboardCards: FC<Props> = ({
           </div>
           <OfficialsDiffTile obshtinaCode={municipalityCode} />
           <MunicipalOfficialsRosterTile obshtinaCode={municipalityCode} />
-        </DashboardSection>
-
-        <DashboardSection
-          id="finances"
-          title={t("dashboard_section_finances")}
-          icon={Coins}
-        >
-          <MunicipalityTransfersTile municipalityCode={municipalityCode} />
-          <EuFundsTile kind="muni" obshtina={municipalityCode} />
-          <CompaniesHqTile kind="muni" obshtina={municipalityCode} />
-          <MunicipalCapitalProjectsTiles obshtinaCode={municipalityCode} />
-          <IpopExecutionTile obshtinaCode={municipalityCode} />
-          <MunicipalBudgetExecutionTile obshtinaCode={municipalityCode} />
         </DashboardSection>
 
         {/* Anomalies section is election forensics — hidden in compact

@@ -1,13 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  AlertTriangle,
-  Building2,
-  Coins,
-  Gauge,
-  Landmark,
-  Map,
-} from "lucide-react";
+import { AlertTriangle, Building2, Gauge, Landmark, Map } from "lucide-react";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useSettlementSummary } from "@/data/dashboard/useSettlementSummary";
@@ -27,37 +20,6 @@ import { PartyResultsTile } from "./PartyResultsTile";
 import { SectionsMapTile } from "./SectionsMapTile";
 import { TopSectionsTile } from "./TopSectionsTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
-import { MunicipalityTransfersTile } from "./MunicipalityTransfersTile";
-import { EuFundsTile } from "./EuFundsTile";
-import { CompaniesHqTile } from "./CompaniesHqTile";
-import { SettlementProcurementTile } from "../components/procurement/SettlementProcurementTile";
-import { SofiaCapitalProjectsTile } from "./SofiaCapitalProjectsTile";
-import { PlovdivCapitalProjectsTile } from "./PlovdivCapitalProjectsTile";
-import { VarnaCapitalProjectsTile } from "./VarnaCapitalProjectsTile";
-import { BurgasCapitalProjectsTile } from "./BurgasCapitalProjectsTile";
-import { StaraZagoraCapitalProjectsTile } from "./StaraZagoraCapitalProjectsTile";
-import { RuseCapitalProjectsTile } from "./RuseCapitalProjectsTile";
-import { PlevenCapitalProjectsTile } from "./PlevenCapitalProjectsTile";
-import { SlivenCapitalProjectsTile } from "./SlivenCapitalProjectsTile";
-import { DobrichCapitalProjectsTile } from "./DobrichCapitalProjectsTile";
-import { AsenovgradCapitalProjectsTile } from "./AsenovgradCapitalProjectsTile";
-import { ShumenCapitalProjectsTile } from "./ShumenCapitalProjectsTile";
-import { VidinCapitalProjectsTile } from "./VidinCapitalProjectsTile";
-import { VelikoTarnovoCapitalProjectsTile } from "./VelikoTarnovoCapitalProjectsTile";
-import { PernikCapitalProjectsTile } from "./PernikCapitalProjectsTile";
-import { HaskovoCapitalProjectsTile } from "./HaskovoCapitalProjectsTile";
-import { GabrovoCapitalProjectsTile } from "./GabrovoCapitalProjectsTile";
-import { YambolCapitalProjectsTile } from "./YambolCapitalProjectsTile";
-import { KardzhaliCapitalProjectsTile } from "./KardzhaliCapitalProjectsTile";
-import { LovechCapitalProjectsTile } from "./LovechCapitalProjectsTile";
-import { DupnitsaCapitalProjectsTile } from "./DupnitsaCapitalProjectsTile";
-import { VelingradCapitalProjectsTile } from "./VelingradCapitalProjectsTile";
-import { SamokovCapitalProjectsTile } from "./SamokovCapitalProjectsTile";
-import { KarlovoCapitalProjectsTile } from "./KarlovoCapitalProjectsTile";
-import { KazanlakCapitalProjectsTile } from "./KazanlakCapitalProjectsTile";
-import { KyustendilCapitalProjectsTile } from "./KyustendilCapitalProjectsTile";
-import { MontanaCapitalProjectsTile } from "./MontanaCapitalProjectsTile";
-import { IpopExecutionTile } from "./IpopExecutionTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
@@ -258,46 +220,6 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
             />
           </DashboardSection>
         )}
-
-        {obshtinaCode ? (
-          <DashboardSection
-            id="finances"
-            title={t("dashboard_section_finances")}
-            icon={Coins}
-          >
-            <MunicipalityTransfersTile municipalityCode={obshtinaCode} />
-            <EuFundsTile kind="ekatte" ekatte={ekatte} />
-            <SettlementProcurementTile ekatte={ekatte} />
-            <CompaniesHqTile ekatte={ekatte} />
-            <SofiaCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <PlovdivCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <VarnaCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <BurgasCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <StaraZagoraCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <RuseCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <PlevenCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <SlivenCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <DobrichCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <AsenovgradCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <ShumenCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <VidinCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <VelikoTarnovoCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <PernikCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <HaskovoCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <GabrovoCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <YambolCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <KardzhaliCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <LovechCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <DupnitsaCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <VelingradCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <SamokovCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <KarlovoCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <KazanlakCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <KyustendilCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <MontanaCapitalProjectsTile obshtinaCode={obshtinaCode} />
-            <IpopExecutionTile obshtinaCode={obshtinaCode} />
-          </DashboardSection>
-        ) : null}
 
         {settlementHasProblemSections ? (
           <DashboardSection
