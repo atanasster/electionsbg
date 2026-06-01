@@ -17,7 +17,10 @@ export const LocalTopSectionsTile: FC<{
   shard: LocalSectionShard;
   cycle: string;
   obshtinaCode: string;
-}> = ({ shard, cycle, obshtinaCode }) => {
+  // When set and the município has more sections than the tile shows, render a
+  // "see details →" link to the full searchable per-station table page.
+  seeAllHref?: string;
+}> = ({ shard, cycle, obshtinaCode, seeAllHref }) => {
   const { t } = useTranslation();
 
   const partyById = useMemo(() => {
@@ -59,25 +62,35 @@ export const LocalTopSectionsTile: FC<{
   return (
     <StatCard
       label={
-        <Hint
-          text={t(
-            showAllInTile
-              ? "dashboard_settlement_sections_hint"
-              : "local_top_sections_hint",
-          )}
-          underline={false}
-        >
-          <div className="flex items-center gap-2">
-            <Vote className="h-4 w-4" />
-            <span>
-              {t(
-                showAllInTile
-                  ? "dashboard_settlement_sections"
-                  : "dashboard_settlement_top_sections",
-              )}
-            </span>
-          </div>
-        </Hint>
+        <div className="flex items-center justify-between w-full">
+          <Hint
+            text={t(
+              showAllInTile
+                ? "dashboard_settlement_sections_hint"
+                : "local_top_sections_hint",
+            )}
+            underline={false}
+          >
+            <div className="flex items-center gap-2">
+              <Vote className="h-4 w-4" />
+              <span>
+                {t(
+                  showAllInTile
+                    ? "dashboard_settlement_sections"
+                    : "dashboard_settlement_top_sections",
+                )}
+              </span>
+            </div>
+          </Hint>
+          {!showAllInTile && seeAllHref ? (
+            <Link
+              to={seeAllHref}
+              className="text-[10px] normal-case text-primary hover:underline"
+            >
+              {t("dashboard_see_details")} →
+            </Link>
+          ) : null}
+        </div>
       }
       className="overflow-hidden"
     >

@@ -122,6 +122,11 @@ const LocalSectionScreen = lazy(() =>
     default: m.LocalSectionScreen,
   })),
 );
+const LocalSectionsListScreen = lazy(() =>
+  import("./screens/LocalSectionsListScreen").then((m) => ({
+    default: m.LocalSectionsListScreen,
+  })),
+);
 const SofiaScreen = lazy(() =>
   import("./screens/SofiaScreen").then((m) => ({ default: m.SofiaScreen })),
 );
@@ -1293,6 +1298,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <LocalRaceScreen race="council" />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="local/:cycle/:obshtinaCode/sections"
+            element={
+              <LayoutScreen>
+                <LocalSectionsListScreen />
               </LayoutScreen>
             }
           />
