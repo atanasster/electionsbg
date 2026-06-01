@@ -27,6 +27,7 @@ import { LocalExtraordinaryTile } from "./LocalExtraordinaryTile";
 import { LocalDemographicCleavagesTile } from "./LocalDemographicCleavagesTile";
 import { LocalVoteFlowTile } from "./LocalVoteFlowTile";
 import { LocalCouncilControlTile } from "./LocalCouncilControlTile";
+import { LocalSwingTile } from "./LocalSwingTile";
 
 const isSofiaRayon = (code: string): boolean => /^S2\d{3}$/.test(code);
 
@@ -221,8 +222,9 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
           a lone flex child has no width floor once the chart is the only
           content (matches how the other dashboard chart tiles are wrapped). */}
       <DashboardSection id="local-trends" title={t("local_sec_trends")}>
-        <div className="grid gap-4">
+        <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
           <LocalCrossCycleTile />
+          <LocalSwingTile bodyMaxHeight={LIST_MAX_H} />
         </div>
       </DashboardSection>
 
