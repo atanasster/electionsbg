@@ -209,7 +209,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte, compact }) => {
             regionCode={ekatte}
             isSettlement
             // The ГРАО registered-population block is surfaced at the
-            // top of MyAreaScreen (in MyAreaHero) when in compact mode,
+            // top of MyAreaScreen (in PlaceHeader) when in compact mode,
             // so suppress the duplicate here.
             hideGrao={compact}
           />

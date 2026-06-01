@@ -5,9 +5,7 @@ import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
 import { SEO } from "@/ux/SEO";
-import { H1 } from "@/ux/H1";
-import { Link } from "@/ux/Link";
-import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { SettlementDashboardCards } from "./dashboard/SettlementDashboardCards";
 
 export const SectionsScreen = () => {
@@ -36,21 +34,6 @@ export const SectionsScreen = () => {
       ? municipality.name
       : municipality.name_en
     : "";
-  const title = (
-    <>
-      {region ? (
-        <Link to={`/municipality/${region.oblast}`}>{regionName}</Link>
-      ) : null}
-      {region && municipality ? " / " : null}
-      {municipality ? (
-        <Link to={`/settlement/${municipality.obshtina}`}>
-          {municipalityName}
-        </Link>
-      ) : null}
-      {region || municipality ? " / " : null}
-      {settlementName}
-    </>
-  );
   const titleStr = [regionName, municipalityName, settlementName]
     .filter(Boolean)
     .join(" / ");
@@ -60,16 +43,15 @@ export const SectionsScreen = () => {
         title={`${t("sections")} ${settlementName}`}
         description={titleStr}
       />
-      <H1>{title}</H1>
-      <div className="-mt-2 mb-4">
-        <PlaceViewNav
-          active="parliamentary"
-          level="settlement"
-          ekatte={ekatte}
-          obshtina={settlement?.obshtina ?? info?.obshtina}
-          oblast={settlement?.oblast ?? info?.oblast}
-        />
-      </div>
+      <PlaceHeader
+        active="parliamentary"
+        level="settlement"
+        ekatte={ekatte}
+        obshtina={settlement?.obshtina ?? info?.obshtina}
+        oblast={settlement?.oblast ?? info?.oblast}
+        fallbackName={settlementName}
+        className="my-4"
+      />
       <SettlementDashboardCards ekatte={ekatte} />
     </>
   );

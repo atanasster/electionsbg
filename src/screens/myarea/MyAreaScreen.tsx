@@ -22,7 +22,6 @@ import { H1 } from "@/ux/H1";
 import { Card } from "@/components/ui/card";
 import { useAreaResolver } from "@/data/area/useAreaResolver";
 import { useCycleKind } from "@/data/area/useCycleKind";
-import { MyAreaHero } from "./MyAreaHero";
 import { MyAreaRepresentativesStrip } from "./MyAreaRepresentativesStrip";
 import { MyAreaImportantVotesTile } from "./MyAreaImportantVotesTile";
 import { MyAreaUpcomingBallotTile } from "./MyAreaUpcomingBallotTile";
@@ -42,7 +41,7 @@ import { MyAreaActionBand } from "./MyAreaActionBand";
 import { MyAreaGovernmentCard } from "./MyAreaGovernmentCard";
 import { MyAreaHistoryStrip } from "./MyAreaHistoryStrip";
 import { MyAreaLocalHistoryStrip } from "./MyAreaLocalHistoryStrip";
-import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 
 export const MyAreaScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -108,12 +107,10 @@ export const MyAreaScreen: FC = () => {
         aria-label={t("my_area_dashboard")}
         className="my-4 flex flex-col gap-3"
       >
-        <MyAreaHero area={area} />
-
-        {/* View switcher — pivot to this same place's parliamentary or
-            local-elections results dashboard. Local pill self-hides when
-            the place has no data in the active local cycle. */}
-        <PlaceViewNav
+        {/* Unified place header — identity, breadcrumb, map, and the
+            three-way view switcher (parliamentary / local). Local pill
+            self-hides when the place has no data in the active cycle. */}
+        <PlaceHeader
           active="myarea"
           level={area.kind === "settlement" ? "settlement" : "municipality"}
           ekatte={area.kind === "settlement" ? area.ekatte : undefined}

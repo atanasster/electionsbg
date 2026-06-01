@@ -38,7 +38,7 @@ import { LocalCouncilHemicycleTile } from "./dashboard/local/LocalCouncilHemicyc
 import { LocalMayorRunoffBar } from "./dashboard/local/LocalMayorRunoffBar";
 import { LocalSectionsTile } from "./dashboard/local/LocalSectionsTile";
 import { ToParliamentaryLink } from "@/screens/components/CrossElectionLink";
-import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { CensusDemographicsTile } from "./dashboard/CensusDemographicsTile";
@@ -690,51 +690,39 @@ const MunicipalityResults: FC<{
 
   return (
     <main className="container mx-auto px-4 py-6">
-      <div className="mb-2 flex items-center justify-between gap-3">
-        <div className="text-xs text-muted-foreground">
-          <Link to={`/local/${cycle}`} className="hover:underline">
-            {t("local_election_screen_back")}
-          </Link>
-          <span className="mx-2">·</span>
-          <span>{cycleDate}</span>
-        </div>
-        {/* Sofia city aggregate keeps the simple "→ parliamentary" pill (it
-            maps to /sofia). Every real município + Sofia район gets the full
-            three-way switcher below the title instead. */}
-        {isSofiaCity ? (
-          <ToParliamentaryLink
-            level="municipality"
-            obshtinaCode={municipality.obshtinaCode}
-          />
-        ) : null}
-      </div>
-      <h1 className="text-2xl font-semibold mb-1">
-        {municipality.obshtinaName}
-      </h1>
-      {isSofiaRayon ? (
-        <div className="mb-3">
-          <Link
-            to={`/local/${cycle}/SOF`}
-            className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-          >
-            {t("local_election_sofia_rayon_link")}
-            <ArrowRight className="size-3" />
-          </Link>
-        </div>
-      ) : null}
-
-      {/* View switcher — pivot to this same place's parliamentary results or
-          personal My-Area dashboard. */}
-      {!isSofiaCity ? (
-        <div className="mb-4">
-          <PlaceViewNav
-            active="local"
-            level={isSofiaRayon ? "settlement" : "municipality"}
-            ekatte={rayonEkatte}
-            obshtina={municipality.obshtinaCode}
-          />
-        </div>
-      ) : null}
+      {/* Unified place header. Sofia city aggregate keeps a single
+          "→ parliamentary" pill (it maps to /sofia) in place of the
+          three-way switcher; every real município + Sofia район gets the
+          full switcher. Sofia районs also surface a "→ all of Sofia" link. */}
+      <PlaceHeader
+        active="local"
+        level={isSofiaRayon ? "settlement" : "municipality"}
+        ekatte={rayonEkatte}
+        obshtina={municipality.obshtinaCode}
+        fallbackName={municipality.obshtinaName}
+        eyebrowTo={`/local/${cycle}`}
+        eyebrowSuffix={cycleDate}
+        extra={
+          isSofiaRayon ? (
+            <Link
+              to={`/local/${cycle}/SOF`}
+              className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+            >
+              {t("local_election_sofia_rayon_link")}
+              <ArrowRight className="size-3" />
+            </Link>
+          ) : undefined
+        }
+        navSlot={
+          isSofiaCity ? (
+            <ToParliamentaryLink
+              level="municipality"
+              obshtinaCode={municipality.obshtinaCode}
+            />
+          ) : undefined
+        }
+        className="mb-4"
+      />
 
       <StatsGrid bundle={municipality} />
 

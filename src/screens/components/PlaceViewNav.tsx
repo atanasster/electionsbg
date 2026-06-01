@@ -10,12 +10,15 @@
 // two views are reachable (nothing to switch to).
 //
 // The active view always renders (highlighted, non-clickable) so the control
-// reads as "you are here / here is where else you can go".
+// reads as "you are here / here is where else you can go". Each view owns one
+// accent hue (see PLACE_VIEW_META) so the active pill, plus PlaceHeader's
+// eyebrow + left border, all read as the same colour — the "which dashboard
+// am I on" cue. The inactive pills tint just their icon in the target view's
+// hue so the colour↔view mapping is learnable.
 
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { MapPin, Landmark, Building2 } from "lucide-react";
 import {
   PlaceLevel,
   PlaceView,
@@ -25,6 +28,10 @@ import {
 } from "@/data/local/placeViews";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
+import { PLACE_VIEW_META } from "./placeViewMeta";
+
+// Stable left-to-right order of the three views.
+const ORDER: PlaceView[] = ["myarea", "parliamentary", "local"];
 
 type Props = {
   active: PlaceView;
@@ -32,14 +39,8 @@ type Props = {
   ekatte?: string;
   obshtina?: string;
   oblast?: string;
+  align?: "start" | "center";
   className?: string;
-};
-
-type Item = {
-  view: PlaceView;
-  to: string | null;
-  label: string;
-  icon: ReactNode;
 };
 
 export const PlaceViewNav: FC<Props> = ({
@@ -48,6 +49,7 @@ export const PlaceViewNav: FC<Props> = ({
   ekatte,
   obshtina,
   oblast,
+  align = "center",
   className,
 }) => {
   const { t } = useTranslation();
@@ -66,26 +68,13 @@ export const PlaceViewNav: FC<Props> = ({
       ? index.municipalities.some((m) => m.oblast === oblast)
       : index.municipalities.some((m) => m.obshtinaCode === obshtina));
 
-  const items: Item[] = [
-    {
-      view: "myarea",
-      to: myAreaUrl(place),
-      label: t("my_area_dashboard"),
-      icon: <MapPin className="h-3.5 w-3.5" aria-hidden />,
-    },
-    {
-      view: "parliamentary",
-      to: parliamentaryUrl(place),
-      label: t("cross_to_parliamentary"),
-      icon: <Landmark className="h-3.5 w-3.5" aria-hidden />,
-    },
-    {
-      view: "local",
-      to: localAvailable ? localUrl(place, cycle) : null,
-      label: t("cross_to_local"),
-      icon: <Building2 className="h-3.5 w-3.5" aria-hidden />,
-    },
-  ];
+  const urlFor = (view: PlaceView): string | null => {
+    if (view === "myarea") return myAreaUrl(place);
+    if (view === "parliamentary") return parliamentaryUrl(place);
+    return localAvailable ? localUrl(place, cycle) : null;
+  };
+
+  const items = ORDER.map((view) => ({ view, to: urlFor(view) }));
 
   // Keep the active view even if its URL didn't resolve (we're already on it);
   // drop any other view we can't link to.
@@ -95,25 +84,22 @@ export const PlaceViewNav: FC<Props> = ({
   return (
     <nav
       aria-label={t("place_view_nav_label")}
-      className={`flex justify-center ${className ?? ""}`}
+      className={`flex ${align === "center" ? "justify-center" : "justify-start"} ${className ?? ""}`}
     >
       <div className="inline-flex items-center gap-1 rounded-full border bg-card p-1 shadow-sm">
         {shown.map((it) => {
+          const meta = PLACE_VIEW_META[it.view];
+          const Icon = meta.icon;
           const isActive = it.view === active;
-          const inner = (
-            <>
-              {it.icon}
-              <span>{it.label}</span>
-            </>
-          );
           if (isActive || !it.to) {
             return (
               <span
                 key={it.view}
                 aria-current={isActive ? "page" : undefined}
-                className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground"
+                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${meta.activePill}`}
               >
-                {inner}
+                <Icon className="h-3.5 w-3.5" aria-hidden />
+                <span>{t(meta.labelKey)}</span>
               </span>
             );
           }
@@ -123,7 +109,8 @@ export const PlaceViewNav: FC<Props> = ({
               to={{ pathname: it.to, search }}
               className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
             >
-              {inner}
+              <Icon className={`h-3.5 w-3.5 ${meta.text}`} aria-hidden />
+              <span>{t(meta.labelKey)}</span>
             </Link>
           );
         })}

@@ -12,11 +12,11 @@ import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { LocalSettlementDashboardCards } from "./dashboard/local/LocalSettlementDashboardCards";
-import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 
 export const LocalSettlementDashboardScreen: FC = () => {
   const { cycle, ekatte } = useParams<{ cycle: string; ekatte: string }>();
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
   if (!cycle || !ekatte) return null;
@@ -35,35 +35,25 @@ export const LocalSettlementDashboardScreen: FC = () => {
 
   return (
     <main className="container mx-auto px-4 py-6 space-y-6">
-      <div className="flex items-center justify-between gap-3">
-        <div className="text-xs text-muted-foreground">
-          <Link to={`/local/${cycle}`} className="hover:underline">
-            {t("local_election_screen_back")}
-          </Link>
-          {settlement?.obshtina && muniName ? (
-            <>
-              <span className="mx-2">·</span>
-              <Link
-                to={`/local/${cycle}/${settlement.obshtina}`}
-                className="hover:underline"
-              >
-                {muniName}
-              </Link>
-            </>
-          ) : null}
-          <span className="mx-2">·</span>
-          <span>{friendlyCycleDate(cycle)}</span>
-        </div>
-      </div>
-      <h1 className="text-2xl font-semibold">{name}</h1>
-      {/* View switcher — pivot to this settlement's parliamentary results or
-          personal My-Area dashboard. */}
-      <PlaceViewNav
+      <PlaceHeader
         active="local"
         level="settlement"
         ekatte={ekatte}
         obshtina={settlement?.obshtina}
         oblast={settlement?.oblast}
+        fallbackName={name}
+        eyebrowTo={`/local/${cycle}`}
+        eyebrowSuffix={friendlyCycleDate(cycle)}
+        extra={
+          settlement?.obshtina && muniName ? (
+            <Link
+              to={`/local/${cycle}/${settlement.obshtina}`}
+              className="text-sm text-primary hover:underline"
+            >
+              ← {muniName}
+            </Link>
+          ) : undefined
+        }
       />
       <LocalSettlementDashboardCards ekatte={ekatte} cycle={cycle} />
     </main>

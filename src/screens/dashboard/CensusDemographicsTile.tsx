@@ -30,7 +30,7 @@ type Props = {
   isSettlement?: boolean;
   /** Skip the trailing ГРАО (current + permanent address) sub-block. Used
    * by My-Area, which surfaces the same data at the top of the page in
-   * MyAreaHero — without this flag the registered-population numbers
+   * PlaceHeader — without this flag the registered-population numbers
    * would render twice. */
   hideGrao?: boolean;
 };

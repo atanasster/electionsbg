@@ -4,9 +4,7 @@ import { useRegions } from "@/data/regions/useRegions";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useMunicipalityVotes } from "@/data/municipalities/useMunicipalityVotes";
 import { SEO } from "@/ux/SEO";
-import { H1 } from "@/ux/H1";
-import { Link } from "@/ux/Link";
-import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { MunicipalityDashboardCards } from "./dashboard/MunicipalityDashboardCards";
 import { SectionsScreen } from "./SectionsScreen";
 
@@ -41,15 +39,6 @@ export const SettlementsScreen = () => {
       ? region.long_name || region.name
       : region.long_name_en || region.name_en
     : "";
-  const title = (
-    <>
-      {region ? (
-        <Link to={`/municipality/${region.oblast}`}>{regionName}</Link>
-      ) : null}
-      {region ? " / " : null}
-      {muniName}
-    </>
-  );
   const titleStr = region ? `${regionName} / ${muniName}` : muniName;
   return (
     <>
@@ -57,15 +46,14 @@ export const SettlementsScreen = () => {
         title={`${t("municipalities")} ${muniName}`}
         description={titleStr}
       />
-      <H1>{title}</H1>
-      <div className="-mt-2 mb-6">
-        <PlaceViewNav
-          active="parliamentary"
-          level="municipality"
-          obshtina={muniCode}
-          oblast={municipality?.oblast ?? info?.oblast}
-        />
-      </div>
+      <PlaceHeader
+        active="parliamentary"
+        level="municipality"
+        obshtina={muniCode}
+        oblast={municipality?.oblast ?? info?.oblast}
+        fallbackName={muniName}
+        className="my-4"
+      />
       <MunicipalityDashboardCards municipalityCode={muniCode} />
     </>
   );
