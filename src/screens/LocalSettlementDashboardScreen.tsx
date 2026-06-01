@@ -12,7 +12,7 @@ import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { LocalSettlementDashboardCards } from "./dashboard/local/LocalSettlementDashboardCards";
-import { ToParliamentaryLink } from "@/screens/components/CrossElectionLink";
+import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
 
 export const LocalSettlementDashboardScreen: FC = () => {
   const { cycle, ekatte } = useParams<{ cycle: string; ekatte: string }>();
@@ -54,9 +54,17 @@ export const LocalSettlementDashboardScreen: FC = () => {
           <span className="mx-2">·</span>
           <span>{friendlyCycleDate(cycle)}</span>
         </div>
-        <ToParliamentaryLink level="settlement" ekatte={ekatte} />
       </div>
       <h1 className="text-2xl font-semibold">{name}</h1>
+      {/* View switcher — pivot to this settlement's parliamentary results or
+          personal My-Area dashboard. */}
+      <PlaceViewNav
+        active="local"
+        level="settlement"
+        ekatte={ekatte}
+        obshtina={settlement?.obshtina}
+        oblast={settlement?.oblast}
+      />
       <LocalSettlementDashboardCards ekatte={ekatte} cycle={cycle} />
     </main>
   );

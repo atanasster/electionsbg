@@ -38,6 +38,8 @@ import { LocalCouncilHemicycleTile } from "./dashboard/local/LocalCouncilHemicyc
 import { LocalMayorRunoffBar } from "./dashboard/local/LocalMayorRunoffBar";
 import { LocalSectionsTile } from "./dashboard/local/LocalSectionsTile";
 import { ToParliamentaryLink } from "@/screens/components/CrossElectionLink";
+import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
+import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { CensusDemographicsTile } from "./dashboard/CensusDemographicsTile";
 import { IndicatorsTile } from "./dashboard/IndicatorsTile";
@@ -53,7 +55,6 @@ import {
   MayorVsCouncilTile,
   TopCouncillorsTile,
 } from "./dashboard/local/LocalMunicipalityExtras";
-import { MyAreaCouncilTile } from "./myarea/MyAreaCouncilTile";
 import { formatThousands } from "@/data/utils";
 import {
   LocalCouncilParty,
@@ -655,6 +656,7 @@ const MunicipalityResults: FC<{
   const { t } = useTranslation();
   const { municipality } = useLocalMunicipality(obshtinaCode, cycle);
   const chmiEvents = useChmiHistory(obshtinaCode);
+  const { settlements } = useSettlementsInfo();
   const cycleDate = friendlyCycleDate(cycle);
 
   if (!municipality) {
@@ -675,6 +677,13 @@ const MunicipalityResults: FC<{
 
   const isSofiaRayon = /^S2\d{3}$/.test(municipality.obshtinaCode);
   const isSofiaCity = municipality.obshtinaCode === "SOF";
+  // A Sofia район is one "settlement" in the parliamentary/my-area trees
+  // (composite EKATTE "68134-NNNN"), so resolve that code to point the
+  // switcher at the район's parliamentary + my-area pages rather than at a
+  // non-existent S2xxx parliamentary município.
+  const rayonEkatte = isSofiaRayon
+    ? settlements?.find((s) => s.obshtina === municipality.obshtinaCode)?.ekatte
+    : undefined;
   const mayorSectionTitle = isSofiaRayon
     ? t("local_election_sec_mayor_rayon")
     : t("local_election_sec_mayor_obshtina");
@@ -689,16 +698,21 @@ const MunicipalityResults: FC<{
           <span className="mx-2">·</span>
           <span>{cycleDate}</span>
         </div>
-        <ToParliamentaryLink
-          level="municipality"
-          obshtinaCode={municipality.obshtinaCode}
-        />
+        {/* Sofia city aggregate keeps the simple "→ parliamentary" pill (it
+            maps to /sofia). Every real município + Sofia район gets the full
+            three-way switcher below the title instead. */}
+        {isSofiaCity ? (
+          <ToParliamentaryLink
+            level="municipality"
+            obshtinaCode={municipality.obshtinaCode}
+          />
+        ) : null}
       </div>
       <h1 className="text-2xl font-semibold mb-1">
         {municipality.obshtinaName}
       </h1>
       {isSofiaRayon ? (
-        <div className="mb-4">
+        <div className="mb-3">
           <Link
             to={`/local/${cycle}/SOF`}
             className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
@@ -706,6 +720,19 @@ const MunicipalityResults: FC<{
             {t("local_election_sofia_rayon_link")}
             <ArrowRight className="size-3" />
           </Link>
+        </div>
+      ) : null}
+
+      {/* View switcher — pivot to this same place's parliamentary results or
+          personal My-Area dashboard. */}
+      {!isSofiaCity ? (
+        <div className="mb-4">
+          <PlaceViewNav
+            active="local"
+            level={isSofiaRayon ? "settlement" : "municipality"}
+            ekatte={rayonEkatte}
+            obshtina={municipality.obshtinaCode}
+          />
         </div>
       ) : null}
 
@@ -763,16 +790,12 @@ const MunicipalityResults: FC<{
         <CouncilSection bundle={municipality} />
       )}
 
-      {/* Council activity tile — same unified surface as MyAreaCouncilTile,
-          showing recent council decisions + per-councillor named-vote
-          breakdowns where ingested. Auto-hides for municípios whose council
-          ingest hasn't run yet (most of the 265 общини today). For the 9
-          wired municipalities the per-councillor avatars sit alongside the
-          slate results above, letting the public-facing per-município page
-          answer both "who got elected" and "how have they been voting since". */}
-      <div className="mt-4">
-        <MyAreaCouncilTile obshtina={obshtinaCode} />
-      </div>
+      {/* Post-election council *activity* (recent decisions + per-councillor
+          named votes) used to live here, but it duplicates the unified
+          "Общински съвет" surface on the place's My-Area dashboard — now one
+          tap away via the view switcher at the top of this page. This page
+          stays focused on the election result itself (who got elected); the
+          "how have they voted since" governance view lives on /my-area. */}
 
       {/* Top councillors by preference — only shown when at least one slate
           recorded preferential votes (some pre-2019 cycles do not). */}

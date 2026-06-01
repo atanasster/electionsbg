@@ -6,7 +6,7 @@ import { useMunicipalityVotes } from "@/data/municipalities/useMunicipalityVotes
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Link } from "@/ux/Link";
-import { ToLocalLink } from "@/screens/components/CrossElectionLink";
+import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
 import { MunicipalityDashboardCards } from "./dashboard/MunicipalityDashboardCards";
 import { SectionsScreen } from "./SectionsScreen";
 
@@ -58,8 +58,13 @@ export const SettlementsScreen = () => {
         description={titleStr}
       />
       <H1>{title}</H1>
-      <div className="-mt-4 mb-6 flex justify-center">
-        <ToLocalLink level="municipality" obshtinaCode={muniCode} />
+      <div className="-mt-2 mb-6">
+        <PlaceViewNav
+          active="parliamentary"
+          level="municipality"
+          obshtina={muniCode}
+          oblast={municipality?.oblast ?? info?.oblast}
+        />
       </div>
       <MunicipalityDashboardCards municipalityCode={muniCode} />
     </>

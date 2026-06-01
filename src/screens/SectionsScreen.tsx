@@ -7,6 +7,7 @@ import { useRegions } from "@/data/regions/useRegions";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Link } from "@/ux/Link";
+import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
 import { SettlementDashboardCards } from "./dashboard/SettlementDashboardCards";
 
 export const SectionsScreen = () => {
@@ -60,6 +61,15 @@ export const SectionsScreen = () => {
         description={titleStr}
       />
       <H1>{title}</H1>
+      <div className="-mt-2 mb-4">
+        <PlaceViewNav
+          active="parliamentary"
+          level="settlement"
+          ekatte={ekatte}
+          obshtina={settlement?.obshtina ?? info?.obshtina}
+          oblast={settlement?.oblast ?? info?.oblast}
+        />
+      </div>
       <SettlementDashboardCards ekatte={ekatte} />
     </>
   );
