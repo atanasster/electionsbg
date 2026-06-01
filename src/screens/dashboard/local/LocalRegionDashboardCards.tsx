@@ -131,7 +131,6 @@ export const LocalRegionDashboardCards: FC<{
       <DashboardSection id="local-mayors" title={t("local_sec_mayors")}>
         {region.mayorsWon.length > 0 ? (
           <StatCard
-            titleCase
             bodyMaxHeight={LIST_MAX_H}
             label={t("local_region_mayors_section")}
           >
@@ -157,7 +156,6 @@ export const LocalRegionDashboardCards: FC<{
         <div className="grid gap-4 lg:grid-cols-2">
           {region.councilSeats.length > 0 ? (
             <StatCard
-              titleCase
               bodyMaxHeight={LIST_MAX_H}
               label={t("local_region_council_section")}
             >
@@ -181,7 +179,6 @@ export const LocalRegionDashboardCards: FC<{
           ) : null}
           {splitRows.length > 0 ? (
             <StatCard
-              titleCase
               bodyMaxHeight={LIST_MAX_H}
               label={
                 <div className="flex items-center gap-2">

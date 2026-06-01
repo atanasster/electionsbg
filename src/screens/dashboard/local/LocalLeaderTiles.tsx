@@ -49,7 +49,6 @@ export const LocalTopMayorsTile: FC<{
   if (rows.length === 0) return null;
   return (
     <StatCard
-      titleCase
       bodyMaxHeight={bodyMaxHeight}
       label={<TileLabel icon={Crown} text={t("local_top_mayors_title")} />}
       hint={t("local_top_mayors_hint")}
@@ -99,7 +98,6 @@ export const LocalClosestRacesTile: FC<{
   if (rows.length === 0) return null;
   return (
     <StatCard
-      titleCase
       bodyMaxHeight={bodyMaxHeight}
       label={<TileLabel icon={Scale} text={t("local_closest_races_title")} />}
       hint={t("local_closest_races_hint")}
@@ -143,7 +141,6 @@ export const LocalSplitControlTile: FC<{
   if (!split || split.count === 0) return null;
   return (
     <StatCard
-      titleCase
       bodyMaxHeight={bodyMaxHeight}
       label={<TileLabel icon={GitFork} text={t("local_split_control_title")} />}
       hint={t("local_split_control_hint")}

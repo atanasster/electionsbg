@@ -46,7 +46,6 @@ export const LocalSwingTile: FC<{ bodyMaxHeight?: string }> = ({
 
   return (
     <StatCard
-      titleCase
       bodyMaxHeight={bodyMaxHeight}
       label={t("local_swing_title")}
       hint={t("local_swing_hint", { from: swing.from, to: swing.to })}

@@ -11,33 +11,24 @@ type Props = {
   // When set, the whole card becomes a link to this route (drill-down to a
   // standalone detail page) with a hover affordance + a corner chevron.
   to?: string;
-  // Render the label in sentence case (drops the uppercase eyebrow styling).
-  // Use for long tile titles where ALL-CAPS Cyrillic hurts scannability;
-  // short kicker labels stay uppercase (the default).
-  titleCase?: boolean;
   // Cap the body to this CSS height with internal vertical scroll, so a long
   // list tile doesn't tower over its grid-row neighbour. e.g. "22rem".
   bodyMaxHeight?: string;
 };
 
+// Tile titles are sentence case (not an ALL-CAPS eyebrow): forced uppercase
+// hurts scannability, especially for long Cyrillic labels. ALL-CAPS is reserved
+// for the section kickers (DashboardSection) and party acronyms.
 export const StatCard: FC<PropsWithChildren<Props>> = ({
   label,
   hint,
   className,
   to,
-  titleCase,
   bodyMaxHeight,
   children,
 }) => {
   const labelEl = (
-    <div
-      className={cn(
-        "font-medium text-muted-foreground",
-        titleCase ? "text-sm" : "text-xs uppercase tracking-wide",
-      )}
-    >
-      {label}
-    </div>
+    <div className="text-sm font-medium text-muted-foreground">{label}</div>
   );
   const inner = (
     <>

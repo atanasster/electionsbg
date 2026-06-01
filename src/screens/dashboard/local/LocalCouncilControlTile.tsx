@@ -43,7 +43,6 @@ export const LocalCouncilControlTile: FC<{
 
   return (
     <StatCard
-      titleCase
       bodyMaxHeight={bodyMaxHeight}
       label={
         <div className="flex items-center gap-2">

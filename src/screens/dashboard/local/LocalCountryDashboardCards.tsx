@@ -161,7 +161,6 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
       <DashboardSection id="local-mayors" title={t("local_sec_mayors")}>
         <div className="grid gap-4 lg:grid-cols-2">
           <StatCard
-            titleCase
             bodyMaxHeight={LIST_MAX_H}
             label={t("local_cycle_overview_mayors_section")}
           >
@@ -188,7 +187,6 @@ export const LocalCountryDashboardCards: FC<{ cycle: string }> = ({
         <LocalCouncilControlTile cycle={cycle} />
         <div className="grid gap-4 lg:grid-cols-2">
           <StatCard
-            titleCase
             bodyMaxHeight={LIST_MAX_H}
             label={t("local_cycle_overview_council_section")}
           >

@@ -96,7 +96,6 @@ export const LocalCouncilHemicycleTile: FC<{
 
   return (
     <StatCard
-      titleCase
       label={
         <div className="flex items-center gap-2">
           <Users className="h-4 w-4" />
