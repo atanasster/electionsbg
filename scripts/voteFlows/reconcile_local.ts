@@ -33,7 +33,7 @@
 import fs from "fs";
 import path from "path";
 import { CanonicalPartiesIndex } from "@/data/parties/canonicalPartyTypes";
-import { LocalSectionShard } from "../parsers_local/types";
+import { LocalSectionDetail } from "../parsers_local/types";
 import { ABSTAIN_ID, EXITED_ID, JOINED_ID, ReconcileResult } from "./reconcile";
 
 /** Heterogeneous bucket: every ballot line with no parliamentary canonical
@@ -75,18 +75,26 @@ const loadCycleSections = (
   if (!fs.existsSync(dir)) {
     return { sections, totalByCanonical, totalCouncilVotes, totalRegistered };
   }
-  for (const file of fs.readdirSync(dir)) {
-    if (!file.endsWith(".json")) continue;
-    const shard: LocalSectionShard = JSON.parse(
-      fs.readFileSync(path.join(dir, file), "utf-8"),
-    );
-    // Per-shard legend: localPartyNum → canonical id (null → local_other).
-    const legend = new Map<number, string>();
-    for (const p of shard.parties) {
-      legend.set(p.localPartyNum, p.primaryCanonicalId ?? LOCAL_OTHER_ID);
-    }
-    const oblast = shard.obshtinaCode.slice(0, 3);
-    for (const sec of shard.sections) {
+  // Read the per-station detail files (sections/<obshtina>/<sectionCode>.json),
+  // NOT the sibling light index (sections/<obshtina>.json) — the index trims
+  // partyVotes to the top-5, which would silently truncate the council vote
+  // vector and skew the transition matrix. The detail files carry the FULL
+  // breakdown + their own legend.
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue; // skip the light index *.json
+    const obshtinaDir = path.join(dir, entry.name);
+    const oblast = entry.name.slice(0, 3); // obshtinaCode → oblast prefix
+    for (const file of fs.readdirSync(obshtinaDir)) {
+      if (!file.endsWith(".json")) continue;
+      const detail: LocalSectionDetail = JSON.parse(
+        fs.readFileSync(path.join(obshtinaDir, file), "utf-8"),
+      );
+      // Per-section legend: localPartyNum → canonical id (null → local_other).
+      const legend = new Map<number, string>();
+      for (const p of detail.parties) {
+        legend.set(p.localPartyNum, p.primaryCanonicalId ?? LOCAL_OTHER_ID);
+      }
+      const sec = detail.section;
       // Section codes are unique across shards within a cycle; район shards
       // carry no sections (SOF holds Sofia's), so there's nothing to dedup,
       // but Map.set keeps us safe if that ever changes.
