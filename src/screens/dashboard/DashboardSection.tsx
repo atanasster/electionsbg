@@ -30,6 +30,7 @@ type Props = {
     | "local-mayors"
     | "local-councils"
     | "local-sections"
+    | "local-risk-votes"
     | "local-flows"
     | "local-trends"
     | "local-extraordinary"

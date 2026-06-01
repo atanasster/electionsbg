@@ -22,6 +22,7 @@ import {
   ChevronRight,
   Landmark,
   Map,
+  ShieldAlert,
 } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
@@ -37,6 +38,8 @@ import { LocalCouncilHemicycleTile } from "./dashboard/local/LocalCouncilHemicyc
 import { LocalMayorRunoffBar } from "./dashboard/local/LocalMayorRunoffBar";
 import { LocalSectionsTile } from "./dashboard/local/LocalSectionsTile";
 import { LocalSectionsMapTile } from "./dashboard/local/LocalSectionsMapTile";
+import { LocalProblemVotesByPartyTile } from "./dashboard/local/LocalProblemVotesByPartyTile";
+import { useLocalProblemSections } from "@/data/local/useLocalProblemSections";
 import { TopMayorsTile } from "./dashboard/local/TopMayorsTile";
 import { TopCouncilPartiesTile } from "./dashboard/local/TopCouncilPartiesTile";
 import { LocalMayorTimelineTile } from "./dashboard/local/LocalMayorTimelineTile";
@@ -659,6 +662,13 @@ const MunicipalityResults: FC<{
   // Council polling-station shard drives the map shown beside both the mayor
   // and council tiles (Sofia район shards read from the city-wide SOF bundle).
   const { shard, hasCoords } = useLocalSectionShard(cycle, obshtinaCode);
+  // Risk-votes block — present only when this município owns ≥1 flagged
+  // "problem section" (most don't). Sofia район shards never match: their
+  // neighborhoods are keyed to the SOF city bundle.
+  const { data: problemReport } = useLocalProblemSections(cycle);
+  const hasProblemSections =
+    problemReport?.neighborhoods.some((n) => n.obshtinaCode === obshtinaCode) ??
+    false;
 
   if (!municipality) {
     return (
@@ -847,6 +857,23 @@ const MunicipalityResults: FC<{
           / municípios without an ingested section shard (e.g. Sofia район
           shards, whose sections live under the SOF bundle). */}
       <LocalSectionsTile cycle={cycle} obshtinaCode={obshtinaCode} />
+
+      {/* Risk votes — council-ballot distribution inside the curated Roma-
+          neighborhood "problem sections" for this município (local analogue of
+          the parliamentary RISK VOTES block). Gated on a real match so no empty
+          heading renders. */}
+      {hasProblemSections ? (
+        <DashboardSection
+          id="local-risk-votes"
+          title={t("dashboard_section_neighborhoods")}
+          icon={ShieldAlert}
+        >
+          <LocalProblemVotesByPartyTile
+            obshtinaCode={obshtinaCode}
+            cycle={cycle}
+          />
+        </DashboardSection>
+      ) : null}
 
       <ChmiHistorySection events={chmiEvents} />
 

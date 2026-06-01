@@ -218,6 +218,28 @@ Note the section data is now two-tier — every ingest/parse path emits a light
 top-sections + table) plus per-station `sections/<obshtina>/<sectionCode>.json`
 full-breakdown files (the detail page fetches just one) via `emitSectionFiles`.
 
+## Step 5.6 — Problem sections (powers the município "Risk votes" tile)
+
+Flag the curated Roma-neighborhood polling sections inside the local council
+data — the council-ballot analogue of the parliamentary `problem_sections`
+report. Writes `data/<cycle>/problem_sections.json` for every regular `_mi`
+cycle (the município dashboard's **Risk votes / Problem votes by party** tile
+reads it; self-hides for municípios with no flagged neighborhood):
+
+```bash
+npm run data -- --local-problem-sections
+```
+
+**Run this AFTER `--local-coords`** — the match keys on EKATTE + the building
+`address` that the coords step stamps onto the shards. Reuses the watchlist in
+`scripts/reports/problem_sections/neighborhoods.ts` (same source as
+parliamentary); matching is local-specific (`problem_sections_local.ts`) because
+local section codes are NSI-oblast-prefixed while parliamentary are
+МИР-prefixed, so the codes can't be joined — it matches by section prefix
+(Plovdiv only, where МИР=NSI), else address keyword + normalized EKATTE. Reads
+the per-station detail files for full party votes. Idempotent; also folded into
+`--all`.
+
 ## Step 6 — Stamp the ingest marker
 
 `ingestCycles` writes `state/ingest/cik_local.json` automatically on success. If you ran the parser-only path (`--local --local-date …` rather than `--local-ingest …`), you can stamp manually:
