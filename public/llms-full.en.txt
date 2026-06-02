@@ -870,7 +870,7 @@ keywords:
 
 ![The "Municipal council" tile on a place's Governance dashboard — Veliko Tarnovo. Each decision carries its adopted/rejected outcome, the за–против–въздържал tally, and — where the protocol publishes it — every councillor's individual vote as a colour-ringed avatar (ring colour = how they voted, fill = party).](/articles/images/local_government/01-council-tile.png)
 
-Everything described below surfaces in one place: the **Governance** view — the per-place dashboard on electionsbg.com that every Bulgarian municipality and settlement gets. It pulls together who represents you, how they vote, and where your municipality's money comes from and where it goes. Two of its tiles are the subject of this article: the **"Municipal council"** tile shown above — every council decision with its outcome, the за–против–въздържал tally, and, where the protocol publishes it, each councillor's individual vote — and the **"Capital programme"** tile further down, which itemises every investment project for the year with its value, funding source, and the village it lands in.
+Everything described below surfaces in one place: the **[Governance](/my-area)** view — the local-government dashboard on electionsbg.com that every Bulgarian municipality and settlement gets. It pulls together who represents you, how they vote, and where your municipality's money comes from and where it goes. Two of its tiles are the subject of this article: the **"Municipal council"** tile shown above — every council decision with its outcome, the за–против–въздържал tally, and, where the protocol publishes it, each councillor's individual vote — and the **"Capital programme"** tile further down, which itemises every investment project for the year with its value, funding source, and the village it lands in.
 
 The data behind both tiles has to be assembled municipality by municipality, because none of it exists as a national dataset. The rest of this article is an audit of how far we've got — and an honest map of what's still missing, and why.
 
@@ -971,8 +971,8 @@ Vidin is in a special category: the 2025 and 2026 forward plans aren't published
 
 Two other municipal-finance surfaces sit alongside the capital programmes:
 
-- **Article 53 transfers** — every year the State Budget Law allocates subsidies to each municipality (Bulgarian: Чл.53 на ЗДБРБ — обща изравнителна, общи целеви, ВКП от РУП и т.н.). We parse this from the law's HTML annex into `data/budget/municipal_transfers/`. Coverage is **all 265 municipalities** for fiscal years 2020, 2022, 2023, 2024, and 2025 — the only universal-coverage local-finance surface in the system. 2025 combined: **€4.53 billion** in state transfers to local government.
-- **Actual cash execution** — the municipality's monthly "Касов отчет" feed that shows what got spent vs what was planned. This is the surface that would close the loop on "did the council actually deliver Project X for €Y or did the money sit unspent?" Currently dormant: only **Русе** (2016–2025) and **Николаево** (2019–2024) publish it in a parseable format. Most municipalities post the monthly cash report as a scanned PDF that gets scanned each month with a varying layout, so there's no stable parsing target without per-municipality OCR work.
+- **Article 53 transfers** — every year the State Budget Law allocates subsidies to each municipality (Bulgarian: Чл.53 на ЗДБРБ — обща изравнителна, общи целеви, ВКП от РУП и т.н.). We parse this from the law's HTML annex. Coverage is **all 265 municipalities** for fiscal years 2020, 2022, 2023, 2024, and 2025 — the only universal-coverage local-finance surface in the system. 2025 combined: **€4.53 billion** in state transfers to local government.
+- **Actual cash execution** — the municipality's monthly "Касов отчет" feed that shows what got spent vs what was planned. This is the surface that would close the loop on "did the council actually deliver Project X for €Y or did the money sit unspent?" Currently dormant: only **Русе** (2016–2025) and **Николаево** (2019–2024) publish it in a parseable format. Most municipalities post the monthly cash report as a scanned PDF, often with a varying layout, so there's no stable parsing target without per-municipality OCR work.
 
 ## Council votes — what's missing
 
@@ -997,7 +997,7 @@ The shortlist of municipalities NOT yet wired but actively publishing protocols:
 ### Per-decision limitations
 
 - **No decision title** for two remaining Tier-B sources (Добрич, Разград). Title extraction via "ОТНОСНО:" / "ПО ХХ ТОЧКА" agenda headers is wired for Димитровград; **Разград** is the next candidate (its докладна записка carries a clean structured "ОТНОСНО: <subject>" line), but its titles are **not yet populated** — every Разград resolution still surfaces by id. Добрич is harder: its protocol is a verbatim stenographic transcript where "относно" appears in councillors' spoken discussion ("относно цените…"), not as a structured field, so the title has to come from a different anchor (the докладна subject) — a separate parser task, not a quick port. Where no title is recovered, the resolution surfaces by id.
-- **No body text** indexed for conflict-of-interest matching. We have the decision metadata + vote, but the body of each resolution isn't stored — meaning we can't yet flag "councillor X voted on a contract awarded to company Y where they're a director". The processing pipeline is implemented (see `data/officials/derived/councillor_conflicts.json`), but with 0 matches today because no municipality's resolution body is indexed.
+- **No body text** indexed for conflict-of-interest matching. We have the decision metadata + vote, but the body of each resolution isn't stored — meaning we can't yet flag "councillor X voted on a contract awarded to company Y where they're a director". The processing pipeline is implemented, but with 0 matches today because no municipality's resolution body is indexed.
 - **Stale Wayback windows** for Габрово (Feb–Sep 2024), Хасково (Jan 2022 only), Добрич (Nov–Dec 2023). The Internet Archive crawls these sites only occasionally; the dataset will get fresher as Wayback re-crawls.
 
 ### What the Tier-B coverage misses
@@ -1013,7 +1013,7 @@ Of the 16 integrated councils, **7 are Tier B** — we have the aggregate tally 
 ### Short term (resolving technical barriers)
 
 1. **TSPD / Cloudflare bypass** — Видин, Търговище, Смолян, and four others sit behind enterprise bot guards. Our local-elections skill already handles this for ЦИК via a Playwright session with a persistent `cf_clearance` cookie; applying this same pattern to the council data ingestion would unlock at least 3 more oblast capitals (Видин, Търговище, Смолян + likely Кърджали, Кюстендил, Враца).
-2. **Body indexing for Tier A councils** — store each resolution's body text under `data/council/bodies/<obshtina>/<id>.json`. This enables conflict-of-interest detection (councillor ↔ company tie) and full-text search over the corpus.
+2. **Body indexing for Tier A councils** — store each resolution's body text. This enables conflict-of-interest detection (councillor ↔ company tie) and full-text search over the corpus.
 3. **Title extraction for the remaining Tier-B sources** — the two cases aren't equally easy (verified against live sessions). **Разград** is the more tractable: its protocol carries clean structured "ОТНОСНО: …" blocks (e.g. "Наредба за изменение и допълнение на Наредба № 30…"), so porting the Димитровград agenda-header logic is direct — but its titles are **not yet populated** in the current data (every Разград resolution still surfaces by id, pending a working ingest). **Добрич** is harder: its verbatim transcript scatters conversational "относно …" that isn't a title field, so the title must come from a different anchor (the докладна subject) — a separate parser task, not a 30-minute port. Either way, once wired each decision gets a human-readable subject in the Governance view's "Последна активност" feed.
 
 ### Medium term (data publication itself)
@@ -1033,7 +1033,7 @@ This is where readers can help directly. If your municipality is in the table ab
 | SHU30 | Шумен | https://obs.shumen.bg/ |
 | VTR06 | Горна Оряховица | https://savet.gornaoryahovitsa.bg/ |
 
-A concrete ask works well: "Publish the full protokol of session N as a downloadable PDF or DOCX with the per-councillor vote readout, the same way Велико Търново / Бургас / Перник already do." Every council that follows that pattern becomes ingestable in days.
+An example of a concrete ask: "Publish the full protokol of session N as a downloadable PDF or DOCX with the per-councillor vote readout, the same way Велико Търново / Бургас / Перник already do." Every council that follows that pattern becomes ingestable in days.
 
 ### Long term (the rest of the 256)
 
@@ -1083,7 +1083,7 @@ Where the council still publishes only aggregate tallies (Tier B — Plovdiv, Va
 
 ## Article 53 — the universal counterpart
 
-The capital programmes are about how each municipality _spends_ its money. The third major surface — the only one with universal coverage — is about how each municipality _gets_ its money. Article 53 of the State Budget Law (Чл.53 ЗДБРБ) carries the annual envelope of state transfers to every one of Bulgaria's 265 municipalities, broken down into five transfer categories. We parse this from the law's HTML annex into `data/budget/municipal_transfers/`.
+The capital programmes are about how each municipality _spends_ its money. The third major surface — the only one with universal coverage — is about how each municipality _gets_ its money. Article 53 of the State Budget Law (Чл.53 ЗДБРБ) carries the annual envelope of state transfers to every one of Bulgaria's 265 municipalities, broken down into five transfer categories. We parse this from the law's HTML annex.
 
 | Fiscal year | Grand total (€) | Munis covered |
 |:--:|--------:|:--:|
@@ -1118,7 +1118,9 @@ The top recipients by total transfer in 2025:
 | PAZ19 | Пазарджик | 63.9M | 57.9M | 1.9M |
 | VTR04 | Велико Търново | 62.9M | 59.0M | 2.3M |
 
-Sofia gets roughly **€652M** in state transfers; the five smallest municipalities (Мирково, Грамада, Антон, Макреш, Чавдар) each get under **€2M**. The story isn't the absolute amounts — it's the structure: 89% of every municipality's envelope flows to delegated activities the council has no real discretion over, leaving the equalisation transfer + the capital transfer as the approximate scope of the council's discretionary fiscal decisions for the year. For Велико Търново in 2025 that's **€2.27M capital + €1.36M equalisation = €3.6M of "council-discretionary" state money**, against the €47.1M total capital programme — so roughly 92% of the capital programme comes from somewhere _other_ than the state's transfer (own revenue, EU programmes, debt).
+Sofia gets roughly **€652M** in state transfers; the five smallest municipalities (Мирково, Грамада, Антон, Макреш, Чавдар) each get under **€2M**. The story isn't the absolute amounts — it's the structure: 89% of every municipality's envelope flows to delegated activities the council has no real discretion over, leaving the equalisation transfer + the capital transfer as the approximate scope of the council's discretionary fiscal decisions for the year.
+
+For Велико Търново in 2025 that's **€2.27M capital + €1.36M equalisation = €3.63M of "council-discretionary" state money**, against the €47.1M total capital programme — so roughly 92% of the capital programme comes from somewhere _other_ than the state's transfer (own revenue, EU programmes, debt).
 
 Universal coverage means this is the one place in the system where you can compare every municipality to every other on the same axis. The five-fiscal-year time series also gives a clean view of how the envelope has changed across cabinet mandates — the **more than doubling between 2020 and 2025 (+111% growth, or 2.1×)** is one of the most-quoted figures from the platform, and the structural split lets you see how much of that came from inflation-driven delegated raises versus genuine fiscal expansion.
 
@@ -1138,10 +1140,10 @@ We re-fetch all five CSVs from `https://www.265obshtini.bg/downloadCSV/{ipiId}`,
 
 **Tier B — municipality-specific bylaws.** Four additional fields that IME doesn't track because they depend on each municipal council's annual vote. We parse them directly from **both bylaws** of each municipality — the bylaw determining the size of local taxes (НОРМД — *Наредба за определяне размера на местните данъци*) and the bylaw on local fees and service prices (НОАМТЦУ — *Наредба за определяне и администриране на местните такси и цени на услуги*):
 
-- **Property tax for individuals** — the actual rate citizens pay. IME formally tracks the legal-entities row; for most municipalities both rates coincide under a common ЗМДТ Art. 22 clause, but not all (Petrich, for instance, has a separate 2.3 ‰ rate for non-residential of enterprises and 3 ‰ for all citizen-owned property).
+- **Property tax for individuals** — the actual rate citizens pay. IME formally tracks the legal-entities row; for most municipalities both rates coincide under a common ЗМДТ Art. 22 clause, but not all (Petrich, for instance, has a separate 2.3 ‰ rate for non-residential property of enterprises and 3 ‰ for all citizen-owned property).
 - **Residential garbage fee** (ТБО) — the basis flag (promille of tax valuation / per user / floor area / waste volume) plus the rate when the bylaw publishes one. Most large municipalities defer the actual rate to an annual council resolution rather than codifying it in the bylaw — in that case we store the basis with an honest "set annually by council resolution" note.
 - **Tourist tax** — per-night rate by star category, lifted from the "1 star / 2 stars / …" tariff inside the tax bylaw. When the bylaw publishes dual BGN/EUR values we prefer the EUR side; converted-from-BGN values carry a small "(conv. from BGN)" qualifier in the tile.
-- **Dog tax** — annual fee. Lives in the fees bylaw (НОАМТЦУ) as a *такса* under ЗМДТ Art. 175(2) (veterinary-medicine authority), not in the tax bylaw — so extracting this data requires retrieving both documents.
+- **Dog tax** — annual fee. Extracted from the fees bylaw (НОАМТЦУ) as a *такса* under ЗМДТ Art. 175(2) (veterinary-medicine authority), not in the tax bylaw — so extracting this data requires retrieving both documents.
 
 Tier B currently covers **10 municipalities**: Sofia, Plovdiv, Varna, Burgas, Stara Zagora, Razgrad, Samokov, Maglizh, Balchik and Petrich. The data sources are heterogeneous:
 
@@ -1191,14 +1193,14 @@ The **"Local taxes"** tile on the Governance page renders for any of the 265 mun
 
 For users from the 10 Tier-B municipalities, the **"Where do my taxes go?"** tile on the same Governance page combines these rates with a stylised household profile (apartment with €30,000 tax valuation + 85 kW vehicle) and shows the estimated annual local-tax bill — property tax, residential garbage fee, vehicle tax, and the one-time property-transfer tax. Next to it sits the distribution of the personal income tax (10%) across COFOG budget functions, so the user sees their whole personal tax-and-fee profile in one place.
 
-## What you see in the Governance view today
+## What you can find in the Governance view today
 
 Every municipality with at least one decision in our index gets:
 
 - A **"Общински съвет" tile** on the Governance page showing the freshest 5 decisions, each with its title (where parsed), date, adopted/rejected status, and the aggregate vote (за–против–въздържал) — with a "Спорни" (contested) chip that narrows the list to decisions where dissent plus abstentions exceed 10% of the votes cast.
-- An expandable view that shows the per-councillor breakdown when the council publishes it — one mini-avatar per councillor, coloured by their vote, with the cacbg-roster profile link on hover.
-- A **"Standouts" strip** for the Tier-A councils — the top dissenters and the lowest-attendance councillors across the council's named-vote record, computed from the votes shard at `data/council/votes/<obshtina>.json`.
-- A council search feature in the global header — every councillor in the cacbg roster is searchable by name across the 16 wired municipalities.
+- You can open the decisions to see the per-councillor votes when the council publishes them — one mini-avatar per councillor, coloured by their vote, with the cacbg-roster profile link on hover.
+- A **"Standouts" strip** for the Tier-A councils — the top dissenters and the lowest-attendance councillors across the council's named-vote record.
+- A **council search** feature — search any councillor by name across the 16 wired municipalities.
 - An "Последна активност" timeline that mixes the freshest council decisions with the municipality's EU-funds disbursements, procurement awards, capital programme additions, and local-election results — one unified feed of "what just happened in your municipality".
 
 When a new protokol lands on any of the 16 council websites, the daily watcher (running on a cron) detects a change in the fingerprint, the orchestrator re-runs the ingestion pipeline, and within a single processing cycle the new decisions appear on the platform.
