@@ -3,15 +3,16 @@
 // pattern in scripts/budget/capital_programs/kazanlak_ocr.ts — same
 // model, same auth path (.env.local → GEMINI_API_KEY), same undici
 // dispatcher with generous timeouts (a busy 12-page scan takes 5-8
-// minutes through gemini-2.5-pro).
+// minutes through gemini-3.5-flash).
 //
 // The output is plain text — we deliberately do NOT ask Gemini for a
 // structured tally JSON. Instead, the OCR'd text feeds the same
 // `findAllTallies` + `extractNamedVoteBlock` extractors that handle
 // native-text PDFs, so per-município parsers stay format-agnostic.
 //
-// Cost note: gemini-2.5-pro inference on a multi-page scanned PDF runs
-// real money. The Sliven / Stara Zagora scrapers only invoke this when
+// Cost note: gemini-3.5-flash inference is far cheaper than the old
+// 2.5-pro path, but still metered per call. The Sliven / Stara Zagora
+// scrapers only invoke this when
 // pdftotext returns <200 non-whitespace chars (the `looksLikeScannedPdf`
 // trip) — so opportunistic Phase 1 attempts on native PDFs don't pay
 // for OCR.
@@ -23,7 +24,7 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ENV_FILE = resolve(__dirname, "../../../.env.local");
-const MODEL = "gemini-2.5-pro";
+const MODEL = "gemini-3.5-flash";
 
 /**
  * .env.local loader — copy of the kazanlak_ocr helper. Deliberately

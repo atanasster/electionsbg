@@ -27,7 +27,7 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ENV_FILE = resolve(__dirname, "../../../.env.local");
-const MODEL = "gemini-2.5-pro";
+const MODEL = "gemini-3.5-flash";
 
 const loadEnv = () => {
   if (!existsSync(ENV_FILE)) return;
