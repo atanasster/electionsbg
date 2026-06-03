@@ -1,6 +1,32 @@
 {
-  "updatedAt": "2026-05-29T08:15:43.046Z",
+  "updatedAt": "2026-06-03T11:05:04.660Z",
   "entries": [
+    {
+      "timestamp": "2026-06-03T11:05:04.660Z",
+      "date": "2026-06-03",
+      "skill": "parliament-scrape",
+      "summary": "52nd NS roster: 239 current MPs (id 5173 left); 81 MP profiles enriched with bio fields",
+      "source": "Parliament MPs (active roster)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-03T11:02:59.736Z",
+      "date": "2026-06-03",
+      "skill": "update-rollcall",
+      "summary": "1 new session (id 11132, 2026-05-29): 73 items, 17520 rows; 586 sessions total",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-05-29T08:15:43.046Z",
       "date": "2026-05-29",
