@@ -44,7 +44,10 @@ export const AreaPill: FC = () => {
   return (
     <div
       className={cn(
-        "inline-flex items-stretch overflow-hidden rounded-md border text-xs font-medium",
+        // min-w-0 lets the pill shrink (and its name truncate) instead of
+        // wrapping to a second header row when the row gets tight; the
+        // overflow-hidden clips whatever the inner truncation can't.
+        "inline-flex min-w-0 items-stretch overflow-hidden rounded-md border text-xs font-medium",
         "border-primary/40 bg-primary/[0.06]",
       )}
     >
@@ -54,16 +57,25 @@ export const AreaPill: FC = () => {
           aria-label={t("area_pill_aria", { name: display })}
           onClick={() => navigate(`/governance/${anchor.id}`)}
           className={cn(
-            "flex items-center gap-1.5 px-2 py-1 whitespace-nowrap transition-colors",
+            "flex min-w-0 items-center gap-1.5 px-2 py-1 whitespace-nowrap transition-colors",
             "text-foreground hover:bg-primary/[0.12]",
             "focus:outline-none focus-visible:bg-primary/[0.18]",
           )}
         >
-          <MapPin aria-hidden className="inline-block size-3 text-primary" />
-          <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
+          <MapPin
+            aria-hidden
+            className="inline-block size-3 shrink-0 text-primary"
+          />
+          {/* Prefix label dropped below xl so the pill can spend its width on
+              the place name instead of the "РАЙОН/ОБЩ" prefix when the row is
+              tight (mobile, and the lg menu-bar band); restored at xl. The
+              MapPin already signals "place". */}
+          <span className="hidden xl:inline shrink-0 text-[10px] uppercase tracking-wide text-muted-foreground">
             {labelPrefix}
           </span>
-          <span className="truncate max-w-[14ch]">{display}</span>
+          <span className="truncate min-w-0 max-w-[7ch] sm:max-w-[14ch]">
+            {display}
+          </span>
         </button>
       </UxTooltip>
       <span aria-hidden className="w-px bg-primary/30" />

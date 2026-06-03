@@ -50,7 +50,10 @@ export const CabinetAnchorPill: FC = () => {
   return (
     <div
       className={cn(
-        "inline-flex items-stretch overflow-hidden rounded-md border text-xs font-medium",
+        // min-w-0 lets the pill shrink (name truncates) rather than wrap the
+        // header to a second row when the row is tight; overflow-hidden clips
+        // the remainder.
+        "inline-flex min-w-0 items-stretch overflow-hidden rounded-md border text-xs font-medium",
         "border-amber-500/50 bg-amber-500/[0.06]",
       )}
     >
@@ -60,20 +63,20 @@ export const CabinetAnchorPill: FC = () => {
           aria-label={t("cabinet_anchor_pill_aria", { name: surname })}
           onClick={() => navigate(`/governments/${encodeURIComponent(g.id)}`)}
           className={cn(
-            "flex items-center gap-1.5 px-2 py-1 whitespace-nowrap transition-colors",
+            "flex min-w-0 items-center gap-1.5 px-2 py-1 whitespace-nowrap transition-colors",
             "text-foreground hover:bg-amber-500/[0.12]",
             "focus:outline-none focus-visible:bg-amber-500/[0.18]",
           )}
         >
           <span
             aria-hidden
-            className="inline-block h-2 w-2 rounded-full"
+            className="inline-block h-2 w-2 shrink-0 rounded-full"
             style={{ backgroundColor: color }}
           />
-          <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
+          <span className="shrink-0 text-[10px] uppercase tracking-wide text-muted-foreground">
             {labelPrefix}
           </span>
-          <span className="truncate max-w-[14ch]">{surname}</span>
+          <span className="truncate min-w-0 max-w-[14ch]">{surname}</span>
         </button>
       </UxTooltip>
       <span aria-hidden className="w-px bg-amber-500/30" />

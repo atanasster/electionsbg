@@ -24,7 +24,10 @@ export const Tooltip: FC<
     return (
       <Popover>
         <PopoverTrigger asChild>
-          <span role="button" tabIndex={0} className="cursor-pointer">
+          {/* min-w-0 so a tooltip-wrapped flex child (e.g. the header area /
+              cabinet pills) can still shrink-and-truncate instead of forcing
+              an overflow; no-op for non-flex usages. */}
+          <span role="button" tabIndex={0} className="cursor-pointer min-w-0">
             {children}
           </span>
         </PopoverTrigger>

@@ -282,8 +282,8 @@ export const Header = () => {
       ref={navRef}
       className="flex shadow-sm fixed w-full z-10 top-0 gap-1 sm:gap-2 bg-muted border-b-2 justify-between items-center"
     >
-      <div className="flex text-xl text-primary flex-wrap items-center gap-1.5 p-2 sm:gap-2 sm:px-3 sm:py-4">
-        <Link to="/" className="flex flex-row items-center">
+      <div className="flex min-w-0 text-xl text-primary items-center gap-1.5 p-2 sm:gap-2 sm:px-3 sm:py-4">
+        <Link to="/" className="flex shrink-0 flex-row items-center">
           <span className="sr-only">Elections in Bulgaria data statistics</span>
           <Logo className="size-7" />
           <div className="hidden sm:flex font-title ext-2xl transition-all duration-200 pl-2">

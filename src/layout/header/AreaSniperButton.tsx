@@ -174,7 +174,11 @@ export const AreaSniperButton: FC = () => {
             aria-label={t("area_sniper_aria")}
             className={cn(
               "text-secondary-foreground w-[28px] relative",
-              anchor && "text-primary",
+              // When an area is already selected the persistent AreaPill
+              // covers it, so on mobile we drop the sniper to keep the
+              // header on a single row (it reappears at sm+). With no
+              // anchor the sniper stays visible everywhere as the entry point.
+              anchor && "text-primary hidden sm:inline-flex",
             )}
           >
             <Crosshair className="size-5" />

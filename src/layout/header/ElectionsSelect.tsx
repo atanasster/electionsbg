@@ -6,10 +6,12 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { useAreaAnchor } from "@/data/area/areaAnchor";
+import { cn } from "@/lib/utils";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { prefetchElection } from "@/data/prefetch";
-import { localDate, totalAllVotes } from "@/data/utils";
+import { localDate, localDateShort, totalAllVotes } from "@/data/utils";
 import { Hint } from "@/ux/Hint";
 import { useTouch } from "@/ux/TouchProvider";
 import {
@@ -48,6 +50,14 @@ export const ElectionsSelect: FC = () => {
   const { colorFor } = useCanonicalParties();
   const { t } = useTranslation();
   const isTouch = useTouch();
+  // When an area is anchored the persistent AreaPill joins this row, and so
+  // does the text menu bar at lg. To keep everything on one line (and leave
+  // the pill enough room to show its name rather than truncate to a stub) we
+  // drop the prev/next arrows whenever anchored below xl — the dropdown still
+  // selects any election — and restore them at xl where the full bar fits.
+  // See AreaSniperButton / AreaPill for the rest of the anchored compaction.
+  const anchor = useAreaAnchor();
+  const arrowHiddenWhenAnchored = anchor ? "hidden xl:inline-flex" : undefined;
   const navigate = useNavigate();
   const maybeHint = (text: string, node: ReactNode) =>
     isTouch ? node : <Hint text={text}>{node}</Hint>;
@@ -115,13 +125,16 @@ export const ElectionsSelect: FC = () => {
   };
 
   return (
-    <div className="flex gap-1 items-center">
+    <div className="flex shrink-0 gap-1 items-center">
       {maybeHint(
         t("prior_elections"),
         <Button
           variant="ghost"
           size="icon"
-          className="size-9 md:size-10 text-secondary-foreground/70 hover:text-secondary-foreground"
+          className={cn(
+            "size-7 md:size-8 text-secondary-foreground/70 hover:text-secondary-foreground",
+            arrowHiddenWhenAnchored,
+          )}
           onMouseEnter={() => prefetchElection(priorElection)}
           onFocus={() => prefetchElection(priorElection)}
           onClick={() => {
@@ -148,10 +161,27 @@ export const ElectionsSelect: FC = () => {
               prefetchElection(priorElection);
               prefetchElection(nextElection);
             }}
-            className="flex h-9 w-[125px] md:w-[150px] items-center justify-between gap-2 whitespace-nowrap rounded-md border border-input bg-transparent px-2 text-sm text-secondary-foreground shadow-sm ring-offset-background focus:outline-none focus:ring-1 focus:ring-ring [&[data-state=open]>svg]:rotate-180"
+            className={cn(
+              "flex h-7 items-center justify-between gap-2 whitespace-nowrap rounded-md border border-input bg-transparent px-2 text-sm text-secondary-foreground shadow-sm ring-offset-background focus:outline-none focus:ring-1 focus:ring-ring [&[data-state=open]>svg]:rotate-180",
+              // Anchored on mobile the date shares its row with the area pill,
+              // so it shrinks to a 2-digit-year trigger; otherwise it keeps the
+              // roomy full-year width.
+              anchor
+                ? "w-[110px] sm:w-[125px] md:w-[150px]"
+                : "w-[125px] md:w-[150px]",
+            )}
           >
+            {/* Only when anchored (and on mobile) do we swap the full year for a
+                2-digit one, so the trigger stays narrow enough to share one
+                header row with the area pill. With no anchor — or at sm+ — the
+                full "19/04/2026" shows. */}
             <span className="line-clamp-1 tabular-nums">
-              {localDate(selected)}
+              <span className={cn("sm:hidden", !anchor && "hidden")}>
+                {localDateShort(selected)}
+              </span>
+              <span className={cn(anchor && "hidden sm:inline")}>
+                {localDate(selected)}
+              </span>
             </span>
             <ChevronDown className="size-4 shrink-0 opacity-50 transition-transform duration-200" />
           </button>
@@ -229,7 +259,10 @@ export const ElectionsSelect: FC = () => {
         <Button
           variant="ghost"
           size="icon"
-          className="size-9 md:size-10 text-secondary-foreground/70 hover:text-secondary-foreground"
+          className={cn(
+            "size-7 md:size-8 text-secondary-foreground/70 hover:text-secondary-foreground",
+            arrowHiddenWhenAnchored,
+          )}
           onMouseEnter={() => prefetchElection(nextElection)}
           onFocus={() => prefetchElection(nextElection)}
           onClick={() => {

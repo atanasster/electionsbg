@@ -276,6 +276,23 @@ export const localDate = (date: string) => {
   });
 };
 
+// Compact DD/MM/YY variant of `localDate` for space-constrained spots
+// (e.g. the mobile header where the date trigger shares a row with the
+// area pill). Same en-GB ordering, just a 2-digit year.
+export const localDateShort = (date: string) => {
+  const dateS = date.split("_");
+  const dateObj = new Date(
+    parseInt(dateS[0]),
+    parseInt(dateS[1]) - 1,
+    parseInt(dateS[2]),
+  );
+  return dateObj.toLocaleDateString("en-GB", {
+    year: "2-digit",
+    month: "2-digit",
+    day: "2-digit",
+  });
+};
+
 export const matchPartyNickName = (
   party: Partial<PartyInfo>,
   pr: BasicPartyInfo,
