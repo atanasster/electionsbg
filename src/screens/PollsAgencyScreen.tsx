@@ -120,6 +120,7 @@ export const PollsAgencyScreen: FC = () => {
             agency={agency}
             take={take}
             consensusMAE={consensusMAE}
+            pollCount={agencyPolls.length}
           />
         </div>
 

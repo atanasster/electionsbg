@@ -29,6 +29,11 @@ type Props = {
   agency?: Agency;
   take?: AgencyTake;
   consensusMAE?: number;
+  // Live poll count for this agency, sourced from polls.json by the parent.
+  // Preferred over profile.totalPolls so the figure stays correct without
+  // regenerating accuracy.json — e.g. when a post-election (electionDate:null)
+  // wave is added by hand. Falls back to the accuracy-artifact count.
+  pollCount?: number;
 };
 
 export const AgencyProfileCard: FC<Props> = ({
@@ -36,6 +41,7 @@ export const AgencyProfileCard: FC<Props> = ({
   agency,
   take,
   consensusMAE,
+  pollCount,
 }) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
@@ -150,7 +156,7 @@ export const AgencyProfileCard: FC<Props> = ({
             {profile.electionsCovered.length}
           </div>
           <div className="text-[10px] text-muted-foreground tabular-nums">
-            {profile.totalPolls} {t("polls_total").toLowerCase()}
+            {pollCount ?? profile.totalPolls} {t("polls_total").toLowerCase()}
           </div>
         </div>
       </div>

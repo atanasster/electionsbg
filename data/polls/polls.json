@@ -2590,6 +2590,31 @@
     }
   },
   {
+    "id": "ml-2026-05-27",
+    "agencyId": "ML",
+    "fieldwork": "May 16-27 2026",
+    "electionDate": null,
+    "respondents": 1008,
+    "methodology": {
+      "en": "Direct personal interview & online survey (commissioned jointly by bTV + Market LINKS)",
+      "bg": "Пряко-лично интервю и онлайн анкета (финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС)"
+    },
+    "source": "https://www.marketlinks.bg/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2005.2026.pdf",
+    "genre": "raw_attitudes",
+    "residual": {
+      "undecided": 19.1,
+      "wontVote": null,
+      "wontSay": null,
+      "otherNamedMinor": null,
+      "notes": "FIRST post-election (inter-election) wave — fieldwork 16-27 May 2026, ~5 weeks AFTER the Apr 19 2026 election, so electionDate is null and the poll is NOT scored for accuracy (the analyzer filters out null-electionDate polls). Hypothetical-vote question \"За коя политическа сила ще гласувате при предсрочни избори тази година?\" (slide 14). Shares are the agency's \"Гласуващи\" column among the 554 respondents declaring firm intent to vote (full sample n=1008). Named: ПрБ 36.9, ГЕРБ-СДС 12.6, ПП-ДБ 11.1, ДПС 5.5, Възраждане 3.5, plus Друга 10.4 stored as an explicit detail row (matches slide 14 and the April wave's convention). Residual on the same denominator: Не съм решил 19.1; Не подкрепям никого 0.8 (none-of-the-above, not a party — left out of detail rows). The chart labels the Peevski DPS simply \"ДПС\"; stored as ДПС – НН for cross-wave consistency. Agency note: ПрБ sits ~10pp below its April result, read as soft re-confirmation of the winner's core rather than a forecast. Agency news permalink: marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-may-2026-116.html."
+    },
+    "locked": {
+      "by": "agency_pdf",
+      "note": "MarketLINKS Public Opinion Poll Report 05.2026.pdf (fw May 16-27 2026, n=1008, jointly with bTV); post-election inter-election wave — electionDate null so it stays out of accuracy/grade recalculations",
+      "lockedAt": "2026-06-04"
+    }
+  },
+  {
     "id": "my-2025-02-16",
     "agencyId": "MY",
     "fieldwork": "Feb 6-16 2025",
