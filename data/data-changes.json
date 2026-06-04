@@ -1,6 +1,44 @@
 {
-  "updatedAt": "2026-06-03T11:05:04.660Z",
+  "updatedAt": "2026-06-04T08:30:18.852Z",
   "entries": [
+    {
+      "timestamp": "2026-06-04T08:30:18.852Z",
+      "date": "2026-06-04",
+      "skill": "update-funds",
+      "summary": "ИСУН EU funds refresh: 53,027 beneficiaries · 81,482 contracts · €43.59B contracted · €16.85B paid",
+      "source": "ИСУН EU funds (beneficiaries + projects)"
+    },
+    {
+      "timestamp": "2026-06-04T08:24:35.103Z",
+      "date": "2026-06-04",
+      "skill": "update-connections",
+      "summary": "Commerce Registry refresh: TR snapshot to 2026-06-01 (581,412 companies); connections graph rebuilt (9851 nodes, 11696 edges)",
+      "source": "data.egov.bg Commerce Registry",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_connections"
+        },
+        {
+          "to": "/mp-assets",
+          "labelKey": "data_changes_link_assets"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-04T07:45:52.043Z",
+      "date": "2026-06-04",
+      "skill": "update-budget",
+      "summary": "КФП feed through 2026-04, 290 observations",
+      "source": "data.egov.bg бюджет (budget execution)"
+    },
+    {
+      "timestamp": "2026-06-04T07:44:51.825Z",
+      "date": "2026-06-04",
+      "skill": "update-council-minutes",
+      "summary": "3 munis with new sessions (PDV01 +15, VAR01 +11, SLV01 +28); 54 new resolutions",
+      "source": "Council resolutions + vote tallies"
+    },
     {
       "timestamp": "2026-06-03T11:05:04.660Z",
       "date": "2026-06-03",
