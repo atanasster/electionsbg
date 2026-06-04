@@ -6,9 +6,9 @@
   "summaryEn": "The iconic PRSR scandal — EU funds turned private villas into \"guest houses\" against subsidy, often with no real tourist activity after acceptance.",
   "icon": "Home",
   "totals": {
-    "contractCount": 10,
-    "beneficiaryCount": 10,
-    "totalEur": 721041.44,
+    "contractCount": 11,
+    "beneficiaryCount": 11,
+    "totalEur": 823302.9,
     "paidEur": 150103.81
   },
   "topBeneficiaries": [
@@ -24,6 +24,13 @@
       "name": "Веселина - БИС ООД",
       "contractCount": 1,
       "totalEur": 121994.24,
+      "paidEur": 0
+    },
+    {
+      "eik": "202565178",
+      "name": "ЕТ РАЯ КОЕВА-ВЪЛКОВА",
+      "contractCount": 1,
+      "totalEur": 102261.46,
       "paidEur": 0
     },
     {
@@ -109,6 +116,18 @@
       "locationRaw": "с.Борущица"
     },
     {
+      "contractNumber": "BG16RFPR001-2.004-2182",
+      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в семеен хотел „Чичин“ – Банско",
+      "beneficiaryEik": "202565178",
+      "beneficiaryName": "ЕТ РАЯ КОЕВА-ВЪЛКОВА",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "totalEur": 102261.46,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "locationRaw": "гр.Банско"
+    },
+    {
       "contractNumber": "BG05M9OP001-1.046-0003",
       "title": "Осигуряване на качествена заетост за лица от уязвими социални групи в семеен хотел-ресторант \"Дан Колов-ДМГ\" ЕООД и в \"Бест Козметикс\" ЕООД в община Свиленград.",
       "beneficiaryEik": "200063329",
@@ -191,18 +210,6 @@
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "locationRaw": "гр.Нови пазар"
-    },
-    {
-      "contractNumber": "BG06RDNP001-19.155-0006",
-      "title": "Къща за гости с адрес: гр. Белослав, ул. \"Христо Ботев\" № 10, ет. 2",
-      "beneficiaryEik": "202847319",
-      "beneficiaryName": "БИО Клийн ЕООД",
-      "programCode": "2014BG06RDNP001",
-      "programName": "Програма за развитие на селските райони",
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "locationRaw": "Белослав"
     }
   ],
   "topMunis": [
@@ -215,6 +222,11 @@
       "muni": "SZR22",
       "contractCount": 1,
       "totalEur": 121994.24
+    },
+    {
+      "muni": "BLG01",
+      "contractCount": 1,
+      "totalEur": 102261.46
     },
     {
       "muni": "HKV28",
@@ -261,8 +273,8 @@
     {
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "contractCount": 4,
-      "totalEur": 350234.87,
+      "contractCount": 5,
+      "totalEur": 452496.33,
       "paidEur": 0
     },
     {

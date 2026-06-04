@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-05-29T08:13:17.668Z",
-  "total": 101,
+  "generatedAt": "2026-06-04T08:25:23.693Z",
+  "total": 102,
   "mpCount": 87,
-  "beneficiaryCount": 99,
-  "contractedEur": 168861612.31,
-  "paidEur": 61182476.29,
+  "beneficiaryCount": 100,
+  "contractedEur": 169944893.06,
+  "paidEur": 62327154.18,
   "entries": [
     {
       "mpId": 4649,
@@ -73,7 +73,7 @@
         }
       ],
       "contractCount": 2,
-      "contractedEur": 6706601.57,
+      "contractedEur": 6706601.55,
       "paidEur": 0
     },
     {
@@ -108,7 +108,7 @@
       ],
       "contractCount": 2,
       "contractedEur": 4561740.51,
-      "paidEur": 248951.13
+      "paidEur": 914366.9
     },
     {
       "mpId": 2681,
@@ -314,6 +314,23 @@
       "paidEur": 588522.54
     },
     {
+      "mpId": 2760,
+      "mpName": "Иван Димов Иванов",
+      "beneficiaryEik": "131385417",
+      "beneficiaryName": "Пайп индустриал българия ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 4,
+      "contractedEur": 1155261.51,
+      "paidEur": 432309.76
+    },
+    {
       "mpId": 913,
       "mpName": "Евгений Василев Узунов",
       "beneficiaryEik": "104055430",
@@ -348,23 +365,6 @@
       "paidEur": 433007.99
     },
     {
-      "mpId": 5205,
-      "mpName": "Рашид Мехмедов Узунов",
-      "beneficiaryEik": "116003561",
-      "beneficiaryName": "Раломекс АД",
-      "orgType": "Компания",
-      "relations": [
-        {
-          "kind": "director",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "contractCount": 4,
-      "contractedEur": 847328.23,
-      "paidEur": 427695.66
-    },
-    {
       "mpId": 5165,
       "mpName": "Валери Пламенов Лачовски",
       "beneficiaryEik": "106510662",
@@ -380,6 +380,23 @@
       "contractCount": 1,
       "contractedEur": 758723.04,
       "paidEur": 151744.61
+    },
+    {
+      "mpId": 5205,
+      "mpName": "Рашид Мехмедов Узунов",
+      "beneficiaryEik": "116003561",
+      "beneficiaryName": "Раломекс АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 4,
+      "contractedEur": 689681.61,
+      "paidEur": 427695.66
     },
     {
       "mpId": 5160,
@@ -441,11 +458,16 @@
     },
     {
       "mpId": 2946,
-      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "mpName": "Елена Стефанова Пешева",
       "beneficiaryEik": "201498495",
       "beneficiaryName": "ДЖИ ПИ ЕС Системи българия ООД",
       "orgType": "Компания",
       "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "stake",
           "shareSize": "80",
@@ -513,7 +535,7 @@
       ],
       "contractCount": 5,
       "contractedEur": 408240,
-      "paidEur": 207123.28
+      "paidEur": 231754.25
     },
     {
       "mpId": 4372,
@@ -672,6 +694,30 @@
       "paidEur": 254826.38
     },
     {
+      "mpId": 4386,
+      "mpName": "Драгомир Дамянов Драганов",
+      "beneficiaryEik": "117050304",
+      "beneficiaryName": "Жокей ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "stake",
+          "shareSize": "503",
+          "valueEur": 12858.990812084896,
+          "fiscalYear": 2023,
+          "declarationYear": 2023
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 233999.38,
+      "paidEur": 111925.72
+    },
+    {
       "mpId": 5005,
       "mpName": "Стилиана Иванова Бобчева",
       "beneficiaryEik": "202918009",
@@ -707,11 +753,16 @@
     },
     {
       "mpId": 2946,
-      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "mpName": "Елена Стефанова Пешева",
       "beneficiaryEik": "040454345",
       "beneficiaryName": "Даикс ООД",
       "orgType": "Компания",
       "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "stake",
           "shareSize": "1",
@@ -844,30 +895,6 @@
       "paidEur": 25564.59
     },
     {
-      "mpId": 4386,
-      "mpName": "Драгомир Дамянов Драганов",
-      "beneficiaryEik": "117050304",
-      "beneficiaryName": "Жокей ООД",
-      "orgType": "Компания",
-      "relations": [
-        {
-          "kind": "partner",
-          "isCurrent": true,
-          "confidence": "high"
-        },
-        {
-          "kind": "stake",
-          "shareSize": "503",
-          "valueEur": 12858.990812084896,
-          "fiscalYear": 2023,
-          "declarationYear": 2023
-        }
-      ],
-      "contractCount": 1,
-      "contractedEur": 148333.5,
-      "paidEur": 111925.72
-    },
-    {
       "mpId": 2695,
       "mpName": "Станислав Стоянов Иванов",
       "beneficiaryEik": "204276464",
@@ -991,7 +1018,7 @@
       ],
       "contractCount": 1,
       "contractedEur": 115072.39,
-      "paidEur": 103016.78
+      "paidEur": 110295.96
     },
     {
       "mpId": 5086,
@@ -1100,7 +1127,7 @@
       ],
       "contractCount": 3,
       "contractedEur": 54335.5,
-      "paidEur": 5112.92
+      "paidEur": 20155.13
     },
     {
       "mpId": 3792,

@@ -3,11 +3,16 @@
   "entries": [
     {
       "mpId": 2946,
-      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "mpName": "Елена Стефанова Пешева",
       "beneficiaryEik": "201498495",
       "beneficiaryName": "ДЖИ ПИ ЕС Системи българия ООД",
       "orgType": "Компания",
       "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "stake",
           "shareSize": "80",
