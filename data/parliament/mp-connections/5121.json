@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "generatedAt": "2026-06-04T08:22:46.418Z",
   "mpNodeId": "mp:5121",
   "nodes": [
     {
@@ -21,6 +21,16 @@
         "51",
         "52"
       ]
+    },
+    {
+      "id": "company:tr:208116368",
+      "type": "company",
+      "label": "БИТЛАБЗ",
+      "slug": null,
+      "uic": "208116368",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
     },
     {
       "id": "company:tr:206952724",
@@ -63,6 +73,16 @@
       "seat": null
     },
     {
+      "id": "person:МИНКО СИМЕОНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Минко Симеонов Василев"
+    },
+    {
+      "id": "person:АДРЕАНА КРАСИМИРОВА ЯРЪМОВА",
+      "type": "person",
+      "label": "Адреана Красимирова Яръмова"
+    },
+    {
       "id": "person:ИВА ДИМИТРОВА СТОЯНОВА",
       "type": "person",
       "label": "Ива Димитрова Стоянова"
@@ -84,6 +104,14 @@
     }
   ],
   "edges": [
+    {
+      "source": "mp:5121",
+      "target": "company:tr:208116368",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
     {
       "source": "mp:5121",
       "target": "company:tr:206952724",
@@ -131,6 +159,30 @@
       "role": "manager",
       "isCurrent": true,
       "confidence": "medium"
+    },
+    {
+      "source": "person:МИНКО СИМЕОНОВ ВАСИЛЕВ",
+      "target": "company:tr:208116368",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНКО СИМЕОНОВ ВАСИЛЕВ",
+      "target": "company:tr:208116368",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДРЕАНА КРАСИМИРОВА ЯРЪМОВА",
+      "target": "company:tr:208116368",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
     },
     {
       "source": "person:ИВА ДИМИТРОВА СТОЯНОВА",

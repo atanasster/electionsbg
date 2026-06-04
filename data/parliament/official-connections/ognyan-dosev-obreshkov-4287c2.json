@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "generatedAt": "2026-06-04T08:22:46.418Z",
   "officialNodeId": "official:ognyan-dosev-obreshkov-4287c2",
   "nodes": [
     {
@@ -37,14 +37,9 @@
       "label": "Рефет Шефкет Чете"
     },
     {
-      "id": "person:ШЕФКЕТ РЕФЕТ ШЕФКЕТ",
+      "id": "person:НАТАЛИЯ НЕДЯЛКОВА ОБРЕШКОВА",
       "type": "person",
-      "label": "Шефкет Рефет Шефкет"
-    },
-    {
-      "id": "person:ХРИСТО ГЕОРГИЕВ ХРИСТОВ",
-      "type": "person",
-      "label": "Христо Георгиев Христов"
+      "label": "Наталия Недялкова Обрешкова"
     }
   ],
   "edges": [
@@ -89,18 +84,18 @@
       "confidence": "high"
     },
     {
-      "source": "person:ШЕФКЕТ РЕФЕТ ШЕФКЕТ",
+      "source": "person:НАТАЛИЯ НЕДЯЛКОВА ОБРЕШКОВА",
       "target": "company:tr:206536327",
-      "kind": "tr_owner",
-      "role": "partner",
+      "kind": "tr_role",
+      "role": "manager",
       "isCurrent": true,
       "confidence": "high"
     },
     {
-      "source": "person:ХРИСТО ГЕОРГИЕВ ХРИСТОВ",
+      "source": "person:НАТАЛИЯ НЕДЯЛКОВА ОБРЕШКОВА",
       "target": "company:tr:206536327",
       "kind": "tr_owner",
-      "role": "partner",
+      "role": "sole_owner",
       "isCurrent": true,
       "confidence": "high"
     }

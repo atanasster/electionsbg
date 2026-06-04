@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:33.226Z",
+  "generatedAt": "2026-06-04T08:22:46.654Z",
   "topMps": [
     {
       "mpId": 5006,
@@ -20,7 +20,7 @@
       "partyGroupShort": "Левицата",
       "isCurrent": false,
       "nsFolders": [],
-      "totalDegree": 25,
+      "totalDegree": 26,
       "highConfDegree": 20,
       "mpMpDirectDegree": 0,
       "mpMpReachDegree": 0
@@ -291,6 +291,17 @@
       "mpMpReachDegree": 0
     },
     {
+      "mpId": 2946,
+      "label": "Елена Стефанова Пешева",
+      "partyGroupShort": "БГ Патриоти",
+      "isCurrent": false,
+      "nsFolders": [],
+      "totalDegree": 10,
+      "highConfDegree": 5,
+      "mpMpDirectDegree": 0,
+      "mpMpReachDegree": 0
+    },
+    {
       "mpId": 3725,
       "label": "Марин Шишев Шишев",
       "partyGroupShort": "ПП",
@@ -339,17 +350,6 @@
         "48"
       ],
       "totalDegree": 7,
-      "highConfDegree": 5,
-      "mpMpDirectDegree": 0,
-      "mpMpReachDegree": 0
-    },
-    {
-      "mpId": 2946,
-      "label": "Елена Стефанова Пешева",
-      "partyGroupShort": "БГ Патриоти",
-      "isCurrent": false,
-      "nsFolders": [],
-      "totalDegree": 6,
       "highConfDegree": 5,
       "mpMpDirectDegree": 0,
       "mpMpReachDegree": 0
@@ -488,8 +488,8 @@
     {
       "mpId": 5173,
       "label": "Любен Любенов Дилов",
-      "partyGroupShort": "ПГ на ГЕРБ – СДС",
-      "isCurrent": true,
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
       "nsFolders": [
         "40",
         "45",
@@ -498,8 +498,7 @@
         "48",
         "49",
         "50",
-        "51",
-        "52"
+        "51"
       ],
       "totalDegree": 5,
       "highConfDegree": 4,
@@ -1153,19 +1152,6 @@
       "mpMpReachDegree": 0
     },
     {
-      "mpId": 5296,
-      "label": "Рашко Георгиев Динков",
-      "partyGroupShort": "ПГ на Прогресивна България",
-      "isCurrent": true,
-      "nsFolders": [
-        "52"
-      ],
-      "totalDegree": 4,
-      "highConfDegree": 2,
-      "mpMpDirectDegree": 0,
-      "mpMpReachDegree": 0
-    },
-    {
       "mpId": 3373,
       "label": "Тодор Стаматов Тодоров",
       "partyGroupShort": "ГЕРБ-СДС",
@@ -1258,6 +1244,19 @@
       "isCurrent": false,
       "nsFolders": [
         "45"
+      ],
+      "totalDegree": 3,
+      "highConfDegree": 2,
+      "mpMpDirectDegree": 0,
+      "mpMpReachDegree": 0
+    },
+    {
+      "mpId": 5296,
+      "label": "Рашко Георгиев Динков",
+      "partyGroupShort": "ПГ на Прогресивна България",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
       ],
       "totalDegree": 3,
       "highConfDegree": 2,
@@ -3763,6 +3762,17 @@
       "totalDegree": 6
     },
     {
+      "nodeId": "company:Даикс-ООД",
+      "slug": "Даикс-ООД",
+      "uic": "040454345",
+      "label": "Даикс ООД",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив",
+      "mpCount": 1,
+      "totalDegree": 6
+    },
+    {
       "nodeId": "company:Екотехпродукт-ООД",
       "slug": "Екотехпродукт-ООД",
       "uic": "121125663",
@@ -4170,6 +4180,17 @@
       "totalDegree": 4
     },
     {
+      "nodeId": "company:ДЖИ-ПИ-ЕС-Системи-българия-ООД",
+      "slug": "ДЖИ-ПИ-ЕС-Системи-българия-ООД",
+      "uic": "201498495",
+      "label": "ДЖИ ПИ ЕС Системи българия ООД",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив",
+      "mpCount": 1,
+      "totalDegree": 4
+    },
+    {
       "nodeId": "company:tr:206875231",
       "slug": null,
       "uic": "206875231",
@@ -4196,7 +4217,7 @@
       "slug": null,
       "uic": "206512162",
       "label": "ИНВЕСТСТРОЙ 2021",
-      "legalForm": "Дружество с ограничена отговорност",
+      "legalForm": "OOD",
       "status": "active",
       "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700",
       "mpCount": 1,
@@ -5068,6 +5089,17 @@
       "legalForm": "Еднолично дружество с ограничена отговорност",
       "status": "active",
       "seat": "БЪЛГАРИЯ, с. Неофит Рилски, 9223",
+      "mpCount": 1,
+      "totalDegree": 3
+    },
+    {
+      "nodeId": "company:tr:206693442",
+      "slug": null,
+      "uic": "206693442",
+      "label": "СЕНТРЪЛ ВЮ ПРОПЪРТИС",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700",
       "mpCount": 1,
       "totalDegree": 3
     },
@@ -5948,17 +5980,6 @@
       "legalForm": "EOOD",
       "status": "active",
       "seat": "Бургас",
-      "mpCount": 1,
-      "totalDegree": 2
-    },
-    {
-      "nodeId": "company:tr:206693442",
-      "slug": null,
-      "uic": "206693442",
-      "label": "СЕНТРЪЛ ВЮ ПРОПЪРТИС",
-      "legalForm": "Еднолично дружество с ограничена отговорност",
-      "status": "active",
-      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700",
       "mpCount": 1,
       "totalDegree": 2
     },
@@ -7186,10 +7207,10 @@
     {
       "nodeId": "company:ВМ-Систем-ЕООД",
       "slug": "ВМ-Систем-ЕООД",
-      "uic": null,
+      "uic": "207174404",
       "label": "ВМ Систем ЕООД",
-      "legalForm": null,
-      "status": null,
+      "legalForm": "EOOD",
+      "status": "active",
       "seat": "София",
       "mpCount": 1,
       "totalDegree": 1
@@ -7327,17 +7348,6 @@
       "totalDegree": 1
     },
     {
-      "nodeId": "company:Даикс-ООД",
-      "slug": "Даикс-ООД",
-      "uic": "040454345",
-      "label": "Даикс ООД",
-      "legalForm": "OOD",
-      "status": "active",
-      "seat": "Пловдив",
-      "mpCount": 1,
-      "totalDegree": 1
-    },
-    {
       "nodeId": "company:Даиксс-ЕООД",
       "slug": "Даиксс-ЕООД",
       "uic": "825312977",
@@ -7400,17 +7410,6 @@
       "legalForm": "EOOD",
       "status": "active",
       "seat": "София",
-      "mpCount": 1,
-      "totalDegree": 1
-    },
-    {
-      "nodeId": "company:ДЖИ-ПИ-ЕС-Системи-българия-ООД",
-      "slug": "ДЖИ-ПИ-ЕС-Системи-българия-ООД",
-      "uic": "201498495",
-      "label": "ДЖИ ПИ ЕС Системи българия ООД",
-      "legalForm": "OOD",
-      "status": "active",
-      "seat": "Пловдив",
       "mpCount": 1,
       "totalDegree": 1
     },
@@ -9923,6 +9922,17 @@
       "totalDegree": 50
     },
     {
+      "nodeId": "company:tr:121031861",
+      "slug": null,
+      "uic": "121031861",
+      "label": "ДЪРЖАВНА  КОНСОЛИДАЦИОННА  КОМПАНИЯ",
+      "legalForm": null,
+      "status": null,
+      "seat": null,
+      "mpCount": 0,
+      "totalDegree": 38
+    },
+    {
       "nodeId": "company:tr:208172089",
       "slug": null,
       "uic": "208172089",
@@ -9954,17 +9964,6 @@
       "seat": null,
       "mpCount": 0,
       "totalDegree": 35
-    },
-    {
-      "nodeId": "company:tr:121031861",
-      "slug": null,
-      "uic": "121031861",
-      "label": "ДЪРЖАВНА  КОНСОЛИДАЦИОННА  КОМПАНИЯ",
-      "legalForm": null,
-      "status": null,
-      "seat": null,
-      "mpCount": 0,
-      "totalDegree": 33
     },
     {
       "nodeId": "company:tr:103002511",
@@ -10108,6 +10107,17 @@
       "seat": null,
       "mpCount": 0,
       "totalDegree": 19
+    },
+    {
+      "nodeId": "company:tr:831373560",
+      "slug": null,
+      "uic": "831373560",
+      "label": "БЪЛГАРСКИ ЕНЕРГИЕН ХОЛДИНГ",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null,
+      "mpCount": 0,
+      "totalDegree": 18
     },
     {
       "nodeId": "company:tr:175203485",
@@ -10390,17 +10400,6 @@
       "uic": "836145322",
       "label": "АВТО-15",
       "legalForm": "OOD",
-      "status": "active",
-      "seat": null,
-      "mpCount": 0,
-      "totalDegree": 12
-    },
-    {
-      "nodeId": "company:tr:831373560",
-      "slug": null,
-      "uic": "831373560",
-      "label": "БЪЛГАРСКИ ЕНЕРГИЕН ХОЛДИНГ",
-      "legalForm": "EAD",
       "status": "active",
       "seat": null,
       "mpCount": 0,
@@ -10858,17 +10857,6 @@
       "totalDegree": 9
     },
     {
-      "nodeId": "company:tr:206768304",
-      "slug": null,
-      "uic": "206768304",
-      "label": "ЕУШИПМЪНТС.КОМ",
-      "legalForm": null,
-      "status": null,
-      "seat": null,
-      "mpCount": 0,
-      "totalDegree": 9
-    },
-    {
       "nodeId": "company:tr:206421264",
       "slug": null,
       "uic": "206421264",
@@ -11084,6 +11072,17 @@
       "label": "БЪЛГАРКА 21",
       "legalForm": null,
       "status": null,
+      "seat": null,
+      "mpCount": 0,
+      "totalDegree": 8
+    },
+    {
+      "nodeId": "company:tr:204503086",
+      "slug": null,
+      "uic": "204503086",
+      "label": "ВАТОМ ТОМОВИ 1991",
+      "legalForm": "OOD",
+      "status": "active",
       "seat": null,
       "mpCount": 0,
       "totalDegree": 8
@@ -11584,17 +11583,6 @@
       "totalDegree": 7
     },
     {
-      "nodeId": "company:tr:204503086",
-      "slug": null,
-      "uic": "204503086",
-      "label": "ВАТОМ ТОМОВИ 1991",
-      "legalForm": "OOD",
-      "status": "active",
-      "seat": null,
-      "mpCount": 0,
-      "totalDegree": 7
-    },
-    {
       "nodeId": "company:tr:205465368",
       "slug": null,
       "uic": "205465368",
@@ -11698,7 +11686,7 @@
       "slug": null,
       "uic": "206744794",
       "label": "ЕКИП МОНБАТ",
-      "legalForm": "Дружество с ограничена отговорност",
+      "legalForm": "OOD",
       "status": "active",
       "seat": "БЪЛГАРИЯ, гр. София, 1407",
       "mpCount": 0,
@@ -11742,6 +11730,17 @@
       "slug": null,
       "uic": "201820583",
       "label": "ЕСПИ АГРО",
+      "legalForm": null,
+      "status": null,
+      "seat": null,
+      "mpCount": 0,
+      "totalDegree": 7
+    },
+    {
+      "nodeId": "company:tr:206768304",
+      "slug": null,
+      "uic": "206768304",
+      "label": "ЕУШИПМЪНТС.КОМ",
       "legalForm": null,
       "status": null,
       "seat": null,
@@ -11964,6 +11963,17 @@
       "label": "ПРИОРИТЕТ ГРУП",
       "legalForm": null,
       "status": null,
+      "seat": null,
+      "mpCount": 0,
+      "totalDegree": 7
+    },
+    {
+      "nodeId": "company:tr:121015330",
+      "slug": null,
+      "uic": "121015330",
+      "label": "ПЪТСТРОЙ-92",
+      "legalForm": "AD",
+      "status": "active",
       "seat": null,
       "mpCount": 0,
       "totalDegree": 7
@@ -14048,6 +14058,17 @@
       "totalDegree": 5
     },
     {
+      "nodeId": "company:tr:206482468",
+      "slug": null,
+      "uic": "206482468",
+      "label": "Калиде",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "mpCount": 0,
+      "totalDegree": 5
+    },
+    {
       "nodeId": "company:tr:110032086",
       "slug": null,
       "uic": "110032086",
@@ -14351,6 +14372,17 @@
       "label": "Нейтив Диджитал",
       "legalForm": null,
       "status": null,
+      "seat": null,
+      "mpCount": 0,
+      "totalDegree": 5
+    },
+    {
+      "nodeId": "company:tr:205027971",
+      "slug": null,
+      "uic": "205027971",
+      "label": "НЕСТ 18",
+      "legalForm": "AD",
+      "status": "active",
       "seat": null,
       "mpCount": 0,
       "totalDegree": 5
@@ -15737,6 +15769,17 @@
       "label": "БИОКЛИМА ПЛЮС",
       "legalForm": null,
       "status": null,
+      "seat": null,
+      "mpCount": 0,
+      "totalDegree": 4
+    },
+    {
+      "nodeId": "company:tr:208116368",
+      "slug": null,
+      "uic": "208116368",
+      "label": "БИТЛАБЗ",
+      "legalForm": "AD",
+      "status": "active",
       "seat": null,
       "mpCount": 0,
       "totalDegree": 4
@@ -17172,17 +17215,6 @@
       "totalDegree": 4
     },
     {
-      "nodeId": "company:tr:206901224",
-      "slug": null,
-      "uic": "206901224",
-      "label": "ИНИМ22",
-      "legalForm": "OOD",
-      "status": "active",
-      "seat": "БЪЛГАРИЯ, гр. София, 1000",
-      "mpCount": 0,
-      "totalDegree": 4
-    },
-    {
       "nodeId": "company:tr:206367158",
       "slug": null,
       "uic": "206367158",
@@ -17804,6 +17836,17 @@
       "uic": "203010044",
       "label": "М&amp;М ГРУП 2014",
       "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null,
+      "mpCount": 0,
+      "totalDegree": 4
+    },
+    {
+      "nodeId": "company:tr:103113577",
+      "slug": null,
+      "uic": "103113577",
+      "label": "МАГ КОМЮНИКЕЙШЪНС",
+      "legalForm": "EAD",
       "status": "active",
       "seat": null,
       "mpCount": 0,
@@ -18520,17 +18563,6 @@
       "label": "ПРОФИТЕКС КЕПИТЪЛ",
       "legalForm": null,
       "status": null,
-      "seat": null,
-      "mpCount": 0,
-      "totalDegree": 4
-    },
-    {
-      "nodeId": "company:tr:121015330",
-      "slug": null,
-      "uic": "121015330",
-      "label": "ПЪТСТРОЙ-92",
-      "legalForm": "AD",
-      "status": "active",
       "seat": null,
       "mpCount": 0,
       "totalDegree": 4
@@ -20197,17 +20229,6 @@
       "totalDegree": 3
     },
     {
-      "nodeId": "company:tr:206611801",
-      "slug": null,
-      "uic": "206611801",
-      "label": "АМБУЛАТОРИЯ ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ - ГРУПОВА ПРАКТИКА &quot;ОРТОЛАЙФ&quot;",
-      "legalForm": "OOD",
-      "status": "active",
-      "seat": "БЪЛГАРИЯ, гр. Варна, 9000",
-      "mpCount": 0,
-      "totalDegree": 3
-    },
-    {
       "nodeId": "company:tr:103788215",
       "slug": null,
       "uic": "103788215",
@@ -20901,17 +20922,6 @@
       "totalDegree": 3
     },
     {
-      "nodeId": "company:tr:200361547",
-      "slug": null,
-      "uic": "200361547",
-      "label": "ВЕТ - ДЕНТ",
-      "legalForm": "Дружество с ограничена отговорност",
-      "status": "active",
-      "seat": null,
-      "mpCount": 0,
-      "totalDegree": 3
-    },
-    {
       "nodeId": "company:tr:106588180",
       "slug": null,
       "uic": "106588180",
@@ -21444,7 +21454,7 @@
       "slug": null,
       "uic": "175165180",
       "label": "ДАТРА",
-      "legalForm": "Дружество с ограничена отговорност",
+      "legalForm": "EOOD",
       "status": "active",
       "seat": "БЪЛГАРИЯ, гр. София, 1618",
       "mpCount": 0,
@@ -21616,6 +21626,17 @@
       "totalDegree": 3
     },
     {
+      "nodeId": "company:tr:127559869",
+      "slug": null,
+      "uic": "127559869",
+      "label": "ДЖИ ПИ",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "mpCount": 0,
+      "totalDegree": 3
+    },
+    {
       "nodeId": "company:tr:200776130",
       "slug": null,
       "uic": "200776130",
@@ -21730,6 +21751,17 @@
       "slug": null,
       "uic": "204739784",
       "label": "ДИП ИНТЕЛИДЖЪНС",
+      "legalForm": null,
+      "status": null,
+      "seat": null,
+      "mpCount": 0,
+      "totalDegree": 3
+    },
+    {
+      "nodeId": "company:tr:203402084",
+      "slug": null,
+      "uic": "203402084",
+      "label": "ДИПО 1",
       "legalForm": null,
       "status": null,
       "seat": null,
@@ -23893,6 +23925,17 @@
       "totalDegree": 3
     },
     {
+      "nodeId": "company:tr:131385417",
+      "slug": null,
+      "uic": "131385417",
+      "label": "ПАЙП ИНДУСТРИАЛ БЪЛГАРИЯ",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null,
+      "mpCount": 0,
+      "totalDegree": 3
+    },
+    {
       "nodeId": "company:tr:206718194",
       "slug": null,
       "uic": "206718194",
@@ -25979,6 +26022,28 @@
       "legalForm": null,
       "status": null,
       "seat": null,
+      "mpCount": 0,
+      "totalDegree": 2
+    },
+    {
+      "nodeId": "company:tr:208833761",
+      "slug": null,
+      "uic": "208833761",
+      "label": "А Фууд НСА",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "mpCount": 0,
+      "totalDegree": 2
+    },
+    {
+      "nodeId": "company:tr:208832798",
+      "slug": null,
+      "uic": "208832798",
+      "label": "А Фууд Спартак",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
       "mpCount": 0,
       "totalDegree": 2
     },
@@ -31329,17 +31394,6 @@
       "totalDegree": 2
     },
     {
-      "nodeId": "company:tr:206480309",
-      "slug": null,
-      "uic": "206480309",
-      "label": "Кар Клиник 91",
-      "legalForm": "Еднолично дружество с ограничена отговорност",
-      "status": "active",
-      "seat": "БЪЛГАРИЯ, с. Лозен, 1151",
-      "mpCount": 0,
-      "totalDegree": 2
-    },
-    {
       "nodeId": "company:tr:207026747",
       "slug": null,
       "uic": "207026747",
@@ -31487,7 +31541,7 @@
       "slug": null,
       "uic": "206401596",
       "label": "Кемп Гардения",
-      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "legalForm": "EOOD",
       "status": "active",
       "seat": "БЪЛГАРИЯ, с. Лозенец, 8277",
       "mpCount": 0,
@@ -34911,17 +34965,6 @@
       "legalForm": null,
       "status": null,
       "seat": null,
-      "mpCount": 0,
-      "totalDegree": 2
-    },
-    {
-      "nodeId": "company:tr:206842288",
-      "slug": null,
-      "uic": "206842288",
-      "label": "Солар КИС",
-      "legalForm": "Еднолично дружество с ограничена отговорност",
-      "status": "active",
-      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003",
       "mpCount": 0,
       "totalDegree": 2
     },
@@ -39645,17 +39688,6 @@
       "totalDegree": 1
     },
     {
-      "nodeId": "company:tr:203402084",
-      "slug": null,
-      "uic": "203402084",
-      "label": "ДИПО 1",
-      "legalForm": null,
-      "status": null,
-      "seat": null,
-      "mpCount": 0,
-      "totalDegree": 1
-    },
-    {
       "nodeId": "company:tr:206030187",
       "slug": null,
       "uic": "206030187",
@@ -39827,6 +39859,17 @@
       "label": "ЕВРОПА 2002 ООД",
       "legalForm": null,
       "status": null,
+      "seat": null,
+      "mpCount": 0,
+      "totalDegree": 1
+    },
+    {
+      "nodeId": "company:tr:131464747",
+      "slug": null,
+      "uic": "131464747",
+      "label": "ЕВРОФИН КОНСУЛТ",
+      "legalForm": "EOOD",
+      "status": "active",
       "seat": null,
       "mpCount": 0,
       "totalDegree": 1
@@ -42443,6 +42486,17 @@
       "slug": null,
       "uic": "200758221",
       "label": "СЪНИ ДРИЙМС 1 ООД",
+      "legalForm": null,
+      "status": null,
+      "seat": null,
+      "mpCount": 0,
+      "totalDegree": 1
+    },
+    {
+      "nodeId": "company:name:СЪНРАЙЗ ТУРИСТ ЕНД ТРАВЪЛ СЪРВИСИЗ",
+      "slug": null,
+      "uic": null,
+      "label": "СЪНРАЙЗ ТУРИСТ ЕНД ТРАВЪЛ СЪРВИСИЗ ЕООД",
       "legalForm": null,
       "status": null,
       "seat": null,
@@ -46888,8 +46942,8 @@
         {
           "mpId": 5173,
           "label": "Любен Любенов Дилов",
-          "partyGroupShort": "ПГ на ГЕРБ – СДС",
-          "isCurrent": true,
+          "partyGroupShort": "ГЕРБ-СДС",
+          "isCurrent": false,
           "nsFolders": [
             "40",
             "45",
@@ -46898,8 +46952,7 @@
             "48",
             "49",
             "50",
-            "51",
-            "52"
+            "51"
           ],
           "totalDegree": 5,
           "highConfDegree": 4,
@@ -52023,8 +52076,8 @@
         {
           "mpId": 5173,
           "label": "Любен Любенов Дилов",
-          "partyGroupShort": "ПГ на ГЕРБ – СДС",
-          "isCurrent": true,
+          "partyGroupShort": "ГЕРБ-СДС",
+          "isCurrent": false,
           "nsFolders": [
             "40",
             "45",
@@ -52033,8 +52086,7 @@
             "48",
             "49",
             "50",
-            "51",
-            "52"
+            "51"
           ],
           "totalDegree": 5,
           "highConfDegree": 4,
@@ -55176,8 +55228,8 @@
         {
           "mpId": 5173,
           "label": "Любен Любенов Дилов",
-          "partyGroupShort": "ПГ на ГЕРБ – СДС",
-          "isCurrent": true,
+          "partyGroupShort": "ГЕРБ-СДС",
+          "isCurrent": false,
           "nsFolders": [
             "40",
             "45",
@@ -55186,8 +55238,7 @@
             "48",
             "49",
             "50",
-            "51",
-            "52"
+            "51"
           ],
           "totalDegree": 5,
           "highConfDegree": 4,
@@ -56578,10 +56629,10 @@
         {
           "nodeId": "company:ВМ-Систем-ЕООД",
           "slug": "ВМ-Систем-ЕООД",
-          "uic": null,
+          "uic": "207174404",
           "label": "ВМ Систем ЕООД",
-          "legalForm": null,
-          "status": null,
+          "legalForm": "EOOD",
+          "status": "active",
           "seat": "София",
           "mpCount": 1,
           "totalDegree": 1
@@ -57903,8 +57954,8 @@
         {
           "mpId": 5173,
           "label": "Любен Любенов Дилов",
-          "partyGroupShort": "ПГ на ГЕРБ – СДС",
-          "isCurrent": true,
+          "partyGroupShort": "ГЕРБ-СДС",
+          "isCurrent": false,
           "nsFolders": [
             "40",
             "45",
@@ -57913,8 +57964,7 @@
             "48",
             "49",
             "50",
-            "51",
-            "52"
+            "51"
           ],
           "totalDegree": 5,
           "highConfDegree": 4,
@@ -62209,8 +62259,8 @@
         {
           "mpId": 5173,
           "label": "Любен Любенов Дилов",
-          "partyGroupShort": "ПГ на ГЕРБ – СДС",
-          "isCurrent": true,
+          "partyGroupShort": "ГЕРБ-СДС",
+          "isCurrent": false,
           "nsFolders": [
             "40",
             "45",
@@ -62219,8 +62269,7 @@
             "48",
             "49",
             "50",
-            "51",
-            "52"
+            "51"
           ],
           "totalDegree": 5,
           "highConfDegree": 4,
@@ -66270,8 +66319,8 @@
         {
           "mpId": 5173,
           "label": "Любен Любенов Дилов",
-          "partyGroupShort": "ПГ на ГЕРБ – СДС",
-          "isCurrent": true,
+          "partyGroupShort": "ГЕРБ-СДС",
+          "isCurrent": false,
           "nsFolders": [
             "40",
             "45",
@@ -66280,8 +66329,7 @@
             "48",
             "49",
             "50",
-            "51",
-            "52"
+            "51"
           ],
           "totalDegree": 5,
           "highConfDegree": 4,
@@ -70241,8 +70289,8 @@
         {
           "mpId": 5173,
           "label": "Любен Любенов Дилов",
-          "partyGroupShort": "ПГ на ГЕРБ – СДС",
-          "isCurrent": true,
+          "partyGroupShort": "ГЕРБ-СДС",
+          "isCurrent": false,
           "nsFolders": [
             "40",
             "45",
@@ -70251,8 +70299,7 @@
             "48",
             "49",
             "50",
-            "51",
-            "52"
+            "51"
           ],
           "totalDegree": 5,
           "highConfDegree": 4,
@@ -71944,10 +71991,10 @@
         {
           "nodeId": "company:ВМ-Систем-ЕООД",
           "slug": "ВМ-Систем-ЕООД",
-          "uic": null,
+          "uic": "207174404",
           "label": "ВМ Систем ЕООД",
-          "legalForm": null,
-          "status": null,
+          "legalForm": "EOOD",
+          "status": "active",
           "seat": "София",
           "mpCount": 1,
           "totalDegree": 1
@@ -73328,8 +73375,8 @@
         {
           "mpId": 5173,
           "label": "Любен Любенов Дилов",
-          "partyGroupShort": "ПГ на ГЕРБ – СДС",
-          "isCurrent": true,
+          "partyGroupShort": "ГЕРБ-СДС",
+          "isCurrent": false,
           "nsFolders": [
             "40",
             "45",
@@ -73338,8 +73385,7 @@
             "48",
             "49",
             "50",
-            "51",
-            "52"
+            "51"
           ],
           "totalDegree": 5,
           "highConfDegree": 4,
@@ -75374,10 +75420,10 @@
         {
           "nodeId": "company:ВМ-Систем-ЕООД",
           "slug": "ВМ-Систем-ЕООД",
-          "uic": null,
+          "uic": "207174404",
           "label": "ВМ Систем ЕООД",
-          "legalForm": null,
-          "status": null,
+          "legalForm": "EOOD",
+          "status": "active",
           "seat": "София",
           "mpCount": 1,
           "totalDegree": 1
@@ -76699,27 +76745,6 @@
           "mpMpReachDegree": 0
         },
         {
-          "mpId": 5173,
-          "label": "Любен Любенов Дилов",
-          "partyGroupShort": "ПГ на ГЕРБ – СДС",
-          "isCurrent": true,
-          "nsFolders": [
-            "40",
-            "45",
-            "46",
-            "47",
-            "48",
-            "49",
-            "50",
-            "51",
-            "52"
-          ],
-          "totalDegree": 5,
-          "highConfDegree": 4,
-          "mpMpDirectDegree": 0,
-          "mpMpReachDegree": 0
-        },
-        {
           "mpId": 5208,
           "label": "Атидже Байрямова Алиева-Вели",
           "partyGroupShort": "ПГ на ДПС",
@@ -76888,19 +76913,6 @@
           "mpMpReachDegree": 0
         },
         {
-          "mpId": 5296,
-          "label": "Рашко Георгиев Динков",
-          "partyGroupShort": "ПГ на Прогресивна България",
-          "isCurrent": true,
-          "nsFolders": [
-            "52"
-          ],
-          "totalDegree": 4,
-          "highConfDegree": 2,
-          "mpMpDirectDegree": 0,
-          "mpMpReachDegree": 0
-        },
-        {
           "mpId": 5165,
           "label": "Валери Пламенов Лачовски",
           "partyGroupShort": "ПГ на ГЕРБ – СДС",
@@ -76933,6 +76945,19 @@
             "49",
             "50",
             "51",
+            "52"
+          ],
+          "totalDegree": 3,
+          "highConfDegree": 2,
+          "mpMpDirectDegree": 0,
+          "mpMpReachDegree": 0
+        },
+        {
+          "mpId": 5296,
+          "label": "Рашко Георгиев Динков",
+          "partyGroupShort": "ПГ на Прогресивна България",
+          "isCurrent": true,
+          "nsFolders": [
             "52"
           ],
           "totalDegree": 3,
@@ -77392,17 +77417,6 @@
           "totalDegree": 2
         },
         {
-          "nodeId": "company:Еуропео-България-ООД",
-          "slug": "Еуропео-България-ООД",
-          "uic": "206361739",
-          "label": "Еуропео - България ООД",
-          "legalForm": "OOD",
-          "status": "active",
-          "seat": "БЪЛГАРИЯ, гр. София, 1616",
-          "mpCount": 1,
-          "totalDegree": 2
-        },
-        {
           "nodeId": "company:Зенит-комерс",
           "slug": "Зенит-комерс",
           "uic": "102150633",
@@ -77429,7 +77443,7 @@
           "slug": null,
           "uic": "206512162",
           "label": "ИНВЕСТСТРОЙ 2021",
-          "legalForm": "Дружество с ограничена отговорност",
+          "legalForm": "OOD",
           "status": "active",
           "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700",
           "mpCount": 1,
@@ -77498,17 +77512,6 @@
           "legalForm": "OOD",
           "status": "active",
           "seat": "БЪЛГАРИЯ, гр. София, 1510",
-          "mpCount": 1,
-          "totalDegree": 2
-        },
-        {
-          "nodeId": "company:tr:206693442",
-          "slug": null,
-          "uic": "206693442",
-          "label": "СЕНТРЪЛ ВЮ ПРОПЪРТИС",
-          "legalForm": "Еднолично дружество с ограничена отговорност",
-          "status": "active",
-          "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700",
           "mpCount": 1,
           "totalDegree": 2
         },
@@ -77700,17 +77703,6 @@
           "totalDegree": 1
         },
         {
-          "nodeId": "company:БГ-Татко-ООД",
-          "slug": "БГ-Татко-ООД",
-          "uic": null,
-          "label": "БГ Татко ООД",
-          "legalForm": null,
-          "status": null,
-          "seat": "София (столица)",
-          "mpCount": 1,
-          "totalDegree": 1
-        },
-        {
           "nodeId": "company:Био-Енерджи-2012-ООД",
           "slug": "Био-Енерджи-2012-ООД",
           "uic": null,
@@ -77761,17 +77753,6 @@
           "label": "Братя Градеви ООД",
           "legalForm": "OOD",
           "status": "active",
-          "seat": "София (столица)",
-          "mpCount": 1,
-          "totalDegree": 1
-        },
-        {
-          "nodeId": "company:Брейн-Къмпъни-ЕООД",
-          "slug": "Брейн-Къмпъни-ЕООД",
-          "uic": null,
-          "label": "Брейн Къмпъни ЕООД",
-          "legalForm": null,
-          "status": null,
           "seat": "София (столица)",
           "mpCount": 1,
           "totalDegree": 1
@@ -77872,17 +77853,6 @@
           "legalForm": "Еднолично дружество с ограничена отговорност",
           "status": "active",
           "seat": "БЪЛГАРИЯ, гр. Варна, 9000",
-          "mpCount": 1,
-          "totalDegree": 1
-        },
-        {
-          "nodeId": "company:Ди-Ес-Джи-Прадакшънс-ООД",
-          "slug": "Ди-Ес-Джи-Прадакшънс-ООД",
-          "uic": null,
-          "label": "Ди Ес Джи Прадакшънс ООД",
-          "legalForm": null,
-          "status": null,
-          "seat": "София (столица)",
           "mpCount": 1,
           "totalDegree": 1
         },
@@ -78235,6 +78205,17 @@
           "legalForm": "EOOD",
           "status": "active",
           "seat": "Бургас",
+          "mpCount": 1,
+          "totalDegree": 1
+        },
+        {
+          "nodeId": "company:tr:206693442",
+          "slug": null,
+          "uic": "206693442",
+          "label": "СЕНТРЪЛ ВЮ ПРОПЪРТИС",
+          "legalForm": "EOOD",
+          "status": "active",
+          "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700",
           "mpCount": 1,
           "totalDegree": 1
         },

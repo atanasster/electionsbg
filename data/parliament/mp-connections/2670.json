@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "generatedAt": "2026-06-04T08:22:46.418Z",
   "mpNodeId": "mp:2670",
   "nodes": [
     {
@@ -83,6 +83,50 @@
       "id": "person:АНГЕЛ ЕМИЛОВ ЯНКОВ",
       "type": "person",
       "label": "Ангел Емилов Янков"
+    },
+    {
+      "id": "person:АНДРЕЙ СТЕФАНОВ ЖИВКОВ",
+      "type": "person",
+      "label": "Андрей Стефанов Живков"
+    },
+    {
+      "id": "person:ИВО ИВАНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Иво Иванов Тодоров"
+    },
+    {
+      "id": "person:ПЕТЪР ВАЛЕРИЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Петър Валериев Ангелов"
+    },
+    {
+      "id": "person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Васил Василев Василев"
+    },
+    {
+      "id": "person:ИЛЗА МИТКОВА ЧИНКОВА",
+      "type": "person",
+      "label": "Илза Миткова Чинкова"
+    },
+    {
+      "id": "company:tr:833017552",
+      "type": "company",
+      "label": "МИНИ МАРИЦА - ИЗТОК",
+      "slug": null,
+      "uic": "833017552",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:1689",
+      "type": "mp",
+      "mpId": 1689,
+      "label": "Андон Петров Андонов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
     }
   ],
   "edges": [
@@ -197,7 +241,93 @@
       "role": "director",
       "isCurrent": true,
       "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ СТЕФАНОВ ЖИВКОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ИВАНОВ ТОДОРОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ СТЕФАНОВ ЖИВКОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ВАЛЕРИЕВ АНГЕЛОВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛЗА МИТКОВА ЧИНКОВА",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛЗА МИТКОВА ЧИНКОВА",
+      "target": "company:tr:833017552",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛЗА МИТКОВА ЧИНКОВА",
+      "target": "company:tr:833017552",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1689",
+      "target": "company:tr:833017552",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
     }
   ],
-  "paths": []
+  "paths": [
+    {
+      "targetMpNodeId": "mp:1689",
+      "length": 4,
+      "nodeIds": [
+        "mp:2670",
+        "company:tr:831373560",
+        "person:ИЛЗА МИТКОВА ЧИНКОВА",
+        "company:tr:833017552",
+        "mp:1689"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
 }

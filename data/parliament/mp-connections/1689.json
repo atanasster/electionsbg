@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "generatedAt": "2026-06-04T08:22:46.418Z",
   "mpNodeId": "mp:1689",
   "nodes": [
     {
@@ -70,6 +70,28 @@
       "id": "person:ЕЛВИРА ПЕТРОВА ШОПОВА",
       "type": "person",
       "label": "Елвира Петрова Шопова"
+    },
+    {
+      "id": "company:tr:831373560",
+      "type": "company",
+      "label": "БЪЛГАРСКИ ЕНЕРГИЕН ХОЛДИНГ",
+      "slug": null,
+      "uic": "831373560",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2670",
+      "type": "mp",
+      "mpId": 2670,
+      "label": "Валентин Алексиев Николов",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "43"
+      ]
     }
   ],
   "edges": [
@@ -176,7 +198,45 @@
       "role": "director",
       "isCurrent": true,
       "confidence": "high"
+    },
+    {
+      "source": "person:ИЛЗА МИТКОВА ЧИНКОВА",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2670",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2670",
+      "target": "company:tr:831373560",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
     }
   ],
-  "paths": []
+  "paths": [
+    {
+      "targetMpNodeId": "mp:2670",
+      "length": 4,
+      "nodeIds": [
+        "mp:1689",
+        "company:tr:833017552",
+        "person:ИЛЗА МИТКОВА ЧИНКОВА",
+        "company:tr:831373560",
+        "mp:2670"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
 }

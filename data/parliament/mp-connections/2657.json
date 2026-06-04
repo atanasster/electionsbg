@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "generatedAt": "2026-06-04T08:22:46.418Z",
   "mpNodeId": "mp:2657",
   "nodes": [
     {
@@ -12,6 +12,16 @@
       "nsFolders": [
         "43"
       ]
+    },
+    {
+      "id": "company:tr:206744794",
+      "type": "company",
+      "label": "ЕКИП МОНБАТ",
+      "slug": null,
+      "uic": "206744794",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
     },
     {
       "id": "company:tr:208101103",
@@ -44,22 +54,12 @@
       "seat": "БЪЛГАРИЯ, гр. София, 1407"
     },
     {
-      "id": "company:tr:206744794",
-      "type": "company",
-      "label": "ЕКИП МОНБАТ",
-      "slug": null,
-      "uic": "206744794",
-      "legalForm": "Дружество с ограничена отговорност",
-      "status": "active",
-      "seat": "БЪЛГАРИЯ, гр. София, 1407"
-    },
-    {
       "id": "company:tr:206401596",
       "type": "company",
       "label": "Кемп Гардения",
       "slug": null,
       "uic": "206401596",
-      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "legalForm": "EOOD",
       "status": "active",
       "seat": "БЪЛГАРИЯ, с. Лозенец, 8277"
     },
@@ -72,26 +72,6 @@
       "legalForm": "EAD",
       "status": "active",
       "seat": null
-    },
-    {
-      "id": "person:ВЛАДИМИР ХРИСТОВ ПЕТРОВ",
-      "type": "person",
-      "label": "Владимир Христов Петров"
-    },
-    {
-      "id": "person:НИНА ИЛИЕВА ГЕНОВА",
-      "type": "person",
-      "label": "Нина Илиева Генова"
-    },
-    {
-      "id": "person:КАЛОЯН ЗАХАРИЕВ ПАРЧЕВ",
-      "type": "person",
-      "label": "Калоян Захариев Парчев"
-    },
-    {
-      "id": "person:ПЕТЪР АНГЕЛОВ ЛЕФТЕРОВ",
-      "type": "person",
-      "label": "Петър Ангелов Лефтеров"
     },
     {
       "id": "person:ВИЛДИРАС ВОИН КАМЕНОВ",
@@ -119,6 +99,26 @@
       "label": "Чавдар Дочев Данев"
     },
     {
+      "id": "person:ВЛАДИМИР ХРИСТОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Владимир Христов Петров"
+    },
+    {
+      "id": "person:НИНА ИЛИЕВА ГЕНОВА",
+      "type": "person",
+      "label": "Нина Илиева Генова"
+    },
+    {
+      "id": "person:КАЛОЯН ЗАХАРИЕВ ПАРЧЕВ",
+      "type": "person",
+      "label": "Калоян Захариев Парчев"
+    },
+    {
+      "id": "person:ПЕТЪР АНГЕЛОВ ЛЕФТЕРОВ",
+      "type": "person",
+      "label": "Петър Ангелов Лефтеров"
+    },
+    {
       "id": "person:ДАНИЕЛ МИХАЛ ДОНЧЕВ",
       "type": "person",
       "label": "Даниел Михал Дончев"
@@ -140,6 +140,14 @@
     }
   ],
   "edges": [
+    {
+      "source": "mp:2657",
+      "target": "company:tr:206744794",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
     {
       "source": "mp:2657",
       "target": "company:tr:208101103",
@@ -167,14 +175,6 @@
     {
       "source": "mp:2657",
       "target": "company:tr:203161587",
-      "kind": "tr_owner",
-      "role": "partner",
-      "isCurrent": true,
-      "confidence": "medium"
-    },
-    {
-      "source": "mp:2657",
-      "target": "company:tr:206744794",
       "kind": "tr_owner",
       "role": "partner",
       "isCurrent": true,
@@ -203,54 +203,6 @@
       "role": "director",
       "isCurrent": true,
       "confidence": "medium"
-    },
-    {
-      "source": "person:ВЛАДИМИР ХРИСТОВ ПЕТРОВ",
-      "target": "company:tr:208101103",
-      "kind": "tr_owner",
-      "role": "partner",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:НИНА ИЛИЕВА ГЕНОВА",
-      "target": "company:tr:205992304",
-      "kind": "tr_owner",
-      "role": "partner",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:КАЛОЯН ЗАХАРИЕВ ПАРЧЕВ",
-      "target": "company:tr:203161587",
-      "kind": "tr_role",
-      "role": "manager",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ПЕТЪР АНГЕЛОВ ЛЕФТЕРОВ",
-      "target": "company:tr:203161587",
-      "kind": "tr_role",
-      "role": "manager",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:КАЛОЯН ЗАХАРИЕВ ПАРЧЕВ",
-      "target": "company:tr:203161587",
-      "kind": "tr_owner",
-      "role": "partner",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ПЕТЪР АНГЕЛОВ ЛЕФТЕРОВ",
-      "target": "company:tr:203161587",
-      "kind": "tr_owner",
-      "role": "partner",
-      "isCurrent": true,
-      "confidence": "high"
     },
     {
       "source": "person:ВИЛДИРАС ВОИН КАМЕНОВ",
@@ -295,6 +247,54 @@
     {
       "source": "person:ЧАВДАР ДОЧЕВ ДАНЕВ",
       "target": "company:tr:206744794",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ХРИСТОВ ПЕТРОВ",
+      "target": "company:tr:208101103",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ИЛИЕВА ГЕНОВА",
+      "target": "company:tr:205992304",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ЗАХАРИЕВ ПАРЧЕВ",
+      "target": "company:tr:203161587",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР АНГЕЛОВ ЛЕФТЕРОВ",
+      "target": "company:tr:203161587",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ЗАХАРИЕВ ПАРЧЕВ",
+      "target": "company:tr:203161587",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР АНГЕЛОВ ЛЕФТЕРОВ",
+      "target": "company:tr:203161587",
       "kind": "tr_owner",
       "role": "partner",
       "isCurrent": true,

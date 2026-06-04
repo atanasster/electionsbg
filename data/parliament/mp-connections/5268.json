@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "generatedAt": "2026-06-04T08:22:46.418Z",
   "mpNodeId": "mp:5268",
   "nodes": [
     {
@@ -32,6 +32,21 @@
       "id": "person:РУМЯНА ДОНЧЕВА МАНГОВА",
       "type": "person",
       "label": "Румяна Дончева Мангова"
+    },
+    {
+      "id": "person:АСПАРУХ ЙОРДАНОВ ЛЕПИЧЕВ",
+      "type": "person",
+      "label": "Аспарух Йорданов Лепичев"
+    },
+    {
+      "id": "person:ЙОРДАН ЙОНЧЕВ ЙОНОВ",
+      "type": "person",
+      "label": "Йордан Йончев Йонов"
+    },
+    {
+      "id": "person:ИВАЙЛО ТОШЕВ МУХТАНОВ",
+      "type": "person",
+      "label": "Ивайло Тошев Мухтанов"
     }
   ],
   "edges": [
@@ -61,6 +76,30 @@
     },
     {
       "source": "person:РУМЯНА ДОНЧЕВА МАНГОВА",
+      "target": "company:tr:121015330",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСПАРУХ ЙОРДАНОВ ЛЕПИЧЕВ",
+      "target": "company:tr:121015330",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ЙОНЧЕВ ЙОНОВ",
+      "target": "company:tr:121015330",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ТОШЕВ МУХТАНОВ",
       "target": "company:tr:121015330",
       "kind": "tr_role",
       "role": "director",

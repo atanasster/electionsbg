@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "generatedAt": "2026-06-04T08:22:46.418Z",
   "pairs": [
     {
       "mpA": {
@@ -1875,6 +1875,125 @@
       ],
       "score": 54,
       "sharedCompanyCount": 1,
+      "crossParty": false
+    },
+    {
+      "mpA": {
+        "mpId": 1689,
+        "nodeId": "mp:1689",
+        "label": "Андон Петров Андонов",
+        "partyGroupShort": null,
+        "nsFolders": [],
+        "isCurrent": false
+      },
+      "mpB": {
+        "mpId": 2670,
+        "nodeId": "mp:2670",
+        "label": "Валентин Алексиев Николов",
+        "partyGroupShort": "ГЕРБ",
+        "nsFolders": [
+          "41",
+          "43"
+        ],
+        "isCurrent": false
+      },
+      "path": {
+        "targetMpNodeId": "mp:2670",
+        "length": 4,
+        "nodeIds": [
+          "mp:1689",
+          "company:tr:833017552",
+          "person:ИЛЗА МИТКОВА ЧИНКОВА",
+          "company:tr:831373560",
+          "mp:2670"
+        ],
+        "isAllCurrent": true,
+        "isAllHighConfidence": false
+      },
+      "pathNodes": [
+        {
+          "id": "mp:1689",
+          "type": "mp",
+          "mpId": 1689,
+          "label": "Андон Петров Андонов",
+          "partyGroupShort": null,
+          "isCurrent": false,
+          "nsFolders": []
+        },
+        {
+          "id": "company:tr:833017552",
+          "type": "company",
+          "label": "МИНИ МАРИЦА - ИЗТОК",
+          "slug": null,
+          "uic": "833017552",
+          "legalForm": "EAD",
+          "status": "active",
+          "seat": null
+        },
+        {
+          "id": "person:ИЛЗА МИТКОВА ЧИНКОВА",
+          "type": "person",
+          "label": "Илза Миткова Чинкова"
+        },
+        {
+          "id": "company:tr:831373560",
+          "type": "company",
+          "label": "БЪЛГАРСКИ ЕНЕРГИЕН ХОЛДИНГ",
+          "slug": null,
+          "uic": "831373560",
+          "legalForm": "EAD",
+          "status": "active",
+          "seat": null
+        },
+        {
+          "id": "mp:2670",
+          "type": "mp",
+          "mpId": 2670,
+          "label": "Валентин Алексиев Николов",
+          "partyGroupShort": "ГЕРБ",
+          "isCurrent": false,
+          "nsFolders": [
+            "41",
+            "43"
+          ]
+        }
+      ],
+      "pathEdges": [
+        {
+          "source": "mp:1689",
+          "target": "company:tr:833017552",
+          "kind": "tr_role",
+          "role": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "source": "person:ИЛЗА МИТКОВА ЧИНКОВА",
+          "target": "company:tr:833017552",
+          "kind": "tr_role",
+          "role": "representative",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "source": "person:ИЛЗА МИТКОВА ЧИНКОВА",
+          "target": "company:tr:831373560",
+          "kind": "tr_role",
+          "role": "director",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "source": "mp:2670",
+          "target": "company:tr:831373560",
+          "kind": "tr_role",
+          "role": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "score": 18,
+      "sharedCompanyCount": 0,
       "crossParty": false
     },
     {

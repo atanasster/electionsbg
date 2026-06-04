@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "generatedAt": "2026-06-04T08:22:46.418Z",
   "mpNodeId": "mp:2734",
   "nodes": [
     {
@@ -27,7 +27,7 @@
       "label": "ДАТРА",
       "slug": null,
       "uic": "175165180",
-      "legalForm": "Дружество с ограничена отговорност",
+      "legalForm": "EOOD",
       "status": "active",
       "seat": "БЪЛГАРИЯ, гр. София, 1618"
     },
@@ -60,6 +60,11 @@
       "id": "person:МИЛЕНА ТОМОВА КУЗМОВА",
       "type": "person",
       "label": "Милена Томова Кузмова"
+    },
+    {
+      "id": "person:МИЛЕНА ТОМОВА ТОМОВА",
+      "type": "person",
+      "label": "Милена Томова Томова"
     }
   ],
   "edges": [
@@ -156,6 +161,14 @@
       "target": "company:tr:204503086",
       "kind": "tr_role",
       "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ТОМОВА ТОМОВА",
+      "target": "company:tr:204503086",
+      "kind": "tr_owner",
+      "role": "partner",
       "isCurrent": true,
       "confidence": "high"
     }

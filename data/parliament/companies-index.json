@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
-  "total": 1130,
+  "generatedAt": "2026-06-04T08:22:46.418Z",
+  "total": 1134,
   "companies": [
     {
       "slug": "ПиВи-Квантум-ООД",
@@ -5002,11 +5002,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Вкупом-ООД",
@@ -5159,6 +5155,188 @@
           "mpId": 5006,
           "mpName": "Ивелин Людмилов Михайлов",
           "role": "sole_owner",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "slug": "Даикс-ООД",
+      "displayName": "Даикс ООД",
+      "registeredOffices": [
+        "Пловдив"
+      ],
+      "stakes": [
+        {
+          "mpId": 2946,
+          "declarantName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+          "declarationYear": 2021,
+          "fiscalYear": 2021,
+          "institution": "Народно събраниe",
+          "sourceUrl": "https://register.cacbg.bg/2022/BAB58445-9DDE-4F1D-AFD9-CBF0F611F4E3136039.xml",
+          "stake": {
+            "table": "10",
+            "shareSize": "1",
+            "valueEur": 25.564594059810926,
+            "legalBasis": null,
+            "fundsOrigin": null
+          }
+        },
+        {
+          "mpId": 2946,
+          "declarantName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+          "declarationYear": 2021,
+          "fiscalYear": 2020,
+          "institution": "Народно събраниe",
+          "sourceUrl": "https://register.cacbg.bg/2021_nc/BAB58445-9DDE-4F1D-AFD9-CBF0F611F4E3122469.xml",
+          "stake": {
+            "table": "10",
+            "shareSize": "1",
+            "valueEur": 25.564594059810926,
+            "legalBasis": "покупко-продажба",
+            "fundsOrigin": "ЗАПЛАТИ И ДИВИДЕНТИ"
+          }
+        }
+      ],
+      "ekatteHQ": [
+        "56784"
+      ],
+      "hqMatchQuality": "medium",
+      "tr": {
+        "uic": "040454345",
+        "legalForm": "OOD",
+        "status": "active",
+        "seat": null,
+        "lastUpdated": "2026-05-27T14:45:08",
+        "currentOfficers": [],
+        "currentOwners": [
+          {
+            "role": "partner",
+            "name": "НЕСТ 18",
+            "positionLabel": null,
+            "sharePercent": null,
+            "addedAt": "2026-05-27T14:45:08"
+          },
+          {
+            "role": "partner",
+            "name": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+            "positionLabel": null,
+            "sharePercent": null,
+            "addedAt": "2026-05-27T14:45:08",
+            "matchedMpId": 2946
+          },
+          {
+            "role": "partner",
+            "name": "ГЕОРГИ ВИНКОВ ФЪРЦОВ",
+            "positionLabel": null,
+            "sharePercent": null,
+            "addedAt": "2026-05-27T14:45:08"
+          },
+          {
+            "role": "partner",
+            "name": "ДИМИТЪР АНГЕЛОВ ВЕСЕЛИНОВ",
+            "positionLabel": null,
+            "sharePercent": null,
+            "addedAt": "2026-05-27T14:45:08"
+          },
+          {
+            "role": "partner",
+            "name": "ПЕНКА ЖЕЛЯЗКОВА ГЕЛЕВА",
+            "positionLabel": null,
+            "sharePercent": null,
+            "addedAt": "2026-05-27T14:45:08"
+          }
+        ]
+      },
+      "mpRoles": [
+        {
+          "mpId": 2946,
+          "mpName": "Елена Стефанова Пешева",
+          "role": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "slug": "ДЖИ-ПИ-ЕС-Системи-българия-ООД",
+      "displayName": "ДЖИ ПИ ЕС Системи българия ООД",
+      "registeredOffices": [
+        "Пловдив"
+      ],
+      "stakes": [
+        {
+          "mpId": 2946,
+          "declarantName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+          "declarationYear": 2021,
+          "fiscalYear": 2021,
+          "institution": "Народно събраниe",
+          "sourceUrl": "https://register.cacbg.bg/2022/BAB58445-9DDE-4F1D-AFD9-CBF0F611F4E3136039.xml",
+          "stake": {
+            "table": "10",
+            "shareSize": "80",
+            "valueEur": 20451.67524784874,
+            "legalBasis": null,
+            "fundsOrigin": null
+          }
+        },
+        {
+          "mpId": 2946,
+          "declarantName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+          "declarationYear": 2021,
+          "fiscalYear": 2020,
+          "institution": "Народно събраниe",
+          "sourceUrl": "https://register.cacbg.bg/2021_nc/BAB58445-9DDE-4F1D-AFD9-CBF0F611F4E3122469.xml",
+          "stake": {
+            "table": "10",
+            "shareSize": "80",
+            "valueEur": 20451.67524784874,
+            "legalBasis": "покупко-продажба",
+            "fundsOrigin": "ЗАПЛАТИ И ДИВИДЕНТИ"
+          }
+        }
+      ],
+      "ekatteHQ": [
+        "56784"
+      ],
+      "hqMatchQuality": "medium",
+      "tr": {
+        "uic": "201498495",
+        "legalForm": "OOD",
+        "status": "active",
+        "seat": null,
+        "lastUpdated": "2026-05-27T13:59:03",
+        "currentOfficers": [],
+        "currentOwners": [
+          {
+            "role": "partner",
+            "name": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+            "positionLabel": null,
+            "sharePercent": null,
+            "addedAt": "2026-05-27T13:59:03",
+            "matchedMpId": 2946
+          },
+          {
+            "role": "partner",
+            "name": "АТАНАС ГЕОРГИЕВ ПЕШЕВ",
+            "positionLabel": null,
+            "sharePercent": null,
+            "addedAt": "2026-05-27T13:59:03"
+          },
+          {
+            "role": "partner",
+            "name": "АНТОАН ДИМИТРОВ ХРИСТОВ",
+            "positionLabel": null,
+            "sharePercent": null,
+            "addedAt": "2026-05-27T13:59:03"
+          }
+        ]
+      },
+      "mpRoles": [
+        {
+          "mpId": 2946,
+          "mpName": "Елена Стефанова Пешева",
+          "role": "partner",
           "isCurrent": true,
           "confidence": "high"
         }
@@ -5409,8 +5587,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЕВРОХИМ-ГРУП",
@@ -5448,8 +5625,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Задружно-ЕООД",
@@ -6643,8 +6819,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Нилстрой-ЕООД",
@@ -7270,11 +7445,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Панега-консулт-ЕООД",
@@ -7385,11 +7556,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10447"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Превоз-ЕООД",
@@ -7585,11 +7752,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "57491"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "русчев-естейтс",
@@ -7857,8 +8020,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Скрим-ауто-ЕООД",
@@ -8474,11 +8636,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07079"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Теоли-ООД",
@@ -9606,11 +9764,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "55302"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Театро-варна-ООД",
@@ -9862,11 +10016,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "87374"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "7-ОУШЪНС.БГ",
@@ -9899,11 +10049,40 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
+      }
+    },
+    {
+      "slug": "А-Фууд-Спартак",
+      "displayName": "А Фууд Спартак",
+      "registeredOffices": [
+        "БЪЛГАРИЯ, гр. София, 1000"
       ],
-      "hqMatchQuality": "high"
+      "stakes": [],
+      "mpRoles": [
+        {
+          "mpId": 2426,
+          "mpName": "Борислав Сабинов Иглев",
+          "role": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "mpId": 2426,
+          "mpName": "Борислав Сабинов Иглев",
+          "role": "sole_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "tr": {
+        "uic": "208832798",
+        "legalForm": "Еднолично дружество с ограничена отговорност",
+        "status": "active",
+        "seat": "БЪЛГАРИЯ, гр. София, 1000",
+        "lastUpdated": null,
+        "currentOfficers": [],
+        "currentOwners": []
+      }
     },
     {
       "slug": "А.-с.-П.-Фолк-дизайн-ЕООД",
@@ -10048,11 +10227,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "АГРОКОПТЕР-ЕВРОПА",
@@ -10085,11 +10260,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "АГУРОС",
@@ -10122,11 +10293,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Адвокатско-дружество-Янков,-Ненчев,-Гочев-и-Янкова",
@@ -10200,8 +10367,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Азура-маре",
@@ -10234,11 +10400,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "АКАДЕМИЧЕН-ПАРК-2020-ХОЛИДЕЙ",
@@ -10269,8 +10431,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Акаунт-комерс-2",
@@ -10373,11 +10534,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07079"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "АКОРД-КЕПИТАЛ",
@@ -10410,11 +10567,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "АЛБА-РЕЗИДЪНС",
@@ -10447,11 +10600,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07079"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Албена-Симеонова-1",
@@ -10546,11 +10695,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "АЛМАНА",
@@ -10583,11 +10728,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "22006"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "АЛФА-БЪЛГАРИЯ-ТРЕЙД-КЪМПАНИ",
@@ -10618,8 +10759,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АЛФА-СИГМА-ТРЕЙД",
@@ -10650,45 +10790,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
-    },
-    {
-      "slug": "АМБУЛАТОРИЯ-ЗА-СПЕЦИАЛИЗИРАНА-МЕДИЦИНСКА-ПОМОЩ-ГРУПОВА-ПРАКТИКА-&quot;ОРТОЛАЙФ&quot;",
-      "displayName": "АМБУЛАТОРИЯ ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ - ГРУПОВА ПРАКТИКА &quot;ОРТОЛАЙФ&quot;",
-      "registeredOffices": [
-        "БЪЛГАРИЯ, гр. Варна, 9000"
-      ],
-      "stakes": [],
-      "mpRoles": [
-        {
-          "mpId": 854,
-          "mpName": "Стоян Иванов Иванов",
-          "role": "manager",
-          "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
-          "mpId": 854,
-          "mpName": "Стоян Иванов Иванов",
-          "role": "partner",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "tr": {
-        "uic": "206611801",
-        "legalForm": "OOD",
-        "status": "active",
-        "seat": "БЪЛГАРИЯ, гр. Варна, 9000",
-        "lastUpdated": null,
-        "currentOfficers": [],
-        "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "АМБУЛАТОРИЯ-ИНДИВИДУАЛНА-ПРАКТИКА-ЗА-ПЪРВИЧНА-МЕДИЦИНСКА-ПОМОЩ-Д-Р-СТОЯН-ГЕОРГИЕВ",
@@ -10721,11 +10823,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68850"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "АНГИ",
@@ -10758,11 +10856,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "58030"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "АНТАРЕС-2021",
@@ -10795,11 +10889,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07079"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Апиа-КОнсулт-ЕООД",
@@ -10873,8 +10963,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АРТ-СТОУН-2017",
@@ -10905,8 +10994,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Арт-таун",
@@ -10939,11 +11027,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "55871"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "АРХИТИЙМ-ДИЗАЙН",
@@ -10976,11 +11060,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "АХЕЛ-03",
@@ -11013,11 +11093,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07079"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "БАР-ЛИДЕР",
@@ -11050,11 +11126,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "БАР-ПОРТ",
@@ -11087,11 +11159,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "БАРБЕР-ШОП-НЕКСТ-ЛЕВЪЛ",
@@ -11124,11 +11192,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "47278"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Бардуков-ООД",
@@ -11254,8 +11318,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "БГагроимпекс",
@@ -11286,8 +11349,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "БЕЛ-БРОКЕРС",
@@ -11320,11 +11382,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "БИ.Ю.ПРОПЪРТИ",
@@ -11355,8 +11413,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Блекаут-оптикс",
@@ -11389,11 +11446,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "БМВ-ИНВЕСТ",
@@ -11426,11 +11479,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Богданов-инвест",
@@ -11610,11 +11659,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68850"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "БРАНИТЕЛ",
@@ -11647,11 +11692,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "51487"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Братя-Градеви-ООД",
@@ -11737,8 +11778,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "БУЛГАРА-МИЛК",
@@ -11771,11 +11811,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "36498"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "България-Сийд-Интернешънъл",
@@ -11806,8 +11842,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "БЪЛГАРИЯ-ХЕЛИ-МЕД-СЪРВИЗ",
@@ -11840,11 +11875,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "БЪЛГАРСКИ-ЕНЕРГИЕН-ХОЛДИНГ",
@@ -11875,8 +11906,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Българско-дружество-за-управление-на-проекти",
@@ -11909,11 +11939,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "В-ЕЪР",
@@ -11946,11 +11972,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "В.К.БЪЛГАРИЯ",
@@ -11983,11 +12005,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "67800"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Валентино-Груп-08",
@@ -12018,8 +12036,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ВАНЕСА-27",
@@ -12052,11 +12069,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ВАНИТКА",
@@ -12089,11 +12102,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68850"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Варна-стар-ООД",
@@ -12178,11 +12187,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "12259"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ВЕЙЗ-БЪЛГАРИЯ",
@@ -12215,11 +12220,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ВЕНЕРА-ИНВЕСТМЪНТ",
@@ -12252,11 +12253,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ВИВ-87",
@@ -12289,11 +12286,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07079"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ВИВИ-22",
@@ -12326,11 +12319,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "15504"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ВИКС-2021",
@@ -12361,8 +12350,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ВИНАГИ-ЗАЕДНО",
@@ -12395,11 +12383,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "51487"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Вип-Лес-2021",
@@ -12432,11 +12416,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "39387"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Виртус-10-ООД",
@@ -12528,8 +12508,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ГАБИАННА-ТРАНС",
@@ -12562,11 +12541,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "65334"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ГАЛ-АТАНАСОВ",
@@ -12599,11 +12574,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68850"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ГЕОФОРМАТ-2015",
@@ -12634,8 +12605,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Глобал-сървиз-ЕС-ЕООД",
@@ -12728,11 +12698,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Горчев-и-синове-ЕООД",
@@ -12887,11 +12853,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Гранд-Хоуп",
@@ -12924,11 +12886,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "00014"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Грег-и-АЛЛ-ЕООД",
@@ -13022,11 +12980,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Грийн-Голд-Интернешънъл",
@@ -13059,11 +13013,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Грийн-касъл-груп-ЕООД",
@@ -13159,11 +13109,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ГХ-Премиум",
@@ -13196,11 +13142,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "65111"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Гълъбинци-солар",
@@ -13233,11 +13175,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "67338"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ГЮРГА-ИВАНОВА",
@@ -13266,59 +13204,6 @@
         "status": "active",
         "seat": null,
         "lastUpdated": null,
-        "currentOfficers": [],
-        "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
-    },
-    {
-      "slug": "Даикс-ООД",
-      "displayName": "Даикс ООД",
-      "registeredOffices": [
-        "Пловдив"
-      ],
-      "stakes": [
-        {
-          "mpId": 2946,
-          "declarantName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
-          "declarationYear": 2021,
-          "fiscalYear": 2021,
-          "institution": "Народно събраниe",
-          "sourceUrl": "https://register.cacbg.bg/2022/BAB58445-9DDE-4F1D-AFD9-CBF0F611F4E3136039.xml",
-          "stake": {
-            "table": "10",
-            "shareSize": "1",
-            "valueEur": 25.564594059810926,
-            "legalBasis": null,
-            "fundsOrigin": null
-          }
-        },
-        {
-          "mpId": 2946,
-          "declarantName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
-          "declarationYear": 2021,
-          "fiscalYear": 2020,
-          "institution": "Народно събраниe",
-          "sourceUrl": "https://register.cacbg.bg/2021_nc/BAB58445-9DDE-4F1D-AFD9-CBF0F611F4E3122469.xml",
-          "stake": {
-            "table": "10",
-            "shareSize": "1",
-            "valueEur": 25.564594059810926,
-            "legalBasis": "покупко-продажба",
-            "fundsOrigin": "ЗАПЛАТИ И ДИВИДЕНТИ"
-          }
-        }
-      ],
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "medium",
-      "tr": {
-        "uic": "040454345",
-        "legalForm": "OOD",
-        "status": "active",
-        "seat": null,
-        "lastUpdated": "",
         "currentOfficers": [],
         "currentOwners": []
       }
@@ -13406,11 +13291,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "63427"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДАНАУ",
@@ -13441,8 +13322,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ДАНАЯ-ФЕШЪН-ДДП",
@@ -13475,11 +13355,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "80793"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДАНУБЕ-ТУРС",
@@ -13510,8 +13386,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ДАТРА",
@@ -13538,17 +13413,13 @@
       ],
       "tr": {
         "uic": "175165180",
-        "legalForm": "Дружество с ограничена отговорност",
+        "legalForm": "EOOD",
         "status": "active",
         "seat": "БЪЛГАРИЯ, гр. София, 1618",
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДАЯ-ТРАНС21",
@@ -13581,11 +13452,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "80323"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Декодизайн-Груп-ООД",
@@ -13722,11 +13589,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДЖЕНЕРИКС",
@@ -13759,11 +13622,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДЖИ-ЕНД-АЙ-КАРС",
@@ -13796,11 +13655,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07079"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Джи-енд-джи-естейт",
@@ -13858,58 +13713,6 @@
       ]
     },
     {
-      "slug": "ДЖИ-ПИ-ЕС-Системи-българия-ООД",
-      "displayName": "ДЖИ ПИ ЕС Системи българия ООД",
-      "registeredOffices": [
-        "Пловдив"
-      ],
-      "stakes": [
-        {
-          "mpId": 2946,
-          "declarantName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
-          "declarationYear": 2021,
-          "fiscalYear": 2021,
-          "institution": "Народно събраниe",
-          "sourceUrl": "https://register.cacbg.bg/2022/BAB58445-9DDE-4F1D-AFD9-CBF0F611F4E3136039.xml",
-          "stake": {
-            "table": "10",
-            "shareSize": "80",
-            "valueEur": 20451.67524784874,
-            "legalBasis": null,
-            "fundsOrigin": null
-          }
-        },
-        {
-          "mpId": 2946,
-          "declarantName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
-          "declarationYear": 2021,
-          "fiscalYear": 2020,
-          "institution": "Народно събраниe",
-          "sourceUrl": "https://register.cacbg.bg/2021_nc/BAB58445-9DDE-4F1D-AFD9-CBF0F611F4E3122469.xml",
-          "stake": {
-            "table": "10",
-            "shareSize": "80",
-            "valueEur": 20451.67524784874,
-            "legalBasis": "покупко-продажба",
-            "fundsOrigin": "ЗАПЛАТИ И ДИВИДЕНТИ"
-          }
-        }
-      ],
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "medium",
-      "tr": {
-        "uic": "201498495",
-        "legalForm": "OOD",
-        "status": "active",
-        "seat": null,
-        "lastUpdated": "",
-        "currentOfficers": [],
-        "currentOwners": []
-      }
-    },
-    {
       "slug": "ДИВАЛ-99",
       "displayName": "ДИВАЛ - 99",
       "registeredOffices": [
@@ -13940,11 +13743,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "87374"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДИДЖИТАЛ-УЪРЛД-2022",
@@ -13977,11 +13776,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДИМЕТ-ГРУП",
@@ -14014,11 +13809,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "48489"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДМС-ПРОПЪРТИ",
@@ -14051,11 +13842,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "66425"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДОБРЕВ-71",
@@ -14088,11 +13875,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68850"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДОБРУДЖАНСКИ-ХЛЯБ",
@@ -14123,8 +13906,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Дон-Камило",
@@ -14157,11 +13939,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "55155"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДП-ИНДУСТРИАЛСТРОЙ",
@@ -14194,11 +13972,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДРИНК-ТРЕЙД",
@@ -14231,11 +14005,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "70586"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Дунав-мийт",
@@ -14268,11 +14038,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЕА-ИНВЕСТМЪНТ",
@@ -14303,8 +14069,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Евро-кънстракшънс",
@@ -14390,8 +14155,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Ейпейс",
@@ -14424,11 +14188,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЕКРАНА-БГ",
@@ -14461,11 +14221,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Електротера",
@@ -14498,11 +14254,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68850"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Еленово-Солар",
@@ -14535,11 +14287,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Елеонора-2019",
@@ -14572,11 +14320,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "63427"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЕЛИНОР",
@@ -14607,8 +14351,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЕМ-ФРУУТС",
@@ -14641,11 +14384,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "80443"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЕНЕРГИЯ-2008-П",
@@ -14676,8 +14415,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Енерко-ООД",
@@ -14762,11 +14500,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЕТЕР-К",
@@ -14799,11 +14533,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "83510"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Еуропео-България-ООД",
@@ -15514,11 +15244,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "12259"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Зава-Фарма",
@@ -15549,8 +15275,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Заря-прогрес-ЕООД",
@@ -15626,11 +15351,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68789"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЗЕТТА-СИСТЕМС",
@@ -15663,11 +15384,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "И-Ви-Лог",
@@ -15700,11 +15417,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "И-Грийн-Енерджи",
@@ -15735,8 +15448,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ИВАН-КУОЛИТИ",
@@ -15767,8 +15479,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ИВАНИКО",
@@ -15801,11 +15512,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "02676"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ИВО-ДЕСИ-2021",
@@ -15838,11 +15545,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ИДА-2003",
@@ -15875,11 +15578,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "66425"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ИДЕЯ-КАСА-2020",
@@ -15912,11 +15611,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ИЗДАТЕЛСКА-КЪЩА-ЛАРА-ИНК",
@@ -15949,11 +15644,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "80371"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Издателство-Гео-Милев",
@@ -16048,11 +15739,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "46045"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ИИГП-СТРОЙ",
@@ -16085,11 +15772,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ИЛ-2020",
@@ -16120,8 +15803,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ИМОДИЙЛ",
@@ -16152,8 +15834,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ИМПЕТУС-ПГ",
@@ -16186,11 +15867,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ИмПулс-I",
@@ -16223,11 +15900,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ИНВЕСТ-ФОНД-МЕНИДЖМЪНТ",
@@ -16258,8 +15931,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Инвестиционна-група-ДОМ",
@@ -16341,17 +16013,13 @@
       ],
       "tr": {
         "uic": "206512162",
-        "legalForm": "Дружество с ограничена отговорност",
+        "legalForm": "OOD",
         "status": "active",
         "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700",
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "04279"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Индустриална-и-логистична-зона-Перник",
@@ -16382,45 +16050,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
-    },
-    {
-      "slug": "ИНИМ22",
-      "displayName": "ИНИМ22",
-      "registeredOffices": [
-        "БЪЛГАРИЯ, гр. София, 1000"
-      ],
-      "stakes": [],
-      "mpRoles": [
-        {
-          "mpId": 854,
-          "mpName": "Стоян Иванов Иванов",
-          "role": "partner",
-          "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
-          "mpId": 854,
-          "mpName": "Стоян Иванов Иванов",
-          "role": "manager",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "tr": {
-        "uic": "206901224",
-        "legalForm": "OOD",
-        "status": "active",
-        "seat": "БЪЛГАРИЯ, гр. София, 1000",
-        "lastUpdated": null,
-        "currentOfficers": [],
-        "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ИНТЕРНЕШЪНЪЛ-МЕДИКЪЛ-ПАРТНЪРС",
@@ -16453,11 +16083,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ИП-НАПРЕДЪК",
@@ -16490,11 +16116,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ИСТЪР-ЛЕС",
@@ -16525,8 +16147,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Йокс",
@@ -16559,11 +16180,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "К.И.Д.-ФУУД-1926",
@@ -16596,11 +16213,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КА-Академи",
@@ -16631,8 +16244,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "КА-Груп-ООД",
@@ -16782,6 +16394,39 @@
       }
     },
     {
+      "slug": "Калиде",
+      "displayName": "Калиде",
+      "registeredOffices": [
+        "БЪЛГАРИЯ, гр. Бургас, 8000"
+      ],
+      "stakes": [],
+      "mpRoles": [
+        {
+          "mpId": 1526,
+          "mpName": "Георги Симеонов Горанов",
+          "role": "sole_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "mpId": 1526,
+          "mpName": "Георги Симеонов Горанов",
+          "role": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "tr": {
+        "uic": "206482468",
+        "legalForm": "EOOD",
+        "status": "active",
+        "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+        "lastUpdated": null,
+        "currentOfficers": [],
+        "currentOwners": []
+      }
+    },
+    {
       "slug": "Каменица-Офис-парк-АД",
       "displayName": "Каменица Офис парк АД",
       "registeredOffices": [
@@ -16872,8 +16517,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "КАМЧИЯ-ПРОПЪРТИС",
@@ -16906,11 +16550,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КАП-солар",
@@ -16943,11 +16583,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КАПИТАЛ-ГРУП",
@@ -16980,48 +16616,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
-    },
-    {
-      "slug": "Кар-Клиник-91",
-      "displayName": "Кар Клиник 91",
-      "registeredOffices": [
-        "БЪЛГАРИЯ, с. Лозен, 1151"
-      ],
-      "stakes": [],
-      "mpRoles": [
-        {
-          "mpId": 854,
-          "mpName": "Стоян Иванов Иванов",
-          "role": "manager",
-          "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
-          "mpId": 854,
-          "mpName": "Стоян Иванов Иванов",
-          "role": "sole_owner",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "tr": {
-        "uic": "206480309",
-        "legalForm": "Еднолично дружество с ограничена отговорност",
-        "status": "active",
-        "seat": "БЪЛГАРИЯ, с. Лозен, 1151",
-        "lastUpdated": null,
-        "currentOfficers": [],
-        "currentOwners": []
-      },
-      "ekatteHQ": [
-        "44063"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КАР-ЛУКС-КБК-2022",
@@ -17054,11 +16649,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "36498"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КАР-ЛУКС-КК",
@@ -17091,11 +16682,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "36498"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КАРАДЖА-ФАГ",
@@ -17190,11 +16777,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КАРИ",
@@ -17225,8 +16808,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "КД-Билд-Груп",
@@ -17259,11 +16841,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Келтик-Проперти-Мениджмънт-ЕООД",
@@ -17346,8 +16924,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "КМ-ПРОПЪРТИС",
@@ -17380,11 +16957,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "55871"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КОБАН",
@@ -17415,8 +16988,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "КОМПО-СИСТЕМС",
@@ -17449,11 +17021,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68850"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Консулт-Г",
@@ -17539,8 +17107,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "КОСМО-КИБУС",
@@ -17571,8 +17138,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "КП-инвест-груп",
@@ -17605,11 +17171,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КРИСДЕНИ",
@@ -17642,11 +17204,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "16359"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Л-ВЕ-ЦИНК",
@@ -17679,11 +17237,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "48489"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЛА-МЕР-МЕНИДЖМЪНТ",
@@ -17716,11 +17270,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЛАБШОКО",
@@ -17753,11 +17303,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Лазарис-ЕАД",
@@ -17911,8 +17457,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Лега-Консулт-ООД",
@@ -18005,11 +17550,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЛигълТрек",
@@ -18042,11 +17583,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЛИЛИЯ-МИ",
@@ -18077,8 +17614,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЛИТЕРАТУРНА-АГЕНЦИЯ-СОФИЯ",
@@ -18111,11 +17647,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЛОДЖИКОС",
@@ -18148,11 +17680,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56126"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Лока-Интернешънъл-ООД",
@@ -18297,11 +17825,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07079"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЛУНИСОЛАР",
@@ -18334,11 +17858,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "М-консулт-33-ЕООД",
@@ -18431,8 +17951,38 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
+    },
+    {
+      "slug": "МАГ-КОМЮНИКЕЙШЪНС",
+      "displayName": "МАГ КОМЮНИКЕЙШЪНС",
+      "registeredOffices": [],
+      "stakes": [],
+      "mpRoles": [
+        {
+          "mpId": 4778,
+          "mpName": "Красен Кирилов Кралев",
+          "role": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "mpId": 4778,
+          "mpName": "Красен Кирилов Кралев",
+          "role": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "tr": {
+        "uic": "103113577",
+        "legalForm": "EAD",
+        "status": "active",
+        "seat": null,
+        "lastUpdated": null,
+        "currentOfficers": [],
+        "currentOwners": []
+      }
     },
     {
       "slug": "Магия-Лорели",
@@ -18465,11 +18015,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "04426"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МАГНУМ-21",
@@ -18502,11 +18048,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "63427"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МАК-ИНВЕСТ-21",
@@ -18539,11 +18081,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "51500"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МАКС27",
@@ -18574,8 +18112,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Максимум-2018",
@@ -18608,11 +18145,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "40909"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МАКСИМУМ-2022",
@@ -18645,11 +18178,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "40909"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МАРКОНИ-АРТ-ДИЗАЙН",
@@ -18680,8 +18209,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "МАРТИН-ДИМИТРОВ-2021",
@@ -18714,11 +18242,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МГ-Консултинг-ЕООД",
@@ -18811,11 +18335,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "59080"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Мегамар-2022",
@@ -18848,11 +18368,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МЕД-ИН-ООД",
@@ -18928,11 +18444,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МЕДИЦИНСКИ-ЦЕНТЪР-СВЕТА-СОФИЯ",
@@ -18963,8 +18475,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Мелитус-Д",
@@ -18997,11 +18508,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Метал-ВМ-ЕООД",
@@ -19035,14 +18542,14 @@
         "legalForm": "EOOD",
         "status": "active",
         "seat": null,
-        "lastUpdated": "2022-02-15T15:52:37",
+        "lastUpdated": "2026-05-29T09:20:36",
         "currentOfficers": [
           {
             "role": "manager",
             "name": "Илияна Цветанова Христова",
             "positionLabel": null,
             "sharePercent": null,
-            "addedAt": "2022-02-15T15:52:37"
+            "addedAt": "2026-05-29T09:20:36"
           },
           {
             "role": "manager",
@@ -19050,6 +18557,14 @@
             "positionLabel": null,
             "sharePercent": null,
             "addedAt": "2022-02-15T15:52:37",
+            "matchedMpId": 4868
+          },
+          {
+            "role": "manager",
+            "name": "Венцислав Михайлов Асенов",
+            "positionLabel": null,
+            "sharePercent": null,
+            "addedAt": "2026-05-29T09:20:36",
             "matchedMpId": 4868
           }
         ],
@@ -19096,11 +18611,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МИА-МАНТЕ",
@@ -19133,11 +18644,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "44834"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МИКИ-8789",
@@ -19168,8 +18675,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "МИП-КОМ-ООД",
@@ -19262,11 +18768,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "12259"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МЛАДОСТ-РЕНТ",
@@ -19299,11 +18801,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ММ-ПЕТРОВИ",
@@ -19336,11 +18834,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "43952"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МОНБАТ-ЕН-БИ-ПИ",
@@ -19371,8 +18865,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Монна-Интернешънъл",
@@ -19405,11 +18898,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Море-2020-ООД",
@@ -19485,11 +18974,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МОУШЪНСПОРТС",
@@ -19522,11 +19007,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56126"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Н.Н-АВИОХИМ",
@@ -19559,11 +19040,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "83510"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Наба-Геймс-ООД",
@@ -19661,6 +19138,37 @@
       "hqMatchQuality": "medium"
     },
     {
+      "slug": "НЕСТ-18",
+      "displayName": "НЕСТ 18",
+      "registeredOffices": [],
+      "stakes": [],
+      "mpRoles": [
+        {
+          "mpId": 2946,
+          "mpName": "Елена Стефанова Пешева",
+          "role": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "mpId": 2946,
+          "mpName": "Елена Стефанова Пешева",
+          "role": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "tr": {
+        "uic": "205027971",
+        "legalForm": "AD",
+        "status": "active",
+        "seat": null,
+        "lastUpdated": null,
+        "currentOfficers": [],
+        "currentOwners": []
+      }
+    },
+    {
       "slug": "НЕСТ-БЪЛГАРИЯ",
       "displayName": "НЕСТ БЪЛГАРИЯ",
       "registeredOffices": [
@@ -19691,11 +19199,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "НИК-ТРАНС-БГ",
@@ -19728,11 +19232,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "47295"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Никаарт-МП",
@@ -19765,11 +19265,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "67338"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "НИКО-69",
@@ -19800,8 +19296,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "НИКОМЕЛ-СТРОЙ",
@@ -19834,11 +19329,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56722"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "НИМИ-БУК",
@@ -19871,11 +19362,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "61460"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "НИНФЕА-АЛА-МОДА",
@@ -19908,11 +19395,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Нупсън-ООД",
@@ -19988,11 +19471,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Омнио-ООД",
@@ -20152,11 +19631,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "61676"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Орхание-1-ООД",
@@ -20293,11 +19768,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "73626"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ПараПро",
@@ -20328,8 +19799,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ПЕТ-ЕН-ЕН-2021",
@@ -20362,11 +19832,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ПЕТКОВ-55",
@@ -20399,11 +19865,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "87374"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ПЕТРОВ-И-БОРИСОВ-АРХИТЕКТИ",
@@ -20434,8 +19896,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ПИ-ДЖЕЙ-ИНЖЕНЕРИНГ",
@@ -20466,8 +19927,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ПИ-ЕС-КЕШ",
@@ -20500,11 +19960,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "65601"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ПЛАНЕКС-ЕЛЕМЕНТ",
@@ -20535,8 +19991,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ПЛОДЕКС",
@@ -20567,8 +20022,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ПНП-Транс-Къмпани",
@@ -20601,11 +20055,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "05815"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ПОЛАРИС-МЕДИЯ",
@@ -20638,11 +20088,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68850"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ПРИ-ДАКАТА-И-МИТАКА",
@@ -20675,11 +20121,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "63029"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "проект-консулт-оод-в-ликвидация",
@@ -20798,11 +20240,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "14218"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Раведас-ЕООД",
@@ -20949,11 +20387,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "РЕЗОРТ-ПРОПЪРТИ-МЕНИДЖМЪНТ",
@@ -20986,11 +20420,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10447"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "РЕМАР-ТРЕЙД",
@@ -21023,11 +20453,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "РЕНТ-ФИКС",
@@ -21060,11 +20486,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "РОЯЛ-БЛУ",
@@ -21095,8 +20517,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "РСЕЛЕНА",
@@ -21129,11 +20550,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СЕКОНТ-2011",
@@ -21166,11 +20583,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СЕЛ-ДЖИКОВИ",
@@ -21203,48 +20616,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
-    },
-    {
-      "slug": "СЕНТРЪЛ-ВЮ-ПРОПЪРТИС",
-      "displayName": "СЕНТРЪЛ ВЮ ПРОПЪРТИС",
-      "registeredOffices": [
-        "БЪЛГАРИЯ, гр. Благоевград, 2700"
-      ],
-      "stakes": [],
-      "mpRoles": [
-        {
-          "mpId": 5296,
-          "mpName": "Рашко Георгиев Динков",
-          "role": "manager",
-          "isCurrent": true,
-          "confidence": "high"
-        },
-        {
-          "mpId": 5296,
-          "mpName": "Рашко Георгиев Динков",
-          "role": "sole_owner",
-          "isCurrent": true,
-          "confidence": "high"
-        }
-      ],
-      "tr": {
-        "uic": "206693442",
-        "legalForm": "Еднолично дружество с ограничена отговорност",
-        "status": "active",
-        "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700",
-        "lastUpdated": null,
-        "currentOfficers": [],
-        "currentOwners": []
-      },
-      "ekatteHQ": [
-        "04279"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СЕТАКАМ",
@@ -21277,11 +20649,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "14218"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СИ-КЕЙ-ДИ",
@@ -21312,8 +20680,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "СИ-ЛОГИСТИК",
@@ -21346,11 +20713,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СИЛПРО",
@@ -21383,11 +20746,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "66425"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СИМТЕХ-АУТО",
@@ -21420,11 +20779,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "67444"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Сити-Маркет-1",
@@ -21457,11 +20812,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "55871"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СИТИ-ПЛАСТ-2003",
@@ -21494,11 +20845,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07079"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Скайглас-ООД",
@@ -21586,11 +20933,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Смарт-бизнес-солушънс-ЕООД",
@@ -21675,11 +21018,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "77195"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СмарТест-БГ",
@@ -21712,11 +21051,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "87374"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СМГ-КОМЕРС",
@@ -21747,8 +21082,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "СОД-БЕРКУТ",
@@ -21781,48 +21115,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
-    },
-    {
-      "slug": "Солар-КИС",
-      "displayName": "Солар КИС",
-      "registeredOffices": [
-        "БЪЛГАРИЯ, гр. Пловдив, 4003"
-      ],
-      "stakes": [],
-      "mpRoles": [
-        {
-          "mpId": 854,
-          "mpName": "Стоян Иванов Иванов",
-          "role": "manager",
-          "isCurrent": true,
-          "confidence": "medium"
-        },
-        {
-          "mpId": 854,
-          "mpName": "Стоян Иванов Иванов",
-          "role": "sole_owner",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "tr": {
-        "uic": "206842288",
-        "legalForm": "Еднолично дружество с ограничена отговорност",
-        "status": "active",
-        "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003",
-        "lastUpdated": null,
-        "currentOfficers": [],
-        "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СП-КОНСУЛТ-БГ",
@@ -21855,11 +21148,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Спорт-Баланс-91",
@@ -21892,11 +21181,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Спорт-Сандрово",
@@ -21929,11 +21214,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "63427"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СТЕЛАРИКС",
@@ -21966,11 +21247,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СТИКС-Ист",
@@ -22003,11 +21280,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "35167"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Стинки-Бариста-ООД",
@@ -22117,11 +21390,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СЪН-ТАЙМ-ЕНЕРДЖИ",
@@ -22154,11 +21423,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ТАДИ-72",
@@ -22191,11 +21456,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "48550"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ТаксКонсулт-оод",
@@ -22442,8 +21703,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ТОП-АУТО-2022",
@@ -22476,11 +21736,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "57176"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ТОП-БУЛС",
@@ -22513,11 +21769,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "67338"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ТОРНАДО-КЛИЙН",
@@ -22548,8 +21800,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Тракия-ЕДУ",
@@ -22623,8 +21874,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Тракия-мобайл",
@@ -22712,11 +21962,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "38978"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "УИНД-ЪФ-ЧЕЙНДЖ",
@@ -22749,11 +21995,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "УНИ-ЕЛЕКТРИК",
@@ -22786,11 +22028,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "УНИВЕРСИТЕТСКА-МНОГОПРОФИЛНА-БОЛНИЦА-ЗА-АКТИВНО-ЛЕЧЕНИЕ-И-СПЕШНА-МЕДИЦИНА-Н.И.-ПИРОГОВ",
@@ -22821,8 +22059,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "УПСК-Варна",
@@ -22853,8 +22090,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "УСТРЕМ",
@@ -22887,11 +22123,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "65766"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ФАВОРИТ-СЕКЮРИТИ-4",
@@ -22924,11 +22156,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "48489"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ФАУ",
@@ -22959,8 +22187,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ФЕРМА-ЛУДА-КАМЧИЯ",
@@ -22993,11 +22220,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "70514"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Фернет-България-ООД",
@@ -23082,11 +22305,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Фо-Макс-Д-ЕООД",
@@ -23203,8 +22422,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Форекс-Капиталс-ЕООД",
@@ -23314,11 +22532,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ФОТОН-ПАРК",
@@ -23351,11 +22565,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ФРЕЙМ-ВИЖЪН",
@@ -23388,11 +22598,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68850"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ХАБЕРЛЕА",
@@ -23423,8 +22629,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ХДТ-/храна-за-духа-и-тялото/-БГ",
@@ -23455,8 +22660,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ХЕДКОНСУЛТИНГ",
@@ -23489,11 +22693,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ХИДРОСТРОЙ-80",
@@ -23526,11 +22726,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "65231"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ХОЛДИНГ-БЪЛГАРСКИ-ДЪРЖАВНИ-ЖЕЛЕЗНИЦИ",
@@ -23561,8 +22757,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ХОЛИВУД-1",
@@ -23595,11 +22790,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Хонекс-ЕООД",
@@ -23830,11 +23021,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Чинар-Варна-ЕООД",
@@ -24017,11 +23204,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Адвансд-Мениджмънт-Консултинг-ООД",
@@ -26172,8 +25355,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "А-н-Консулт-2017-ЕООД",
@@ -26213,6 +25395,32 @@
       }
     },
     {
+      "slug": "А-Фууд-НСА",
+      "displayName": "А Фууд НСА",
+      "registeredOffices": [
+        "БЪЛГАРИЯ, гр. София, 1000"
+      ],
+      "stakes": [],
+      "mpRoles": [
+        {
+          "mpId": 2426,
+          "mpName": "Борислав Сабинов Иглев",
+          "role": "sole_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "tr": {
+        "uic": "208833761",
+        "legalForm": "Еднолично дружество с ограничена отговорност",
+        "status": "active",
+        "seat": "БЪЛГАРИЯ, гр. София, 1000",
+        "lastUpdated": null,
+        "currentOfficers": [],
+        "currentOwners": []
+      }
+    },
+    {
       "slug": "АБ-Енерджис",
       "displayName": "АБ Енерджис",
       "registeredOffices": [],
@@ -26234,8 +25442,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Абраз-ЕООД",
@@ -26306,11 +25513,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56126"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Авиационна,-морска-и-специализирана-агенция",
@@ -26334,8 +25537,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Авто-груп-ООД",
@@ -26433,8 +25635,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АВТОМАГИСТРАЛИ",
@@ -26458,8 +25659,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АГРО-АРТ-ВН",
@@ -26485,11 +25685,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "АГРО-ИНВЕСТ-ИД",
@@ -26513,8 +25709,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АГРО-МАРКЕТ-2003",
@@ -26538,8 +25733,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Адвиза-ЕООД",
@@ -26671,8 +25865,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Ай-Ес-Джи-Медикъл-ЕООД",
@@ -26724,8 +25917,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Акаунт-комерс",
@@ -26777,8 +25969,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Аксиом-Инвест",
@@ -26804,11 +25995,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Активатор-ЕООД",
@@ -27048,8 +26235,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АЛЛ-БРАНДС",
@@ -27073,8 +26259,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АЛПЕ-ТРЕЙД",
@@ -27098,8 +26283,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Алпина-фармъси-ООД",
@@ -27176,8 +26360,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АЛФА-И-ЗЕТ-БЪЛГАРИЯ",
@@ -27201,8 +26384,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Амарид-ООД",
@@ -27300,8 +26482,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АМБУЛАТОРИЯ-ЗА-СПЕЦИАЛИЗИРАНА-МЕДИЦИНСКА-ПОМОЩ-МЕДИЦИНСКИ-ЦЕНТЪР-МЕДЕКСПРЕС-2022",
@@ -27327,11 +26508,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Амию-ЕООД",
@@ -27385,11 +26562,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Анда-Сторидж",
@@ -27415,11 +26588,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Анимекс-ЕООД",
@@ -27480,8 +26649,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АРЕНА-РУСЕ-МЕНИДЖМЪНТ",
@@ -27505,8 +26673,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Арома-риъл-естейт",
@@ -27530,8 +26697,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АРТ-СЦЕНА",
@@ -27555,8 +26721,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АС-АТ-ЕООД",
@@ -27721,8 +26886,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АССАРА",
@@ -27746,8 +26910,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "АТ-ПРУДЕНТ",
@@ -27771,8 +26934,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Бадинка-ООД",
@@ -27824,8 +26986,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Банкярд-ЕООД",
@@ -27930,8 +27091,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "БГ-Прогресс",
@@ -28020,8 +27180,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "БЕЛТО-МОТОРС",
@@ -28045,8 +27204,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "БЕЛЧИН-1",
@@ -28072,11 +27230,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "41112"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "БЕНДИДА-21",
@@ -28102,11 +27256,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "БЕО",
@@ -28132,11 +27282,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07079"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Бешка-ООД",
@@ -28188,8 +27334,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "БИЛД-22",
@@ -28215,11 +27360,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "БИЛДИНГ-ИНВЕСТ",
@@ -28243,8 +27384,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Био-Енерджи-2012-ООД",
@@ -28301,6 +27441,30 @@
         "56784"
       ],
       "hqMatchQuality": "medium"
+    },
+    {
+      "slug": "БИТЛАБЗ",
+      "displayName": "БИТЛАБЗ",
+      "registeredOffices": [],
+      "stakes": [],
+      "mpRoles": [
+        {
+          "mpId": 5121,
+          "mpName": "Атанас Петров Атанасов",
+          "role": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "tr": {
+        "uic": "208116368",
+        "legalForm": "AD",
+        "status": "active",
+        "seat": null,
+        "lastUpdated": null,
+        "currentOfficers": [],
+        "currentOwners": []
+      }
     },
     {
       "slug": "Битов-ресторант-ООД",
@@ -28361,8 +27525,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "БЛИТЦ-ЕР",
@@ -28386,8 +27549,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "БОКАЛ-ПЕТ",
@@ -28411,8 +27573,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Болкан-Газ-Лоджистикс",
@@ -28438,11 +27599,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Болярски-ДОМ-АД",
@@ -28527,11 +27684,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "04279"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Борусия-Дортмунд",
@@ -28751,8 +27904,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "БУЛЕВРОПРОДЖЕКТ",
@@ -28778,11 +27930,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Буллакто-ООД",
@@ -28910,11 +28058,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Бургаска-образователна-компания-ООД",
@@ -28990,8 +28134,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "БЪЛГАРСКИ-ПОЩИ",
@@ -29017,11 +28160,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "БЪЛГАРСКИ-СПОРТЕН-ТОТАЛИЗАТОР",
@@ -29045,8 +28184,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "В-ДЖЕТ",
@@ -29072,11 +28210,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "В-ЕЪР-ФАЙНЕНС",
@@ -29102,11 +28236,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Вайсънс-ООД",
@@ -29255,8 +28385,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Вегамедикс-ЕООД",
@@ -29319,11 +28448,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "48670"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Вели-груп-ЕООД",
@@ -29437,8 +28562,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Вендинг-индустри-ЕООД",
@@ -29499,8 +28623,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ВЕСТНИКЪТ",
@@ -29524,33 +28647,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
-    },
-    {
-      "slug": "ВЕТ-ДЕНТ",
-      "displayName": "ВЕТ - ДЕНТ",
-      "registeredOffices": [],
-      "stakes": [],
-      "mpRoles": [
-        {
-          "mpId": 854,
-          "mpName": "Стоян Иванов Иванов",
-          "role": "partner",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "tr": {
-        "uic": "200361547",
-        "legalForm": "Дружество с ограничена отговорност",
-        "status": "active",
-        "seat": null,
-        "lastUpdated": null,
-        "currentOfficers": [],
-        "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ВЕЦ-ХРИСТО-ЛУЛЕВ",
@@ -29574,8 +28671,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Вешев-ЕООД",
@@ -29636,8 +28732,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ВИК-ЗЛАТНИ-ПЯСЪЦИ",
@@ -29661,8 +28756,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Вимос",
@@ -29714,8 +28808,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Виномания-ЕООД",
@@ -29794,11 +28887,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10447"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ВИПТЕХ-ТРЕЙД",
@@ -29822,8 +28911,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Вита-трейдинг-ЕООД",
@@ -30101,7 +29189,16 @@
       "ekatteHQ": [
         "68134"
       ],
-      "hqMatchQuality": "high"
+      "hqMatchQuality": "high",
+      "tr": {
+        "uic": "207174404",
+        "legalForm": "EOOD",
+        "status": "active",
+        "seat": null,
+        "lastUpdated": "",
+        "currentOfficers": [],
+        "currentOwners": []
+      }
     },
     {
       "slug": "ВМ-Хотел-ООД",
@@ -30164,11 +29261,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ВОЯДЖ-ЕР",
@@ -30194,11 +29287,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Врачански-лифт",
@@ -30400,11 +29489,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07079"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ГЕНОМИКА",
@@ -30428,8 +29513,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Георги-Панайотов-Ирина-Панайотова-ЕООД",
@@ -30518,8 +29602,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Глобал-Груп-Еко-ЕООД",
@@ -30582,11 +29665,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Глобал-Консулт-Сървисис-ЕООД",
@@ -30877,11 +29956,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Градина-кетърниг-ООД",
@@ -30933,8 +30008,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ГРИЙН-АГРО-ГРУП",
@@ -30958,8 +30032,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Грийн-Инвестмънт-Пропъртис-ООД",
@@ -31073,8 +30146,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ГУС-Маркетинг-енд-Консултинг",
@@ -31100,11 +30172,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "35167"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ГЪЛИВЕЪР-МЕЙНТЕНАНС",
@@ -31130,11 +30198,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДАЙРЕКТ-СЪРВИСИЗ",
@@ -31158,8 +30222,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ДАНИСТО-90-ГЕОРГИЕВИ-И-СИЕ",
@@ -31185,11 +30248,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07079"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Дарба-Бъдеще",
@@ -31268,11 +30327,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДАТА-ИНТЕНСИВ",
@@ -31298,11 +30353,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Дева-Транспорт",
@@ -31326,8 +30377,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Делта-ТУР-ООД",
@@ -31416,8 +30466,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Демос-фарм-ЕООД",
@@ -31478,8 +30527,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Дефектед-барс",
@@ -31503,8 +30551,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ДЖЕЙ-ДЖЕЙ-АДВЪРТАЙЗМЪНТ",
@@ -31528,8 +30575,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ДЖЕЙ-МЕНИДЖМЪНТ",
@@ -31555,11 +30601,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Джени-спорт-ЕООД",
@@ -31607,6 +30649,32 @@
       }
     },
     {
+      "slug": "ДЖИ-ПИ",
+      "displayName": "ДЖИ ПИ",
+      "registeredOffices": [
+        "БЪЛГАРИЯ, гр. Варна, 9000"
+      ],
+      "stakes": [],
+      "mpRoles": [
+        {
+          "mpId": 5286,
+          "mpName": "Явор Иванов Плашилски",
+          "role": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "tr": {
+        "uic": "127559869",
+        "legalForm": "OOD",
+        "status": "active",
+        "seat": "БЪЛГАРИЯ, гр. Варна, 9000",
+        "lastUpdated": null,
+        "currentOfficers": [],
+        "currentOwners": []
+      }
+    },
+    {
       "slug": "ДжиЕсТи-Медиа",
       "displayName": "ДжиЕсТи Медиа",
       "registeredOffices": [
@@ -31630,11 +30698,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ДЖОАНА-28",
@@ -31658,8 +30722,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Ди-Ес-Джи-Прадакшънс-ООД",
@@ -31713,11 +30776,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Дибо-Варна-ООД",
@@ -32129,8 +31188,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ДМС-ЕООД",
@@ -32191,8 +31249,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ДРАГАЖЕН-ФЛОТ-ИСТЪР",
@@ -32216,8 +31273,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Дрийм-Мейкър-Студиос",
@@ -32243,11 +31299,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Душ-кабини-БГ",
@@ -32271,8 +31323,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Душкабини-БГ-ЕООД",
@@ -32326,11 +31377,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Е.МИРОЛИО",
@@ -32356,11 +31403,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "67338"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Евро-2020-ООД",
@@ -32486,8 +31529,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЕВРО-ФИНАНС",
@@ -32513,11 +31555,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Евроброд-Груп-ЕООД",
@@ -32681,8 +31719,31 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
+    },
+    {
+      "slug": "ЕВРОФИН-КОНСУЛТ",
+      "displayName": "ЕВРОФИН КОНСУЛТ",
+      "registeredOffices": [],
+      "stakes": [],
+      "mpRoles": [
+        {
+          "mpId": 64,
+          "mpName": "Лидия Сантова Шулева",
+          "role": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "tr": {
+        "uic": "131464747",
+        "legalForm": "EOOD",
+        "status": "active",
+        "seat": null,
+        "lastUpdated": null,
+        "currentOfficers": [],
+        "currentOwners": []
+      }
     },
     {
       "slug": "ЕКИП-МОНБАТ",
@@ -32702,17 +31763,13 @@
       ],
       "tr": {
         "uic": "206744794",
-        "legalForm": "Дружество с ограничена отговорност",
+        "legalForm": "OOD",
         "status": "active",
         "seat": "БЪЛГАРИЯ, гр. София, 1407",
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЕКОНТ-ЕКСПРЕС-БЛ",
@@ -32736,8 +31793,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЕКОНТ-ЕКСПРЕС",
@@ -32761,8 +31817,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЕКОНТ-ЕКСПРЕС-2",
@@ -32786,8 +31841,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Екотехпродукт-ООД",
@@ -32886,11 +31940,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Екс-Натура-ЕООД",
@@ -32961,11 +32011,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Ел-Чардж",
@@ -32989,8 +32035,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Елемент-АСК-ООД",
@@ -33051,8 +32096,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЕМ-и-ЕР-Фешън",
@@ -33113,8 +32157,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Енерджи-Съплай-Грийн-ЕООД",
@@ -33212,8 +32255,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Енигма-КСМ-ООД",
@@ -33267,11 +32309,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Ермет-солар-БГ",
@@ -33357,11 +32395,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Ес-Макс-Солар",
@@ -33387,11 +32421,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЕСКЕЙП-99",
@@ -33415,8 +32445,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЕСП-ЗЛАТНИ-ПЯСЪЦИ",
@@ -33440,8 +32469,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЕСПИ-ПАРТС",
@@ -33465,8 +32493,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Есте-08-ЕООД",
@@ -33564,8 +32591,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Етер-к-ЕООД",
@@ -33669,8 +32695,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЖИТЕН-КЛАС-14",
@@ -33694,8 +32719,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Загоратехтрейд",
@@ -33721,11 +32745,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЗАГОРЕ-98",
@@ -33749,8 +32769,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Защитник-ЕООД",
@@ -33802,8 +32821,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЗИГ-ЗАГ-КОР-ООД",
@@ -33855,8 +32873,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЗОВ-КОМЕРС",
@@ -33880,8 +32897,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЗОДИАК-КОНСУЛТ",
@@ -33907,11 +32923,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56722"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Зона-21-ООД",
@@ -34037,8 +33049,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ИВАНОВИ-КОНСТРУКШЪН",
@@ -34064,11 +33075,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ИВДИЗА",
@@ -34092,8 +33099,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Ивени-Консулт-ЕООД",
@@ -34182,8 +33188,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Изодом-ООД",
@@ -34358,11 +33363,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ИКОН-ГРУП-99",
@@ -34386,8 +33387,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ИЛ-БЕ-СА-ЕООД",
@@ -34575,8 +33575,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ИНДИВИДУАЛНА-ПРАКТИКА-ЗА-СПЕЦИАЛИЗИРАНА-МЕДИЦИНСКА-ПОМОЩ-ПО-ПСИХИАТРИЯ-Д-Р-АЛЕКСАНДЪР-ПАРИЗОВ",
@@ -34600,8 +33599,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Инекс-агро-ООД",
@@ -34793,8 +33791,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Инофлекс-ООД",
@@ -34883,8 +33880,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Интерактивен-дизайн-ООД",
@@ -34947,11 +33943,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Интерсол-ООД",
@@ -35042,11 +34034,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "70723"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Исит-документи-ООД",
@@ -35150,8 +34138,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Исторически-къщи-ЕООД",
@@ -35203,8 +34190,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Историческо-селище-АД",
@@ -35377,8 +34363,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Кадиев-Глобал-ЕООД",
@@ -35531,11 +34516,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Каралина-енерджи-ЕООД",
@@ -35612,8 +34593,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "КАРЕЛИН-2021",
@@ -35639,11 +34619,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "87374"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КАРОЛ-КАПИТАЛ-МЕНИДЖМЪНТ",
@@ -35667,8 +34643,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "КАРСИДО",
@@ -35694,11 +34669,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КДА-ЕНЕРДЖИ",
@@ -35724,11 +34695,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "73626"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КЕЙ-ДИВЕЛОПМЕНТС",
@@ -35754,11 +34721,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Кемп-Гардения",
@@ -35778,17 +34741,13 @@
       ],
       "tr": {
         "uic": "206401596",
-        "legalForm": "Еднолично дружество с ограничена отговорност",
+        "legalForm": "EOOD",
         "status": "active",
         "seat": "БЪЛГАРИЯ, с. Лозенец, 8277",
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "44094"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Кемпен-БГ",
@@ -35842,11 +34801,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КЕРАМИК-СЛИВЕН",
@@ -35872,11 +34827,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "67338"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КИДО-ЕНЕРДЖИ-БЪЛГАРИЯ",
@@ -35902,11 +34853,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Кил-Комерс-ООД",
@@ -35967,8 +34914,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "КОМНЕТ-БЪЛГАРИЯ-ХОЛДИНГ",
@@ -35992,8 +34938,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Компакт-медиа-ЕООД",
@@ -36062,8 +35007,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Компютър-КОНСУЛТ-ЕООД",
@@ -36160,8 +35104,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "КОРПОРЪТ-ЕНД-ТРЪСТ-СЪРВИСИЗ",
@@ -36187,11 +35130,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "КОСОВСКИ-КЪЩИ",
@@ -36215,8 +35154,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "КОСТЕНЕЦ-ПЕЙПЪР-МИЛ",
@@ -36242,11 +35180,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "12259"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Кравел-ЕООД",
@@ -36480,11 +35414,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "04279"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Ламарин-ЕООД",
@@ -36635,8 +35565,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЛЕМАРК-ИНВЕСТ",
@@ -36662,11 +35591,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЛИЗИНГОВА-КОМПАНИЯ-ДАНУБИЯ",
@@ -36690,8 +35615,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЛМР-АГРО",
@@ -36715,8 +35639,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЛОРД.Т-ИНВЕСТ",
@@ -36742,11 +35665,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ЛОТОС-06",
@@ -36770,8 +35689,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЛОЯЛКОНСУЛТ-ММ",
@@ -36795,8 +35713,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "М-+-С-97",
@@ -36820,8 +35737,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "М-БЕТ-строй-ЕООД",
@@ -37027,8 +35943,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "МАЙ-ПАРТНЕРС",
@@ -37054,11 +35969,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МайВи",
@@ -37082,8 +35993,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Мак-Инвест-21-ООД",
@@ -37348,8 +36258,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Марк-Хелт-Консулт-ООД",
@@ -37431,11 +36340,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Марти-Ойл",
@@ -37459,8 +36364,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Матриксс-ООД",
@@ -37579,11 +36483,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МДВ-КОНСУЛТ",
@@ -37607,8 +36507,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "МЕБЕЛ-СТИЛ-ТРАНС",
@@ -37632,8 +36531,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "МЕБЕЛ-СТИЛ",
@@ -37657,8 +36555,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "МЕБЕЛСНАБ-96",
@@ -37682,8 +36579,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Меге-инвесмънт-еоод",
@@ -37735,8 +36631,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "МЕД-ХОНИГ-ВНОС,-ИЗНОС",
@@ -37760,8 +36655,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Медиарт-студио",
@@ -37824,11 +36718,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68789"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Медицински-център-Зара-Мед",
@@ -37897,8 +36787,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Медицински-център-Телемедицина-България",
@@ -37922,8 +36811,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "МЕЖДУНАРОДНА-КОМПАНИЯ-ЗА-ИНВЕСТИЦИИ-И-РАЗВИТИЕ",
@@ -37947,8 +36835,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Мейт-Медия-ООД",
@@ -38028,8 +36915,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "МЕСТНА-ТЕРИТОРИАЛНА-ОРГАНИЗАЦИЯ-НА-АВТОМОБИЛИСТИТЕ-БЯЛА-СЛАТИНА",
@@ -38055,11 +36941,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07702"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МЕТАВЪРС",
@@ -38085,11 +36967,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Метал-Инвест-Габрово-ООД",
@@ -38285,8 +37163,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "МИКРО-АСУ",
@@ -38310,8 +37187,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Милениум-Билд-ООД",
@@ -38402,8 +37278,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Мироза",
@@ -38489,8 +37364,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ММ-93-Изола-ООД",
@@ -38551,8 +37425,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "МНОГОПРОФИЛНА-БОЛНИЦА-ЗА-АКТИВНО-ЛЕЧЕНИЕ-&quot;КНЯГИНЯ-КЛЕМЕНТИНА&quot;-СОФИЯ",
@@ -38578,11 +37451,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "МОТОТЕХНИКА-ШУМЕН",
@@ -38606,8 +37475,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "НАЙСИ-КАР",
@@ -38631,8 +37499,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "НАПОИТЕЛНИ-СИСТЕМИ",
@@ -38658,11 +37525,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "НАЦИОНАЛЕН-ПЕРИЛЕН-КОМБИНАТ",
@@ -38686,8 +37549,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "НАЦИОНАЛНА-ЕЛЕКТРИЧЕСКА-КОМПАНИЯ",
@@ -38711,8 +37573,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "НАЦИОНАЛНА-КОМПАНИЯ-ИНДУСТРИАЛНИ-ЗОНИ",
@@ -38738,11 +37599,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "НЕДИН-НД",
@@ -38768,11 +37625,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "87212"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Нефтогассервиз-АД",
@@ -38826,11 +37679,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10447"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "НИКОЛОВ-И-СИНОВЕ",
@@ -38854,8 +37703,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "НЛПД-Имоти",
@@ -38879,8 +37727,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "НО-до-Гард-ЕООД",
@@ -39030,8 +37877,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "НП-ИНВЕСТ-21",
@@ -39057,11 +37903,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68850"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Нуклео-Грийнс",
@@ -39085,8 +37927,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Нуук-Индъстрис-ООД",
@@ -39193,11 +38034,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "61577"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "НЮОЙЛ",
@@ -39221,8 +38058,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Облак-дизайн-ЕООД",
@@ -39274,8 +38110,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ООО-Стриймлайн-девелопмент",
@@ -39389,8 +38224,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ОСЪМ-ИНЖЕНЕРИНГ-97",
@@ -39414,8 +38248,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ПАЗАРИ-ИЗТОК",
@@ -39439,8 +38272,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ПАЗИТЕЛИТЕ",
@@ -39466,11 +38298,31 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "51487"
+      }
+    },
+    {
+      "slug": "ПАЙП-ИНДУСТРИАЛ-БЪЛГАРИЯ",
+      "displayName": "ПАЙП ИНДУСТРИАЛ БЪЛГАРИЯ",
+      "registeredOffices": [],
+      "stakes": [],
+      "mpRoles": [
+        {
+          "mpId": 2760,
+          "mpName": "Иван Димов Иванов",
+          "role": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
       ],
-      "hqMatchQuality": "high"
+      "tr": {
+        "uic": "131385417",
+        "legalForm": "OOD",
+        "status": "active",
+        "seat": null,
+        "lastUpdated": null,
+        "currentOfficers": [],
+        "currentOwners": []
+      }
     },
     {
       "slug": "Партнерс-експо-ООД",
@@ -39531,8 +38383,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ПАСАТ-ЛИНК",
@@ -39556,8 +38407,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Пауър-Мейл-ООД",
@@ -39697,8 +38547,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ПИ-ВИ-БИЛД",
@@ -39722,8 +38571,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ПИ-ЕЙ-Консултинг-ООД",
@@ -39803,8 +38651,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Пирин-голф-2022",
@@ -39830,11 +38677,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ПИРИН-ЕЛИТ-ИМОТИ-2019",
@@ -39858,8 +38701,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Питай-МЕ",
@@ -39976,8 +38818,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Плодекс-ЕООД",
@@ -40156,8 +38997,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Премеждие-ЕООД",
@@ -40283,8 +39123,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Про-Марин-14-ЕООД",
@@ -40418,8 +39257,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Пропърти-груп-ТУР-ЕООД",
@@ -40508,8 +39346,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Радио-СОТ-оодд",
@@ -40561,8 +39398,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "РАЛОМЕКС",
@@ -40586,8 +39422,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Расташки-Консулт-ООД",
@@ -40639,8 +39474,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Регала-Инвест",
@@ -40664,8 +39498,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "РЕГИОНАЛНА-АСОЦИАЦИЯ-ЗА-РАЗВИТИЕ-НА-КОННИЯ-СПОРТ",
@@ -40691,11 +39524,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "63427"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Рекламна-агенция-родопи",
@@ -40756,8 +39585,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Респект-Консулт-България-ЕООД",
@@ -40820,11 +39648,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Рийд-България",
@@ -40850,11 +39674,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "65766"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Ристовица-ООД",
@@ -40915,8 +39735,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Родопа-Енерджи",
@@ -40942,11 +39761,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "РОДОПИ-ДИВЕЛЪПМЪНТ",
@@ -40970,8 +39785,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Родопите-отвъд-познатото",
@@ -41060,8 +39874,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "РУСАЛКА",
@@ -41085,8 +39898,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "С-и-Д-Партнърс",
@@ -41112,11 +39924,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "73626"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "С-К-Т-Т-ИНТЕРНЕШЪНЪЛ",
@@ -41142,11 +39950,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "02508"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Самостоятелна-медикодиагностична-лаборатория-ортолаб-ЕООД",
@@ -41254,8 +40058,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "СВЕЖЕСТ-ДИМИТРОВИ",
@@ -41279,8 +40082,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "СГРАДОСТРОИТЕЛ",
@@ -41304,8 +40106,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "СГРАДОСТРОИТЕЛ-ИНВЕСТ",
@@ -41329,8 +40130,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "СД-ВЪЗХОД-АРНЬО-АПОСТОЛОВА",
@@ -41398,6 +40198,32 @@
       }
     },
     {
+      "slug": "СЕНТРЪЛ-ВЮ-ПРОПЪРТИС",
+      "displayName": "СЕНТРЪЛ ВЮ ПРОПЪРТИС",
+      "registeredOffices": [
+        "БЪЛГАРИЯ, гр. Благоевград, 2700"
+      ],
+      "stakes": [],
+      "mpRoles": [
+        {
+          "mpId": 5296,
+          "mpName": "Рашко Георгиев Динков",
+          "role": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ],
+      "tr": {
+        "uic": "206693442",
+        "legalForm": "EOOD",
+        "status": "active",
+        "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700",
+        "lastUpdated": null,
+        "currentOfficers": [],
+        "currentOwners": []
+      }
+    },
+    {
       "slug": "СИ-ПЛАСТ-04",
       "displayName": "СИ ПЛАСТ 04",
       "registeredOffices": [
@@ -41421,11 +40247,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "55155"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СИАЛ-11",
@@ -41449,8 +40271,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Сиал-2018-ЕООД",
@@ -41541,11 +40362,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "17395"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СИТИ",
@@ -41569,8 +40386,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Сити-ООД",
@@ -41633,11 +40449,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10447"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Сити-трейд-център-ЕООД",
@@ -41700,11 +40512,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "22407"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СКАЙ-УПРАВЛЕНИЕ-НА-АКТИВИ",
@@ -41728,8 +40536,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "СЛАДКАР-2000",
@@ -41753,8 +40560,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Слийв-Блум-ЕООД",
@@ -41936,11 +40742,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Сонел-777-ЕООД",
@@ -42001,8 +40803,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "СТАНИ",
@@ -42026,8 +40827,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Стар-спорт",
@@ -42309,11 +41109,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СТИФАДОРСКА-КОМПАНИЯ",
@@ -42337,8 +41133,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Стройкомплект-АБ-ООД",
@@ -42416,11 +41211,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "72624"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "СФ-ГРУП",
@@ -42444,8 +41235,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "СЧЕТОВОДЕН-ФАКТОР",
@@ -42469,8 +41259,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Сюжет-ООД",
@@ -42531,8 +41320,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Т.Г.",
@@ -42583,11 +41371,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "63427"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Телетол",
@@ -42611,8 +41395,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ТЕОДОР-2005",
@@ -42636,8 +41419,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Теоли-ООД-не-активно",
@@ -42689,8 +41471,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Терикс-10-ЕООД",
@@ -43226,8 +42007,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Тетнус-България-ООД",
@@ -43346,11 +42126,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "27125"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ТОТАЛ-18",
@@ -43374,8 +42150,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ТРАКИЯ-ГЛАС-БЪЛГАРИЯ",
@@ -43401,11 +42176,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "73626"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Тракия-кабел",
@@ -43468,11 +42239,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68850"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ТРАНС-ЕКСПРЕС-21",
@@ -43498,11 +42265,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "04738"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ТРАХИТ-БП",
@@ -43526,8 +42289,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ТСМ-Инвест-2018",
@@ -43590,11 +42352,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "65334"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "УЕЛДРИНКС",
@@ -43618,8 +42376,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "УинПроджект-ЕООД",
@@ -43671,8 +42428,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "УНИВЕРСИТЕТСКА-МНОГОПРОФИЛНА-БОЛНИЦА-ЗА-АКТИВНО-ЛЕЧЕНИЕ-ПЛОВДИВ",
@@ -43696,8 +42452,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "УНИКОНС",
@@ -43721,8 +42476,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "УОЛТЪН-ТРАНСПОРТ-БГ",
@@ -43746,8 +42500,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "УСМА",
@@ -43773,11 +42526,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "48489"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "УЧЕНИЧЕСКИ-ОТДИХ-И-СПОРТ",
@@ -43801,8 +42550,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Фабре-Кемикъл-ООД",
@@ -43923,11 +42671,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ФАРМАПРО",
@@ -43951,8 +42695,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Фармасютикъл-ЕНД-медикал-трейдинг-ООД",
@@ -44173,11 +42916,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "07702"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Фейс-НЮЗ",
@@ -44231,11 +42970,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Ферексим-ООД",
@@ -44435,8 +43170,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Флабул",
@@ -44579,8 +43313,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Форос-солна-офсет",
@@ -44669,8 +43402,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Хай-Уей-Спорт-ООД",
@@ -44834,11 +43566,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "11394"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ХЕРОС-КЕПИТЪЛ",
@@ -44864,11 +43592,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "68134"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "ХИГИЯМЕД",
@@ -44892,8 +43616,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ХОЛИДЕЙ-БУРГАС",
@@ -44917,8 +43640,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ХОЛИДЕЙЗ-ИНВЕСТ",
@@ -44942,8 +43664,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Хримас-ЕООД",
@@ -45041,8 +43762,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Чан-2013-ООД",
@@ -45331,8 +44051,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ШИЙП-ГРУП-–-2016",
@@ -45356,8 +44075,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ШИПКОВАТА-КЪЩА",
@@ -45381,8 +44099,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЩЪРКЕЛИТЕ",
@@ -45406,8 +44123,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "ЮГ-МАРКЕТ-ФОНД-МЕНИДЖМЪНТ",
@@ -45433,11 +44149,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "56784"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Юнифарма-ЕООД",
@@ -45498,8 +44210,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Якото-суши-ООД",
@@ -45553,11 +44264,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "ekatteHQ": [
-        "10135"
-      ],
-      "hqMatchQuality": "high"
+      }
     },
     {
       "slug": "Янков-ЕООД",
@@ -45655,8 +44362,7 @@
         "lastUpdated": null,
         "currentOfficers": [],
         "currentOwners": []
-      },
-      "hqMatchQuality": "unresolved"
+      }
     },
     {
       "slug": "Brightcap-Ventures-Cooperatief",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "generatedAt": "2026-06-04T08:22:46.418Z",
   "officialNodeId": "official:petr-dimitrov-petrov-9c5512",
   "nodes": [
     {
@@ -443,6 +443,11 @@
       "id": "person:МАРИЯ СЛАВОВА ТАНЕВА",
       "type": "person",
       "label": "Мария Славова Танева"
+    },
+    {
+      "id": "person:РОСИЦА ГЕОРГИЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Росица Георгиева Петрова"
     },
     {
       "id": "person:ИВАН ТОДОРОВ ШЕЙНОВ",
@@ -1124,6 +1129,22 @@
       "target": "company:tr:206490869",
       "kind": "tr_owner",
       "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ГЕОРГИЕВА ПЕТРОВА",
+      "target": "company:tr:203402084",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ГЕОРГИЕВА ПЕТРОВА",
+      "target": "company:tr:203402084",
+      "kind": "tr_owner",
+      "role": "sole_owner",
       "isCurrent": true,
       "confidence": "high"
     },

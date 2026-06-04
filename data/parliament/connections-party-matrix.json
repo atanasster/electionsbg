@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "generatedAt": "2026-06-04T08:22:46.418Z",
   "all": {
     "parties": [
       "Independent",
@@ -159,9 +159,10 @@
       "Independent|ГЕРБ": {
         "partyA": "Independent",
         "partyB": "ГЕРБ",
-        "tieCount": 1,
+        "tieCount": 2,
         "samplePairKeys": [
-          "mp:2804|mp:933"
+          "mp:2804|mp:933",
+          "mp:1689|mp:2670"
         ]
       },
       "БСП|БСП": {
@@ -204,6 +205,7 @@
     },
     "41": {
       "parties": [
+        "Independent",
         "Атака",
         "БСП",
         "ГЕРБ"
@@ -223,6 +225,14 @@
           "tieCount": 1,
           "samplePairKeys": [
             "mp:2655|mp:2703"
+          ]
+        },
+        "Independent|ГЕРБ": {
+          "partyA": "Independent",
+          "partyB": "ГЕРБ",
+          "tieCount": 1,
+          "samplePairKeys": [
+            "mp:1689|mp:2670"
           ]
         }
       }
@@ -271,6 +281,7 @@
     },
     "43": {
       "parties": [
+        "Independent",
         "Атака",
         "БСП",
         "ГЕРБ"
@@ -298,6 +309,14 @@
           "tieCount": 1,
           "samplePairKeys": [
             "mp:2724|mp:2862"
+          ]
+        },
+        "Independent|ГЕРБ": {
+          "partyA": "Independent",
+          "partyB": "ГЕРБ",
+          "tieCount": 1,
+          "samplePairKeys": [
+            "mp:1689|mp:2670"
           ]
         }
       }

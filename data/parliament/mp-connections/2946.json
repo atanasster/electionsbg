@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "generatedAt": "2026-06-04T08:22:46.418Z",
   "mpNodeId": "mp:2946",
   "nodes": [
     {
@@ -62,9 +62,54 @@
       "seat": "Пазарджик"
     },
     {
+      "id": "company:tr:205027971",
+      "type": "company",
+      "label": "НЕСТ 18",
+      "slug": null,
+      "uic": "205027971",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:НЕСТ 18",
+      "type": "person",
+      "label": "Нест 18"
+    },
+    {
+      "id": "person:ГЕОРГИ ВИНКОВ ФЪРЦОВ",
+      "type": "person",
+      "label": "Георги Винков Фърцов"
+    },
+    {
+      "id": "person:ДИМИТЪР АНГЕЛОВ ВЕСЕЛИНОВ",
+      "type": "person",
+      "label": "Димитър Ангелов Веселинов"
+    },
+    {
+      "id": "person:ПЕНКА ЖЕЛЯЗКОВА ГЕЛЕВА",
+      "type": "person",
+      "label": "Пенка Желязкова Гелева"
+    },
+    {
+      "id": "person:АТАНАС ГЕОРГИЕВ ПЕШЕВ",
+      "type": "person",
+      "label": "Атанас Георгиев Пешев"
+    },
+    {
+      "id": "person:АНТОАН ДИМИТРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Антоан Димитров Христов"
+    },
+    {
       "id": "person:ИВАН ДИМИТРОВ НЕДЕЛЧЕВ",
       "type": "person",
       "label": "Иван Димитров Неделчев"
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЙЧЕВ ТРАМПОВ",
+      "type": "person",
+      "label": "Димитър Стойчев Трампов"
     }
   ],
   "edges": [
@@ -73,6 +118,14 @@
       "target": "company:Даикс-ООД",
       "kind": "declared_stake",
       "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2946",
+      "target": "company:Даикс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
       "isCurrent": true,
       "confidence": "high"
     },
@@ -89,6 +142,14 @@
       "target": "company:ДЖИ-ПИ-ЕС-Системи-българия-ООД",
       "kind": "declared_stake",
       "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2946",
+      "target": "company:ДЖИ-ПИ-ЕС-Системи-българия-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
       "isCurrent": true,
       "confidence": "high"
     },
@@ -117,10 +178,98 @@
       "confidence": "high"
     },
     {
+      "source": "mp:2946",
+      "target": "company:tr:205027971",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2946",
+      "target": "company:tr:205027971",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕСТ 18",
+      "target": "company:Даикс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВИНКОВ ФЪРЦОВ",
+      "target": "company:Даикс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АНГЕЛОВ ВЕСЕЛИНОВ",
+      "target": "company:Даикс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ЖЕЛЯЗКОВА ГЕЛЕВА",
+      "target": "company:Даикс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ГЕОРГИЕВ ПЕШЕВ",
+      "target": "company:ДЖИ-ПИ-ЕС-Системи-българия-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАН ДИМИТРОВ ХРИСТОВ",
+      "target": "company:ДЖИ-ПИ-ЕС-Системи-българия-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:ИВАН ДИМИТРОВ НЕДЕЛЧЕВ",
       "target": "company:Радио-СОТ-ООД",
       "kind": "tr_role",
       "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЙЧЕВ ТРАМПОВ",
+      "target": "company:tr:205027971",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАН ДИМИТРОВ ХРИСТОВ",
+      "target": "company:tr:205027971",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВИНКОВ ФЪРЦОВ",
+      "target": "company:tr:205027971",
+      "kind": "tr_role",
+      "role": "director",
       "isCurrent": true,
       "confidence": "high"
     }

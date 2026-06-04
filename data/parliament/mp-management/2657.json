@@ -1,9 +1,23 @@
 {
   "mpId": 2657,
   "mpName": "Петър Христов Петров",
-  "generatedAt": "2026-05-28T08:24:32.267Z",
-  "total": 8,
+  "generatedAt": "2026-06-04T08:22:45.865Z",
+  "total": 9,
   "roles": [
+    {
+      "uic": "206744794",
+      "companyName": "ЕКИП МОНБАТ",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-05-29T13:54:30",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
     {
       "uic": "208101103",
       "companyName": "ВИПТЕХ ТРЕЙД",
@@ -63,7 +77,7 @@
     {
       "uic": "206744794",
       "companyName": "ЕКИП МОНБАТ",
-      "legalForm": "Дружество с ограничена отговорност",
+      "legalForm": "OOD",
       "seat": "БЪЛГАРИЯ, гр. София, 1407",
       "status": "active",
       "role": "partner",
@@ -77,7 +91,7 @@
     {
       "uic": "206401596",
       "companyName": "Кемп Гардения",
-      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "legalForm": "EOOD",
       "seat": "БЪЛГАРИЯ, с. Лозенец, 8277",
       "status": "active",
       "role": "manager",

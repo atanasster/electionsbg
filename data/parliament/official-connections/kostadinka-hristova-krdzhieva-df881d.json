@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "generatedAt": "2026-06-04T08:22:46.418Z",
   "officialNodeId": "official:kostadinka-hristova-krdzhieva-df881d",
   "nodes": [
     {
@@ -125,6 +125,31 @@
       "id": "person:АНДРЕЙ ЕМИЛОВ ЛАЛОВ",
       "type": "person",
       "label": "Андрей Емилов Лалов"
+    },
+    {
+      "id": "person:КОНСТАНТИН СТОЙЧЕВ СТОЙЧЕВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Константин Стойчев Стойчев - Представител На Държавата"
+    },
+    {
+      "id": "person:ДАНИЕЛА ВЪЛЧЕВА УЗУНОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Даниела Вълчева Узунова - Представител На Държавата"
+    },
+    {
+      "id": "person:ЗДРАВКО ПАНЧОВ ШУШКОВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Здравко Панчов Шушков - Представител На Държавата"
+    },
+    {
+      "id": "person:БОРИСЛАВ МЛАДЕНОВИЧ АНДОНОВ - НЕЗАВИСИМ ЧЛЕН",
+      "type": "person",
+      "label": "Борислав Младенович Андонов - Независим Член"
+    },
+    {
+      "id": "person:РОСЕН ИВАНОВ ХРИСТОВ - НЕЗАВИСИМ ЧЛЕН",
+      "type": "person",
+      "label": "Росен Иванов Христов - Независим Член"
     }
   ],
   "edges": [
@@ -386,6 +411,46 @@
     },
     {
       "source": "person:АНДРЕЙ ЕМИЛОВ ЛАЛОВ",
+      "target": "company:tr:121031861",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН СТОЙЧЕВ СТОЙЧЕВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:121031861",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ВЪЛЧЕВА УЗУНОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:121031861",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО ПАНЧОВ ШУШКОВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:121031861",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ МЛАДЕНОВИЧ АНДОНОВ - НЕЗАВИСИМ ЧЛЕН",
+      "target": "company:tr:121031861",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ИВАНОВ ХРИСТОВ - НЕЗАВИСИМ ЧЛЕН",
       "target": "company:tr:121031861",
       "kind": "tr_role",
       "role": "director",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:24:32.966Z",
+  "generatedAt": "2026-06-04T08:22:46.418Z",
   "mpNodeId": "mp:2760",
   "nodes": [
     {
@@ -212,6 +212,16 @@
       "seat": "Варна"
     },
     {
+      "id": "company:tr:131385417",
+      "type": "company",
+      "label": "ПАЙП ИНДУСТРИАЛ БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "131385417",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
       "id": "company:tr:121433881",
       "type": "company",
       "label": "КАРГО ЕР",
@@ -332,6 +342,16 @@
       "label": "Никол Валентинова Арсова"
     },
     {
+      "id": "person:ЕМИЛ ДИМИТРОВ МАТЕВ",
+      "type": "person",
+      "label": "Емил Димитров Матев"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ ЦЕНКОВ",
+      "type": "person",
+      "label": "Петър Георгиев Ценков"
+    },
+    {
       "id": "official:angel-ivanov-petrov-006f88",
       "type": "official",
       "slug": "angel-ivanov-petrov-006f88",
@@ -344,11 +364,6 @@
       "id": "person:КИРИЛ ГЕОРГИЕВ ГЕОРГИЕВ",
       "type": "person",
       "label": "Кирил Георгиев Георгиев"
-    },
-    {
-      "id": "person:ПЕТЪР ГЕОРГИЕВ ЦЕНКОВ",
-      "type": "person",
-      "label": "Петър Георгиев Ценков"
     },
     {
       "id": "person:РОСИЦА ДЕЛЧЕВА ДИМОВА",
@@ -534,6 +549,14 @@
     },
     {
       "source": "mp:2760",
+      "target": "company:tr:131385417",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2760",
       "target": "company:tr:121433881",
       "kind": "tr_owner",
       "role": "partner",
@@ -695,6 +718,22 @@
     {
       "source": "person:НИКОЛ ВАЛЕНТИНОВА АРСОВА",
       "target": "company:Стария-чинар-София-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ МАТЕВ",
+      "target": "company:tr:131385417",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ ЦЕНКОВ",
+      "target": "company:tr:131385417",
       "kind": "tr_owner",
       "role": "partner",
       "isCurrent": true,
