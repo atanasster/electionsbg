@@ -49,10 +49,13 @@ case "$MODEL_KEY" in
     REUSE_LIB=""                  # <- no prebuilt gemma3-4b lib -> compile (Emscripten)
     ;;
   eurollm)
+    # EuroLLM-1.7B-Instruct: LlamaForCausalLM, multilingual (all 24 EU langs incl
+    # Bulgarian), NOT gated. Chat format is ChatML (<|im_start|>/<|im_end|>), so
+    # the conv template is "chatml" (NOT llama-3). ~1.1 GB at q4f16_1.
     HF_SRC="utter-project/EuroLLM-1.7B-Instruct"
     MLC_ID="EuroLLM-1.7B-Instruct-${QUANT}-MLC"
-    CONV_TEMPLATE="llama-3"       # confirm vs the model card if output is off
-    REUSE_LIB=""                  # <- needs `mlc_llm compile` (Emscripten)
+    CONV_TEMPLATE="chatml"        # EuroLLM uses ChatML; verify stop_token_ids at build
+    REUSE_LIB=""                  # <- llama arch but no prebuilt 1.7B lib -> compile (Emscripten)
     ;;
   *)
     echo "usage: $0 bggpt|bggpt3|eurollm [HF_USER]" >&2

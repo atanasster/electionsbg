@@ -146,6 +146,45 @@ wasm on your HF repo), and change its `sizeNote` to `~2.7 GB сваляне` /
 `~2.7 GB download`. Rebuild + deploy as above. It appears as a second option in
 the model dropdown next to the 2.6B.
 
+## Part C — EuroLLM 1.7B (optional, lightest)
+
+EuroLLM-1.7B-Instruct (utter-project) is a `LlamaForCausalLM` trained on all 24 EU
+languages incl. Bulgarian — the **lightest** option (~1.1 GB). Not Bulgarian-native
+like BgGPT, but small and fast. No prebuilt 1.7B lib, so it **compiles** too —
+reuses the Emscripten install from **Cell B1** (run that first if you skipped Part
+B). Chat format is **ChatML** → conv template `chatml`.
+
+### Cell C1 — download + convert + gen_config + compile (EuroLLM)
+
+```python
+MLC_IDE = "EuroLLM-1.7B-Instruct-q4f16_1-MLC"
+!hf download utter-project/EuroLLM-1.7B-Instruct --local-dir eurollm
+!python -m mlc_llm convert_weight eurollm --quantization q4f16_1 -o dist/$MLC_IDE
+!python -m mlc_llm gen_config eurollm --quantization q4f16_1 \
+    --conv-template chatml --prefill-chunk-size 1024 \
+    --context-window-size 4096 -o dist/$MLC_IDE
+# compile the WebGPU library (emcc must be on PATH from Cell B1)
+!source emsdk/emsdk_env.sh && python -m mlc_llm compile \
+    dist/$MLC_IDE/mlc-chat-config.json --device webgpu \
+    -o dist/$MLC_IDE/$MLC_IDE-webgpu.wasm
+!ls -la dist/$MLC_IDE
+```
+
+### Cell C2 — upload weights + the compiled .wasm together
+
+```python
+!hf upload atanasster/$MLC_IDE dist/$MLC_IDE . --repo-type model
+print("done -> https://huggingface.co/atanasster/" + MLC_IDE)
+```
+
+### Then enable it (back in this repo)
+
+In `ai/llm/models.ts`, on the **EuroLLM 1.7B** entry: set `ready: true`, uncomment
+its `appConfig` (pre-filled), and set `sizeNote` to `~1.1 GB сваляне` /
+`~1.1 GB download`. Rebuild + deploy. If generation doesn't stop cleanly, check
+that `chatml`'s `stop_token_ids` matches EuroLLM's `<|im_end|>` token id in the
+generated `mlc-chat-config.json` and adjust.
+
 ---
 
 Notes

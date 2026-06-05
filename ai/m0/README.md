@@ -112,17 +112,23 @@ Smoke test (WebGPU browser): ask "Колко гласа взе ДПС на по�
 BgGPT should route to `partyResult` (the Qwen test model mis-routed this). Then
 deploy: `npm run deploy:ai`.
 
-## EuroLLM (optional, needs Emscripten)
+## EuroLLM 1.7B (optional, lightest — needs Emscripten)
 
-EuroLLM-1.7B also has no prebuilt lib, so it needs a `mlc_llm compile` like 2b:
+EuroLLM-1.7B-Instruct (`utter-project`) is a `LlamaForCausalLM` covering all 24 EU
+languages incl. Bulgarian — the **lightest** pick (~1.1 GB), not Bulgarian-native
+like BgGPT. Public (not gated). Chat format is **ChatML** → conv template `chatml`
+(the script sets this). No prebuilt 1.7B lib, so it **compiles** like BgGPT 4B:
 
 ```bash
-ai/m0/build-model.sh eurollm atanasster   # convert + gen_config + compile
-hf upload atanasster/EuroLLM-1.7B-Instruct-q4f16_1-MLC ai/m0/dist/EuroLLM-1.7B-Instruct-q4f16_1-MLC . --repo-type model
+ai/m0/build-model.sh eurollm atanasster   # convert + gen_config + compile (chatml)
+hf upload atanasster/EuroLLM-1.7B-Instruct-q4f16_1-MLC \
+  ai/m0/dist/EuroLLM-1.7B-Instruct-q4f16_1-MLC . --repo-type model
 ```
 
-Then wire its entry in `models.ts` (the script prints the snippet, with the local
-compiled `.wasm` as `model_lib`).
+Then enable its entry in `models.ts` (set `ready:true`, uncomment the pre-filled
+`appConfig`, set `sizeNote` to `~1.1 GB`). If generation doesn't stop cleanly,
+verify `chatml`'s `stop_token_ids` matches EuroLLM's `<|im_end|>` id in the
+generated `mlc-chat-config.json`. On Colab use **Part C** in [`colab.md`](./colab.md).
 
 ## Troubleshooting
 

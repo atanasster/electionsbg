@@ -83,6 +83,13 @@ export const MODELS: ModelOption[] = [
     // },
   },
   {
+    // EuroLLM-1.7B-Instruct (utter-project) — LlamaForCausalLM, multilingual
+    // across all 24 EU languages incl. Bulgarian. The LIGHTEST option (~1.1 GB).
+    // ChatML format -> conv template "chatml". No prebuilt 1.7B lib, so M0 must
+    // COMPILE a WebGPU wasm (Emscripten) and host it next to the weights — same
+    // path as BgGPT 4B. After upload, flip ready:true, uncomment appConfig, set
+    // sizeNote to the download size.
+    // Build: ai/m0/build-model.sh eurollm atanasster   (or Colab Part C).
     id: "EuroLLM-1.7B-Instruct-q4f16_1-MLC",
     label: { bg: "EuroLLM 1.7B", en: "EuroLLM 1.7B" },
     sizeNote: {
@@ -90,6 +97,17 @@ export const MODELS: ModelOption[] = [
       en: "requires MLC build (M0)",
     },
     ready: false,
+    // appConfig: {
+    //   model_list: [
+    //     {
+    //       model:
+    //         "https://huggingface.co/atanasster/EuroLLM-1.7B-Instruct-q4f16_1-MLC",
+    //       model_id: "EuroLLM-1.7B-Instruct-q4f16_1-MLC",
+    //       model_lib:
+    //         "https://huggingface.co/atanasster/EuroLLM-1.7B-Instruct-q4f16_1-MLC/resolve/main/EuroLLM-1.7B-Instruct-q4f16_1-MLC-webgpu.wasm",
+    //     },
+    //   ],
+    // },
   },
 ];
 
