@@ -151,7 +151,7 @@ export const Explorer = ({ lang }: { lang: Lang }) => {
           {error}
         </p>
       )}
-      {env && <AnswerView env={env} />}
+      {env && <AnswerView env={env} lang={lang} />}
     </div>
   );
 };

@@ -3,7 +3,7 @@
 // provider requires no change here.
 
 import { useEffect, useRef, useState } from "react";
-import { Check, Copy, Download, FileText, Plus } from "lucide-react";
+import { Check, Copy, Download, FileText, Plus, Share2 } from "lucide-react";
 import type { LLMProvider } from "../llm/provider";
 import { AnswerView } from "../render/AnswerView";
 import type { Lang } from "../tools/types";
@@ -13,6 +13,7 @@ import {
   downloadPdf,
   type ChatMsg,
 } from "./export";
+import { followUps } from "./followups";
 
 type Msg = ChatMsg & { id: number };
 
@@ -49,8 +50,10 @@ export const Chat = ({
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [shared, setShared] = useState(false);
   const idRef = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
+  const ranInitial = useRef(false);
   const nextId = () => (idRef.current += 1);
 
   // keep the latest answer in view as the conversation grows
@@ -74,6 +77,15 @@ export const Chat = ({
     setBusy(false);
   };
 
+  // shareable deep-link: ?q=<question> auto-asks the question on load
+  useEffect(() => {
+    if (ranInitial.current) return;
+    ranInitial.current = true;
+    const q = new URLSearchParams(window.location.search).get("q");
+    if (q) void send(q);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const copyAll = async () => {
     try {
       await navigator.clipboard.writeText(
@@ -85,6 +97,26 @@ export const Chat = ({
       /* clipboard blocked — ignore */
     }
   };
+
+  const lastUserText = [...messages]
+    .reverse()
+    .find((m) => m.role === "user")?.text;
+
+  const share = async () => {
+    if (!lastUserText) return;
+    const url = `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(lastUserText)}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setShared(true);
+      setTimeout(() => setShared(false), 1500);
+    } catch {
+      /* clipboard blocked — ignore */
+    }
+  };
+
+  const last = messages[messages.length - 1];
+  const followups =
+    !busy && last?.role === "assistant" && last.env ? followUps(last.env) : [];
 
   const hasChat = messages.length > 0;
   const toolBtn =
@@ -104,6 +136,16 @@ export const Chat = ({
               <Copy className="size-3.5" />
             )}
             {copied ? t("Копирано", "Copied") : t("Копирай", "Copy")}
+          </button>
+          <button className={toolBtn} onClick={share}>
+            {shared ? (
+              <Check className="size-3.5" />
+            ) : (
+              <Share2 className="size-3.5" />
+            )}
+            {shared
+              ? t("Линкът е копиран", "Link copied")
+              : t("Сподели", "Share")}
           </button>
           <button
             className={toolBtn}
@@ -142,9 +184,25 @@ export const Chat = ({
               <div className="rounded-2xl rounded-bl-sm bg-muted px-4 py-2 text-sm text-foreground">
                 {m.text}
               </div>
-              {m.env && <AnswerView env={m.env} />}
+              {m.env && <AnswerView env={m.env} lang={lang} />}
             </div>
           ),
+        )}
+        {followups.length > 0 && (
+          <div className="flex flex-wrap items-center gap-1.5 self-start">
+            <span className="text-[11px] text-muted-foreground">
+              {t("Свързани:", "Related:")}
+            </span>
+            {followups.map((s) => (
+              <button
+                key={s.en}
+                onClick={() => send(s[lang])}
+                className="rounded-full border border-input bg-card px-2.5 py-1 text-[11px] text-muted-foreground hover:bg-muted hover:text-foreground"
+              >
+                {s[lang]}
+              </button>
+            ))}
+          </div>
         )}
         {busy && (
           <div className="self-start text-sm text-muted-foreground">…</div>
