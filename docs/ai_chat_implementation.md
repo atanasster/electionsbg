@@ -246,7 +246,7 @@ copy), well under the file ceiling.
 
 | # | Deliverable | Proves |
 | --- | --- | --- |
-| **M0** | Compile BgGPT-2.6B + EuroLLM-1.7B to MLC, host on HF, load in a throwaway WebLLM page; verify BG output + WebGPU + grammar-constrained JSON | model path works in-browser |
+| **M0** | Convert/compile BgGPT to MLC, host on HF, load in-browser. **Two variants shipped:** `bggpt` = BgGPT 2.6B (Gemma 2), light default, **no compile** (reuses prebuilt Gemma-2 wasm, ~1.6 GB); `bggpt3` = BgGPT 4B (Gemma 3), current line, **compiles** a gemma3-4b WebGPU wasm (Emscripten, ~2.7 GB) since no prebuilt exists. Recipe: `ai/m0/build-model.sh` + `ai/m0/colab.md` (Parts A/B). macOS wheels out-of-sync → Colab path. | model path works in-browser |
 | **M1** ✅ | Deterministic tools library (8 tools) + dropdown harness rendering charts/tables; node correctness harness | numbers 100% correct; charts reuse site components |
 | **M2** ◑ | Standalone Vite app: reused theme + bilingual chat UI, election-context picker (=latest), provider pill, Chat/Tools toggle. **Built & browser-verified.** Remaining: Firebase multi-site wiring + deploy to ai.electionsbg.com | look + bilingual shell (deploy pending) |
 | **M2.5** ✅ | Orchestrator (heuristic router + template narrator) behind `LLMProvider`; `HeuristicProvider` answers today with no model | demoable end-to-end at $0 |

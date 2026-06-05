@@ -3,15 +3,19 @@
 # M0 — produce the MLC artifacts a Bulgarian-native model needs for the
 # in-browser chat (@mlc-ai/web-llm).
 #
-#   bggpt   : NO compile needed. BgGPT is a google/gemma-2-2b fine-tune, so it
-#             reuses WebLLM's prebuilt Gemma-2 WebGPU library — you only convert
-#             + host the quantized weights. (Emscripten NOT required.)
+#   bggpt   : BgGPT v1.0 (google/gemma-2-2b fine-tune). NO compile — reuses
+#             WebLLM's prebuilt Gemma-2 WebGPU library; you only convert + host
+#             the quantized weights. (Emscripten NOT required.) ~1.6 GB.
+#   bggpt3  : BgGPT 2.0 (google/gemma-3-4b fine-tune). Gemma-3 is WebGPU-capable
+#             but has NO prebuilt 4b lib -> needs `mlc_llm compile` (Emscripten).
+#             Host the compiled .wasm next to the weights on HF. ~2.7 GB.
 #   eurollm : has no prebuilt lib -> needs `mlc_llm compile` (Emscripten).
 #
 # Usage:
 #   source ai/m0/.venv/bin/activate    # (or the script auto-detects the venv)
-#   ai/m0/build-model.sh bggpt   <HF_USER>
-#   ai/m0/build-model.sh eurollm <HF_USER>
+#   ai/m0/build-model.sh bggpt   <HF_USER>   # no compile
+#   ai/m0/build-model.sh bggpt3  <HF_USER>   # compile (Emscripten)
+#   ai/m0/build-model.sh eurollm <HF_USER>   # compile (Emscripten)
 
 set -euo pipefail
 
@@ -38,6 +42,12 @@ case "$MODEL_KEY" in
     CONV_TEMPLATE="gemma_instruction"
     REUSE_LIB="$GEMMA2_LIB"      # <- skips compile
     ;;
+  bggpt3)
+    HF_SRC="INSAIT-Institute/BgGPT-Gemma-3-4B-IT"
+    MLC_ID="BgGPT-Gemma-3-4B-IT-${QUANT}-MLC"
+    CONV_TEMPLATE="gemma3_instruction"   # gemma3 (NOT gemma_instruction)
+    REUSE_LIB=""                  # <- no prebuilt gemma3-4b lib -> compile (Emscripten)
+    ;;
   eurollm)
     HF_SRC="utter-project/EuroLLM-1.7B-Instruct"
     MLC_ID="EuroLLM-1.7B-Instruct-${QUANT}-MLC"
@@ -45,7 +55,7 @@ case "$MODEL_KEY" in
     REUSE_LIB=""                  # <- needs `mlc_llm compile` (Emscripten)
     ;;
   *)
-    echo "usage: $0 bggpt|eurollm [HF_USER]" >&2
+    echo "usage: $0 bggpt|bggpt3|eurollm [HF_USER]" >&2
     exit 1
     ;;
 esac

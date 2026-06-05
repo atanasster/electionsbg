@@ -31,11 +31,13 @@ export const MODELS: ModelOption[] = [
     ready: true,
   },
   {
-    // INSAIT BgGPT (a google/gemma-2-2b fine-tune) — reuses WebLLM's prebuilt
-    // Gemma-2 WebGPU library, so M0 only converts + hosts the weights (no
-    // compile). After `hf upload`, flip ready:true and uncomment appConfig.
+    // BgGPT v1.0 (a google/gemma-2-2b fine-tune) — the LIGHT default. Reuses
+    // WebLLM's prebuilt Gemma-2 WebGPU library, so M0 only converts + hosts the
+    // weights (NO compile, ~1.6 GB). After `hf upload`, flip ready:true,
+    // uncomment appConfig, and set sizeNote to "~1.6 GB сваляне"/"~1.6 GB download".
+    // Build: ai/m0/build-model.sh bggpt atanasster   (or Colab Part A).
     id: "BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC",
-    label: { bg: "BgGPT 2.6B", en: "BgGPT 2.6B" },
+    label: { bg: "BgGPT 2.6B (Gemma 2)", en: "BgGPT 2.6B (Gemma 2)" },
     sizeNote: {
       bg: "изисква MLC компилация (M0)",
       en: "requires MLC build (M0)",
@@ -49,6 +51,33 @@ export const MODELS: ModelOption[] = [
     //       model_id: "BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC",
     //       model_lib:
     //         "https://raw.githubusercontent.com/mlc-ai/binary-mlc-llm-libs/main/web-llm-models/v0_2_84/base/gemma-2-2b-it-q4f16_1_cs1k-webgpu.wasm",
+    //     },
+    //   ],
+    // },
+  },
+  {
+    // BgGPT 2.0 (a google/gemma-3-4b fine-tune) — the CURRENT line, heavier
+    // optional pick. Gemma-3's arch IS WebGPU-supported (a gemma3-1b lib is
+    // prebuilt) but there is NO prebuilt gemma3-4b wasm, so M0 must COMPILE one
+    // (mlc_llm compile --device webgpu, needs Emscripten — Colab Part B) and host
+    // it next to the weights on HF. ~2.7 GB download / ~4 GB VRAM. After upload,
+    // flip ready:true, uncomment appConfig, set sizeNote to the download size.
+    // Build: ai/m0/build-model.sh bggpt3 atanasster   (or Colab Part B).
+    id: "BgGPT-Gemma-3-4B-IT-q4f16_1-MLC",
+    label: { bg: "BgGPT 4B (Gemma 3)", en: "BgGPT 4B (Gemma 3)" },
+    sizeNote: {
+      bg: "изисква MLC компилация (M0)",
+      en: "requires MLC build (M0)",
+    },
+    ready: false,
+    // appConfig: {
+    //   model_list: [
+    //     {
+    //       model:
+    //         "https://huggingface.co/atanasster/BgGPT-Gemma-3-4B-IT-q4f16_1-MLC",
+    //       model_id: "BgGPT-Gemma-3-4B-IT-q4f16_1-MLC",
+    //       model_lib:
+    //         "https://huggingface.co/atanasster/BgGPT-Gemma-3-4B-IT-q4f16_1-MLC/resolve/main/BgGPT-Gemma-3-4B-IT-q4f16_1-MLC-webgpu.wasm",
     //     },
     //   ],
     // },

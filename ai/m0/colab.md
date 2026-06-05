@@ -1,21 +1,54 @@
-# M0 via Google Colab (recommended)
+# M0 via Google Colab
 
-The macOS MLC pip wheels are currently out-of-sync upstream (the `mlc-ai` and
-`mlc-llm` nightlies are built against different TVM ABIs, so `import mlc_llm`
-fails with a `libtvm.dylib` symbol error). The reliable path is a **free Colab
-GPU**, where the CUDA wheels are the maintained, in-sync target.
+> ## ⛔ BLOCKED UPSTREAM as of 2026-06-06 — the MLC pip path does not work on ANY platform right now
+>
+> MLC currently publishes exactly **one** version of each package, and they are
+> **ABI-incompatible**:
+> - `mlc-llm-nightly-cuXXX` → `0.20.dev162`, built **2026-04-21**
+> - `mlc-ai-nightly-cuXXX`  → `0.20.dev1070`, built **2026-05-28**
+>
+> `mlc-llm`'s bundled `libmlc_llm.so` needs the symbol
+> `tvm::runtime::detail::LogMessage::level_strings_`, which the newer `mlc-ai`
+> runtime **removed**. So `import mlc_llm` fails — `libtvm.so: cannot open` on
+> Linux/Colab, a missing-symbol error on macOS. No older versions are retained on
+> the index or GitHub, so **pinning, symlinks, or changing the CUDA tag cannot fix
+> it.** (Verified by inspecting both wheels — see the session notes.)
+>
+> **What to do:** re-check periodically; the moment upstream republishes a matched
+> pair, the cells below work as written. Quick check (run locally) — when the
+> `mlc-llm` build date catches up to `mlc-ai`'s, it's likely fixed:
+> ```bash
+> for p in mlc_llm mlc_ai; do
+>   echo -n "$p: "; curl -sL https://mlc.ai/wheels \
+>     | grep -oE "${p}_nightly_cu128-0\.20\.dev[0-9]+" | sort -u | tr '\n' ' '; echo
+> done
+> ```
+> Or just re-run Cell 1 in Colab: if `import mlc_llm` succeeds, you're unblocked.
+> Meanwhile the chat app ships fully functional on the rules engine + the Qwen
+> test model — BgGPT is an enhancement, not a blocker.
 
-Convert BgGPT once, host the weights on HuggingFace, then wire `models.ts`. No
-Emscripten — BgGPT reuses WebLLM's prebuilt Gemma-2 WebGPU library.
+The reliable path (once unblocked) is a **free Colab GPU**, where the CUDA wheels
+are the maintained target.
+
+There are two BgGPT targets (we ship **both** — light default + current model):
+
+- **Part A — BgGPT 2.6B (Gemma 2):** the light default, **no compile** (reuses
+  WebLLM's prebuilt Gemma-2 wasm). ~1.6 GB. Do this first — it's quick.
+- **Part B — BgGPT 4B (Gemma 3):** the current INSAIT line, the heavier optional
+  pick. Gemma-3's smallest BgGPT is 4B and there's **no prebuilt gemma3-4b wasm**,
+  so this one **compiles** a WebGPU library (Emscripten) and hosts it next to the
+  weights. ~2.7 GB.
 
 Open https://colab.research.google.com → New notebook → Runtime → Change runtime
-type → **T4 GPU**. Then run these cells.
+type → **T4 GPU**.
+
+## Part A — BgGPT 2.6B (Gemma 2), no compile
 
 ### Cell 1 — install the MLC toolchain (CUDA, in-sync pair)
 
 ```python
 !pip install -q -U "huggingface_hub"
-!pip install -q --pre -U -f https://mlc.ai/wheels mlc-llm-nightly-cu123 mlc-ai-nightly-cu123
+!pip install -q --pre -U -f https://mlc.ai/wheels mlc-llm-nightly-cu124 mlc-ai-nightly-cu124
 import mlc_llm, tvm   # must import cleanly; if it errors on libtvm, report back
 print("mlc_llm + tvm OK")
 ```
@@ -46,26 +79,92 @@ MLC_ID = "BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC"
 print("done -> https://huggingface.co/atanasster/" + MLC_ID)
 ```
 
-### Then, back in this repo
+### Then enable it (back in this repo)
 
-In `ai/llm/models.ts`, on the BgGPT entry: set `ready: true` and uncomment the
-`appConfig` block (already pre-filled with `atanasster/...` + the prebuilt
-Gemma-2 `model_lib` URL pinned to web-llm 0.2.84). Then:
+In `ai/llm/models.ts`, on the **BgGPT 2.6B (Gemma 2)** entry: set `ready: true`,
+uncomment its `appConfig` block (pre-filled with `atanasster/...` + the prebuilt
+Gemma-2 `model_lib` URL pinned to web-llm 0.2.84), and change its `sizeNote` to
+`~1.6 GB сваляне` / `~1.6 GB download`. Then:
 
 ```bash
-npm run build:ai && npm run deploy:ai     # ships BgGPT to ai.electionsbg.com
+npm run build:ai && npm run deploy:ai     # ships it to ai.electionsbg.com
 ```
 
-Smoke test in a WebGPU browser: pick "BgGPT 2.6B", ask
+Smoke test in a WebGPU browser: pick "BgGPT 2.6B (Gemma 2)", ask
 "Колко гласа взе ДПС на последните избори?" → should route to `partyResult`.
+
+## Part B — BgGPT 4B (Gemma 3), with compile
+
+Same notebook (Cells 1–2 already done). This one **compiles** a `gemma3-4b`
+WebGPU library because none is prebuilt, so it needs Emscripten.
+
+### Cell B1 — install Emscripten (for the WebGPU compile)
+
+```python
+import os
+!git clone https://github.com/emscripten-core/emsdk.git
+!cd emsdk && ./emsdk install latest && ./emsdk activate latest
+# put emcc on PATH for the rest of the notebook
+emsdk = "/content/emsdk"
+os.environ["PATH"] = f"{emsdk}:{emsdk}/upstream/emscripten:" + os.environ["PATH"]
+os.environ["EMSDK"] = emsdk
+!source emsdk/emsdk_env.sh && emcc --version   # should print a version, not "not found"
+```
+
+(The TVM/MLC wasm runtime the WebGPU target links against ships inside the
+`mlc-ai-nightly-cu124` wheel installed in Cell 1 — no extra install needed.)
+
+### Cell B2 — download + convert + gen_config + compile (gemma3-4b)
+
+```python
+MLC_ID4 = "BgGPT-Gemma-3-4B-IT-q4f16_1-MLC"
+!hf download INSAIT-Institute/BgGPT-Gemma-3-4B-IT --local-dir bggpt4
+!python -m mlc_llm convert_weight bggpt4 --quantization q4f16_1 -o dist/$MLC_ID4
+!python -m mlc_llm gen_config bggpt4 --quantization q4f16_1 \
+    --conv-template gemma3_instruction --prefill-chunk-size 1024 \
+    --context-window-size 4096 -o dist/$MLC_ID4
+# compile the WebGPU library (emcc must be on PATH from Cell B1)
+!source emsdk/emsdk_env.sh && python -m mlc_llm compile \
+    dist/$MLC_ID4/mlc-chat-config.json --device webgpu \
+    -o dist/$MLC_ID4/$MLC_ID4-webgpu.wasm
+!ls -la dist/$MLC_ID4
+```
+
+### Cell B3 — upload weights **and** the compiled .wasm together
+
+```python
+# uploading the whole dir publishes the wasm at .../resolve/main/<MLC_ID4>-webgpu.wasm
+!hf upload atanasster/$MLC_ID4 dist/$MLC_ID4 . --repo-type model
+print("done -> https://huggingface.co/atanasster/" + MLC_ID4)
+```
+
+### Then enable it (back in this repo)
+
+In `ai/llm/models.ts`, on the **BgGPT 4B (Gemma 3)** entry: set `ready: true`,
+uncomment its `appConfig` block (pre-filled — `model_lib` points at the compiled
+wasm on your HF repo), and change its `sizeNote` to `~2.7 GB сваляне` /
+`~2.7 GB download`. Rebuild + deploy as above. It appears as a second option in
+the model dropdown next to the 2.6B.
 
 ---
 
 Notes
-- ~5 GB source download + a few minutes to quantize on a T4. The output in
-  `dist/<MLC_ID>` is small (~1.6 GB q4f16_1) — that's what gets uploaded.
-- If `import mlc_llm` fails in Cell 1 with the same `libtvm` symbol error, the
-  CUDA nightlies are temporarily out of sync too; wait a day or pin to the last
+- **CUDA tag:** the MLC index only publishes specific CUDA builds (as of
+  2026-06: `cu124`, `cu128`, `cu130` — there is no `cu123`). `cu124` is the safe
+  pick for a Colab T4. If Cell 1 ever fails with "No matching distribution found
+  for mlc-llm-nightly-cuXXX", open https://mlc.ai/wheels and use a tag that's
+  actually listed.
+- Part A: ~5 GB source download + a few minutes to quantize on a T4. Output in
+  `dist/<MLC_ID>` is ~1.6 GB q4f16_1 — that's what gets uploaded.
+- Part B: the 4B source is larger and the compile adds a few minutes; the wasm is
+  small (a few MB) and rides along in the same HF repo as the weights (~2.7 GB).
+- If `mlc_llm compile` can't find the wasm runtime, run
+  `!python -c "import mlc_llm, tvm; print(tvm.__file__)"` and confirm the
+  cu124 wheels installed; the webgpu target ships with the nightly.
+- If `import mlc_llm` fails in Cell 1 with a `libtvm` symbol error, the CUDA
+  nightlies are temporarily out of sync; wait a day or pin to the last
   known-good dated pair from https://mlc.ai/wheels.
-- Same recipe works locally once the macOS wheels are fixed:
-  `ai/m0/build-model.sh bggpt atanasster` (auto-uses `ai/m0/.venv`).
+- Both recipes work locally once the macOS wheels are fixed:
+  `ai/m0/build-model.sh bggpt atanasster` (no compile) and
+  `ai/m0/build-model.sh bggpt3 atanasster` (needs a local Emscripten;
+  auto-uses `ai/m0/.venv`).

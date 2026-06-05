@@ -4,17 +4,30 @@ Produces the MLC artifacts WebLLM needs and hosts them on HuggingFace so the
 header model picker can run a **Bulgarian-native** model instead of the Qwen test
 model. Runs on your machine.
 
-**Key shortcut:** BgGPT is a `google/gemma-2-2b` fine-tune, so it **reuses
-WebLLM's prebuilt Gemma-2 WebGPU library** — you only convert + host the weights.
-**No Emscripten, no GPU compile.** (EuroLLM has no prebuilt lib and would need a
-compile; do BgGPT first.)
+**We ship two BgGPT variants** (light default + current model):
 
-> **⚠️ As of 2026-06, the macOS MLC pip wheels are out-of-sync upstream**
-> (`mlc-ai` and `mlc-llm` nightlies built against different TVM ABIs →
-> `import mlc_llm` fails with a `libtvm.dylib` symbol error). **Use the Colab
-> path: [`ai/m0/colab.md`](./colab.md)** — free GPU, in-sync CUDA wheels, ~15 min.
-> The local steps below work once the mac wheels are fixed (`ai/m0/.venv` is
-> already set up).
+| target | base | compile? | size | notes |
+|--------|------|----------|------|-------|
+| `bggpt`  | BgGPT v1.0 = `google/gemma-2-2b` fine-tune | **no** — reuses WebLLM's prebuilt Gemma-2 wasm | ~1.6 GB | light default; build this first |
+| `bggpt3` | BgGPT 2.0 = `google/gemma-3-4b` fine-tune | **yes** — `mlc_llm compile --device webgpu` (Emscripten) | ~2.7 GB | current INSAIT line; no prebuilt gemma3-4b wasm exists, so we compile one and host it next to the weights |
+
+INSAIT's Gemma-3 line starts at **4B** (no 1B/2B), so the Gemma-3 path can't reuse
+the prebuilt `gemma3-1b` lib (wasm libs are shape-specific). In this app the model
+only **routes to a tool + narrates** — it never produces numbers — so the lighter
+2.6B is genuinely sufficient; the 4B is offered for users who want the current
+model. (EuroLLM also needs a compile; do the BgGPTs first.)
+
+> **⛔ As of 2026-06-06 the MLC pip path is BLOCKED on every platform.** Upstream
+> publishes only one version of each package and they are ABI-incompatible:
+> `mlc-llm-nightly` = `0.20.dev162` (built 2026-04-21) needs a TVM symbol
+> (`...LogMessage::level_strings_`) that the only available `mlc-ai-nightly` =
+> `0.20.dev1070` (built 2026-05-28) removed. So `import mlc_llm` fails
+> (`libtvm.so: cannot open` on Linux/Colab, missing-symbol on macOS). No older
+> versions are retained anywhere, so **pinning / symlinks / CUDA-tag changes
+> cannot fix it** — only an upstream republish of a matched pair will. See the
+> recheck command + full diagnosis in [`ai/m0/colab.md`](./colab.md). The chat app
+> ships fully functional without BgGPT (rules engine + Qwen test model); BgGPT is
+> an enhancement. The steps below + `ai/m0/.venv` are ready for when it's fixed.
 
 ## 0. One-time setup (already done on this machine)
 
@@ -42,50 +55,68 @@ Confirm your account email first (HF won't let you push otherwise), then create 
 hf auth login          # paste the write token
 ```
 
-## 2. Build BgGPT (no compile)
+## 2a. Build BgGPT 2.6B (Gemma 2) — no compile
 
 ```bash
 ai/m0/build-model.sh bggpt atanasster
 ```
 
-This downloads BgGPT, runs `convert_weight` (q4f16_1) + `gen_config`
+Downloads BgGPT v1.0, runs `convert_weight` (q4f16_1) + `gen_config`
 (`gemma_instruction`, prefill-chunk 1024 to match the prebuilt lib), and prints
 the upload command + the `models.ts` snippet. Output → `ai/m0/dist/<MLC_ID>/`
-(gitignored). Takes ~10–20 min, mostly the download + quantize; runs on
-CPU/Metal.
+(gitignored). ~10–20 min, mostly download + quantize; CPU/Metal.
 
-## 3. Host the weights on HuggingFace
+Host it (HF is free and is where WebLLM expects MLC repos):
 
 ```bash
 hf upload atanasster/BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC \
   ai/m0/dist/BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC . --repo-type model
 ```
 
-HF hosting is free and is where WebLLM expects MLC repos — zero serving cost.
+## 2b. Build BgGPT 4B (Gemma 3) — needs Emscripten
 
-## 4. Enable it in the app
-
-In `ai/llm/models.ts`, on the BgGPT entry: set `ready: true` and uncomment the
-`appConfig` (already pre-filled with your repo + the prebuilt Gemma-2 `model_lib`
-URL pinned to web-llm 0.2.84). Then:
-
-```bash
-npm run build:ai
-npm run dev:ai        # pick "BgGPT 2.6B" in the header (WebGPU browser)
-```
-
-Smoke test: ask "Колко гласа взе ДПС на последните избори?" — BgGPT should route
-to `partyResult` (the Qwen test model mis-routed this). Then deploy:
-`npm run deploy:ai`.
-
-## EuroLLM (optional, needs Emscripten)
-
-EuroLLM-1.7B has no prebuilt lib, so it needs a `mlc_llm compile --device webgpu`,
-which requires Emscripten:
+Gemma-3's smallest BgGPT is 4B and no prebuilt gemma3-4b wasm exists, so this
+target compiles a WebGPU library. Install Emscripten once, then build:
 
 ```bash
 git clone https://github.com/emscripten-core/emsdk.git && cd emsdk
 ./emsdk install latest && ./emsdk activate latest && source ./emsdk_env.sh && cd -
+ai/m0/build-model.sh bggpt3 atanasster   # convert + gen_config + compile (gemma3_instruction)
+```
+
+Host the weights **and** the compiled `.wasm` together (the upload publishes the
+wasm at `.../resolve/main/<MLC_ID>-webgpu.wasm`, which is the `model_lib` URL):
+
+```bash
+hf upload atanasster/BgGPT-Gemma-3-4B-IT-q4f16_1-MLC \
+  ai/m0/dist/BgGPT-Gemma-3-4B-IT-q4f16_1-MLC . --repo-type model
+```
+
+> On macOS the local build is currently blocked by the out-of-sync MLC wheels
+> (see the warning above) — use **Colab Part B** in [`colab.md`](./colab.md), which
+> installs Emscripten + the CUDA wheels in one notebook.
+
+## 3. Enable in the app
+
+In `ai/llm/models.ts`, on each entry you built: set `ready: true`, uncomment its
+`appConfig` (pre-filled — the 2.6B reuses the prebuilt Gemma-2 lib; the 4B points
+at your HF-hosted compiled wasm), and set its `sizeNote` to the real download size
+(`~1.6 GB` / `~2.7 GB`). Then:
+
+```bash
+npm run build:ai
+npm run dev:ai        # pick "BgGPT 2.6B (Gemma 2)" or "BgGPT 4B (Gemma 3)"
+```
+
+Smoke test (WebGPU browser): ask "Колко гласа взе ДПС на последните избори?" —
+BgGPT should route to `partyResult` (the Qwen test model mis-routed this). Then
+deploy: `npm run deploy:ai`.
+
+## EuroLLM (optional, needs Emscripten)
+
+EuroLLM-1.7B also has no prebuilt lib, so it needs a `mlc_llm compile` like 2b:
+
+```bash
 ai/m0/build-model.sh eurollm atanasster   # convert + gen_config + compile
 hf upload atanasster/EuroLLM-1.7B-Instruct-q4f16_1-MLC ai/m0/dist/EuroLLM-1.7B-Instruct-q4f16_1-MLC . --repo-type model
 ```
@@ -98,13 +129,19 @@ compiled `.wasm` as `model_lib`).
 - **`hf: command not found`** — activate the venv (`source ai/m0/.venv/bin/activate`).
 - **download 401/403 on BgGPT** — accept the license on the model page while
   logged in, then retry.
-- **WebLLM "model lib mismatch" in the browser** — the prefill-chunk-size / quant
-  must match the prebuilt lib (q4f16_1, cs1k=1024). Rebuild with the flags above.
+- **WebLLM "model lib mismatch" in the browser** — for the 2.6B the
+  prefill-chunk-size / quant must match the prebuilt lib (q4f16_1, cs1k=1024); for
+  the 4B the wasm is your own, so just make sure `gen_config` and `compile` used
+  the same config. Rebuild with the flags above.
 - **OOM during convert** — close other apps; q4f16_1 is already 4-bit.
 - If the prebuilt Gemma-2 lib URL 404s, bump the `v0_2_84` segment to the
   installed `@mlc-ai/web-llm` version.
+- **4B is sluggish / OOM in the browser** — it needs ~4 GB VRAM; on weaker GPUs
+  prefer the 2.6B. The chat always falls back to the deterministic router, so a
+  failed model load never breaks answers.
 
 ## Files
 
-- `build-model.sh` — convert/(compile)/host recipe (`bggpt` | `eurollm`)
+- `build-model.sh` — convert/(compile)/host recipe (`bggpt` | `bggpt3` | `eurollm`)
+- `colab.md` — Colab notebook (Part A = 2.6B no-compile, Part B = 4B compile)
 - `.venv/`, `dist/`, `models/` — toolchain + build output + source (gitignored)
