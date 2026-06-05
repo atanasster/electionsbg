@@ -1,5 +1,6 @@
 import { useContext, useMemo, useState } from "react";
 import { Logo } from "@/layout/header/Logo";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -135,20 +136,22 @@ export const App = () => {
               ))}
             </SelectContent>
           </Select>
-          <button
-            className="rounded-md border border-input px-2.5 py-1.5"
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() => setLang(lang === "bg" ? "en" : "bg")}
             aria-label={t("Език", "Language")}
           >
             {lang === "bg" ? "EN" : "BG"}
-          </button>
-          <button
-            className="rounded-md border border-input px-2.5 py-1.5"
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
             onClick={() => setTheme(isDark ? themeLight : themeDark)}
             aria-label={t("Тема", "Theme")}
           >
             {isDark ? "☀" : "☾"}
-          </button>
+          </Button>
         </div>
       </header>
 
@@ -187,19 +190,21 @@ export const App = () => {
 
       <main className="flex-1">
         <div className="container mx-auto px-2 py-6 sm:px-4">
-          <div className="mb-4 flex items-center gap-2 text-sm">
-            <button
-              className={`rounded-md px-3 py-1.5 ${view === "chat" ? "bg-primary text-primary-foreground" : "border border-input"}`}
+          <div className="mb-4 flex items-center gap-2">
+            <Button
+              variant={view === "chat" ? "default" : "outline"}
+              size="sm"
               onClick={() => setView("chat")}
             >
               {t("Чат", "Chat")}
-            </button>
-            <button
-              className={`rounded-md px-3 py-1.5 ${view === "tools" ? "bg-primary text-primary-foreground" : "border border-input"}`}
+            </Button>
+            <Button
+              variant={view === "tools" ? "default" : "outline"}
+              size="sm"
               onClick={() => setView("tools")}
             >
               {t("Инструменти", "Tools")}
-            </button>
+            </Button>
           </div>
 
           {view === "chat" ? (

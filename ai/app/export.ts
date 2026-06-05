@@ -93,6 +93,71 @@ export const downloadMarkdown = (msgs: ChatMsg[], lang: Lang) => {
   triggerDownload(blob, `naiasno-${stamp()}.md`);
 };
 
+// Naясно logo (mirrors src/layout/header/Logo.tsx) as raw SVG for the off-screen
+// share card — a React component can't be dropped into a plain DOM node.
+const LOGO_SVG = `<svg viewBox="0 0 64 64" width="30" height="30" fill="none" aria-hidden="true">
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="hsl(var(--logo-card))"/>
+  <g><rect x="4" y="52" width="56" height="2.7" fill="#FFFFFF"/>
+  <rect x="4" y="54.7" width="56" height="2.7" fill="#00966E"/>
+  <rect x="4" y="57.4" width="56" height="2.7" fill="#D62612"/></g>
+  <path d="M16 30 L27 41 L48 17" stroke="hsl(var(--logo-check))" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>`;
+
+// Render one answer card as a branded PNG (for sharing on social). Clones the
+// already-rendered answer node (keeps the chart SVG + theme styles) into an
+// off-screen branded frame and rasterizes it with html2canvas (lazy-loaded).
+export const downloadAnswerImage = async (
+  answerEl: HTMLElement,
+  question: string,
+  lang: Lang,
+) => {
+  const html2canvas = (await import("html2canvas")).default;
+
+  const frame = document.createElement("div");
+  frame.className = "bg-card text-foreground";
+  frame.style.cssText =
+    "position:fixed;left:-99999px;top:0;width:760px;padding:28px;box-sizing:border-box;";
+
+  const header = document.createElement("div");
+  header.style.cssText =
+    "display:flex;align-items:center;gap:10px;margin-bottom:14px;";
+  header.innerHTML = `${LOGO_SVG}<span style="font-size:22px;font-weight:600;">Наясно <span style="color:hsl(var(--primary));">AI</span></span>`;
+
+  const q = document.createElement("div");
+  q.style.cssText = "font-size:17px;font-weight:600;margin-bottom:14px;";
+  q.textContent = question;
+
+  const clone = answerEl.cloneNode(true) as HTMLElement;
+
+  const footer = document.createElement("div");
+  footer.className = "text-muted-foreground";
+  footer.style.cssText = "margin-top:16px;font-size:12px;";
+  footer.textContent =
+    lang === "bg"
+      ? "electionsbg.com · изчислено от официални данни, не генерирано"
+      : "electionsbg.com · computed from official data, not generated";
+
+  frame.append(header, q, clone, footer);
+  document.body.appendChild(frame);
+  try {
+    const canvas = await html2canvas(frame, {
+      scale: 2,
+      backgroundColor:
+        getComputedStyle(document.body).backgroundColor || "#fff",
+      useCORS: true,
+      logging: false,
+    });
+    await new Promise<void>((resolve) =>
+      canvas.toBlob((blob) => {
+        if (blob) triggerDownload(blob, `naiasno-${stamp()}.png`);
+        resolve();
+      }, "image/png"),
+    );
+  } finally {
+    document.body.removeChild(frame);
+  }
+};
+
 export const downloadPdf = async (msgs: ChatMsg[], lang: Lang) => {
   const [{ jsPDF }, autoTableMod, fontMod] = await Promise.all([
     import("jspdf"),

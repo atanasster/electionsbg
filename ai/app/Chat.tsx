@@ -3,12 +3,22 @@
 // provider requires no change here.
 
 import { useEffect, useRef, useState } from "react";
-import { Check, Copy, Download, FileText, Plus, Share2 } from "lucide-react";
+import {
+  Check,
+  Copy,
+  Download,
+  FileText,
+  ImageDown,
+  Plus,
+  Share2,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 import type { LLMProvider } from "../llm/provider";
 import { AnswerView } from "../render/AnswerView";
 import type { Lang } from "../tools/types";
 import {
   conversationToMarkdown,
+  downloadAnswerImage,
   downloadMarkdown,
   downloadPdf,
   type ChatMsg,
@@ -119,46 +129,38 @@ export const Chat = ({
     !busy && last?.role === "assistant" && last.env ? followUps(last.env) : [];
 
   const hasChat = messages.length > 0;
-  const toolBtn =
-    "inline-flex items-center gap-1 rounded-md border border-input px-2 py-1 hover:bg-muted";
 
   return (
     <div className="flex flex-col gap-4">
       {hasChat && (
-        <div className="flex flex-wrap items-center justify-end gap-2 text-xs text-muted-foreground">
-          <button className={toolBtn} onClick={() => setMessages([])}>
-            <Plus className="size-3.5" /> {t("Нов разговор", "New chat")}
-          </button>
-          <button className={toolBtn} onClick={copyAll}>
-            {copied ? (
-              <Check className="size-3.5" />
-            ) : (
-              <Copy className="size-3.5" />
-            )}
+        <div className="flex flex-wrap items-center justify-end gap-2">
+          <Button variant="outline" size="sm" onClick={() => setMessages([])}>
+            <Plus /> {t("Нов разговор", "New chat")}
+          </Button>
+          <Button variant="outline" size="sm" onClick={copyAll}>
+            {copied ? <Check /> : <Copy />}
             {copied ? t("Копирано", "Copied") : t("Копирай", "Copy")}
-          </button>
-          <button className={toolBtn} onClick={share}>
-            {shared ? (
-              <Check className="size-3.5" />
-            ) : (
-              <Share2 className="size-3.5" />
-            )}
+          </Button>
+          <Button variant="outline" size="sm" onClick={share}>
+            {shared ? <Check /> : <Share2 />}
             {shared
               ? t("Линкът е копиран", "Link copied")
               : t("Сподели", "Share")}
-          </button>
-          <button
-            className={toolBtn}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() => downloadMarkdown(messages, lang)}
           >
-            <FileText className="size-3.5" /> .md
-          </button>
-          <button
-            className={toolBtn}
+            <FileText /> .md
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() => void downloadPdf(messages, lang)}
           >
-            <Download className="size-3.5" /> .pdf
-          </button>
+            <Download /> .pdf
+          </Button>
         </div>
       )}
 
@@ -172,7 +174,7 @@ export const Chat = ({
       )}
 
       <div className="flex flex-col gap-4">
-        {messages.map((m) =>
+        {messages.map((m, i) =>
           m.role === "user" ? (
             <div key={m.id} className="max-w-[85%] self-end">
               <div className="rounded-2xl rounded-br-sm bg-primary px-4 py-2 text-sm text-primary-foreground">
@@ -180,11 +182,39 @@ export const Chat = ({
               </div>
             </div>
           ) : (
-            <div key={m.id} className="w-full max-w-[95%] space-y-3 self-start">
+            <div
+              key={m.id}
+              data-msg=""
+              className="w-full max-w-[95%] space-y-2 self-start"
+            >
               <div className="rounded-2xl rounded-bl-sm bg-muted px-4 py-2 text-sm text-foreground">
                 {m.text}
               </div>
-              {m.env && <AnswerView env={m.env} lang={lang} />}
+              {m.env && (
+                <>
+                  <div data-answer-card="">
+                    <AnswerView env={m.env} lang={lang} />
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-muted-foreground"
+                    onClick={(e) => {
+                      const card = e.currentTarget
+                        .closest("[data-msg]")
+                        ?.querySelector<HTMLElement>("[data-answer-card]");
+                      if (card)
+                        void downloadAnswerImage(
+                          card,
+                          messages[i - 1]?.text ?? "",
+                          lang,
+                        );
+                    }}
+                  >
+                    <ImageDown /> {t("Изображение", "Image")}
+                  </Button>
+                </>
+              )}
             </div>
           ),
         )}

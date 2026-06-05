@@ -1,8 +1,19 @@
-// M1 harness: a plain dropdown UI that runs a deterministic tool and renders the
-// result with the shared chart/table components. No LLM involved — this proves
-// the data + render layers end to end before the model is wired in (M3).
+// A plain dropdown UI that runs a deterministic tool and renders the result with
+// the shared chart/table components. No LLM involved — proves the data + render
+// layers end to end. Controls use the site's shared shadcn primitives.
 
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { electionNames, latestElection } from "../tools/dataset";
 import {
   DOMAIN_LABELS,
@@ -22,6 +33,9 @@ const DOMAIN_ORDER: Domain[] = [
   "indicators",
   "place",
 ];
+// Radix Select forbids an empty-string value, so the "(latest)" choice uses a
+// sentinel that maps back to "" (which tools read as "use the default election").
+const LATEST = "__latest__";
 
 export const Explorer = ({ lang }: { lang: Lang }) => {
   const [toolName, setToolName] = useState(TOOLS[0].name);
@@ -31,7 +45,6 @@ export const Explorer = ({ lang }: { lang: Lang }) => {
   const [error, setError] = useState<string | null>(null);
 
   const tool = TOOLS_BY_NAME[toolName];
-
   const setArg = (name: string, value: string) =>
     setArgs((a) => ({ ...a, [name]: value }));
 
@@ -59,25 +72,30 @@ export const Explorer = ({ lang }: { lang: Lang }) => {
           <span className="text-muted-foreground">
             {lang === "bg" ? "Инструмент" : "Tool"}
           </span>
-          <select
-            className="min-w-56 rounded-md border border-input bg-background px-2 py-1.5"
+          <Select
             value={toolName}
-            onChange={(e) => {
-              setToolName(e.target.value);
+            onValueChange={(v) => {
+              setToolName(v);
               setArgs({});
               setEnv(null);
             }}
           >
-            {DOMAIN_ORDER.map((d) => (
-              <optgroup key={d} label={DOMAIN_LABELS[d][lang]}>
-                {TOOLS.filter((t) => t.domain === d).map((t) => (
-                  <option key={t.name} value={t.name}>
-                    {t.name} — {t.description[lang]}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
+            <SelectTrigger className="min-w-56 max-w-[28rem]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {DOMAIN_ORDER.map((d) => (
+                <SelectGroup key={d}>
+                  <SelectLabel>{DOMAIN_LABELS[d][lang]}</SelectLabel>
+                  {TOOLS.filter((tl) => tl.domain === d).map((tl) => (
+                    <SelectItem key={tl.name} value={tl.name}>
+                      {tl.name} — {tl.description[lang]}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              ))}
+            </SelectContent>
+          </Select>
         </label>
 
         {tool.params.map((p) => {
@@ -87,20 +105,24 @@ export const Explorer = ({ lang }: { lang: Lang }) => {
                 <span className="text-muted-foreground">
                   {p.description[lang]}
                 </span>
-                <select
-                  className="rounded-md border border-input bg-background px-2 py-1.5"
-                  value={(args[p.name] as string) ?? ""}
-                  onChange={(e) => setArg(p.name, e.target.value)}
+                <Select
+                  value={(args[p.name] as string) || LATEST}
+                  onValueChange={(v) => setArg(p.name, v === LATEST ? "" : v)}
                 >
-                  <option value="">
-                    {lang === "bg" ? "(последния)" : "(latest)"}
-                  </option>
-                  {ELECTIONS.map((name) => (
-                    <option key={name} value={name}>
-                      {name}
-                    </option>
-                  ))}
-                </select>
+                  <SelectTrigger className="min-w-40">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={LATEST}>
+                      {lang === "bg" ? "(последния)" : "(latest)"}
+                    </SelectItem>
+                    {ELECTIONS.map((name) => (
+                      <SelectItem key={name} value={name}>
+                        {name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </label>
             );
           }
@@ -109,8 +131,8 @@ export const Explorer = ({ lang }: { lang: Lang }) => {
               <span className="text-muted-foreground">
                 {p.description[lang]}
               </span>
-              <input
-                className="w-40 rounded-md border border-input bg-background px-2 py-1.5"
+              <Input
+                className="w-40"
                 type={p.type === "count" ? "number" : "text"}
                 placeholder={p.default != null ? String(p.default) : ""}
                 value={(args[p.name] as string) ?? ""}
@@ -120,19 +142,9 @@ export const Explorer = ({ lang }: { lang: Lang }) => {
           );
         })}
 
-        <button
-          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-50"
-          onClick={run}
-          disabled={loading}
-        >
-          {loading
-            ? lang === "bg"
-              ? "…"
-              : "…"
-            : lang === "bg"
-              ? "Изпълни"
-              : "Run"}
-        </button>
+        <Button onClick={run} disabled={loading}>
+          {loading ? "…" : lang === "bg" ? "Изпълни" : "Run"}
+        </Button>
       </div>
 
       <div className="flex flex-wrap gap-2">
