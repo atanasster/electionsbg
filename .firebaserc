@@ -1,18 +1,23 @@
 {
   "projects": {
     "default": "elections-bg",
-    "staging": "electionsbg-staging"
+    "staging": "electionsbg-staging",
+    "ai": "electionsbg-ai"
   },
   "targets": {
     "elections-bg": {
       "hosting": {
-        "main": ["elections-bg"],
-        "ai": ["electionsbg-ai"]
+        "main": ["elections-bg"]
       }
     },
     "electionsbg-staging": {
       "hosting": {
         "main": ["electionsbg-staging"]
+      }
+    },
+    "electionsbg-ai": {
+      "hosting": {
+        "ai": ["electionsbg-ai"]
       }
     }
   },

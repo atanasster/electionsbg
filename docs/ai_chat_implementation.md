@@ -228,15 +228,17 @@ The AI build is **slimmed**: `vite.config.ai.ts` keeps `publicDir` for dev but a
 assets the chat references — **24 files / ~7 MB** (no parliament/articles/sitemap
 copy), well under the file ceiling.
 
-**Operator go-live steps (one-time):**
-1. In the Firebase console (project `elections-bg`), create a **Hosting site**
-   with id **`electionsbg-ai`** (must match `.firebaserc`).
-2. Deploy: `npm run deploy:ai` (predeploy runs `build:ai`).
-3. In Hosting → the `electionsbg-ai` site → **Add custom domain**
-   `ai.electionsbg.com`, then add the DNS records Firebase shows.
-4. Verify `https://ai.electionsbg.com` loads; pick a model on a WebGPU browser.
+**Setup:** `ai.electionsbg.com` is a **separate Firebase project** `electionsbg-ai`
+(its own `electionsbg-ai.web.app`). `.firebaserc` adds an `ai` project alias and an
+`ai` hosting target mapped to it; `deploy:ai` = `firebase deploy --only hosting:ai
+-P ai`.
 
-(If the site id differs, change it in `.firebaserc` `targets`.)
+**Operator go-live steps:**
+1. `npm run deploy:ai` (predeploy runs `build:ai`; deploys `dist-ai` → the
+   `electionsbg-ai` project).
+2. In that project's Hosting → **Add custom domain** `ai.electionsbg.com`, add the
+   DNS records Firebase shows (the console already lists it as "Needs setup").
+3. Verify `https://ai.electionsbg.com` loads; pick a model on a WebGPU browser.
 
 ---
 
