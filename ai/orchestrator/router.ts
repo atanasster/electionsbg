@@ -183,6 +183,15 @@ export const route = (question: string, ctx: ToolContext): Route => {
     const place = extractPlace(q);
     return { tool: "chmiEvents", args: place ? { place } : {} };
   }
+  // council *resolutions* (what the council decided) — before the local block so
+  // a "реши" question doesn't get the council-seats breakdown.
+  if (
+    has(q, "реши", "решени", "resolution", "decide", "decision") &&
+    has(q, "съвет", "council")
+  ) {
+    const place = extractPlace(q);
+    if (place) return { tool: "councilResolutions", args: { place } };
+  }
   if (isLocal) {
     if (has(q, "кметове", "кметск", "mayors won"))
       return { tool: "localMayorsWon", args: {} };
@@ -294,21 +303,43 @@ export const route = (question: string, ctx: ToolContext): Route => {
     const place = extractPlace(q);
     if (place) return { tool: "governanceProfile", args: { place } };
   }
+  // GRAO registered population — only on explicit registry terms (plain
+  // "население/живеят" stays with the 2021 census below).
+  if (
+    has(
+      q,
+      "грао",
+      "регистрира",
+      "постоянен адрес",
+      "настоящ адрес",
+      "registered popul",
+    )
+  ) {
+    const place = extractPlace(q);
+    if (place) return { tool: "graoPopulation", args: { place } };
+  }
   if (
     has(
       q,
       "население",
       "жители",
+      "живеят",
       "демограф",
       "етнос",
       "етничес",
       "census",
       "population",
       "inhabitants",
+      "live in",
     )
   ) {
     const place = extractPlace(q);
     if (place) return { tool: "census", args: { place } };
+  }
+  // air quality
+  if (has(q, "въздух", "air ", "фпч", "pm10", "pm2", "замърся", "pollut")) {
+    const place = extractPlace(q);
+    if (place) return { tool: "airQuality", args: { place } };
   }
 
   // 1e2. governance — place-based indicators (before macro: a named place wins)
@@ -327,6 +358,23 @@ export const route = (question: string, ctx: ToolContext): Route => {
     const place = extractPlace(q);
     if (place)
       return { tool: "subnationalIndicator", args: { place, indicator: q } };
+  }
+
+  // land use (national, or oblast if one is named)
+  if (
+    has(
+      q,
+      "земепол",
+      "land use",
+      "land-use",
+      " гора",
+      "forest",
+      "земеделск",
+      "agricultural land",
+    )
+  ) {
+    const obl = extractPlace(q);
+    return { tool: "landUse", args: obl ? { oblast: obl } : {} };
   }
 
   // 1f. governance — macro indicators (national)

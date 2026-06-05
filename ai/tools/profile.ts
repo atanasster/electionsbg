@@ -101,6 +101,11 @@ type LisiData = {
 type IndData = {
   series: Record<string, Record<string, { year: number; value: number }[]>>;
 };
+type AirData = {
+  stations: { obshtina?: string; latestReadings?: { pm10?: number } }[];
+};
+type GraoData = { settlements: Record<string, { permanent: number }> };
+type CouncilData = { resolutionsByObshtina: Record<string, unknown[]> };
 
 export const governanceProfile = async (
   args: ToolArgs,
@@ -112,13 +117,19 @@ export const governanceProfile = async (
   const code = govCode(place.obshtina);
   const cycle = resolveLocalCycle(undefined);
 
-  const [census, local, lisi, ind, proc] = await Promise.all([
-    tryFetch<CensusMuni>(`/census/municipalities/${code}.json`),
-    fetchLocalMuni(cycle, place.obshtina).catch(() => null),
-    tryFetch<LisiData>("/municipal_transparency/index.json"),
-    tryFetch<IndData>("/indicators.json"),
-    tryFetch<SettlementProc>(`/procurement/by_settlement/${place.ekatte}.json`),
-  ]);
+  const [census, local, lisi, ind, proc, air, grao, council] =
+    await Promise.all([
+      tryFetch<CensusMuni>(`/census/municipalities/${code}.json`),
+      fetchLocalMuni(cycle, place.obshtina).catch(() => null),
+      tryFetch<LisiData>("/municipal_transparency/index.json"),
+      tryFetch<IndData>("/indicators.json"),
+      tryFetch<SettlementProc>(
+        `/procurement/by_settlement/${place.ekatte}.json`,
+      ),
+      tryFetch<AirData>("/air/index.json"),
+      tryFetch<GraoData>("/grao_population.json"),
+      tryFetch<CouncilData>("/council/index.json"),
+    ]);
 
   const facts: Record<string, string | number> = {
     place: place.name,
@@ -165,6 +176,27 @@ export const governanceProfile = async (
   if (proc?.totalEur) {
     facts.local_procurement = fmtEurCompact(proc.totalEur, ctx.lang);
     provenance.push(`procurement/by_settlement/${place.ekatte}.json`);
+  }
+  const graoRec = grao?.settlements?.[place.ekatte];
+  if (graoRec?.permanent) {
+    facts.registered_population = fmtInt(graoRec.permanent, ctx.lang);
+    provenance.push("grao_population.json");
+  }
+  if (air?.stations) {
+    const prefix = place.obshtina.slice(0, 3);
+    const st = air.stations.filter(
+      (s) => s.obshtina === place.obshtina || s.obshtina?.startsWith(prefix),
+    );
+    const worst = Math.max(0, ...st.map((s) => s.latestReadings?.pm10 ?? 0));
+    if (worst > 0) {
+      facts.air_pm10 = `${Math.round(worst)} µg/m³`;
+      provenance.push("air/index.json");
+    }
+  }
+  const resolutions = council?.resolutionsByObshtina?.[place.obshtina];
+  if (resolutions?.length) {
+    facts.council_resolutions = resolutions.length;
+    provenance.push("council/index.json");
   }
 
   return {

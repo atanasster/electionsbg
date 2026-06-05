@@ -10,7 +10,7 @@ The chat answers BG/EN questions end to end today via a rules-based provider
 (router → tools → template narrator) behind the `LLMProvider` interface; M3 swaps
 in WebLLM without touching the chat UI. See "Milestones".
 
-Tools (36) grouped by `domain`:
+Tools (40) grouped by `domain`:
 - **elections** (9): nationalResults, partyResult, machineVoteShare, turnout,
   compareElections, machineVoteSeries, turnoutSeries, partyTimeline, pollAccuracy
 - **local** (6): localCouncilVoteShare, localMayorsWon, localMunicipality,
@@ -19,11 +19,16 @@ Tools (36) grouped by `domain`:
   fundsOverview, govDebt, noiFunds
 - **people** (5): governments, mpAssetsTop, mpConnectionsTop, officialsAssetsTop,
   financingOverview
-- **indicators** (7): macroIndicator (40 indicators, broadly aliased),
+- **indicators** (8): macroIndicator (40 indicators, broadly aliased),
   macroOverview, macroByCategory, subnationalIndicator, regionIndicator,
-  transparencyScore, localTaxes
-- **place** / "my area" (3): governanceProfile (composite place-ladder
-  dashboard), census, procurementBySettlement
+  transparencyScore, localTaxes, landUse
+- **place** / "my area" (6): governanceProfile (composite place-ladder dashboard,
+  now incl. GRAO population + air quality + council activity), census,
+  procurementBySettlement, airQuality, graoPopulation, councilResolutions
+
+Place-keying gotcha handled: the council ingest keys some oblast centres with a
+different obshtina code than `municipalities.json` (Русе = RSE01 vs RSE27) —
+`councilResolutions` falls back to matching the council entry's `meta.name`.
 
 Shared infra: `ai/tools/place.ts` resolves free-text BG/EN place names →
 obshtina/oblast/ekatte (handles Sofia synthetic `SOF`/`SOF00`, Plovdiv city vs

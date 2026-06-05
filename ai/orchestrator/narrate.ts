@@ -200,6 +200,25 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Социалноосигурителни фондове (${f(env, "year")}): разходи ${f(env, "expenditure")}.`
         : `Social-security funds (${f(env, "year")}): expenditure ${f(env, "expenditure")}.`;
+    case "airQuality":
+      if (!env.facts.place) return env.title;
+      return lang === "bg"
+        ? `Качество на въздуха в ${f(env, "place")}: ФПЧ10 до ${f(env, "worst_pm10")} µg/m³ (${f(env, "over_limit")}; норма ${f(env, "eu_limit_pm10")}).`
+        : `Air quality in ${f(env, "place")}: PM10 up to ${f(env, "worst_pm10")} µg/m³ (${f(env, "over_limit")}; limit ${f(env, "eu_limit_pm10")}).`;
+    case "landUse":
+      return lang === "bg"
+        ? `Земеползване (${f(env, "scope")}): ${f(env, "total_km2")} km²; най-голям дял — ${f(env, "largest")}.`
+        : `Land use (${f(env, "scope")}): ${f(env, "total_km2")} km²; largest share — ${f(env, "largest")}.`;
+    case "graoPopulation":
+      if (!env.facts.permanent) return env.title;
+      return lang === "bg"
+        ? `${f(env, "place")}: ${f(env, "permanent")} по постоянен и ${f(env, "current")} по настоящ адрес (ГРАО).`
+        : `${f(env, "place")}: ${f(env, "permanent")} permanent and ${f(env, "current")} current-address residents (GRAO).`;
+    case "councilResolutions":
+      if (!env.facts.total) return env.title;
+      return lang === "bg"
+        ? `ОбС ${f(env, "place")}: ${f(env, "total")} индексирани решения; последно на ${f(env, "latest")}.`
+        : `${f(env, "place")} council: ${f(env, "total")} indexed resolutions; latest on ${f(env, "latest")}.`;
     case "governanceProfile": {
       const parts: string[] = [];
       if (env.facts.population)
@@ -219,6 +238,12 @@ export const narrate = (env: Envelope, lang: Lang): string => {
           lang === "bg"
             ? `безработица ${f(env, "unemployment")}`
             : `unemployment ${f(env, "unemployment")}`,
+        );
+      if (env.facts.air_pm10)
+        parts.push(
+          lang === "bg"
+            ? `ФПЧ10 ${f(env, "air_pm10")}`
+            : `PM10 ${f(env, "air_pm10")}`,
         );
       if (env.facts.transparency)
         parts.push(

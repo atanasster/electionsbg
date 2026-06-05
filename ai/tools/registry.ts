@@ -19,6 +19,12 @@ import { govDebt, noiFunds } from "./fiscalDebt";
 import { chmiEvents, localCouncil, localMayorRace } from "./localDetail";
 import { macroByCategory, macroIndicator, macroOverview } from "./macro";
 import {
+  airQuality,
+  councilResolutions,
+  graoPopulation,
+  landUse,
+} from "./placeData";
+import {
   financingOverview,
   mpAssetsTop,
   mpConnectionsTop,
@@ -717,6 +723,28 @@ export const TOOLS: ToolDef[] = [
     ],
     run: localTaxes,
   },
+  {
+    name: "landUse",
+    domain: "indicators",
+    description: {
+      bg: "Земеползване по тип територия (национално или по област).",
+      en: "Land use by category (national or per oblast).",
+    },
+    params: [
+      {
+        name: "oblast",
+        type: "oblast",
+        description: { bg: "Област (по избор)", en: "Oblast (optional)" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко гора има в България?",
+        en: "How much forest is in Bulgaria?",
+      },
+    ],
+    run: landUse,
+  },
   // ---- place ("about my area") ----------------------------------------------
   {
     name: "governanceProfile",
@@ -775,6 +803,72 @@ export const TOOLS: ToolDef[] = [
       { bg: "Колко поръчки има в Русе?", en: "How much procurement in Ruse?" },
     ],
     run: procurementBySettlement,
+  },
+  {
+    name: "airQuality",
+    domain: "place",
+    description: {
+      bg: "Качество на въздуха (ФПЧ10/ФПЧ2.5) от станции близо до населено място.",
+      en: "Air quality (PM10/PM2.5) from stations near a place.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Населено място", en: "Place" },
+      },
+    ],
+    examples: [
+      { bg: "Какъв е въздухът в Перник?", en: "How's the air in Pernik?" },
+    ],
+    run: airQuality,
+  },
+  {
+    name: "graoPopulation",
+    domain: "place",
+    description: {
+      bg: "Регистрирано население (ГРАО) по постоянен и настоящ адрес.",
+      en: "Registered population (GRAO) by permanent and current address.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Населено място", en: "Place" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко души живеят в Габрово?",
+        en: "How many people live in Gabrovo?",
+      },
+    ],
+    run: graoPopulation,
+  },
+  {
+    name: "councilResolutions",
+    domain: "place",
+    description: {
+      bg: "Решения на общинския съвет (където е индексирано).",
+      en: "Municipal council resolutions (where indexed).",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какво реши общинският съвет на Русе?",
+        en: "What did Ruse council decide?",
+      },
+    ],
+    run: councilResolutions,
   },
 ];
 

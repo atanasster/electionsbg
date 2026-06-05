@@ -395,6 +395,68 @@ const run = async () => {
     assert(got === expected, `route: "${q}" -> ${expected}`);
   }
 
+  // 14. D3 — per-place environment / population / council
+  console.log("\n=== [D3] place-enrichment tools ===");
+  const air = (await runTool(
+    "airQuality",
+    { place: "Перник" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(air);
+  assert(
+    (air.rows?.length ?? 0) > 0 || air.kind === "scalar",
+    "airQuality runs",
+  );
+
+  const lu = (await runTool("landUse", { oblast: "Варна" }, ctxEn)) as Envelope;
+  printEnvelope(lu);
+  assert((lu.rows?.length ?? 0) > 0, "landUse returns categories");
+
+  const grao = (await runTool(
+    "graoPopulation",
+    { place: "Габрово" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(grao);
+  assert(!!grao.facts.permanent, "graoPopulation has permanent count");
+
+  const cr = (await runTool(
+    "councilResolutions",
+    { place: "Русе" },
+    ctxEn,
+  )) as Envelope;
+  printEnvelope(cr);
+  assert(
+    (cr.rows?.length ?? 0) > 0,
+    "councilResolutions returns rows for Ruse",
+  );
+
+  // governanceProfile should now carry the new enrichment facts
+  const prof2 = (await runTool(
+    "governanceProfile",
+    { place: "Габрово" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    !!prof2.facts.registered_population,
+    "governanceProfile now includes GRAO population",
+  );
+
+  console.log("\n=== [router] D3 questions ===");
+  const cases6: [string, string | null][] = [
+    ["Какъв е въздухът в Перник?", "airQuality"],
+    ["Колко гора има в България?", "landUse"],
+    ["Колко е регистрираното население на Габрово?", "graoPopulation"],
+    ["Какво реши общинският съвет на Русе?", "councilResolutions"],
+    ["Какъв е общинският съвет на Бургас?", "localCouncil"],
+  ];
+  for (const [q, expected] of cases6) {
+    const r = route(q, ctx);
+    const got = r?.tool ?? null;
+    console.log(`  "${q}" -> ${got ?? "(none)"}`);
+    assert(got === expected, `route: "${q}" -> ${expected}`);
+  }
+
   console.log(
     `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${failures === 0 ? "tools layer verified" : "see above"}`,
   );
