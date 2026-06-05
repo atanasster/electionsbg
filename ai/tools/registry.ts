@@ -20,6 +20,12 @@ import {
   ministryBudget,
 } from "./budgetDepth";
 import { census } from "./census";
+import {
+  electionAnomalies,
+  regionBreakdown,
+  regionHistory,
+  voteTransitions,
+} from "./electionDepth";
 import { govDebt, noiFunds } from "./fiscalDebt";
 import { chmiEvents, localCouncil, localMayorRace } from "./localDetail";
 import { macroByCategory, macroIndicator, macroOverview } from "./macro";
@@ -249,6 +255,96 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: pollAccuracy,
+  },
+  {
+    name: "regionBreakdown",
+    domain: "elections",
+    description: {
+      bg: "Резултат на партия по области за един избор (къде е силна/слаба).",
+      en: "A party's result by oblast in one election (where it's strong/weak).",
+    },
+    params: [
+      {
+        name: "party",
+        type: "party",
+        required: true,
+        description: { bg: "Партия", en: "Party" },
+      },
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [{ bg: "Къде е силна ГЕРБ?", en: "Where is GERB strongest?" }],
+    run: regionBreakdown,
+  },
+  {
+    name: "electionAnomalies",
+    domain: "elections",
+    description: {
+      bg: "Сигнали и нередности за един избор (преброявания, машинни корекции, проблемни секции).",
+      en: "Anomaly signals for one election (recounts, machine corrections, problem sections).",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Имаше ли нередности на последните избори?",
+        en: "Were there anomalies in the latest election?",
+      },
+    ],
+    run: electionAnomalies,
+  },
+  {
+    name: "regionHistory",
+    domain: "elections",
+    description: {
+      bg: "Избирателна активност в една област през всички избори.",
+      en: "Voter turnout in one oblast across all elections.",
+    },
+    params: [
+      {
+        name: "oblast",
+        type: "oblast",
+        required: true,
+        description: { bg: "Област", en: "Oblast" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Как се променя активността в Хасково?",
+        en: "How has turnout changed in Haskovo?",
+      },
+    ],
+    run: regionHistory,
+  },
+  {
+    name: "voteTransitions",
+    domain: "elections",
+    description: {
+      bg: "Преливане на гласове между два последователни избора (откъде накъде отиват гласовете).",
+      en: "Vote transitions between two consecutive elections (where votes moved).",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Целеви избор", en: "Target election" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Къде отидоха гласовете на последните избори?",
+        en: "Where did votes move in the latest election?",
+      },
+    ],
+    run: voteTransitions,
   },
   // ---- local elections ------------------------------------------------------
   {

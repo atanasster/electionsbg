@@ -7,6 +7,7 @@
 
 import { ALL_ELECTIONS } from "../tools/dataset";
 import { resolveMacroKey } from "../tools/macro";
+import { findOblastInText } from "../tools/place";
 import { resolveSubnatKey } from "../tools/placesGov";
 import type { ToolArgs, ToolContext } from "../tools/types";
 
@@ -432,6 +433,39 @@ export const route = (question: string, ctx: ToolContext): Route => {
   if (has(q, "икономик", "economy", "макро", "macro"))
     return { tool: "macroOverview", args: {} };
 
+  // 1g. election analytical drill-down (before machine/turnout/party)
+  // anomalies — before machine so "машинни корекции/флаш" isn't read as machine vote
+  if (
+    has(
+      q,
+      "аномал",
+      "нередност",
+      "засечк",
+      "recount",
+      "преброяване наново",
+      "проблемни секции",
+      "problem section",
+      "манипул",
+      "измам",
+      "флаш памет",
+    )
+  )
+    return { tool: "electionAnomalies", args: election ? { election } : {} };
+  if (
+    has(
+      q,
+      "прелива",
+      "къде отидоха",
+      "къде отиват",
+      "трансфер на глас",
+      "vote flow",
+      "vote transition",
+      "преминаха глас",
+      "миграция на глас",
+    )
+  )
+    return { tool: "voteTransitions", args: election ? { election } : {} };
+
   // 2. machine voting
   if (isMachine) {
     if (isTrend || !election)
@@ -441,6 +475,9 @@ export const route = (question: string, ctx: ToolContext): Route => {
 
   // 3. turnout
   if (isTurnout) {
+    // per-oblast turnout history if an oblast is named (e.g. "активността в Хасково")
+    const oblHit = findOblastInText(q);
+    if (oblHit) return { tool: "regionHistory", args: { oblast: oblHit.code } };
     if (isTrend && !election)
       return { tool: "turnoutSeries", args: count ? { n: count } : {} };
     if (election) return { tool: "turnout", args: { election } };
@@ -449,6 +486,24 @@ export const route = (question: string, ctx: ToolContext): Route => {
 
   // 4. a specific party
   if (party) {
+    // a party's regional strength ("къде е силна ГЕРБ", "ГЕРБ по области")
+    if (
+      has(
+        q,
+        "област",
+        "region",
+        "по области",
+        "къде",
+        "where",
+        "силн",
+        "strong",
+        "regional",
+      )
+    )
+      return {
+        tool: "regionBreakdown",
+        args: election ? { party, election } : { party },
+      };
     const wantsTimeline =
       has(q, "през годините", "over time", "история", "history", "timeline") ||
       (isTrend && !election);

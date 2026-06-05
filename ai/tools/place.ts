@@ -179,6 +179,21 @@ export const resolveOblast = (
   return undefined;
 };
 
+// Find an oblast whose name appears *inside* a longer sentence (so a question
+// like "активността в Хасково" resolves Хасково even with surrounding words).
+export const findOblastInText = (
+  text: string,
+): { code: string; name: { bg: string; en: string } } | undefined => {
+  const t = norm(text);
+  for (const [code, name] of Object.entries(OBLASTS)) {
+    const nb = norm(name.bg);
+    const ne = norm(name.en);
+    if (nb.length >= 4 && t.includes(nb)) return { code, name };
+    if (ne.length >= 4 && t.includes(ne)) return { code, name };
+  }
+  return undefined;
+};
+
 // Convenience: a place's display name in the requested language.
 export const placeLabel = (p: PlaceMatch, lang: Lang): string =>
   lang === "bg" ? p.name : p.nameEn || p.name;

@@ -501,6 +501,56 @@ const run = async () => {
     assert(got === expected, `route: "${q}" -> ${expected}`);
   }
 
+  // 16. D4 — election analytical drill-down
+  console.log("\n=== [D4] election-depth tools ===");
+  const rb = (await runTool(
+    "regionBreakdown",
+    { party: "ГЕРБ" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(rb);
+  assert((rb.rows?.length ?? 0) > 0, "regionBreakdown returns oblasts");
+
+  const anom = (await runTool("electionAnomalies", {}, ctxEn)) as Envelope;
+  printEnvelope(anom);
+  assert(
+    anom.facts.problem_sections != null,
+    "electionAnomalies has problem-section count",
+  );
+
+  const rh = (await runTool(
+    "regionHistory",
+    { oblast: "Хасково" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(rh);
+  assert(
+    (rh.series?.[0].points.length ?? 0) > 1,
+    "regionHistory spans multiple elections",
+  );
+
+  const vt = (await runTool("voteTransitions", {}, ctxEn)) as Envelope;
+  printEnvelope(vt);
+  assert(
+    (vt.rows?.length ?? 0) > 0 || vt.kind === "scalar",
+    "voteTransitions runs",
+  );
+
+  console.log("\n=== [router] D4 questions ===");
+  const cases8: [string, string | null][] = [
+    ["Къде е силна ГЕРБ?", "regionBreakdown"],
+    ["Имаше ли нередности на последните избори?", "electionAnomalies"],
+    ["Как се променя активността в Хасково?", "regionHistory"],
+    ["Къде отидоха гласовете на последните избори?", "voteTransitions"],
+    ["Как се представя ГЕРБ през годините?", "partyTimeline"],
+  ];
+  for (const [q, expected] of cases8) {
+    const r = route(q, ctx);
+    const got = r?.tool ?? null;
+    console.log(`  "${q}" -> ${got ?? "(none)"}`);
+    assert(got === expected, `route: "${q}" -> ${expected}`);
+  }
+
   console.log(
     `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${failures === 0 ? "tools layer verified" : "see above"}`,
   );

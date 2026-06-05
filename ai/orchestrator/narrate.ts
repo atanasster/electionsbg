@@ -64,6 +64,27 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Резултати за ${f(env, "election")}: ${env.facts.parties_over_threshold} партии над прага. Таблицата е подредена по гласове.`
         : `Results for ${f(env, "election")}: ${env.facts.parties_over_threshold} parties over threshold. Table sorted by votes.`;
+    case "regionBreakdown":
+      if (!env.facts.party)
+        return lang === "bg"
+          ? "Не намерих такава партия."
+          : "I couldn't find that party.";
+      return lang === "bg"
+        ? `${f(env, "party")} е най-силна в ${f(env, "strongest")}, най-слаба в ${f(env, "weakest")}.`
+        : `${f(env, "party")} is strongest in ${f(env, "strongest")}, weakest in ${f(env, "weakest")}.`;
+    case "electionAnomalies":
+      return lang === "bg"
+        ? `Сигнали за ${f(env, "election")}: ${f(env, "problem_sections")} проблемни секции (общо ${f(env, "total_flagged")} флага).`
+        : `Anomaly signals for ${f(env, "election")}: ${f(env, "problem_sections")} problem sections (${f(env, "total_flagged")} flags total).`;
+    case "regionHistory":
+      return lang === "bg"
+        ? `Избирателна активност в ${f(env, "oblast")} през ${f(env, "elections")} избора; последно ${f(env, "latest_turnout")}.`
+        : `Voter turnout in ${f(env, "oblast")} across ${f(env, "elections")} elections; latest ${f(env, "latest_turnout")}.`;
+    case "voteTransitions":
+      if (!env.facts.biggest) return env.title;
+      return lang === "bg"
+        ? `Преливане ${f(env, "pair")}: най-голям поток ${f(env, "biggest")}.`
+        : `Transitions ${f(env, "pair")}: biggest flow ${f(env, "biggest")}.`;
     case "compareElections":
       return lang === "bg"
         ? `Активност: ${f(env, "turnout_a")} срещу ${f(env, "turnout_b")}. Машинно гласуване: ${f(env, "machine_a")} срещу ${f(env, "machine_b")}.`
