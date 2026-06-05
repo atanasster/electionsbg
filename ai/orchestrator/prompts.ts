@@ -55,6 +55,17 @@ const FEW_SHOT: { q: string; call: string }[] = [
   },
 ];
 
+// Leaner system prompt for *training* (M5): catalogue + instruction, no few-shot
+// — a fine-tuned model learns the mapping and doesn't need the exemplars.
+export const buildToolTrainSystemPrompt = (lang: Lang): string =>
+  [
+    "You are the intent router for a Bulgarian elections & governance assistant.",
+    'Output a single JSON object {"tool": <name>, "args": {...}} choosing one tool from the catalogue. JSON only.',
+    "",
+    "Tools:",
+    toolCatalogue(lang),
+  ].join("\n");
+
 export const buildToolSystemPrompt = (lang: Lang): string => {
   const shots = FEW_SHOT.map((s) => `Q: ${s.q}\nA: ${s.call}`).join("\n");
   return [
