@@ -53,6 +53,39 @@ const serveDataDir = (): Plugin => ({
   },
 });
 
+// publicDir copies ALL of public/ (parliament prerender, articles, images, og,
+// sitemaps, llms…) into dist-ai. The chat needs almost none of it, so after the
+// build we prune dist-ai down to the build outputs + the few static assets the
+// AI index.html actually references. Keeps the deploy small + well under the
+// Firebase file ceiling. (Dev still serves all of public/ via publicDir.)
+const KEEP = new Set([
+  "index.html",
+  "assets",
+  "fonts",
+  "favicon.svg",
+  "favicon.ico",
+  "favicon-16x16.png",
+  "favicon-32x32.png",
+  "apple-touch-icon.png",
+  "icon-192.png",
+  "icon-512.png",
+  "icon-512-maskable.png",
+  "site.webmanifest",
+]);
+const pruneDistAi = (): Plugin => ({
+  name: "prune-dist-ai",
+  apply: "build",
+  closeBundle() {
+    const out = path.resolve(__dirname, "dist-ai");
+    if (!fs.existsSync(out)) return;
+    for (const entry of fs.readdirSync(out)) {
+      if (!KEEP.has(entry)) {
+        fs.rmSync(path.join(out, entry), { recursive: true, force: true });
+      }
+    }
+  },
+});
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, ".", "");
   return {
@@ -62,7 +95,7 @@ export default defineConfig(({ mode }) => {
     define: {
       "process.env.API_KEY": JSON.stringify(env.GEMINI_API_KEY),
     },
-    plugins: [react(), serveDataDir()],
+    plugins: [react(), serveDataDir(), pruneDistAi()],
     resolve: {
       alias: { "@": path.resolve(__dirname, "./src") },
     },

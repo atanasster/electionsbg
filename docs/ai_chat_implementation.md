@@ -201,14 +201,29 @@ Cross-election series tools need **no fetches** (bundled `elections.json`).
 
 ---
 
-## Deployment (Firebase multi-site) — M2
+## Deployment (Firebase multi-site) — M2 ✅ wired
 
-1. Create Hosting site `electionsbg-ai`, custom domain `ai.electionsbg.com`.
-2. `firebase.json` `hosting` → array of targets (`main`→`dist`, `ai`→`dist-ai`),
-   each with its own SPA rewrite. Keep AI build out of the main `postbuild`
-   prerender chain (no SEO prerender; stays clear of the ~84k-file deploy ceiling).
-3. `.firebaserc` target map; scripts `build:ai` + `deploy:ai`
-   (`firebase deploy --only hosting:ai`).
+The config is in place: `firebase.json` `hosting` is now an **array of two
+targets** (`main` → `dist`, `ai` → `dist-ai`), each with its own rewrite/headers/
+predeploy; `.firebaserc` maps the targets per project (`elections-bg` → main+ai,
+`electionsbg-staging` → main only). Scripts: `build:ai`, `deploy:ai`,
+`deploy:ai:fast`. The existing `deploy`/`staging` scripts are now `--only
+hosting:main`, so they're unchanged in effect. `wasm` is served `immutable`.
+
+The AI build is **slimmed**: `vite.config.ai.ts` keeps `publicDir` for dev but a
+`prune-dist-ai` plugin trims `dist-ai` after build to the app + the few static
+assets the chat references — **24 files / ~7 MB** (no parliament/articles/sitemap
+copy), well under the file ceiling.
+
+**Operator go-live steps (one-time):**
+1. In the Firebase console (project `elections-bg`), create a **Hosting site**
+   with id **`electionsbg-ai`** (must match `.firebaserc`).
+2. Deploy: `npm run deploy:ai` (predeploy runs `build:ai`).
+3. In Hosting → the `electionsbg-ai` site → **Add custom domain**
+   `ai.electionsbg.com`, then add the DNS records Firebase shows.
+4. Verify `https://ai.electionsbg.com` loads; pick a model on a WebGPU browser.
+
+(If the site id differs, change it in `.firebaserc` `targets`.)
 
 ---
 

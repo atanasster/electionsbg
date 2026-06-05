@@ -7,78 +7,115 @@
       "port": 5002
     }
   },
-  "hosting": {
-    "public": "dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**",
-      "**/.DS_Store"
-    ],
-    "redirects": [
-      { "source": "/index", "destination": "/", "type": 301 },
-      { "source": "/en/index", "destination": "/en", "type": 301 }
-    ],
-    "rewrites": [
-      {
-        "source": "/en/**",
-        "destination": "/en/index.html"
-      },
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ],
-    "headers": [
-      {
-        "source": "**/*.json",
-        "headers": [
-          { "key": "Content-Type", "value": "application/json; charset=utf-8" },
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=86400, stale-while-revalidate=604800"
-          }
-        ]
-      },
-      {
-        "source": "**/assets/**/*.@(js|css)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=31536000, immutable"
-          }
-        ]
-      },
-      {
-        "source": "**/*.@(svg|png|jpg|jpeg|webp|woff2|ttf|ico)",
-        "headers": [
-          { "key": "Cache-Control", "value": "public, max-age=2592000" }
-        ]
-      },
-      {
-        "source": "**/*.md",
-        "headers": [
-          { "key": "Content-Type", "value": "text/markdown; charset=utf-8" },
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=86400, stale-while-revalidate=604800"
-          }
-        ]
-      },
-      {
-        "source": "**/llms*.txt",
-        "headers": [
-          { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=86400, stale-while-revalidate=604800"
-          }
-        ]
-      }
-    ],
-    "predeploy": [
-      "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run lint",
-      "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run build"
-    ]
-  }
+  "hosting": [
+    {
+      "target": "main",
+      "public": "dist",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**",
+        "**/.DS_Store"
+      ],
+      "redirects": [
+        { "source": "/index", "destination": "/", "type": 301 },
+        { "source": "/en/index", "destination": "/en", "type": 301 }
+      ],
+      "rewrites": [
+        {
+          "source": "/en/**",
+          "destination": "/en/index.html"
+        },
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**/*.json",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=86400, stale-while-revalidate=604800"
+            }
+          ]
+        },
+        {
+          "source": "**/assets/**/*.@(js|css)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=31536000, immutable"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(svg|png|jpg|jpeg|webp|woff2|ttf|ico)",
+          "headers": [
+            { "key": "Cache-Control", "value": "public, max-age=2592000" }
+          ]
+        },
+        {
+          "source": "**/*.md",
+          "headers": [
+            { "key": "Content-Type", "value": "text/markdown; charset=utf-8" },
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=86400, stale-while-revalidate=604800"
+            }
+          ]
+        },
+        {
+          "source": "**/llms*.txt",
+          "headers": [
+            { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=86400, stale-while-revalidate=604800"
+            }
+          ]
+        }
+      ],
+      "predeploy": [
+        "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run lint",
+        "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run build"
+      ]
+    },
+    {
+      "target": "ai",
+      "public": "dist-ai",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**",
+        "**/.DS_Store"
+      ],
+      "rewrites": [{ "source": "**", "destination": "/index.html" }],
+      "headers": [
+        {
+          "source": "**/assets/**/*.@(js|css|wasm)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=31536000, immutable"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(svg|png|ico|woff2|webmanifest)",
+          "headers": [
+            { "key": "Cache-Control", "value": "public, max-age=2592000" }
+          ]
+        }
+      ],
+      "predeploy": [
+        "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run build:ai"
+      ]
+    }
+  ]
 }

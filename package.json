@@ -51,10 +51,12 @@
     "bucket:sync": "gsutil -m -h 'Cache-Control:public,max-age=300,must-revalidate' rsync -r -x '^_cache/.*|.*\\.DS_Store$' -j json,svg,xml,txt,html,css,md data gs://data-electionsbg-com",
     "bucket:sync:dry": "gsutil -m rsync -r -n -x '^_cache/.*|.*\\.DS_Store$' -j json,svg,xml,txt,html,css,md data gs://data-electionsbg-com",
     "stats": "npx vite-bundle-visualizer",
-    "deploy": "firebase deploy -P default",
-    "deploy:fast": "SKIP_PREDEPLOY=1 firebase deploy -P default",
-    "staging": "firebase deploy -P staging",
-    "staging:fast": "SKIP_PREDEPLOY=1 firebase deploy -P staging"
+    "deploy": "firebase deploy --only hosting:main -P default",
+    "deploy:fast": "SKIP_PREDEPLOY=1 firebase deploy --only hosting:main -P default",
+    "deploy:ai": "firebase deploy --only hosting:ai -P default",
+    "deploy:ai:fast": "SKIP_PREDEPLOY=1 firebase deploy --only hosting:ai -P default",
+    "staging": "firebase deploy --only hosting:main -P staging",
+    "staging:fast": "SKIP_PREDEPLOY=1 firebase deploy --only hosting:main -P staging"
   },
   "dependencies": {
     "@mlc-ai/web-llm": "^0.2.84",
