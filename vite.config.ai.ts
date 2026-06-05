@@ -80,7 +80,13 @@ const pruneDistAi = (): Plugin => ({
     if (!fs.existsSync(out)) return;
     for (const entry of fs.readdirSync(out)) {
       if (!KEEP.has(entry)) {
-        fs.rmSync(path.join(out, entry), { recursive: true, force: true });
+        // tolerate races (e.g. Spotlight re-creating .DS_Store mid-prune) so a
+        // deploy's predeploy build never flakes on cleanup
+        try {
+          fs.rmSync(path.join(out, entry), { recursive: true, force: true });
+        } catch {
+          /* already gone / being written — ignore */
+        }
       }
     }
   },

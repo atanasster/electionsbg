@@ -57,8 +57,16 @@ export class WebLLMProvider implements LLMProvider {
     this.state = "loading";
     try {
       const webllm = await import("@mlc-ai/web-llm");
+      // Cache weights in IndexedDB, not the Cache API. HF now serves large model
+      // shards through the Xet CDN (cas-bridge.xethub.hf.co) via a cross-origin
+      // redirect, which Cache.add() cannot store — it throws ("cache.add" error /
+      // net::ERR_FAILED) and aborts the load. IndexedDB caching uses a plain
+      // fetch + put that follows the redirect. Applies to prebuilt (Qwen) and
+      // custom HF-hosted (BgGPT/EuroLLM) models alike.
+      const baseConfig = this.model.appConfig ?? webllm.prebuiltAppConfig;
+      const appConfig = { ...baseConfig, useIndexedDBCache: true };
       this.engine = await webllm.CreateMLCEngine(this.model.id, {
-        appConfig: this.model.appConfig,
+        appConfig,
         initProgressCallback: (r: InitProgressReport) =>
           onProgress?.(Math.round((r.progress ?? 0) * 100), r.text ?? ""),
       });

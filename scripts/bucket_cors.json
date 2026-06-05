@@ -1,0 +1,16 @@
+[
+  {
+    "maxAgeSeconds": 3600,
+    "method": ["GET", "HEAD"],
+    "origin": [
+      "https://electionsbg.com",
+      "https://www.electionsbg.com",
+      "https://elections-bg.web.app",
+      "https://electionsbg-staging.web.app",
+      "https://electionsbg-ai.web.app",
+      "https://ai.electionsbg.com",
+      "http://localhost:5173"
+    ],
+    "responseHeader": ["Content-Type", "Cache-Control", "Content-Encoding"]
+  }
+]

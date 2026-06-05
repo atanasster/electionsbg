@@ -52,6 +52,7 @@
     "tr:daily-refresh": "tsx ./scripts/declarations/tr/daily_refresh.ts",
     "bucket:sync": "gsutil -m -h 'Cache-Control:public,max-age=300,must-revalidate' rsync -r -x '^_cache/.*|.*\\.DS_Store$' -j json,svg,xml,txt,html,css,md data gs://data-electionsbg-com",
     "bucket:sync:dry": "gsutil -m rsync -r -n -x '^_cache/.*|.*\\.DS_Store$' -j json,svg,xml,txt,html,css,md data gs://data-electionsbg-com",
+    "bucket:cors": "gsutil cors set scripts/bucket_cors.json gs://data-electionsbg-com",
     "stats": "npx vite-bundle-visualizer",
     "deploy": "firebase deploy --only hosting:main -P default",
     "deploy:fast": "SKIP_PREDEPLOY=1 firebase deploy --only hosting:main -P default",
