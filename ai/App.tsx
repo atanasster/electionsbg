@@ -1,5 +1,12 @@
 import { useContext, useMemo, useState } from "react";
 import { Logo } from "@/layout/header/Logo";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark, themeLight } from "@/theme/utils";
 import { Chat } from "./app/Chat";
@@ -84,40 +91,50 @@ export const App = () => {
             </span>
           </a>
           <div aria-hidden className="hidden h-6 w-px bg-border/70 sm:block" />
-          <select
-            className="max-w-[60vw] truncate rounded-full bg-background px-2.5 py-1 text-xs text-muted-foreground"
-            value={providerId}
-            onChange={(e) => selectProvider(e.target.value)}
-            title={t("Модел", "Model")}
-          >
-            <option value="rules">
-              {t("Правила (офлайн)", "Rules (offline)")}
-            </option>
-            {MODELS.map((m) => (
-              <option
-                key={m.id}
-                value={m.id}
-                disabled={!m.ready || !HAS_WEBGPU}
-              >
-                {m.label[lang]}
-                {!m.ready ? ` — ${m.sizeNote[lang]}` : ` (${m.sizeNote[lang]})`}
-              </option>
-            ))}
-          </select>
+          <Select value={providerId} onValueChange={selectProvider}>
+            <SelectTrigger
+              className="h-8 w-[11rem] rounded-full text-xs text-muted-foreground sm:w-[15rem]"
+              title={t("Модел", "Model")}
+              aria-label={t("Модел", "Model")}
+            >
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="rules">
+                {t("Правила (офлайн)", "Rules (offline)")}
+              </SelectItem>
+              {MODELS.map((m) => (
+                <SelectItem
+                  key={m.id}
+                  value={m.id}
+                  disabled={!m.ready || !HAS_WEBGPU}
+                >
+                  {m.label[lang]}
+                  {!m.ready
+                    ? ` — ${m.sizeNote[lang]}`
+                    : ` (${m.sizeNote[lang]})`}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div className="flex shrink-0 items-center gap-2 text-sm">
-          <select
-            className="rounded-md border border-input bg-background px-2 py-1.5 text-sm"
-            value={election}
-            onChange={(e) => setElection(e.target.value)}
-            title={t("Контекст: избор", "Election context")}
-          >
-            {ELECTIONS.map((name) => (
-              <option key={name} value={name}>
-                {electionFullLabel(name, lang)}
-              </option>
-            ))}
-          </select>
+          <Select value={election} onValueChange={setElection}>
+            <SelectTrigger
+              className="h-9 w-auto gap-1 text-sm"
+              title={t("Контекст: избор", "Election context")}
+              aria-label={t("Контекст: избор", "Election context")}
+            >
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {ELECTIONS.map((name) => (
+                <SelectItem key={name} value={name}>
+                  {electionFullLabel(name, lang)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <button
             className="rounded-md border border-input px-2.5 py-1.5"
             onClick={() => setLang(lang === "bg" ? "en" : "bg")}

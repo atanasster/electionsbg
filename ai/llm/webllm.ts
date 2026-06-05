@@ -88,12 +88,13 @@ export class WebLLMProvider implements LLMProvider {
 
   private async selectRoute(question: string, ctx: ToolContext) {
     // Deterministic router FIRST. It's regression-tested and reliable, whereas a
-    // small on-device model mis-routes (e.g. it picked a 12-election turnout
-    // SERIES for "turnout in 2023", which has a precise year). So a confident
-    // rule wins; the model is only consulted to fill gaps the rules decline.
-    // (Revisit this order once a stronger model like BgGPT is validated.)
+    // small on-device model mis-routes (e.g. it picked a turnout SERIES for
+    // "turnout in 2023", or machine-voting for "compare the elections"). So a
+    // confident rule always wins. Only a model explicitly trusted to route
+    // (model.routes — a Bulgarian-capable model like BgGPT) is consulted, and
+    // only to fill gaps the rules decline. The Qwen test models narrate only.
     const ruleRoute = route(question, ctx);
-    if (ruleRoute || !this.engine) return ruleRoute;
+    if (ruleRoute || !this.engine || !this.model.routes) return ruleRoute;
     try {
       const messages: ChatCompletionMessageParam[] = [
         { role: "system", content: buildToolSystemPrompt(ctx.lang) },

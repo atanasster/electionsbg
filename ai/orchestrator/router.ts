@@ -605,10 +605,35 @@ export const route = (question: string, ctx: ToolContext): Route => {
     };
   }
 
-  // 5. generic national results / "who won"
+  // 5. generic national results / "who won" / "what happened"
   if (
-    has(q, "резултат", "result", "спечели", "won", "победител", "winner", "кой")
+    has(
+      q,
+      "резултат",
+      "result",
+      "спечели",
+      "won",
+      "победител",
+      "winner",
+      "кой",
+      "какво стана",
+      "какво показа",
+      "what happened",
+      "обобщ",
+      "summary",
+      "overview",
+      "класиране",
+      "standings",
+      "разпределение",
+    )
   ) {
+    return { tool: "nationalResults", args: election ? { election } : {} };
+  }
+
+  // 6. catch-all: the question is clearly about an election but matched no
+  // specific intent -> show the national results (a sensible default) rather
+  // than declining. Keeps a weak/over-eager model from inventing a tool.
+  if (has(q, "избор", "election", "вот", " vote", "избирате")) {
     return { tool: "nationalResults", args: election ? { election } : {} };
   }
 

@@ -15,6 +15,11 @@ export type ModelOption = {
   sizeNote: { bg: string; en: string };
   ready: boolean; // false => requires the M0 compile before it can load
   appConfig?: AppConfig; // for custom (HF-hosted) models
+  // May this model SELECT tools? Only Bulgarian-capable models should. The Qwen
+  // test models mis-route (e.g. a "compare elections" question -> machine-voting
+  // series), so they narrate only and routing stays deterministic. BgGPT/EuroLLM
+  // are trusted to fill routing gaps the rules decline.
+  routes?: boolean;
 };
 
 export const MODELS: ModelOption[] = [
@@ -23,12 +28,14 @@ export const MODELS: ModelOption[] = [
     label: { bg: "Qwen2.5 1.5B (тест)", en: "Qwen2.5 1.5B (test)" },
     sizeNote: { bg: "~1.1 GB сваляне", en: "~1.1 GB download" },
     ready: true,
+    routes: false, // test model: narration only, deterministic routing
   },
   {
     id: "Qwen2.5-3B-Instruct-q4f16_1-MLC",
     label: { bg: "Qwen2.5 3B (тест)", en: "Qwen2.5 3B (test)" },
     sizeNote: { bg: "~2 GB сваляне", en: "~2 GB download" },
     ready: true,
+    routes: false, // test model: narration only, deterministic routing
   },
   {
     // BgGPT v1.0 (a google/gemma-2-2b fine-tune) — the LIGHT default. Reuses
@@ -43,6 +50,7 @@ export const MODELS: ModelOption[] = [
       en: "requires MLC build (M0)",
     },
     ready: false,
+    routes: true, // Bulgarian-capable -> may fill routing gaps the rules decline
     // appConfig: {
     //   model_list: [
     //     {
@@ -70,6 +78,7 @@ export const MODELS: ModelOption[] = [
       en: "requires MLC build (M0)",
     },
     ready: false,
+    routes: true, // Bulgarian-capable -> may fill routing gaps the rules decline
     // appConfig: {
     //   model_list: [
     //     {
@@ -97,6 +106,7 @@ export const MODELS: ModelOption[] = [
       en: "requires MLC build (M0)",
     },
     ready: false,
+    routes: true, // Bulgarian-capable -> may fill routing gaps the rules decline
     // appConfig: {
     //   model_list: [
     //     {

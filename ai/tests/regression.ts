@@ -347,6 +347,117 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 5,
   },
+  // ---- routing robustness: phrasings that previously mis-routed (esp. under a
+  //      weak model) — compare/results must never become machine-voting --------
+  {
+    q: "сравни последните избори",
+    tool: "compareElections",
+    kind: "table",
+    minRows: 4,
+  },
+  {
+    q: "сравни изборите през последните години",
+    tool: "compareElections",
+    kind: "table",
+    minRows: 4,
+  },
+  {
+    q: "compare the last elections",
+    lang: "en",
+    tool: "compareElections",
+    kind: "table",
+    minRows: 4,
+  },
+  {
+    q: "сравни 2021 и 2023",
+    tool: "compareElections",
+    kind: "table",
+    minRows: 4,
+  },
+  // general "results / what happened / overview" -> nationalResults, never machine
+  {
+    q: "какво стана на изборите",
+    tool: "nationalResults",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    q: "обобщи последните избори",
+    tool: "nationalResults",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    q: "покажи резултатите",
+    tool: "nationalResults",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    q: "election results",
+    lang: "en",
+    tool: "nationalResults",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    q: "election overview",
+    lang: "en",
+    tool: "nationalResults",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    q: "who won the latest election",
+    lang: "en",
+    tool: "nationalResults",
+    kind: "table",
+    minRows: 5,
+  },
+  // election-topic catch-all -> sensible default (results), not a decline
+  {
+    q: "изборите ме интересуват",
+    tool: "nationalResults",
+    kind: "table",
+    minRows: 5,
+  },
+  // machine voting ONLY when explicitly asked
+  {
+    q: "машинно гласуване 2023",
+    tool: "machineVoteShare",
+    facts: { machine_share: /\d/ },
+  },
+  {
+    q: "машинно гласуване през годините",
+    tool: "machineVoteSeries",
+    kind: "series",
+  },
+  {
+    q: "machine voting over time",
+    lang: "en",
+    tool: "machineVoteSeries",
+    kind: "series",
+  },
+  // turnout disambiguation
+  {
+    q: "turnout in 2021",
+    lang: "en",
+    tool: "turnout",
+    facts: { turnout: /\d/ },
+  },
+  { q: "избирателна активност", tool: "turnoutSeries", kind: "series" },
+  // party phrasings
+  {
+    q: "колко гласа взе БСП",
+    tool: "partyResult",
+    kind: "scalar",
+    facts: { party: "БСП" },
+  },
+  {
+    q: "как се представя ДПС през годините",
+    tool: "partyTimeline",
+    kind: "series",
+  },
   // ---- negative --------------------------------------------------------------
   { q: "времето е хубаво днес", tool: null },
   { q: "разкажи ми виц", tool: null },
