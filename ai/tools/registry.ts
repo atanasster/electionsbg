@@ -14,8 +14,10 @@ import {
   localMayorsWon,
   localMunicipality,
 } from "./local";
+import { census } from "./census";
 import { chmiEvents, localCouncil, localMayorRace } from "./localDetail";
 import { macroIndicator, macroOverview } from "./macro";
+import { governanceProfile, procurementBySettlement } from "./profile";
 import {
   localTaxes,
   regionIndicator,
@@ -575,6 +577,65 @@ export const TOOLS: ToolDef[] = [
     ],
     run: localTaxes,
   },
+  // ---- place ("about my area") ----------------------------------------------
+  {
+    name: "governanceProfile",
+    domain: "place",
+    description: {
+      bg: "Обобщен профил на населено място: население, кмет, съвет, активност, безработица, прозрачност, поръчки.",
+      en: "Composite place profile: population, mayor, council, turnout, unemployment, transparency, procurement.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Населено място", en: "Place" },
+      },
+    ],
+    examples: [{ bg: "Разкажи ми за Габрово", en: "Tell me about Gabrovo" }],
+    run: governanceProfile,
+  },
+  {
+    name: "census",
+    domain: "place",
+    description: {
+      bg: "Демография (Преброяване 2021): население, пол, етнически състав.",
+      en: "Demographics (Census 2021): population, gender, ethnicity.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+    ],
+    examples: [
+      { bg: "Колко жители има Видин?", en: "What's the population of Vidin?" },
+    ],
+    run: census,
+  },
+  {
+    name: "procurementBySettlement",
+    domain: "place",
+    description: {
+      bg: "Обществени поръчки, договорени в едно населено място.",
+      en: "Public procurement awarded in one settlement.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Населено място", en: "Settlement" },
+      },
+    ],
+    examples: [
+      { bg: "Колко поръчки има в Русе?", en: "How much procurement in Ruse?" },
+    ],
+    run: procurementBySettlement,
+  },
 ];
 
 export const TOOLS_BY_NAME: Record<string, ToolDef> = Object.fromEntries(
@@ -587,6 +648,7 @@ export const DOMAIN_LABELS: Record<Domain, { bg: string; en: string }> = {
   fiscal: { bg: "Публични финанси", en: "Public finance" },
   people: { bg: "Власт и хора", en: "Power & people" },
   indicators: { bg: "Показатели", en: "Indicators" },
+  place: { bg: "Моето населено място", en: "My area" },
 };
 
 export const runTool = (name: string, args: ToolArgs, ctx: ToolContext) => {

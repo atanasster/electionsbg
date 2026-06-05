@@ -283,6 +283,47 @@ const run = async () => {
     assert(got === expected, `route: "${q}" -> ${expected}`);
   }
 
+  // 12. Phase C — place profile / census / settlement procurement
+  console.log("\n=== [phase C] place tools ===");
+  const cen = (await runTool("census", { place: "Видин" }, ctxBg)) as Envelope;
+  printEnvelope(cen);
+  assert(!!cen.facts.population, "census has population");
+
+  const procS = (await runTool(
+    "procurementBySettlement",
+    { place: "Русе" },
+    ctxEn,
+  )) as Envelope;
+  printEnvelope(procS);
+  assert(
+    !!procS.facts.total || procS.kind === "scalar",
+    "procurementBySettlement runs",
+  );
+
+  const profile = (await runTool(
+    "governanceProfile",
+    { place: "Габрово" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(profile);
+  assert(
+    !!profile.facts.place && Object.keys(profile.facts).length >= 3,
+    "governanceProfile assembled multiple facts",
+  );
+
+  console.log("\n=== [router] phase C questions ===");
+  const cases4: [string, string | null][] = [
+    ["Разкажи ми за Габрово", "governanceProfile"],
+    ["Колко жители има Видин?", "census"],
+    ["Колко поръчки има в Русе?", "procurementBySettlement"],
+  ];
+  for (const [q, expected] of cases4) {
+    const r = route(q, ctx);
+    const got = r?.tool ?? null;
+    console.log(`  "${q}" -> ${got ?? "(none)"}`);
+    assert(got === expected, `route: "${q}" -> ${expected}`);
+  }
+
   console.log(
     `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${failures === 0 ? "tools layer verified" : "see above"}`,
   );

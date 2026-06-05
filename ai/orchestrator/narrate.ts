@@ -158,6 +158,48 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Местни данъци за ${f(env, "place")} — ${f(env, "indicators")} ставки спрямо средното (виж таблицата).`
         : `Local taxes for ${f(env, "place")} — ${f(env, "indicators")} rates vs the national average (see table).`;
+    case "census":
+      if (!env.facts.population) return env.title;
+      return lang === "bg"
+        ? `${f(env, "place")}: ${f(env, "population")} жители; най-голяма група: ${f(env, "largest_group")}.`
+        : `${f(env, "place")}: ${f(env, "population")} people; largest group: ${f(env, "largest_group")}.`;
+    case "procurementBySettlement":
+      if (!env.facts.total) return env.title;
+      return lang === "bg"
+        ? `Обществени поръчки в ${f(env, "place")}: ${f(env, "total")} (${f(env, "contracts")} договора); водещ възложител ${f(env, "top_buyer")}.`
+        : `Public procurement in ${f(env, "place")}: ${f(env, "total")} (${f(env, "contracts")} contracts); top buyer ${f(env, "top_buyer")}.`;
+    case "governanceProfile": {
+      const parts: string[] = [];
+      if (env.facts.population)
+        parts.push(
+          lang === "bg"
+            ? `население ${f(env, "population")}`
+            : `population ${f(env, "population")}`,
+        );
+      if (env.facts.mayor)
+        parts.push(
+          lang === "bg"
+            ? `кмет ${f(env, "mayor")}`
+            : `mayor ${f(env, "mayor")}`,
+        );
+      if (env.facts.unemployment)
+        parts.push(
+          lang === "bg"
+            ? `безработица ${f(env, "unemployment")}`
+            : `unemployment ${f(env, "unemployment")}`,
+        );
+      if (env.facts.transparency)
+        parts.push(
+          lang === "bg"
+            ? `прозрачност ${f(env, "transparency")}`
+            : `transparency ${f(env, "transparency")}`,
+        );
+      const head =
+        lang === "bg"
+          ? `Профил на ${f(env, "place")} (${f(env, "oblast")})`
+          : `${f(env, "place")} (${f(env, "oblast")})`;
+      return parts.length ? `${head}: ${parts.join(", ")}.` : head;
+    }
     default:
       return env.title;
   }

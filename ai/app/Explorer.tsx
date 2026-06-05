@@ -20,6 +20,7 @@ const DOMAIN_ORDER: Domain[] = [
   "fiscal",
   "people",
   "indicators",
+  "place",
 ];
 
 export const Explorer = ({ lang }: { lang: Lang }) => {

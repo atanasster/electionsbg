@@ -208,8 +208,12 @@ export const route = (question: string, ctx: ToolContext): Route => {
       return { tool: "budgetByFunction", args: {} };
     return { tool: "budgetOverview", args: {} };
   }
-  if (has(q, "поръчк", "procurement", "аоп", " aop"))
+  if (has(q, "поръчк", "procurement", "аоп", " aop")) {
+    const place = extractPlace(q);
+    if (place && has(q, " в ", " във ", " in "))
+      return { tool: "procurementBySettlement", args: { place } };
     return { tool: "procurementTotals", args: {} };
+  }
   if (has(q, "европейск", "еврофонд", "eu funds", "isun", "исун", "фондове"))
     return { tool: "fundsOverview", args: {} };
 
@@ -227,7 +231,43 @@ export const route = (question: string, ctx: ToolContext): Route => {
   )
     return { tool: "governments", args: {} };
 
-  // 1e. governance — place-based indicators (before macro: a named place wins)
+  // 1e. place ("about my area"): composite profile + census, before the
+  // single-metric place reads so a broad "tell me about X" gets the dashboard.
+  if (
+    has(
+      q,
+      "разкажи",
+      "профил",
+      "tell me about",
+      "about ",
+      "за моето",
+      "моят град",
+      "my area",
+      "my town",
+      "всичко за",
+    )
+  ) {
+    const place = extractPlace(q);
+    if (place) return { tool: "governanceProfile", args: { place } };
+  }
+  if (
+    has(
+      q,
+      "население",
+      "жители",
+      "демограф",
+      "етнос",
+      "етничес",
+      "census",
+      "population",
+      "inhabitants",
+    )
+  ) {
+    const place = extractPlace(q);
+    if (place) return { tool: "census", args: { place } };
+  }
+
+  // 1e2. governance — place-based indicators (before macro: a named place wins)
   if (has(q, "прозрачн", "transparency", "lisi", "интегритет")) {
     const place = extractPlace(q);
     if (place) return { tool: "transparencyScore", args: { place } };

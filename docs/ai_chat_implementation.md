@@ -10,7 +10,7 @@ The chat answers BG/EN questions end to end today via a rules-based provider
 (router → tools → template narrator) behind the `LLMProvider` interface; M3 swaps
 in WebLLM without touching the chat UI. See "Milestones".
 
-Tools (25) grouped by `domain`:
+Tools (28) grouped by `domain`:
 - **elections** (8): nationalResults, partyResult, machineVoteShare, turnout,
   compareElections, machineVoteSeries, turnoutSeries, partyTimeline
 - **local** (6): localCouncilVoteShare, localMayorsWon, localMunicipality,
@@ -20,6 +20,9 @@ Tools (25) grouped by `domain`:
 - **people** (1): governments
 - **indicators** (6): macroIndicator, macroOverview, subnationalIndicator,
   regionIndicator, transparencyScore, localTaxes
+- **place** / "my area" (3): governanceProfile (composite place-ladder
+  dashboard — population + mayor/council + turnout + unemployment + transparency
+  + local procurement in one card), census, procurementBySettlement
 
 Shared infra: `ai/tools/place.ts` resolves free-text BG/EN place names →
 obshtina/oblast/ekatte (handles Sofia synthetic `SOF`/`SOF00`, Plovdiv city vs
@@ -34,11 +37,11 @@ in both languages (e.g. "кмет на Пловдив" → mayor card, "инфл
 per-município series). Run locally with `npm run dev:ai` (5180);
 `npm run ai:harness` + `npx tsx ai/tools/place.harness.ts`.
 
-Still on the roadmap (Phase C): procurement-by-settlement, MP/official profiles,
-roll-call metrics, and the composite `governanceProfile(place)` place-ladder
-dashboard. Router note: at 25 tools the heuristic router is near its useful limit
-(topic × place × entity) — the Explorer covers the long tail, and this is added
-motivation for the M3 grammar-constrained LLM router.
+Phase C shipped: `governanceProfile`, `census`, `procurementBySettlement`.
+Still on the roadmap: MP/official profiles, roll-call metrics, EU-funds-by-place.
+Router note: at 28 tools the heuristic router is past its comfortable limit
+(topic × place × entity) — the Explorer covers the long tail, and this is the
+main motivation to land the M3 grammar-constrained LLM router next.
 
 ---
 

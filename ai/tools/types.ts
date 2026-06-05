@@ -66,7 +66,13 @@ export type ParamType =
   | "indicator";
 
 // Groups tools for the router + the Explorer dropdown.
-export type Domain = "elections" | "local" | "fiscal" | "people" | "indicators";
+export type Domain =
+  | "elections"
+  | "local"
+  | "fiscal"
+  | "people"
+  | "indicators"
+  | "place";
 
 export type ToolParam = {
   name: string;
