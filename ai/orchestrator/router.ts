@@ -186,8 +186,17 @@ export const route = (question: string, ctx: ToolContext): Route => {
     const years = Array.from(q.matchAll(/\b(20\d{2})\b/g)).map((m) => m[1]);
     const pick = (y?: string) =>
       y ? ALL_ELECTIONS.find((e) => e.name.startsWith(y))?.name : undefined;
-    const a = pick(years[0]);
-    const b = pick(years[1]) ?? ctx.election;
+    let a = pick(years[0]);
+    let b = pick(years[1]) ?? ctx.election;
+    // No explicit year ("сравни изборите последните 5 години", "compare the
+    // last few elections"): default to the two most recent elections so a bare
+    // compare still answers. A party-named compare ("сравни ... за ГЕРБ") is
+    // skipped here and falls through to partyTimeline, which fits better.
+    if (!a && !detectParty(q)) {
+      const recent = ALL_ELECTIONS.map((e) => e.name); // newest-first
+      b = ctx.election ?? recent[0];
+      a = recent.find((n) => n !== b) ?? recent[1];
+    }
     if (a) return { tool: "compareElections", args: { a, b } };
   }
 

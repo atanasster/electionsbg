@@ -97,6 +97,19 @@ const CASES: Case[] = [
     minRows: 4,
   },
   {
+    // bare compare, no explicit year -> default to the two most recent elections
+    q: "сравни изборите последните 5 години",
+    tool: "compareElections",
+    kind: "table",
+    minRows: 4,
+  },
+  {
+    // compare phrasing but a party is named -> party-over-time, not compareElections
+    q: "сравни изборите последните 5 години за ГЕРБ",
+    tool: "partyTimeline",
+    kind: "series",
+  },
+  {
     q: "Къде е силна ГЕРБ?",
     tool: "regionBreakdown",
     kind: "table",
