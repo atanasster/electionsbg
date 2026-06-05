@@ -33,6 +33,7 @@ export type EnvelopeKind = "scalar" | "table" | "series";
 
 export type Envelope = {
   tool: string;
+  domain?: Domain;
   kind: EnvelopeKind;
   title: string; // resolved to ctx.lang
   subtitle?: string;
@@ -57,7 +58,15 @@ export type ParamType =
   | "count"
   | "party"
   | "metric"
-  | "region";
+  | "region"
+  | "cycle"
+  | "place"
+  | "oblast"
+  | "year"
+  | "indicator";
+
+// Groups tools for the router + the Explorer dropdown.
+export type Domain = "elections" | "local" | "fiscal" | "people" | "indicators";
 
 export type ToolParam = {
   name: string;
@@ -83,6 +92,7 @@ export type ToolRun = (
 
 export type ToolDef = {
   name: string;
+  domain: Domain;
   description: { bg: string; en: string };
   params: ToolParam[];
   // example utterances (bg/en) used for few-shot prompting + the harness

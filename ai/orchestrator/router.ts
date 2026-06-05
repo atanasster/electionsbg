@@ -6,6 +6,8 @@
 // the primary, and this stays as the offline fallback.
 
 import { ALL_ELECTIONS } from "../tools/dataset";
+import { resolveMacroKey } from "../tools/macro";
+import { resolveSubnatKey } from "../tools/placesGov";
 import type { ToolArgs, ToolContext } from "../tools/types";
 
 export type Route = { tool: string; args: ToolArgs } | null;
@@ -74,6 +76,74 @@ const TREND = [
   "elections",
 ];
 
+// Words to strip when extracting a place name from a question. Includes party
+// tokens so a party reference is never mistaken for a município.
+const PLACE_STOP = new Set([
+  "кой",
+  "коя",
+  "кое",
+  "кои",
+  "е",
+  "кмет",
+  "кметът",
+  "кмета",
+  "кметове",
+  "на",
+  "в",
+  "във",
+  "община",
+  "общината",
+  "общински",
+  "общинският",
+  "общинските",
+  "местни",
+  "местните",
+  "избори",
+  "избора",
+  "съвет",
+  "съвета",
+  "съвети",
+  "съветите",
+  "спечели",
+  "колко",
+  "партия",
+  "партии",
+  "mayor",
+  "of",
+  "the",
+  "who",
+  "is",
+  "in",
+  "at",
+  "council",
+  "won",
+  "show",
+  "results",
+  "what",
+  "какъв",
+  "каква",
+  "какво",
+  "покажи",
+  "герб",
+  "бсп",
+  "дпс",
+  "итн",
+  "възраждане",
+  "меч",
+  "дб",
+  "пп",
+  "величие",
+]);
+
+const extractPlace = (q: string): string | undefined => {
+  const words = q
+    .replace(/[?.,!„“”"'`]/g, " ")
+    .split(/\s+/)
+    .filter((w) => w && !PLACE_STOP.has(w));
+  const cand = words.join(" ").trim();
+  return cand.length > 1 ? cand : undefined;
+};
+
 export const route = (question: string, ctx: ToolContext): Route => {
   const q = question.toLowerCase().trim();
   if (!q) return null;
@@ -95,6 +165,91 @@ export const route = (question: string, ctx: ToolContext): Route => {
     const b = pick(years[1]) ?? ctx.election;
     if (a) return { tool: "compareElections", args: { a, b } };
   }
+
+  // 1b. local elections (municipal) — before party/turnout so a local question
+  // mentioning a party isn't routed to the parliamentary tools.
+  const isLocal = has(
+    q,
+    "местни",
+    "местн",
+    "общинск",
+    "кмет",
+    "mayor",
+    "municipal",
+    "local election",
+  );
+  // extraordinary (partial/new) local elections feed
+  if (has(q, "частичн", "извънредн", "partial elec", "chmi")) {
+    const place = extractPlace(q);
+    return { tool: "chmiEvents", args: place ? { place } : {} };
+  }
+  if (isLocal) {
+    if (has(q, "кметове", "кметск", "mayors won"))
+      return { tool: "localMayorsWon", args: {} };
+    const place = extractPlace(q);
+    // council: per-place full breakdown if a place is named, else national share
+    if (has(q, "съвет", "council") && place)
+      return { tool: "localCouncil", args: { place } };
+    if (has(q, "съвет", "council", "гласове"))
+      return { tool: "localCouncilVoteShare", args: {} };
+    if (has(q, "кандидат", "candidates", "ran for") && place)
+      return { tool: "localMayorRace", args: { place } };
+    if (has(q, "кмет", "mayor", "община", "municipality") && place)
+      return { tool: "localMunicipality", args: { place } };
+    if (place) return { tool: "localMunicipality", args: { place } };
+    return { tool: "localMayorsWon", args: {} };
+  }
+
+  // 1c. governance — public finance
+  if (has(q, "бюджет", "budget")) {
+    if (
+      has(q, "функц", "cofog", "за какво", "spent on", "spend on", "разход по")
+    )
+      return { tool: "budgetByFunction", args: {} };
+    return { tool: "budgetOverview", args: {} };
+  }
+  if (has(q, "поръчк", "procurement", "аоп", " aop"))
+    return { tool: "procurementTotals", args: {} };
+  if (has(q, "европейск", "еврофонд", "eu funds", "isun", "исун", "фондове"))
+    return { tool: "fundsOverview", args: {} };
+
+  // 1d. governance — people
+  if (
+    has(
+      q,
+      "правителств",
+      "government",
+      "кабинет",
+      "премиер",
+      "prime minister",
+      " pm",
+    )
+  )
+    return { tool: "governments", args: {} };
+
+  // 1e. governance — place-based indicators (before macro: a named place wins)
+  if (has(q, "прозрачн", "transparency", "lisi", "интегритет")) {
+    const place = extractPlace(q);
+    if (place) return { tool: "transparencyScore", args: { place } };
+  }
+  if (has(q, "данъц", "данък", "такс", " tax", "taxes")) {
+    const place = extractPlace(q);
+    if (place) return { tool: "localTaxes", args: { place } };
+  }
+  if (
+    resolveSubnatKey(q) &&
+    has(q, " в ", " във ", " in ", "община", "municipality")
+  ) {
+    const place = extractPlace(q);
+    if (place)
+      return { tool: "subnationalIndicator", args: { place, indicator: q } };
+  }
+
+  // 1f. governance — macro indicators (national)
+  const macroKey = resolveMacroKey(q);
+  if (macroKey) return { tool: "macroIndicator", args: { indicator: q } };
+  if (has(q, "икономик", "economy", "макро", "macro"))
+    return { tool: "macroOverview", args: {} };
 
   // 2. machine voting
   if (isMachine) {

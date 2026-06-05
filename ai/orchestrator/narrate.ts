@@ -68,6 +68,96 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Активност: ${f(env, "turnout_a")} срещу ${f(env, "turnout_b")}. Машинно гласуване: ${f(env, "machine_a")} срещу ${f(env, "machine_b")}.`
         : `Turnout: ${f(env, "turnout_a")} vs ${f(env, "turnout_b")}. Machine voting: ${f(env, "machine_a")} vs ${f(env, "machine_b")}.`;
+    case "localCouncilVoteShare":
+      return lang === "bg"
+        ? `Водеща сила за общинските съвети (${f(env, "cycle")}): ${f(env, "leader")}.`
+        : `Top force in the municipal councils (${f(env, "cycle")}): ${f(env, "leader")}.`;
+    case "localMayorsWon":
+      return lang === "bg"
+        ? `Най-много кметове (${f(env, "cycle")}): ${f(env, "leader")}.`
+        : `Most mayors won (${f(env, "cycle")}): ${f(env, "leader")}.`;
+    case "localMunicipality":
+      if (!env.facts.municipality)
+        return lang === "bg"
+          ? "Не намерих такава община."
+          : "I couldn't find that municipality.";
+      return lang === "bg"
+        ? `Кмет на ${f(env, "municipality")}: ${f(env, "mayor")} (${f(env, "mayor_pct")}). Водеща сила в съвета: ${f(env, "top_council_party")}. Активност: ${f(env, "turnout")}.`
+        : `Mayor of ${f(env, "municipality")}: ${f(env, "mayor")} (${f(env, "mayor_pct")}). Top council party: ${f(env, "top_council_party")}. Turnout: ${f(env, "turnout")}.`;
+    case "budgetOverview":
+      return lang === "bg"
+        ? `Бюджет ${f(env, "year")}: приходи ${f(env, "revenue")}, разходи ${f(env, "expenditure")}, салдо ${f(env, "balance")}.`
+        : `Budget ${f(env, "year")}: revenue ${f(env, "revenue")}, expenditure ${f(env, "expenditure")}, balance ${f(env, "balance")}.`;
+    case "budgetByFunction":
+      return lang === "bg"
+        ? `Най-голям разход по функция (${f(env, "year")}): ${f(env, "top_function")}. Общо: ${f(env, "total")}.`
+        : `Largest spending function (${f(env, "year")}): ${f(env, "top_function")}. Total: ${f(env, "total")}.`;
+    case "procurementTotals":
+      return lang === "bg"
+        ? `Обществени поръчки: ${f(env, "contracts")} договора за ${f(env, "total_value")}; свързани с депутати: ${f(env, "mp_connected_value")}.`
+        : `Public procurement: ${f(env, "contracts")} contracts worth ${f(env, "total_value")}; MP-connected: ${f(env, "mp_connected_value")}.`;
+    case "fundsOverview":
+      return lang === "bg"
+        ? `Европейски средства: договорени ${f(env, "contracted")}, изплатени ${f(env, "paid")}. Топ бенефициент: ${f(env, "top")}.`
+        : `EU funds: ${f(env, "contracted")} contracted, ${f(env, "paid")} paid. Top beneficiary: ${f(env, "top")}.`;
+    case "governments":
+      return lang === "bg"
+        ? `${f(env, "count")} правителства от 2005. Настоящо: ${f(env, "current_pm")} (${f(env, "current_parties")}).`
+        : `${f(env, "count")} governments since 2005. Current: ${f(env, "current_pm")} (${f(env, "current_parties")}).`;
+    case "macroIndicator":
+      return lang === "bg"
+        ? `${f(env, "indicator")}: последно ${f(env, "latest_value")} (${f(env, "latest_period")}).`
+        : `${f(env, "indicator")}: latest ${f(env, "latest_value")} (${f(env, "latest_period")}).`;
+    case "macroOverview":
+      return lang === "bg"
+        ? "Ключови макроикономически показатели — виж таблицата."
+        : "Key macro indicators — see the table.";
+    case "localMayorRace":
+      if (!env.facts.municipality)
+        return lang === "bg"
+          ? "Не намерих такава община."
+          : "I couldn't find that municipality.";
+      return lang === "bg"
+        ? `Кмет на ${f(env, "municipality")}: ${f(env, "winner")} (${f(env, "winner_pct")}), от ${f(env, "candidates")} кандидати.`
+        : `Mayor of ${f(env, "municipality")}: ${f(env, "winner")} (${f(env, "winner_pct")}), of ${f(env, "candidates")} candidates.`;
+    case "localCouncil":
+      if (!env.facts.municipality)
+        return lang === "bg"
+          ? "Не намерих такава община."
+          : "I couldn't find that municipality.";
+      return lang === "bg"
+        ? `Общински съвет на ${f(env, "municipality")}: ${f(env, "total_seats")} места, първа сила ${f(env, "leader")}.`
+        : `${f(env, "municipality")} council: ${f(env, "total_seats")} seats, top force ${f(env, "leader")}.`;
+    case "chmiEvents":
+      return lang === "bg"
+        ? `Извънредни местни избори: ${f(env, "total")} събития, последно на ${f(env, "latest")}.`
+        : `Extraordinary local elections: ${f(env, "total")} events, latest on ${f(env, "latest")}.`;
+    case "subnationalIndicator":
+      if (!env.facts.indicator)
+        return lang === "bg"
+          ? "Няма данни за това място."
+          : "No data for that place.";
+      return lang === "bg"
+        ? `${f(env, "indicator")} в ${f(env, "place")}: ${f(env, "latest_value")} (${f(env, "latest_year")}).`
+        : `${f(env, "indicator")} in ${f(env, "place")}: ${f(env, "latest_value")} (${f(env, "latest_year")}).`;
+    case "regionIndicator":
+      if (!env.facts.indicator)
+        return lang === "bg"
+          ? "Няма данни за тази област."
+          : "No data for that oblast.";
+      return lang === "bg"
+        ? `${f(env, "indicator")} (${f(env, "oblast")}): ${f(env, "latest_value")} (${f(env, "latest_year")}).`
+        : `${f(env, "indicator")} (${f(env, "oblast")}): ${f(env, "latest_value")} (${f(env, "latest_year")}).`;
+    case "transparencyScore":
+      if (env.facts.composite == null) return env.title;
+      return lang === "bg"
+        ? `Прозрачност (LISI) на ${f(env, "place")}: ${f(env, "composite")} — ${f(env, "national_rank")}-о място (средно ${f(env, "national_average")}).`
+        : `Transparency (LISI) for ${f(env, "place")}: ${f(env, "composite")} — rank ${f(env, "national_rank")} (avg ${f(env, "national_average")}).`;
+    case "localTaxes":
+      if (!env.facts.place) return env.title;
+      return lang === "bg"
+        ? `Местни данъци за ${f(env, "place")} — ${f(env, "indicators")} ставки спрямо средното (виж таблицата).`
+        : `Local taxes for ${f(env, "place")} — ${f(env, "indicators")} rates vs the national average (see table).`;
     default:
       return env.title;
   }

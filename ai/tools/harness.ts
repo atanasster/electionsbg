@@ -137,6 +137,152 @@ const run = async () => {
     assert(got === expected, `route: "${q}" -> ${expected}`);
   }
 
+  // 8. new cross-domain tools
+  console.log("\n=== [new domains] tool runs ===");
+  const local = (await runTool("localCouncilVoteShare", {}, ctxEn)) as Envelope;
+  printEnvelope(local);
+  assert((local.rows?.length ?? 0) > 0, "localCouncilVoteShare returns rows");
+
+  const muni = (await runTool(
+    "localMunicipality",
+    { place: "Пловдив" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(muni);
+  assert(muni.kind === "scalar", "localMunicipality is scalar");
+
+  const budget = (await runTool("budgetOverview", {}, ctxEn)) as Envelope;
+  printEnvelope(budget);
+  assert((budget.rows?.length ?? 0) === 4, "budgetOverview has 4 metric rows");
+
+  const cofog = (await runTool("budgetByFunction", {}, ctxEn)) as Envelope;
+  printEnvelope(cofog);
+  assert((cofog.rows?.length ?? 0) > 0, "budgetByFunction returns rows");
+
+  const proc = (await runTool("procurementTotals", {}, ctxEn)) as Envelope;
+  printEnvelope(proc);
+  assert(!!proc.facts.contracts, "procurementTotals has contract count");
+
+  const funds = (await runTool("fundsOverview", {}, ctxEn)) as Envelope;
+  printEnvelope(funds);
+  assert((funds.rows?.length ?? 0) > 0, "fundsOverview returns rows");
+
+  const govs = (await runTool("governments", {}, ctxEn)) as Envelope;
+  printEnvelope(govs);
+  assert((govs.rows?.length ?? 0) > 0, "governments returns rows");
+
+  const macro = (await runTool(
+    "macroIndicator",
+    { indicator: "инфлация" },
+    ctxEn,
+  )) as Envelope;
+  printEnvelope(macro);
+  assert(
+    (macro.series?.[0].points.length ?? 0) > 0,
+    "macroIndicator returns a series",
+  );
+
+  // 9. router: new-domain questions
+  console.log("\n=== [router] new-domain questions ===");
+  const cases2: [string, string | null][] = [
+    ["Кой е кметът на Пловдив?", "localMunicipality"],
+    ["Колко кмета спечели ГЕРБ на местните избори?", "localMayorsWon"],
+    ["Кой спечели общинските съвети?", "localCouncilVoteShare"],
+    ["Какъв е държавният бюджет?", "budgetOverview"],
+    ["За какво се харчи бюджетът?", "budgetByFunction"],
+    ["Колко са обществените поръчки?", "procurementTotals"],
+    ["Кой получава европейски средства?", "fundsOverview"],
+    ["Кои са правителствата от 2005?", "governments"],
+    ["Каква е инфлацията?", "macroIndicator"],
+    ["Как е икономиката?", "macroOverview"],
+  ];
+  for (const [q, expected] of cases2) {
+    const r = route(q, ctx);
+    const got = r?.tool ?? null;
+    console.log(`  "${q}" -> ${got ?? "(none)"}`);
+    assert(got === expected, `route: "${q}" -> ${expected}`);
+  }
+
+  // 10. Phase B — place-based tools
+  console.log("\n=== [phase B] place-based tools ===");
+  const mayorRace = (await runTool(
+    "localMayorRace",
+    { place: "Варна" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(mayorRace);
+  assert(
+    (mayorRace.rows?.length ?? 0) > 0,
+    "localMayorRace returns candidates",
+  );
+
+  const council = (await runTool(
+    "localCouncil",
+    { place: "Бургас" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(council);
+  assert((council.rows?.length ?? 0) > 0, "localCouncil returns parties");
+
+  const chmi = (await runTool("chmiEvents", {}, ctxEn)) as Envelope;
+  printEnvelope(chmi);
+  assert((chmi.rows?.length ?? 0) > 0, "chmiEvents returns events");
+
+  const subnat = (await runTool(
+    "subnationalIndicator",
+    { place: "Сливен", indicator: "безработица" },
+    ctxEn,
+  )) as Envelope;
+  printEnvelope(subnat);
+  assert(
+    (subnat.series?.[0].points.length ?? 0) > 0,
+    "subnationalIndicator returns a series",
+  );
+
+  const region = (await runTool(
+    "regionIndicator",
+    { oblast: "Варна", indicator: "бвп" },
+    ctxEn,
+  )) as Envelope;
+  printEnvelope(region);
+  assert(
+    (region.series?.[0].points.length ?? 0) > 0,
+    "regionIndicator returns a series",
+  );
+
+  const lisi = (await runTool(
+    "transparencyScore",
+    { place: "Русе" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(lisi);
+  assert(lisi.facts.composite != null, "transparencyScore has a composite");
+
+  const taxes = (await runTool(
+    "localTaxes",
+    { place: "Пловдив" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(taxes);
+  assert((taxes.rows?.length ?? 0) > 0, "localTaxes returns rows");
+
+  // 11. router: Phase B questions
+  console.log("\n=== [router] phase B questions ===");
+  const cases3: [string, string | null][] = [
+    ["Кои бяха кандидатите за кмет на Варна?", "localMayorRace"],
+    ["Какъв е общинският съвет на Бургас?", "localCouncil"],
+    ["Има ли частични местни избори?", "chmiEvents"],
+    ["Каква е безработицата в Сливен?", "subnationalIndicator"],
+    ["Колко прозрачна е община Русе?", "transparencyScore"],
+    ["Какви са данъците в Пловдив?", "localTaxes"],
+  ];
+  for (const [q, expected] of cases3) {
+    const r = route(q, ctx);
+    const got = r?.tool ?? null;
+    console.log(`  "${q}" -> ${got ?? "(none)"}`);
+    assert(got === expected, `route: "${q}" -> ${expected}`);
+  }
+
   console.log(
     `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${failures === 0 ? "tools layer verified" : "see above"}`,
   );

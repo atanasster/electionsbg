@@ -4,11 +4,23 @@
 
 import { useState } from "react";
 import { electionNames, latestElection } from "../tools/dataset";
-import { runTool, TOOLS, TOOLS_BY_NAME } from "../tools/registry";
-import type { Envelope, Lang, ToolArgs } from "../tools/types";
+import {
+  DOMAIN_LABELS,
+  runTool,
+  TOOLS,
+  TOOLS_BY_NAME,
+} from "../tools/registry";
+import type { Domain, Envelope, Lang, ToolArgs } from "../tools/types";
 import { AnswerView } from "../render/AnswerView";
 
 const ELECTIONS = electionNames();
+const DOMAIN_ORDER: Domain[] = [
+  "elections",
+  "local",
+  "fiscal",
+  "people",
+  "indicators",
+];
 
 export const Explorer = ({ lang }: { lang: Lang }) => {
   const [toolName, setToolName] = useState(TOOLS[0].name);
@@ -55,10 +67,14 @@ export const Explorer = ({ lang }: { lang: Lang }) => {
               setEnv(null);
             }}
           >
-            {TOOLS.map((t) => (
-              <option key={t.name} value={t.name}>
-                {t.name} — {t.description[lang]}
-              </option>
+            {DOMAIN_ORDER.map((d) => (
+              <optgroup key={d} label={DOMAIN_LABELS[d][lang]}>
+                {TOOLS.filter((t) => t.domain === d).map((t) => (
+                  <option key={t.name} value={t.name}>
+                    {t.name} — {t.description[lang]}
+                  </option>
+                ))}
+              </optgroup>
             ))}
           </select>
         </label>

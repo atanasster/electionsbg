@@ -5,15 +5,40 @@ grounded in the site's own pre-processed JSON. Free to run (no backend, no
 per-query cost): a small open model runs in the visitor's browser; all numbers
 come from deterministic TypeScript, never from the model.
 
-Status: **M1 done + working chat shipped on the deterministic path.** The chat
-answers BG/EN questions end to end today via a rules-based provider (router →
-tools → template narrator) behind the `LLMProvider` interface; M3 swaps in WebLLM
-without touching the chat UI. See "Milestones".
+Status: **Working chat shipped on the deterministic path, across 5 domains.**
+The chat answers BG/EN questions end to end today via a rules-based provider
+(router → tools → template narrator) behind the `LLMProvider` interface; M3 swaps
+in WebLLM without touching the chat UI. See "Milestones".
 
-Verified: 8 tools, node harness (incl. router) ALL PASS, typecheck + lint clean,
-`build:ai` OK, browser conversation renders line chart + comparison table in both
-languages. Run locally with `npm run dev:ai` (port 5180); `npm run ai:harness`
-for the correctness harness.
+Tools (25) grouped by `domain`:
+- **elections** (8): nationalResults, partyResult, machineVoteShare, turnout,
+  compareElections, machineVoteSeries, turnoutSeries, partyTimeline
+- **local** (6): localCouncilVoteShare, localMayorsWon, localMunicipality,
+  localMayorRace, localCouncil, chmiEvents
+- **fiscal** (4): budgetOverview, budgetByFunction (COFOG), procurementTotals,
+  fundsOverview
+- **people** (1): governments
+- **indicators** (6): macroIndicator, macroOverview, subnationalIndicator,
+  regionIndicator, transparencyScore, localTaxes
+
+Shared infra: `ai/tools/place.ts` resolves free-text BG/EN place names →
+obshtina/oblast/ekatte (handles Sofia synthetic `SOF`/`SOF00`, Plovdiv city vs
+province, ambiguous names). `ai/tools/localDataset.ts` = local-cycle registry +
+fetchers.
+
+Verified: node harness + place harness ALL PASS (every tool runs against real
+data + router maps ~40 BG/EN questions across all 5 domains), typecheck + repo
+eslint clean, `build:ai` OK, browser conversation renders charts/tables/scalars
+in both languages (e.g. "кмет на Пловдив" → mayor card, "инфлация" → line chart,
+"данъците в Пловдив" → tax table vs national avg, "безработицата в Сливен" →
+per-município series). Run locally with `npm run dev:ai` (5180);
+`npm run ai:harness` + `npx tsx ai/tools/place.harness.ts`.
+
+Still on the roadmap (Phase C): procurement-by-settlement, MP/official profiles,
+roll-call metrics, and the composite `governanceProfile(place)` place-ladder
+dashboard. Router note: at 25 tools the heuristic router is near its useful limit
+(topic × place × entity) — the Explorer covers the long tail, and this is added
+motivation for the M3 grammar-constrained LLM router.
 
 ---
 

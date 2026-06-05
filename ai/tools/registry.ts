@@ -1,15 +1,38 @@
 // The tool registry: the single surface the orchestrator (and the dropdown
 // harness) sees. The grammar-constrained LLM picks a tool name + args from here.
+// Tools are grouped by `domain` for routing + the Explorer dropdown.
 
+import {
+  budgetByFunction,
+  budgetOverview,
+  fundsOverview,
+  procurementTotals,
+} from "./fiscal";
+import { governments } from "./govpeople";
+import {
+  localCouncilVoteShare,
+  localMayorsWon,
+  localMunicipality,
+} from "./local";
+import { chmiEvents, localCouncil, localMayorRace } from "./localDetail";
+import { macroIndicator, macroOverview } from "./macro";
+import {
+  localTaxes,
+  regionIndicator,
+  subnationalIndicator,
+  transparencyScore,
+} from "./placesGov";
 import { compareElections, machineVoteShare, turnout } from "./metrics";
 import { nationalResults, partyResult } from "./national";
 import { partyTimeline } from "./parties";
 import { machineVoteSeries, turnoutSeries } from "./series";
-import type { ToolArgs, ToolContext, ToolDef } from "./types";
+import type { Domain, ToolArgs, ToolContext, ToolDef } from "./types";
 
 export const TOOLS: ToolDef[] = [
+  // ---- parliamentary elections ----------------------------------------------
   {
     name: "nationalResults",
+    domain: "elections",
     description: {
       bg: "Национални резултати за един избор: гласове, %, мандати по партия.",
       en: "National results for one election: votes, %, seats per party.",
@@ -20,21 +43,21 @@ export const TOOLS: ToolDef[] = [
         type: "election",
         description: {
           bg: "Дата на избора (по подразбиране последния).",
-          en: "Election date (defaults to the latest).",
+          en: "Election date (defaults to latest).",
         },
       },
     ],
     examples: [
       {
         bg: "Какви са резултатите от последните избори?",
-        en: "What were the results of the latest election?",
+        en: "Results of the latest election?",
       },
-      { bg: "Покажи резултатите от 2022", en: "Show the 2022 results" },
     ],
     run: nationalResults,
   },
   {
     name: "partyResult",
+    domain: "elections",
     description: {
       bg: "Резултатът на една партия за един избор.",
       en: "One party's result in one election.",
@@ -54,15 +77,12 @@ export const TOOLS: ToolDef[] = [
     ],
     examples: [
       { bg: "Колко гласа взе ГЕРБ?", en: "How many votes did GERB get?" },
-      {
-        bg: "Какъв е резултатът на ПП-ДБ на последните избори?",
-        en: "What was PP-DB's result in the latest election?",
-      },
     ],
     run: partyResult,
   },
   {
     name: "machineVoteShare",
+    domain: "elections",
     description: {
       bg: "Дял на машинното гласуване за един избор.",
       en: "Machine-voting share for one election.",
@@ -75,15 +95,13 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     examples: [
-      {
-        bg: "Какъв беше делът на машинното гласуване през 2023?",
-        en: "What was the machine-voting share in 2023?",
-      },
+      { bg: "Машинно гласуване през 2023?", en: "Machine voting in 2023?" },
     ],
     run: machineVoteShare,
   },
   {
     name: "turnout",
+    domain: "elections",
     description: {
       bg: "Избирателна активност за един избор.",
       en: "Voter turnout for one election.",
@@ -98,16 +116,17 @@ export const TOOLS: ToolDef[] = [
     examples: [
       {
         bg: "Каква беше активността на последните избори?",
-        en: "What was the turnout in the latest election?",
+        en: "Turnout in the latest election?",
       },
     ],
     run: turnout,
   },
   {
     name: "compareElections",
+    domain: "elections",
     description: {
-      bg: "Сравнение на два избора (активност, машинно гласуване, първа партия).",
-      en: "Compare two elections (turnout, machine voting, top party).",
+      bg: "Сравнение на два избора.",
+      en: "Compare two elections.",
     },
     params: [
       {
@@ -119,25 +138,18 @@ export const TOOLS: ToolDef[] = [
       {
         name: "b",
         type: "election",
-        description: {
-          bg: "Втори избор (по подразбиране последния)",
-          en: "Second election (defaults to latest)",
-        },
+        description: { bg: "Втори избор", en: "Second election" },
       },
     ],
-    examples: [
-      {
-        bg: "Сравни изборите от 2022 и 2024",
-        en: "Compare the 2022 and 2024 elections",
-      },
-    ],
+    examples: [{ bg: "Сравни 2022 и 2024", en: "Compare 2022 and 2024" }],
     run: compareElections,
   },
   {
     name: "machineVoteSeries",
+    domain: "elections",
     description: {
       bg: "Дял на машинното гласуване през последните N избора (тренд).",
-      en: "Machine-voting share across the last N elections (trend).",
+      en: "Machine-voting share across the last N elections.",
     },
     params: [
       {
@@ -149,18 +161,18 @@ export const TOOLS: ToolDef[] = [
     ],
     examples: [
       {
-        bg: "Какъв е процентът машинно гласуване в последните 7 избора?",
-        en: "What's the machine-voting % in the last 7 elections?",
+        bg: "Машинно гласуване в последните 7 избора?",
+        en: "Machine voting in the last 7 elections?",
       },
-      { bg: "Тренд на машинния вот", en: "Machine vote trend" },
     ],
     run: machineVoteSeries,
   },
   {
     name: "turnoutSeries",
+    domain: "elections",
     description: {
       bg: "Избирателна активност през последните N избора (тренд).",
-      en: "Voter turnout across the last N elections (trend).",
+      en: "Voter turnout across the last N elections.",
     },
     params: [
       {
@@ -180,9 +192,10 @@ export const TOOLS: ToolDef[] = [
   },
   {
     name: "partyTimeline",
+    domain: "elections",
     description: {
       bg: "Дял на една партия през всички избори (с проследяване на преименувания).",
-      en: "One party's vote share across all elections (lineage-aware).",
+      en: "One party's vote share across all elections.",
     },
     params: [
       {
@@ -197,15 +210,384 @@ export const TOOLS: ToolDef[] = [
         bg: "Как се представя ГЕРБ през годините?",
         en: "How has GERB performed over the years?",
       },
-      { bg: "Покажи историята на БСП", en: "Show BSP's history" },
     ],
     run: partyTimeline,
+  },
+  // ---- local elections ------------------------------------------------------
+  {
+    name: "localCouncilVoteShare",
+    domain: "local",
+    description: {
+      bg: "Общински съвети — гласове по партия (национално).",
+      en: "Municipal council vote share by party (national).",
+    },
+    params: [
+      {
+        name: "cycle",
+        type: "cycle",
+        description: {
+          bg: "Местен цикъл (по подразбиране последния)",
+          en: "Local cycle (defaults to latest)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кой спечели общинските съвети?",
+        en: "Who won the municipal councils?",
+      },
+    ],
+    run: localCouncilVoteShare,
+  },
+  {
+    name: "localMayorsWon",
+    domain: "local",
+    description: {
+      bg: "Спечелени кметски места по партия (национално).",
+      en: "Mayors won by party (national).",
+    },
+    params: [
+      {
+        name: "cycle",
+        type: "cycle",
+        description: { bg: "Местен цикъл", en: "Local cycle" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко кмета спечели ГЕРБ на местните избори?",
+        en: "How many mayors did GERB win locally?",
+      },
+    ],
+    run: localMayorsWon,
+  },
+  {
+    name: "localMunicipality",
+    domain: "local",
+    description: {
+      bg: "Резултати за една община: кмет, общински съвет, активност.",
+      en: "One município: elected mayor, council, turnout.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+      {
+        name: "cycle",
+        type: "cycle",
+        description: { bg: "Местен цикъл", en: "Local cycle" },
+      },
+    ],
+    examples: [
+      { bg: "Кой е кметът на Пловдив?", en: "Who is the mayor of Plovdiv?" },
+    ],
+    run: localMunicipality,
+  },
+  {
+    name: "localMayorRace",
+    domain: "local",
+    description: {
+      bg: "Пълно класиране на кандидатите за кмет в община.",
+      en: "Full mayoral candidate ranking in a município.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+      {
+        name: "cycle",
+        type: "cycle",
+        description: { bg: "Местен цикъл", en: "Local cycle" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои бяха кандидатите за кмет на Варна?",
+        en: "Who ran for mayor of Varna?",
+      },
+    ],
+    run: localMayorRace,
+  },
+  {
+    name: "localCouncil",
+    domain: "local",
+    description: {
+      bg: "Състав на общинския съвет по партии (места).",
+      en: "Municipal council seats by party.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+      {
+        name: "cycle",
+        type: "cycle",
+        description: { bg: "Местен цикъл", en: "Local cycle" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какъв е общинският съвет на Бургас?",
+        en: "What's the Burgas council?",
+      },
+    ],
+    run: localCouncil,
+  },
+  {
+    name: "chmiEvents",
+    domain: "local",
+    description: {
+      bg: "Извънредни (частични/нови) местни избори — хронология.",
+      en: "Extraordinary (partial/new) local elections feed.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        description: { bg: "Община (по избор)", en: "Municipality (optional)" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Има ли частични местни избори?",
+        en: "Any partial local elections?",
+      },
+    ],
+    run: chmiEvents,
+  },
+  // ---- fiscal ---------------------------------------------------------------
+  {
+    name: "budgetOverview",
+    domain: "fiscal",
+    description: {
+      bg: "Държавен бюджет — приходи, разходи, салдо за година.",
+      en: "State budget — revenue, expenditure, balance for a year.",
+    },
+    params: [
+      {
+        name: "year",
+        type: "year",
+        description: { bg: "Бюджетна година", en: "Fiscal year" },
+      },
+    ],
+    examples: [
+      { bg: "Какъв е държавният бюджет?", en: "What's the state budget?" },
+    ],
+    run: budgetOverview,
+  },
+  {
+    name: "budgetByFunction",
+    domain: "fiscal",
+    description: {
+      bg: "Бюджетни разходи по функция (COFOG).",
+      en: "Budget spending by function (COFOG).",
+    },
+    params: [
+      { name: "year", type: "year", description: { bg: "Година", en: "Year" } },
+    ],
+    examples: [
+      { bg: "За какво се харчи бюджетът?", en: "What is the budget spent on?" },
+    ],
+    run: budgetByFunction,
+  },
+  {
+    name: "procurementTotals",
+    domain: "fiscal",
+    description: {
+      bg: "Обществени поръчки — общи суми и брой (АОП).",
+      en: "Public procurement totals (AOP).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко са обществените поръчки?",
+        en: "How much public procurement is there?",
+      },
+    ],
+    run: procurementTotals,
+  },
+  {
+    name: "fundsOverview",
+    domain: "fiscal",
+    description: {
+      bg: "Европейски средства — топ бенефициенти (ИСУН).",
+      en: "EU funds — top beneficiaries (ISUN).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Кой получава най-много европейски средства?",
+        en: "Who gets the most EU funds?",
+      },
+    ],
+    run: fundsOverview,
+  },
+  // ---- people ---------------------------------------------------------------
+  {
+    name: "governments",
+    domain: "people",
+    description: {
+      bg: "Правителства от 2005 — премиери, периоди, партии.",
+      en: "Governments since 2005 — PMs, periods, parties.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Кои са правителствата от 2005?",
+        en: "What governments since 2005?",
+      },
+    ],
+    run: governments,
+  },
+  // ---- indicators -----------------------------------------------------------
+  {
+    name: "macroIndicator",
+    domain: "indicators",
+    description: {
+      bg: "Макроикономически показател през времето (инфлация, БВП, дълг…).",
+      en: "A macro indicator over time (inflation, GDP, debt…).",
+    },
+    params: [
+      {
+        name: "indicator",
+        type: "indicator",
+        description: { bg: "Показател", en: "Indicator" },
+      },
+      {
+        name: "n",
+        type: "count",
+        description: { bg: "Брой периоди", en: "Number of periods" },
+      },
+    ],
+    examples: [{ bg: "Каква е инфлацията?", en: "What's inflation?" }],
+    run: macroIndicator,
+  },
+  {
+    name: "macroOverview",
+    domain: "indicators",
+    description: {
+      bg: "Преглед на ключови макроикономически показатели.",
+      en: "Snapshot of key macro indicators.",
+    },
+    params: [],
+    examples: [{ bg: "Как е икономиката?", en: "How is the economy doing?" }],
+    run: macroOverview,
+  },
+  {
+    name: "subnationalIndicator",
+    domain: "indicators",
+    description: {
+      bg: "Показател по община през времето (безработица, ДЗИ, миграция).",
+      en: "A per-município indicator over time (unemployment, DZI, migration).",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+      {
+        name: "indicator",
+        type: "indicator",
+        description: { bg: "Показател", en: "Indicator" },
+      },
+    ],
+    examples: [
+      { bg: "Каква е безработицата в Сливен?", en: "Unemployment in Sliven?" },
+    ],
+    run: subnationalIndicator,
+  },
+  {
+    name: "regionIndicator",
+    domain: "indicators",
+    description: {
+      bg: "Показател по област (NUTS3): БВП на човек, население, миграция.",
+      en: "A per-oblast (NUTS3) indicator: GDP/capita, population, migration.",
+    },
+    params: [
+      {
+        name: "oblast",
+        type: "oblast",
+        required: true,
+        description: { bg: "Област", en: "Oblast" },
+      },
+      {
+        name: "indicator",
+        type: "indicator",
+        description: { bg: "Показател", en: "Indicator" },
+      },
+    ],
+    examples: [
+      { bg: "БВП на човек във Варна?", en: "GDP per capita in Varna oblast?" },
+    ],
+    run: regionIndicator,
+  },
+  {
+    name: "transparencyScore",
+    domain: "indicators",
+    description: {
+      bg: "Индекс на местна прозрачност (LISI) за областен център.",
+      en: "Local transparency index (LISI) for an oblast centre.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+    ],
+    examples: [
+      { bg: "Колко прозрачна е община Русе?", en: "How transparent is Ruse?" },
+    ],
+    run: transparencyScore,
+  },
+  {
+    name: "localTaxes",
+    domain: "indicators",
+    description: {
+      bg: "Местни данъци и такси за община спрямо средното.",
+      en: "Local tax rates for a município vs the national average.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какви са данъците в Пловдив?",
+        en: "What are the taxes in Plovdiv?",
+      },
+    ],
+    run: localTaxes,
   },
 ];
 
 export const TOOLS_BY_NAME: Record<string, ToolDef> = Object.fromEntries(
   TOOLS.map((t) => [t.name, t]),
 );
+
+export const DOMAIN_LABELS: Record<Domain, { bg: string; en: string }> = {
+  elections: { bg: "Парламентарни избори", en: "Parliamentary elections" },
+  local: { bg: "Местни избори", en: "Local elections" },
+  fiscal: { bg: "Публични финанси", en: "Public finance" },
+  people: { bg: "Власт и хора", en: "Power & people" },
+  indicators: { bg: "Показатели", en: "Indicators" },
+};
 
 export const runTool = (name: string, args: ToolArgs, ctx: ToolContext) => {
   const tool = TOOLS_BY_NAME[name];
