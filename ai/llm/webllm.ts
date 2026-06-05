@@ -26,6 +26,15 @@ export const webgpuSupported = (): boolean =>
   "gpu" in navigator &&
   (navigator as unknown as { gpu?: unknown }).gpu != null;
 
+// Does the text use mostly the script the requested language expects? (bg ->
+// Cyrillic, en -> Latin). Used to reject wrong-language model narration.
+const matchesLang = (text: string, lang: Lang): boolean => {
+  const cyr = (text.match(/[Ѐ-ӿ]/g) ?? []).length;
+  const lat = (text.match(/[A-Za-z]/g) ?? []).length;
+  if (cyr + lat === 0) return true; // numbers/punctuation only — accept
+  return lang === "bg" ? cyr >= lat : lat >= cyr;
+};
+
 const clarify = (lang: Lang): string =>
   lang === "bg"
     ? "Не съм сигурен какво питате. Опитайте напр.: „машинно гласуване в последните 7 избора“ или „кметът на Пловдив“."
@@ -78,7 +87,13 @@ export class WebLLMProvider implements LLMProvider {
   }
 
   private async selectRoute(question: string, ctx: ToolContext) {
-    if (!this.engine) return route(question, ctx);
+    // Deterministic router FIRST. It's regression-tested and reliable, whereas a
+    // small on-device model mis-routes (e.g. it picked a 12-election turnout
+    // SERIES for "turnout in 2023", which has a precise year). So a confident
+    // rule wins; the model is only consulted to fill gaps the rules decline.
+    // (Revisit this order once a stronger model like BgGPT is validated.)
+    const ruleRoute = route(question, ctx);
+    if (ruleRoute || !this.engine) return ruleRoute;
     try {
       const messages: ChatCompletionMessageParam[] = [
         { role: "system", content: buildToolSystemPrompt(ctx.lang) },
@@ -91,10 +106,9 @@ export class WebLLMProvider implements LLMProvider {
         response_format: { type: "json_object", schema: toolSelectionSchema() },
       });
       const content = res.choices?.[0]?.message?.content ?? "";
-      // model-chosen route, or fall back to the deterministic router
-      return parseToolCall(content) ?? route(question, ctx);
+      return parseToolCall(content) ?? ruleRoute;
     } catch {
-      return route(question, ctx);
+      return ruleRoute;
     }
   }
 
@@ -115,7 +129,11 @@ export class WebLLMProvider implements LLMProvider {
         max_tokens: 160,
       });
       const text = res.choices?.[0]?.message?.content?.trim();
-      return text && text.length > 0 ? text : template;
+      // Language guard: small models often answer in English even when asked in
+      // Bulgarian. The template narration is always in the right language, so if
+      // the model's output isn't predominantly in the requested script, use it.
+      if (text && text.length > 0 && matchesLang(text, lang)) return text;
+      return template;
     } catch {
       return template;
     }

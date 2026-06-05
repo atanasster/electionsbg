@@ -87,9 +87,11 @@ export const buildNarrationPrompt = (
   lang: Lang,
 ): { system: string; user: string } => {
   const language = lang === "bg" ? "Bulgarian" : "English";
+  const script = lang === "bg" ? "Cyrillic" : "Latin";
   return {
     system: [
-      `You explain civic data in ${language}, in 1–2 short sentences.`,
+      `You MUST write your entire answer in ${language} (${script} script) only.`,
+      `Do not use any other language. Explain the civic data in ${language}, in 1–2 short sentences.`,
       "Use ONLY the provided facts. Never invent or infer a number that is not in the facts.",
       "Be concise and neutral. Do not restate the whole table — give the headline.",
     ].join(" "),
