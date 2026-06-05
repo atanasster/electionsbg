@@ -1,18 +1,20 @@
 // The chat surface. Provider-agnostic: it calls provider.respond() and renders
 // the returned narration + Envelope. Swapping HeuristicProvider for a WebLLM
-// provider (M3) requires no change here.
+// provider requires no change here.
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Check, Copy, Download, FileText, Plus } from "lucide-react";
 import type { LLMProvider } from "../llm/provider";
 import { AnswerView } from "../render/AnswerView";
-import type { Envelope, Lang } from "../tools/types";
+import type { Lang } from "../tools/types";
+import {
+  conversationToMarkdown,
+  downloadMarkdown,
+  downloadPdf,
+  type ChatMsg,
+} from "./export";
 
-type Msg = {
-  id: number;
-  role: "user" | "assistant";
-  text: string;
-  env?: Envelope | null;
-};
+type Msg = ChatMsg & { id: number };
 
 const STARTERS: { bg: string; en: string }[] = [
   {
@@ -46,8 +48,17 @@ export const Chat = ({
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
+  const [copied, setCopied] = useState(false);
   const idRef = useRef(0);
+  const endRef = useRef<HTMLDivElement>(null);
   const nextId = () => (idRef.current += 1);
+
+  // keep the latest answer in view as the conversation grows
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages, busy]);
+
+  const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
 
   const send = async (text: string) => {
     const q = text.trim();
@@ -63,37 +74,71 @@ export const Chat = ({
     setBusy(false);
   };
 
+  const copyAll = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        conversationToMarkdown(messages, lang),
+      );
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      /* clipboard blocked — ignore */
+    }
+  };
+
+  const hasChat = messages.length > 0;
+  const toolBtn =
+    "inline-flex items-center gap-1 rounded-md border border-input px-2 py-1 hover:bg-muted";
+
   return (
     <div className="flex flex-col gap-4">
-      {messages.length === 0 && (
-        <div className="rounded-xl border border-dashed border-border p-5">
-          <p className="mb-3 text-sm text-muted-foreground">
-            {lang === "bg" ? "Опитайте въпрос:" : "Try a question:"}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {STARTERS.map((s) => (
-              <button
-                key={s.en}
-                onClick={() => send(s[lang])}
-                className="rounded-full border border-input bg-card px-3 py-1.5 text-sm hover:bg-muted"
-              >
-                {s[lang]}
-              </button>
-            ))}
-          </div>
+      {hasChat && (
+        <div className="flex flex-wrap items-center justify-end gap-2 text-xs text-muted-foreground">
+          <button className={toolBtn} onClick={() => setMessages([])}>
+            <Plus className="size-3.5" /> {t("Нов разговор", "New chat")}
+          </button>
+          <button className={toolBtn} onClick={copyAll}>
+            {copied ? (
+              <Check className="size-3.5" />
+            ) : (
+              <Copy className="size-3.5" />
+            )}
+            {copied ? t("Копирано", "Copied") : t("Копирай", "Copy")}
+          </button>
+          <button
+            className={toolBtn}
+            onClick={() => downloadMarkdown(messages, lang)}
+          >
+            <FileText className="size-3.5" /> .md
+          </button>
+          <button
+            className={toolBtn}
+            onClick={() => void downloadPdf(messages, lang)}
+          >
+            <Download className="size-3.5" /> .pdf
+          </button>
         </div>
+      )}
+
+      {!hasChat && (
+        <p className="pt-2 text-sm text-muted-foreground">
+          {t(
+            "Питайте за резултати, активност, партии, бюджет, депутати, местни избори…",
+            "Ask about results, turnout, parties, budget, MPs, local elections…",
+          )}
+        </p>
       )}
 
       <div className="flex flex-col gap-4">
         {messages.map((m) =>
           m.role === "user" ? (
-            <div key={m.id} className="self-end max-w-[85%]">
+            <div key={m.id} className="max-w-[85%] self-end">
               <div className="rounded-2xl rounded-br-sm bg-primary px-4 py-2 text-sm text-primary-foreground">
                 {m.text}
               </div>
             </div>
           ) : (
-            <div key={m.id} className="self-start w-full max-w-[95%] space-y-3">
+            <div key={m.id} className="w-full max-w-[95%] space-y-3 self-start">
               <div className="rounded-2xl rounded-bl-sm bg-muted px-4 py-2 text-sm text-foreground">
                 {m.text}
               </div>
@@ -104,34 +149,53 @@ export const Chat = ({
         {busy && (
           <div className="self-start text-sm text-muted-foreground">…</div>
         )}
+        <div ref={endRef} />
       </div>
 
-      <form
-        className="sticky bottom-4 flex gap-2"
-        onSubmit={(e) => {
-          e.preventDefault();
-          send(input);
-        }}
-      >
-        <input
-          className="flex-1 rounded-full border border-input bg-background px-4 py-2.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
-          placeholder={
-            lang === "bg"
-              ? "Попитайте за изборите…"
-              : "Ask about the elections…"
-          }
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          disabled={busy}
-        />
-        <button
-          type="submit"
-          className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground disabled:opacity-50"
-          disabled={busy || !input.trim()}
+      <div className="sticky bottom-0 -mx-2 bg-card/85 px-2 pb-3 pt-2 backdrop-blur sm:-mx-4 sm:px-4">
+        <form
+          className="flex gap-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            send(input);
+          }}
         >
-          {lang === "bg" ? "Изпрати" : "Send"}
-        </button>
-      </form>
+          <input
+            className="flex-1 rounded-full border border-input bg-background px-4 py-2.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            placeholder={t(
+              "Попитайте за изборите…",
+              "Ask about the elections…",
+            )}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            disabled={busy}
+          />
+          <button
+            type="submit"
+            className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground disabled:opacity-50"
+            disabled={busy || !input.trim()}
+          >
+            {t("Изпрати", "Send")}
+          </button>
+        </form>
+        {/* sample prompts live under the composer so they persist after the
+            first question (don't vanish like an empty-state) */}
+        <div className="mt-2 flex flex-wrap items-center gap-1.5">
+          <span className="text-[11px] text-muted-foreground">
+            {t("Опитайте:", "Try:")}
+          </span>
+          {STARTERS.map((s) => (
+            <button
+              key={s.en}
+              onClick={() => send(s[lang])}
+              disabled={busy}
+              className="rounded-full border border-input bg-card px-2.5 py-1 text-[11px] text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-50"
+            >
+              {s[lang]}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
