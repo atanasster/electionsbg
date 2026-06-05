@@ -6,7 +6,17 @@ import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended"
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  { ignores: ["dist", "dist.old-*"] },
+  {
+    ignores: [
+      "dist",
+      "dist.old-*",
+      "dist-ai",
+      "ai/m0/.venv",
+      "ai/m0/dist",
+      "ai/m0/models",
+      "ai/m5/dataset",
+    ],
+  },
   {
     extends: [
       js.configs.recommended,

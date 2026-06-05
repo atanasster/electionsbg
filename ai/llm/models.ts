@@ -31,7 +31,9 @@ export const MODELS: ModelOption[] = [
     ready: true,
   },
   {
-    // INSAIT BgGPT (Gemma-2-2.6B based). Fill in once compiled to MLC + hosted.
+    // INSAIT BgGPT (a google/gemma-2-2b fine-tune) — reuses WebLLM's prebuilt
+    // Gemma-2 WebGPU library, so M0 only converts + hosts the weights (no
+    // compile). After `hf upload`, flip ready:true and uncomment appConfig.
     id: "BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC",
     label: { bg: "BgGPT 2.6B", en: "BgGPT 2.6B" },
     sizeNote: {
@@ -40,11 +42,15 @@ export const MODELS: ModelOption[] = [
     },
     ready: false,
     // appConfig: {
-    //   model_list: [{
-    //     model: "https://huggingface.co/<you>/BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC",
-    //     model_id: "BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC",
-    //     model_lib: "https://huggingface.co/<you>/.../gemma-2-2b-it-q4f16_1-ctx4k.wasm",
-    //   }],
+    //   model_list: [
+    //     {
+    //       model:
+    //         "https://huggingface.co/atanasster/BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC",
+    //       model_id: "BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC",
+    //       model_lib:
+    //         "https://raw.githubusercontent.com/mlc-ai/binary-mlc-llm-libs/main/web-llm-models/v0_2_84/base/gemma-2-2b-it-q4f16_1_cs1k-webgpu.wasm",
+    //     },
+    //   ],
     // },
   },
   {

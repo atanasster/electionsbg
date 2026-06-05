@@ -1,110 +1,110 @@
-# M0 — compile BgGPT / EuroLLM to MLC (WebGPU) for the in-browser chat
+# M0 — build BgGPT (and optionally EuroLLM) for the in-browser chat
 
-The M3 chat already runs an in-browser model through `@mlc-ai/web-llm`. The
-generic test models (Qwen2.5) work today but route Bulgarian poorly. This step
-produces **Bulgarian-native** model builds — **BgGPT** (INSAIT, Gemma-2-2.6B) and
-**EuroLLM-1.7B** — in the MLC/WebGPU format WebLLM needs, hosts them on
-HuggingFace, and wires them into the model picker.
+Produces the MLC artifacts WebLLM needs and hosts them on HuggingFace so the
+header model picker can run a **Bulgarian-native** model instead of the Qwen test
+model. Runs on your machine.
 
-This runs **on your machine** (needs a GPU for a comfortable convert/compile, a
-HuggingFace account, and the MLC toolchain). The app repo only ships the recipe.
+**Key shortcut:** BgGPT is a `google/gemma-2-2b` fine-tune, so it **reuses
+WebLLM's prebuilt Gemma-2 WebGPU library** — you only convert + host the weights.
+**No Emscripten, no GPU compile.** (EuroLLM has no prebuilt lib and would need a
+compile; do BgGPT first.)
 
----
+> **⚠️ As of 2026-06, the macOS MLC pip wheels are out-of-sync upstream**
+> (`mlc-ai` and `mlc-llm` nightlies built against different TVM ABIs →
+> `import mlc_llm` fails with a `libtvm.dylib` symbol error). **Use the Colab
+> path: [`ai/m0/colab.md`](./colab.md)** — free GPU, in-sync CUDA wheels, ~15 min.
+> The local steps below work once the mac wheels are fixed (`ai/m0/.venv` is
+> already set up).
 
-## 1. Prerequisites
+## 0. One-time setup (already done on this machine)
+
+A Python venv with the MLC toolchain + HF CLI lives at `ai/m0/.venv` (gitignored):
 
 ```bash
-# Python 3.11 env (conda or venv)
-conda create -n mlc python=3.11 -y && conda activate mlc
-
-# MLC-LLM + TVM nightly (pick the wheel for your platform):
-#   CUDA 12.3:
-python -m pip install --pre -U -f https://mlc.ai/wheels \
-  mlc-llm-nightly-cu123 mlc-ai-nightly-cu123
-#   Apple Silicon (Metal):
-#   python -m pip install --pre -U -f https://mlc.ai/wheels mlc-llm-nightly mlc-ai-nightly
-#   CPU only (slow convert; compile still fine):
-#   python -m pip install --pre -U -f https://mlc.ai/wheels mlc-llm-nightly-cpu mlc-ai-nightly-cpu
-
-python -m pip install -U "huggingface_hub[cli]"
-huggingface-cli login   # needs a token with read (download) + write (upload)
+python3 -m venv ai/m0/.venv
+ai/m0/.venv/bin/pip install -U "huggingface_hub"
+ai/m0/.venv/bin/pip install --pre -U -f https://mlc.ai/wheels \
+  mlc-llm-nightly-cpu mlc-ai-nightly-cpu     # macOS arm64 (Metal) wheels
 ```
 
-Compiling the **WebGPU `.wasm`** also needs **Emscripten**:
+Activate it for the session:
 
 ```bash
-git clone https://github.com/emscripten-core/emsdk.git
-cd emsdk && ./emsdk install latest && ./emsdk activate latest
-source ./emsdk_env.sh   # do this in the same shell you run the build from
-cd -
+source ai/m0/.venv/bin/activate
 ```
 
-Sanity check: `mlc_llm --help` and `emcc -v` both work.
+## 1. Log in to HuggingFace
 
-> BgGPT is a gated model on some mirrors — accept the license on the
-> [model page](https://huggingface.co/INSAIT-Institute/BgGPT-Gemma-2-2.6B-IT-v1.0)
-> first so `huggingface-cli download` succeeds.
-
-## 2. Build
+Confirm your account email first (HF won't let you push otherwise), then create a
+**write** token at https://huggingface.co/settings/tokens and:
 
 ```bash
-# from the repo root, with the mlc env + emsdk_env.sh sourced:
-ai/m0/build-model.sh bggpt   <your-hf-username>
-ai/m0/build-model.sh eurollm <your-hf-username>
+hf auth login          # paste the write token
 ```
 
-Each run does: download source → `convert_weight` (q4f16_1) → `gen_config`
-(chat template) → `compile --device webgpu` (the `.wasm`). Artifacts land in
-`ai/m0/dist/<MLC_ID>/` (gitignored — these are large).
-
-## 3. Host on HuggingFace
-
-The script prints the exact command; e.g.:
+## 2. Build BgGPT (no compile)
 
 ```bash
-huggingface-cli upload <you>/BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC \
+ai/m0/build-model.sh bggpt atanasster
+```
+
+This downloads BgGPT, runs `convert_weight` (q4f16_1) + `gen_config`
+(`gemma_instruction`, prefill-chunk 1024 to match the prebuilt lib), and prints
+the upload command + the `models.ts` snippet. Output → `ai/m0/dist/<MLC_ID>/`
+(gitignored). Takes ~10–20 min, mostly the download + quantize; runs on
+CPU/Metal.
+
+## 3. Host the weights on HuggingFace
+
+```bash
+hf upload atanasster/BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC \
   ai/m0/dist/BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC . --repo-type model
 ```
 
-HF hosting is free and is where WebLLM expects MLC model repos, so serving the
-weights costs the project nothing.
+HF hosting is free and is where WebLLM expects MLC repos — zero serving cost.
 
-## 4. Enable in the app
+## 4. Enable it in the app
 
-In `ai/llm/models.ts`, set the model's `ready: true` and add the `appConfig`
-block (the script prints a ready-to-paste snippet). Then:
+In `ai/llm/models.ts`, on the BgGPT entry: set `ready: true` and uncomment the
+`appConfig` (already pre-filled with your repo + the prebuilt Gemma-2 `model_lib`
+URL pinned to web-llm 0.2.84). Then:
 
 ```bash
-npm run build:ai          # confirms it still builds
-npm run dev:ai            # pick "BgGPT 2.6B" in the header on a WebGPU browser
+npm run build:ai
+npm run dev:ai        # pick "BgGPT 2.6B" in the header (WebGPU browser)
 ```
 
-Smoke test in the browser:
-- the model downloads once (progress bar), then caches in IndexedDB
-- ask "Колко гласа взе ДПС на последните избори?" — a Bulgarian-native model
-  should now route to `partyResult` (the Qwen test model mis-routed this)
-- ask "машинно гласуване в последните 7 избора" — should render the line chart
+Smoke test: ask "Колко гласа взе ДПС на последните избори?" — BgGPT should route
+to `partyResult` (the Qwen test model mis-routed this). Then deploy:
+`npm run deploy:ai`.
 
-If routing is still shaky, that's the cue for **M5** (LoRA fine-tune on synthetic
-`question → {tool,args}` pairs from the registry), which makes a small model
-reliable for this fixed tool surface.
+## EuroLLM (optional, needs Emscripten)
+
+EuroLLM-1.7B has no prebuilt lib, so it needs a `mlc_llm compile --device webgpu`,
+which requires Emscripten:
+
+```bash
+git clone https://github.com/emscripten-core/emsdk.git && cd emsdk
+./emsdk install latest && ./emsdk activate latest && source ./emsdk_env.sh && cd -
+ai/m0/build-model.sh eurollm atanasster   # convert + gen_config + compile
+hf upload atanasster/EuroLLM-1.7B-Instruct-q4f16_1-MLC ai/m0/dist/EuroLLM-1.7B-Instruct-q4f16_1-MLC . --repo-type model
+```
+
+Then wire its entry in `models.ts` (the script prints the snippet, with the local
+compiled `.wasm` as `model_lib`).
 
 ## Troubleshooting
 
-- **`emcc not found` during compile** — `emsdk_env.sh` isn't sourced in this shell.
-- **OOM on convert** — use a smaller `--quantization` is not the issue (q4f16_1 is
-  already 4-bit); convert on a box with more RAM/VRAM, or use the CPU wheel.
-- **Wrong chat template / garbled output** — check the model card's chat template.
-  BgGPT → `gemma_instruction`; EuroLLM → try `llama-3`, else inspect its
-  `tokenizer_config.json` `chat_template` and pick the closest MLC conv-template
-  (`mlc_llm gen_config --help` lists them).
-- **404 loading in the browser** — the `model_lib` URL must point at the exact
-  `.wasm` filename in your HF repo (use the `…/resolve/main/<file>.wasm` form).
-- **Model too big / slow first load** — prefer EuroLLM-1.7B as the lighter default
-  and offer BgGPT-2.6B as the higher-quality option.
+- **`hf: command not found`** — activate the venv (`source ai/m0/.venv/bin/activate`).
+- **download 401/403 on BgGPT** — accept the license on the model page while
+  logged in, then retry.
+- **WebLLM "model lib mismatch" in the browser** — the prefill-chunk-size / quant
+  must match the prebuilt lib (q4f16_1, cs1k=1024). Rebuild with the flags above.
+- **OOM during convert** — close other apps; q4f16_1 is already 4-bit.
+- If the prebuilt Gemma-2 lib URL 404s, bump the `v0_2_84` segment to the
+  installed `@mlc-ai/web-llm` version.
 
 ## Files
 
-- `build-model.sh` — the parameterized convert/compile recipe (bggpt | eurollm)
-- `dist/` — build output (gitignored)
-- `models/` — local source checkouts (gitignored)
+- `build-model.sh` — convert/(compile)/host recipe (`bggpt` | `eurollm`)
+- `.venv/`, `dist/`, `models/` — toolchain + build output + source (gitignored)

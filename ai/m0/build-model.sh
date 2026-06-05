@@ -1,38 +1,48 @@
 #!/usr/bin/env bash
 #
-# M0 — compile a Bulgarian-native model to MLC (WebGPU) for the in-browser chat.
+# M0 — produce the MLC artifacts a Bulgarian-native model needs for the
+# in-browser chat (@mlc-ai/web-llm).
 #
-# Produces the quantized weights + the WebGPU `.wasm` model library that
-# @mlc-ai/web-llm loads. Run on a machine with the MLC toolchain installed
-# (see ai/m0/README.md). The compile/convert run on your side — this repo only
-# ships the recipe.
+#   bggpt   : NO compile needed. BgGPT is a google/gemma-2-2b fine-tune, so it
+#             reuses WebLLM's prebuilt Gemma-2 WebGPU library — you only convert
+#             + host the quantized weights. (Emscripten NOT required.)
+#   eurollm : has no prebuilt lib -> needs `mlc_llm compile` (Emscripten).
 #
 # Usage:
-#   ai/m0/build-model.sh bggpt   [HF_USER]
-#   ai/m0/build-model.sh eurollm [HF_USER]
-#
-# HF_USER (optional) is your HuggingFace username, used only to print the upload
-# command + the models.ts snippet at the end.
+#   source ai/m0/.venv/bin/activate    # (or the script auto-detects the venv)
+#   ai/m0/build-model.sh bggpt   <HF_USER>
+#   ai/m0/build-model.sh eurollm <HF_USER>
 
 set -euo pipefail
 
 MODEL_KEY="${1:-}"
 HF_USER="${2:-<your-hf-username>}"
 QUANT="q4f16_1"
-CTX="4096"
+
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+# prefer the local venv if present; mlc_llm is invoked as `python -m mlc_llm`
+# (the wheels don't install a console script)
+PY="python3"
+[ -x "${ROOT}/.venv/bin/python" ] && PY="${ROOT}/.venv/bin/python"
+HF="hf"
+[ -x "${ROOT}/.venv/bin/hf" ] && HF="${ROOT}/.venv/bin/hf"
+
+# WebLLM v0.2.84 prebuilt Gemma-2-2B WebGPU library (pinned to the installed
+# @mlc-ai/web-llm version). BgGPT reuses this — no compile.
+GEMMA2_LIB="https://raw.githubusercontent.com/mlc-ai/binary-mlc-llm-libs/main/web-llm-models/v0_2_84/base/gemma-2-2b-it-q4f16_1_cs1k-webgpu.wasm"
 
 case "$MODEL_KEY" in
   bggpt)
     HF_SRC="INSAIT-Institute/BgGPT-Gemma-2-2.6B-IT-v1.0"
     MLC_ID="BgGPT-Gemma-2-2.6B-IT-${QUANT}-MLC"
-    # BgGPT is Gemma-2 based -> the gemma chat template
     CONV_TEMPLATE="gemma_instruction"
+    REUSE_LIB="$GEMMA2_LIB"      # <- skips compile
     ;;
   eurollm)
     HF_SRC="utter-project/EuroLLM-1.7B-Instruct"
     MLC_ID="EuroLLM-1.7B-Instruct-${QUANT}-MLC"
-    # EuroLLM is Llama-architecture; confirm/adjust the template vs the model card
-    CONV_TEMPLATE="llama-3"
+    CONV_TEMPLATE="llama-3"       # confirm vs the model card if output is off
+    REUSE_LIB=""                  # <- needs `mlc_llm compile` (Emscripten)
     ;;
   *)
     echo "usage: $0 bggpt|eurollm [HF_USER]" >&2
@@ -40,68 +50,62 @@ case "$MODEL_KEY" in
     ;;
 esac
 
-command -v mlc_llm >/dev/null 2>&1 || {
-  echo "ERROR: mlc_llm not found. See ai/m0/README.md for installation." >&2
-  exit 1
-}
+"$PY" -c "import mlc_llm" >/dev/null 2>&1 || { echo "ERROR: mlc_llm not importable. macOS pip wheels are currently out-of-sync — use the Colab path (ai/m0/colab.md)." >&2; exit 1; }
+command -v "$HF" >/dev/null 2>&1 || { echo "ERROR: hf (huggingface_hub) not found. See ai/m0/README.md." >&2; exit 1; }
 
-ROOT="$(cd "$(dirname "$0")" && pwd)"
-SRC_DIR="${ROOT}/models/${MODEL_KEY}"        # local HF checkout
-OUT_DIR="${ROOT}/dist/${MLC_ID}"             # MLC artifacts (weights + config + wasm)
+SRC_DIR="${ROOT}/models/${MODEL_KEY}"
+OUT_DIR="${ROOT}/dist/${MLC_ID}"
 WASM="${MLC_ID}-webgpu.wasm"
-
-echo "==> model:        ${HF_SRC}"
-echo "==> mlc id:       ${MLC_ID}"
-echo "==> quantization: ${QUANT}  template: ${CONV_TEMPLATE}  ctx: ${CTX}"
 mkdir -p "${SRC_DIR}" "${OUT_DIR}"
 
-# 0. fetch the source model (skips if already present)
+echo "==> model ${HF_SRC}  ->  ${MLC_ID}  (${QUANT}, ${CONV_TEMPLATE})"
+
+# 0. fetch source model
 if [ ! -f "${SRC_DIR}/config.json" ]; then
-  echo "==> [0/4] downloading ${HF_SRC} ..."
-  huggingface-cli download "${HF_SRC}" --local-dir "${SRC_DIR}"
+  echo "==> [0] download ${HF_SRC}"
+  "$HF" download "${HF_SRC}" --local-dir "${SRC_DIR}"
 fi
 
-# 1. quantize/convert weights -> MLC format
-echo "==> [1/4] convert_weight ..."
-mlc_llm convert_weight "${SRC_DIR}" --quantization "${QUANT}" -o "${OUT_DIR}"
+# 1. quantize weights
+echo "==> [1] convert_weight"
+"$PY" -m mlc_llm convert_weight "${SRC_DIR}" --quantization "${QUANT}" -o "${OUT_DIR}"
 
-# 2. generate the chat config + copy tokenizer
-echo "==> [2/4] gen_config ..."
-mlc_llm gen_config "${SRC_DIR}" \
+# 2. chat config + tokenizer. prefill-chunk-size 1024 matches the prebuilt
+#    gemma-2 'cs1k' library so the reused lib is compatible.
+echo "==> [2] gen_config"
+"$PY" -m mlc_llm gen_config "${SRC_DIR}" \
   --quantization "${QUANT}" \
   --conv-template "${CONV_TEMPLATE}" \
-  --context-window-size "${CTX}" \
+  --prefill-chunk-size 1024 \
+  --context-window-size 4096 \
   -o "${OUT_DIR}"
 
-# 3. compile the WebGPU model library (.wasm)
-echo "==> [3/4] compile (webgpu) ..."
-mlc_llm compile "${OUT_DIR}/mlc-chat-config.json" \
-  --device webgpu \
-  -o "${OUT_DIR}/${WASM}"
+# 3. compile only when there's no prebuilt lib to reuse
+if [ -z "${REUSE_LIB}" ]; then
+  command -v emcc >/dev/null 2>&1 || { echo "ERROR: emcc (Emscripten) required to compile ${MODEL_KEY}. See ai/m0/README.md." >&2; exit 1; }
+  echo "==> [3] compile (webgpu)"
+  "$PY" -m mlc_llm compile "${OUT_DIR}/mlc-chat-config.json" --device webgpu -o "${OUT_DIR}/${WASM}"
+  MODEL_LIB_URL="https://huggingface.co/${HF_USER}/${MLC_ID}/resolve/main/${WASM}"
+else
+  echo "==> [3] skipped — reusing prebuilt Gemma-2 library"
+  MODEL_LIB_URL="${REUSE_LIB}"
+fi
 
-echo "==> [4/4] done. Artifacts in ${OUT_DIR}"
+echo "==> done. Artifacts: ${OUT_DIR}"
 echo
-echo "Next:"
-echo "  # upload weights + wasm to a HuggingFace model repo"
-echo "  huggingface-cli upload ${HF_USER}/${MLC_ID} ${OUT_DIR} . --repo-type model"
+echo "Upload the weights to HuggingFace:"
+echo "  ${HF} upload ${HF_USER}/${MLC_ID} ${OUT_DIR} . --repo-type model"
 echo
-echo "Then enable it in ai/llm/models.ts (set ready:true, add appConfig):"
+echo "Then enable in ai/llm/models.ts (set ready:true + this appConfig):"
 cat <<SNIPPET
 
-  {
-    id: "${MLC_ID}",
-    label: { bg: "${MODEL_KEY}", en: "${MODEL_KEY}" },
-    sizeNote: { bg: "локален модел", en: "on-device model" },
-    ready: true,
     appConfig: {
       model_list: [
         {
-          model: "https://huggingface.co/${HF_USER}/${MLC_ID}/resolve/main",
+          model: "https://huggingface.co/${HF_USER}/${MLC_ID}",
           model_id: "${MLC_ID}",
-          model_lib:
-            "https://huggingface.co/${HF_USER}/${MLC_ID}/resolve/main/${WASM}",
+          model_lib: "${MODEL_LIB_URL}",
         },
       ],
     },
-  },
 SNIPPET
