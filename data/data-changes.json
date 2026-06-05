@@ -1,6 +1,26 @@
 {
-  "updatedAt": "2026-06-04T08:30:18.852Z",
+  "updatedAt": "2026-06-05T07:59:10.049Z",
   "entries": [
+    {
+      "timestamp": "2026-06-05T07:59:10.049Z",
+      "date": "2026-06-05",
+      "skill": "update-council-minutes",
+      "summary": "111 new council resolutions: Sofia (sess 62), Ruse (prot 34), Dimitrovgrad (prot 36)",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-06-05T07:47:32.741Z",
+      "date": "2026-06-05",
+      "skill": "update-rollcall",
+      "summary": "2 new roll-call sessions through 2026-06-04 (52nd NS)",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-06-04T08:30:18.852Z",
       "date": "2026-06-04",
