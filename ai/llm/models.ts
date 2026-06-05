@@ -2,8 +2,10 @@
 //
 // "prebuilt" models load straight from MLC's CDN and work today (used to prove
 // the pipeline). BgGPT / EuroLLM are the on-brand Bulgarian-native targets but
-// need a one-time MLC compile + HF hosting (the M0 spike); until their URLs are
-// filled in they're shown as "needs build".
+// need a one-time MLC compile + HF hosting — see ai/m0/README.md +
+// ai/m0/build-model.sh. To enable one: run the build, host on HF, then set
+// ready:true and paste the appConfig the script prints. Until then they show as
+// "requires MLC build".
 
 import type { AppConfig } from "@mlc-ai/web-llm";
 
