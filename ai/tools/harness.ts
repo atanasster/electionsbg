@@ -457,6 +457,50 @@ const run = async () => {
     assert(got === expected, `route: "${q}" -> ${expected}`);
   }
 
+  // 15. D2 — budget execution depth
+  console.log("\n=== [D2] budget-depth tools ===");
+  const exec = (await runTool(
+    "budgetExecution",
+    { series: "приходи" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(exec);
+  assert(
+    (exec.series?.[0].points.length ?? 0) > 0,
+    "budgetExecution returns a series",
+  );
+
+  const minB = (await runTool(
+    "ministryBudget",
+    { ministry: "транспорт" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(minB);
+  assert(!!minB.facts.ministry, "ministryBudget resolved a ministry");
+
+  const inv = (await runTool(
+    "investmentProjects",
+    { oblast: "Варна" },
+    ctxEn,
+  )) as Envelope;
+  printEnvelope(inv);
+  assert((inv.rows?.length ?? 0) > 0, "investmentProjects returns rows");
+
+  console.log("\n=== [router] D2 questions ===");
+  const cases7: [string, string | null][] = [
+    ["Покажи изпълнението на бюджета по месеци", "budgetExecution"],
+    ["Какъв е бюджетът на Министерството на транспорта?", "ministryBudget"],
+    ["Кои са най-големите инвестиционни проекти?", "investmentProjects"],
+    ["Какъв е държавният бюджет?", "budgetOverview"],
+    ["Колко чужди инвестиции има?", "macroIndicator"],
+  ];
+  for (const [q, expected] of cases7) {
+    const r = route(q, ctx);
+    const got = r?.tool ?? null;
+    console.log(`  "${q}" -> ${got ?? "(none)"}`);
+    assert(got === expected, `route: "${q}" -> ${expected}`);
+  }
+
   console.log(
     `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${failures === 0 ? "tools layer verified" : "see above"}`,
   );

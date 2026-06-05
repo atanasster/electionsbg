@@ -211,11 +211,45 @@ export const route = (question: string, ctx: ToolContext): Route => {
 
   // 1c. governance — public finance
   if (has(q, "бюджет", "budget")) {
+    if (has(q, "министерств", "ministry", "ведомств"))
+      return { tool: "ministryBudget", args: { ministry: q } };
+    if (
+      has(
+        q,
+        "изпълнение",
+        "execution",
+        "по месеци",
+        "месечно",
+        "monthly",
+        "през годината",
+      )
+    )
+      return { tool: "budgetExecution", args: { series: q } };
     if (
       has(q, "функц", "cofog", "за какво", "spent on", "spend on", "разход по")
     )
       return { tool: "budgetByFunction", args: {} };
     return { tool: "budgetOverview", args: {} };
+  }
+  // ministry budget without the word "бюджет"
+  if (
+    has(q, "министерств", "ministry", "ведомств") &&
+    has(q, "разход", "харчи", "spend", "програм", "programme")
+  )
+    return { tool: "ministryBudget", args: { ministry: q } };
+  // investment programme (capital projects) — specific so it doesn't eat FDI
+  if (
+    has(
+      q,
+      "инвестиционн",
+      "investment proj",
+      "капиталов",
+      "приложение iii",
+      "capital project",
+    )
+  ) {
+    const obl = extractPlace(q);
+    return { tool: "investmentProjects", args: obl ? { oblast: obl } : {} };
   }
   if (has(q, "поръчк", "procurement", "аоп", " aop")) {
     const place = extractPlace(q);

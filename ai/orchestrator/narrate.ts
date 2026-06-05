@@ -200,6 +200,19 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Социалноосигурителни фондове (${f(env, "year")}): разходи ${f(env, "expenditure")}.`
         : `Social-security funds (${f(env, "year")}): expenditure ${f(env, "expenditure")}.`;
+    case "budgetExecution":
+      return lang === "bg"
+        ? `Изпълнение на бюджета — ${f(env, "series")}: към ${f(env, "latest_period")} ${f(env, "latest")} (месечно).`
+        : `Budget execution — ${f(env, "series")}: ${f(env, "latest")} as of ${f(env, "latest_period")} (monthly).`;
+    case "ministryBudget":
+      if (!env.facts.ministry) return env.title;
+      return lang === "bg"
+        ? `${f(env, "ministry")} (${f(env, "year")}): разходи ${f(env, "expenditure")}, ${f(env, "programs")} програми.`
+        : `${f(env, "ministry")} (${f(env, "year")}): expenditure ${f(env, "expenditure")}, ${f(env, "programs")} programmes.`;
+    case "investmentProjects":
+      return lang === "bg"
+        ? `Инвестиционна програма ${f(env, "year")}: ${f(env, "project_count")} проекта за ${f(env, "grand_total")}.`
+        : `Investment programme ${f(env, "year")}: ${f(env, "project_count")} projects worth ${f(env, "grand_total")}.`;
     case "airQuality":
       if (!env.facts.place) return env.title;
       return lang === "bg"

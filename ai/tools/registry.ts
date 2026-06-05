@@ -14,6 +14,11 @@ import {
   localMayorsWon,
   localMunicipality,
 } from "./local";
+import {
+  budgetExecution,
+  investmentProjects,
+  ministryBudget,
+} from "./budgetDepth";
 import { census } from "./census";
 import { govDebt, noiFunds } from "./fiscalDebt";
 import { chmiEvents, localCouncil, localMayorRace } from "./localDetail";
@@ -486,6 +491,76 @@ export const TOOLS: ToolDef[] = [
     params: [],
     examples: [{ bg: "Колко харчи НОИ?", en: "How much does NSSI spend?" }],
     run: noiFunds,
+  },
+  {
+    name: "budgetExecution",
+    domain: "fiscal",
+    description: {
+      bg: "Месечно изпълнение на държавния бюджет (приходи/разходи/салдо) във времето.",
+      en: "Monthly state-budget execution (revenue/expenditure/balance) over time.",
+    },
+    params: [
+      {
+        name: "series",
+        type: "metric",
+        description: {
+          bg: "Приходи/разходи/салдо",
+          en: "Revenue/expenditure/balance",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Покажи изпълнението на бюджета по месеци",
+        en: "Show monthly budget execution",
+      },
+    ],
+    run: budgetExecution,
+  },
+  {
+    name: "ministryBudget",
+    domain: "fiscal",
+    description: {
+      bg: "Бюджет на конкретно министерство/ведомство по програми.",
+      en: "A specific ministry's budget by programme.",
+    },
+    params: [
+      {
+        name: "ministry",
+        type: "metric",
+        required: true,
+        description: { bg: "Министерство", en: "Ministry" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какъв е бюджетът на Министерството на транспорта?",
+        en: "What's the transport ministry's budget?",
+      },
+    ],
+    run: ministryBudget,
+  },
+  {
+    name: "investmentProjects",
+    domain: "fiscal",
+    description: {
+      bg: "Инвестиционна програма (Приложение III) — най-големи капиталови проекти.",
+      en: "Investment programme (Appendix III) — largest capital projects.",
+    },
+    params: [
+      {
+        name: "oblast",
+        type: "oblast",
+        description: { bg: "Област (по избор)", en: "Oblast (optional)" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои са най-големите инвестиционни проекти?",
+        en: "What are the biggest investment projects?",
+      },
+    ],
+    run: investmentProjects,
   },
   // ---- people ---------------------------------------------------------------
   {

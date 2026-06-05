@@ -10,13 +10,14 @@ The chat answers BG/EN questions end to end today via a rules-based provider
 (router → tools → template narrator) behind the `LLMProvider` interface; M3 swaps
 in WebLLM without touching the chat UI. See "Milestones".
 
-Tools (40) grouped by `domain`:
+Tools (43) grouped by `domain`:
 - **elections** (9): nationalResults, partyResult, machineVoteShare, turnout,
   compareElections, machineVoteSeries, turnoutSeries, partyTimeline, pollAccuracy
 - **local** (6): localCouncilVoteShare, localMayorsWon, localMunicipality,
   localMayorRace, localCouncil, chmiEvents
-- **fiscal** (6): budgetOverview, budgetByFunction (COFOG), procurementTotals,
-  fundsOverview, govDebt, noiFunds
+- **fiscal** (9): budgetOverview, budgetByFunction (COFOG), procurementTotals,
+  fundsOverview, govDebt, noiFunds, budgetExecution (KFP monthly), ministryBudget,
+  investmentProjects (Приложение III)
 - **people** (5): governments, mpAssetsTop, mpConnectionsTop, officialsAssetsTop,
   financingOverview
 - **indicators** (8): macroIndicator (40 indicators, broadly aliased),
