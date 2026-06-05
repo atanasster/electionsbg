@@ -324,6 +324,77 @@ const run = async () => {
     assert(got === expected, `route: "${q}" -> ${expected}`);
   }
 
+  // 13. D1 — people/oversight + fiscal depth + macro expansion
+  console.log("\n=== [D1] coverage tools ===");
+  const mpA = (await runTool("mpAssetsTop", {}, ctxBg)) as Envelope;
+  printEnvelope(mpA);
+  assert((mpA.rows?.length ?? 0) > 0, "mpAssetsTop returns rows");
+
+  const mpC = (await runTool("mpConnectionsTop", {}, ctxEn)) as Envelope;
+  printEnvelope(mpC);
+  assert((mpC.rows?.length ?? 0) > 0, "mpConnectionsTop returns rows");
+
+  const offA = (await runTool(
+    "officialsAssetsTop",
+    { category: "cabinet" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(offA);
+  assert((offA.rows?.length ?? 0) > 0, "officialsAssetsTop returns rows");
+
+  const fin = (await runTool("financingOverview", {}, ctxEn)) as Envelope;
+  printEnvelope(fin);
+  assert(!!fin.facts.distinct_parties, "financingOverview has party count");
+
+  const poll = (await runTool("pollAccuracy", {}, ctxBg)) as Envelope;
+  printEnvelope(poll);
+  assert((poll.rows?.length ?? 0) > 0, "pollAccuracy returns rows");
+
+  const debt = (await runTool("govDebt", {}, ctxEn)) as Envelope;
+  printEnvelope(debt);
+  assert((debt.rows?.length ?? 0) > 0, "govDebt returns issuances");
+
+  const noi = (await runTool("noiFunds", {}, ctxEn)) as Envelope;
+  printEnvelope(noi);
+  assert(!!noi.facts.year, "noiFunds has a year");
+
+  const macroCat = (await runTool(
+    "macroByCategory",
+    { category: "управление" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(macroCat);
+  assert((macroCat.rows?.length ?? 0) > 0, "macroByCategory returns rows");
+
+  // newly-aliased macro indicators are now reachable
+  const gini = (await runTool(
+    "macroIndicator",
+    { indicator: "неравенство" },
+    ctxEn,
+  )) as Envelope;
+  assert(
+    /gini|inequ|Джини|неравен/i.test(gini.title) ||
+      (gini.series?.[0].points.length ?? 0) > 0,
+    "macroIndicator resolves 'неравенство' -> gini",
+  );
+
+  console.log("\n=== [router] D1 questions ===");
+  const cases5: [string, string | null][] = [
+    ["Кои депутати са най-богати?", "mpAssetsTop"],
+    ["Кои депутати имат най-много фирмени връзки?", "mpConnectionsTop"],
+    ["Кои министри са най-богати?", "officialsAssetsTop"],
+    ["Коя социологическа агенция е най-точна?", "pollAccuracy"],
+    ["Покажи показателите за управление", "macroByCategory"],
+    ["Колко харчи НОИ за пенсии?", "noiFunds"],
+    ["Какви са последните емисии на дълг?", "govDebt"],
+  ];
+  for (const [q, expected] of cases5) {
+    const r = route(q, ctx);
+    const got = r?.tool ?? null;
+    console.log(`  "${q}" -> ${got ?? "(none)"}`);
+    assert(got === expected, `route: "${q}" -> ${expected}`);
+  }
+
   console.log(
     `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${failures === 0 ? "tools layer verified" : "see above"}`,
   );

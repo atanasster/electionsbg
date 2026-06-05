@@ -15,8 +15,16 @@ import {
   localMunicipality,
 } from "./local";
 import { census } from "./census";
+import { govDebt, noiFunds } from "./fiscalDebt";
 import { chmiEvents, localCouncil, localMayorRace } from "./localDetail";
-import { macroIndicator, macroOverview } from "./macro";
+import { macroByCategory, macroIndicator, macroOverview } from "./macro";
+import {
+  financingOverview,
+  mpAssetsTop,
+  mpConnectionsTop,
+  officialsAssetsTop,
+  pollAccuracy,
+} from "./people";
 import { governanceProfile, procurementBySettlement } from "./profile";
 import {
   localTaxes,
@@ -214,6 +222,22 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: partyTimeline,
+  },
+  {
+    name: "pollAccuracy",
+    domain: "elections",
+    description: {
+      bg: "Точност на социологическите агенции (средна грешка спрямо изборния резултат).",
+      en: "Polling-agency accuracy (mean error vs the election result).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Коя социологическа агенция е най-точна?",
+        en: "Which pollster is most accurate?",
+      },
+    ],
+    run: pollAccuracy,
   },
   // ---- local elections ------------------------------------------------------
   {
@@ -433,6 +457,30 @@ export const TOOLS: ToolDef[] = [
     ],
     run: fundsOverview,
   },
+  {
+    name: "govDebt",
+    domain: "fiscal",
+    description: {
+      bg: "Държавен дълг — последни емисии (облигации, ДЦК).",
+      en: "Government debt — recent issuances (bonds, T-bills).",
+    },
+    params: [],
+    examples: [
+      { bg: "Какъв е държавният дълг?", en: "What's the government debt?" },
+    ],
+    run: govDebt,
+  },
+  {
+    name: "noiFunds",
+    domain: "fiscal",
+    description: {
+      bg: "Социалноосигурителни фондове (НОИ) — приходи, разходи, салдо.",
+      en: "Social-security funds (NSSI) — revenue, expenditure, balance.",
+    },
+    params: [],
+    examples: [{ bg: "Колко харчи НОИ?", en: "How much does NSSI spend?" }],
+    run: noiFunds,
+  },
   // ---- people ---------------------------------------------------------------
   {
     name: "governments",
@@ -449,6 +497,76 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: governments,
+  },
+  {
+    name: "mpAssetsTop",
+    domain: "people",
+    description: {
+      bg: "Депутати с най-големи декларирани активи.",
+      en: "MPs ranked by declared assets.",
+    },
+    params: [],
+    examples: [
+      { bg: "Кои депутати са най-богати?", en: "Which MPs are richest?" },
+    ],
+    run: mpAssetsTop,
+  },
+  {
+    name: "mpConnectionsTop",
+    domain: "people",
+    description: {
+      bg: "Депутати с най-много бизнес връзки (Търговски регистър).",
+      en: "MPs with the most business connections (Commerce Registry).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Кои депутати имат най-много фирмени връзки?",
+        en: "Which MPs have the most company links?",
+      },
+    ],
+    run: mpConnectionsTop,
+  },
+  {
+    name: "officialsAssetsTop",
+    domain: "people",
+    description: {
+      bg: "Висши служители (кабинет, зам.-министри, управители) по декларирани активи.",
+      en: "Senior officials (cabinet, deputy ministers, governors) by declared assets.",
+    },
+    params: [
+      {
+        name: "category",
+        type: "metric",
+        description: {
+          bg: "Категория (кабинет, управители…)",
+          en: "Category (cabinet, governors…)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои министри са най-богати?",
+        en: "Which cabinet officials are richest?",
+      },
+    ],
+    run: officialsAssetsTop,
+  },
+  {
+    name: "financingOverview",
+    domain: "people",
+    description: {
+      bg: "Партийни финансови отчети — подаване и спазване на сроковете (Сметна палата).",
+      en: "Party financial reports — filing compliance (Court of Audit).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Партиите подават ли финансови отчети навреме?",
+        en: "Do parties file financial reports on time?",
+      },
+    ],
+    run: financingOverview,
   },
   // ---- indicators -----------------------------------------------------------
   {
@@ -483,6 +601,28 @@ export const TOOLS: ToolDef[] = [
     params: [],
     examples: [{ bg: "Как е икономиката?", en: "How is the economy doing?" }],
     run: macroOverview,
+  },
+  {
+    name: "macroByCategory",
+    domain: "indicators",
+    description: {
+      bg: "Показатели по тема: икономика, фискални, управление, общество.",
+      en: "Indicators by theme: economy, fiscal, governance, society.",
+    },
+    params: [
+      {
+        name: "category",
+        type: "indicator",
+        description: { bg: "Тема", en: "Theme" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Покажи показателите за управление",
+        en: "Show the governance indicators",
+      },
+    ],
+    run: macroByCategory,
   },
   {
     name: "subnationalIndicator",

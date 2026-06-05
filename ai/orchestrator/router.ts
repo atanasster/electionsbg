@@ -216,8 +216,15 @@ export const route = (question: string, ctx: ToolContext): Route => {
   }
   if (has(q, "европейск", "еврофонд", "eu funds", "isun", "исун", "фондове"))
     return { tool: "fundsOverview", args: {} };
+  // debt emissions vs the macro debt level: only route emissions on explicit terms
+  if (has(q, "емиси", "облигаци", " bond", "дцк", "issuance"))
+    return { tool: "govDebt", args: {} };
+  if (
+    has(q, "нои", " nssi", "осигурителн", "пенси", "social security", "pension")
+  )
+    return { tool: "noiFunds", args: {} };
 
-  // 1d. governance — people
+  // 1d. governance — people / oversight
   if (
     has(
       q,
@@ -230,6 +237,43 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
   )
     return { tool: "governments", args: {} };
+  const wantsAssets = has(
+    q,
+    "актив",
+    "богат",
+    "asset",
+    "richest",
+    "wealth",
+    "състояние",
+    "имот",
+  );
+  if (has(q, "депутат", " mp", " mps", "народни представители")) {
+    if (has(q, "връзк", "connection", "фирм", "company", "бизнес"))
+      return { tool: "mpConnectionsTop", args: {} };
+    if (wantsAssets) return { tool: "mpAssetsTop", args: {} };
+  }
+  if (
+    has(q, "министр", "служител", "official", "управител", "губернатор") &&
+    wantsAssets
+  )
+    return { tool: "officialsAssetsTop", args: { category: q } };
+  if (
+    has(
+      q,
+      "партийно финанс",
+      "финансиране на парти",
+      "party financ",
+      "campaign financ",
+      "сметна палата",
+      "финансови отчети",
+    )
+  )
+    return { tool: "financingOverview", args: {} };
+  if (
+    has(q, "социолог", "pollster", "анкет", "проучван", " poll", "polls") &&
+    has(q, "точн", "accura", "надежд", "reliab", "грешк")
+  )
+    return { tool: "pollAccuracy", args: {} };
 
   // 1e. place ("about my area"): composite profile + census, before the
   // single-metric place reads so a broad "tell me about X" gets the dashboard.
@@ -286,6 +330,21 @@ export const route = (question: string, ctx: ToolContext): Route => {
   }
 
   // 1f. governance — macro indicators (national)
+  if (
+    has(q, "показатели", "indicators") &&
+    has(
+      q,
+      "икон",
+      "фискал",
+      "управл",
+      "общест",
+      "econom",
+      "fiscal",
+      "govern",
+      "society",
+    )
+  )
+    return { tool: "macroByCategory", args: { category: q } };
   const macroKey = resolveMacroKey(q);
   if (macroKey) return { tool: "macroIndicator", args: { indicator: q } };
   if (has(q, "икономик", "economy", "макро", "macro"))

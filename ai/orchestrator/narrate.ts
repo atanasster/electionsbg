@@ -168,6 +168,38 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Обществени поръчки в ${f(env, "place")}: ${f(env, "total")} (${f(env, "contracts")} договора); водещ възложител ${f(env, "top_buyer")}.`
         : `Public procurement in ${f(env, "place")}: ${f(env, "total")} (${f(env, "contracts")} contracts); top buyer ${f(env, "top_buyer")}.`;
+    case "macroByCategory":
+      return lang === "bg"
+        ? `Показатели за „${f(env, "category")}“ — ${f(env, "indicators")} (виж таблицата).`
+        : `Indicators for "${f(env, "category")}" — ${f(env, "indicators")} (see table).`;
+    case "mpAssetsTop":
+      return lang === "bg"
+        ? `Най-богат депутат: ${f(env, "richest")} (${f(env, "richest_assets")} активи).`
+        : `Richest MP: ${f(env, "richest")} (${f(env, "richest_assets")} assets).`;
+    case "mpConnectionsTop":
+      return lang === "bg"
+        ? `Най-свързан депутат: ${f(env, "most_connected")} (${f(env, "links")} връзки).`
+        : `Most-connected MP: ${f(env, "most_connected")} (${f(env, "links")} links).`;
+    case "officialsAssetsTop":
+      return lang === "bg"
+        ? `Най-богат служител: ${f(env, "richest")} (${f(env, "richest_assets")}).`
+        : `Richest official: ${f(env, "richest")} (${f(env, "richest_assets")}).`;
+    case "financingOverview":
+      return lang === "bg"
+        ? `${f(env, "distinct_parties")} партии, ${f(env, "total_filings")} отчета; през ${f(env, "latest_year")} — ${f(env, "latest_on_time")} навреме.`
+        : `${f(env, "distinct_parties")} parties, ${f(env, "total_filings")} filings; in ${f(env, "latest_year")} — ${f(env, "latest_on_time")} on time.`;
+    case "pollAccuracy":
+      return lang === "bg"
+        ? `Най-точна агенция: ${f(env, "most_accurate")} (средна грешка ${f(env, "best_mae")}).`
+        : `Most accurate pollster: ${f(env, "most_accurate")} (mean error ${f(env, "best_mae")}).`;
+    case "govDebt":
+      return lang === "bg"
+        ? `Последни ${f(env, "shown")} емисии на държавен дълг (общо ${f(env, "total_recent")}); най-нова на ${f(env, "latest")}.`
+        : `Last ${f(env, "shown")} government-debt issuances (${f(env, "total_recent")} total); latest on ${f(env, "latest")}.`;
+    case "noiFunds":
+      return lang === "bg"
+        ? `Социалноосигурителни фондове (${f(env, "year")}): разходи ${f(env, "expenditure")}.`
+        : `Social-security funds (${f(env, "year")}): expenditure ${f(env, "expenditure")}.`;
     case "governanceProfile": {
       const parts: string[] = [];
       if (env.facts.population)

@@ -10,19 +10,20 @@ The chat answers BG/EN questions end to end today via a rules-based provider
 (router → tools → template narrator) behind the `LLMProvider` interface; M3 swaps
 in WebLLM without touching the chat UI. See "Milestones".
 
-Tools (28) grouped by `domain`:
-- **elections** (8): nationalResults, partyResult, machineVoteShare, turnout,
-  compareElections, machineVoteSeries, turnoutSeries, partyTimeline
+Tools (36) grouped by `domain`:
+- **elections** (9): nationalResults, partyResult, machineVoteShare, turnout,
+  compareElections, machineVoteSeries, turnoutSeries, partyTimeline, pollAccuracy
 - **local** (6): localCouncilVoteShare, localMayorsWon, localMunicipality,
   localMayorRace, localCouncil, chmiEvents
-- **fiscal** (4): budgetOverview, budgetByFunction (COFOG), procurementTotals,
-  fundsOverview
-- **people** (1): governments
-- **indicators** (6): macroIndicator, macroOverview, subnationalIndicator,
-  regionIndicator, transparencyScore, localTaxes
+- **fiscal** (6): budgetOverview, budgetByFunction (COFOG), procurementTotals,
+  fundsOverview, govDebt, noiFunds
+- **people** (5): governments, mpAssetsTop, mpConnectionsTop, officialsAssetsTop,
+  financingOverview
+- **indicators** (7): macroIndicator (40 indicators, broadly aliased),
+  macroOverview, macroByCategory, subnationalIndicator, regionIndicator,
+  transparencyScore, localTaxes
 - **place** / "my area" (3): governanceProfile (composite place-ladder
-  dashboard — population + mayor/council + turnout + unemployment + transparency
-  + local procurement in one card), census, procurementBySettlement
+  dashboard), census, procurementBySettlement
 
 Shared infra: `ai/tools/place.ts` resolves free-text BG/EN place names →
 obshtina/oblast/ekatte (handles Sofia synthetic `SOF`/`SOF00`, Plovdiv city vs

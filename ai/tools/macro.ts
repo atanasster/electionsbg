@@ -38,6 +38,50 @@ export const MACRO_ALIASES: Record<string, string> = {
   corruption: "wgiControlOfCorruption",
   доверие: "trustGovernment",
   trust: "trustGovernment",
+  // wider coverage so the 40 indicators in macro.json are actually reachable
+  "на човек": "gdpPerCapita",
+  "per capita": "gdpPerCapita",
+  заплат: "labourIncome",
+  доход: "labourIncome",
+  wage: "labourIncome",
+  "текуща сметка": "currentAccount",
+  "current account": "currentAccount",
+  чужди: "fdiInward",
+  fdi: "fdiInward",
+  инвестиц: "fdiInward",
+  приходи: "govRevenue",
+  revenue: "govRevenue",
+  разходи: "govExpenditure",
+  expenditure: "govExpenditure",
+  spending: "govExpenditure",
+  резерв: "fiscalReserve",
+  reserve: "fiscalReserve",
+  младежка: "youthUnemployment",
+  youth: "youthUnemployment",
+  жилищ: "housePricesYoY",
+  "house price": "housePricesYoY",
+  имоти: "housePricesYoY",
+  неравенств: "gini",
+  gini: "gini",
+  джини: "gini",
+  убийств: "intentionalHomicideRate",
+  homicide: "intentionalHomicideRate",
+  затвор: "prisonPopulationRate",
+  prison: "prisonPopulationRate",
+  върховенство: "wgiRuleOfLaw",
+  "rule of law": "wgiRuleOfLaw",
+  ефективн: "wgiGovEffectiveness",
+  effectiveness: "wgiGovEffectiveness",
+  промишлен: "industrialProd",
+  industrial: "industrialProd",
+  търговия: "retailVolume",
+  retail: "retailVolume",
+  потребител: "consumerConfidence",
+  confidence: "consumerConfidence",
+  настроени: "economicSentiment",
+  sentiment: "economicSentiment",
+  цени: "cpi",
+  cpi: "cpi",
 };
 
 export const resolveMacroKey = (raw: string): string | undefined => {
@@ -148,6 +192,127 @@ export const macroOverview = async (
     rows,
     viz: "none",
     facts: { indicators: fmtInt(rows.length, ctx.lang), ...facts },
+    provenance: ["macro.json"],
+  };
+};
+
+// The 4 domain groupings the site uses (/indicators/economy|fiscal|governance|society).
+const CATEGORIES: Record<
+  string,
+  { label: { bg: string; en: string }; keys: string[] }
+> = {
+  economy: {
+    label: { bg: "Икономика", en: "Economy" },
+    keys: [
+      "gdpGrowth",
+      "gdpPerCapita",
+      "inflation",
+      "unemployment",
+      "industrialProd",
+      "fdiInward",
+    ],
+  },
+  fiscal: {
+    label: { bg: "Фискални", en: "Fiscal" },
+    keys: [
+      "govDebt",
+      "budgetBalance",
+      "govRevenue",
+      "govExpenditure",
+      "fiscalReserve",
+    ],
+  },
+  governance: {
+    label: { bg: "Управление", en: "Governance" },
+    keys: [
+      "wgiRuleOfLaw",
+      "wgiControlOfCorruption",
+      "wgiGovEffectiveness",
+      "trustGovernment",
+      "trustParliament",
+      "trustEu",
+    ],
+  },
+  society: {
+    label: { bg: "Общество", en: "Society" },
+    keys: [
+      "gini",
+      "povertyRate",
+      "youthUnemployment",
+      "housePricesYoY",
+      "intentionalHomicideRate",
+      "prisonPopulationRate",
+    ],
+  },
+};
+
+const resolveCategory = (raw: string): string => {
+  const q = raw.toLowerCase();
+  if (q.includes("икон") || q.includes("econom")) return "economy";
+  if (q.includes("фискал") || q.includes("fiscal") || q.includes("бюджет"))
+    return "fiscal";
+  if (
+    q.includes("управл") ||
+    q.includes("govern") ||
+    q.includes("корупц") ||
+    q.includes("доверие")
+  )
+    return "governance";
+  if (
+    q.includes("общест") ||
+    q.includes("social") ||
+    q.includes("society") ||
+    q.includes("неравен")
+  )
+    return "society";
+  return "economy";
+};
+
+export const macroByCategory = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const m = await fetchData<MacroData>("/macro.json");
+  const cat =
+    CATEGORIES[
+      resolveCategory(String(args.category ?? args.indicator ?? "economy"))
+    ];
+  const columns: Column[] = [
+    { key: "indicator", label: ctx.lang === "bg" ? "Показател" : "Indicator" },
+    {
+      key: "latest",
+      label: ctx.lang === "bg" ? "Последно" : "Latest",
+      numeric: true,
+    },
+    { key: "period", label: ctx.lang === "bg" ? "Период" : "Period" },
+  ];
+  const rows: Row[] = [];
+  for (const key of cat.keys) {
+    const meta = m.indicators[key];
+    const pts = m.series[key];
+    if (!meta || !pts || pts.length === 0) continue;
+    const last = lastPoint(pts);
+    rows.push({
+      indicator: ctx.lang === "bg" ? meta.titleBg : meta.titleEn,
+      latest: `${last.value}${meta.unitLabelEn?.includes("%") ? "%" : ""}`,
+      period: last.period ?? String(last.year),
+    });
+  }
+  return {
+    tool: "macroByCategory",
+    domain: "indicators",
+    kind: "table",
+    title:
+      ctx.lang === "bg"
+        ? `Показатели — ${cat.label.bg}`
+        : `Indicators — ${cat.label.en}`,
+    columns,
+    rows,
+    viz: "none",
+    facts: {
+      category: cat.label[ctx.lang],
+      indicators: fmtInt(rows.length, ctx.lang),
+    },
     provenance: ["macro.json"],
   };
 };
