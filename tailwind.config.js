@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./ai/index.html",
+    "./ai/**/*.{js,ts,jsx,tsx}",
+  ],
   darkMode: ["class"],
   future: {
     // Scope every `hover:` variant behind `@media (hover: hover)` so taps on

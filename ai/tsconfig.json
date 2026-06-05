@@ -1,0 +1,8 @@
+{
+  "extends": "../tsconfig.app.json",
+  "compilerOptions": {
+    "types": ["vite/client"]
+  },
+  "include": ["./**/*.ts", "./**/*.tsx"],
+  "exclude": ["tools/harness.ts"]
+}

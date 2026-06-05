@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+dist-ai
 dist-ssr
 # Staged-for-deletion build outputs from scripts/prebuild.mjs. The script
 # atomically renames dist/ to dist.old-<timestamp> so the new build can start
