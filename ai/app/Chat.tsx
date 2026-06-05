@@ -24,8 +24,11 @@ import {
   type ChatMsg,
 } from "./export";
 import { followUps } from "./followups";
+import { matchSuggestions } from "./suggestions";
 
 type Msg = ChatMsg & { id: number };
+
+const STORAGE_KEY = "naiasno.chat.v1";
 
 const STARTERS: { bg: string; en: string }[] = [
   {
@@ -64,6 +67,7 @@ export const Chat = ({
   const idRef = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
   const ranInitial = useRef(false);
+  const firstPersist = useRef(true);
   const nextId = () => (idRef.current += 1);
 
   // keep the latest answer in view as the conversation grows
@@ -77,24 +81,62 @@ export const Chat = ({
     const q = text.trim();
     if (!q || busy) return;
     setInput("");
-    setMessages((m) => [...m, { id: nextId(), role: "user", text: q }]);
-    setBusy(true);
-    const res = await provider.respond(q, { lang, election });
+    const uId = nextId();
+    const aId = nextId();
     setMessages((m) => [
       ...m,
-      { id: nextId(), role: "assistant", text: res.text, env: res.env },
+      { id: uId, role: "user", text: q },
+      { id: aId, role: "assistant", text: "", env: null },
     ]);
+    setBusy(true);
+    // stream the narration into the placeholder assistant message; the env
+    // (chart/table) is attached when the answer is finalized
+    const res = await provider.respond(q, { lang, election }, (partial) =>
+      setMessages((m) =>
+        m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
+      ),
+    );
+    setMessages((m) =>
+      m.map((x) => (x.id === aId ? { ...x, text: res.text, env: res.env } : x)),
+    );
     setBusy(false);
   };
 
-  // shareable deep-link: ?q=<question> auto-asks the question on load
+  // on load: a ?q=<question> deep-link wins; otherwise restore the saved chat
   useEffect(() => {
     if (ranInitial.current) return;
     ranInitial.current = true;
     const q = new URLSearchParams(window.location.search).get("q");
-    if (q) void send(q);
+    if (q) {
+      void send(q);
+      return;
+    }
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      const arr = saved ? (JSON.parse(saved) as Msg[]) : [];
+      if (Array.isArray(arr) && arr.length) {
+        idRef.current = arr.reduce((mx, m) => Math.max(mx, m.id), 0);
+        setMessages(arr);
+      }
+    } catch {
+      /* corrupt storage — ignore */
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // persist the conversation across reloads (skip the initial empty render so a
+  // restore isn't clobbered)
+  useEffect(() => {
+    if (firstPersist.current) {
+      firstPersist.current = false;
+      return;
+    }
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    } catch {
+      /* quota — ignore */
+    }
+  }, [messages]);
 
   const copyAll = async () => {
     try {
@@ -128,6 +170,7 @@ export const Chat = ({
   const followups =
     !busy && last?.role === "assistant" && last.env ? followUps(last.env) : [];
 
+  const suggestions = busy ? [] : matchSuggestions(input, lang);
   const hasChat = messages.length > 0;
 
   return (
@@ -187,9 +230,11 @@ export const Chat = ({
               data-msg=""
               className="w-full max-w-[95%] space-y-2 self-start"
             >
-              <div className="rounded-2xl rounded-bl-sm bg-muted px-4 py-2 text-sm text-foreground">
-                {m.text}
-              </div>
+              {(m.text || busy) && (
+                <div className="rounded-2xl rounded-bl-sm bg-muted px-4 py-2 text-sm text-foreground">
+                  {m.text || "…"}
+                </div>
+              )}
               {m.env && (
                 <>
                   <div data-answer-card="">
@@ -234,13 +279,28 @@ export const Chat = ({
             ))}
           </div>
         )}
-        {busy && (
-          <div className="self-start text-sm text-muted-foreground">…</div>
-        )}
         <div ref={endRef} />
       </div>
 
       <div className="sticky bottom-0 -mx-2 bg-card/85 px-2 pb-3 pt-2 backdrop-blur sm:-mx-4 sm:px-4">
+        {suggestions.length > 0 && (
+          <div className="mb-2 overflow-hidden rounded-lg border border-input bg-popover text-sm shadow-md">
+            {suggestions.map((s) => (
+              <button
+                key={s.en}
+                // onMouseDown (not onClick) fires before the input blur so the
+                // suggestion list doesn't close first
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  void send(s[lang]);
+                }}
+                className="block w-full px-3 py-1.5 text-left hover:bg-muted"
+              >
+                {s[lang]}
+              </button>
+            ))}
+          </div>
+        )}
         <form
           className="flex gap-2"
           onSubmit={(e) => {

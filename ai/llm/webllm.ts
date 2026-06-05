@@ -116,23 +116,44 @@ export class WebLLMProvider implements LLMProvider {
   private async narrateEnv(
     env: Parameters<typeof narrate>[0],
     lang: Lang,
+    onDelta?: (partial: string) => void,
   ): Promise<string> {
     const template = narrate(env, lang);
     if (!this.engine) return template;
+    // Language guard: small models often answer in English even when asked in
+    // Bulgarian. The template narration is always in the right language, so if
+    // the model's output isn't predominantly the requested script, use it.
     try {
       const { system, user } = buildNarrationPrompt(env, lang);
+      const messages = [
+        { role: "system" as const, content: system },
+        { role: "user" as const, content: user },
+      ];
+      if (onDelta) {
+        const stream = await this.engine.chat.completions.create({
+          messages,
+          temperature: 0.2,
+          max_tokens: 160,
+          stream: true,
+        });
+        let acc = "";
+        for await (const chunk of stream) {
+          const delta = chunk.choices?.[0]?.delta?.content ?? "";
+          if (!delta) continue;
+          acc += delta;
+          // only surface tokens once it's clearly the right language, so we
+          // never stream wrong-language text the guard would later discard
+          if (matchesLang(acc, lang)) onDelta(acc);
+        }
+        const text = acc.trim();
+        return text.length > 0 && matchesLang(text, lang) ? text : template;
+      }
       const res = await this.engine.chat.completions.create({
-        messages: [
-          { role: "system", content: system },
-          { role: "user", content: user },
-        ],
+        messages,
         temperature: 0.2,
         max_tokens: 160,
       });
       const text = res.choices?.[0]?.message?.content?.trim();
-      // Language guard: small models often answer in English even when asked in
-      // Bulgarian. The template narration is always in the right language, so if
-      // the model's output isn't predominantly in the requested script, use it.
       if (text && text.length > 0 && matchesLang(text, lang)) return text;
       return template;
     } catch {
@@ -140,12 +161,16 @@ export class WebLLMProvider implements LLMProvider {
     }
   }
 
-  async respond(question: string, ctx: ToolContext): Promise<ChatResponse> {
+  async respond(
+    question: string,
+    ctx: ToolContext,
+    onDelta?: (partial: string) => void,
+  ): Promise<ChatResponse> {
     const r = await this.selectRoute(question, ctx);
     if (!r) return { text: clarify(ctx.lang), env: null };
     try {
       const env = await runTool(r.tool, r.args, ctx);
-      const text = await this.narrateEnv(env, ctx.lang);
+      const text = await this.narrateEnv(env, ctx.lang, onDelta);
       return { text, env, tool: r.tool };
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);

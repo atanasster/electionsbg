@@ -8,18 +8,103 @@
     <meta name="theme-color" content="#1F1A14" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
-    <meta name="robots" content="noindex" />
-    <title>Наясно AI — въпроси за изборите в България</title>
+
+    <title>Наясно AI — въпроси и отговори за изборите в България</title>
     <meta
       name="description"
-      content="Чат, който отговаря на въпроси за българските избори, обоснован с данните на electionsbg.com."
+      content="Безплатен AI чат за българските избори и управление. Питайте на естествен език за резултати, активност, партии, бюджет, депутати и местни избори — всяко число е изчислено от официалните данни на electionsbg.com, не е генерирано."
     />
+    <meta
+      name="keywords"
+      content="избори България, AI чат избори, резултати избори, избирателна активност, машинно гласуване, партии, бюджет, депутати, местни избори, electionsbg, Наясно AI"
+    />
+    <link rel="canonical" href="https://ai.electionsbg.com/" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="author" content="electionsbg.com" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Наясно AI" />
+    <meta property="og:locale" content="bg_BG" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:url" content="https://ai.electionsbg.com/" />
+    <meta
+      property="og:title"
+      content="Наясно AI — въпроси и отговори за изборите в България"
+    />
+    <meta
+      property="og:description"
+      content="Безплатен AI чат за изборите и управлението в България. Всяко число е изчислено от официалните данни, не е генерирано."
+    />
+    <meta property="og:image" content="https://ai.electionsbg.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Наясно AI — въпроси за изборите в България"
+    />
+    <meta
+      name="twitter:description"
+      content="Безплатен AI чат за изборите в България. Числата са изчислени от официалните данни, не генерирани."
+    />
+    <meta name="twitter:image" content="https://ai.electionsbg.com/og.png" />
+
+    <!-- Structured data: a free bilingual web app over official election data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Наясно AI",
+        "alternateName": "Naiasno AI",
+        "url": "https://ai.electionsbg.com/",
+        "applicationCategory": "GovernmentApplication",
+        "operatingSystem": "Web",
+        "browserRequirements": "Requires JavaScript",
+        "inLanguage": ["bg", "en"],
+        "isAccessibleForFree": true,
+        "description": "Безплатен AI чат за българските избори и управление. Всяко число е изчислено от официалните данни на electionsbg.com, не е генерирано от езиков модел.",
+        "image": "https://ai.electionsbg.com/og.png",
+        "publisher": {
+          "@type": "Organization",
+          "name": "electionsbg.com",
+          "url": "https://electionsbg.com"
+        },
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+      }
+    </script>
+
     <!-- Pre-warm the GCS data bucket connection. -->
     <link rel="preconnect" href="https://storage.googleapis.com" crossorigin />
     <link rel="stylesheet" href="/fonts/fonts.css" />
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <h1>Наясно AI — въпроси за изборите в България</h1>
+      <p>
+        Наясно AI е безплатен чат, който отговаря на въпроси за българските
+        парламентарни и местни избори, държавния бюджет, депутатите и
+        управлението. Всяко число е изчислено от официалните данни на
+        <a href="https://electionsbg.com">electionsbg.com</a>, не е генерирано
+        от езиков модел. За да го използвате, включете JavaScript.
+      </p>
+      <p>Примерни въпроси:</p>
+      <ul>
+        <li>Какви са резултатите от последните избори?</li>
+        <li>Как се променя избирателната активност от 2005 насам?</li>
+        <li>Какъв е процентът машинно гласуване?</li>
+        <li>Колко гласа взе ГЕРБ-СДС и къде е силна?</li>
+        <li>Кои депутати са най-богати?</li>
+        <li>За какво се харчи държавният бюджет?</li>
+      </ul>
+      <p>
+        Open data &amp; source:
+        <a href="https://github.com/atanasster/electionsbg">GitHub</a>.
+      </p>
+    </noscript>
     <script type="module" src="./main.tsx"></script>
   </body>
 </html>

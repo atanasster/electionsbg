@@ -23,7 +23,13 @@ export interface LLMProvider {
   status(): ProviderStatus;
   // load weights / warm up (no-op for the deterministic provider)
   init?(onProgress?: (pct: number, note: string) => void): Promise<void>;
-  respond(question: string, ctx: ToolContext): Promise<ChatResponse>;
+  // onDelta (optional) streams the narration as it's produced (model providers);
+  // the deterministic provider ignores it and returns the final text.
+  respond(
+    question: string,
+    ctx: ToolContext,
+    onDelta?: (partial: string) => void,
+  ): Promise<ChatResponse>;
 }
 
 const clarify = (lang: Lang): string =>
