@@ -52,6 +52,7 @@ import {
 import { compareElections, machineVoteShare, turnout } from "./metrics";
 import { nationalResults, partyResult } from "./national";
 import { partyTimeline } from "./parties";
+import { agencyProfile, latestPolls } from "./pollsDepth";
 import { machineVoteSeries, turnoutSeries } from "./series";
 import type { Domain, ToolArgs, ToolContext, ToolDef } from "./types";
 
@@ -255,6 +256,45 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: pollAccuracy,
+  },
+  {
+    name: "agencyProfile",
+    domain: "elections",
+    description: {
+      bg: "Профил на социологическа агенция: оценка, грешка, точност на прага, house effect.",
+      en: "A pollster's profile: grade, error, threshold-call rate, house effect.",
+    },
+    params: [
+      {
+        name: "agency",
+        type: "metric",
+        required: true,
+        description: { bg: "Агенция", en: "Agency" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко е точна Алфа Рисърч?",
+        en: "How accurate is Alpha Research?",
+      },
+    ],
+    run: agencyProfile,
+  },
+  {
+    name: "latestPolls",
+    domain: "elections",
+    description: {
+      bg: "Последното социологическо проучване по партии (вкл. „ако изборите бяха сега“).",
+      en: 'The latest poll by party (incl. "if elections were now").',
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Какво показват последните проучвания?",
+        en: "What do the latest polls show?",
+      },
+    ],
+    run: latestPolls,
   },
   {
     name: "regionBreakdown",

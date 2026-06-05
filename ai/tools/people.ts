@@ -261,6 +261,8 @@ type AgencyProfile = {
   totalPolls: number;
   overallMAE: number;
   overallRMSE?: number;
+  grade?: string;
+  barrierCallRate?: number;
 };
 
 export const pollAccuracy = async (
@@ -277,6 +279,7 @@ export const pollAccuracy = async (
     .slice(0, 12);
   const columns: Column[] = [
     { key: "agency", label: ctx.lang === "bg" ? "Агенция" : "Agency" },
+    { key: "grade", label: ctx.lang === "bg" ? "Оценка" : "Grade" },
     {
       key: "polls",
       label: ctx.lang === "bg" ? "Проучвания" : "Polls",
@@ -288,11 +291,21 @@ export const pollAccuracy = async (
       label: ctx.lang === "bg" ? "Грешка (MAE)" : "Error (MAE)",
       numeric: true,
     },
+    {
+      key: "threshold",
+      label: ctx.lang === "bg" ? "Праг %" : "Threshold %",
+      numeric: true,
+    },
   ];
   const rows: Row[] = ranked.map((a) => ({
     agency: ctx.lang === "bg" ? a.name_bg : a.name_en,
+    grade: a.grade ?? "—",
     polls: a.totalPolls,
     mae: `${a.overallMAE} pp`,
+    threshold:
+      a.barrierCallRate != null
+        ? `${Math.round(a.barrierCallRate * 100)}%`
+        : "—",
   }));
   const best = ranked[0];
   return {
@@ -312,6 +325,7 @@ export const pollAccuracy = async (
           ? best.name_bg
           : best.name_en
         : "—",
+      best_grade: best?.grade ?? "—",
       best_mae: best ? `${best.overallMAE} pp` : "—",
     },
     provenance: ["polls/accuracy.json"],

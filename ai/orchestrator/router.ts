@@ -43,6 +43,30 @@ const PARTY_TOKENS = [
 const detectParty = (q: string): string | undefined =>
   PARTY_TOKENS.find((tok) => q.includes(tok));
 
+// Polling-agency name fragments, for routing "how accurate is <agency>".
+const AGENCY_TOKENS = [
+  "алфа",
+  "alpha",
+  "тренд",
+  "trend",
+  "галъп",
+  "gallup",
+  "маркет",
+  "market",
+  "сова",
+  "sova",
+  "медиана",
+  "mediana",
+  "мяра",
+  "цам",
+  "афис",
+  "afis",
+  "екзакта",
+  "exacta",
+  "ноема",
+  "барометър",
+];
+
 // A bare year -> the most recent election in that year (heuristic; the LLM will
 // disambiguate multi-election years like 2021 better in M3).
 const detectElection = (q: string): string | undefined => {
@@ -315,9 +339,45 @@ export const route = (question: string, ctx: ToolContext): Route => {
     return { tool: "financingOverview", args: {} };
   if (
     has(q, "социолог", "pollster", "анкет", "проучван", " poll", "polls") &&
-    has(q, "точн", "accura", "надежд", "reliab", "грешк")
-  )
+    has(q, "точн", "accura", "надежд", "reliab", "грешк", "класаци", "ranking")
+  ) {
+    // a specific agency named + accuracy/profile context -> per-agency profile
+    if (
+      has(q, ...AGENCY_TOKENS) ||
+      has(q, "профил", "profile", "bias", "house effect")
+    )
+      return { tool: "agencyProfile", args: { agency: q } };
     return { tool: "pollAccuracy", args: {} };
+  }
+  if (
+    has(q, ...AGENCY_TOKENS) &&
+    has(
+      q,
+      "точн",
+      "accura",
+      "профил",
+      "profile",
+      "bias",
+      "house",
+      "грешк",
+      "надежд",
+    )
+  )
+    return { tool: "agencyProfile", args: { agency: q } };
+  // latest poll snapshot / "if elections now"
+  if (
+    has(q, "ако изборите", "if elections", "if the election") ||
+    (has(
+      q,
+      "последн",
+      "latest",
+      "какво показват",
+      "what do the polls",
+      "what would",
+    ) &&
+      has(q, "социолог", "анкет", "проучван", " poll", "polls", "сондаж"))
+  )
+    return { tool: "latestPolls", args: {} };
 
   // 1e. place ("about my area"): composite profile + census, before the
   // single-metric place reads so a broad "tell me about X" gets the dashboard.

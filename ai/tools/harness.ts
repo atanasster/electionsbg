@@ -551,6 +551,48 @@ const run = async () => {
     assert(got === expected, `route: "${q}" -> ${expected}`);
   }
 
+  // 17. D1.5 — detailed polling
+  console.log("\n=== [polls] detailed polling tools ===");
+  const pa = (await runTool("pollAccuracy", {}, ctxBg)) as Envelope;
+  printEnvelope(pa);
+  assert(
+    !!pa.facts.best_grade &&
+      (pa.rows?.[0] as Record<string, unknown>)?.grade != null,
+    "pollAccuracy now shows grade",
+  );
+
+  const agp = (await runTool(
+    "agencyProfile",
+    { agency: "Алфа Рисърч" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(agp);
+  assert(
+    agp.facts.grade != null && agp.kind === "scalar",
+    "agencyProfile resolved + has grade",
+  );
+
+  const lp = (await runTool("latestPolls", {}, ctxEn)) as Envelope;
+  printEnvelope(lp);
+  assert(
+    (lp.rows?.length ?? 0) > 0 && !!lp.facts.agency,
+    "latestPolls returns per-party support",
+  );
+
+  console.log("\n=== [router] polls questions ===");
+  const cases9: [string, string | null][] = [
+    ["Коя социологическа агенция е най-точна?", "pollAccuracy"],
+    ["Колко е точна Алфа Рисърч?", "agencyProfile"],
+    ["Какво показват последните проучвания?", "latestPolls"],
+    ["Какво би станало ако изборите бяха сега?", "latestPolls"],
+  ];
+  for (const [q, expected] of cases9) {
+    const r = route(q, ctx);
+    const got = r?.tool ?? null;
+    console.log(`  "${q}" -> ${got ?? "(none)"}`);
+    assert(got === expected, `route: "${q}" -> ${expected}`);
+  }
+
   console.log(
     `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${failures === 0 ? "tools layer verified" : "see above"}`,
   );

@@ -211,8 +211,18 @@ export const narrate = (env: Envelope, lang: Lang): string => {
         : `${f(env, "distinct_parties")} parties, ${f(env, "total_filings")} filings; in ${f(env, "latest_year")} — ${f(env, "latest_on_time")} on time.`;
     case "pollAccuracy":
       return lang === "bg"
-        ? `Най-точна агенция: ${f(env, "most_accurate")} (средна грешка ${f(env, "best_mae")}).`
-        : `Most accurate pollster: ${f(env, "most_accurate")} (mean error ${f(env, "best_mae")}).`;
+        ? `Най-точна агенция: ${f(env, "most_accurate")} (оценка ${f(env, "best_grade")}, средна грешка ${f(env, "best_mae")}).`
+        : `Most accurate pollster: ${f(env, "most_accurate")} (grade ${f(env, "best_grade")}, mean error ${f(env, "best_mae")}).`;
+    case "agencyProfile":
+      if (!env.facts.grade) return env.title;
+      return lang === "bg"
+        ? `Оценка ${f(env, "grade")}; средна грешка ${f(env, "mean_error")}; точност на прага ${f(env, "threshold_calls")}; покрити ${f(env, "elections_covered")} избора.`
+        : `Grade ${f(env, "grade")}; mean error ${f(env, "mean_error")}; threshold-call rate ${f(env, "threshold_calls")}; ${f(env, "elections_covered")} elections covered.`;
+    case "latestPolls":
+      if (!env.facts.agency) return env.title;
+      return lang === "bg"
+        ? `Последно проучване (${f(env, "agency")}, ${f(env, "date")}): водач ${f(env, "leader")}.`
+        : `Latest poll (${f(env, "agency")}, ${f(env, "date")}): leader ${f(env, "leader")}.`;
     case "govDebt":
       return lang === "bg"
         ? `Последни ${f(env, "shown")} емисии на държавен дълг (общо ${f(env, "total_recent")}); най-нова на ${f(env, "latest")}.`
