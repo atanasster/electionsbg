@@ -4,5 +4,9 @@
     "types": ["vite/client"]
   },
   "include": ["./**/*.ts", "./**/*.tsx"],
-  "exclude": ["tools/harness.ts", "tools/place.harness.ts"]
+  "exclude": [
+    "tools/harness.ts",
+    "tools/place.harness.ts",
+    "orchestrator/toolSchema.harness.ts"
+  ]
 }

@@ -5,10 +5,27 @@ grounded in the site's own pre-processed JSON. Free to run (no backend, no
 per-query cost): a small open model runs in the visitor's browser; all numbers
 come from deterministic TypeScript, never from the model.
 
-Status: **Working chat shipped on the deterministic path, across 5 domains.**
-The chat answers BG/EN questions end to end today via a rules-based provider
-(router → tools → template narrator) behind the `LLMProvider` interface; M3 swaps
-in WebLLM without touching the chat UI. See "Milestones".
+Status: **M3 wired — WebLLM model provider lives alongside the rules provider.**
+The chat answers BG/EN questions across 6 domains via the deterministic provider
+(router → tools → template narrator) by default; a `WebLLMProvider` can be
+selected from the header to let an in-browser model drive tool selection +
+narration behind the same `LLMProvider` interface. Verified end to end in a real
+browser: Qwen2.5-1.5B loaded over WebGPU (~1.1 GB), picked a tool via
+grammar-constrained JSON, ran it, and narrated from facts only (no hallucinated
+numbers). Caveat: small generic models route Bulgarian poorly (Qwen-1.5B
+mis-routed a simple party-votes query) — confirming BgGPT (Bulgarian-native) is
+the right default; it + EuroLLM are wired as drop-in options pending the **M0**
+MLC compile (shown disabled, "requires MLC build"). The heuristic router remains
+the default and the always-on fallback (every model step degrades to it on
+failure). See "Milestones".
+
+M3 layers: `ai/orchestrator/toolSchema.ts` (JSON-schema for the 49-tool enum +
+validate/coerce model output → Route, falling back to the heuristic router on any
+invalid output), `ai/orchestrator/prompts.ts` (tool catalogue + few-shot +
+narration prompt), `ai/llm/models.ts` (model registry), `ai/llm/webllm.ts`
+(`WebLLMProvider`, WebGPU-gated, lazy-imported so the 6 MB runtime only loads
+when a model is picked — the main bundle stays ~242 KB gzip). Plumbing unit-test:
+`npx tsx ai/orchestrator/toolSchema.harness.ts`.
 
 Tools (49) grouped by `domain`:
 - **elections** (15): nationalResults, partyResult, machineVoteShare, turnout,
