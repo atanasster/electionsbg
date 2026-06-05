@@ -114,11 +114,55 @@ export const ministryBudget = async (
     for (const m of fy.ministries) byNode.set(m.nodeId, m);
   const all = [...byNode.values()];
   const q = norm(query);
-  const match =
+  // exact / containment first (when args.ministry is a clean name)
+  let match =
     all.find((m) => norm(m.nameBg) === q) ||
-    all.find((m) => norm(m.nameBg).includes(q) && q.length > 3) ||
-    all.find((m) => q.includes(norm(m.nameBg)));
-  if (!match || q.length < 3) {
+    (q.length > 5
+      ? all.find(
+          (m) => norm(m.nameBg).includes(q) || q.includes(norm(m.nameBg)),
+        )
+      : undefined);
+  // otherwise score by distinctive-word overlap, so a whole-question input
+  // ("какъв е бюджетът на министерството на транспорта?") still resolves
+  if (!match) {
+    const STOP = new Set([
+      "министерство",
+      "министерството",
+      "министерски",
+      "министерския",
+      "министър",
+      "министри",
+      "на",
+      "за",
+      "и",
+      "по",
+      "агенция",
+      "държавна",
+      "държавната",
+      "комисия",
+      "национален",
+      "национална",
+      "дирекция",
+      "съвет",
+      "съвета",
+      "администрация",
+    ]);
+    const qn = query.toLowerCase();
+    let best = 0;
+    for (const m of all) {
+      const words = m.nameBg
+        .toLowerCase()
+        .split(/[\s.,„“”"'`-]+/)
+        .filter((w) => w.length >= 5 && !STOP.has(w));
+      let score = 0;
+      for (const w of words) if (qn.includes(w.slice(0, 6))) score += w.length;
+      if (score > best) {
+        best = score;
+        match = m;
+      }
+    }
+  }
+  if (!match) {
     return {
       tool: "ministryBudget",
       domain: "fiscal",

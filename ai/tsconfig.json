@@ -8,6 +8,7 @@
     "tools/harness.ts",
     "tools/place.harness.ts",
     "orchestrator/toolSchema.harness.ts",
-    "m5/gen_dataset.ts"
+    "m5/gen_dataset.ts",
+    "tests/**"
   ]
 }

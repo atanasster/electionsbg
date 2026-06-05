@@ -201,6 +201,19 @@ Cross-election series tools need **no fetches** (bundled `elections.json`).
 
 ---
 
+## Testing
+
+Run `npm run ai:test:all` (or individually):
+- `ai/tools/harness.ts` — every tool against real data, with golden assertions
+- `ai/tools/place.harness.ts` — the place resolver
+- `ai/orchestrator/toolSchema.harness.ts` — the model tool-call parse/validate
+- `ai/tests/regression.ts` (`npm run ai:test`) — **53 prompt → expected-response
+  cases across all 49 tools**: asserts the router picks the right tool *and* the
+  tool returns the expected envelope (golden values for stable election/census
+  data, structural checks for volatile assets/polls). A data refresh or routing
+  change that breaks an expectation fails loudly — update the golden value or fix
+  the routing. Add a case per new tool.
+
 ## Deployment (Firebase multi-site) — M2 ✅ wired
 
 The config is in place: `firebase.json` `hosting` is now an **array of two

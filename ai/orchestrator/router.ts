@@ -8,7 +8,7 @@
 import { ALL_ELECTIONS } from "../tools/dataset";
 import { resolveMacroKey } from "../tools/macro";
 import { findOblastInText } from "../tools/place";
-import { resolveSubnatKey } from "../tools/placesGov";
+import { resolveRegionKey, resolveSubnatKey } from "../tools/placesGov";
 import type { ToolArgs, ToolContext } from "../tools/types";
 
 export type Route = { tool: string; args: ToolArgs } | null;
@@ -384,8 +384,9 @@ export const route = (question: string, ctx: ToolContext): Route => {
   if (
     has(
       q,
-      "разкажи",
-      "профил",
+      "разкажи за",
+      "разкажи ми за",
+      "профил на",
       "tell me about",
       "about ",
       "за моето",
@@ -453,6 +454,27 @@ export const route = (question: string, ctx: ToolContext): Route => {
     const place = extractPlace(q);
     if (place)
       return { tool: "subnationalIndicator", args: { place, indicator: q } };
+  }
+  // per-oblast indicator (e.g. "БВП на човек във Варна") — needs an oblast +
+  // a region-level signal so it doesn't shadow the município subnational case
+  if (
+    resolveRegionKey(q) &&
+    has(
+      q,
+      "на човек",
+      "per capita",
+      "по области",
+      "областта",
+      "област",
+      "oblast",
+    )
+  ) {
+    const oblHit = findOblastInText(q);
+    if (oblHit)
+      return {
+        tool: "regionIndicator",
+        args: { oblast: oblHit.code, indicator: q },
+      };
   }
 
   // land use (national, or oblast if one is named)
