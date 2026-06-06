@@ -691,6 +691,17 @@ const run = async () => {
     "mpVotingProfile resolved an MP",
   );
 
+  // transliteration: an English-spelled name resolves against the Cyrillic roster
+  const mpProfEn = (await runTool(
+    "mpVotingProfile",
+    { name: "Asen Vasilev" },
+    ctxEn,
+  )) as Envelope;
+  assert(
+    mpProfEn.kind === "scalar" && /Василев/.test(String(mpProfEn.facts.name)),
+    "mpVotingProfile resolves an EN-spelled name via transliteration",
+  );
+
   const sim = (await runTool(
     "mpSimilarity",
     { name: "Асен Василев" },

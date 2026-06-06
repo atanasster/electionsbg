@@ -27,23 +27,82 @@ const norm = (s: string): string =>
     .replace(/[\s.\-_]+/g, " ")
     .trim();
 
-// Resolve a free-text MP name to {id, name} in the current parliament. Matches
-// when every query token appears in the roster name (handles patronymics +
-// reversed order: "Борисов Бойко" still hits "БОЙКО МЕТОДИЕВ БОРИСОВ").
+// Bulgarian → Latin (the official Streamlined Romanization, Наредба за
+// транслитерацията). Lets an English-spelled MP name match the Cyrillic-only
+// roster: a query is matched in romanized space, so "Asen Vasilev" hits
+// "АСЕН ВАСКОВ ВАСИЛЕВ" and Cyrillic queries still work (they romanize too).
+const CYR2LAT: Record<string, string> = {
+  а: "a",
+  б: "b",
+  в: "v",
+  г: "g",
+  д: "d",
+  е: "e",
+  ж: "zh",
+  з: "z",
+  и: "i",
+  й: "y",
+  к: "k",
+  л: "l",
+  м: "m",
+  н: "n",
+  о: "o",
+  п: "p",
+  р: "r",
+  с: "s",
+  т: "t",
+  у: "u",
+  ф: "f",
+  х: "h",
+  ц: "ts",
+  ч: "ch",
+  ш: "sh",
+  щ: "sht",
+  ъ: "a",
+  ь: "y",
+  ю: "yu",
+  я: "ya",
+};
+
+// Lowercase, romanize each Cyrillic letter (Latin passes through unchanged),
+// collapse separators — the common key both scripts compare in.
+export const translitKey = (s: string): string =>
+  s
+    .toLowerCase()
+    .split("")
+    .map((ch) => CYR2LAT[ch] ?? ch)
+    .join("")
+    .replace(/[\s.\-_]+/g, " ")
+    .trim();
+
+// A query token matches a romanized name when it's a substring, OR when it
+// shares a 5+ char prefix with one of the name's words — so common media
+// variants ("Borissov" vs official "Borisov") still resolve.
+const tokenHits = (token: string, nameKey: string): boolean => {
+  if (nameKey.includes(token)) return true;
+  if (token.length < 5) return false;
+  return nameKey
+    .split(" ")
+    .some((w) => w.length >= 5 && w.slice(0, 5) === token.slice(0, 5));
+};
+
+// Resolve a free-text MP name to {id, name} in the current parliament, in either
+// script. Matches when every query token hits the (romanized) roster name —
+// handles patronymics + reversed order ("Борисов Бойко" ↦ "БОЙКО … БОРИСОВ").
 const findMp = (
   query: string,
   mpNames: Record<string, string>,
 ): { id: number; name: string } | undefined => {
-  const toks = norm(query)
+  const toks = translitKey(query)
     .split(" ")
     .filter((t) => t.length >= 3);
   if (!toks.length) return undefined;
-  let best: { id: number; name: string; score: number } | undefined;
+  let best: { id: number; name: string } | undefined;
   for (const [id, name] of Object.entries(mpNames)) {
-    const n = norm(name);
-    const hits = toks.filter((t) => n.includes(t)).length;
-    if (hits === toks.length && (!best || name.length < best.name.length))
-      best = { id: Number(id), name, score: hits };
+    const key = translitKey(name);
+    const allHit = toks.every((t) => tokenHits(t, key));
+    if (allHit && (!best || name.length < best.name.length))
+      best = { id: Number(id), name };
   }
   return best ? { id: best.id, name: best.name } : undefined;
 };

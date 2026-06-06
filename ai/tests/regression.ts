@@ -772,12 +772,20 @@ const CASES: Case[] = [
     facts: { mp: "Василев" },
   },
   {
-    // EN-spelled MP name: routes correctly but the roll-call roster is Cyrillic
-    // only, so it declines gracefully (no transliteration layer) -> scalar.
+    // EN-spelled MP name resolves against the Cyrillic roster via romanization
     q: "who votes like Asen Vasilev?",
     lang: "en",
     tool: "mpSimilarity",
+    kind: "table",
+    minRows: 1,
+    facts: { mp: "Василев" },
+  },
+  {
+    q: "How does Boyko Borisov vote in parliament?",
+    lang: "en",
+    tool: "mpVotingProfile",
     kind: "scalar",
+    facts: { name: "Борисов" },
   },
   {
     q: "Как гласува парламентът за бюджета?",
