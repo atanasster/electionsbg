@@ -410,31 +410,28 @@ export const Chat = ({
   const pinned = useRef(true);
   const nextId = () => (idRef.current += 1);
 
-  // Keep the latest answer pinned to the foot as the conversation grows. We
-  // watch the scroll content with a ResizeObserver rather than reacting to
-  // message changes alone: an answer's table/chart can finish laying out a frame
-  // or two after React commits, so a one-shot scroll fires before the final
-  // height is known and stops short — leaving the tail of the answer and the
-  // follow-up chips behind the sticky composer that overlays the foot. We scroll
-  // the scrollport itself to scrollHeight (not endRef into view, which sits above
-  // the composer) and only re-pin while the user is already near the foot, so
-  // scrolling up to re-read isn't yanked back down.
+  // Track whether the user is following the foot. A scroll away from the bottom
+  // (to re-read a long answer mid-stream) clears the pin; sending/regenerating
+  // re-arms it. A ResizeObserver re-pins when the answer's table/chart finishes
+  // laying out a frame or two after React commits — belt-and-suspenders on top of
+  // the per-message scroll below (RO delivery is tied to paint, so it can't be
+  // the only mechanism). Both scroll the scrollport itself to its foot, never
+  // endRef into view: endRef sits above the sticky composer, so aligning it to
+  // the scrollport bottom would leave the answer tail + follow-ups behind it.
   useEffect(() => {
     const scroller = scrollParent(endRef.current);
     if (!scroller) return;
     const FOLLOW_SLACK = 80; // px from the foot that still counts as "following"
-    const distanceToFoot = () =>
-      scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight;
-    const toFoot = (behavior: ScrollBehavior) =>
-      scroller.scrollTo({ top: scroller.scrollHeight, behavior });
-    // a user scroll away from the foot stops auto-following
     const onScroll = () => {
-      pinned.current = distanceToFoot() <= FOLLOW_SLACK;
+      pinned.current =
+        scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight <=
+        FOLLOW_SLACK;
     };
     scroller.addEventListener("scroll", onScroll, { passive: true });
     const content = scroller.firstElementChild ?? scroller;
     const ro = new ResizeObserver(() => {
-      if (pinned.current) toFoot("auto");
+      if (pinned.current)
+        scroller.scrollTo({ top: scroller.scrollHeight, behavior: "auto" });
     });
     ro.observe(content);
     return () => {
@@ -442,6 +439,20 @@ export const Chat = ({
       ro.disconnect();
     };
   }, []);
+
+  // Catch the conversation up to the foot whenever it grows (a new turn, each
+  // streaming token, the кратко/подробно re-narration). This passive effect runs
+  // after the browser has painted the new content, so scrollHeight is already
+  // final here — we jump straight to it (instant, not smooth: smooth would
+  // perpetually chase the still-growing content as tokens stream). Skipped while
+  // the user has scrolled up to re-read; the ResizeObserver above re-pins for any
+  // table/chart that finishes laying out a frame later in a real browser.
+  useEffect(() => {
+    if (!pinned.current) return;
+    const scroller = scrollParent(endRef.current);
+    if (scroller)
+      scroller.scrollTo({ top: scroller.scrollHeight, behavior: "auto" });
+  }, [messages, busy]);
 
   // grow the textarea with its content (capped), and shrink back when cleared.
   // Runs on every input change so programmatic sets (voice, send) resize too.
