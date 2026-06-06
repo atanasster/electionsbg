@@ -1,4 +1,4 @@
-import { useContext, useMemo, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { Logo } from "@/layout/header/Logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,22 +12,12 @@ import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark, themeLight } from "@/theme/utils";
 import { Chat } from "./app/Chat";
 import { Explorer } from "./app/Explorer";
-import { HeuristicProvider, type LLMProvider } from "./llm/provider";
-import { MODELS, modelById } from "./llm/models";
-import { TransformersJsProvider } from "./llm/transformersjs";
-import { WebLLMProvider, webgpuSupported } from "./llm/webllm";
+import { useModelEngine } from "./llm/useModelEngine";
 import { electionNames, latestElection } from "./tools/dataset";
 import { electionFullLabel } from "./tools/format";
 import type { Lang } from "./tools/types";
 
 const ELECTIONS = electionNames();
-const HAS_WEBGPU = webgpuSupported();
-
-type LoadState = {
-  phase: "idle" | "loading" | "ready" | "error" | "unsupported";
-  pct: number;
-  note: string;
-};
 
 export const App = () => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -36,56 +26,10 @@ export const App = () => {
   const [view, setView] = useState<"chat" | "tools">("chat");
   const isDark = theme === themeDark;
 
-  const heuristic = useMemo(() => new HeuristicProvider(), []);
-  const [provider, setProvider] = useState<LLMProvider>(heuristic);
-  const [providerId, setProviderId] = useState("rules");
-  const [load, setLoad] = useState<LoadState>({
-    phase: "idle",
-    pct: 0,
-    note: "",
-  });
-
-  // Guards against a switch race: each selection bumps the token; a stale
-  // in-flight init() (user switched again, or back to rules, mid-load) must not
-  // clobber the current provider's progress/ready/error banner.
-  const switchSeq = useRef(0);
-
-  const selectProvider = async (id: string) => {
-    const token = ++switchSeq.current;
-    setProviderId(id);
-    if (id === "rules") {
-      setProvider(heuristic);
-      setLoad({ phase: "idle", pct: 0, note: "" });
-      return;
-    }
-    const model = modelById(id);
-    if (!model) return;
-    if (!HAS_WEBGPU) {
-      setLoad({ phase: "unsupported", pct: 0, note: "" });
-      return;
-    }
-    const p =
-      model.runtime === "transformersjs"
-        ? new TransformersJsProvider(model)
-        : new WebLLMProvider(model);
-    setProvider(p); // usable immediately (falls back to rules while weights load)
-    setLoad({ phase: "loading", pct: 0, note: "" });
-    try {
-      await p.init((pct, note) => {
-        if (token === switchSeq.current)
-          setLoad({ phase: "loading", pct, note });
-      });
-      if (token === switchSeq.current)
-        setLoad({ phase: "ready", pct: 100, note: "" });
-    } catch (e) {
-      if (token === switchSeq.current)
-        setLoad({
-          phase: "error",
-          pct: 0,
-          note: e instanceof Error ? e.message : String(e),
-        });
-    }
-  };
+  // The on-device model lifecycle (which provider answers, download/load
+  // progress, what's cached, storage) lives in this hook so the composer's
+  // ModelPicker and the chat share one source of truth.
+  const engine = useModelEngine();
 
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
 
@@ -111,34 +55,6 @@ export const App = () => {
               </span>
             </span>
           </a>
-          <div aria-hidden className="hidden h-6 w-px bg-border/70 sm:block" />
-          <Select value={providerId} onValueChange={selectProvider}>
-            <SelectTrigger
-              className="h-8 w-[11rem] rounded-full text-xs text-muted-foreground sm:w-[15rem]"
-              title={t("Модел", "Model")}
-              aria-label={t("Модел", "Model")}
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="rules">
-                {t("Правила (офлайн)", "Rules (offline)")}
-              </SelectItem>
-              {MODELS.map((m) => (
-                <SelectItem
-                  key={m.id}
-                  value={m.id}
-                  data-model-id={m.id}
-                  disabled={!m.ready || !HAS_WEBGPU}
-                >
-                  {m.label[lang]}
-                  {!m.ready
-                    ? ` — ${m.sizeNote[lang]}`
-                    : ` (${m.sizeNote[lang]})`}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
         </div>
         <div className="flex shrink-0 items-center gap-2 text-sm">
           <Select value={election} onValueChange={setElection}>
@@ -176,39 +92,6 @@ export const App = () => {
         </div>
       </header>
 
-      {load.phase === "loading" && (
-        <div className="w-full shrink-0 bg-muted px-4 pb-2 text-xs text-muted-foreground">
-          <div className="container mx-auto">
-            <div className="mb-1 h-1 w-full overflow-hidden rounded bg-background">
-              <div
-                className="h-full bg-primary transition-all"
-                style={{ width: `${load.pct}%` }}
-              />
-            </div>
-            {t("Зареждане на модела", "Loading model")} {load.pct}% ·{" "}
-            {load.note}
-          </div>
-        </div>
-      )}
-      {load.phase === "unsupported" && (
-        <div className="w-full shrink-0 bg-muted px-4 pb-2 text-xs text-destructive">
-          <div className="container mx-auto">
-            {t(
-              "Този браузър няма WebGPU — локалните модели не са налични. Използвайте Chrome/Edge на компютър. Чатът работи с правила.",
-              "This browser has no WebGPU — on-device models aren't available. Use desktop Chrome/Edge. The chat works on rules.",
-            )}
-          </div>
-        </div>
-      )}
-      {load.phase === "error" && (
-        <div className="w-full shrink-0 bg-muted px-4 pb-2 text-xs text-destructive">
-          <div className="container mx-auto">
-            {t("Грешка при зареждане: ", "Load error: ")}
-            {load.note}
-          </div>
-        </div>
-      )}
-
       <main className="flex-1 overflow-y-auto">
         <div className="container mx-auto px-2 py-6 sm:px-4">
           <div className="mb-4 flex items-center gap-2">
@@ -229,7 +112,7 @@ export const App = () => {
           </div>
 
           {view === "chat" ? (
-            <Chat provider={provider} lang={lang} election={election} />
+            <Chat engine={engine} lang={lang} election={election} />
           ) : (
             <Explorer lang={lang} />
           )}

@@ -13,10 +13,28 @@
 
 import type { AppConfig } from "@mlc-ai/web-llm";
 
+// Short capability tags surfaced as chips on each model card. The picker maps
+// these to bilingual labels (ai/app/ModelPicker.tsx) so the registry stays
+// language-neutral.
+export type ModelTag = "bg-native" | "routes" | "fast" | "test" | "multimodal";
+
 export type ModelOption = {
   id: string; // WebLLM model_id, or (transformersjs) the HF ONNX repo path
   label: { bg: string; en: string };
+  // The full size/availability note. For downloadable models it's a one-time
+  // download size; for unavailable ones it's the reason ("requires MLC build").
   sizeNote: { bg: string; en: string };
+  // The bare download size ("~1.1 GB") shown on the Download button + card. Only
+  // set for models that can actually load today; omit for unavailable ones.
+  size?: { bg: string; en: string };
+  // Approximate WebGPU memory the loaded model needs — shown so a user on a
+  // weaker machine knows what they're committing to before downloading.
+  vramNote?: { bg: string; en: string };
+  // One-line "what it's good at", shown under the title on the card.
+  advantage: { bg: string; en: string };
+  tags?: ModelTag[];
+  // Flags the on-brand default once it's loadable — gets a "Recommended" ribbon.
+  recommended?: boolean;
   ready: boolean; // false => requires the M0 compile before it can load
   // Which in-browser engine runs this model. "webllm" (default) = @mlc-ai/web-llm
   // (needs an MLC build). "transformersjs" = @huggingface/transformers / ONNX
@@ -37,6 +55,13 @@ export const MODELS: ModelOption[] = [
     id: "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
     label: { bg: "Qwen2.5 1.5B (тест)", en: "Qwen2.5 1.5B (test)" },
     sizeNote: { bg: "~1.1 GB сваляне", en: "~1.1 GB download" },
+    size: { bg: "~1.1 GB", en: "~1.1 GB" },
+    vramNote: { bg: "~1.5 GB видео памет", en: "~1.5 GB video memory" },
+    advantage: {
+      bg: "Бърз, лек тест модел · само разказ",
+      en: "Fast, light test model · narration only",
+    },
+    tags: ["fast", "test"],
     ready: true,
     routes: false, // test model: narration only, deterministic routing
   },
@@ -44,6 +69,13 @@ export const MODELS: ModelOption[] = [
     id: "Qwen2.5-3B-Instruct-q4f16_1-MLC",
     label: { bg: "Qwen2.5 3B (тест)", en: "Qwen2.5 3B (test)" },
     sizeNote: { bg: "~2 GB сваляне", en: "~2 GB download" },
+    size: { bg: "~2 GB", en: "~2 GB" },
+    vramNote: { bg: "~2.5 GB видео памет", en: "~2.5 GB video memory" },
+    advantage: {
+      bg: "По-плавен разказ · само разказ (без насочване)",
+      en: "Smoother narration · narration only (no routing)",
+    },
+    tags: ["test"],
     ready: true,
     routes: false, // test model: narration only, deterministic routing
   },
@@ -59,6 +91,14 @@ export const MODELS: ModelOption[] = [
       bg: "изисква MLC компилация (M0)",
       en: "requires MLC build (M0)",
     },
+    size: { bg: "~1.6 GB", en: "~1.6 GB" },
+    vramNote: { bg: "~3 GB видео памет", en: "~3 GB video memory" },
+    advantage: {
+      bg: "Най-добър за български · по-естествени отговори",
+      en: "Best for Bulgarian · more natural answers",
+    },
+    tags: ["bg-native", "routes"],
+    recommended: true,
     ready: false,
     routes: true, // Bulgarian-capable -> may fill routing gaps the rules decline
     // appConfig: {
@@ -87,6 +127,13 @@ export const MODELS: ModelOption[] = [
       bg: "изисква MLC компилация (M0)",
       en: "requires MLC build (M0)",
     },
+    size: { bg: "~2.7 GB", en: "~2.7 GB" },
+    vramNote: { bg: "~4 GB видео памет", en: "~4 GB video memory" },
+    advantage: {
+      bg: "Български, по-голям модел · мултимодален",
+      en: "Bulgarian, larger model · multimodal",
+    },
+    tags: ["bg-native", "routes", "multimodal"],
     ready: false,
     routes: true, // Bulgarian-capable -> may fill routing gaps the rules decline
     // appConfig: {
@@ -117,6 +164,11 @@ export const MODELS: ModelOption[] = [
     sizeNote: {
       bg: "недостъпен (твърде голям за браузъра)",
       en: "unavailable (too large for the browser)",
+    },
+    vramNote: { bg: "~2 GB видео памет", en: "~2 GB video memory" },
+    advantage: {
+      bg: "Многоезичен европейски модел (вкл. български)",
+      en: "Multilingual European model (incl. Bulgarian)",
     },
     ready: false,
     runtime: "transformersjs",
