@@ -247,6 +247,22 @@ const CASES: Case[] = [
     minRows: 10,
     facts: { place: "Асеновград" },
   },
+  {
+    // oblast-wide mayors-by-party rollup (canonicalised across the province)
+    q: "Колко кметове спечели всяка партия в област Пловдив?",
+    tool: "localOblastMayors",
+    kind: "table",
+    minRows: 4,
+    facts: { oblast: "Пловдив", leader: "БСП-ОЛ" },
+  },
+  {
+    q: "mayors won by party in Varna province",
+    lang: "en",
+    tool: "localOblastMayors",
+    kind: "table",
+    minRows: 3,
+    facts: { leader: "ГЕРБ-СДС" },
+  },
   // ---- fiscal ----------------------------------------------------------------
   {
     q: "Какъв е държавният бюджет?",

@@ -85,7 +85,7 @@ const norm = (s: string): string =>
   s
     .toLowerCase()
     .replace(QUALIFIER, " ")
-    .replace(/[\s.\-_/'’`]+/g, "")
+    .replace(/[\s.\-_/'’`()]+/g, "")
     .trim();
 
 let muniCache: Muni[] | null = null;
@@ -183,13 +183,20 @@ export const resolveOblast = (
 
 // Find an oblast whose name appears *inside* a longer sentence (so a question
 // like "активността в Хасково" resolves Хасково even with surrounding words).
+// strip a trailing "(област)" / "(province)" / "(23 МИР)" qualifier from an
+// oblast display name so only the bare place name is matched. Needed because the
+// global QUALIFIER strip relies on \b, which JS does not honour around Cyrillic,
+// so "Пловдив (област)" would otherwise keep "област" and never match a query
+// that writes it in a different position ("в област Пловдив").
+const oblastBase = (s: string): string => s.replace(/\s*\([^)]*\)\s*/g, " ");
+
 export const findOblastInText = (
   text: string,
 ): { code: string; name: { bg: string; en: string } } | undefined => {
   const t = norm(text);
   for (const [code, name] of Object.entries(OBLASTS)) {
-    const nb = norm(name.bg);
-    const ne = norm(name.en);
+    const nb = norm(oblastBase(name.bg));
+    const ne = norm(oblastBase(name.en));
     if (nb.length >= 4 && t.includes(nb)) return { code, name };
     if (ne.length >= 4 && t.includes(ne)) return { code, name };
   }

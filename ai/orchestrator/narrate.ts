@@ -128,6 +128,11 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `${f(env, "place")}: ${f(env, "total")} ${f(env, "level")} (показани ${f(env, "shown")}).`
         : `${f(env, "place")}: ${f(env, "total")} ${f(env, "level")} (showing ${f(env, "shown")}).`;
+    case "localOblastMayors":
+      if (env.facts.total == null) return env.title;
+      return lang === "bg"
+        ? `${f(env, "oblast")} (${f(env, "cycle")}): ${f(env, "total")} ${f(env, "level")}; най-много — ${f(env, "leader")}.`
+        : `${f(env, "oblast")} (${f(env, "cycle")}): ${f(env, "total")} ${f(env, "level")}; most — ${f(env, "leader")}.`;
     case "localMunicipality":
       if (!env.facts.municipality)
         return lang === "bg"

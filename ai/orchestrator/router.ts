@@ -285,6 +285,13 @@ export const route = (question: string, ctx: ToolContext): Route => {
   }
   if (isLocal) {
     const place = extractPlace(q);
+    // oblast/province-wide mayors-by-party rollup. Gated on the "област"/province
+    // qualifier + a named oblast, so a bare município name ("Пловдив") still
+    // falls through to the município tools below.
+    if (has(q, "област", "province", "oblast") && has(q, "кмет", "mayor")) {
+      const obl = findOblastInText(q);
+      if (obl) return { tool: "localOblastMayors", args: { place: obl.code } };
+    }
     // районни / кметствени кметове (Sofia districts or settlement mayors) —
     // more specific than the mayor-history rule below, so it goes first
     if (

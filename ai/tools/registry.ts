@@ -14,6 +14,7 @@ import {
   localCouncilVoteShare,
   localMayorsWon,
   localMunicipality,
+  localOblastMayors,
 } from "./local";
 import {
   budgetExecution,
@@ -502,6 +503,38 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: localMayorsWon,
+  },
+  {
+    name: "localOblastMayors",
+    domain: "local",
+    description: {
+      bg: "Спечелени кметски места по партия в една област/провинция.",
+      en: "Mayors won by party within a single province (oblast).",
+    },
+    params: [
+      {
+        name: "place",
+        type: "oblast",
+        required: true,
+        description: { bg: "Област / провинция", en: "Province (oblast)" },
+      },
+      {
+        name: "cycle",
+        type: "cycle",
+        description: { bg: "Местен цикъл", en: "Local cycle" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко кмета спечели всяка партия в област Пловдив?",
+        en: "How many mayors did each party win in Plovdiv province?",
+      },
+      {
+        bg: "Кметове по партия в област Варна",
+        en: "Mayors by party in Varna province",
+      },
+    ],
+    run: localOblastMayors,
   },
   {
     name: "localMunicipality",
