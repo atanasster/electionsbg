@@ -27,7 +27,16 @@ export default defineConfig({
   webServer: {
     // Requires a built dist/. Run `npm run build` before `npm test` (or use
     // npm run test:build which chains them).
-    command: "firebase emulators:start --only hosting --project elections-bg",
+    //
+    // Scope to the `main` hosting target only. firebase.json also defines an
+    // `ai` target (→ dist-ai, project electionsbg-ai), but that target isn't
+    // configured for the elections-bg project in .firebaserc — a bare
+    // `--only hosting` tries to resolve every target against elections-bg and
+    // exits 1 with "Deploy target ai not configured for project elections-bg",
+    // killing the emulator before any test runs. The suite only exercises the
+    // main site, so serve just that target.
+    command:
+      "firebase emulators:start --only hosting:main --project elections-bg",
     url: `${BASE_URL}/`,
     reuseExistingServer: !process.env.CI,
     // First-run cold start can take a while if firebase pulls config.
