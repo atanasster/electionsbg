@@ -241,7 +241,14 @@ export const ModelPicker = ({
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>
-                <Button variant="outline" onClick={() => setConfirm(null)}>
+                <Button
+                  variant="outline"
+                  // The outline variant's hover:bg-accent flips to coral with
+                  // near-white text (3.2:1, fails WCAG AA). Hover to a neutral
+                  // muted surface instead — foreground-on-muted is 12.8:1.
+                  className="hover:bg-muted hover:text-foreground"
+                  onClick={() => setConfirm(null)}
+                >
                   {t("Отказ", "Cancel")}
                 </Button>
                 <Button onClick={() => startDownload(confirm)}>
@@ -489,7 +496,12 @@ const DownloadingControls = ({
         <Button
           size="sm"
           variant="ghost"
-          className="h-6 px-2 text-xs text-destructive hover:text-destructive"
+          // ghost's hover:bg-accent would flip the background to coral, leaving
+          // red (or white) text on coral — both fail WCAG AA. Use the AA-tuned
+          // --negative red and keep the hover background transparent (a tint has
+          // no contrast headroom on the dark card); underline is the hover cue.
+          // Contrast: 5.6:1 light / 4.7:1 dark, both states.
+          className="h-6 px-2 text-xs text-negative hover:bg-transparent hover:text-negative hover:underline"
           onClick={() => engine.cancel()}
         >
           {t("Откажи", "Cancel")}
