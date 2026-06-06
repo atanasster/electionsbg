@@ -17,17 +17,22 @@ only **routes to a tool + narrates** — it never produces numbers — so the li
 2.6B is genuinely sufficient; the 4B is offered for users who want the current
 model. (EuroLLM also needs a compile; do the BgGPTs first.)
 
-> **⛔ As of 2026-06-06 the MLC pip path is BLOCKED on every platform.** Upstream
-> publishes only one version of each package and they are ABI-incompatible:
+> **⛔ As of 2026-06-06 the unpinned MLC pip path is BLOCKED.** The install grabs
+> the newest of each unpinned package and they are ABI-incompatible:
 > `mlc-llm-nightly` = `0.20.dev162` (built 2026-04-21) needs a TVM symbol
-> (`...LogMessage::level_strings_`) that the only available `mlc-ai-nightly` =
-> `0.20.dev1070` (built 2026-05-28) removed. So `import mlc_llm` fails
-> (`libtvm.so: cannot open` on Linux/Colab, missing-symbol on macOS). No older
-> versions are retained anywhere, so **pinning / symlinks / CUDA-tag changes
-> cannot fix it** — only an upstream republish of a matched pair will. See the
-> recheck command + full diagnosis in [`ai/m0/colab.md`](./colab.md). The chat app
-> ships fully functional without BgGPT (rules engine + Qwen test model); BgGPT is
-> an enhancement. The steps below + `ai/m0/.venv` are ready for when it's fixed.
+> (`...LogMessage::level_strings_`) that `mlc-ai-nightly` = `0.20.dev1070`
+> (built 2026-05-28) removed. So `import mlc_llm` fails (`libtvm.so: cannot open`
+> on Linux/Colab, missing-symbol on macOS).
+>
+> **The fix is NOT "wait for upstream".** Deep research on 2026-06-06 corrected the
+> earlier note: pinning an older matched pair is unavailable on the platforms we
+> build on (arm64-mac and Colab/Linux only publish the broken pair; the retained
+> older wheels are Intel-mac-only). The reliable unblock is **build mlc_llm + TVM
+> Unity from source** (one matched checkout), or **skip MLC entirely and ship
+> EuroLLM-1.7B via transformers.js/ONNX**. See **[`ai/m0/PLAN.md`](./PLAN.md)** for
+> the two ranked execution paths with exact commands. The chat app ships fully
+> functional without BgGPT (rules engine + Qwen test model); BgGPT is an
+> enhancement.
 
 ## 0. One-time setup (already done on this machine)
 

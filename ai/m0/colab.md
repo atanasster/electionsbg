@@ -1,8 +1,8 @@
 # M0 via Google Colab
 
-> ## ⛔ BLOCKED UPSTREAM as of 2026-06-06 — the MLC pip path does not work on ANY platform right now
+> ## ⛔ The UNPINNED MLC pip path is BLOCKED as of 2026-06-06 — but build-from-source works. See [`PLAN.md`](./PLAN.md).
 >
-> MLC currently publishes exactly **one** version of each package, and they are
+> The unpinned install grabs the newest of each package and they are
 > **ABI-incompatible**:
 > - `mlc-llm-nightly-cuXXX` → `0.20.dev162`, built **2026-04-21**
 > - `mlc-ai-nightly-cuXXX`  → `0.20.dev1070`, built **2026-05-28**
@@ -10,13 +10,19 @@
 > `mlc-llm`'s bundled `libmlc_llm.so` needs the symbol
 > `tvm::runtime::detail::LogMessage::level_strings_`, which the newer `mlc-ai`
 > runtime **removed**. So `import mlc_llm` fails — `libtvm.so: cannot open` on
-> Linux/Colab, a missing-symbol error on macOS. No older versions are retained on
-> the index or GitHub, so **pinning, symlinks, or changing the CUDA tag cannot fix
-> it.** (Verified by inspecting both wheels — see the session notes.)
+> Linux/Colab, a missing-symbol error on macOS.
 >
-> **What to do:** re-check periodically; the moment upstream republishes a matched
-> pair, the cells below work as written. Quick check (run locally) — when the
-> `mlc-llm` build date catches up to `mlc-ai`'s, it's likely fixed:
+> **CORRECTION (deep research 2026-06-06):** "wait for upstream" is the wrong plan.
+> Pinning a matched pair is *unavailable* on the platforms we build on — arm64-mac
+> and Colab/Linux only publish the broken pair; the retained older wheels are
+> Intel-mac-only. The reliable unblock is **build mlc_llm + TVM Unity from source**
+> (a single matched checkout makes the Cell-3+ commands below work), or skip MLC
+> and ship **EuroLLM via transformers.js**. Both paths, with commands, are in
+> **[`PLAN.md`](./PLAN.md)**. The quick cells below assume a working `import
+> mlc_llm` — source-build it first, then run them.
+>
+> Quick check (run locally) — if `mlc-llm`'s dev catches up to `mlc-ai`'s, the
+> unpinned install may have self-healed:
 > ```bash
 > for p in mlc_llm mlc_ai; do
 >   echo -n "$p: "; curl -sL https://mlc.ai/wheels \

@@ -20,6 +20,12 @@
       "port": 5180
     },
     {
+      "name": "ai-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "preview:ai", "--", "--port", "4180"],
+      "port": 4180
+    },
+    {
       "name": "firebase-emulator",
       "runtimeExecutable": "firebase",
       "runtimeArgs": ["emulators:start", "--only", "hosting"],

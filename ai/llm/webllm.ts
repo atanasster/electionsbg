@@ -18,6 +18,7 @@ import { route } from "../orchestrator/router";
 import { parseToolCall, toolSelectionSchema } from "../orchestrator/toolSchema";
 import { runTool } from "../tools/registry";
 import type { Lang, ToolContext } from "../tools/types";
+import { clarify, matchesLang } from "./lang";
 import type { ChatResponse, LLMProvider, ProviderStatus } from "./provider";
 import type { ModelOption } from "./models";
 
@@ -25,20 +26,6 @@ export const webgpuSupported = (): boolean =>
   typeof navigator !== "undefined" &&
   "gpu" in navigator &&
   (navigator as unknown as { gpu?: unknown }).gpu != null;
-
-// Does the text use mostly the script the requested language expects? (bg ->
-// Cyrillic, en -> Latin). Used to reject wrong-language model narration.
-const matchesLang = (text: string, lang: Lang): boolean => {
-  const cyr = (text.match(/[Ѐ-ӿ]/g) ?? []).length;
-  const lat = (text.match(/[A-Za-z]/g) ?? []).length;
-  if (cyr + lat === 0) return true; // numbers/punctuation only — accept
-  return lang === "bg" ? cyr >= lat : lat >= cyr;
-};
-
-const clarify = (lang: Lang): string =>
-  lang === "bg"
-    ? "Не съм сигурен какво питате. Опитайте напр.: „машинно гласуване в последните 7 избора“ или „кметът на Пловдив“."
-    : 'I\'m not sure what you\'re asking. Try e.g.: "machine voting in the last 7 elections" or "the mayor of Plovdiv".';
 
 export class WebLLMProvider implements LLMProvider {
   id: string;

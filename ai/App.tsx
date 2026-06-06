@@ -14,6 +14,7 @@ import { Chat } from "./app/Chat";
 import { Explorer } from "./app/Explorer";
 import { HeuristicProvider, type LLMProvider } from "./llm/provider";
 import { MODELS, modelById } from "./llm/models";
+import { TransformersJsProvider } from "./llm/transformersjs";
 import { WebLLMProvider, webgpuSupported } from "./llm/webllm";
 import { electionNames, latestElection } from "./tools/dataset";
 import { electionFullLabel } from "./tools/format";
@@ -57,7 +58,10 @@ export const App = () => {
       setLoad({ phase: "unsupported", pct: 0, note: "" });
       return;
     }
-    const p = new WebLLMProvider(model);
+    const p =
+      model.runtime === "transformersjs"
+        ? new TransformersJsProvider(model)
+        : new WebLLMProvider(model);
     setProvider(p); // usable immediately (falls back to rules while weights load)
     setLoad({ phase: "loading", pct: 0, note: "" });
     try {
@@ -113,6 +117,7 @@ export const App = () => {
                 <SelectItem
                   key={m.id}
                   value={m.id}
+                  data-model-id={m.id}
                   disabled={!m.ready || !HAS_WEBGPU}
                 >
                   {m.label[lang]}

@@ -24,7 +24,7 @@ export const toolSelectionSchema = (): string =>
   });
 
 // Numeric arg names that should be coerced from strings the model may emit.
-const NUMERIC_ARGS = new Set(["n", "count", "year"]);
+const NUMERIC_ARGS = new Set(["n", "count", "year", "years"]);
 
 const coerceArgs = (toolName: string, raw: unknown): ToolArgs => {
   const tool = TOOLS_BY_NAME[toolName];
