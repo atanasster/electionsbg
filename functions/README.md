@@ -32,8 +32,8 @@ cd functions && npm install && cd ..
 firebase functions:secrets:set OPENROUTER_API_KEY -P ai
 
 # 2. deploy the function (+ the /api/llm hosting rewrite)
-firebase deploy --only functions -P ai
-firebase deploy --only hosting:ai -P ai      # or: npm run deploy:ai
+npm run deploy:ai:functions                  # = firebase deploy --only functions -P ai
+npm run deploy:ai                            # = firebase deploy --only hosting:ai -P ai
 ```
 
 Then in the chat, open the model picker and choose **Gemini 2.5 Flash-Lite** or

@@ -58,6 +58,7 @@
     "deploy:fast": "SKIP_PREDEPLOY=1 firebase deploy --only hosting:main -P default",
     "deploy:ai": "firebase deploy --only hosting:ai -P ai",
     "deploy:ai:fast": "SKIP_PREDEPLOY=1 firebase deploy --only hosting:ai -P ai",
+    "deploy:ai:functions": "firebase deploy --only functions -P ai",
     "staging": "firebase deploy --only hosting:main -P staging",
     "staging:fast": "SKIP_PREDEPLOY=1 firebase deploy --only hosting:main -P staging"
   },
