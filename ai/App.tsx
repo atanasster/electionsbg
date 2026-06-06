@@ -75,8 +75,13 @@ export const App = () => {
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
 
   return (
-    <div className="flex min-h-screen flex-col bg-card text-foreground">
-      <header className="sticky top-0 z-10 flex w-full flex-wrap items-center justify-between gap-2 border-b-2 bg-muted px-2 py-2.5 shadow-sm sm:px-4">
+    // Fixed app shell: header + footer stay put, only <main> scrolls. Using an
+    // inner scroll container (not the body) so opening a Radix Select — which
+    // scroll-locks the body via react-remove-scroll — can't break a sticky header
+    // or shove the dropdown off-screen. Also the correct mobile layout (h-dvh
+    // handles the dynamic browser chrome).
+    <div className="flex h-dvh flex-col overflow-hidden bg-card text-foreground">
+      <header className="flex w-full shrink-0 flex-wrap items-center justify-between gap-2 border-b-2 bg-muted px-2 py-2.5 shadow-sm sm:px-4">
         <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <a
             href="https://electionsbg.com"
@@ -156,7 +161,7 @@ export const App = () => {
       </header>
 
       {load.phase === "loading" && (
-        <div className="w-full bg-muted px-4 pb-2 text-xs text-muted-foreground">
+        <div className="w-full shrink-0 bg-muted px-4 pb-2 text-xs text-muted-foreground">
           <div className="container mx-auto">
             <div className="mb-1 h-1 w-full overflow-hidden rounded bg-background">
               <div
@@ -170,7 +175,7 @@ export const App = () => {
         </div>
       )}
       {load.phase === "unsupported" && (
-        <div className="w-full bg-muted px-4 pb-2 text-xs text-destructive">
+        <div className="w-full shrink-0 bg-muted px-4 pb-2 text-xs text-destructive">
           <div className="container mx-auto">
             {t(
               "Този браузър няма WebGPU — локалните модели не са налични. Използвайте Chrome/Edge на компютър. Чатът работи с правила.",
@@ -180,7 +185,7 @@ export const App = () => {
         </div>
       )}
       {load.phase === "error" && (
-        <div className="w-full bg-muted px-4 pb-2 text-xs text-destructive">
+        <div className="w-full shrink-0 bg-muted px-4 pb-2 text-xs text-destructive">
           <div className="container mx-auto">
             {t("Грешка при зареждане: ", "Load error: ")}
             {load.note}
@@ -188,7 +193,7 @@ export const App = () => {
         </div>
       )}
 
-      <main className="flex-1">
+      <main className="flex-1 overflow-y-auto">
         <div className="container mx-auto px-2 py-6 sm:px-4">
           <div className="mb-4 flex items-center gap-2">
             <Button
@@ -215,7 +220,7 @@ export const App = () => {
         </div>
       </main>
 
-      <footer className="flex flex-wrap items-center justify-between gap-2 bg-muted p-4 text-sm">
+      <footer className="flex shrink-0 flex-wrap items-center justify-between gap-2 bg-muted p-4 text-sm">
         <div className="hidden font-medium lowercase text-secondary-foreground sm:block">
           {`© ${new Date().getFullYear()}. ${t("всички права запазени", "all rights reserved")}.`}
         </div>
