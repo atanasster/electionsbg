@@ -50,6 +50,10 @@ const FEW_SHOT: { q: string; call: string }[] = [
     call: '{"tool":"compareElections","args":{"a":"2022_10_02","b":"2024_10_27"}}',
   },
   {
+    q: "What was turnout in 2023?",
+    call: '{"tool":"turnout","args":{"election":"2023"}}',
+  },
+  {
     q: "Разкажи ми за Габрово",
     call: '{"tool":"governanceProfile","args":{"place":"Габрово"}}',
   },
@@ -71,7 +75,7 @@ export const buildToolSystemPrompt = (lang: Lang): string => {
   return [
     "You are the intent router for a Bulgarian elections & governance assistant.",
     'Pick exactly ONE tool that best answers the user\'s question and output a single JSON object {"tool": <name>, "args": {...}}.',
-    "Only use tool names from the catalogue. Put the relevant entity (party, place, oblast, election date YYYY_MM_DD, indicator, agency, ministry) in args. Use {} when no args are needed. Output JSON only — no prose.",
+    "Only use tool names from the catalogue. Put the relevant entity (party, place, oblast, election — a year like 2023 or a YYYY_MM_DD date, indicator, agency, ministry) in args. Always include the election when the question names a year; omit it only when no specific election is meant. Use {} when no args are needed. Output JSON only — no prose.",
     "",
     "Tools:",
     toolCatalogue(lang),

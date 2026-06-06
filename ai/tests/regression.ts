@@ -975,6 +975,62 @@ const CASES: Case[] = [
   { q: "tell me a story about dragons", lang: "en", tool: null },
 ];
 
+// Raw-arg cases: the LLM router emits {tool, args} directly and can't know the
+// exact ballot date, so it passes a bare year / loose date as `election`. These
+// run the tool with those raw args (bypassing the keyword router, which would
+// have pre-resolved the year) to assert resolveElection maps them to the right
+// election rather than silently falling back to the selected one.
+type ArgCase = {
+  label: string;
+  tool: string;
+  args: Record<string, unknown>;
+  election?: string; // the SELECTED election (the wrong-fallback target)
+  facts: Record<string, FactExp>;
+};
+const ARG_CASES: ArgCase[] = [
+  {
+    // the reported bug: "turnout in 2023" under the cloud model answered for the
+    // selected 2026 election. A bare year must resolve to that year's election.
+    label: 'turnout election:"2023" (selected 2026)',
+    tool: "turnout",
+    args: { election: "2023" },
+    election: "2026_04_19",
+    facts: { election: "2023", turnout: { num: 4051 } },
+  },
+  {
+    // a loose hyphenated date the model might emit
+    label: 'turnout election:"2024-06-09"',
+    tool: "turnout",
+    args: { election: "2024-06-09" },
+    election: "2026_04_19",
+    facts: { election: "2024" },
+  },
+  {
+    // multi-election year + a month disambiguates to the right ballot
+    label: 'turnout election:"2021_07" -> July 2021',
+    tool: "turnout",
+    args: { election: "2021_07" },
+    election: "2026_04_19",
+    facts: { election: "2021" },
+  },
+  {
+    // bare 2021 (3 elections) -> most recent in the year (Nov), like the router
+    label: 'turnout election:"2021" -> most recent 2021',
+    tool: "turnout",
+    args: { election: "2021" },
+    election: "2026_04_19",
+    facts: { election: "2021" },
+  },
+  {
+    // national results keyed by a bare year (same resolver, different tool)
+    label: 'nationalResults election:"2022"',
+    tool: "nationalResults",
+    args: { election: "2022" },
+    election: "2026_04_19",
+    facts: { election: "2022" },
+  },
+];
+
 let failures = 0;
 const fail = (q: string, msg: string) => {
   failures += 1;
@@ -1022,9 +1078,37 @@ const run = async () => {
     }
   }
 
-  const passed = CASES.length - failures;
+  // LLM-router arg resolution (bare year / loose date), bypassing the keyword
+  // router so we exercise resolveElection on the raw shape the model emits.
+  for (const c of ARG_CASES) {
+    const ctx: ToolContext = {
+      lang: "bg",
+      election: c.election ?? LATEST,
+    };
+    let env: Envelope;
+    try {
+      env = (await runTool(c.tool, c.args, ctx)) as Envelope;
+    } catch (e) {
+      fail(
+        c.label,
+        `tool threw: ${e instanceof Error ? e.message : String(e)}`,
+      );
+      continue;
+    }
+    for (const [k, exp] of Object.entries(c.facts)) {
+      if (!(k in env.facts) || !matchFact(env.facts[k], exp)) {
+        fail(
+          c.label,
+          `fact "${k}"=${JSON.stringify(env.facts[k])} did not match ${exp}`,
+        );
+      }
+    }
+  }
+
+  const total = CASES.length + ARG_CASES.length;
+  const passed = total - failures;
   console.log(
-    `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${passed}/${CASES.length} regression cases`,
+    `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${passed}/${total} regression cases`,
   );
   process.exit(failures === 0 ? 0 : 1);
 };

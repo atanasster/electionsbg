@@ -55,6 +55,10 @@ const mockFetch =
       : (opts.narrationContent ?? "");
     return {
       ok: true,
+      // call() reads res.headers.get("content-type") to detect SSE before
+      // deciding stream vs json — a plain object would throw here. Report JSON
+      // so the mock stays on the non-streaming path.
+      headers: { get: () => "application/json" },
       json: async () => ({
         choices: [{ message: { content } }],
         usage: { prompt_tokens: 1200, completion_tokens: 20 },
@@ -90,6 +94,21 @@ const run = async () => {
     "header credits the cloud model when it was actually used",
   );
   assert((r1.meta?.inputTokens ?? 0) > 0, "token usage is recorded");
+
+  // 1b. the model emits a BARE-YEAR election arg ("2023") — it can't know the
+  // exact ballot date. The answer must be for 2023, NOT the selected 2026 (the
+  // reported bug, where "turnout in 2023" silently answered for 2026).
+  setFetch(
+    mockFetch({
+      routeContent: '{"tool":"turnout","args":{"election":"2023"}}',
+      narrationContent: "Избирателната активност беше 40,51%.",
+    }),
+  );
+  const r1b = await p.respond("каква беше активността през 2023", ctx);
+  assert(
+    r1b.tool === "turnout" && /2023/.test(String(r1b.env?.facts.election)),
+    "bare-year election arg resolves to that year, not the selected election",
+  );
 
   // 2. wrong-script model prose -> template narration (numbers stay computed)
   setFetch(
