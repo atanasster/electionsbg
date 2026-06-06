@@ -3,10 +3,12 @@
 // provider requires no change here.
 
 import { type RefObject, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   AlignLeft,
   ArrowUp,
   Check,
+  ChevronDown,
   Copy,
   Download,
   Facebook,
@@ -31,6 +33,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { ModelEngine } from "../llm/useModelEngine";
+import { distill } from "../orchestrator/memory";
 import { AnswerView } from "../render/AnswerView";
 import type { Lang, ToolArgs } from "../tools/types";
 import {
@@ -317,6 +320,31 @@ const EloquenceToggle = ({
   );
 };
 
+// A subtle indicator that the assistant remembers the conversation: how many
+// prior exchanges are in context, and whether older ones have been compacted
+// into a summary. Shown once a thread exists so a user understands a follow-up
+// ("compare that to 2024") will be read in context. `mr-auto` pushes it to the
+// left of the toolbar's action buttons.
+const MEMORY_COMPACT_AT = 6; // matches the cloud window cap (memory.ts)
+const MemoryPill = ({ turns, lang }: { turns: number; lang: Lang }) => {
+  const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
+  if (turns < 1) return null;
+  const compacted = turns > MEMORY_COMPACT_AT;
+  return (
+    <span
+      className="mr-auto inline-flex items-center gap-1.5 rounded-full border border-input bg-card px-2.5 py-1 text-[11px] text-muted-foreground"
+      title={t(
+        "Асистентът помни последните въпроси; по-старите се събират в кратко резюме.",
+        "The assistant remembers recent turns; older ones are compacted into a short summary.",
+      )}
+    >
+      <span className="size-1.5 rounded-full bg-primary/70" />
+      {t("Контекст", "Context")}: {turns}
+      {compacted ? ` · ${t("съкратен", "compacted")}` : ""}
+    </span>
+  );
+};
+
 // One assistant turn. While the answer is still streaming (or it's a plain
 // clarify/error with no Envelope) the narration shows in a bubble; once an
 // Envelope lands the bubble is folded into the answer panel as its lead line.
@@ -380,10 +408,12 @@ export const Chat = ({
   engine,
   lang,
   election,
+  actionSlot,
 }: {
   engine: ModelEngine;
   lang: Lang;
   election: string;
+  actionSlot: HTMLElement | null;
 }) => {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
@@ -495,8 +525,11 @@ export const Chat = ({
     speech.stop();
     pinned.current = true; // a fresh question always follows to the foot
     setInput("");
-    // the prior answer's tool becomes the context for a follow-on ("а ДПС?")
+    // the prior answer's tool becomes the context for a follow-on ("а ДПС?");
+    // the full prior conversation is distilled so the model can resolve richer
+    // references ("show the same for Plovdiv", "compare that to 2024")
     const prev = prevContext(messages, messages.length);
+    const history = distill(messages);
     const uId = nextId();
     const aId = nextId();
     setMessages((m) => [
@@ -514,7 +547,7 @@ export const Chat = ({
         setMessages((m) =>
           m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
         ),
-      { prev, detail: eloquence },
+      { prev, detail: eloquence, history },
     );
     setMessages((m) =>
       m.map((x) =>
@@ -545,6 +578,9 @@ export const Chat = ({
     const question = messages[idx - 1]?.text;
     if (!question) return;
     const prev = prevContext(messages, idx - 1);
+    // distil everything before this answer's own question, so re-narration sees
+    // the same conversation context that produced it
+    const history = distill(messages.slice(0, idx - 1));
     speech.stop();
     pinned.current = true; // re-narration regrows the answer — follow it down
     setBusy(true);
@@ -555,7 +591,7 @@ export const Chat = ({
         setMessages((m) =>
           m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
         ),
-      { detail, prev },
+      { detail, prev, history },
     );
     setMessages((m) =>
       m.map((x) =>
@@ -693,6 +729,8 @@ export const Chat = ({
 
   const suggestions = busy ? [] : matchSuggestions(input, lang);
   const hasChat = messages.length > 0;
+  // how many prior exchanges the assistant is carrying as context (for the pill)
+  const memoryTurns = useMemo(() => distill(messages).length, [messages]);
   // a non-rules provider that has finished loading is the only case where the
   // eloquence preference changes the output — the offline rules engine emits a
   // fixed template, so hide the toggle for it.
@@ -731,47 +769,72 @@ export const Chat = ({
 
   return (
     <div className="flex flex-col gap-4">
-      {hasChat && (
-        <div className="flex flex-wrap items-center justify-end gap-2">
-          <Button variant="outline" size="sm" onClick={() => setMessages([])}>
-            <Plus /> {t("Нов разговор", "New chat")}
-          </Button>
-          <Button variant="outline" size="sm" onClick={copyAll}>
-            {copied ? <Check /> : <Copy />}
-            {copied ? t("Копирано", "Copied") : t("Копирай", "Copy")}
-          </Button>
-          <Button variant="outline" size="sm" onClick={share}>
-            {shared ? <Check /> : <Share2 />}
-            {shared
-              ? t("Линкът е копиран", "Link copied")
-              : t("Сподели", "Share")}
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={shareFacebook}
-            title={t("Сподели във Facebook", "Share on Facebook")}
-          >
-            <Facebook /> Facebook
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            title={t("Целият разговор", "Whole conversation")}
-            onClick={() => downloadMarkdown(messages, lang)}
-          >
-            <FileText /> .md
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            title={t("Целият разговор", "Whole conversation")}
-            onClick={() => void downloadPdf(messages, lang)}
-          >
-            <Download /> .pdf
-          </Button>
-        </div>
-      )}
+      {/* Conversation actions live in the fixed header (portaled into actionSlot)
+          so they stay reachable however far the messages scroll — they used to
+          sit atop the scroll area and scrolled out of reach in a long chat.
+          New chat stays a standalone control; the share/export family collapses
+          into one labelled dropdown to keep the header compact. */}
+      {actionSlot &&
+        hasChat &&
+        createPortal(
+          <>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setMessages([])}
+              title={t("Нов разговор", "New chat")}
+            >
+              <Plus />
+              <span className="hidden sm:inline">
+                {t("Нов разговор", "New chat")}
+              </span>
+            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  title={t(
+                    "Сподели или изтегли разговора",
+                    "Share or export the chat",
+                  )}
+                >
+                  {copied || shared ? <Check /> : <Share2 />}
+                  <span className="hidden sm:inline">
+                    {copied
+                      ? t("Копирано", "Copied")
+                      : shared
+                        ? t("Връзката е копирана", "Link copied")
+                        : t("Сподели", "Share")}
+                  </span>
+                  <ChevronDown className="opacity-60" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onSelect={() => void copyAll()}>
+                  <Copy /> {t("Копирай текста", "Copy text")}
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => void share()}>
+                  <Share2 /> {t("Сподели връзка", "Share link")}
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={shareFacebook}>
+                  <Facebook /> Facebook
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onSelect={() => downloadMarkdown(messages, lang)}
+                >
+                  <FileText /> Markdown (.md)
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onSelect={() => void downloadPdf(messages, lang)}
+                >
+                  <Download /> PDF (.pdf)
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </>,
+          actionSlot,
+        )}
 
       {!hasChat && (
         <p className="pt-2 text-sm text-muted-foreground">

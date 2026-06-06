@@ -25,6 +25,10 @@ export const App = () => {
   const [lang, setLang] = useState<Lang>("bg");
   const [election, setElection] = useState<string>(latestElection());
   const [view, setView] = useState<"chat" | "tools">("chat");
+  // Slot in the fixed header where Chat portals its conversation actions (new
+  // chat, share, export). Kept here so they stay reachable however far the
+  // messages scroll — they used to live atop the scroll area and scrolled away.
+  const [actionSlot, setActionSlot] = useState<HTMLDivElement | null>(null);
   const isDark = theme === themeDark;
 
   // The on-device model lifecycle (which provider answers, download/load
@@ -57,7 +61,14 @@ export const App = () => {
             </span>
           </a>
         </div>
-        <div className="flex shrink-0 items-center gap-2 text-sm">
+        <div className="flex flex-wrap items-center justify-end gap-2 text-sm">
+          {/* Chat fills this with the conversation actions (new chat, share,
+              export) via a portal; empty:hidden drops the stray flex gap when
+              there's no chat or we're in the tools view. */}
+          <div
+            ref={setActionSlot}
+            className="flex items-center gap-2 empty:hidden"
+          />
           <Button
             variant={view === "tools" ? "default" : "ghost"}
             size="icon"
@@ -109,7 +120,12 @@ export const App = () => {
       <main className="flex-1 overflow-y-auto">
         <div className="container mx-auto px-2 py-6 sm:px-4">
           {view === "chat" ? (
-            <Chat engine={engine} lang={lang} election={election} />
+            <Chat
+              engine={engine}
+              lang={lang}
+              election={election}
+              actionSlot={actionSlot}
+            />
           ) : (
             <Explorer lang={lang} onClose={() => setView("chat")} />
           )}
