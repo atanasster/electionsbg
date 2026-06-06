@@ -98,6 +98,11 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Разлика машинно срещу флаш памет (${f(env, "election")}): най-много губи ${f(env, "biggest_loser")}, най-много печели ${f(env, "biggest_gainer")}.`
         : `Machine vs flash memory (${f(env, "election")}): ${f(env, "biggest_loser")} lost the most, ${f(env, "biggest_gainer")} gained the most.`;
+    case "machineVoteByParty":
+      if (!env.facts.most_machine) return env.title;
+      return lang === "bg"
+        ? `Машинно гласуване по партия (${f(env, "election")}): най-висок дял ${f(env, "most_machine")}, най-нисък ${f(env, "most_paper")}.`
+        : `Machine voting by party (${f(env, "election")}): highest share ${f(env, "most_machine")}, lowest ${f(env, "most_paper")}.`;
     case "regionHistory":
       return lang === "bg"
         ? `Избирателна активност в ${f(env, "oblast")} през ${f(env, "elections")} избора; последно ${f(env, "latest_turnout")}.`
@@ -250,6 +255,16 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Най-свързан депутат: ${f(env, "most_connected")} (${f(env, "links")} връзки).`
         : `Most-connected MP: ${f(env, "most_connected")} (${f(env, "links")} links).`;
+    case "mpAssetsByParty":
+      if (!env.facts.richest_party) return env.title;
+      return lang === "bg"
+        ? `Най-богати депутати средно: ${f(env, "richest_party")}.`
+        : `Richest MPs on average: ${f(env, "richest_party")}.`;
+    case "mpConnectionsByParty":
+      if (!env.facts.most_connected_party) return env.title;
+      return lang === "bg"
+        ? `Най-много бизнес връзки: ${f(env, "most_connected_party")}.`
+        : `Most business connections: ${f(env, "most_connected_party")}.`;
     case "officialsAssetsTop":
       return lang === "bg"
         ? `Най-богат служител: ${f(env, "richest")} (${f(env, "richest_assets")}).`

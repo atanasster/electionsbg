@@ -231,6 +231,28 @@ export const route = (question: string, ctx: ToolContext): Route => {
   const isMachine = has(q, "машин", "machine", "суемг", "suemg");
   const isTurnout = has(q, "активн", "turnout", "гласувал", "voters");
   const isCompare = has(q, "сравн", "compare", "срещу", " vs ", "спрямо");
+  // "which party / by party" — a request to RANK parties, not filter to one. Used
+  // to re-aim aggregate tools (machine share, MP assets, risk) at a per-party
+  // breakdown instead of a party-blind national figure.
+  const partyRanking = has(
+    q,
+    "коя партия",
+    "кои партии",
+    "коя от партиите",
+    "кои от партиите",
+    "по партия",
+    "по партии",
+    "which party",
+    "which parties",
+    "by party",
+    "per party",
+  );
+
+  // 0. machine-vote adoption per party ("машинно гласуване по партия"). Before
+  // the compare block so an EN "machine vs paper by party" isn't read as a
+  // two-election comparison, and before the machine block which is party-blind.
+  if (isMachine && partyRanking && !has(q, "корекци", "correction"))
+    return { tool: "machineVoteByParty", args: election ? { election } : {} };
 
   // 1. comparison of two elections
   if (isCompare) {
@@ -420,7 +442,13 @@ export const route = (question: string, ctx: ToolContext): Route => {
     has(q, "риск", "risk", "клъстер", "cluster", "огнищ", "locus", "loci")
   )
     return { tool: "clusterPersistence", args: {} };
-  if (has(q, "клъстер", "cluster") && has(q, "риск", "risk", "струпван"))
+  // risk clusters are party-grounded (each cluster has a leading party), so a
+  // "which party is in the riskiest sections" question routes here rather than
+  // to the party-blind risk-band index below.
+  if (
+    has(q, "риск", "risk", "рисков") &&
+    (has(q, "клъстер", "cluster", "струпван") || partyRanking)
+  )
     return { tool: "riskClusters", args: el };
   if (
     has(
@@ -669,9 +697,23 @@ export const route = (question: string, ctx: ToolContext): Route => {
     "състояние",
     "имот",
   );
+  const wantsConnections = has(
+    q,
+    "връзк",
+    "connection",
+    "фирм",
+    "company",
+    "бизнес",
+  );
+  // "which party's MPs are richest / most connected" -> per-party rollup, before
+  // the individual-MP rankings (which ignore the party-aggregation intent and
+  // wouldn't even fire when "депутат" is absent, e.g. "кои партии имат връзки").
+  if (partyRanking) {
+    if (wantsConnections) return { tool: "mpConnectionsByParty", args: {} };
+    if (wantsAssets) return { tool: "mpAssetsByParty", args: {} };
+  }
   if (has(q, "депутат", " mp", " mps", "народни представители")) {
-    if (has(q, "връзк", "connection", "фирм", "company", "бизнес"))
-      return { tool: "mpConnectionsTop", args: {} };
+    if (wantsConnections) return { tool: "mpConnectionsTop", args: {} };
     if (wantsAssets) return { tool: "mpAssetsTop", args: {} };
   }
   if (

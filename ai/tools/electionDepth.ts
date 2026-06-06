@@ -312,6 +312,126 @@ export const flashMemoryByParty = async (
   };
 };
 
+// ---- machine-vote adoption, per party ---------------------------------------
+// Answers "which parties vote on machines vs paper" by summing each party's
+// machine and paper votes across every section. share = machine / (machine +
+// paper): older/rural electorates skew to paper, urban/reformist to machines.
+
+export const machineVoteByParty = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const election = resolveElection(args, ctx);
+  const bg = ctx.lang === "bg";
+  const [regions, ns] = await Promise.all([
+    fetchRegionVotes<SuemgRegion[]>(election),
+    fetchNationalSummary<{ parties: NSParty[] }>(election),
+  ]);
+  const names = new Map(ns.parties.map((p) => [p.partyNum, p.nickName]));
+  const tally = new Map<number, { machine: number; paper: number }>();
+  for (const r of regions) {
+    for (const v of r.results?.votes ?? []) {
+      if (v.machineVotes == null && v.paperVotes == null) continue;
+      const cur = tally.get(v.partyNum) ?? { machine: 0, paper: 0 };
+      cur.machine += v.machineVotes ?? 0;
+      cur.paper += v.paperVotes ?? 0;
+      tally.set(v.partyNum, cur);
+    }
+  }
+  // drop fringe noise: a party needs a meaningful vote volume for its share to
+  // mean anything
+  const MIN_VOTES = 5000;
+  const all = [...tally]
+    .map(([num, t]) => {
+      const total = t.machine + t.paper;
+      return {
+        party: names.get(num) ?? `#${num}`,
+        machine: t.machine,
+        paper: t.paper,
+        share: total > 0 ? round2((100 * t.machine) / total) : 0,
+        total,
+      };
+    })
+    .filter((r) => r.total >= MIN_VOTES);
+
+  if (all.length === 0) {
+    return {
+      tool: "machineVoteByParty",
+      domain: "elections",
+      kind: "scalar",
+      title: bg
+        ? `Няма данни за машинно гласуване по партия — ${electionFullLabel(election, "bg")}`
+        : `No machine-vote-by-party data — ${electionFullLabel(election, "en")}`,
+      viz: "none",
+      facts: { election: electionFullLabel(election, ctx.lang) },
+      provenance: [`${election}/region_votes.json`],
+    };
+  }
+
+  all.sort((a, b) => b.share - a.share);
+  const top = all.slice(0, 16);
+  const highest = all[0];
+  const lowest = all[all.length - 1];
+  const rows: Row[] = top.map((r) => ({
+    party: r.party,
+    machine: r.machine,
+    paper: r.paper,
+    share: r.share,
+  }));
+  return {
+    tool: "machineVoteByParty",
+    domain: "elections",
+    kind: "table",
+    title: bg
+      ? `Машинно срещу хартиено гласуване по партия — ${electionFullLabel(election, "bg")}`
+      : `Machine vs paper voting by party — ${electionFullLabel(election, "en")}`,
+    subtitle: bg
+      ? "Дял на машинните гласове от всички гласове за партията (по секции)"
+      : "Share of each party's votes cast on a machine (across all sections)",
+    columns: [
+      { key: "party", label: bg ? "Партия" : "Party" },
+      {
+        key: "machine",
+        label: bg ? "Машинни" : "Machine",
+        numeric: true,
+        format: "int",
+      },
+      {
+        key: "paper",
+        label: bg ? "Хартиени" : "Paper",
+        numeric: true,
+        format: "int",
+      },
+      {
+        key: "share",
+        label: bg ? "Машинен дял" : "Machine %",
+        numeric: true,
+        format: "pct",
+      },
+    ],
+    rows,
+    categories: rows.map((r) => String(r.party)),
+    series: [
+      {
+        key: "share",
+        label: bg ? "Машинен дял" : "Machine %",
+        points: rows.map((r) => ({ x: String(r.party), y: r.share as number })),
+      },
+    ],
+    viz: "bar",
+    facts: {
+      election: electionFullLabel(election, ctx.lang),
+      most_machine: highest
+        ? `${highest.party} (${fmtPct(highest.share, ctx.lang)})`
+        : "—",
+      most_paper: lowest
+        ? `${lowest.party} (${fmtPct(lowest.share, ctx.lang)})`
+        : "—",
+    },
+    provenance: [`${election}/region_votes.json`],
+  };
+};
+
 // ---- per-oblast turnout history ---------------------------------------------
 
 type RegionHistory = {

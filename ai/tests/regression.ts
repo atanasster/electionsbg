@@ -158,6 +158,23 @@ const CASES: Case[] = [
     minRows: 1,
   },
   {
+    // machine-vote share BY PARTY -> per-party tool, not the party-blind national
+    // machine-share metric
+    q: "кои партии гласуват най-много машинно",
+    tool: "machineVoteByParty",
+    kind: "table",
+    minRows: 2,
+    facts: { most_machine: /%/ },
+  },
+  {
+    // EN "vs" must not be read as a two-election comparison here
+    q: "machine vs paper voting by party",
+    lang: "en",
+    tool: "machineVoteByParty",
+    kind: "table",
+    minRows: 2,
+  },
+  {
     q: "Как се променя активността в Хасково?",
     tool: "regionHistory",
     kind: "series",
@@ -398,6 +415,21 @@ const CASES: Case[] = [
     q: "Кои депутати имат най-много фирмени връзки?",
     tool: "mpConnectionsTop",
     facts: { most_connected: "Михайлов" },
+  },
+  {
+    // "which PARTY" (not which MP) -> per-party rollup
+    q: "коя партия има най-богати депутати",
+    tool: "mpAssetsByParty",
+    kind: "table",
+    minRows: 2,
+    facts: { richest_party: /\(/ },
+  },
+  {
+    // declines today (no "депутат" keyword) -> must now route to the party rollup
+    q: "кои партии имат най-много бизнес връзки",
+    tool: "mpConnectionsByParty",
+    kind: "table",
+    minRows: 2,
   },
   {
     q: "Кои министри са най-богати?",
@@ -653,6 +685,14 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 1,
     facts: { clusters: /\d/ },
+  },
+  {
+    // "which party is in the riskiest sections" -> the party-grounded clusters
+    // tool, not the party-blind risk-band index
+    q: "коя партия е в най-рисковите секции",
+    tool: "riskClusters",
+    kind: "table",
+    minRows: 1,
   },
   {
     q: "Кои места са с устойчив изборен риск?",

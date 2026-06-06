@@ -109,6 +109,140 @@ export const mpConnectionsTop = async (
   };
 };
 
+// ---- per-party rollups of MP assets / connections ---------------------------
+// "which party's MPs are richest / most connected" — aggregate the full current
+// roster by parliamentary group (the per-MP rankings already carry the group).
+
+type GroupMp = {
+  partyGroupShort?: string;
+  isCurrent?: boolean;
+  totalAssetsEur?: number;
+  totalDegree?: number;
+};
+
+const cleanGroup = (g?: string): string =>
+  (g ?? "—").replace(/^ПГ на\s+/i, "").trim();
+
+const aggregateByParty = (
+  mps: GroupMp[],
+  value: (m: GroupMp) => number,
+): { party: string; mps: number; sum: number; avg: number }[] => {
+  const g = new Map<string, { mps: number; sum: number }>();
+  for (const m of mps) {
+    if (m.isCurrent === false) continue;
+    const key = cleanGroup(m.partyGroupShort);
+    if (key === "—") continue;
+    const cur = g.get(key) ?? { mps: 0, sum: 0 };
+    cur.mps += 1;
+    cur.sum += value(m) || 0;
+    g.set(key, cur);
+  }
+  return [...g].map(([party, t]) => ({
+    party,
+    mps: t.mps,
+    sum: t.sum,
+    avg: t.mps > 0 ? t.sum / t.mps : 0,
+  }));
+};
+
+export const mpAssetsByParty = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const d = await fetchData<{ topMps: GroupMp[] }>(
+    "/parliament/assets-rankings.json",
+  );
+  const rows0 = aggregateByParty(d.topMps, (m) => m.totalAssetsEur ?? 0).sort(
+    (a, b) => b.avg - a.avg,
+  );
+  const top = rows0[0];
+  const rows: Row[] = rows0.map((r) => ({
+    party: r.party,
+    mps: r.mps,
+    avg: fmtEurCompact(r.avg, ctx.lang),
+    total: fmtEurCompact(r.sum, ctx.lang),
+  }));
+  return {
+    tool: "mpAssetsByParty",
+    domain: "people",
+    kind: "table",
+    title: bg
+      ? "Декларирани активи по партия (средно на депутат)"
+      : "Declared assets by party (average per MP)",
+    columns: [
+      { key: "party", label: bg ? "Партия" : "Party" },
+      {
+        key: "mps",
+        label: bg ? "Депутати" : "MPs",
+        numeric: true,
+        format: "int",
+      },
+      { key: "avg", label: bg ? "Средно" : "Average", numeric: true },
+      { key: "total", label: bg ? "Общо" : "Total", numeric: true },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      richest_party: top
+        ? `${top.party} (${fmtEurCompact(top.avg, ctx.lang)})`
+        : "—",
+    },
+    provenance: ["parliament/assets-rankings.json"],
+  };
+};
+
+export const mpConnectionsByParty = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const d = await fetchData<{ topMps: GroupMp[] }>(
+    "/parliament/connections-rankings.json",
+  );
+  const rows0 = aggregateByParty(d.topMps, (m) => m.totalDegree ?? 0).sort(
+    (a, b) => b.sum - a.sum,
+  );
+  const top = rows0[0];
+  const rows: Row[] = rows0.map((r) => ({
+    party: r.party,
+    mps: r.mps,
+    links: Math.round(r.sum),
+    avg: Math.round(r.avg * 10) / 10,
+  }));
+  return {
+    tool: "mpConnectionsByParty",
+    domain: "people",
+    kind: "table",
+    title: bg ? "Бизнес връзки по партия" : "Business connections by party",
+    subtitle: bg
+      ? "Общ брой фирмени връзки на депутатите от групата"
+      : "Total company links across the group's MPs",
+    columns: [
+      { key: "party", label: bg ? "Партия" : "Party" },
+      {
+        key: "mps",
+        label: bg ? "Депутати" : "MPs",
+        numeric: true,
+        format: "int",
+      },
+      {
+        key: "links",
+        label: bg ? "Връзки" : "Links",
+        numeric: true,
+        format: "int",
+      },
+      { key: "avg", label: bg ? "Средно" : "Avg/MP", numeric: true },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      most_connected_party: top ? `${top.party} (${Math.round(top.sum)})` : "—",
+    },
+    provenance: ["parliament/connections-rankings.json"],
+  };
+};
+
 // ---- officials declared assets ----------------------------------------------
 
 type Official = {

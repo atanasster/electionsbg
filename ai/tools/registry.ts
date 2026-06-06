@@ -25,6 +25,7 @@ import { census } from "./census";
 import {
   electionAnomalies,
   flashMemoryByParty,
+  machineVoteByParty,
   regionBreakdown,
   regionHistory,
   voteTransitions,
@@ -46,7 +47,9 @@ import {
 } from "./placeData";
 import {
   financingOverview,
+  mpAssetsByParty,
   mpAssetsTop,
+  mpConnectionsByParty,
   mpConnectionsTop,
   officialsAssetsTop,
   pollAccuracy,
@@ -454,6 +457,28 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: flashMemoryByParty,
+  },
+  {
+    name: "machineVoteByParty",
+    domain: "elections",
+    description: {
+      bg: "Дял на машинното спрямо хартиеното гласуване по партия — кои партии гласуват машинно.",
+      en: "Machine vs paper voting share by party — which parties vote on machines.",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои партии гласуват най-много машинно?",
+        en: "Which parties vote on machines the most?",
+      },
+    ],
+    run: machineVoteByParty,
   },
   {
     name: "regionHistory",
@@ -964,6 +989,38 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: mpConnectionsTop,
+  },
+  {
+    name: "mpAssetsByParty",
+    domain: "people",
+    description: {
+      bg: "Декларирани активи на депутатите, обобщени по партия (средно на депутат).",
+      en: "MP declared assets aggregated by party (average per MP).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Коя партия има най-богати депутати?",
+        en: "Which party has the richest MPs?",
+      },
+    ],
+    run: mpAssetsByParty,
+  },
+  {
+    name: "mpConnectionsByParty",
+    domain: "people",
+    description: {
+      bg: "Бизнес връзки на депутатите, обобщени по партия.",
+      en: "MP business connections aggregated by party.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Кои партии имат най-много бизнес връзки?",
+        en: "Which parties have the most business connections?",
+      },
+    ],
+    run: mpConnectionsByParty,
   },
   {
     name: "officialsAssetsTop",
