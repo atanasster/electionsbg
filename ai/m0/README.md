@@ -1,4 +1,4 @@
-# M0 — build BgGPT (and optionally EuroLLM) for the in-browser chat
+# M0 — build BgGPT for the in-browser chat
 
 Produces the MLC artifacts WebLLM needs and hosts them on HuggingFace so the
 header model picker can run a **Bulgarian-native** model instead of the Qwen test
@@ -14,8 +14,8 @@ model. Runs on your machine.
 INSAIT's Gemma-3 line starts at **4B** (no 1B/2B), so the Gemma-3 path can't reuse
 the prebuilt `gemma3-1b` lib (wasm libs are shape-specific). In this app the model
 only **routes to a tool + narrates** — it never produces numbers — so the lighter
-2.6B is genuinely sufficient; the 4B is offered for users who want the current
-model. (EuroLLM also needs a compile; do the BgGPTs first.)
+2.6B is genuinely sufficient; the 4B is a deprioritized option (multimodal + needs
+a compile — see PLAN.md). Build `bggpt` (2.6B) first; it needs no compile.
 
 > **⛔ As of 2026-06-06 the unpinned MLC pip path is BLOCKED.** The install grabs
 > the newest of each unpinned package and they are ABI-incompatible:
@@ -24,15 +24,19 @@ model. (EuroLLM also needs a compile; do the BgGPTs first.)
 > (built 2026-05-28) removed. So `import mlc_llm` fails (`libtvm.so: cannot open`
 > on Linux/Colab, missing-symbol on macOS).
 >
-> **The fix is NOT "wait for upstream".** Deep research on 2026-06-06 corrected the
-> earlier note: pinning an older matched pair is unavailable on the platforms we
-> build on (arm64-mac and Colab/Linux only publish the broken pair; the retained
-> older wheels are Intel-mac-only). The reliable unblock is **build mlc_llm + TVM
-> Unity from source** (one matched checkout), or **skip MLC entirely and ship
-> EuroLLM-1.7B via transformers.js/ONNX**. See **[`ai/m0/PLAN.md`](./PLAN.md)** for
-> the two ranked execution paths with exact commands. The chat app ships fully
-> functional without BgGPT (rules engine + Qwen test model); BgGPT is an
-> enhancement.
+> Worse, on Colab `import mlc_llm, tvm` doesn't fail gracefully — the dev162/dev1070
+> mismatch throws a C++ `tvm::ffi::Error` (`__ffi_repr__ already registered`) that
+> aborts the kernel ("Session crashed"), uncatchable by `try/except`. **Do not run
+> the pip-nightly cell.**
+>
+> **The fix is NOT "wait for upstream".** Pinning an older matched pair is
+> unavailable on the platforms we build on (arm64-mac and Colab/Linux only publish
+> the broken pair; the retained older wheels are Intel-mac-only). The reliable
+> unblock is **build mlc_llm + TVM Unity from one matched source checkout** — see
+> the step-by-step Colab notebook in **[`ai/m0/colab.md`](./colab.md)** and the
+> ranked plan in **[`ai/m0/PLAN.md`](./PLAN.md)**. The chat app ships fully
+> functional without BgGPT (rules engine + Qwen test model + the cloud option);
+> BgGPT is the in-browser enhancement.
 
 ## 0. One-time setup (already done on this machine)
 
@@ -117,23 +121,10 @@ Smoke test (WebGPU browser): ask "Колко гласа взе ДПС на по�
 BgGPT should route to `partyResult` (the Qwen test model mis-routed this). Then
 deploy: `npm run deploy:ai`.
 
-## EuroLLM 1.7B (optional, lightest — needs Emscripten)
-
-EuroLLM-1.7B-Instruct (`utter-project`) is a `LlamaForCausalLM` covering all 24 EU
-languages incl. Bulgarian — the **lightest** pick (~1.1 GB), not Bulgarian-native
-like BgGPT. Public (not gated). Chat format is **ChatML** → conv template `chatml`
-(the script sets this). No prebuilt 1.7B lib, so it **compiles** like BgGPT 4B:
-
-```bash
-ai/m0/build-model.sh eurollm atanasster   # convert + gen_config + compile (chatml)
-hf upload atanasster/EuroLLM-1.7B-Instruct-q4f16_1-MLC \
-  ai/m0/dist/EuroLLM-1.7B-Instruct-q4f16_1-MLC . --repo-type model
-```
-
-Then enable its entry in `models.ts` (set `ready:true`, uncomment the pre-filled
-`appConfig`, set `sizeNote` to `~1.1 GB`). If generation doesn't stop cleanly,
-verify `chatml`'s `stop_token_ids` matches EuroLLM's `<|im_end|>` id in the
-generated `mlc-chat-config.json`. On Colab use **Part C** in [`colab.md`](./colab.md).
+> EuroLLM-1.7B was evaluated and **removed** (2026-06-06): every EuroLLM ONNX
+> export is ~1.7–1.9 GB, which OOMs ORT-Web's wasm heap (`std::bad_alloc`), and the
+> MLC route needs a compile. For an in-browser Bulgarian model, BgGPT-2.6B (above)
+> is the pick. See `ai/m0/PLAN.md`.
 
 ## Troubleshooting
 
@@ -153,6 +144,6 @@ generated `mlc-chat-config.json`. On Colab use **Part C** in [`colab.md`](./cola
 
 ## Files
 
-- `build-model.sh` — convert/(compile)/host recipe (`bggpt` | `bggpt3` | `eurollm`)
-- `colab.md` — Colab notebook (Part A = 2.6B no-compile, Part B = 4B compile)
+- `build-model.sh` — convert/(compile)/host recipe (`bggpt` | `bggpt3`)
+- `colab.md` — Colab notebook (Part A = 2.6B no-compile; Part B = 4B, deprioritized)
 - `.venv/`, `dist/`, `models/` — toolchain + build output + source (gitignored)

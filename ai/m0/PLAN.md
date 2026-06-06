@@ -1,32 +1,36 @@
 # M0 — execution plan to ship a Bulgarian in-browser model (research 2026-06-06)
 
-> This supersedes the "pinning cannot fix it, wait for upstream" framing in
-> `README.md` / `colab.md`. Deep research + live checks on **2026-06-06**
-> corrected the picture: **pinning is not just unverified, it is unavailable on
-> the platforms we use; the reliable unblock is build-from-source — or skip MLC
-> entirely via transformers.js.** Pick ONE path below and execute.
+> Deep research + live checks (2026-06-06/07) settled it: **pinning a matched
+> wheel pair is unavailable on the platforms we use; the reliable unblock is
+> build-from-source.** The transformers.js/ONNX alternative (Path B, EuroLLM) was
+> tried and **removed** — it OOMs in the browser (see the retired section). So
+> there is one live path: **BgGPT-2.6B via MLC/web-llm.** Step-by-step: `colab.md`.
 
-## TL;DR — two live paths, pick one
+## TL;DR — the live path is BgGPT-2.6B via MLC/web-llm
 
-| | **Path A — BgGPT-2.6B via MLC/web-llm** | **Path B — EuroLLM-1.7B via transformers.js** |
-|---|---|---|
-| BG quality | Best (Bulgarian-native, Gemma-2 base) | Good (multilingual, not BG-native) |
-| Runtime | existing `@mlc-ai/web-llm` engine | NEW engine — ONNX Runtime Web (`@huggingface/transformers`) |
-| Needs the broken MLC pip? | yes, but only `convert_weight`+`gen_config` (no Emscripten) | **no — bypasses MLC entirely** |
-| Model artifact | we build + host on HF (Gemma license) | **already public** (`flackzz/...`, Apache-2.0, q4) |
-| Download | ~1.6 GB | ~1.9 GB (q4) |
-| First-ship effort | medium — one Colab source build + host + flip flags | medium — one new provider file + a dep; no Python at all |
+| | **BgGPT-2.6B via MLC/web-llm** |
+|---|---|
+| BG quality | Best (Bulgarian-native, Gemma-2 base) |
+| Runtime | existing `@mlc-ai/web-llm` (streams q4f16 → WebGPU buffers, caches in IndexedDB) |
+| Toolchain | build mlc_llm + TVM from source (pip nightlies are ABI-broken), then `convert_weight`+`gen_config` only — **NO Emscripten/compile** |
+| Model artifact | we build + host on a public HF repo (Gemma license) |
+| Download | ~1.6 GB |
+| Effort | one Colab source build (~30–45 min) + host + flip flags |
 
-The rules engine stays the always-on default; a model is an enhancement, so a
-failed model load never breaks the chat (see `ai/llm/webllm.ts` fallback).
+**Path B (EuroLLM-1.7B via transformers.js/ONNX) was REMOVED** — see the retired
+section below. The rules engine stays the always-on default and a cloud option
+exists, so a failed model load never breaks the chat (`ai/llm/webllm.ts` fallback).
 
 ## Status of the blocker (corrected)
 
 - MLC's install (`pip install --pre -U ... mlc-llm-nightly mlc-ai-nightly`) has
   **no version pins**, so it always grabs the newest of each — currently the
   ABI-mismatched `mlc_llm 0.20.dev162` (2026-04-21) + `mlc_ai 0.20.dev1070`
-  (2026-05-28). `import mlc_llm` fails (`libtvm` missing symbol
-  `LogMessage::level_strings_`). The docs publish **no compatibility table**.
+  (2026-05-28). `import mlc_llm, tvm` fails — on macOS a `libtvm` missing-symbol
+  error (`LogMessage::level_strings_`); **on Colab a C++ `tvm::ffi::Error`
+  (`__ffi_repr__ already registered for type index 130`) that ABORTS the kernel**
+  — uncatchable by `try/except` ("Session crashed", confirmed 2026-06-07). The
+  docs publish **no compatibility table**.
   Refs: <https://llm.mlc.ai/docs/install/mlc_llm>,
   <https://github.com/mlc-ai/mlc-llm/issues/3382> (lead confirms project is
   active, WebGPU supported — it's the TVM-refactor churn that broke the wheels).
@@ -38,8 +42,8 @@ failed model load never breaks the chat (see `ai/llm/webllm.ts` fallback).
   x86_64 only** — unreachable natively on this Mac or on Colab. So pinning is both
   unverified (ABI) and unavailable on every platform we'd build on.
 - **Docker / conda matched toolchain** — no verified working tag found.
-- **Pre-converted MLC weights on HF** — none exist for BgGPT or EuroLLM (only an
-  unrelated `shirman/SmolLM2-1.7B-...-MLC-WEBGPU` as a layout example).
+- **Pre-converted MLC weights on HF** — none exist for BgGPT (only an unrelated
+  `shirman/SmolLM2-1.7B-...-MLC-WEBGPU` as a layout example).
 
 ### Cheap pre-checks before any build (60 sec)
 1. Re-run the wheel check; if `mlc_llm`'s dev caught up to `mlc_ai`'s, the
@@ -48,8 +52,9 @@ failed model load never breaks the chat (see `ai/llm/webllm.ts` fallback).
    for p in mlc_llm mlc_ai; do echo -n "$p: "; curl -sL https://mlc.ai/wheels \
      | grep -oE "${p}_nightly_cu128-0\.[0-9]+\.dev[0-9]+" | sort -uV | tr '\n' ' '; echo; done
    ```
-2. (low confidence) empirically try the pinned install once; if `import mlc_llm`
-   succeeds you got lucky and can skip the source build.
+2. Do NOT "just try importing" the nightlies on Colab to test — the mismatch
+   aborts the kernel (C++ FFI error). Judge from the version strings in step 1;
+   only if the devs clearly match should you try the pip path.
 
 ## Path A — BgGPT-2.6B via MLC (best Bulgarian)
 
@@ -87,40 +92,21 @@ is permitted; attach the Gemma Terms (<https://ai.google.dev/gemma/terms>) on th
 HF repo. Source is public + ungated; your conversion must be a **public** HF repo
 (the browser fetches weights with no auth).
 
-## Path B — EuroLLM-1.7B via transformers.js (fastest, MLC-free)
+## Path B — EuroLLM-1.7B via transformers.js — RETIRED (removed 2026-06-06)
 
-No Python, no Colab, no HF re-hosting. The artifact already exists:
-**`flackzz/EuroLLM-1.7B-Instruct-ONNX`** — Apache-2.0, public, ungated,
-transformers.js layout (`config.json`+`tokenizer.json` at root, `onnx/model_q4.onnx`,
-`onnx/chat_template.jinja`). Llama arch, so it is NOT hit by the Gemma-3 WebGPU
-bug. All work is in-app:
+Built, tested, and **removed** (commit `b74e5947d`). EuroLLM-1.7B via
+transformers.js / ONNX Runtime Web downloaded fully (0→100%) but **OOMs creating
+the ORT-Web session** (`Can't create a session ... std::bad_alloc`): ORT-Web
+parses weights through a memory-capped wasm heap, and every EuroLLM ONNX export is
+~1.7–1.9 GB (the 128k vocab keeps even int4 large) — all over the limit. The
+~1.9 GB file also exceeds the browser Cache quota (re-downloads every visit). The
+`TransformersJsProvider`, the `transformersjs` runtime + `dtype` field, and the
+`@huggingface/transformers` dep were all deleted.
 
-1. **Add the dep:** `@huggingface/transformers` (v3) in the ai build. Confirm Vite
-   serves the ORT-Web wasm/worker assets (may need to allowlist `.onnx`/`.wasm`
-   in `vite.config.ai.ts` and not prune them).
-2. **New provider** `ai/llm/transformersjs.ts` implementing the same
-   `LLMProvider` interface as `ai/llm/webllm.ts` (mirror its structure exactly —
-   deterministic `route()` first, `runTool()`, `narrate()` template, language
-   guard, streaming `onDelta`). Init:
-   ```ts
-   import { pipeline } from "@huggingface/transformers";
-   const gen = await pipeline("text-generation",
-     "flackzz/EuroLLM-1.7B-Instruct-ONNX",
-     { dtype: "q4", device: "webgpu", progress_callback });
-   ```
-   Build ChatML messages, apply the chat template, generate with **stop on
-   `<|im_end|>`** (set `eos_token_id` explicitly — the card's `fp16` example is
-   wrong; there is no fp16 file, use `q4`).
-3. **Wire it into the picker:** add a `runtime: "webllm" | "transformersjs"`
-   discriminator to `ModelOption` in `models.ts` and branch in `App.tsx` provider
-   construction (WebLLMProvider vs TransformersJsProvider). Add the EuroLLM entry
-   with `ready:true`, `routes:false` to start (narration-only) — promote to
-   `routes:true` once routing quality is confirmed. WebGPU-gate it like the others.
-
-Gotchas: ChatML stop token (above); `q4` is ~1.9 GB (heavier than an ideal
-`q4f16`, which this repo does not ship); first load compiles ORT-Web shaders
-(slow first run, cached after). EuroLLM is Apache-2.0 → no redistribution
-constraints.
+transformers.js could still host a **smaller (≤~1 GB) ONNX** model if one is ever
+wanted, but for a Bulgarian model web-llm/MLC (Path A) is the route — it streams
+q4f16 into WebGPU buffers and caches in IndexedDB, so it handles multi-GB models
+without the OOM.
 
 ## Deprioritized — BgGPT-4B (Gemma-3)
 
@@ -139,10 +125,11 @@ runtime is closed to it too. ~2.7 GB / ~4 GB VRAM.
   q4f16 ONNX or a prebuilt web-llm wasm.
 
 ## Open items to verify at execution time
-- Re-run the wheel check (status moves); the original pip path may have self-healed.
-- If building from source on Colab: confirm the current `docs/install/tvm.rst`
-  steps still build cleanly (TVM mainline churn); pin `emsdk install 3.1.56` only
-  if you ever add the 4B/EuroLLM-on-MLC compile.
-- Path B: confirm `@huggingface/transformers` v3 + ORT-Web WebGPU actually runs
-  `flackzz` `q4` in the target browsers; validate EuroLLM Bulgarian narration
-  quality on a few real questions before flipping `routes:true`.
+- Re-run the wheel check (status moves); the pip path may have self-healed — but
+  don't test by importing on Colab (it crashes the kernel); compare version
+  strings instead.
+- Building from source on Colab: the build cell (LLVM + Rust + ~40 min) is the
+  fragile part; confirm it still builds cleanly (TVM mainline churn). `emsdk
+  install 3.1.56` is only needed if you ever add the deprioritized 4B compile.
+- After upload: flip `ready:true` + uncomment `appConfig` on the BgGPT-2.6B entry,
+  then smoke-test routing/narration in a WebGPU browser before deploying.

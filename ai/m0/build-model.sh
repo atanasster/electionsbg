@@ -9,13 +9,12 @@
 #   bggpt3  : BgGPT 2.0 (google/gemma-3-4b fine-tune). Gemma-3 is WebGPU-capable
 #             but has NO prebuilt 4b lib -> needs `mlc_llm compile` (Emscripten).
 #             Host the compiled .wasm next to the weights on HF. ~2.7 GB.
-#   eurollm : has no prebuilt lib -> needs `mlc_llm compile` (Emscripten).
+#             DEPRIORITIZED (multimodal + Gemma-3 web issues — see PLAN.md).
 #
 # Usage:
 #   source ai/m0/.venv/bin/activate    # (or the script auto-detects the venv)
 #   ai/m0/build-model.sh bggpt   <HF_USER>   # no compile
 #   ai/m0/build-model.sh bggpt3  <HF_USER>   # compile (Emscripten)
-#   ai/m0/build-model.sh eurollm <HF_USER>   # compile (Emscripten)
 
 set -euo pipefail
 
@@ -48,17 +47,8 @@ case "$MODEL_KEY" in
     CONV_TEMPLATE="gemma3_instruction"   # gemma3 (NOT gemma_instruction)
     REUSE_LIB=""                  # <- no prebuilt gemma3-4b lib -> compile (Emscripten)
     ;;
-  eurollm)
-    # EuroLLM-1.7B-Instruct: LlamaForCausalLM, multilingual (all 24 EU langs incl
-    # Bulgarian), NOT gated. Chat format is ChatML (<|im_start|>/<|im_end|>), so
-    # the conv template is "chatml" (NOT llama-3). ~1.1 GB at q4f16_1.
-    HF_SRC="utter-project/EuroLLM-1.7B-Instruct"
-    MLC_ID="EuroLLM-1.7B-Instruct-${QUANT}-MLC"
-    CONV_TEMPLATE="chatml"        # EuroLLM uses ChatML; verify stop_token_ids at build
-    REUSE_LIB=""                  # <- llama arch but no prebuilt 1.7B lib -> compile (Emscripten)
-    ;;
   *)
-    echo "usage: $0 bggpt|bggpt3|eurollm [HF_USER]" >&2
+    echo "usage: $0 bggpt|bggpt3 [HF_USER]" >&2
     exit 1
     ;;
 esac
