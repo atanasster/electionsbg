@@ -27,6 +27,16 @@ const AGENCIES = [
   "Медиана",
 ];
 
+// Well-known candidates (verified present in the latest candidates.json) — these
+// route to candidateResult for their preferential-vote breakdown.
+const CANDIDATES: { bg: string; en: string }[] = [
+  { bg: "Бойко Борисов", en: "Boyko Borisov" },
+  { bg: "Делян Пеевски", en: "Delyan Peevski" },
+  { bg: "Асен Василев", en: "Asen Vasilev" },
+  { bg: "Костадин Костадинов", en: "Kostadin Kostadinov" },
+  { bg: "Божидар Божанов", en: "Bozhidar Bozhanov" },
+];
+
 const BASE: Suggestion[] = [
   {
     bg: "Какви са резултатите от последните избори?",
@@ -80,6 +90,10 @@ export const SUGGESTIONS: Suggestion[] = [
   ...AGENCIES.map((a) => ({
     bg: `Колко е точна ${a}?`,
     en: `How accurate is ${a}?`,
+  })),
+  ...CANDIDATES.map((c) => ({
+    bg: `Резултати за ${c.bg}`,
+    en: `Results for ${c.en}`,
   })),
 ];
 

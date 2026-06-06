@@ -123,7 +123,7 @@ export const candidateResult = async (
       facts: {
         name: who,
         party,
-        total_preferences: total,
+        total_preferences: fmtInt(total, lang),
         regions: rows.length,
         top_region: rows[0]
           ? `${rows[0].oblast}: ${fmtInt(rows[0].votes, lang)}`
