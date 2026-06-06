@@ -7,7 +7,8 @@
 import { narrate } from "../orchestrator/narrate";
 import { route } from "../orchestrator/router";
 import { runTool } from "../tools/registry";
-import type { Envelope, Lang, ToolContext } from "../tools/types";
+import type { Envelope, ToolContext } from "../tools/types";
+import { clarify } from "./lang";
 
 export type ChatResponse = {
   text: string;
@@ -31,11 +32,6 @@ export interface LLMProvider {
     onDelta?: (partial: string) => void,
   ): Promise<ChatResponse>;
 }
-
-const clarify = (lang: Lang): string =>
-  lang === "bg"
-    ? "Мога да отговарям за резултати по партия и избор, машинно гласуване, активност, сравнения между избори и тенденции през годините. Опитайте напр.: „машинно гласуване в последните 7 избора“."
-    : "I can answer about party/election results, machine voting, turnout, election comparisons, and trends over time. Try e.g.: “machine voting in the last 7 elections”.";
 
 export class HeuristicProvider implements LLMProvider {
   id = "rules";

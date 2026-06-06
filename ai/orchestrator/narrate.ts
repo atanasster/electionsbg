@@ -345,6 +345,89 @@ export const narrate = (env: Envelope, lang: Lang): string => {
           : `${f(env, "place")} (${f(env, "oblast")})`;
       return parts.length ? `${head}: ${parts.join(", ")}.` : head;
     }
+    case "problemSections":
+      if (!env.facts.neighborhoods) return env.title;
+      return lang === "bg"
+        ? `${f(env, "neighborhoods")} наблюдавани ромски квартала (${f(env, "total_sections")} секции); най-голям ${f(env, "top")}.`
+        : `${f(env, "neighborhoods")} tracked Roma neighbourhoods (${f(env, "total_sections")} sections); largest ${f(env, "top")}.`;
+    case "riskScore":
+      return lang === "bg"
+        ? `Индекс на риска: ${f(env, "critical")} критични и ${f(env, "high")} високорискови секции от ${f(env, "total_sections")}.`
+        : `Risk index: ${f(env, "critical")} critical and ${f(env, "high")} high-risk sections of ${f(env, "total_sections")}.`;
+    case "riskClusters":
+      return lang === "bg"
+        ? `${f(env, "clusters")} клъстера на риска; най-голям: ${f(env, "biggest")}.`
+        : `${f(env, "clusters")} risk clusters; biggest: ${f(env, "biggest")}.`;
+    case "clusterPersistence":
+      return lang === "bg"
+        ? `${f(env, "loci")} устойчиви рискови огнища; най-устойчиво: ${f(env, "most_persistent")}.`
+        : `${f(env, "loci")} persistent risk loci; most persistent: ${f(env, "most_persistent")}.`;
+    case "benfordAnomalies":
+      return lang === "bg"
+        ? `Тест на Бенфорд за ${f(env, "parties_tested")} партии; най-голямо отклонение: ${f(env, "most_deviating")} (по-висок MAD = по-голямо отклонение, не е доказателство за измама).`
+        : `Benford test across ${f(env, "parties_tested")} parties; largest deviation: ${f(env, "most_deviating")} (higher MAD = larger deviation, not proof of fraud).`;
+    case "wastedVotes":
+      return lang === "bg"
+        ? `Прахосани под прага: ${f(env, "national_share")} национално; най-много в ${f(env, "top_region")}.`
+        : `Wasted below threshold: ${f(env, "national_share")} nationally; most in ${f(env, "top_region")}.`;
+    case "suspiciousSettlements":
+      return lang === "bg"
+        ? `${f(env, "concentrated")} места с концентриран вот, ${f(env, "invalid_ballots")} с високи невалидни, ${f(env, "additional_voters")} с дописани. Най-краен: ${f(env, "top_concentrated")}.`
+        : `${f(env, "concentrated")} concentrated-vote, ${f(env, "invalid_ballots")} high-invalid, ${f(env, "additional_voters")} additional-voter settlements. Most extreme: ${f(env, "top_concentrated")}.`;
+    case "diasporaVote":
+      if (!env.facts.voters) return env.title;
+      return lang === "bg"
+        ? `Гласове в чужбина: ${f(env, "voters")} гласували; водач ${f(env, "leader")}.`
+        : `Out-of-country vote: ${f(env, "voters")} voters; leader ${f(env, "leader")}.`;
+    case "voterPersistence":
+      if (!env.facts.national_stay_rate) return env.title;
+      return lang === "bg"
+        ? `Устойчивост ${f(env, "pair")}: ${f(env, "national_stay_rate")} останаха при същата партия; най-голямо преливане ${f(env, "top_defection")}.`
+        : `Persistence ${f(env, "pair")}: ${f(env, "national_stay_rate")} stayed with the same party; top defection ${f(env, "top_defection")}.`;
+    case "partyDemographics":
+      if (!env.facts.party) return env.title;
+      return lang === "bg"
+        ? `${f(env, "party")}: най-силна положителна корелация с ${f(env, "strongest_positive")}; отрицателна с ${f(env, "strongest_negative")}.`
+        : `${f(env, "party")}: strongest positive correlation with ${f(env, "strongest_positive")}; negative with ${f(env, "strongest_negative")}.`;
+    case "demographicCleavages":
+      return lang === "bg"
+        ? `Най-силно разделящ показател: ${f(env, "most_divisive")}.`
+        : `Most divisive metric: ${f(env, "most_divisive")}.`;
+    case "mpLoyalty":
+      if (!env.facts.most_loyal) return env.title;
+      return lang === "bg"
+        ? `Най-лоялен депутат: ${f(env, "most_loyal")}; най-малко: ${f(env, "least_loyal")}.`
+        : `Most loyal MP: ${f(env, "most_loyal")}; least: ${f(env, "least_loyal")}.`;
+    case "mpAttendance":
+      if (!env.facts.best_attendance) return env.title;
+      return lang === "bg"
+        ? `Най-високо присъствие: ${f(env, "best_attendance")}; най-ниско: ${f(env, "worst_attendance")}.`
+        : `Best attendance: ${f(env, "best_attendance")}; worst: ${f(env, "worst_attendance")}.`;
+    case "factionCohesion":
+      if (!env.facts.most_cohesive) return env.title;
+      return lang === "bg"
+        ? `Най-сплотена група: ${f(env, "most_cohesive")}; най-малко: ${f(env, "least_cohesive")}.`
+        : `Most cohesive group: ${f(env, "most_cohesive")}; least: ${f(env, "least_cohesive")}.`;
+    case "mpVotingProfile":
+      if (!env.facts.name) return env.title;
+      return lang === "bg"
+        ? `${f(env, "name")}${env.facts.party ? ` (${f(env, "party")})` : ""}: лоялност ${f(env, "loyalty")}, присъствие ${f(env, "attendance")}.`
+        : `${f(env, "name")}${env.facts.party ? ` (${f(env, "party")})` : ""}: loyalty ${f(env, "loyalty")}, attendance ${f(env, "attendance")}.`;
+    case "mpSimilarity":
+      if (!env.facts.closest) return env.title;
+      return lang === "bg"
+        ? `Най-близо до ${f(env, "mp")} гласува ${f(env, "closest")}.`
+        : `Closest to ${f(env, "mp")} votes ${f(env, "closest")}.`;
+    case "voteSearch":
+      if (!env.facts.matches) return env.title;
+      return lang === "bg"
+        ? `${f(env, "matches")} гласувания; начело: ${f(env, "top")}.`
+        : `${f(env, "matches")} votes; top: ${f(env, "top")}.`;
+    case "schoolScores":
+      if (!env.facts.top_school) return env.title;
+      return lang === "bg"
+        ? `Най-добро училище по ${f(env, "subject")} в ${f(env, "place")}: ${f(env, "top_school")} (от ${f(env, "schools")} училища).`
+        : `Top school by ${f(env, "subject")} in ${f(env, "place")}: ${f(env, "top_school")} (of ${f(env, "schools")}).`;
     default:
       return env.title;
   }

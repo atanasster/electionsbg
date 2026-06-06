@@ -49,7 +49,7 @@ export const regionBreakdown = async (
           ? `Няма намерена партия „${query}“`
           : `No party matched "${query}"`,
       viz: "none",
-      facts: { query, election: electionFullLabel(election, "en") },
+      facts: { query, election: electionFullLabel(election, ctx.lang) },
       provenance: [`${election}/national_summary.json`],
     };
   }
@@ -180,7 +180,7 @@ export const electionAnomalies = async (
     rows,
     viz: "none",
     facts: {
-      election: electionFullLabel(election, "en"),
+      election: electionFullLabel(election, ctx.lang),
       total_flagged: a.total ?? 0,
       problem_sections: a.problemSections ?? 0,
     },
@@ -292,7 +292,7 @@ export const voteTransitions = async (
           ? "Няма предходен избор за сравнение"
           : "No prior election to compare",
       viz: "none",
-      facts: { election: electionFullLabel(election, "en") },
+      facts: { election: electionFullLabel(election, ctx.lang) },
       provenance: ["transitions/"],
     };
   }

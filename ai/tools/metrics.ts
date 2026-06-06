@@ -50,7 +50,7 @@ export const machineVoteShare = (
         : `Machine voting — ${electionFullLabel(election, "en")}`,
     viz: "none",
     facts: {
-      election: electionFullLabel(election, "en"),
+      election: electionFullLabel(election, ctx.lang),
       machine_share: fmtPct(pct, ctx.lang),
       machine_votes: fmtInt(p?.numValidMachineVotes ?? 0, ctx.lang),
       paper_votes: fmtInt(p?.numValidVotes ?? 0, ctx.lang),
@@ -74,7 +74,7 @@ export const turnout = (args: ToolArgs, ctx: ToolContext): Envelope => {
         : `Voter turnout — ${electionFullLabel(election, "en")}`,
     viz: "none",
     facts: {
-      election: electionFullLabel(election, "en"),
+      election: electionFullLabel(election, ctx.lang),
       turnout: fmtPct(pct, ctx.lang),
       voters: fmtInt(p?.totalActualVoters ?? 0, ctx.lang),
       registered: fmtInt(p?.numRegisteredVoters ?? 0, ctx.lang),

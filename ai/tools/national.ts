@@ -56,7 +56,7 @@ export const nationalResults = async (
   }));
 
   const facts: Record<string, string | number> = {
-    election: electionFullLabel(election, "en"),
+    election: electionFullLabel(election, ctx.lang),
     parties_over_threshold: parties.filter((p) => p.passedThreshold).length,
   };
   top.slice(0, 5).forEach((p) => {
@@ -106,7 +106,7 @@ export const partyResult = async (
           ? `Няма намерена партия „${query}“`
           : `No party matched "${query}"`,
       viz: "none",
-      facts: { query, election: electionFullLabel(election, "en") },
+      facts: { query, election: electionFullLabel(election, ctx.lang) },
       provenance: [`${election}/national_summary.json`],
     };
   }
@@ -125,8 +125,14 @@ export const partyResult = async (
       votes: fmtInt(p.totalVotes, ctx.lang),
       pct: fmtPct(p.pct, ctx.lang),
       seats: p.seats ?? 0,
-      passed_threshold: p.passedThreshold ? "yes" : "no",
-      election: electionFullLabel(election, "en"),
+      passed_threshold: p.passedThreshold
+        ? ctx.lang === "bg"
+          ? "да"
+          : "yes"
+        : ctx.lang === "bg"
+          ? "не"
+          : "no",
+      election: electionFullLabel(election, ctx.lang),
     },
     provenance: [`${election}/national_summary.json`],
   };

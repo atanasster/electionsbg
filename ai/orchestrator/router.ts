@@ -257,6 +257,245 @@ export const route = (question: string, ctx: ToolContext): Route => {
     if (a) return { tool: "compareElections", args: { a, b } };
   }
 
+  // 1a. new analytical tools (integrity, demographics, parliament, schools).
+  // Placed before the domain blocks so these specific intents win over the
+  // broader party / place / anomaly / results rules below.
+  const el = election ? { election } : {};
+  const personName = extractPersonName(question);
+
+  // --- parliament roll-call (current НС) ---
+  // similarity ("who votes like X") before the per-MP profile (both mention "X").
+  if (
+    has(
+      q,
+      "гласува като",
+      "votes like",
+      "vote like",
+      "vote similarly",
+      "подобно на",
+    ) &&
+    personName
+  )
+    return { tool: "mpSimilarity", args: { name: personName } };
+  // a named MP + a roll-call cue -> that MP's voting profile (not preferences)
+  if (
+    personName &&
+    has(
+      q,
+      "как гласува",
+      "voting record",
+      "в парламента",
+      "in parliament",
+      "лоялен",
+      "дисциплин",
+      "поименно",
+      "roll call",
+      "roll-call",
+    )
+  )
+    return { tool: "mpVotingProfile", args: { name: personName } };
+  if (
+    has(
+      q,
+      "сплотен",
+      "cohesion",
+      "единно",
+      "единство на групата",
+      "vote together",
+    )
+  )
+    return { tool: "factionCohesion", args: {} };
+  if (
+    has(q, "лоялн", "loyal", "дисциплин", "party line", "с групата") &&
+    has(q, "депутат", " mp", " mps", "парламент", "групи", "групите", "faction")
+  )
+    return { tool: "mpLoyalty", args: {} };
+  if (
+    has(q, "присъстви", "отсъств", "attendance", "absent", "absentee") &&
+    has(
+      q,
+      "депутат",
+      " mp",
+      " mps",
+      "парламент",
+      "гласуван",
+      "session",
+      "заседани",
+    )
+  )
+    return { tool: "mpAttendance", args: {} };
+  if (
+    has(
+      q,
+      "най-оспорван",
+      "most contested",
+      "most controversial",
+      "ключови гласувания",
+    )
+  )
+    return { tool: "voteSearch", args: {} };
+  if (
+    has(q, "поименно гласуване", "roll call", "roll-call") ||
+    (has(q, "гласува", "гласуван", "vote", "voted") &&
+      has(
+        q,
+        "парламент",
+        "парламентът",
+        "народно събрание",
+        "нс ",
+        "parliament",
+        "assembly",
+      ) &&
+      !personName)
+  )
+    return { tool: "voteSearch", args: { query: question } };
+
+  // --- demographics (census correlations) ---
+  if (
+    party &&
+    has(
+      q,
+      "демограф",
+      "корелаци",
+      "етнос",
+      "етничес",
+      "религи",
+      "образовани",
+      "кой гласува за",
+      "кой подкрепя",
+      "профил на гласопод",
+      "demographic",
+      "correlat",
+      "ethnic",
+      "religio",
+      "who votes for",
+      "who supports",
+      "voter profile",
+    )
+  )
+    return { tool: "partyDemographics", args: { party, ...el } };
+  if (
+    has(
+      q,
+      "разделени",
+      "разделя",
+      "cleavage",
+      "what divides",
+      "what splits",
+      "демографски различия",
+    ) &&
+    !party
+  )
+    return { tool: "demographicCleavages", args: el };
+
+  // --- schools / exam scores (per-município) ---
+  if (has(q, "училищ", "гимназ", "school", "schools")) {
+    const place = extractPlace(q);
+    if (place) return { tool: "schoolScores", args: { place } };
+  }
+
+  // --- election integrity & anomalies ---
+  if (
+    has(q, "бенфорд", "benford", "първа цифра", "first digit", "second digit")
+  )
+    return { tool: "benfordAnomalies", args: el };
+  // Roma neighbourhoods / controlled voting (specific tokens so "промени" never hits)
+  if (
+    has(q, "контролиран вот", "купен вот", "vote buying", "controlled vot") ||
+    (has(q, "роми", "ромск", "roma", "махал", "гето", "ghetto") &&
+      has(
+        q,
+        "секци",
+        "квартал",
+        "гласува",
+        "гласове",
+        "vote",
+        "neighbourhood",
+        "neighborhood",
+      ))
+  )
+    return { tool: "problemSections", args: el };
+  if (
+    has(q, "устойчив", "persistent", "повтарящи", "recurring") &&
+    has(q, "риск", "risk", "клъстер", "cluster", "огнищ", "locus", "loci")
+  )
+    return { tool: "clusterPersistence", args: {} };
+  if (has(q, "клъстер", "cluster") && has(q, "риск", "risk", "струпван"))
+    return { tool: "riskClusters", args: el };
+  if (
+    has(
+      q,
+      "изборен риск",
+      "изборния риск",
+      "election risk",
+      "risk index",
+      "risk score",
+    ) ||
+    (has(q, "риск", "risk") &&
+      has(
+        q,
+        "индекс",
+        "index",
+        "секци",
+        "section",
+        "критичн",
+        "critical",
+        "ниво",
+        "band",
+      ))
+  )
+    return { tool: "riskScore", args: el };
+  if (
+    has(
+      q,
+      "прахосан",
+      "под прага",
+      "wasted vote",
+      "below threshold",
+      "sub-threshold",
+      "под 4",
+    )
+  )
+    return { tool: "wastedVotes", args: el };
+  if (
+    has(
+      q,
+      "съмнителни населени",
+      "концентриран вот",
+      "concentration of vote",
+      "suspicious settlement",
+    ) ||
+    (has(q, "съмнителн", "suspicious", "съмнителни места") &&
+      has(q, "населен", "settlement", "село", "градче"))
+  )
+    return { tool: "suspiciousSettlements", args: el };
+  if (
+    has(
+      q,
+      "чужбина",
+      "диаспора",
+      "diaspora",
+      "abroad",
+      "out-of-country",
+      "out of country",
+      "извън страната",
+    )
+  )
+    return { tool: "diasporaVote", args: el };
+  if (
+    has(
+      q,
+      "устойчивост на вот",
+      "voter persistence",
+      "stay rate",
+      "запазиха",
+      "задържане на глас",
+    ) ||
+    (has(q, "лоялност", "loyalty") && has(q, "избирател", "voter")) ||
+    (has(q, "останаха", "stayed") && has(q, "парти", "party"))
+  )
+    return { tool: "voterPersistence", args: el };
+
   // 1b. local elections (municipal) — before party/turnout so a local question
   // mentioning a party isn't routed to the parliamentary tools.
   const isLocal = has(
@@ -762,7 +1001,7 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // words) that isn't a known oblast or party. Runs after the specific
   // party/place rules so those win first, and BEFORE the generic "резултат"
   // rule so "резултатите за Божидар Божанов" isn't swallowed by national results.
-  const personName = extractPersonName(question);
+  // (personName was resolved once at the top of route().)
   if (personName) {
     const nm = personName.toLowerCase();
     if (!findOblastInText(nm) && !detectParty(nm)) {

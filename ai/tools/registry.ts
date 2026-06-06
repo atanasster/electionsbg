@@ -68,6 +68,27 @@ import { nationalResults, partyResult } from "./national";
 import { partyTimeline } from "./parties";
 import { agencyProfile, latestPolls } from "./pollsDepth";
 import { machineVoteSeries, turnoutSeries } from "./series";
+import {
+  benfordAnomalies,
+  clusterPersistence,
+  diasporaVote,
+  problemSections,
+  riskClusters,
+  riskScore,
+  suspiciousSettlements,
+  wastedVotes,
+} from "./integrity";
+import { demographicCleavages, partyDemographics } from "./demographics";
+import { voterPersistence } from "./flows";
+import {
+  factionCohesion,
+  mpAttendance,
+  mpLoyalty,
+  mpSimilarity,
+  mpVotingProfile,
+  voteSearch,
+} from "./parliament";
+import { schoolScores } from "./schools";
 import type { Domain, ToolArgs, ToolContext, ToolDef } from "./types";
 
 export const TOOLS: ToolDef[] = [
@@ -1314,6 +1335,412 @@ export const TOOLS: ToolDef[] = [
     ],
     run: councilResolutions,
   },
+  // ---- election integrity & anomalies ---------------------------------------
+  {
+    name: "problemSections",
+    domain: "elections",
+    description: {
+      bg: "Наблюдавани ромски квартали („контролиран вот“) — секции и водеща партия.",
+      en: 'Tracked Roma neighbourhoods ("controlled voting") — sections and leading party.',
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Как гласуват ромските квартали?",
+        en: "How do the Roma neighbourhoods vote?",
+      },
+      { bg: "Има ли контролиран вот?", en: "Is there controlled voting?" },
+    ],
+    run: problemSections,
+  },
+  {
+    name: "riskScore",
+    domain: "elections",
+    description: {
+      bg: "Индекс на изборния риск — секциите по нива (нисък/повишен/висок/критичен).",
+      en: "Election risk index — sections by band (low/elevated/high/critical).",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какъв е индексът на изборния риск?",
+        en: "What's the election risk index?",
+      },
+      { bg: "Колко критични секции има?", en: "How many critical sections?" },
+    ],
+    run: riskScore,
+  },
+  {
+    name: "riskClusters",
+    domain: "elections",
+    description: {
+      bg: "Клъстери на риска — съседни флагнати секции с обща водеща партия.",
+      en: "Risk clusters — adjacent flagged sections sharing a leading party.",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Има ли клъстери на изборния риск?",
+        en: "Are there election-risk clusters?",
+      },
+    ],
+    run: riskClusters,
+  },
+  {
+    name: "clusterPersistence",
+    domain: "elections",
+    description: {
+      bg: "Устойчиви рискови огнища — места, чиито рискови клъстери се повтарят през изборите.",
+      en: "Persistent risk loci — places whose risk clusters recur across elections.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Кои места са с устойчив изборен риск?",
+        en: "Which places have persistent election risk?",
+      },
+    ],
+    run: clusterPersistence,
+  },
+  {
+    name: "benfordAnomalies",
+    domain: "elections",
+    description: {
+      bg: "Тест на Бенфорд (първа цифра) по партия — отклонение в разпределението на цифрите.",
+      en: "Benford's-law (first-digit) test per party — deviation in digit distribution.",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какво показва тестът на Бенфорд?",
+        en: "What does the Benford test show?",
+      },
+    ],
+    run: benfordAnomalies,
+  },
+  {
+    name: "wastedVotes",
+    domain: "elections",
+    description: {
+      bg: "Прахосани гласове — дял на гласовете за партии под прага, по области.",
+      en: "Wasted votes — share of votes for below-threshold parties, by oblast.",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко гласове са прахосани под прага?",
+        en: "How many votes were wasted below the threshold?",
+      },
+    ],
+    run: wastedVotes,
+  },
+  {
+    name: "suspiciousSettlements",
+    domain: "elections",
+    description: {
+      bg: "Съмнителни населени места — концентриран вот, невалидни бюлетини, дописани избиратели.",
+      en: "Suspicious settlements — concentrated vote, invalid ballots, additional voters.",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои населени места са съмнителни?",
+        en: "Which settlements are suspicious?",
+      },
+    ],
+    run: suspiciousSettlements,
+  },
+  {
+    name: "diasporaVote",
+    domain: "elections",
+    description: {
+      bg: "Гласове в чужбина (МИР 32) — резултати по партия.",
+      en: "Out-of-country vote (MIR 32) — results by party.",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      { bg: "Как гласува диаспората?", en: "How did the diaspora vote?" },
+      { bg: "Резултати в чужбина", en: "Out-of-country results" },
+    ],
+    run: diasporaVote,
+  },
+  {
+    name: "voterPersistence",
+    domain: "elections",
+    description: {
+      bg: "Устойчивост на вота — дял на избирателите, останали при същата партия между два избора.",
+      en: "Voter persistence — share of voters who stayed with the same party between two elections.",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Целеви избор", en: "Target election" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко избиратели запазиха своя вот?",
+        en: "How many voters kept their vote?",
+      },
+    ],
+    run: voterPersistence,
+  },
+  // ---- demographics (census correlations) -----------------------------------
+  {
+    name: "partyDemographics",
+    domain: "elections",
+    description: {
+      bg: "Демографски корелации на една партия (Преброяване 2021): етнос, религия, образование, възраст.",
+      en: "A party's demographic correlations (Census 2021): ethnicity, religion, education, age.",
+    },
+    params: [
+      {
+        name: "party",
+        type: "party",
+        required: true,
+        description: { bg: "Партия", en: "Party" },
+      },
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кой гласува за Възраждане?",
+        en: "Who votes for Vazrazhdane?",
+      },
+      {
+        bg: "Демографски профил на ДПС",
+        en: "DPS demographic profile",
+      },
+    ],
+    run: partyDemographics,
+  },
+  {
+    name: "demographicCleavages",
+    domain: "elections",
+    description: {
+      bg: "Демографски разделения — кои показатели най-силно разделят партиите.",
+      en: "Demographic cleavages — which metrics most divide the parties.",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какво разделя гласоподавателите?",
+        en: "What divides the electorate?",
+      },
+    ],
+    run: demographicCleavages,
+  },
+  // ---- parliament roll-call -------------------------------------------------
+  {
+    name: "mpLoyalty",
+    domain: "people",
+    description: {
+      bg: "Партийна лоялност на депутатите — дял на гласовете, съвпадащи с групата.",
+      en: "MP party loyalty — share of votes cast with the MP's group.",
+    },
+    params: [],
+    examples: [
+      { bg: "Кои депутати са най-лоялни?", en: "Which MPs are most loyal?" },
+      {
+        bg: "Кои депутати гласуват против групата си?",
+        en: "Which MPs vote against their group?",
+      },
+    ],
+    run: mpLoyalty,
+  },
+  {
+    name: "mpAttendance",
+    domain: "people",
+    description: {
+      bg: "Присъствие на депутатите при гласуванията.",
+      en: "MP attendance at roll-call votes.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Кои депутати отсъстват най-много?",
+        en: "Which MPs are most absent?",
+      },
+    ],
+    run: mpAttendance,
+  },
+  {
+    name: "factionCohesion",
+    domain: "people",
+    description: {
+      bg: "Сплотеност на парламентарните групи — колко единно гласуват.",
+      en: "Faction cohesion — how uniformly the groups vote.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Коя група гласува най-единно?",
+        en: "Which group votes most cohesively?",
+      },
+    ],
+    run: factionCohesion,
+  },
+  {
+    name: "mpVotingProfile",
+    domain: "people",
+    description: {
+      bg: "Парламентарен профил на депутат по име: лоялност и присъствие.",
+      en: "An MP's roll-call profile by name: loyalty and attendance.",
+    },
+    params: [
+      {
+        name: "name",
+        type: "person",
+        required: true,
+        description: { bg: "Име на депутата", en: "MP name" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Как гласува Бойко Борисов в парламента?",
+        en: "How does Boyko Borisov vote in parliament?",
+      },
+    ],
+    run: mpVotingProfile,
+  },
+  {
+    name: "mpSimilarity",
+    domain: "people",
+    description: {
+      bg: "Кои депутати гласуват най-подобно на даден депутат.",
+      en: "Which MPs vote most similarly to a given MP.",
+    },
+    params: [
+      {
+        name: "name",
+        type: "person",
+        required: true,
+        description: { bg: "Име на депутата", en: "MP name" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кой гласува като Асен Василев?",
+        en: "Who votes like Asen Vasilev?",
+      },
+    ],
+    run: mpSimilarity,
+  },
+  {
+    name: "voteSearch",
+    domain: "people",
+    description: {
+      bg: "Търсене на парламентарни гласувания по тема/дума — резултат и брой гласове.",
+      en: "Search parliamentary votes by topic/keyword — outcome and tally.",
+    },
+    params: [
+      {
+        name: "query",
+        type: "metric",
+        description: { bg: "Тема или дума", en: "Topic or keyword" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Как гласува парламентът за бюджета?",
+        en: "How did parliament vote on the budget?",
+      },
+      {
+        bg: "Кои са най-оспорваните гласувания?",
+        en: "What were the most contested votes?",
+      },
+    ],
+    run: voteSearch,
+  },
+  // ---- education ------------------------------------------------------------
+  {
+    name: "schoolScores",
+    domain: "indicators",
+    description: {
+      bg: "Училища в община по среден успех на матурата (ДЗИ) / НВО.",
+      en: "Schools in a município by average matura (DZI) / NVO exam score.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+      {
+        name: "subject",
+        type: "indicator",
+        description: {
+          bg: "Предмет (БЕЛ/математика)",
+          en: "Subject (Bulgarian/math)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои са най-добрите училища в Пловдив?",
+        en: "What are the best schools in Plovdiv?",
+      },
+      {
+        bg: "Среден успех на матурите по училища във Варна",
+        en: "Matura scores by school in Varna",
+      },
+    ],
+    run: schoolScores,
+  },
 ];
 
 export const TOOLS_BY_NAME: Record<string, ToolDef> = Object.fromEntries(
@@ -1329,8 +1756,16 @@ export const DOMAIN_LABELS: Record<Domain, { bg: string; en: string }> = {
   place: { bg: "Моето населено място", en: "My area" },
 };
 
-export const runTool = (name: string, args: ToolArgs, ctx: ToolContext) => {
+export const runTool = async (
+  name: string,
+  args: ToolArgs,
+  ctx: ToolContext,
+) => {
   const tool = TOOLS_BY_NAME[name];
   if (!tool) throw new Error(`unknown tool: ${name}`);
-  return tool.run(args, ctx);
+  // Stamp the envelope's domain from the registry so it's always consistent
+  // with the tool's group (individual tools no longer need to set it).
+  const env = await tool.run(args, ctx);
+  env.domain = tool.domain;
+  return env;
 };
