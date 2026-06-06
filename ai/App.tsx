@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { Info } from "lucide-react";
 import { Logo } from "@/layout/header/Logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -57,6 +58,19 @@ export const App = () => {
           </a>
         </div>
         <div className="flex shrink-0 items-center gap-2 text-sm">
+          <Button
+            variant={view === "tools" ? "default" : "ghost"}
+            size="icon"
+            onClick={() => setView(view === "tools" ? "chat" : "tools")}
+            aria-label={t("Инструменти и данни", "Tools & data")}
+            aria-pressed={view === "tools"}
+            title={t(
+              "Инструменти и данни — какво може да отговори асистентът",
+              "Tools & data — what the assistant can answer",
+            )}
+          >
+            <Info />
+          </Button>
           <Select value={election} onValueChange={setElection}>
             <SelectTrigger
               className="h-9 w-auto gap-1 text-sm"
@@ -94,27 +108,10 @@ export const App = () => {
 
       <main className="flex-1 overflow-y-auto">
         <div className="container mx-auto px-2 py-6 sm:px-4">
-          <div className="mb-4 flex items-center gap-2">
-            <Button
-              variant={view === "chat" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setView("chat")}
-            >
-              {t("Чат", "Chat")}
-            </Button>
-            <Button
-              variant={view === "tools" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setView("tools")}
-            >
-              {t("Инструменти", "Tools")}
-            </Button>
-          </div>
-
           {view === "chat" ? (
             <Chat engine={engine} lang={lang} election={election} />
           ) : (
-            <Explorer lang={lang} />
+            <Explorer lang={lang} onClose={() => setView("chat")} />
           )}
         </div>
       </main>
