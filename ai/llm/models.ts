@@ -102,17 +102,23 @@ export const MODELS: ModelOption[] = [
     // },
   },
   {
-    // EuroLLM-1.7B-Instruct (utter-project) — LlamaForCausalLM, multilingual
-    // across all 24 EU languages incl. Bulgarian. Runs via transformers.js / ONNX
-    // Runtime Web (NO MLC toolchain) straight from the community ONNX repo
-    // flackzz/EuroLLM-1.7B-Instruct-ONNX (Apache-2.0, public). q4 ≈ 1.9 GB. ChatML
-    // -> the repo's config already sets eos_token_id = <|im_end|> (id 4), so
-    // generation stops cleanly. Narration only (no grammar-constrained routing).
-    // See ai/m0/PLAN.md (Path B).
+    // EuroLLM-1.7B-Instruct via transformers.js / ONNX Runtime Web (NO MLC).
+    // DISABLED: tested 2026-06-06 — the q4 ONNX (flackzz/EuroLLM-1.7B-Instruct-ONNX,
+    // ~1.9 GB) downloads fully but ORT-Web OOMs creating the session
+    // ("Can't create a session ... std::bad_alloc"): ORT-Web parses weights through
+    // a memory-capped wasm heap and ~1.9 GB is over the limit; the file also exceeds
+    // the browser Cache quota (re-downloads every visit). transformers.js is fine for
+    // a SMALLER (≤~1 GB) ONNX model — the TransformersJsProvider + runtime plumbing
+    // stay wired for that. For a Bulgarian model use web-llm/MLC instead (BgGPT 2.6B
+    // above): it streams q4f16 into WebGPU buffers + caches in IndexedDB, so it
+    // handles multi-GB models (the Qwen test models prove it). See ai/m0/PLAN.md.
     id: "flackzz/EuroLLM-1.7B-Instruct-ONNX",
     label: { bg: "EuroLLM 1.7B", en: "EuroLLM 1.7B" },
-    sizeNote: { bg: "~1.9 GB сваляне", en: "~1.9 GB download" },
-    ready: true,
+    sizeNote: {
+      bg: "недостъпен (твърде голям за браузъра)",
+      en: "unavailable (too large for the browser)",
+    },
+    ready: false,
     runtime: "transformersjs",
     dtype: "q4",
     routes: false, // transformers.js: narration only, deterministic routing
