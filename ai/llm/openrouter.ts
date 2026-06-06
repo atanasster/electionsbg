@@ -6,6 +6,12 @@
 // failure never breaks the chat. The model only ever picks {tool, args} and
 // writes prose from the tool's facts — the numbers are always computed.
 
+import {
+  buildContext,
+  CLOUD_BUDGET,
+  renderNarrationContext,
+  renderRoutingContext,
+} from "../orchestrator/memory";
 import { narrate } from "../orchestrator/narrate";
 import {
   buildNarrationPrompt,
@@ -31,6 +37,9 @@ const PROXY_URL =
   (import.meta as unknown as { env?: Record<string, string> }).env
     ?.VITE_LLM_PROXY_URL || "/api/llm";
 
+// Dev-only console trace of the assembled conversation context (for tuning).
+const DEV = !!(import.meta as unknown as { env?: { DEV?: boolean } }).env?.DEV;
+
 type ChatMessage = { role: "system" | "user"; content: string };
 type Completion = {
   choices?: { message?: { content?: string } }[];
@@ -45,11 +54,21 @@ type Usage = { input: number; output: number };
 // mislabelled as model-generated. Mirrors HeuristicProvider.label.
 const RULES_LABEL = { bg: "Без AI (офлайн)", en: "Basic (offline)" };
 
+// Past this many older (already-windowed-out) exchanges, the deterministic topic
+// digest is rewritten into one natural sentence by a cheap model call — only
+// then is the extra call worth it. Cached on the instance so a long session pays
+// for it at most once per growth step.
+const LLM_COMPACT_THRESHOLD = 8;
+
 export class OpenRouterProvider implements LLMProvider {
   id: string;
   label: { bg: string; en: string };
   private model: ModelOption;
   private state: ProviderStatus = "ready";
+  // Memoized LLM-compacted summary, keyed by the exact digest it was built from
+  // (NOT a turn count — the instance outlives "New chat", so a count key would
+  // serve a stale summary to a different conversation that reached the same size).
+  private summaryCache?: { key: string; text: string };
 
   constructor(model: ModelOption) {
     this.model = model;
@@ -165,13 +184,19 @@ export class OpenRouterProvider implements LLMProvider {
     question: string,
     ctx: ToolContext,
     usage: Usage,
+    routingCtx: string,
   ): Promise<{ route: Route; byModel: boolean }> {
     const fallback = () => ({ route: route(question, ctx), byModel: false });
+    // Prepend the conversation context (when there is any) so the model can
+    // resolve references the keyword router can't, then label the live question.
+    const userContent = routingCtx
+      ? `${routingCtx}\n\n${ctx.lang === "bg" ? "Текущ въпрос" : "Current question"}: ${question}`
+      : question;
     try {
       const content = await this.call(
         [
           { role: "system", content: buildToolSystemPrompt(ctx.lang) },
-          { role: "user", content: question },
+          { role: "user", content: userContent },
         ],
         { json: true, maxTokens: 120, temperature: 0 },
         usage,
@@ -183,16 +208,56 @@ export class OpenRouterProvider implements LLMProvider {
     }
   }
 
+  // Rewrite the deterministic topic digest into one natural sentence (no
+  // numbers — the digest carries only past questions). Cached by turn count and
+  // falls back to the deterministic digest on any error, so it never blocks.
+  private async compactSummary(
+    digest: string,
+    lang: Lang,
+    usage: Usage,
+  ): Promise<string> {
+    if (this.summaryCache?.key === digest) return this.summaryCache.text;
+    try {
+      const system =
+        lang === "bg"
+          ? "Обобщи в едно кратко изречение на български за какво е питал потребителят досега. Без числа, без измислици — само темите."
+          : "Summarize in one short English sentence what the user has been asking about so far. No numbers, no invention — just the topics.";
+      const text = stripControl(
+        await this.call(
+          [
+            { role: "system", content: system },
+            { role: "user", content: digest },
+          ],
+          { json: false, maxTokens: 80, temperature: 0.2 },
+          usage,
+        ),
+      );
+      if (text && matchesLang(text, lang)) {
+        this.summaryCache = { key: digest, text };
+        return text;
+      }
+    } catch {
+      /* fall back to the deterministic digest */
+    }
+    return digest;
+  }
+
   private async narrateEnv(
     env: Parameters<typeof narrate>[0],
     lang: Lang,
     usage: Usage,
     detail: "brief" | "full",
+    narrationCtx: string,
     onDelta?: (partial: string) => void,
   ): Promise<{ text: string; fromModel: boolean }> {
     const template = narrate(env, lang);
     try {
-      const { system, user } = buildNarrationPrompt(env, lang, detail);
+      const { system, user } = buildNarrationPrompt(
+        env,
+        lang,
+        detail,
+        narrationCtx || undefined,
+      );
       const raw = await this.call(
         [
           { role: "system", content: system },
@@ -226,12 +291,25 @@ export class OpenRouterProvider implements LLMProvider {
     const t0 = performance.now();
     const usage: Usage = { input: 0, output: 0 };
     const detail = opts?.detail ?? "brief";
+    // Window + compact the conversation into a context the model can use to
+    // resolve references. Past a threshold the older topic digest is rewritten
+    // into one natural sentence by a cheap (cached) call.
+    const mem = buildContext(opts?.history ?? [], CLOUD_BUDGET);
+    if (mem.summary && (mem.olderCount ?? 0) > LLM_COMPACT_THRESHOLD) {
+      // a one-off background summarization — keep its tokens OUT of this answer's
+      // reported count (it's amortized across later turns, not part of this reply)
+      const sumUsage: Usage = { input: 0, output: 0 };
+      mem.summary = await this.compactSummary(mem.summary, ctx.lang, sumUsage);
+    }
+    const routingCtx = renderRoutingContext(mem, ctx.lang);
+    const narrationCtx = renderNarrationContext(mem, ctx.lang);
+    if (DEV && routingCtx) console.debug("[chat ctx]\n" + routingCtx);
     // A bare follow-on ("а ДПС?") reuses the previous tool deterministically —
     // no routing call needed (and the keyword swap is reliable for ellipsis).
     const followOn = resolveFollowOn(question, opts?.prev);
     const { route: r, byModel: routedByModel } = followOn
       ? { route: followOn, byModel: false }
-      : await this.selectRoute(question, ctx, usage);
+      : await this.selectRoute(question, ctx, usage, routingCtx);
     // `usedModel` = the cloud model produced the route OR the prose. When false
     // (both fell back), the answer IS the rules engine, so label it as such —
     // never claim the cloud model on a fallback/error.
@@ -258,6 +336,7 @@ export class OpenRouterProvider implements LLMProvider {
         ctx.lang,
         usage,
         detail,
+        narrationCtx,
         onDelta,
       );
       return {

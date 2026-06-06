@@ -76,6 +76,7 @@ export const buildToolSystemPrompt = (lang: Lang): string => {
     "You are the intent router for a Bulgarian elections & governance assistant.",
     'Pick exactly ONE tool that best answers the user\'s question and output a single JSON object {"tool": <name>, "args": {...}}.',
     "Only use tool names from the catalogue. Put the relevant entity (party, place, oblast, election — a year like 2023 or a YYYY_MM_DD date, indicator, agency, ministry) in args. Always include the election when the question names a year; omit it only when no specific election is meant. Use {} when no args are needed. Output JSON only — no prose.",
+    'If a conversation is included, route the line labelled the current question; use the earlier turns only to resolve references in it (an ellipsis, a pronoun, "the same", "that one", a carried-over place or party).',
     "",
     "Tools:",
     toolCatalogue(lang),
@@ -91,10 +92,15 @@ export const buildToolSystemPrompt = (lang: Lang): string => {
 // the same headline the template already produces. `detail` controls length:
 // "brief" (default) is the interpretive 1–2 sentences; "full" expands to a
 // short paragraph for the "Подробно / Detailed" toggle.
+// `context` (optional) is a one-line gist of the PREVIOUS answer, so the prose
+// can read as part of a thread ("higher than GERB's 25.3% above") instead of a
+// cold restatement. It is phrasing only: the grounding guard below still binds
+// every number to the CURRENT facts, never to the conversation.
 export const buildNarrationPrompt = (
   env: Envelope,
   lang: Lang,
   detail: "brief" | "full" = "brief",
+  context?: string,
 ): { system: string; user: string } => {
   const language = lang === "bg" ? "Bulgarian" : "English";
   const script = lang === "bg" ? "Cyrillic" : "Latin";
@@ -108,12 +114,20 @@ export const buildNarrationPrompt = (
       `Do not use any other language. Explain the civic data in ${language}.`,
       length,
       "Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half).",
+      context
+        ? "You may briefly connect this to the previous answer for continuity, but every number MUST come from the Facts below — never reuse or recompute a figure mentioned earlier in the conversation."
+        : "",
       "Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
-    ].join(" "),
+    ]
+      .filter(Boolean)
+      .join(" "),
     user: [
+      context ? `Conversation context: ${context}` : "",
       `Title: ${env.title}`,
       `Facts (JSON): ${JSON.stringify(env.facts)}`,
       `Source: ${env.provenance.join(", ")}`,
-    ].join("\n"),
+    ]
+      .filter(Boolean)
+      .join("\n"),
   };
 };

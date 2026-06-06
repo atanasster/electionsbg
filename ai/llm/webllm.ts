@@ -9,6 +9,12 @@ import type {
   InitProgressReport,
   MLCEngineInterface,
 } from "@mlc-ai/web-llm";
+import {
+  buildContext,
+  renderNarrationContext,
+  renderRoutingContext,
+  WEBLLM_BUDGET,
+} from "../orchestrator/memory";
 import { narrate } from "../orchestrator/narrate";
 import {
   buildNarrationPrompt,
@@ -135,7 +141,12 @@ export class WebLLMProvider implements LLMProvider {
     this.engine = null;
   }
 
-  private async selectRoute(question: string, ctx: ToolContext, usage: Usage) {
+  private async selectRoute(
+    question: string,
+    ctx: ToolContext,
+    usage: Usage,
+    routingCtx: string,
+  ) {
     // Deterministic router FIRST. It's regression-tested and reliable, whereas a
     // small on-device model mis-routes (e.g. it picked a turnout SERIES for
     // "turnout in 2023", or machine-voting for "compare the elections"). So a
@@ -144,10 +155,13 @@ export class WebLLMProvider implements LLMProvider {
     // only to fill gaps the rules decline. The Qwen test models narrate only.
     const ruleRoute = route(question, ctx);
     if (ruleRoute || !this.engine || !this.model.routes) return ruleRoute;
+    const userContent = routingCtx
+      ? `${routingCtx}\n\n${ctx.lang === "bg" ? "Текущ въпрос" : "Current question"}: ${question}`
+      : question;
     try {
       const messages: ChatCompletionMessageParam[] = [
         { role: "system", content: buildToolSystemPrompt(ctx.lang) },
-        { role: "user", content: question },
+        { role: "user", content: userContent },
       ];
       const res = await this.engine.chat.completions.create({
         messages,
@@ -169,6 +183,7 @@ export class WebLLMProvider implements LLMProvider {
     usage: Usage,
     onDelta?: (partial: string) => void,
     detail: "brief" | "full" = "brief",
+    narrationCtx = "",
   ): Promise<{ text: string; fromModel: boolean }> {
     const template = narrate(env, lang);
     if (!this.engine) return { text: template, fromModel: false };
@@ -177,7 +192,12 @@ export class WebLLMProvider implements LLMProvider {
     // Bulgarian. The template narration is always in the right language, so if
     // the model's output isn't predominantly the requested script, use it.
     try {
-      const { system, user } = buildNarrationPrompt(env, lang, detail);
+      const { system, user } = buildNarrationPrompt(
+        env,
+        lang,
+        detail,
+        narrationCtx || undefined,
+      );
       const messages = [
         { role: "system" as const, content: system },
         { role: "user" as const, content: user },
@@ -237,10 +257,16 @@ export class WebLLMProvider implements LLMProvider {
       tokPerSec: usage.tokPerSec,
       narratedBy,
     });
+    // Window + compact the conversation (tighter budget than cloud — small
+    // in-browser models have short context windows). Routing context is only
+    // used when this model is trusted to route; narration context always helps.
+    const mem = buildContext(opts?.history ?? [], WEBLLM_BUDGET);
+    const routingCtx = renderRoutingContext(mem, ctx.lang);
+    const narrationCtx = renderNarrationContext(mem, ctx.lang);
     // A bare follow-on ("а ДПС?") reuses the prior tool with the new entity.
     const r =
       resolveFollowOn(question, opts?.prev) ??
-      (await this.selectRoute(question, ctx, usage));
+      (await this.selectRoute(question, ctx, usage, routingCtx));
     if (!r) return { text: clarify(ctx.lang), env: null, meta: meta("rules") };
     try {
       const env = await runTool(r.tool, r.args, ctx);
@@ -250,6 +276,7 @@ export class WebLLMProvider implements LLMProvider {
         usage,
         onDelta,
         opts?.detail ?? "brief",
+        narrationCtx,
       );
       return {
         text,

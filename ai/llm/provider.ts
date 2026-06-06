@@ -4,6 +4,7 @@
 // a JSON grammar, runs the same tools, and narrates the same facts — so the chat
 // UI doesn't change when the model lands.
 
+import type { TurnMemory } from "../orchestrator/memory";
 import { narrate } from "../orchestrator/narrate";
 import { resolveFollowOn, route } from "../orchestrator/router";
 import { runTool } from "../tools/registry";
@@ -13,11 +14,18 @@ import { clarify } from "./lang";
 // Per-request options shared by every provider.
 // - detail: how much prose the model should write ("full" → the longer,
 //   interpretive paragraph requested by the кратко/подробно toggle).
-// - prev: the previous answer's tool + args, so a follow-on like "а ДПС?"
-//   resolves the ellipsis against the last question (conversational memory).
+// - prev: the previous answer's tool + args, so a bare follow-on like "а ДПС?"
+//   resolves the ellipsis against the last question (the cheap, exact path).
+// - history: the full list of prior exchanges (newest last), distilled to
+//   structured TurnMemory. The model providers window + compact this into a
+//   context block so they can resolve references the keyword follow-on can't
+//   ("show the same for Plovdiv", "compare that to 2024"). The rules engine
+//   ignores it (keyword routing has no use for prose context) — it relies on
+//   `prev` alone, so offline behaviour is unchanged.
 export type RespondOpts = {
   detail?: "brief" | "full";
   prev?: { tool: string; args: ToolArgs };
+  history?: TurnMemory[];
 };
 
 // How a response was produced — surfaced in the answer panel's header band.

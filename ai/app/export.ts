@@ -14,6 +14,9 @@ export type ChatMsg = {
   // resolve a follow-on ("а ДПС?") against it (conversational memory)
   tool?: string;
   args?: ToolArgs;
+  // the language this answer was generated in — so context built from it stays
+  // language-consistent if the user switches EN/BG mid-thread
+  lang?: Lang;
 };
 
 const cell = (v: unknown): string => (v == null ? "—" : String(v));

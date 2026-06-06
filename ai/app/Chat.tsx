@@ -33,7 +33,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { ModelEngine } from "../llm/useModelEngine";
-import { distill } from "../orchestrator/memory";
+import { CLOUD_BUDGET, countExchanges, distill } from "../orchestrator/memory";
 import { AnswerView } from "../render/AnswerView";
 import type { Lang, ToolArgs } from "../tools/types";
 import {
@@ -325,7 +325,8 @@ const EloquenceToggle = ({
 // into a summary. Shown once a thread exists so a user understands a follow-up
 // ("compare that to 2024") will be read in context. `mr-auto` pushes it to the
 // left of the toolbar's action buttons.
-const MEMORY_COMPACT_AT = 6; // matches the cloud window cap (memory.ts)
+// Past the recent-window cap the older turns are folded into the summary digest.
+const MEMORY_COMPACT_AT = CLOUD_BUDGET.recentTurns;
 const MemoryPill = ({ turns, lang }: { turns: number; lang: Lang }) => {
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
   if (turns < 1) return null;
@@ -339,8 +340,8 @@ const MemoryPill = ({ turns, lang }: { turns: number; lang: Lang }) => {
       )}
     >
       <span className="size-1.5 rounded-full bg-primary/70" />
-      {t("Контекст", "Context")}: {turns}
-      {compacted ? ` · ${t("съкратен", "compacted")}` : ""}
+      {t("Памет", "Memory")}: {turns}
+      {compacted ? ` · ${t("обобщена", "compacted")}` : ""}
     </span>
   );
 };
@@ -560,6 +561,7 @@ export const Chat = ({
               tool: res.tool,
               args: res.args,
               detail: eloquence,
+              lang,
             }
           : x,
       ),
@@ -604,6 +606,7 @@ export const Chat = ({
               tool: res.tool,
               args: res.args,
               detail,
+              lang,
             }
           : x,
       ),
@@ -730,7 +733,7 @@ export const Chat = ({
   const suggestions = busy ? [] : matchSuggestions(input, lang);
   const hasChat = messages.length > 0;
   // how many prior exchanges the assistant is carrying as context (for the pill)
-  const memoryTurns = useMemo(() => distill(messages).length, [messages]);
+  const memoryTurns = useMemo(() => countExchanges(messages), [messages]);
   // a non-rules provider that has finished loading is the only case where the
   // eloquence preference changes the output — the offline rules engine emits a
   // fixed template, so hide the toggle for it.
@@ -778,7 +781,7 @@ export const Chat = ({
         hasChat &&
         createPortal(
           <>
-            <MemoryPill turns={memoryTurns} lang={lang} />
+            {canNarrate && <MemoryPill turns={memoryTurns} lang={lang} />}
             <Button
               variant="outline"
               size="sm"
@@ -838,12 +841,20 @@ export const Chat = ({
         )}
 
       {!hasChat && (
-        <p className="pt-2 text-sm text-muted-foreground">
-          {t(
-            "Питайте за резултати, активност, партии, бюджет, депутати, местни избори…",
-            "Ask about results, turnout, parties, budget, MPs, local elections…",
-          )}
-        </p>
+        <div className="space-y-1 pt-2 text-sm text-muted-foreground">
+          <p>
+            {t(
+              "Питайте за резултати, активност, партии, бюджет, депутати, местни избори…",
+              "Ask about results, turnout, parties, budget, MPs, local elections…",
+            )}
+          </p>
+          <p className="text-[13px]">
+            {t(
+              "По подразбиране отговарям за последните избори; посочете година (напр. 2021), за да попитате за друг вот.",
+              "I answer for the latest election by default; name a year (e.g. 2021) to ask about another.",
+            )}
+          </p>
+        </div>
       )}
 
       <div className="flex flex-col gap-4">
