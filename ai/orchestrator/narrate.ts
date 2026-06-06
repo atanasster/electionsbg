@@ -108,6 +108,11 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Прахосани гласове по партия (${f(env, "election")}): най-много ${f(env, "top_wasted")}; общо ${f(env, "total_wasted")} (${f(env, "share")}).`
         : `Wasted votes by party (${f(env, "election")}): most ${f(env, "top_wasted")}; ${f(env, "total_wasted")} total (${f(env, "share")}).`;
+    case "recountByParty":
+      if (!env.facts.biggest_loser) return env.title;
+      return lang === "bg"
+        ? `Преброяване наново (${f(env, "election")}): най-много губи ${f(env, "biggest_loser")}, най-много печели ${f(env, "biggest_gainer")}.`
+        : `Recount (${f(env, "election")}): ${f(env, "biggest_loser")} lost the most, ${f(env, "biggest_gainer")} gained the most.`;
     case "regionHistory":
       return lang === "bg"
         ? `Избирателна активност в ${f(env, "oblast")} през ${f(env, "elections")} избора; последно ${f(env, "latest_turnout")}.`

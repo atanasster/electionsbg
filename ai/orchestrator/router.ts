@@ -987,6 +987,19 @@ export const route = (question: string, ctx: ToolContext): Route => {
         tool: "flashMemoryByParty",
         args: election ? { election } : {},
       };
+    // per-party recount reconciliation ("кои партии загубиха от преброяване
+    // наново"). Only 2024-10-27 has recount data; other elections fall back to a
+    // no-recount scalar. Before the anomalies counter, which is party-blind.
+    const recountCtx = has(
+      q,
+      "преброяване наново",
+      "преброени наново",
+      "преброяване отново",
+      "наново преброй",
+      "recount",
+    );
+    if (recountCtx && partyIntent)
+      return { tool: "recountByParty", args: election ? { election } : {} };
   }
   // anomalies — before machine so "машинни корекции/флаш" isn't read as machine vote
   if (

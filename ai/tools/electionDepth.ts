@@ -522,6 +522,124 @@ export const wastedVotesByParty = async (
   };
 };
 
+// ---- recount reconciliation, per party --------------------------------------
+// "which parties gained/lost from the recount" — region_votes carries an
+// `original` (pre-recount) block with per-party added/removed votes. Only
+// elections with a manual recount (e.g. 2024-10-27) populate it; the rest return
+// a no-recount scalar.
+
+type RecountVote = {
+  partyNum: number;
+  addedVotes?: number;
+  removedVotes?: number;
+};
+type RecountRegion = { key: string; original?: { votes?: RecountVote[] } };
+
+export const recountByParty = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const election = resolveElection(args, ctx);
+  const bg = ctx.lang === "bg";
+  const [regions, ns] = await Promise.all([
+    fetchRegionVotes<RecountRegion[]>(election),
+    fetchNationalSummary<{ parties: NSParty[] }>(election),
+  ]);
+  const names = new Map(ns.parties.map((p) => [p.partyNum, p.nickName]));
+  const tally = new Map<number, { added: number; removed: number }>();
+  for (const r of regions) {
+    for (const v of r.original?.votes ?? []) {
+      const added = v.addedVotes ?? 0;
+      const removed = v.removedVotes ?? 0; // stored negative
+      if (added === 0 && removed === 0) continue;
+      const cur = tally.get(v.partyNum) ?? { added: 0, removed: 0 };
+      cur.added += added;
+      cur.removed += removed;
+      tally.set(v.partyNum, cur);
+    }
+  }
+  const all = [...tally].map(([num, t]) => ({
+    party: names.get(num) ?? `#${num}`,
+    added: t.added,
+    removed: t.removed,
+    net: t.added + t.removed,
+  }));
+
+  if (all.length === 0) {
+    return {
+      tool: "recountByParty",
+      domain: "elections",
+      kind: "scalar",
+      title: bg
+        ? `Няма преброяване наново — ${electionFullLabel(election, "bg")}`
+        : `No recount — ${electionFullLabel(election, "en")}`,
+      viz: "none",
+      facts: { election: electionFullLabel(election, ctx.lang) },
+      provenance: [`${election}/region_votes.json`],
+    };
+  }
+
+  const signed = (n: number): string =>
+    `${n > 0 ? "+" : n < 0 ? "−" : ""}${fmtInt(Math.abs(n), ctx.lang)}`;
+  const byLoss = [...all].sort((a, b) => a.net - b.net); // most negative first
+  const biggestLoser = byLoss[0];
+  const biggestGainer = byLoss[byLoss.length - 1];
+  const top = [...all]
+    .sort((a, b) => Math.abs(b.net) - Math.abs(a.net))
+    .slice(0, 14)
+    .sort((a, b) => a.net - b.net);
+  const rows: Row[] = top.map((r) => ({
+    party: r.party,
+    added: r.added,
+    removed: Math.abs(r.removed),
+    change: signed(r.net),
+  }));
+  return {
+    tool: "recountByParty",
+    domain: "elections",
+    kind: "table",
+    title: bg
+      ? `Преброяване наново по партия — ${electionFullLabel(election, "bg")}`
+      : `Recount changes by party — ${electionFullLabel(election, "en")}`,
+    subtitle: bg
+      ? "Промяна в гласовете на всяка партия след ръчното преброяване (добавени минус премахнати)"
+      : "Each party's vote change after the manual recount (added minus removed)",
+    columns: [
+      { key: "party", label: bg ? "Партия" : "Party" },
+      {
+        key: "added",
+        label: bg ? "Добавени" : "Added",
+        numeric: true,
+        format: "int",
+      },
+      {
+        key: "removed",
+        label: bg ? "Премахнати" : "Removed",
+        numeric: true,
+        format: "int",
+      },
+      {
+        key: "change",
+        label: bg ? "Нетна промяна" : "Net change",
+        numeric: true,
+      },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      election: electionFullLabel(election, ctx.lang),
+      biggest_loser: biggestLoser
+        ? `${biggestLoser.party} (${signed(biggestLoser.net)})`
+        : "—",
+      biggest_gainer:
+        biggestGainer && biggestGainer.net > 0
+          ? `${biggestGainer.party} (${signed(biggestGainer.net)})`
+          : "—",
+    },
+    provenance: [`${election}/region_votes.json`],
+  };
+};
+
 // ---- per-oblast turnout history ---------------------------------------------
 
 type RegionHistory = {

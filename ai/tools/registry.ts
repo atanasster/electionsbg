@@ -26,6 +26,7 @@ import {
   electionAnomalies,
   flashMemoryByParty,
   machineVoteByParty,
+  recountByParty,
   regionBreakdown,
   regionHistory,
   voteTransitions,
@@ -502,6 +503,28 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: wastedVotesByParty,
+  },
+  {
+    name: "recountByParty",
+    domain: "elections",
+    description: {
+      bg: "Промяна в гласовете по партия след ръчно преброяване наново (само избори с преброяване, напр. окт 2024).",
+      en: "Per-party vote change after a manual recount (only elections with a recount, e.g. Oct 2024).",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои партии загубиха от преброяването наново през 2024?",
+        en: "Which parties lost from the 2024 recount?",
+      },
+    ],
+    run: recountByParty,
   },
   {
     name: "regionHistory",

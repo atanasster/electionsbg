@@ -739,6 +739,21 @@ const CASES: Case[] = [
     minRows: 2,
   },
   {
+    // recount-by-party: only 2024-10-27 has recount data (region_votes.original)
+    q: "кои партии загубиха от преброяване наново",
+    election: "2024_10_27",
+    tool: "recountByParty",
+    kind: "table",
+    minRows: 2,
+    facts: { biggest_loser: /\(/ },
+  },
+  {
+    // a cycle WITHOUT a recount -> honest no-recount scalar, still routed here
+    q: "кои партии загубиха от преброяване наново",
+    tool: "recountByParty",
+    kind: "scalar",
+  },
+  {
     q: "Кои населени места са съмнителни?",
     tool: "suspiciousSettlements",
     kind: "table",
