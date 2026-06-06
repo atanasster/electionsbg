@@ -1,6 +1,26 @@
 {
-  "updatedAt": "2026-06-05T07:59:10.049Z",
+  "updatedAt": "2026-06-06T07:45:30.321Z",
   "entries": [
+    {
+      "timestamp": "2026-06-06T07:45:30.321Z",
+      "date": "2026-06-06",
+      "skill": "update-council-minutes",
+      "summary": "Велико Търново: +47 council resolutions (session 42, 2026-06-05)",
+      "source": "Council resolutions + vote tallies (Велико Търново)"
+    },
+    {
+      "timestamp": "2026-06-06T07:36:34.953Z",
+      "date": "2026-06-06",
+      "skill": "update-rollcall",
+      "summary": "1 new roll-call session through 2026-06-05",
+      "source": "Parliament roll-call votes (parliament.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-06-05T07:59:10.049Z",
       "date": "2026-06-05",
