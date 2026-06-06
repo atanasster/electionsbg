@@ -2,28 +2,40 @@
 // the returned narration + Envelope. Swapping HeuristicProvider for a WebLLM
 // provider requires no change here.
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { type RefObject, useEffect, useMemo, useRef, useState } from "react";
 import {
   Check,
   Copy,
   Download,
+  FileDown,
   FileText,
   ImageDown,
   Plus,
   Share2,
+  Table,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { LLMProvider } from "../llm/provider";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import type { ModelEngine } from "../llm/useModelEngine";
 import { AnswerView } from "../render/AnswerView";
 import type { Lang } from "../tools/types";
 import {
   conversationToMarkdown,
   downloadAnswerImage,
+  downloadAnswerMarkdown,
+  downloadAnswerPdf,
+  downloadCsv,
   downloadMarkdown,
   downloadPdf,
   type ChatMsg,
 } from "./export";
 import { followUps } from "./followups";
+import { ModelPicker } from "./ModelPicker";
 import { matchSuggestions } from "./suggestions";
 
 type Msg = ChatMsg & { id: number };
@@ -89,12 +101,111 @@ const shuffle = <T,>(arr: T[]): T[] => {
   return a;
 };
 
+// Per-response export menu, rendered in the answer panel's header band. Image
+// rasterizes the live card (via cardRef); md/pdf/csv serialize this one answer.
+const AnswerExportMenu = ({
+  cardRef,
+  msg,
+  question,
+  lang,
+}: {
+  cardRef: RefObject<HTMLDivElement | null>;
+  msg: Msg;
+  question: string;
+  lang: Lang;
+}) => {
+  const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
+  const env = msg.env;
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-7 px-2 text-muted-foreground"
+        >
+          <Download /> {t("Изтегли", "Export")}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem
+          onSelect={() => {
+            const el = cardRef.current;
+            if (el) void downloadAnswerImage(el, question, lang);
+          }}
+        >
+          <ImageDown /> {t("Изображение", "Image")} (PNG)
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onSelect={() => downloadAnswerMarkdown(msg, question, lang)}
+        >
+          <FileText /> Markdown (.md)
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onSelect={() => void downloadAnswerPdf(msg, question, lang)}
+        >
+          <FileDown /> PDF (.pdf)
+        </DropdownMenuItem>
+        {env && (env.kind === "table" || env.kind === "series") && (
+          <DropdownMenuItem onSelect={() => downloadCsv(env)}>
+            <Table /> CSV (.csv)
+          </DropdownMenuItem>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+// One assistant turn. While the answer is still streaming (or it's a plain
+// clarify/error with no Envelope) the narration shows in a bubble; once an
+// Envelope lands the bubble is folded into the answer panel as its lead line.
+const AssistantMessage = ({
+  msg,
+  lang,
+  question,
+  streaming,
+}: {
+  msg: Msg;
+  lang: Lang;
+  question: string;
+  streaming: boolean;
+}) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  return (
+    <div data-msg="" className="w-full max-w-[95%] space-y-2 self-start">
+      {!msg.env && (msg.text || streaming) && (
+        <div className="rounded-2xl rounded-bl-sm bg-muted px-4 py-2 text-sm text-foreground">
+          {msg.text || "…"}
+        </div>
+      )}
+      {msg.env && (
+        <div data-answer-card="" ref={cardRef}>
+          <AnswerView
+            env={msg.env}
+            lang={lang}
+            meta={msg.meta}
+            narration={msg.text}
+            actions={
+              <AnswerExportMenu
+                cardRef={cardRef}
+                msg={msg}
+                question={question}
+                lang={lang}
+              />
+            }
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
 export const Chat = ({
-  provider,
+  engine,
   lang,
   election,
 }: {
-  provider: LLMProvider;
+  engine: ModelEngine;
   lang: Lang;
   election: string;
 }) => {
@@ -130,13 +241,20 @@ export const Chat = ({
     setBusy(true);
     // stream the narration into the placeholder assistant message; the env
     // (chart/table) is attached when the answer is finalized
-    const res = await provider.respond(q, { lang, election }, (partial) =>
-      setMessages((m) =>
-        m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
-      ),
+    const res = await engine.provider.respond(
+      q,
+      { lang, election },
+      (partial) =>
+        setMessages((m) =>
+          m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
+        ),
     );
     setMessages((m) =>
-      m.map((x) => (x.id === aId ? { ...x, text: res.text, env: res.env } : x)),
+      m.map((x) =>
+        x.id === aId
+          ? { ...x, text: res.text, env: res.env, meta: res.meta }
+          : x,
+      ),
     );
     setBusy(false);
   };
@@ -262,6 +380,7 @@ export const Chat = ({
           <Button
             variant="outline"
             size="sm"
+            title={t("Целият разговор", "Whole conversation")}
             onClick={() => downloadMarkdown(messages, lang)}
           >
             <FileText /> .md
@@ -269,6 +388,7 @@ export const Chat = ({
           <Button
             variant="outline"
             size="sm"
+            title={t("Целият разговор", "Whole conversation")}
             onClick={() => void downloadPdf(messages, lang)}
           >
             <Download /> .pdf
@@ -294,42 +414,13 @@ export const Chat = ({
               </div>
             </div>
           ) : (
-            <div
+            <AssistantMessage
               key={m.id}
-              data-msg=""
-              className="w-full max-w-[95%] space-y-2 self-start"
-            >
-              {(m.text || busy) && (
-                <div className="rounded-2xl rounded-bl-sm bg-muted px-4 py-2 text-sm text-foreground">
-                  {m.text || "…"}
-                </div>
-              )}
-              {m.env && (
-                <>
-                  <div data-answer-card="">
-                    <AnswerView env={m.env} lang={lang} />
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-muted-foreground"
-                    onClick={(e) => {
-                      const card = e.currentTarget
-                        .closest("[data-msg]")
-                        ?.querySelector<HTMLElement>("[data-answer-card]");
-                      if (card)
-                        void downloadAnswerImage(
-                          card,
-                          messages[i - 1]?.text ?? "",
-                          lang,
-                        );
-                    }}
-                  >
-                    <ImageDown /> {t("Изображение", "Image")}
-                  </Button>
-                </>
-              )}
-            </div>
+              msg={m}
+              lang={lang}
+              question={messages[i - 1]?.text ?? ""}
+              streaming={busy && i === messages.length - 1}
+            />
           ),
         )}
         {followups.length > 0 && (
@@ -371,14 +462,15 @@ export const Chat = ({
           </div>
         )}
         <form
-          className="flex gap-2"
+          className="flex items-center gap-2"
           onSubmit={(e) => {
             e.preventDefault();
             send(input);
           }}
         >
+          <ModelPicker engine={engine} lang={lang} />
           <input
-            className="flex-1 rounded-full border border-input bg-background px-4 py-2.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            className="min-w-0 flex-1 rounded-full border border-input bg-background px-4 py-2.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
             placeholder={t(
               "Попитайте за изборите…",
               "Ask about the elections…",

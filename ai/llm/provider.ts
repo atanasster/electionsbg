@@ -10,10 +10,24 @@ import { runTool } from "../tools/registry";
 import type { Envelope, ToolContext } from "../tools/types";
 import { clarify } from "./lang";
 
+// How a response was produced — surfaced in the answer panel's header band.
+// For the rules engine only `model`/`durationMs`/`narratedBy:"rules"` apply
+// (no LLM, so no token counts). A WebLLM model additionally reports tokens and,
+// when the engine exposes it, the decode rate.
+export type ResponseMeta = {
+  model: { bg: string; en: string }; // provider label, resolved at render time
+  durationMs: number; // wall-clock route + runTool + narrate
+  inputTokens?: number; // LLM only
+  outputTokens?: number; // LLM only
+  tokPerSec?: number; // LLM only — engine decode rate, when available
+  narratedBy: "rules" | "model"; // who wrote the prose (numbers are always computed)
+};
+
 export type ChatResponse = {
   text: string;
   env: Envelope | null;
   tool?: string;
+  meta?: ResponseMeta;
 };
 
 export type ProviderStatus = "ready" | "loading" | "unsupported" | "error";
@@ -42,11 +56,17 @@ export class HeuristicProvider implements LLMProvider {
   }
 
   async respond(question: string, ctx: ToolContext): Promise<ChatResponse> {
+    const t0 = performance.now();
+    const meta = (): ResponseMeta => ({
+      model: this.label,
+      durationMs: performance.now() - t0,
+      narratedBy: "rules",
+    });
     const r = route(question, ctx);
-    if (!r) return { text: clarify(ctx.lang), env: null };
+    if (!r) return { text: clarify(ctx.lang), env: null, meta: meta() };
     try {
       const env = await runTool(r.tool, r.args, ctx);
-      return { text: narrate(env, ctx.lang), env, tool: r.tool };
+      return { text: narrate(env, ctx.lang), env, tool: r.tool, meta: meta() };
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
       return {
@@ -55,6 +75,7 @@ export class HeuristicProvider implements LLMProvider {
             ? `Възникна грешка при изпълнението: ${msg}`
             : `Something went wrong running that: ${msg}`,
         env: null,
+        meta: meta(),
       };
     }
   }

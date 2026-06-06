@@ -2,12 +2,14 @@
 // jsPDF + jspdf-autotable, reusing the site's Cyrillic OpenSans font so the heavy
 // deps + ~300 KB font never touch the main bundle).
 
+import type { ResponseMeta } from "../llm/provider";
 import type { Envelope, Lang } from "../tools/types";
 
 export type ChatMsg = {
   role: "user" | "assistant";
   text: string;
   env?: Envelope | null;
+  meta?: ResponseMeta;
 };
 
 const cell = (v: unknown): string => (v == null ? "—" : String(v));
@@ -94,6 +96,40 @@ export const downloadMarkdown = (msgs: ChatMsg[], lang: Lang) => {
   triggerDownload(blob, `naiasno-${stamp()}.md`);
 };
 
+// --- Single-answer export -------------------------------------------------
+// Per-response Markdown/PDF reuse the conversation serializers on a 2-element
+// [question, answer] slice, so there's one source of truth for the layout.
+
+export const downloadAnswerMarkdown = (
+  answer: ChatMsg,
+  question: string,
+  lang: Lang,
+) => downloadMarkdown([{ role: "user", text: question }, answer], lang);
+
+export const downloadAnswerPdf = (
+  answer: ChatMsg,
+  question: string,
+  lang: Lang,
+) => downloadPdf([{ role: "user", text: question }, answer], lang);
+
+// CSV for tabular answers. Uses ";" (BG locale treats "," as the decimal
+// separator) and a UTF-8 BOM so Excel renders Cyrillic correctly.
+const csvEscape = (v: string): string =>
+  /[";\n\r"]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
+
+export const envToCsv = (env: Envelope): string => {
+  const { head, body } = envToGrid(env);
+  const rows = head ? [head, ...body] : body;
+  return "\uFEFF" + rows.map((r) => r.map(csvEscape).join(";")).join("\r\n");
+};
+
+export const downloadCsv = (env: Envelope) => {
+  const blob = new Blob([envToCsv(env)], {
+    type: "text/csv;charset=utf-8",
+  });
+  triggerDownload(blob, `naiasno-${stamp()}.csv`);
+};
+
 // Naясно logo (mirrors src/layout/header/Logo.tsx) as raw SVG for the off-screen
 // share card — a React component can't be dropped into a plain DOM node.
 const LOGO_SVG = `<svg viewBox="0 0 64 64" width="30" height="30" fill="none" aria-hidden="true">
@@ -129,6 +165,8 @@ export const downloadAnswerImage = async (
   q.textContent = question;
 
   const clone = answerEl.cloneNode(true) as HTMLElement;
+  // drop the interactive export menu from the shared card (keep the meta line)
+  clone.querySelectorAll("[data-export-actions]").forEach((n) => n.remove());
 
   const footer = document.createElement("div");
   footer.className = "text-muted-foreground";
