@@ -81,6 +81,12 @@ const CASES: Case[] = [
     facts: { appearances: { num: 12 } },
   },
   {
+    // a person name -> candidate preferential results, NOT national results
+    q: "резултатите за Божидар Божанов",
+    tool: "candidateResult",
+    facts: { name: "Божанов" },
+  },
+  {
     q: "Какъв беше делът на машинното гласуване през 2023?",
     tool: "machineVoteShare",
     facts: { machine_share: /58/ },

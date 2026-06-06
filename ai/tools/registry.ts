@@ -50,6 +50,7 @@ import {
   transparencyScore,
 } from "./placesGov";
 import { compareElections, machineVoteShare, turnout } from "./metrics";
+import { candidateResult } from "./candidate";
 import { nationalResults, partyResult } from "./national";
 import { partyTimeline } from "./parties";
 import { agencyProfile, latestPolls } from "./pollsDepth";
@@ -107,6 +108,38 @@ export const TOOLS: ToolDef[] = [
       { bg: "Колко гласа взе ГЕРБ?", en: "How many votes did GERB get?" },
     ],
     run: partyResult,
+  },
+  {
+    name: "candidateResult",
+    domain: "elections",
+    description: {
+      bg: "Преференциални резултати на кандидат по име.",
+      en: "A candidate's preferential-vote results by name.",
+    },
+    params: [
+      {
+        name: "name",
+        type: "person",
+        required: true,
+        description: { bg: "Име на кандидата", en: "Candidate name" },
+      },
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Резултатите за Божидар Божанов",
+        en: "Results for Bozhidar Bozhanov",
+      },
+      {
+        bg: "Преференции на Делян Пеевски",
+        en: "Preferential votes for Delyan Peevski",
+      },
+    ],
+    run: candidateResult,
   },
   {
     name: "machineVoteShare",

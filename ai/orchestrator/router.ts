@@ -43,6 +43,16 @@ const PARTY_TOKENS = [
 const detectParty = (q: string): string | undefined =>
   PARTY_TOKENS.find((tok) => q.includes(tok));
 
+// Extract a person name (2–3 capitalized words) from the ORIGINAL-case question.
+// All-caps acronyms (ГЕРБ) need a lowercase tail so they don't match; single
+// capitalized words (Възраждане) need a second word so they don't either.
+const NAME_BG = /[А-ЯЁ][а-яё]+(?:\s+[А-ЯЁ][а-яё]+){1,2}/;
+const NAME_EN = /[A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2}/;
+const extractPersonName = (raw: string): string | undefined => {
+  const m = raw.match(NAME_BG) ?? raw.match(NAME_EN);
+  return m ? m[0].trim() : undefined;
+};
+
 // Polling-agency name fragments, for routing "how accurate is <agency>".
 const AGENCY_TOKENS = [
   "алфа",
@@ -603,6 +613,21 @@ export const route = (question: string, ctx: ToolContext): Route => {
       tool: "partyResult",
       args: election ? { party, election } : { party },
     };
+  }
+
+  // 4b. a person's candidate preferential results — a name (2–3 capitalized
+  // words) that isn't a known oblast or party. Runs after the specific
+  // party/place rules so those win first, and BEFORE the generic "резултат"
+  // rule so "резултатите за Божидар Божанов" isn't swallowed by national results.
+  const personName = extractPersonName(question);
+  if (personName) {
+    const nm = personName.toLowerCase();
+    if (!findOblastInText(nm) && !detectParty(nm)) {
+      return {
+        tool: "candidateResult",
+        args: election ? { name: personName, election } : { name: personName },
+      };
+    }
   }
 
   // 5. generic national results / "who won" / "what happened"

@@ -64,6 +64,11 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Резултати за ${f(env, "election")}: ${env.facts.parties_over_threshold} партии над прага. Таблицата е подредена по гласове.`
         : `Results for ${f(env, "election")}: ${env.facts.parties_over_threshold} parties over threshold. Table sorted by votes.`;
+    case "candidateResult":
+      if (env.facts.total_preferences == null) return env.title;
+      return lang === "bg"
+        ? `${f(env, "name")}${env.facts.party ? ` (${f(env, "party")})` : ""}: ${f(env, "total_preferences")} преференции в ${f(env, "regions")} района; най-много ${f(env, "top_region")}.`
+        : `${f(env, "name")}${env.facts.party ? ` (${f(env, "party")})` : ""}: ${f(env, "total_preferences")} preferential votes across ${f(env, "regions")} regions; most ${f(env, "top_region")}.`;
     case "regionBreakdown":
       if (!env.facts.party)
         return lang === "bg"

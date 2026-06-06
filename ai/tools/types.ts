@@ -57,6 +57,7 @@ export type ParamType =
   | "electionList"
   | "count"
   | "party"
+  | "person"
   | "metric"
   | "region"
   | "cycle"
