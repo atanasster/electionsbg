@@ -1,5 +1,5 @@
 // M5 — synthesize a fine-tuning dataset of (question -> {tool,args}) pairs from
-// the tool registry, so a small Bulgarian-native model (BgGPT/EuroLLM) becomes
+// the tool registry, so a small Bulgarian-native model (BgGPT) becomes
 // reliable at tool selection over the fixed tool surface (74 tools).
 //
 // Run: npx tsx ai/m5/gen_dataset.ts

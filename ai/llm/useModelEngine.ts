@@ -144,15 +144,6 @@ export const useModelEngine = (): ModelEngine => {
         persistChoice(id);
         return;
       }
-      // The transformers.js / ONNX Runtime path is retired (EuroLLM-1.7B OOMs in
-      // ORT-Web), so its provider — and the ~24 MB ONNX wasm — are no longer
-      // bundled. Any lingering transformersjs model can't load; treat it as
-      // unsupported rather than mis-routing it through WebLLM.
-      if (model.runtime === "transformersjs") {
-        setProvider(heuristic);
-        setLoad({ ...IDLE, phase: "unsupported" });
-        return;
-      }
       if (!HAS_WEBGPU) {
         setProvider(heuristic);
         setLoad({ ...IDLE, phase: "unsupported" });

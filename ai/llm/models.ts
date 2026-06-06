@@ -1,15 +1,14 @@
 // M3 — selectable in-browser models for the WebLLM provider.
 //
 // "prebuilt" models load straight from MLC's CDN and work today (used to prove
-// the pipeline). BgGPT / EuroLLM are the on-brand Bulgarian targets but need a
-// one-time MLC build + HF hosting — see ai/m0/README.md + ai/m0/build-model.sh.
-// To enable one: run the build, host on HF, then set ready:true and paste the
-// appConfig the script prints. Until then they show as "requires MLC build".
+// the pipeline). BgGPT is the on-brand Bulgarian target but needs a one-time MLC
+// build + HF hosting — see ai/m0/README.md + ai/m0/build-model.sh. To enable it:
+// run the build, host on HF, then set ready:true and paste the appConfig the
+// script prints. Until then it shows as "requires MLC build".
 //
 // ⚠ The unpinned MLC pip toolchain is currently ABI-broken; the reliable build
-// is from source (or skip MLC and ship EuroLLM via transformers.js). Recommended
-// first ship = BgGPT-2.6B (no compile). The two ranked execution paths + exact
-// commands live in ai/m0/PLAN.md (research 2026-06-06).
+// is from source. Recommended first ship = BgGPT-2.6B (no compile). The ranked
+// execution paths + exact commands live in ai/m0/PLAN.md (research 2026-06-06).
 
 import type { AppConfig } from "@mlc-ai/web-llm";
 
@@ -25,7 +24,7 @@ export type ModelTag =
   | "cloud";
 
 export type ModelOption = {
-  id: string; // WebLLM model_id, or (transformersjs) the HF ONNX repo path
+  id: string; // WebLLM model_id (in-browser), or the OpenRouter model id (cloud)
   label: { bg: string; en: string };
   // The full size/availability note. For downloadable models it's a one-time
   // download size; for unavailable ones it's the reason ("requires MLC build").
@@ -43,18 +42,15 @@ export type ModelOption = {
   recommended?: boolean;
   ready: boolean; // false => requires the M0 compile before it can load
   // Which engine runs this model. "webllm" (default) = @mlc-ai/web-llm (in-browser,
-  // needs an MLC build). "transformersjs" = @huggingface/transformers / ONNX Runtime
-  // Web (in-browser, loads a HF ONNX repo). "cloud" = a hosted model reached via the
-  // Firebase Function proxy → OpenRouter (NOT in-browser; the question is sent to a
-  // server). `id` is the OpenRouter model id for cloud models.
-  runtime?: "webllm" | "transformersjs" | "cloud";
-  dtype?: string; // transformers.js quantization, e.g. "q4" (default "q4")
+  // needs an MLC build). "cloud" = a hosted model reached via the Firebase Function
+  // proxy → OpenRouter (NOT in-browser; the question is sent to a server). `id` is
+  // the OpenRouter model id for cloud models.
+  runtime?: "webllm" | "cloud";
   appConfig?: AppConfig; // for custom (HF-hosted) WebLLM models
   // May this model SELECT tools? Only Bulgarian-capable models should. The Qwen
   // test models mis-route (e.g. a "compare elections" question -> machine-voting
-  // series), so they narrate only and routing stays deterministic. BgGPT/EuroLLM
-  // are trusted to fill routing gaps the rules decline. transformers.js models
-  // narrate only (no grammar-constrained JSON decoding), so they stay false.
+  // series), so they narrate only and routing stays deterministic. BgGPT (and the
+  // cloud models) are trusted to fill routing gaps the rules decline.
   routes?: boolean;
 };
 
@@ -157,7 +153,7 @@ export const MODELS: ModelOption[] = [
     // text-only chat); (2) no prebuilt gemma3-4b wasm, so M0 must COMPILE one
     // (mlc_llm compile --device webgpu, needs Emscripten — Colab Part B); (3) Gemma-3
     // is confirmed broken on ONNX/WebGPU (fp16 overflow), so the easy runtime is
-    // closed too. ~2.7 GB download / ~4 GB VRAM. Prefer BgGPT-2.6B or EuroLLM.
+    // closed too. ~2.7 GB download / ~4 GB VRAM. Prefer BgGPT-2.6B.
     // Build: ai/m0/build-model.sh bggpt3 atanasster   (or Colab Part B).
     id: "BgGPT-Gemma-3-4B-IT-q4f16_1-MLC",
     label: { bg: "BgGPT 4B (Gemma 3)", en: "BgGPT 4B (Gemma 3)" },
@@ -185,33 +181,6 @@ export const MODELS: ModelOption[] = [
     //     },
     //   ],
     // },
-  },
-  {
-    // EuroLLM-1.7B-Instruct via transformers.js / ONNX Runtime Web (NO MLC).
-    // DISABLED: tested 2026-06-06 — the q4 ONNX (flackzz/EuroLLM-1.7B-Instruct-ONNX,
-    // ~1.9 GB) downloads fully but ORT-Web OOMs creating the session
-    // ("Can't create a session ... std::bad_alloc"): ORT-Web parses weights through
-    // a memory-capped wasm heap and ~1.9 GB is over the limit; the file also exceeds
-    // the browser Cache quota (re-downloads every visit). transformers.js is fine for
-    // a SMALLER (≤~1 GB) ONNX model — the TransformersJsProvider + runtime plumbing
-    // stay wired for that. For a Bulgarian model use web-llm/MLC instead (BgGPT 2.6B
-    // above): it streams q4f16 into WebGPU buffers + caches in IndexedDB, so it
-    // handles multi-GB models (the Qwen test models prove it). See ai/m0/PLAN.md.
-    id: "flackzz/EuroLLM-1.7B-Instruct-ONNX",
-    label: { bg: "EuroLLM 1.7B", en: "EuroLLM 1.7B" },
-    sizeNote: {
-      bg: "недостъпен (твърде голям за браузъра)",
-      en: "unavailable (too large for the browser)",
-    },
-    vramNote: { bg: "~2 GB видео памет", en: "~2 GB video memory" },
-    advantage: {
-      bg: "Многоезичен европейски модел (вкл. български)",
-      en: "Multilingual European model (incl. Bulgarian)",
-    },
-    ready: false,
-    runtime: "transformersjs",
-    dtype: "q4",
-    routes: false, // transformers.js: narration only, deterministic routing
   },
 ];
 
