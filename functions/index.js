@@ -39,9 +39,13 @@ const MAX_MESSAGES = 12;
 exports.llm = onRequest(
   { secrets: [OPENROUTER_API_KEY], region: "us-central1", maxInstances: 10 },
   async (req, res) => {
+    // Same-origin requests via the hosting rewrite often arrive with NO Origin
+    // header (the proxy drops it), so a missing origin is allowed; a PRESENT
+    // foreign origin is rejected. (The real anti-abuse is App Check + the model
+    // allowlist + the max_tokens cap, not this spoofable header.)
     const origin = req.headers.origin || "";
-    const originOk = ALLOWED_ORIGINS.some((re) => re.test(origin));
-    if (originOk) res.set("Access-Control-Allow-Origin", origin);
+    const originOk = !origin || ALLOWED_ORIGINS.some((re) => re.test(origin));
+    if (origin && originOk) res.set("Access-Control-Allow-Origin", origin);
     res.set("Vary", "Origin");
 
     if (req.method === "OPTIONS") {

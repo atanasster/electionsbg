@@ -76,7 +76,14 @@ export class OpenRouterProvider implements LLMProvider {
         ...(opts.json ? { response_format: { type: "json_object" } } : {}),
       }),
     });
-    if (!res.ok) throw new Error(`proxy ${res.status}`);
+    if (!res.ok) {
+      // surface the upstream reason (key/policy/model error) so a failed cloud
+      // call is diagnosable in the console rather than a bare status code,
+      // before the silent fallback to the rules engine kicks in.
+      const body = await res.text().catch(() => "");
+      console.warn(`[cloud] /api/llm ${res.status}: ${body.slice(0, 300)}`);
+      throw new Error(`proxy ${res.status}`);
+    }
     const data = (await res.json()) as Completion;
     if (data.error)
       throw new Error(
