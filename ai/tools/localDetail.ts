@@ -5,6 +5,7 @@ import { fmtInt, fmtPct } from "./format";
 import {
   fetchLocalMuni,
   localCycleYear,
+  LOCAL_CYCLES,
   resolveLocalCycle,
 } from "./localDataset";
 import { resolveMunicipality } from "./place";
@@ -23,6 +24,75 @@ const noMuni = (tool: string, query: string, ctx: ToolContext): Envelope => ({
   facts: { query },
   provenance: ["municipalities.json"],
 });
+
+// A município's elected mayor across the local-election cycles ("last mayors of
+// Sofia"). Each cycle's bundle holds mayor.elected; we walk all regular cycles.
+export const localMayorHistory = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const place = await resolveMunicipality(String(args.place ?? ""));
+  if (!place) return noMuni("localMayorHistory", String(args.place ?? ""), ctx);
+  const results = await Promise.all(
+    LOCAL_CYCLES.map(async (c) => {
+      try {
+        const b = await fetchLocalMuni(c.name, place.obshtina);
+        return { year: localCycleYear(c.name), elected: b.mayor.elected };
+      } catch {
+        return { year: localCycleYear(c.name), elected: null };
+      }
+    }),
+  );
+  const rows: Row[] = results
+    .filter((r) => r.elected)
+    .map((r) => ({
+      year: r.year,
+      mayor: r.elected!.candidateName,
+      party: r.elected!.localPartyName,
+    }));
+  if (!rows.length) {
+    return {
+      tool: "localMayorHistory",
+      domain: "local",
+      kind: "scalar",
+      title:
+        ctx.lang === "bg"
+          ? `Няма данни за кметове на ${place.name}`
+          : `No mayor data for ${place.nameEn}`,
+      viz: "none",
+      facts: { place: place.name },
+      provenance: [`*/municipalities/${place.obshtina}.json`],
+    };
+  }
+  return {
+    tool: "localMayorHistory",
+    domain: "local",
+    kind: "table",
+    title:
+      ctx.lang === "bg"
+        ? `Кметове на ${place.name} по мандати`
+        : `Mayors of ${place.nameEn} by term`,
+    columns: [
+      { key: "year", label: ctx.lang === "bg" ? "Избори" : "Election" },
+      { key: "mayor", label: ctx.lang === "bg" ? "Кмет" : "Mayor" },
+      {
+        key: "party",
+        label: ctx.lang === "bg" ? "Партия / коалиция" : "Party / coalition",
+      },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      place: place.name,
+      latest_mayor: String(rows[0].mayor),
+      latest_party: String(rows[0].party),
+      terms: rows.length,
+    },
+    provenance: LOCAL_CYCLES.map(
+      (c) => `${c.name}/municipalities/${place.obshtina}.json`,
+    ),
+  };
+};
 
 export const localMayorRace = async (
   args: ToolArgs,

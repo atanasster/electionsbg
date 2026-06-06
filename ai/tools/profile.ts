@@ -213,6 +213,81 @@ export const governanceProfile = async (
   };
 };
 
+// ---- compare two places side by side ----------------------------------------
+// Reuses governanceProfile for each place and lines the facts up in two columns.
+const COMPARE_KEYS: { key: string; bg: string; en: string }[] = [
+  { key: "population", bg: "Население", en: "Population" },
+  {
+    key: "registered_population",
+    bg: "Регистрирано нас.",
+    en: "Registered pop.",
+  },
+  { key: "mayor", bg: "Кмет", en: "Mayor" },
+  {
+    key: "council_leader",
+    bg: "Първа партия в съвета",
+    en: "Top council party",
+  },
+  { key: "local_turnout", bg: "Активност (местни)", en: "Turnout (local)" },
+  { key: "unemployment", bg: "Безработица", en: "Unemployment" },
+  { key: "transparency", bg: "Прозрачност (LISI)", en: "Transparency (LISI)" },
+  { key: "local_procurement", bg: "Поръчки", en: "Procurement" },
+  { key: "air_pm10", bg: "ФПЧ10", en: "PM10" },
+  {
+    key: "council_resolutions",
+    bg: "Решения на съвета",
+    en: "Council resolutions",
+  },
+];
+
+export const comparePlaces = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const aq = String(args.a ?? "");
+  const bq = String(args.b ?? "");
+  const [pa, pb] = await Promise.all([
+    resolveMunicipality(aq),
+    resolveMunicipality(bq),
+  ]);
+  if (!pa || !pb) {
+    return noPlace("comparePlaces", !pa ? aq : bq, ctx);
+  }
+  const [profA, profB] = await Promise.all([
+    governanceProfile({ place: aq }, ctx),
+    governanceProfile({ place: bq }, ctx),
+  ]);
+  const fa = profA.facts;
+  const fb = profB.facts;
+  const rows: Row[] = COMPARE_KEYS.filter(
+    (k) => fa[k.key] != null || fb[k.key] != null,
+  ).map((k) => ({
+    metric: ctx.lang === "bg" ? k.bg : k.en,
+    a: fa[k.key] ?? "—",
+    b: fb[k.key] ?? "—",
+  }));
+  const nameA = String(fa.place ?? pa.name);
+  const nameB = String(fb.place ?? pb.name);
+  return {
+    tool: "comparePlaces",
+    domain: "place",
+    kind: "table",
+    title:
+      ctx.lang === "bg"
+        ? `Сравнение: ${nameA} срещу ${nameB}`
+        : `Comparison: ${nameA} vs ${nameB}`,
+    columns: [
+      { key: "metric", label: ctx.lang === "bg" ? "Показател" : "Metric" },
+      { key: "a", label: nameA },
+      { key: "b", label: nameB },
+    ],
+    rows,
+    viz: "none",
+    facts: { a: nameA, b: nameB, compared: rows.length },
+    provenance: ["municipalities.json", ...profA.provenance.slice(1)],
+  };
+};
+
 function noPlace(tool: string, query: string, ctx: ToolContext): Envelope {
   return {
     tool,

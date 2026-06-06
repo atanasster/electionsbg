@@ -28,7 +28,12 @@ import {
   voteTransitions,
 } from "./electionDepth";
 import { govDebt, noiFunds } from "./fiscalDebt";
-import { chmiEvents, localCouncil, localMayorRace } from "./localDetail";
+import {
+  chmiEvents,
+  localCouncil,
+  localMayorHistory,
+  localMayorRace,
+} from "./localDetail";
 import { macroByCategory, macroIndicator, macroOverview } from "./macro";
 import {
   airQuality,
@@ -43,7 +48,11 @@ import {
   officialsAssetsTop,
   pollAccuracy,
 } from "./people";
-import { governanceProfile, procurementBySettlement } from "./profile";
+import {
+  comparePlaces,
+  governanceProfile,
+  procurementBySettlement,
+} from "./profile";
 import {
   localTaxes,
   rankPlaces,
@@ -521,6 +530,29 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: localMayorRace,
+  },
+  {
+    name: "localMayorHistory",
+    domain: "local",
+    description: {
+      bg: "Избраните кметове на община през местните цикли (последните кметове).",
+      en: "A município's elected mayors across local cycles (the last mayors).",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои са последните кметове на София?",
+        en: "Who are the last mayors of Sofia?",
+      },
+    ],
+    run: localMayorHistory,
   },
   {
     name: "localCouncil",
@@ -1066,6 +1098,30 @@ export const TOOLS: ToolDef[] = [
     ],
     examples: [{ bg: "Разкажи ми за Габрово", en: "Tell me about Gabrovo" }],
     run: governanceProfile,
+  },
+  {
+    name: "comparePlaces",
+    domain: "place",
+    description: {
+      bg: "Сравнява две населени места по управленски показатели (население, кмет, съвет, безработица, прозрачност…).",
+      en: "Compares two places across governance indicators (population, mayor, council, unemployment, transparency…).",
+    },
+    params: [
+      {
+        name: "a",
+        type: "place",
+        required: true,
+        description: { bg: "Първо място", en: "First place" },
+      },
+      {
+        name: "b",
+        type: "place",
+        required: true,
+        description: { bg: "Второ място", en: "Second place" },
+      },
+    ],
+    examples: [{ bg: "Сравни Варна и Бургас", en: "Compare Varna and Burgas" }],
+    run: comparePlaces,
   },
   {
     name: "census",

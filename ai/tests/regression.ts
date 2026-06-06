@@ -194,6 +194,28 @@ const CASES: Case[] = [
     kind: "table",
     facts: { total: { num: 379 } },
   },
+  // ---- local: mayors over cycles + place comparison --------------------------
+  {
+    q: "Кои са последните кметове на София?",
+    tool: "localMayorHistory",
+    kind: "table",
+    minRows: 4,
+    facts: { latest_mayor: "Терзиев" },
+  },
+  {
+    q: "Сравни Варна и Бургас",
+    tool: "comparePlaces",
+    kind: "table",
+    minRows: 3,
+    facts: { a: "Варна", b: "Бургас" },
+  },
+  {
+    q: "compare Plovdiv and Varna",
+    lang: "en",
+    tool: "comparePlaces",
+    kind: "table",
+    minRows: 3,
+  },
   // ---- fiscal ----------------------------------------------------------------
   {
     q: "Какъв е държавният бюджет?",

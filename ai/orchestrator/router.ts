@@ -54,6 +54,27 @@ const extractPersonName = (raw: string): string | undefined => {
   return m ? m[0].trim() : undefined;
 };
 
+// Capitalized place candidates from a compare question ("Сравни Варна и Бургас"
+// -> ["Варна","Бургас"]), dropping the compare verb and any party token.
+const COMPARE_VERBS = new Set([
+  "сравни",
+  "сравнение",
+  "compare",
+  "срещу",
+  "спрямо",
+  "vs",
+]);
+const extractPlaceCandidates = (raw: string): string[] => {
+  const caps =
+    raw.match(/[А-ЯЁA-Z][а-яёa-z]+(?:\s+[А-ЯЁA-Z][а-яёa-z]+)?/g) ?? [];
+  return caps
+    .map((s) => s.trim())
+    .filter((s) => {
+      const l = s.toLowerCase();
+      return !COMPARE_VERBS.has(l) && !detectParty(l);
+    });
+};
+
 // Polling-agency name fragments, for routing "how accurate is <agency>".
 const AGENCY_TOKENS = [
   "алфа",
@@ -195,6 +216,12 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // 1. comparison of two elections
   if (isCompare) {
     const years = Array.from(q.matchAll(/\b(20\d{2})\b/g)).map((m) => m[1]);
+    // two named places (no years, no party) -> compare their governance profiles
+    if (years.length === 0 && !detectParty(q)) {
+      const cands = extractPlaceCandidates(question);
+      if (cands.length >= 2)
+        return { tool: "comparePlaces", args: { a: cands[0], b: cands[1] } };
+    }
     const pick = (y?: string) =>
       y ? ALL_ELECTIONS.find((e) => e.name.startsWith(y))?.name : undefined;
     let a = pick(years[0]);
@@ -238,9 +265,26 @@ export const route = (question: string, ctx: ToolContext): Route => {
     if (place) return { tool: "councilResolutions", args: { place } };
   }
   if (isLocal) {
-    if (has(q, "кметове", "кметск", "mayors won"))
-      return { tool: "localMayorsWon", args: {} };
     const place = extractPlace(q);
+    // mayors of a NAMED place over time ("последните кметове на София") -> history;
+    // "кметове"/"mayors won" with no place -> the national mayors-by-party rollup
+    if (
+      place &&
+      has(
+        q,
+        "кметове",
+        "кметовете",
+        "mayors",
+        "история",
+        "history",
+        "през годините",
+        "по мандат",
+        "досега",
+      )
+    )
+      return { tool: "localMayorHistory", args: { place } };
+    if (has(q, "кметове", "кметск", "mayors won") && !place)
+      return { tool: "localMayorsWon", args: {} };
     // council: per-place full breakdown if a place is named, else national share
     if (has(q, "съвет", "council") && place)
       return { tool: "localCouncil", args: { place } };

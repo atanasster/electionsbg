@@ -113,10 +113,12 @@ export const loadMunis = async (): Promise<Muni[]> => {
   return muniCache;
 };
 
-const isSofia = (q: string): boolean => {
-  const n = norm(q);
-  return ["софия", "sofia", "столична", "столица"].includes(n);
-};
+// Sofia is the synthetic SOF município (not in municipalities.json), so the
+// substring match below can't find it — detect it by keyword. Substring (not
+// exact) so leftover words from extractPlace ("...кметове на софия") still hit.
+// "софийск"/"софийска област" (the SFO oblast) deliberately does NOT match.
+const isSofia = (q: string): boolean =>
+  /софия|sofia|столичн|столица/.test(norm(q));
 
 // Resolve a município by free-text name (BG or EN). Exact normalized name wins;
 // otherwise the longest substring match. Same-name collisions return the first

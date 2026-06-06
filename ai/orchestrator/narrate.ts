@@ -102,6 +102,15 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Най-много кметове (${f(env, "cycle")}): ${f(env, "leader")}.`
         : `Most mayors won (${f(env, "cycle")}): ${f(env, "leader")}.`;
+    case "localMayorHistory":
+      if (!env.facts.latest_mayor) return env.title;
+      return lang === "bg"
+        ? `Кметове на ${f(env, "place")}: настоящ ${f(env, "latest_mayor")} (${f(env, "latest_party")}); ${f(env, "terms")} мандата в данните.`
+        : `Mayors of ${f(env, "place")}: current ${f(env, "latest_mayor")} (${f(env, "latest_party")}); ${f(env, "terms")} terms on record.`;
+    case "comparePlaces":
+      return lang === "bg"
+        ? `Сравнение на ${f(env, "a")} и ${f(env, "b")} по ${f(env, "compared")} показателя.`
+        : `Comparison of ${f(env, "a")} and ${f(env, "b")} across ${f(env, "compared")} indicators.`;
     case "localMunicipality":
       if (!env.facts.municipality)
         return lang === "bg"
