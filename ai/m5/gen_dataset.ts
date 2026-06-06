@@ -1,6 +1,6 @@
 // M5 — synthesize a fine-tuning dataset of (question -> {tool,args}) pairs from
 // the tool registry, so a small Bulgarian-native model (BgGPT/EuroLLM) becomes
-// reliable at tool selection over the fixed 49-tool surface.
+// reliable at tool selection over the fixed tool surface (74 tools).
 //
 // Run: npx tsx ai/m5/gen_dataset.ts
 // Writes chat-format JSONL (messages: system + user + assistant) to
@@ -210,6 +210,17 @@ add("en", "What were the results of the latest election?", "nationalResults");
 add("bg", "Имаше ли нередности на последните избори?", "electionAnomalies");
 add("bg", "Сигнали за манипулации на изборите?", "electionAnomalies");
 add("en", "Were there anomalies in the latest election?", "electionAnomalies");
+add(
+  "bg",
+  "Кои партии загубиха най-много от липсваща флаш памет?",
+  "flashMemoryByParty",
+);
+add("bg", "Машинни срещу флаш памет по партия", "flashMemoryByParty");
+add(
+  "en",
+  "Which parties lost the most from missing flash memory?",
+  "flashMemoryByParty",
+);
 expand(
   "regionHistory",
   oblastPool,

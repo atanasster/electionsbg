@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo, useRef, useState } from "react";
 import { Logo } from "@/layout/header/Logo";
 import { Button } from "@/components/ui/button";
 import {
@@ -45,7 +45,13 @@ export const App = () => {
     note: "",
   });
 
+  // Guards against a switch race: each selection bumps the token; a stale
+  // in-flight init() (user switched again, or back to rules, mid-load) must not
+  // clobber the current provider's progress/ready/error banner.
+  const switchSeq = useRef(0);
+
   const selectProvider = async (id: string) => {
+    const token = ++switchSeq.current;
     setProviderId(id);
     if (id === "rules") {
       setProvider(heuristic);
@@ -65,14 +71,19 @@ export const App = () => {
     setProvider(p); // usable immediately (falls back to rules while weights load)
     setLoad({ phase: "loading", pct: 0, note: "" });
     try {
-      await p.init((pct, note) => setLoad({ phase: "loading", pct, note }));
-      setLoad({ phase: "ready", pct: 100, note: "" });
-    } catch (e) {
-      setLoad({
-        phase: "error",
-        pct: 0,
-        note: e instanceof Error ? e.message : String(e),
+      await p.init((pct, note) => {
+        if (token === switchSeq.current)
+          setLoad({ phase: "loading", pct, note });
       });
+      if (token === switchSeq.current)
+        setLoad({ phase: "ready", pct: 100, note: "" });
+    } catch (e) {
+      if (token === switchSeq.current)
+        setLoad({
+          phase: "error",
+          pct: 0,
+          note: e instanceof Error ? e.message : String(e),
+        });
     }
   };
 

@@ -7,7 +7,9 @@
 
 export type Lang = "bg" | "en";
 
-export type VizType = "line" | "bar" | "pie" | "none";
+// Renderable chart kinds. (No "pie": the renderer only draws bar/line, so a pie
+// envelope would silently fall back to a line — keep the type honest.)
+export type VizType = "line" | "bar" | "none";
 
 export type SeriesPoint = { x: string | number; y: number | null };
 

@@ -36,7 +36,7 @@ const envToGrid = (env: Envelope): { head?: string[]; body: string[][] } => {
   return { body: Object.entries(env.facts).map(([k, v]) => [k, cell(v)]) };
 };
 
-const envToMarkdown = (env: Envelope): string => {
+const envToMarkdown = (env: Envelope, lang: Lang): string => {
   const lines: string[] = [`**${env.title}**`, ""];
   const { head, body } = envToGrid(env);
   if (head) {
@@ -46,8 +46,9 @@ const envToMarkdown = (env: Envelope): string => {
   } else {
     for (const [k, v] of body) lines.push(`- **${k}:** ${v}`);
   }
+  const sourceLabel = lang === "bg" ? "Източник" : "Source";
   if (env.provenance.length)
-    lines.push("", `_Източник: ${env.provenance.join(", ")}_`);
+    lines.push("", `_${sourceLabel}: ${env.provenance.join(", ")}_`);
   return lines.join("\n");
 };
 
@@ -61,7 +62,7 @@ export const conversationToMarkdown = (msgs: ChatMsg[], lang: Lang): string => {
       out.push(`**${lang === "bg" ? "Въпрос" : "Question"}:** ${m.text}`, "");
     } else {
       if (m.text) out.push(m.text, "");
-      if (m.env) out.push(envToMarkdown(m.env), "");
+      if (m.env) out.push(envToMarkdown(m.env, lang), "");
       out.push("---", "");
     }
   }
@@ -222,7 +223,10 @@ export const downloadPdf = async (msgs: ChatMsg[], lang: Lang) => {
           if (after) y = after.finalY + 4;
         }
         if (m.env.provenance.length)
-          write(`Източник: ${m.env.provenance.join(", ")}`, 8);
+          write(
+            `${lang === "bg" ? "Източник" : "Source"}: ${m.env.provenance.join(", ")}`,
+            8,
+          );
       }
       y += 3;
     }

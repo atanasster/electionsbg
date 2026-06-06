@@ -366,7 +366,8 @@ export const rankPlaces = async (
     dataset = "lisi";
   } else if (wantOblast) {
     dataset = "oblast";
-    key = resolveRegionKey(q) || (isGdpWord ? "gdpPerCapita" : "gdpPerCapita");
+    // an explicit oblast ranking with no other indicator defaults to GDP/capita
+    key = resolveRegionKey(q) || "gdpPerCapita";
   } else {
     const muniKey = resolveSubnatKey(q);
     if (muniKey) {

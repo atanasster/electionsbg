@@ -3,7 +3,7 @@
 Optional. Small generic models (Qwen-1.5B) route Bulgarian poorly; a
 Bulgarian-native model (BgGPT, via M0) is much better, but a quick **LoRA
 fine-tune** on synthetic `question → {tool, args}` pairs makes *any* small model
-reliable on this **fixed 49-tool surface** — it only has to learn the mapping.
+reliable on this **fixed tool surface** (74 tools) — it only has to learn the mapping.
 
 Do this only if, after M0, BgGPT's tool selection still misroutes.
 

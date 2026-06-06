@@ -71,6 +71,32 @@ const BASE: Suggestion[] = [
     bg: "Кой спечели общинските съвети?",
     en: "Who won the municipal councils?",
   },
+  {
+    bg: "Как гласуват ромските квартали?",
+    en: "How do the Roma neighbourhoods vote?",
+  },
+  {
+    bg: "Какъв е индексът на изборния риск?",
+    en: "What is the election risk index?",
+  },
+  {
+    bg: "Колко гласове са прахосани под прага?",
+    en: "How many votes were wasted below the threshold?",
+  },
+  { bg: "Как гласува диаспората?", en: "How did the diaspora vote?" },
+  {
+    bg: "Какво показва тестът на Бенфорд?",
+    en: "What does the Benford test show?",
+  },
+  { bg: "Кои депутати са най-лоялни?", en: "Which MPs are most loyal?" },
+  {
+    bg: "Коя група гласува най-единно?",
+    en: "Which group votes most cohesively?",
+  },
+  {
+    bg: "Какво разделя гласоподавателите?",
+    en: "What divides the electorate?",
+  },
 ];
 
 export const SUGGESTIONS: Suggestion[] = [
@@ -82,6 +108,7 @@ export const SUGGESTIONS: Suggestion[] = [
       bg: `Как се представя ${p} през годините?`,
       en: `How has ${p} done over the years?`,
     },
+    { bg: `Кой гласува за ${p}?`, en: `Who votes for ${p}?` },
   ]),
   ...Object.values(OBLASTS).map((o) => ({
     bg: `Каква е активността в ${o.bg}?`,
@@ -94,6 +121,10 @@ export const SUGGESTIONS: Suggestion[] = [
   ...CANDIDATES.map((c) => ({
     bg: `Резултати за ${c.bg}`,
     en: `Results for ${c.en}`,
+  })),
+  ...CANDIDATES.map((c) => ({
+    bg: `Как гласува ${c.bg} в парламента?`,
+    en: `How does ${c.en} vote in parliament?`,
   })),
 ];
 

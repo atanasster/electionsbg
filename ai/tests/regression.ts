@@ -142,6 +142,22 @@ const CASES: Case[] = [
     facts: { problem_sections: { num: 138 } },
   },
   {
+    // a per-party flash-memory question must answer about parties, NOT fall
+    // through to the generic anomalies counter
+    q: "кои партии загубиха най-много от липсваща флаш памет",
+    tool: "flashMemoryByParty",
+    kind: "table",
+    minRows: 1,
+    facts: { biggest_loser: /\(/ },
+  },
+  {
+    q: "which parties lost the most from missing flash memory",
+    lang: "en",
+    tool: "flashMemoryByParty",
+    kind: "table",
+    minRows: 1,
+  },
+  {
     q: "Как се променя активността в Хасково?",
     tool: "regionHistory",
     kind: "series",
@@ -610,9 +626,274 @@ const CASES: Case[] = [
     tool: "partyTimeline",
     kind: "series",
   },
+  // ---- election integrity & anomalies ----------------------------------------
+  {
+    q: "Как гласуват ромските квартали?",
+    tool: "problemSections",
+    kind: "table",
+    facts: { neighborhoods: { num: 8 } },
+  },
+  {
+    q: "Има ли контролиран вот?",
+    tool: "problemSections",
+    kind: "table",
+    minRows: 1,
+  },
+  {
+    q: "Какъв е индексът на изборния риск?",
+    tool: "riskScore",
+    kind: "table",
+    minRows: 4,
+    facts: { critical: /\d/ },
+  },
+  { q: "Колко критични секции има?", tool: "riskScore", kind: "table" },
+  {
+    q: "Има ли клъстери на изборния риск?",
+    tool: "riskClusters",
+    kind: "table",
+    minRows: 1,
+    facts: { clusters: /\d/ },
+  },
+  {
+    q: "Кои места са с устойчив изборен риск?",
+    tool: "clusterPersistence",
+    kind: "table",
+    minRows: 1,
+    facts: { loci: /\d/ },
+  },
+  {
+    q: "Какво показва тестът на Бенфорд?",
+    tool: "benfordAnomalies",
+    kind: "table",
+    minRows: 1,
+    facts: { parties_tested: /\d/ },
+  },
+  {
+    q: "Benford test for the latest election",
+    lang: "en",
+    tool: "benfordAnomalies",
+    kind: "table",
+  },
+  {
+    q: "Колко гласове са прахосани под прага?",
+    tool: "wastedVotes",
+    kind: "table",
+    minRows: 1,
+    facts: { national_share: /%/ },
+  },
+  { q: "wasted votes", lang: "en", tool: "wastedVotes", kind: "table" },
+  {
+    q: "Кои населени места са съмнителни?",
+    tool: "suspiciousSettlements",
+    kind: "table",
+    minRows: 3,
+    facts: { concentrated: /\d/ },
+  },
+  {
+    q: "Как гласува диаспората?",
+    tool: "diasporaVote",
+    kind: "table",
+    minRows: 1,
+    facts: { leader: /%/ },
+  },
+  {
+    q: "How did the diaspora vote?",
+    lang: "en",
+    tool: "diasporaVote",
+    kind: "table",
+  },
+  {
+    q: "Колко избиратели запазиха своя вот?",
+    tool: "voterPersistence",
+    kind: "table",
+    minRows: 1,
+    facts: { national_stay_rate: /%/ },
+  },
+  // ---- demographics (census correlations) ------------------------------------
+  {
+    q: "Кой гласува за Възраждане?",
+    tool: "partyDemographics",
+    kind: "table",
+    minRows: 1,
+    facts: { party: "Възраждане" },
+  },
+  {
+    q: "Демографски профил на ДПС",
+    tool: "partyDemographics",
+    kind: "table",
+    facts: { party: "ДПС" },
+  },
+  {
+    q: "Какво разделя гласоподавателите?",
+    tool: "demographicCleavages",
+    kind: "table",
+    minRows: 1,
+    facts: { most_divisive: /\(/ },
+  },
+  // ---- parliament roll-call --------------------------------------------------
+  {
+    q: "Кои депутати са най-лоялни?",
+    tool: "mpLoyalty",
+    kind: "table",
+    minRows: 1,
+    facts: { ns: "52", most_loyal: /%/ },
+  },
+  {
+    q: "which MPs are most loyal?",
+    lang: "en",
+    tool: "mpLoyalty",
+    kind: "table",
+  },
+  {
+    q: "Кои депутати отсъстват най-много?",
+    tool: "mpAttendance",
+    kind: "table",
+    minRows: 1,
+    facts: { worst_attendance: /%/ },
+  },
+  {
+    q: "Коя група гласува най-единно?",
+    tool: "factionCohesion",
+    kind: "table",
+    minRows: 1,
+    facts: { most_cohesive: /%/ },
+  },
+  {
+    q: "Как гласува Бойко Борисов в парламента?",
+    tool: "mpVotingProfile",
+    kind: "scalar",
+    facts: { name: "Борисов" },
+  },
+  {
+    q: "Кой гласува като Асен Василев?",
+    tool: "mpSimilarity",
+    kind: "table",
+    minRows: 1,
+    facts: { mp: "Василев" },
+  },
+  {
+    // EN-spelled MP name: routes correctly but the roll-call roster is Cyrillic
+    // only, so it declines gracefully (no transliteration layer) -> scalar.
+    q: "who votes like Asen Vasilev?",
+    lang: "en",
+    tool: "mpSimilarity",
+    kind: "scalar",
+  },
+  {
+    q: "Как гласува парламентът за бюджета?",
+    tool: "voteSearch",
+    kind: "table",
+    minRows: 1,
+    facts: { matches: /\d/ },
+  },
+  {
+    q: "Кои са най-оспорваните гласувания?",
+    tool: "voteSearch",
+    kind: "table",
+    minRows: 1,
+  },
+  // ---- schools ---------------------------------------------------------------
+  {
+    q: "Кои са най-добрите училища в Пловдив?",
+    tool: "schoolScores",
+    kind: "table",
+    minRows: 1,
+    facts: { place: "Пловдив" },
+  },
+  {
+    q: "best schools in Plovdiv",
+    lang: "en",
+    tool: "schoolScores",
+    kind: "table",
+  },
+  // ---- a specific election year for a new tool -------------------------------
+  { q: "индекс на риска 2023", tool: "riskScore", kind: "table" },
+  // ---- BORDER CASES: disambiguation between new and existing tools -----------
+  // "Roma in X" (count) -> census, NOT the problem-sections feature
+  {
+    q: "колко роми има във Видин",
+    tool: "census",
+    facts: { population: /\d/ },
+  },
+  // "проблемни секции" -> the anomaly counter, NOT the Roma-neighbourhood tool
+  {
+    q: "проблемни секции на последните избори",
+    tool: "electionAnomalies",
+    facts: { problem_sections: /\d/ },
+  },
+  // "кой гласува за X" (a party) -> demographics; "колко гласа взе X" -> result
+  { q: "кой гласува за ГЕРБ", tool: "partyDemographics", kind: "table" },
+  {
+    q: "колко гласа взе ГЕРБ",
+    tool: "partyResult",
+    kind: "scalar",
+    facts: { party: "ГЕРБ" },
+  },
+  // a named MP "in parliament" -> roll-call profile; bare name -> preferences
+  {
+    q: "как гласува Бойко Борисов в парламента",
+    tool: "mpVotingProfile",
+    kind: "scalar",
+  },
+  {
+    q: "резултатите за Бойко Борисов",
+    tool: "candidateResult",
+    facts: { name: "Борисов" },
+  },
+  // "училища в X" -> per-school scores; bare "матура в X" -> municipal average
+  {
+    q: "най-добрите училища в Сливен",
+    tool: "schoolScores",
+    kind: "table",
+  },
+  {
+    q: "среден успех на матурите в Сливен",
+    tool: "subnationalIndicator",
+    kind: "series",
+    facts: { place: "Сливен" },
+  },
+  // ---- BORDER CASES: graceful failure on unknown entities --------------------
+  {
+    // unknown município -> localMunicipality declines cleanly (scalar, no mayor)
+    q: "Кой е кметът на Несъществуевоград?",
+    tool: "localMunicipality",
+    kind: "scalar",
+  },
+  {
+    q: "Колко жители има Несъществуевоград?",
+    tool: "census",
+    kind: "scalar",
+  },
+  {
+    q: "Как гласува Иван Несъществуващ в парламента?",
+    tool: "mpVotingProfile",
+    kind: "scalar",
+  },
+  {
+    q: "Кои са най-добрите училища в Несъществуевоград?",
+    tool: "schoolScores",
+    kind: "scalar",
+  },
+  {
+    // oldest election (2005) has no prior -> voterPersistence declines cleanly
+    q: "Колко избиратели запазиха своя вот?",
+    election: "2005_06_25",
+    tool: "voterPersistence",
+    kind: "scalar",
+  },
+  {
+    // a vote-search term that matches no title -> graceful "not found" scalar
+    q: "как гласува парламентът за еднорози",
+    tool: "voteSearch",
+    kind: "scalar",
+  },
   // ---- negative --------------------------------------------------------------
   { q: "времето е хубаво днес", tool: null },
   { q: "разкажи ми виц", tool: null },
+  { q: "колко е 2 плюс 2", tool: null },
+  { q: "рецепта за баница", tool: null },
+  { q: "what's the weather like today?", lang: "en", tool: null },
+  { q: "tell me a story about dragons", lang: "en", tool: null },
 ];
 
 let failures = 0;

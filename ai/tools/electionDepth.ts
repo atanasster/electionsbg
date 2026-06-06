@@ -188,6 +188,130 @@ export const electionAnomalies = async (
   };
 };
 
+// ---- machine-vs-flash-memory reconciliation, per party ----------------------
+// Answers "which parties lost/gained the most from flash-memory issues" by
+// summing each party's official machine count vs its СУЕМГ flash-memory record
+// across every section (region_votes carries machineVotes/suemgVotes per party).
+// change = machineVotes − suemgVotes: negative = the official count came out
+// below the flash record (votes removed), positive = above it (recovered, e.g.
+// the missing-flash sections where the paper recount restored the tally).
+
+type SuemgVote = {
+  partyNum: number;
+  totalVotes?: number;
+  machineVotes?: number;
+  suemgVotes?: number;
+  paperVotes?: number;
+};
+type SuemgRegion = { key: string; results?: { votes?: SuemgVote[] } };
+
+export const flashMemoryByParty = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const election = resolveElection(args, ctx);
+  const bg = ctx.lang === "bg";
+  const [regions, ns] = await Promise.all([
+    fetchRegionVotes<SuemgRegion[]>(election),
+    fetchNationalSummary<{ parties: NSParty[] }>(election),
+  ]);
+  const names = new Map(ns.parties.map((p) => [p.partyNum, p.nickName]));
+  const tally = new Map<number, { machine: number; flash: number }>();
+  for (const r of regions) {
+    for (const v of r.results?.votes ?? []) {
+      if (v.machineVotes == null && v.suemgVotes == null) continue;
+      const cur = tally.get(v.partyNum) ?? { machine: 0, flash: 0 };
+      cur.machine += v.machineVotes ?? 0;
+      cur.flash += v.suemgVotes ?? 0;
+      tally.set(v.partyNum, cur);
+    }
+  }
+  const all = [...tally]
+    .map(([num, t]) => ({
+      party: names.get(num) ?? `#${num}`,
+      machine: t.machine,
+      flash: t.flash,
+      delta: t.machine - t.flash,
+    }))
+    .filter((r) => (r.machine || r.flash) && r.delta !== 0);
+
+  if (all.length === 0) {
+    return {
+      tool: "flashMemoryByParty",
+      domain: "elections",
+      kind: "scalar",
+      title: bg
+        ? `Няма разлики от флаш памет по партия — ${electionFullLabel(election, "bg")}`
+        : `No flash-memory differences by party — ${electionFullLabel(election, "en")}`,
+      viz: "none",
+      facts: { election: electionFullLabel(election, ctx.lang) },
+      provenance: [`${election}/region_votes.json`],
+    };
+  }
+
+  const signed = (n: number): string =>
+    `${n > 0 ? "+" : n < 0 ? "−" : ""}${fmtInt(Math.abs(n), ctx.lang)}`;
+  const byLoss = [...all].sort((a, b) => a.delta - b.delta); // most negative first
+  const biggestLoser = byLoss[0];
+  const biggestGainer = byLoss[byLoss.length - 1];
+  // show the parties with the largest absolute reconciliation, losers on top
+  const top = [...all]
+    .sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta))
+    .slice(0, 14)
+    .sort((a, b) => a.delta - b.delta);
+
+  const rows: Row[] = top.map((r) => ({
+    party: r.party,
+    machine: r.machine,
+    flash: r.flash,
+    delta: signed(r.delta),
+  }));
+  return {
+    tool: "flashMemoryByParty",
+    domain: "elections",
+    kind: "table",
+    title: bg
+      ? `Машинни гласове срещу флаш памет по партия — ${electionFullLabel(election, "bg")}`
+      : `Machine votes vs flash memory by party — ${electionFullLabel(election, "en")}`,
+    subtitle: bg
+      ? "Разлика между официалното машинно преброяване и записа от флаш паметта (СУЕМГ), сумирана по партия за всички секции"
+      : "Difference between the official machine count and the СУЕМГ flash-memory record, summed per party across all sections",
+    columns: [
+      { key: "party", label: bg ? "Партия" : "Party" },
+      {
+        key: "machine",
+        label: bg ? "Машинни" : "Machine",
+        numeric: true,
+        format: "int",
+      },
+      {
+        key: "flash",
+        label: bg ? "Флаш памет" : "Flash memory",
+        numeric: true,
+        format: "int",
+      },
+      {
+        key: "delta",
+        label: bg ? "Разлика" : "Change",
+        numeric: true,
+      },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      election: electionFullLabel(election, ctx.lang),
+      biggest_loser: biggestLoser
+        ? `${biggestLoser.party} (${signed(biggestLoser.delta)})`
+        : "—",
+      biggest_gainer:
+        biggestGainer && biggestGainer.delta > 0
+          ? `${biggestGainer.party} (${signed(biggestGainer.delta)})`
+          : "—",
+    },
+    provenance: [`${election}/region_votes.json`],
+  };
+};
+
 // ---- per-oblast turnout history ---------------------------------------------
 
 type RegionHistory = {

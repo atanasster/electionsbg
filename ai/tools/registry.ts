@@ -24,6 +24,7 @@ import {
 import { census } from "./census";
 import {
   electionAnomalies,
+  flashMemoryByParty,
   regionBreakdown,
   regionHistory,
   voteTransitions,
@@ -431,6 +432,28 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: electionAnomalies,
+  },
+  {
+    name: "flashMemoryByParty",
+    domain: "elections",
+    description: {
+      bg: "Разлика машинно преброяване срещу флаш памет (СУЕМГ) по партия — кои партии печелят/губят гласове.",
+      en: "Machine count vs flash-memory (СУЕМГ) difference by party — which parties gained/lost votes.",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои партии загубиха най-много от липсваща флаш памет?",
+        en: "Which parties lost the most from missing flash memory?",
+      },
+    ],
+    run: flashMemoryByParty,
   },
   {
     name: "regionHistory",

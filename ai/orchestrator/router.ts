@@ -442,7 +442,8 @@ export const route = (question: string, ctx: ToolContext): Route => {
         "critical",
         "ниво",
         "band",
-      ))
+      )) ||
+    (has(q, "критичн", "critical") && has(q, "секци", "section"))
   )
     return { tool: "riskScore", args: el };
   if (
@@ -741,7 +742,6 @@ export const route = (question: string, ctx: ToolContext): Route => {
       "разкажи ми за",
       "профил на",
       "tell me about",
-      "about ",
       "за моето",
       "моят град",
       "my area",
@@ -776,6 +776,9 @@ export const route = (question: string, ctx: ToolContext): Route => {
       "демограф",
       "етнос",
       "етничес",
+      "роми",
+      "ромск",
+      "турци",
       "census",
       "population",
       "inhabitants",
@@ -917,6 +920,28 @@ export const route = (question: string, ctx: ToolContext): Route => {
     return { tool: "macroOverview", args: {} };
 
   // 1g. election analytical drill-down (before machine/turnout/party)
+  // per-party machine-vs-flash reconciliation — a flash/СУЕМГ/machine-correction
+  // question that also asks per party ("кои партии загубиха от флаш памет").
+  // Must precede both the anomalies counter (keyword "флаш памет") and the
+  // generic machine block (keyword "суемг"), which ignore the party dimension.
+  {
+    const flashCtx = has(q, "флаш", "суемг", "suemg", "flash");
+    const machineCorrection = has(
+      q,
+      "машинни корекции",
+      "машинни добавени",
+      "машинни премахнати",
+      "machine votes added",
+      "machine votes removed",
+      "machine correction",
+    );
+    const partyIntent = !!party || has(q, "парти", "part");
+    if ((flashCtx || machineCorrection) && partyIntent)
+      return {
+        tool: "flashMemoryByParty",
+        args: election ? { election } : {},
+      };
+  }
   // anomalies — before machine so "машинни корекции/флаш" isn't read as machine vote
   if (
     has(

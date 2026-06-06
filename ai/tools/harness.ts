@@ -540,6 +540,7 @@ const run = async () => {
   const cases8: [string, string | null][] = [
     ["Къде е силна ГЕРБ?", "regionBreakdown"],
     ["Имаше ли нередности на последните избори?", "electionAnomalies"],
+    ["кои партии загубиха най-много от флаш памет", "flashMemoryByParty"],
     ["Как се променя активността в Хасково?", "regionHistory"],
     ["Къде отидоха гласовете на последните избори?", "voteTransitions"],
     ["Как се представя ГЕРБ през годините?", "partyTimeline"],
@@ -592,6 +593,234 @@ const run = async () => {
     console.log(`  "${q}" -> ${got ?? "(none)"}`);
     assert(got === expected, `route: "${q}" -> ${expected}`);
   }
+
+  // 18. integrity / demographics / parliament / schools (the new tool surface)
+  console.log(
+    "\n=== [new] integrity / demographics / parliament / schools ===",
+  );
+  const probSec = (await runTool("problemSections", {}, ctxBg)) as Envelope;
+  printEnvelope(probSec);
+  assert(
+    (probSec.rows?.length ?? 0) > 0 && probSec.facts.neighborhoods != null,
+    "problemSections returns neighbourhoods",
+  );
+
+  const risk = (await runTool("riskScore", {}, ctxEn)) as Envelope;
+  printEnvelope(risk);
+  assert((risk.rows?.length ?? 0) === 4, "riskScore has 4 bands");
+
+  const clusters = (await runTool("riskClusters", {}, ctxBg)) as Envelope;
+  printEnvelope(clusters);
+  assert((clusters.rows?.length ?? 0) > 0, "riskClusters returns clusters");
+
+  const persist = (await runTool("clusterPersistence", {}, ctxEn)) as Envelope;
+  printEnvelope(persist);
+  assert((persist.rows?.length ?? 0) > 0, "clusterPersistence returns loci");
+
+  const benford = (await runTool("benfordAnomalies", {}, ctxBg)) as Envelope;
+  printEnvelope(benford);
+  assert(
+    !!benford.facts.parties_tested,
+    "benfordAnomalies has a tested-party count",
+  );
+
+  const wasted = (await runTool("wastedVotes", {}, ctxEn)) as Envelope;
+  printEnvelope(wasted);
+  assert(!!wasted.facts.national_share, "wastedVotes has a national share");
+
+  const suspect = (await runTool(
+    "suspiciousSettlements",
+    {},
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(suspect);
+  assert((suspect.rows?.length ?? 0) === 3, "suspiciousSettlements has 3 rows");
+
+  const diaspora = (await runTool("diasporaVote", {}, ctxEn)) as Envelope;
+  printEnvelope(diaspora);
+  assert(
+    (diaspora.rows?.length ?? 0) > 0 && !!diaspora.facts.leader,
+    "diasporaVote returns parties + a leader",
+  );
+
+  const vp = (await runTool("voterPersistence", {}, ctxBg)) as Envelope;
+  printEnvelope(vp);
+  assert(
+    (vp.rows?.length ?? 0) > 0 || vp.kind === "scalar",
+    "voterPersistence runs",
+  );
+
+  const pd = (await runTool(
+    "partyDemographics",
+    { party: "Възраждане" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(pd);
+  assert(
+    (pd.rows?.length ?? 0) > 0 && !!pd.facts.party,
+    "partyDemographics returns correlations",
+  );
+
+  const cleav = (await runTool("demographicCleavages", {}, ctxEn)) as Envelope;
+  printEnvelope(cleav);
+  assert((cleav.rows?.length ?? 0) > 0, "demographicCleavages returns rows");
+
+  const loyalty = (await runTool("mpLoyalty", {}, ctxBg)) as Envelope;
+  printEnvelope(loyalty);
+  assert(
+    (loyalty.rows?.length ?? 0) > 0 && !!loyalty.facts.ns,
+    "mpLoyalty returns a ranking for the current NS",
+  );
+
+  const att = (await runTool("mpAttendance", {}, ctxEn)) as Envelope;
+  printEnvelope(att);
+  assert((att.rows?.length ?? 0) > 0, "mpAttendance returns rows");
+
+  const cohesion = (await runTool("factionCohesion", {}, ctxBg)) as Envelope;
+  printEnvelope(cohesion);
+  assert((cohesion.rows?.length ?? 0) > 0, "factionCohesion returns groups");
+
+  const mpProf = (await runTool(
+    "mpVotingProfile",
+    { name: "Бойко Борисов" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(mpProf);
+  assert(
+    mpProf.kind === "scalar" && !!mpProf.facts.name,
+    "mpVotingProfile resolved an MP",
+  );
+
+  const sim = (await runTool(
+    "mpSimilarity",
+    { name: "Асен Василев" },
+    ctxEn,
+  )) as Envelope;
+  printEnvelope(sim);
+  assert(
+    (sim.rows?.length ?? 0) > 0 || sim.kind === "scalar",
+    "mpSimilarity runs",
+  );
+
+  const vs = (await runTool(
+    "voteSearch",
+    { query: "бюджет" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(vs);
+  assert(!!vs.facts.matches || vs.kind === "scalar", "voteSearch runs");
+
+  const sch = (await runTool(
+    "schoolScores",
+    { place: "Пловдив" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(sch);
+  assert(
+    (sch.rows?.length ?? 0) > 0 && !!sch.facts.place,
+    "schoolScores returns schools",
+  );
+
+  // graceful failure: an unknown place declines cleanly (scalar, no crash)
+  const schMiss = (await runTool(
+    "schoolScores",
+    { place: "Несъществуевоград" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    schMiss.kind === "scalar",
+    "schoolScores declines gracefully on an unknown place",
+  );
+
+  // every new envelope carries its registry domain (runTool stamps it)
+  assert(risk.domain === "elections", "riskScore envelope is stamped domain");
+  assert(loyalty.domain === "people", "mpLoyalty envelope is stamped domain");
+
+  // 19. remaining-coverage sweep — every tool not yet exercised above runs once
+  // against real data (so the harness covers the full registry surface, not just
+  // a sample). Routing for these is asserted in tests/regression.ts.
+  console.log("\n=== [coverage] every remaining tool runs ===");
+  const cand = (await runTool(
+    "candidateResult",
+    { name: "Божидар Божанов" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(cand);
+  assert(!!cand.facts.name, "candidateResult resolved a candidate");
+
+  const turn = (await runTool(
+    "turnout",
+    { election: "2023_04_02" },
+    ctxEn,
+  )) as Envelope;
+  printEnvelope(turn);
+  assert(turn.kind === "scalar" && !!turn.facts.turnout, "turnout is scalar");
+
+  const flash = (await runTool("flashMemoryByParty", {}, ctxBg)) as Envelope;
+  printEnvelope(flash);
+  assert(
+    (flash.rows?.length ?? 0) > 0 || flash.kind === "scalar",
+    "flashMemoryByParty runs",
+  );
+
+  const mayorsWon = (await runTool("localMayorsWon", {}, ctxEn)) as Envelope;
+  printEnvelope(mayorsWon);
+  assert(!!mayorsWon.facts.leader, "localMayorsWon has a leader");
+
+  const oblMayors = (await runTool(
+    "localOblastMayors",
+    { place: "Пловдив" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(oblMayors);
+  assert((oblMayors.rows?.length ?? 0) > 0, "localOblastMayors returns rows");
+
+  const mayorHist = (await runTool(
+    "localMayorHistory",
+    { place: "София" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(mayorHist);
+  assert((mayorHist.rows?.length ?? 0) > 0, "localMayorHistory returns terms");
+
+  const subMayors = (await runTool(
+    "localSubMayors",
+    { place: "София" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(subMayors);
+  assert(
+    (subMayors.rows?.length ?? 0) > 0 || subMayors.kind === "scalar",
+    "localSubMayors runs",
+  );
+
+  const budgetFn = (await runTool(
+    "budgetFunction",
+    { category: "здравеопазване" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(budgetFn);
+  assert(!!budgetFn.facts.function, "budgetFunction resolved a function");
+
+  const macroOv = (await runTool("macroOverview", {}, ctxEn)) as Envelope;
+  printEnvelope(macroOv);
+  assert((macroOv.rows?.length ?? 0) > 0, "macroOverview returns rows");
+
+  const rank = (await runTool(
+    "rankPlaces",
+    { indicator: "кои общини са с най-висока безработица" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(rank);
+  assert((rank.rows?.length ?? 0) > 0, "rankPlaces returns a ranking");
+
+  const cmpPlaces = (await runTool(
+    "comparePlaces",
+    { a: "Варна", b: "Бургас" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(cmpPlaces);
+  assert((cmpPlaces.rows?.length ?? 0) > 0, "comparePlaces returns rows");
 
   console.log(
     `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${failures === 0 ? "tools layer verified" : "see above"}`,

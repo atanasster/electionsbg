@@ -13,6 +13,7 @@ export const followUps = (env: Envelope): FollowUp[] => {
   const party = fact(env, "party");
   const oblast = fact(env, "oblast") ?? fact(env, "strongest");
   const agency = fact(env, "agency") ?? fact(env, "most_accurate");
+  const name = fact(env, "name") ?? fact(env, "mp");
   const out: FollowUp[] = [];
 
   switch (env.tool) {
@@ -23,8 +24,8 @@ export const followUps = (env: Envelope): FollowUp[] => {
           en: `Where is ${party} strongest?`,
         });
         out.push({
-          bg: `Как се представя ${party} през годините?`,
-          en: `How has ${party} done over the years?`,
+          bg: `Кой гласува за ${party}?`,
+          en: `Who votes for ${party}?`,
         });
       }
       break;
@@ -93,9 +94,87 @@ export const followUps = (env: Envelope): FollowUp[] => {
       break;
     case "electionAnomalies":
       out.push({
+        bg: "Какъв е индексът на изборния риск?",
+        en: "What is the election risk index?",
+      });
+      out.push({
         bg: "Къде отидоха гласовете на последните избори?",
         en: "Where did the votes go in the latest election?",
       });
+      break;
+    case "problemSections":
+      out.push({
+        bg: "Какъв е индексът на изборния риск?",
+        en: "What is the election risk index?",
+      });
+      out.push({
+        bg: "Кои населени места са съмнителни?",
+        en: "Which settlements are suspicious?",
+      });
+      break;
+    case "riskScore":
+      out.push({
+        bg: "Има ли клъстери на изборния риск?",
+        en: "Are there election-risk clusters?",
+      });
+      out.push({
+        bg: "Какво показва тестът на Бенфорд?",
+        en: "What does the Benford test show?",
+      });
+      break;
+    case "riskClusters":
+      out.push({
+        bg: "Кои места са с устойчив изборен риск?",
+        en: "Which places have persistent election risk?",
+      });
+      break;
+    case "wastedVotes":
+    case "suspiciousSettlements":
+      out.push({
+        bg: "Как гласуват ромските квартали?",
+        en: "How do the Roma neighbourhoods vote?",
+      });
+      break;
+    case "partyDemographics":
+      out.push({
+        bg: "Какво разделя гласоподавателите?",
+        en: "What divides the electorate?",
+      });
+      break;
+    case "voterPersistence":
+      out.push({
+        bg: "Къде отидоха гласовете на последните избори?",
+        en: "Where did the votes go in the latest election?",
+      });
+      break;
+    case "mpLoyalty":
+      out.push({
+        bg: "Кои депутати отсъстват най-много?",
+        en: "Which MPs are most absent?",
+      });
+      out.push({
+        bg: "Коя група гласува най-единно?",
+        en: "Which group votes most cohesively?",
+      });
+      break;
+    case "mpAttendance":
+      out.push({
+        bg: "Кои депутати са най-лоялни?",
+        en: "Which MPs are most loyal?",
+      });
+      break;
+    case "factionCohesion":
+      out.push({
+        bg: "Кои депутати са най-лоялни?",
+        en: "Which MPs are most loyal?",
+      });
+      break;
+    case "mpVotingProfile":
+      if (name)
+        out.push({
+          bg: `Кой гласува като ${name}?`,
+          en: `Who votes like ${name}?`,
+        });
       break;
     case "pollAccuracy":
       if (agency)

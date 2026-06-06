@@ -17,3 +17,14 @@ export const clarify = (lang: Lang): string =>
   lang === "bg"
     ? "Не съм сигурен какво питате. Опитайте напр.: „машинно гласуване в последните 7 избора“ или „кметът на Пловдив“."
     : 'I\'m not sure what you\'re asking. Try e.g.: "machine voting in the last 7 elections" or "the mayor of Plovdiv".';
+
+// Strip model control tokens that small models can leak into streamed output:
+// ChatML (<|im_start|>/<|im_end|>), Gemma (<start_of_turn>/<end_of_turn>),
+// and sentence/eos markers (<s>, </s>, <eos>). Shared by both model providers.
+export const stripControl = (s: string): string =>
+  s
+    .replace(/<\|im_(start|end)\|>/g, "")
+    .replace(/<\/?s>/g, "")
+    .replace(/<(start|end)_of_turn>/g, "")
+    .replace(/<eos>/g, "")
+    .trim();

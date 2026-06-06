@@ -18,7 +18,7 @@ import { route } from "../orchestrator/router";
 import { parseToolCall, toolSelectionSchema } from "../orchestrator/toolSchema";
 import { runTool } from "../tools/registry";
 import type { Lang, ToolContext } from "../tools/types";
-import { clarify, matchesLang } from "./lang";
+import { clarify, matchesLang, stripControl } from "./lang";
 import type { ChatResponse, LLMProvider, ProviderStatus } from "./provider";
 import type { ModelOption } from "./models";
 
@@ -129,10 +129,11 @@ export class WebLLMProvider implements LLMProvider {
           if (!delta) continue;
           acc += delta;
           // only surface tokens once it's clearly the right language, so we
-          // never stream wrong-language text the guard would later discard
-          if (matchesLang(acc, lang)) onDelta(acc);
+          // never stream wrong-language text the guard would later discard.
+          // strip control tokens so ChatML/Gemma markers never reach the UI.
+          if (matchesLang(acc, lang)) onDelta(stripControl(acc));
         }
-        const text = acc.trim();
+        const text = stripControl(acc);
         return text.length > 0 && matchesLang(text, lang) ? text : template;
       }
       const res = await this.engine.chat.completions.create({
@@ -140,8 +141,8 @@ export class WebLLMProvider implements LLMProvider {
         temperature: 0.2,
         max_tokens: 160,
       });
-      const text = res.choices?.[0]?.message?.content?.trim();
-      if (text && text.length > 0 && matchesLang(text, lang)) return text;
+      const text = stripControl(res.choices?.[0]?.message?.content ?? "");
+      if (text.length > 0 && matchesLang(text, lang)) return text;
       return template;
     } catch {
       return template;

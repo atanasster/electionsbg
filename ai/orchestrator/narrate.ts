@@ -93,6 +93,11 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Сигнали за ${f(env, "election")}: ${f(env, "problem_sections")} проблемни секции (общо ${f(env, "total_flagged")} флага).`
         : `Anomaly signals for ${f(env, "election")}: ${f(env, "problem_sections")} problem sections (${f(env, "total_flagged")} flags total).`;
+    case "flashMemoryByParty":
+      if (!env.facts.biggest_loser) return env.title;
+      return lang === "bg"
+        ? `Разлика машинно срещу флаш памет (${f(env, "election")}): най-много губи ${f(env, "biggest_loser")}, най-много печели ${f(env, "biggest_gainer")}.`
+        : `Machine vs flash memory (${f(env, "election")}): ${f(env, "biggest_loser")} lost the most, ${f(env, "biggest_gainer")} gained the most.`;
     case "regionHistory":
       return lang === "bg"
         ? `Избирателна активност в ${f(env, "oblast")} през ${f(env, "elections")} избора; последно ${f(env, "latest_turnout")}.`
