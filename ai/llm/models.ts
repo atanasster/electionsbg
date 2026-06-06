@@ -66,7 +66,7 @@ export const MODELS: ModelOption[] = [
     size: { bg: "~1.1 GB", en: "~1.1 GB" },
     vramNote: { bg: "~1.5 GB видео памет", en: "~1.5 GB video memory" },
     advantage: {
-      bg: "Бърз, лек тест модел · само разказ",
+      bg: "Бърз, лек тестов модел · само разказ",
       en: "Fast, light test model · narration only",
     },
     tags: ["fast", "test"],
@@ -96,7 +96,7 @@ export const MODELS: ModelOption[] = [
     label: { bg: "Gemini 2.5 Flash-Lite", en: "Gemini 2.5 Flash-Lite" },
     sizeNote: { bg: "облак · OpenRouter", en: "cloud · OpenRouter" },
     advantage: {
-      bg: "Облачен · най-точен за български · насочва инструменти",
+      bg: "В облака · най-точен за български · избор на инструменти",
       en: "Cloud · most accurate Bulgarian · routes tools",
     },
     tags: ["cloud", "routes", "fast"],
@@ -109,7 +109,7 @@ export const MODELS: ModelOption[] = [
     label: { bg: "Gemma 4 31B (безпл.)", en: "Gemma 4 31B (free)" },
     sizeNote: { bg: "облак · безплатно", en: "cloud · free" },
     advantage: {
-      bg: "Облачен · безплатен · отворен модел (Apache-2.0)",
+      bg: "В облака · безплатен · отворен модел (Apache-2.0)",
       en: "Cloud · free · open model (Apache-2.0)",
     },
     tags: ["cloud", "routes"],

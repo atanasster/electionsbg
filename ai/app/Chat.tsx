@@ -70,6 +70,10 @@ const prevContext = (
 
 const STORAGE_KEY = "naiasno.chat.v1";
 
+// Remembers the response-eloquence preference (the concise/elaborate toggle)
+// across reloads.
+const ELOQUENCE_KEY = "naiasno.eloquence.v1";
+
 // A pool of starter prompts. Deliberately larger than STARTER_COUNT so that
 // after dropping the ones the user has already asked there are still enough
 // fresh prompts to fill the row. Each is phrased to route to a real tool.
@@ -127,6 +131,23 @@ const shuffle = <T,>(arr: T[]): T[] => {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
+};
+
+// Nearest scrollable ancestor of `el` (the element that actually scrolls). Used
+// to auto-scroll the conversation: we scroll the scrollport itself to its foot
+// rather than scrollIntoView the end-marker, because the marker sits above the
+// sticky composer in the DOM — aligning it to the scrollport bottom would leave
+// the composer overlaying the tail of the answer + the follow-up chips. Matched
+// by overflow style alone (not current overflow) so it resolves before the
+// content has grown tall enough to scroll.
+const scrollParent = (el: HTMLElement | null): HTMLElement | null => {
+  let node = el?.parentElement ?? null;
+  while (node) {
+    const { overflowY } = getComputedStyle(node);
+    if (overflowY === "auto" || overflowY === "scroll") return node;
+    node = node.parentElement;
+  }
+  return null;
 };
 
 // Per-response export menu, rendered in the answer panel's header band. Image
@@ -250,6 +271,52 @@ const AnswerControls = ({
   );
 };
 
+// Global response-eloquence toggle, shown next to the model picker. It sets the
+// DEFAULT narration length for new answers — "brief" (concise) leads with the
+// headline in 1–2 sentences, "full" (elaborate) expands to a short paragraph.
+// The per-answer Кратко/Подробно button (AnswerControls) still overrides a
+// single answer. Only meaningful when a model narrates, so the caller hides it
+// for the offline rules engine.
+const EloquenceToggle = ({
+  value,
+  onChange,
+  lang,
+  disabled,
+}: {
+  value: "brief" | "full";
+  onChange: (v: "brief" | "full") => void;
+  lang: Lang;
+  disabled: boolean;
+}) => {
+  const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
+  const seg = (v: "brief" | "full", bg: string, en: string) => (
+    <button
+      type="button"
+      disabled={disabled}
+      onClick={() => onChange(v)}
+      aria-pressed={value === v}
+      className={cn(
+        "rounded-full px-2 py-0.5 transition-colors disabled:opacity-50",
+        value === v
+          ? "bg-primary/10 font-medium text-primary"
+          : "text-muted-foreground hover:text-foreground",
+      )}
+    >
+      {t(bg, en)}
+    </button>
+  );
+  return (
+    <div
+      className="inline-flex shrink-0 items-center gap-0.5 rounded-full border border-input bg-card p-0.5 text-[11px]"
+      title={t("Дължина на отговора", "Response length")}
+      aria-label={t("Дължина на отговора", "Response length")}
+    >
+      {seg("brief", "Кратко", "Concise")}
+      {seg("full", "Подробно", "Elaborate")}
+    </div>
+  );
+};
+
 // One assistant turn. While the answer is still streaming (or it's a plain
 // clarify/error with no Envelope) the narration shows in a bubble; once an
 // Envelope lands the bubble is folded into the answer panel as its lead line.
@@ -323,6 +390,14 @@ export const Chat = ({
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
+  // default narration length for new answers (the concise/elaborate toggle)
+  const [eloquence, setEloquence] = useState<"brief" | "full">(() => {
+    try {
+      return localStorage.getItem(ELOQUENCE_KEY) === "full" ? "full" : "brief";
+    } catch {
+      return "brief";
+    }
+  });
   const idRef = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
   const taRef = useRef<HTMLTextAreaElement>(null);
@@ -330,12 +405,43 @@ export const Chat = ({
   const firstPersist = useRef(true);
   // whatever was typed before dictation started — the transcript is appended to it
   const voiceBase = useRef("");
+  // are we following the foot of the conversation? Set true whenever the user
+  // sends/regenerates; cleared if they scroll up to re-read mid-answer.
+  const pinned = useRef(true);
   const nextId = () => (idRef.current += 1);
 
-  // keep the latest answer in view as the conversation grows
+  // Keep the latest answer pinned to the foot as the conversation grows. We
+  // watch the scroll content with a ResizeObserver rather than reacting to
+  // message changes alone: an answer's table/chart can finish laying out a frame
+  // or two after React commits, so a one-shot scroll fires before the final
+  // height is known and stops short — leaving the tail of the answer and the
+  // follow-up chips behind the sticky composer that overlays the foot. We scroll
+  // the scrollport itself to scrollHeight (not endRef into view, which sits above
+  // the composer) and only re-pin while the user is already near the foot, so
+  // scrolling up to re-read isn't yanked back down.
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [messages, busy]);
+    const scroller = scrollParent(endRef.current);
+    if (!scroller) return;
+    const FOLLOW_SLACK = 80; // px from the foot that still counts as "following"
+    const distanceToFoot = () =>
+      scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight;
+    const toFoot = (behavior: ScrollBehavior) =>
+      scroller.scrollTo({ top: scroller.scrollHeight, behavior });
+    // a user scroll away from the foot stops auto-following
+    const onScroll = () => {
+      pinned.current = distanceToFoot() <= FOLLOW_SLACK;
+    };
+    scroller.addEventListener("scroll", onScroll, { passive: true });
+    const content = scroller.firstElementChild ?? scroller;
+    const ro = new ResizeObserver(() => {
+      if (pinned.current) toFoot("auto");
+    });
+    ro.observe(content);
+    return () => {
+      scroller.removeEventListener("scroll", onScroll);
+      ro.disconnect();
+    };
+  }, []);
 
   // grow the textarea with its content (capped), and shrink back when cleared.
   // Runs on every input change so programmatic sets (voice, send) resize too.
@@ -376,6 +482,7 @@ export const Chat = ({
     const q = text.trim();
     if (!q || busy) return;
     speech.stop();
+    pinned.current = true; // a fresh question always follows to the foot
     setInput("");
     // the prior answer's tool becomes the context for a follow-on ("а ДПС?")
     const prev = prevContext(messages, messages.length);
@@ -396,7 +503,7 @@ export const Chat = ({
         setMessages((m) =>
           m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
         ),
-      { prev },
+      { prev, detail: eloquence },
     );
     setMessages((m) =>
       m.map((x) =>
@@ -408,7 +515,7 @@ export const Chat = ({
               meta: res.meta,
               tool: res.tool,
               args: res.args,
-              detail: "brief",
+              detail: eloquence,
             }
           : x,
       ),
@@ -428,6 +535,7 @@ export const Chat = ({
     if (!question) return;
     const prev = prevContext(messages, idx - 1);
     speech.stop();
+    pinned.current = true; // re-narration regrows the answer — follow it down
     setBusy(true);
     const res = await engine.provider.respond(
       question,
@@ -501,6 +609,15 @@ export const Chat = ({
     }
   }, [messages]);
 
+  // remember the eloquence preference across reloads
+  useEffect(() => {
+    try {
+      localStorage.setItem(ELOQUENCE_KEY, eloquence);
+    } catch {
+      /* quota — ignore */
+    }
+  }, [eloquence]);
+
   const copyAll = async () => {
     try {
       await navigator.clipboard.writeText(
@@ -565,6 +682,11 @@ export const Chat = ({
 
   const suggestions = busy ? [] : matchSuggestions(input, lang);
   const hasChat = messages.length > 0;
+  // a non-rules provider that has finished loading is the only case where the
+  // eloquence preference changes the output — the offline rules engine emits a
+  // fixed template, so hide the toggle for it.
+  const canNarrate =
+    engine.providerId !== "rules" && engine.load.phase === "ready";
 
   // Stable key of every question the user has already asked. Recomputed each
   // render but yields the same string while the conversation's questions don't
@@ -789,7 +911,17 @@ export const Chat = ({
               </button>
             ))}
           </div>
-          <ModelPicker engine={engine} lang={lang} />
+          <div className="flex shrink-0 items-center gap-2">
+            {canNarrate && (
+              <EloquenceToggle
+                value={eloquence}
+                onChange={setEloquence}
+                lang={lang}
+                disabled={busy}
+              />
+            )}
+            <ModelPicker engine={engine} lang={lang} />
+          </div>
         </div>
       </div>
     </div>

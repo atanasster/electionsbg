@@ -36,11 +36,11 @@ import type { Lang } from "../tools/types";
 
 const TAG_LABELS: Record<ModelTag, { bg: string; en: string }> = {
   "bg-native": { bg: "Най-добър за български", en: "Best for Bulgarian" },
-  routes: { bg: "Насочва инструменти", en: "Routes tools" },
+  routes: { bg: "Избор на инструменти", en: "Routes tools" },
   fast: { bg: "Бърз", en: "Fast" },
   test: { bg: "Тест", en: "Test" },
   multimodal: { bg: "Мултимодален", en: "Multimodal" },
-  cloud: { bg: "Облачен", en: "Cloud" },
+  cloud: { bg: "В облака", en: "Cloud" },
 };
 
 // Decimal GB to match the sizes HF/MLC report.
@@ -164,7 +164,7 @@ export const ModelPicker = ({
             <ShieldCheck className="size-3.5 shrink-0 text-emerald-600" />
             <p className="text-[11px] leading-tight text-muted-foreground">
               {t(
-                "Свалените модели работят изцяло във вашия браузър — въпросите ви не напускат устройството. Облачните модели изпращат въпроса към сървър.",
+                "Свалените модели работят изцяло във вашия браузър — въпросите ви не напускат устройството. Моделите в облака изпращат въпроса към сървър.",
                 "Downloaded models run entirely in your browser — your questions never leave your device. Cloud models send the question to a server.",
               )}
             </p>
@@ -382,7 +382,7 @@ const ModelCard = ({
           {isCloud && (
             <p className="mt-0.5 text-[11px] text-amber-600">
               {t(
-                "Облачен модел · въпросът се изпраща към сървър",
+                "В облака · въпросът се изпраща към сървър",
                 "Cloud model · your question is sent to a server",
               )}
             </p>
