@@ -44,7 +44,21 @@ const fmtCell = (value: string | number | null, col: Column): string => {
   return value;
 };
 
-const SeriesChart = ({ env }: { env: Envelope }) => {
+// Compact y-axis ticks so euro charts read "2,9 млрд" / "€2.9B" instead of
+// "2900000000"; small numbers (percentages) pass through normally.
+const tickFmt =
+  (lang: Lang) =>
+  (v: number): string => {
+    const locale = lang === "bg" ? "bg-BG" : "en-US";
+    return Math.abs(v) >= 10000
+      ? new Intl.NumberFormat(locale, {
+          notation: "compact",
+          maximumFractionDigits: 1,
+        }).format(v)
+      : new Intl.NumberFormat(locale).format(v);
+  };
+
+const SeriesChart = ({ env, lang }: { env: Envelope; lang: Lang }) => {
   const series = env.series ?? [];
   const categories = env.categories ?? [];
 
@@ -79,7 +93,12 @@ const SeriesChart = ({ env }: { env: Envelope }) => {
             textAnchor="end"
             height={60}
           />
-          <YAxis tickLine={false} axisLine={false} width={48} />
+          <YAxis
+            tickLine={false}
+            axisLine={false}
+            width={56}
+            tickFormatter={tickFmt(lang)}
+          />
           <ChartTooltip content={<ChartTooltipContent />} />
           <Bar dataKey={s0.key} radius={[4, 4, 0, 0]}>
             {data.map((_, i) => (
@@ -104,7 +123,12 @@ const SeriesChart = ({ env }: { env: Envelope }) => {
           textAnchor="end"
           height={60}
         />
-        <YAxis tickLine={false} axisLine={false} width={48} />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          width={56}
+          tickFormatter={tickFmt(lang)}
+        />
         <ChartTooltip content={<ChartTooltipContent />} />
         {series.map((s) => (
           <Line
@@ -203,7 +227,7 @@ export const AnswerView = ({
         </span>
       </div>
 
-      {env.kind === "series" && <SeriesChart env={env} />}
+      {env.kind === "series" && <SeriesChart env={env} lang={lang} />}
       {env.kind === "table" && <DataTable env={env} />}
       {env.kind === "scalar" && <Scalar env={env} />}
 

@@ -251,6 +251,51 @@ const CASES: Case[] = [
     tool: "noiFunds",
     facts: { year: /20\d\d/ },
   },
+  // ---- budget slices: a specific function/category, not the whole budget ------
+  {
+    // pensions phrased "в бюджета" must NOT return the whole-budget overview
+    q: "какъв е процентът на пенсиите в бюджета?",
+    tool: "noiFunds",
+    facts: { year: /20\d\d/ },
+  },
+  {
+    q: "колко пари отиват за здравеопазване?",
+    tool: "budgetFunction",
+    kind: "series",
+    facts: { function: "Здраве", share_of_budget: /%/ },
+  },
+  {
+    q: "разходи за отбрана",
+    tool: "budgetFunction",
+    kind: "series",
+    facts: { function: "Отбрана", share_of_budget: /%/ },
+  },
+  {
+    q: "колко за образование?",
+    tool: "budgetFunction",
+    kind: "series",
+    facts: { function: "Образование" },
+  },
+  {
+    q: "разходи за социална защита",
+    tool: "budgetFunction",
+    kind: "series",
+    facts: { function: "Социална" },
+  },
+  {
+    q: "defence spending",
+    lang: "en",
+    tool: "budgetFunction",
+    kind: "series",
+    facts: { function: "Defence" },
+  },
+  // whole-budget questions still hit the overview / functional table
+  {
+    q: "какъв е държавният бюджет?",
+    tool: "budgetOverview",
+    kind: "table",
+    minRows: 4,
+  },
   // ---- people ----------------------------------------------------------------
   {
     q: "Кои са правителствата от 2005?",

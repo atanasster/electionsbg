@@ -177,6 +177,92 @@ export const budgetByFunction = async (
   } as Envelope;
 };
 
+// ---- a single budget function (COFOG) slice + trend ------------------------
+// Pensions are intentionally NOT here — they route to noiFunds (the pension
+// fund). These are the spendable COFOG functions a user asks "how much for X".
+// Keywords are chosen to avoid collisions: "здравей"≠"здравеопазв",
+// "транспорт" contains "спорт" (so no "спорт"), "социалист"≠"социалн".
+const FN_KEYWORDS: [string, string[]][] = [
+  ["GF02", ["отбран", "defence", "defense", "военн", "армия"]],
+  ["GF03", ["обществен ред", "сигурност", "полиц", "public order", "police"]],
+  ["GF05", ["околна среда", "екологи", "environment"]],
+  ["GF06", ["жилищ", "благоустр", "housing"]],
+  ["GF07", ["здравеопазв", "здравн", "болниц", "медицин", "health"]],
+  ["GF08", ["култур", "религи", "culture", "recreation"]],
+  ["GF09", ["образов", "училищ", "education", "school"]],
+  ["GF10", ["социалн", "social protection", "социална защита"]],
+  ["GF01", ["държавни служби", "администрац", "general public"]],
+  ["GF04", ["икономически дейности", "economic affairs"]],
+];
+
+// keyword/code -> COFOG gf code (undefined if nothing matches)
+export const resolveBudgetFunction = (text: string): string | undefined => {
+  const q = text.toLowerCase();
+  const codeMatch = q.match(/\bgf(\d{1,2})\b/); // GF1..GF10 (1 or 2 digits)
+  if (codeMatch) {
+    const code = `GF${codeMatch[1].padStart(2, "0")}`;
+    if (COFOG[code]) return code;
+  }
+  for (const [gf, kws] of FN_KEYWORDS)
+    if (kws.some((k) => q.includes(k))) return gf;
+  return undefined;
+};
+
+export const budgetFunction = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const c = await fetchData<CofogData>("/cofog.json");
+  const gf = resolveBudgetFunction(String(args.category ?? ""));
+  // unrecognized function -> fall back to the full functional breakdown
+  if (!gf || !c.series[gf]) return budgetByFunction(args, ctx);
+
+  const year = args.year ? Number(args.year) : c.latestYear;
+  const at = (arr: CofogPoint[]) =>
+    arr.find((p) => p.year === year) ?? arr[arr.length - 1];
+  const pts = c.series[gf];
+  const value = at(pts)?.valueEur ?? 0;
+  const total = at(c.series.TOTAL ?? [])?.valueEur ?? 0;
+  const pct = total > 0 ? round2((100 * value) / total) : 0;
+  const ranking = Object.entries(c.series)
+    .filter(([k]) => k !== "TOTAL")
+    .map(([k, a]) => ({ k, v: at(a)?.valueEur ?? 0 }))
+    .sort((a, b) => b.v - a.v);
+  const rank = ranking.findIndex((r) => r.k === gf) + 1;
+  const label = (COFOG[gf] ?? { bg: gf, en: gf })[ctx.lang];
+
+  return {
+    tool: "budgetFunction",
+    domain: "fiscal",
+    kind: "series",
+    title:
+      ctx.lang === "bg"
+        ? `Разходи за „${label}“ (COFOG)`
+        : `Spending on "${label}" (COFOG)`,
+    categories: pts.map((p) => String(p.year)),
+    series: [
+      {
+        key: "amount",
+        label: ctx.lang === "bg" ? "Разход (€)" : "Spend (€)",
+        points: pts.map((p) => ({
+          x: String(p.year),
+          y: Math.round(p.valueEur),
+        })),
+      },
+    ],
+    viz: "line",
+    facts: {
+      function: label,
+      year,
+      amount: fmtEurCompact(value, ctx.lang),
+      share_of_budget: `${pct}%`,
+      rank,
+      total: fmtEurCompact(total, ctx.lang),
+    },
+    provenance: ["cofog.json"],
+  } as Envelope;
+};
+
 // ---- procurement totals -----------------------------------------------------
 
 type ProcIndex = {

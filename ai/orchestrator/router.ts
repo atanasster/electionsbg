@@ -6,6 +6,7 @@
 // the primary, and this stays as the offline fallback.
 
 import { ALL_ELECTIONS } from "../tools/dataset";
+import { resolveBudgetFunction } from "../tools/fiscal";
 import { resolveMacroKey } from "../tools/macro";
 import { findOblastInText } from "../tools/place";
 import { resolveRegionKey, resolveSubnatKey } from "../tools/placesGov";
@@ -254,6 +255,23 @@ export const route = (question: string, ctx: ToolContext): Route => {
   }
 
   // 1c. governance — public finance
+  // optional budget year (2010–2029) for slices that support it
+  const budgetYearMatch = q.match(/\b(20[0-2]\d)\b/);
+  const budgetYear = budgetYearMatch ? Number(budgetYearMatch[1]) : undefined;
+  // pensions / social-security funds -> the NOI pension funds, even when phrased
+  // "...в бюджета" (otherwise the generic budget view below would swallow it)
+  if (
+    has(q, "пенси", "pension", "нои", " nssi", "осигурителн", "social security")
+  )
+    return { tool: "noiFunds", args: {} };
+  // a specific budget FUNCTION (health/defence/education/social/…) -> its share
+  // + trend, with or without the word "бюджет"
+  const gf = resolveBudgetFunction(q);
+  if (gf)
+    return {
+      tool: "budgetFunction",
+      args: budgetYear ? { category: gf, year: budgetYear } : { category: gf },
+    };
   if (has(q, "бюджет", "budget")) {
     if (has(q, "министерств", "ministry", "ведомств"))
       return { tool: "ministryBudget", args: { ministry: q } };
@@ -272,7 +290,10 @@ export const route = (question: string, ctx: ToolContext): Route => {
     if (
       has(q, "функц", "cofog", "за какво", "spent on", "spend on", "разход по")
     )
-      return { tool: "budgetByFunction", args: {} };
+      return {
+        tool: "budgetByFunction",
+        args: budgetYear ? { year: budgetYear } : {},
+      };
     return { tool: "budgetOverview", args: {} };
   }
   // ministry budget without the word "бюджет"
@@ -306,10 +327,7 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // debt emissions vs the macro debt level: only route emissions on explicit terms
   if (has(q, "емиси", "облигаци", " bond", "дцк", "issuance"))
     return { tool: "govDebt", args: {} };
-  if (
-    has(q, "нои", " nssi", "осигурителн", "пенси", "social security", "pension")
-  )
-    return { tool: "noiFunds", args: {} };
+  // (pensions / NOI are handled earlier, before the budget block)
 
   // 1d. governance — people / oversight
   if (

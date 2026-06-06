@@ -118,6 +118,10 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Най-голям разход по функция (${f(env, "year")}): ${f(env, "top_function")}. Общо: ${f(env, "total")}.`
         : `Largest spending function (${f(env, "year")}): ${f(env, "top_function")}. Total: ${f(env, "total")}.`;
+    case "budgetFunction":
+      return lang === "bg"
+        ? `Разходи за ${f(env, "function")}: ${f(env, "amount")} (${f(env, "share_of_budget")} от бюджета) през ${f(env, "year")}; ${f(env, "rank")}-о място по размер.`
+        : `Spending on ${f(env, "function")}: ${f(env, "amount")} (${f(env, "share_of_budget")} of the budget) in ${f(env, "year")}; ranked #${f(env, "rank")} by size.`;
     case "procurementTotals":
       return lang === "bg"
         ? `Обществени поръчки: ${f(env, "contracts")} договора за ${f(env, "total_value")}; свързани с депутати: ${f(env, "mp_connected_value")}.`

@@ -4,6 +4,7 @@
 
 import {
   budgetByFunction,
+  budgetFunction,
   budgetOverview,
   fundsOverview,
   procurementTotals,
@@ -604,6 +605,31 @@ export const TOOLS: ToolDef[] = [
       { bg: "За какво се харчи бюджетът?", en: "What is the budget spent on?" },
     ],
     run: budgetByFunction,
+  },
+  {
+    name: "budgetFunction",
+    domain: "fiscal",
+    description: {
+      bg: "Разходите за една бюджетна функция (напр. здравеопазване, отбрана, образование): дял + тенденция.",
+      en: "Spending on one budget function (e.g. health, defence, education): share + trend.",
+    },
+    params: [
+      {
+        name: "category",
+        type: "metric",
+        required: true,
+        description: { bg: "Функция / категория", en: "Function / category" },
+      },
+      { name: "year", type: "year", description: { bg: "Година", en: "Year" } },
+    ],
+    examples: [
+      {
+        bg: "Колко пари отиват за здравеопазване?",
+        en: "How much goes to health?",
+      },
+      { bg: "Разходи за отбрана", en: "Defence spending" },
+    ],
+    run: budgetFunction,
   },
   {
     name: "procurementTotals",
