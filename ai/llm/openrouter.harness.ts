@@ -85,6 +85,10 @@ const run = async () => {
     r1.meta?.narratedBy === "model",
     "BG model prose is used (narratedBy=model)",
   );
+  assert(
+    r1.meta?.model.bg === "Gemini",
+    "header credits the cloud model when it was actually used",
+  );
   assert((r1.meta?.inputTokens ?? 0) > 0, "token usage is recorded");
 
   // 2. wrong-script model prose -> template narration (numbers stay computed)
@@ -104,6 +108,10 @@ const run = async () => {
   setFetch(mockFetch({ throwIt: true }));
   const r3 = await p.respond("Колко гласа взе ГЕРБ?", ctx);
   assert(r3.tool === "partyResult", "API down -> deterministic router answers");
+  assert(
+    r3.meta?.model.bg === "Правила (офлайн)",
+    "full fallback -> header credits Rules, NOT the cloud model",
+  );
 
   // 4. model returns non-JSON garbage -> rules fallback (parse rejects it)
   setFetch(mockFetch({ routeContent: "sorry, I cannot help with that" }));

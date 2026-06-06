@@ -11,7 +11,7 @@ import {
   buildNarrationPrompt,
   buildToolSystemPrompt,
 } from "../orchestrator/prompts";
-import { route } from "../orchestrator/router";
+import { route, type Route } from "../orchestrator/router";
 import { parseToolCall } from "../orchestrator/toolSchema";
 import { runTool } from "../tools/registry";
 import type { Lang, ToolContext } from "../tools/types";
@@ -38,6 +38,11 @@ type Completion = {
 };
 
 type Usage = { input: number; output: number };
+
+// Shown in the answer header when the cloud model contributed NOTHING (both the
+// routing and narration calls failed/declined) — so a fallback answer is never
+// mislabelled as model-generated. Mirrors HeuristicProvider.label.
+const RULES_LABEL = { bg: "Правила (офлайн)", en: "Rules (offline)" };
 
 export class OpenRouterProvider implements LLMProvider {
   id: string;
@@ -99,8 +104,12 @@ export class OpenRouterProvider implements LLMProvider {
   // Model-first routing (a strong hosted model handles paraphrase + arg
   // extraction far better than keywords). The deterministic router is the
   // fallback when the model errors or returns something unusable.
-  private async selectRoute(question: string, ctx: ToolContext, usage: Usage) {
-    const ruleRoute = () => route(question, ctx);
+  private async selectRoute(
+    question: string,
+    ctx: ToolContext,
+    usage: Usage,
+  ): Promise<{ route: Route; byModel: boolean }> {
+    const fallback = () => ({ route: route(question, ctx), byModel: false });
     try {
       const content = await this.call(
         [
@@ -110,9 +119,10 @@ export class OpenRouterProvider implements LLMProvider {
         { json: true, maxTokens: 120, temperature: 0 },
         usage,
       );
-      return parseToolCall(content) ?? ruleRoute();
+      const parsed = parseToolCall(content);
+      return parsed ? { route: parsed, byModel: true } : fallback();
     } catch {
-      return ruleRoute();
+      return fallback();
     }
   }
 
@@ -145,18 +155,30 @@ export class OpenRouterProvider implements LLMProvider {
   async respond(question: string, ctx: ToolContext): Promise<ChatResponse> {
     const t0 = performance.now();
     const usage: Usage = { input: 0, output: 0 };
-    const r = await this.selectRoute(question, ctx, usage);
+    const { route: r, byModel: routedByModel } = await this.selectRoute(
+      question,
+      ctx,
+      usage,
+    );
+    // `usedModel` = the cloud model produced the route OR the prose. When false
+    // (both fell back), the answer IS the rules engine, so label it as such —
+    // never claim the cloud model on a fallback/error.
     const baseMeta = (
       narratedBy: ResponseMeta["narratedBy"],
+      usedModel: boolean,
     ): ResponseMeta => ({
-      model: this.label,
+      model: usedModel ? this.label : RULES_LABEL,
       durationMs: performance.now() - t0,
       inputTokens: usage.input || undefined,
       outputTokens: usage.output || undefined,
       narratedBy,
     });
     if (!r)
-      return { text: clarify(ctx.lang), env: null, meta: baseMeta("rules") };
+      return {
+        text: clarify(ctx.lang),
+        env: null,
+        meta: baseMeta("rules", false),
+      };
     try {
       const env = await runTool(r.tool, r.args, ctx);
       const { text, fromModel } = await this.narrateEnv(env, ctx.lang, usage);
@@ -164,7 +186,10 @@ export class OpenRouterProvider implements LLMProvider {
         text,
         env,
         tool: r.tool,
-        meta: baseMeta(fromModel ? "model" : "rules"),
+        meta: baseMeta(
+          fromModel ? "model" : "rules",
+          routedByModel || fromModel,
+        ),
       };
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
@@ -174,7 +199,7 @@ export class OpenRouterProvider implements LLMProvider {
             ? `Възникна грешка при изпълнението: ${msg}`
             : `Something went wrong running that: ${msg}`,
         env: null,
-        meta: baseMeta("rules"),
+        meta: baseMeta("rules", routedByModel),
       };
     }
   }
