@@ -778,6 +778,7 @@ export const Chat = ({
         hasChat &&
         createPortal(
           <>
+            <MemoryPill turns={memoryTurns} lang={lang} />
             <Button
               variant="outline"
               size="sm"
@@ -966,36 +967,37 @@ export const Chat = ({
             </button>
           </div>
         </form>
-        {/* sample prompts live under the composer so they persist after the
-            first question (don't vanish like an empty-state); the model picker
-            sits at the right edge of the same row */}
+        {/* Composer toolbar: the response-length toggle + model picker sit on
+            their own row directly under the input; the model picker stays at
+            the right edge (under the send button) via ml-auto so it holds that
+            position whether or not the toggle is shown. */}
         <div className="mt-2 flex items-center gap-2">
-          <div className="flex min-w-0 flex-1 flex-wrap items-center gap-1.5">
-            <span className="text-[11px] text-muted-foreground">
-              {t("Опитайте:", "Try:")}
-            </span>
-            {starters.map((s) => (
-              <button
-                key={s.en}
-                onClick={() => send(s[lang])}
-                disabled={busy}
-                className="rounded-full border border-input bg-card px-2.5 py-1 text-[11px] text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-50"
-              >
-                {s[lang]}
-              </button>
-            ))}
-          </div>
-          <div className="flex shrink-0 items-center gap-2">
-            {canNarrate && (
-              <EloquenceToggle
-                value={eloquence}
-                onChange={setEloquence}
-                lang={lang}
-                disabled={busy}
-              />
-            )}
+          {canNarrate && (
+            <EloquenceToggle
+              value={eloquence}
+              onChange={setEloquence}
+              lang={lang}
+              disabled={busy}
+            />
+          )}
+          <div className="ml-auto">
             <ModelPicker engine={engine} lang={lang} />
           </div>
+        </div>
+        {/* sample prompts live under the composer so they persist after the
+            first question (don't vanish like an empty-state) — on the row
+            below the toolbar, label-free */}
+        <div className="mt-2 flex flex-wrap items-center gap-1.5">
+          {starters.map((s) => (
+            <button
+              key={s.en}
+              onClick={() => send(s[lang])}
+              disabled={busy}
+              className="rounded-full border border-input bg-card px-2.5 py-1 text-[11px] text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-50"
+            >
+              {s[lang]}
+            </button>
+          ))}
         </div>
       </div>
     </div>
