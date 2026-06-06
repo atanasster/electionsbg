@@ -358,9 +358,22 @@ export const clusterPersistence = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const d = await fetchData<{ loci: PersistLocus[] }>(
-    "/cluster_persistence.json",
-  );
+  let d: { loci: PersistLocus[] };
+  try {
+    d = await fetchData("/cluster_persistence.json");
+  } catch {
+    return {
+      tool: "clusterPersistence",
+      domain: "elections",
+      kind: "scalar",
+      title: bg
+        ? "Няма данни за устойчиви рискови огнища"
+        : "No persistent-risk-loci data",
+      viz: "none",
+      facts: {},
+      provenance: ["cluster_persistence.json"],
+    };
+  }
   const munis = await muniNamesOf(ctx.lang);
   const loci = [...d.loci].sort((a, b) => b.electionCount - a.electionCount);
   const top = loci.slice(0, 12);

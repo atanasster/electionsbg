@@ -83,11 +83,14 @@ export const voterPersistence = async (
   }
 
   const rows: Row[] = [...p.byOblast]
-    .map((o) => ({
-      oblast: oblastName(o.oblast)[ctx.lang] ?? o.oblast,
-      stay: round2(o.persistence.stayRate * 100),
-      defection: `${labelOf(o.persistence.topDefection.fromId)} → ${labelOf(o.persistence.topDefection.toId)}`,
-    }))
+    .map((o) => {
+      const td = o.persistence?.topDefection;
+      return {
+        oblast: oblastName(o.oblast)[ctx.lang],
+        stay: round2((o.persistence?.stayRate ?? 0) * 100),
+        defection: td ? `${labelOf(td.fromId)} → ${labelOf(td.toId)}` : "—",
+      };
+    })
     .sort((a, b) => (b.stay as number) - (a.stay as number));
 
   const nat = p.national;

@@ -145,7 +145,7 @@ export const schoolScores = async (
     rows,
     viz: "none",
     facts: {
-      place: place.name,
+      place: bg ? place.name : place.nameEn,
       subject: subjectLabel,
       schools: scored.length,
       top_school: top[0] ? `${top[0].name} (${round2(top[0].value)})` : "—",

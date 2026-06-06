@@ -75,20 +75,12 @@ export const translitKey = (s: string): string =>
     .replace(/[\s.\-_]+/g, " ")
     .trim();
 
-// A query token matches a romanized name when it's a substring, OR when it
-// shares a 5+ char prefix with one of the name's words — so common media
-// variants ("Borissov" vs official "Borisov") still resolve.
-const tokenHits = (token: string, nameKey: string): boolean => {
-  if (nameKey.includes(token)) return true;
-  if (token.length < 5) return false;
-  return nameKey
-    .split(" ")
-    .some((w) => w.length >= 5 && w.slice(0, 5) === token.slice(0, 5));
-};
-
 // Resolve a free-text MP name to {id, name} in the current parliament, in either
-// script. Matches when every query token hits the (romanized) roster name —
-// handles patronymics + reversed order ("Борисов Бойко" ↦ "БОЙКО … БОРИСОВ").
+// script. Every query token must be a substring of the (romanized) roster name —
+// handles patronymics + reversed order ("Борисов Бойко" ↦ "БОЙКО … БОРИСОВ") and
+// morphological endings (name includes the token, e.g. "Иванова" ⊇ "Иванов").
+// Substring (not a loose shared-prefix) so a lone common surname can't bind to
+// the wrong MP (e.g. a "Георгиев" query never grabs a "Георги …" first-name MP).
 const findMp = (
   query: string,
   mpNames: Record<string, string>,
@@ -100,7 +92,7 @@ const findMp = (
   let best: { id: number; name: string } | undefined;
   for (const [id, name] of Object.entries(mpNames)) {
     const key = translitKey(name);
-    const allHit = toks.every((t) => tokenHits(t, key));
+    const allHit = toks.every((t) => key.includes(t));
     if (allHit && (!best || name.length < best.name.length))
       best = { id: Number(id), name };
   }
@@ -390,8 +382,8 @@ export const mpVotingProfile = async (
       "/parliament/votes/derived/attendance.json",
     ),
   ]);
-  const l = loy.byNs[idx.ns]?.entries.find((e) => e.mpId === mp.id);
-  const a = att.byNs[idx.ns]?.entries.find((e) => e.mpId === mp.id);
+  const l = loy.byNs[idx.ns]?.entries?.find((e) => e.mpId === mp.id);
+  const a = att.byNs[idx.ns]?.entries?.find((e) => e.mpId === mp.id);
   const facts: Record<string, string | number> = {
     name: titleCase(mp.name),
     ns: idx.ns,
@@ -450,7 +442,7 @@ export const mpSimilarity = async (
   const d = await fetchData<DerivedFile<SimilarityEntry>>(
     "/parliament/votes/derived/similarity.json",
   );
-  const entry = d.byNs[idx.ns]?.entries.find((e) => e.mpId === mp.id);
+  const entry = d.byNs[idx.ns]?.entries?.find((e) => e.mpId === mp.id);
   if (!entry?.topK?.length) {
     return {
       tool: "mpSimilarity",
@@ -548,7 +540,7 @@ export const voteSearch = async (
     "събра",
     "заседа",
     "поиме",
-    "решen",
+    "решен",
     "votes",
     "voted",
     "parli",
@@ -582,12 +574,15 @@ export const voteSearch = async (
   }
   const short = (t: string): string =>
     t.length > 80 ? `${t.slice(0, 78)}…` : t;
-  const rows: Row[] = top.map((e) => ({
-    date: e.date,
-    title: short(e.title),
-    outcome: outcomeLabel(e.outcome, ctx.lang),
-    tally: `${e.tally.yes}–${e.tally.no}–${e.tally.abstain}`,
-  }));
+  const rows: Row[] = top.map((e) => {
+    const t = e.tally ?? { yes: 0, no: 0, abstain: 0 };
+    return {
+      date: e.date,
+      title: short(e.title),
+      outcome: outcomeLabel(e.outcome ?? "", ctx.lang),
+      tally: `${t.yes}–${t.no}–${t.abstain}`,
+    };
+  });
   return {
     tool: "voteSearch",
     domain: "people",

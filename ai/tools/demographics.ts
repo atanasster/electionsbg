@@ -172,8 +172,10 @@ export const demographicCleavages = async (
   // most polarizing metrics first (widest spread of r across parties)
   const ranked = [...d.rows].sort((a, b) => b.spread - a.spread);
   const top = ranked.slice(0, 12);
-  // for each metric, name the most-positive and most-negative party
-  const partyAt = (i: number): string => d.parties[i]?.nickName ?? `#${i}`;
+  // for each metric, name the most-positive and most-negative party. Only label
+  // a side when the correlation actually has that sign (else "—"), so the
+  // "Strongest (+)" column never names a party whose r is negative.
+  const partyAt = (i: number): string => d.parties[i]?.nickName ?? "—";
   const extremes = (rs: number[]): { pos: string; neg: string } => {
     let hi = 0;
     let lo = 0;
@@ -181,7 +183,10 @@ export const demographicCleavages = async (
       if (r > rs[hi]) hi = i;
       if (r < rs[lo]) lo = i;
     });
-    return { pos: partyAt(hi), neg: partyAt(lo) };
+    return {
+      pos: rs[hi] > 0 ? partyAt(hi) : "—",
+      neg: rs[lo] < 0 ? partyAt(lo) : "—",
+    };
   };
   const rows: Row[] = top.map((r) => {
     const e = extremes(r.rs);
@@ -216,7 +221,10 @@ export const demographicCleavages = async (
       most_divisive: div
         ? `${metricLabel(div.metric, ctx.lang)} (Δr=${round2(div.spread)})`
         : "—",
-      parties: d.parties.map((p) => p.nickName).join(", "),
+      parties: d.parties
+        .slice(0, 6)
+        .map((p) => p.nickName)
+        .join(", "),
     },
     provenance: [`${election}/dashboard/demographic_cleavages.json`],
   };
