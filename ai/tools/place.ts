@@ -90,7 +90,7 @@ const norm = (s: string): string =>
 
 let muniCache: Muni[] | null = null;
 
-const loadMunis = async (): Promise<Muni[]> => {
+export const loadMunis = async (): Promise<Muni[]> => {
   if (muniCache) return muniCache;
   const raw = await fetchData<
     {

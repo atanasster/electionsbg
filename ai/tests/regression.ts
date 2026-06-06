@@ -351,6 +351,38 @@ const CASES: Case[] = [
     kind: "series",
     facts: { oblast: "Варна" },
   },
+  // ---- ranking across a tier (slice the whole level, not one place) ----------
+  {
+    q: "кои общини са с най-висока безработица?",
+    tool: "rankPlaces",
+    kind: "table",
+    facts: { indicator: "безработица", order: "най-високи", level: "общини" },
+  },
+  {
+    q: "коя област е с най-висок БВП на човек?",
+    tool: "rankPlaces",
+    kind: "table",
+    facts: { level: "области" },
+  },
+  {
+    q: "топ 5 области по нетна миграция",
+    tool: "rankPlaces",
+    kind: "table",
+    minRows: 5,
+    facts: { level: "области" },
+  },
+  {
+    q: "коя е най-прозрачната община?",
+    tool: "rankPlaces",
+    kind: "table",
+    facts: { indicator: "Прозрачност" },
+  },
+  {
+    q: "кои общини са с най-нисък среден успех на матурите?",
+    tool: "rankPlaces",
+    kind: "table",
+    facts: { order: "най-ниски" },
+  },
   {
     q: "Колко прозрачна е община Русе?",
     tool: "transparencyScore",

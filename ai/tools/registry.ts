@@ -46,6 +46,7 @@ import {
 import { governanceProfile, procurementBySettlement } from "./profile";
 import {
   localTaxes,
+  rankPlaces,
   regionIndicator,
   subnationalIndicator,
   transparencyScore,
@@ -924,6 +925,38 @@ export const TOOLS: ToolDef[] = [
       { bg: "Каква е безработицата в Сливен?", en: "Unemployment in Sliven?" },
     ],
     run: subnationalIndicator,
+  },
+  {
+    name: "rankPlaces",
+    domain: "indicators",
+    description: {
+      bg: "Класация на области/общини по показател (най-високи/най-ниски, топ N).",
+      en: "Rank oblasts/municipalities by an indicator (highest/lowest, top N).",
+    },
+    params: [
+      {
+        name: "indicator",
+        type: "indicator",
+        required: true,
+        description: { bg: "Показател + посока", en: "Indicator + direction" },
+      },
+      { name: "n", type: "count", description: { bg: "Брой", en: "How many" } },
+    ],
+    examples: [
+      {
+        bg: "Кои общини са с най-висока безработица?",
+        en: "Which municipalities have the highest unemployment?",
+      },
+      {
+        bg: "Коя област е с най-висок БВП на човек?",
+        en: "Which oblast has the highest GDP per capita?",
+      },
+      {
+        bg: "Коя е най-прозрачната община?",
+        en: "Which municipality is the most transparent?",
+      },
+    ],
+    run: rankPlaces,
   },
   {
     name: "regionIndicator",

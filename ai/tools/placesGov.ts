@@ -2,7 +2,13 @@
 // LISI transparency, local taxes). All resolve a place via place.ts.
 
 import { fetchData } from "./dataClient";
-import { resolveMunicipality, resolveOblast } from "./place";
+import { fmtInt } from "./format";
+import {
+  loadMunis,
+  OBLASTS,
+  resolveMunicipality,
+  resolveOblast,
+} from "./place";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
 // LISI + local-taxes shards key Sofia as SOF00 (not the synthetic SOF).
@@ -12,10 +18,11 @@ const govCode = (obshtina: string): string =>
 // ---- sub-national indicators (per município) --------------------------------
 
 const SUBNAT_ALIASES: Record<string, string> = {
-  безработица: "unemployment",
+  безработиц: "unemployment",
   unemployment: "unemployment",
-  матура: "dzi",
+  матур: "dzi",
   дзи: "dzi",
+  успех: "dzi",
   matura: "dzi",
   dzi: "dzi",
   миграция: "netMigration",
@@ -329,6 +336,152 @@ export const localTaxes = async (
       "local_taxes/index.json",
       `local_taxes/${govCode(place.obshtina)}.json`,
     ],
+  };
+};
+
+// ---- rank places by a governance indicator (slice across a whole tier) ------
+// "which oblast/município has the highest/lowest X", "top 5 by Y". Covers oblast
+// (regional.json), município (indicators.json) and LISI transparency.
+
+const RANK_ASC =
+  /най-ниск|най-нисъ|най-малк|най-слаб|най-малко|най-бедн|най-непрозрач|lowest|least|worst|smallest|poorest|bottom/;
+const RANK_OBLAST = /област|региони|region|oblast|нутс|nuts/;
+
+export const rankPlaces = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const lang = ctx.lang;
+  const q = String(args.indicator ?? "").toLowerCase();
+  const asc = RANK_ASC.test(q);
+  const n = Math.max(3, Math.min(Number(args.n) || 8, 20));
+  const isGdpWord = /богат|rich|беден|бедн|poor|wealth/.test(q);
+  const isTransparency = /прозрачн|transparency|lisi|интегритет/.test(q);
+  const wantOblast = RANK_OBLAST.test(q);
+
+  // resolve dataset + indicator key
+  let dataset: "muni" | "oblast" | "lisi";
+  let key = "";
+  if (isTransparency) {
+    dataset = "lisi";
+  } else if (wantOblast) {
+    dataset = "oblast";
+    key = resolveRegionKey(q) || (isGdpWord ? "gdpPerCapita" : "gdpPerCapita");
+  } else {
+    const muniKey = resolveSubnatKey(q);
+    if (muniKey) {
+      dataset = "muni";
+      key = muniKey;
+    } else {
+      const regKey = resolveRegionKey(q) || (isGdpWord ? "gdpPerCapita" : "");
+      if (regKey) {
+        dataset = "oblast";
+        key = regKey;
+      } else {
+        dataset = "muni";
+        key = "unemployment";
+      }
+    }
+  }
+
+  const latest = (pts: IndPoint[]): number | null =>
+    pts.length ? pts[pts.length - 1].value : null;
+
+  let ranked: { name: string; value: number }[] = [];
+  let label = "";
+  let unit = "";
+  let provenance = "";
+  let level = "";
+
+  if (dataset === "lisi") {
+    const d = await fetchData<LisiData>("/municipal_transparency/index.json");
+    const munis = await loadMunis();
+    const nameByCode = new Map(munis.map((m) => [m.obshtina, m.name]));
+    nameByCode.set("SOF00", "Столична община");
+    ranked = Object.entries(d.scoresByObshtina)
+      .map(([code, s]) => ({
+        name: nameByCode.get(code) ?? code,
+        value: s.composite,
+      }))
+      .filter((r) => Number.isFinite(r.value));
+    label = lang === "bg" ? "Прозрачност (LISI)" : "Transparency (LISI)";
+    provenance = "municipal_transparency/index.json";
+    level = lang === "bg" ? "общини (областни центрове)" : "oblast centres";
+  } else if (dataset === "oblast") {
+    const d = await fetchData<RegData>("/regional.json");
+    const meta = d.indicators[key];
+    label = meta ? (lang === "bg" ? meta.titleBg : meta.titleEn) : key;
+    unit = (lang === "bg" ? meta?.unitLabelBg : meta?.unitLabelEn) ?? "";
+    ranked = Object.entries(d.series[key] ?? {})
+      .map(([code, pts]) => ({
+        name: OBLASTS[code]?.[lang] ?? code,
+        value: latest(pts) ?? NaN,
+      }))
+      .filter((r) => Number.isFinite(r.value));
+    provenance = "regional.json";
+    level = lang === "bg" ? "области" : "oblasts";
+  } else {
+    const d = await fetchData<IndData>("/indicators.json");
+    const meta = d.indicators[key];
+    label = meta ? (lang === "bg" ? meta.labelBg : meta.labelEn) : key;
+    unit = (lang === "bg" ? meta?.unitBg : meta?.unitEn) ?? "";
+    const munis = await loadMunis();
+    const nameByCode = new Map(munis.map((m) => [m.obshtina, m.name]));
+    ranked = Object.entries(d.series[key] ?? {})
+      .map(([code, pts]) => ({
+        name: nameByCode.get(code) ?? code,
+        value: latest(pts) ?? NaN,
+      }))
+      .filter((r) => Number.isFinite(r.value));
+    provenance = "indicators.json";
+    level = lang === "bg" ? "общини" : "municipalities";
+  }
+
+  ranked.sort((a, b) => (asc ? a.value - b.value : b.value - a.value));
+  const top = ranked.slice(0, n);
+  const fmtVal = (v: number): string =>
+    `${Math.abs(v) >= 1000 ? fmtInt(Math.round(v), lang) : v.toLocaleString(lang === "bg" ? "bg-BG" : "en-US")}${unit ? ` ${unit}` : ""}`;
+
+  const dir =
+    lang === "bg"
+      ? asc
+        ? "най-ниски"
+        : "най-високи"
+      : asc
+        ? "lowest"
+        : "highest";
+
+  return {
+    tool: "rankPlaces",
+    domain: "indicators",
+    kind: "table",
+    title:
+      lang === "bg"
+        ? `Класация: ${label} — ${dir} (${level})`
+        : `Ranking: ${label} — ${dir} (${level})`,
+    columns: [
+      { key: "rank", label: "#", numeric: true, format: "int" },
+      { key: "place", label: lang === "bg" ? "Място" : "Place" },
+      {
+        key: "value",
+        label: unit || label,
+        numeric: true,
+      },
+    ],
+    rows: top.map((r, i) => ({
+      rank: i + 1,
+      place: r.name,
+      value: fmtVal(r.value),
+    })),
+    viz: "none",
+    facts: {
+      indicator: label,
+      level,
+      order: dir,
+      leader: top[0] ? `${top[0].name}: ${fmtVal(top[0].value)}` : "—",
+      ranked: ranked.length,
+    },
+    provenance: [provenance],
   };
 };
 

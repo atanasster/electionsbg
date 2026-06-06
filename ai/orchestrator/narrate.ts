@@ -178,6 +178,10 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `${f(env, "indicator")} (${f(env, "oblast")}): ${f(env, "latest_value")} (${f(env, "latest_year")}).`
         : `${f(env, "indicator")} (${f(env, "oblast")}): ${f(env, "latest_value")} (${f(env, "latest_year")}).`;
+    case "rankPlaces":
+      return lang === "bg"
+        ? `${f(env, "indicator")} — ${f(env, "order")} ${f(env, "level")}. Начело: ${f(env, "leader")} (от ${f(env, "ranked")}).`
+        : `${f(env, "indicator")} — ${f(env, "order")} ${f(env, "level")}. Top: ${f(env, "leader")} (of ${f(env, "ranked")}).`;
     case "transparencyScore":
       if (env.facts.composite == null) return env.title;
       return lang === "bg"

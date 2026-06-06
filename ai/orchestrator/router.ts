@@ -475,6 +475,54 @@ export const route = (question: string, ctx: ToolContext): Route => {
     if (place) return { tool: "airQuality", args: { place } };
   }
 
+  // 1e1. ranking across a whole tier ("which oblast/община has the highest X",
+  // "top 5 by Y") — a superlative intent + a rankable indicator. Runs before the
+  // per-place indicator rules, which need a specific place.
+  if (
+    has(
+      q,
+      "най-висок",
+      "най-голям",
+      "най-много",
+      "най-богат",
+      "най-нисък",
+      "най-ниска",
+      "най-малк",
+      "най-слаб",
+      "най-малко",
+      "най-бедн",
+      "най-прозрачн",
+      "най-непрозрач",
+      "топ ",
+      "класаци",
+      "highest",
+      "lowest",
+      "most ",
+      "least ",
+      "top ",
+      "largest",
+      "smallest",
+      "richest",
+      "poorest",
+      "ranking",
+    )
+  ) {
+    const areaCtx = has(q, "област", "region", "oblast", "община", "общин");
+    const rankInd =
+      resolveSubnatKey(q) ||
+      resolveRegionKey(q) ||
+      (has(q, "прозрачн", "transparency", "lisi", "интегритет")
+        ? "transparency"
+        : has(q, "богат", "rich", "беден", "бедн", "poor") && areaCtx
+          ? "gdpPerCapita"
+          : undefined);
+    if (rankInd)
+      return {
+        tool: "rankPlaces",
+        args: count ? { indicator: q, n: count } : { indicator: q },
+      };
+  }
+
   // 1e2. governance — place-based indicators (before macro: a named place wins)
   if (has(q, "прозрачн", "transparency", "lisi", "интегритет")) {
     const place = extractPlace(q);
