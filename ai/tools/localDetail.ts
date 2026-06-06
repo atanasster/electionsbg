@@ -94,6 +94,107 @@ export const localMayorHistory = async (
   };
 };
 
+// Sub-municipal mayors: Sofia районs (bundle.districts) or a município's
+// кметства / settlement mayors (bundle.kmetstva). Each entry carries candidates
+// with an isElected flag. Answers "районните кметове на София", "кметовете на
+// кметствата в Асеновград".
+type SubMayorCand = {
+  candidateName: string;
+  localPartyName: string;
+  isElected?: boolean;
+  votes?: number;
+};
+type SubArea = {
+  districtName?: string;
+  kmetstvoName?: string;
+  candidates?: SubMayorCand[];
+};
+
+export const localSubMayors = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const cycle = resolveLocalCycle(args.cycle as string | undefined);
+  const place = await resolveMunicipality(String(args.place ?? ""));
+  if (!place) return noMuni("localSubMayors", String(args.place ?? ""), ctx);
+  const b = await fetchLocalMuni(cycle, place.obshtina);
+  const districts = (b.districts ?? []) as SubArea[];
+  const kmetstva = (b.kmetstva ?? []) as SubArea[];
+  const useDistricts = districts.length > 0; // Sofia районs
+  const entries = useDistricts ? districts : kmetstva;
+  const level = useDistricts
+    ? ctx.lang === "bg"
+      ? "районни кметове"
+      : "district mayors"
+    : ctx.lang === "bg"
+      ? "кметове на кметства"
+      : "settlement mayors";
+  if (!entries.length) {
+    return {
+      tool: "localSubMayors",
+      domain: "local",
+      kind: "scalar",
+      title:
+        ctx.lang === "bg"
+          ? `Няма райони/кметства за ${place.name}`
+          : `No districts/settlements for ${place.nameEn}`,
+      viz: "none",
+      facts: { place: place.name },
+      provenance: [`${cycle}/municipalities/${place.obshtina}.json`],
+    };
+  }
+  const rows: Row[] = entries
+    .map((e) => {
+      const cands = e.candidates ?? [];
+      const won =
+        cands.find((c) => c.isElected) ??
+        [...cands].sort((x, y) => (y.votes ?? 0) - (x.votes ?? 0))[0];
+      return {
+        area: String(e.districtName ?? e.kmetstvoName ?? ""),
+        mayor: won?.candidateName ?? "—",
+        party: won?.localPartyName ?? "—",
+      };
+    })
+    .filter((r) => r.area)
+    .sort((a, b2) => String(a.area).localeCompare(String(b2.area), "bg"));
+  const shown = rows.slice(0, 80);
+  return {
+    tool: "localSubMayors",
+    domain: "local",
+    kind: "table",
+    title:
+      ctx.lang === "bg"
+        ? `${useDistricts ? "Районни кметове" : "Кметове на кметствата"} — ${place.name} (${localCycleYear(cycle)})`
+        : `${useDistricts ? "District mayors" : "Settlement mayors"} — ${place.nameEn} (${localCycleYear(cycle)})`,
+    columns: [
+      {
+        key: "area",
+        label: useDistricts
+          ? ctx.lang === "bg"
+            ? "Район"
+            : "District"
+          : ctx.lang === "bg"
+            ? "Кметство"
+            : "Settlement",
+      },
+      { key: "mayor", label: ctx.lang === "bg" ? "Кмет" : "Mayor" },
+      {
+        key: "party",
+        label: ctx.lang === "bg" ? "Партия / коалиция" : "Party / coalition",
+      },
+    ],
+    rows: shown,
+    viz: "none",
+    facts: {
+      place: place.name,
+      level,
+      total: rows.length,
+      shown: shown.length,
+    },
+    provenance: [`${cycle}/municipalities/${place.obshtina}.json`],
+  };
+};
+
 export const localMayorRace = async (
   args: ToolArgs,
   ctx: ToolContext,

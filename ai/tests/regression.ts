@@ -58,6 +58,21 @@ const CASES: Case[] = [
     facts: { elections_count: { num: 7 } },
   },
   {
+    // "7 years" is a DATE window, not 7 elections: it covers since 2019, which
+    // holds 8 elections (the 2021-04-04 election the 7-elections slice drops).
+    q: "Какъв е процентът машинно гласуване в последните 7 години?",
+    tool: "machineVoteSeries",
+    kind: "series",
+    facts: { window_years: { num: 7 }, elections_count: { num: 8 } },
+  },
+  {
+    q: "turnout over the last 10 years",
+    lang: "en",
+    tool: "turnoutSeries",
+    kind: "series",
+    facts: { window_years: { num: 10 } },
+  },
+  {
     q: "Как се променя избирателната активност през годините?",
     tool: "turnoutSeries",
     kind: "series",
@@ -215,6 +230,22 @@ const CASES: Case[] = [
     tool: "comparePlaces",
     kind: "table",
     minRows: 3,
+  },
+  {
+    // Sofia районs (districts) — sub-municipal mayors
+    q: "Кои са районните кметове на София?",
+    tool: "localSubMayors",
+    kind: "table",
+    minRows: 20,
+    facts: { level: "районни" },
+  },
+  {
+    // a regular município's settlement (kmetstvo) mayors
+    q: "Кметове на кметствата в Асеновград",
+    tool: "localSubMayors",
+    kind: "table",
+    minRows: 10,
+    facts: { place: "Асеновград" },
   },
   // ---- fiscal ----------------------------------------------------------------
   {

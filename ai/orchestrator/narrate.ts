@@ -8,6 +8,16 @@ import type { Envelope, Lang } from "../tools/types";
 
 const f = (e: Envelope, key: string): string => String(e.facts[key] ?? "");
 
+// Scope phrase for a trend series: a date window ("last N years") when one was
+// requested, otherwise the election count ("last N elections").
+const seriesScope = (e: Envelope, lang: Lang): string => {
+  const wy = e.facts.window_years;
+  if (typeof wy === "number")
+    return lang === "bg" ? `последните ${wy} години` : `last ${wy} years`;
+  const n = f(e, "elections_count");
+  return lang === "bg" ? `последните ${n} избора` : `last ${n} elections`;
+};
+
 export const narrate = (env: Envelope, lang: Lang): string => {
   switch (env.tool) {
     case "machineVoteSeries": {
@@ -26,15 +36,17 @@ export const narrate = (env: Envelope, lang: Lang): string => {
               ? `up ${mag} pts`
               : `down ${mag} pts`
           : "";
+      const scope = seriesScope(env, lang);
       return lang === "bg"
-        ? `Делът на машинното гласуване в последните ${f(env, "elections_count")} избора завършва на ${last} (${dir} спрямо началото).`
-        : `Machine voting across the last ${f(env, "elections_count")} elections ends at ${last} (${dir} from the start).`;
+        ? `Делът на машинното гласуване в ${scope} завършва на ${last} (${dir} спрямо началото).`
+        : `Machine voting across the ${scope} ends at ${last} (${dir} from the start).`;
     }
     case "turnoutSeries": {
       const last = f(env, "latest");
+      const scope = seriesScope(env, lang);
       return lang === "bg"
-        ? `Избирателната активност в последните ${f(env, "elections_count")} избора завършва на ${last}.`
-        : `Voter turnout across the last ${f(env, "elections_count")} elections ends at ${last}.`;
+        ? `Избирателната активност в ${scope} завършва на ${last}.`
+        : `Voter turnout across the ${scope} ends at ${last}.`;
     }
     case "machineVoteShare":
       return lang === "bg"
@@ -111,6 +123,11 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Сравнение на ${f(env, "a")} и ${f(env, "b")} по ${f(env, "compared")} показателя.`
         : `Comparison of ${f(env, "a")} and ${f(env, "b")} across ${f(env, "compared")} indicators.`;
+    case "localSubMayors":
+      if (env.facts.total == null) return env.title;
+      return lang === "bg"
+        ? `${f(env, "place")}: ${f(env, "total")} ${f(env, "level")} (показани ${f(env, "shown")}).`
+        : `${f(env, "place")}: ${f(env, "total")} ${f(env, "level")} (showing ${f(env, "shown")}).`;
     case "localMunicipality":
       if (!env.facts.municipality)
         return lang === "bg"

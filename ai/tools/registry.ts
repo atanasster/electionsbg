@@ -33,6 +33,7 @@ import {
   localCouncil,
   localMayorHistory,
   localMayorRace,
+  localSubMayors,
 } from "./localDetail";
 import { macroByCategory, macroIndicator, macroOverview } from "./macro";
 import {
@@ -230,11 +231,23 @@ export const TOOLS: ToolDef[] = [
         default: 7,
         description: { bg: "Брой избори", en: "Number of elections" },
       },
+      {
+        name: "years",
+        type: "count",
+        description: {
+          bg: "Брой години назад (времеви прозорец, не брой избори)",
+          en: "Number of years back (date window, not an election count)",
+        },
+      },
     ],
     examples: [
       {
         bg: "Машинно гласуване в последните 7 избора?",
         en: "Machine voting in the last 7 elections?",
+      },
+      {
+        bg: "Какъв е процентът машинно гласуване в последните 7 години?",
+        en: "What's the machine-voting % over the last 7 years?",
       },
     ],
     run: machineVoteSeries,
@@ -253,11 +266,23 @@ export const TOOLS: ToolDef[] = [
         default: 7,
         description: { bg: "Брой избори", en: "Number of elections" },
       },
+      {
+        name: "years",
+        type: "count",
+        description: {
+          bg: "Брой години назад (времеви прозорец, не брой избори)",
+          en: "Number of years back (date window, not an election count)",
+        },
+      },
     ],
     examples: [
       {
         bg: "Как се променя активността през годините?",
         en: "How has turnout changed over the years?",
+      },
+      {
+        bg: "Каква е активността през последните 7 години?",
+        en: "What's the turnout over the last 7 years?",
       },
     ],
     run: turnoutSeries,
@@ -553,6 +578,33 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: localMayorHistory,
+  },
+  {
+    name: "localSubMayors",
+    domain: "local",
+    description: {
+      bg: "Кметове на районите (София) или на кметствата в община.",
+      en: "District mayors (Sofia) or settlement (kmetstvo) mayors of a município.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои са районните кметове на София?",
+        en: "Who are Sofia's district mayors?",
+      },
+      {
+        bg: "Кметове на кметствата в Асеновград",
+        en: "Settlement mayors in Asenovgrad",
+      },
+    ],
+    run: localSubMayors,
   },
   {
     name: "localCouncil",

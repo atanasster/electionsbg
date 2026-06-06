@@ -21,10 +21,32 @@ const clampN = (raw: unknown): number => {
   return Math.min(n, total);
 };
 
+const parseYears = (raw: unknown): number | undefined => {
+  const n = typeof raw === "number" ? raw : parseInt(String(raw ?? ""), 10);
+  return Number.isFinite(n) && n > 0 ? n : undefined;
+};
+
+// Elections within the last `years` years of the most recent election, kept in
+// chronological order. "Last 7 years" is a DATE window, not a slice: it can hold
+// more (or fewer) elections than "last 7 elections" since several are held a year.
+// Election names are zero-padded "YYYY_MM_DD", so a lexical compare is a date
+// compare — the cutoff keeps the same MM_DD and rolls the year back by `years`.
+const pickByYears = <T extends { name: string }>(
+  chrono: T[],
+  years: number,
+): T[] => {
+  const latest = chrono[chrono.length - 1]?.name ?? "";
+  const year = Number(latest.slice(0, 4));
+  if (!year) return chrono;
+  const cutoff = `${year - years}${latest.slice(4)}`; // "YYYY_MM_DD"
+  return chrono.filter((e) => e.name >= cutoff);
+};
+
 // Shared builder for a single-metric cross-election line series.
 const buildMetricSeries = (opts: {
   tool: string;
   n: number;
+  years?: number;
   lang: ToolContext["lang"];
   seriesKey: string;
   seriesLabel: { bg: string; en: string };
@@ -35,19 +57,28 @@ const buildMetricSeries = (opts: {
   const { lang } = opts;
   let chrono = electionsChrono(); // oldest -> newest
   if (opts.onlyMachineElections) chrono = chrono.filter(hadMachineVoting);
-  // take the last n (most recent) but keep chronological order for the x-axis
-  const picked = chrono.slice(Math.max(0, chrono.length - opts.n));
+  // a years window filters by date; otherwise take the last n (most recent).
+  // either way keep chronological order for the x-axis.
+  const picked =
+    opts.years != null
+      ? pickByYears(chrono, opts.years)
+      : chrono.slice(Math.max(0, chrono.length - opts.n));
 
   // title range: "since <year>" when the series covers the whole history,
-  // otherwise "last N elections"
+  // "last N years" for a date window, otherwise "last N elections"
   const coversAll = picked.length >= chrono.length;
   const startYear = picked[0]?.name.slice(0, 4) ?? "";
   const range = coversAll
     ? { bg: `от ${startYear} насам`, en: `since ${startYear}` }
-    : {
-        bg: `последните ${picked.length} избора`,
-        en: `last ${picked.length} elections`,
-      };
+    : opts.years != null
+      ? {
+          bg: `последните ${opts.years} години`,
+          en: `last ${opts.years} years`,
+        }
+      : {
+          bg: `последните ${picked.length} избора`,
+          en: `last ${picked.length} elections`,
+        };
   const title = `${opts.titleBase[lang]} (${range[lang]})`;
 
   const categories = picked.map((e) => electionShortLabel(e.name, lang));
@@ -66,6 +97,7 @@ const buildMetricSeries = (opts: {
   const facts: Record<string, string | number> = {
     elections_count: picked.length,
   };
+  if (opts.years != null) facts.window_years = opts.years;
   picked.forEach((e) => {
     const v = opts.value(e);
     facts[`${electionFullLabel(e.name, "en")}`] = v == null ? "n/a" : v;
@@ -96,6 +128,7 @@ export const machineVoteSeries = (args: ToolArgs, ctx: ToolContext): Envelope =>
   buildMetricSeries({
     tool: "machineVoteSeries",
     n: clampN(args.n),
+    years: parseYears(args.years),
     lang: ctx.lang,
     seriesKey: "machinePct",
     seriesLabel: { bg: "Машинно гласуване %", en: "Machine voting %" },
@@ -111,6 +144,7 @@ export const turnoutSeries = (args: ToolArgs, ctx: ToolContext): Envelope =>
   buildMetricSeries({
     tool: "turnoutSeries",
     n: clampN(args.n),
+    years: parseYears(args.years),
     lang: ctx.lang,
     seriesKey: "turnoutPct",
     seriesLabel: { bg: "Избирателна активност %", en: "Turnout %" },

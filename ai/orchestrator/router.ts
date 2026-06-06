@@ -116,6 +116,25 @@ const detectCount = (q: string): number | undefined => {
   return n >= 2 && n <= 13 ? n : undefined;
 };
 
+// "последните 7 години" / "last 7 years" — a TIME window, not an election count.
+// Bulgaria holds several elections a year, so "last 7 years" ≠ "last 7 elections":
+// the trend series must filter by DATE, not slice off the last N. The negative
+// lookbehind keeps a 4-digit year ("2019 година") from matching as "19 years".
+const detectYearsWindow = (q: string): number | undefined => {
+  const m = q.match(/(?<!\d)(\d{1,2})\s*(?:годин|years?\b)/);
+  if (!m) return undefined;
+  const n = parseInt(m[1], 10);
+  return n >= 1 && n <= 30 ? n : undefined;
+};
+
+// Trend-series args: a years phrase wins (date window); otherwise a bare count
+// (election count); otherwise empty (full history since 2005).
+const seriesArgs = (q: string, count: number | undefined): ToolArgs => {
+  const years = detectYearsWindow(q);
+  if (years) return { years };
+  return count ? { n: count } : {};
+};
+
 const has = (q: string, ...words: string[]) => words.some((w) => q.includes(w));
 
 const TREND = [
@@ -266,6 +285,13 @@ export const route = (question: string, ctx: ToolContext): Route => {
   }
   if (isLocal) {
     const place = extractPlace(q);
+    // районни / кметствени кметове (Sofia districts or settlement mayors) —
+    // more specific than the mayor-history rule below, so it goes first
+    if (
+      place &&
+      has(q, "район", "district", "кметств", "кметства", "settlement")
+    )
+      return { tool: "localSubMayors", args: { place } };
     // mayors of a NAMED place over time ("последните кметове на София") -> history;
     // "кметове"/"mayors won" with no place -> the national mayors-by-party rollup
     if (
@@ -680,7 +706,7 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // 2. machine voting
   if (isMachine) {
     if (isTrend || !election)
-      return { tool: "machineVoteSeries", args: count ? { n: count } : {} };
+      return { tool: "machineVoteSeries", args: seriesArgs(q, count) };
     return { tool: "machineVoteShare", args: { election } };
   }
 
@@ -690,9 +716,9 @@ export const route = (question: string, ctx: ToolContext): Route => {
     const oblHit = findOblastInText(q);
     if (oblHit) return { tool: "regionHistory", args: { oblast: oblHit.code } };
     if (isTrend && !election)
-      return { tool: "turnoutSeries", args: count ? { n: count } : {} };
+      return { tool: "turnoutSeries", args: seriesArgs(q, count) };
     if (election) return { tool: "turnout", args: { election } };
-    return { tool: "turnoutSeries", args: count ? { n: count } : {} };
+    return { tool: "turnoutSeries", args: seriesArgs(q, count) };
   }
 
   // 4. a specific party
