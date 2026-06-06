@@ -1,6 +1,7 @@
 // Phase B — place-based governance tools (sub-national + regional indicators,
 // LISI transparency, local taxes). All resolve a place via place.ts.
 
+import { pickYearPoint } from "./args";
 import { fetchData } from "./dataClient";
 import { fmtInt } from "./format";
 import {
@@ -84,12 +85,21 @@ export const subnationalIndicator = async (
   }
   const label = ctx.lang === "bg" ? meta.labelBg : meta.labelEn;
   const unit = ctx.lang === "bg" ? meta.unitBg : meta.unitEn;
-  const last = pts[pts.length - 1];
+  // a named year pins the reported point (still draw the full trend + a marker);
+  // an out-of-range year falls back to the latest with an honest note
+  const sel = pickYearPoint(pts, args.year);
+  const point = sel.point ?? pts[pts.length - 1];
+  const pinned = sel.year != null && !sel.missing;
   return {
     tool: "subnationalIndicator",
     domain: "indicators",
     kind: "series",
-    title: `${label} — ${ctx.lang === "bg" ? place.name : place.nameEn}${unit ? ` (${unit})` : ""}`,
+    title: `${label} — ${ctx.lang === "bg" ? place.name : place.nameEn}${unit ? ` (${unit})` : ""}${pinned ? ` (${sel.year})` : ""}`,
+    subtitle: sel.missing
+      ? ctx.lang === "bg"
+        ? `Няма данни за ${sel.year}; показана е ${point.year}.`
+        : `No data for ${sel.year}; showing ${point.year}.`
+      : undefined,
     categories: pts.map((p) => p.year),
     series: [
       {
@@ -99,11 +109,12 @@ export const subnationalIndicator = async (
       },
     ],
     viz: "line",
+    markers: pinned ? [{ x: point.year, label: String(sel.year) }] : undefined,
     facts: {
       place: place.name,
       indicator: label,
-      latest_year: last.year,
-      latest_value: last.value,
+      latest_year: point.year,
+      latest_value: point.value,
     },
     provenance: ["indicators.json"],
   };
@@ -171,12 +182,19 @@ export const regionIndicator = async (
   }
   const title = ctx.lang === "bg" ? meta.titleBg : meta.titleEn;
   const unit = ctx.lang === "bg" ? meta.unitLabelBg : meta.unitLabelEn;
-  const last = pts[pts.length - 1];
+  const sel = pickYearPoint(pts, args.year);
+  const point = sel.point ?? pts[pts.length - 1];
+  const pinned = sel.year != null && !sel.missing;
   return {
     tool: "regionIndicator",
     domain: "indicators",
     kind: "series",
-    title: `${title} — ${obl.name[ctx.lang]}${unit ? ` (${unit})` : ""}`,
+    title: `${title} — ${obl.name[ctx.lang]}${unit ? ` (${unit})` : ""}${pinned ? ` (${sel.year})` : ""}`,
+    subtitle: sel.missing
+      ? ctx.lang === "bg"
+        ? `Няма данни за ${sel.year}; показана е ${point.year}.`
+        : `No data for ${sel.year}; showing ${point.year}.`
+      : undefined,
     categories: pts.map((p) => p.year),
     series: [
       {
@@ -186,11 +204,12 @@ export const regionIndicator = async (
       },
     ],
     viz: "line",
+    markers: pinned ? [{ x: point.year, label: String(sel.year) }] : undefined,
     facts: {
       oblast: obl.name[ctx.lang],
       indicator: title,
-      latest_year: last.year,
-      latest_value: last.value,
+      latest_year: point.year,
+      latest_value: point.value,
     },
     provenance: ["regional.json"],
   };

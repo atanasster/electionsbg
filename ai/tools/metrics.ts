@@ -49,6 +49,7 @@ export const machineVoteShare = (
         ? `Машинно гласуване — ${electionFullLabel(election, "bg")}`
         : `Machine voting — ${electionFullLabel(election, "en")}`,
     viz: "none",
+    ...(pct != null ? { value: pct, valueFormat: "pct" as const } : {}),
     facts: {
       election: electionFullLabel(election, ctx.lang),
       machine_share: fmtPct(pct, ctx.lang),
@@ -73,6 +74,7 @@ export const turnout = (args: ToolArgs, ctx: ToolContext): Envelope => {
         ? `Избирателна активност — ${electionFullLabel(election, "bg")}`
         : `Voter turnout — ${electionFullLabel(election, "en")}`,
     viz: "none",
+    ...(pct != null ? { value: pct, valueFormat: "pct" as const } : {}),
     facts: {
       election: electionFullLabel(election, ctx.lang),
       turnout: fmtPct(pct, ctx.lang),

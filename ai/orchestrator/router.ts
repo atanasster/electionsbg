@@ -100,14 +100,61 @@ const AGENCY_TOKENS = [
   "барометър",
 ];
 
-// A bare year -> the most recent election in that year (heuristic; the LLM will
-// disambiguate multi-election years like 2021 better in M3).
+// Bulgarian + English month-name stems -> month number, used to disambiguate a
+// multi-election year ("юли 2021" -> the July ballot). Matched per whole token
+// (JS \b doesn't work around Cyrillic), so "май" can't hit inside another word.
+const MONTH_STEMS: [string, number][] = [
+  ["януари", 1],
+  ["jan", 1],
+  ["февруари", 2],
+  ["feb", 2],
+  ["март", 3],
+  ["mar", 3],
+  ["април", 4],
+  ["apr", 4],
+  ["май", 5],
+  ["may", 5],
+  ["юни", 6],
+  ["jun", 6],
+  ["юли", 7],
+  ["jul", 7],
+  ["август", 8],
+  ["aug", 8],
+  ["септ", 9],
+  ["sep", 9],
+  ["октом", 10],
+  ["oct", 10],
+  ["ноем", 11],
+  ["nov", 11],
+  ["декем", 12],
+  ["dec", 12],
+];
+
+const detectMonth = (q: string): number | undefined => {
+  const tokens = q.split(/[^a-zа-яё]+/i).filter(Boolean);
+  for (const tok of tokens)
+    for (const [stem, mo] of MONTH_STEMS) if (tok.startsWith(stem)) return mo;
+  return undefined;
+};
+
+// A bare year normally -> the most recent election in that year. But a year that
+// held more than one election (2021, 2024) keeps its ambiguity (return the bare
+// year), so runTool fans it out into a combined comparison — UNLESS a month name
+// pins one ballot ("юли 2021" -> the exact July election).
 const detectElection = (q: string): string | undefined => {
   const m = q.match(/\b(20\d{2})\b/);
   if (!m) return undefined;
   const year = m[1];
   const inYear = ALL_ELECTIONS.filter((e) => e.name.startsWith(year));
-  return inYear.length ? inYear[0].name : undefined; // ALL_ELECTIONS is newest-first
+  if (inYear.length === 0) return undefined;
+  if (inYear.length === 1) return inYear[0].name; // ALL_ELECTIONS is newest-first
+  const mo = detectMonth(q);
+  if (mo) {
+    const mm = String(mo).padStart(2, "0");
+    const hit = inYear.find((e) => e.name.startsWith(`${year}_${mm}`));
+    if (hit) return hit.name;
+  }
+  return year; // bare multi-election year -> combined in runTool
 };
 
 const detectCount = (q: string): number | undefined => {
@@ -168,6 +215,7 @@ const PLACE_STOP = new Set([
   "на",
   "в",
   "във",
+  "през",
   "община",
   "общината",
   "общински",
@@ -216,7 +264,9 @@ const extractPlace = (q: string): string | undefined => {
   const words = q
     .replace(/[?.,!„“”"'`]/g, " ")
     .split(/\s+/)
-    .filter((w) => w && !PLACE_STOP.has(w));
+    // a 4-digit year is a date selector, never a place — drop it so "съветите
+    // през 2019" doesn't treat "2019" as a município name
+    .filter((w) => w && !PLACE_STOP.has(w) && !/^20\d{2}$/.test(w));
   const cand = words.join(" ").trim();
   return cand.length > 1 ? cand : undefined;
 };
@@ -558,12 +608,21 @@ export const route = (question: string, ctx: ToolContext): Route => {
   }
   if (isLocal) {
     const place = extractPlace(q);
+    // A named year selects that local cycle ("2019" -> 2019_10_27_mi, via
+    // resolveLocalCycle). Mayor history & partials span cycles, so they stay
+    // unscoped; every per-cycle snapshot tool gets the cycle.
+    const cyc = q.match(/\b(20\d{2})\b/)?.[0];
+    const withCyc = (a: ToolArgs): ToolArgs => (cyc ? { ...a, cycle: cyc } : a);
     // oblast/province-wide mayors-by-party rollup. Gated on the "област"/province
     // qualifier + a named oblast, so a bare município name ("Пловдив") still
     // falls through to the município tools below.
     if (has(q, "област", "province", "oblast") && has(q, "кмет", "mayor")) {
       const obl = findOblastInText(q);
-      if (obl) return { tool: "localOblastMayors", args: { place: obl.code } };
+      if (obl)
+        return {
+          tool: "localOblastMayors",
+          args: withCyc({ place: obl.code }),
+        };
     }
     // районни / кметствени кметове (Sofia districts or settlement mayors) —
     // more specific than the mayor-history rule below, so it goes first
@@ -571,7 +630,7 @@ export const route = (question: string, ctx: ToolContext): Route => {
       place &&
       has(q, "район", "district", "кметств", "кметства", "settlement")
     )
-      return { tool: "localSubMayors", args: { place } };
+      return { tool: "localSubMayors", args: withCyc({ place }) };
     // mayors of a NAMED place over time ("последните кметове на София") -> history;
     // "кметове"/"mayors won" with no place -> the national mayors-by-party rollup
     if (
@@ -590,24 +649,25 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
       return { tool: "localMayorHistory", args: { place } };
     if (has(q, "кметове", "кметск", "mayors won") && !place)
-      return { tool: "localMayorsWon", args: {} };
+      return { tool: "localMayorsWon", args: withCyc({}) };
     // council: per-place full breakdown if a place is named, else national share
     if (has(q, "съвет", "council") && place)
-      return { tool: "localCouncil", args: { place } };
+      return { tool: "localCouncil", args: withCyc({ place }) };
     if (has(q, "съвет", "council", "гласове"))
-      return { tool: "localCouncilVoteShare", args: {} };
+      return { tool: "localCouncilVoteShare", args: withCyc({}) };
     if (has(q, "кандидат", "candidates", "ran for") && place)
-      return { tool: "localMayorRace", args: { place } };
+      return { tool: "localMayorRace", args: withCyc({ place }) };
     if (has(q, "кмет", "mayor", "община", "municipality") && place)
-      return { tool: "localMunicipality", args: { place } };
-    if (place) return { tool: "localMunicipality", args: { place } };
-    return { tool: "localMayorsWon", args: {} };
+      return { tool: "localMunicipality", args: withCyc({ place }) };
+    if (place) return { tool: "localMunicipality", args: withCyc({ place }) };
+    return { tool: "localMayorsWon", args: withCyc({}) };
   }
 
   // 1c. governance — public finance
-  // optional budget year (2010–2029) for slices that support it
-  const budgetYearMatch = q.match(/\b(20[0-2]\d)\b/);
-  const budgetYear = budgetYearMatch ? Number(budgetYearMatch[1]) : undefined;
+  // optional year (2000–2029) for slices that support one: budget fiscal year,
+  // an indicator's as-of year, a governance profile's as-of year.
+  const promptYearMatch = q.match(/\b(20[0-2]\d)\b/);
+  const promptYear = promptYearMatch ? Number(promptYearMatch[1]) : undefined;
   // pensions / social-security funds -> the NOI pension funds, even when phrased
   // "...в бюджета" (otherwise the generic budget view below would swallow it)
   if (
@@ -620,7 +680,7 @@ export const route = (question: string, ctx: ToolContext): Route => {
   if (gf)
     return {
       tool: "budgetFunction",
-      args: budgetYear ? { category: gf, year: budgetYear } : { category: gf },
+      args: promptYear ? { category: gf, year: promptYear } : { category: gf },
     };
   if (has(q, "бюджет", "budget")) {
     if (has(q, "министерств", "ministry", "ведомств"))
@@ -642,9 +702,12 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
       return {
         tool: "budgetByFunction",
-        args: budgetYear ? { year: budgetYear } : {},
+        args: promptYear ? { year: promptYear } : {},
       };
-    return { tool: "budgetOverview", args: {} };
+    return {
+      tool: "budgetOverview",
+      args: promptYear ? { year: promptYear } : {},
+    };
   }
   // ministry budget without the word "бюджет"
   if (
@@ -797,7 +860,11 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
   ) {
     const place = extractPlace(q);
-    if (place) return { tool: "governanceProfile", args: { place } };
+    if (place)
+      return {
+        tool: "governanceProfile",
+        args: promptYear ? { place, year: promptYear } : { place },
+      };
   }
   // GRAO registered population — only on explicit registry terms (plain
   // "население/живеят" stays with the 2021 census below).
@@ -904,7 +971,12 @@ export const route = (question: string, ctx: ToolContext): Route => {
   ) {
     const place = extractPlace(q);
     if (place)
-      return { tool: "subnationalIndicator", args: { place, indicator: q } };
+      return {
+        tool: "subnationalIndicator",
+        args: promptYear
+          ? { place, indicator: q, year: promptYear }
+          : { place, indicator: q },
+      };
   }
   // per-oblast indicator (e.g. "БВП на човек във Варна") — needs an oblast +
   // a region-level signal so it doesn't shadow the município subnational case
@@ -924,7 +996,9 @@ export const route = (question: string, ctx: ToolContext): Route => {
     if (oblHit)
       return {
         tool: "regionIndicator",
-        args: { oblast: oblHit.code, indicator: q },
+        args: promptYear
+          ? { oblast: oblHit.code, indicator: q, year: promptYear }
+          : { oblast: oblHit.code, indicator: q },
       };
   }
 
@@ -962,7 +1036,11 @@ export const route = (question: string, ctx: ToolContext): Route => {
   )
     return { tool: "macroByCategory", args: { category: q } };
   const macroKey = resolveMacroKey(q);
-  if (macroKey) return { tool: "macroIndicator", args: { indicator: q } };
+  if (macroKey)
+    return {
+      tool: "macroIndicator",
+      args: promptYear ? { indicator: q, year: promptYear } : { indicator: q },
+    };
   if (has(q, "икономик", "economy", "макро", "macro"))
     return { tool: "macroOverview", args: {} };
 

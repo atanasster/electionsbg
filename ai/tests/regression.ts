@@ -84,6 +84,15 @@ const CASES: Case[] = [
     minRows: 5,
   },
   {
+    // bare multi-election year routed end-to-end -> combined results table
+    // (party rows × one column per ballot)
+    q: "Какви са резултатите от изборите 2024?",
+    tool: "nationalResults",
+    kind: "table",
+    minRows: 2,
+    facts: { year: /2024/, elections_count: { num: 2 } },
+  },
+  {
     q: "Колко гласа взе ГЕРБ?",
     tool: "partyResult",
     kind: "scalar",
@@ -214,6 +223,14 @@ const CASES: Case[] = [
     facts: { leader: "ГЕРБ" },
   },
   {
+    // a named year selects that local cycle — previously the router dropped the
+    // year and resolveLocalCycle silently answered for the latest (2023) cycle.
+    q: "Кой спечели общинските съвети през 2019?",
+    tool: "localCouncilVoteShare",
+    kind: "table",
+    facts: { cycle: "2019" },
+  },
+  {
     q: "Колко кмета спечели ГЕРБ на местните избори?",
     tool: "localMayorsWon",
     facts: { leader: "ГЕРБ" },
@@ -304,10 +321,31 @@ const CASES: Case[] = [
     minRows: 4,
   },
   {
+    // a named fiscal year selects that year's execution (router -> args.year)
+    q: "Какъв е държавният бюджет за 2022?",
+    tool: "budgetOverview",
+    kind: "table",
+    facts: { year: { num: 2022 } },
+  },
+  {
     q: "За какво се харчи бюджетът?",
     tool: "budgetByFunction",
     kind: "table",
     minRows: 5,
+  },
+  {
+    // year selection on the functional breakdown
+    q: "За какво се харчи бюджетът през 2021?",
+    tool: "budgetByFunction",
+    kind: "table",
+    facts: { year: { num: 2021 } },
+  },
+  {
+    // year selection on a single function slice
+    q: "Колко се отделя за здравеопазване през 2022?",
+    tool: "budgetFunction",
+    kind: "series",
+    facts: { year: { num: 2022 }, function: "Здравеопазв" },
   },
   {
     q: "Покажи изпълнението на бюджета по месеци",
@@ -449,6 +487,13 @@ const CASES: Case[] = [
     kind: "series",
     facts: { indicator: "нфлация" },
   },
+  {
+    // a named year pins the indicator's as-of point (still draws the full trend)
+    q: "Каква беше инфлацията през 2019?",
+    tool: "macroIndicator",
+    kind: "series",
+    facts: { latest_period: /2019/ },
+  },
   { q: "Как е икономиката?", tool: "macroOverview", kind: "table", minRows: 3 },
   {
     q: "Покажи показателите за управление",
@@ -463,10 +508,24 @@ const CASES: Case[] = [
     facts: { place: "Сливен" },
   },
   {
+    // per-município indicator pinned to a year
+    q: "Каква беше безработицата в Сливен през 2019?",
+    tool: "subnationalIndicator",
+    kind: "series",
+    facts: { place: "Сливен", latest_year: { num: 2019 } },
+  },
+  {
     q: "Какъв е БВП на човек във Варна?",
     tool: "regionIndicator",
     kind: "series",
     facts: { oblast: "Варна" },
+  },
+  {
+    // per-oblast indicator pinned to a year
+    q: "Какъв беше БВП на човек във Варна през 2020?",
+    tool: "regionIndicator",
+    kind: "series",
+    facts: { oblast: "Варна", latest_year: { num: 2020 } },
   },
   // ---- ranking across a tier (slice the whole level, not one place) ----------
   {
@@ -518,6 +577,14 @@ const CASES: Case[] = [
     tool: "governanceProfile",
     kind: "scalar",
     facts: { population: { num: 51881 } },
+  },
+  {
+    // as-of year re-anchors the year-aware slices (local cycle + indicators) —
+    // the 2019 mayor/turnout/unemployment, not the latest
+    q: "Разкажи ми за Габрово през 2019",
+    tool: "governanceProfile",
+    kind: "scalar",
+    facts: { local_turnout: /\(2019\)/, unemployment: /\(2019\)/ },
   },
   {
     q: "Колко жители има Видин?",
@@ -638,12 +705,23 @@ const CASES: Case[] = [
     tool: "machineVoteSeries",
     kind: "series",
   },
-  // turnout disambiguation
+  // turnout disambiguation: 2021 held 3 elections, so a bare year fans out into
+  // one combined comparison (a bar per ballot) instead of silently picking Nov.
   {
     q: "turnout in 2021",
     lang: "en",
     tool: "turnout",
-    facts: { turnout: /\d/ },
+    kind: "series",
+    minRows: 3,
+    facts: { year: /2021/, elections_count: { num: 3 } },
+  },
+  {
+    // a month NAME pins one ballot of a multi-election year via the keyword
+    // router's detectMonth — must resolve to that ballot, NOT fan out
+    q: "Каква беше активността през юли 2021?",
+    tool: "turnout",
+    kind: "scalar",
+    facts: { turnout: /\d/, election: "2021" },
   },
   { q: "избирателна активност", tool: "turnoutSeries", kind: "series" },
   // party phrasings
@@ -1014,12 +1092,13 @@ const ARG_CASES: ArgCase[] = [
     facts: { election: "2021" },
   },
   {
-    // bare 2021 (3 elections) -> most recent in the year (Nov), like the router
-    label: 'turnout election:"2021" -> most recent 2021',
+    // bare 2021 (3 elections) -> combined comparison across the year's ballots
+    // (a scalar metric fans out into a bar series), not the newest alone.
+    label: 'turnout election:"2021" -> combined 2021',
     tool: "turnout",
     args: { election: "2021" },
     election: "2026_04_19",
-    facts: { election: "2021" },
+    facts: { year: /2021/, elections_count: { num: 3 } },
   },
   {
     // national results keyed by a bare year (same resolver, different tool)
@@ -1028,6 +1107,23 @@ const ARG_CASES: ArgCase[] = [
     args: { election: "2022" },
     election: "2026_04_19",
     facts: { election: "2022" },
+  },
+  {
+    // bare multi-election year on a TABLE tool -> aligned comparison table
+    // (party rows × one votes column per ballot)
+    label: 'nationalResults election:"2024" -> combined 2024',
+    tool: "nationalResults",
+    args: { election: "2024" },
+    election: "2026_04_19",
+    facts: { year: /2024/, elections_count: { num: 2 } },
+  },
+  {
+    // LOCAL: a bare year resolves to that year's cycle (2015 -> 2015_10_25_mi),
+    // not the latest — mirrors resolveElection for the municipal data tree.
+    label: 'localCouncilVoteShare cycle:"2015"',
+    tool: "localCouncilVoteShare",
+    args: { cycle: "2015" },
+    facts: { cycle: "2015" },
   },
 ];
 

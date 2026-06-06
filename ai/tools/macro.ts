@@ -1,5 +1,6 @@
 // Governance — macro indicator tools (national Eurostat/WB time series).
 
+import { pickYearPoint } from "./args";
 import { fetchData } from "./dataClient";
 import { fmtInt } from "./format";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
@@ -123,32 +124,44 @@ export const macroIndicator = async (
       provenance: ["macro.json"],
     };
   }
+  // a named year pins the reported point (from the FULL series, so an older year
+  // isn't lost to the default window); when pinned we show the whole series so
+  // the marker is visible, else the last `take` points.
+  const sel = pickYearPoint(series, args.year);
+  const pinned = sel.year != null && !sel.missing;
   const n =
     typeof args.n === "number" ? args.n : parseInt(String(args.n ?? ""), 10);
   const take = Number.isFinite(n) && n > 0 ? Math.min(n, 60) : 24;
-  const pts = series.slice(Math.max(0, series.length - take));
+  const pts = pinned ? series : series.slice(Math.max(0, series.length - take));
   const title = ctx.lang === "bg" ? meta.titleBg : meta.titleEn;
   const unit = ctx.lang === "bg" ? meta.unitLabelBg : meta.unitLabelEn;
-  const last = lastPoint(pts);
+  const point = sel.point ?? lastPoint(pts);
+  const xOf = (p: Point) => p.period ?? String(p.year);
 
   return {
     tool: "macroIndicator",
     domain: "indicators",
     kind: "series",
-    title: unit ? `${title} (${unit})` : title,
-    categories: pts.map((p) => p.period ?? String(p.year)),
+    title: `${unit ? `${title} (${unit})` : title}${pinned ? ` — ${sel.year}` : ""}`,
+    subtitle: sel.missing
+      ? ctx.lang === "bg"
+        ? `Няма данни за ${sel.year}; показано е ${xOf(point)}.`
+        : `No data for ${sel.year}; showing ${xOf(point)}.`
+      : undefined,
+    categories: pts.map(xOf),
     series: [
       {
         key: "value",
         label: title,
-        points: pts.map((p) => ({ x: p.period ?? String(p.year), y: p.value })),
+        points: pts.map((p) => ({ x: xOf(p), y: p.value })),
       },
     ],
     viz: "line",
+    markers: pinned ? [{ x: xOf(point), label: String(sel.year) }] : undefined,
     facts: {
       indicator: title,
-      latest_period: last.period ?? String(last.year),
-      latest_value: last.value,
+      latest_period: xOf(point),
+      latest_value: point.value,
     },
     provenance: ["macro.json"],
   };

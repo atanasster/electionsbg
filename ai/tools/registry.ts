@@ -2,6 +2,7 @@
 // harness) sees. The grammar-constrained LLM picks a tool name + args from here.
 // Tools are grouped by `domain` for routing + the Explorer dropdown.
 
+import { combineByElection, yearScope } from "./combineYear";
 import {
   budgetByFunction,
   budgetFunction,
@@ -1128,6 +1129,14 @@ export const TOOLS: ToolDef[] = [
         type: "count",
         description: { bg: "Брой периоди", en: "Number of periods" },
       },
+      {
+        name: "year",
+        type: "year",
+        description: {
+          bg: "Година (по подразбиране последната)",
+          en: "Year (defaults to latest)",
+        },
+      },
     ],
     examples: [{ bg: "Каква е инфлацията?", en: "What's inflation?" }],
     run: macroIndicator,
@@ -1183,6 +1192,14 @@ export const TOOLS: ToolDef[] = [
         name: "indicator",
         type: "indicator",
         description: { bg: "Показател", en: "Indicator" },
+      },
+      {
+        name: "year",
+        type: "year",
+        description: {
+          bg: "Година (по подразбиране последната)",
+          en: "Year (defaults to latest)",
+        },
       },
     ],
     examples: [
@@ -1240,6 +1257,14 @@ export const TOOLS: ToolDef[] = [
         name: "indicator",
         type: "indicator",
         description: { bg: "Показател", en: "Indicator" },
+      },
+      {
+        name: "year",
+        type: "year",
+        description: {
+          bg: "Година (по подразбиране последната)",
+          en: "Year (defaults to latest)",
+        },
       },
     ],
     examples: [
@@ -1326,6 +1351,14 @@ export const TOOLS: ToolDef[] = [
         type: "place",
         required: true,
         description: { bg: "Населено място", en: "Place" },
+      },
+      {
+        name: "year",
+        type: "year",
+        description: {
+          bg: "Към коя година (по подразбиране последните данни)",
+          en: "As-of year (defaults to latest data)",
+        },
       },
     ],
     examples: [{ bg: "Разкажи ми за Габрово", en: "Tell me about Gabrovo" }],
@@ -1889,9 +1922,17 @@ export const runTool = async (
 ) => {
   const tool = TOOLS_BY_NAME[name];
   if (!tool) throw new Error(`unknown tool: ${name}`);
+  // Multi-election year: a bare (monthless) year that held more than one
+  // election (2021, 2024) fans the tool out over every ballot in the year and
+  // merges the results into one comparison, instead of silently answering for
+  // the newest. `yearScope` returns null for every other case (single-election
+  // year, a month-pinned date, or a non-election tool), so this is a no-op then.
+  const scope = yearScope(tool, args);
+  const env = scope
+    ? await combineByElection(tool, args, ctx, scope.year, scope.elections)
+    : await tool.run(args, ctx);
   // Stamp the envelope's domain from the registry so it's always consistent
   // with the tool's group (individual tools no longer need to set it).
-  const env = await tool.run(args, ctx);
   env.domain = tool.domain;
   return env;
 };

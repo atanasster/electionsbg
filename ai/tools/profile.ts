@@ -115,7 +115,14 @@ export const governanceProfile = async (
   if (!place)
     return noPlace("governanceProfile", String(args.place ?? ""), ctx);
   const code = govCode(place.obshtina);
-  const cycle = resolveLocalCycle(undefined);
+  // an as-of year re-anchors the year-aware slices (the local cycle + the
+  // indicator series); snapshot slices (census 2021, LISI, procurement) are
+  // single-vintage and stay latest.
+  const asOfYear =
+    args.year != null && args.year !== "" ? Number(args.year) : undefined;
+  const cycle = resolveLocalCycle(
+    asOfYear != null ? String(asOfYear) : undefined,
+  );
 
   const [census, local, lisi, ind, proc, air, grao, council] =
     await Promise.all([
@@ -164,8 +171,12 @@ export const governanceProfile = async (
   }
   const unemp = ind?.series?.unemployment?.[code];
   if (unemp && unemp.length) {
-    const last = unemp[unemp.length - 1];
-    facts.unemployment = `${last.value}% (${last.year})`;
+    const sel =
+      asOfYear != null
+        ? (unemp.find((p) => Number(p.year) === asOfYear) ??
+          unemp[unemp.length - 1])
+        : unemp[unemp.length - 1];
+    facts.unemployment = `${sel.value}% (${sel.year})`;
     provenance.push("indicators.json");
   }
   const score = lisi?.scoresByObshtina?.[code];
@@ -207,6 +218,12 @@ export const governanceProfile = async (
       ctx.lang === "bg"
         ? `Профил на ${place.name}`
         : `${place.nameEn} — governance profile`,
+    subtitle:
+      asOfYear != null
+        ? ctx.lang === "bg"
+          ? `Към ${asOfYear} г. (където има данни)`
+          : `As of ${asOfYear} (where available)`
+        : undefined,
     viz: "none",
     facts,
     provenance,

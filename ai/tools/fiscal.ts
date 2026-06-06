@@ -21,6 +21,31 @@ type FiscalYear = {
 };
 type BudgetIndex = { fiscalYears: FiscalYear[] };
 
+// Resolve a requested fiscal year against the years actually present. Flags when
+// the request fell outside the data so callers can say so ("no 2050 data;
+// showing 2024") instead of silently labelling the latest figure with the asked
+// year. `available` is oldest-first; the fallback is its last (latest) entry.
+const resolveYear = (
+  requested: unknown,
+  available: number[],
+): { year: number; requested?: number; missing: boolean } => {
+  const want = requested != null && requested !== "" ? Number(requested) : NaN;
+  const latest = available[available.length - 1];
+  if (!Number.isFinite(want)) return { year: latest, missing: false };
+  if (available.includes(want)) return { year: want, missing: false };
+  return { year: latest, requested: want, missing: true };
+};
+
+const yearMissingNote = (
+  r: { requested?: number; year: number; missing: boolean },
+  lang: ToolContext["lang"],
+): string | undefined =>
+  r.missing
+    ? lang === "bg"
+      ? `Няма данни за ${r.requested}; показана е ${r.year}.`
+      : `No data for ${r.requested}; showing ${r.year}.`
+    : undefined;
+
 export const budgetOverview = async (
   args: ToolArgs,
   ctx: ToolContext,
@@ -50,6 +75,8 @@ export const budgetOverview = async (
     };
   }
   const a = year.actual!;
+  // the user named a year we don't have actuals for -> show latest, but say so
+  const requestedMissing = !!args.year && !requested;
   const eur = (m?: Money) => (m ? m.amountEur : 0);
   const rows: Row[] = [
     {
@@ -77,6 +104,11 @@ export const budgetOverview = async (
       ctx.lang === "bg"
         ? `Държавен бюджет — изпълнение ${year.fiscalYear}`
         : `State budget — ${year.fiscalYear} execution`,
+    subtitle: requestedMissing
+      ? ctx.lang === "bg"
+        ? `Няма данни за ${args.year}; показана е ${year.fiscalYear}.`
+        : `No data for ${args.year}; showing ${year.fiscalYear}.`
+      : undefined,
     columns: [
       { key: "metric", label: ctx.lang === "bg" ? "Показател" : "Metric" },
       {
@@ -120,7 +152,14 @@ export const budgetByFunction = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const c = await fetchData<CofogData>("/cofog.json");
-  const year = args.year ? Number(args.year) : c.latestYear;
+  const allYears = (c.series.TOTAL ?? Object.values(c.series)[0] ?? []).map(
+    (p) => p.year,
+  );
+  const yr = resolveYear(
+    args.year,
+    allYears.length ? allYears : [c.latestYear],
+  );
+  const year = yr.year;
   const rows = Object.entries(c.series)
     .map(([gf, pts]) => {
       const p = pts.find((x) => x.year === year) ?? pts[pts.length - 1];
@@ -157,6 +196,7 @@ export const budgetByFunction = async (
       ctx.lang === "bg"
         ? `Бюджет по функция (COFOG, ${year})`
         : `Budget by function (COFOG, ${year})`,
+    subtitle: yearMissingNote(yr, ctx.lang),
     columns,
     rows: rows.map((r) => ({
       fn: r.label,
@@ -217,10 +257,14 @@ export const budgetFunction = async (
   // unrecognized function -> fall back to the full functional breakdown
   if (!gf || !c.series[gf]) return budgetByFunction(args, ctx);
 
-  const year = args.year ? Number(args.year) : c.latestYear;
+  const pts = c.series[gf];
+  const yr = resolveYear(
+    args.year,
+    pts.length ? pts.map((p) => p.year) : [c.latestYear],
+  );
+  const year = yr.year;
   const at = (arr: CofogPoint[]) =>
     arr.find((p) => p.year === year) ?? arr[arr.length - 1];
-  const pts = c.series[gf];
   const value = at(pts)?.valueEur ?? 0;
   const total = at(c.series.TOTAL ?? [])?.valueEur ?? 0;
   const pct = total > 0 ? round2((100 * value) / total) : 0;
@@ -239,6 +283,7 @@ export const budgetFunction = async (
       ctx.lang === "bg"
         ? `Разходи за „${label}“ (COFOG)`
         : `Spending on "${label}" (COFOG)`,
+    subtitle: yearMissingNote(yr, ctx.lang),
     categories: pts.map((p) => String(p.year)),
     series: [
       {

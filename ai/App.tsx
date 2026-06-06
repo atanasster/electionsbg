@@ -2,28 +2,21 @@ import { useContext, useState } from "react";
 import { Info } from "lucide-react";
 import { Logo } from "@/layout/header/Logo";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark, themeLight } from "@/theme/utils";
 import { Chat } from "./app/Chat";
 import { Explorer } from "./app/Explorer";
 import { useModelEngine } from "./llm/useModelEngine";
-import { electionNames, latestElection } from "./tools/dataset";
-import { electionFullLabel } from "./tools/format";
+import { latestElection } from "./tools/dataset";
 import type { Lang } from "./tools/types";
-
-const ELECTIONS = electionNames();
 
 export const App = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const [lang, setLang] = useState<Lang>("bg");
-  const [election, setElection] = useState<string>(latestElection());
+  // The default election for questions that don't name one. No longer a user
+  // control: a question names its own year (and a multi-election year fans out
+  // into a comparison); anything unqualified means the latest election.
+  const election = latestElection();
   const [view, setView] = useState<"chat" | "tools">("chat");
   // Slot in the fixed header where Chat portals its conversation actions (new
   // chat, share, export). Kept here so they stay reachable however far the
@@ -82,22 +75,6 @@ export const App = () => {
           >
             <Info />
           </Button>
-          <Select value={election} onValueChange={setElection}>
-            <SelectTrigger
-              className="h-9 w-auto gap-1 text-sm"
-              title={t("Контекст: избор", "Election context")}
-              aria-label={t("Контекст: избор", "Election context")}
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {ELECTIONS.map((name) => (
-                <SelectItem key={name} value={name}>
-                  {electionFullLabel(name, lang)}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
           <Button
             variant="outline"
             size="sm"

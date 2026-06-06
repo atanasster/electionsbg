@@ -458,6 +458,16 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Най-добро училище по ${f(env, "subject")} в ${f(env, "place")}: ${f(env, "top_school")} (от ${f(env, "schools")} училища).`
         : `Top school by ${f(env, "subject")} in ${f(env, "place")}: ${f(env, "top_school")} (of ${f(env, "schools")}).`;
+    case "yearCompare": {
+      // a multi-election year fanned out into one comparison (bar or table)
+      const hi = f(env, "highest");
+      const lo = f(env, "lowest");
+      if (hi && lo)
+        return lang === "bg"
+          ? `${env.title}: най-високо ${hi}, най-ниско ${lo}.`
+          : `${env.title}: highest ${hi}, lowest ${lo}.`;
+      return env.subtitle ? `${env.title} — ${env.subtitle}.` : env.title;
+    }
     default:
       return env.title;
   }

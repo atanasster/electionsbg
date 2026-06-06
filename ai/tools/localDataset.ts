@@ -23,8 +23,21 @@ export const localCycleNames = (): string[] => LOCAL_CYCLES.map((c) => c.name);
 export const isKnownLocalCycle = (name: string): boolean =>
   LOCAL_CYCLES.some((c) => c.name === name);
 
-export const resolveLocalCycle = (raw?: string): string =>
-  raw && isKnownLocalCycle(raw) ? raw : latestLocalCycle();
+// Resolve a `cycle` arg to a known local cycle (YYYY_MM_DD_mi), falling back to
+// the latest. Like resolveElection: an exact cycle name passes through; a bare
+// year or loose date ("2019", "2019-10-27") maps to that year's regular cycle
+// (local cycles are one-per-year), so "местни избори 2019" stops silently
+// answering for the latest cycle. Only an unplaceable arg falls back to latest.
+export const resolveLocalCycle = (raw?: string): string => {
+  if (!raw) return latestLocalCycle();
+  if (isKnownLocalCycle(raw)) return raw;
+  const m = raw.match(/20\d{2}/);
+  if (m) {
+    const hit = LOCAL_CYCLES.find((c) => c.name.startsWith(`${m[0]}_`));
+    if (hit) return hit.name;
+  }
+  return latestLocalCycle();
+};
 
 // "2023_10_29_mi" -> "2023"
 export const localCycleYear = (name: string): string => name.slice(0, 4);

@@ -40,6 +40,31 @@ export const resolveElection = (args: ToolArgs, ctx: ToolContext): string => {
   return inYear[0].name;
 };
 
+// Select the data point for a requested year from an annual or period series.
+// Returns the matching point (the latest within that year, or the series' latest
+// as a fallback) plus whether the requested year was actually present — so an
+// indicator tool can pin a year from the prompt and say so honestly while still
+// drawing the full trend. `requested` is the raw arg (number / string / absent).
+export const pickYearPoint = <
+  P extends { year?: number | string; period?: string },
+>(
+  pts: P[],
+  requested: unknown,
+): { point: P | undefined; year?: number; missing: boolean } => {
+  if (!pts.length) return { point: undefined, missing: false };
+  const want = requested != null && requested !== "" ? Number(requested) : NaN;
+  if (!Number.isFinite(want))
+    return { point: pts[pts.length - 1], missing: false };
+  const inYear = pts.filter(
+    (p) =>
+      Number(p.year) === want ||
+      (typeof p.period === "string" && p.period.startsWith(String(want))),
+  );
+  if (inYear.length)
+    return { point: inYear[inYear.length - 1], year: want, missing: false };
+  return { point: pts[pts.length - 1], year: want, missing: true };
+};
+
 // Resolve a positive integer count arg (e.g. "last N elections").
 export const clampCount = (
   raw: unknown,

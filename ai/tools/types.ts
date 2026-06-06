@@ -56,6 +56,11 @@ export type Envelope = {
     label: string;
     color?: string;
   }[];
+  // Optional headline numeric for a scalar envelope (the same figure also lives,
+  // formatted, in `facts`). Lets a multi-election-year combine plot one bar per
+  // election; the single-answer renderer ignores it.
+  value?: number;
+  valueFormat?: ColumnFormat;
   // flat numbers/labels handed to the LLM to narrate. Keep keys descriptive.
   facts: Record<string, string | number>;
   // human-readable source identifiers, e.g. "elections.json", "2026_04_19/national_summary.json"
