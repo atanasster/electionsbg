@@ -770,13 +770,6 @@ export const Chat = ({
             </button>
           </div>
         </form>
-        {/* desktop-only hint: on touch keyboards Enter is usually a newline */}
-        <p className="mt-1 hidden px-1 text-[10px] text-muted-foreground sm:block">
-          {t(
-            "Enter — изпрати · Shift+Enter — нов ред",
-            "Enter to send · Shift+Enter for a new line",
-          )}
-        </p>
         {/* sample prompts live under the composer so they persist after the
             first question (don't vanish like an empty-state); the model picker
             sits at the right edge of the same row */}
