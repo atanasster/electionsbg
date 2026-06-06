@@ -1,0 +1,10 @@
+{
+  "name": "naiasno-functions",
+  "description": "Cloud-LLM proxy for the Наясно AI chat (keeps the OpenRouter key server-side)",
+  "private": true,
+  "main": "index.js",
+  "engines": { "node": "22" },
+  "dependencies": {
+    "firebase-functions": "^6.1.0"
+  }
+}

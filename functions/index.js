@@ -1,0 +1,95 @@
+// Cloud-LLM proxy for the Наясно AI chat.
+//
+// The chat is a static SPA, so it cannot hold the OpenRouter API key in the
+// browser. This HTTPS function holds the key (a Firebase secret) and forwards a
+// single chat-completion request to OpenRouter. It is reached same-origin via
+// the hosting rewrite `/api/llm` (see firebase.json), so no CORS in prod.
+//
+// Cost-abuse guards (the endpoint is public): origin allowlist, model
+// allowlist, max_tokens cap, message cap, POST-only. For production hardening
+// also enable Firebase App Check and set a hard spend cap on the OpenRouter key.
+//
+// Deploy:  firebase deploy --only functions -P ai
+// Secret:  firebase functions:secrets:set OPENROUTER_API_KEY -P ai
+
+const { onRequest } = require("firebase-functions/v2/https");
+const { defineSecret } = require("firebase-functions/params");
+
+const OPENROUTER_API_KEY = defineSecret("OPENROUTER_API_KEY");
+
+// Only these (cheap, Bulgarian-capable) models may be requested. Keep in sync
+// with the cloud entries in ai/llm/models.ts.
+const ALLOWED_MODELS = new Set([
+  "google/gemini-2.5-flash-lite",
+  "google/gemma-4-31b-it:free",
+]);
+
+// Origins allowed to use the proxy (the AI app + local dev).
+const ALLOWED_ORIGINS = [
+  /^https:\/\/electionsbg-ai\.web\.app$/,
+  /^https:\/\/electionsbg-ai\.firebaseapp\.com$/,
+  /^https:\/\/ai\.electionsbg\.com$/,
+  /^http:\/\/localhost:\d+$/,
+  /^http:\/\/127\.0\.0\.1:\d+$/,
+];
+
+const MAX_TOKENS = 512; // per-call output cap (routing ~30, narration ~160)
+const MAX_MESSAGES = 12;
+
+exports.llm = onRequest(
+  { secrets: [OPENROUTER_API_KEY], region: "us-central1", maxInstances: 10 },
+  async (req, res) => {
+    const origin = req.headers.origin || "";
+    const originOk = ALLOWED_ORIGINS.some((re) => re.test(origin));
+    if (originOk) res.set("Access-Control-Allow-Origin", origin);
+    res.set("Vary", "Origin");
+
+    if (req.method === "OPTIONS") {
+      res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+      res.set("Access-Control-Allow-Headers", "Content-Type");
+      res.set("Access-Control-Max-Age", "3600");
+      return res.status(204).send("");
+    }
+    if (req.method !== "POST")
+      return res.status(405).json({ error: "POST only" });
+    if (!originOk) return res.status(403).json({ error: "forbidden origin" });
+
+    const body = req.body || {};
+    if (!ALLOWED_MODELS.has(body.model))
+      return res.status(400).json({ error: "model not allowed" });
+    if (!Array.isArray(body.messages) || body.messages.length === 0)
+      return res.status(400).json({ error: "messages required" });
+
+    const payload = {
+      model: body.model,
+      messages: body.messages.slice(0, MAX_MESSAGES),
+      temperature: typeof body.temperature === "number" ? body.temperature : 0,
+      max_tokens: Math.min(Number(body.max_tokens) || 256, MAX_TOKENS),
+    };
+    if (body.response_format) payload.response_format = body.response_format;
+    if (body.tools) payload.tools = body.tools;
+    if (body.tool_choice) payload.tool_choice = body.tool_choice;
+
+    try {
+      const upstream = await fetch(
+        "https://openrouter.ai/api/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${OPENROUTER_API_KEY.value()}`,
+            "Content-Type": "application/json",
+            "HTTP-Referer": "https://electionsbg.com",
+            "X-Title": "Naiasno AI",
+          },
+          body: JSON.stringify(payload),
+        },
+      );
+      const data = await upstream.json();
+      return res.status(upstream.status).json(data);
+    } catch (e) {
+      return res
+        .status(502)
+        .json({ error: "upstream error", detail: String(e) });
+    }
+  },
+);

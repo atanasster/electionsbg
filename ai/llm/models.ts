@@ -16,7 +16,13 @@ import type { AppConfig } from "@mlc-ai/web-llm";
 // Short capability tags surfaced as chips on each model card. The picker maps
 // these to bilingual labels (ai/app/ModelPicker.tsx) so the registry stays
 // language-neutral.
-export type ModelTag = "bg-native" | "routes" | "fast" | "test" | "multimodal";
+export type ModelTag =
+  | "bg-native"
+  | "routes"
+  | "fast"
+  | "test"
+  | "multimodal"
+  | "cloud";
 
 export type ModelOption = {
   id: string; // WebLLM model_id, or (transformersjs) the HF ONNX repo path
@@ -36,10 +42,12 @@ export type ModelOption = {
   // Flags the on-brand default once it's loadable — gets a "Recommended" ribbon.
   recommended?: boolean;
   ready: boolean; // false => requires the M0 compile before it can load
-  // Which in-browser engine runs this model. "webllm" (default) = @mlc-ai/web-llm
-  // (needs an MLC build). "transformersjs" = @huggingface/transformers / ONNX
-  // Runtime Web — loads a HF ONNX repo directly, no MLC toolchain (see PLAN.md).
-  runtime?: "webllm" | "transformersjs";
+  // Which engine runs this model. "webllm" (default) = @mlc-ai/web-llm (in-browser,
+  // needs an MLC build). "transformersjs" = @huggingface/transformers / ONNX Runtime
+  // Web (in-browser, loads a HF ONNX repo). "cloud" = a hosted model reached via the
+  // Firebase Function proxy → OpenRouter (NOT in-browser; the question is sent to a
+  // server). `id` is the OpenRouter model id for cloud models.
+  runtime?: "webllm" | "transformersjs" | "cloud";
   dtype?: string; // transformers.js quantization, e.g. "q4" (default "q4")
   appConfig?: AppConfig; // for custom (HF-hosted) WebLLM models
   // May this model SELECT tools? Only Bulgarian-capable models should. The Qwen
@@ -78,6 +86,36 @@ export const MODELS: ModelOption[] = [
     tags: ["test"],
     ready: true,
     routes: false, // test model: narration only, deterministic routing
+  },
+  // ---- cloud models (hosted via the Firebase proxy → OpenRouter) -------------
+  // These work TODAY and route + narrate well in Bulgarian. They are NOT
+  // in-browser: the question is sent to a server. Keep ids in sync with the
+  // ALLOWED_MODELS allowlist in functions/index.js.
+  {
+    id: "google/gemini-2.5-flash-lite",
+    label: { bg: "Gemini 2.5 Flash-Lite", en: "Gemini 2.5 Flash-Lite" },
+    sizeNote: { bg: "облак · OpenRouter", en: "cloud · OpenRouter" },
+    advantage: {
+      bg: "Облачен · най-точен за български · насочва инструменти",
+      en: "Cloud · most accurate Bulgarian · routes tools",
+    },
+    tags: ["cloud", "routes", "fast"],
+    ready: true,
+    runtime: "cloud",
+    routes: true,
+  },
+  {
+    id: "google/gemma-4-31b-it:free",
+    label: { bg: "Gemma 4 31B (безпл.)", en: "Gemma 4 31B (free)" },
+    sizeNote: { bg: "облак · безплатно", en: "cloud · free" },
+    advantage: {
+      bg: "Облачен · безплатен · отворен модел (Apache-2.0)",
+      en: "Cloud · free · open model (Apache-2.0)",
+    },
+    tags: ["cloud", "routes"],
+    ready: true,
+    runtime: "cloud",
+    routes: true,
   },
   {
     // BgGPT v1.0 (a google/gemma-2-2b fine-tune) — the LIGHT default. Reuses

@@ -11,7 +11,7 @@
     "preview:ai": "vite preview --config vite.config.ai.ts",
     "ai:harness": "tsx ai/tools/harness.ts",
     "ai:test": "tsx ai/tests/regression.ts",
-    "ai:test:all": "tsx ai/tools/harness.ts && tsx ai/tools/place.harness.ts && tsx ai/orchestrator/toolSchema.harness.ts && tsx ai/tests/regression.ts",
+    "ai:test:all": "tsx ai/tools/harness.ts && tsx ai/tools/place.harness.ts && tsx ai/orchestrator/toolSchema.harness.ts && tsx ai/llm/openrouter.harness.ts && tsx ai/tests/regression.ts",
     "prebuild": "node ./scripts/prebuild.mjs",
     "build": "tsc -b && vite build",
     "postbuild": "tsx ./scripts/og/generate.ts && tsx ./scripts/prerender/index.ts && tsx ./scripts/llms/buildIndex.ts && tsx ./scripts/llms/buildFull.ts && tsx ./scripts/images/optimize.ts && find dist public -name .DS_Store -delete",

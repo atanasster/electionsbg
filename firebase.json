@@ -7,6 +7,10 @@
       "port": 5002
     }
   },
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs22"
+  },
   "hosting": [
     {
       "target": "main",
@@ -95,7 +99,13 @@
         "**/node_modules/**",
         "**/.DS_Store"
       ],
-      "rewrites": [{ "source": "**", "destination": "/index.html" }],
+      "rewrites": [
+        {
+          "source": "/api/llm",
+          "function": { "functionId": "llm", "region": "us-central1" }
+        },
+        { "source": "**", "destination": "/index.html" }
+      ],
       "headers": [
         {
           "source": "**",

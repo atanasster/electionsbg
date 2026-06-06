@@ -12,6 +12,7 @@ import {
   type StorageEstimate,
 } from "./cache";
 import { MODELS, modelById, type ModelOption } from "./models";
+import { OpenRouterProvider } from "./openrouter";
 import { HeuristicProvider, type LLMProvider } from "./provider";
 import { TransformersJsProvider } from "./transformersjs";
 import { WebLLMProvider, webgpuSupported } from "./webllm";
@@ -67,7 +68,8 @@ export const useModelEngine = (): ModelEngine => {
 
   const refresh = useCallback(async () => {
     const entries = await Promise.all(
-      MODELS.filter((m) => m.ready).map(
+      // cloud models have no on-device weights — skip the (web-llm-pulling) cache probe
+      MODELS.filter((m) => m.ready && m.runtime !== "cloud").map(
         async (m) => [m.id, await isCached(m)] as const,
       ),
     );
@@ -99,6 +101,14 @@ export const useModelEngine = (): ModelEngine => {
       }
       const model = modelById(id);
       if (!model) return;
+      // Cloud models need no WebGPU and no download — select instantly.
+      if (model.runtime === "cloud") {
+        const p = new OpenRouterProvider(model);
+        void p.init();
+        setProvider(p);
+        setLoad({ phase: "ready", pct: 100, note: "", fromCache: false });
+        return;
+      }
       if (!HAS_WEBGPU) {
         setProvider(heuristic);
         setLoad({ ...IDLE, phase: "unsupported" });

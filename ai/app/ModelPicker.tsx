@@ -40,6 +40,7 @@ const TAG_LABELS: Record<ModelTag, { bg: string; en: string }> = {
   fast: { bg: "Бърз", en: "Fast" },
   test: { bg: "Тест", en: "Test" },
   multimodal: { bg: "Мултимодален", en: "Multimodal" },
+  cloud: { bg: "Облачен", en: "Cloud" },
 };
 
 // Decimal GB to match the sizes HF/MLC report.
@@ -83,7 +84,9 @@ const Tag = ({ tag, lang }: { tag: ModelTag; lang: Lang }) => (
       "rounded-full border px-1.5 py-0.5 text-[10px] font-medium leading-none",
       tag === "bg-native"
         ? "border-primary/30 bg-primary/10 text-primary"
-        : "border-input bg-muted text-muted-foreground",
+        : tag === "cloud"
+          ? "border-sky-500/30 bg-sky-500/10 text-sky-600"
+          : "border-input bg-muted text-muted-foreground",
     )}
   >
     {TAG_LABELS[tag][lang]}
@@ -161,8 +164,8 @@ export const ModelPicker = ({
             <ShieldCheck className="size-3.5 shrink-0 text-emerald-600" />
             <p className="text-[11px] leading-tight text-muted-foreground">
               {t(
-                "Моделите работят изцяло във вашия браузър — въпросите ви не напускат устройството.",
-                "Models run entirely in your browser — your questions never leave your device.",
+                "Свалените модели работят изцяло във вашия браузър — въпросите ви не напускат устройството. Облачните модели изпращат въпроса към сървър.",
+                "Downloaded models run entirely in your browser — your questions never leave your device. Cloud models send the question to a server.",
               )}
             </p>
           </div>
@@ -323,11 +326,12 @@ const ModelCard = ({
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
   const { providerId, load, hasWebGPU } = engine;
   const active = providerId === model.id;
+  const isCloud = model.runtime === "cloud";
   const isLoading = active && load.phase === "loading";
   const isReady = active && load.phase === "ready";
   const isError = active && load.phase === "error";
   const unavailable = !model.ready; // needs MLC build / disabled
-  const blockedByGpu = !hasWebGPU && !unavailable;
+  const blockedByGpu = !hasWebGPU && !unavailable && !isCloud; // cloud needs no GPU
 
   return (
     <CardShell active={active}>
@@ -367,12 +371,22 @@ const ModelCard = ({
           )}
           {/* meta line: size/vram for loadable, the reason for unavailable */}
           <p className="mt-1 text-[11px] text-muted-foreground/80">
-            {unavailable
+            {isCloud
               ? model.sizeNote[lang]
-              : [model.size?.[lang], model.vramNote?.[lang]]
-                  .filter(Boolean)
-                  .join(" · ")}
+              : unavailable
+                ? model.sizeNote[lang]
+                : [model.size?.[lang], model.vramNote?.[lang]]
+                    .filter(Boolean)
+                    .join(" · ")}
           </p>
+          {isCloud && (
+            <p className="mt-0.5 text-[11px] text-amber-600">
+              {t(
+                "Облачен модел · въпросът се изпраща към сървър",
+                "Cloud model · your question is sent to a server",
+              )}
+            </p>
+          )}
         </div>
 
         {/* action column */}
@@ -381,6 +395,21 @@ const ModelCard = ({
             <span className="rounded-full border border-dashed border-input px-2 py-1 text-[10px] text-muted-foreground">
               {t("Предстои", "Coming soon")}
             </span>
+          ) : isCloud ? (
+            isReady ? (
+              <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
+                <Check className="size-3.5" />
+                {t("Активен", "Active")}
+              </span>
+            ) : (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => void engine.select(model.id)}
+              >
+                {t("Използвай", "Use")}
+              </Button>
+            )
           ) : blockedByGpu ? (
             <span
               title={t("Нужен е WebGPU", "WebGPU required")}

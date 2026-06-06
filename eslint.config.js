@@ -11,6 +11,7 @@ export default tseslint.config(
       "dist",
       "dist.old-*",
       "dist-ai",
+      "functions",
       "ai/m0/.venv",
       "ai/m0/dist",
       "ai/m0/models",
