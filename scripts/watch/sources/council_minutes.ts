@@ -35,6 +35,7 @@ import { join } from "node:path";
 import { createHash } from "node:crypto";
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { fetchText } from "../fingerprint";
+import { readState } from "../state";
 
 // Most municipal CMSes block the default watcher UA (electionsbg-watch/1.0)
 // with a 401/403. Pass a real Safari UA on these probes — we're hitting
@@ -204,34 +205,96 @@ export const councilMinutes: WatchSource = {
       counts[code] = sessionCount(html);
     }
 
-    // Combined hash so any single município movement flips the source.
+    // Monotonic high-water marks per município. The raw session-link count
+    // is twitchy: some municipal CMSes (notably Varna, whose index inlines
+    // every decision PDF *plus* every appendix PDF — 300+ hrefs) serve an
+    // occasional partial render that drops the count by dozens, then recover
+    // on the next fetch. Hashing the raw counts made BOTH the dip and the
+    // recovery flip the composite fingerprint, re-queueing update-council-
+    // minutes for days on end even though the ingest found 0 new protocols
+    // (VAR01 went 325→334→245→334 across 2026-06-04..06; the −89/+89 was a
+    // single bad fetch). We instead hash the high-water mark: only a genuine
+    // NEW HIGH (a new sitting pushing the link count past its prior peak)
+    // flips the source. Transient dips and transient fetch errors (which
+    // would otherwise toggle the −1 sentinel) are absorbed — the existing
+    // composite safety-net (every muni gets re-ingested whenever ANY muni
+    // flips, and each muni's own date watermark dedupes) still catches a
+    // genuinely-new sitting even on the rare run where a muni is mid-dip.
+    const prev = readState("council_minutes");
+    const prevMax: Record<string, number> =
+      (prev?.meta?.maxCounts as Record<string, number> | undefined) ??
+      // Backward-compat seed (first run after this change): use last raw
+      // counts as the initial high-water marks, clamping the −1 error
+      // sentinel to 0 so a recovering muni flips exactly once.
+      Object.fromEntries(
+        Object.entries(
+          (prev?.meta?.counts as Record<string, number> | undefined) ?? {},
+        ).map(([k, v]) => [k, v >= 0 ? v : 0]),
+      );
+
+    const maxCounts: Record<string, number> = {};
+    for (const [code] of wired) {
+      const raw = counts[code];
+      const prior = prevMax[code] ?? 0;
+      // Errors (-1) never lower the mark; a real count only ever raises it.
+      maxCounts[code] = raw >= 0 ? Math.max(prior, raw) : prior;
+    }
+
+    // Guaranteed periodic sweep for the count-BLIND municipalities. VTR01 and
+    // SOF expose no usable index count (their landing pages are a year-routing
+    // shell / a Liferay SPA — counts pin at ~5 / 0 and never move when a new
+    // sitting lands; see KNOWN GAPS above). Historically they were re-ingested
+    // only as a *side effect* of some noisier muni flipping the composite —
+    // e.g. on 2026-06-06 VTR01's 47 new resolutions were picked up purely
+    // because VAR01's partial-render wobble flipped the source. Now that the
+    // high-water-mark hash (above) correctly suppresses those wobbles, we'd
+    // lose that incidental trigger. So fold a coarse N-day epoch into the hash:
+    // the composite flips at least once every HEARTBEAT_DAYS regardless of
+    // fleet activity, bounding blind-muni staleness — without the day-after-day
+    // churn that the raw-count hash produced. A genuine new high still flips it
+    // immediately for the 14 count-visible munis; the heartbeat only fires
+    // standalone during a stretch where nothing in the fleet moved.
+    const HEARTBEAT_DAYS = 3;
+    const heartbeatEpoch = Math.floor(
+      Date.now() / (HEARTBEAT_DAYS * 24 * 60 * 60 * 1000),
+    );
+
+    // Combined hash over the high-water marks (so any município's new peak = a
+    // new sitting flips the source, while dips/errors don't) plus the heartbeat
+    // epoch (so the blind munis still get a bounded periodic sweep).
     const value = createHash("sha256")
       .update(
-        Object.entries(counts)
+        Object.entries(maxCounts)
           .map(([k, v]) => `${k}=${v}`)
-          .join("|"),
+          .join("|") + `|__heartbeat=${heartbeatEpoch}`,
       )
       .digest("hex");
 
-    const totalSessions = Object.values(counts)
-      .filter((v) => v >= 0)
-      .reduce((a, b) => a + b, 0);
+    const totalSessions = Object.values(maxCounts).reduce((a, b) => a + b, 0);
 
     return {
       value,
       detail:
         `${wired.length} município(s) wired, ${totalSessions} session-link(s) total` +
         (errors.length > 0 ? ` · ${errors.length} fetch error(s)` : ""),
-      meta: { counts, errors },
+      meta: { counts, maxCounts, errors, heartbeatEpoch },
     };
   },
 
   describe(prev: WatchState | null, curr: Fingerprint): string {
     if (!prev) return curr.detail;
+    // Compare the high-water marks — that's what the fingerprint hashes, so
+    // it's what actually flipped. (Fall back to raw counts for a state file
+    // written before maxCounts existed.) Because the marks are monotonic,
+    // the only deltas reported here are growth (a muni's new session peak).
     const prevCounts =
-      (prev.meta?.counts as Record<string, number> | undefined) ?? {};
+      (prev.meta?.maxCounts as Record<string, number> | undefined) ??
+      (prev.meta?.counts as Record<string, number> | undefined) ??
+      {};
     const currCounts =
-      (curr.meta?.counts as Record<string, number> | undefined) ?? {};
+      (curr.meta?.maxCounts as Record<string, number> | undefined) ??
+      (curr.meta?.counts as Record<string, number> | undefined) ??
+      {};
     const moved: string[] = [];
     for (const code of Object.keys(currCounts).sort()) {
       const a = prevCounts[code] ?? 0;
@@ -239,7 +302,11 @@ export const councilMinutes: WatchSource = {
       if (b > a) moved.push(`${code} +${b - a}`);
       else if (b < a && b >= 0) moved.push(`${code} -${a - b}`);
     }
-    if (moved.length === 0) return curr.detail;
+    // No high-water-mark moved but the source still flipped → the N-day
+    // heartbeat epoch rolled over (the bounded safety sweep for the
+    // count-blind munis VTR01/SOF). Say so rather than dumping the raw detail.
+    if (moved.length === 0)
+      return `periodic safety re-check (no count change) · ${curr.detail}`;
     return `${moved.length} município(s) changed: ${moved.join(", ")}`;
   },
 };
