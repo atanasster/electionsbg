@@ -2,7 +2,7 @@
 // the returned narration + Envelope. Swapping HeuristicProvider for a WebLLM
 // provider requires no change here.
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Check,
   Copy,
@@ -30,6 +30,9 @@ type Msg = ChatMsg & { id: number };
 
 const STORAGE_KEY = "naiasno.chat.v1";
 
+// A pool of starter prompts. Deliberately larger than STARTER_COUNT so that
+// after dropping the ones the user has already asked there are still enough
+// fresh prompts to fill the row. Each is phrased to route to a real tool.
 const STARTERS: { bg: string; en: string }[] = [
   {
     bg: "Какъв е процентът машинно гласуване в последните 7 избора?",
@@ -48,7 +51,43 @@ const STARTERS: { bg: string; en: string }[] = [
     en: "Compare the 2022 and 2024 elections",
   },
   { bg: "Каква беше активността през 2023?", en: "What was turnout in 2023?" },
+  { bg: "Какъв е държавният бюджет?", en: "What is the state budget?" },
+  { bg: "За какво се харчи бюджетът?", en: "What is the budget spent on?" },
+  { bg: "Кои депутати са най-богати?", en: "Which MPs are richest?" },
+  {
+    bg: "Кои са най-големите инвестиционни проекти?",
+    en: "What are the biggest investment projects?",
+  },
+  {
+    bg: "Коя социологическа агенция е най-точна?",
+    en: "Which polling agency is most accurate?",
+  },
+  { bg: "Кои са правителствата от 2005?", en: "Governments since 2005?" },
+  {
+    bg: "Кой спечели общинските съвети?",
+    en: "Who won the municipal councils?",
+  },
+  {
+    bg: "Имаше ли нередности на последните избори?",
+    en: "Were there irregularities in the latest election?",
+  },
 ];
+
+// How many starter chips to show under the composer.
+const STARTER_COUNT = 5;
+
+const normPrompt = (s: string): string =>
+  s.toLowerCase().replace(/\s+/g, " ").trim();
+
+// Fisher-Yates; returns a new shuffled copy (never mutates the input).
+const shuffle = <T,>(arr: T[]): T[] => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
 
 export const Chat = ({
   provider,
@@ -172,6 +211,36 @@ export const Chat = ({
 
   const suggestions = busy ? [] : matchSuggestions(input, lang);
   const hasChat = messages.length > 0;
+
+  // Stable key of every question the user has already asked. Recomputed each
+  // render but yields the same string while the conversation's questions don't
+  // change — so the starters memo below only reshuffles when a new prompt is
+  // actually sent, not on every keystroke or streaming token.
+  const askedKey = useMemo(
+    () =>
+      [
+        ...new Set(
+          messages
+            .filter((m) => m.role === "user")
+            .map((m) => normPrompt(m.text)),
+        ),
+      ]
+        .sort()
+        .join("|"),
+    [messages],
+  );
+
+  // Randomized starter chips with already-asked prompts dropped, so a just-used
+  // suggestion doesn't reappear. Fresh (unasked) prompts come first; if every
+  // prompt has been asked we top up with the asked ones rather than show none.
+  const starters = useMemo(() => {
+    const asked = new Set(askedKey ? askedKey.split("|") : []);
+    const isAsked = (s: { bg: string; en: string }) =>
+      asked.has(normPrompt(s.bg)) || asked.has(normPrompt(s.en));
+    const fresh = shuffle(STARTERS.filter((s) => !isAsked(s)));
+    const stale = shuffle(STARTERS.filter(isAsked));
+    return [...fresh, ...stale].slice(0, STARTER_COUNT);
+  }, [askedKey]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -332,7 +401,7 @@ export const Chat = ({
           <span className="text-[11px] text-muted-foreground">
             {t("Опитайте:", "Try:")}
           </span>
-          {STARTERS.map((s) => (
+          {starters.map((s) => (
             <button
               key={s.en}
               onClick={() => send(s[lang])}
