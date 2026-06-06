@@ -88,6 +88,8 @@ export const partyTimeline = async (
   }[];
   if (valued.length) {
     facts.peak_pct = Math.max(...valued.map((p) => p.y));
+    facts.trough_pct = Math.min(...valued.map((p) => p.y));
+    facts.first_pct = valued[0].y;
     facts.latest_pct = valued[valued.length - 1].y;
   }
 

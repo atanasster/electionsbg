@@ -11,7 +11,7 @@ import {
   buildNarrationPrompt,
   buildToolSystemPrompt,
 } from "../orchestrator/prompts";
-import { route, type Route } from "../orchestrator/router";
+import { resolveFollowOn, route, type Route } from "../orchestrator/router";
 import { parseToolCall } from "../orchestrator/toolSchema";
 import { runTool } from "../tools/registry";
 import type { Lang, ToolContext } from "../tools/types";
@@ -21,6 +21,7 @@ import type {
   ChatResponse,
   LLMProvider,
   ProviderStatus,
+  RespondOpts,
   ResponseMeta,
 } from "./provider";
 
@@ -42,7 +43,7 @@ type Usage = { input: number; output: number };
 // Shown in the answer header when the cloud model contributed NOTHING (both the
 // routing and narration calls failed/declined) — so a fallback answer is never
 // mislabelled as model-generated. Mirrors HeuristicProvider.label.
-const RULES_LABEL = { bg: "Правила (офлайн)", en: "Rules (offline)" };
+const RULES_LABEL = { bg: "Без AI (офлайн)", en: "Basic (offline)" };
 
 export class OpenRouterProvider implements LLMProvider {
   id: string;
@@ -67,7 +68,13 @@ export class OpenRouterProvider implements LLMProvider {
 
   private async call(
     messages: ChatMessage[],
-    opts: { json?: boolean; maxTokens: number; temperature: number },
+    opts: {
+      json?: boolean;
+      maxTokens: number;
+      temperature: number;
+      stream?: boolean;
+      onDelta?: (partial: string) => void;
+    },
     usage: Usage,
   ): Promise<string> {
     const res = await fetch(PROXY_URL, {
@@ -79,6 +86,7 @@ export class OpenRouterProvider implements LLMProvider {
         temperature: opts.temperature,
         max_tokens: opts.maxTokens,
         ...(opts.json ? { response_format: { type: "json_object" } } : {}),
+        ...(opts.stream ? { stream: true } : {}),
       }),
     });
     if (!res.ok) {
@@ -89,6 +97,12 @@ export class OpenRouterProvider implements LLMProvider {
       console.warn(`[cloud] /api/llm ${res.status}: ${body.slice(0, 300)}`);
       throw new Error(`proxy ${res.status}`);
     }
+    // Streaming path — only when we asked AND the proxy actually returns SSE
+    // (an older deployed function would return plain JSON, handled below).
+    const ctype = res.headers.get("content-type") ?? "";
+    if (opts.stream && res.body && ctype.includes("text/event-stream"))
+      return this.readStream(res.body, usage, opts.onDelta);
+
     const data = (await res.json()) as Completion;
     if (data.error)
       throw new Error(
@@ -99,6 +113,49 @@ export class OpenRouterProvider implements LLMProvider {
     usage.input += data.usage?.prompt_tokens ?? 0;
     usage.output += data.usage?.completion_tokens ?? 0;
     return data.choices?.[0]?.message?.content ?? "";
+  }
+
+  // Parse an OpenRouter SSE stream, surfacing the prose token-by-token via
+  // onDelta and accumulating token usage from the final chunk.
+  private async readStream(
+    body: ReadableStream<Uint8Array>,
+    usage: Usage,
+    onDelta?: (partial: string) => void,
+  ): Promise<string> {
+    const reader = body.getReader();
+    const decoder = new TextDecoder();
+    let buf = "";
+    let text = "";
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const lines = buf.split("\n");
+      buf = lines.pop() ?? ""; // keep the trailing partial line
+      for (const line of lines) {
+        const s = line.trim();
+        if (!s.startsWith("data:")) continue;
+        const payload = s.slice(5).trim();
+        if (payload === "[DONE]") continue;
+        try {
+          const json = JSON.parse(payload) as Completion & {
+            choices?: { delta?: { content?: string } }[];
+          };
+          const delta = json.choices?.[0]?.delta?.content;
+          if (delta) {
+            text += delta;
+            onDelta?.(stripControl(text));
+          }
+          if (json.usage) {
+            usage.input += json.usage.prompt_tokens ?? 0;
+            usage.output += json.usage.completion_tokens ?? 0;
+          }
+        } catch {
+          /* keepalive / partial line — ignore */
+        }
+      }
+    }
+    return text;
   }
 
   // Model-first routing (a strong hosted model handles paraphrase + arg
@@ -130,16 +187,24 @@ export class OpenRouterProvider implements LLMProvider {
     env: Parameters<typeof narrate>[0],
     lang: Lang,
     usage: Usage,
+    detail: "brief" | "full",
+    onDelta?: (partial: string) => void,
   ): Promise<{ text: string; fromModel: boolean }> {
     const template = narrate(env, lang);
     try {
-      const { system, user } = buildNarrationPrompt(env, lang);
+      const { system, user } = buildNarrationPrompt(env, lang, detail);
       const raw = await this.call(
         [
           { role: "system", content: system },
           { role: "user", content: user },
         ],
-        { json: false, maxTokens: 200, temperature: 0.2 },
+        {
+          json: false,
+          maxTokens: detail === "full" ? 420 : 240,
+          temperature: 0.3,
+          stream: true,
+          onDelta,
+        },
         usage,
       );
       const text = stripControl(raw);
@@ -152,14 +217,21 @@ export class OpenRouterProvider implements LLMProvider {
     }
   }
 
-  async respond(question: string, ctx: ToolContext): Promise<ChatResponse> {
+  async respond(
+    question: string,
+    ctx: ToolContext,
+    onDelta?: (partial: string) => void,
+    opts?: RespondOpts,
+  ): Promise<ChatResponse> {
     const t0 = performance.now();
     const usage: Usage = { input: 0, output: 0 };
-    const { route: r, byModel: routedByModel } = await this.selectRoute(
-      question,
-      ctx,
-      usage,
-    );
+    const detail = opts?.detail ?? "brief";
+    // A bare follow-on ("а ДПС?") reuses the previous tool deterministically —
+    // no routing call needed (and the keyword swap is reliable for ellipsis).
+    const followOn = resolveFollowOn(question, opts?.prev);
+    const { route: r, byModel: routedByModel } = followOn
+      ? { route: followOn, byModel: false }
+      : await this.selectRoute(question, ctx, usage);
     // `usedModel` = the cloud model produced the route OR the prose. When false
     // (both fell back), the answer IS the rules engine, so label it as such —
     // never claim the cloud model on a fallback/error.
@@ -181,11 +253,18 @@ export class OpenRouterProvider implements LLMProvider {
       };
     try {
       const env = await runTool(r.tool, r.args, ctx);
-      const { text, fromModel } = await this.narrateEnv(env, ctx.lang, usage);
+      const { text, fromModel } = await this.narrateEnv(
+        env,
+        ctx.lang,
+        usage,
+        detail,
+        onDelta,
+      );
       return {
         text,
         env,
         tool: r.tool,
+        args: r.args,
         meta: baseMeta(
           fromModel ? "model" : "rules",
           routedByModel || fromModel,

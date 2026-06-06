@@ -64,6 +64,10 @@ exports.llm = onRequest(
     if (!Array.isArray(body.messages) || body.messages.length === 0)
       return res.status(400).json({ error: "messages required" });
 
+    // Streaming is opt-in (the narration call) and incompatible with a forced
+    // JSON response_format (the routing call), so it's disabled when one is set.
+    const stream = body.stream === true && !body.response_format;
+
     const payload = {
       model: body.model,
       messages: body.messages.slice(0, MAX_MESSAGES),
@@ -73,6 +77,11 @@ exports.llm = onRequest(
     if (body.response_format) payload.response_format = body.response_format;
     if (body.tools) payload.tools = body.tools;
     if (body.tool_choice) payload.tool_choice = body.tool_choice;
+    if (stream) {
+      payload.stream = true;
+      // ask OpenRouter to emit a final usage chunk so token counts survive
+      payload.stream_options = { include_usage: true };
+    }
 
     try {
       const upstream = await fetch(
@@ -88,9 +97,25 @@ exports.llm = onRequest(
           body: JSON.stringify(payload),
         },
       );
-      const data = await upstream.json();
-      return res.status(upstream.status).json(data);
+
+      // Non-stream (routing, or upstream error before the body): forward JSON.
+      if (!stream || !upstream.ok || !upstream.body) {
+        const data = await upstream.json();
+        return res.status(upstream.status).json(data);
+      }
+
+      // Stream: pipe the upstream Server-Sent Events through to the client. The
+      // browser provider parses these `data:` lines incrementally.
+      res.status(200);
+      res.set("Content-Type", "text/event-stream; charset=utf-8");
+      res.set("Cache-Control", "no-cache, no-transform");
+      res.set("Connection", "keep-alive");
+      for await (const chunk of upstream.body) {
+        res.write(chunk);
+      }
+      return res.end();
     } catch (e) {
+      if (res.headersSent) return res.end();
       return res
         .status(502)
         .json({ error: "upstream error", detail: String(e) });

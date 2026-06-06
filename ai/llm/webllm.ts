@@ -14,7 +14,7 @@ import {
   buildNarrationPrompt,
   buildToolSystemPrompt,
 } from "../orchestrator/prompts";
-import { route } from "../orchestrator/router";
+import { resolveFollowOn, route } from "../orchestrator/router";
 import { parseToolCall, toolSelectionSchema } from "../orchestrator/toolSchema";
 import { runTool } from "../tools/registry";
 import type { Lang, ToolContext } from "../tools/types";
@@ -24,6 +24,7 @@ import type {
   ChatResponse,
   LLMProvider,
   ProviderStatus,
+  RespondOpts,
   ResponseMeta,
 } from "./provider";
 import type { ModelOption } from "./models";
@@ -167,14 +168,16 @@ export class WebLLMProvider implements LLMProvider {
     lang: Lang,
     usage: Usage,
     onDelta?: (partial: string) => void,
+    detail: "brief" | "full" = "brief",
   ): Promise<{ text: string; fromModel: boolean }> {
     const template = narrate(env, lang);
     if (!this.engine) return { text: template, fromModel: false };
+    const maxTokens = detail === "full" ? 320 : 160;
     // Language guard: small models often answer in English even when asked in
     // Bulgarian. The template narration is always in the right language, so if
     // the model's output isn't predominantly the requested script, use it.
     try {
-      const { system, user } = buildNarrationPrompt(env, lang);
+      const { system, user } = buildNarrationPrompt(env, lang, detail);
       const messages = [
         { role: "system" as const, content: system },
         { role: "user" as const, content: user },
@@ -183,7 +186,7 @@ export class WebLLMProvider implements LLMProvider {
         const stream = await this.engine.chat.completions.create({
           messages,
           temperature: 0.2,
-          max_tokens: 160,
+          max_tokens: maxTokens,
           stream: true,
           stream_options: { include_usage: true },
         });
@@ -206,7 +209,7 @@ export class WebLLMProvider implements LLMProvider {
       const res = await this.engine.chat.completions.create({
         messages,
         temperature: 0.2,
-        max_tokens: 160,
+        max_tokens: maxTokens,
       });
       addUsage(usage, res);
       const text = stripControl(res.choices?.[0]?.message?.content ?? "");
@@ -222,6 +225,7 @@ export class WebLLMProvider implements LLMProvider {
     question: string,
     ctx: ToolContext,
     onDelta?: (partial: string) => void,
+    opts?: RespondOpts,
   ): Promise<ChatResponse> {
     const t0 = performance.now();
     const usage: Usage = { input: 0, output: 0 };
@@ -233,7 +237,10 @@ export class WebLLMProvider implements LLMProvider {
       tokPerSec: usage.tokPerSec,
       narratedBy,
     });
-    const r = await this.selectRoute(question, ctx, usage);
+    // A bare follow-on ("а ДПС?") reuses the prior tool with the new entity.
+    const r =
+      resolveFollowOn(question, opts?.prev) ??
+      (await this.selectRoute(question, ctx, usage));
     if (!r) return { text: clarify(ctx.lang), env: null, meta: meta("rules") };
     try {
       const env = await runTool(r.tool, r.args, ctx);
@@ -242,11 +249,13 @@ export class WebLLMProvider implements LLMProvider {
         ctx.lang,
         usage,
         onDelta,
+        opts?.detail ?? "brief",
       );
       return {
         text,
         env,
         tool: r.tool,
+        args: r.args,
         meta: meta(fromModel ? "model" : "rules"),
       };
     } catch (e) {

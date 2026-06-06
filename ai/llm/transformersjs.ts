@@ -12,12 +12,17 @@
 
 import { narrate } from "../orchestrator/narrate";
 import { buildNarrationPrompt } from "../orchestrator/prompts";
-import { route } from "../orchestrator/router";
+import { resolveFollowOn, route } from "../orchestrator/router";
 import { runTool } from "../tools/registry";
 import type { Lang, ToolContext } from "../tools/types";
 import { clarify, matchesLang } from "./lang";
 import type { ModelOption } from "./models";
-import type { ChatResponse, LLMProvider, ProviderStatus } from "./provider";
+import type {
+  ChatResponse,
+  LLMProvider,
+  ProviderStatus,
+  RespondOpts,
+} from "./provider";
 import { webgpuSupported } from "./webllm";
 
 // transformers.js streams generated tokens through a TextStreamer; this is the
@@ -143,14 +148,16 @@ export class TransformersJsProvider implements LLMProvider {
     question: string,
     ctx: ToolContext,
     onDelta?: (partial: string) => void,
+    opts?: RespondOpts,
   ): Promise<ChatResponse> {
     // Deterministic router only (model.routes is false) — the model narrates.
-    const r = route(question, ctx);
+    // A bare follow-on ("а ДПС?") reuses the prior tool with the new entity.
+    const r = resolveFollowOn(question, opts?.prev) ?? route(question, ctx);
     if (!r) return { text: clarify(ctx.lang), env: null };
     try {
       const env = await runTool(r.tool, r.args, ctx);
       const text = await this.narrateEnv(env, ctx.lang, onDelta);
-      return { text, env, tool: r.tool };
+      return { text, env, tool: r.tool, args: r.args };
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
       return {

@@ -10,6 +10,7 @@ import { resolveBudgetFunction } from "../tools/fiscal";
 import { resolveMacroKey } from "../tools/macro";
 import { findOblastInText } from "../tools/place";
 import { resolveRegionKey, resolveSubnatKey } from "../tools/placesGov";
+import { TOOLS_BY_NAME } from "../tools/registry";
 import type { ToolArgs, ToolContext } from "../tools/types";
 
 export type Route = { tool: string; args: ToolArgs } | null;
@@ -1129,4 +1130,71 @@ export const route = (question: string, ctx: ToolContext): Route => {
   }
 
   return null;
+};
+
+// Conversational memory. A bare follow-on like "а ДПС?" / "and DPS?" / "what
+// about Varna?" can't stand on its own — it only means "the previous question,
+// but for this new entity". When the prior answer's tool has a single entity
+// slot (party / person / oblast / place), swap the newly-named entity into it
+// and reuse that tool, so the user doesn't have to restate the whole question.
+//
+// Conservative on purpose: it fires only when (a) a new entity of the right
+// type is present AND (b) after dropping an optional leading follow-on particle
+// the utterance is JUST that entity (a bare reference). A question with its own
+// intent ("а къде е силна ГЕРБ?", "имаше ли нередности на ГЕРБ?") keeps words
+// beyond the entity and is left to normal routing. Both the rules and cloud
+// providers call this first.
+//
+// The particle must be a separate leading word (trailing \s+), so it never bites
+// into a real word like "Имаше"/"избори"/"икономика" that merely starts with и/а.
+const FOLLOWON_CUE =
+  /^(а за|ами за|ами при|ами|а|и|what about|how about|and for|what of|and)\s+/i;
+
+// lowercase + drop punctuation (so "ГЕРБ-СДС" and "герб сдс" compare equal) +
+// collapse whitespace. Applied to BOTH sides of the bare-entity check.
+const normEntity = (s: string): string =>
+  s
+    .toLowerCase()
+    .replace(/[^\p{L}\s]/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const ENTITY_DETECTORS: Record<
+  string,
+  (q: string, raw: string) => string | undefined
+> = {
+  party: (q) => detectParty(q),
+  person: (_q, raw) => extractPersonName(raw),
+  oblast: (_q, raw) => findOblastInText(raw)?.name.bg,
+  place: (_q, raw) => extractPlaceCandidates(raw)[0],
+};
+
+export const resolveFollowOn = (
+  question: string,
+  prev: { tool: string; args: ToolArgs } | undefined,
+): Route => {
+  if (!prev) return null;
+  const tool = TOOLS_BY_NAME[prev.tool];
+  if (!tool) return null;
+
+  // the tool's primary entity slot, if it has one
+  const param = tool.params.find((p) =>
+    ["party", "person", "oblast", "place"].includes(p.type),
+  );
+  if (!param) return null;
+
+  const q = question.toLowerCase().trim();
+  const detect = ENTITY_DETECTORS[param.type];
+  const value = detect?.(q, question);
+  if (!value) return null;
+
+  // Drop a leading particle, then the remainder must equal the entity exactly.
+  const remainder = normEntity(q.replace(FOLLOWON_CUE, ""));
+  const target = normEntity(value);
+  if (remainder !== target) return null;
+
+  // Don't re-fire on the same entity (e.g. echoing the previous answer).
+  if (normEntity(String(prev.args[param.name] ?? "")) === target) return null;
+
+  return { tool: prev.tool, args: { ...prev.args, [param.name]: value } };
 };

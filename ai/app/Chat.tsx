@@ -4,17 +4,26 @@
 
 import { type RefObject, useEffect, useMemo, useRef, useState } from "react";
 import {
+  AlignLeft,
+  ArrowUp,
   Check,
   Copy,
   Download,
+  Facebook,
   FileDown,
   FileText,
   ImageDown,
+  Loader2,
+  Mic,
   Plus,
   Share2,
+  Sparkles,
+  Square,
   Table,
+  Volume2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,7 +32,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import type { ModelEngine } from "../llm/useModelEngine";
 import { AnswerView } from "../render/AnswerView";
-import type { Lang } from "../tools/types";
+import type { Lang, ToolArgs } from "../tools/types";
 import {
   conversationToMarkdown,
   downloadAnswerImage,
@@ -37,8 +46,27 @@ import {
 import { followUps } from "./followups";
 import { ModelPicker } from "./ModelPicker";
 import { matchSuggestions } from "./suggestions";
+import { useSpeech } from "./useSpeech";
+import { useVoiceInput } from "./voice";
 
-type Msg = ChatMsg & { id: number };
+// detail = which narration length this answer is currently showing (the
+// кратко/подробно toggle).
+type Msg = ChatMsg & { id: number; detail?: "brief" | "full" };
+
+// The previous answer's tool + args, used to resolve a follow-on ("а ДПС?").
+// Scans backwards from `beforeIndex` for the nearest assistant turn that ran a
+// tool (skips clarify/error turns, which carry no tool).
+const prevContext = (
+  msgs: Msg[],
+  beforeIndex: number,
+): { tool: string; args: ToolArgs } | undefined => {
+  for (let i = beforeIndex - 1; i >= 0; i--) {
+    const m = msgs[i];
+    if (m.role === "assistant" && m.tool)
+      return { tool: m.tool, args: m.args ?? {} };
+  }
+  return undefined;
+};
 
 const STORAGE_KEY = "naiasno.chat.v1";
 
@@ -156,6 +184,72 @@ const AnswerExportMenu = ({
   );
 };
 
+// A small control rendered under the answer prose: read-aloud (TTS) + the
+// кратко/подробно (brief/detailed) toggle. The toggle only appears when a model
+// wrote the prose — the rules engine has only its fixed template, so it can't
+// elaborate. `data-export-omit` keeps these buttons out of the PNG/PDF capture.
+const AnswerControls = ({
+  msg,
+  lang,
+  busy,
+  speech,
+  onSetDetail,
+}: {
+  msg: Msg;
+  lang: Lang;
+  busy: boolean;
+  speech: ReturnType<typeof useSpeech>;
+  onSetDetail: (id: number, detail: "brief" | "full") => void;
+}) => {
+  const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
+  const id = String(msg.id);
+  const speaking = speech.speakingId === id;
+  const canSpeak = speech.supported && !!msg.text;
+  const canDetail = msg.meta?.narratedBy === "model";
+  if (!canSpeak && !canDetail) return null;
+  const detailed = msg.detail === "full";
+  const btn =
+    "inline-flex items-center gap-1 rounded-full border border-input px-2.5 py-1 text-[11px] text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-50";
+  return (
+    <div data-export-omit="">
+      {canSpeak && (
+        <button
+          type="button"
+          className={btn}
+          onClick={() => speech.speak(id, msg.text)}
+          aria-label={
+            speaking
+              ? t("Спри четенето", "Stop")
+              : t("Чети на глас", "Read aloud")
+          }
+        >
+          {speaking ? (
+            <Square className="size-3 fill-current" />
+          ) : (
+            <Volume2 className="size-3.5" />
+          )}
+          {speaking ? t("Спри", "Stop") : t("Чети", "Listen")}
+        </button>
+      )}
+      {canDetail && (
+        <button
+          type="button"
+          className={`${btn} ml-1.5`}
+          disabled={busy}
+          onClick={() => onSetDetail(msg.id, detailed ? "brief" : "full")}
+        >
+          {detailed ? (
+            <AlignLeft className="size-3.5" />
+          ) : (
+            <Sparkles className="size-3.5" />
+          )}
+          {detailed ? t("Кратко", "Brief") : t("Подробно", "Detailed")}
+        </button>
+      )}
+    </div>
+  );
+};
+
 // One assistant turn. While the answer is still streaming (or it's a plain
 // clarify/error with no Envelope) the narration shows in a bubble; once an
 // Envelope lands the bubble is folded into the answer panel as its lead line.
@@ -164,11 +258,17 @@ const AssistantMessage = ({
   lang,
   question,
   streaming,
+  busy,
+  speech,
+  onSetDetail,
 }: {
   msg: Msg;
   lang: Lang;
   question: string;
   streaming: boolean;
+  busy: boolean;
+  speech: ReturnType<typeof useSpeech>;
+  onSetDetail: (id: number, detail: "brief" | "full") => void;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   return (
@@ -185,6 +285,15 @@ const AssistantMessage = ({
             lang={lang}
             meta={msg.meta}
             narration={msg.text}
+            controls={
+              <AnswerControls
+                msg={msg}
+                lang={lang}
+                busy={busy}
+                speech={speech}
+                onSetDetail={onSetDetail}
+              />
+            }
             actions={
               <AnswerExportMenu
                 cardRef={cardRef}
@@ -216,8 +325,11 @@ export const Chat = ({
   const [shared, setShared] = useState(false);
   const idRef = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
+  const taRef = useRef<HTMLTextAreaElement>(null);
   const ranInitial = useRef(false);
   const firstPersist = useRef(true);
+  // whatever was typed before dictation started — the transcript is appended to it
+  const voiceBase = useRef("");
   const nextId = () => (idRef.current += 1);
 
   // keep the latest answer in view as the conversation grows
@@ -225,12 +337,48 @@ export const Chat = ({
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, busy]);
 
+  // grow the textarea with its content (capped), and shrink back when cleared.
+  // Runs on every input change so programmatic sets (voice, send) resize too.
+  // When empty we clear the inline height and let the CSS min-height govern,
+  // rather than measure — measuring at mount can race the (JS-injected, in dev)
+  // stylesheet and momentarily report a too-tall scrollHeight.
+  useEffect(() => {
+    const el = taRef.current;
+    if (!el) return;
+    if (!input) {
+      el.style.height = "";
+      return;
+    }
+    el.style.height = "auto";
+    el.style.height = `${Math.min(el.scrollHeight, 160)}px`;
+  }, [input]);
+
+  // focus the composer on first load so the user can type straightaway
+  useEffect(() => {
+    taRef.current?.focus();
+  }, []);
+
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
+
+  const speech = useSpeech(lang);
+
+  const voice = useVoiceInput({
+    lang,
+    onStart: () => {
+      voiceBase.current = input;
+    },
+    onResult: (text) => {
+      setInput(voiceBase.current ? `${voiceBase.current} ${text}` : text);
+    },
+  });
 
   const send = async (text: string) => {
     const q = text.trim();
     if (!q || busy) return;
+    speech.stop();
     setInput("");
+    // the prior answer's tool becomes the context for a follow-on ("а ДПС?")
+    const prev = prevContext(messages, messages.length);
     const uId = nextId();
     const aId = nextId();
     setMessages((m) => [
@@ -248,15 +396,73 @@ export const Chat = ({
         setMessages((m) =>
           m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
         ),
+      { prev },
     );
     setMessages((m) =>
       m.map((x) =>
         x.id === aId
-          ? { ...x, text: res.text, env: res.env, meta: res.meta }
+          ? {
+              ...x,
+              text: res.text,
+              env: res.env,
+              meta: res.meta,
+              tool: res.tool,
+              args: res.args,
+              detail: "brief",
+            }
           : x,
       ),
     );
     setBusy(false);
+    taRef.current?.focus();
+  };
+
+  // Re-narrate one existing answer at a different length (the кратко/подробно
+  // toggle). Re-runs the same question — with the same follow-on context that
+  // produced it — so the tool + figures are unchanged; only the prose differs.
+  const setDetail = async (aId: number, detail: "brief" | "full") => {
+    if (busy) return;
+    const idx = messages.findIndex((m) => m.id === aId);
+    if (idx < 1) return;
+    const question = messages[idx - 1]?.text;
+    if (!question) return;
+    const prev = prevContext(messages, idx - 1);
+    speech.stop();
+    setBusy(true);
+    const res = await engine.provider.respond(
+      question,
+      { lang, election },
+      (partial) =>
+        setMessages((m) =>
+          m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
+        ),
+      { detail, prev },
+    );
+    setMessages((m) =>
+      m.map((x) =>
+        x.id === aId
+          ? {
+              ...x,
+              text: res.text,
+              env: res.env,
+              meta: res.meta,
+              tool: res.tool,
+              args: res.args,
+              detail,
+            }
+          : x,
+      ),
+    );
+    setBusy(false);
+  };
+
+  // Enter sends; Shift+Enter inserts a newline. Ignore Enter mid-IME-composition
+  // (Bulgarian/other input methods) so it doesn't fire while picking a candidate.
+  const onComposerKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+      e.preventDefault();
+      send(input);
+    }
   };
 
   // on load: a ?q=<question> deep-link wins; otherwise restore the saved chat
@@ -311,9 +517,29 @@ export const Chat = ({
     .reverse()
     .find((m) => m.role === "user")?.text;
 
+  // Permalink that re-asks the last question on load (?q=…). Prefers the native
+  // share sheet on mobile, falling back to copying the link.
+  const permalink = () =>
+    `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(lastUserText ?? "")}`;
+
   const share = async () => {
     if (!lastUserText) return;
-    const url = `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(lastUserText)}`;
+    const url = permalink();
+    const nav = navigator as Navigator & {
+      share?: (d: {
+        title?: string;
+        text?: string;
+        url?: string;
+      }) => Promise<void>;
+    };
+    if (nav.share) {
+      try {
+        await nav.share({ title: "Наясно", text: lastUserText, url });
+        return;
+      } catch {
+        /* user dismissed or unsupported — fall through to copy */
+      }
+    }
     try {
       await navigator.clipboard.writeText(url);
       setShared(true);
@@ -321,6 +547,16 @@ export const Chat = ({
     } catch {
       /* clipboard blocked — ignore */
     }
+  };
+
+  // Open the Facebook share dialog for the permalink (Наясно is FB-first).
+  const shareFacebook = () => {
+    if (!lastUserText) return;
+    window.open(
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(permalink())}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
   };
 
   const last = messages[messages.length - 1];
@@ -380,6 +616,14 @@ export const Chat = ({
           <Button
             variant="outline"
             size="sm"
+            onClick={shareFacebook}
+            title={t("Сподели във Facebook", "Share on Facebook")}
+          >
+            <Facebook /> Facebook
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
             title={t("Целият разговор", "Whole conversation")}
             onClick={() => downloadMarkdown(messages, lang)}
           >
@@ -420,6 +664,9 @@ export const Chat = ({
               lang={lang}
               question={messages[i - 1]?.text ?? ""}
               streaming={busy && i === messages.length - 1}
+              busy={busy}
+              speech={speech}
+              onSetDetail={setDetail}
             />
           ),
         )}
@@ -462,47 +709,94 @@ export const Chat = ({
           </div>
         )}
         <form
-          className="flex items-center gap-2"
           onSubmit={(e) => {
             e.preventDefault();
             send(input);
           }}
         >
-          <ModelPicker engine={engine} lang={lang} />
-          <input
-            className="min-w-0 flex-1 rounded-full border border-input bg-background px-4 py-2.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring"
-            placeholder={t(
-              "Попитайте за изборите…",
-              "Ask about the elections…",
+          <div className="flex items-end gap-1.5 rounded-2xl border border-input bg-background px-2 py-1.5 shadow-sm focus-within:ring-2 focus-within:ring-ring">
+            <textarea
+              ref={taRef}
+              rows={1}
+              className="max-h-40 min-h-[2.25rem] min-w-0 flex-1 resize-none bg-transparent px-2 py-2 text-sm leading-relaxed placeholder:text-muted-foreground focus:outline-none"
+              placeholder={t(
+                "Попитайте за изборите…",
+                "Ask about the elections…",
+              )}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={onComposerKeyDown}
+            />
+            {voice.supported && (
+              <button
+                type="button"
+                onClick={voice.toggle}
+                aria-label={
+                  voice.listening
+                    ? t("Спри диктовката", "Stop dictation")
+                    : t("Гласово въвеждане", "Voice input")
+                }
+                title={
+                  voice.listening
+                    ? t("Спри диктовката", "Stop dictation")
+                    : t("Гласово въвеждане", "Voice input")
+                }
+                className={cn(
+                  "flex size-9 shrink-0 items-center justify-center rounded-full border transition-colors",
+                  voice.listening
+                    ? "animate-pulse border-destructive bg-destructive/10 text-destructive"
+                    : "border-input text-muted-foreground hover:bg-muted hover:text-foreground",
+                )}
+              >
+                {voice.listening ? (
+                  <Square className="size-3.5 fill-current" />
+                ) : (
+                  <Mic className="size-4" />
+                )}
+              </button>
             )}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            disabled={busy}
-          />
-          <button
-            type="submit"
-            className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground disabled:opacity-50"
-            disabled={busy || !input.trim()}
-          >
-            {t("Изпрати", "Send")}
-          </button>
-        </form>
-        {/* sample prompts live under the composer so they persist after the
-            first question (don't vanish like an empty-state) */}
-        <div className="mt-2 flex flex-wrap items-center gap-1.5">
-          <span className="text-[11px] text-muted-foreground">
-            {t("Опитайте:", "Try:")}
-          </span>
-          {starters.map((s) => (
             <button
-              key={s.en}
-              onClick={() => send(s[lang])}
-              disabled={busy}
-              className="rounded-full border border-input bg-card px-2.5 py-1 text-[11px] text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-50"
+              type="submit"
+              aria-label={t("Изпрати", "Send")}
+              title={t("Изпрати", "Send")}
+              className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-opacity disabled:opacity-40"
+              disabled={busy || !input.trim()}
             >
-              {s[lang]}
+              {busy ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : (
+                <ArrowUp className="size-4" />
+              )}
             </button>
-          ))}
+          </div>
+        </form>
+        {/* desktop-only hint: on touch keyboards Enter is usually a newline */}
+        <p className="mt-1 hidden px-1 text-[10px] text-muted-foreground sm:block">
+          {t(
+            "Enter — изпрати · Shift+Enter — нов ред",
+            "Enter to send · Shift+Enter for a new line",
+          )}
+        </p>
+        {/* sample prompts live under the composer so they persist after the
+            first question (don't vanish like an empty-state); the model picker
+            sits at the right edge of the same row */}
+        <div className="mt-2 flex items-center gap-2">
+          <div className="flex min-w-0 flex-1 flex-wrap items-center gap-1.5">
+            <span className="text-[11px] text-muted-foreground">
+              {t("Опитайте:", "Try:")}
+            </span>
+            {starters.map((s) => (
+              <button
+                key={s.en}
+                onClick={() => send(s[lang])}
+                disabled={busy}
+                className="rounded-full border border-input bg-card px-2.5 py-1 text-[11px] text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-50"
+              >
+                {s[lang]}
+              </button>
+            ))}
+          </div>
+          <ModelPicker engine={engine} lang={lang} />
         </div>
       </div>
     </div>

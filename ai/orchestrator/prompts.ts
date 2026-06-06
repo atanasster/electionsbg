@@ -82,18 +82,29 @@ export const buildToolSystemPrompt = (lang: Lang): string => {
 };
 
 // Narration: the model gets ONLY the tool's facts and must not invent numbers.
+// The model's value over the template is INTERPRETATION — it should surface the
+// pattern (the trend, the turning point, the extreme, a comparison), not restate
+// the same headline the template already produces. `detail` controls length:
+// "brief" (default) is the interpretive 1–2 sentences; "full" expands to a
+// short paragraph for the "Подробно / Detailed" toggle.
 export const buildNarrationPrompt = (
   env: Envelope,
   lang: Lang,
+  detail: "brief" | "full" = "brief",
 ): { system: string; user: string } => {
   const language = lang === "bg" ? "Bulgarian" : "English";
   const script = lang === "bg" ? "Cyrillic" : "Latin";
+  const length =
+    detail === "full"
+      ? "Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means."
+      : "Write 1–2 sentences: lead with the headline, then name the single most notable pattern in the data (a trend, a turning point, an extreme, or a comparison) — not just a restatement of the numbers.";
   return {
     system: [
       `You MUST write your entire answer in ${language} (${script} script) only.`,
-      `Do not use any other language. Explain the civic data in ${language}, in 1–2 short sentences.`,
-      "Use ONLY the provided facts. Never invent or infer a number that is not in the facts.",
-      "Be concise and neutral. Do not restate the whole table — give the headline.",
+      `Do not use any other language. Explain the civic data in ${language}.`,
+      length,
+      "Use ONLY the provided facts. Never invent, infer, or compute a number that is not in the facts; you MAY describe relationships between given numbers (higher/lower, rose/fell, peak, roughly half).",
+      "Be neutral and specific. Do not restate the whole table — interpret it. Do not add a preamble like 'Based on the data'.",
     ].join(" "),
     user: [
       `Title: ${env.title}`,

@@ -46,6 +46,16 @@ export type Envelope = {
   categories?: (string | number)[];
   series?: Series[];
   viz: VizType;
+  // optional chart annotations (series envelopes only). `markers` flag notable
+  // x-positions (the renderer also derives peak/trough automatically when none
+  // are given); `bands` shade an x-range (e.g. a cabinet's tenure).
+  markers?: { x: string | number; label?: string; kind?: "peak" | "trough" }[];
+  bands?: {
+    fromX: string | number;
+    toX: string | number;
+    label: string;
+    color?: string;
+  }[];
   // flat numbers/labels handed to the LLM to narrate. Keep keys descriptive.
   facts: Record<string, string | number>;
   // human-readable source identifiers, e.g. "elections.json", "2026_04_19/national_summary.json"

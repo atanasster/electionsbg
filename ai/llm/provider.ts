@@ -5,10 +5,20 @@
 // UI doesn't change when the model lands.
 
 import { narrate } from "../orchestrator/narrate";
-import { route } from "../orchestrator/router";
+import { resolveFollowOn, route } from "../orchestrator/router";
 import { runTool } from "../tools/registry";
-import type { Envelope, ToolContext } from "../tools/types";
+import type { Envelope, ToolArgs, ToolContext } from "../tools/types";
 import { clarify } from "./lang";
+
+// Per-request options shared by every provider.
+// - detail: how much prose the model should write ("full" → the longer,
+//   interpretive paragraph requested by the кратко/подробно toggle).
+// - prev: the previous answer's tool + args, so a follow-on like "а ДПС?"
+//   resolves the ellipsis against the last question (conversational memory).
+export type RespondOpts = {
+  detail?: "brief" | "full";
+  prev?: { tool: string; args: ToolArgs };
+};
 
 // How a response was produced — surfaced in the answer panel's header band.
 // For the rules engine only `model`/`durationMs`/`narratedBy:"rules"` apply
@@ -27,6 +37,9 @@ export type ChatResponse = {
   text: string;
   env: Envelope | null;
   tool?: string;
+  // the resolved tool args — kept so the next turn can use this answer as the
+  // `prev` context for follow-on questions (conversational memory).
+  args?: ToolArgs;
   meta?: ResponseMeta;
 };
 
@@ -44,29 +57,43 @@ export interface LLMProvider {
     question: string,
     ctx: ToolContext,
     onDelta?: (partial: string) => void,
+    opts?: RespondOpts,
   ): Promise<ChatResponse>;
 }
 
 export class HeuristicProvider implements LLMProvider {
   id = "rules";
-  label = { bg: "Правила (офлайн)", en: "Rules (offline)" };
+  label = { bg: "Без AI (офлайн)", en: "Basic (offline)" };
 
   status(): ProviderStatus {
     return "ready";
   }
 
-  async respond(question: string, ctx: ToolContext): Promise<ChatResponse> {
+  async respond(
+    question: string,
+    ctx: ToolContext,
+    _onDelta?: (partial: string) => void,
+    opts?: RespondOpts,
+  ): Promise<ChatResponse> {
     const t0 = performance.now();
     const meta = (): ResponseMeta => ({
       model: this.label,
       durationMs: performance.now() - t0,
       narratedBy: "rules",
     });
-    const r = route(question, ctx);
+    // A bare follow-on ("а ДПС?") reuses the previous tool with the new entity;
+    // otherwise route the question on its own.
+    const r = resolveFollowOn(question, opts?.prev) ?? route(question, ctx);
     if (!r) return { text: clarify(ctx.lang), env: null, meta: meta() };
     try {
       const env = await runTool(r.tool, r.args, ctx);
-      return { text: narrate(env, ctx.lang), env, tool: r.tool, meta: meta() };
+      return {
+        text: narrate(env, ctx.lang),
+        env,
+        tool: r.tool,
+        args: r.args,
+        meta: meta(),
+      };
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
       return {

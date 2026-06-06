@@ -8,6 +8,8 @@ import {
   Cell,
   Line,
   LineChart,
+  ReferenceArea,
+  ReferenceDot,
   XAxis,
   YAxis,
 } from "recharts";
@@ -17,6 +19,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
+import { Info } from "lucide-react";
 import type { ReactNode } from "react";
 import {
   Table,
@@ -27,7 +30,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { ResponseMeta } from "../llm/provider";
-import type { Column, Envelope, Lang } from "../tools/types";
+import type { Column, Envelope, Lang, SeriesPoint } from "../tools/types";
+import { siteLinks } from "./links";
 
 const CHART_VARS = [
   "hsl(var(--chart-1))",
@@ -60,6 +64,32 @@ const tickFmt =
       : new Intl.NumberFormat(locale).format(v);
   };
 
+// Auto peak/trough markers for a single-line trend (≥3 points). These tell the
+// chart's story at a glance — "highest here, lowest there" — without any tool
+// change. Bars (rankings) and multi-series charts are left unmarked unless the
+// envelope supplies explicit `markers`.
+const autoMarkers = (
+  env: Envelope,
+  lang: Lang,
+): { x: string | number; y: number; label: string; kind: string }[] => {
+  if (env.viz !== "line" || (env.series?.length ?? 0) !== 1) return [];
+  const pts = (env.series![0].points ?? []).filter(
+    (p): p is { x: string | number; y: number } => p.y != null,
+  );
+  if (pts.length < 3) return [];
+  let hi = pts[0];
+  let lo = pts[0];
+  for (const p of pts) {
+    if (p.y > hi.y) hi = p;
+    if (p.y < lo.y) lo = p;
+  }
+  if (hi.x === lo.x) return [];
+  return [
+    { x: hi.x, y: hi.y, label: lang === "bg" ? "връх" : "peak", kind: "peak" },
+    { x: lo.x, y: lo.y, label: lang === "bg" ? "дъно" : "low", kind: "trough" },
+  ];
+};
+
 const SeriesChart = ({ env, lang }: { env: Envelope; lang: Lang }) => {
   const series = env.series ?? [];
   const categories = env.categories ?? [];
@@ -75,10 +105,12 @@ const SeriesChart = ({ env, lang }: { env: Envelope; lang: Lang }) => {
   const data = categories.map((x, i) => {
     const row: Record<string, string | number | null> = { x };
     series.forEach((s) => {
-      row[s.key] = s.points[i]?.y ?? null;
+      row[s.key] = (s.points[i] as SeriesPoint | undefined)?.y ?? null;
     });
     return row;
   });
+
+  const bands = env.bands ?? [];
 
   if (env.viz === "bar") {
     const s0 = series[0];
@@ -112,10 +144,32 @@ const SeriesChart = ({ env, lang }: { env: Envelope; lang: Lang }) => {
     );
   }
 
+  const markers = env.markers?.length
+    ? env.markers.map((m) => ({
+        x: m.x,
+        // y from the first series at that x, when not given
+        y:
+          (series[0]?.points.find((p) => p.x === m.x)?.y as number | null) ??
+          null,
+        label: m.label ?? "",
+        kind: m.kind ?? "peak",
+      }))
+    : autoMarkers(env, lang);
+
   return (
     <ChartContainer config={config} className="max-h-[360px] w-full">
       <LineChart data={data} margin={{ left: 8, right: 8, top: 8 }}>
         <CartesianGrid vertical={false} />
+        {bands.map((b, i) => (
+          <ReferenceArea
+            key={`band-${i}`}
+            x1={b.fromX}
+            x2={b.toX}
+            fill={b.color ?? "hsl(var(--muted-foreground))"}
+            fillOpacity={0.08}
+            label={{ value: b.label, position: "insideTop", fontSize: 10 }}
+          />
+        ))}
         <XAxis
           dataKey="x"
           tickLine={false}
@@ -143,6 +197,29 @@ const SeriesChart = ({ env, lang }: { env: Envelope; lang: Lang }) => {
             connectNulls
           />
         ))}
+        {markers
+          .filter((m) => m.y != null)
+          .map((m, i) => (
+            <ReferenceDot
+              key={`mark-${i}`}
+              x={m.x}
+              y={m.y as number}
+              r={4}
+              fill={
+                m.kind === "trough"
+                  ? "hsl(var(--chart-4))"
+                  : "hsl(var(--chart-2))"
+              }
+              stroke="hsl(var(--background))"
+              strokeWidth={1.5}
+              label={{
+                value: m.label,
+                position: m.kind === "trough" ? "bottom" : "top",
+                fontSize: 10,
+                fill: "hsl(var(--muted-foreground))",
+              }}
+            />
+          ))}
       </LineChart>
     </ChartContainer>
   );
@@ -202,71 +279,75 @@ const fmtDuration = (ms: number, lang: Lang): string => {
   return `${(ms / 1000).toLocaleString(locale, { maximumFractionDigits: 1 })} ${unit}`;
 };
 
-// Compact, muted "how this was produced" line: model · tokens · time. Tokens
-// and rate only appear for a model-narrated answer (the rules engine has none).
+// Compact "how this was produced" line: model · time. Token counts (model only)
+// move into the hover tooltip — voters don't need the token math, but it stays
+// available. The tooltip also carries the trust assurance that the numbers are
+// computed from official data, not generated.
 const MetaLine = ({ meta, lang }: { meta: ResponseMeta; lang: Lang }) => {
   const locale = lang === "bg" ? "bg-BG" : "en-US";
   const n = (v: number) => v.toLocaleString(locale);
   const model = meta.model[lang];
-  const parts: string[] = [model];
-  if (meta.inputTokens != null && meta.outputTokens != null)
-    parts.push(
-      `${n(meta.inputTokens)}↑ / ${n(meta.outputTokens)}↓ ${lang === "bg" ? "ток" : "tok"}`,
-    );
-  if (meta.tokPerSec != null)
-    parts.push(`${n(meta.tokPerSec)} ${lang === "bg" ? "ток/с" : "tok/s"}`);
-  parts.push(fmtDuration(meta.durationMs, lang));
-  const title =
+  const inline = `${model} · ${fmtDuration(meta.durationMs, lang)}`;
+  const trust =
     lang === "bg"
-      ? `Модел: ${model}\nВреме: ${fmtDuration(meta.durationMs, lang)}` +
-        (meta.inputTokens != null
-          ? `\nТокени: ${n(meta.inputTokens)} вход / ${n(meta.outputTokens ?? 0)} изход`
-          : "") +
-        `\nТекст: ${meta.narratedBy === "model" ? "от модела" : "по шаблон"}`
-      : `Model: ${model}\nTime: ${fmtDuration(meta.durationMs, lang)}` +
-        (meta.inputTokens != null
-          ? `\nTokens: ${n(meta.inputTokens)} in / ${n(meta.outputTokens ?? 0)} out`
-          : "") +
-        `\nProse: ${meta.narratedBy === "model" ? "from model" : "templated"}`;
+      ? "Числата са изчислени от официалните данни, не са генерирани."
+      : "Figures are computed from official data, not generated.";
+  const title =
+    (lang === "bg"
+      ? `Модел: ${model}\nВреме: ${fmtDuration(meta.durationMs, lang)}`
+      : `Model: ${model}\nTime: ${fmtDuration(meta.durationMs, lang)}`) +
+    (meta.inputTokens != null
+      ? lang === "bg"
+        ? `\nТокени: ${n(meta.inputTokens)} вход / ${n(meta.outputTokens ?? 0)} изход`
+        : `\nTokens: ${n(meta.inputTokens)} in / ${n(meta.outputTokens ?? 0)} out`
+      : "") +
+    `\n\n${trust}`;
   return (
     <span
       className="whitespace-nowrap text-[11px] tabular-nums text-muted-foreground"
       title={title}
     >
-      {parts.join(" · ")}
+      {inline}
     </span>
   );
 };
 
-// trust signal: every figure is computed deterministically, never generated by
-// the language model. When a model wrote the prose, the claim narrows to "the
-// numbers are computed" so it stays precise.
-const TrustPill = ({
-  lang,
-  narratedBy,
-}: {
-  lang: Lang;
-  narratedBy?: ResponseMeta["narratedBy"];
-}) => {
-  const fromModel = narratedBy === "model";
-  const label = fromModel
-    ? lang === "bg"
-      ? "числата са изчислени"
-      : "figures computed"
-    : lang === "bg"
-      ? "изчислено, не генерирано"
-      : "computed, not generated";
+// Real electionsbg.com pages backing the answer, plus the raw data-source
+// filenames tucked behind an info tooltip (transparency without clutter).
+const SourceLinks = ({ env, lang }: { env: Envelope; lang: Lang }) => {
+  const links = siteLinks(env);
+  const prov = env.provenance ?? [];
+  // nothing to attribute (no page links and no source files) — render nothing
+  if (links.length === 0 && prov.length === 0) return null;
   return (
-    <span
-      className="shrink-0 whitespace-nowrap rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium text-secondary-foreground"
-      title={
-        lang === "bg"
-          ? "Всички числа са изчислени от официалните данни, не са генерирани от езиков модел."
-          : "Every figure is computed from official data, not generated by a language model."
-      }
-    >
-      {label}
-    </span>
+    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 pt-1 text-xs text-muted-foreground">
+      {links.length > 0 && (
+        <span>{lang === "bg" ? "Виж в сайта:" : "See on the site:"}</span>
+      )}
+      {links.map((l) => (
+        <a
+          key={l.href}
+          href={l.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-full border border-input bg-card px-2 py-0.5 text-foreground/80 underline-offset-2 hover:bg-muted hover:text-foreground"
+        >
+          {l.label[lang]} ↗
+        </a>
+      ))}
+      {prov.length > 0 && (
+        <span
+          className="inline-flex items-center gap-1 opacity-70"
+          title={
+            (lang === "bg" ? "Източник на данните: " : "Data source: ") +
+            prov.join(", ")
+          }
+        >
+          <Info className="size-3" />
+          {lang === "bg" ? "данни" : "data"}
+        </span>
+      )}
+    </p>
   );
 };
 
@@ -276,6 +357,7 @@ export const AnswerView = ({
   meta,
   narration,
   actions,
+  controls,
 }: {
   env: Envelope;
   lang?: Lang;
@@ -284,14 +366,15 @@ export const AnswerView = ({
   narration?: string;
   // per-response export controls, rendered in the header band (right)
   actions?: ReactNode;
+  // per-response interaction controls (speaker, detail toggle), under the prose
+  controls?: ReactNode;
 }) => {
   return (
     <div className="space-y-3 rounded-xl border border-border bg-card p-4">
-      {/* header band: how-produced meta + trust pill (left), export (right) */}
+      {/* header band: how-produced meta (left), export (right) */}
       <div className="flex items-center justify-between gap-3 border-b border-border/60 pb-2">
         <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
           {meta && <MetaLine meta={meta} lang={lang} />}
-          <TrustPill lang={lang} narratedBy={meta?.narratedBy} />
         </div>
         {actions && (
           <div data-export-actions="" className="shrink-0">
@@ -302,6 +385,15 @@ export const AnswerView = ({
 
       {narration && (
         <p className="text-sm leading-relaxed text-foreground">{narration}</p>
+      )}
+
+      {controls && (
+        <div
+          data-answer-controls=""
+          className="flex flex-wrap items-center gap-2"
+        >
+          {controls}
+        </div>
       )}
 
       <div>
@@ -315,22 +407,7 @@ export const AnswerView = ({
       {env.kind === "table" && <DataTable env={env} />}
       {env.kind === "scalar" && <Scalar env={env} />}
 
-      <p className="flex flex-wrap items-center gap-x-1.5 pt-1 text-xs text-muted-foreground">
-        {env.provenance.length > 0 && (
-          <span>
-            {lang === "bg" ? "Източник" : "Source"}: {env.provenance.join(", ")}{" "}
-            ·
-          </span>
-        )}
-        <a
-          href="https://electionsbg.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline hover:text-foreground"
-        >
-          electionsbg.com
-        </a>
-      </p>
+      <SourceLinks env={env} lang={lang} />
     </div>
   );
 };

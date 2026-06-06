@@ -109,7 +109,7 @@ export const ModelPicker = ({
   const activeModel = MODELS.find((m) => m.id === providerId);
   const pillLabel =
     providerId === "rules"
-      ? t("Правила", "Rules")
+      ? t("Без AI", "Basic")
       : (activeModel?.label[lang] ?? t("Модел", "Model"));
   const pillTone: "ready" | "loading" | "error" | "muted" =
     load.phase === "loading"
@@ -139,26 +139,26 @@ export const ModelPicker = ({
             type="button"
             title={t("Изберете AI модел", "Choose AI model")}
             aria-label={t("Изберете AI модел", "Choose AI model")}
-            className="flex h-[42px] shrink-0 items-center gap-1.5 rounded-full border border-input bg-background px-3 text-xs font-medium text-muted-foreground shadow-sm transition-colors hover:bg-muted hover:text-foreground"
+            className="flex h-8 shrink-0 items-center gap-1 rounded-full border border-input bg-background px-2.5 text-[11px] font-medium text-muted-foreground shadow-sm transition-colors hover:bg-muted hover:text-foreground"
           >
             {load.phase === "loading" ? (
-              <Loader2 className="size-3.5 shrink-0 animate-spin text-amber-500" />
+              <Loader2 className="size-3 shrink-0 animate-spin text-amber-500" />
             ) : (
               <StatusDot tone={pillTone} />
             )}
-            <span className="hidden max-w-[8rem] truncate sm:inline">
+            <span className="hidden max-w-[7rem] truncate sm:inline">
               {pillLabel}
               {load.phase === "loading" ? ` · ${load.pct}%` : ""}
             </span>
-            <ChevronDown className="size-3.5 shrink-0 opacity-60" />
+            <ChevronDown className="size-3 shrink-0 opacity-60" />
           </button>
         </PopoverTrigger>
 
         <PopoverContent
           side="top"
-          align="start"
+          align="end"
           sideOffset={8}
-          className="w-[min(92vw,24rem)] overflow-hidden p-0"
+          className="w-[min(92vw,22rem)] overflow-hidden p-0"
         >
           <div className="flex items-center gap-1.5 border-b bg-muted/50 px-3 py-2">
             <ShieldCheck className="size-3.5 shrink-0 text-emerald-600" />
@@ -278,11 +278,11 @@ const RulesCard = ({ engine, lang }: { engine: ModelEngine; lang: Lang }) => {
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
             <StatusDot tone="ready" />
-            <span className="text-sm font-semibold">
-              {t("Правила (офлайн)", "Rules (offline)")}
+            <span className="text-xs font-semibold">
+              {t("Без AI (офлайн)", "Basic (offline)")}
             </span>
           </div>
-          <p className="mt-0.5 text-xs text-muted-foreground">
+          <p className="mt-0.5 text-[11px] text-muted-foreground">
             {t(
               "Мигновено · без сваляне · работи винаги",
               "Instant · no download · always works",
@@ -341,7 +341,7 @@ const ModelCard = ({
             {isReady && <StatusDot tone="ready" />}
             <span
               className={cn(
-                "text-sm font-semibold",
+                "text-xs font-semibold",
                 (unavailable || blockedByGpu) && "text-muted-foreground",
               )}
             >
@@ -359,7 +359,7 @@ const ModelCard = ({
               </span>
             )}
           </div>
-          <p className="mt-0.5 text-xs text-muted-foreground">
+          <p className="mt-0.5 text-[11px] text-muted-foreground">
             {model.advantage[lang]}
           </p>
           {model.tags && model.tags.length > 0 && (

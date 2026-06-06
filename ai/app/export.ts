@@ -3,13 +3,17 @@
 // deps + ~300 KB font never touch the main bundle).
 
 import type { ResponseMeta } from "../llm/provider";
-import type { Envelope, Lang } from "../tools/types";
+import type { Envelope, Lang, ToolArgs } from "../tools/types";
 
 export type ChatMsg = {
   role: "user" | "assistant";
   text: string;
   env?: Envelope | null;
   meta?: ResponseMeta;
+  // the tool + resolved args behind this answer, kept so the next turn can
+  // resolve a follow-on ("а ДПС?") against it (conversational memory)
+  tool?: string;
+  args?: ToolArgs;
 };
 
 const cell = (v: unknown): string => (v == null ? "—" : String(v));
@@ -165,8 +169,11 @@ export const downloadAnswerImage = async (
   q.textContent = question;
 
   const clone = answerEl.cloneNode(true) as HTMLElement;
-  // drop the interactive export menu from the shared card (keep the meta line)
-  clone.querySelectorAll("[data-export-actions]").forEach((n) => n.remove());
+  // drop the interactive controls from the shared card (export menu, plus the
+  // speaker / detail-toggle row) while keeping the meta line + source links
+  clone
+    .querySelectorAll("[data-export-actions],[data-export-omit]")
+    .forEach((n) => n.remove());
 
   const footer = document.createElement("div");
   footer.className = "text-muted-foreground";

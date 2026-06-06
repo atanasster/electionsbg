@@ -4,7 +4,7 @@
 // of truth. The deterministic HeuristicProvider is always the fallback — the
 // chat never breaks while (or if) a model loads.
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   isCached,
   removeFromCache,
@@ -32,6 +32,21 @@ export type LoadState = {
 };
 
 const IDLE: LoadState = { phase: "idle", pct: 0, note: "", fromCache: false };
+
+// Remembers the last engine the user picked. Restored on the next visit so the
+// composer pill doesn't silently snap back to the Basic engine. Only the
+// no-cost engines (Basic, cloud) are auto-restored; an on-device model is left
+// for the user to re-confirm via the picker before we spend time/VRAM loading
+// its weights — see the restore effect below.
+const SAVED_KEY = "naiasno.model.v1";
+
+const persistChoice = (id: string) => {
+  try {
+    localStorage.setItem(SAVED_KEY, id);
+  } catch {
+    /* private mode / quota — non-fatal */
+  }
+};
 
 export type ModelEngine = {
   provider: LLMProvider;
@@ -85,6 +100,7 @@ export const useModelEngine = (): ModelEngine => {
     setProvider(heuristic);
     setProviderId("rules");
     setLoad(IDLE);
+    persistChoice("rules");
   }, [heuristic]);
 
   const select = useCallback(
@@ -97,6 +113,7 @@ export const useModelEngine = (): ModelEngine => {
       if (id === "rules") {
         setProvider(heuristic);
         setLoad(IDLE);
+        persistChoice("rules");
         return;
       }
       const model = modelById(id);
@@ -107,6 +124,7 @@ export const useModelEngine = (): ModelEngine => {
         void p.init();
         setProvider(p);
         setLoad({ phase: "ready", pct: 100, note: "", fromCache: false });
+        persistChoice(id);
         return;
       }
       if (!HAS_WEBGPU) {
@@ -132,6 +150,7 @@ export const useModelEngine = (): ModelEngine => {
         if (token === switchSeq.current) {
           inFlight.current = null;
           setLoad({ phase: "ready", pct: 100, note: "", fromCache: true });
+          persistChoice(id);
           void refresh();
         }
       } catch (e) {
@@ -184,6 +203,25 @@ export const useModelEngine = (): ModelEngine => {
   // web-llm module (hasModelInCache needs it), and most visitors only ever use
   // the rules engine — so we keep it off the page-load critical path and let the
   // picker call refresh() the first time its panel opens.
+
+  // Restore the remembered engine once on mount. Only cloud models are
+  // auto-selected (no download, no WebGPU, no web-llm import) — an on-device
+  // model is intentionally left alone so the user re-confirms it in the picker
+  // before we load gigabytes of weights. "rules" is already the default.
+  const restored = useRef(false);
+  useEffect(() => {
+    if (restored.current) return;
+    restored.current = true;
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem(SAVED_KEY);
+    } catch {
+      /* private mode — nothing to restore */
+    }
+    if (!saved || saved === "rules") return;
+    const m = modelById(saved);
+    if (m?.ready && m.runtime === "cloud") void select(saved);
+  }, [select]);
 
   return {
     provider,
