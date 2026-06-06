@@ -4,5 +4,11 @@
     "types": ["vite/client"]
   },
   "include": ["./**/*.ts", "./**/*.tsx"],
-  "exclude": ["**/*.harness.ts", "m5/gen_dataset.ts", "tests/**"]
+  "exclude": [
+    "**/*.harness.ts",
+    "tools/harness.ts",
+    "llm/context_eval.ts",
+    "m5/gen_dataset.ts",
+    "tests/**"
+  ]
 }
