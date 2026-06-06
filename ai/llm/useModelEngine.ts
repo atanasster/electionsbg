@@ -14,7 +14,6 @@ import {
 import { MODELS, modelById, type ModelOption } from "./models";
 import { OpenRouterProvider } from "./openrouter";
 import { HeuristicProvider, type LLMProvider } from "./provider";
-import { TransformersJsProvider } from "./transformersjs";
 import { WebLLMProvider, webgpuSupported } from "./webllm";
 
 const HAS_WEBGPU = webgpuSupported();
@@ -32,6 +31,13 @@ export type LoadState = {
 };
 
 const IDLE: LoadState = { phase: "idle", pct: 0, note: "", fromCache: false };
+
+// The smallest on-device model is ~1.1 GB. If the origin's storage holds less
+// than this floor, no model weights can be present — so refresh() can answer
+// "nothing downloaded" from the cheap Storage API alone and skip importing the
+// ~6 MB web-llm module just to render cache badges. Conservative: well under one
+// model, well over incidental app/IndexedDB usage.
+const MIN_CACHED_MODEL_BYTES = 300 * 1024 * 1024;
 
 // Remembers the last engine the user picked. Restored on the next visit so the
 // composer pill doesn't silently snap back to the Basic engine. Only the
@@ -82,6 +88,18 @@ export const useModelEngine = (): ModelEngine => {
   );
 
   const refresh = useCallback(async () => {
+    // storageEstimate() uses only navigator.storage — no web-llm import. Do it
+    // first: if the device holds less than the smallest model, nothing can be
+    // cached, so skip the per-model probe (and the ~6 MB web-llm import) entirely.
+    // This is the common case — a visitor opening the picker who has never
+    // downloaded a model. When the API is unavailable (null) we fall through to
+    // the normal probe rather than guess.
+    const est = await storageEstimate();
+    setStorage(est);
+    if (est && est.usage < MIN_CACHED_MODEL_BYTES) {
+      setCached({});
+      return;
+    }
     const entries = await Promise.all(
       // cloud models have no on-device weights — skip the (web-llm-pulling) cache probe
       MODELS.filter((m) => m.ready && m.runtime !== "cloud").map(
@@ -89,7 +107,6 @@ export const useModelEngine = (): ModelEngine => {
       ),
     );
     setCached(Object.fromEntries(entries));
-    setStorage(await storageEstimate());
   }, []);
 
   // Tear down any loading/loaded model and revert the chat to the rules engine.
@@ -127,6 +144,15 @@ export const useModelEngine = (): ModelEngine => {
         persistChoice(id);
         return;
       }
+      // The transformers.js / ONNX Runtime path is retired (EuroLLM-1.7B OOMs in
+      // ORT-Web), so its provider — and the ~24 MB ONNX wasm — are no longer
+      // bundled. Any lingering transformersjs model can't load; treat it as
+      // unsupported rather than mis-routing it through WebLLM.
+      if (model.runtime === "transformersjs") {
+        setProvider(heuristic);
+        setLoad({ ...IDLE, phase: "unsupported" });
+        return;
+      }
       if (!HAS_WEBGPU) {
         setProvider(heuristic);
         setLoad({ ...IDLE, phase: "unsupported" });
@@ -134,11 +160,8 @@ export const useModelEngine = (): ModelEngine => {
       }
       const fromCache = await isCached(model);
       if (token !== switchSeq.current) return; // switched again during the check
-      const p =
-        model.runtime === "transformersjs"
-          ? new TransformersJsProvider(model)
-          : new WebLLMProvider(model);
-      if (p instanceof WebLLMProvider) active.current = p;
+      const p = new WebLLMProvider(model);
+      active.current = p;
       inFlight.current = { model, fromCache };
       setProvider(p); // usable immediately (falls back to rules while weights load)
       setLoad({ phase: "loading", pct: 0, note: "", fromCache });
