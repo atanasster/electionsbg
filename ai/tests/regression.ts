@@ -723,6 +723,22 @@ const CASES: Case[] = [
   },
   { q: "wasted votes", lang: "en", tool: "wastedVotes", kind: "table" },
   {
+    // "which party wasted the most" -> per-party ranking (previously declined:
+    // "прахоса" didn't match "прахосан")
+    q: "коя партия прахоса най-много гласове",
+    tool: "wastedVotesByParty",
+    kind: "table",
+    minRows: 2,
+    facts: { top_wasted: /\(/ },
+  },
+  {
+    q: "which party wasted the most votes",
+    lang: "en",
+    tool: "wastedVotesByParty",
+    kind: "table",
+    minRows: 2,
+  },
+  {
     q: "Кои населени места са съмнителни?",
     tool: "suspiciousSettlements",
     kind: "table",

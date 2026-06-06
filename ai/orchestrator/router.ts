@@ -474,18 +474,22 @@ export const route = (question: string, ctx: ToolContext): Route => {
     (has(q, "критичн", "critical") && has(q, "секци", "section"))
   )
     return { tool: "riskScore", args: el };
-  if (
-    has(
-      q,
-      "прахосан",
-      "под прага",
-      "wasted vote",
-      "below threshold",
-      "sub-threshold",
-      "под 4",
-    )
-  )
-    return { tool: "wastedVotes", args: el };
+  // "прахоса" (not just "прахосан") so "коя партия прахоса най-много гласове"
+  // matches; a party-framed wasted question gets the per-party ranking, a
+  // bare/region one keeps the by-oblast view.
+  const wastedCtx = has(
+    q,
+    "прахоса",
+    "под прага",
+    "под праг",
+    "wasted",
+    "below threshold",
+    "sub-threshold",
+    "под 4",
+  );
+  if (wastedCtx && partyRanking)
+    return { tool: "wastedVotesByParty", args: el };
+  if (wastedCtx) return { tool: "wastedVotes", args: el };
   if (
     has(
       q,

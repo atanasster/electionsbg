@@ -432,6 +432,96 @@ export const machineVoteByParty = async (
   };
 };
 
+// ---- wasted (below-threshold) votes, per party ------------------------------
+// "which party wasted the most votes" — rank the parties that fell below the 4%
+// threshold by the votes that didn't translate into seats (national_summary
+// already carries the below-threshold party list).
+
+type WastedNS = {
+  wastedVotes?: {
+    wastedVotes?: number;
+    share?: number;
+    parties?: { partyNum: number; totalVotes: number; pct: number }[];
+  };
+  parties: NSParty[];
+};
+
+export const wastedVotesByParty = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const election = resolveElection(args, ctx);
+  const bg = ctx.lang === "bg";
+  const ns = await fetchNationalSummary<WastedNS>(election);
+  const names = new Map(ns.parties.map((p) => [p.partyNum, p.nickName]));
+  const list = ns.wastedVotes?.parties ?? [];
+  if (list.length === 0) {
+    return {
+      tool: "wastedVotesByParty",
+      domain: "elections",
+      kind: "scalar",
+      title: bg
+        ? `Няма прахосани гласове под прага — ${electionFullLabel(election, "bg")}`
+        : `No below-threshold wasted votes — ${electionFullLabel(election, "en")}`,
+      viz: "none",
+      facts: { election: electionFullLabel(election, ctx.lang) },
+      provenance: [`${election}/national_summary.json`],
+    };
+  }
+  const ranked = [...list]
+    .sort((a, b) => b.totalVotes - a.totalVotes)
+    .slice(0, 14);
+  const rows: Row[] = ranked.map((p) => ({
+    party: names.get(p.partyNum) ?? `#${p.partyNum}`,
+    votes: p.totalVotes,
+    pct: round2(p.pct),
+  }));
+  const top = ranked[0];
+  return {
+    tool: "wastedVotesByParty",
+    domain: "elections",
+    kind: "table",
+    title: bg
+      ? `Прахосани гласове по партия (под прага) — ${electionFullLabel(election, "bg")}`
+      : `Wasted votes by party (below threshold) — ${electionFullLabel(election, "en")}`,
+    subtitle: bg
+      ? "Партии под 4% прага, подредени по брой гласове, които не дадоха мандат"
+      : "Parties below the 4% threshold, ranked by votes that won no seat",
+    columns: [
+      { key: "party", label: bg ? "Партия" : "Party" },
+      {
+        key: "votes",
+        label: bg ? "Гласове" : "Votes",
+        numeric: true,
+        format: "int",
+      },
+      { key: "pct", label: "%", numeric: true, format: "pct" },
+    ],
+    rows,
+    categories: rows.map((r) => String(r.party)),
+    series: [
+      {
+        key: "votes",
+        label: bg ? "Гласове" : "Votes",
+        points: rows.map((r) => ({ x: String(r.party), y: r.votes as number })),
+      },
+    ],
+    viz: "bar",
+    facts: {
+      election: electionFullLabel(election, ctx.lang),
+      top_wasted: top
+        ? `${names.get(top.partyNum) ?? `#${top.partyNum}`} (${fmtInt(top.totalVotes, ctx.lang)})`
+        : "—",
+      total_wasted: fmtInt(ns.wastedVotes?.wastedVotes ?? 0, ctx.lang),
+      share:
+        ns.wastedVotes?.share != null
+          ? fmtPct(ns.wastedVotes.share, ctx.lang)
+          : "—",
+    },
+    provenance: [`${election}/national_summary.json`],
+  };
+};
+
 // ---- per-oblast turnout history ---------------------------------------------
 
 type RegionHistory = {

@@ -29,6 +29,7 @@ import {
   regionBreakdown,
   regionHistory,
   voteTransitions,
+  wastedVotesByParty,
 } from "./electionDepth";
 import { govDebt, noiFunds } from "./fiscalDebt";
 import {
@@ -479,6 +480,28 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: machineVoteByParty,
+  },
+  {
+    name: "wastedVotesByParty",
+    domain: "elections",
+    description: {
+      bg: "Прахосани гласове (под 4% прага) по партия — кои партии загубиха най-много гласове.",
+      en: "Wasted votes (below the 4% threshold) by party — which parties lost the most votes.",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Коя партия прахоса най-много гласове?",
+        en: "Which party wasted the most votes?",
+      },
+    ],
+    run: wastedVotesByParty,
   },
   {
     name: "regionHistory",
