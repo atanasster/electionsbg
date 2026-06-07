@@ -123,14 +123,34 @@ export const candidateResult = async (
     if (!matches.length) return notFound(query, lang, election);
   }
 
+  // The match keys on first + last token only (so a missing/typo'd middle name
+  // still resolves). When the user DID type a full name that hits exactly, prefer
+  // those rows — otherwise a precise "Георги Иванов Георгиев" would be drowned out
+  // by every other "Георги … Георгиев". A partial query keeps the broad set.
+  const qn = norm(query);
+  const exactFull = matches.filter(
+    (m) => norm(useEn ? m.name_en || m.name : m.name) === qn,
+  );
+  if (exactFull.length) matches = exactFull;
+
   // Disambiguation: distinct people who share a name surface as the SAME name
   // listed under DIFFERENT parties (the same person across районs keeps one
   // party). A prior pick re-arrives with `partyNum` pinned — narrow to it;
   // otherwise, when more than one party remains, ask the user which candidate.
   const pinnedParty = args.partyNum != null ? Number(args.partyNum) : undefined;
+  // The picked party's name (authoritative for a disambiguated answer): the
+  // per-candidate prefs file is keyed by NAME, so same-name people share it and
+  // it holds at most one party per election — never trust its label/counts over
+  // the party the user actually picked.
+  let pinnedNick: string | undefined;
   if (pinnedParty != null) {
     matches = matches.filter((m) => m.partyNum === pinnedParty);
     if (!matches.length) return notFound(query, lang, election);
+    const ns = await fetchNationalSummary<{ parties: NSParty[] }>(
+      election,
+    ).catch(() => ({ parties: [] as NSParty[] }));
+    const p = ns.parties.find((x) => x.partyNum === pinnedParty);
+    pinnedNick = p?.nickName || p?.name || undefined;
   } else {
     const partyNums = [...new Set(matches.map((m) => m.partyNum))];
     if (partyNums.length > 1) {
@@ -172,14 +192,20 @@ export const candidateResult = async (
     /* no per-candidate prefs file — fall back to candidates.json below */
   }
   const entry = stats?.stats?.find((s) => s.elections_date === election);
-  const party = entry?.party?.nickName || entry?.party?.name || "";
+  const entryNick = entry?.party?.nickName || entry?.party?.name || "";
+  // For a disambiguated pick the picked party wins; the prefs counts are only
+  // this person's when the name-keyed file's party matches it (otherwise they
+  // belong to a different same-name candidate and we fall back to the candidacy
+  // record, which IS party-specific).
+  const party = pinnedNick ?? entryNick;
+  const prefsMatch = pinnedNick == null || entryNick === pinnedNick;
   const who = lang === "bg" ? cand.name : cand.name_en || cand.name;
   const title =
     lang === "bg"
       ? `Преференции — ${who}${party ? ` (${party})` : ""} — ${electionFullLabel(election, lang)}`
       : `Preferential votes — ${who}${party ? ` (${party})` : ""} — ${electionFullLabel(election, lang)}`;
 
-  if (entry?.preferences?.length) {
+  if (prefsMatch && entry?.preferences?.length) {
     const rows = entry.preferences
       .map((p) => ({
         oblast: oblastName(p.oblast, lang),

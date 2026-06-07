@@ -339,7 +339,13 @@ export class WebLLMProvider implements LLMProvider {
         usage,
         onDelta,
       );
-      return { text, env, tool, args, meta: meta(fromModel ? "model" : "rules") };
+      return {
+        text,
+        env,
+        tool,
+        args,
+        meta: meta(fromModel ? "model" : "rules"),
+      };
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
       return {

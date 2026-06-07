@@ -468,7 +468,12 @@ export const Chat = ({
         m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
       );
     const res = provider.runChoice
-      ? await provider.runChoice(opt.tool, opt.args, { lang, election }, onDelta)
+      ? await provider.runChoice(
+          opt.tool,
+          opt.args,
+          { lang, election },
+          onDelta,
+        )
       : await runToolChoice(
           { bg: "Без AI (офлайн)", en: "Basic (offline)" },
           opt.tool,

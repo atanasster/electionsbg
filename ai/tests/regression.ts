@@ -674,6 +674,17 @@ const CASES: Case[] = [
     kind: "scalar",
     clarify: { minOptions: 2 },
   },
+  {
+    // distinct people sharing an exact candidate name (three "Георги Иванов
+    // Георгиев" across different parties) -> a by-party chooser; each pick pins a
+    // partyNum and resolves to one person (the runner re-runs every option). A
+    // unique full name still answers directly (e.g. "Божидар Божанов" above), so
+    // the chooser doesn't over-fire on a precise name.
+    q: "Резултатите за Георги Иванов Георгиев",
+    tool: "candidateResult",
+    kind: "scalar",
+    clarify: { minOptions: 2 },
+  },
   // -- municipalityResults / regionResults / Sofia-city / abroad (ONE area) -----
   // "резултатите в община X" used to list the whole oblast (municipalityWinners);
   // "...в област X" gave the national list (regionWinners); "...в София" fell to
@@ -2194,7 +2205,10 @@ const run = async () => {
       );
       const failed = bad.filter(Boolean);
       if (failed.length)
-        fail(c.q, `chooser option(s) did not resolve cleanly: ${failed.join("; ")}`);
+        fail(
+          c.q,
+          `chooser option(s) did not resolve cleanly: ${failed.join("; ")}`,
+        );
       continue;
     }
     for (const [k, exp] of Object.entries(c.facts ?? {})) {

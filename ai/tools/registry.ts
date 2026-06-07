@@ -2726,7 +2726,12 @@ const buildPlaceClarify = async (
       sublabel = bg ? `обл. ${c.oblastName.bg}` : c.oblastName.en;
     }
     const pin = isSet ? settlementPin(c.ekatte) : municipalityPin(c.obshtina);
-    return { label, sublabel, tool: toolName, args: { ...args, [argKey]: pin } };
+    return {
+      label,
+      sublabel,
+      tool: toolName,
+      args: { ...args, [argKey]: pin },
+    };
   });
   const prompt = isSet
     ? bg

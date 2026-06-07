@@ -900,16 +900,26 @@ const run = async () => {
     /Калофер/.test(String(graoTypo.facts.place ?? "")),
     `graoPopulation typo "Калофре" -> Калофер`,
   );
-  // precedence: a village name shared as a sub-token of a município ("Баня" ⊂
-  // "Долна баня") must resolve to a Баня village, not the município.
+  // a name shared by several settlements ("Баня" = a town + villages, never the
+  // município "Долна баня") now returns an ask-the-user chooser instead of
+  // silently picking one; picking an option (an "ekatte:" pin in the place arg)
+  // re-runs to exactly one place — no second chooser.
   const graoBanya = (await runTool(
     "graoPopulation",
     { place: "Баня" },
     ctxBg,
   )) as Envelope;
   assert(
-    /^Баня$/.test(String(graoBanya.facts.place ?? "")),
-    `graoPopulation "Баня" -> a Баня village, not Долна баня (got "${graoBanya.facts.place}")`,
+    (graoBanya.clarify?.options.length ?? 0) >= 4,
+    `graoPopulation "Баня" -> disambiguation chooser (got ${graoBanya.clarify?.options.length ?? 0} options)`,
+  );
+  const banyaPick = graoBanya.clarify?.options[0];
+  const graoBanyaPicked = banyaPick
+    ? ((await runTool(banyaPick.tool, banyaPick.args, ctxBg)) as Envelope)
+    : null;
+  assert(
+    !!graoBanyaPicked && !graoBanyaPicked.clarify,
+    `graoPopulation "Баня" pick -> resolves to one place (no second chooser)`,
   );
 
   const turn = (await runTool(
