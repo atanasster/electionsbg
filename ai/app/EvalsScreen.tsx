@@ -344,20 +344,41 @@ export const EvalsScreen = () => {
                     `${data.method.relevantCases} real tools, each with a bilingual example (EN+BG) from the registry — tool selection is scored against all ${data.method.toolCount}.`,
                   )}
                 </li>
-                <li>{data.method.coverageNote}</li>
+                <li>
+                  {t(
+                    "Задачите са първият двуезичен пример (EN+BG) на всеки инструмент от регистъра. Моделите в облака виждат ПЪЛНИЯ набор от инструменти в контекста (маршрутизират измежду всички инструменти); малките модели в браузъра виждат извлечен набор от кандидати (реалистичната двустепенна архитектура).",
+                    data.method.coverageNote,
+                  )}
+                </li>
                 <li>
                   {t("Модели в облака: ", "Cloud models: ")}
-                  {data.method.promptStrategy.cloud}
+                  {t(
+                    "JSON-режим + системна подкана със списък на инструментите (повтаря продукционния маршрутизатор)",
+                    data.method.promptStrategy.cloud,
+                  )}
                   {t("; в браузъра: ", "; in-browser: ")}
-                  {data.method.promptStrategy.webllm}
+                  {t(
+                    "нативни токени за декларация на функции на FunctionGemma",
+                    data.method.promptStrategy.webllm,
+                  )}
                 </li>
                 <li>
                   {t("Оценяване: ", "Scoring: ")}
-                  {data.method.scoring}
+                  {t(
+                    "точност на ИЗБОРА на инструмент — точното име на инструмента от регистъра (нормализирано); неуместност = без извикване. Примерите в регистъра нямат анотирани аргументи, затова точността на аргументите не се оценява (n/a).",
+                    data.method.scoring,
+                  )}
                 </li>
                 <li>
                   {t("Генерирано на ", "Generated ")}
-                  {generated} · {data.harness}
+                  {generated} ·{" "}
+                  {t(
+                    data.harness.replace(
+                      "suite derived from",
+                      "комплектът е изведен от",
+                    ),
+                    data.harness,
+                  )}
                 </li>
               </ul>
             </section>
