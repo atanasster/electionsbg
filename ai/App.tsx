@@ -46,7 +46,10 @@ export const App = () => {
             aria-label="electionsbg.com"
           >
             <Logo className="size-7" />
-            <span className="font-title">
+            {/* Wordmark drops below sm so the toolbar (with the chat's New
+                chat + Share actions) stays on one row on a phone; the logo
+                icon carries the brand there. */}
+            <span className="hidden font-title sm:inline">
               <span className="text-popover-foreground">Наясно</span>
               <span className="pl-1 font-semibold uppercase text-primary">
                 AI
@@ -78,6 +81,9 @@ export const App = () => {
           <Button
             variant="outline"
             size="sm"
+            // h-9 to match the icon buttons either side so the toolbar reads
+            // as one even-height row.
+            className="h-9"
             onClick={() => setLang(lang === "bg" ? "en" : "bg")}
             aria-label={t("Език", "Language")}
           >

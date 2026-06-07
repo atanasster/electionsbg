@@ -87,6 +87,12 @@ const PROMPT_HISTORY_MAX = 50;
 // How many starter chips to show under the composer.
 const STARTER_COUNT = 5;
 
+// Shared suggestion-chip styling (starters + follow-ups). A comfortable ~40px
+// tap target on a phone (min-h), compacting to a denser pill from sm up where a
+// pointer is likelier and vertical room is scarcer.
+const CHIP =
+  "inline-flex min-h-[40px] items-center rounded-full border border-input bg-card px-3 text-xs text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-50 sm:min-h-0 sm:px-2.5 sm:py-1 sm:text-[11px]";
+
 const normPrompt = (s: string): string =>
   s.toLowerCase().replace(/\s+/g, " ").trim();
 
@@ -233,8 +239,16 @@ const MemoryPill = ({ turns, lang }: { turns: number; lang: Lang }) => {
       )}
     >
       <span className="size-1.5 rounded-full bg-primary/70" />
-      {t("Памет", "Memory")}: {turns}
-      {compacted ? ` · ${t("обобщена", "compacted")}` : ""}
+      {/* On a phone the word + "compacted" suffix are dropped to just the dot +
+          count, so this chip can't push the toolbar onto a second row when a
+          cloud model is active. */}
+      <span className="hidden sm:inline">{t("Памет", "Memory")}: </span>
+      {turns}
+      {compacted ? (
+        <span className="hidden sm:inline">{` · ${t("обобщена", "compacted")}`}</span>
+      ) : (
+        ""
+      )}
     </span>
   );
 };
@@ -765,6 +779,9 @@ export const Chat = ({
             <Button
               variant="outline"
               size="sm"
+              // h-9 to match the App header's icon buttons (Info/EN/theme) so
+              // the portaled chat actions line up as one even-height toolbar.
+              className="h-9"
               onClick={() => setMessages([])}
               title={t("Нов разговор", "New chat")}
             >
@@ -778,6 +795,7 @@ export const Chat = ({
                 <Button
                   variant="outline"
                   size="sm"
+                  className="h-9"
                   title={t(
                     "Сподели или изтегли разговора",
                     "Share or export the chat",
@@ -843,15 +861,20 @@ export const Chat = ({
           ),
         )}
         {followups.length > 0 && (
-          <div className="flex flex-wrap items-center gap-1.5 self-start">
-            <span className="text-[11px] text-muted-foreground">
-              {t("Свързани:", "Related:")}
-            </span>
+          // Same treatment as the starters: a single horizontally scrollable
+          // row on a phone (so several follow-ups can't stack into many rows),
+          // wrapping normally from sm up. Label-free at every width.
+          <div
+            className={cn(
+              "flex items-center gap-1.5 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-x-visible sm:pb-0",
+              "[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+            )}
+          >
             {followups.map((s) => (
               <button
                 key={s.en}
                 onClick={() => send(s[lang])}
-                className="rounded-full border border-input bg-card px-2.5 py-1 text-[11px] text-muted-foreground hover:bg-muted hover:text-foreground"
+                className={cn(CHIP, "shrink-0 whitespace-nowrap")}
               >
                 {s[lang]}
               </button>
@@ -873,7 +896,7 @@ export const Chat = ({
                   e.preventDefault();
                   void send(s[lang]);
                 }}
-                className="block w-full px-3 py-1.5 text-left hover:bg-muted"
+                className="block w-full px-3 py-2.5 text-left hover:bg-muted sm:py-1.5"
               >
                 {s[lang]}
               </button>
@@ -954,21 +977,34 @@ export const Chat = ({
             <ModelPicker engine={engine} lang={lang} />
           </div>
         </div>
-        {/* sample prompts live under the composer so they persist after the
-            first question (don't vanish like an empty-state) — on the row
-            below the toolbar, label-free */}
-        <div className="mt-2 flex flex-wrap items-center gap-1.5">
-          {starters.map((s) => (
-            <button
-              key={s.en}
-              onClick={() => send(s[lang])}
-              disabled={busy}
-              className="rounded-full border border-input bg-card px-2.5 py-1 text-[11px] text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-50"
-            >
-              {s[lang]}
-            </button>
-          ))}
-        </div>
+        {/* Sample prompts under the composer — only once a chat has begun. In
+            the empty state the hero's mini answer-cards already serve as
+            starters, so a second chip row there is redundant. On the row below
+            the toolbar, label-free. On a phone they're a single horizontally
+            scrollable row (so 5 long prompts can't balloon into 5 stacked rows
+            and eat the screen); they wrap normally from sm up. Hidden on a phone
+            once an answer offers follow-ups, since those carry the next steps
+            there and two chip zones around the composer is clutter. */}
+        {hasChat && (
+          <div
+            className={cn(
+              "mt-2 flex items-center gap-1.5 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-x-visible sm:pb-0",
+              "[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+              followups.length > 0 && "hidden sm:flex",
+            )}
+          >
+            {starters.map((s) => (
+              <button
+                key={s.en}
+                onClick={() => send(s[lang])}
+                disabled={busy}
+                className={cn(CHIP, "shrink-0 whitespace-nowrap")}
+              >
+                {s[lang]}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
