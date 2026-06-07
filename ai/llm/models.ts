@@ -55,34 +55,6 @@ export type ModelOption = {
 };
 
 export const MODELS: ModelOption[] = [
-  {
-    id: "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
-    label: { bg: "Qwen2.5 1.5B (тест)", en: "Qwen2.5 1.5B (test)" },
-    sizeNote: { bg: "~1.1 GB сваляне", en: "~1.1 GB download" },
-    size: { bg: "~1.1 GB", en: "~1.1 GB" },
-    vramNote: { bg: "~1.5 GB видео памет", en: "~1.5 GB video memory" },
-    advantage: {
-      bg: "Бърз, лек тестов модел · само разказ",
-      en: "Fast, light test model · narration only",
-    },
-    tags: ["fast", "test"],
-    ready: true,
-    routes: false, // test model: narration only, deterministic routing
-  },
-  {
-    id: "Qwen2.5-3B-Instruct-q4f16_1-MLC",
-    label: { bg: "Qwen2.5 3B (тест)", en: "Qwen2.5 3B (test)" },
-    sizeNote: { bg: "~2 GB сваляне", en: "~2 GB download" },
-    size: { bg: "~2 GB", en: "~2 GB" },
-    vramNote: { bg: "~2.5 GB видео памет", en: "~2.5 GB video memory" },
-    advantage: {
-      bg: "По-плавен разказ · само разказ (без насочване)",
-      en: "Smoother narration · narration only (no routing)",
-    },
-    tags: ["test"],
-    ready: true,
-    routes: false, // test model: narration only, deterministic routing
-  },
   // ---- cloud models (hosted via the Firebase proxy → OpenRouter) -------------
   // These work TODAY and route + narrate well in Bulgarian. They are NOT
   // in-browser: the question is sent to a server. Keep ids in sync with the
@@ -181,6 +153,40 @@ export const MODELS: ModelOption[] = [
     //     },
     //   ],
     // },
+  },
+  // ---- in-browser TEST models (kept at the BOTTOM — least useful for end users).
+  // They were added to PROVE the WebLLM/WebGPU path works. They are narration-only
+  // (routes:false — the deterministic rules pick the tool); and being non-Bulgarian
+  // their BG narration often trips the language guard and falls back to the template,
+  // so they rarely beat the rules engine. Now that the cloud models narrate Bulgarian
+  // well, these are mainly a working in-browser/private demo. (Candidates to hide.)
+  {
+    id: "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
+    label: { bg: "Qwen2.5 1.5B (тест)", en: "Qwen2.5 1.5B (test)" },
+    sizeNote: { bg: "~1.1 GB сваляне", en: "~1.1 GB download" },
+    size: { bg: "~1.1 GB", en: "~1.1 GB" },
+    vramNote: { bg: "~1.5 GB видео памет", en: "~1.5 GB video memory" },
+    advantage: {
+      bg: "Бърз, лек тестов модел · само разказ",
+      en: "Fast, light test model · narration only",
+    },
+    tags: ["fast", "test"],
+    ready: true,
+    routes: false, // test model: narration only, deterministic routing
+  },
+  {
+    id: "Qwen2.5-3B-Instruct-q4f16_1-MLC",
+    label: { bg: "Qwen2.5 3B (тест)", en: "Qwen2.5 3B (test)" },
+    sizeNote: { bg: "~2 GB сваляне", en: "~2 GB download" },
+    size: { bg: "~2 GB", en: "~2 GB" },
+    vramNote: { bg: "~2.5 GB видео памет", en: "~2.5 GB video memory" },
+    advantage: {
+      bg: "По-плавен разказ · само разказ (без насочване)",
+      en: "Smoother narration · narration only (no routing)",
+    },
+    tags: ["test"],
+    ready: true,
+    routes: false, // test model: narration only, deterministic routing
   },
 ];
 
