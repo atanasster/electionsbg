@@ -512,7 +512,7 @@ const COMPOSITE_BAND_LABEL: Record<string, { bg: string; en: string }> = {
 };
 
 const TRACK_LABEL: Record<string, { bg: string; en: string }> = {
-  integrity: { bg: "Процесна цялост", en: "Process integrity" },
+  integrity: { bg: "Изборен интегритет", en: "Process integrity" },
   context: { bg: "Контекст", en: "Context" },
 };
 
@@ -667,7 +667,7 @@ export const riskIndex = async (
       ? `Индекс на изборния риск — ${electionFullLabel(election, "bg")}`
       : `Election risk index — ${electionFullLabel(election, "en")}`,
     subtitle: bg
-      ? `Главен индекс ${score}/100 — ${bandLabel} (средно от ${composite.integrityAvailableCount} компонента за процесна цялост; контекстуални сигнали средно ${ctxScore ?? "—"})`
+      ? `Главен индекс ${score}/100 — ${bandLabel} (средно от ${composite.integrityAvailableCount} компонента за изборен интегритет; контекстуални сигнали средно ${ctxScore ?? "—"})`
       : `Headline ${score}/100 — ${bandLabel} (average of ${composite.integrityAvailableCount} process-integrity components; context signals average ${ctxScore ?? "—"})`,
     columns: [
       { key: "track", label: bg ? "Категория" : "Track" },

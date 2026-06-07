@@ -116,6 +116,10 @@ export const STARTERS: Starter[] = [
     en: "Were there irregularities in the latest election?",
   },
   {
+    bg: "Каква е оценката за изборния риск?",
+    en: "What is the election risk index?",
+  },
+  {
     bg: "Коя партия печели ромските гласове последните 5 години?",
     en: "Which party wins the Roma vote over the last 5 years?",
   },

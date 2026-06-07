@@ -1296,14 +1296,29 @@ const CASES: Case[] = [
     facts: { most_frequent_winner: /\S/ },
   },
   {
-    // the composite headline index (0–100 + 10 components), not the
-    // per-section band table
+    // the composite headline index (0–100 + 10 components: 5 integrity + 5
+    // context), NOT the per-section band table. Locks all the headline facts.
     q: "Какъв е индексът на изборния риск?",
     tool: "riskIndex",
     kind: "table",
     minRows: 10,
-    facts: { index: /\d/, band: /\S/, integrity_components: /\d\/\d/ },
+    facts: {
+      index: /^\d{1,3}$/,
+      band: /\S/,
+      integrity_components: /^\d\/\d$/,
+      context_score: /\d/,
+      top_integrity: /\(\d+\)/,
+    },
   },
+  {
+    q: "What is the election risk index?",
+    lang: "en",
+    tool: "riskIndex",
+    kind: "table",
+    minRows: 10,
+    facts: { index: /^\d{1,3}$/, band: /\S/ },
+  },
+  // "оценка"/"score" framing also reaches the composite index
   {
     q: "Каква е оценката за изборния риск?",
     tool: "riskIndex",
@@ -1311,14 +1326,36 @@ const CASES: Case[] = [
     minRows: 10,
     facts: { index: /\d/ },
   },
-  // the section-band screening view stays on riskScore
+  {
+    q: "What's the election risk score?",
+    lang: "en",
+    tool: "riskIndex",
+    kind: "table",
+    minRows: 10,
+    facts: { index: /\d/ },
+  },
+  // the section-band screening view stays on riskScore (the section/critical
+  // cue wins over the composite index, even when "индекс"/"риск" is present)
   { q: "Колко критични секции има?", tool: "riskScore", kind: "table" },
+  {
+    q: "How many critical sections?",
+    lang: "en",
+    tool: "riskScore",
+    kind: "table",
+  },
   {
     q: "Покажи секциите по ниво на риск",
     tool: "riskScore",
     kind: "table",
     minRows: 4,
     facts: { critical: /\d/ },
+  },
+  {
+    // names BOTH "индекс на изборния риск" AND "по секции" → the section view
+    // wins (most-specific cue), so this must NOT grab the composite index
+    q: "Какъв е индексът на изборния риск по секции?",
+    tool: "riskScore",
+    kind: "table",
   },
   {
     q: "Има ли клъстери на изборния риск?",

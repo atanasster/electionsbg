@@ -2023,7 +2023,7 @@ export const TOOLS: ToolDef[] = [
     name: "riskIndex",
     domain: "elections",
     description: {
-      bg: "Индекс на изборния риск — главната оценка 0–100 и 10-те компонента (процесна цялост + контекст).",
+      bg: "Индекс на изборния риск — главната оценка 0–100 и 10-те компонента (изборен интегритет + контекст).",
       en: "Election risk index — the 0–100 headline score and its 10 components (process integrity + context).",
     },
     params: [

@@ -181,6 +181,10 @@ const BASE: Suggestion[] = [
     en: "What is the election risk index?",
   },
   {
+    bg: "Колко критични секции има?",
+    en: "How many critical sections?",
+  },
+  {
     bg: "Колко гласове са прахосани под прага?",
     en: "How many votes were wasted below the threshold?",
   },
