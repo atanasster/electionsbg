@@ -5,8 +5,10 @@
 // Pure + deterministic (mirrors followups.ts): a switch on `env.tool`, with a
 // per-domain fallback. Deep links read ONLY values already present in
 // `env.facts` (e.g. the party nickName) — nothing is added to facts, so the
-// model's narration input is never polluted. Election/cycle-scoped section pages
-// default to the latest cycle (which is what almost every chat query is about).
+// model's narration input is never polluted. Parliamentary pages are scoped by
+// `?elections=<YYYY_MM_DD>` (read by ElectionContext, URL-only with no
+// persistence, defaulting to the latest election); we append it to election-
+// scoped links so a historical answer opens on ITS election, not the latest.
 
 import { latestLocalCycle } from "../tools/localDataset";
 import type { Domain, Envelope } from "../tools/types";
@@ -19,6 +21,35 @@ const url = (path: string): string => `${SITE}${path}`;
 
 const fact = (env: Envelope, key: string): string | undefined =>
   env.facts?.[key] != null ? String(env.facts[key]) : undefined;
+
+// The parliamentary election a SINGLE-election answer is about, taken from the
+// canonical `<YYYY_MM_DD>/…` provenance prefix every election-scoped tool fetches
+// from. A multi-election answer (trend / two-election compare / yearCompare)
+// lists several distinct dates — we return undefined for those and let the page
+// fall back to its latest-election default. Local cycles ("2023_10_29_mi/…") and
+// non-election sources ("polls/…", "council/…") have no bare date+"/" prefix, so
+// they're naturally excluded.
+const electionOf = (env: Envelope): string | undefined => {
+  const dates = new Set<string>();
+  for (const p of env.provenance ?? []) {
+    const m = p.match(/^(\d{4}_\d{2}_\d{2})\//);
+    if (m) dates.add(m[1]);
+  }
+  return dates.size === 1 ? [...dates][0] : undefined;
+};
+
+// Pages whose content ElectionContext scopes by `?elections=`. NB /candidate/ is
+// listed, but an MP page (/candidate/mp-…) comes from a parliament-data answer
+// whose provenance has no election prefix, so electionOf() returns undefined and
+// nothing is appended — only the per-election candidate result gets the param.
+const isElectionScopedPath = (path: string): boolean =>
+  path === "/" ||
+  path === "/parties" ||
+  path === "/regions" ||
+  /^\/sections?\//.test(path) || // /section/:id and /sections/:ekatte
+  /^\/municipality\//.test(path) ||
+  /^\/settlement\//.test(path) ||
+  /^\/candidate\//.test(path);
 
 // /party/:id is keyed by the party nickName (the app's own convention, see
 // BubbleTimeline), which the party tools already expose as facts.party.
@@ -394,9 +425,18 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
   // Always leave at least one link: fall back to the domain landing page.
   if (out.length === 0 && env.domain) out.push(DOMAIN_FALLBACK[env.domain]);
 
-  // De-dupe by href (a party tool may share a section with its deep link).
+  // De-dupe by href (a party tool may share a section with its deep link), then
+  // pin the election on parliamentary pages so the link opens on the same
+  // election the answer is about (not the site's latest-election default).
+  const election = electionOf(env);
   const seen = new Set<string>();
-  return out.filter((l) =>
-    seen.has(l.href) ? false : (seen.add(l.href), true),
-  );
+  return out
+    .filter((l) => (seen.has(l.href) ? false : (seen.add(l.href), true)))
+    .map((l) => {
+      if (!election) return l;
+      const path = l.href.slice(SITE.length);
+      return isElectionScopedPath(path)
+        ? { ...l, href: `${l.href}?elections=${election}` }
+        : l;
+    });
 };

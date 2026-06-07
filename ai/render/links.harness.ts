@@ -354,6 +354,87 @@ expect(
   ["/governance"],
 );
 
+// ---- ?elections pinning: parliamentary pages open on the answer's election ---
+// (the election comes from the single <YYYY_MM_DD>/ provenance prefix; the cases
+// above carry no provenance, so they exercise the no-append path.)
+console.log("\n?elections pinning (from provenance):");
+// single election in provenance -> append it to the election-scoped path
+expect(
+  "settlementResults (+?elections)",
+  mk({
+    tool: "settlementResults",
+    domain: "elections",
+    geo: settlementLocator("32754", "VID09", "Иново"),
+    provenance: ["2026_04_19/settlements/by/VID09.json"],
+  }),
+  ["/sections/32754?elections=2026_04_19"],
+);
+// a NON-latest election pins that election, not the default latest
+expect(
+  "regionResults (historical -> ?elections=2009...)",
+  mk({
+    tool: "regionResults",
+    domain: "elections",
+    geo: oblastLocator("VAR", "Варна"),
+    provenance: ["2009_07_05/region_votes.json"],
+  }),
+  ["/municipality/VAR?elections=2009_07_05"],
+);
+// a multi-election answer (trend) lists several dates -> NO pin (page defaults)
+expect(
+  "settlementHistory (multi-election -> no ?elections)",
+  mk({
+    tool: "settlementHistory",
+    domain: "elections",
+    geo: settlementLocator("32754", "VID09", "Иново"),
+    provenance: ["2021_07_11/settlements/by/VID09.json", "2026_04_19/x.json"],
+  }),
+  ["/sections/32754"],
+);
+// pre-existing winners / national links are election-scoped too -> pinned
+expect(
+  "settlementWinners (+?elections)",
+  mk({
+    tool: "settlementWinners",
+    domain: "elections",
+    provenance: ["2026_04_19/settlements/by/SFO46.json"],
+  }),
+  ["/regions?elections=2026_04_19"],
+);
+expect(
+  "nationalResults (+?elections)",
+  mk({
+    tool: "nationalResults",
+    domain: "elections",
+    provenance: ["2026_04_19/national_summary.json"],
+  }),
+  ["/parties?elections=2026_04_19"],
+);
+// path is /candidate/ but provenance is parliament data (no election) -> no pin
+expect(
+  "mpVotingProfile (/candidate/ path but no election -> no pin)",
+  mk({
+    tool: "mpVotingProfile",
+    domain: "people",
+    kind: "scalar",
+    facts: { mp_id: 5186 },
+    provenance: ["parliament/votes/derived/loyalty.json"],
+  }),
+  ["/candidate/mp-5186"],
+);
+// local cycle prefix ("..._mi/") is NOT a bare date+"/" -> never pinned
+expect(
+  "localMunicipality (local cycle, no ?elections)",
+  mk({
+    tool: "localMunicipality",
+    domain: "local",
+    kind: "scalar",
+    facts: { obshtina_id: "SOF", cycle_id: CYCLE },
+    provenance: [`${CYCLE}/municipalities/SOF.json`],
+  }),
+  [`/local/${CYCLE}/SOF`],
+);
+
 console.log(
   `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — siteLinks deep-link coverage`,
 );

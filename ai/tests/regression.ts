@@ -260,7 +260,7 @@ const CASES: Case[] = [
     facts: { name: "Божанов" },
     // single candidate -> their own /candidate page (c-{partyNum}-{slug}), not
     // the homepage it used to fall back to
-    links: ["/candidate/c-7-bozhidar-plamenov-bozhanov"],
+    links: ["/candidate/c-7-bozhidar-plamenov-bozhanov?elections=2026_04_19"],
   },
   // ---- party name mistaken for a candidate (candidateResult -> partyResult) --
   // A party/coalition whose name isn't a hardcoded router token ("Синя
@@ -554,8 +554,8 @@ const CASES: Case[] = [
     },
     // a single section is a located point -> a settlement-level locator
     geo: { level: "settlement", mode: "locator", joinKey: "ekatte" },
-    // single station -> its own /section/{id} page
-    links: ["/section/050900092"],
+    // single station -> its own /section/{id} page, pinned to this election
+    links: ["/section/050900092?elections=2026_04_19"],
   },
   {
     q: "How did section 050900092 vote?",
@@ -616,8 +616,8 @@ const CASES: Case[] = [
     },
     geo: { level: "settlement", mode: "locator", joinKey: "ekatte" },
     // single settlement -> its own /sections/{ekatte} dashboard (the reported
-    // bug: it used to point at the /regions overview)
-    links: ["/sections/32754"],
+    // bug: it used to point at the /regions overview), pinned to this election
+    links: ["/sections/32754?elections=2026_04_19"],
   },
   {
     q: "Results in the village of Inovo",
@@ -665,7 +665,7 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 20,
     // an aggregate (many settlements) keeps the generic overview, NOT a deep link
-    links: ["/regions"],
+    links: ["/regions?elections=2026_04_19"],
   },
   // -- disambiguation: a genuinely ambiguous name pops the ask-the-user chooser -
   // "Баня" names a town + several villages across different общини; "Бяла" names
@@ -722,7 +722,7 @@ const CASES: Case[] = [
     },
     geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
     // single município -> its own /settlement/{obshtina} dashboard, not /regions
-    links: ["/settlement/PDV22"],
+    links: ["/settlement/PDV22?elections=2026_04_19"],
   },
   {
     q: "Results in Plovdiv municipality",
@@ -733,7 +733,17 @@ const CASES: Case[] = [
     facts: { municipality: "Plovdiv" },
     geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
     // same deep link in EN — the code comes from the locator, not language
-    links: ["/settlement/PDV22"],
+    links: ["/settlement/PDV22?elections=2026_04_19"],
+  },
+  {
+    // a historical election scopes the deep link: the "Виж в сайта" link must
+    // carry ?elections=<that election>, never default to the latest
+    q: "резултатите в община Пловдив 2009",
+    tool: "municipalityResults",
+    kind: "table",
+    minRows: 2,
+    facts: { municipality: "Пловдив" },
+    links: ["/settlement/PDV22?elections=2009_07_05"],
   },
   {
     q: "резултатите в община Пловдив за последните 5 години",
@@ -759,8 +769,8 @@ const CASES: Case[] = [
     },
     geo: { level: "oblast", mode: "locator", joinKey: "nuts3" },
     // single oblast -> its own region dashboard (lives at /municipality/{code}),
-    // not the /regions overview
-    links: ["/municipality/VAR"],
+    // not the /regions overview; pinned to this election
+    links: ["/municipality/VAR?elections=2026_04_19"],
   },
   {
     q: "Results in Varna region",
@@ -770,7 +780,7 @@ const CASES: Case[] = [
     minRows: 2,
     facts: { region: "Varna" },
     geo: { level: "oblast", mode: "locator", joinKey: "nuts3" },
-    links: ["/municipality/VAR"],
+    links: ["/municipality/VAR?elections=2026_04_19"],
   },
   {
     q: "резултатите в област Варна за последните 5 години",
@@ -794,7 +804,7 @@ const CASES: Case[] = [
     geo: { level: "oblast", mode: "locator", joinKey: "nuts3" },
     // Sofia-city = 3 МИР summed, no single page -> the deep-link guard keeps the
     // /regions overview (must NOT link to /municipality/S23)
-    links: ["/regions"],
+    links: ["/regions?elections=2026_04_19"],
   },
   {
     q: "Results in Sofia",
