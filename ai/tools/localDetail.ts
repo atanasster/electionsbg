@@ -84,6 +84,9 @@ export const localMayorHistory = async (
     rows,
     viz: "none",
     facts: {
+      // hidden deep-link keys (cross-cycle -> the latest cycle's dashboard)
+      obshtina_id: place.obshtina,
+      cycle_id: LOCAL_CYCLES[0].name,
       place: place.name,
       latest_mayor: String(rows[0].mayor),
       latest_party: String(rows[0].party),
@@ -187,6 +190,9 @@ export const localSubMayors = async (
     rows: shown,
     viz: "none",
     facts: {
+      // hidden deep-link keys (consumed by ai/render/links.ts)
+      obshtina_id: place.obshtina,
+      cycle_id: cycle,
       place: place.name,
       level,
       total: rows.length,
@@ -244,6 +250,9 @@ export const localMayorRace = async (
       ctx.lang === "bg" ? place.name : place.nameEn,
     ),
     facts: {
+      // hidden deep-link keys (consumed by ai/render/links.ts)
+      obshtina_id: place.obshtina,
+      cycle_id: cycle,
       municipality: b.obshtinaName,
       winner: winner
         ? `${winner.candidateName} (${winner.localPartyName})`
@@ -328,6 +337,9 @@ export const localCouncil = async (
       bg ? place.name : place.nameEn,
     ),
     facts: {
+      // hidden deep-link keys (consumed by ai/render/links.ts)
+      obshtina_id: place.obshtina,
+      cycle_id: cycle,
       municipality: b.obshtinaName,
       total_seats: totalSeats,
       majority,

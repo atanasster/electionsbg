@@ -5,9 +5,10 @@
 // that back the answer. The end-to-end golden coverage (real prompt -> real
 // data -> real href) lives in ai/tests/regression.ts via each case's `links`.
 // THIS harness exhaustively pins the pure logic + the edge cases a real prompt
-// can't easily reach: the Sofia-city guards, language-independence of the link
-// id, the no-geo / missing-id fallbacks, cycle-from-provenance for local, and
-// that aggregates keep the generic section page. Synthetic envelopes, no data.
+// can't easily reach: the Sofia-city guards (region/muni keep /regions; local
+// resolves the synthetic SOF bundle via the _id facts), language-independence
+// of the link id, the no-geo / missing-id fallbacks, and that aggregates keep
+// the generic section page. Synthetic envelopes, no data.
 
 import { muniLocator, oblastLocator, settlementLocator } from "../tools/geo";
 import { latestLocalCycle } from "../tools/localDataset";
@@ -160,14 +161,15 @@ for (const tool of ["sectionResults", "sectionHistory"]) {
   );
 }
 
-// ---- local single-município (cycle parsed from provenance, not the latest) --
+// ---- local single-município (obshtina + cycle from hidden _id facts, NOT geo,
+// so the synthetic Sofia "SOF" bundle resolves where a muniLocator can't) ------
 expect(
   "localMunicipality",
   mk({
     tool: "localMunicipality",
     domain: "local",
-    geo: muniLocator("PDV22", "PDV", "Пловдив"),
-    provenance: [`${CYCLE}/municipalities/PDV22.json`],
+    kind: "scalar",
+    facts: { obshtina_id: "PDV22", cycle_id: CYCLE },
   }),
   [`/local/${CYCLE}/PDV22`],
 );
@@ -176,8 +178,7 @@ expect(
   mk({
     tool: "localMayorRace",
     domain: "local",
-    geo: muniLocator("VAR06", "VAR", "Варна"),
-    provenance: ["2019_10_27_mi/municipalities/VAR06.json"],
+    facts: { obshtina_id: "VAR06", cycle_id: "2019_10_27_mi" },
   }),
   ["/local/2019_10_27_mi/VAR06/mayor"],
 );
@@ -186,10 +187,68 @@ expect(
   mk({
     tool: "localCouncil",
     domain: "local",
-    geo: muniLocator("BGS04", "BGS", "Бургас"),
-    provenance: [`${CYCLE}/municipalities/BGS04.json`],
+    facts: { obshtina_id: "BGS04", cycle_id: CYCLE },
   }),
   [`/local/${CYCLE}/BGS04/council`],
+);
+expect(
+  "localSubMayors",
+  mk({
+    tool: "localSubMayors",
+    domain: "local",
+    facts: { obshtina_id: "PDV01", cycle_id: CYCLE },
+  }),
+  [`/local/${CYCLE}/PDV01`],
+);
+expect(
+  "localMayorHistory (cross-cycle -> latest dashboard)",
+  mk({
+    tool: "localMayorHistory",
+    domain: "local",
+    facts: { obshtina_id: "PDV22", cycle_id: CYCLE },
+  }),
+  [`/local/${CYCLE}/PDV22`],
+);
+// Sofia: muniLocator("SOF") falls back to oblast level, so the geo channel used
+// to DROP it; the _id facts resolve it to the synthetic "SOF" local bundle.
+expect(
+  "localMunicipality (Sofia -> SOF, not the cycle landing)",
+  mk({
+    tool: "localMunicipality",
+    domain: "local",
+    kind: "scalar",
+    facts: { obshtina_id: "SOF", cycle_id: CYCLE },
+  }),
+  [`/local/${CYCLE}/SOF`],
+);
+expect(
+  "localSubMayors (Sofia районни кметове -> SOF)",
+  mk({
+    tool: "localSubMayors",
+    domain: "local",
+    facts: { obshtina_id: "SOF", cycle_id: CYCLE },
+  }),
+  [`/local/${CYCLE}/SOF`],
+);
+
+// ---- extraordinary (chmi) feed -> the dedicated page (filtered or not) -------
+for (const facts of [{}, { place: "Сливен" }]) {
+  expect(
+    `chmiEvents (${Object.keys(facts).length ? "place-filtered" : "all"})`,
+    mk({ tool: "chmiEvents", domain: "local", facts }),
+    ["/local/chmi"],
+  );
+}
+
+// ---- council resolutions -> the município governance page (council tile) -----
+expect(
+  "councilResolutions",
+  mk({
+    tool: "councilResolutions",
+    domain: "place",
+    facts: { obshtina_id: "RSE27" },
+  }),
+  ["/governance/RSE27"],
 );
 
 // ---- party deep links (pre-existing; guard against regressions) ------------
@@ -272,16 +331,27 @@ expect(
   }),
   ["/"],
 );
-// local Sofia (oblast-level locator, no muni code) -> cycle landing, no deep link
+// a local tool that couldn't resolve a município (no _id facts) -> cycle landing
 expect(
-  "localMunicipality (Sofia -> cycle landing)",
+  "localMunicipality (not found -> cycle landing)",
   mk({
     tool: "localMunicipality",
     domain: "local",
-    geo: muniLocator("SOF", "S23", "София"),
-    provenance: [`${CYCLE}/municipalities/SOF.json`],
+    kind: "scalar",
+    facts: { query: "x" },
   }),
   [`/local/${CYCLE}`],
+);
+// council resolutions with no município resolved -> generic governance landing
+expect(
+  "councilResolutions (not indexed -> governance)",
+  mk({
+    tool: "councilResolutions",
+    domain: "place",
+    kind: "scalar",
+    facts: { place: "x" },
+  }),
+  ["/governance"],
 );
 
 console.log(

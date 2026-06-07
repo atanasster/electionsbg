@@ -345,6 +345,8 @@ export const councilResolutions = async (
       ctx.lang === "bg" ? place.name : place.nameEn,
     ),
     facts: {
+      // hidden deep-link key -> this município's governance page (council tile)
+      obshtina_id: place.obshtina,
       place: place.name,
       total: fmtInt(list.length, ctx.lang),
       latest: recent[0]?.date ?? "—",

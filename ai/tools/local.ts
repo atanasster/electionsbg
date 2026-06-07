@@ -570,6 +570,9 @@ export const localMunicipality = async (
       ctx.lang === "bg" ? place.name : place.nameEn,
     ),
     facts: {
+      // hidden deep-link keys (consumed by ai/render/links.ts)
+      obshtina_id: place.obshtina,
+      cycle_id: cycle,
       municipality: b.obshtinaName,
       mayor: elected
         ? `${elected.candidateName} (${elected.localPartyName})`

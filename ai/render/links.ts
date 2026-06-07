@@ -188,7 +188,6 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   procurementBySettlement: SECTION.governance,
   airQuality: SECTION.governance,
   graoPopulation: SECTION.governance,
-  councilResolutions: SECTION.governance,
 };
 
 const DOMAIN_FALLBACK: Record<Domain, SiteLink> = {
@@ -324,17 +323,18 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
       break;
     }
     // Single-município LOCAL answers deep-link to that município's local page
-    // (overview / mayor race / council). The município code comes from the
-    // locator overlay; the cycle from the provenance prefix
-    // ("<cycle>/municipalities/<ob>.json"), so a historical or chmi answer
-    // links to ITS cycle, not the latest. Sofia (oblast-level locator) and any
-    // tool without a muni locator fall through to the cycle landing below.
+    // (overview / mayor race / council / sub-mayors / mayor history). The
+    // município code + cycle come from hidden _id facts the tools expose — NOT
+    // the geo locator, whose Sofia fallback (oblast level) would otherwise drop
+    // the synthetic "SOF" bundle. localMayorHistory is cross-cycle, so its
+    // cycle_id pins the latest cycle.
     case "localMunicipality":
     case "localMayorRace":
-    case "localCouncil": {
-      const g = env.geo;
-      const ob = g?.level === "municipality" ? g.areas?.[0]?.code : undefined;
-      const cycle = env.provenance?.[0]?.split("/")[0];
+    case "localCouncil":
+    case "localSubMayors":
+    case "localMayorHistory": {
+      const ob = fact(env, "obshtina_id");
+      const cycle = fact(env, "cycle_id");
       if (ob && cycle) {
         const suffix =
           env.tool === "localMayorRace"
@@ -350,6 +350,31 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
           href: url(`/local/${cycle}/${encodeURIComponent(ob)}${suffix}`),
         });
       }
+      break;
+    }
+    // Extraordinary (partial + new) local elections -> the dedicated feed page,
+    // not the cycle landing. The chat can filter the feed to one município, but
+    // the site has a single chronological page for all of them.
+    case "chmiEvents": {
+      out.push({
+        label: {
+          bg: "Извънредни местни избори",
+          en: "Extraordinary local elections",
+        },
+        href: url("/local/chmi"),
+      });
+      break;
+    }
+    // Single-município council resolutions -> that município's governance page
+    // (which mounts the council tile), not the generic governance landing.
+    case "councilResolutions": {
+      const ob = fact(env, "obshtina_id");
+      if (ob)
+        out.push({
+          label: { bg: "Общинско управление", en: "Municipal governance" },
+          href: url(`/governance/${encodeURIComponent(ob)}`),
+        });
+      else out.push(SECTION.governance);
       break;
     }
   }

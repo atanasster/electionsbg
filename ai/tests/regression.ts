@@ -988,9 +988,18 @@ const CASES: Case[] = [
     tool: "localMunicipality",
     kind: "scalar",
     facts: { mayor: "Костадин" },
-    // single município local answer -> /local/{cycle}/{obshtina} (cycle parsed
-    // from provenance), not the cycle landing it used to fall back to
+    // single município local answer -> /local/{cycle}/{obshtina}, not the cycle
+    // landing it used to fall back to
     links: ["/local/2023_10_29_mi/PDV22"],
+  },
+  {
+    // Sofia: the synthetic "SOF" bundle the geo channel couldn't reach -> now
+    // resolves via the obshtina_id fact (regression for the Sofia local gap)
+    q: "Кой е кметът на София?",
+    tool: "localMunicipality",
+    kind: "scalar",
+    facts: { mayor: "Терзиев" },
+    links: ["/local/2023_10_29_mi/SOF"],
   },
   {
     q: "Кои бяха кандидатите за кмет на Варна?",
@@ -1013,6 +1022,8 @@ const CASES: Case[] = [
     tool: "chmiEvents",
     kind: "table",
     facts: { total: { num: 379 } },
+    // the extraordinary-elections feed -> its dedicated page, not the cycle landing
+    links: ["/local/chmi"],
   },
   // ---- local: mayors over cycles + place comparison --------------------------
   {
@@ -1021,6 +1032,9 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 4,
     facts: { latest_mayor: "Терзиев" },
+    // cross-cycle -> Sofia's latest-cycle local dashboard (synthetic SOF bundle;
+    // the geo channel couldn't reach SOF — this locks the fact-channel fix)
+    links: ["/local/2023_10_29_mi/SOF"],
   },
   {
     q: "Сравни Варна и Бургас",
@@ -1043,6 +1057,8 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 20,
     facts: { level: "районни" },
+    // the marquee Sofia query -> Sofia's local dashboard (SOF), not the landing
+    links: ["/local/2023_10_29_mi/SOF"],
   },
   {
     // a regular município's settlement (kmetstvo) mayors
@@ -1051,6 +1067,7 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 10,
     facts: { place: "Асеновград" },
+    links: ["/local/2023_10_29_mi/PDV01"],
   },
   {
     // oblast-wide mayors-by-party rollup (canonicalised across the province)
@@ -1362,6 +1379,8 @@ const CASES: Case[] = [
     tool: "councilResolutions",
     kind: "table",
     minRows: 1,
+    // -> Ruse's governance page (mounts the council tile), not /governance
+    links: ["/governance/RSE27"],
   },
   {
     q: "Колко гора има в България?",
