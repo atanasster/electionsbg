@@ -179,6 +179,14 @@ export default defineConfig(({ mode }) => {
       outDir: path.resolve(__dirname, "dist-ai"),
       emptyOutDir: true,
       chunkSizeWarningLimit: 1200,
+      // Multi-page: the chat (index.html) + the benchmark page (evals.html →
+      // served at /evals via the firebase.json rewrite).
+      rollupOptions: {
+        input: {
+          main: path.resolve(__dirname, "ai", "index.html"),
+          evals: path.resolve(__dirname, "ai", "evals.html"),
+        },
+      },
     },
   };
 });

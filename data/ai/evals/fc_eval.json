@@ -1,0 +1,545 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-07T10:31:05.882Z",
+  "harness": "ai/llm/fcEval.ts",
+  "method": {
+    "candidateSetK": 5,
+    "caseCount": 11,
+    "toolCount": 12,
+    "promptStrategy": {
+      "cloud": "JSON-mode + a tool-listing system prompt (mirrors the production router)",
+      "webllm": "FunctionGemma native function-declaration tokens"
+    },
+    "scoring": "exact tool name (normalized); lenient cross-script argument containment; irrelevance = no call emitted",
+    "candidateSetNote": "Each case is asked with the correct tool + (k-1) deterministic distractors, simulating two-stage tool retrieval (small models collapse if all tools are in-context at once)."
+  },
+  "tools": [
+    {
+      "name": "get_national_results",
+      "description": "Get the national party vote results for a parliamentary election.",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "get_turnout",
+      "description": "Get voter turnout for a parliamentary election.",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "get_party_result",
+      "description": "Get a single party's vote share/result in a parliamentary election.",
+      "params": [
+        "party",
+        "election"
+      ]
+    },
+    {
+      "name": "get_party_by_region",
+      "description": "Get a party's results broken down by region (oblast).",
+      "params": [
+        "party",
+        "region"
+      ]
+    },
+    {
+      "name": "get_municipality_winners",
+      "description": "List the leading party in each municipality of a region.",
+      "params": [
+        "region"
+      ]
+    },
+    {
+      "name": "get_mp_assets",
+      "description": "Get the declared assets/wealth of a member of parliament.",
+      "params": [
+        "name"
+      ]
+    },
+    {
+      "name": "get_party_mps",
+      "description": "List the members of parliament belonging to a party group.",
+      "params": [
+        "party"
+      ]
+    },
+    {
+      "name": "get_budget_overview",
+      "description": "Get the Bulgarian state budget overview for a fiscal year.",
+      "params": [
+        "year"
+      ]
+    },
+    {
+      "name": "get_unemployment_by_municipality",
+      "description": "Get registered unemployment ranked by municipality.",
+      "params": []
+    },
+    {
+      "name": "get_poll_accuracy",
+      "description": "Get which polling agency was most accurate vs the election result.",
+      "params": []
+    },
+    {
+      "name": "get_machine_vote_share",
+      "description": "Get the share of votes cast on voting machines.",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "get_local_council",
+      "description": "Get the municipal council composition for a municipality.",
+      "params": [
+        "municipality"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "id": "national_results_last",
+      "en": "What were the results of the last election?",
+      "bg": "Какви са резултатите от последните избори?",
+      "expectedTool": "get_national_results"
+    },
+    {
+      "id": "turnout_2023",
+      "en": "What was the voter turnout in 2023?",
+      "bg": "Каква беше избирателната активност през 2023?",
+      "expectedTool": "get_turnout"
+    },
+    {
+      "id": "party_result_gerb",
+      "en": "How did GERB do in the last election?",
+      "bg": "Как се представи ГЕРБ на последните избори?",
+      "expectedTool": "get_party_result"
+    },
+    {
+      "id": "party_by_region_pp_plovdiv",
+      "en": "Show PP results by region in Plovdiv.",
+      "bg": "Покажи резултатите на ПП по общини в Пловдив.",
+      "expectedTool": "get_party_by_region"
+    },
+    {
+      "id": "muni_winners_varna",
+      "en": "Which party won each municipality in Varna?",
+      "bg": "Коя партия печели всяка община във Варна?",
+      "expectedTool": "get_municipality_winners"
+    },
+    {
+      "id": "mp_assets_vasilev",
+      "en": "What are the declared assets of Asen Vasilev?",
+      "bg": "Какво е имуществото на Асен Василев?",
+      "expectedTool": "get_mp_assets"
+    },
+    {
+      "id": "party_mps_pp",
+      "en": "Who are the MPs from PP?",
+      "bg": "Кои са депутатите от ПП?",
+      "expectedTool": "get_party_mps"
+    },
+    {
+      "id": "budget_2024",
+      "en": "Show the state budget for 2024.",
+      "bg": "Покажи държавния бюджет за 2024.",
+      "expectedTool": "get_budget_overview"
+    },
+    {
+      "id": "unemployment_munis",
+      "en": "Which municipalities have the highest unemployment?",
+      "bg": "Кои общини са с най-висока безработица?",
+      "expectedTool": "get_unemployment_by_municipality"
+    },
+    {
+      "id": "poll_accuracy",
+      "en": "Which polling agency is the most accurate?",
+      "bg": "Коя социологическа агенция е най-точна?",
+      "expectedTool": "get_poll_accuracy"
+    },
+    {
+      "id": "irrelevant_weather",
+      "en": "What is the weather like in Sofia today?",
+      "bg": "Какво е времето в София днес?",
+      "expectedTool": null
+    }
+  ],
+  "models": [
+    {
+      "id": "google/gemini-3.1-flash-lite",
+      "label": "Gemini 3.1 Flash-Lite",
+      "runtime": "cloud",
+      "params": "—",
+      "note": "Production cloud router for the Наясно chat.",
+      "status": "measured",
+      "perLang": {
+        "en": {
+          "toolAcc": 1,
+          "argAcc": 1,
+          "jsonValidRate": 1,
+          "irrelevanceAcc": 1
+        },
+        "bg": {
+          "toolAcc": 1,
+          "argAcc": 1,
+          "jsonValidRate": 1,
+          "irrelevanceAcc": 1
+        }
+      },
+      "degradation": {
+        "toolAcc": 0,
+        "argAcc": 0
+      },
+      "perCase": [
+        {
+          "id": "national_results_last",
+          "expectedTool": "get_national_results",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_national_results"
+          },
+          "bg": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_national_results"
+          }
+        },
+        {
+          "id": "turnout_2023",
+          "expectedTool": "get_turnout",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_turnout"
+          },
+          "bg": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_turnout"
+          }
+        },
+        {
+          "id": "party_result_gerb",
+          "expectedTool": "get_party_result",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_party_result"
+          },
+          "bg": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_party_result"
+          }
+        },
+        {
+          "id": "party_by_region_pp_plovdiv",
+          "expectedTool": "get_party_by_region",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_party_by_region"
+          },
+          "bg": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_party_by_region"
+          }
+        },
+        {
+          "id": "muni_winners_varna",
+          "expectedTool": "get_municipality_winners",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_municipality_winners"
+          },
+          "bg": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_municipality_winners"
+          }
+        },
+        {
+          "id": "mp_assets_vasilev",
+          "expectedTool": "get_mp_assets",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_mp_assets"
+          },
+          "bg": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_mp_assets"
+          }
+        },
+        {
+          "id": "party_mps_pp",
+          "expectedTool": "get_party_mps",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_party_mps"
+          },
+          "bg": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_party_mps"
+          }
+        },
+        {
+          "id": "budget_2024",
+          "expectedTool": "get_budget_overview",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_budget_overview"
+          },
+          "bg": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_budget_overview"
+          }
+        },
+        {
+          "id": "unemployment_munis",
+          "expectedTool": "get_unemployment_by_municipality",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_unemployment_by_municipality"
+          },
+          "bg": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_unemployment_by_municipality"
+          }
+        },
+        {
+          "id": "poll_accuracy",
+          "expectedTool": "get_poll_accuracy",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_poll_accuracy"
+          },
+          "bg": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_poll_accuracy"
+          }
+        },
+        {
+          "id": "irrelevant_weather",
+          "expectedTool": null,
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": null
+          },
+          "bg": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "google/gemma-4-31b-it:free",
+      "label": "Gemma 4 31B (free)",
+      "runtime": "cloud",
+      "params": "31B",
+      "reason": "OpenRouter free-tier daily rate limit (429 on every call). Re-run on a paid tier with FC_EVAL_DELAY_MS pacing.",
+      "status": "unavailable",
+      "perLang": null,
+      "degradation": null,
+      "perCase": []
+    },
+    {
+      "id": "functiongemma-270m-it-q4f32_1-MLC",
+      "label": "FunctionGemma 270M (in-browser, untuned)",
+      "runtime": "webllm",
+      "params": "270M",
+      "reason": "Off-domain community build (no fine-tune on our tools, no grammar-constrained decoding). Runtime/format probe only.",
+      "status": "measured",
+      "perLang": {
+        "en": {
+          "toolAcc": 0.09090909090909091,
+          "argAcc": 0,
+          "jsonValidRate": 0,
+          "irrelevanceAcc": 1
+        },
+        "bg": {
+          "toolAcc": 0.09090909090909091,
+          "argAcc": 0,
+          "jsonValidRate": 0.1,
+          "irrelevanceAcc": 1
+        }
+      },
+      "degradation": {
+        "toolAcc": 0,
+        "argAcc": 0
+      },
+      "perCase": [
+        {
+          "id": "national_results_last",
+          "expectedTool": "get_national_results",
+          "en": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "turnout_2023",
+          "expectedTool": "get_turnout",
+          "en": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "party_result_gerb",
+          "expectedTool": "get_party_result",
+          "en": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "party_by_region_pp_plovdiv",
+          "expectedTool": "get_party_by_region",
+          "en": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "muni_winners_varna",
+          "expectedTool": "get_municipality_winners",
+          "en": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": "election_share"
+          }
+        },
+        {
+          "id": "mp_assets_vasilev",
+          "expectedTool": "get_mp_assets",
+          "en": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "party_mps_pp",
+          "expectedTool": "get_party_mps",
+          "en": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "budget_2024",
+          "expectedTool": "get_budget_overview",
+          "en": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "unemployment_munis",
+          "expectedTool": "get_unemployment_by_municipality",
+          "en": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "poll_accuracy",
+          "expectedTool": "get_poll_accuracy",
+          "en": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "irrelevant_weather",
+          "expectedTool": null,
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": null
+          },
+          "bg": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": null
+          }
+        }
+      ]
+    }
+  ]
+}
