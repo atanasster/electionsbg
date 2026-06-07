@@ -80,6 +80,50 @@ export const MODELS: ModelOption[] = [
     runtime: "cloud",
     routes: true,
   },
+  // ---- TEST ENTRY (FunctionGemma-270M in-browser feasibility) ----------------
+  // Probes whether Google's FunctionGemma (Gemma-3-270M, text-only, built for
+  // tool calling) loads + runs in THIS app's web-llm 0.2.84 / WebGPU path.
+  // Uses a ready-made community MLC build (weights + its own WebGPU wasm) so NO
+  // local compile is needed — the parked m0 toolchain is bypassed entirely.
+  //   - download ≈ 157 MB (151 MB q4f32_1 weights + 5.7 MB wasm) — ~10× smaller
+  //     than the BgGPT builds; q4f32_1 sidesteps the Gemma-3 fp16-overflow bug.
+  //   - it is a FOREIGN domain fine-tune ("txpilot"), NOT Bulgarian and NOT our
+  //     tools, so routes:false (narration/runtime probe only). Real tool routing
+  //     needs our own FunctionGemma fine-tune on the 75-tool registry.
+  //   - WATCH on load: a `Cannot find required VM function` error == the wasm was
+  //     compiled against a runtime newer than web-llm 0.2.84 (recompile needed).
+  // Remove this entry once the feasibility question is answered.
+  {
+    id: "functiongemma-270m-it-q4f32_1-MLC",
+    label: { bg: "FunctionGemma 270M (тест)", en: "FunctionGemma 270M (test)" },
+    sizeNote: { bg: "~157 MB сваляне · тест", en: "~157 MB download · test" },
+    size: { bg: "~157 MB", en: "~157 MB" },
+    vramNote: { bg: "~0.5 GB видео памет", en: "~0.5 GB video memory" },
+    advantage: {
+      bg: "Тест: малък модел за инструменти в браузъра (Gemma-3-270M)",
+      en: "Test: tiny in-browser tool-calling model (Gemma-3-270M)",
+    },
+    tags: ["fast"],
+    ready: true,
+    runtime: "webllm",
+    routes: false,
+    appConfig: {
+      model_list: [
+        {
+          model:
+            "https://huggingface.co/conceptcodes/txpilot-functiongemma-270m-it-q4f32_1-mlc/resolve/main/mlc-q4f32_1",
+          model_id: "functiongemma-270m-it-q4f32_1-MLC",
+          model_lib:
+            "https://huggingface.co/conceptcodes/txpilot-functiongemma-270m-it-q4f32_1-mlc/resolve/main/libs/functiongemma-270m-q4f32_1-webgpu.wasm",
+          // Gemma-3 ships BOTH context_window_size (8192) AND sliding_window_size
+          // (512) positive; web-llm requires exactly one. Verified live: keep the
+          // 512 sliding window the wasm was compiled for (context_window_size:-1)
+          // and set attention_sink_size:0. Without these the engine throws on init.
+          overrides: { context_window_size: -1, attention_sink_size: 0 },
+        },
+      ],
+    },
+  },
   {
     // BgGPT v1.0 (a google/gemma-2-2b fine-tune) — the LIGHT default. Reuses
     // WebLLM's prebuilt Gemma-2 WebGPU library, so M0 only converts + hosts the
