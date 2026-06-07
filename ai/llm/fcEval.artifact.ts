@@ -92,10 +92,11 @@ const SPECS: ModelSpec[] = [
     label: "Gemma 4 31B",
     runtime: "cloud",
     params: "31B",
-    source: "unavailable",
+    source: "gemini-api",
     via: "Gemini API (generateContent)",
-    reason:
-      "Full-registry pass pending. Gemma is the BgGPT base family but has no OpenRouter quota (free tier daily-429) and no native tool API on the Gemini API, so the ~104-tool prompt goes in one user turn — which is slow/rate-limited and can hang there. On a smaller candidate set it routed strongly in both EN and BG; the full-registry pass will be added once measured with a per-call timeout.",
+    delayMs: 1500,
+    concurrency: 1,
+    note: "Open model (the BgGPT base family). Gemma on the Gemini API has no system role / function-calling tools, so the ~104-tool list goes in one user turn and the JSON reply is parsed; measured sequentially with a per-call timeout to ride out the API's throughput limit on big prompts.",
   },
   {
     id: "functiongemma-270m-it-q4f32_1-MLC",

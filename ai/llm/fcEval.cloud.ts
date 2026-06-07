@@ -133,11 +133,17 @@ export const makeGeminiComplete = (
     });
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
       if (delayMs) await sleep(delayMs);
+      // Per-call timeout: the Gemini API can hang on a big (~100-tool) prompt,
+      // and a hung fetch never resolves → it would stall the whole run. Abort
+      // after 45s and RETRY (don't give up — that would taint the score).
+      const ctrl = new AbortController();
+      const to = setTimeout(() => ctrl.abort(), 45000);
       try {
         const res = await fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body,
+          signal: ctrl.signal,
         });
         if (res.status === 429) {
           const wait = 6000 * (attempt + 1);
@@ -167,8 +173,16 @@ export const makeGeminiComplete = (
           ? parts.map((p) => p.text ?? "").join("")
           : "";
       } catch (e) {
-        console.error(`  [gemini fetch] ${String(e).slice(0, 160)}`);
-        return "";
+        // AbortError (timeout) or transient network error → back off and retry,
+        // so a single stalled call can't hang the run or taint the score.
+        const wait = 3000 * (attempt + 1);
+        console.error(
+          `  [gemini timeout/err] ${String(e instanceof Error ? e.message : e).slice(0, 80)} — retry in ${wait / 1000}s`,
+        );
+        await sleep(wait);
+        continue;
+      } finally {
+        clearTimeout(to);
       }
     }
     console.error("  [gemini gave up after retries]");
