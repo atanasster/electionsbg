@@ -341,7 +341,7 @@ export const EvalsScreen = () => {
                 </li>
                 <li>{data.method.candidateSetNote}</li>
                 <li>
-                  {t("Облачни модели: ", "Cloud models: ")}
+                  {t("Модели в облака: ", "Cloud models: ")}
                   {data.method.promptStrategy.cloud}
                   {t("; в браузъра: ", "; in-browser: ")}
                   {data.method.promptStrategy.webllm}
