@@ -1,48 +1,8 @@
 {
   "perLang": {
-    "en": {
-      "lang": "en",
-      "n": 11,
-      "toolAcc": 0.09090909090909091,
-      "argAcc": 0,
-      "jsonValidRate": 0,
-      "irrelevanceAcc": 1
-    },
-    "bg": {
-      "lang": "bg",
-      "n": 11,
-      "toolAcc": 0.09090909090909091,
-      "argAcc": 0,
-      "jsonValidRate": 0.1,
-      "irrelevanceAcc": 1
-    }
+    "en": { "lang": "en", "n": 106, "toolAcc": 0.018867924528301886, "argAcc": null, "jsonValidRate": 0.009615384615384616, "irrelevanceAcc": 1 },
+    "bg": { "lang": "bg", "n": 106, "toolAcc": 0.018867924528301886, "argAcc": null, "jsonValidRate": 0, "irrelevanceAcc": 1 }
   },
-  "degradation": {
-    "toolAcc": 0,
-    "argAcc": 0
-  },
-  "scores": [
-    { "id": "national_results_last", "lang": "en", "expectedTool": "get_national_results", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "national_results_last", "lang": "bg", "expectedTool": "get_national_results", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "turnout_2023", "lang": "en", "expectedTool": "get_turnout", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "turnout_2023", "lang": "bg", "expectedTool": "get_turnout", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "party_result_gerb", "lang": "en", "expectedTool": "get_party_result", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "party_result_gerb", "lang": "bg", "expectedTool": "get_party_result", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "party_by_region_pp_plovdiv", "lang": "en", "expectedTool": "get_party_by_region", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "party_by_region_pp_plovdiv", "lang": "bg", "expectedTool": "get_party_by_region", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "muni_winners_varna", "lang": "en", "expectedTool": "get_municipality_winners", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "muni_winners_varna", "lang": "bg", "expectedTool": "get_municipality_winners", "gotTool": "election_share", "jsonValid": true, "toolOk": false, "argsOk": false },
-    { "id": "mp_assets_vasilev", "lang": "en", "expectedTool": "get_mp_assets", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "mp_assets_vasilev", "lang": "bg", "expectedTool": "get_mp_assets", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "party_mps_pp", "lang": "en", "expectedTool": "get_party_mps", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "party_mps_pp", "lang": "bg", "expectedTool": "get_party_mps", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "budget_2024", "lang": "en", "expectedTool": "get_budget_overview", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "budget_2024", "lang": "bg", "expectedTool": "get_budget_overview", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "unemployment_munis", "lang": "en", "expectedTool": "get_unemployment_by_municipality", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "unemployment_munis", "lang": "bg", "expectedTool": "get_unemployment_by_municipality", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "poll_accuracy", "lang": "en", "expectedTool": "get_poll_accuracy", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "poll_accuracy", "lang": "bg", "expectedTool": "get_poll_accuracy", "gotTool": null, "jsonValid": false, "toolOk": false, "argsOk": false },
-    { "id": "irrelevant_weather", "lang": "en", "expectedTool": null, "gotTool": null, "jsonValid": true, "toolOk": true, "argsOk": true },
-    { "id": "irrelevant_weather", "lang": "bg", "expectedTool": null, "gotTool": null, "jsonValid": true, "toolOk": true, "argsOk": true }
-  ]
+  "degradation": { "toolAcc": 0, "argAcc": null },
+  "scores": []
 }

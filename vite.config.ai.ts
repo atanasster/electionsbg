@@ -97,7 +97,7 @@ const SITE = "https://ai.electionsbg.com";
 // /evals benchmark page — built from the index.html shell (same JS bundle;
 // main.tsx renders EvalsScreen when the path is /evals). Title/description below
 // override the chat's <head> for correct per-page SEO/sharing.
-const EVALS_TITLE = "Оценка на инструментно извикване (EN/BG) — Наясно AI";
+const EVALS_TITLE = "Оценка на извикване на инструменти (EN/BG) — Наясно AI";
 const EVALS_DESC =
   "Бенчмарк: може ли малък/отворен езиков модел да управлява инструментите на Наясно и влошава ли се изборът на инструмент на български спрямо английски.";
 

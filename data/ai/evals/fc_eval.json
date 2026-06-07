@@ -1,167 +1,1596 @@
 {
-  "schemaVersion": 1,
-  "generatedAt": "2026-06-07T10:55:57.084Z",
-  "harness": "ai/llm/fcEval.ts",
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-07T12:45:47.913Z",
+  "harness": "ai/llm/fcEval.ts (suite derived from ai/tools/registry.ts)",
   "method": {
-    "candidateSetK": 5,
-    "caseCount": 11,
-    "toolCount": 12,
+    "toolCount": 104,
+    "caseCount": 106,
+    "relevantCases": 104,
+    "irrelevanceCases": 2,
     "promptStrategy": {
       "cloud": "JSON-mode + a tool-listing system prompt (mirrors the production router)",
+      "gemini": "Gemma on the Gemini API: tool list + query in one user turn (no system role / tools), JSON reply parsed",
       "webllm": "FunctionGemma native function-declaration tokens"
     },
-    "scoring": "exact tool name (normalized); lenient cross-script argument containment; irrelevance = no call emitted",
-    "candidateSetNote": "Each case is asked with the correct tool + (k-1) deterministic distractors, simulating two-stage tool retrieval (small models collapse if all tools are in-context at once)."
+    "scoring": "tool SELECTION accuracy — exact registry tool name (normalized); irrelevance = no call. Registry examples carry no annotated args, so argument accuracy is not scored (n/a).",
+    "coverageNote": "Cases are every registry tool's first bilingual example (EN+BG). Cloud models see the FULL tool set in context (route among all tools); small in-browser models see a retrieved candidate set (the realistic two-stage architecture)."
   },
   "tools": [
     {
-      "name": "get_national_results",
-      "description": "Get the national party vote results for a parliamentary election.",
+      "name": "nationalResults",
+      "domain": "elections",
+      "description": "National results for one election: votes, %, seats per party.",
       "params": [
         "election"
       ]
     },
     {
-      "name": "get_turnout",
-      "description": "Get voter turnout for a parliamentary election.",
+      "name": "regionWinners",
+      "domain": "elections",
+      "description": "Results by region: the leading party in each oblast (list + map).",
       "params": [
         "election"
       ]
     },
     {
-      "name": "get_party_result",
-      "description": "Get a single party's vote share/result in a parliamentary election.",
+      "name": "parliamentSeats",
+      "domain": "elections",
+      "description": "Seat composition of parliament per party (National Assembly hemicycle).",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "seatsHistory",
+      "domain": "elections",
+      "description": "Trend of each party's seats (MPs) across recent elections (multi-line chart, tracks renames).",
+      "params": [
+        "years",
+        "n"
+      ]
+    },
+    {
+      "name": "partyResult",
+      "domain": "elections",
+      "description": "One party's result in one election.",
       "params": [
         "party",
         "election"
       ]
     },
     {
-      "name": "get_party_by_region",
-      "description": "Get a party's results broken down by region (oblast).",
+      "name": "candidateResult",
+      "domain": "elections",
+      "description": "A candidate's preferential-vote results by name.",
       "params": [
-        "party",
-        "region"
+        "name",
+        "election"
       ]
     },
     {
-      "name": "get_municipality_winners",
-      "description": "List the leading party in each municipality of a region.",
+      "name": "machineVoteShare",
+      "domain": "elections",
+      "description": "Machine-voting share for one election.",
       "params": [
-        "region"
+        "election"
       ]
     },
     {
-      "name": "get_mp_assets",
-      "description": "Get the declared assets/wealth of a member of parliament.",
+      "name": "turnout",
+      "domain": "elections",
+      "description": "Voter turnout for one election.",
       "params": [
-        "name"
+        "election"
       ]
     },
     {
-      "name": "get_party_mps",
-      "description": "List the members of parliament belonging to a party group.",
+      "name": "compareElections",
+      "domain": "elections",
+      "description": "Compare two elections.",
+      "params": [
+        "a",
+        "b"
+      ]
+    },
+    {
+      "name": "machineVoteSeries",
+      "domain": "elections",
+      "description": "Machine-voting share across the last N elections.",
+      "params": [
+        "n",
+        "years"
+      ]
+    },
+    {
+      "name": "turnoutSeries",
+      "domain": "elections",
+      "description": "Voter turnout across the last N elections.",
+      "params": [
+        "n",
+        "years"
+      ]
+    },
+    {
+      "name": "partyTimeline",
+      "domain": "elections",
+      "description": "One party's vote share across all elections.",
       "params": [
         "party"
       ]
     },
     {
-      "name": "get_budget_overview",
-      "description": "Get the Bulgarian state budget overview for a fiscal year.",
+      "name": "pollAccuracy",
+      "domain": "elections",
+      "description": "Polling-agency accuracy (mean error vs the election result).",
+      "params": []
+    },
+    {
+      "name": "agencyProfile",
+      "domain": "elections",
+      "description": "A pollster's profile: grade, error, threshold-call rate, house effect.",
       "params": [
-        "year"
+        "agency"
       ]
     },
     {
-      "name": "get_unemployment_by_municipality",
-      "description": "Get registered unemployment ranked by municipality.",
+      "name": "latestPolls",
+      "domain": "elections",
+      "description": "The latest poll by party (incl. \"if elections were now\").",
       "params": []
     },
     {
-      "name": "get_poll_accuracy",
-      "description": "Get which polling agency was most accurate vs the election result.",
-      "params": []
+      "name": "regionBreakdown",
+      "domain": "elections",
+      "description": "A party's result by oblast in one election (where it's strong/weak).",
+      "params": [
+        "party",
+        "election"
+      ]
     },
     {
-      "name": "get_machine_vote_share",
-      "description": "Get the share of votes cast on voting machines.",
+      "name": "municipalityBreakdown",
+      "domain": "elections",
+      "description": "A party's result by municipality within one oblast (map + ranking).",
+      "params": [
+        "party",
+        "oblast",
+        "election"
+      ]
+    },
+    {
+      "name": "municipalityWinners",
+      "domain": "elections",
+      "description": "Results by municipality in one oblast: the leading party in each (list + map).",
+      "params": [
+        "oblast",
+        "election"
+      ]
+    },
+    {
+      "name": "settlementWinners",
+      "domain": "elections",
+      "description": "Results by settlement in one municipality: the leading party in each (list + map).",
+      "params": [
+        "place",
+        "election"
+      ]
+    },
+    {
+      "name": "sectionWinners",
+      "domain": "elections",
+      "description": "Results by polling section in a settlement: the leading party in each section.",
+      "params": [
+        "place",
+        "election"
+      ]
+    },
+    {
+      "name": "sectionResults",
+      "domain": "elections",
+      "description": "Results in one polling section (by its number): votes and % per party + turnout.",
+      "params": [
+        "section",
+        "election"
+      ]
+    },
+    {
+      "name": "sectionHistory",
+      "domain": "elections",
+      "description": "How one polling section (by its number) voted over time — vote share per party across elections (multi-line trend).",
+      "params": [
+        "section"
+      ]
+    },
+    {
+      "name": "settlementResults",
+      "domain": "elections",
+      "description": "Results in one settlement (village/town): votes and % per party + turnout.",
+      "params": [
+        "place",
+        "election"
+      ]
+    },
+    {
+      "name": "settlementHistory",
+      "domain": "elections",
+      "description": "How one settlement voted over time — vote share per party across elections (multi-line trend).",
+      "params": [
+        "place",
+        "years",
+        "n"
+      ]
+    },
+    {
+      "name": "municipalityResults",
+      "domain": "elections",
+      "description": "Results in one municipality: votes and % per party + turnout.",
+      "params": [
+        "place",
+        "election"
+      ]
+    },
+    {
+      "name": "municipalityHistory",
+      "domain": "elections",
+      "description": "How one municipality voted over time — vote share per party across elections (multi-line trend).",
+      "params": [
+        "place",
+        "years",
+        "n"
+      ]
+    },
+    {
+      "name": "regionResults",
+      "domain": "elections",
+      "description": "Results in one region/oblast: votes and % per party + turnout (incl. Sofia city = its three MIR combined).",
+      "params": [
+        "oblast",
+        "election"
+      ]
+    },
+    {
+      "name": "regionResultsTrend",
+      "domain": "elections",
+      "description": "How one region/oblast voted over time — vote share per party across elections (multi-line trend).",
+      "params": [
+        "oblast",
+        "years",
+        "n"
+      ]
+    },
+    {
+      "name": "settlementBreakdown",
+      "domain": "elections",
+      "description": "A party's result by settlement within one municipality (map + ranking).",
+      "params": [
+        "party",
+        "place",
+        "election"
+      ]
+    },
+    {
+      "name": "electionAnomalies",
+      "domain": "elections",
+      "description": "Anomaly signals for one election (recounts, machine corrections, problem sections).",
       "params": [
         "election"
       ]
     },
     {
-      "name": "get_local_council",
-      "description": "Get the municipal council composition for a municipality.",
+      "name": "flashMemoryByParty",
+      "domain": "elections",
+      "description": "Machine count vs flash-memory (СУЕМГ) difference by party — which parties gained/lost votes.",
       "params": [
-        "municipality"
+        "election"
+      ]
+    },
+    {
+      "name": "machineVoteByParty",
+      "domain": "elections",
+      "description": "Machine vs paper voting share by party — which parties vote on machines.",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "wastedVotesByParty",
+      "domain": "elections",
+      "description": "Wasted votes (below the 4% threshold) by party — which parties lost the most votes.",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "recountByParty",
+      "domain": "elections",
+      "description": "Per-party vote change after a manual recount (only elections with a recount, e.g. Oct 2024).",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "regionHistory",
+      "domain": "elections",
+      "description": "Voter turnout in one oblast across all elections.",
+      "params": [
+        "oblast"
+      ]
+    },
+    {
+      "name": "voteTransitions",
+      "domain": "elections",
+      "description": "Vote transitions between two consecutive elections (where votes moved).",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "localCouncilVoteShare",
+      "domain": "local",
+      "description": "Municipal council vote share by party (national).",
+      "params": [
+        "cycle"
+      ]
+    },
+    {
+      "name": "localMayorsWon",
+      "domain": "local",
+      "description": "Mayors won by party (national).",
+      "params": [
+        "cycle"
+      ]
+    },
+    {
+      "name": "localCouncilTrend",
+      "domain": "local",
+      "description": "Council vote-share trend by party across the local-election cycles 2007–2023.",
+      "params": []
+    },
+    {
+      "name": "localMayorsTrend",
+      "domain": "local",
+      "description": "Mayors-won trend by party across the local-election cycles 2007–2023.",
+      "params": []
+    },
+    {
+      "name": "localOblastMayors",
+      "domain": "local",
+      "description": "Mayors won by party within a single province (oblast).",
+      "params": [
+        "place",
+        "cycle"
+      ]
+    },
+    {
+      "name": "localMunicipality",
+      "domain": "local",
+      "description": "One município: elected mayor, council, turnout.",
+      "params": [
+        "place",
+        "cycle"
+      ]
+    },
+    {
+      "name": "localMayorRace",
+      "domain": "local",
+      "description": "Full mayoral candidate ranking in a município.",
+      "params": [
+        "place",
+        "cycle"
+      ]
+    },
+    {
+      "name": "localMayorHistory",
+      "domain": "local",
+      "description": "A município's elected mayors across local cycles (the last mayors).",
+      "params": [
+        "place"
+      ]
+    },
+    {
+      "name": "localSubMayors",
+      "domain": "local",
+      "description": "District mayors (Sofia) or settlement (kmetstvo) mayors of a município.",
+      "params": [
+        "place"
+      ]
+    },
+    {
+      "name": "localCouncil",
+      "domain": "local",
+      "description": "Municipal council seats by party.",
+      "params": [
+        "place",
+        "cycle"
+      ]
+    },
+    {
+      "name": "chmiEvents",
+      "domain": "local",
+      "description": "Extraordinary (partial/new) local elections feed.",
+      "params": [
+        "place"
+      ]
+    },
+    {
+      "name": "budgetOverview",
+      "domain": "fiscal",
+      "description": "State budget — revenue, expenditure, balance for a year.",
+      "params": [
+        "year"
+      ]
+    },
+    {
+      "name": "budgetTrend",
+      "domain": "fiscal",
+      "description": "State-budget trend — revenue and spending by year (completed fiscal years).",
+      "params": []
+    },
+    {
+      "name": "budgetByFunction",
+      "domain": "fiscal",
+      "description": "Budget spending by function (COFOG).",
+      "params": [
+        "year"
+      ]
+    },
+    {
+      "name": "budgetFunction",
+      "domain": "fiscal",
+      "description": "Spending on one budget function (e.g. health, defence, education): share + trend.",
+      "params": [
+        "category",
+        "year"
+      ]
+    },
+    {
+      "name": "procurementTotals",
+      "domain": "fiscal",
+      "description": "Public procurement totals (AOP).",
+      "params": []
+    },
+    {
+      "name": "fundsOverview",
+      "domain": "fiscal",
+      "description": "EU funds — top beneficiaries (ISUN).",
+      "params": []
+    },
+    {
+      "name": "govDebt",
+      "domain": "fiscal",
+      "description": "Government debt — recent issuances (bonds, T-bills).",
+      "params": []
+    },
+    {
+      "name": "noiFunds",
+      "domain": "fiscal",
+      "description": "Social-security funds (NSSI) — revenue, expenditure, balance.",
+      "params": []
+    },
+    {
+      "name": "budgetExecution",
+      "domain": "fiscal",
+      "description": "Monthly state-budget execution (revenue/expenditure/balance) over time.",
+      "params": [
+        "series"
+      ]
+    },
+    {
+      "name": "ministryBudget",
+      "domain": "fiscal",
+      "description": "A specific ministry's budget by programme.",
+      "params": [
+        "ministry"
+      ]
+    },
+    {
+      "name": "investmentProjects",
+      "domain": "fiscal",
+      "description": "Investment programme (Appendix III) — largest capital projects.",
+      "params": [
+        "oblast"
+      ]
+    },
+    {
+      "name": "governments",
+      "domain": "people",
+      "description": "Governments since 2005 — PMs, periods, parties.",
+      "params": []
+    },
+    {
+      "name": "mpAssetsTop",
+      "domain": "people",
+      "description": "MPs ranked by declared assets.",
+      "params": []
+    },
+    {
+      "name": "mpConnectionsTop",
+      "domain": "people",
+      "description": "MPs with the most business connections (Commerce Registry).",
+      "params": []
+    },
+    {
+      "name": "mpAssetsByParty",
+      "domain": "people",
+      "description": "MP declared assets aggregated by party (average per MP).",
+      "params": []
+    },
+    {
+      "name": "mpConnectionsByParty",
+      "domain": "people",
+      "description": "MP business connections aggregated by party.",
+      "params": []
+    },
+    {
+      "name": "officialsAssetsTop",
+      "domain": "people",
+      "description": "Senior officials (cabinet, deputy ministers, governors) by declared assets.",
+      "params": [
+        "category"
+      ]
+    },
+    {
+      "name": "financingOverview",
+      "domain": "people",
+      "description": "Party financial reports — filing compliance (Court of Audit).",
+      "params": []
+    },
+    {
+      "name": "macroIndicator",
+      "domain": "indicators",
+      "description": "A macro indicator over time (inflation, GDP, debt…).",
+      "params": [
+        "indicator",
+        "n",
+        "year"
+      ]
+    },
+    {
+      "name": "macroOverview",
+      "domain": "indicators",
+      "description": "Snapshot of key macro indicators.",
+      "params": []
+    },
+    {
+      "name": "macroByCategory",
+      "domain": "indicators",
+      "description": "Indicators by theme: economy, fiscal, governance, society.",
+      "params": [
+        "category"
+      ]
+    },
+    {
+      "name": "subnationalIndicator",
+      "domain": "indicators",
+      "description": "A per-município indicator over time (unemployment, DZI, migration).",
+      "params": [
+        "place",
+        "indicator",
+        "year"
+      ]
+    },
+    {
+      "name": "rankPlaces",
+      "domain": "indicators",
+      "description": "Rank oblasts/municipalities by an indicator (highest/lowest, top N).",
+      "params": [
+        "indicator",
+        "n"
+      ]
+    },
+    {
+      "name": "regionIndicator",
+      "domain": "indicators",
+      "description": "A per-oblast (NUTS3) indicator: GDP/capita, population, migration.",
+      "params": [
+        "oblast",
+        "indicator",
+        "year"
+      ]
+    },
+    {
+      "name": "transparencyScore",
+      "domain": "indicators",
+      "description": "Local transparency index (LISI) for an oblast centre.",
+      "params": [
+        "place"
+      ]
+    },
+    {
+      "name": "localTaxes",
+      "domain": "indicators",
+      "description": "Local tax rates for a município vs the national average.",
+      "params": [
+        "place"
+      ]
+    },
+    {
+      "name": "landUse",
+      "domain": "indicators",
+      "description": "Land use by category (national or per oblast).",
+      "params": [
+        "oblast"
+      ]
+    },
+    {
+      "name": "governanceProfile",
+      "domain": "place",
+      "description": "Composite place profile: population, mayor, council, turnout, unemployment, transparency, procurement.",
+      "params": [
+        "place",
+        "year"
+      ]
+    },
+    {
+      "name": "comparePlaces",
+      "domain": "place",
+      "description": "Compares two places across governance indicators (population, mayor, council, unemployment, transparency…).",
+      "params": [
+        "a",
+        "b"
+      ]
+    },
+    {
+      "name": "census",
+      "domain": "place",
+      "description": "Demographics (Census 2021): population, gender, ethnicity.",
+      "params": [
+        "place"
+      ]
+    },
+    {
+      "name": "procurementBySettlement",
+      "domain": "place",
+      "description": "Public procurement awarded in one settlement.",
+      "params": [
+        "place"
+      ]
+    },
+    {
+      "name": "airQuality",
+      "domain": "place",
+      "description": "Air quality (PM10/PM2.5) from stations near a place.",
+      "params": [
+        "place"
+      ]
+    },
+    {
+      "name": "graoPopulation",
+      "domain": "place",
+      "description": "Registered population (GRAO) by permanent and current address.",
+      "params": [
+        "place"
+      ]
+    },
+    {
+      "name": "councilResolutions",
+      "domain": "place",
+      "description": "Municipal council resolutions (where indexed).",
+      "params": [
+        "place"
+      ]
+    },
+    {
+      "name": "problemSections",
+      "domain": "elections",
+      "description": "Tracked Roma neighbourhoods (\"controlled voting\") — sections and leading party.",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "romaVoteTrend",
+      "domain": "elections",
+      "description": "Who wins the Roma vote over time — leading party in the watched neighbourhoods, by election.",
+      "params": [
+        "years",
+        "n"
+      ]
+    },
+    {
+      "name": "riskIndex",
+      "domain": "elections",
+      "description": "Election risk index — the 0–100 headline score and its 10 components (process integrity + context).",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "riskScore",
+      "domain": "elections",
+      "description": "Section risk screening — sections by band (low/elevated/high/critical).",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "riskClusters",
+      "domain": "elections",
+      "description": "Risk clusters — adjacent flagged sections sharing a leading party.",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "clusterPersistence",
+      "domain": "elections",
+      "description": "Persistent risk loci — places whose risk clusters recur across elections.",
+      "params": []
+    },
+    {
+      "name": "benfordAnomalies",
+      "domain": "elections",
+      "description": "Benford's-law (first-digit) test per party — deviation in digit distribution.",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "wastedVotes",
+      "domain": "elections",
+      "description": "Wasted votes — share of votes for below-threshold parties, by oblast.",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "wastedVotesTrend",
+      "domain": "elections",
+      "description": "Wasted-votes trend — national share of below-threshold votes across elections.",
+      "params": [
+        "years",
+        "n"
+      ]
+    },
+    {
+      "name": "suspiciousSettlements",
+      "domain": "elections",
+      "description": "Suspicious settlements — concentrated vote, invalid ballots, additional voters.",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "diasporaVote",
+      "domain": "elections",
+      "description": "Out-of-country vote (MIR 32) — results by party.",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "diasporaVoteTrend",
+      "domain": "elections",
+      "description": "Diaspora vote (MIR 32) trend — leading parties across elections (multi-line chart).",
+      "params": [
+        "years",
+        "n"
+      ]
+    },
+    {
+      "name": "voterPersistence",
+      "domain": "elections",
+      "description": "Voter persistence — share of voters who stayed with the same party between two elections.",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "partyDemographics",
+      "domain": "elections",
+      "description": "A party's demographic correlations (Census 2021): ethnicity, religion, education, age.",
+      "params": [
+        "party",
+        "election"
+      ]
+    },
+    {
+      "name": "demographicCleavages",
+      "domain": "elections",
+      "description": "Demographic cleavages — which metrics most divide the parties.",
+      "params": [
+        "election"
+      ]
+    },
+    {
+      "name": "mpLoyalty",
+      "domain": "people",
+      "description": "MP party loyalty — share of votes cast with the MP's group.",
+      "params": []
+    },
+    {
+      "name": "mpAttendance",
+      "domain": "people",
+      "description": "MP attendance at roll-call votes.",
+      "params": []
+    },
+    {
+      "name": "factionCohesion",
+      "domain": "people",
+      "description": "Faction cohesion — how uniformly the groups vote.",
+      "params": []
+    },
+    {
+      "name": "mpVotingProfile",
+      "domain": "people",
+      "description": "An MP's roll-call profile by name: loyalty and attendance.",
+      "params": [
+        "name"
+      ]
+    },
+    {
+      "name": "mpSimilarity",
+      "domain": "people",
+      "description": "Which MPs vote most similarly to a given MP.",
+      "params": [
+        "name"
+      ]
+    },
+    {
+      "name": "voteSearch",
+      "domain": "people",
+      "description": "Search parliamentary votes by topic/keyword — outcome and tally.",
+      "params": [
+        "query"
+      ]
+    },
+    {
+      "name": "partyMps",
+      "domain": "people",
+      "description": "The MPs (members) of one party in the sitting National Assembly — by name.",
+      "params": [
+        "party"
+      ]
+    },
+    {
+      "name": "schoolScores",
+      "domain": "indicators",
+      "description": "Schools in a município by average matura (DZI) / NVO exam score.",
+      "params": [
+        "place",
+        "subject"
       ]
     }
   ],
   "cases": [
     {
-      "id": "national_results_last",
-      "en": "What were the results of the last election?",
+      "id": "nationalResults",
+      "domain": "elections",
+      "en": "Results of the latest election?",
       "bg": "Какви са резултатите от последните избори?",
-      "expectedTool": "get_national_results"
+      "expectedTool": "nationalResults"
     },
     {
-      "id": "turnout_2023",
-      "en": "What was the voter turnout in 2023?",
-      "bg": "Каква беше избирателната активност през 2023?",
-      "expectedTool": "get_turnout"
+      "id": "regionWinners",
+      "domain": "elections",
+      "en": "Show the results by region.",
+      "bg": "Покажи резултатите по области.",
+      "expectedTool": "regionWinners"
     },
     {
-      "id": "party_result_gerb",
-      "en": "How did GERB do in the last election?",
-      "bg": "Как се представи ГЕРБ на последните избори?",
-      "expectedTool": "get_party_result"
+      "id": "parliamentSeats",
+      "domain": "elections",
+      "en": "How many seats does each party hold in parliament?",
+      "bg": "Колко места има всяка партия в парламента?",
+      "expectedTool": "parliamentSeats"
     },
     {
-      "id": "party_by_region_pp_plovdiv",
-      "en": "Show PP results by region in Plovdiv.",
-      "bg": "Покажи резултатите на ПП по общини в Пловдив.",
-      "expectedTool": "get_party_by_region"
+      "id": "seatsHistory",
+      "domain": "elections",
+      "en": "How many seats has each party held in parliament over the last 5 years?",
+      "bg": "Колко места има всяка партия в парламента последните 5 години?",
+      "expectedTool": "seatsHistory"
     },
     {
-      "id": "muni_winners_varna",
-      "en": "Which party won each municipality in Varna?",
-      "bg": "Коя партия печели всяка община във Варна?",
-      "expectedTool": "get_municipality_winners"
+      "id": "partyResult",
+      "domain": "elections",
+      "en": "How many votes did GERB get?",
+      "bg": "Колко гласа взе ГЕРБ?",
+      "expectedTool": "partyResult"
     },
     {
-      "id": "mp_assets_vasilev",
-      "en": "What are the declared assets of Asen Vasilev?",
-      "bg": "Какво е имуществото на Асен Василев?",
-      "expectedTool": "get_mp_assets"
+      "id": "candidateResult",
+      "domain": "elections",
+      "en": "Results for Bozhidar Bozhanov",
+      "bg": "Резултатите за Божидар Божанов",
+      "expectedTool": "candidateResult"
     },
     {
-      "id": "party_mps_pp",
-      "en": "Who are the MPs from PP?",
-      "bg": "Кои са депутатите от ПП?",
-      "expectedTool": "get_party_mps"
+      "id": "machineVoteShare",
+      "domain": "elections",
+      "en": "Machine voting in 2023?",
+      "bg": "Машинно гласуване през 2023?",
+      "expectedTool": "machineVoteShare"
     },
     {
-      "id": "budget_2024",
-      "en": "Show the state budget for 2024.",
-      "bg": "Покажи държавния бюджет за 2024.",
-      "expectedTool": "get_budget_overview"
+      "id": "turnout",
+      "domain": "elections",
+      "en": "Turnout in the latest election?",
+      "bg": "Каква беше активността на последните избори?",
+      "expectedTool": "turnout"
     },
     {
-      "id": "unemployment_munis",
+      "id": "compareElections",
+      "domain": "elections",
+      "en": "Compare 2022 and 2024",
+      "bg": "Сравни 2022 и 2024",
+      "expectedTool": "compareElections"
+    },
+    {
+      "id": "machineVoteSeries",
+      "domain": "elections",
+      "en": "Machine voting in the last 7 elections?",
+      "bg": "Машинно гласуване в последните 7 избора?",
+      "expectedTool": "machineVoteSeries"
+    },
+    {
+      "id": "turnoutSeries",
+      "domain": "elections",
+      "en": "How has turnout changed over the years?",
+      "bg": "Как се променя активността през годините?",
+      "expectedTool": "turnoutSeries"
+    },
+    {
+      "id": "partyTimeline",
+      "domain": "elections",
+      "en": "How has GERB performed over the years?",
+      "bg": "Как се представя ГЕРБ през годините?",
+      "expectedTool": "partyTimeline"
+    },
+    {
+      "id": "pollAccuracy",
+      "domain": "elections",
+      "en": "Which pollster is most accurate?",
+      "bg": "Коя социологическа агенция е най-точна?",
+      "expectedTool": "pollAccuracy"
+    },
+    {
+      "id": "agencyProfile",
+      "domain": "elections",
+      "en": "How accurate is Alpha Research?",
+      "bg": "Колко е точна Алфа Рисърч?",
+      "expectedTool": "agencyProfile"
+    },
+    {
+      "id": "latestPolls",
+      "domain": "elections",
+      "en": "What do the latest polls show?",
+      "bg": "Какво показват последните проучвания?",
+      "expectedTool": "latestPolls"
+    },
+    {
+      "id": "regionBreakdown",
+      "domain": "elections",
+      "en": "Where is GERB strongest?",
+      "bg": "Къде е силна ГЕРБ?",
+      "expectedTool": "regionBreakdown"
+    },
+    {
+      "id": "municipalityBreakdown",
+      "domain": "elections",
+      "en": "GERB by municipality in Varna",
+      "bg": "ГЕРБ по общини във Варна",
+      "expectedTool": "municipalityBreakdown"
+    },
+    {
+      "id": "municipalityWinners",
+      "domain": "elections",
+      "en": "Show the results by municipality in Blagoevgrad",
+      "bg": "Покажи резултатите по общини в Благоевград",
+      "expectedTool": "municipalityWinners"
+    },
+    {
+      "id": "settlementWinners",
+      "domain": "elections",
+      "en": "Show the results by settlement in Bansko",
+      "bg": "Покажи резултатите по населени места в община Банско",
+      "expectedTool": "settlementWinners"
+    },
+    {
+      "id": "sectionWinners",
+      "domain": "elections",
+      "en": "Show the results by polling station in Bansko",
+      "bg": "Покажи резултатите по секции в Банско",
+      "expectedTool": "sectionWinners"
+    },
+    {
+      "id": "sectionResults",
+      "domain": "elections",
+      "en": "Results in section 050900092",
+      "bg": "Резултатите в секция 050900092",
+      "expectedTool": "sectionResults"
+    },
+    {
+      "id": "sectionHistory",
+      "domain": "elections",
+      "en": "How has section 050900092 voted over the years?",
+      "bg": "Как е гласувала секция 050900092 през годините?",
+      "expectedTool": "sectionHistory"
+    },
+    {
+      "id": "settlementResults",
+      "domain": "elections",
+      "en": "Results in the village of Inovo",
+      "bg": "Резултатите в с. Иново",
+      "expectedTool": "settlementResults"
+    },
+    {
+      "id": "settlementHistory",
+      "domain": "elections",
+      "en": "Results in the village of Inovo over the last 5 years",
+      "bg": "Резултатите в с. Иново за последните 5 години",
+      "expectedTool": "settlementHistory"
+    },
+    {
+      "id": "municipalityResults",
+      "domain": "elections",
+      "en": "Results in Plovdiv municipality",
+      "bg": "Резултатите в община Пловдив",
+      "expectedTool": "municipalityResults"
+    },
+    {
+      "id": "municipalityHistory",
+      "domain": "elections",
+      "en": "Results in Plovdiv municipality over the last 5 years",
+      "bg": "Резултатите в община Пловдив за последните 5 години",
+      "expectedTool": "municipalityHistory"
+    },
+    {
+      "id": "regionResults",
+      "domain": "elections",
+      "en": "Results in Varna region",
+      "bg": "Резултатите в област Варна",
+      "expectedTool": "regionResults"
+    },
+    {
+      "id": "regionResultsTrend",
+      "domain": "elections",
+      "en": "Results in Varna region over the last 5 years",
+      "bg": "Резултатите в област Варна за последните 5 години",
+      "expectedTool": "regionResultsTrend"
+    },
+    {
+      "id": "settlementBreakdown",
+      "domain": "elections",
+      "en": "GERB by settlement in Varna municipality",
+      "bg": "ГЕРБ по населени места в община Варна",
+      "expectedTool": "settlementBreakdown"
+    },
+    {
+      "id": "electionAnomalies",
+      "domain": "elections",
+      "en": "Were there anomalies in the latest election?",
+      "bg": "Имаше ли нередности на последните избори?",
+      "expectedTool": "electionAnomalies"
+    },
+    {
+      "id": "flashMemoryByParty",
+      "domain": "elections",
+      "en": "Which parties lost the most from missing flash memory?",
+      "bg": "Кои партии загубиха най-много от липсваща флаш памет?",
+      "expectedTool": "flashMemoryByParty"
+    },
+    {
+      "id": "machineVoteByParty",
+      "domain": "elections",
+      "en": "Which parties vote on machines the most?",
+      "bg": "Кои партии гласуват най-много машинно?",
+      "expectedTool": "machineVoteByParty"
+    },
+    {
+      "id": "wastedVotesByParty",
+      "domain": "elections",
+      "en": "Which party wasted the most votes?",
+      "bg": "Коя партия прахоса най-много гласове?",
+      "expectedTool": "wastedVotesByParty"
+    },
+    {
+      "id": "recountByParty",
+      "domain": "elections",
+      "en": "Which parties lost from the 2024 recount?",
+      "bg": "Кои партии загубиха от преброяването наново през 2024?",
+      "expectedTool": "recountByParty"
+    },
+    {
+      "id": "regionHistory",
+      "domain": "elections",
+      "en": "How has turnout changed in Haskovo?",
+      "bg": "Как се променя активността в Хасково?",
+      "expectedTool": "regionHistory"
+    },
+    {
+      "id": "voteTransitions",
+      "domain": "elections",
+      "en": "Where did votes move in the latest election?",
+      "bg": "Къде отидоха гласовете на последните избори?",
+      "expectedTool": "voteTransitions"
+    },
+    {
+      "id": "localCouncilVoteShare",
+      "domain": "local",
+      "en": "Who won the municipal councils?",
+      "bg": "Кой спечели общинските съвети?",
+      "expectedTool": "localCouncilVoteShare"
+    },
+    {
+      "id": "localMayorsWon",
+      "domain": "local",
+      "en": "How many mayors did GERB win locally?",
+      "bg": "Колко кмета спечели ГЕРБ на местните избори?",
+      "expectedTool": "localMayorsWon"
+    },
+    {
+      "id": "localCouncilTrend",
+      "domain": "local",
+      "en": "How has the council vote changed across cycles?",
+      "bg": "Как се променя вотът за общинските съвети през годините?",
+      "expectedTool": "localCouncilTrend"
+    },
+    {
+      "id": "localMayorsTrend",
+      "domain": "local",
+      "en": "How have mayoralties per party changed across cycles?",
+      "bg": "Как се променят кметовете по партии през годините?",
+      "expectedTool": "localMayorsTrend"
+    },
+    {
+      "id": "localOblastMayors",
+      "domain": "local",
+      "en": "How many mayors did each party win in Plovdiv province?",
+      "bg": "Колко кмета спечели всяка партия в област Пловдив?",
+      "expectedTool": "localOblastMayors"
+    },
+    {
+      "id": "localMunicipality",
+      "domain": "local",
+      "en": "Who is the mayor of Plovdiv?",
+      "bg": "Кой е кметът на Пловдив?",
+      "expectedTool": "localMunicipality"
+    },
+    {
+      "id": "localMayorRace",
+      "domain": "local",
+      "en": "Who ran for mayor of Varna?",
+      "bg": "Кои бяха кандидатите за кмет на Варна?",
+      "expectedTool": "localMayorRace"
+    },
+    {
+      "id": "localMayorHistory",
+      "domain": "local",
+      "en": "Who are the last mayors of Sofia?",
+      "bg": "Кои са последните кметове на София?",
+      "expectedTool": "localMayorHistory"
+    },
+    {
+      "id": "localSubMayors",
+      "domain": "local",
+      "en": "Who are Sofia's district mayors?",
+      "bg": "Кои са районните кметове на София?",
+      "expectedTool": "localSubMayors"
+    },
+    {
+      "id": "localCouncil",
+      "domain": "local",
+      "en": "What's the Burgas council?",
+      "bg": "Какъв е общинският съвет на Бургас?",
+      "expectedTool": "localCouncil"
+    },
+    {
+      "id": "chmiEvents",
+      "domain": "local",
+      "en": "Any partial local elections?",
+      "bg": "Има ли частични местни избори?",
+      "expectedTool": "chmiEvents"
+    },
+    {
+      "id": "budgetOverview",
+      "domain": "fiscal",
+      "en": "What's the state budget?",
+      "bg": "Какъв е държавният бюджет?",
+      "expectedTool": "budgetOverview"
+    },
+    {
+      "id": "budgetTrend",
+      "domain": "fiscal",
+      "en": "How has the budget changed over the years?",
+      "bg": "Как се променя бюджетът през годините?",
+      "expectedTool": "budgetTrend"
+    },
+    {
+      "id": "budgetByFunction",
+      "domain": "fiscal",
+      "en": "What is the budget spent on?",
+      "bg": "За какво се харчи бюджетът?",
+      "expectedTool": "budgetByFunction"
+    },
+    {
+      "id": "budgetFunction",
+      "domain": "fiscal",
+      "en": "How much goes to health?",
+      "bg": "Колко пари отиват за здравеопазване?",
+      "expectedTool": "budgetFunction"
+    },
+    {
+      "id": "procurementTotals",
+      "domain": "fiscal",
+      "en": "How much public procurement is there?",
+      "bg": "Колко са обществените поръчки?",
+      "expectedTool": "procurementTotals"
+    },
+    {
+      "id": "fundsOverview",
+      "domain": "fiscal",
+      "en": "Who gets the most EU funds?",
+      "bg": "Кой получава най-много европейски средства?",
+      "expectedTool": "fundsOverview"
+    },
+    {
+      "id": "govDebt",
+      "domain": "fiscal",
+      "en": "What's the government debt?",
+      "bg": "Какъв е държавният дълг?",
+      "expectedTool": "govDebt"
+    },
+    {
+      "id": "noiFunds",
+      "domain": "fiscal",
+      "en": "How much does NSSI spend?",
+      "bg": "Колко харчи НОИ?",
+      "expectedTool": "noiFunds"
+    },
+    {
+      "id": "budgetExecution",
+      "domain": "fiscal",
+      "en": "Show monthly budget execution",
+      "bg": "Покажи изпълнението на бюджета по месеци",
+      "expectedTool": "budgetExecution"
+    },
+    {
+      "id": "ministryBudget",
+      "domain": "fiscal",
+      "en": "What's the transport ministry's budget?",
+      "bg": "Какъв е бюджетът на Министерството на транспорта?",
+      "expectedTool": "ministryBudget"
+    },
+    {
+      "id": "investmentProjects",
+      "domain": "fiscal",
+      "en": "What are the biggest investment projects?",
+      "bg": "Кои са най-големите инвестиционни проекти?",
+      "expectedTool": "investmentProjects"
+    },
+    {
+      "id": "governments",
+      "domain": "people",
+      "en": "What governments since 2005?",
+      "bg": "Кои са правителствата от 2005?",
+      "expectedTool": "governments"
+    },
+    {
+      "id": "mpAssetsTop",
+      "domain": "people",
+      "en": "Which MPs are richest?",
+      "bg": "Кои депутати са най-богати?",
+      "expectedTool": "mpAssetsTop"
+    },
+    {
+      "id": "mpConnectionsTop",
+      "domain": "people",
+      "en": "Which MPs have the most company links?",
+      "bg": "Кои депутати имат най-много фирмени връзки?",
+      "expectedTool": "mpConnectionsTop"
+    },
+    {
+      "id": "mpAssetsByParty",
+      "domain": "people",
+      "en": "Which party has the richest MPs?",
+      "bg": "Коя партия има най-богати депутати?",
+      "expectedTool": "mpAssetsByParty"
+    },
+    {
+      "id": "mpConnectionsByParty",
+      "domain": "people",
+      "en": "Which parties have the most business connections?",
+      "bg": "Кои партии имат най-много бизнес връзки?",
+      "expectedTool": "mpConnectionsByParty"
+    },
+    {
+      "id": "officialsAssetsTop",
+      "domain": "people",
+      "en": "Which cabinet officials are richest?",
+      "bg": "Кои министри са най-богати?",
+      "expectedTool": "officialsAssetsTop"
+    },
+    {
+      "id": "financingOverview",
+      "domain": "people",
+      "en": "Do parties file financial reports on time?",
+      "bg": "Партиите подават ли финансови отчети навреме?",
+      "expectedTool": "financingOverview"
+    },
+    {
+      "id": "macroIndicator",
+      "domain": "indicators",
+      "en": "What's inflation?",
+      "bg": "Каква е инфлацията?",
+      "expectedTool": "macroIndicator"
+    },
+    {
+      "id": "macroOverview",
+      "domain": "indicators",
+      "en": "How is the economy doing?",
+      "bg": "Как е икономиката?",
+      "expectedTool": "macroOverview"
+    },
+    {
+      "id": "macroByCategory",
+      "domain": "indicators",
+      "en": "Show the governance indicators",
+      "bg": "Покажи показателите за управление",
+      "expectedTool": "macroByCategory"
+    },
+    {
+      "id": "subnationalIndicator",
+      "domain": "indicators",
+      "en": "Unemployment in Sliven?",
+      "bg": "Каква е безработицата в Сливен?",
+      "expectedTool": "subnationalIndicator"
+    },
+    {
+      "id": "rankPlaces",
+      "domain": "indicators",
       "en": "Which municipalities have the highest unemployment?",
       "bg": "Кои общини са с най-висока безработица?",
-      "expectedTool": "get_unemployment_by_municipality"
+      "expectedTool": "rankPlaces"
     },
     {
-      "id": "poll_accuracy",
-      "en": "Which polling agency is the most accurate?",
-      "bg": "Коя социологическа агенция е най-точна?",
-      "expectedTool": "get_poll_accuracy"
+      "id": "regionIndicator",
+      "domain": "indicators",
+      "en": "GDP per capita in Varna oblast?",
+      "bg": "БВП на човек във Варна?",
+      "expectedTool": "regionIndicator"
+    },
+    {
+      "id": "transparencyScore",
+      "domain": "indicators",
+      "en": "How transparent is Ruse?",
+      "bg": "Колко прозрачна е община Русе?",
+      "expectedTool": "transparencyScore"
+    },
+    {
+      "id": "localTaxes",
+      "domain": "indicators",
+      "en": "What are the taxes in Plovdiv?",
+      "bg": "Какви са данъците в Пловдив?",
+      "expectedTool": "localTaxes"
+    },
+    {
+      "id": "landUse",
+      "domain": "indicators",
+      "en": "How much forest is in Bulgaria?",
+      "bg": "Колко гора има в България?",
+      "expectedTool": "landUse"
+    },
+    {
+      "id": "governanceProfile",
+      "domain": "place",
+      "en": "Tell me about Gabrovo",
+      "bg": "Разкажи ми за Габрово",
+      "expectedTool": "governanceProfile"
+    },
+    {
+      "id": "comparePlaces",
+      "domain": "place",
+      "en": "Compare Varna and Burgas",
+      "bg": "Сравни Варна и Бургас",
+      "expectedTool": "comparePlaces"
+    },
+    {
+      "id": "census",
+      "domain": "place",
+      "en": "What's the population of Vidin?",
+      "bg": "Колко жители има Видин?",
+      "expectedTool": "census"
+    },
+    {
+      "id": "procurementBySettlement",
+      "domain": "place",
+      "en": "How much procurement in Ruse?",
+      "bg": "Колко поръчки има в Русе?",
+      "expectedTool": "procurementBySettlement"
+    },
+    {
+      "id": "airQuality",
+      "domain": "place",
+      "en": "How's the air in Pernik?",
+      "bg": "Какъв е въздухът в Перник?",
+      "expectedTool": "airQuality"
+    },
+    {
+      "id": "graoPopulation",
+      "domain": "place",
+      "en": "How many people live in Gabrovo?",
+      "bg": "Колко души живеят в Габрово?",
+      "expectedTool": "graoPopulation"
+    },
+    {
+      "id": "councilResolutions",
+      "domain": "place",
+      "en": "What did Ruse council decide?",
+      "bg": "Какво реши общинският съвет на Русе?",
+      "expectedTool": "councilResolutions"
+    },
+    {
+      "id": "problemSections",
+      "domain": "elections",
+      "en": "How do the Roma neighbourhoods vote?",
+      "bg": "Как гласуват ромските квартали?",
+      "expectedTool": "problemSections"
+    },
+    {
+      "id": "romaVoteTrend",
+      "domain": "elections",
+      "en": "Which party won the Roma vote over the last 5 years?",
+      "bg": "Коя партия спечели ромските гласове последните 5 години?",
+      "expectedTool": "romaVoteTrend"
+    },
+    {
+      "id": "riskIndex",
+      "domain": "elections",
+      "en": "What is the election risk index?",
+      "bg": "Какъв е индексът на изборния риск?",
+      "expectedTool": "riskIndex"
+    },
+    {
+      "id": "riskScore",
+      "domain": "elections",
+      "en": "How many critical sections?",
+      "bg": "Колко критични секции има?",
+      "expectedTool": "riskScore"
+    },
+    {
+      "id": "riskClusters",
+      "domain": "elections",
+      "en": "Are there election-risk clusters?",
+      "bg": "Има ли клъстери на изборния риск?",
+      "expectedTool": "riskClusters"
+    },
+    {
+      "id": "clusterPersistence",
+      "domain": "elections",
+      "en": "Which places have persistent election risk?",
+      "bg": "Кои места са с устойчив изборен риск?",
+      "expectedTool": "clusterPersistence"
+    },
+    {
+      "id": "benfordAnomalies",
+      "domain": "elections",
+      "en": "What does the Benford test show?",
+      "bg": "Какво показва тестът на Бенфорд?",
+      "expectedTool": "benfordAnomalies"
+    },
+    {
+      "id": "wastedVotes",
+      "domain": "elections",
+      "en": "How many votes were wasted below the threshold?",
+      "bg": "Колко гласове са прахосани под прага?",
+      "expectedTool": "wastedVotes"
+    },
+    {
+      "id": "wastedVotesTrend",
+      "domain": "elections",
+      "en": "How have wasted votes changed over time?",
+      "bg": "Как се променят прахосаните гласове през годините?",
+      "expectedTool": "wastedVotesTrend"
+    },
+    {
+      "id": "suspiciousSettlements",
+      "domain": "elections",
+      "en": "Which settlements are suspicious?",
+      "bg": "Кои населени места са съмнителни?",
+      "expectedTool": "suspiciousSettlements"
+    },
+    {
+      "id": "diasporaVote",
+      "domain": "elections",
+      "en": "How did the diaspora vote?",
+      "bg": "Как гласува диаспората?",
+      "expectedTool": "diasporaVote"
+    },
+    {
+      "id": "diasporaVoteTrend",
+      "domain": "elections",
+      "en": "Who wins the diaspora vote over recent years?",
+      "bg": "Кой печели гласа в чужбина последните години?",
+      "expectedTool": "diasporaVoteTrend"
+    },
+    {
+      "id": "voterPersistence",
+      "domain": "elections",
+      "en": "How many voters kept their vote?",
+      "bg": "Колко избиратели запазиха своя вот?",
+      "expectedTool": "voterPersistence"
+    },
+    {
+      "id": "partyDemographics",
+      "domain": "elections",
+      "en": "Who votes for Vazrazhdane?",
+      "bg": "Кой гласува за Възраждане?",
+      "expectedTool": "partyDemographics"
+    },
+    {
+      "id": "demographicCleavages",
+      "domain": "elections",
+      "en": "What divides the electorate?",
+      "bg": "Какво разделя гласоподавателите?",
+      "expectedTool": "demographicCleavages"
+    },
+    {
+      "id": "mpLoyalty",
+      "domain": "people",
+      "en": "Which MPs are most loyal?",
+      "bg": "Кои депутати са най-лоялни?",
+      "expectedTool": "mpLoyalty"
+    },
+    {
+      "id": "mpAttendance",
+      "domain": "people",
+      "en": "Which MPs are most absent?",
+      "bg": "Кои депутати отсъстват най-много?",
+      "expectedTool": "mpAttendance"
+    },
+    {
+      "id": "factionCohesion",
+      "domain": "people",
+      "en": "Which group votes most cohesively?",
+      "bg": "Коя група гласува най-единно?",
+      "expectedTool": "factionCohesion"
+    },
+    {
+      "id": "mpVotingProfile",
+      "domain": "people",
+      "en": "How does Boyko Borisov vote in parliament?",
+      "bg": "Как гласува Бойко Борисов в парламента?",
+      "expectedTool": "mpVotingProfile"
+    },
+    {
+      "id": "mpSimilarity",
+      "domain": "people",
+      "en": "Who votes like Asen Vasilev?",
+      "bg": "Кой гласува като Асен Василев?",
+      "expectedTool": "mpSimilarity"
+    },
+    {
+      "id": "voteSearch",
+      "domain": "people",
+      "en": "How did parliament vote on the budget?",
+      "bg": "Как гласува парламентът за бюджета?",
+      "expectedTool": "voteSearch"
+    },
+    {
+      "id": "partyMps",
+      "domain": "people",
+      "en": "Who are the MPs from PP?",
+      "bg": "Кои са депутатите от ПП?",
+      "expectedTool": "partyMps"
+    },
+    {
+      "id": "schoolScores",
+      "domain": "indicators",
+      "en": "What are the best schools in Plovdiv?",
+      "bg": "Кои са най-добрите училища в Пловдив?",
+      "expectedTool": "schoolScores"
     },
     {
       "id": "irrelevant_weather",
       "en": "What is the weather like in Sofia today?",
       "bg": "Какво е времето в София днес?",
+      "expectedTool": null
+    },
+    {
+      "id": "irrelevant_recipe",
+      "en": "Give me a recipe for banitsa.",
+      "bg": "Дай ми рецепта за баница.",
       "expectedTool": null
     }
   ],
@@ -172,165 +1601,1378 @@
       "runtime": "cloud",
       "params": "—",
       "via": "OpenRouter proxy (production router)",
+      "toolMode": "full registry (104 tools)",
       "note": "Production cloud router for the Наясно chat.",
       "status": "measured",
       "perLang": {
         "en": {
-          "toolAcc": 1,
-          "argAcc": 1,
+          "toolAcc": 0.9622641509433962,
+          "argAcc": null,
           "jsonValidRate": 1,
           "irrelevanceAcc": 1
         },
         "bg": {
-          "toolAcc": 1,
-          "argAcc": 1,
+          "toolAcc": 0.9716981132075472,
+          "argAcc": null,
           "jsonValidRate": 1,
           "irrelevanceAcc": 1
         }
       },
       "degradation": {
-        "toolAcc": 0,
-        "argAcc": 0
+        "toolAcc": -0.009433962264150941,
+        "argAcc": null
       },
       "perCase": [
         {
-          "id": "national_results_last",
-          "expectedTool": "get_national_results",
+          "id": "nationalResults",
+          "domain": "elections",
+          "expectedTool": "nationalResults",
           "en": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_national_results"
+            "got": "nationalResults"
           },
           "bg": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_national_results"
+            "got": "nationalResults"
           }
         },
         {
-          "id": "turnout_2023",
-          "expectedTool": "get_turnout",
+          "id": "regionWinners",
+          "domain": "elections",
+          "expectedTool": "regionWinners",
           "en": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_turnout"
+            "got": "regionWinners"
           },
           "bg": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_turnout"
+            "got": "regionWinners"
           }
         },
         {
-          "id": "party_result_gerb",
-          "expectedTool": "get_party_result",
+          "id": "parliamentSeats",
+          "domain": "elections",
+          "expectedTool": "parliamentSeats",
           "en": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_party_result"
+            "got": "parliamentSeats"
           },
           "bg": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_party_result"
+            "got": "parliamentSeats"
           }
         },
         {
-          "id": "party_by_region_pp_plovdiv",
-          "expectedTool": "get_party_by_region",
+          "id": "seatsHistory",
+          "domain": "elections",
+          "expectedTool": "seatsHistory",
           "en": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_party_by_region"
+            "got": "seatsHistory"
           },
           "bg": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_party_by_region"
+            "got": "seatsHistory"
           }
         },
         {
-          "id": "muni_winners_varna",
-          "expectedTool": "get_municipality_winners",
+          "id": "partyResult",
+          "domain": "elections",
+          "expectedTool": "partyResult",
           "en": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_municipality_winners"
+            "got": "partyResult"
           },
           "bg": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_municipality_winners"
+            "toolOk": false,
+            "got": "nationalResults"
           }
         },
         {
-          "id": "mp_assets_vasilev",
-          "expectedTool": "get_mp_assets",
+          "id": "candidateResult",
+          "domain": "elections",
+          "expectedTool": "candidateResult",
           "en": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_mp_assets"
+            "got": "candidateResult"
           },
           "bg": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_mp_assets"
+            "got": "candidateResult"
           }
         },
         {
-          "id": "party_mps_pp",
-          "expectedTool": "get_party_mps",
+          "id": "machineVoteShare",
+          "domain": "elections",
+          "expectedTool": "machineVoteShare",
           "en": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_party_mps"
+            "got": "machineVoteShare"
           },
           "bg": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_party_mps"
+            "got": "machineVoteShare"
           }
         },
         {
-          "id": "budget_2024",
-          "expectedTool": "get_budget_overview",
+          "id": "turnout",
+          "domain": "elections",
+          "expectedTool": "turnout",
           "en": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_budget_overview"
+            "got": "turnout"
           },
           "bg": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_budget_overview"
+            "got": "turnout"
           }
         },
         {
-          "id": "unemployment_munis",
-          "expectedTool": "get_unemployment_by_municipality",
+          "id": "compareElections",
+          "domain": "elections",
+          "expectedTool": "compareElections",
           "en": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_unemployment_by_municipality"
+            "got": "compareElections"
           },
           "bg": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_unemployment_by_municipality"
+            "got": "compareElections"
           }
         },
         {
-          "id": "poll_accuracy",
-          "expectedTool": "get_poll_accuracy",
+          "id": "machineVoteSeries",
+          "domain": "elections",
+          "expectedTool": "machineVoteSeries",
           "en": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_poll_accuracy"
+            "got": "machineVoteSeries"
           },
           "bg": {
             "toolOk": true,
-            "argsOk": true,
-            "got": "get_poll_accuracy"
+            "got": "machineVoteSeries"
+          }
+        },
+        {
+          "id": "turnoutSeries",
+          "domain": "elections",
+          "expectedTool": "turnoutSeries",
+          "en": {
+            "toolOk": true,
+            "got": "turnoutSeries"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "turnoutSeries"
+          }
+        },
+        {
+          "id": "partyTimeline",
+          "domain": "elections",
+          "expectedTool": "partyTimeline",
+          "en": {
+            "toolOk": true,
+            "got": "partyTimeline"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "partyTimeline"
+          }
+        },
+        {
+          "id": "pollAccuracy",
+          "domain": "elections",
+          "expectedTool": "pollAccuracy",
+          "en": {
+            "toolOk": true,
+            "got": "pollAccuracy"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "pollAccuracy"
+          }
+        },
+        {
+          "id": "agencyProfile",
+          "domain": "elections",
+          "expectedTool": "agencyProfile",
+          "en": {
+            "toolOk": true,
+            "got": "agencyProfile"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "agencyProfile"
+          }
+        },
+        {
+          "id": "latestPolls",
+          "domain": "elections",
+          "expectedTool": "latestPolls",
+          "en": {
+            "toolOk": true,
+            "got": "latestPolls"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "latestPolls"
+          }
+        },
+        {
+          "id": "regionBreakdown",
+          "domain": "elections",
+          "expectedTool": "regionBreakdown",
+          "en": {
+            "toolOk": true,
+            "got": "regionBreakdown"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "regionBreakdown"
+          }
+        },
+        {
+          "id": "municipalityBreakdown",
+          "domain": "elections",
+          "expectedTool": "municipalityBreakdown",
+          "en": {
+            "toolOk": true,
+            "got": "municipalityBreakdown"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "municipalityBreakdown"
+          }
+        },
+        {
+          "id": "municipalityWinners",
+          "domain": "elections",
+          "expectedTool": "municipalityWinners",
+          "en": {
+            "toolOk": true,
+            "got": "municipalityWinners"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "municipalityWinners"
+          }
+        },
+        {
+          "id": "settlementWinners",
+          "domain": "elections",
+          "expectedTool": "settlementWinners",
+          "en": {
+            "toolOk": true,
+            "got": "settlementWinners"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "municipalityWinners"
+          }
+        },
+        {
+          "id": "sectionWinners",
+          "domain": "elections",
+          "expectedTool": "sectionWinners",
+          "en": {
+            "toolOk": true,
+            "got": "sectionWinners"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "sectionWinners"
+          }
+        },
+        {
+          "id": "sectionResults",
+          "domain": "elections",
+          "expectedTool": "sectionResults",
+          "en": {
+            "toolOk": true,
+            "got": "sectionResults"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "sectionResults"
+          }
+        },
+        {
+          "id": "sectionHistory",
+          "domain": "elections",
+          "expectedTool": "sectionHistory",
+          "en": {
+            "toolOk": true,
+            "got": "sectionHistory"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "sectionHistory"
+          }
+        },
+        {
+          "id": "settlementResults",
+          "domain": "elections",
+          "expectedTool": "settlementResults",
+          "en": {
+            "toolOk": true,
+            "got": "settlementResults"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "settlementResults"
+          }
+        },
+        {
+          "id": "settlementHistory",
+          "domain": "elections",
+          "expectedTool": "settlementHistory",
+          "en": {
+            "toolOk": true,
+            "got": "settlementHistory"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "settlementHistory"
+          }
+        },
+        {
+          "id": "municipalityResults",
+          "domain": "elections",
+          "expectedTool": "municipalityResults",
+          "en": {
+            "toolOk": true,
+            "got": "municipalityResults"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "municipalityResults"
+          }
+        },
+        {
+          "id": "municipalityHistory",
+          "domain": "elections",
+          "expectedTool": "municipalityHistory",
+          "en": {
+            "toolOk": true,
+            "got": "municipalityHistory"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "municipalityHistory"
+          }
+        },
+        {
+          "id": "regionResults",
+          "domain": "elections",
+          "expectedTool": "regionResults",
+          "en": {
+            "toolOk": true,
+            "got": "regionResults"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "regionResults"
+          }
+        },
+        {
+          "id": "regionResultsTrend",
+          "domain": "elections",
+          "expectedTool": "regionResultsTrend",
+          "en": {
+            "toolOk": true,
+            "got": "regionResultsTrend"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "regionResultsTrend"
+          }
+        },
+        {
+          "id": "settlementBreakdown",
+          "domain": "elections",
+          "expectedTool": "settlementBreakdown",
+          "en": {
+            "toolOk": true,
+            "got": "settlementBreakdown"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "settlementBreakdown"
+          }
+        },
+        {
+          "id": "electionAnomalies",
+          "domain": "elections",
+          "expectedTool": "electionAnomalies",
+          "en": {
+            "toolOk": true,
+            "got": "electionAnomalies"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "electionAnomalies"
+          }
+        },
+        {
+          "id": "flashMemoryByParty",
+          "domain": "elections",
+          "expectedTool": "flashMemoryByParty",
+          "en": {
+            "toolOk": true,
+            "got": "flashMemoryByParty"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "flashMemoryByParty"
+          }
+        },
+        {
+          "id": "machineVoteByParty",
+          "domain": "elections",
+          "expectedTool": "machineVoteByParty",
+          "en": {
+            "toolOk": true,
+            "got": "machineVoteByParty"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "machineVoteByParty"
+          }
+        },
+        {
+          "id": "wastedVotesByParty",
+          "domain": "elections",
+          "expectedTool": "wastedVotesByParty",
+          "en": {
+            "toolOk": true,
+            "got": "wastedVotesByParty"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "wastedVotesByParty"
+          }
+        },
+        {
+          "id": "recountByParty",
+          "domain": "elections",
+          "expectedTool": "recountByParty",
+          "en": {
+            "toolOk": true,
+            "got": "recountByParty"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "recountByParty"
+          }
+        },
+        {
+          "id": "regionHistory",
+          "domain": "elections",
+          "expectedTool": "regionHistory",
+          "en": {
+            "toolOk": false,
+            "got": "regionResultsTrend"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "regionHistory"
+          }
+        },
+        {
+          "id": "voteTransitions",
+          "domain": "elections",
+          "expectedTool": "voteTransitions",
+          "en": {
+            "toolOk": true,
+            "got": "voteTransitions"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "voteTransitions"
+          }
+        },
+        {
+          "id": "localCouncilVoteShare",
+          "domain": "local",
+          "expectedTool": "localCouncilVoteShare",
+          "en": {
+            "toolOk": false,
+            "got": "localCouncilTrend"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localCouncilVoteShare"
+          }
+        },
+        {
+          "id": "localMayorsWon",
+          "domain": "local",
+          "expectedTool": "localMayorsWon",
+          "en": {
+            "toolOk": true,
+            "got": "localMayorsWon"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localMayorsWon"
+          }
+        },
+        {
+          "id": "localCouncilTrend",
+          "domain": "local",
+          "expectedTool": "localCouncilTrend",
+          "en": {
+            "toolOk": true,
+            "got": "localCouncilTrend"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localCouncilTrend"
+          }
+        },
+        {
+          "id": "localMayorsTrend",
+          "domain": "local",
+          "expectedTool": "localMayorsTrend",
+          "en": {
+            "toolOk": true,
+            "got": "localMayorsTrend"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localMayorsTrend"
+          }
+        },
+        {
+          "id": "localOblastMayors",
+          "domain": "local",
+          "expectedTool": "localOblastMayors",
+          "en": {
+            "toolOk": true,
+            "got": "localOblastMayors"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localOblastMayors"
+          }
+        },
+        {
+          "id": "localMunicipality",
+          "domain": "local",
+          "expectedTool": "localMunicipality",
+          "en": {
+            "toolOk": false,
+            "got": "governanceProfile"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "governanceProfile"
+          }
+        },
+        {
+          "id": "localMayorRace",
+          "domain": "local",
+          "expectedTool": "localMayorRace",
+          "en": {
+            "toolOk": true,
+            "got": "localMayorRace"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localMayorRace"
+          }
+        },
+        {
+          "id": "localMayorHistory",
+          "domain": "local",
+          "expectedTool": "localMayorHistory",
+          "en": {
+            "toolOk": true,
+            "got": "localMayorHistory"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localMayorHistory"
+          }
+        },
+        {
+          "id": "localSubMayors",
+          "domain": "local",
+          "expectedTool": "localSubMayors",
+          "en": {
+            "toolOk": true,
+            "got": "localSubMayors"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localSubMayors"
+          }
+        },
+        {
+          "id": "localCouncil",
+          "domain": "local",
+          "expectedTool": "localCouncil",
+          "en": {
+            "toolOk": true,
+            "got": "localCouncil"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localCouncil"
+          }
+        },
+        {
+          "id": "chmiEvents",
+          "domain": "local",
+          "expectedTool": "chmiEvents",
+          "en": {
+            "toolOk": true,
+            "got": "chmiEvents"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "chmiEvents"
+          }
+        },
+        {
+          "id": "budgetOverview",
+          "domain": "fiscal",
+          "expectedTool": "budgetOverview",
+          "en": {
+            "toolOk": true,
+            "got": "budgetOverview"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "budgetOverview"
+          }
+        },
+        {
+          "id": "budgetTrend",
+          "domain": "fiscal",
+          "expectedTool": "budgetTrend",
+          "en": {
+            "toolOk": true,
+            "got": "budgetTrend"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "budgetTrend"
+          }
+        },
+        {
+          "id": "budgetByFunction",
+          "domain": "fiscal",
+          "expectedTool": "budgetByFunction",
+          "en": {
+            "toolOk": true,
+            "got": "budgetByFunction"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "budgetByFunction"
+          }
+        },
+        {
+          "id": "budgetFunction",
+          "domain": "fiscal",
+          "expectedTool": "budgetFunction",
+          "en": {
+            "toolOk": true,
+            "got": "budgetFunction"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "budgetFunction"
+          }
+        },
+        {
+          "id": "procurementTotals",
+          "domain": "fiscal",
+          "expectedTool": "procurementTotals",
+          "en": {
+            "toolOk": true,
+            "got": "procurementTotals"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "procurementTotals"
+          }
+        },
+        {
+          "id": "fundsOverview",
+          "domain": "fiscal",
+          "expectedTool": "fundsOverview",
+          "en": {
+            "toolOk": true,
+            "got": "fundsOverview"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "fundsOverview"
+          }
+        },
+        {
+          "id": "govDebt",
+          "domain": "fiscal",
+          "expectedTool": "govDebt",
+          "en": {
+            "toolOk": true,
+            "got": "govDebt"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "govDebt"
+          }
+        },
+        {
+          "id": "noiFunds",
+          "domain": "fiscal",
+          "expectedTool": "noiFunds",
+          "en": {
+            "toolOk": true,
+            "got": "noiFunds"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "noiFunds"
+          }
+        },
+        {
+          "id": "budgetExecution",
+          "domain": "fiscal",
+          "expectedTool": "budgetExecution",
+          "en": {
+            "toolOk": true,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "budgetExecution"
+          }
+        },
+        {
+          "id": "ministryBudget",
+          "domain": "fiscal",
+          "expectedTool": "ministryBudget",
+          "en": {
+            "toolOk": true,
+            "got": "ministryBudget"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "ministryBudget"
+          }
+        },
+        {
+          "id": "investmentProjects",
+          "domain": "fiscal",
+          "expectedTool": "investmentProjects",
+          "en": {
+            "toolOk": true,
+            "got": "investmentProjects"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "investmentProjects"
+          }
+        },
+        {
+          "id": "governments",
+          "domain": "people",
+          "expectedTool": "governments",
+          "en": {
+            "toolOk": true,
+            "got": "governments"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "governments"
+          }
+        },
+        {
+          "id": "mpAssetsTop",
+          "domain": "people",
+          "expectedTool": "mpAssetsTop",
+          "en": {
+            "toolOk": true,
+            "got": "mpAssetsTop"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "mpAssetsTop"
+          }
+        },
+        {
+          "id": "mpConnectionsTop",
+          "domain": "people",
+          "expectedTool": "mpConnectionsTop",
+          "en": {
+            "toolOk": true,
+            "got": "mpConnectionsTop"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "mpConnectionsTop"
+          }
+        },
+        {
+          "id": "mpAssetsByParty",
+          "domain": "people",
+          "expectedTool": "mpAssetsByParty",
+          "en": {
+            "toolOk": true,
+            "got": "mpAssetsByParty"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "mpAssetsByParty"
+          }
+        },
+        {
+          "id": "mpConnectionsByParty",
+          "domain": "people",
+          "expectedTool": "mpConnectionsByParty",
+          "en": {
+            "toolOk": true,
+            "got": "mpConnectionsByParty"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "mpConnectionsByParty"
+          }
+        },
+        {
+          "id": "officialsAssetsTop",
+          "domain": "people",
+          "expectedTool": "officialsAssetsTop",
+          "en": {
+            "toolOk": true,
+            "got": "officialsAssetsTop"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "officialsAssetsTop"
+          }
+        },
+        {
+          "id": "financingOverview",
+          "domain": "people",
+          "expectedTool": "financingOverview",
+          "en": {
+            "toolOk": true,
+            "got": "financingOverview"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "financingOverview"
+          }
+        },
+        {
+          "id": "macroIndicator",
+          "domain": "indicators",
+          "expectedTool": "macroIndicator",
+          "en": {
+            "toolOk": true,
+            "got": "macroIndicator"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "macroIndicator"
+          }
+        },
+        {
+          "id": "macroOverview",
+          "domain": "indicators",
+          "expectedTool": "macroOverview",
+          "en": {
+            "toolOk": true,
+            "got": "macroOverview"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "macroOverview"
+          }
+        },
+        {
+          "id": "macroByCategory",
+          "domain": "indicators",
+          "expectedTool": "macroByCategory",
+          "en": {
+            "toolOk": true,
+            "got": "macroByCategory"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "macroByCategory"
+          }
+        },
+        {
+          "id": "subnationalIndicator",
+          "domain": "indicators",
+          "expectedTool": "subnationalIndicator",
+          "en": {
+            "toolOk": true,
+            "got": "subnationalIndicator"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "subnationalIndicator"
+          }
+        },
+        {
+          "id": "rankPlaces",
+          "domain": "indicators",
+          "expectedTool": "rankPlaces",
+          "en": {
+            "toolOk": true,
+            "got": "rankPlaces"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "rankPlaces"
+          }
+        },
+        {
+          "id": "regionIndicator",
+          "domain": "indicators",
+          "expectedTool": "regionIndicator",
+          "en": {
+            "toolOk": true,
+            "got": "regionIndicator"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "regionIndicator"
+          }
+        },
+        {
+          "id": "transparencyScore",
+          "domain": "indicators",
+          "expectedTool": "transparencyScore",
+          "en": {
+            "toolOk": true,
+            "got": "transparencyScore"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "transparencyScore"
+          }
+        },
+        {
+          "id": "localTaxes",
+          "domain": "indicators",
+          "expectedTool": "localTaxes",
+          "en": {
+            "toolOk": true,
+            "got": "localTaxes"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localTaxes"
+          }
+        },
+        {
+          "id": "landUse",
+          "domain": "indicators",
+          "expectedTool": "landUse",
+          "en": {
+            "toolOk": true,
+            "got": "landUse"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "landUse"
+          }
+        },
+        {
+          "id": "governanceProfile",
+          "domain": "place",
+          "expectedTool": "governanceProfile",
+          "en": {
+            "toolOk": true,
+            "got": "governanceProfile"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "governanceProfile"
+          }
+        },
+        {
+          "id": "comparePlaces",
+          "domain": "place",
+          "expectedTool": "comparePlaces",
+          "en": {
+            "toolOk": true,
+            "got": "comparePlaces"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "comparePlaces"
+          }
+        },
+        {
+          "id": "census",
+          "domain": "place",
+          "expectedTool": "census",
+          "en": {
+            "toolOk": true,
+            "got": "census"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "census"
+          }
+        },
+        {
+          "id": "procurementBySettlement",
+          "domain": "place",
+          "expectedTool": "procurementBySettlement",
+          "en": {
+            "toolOk": true,
+            "got": "procurementBySettlement"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "procurementBySettlement"
+          }
+        },
+        {
+          "id": "airQuality",
+          "domain": "place",
+          "expectedTool": "airQuality",
+          "en": {
+            "toolOk": true,
+            "got": "airQuality"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "airQuality"
+          }
+        },
+        {
+          "id": "graoPopulation",
+          "domain": "place",
+          "expectedTool": "graoPopulation",
+          "en": {
+            "toolOk": false,
+            "got": "census"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "graoPopulation"
+          }
+        },
+        {
+          "id": "councilResolutions",
+          "domain": "place",
+          "expectedTool": "councilResolutions",
+          "en": {
+            "toolOk": true,
+            "got": "councilResolutions"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "councilResolutions"
+          }
+        },
+        {
+          "id": "problemSections",
+          "domain": "elections",
+          "expectedTool": "problemSections",
+          "en": {
+            "toolOk": true,
+            "got": "problemSections"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "problemSections"
+          }
+        },
+        {
+          "id": "romaVoteTrend",
+          "domain": "elections",
+          "expectedTool": "romaVoteTrend",
+          "en": {
+            "toolOk": true,
+            "got": "romaVoteTrend"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "romaVoteTrend"
+          }
+        },
+        {
+          "id": "riskIndex",
+          "domain": "elections",
+          "expectedTool": "riskIndex",
+          "en": {
+            "toolOk": true,
+            "got": "riskIndex"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "riskIndex"
+          }
+        },
+        {
+          "id": "riskScore",
+          "domain": "elections",
+          "expectedTool": "riskScore",
+          "en": {
+            "toolOk": true,
+            "got": "riskScore"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "riskScore"
+          }
+        },
+        {
+          "id": "riskClusters",
+          "domain": "elections",
+          "expectedTool": "riskClusters",
+          "en": {
+            "toolOk": true,
+            "got": "riskClusters"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "riskClusters"
+          }
+        },
+        {
+          "id": "clusterPersistence",
+          "domain": "elections",
+          "expectedTool": "clusterPersistence",
+          "en": {
+            "toolOk": true,
+            "got": "clusterPersistence"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "clusterPersistence"
+          }
+        },
+        {
+          "id": "benfordAnomalies",
+          "domain": "elections",
+          "expectedTool": "benfordAnomalies",
+          "en": {
+            "toolOk": true,
+            "got": "benfordAnomalies"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "benfordAnomalies"
+          }
+        },
+        {
+          "id": "wastedVotes",
+          "domain": "elections",
+          "expectedTool": "wastedVotes",
+          "en": {
+            "toolOk": true,
+            "got": "wastedVotes"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "wastedVotes"
+          }
+        },
+        {
+          "id": "wastedVotesTrend",
+          "domain": "elections",
+          "expectedTool": "wastedVotesTrend",
+          "en": {
+            "toolOk": true,
+            "got": "wastedVotesTrend"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "wastedVotesTrend"
+          }
+        },
+        {
+          "id": "suspiciousSettlements",
+          "domain": "elections",
+          "expectedTool": "suspiciousSettlements",
+          "en": {
+            "toolOk": true,
+            "got": "suspiciousSettlements"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "suspiciousSettlements"
+          }
+        },
+        {
+          "id": "diasporaVote",
+          "domain": "elections",
+          "expectedTool": "diasporaVote",
+          "en": {
+            "toolOk": true,
+            "got": "diasporaVote"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "diasporaVote"
+          }
+        },
+        {
+          "id": "diasporaVoteTrend",
+          "domain": "elections",
+          "expectedTool": "diasporaVoteTrend",
+          "en": {
+            "toolOk": true,
+            "got": "diasporaVoteTrend"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "diasporaVoteTrend"
+          }
+        },
+        {
+          "id": "voterPersistence",
+          "domain": "elections",
+          "expectedTool": "voterPersistence",
+          "en": {
+            "toolOk": true,
+            "got": "voterPersistence"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "voterPersistence"
+          }
+        },
+        {
+          "id": "partyDemographics",
+          "domain": "elections",
+          "expectedTool": "partyDemographics",
+          "en": {
+            "toolOk": true,
+            "got": "partyDemographics"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "partyDemographics"
+          }
+        },
+        {
+          "id": "demographicCleavages",
+          "domain": "elections",
+          "expectedTool": "demographicCleavages",
+          "en": {
+            "toolOk": true,
+            "got": "demographicCleavages"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "demographicCleavages"
+          }
+        },
+        {
+          "id": "mpLoyalty",
+          "domain": "people",
+          "expectedTool": "mpLoyalty",
+          "en": {
+            "toolOk": true,
+            "got": "mpLoyalty"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "mpLoyalty"
+          }
+        },
+        {
+          "id": "mpAttendance",
+          "domain": "people",
+          "expectedTool": "mpAttendance",
+          "en": {
+            "toolOk": true,
+            "got": "mpAttendance"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "mpAttendance"
+          }
+        },
+        {
+          "id": "factionCohesion",
+          "domain": "people",
+          "expectedTool": "factionCohesion",
+          "en": {
+            "toolOk": true,
+            "got": "factionCohesion"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "factionCohesion"
+          }
+        },
+        {
+          "id": "mpVotingProfile",
+          "domain": "people",
+          "expectedTool": "mpVotingProfile",
+          "en": {
+            "toolOk": true,
+            "got": "mpVotingProfile"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "mpVotingProfile"
+          }
+        },
+        {
+          "id": "mpSimilarity",
+          "domain": "people",
+          "expectedTool": "mpSimilarity",
+          "en": {
+            "toolOk": true,
+            "got": "mpSimilarity"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "mpSimilarity"
+          }
+        },
+        {
+          "id": "voteSearch",
+          "domain": "people",
+          "expectedTool": "voteSearch",
+          "en": {
+            "toolOk": true,
+            "got": "voteSearch"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "voteSearch"
+          }
+        },
+        {
+          "id": "partyMps",
+          "domain": "people",
+          "expectedTool": "partyMps",
+          "en": {
+            "toolOk": true,
+            "got": "partyMps"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "partyMps"
+          }
+        },
+        {
+          "id": "schoolScores",
+          "domain": "indicators",
+          "expectedTool": "schoolScores",
+          "en": {
+            "toolOk": true,
+            "got": "schoolScores"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "schoolScores"
           }
         },
         {
@@ -338,12 +2980,22 @@
           "expectedTool": null,
           "en": {
             "toolOk": true,
-            "argsOk": true,
             "got": null
           },
           "bg": {
             "toolOk": true,
-            "argsOk": true,
+            "got": null
+          }
+        },
+        {
+          "id": "irrelevant_recipe",
+          "expectedTool": null,
+          "en": {
+            "toolOk": true,
+            "got": null
+          },
+          "bg": {
+            "toolOk": true,
             "got": null
           }
         }
@@ -355,182 +3007,12 @@
       "runtime": "cloud",
       "params": "31B",
       "via": "Gemini API (generateContent)",
-      "note": "Open model (the BgGPT base family). Measured via the Gemini API — Gemma there has no system role / function-calling tools, so the tool list goes in the user prompt and the JSON reply is parsed.",
-      "status": "measured",
-      "perLang": {
-        "en": {
-          "toolAcc": 1,
-          "argAcc": 1,
-          "jsonValidRate": 1,
-          "irrelevanceAcc": 1
-        },
-        "bg": {
-          "toolAcc": 0.9090909090909091,
-          "argAcc": 1,
-          "jsonValidRate": 0.9,
-          "irrelevanceAcc": 1
-        }
-      },
-      "degradation": {
-        "toolAcc": 0.09090909090909094,
-        "argAcc": 0
-      },
-      "perCase": [
-        {
-          "id": "national_results_last",
-          "expectedTool": "get_national_results",
-          "en": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_national_results"
-          },
-          "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          }
-        },
-        {
-          "id": "turnout_2023",
-          "expectedTool": "get_turnout",
-          "en": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_turnout"
-          },
-          "bg": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_turnout"
-          }
-        },
-        {
-          "id": "party_result_gerb",
-          "expectedTool": "get_party_result",
-          "en": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_party_result"
-          },
-          "bg": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_party_result"
-          }
-        },
-        {
-          "id": "party_by_region_pp_plovdiv",
-          "expectedTool": "get_party_by_region",
-          "en": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_party_by_region"
-          },
-          "bg": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_party_by_region"
-          }
-        },
-        {
-          "id": "muni_winners_varna",
-          "expectedTool": "get_municipality_winners",
-          "en": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_municipality_winners"
-          },
-          "bg": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_municipality_winners"
-          }
-        },
-        {
-          "id": "mp_assets_vasilev",
-          "expectedTool": "get_mp_assets",
-          "en": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_mp_assets"
-          },
-          "bg": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_mp_assets"
-          }
-        },
-        {
-          "id": "party_mps_pp",
-          "expectedTool": "get_party_mps",
-          "en": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_party_mps"
-          },
-          "bg": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_party_mps"
-          }
-        },
-        {
-          "id": "budget_2024",
-          "expectedTool": "get_budget_overview",
-          "en": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_budget_overview"
-          },
-          "bg": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_budget_overview"
-          }
-        },
-        {
-          "id": "unemployment_munis",
-          "expectedTool": "get_unemployment_by_municipality",
-          "en": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_unemployment_by_municipality"
-          },
-          "bg": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_unemployment_by_municipality"
-          }
-        },
-        {
-          "id": "poll_accuracy",
-          "expectedTool": "get_poll_accuracy",
-          "en": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_poll_accuracy"
-          },
-          "bg": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": "get_poll_accuracy"
-          }
-        },
-        {
-          "id": "irrelevant_weather",
-          "expectedTool": null,
-          "en": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": null
-          },
-          "bg": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": null
-          }
-        }
-      ]
+      "toolMode": "full registry (104 tools)",
+      "reason": "Full-registry pass pending. Gemma is the BgGPT base family but has no OpenRouter quota (free tier daily-429) and no native tool API on the Gemini API, so the ~104-tool prompt goes in one user turn — which is slow/rate-limited and can hang there. On a smaller candidate set it routed strongly in both EN and BG; the full-registry pass will be added once measured with a per-call timeout.",
+      "status": "unavailable",
+      "perLang": null,
+      "degradation": null,
+      "perCase": []
     },
     {
       "id": "functiongemma-270m-it-q4f32_1-MLC",
@@ -538,182 +3020,28 @@
       "runtime": "webllm",
       "params": "270M",
       "via": "in-browser (web-llm / WebGPU)",
-      "reason": "Off-domain community build (no fine-tune on our tools, no grammar-constrained decoding). Runtime/format probe only.",
+      "toolMode": "retrieved (k=8)",
+      "reason": "Off-domain community build (no fine-tune on our tools, no grammar). Can't hold the full registry, so it's tested with a small retrieved candidate set (k=8). Even so it got 0/104 tools right in both languages (the ~2% is the irrelevance cases), barely emits valid JSON, and the wasm intermittently traps — an untuned 270M needs fine-tuning + constrained decoding before it can route at all.",
       "status": "measured",
       "perLang": {
         "en": {
-          "toolAcc": 0.09090909090909091,
-          "argAcc": 0,
-          "jsonValidRate": 0,
+          "toolAcc": 0.018867924528301886,
+          "argAcc": null,
+          "jsonValidRate": 0.009615384615384616,
           "irrelevanceAcc": 1
         },
         "bg": {
-          "toolAcc": 0.09090909090909091,
-          "argAcc": 0,
-          "jsonValidRate": 0.1,
+          "toolAcc": 0.018867924528301886,
+          "argAcc": null,
+          "jsonValidRate": 0,
           "irrelevanceAcc": 1
         }
       },
       "degradation": {
         "toolAcc": 0,
-        "argAcc": 0
+        "argAcc": null
       },
-      "perCase": [
-        {
-          "id": "national_results_last",
-          "expectedTool": "get_national_results",
-          "en": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          },
-          "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          }
-        },
-        {
-          "id": "turnout_2023",
-          "expectedTool": "get_turnout",
-          "en": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          },
-          "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          }
-        },
-        {
-          "id": "party_result_gerb",
-          "expectedTool": "get_party_result",
-          "en": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          },
-          "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          }
-        },
-        {
-          "id": "party_by_region_pp_plovdiv",
-          "expectedTool": "get_party_by_region",
-          "en": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          },
-          "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          }
-        },
-        {
-          "id": "muni_winners_varna",
-          "expectedTool": "get_municipality_winners",
-          "en": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          },
-          "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": "election_share"
-          }
-        },
-        {
-          "id": "mp_assets_vasilev",
-          "expectedTool": "get_mp_assets",
-          "en": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          },
-          "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          }
-        },
-        {
-          "id": "party_mps_pp",
-          "expectedTool": "get_party_mps",
-          "en": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          },
-          "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          }
-        },
-        {
-          "id": "budget_2024",
-          "expectedTool": "get_budget_overview",
-          "en": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          },
-          "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          }
-        },
-        {
-          "id": "unemployment_munis",
-          "expectedTool": "get_unemployment_by_municipality",
-          "en": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          },
-          "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          }
-        },
-        {
-          "id": "poll_accuracy",
-          "expectedTool": "get_poll_accuracy",
-          "en": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          },
-          "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
-          }
-        },
-        {
-          "id": "irrelevant_weather",
-          "expectedTool": null,
-          "en": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": null
-          },
-          "bg": {
-            "toolOk": true,
-            "argsOk": true,
-            "got": null
-          }
-        }
-      ]
+      "perCase": []
     }
   ]
 }

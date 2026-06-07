@@ -2,28 +2,35 @@
 //
 //   npx tsx ai/llm/fcEval.artifact.ts
 //
-// Composes the methodology + tool/case catalogue + per-model results into one
-// versioned JSON. Cloud models are measured live (cheap, reproducible); the
-// in-browser FunctionGemma result is read from a capture written by the browser
-// run (ai/llm/fcEval.captures/<id>.json — outside data/ so it isn't deployed);
-// rate-limited / unavailable models are recorded with a status + reason.
+// The suite is DERIVED FROM THE REAL REGISTRY (fcEval.registry.ts): every tool,
+// with its bilingual example as the paired EN/BG case. The goal is to verify
+// routing among ALL registered tools, so cloud models are evaluated with the
+// FULL tool set in context. Small in-browser models can't hold the full set, so
+// FunctionGemma is evaluated with a retrieved candidate set (read from a browser
+// capture). Cloud models are measured live (cheap, reproducible); rate-limited /
+// unavailable models are recorded with a status + reason.
 //
-// Output goes to data/ai/evals/ which `npm run bucket:sync` ships to the GCS data
+// Output → data/ai/evals/ which `npm run bucket:sync` ships to the GCS data
 // bucket; the /evals page fetches it via fetchData("/ai/evals/fc_eval.json").
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { FC_CASES, FC_TOOLS, type FcReport, type LangReport } from "./fcEval";
-import { runCloudModel, runGeminiModel } from "./fcEval.cloud";
+import {
+  candidateTools,
+  runFcEval,
+  type FcCase,
+  type FcReport,
+  type FcTool,
+  type LangReport,
+} from "./fcEval";
+import { makeCloudComplete, makeGeminiComplete } from "./fcEval.cloud";
+import { registrySuite } from "./fcEval.registry";
 
 const ROOT = process.cwd();
 const OUT = join(ROOT, "data/ai/evals/fc_eval.json");
 const CAPTURES = join(ROOT, "ai/llm/fcEval.captures");
-const K = Number(process.env.FC_EVAL_K) || 5;
 
-// Load GEMINI_API_KEY from .env.local (overrides any stale shell value), so the
-// Gemma-via-Gemini-API measurement works without exporting the key. Mirrors the
-// loadGeminiEnv helper used elsewhere (scripts/brand, scripts/council).
+// Load GEMINI_API_KEY from .env.local (overrides any stale shell value).
 const loadGeminiEnv = (): void => {
   const f = join(ROOT, ".env.local");
   if (!existsSync(f)) return;
@@ -41,13 +48,33 @@ type ModelSpec = {
   params: string;
   source: "cloud-live" | "gemini-api" | "capture" | "unavailable";
   via?: string; // measurement channel, shown on the page
+  retrievedK?: number; // if set, model sees a retrieved candidate set, not the full registry
   captureFile?: string; // basename under CAPTURES (capture source only)
   note?: string;
-  reason?: string; // why unavailable / caveat
+  reason?: string;
   delayMs?: number; // pacing for rate-limited APIs
+  concurrency?: number; // parallel in-flight calls (high for the rate-limit-free proxy)
 };
 
-// Keep in sync with the cloud allowlist (functions/index.js) + ai/llm/models.ts.
+// Per-model result cache (keyed by id) so re-runs never redo a finished model —
+// the full-registry passes are slow. Gitignored (ai/llm/_fc_cache/). Set
+// FC_EVAL_FORCE=1 to ignore the cache and re-measure everything.
+const CACHE_DIR = join(ROOT, "ai/llm/_fc_cache");
+const FORCE = process.env.FC_EVAL_FORCE === "1";
+const cacheFileFor = (id: string) =>
+  join(CACHE_DIR, id.replace(/[^a-z0-9]+/gi, "_") + ".json");
+const readCachedReport = (id: string): FcReport | null => {
+  const f = cacheFileFor(id);
+  return !FORCE && existsSync(f)
+    ? (JSON.parse(readFileSync(f, "utf8")) as FcReport)
+    : null;
+};
+const writeCachedReport = (id: string, r: FcReport): void => {
+  mkdirSync(CACHE_DIR, { recursive: true });
+  writeFileSync(cacheFileFor(id), JSON.stringify(r));
+};
+
+// Keep cloud ids in sync with functions/index.js + ai/llm/models.ts.
 const SPECS: ModelSpec[] = [
   {
     id: "google/gemini-3.1-flash-lite",
@@ -56,6 +83,7 @@ const SPECS: ModelSpec[] = [
     params: "—",
     source: "cloud-live",
     via: "OpenRouter proxy (production router)",
+    concurrency: 6,
     note: "Production cloud router for the Наясно chat.",
   },
   {
@@ -64,10 +92,10 @@ const SPECS: ModelSpec[] = [
     label: "Gemma 4 31B",
     runtime: "cloud",
     params: "31B",
-    source: "gemini-api",
+    source: "unavailable",
     via: "Gemini API (generateContent)",
-    delayMs: 1500,
-    note: "Open model (the BgGPT base family). Measured via the Gemini API — Gemma there has no system role / function-calling tools, so the tool list goes in the user prompt and the JSON reply is parsed.",
+    reason:
+      "Full-registry pass pending. Gemma is the BgGPT base family but has no OpenRouter quota (free tier daily-429) and no native tool API on the Gemini API, so the ~104-tool prompt goes in one user turn — which is slow/rate-limited and can hang there. On a smaller candidate set it routed strongly in both EN and BG; the full-registry pass will be added once measured with a per-call timeout.",
   },
   {
     id: "functiongemma-270m-it-q4f32_1-MLC",
@@ -76,9 +104,10 @@ const SPECS: ModelSpec[] = [
     params: "270M",
     source: "capture",
     via: "in-browser (web-llm / WebGPU)",
+    retrievedK: 8,
     captureFile: "functiongemma-270m-it-q4f32_1-MLC.json",
     reason:
-      "Off-domain community build (no fine-tune on our tools, no grammar-constrained decoding). Runtime/format probe only.",
+      "Off-domain community build (no fine-tune on our tools, no grammar). Can't hold the full registry, so it's tested with a small retrieved candidate set (k=8). Even so it got 0/104 tools right in both languages (the ~2% is the irrelevance cases), barely emits valid JSON, and the wasm intermittently traps — an untuned 270M needs fine-tuning + constrained decoding before it can route at all.",
   },
 ];
 
@@ -94,26 +123,32 @@ const perCase = (report: FcReport) => {
     string,
     {
       id: string;
+      domain?: string;
       expectedTool: string | null;
-      en?: { toolOk: boolean; argsOk: boolean; got: string | null };
-      bg?: { toolOk: boolean; argsOk: boolean; got: string | null };
+      en?: { toolOk: boolean; got: string | null };
+      bg?: { toolOk: boolean; got: string | null };
     }
   >();
   for (const s of report.scores) {
-    const e = byId.get(s.id) ?? { id: s.id, expectedTool: s.expectedTool };
-    e[s.lang] = { toolOk: s.toolOk, argsOk: s.argsOk, got: s.gotTool };
+    const e = byId.get(s.id) ?? {
+      id: s.id,
+      domain: s.domain,
+      expectedTool: s.expectedTool,
+    };
+    e[s.lang] = { toolOk: s.toolOk, got: s.gotTool };
     byId.set(s.id, e);
   }
   return [...byId.values()];
 };
 
-const entry = (spec: ModelSpec, report?: FcReport) => {
+const entry = (spec: ModelSpec, toolMode: string, report?: FcReport) => {
   const base = {
     id: spec.id,
     label: spec.label,
     runtime: spec.runtime,
     params: spec.params,
     via: spec.via,
+    toolMode,
     note: spec.note,
     reason: spec.reason,
   };
@@ -136,72 +171,109 @@ const entry = (spec: ModelSpec, report?: FcReport) => {
 
 const main = async () => {
   loadGeminiEnv();
+  const { tools, cases } = registrySuite();
+  const forCase = (k?: number) =>
+    k ? (c: FcCase, all: FcTool[]) => candidateTools(c, all, k) : undefined;
+  const modeLabel = (k?: number) =>
+    k ? `retrieved (k=${k})` : `full registry (${tools.length} tools)`;
+
   const models = [];
   for (const spec of SPECS) {
-    if (spec.source === "cloud-live") {
-      console.error(`measuring ${spec.id} (live)…`);
-      const report = await runCloudModel(spec.id, K, { delayMs: spec.delayMs });
-      models.push(entry(spec, report));
-    } else if (spec.source === "gemini-api") {
-      const key = process.env.GEMINI_API_KEY;
-      if (!key) {
-        console.error(`no GEMINI_API_KEY for ${spec.id} — skipping`);
-        models.push(
-          entry({
-            ...spec,
-            source: "unavailable",
-            reason: "GEMINI_API_KEY missing",
-          }),
-        );
-      } else {
-        console.error(`measuring ${spec.id} via Gemini API…`);
-        const report = await runGeminiModel(spec.apiModel ?? spec.id, key, K, {
-          delayMs: spec.delayMs,
-        });
-        models.push(entry(spec, report));
+    const toolMode = modeLabel(spec.retrievedK);
+    if (spec.source === "cloud-live" || spec.source === "gemini-api") {
+      const cached = readCachedReport(spec.id);
+      if (cached) {
+        console.error(`cached ${spec.id}`);
+        models.push(entry(spec, toolMode, cached));
+        continue;
       }
+      let key: string | undefined;
+      if (spec.source === "gemini-api") {
+        key = process.env.GEMINI_API_KEY;
+        if (!key) {
+          console.error(`no GEMINI_API_KEY for ${spec.id} — skipping`);
+          models.push(
+            entry(
+              {
+                ...spec,
+                source: "unavailable",
+                reason: "GEMINI_API_KEY missing",
+              },
+              toolMode,
+            ),
+          );
+          continue;
+        }
+      }
+      console.error(
+        `measuring ${spec.id} (full set, concurrency ${spec.concurrency ?? 1})…`,
+      );
+      const complete =
+        spec.source === "gemini-api"
+          ? makeGeminiComplete(spec.apiModel ?? spec.id, key!, {
+              delayMs: spec.delayMs,
+            })
+          : makeCloudComplete(spec.id, { delayMs: spec.delayMs });
+      const report = await runFcEval(complete, {
+        tools,
+        cases,
+        toolsForCase: forCase(spec.retrievedK),
+        concurrency: spec.concurrency,
+      });
+      writeCachedReport(spec.id, report);
+      models.push(entry(spec, toolMode, report));
     } else if (spec.source === "capture") {
       const f = join(CAPTURES, spec.captureFile ?? "");
       if (existsSync(f)) {
         console.error(`reading capture ${spec.captureFile}`);
         models.push(
-          entry(spec, JSON.parse(readFileSync(f, "utf8")) as FcReport),
+          entry(
+            spec,
+            toolMode,
+            JSON.parse(readFileSync(f, "utf8")) as FcReport,
+          ),
         );
       } else {
         console.error(`no capture for ${spec.id} (${f})`);
-        models.push(entry(spec));
+        models.push(entry(spec, toolMode));
       }
     } else {
       console.error(`skipping ${spec.id} (${spec.reason})`);
-      models.push(entry(spec));
+      models.push(entry(spec, toolMode));
     }
   }
 
+  const relevant = cases.filter((c) => c.tool !== null).length;
   const artifact = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     generatedAt: new Date().toISOString(),
-    harness: "ai/llm/fcEval.ts",
+    harness: "ai/llm/fcEval.ts (suite derived from ai/tools/registry.ts)",
     method: {
-      candidateSetK: K,
-      caseCount: FC_CASES.length,
-      toolCount: FC_TOOLS.length,
+      toolCount: tools.length,
+      caseCount: cases.length,
+      relevantCases: relevant,
+      irrelevanceCases: cases.length - relevant,
       promptStrategy: {
         cloud:
           "JSON-mode + a tool-listing system prompt (mirrors the production router)",
+        gemini:
+          "Gemma on the Gemini API: tool list + query in one user turn (no system role / tools), JSON reply parsed",
         webllm: "FunctionGemma native function-declaration tokens",
       },
       scoring:
-        "exact tool name (normalized); lenient cross-script argument containment; irrelevance = no call emitted",
-      candidateSetNote:
-        "Each case is asked with the correct tool + (k-1) deterministic distractors, simulating two-stage tool retrieval (small models collapse if all tools are in-context at once).",
+        "tool SELECTION accuracy — exact registry tool name (normalized); irrelevance = no call. Registry examples carry no annotated args, so argument accuracy is not scored (n/a).",
+      coverageNote:
+        "Cases are every registry tool's first bilingual example (EN+BG). Cloud models see the FULL tool set in context (route among all tools); small in-browser models see a retrieved candidate set (the realistic two-stage architecture).",
     },
-    tools: FC_TOOLS.map((t) => ({
+    tools: tools.map((t) => ({
       name: t.name,
+      domain: t.domain,
       description: t.description,
       params: Object.keys(t.parameters.properties),
     })),
-    cases: FC_CASES.map((c) => ({
+    cases: cases.map((c) => ({
       id: c.id,
+      domain: c.domain,
       en: c.en,
       bg: c.bg,
       expectedTool: c.tool,
@@ -213,7 +285,7 @@ const main = async () => {
   writeFileSync(OUT, JSON.stringify(artifact, null, 2) + "\n");
   const measured = models.filter((m) => m.status === "measured").length;
   console.error(
-    `\nwrote ${OUT}\n  ${measured}/${models.length} models measured`,
+    `\nwrote ${OUT}\n  ${tools.length} tools · ${cases.length} cases · ${measured}/${models.length} models measured`,
   );
 };
 

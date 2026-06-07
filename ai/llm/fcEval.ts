@@ -26,6 +26,7 @@ export type FcParam = {
 
 export type FcTool = {
   name: string;
+  domain?: string; // registry domain, for grouping the catalogue on the page
   description: string;
   parameters: {
     type: "object";
@@ -42,6 +43,7 @@ export type FcTool = {
 export type FcCase = {
   id: string;
   tool: string | null;
+  domain?: string;
   args: Record<string, string[]>;
   en: string;
   bg: string;
@@ -399,11 +401,13 @@ const extractJson = (s: string): unknown => {
 export type CaseScore = {
   id: string;
   lang: "en" | "bg";
+  domain?: string;
   expectedTool: string | null;
   gotTool: string | null;
   jsonValid: boolean; // a tool call was parsed (or correctly none for irrelevance)
   toolOk: boolean;
   argsOk: boolean; // only meaningful when toolOk && expectedTool != null
+  argScored: boolean; // case carried expected args (so argsOk counts toward argAcc)
   raw: string;
 };
 
@@ -424,11 +428,13 @@ export const scoreCase = (
     return {
       id: c.id,
       lang,
+      domain: c.domain,
       expectedTool: null,
       gotTool: parsed?.name ?? null,
       jsonValid: ok,
       toolOk: ok,
       argsOk: ok,
+      argScored: false,
       raw,
     };
   }
@@ -452,11 +458,13 @@ export const scoreCase = (
   return {
     id: c.id,
     lang,
+    domain: c.domain,
     expectedTool: c.tool,
     gotTool,
     jsonValid: parsed !== null,
     toolOk,
     argsOk,
+    argScored: Object.keys(c.args).length > 0,
     raw,
   };
 };
@@ -505,14 +513,14 @@ export type LangReport = {
   lang: "en" | "bg";
   n: number;
   toolAcc: number; // fraction of cases with the right tool (incl. irrelevance)
-  argAcc: number; // fraction of relevant+correct-tool cases with right args
+  argAcc: number | null; // over correct-tool cases that carried expected args; null if none
   jsonValidRate: number; // fraction emitting parseable output (relevant cases)
   irrelevanceAcc: number | null; // fraction of irrelevance cases correctly silent
 };
 
 export type FcReport = {
   perLang: Record<"en" | "bg", LangReport>;
-  degradation: { toolAcc: number; argAcc: number }; // en - bg (positive = bg worse)
+  degradation: { toolAcc: number; argAcc: number | null }; // en - bg (positive = bg worse)
   scores: CaseScore[];
 };
 
@@ -525,31 +533,51 @@ export const runFcEval = async (
     // for the realistic retrieved-candidate-set mode. The SAME set is reused for
     // a case's EN and BG variants so language is the only variable.
     toolsForCase?: (c: FcCase, all: FcTool[]) => FcTool[];
+    // Parallel in-flight `complete` calls (default 1 = sequential). Raise for
+    // rate-limit-free endpoints (e.g. the OpenRouter proxy) to cut wall-clock;
+    // keep low for rate-limited APIs. `complete` itself should pace/retry.
+    concurrency?: number;
   } = {},
 ): Promise<FcReport> => {
   const all = opts.tools ?? FC_TOOLS;
   const cases = opts.cases ?? FC_CASES;
   const pick = opts.toolsForCase ?? (() => all);
-  const scores: CaseScore[] = [];
-  for (const c of cases) {
-    const tools = pick(c, all);
-    for (const lang of ["en", "bg"] as const) {
-      const raw = await complete(c[lang], tools);
-      scores.push(scoreCase(c, lang, raw));
+  const concurrency = Math.max(1, opts.concurrency ?? 1);
+  // Flatten to (case × lang) tasks and run through a fixed-size worker pool,
+  // writing results by index so order/pairing is preserved regardless of finish
+  // order. EN and BG of a case share the same tool set (pick is lang-agnostic).
+  const tasks: { c: FcCase; lang: "en" | "bg" }[] = [];
+  for (const c of cases)
+    for (const lang of ["en", "bg"] as const) tasks.push({ c, lang });
+  const scores: CaseScore[] = new Array(tasks.length);
+  let next = 0;
+  const worker = async (): Promise<void> => {
+    for (;;) {
+      const i = next++;
+      if (i >= tasks.length) return;
+      const { c, lang } = tasks[i];
+      const raw = await complete(c[lang], pick(c, all));
+      scores[i] = scoreCase(c, lang, raw);
     }
-  }
+  };
+  await Promise.all(
+    Array.from({ length: Math.min(concurrency, tasks.length || 1) }, worker),
+  );
   const perLang = (lang: "en" | "bg"): LangReport => {
     const s = scores.filter((x) => x.lang === lang);
     const relevant = s.filter((x) => x.expectedTool !== null);
     const irr = s.filter((x) => x.expectedTool === null);
     const correctTool = relevant.filter((x) => x.toolOk);
+    // argAcc only over correct-tool cases that actually carried expected args;
+    // the registry-derived suite scores tool SELECTION (no annotated args) → null.
+    const argScored = correctTool.filter((x) => x.argScored);
     return {
       lang,
       n: s.length,
       toolAcc: s.length ? s.filter((x) => x.toolOk).length / s.length : 0,
-      argAcc: correctTool.length
-        ? correctTool.filter((x) => x.argsOk).length / correctTool.length
-        : 0,
+      argAcc: argScored.length
+        ? argScored.filter((x) => x.argsOk).length / argScored.length
+        : null,
       jsonValidRate: relevant.length
         ? relevant.filter((x) => x.jsonValid).length / relevant.length
         : 0,
@@ -564,7 +592,8 @@ export const runFcEval = async (
     perLang: { en, bg },
     degradation: {
       toolAcc: en.toolAcc - bg.toolAcc,
-      argAcc: en.argAcc - bg.argAcc,
+      argAcc:
+        en.argAcc != null && bg.argAcc != null ? en.argAcc - bg.argAcc : null,
     },
     scores,
   };

@@ -113,7 +113,9 @@ export const makeGeminiComplete = (
   opts: { delayMs?: number; maxRetries?: number } = {},
 ): CompleteFn => {
   const delayMs = opts.delayMs ?? 0;
-  const maxRetries = opts.maxRetries ?? 5;
+  // Ride out Gemini-API 429s so no call gives up (a give-up would score as a
+  // miss and taint the result), since Gemma's RPM limit is low for big prompts.
+  const maxRetries = opts.maxRetries ?? 8;
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
   return async (query: string, tools: FcTool[]): Promise<string> => {
     const body = JSON.stringify({
@@ -185,7 +187,8 @@ export const runGeminiModel = (
   });
 
 // ---- CLI (console table) ---------------------------------------------------
-const pct = (x: number) => `${Math.round(x * 100)}%`;
+const pct = (x: number | null) =>
+  x == null ? " n/a" : `${Math.round(x * 100)}%`;
 
 const main = async () => {
   const model = process.argv[2] || "google/gemini-3.1-flash-lite";

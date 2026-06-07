@@ -15,15 +15,16 @@ import type { Lang } from "../tools/types";
 
 type LangMetrics = {
   toolAcc: number;
-  argAcc: number;
+  argAcc: number | null;
   jsonValidRate: number;
   irrelevanceAcc: number | null;
 };
 type PerCase = {
   id: string;
+  domain?: string;
   expectedTool: string | null;
-  en?: { toolOk: boolean; argsOk: boolean; got: string | null };
-  bg?: { toolOk: boolean; argsOk: boolean; got: string | null };
+  en?: { toolOk: boolean; got: string | null };
+  bg?: { toolOk: boolean; got: string | null };
 };
 type ModelResult = {
   id: string;
@@ -31,26 +32,39 @@ type ModelResult = {
   runtime: "cloud" | "webllm";
   params: string;
   via?: string;
+  toolMode?: string;
   note?: string;
   reason?: string;
   status: "measured" | "unavailable" | "missing-capture";
   perLang: { en: LangMetrics; bg: LangMetrics } | null;
-  degradation: { toolAcc: number; argAcc: number } | null;
+  degradation: { toolAcc: number; argAcc: number | null } | null;
   perCase: PerCase[];
 };
 type Artifact = {
   generatedAt: string;
   harness: string;
   method: {
-    candidateSetK: number;
-    caseCount: number;
     toolCount: number;
-    promptStrategy: { cloud: string; webllm: string };
+    caseCount: number;
+    relevantCases: number;
+    irrelevanceCases: number;
+    promptStrategy: { cloud: string; gemini: string; webllm: string };
     scoring: string;
-    candidateSetNote: string;
+    coverageNote: string;
   };
-  tools: { name: string; description: string; params: string[] }[];
-  cases: { id: string; en: string; bg: string; expectedTool: string | null }[];
+  tools: {
+    name: string;
+    domain?: string;
+    description: string;
+    params: string[];
+  }[];
+  cases: {
+    id: string;
+    domain?: string;
+    en: string;
+    bg: string;
+    expectedTool: string | null;
+  }[];
   models: ModelResult[];
 };
 
@@ -137,7 +151,7 @@ export const EvalsScreen = () => {
       <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-8">
         <h1 className="font-title text-2xl font-semibold text-popover-foreground sm:text-3xl">
           {t(
-            "Оценка на инструментно извикване (EN/BG)",
+            "Оценка на извикване на инструменти (EN/BG)",
             "Function-calling evaluation (EN/BG)",
           )}
         </h1>
@@ -171,7 +185,7 @@ export const EvalsScreen = () => {
                       {t("Модел", "Model")}
                     </th>
                     <th className="px-2 py-2 font-medium">
-                      {t("Тип", "Type")}
+                      {t("Режим", "Mode")}
                     </th>
                     <th className="px-2 py-2 text-right font-medium">EN</th>
                     <th className="px-2 py-2 text-right font-medium">BG</th>
@@ -200,7 +214,7 @@ export const EvalsScreen = () => {
                       {m.perLang ? (
                         <>
                           <td className="px-2 py-2 text-xs text-muted-foreground">
-                            {runtimeLabel(m.runtime, lang)}
+                            {m.toolMode ?? runtimeLabel(m.runtime, lang)}
                           </td>
                           <td className="px-2 py-2 text-right tabular-nums">
                             {pct(m.perLang.en.toolAcc)}
@@ -248,8 +262,8 @@ export const EvalsScreen = () => {
               </h2>
               <p className="text-muted-foreground">
                 {t(
-                  "При способните модели българският не влошава инструментното извикване — резултатите EN и BG са еднакви. Малък модел без дообучение (FunctionGemma 270M) не е годен за нашите инструменти на нито един език: емитира формата на извикване, но измисля имена на инструменти и поврежда JSON-а. И на двата езика се проваля еднакво — тоест ограничението е в капацитета, не в езика. Пътят напред е дообучение върху нашите инструменти + ограничено декодиране (XGrammar) + извличане на малък набор инструменти.",
-                  "For capable models, Bulgarian does not degrade function-calling — EN and BG are identical. A small untuned model (FunctionGemma 270M) is not usable on our tools in either language: it emits the call format but invents tool names and malforms the JSON. It fails equally in both languages — the limit is capacity, not language. The path forward is fine-tuning on our tools + constrained decoding (XGrammar) + retrieving a small tool set.",
+                  "Способен облачен модел се справя с избора измежду всичките инструменти: Gemini 3.1 Flash-Lite познава верния инструмент в ~96–97% от случаите и на двата езика, без влошаване на български (дори малко по-добре). Малък модел без дообучение (FunctionGemma 270M) не познава нито един от инструментите — дори с предварително извличане на малък набор кандидати — защото е извън домейна и недообучен. Изводът: маршрутизирането измежду много инструменти е по силите на способен модел; малкият модел се нуждае от дообучение върху нашите инструменти + ограничено декодиране (XGrammar) + извличане на кандидати.",
+                  "A capable cloud model handles selection among all the tools: Gemini 3.1 Flash-Lite picks the right tool ~96–97% of the time in both languages, with no Bulgarian degradation (even marginally better). A small untuned model (FunctionGemma 270M) gets none of the tools right — even with a small retrieved candidate set — because it is off-domain and untuned. Takeaway: routing among many tools is within reach for a capable model; a small model needs fine-tuning on our tools + constrained decoding (XGrammar) + candidate retrieval.",
                 )}
               </p>
             </section>
@@ -286,17 +300,8 @@ export const EvalsScreen = () => {
                         </thead>
                         <tbody>
                           {m.perCase.map((c) => {
-                            const mark = (r?: {
-                              toolOk: boolean;
-                              argsOk: boolean;
-                            }) =>
-                              !r
-                                ? "—"
-                                : r.toolOk
-                                  ? r.argsOk
-                                    ? "✓"
-                                    : "≈"
-                                  : "✗";
+                            const mark = (r?: { toolOk: boolean }) =>
+                              !r ? "—" : r.toolOk ? "✓" : "✗";
                             return (
                               <tr key={c.id} className="border-b last:border-0">
                                 <td className="py-1 pr-2 font-mono text-[11px]">
@@ -318,8 +323,8 @@ export const EvalsScreen = () => {
                       </table>
                       <p className="mt-1 text-[11px] text-muted-foreground">
                         {t(
-                          "✓ инструмент+аргументи · ≈ инструмент без аргументи · ✗ грешен/липсва",
-                          "✓ tool+args · ≈ tool only · ✗ wrong/missing",
+                          "✓ правилен инструмент · ✗ грешен/липсва",
+                          "✓ correct tool · ✗ wrong/missing",
                         )}
                       </p>
                     </div>
@@ -335,11 +340,11 @@ export const EvalsScreen = () => {
               <ul className="list-inside list-disc space-y-1 text-muted-foreground">
                 <li>
                   {t(
-                    `${data.method.caseCount} двойки въпроси (EN+BG), всеки тестван срещу ${data.method.candidateSetK} инструмента-кандидати от каталог от ${data.method.toolCount}.`,
-                    `${data.method.caseCount} paired questions (EN+BG), each tested against ${data.method.candidateSetK} candidate tools from a catalogue of ${data.method.toolCount}.`,
+                    `${data.method.relevantCases} реални инструмента, всеки с двуезичен пример (EN+BG) от регистъра — оценява се изборът на инструмент измежду всичките ${data.method.toolCount}.`,
+                    `${data.method.relevantCases} real tools, each with a bilingual example (EN+BG) from the registry — tool selection is scored against all ${data.method.toolCount}.`,
                   )}
                 </li>
-                <li>{data.method.candidateSetNote}</li>
+                <li>{data.method.coverageNote}</li>
                 <li>
                   {t("Модели в облака: ", "Cloud models: ")}
                   {data.method.promptStrategy.cloud}
