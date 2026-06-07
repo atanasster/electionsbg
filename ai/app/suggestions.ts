@@ -18,6 +18,20 @@ const PARTIES = [
   "Величие",
 ];
 
+// Smaller parties / coalitions whose names aren't hardcoded router tokens. The
+// router takes a multi-word capitalized name for a person, so these route to the
+// candidate tool, which resolves them against the selected election's party
+// roster (the candidate→party fallback). Phrasing is limited to the plain
+// "result of X" template — the per-region / over-time / demographic templates
+// below need a recognised party TOKEN to keep their intent, which these lack.
+// Names stay Cyrillic even in the EN string (matchParty romanizes), matching the
+// PARTIES convention above.
+const SMALLER_PARTIES = [
+  "Синя България",
+  "Демократична България",
+  "Партия Атака",
+];
+
 const AGENCIES = [
   "Алфа Рисърч",
   "Тренд",
@@ -137,6 +151,10 @@ export const SUGGESTIONS: Suggestion[] = [
       en: `How has ${p} done over the years?`,
     },
     { bg: `Кой гласува за ${p}?`, en: `Who votes for ${p}?` },
+  ]),
+  ...SMALLER_PARTIES.flatMap((p) => [
+    { bg: `Колко гласа взе ${p}?`, en: `How many votes did ${p} get?` },
+    { bg: `Резултати за ${p}`, en: `Results for ${p}` },
   ]),
   ...Object.values(OBLASTS).map((o) => ({
     bg: `Каква е активността в ${o.bg}?`,

@@ -5,6 +5,7 @@
 
 import { fetchData } from "./dataClient";
 import { electionFullLabel, fmtInt } from "./format";
+import { partyResult } from "./national";
 import { OBLASTS } from "./place";
 import type { Envelope, ToolArgs, ToolContext } from "./types";
 
@@ -35,17 +36,21 @@ const notFound = (
   tool: "candidateResult",
   kind: "scalar",
   viz: "none",
+  // "candidate OR party": this tool also resolves a party name typed as a
+  // results query (see the fallback below), so a miss can be either — and for a
+  // party that simply didn't run in the selected election, naming only the
+  // candidate would be misleading.
   title:
     lang === "bg"
-      ? `Не е намерен кандидат „${query}“`
-      : `No candidate found for "${query}"`,
+      ? `Не е намерен кандидат или партия „${query}“`
+      : `No candidate or party found for "${query}"`,
   facts: {
     [lang === "bg" ? "търсене" : "query"]: query,
     [lang === "bg" ? "избор" : "election"]: electionFullLabel(election, lang),
     [lang === "bg" ? "подсказка" : "hint"]:
       lang === "bg"
-        ? "Опитайте с пълно име (име и фамилия)."
-        : "Try a full first + last name.",
+        ? "Опитайте с пълно име (име и фамилия) или име на партия."
+        : "Try a full first + last name, or a party name.",
   },
   provenance: [`${election}/candidates.json`],
 });
@@ -73,7 +78,18 @@ export const candidateResult = async (
       toks.length >= 2 && toks[0] === first && toks[toks.length - 1] === last
     );
   });
-  if (!matches.length) return notFound(query, lang, election);
+  if (!matches.length) {
+    // The offline router can't always tell a coalition/party name ("Синя
+    // България") from a person's name — both are 2–3 capitalized words — so a
+    // party asked about as "results of X" lands on this candidate tool. If the
+    // query resolves to a party for this election, answer with the party's
+    // result instead of a dead "candidate not found". partyResult declines
+    // (no `party` fact) for a genuine non-candidate person name, so the
+    // candidate "not found" still surfaces in that case.
+    const asParty = await partyResult({ party: query, election }, ctx);
+    if (asParty.facts?.party != null) return asParty;
+    return notFound(query, lang, election);
+  }
 
   // the same person can appear across several районs; canonical BG name is stable
   const cand = matches[0];

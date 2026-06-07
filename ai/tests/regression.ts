@@ -176,6 +176,71 @@ const CASES: Case[] = [
     tool: "candidateResult",
     facts: { name: "Божанов" },
   },
+  // ---- party name mistaken for a candidate (candidateResult -> partyResult) --
+  // A party/coalition whose name isn't a hardcoded router token ("Синя
+  // България") is two-or-three capitalized words, so the offline router takes it
+  // for a person name and routes to the candidate tool. With no such candidate,
+  // candidateResult must fall back to that election's party roster instead of
+  // dead-ending on "candidate not found". These lock: the fallback fires across
+  // phrasings / parties / languages / elections; and — critically — it does NOT
+  // over-fire (a genuine non-candidate person name, or a party absent from the
+  // selected election, still declines as a candidate rather than being coerced
+  // into the wrong party).
+  {
+    q: "какви са резултатите на Синя България?",
+    tool: "candidateResult",
+    kind: "scalar",
+    facts: { party: "СБ" },
+  },
+  {
+    // a different "results of X" phrasing resolves the same party
+    q: "Колко гласа взе Синя България?",
+    tool: "candidateResult",
+    kind: "scalar",
+    facts: { party: "СБ" },
+  },
+  {
+    // EN framing, party kept in Cyrillic — matchParty romanizes both sides
+    q: "How many votes did Синя България get?",
+    lang: "en",
+    tool: "candidateResult",
+    kind: "scalar",
+    facts: { party: "СБ" },
+  },
+  {
+    // a second, larger party reached only via the fallback (not a router token)
+    q: "Колко гласа взе Прогресивна България?",
+    tool: "candidateResult",
+    kind: "scalar",
+    facts: { party: "ПрБ" },
+  },
+  {
+    // a historical party in its own election (not the latest) — the fallback
+    // resolves against the SELECTED election's roster
+    q: "Колко гласа взе Партия Атака?",
+    election: "2009_07_05",
+    tool: "candidateResult",
+    kind: "scalar",
+    facts: { party: "Атака" },
+  },
+  {
+    // NOT a party and NOT a candidate -> must stay a clean candidate "not found"
+    // (the `търсене` fact only exists on candidateResult's decline), never
+    // coerced into some fuzzily-matched party
+    q: "Колко гласа взе Иван Несъществуващ?",
+    tool: "candidateResult",
+    kind: "scalar",
+    facts: { търсене: "Несъществуващ" },
+  },
+  {
+    // election-scoping: "Синя България" didn't run in 2017, so the fallback
+    // finds no party and the candidate "not found" stands (no cross-election leak)
+    q: "какви са резултатите на Синя България?",
+    election: "2017_03_26",
+    tool: "candidateResult",
+    kind: "scalar",
+    facts: { търсене: "Синя" },
+  },
   {
     q: "Какъв беше делът на машинното гласуване през 2023?",
     tool: "machineVoteShare",
