@@ -123,6 +123,7 @@ export const App = () => {
           {[
             ["https://electionsbg.com", "electionsbg.com"],
             ["https://electionsbg.com/about", t("за нас", "about")],
+            ["/evals", t("оценки на модели", "model benchmark")],
             [
               "https://github.com/atanasster/electionsbg",
               t("отворен код", "open source"),
