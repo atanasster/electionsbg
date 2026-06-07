@@ -86,13 +86,13 @@ const FitBounds = ({ features }: { features: GeoFeature[] }) => {
   const map = useMap();
   useEffect(() => {
     const bounds = boundsOf(features);
-    if (bounds) map.fitBounds(bounds, { padding: [12, 12] });
+    if (bounds) map.fitBounds(bounds, { padding: [8, 8] });
   }, [map, features]);
   return null;
 };
 
 const MapSkeleton = () => (
-  <div className="h-[320px] w-full animate-pulse rounded-lg border border-border bg-muted" />
+  <div className="mx-auto aspect-[3/2] w-full max-w-3xl animate-pulse rounded-lg border border-border bg-muted" />
 );
 
 const GeoChoropleth = ({ geo, lang }: { geo: GeoOverlay; lang: Lang }) => {
@@ -230,11 +230,12 @@ const GeoChoropleth = ({ geo, lang }: { geo: GeoOverlay; lang: Lang }) => {
 
   return (
     <div className="space-y-1.5" data-geo-map="">
-      <div className="overflow-hidden rounded-lg border border-border">
+      <div className="mx-auto aspect-[3/2] w-full max-w-3xl overflow-hidden rounded-lg border border-border">
         <MapContainer
           key={`${theme}-${sourceKey}`}
-          style={{ height: 320, width: "100%" }}
+          style={{ height: "100%", width: "100%" }}
           scrollWheelZoom={false}
+          zoomSnap={0.25}
           attributionControl
           className="bg-muted"
         >
@@ -261,7 +262,7 @@ const GeoChoropleth = ({ geo, lang }: { geo: GeoOverlay; lang: Lang }) => {
         </MapContainer>
       </div>
       {showRampLegend && (
-        <div className="flex items-center gap-2 px-0.5 text-[11px] text-muted-foreground">
+        <div className="mx-auto flex w-full max-w-3xl items-center gap-2 px-0.5 text-[11px] text-muted-foreground">
           <span>{geo.metricLabel}</span>
           <span className="tabular-nums">
             {fmtValue(min, geo.format, lang)}
