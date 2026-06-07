@@ -105,6 +105,7 @@
           "function": { "functionId": "llm", "region": "us-central1" }
         },
         { "source": "/evals", "destination": "/evals.html" },
+        { "source": "/tools", "destination": "/tools.html" },
         { "source": "**", "destination": "/index.html" }
       ],
       "headers": [

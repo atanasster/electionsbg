@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Info } from "lucide-react";
 import { Logo } from "@/layout/header/Logo";
 import { Button } from "@/components/ui/button";
@@ -10,14 +10,18 @@ import { useModelEngine } from "./llm/useModelEngine";
 import { latestElection } from "./tools/dataset";
 import type { Lang } from "./tools/types";
 
-export const App = () => {
+export const App = ({
+  initialView = "chat",
+}: {
+  initialView?: "chat" | "tools";
+} = {}) => {
   const { theme, setTheme } = useContext(ThemeContext);
   const [lang, setLang] = useState<Lang>("bg");
   // The default election for questions that don't name one. No longer a user
   // control: a question names its own year (and a multi-election year fans out
   // into a comparison); anything unqualified means the latest election.
   const election = latestElection();
-  const [view, setView] = useState<"chat" | "tools">("chat");
+  const [view, setView] = useState<"chat" | "tools">(initialView);
   // Slot in the fixed header where Chat portals its conversation actions (new
   // chat, share, export). Kept here so they stay reachable however far the
   // messages scroll — they used to live atop the scroll area and scrolled away.
@@ -28,6 +32,26 @@ export const App = () => {
   // progress, what's cached, storage) lives in this hook so the composer's
   // ModelPicker and the chat share one source of truth.
   const engine = useModelEngine();
+
+  // The Tools & data reference is also a standalone, shareable, indexable page
+  // at /tools (mirrors /evals). Keep the URL in sync as the user toggles, and
+  // reflect browser back/forward, so deep-links stay coherent. /tools mounts
+  // this component with initialView="tools" (see main.tsx); prod serves a
+  // per-page <head> from tools.html.
+  const navigate = (next: "chat" | "tools") => {
+    setView(next);
+    const path = next === "tools" ? "/tools" : "/";
+    if (window.location.pathname !== path) {
+      window.history.pushState(null, "", path);
+    }
+  };
+  useEffect(() => {
+    const onPopState = () => {
+      setView(/^\/tools\/?$/.test(window.location.pathname) ? "tools" : "chat");
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
 
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
 
@@ -68,7 +92,7 @@ export const App = () => {
           <Button
             variant={view === "tools" ? "default" : "ghost"}
             size="icon"
-            onClick={() => setView(view === "tools" ? "chat" : "tools")}
+            onClick={() => navigate(view === "tools" ? "chat" : "tools")}
             aria-label={t("Инструменти и данни", "Tools & data")}
             aria-pressed={view === "tools"}
             title={t(
@@ -110,7 +134,7 @@ export const App = () => {
               actionSlot={actionSlot}
             />
           ) : (
-            <Explorer lang={lang} onClose={() => setView("chat")} />
+            <Explorer lang={lang} onClose={() => navigate("chat")} />
           )}
         </div>
       </main>
