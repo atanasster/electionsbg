@@ -783,11 +783,11 @@ export const Chat = ({
               // the portaled chat actions line up as one even-height toolbar.
               className="h-9"
               onClick={() => setMessages([])}
-              title={t("Нов разговор", "New chat")}
+              title={t("Нов чат", "New chat")}
             >
               <Plus />
               <span className="hidden sm:inline">
-                {t("Нов разговор", "New chat")}
+                {t("Нов чат", "New chat")}
               </span>
             </Button>
             <DropdownMenu>
