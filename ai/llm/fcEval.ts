@@ -390,7 +390,8 @@ const extractJson = (s: string): unknown => {
     !!o &&
     typeof o === "object" &&
     ["name", "tool", "function", "tool_calls"].some((k) => k in o);
-  for (let i = objs.length - 1; i >= 0; i--) if (looksTool(objs[i])) return objs[i];
+  for (let i = objs.length - 1; i >= 0; i--)
+    if (looksTool(objs[i])) return objs[i];
   return objs[objs.length - 1];
 };
 

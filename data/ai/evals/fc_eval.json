@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-07T10:48:30.803Z",
+  "generatedAt": "2026-06-07T10:55:57.084Z",
   "harness": "ai/llm/fcEval.ts",
   "method": {
     "candidateSetK": 5,
@@ -359,30 +359,30 @@
       "status": "measured",
       "perLang": {
         "en": {
-          "toolAcc": 0.7272727272727273,
+          "toolAcc": 1,
           "argAcc": 1,
-          "jsonValidRate": 0.7,
+          "jsonValidRate": 1,
           "irrelevanceAcc": 1
         },
         "bg": {
-          "toolAcc": 0.09090909090909091,
-          "argAcc": 0,
-          "jsonValidRate": 0.1,
+          "toolAcc": 0.9090909090909091,
+          "argAcc": 1,
+          "jsonValidRate": 0.9,
           "irrelevanceAcc": 1
         }
       },
       "degradation": {
-        "toolAcc": 0.6363636363636364,
-        "argAcc": 1
+        "toolAcc": 0.09090909090909094,
+        "argAcc": 0
       },
       "perCase": [
         {
           "id": "national_results_last",
           "expectedTool": "get_national_results",
           "en": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_national_results"
           },
           "bg": {
             "toolOk": false,
@@ -399,23 +399,23 @@
             "got": "get_turnout"
           },
           "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_turnout"
           }
         },
         {
           "id": "party_result_gerb",
           "expectedTool": "get_party_result",
           "en": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_party_result"
           },
           "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_party_result"
           }
         },
         {
@@ -427,23 +427,23 @@
             "got": "get_party_by_region"
           },
           "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_party_by_region"
           }
         },
         {
           "id": "muni_winners_varna",
           "expectedTool": "get_municipality_winners",
           "en": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_municipality_winners"
           },
           "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_municipality_winners"
           }
         },
         {
@@ -455,9 +455,9 @@
             "got": "get_mp_assets"
           },
           "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": "Асен Василев"
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_mp_assets"
           }
         },
         {
@@ -469,9 +469,9 @@
             "got": "get_party_mps"
           },
           "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_party_mps"
           }
         },
         {
@@ -483,9 +483,9 @@
             "got": "get_budget_overview"
           },
           "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_budget_overview"
           }
         },
         {
@@ -497,9 +497,9 @@
             "got": "get_unemployment_by_municipality"
           },
           "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_unemployment_by_municipality"
           }
         },
         {
@@ -511,9 +511,9 @@
             "got": "get_poll_accuracy"
           },
           "bg": {
-            "toolOk": false,
-            "argsOk": false,
-            "got": null
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_poll_accuracy"
           }
         },
         {
