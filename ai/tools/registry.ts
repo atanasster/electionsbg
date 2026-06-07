@@ -2741,7 +2741,6 @@ const buildPlaceClarify = async (
       ? `Коя община „${err.query}“ имате предвид?`
       : `Which "${err.query}" municipality do you mean?`;
   return clarifyEnvelope(
-    toolName,
     prompt,
     options,
     [isSet ? "settlements.json" : "municipalities.json"],

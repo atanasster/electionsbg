@@ -174,9 +174,7 @@ export const candidateResult = async (
         lang === "bg"
           ? `Кой кандидат „${query}“ имате предвид?`
           : `Which candidate "${query}" do you mean?`;
-      return clarifyEnvelope("candidateResult", prompt, options, [
-        `${election}/candidates.json`,
-      ]);
+      return clarifyEnvelope(prompt, options, [`${election}/candidates.json`]);
     }
   }
 
