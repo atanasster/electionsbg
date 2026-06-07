@@ -61,6 +61,10 @@ const SECTION: Record<string, SiteLink> = {
     label: { bg: "Парламентарни гласувания", en: "Parliamentary votes" },
     href: url("/votes"),
   },
+  parliament: {
+    label: { bg: "Народно събрание", en: "National Assembly" },
+    href: url("/parliament"),
+  },
   financing: {
     label: { bg: "Партийно финансиране", en: "Party financing" },
     href: url("/financing"),
@@ -107,6 +111,7 @@ const localSection = (): SiteLink => ({
 // First match wins; tools sharing a section page are grouped.
 const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   nationalResults: SECTION.results,
+  parliamentSeats: SECTION.parliament,
   compareElections: SECTION.results,
   demographicCleavages: SECTION.results,
   turnout: SECTION.home,

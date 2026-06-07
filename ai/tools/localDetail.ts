@@ -1,6 +1,6 @@
 // Phase B — per-município local-election detail + extraordinary (chmi) feed.
 
-import { fetchData } from "./dataClient";
+import { fetchCanonicalParties, fetchData } from "./dataClient";
 import { fmtInt, fmtPct } from "./format";
 import {
   fetchLocalMuni,
@@ -9,6 +9,7 @@ import {
   resolveLocalCycle,
 } from "./localDataset";
 import { resolveMunicipality } from "./place";
+import { muniLocator } from "./geo";
 import { round2 } from "./dataset";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
@@ -237,6 +238,11 @@ export const localMayorRace = async (
     columns,
     rows,
     viz: "none",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      ctx.lang === "bg" ? place.name : place.nameEn,
+    ),
     facts: {
       municipality: b.obshtinaName,
       winner: winner
@@ -250,6 +256,17 @@ export const localMayorRace = async (
   };
 };
 
+// id -> brand colour from the canonical-party registry. The local-council bundle
+// stores only `primaryCanonicalId`, so the hemicycle resolves each party's colour
+// here (mirrors the site's LocalCouncilHemicycleTile, which uses `colorFor`).
+type CanonColorFile = { parties: { id: string; color?: string }[] };
+const canonicalColorMap = async (): Promise<Record<string, string>> => {
+  const canon = await fetchCanonicalParties<CanonColorFile>();
+  const map: Record<string, string> = {};
+  for (const p of canon.parties) if (p.color) map[p.id] = p.color;
+  return map;
+};
+
 export const localCouncil = async (
   args: ToolArgs,
   ctx: ToolContext,
@@ -258,57 +275,70 @@ export const localCouncil = async (
   const place = await resolveMunicipality(String(args.place ?? ""));
   if (!place) return noMuni("localCouncil", String(args.place ?? ""), ctx);
   const b = await fetchLocalMuni(cycle, place.obshtina);
+  const bg = ctx.lang === "bg";
   const parties = [...b.council]
     .filter((p) => p.mandatesWon > 0)
     .sort((x, y) => y.mandatesWon - x.mandatesWon);
+  const colors = await canonicalColorMap();
 
   const columns: Column[] = [
-    { key: "party", label: ctx.lang === "bg" ? "Партия" : "Party" },
+    { key: "party", label: bg ? "Партия" : "Party" },
     {
       key: "seats",
-      label: ctx.lang === "bg" ? "Места" : "Seats",
+      label: bg ? "Места" : "Seats",
       numeric: true,
       format: "int",
     },
     {
       key: "votes",
-      label: ctx.lang === "bg" ? "Гласове" : "Votes",
+      label: bg ? "Гласове" : "Votes",
       numeric: true,
       format: "int",
     },
     { key: "pct", label: "%", numeric: true, format: "pct" },
   ];
+  // `color` rides along for the hemicycle renderer (not a declared column).
   const rows: Row[] = parties.map((p) => ({
     party: p.localPartyName,
     seats: p.mandatesWon,
     votes: p.totalVotes,
     pct: round2(p.pctOfValid),
+    color: colors[p.primaryCanonicalId] ?? null,
   }));
   const totalSeats = parties.reduce((s, p) => s + p.mandatesWon, 0);
+  const majority = Math.floor(totalSeats / 2) + 1;
   const top = parties[0];
+  const hasMajority = !!top && top.mandatesWon >= majority;
   return {
     tool: "localCouncil",
     domain: "local",
     kind: "table",
-    title:
-      ctx.lang === "bg"
-        ? `Общински съвет на ${b.obshtinaName} — ${localCycleYear(cycle)}`
-        : `${place.nameEn} municipal council — ${localCycleYear(cycle)}`,
+    title: bg
+      ? `Общински съвет на ${b.obshtinaName} — ${localCycleYear(cycle)}`
+      : `${place.nameEn} municipal council — ${localCycleYear(cycle)}`,
+    subtitle: bg
+      ? `${totalSeats} места · мнозинство ${majority}`
+      : `${totalSeats} seats · majority ${majority}`,
     columns,
     rows,
-    categories: parties.map((p) => p.localPartyName),
-    series: [
-      {
-        key: "seats",
-        label: ctx.lang === "bg" ? "Места" : "Seats",
-        points: parties.map((p) => ({ x: p.localPartyName, y: p.mandatesWon })),
-      },
-    ],
-    viz: "bar",
+    viz: "hemicycle",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      bg ? place.name : place.nameEn,
+    ),
     facts: {
       municipality: b.obshtinaName,
       total_seats: totalSeats,
+      majority,
       leader: top ? `${top.localPartyName} (${top.mandatesWon})` : "—",
+      control: hasMajority
+        ? bg
+          ? `${top.localPartyName} има самостоятелно мнозинство`
+          : `${top.localPartyName} holds an outright majority`
+        : bg
+          ? "няма самостоятелно мнозинство"
+          : "no single-party majority",
     },
     provenance: [`${cycle}/municipalities/${place.obshtina}.json`],
   } as Envelope;

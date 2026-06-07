@@ -15,7 +15,19 @@ import {
   fmtPct,
 } from "./format";
 import { matchParty } from "./matchParty";
-import { oblastName, resolveOblast } from "./place";
+import {
+  findOblastInText,
+  loadMunis,
+  oblastName,
+  resolveMunicipality,
+  resolveOblast,
+} from "./place";
+import {
+  muniChoropleth,
+  oblastChoropleth,
+  oblastLocator,
+  settlementChoropleth,
+} from "./geo";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
 // ---- regional breakdown for one party ---------------------------------------
@@ -105,6 +117,24 @@ export const regionBreakdown = async (
       },
     ],
     viz: "bar",
+    // Oblast choropleth shaded by this party's share (all oblasts, not just the
+    // top-14 shown in the table); abroad МИР "32" has no polygon and is skipped.
+    geo: oblastChoropleth(
+      rows.map((r) => ({
+        code: r.code,
+        label: r.oblast,
+        value: r.pct,
+        display: fmtPct(r.pct, ctx.lang),
+      })),
+      {
+        metricLabel:
+          ctx.lang === "bg"
+            ? `Дял за ${party.nickName}`
+            : `${party.nickName} share`,
+        format: "pct",
+        colorMode: "ramp",
+      },
+    ),
     facts: {
       party: party.nickName,
       strongest: strongest
@@ -707,6 +737,7 @@ export const regionHistory = async (
       },
     ],
     viz: "line",
+    geo: oblastLocator(obl.code, obl.name[ctx.lang]),
     facts: {
       oblast: obl.name[ctx.lang],
       latest_turnout: last ? fmtPct(last.turnoutPct, ctx.lang) : "—",
@@ -809,5 +840,282 @@ export const voteTransitions = async (
         : "—",
     },
     provenance: [`transitions/${pair}/national.json`],
+  };
+};
+
+// ---- per-municipality breakdown for one party within an oblast --------------
+
+type MuniVoteRow = {
+  obshtina: string;
+  results: { votes: { partyNum: number; totalVotes: number }[] };
+};
+
+export const municipalityBreakdown = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const election = resolveElection(args, ctx);
+  const query = String(args.party ?? "");
+  const bg = ctx.lang === "bg";
+  const raw = String(args.oblast ?? args.place ?? "");
+  const ob = resolveOblast(raw) ?? findOblastInText(raw);
+  if (!ob) {
+    return {
+      tool: "municipalityBreakdown",
+      domain: "elections",
+      kind: "scalar",
+      title: bg
+        ? `Не разпознах област „${raw}“`
+        : `No province matched "${raw}"`,
+      viz: "none",
+      facts: { query: raw, election: electionFullLabel(election, ctx.lang) },
+      provenance: [`${election}/municipalities/by/*.json`],
+    };
+  }
+  const ns = await fetchNationalSummary<{ parties: NSParty[] }>(election);
+  const party = matchParty(query, ns.parties);
+  if (!party) {
+    return {
+      tool: "municipalityBreakdown",
+      domain: "elections",
+      kind: "scalar",
+      title: bg
+        ? `Няма намерена партия „${query}“`
+        : `No party matched "${query}"`,
+      viz: "none",
+      facts: { query, oblast: ob.name[ctx.lang] },
+      provenance: [`${election}/national_summary.json`],
+    };
+  }
+  const munis = await fetchData<MuniVoteRow[]>(
+    `/${election}/municipalities/by/${ob.code}.json`,
+  ).catch(() => [] as MuniVoteRow[]);
+  if (!munis.length) {
+    return {
+      tool: "municipalityBreakdown",
+      domain: "elections",
+      kind: "scalar",
+      title: bg
+        ? `Няма данни по общини за ${ob.name.bg}`
+        : `No municipality data for ${ob.name.en}`,
+      viz: "none",
+      facts: { oblast: ob.name[ctx.lang], party: party.nickName },
+      provenance: [`${election}/municipalities/by/${ob.code}.json`],
+    };
+  }
+  const nameByCode = new Map(
+    (await loadMunis()).map((m) => [m.obshtina, bg ? m.name : m.nameEn]),
+  );
+  const rows = munis
+    .map((r) => {
+      const total = r.results.votes.reduce(
+        (s, v) => s + (v.totalVotes ?? 0),
+        0,
+      );
+      const got =
+        r.results.votes.find((v) => v.partyNum === party.partyNum)
+          ?.totalVotes ?? 0;
+      return {
+        code: r.obshtina,
+        muni: nameByCode.get(r.obshtina) ?? r.obshtina,
+        votes: got,
+        pct: total > 0 ? round2((100 * got) / total) : 0,
+      };
+    })
+    .filter((r) => r.votes > 0)
+    .sort((a, b) => b.pct - a.pct);
+  const top = rows.slice(0, 14);
+  const strongest = rows[0];
+  const weakest = rows[rows.length - 1];
+  return {
+    tool: "municipalityBreakdown",
+    domain: "elections",
+    kind: "table",
+    title: bg
+      ? `${party.nickName} по общини — ${ob.name.bg} (${electionFullLabel(election, "bg")})`
+      : `${party.nickName} by municipality — ${ob.name.en} (${electionFullLabel(election, "en")})`,
+    columns: [
+      { key: "muni", label: bg ? "Община" : "Municipality" },
+      {
+        key: "votes",
+        label: bg ? "Гласове" : "Votes",
+        numeric: true,
+        format: "int",
+      },
+      { key: "pct", label: "%", numeric: true, format: "pct" },
+    ],
+    rows: top.map((r) => ({ muni: r.muni, votes: r.votes, pct: r.pct })),
+    categories: top.map((r) => r.muni),
+    series: [
+      {
+        key: "pct",
+        label: party.nickName,
+        points: top.map((r) => ({ x: r.muni, y: r.pct })),
+      },
+    ],
+    viz: "bar",
+    geo: muniChoropleth(
+      ob.code,
+      rows.map((r) => ({
+        code: r.code,
+        label: r.muni,
+        value: r.pct,
+        display: fmtPct(r.pct, ctx.lang),
+      })),
+      {
+        metricLabel: bg
+          ? `Дял за ${party.nickName}`
+          : `${party.nickName} share`,
+        format: "pct",
+        colorMode: "ramp",
+      },
+    ),
+    facts: {
+      party: party.nickName,
+      oblast: ob.name[ctx.lang],
+      strongest: strongest
+        ? `${strongest.muni} (${fmtPct(strongest.pct, ctx.lang)})`
+        : "—",
+      weakest: weakest
+        ? `${weakest.muni} (${fmtPct(weakest.pct, ctx.lang)})`
+        : "—",
+    },
+    provenance: [`${election}/municipalities/by/${ob.code}.json`],
+  };
+};
+
+// ---- per-settlement breakdown for one party within a municipality -----------
+
+type SettlementVoteRow = {
+  ekatte: string;
+  name: string;
+  results: { votes: { partyNum: number; totalVotes: number }[] };
+};
+
+export const settlementBreakdown = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const election = resolveElection(args, ctx);
+  const query = String(args.party ?? "");
+  const bg = ctx.lang === "bg";
+  const place = await resolveMunicipality(String(args.place ?? ""));
+  if (!place) {
+    return {
+      tool: "settlementBreakdown",
+      domain: "elections",
+      kind: "scalar",
+      title: bg
+        ? `Не намерих община „${String(args.place ?? "")}“`
+        : `No municipality matched "${String(args.place ?? "")}"`,
+      viz: "none",
+      facts: { query: String(args.place ?? "") },
+      provenance: [`${election}/settlements/by/*.json`],
+    };
+  }
+  const ns = await fetchNationalSummary<{ parties: NSParty[] }>(election);
+  const party = matchParty(query, ns.parties);
+  if (!party) {
+    return {
+      tool: "settlementBreakdown",
+      domain: "elections",
+      kind: "scalar",
+      title: bg
+        ? `Няма намерена партия „${query}“`
+        : `No party matched "${query}"`,
+      viz: "none",
+      facts: { query, place: place.name },
+      provenance: [`${election}/national_summary.json`],
+    };
+  }
+  const settlements = await fetchData<SettlementVoteRow[]>(
+    `/${election}/settlements/by/${place.obshtina}.json`,
+  ).catch(() => [] as SettlementVoteRow[]);
+  if (!settlements.length) {
+    return {
+      tool: "settlementBreakdown",
+      domain: "elections",
+      kind: "scalar",
+      title: bg
+        ? `Няма данни по населени места за ${place.name}`
+        : `No settlement data for ${place.nameEn}`,
+      viz: "none",
+      facts: { place: place.name, party: party.nickName },
+      provenance: [`${election}/settlements/by/${place.obshtina}.json`],
+    };
+  }
+  const rows = settlements
+    .map((r) => {
+      const total = r.results.votes.reduce(
+        (s, v) => s + (v.totalVotes ?? 0),
+        0,
+      );
+      const got =
+        r.results.votes.find((v) => v.partyNum === party.partyNum)
+          ?.totalVotes ?? 0;
+      return {
+        code: r.ekatte,
+        place: r.name,
+        votes: got,
+        pct: total > 0 ? round2((100 * got) / total) : 0,
+      };
+    })
+    .filter((r) => r.votes > 0)
+    .sort((a, b) => b.pct - a.pct);
+  const top = rows.slice(0, 14);
+  const strongest = rows[0];
+  const placeName = bg ? place.name : place.nameEn;
+  return {
+    tool: "settlementBreakdown",
+    domain: "elections",
+    kind: "table",
+    title: bg
+      ? `${party.nickName} по населени места — ${place.name} (${electionFullLabel(election, "bg")})`
+      : `${party.nickName} by settlement — ${place.nameEn} (${electionFullLabel(election, "en")})`,
+    columns: [
+      { key: "place", label: bg ? "Населено място" : "Settlement" },
+      {
+        key: "votes",
+        label: bg ? "Гласове" : "Votes",
+        numeric: true,
+        format: "int",
+      },
+      { key: "pct", label: "%", numeric: true, format: "pct" },
+    ],
+    rows: top.map((r) => ({ place: r.place, votes: r.votes, pct: r.pct })),
+    categories: top.map((r) => r.place),
+    series: [
+      {
+        key: "pct",
+        label: party.nickName,
+        points: top.map((r) => ({ x: r.place, y: r.pct })),
+      },
+    ],
+    viz: "bar",
+    geo: settlementChoropleth(
+      place.obshtina,
+      rows.map((r) => ({
+        code: r.code,
+        label: r.place,
+        value: r.pct,
+        display: fmtPct(r.pct, ctx.lang),
+      })),
+      {
+        metricLabel: bg
+          ? `Дял за ${party.nickName}`
+          : `${party.nickName} share`,
+        format: "pct",
+        colorMode: "ramp",
+      },
+    ),
+    facts: {
+      party: party.nickName,
+      place: placeName,
+      settlements: rows.length,
+      strongest: strongest
+        ? `${strongest.place} (${fmtPct(strongest.pct, ctx.lang)})`
+        : "—",
+    },
+    provenance: [`${election}/settlements/by/${place.obshtina}.json`],
   };
 };

@@ -64,8 +64,9 @@ export const yearScope = (
   return elections.length > 1 ? { year, elections } : null;
 };
 
-// Identity / lookup keys that shouldn't become comparison columns.
-const DROP_KEYS = new Set(["election", "party", "query", "name"]);
+// Identity / lookup keys that shouldn't become comparison columns. `color` is a
+// per-row render hint (the hemicycle's party colour), never a value to compare.
+const DROP_KEYS = new Set(["election", "party", "query", "name", "color"]);
 
 // Friendlier labels for the common scalar fact keys (others fall back to the raw
 // key — acceptable for the rarer tools).

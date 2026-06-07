@@ -336,6 +336,18 @@ export const route = (question: string, ctx: ToolContext): Route => {
   const el = election ? { election } : {};
   const personName = extractPersonName(question);
 
+  // --- parliament seat composition (the hemicycle) ---
+  // "колко места има всяка партия", "seats per party in parliament". Gated on a
+  // seats word + a parliament word, with NO specific party named (a party-named
+  // "колко мандата има ГЕРБ" falls through to partyResult below). Runs before the
+  // roll-call rules so a seats question never reads as a voting-record query.
+  if (
+    !party &&
+    has(q, "места", "мандат", "seats", "seat") &&
+    has(q, "парламент", "народно събрание", "parliament", "assembly", "депутат")
+  )
+    return { tool: "parliamentSeats", args: el };
+
   // --- parliament roll-call (current НС) ---
   // similarity ("who votes like X") before the per-MP profile (both mention "X").
   if (
@@ -1132,6 +1144,30 @@ export const route = (question: string, ctx: ToolContext): Route => {
 
   // 4. a specific party
   if (party) {
+    // a party's per-settlement breakdown within one município ("ГЕРБ по
+    // населени места в община Варна"). Checked before the municipality rule so
+    // the "община" in such a query doesn't divert it.
+    if (has(q, "населен", "settlement", "по села", "по селата")) {
+      const place = extractPlace(q);
+      if (place)
+        return {
+          tool: "settlementBreakdown",
+          args: election ? { party, place, election } : { party, place },
+        };
+    }
+    // a party's per-municipality breakdown within one oblast ("ГЕРБ по общини
+    // във Варна").
+    if (has(q, "по общини", "общини", "municipalit")) {
+      const oblHit = findOblastInText(q);
+      const place = oblHit ? oblHit.code : extractPlace(q);
+      if (place)
+        return {
+          tool: "municipalityBreakdown",
+          args: election
+            ? { party, oblast: place, election }
+            : { party, oblast: place },
+        };
+    }
     // a party's regional strength ("къде е силна ГЕРБ", "ГЕРБ по области")
     if (
       has(

@@ -1,11 +1,13 @@
 // Resolve a free-text party reference ("ГЕРБ", "gerb", "ПП-ДБ", "DPS") to a
 // party entry, against nickName / name / commonName aliases.
 
-const normalize = (s: string): string =>
-  s
-    .toLowerCase()
-    .replace(/[\s.\-_/]+/g, "") // strip separators
-    .trim();
+import { translitKey } from "./translit";
+
+// Romanize first, THEN strip separators — so a latin token the router extracts
+// from an English question ("gerb", "dps", "pp-db") matches the Cyrillic-only
+// party records ("ГЕРБ" → "gerb", "ПП-ДБ" → "ppdb"), and Cyrillic queries still
+// match (they romanize to the same key).
+const normalize = (s: string): string => translitKey(s).replace(/[\s/]+/g, "");
 
 export type PartyLike = {
   partyNum?: number;

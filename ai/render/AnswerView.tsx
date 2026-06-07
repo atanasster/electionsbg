@@ -20,7 +20,7 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart";
 import { Info } from "lucide-react";
-import type { ReactNode } from "react";
+import { lazy, Suspense, type ReactNode } from "react";
 import {
   Table,
   TableBody,
@@ -32,6 +32,9 @@ import {
 import type { ResponseMeta } from "../llm/provider";
 import type { Column, Envelope, Lang, SeriesPoint } from "../tools/types";
 import { siteLinks } from "./links";
+
+// Lazy so leaflet (and the geojson fetch) only ship when an answer has a map.
+const GeoChoropleth = lazy(() => import("./GeoChoropleth"));
 
 const CHART_VARS = [
   "hsl(var(--chart-1))",
@@ -225,6 +228,127 @@ const SeriesChart = ({ env, lang }: { env: Envelope; lang: Lang }) => {
   );
 };
 
+// --- hemicycle (parliament seat composition) -------------------------------
+// Lay out `n` seats in a 180° arc across a sensible number of rows, in unit
+// coords (x ∈ [-1,1], y ∈ [-1,0]) ordered left → right so the party fill sweeps
+// across the arc. Adapted from the site's LocalCouncilHemicycleTile geometry.
+type HemiSeat = { x: number; y: number; angle: number };
+
+const hemicycleSeats = (n: number): HemiSeat[] => {
+  if (n <= 0) return [];
+  const rows = Math.max(2, Math.min(8, Math.round(Math.sqrt(n / 2.2))));
+  const r0 = 0.42; // inner-row radius (outer row = 1)
+  const radii = Array.from({ length: rows }, (_, i) =>
+    rows === 1 ? 1 : r0 + ((1 - r0) * i) / (rows - 1),
+  );
+  const radiusSum = radii.reduce((a, b) => a + b, 0);
+  const counts = radii.map((r) => Math.max(1, Math.round((n * r) / radiusSum)));
+  // Reconcile rounding so the row counts sum to exactly n.
+  let diff = n - counts.reduce((a, b) => a + b, 0);
+  for (
+    let i = counts.length - 1;
+    diff !== 0 && i >= 0;
+    i = i === 0 ? counts.length - 1 : i - 1
+  ) {
+    if (diff > 0) {
+      counts[i]++;
+      diff--;
+    } else if (counts[i] > 1) {
+      counts[i]--;
+      diff++;
+    }
+  }
+  const seats: HemiSeat[] = [];
+  radii.forEach((r, rowIdx) => {
+    const c = counts[rowIdx];
+    for (let s = 0; s < c; s++) {
+      const angle = c === 1 ? Math.PI / 2 : Math.PI - (Math.PI * s) / (c - 1);
+      seats.push({ x: r * Math.cos(angle), y: -r * Math.sin(angle), angle });
+    }
+  });
+  // Left → right around the arc (high angle = left).
+  return seats.sort((a, b) => b.angle - a.angle);
+};
+
+const HemicycleChart = ({ env, lang }: { env: Envelope; lang: Lang }) => {
+  const parties = (env.rows ?? []).map((r, i) => ({
+    name: String(r.party ?? ""),
+    seats: Number(r.seats ?? 0),
+    color: (typeof r.color === "string" && r.color) || CHART_VARS[i % 5],
+  }));
+  const total = parties.reduce((a, p) => a + p.seats, 0);
+  if (total === 0) return null;
+  const majority = Math.floor(total / 2) + 1;
+
+  // one colour entry per seat, in the same left → right order as hemicycleSeats
+  const seatColors: string[] = [];
+  parties.forEach((p) => {
+    for (let i = 0; i < p.seats; i++) seatColors.push(p.color);
+  });
+  const seats = hemicycleSeats(total);
+
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <svg
+        viewBox="-1.12 -1.16 2.24 1.3"
+        className="w-full max-w-[460px]"
+        role="img"
+        aria-label={env.title}
+      >
+        {seats.map((s, i) => (
+          <circle
+            key={i}
+            cx={s.x}
+            cy={s.y}
+            r={0.034}
+            fill={seatColors[i] ?? "hsl(var(--muted-foreground))"}
+            stroke="hsl(var(--background))"
+            strokeWidth={0.006}
+          />
+        ))}
+        {/* Total seats centred in the well of the arc. */}
+        <text
+          x={0}
+          y={-0.16}
+          textAnchor="middle"
+          className="fill-foreground"
+          style={{ font: "700 0.22px var(--font-sans, sans-serif)" }}
+        >
+          {total}
+        </text>
+        <text
+          x={0}
+          y={-0.04}
+          textAnchor="middle"
+          className="fill-muted-foreground"
+          style={{ font: "500 0.08px var(--font-sans, sans-serif)" }}
+        >
+          {lang === "bg" ? `мнозинство ${majority}` : `majority ${majority}`}
+        </text>
+      </svg>
+
+      {/* Legend: party → seats. */}
+      <ul className="grid w-full max-w-[460px] grid-cols-1 gap-x-4 gap-y-1 sm:grid-cols-2">
+        {parties.map((p) => (
+          <li key={p.name} className="flex min-w-0 items-center gap-2 text-sm">
+            <span
+              aria-hidden
+              className="inline-block size-2.5 shrink-0 rounded-full ring-1 ring-border"
+              style={{ backgroundColor: p.color }}
+            />
+            <span className="truncate" title={p.name}>
+              {p.name}
+            </span>
+            <span className="ml-auto shrink-0 font-semibold tabular-nums">
+              {p.seats}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
 const DataTable = ({ env }: { env: Envelope }) => {
   const cols = env.columns ?? [];
   const rows = env.rows ?? [];
@@ -403,9 +527,30 @@ export const AnswerView = ({
         )}
       </div>
 
-      {env.kind === "series" && <SeriesChart env={env} lang={lang} />}
-      {env.kind === "table" && <DataTable env={env} />}
-      {env.kind === "scalar" && <Scalar env={env} />}
+      {/* Optional geographic map. The numbers stay in the table/chart below, so
+          this is additive; data-export-omit keeps the tile-backed map out of the
+          PNG capture (raster tiles taint the export canvas). */}
+      {env.geo && (
+        <div data-export-omit="">
+          <Suspense
+            fallback={
+              <div className="h-[320px] w-full animate-pulse rounded-lg border border-border bg-muted" />
+            }
+          >
+            <GeoChoropleth geo={env.geo} lang={lang} />
+          </Suspense>
+        </div>
+      )}
+
+      {env.viz === "hemicycle" ? (
+        <HemicycleChart env={env} lang={lang} />
+      ) : (
+        <>
+          {env.kind === "series" && <SeriesChart env={env} lang={lang} />}
+          {env.kind === "table" && <DataTable env={env} />}
+          {env.kind === "scalar" && <Scalar env={env} />}
+        </>
+      )}
 
       <SourceLinks env={env} lang={lang} />
     </div>

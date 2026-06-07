@@ -76,6 +76,11 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Резултати за ${f(env, "election")}: ${env.facts.parties_over_threshold} партии над прага. Таблицата е подредена по гласове.`
         : `Results for ${f(env, "election")}: ${env.facts.parties_over_threshold} parties over threshold. Table sorted by votes.`;
+    case "parliamentSeats":
+      if (!env.facts.total_seats) return env.title;
+      return lang === "bg"
+        ? `${f(env, "election")}: ${f(env, "total_seats")} места между ${f(env, "parties_seated")} партии; най-голяма ${f(env, "leader")}, ${f(env, "majority_status")} (мнозинство ${f(env, "majority")}).`
+        : `${f(env, "election")}: ${f(env, "total_seats")} seats across ${f(env, "parties_seated")} parties; largest ${f(env, "leader")}, ${f(env, "majority_status")} (majority ${f(env, "majority")}).`;
     case "candidateResult":
       if (env.facts.total_preferences == null) return env.title;
       return lang === "bg"
@@ -89,6 +94,22 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `${f(env, "party")} е най-силна в ${f(env, "strongest")}, най-слаба в ${f(env, "weakest")}.`
         : `${f(env, "party")} is strongest in ${f(env, "strongest")}, weakest in ${f(env, "weakest")}.`;
+    case "municipalityBreakdown":
+      if (!env.facts.party)
+        return lang === "bg"
+          ? "Не намерих такава партия или област."
+          : "I couldn't find that party or oblast.";
+      return lang === "bg"
+        ? `${f(env, "party")} в ${f(env, "oblast")}: най-силна в ${f(env, "strongest")}, най-слаба в ${f(env, "weakest")}.`
+        : `${f(env, "party")} in ${f(env, "oblast")}: strongest in ${f(env, "strongest")}, weakest in ${f(env, "weakest")}.`;
+    case "settlementBreakdown":
+      if (!env.facts.party)
+        return lang === "bg"
+          ? "Не намерих такава партия или община."
+          : "I couldn't find that party or municipality.";
+      return lang === "bg"
+        ? `${f(env, "party")} в ${f(env, "place")}: най-силна в ${f(env, "strongest")} (${f(env, "settlements")} населени места).`
+        : `${f(env, "party")} in ${f(env, "place")}: strongest in ${f(env, "strongest")} (${f(env, "settlements")} settlements).`;
     case "electionAnomalies":
       return lang === "bg"
         ? `Сигнали за ${f(env, "election")}: ${f(env, "problem_sections")} проблемни секции (общо ${f(env, "total_flagged")} флага).`
@@ -207,8 +228,8 @@ export const narrate = (env: Envelope, lang: Lang): string => {
           ? "Не намерих такава община."
           : "I couldn't find that municipality.";
       return lang === "bg"
-        ? `Общински съвет на ${f(env, "municipality")}: ${f(env, "total_seats")} места, първа сила ${f(env, "leader")}.`
-        : `${f(env, "municipality")} council: ${f(env, "total_seats")} seats, top force ${f(env, "leader")}.`;
+        ? `Общински съвет на ${f(env, "municipality")}: ${f(env, "total_seats")} места; първа сила ${f(env, "leader")}; ${f(env, "control")} (мнозинство ${f(env, "majority")}).`
+        : `${f(env, "municipality")} council: ${f(env, "total_seats")} seats; top force ${f(env, "leader")}; ${f(env, "control")} (majority ${f(env, "majority")}).`;
     case "chmiEvents":
       return lang === "bg"
         ? `Извънредни местни избори: ${f(env, "total")} събития, последно на ${f(env, "latest")}.`

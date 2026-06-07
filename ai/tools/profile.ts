@@ -9,6 +9,7 @@ import {
   resolveLocalCycle,
 } from "./localDataset";
 import { resolveMunicipality } from "./place";
+import { muniLocator, settlementLocator } from "./geo";
 import { round2 } from "./dataset";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
@@ -82,6 +83,11 @@ export const procurementBySettlement = async (
     columns,
     rows,
     viz: "none",
+    geo: settlementLocator(
+      place.ekatte,
+      place.obshtina,
+      ctx.lang === "bg" ? place.name : place.nameEn,
+    ),
     facts: {
       place: place.name,
       total: fmtEurCompact(data.totalEur, ctx.lang),
@@ -225,6 +231,11 @@ export const governanceProfile = async (
           : `As of ${asOfYear} (where available)`
         : undefined,
     viz: "none",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      ctx.lang === "bg" ? place.name : place.nameEn,
+    ),
     facts,
     provenance,
   };

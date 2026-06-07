@@ -10,7 +10,20 @@ import {
   resolveMunicipality,
   resolveOblast,
 } from "./place";
-import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
+import {
+  nationMuniChoropleth,
+  oblastChoropleth,
+  oblastLocator,
+  muniLocator,
+} from "./geo";
+import type {
+  Column,
+  Envelope,
+  GeoArea,
+  Row,
+  ToolArgs,
+  ToolContext,
+} from "./types";
 
 // LISI + local-taxes shards key Sofia as SOF00 (not the synthetic SOF).
 const govCode = (obshtina: string): string =>
@@ -110,6 +123,11 @@ export const subnationalIndicator = async (
     ],
     viz: "line",
     markers: pinned ? [{ x: point.year, label: String(sel.year) }] : undefined,
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      ctx.lang === "bg" ? place.name : place.nameEn,
+    ),
     facts: {
       place: place.name,
       indicator: label,
@@ -205,6 +223,7 @@ export const regionIndicator = async (
     ],
     viz: "line",
     markers: pinned ? [{ x: point.year, label: String(sel.year) }] : undefined,
+    geo: oblastLocator(obl.code, obl.name[ctx.lang]),
     facts: {
       oblast: obl.name[ctx.lang],
       indicator: title,
@@ -257,6 +276,11 @@ export const transparencyScore = async (
         ? `Прозрачност (LISI) — ${place.name}`
         : `Transparency (LISI) — ${place.nameEn}`,
     viz: "none",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      ctx.lang === "bg" ? place.name : place.nameEn,
+    ),
     facts: {
       place: place.name,
       composite: score.composite,
@@ -347,6 +371,11 @@ export const localTaxes = async (
     columns,
     rows,
     viz: "none",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      ctx.lang === "bg" ? place.name : place.nameEn,
+    ),
     facts: {
       place: place.name,
       indicators: rows.length,
@@ -407,7 +436,7 @@ export const rankPlaces = async (
   const latest = (pts: IndPoint[]): number | null =>
     pts.length ? pts[pts.length - 1].value : null;
 
-  let ranked: { name: string; value: number }[] = [];
+  let ranked: { code: string; name: string; value: number }[] = [];
   let label = "";
   let unit = "";
   let provenance = "";
@@ -420,6 +449,7 @@ export const rankPlaces = async (
     nameByCode.set("SOF00", "Столична община");
     ranked = Object.entries(d.scoresByObshtina)
       .map(([code, s]) => ({
+        code,
         name: nameByCode.get(code) ?? code,
         value: s.composite,
       }))
@@ -434,6 +464,7 @@ export const rankPlaces = async (
     unit = (lang === "bg" ? meta?.unitLabelBg : meta?.unitLabelEn) ?? "";
     ranked = Object.entries(d.series[key] ?? {})
       .map(([code, pts]) => ({
+        code,
         name: OBLASTS[code]?.[lang] ?? code,
         value: latest(pts) ?? NaN,
       }))
@@ -449,6 +480,7 @@ export const rankPlaces = async (
     const nameByCode = new Map(munis.map((m) => [m.obshtina, m.name]));
     ranked = Object.entries(d.series[key] ?? {})
       .map(([code, pts]) => ({
+        code,
         name: nameByCode.get(code) ?? code,
         value: latest(pts) ?? NaN,
       }))
@@ -471,10 +503,28 @@ export const rankPlaces = async (
         ? "lowest"
         : "highest";
 
+  // Choropleth over ALL ranked places (oblast file for province rankings, the
+  // merged nation-municipality file for municipal/LISI rankings). Sofia's "SOF00"
+  // and any place without a polygon are skipped by the renderer.
+  const geoAreas: GeoArea[] = ranked.map((r) => ({
+    code: r.code,
+    label: r.name,
+    value: r.value,
+    display: fmtVal(r.value),
+  }));
+  const geo =
+    dataset === "oblast"
+      ? oblastChoropleth(geoAreas, { metricLabel: label, colorMode: "ramp" })
+      : nationMuniChoropleth(geoAreas, {
+          metricLabel: label,
+          colorMode: "ramp",
+        });
+
   return {
     tool: "rankPlaces",
     domain: "indicators",
     kind: "table",
+    geo,
     title:
       lang === "bg"
         ? `Класация: ${label} — ${dir} (${level})`

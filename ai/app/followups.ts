@@ -9,6 +9,10 @@ export type FollowUp = { bg: string; en: string };
 const fact = (env: Envelope, key: string): string | undefined =>
   env.facts?.[key] != null ? String(env.facts[key]) : undefined;
 
+// "in {place}" with Bulgarian euphony: "във" before names starting with в/ф.
+const vIn = (name: string): string =>
+  `${/^[вфВФ]/.test(name.trim()) ? "във" : "в"} ${name}`;
+
 export const followUps = (env: Envelope): FollowUp[] => {
   const party = fact(env, "party");
   const oblast = fact(env, "oblast") ?? fact(env, "strongest");
@@ -40,7 +44,16 @@ export const followUps = (env: Envelope): FollowUp[] => {
         en: "Results of the latest election?",
       });
       break;
-    case "regionBreakdown":
+    case "regionBreakdown": {
+      // drill into the municipalities of the party's strongest oblast
+      const strong = (fact(env, "strongest") ?? "")
+        .replace(/\s*\(.*\)$/, "")
+        .trim();
+      if (party && strong)
+        out.push({
+          bg: `${party} по общини ${vIn(strong)}`,
+          en: `${party} by municipality in ${strong}`,
+        });
       if (party)
         out.push({
           bg: `Как се представя ${party} през годините?`,
@@ -51,12 +64,47 @@ export const followUps = (env: Envelope): FollowUp[] => {
         en: "What was the turnout?",
       });
       break;
+    }
+    case "municipalityBreakdown": {
+      // drill into the settlements of the strongest municipality
+      const strong = (fact(env, "strongest") ?? "")
+        .replace(/\s*\(.*\)$/, "")
+        .trim();
+      if (party && strong)
+        out.push({
+          bg: `${party} по населени места в община ${strong}`,
+          en: `${party} by settlement in ${strong} municipality`,
+        });
+      if (party && oblast)
+        out.push({
+          bg: `Къде е силна ${party}?`,
+          en: `Where is ${party} strongest?`,
+        });
+      break;
+    }
+    case "settlementBreakdown":
+      if (party)
+        out.push({
+          bg: `Къде е силна ${party}?`,
+          en: `Where is ${party} strongest?`,
+        });
+      break;
     case "nationalResults":
       out.push({ bg: "Каква беше активността?", en: "What was the turnout?" });
       out.push({ bg: "Къде е силна ГЕРБ?", en: "Where is GERB strongest?" });
       out.push({
         bg: "Сравни последните избори",
         en: "Compare the recent elections",
+      });
+      break;
+    case "parliamentSeats":
+      out.push({
+        bg: "Какви са резултатите от последните избори?",
+        en: "Results of the latest election?",
+      });
+      out.push({
+        bg: "Кои депутати са най-богати?",
+        en: "Which MPs are richest?",
       });
       break;
     case "turnout":

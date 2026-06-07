@@ -87,6 +87,10 @@ const STARTERS: { bg: string; en: string }[] = [
     en: "Results of the latest election?",
   },
   {
+    bg: "Колко места има всяка партия в парламента?",
+    en: "How many seats does each party hold in parliament?",
+  },
+  {
     bg: "Сравни изборите от 2022 и 2024",
     en: "Compare the 2022 and 2024 elections",
   },
@@ -106,6 +110,10 @@ const STARTERS: { bg: string; en: string }[] = [
   {
     bg: "Кой спечели общинските съвети?",
     en: "Who won the municipal councils?",
+  },
+  {
+    bg: "Какъв е общинският съвет на София?",
+    en: "What is the Sofia municipal council?",
   },
   {
     bg: "Имаше ли нередности на последните избори?",

@@ -8,8 +8,19 @@ import {
 } from "./localDataset";
 import { fmtInt, fmtPct } from "./format";
 import { findOblastInText, resolveMunicipality, resolveOblast } from "./place";
+import { muniChoropleth, muniLocator } from "./geo";
 import { round2 } from "./dataset";
-import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
+import type {
+  Column,
+  Envelope,
+  GeoArea,
+  Row,
+  ToolArgs,
+  ToolContext,
+} from "./types";
+
+// Neutral fill for independents / local nomination committees (no party colour).
+const INDEP_COLOR = "#9aa0a6";
 
 const cycleLabel = (cycle: string, lang: ToolContext["lang"]): string => {
   const y = localCycleYear(cycle);
@@ -162,10 +173,21 @@ export const localOblastMayors = async (
   }
   const idx = await fetchLocalIndex(cycle);
   const canon: Record<string, string> = {};
-  for (const r of idx.mayorsByCanonical) canon[r.canonicalId] = r.displayName;
-  for (const r of idx.councilVoteShare)
+  const canonColor: Record<string, string> = {};
+  for (const r of idx.mayorsByCanonical) {
+    canon[r.canonicalId] = r.displayName;
+    if (r.color) canonColor[r.canonicalId] = r.color;
+  }
+  for (const r of idx.councilVoteShare) {
     if (!canon[r.canonicalId]) canon[r.canonicalId] = r.displayName;
+    if (!canonColor[r.canonicalId] && r.color)
+      canonColor[r.canonicalId] = r.color;
+  }
   const INDEP = bg ? "Независими / местни листи" : "Independents / local lists";
+  const colorOf = (e: ElectedLike | null | undefined): string => {
+    const id = e?.primaryCanonicalId;
+    return (id && canonColor[id]) || INDEP_COLOR;
+  };
 
   // map an elected mayor to a canonical party label; null canonical id (local
   // nomination committees) and independents collapse into the INDEP bucket.
@@ -179,6 +201,8 @@ export const localOblastMayors = async (
 
   const isSofiaCity = ob.code.startsWith("S2"); // S23/S24/S25 -> Sofia districts
   const elected: (ElectedLike | null)[] = [];
+  // Per-município winner (obshtina + elected mayor's party colour) for the map.
+  const muniAreas: GeoArea[] = [];
   let level: string;
   let scope: string;
   if (isSofiaCity) {
@@ -200,7 +224,17 @@ export const localOblastMayors = async (
         }
       }),
     );
-    for (const b of bundles) elected.push(b?.mayor?.elected ?? null);
+    munis.forEach((m, i) => {
+      const e = bundles[i]?.mayor?.elected ?? null;
+      elected.push(e);
+      if (e)
+        muniAreas.push({
+          code: m.obshtinaCode,
+          label: m.name,
+          color: colorOf(e),
+          display: partyOf(e) ?? INDEP,
+        });
+    });
     level = bg ? "кметове" : "mayors";
     scope = bg ? ob.name.bg : ob.name.en;
   }
@@ -268,6 +302,17 @@ export const localOblastMayors = async (
       },
     ],
     viz: "bar",
+    // Municipality winner map within the oblast: each муниципалитет filled with
+    // its elected mayor's party colour (Sofia districts have no nuts4 polygon, so
+    // muniAreas is empty there and the map is omitted).
+    ...(muniAreas.length
+      ? {
+          geo: muniChoropleth(ob.code, muniAreas, {
+            metricLabel: bg ? "Кмет" : "Mayor",
+            colorMode: "explicit" as const,
+          }),
+        }
+      : {}),
     facts,
     provenance: [`${cycle}/index.json`, `${cycle}/municipalities/*.json`],
   };
@@ -332,6 +377,11 @@ export const localMunicipality = async (
         ? `${b.obshtinaName} — ${cycleLabel(cycle, "bg")}`
         : `${place.nameEn} — ${cycleLabel(cycle, "en")}`,
     viz: "none",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      ctx.lang === "bg" ? place.name : place.nameEn,
+    ),
     facts: {
       municipality: b.obshtinaName,
       mayor: elected

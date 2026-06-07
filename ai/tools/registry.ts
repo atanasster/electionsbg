@@ -27,9 +27,11 @@ import {
   electionAnomalies,
   flashMemoryByParty,
   machineVoteByParty,
+  municipalityBreakdown,
   recountByParty,
   regionBreakdown,
   regionHistory,
+  settlementBreakdown,
   voteTransitions,
   wastedVotesByParty,
 } from "./electionDepth";
@@ -71,7 +73,7 @@ import {
 } from "./placesGov";
 import { compareElections, machineVoteShare, turnout } from "./metrics";
 import { candidateResult } from "./candidate";
-import { nationalResults, partyResult } from "./national";
+import { nationalResults, parliamentSeats, partyResult } from "./national";
 import { partyTimeline } from "./parties";
 import { agencyProfile, latestPolls } from "./pollsDepth";
 import { machineVoteSeries, turnoutSeries } from "./series";
@@ -124,6 +126,35 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: nationalResults,
+  },
+  {
+    name: "parliamentSeats",
+    domain: "elections",
+    description: {
+      bg: "Разпределение на местата в парламента по партия (полукръг на Народното събрание).",
+      en: "Seat composition of parliament per party (National Assembly hemicycle).",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: {
+          bg: "Дата на избора (по подразбиране последния — действащото НС).",
+          en: "Election date (defaults to latest — the sitting Assembly).",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко места има всяка партия в парламента?",
+        en: "How many seats does each party hold in parliament?",
+      },
+      {
+        bg: "Разпределение на мандатите в Народното събрание",
+        en: "Seat breakdown in the National Assembly",
+      },
+    ],
+    run: parliamentSeats,
   },
   {
     name: "partyResult",
@@ -416,6 +447,71 @@ export const TOOLS: ToolDef[] = [
     ],
     examples: [{ bg: "Къде е силна ГЕРБ?", en: "Where is GERB strongest?" }],
     run: regionBreakdown,
+  },
+  {
+    name: "municipalityBreakdown",
+    domain: "elections",
+    description: {
+      bg: "Резултат на партия по общини в една област (карта + класация).",
+      en: "A party's result by municipality within one oblast (map + ranking).",
+    },
+    params: [
+      {
+        name: "party",
+        type: "party",
+        required: true,
+        description: { bg: "Партия", en: "Party" },
+      },
+      {
+        name: "oblast",
+        type: "oblast",
+        required: true,
+        description: { bg: "Област", en: "Oblast" },
+      },
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      { bg: "ГЕРБ по общини във Варна", en: "GERB by municipality in Varna" },
+    ],
+    run: municipalityBreakdown,
+  },
+  {
+    name: "settlementBreakdown",
+    domain: "elections",
+    description: {
+      bg: "Резултат на партия по населени места в една община (карта + класация).",
+      en: "A party's result by settlement within one municipality (map + ranking).",
+    },
+    params: [
+      {
+        name: "party",
+        type: "party",
+        required: true,
+        description: { bg: "Партия", en: "Party" },
+      },
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "ГЕРБ по населени места в община Варна",
+        en: "GERB by settlement in Varna municipality",
+      },
+    ],
+    run: settlementBreakdown,
   },
   {
     name: "electionAnomalies",

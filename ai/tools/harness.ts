@@ -511,6 +511,27 @@ const run = async () => {
   printEnvelope(rb);
   assert((rb.rows?.length ?? 0) > 0, "regionBreakdown returns oblasts");
 
+  // geo-overlay integrity (the area-codes-join-the-geojson check) lives in its
+  // own pass: ai/tools/geo.harness.ts. Here we only exercise the new drill-down
+  // tools run + route correctly; the maps they attach are validated there.
+  const mb = (await runTool(
+    "municipalityBreakdown",
+    { party: "ГЕРБ", oblast: "Варна" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(mb);
+  assert(
+    (mb.rows?.length ?? 0) > 0,
+    "municipalityBreakdown returns municipalities",
+  );
+  const sb = (await runTool(
+    "settlementBreakdown",
+    { party: "ГЕРБ", place: "Варна" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(sb);
+  assert((sb.rows?.length ?? 0) > 0, "settlementBreakdown returns settlements");
+
   const anom = (await runTool("electionAnomalies", {}, ctxEn)) as Envelope;
   printEnvelope(anom);
   assert(
@@ -539,6 +560,8 @@ const run = async () => {
   console.log("\n=== [router] D4 questions ===");
   const cases8: [string, string | null][] = [
     ["Къде е силна ГЕРБ?", "regionBreakdown"],
+    ["ГЕРБ по общини във Варна", "municipalityBreakdown"],
+    ["ГЕРБ по населени места в община Варна", "settlementBreakdown"],
     ["Имаше ли нередности на последните избори?", "electionAnomalies"],
     ["кои партии загубиха най-много от флаш памет", "flashMemoryByParty"],
     ["Как се променя активността в Хасково?", "regionHistory"],

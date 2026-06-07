@@ -3,6 +3,7 @@
 
 import { fetchData } from "./dataClient";
 import { resolveMunicipality } from "./place";
+import { muniLocator } from "./geo";
 import { round2 } from "./dataset";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
@@ -144,6 +145,11 @@ export const schoolScores = async (
     columns,
     rows,
     viz: "none",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      bg ? place.name : place.nameEn,
+    ),
     facts: {
       place: bg ? place.name : place.nameEn,
       subject: subjectLabel,

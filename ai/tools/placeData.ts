@@ -3,6 +3,7 @@
 import { fetchData } from "./dataClient";
 import { fmtInt } from "./format";
 import { resolveMunicipality, resolveOblast } from "./place";
+import { muniLocator, oblastLocator } from "./geo";
 import { round2 } from "./dataset";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
@@ -83,6 +84,11 @@ export const airQuality = async (
     columns,
     rows,
     viz: "none",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      ctx.lang === "bg" ? place.name : place.nameEn,
+    ),
     facts: {
       place: place.name,
       stations: stations.length,
@@ -171,6 +177,9 @@ export const landUse = async (
       },
     ],
     viz: "bar",
+    // Highlight the oblast on the map when one is named (national view has no
+    // single area to locate).
+    ...(obl ? { geo: oblastLocator(obl.code, obl.name[ctx.lang]) } : {}),
     facts: {
       scope: name,
       total_km2: fmtInt(Math.round(total), ctx.lang),
@@ -222,6 +231,11 @@ export const graoPopulation = async (
         ? "по постоянен и настоящ адрес (административен център)"
         : "by permanent and current address (administrative centre)",
     viz: "none",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      ctx.lang === "bg" ? place.name : place.nameEn,
+    ),
     facts: {
       place: place.name,
       permanent: fmtInt(rec.permanent, ctx.lang),
@@ -318,6 +332,11 @@ export const councilResolutions = async (
     columns,
     rows,
     viz: "none",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      ctx.lang === "bg" ? place.name : place.nameEn,
+    ),
     facts: {
       place: place.name,
       total: fmtInt(list.length, ctx.lang),

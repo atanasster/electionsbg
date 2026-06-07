@@ -5,6 +5,7 @@
 
 import { fetchData } from "./dataClient";
 import { round2 } from "./dataset";
+import { translitKey } from "./translit";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
 // ---- shared: current parliament + MP-name roster ----------------------------
@@ -24,54 +25,6 @@ const loadIndex = (): Promise<RollcallIndex> => {
 const norm = (s: string): string =>
   s
     .toLowerCase()
-    .replace(/[\s.\-_]+/g, " ")
-    .trim();
-
-// Bulgarian → Latin (the official Streamlined Romanization, Наредба за
-// транслитерацията). Lets an English-spelled MP name match the Cyrillic-only
-// roster: a query is matched in romanized space, so "Asen Vasilev" hits
-// "АСЕН ВАСКОВ ВАСИЛЕВ" and Cyrillic queries still work (they romanize too).
-const CYR2LAT: Record<string, string> = {
-  а: "a",
-  б: "b",
-  в: "v",
-  г: "g",
-  д: "d",
-  е: "e",
-  ж: "zh",
-  з: "z",
-  и: "i",
-  й: "y",
-  к: "k",
-  л: "l",
-  м: "m",
-  н: "n",
-  о: "o",
-  п: "p",
-  р: "r",
-  с: "s",
-  т: "t",
-  у: "u",
-  ф: "f",
-  х: "h",
-  ц: "ts",
-  ч: "ch",
-  ш: "sh",
-  щ: "sht",
-  ъ: "a",
-  ь: "y",
-  ю: "yu",
-  я: "ya",
-};
-
-// Lowercase, romanize each Cyrillic letter (Latin passes through unchanged),
-// collapse separators — the common key both scripts compare in.
-export const translitKey = (s: string): string =>
-  s
-    .toLowerCase()
-    .split("")
-    .map((ch) => CYR2LAT[ch] ?? ch)
-    .join("")
     .replace(/[\s.\-_]+/g, " ")
     .trim();
 

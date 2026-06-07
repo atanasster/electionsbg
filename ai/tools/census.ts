@@ -3,6 +3,7 @@
 import { fetchData } from "./dataClient";
 import { fmtInt } from "./format";
 import { resolveMunicipality } from "./place";
+import { muniLocator } from "./geo";
 import { round2 } from "./dataset";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
@@ -102,6 +103,11 @@ export const census = async (
     columns,
     rows,
     viz: "none",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      ctx.lang === "bg" ? place.name : place.nameEn,
+    ),
     facts: {
       place: place.name,
       population: fmtInt(pop, ctx.lang),

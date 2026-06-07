@@ -7,9 +7,11 @@
 
 export type Lang = "bg" | "en";
 
-// Renderable chart kinds. (No "pie": the renderer only draws bar/line, so a pie
-// envelope would silently fall back to a line — keep the type honest.)
-export type VizType = "line" | "bar" | "none";
+// Renderable chart kinds. (No "pie": the renderer only draws bar/line/hemicycle,
+// so a pie envelope would silently fall back to a line — keep the type honest.)
+// "hemicycle" draws a parliament-style semicircle of seats (one dot per seat,
+// coloured by party); it reads `rows` (party, seats, color) rather than series.
+export type VizType = "line" | "bar" | "hemicycle" | "none";
 
 export type SeriesPoint = { x: string | number; y: number | null };
 
@@ -32,6 +34,44 @@ export type Column = {
 export type Row = Record<string, string | number | null>;
 
 export type EnvelopeKind = "scalar" | "table" | "series";
+
+// ---- geographic overlay (optional Leaflet map on an answer) ------------------
+// A tool may attach a `geo` block when its result maps onto real places. The
+// renderer (ai/render/GeoChoropleth.tsx) fetches the geojson `source`, joins
+// each feature to an area by `joinKey`, and colours it. The numbers always also
+// live in the envelope's table/scalar/facts — the map is purely additive.
+
+export type GeoLevel = "oblast" | "municipality" | "settlement";
+// "choropleth" colours many areas by value/winner; "locator" highlights one (or
+// a few) area(s) — used for single-place answers.
+export type GeoMode = "choropleth" | "locator";
+
+export type GeoArea = {
+  // join value matching the geojson feature property named by `joinKey`:
+  // an oblast/МИР code (nuts3), an obshtina code (nuts4), or an EKATTE (ekatte).
+  code: string;
+  label: string; // tooltip name, already resolved to ctx.lang
+  value?: number | null; // metric used for the ramp + tooltip
+  display?: string; // pre-formatted tooltip value (overrides `value` formatting)
+  color?: string; // explicit fill (winner maps); used when colorMode "explicit"
+};
+
+export type GeoOverlay = {
+  level: GeoLevel;
+  mode: GeoMode;
+  // geojson URL(s) to fetch (relative to the data bucket). An array is merged
+  // into one FeatureCollection (e.g. the 31 per-oblast files for a nation map).
+  source: string | string[];
+  joinKey: "nuts3" | "nuts4" | "ekatte";
+  metricLabel: string; // legend / tooltip metric name, resolved to ctx.lang
+  format?: ColumnFormat;
+  // "ramp" shades by value (min→max); "explicit" uses each area's own `color`.
+  colorMode?: "ramp" | "explicit";
+  areas: GeoArea[];
+  // codes to highlight + fit the viewport to (locator target; defaults to all
+  // matched areas when omitted).
+  focus?: string[];
+};
 
 export type Envelope = {
   tool: string;
@@ -61,6 +101,9 @@ export type Envelope = {
   // election; the single-answer renderer ignores it.
   value?: number;
   valueFormat?: ColumnFormat;
+  // optional geographic map overlay (Leaflet choropleth / locator). Rendered in
+  // addition to the kind viz; absent for non-geographic answers.
+  geo?: GeoOverlay;
   // flat numbers/labels handed to the LLM to narrate. Keep keys descriptive.
   facts: Record<string, string | number>;
   // human-readable source identifiers, e.g. "elections.json", "2026_04_19/national_summary.json"

@@ -13,7 +13,14 @@ import { join } from "node:path";
 import { route } from "../orchestrator/router";
 import { setFetcher } from "../tools/dataClient";
 import { runTool } from "../tools/registry";
-import type { Envelope, EnvelopeKind, Lang, ToolContext } from "../tools/types";
+import type {
+  Envelope,
+  EnvelopeKind,
+  GeoLevel,
+  GeoMode,
+  Lang,
+  ToolContext,
+} from "../tools/types";
 
 setFetcher(async (path: string) => {
   const rel = path.startsWith("/") ? path.slice(1) : path;
@@ -23,6 +30,15 @@ setFetcher(async (path: string) => {
 const LATEST = "2026_04_19";
 
 type FactExp = string | RegExp | { num: number };
+// Expected map overlay on a response. `false` asserts there is NO map. The deep
+// "do the area codes join to the geojson" check lives in ai/tools/geo.harness.ts;
+// here we lock that the PROMPT routes to a map of the right shape.
+type GeoExp = {
+  level: GeoLevel;
+  mode?: GeoMode;
+  joinKey?: "nuts3" | "nuts4" | "ekatte";
+  minAreas?: number;
+};
 type Case = {
   q: string;
   lang?: Lang;
@@ -31,6 +47,7 @@ type Case = {
   kind?: EnvelopeKind;
   minRows?: number;
   facts?: Record<string, FactExp>;
+  geo?: GeoExp | false;
 };
 
 // stripped-digits compare so "51 881" / "51 881" / 51 all equal 51881
@@ -82,6 +99,30 @@ const CASES: Case[] = [
     tool: "nationalResults",
     kind: "table",
     minRows: 5,
+    // every national-results answer carries a winner-per-oblast map
+    geo: {
+      level: "oblast",
+      mode: "choropleth",
+      joinKey: "nuts3",
+      minAreas: 25,
+    },
+  },
+  {
+    // the "by region" intent (the hero map card) -> national results + oblast map
+    q: "Покажи резултатите по области.",
+    tool: "nationalResults",
+    geo: {
+      level: "oblast",
+      mode: "choropleth",
+      joinKey: "nuts3",
+      minAreas: 25,
+    },
+  },
+  {
+    q: "Show the results by region.",
+    lang: "en",
+    tool: "nationalResults",
+    geo: { level: "oblast", joinKey: "nuts3", minAreas: 25 },
   },
   {
     // bare multi-election year routed end-to-end -> combined results table
@@ -93,7 +134,32 @@ const CASES: Case[] = [
     facts: { year: /2024/, elections_count: { num: 2 } },
   },
   {
+    // seats-per-party "in parliament" -> hemicycle (kind table + viz hemicycle),
+    // NOT a roll-call or national-results table
+    q: "Колко места има всяка партия в парламента?",
+    tool: "parliamentSeats",
+    kind: "table",
+    minRows: 4,
+    facts: { total_seats: { num: 240 }, majority: { num: 121 } },
+  },
+  {
+    q: "How many seats does each party hold in parliament?",
+    lang: "en",
+    tool: "parliamentSeats",
+    kind: "table",
+    facts: { total_seats: { num: 240 }, parties_seated: { num: 5 } },
+  },
+  {
     q: "Колко гласа взе ГЕРБ?",
+    tool: "partyResult",
+    kind: "scalar",
+    facts: { party: "ГЕРБ", pct: /\d/ },
+  },
+  {
+    // EN latin party token must resolve to the Cyrillic record via matchParty's
+    // romanization (otherwise "no party matched gerb")
+    q: "How many votes did GERB get?",
+    lang: "en",
     tool: "partyResult",
     kind: "scalar",
     facts: { party: "ГЕРБ", pct: /\d/ },
@@ -144,6 +210,52 @@ const CASES: Case[] = [
     tool: "regionBreakdown",
     kind: "table",
     facts: { strongest: "Ловеч" },
+    // a party's regional strength shades every oblast by its share (ramp)
+    geo: {
+      level: "oblast",
+      mode: "choropleth",
+      joinKey: "nuts3",
+      minAreas: 25,
+    },
+  },
+  {
+    // drill-down: a party by municipality within one oblast → muni ramp map
+    q: "ГЕРБ по общини във Варна",
+    tool: "municipalityBreakdown",
+    kind: "table",
+    geo: {
+      level: "municipality",
+      mode: "choropleth",
+      joinKey: "nuts4",
+      minAreas: 5,
+    },
+  },
+  {
+    // drill-down: a party by settlement within one município → settlement ramp.
+    // "в община Варна" must NOT divert to the municipality rule.
+    q: "ГЕРБ по населени места в община Варна",
+    tool: "settlementBreakdown",
+    kind: "table",
+    geo: {
+      level: "settlement",
+      mode: "choropleth",
+      joinKey: "ekatte",
+      minAreas: 2,
+    },
+  },
+  {
+    // EN party-map: the router extracts the latin token "gerb"; matchParty
+    // romanizes both sides so it resolves to the Cyrillic-only record (ГЕРБ-СДС)
+    // and the oblast share map renders (regression for the latin-token fix).
+    q: "Where is GERB strongest?",
+    lang: "en",
+    tool: "regionBreakdown",
+    geo: {
+      level: "oblast",
+      mode: "choropleth",
+      joinKey: "nuts3",
+      minAreas: 25,
+    },
   },
   {
     q: "Имаше ли нередности на последните избори?",
@@ -248,10 +360,12 @@ const CASES: Case[] = [
     facts: { winner: "Коцев" },
   },
   {
+    // per-município council -> hemicycle (kind table + viz hemicycle); 51 seats
+    // -> majority 26, no single-party majority
     q: "Какъв е общинският съвет на Бургас?",
     tool: "localCouncil",
     kind: "table",
-    facts: { total_seats: { num: 51 } },
+    facts: { total_seats: { num: 51 }, majority: { num: 26 } },
   },
   {
     q: "Има ли частични местни избори?",
@@ -1170,6 +1284,27 @@ const run = async () => {
           c.q,
           `fact "${k}"=${JSON.stringify(env.facts[k])} did not match ${exp}`,
         );
+      }
+    }
+    if (c.geo === false) {
+      if (env.geo)
+        fail(c.q, `expected no map, got ${env.geo.level}/${env.geo.mode}`);
+    } else if (c.geo) {
+      const g = env.geo;
+      if (!g) {
+        fail(c.q, `expected a ${c.geo.level} map overlay, got none`);
+      } else {
+        if (g.level !== c.geo.level)
+          fail(c.q, `geo level ${g.level}, expected ${c.geo.level}`);
+        if (c.geo.mode && g.mode !== c.geo.mode)
+          fail(c.q, `geo mode ${g.mode}, expected ${c.geo.mode}`);
+        if (c.geo.joinKey && g.joinKey !== c.geo.joinKey)
+          fail(c.q, `geo joinKey ${g.joinKey}, expected ${c.geo.joinKey}`);
+        if (c.geo.minAreas != null && (g.areas?.length ?? 0) < c.geo.minAreas)
+          fail(
+            c.q,
+            `geo ${g.areas?.length ?? 0} areas, expected >= ${c.geo.minAreas}`,
+          );
       }
     }
   }

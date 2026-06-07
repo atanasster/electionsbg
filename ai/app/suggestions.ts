@@ -27,6 +27,18 @@ const AGENCIES = [
   "Медиана",
 ];
 
+// Major municipalities whose council composition routes to localCouncil (the
+// hemicycle). Verified to resolve in both languages via resolveMunicipality.
+const COUNCIL_CITIES: { bg: string; en: string }[] = [
+  { bg: "София", en: "Sofia" },
+  { bg: "Пловдив", en: "Plovdiv" },
+  { bg: "Варна", en: "Varna" },
+  { bg: "Бургас", en: "Burgas" },
+  { bg: "Русе", en: "Ruse" },
+  { bg: "Стара Загора", en: "Stara Zagora" },
+  { bg: "Плевен", en: "Pleven" },
+];
+
 // Well-known candidates (verified present in the latest candidates.json) — these
 // route to candidateResult for their preferential-vote breakdown.
 const CANDIDATES: { bg: string; en: string }[] = [
@@ -66,6 +78,10 @@ const BASE: Suggestion[] = [
   {
     bg: "Коя социологическа агенция е най-точна?",
     en: "Which polling agency is most accurate?",
+  },
+  {
+    bg: "Колко места има всяка партия в парламента?",
+    en: "How many seats does each party hold in parliament?",
   },
   {
     bg: "Кой спечели общинските съвети?",
@@ -117,6 +133,10 @@ export const SUGGESTIONS: Suggestion[] = [
   ...AGENCIES.map((a) => ({
     bg: `Колко е точна ${a}?`,
     en: `How accurate is ${a}?`,
+  })),
+  ...COUNCIL_CITIES.map((c) => ({
+    bg: `Какъв е общинският съвет на ${c.bg}?`,
+    en: `What is the ${c.en} municipal council?`,
   })),
   ...CANDIDATES.map((c) => ({
     bg: `Резултати за ${c.bg}`,
