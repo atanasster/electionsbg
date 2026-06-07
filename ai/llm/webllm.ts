@@ -152,7 +152,7 @@ export class WebLLMProvider implements LLMProvider {
     // "turnout in 2023", or machine-voting for "compare the elections"). So a
     // confident rule always wins. Only a model explicitly trusted to route
     // (model.routes — a Bulgarian-capable model like BgGPT) is consulted, and
-    // only to fill gaps the rules decline. The Qwen test models narrate only.
+    // only to fill gaps the rules decline. Models with routes:false narrate only.
     const ruleRoute = route(question, ctx);
     if (ruleRoute || !this.engine || !this.model.routes) return ruleRoute;
     const userContent = routingCtx

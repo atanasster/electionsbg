@@ -38,7 +38,6 @@ const TAG_LABELS: Record<ModelTag, { bg: string; en: string }> = {
   "bg-native": { bg: "Най-добър за български", en: "Best for Bulgarian" },
   routes: { bg: "Избор на инструменти", en: "Routes tools" },
   fast: { bg: "Бърз", en: "Fast" },
-  test: { bg: "Тест", en: "Test" },
   multimodal: { bg: "Мултимодален", en: "Multimodal" },
   cloud: { bg: "В облака", en: "Cloud" },
 };

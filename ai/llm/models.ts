@@ -1,10 +1,11 @@
-// M3 — selectable in-browser models for the WebLLM provider.
-//
-// "prebuilt" models load straight from MLC's CDN and work today (used to prove
-// the pipeline). BgGPT is the on-brand Bulgarian target but needs a one-time MLC
-// build + HF hosting — see ai/m0/README.md + ai/m0/build-model.sh. To enable it:
-// run the build, host on HF, then set ready:true and paste the appConfig the
-// script prints. Until then it shows as "requires MLC build".
+// Selectable models for the chat. Two runtimes:
+//   - "cloud": hosted models via the Firebase → OpenRouter proxy. Work TODAY and
+//     narrate/route Bulgarian well, but NOT in-browser (the question hits a server).
+//   - "webllm": @mlc-ai/web-llm, fully in-browser (private, no backend). BgGPT is
+//     the on-brand Bulgarian target but needs a one-time MLC build + HF hosting —
+//     see ai/m0/README.md + ai/m0/build-model.sh. To enable: run the build, host on
+//     HF, set ready:true, paste the appConfig. Until then it shows "requires MLC
+//     build". (The Qwen test models that used to prove this path were removed.)
 //
 // ⚠ The unpinned MLC pip toolchain is currently ABI-broken; the reliable build
 // is from source. Recommended first ship = BgGPT-2.6B (no compile). The ranked
@@ -15,13 +16,7 @@ import type { AppConfig } from "@mlc-ai/web-llm";
 // Short capability tags surfaced as chips on each model card. The picker maps
 // these to bilingual labels (ai/app/ModelPicker.tsx) so the registry stays
 // language-neutral.
-export type ModelTag =
-  | "bg-native"
-  | "routes"
-  | "fast"
-  | "test"
-  | "multimodal"
-  | "cloud";
+export type ModelTag = "bg-native" | "routes" | "fast" | "multimodal" | "cloud";
 
 export type ModelOption = {
   id: string; // WebLLM model_id (in-browser), or the OpenRouter model id (cloud)
@@ -47,10 +42,10 @@ export type ModelOption = {
   // the OpenRouter model id for cloud models.
   runtime?: "webllm" | "cloud";
   appConfig?: AppConfig; // for custom (HF-hosted) WebLLM models
-  // May this model SELECT tools? Only Bulgarian-capable models should. The Qwen
-  // test models mis-route (e.g. a "compare elections" question -> machine-voting
-  // series), so they narrate only and routing stays deterministic. BgGPT (and the
-  // cloud models) are trusted to fill routing gaps the rules decline.
+  // May this model SELECT tools? Only Bulgarian-capable models should — BgGPT and
+  // the cloud models are trusted to fill routing gaps the rules decline. A model
+  // with routes:false narrates only and routing stays deterministic (small generic
+  // models mis-route, e.g. "compare elections" -> a machine-voting series).
   routes?: boolean;
 };
 
@@ -153,40 +148,6 @@ export const MODELS: ModelOption[] = [
     //     },
     //   ],
     // },
-  },
-  // ---- in-browser TEST models (kept at the BOTTOM — least useful for end users).
-  // They were added to PROVE the WebLLM/WebGPU path works. They are narration-only
-  // (routes:false — the deterministic rules pick the tool); and being non-Bulgarian
-  // their BG narration often trips the language guard and falls back to the template,
-  // so they rarely beat the rules engine. Now that the cloud models narrate Bulgarian
-  // well, these are mainly a working in-browser/private demo. (Candidates to hide.)
-  {
-    id: "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
-    label: { bg: "Qwen2.5 1.5B (тест)", en: "Qwen2.5 1.5B (test)" },
-    sizeNote: { bg: "~1.1 GB сваляне", en: "~1.1 GB download" },
-    size: { bg: "~1.1 GB", en: "~1.1 GB" },
-    vramNote: { bg: "~1.5 GB видео памет", en: "~1.5 GB video memory" },
-    advantage: {
-      bg: "Бърз, лек тестов модел · само разказ",
-      en: "Fast, light test model · narration only",
-    },
-    tags: ["fast", "test"],
-    ready: true,
-    routes: false, // test model: narration only, deterministic routing
-  },
-  {
-    id: "Qwen2.5-3B-Instruct-q4f16_1-MLC",
-    label: { bg: "Qwen2.5 3B (тест)", en: "Qwen2.5 3B (test)" },
-    sizeNote: { bg: "~2 GB сваляне", en: "~2 GB download" },
-    size: { bg: "~2 GB", en: "~2 GB" },
-    vramNote: { bg: "~2.5 GB видео памет", en: "~2.5 GB video memory" },
-    advantage: {
-      bg: "По-плавен разказ · само разказ (без насочване)",
-      en: "Smoother narration · narration only (no routing)",
-    },
-    tags: ["test"],
-    ready: true,
-    routes: false, // test model: narration only, deterministic routing
   },
 ];
 

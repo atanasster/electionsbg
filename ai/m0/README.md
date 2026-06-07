@@ -1,8 +1,8 @@
 # M0 — build BgGPT for the in-browser chat
 
 Produces the MLC artifacts WebLLM needs and hosts them on HuggingFace so the
-header model picker can run a **Bulgarian-native** model instead of the Qwen test
-model. Runs on your machine.
+model picker can run a **Bulgarian-native** model fully in the browser. Runs on
+your machine.
 
 **We ship two BgGPT variants** (light default + current model):
 
@@ -40,7 +40,7 @@ a compile — see PLAN.md). Build `bggpt` (2.6B) first; it needs no compile.
 >
 > **What to do now:** the live in-browser/no-backend Bulgarian path is deferred.
 > The chat ships a working Bulgarian model via the **cloud** option (Gemini/Gemma
-> through the OpenRouter proxy) plus the always-on rules engine + Qwen test model.
+> through the OpenRouter proxy) plus the always-on rules engine.
 > When MLC republishes a **matched** nightly pair, BgGPT becomes a ~5-min
 > `pip install` + `convert_weight` + `gen_config` (no source build) — re-check the
 > dev numbers per `colab.md` before trying.
@@ -125,8 +125,7 @@ npm run dev:ai        # pick "BgGPT 2.6B (Gemma 2)" or "BgGPT 4B (Gemma 3)"
 ```
 
 Smoke test (WebGPU browser): ask "Колко гласа взе ДПС на последните избори?" —
-BgGPT should route to `partyResult` (the Qwen test model mis-routed this). Then
-deploy: `npm run deploy:ai`.
+BgGPT should route to `partyResult`. Then deploy: `npm run deploy:ai`.
 
 > EuroLLM-1.7B was evaluated and **removed** (2026-06-06): every EuroLLM ONNX
 > export is ~1.7–1.9 GB, which OOMs ORT-Web's wasm heap (`std::bad_alloc`), and the
