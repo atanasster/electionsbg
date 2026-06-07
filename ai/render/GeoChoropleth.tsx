@@ -11,7 +11,13 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import type { Layer, LatLngBoundsExpression, Path, PathOptions } from "leaflet";
 import type { GeoJsonObject } from "geojson";
-import { GeoJSON, MapContainer, TileLayer, useMap } from "react-leaflet";
+import {
+  AttributionControl,
+  GeoJSON,
+  MapContainer,
+  TileLayer,
+  useMap,
+} from "react-leaflet";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark } from "@/theme/utils";
 import { fetchData } from "../tools/dataClient";
@@ -236,16 +242,22 @@ const GeoChoropleth = ({ geo, lang }: { geo: GeoOverlay; lang: Lang }) => {
           style={{ height: "100%", width: "100%" }}
           scrollWheelZoom={false}
           zoomSnap={0.25}
-          attributionControl
+          attributionControl={false}
           className="bg-muted"
         >
+          {/* No Leaflet prefix (BSD, not required); compact OSM/CARTO credit
+              (ODbL + CARTO ToS — must stay visible) to save mobile width. */}
+          <AttributionControl prefix={false} />
+          {/* Label-free basemap: CARTO's labelled raster tiles bake in
+              romanized place names with no `lang` switch, which clashes with
+              the BG UI. The choropleth + region tooltips carry the names. */}
           <TileLayer
             url={
               isDark
-                ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-                : "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                ? "https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png"
+                : "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png"
             }
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
           />
           <GeoJSON
             data={data as unknown as GeoJsonObject}
