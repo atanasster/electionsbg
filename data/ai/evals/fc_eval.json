@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-07T10:31:05.882Z",
+  "generatedAt": "2026-06-07T10:48:30.803Z",
   "harness": "ai/llm/fcEval.ts",
   "method": {
     "candidateSetK": 5,
@@ -171,6 +171,7 @@
       "label": "Gemini 3.1 Flash-Lite",
       "runtime": "cloud",
       "params": "—",
+      "via": "OpenRouter proxy (production router)",
       "note": "Production cloud router for the Наясно chat.",
       "status": "measured",
       "perLang": {
@@ -349,21 +350,194 @@
       ]
     },
     {
-      "id": "google/gemma-4-31b-it:free",
-      "label": "Gemma 4 31B (free)",
+      "id": "google/gemma-4-31b-it",
+      "label": "Gemma 4 31B",
       "runtime": "cloud",
       "params": "31B",
-      "reason": "OpenRouter free-tier daily rate limit (429 on every call). Re-run on a paid tier with FC_EVAL_DELAY_MS pacing.",
-      "status": "unavailable",
-      "perLang": null,
-      "degradation": null,
-      "perCase": []
+      "via": "Gemini API (generateContent)",
+      "note": "Open model (the BgGPT base family). Measured via the Gemini API — Gemma there has no system role / function-calling tools, so the tool list goes in the user prompt and the JSON reply is parsed.",
+      "status": "measured",
+      "perLang": {
+        "en": {
+          "toolAcc": 0.7272727272727273,
+          "argAcc": 1,
+          "jsonValidRate": 0.7,
+          "irrelevanceAcc": 1
+        },
+        "bg": {
+          "toolAcc": 0.09090909090909091,
+          "argAcc": 0,
+          "jsonValidRate": 0.1,
+          "irrelevanceAcc": 1
+        }
+      },
+      "degradation": {
+        "toolAcc": 0.6363636363636364,
+        "argAcc": 1
+      },
+      "perCase": [
+        {
+          "id": "national_results_last",
+          "expectedTool": "get_national_results",
+          "en": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "turnout_2023",
+          "expectedTool": "get_turnout",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_turnout"
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "party_result_gerb",
+          "expectedTool": "get_party_result",
+          "en": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "party_by_region_pp_plovdiv",
+          "expectedTool": "get_party_by_region",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_party_by_region"
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "muni_winners_varna",
+          "expectedTool": "get_municipality_winners",
+          "en": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mp_assets_vasilev",
+          "expectedTool": "get_mp_assets",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_mp_assets"
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": "Асен Василев"
+          }
+        },
+        {
+          "id": "party_mps_pp",
+          "expectedTool": "get_party_mps",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_party_mps"
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "budget_2024",
+          "expectedTool": "get_budget_overview",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_budget_overview"
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "unemployment_munis",
+          "expectedTool": "get_unemployment_by_municipality",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_unemployment_by_municipality"
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "poll_accuracy",
+          "expectedTool": "get_poll_accuracy",
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": "get_poll_accuracy"
+          },
+          "bg": {
+            "toolOk": false,
+            "argsOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "irrelevant_weather",
+          "expectedTool": null,
+          "en": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": null
+          },
+          "bg": {
+            "toolOk": true,
+            "argsOk": true,
+            "got": null
+          }
+        }
+      ]
     },
     {
       "id": "functiongemma-270m-it-q4f32_1-MLC",
       "label": "FunctionGemma 270M (in-browser, untuned)",
       "runtime": "webllm",
       "params": "270M",
+      "via": "in-browser (web-llm / WebGPU)",
       "reason": "Off-domain community build (no fine-tune on our tools, no grammar-constrained decoding). Runtime/format probe only.",
       "status": "measured",
       "perLang": {

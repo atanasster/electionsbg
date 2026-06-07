@@ -47,6 +47,22 @@ export const STARTERS: Starter[] = [
     en: "Results in the village of Inovo over the last 5 years",
   },
   {
+    bg: "Резултатите в община Пловдив",
+    en: "Results in Plovdiv municipality",
+  },
+  {
+    bg: "Резултатите в област Варна за последните 5 години",
+    en: "Results in Varna region over the last 5 years",
+  },
+  {
+    bg: "Резултатите в София",
+    en: "Results in Sofia",
+  },
+  {
+    bg: "Резултатите в чужбина",
+    en: "Results abroad",
+  },
+  {
     bg: "ГЕРБ по общини в Пловдив",
     en: "GERB by municipality in Plovdiv",
   },

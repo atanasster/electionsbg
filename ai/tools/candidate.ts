@@ -3,7 +3,8 @@
 // preferential vote counts from candidates/<name>/preferences_stats.json.
 // Numbers are computed from the official files, never generated.
 
-import { fetchData } from "./dataClient";
+import { clarifyEnvelope } from "./clarify";
+import { fetchData, fetchNationalSummary } from "./dataClient";
 import { electionFullLabel, fmtInt } from "./format";
 import { partyResult } from "./national";
 import { OBLASTS } from "./place";
@@ -17,6 +18,7 @@ type CandidateRow = {
   partyNum: number;
   pref: string;
 };
+type NSParty = { partyNum: number; nickName?: string; name?: string };
 type PrefEntry = {
   elections_date: string;
   party?: { name?: string; nickName?: string };
@@ -119,6 +121,43 @@ export const candidateResult = async (
     );
     if (hit) matches = hit.item;
     if (!matches.length) return notFound(query, lang, election);
+  }
+
+  // Disambiguation: distinct people who share a name surface as the SAME name
+  // listed under DIFFERENT parties (the same person across районs keeps one
+  // party). A prior pick re-arrives with `partyNum` pinned — narrow to it;
+  // otherwise, when more than one party remains, ask the user which candidate.
+  const pinnedParty = args.partyNum != null ? Number(args.partyNum) : undefined;
+  if (pinnedParty != null) {
+    matches = matches.filter((m) => m.partyNum === pinnedParty);
+    if (!matches.length) return notFound(query, lang, election);
+  } else {
+    const partyNums = [...new Set(matches.map((m) => m.partyNum))];
+    if (partyNums.length > 1) {
+      const ns = await fetchNationalSummary<{ parties: NSParty[] }>(
+        election,
+      ).catch(() => ({ parties: [] as NSParty[] }));
+      const byNum = new Map(ns.parties.map((p) => [p.partyNum, p]));
+      const options = partyNums.map((pn) => {
+        const row = matches.find((m) => m.partyNum === pn)!;
+        const nm = useEn ? row.name_en || row.name : row.name;
+        const p = byNum.get(pn);
+        const nick = p?.nickName || p?.name || `#${pn}`;
+        return {
+          label: nm,
+          sublabel: nick,
+          tool: "candidateResult",
+          args: { ...args, name: query, partyNum: pn },
+        };
+      });
+      const prompt =
+        lang === "bg"
+          ? `Кой кандидат „${query}“ имате предвид?`
+          : `Which candidate "${query}" do you mean?`;
+      return clarifyEnvelope("candidateResult", prompt, options, [
+        `${election}/candidates.json`,
+      ]);
+    }
   }
 
   // the same person can appear across several районs; canonical BG name is stable

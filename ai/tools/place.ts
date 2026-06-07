@@ -11,6 +11,7 @@
 // governance regional keys here, so we trust it (unlike the budget-shard
 // `area.oblast` caveat which is a different field).
 
+import { AmbiguousPlaceError, parsePlacePin } from "./clarify";
 import { fetchData } from "./dataClient";
 import { fuzzyBestMatch } from "./resolve";
 import type { Lang } from "./types";
@@ -161,6 +162,18 @@ export const resolveMunicipality = async (
   opts: { exact?: boolean } = {},
 ): Promise<PlaceMatch | undefined> => {
   if (!query) return undefined;
+  // A disambiguation pick re-arrives as an "obshtina:<code>" pin — resolve it
+  // straight to that município (a settlement pin isn't ours, so decline it so it
+  // isn't fuzzy-matched to a lookalike name).
+  const pin = parsePlacePin(query);
+  if (pin) {
+    if (pin.kind !== "obshtina") return undefined;
+    if (pin.value === SOFIA_ALIAS.obshtina)
+      return { ...SOFIA_ALIAS, oblastName: { bg: "София", en: "Sofia" } };
+    const all = await loadMunis();
+    const m = all.find((x) => x.obshtina === pin.value);
+    return m ? { ...m, oblastName: oblastName(m.oblast) } : undefined;
+  }
   if (isSofia(query)) {
     return { ...SOFIA_ALIAS, oblastName: { bg: "София", en: "Sofia" } };
   }
@@ -169,6 +182,14 @@ export const resolveMunicipality = async (
   if (!q) return undefined;
 
   const exact = munis.filter((m) => norm(m.name) === q || norm(m.nameEn) === q);
+  // Genuine duplicate names (Бяла, Искър, Средец) — don't guess; let the caller
+  // ask the user which one. runTool turns this into a chooser.
+  if (exact.length > 1)
+    throw new AmbiguousPlaceError(
+      "municipality",
+      query,
+      exact.map((m) => ({ ...m, oblastName: oblastName(m.oblast) })),
+    );
   let pool = exact;
   // exact-only mode: skip the substring/fuzzy tiers (used to order an EXACT
   // settlement ahead of a FUZZY município — see resolvePlaceForData).
@@ -225,10 +246,27 @@ export const resolveSettlement = async (
 ): Promise<PlaceMatch | undefined> => {
   if (!query) return undefined;
   const all = await loadSettlements();
+  // A disambiguation pick re-arrives as an "ekatte:<code>" pin — resolve it
+  // straight to that settlement (a município pin isn't ours, so decline it).
+  const pin = parsePlacePin(query);
+  if (pin) {
+    if (pin.kind !== "ekatte") return undefined;
+    const s = all.find((x) => x.ekatte === pin.value);
+    return s ? { ...s, oblastName: oblastName(s.oblast) } : undefined;
+  }
   const q = norm(query);
   if (!q) return undefined;
 
   const exact = all.filter((s) => norm(s.name) === q || norm(s.nameEn) === q);
+  // Several settlements share a name ("Баня" = a town + five villages) — don't
+  // guess; raise so runTool can ask the user which one (only on an EXACT-name
+  // collision, so a confident single match still resolves silently).
+  if (exact.length > 1)
+    throw new AmbiguousPlaceError(
+      "settlement",
+      query,
+      exact.map((s) => ({ ...s, oblastName: oblastName(s.oblast) })),
+    );
   let pool = exact;
   if (pool.length === 0 && opts.exact) return undefined;
   if (pool.length === 0) {

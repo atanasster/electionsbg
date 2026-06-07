@@ -102,6 +102,88 @@ export const runCloudModel = (
     toolsForCase: (c, all) => candidateTools(c, all, k),
   });
 
+// A `complete` bound to a Gemma model on the Google Gemini API (generative
+// language). Gemma there supports ONLY generateContent — no system role and no
+// function-calling tools — so the JSON tool-list prompt + the query go in one
+// user part, and we parse the returned text. Used to measure Gemma without the
+// OpenRouter free-tier rate limit (needs a GEMINI_API_KEY).
+export const makeGeminiComplete = (
+  model: string,
+  apiKey: string,
+  opts: { delayMs?: number; maxRetries?: number } = {},
+): CompleteFn => {
+  const delayMs = opts.delayMs ?? 0;
+  const maxRetries = opts.maxRetries ?? 5;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  return async (query: string, tools: FcTool[]): Promise<string> => {
+    const body = JSON.stringify({
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: `${buildJsonToolPrompt(tools)}\n\n${query}` }],
+        },
+      ],
+      // Gemma chain-of-thoughts before the JSON (it ignores "JSON only"), and
+      // the reasoning is longer in Bulgarian (it translates first). Give enough
+      // budget for the CoT + the final tool-call object, else BG truncates and
+      // scores as a false failure.
+      generationConfig: { temperature: 0, maxOutputTokens: 640 },
+    });
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+      if (delayMs) await sleep(delayMs);
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body,
+        });
+        if (res.status === 429) {
+          const wait = 6000 * (attempt + 1);
+          console.error(
+            `  [429] gemini rate-limited, waiting ${wait / 1000}s…`,
+          );
+          await sleep(wait);
+          continue;
+        }
+        if (!res.ok) {
+          const t = await res.text().catch(() => "");
+          console.error(`  [gemini ${res.status}] ${t.slice(0, 160)}`);
+          return "";
+        }
+        const data = (await res.json()) as {
+          candidates?: { content?: { parts?: { text?: string }[] } }[];
+          error?: unknown;
+        };
+        if (data.error) {
+          console.error(
+            `  [gemini error] ${JSON.stringify(data.error).slice(0, 160)}`,
+          );
+          return "";
+        }
+        const parts = data.candidates?.[0]?.content?.parts;
+        return Array.isArray(parts)
+          ? parts.map((p) => p.text ?? "").join("")
+          : "";
+      } catch (e) {
+        console.error(`  [gemini fetch] ${String(e).slice(0, 160)}`);
+        return "";
+      }
+    }
+    console.error("  [gemini gave up after retries]");
+    return "";
+  };
+};
+
+export const runGeminiModel = (
+  model: string,
+  apiKey: string,
+  k = 5,
+  opts: { delayMs?: number } = {},
+): Promise<FcReport> =>
+  runFcEval(makeGeminiComplete(model, apiKey, opts), {
+    toolsForCase: (c, all) => candidateTools(c, all, k),
+  });
+
 // ---- CLI (console table) ---------------------------------------------------
 const pct = (x: number) => `${Math.round(x * 100)}%`;
 

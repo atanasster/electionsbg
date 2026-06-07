@@ -192,6 +192,49 @@ export const followUps = (env: Envelope): FollowUp[] => {
       });
       break;
     }
+    case "municipalityResults": {
+      // the "община" prefix routes the cross-jump back to municipalityHistory
+      const place = fact(env, "municipality");
+      if (place)
+        out.push({
+          bg: `Резултатите в община ${place} за последните 5 години`,
+          en: `Results in ${place} municipality over the last 5 years`,
+        });
+      out.push({
+        bg: "Покажи резултатите по области.",
+        en: "Show the results by region.",
+      });
+      break;
+    }
+    case "municipalityHistory": {
+      const place = fact(env, "municipality");
+      if (place)
+        out.push({
+          bg: `Резултатите в община ${place}`,
+          en: `Results in ${place} municipality`,
+        });
+      out.push({
+        bg: "Какви са резултатите от последните избори?",
+        en: "Results of the latest election?",
+      });
+      break;
+    }
+    case "regionResults":
+      out.push({
+        bg: "Какви са резултатите от последните избори?",
+        en: "Results of the latest election?",
+      });
+      out.push({
+        bg: "Покажи резултатите по области.",
+        en: "Show the results by region.",
+      });
+      break;
+    case "regionResultsTrend":
+      out.push({
+        bg: "Какви са резултатите от последните избори?",
+        en: "Results of the latest election?",
+      });
+      break;
     case "parliamentSeats":
       out.push({
         bg: "Как се променят местата по партии последните 5 години?",

@@ -14,23 +14,37 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { FC_CASES, FC_TOOLS, type FcReport, type LangReport } from "./fcEval";
-import { runCloudModel } from "./fcEval.cloud";
+import { runCloudModel, runGeminiModel } from "./fcEval.cloud";
 
 const ROOT = process.cwd();
 const OUT = join(ROOT, "data/ai/evals/fc_eval.json");
 const CAPTURES = join(ROOT, "ai/llm/fcEval.captures");
 const K = Number(process.env.FC_EVAL_K) || 5;
 
+// Load GEMINI_API_KEY from .env.local (overrides any stale shell value), so the
+// Gemma-via-Gemini-API measurement works without exporting the key. Mirrors the
+// loadGeminiEnv helper used elsewhere (scripts/brand, scripts/council).
+const loadGeminiEnv = (): void => {
+  const f = join(ROOT, ".env.local");
+  if (!existsSync(f)) return;
+  for (const line of readFileSync(f, "utf8").split(/\r?\n/)) {
+    const m = line.match(/^([A-Z0-9_]+)\s*=\s*(.*)$/);
+    if (m) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
+  }
+};
+
 type ModelSpec = {
-  id: string;
+  id: string; // display id
+  apiModel?: string; // model id for the API call (gemini-api only)
   label: string;
   runtime: "cloud" | "webllm";
   params: string;
-  source: "cloud-live" | "capture" | "unavailable";
+  source: "cloud-live" | "gemini-api" | "capture" | "unavailable";
+  via?: string; // measurement channel, shown on the page
   captureFile?: string; // basename under CAPTURES (capture source only)
   note?: string;
   reason?: string; // why unavailable / caveat
-  delayMs?: number; // cloud pacing for free tiers
+  delayMs?: number; // pacing for rate-limited APIs
 };
 
 // Keep in sync with the cloud allowlist (functions/index.js) + ai/llm/models.ts.
@@ -41,16 +55,19 @@ const SPECS: ModelSpec[] = [
     runtime: "cloud",
     params: "—",
     source: "cloud-live",
+    via: "OpenRouter proxy (production router)",
     note: "Production cloud router for the Наясно chat.",
   },
   {
-    id: "google/gemma-4-31b-it:free",
-    label: "Gemma 4 31B (free)",
+    id: "google/gemma-4-31b-it",
+    apiModel: "gemma-4-31b-it",
+    label: "Gemma 4 31B",
     runtime: "cloud",
     params: "31B",
-    source: "unavailable",
-    reason:
-      "OpenRouter free-tier daily rate limit (429 on every call). Re-run on a paid tier with FC_EVAL_DELAY_MS pacing.",
+    source: "gemini-api",
+    via: "Gemini API (generateContent)",
+    delayMs: 1500,
+    note: "Open model (the BgGPT base family). Measured via the Gemini API — Gemma there has no system role / function-calling tools, so the tool list goes in the user prompt and the JSON reply is parsed.",
   },
   {
     id: "functiongemma-270m-it-q4f32_1-MLC",
@@ -58,6 +75,7 @@ const SPECS: ModelSpec[] = [
     runtime: "webllm",
     params: "270M",
     source: "capture",
+    via: "in-browser (web-llm / WebGPU)",
     captureFile: "functiongemma-270m-it-q4f32_1-MLC.json",
     reason:
       "Off-domain community build (no fine-tune on our tools, no grammar-constrained decoding). Runtime/format probe only.",
@@ -95,6 +113,7 @@ const entry = (spec: ModelSpec, report?: FcReport) => {
     label: spec.label,
     runtime: spec.runtime,
     params: spec.params,
+    via: spec.via,
     note: spec.note,
     reason: spec.reason,
   };
@@ -116,12 +135,31 @@ const entry = (spec: ModelSpec, report?: FcReport) => {
 };
 
 const main = async () => {
+  loadGeminiEnv();
   const models = [];
   for (const spec of SPECS) {
     if (spec.source === "cloud-live") {
       console.error(`measuring ${spec.id} (live)…`);
       const report = await runCloudModel(spec.id, K, { delayMs: spec.delayMs });
       models.push(entry(spec, report));
+    } else if (spec.source === "gemini-api") {
+      const key = process.env.GEMINI_API_KEY;
+      if (!key) {
+        console.error(`no GEMINI_API_KEY for ${spec.id} — skipping`);
+        models.push(
+          entry({
+            ...spec,
+            source: "unavailable",
+            reason: "GEMINI_API_KEY missing",
+          }),
+        );
+      } else {
+        console.error(`measuring ${spec.id} via Gemini API…`);
+        const report = await runGeminiModel(spec.apiModel ?? spec.id, key, K, {
+          delayMs: spec.delayMs,
+        });
+        models.push(entry(spec, report));
+      }
     } else if (spec.source === "capture") {
       const f = join(CAPTURES, spec.captureFile ?? "");
       if (existsSync(f)) {

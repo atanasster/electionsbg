@@ -358,27 +358,40 @@ export const parseToolCall = (raw: string): ParsedCall => {
   return { name, args };
 };
 
+// Find the best JSON object in a string. Robust to chain-of-thought models
+// (e.g. Gemma reasons in prose, then emits the tool call as the LAST object):
+// scan every balanced top-level {...}, then prefer the LAST one that looks like
+// a tool call (has name/tool/function/tool_calls), else the last that parses.
 const extractJson = (s: string): unknown => {
   if (!s) return null;
-  const start = s.indexOf("{");
-  if (start < 0) return null;
-  // walk to the matching closing brace
+  const objs: unknown[] = [];
   let depth = 0;
-  for (let i = start; i < s.length; i++) {
-    if (s[i] === "{") depth++;
-    else if (s[i] === "}") {
-      depth--;
-      if (depth === 0) {
-        const candidate = s.slice(start, i + 1);
-        try {
-          return JSON.parse(candidate);
-        } catch {
-          return null;
+  let start = -1;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "{") {
+      if (depth === 0) start = i;
+      depth++;
+    } else if (s[i] === "}") {
+      if (depth > 0) {
+        depth--;
+        if (depth === 0 && start >= 0) {
+          try {
+            objs.push(JSON.parse(s.slice(start, i + 1)));
+          } catch {
+            /* not valid JSON — skip */
+          }
+          start = -1;
         }
       }
     }
   }
-  return null;
+  if (!objs.length) return null;
+  const looksTool = (o: unknown) =>
+    !!o &&
+    typeof o === "object" &&
+    ["name", "tool", "function", "tool_calls"].some((k) => k in o);
+  for (let i = objs.length - 1; i >= 0; i--) if (looksTool(objs[i])) return objs[i];
+  return objs[objs.length - 1];
 };
 
 // ---- scoring ---------------------------------------------------------------

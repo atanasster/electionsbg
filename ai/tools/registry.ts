@@ -2,6 +2,13 @@
 // harness) sees. The grammar-constrained LLM picks a tool name + args from here.
 // Tools are grouped by `domain` for routing + the Explorer dropdown.
 
+import {
+  AmbiguousPlaceError,
+  clarifyEnvelope,
+  municipalityPin,
+  settlementPin,
+} from "./clarify";
+import { loadMunis } from "./place";
 import { combineByElection, yearScope } from "./combineYear";
 import {
   budgetByFunction,
@@ -115,11 +122,24 @@ import { schoolScores } from "./schools";
 import { sectionHistory, sectionResults } from "./sections";
 import { settlementHistory, settlementResults } from "./settlement";
 import {
+  municipalityHistory,
+  municipalityResults,
+  regionResults,
+  regionResultsTrend,
+} from "./areaResults";
+import {
   municipalityWinners,
   sectionWinners,
   settlementWinners,
 } from "./winners";
-import type { Domain, ToolArgs, ToolContext, ToolDef } from "./types";
+import type {
+  ClarifyOption,
+  Domain,
+  Envelope,
+  ToolArgs,
+  ToolContext,
+  ToolDef,
+} from "./types";
 
 export const TOOLS: ToolDef[] = [
   // ---- parliamentary elections ----------------------------------------------
@@ -794,6 +814,136 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: settlementHistory,
+  },
+  {
+    name: "municipalityResults",
+    domain: "elections",
+    description: {
+      bg: "Резултати в една община: гласове и % по партия + активност.",
+      en: "Results in one municipality: votes and % per party + turnout.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Резултатите в община Пловдив",
+        en: "Results in Plovdiv municipality",
+      },
+      {
+        bg: "Как гласува община Варна?",
+        en: "How did Varna municipality vote?",
+      },
+    ],
+    run: municipalityResults,
+  },
+  {
+    name: "municipalityHistory",
+    domain: "elections",
+    description: {
+      bg: "Как гласува една община през годините — дял по партия през изборите (многолиниен тренд).",
+      en: "How one municipality voted over time — vote share per party across elections (multi-line trend).",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+      {
+        name: "years",
+        type: "count",
+        description: {
+          bg: "Брой години назад (времеви прозорец, не брой избори)",
+          en: "Number of years back (date window, not an election count)",
+        },
+      },
+      {
+        name: "n",
+        type: "count",
+        description: { bg: "Брой избори", en: "Number of elections" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Резултатите в община Пловдив за последните 5 години",
+        en: "Results in Plovdiv municipality over the last 5 years",
+      },
+    ],
+    run: municipalityHistory,
+  },
+  {
+    name: "regionResults",
+    domain: "elections",
+    description: {
+      bg: "Резултати в една област/МИР: гласове и % по партия + активност (вкл. София-град = трите столични МИР сборно).",
+      en: "Results in one region/oblast: votes and % per party + turnout (incl. Sofia city = its three MIR combined).",
+    },
+    params: [
+      {
+        name: "oblast",
+        type: "oblast",
+        required: true,
+        description: { bg: "Област / МИР", en: "Region / oblast" },
+      },
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      { bg: "Резултатите в област Варна", en: "Results in Varna region" },
+      { bg: "Резултатите в София", en: "Results in Sofia" },
+    ],
+    run: regionResults,
+  },
+  {
+    name: "regionResultsTrend",
+    domain: "elections",
+    description: {
+      bg: "Как гласува една област/МИР през годините — дял по партия през изборите (многолиниен тренд).",
+      en: "How one region/oblast voted over time — vote share per party across elections (multi-line trend).",
+    },
+    params: [
+      {
+        name: "oblast",
+        type: "oblast",
+        required: true,
+        description: { bg: "Област / МИР", en: "Region / oblast" },
+      },
+      {
+        name: "years",
+        type: "count",
+        description: {
+          bg: "Брой години назад (времеви прозорец, не брой избори)",
+          en: "Number of years back (date window, not an election count)",
+        },
+      },
+      {
+        name: "n",
+        type: "count",
+        description: { bg: "Брой избори", en: "Number of elections" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Резултатите в област Варна за последните 5 години",
+        en: "Results in Varna region over the last 5 years",
+      },
+    ],
+    run: regionResultsTrend,
   },
   {
     name: "settlementBreakdown",
@@ -2534,11 +2684,71 @@ export const DOMAIN_LABELS: Record<Domain, { bg: string; en: string }> = {
   place: { bg: "Моето населено място", en: "My area" },
 };
 
+// Same-name place collision -> a chooser envelope. The resolver raised with the
+// original query (so we can find which arg held it) and the candidate set. Each
+// option re-runs THIS tool with the matching arg replaced by a stable pin
+// ("ekatte:…" / "obshtina:…"), so the pick resolves to exactly one place.
+type PlaceCand = {
+  name: string;
+  nameEn: string;
+  obshtina: string;
+  ekatte: string;
+  oblastName: { bg: string; en: string };
+  tvm?: string;
+};
+const buildPlaceClarify = async (
+  toolName: string,
+  args: ToolArgs,
+  ctx: ToolContext,
+  err: AmbiguousPlaceError,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  // The tools pass the place name straight to the resolver, so the ambiguous
+  // value equals one of the args verbatim. Find it (place / a / b / oblast …);
+  // fall back to `place`, then the first arg.
+  const argKey =
+    Object.keys(args).find((k) => String(args[k]) === err.query) ??
+    (args.place != null ? "place" : (Object.keys(args)[0] ?? "place"));
+  const isSet = err.kind === "settlement";
+  const munis = isSet ? await loadMunis() : [];
+  const candidates = err.candidates as PlaceCand[];
+  const options: ClarifyOption[] = candidates.map((c) => {
+    const name = bg ? c.name : c.nameEn || c.name;
+    const label = isSet && bg && c.tvm ? `${c.tvm} ${name}` : name;
+    let sublabel: string;
+    if (isSet) {
+      const muni = munis.find((m) => m.obshtina === c.obshtina);
+      const muniName = muni ? (bg ? muni.name : muni.nameEn) : "";
+      sublabel = bg
+        ? `общ. ${muniName} · обл. ${c.oblastName.bg}`
+        : `${muniName} · ${c.oblastName.en}`;
+    } else {
+      sublabel = bg ? `обл. ${c.oblastName.bg}` : c.oblastName.en;
+    }
+    const pin = isSet ? settlementPin(c.ekatte) : municipalityPin(c.obshtina);
+    return { label, sublabel, tool: toolName, args: { ...args, [argKey]: pin } };
+  });
+  const prompt = isSet
+    ? bg
+      ? `Кое населено място „${err.query}“ имате предвид?`
+      : `Which "${err.query}" settlement do you mean?`
+    : bg
+      ? `Коя община „${err.query}“ имате предвид?`
+      : `Which "${err.query}" municipality do you mean?`;
+  return clarifyEnvelope(
+    toolName,
+    prompt,
+    options,
+    [isSet ? "settlements.json" : "municipalities.json"],
+    TOOLS_BY_NAME[toolName]?.domain,
+  );
+};
+
 export const runTool = async (
   name: string,
   args: ToolArgs,
   ctx: ToolContext,
-) => {
+): Promise<Envelope> => {
   const tool = TOOLS_BY_NAME[name];
   if (!tool) throw new Error(`unknown tool: ${name}`);
   // Multi-election year: a bare (monthless) year that held more than one
@@ -2547,11 +2757,20 @@ export const runTool = async (
   // the newest. `yearScope` returns null for every other case (single-election
   // year, a month-pinned date, or a non-election tool), so this is a no-op then.
   const scope = yearScope(tool, args);
-  const env = scope
-    ? await combineByElection(tool, args, ctx, scope.year, scope.elections)
-    : await tool.run(args, ctx);
-  // Stamp the envelope's domain from the registry so it's always consistent
-  // with the tool's group (individual tools no longer need to set it).
-  env.domain = tool.domain;
-  return env;
+  try {
+    const env = scope
+      ? await combineByElection(tool, args, ctx, scope.year, scope.elections)
+      : await tool.run(args, ctx);
+    // Stamp the envelope's domain from the registry so it's always consistent
+    // with the tool's group (individual tools no longer need to set it).
+    env.domain = tool.domain;
+    return env;
+  } catch (e) {
+    // An ambiguous place name (raised deep in the resolver) becomes an
+    // ask-the-user chooser rather than a thrown error — works for the offline
+    // router and the LLM path alike, since both land here.
+    if (e instanceof AmbiguousPlaceError)
+      return buildPlaceClarify(name, args, ctx, e);
+    throw e;
+  }
 };

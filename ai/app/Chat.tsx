@@ -31,9 +31,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { ModelEngine } from "../llm/useModelEngine";
+import { runToolChoice } from "../llm/provider";
 import { CLOUD_BUDGET, countExchanges, distill } from "../orchestrator/memory";
 import { AnswerView } from "../render/AnswerView";
-import type { Lang, ToolArgs } from "../tools/types";
+import type {
+  ClarifyOption,
+  ClarifyRequest,
+  Lang,
+  ToolArgs,
+} from "../tools/types";
+import { ClarifyDialog } from "./ClarifyDialog";
 import {
   conversationToMarkdown,
   downloadAnswerImage,
@@ -235,12 +242,14 @@ const AssistantMessage = ({
   question,
   streaming,
   speech,
+  onClarify,
 }: {
   msg: Msg;
   lang: Lang;
   question: string;
   streaming: boolean;
   speech: ReturnType<typeof useSpeech>;
+  onClarify: (req: ClarifyRequest) => void;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   return (
@@ -257,6 +266,7 @@ const AssistantMessage = ({
             lang={lang}
             meta={msg.meta}
             narration={msg.text}
+            onClarify={onClarify}
             controls={<AnswerControls msg={msg} lang={lang} speech={speech} />}
             actions={
               <AnswerExportMenu
@@ -289,6 +299,9 @@ export const Chat = ({
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
+  // the active disambiguation chooser (a tool needs the user to pick which
+  // same-name entity they meant), shown as a modal; null when none is pending.
+  const [clarify, setClarify] = useState<ClarifyRequest | null>(null);
   const idRef = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
   const taRef = useRef<HTMLTextAreaElement>(null);
@@ -426,6 +439,59 @@ export const Chat = ({
       ),
     );
     setBusy(false);
+    // the tool couldn't resolve to one entity — pop the chooser modal
+    if (res.env?.clarify) setClarify(res.env.clarify);
+    taRef.current?.focus();
+  };
+
+  // The user picked one option from a disambiguation chooser: re-run the tool
+  // with the pinned id (no routing — the entity is now unambiguous). Mirrors
+  // `send`, but goes straight to the provider's runChoice (falls back to a
+  // template-narrated run for any provider that doesn't implement it). A pick can
+  // itself need another choice (e.g. comparing two same-name places), so a fresh
+  // `clarify` env re-opens the modal.
+  const choose = async (opt: ClarifyOption) => {
+    setClarify(null);
+    if (busy) return;
+    speech.stop();
+    pinned.current = true;
+    const aId = nextId();
+    setMessages((m) => [
+      ...m,
+      { id: nextId(), role: "user", text: opt.label },
+      { id: aId, role: "assistant", text: "", env: null },
+    ]);
+    setBusy(true);
+    const provider = engine.provider;
+    const onDelta = (partial: string) =>
+      setMessages((m) =>
+        m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
+      );
+    const res = provider.runChoice
+      ? await provider.runChoice(opt.tool, opt.args, { lang, election }, onDelta)
+      : await runToolChoice(
+          { bg: "Без AI (офлайн)", en: "Basic (offline)" },
+          opt.tool,
+          opt.args,
+          { lang, election },
+        );
+    setMessages((m) =>
+      m.map((x) =>
+        x.id === aId
+          ? {
+              ...x,
+              text: res.text,
+              env: res.env,
+              meta: res.meta,
+              tool: res.tool,
+              args: res.args,
+              lang,
+            }
+          : x,
+      ),
+    );
+    setBusy(false);
+    if (res.env?.clarify) setClarify(res.env.clarify);
     taRef.current?.focus();
   };
 
@@ -534,7 +600,9 @@ export const Chat = ({
 
   const last = messages[messages.length - 1];
   const followups =
-    !busy && last?.role === "assistant" && last.env ? followUps(last.env) : [];
+    !busy && last?.role === "assistant" && last.env && !last.env.clarify
+      ? followUps(last.env)
+      : [];
 
   const suggestions = busy ? [] : matchSuggestions(input, lang);
   const hasChat = messages.length > 0;
@@ -578,6 +646,12 @@ export const Chat = ({
 
   return (
     <div className="flex flex-1 flex-col gap-4">
+      <ClarifyDialog
+        request={clarify}
+        lang={lang}
+        onPick={choose}
+        onClose={() => setClarify(null)}
+      />
       {/* Conversation actions live in the fixed header (portaled into actionSlot)
           so they stay reachable however far the messages scroll — they used to
           sit atop the scroll area and scrolled out of reach in a long chat.
@@ -664,6 +738,7 @@ export const Chat = ({
               question={messages[i - 1]?.text ?? ""}
               streaming={busy && i === messages.length - 1}
               speech={speech}
+              onClarify={setClarify}
             />
           ),
         )}

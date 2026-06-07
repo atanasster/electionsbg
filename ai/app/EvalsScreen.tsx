@@ -30,6 +30,7 @@ type ModelResult = {
   label: string;
   runtime: "cloud" | "webllm";
   params: string;
+  via?: string;
   note?: string;
   reason?: string;
   status: "measured" | "unavailable" | "missing-capture";
@@ -193,6 +194,7 @@ export const EvalsScreen = () => {
                         <div className="text-xs text-muted-foreground">
                           {m.params !== "—" ? `${m.params} · ` : ""}
                           {runtimeLabel(m.runtime, lang)}
+                          {m.via ? ` · ${m.via}` : ""}
                         </div>
                       </td>
                       {m.perLang ? (

@@ -20,7 +20,7 @@ import {
 import { resolveFollowOn, route, type Route } from "../orchestrator/router";
 import { parseToolCall } from "../orchestrator/toolSchema";
 import { runTool } from "../tools/registry";
-import type { Lang, ToolContext } from "../tools/types";
+import type { Lang, ToolArgs, ToolContext } from "../tools/types";
 import { clarify, matchesLang, stripControl } from "./lang";
 import type { ModelOption } from "./models";
 import type {
@@ -328,6 +328,16 @@ export class OpenRouterProvider implements LLMProvider {
       };
     try {
       const env = await runTool(r.tool, r.args, ctx);
+      // A chooser env needs no prose — show its prompt (template narration) and
+      // let the UI pop the disambiguation modal; skip the wasted model call.
+      if (env.clarify)
+        return {
+          text: narrate(env, ctx.lang),
+          env,
+          tool: r.tool,
+          args: r.args,
+          meta: baseMeta("rules", routedByModel),
+        };
       const { text, fromModel } = await this.narrateEnv(
         env,
         ctx.lang,
@@ -354,6 +364,63 @@ export class OpenRouterProvider implements LLMProvider {
             : `Something went wrong running that: ${msg}`,
         env: null,
         meta: baseMeta("rules", routedByModel),
+      };
+    }
+  }
+
+  // A disambiguation pick: run the pinned tool (no routing) and let the model
+  // narrate the result, falling back to the template on any failure.
+  async runChoice(
+    tool: string,
+    args: ToolArgs,
+    ctx: ToolContext,
+    onDelta?: (partial: string) => void,
+  ): Promise<ChatResponse> {
+    const t0 = performance.now();
+    const usage: Usage = { input: 0, output: 0 };
+    const meta = (
+      narratedBy: ResponseMeta["narratedBy"],
+      usedModel: boolean,
+    ): ResponseMeta => ({
+      model: usedModel ? this.label : RULES_LABEL,
+      durationMs: performance.now() - t0,
+      inputTokens: usage.input || undefined,
+      outputTokens: usage.output || undefined,
+      narratedBy,
+    });
+    try {
+      const env = await runTool(tool, args, ctx);
+      if (env.clarify)
+        return {
+          text: narrate(env, ctx.lang),
+          env,
+          tool,
+          args,
+          meta: meta("rules", false),
+        };
+      const { text, fromModel } = await this.narrateEnv(
+        env,
+        ctx.lang,
+        usage,
+        "",
+        onDelta,
+      );
+      return {
+        text,
+        env,
+        tool,
+        args,
+        meta: meta(fromModel ? "model" : "rules", fromModel),
+      };
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      return {
+        text:
+          ctx.lang === "bg"
+            ? `Възникна грешка при изпълнението: ${msg}`
+            : `Something went wrong running that: ${msg}`,
+        env: null,
+        meta: meta("rules", false),
       };
     }
   }

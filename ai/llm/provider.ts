@@ -64,7 +64,51 @@ export interface LLMProvider {
     onDelta?: (partial: string) => void,
     opts?: RespondOpts,
   ): Promise<ChatResponse>;
+  // Run an already-resolved {tool, args} directly — used when the user picks an
+  // option from a disambiguation chooser. There's nothing to route (the entity
+  // is pinned), so this skips routing and just runs + narrates the tool, the
+  // same way respond() would for that env. Optional; the chat falls back to
+  // `runToolChoice` (template narration) when a provider doesn't implement it.
+  runChoice?(
+    tool: string,
+    args: ToolArgs,
+    ctx: ToolContext,
+    onDelta?: (partial: string) => void,
+  ): Promise<ChatResponse>;
 }
+
+// Deterministic run + template narration of a resolved {tool, args}. Shared by
+// HeuristicProvider.runChoice and used by the chat as the fallback for any
+// provider that doesn't implement runChoice. A chosen option resolves to one
+// entity, so this never re-clarifies; but if it somehow does, the env still
+// carries `clarify` and the chooser simply re-opens.
+export const runToolChoice = async (
+  label: { bg: string; en: string },
+  tool: string,
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<ChatResponse> => {
+  const t0 = performance.now();
+  const meta = (): ResponseMeta => ({
+    model: label,
+    durationMs: performance.now() - t0,
+    narratedBy: "rules",
+  });
+  try {
+    const env = await runTool(tool, args, ctx);
+    return { text: narrate(env, ctx.lang), env, tool, args, meta: meta() };
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    return {
+      text:
+        ctx.lang === "bg"
+          ? `Възникна грешка при изпълнението: ${msg}`
+          : `Something went wrong running that: ${msg}`,
+      env: null,
+      meta: meta(),
+    };
+  }
+};
 
 export class HeuristicProvider implements LLMProvider {
   id = "rules";
@@ -110,5 +154,15 @@ export class HeuristicProvider implements LLMProvider {
         meta: meta(),
       };
     }
+  }
+
+  // A disambiguation pick: run the pinned tool + args (no routing) and narrate
+  // from the template.
+  async runChoice(
+    tool: string,
+    args: ToolArgs,
+    ctx: ToolContext,
+  ): Promise<ChatResponse> {
+    return runToolChoice(this.label, tool, args, ctx);
   }
 }

@@ -115,6 +115,26 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Резултати в ${f(env, "settlement")} (${f(env, "range")}): графиката проследява ${f(env, "parties_shown")} партии${env.facts.leader ? `; последно води ${f(env, "leader")}` : ""}.`
         : `Results in ${f(env, "settlement")} (${f(env, "range")}): the chart tracks ${f(env, "parties_shown")} parties${env.facts.leader ? `; latest leader ${f(env, "leader")}` : ""}.`;
+    case "municipalityResults":
+      if (!env.facts.leading_party) return env.title;
+      return lang === "bg"
+        ? `Община ${f(env, "municipality")} (${f(env, "election")}): води ${f(env, "leading_party")} с ${f(env, "leading_pct")}; общо ${f(env, "total_votes")} гласа${env.facts.turnout ? `, активност ${f(env, "turnout")}` : ""}.`
+        : `${f(env, "municipality")} municipality (${f(env, "election")}): ${f(env, "leading_party")} leads with ${f(env, "leading_pct")}; ${f(env, "total_votes")} votes total${env.facts.turnout ? `, turnout ${f(env, "turnout")}` : ""}.`;
+    case "municipalityHistory":
+      if (!env.facts.elections_count) return env.title;
+      return lang === "bg"
+        ? `Резултати в община ${f(env, "municipality")} (${f(env, "range")}): графиката проследява ${f(env, "parties_shown")} партии${env.facts.leader ? `; последно води ${f(env, "leader")}` : ""}.`
+        : `Results in ${f(env, "municipality")} municipality (${f(env, "range")}): the chart tracks ${f(env, "parties_shown")} parties${env.facts.leader ? `; latest leader ${f(env, "leader")}` : ""}.`;
+    case "regionResults":
+      if (!env.facts.leading_party) return env.title;
+      return lang === "bg"
+        ? `${f(env, "region")} (${f(env, "election")}): води ${f(env, "leading_party")} с ${f(env, "leading_pct")}; общо ${f(env, "total_votes")} гласа${env.facts.turnout ? `, активност ${f(env, "turnout")}` : ""}.`
+        : `${f(env, "region")} (${f(env, "election")}): ${f(env, "leading_party")} leads with ${f(env, "leading_pct")}; ${f(env, "total_votes")} votes total${env.facts.turnout ? `, turnout ${f(env, "turnout")}` : ""}.`;
+    case "regionResultsTrend":
+      if (!env.facts.elections_count) return env.title;
+      return lang === "bg"
+        ? `Резултати в ${f(env, "region")} (${f(env, "range")}): графиката проследява ${f(env, "parties_shown")} партии${env.facts.leader ? `; последно води ${f(env, "leader")}` : ""}.`
+        : `Results in ${f(env, "region")} (${f(env, "range")}): the chart tracks ${f(env, "parties_shown")} parties${env.facts.leader ? `; latest leader ${f(env, "leader")}` : ""}.`;
     case "parliamentSeats":
       if (!env.facts.total_seats) return env.title;
       return lang === "bg"

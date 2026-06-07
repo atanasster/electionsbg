@@ -73,12 +73,36 @@ export type GeoOverlay = {
   focus?: string[];
 };
 
+// ---- disambiguation (ask-the-user) ------------------------------------------
+// When a name lookup is ambiguous — several settlements/municipalities share a
+// name ("с. Баня"), or distinct people share a candidate name — a tool returns a
+// `clarify` envelope instead of guessing. The renderer pops a chooser; picking an
+// option re-runs `tool` with `args` carrying a stable disambiguator (an EKATTE /
+// obshtina pin in the place arg, or a partyNum), so the re-run resolves to
+// exactly one entity. Produced inside the tools, so BOTH the offline router and
+// the LLM path get it for free (each just runs the tool and renders the env).
+
+export type ClarifyOption = {
+  label: string; // primary line, resolved to ctx.lang (e.g. "гр. Баня")
+  sublabel?: string; // disambiguating context (e.g. "общ. Карлово · обл. Пловдив")
+  tool: string; // tool to re-run on pick (usually the same one)
+  args: ToolArgs; // unambiguous args (carry the pin/id)
+};
+
+export type ClarifyRequest = {
+  prompt: string; // the question to the user, resolved to ctx.lang
+  options: ClarifyOption[];
+};
+
 export type Envelope = {
   tool: string;
   domain?: Domain;
   kind: EnvelopeKind;
   title: string; // resolved to ctx.lang
   subtitle?: string;
+  // set when the tool needs the user to disambiguate before it can answer; the
+  // renderer shows a chooser and the kind/viz payload below is empty.
+  clarify?: ClarifyRequest;
   // table payload
   columns?: Column[];
   rows?: Row[];

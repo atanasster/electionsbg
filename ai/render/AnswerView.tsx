@@ -21,8 +21,9 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "@/components/ui/chart";
-import { Info } from "lucide-react";
+import { Info, ListChecks } from "lucide-react";
 import { lazy, Suspense, type ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -32,7 +33,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { ResponseMeta } from "../llm/provider";
-import type { Column, Envelope, Lang, SeriesPoint } from "../tools/types";
+import type {
+  ClarifyRequest,
+  Column,
+  Envelope,
+  Lang,
+  SeriesPoint,
+} from "../tools/types";
 import { siteLinks } from "./links";
 
 // Lazy so leaflet (and the geojson fetch) only ship when an answer has a map.
@@ -492,6 +499,7 @@ export const AnswerView = ({
   narration,
   actions,
   controls,
+  onClarify,
 }: {
   env: Envelope;
   lang?: Lang;
@@ -502,7 +510,12 @@ export const AnswerView = ({
   actions?: ReactNode;
   // per-response interaction controls (read-aloud), under the prose
   controls?: ReactNode;
+  // (re)open the disambiguation chooser for a `clarify` envelope. The chat pops
+  // the modal automatically on arrival; this lets the user re-open it after
+  // dismissing without picking.
+  onClarify?: (req: ClarifyRequest) => void;
 }) => {
+  const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
   return (
     <div className="space-y-3 rounded-xl border border-border bg-card p-4">
       {/* header band: how-produced meta (left), export (right) */}
@@ -530,39 +543,58 @@ export const AnswerView = ({
         </div>
       )}
 
-      <div>
-        <h3 className="text-base font-semibold text-foreground">{env.title}</h3>
-        {env.subtitle && (
-          <p className="text-sm text-muted-foreground">{env.subtitle}</p>
-        )}
-      </div>
-
-      {/* Optional geographic map. The numbers stay in the table/chart below, so
-          this is additive; data-export-omit keeps the tile-backed map out of the
-          PNG capture (raster tiles taint the export canvas). */}
-      {env.geo && (
+      {env.clarify ? (
+        // Disambiguation: the prompt is already the lead narration; offer a
+        // button that (re)opens the chooser modal (the chat pops it on arrival).
         <div data-export-omit="">
-          <Suspense
-            fallback={
-              <div className="h-[320px] w-full animate-pulse rounded-lg border border-border bg-muted" />
-            }
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onClarify?.(env.clarify!)}
           >
-            <GeoChoropleth geo={env.geo} lang={lang} />
-          </Suspense>
+            <ListChecks />
+            {t("Изберете", "Choose")}
+          </Button>
         </div>
-      )}
-
-      {env.viz === "hemicycle" ? (
-        <HemicycleChart env={env} lang={lang} />
       ) : (
         <>
-          {env.kind === "series" && <SeriesChart env={env} lang={lang} />}
-          {env.kind === "table" && <DataTable env={env} />}
-          {env.kind === "scalar" && <Scalar env={env} />}
+          <div>
+            <h3 className="text-base font-semibold text-foreground">
+              {env.title}
+            </h3>
+            {env.subtitle && (
+              <p className="text-sm text-muted-foreground">{env.subtitle}</p>
+            )}
+          </div>
+
+          {/* Optional geographic map. The numbers stay in the table/chart below,
+              so this is additive; data-export-omit keeps the tile-backed map out
+              of the PNG capture (raster tiles taint the export canvas). */}
+          {env.geo && (
+            <div data-export-omit="">
+              <Suspense
+                fallback={
+                  <div className="h-[320px] w-full animate-pulse rounded-lg border border-border bg-muted" />
+                }
+              >
+                <GeoChoropleth geo={env.geo} lang={lang} />
+              </Suspense>
+            </div>
+          )}
+
+          {env.viz === "hemicycle" ? (
+            <HemicycleChart env={env} lang={lang} />
+          ) : (
+            <>
+              {env.kind === "series" && <SeriesChart env={env} lang={lang} />}
+              {env.kind === "table" && <DataTable env={env} />}
+              {env.kind === "scalar" && <Scalar env={env} />}
+            </>
+          )}
+
+          <SourceLinks env={env} lang={lang} />
         </>
       )}
-
-      <SourceLinks env={env} lang={lang} />
     </div>
   );
 };

@@ -94,6 +94,13 @@ const pruneDistAi = (): Plugin => ({
 
 const SITE = "https://ai.electionsbg.com";
 
+// /evals benchmark page — built from the index.html shell (same JS bundle;
+// main.tsx renders EvalsScreen when the path is /evals). Title/description below
+// override the chat's <head> for correct per-page SEO/sharing.
+const EVALS_TITLE = "Оценка на инструментно извикване (EN/BG) — Наясно AI";
+const EVALS_DESC =
+  "Бенчмарк: може ли малък/отворен езиков модел да управлява инструментите на Наясно и влошава ли се изборът на инструмент на български спрямо английски.";
+
 const ROBOTS_TXT = `User-agent: *
 Allow: /
 
@@ -155,6 +162,34 @@ const writeSeoFiles = (): Plugin => ({
     fs.writeFileSync(path.join(out, "llms.txt"), LLMS_TXT);
     const og = path.resolve(__dirname, "ai/assets/og.png");
     if (fs.existsSync(og)) fs.copyFileSync(og, path.join(out, "og.png"));
+    // Emit the /evals static page from the built index.html shell — same hashed
+    // JS bundle (main.tsx picks EvalsScreen for /evals), eval-specific <head>.
+    // Written here (post-prune) so pruneDistAi doesn't remove it; served at
+    // /evals via the firebase.json rewrite.
+    const indexPath = path.join(out, "index.html");
+    if (fs.existsSync(indexPath)) {
+      const evalsHtml = fs
+        .readFileSync(indexPath, "utf8")
+        .replace(/<title>[\s\S]*?<\/title>/, `<title>${EVALS_TITLE}</title>`)
+        .replace(
+          /(<meta name="description" content=")[^"]*(")/,
+          `$1${EVALS_DESC}$2`,
+        )
+        .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${SITE}/evals$2`)
+        .replace(
+          /(<meta property="og:url" content=")[^"]*(")/,
+          `$1${SITE}/evals$2`,
+        )
+        .replace(
+          /(<meta property="og:title" content=")[^"]*(")/,
+          `$1${EVALS_TITLE}$2`,
+        )
+        .replace(
+          /(<meta property="og:description" content=")[^"]*(")/,
+          `$1${EVALS_DESC}$2`,
+        );
+      fs.writeFileSync(path.join(out, "evals.html"), evalsHtml);
+    }
   },
 });
 
@@ -179,14 +214,6 @@ export default defineConfig(({ mode }) => {
       outDir: path.resolve(__dirname, "dist-ai"),
       emptyOutDir: true,
       chunkSizeWarningLimit: 1200,
-      // Multi-page: the chat (index.html) + the benchmark page (evals.html →
-      // served at /evals via the firebase.json rewrite).
-      rollupOptions: {
-        input: {
-          main: path.resolve(__dirname, "ai", "index.html"),
-          evals: path.resolve(__dirname, "ai", "evals.html"),
-        },
-      },
     },
   };
 });

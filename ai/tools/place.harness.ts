@@ -3,6 +3,7 @@
 
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { AmbiguousPlaceError } from "./clarify";
 import { setFetcher } from "./dataClient";
 import {
   resolveMunicipality,
@@ -20,6 +21,29 @@ let failures = 0;
 const ok = (cond: boolean, msg: string) => {
   console.log(`  ${cond ? "✓" : "✗ FAIL"} ${msg}`);
   if (!cond) failures += 1;
+};
+
+// A genuine duplicate name now raises AmbiguousPlaceError (the chooser path)
+// instead of silently picking a best match. Return the caught error so the
+// caller can also exercise the pin that resolves one candidate.
+const expectAmbiguous = async (
+  fn: () => Promise<unknown>,
+  kind: "settlement" | "municipality",
+  minCands: number,
+  msg: string,
+): Promise<AmbiguousPlaceError | null> => {
+  try {
+    await fn();
+    ok(false, `${msg} (expected ambiguity, got a result)`);
+    return null;
+  } catch (e) {
+    if (e instanceof AmbiguousPlaceError && e.kind === kind) {
+      ok(e.candidates.length >= minCands, `${msg} (${e.candidates.length})`);
+      return e;
+    }
+    ok(false, `${msg} (threw non-ambiguity: ${e})`);
+    return null;
+  }
 };
 
 const run = async () => {
@@ -49,11 +73,22 @@ const run = async () => {
   const aseno = await resolveMunicipality("Асеновград");
   ok(aseno?.obshtina === "PDV01", "Асеновград -> PDV01");
 
-  const byala = await resolveMunicipality("Бяла");
-  ok(
-    !!byala && Array.isArray(byala.ambiguous) && byala.ambiguous.length >= 1,
-    `Бяла -> ambiguous (got ${byala?.ambiguous?.length ?? 0} alternative(s))`,
+  // genuine duplicate município name -> ambiguity (the chooser path), and the
+  // "obshtina:<code>" pin resolves one of the candidates straight back.
+  const byalaErr = await expectAmbiguous(
+    () => resolveMunicipality("Бяла"),
+    "municipality",
+    2,
+    "Бяла -> ambiguous municipalities",
   );
+  if (byalaErr) {
+    const first = byalaErr.candidates[0] as { obshtina: string };
+    const pinned = await resolveMunicipality(`obshtina:${first.obshtina}`);
+    ok(
+      pinned?.obshtina === first.obshtina,
+      `Бяла pin "obshtina:${first.obshtina}" -> resolves to one município`,
+    );
+  }
 
   const none = await resolveMunicipality("Атлантида");
   ok(none === undefined, "nonsense place -> undefined");
@@ -99,44 +134,39 @@ const run = async () => {
   // latin + typo
   const kaloferTypo = await resolveSettlement("Калофре"); // transposed
   ok(kaloferTypo?.name === "Калофер", `"Калофре" (typo) -> Калофер`);
-  // town preference + ambiguity: "Баня" has a гр. (02720) + several с. villages
-  const banya = await resolveSettlement("Баня");
-  ok(
-    banya?.ekatte === "02720",
-    `"Баня" -> prefers the town гр. 02720 (got ${banya?.ekatte})`,
+  // duplicate name -> ambiguity ("Баня" = a гр. town + several с. villages),
+  // spanning distinct municipalities; the "ekatte:<code>" pin resolves the town.
+  const banyaErr = await expectAmbiguous(
+    () => resolveSettlement("Баня"),
+    "settlement",
+    4,
+    `"Баня" -> ambiguous settlements`,
   );
-  ok(
-    Array.isArray(banya?.ambiguous) && (banya?.ambiguous?.length ?? 0) >= 1,
-    `"Баня" -> exposes ambiguous alternatives (${banya?.ambiguous?.length ?? 0})`,
-  );
+  if (banyaErr) {
+    const cands = banyaErr.candidates as { obshtina: string; ekatte: string }[];
+    ok(
+      new Set(cands.map((c) => c.obshtina)).size >= 4,
+      `"Баня" matches span distinct municipalities (${new Set(cands.map((c) => c.obshtina)).size})`,
+    );
+    const town = await resolveSettlement("ekatte:02720");
+    ok(
+      town?.ekatte === "02720" && town?.name === "Баня",
+      `"Баня" pin "ekatte:02720" -> the town гр. Баня`,
+    );
+  }
   // over-reach: nonsense must still decline
   const noSet = await resolveSettlement("Зззнесъществуващо");
   ok(noSet === undefined, "nonsense settlement -> undefined (no over-reach)");
 
-  // same-name villages in DIFFERENT municipalities: best + .ambiguous list, and
-  // the alternatives must live in distinct общини (not duplicate rows).
-  const banyaSet = await resolveSettlement("Баня");
-  const banyaAlts = (banyaSet?.ambiguous ?? []) as { obshtina: string }[];
-  const banyaObsht = new Set([
-    banyaSet?.obshtina,
-    ...banyaAlts.map((a) => a.obshtina),
-  ]);
-  ok(
-    !!banyaSet && banyaAlts.length >= 3,
-    `"Баня" -> best + >=3 same-name alternatives (got ${banyaAlts.length})`,
-  );
-  ok(
-    banyaObsht.size >= 4,
-    `"Баня" matches span distinct municipalities (got ${banyaObsht.size}: ${[...banyaObsht].join(",")})`,
-  );
-
   console.log("\n=== resolvePlaceForData (exact-before-fuzzy precedence) ===");
-  // THE regression: "Баня" must NOT substring-match the município "Долна баня";
-  // an exact settlement wins, so it resolves to one of the Баня villages.
-  const pBanya = await resolvePlaceForData("Баня");
-  ok(
-    pBanya?.name === "Баня",
-    `"Баня" -> village Баня, not "Долна баня" (got ${pBanya?.name} / ${pBanya?.obshtina})`,
+  // THE regression: "Баня" must NOT substring-match the município "Долна баня".
+  // An exact settlement collision now raises ambiguity (the chooser), never the
+  // wrong "Долна баня".
+  await expectAmbiguous(
+    () => resolvePlaceForData("Баня"),
+    "settlement",
+    4,
+    `"Баня" via resolvePlaceForData -> ambiguous settlements (not "Долна баня")`,
   );
   // an exact município still wins over a same-named village
   const pBansko = await resolvePlaceForData("Банско");

@@ -50,6 +50,9 @@ type Case = {
   minRows?: number;
   facts?: Record<string, FactExp>;
   geo?: GeoExp | false;
+  // assert the tool returned an ask-the-user disambiguation chooser (a name
+  // matched several entities) with at least this many options.
+  clarify?: { minOptions: number };
 };
 
 // stripped-digits compare so "51 881" / "51 881" / 51 all equal 51881
@@ -645,6 +648,147 @@ const CASES: Case[] = [
     tool: "settlementWinners",
     kind: "table",
     minRows: 20,
+  },
+  // -- disambiguation: a genuinely ambiguous name pops the ask-the-user chooser -
+  // "Баня" names a town + several villages across different общини; "Бяла" names
+  // two municipalities. The tool returns a chooser instead of silently picking
+  // one (the runner also re-runs every option to prove each pin resolves cleanly).
+  // A UNIQUE name (с. Иново above) still answers directly — no chooser.
+  {
+    q: "Резултатите в с. Баня",
+    tool: "settlementResults",
+    kind: "scalar",
+    clarify: { minOptions: 4 },
+  },
+  {
+    // the cross-election history of the same ambiguous name also clarifies
+    q: "Резултатите в с. Баня за последните 5 години",
+    tool: "settlementHistory",
+    kind: "scalar",
+    clarify: { minOptions: 4 },
+  },
+  {
+    // a duplicate município name ("Бяла" = Русе + Варна) -> municipality chooser
+    q: "Кой е кметът на Бяла?",
+    tool: "localMunicipality",
+    kind: "scalar",
+    clarify: { minOptions: 2 },
+  },
+  // -- municipalityResults / regionResults / Sofia-city / abroad (ONE area) -----
+  // "резултатите в община X" used to list the whole oblast (municipalityWinners);
+  // "...в област X" gave the national list (regionWinners); "...в София" fell to
+  // nationalResults. The singular "община"/"област" qualifier (no по/by/each) now
+  // routes to the area's OWN party table; Sofia city sums its 3 МИР; abroad keeps
+  // diasporaVote. Golden vs 2026: Пловдив-муни 152802, Варна-МИР 199654, София-град
+  // 618206 (= S23+S24+S25), each with a locator map.
+  {
+    q: "резултатите в община Пловдив",
+    tool: "municipalityResults",
+    kind: "table",
+    minRows: 2,
+    facts: {
+      municipality: "Пловдив",
+      total_votes: { num: 152802 },
+      leading_party: /\S/,
+    },
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    q: "Results in Plovdiv municipality",
+    lang: "en",
+    tool: "municipalityResults",
+    kind: "table",
+    minRows: 2,
+    facts: { municipality: "Plovdiv" },
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    q: "резултатите в община Пловдив за последните 5 години",
+    tool: "municipalityHistory",
+    kind: "series",
+    facts: {
+      municipality: "Пловдив",
+      window_years: { num: 5 },
+      elections_count: { num: 7 },
+    },
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    q: "резултатите в област Варна",
+    tool: "regionResults",
+    kind: "table",
+    minRows: 2,
+    facts: {
+      region: "Варна",
+      total_votes: { num: 199654 },
+      leading_party: /\S/,
+    },
+    geo: { level: "oblast", mode: "locator", joinKey: "nuts3" },
+  },
+  {
+    q: "Results in Varna region",
+    lang: "en",
+    tool: "regionResults",
+    kind: "table",
+    minRows: 2,
+    facts: { region: "Varna" },
+    geo: { level: "oblast", mode: "locator", joinKey: "nuts3" },
+  },
+  {
+    q: "резултатите в област Варна за последните 5 години",
+    tool: "regionResultsTrend",
+    kind: "series",
+    facts: {
+      region: "Варна",
+      window_years: { num: 5 },
+      elections_count: { num: 7 },
+    },
+  },
+  {
+    // Sofia city = the three city МИР summed (618206 in 2026), NOT one МИР nor
+    // nationalResults; the locator highlights all three
+    q: "резултатите в София",
+    tool: "regionResults",
+    kind: "table",
+    minRows: 2,
+    facts: { region: "София", total_votes: { num: 618206 } },
+    geo: { level: "oblast", mode: "locator", joinKey: "nuts3" },
+  },
+  {
+    q: "Results in Sofia",
+    lang: "en",
+    tool: "regionResults",
+    kind: "table",
+    minRows: 2,
+    facts: { region: "Sofia" },
+  },
+  {
+    q: "резултатите в София за последните 5 години",
+    tool: "regionResultsTrend",
+    kind: "series",
+    facts: { region: "София", window_years: { num: 5 } },
+  },
+  {
+    // abroad (МИР 32) keeps its dedicated diaspora tools — the natural "results
+    // abroad" phrasing must reach them (snapshot + trend)
+    q: "резултатите в чужбина",
+    tool: "diasporaVote",
+    kind: "table",
+    minRows: 1,
+    facts: { leader: /%/ },
+  },
+  {
+    q: "резултатите в чужбина за последните 5 години",
+    tool: "diasporaVoteTrend",
+    kind: "series",
+  },
+  {
+    // a singular qualifier with a "по" AGGREGATION cue still lists the tier
+    // (municipalityWinners), not the single area
+    q: "резултати по общини в Пловдив",
+    tool: "municipalityWinners",
+    kind: "table",
+    minRows: 2,
   },
   // -- disambiguation: the winners guard must NOT steal these --
   {
@@ -1976,6 +2120,15 @@ const ARG_CASES: ArgCase[] = [
     args: { cycle: "2015" },
     facts: { cycle: "2015" },
   },
+  {
+    // a disambiguation pick re-arrives as an "ekatte:<code>" pin in the place arg
+    // — the resolver decodes it straight to that one settlement (гр. Баня, the
+    // town in Карлово), so the answer is unambiguous (no chooser).
+    label: 'settlementResults place:"ekatte:02720" -> the town гр. Баня',
+    tool: "settlementResults",
+    args: { place: "ekatte:02720" },
+    facts: { settlement: /Баня/, total_votes: /\d/ },
+  },
 ];
 
 let failures = 0;
@@ -2014,6 +2167,35 @@ const run = async () => {
         fail(c.q, `${n} rows/points, expected >= ${c.minRows}`);
         continue;
       }
+    }
+    if (c.clarify) {
+      const opts = env.clarify?.options ?? [];
+      if (!env.clarify) {
+        fail(c.q, "expected a disambiguation chooser, got none");
+        continue;
+      }
+      if (opts.length < c.clarify.minOptions) {
+        fail(
+          c.q,
+          `${opts.length} chooser options, expected >= ${c.clarify.minOptions}`,
+        );
+        continue;
+      }
+      // every option must re-run to a single, unambiguous answer (the pin works)
+      const bad = await Promise.all(
+        opts.map(async (o) => {
+          try {
+            const re = await runTool(o.tool, o.args, ctx);
+            return re.clarify ? o.label : null;
+          } catch (e) {
+            return `${o.label} (threw: ${e instanceof Error ? e.message : e})`;
+          }
+        }),
+      );
+      const failed = bad.filter(Boolean);
+      if (failed.length)
+        fail(c.q, `chooser option(s) did not resolve cleanly: ${failed.join("; ")}`);
+      continue;
     }
     for (const [k, exp] of Object.entries(c.facts ?? {})) {
       if (!(k in env.facts) || !matchFact(env.facts[k], exp)) {

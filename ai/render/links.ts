@@ -116,7 +116,11 @@ const localSection = (): SiteLink => ({
 const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   nationalResults: SECTION.results,
   regionWinners: SECTION.regions,
+  regionResults: SECTION.regions,
+  regionResultsTrend: SECTION.regions,
   municipalityWinners: SECTION.regions,
+  municipalityResults: SECTION.regions,
+  municipalityHistory: SECTION.regions,
   settlementWinners: SECTION.regions,
   settlementResults: SECTION.regions,
   settlementHistory: SECTION.regions,

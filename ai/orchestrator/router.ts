@@ -8,6 +8,7 @@
 import { ALL_ELECTIONS } from "../tools/dataset";
 import { resolveBudgetFunction } from "../tools/fiscal";
 import { resolveMacroKey } from "../tools/macro";
+import { SOFIA_CITY } from "../tools/areaResults";
 import { findOblastInText } from "../tools/place";
 import { resolveRegionKey, resolveSubnatKey } from "../tools/placesGov";
 import { TOOLS_BY_NAME } from "../tools/registry";
@@ -252,6 +253,30 @@ const isAggregation = (q: string): boolean =>
   /\beach\b/.test(q) ||
   /всяк/.test(q);
 
+// A SINGLE-município qualifier ("община X" / "X municipality") — the singular
+// forms only. "общини"/"общините" don't contain "община" (а≠и) and "municipality"
+// isn't a substring of "municipalities" (…y vs …ies), so plain includes isolates
+// the singular; the aggregation gate above strips the "по общини / by municipality"
+// LIST queries.
+const hasMuniMarker = (q: string): boolean =>
+  has(q, "община", "общината", "municipality");
+
+// A SINGLE-oblast qualifier ("област X" / "region/province/oblast"). "области"
+// (plural) is excluded by the negative lookahead; EN singular forms exclude their
+// trailing "s".
+const hasRegionMarker = (q: string): boolean =>
+  /област(?!и)/.test(q) ||
+  /\boblast\b/.test(q) ||
+  /\bregion(?!s)/.test(q) ||
+  /\bprovince(?!s)/.test(q);
+
+// Sofia CITY (the three city МИР S23/S24/S25 combined) vs Sofia PROVINCE (SFO).
+// Matches a Sofia/столица reference but NOT the "Софийска област / Sofia province"
+// phrasing, which is the separate SFO oblast.
+const isSofiaCity = (q: string): boolean =>
+  /софия|sofia|столиц/.test(q) &&
+  !/софийск|sofia province|sofia oblast|област софия|\bsfo\b/.test(q);
+
 // Words to strip when extracting a place name from a question. Includes party
 // tokens so a party reference is never mistaken for a município.
 const PLACE_STOP = new Set([
@@ -394,6 +419,13 @@ const PLACE_STOP = new Set([
   "последни",
   "последните",
   "last",
+  // "how did X vote" verbs — so "как гласува гр. Банско" extracts to "Банско"
+  "гласува",
+  "гласуват",
+  "гласували",
+  "гласувам",
+  "voted",
+  "voting",
 ]);
 
 const extractPlace = (q: string): string | undefined => {
@@ -863,6 +895,87 @@ export const route = (question: string, ctx: ToolContext): Route => {
         tool: "settlementResults",
         args: election ? { place, election } : { place },
       };
+    }
+  }
+
+  // 1a2b. a single named MUNICIPALITY / OBLAST / Sofia-city ("резултатите в
+  // община Пловдив", "резултатите в област Варна", "резултатите в София") -> that
+  // area's own party results (or its vote-share trend). Distinct from the
+  // "по общини / по области" AGGREGATION lists (municipalityWinners/regionWinners)
+  // below, which carry a "по/by/each" cue. Sofia city = the three city МИР summed;
+  // abroad keeps its dedicated diasporaVote tools (checked earlier). Same gate as
+  // the settlement block, placed right after it (most-specific level first).
+  if (
+    !party &&
+    !isAggregation(q) &&
+    !has(
+      q,
+      "местни",
+      "местн",
+      "общинск",
+      "кмет",
+      "mayor",
+      "съвет",
+      "council",
+    ) &&
+    has(
+      q,
+      "резултат",
+      "result",
+      "спечели",
+      "won",
+      "гласува",
+      "гласове",
+      "гласували",
+      "vote",
+      "voted",
+      "voting",
+      "кой води",
+      "who leads",
+    )
+  ) {
+    const trend = isTrend && !election;
+    // Sofia city first (a Sofia reference may also carry "община"/"област").
+    if (isSofiaCity(q))
+      return trend
+        ? {
+            tool: "regionResultsTrend",
+            args: { oblast: SOFIA_CITY, ...seriesArgs(q, count) },
+          }
+        : {
+            tool: "regionResults",
+            args: election
+              ? { oblast: SOFIA_CITY, election }
+              : { oblast: SOFIA_CITY },
+          };
+    // single município ("община X")
+    if (hasMuniMarker(q)) {
+      const place = extractPlace(q);
+      if (place)
+        return trend
+          ? {
+              tool: "municipalityHistory",
+              args: { place, ...seriesArgs(q, count) },
+            }
+          : {
+              tool: "municipalityResults",
+              args: election ? { place, election } : { place },
+            };
+    }
+    // single oblast ("област X")
+    if (hasRegionMarker(q)) {
+      const oblHit = findOblastInText(q);
+      const oblast = oblHit ? oblHit.code : extractPlace(q);
+      if (oblast)
+        return trend
+          ? {
+              tool: "regionResultsTrend",
+              args: { oblast, ...seriesArgs(q, count) },
+            }
+          : {
+              tool: "regionResults",
+              args: election ? { oblast, election } : { oblast },
+            };
     }
   }
 

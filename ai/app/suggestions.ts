@@ -88,6 +88,16 @@ const SETTLEMENTS: { bg: string; en: string }[] = [
   { bg: "Бръшлян", en: "Brashlyan" },
 ];
 
+// Municipalities whose OWN party results / trend route to municipalityResults /
+// municipalityHistory ("резултатите в община X"). Verified to resolve as a
+// município (not the same-name oblast) with vote data.
+const RESULT_MUNIS: { bg: string; en: string }[] = [
+  { bg: "Пловдив", en: "Plovdiv" },
+  { bg: "Варна", en: "Varna" },
+  { bg: "Бургас", en: "Burgas" },
+  { bg: "Русе", en: "Ruse" },
+];
+
 // Well-known candidates (verified present in the latest candidates.json) — these
 // route to candidateResult for their preferential-vote breakdown.
 const CANDIDATES: { bg: string; en: string }[] = [
@@ -251,6 +261,41 @@ export const SUGGESTIONS: Suggestion[] = [
     bg: `Резултатите в с. ${s.bg} за последните 5 години`,
     en: `Results in the village of ${s.en} over the last 5 years`,
   })),
+  // one município's own results / trend
+  ...RESULT_MUNIS.map((m) => ({
+    bg: `Резултатите в община ${m.bg}`,
+    en: `Results in ${m.en} municipality`,
+  })),
+  ...RESULT_MUNIS.map((m) => ({
+    bg: `Резултатите в община ${m.bg} за последните 5 години`,
+    en: `Results in ${m.en} municipality over the last 5 years`,
+  })),
+  // one oblast's own results / trend
+  ...WINNER_OBLASTS.map((o) => ({
+    bg: `Резултатите в област ${o.bg}`,
+    en: `Results in ${o.en} region`,
+  })),
+  ...WINNER_OBLASTS.map((o) => ({
+    bg: `Резултатите в област ${o.bg} за последните 5 години`,
+    en: `Results in ${o.en} region over the last 5 years`,
+  })),
+  // Sofia city (the 3 МИР combined) + abroad (diaspora), each with a trend
+  {
+    bg: "Резултатите в София",
+    en: "Results in Sofia",
+  },
+  {
+    bg: "Резултатите в София за последните 5 години",
+    en: "Results in Sofia over the last 5 years",
+  },
+  {
+    bg: "Резултатите в чужбина",
+    en: "Results abroad",
+  },
+  {
+    bg: "Резултатите в чужбина за последните 5 години",
+    en: "Results abroad over the last 5 years",
+  },
   ...AGENCIES.map((a) => ({
     bg: `Колко е точна ${a}?`,
     en: `How accurate is ${a}?`,
