@@ -118,8 +118,11 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   regionWinners: SECTION.regions,
   municipalityWinners: SECTION.regions,
   settlementWinners: SECTION.regions,
+  settlementResults: SECTION.regions,
+  settlementHistory: SECTION.regions,
   sectionWinners: SECTION.regions,
   parliamentSeats: SECTION.parliament,
+  seatsHistory: SECTION.parliament,
   compareElections: SECTION.results,
   demographicCleavages: SECTION.results,
   turnout: SECTION.home,
@@ -131,6 +134,7 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   voterPersistence: SECTION.home,
   diasporaVote: SECTION.home,
   electionAnomalies: SECTION.riskScore,
+  riskIndex: SECTION.riskAnalysis,
   riskScore: SECTION.riskScore,
   riskClusters: SECTION.riskAnalysis,
   clusterPersistence: SECTION.riskAnalysis,
@@ -139,6 +143,7 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   wastedVotesByParty: SECTION.riskAnalysis,
   suspiciousSettlements: SECTION.riskAnalysis,
   problemSections: SECTION.riskAnalysis,
+  romaVoteTrend: SECTION.riskAnalysis,
   flashMemoryByParty: SECTION.riskAnalysis,
   recountByParty: SECTION.riskAnalysis,
   pollAccuracy: SECTION.polls,
@@ -211,6 +216,18 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
     case "regionBreakdown": {
       const l = partyLink(env, "/regions");
       if (l) out.push(l);
+      break;
+    }
+    // Single-section answers deep-link to that station's own page (/section/:id),
+    // built from facts.section — the id the section tools always expose.
+    case "sectionResults":
+    case "sectionHistory": {
+      const sec = fact(env, "section");
+      if (sec)
+        out.push({
+          label: { bg: "Секция — пълни данни", en: "Section — full data" },
+          href: url(`/section/${encodeURIComponent(sec)}`),
+        });
       break;
     }
   }

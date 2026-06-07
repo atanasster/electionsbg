@@ -165,6 +165,63 @@ const CASES: Case[] = [
     facts: { total_seats: { num: 240 }, parties_seated: { num: 5 } },
   },
   {
+    // a trend cue ("последните 5 години") turns the same seats question into a
+    // multi-election line chart, NOT the single-election hemicycle. "Last 5
+    // years" is a date window covering 7 ballots since 2021-04-19.
+    q: "Колко места има всяка партия в парламента последните 5 години?",
+    tool: "seatsHistory",
+    kind: "series",
+    facts: {
+      window_years: { num: 5 },
+      elections_count: { num: 7 },
+      parties_shown: { num: 8 },
+    },
+  },
+  {
+    q: "How have seats per party changed over time?",
+    lang: "en",
+    tool: "seatsHistory",
+    kind: "series",
+    facts: { parties_shown: { num: 8 } },
+  },
+  {
+    // diaspora trend (abroad МИР 32) — cross-election leader line, NOT the
+    // single-election snapshot
+    q: "Кой печели гласа в чужбина последните години?",
+    tool: "diasporaVoteTrend",
+    kind: "series",
+    facts: { most_frequent_winner: /\S/ },
+  },
+  {
+    // wasted-votes share over elections — single trend line
+    q: "Как се променят прахосаните гласове през годините?",
+    tool: "wastedVotesTrend",
+    kind: "series",
+    facts: { latest: /%/ },
+  },
+  {
+    // council vote share across the 5 local cycles (2007–2023), parties
+    // consolidated across the older cycles' local: ids
+    q: "Как се променя вотът за общинските съвети през годините?",
+    tool: "localCouncilTrend",
+    kind: "series",
+    facts: { cycles: { num: 5 }, leader: /\S/ },
+  },
+  {
+    q: "How have mayoralties per party changed across cycles?",
+    lang: "en",
+    tool: "localMayorsTrend",
+    kind: "series",
+    facts: { cycles: { num: 5 } },
+  },
+  {
+    // state revenue/spending across completed fiscal years
+    q: "Как се променя бюджетът през годините?",
+    tool: "budgetTrend",
+    kind: "series",
+    facts: { years: { num: 5 } },
+  },
+  {
     q: "Колко гласа взе ГЕРБ?",
     tool: "partyResult",
     kind: "scalar",
@@ -464,6 +521,130 @@ const CASES: Case[] = [
     tool: "sectionWinners",
     kind: "scalar",
     geo: false,
+  },
+  // -- sectionResults / sectionHistory (ONE station by its 9-digit id) ----------
+  // The reported bug: "резултатите в секция 050900092" took the id for a place
+  // name and declined. A 9-digit id must route to the single-section tools BEFORE
+  // the place extractor / year detector touch it. Golden against с.Иново (VID09),
+  // which votes in every parliamentary election since 2009.
+  {
+    q: "резултатите в секция 050900092",
+    tool: "sectionResults",
+    kind: "table",
+    minRows: 2,
+    facts: {
+      section: "050900092",
+      settlement: "Иново",
+      region: "Видин",
+      winner: /\(/,
+    },
+    // a single section is a located point -> a settlement-level locator
+    geo: { level: "settlement", mode: "locator", joinKey: "ekatte" },
+  },
+  {
+    q: "How did section 050900092 vote?",
+    lang: "en",
+    tool: "sectionResults",
+    kind: "table",
+    minRows: 2,
+    facts: { section: "050900092", region: "Vidin" },
+  },
+  {
+    // a year scopes the section to that election (single-election year 2023)
+    q: "резултати в секция 050900092 през 2023",
+    tool: "sectionResults",
+    kind: "table",
+    facts: { section: "050900092", election: "2023" },
+  },
+  {
+    // an explicit trend cue -> the cross-election vote-share history (line series)
+    q: "как е гласувала секция 050900092 през годините?",
+    tool: "sectionHistory",
+    kind: "series",
+    facts: {
+      section: "050900092",
+      elections_count: { num: 12 },
+      most_frequent_winner: /\(/,
+    },
+    geo: false,
+  },
+  {
+    q: "trend for section 050900092",
+    lang: "en",
+    tool: "sectionHistory",
+    kind: "series",
+    facts: { section: "050900092" },
+  },
+  {
+    // a 9-digit id with no matching station -> graceful "no data" scalar
+    q: "резултати в секция 059999999",
+    tool: "sectionResults",
+    kind: "scalar",
+    geo: false,
+  },
+  // -- settlementResults / settlementHistory (ONE settlement by name) -----------
+  // The reported bug: "резултатите в с. Иново" took the village for nothing and
+  // fell through to national results. The "с." / "гр." marker (or "village/town
+  // of") flags ONE settlement. Golden against с. Иново (VID09), 291 valid votes in
+  // 2026; it carries a settlement-level locator (no choropleth — a single point).
+  {
+    q: "Резултатите в с. Иново",
+    tool: "settlementResults",
+    kind: "table",
+    minRows: 2,
+    facts: {
+      settlement: "Иново",
+      region: "Видин",
+      total_votes: { num: 291 },
+      leading_party: /\S/,
+    },
+    geo: { level: "settlement", mode: "locator", joinKey: "ekatte" },
+  },
+  {
+    q: "Results in the village of Inovo",
+    lang: "en",
+    tool: "settlementResults",
+    kind: "table",
+    minRows: 2,
+    facts: { settlement: "Inovo", region: "Vidin" },
+    geo: { level: "settlement", mode: "locator", joinKey: "ekatte" },
+  },
+  {
+    // the natural "how did X vote" phrasing (no "результат" word) routes via the
+    // vote cue + the "гр." marker — to гр. Банско (BLG01), not a winners list
+    q: "Как гласува гр. Банско?",
+    tool: "settlementResults",
+    kind: "table",
+    minRows: 2,
+    facts: { settlement: "Банско" },
+  },
+  {
+    // a trend cue -> that settlement's cross-election vote-share history (a line
+    // series). "last 5 years" is a date window covering 7 ballots since 2021-04-19.
+    q: "Резултатите в с. Иново за последните 5 години",
+    tool: "settlementHistory",
+    kind: "series",
+    facts: {
+      settlement: "Иново",
+      window_years: { num: 5 },
+      elections_count: { num: 7 },
+    },
+    geo: { level: "settlement", mode: "locator", joinKey: "ekatte" },
+  },
+  {
+    q: "Results in the village of Inovo over the last 5 years",
+    lang: "en",
+    tool: "settlementHistory",
+    kind: "series",
+    facts: { settlement: "Inovo", window_years: { num: 5 } },
+  },
+  {
+    // a settlement marker + a "по села" AGGREGATION cue must stay settlementWinners
+    // (the by-settlement list), NOT the single-settlement tool
+    q: "резултати по села в община Самоков",
+    tool: "settlementWinners",
+    kind: "table",
+    minRows: 20,
   },
   // -- disambiguation: the winners guard must NOT steal these --
   {
@@ -1099,13 +1280,46 @@ const CASES: Case[] = [
     minRows: 1,
   },
   {
+    // a trend cue ("последните 5 години") turns the Roma-vote question into the
+    // cross-election leader trend, NOT the single-election snapshot. The 5-year
+    // date window (cutoff 2021_04_19) covers 7 parliamentary ballots.
+    q: "Коя партия спечели ромските гласове последните 5 години?",
+    tool: "romaVoteTrend",
+    kind: "series",
+    facts: { window_years: { num: 5 }, elections_count: { num: 7 } },
+  },
+  {
+    q: "How does the Roma vote change over time?",
+    lang: "en",
+    tool: "romaVoteTrend",
+    kind: "series",
+    facts: { most_frequent_winner: /\S/ },
+  },
+  {
+    // the composite headline index (0–100 + 10 components), not the
+    // per-section band table
     q: "Какъв е индексът на изборния риск?",
+    tool: "riskIndex",
+    kind: "table",
+    minRows: 10,
+    facts: { index: /\d/, band: /\S/, integrity_components: /\d\/\d/ },
+  },
+  {
+    q: "Каква е оценката за изборния риск?",
+    tool: "riskIndex",
+    kind: "table",
+    minRows: 10,
+    facts: { index: /\d/ },
+  },
+  // the section-band screening view stays on riskScore
+  { q: "Колко критични секции има?", tool: "riskScore", kind: "table" },
+  {
+    q: "Покажи секциите по ниво на риск",
     tool: "riskScore",
     kind: "table",
     minRows: 4,
     facts: { critical: /\d/ },
   },
-  { q: "Колко критични секции има?", tool: "riskScore", kind: "table" },
   {
     q: "Има ли клъстери на изборния риск?",
     tool: "riskClusters",
@@ -1426,7 +1640,7 @@ const CASES: Case[] = [
     kind: "table",
   },
   // ---- a specific election year for a new tool -------------------------------
-  { q: "индекс на риска 2023", tool: "riskScore", kind: "table" },
+  { q: "индекс на риска 2023", tool: "riskIndex", kind: "table" },
   // ---- BORDER CASES: disambiguation between new and existing tools -----------
   // "Roma in X" (count) -> census, NOT the problem-sections feature
   {

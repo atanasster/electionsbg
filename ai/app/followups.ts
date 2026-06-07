@@ -138,7 +138,65 @@ export const followUps = (env: Envelope): FollowUp[] => {
         en: "Results of the latest election?",
       });
       break;
+    case "sectionResults": {
+      const sec = fact(env, "section");
+      if (sec)
+        out.push({
+          bg: `Как е гласувала секция ${sec} през годините?`,
+          en: `How has section ${sec} voted over the years?`,
+        });
+      out.push({
+        bg: "Покажи резултатите по области.",
+        en: "Show the results by region.",
+      });
+      break;
+    }
+    case "sectionHistory": {
+      const sec = fact(env, "section");
+      if (sec)
+        out.push({
+          bg: `Какви са резултатите в секция ${sec}?`,
+          en: `What are the results in section ${sec}?`,
+        });
+      out.push({
+        bg: "Какви са резултатите от последните избори?",
+        en: "Results of the latest election?",
+      });
+      break;
+    }
+    case "settlementResults": {
+      // facts.settlement keeps the BG "с."/"гр." marker, so the trend cross-jump
+      // routes back to settlementHistory.
+      const place = fact(env, "settlement");
+      if (place)
+        out.push({
+          bg: `Резултатите в ${place} за последните 5 години`,
+          en: `Results in ${place} over the last 5 years`,
+        });
+      out.push({
+        bg: "Покажи резултатите по области.",
+        en: "Show the results by region.",
+      });
+      break;
+    }
+    case "settlementHistory": {
+      const place = fact(env, "settlement");
+      if (place)
+        out.push({
+          bg: `Резултатите в ${place}`,
+          en: `Results in ${place}`,
+        });
+      out.push({
+        bg: "Какви са резултатите от последните избори?",
+        en: "Results of the latest election?",
+      });
+      break;
+    }
     case "parliamentSeats":
+      out.push({
+        bg: "Как се променят местата по партии последните 5 години?",
+        en: "How have seats per party changed over the last 5 years?",
+      });
       out.push({
         bg: "Какви са резултатите от последните избори?",
         en: "Results of the latest election?",
@@ -146,6 +204,16 @@ export const followUps = (env: Envelope): FollowUp[] => {
       out.push({
         bg: "Кои депутати са най-богати?",
         en: "Which MPs are richest?",
+      });
+      break;
+    case "seatsHistory":
+      out.push({
+        bg: "Колко места има всяка партия в парламента сега?",
+        en: "How many seats does each party hold in parliament now?",
+      });
+      out.push({
+        bg: "Какви са резултатите от последните избори?",
+        en: "Results of the latest election?",
       });
       break;
     case "turnout":
@@ -193,6 +261,10 @@ export const followUps = (env: Envelope): FollowUp[] => {
       break;
     case "problemSections":
       out.push({
+        bg: "Коя партия печели ромския вот последните 5 години?",
+        en: "Which party wins the Roma vote over the last 5 years?",
+      });
+      out.push({
         bg: "Какъв е индексът на изборния риск?",
         en: "What is the election risk index?",
       });
@@ -201,7 +273,35 @@ export const followUps = (env: Envelope): FollowUp[] => {
         en: "Which settlements are suspicious?",
       });
       break;
+    case "romaVoteTrend":
+      out.push({
+        bg: "Как гласуват ромските квартали сега?",
+        en: "How do the Roma neighbourhoods vote now?",
+      });
+      out.push({
+        bg: "Има ли устойчиви рискови огнища?",
+        en: "Are there persistent risk loci?",
+      });
+      break;
+    case "riskIndex":
+      out.push({
+        bg: "Колко критични секции има?",
+        en: "How many critical sections?",
+      });
+      out.push({
+        bg: "Какво показва тестът на Бенфорд?",
+        en: "What does the Benford test show?",
+      });
+      out.push({
+        bg: "Кои населени места са съмнителни?",
+        en: "Which settlements are suspicious?",
+      });
+      break;
     case "riskScore":
+      out.push({
+        bg: "Какъв е индексът на изборния риск?",
+        en: "What is the election risk index?",
+      });
       out.push({
         bg: "Има ли клъстери на изборния риск?",
         en: "Are there election-risk clusters?",

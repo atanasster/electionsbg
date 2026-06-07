@@ -287,6 +287,31 @@ export const buildFunctionGemmaUser = (
   return `${decls}\n${query}`;
 };
 
+// JSON-mode system prompt — mirrors how the production cloud router actually
+// selects tools (a tool list + "reply with JSON {name,arguments}"), so a cloud
+// eval measures the real routing path, not the OpenAI tools API. Pair with
+// response_format:{type:"json_object"}. Language-neutral on purpose: the user
+// query (EN or BG) is the only thing that varies.
+export const buildJsonToolPrompt = (tools: FcTool[]): string => {
+  const list = tools
+    .map((t) => {
+      const params = Object.entries(t.parameters.properties)
+        .map(([k, p]) => `${k} (${p.type})`)
+        .join(", ");
+      return `- ${t.name}: ${t.description}${params ? ` [params: ${params}]` : ""}`;
+    })
+    .join("\n");
+  return [
+    "You are a tool router. Choose the single best tool for the user's request from the list below.",
+    'Reply with ONLY a JSON object: {"name": "<tool_name>", "arguments": { ... }}.',
+    'If no tool fits the request, reply with {"name": null}.',
+    "Do not add any text outside the JSON.",
+    "",
+    "Tools:",
+    list,
+  ].join("\n");
+};
+
 // ---- parsing a tool call out of raw model output ---------------------------
 export type ParsedCall = { name: string; args: Record<string, unknown> } | null;
 
@@ -454,10 +479,13 @@ export const candidateTools = (c: FcCase, all: FcTool[], k = 5): FcTool[] => {
 };
 
 // ---- runner (model-agnostic) ----------------------------------------------
-// `complete(userContent)` must return the model's raw text for one turn. The
-// caller owns the model (web-llm engine, cloud client, …) and the tool catalogue
-// is already embedded in `userContent` via buildFunctionGemmaUser.
-export type CompleteFn = (userContent: string) => Promise<string>;
+// `complete(query, tools)` returns the model's raw text for one turn. The caller
+// owns the model AND the prompt strategy: a web-llm/FunctionGemma adapter wraps
+// the query with buildFunctionGemmaUser(tools, query); a cloud adapter sends
+// buildJsonToolPrompt(tools) as the system message + query as the user message.
+// Passing (query, tools) — not a pre-built string — lets each adapter format its
+// own way while the harness reuses the SAME tool set for a case's EN/BG variants.
+export type CompleteFn = (query: string, tools: FcTool[]) => Promise<string>;
 
 export type LangReport = {
   lang: "en" | "bg";
@@ -492,7 +520,7 @@ export const runFcEval = async (
   for (const c of cases) {
     const tools = pick(c, all);
     for (const lang of ["en", "bg"] as const) {
-      const raw = await complete(buildFunctionGemmaUser(tools, c[lang]));
+      const raw = await complete(c[lang], tools);
       scores.push(scoreCase(c, lang, raw));
     }
   }

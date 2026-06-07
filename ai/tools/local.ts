@@ -3,6 +3,7 @@
 import {
   fetchLocalIndex,
   fetchLocalMuni,
+  localCycleNames,
   localCycleYear,
   resolveLocalCycle,
 } from "./localDataset";
@@ -136,6 +137,192 @@ export const localMayorsWon = async (
     provenance: [`${cycle}/index.json`],
   } as Envelope;
 };
+
+// ---- local trends across cycles --------------------------------------------
+// The cross-cycle companions to localCouncilVoteShare / localMayorsWon. Each
+// regular local cycle's index.json already canonicalises parties (canonicalId +
+// displayName + colour), so threading a party across 2007→2023 is a join on
+// canonicalId — no canonical_parties lookup needed. Builds a multi-line trend of
+// the most significant parties (peak value), capped for legibility.
+
+const MAX_LOCAL_TREND_LINES = 7;
+
+type LocalTrendRow = {
+  canonicalId: string;
+  displayName: string;
+  color?: string;
+  value: number;
+};
+
+// The older cycles (2007/2011) didn't fully canonicalise — a party that newer
+// cycles key as `gerb`/`bsp`/`p_16` (ДПС) is left as a `local:<full-name>` id,
+// and 2007 even splits ГЕРБ across BOTH a clean and a local id. Merge the few
+// recurring big parties by a distinctive name substring so each reads as ONE
+// line; genuine local nomination committees keep their own id (and never reach
+// the top-N anyway). The canonical register can't drive this — its history
+// names don't include the standalone "БЪЛГАРСКА СОЦИАЛИСТИЧЕСКА ПАРТИЯ" form.
+const LOCAL_ALIAS: [RegExp, string][] = [
+  [/герб/, "gerb"],
+  [/социалистическ/, "bsp"], // БЪЛГАРСКА СОЦИАЛИСТИЧЕСКА ПАРТИЯ → БСП
+  [/движение за права/, "p_16"], // ДПС
+];
+const canonicalLocalId = (id: string, name: string): string => {
+  if (!id.startsWith("local:")) return id; // already a clean canonical id
+  const n = name.toLowerCase();
+  for (const [re, cid] of LOCAL_ALIAS) if (re.test(n)) return cid;
+  return id;
+};
+
+// Shared builder: `rowsOf` lists a cycle's party rows (canonical id + metric).
+const buildLocalTrend = async (
+  ctx: ToolContext,
+  opts: {
+    tool: string;
+    rowsOf: (
+      idx: Awaited<ReturnType<typeof fetchLocalIndex>>,
+    ) => LocalTrendRow[];
+    title: { bg: string; en: string };
+    subtitle: { bg: string; en: string };
+    seriesLabel: { bg: string; en: string };
+    unit: { bg: string; en: string };
+    pct: boolean; // true: format facts as %; false: raw count
+  },
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  // chronological (oldest → newest) for a left-to-right x-axis
+  const cycles = [...localCycleNames()].reverse();
+  const idxs = await Promise.all(cycles.map((c) => fetchLocalIndex(c)));
+
+  // consolidated key → {displayName,color} + per-cycle value map. Rows that
+  // collapse to the same key in one cycle are SUMMED (e.g. 2007's two ГЕРБ
+  // rows); branding prefers a clean (non-local) row, newest cycle winning.
+  const meta = new Map<
+    string,
+    { name: string; color?: string; clean: boolean }
+  >();
+  const valueByCycle = new Map<string, Map<string, number>>();
+  cycles.forEach((c, i) => {
+    const m = new Map<string, number>();
+    for (const r of opts.rowsOf(idxs[i])) {
+      if (r.value == null) continue;
+      const key = canonicalLocalId(r.canonicalId, r.displayName);
+      m.set(key, (m.get(key) ?? 0) + r.value);
+      const clean = !r.canonicalId.startsWith("local:");
+      const prev = meta.get(key);
+      // prefer a clean row's branding; among clean (or among local) newest wins
+      if (!prev || clean || !prev.clean)
+        meta.set(key, { name: r.displayName, color: r.color, clean });
+    }
+    valueByCycle.set(c, m);
+  });
+
+  const peakOf = (id: string): number =>
+    Math.max(0, ...cycles.map((c) => valueByCycle.get(c)?.get(id) ?? 0));
+  const drawn = [...meta.keys()]
+    .sort((a, b) => peakOf(b) - peakOf(a))
+    .slice(0, MAX_LOCAL_TREND_LINES);
+
+  const categories = cycles.map((c) => localCycleYear(c));
+  const series = drawn.map((id, i) => {
+    const m = meta.get(id)!;
+    return {
+      key: `p${i}`,
+      label: m.name,
+      color: m.color ?? INDEP_COLOR,
+      points: cycles.map((c) => {
+        const v = valueByCycle.get(c)?.get(id);
+        return { x: localCycleYear(c), y: v == null ? null : round2(v) };
+      }),
+    };
+  });
+
+  const fmtVal = (v: number) =>
+    opts.pct ? fmtPct(round2(v), ctx.lang) : fmtInt(v, ctx.lang);
+  const facts: Record<string, string | number> = { cycles: cycles.length };
+  // latest-cycle leader + each drawn party's first→latest trajectory
+  const latest = cycles[cycles.length - 1];
+  const latestVals = drawn
+    .map((id) => ({ id, v: valueByCycle.get(latest)?.get(id) ?? 0 }))
+    .sort((a, b) => b.v - a.v);
+  if (latestVals[0])
+    facts.leader = `${meta.get(latestVals[0].id)!.name} (${fmtVal(latestVals[0].v)})`;
+  drawn.forEach((id) => {
+    const vals = cycles
+      .map((c) => valueByCycle.get(c)?.get(id))
+      .filter((v): v is number => v != null);
+    if (!vals.length) return;
+    const first = vals[0];
+    const last = vals[vals.length - 1];
+    facts[meta.get(id)!.name] =
+      first === last ? fmtVal(last) : `${fmtVal(first)} → ${fmtVal(last)}`;
+  });
+
+  const span = `${localCycleYear(cycles[0])}–${localCycleYear(latest)}`;
+  return {
+    tool: opts.tool,
+    domain: "local",
+    kind: "series",
+    title: bg ? `${opts.title.bg} (${span})` : `${opts.title.en} (${span})`,
+    subtitle: bg ? opts.subtitle.bg : opts.subtitle.en,
+    categories,
+    series,
+    viz: "line",
+    facts,
+    provenance: cycles.map((c) => `${c}/index.json`),
+  };
+};
+
+export const localCouncilTrend = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> =>
+  buildLocalTrend(ctx, {
+    tool: "localCouncilTrend",
+    rowsOf: (idx) =>
+      idx.councilVoteShare.map((r) => ({
+        canonicalId: r.canonicalId,
+        displayName: r.displayName,
+        color: r.color,
+        value: r.pctOfValid,
+      })),
+    title: {
+      bg: "Общински съвети — дял на гласовете по партия",
+      en: "Council vote share by party",
+    },
+    subtitle: {
+      bg: "Дял от действителните гласове за общинските съвети, по цикли",
+      en: "Share of valid council votes, across local-election cycles",
+    },
+    seriesLabel: { bg: "Дял %", en: "Share %" },
+    unit: { bg: "%", en: "%" },
+    pct: true,
+  });
+
+export const localMayorsTrend = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> =>
+  buildLocalTrend(ctx, {
+    tool: "localMayorsTrend",
+    rowsOf: (idx) =>
+      idx.mayorsByCanonical.map((r) => ({
+        canonicalId: r.canonicalId,
+        displayName: r.displayName,
+        color: r.color,
+        value: r.count,
+      })),
+    title: {
+      bg: "Спечелени кметски места по партия",
+      en: "Mayors won by party",
+    },
+    subtitle: {
+      bg: "Брой кметски места по партия, по цикли",
+      en: "Mayoralties won by party, across local-election cycles",
+    },
+    seriesLabel: { bg: "Кметове", en: "Mayors" },
+    unit: { bg: "кмета", en: "mayors" },
+    pct: false,
+  });
 
 // Oblast-level mayors-by-party rollup: aggregate each município's elected mayor
 // across a whole province, canonicalised to the index's party display names so

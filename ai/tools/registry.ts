@@ -7,12 +7,15 @@ import {
   budgetByFunction,
   budgetFunction,
   budgetOverview,
+  budgetTrend,
   fundsOverview,
   procurementTotals,
 } from "./fiscal";
 import { governments } from "./govpeople";
 import {
+  localCouncilTrend,
   localCouncilVoteShare,
+  localMayorsTrend,
   localMayorsWon,
   localMunicipality,
   localOblastMayors,
@@ -78,6 +81,7 @@ import {
   parliamentSeats,
   partyResult,
   regionWinners,
+  seatsHistory,
 } from "./national";
 import { partyTimeline } from "./parties";
 import { agencyProfile, latestPolls } from "./pollsDepth";
@@ -86,11 +90,15 @@ import {
   benfordAnomalies,
   clusterPersistence,
   diasporaVote,
+  diasporaVoteTrend,
   problemSections,
   riskClusters,
+  riskIndex,
   riskScore,
+  romaVoteTrend,
   suspiciousSettlements,
   wastedVotes,
+  wastedVotesTrend,
 } from "./integrity";
 import { demographicCleavages, partyDemographics } from "./demographics";
 import { voterPersistence } from "./flows";
@@ -104,6 +112,8 @@ import {
   voteSearch,
 } from "./parliament";
 import { schoolScores } from "./schools";
+import { sectionHistory, sectionResults } from "./sections";
+import { settlementHistory, settlementResults } from "./settlement";
 import {
   municipalityWinners,
   sectionWinners,
@@ -195,6 +205,40 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: parliamentSeats,
+  },
+  {
+    name: "seatsHistory",
+    domain: "elections",
+    description: {
+      bg: "Тренд на местата (мандатите) на всяка партия през последните избори (многолинейна графика, с проследяване на преименувания).",
+      en: "Trend of each party's seats (MPs) across recent elections (multi-line chart, tracks renames).",
+    },
+    params: [
+      {
+        name: "years",
+        type: "count",
+        description: {
+          bg: "Брой години назад (времеви прозорец, не брой избори)",
+          en: "Number of years back (date window, not an election count)",
+        },
+      },
+      {
+        name: "n",
+        type: "count",
+        description: { bg: "Брой избори", en: "Number of elections" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко места има всяка партия в парламента последните 5 години?",
+        en: "How many seats has each party held in parliament over the last 5 years?",
+      },
+      {
+        bg: "Как се променят мандатите по партии през годините?",
+        en: "How have seats per party changed over time?",
+      },
+    ],
+    run: seatsHistory,
   },
   {
     name: "partyResult",
@@ -615,6 +659,143 @@ export const TOOLS: ToolDef[] = [
     run: sectionWinners,
   },
   {
+    name: "sectionResults",
+    domain: "elections",
+    description: {
+      bg: "Резултати в една избирателна секция (по номер): гласове и % по партия + активност.",
+      en: "Results in one polling section (by its number): votes and % per party + turnout.",
+    },
+    params: [
+      {
+        name: "section",
+        type: "metric",
+        required: true,
+        description: {
+          bg: "Номер на секция (9 цифри), напр. 050900092",
+          en: "Section number (9 digits), e.g. 050900092",
+        },
+      },
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Резултатите в секция 050900092",
+        en: "Results in section 050900092",
+      },
+      {
+        bg: "Как гласува секция 234600045?",
+        en: "How did section 234600045 vote?",
+      },
+    ],
+    run: sectionResults,
+  },
+  {
+    name: "sectionHistory",
+    domain: "elections",
+    description: {
+      bg: "Как гласува една секция (по номер) през годините — дял по партия през изборите (многолиниен тренд).",
+      en: "How one polling section (by its number) voted over time — vote share per party across elections (multi-line trend).",
+    },
+    params: [
+      {
+        name: "section",
+        type: "metric",
+        required: true,
+        description: {
+          bg: "Номер на секция (9 цифри), напр. 050900092",
+          en: "Section number (9 digits), e.g. 050900092",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Как е гласувала секция 050900092 през годините?",
+        en: "How has section 050900092 voted over the years?",
+      },
+      {
+        bg: "Тренд на секция 234600045",
+        en: "Trend for section 234600045",
+      },
+    ],
+    run: sectionHistory,
+  },
+  {
+    name: "settlementResults",
+    domain: "elections",
+    description: {
+      bg: "Резултати в едно населено място (село/град): гласове и % по партия + активност.",
+      en: "Results in one settlement (village/town): votes and % per party + turnout.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Населено място", en: "Settlement" },
+      },
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Резултатите в с. Иново",
+        en: "Results in the village of Inovo",
+      },
+      {
+        bg: "Как гласува гр. Банско?",
+        en: "How did the town of Bansko vote?",
+      },
+    ],
+    run: settlementResults,
+  },
+  {
+    name: "settlementHistory",
+    domain: "elections",
+    description: {
+      bg: "Как гласува едно населено място през годините — дял по партия през изборите (многолиниен тренд).",
+      en: "How one settlement voted over time — vote share per party across elections (multi-line trend).",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Населено място", en: "Settlement" },
+      },
+      {
+        name: "years",
+        type: "count",
+        description: {
+          bg: "Брой години назад (времеви прозорец, не брой избори)",
+          en: "Number of years back (date window, not an election count)",
+        },
+      },
+      {
+        name: "n",
+        type: "count",
+        description: { bg: "Брой избори", en: "Number of elections" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Резултатите в с. Иново за последните 5 години",
+        en: "Results in the village of Inovo over the last 5 years",
+      },
+      {
+        bg: "Как гласува с. Иново през годините?",
+        en: "How has the village of Inovo voted over the years?",
+      },
+    ],
+    run: settlementHistory,
+  },
+  {
     name: "settlementBreakdown",
     domain: "elections",
     description: {
@@ -852,6 +1033,38 @@ export const TOOLS: ToolDef[] = [
     run: localMayorsWon,
   },
   {
+    name: "localCouncilTrend",
+    domain: "local",
+    description: {
+      bg: "Тренд на гласовете за общинските съвети по партия през местните цикли 2007–2023.",
+      en: "Council vote-share trend by party across the local-election cycles 2007–2023.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Как се променя вотът за общинските съвети през годините?",
+        en: "How has the council vote changed across cycles?",
+      },
+    ],
+    run: localCouncilTrend,
+  },
+  {
+    name: "localMayorsTrend",
+    domain: "local",
+    description: {
+      bg: "Тренд на спечелените кметски места по партия през местните цикли 2007–2023.",
+      en: "Mayors-won trend by party across the local-election cycles 2007–2023.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Как се променят кметовете по партии през годините?",
+        en: "How have mayoralties per party changed across cycles?",
+      },
+    ],
+    run: localMayorsTrend,
+  },
+  {
     name: "localOblastMayors",
     domain: "local",
     description: {
@@ -1055,6 +1268,26 @@ export const TOOLS: ToolDef[] = [
       { bg: "Какъв е държавният бюджет?", en: "What's the state budget?" },
     ],
     run: budgetOverview,
+  },
+  {
+    name: "budgetTrend",
+    domain: "fiscal",
+    description: {
+      bg: "Тренд на държавния бюджет — приходи и разходи по години (завършени фискални години).",
+      en: "State-budget trend — revenue and spending by year (completed fiscal years).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Как се променя бюджетът през годините?",
+        en: "How has the budget changed over the years?",
+      },
+      {
+        bg: "Бюджет — приходи и разходи по години",
+        en: "State budget revenue and spending over time",
+      },
+    ],
+    run: budgetTrend,
   },
   {
     name: "budgetByFunction",
@@ -1750,11 +1983,48 @@ export const TOOLS: ToolDef[] = [
     run: problemSections,
   },
   {
-    name: "riskScore",
+    name: "romaVoteTrend",
     domain: "elections",
     description: {
-      bg: "Индекс на изборния риск — секциите по нива (нисък/повишен/висок/критичен).",
-      en: "Election risk index — sections by band (low/elevated/high/critical).",
+      bg: "Кой печели ромския вот през годините — водеща партия в наблюдаваните квартали по избори.",
+      en: "Who wins the Roma vote over time — leading party in the watched neighbourhoods, by election.",
+    },
+    params: [
+      {
+        name: "years",
+        type: "count",
+        description: {
+          bg: "Прозорец в години (напр. 5)",
+          en: "Window in years (e.g. 5)",
+        },
+      },
+      {
+        name: "n",
+        type: "count",
+        description: {
+          bg: "Брой последни избори",
+          en: "Number of recent elections",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Коя партия спечели ромските гласове последните 5 години?",
+        en: "Which party won the Roma vote over the last 5 years?",
+      },
+      {
+        bg: "Как се променя ромският вот през годините?",
+        en: "How does the Roma vote change over time?",
+      },
+    ],
+    run: romaVoteTrend,
+  },
+  {
+    name: "riskIndex",
+    domain: "elections",
+    description: {
+      bg: "Индекс на изборния риск — главната оценка 0–100 и 10-те компонента (процесна цялост + контекст).",
+      en: "Election risk index — the 0–100 headline score and its 10 components (process integrity + context).",
     },
     params: [
       {
@@ -1766,9 +2036,35 @@ export const TOOLS: ToolDef[] = [
     examples: [
       {
         bg: "Какъв е индексът на изборния риск?",
-        en: "What's the election risk index?",
+        en: "What is the election risk index?",
       },
+      {
+        bg: "Каква е оценката за изборния риск?",
+        en: "What's the election risk score?",
+      },
+    ],
+    run: riskIndex,
+  },
+  {
+    name: "riskScore",
+    domain: "elections",
+    description: {
+      bg: "Секционен скрининг на риска — секциите по нива (нисък/повишен/висок/критичен).",
+      en: "Section risk screening — sections by band (low/elevated/high/critical).",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
       { bg: "Колко критични секции има?", en: "How many critical sections?" },
+      {
+        bg: "Покажи секциите по ниво на риск",
+        en: "Show the sections by risk band",
+      },
     ],
     run: riskScore,
   },
@@ -1855,6 +2151,40 @@ export const TOOLS: ToolDef[] = [
     run: wastedVotes,
   },
   {
+    name: "wastedVotesTrend",
+    domain: "elections",
+    description: {
+      bg: "Тренд на прахосаните гласове — национален дял на гласовете под прага през изборите.",
+      en: "Wasted-votes trend — national share of below-threshold votes across elections.",
+    },
+    params: [
+      {
+        name: "years",
+        type: "count",
+        description: {
+          bg: "Брой години назад (времеви прозорец)",
+          en: "Number of years back (date window)",
+        },
+      },
+      {
+        name: "n",
+        type: "count",
+        description: { bg: "Брой избори", en: "Number of elections" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Как се променят прахосаните гласове през годините?",
+        en: "How have wasted votes changed over time?",
+      },
+      {
+        bg: "Тренд на гласовете под прага",
+        en: "Trend of votes below the threshold",
+      },
+    ],
+    run: wastedVotesTrend,
+  },
+  {
     name: "suspiciousSettlements",
     domain: "elections",
     description: {
@@ -1895,6 +2225,40 @@ export const TOOLS: ToolDef[] = [
       { bg: "Резултати в чужбина", en: "Out-of-country results" },
     ],
     run: diasporaVote,
+  },
+  {
+    name: "diasporaVoteTrend",
+    domain: "elections",
+    description: {
+      bg: "Тренд на гласа в чужбина (МИР 32) — водещи партии през изборите (многолинейна графика).",
+      en: "Diaspora vote (MIR 32) trend — leading parties across elections (multi-line chart).",
+    },
+    params: [
+      {
+        name: "years",
+        type: "count",
+        description: {
+          bg: "Брой години назад (времеви прозорец)",
+          en: "Number of years back (date window)",
+        },
+      },
+      {
+        name: "n",
+        type: "count",
+        description: { bg: "Брой избори", en: "Number of elections" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кой печели гласа в чужбина последните години?",
+        en: "Who wins the diaspora vote over recent years?",
+      },
+      {
+        bg: "Как се променя гласът в чужбина през годините?",
+        en: "How has the out-of-country vote changed over time?",
+      },
+    ],
+    run: diasporaVoteTrend,
   },
   {
     name: "voterPersistence",

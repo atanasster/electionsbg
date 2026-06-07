@@ -15,6 +15,8 @@ import {
 } from "recharts";
 import {
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
@@ -189,6 +191,14 @@ const SeriesChart = ({ env, lang }: { env: Envelope; lang: Lang }) => {
           tickFormatter={tickFmt(lang)}
         />
         <ChartTooltip content={<ChartTooltipContent />} />
+        {/* Multi-line charts (e.g. seats per party over time) need a legend to
+            tell the lines apart; a single trend line doesn't. */}
+        {series.length > 1 && (
+          <ChartLegend
+            content={<ChartLegendContent />}
+            verticalAlign="bottom"
+          />
+        )}
         {series.map((s) => (
           <Line
             key={s.key}

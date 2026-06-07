@@ -200,6 +200,58 @@ const TREND = [
   "elections",
 ];
 
+// An EXPLICIT "evolution over time" cue — tighter than TREND, which is too loose
+// for the local/budget branches (TREND counts bare "избори"/"последните", but
+// "местни избори"/"последните местни избори" are NOT trend asks). Used to split
+// the cross-cycle / multi-year trend tools from their single-period snapshots.
+const OVER_TIME = [
+  "през годините",
+  "над годините",
+  "over time",
+  "over the years",
+  "по години",
+  "year over year",
+  "year-over-year",
+  "по цикли",
+  "across cycles",
+  "от цикъл",
+  "cycle to cycle",
+  "по мандати",
+  "тренд",
+  "trend",
+  "еволюц",
+  "evolution",
+  "как се промен",
+  "как се промени",
+  "променя се",
+  "променят",
+  "changed over",
+];
+const overTimeCue = (q: string): boolean =>
+  has(q, ...OVER_TIME) || detectYearsWindow(q) !== undefined;
+
+// A reference to ONE named settlement — the Bulgarian "с." (село) / "гр." (град)
+// abbreviation before a name, or the spelled-out "село"/"град" / EN "village"/
+// "town" + a name. This is the single-place intent ("резултатите в с. Иново"),
+// distinct from the "по села / by settlement" AGGREGATION across a município
+// (settlementWinners). \b is unreliable around Cyrillic, so each leading boundary
+// is an explicit start / space / opening-bracket.
+const SETTLEMENT_MARKERS: RegExp[] = [
+  /(?:^|[\s("„])(?:с|гр)\.\s*[а-яёa-z]/, // "с. Иново" / "гр. Банско"
+  /(?:^|[\s("„])(?:село|град)\s+[а-яё]/, // "село Иново" / "град Варна"
+  /(?:^|[\s("„])(?:village|town)\s+(?:of\s+)?[a-z]/, // "village (of) Inovo"
+];
+const hasSettlementMarker = (q: string): boolean =>
+  SETTLEMENT_MARKERS.some((re) => re.test(q));
+
+// A "по / by / each" cue marks an AGGREGATION across many settlements (the
+// settlementWinners list), so such a query must NOT be read as a single one.
+const isAggregation = (q: string): boolean =>
+  /(?:^|\s)по\s/.test(q) ||
+  /\bby\s/.test(q) ||
+  /\beach\b/.test(q) ||
+  /всяк/.test(q);
+
 // Words to strip when extracting a place name from a question. Includes party
 // tokens so a party reference is never mistaken for a município.
 const PLACE_STOP = new Set([
@@ -284,15 +336,74 @@ const PLACE_STOP = new Set([
   "дб",
   "пп",
   "величие",
+  // trend / evolution filler — never a place, so a national "over the years"
+  // question (no município named) extracts to nothing instead of junk
+  "как",
+  "се",
+  "променя",
+  "променят",
+  "промени",
+  "за",
+  "вот",
+  "вота",
+  "вотът",
+  "кметовете",
+  "партията",
+  "години",
+  "годините",
+  "годината",
+  "цикъл",
+  "цикли",
+  "цикъла",
+  "мандат",
+  "мандати",
+  "тренд",
+  "trend",
+  "how",
+  "have",
+  "has",
+  "changed",
+  "change",
+  "across",
+  "cycles",
+  "cycle",
+  "over",
+  "time",
+  "years",
+  "year",
+  "per",
+  "party",
+  "parties",
+  "share",
+  "vote",
+  "votes",
+  "mayoralties",
+  // single-settlement markers ("с." / "гр." abbreviations + spelled forms) and
+  // result/trend filler — stripped so "резултатите в с. Иново за последните 5
+  // години" extracts to the bare settlement name ("Иново").
+  "с",
+  "гр",
+  "град",
+  "town",
+  "резултат",
+  "резултати",
+  "резултатите",
+  "резултата",
+  "последен",
+  "последно",
+  "последни",
+  "последните",
+  "last",
 ]);
 
 const extractPlace = (q: string): string | undefined => {
   const words = q
     .replace(/[?.,!„“”"'`]/g, " ")
     .split(/\s+/)
-    // a 4-digit year is a date selector, never a place — drop it so "съветите
-    // през 2019" doesn't treat "2019" as a município name
-    .filter((w) => w && !PLACE_STOP.has(w) && !/^20\d{2}$/.test(w));
+    // a bare number is a date/count selector, never a place — drop it so
+    // "съветите през 2019" or "...за последните 5 години" don't leak a digit
+    // token into the município name
+    .filter((w) => w && !PLACE_STOP.has(w) && !/^\d+$/.test(w));
   const cand = words.join(" ").trim();
   return cand.length > 1 ? cand : undefined;
 };
@@ -300,6 +411,43 @@ const extractPlace = (q: string): string | undefined => {
 export const route = (question: string, ctx: ToolContext): Route => {
   const q = question.toLowerCase().trim();
   if (!q) return null;
+
+  // A bare polling-section id (exactly 9 digits) names ONE station, not a place —
+  // route it to the section tools straight away, before the year/count detectors
+  // (a section id can embed a "20xx" run) or the place extractor (which can't read
+  // a number) get a chance to mis-handle it. The id self-locates: its first two
+  // digits are the МИР bundle, so the tool needs nothing but the number. An
+  // explicit cross-election cue ("през годините"/"trend") asks for the history;
+  // otherwise it's that section's results (year resolved from the rest of the q).
+  const sectionId = q.match(/\b\d{9}\b/)?.[0];
+  if (sectionId) {
+    const rest = q.replace(sectionId, " ");
+    if (
+      has(
+        rest,
+        "история",
+        "history",
+        "тренд",
+        "trend",
+        "през годините",
+        "over time",
+        "през изборите",
+        "across elections",
+        "всички избори",
+        "all elections",
+        "по избори",
+        "по години",
+      )
+    )
+      return { tool: "sectionHistory", args: { section: sectionId } };
+    const secEl = detectElection(rest);
+    return {
+      tool: "sectionResults",
+      args: secEl
+        ? { section: sectionId, election: secEl }
+        : { section: sectionId },
+    };
+  }
 
   const party = detectParty(q);
   const election = detectElection(q);
@@ -362,7 +510,39 @@ export const route = (question: string, ctx: ToolContext): Route => {
   const el = election ? { election } : {};
   const personName = extractPersonName(question);
 
-  // --- parliament seat composition (the hemicycle) ---
+  // --- seats per party over time (multi-election trend) ---
+  // "колко места има всяка партия последните 5 години", "how have seats per
+  // party changed over time". A seats/мандат word + a trend cue, with no single
+  // party or election pinned. Matches even without a "parliament" word, via the
+  // party-grouping signal ("по партии" / "per party" / "всяка партия"), so the
+  // EN "seats per party over time" routes here. Runs BEFORE the single-election
+  // hemicycle snapshot below.
+  if (
+    !party &&
+    !election &&
+    isTrend &&
+    has(q, "места", "мандат", "seats", "seat") &&
+    (has(
+      q,
+      "парламент",
+      "народно събрание",
+      "parliament",
+      "assembly",
+      "депутат",
+    ) ||
+      partyRanking ||
+      has(
+        q,
+        "всяка партия",
+        "всички партии",
+        "each party",
+        "every party",
+        "all parties",
+      ))
+  )
+    return { tool: "seatsHistory", args: seriesArgs(q, count) };
+
+  // --- parliament seat composition (the hemicycle) — single-election snapshot ---
   // "колко места има всяка партия", "seats per party in parliament". Gated on a
   // seats word + a parliament word, with NO specific party named (a party-named
   // "колко мандата има ГЕРБ" falls through to partyResult below). Runs before the
@@ -524,8 +704,14 @@ export const route = (question: string, ctx: ToolContext): Route => {
         "neighbourhood",
         "neighborhood",
       ))
-  )
+  ) {
+    // A trend framing ("последните 5 години", "през годините", "тренд") with no
+    // single election pinned -> the cross-election leader trend; otherwise the
+    // current-election snapshot.
+    if (isTrend && !election)
+      return { tool: "romaVoteTrend", args: seriesArgs(q, count) };
     return { tool: "problemSections", args: el };
+  }
   if (
     has(q, "устойчив", "persistent", "повтарящи", "recurring") &&
     has(q, "риск", "risk", "клъстер", "cluster", "огнищ", "locus", "loci")
@@ -539,6 +725,18 @@ export const route = (question: string, ctx: ToolContext): Route => {
     (has(q, "клъстер", "cluster", "струпван") || partyRanking)
   )
     return { tool: "riskClusters", args: el };
+  // section-level risk SCREENING ("колко критични секции", "секции по ниво на
+  // риск") — the per-section band table. Checked before the composite headline
+  // so a section/critical-framed question keeps the section view rather than
+  // the aggregate index.
+  if (
+    (has(q, "риск", "risk", "рисков") &&
+      has(q, "секци", "section", "критичн", "critical", "ниво", "band")) ||
+    (has(q, "критичн", "critical") && has(q, "секци", "section"))
+  )
+    return { tool: "riskScore", args: el };
+  // composite headline index — the 0–100 "47 / Висок" score + its 10 components
+  // (process-integrity track + context track), as shown on /risk-analysis.
   if (
     has(
       q,
@@ -548,21 +746,10 @@ export const route = (question: string, ctx: ToolContext): Route => {
       "risk index",
       "risk score",
     ) ||
-    (has(q, "риск", "risk") &&
-      has(
-        q,
-        "индекс",
-        "index",
-        "секци",
-        "section",
-        "критичн",
-        "critical",
-        "ниво",
-        "band",
-      )) ||
-    (has(q, "критичн", "critical") && has(q, "секци", "section"))
+    (has(q, "риск", "risk", "рисков") &&
+      has(q, "индекс", "index", "оценка", "score"))
   )
-    return { tool: "riskScore", args: el };
+    return { tool: "riskIndex", args: el };
   // "прахоса" (not just "прахосан") so "коя партия прахоса най-много гласове"
   // matches; a party-framed wasted question gets the per-party ranking, a
   // bare/region one keeps the by-oblast view.
@@ -576,6 +763,10 @@ export const route = (question: string, ctx: ToolContext): Route => {
     "sub-threshold",
     "под 4",
   );
+  // a trend framing ("през годините", a years-window) with no single election
+  // and no party ranking -> the national wasted-share-over-elections line
+  if (wastedCtx && isTrend && !election && !partyRanking)
+    return { tool: "wastedVotesTrend", args: seriesArgs(q, count) };
   if (wastedCtx && partyRanking)
     return { tool: "wastedVotesByParty", args: el };
   if (wastedCtx) return { tool: "wastedVotes", args: el };
@@ -602,8 +793,13 @@ export const route = (question: string, ctx: ToolContext): Route => {
       "out of country",
       "извън страната",
     )
-  )
+  ) {
+    // trend framing with no single election pinned -> the cross-election
+    // diaspora-leader line; otherwise the current-election party breakdown.
+    if (isTrend && !election)
+      return { tool: "diasporaVoteTrend", args: seriesArgs(q, count) };
     return { tool: "diasporaVote", args: el };
+  }
   if (
     has(
       q,
@@ -617,6 +813,58 @@ export const route = (question: string, ctx: ToolContext): Route => {
     (has(q, "останаха", "stayed") && has(q, "парти", "party"))
   )
     return { tool: "voterPersistence", args: el };
+
+  // 1a2. a single named settlement ("резултатите в с. Иново", "как гласува гр.
+  // Банско") -> that settlement's own party results, or its vote-share history
+  // with a trend cue. The "с." / "гр." abbreviation (or "село/град/village/town"
+  // + a name) marks ONE place — distinct from the "по села / by settlement"
+  // AGGREGATION below (settlementWinners), which carries a "по/by/each" cue.
+  // Placed before the by-area winners block so the single place wins; runs after
+  // the integrity/transition blocks so a vote cue can't steal those. Gated on a
+  // results/vote intent + no party + no local signal.
+  if (
+    !party &&
+    hasSettlementMarker(q) &&
+    !isAggregation(q) &&
+    !has(
+      q,
+      "местни",
+      "местн",
+      "общинск",
+      "кмет",
+      "mayor",
+      "съвет",
+      "council",
+    ) &&
+    has(
+      q,
+      "резултат",
+      "result",
+      "спечели",
+      "won",
+      "гласува",
+      "гласове",
+      "гласували",
+      "vote",
+      "voted",
+      "voting",
+      "кой води",
+      "who leads",
+    )
+  ) {
+    const place = extractPlace(q);
+    if (place) {
+      if (isTrend && !election)
+        return {
+          tool: "settlementHistory",
+          args: { place, ...seriesArgs(q, count) },
+        };
+      return {
+        tool: "settlementResults",
+        args: election ? { place, election } : { place },
+      };
+    }
+  }
 
   // 1a3. parliamentary results, drilled DOWN by area, with NO party named: a
   // per-area winners list (each area + the leading party). The party-scoped
@@ -716,6 +964,7 @@ export const route = (question: string, ctx: ToolContext): Route => {
     "mayor",
     "municipal",
     "local election",
+    "council",
   );
   // extraordinary (partial/new) local elections feed
   if (has(q, "частичн", "извънредн", "partial elec", "chmi")) {
@@ -738,6 +987,18 @@ export const route = (question: string, ctx: ToolContext): Route => {
     // unscoped; every per-cycle snapshot tool gets the cycle.
     const cyc = q.match(/\b(20\d{2})\b/)?.[0];
     const withCyc = (a: ToolArgs): ToolArgs => (cyc ? { ...a, cycle: cyc } : a);
+    // Cross-cycle NATIONAL trends ("вотът за съветите през годините", "mayors
+    // per party across cycles") — gated on an explicit over-time cue, no pinned
+    // cycle, and no município named (filler words are stripped by PLACE_STOP, so
+    // a place-specific "кметовете на София през годините" keeps a real `place`
+    // and falls through to localMayorHistory below). Council checked before
+    // mayors so "съветите ... кметове"-style mixed wording prefers council.
+    if (!cyc && !place && overTimeCue(q)) {
+      if (has(q, "съвет", "council"))
+        return { tool: "localCouncilTrend", args: {} };
+      if (has(q, "кмет", "mayor"))
+        return { tool: "localMayorsTrend", args: {} };
+    }
     // oblast/province-wide mayors-by-party rollup. Gated on the "област"/province
     // qualifier + a named oblast, so a bare município name ("Пловдив") still
     // falls through to the município tools below.
@@ -829,6 +1090,10 @@ export const route = (question: string, ctx: ToolContext): Route => {
         tool: "budgetByFunction",
         args: promptYear ? { year: promptYear } : {},
       };
+    // year-over-year revenue/spending trend (no single fiscal year pinned). Note
+    // budgetExecution above already owns the within-year "през годината"/monthly
+    // ask, so this is the cross-year line.
+    if (!promptYear && overTimeCue(q)) return { tool: "budgetTrend", args: {} };
     return {
       tool: "budgetOverview",
       args: promptYear ? { year: promptYear } : {},

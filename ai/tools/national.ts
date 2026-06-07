@@ -1,9 +1,18 @@
 // Per-election national-result tools (fetch national_summary.json).
 
 import { resolveElection } from "./args";
-import { fetchNationalSummary, fetchRegionVotes } from "./dataClient";
-import { round2 } from "./dataset";
-import { electionFullLabel, fmtInt, fmtPct } from "./format";
+import {
+  fetchCanonicalParties,
+  fetchNationalSummary,
+  fetchRegionVotes,
+} from "./dataClient";
+import { electionsChrono, round2 } from "./dataset";
+import {
+  electionFullLabel,
+  electionShortLabel,
+  fmtInt,
+  fmtPct,
+} from "./format";
 import { oblastChoropleth } from "./geo";
 import { matchParty } from "./matchParty";
 import { oblastName } from "./place";
@@ -324,6 +333,205 @@ export const parliamentSeats = async (
     viz: "hemicycle",
     facts,
     provenance: [`${election}/national_summary.json`],
+  };
+};
+
+// --- seats per party across elections (the trend behind the hemicycle) -------
+// "Колко места има всяка партия последните N години" / "how many MPs each party
+// has held over time". Threads each seated party across elections by its
+// canonical lineage (so ГЕРБ→ГЕРБ-СДС, БСП→БСП-ОЛ stay one line) and draws a
+// multi-line trend of seat counts. Distinct from `parliamentSeats`, which is a
+// single-election hemicycle snapshot.
+
+type CanonHistory = { election: string; partyNum: number; nickName: string };
+type CanonParty = {
+  id: string;
+  displayName: string;
+  displayNameEn?: string;
+  color?: string;
+  history: CanonHistory[];
+};
+type Canonical = { parties: CanonParty[]; byNickName?: Record<string, string> };
+
+// How many party lines to draw — top by peak seats across the window. Eight is
+// the readable ceiling for a multi-line chart; the rest are minor/transient.
+const MAX_SEAT_LINES = 8;
+
+const parseNum = (raw: unknown): number | undefined => {
+  const n = typeof raw === "number" ? raw : parseInt(String(raw ?? ""), 10);
+  return Number.isFinite(n) && n > 0 ? n : undefined;
+};
+
+// Elections in scope (chronological, oldest→newest). A `years` arg is a DATE
+// window (Bulgaria holds several elections a year, so "last 5 years" ≠ "last 5
+// elections"); a bare `n` takes the last N; neither = the full history.
+const pickSeatWindow = (
+  years?: number,
+  n?: number,
+): ReturnType<typeof electionsChrono> => {
+  const chrono = electionsChrono();
+  if (years != null) {
+    const latest = chrono[chrono.length - 1]?.name ?? "";
+    const y = Number(latest.slice(0, 4));
+    if (!y) return chrono;
+    // Names are zero-padded "YYYY_MM_DD" → a lexical compare is a date compare.
+    const cutoff = `${y - years}${latest.slice(4)}`;
+    return chrono.filter((e) => e.name >= cutoff);
+  }
+  if (n != null) return chrono.slice(Math.max(0, chrono.length - n));
+  return chrono;
+};
+
+type SeatLine = {
+  name: string;
+  nameEn?: string;
+  color?: string;
+  seatsByEl: Map<string, number>;
+  peak: number;
+};
+
+export const seatsHistory = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const years = parseNum(args.years);
+  const n = parseNum(args.n);
+  const picked = pickSeatWindow(years, n);
+
+  const [summaries, canon] = await Promise.all([
+    Promise.all(
+      picked.map((e) => fetchNationalSummary<NationalSummary>(e.name)),
+    ),
+    fetchCanonicalParties<Canonical>(),
+  ]);
+
+  const byId = new Map(canon.parties.map((c) => [c.id, c]));
+  const idByNick = canon.byNickName ?? {};
+
+  // Group each election's seated parties into a lineage line. The canonical id
+  // (via byNickName) merges renames/SDS-style mergers; a party not in the
+  // canonical register falls back to a standalone line keyed by its nickName, so
+  // every seated party is represented (per-election totals stay exact).
+  const lineMap = new Map<string, SeatLine>();
+  picked.forEach((e, i) => {
+    summaries[i].parties.forEach((p) => {
+      if ((p.seats ?? 0) <= 0) return;
+      const id = idByNick[p.nickName];
+      const cp = id ? byId.get(id) : undefined;
+      const key = id ?? `nick:${p.nickName}`;
+      let line = lineMap.get(key);
+      if (!line) {
+        line = {
+          name: cp?.displayName ?? p.nickName,
+          nameEn: cp?.displayNameEn,
+          color: cp?.color ?? p.color,
+          seatsByEl: new Map(),
+          peak: 0,
+        };
+        lineMap.set(key, line);
+      }
+      line.seatsByEl.set(
+        e.name,
+        (line.seatsByEl.get(e.name) ?? 0) + (p.seats ?? 0),
+      );
+      // The canonical record carries the party's latest branding (name/colour).
+      if (cp) {
+        line.name = cp.displayName;
+        line.nameEn = cp.displayNameEn;
+        line.color = cp.color;
+      }
+    });
+  });
+
+  const lines = [...lineMap.values()];
+  lines.forEach((l) => {
+    l.peak = Math.max(0, ...l.seatsByEl.values());
+  });
+  // Draw the most significant parties (peak seats), capped for readability.
+  lines.sort((a, b) => b.peak - a.peak);
+  const shown = lines.slice(0, MAX_SEAT_LINES);
+
+  const categories = picked.map((e) => electionShortLabel(e.name, ctx.lang));
+  const series = shown.map((l, i) => ({
+    key: `s${i}`,
+    label: ctx.lang === "bg" ? l.name : (l.nameEn ?? l.name),
+    color: l.color,
+    points: picked.map((e) => ({
+      x: electionShortLabel(e.name, ctx.lang),
+      y: l.seatsByEl.has(e.name) ? l.seatsByEl.get(e.name)! : null,
+    })),
+  }));
+
+  // Range label: "since YYYY" for the whole history, else the requested window.
+  const coversAll = picked.length >= electionsChrono().length;
+  const startYear = picked[0]?.name.slice(0, 4) ?? "";
+  const range = coversAll
+    ? ctx.lang === "bg"
+      ? `от ${startYear} насам`
+      : `since ${startYear}`
+    : years != null
+      ? ctx.lang === "bg"
+        ? `последните ${years} години`
+        : `last ${years} years`
+      : ctx.lang === "bg"
+        ? `последните ${picked.length} избора`
+        : `last ${picked.length} elections`;
+
+  // Latest-election leader, for the facts/narration headline.
+  const latestEl = picked[picked.length - 1];
+  const latestSeats = (name: SeatLine) =>
+    name.seatsByEl.get(latestEl?.name ?? "");
+  const leaderLine = latestEl
+    ? [...lines]
+        .filter((l) => latestSeats(l) != null)
+        .sort((a, b) => (latestSeats(b) ?? 0) - (latestSeats(a) ?? 0))[0]
+    : undefined;
+
+  const facts: Record<string, string | number> = {
+    range,
+    elections_count: picked.length,
+    parties_shown: shown.length,
+    latest_election: latestEl
+      ? electionFullLabel(latestEl.name, ctx.lang)
+      : "—",
+  };
+  if (years != null) facts.window_years = years;
+  if (leaderLine)
+    facts.leader = `${ctx.lang === "bg" ? leaderLine.name : (leaderLine.nameEn ?? leaderLine.name)} (${latestSeats(leaderLine)})`;
+  // Per-party trajectory: first→latest seats across the window.
+  shown.forEach((l) => {
+    const vals = picked
+      .map((e) => l.seatsByEl.get(e.name))
+      .filter((v): v is number => v != null);
+    const first = vals[0];
+    const last = vals[vals.length - 1];
+    const label = ctx.lang === "bg" ? l.name : (l.nameEn ?? l.name);
+    facts[label] =
+      first === last
+        ? `${last} ${ctx.lang === "bg" ? "места" : "seats"}`
+        : `${first} → ${last} ${ctx.lang === "bg" ? "места" : "seats"}`;
+  });
+
+  return {
+    tool: "seatsHistory",
+    domain: "elections",
+    kind: "series",
+    title:
+      ctx.lang === "bg"
+        ? `Места в парламента по партия (${range})`
+        : `Parliament seats by party (${range})`,
+    subtitle:
+      ctx.lang === "bg"
+        ? `Мандати по партия през ${picked.length} избора`
+        : `Seats per party across ${picked.length} elections`,
+    categories,
+    series,
+    viz: "line",
+    facts,
+    provenance: [
+      "canonical_parties.json",
+      ...picked.map((e) => `${e.name}/national_summary.json`),
+    ],
   };
 };
 

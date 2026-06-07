@@ -129,6 +129,95 @@ export const budgetOverview = async (
   };
 };
 
+// ---- budget over time (revenue / spending / balance per year) --------------
+// The trend companion to `budgetOverview`. "Как се променя бюджетът през годините"
+// / "how has the budget changed over time" → revenue + expenditure lines across
+// complete fiscal years (the in-progress current year is excluded so its partial
+// actuals don't read as a collapse), with the per-year balance carried in facts.
+export const budgetTrend = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const idx = await fetchData<BudgetIndex>("/budget/index.json");
+  // complete years only, chronological; fall back to all-with-actuals if no year
+  // is flagged complete (keeps the tool working if the flag is ever absent).
+  const withActual = idx.fiscalYears.filter((y) => y.actual?.balance);
+  const complete = withActual.filter((y) => y.complete);
+  const years = (complete.length ? complete : withActual).sort(
+    (a, b) => a.fiscalYear - b.fiscalYear,
+  );
+
+  if (years.length === 0) {
+    return {
+      tool: "budgetTrend",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg ? "Няма бюджетни данни" : "No budget data",
+      viz: "none",
+      facts: {},
+      provenance: ["budget/index.json"],
+    };
+  }
+
+  const eur = (m?: Money) => (m ? m.amountEur : 0);
+  const categories = years.map((y) => String(y.fiscalYear));
+  const series = [
+    {
+      key: "revenue",
+      label: bg ? "Приходи" : "Revenue",
+      points: years.map((y) => ({
+        x: String(y.fiscalYear),
+        y: eur(y.actual!.revenue),
+      })),
+    },
+    {
+      key: "expenditure",
+      label: bg ? "Разходи" : "Expenditure",
+      points: years.map((y) => ({
+        x: String(y.fiscalYear),
+        y: eur(y.actual!.expenditure),
+      })),
+    },
+  ];
+
+  const first = years[0];
+  const latest = years[years.length - 1];
+  const span = `${first.fiscalYear}–${latest.fiscalYear}`;
+  const facts: Record<string, string | number> = {
+    years: years.length,
+    span,
+    latest_year: latest.fiscalYear,
+    latest_revenue: fmtEurCompact(eur(latest.actual!.revenue), ctx.lang),
+    latest_expenditure: fmtEurCompact(
+      eur(latest.actual!.expenditure),
+      ctx.lang,
+    ),
+    latest_balance: fmtEurCompact(eur(latest.actual!.balance), ctx.lang),
+  };
+  years.forEach((y) => {
+    facts[String(y.fiscalYear)] =
+      `${fmtEurCompact(eur(y.actual!.revenue), ctx.lang)} / ${fmtEurCompact(eur(y.actual!.expenditure), ctx.lang)}`;
+  });
+
+  return {
+    tool: "budgetTrend",
+    domain: "fiscal",
+    kind: "series",
+    title: bg
+      ? `Държавен бюджет — приходи и разходи (${span})`
+      : `State budget — revenue and spending (${span})`,
+    subtitle: bg
+      ? "Изпълнение по години (завършени фискални години)"
+      : "Annual execution (completed fiscal years)",
+    categories,
+    series,
+    viz: "line",
+    facts,
+    provenance: ["budget/index.json"],
+  };
+};
+
 // ---- budget by function (COFOG) --------------------------------------------
 
 const COFOG: Record<string, { bg: string; en: string }> = {

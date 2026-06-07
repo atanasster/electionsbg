@@ -39,6 +39,14 @@ export const STARTERS: Starter[] = [
     en: "Show the results by polling station in Bansko",
   },
   {
+    bg: "Резултатите в с. Иново",
+    en: "Results in the village of Inovo",
+  },
+  {
+    bg: "Резултатите в с. Иново за последните 5 години",
+    en: "Results in the village of Inovo over the last 5 years",
+  },
+  {
     bg: "ГЕРБ по общини в Пловдив",
     en: "GERB by municipality in Plovdiv",
   },
@@ -49,6 +57,30 @@ export const STARTERS: Starter[] = [
   {
     bg: "Колко места има всяка партия в парламента?",
     en: "How many seats does each party hold in parliament?",
+  },
+  {
+    bg: "Как се променят местата по партии последните 5 години?",
+    en: "How have seats per party changed over the last 5 years?",
+  },
+  {
+    bg: "Кой печели гласа в чужбина последните години?",
+    en: "Who wins the diaspora vote over recent years?",
+  },
+  {
+    bg: "Как се променят кметовете по партии през годините?",
+    en: "How have mayoralties per party changed across cycles?",
+  },
+  {
+    bg: "Как се променя бюджетът през годините?",
+    en: "How has the budget changed over the years?",
+  },
+  {
+    bg: "Как се променят прахосаните гласове през годините?",
+    en: "How have wasted votes changed over time?",
+  },
+  {
+    bg: "Как се променя вотът за общинските съвети през годините?",
+    en: "How has the council vote changed across cycles?",
   },
   {
     bg: "Кои са депутатите от ПП?",
@@ -82,5 +114,9 @@ export const STARTERS: Starter[] = [
   {
     bg: "Имаше ли нередности на последните избори?",
     en: "Were there irregularities in the latest election?",
+  },
+  {
+    bg: "Коя партия печели ромските гласове последните 5 години?",
+    en: "Which party wins the Roma vote over the last 5 years?",
   },
 ];

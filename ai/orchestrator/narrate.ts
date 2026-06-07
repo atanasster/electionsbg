@@ -95,11 +95,53 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `${f(env, "place")}: ${f(env, "leading_party")} води в ${f(env, "leading_wins")} от ${f(env, "sections")} секции. Таблицата показва водещата партия във всяка секция.`
         : `${f(env, "place")}: ${f(env, "leading_party")} leads in ${f(env, "leading_wins")} of ${f(env, "sections")} sections. The table shows the leading party in each.`;
+    case "sectionResults":
+      if (!env.facts.winner) return env.title;
+      return lang === "bg"
+        ? `Секция ${f(env, "section")}${env.facts.settlement ? ` (${f(env, "settlement")})` : ""}, ${f(env, "election")}: води ${f(env, "winner")}; активност ${f(env, "turnout")}, ${f(env, "valid_votes")} действителни гласа.`
+        : `Section ${f(env, "section")}${env.facts.settlement ? ` (${f(env, "settlement")})` : ""}, ${f(env, "election")}: ${f(env, "winner")} leads; turnout ${f(env, "turnout")}, ${f(env, "valid_votes")} valid votes.`;
+    case "sectionHistory":
+      if (!env.facts.elections_count) return env.title;
+      return lang === "bg"
+        ? `Секция ${f(env, "section")}${env.facts.settlement ? ` (${f(env, "settlement")})` : ""} през ${f(env, "elections_count")} избора: най-често води ${f(env, "most_frequent_winner")}; последно ${f(env, "latest")}.`
+        : `Section ${f(env, "section")}${env.facts.settlement ? ` (${f(env, "settlement")})` : ""} across ${f(env, "elections_count")} elections: most often led by ${f(env, "most_frequent_winner")}; latest ${f(env, "latest")}.`;
+    case "settlementResults":
+      if (!env.facts.leading_party) return env.title;
+      return lang === "bg"
+        ? `${f(env, "settlement")} (${f(env, "election")}): води ${f(env, "leading_party")} с ${f(env, "leading_pct")}; общо ${f(env, "total_votes")} гласа${env.facts.turnout ? `, активност ${f(env, "turnout")}` : ""}.`
+        : `${f(env, "settlement")} (${f(env, "election")}): ${f(env, "leading_party")} leads with ${f(env, "leading_pct")}; ${f(env, "total_votes")} votes total${env.facts.turnout ? `, turnout ${f(env, "turnout")}` : ""}.`;
+    case "settlementHistory":
+      if (!env.facts.elections_count) return env.title;
+      return lang === "bg"
+        ? `Резултати в ${f(env, "settlement")} (${f(env, "range")}): графиката проследява ${f(env, "parties_shown")} партии${env.facts.leader ? `; последно води ${f(env, "leader")}` : ""}.`
+        : `Results in ${f(env, "settlement")} (${f(env, "range")}): the chart tracks ${f(env, "parties_shown")} parties${env.facts.leader ? `; latest leader ${f(env, "leader")}` : ""}.`;
     case "parliamentSeats":
       if (!env.facts.total_seats) return env.title;
       return lang === "bg"
         ? `${f(env, "election")}: ${f(env, "total_seats")} места между ${f(env, "parties_seated")} партии; най-голяма ${f(env, "leader")}, ${f(env, "majority_status")} (мнозинство ${f(env, "majority")}).`
         : `${f(env, "election")}: ${f(env, "total_seats")} seats across ${f(env, "parties_seated")} parties; largest ${f(env, "leader")}, ${f(env, "majority_status")} (majority ${f(env, "majority")}).`;
+    case "seatsHistory": {
+      if (!env.facts.elections_count) return env.title;
+      const leader = f(env, "leader");
+      const range = f(env, "range");
+      const count = f(env, "elections_count");
+      // Parenthesise the range so any form reads cleanly. A "last N elections"
+      // range already names the count, so only a years-window ("последните 5
+      // години" / "last 5 years") or the full history ("от 2005 насам" / "since
+      // 2005") gets the election count appended — avoids "за от 2005 насам" and
+      // the redundant "last 4 elections, 4 elections".
+      const rangePart =
+        lang === "bg"
+          ? range.includes("избора")
+            ? range
+            : `${range}, ${count} избора`
+          : range.includes("elections")
+            ? range
+            : `${range}, ${count} elections`;
+      return lang === "bg"
+        ? `Места по партия (${rangePart}). Графиката проследява ${f(env, "parties_shown")} партии${leader ? `; най-голяма в последния избор е ${leader}` : ""}.`
+        : `Seats per party (${rangePart}). The chart tracks ${f(env, "parties_shown")} parties${leader ? `; the largest in the latest election is ${leader}` : ""}.`;
+    }
     case "candidateResult":
       if (env.facts.total_preferences == null) return env.title;
       return lang === "bg"
@@ -420,6 +462,41 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `${f(env, "neighborhoods")} наблюдавани ромски квартала (${f(env, "total_sections")} секции); най-голям ${f(env, "top")}.`
         : `${f(env, "neighborhoods")} tracked Roma neighbourhoods (${f(env, "total_sections")} sections); largest ${f(env, "top")}.`;
+    case "romaVoteTrend":
+      if (!env.facts.elections_count) return env.title;
+      return lang === "bg"
+        ? `Ромският вот в ${seriesScope(env, lang)}: най-често води ${f(env, "most_frequent_winner")}; последно ${f(env, "latest")}.`
+        : `The Roma vote across the ${seriesScope(env, lang)}: most often led by ${f(env, "most_frequent_winner")}; latest ${f(env, "latest")}.`;
+    case "diasporaVoteTrend":
+      if (!env.facts.elections_count) return env.title;
+      return lang === "bg"
+        ? `Гласът в чужбина в ${seriesScope(env, lang)}: най-често води ${f(env, "most_frequent_winner")}; последно ${f(env, "latest")}.`
+        : `The diaspora vote across the ${seriesScope(env, lang)}: most often led by ${f(env, "most_frequent_winner")}; latest ${f(env, "latest")}.`;
+    case "wastedVotesTrend":
+      if (!env.facts.elections_count) return env.title;
+      return lang === "bg"
+        ? `Прахосани гласове под прага в ${seriesScope(env, lang)}: последно ${f(env, "latest")} (връх ${f(env, "peak_pct")}%, промяна ${f(env, "change_pts")} пр.п.).`
+        : `Wasted votes below the threshold across the ${seriesScope(env, lang)}: latest ${f(env, "latest")} (peak ${f(env, "peak_pct")}%, change ${f(env, "change_pts")} pts).`;
+    case "localCouncilTrend":
+      if (!env.facts.cycles) return env.title;
+      return lang === "bg"
+        ? `Гласове за общинските съвети през ${f(env, "cycles")} цикъла; водач в последния ${f(env, "leader")}.`
+        : `Council vote share across ${f(env, "cycles")} cycles; latest leader ${f(env, "leader")}.`;
+    case "localMayorsTrend":
+      if (!env.facts.cycles) return env.title;
+      return lang === "bg"
+        ? `Кметски места по партия през ${f(env, "cycles")} цикъла; водач в последния ${f(env, "leader")}.`
+        : `Mayoralties by party across ${f(env, "cycles")} cycles; latest leader ${f(env, "leader")}.`;
+    case "budgetTrend":
+      if (!env.facts.years) return env.title;
+      return lang === "bg"
+        ? `Бюджет ${f(env, "span")}: през ${f(env, "latest_year")} приходи ${f(env, "latest_revenue")}, разходи ${f(env, "latest_expenditure")}, салдо ${f(env, "latest_balance")}.`
+        : `Budget ${f(env, "span")}: in ${f(env, "latest_year")} revenue ${f(env, "latest_revenue")}, spending ${f(env, "latest_expenditure")}, balance ${f(env, "latest_balance")}.`;
+    case "riskIndex":
+      if (env.facts.index == null) return env.title;
+      return lang === "bg"
+        ? `Индекс на изборния риск (${f(env, "election")}): ${f(env, "index")}/100 — ${f(env, "band")}. Най-силен сигнал за цялост: ${f(env, "top_integrity")}. Контекстуални сигнали средно ${f(env, "context_score")} (екран за скрининг, не присъда).`
+        : `Election risk index (${f(env, "election")}): ${f(env, "index")}/100 — ${f(env, "band")}. Strongest integrity signal: ${f(env, "top_integrity")}. Context signals average ${f(env, "context_score")} (a screening tool, not a verdict).`;
     case "riskScore":
       return lang === "bg"
         ? `Индекс на риска: ${f(env, "critical")} критични и ${f(env, "high")} високорискови секции от ${f(env, "total_sections")}.`

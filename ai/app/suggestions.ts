@@ -79,6 +79,15 @@ const WINNER_MUNIS: { bg: string; en: string }[] = [
   { bg: "Банско", en: "Bansko" },
 ];
 
+// Single settlements (villages) whose own results / trend route to
+// settlementResults / settlementHistory. The "с." / "village of" marker is what
+// flags ONE place to the router; each is an unambiguous name with vote data.
+const SETTLEMENTS: { bg: string; en: string }[] = [
+  { bg: "Иново", en: "Inovo" },
+  { bg: "Труд", en: "Trud" },
+  { bg: "Бръшлян", en: "Brashlyan" },
+];
+
 // Well-known candidates (verified present in the latest candidates.json) — these
 // route to candidateResult for their preferential-vote breakdown.
 const CANDIDATES: { bg: string; en: string }[] = [
@@ -124,6 +133,30 @@ const BASE: Suggestion[] = [
     en: "How many seats does each party hold in parliament?",
   },
   {
+    bg: "Как се променят местата по партии последните 5 години?",
+    en: "How have seats per party changed over the last 5 years?",
+  },
+  {
+    bg: "Кой печели гласа в чужбина последните години?",
+    en: "Who wins the diaspora vote over recent years?",
+  },
+  {
+    bg: "Как се променят прахосаните гласове през годините?",
+    en: "How have wasted votes changed over time?",
+  },
+  {
+    bg: "Как се променя вотът за общинските съвети през годините?",
+    en: "How has the council vote changed across cycles?",
+  },
+  {
+    bg: "Как се променят кметовете по партии през годините?",
+    en: "How have mayoralties per party changed across cycles?",
+  },
+  {
+    bg: "Как се променя бюджетът през годините?",
+    en: "How has the budget changed over the years?",
+  },
+  {
     bg: "Кой спечели общинските съвети?",
     en: "Who won the municipal councils?",
   },
@@ -138,6 +171,10 @@ const BASE: Suggestion[] = [
   {
     bg: "Как гласуват ромските квартали?",
     en: "How do the Roma neighbourhoods vote?",
+  },
+  {
+    bg: "Коя партия печели ромските гласове последните 5 години?",
+    en: "Which party wins the Roma vote over the last 5 years?",
   },
   {
     bg: "Какъв е индексът на изборния риск?",
@@ -201,6 +238,14 @@ export const SUGGESTIONS: Suggestion[] = [
   ...WINNER_MUNIS.map((m) => ({
     bg: `Резултати по секции в ${m.bg}`,
     en: `Results by polling station in ${m.en}`,
+  })),
+  ...SETTLEMENTS.map((s) => ({
+    bg: `Резултатите в с. ${s.bg}`,
+    en: `Results in the village of ${s.en}`,
+  })),
+  ...SETTLEMENTS.map((s) => ({
+    bg: `Резултатите в с. ${s.bg} за последните 5 години`,
+    en: `Results in the village of ${s.en} over the last 5 years`,
   })),
   ...AGENCIES.map((a) => ({
     bg: `Колко е точна ${a}?`,

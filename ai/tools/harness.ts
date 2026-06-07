@@ -628,6 +628,19 @@ const run = async () => {
     "problemSections returns neighbourhoods",
   );
 
+  const romaTrend = (await runTool(
+    "romaVoteTrend",
+    { years: 5 },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(romaTrend);
+  assert(
+    romaTrend.kind === "series" &&
+      (romaTrend.series?.length ?? 0) > 1 &&
+      romaTrend.facts.elections_count === 7,
+    "romaVoteTrend: 5-year window -> 7-election multi-line series",
+  );
+
   const risk = (await runTool("riskScore", {}, ctxEn)) as Envelope;
   printEnvelope(risk);
   assert((risk.rows?.length ?? 0) === 4, "riskScore has 4 bands");
