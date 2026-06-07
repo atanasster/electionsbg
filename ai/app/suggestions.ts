@@ -88,6 +88,14 @@ const BASE: Suggestion[] = [
     en: "Who won the municipal councils?",
   },
   {
+    bg: "Кои общини са с най-висока безработица?",
+    en: "Which municipalities have the highest unemployment?",
+  },
+  {
+    bg: "Коя област е с най-висок БВП на човек?",
+    en: "Which oblast has the highest GDP per capita?",
+  },
+  {
     bg: "Как гласуват ромските квартали?",
     en: "How do the Roma neighbourhoods vote?",
   },
@@ -120,6 +128,10 @@ export const SUGGESTIONS: Suggestion[] = [
   ...PARTIES.flatMap((p) => [
     { bg: `Колко гласа взе ${p}?`, en: `How many votes did ${p} get?` },
     { bg: `Къде е силна ${p}?`, en: `Where is ${p} strongest?` },
+    {
+      bg: `${p} по общини в Пловдив`,
+      en: `${p} by municipality in Plovdiv`,
+    },
     {
       bg: `Как се представя ${p} през годините?`,
       en: `How has ${p} done over the years?`,

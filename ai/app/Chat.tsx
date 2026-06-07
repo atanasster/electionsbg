@@ -86,6 +86,15 @@ const STARTERS: { bg: string; en: string }[] = [
     bg: "Какви са резултатите от последните избори?",
     en: "Results of the latest election?",
   },
+  { bg: "Къде е силна ГЕРБ?", en: "Where is GERB strongest?" },
+  {
+    bg: "ГЕРБ по общини в Пловдив",
+    en: "GERB by municipality in Plovdiv",
+  },
+  {
+    bg: "Кои общини са с най-висока безработица?",
+    en: "Which municipalities have the highest unemployment?",
+  },
   {
     bg: "Колко места има всяка партия в парламента?",
     en: "How many seats does each party hold in parliament?",

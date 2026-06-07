@@ -1165,6 +1165,144 @@ const CASES: Case[] = [
   { q: "рецепта за баница", tool: null },
   { q: "what's the weather like today?", lang: "en", tool: null },
   { q: "tell me a story about dragons", lang: "en", tool: null },
+
+  // ---- map-overlay coverage --------------------------------------------------
+  // Lock the prompt→map contract for every map MODE × LEVEL: a routing change
+  // must not silently drop (or wrongly add) a map. The deep "do the area codes
+  // join the geojson" check is ai/tools/geo.harness.ts's job; here we only assert
+  // the overlay's shape. (nationalResults + regionBreakdown + municipality/
+  // settlementBreakdown geo are asserted on their primary cases above.)
+  // choropleths
+  {
+    q: "коя област е с най-висок БВП на човек?",
+    tool: "rankPlaces",
+    geo: {
+      level: "oblast",
+      mode: "choropleth",
+      joinKey: "nuts3",
+      minAreas: 20,
+    },
+  },
+  {
+    q: "кои общини са с най-висока безработица?",
+    tool: "rankPlaces",
+    geo: {
+      level: "municipality",
+      mode: "choropleth",
+      joinKey: "nuts4",
+      minAreas: 100,
+    },
+  },
+  {
+    // LISI covers only ~27 oblast centres, but it's still a nation-muni map
+    q: "коя е най-прозрачната община?",
+    tool: "rankPlaces",
+    geo: {
+      level: "municipality",
+      mode: "choropleth",
+      joinKey: "nuts4",
+      minAreas: 20,
+    },
+  },
+  {
+    // local mayors-won → each município filled with its elected mayor's colour
+    q: "Колко кметове спечели всяка партия в област Пловдив?",
+    tool: "localOblastMayors",
+    geo: {
+      level: "municipality",
+      mode: "choropleth",
+      joinKey: "nuts4",
+      minAreas: 5,
+    },
+  },
+  // oblast locators (single-area highlight)
+  {
+    q: "Как се променя активността в Хасково?",
+    tool: "regionHistory",
+    geo: { level: "oblast", mode: "locator", joinKey: "nuts3" },
+  },
+  {
+    q: "Какъв е БВП на човек във Варна?",
+    tool: "regionIndicator",
+    geo: { level: "oblast", mode: "locator", joinKey: "nuts3" },
+  },
+  // municipality locators (per-place answers across every place domain)
+  {
+    q: "Каква е безработицата в Сливен?",
+    tool: "subnationalIndicator",
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    q: "Разкажи ми за Габрово",
+    tool: "governanceProfile",
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    q: "Колко жители има Видин?",
+    tool: "census",
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    q: "Колко прозрачна е община Русе?",
+    tool: "transparencyScore",
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    q: "Какви са данъците в Пловдив?",
+    tool: "localTaxes",
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    q: "Кои са най-добрите училища в Пловдив?",
+    tool: "schoolScores",
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    q: "Какъв е въздухът в Перник?",
+    tool: "airQuality",
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    q: "Какво е регистрираното население на Габрово?",
+    tool: "graoPopulation",
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    q: "Какво реши общинският съвет на Русе?",
+    tool: "councilResolutions",
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    q: "Кой е кметът на Пловдив?",
+    tool: "localMunicipality",
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    q: "Кои бяха кандидатите за кмет на Варна?",
+    tool: "localMayorRace",
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  {
+    // hemicycle answer that ALSO carries a locator map
+    q: "Какъв е общинският съвет на Бургас?",
+    tool: "localCouncil",
+    geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+  },
+  // settlement locator
+  {
+    q: "Колко обществени поръчки има в Русе?",
+    tool: "procurementBySettlement",
+    geo: { level: "settlement", mode: "locator", joinKey: "ekatte" },
+  },
+  // negatives — these answers must carry NO map
+  { q: "Колко гора има в България?", tool: "landUse", geo: false },
+  { q: "Какъв е държавният бюджет?", tool: "budgetOverview", geo: false },
+  { q: "Кои депутати са най-богати?", tool: "mpAssetsTop", geo: false },
+  {
+    q: "Кой е кметът на Несъществуевоград?",
+    tool: "localMunicipality",
+    geo: false,
+  },
 ];
 
 // Raw-arg cases: the LLM router emits {tool, args} directly and can't know the
