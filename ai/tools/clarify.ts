@@ -53,7 +53,6 @@ export const municipalityPin = (obshtina: string): string =>
 // renderer's normal payload empty — the chooser is driven by `clarify` alone.
 // The title doubles as the template narration (narrate() falls back to it).
 export const clarifyEnvelope = (
-  tool: string,
   prompt: string,
   options: ClarifyOption[],
   provenance: string[],
