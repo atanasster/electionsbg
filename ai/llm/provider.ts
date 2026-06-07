@@ -12,8 +12,6 @@ import type { Envelope, ToolArgs, ToolContext } from "../tools/types";
 import { clarify } from "./lang";
 
 // Per-request options shared by every provider.
-// - detail: how much prose the model should write ("full" → the longer,
-//   interpretive paragraph requested by the кратко/подробно toggle).
 // - prev: the previous answer's tool + args, so a bare follow-on like "а ДПС?"
 //   resolves the ellipsis against the last question (the cheap, exact path).
 // - history: the full list of prior exchanges (newest last), distilled to
@@ -23,7 +21,6 @@ import { clarify } from "./lang";
 //   ignores it (keyword routing has no use for prose context) — it relies on
 //   `prev` alone, so offline behaviour is unchanged.
 export type RespondOpts = {
-  detail?: "brief" | "full";
   prev?: { tool: string; args: ToolArgs };
   history?: TurnMemory[];
 };

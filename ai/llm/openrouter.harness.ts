@@ -22,7 +22,7 @@ setFetcher(async (path: string) =>
 );
 
 const MODEL: ModelOption = {
-  id: "google/gemini-2.5-flash-lite",
+  id: "google/gemini-3.1-flash-lite",
   label: { bg: "Gemini", en: "Gemini" },
   sizeNote: { bg: "", en: "" },
   advantage: { bg: "", en: "" },

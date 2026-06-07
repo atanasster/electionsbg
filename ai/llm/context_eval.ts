@@ -36,7 +36,7 @@ globalThis.fetch = ((url: string | URL | Request, init?: RequestInit) => {
   return realFetch(u.includes("/api/llm") ? PROXY : u, init);
 }) as typeof fetch;
 
-const model = modelById("google/gemini-2.5-flash-lite");
+const model = modelById("google/gemini-3.1-flash-lite");
 if (!model) throw new Error("cloud model not found in registry");
 
 type Scenario = { lang: Lang; title: string; turns: string[] };

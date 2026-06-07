@@ -1,7 +1,7 @@
 # Наясно AI — cloud-LLM proxy (`functions/`)
 
 A single Firebase Function (`llm`) that lets the chat use **hosted** models
-(Gemini 2.5 Flash-Lite, Gemma 4 31B) via OpenRouter without putting the API key
+(Gemini 3.1 Flash-Lite, Gemma 4 31B) via OpenRouter without putting the API key
 in the browser. The chat is a static SPA, so the key must live server-side.
 
 The model still only picks `{tool, args}` and writes prose from the tool's
@@ -36,7 +36,7 @@ npm run deploy:ai:functions                  # = firebase deploy --only function
 npm run deploy:ai                            # = firebase deploy --only hosting:ai -P ai
 ```
 
-Then in the chat, open the model picker and choose **Gemini 2.5 Flash-Lite** or
+Then in the chat, open the model picker and choose **Gemini 3.1 Flash-Lite** or
 **Gemma 4 31B (free)**.
 
 ### Cost & abuse

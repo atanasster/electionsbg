@@ -246,7 +246,6 @@ export class OpenRouterProvider implements LLMProvider {
     env: Parameters<typeof narrate>[0],
     lang: Lang,
     usage: Usage,
-    detail: "brief" | "full",
     narrationCtx: string,
     onDelta?: (partial: string) => void,
   ): Promise<{ text: string; fromModel: boolean }> {
@@ -255,7 +254,6 @@ export class OpenRouterProvider implements LLMProvider {
       const { system, user } = buildNarrationPrompt(
         env,
         lang,
-        detail,
         narrationCtx || undefined,
       );
       const raw = await this.call(
@@ -265,7 +263,7 @@ export class OpenRouterProvider implements LLMProvider {
         ],
         {
           json: false,
-          maxTokens: detail === "full" ? 420 : 240,
+          maxTokens: 420,
           temperature: 0.3,
           stream: true,
           onDelta,
@@ -290,7 +288,6 @@ export class OpenRouterProvider implements LLMProvider {
   ): Promise<ChatResponse> {
     const t0 = performance.now();
     const usage: Usage = { input: 0, output: 0 };
-    const detail = opts?.detail ?? "brief";
     // Window + compact the conversation into a context the model can use to
     // resolve references. Past a threshold the older topic digest is rewritten
     // into one natural sentence by a cheap (cached) call.
@@ -335,7 +332,6 @@ export class OpenRouterProvider implements LLMProvider {
         env,
         ctx.lang,
         usage,
-        detail,
         narrationCtx,
         onDelta,
       );

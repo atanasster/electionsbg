@@ -5,7 +5,6 @@
 import { type RefObject, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
-  AlignLeft,
   ArrowUp,
   Check,
   ChevronDown,
@@ -19,7 +18,6 @@ import {
   Mic,
   Plus,
   Share2,
-  Sparkles,
   Square,
   Table,
   Volume2,
@@ -53,9 +51,7 @@ import { matchSuggestions } from "./suggestions";
 import { useSpeech } from "./useSpeech";
 import { useVoiceInput } from "./voice";
 
-// detail = which narration length this answer is currently showing (the
-// кратко/подробно toggle).
-type Msg = ChatMsg & { id: number; detail?: "brief" | "full" };
+type Msg = ChatMsg & { id: number };
 
 // The previous answer's tool + args, used to resolve a follow-on ("а ДПС?").
 // Scans backwards from `beforeIndex` for the nearest assistant turn that ran a
@@ -73,10 +69,6 @@ const prevContext = (
 };
 
 const STORAGE_KEY = "naiasno.chat.v1";
-
-// Remembers the response-eloquence preference (the concise/elaborate toggle)
-// across reloads.
-const ELOQUENCE_KEY = "naiasno.eloquence.v1";
 
 // A pool of starter prompts. Deliberately larger than STARTER_COUNT so that
 // after dropping the ones the user has already asked there are still enough
@@ -209,114 +201,43 @@ const AnswerExportMenu = ({
   );
 };
 
-// A small control rendered under the answer prose: read-aloud (TTS) + the
-// кратко/подробно (brief/detailed) toggle. The toggle only appears when a model
-// wrote the prose — the rules engine has only its fixed template, so it can't
-// elaborate. `data-export-omit` keeps these buttons out of the PNG/PDF capture.
+// A small control rendered under the answer prose: read-aloud (TTS).
+// `data-export-omit` keeps the button out of the PNG/PDF capture.
 const AnswerControls = ({
   msg,
   lang,
-  busy,
   speech,
-  onSetDetail,
 }: {
   msg: Msg;
   lang: Lang;
-  busy: boolean;
   speech: ReturnType<typeof useSpeech>;
-  onSetDetail: (id: number, detail: "brief" | "full") => void;
 }) => {
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
   const id = String(msg.id);
   const speaking = speech.speakingId === id;
   const canSpeak = speech.supported && !!msg.text;
-  const canDetail = msg.meta?.narratedBy === "model";
-  if (!canSpeak && !canDetail) return null;
-  const detailed = msg.detail === "full";
+  if (!canSpeak) return null;
   const btn =
     "inline-flex items-center gap-1 rounded-full border border-input px-2.5 py-1 text-[11px] text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-50";
   return (
     <div data-export-omit="">
-      {canSpeak && (
-        <button
-          type="button"
-          className={btn}
-          onClick={() => speech.speak(id, msg.text)}
-          aria-label={
-            speaking
-              ? t("Спри четенето", "Stop")
-              : t("Чети на глас", "Read aloud")
-          }
-        >
-          {speaking ? (
-            <Square className="size-3 fill-current" />
-          ) : (
-            <Volume2 className="size-3.5" />
-          )}
-          {speaking ? t("Спри", "Stop") : t("Чети", "Listen")}
-        </button>
-      )}
-      {canDetail && (
-        <button
-          type="button"
-          className={`${btn} ml-1.5`}
-          disabled={busy}
-          onClick={() => onSetDetail(msg.id, detailed ? "brief" : "full")}
-        >
-          {detailed ? (
-            <AlignLeft className="size-3.5" />
-          ) : (
-            <Sparkles className="size-3.5" />
-          )}
-          {detailed ? t("Кратко", "Brief") : t("Подробно", "Detailed")}
-        </button>
-      )}
-    </div>
-  );
-};
-
-// Global response-eloquence toggle, shown next to the model picker. It sets the
-// DEFAULT narration length for new answers — "brief" (concise) leads with the
-// headline in 1–2 sentences, "full" (elaborate) expands to a short paragraph.
-// The per-answer Кратко/Подробно button (AnswerControls) still overrides a
-// single answer. Only meaningful when a model narrates, so the caller hides it
-// for the offline rules engine.
-const EloquenceToggle = ({
-  value,
-  onChange,
-  lang,
-  disabled,
-}: {
-  value: "brief" | "full";
-  onChange: (v: "brief" | "full") => void;
-  lang: Lang;
-  disabled: boolean;
-}) => {
-  const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
-  const seg = (v: "brief" | "full", bg: string, en: string) => (
-    <button
-      type="button"
-      disabled={disabled}
-      onClick={() => onChange(v)}
-      aria-pressed={value === v}
-      className={cn(
-        "rounded-full px-2 py-0.5 transition-colors disabled:opacity-50",
-        value === v
-          ? "bg-primary/10 font-medium text-primary"
-          : "text-muted-foreground hover:text-foreground",
-      )}
-    >
-      {t(bg, en)}
-    </button>
-  );
-  return (
-    <div
-      className="inline-flex shrink-0 items-center gap-0.5 rounded-full border border-input bg-card p-0.5 text-[11px]"
-      title={t("Дължина на отговора", "Response length")}
-      aria-label={t("Дължина на отговора", "Response length")}
-    >
-      {seg("brief", "Кратко", "Concise")}
-      {seg("full", "Подробно", "Elaborate")}
+      <button
+        type="button"
+        className={btn}
+        onClick={() => speech.speak(id, msg.text)}
+        aria-label={
+          speaking
+            ? t("Спри четенето", "Stop")
+            : t("Чети на глас", "Read aloud")
+        }
+      >
+        {speaking ? (
+          <Square className="size-3 fill-current" />
+        ) : (
+          <Volume2 className="size-3.5" />
+        )}
+        {speaking ? t("Спри", "Stop") : t("Чети", "Listen")}
+      </button>
     </div>
   );
 };
@@ -355,17 +276,13 @@ const AssistantMessage = ({
   lang,
   question,
   streaming,
-  busy,
   speech,
-  onSetDetail,
 }: {
   msg: Msg;
   lang: Lang;
   question: string;
   streaming: boolean;
-  busy: boolean;
   speech: ReturnType<typeof useSpeech>;
-  onSetDetail: (id: number, detail: "brief" | "full") => void;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   return (
@@ -382,15 +299,7 @@ const AssistantMessage = ({
             lang={lang}
             meta={msg.meta}
             narration={msg.text}
-            controls={
-              <AnswerControls
-                msg={msg}
-                lang={lang}
-                busy={busy}
-                speech={speech}
-                onSetDetail={onSetDetail}
-              />
-            }
+            controls={<AnswerControls msg={msg} lang={lang} speech={speech} />}
             actions={
               <AnswerExportMenu
                 cardRef={cardRef}
@@ -422,14 +331,6 @@ export const Chat = ({
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
-  // default narration length for new answers (the concise/elaborate toggle)
-  const [eloquence, setEloquence] = useState<"brief" | "full">(() => {
-    try {
-      return localStorage.getItem(ELOQUENCE_KEY) === "full" ? "full" : "brief";
-    } catch {
-      return "brief";
-    }
-  });
   const idRef = useRef(0);
   const endRef = useRef<HTMLDivElement>(null);
   const taRef = useRef<HTMLTextAreaElement>(null);
@@ -549,7 +450,7 @@ export const Chat = ({
         setMessages((m) =>
           m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
         ),
-      { prev, detail: eloquence, history },
+      { prev, history },
     );
     setMessages((m) =>
       m.map((x) =>
@@ -561,7 +462,6 @@ export const Chat = ({
               meta: res.meta,
               tool: res.tool,
               args: res.args,
-              detail: eloquence,
               lang,
             }
           : x,
@@ -569,50 +469,6 @@ export const Chat = ({
     );
     setBusy(false);
     taRef.current?.focus();
-  };
-
-  // Re-narrate one existing answer at a different length (the кратко/подробно
-  // toggle). Re-runs the same question — with the same follow-on context that
-  // produced it — so the tool + figures are unchanged; only the prose differs.
-  const setDetail = async (aId: number, detail: "brief" | "full") => {
-    if (busy) return;
-    const idx = messages.findIndex((m) => m.id === aId);
-    if (idx < 1) return;
-    const question = messages[idx - 1]?.text;
-    if (!question) return;
-    const prev = prevContext(messages, idx - 1);
-    // distil everything before this answer's own question, so re-narration sees
-    // the same conversation context that produced it
-    const history = distill(messages.slice(0, idx - 1));
-    speech.stop();
-    pinned.current = true; // re-narration regrows the answer — follow it down
-    setBusy(true);
-    const res = await engine.provider.respond(
-      question,
-      { lang, election },
-      (partial) =>
-        setMessages((m) =>
-          m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
-        ),
-      { detail, prev, history },
-    );
-    setMessages((m) =>
-      m.map((x) =>
-        x.id === aId
-          ? {
-              ...x,
-              text: res.text,
-              env: res.env,
-              meta: res.meta,
-              tool: res.tool,
-              args: res.args,
-              detail,
-              lang,
-            }
-          : x,
-      ),
-    );
-    setBusy(false);
   };
 
   // Enter sends; Shift+Enter inserts a newline. Ignore Enter mid-IME-composition
@@ -659,15 +515,6 @@ export const Chat = ({
       /* quota — ignore */
     }
   }, [messages]);
-
-  // remember the eloquence preference across reloads
-  useEffect(() => {
-    try {
-      localStorage.setItem(ELOQUENCE_KEY, eloquence);
-    } catch {
-      /* quota — ignore */
-    }
-  }, [eloquence]);
 
   const copyAll = async () => {
     try {
@@ -736,8 +583,8 @@ export const Chat = ({
   // how many prior exchanges the assistant is carrying as context (for the pill)
   const memoryTurns = useMemo(() => countExchanges(messages), [messages]);
   // a non-rules provider that has finished loading is the only case where the
-  // eloquence preference changes the output — the offline rules engine emits a
-  // fixed template, so hide the toggle for it.
+  // assistant carries conversational context — the offline rules engine routes
+  // on keywords alone, so the memory pill is meaningful only for a live model.
   const canNarrate =
     engine.providerId !== "rules" && engine.load.phase === "ready";
 
@@ -858,9 +705,7 @@ export const Chat = ({
               lang={lang}
               question={messages[i - 1]?.text ?? ""}
               streaming={busy && i === messages.length - 1}
-              busy={busy}
               speech={speech}
-              onSetDetail={setDetail}
             />
           ),
         )}
@@ -964,19 +809,10 @@ export const Chat = ({
             </button>
           </div>
         </form>
-        {/* Composer toolbar: the response-length toggle + model picker sit on
-            their own row directly under the input; the model picker stays at
-            the right edge (under the send button) via ml-auto so it holds that
-            position whether or not the toggle is shown. */}
+        {/* Composer toolbar: the model picker sits on its own row directly
+            under the input, held at the right edge (under the send button)
+            via ml-auto. */}
         <div className="mt-2 flex items-center gap-2">
-          {canNarrate && (
-            <EloquenceToggle
-              value={eloquence}
-              onChange={setEloquence}
-              lang={lang}
-              disabled={busy}
-            />
-          )}
           <div className="ml-auto">
             <ModelPicker engine={engine} lang={lang} />
           </div>

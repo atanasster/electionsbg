@@ -366,7 +366,7 @@ export const AnswerView = ({
   narration?: string;
   // per-response export controls, rendered in the header band (right)
   actions?: ReactNode;
-  // per-response interaction controls (speaker, detail toggle), under the prose
+  // per-response interaction controls (read-aloud), under the prose
   controls?: ReactNode;
 }) => {
   return (

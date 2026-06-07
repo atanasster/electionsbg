@@ -173,7 +173,7 @@ export const downloadAnswerImage = async (
 
   const clone = answerEl.cloneNode(true) as HTMLElement;
   // drop the interactive controls from the shared card (export menu, plus the
-  // speaker / detail-toggle row) while keeping the meta line + source links
+  // read-aloud button) while keeping the meta line + source links
   clone
     .querySelectorAll("[data-export-actions],[data-export-omit]")
     .forEach((n) => n.remove());

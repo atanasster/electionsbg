@@ -89,9 +89,9 @@ export const buildToolSystemPrompt = (lang: Lang): string => {
 // Narration: the model gets ONLY the tool's facts and must not invent numbers.
 // The model's value over the template is INTERPRETATION — it should surface the
 // pattern (the trend, the turning point, the extreme, a comparison), not restate
-// the same headline the template already produces. `detail` controls length:
-// "brief" (default) is the interpretive 1–2 sentences; "full" expands to a
-// short paragraph for the "Подробно / Detailed" toggle.
+// the same headline the template already produces. Every answer is the longer,
+// interpretive paragraph — we always let the model use its full capabilities
+// rather than gating elaboration behind a toggle.
 // `context` (optional) is a one-line gist of the PREVIOUS answer, so the prose
 // can read as part of a thread ("higher than GERB's 25.3% above") instead of a
 // cold restatement. It is phrasing only: the grounding guard below still binds
@@ -99,15 +99,12 @@ export const buildToolSystemPrompt = (lang: Lang): string => {
 export const buildNarrationPrompt = (
   env: Envelope,
   lang: Lang,
-  detail: "brief" | "full" = "brief",
   context?: string,
 ): { system: string; user: string } => {
   const language = lang === "bg" ? "Bulgarian" : "English";
   const script = lang === "bg" ? "Cyrillic" : "Latin";
   const length =
-    detail === "full"
-      ? "Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means."
-      : "Write 1–2 sentences: lead with the headline, then name the single most notable pattern in the data (a trend, a turning point, an extreme, or a comparison) — not just a restatement of the numbers.";
+    "Write a short paragraph (3–5 sentences): the headline, then the most notable pattern — the trend direction, the turning point, the high/low extreme, or a comparison between the values — and end with one sentence of plain-language context on what it means.";
   return {
     system: [
       `You MUST write your entire answer in ${language} (${script} script) only.`,

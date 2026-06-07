@@ -20,7 +20,7 @@ const OPENROUTER_API_KEY = defineSecret("OPENROUTER_API_KEY");
 // Only these (cheap, Bulgarian-capable) models may be requested. Keep in sync
 // with the cloud entries in ai/llm/models.ts.
 const ALLOWED_MODELS = new Set([
-  "google/gemini-2.5-flash-lite",
+  "google/gemini-3.1-flash-lite",
   "google/gemma-4-31b-it:free",
 ]);
 

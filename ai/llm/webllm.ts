@@ -182,12 +182,11 @@ export class WebLLMProvider implements LLMProvider {
     lang: Lang,
     usage: Usage,
     onDelta?: (partial: string) => void,
-    detail: "brief" | "full" = "brief",
     narrationCtx = "",
   ): Promise<{ text: string; fromModel: boolean }> {
     const template = narrate(env, lang);
     if (!this.engine) return { text: template, fromModel: false };
-    const maxTokens = detail === "full" ? 320 : 160;
+    const maxTokens = 320;
     // Language guard: small models often answer in English even when asked in
     // Bulgarian. The template narration is always in the right language, so if
     // the model's output isn't predominantly the requested script, use it.
@@ -195,7 +194,6 @@ export class WebLLMProvider implements LLMProvider {
       const { system, user } = buildNarrationPrompt(
         env,
         lang,
-        detail,
         narrationCtx || undefined,
       );
       const messages = [
@@ -275,7 +273,6 @@ export class WebLLMProvider implements LLMProvider {
         ctx.lang,
         usage,
         onDelta,
-        opts?.detail ?? "brief",
         narrationCtx,
       );
       return {

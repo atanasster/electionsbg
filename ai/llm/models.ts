@@ -55,8 +55,8 @@ export const MODELS: ModelOption[] = [
   // in-browser: the question is sent to a server. Keep ids in sync with the
   // ALLOWED_MODELS allowlist in functions/index.js.
   {
-    id: "google/gemini-2.5-flash-lite",
-    label: { bg: "Gemini 2.5 Flash-Lite", en: "Gemini 2.5 Flash-Lite" },
+    id: "google/gemini-3.1-flash-lite",
+    label: { bg: "Gemini 3.1 Flash-Lite", en: "Gemini 3.1 Flash-Lite" },
     sizeNote: { bg: "облак · OpenRouter", en: "cloud · OpenRouter" },
     advantage: {
       bg: "В облака · най-точен за български · избор на инструменти",
