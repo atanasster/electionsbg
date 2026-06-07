@@ -76,6 +76,25 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Резултати за ${f(env, "election")}: ${env.facts.parties_over_threshold} партии над прага. Таблицата е подредена по гласове.`
         : `Results for ${f(env, "election")}: ${env.facts.parties_over_threshold} parties over threshold. Table sorted by votes.`;
+    case "regionWinners":
+      return lang === "bg"
+        ? `Резултати по области за ${f(env, "election")}: ${f(env, "leading_party")} води в ${f(env, "leading_wins")} от ${f(env, "regions")} области. Таблицата показва водещата партия във всяка област.`
+        : `Results by region for ${f(env, "election")}: ${f(env, "leading_party")} leads in ${f(env, "leading_wins")} of ${f(env, "regions")} regions. The table shows the leading party in each region.`;
+    case "municipalityWinners":
+      if (!env.facts.municipalities) return env.title;
+      return lang === "bg"
+        ? `${f(env, "oblast")}: ${f(env, "leading_party")} води в ${f(env, "leading_wins")} от ${f(env, "municipalities")} общини. Таблицата показва водещата партия във всяка община.`
+        : `${f(env, "oblast")}: ${f(env, "leading_party")} leads in ${f(env, "leading_wins")} of ${f(env, "municipalities")} municipalities. The table shows the leading party in each.`;
+    case "settlementWinners":
+      if (!env.facts.settlements) return env.title;
+      return lang === "bg"
+        ? `${f(env, "place")}: ${f(env, "leading_party")} води в ${f(env, "leading_wins")} от ${f(env, "settlements")} населени места. Таблицата показва водещата партия във всяко.`
+        : `${f(env, "place")}: ${f(env, "leading_party")} leads in ${f(env, "leading_wins")} of ${f(env, "settlements")} settlements. The table shows the leading party in each.`;
+    case "sectionWinners":
+      if (!env.facts.sections) return env.title;
+      return lang === "bg"
+        ? `${f(env, "place")}: ${f(env, "leading_party")} води в ${f(env, "leading_wins")} от ${f(env, "sections")} секции. Таблицата показва водещата партия във всяка секция.`
+        : `${f(env, "place")}: ${f(env, "leading_party")} leads in ${f(env, "leading_wins")} of ${f(env, "sections")} sections. The table shows the leading party in each.`;
     case "parliamentSeats":
       if (!env.facts.total_seats) return env.title;
       return lang === "bg"
@@ -474,6 +493,16 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `${f(env, "matches")} гласувания; начело: ${f(env, "top")}.`
         : `${f(env, "matches")} votes; top: ${f(env, "top")}.`;
+    case "partyMps":
+      if (env.facts.count == null)
+        return env.facts.available
+          ? lang === "bg"
+            ? `${env.title}. Налични групи: ${f(env, "available")}.`
+            : `${env.title}. Available groups: ${f(env, "available")}.`
+          : env.title;
+      return lang === "bg"
+        ? `${f(env, "group")} в ${f(env, "ns")}: ${f(env, "count")} депутати — ${f(env, "members")}`
+        : `${f(env, "group")} in the ${f(env, "ns")}: ${f(env, "count")} MPs — ${f(env, "members")}`;
     case "schoolScores":
       if (!env.facts.top_school) return env.title;
       return lang === "bg"

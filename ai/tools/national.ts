@@ -2,6 +2,7 @@
 
 import { resolveElection } from "./args";
 import { fetchNationalSummary, fetchRegionVotes } from "./dataClient";
+import { round2 } from "./dataset";
 import { electionFullLabel, fmtInt, fmtPct } from "./format";
 import { oblastChoropleth } from "./geo";
 import { matchParty } from "./matchParty";
@@ -37,17 +38,32 @@ type RegionVotes = {
   results: { votes: { partyNum: number; totalVotes: number }[] };
 };
 
-// Winning party (by votes) per oblast → an explicit-colour choropleth (each area
-// filled with its leading party's colour, matching the main site's map).
+type OblastWinner = {
+  code: string;
+  label: string;
+  color?: string;
+  party: string; // leading party's nickName
+  votes: number; // its votes in this oblast
+  total: number; // total valid votes in this oblast
+  pct: number; // its vote share in this oblast
+};
+
+// Leading party (by votes) per oblast. Powers both the winner-per-oblast
+// choropleth (each area filled with its leading party's colour, matching the
+// main site's map) and the per-region winners table.
 const winnerByOblast = async (
   election: string,
   parties: NSParty[],
   lang: Lang,
-) => {
+): Promise<OblastWinner[]> => {
   const regions = await fetchRegionVotes<RegionVotes[]>(election);
   const byNum = new Map(parties.map((p) => [p.partyNum, p]));
   return regions
     .map((r) => {
+      const total = r.results.votes.reduce(
+        (s, v) => s + (v.totalVotes ?? 0),
+        0,
+      );
       const top = r.results.votes.reduce<
         { partyNum: number; totalVotes: number } | undefined
       >(
@@ -60,11 +76,24 @@ const winnerByOblast = async (
         code: r.key,
         label: oblastName(r.key)[lang],
         color: p?.color,
-        display: p?.nickName ?? String(top.partyNum),
+        party: p?.nickName ?? String(top.partyNum),
+        votes: top.totalVotes,
+        total,
+        pct: total > 0 ? round2((100 * top.totalVotes) / total) : 0,
       };
     })
     .filter((a): a is NonNullable<typeof a> => !!a);
 };
+
+// The explicit-colour areas the winner choropleth wants (code/label/colour +
+// the leading party's name as the tooltip display).
+const winnerAreasFor = (winners: OblastWinner[]) =>
+  winners.map((w) => ({
+    code: w.code,
+    label: w.label,
+    color: w.color,
+    display: w.party,
+  }));
 
 export const nationalResults = async (
   args: ToolArgs,
@@ -107,7 +136,7 @@ export const nationalResults = async (
       `${fmtInt(p.totalVotes, ctx.lang)} (${fmtPct(p.pct, ctx.lang)}), ${p.seats ?? 0} ${ctx.lang === "bg" ? "мандата" : "seats"}`;
   });
 
-  const winnerAreas = await winnerByOblast(election, ns.parties, ctx.lang);
+  const winners = await winnerByOblast(election, ns.parties, ctx.lang);
 
   return {
     tool: "nationalResults",
@@ -129,7 +158,88 @@ export const nationalResults = async (
     ],
     viz: "bar",
     // Winner-per-oblast map: each oblast filled with its leading party's colour.
-    geo: oblastChoropleth(winnerAreas, {
+    geo: oblastChoropleth(winnerAreasFor(winners), {
+      metricLabel: ctx.lang === "bg" ? "Първа партия" : "Leading party",
+      colorMode: "explicit",
+    }),
+    facts,
+    provenance: [
+      `${election}/national_summary.json`,
+      `${election}/region_votes.json`,
+    ],
+  };
+};
+
+// Per-region winners: a list of every oblast/МИР with the party that led there
+// (votes + share), plus the same winner-per-oblast colour map. Answers the "by
+// region" intent — distinct from nationalResults, which ranks parties nationally.
+export const regionWinners = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const election = resolveElection(args, ctx);
+  const ns = await fetchNationalSummary<NationalSummary>(election);
+  const winners = await winnerByOblast(election, ns.parties, ctx.lang);
+  // Alphabetical by region name — a plain, scannable list of regions.
+  const sorted = [...winners].sort((a, b) =>
+    a.label.localeCompare(b.label, ctx.lang === "bg" ? "bg" : "en"),
+  );
+
+  const columns: Column[] = [
+    { key: "oblast", label: ctx.lang === "bg" ? "Област" : "Region" },
+    {
+      key: "winner",
+      label: ctx.lang === "bg" ? "Първа партия" : "Leading party",
+    },
+    {
+      key: "votes",
+      label: ctx.lang === "bg" ? "Гласове" : "Votes",
+      numeric: true,
+      format: "int",
+    },
+    { key: "pct", label: "%", numeric: true, format: "pct" },
+  ];
+  const rows: Row[] = sorted.map((w) => ({
+    oblast: w.label,
+    winner: w.party,
+    votes: w.votes,
+    pct: w.pct,
+  }));
+
+  // Which party led the most regions (and how many).
+  const winsByParty = new Map<string, number>();
+  winners.forEach((w) =>
+    winsByParty.set(w.party, (winsByParty.get(w.party) ?? 0) + 1),
+  );
+  const ranked = [...winsByParty.entries()].sort((a, b) => b[1] - a[1]);
+  const [leadParty, leadWins] = ranked[0] ?? ["—", 0];
+
+  const facts: Record<string, string | number> = {
+    election: electionFullLabel(election, ctx.lang),
+    regions: winners.length,
+    leading_party: leadParty,
+    leading_wins: leadWins,
+  };
+  ranked.slice(0, 5).forEach(([name, n]) => {
+    facts[name] = `${n} ${ctx.lang === "bg" ? "области" : "regions"}`;
+  });
+
+  return {
+    tool: "regionWinners",
+    domain: "elections",
+    kind: "table",
+    title:
+      ctx.lang === "bg"
+        ? `Резултати по области — ${electionFullLabel(election, "bg")}`
+        : `Results by region — ${electionFullLabel(election, "en")}`,
+    subtitle:
+      ctx.lang === "bg"
+        ? "Водещата партия във всяка област"
+        : "The leading party in each region",
+    columns,
+    rows,
+    viz: "none",
+    geo: oblastChoropleth(winnerAreasFor(winners), {
       metricLabel: ctx.lang === "bg" ? "Първа партия" : "Leading party",
       colorMode: "explicit",
     }),

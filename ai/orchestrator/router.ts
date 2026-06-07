@@ -233,6 +233,32 @@ const PLACE_STOP = new Set([
   "колко",
   "партия",
   "партии",
+  // drill-down level common-nouns — never a place name, so strip them so the
+  // resolver sees a clean place ("по секции в Банско" -> "Банско")
+  "по",
+  "секции",
+  "секция",
+  "секциите",
+  "населени",
+  "населено",
+  "места",
+  "място",
+  "село",
+  "села",
+  "селата",
+  "section",
+  "sections",
+  "settlement",
+  "settlements",
+  "village",
+  "villages",
+  "municipality",
+  "municipalities",
+  "polling",
+  "station",
+  "stations",
+  "region",
+  "regions",
   "mayor",
   "of",
   "the",
@@ -592,6 +618,93 @@ export const route = (question: string, ctx: ToolContext): Route => {
   )
     return { tool: "voterPersistence", args: el };
 
+  // 1a3. parliamentary results, drilled DOWN by area, with NO party named: a
+  // per-area winners list (each area + the leading party). The party-scoped
+  // *Breakdown tools are handled in the `if (party)` block far below; these are
+  // their party-blind equivalents. This MUST run before the local-elections
+  // block — the EN word "municipality" otherwise trips that block's broad match
+  // and hijacks "results by municipality" to the local dashboard. Gated on a
+  // parliamentary-results intent AND the absence of any local signal so genuine
+  // mayor/council/местни questions still reach the local tools. Most-specific
+  // level first (section → settlement → municipality → region) so a query that
+  // names two levels ("по общини в област Варна") lists the finer one.
+  {
+    const resultsIntent = has(
+      q,
+      "резултат",
+      "result",
+      "спечели",
+      "won",
+      "победител",
+      "winner",
+      "кой води",
+      "who leads",
+      "leading party",
+      "класиране",
+      "standings",
+      "разпределение",
+    );
+    const localSignal = has(
+      q,
+      "местни",
+      "местн",
+      "общинск",
+      "кмет",
+      "mayor",
+      "local election",
+      "съвет",
+      "council",
+    );
+    if (!party && resultsIntent && !localSignal) {
+      if (
+        has(
+          q,
+          "секци",
+          "section",
+          "polling station",
+          "polling-station",
+          "избирателни секции",
+        )
+      ) {
+        const place = extractPlace(q);
+        if (place)
+          return {
+            tool: "sectionWinners",
+            args: election ? { place, election } : { place },
+          };
+      }
+      if (has(q, "населен", "по села", "по селата", "settlement", "village")) {
+        const place = extractPlace(q);
+        if (place)
+          return {
+            tool: "settlementWinners",
+            args: election ? { place, election } : { place },
+          };
+      }
+      if (has(q, "по общини", "общин", "municipalit")) {
+        const oblHit = findOblastInText(q);
+        const place = oblHit ? oblHit.code : extractPlace(q);
+        if (place)
+          return {
+            tool: "municipalityWinners",
+            args: election ? { oblast: place, election } : { oblast: place },
+          };
+      }
+      if (
+        has(
+          q,
+          "област",
+          "region",
+          "oblast",
+          "по области",
+          "по региони",
+          "региони",
+        )
+      )
+        return { tool: "regionWinners", args: election ? { election } : {} };
+    }
+  }
+
   // 1b. local elections (municipal) — before party/turnout so a local question
   // mentioning a party isn't routed to the parliamentary tools.
   const isLocal = has(
@@ -792,6 +905,27 @@ export const route = (question: string, ctx: ToolContext): Route => {
     if (wantsConnections) return { tool: "mpConnectionsByParty", args: {} };
     if (wantsAssets) return { tool: "mpAssetsByParty", args: {} };
   }
+  // MPs (current roster) of a NAMED party — "кои са депутатите от ПП?",
+  // "MPs from GERB", "депутатите на ДПС". Lists the sitting members by name.
+  // Gated on a party token + an MP word, but NOT a wealth/connections framing
+  // (those keep the assets/connections rankings below) and NOT the roll-call
+  // intents (loyalty/attendance/cohesion already returned earlier). Runs before
+  // the generic `if (party)` results block so it isn't swallowed by partyResult.
+  if (
+    party &&
+    has(
+      q,
+      "депутат",
+      "народни представители",
+      "представители",
+      " mp",
+      " mps",
+      "mps",
+    ) &&
+    !wantsAssets &&
+    !wantsConnections
+  )
+    return { tool: "partyMps", args: { party } };
   if (has(q, "депутат", " mp", " mps", "народни представители")) {
     if (wantsConnections) return { tool: "mpConnectionsTop", args: {} };
     if (wantsAssets) return { tool: "mpAssetsTop", args: {} };

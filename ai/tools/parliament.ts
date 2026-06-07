@@ -5,6 +5,7 @@
 
 import { fetchData } from "./dataClient";
 import { round2 } from "./dataset";
+import { matchParty } from "./matchParty";
 import { translitKey } from "./translit";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
@@ -564,5 +565,157 @@ export const voteSearch = async (
         : "—",
     },
     provenance: ["parliament/votes/derived/topic_index.json"],
+  };
+};
+
+// ---- MPs of a party (current roster) ----------------------------------------
+// "Кои са депутатите от ПП?" / "Who are the MPs from GERB?". Lists the sitting
+// members of a parliamentary group BY NAME, from the scraped roster
+// (`parliament/index.json` — the same source the site's MP pages use). NOT the
+// roll-call derived metrics: those split each coalition into per-party labels
+// (an MP shows up under both ПП and ДБ) and bucket unmatched members into a
+// catch-all group, so they over-count and can't list a clean roster.
+
+type RosterMp = {
+  name: string;
+  isCurrent?: boolean;
+  currentRegion?: { code: string; name: string } | null;
+  currentPartyGroup?: string | null;
+  currentPartyGroupShort?: string | null;
+};
+type RosterIndex = { currentNs?: string; mps: RosterMp[] };
+
+let rosterCache: Promise<RosterIndex> | null = null;
+const loadRoster = (): Promise<RosterIndex> => {
+  if (!rosterCache)
+    rosterCache = fetchData<RosterIndex>("/parliament/index.json");
+  return rosterCache;
+};
+
+// "ПГ на Продължаваме Промяната" → "Продължаваме Промяната": drop the
+// parliamentary-group prefix + surrounding quotes, so the label reads as the
+// party and the acronym below derives cleanly.
+const stripGroupPrefix = (s: string): string =>
+  s
+    .replace(/^ПГ\s+(на\s+)?/iu, "")
+    .replace(/^Парламентарна\s+група\s+(на\s+)?/iu, "")
+    .replace(/[„“"»«]/g, "")
+    .trim();
+
+const ACRONYM_STOP = new Set(["на", "и", "за", "the", "of", "and"]);
+// First letters of the significant words ("Продължаваме Промяната" → "ПП",
+// "Демократична България" → "ДБ"), so a party abbreviation resolves to its full
+// group name. Empty for single-word names (a one-word "acronym" is just the
+// word's initial — useless and collision-prone).
+const groupAcronym = (name: string): string => {
+  const words = name
+    .split(/[\s–—-]+/u)
+    .filter((w) => w.length > 0 && !ACRONYM_STOP.has(w.toLowerCase()));
+  if (words.length < 2) return "";
+  return words.map((w) => w[0]).join("");
+};
+
+export const partyMps = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const query = String(args.party ?? "");
+  const roster = await loadRoster();
+  const current = (roster.mps ?? []).filter(
+    (m) => m.isCurrent && m.currentPartyGroupShort,
+  );
+  // BG keeps the scraped label verbatim ("52-ро Народно събрание"); EN
+  // synthesizes from its number to match the other parliament tools' wording.
+  const nsNum = (roster.currentNs ?? "").match(/\d+/)?.[0];
+  const nsLabel = bg
+    ? (roster.currentNs ?? "Народно събрание")
+    : nsNum
+      ? `${nsNum}th National Assembly`
+      : "National Assembly";
+
+  // One entry per distinct parliamentary group. Matching aliases: the stripped
+  // group name (nickName), the raw short label (name), and the acronym
+  // (commonName) — so a party token ("ПП", "gerb", "ВЪЗРАЖДАНЕ") resolves via
+  // matchParty's romanized exact/substring logic ("пп" → acronym "ПП").
+  const byGroup = new Map<string, RosterMp[]>();
+  for (const m of current) {
+    const key = m.currentPartyGroupShort as string;
+    const arr = byGroup.get(key);
+    if (arr) arr.push(m);
+    else byGroup.set(key, [m]);
+  }
+  const groups = [...byGroup.keys()].map((short) => {
+    const label = stripGroupPrefix(short);
+    const acr = groupAcronym(label);
+    // A dash-normalized alias (en/em dash → hyphen) so a hyphenated token
+    // ("ГЕРБ-СДС") matches a label written with an en dash ("ГЕРБ – СДС"):
+    // matchParty's normalizer strips spaces but NOT dashes, so the dash char
+    // itself has to agree.
+    const dashed = label.replace(/[–—]/g, "-");
+    return {
+      short,
+      nickName: label,
+      name: short,
+      commonName: [acr, dashed !== label ? dashed : ""].filter(Boolean),
+    };
+  });
+
+  const hit = matchParty(query, groups);
+  if (!hit) {
+    // List the groups that DO resolve, so a miss (a party not seated, or one
+    // the roster folds into a coalition group) is actionable rather than a
+    // dead end.
+    const available = groups.map((g) => g.nickName).join(", ");
+    return {
+      tool: "partyMps",
+      domain: "people",
+      kind: "scalar",
+      title: bg
+        ? `Не намерих парламентарна група „${query}“ в ${nsLabel}`
+        : `No parliamentary group matched "${query}" in the ${nsLabel}`,
+      viz: "none",
+      facts: { query, ns: nsLabel, available },
+      provenance: ["parliament/index.json"],
+    };
+  }
+
+  const members = [...(byGroup.get(hit.short) ?? [])].sort((a, b) =>
+    a.name.localeCompare(b.name, bg ? "bg" : "en"),
+  );
+  const rows: Row[] = members.map((m) => ({
+    mp: m.name,
+    region: m.currentRegion?.name ? titleCase(m.currentRegion.name) : "—",
+  }));
+  const columns: Column[] = [
+    { key: "mp", label: bg ? "Депутат" : "MP" },
+    { key: "region", label: bg ? "Изборен район" : "Constituency" },
+  ];
+
+  const preview = members
+    .slice(0, 5)
+    .map((m) => m.name)
+    .join(", ");
+
+  return {
+    tool: "partyMps",
+    domain: "people",
+    kind: "table",
+    title: bg
+      ? `Депутати от ${hit.nickName} — ${nsLabel}`
+      : `MPs from ${hit.nickName} — ${nsLabel}`,
+    subtitle: bg
+      ? `${members.length} народни представители`
+      : `${members.length} members`,
+    columns,
+    rows,
+    viz: "none",
+    facts: {
+      group: hit.nickName,
+      ns: nsLabel,
+      count: members.length,
+      members: members.length > 5 ? `${preview}…` : preview,
+    },
+    provenance: ["parliament/index.json"],
   };
 };

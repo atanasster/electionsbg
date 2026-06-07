@@ -10,6 +10,8 @@
 
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { STARTERS } from "../app/starters";
+import { SUGGESTIONS } from "../app/suggestions";
 import { route } from "../orchestrator/router";
 import { setFetcher } from "../tools/dataClient";
 import { runTool } from "../tools/registry";
@@ -108,9 +110,13 @@ const CASES: Case[] = [
     },
   },
   {
-    // the "by region" intent (the hero map card) -> national results + oblast map
+    // the "by region" intent (the hero map card) -> per-region winners list
+    // (one row per oblast + the leading party) + the winner oblast map
     q: "Покажи резултатите по области.",
-    tool: "nationalResults",
+    tool: "regionWinners",
+    kind: "table",
+    minRows: 25,
+    facts: { leading_party: /\S/, regions: { num: 32 } },
     geo: {
       level: "oblast",
       mode: "choropleth",
@@ -121,8 +127,17 @@ const CASES: Case[] = [
   {
     q: "Show the results by region.",
     lang: "en",
-    tool: "nationalResults",
+    tool: "regionWinners",
+    kind: "table",
+    minRows: 25,
     geo: { level: "oblast", joinKey: "nuts3", minAreas: 25 },
+  },
+  {
+    // explicit "which party won in each region" -> the same per-region winners
+    q: "Коя партия спечели във всяка област?",
+    tool: "regionWinners",
+    kind: "table",
+    minRows: 25,
   },
   {
     // bare multi-election year routed end-to-end -> combined results table
@@ -307,6 +322,161 @@ const CASES: Case[] = [
       joinKey: "ekatte",
       minAreas: 2,
     },
+  },
+  // ---- party-BLIND drill-down winners (municipality / settlement / section) --
+  // Each lists every area at that level + its LEADING party. These are the
+  // counterparts to the party-scoped *Breakdown tools above; a party-less
+  // "results by <level> in X" used to fall through to nationalResults (or, for
+  // the EN word "municipality", got hijacked to the local-elections dashboard).
+  // -- municipalityWinners --
+  {
+    // canonical: winners list + winner muni map. The mixed-winner golden (ДПС
+    // leads 4 munis, ГЕРБ-СДС 1) locks that a NON-leading party is surfaced
+    // correctly — not just the national winner painted everywhere.
+    q: "Покажи резултатите по общини в Благоевград",
+    tool: "municipalityWinners",
+    kind: "table",
+    minRows: 14,
+    facts: {
+      oblast: "Благоевград",
+      leading_party: "ПрБ",
+      ДПС: { num: 4 },
+      "ГЕРБ-СДС": { num: 1 },
+    },
+    geo: {
+      level: "municipality",
+      mode: "choropleth",
+      joinKey: "nuts4",
+      minAreas: 14,
+    },
+  },
+  {
+    // EN: "municipality" must NOT divert to localMunicipality (the 2023 local
+    // dashboard) — the bug this whole family fixes.
+    q: "show the results by municipality in Blagoevgrad",
+    lang: "en",
+    tool: "municipalityWinners",
+    kind: "table",
+    minRows: 14,
+    facts: { oblast: "Blagoevgrad" },
+    geo: { level: "municipality", mode: "choropleth", joinKey: "nuts4" },
+  },
+  {
+    // "коя партия спечели във всяка община" phrasing, different oblast
+    q: "Коя партия спечели във всяка община в Бургас?",
+    tool: "municipalityWinners",
+    kind: "table",
+    minRows: 8,
+    facts: { oblast: "Бургас" },
+  },
+  {
+    // EN "won in each municipality" phrasing
+    q: "which party won in each municipality of Burgas?",
+    lang: "en",
+    tool: "municipalityWinners",
+    kind: "table",
+    facts: { oblast: "Burgas" },
+  },
+  {
+    // "по общини в област Варна" names two levels -> the finer one (municipality),
+    // NOT regionWinners (the "област" keyword must not win over "общини")
+    q: "резултати по общини в област Варна",
+    tool: "municipalityWinners",
+    kind: "table",
+    facts: { oblast: "Варна" },
+  },
+  {
+    // unknown oblast -> graceful scalar (no crash, no wrong tool)
+    q: "резултати по общини в Несъществуевоград",
+    tool: "municipalityWinners",
+    kind: "scalar",
+    geo: false,
+  },
+  // -- settlementWinners --
+  {
+    // canonical: winners list + winner settlement map
+    q: "Покажи резултатите по населени места в община Самоков",
+    tool: "settlementWinners",
+    kind: "table",
+    minRows: 20,
+    facts: { place: "Самоков", leading_party: "ПрБ" },
+    geo: {
+      level: "settlement",
+      mode: "choropleth",
+      joinKey: "ekatte",
+      minAreas: 20,
+    },
+  },
+  {
+    q: "show the results by settlement in Bansko",
+    lang: "en",
+    tool: "settlementWinners",
+    kind: "table",
+    minRows: 3,
+    facts: { place: "Bansko" },
+    geo: { level: "settlement", mode: "choropleth", joinKey: "ekatte" },
+  },
+  {
+    // "по села" phrasing also routes to settlementWinners
+    q: "кой спечели по села в община Самоков",
+    tool: "settlementWinners",
+    kind: "table",
+    minRows: 20,
+  },
+  {
+    // EN "village" phrasing — and the trailing "municipality" must NOT divert it
+    // to municipalityWinners (settlement level is checked first)
+    q: "which party won in each village of Samokov municipality?",
+    lang: "en",
+    tool: "settlementWinners",
+    kind: "table",
+  },
+  // -- sectionWinners (no map: sections have no choropleth polygon) --
+  {
+    // scoped to the named SETTLEMENT (гр.Банско = 13 sections), not the whole
+    // município; carries no geo overlay
+    q: "Покажи резултатите по секции в Банско",
+    tool: "sectionWinners",
+    kind: "table",
+    minRows: 13,
+    facts: { sections: { num: 13 }, leading_party: "ПрБ" },
+    geo: false,
+  },
+  {
+    q: "show the results by polling station in Bansko",
+    lang: "en",
+    tool: "sectionWinners",
+    kind: "table",
+    minRows: 13,
+    geo: false,
+  },
+  {
+    // "избирателни секции" phrasing also routes to sectionWinners
+    q: "резултати по избирателни секции в Банско",
+    tool: "sectionWinners",
+    kind: "table",
+    minRows: 13,
+  },
+  {
+    // Sofia has no single section bundle (its МИР shards aren't in the nuts3->file
+    // map) -> graceful scalar, not a crash
+    q: "Покажи резултатите по секции в София",
+    tool: "sectionWinners",
+    kind: "scalar",
+    geo: false,
+  },
+  // -- disambiguation: the winners guard must NOT steal these --
+  {
+    // a PARTY is named -> the party-scoped breakdown, not the winners list
+    q: "ГЕРБ по общини в Благоевград",
+    tool: "municipalityBreakdown",
+    kind: "table",
+    facts: { party: "ГЕРБ-СДС" },
+  },
+  {
+    // a local signal ("общински съвет") -> the local-council tool, not winners
+    q: "резултати за общинския съвет на Варна",
+    tool: "localCouncil",
   },
   {
     // EN party-map: the router extracts the latin token "gerb"; matchParty
@@ -1128,6 +1298,119 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 1,
   },
+  // ---- MPs of a party (roster) ----------------------------------------------
+  // The headline fix: "ПП" must resolve to Продължаваме Промяната and list its
+  // MPs BY NAME — NOT substring-match the "ПП" (= политическа партия) prefix of
+  // an unrelated party's full name (the partyResult bug) and NOT report bare
+  // vote stats. minRows floors lock a non-empty roster without pinning the exact
+  // (re-scrape-volatile) member count; `group` regex locks the resolved group.
+  {
+    q: "кои са депутатите от ПП?",
+    tool: "partyMps",
+    kind: "table",
+    minRows: 10,
+    facts: { group: /Продължаваме Промяната/, count: /\d/, members: /, / },
+  },
+  {
+    // "депутатите на X" phrasing + a different group
+    q: "депутатите на ДПС",
+    tool: "partyMps",
+    kind: "table",
+    minRows: 10,
+    facts: { group: /ДПС/ },
+  },
+  {
+    // "народните представители на X" phrasing + the ДБ acronym must resolve to
+    // Демократична България (acronym alias), not the catch-all
+    q: "народните представители на ДБ",
+    tool: "partyMps",
+    kind: "table",
+    minRows: 10,
+    facts: { group: /Демократична България/ },
+  },
+  {
+    // single-word group name (no acronym path) still resolves
+    q: "кои са депутатите от Възраждане?",
+    tool: "partyMps",
+    kind: "table",
+    minRows: 5,
+    facts: { group: /ВЪЗРАЖДАНЕ/ },
+  },
+  {
+    // hyphen token vs en-dash label: "ГЕРБ-СДС" must match "ГЕРБ – СДС" via the
+    // dash-normalized alias (a bare "ГЕРБ" only matched by substring, masking
+    // this). Asserts a TABLE, not the not-found scalar.
+    q: "кои са депутатите от ГЕРБ-СДС?",
+    tool: "partyMps",
+    kind: "table",
+    minRows: 20,
+    facts: { group: /ГЕРБ/ },
+  },
+  // EN phrasings — the latin token romanizes to the Cyrillic group via matchParty
+  {
+    q: "MPs from GERB",
+    lang: "en",
+    tool: "partyMps",
+    kind: "table",
+    minRows: 20,
+    facts: { group: /ГЕРБ/, ns: /National Assembly/ },
+  },
+  {
+    q: "who are the MPs of DPS",
+    lang: "en",
+    tool: "partyMps",
+    kind: "table",
+    minRows: 10,
+    facts: { group: /ДПС/ },
+  },
+  {
+    // sentence-initial "MPs" (no leading space) + EN dash token
+    q: "GERB-SDS MPs",
+    lang: "en",
+    tool: "partyMps",
+    kind: "table",
+    minRows: 20,
+    facts: { group: /ГЕРБ/ },
+  },
+  {
+    // a party that isn't a distinct roster group (folded into the catch-all) ->
+    // graceful not-found scalar that lists the groups that DO resolve
+    q: "кои са депутатите от БСП?",
+    tool: "partyMps",
+    kind: "scalar",
+    facts: { available: /Продължаваме Промяната/ },
+  },
+  // ---- partyMps DISAMBIGUATION (the rule must not steal neighbouring intents) -
+  {
+    // votes, not a roster
+    q: "колко гласа взе ГЕРБ?",
+    tool: "partyResult",
+    kind: "scalar",
+    facts: { party: "ГЕРБ" },
+  },
+  {
+    // seats count for a named party stays partyResult (not partyMps/seats)
+    q: "колко места има ГЕРБ?",
+    tool: "partyResult",
+    kind: "scalar",
+    facts: { party: "ГЕРБ" },
+  },
+  {
+    // party + "депутат" + a WEALTH framing -> assets ranking, not the roster
+    q: "кои депутати от ГЕРБ са най-богати?",
+    tool: "mpAssetsTop",
+  },
+  {
+    // party + "депутат" + a CONNECTIONS framing -> connections ranking
+    q: "кои депутати от ДПС имат най-много фирмени връзки?",
+    tool: "mpConnectionsTop",
+  },
+  {
+    // a loyalty question (no party) stays roll-call loyalty
+    q: "кои депутати са най-лоялни?",
+    tool: "mpLoyalty",
+    kind: "table",
+  },
   // ---- schools ---------------------------------------------------------------
   {
     q: "Кои са най-добрите училища в Пловдив?",
@@ -1539,10 +1822,29 @@ const run = async () => {
     }
   }
 
-  const total = CASES.length + ARG_CASES.length;
+  // Starter chips + autocomplete suggestions promise the user a working query:
+  // every one MUST route to a real tool in BOTH languages. A dead-end (route ->
+  // null) would render a chip the user can click that then declines. This guards
+  // the whole bank at once, so adding a starter/suggestion that doesn't route
+  // fails here instead of shipping a broken chip.
+  let promptChecks = 0;
+  const POOL: { src: string; bg: string; en: string }[] = [
+    ...STARTERS.map((s) => ({ src: "starter", ...s })),
+    ...SUGGESTIONS.map((s) => ({ src: "suggestion", ...s })),
+  ];
+  for (const p of POOL) {
+    for (const lang of ["bg", "en"] as const) {
+      promptChecks += 1;
+      const ctx: ToolContext = { lang, election: LATEST };
+      if (!route(p[lang], ctx))
+        fail(`${p.src} (${lang}): ${p[lang]}`, "routed to (none)");
+    }
+  }
+
+  const total = CASES.length + ARG_CASES.length + promptChecks;
   const passed = total - failures;
   console.log(
-    `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${passed}/${total} regression cases`,
+    `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${passed}/${total} regression cases (incl. ${promptChecks} starter/suggestion routing checks)`,
   );
   process.exit(failures === 0 ? 0 : 1);
 };

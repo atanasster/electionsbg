@@ -73,7 +73,12 @@ import {
 } from "./placesGov";
 import { compareElections, machineVoteShare, turnout } from "./metrics";
 import { candidateResult } from "./candidate";
-import { nationalResults, parliamentSeats, partyResult } from "./national";
+import {
+  nationalResults,
+  parliamentSeats,
+  partyResult,
+  regionWinners,
+} from "./national";
 import { partyTimeline } from "./parties";
 import { agencyProfile, latestPolls } from "./pollsDepth";
 import { machineVoteSeries, turnoutSeries } from "./series";
@@ -95,9 +100,15 @@ import {
   mpLoyalty,
   mpSimilarity,
   mpVotingProfile,
+  partyMps,
   voteSearch,
 } from "./parliament";
 import { schoolScores } from "./schools";
+import {
+  municipalityWinners,
+  sectionWinners,
+  settlementWinners,
+} from "./winners";
 import type { Domain, ToolArgs, ToolContext, ToolDef } from "./types";
 
 export const TOOLS: ToolDef[] = [
@@ -126,6 +137,35 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: nationalResults,
+  },
+  {
+    name: "regionWinners",
+    domain: "elections",
+    description: {
+      bg: "Резултати по области: водещата партия във всяка област (списък + карта).",
+      en: "Results by region: the leading party in each oblast (list + map).",
+    },
+    params: [
+      {
+        name: "election",
+        type: "election",
+        description: {
+          bg: "Дата на избора (по подразбиране последния).",
+          en: "Election date (defaults to latest).",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Покажи резултатите по области.",
+        en: "Show the results by region.",
+      },
+      {
+        bg: "Коя партия спечели във всяка област?",
+        en: "Which party won in each region?",
+      },
+    ],
+    run: regionWinners,
   },
   {
     name: "parliamentSeats",
@@ -478,6 +518,101 @@ export const TOOLS: ToolDef[] = [
       { bg: "ГЕРБ по общини във Варна", en: "GERB by municipality in Varna" },
     ],
     run: municipalityBreakdown,
+  },
+  {
+    name: "municipalityWinners",
+    domain: "elections",
+    description: {
+      bg: "Резултати по общини в една област: водещата партия във всяка община (списък + карта).",
+      en: "Results by municipality in one oblast: the leading party in each (list + map).",
+    },
+    params: [
+      {
+        name: "oblast",
+        type: "oblast",
+        required: true,
+        description: { bg: "Област", en: "Oblast" },
+      },
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Покажи резултатите по общини в Благоевград",
+        en: "Show the results by municipality in Blagoevgrad",
+      },
+      {
+        bg: "Коя партия спечели във всяка община в Бургас?",
+        en: "Which party won in each municipality of Burgas?",
+      },
+    ],
+    run: municipalityWinners,
+  },
+  {
+    name: "settlementWinners",
+    domain: "elections",
+    description: {
+      bg: "Резултати по населени места в една община: водещата партия във всяко (списък + карта).",
+      en: "Results by settlement in one municipality: the leading party in each (list + map).",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община", en: "Municipality" },
+      },
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Покажи резултатите по населени места в община Банско",
+        en: "Show the results by settlement in Bansko",
+      },
+      {
+        bg: "Кой спечели по села в община Самоков?",
+        en: "Which party won in each village of Samokov?",
+      },
+    ],
+    run: settlementWinners,
+  },
+  {
+    name: "sectionWinners",
+    domain: "elections",
+    description: {
+      bg: "Резултати по избирателни секции в населено място: водещата партия във всяка секция.",
+      en: "Results by polling section in a settlement: the leading party in each section.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: {
+          bg: "Населено място / община",
+          en: "Settlement / municipality",
+        },
+      },
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Дата на избора", en: "Election date" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Покажи резултатите по секции в Банско",
+        en: "Show the results by polling station in Bansko",
+      },
+    ],
+    run: sectionWinners,
   },
   {
     name: "settlementBreakdown",
@@ -1959,6 +2094,30 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: voteSearch,
+  },
+  {
+    name: "partyMps",
+    domain: "people",
+    description: {
+      bg: "Депутатите (народните представители) от една партия в действащото Народно събрание — поименно.",
+      en: "The MPs (members) of one party in the sitting National Assembly — by name.",
+    },
+    params: [
+      {
+        name: "party",
+        type: "party",
+        required: true,
+        description: {
+          bg: "Партия / парламентарна група",
+          en: "Party / parliamentary group",
+        },
+      },
+    ],
+    examples: [
+      { bg: "Кои са депутатите от ПП?", en: "Who are the MPs from PP?" },
+      { bg: "Депутатите на ГЕРБ", en: "GERB's MPs" },
+    ],
+    run: partyMps,
   },
   // ---- education ------------------------------------------------------------
   {

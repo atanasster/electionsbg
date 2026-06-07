@@ -47,6 +47,7 @@ import {
 import { followUps } from "./followups";
 import { EmptyHero } from "./hero/EmptyHero";
 import { ModelPicker } from "./ModelPicker";
+import { STARTERS } from "./starters";
 import { matchSuggestions } from "./suggestions";
 import { useSpeech } from "./useSpeech";
 import { useVoiceInput } from "./voice";
@@ -69,66 +70,6 @@ const prevContext = (
 };
 
 const STORAGE_KEY = "naiasno.chat.v1";
-
-// A pool of starter prompts. Deliberately larger than STARTER_COUNT so that
-// after dropping the ones the user has already asked there are still enough
-// fresh prompts to fill the row. Each is phrased to route to a real tool.
-const STARTERS: { bg: string; en: string }[] = [
-  {
-    bg: "Какъв е процентът машинно гласуване в последните 7 избора?",
-    en: "What's the machine-voting % in the last 7 elections?",
-  },
-  {
-    bg: "Как се представя ГЕРБ през годините?",
-    en: "How has GERB performed over the years?",
-  },
-  {
-    bg: "Какви са резултатите от последните избори?",
-    en: "Results of the latest election?",
-  },
-  { bg: "Къде е силна ГЕРБ?", en: "Where is GERB strongest?" },
-  {
-    bg: "ГЕРБ по общини в Пловдив",
-    en: "GERB by municipality in Plovdiv",
-  },
-  {
-    bg: "Кои общини са с най-висока безработица?",
-    en: "Which municipalities have the highest unemployment?",
-  },
-  {
-    bg: "Колко места има всяка партия в парламента?",
-    en: "How many seats does each party hold in parliament?",
-  },
-  {
-    bg: "Сравни изборите от 2022 и 2024",
-    en: "Compare the 2022 and 2024 elections",
-  },
-  { bg: "Каква беше активността през 2023?", en: "What was turnout in 2023?" },
-  { bg: "Какъв е държавният бюджет?", en: "What is the state budget?" },
-  { bg: "За какво се харчи бюджетът?", en: "What is the budget spent on?" },
-  { bg: "Кои депутати са най-богати?", en: "Which MPs are richest?" },
-  {
-    bg: "Кои са най-големите инвестиционни проекти?",
-    en: "What are the biggest investment projects?",
-  },
-  {
-    bg: "Коя социологическа агенция е най-точна?",
-    en: "Which polling agency is most accurate?",
-  },
-  { bg: "Кои са правителствата от 2005?", en: "Governments since 2005?" },
-  {
-    bg: "Кой спечели общинските съвети?",
-    en: "Who won the municipal councils?",
-  },
-  {
-    bg: "Какъв е общинският съвет на София?",
-    en: "What is the Sofia municipal council?",
-  },
-  {
-    bg: "Имаше ли нередности на последните избори?",
-    en: "Were there irregularities in the latest election?",
-  },
-];
 
 // How many starter chips to show under the composer.
 const STARTER_COUNT = 5;

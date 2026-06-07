@@ -41,6 +41,13 @@ const AGENCIES = [
   "Медиана",
 ];
 
+// Parliamentary groups of the sitting НС — each routes to partyMps and resolves
+// to a real roster group (verified: ГЕРБ-СДС via the dash-normalized alias, ПП →
+// Продължаваме Промяната, ДБ → Демократична България). Kept separate from
+// PARTIES, whose БСП/ИТН/МЕЧ/Величие aren't distinct roster groups (the roster
+// folds them into a coalition group) and would dead-end the MP-roster query.
+const PG_PARTIES = ["ГЕРБ-СДС", "ПП", "ДБ", "ДПС", "Възраждане"];
+
 // Major municipalities whose council composition routes to localCouncil (the
 // hemicycle). Verified to resolve in both languages via resolveMunicipality.
 const COUNCIL_CITIES: { bg: string; en: string }[] = [
@@ -51,6 +58,25 @@ const COUNCIL_CITIES: { bg: string; en: string }[] = [
   { bg: "Русе", en: "Ruse" },
   { bg: "Стара Загора", en: "Stara Zagora" },
   { bg: "Плевен", en: "Pleven" },
+];
+
+// Oblasts whose per-municipality winner breakdown routes to municipalityWinners
+// (the party-blind "results by municipality in X"). Curated clean names (not the
+// OBLASTS map, which carries Sofia's МИР shards + abroad). Verified to resolve.
+const WINNER_OBLASTS: { bg: string; en: string }[] = [
+  { bg: "Благоевград", en: "Blagoevgrad" },
+  { bg: "Пловдив", en: "Plovdiv" },
+  { bg: "Варна", en: "Varna" },
+  { bg: "Бургас", en: "Burgas" },
+  { bg: "Стара Загора", en: "Stara Zagora" },
+];
+
+// Municipalities whose per-settlement / per-section winner breakdowns route to
+// settlementWinners / sectionWinners. Verified to resolve in both languages.
+const WINNER_MUNIS: { bg: string; en: string }[] = [
+  { bg: "Самоков", en: "Samokov" },
+  { bg: "Несебър", en: "Nesebar" },
+  { bg: "Банско", en: "Bansko" },
 ];
 
 // Well-known candidates (verified present in the latest candidates.json) — these
@@ -156,9 +182,25 @@ export const SUGGESTIONS: Suggestion[] = [
     { bg: `Колко гласа взе ${p}?`, en: `How many votes did ${p} get?` },
     { bg: `Резултати за ${p}`, en: `Results for ${p}` },
   ]),
+  ...PG_PARTIES.map((p) => ({
+    bg: `Кои са депутатите от ${p}?`,
+    en: `Who are the MPs from ${p}?`,
+  })),
   ...Object.values(OBLASTS).map((o) => ({
     bg: `Каква е активността в ${o.bg}?`,
     en: `What is the turnout in ${o.en}?`,
+  })),
+  ...WINNER_OBLASTS.map((o) => ({
+    bg: `Резултати по общини в ${o.bg}`,
+    en: `Results by municipality in ${o.en}`,
+  })),
+  ...WINNER_MUNIS.map((m) => ({
+    bg: `Резултати по населени места в община ${m.bg}`,
+    en: `Results by settlement in ${m.en}`,
+  })),
+  ...WINNER_MUNIS.map((m) => ({
+    bg: `Резултати по секции в ${m.bg}`,
+    en: `Results by polling station in ${m.en}`,
   })),
   ...AGENCIES.map((a) => ({
     bg: `Колко е точна ${a}?`,

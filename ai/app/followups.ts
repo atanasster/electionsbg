@@ -91,10 +91,51 @@ export const followUps = (env: Envelope): FollowUp[] => {
       break;
     case "nationalResults":
       out.push({ bg: "Каква беше активността?", en: "What was the turnout?" });
+      out.push({
+        bg: "Покажи резултатите по области.",
+        en: "Show the results by region.",
+      });
       out.push({ bg: "Къде е силна ГЕРБ?", en: "Where is GERB strongest?" });
       out.push({
         bg: "Сравни последните избори",
         en: "Compare the recent elections",
+      });
+      break;
+    case "regionWinners":
+      out.push({
+        bg: "Какви са резултатите от последните избори?",
+        en: "Results of the latest election?",
+      });
+      out.push({ bg: "Къде е силна ГЕРБ?", en: "Where is GERB strongest?" });
+      break;
+    case "municipalityWinners":
+      out.push({
+        bg: "Покажи резултатите по области.",
+        en: "Show the results by region.",
+      });
+      out.push({ bg: "Къде е силна ГЕРБ?", en: "Where is GERB strongest?" });
+      break;
+    case "settlementWinners": {
+      const place = fact(env, "place");
+      if (place)
+        out.push({
+          bg: `Покажи резултатите по секции ${vIn(place)}`,
+          en: `Show the results by polling station in ${place}`,
+        });
+      out.push({
+        bg: "Покажи резултатите по области.",
+        en: "Show the results by region.",
+      });
+      break;
+    }
+    case "sectionWinners":
+      out.push({
+        bg: "Покажи резултатите по области.",
+        en: "Show the results by region.",
+      });
+      out.push({
+        bg: "Какви са резултатите от последните избори?",
+        en: "Results of the latest election?",
       });
       break;
     case "parliamentSeats":
@@ -223,6 +264,18 @@ export const followUps = (env: Envelope): FollowUp[] => {
           bg: `Кой гласува като ${name}?`,
           en: `Who votes like ${name}?`,
         });
+      break;
+    case "partyMps":
+      // Safe, always-routable follow-ups (the group's full name wouldn't be
+      // recognised as a party token, so don't echo it back into a question).
+      out.push({
+        bg: "Колко места има всяка партия в парламента?",
+        en: "How many seats does each party hold in parliament?",
+      });
+      out.push({
+        bg: "Кои депутати са най-лоялни?",
+        en: "Which MPs are most loyal?",
+      });
       break;
     case "pollAccuracy":
       if (agency)
