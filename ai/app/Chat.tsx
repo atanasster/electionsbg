@@ -78,6 +78,12 @@ const prevContext = (
 
 const STORAGE_KEY = "naiasno.chat.v1";
 
+// Shell-style recall of past prompts (Up/Down in the composer). Kept separate
+// from the conversation so it survives "New chat", deduped against the newest
+// entry, and capped to the most recent few dozen.
+const PROMPT_HISTORY_KEY = "naiasno.chat.history.v1";
+const PROMPT_HISTORY_MAX = 50;
+
 // How many starter chips to show under the composer.
 const STARTER_COUNT = 5;
 
@@ -296,6 +302,14 @@ export const Chat = ({
 }) => {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
+  // Past prompts the user submitted, newest first, for Up/Down recall.
+  const [promptHistory, setPromptHistory] = useState<string[]>([]);
+  // Position within promptHistory while browsing: -1 = live draft (not
+  // browsing), 0 = newest. histDraft holds what was typed before browsing began
+  // so Down past the newest restores it.
+  const histIdx = useRef(-1);
+  const histDraft = useRef("");
+  const firstHistPersist = useRef(true);
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
@@ -399,6 +413,13 @@ export const Chat = ({
     speech.stop();
     pinned.current = true; // a fresh question always follows to the foot
     setInput("");
+    // record the prompt for Up/Down recall (skip a consecutive duplicate) and
+    // reset the browse cursor back to the live draft.
+    setPromptHistory((h) =>
+      h[0] === q ? h : [q, ...h].slice(0, PROMPT_HISTORY_MAX),
+    );
+    histIdx.current = -1;
+    histDraft.current = "";
     // the prior answer's tool becomes the context for a follow-on ("а ДПС?");
     // the full prior conversation is distilled so the model can resolve richer
     // references ("show the same for Plovdiv", "compare that to 2024")
@@ -500,12 +521,60 @@ export const Chat = ({
     taRef.current?.focus();
   };
 
+  // Drop the caret at the very end after a programmatic value change (one frame
+  // later, once React has committed the new value to the DOM).
+  const caretToEnd = () => {
+    requestAnimationFrame(() => {
+      const el = taRef.current;
+      if (!el) return;
+      const end = el.value.length;
+      el.setSelectionRange(end, end);
+    });
+  };
+
+  // Recall promptHistory[idx] into the composer and remember where we are.
+  const recallPrompt = (idx: number) => {
+    histIdx.current = idx;
+    setInput(promptHistory[idx]);
+    caretToEnd();
+  };
+
   // Enter sends; Shift+Enter inserts a newline. Ignore Enter mid-IME-composition
   // (Bulgarian/other input methods) so it doesn't fire while picking a candidate.
+  // Up/Down walk the prompt history (shell-style), but only at the text edges so
+  // they still move the caret within a multi-line draft: Up recalls an older
+  // prompt when the caret is on the first line, Down a newer one (eventually the
+  // saved draft) when it's on the last line.
   const onComposerKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
       send(input);
+      return;
+    }
+    if (e.nativeEvent.isComposing) return;
+    const el = e.currentTarget;
+    if (e.key === "ArrowUp") {
+      const atFirstLine =
+        el.value.slice(0, el.selectionStart).indexOf("\n") === -1;
+      if (!atFirstLine) return;
+      const next = histIdx.current + 1;
+      if (next >= promptHistory.length) return; // already at the oldest
+      if (histIdx.current === -1) histDraft.current = input; // stash the draft
+      e.preventDefault();
+      recallPrompt(next);
+    } else if (e.key === "ArrowDown") {
+      if (histIdx.current === -1) return; // not browsing — let the caret move
+      const atLastLine = el.value.slice(el.selectionEnd).indexOf("\n") === -1;
+      if (!atLastLine) return;
+      e.preventDefault();
+      const next = histIdx.current - 1;
+      if (next < 0) {
+        histIdx.current = -1; // back to the live draft
+        setInput(histDraft.current);
+        caretToEnd();
+      } else {
+        recallPrompt(next);
+      }
     }
   };
 
@@ -544,6 +613,32 @@ export const Chat = ({
       /* quota — ignore */
     }
   }, [messages]);
+
+  // restore the prompt-recall history once on load
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(PROMPT_HISTORY_KEY);
+      const arr = saved ? (JSON.parse(saved) as unknown) : [];
+      if (Array.isArray(arr) && arr.length)
+        setPromptHistory(arr.filter((s): s is string => typeof s === "string"));
+    } catch {
+      /* corrupt storage — ignore */
+    }
+  }, []);
+
+  // persist the prompt-recall history (skip the first render so the restore
+  // above isn't clobbered before it lands)
+  useEffect(() => {
+    if (firstHistPersist.current) {
+      firstHistPersist.current = false;
+      return;
+    }
+    try {
+      localStorage.setItem(PROMPT_HISTORY_KEY, JSON.stringify(promptHistory));
+    } catch {
+      /* quota — ignore */
+    }
+  }, [promptHistory]);
 
   const copyAll = async () => {
     try {
@@ -801,7 +896,11 @@ export const Chat = ({
                 "Ask about the elections…",
               )}
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => {
+                // typing leaves history-browsing; the edit becomes the new draft
+                histIdx.current = -1;
+                setInput(e.target.value);
+              }}
               onKeyDown={onComposerKeyDown}
             />
             {voice.supported && (
