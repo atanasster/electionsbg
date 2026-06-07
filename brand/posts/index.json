@@ -22,5 +22,27 @@
       "https://www.bta.bg/en/news/bulgaria/1060672-bulgaria-s-score-in-corruption-perceptions-index-2025-is-country-s-worst-since-2"
     ],
     "image": "brand/posts/2026-06-01-cpi-2025.png"
+  },
+  {
+    "slug": "2026-06-07-naiasno-ai-release",
+    "date": "2026-06-07",
+    "title": "Наясно AI — отворен чат за изборите, с 104 типизирани инструмента",
+    "tags": [
+      "release",
+      "ai",
+      "open-source"
+    ],
+    "entities": [
+      "Наясно AI",
+      "electionsbg.com"
+    ],
+    "keyFact": "Наясно AI (ai.electionsbg.com) пусната: отворен AI чат с 104 типизирани инструмента; Gemini 3.1 Flash-Lite избира верния инструмент в ~96–97% и на български, и на английски, без влошаване на български.",
+    "link": "https://ai.electionsbg.com",
+    "sources": [
+      "data/ai/evals/fc_eval.json",
+      "https://ai.electionsbg.com/evals",
+      "https://github.com/atanasster/electionsbg"
+    ],
+    "image": "brand/posts/2026-06-07-naiasno-ai-release.png"
   }
 ]
