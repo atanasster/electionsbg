@@ -1,6 +1,7 @@
 // Resolve a free-text party reference ("ГЕРБ", "gerb", "ПП-ДБ", "DPS") to a
 // party entry, against nickName / name / commonName aliases.
 
+import { fuzzyBestMatch } from "./resolve";
 import { translitKey } from "./translit";
 
 // Romanize first, THEN strip separators — so a latin token the router extracts
@@ -48,5 +49,15 @@ export const matchParty = <T extends PartyLike>(
       }
     }
   }
-  return best?.p;
+  if (best) return best.p;
+
+  // 3. typo-tolerant fuzzy fallback (last resort). Tight threshold + a 4-char
+  // floor so short abbreviations ("БСП", "ДПС", "ИТН") stay exact-only — one
+  // edit there flips the party — while a misspelt longer name ("Възраждене")
+  // still resolves.
+  return fuzzyBestMatch(
+    query,
+    parties.map((p) => ({ item: p, keys: aliasesOf(p) })),
+    { threshold: 0.28, minLen: 4 },
+  )?.item;
 };

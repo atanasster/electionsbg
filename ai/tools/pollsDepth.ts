@@ -3,6 +3,7 @@
 import { fetchData } from "./dataClient";
 import { fmtInt, fmtPct } from "./format";
 import { round2 } from "./dataset";
+import { fuzzyBestMatch } from "./resolve";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
 const norm = (s: string): string =>
@@ -52,7 +53,7 @@ export const agencyProfile = async (
         return nn.length > 1 && (nn === q || nn.includes(q) || q.includes(nn));
       }),
   );
-  const prof =
+  let prof =
     acc.agencyProfiles.find((p) => p.agencyId === ag?.id) ||
     acc.agencyProfiles.find((p) => {
       const nb = norm(p.name_bg);
@@ -61,6 +62,31 @@ export const agencyProfile = async (
         nb.includes(q) || ne.includes(q) || q.includes(nb) || q.includes(ne)
       );
     });
+  if (!prof) {
+    // typo fallback: fuzzy-match the agency catalogue (names + abbreviations),
+    // then its profile; failing that, fuzzy-match the profile names directly.
+    const agHit = fuzzyBestMatch(
+      query,
+      agencies.map((a) => ({
+        item: a,
+        keys: [a.name_bg, a.name_en, a.abbr_bg, a.abbr_en].filter(
+          Boolean,
+        ) as string[],
+      })),
+      { threshold: 0.32, minLen: 4, cacheKey: "agency" },
+    );
+    if (agHit)
+      prof = acc.agencyProfiles.find((p) => p.agencyId === agHit.item.id);
+    if (!prof)
+      prof = fuzzyBestMatch(
+        query,
+        acc.agencyProfiles.map((p) => ({
+          item: p,
+          keys: [p.name_bg, p.name_en],
+        })),
+        { threshold: 0.32, minLen: 4, cacheKey: "agencyProfile" },
+      )?.item;
+  }
   if (!prof) {
     return {
       tool: "agencyProfile",

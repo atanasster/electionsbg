@@ -1,4 +1,5 @@
 import { SearchIndexType, useSearchItems } from "@/data/search/useSearchItems";
+import { searchLimitForType } from "@/data/search/searchConfig";
 import { FuseResult } from "fuse.js";
 import {
   createContext,
@@ -98,23 +99,12 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
       const PER_TYPE_LIMIT = 5;
       const counts: Partial<Record<SearchIndexType["type"], number>> = {};
       const filtered =
-        search(searchTerm)?.filter((r) => {
-          // Per-type fuzziness budget. Candidate names, ministry names and
-          // vote titles are typically searched by a partial keyword
-          // ("отбран" → Defence ministry, "Радев" → Radev, "корупция" → an
-          // anti-corruption bill), so they get a looser threshold than
-          // settlements/sections where the user usually types an exact name.
-          // Municipal officials (type "o") share the name-search loose
-          // threshold with candidates / MPs — users type partial names.
-          const limit =
-            r.item.type === "a" ||
-            r.item.type === "b" ||
-            r.item.type === "v" ||
-            r.item.type === "o"
-              ? 0.4
-              : 0.1;
-          return (r.score || 1) <= limit;
-        }) || [];
+        // Per-type fuzziness budget lives in searchConfig (shared with the
+        // regression harness) — names loose (0.4), settlements/munis/regions
+        // 0.2 to catch typos, sections tight (0.1).
+        search(searchTerm)?.filter(
+          (r) => (r.score || 1) <= searchLimitForType(r.item.type),
+        ) || [];
       const limited: typeof filtered = [];
       for (const r of filtered) {
         const c = counts[r.item.type] || 0;

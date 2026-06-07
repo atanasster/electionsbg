@@ -8,7 +8,7 @@ import {
   localCycleYear,
   resolveLocalCycle,
 } from "./localDataset";
-import { resolveMunicipality } from "./place";
+import { resolveMunicipality, resolvePlaceForData } from "./place";
 import { muniLocator, settlementLocator } from "./geo";
 import { round2 } from "./dataset";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
@@ -37,9 +37,11 @@ export const procurementBySettlement = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
-  const place = await resolveMunicipality(String(args.place ?? ""));
-  if (!place)
-    return noPlace("procurementBySettlement", String(args.place ?? ""), ctx);
+  // exact município/settlement before fuzzy, so a village/town ("Баня") resolves
+  // to its OWN ekatte instead of substring-matching a município ("Долна баня").
+  const q = String(args.place ?? "");
+  const place = await resolvePlaceForData(q);
+  if (!place) return noPlace("procurementBySettlement", q, ctx);
   const data = await tryFetch<SettlementProc>(
     `/procurement/by_settlement/${place.ekatte}.json`,
   );

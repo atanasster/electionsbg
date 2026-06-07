@@ -114,6 +114,9 @@ npm run rollcall:scrape    # ingest new parliament.bg roll-call vote sessions
 npm run derived:rebuild    # recompute MP loyalty / attendance / similarity / party cohesion
 npm run bucket:sync        # incremental rsync of data/ to GCS bucket
 npm run bucket:sync:dry    # same, but -n (preview only)
+npm run bucket:gz          # gzip-upload hot large JSON (Content-Encoding: gzip)
+npm run bucket:gz:dry      # preview which files + the gzip savings
+npm run bucket:sync:all    # bucket:sync then bucket:gz (recommended deploy)
 # Helpers invoked by Claude Code skills (no top-level wrapper):
 #   npx tsx scripts/financing/scrape_index.ts          # Сметна палата annual-reports year index
 #   npx tsx scripts/financing/scrape_reports.ts        # gfopp per-party annual-report filing status

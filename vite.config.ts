@@ -234,6 +234,10 @@ export default defineConfig(({ mode }) => {
       alias: {
         "@": path.resolve(__dirname, "./src"),
       },
+      // Force a single React instance. Without this the dev dep-optimizer can
+      // pull React in via two module paths ("Invalid hook call — more than one
+      // copy of React"), blanking the app in `npm run dev`.
+      dedupe: ["react", "react-dom"],
     },
   };
 });

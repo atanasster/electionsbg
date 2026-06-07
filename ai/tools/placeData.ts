@@ -2,7 +2,11 @@
 
 import { fetchData } from "./dataClient";
 import { fmtInt } from "./format";
-import { resolveMunicipality, resolveOblast } from "./place";
+import {
+  resolveMunicipality,
+  resolveOblast,
+  resolvePlaceForData,
+} from "./place";
 import { muniLocator, oblastLocator } from "./geo";
 import { round2 } from "./dataset";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
@@ -200,8 +204,11 @@ export const graoPopulation = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
-  const place = await resolveMunicipality(String(args.place ?? ""));
-  if (!place) return noPlace("graoPopulation", String(args.place ?? ""), ctx);
+  // exact município/settlement before fuzzy -> a named village resolves to its
+  // own ekatte ("Баня"), not a substring município ("Долна баня").
+  const q = String(args.place ?? "");
+  const place = await resolvePlaceForData(q);
+  if (!place) return noPlace("graoPopulation", q, ctx);
   const d = await fetchData<GraoData>("/grao_population.json");
   const rec = d.settlements[place.ekatte];
   if (!rec) {

@@ -12,6 +12,7 @@
 // `area.oblast` caveat which is a different field).
 
 import { fetchData } from "./dataClient";
+import { fuzzyBestMatch } from "./resolve";
 import type { Lang } from "./types";
 
 export type Muni = {
@@ -113,6 +114,38 @@ export const loadMunis = async (): Promise<Muni[]> => {
   return muniCache;
 };
 
+// A settlement (населено място) carries its OWN ekatte + its parent obshtina, so
+// a resolved settlement is PlaceMatch-shaped and drops into the place tools as a
+// fallback: ekatte-keyed tools (GRAO, procurement) get the village itself,
+// obshtina-keyed tools (census) get its parent município.
+type SettlementRow = Muni & { tvm: string };
+let settlementCache: SettlementRow[] | null = null;
+
+const loadSettlements = async (): Promise<SettlementRow[]> => {
+  if (settlementCache) return settlementCache;
+  const raw = await fetchData<
+    {
+      ekatte: string;
+      name: string;
+      name_en: string;
+      oblast: string;
+      obshtina: string;
+      nuts3: string;
+      t_v_m?: string;
+    }[]
+  >("/settlements.json");
+  settlementCache = raw.map((e) => ({
+    obshtina: e.obshtina,
+    name: e.name,
+    nameEn: e.name_en,
+    oblast: e.oblast,
+    nuts3: e.nuts3,
+    ekatte: e.ekatte,
+    tvm: e.t_v_m ?? "",
+  }));
+  return settlementCache;
+};
+
 // Sofia is the synthetic SOF município (not in municipalities.json), so the
 // substring match below can't find it — detect it by keyword. Substring (not
 // exact) so leftover words from extractPlace ("...кметове на софия") still hit.
@@ -125,6 +158,7 @@ const isSofia = (q: string): boolean =>
 // match with `.ambiguous` listing the alternatives.
 export const resolveMunicipality = async (
   query: string,
+  opts: { exact?: boolean } = {},
 ): Promise<PlaceMatch | undefined> => {
   if (!query) return undefined;
   if (isSofia(query)) {
@@ -136,6 +170,9 @@ export const resolveMunicipality = async (
 
   const exact = munis.filter((m) => norm(m.name) === q || norm(m.nameEn) === q);
   let pool = exact;
+  // exact-only mode: skip the substring/fuzzy tiers (used to order an EXACT
+  // settlement ahead of a FUZZY município — see resolvePlaceForData).
+  if (pool.length === 0 && opts.exact) return undefined;
   if (pool.length === 0) {
     pool = munis.filter((m) => {
       const a = norm(m.name);
@@ -143,7 +180,25 @@ export const resolveMunicipality = async (
       return a.includes(q) || q.includes(a) || b.includes(q) || q.includes(b);
     });
   }
-  if (pool.length === 0) return undefined;
+  if (pool.length === 0) {
+    // typo / transliteration-drift fallback ("Пловдв", "Asenovgrd", "Turnovo").
+    // Include the synthetic Sofia bundle so a misspelt capital ("Софя", "Sofa",
+    // mixed-script "Cофия") still resolves — isSofia above is exact-substring
+    // only and Sofia is NOT in municipalities.json.
+    const hit = fuzzyBestMatch(
+      query,
+      () => [
+        { item: SOFIA_ALIAS, keys: ["София", "Sofia", SOFIA_ALIAS.name] },
+        ...munis.map((m) => ({ item: m, keys: [m.name, m.nameEn] })),
+      ],
+      { threshold: 0.3, minLen: 4, cacheKey: "muni" },
+    );
+    if (!hit) return undefined;
+    if (hit.item === SOFIA_ALIAS) {
+      return { ...SOFIA_ALIAS, oblastName: { bg: "София", en: "Sofia" } };
+    }
+    pool = [hit.item];
+  }
 
   // prefer the shortest name (so "Варна" beats "Долни чифлик" on substring)
   pool.sort((a, b) => a.name.length - b.name.length);
@@ -156,6 +211,70 @@ export const resolveMunicipality = async (
     ambiguous: alternatives,
   };
 };
+
+// Resolve a settlement (село/град) by free-text name (BG or EN). Same tiers as
+// município — exact → substring → fuzzy typo fallback. Settlement names collide
+// heavily (dozens of villages share a name), so among equal matches we prefer a
+// town (гр.) over a village (с.), then the shortest name, and expose the rest in
+// `.ambiguous`. Returns a PlaceMatch (its own ekatte, parent obshtina) so it
+// slots into the place tools unchanged. município resolution should be tried
+// FIRST by callers (the bigger entity wins on a name shared with a município).
+export const resolveSettlement = async (
+  query: string,
+  opts: { exact?: boolean } = {},
+): Promise<PlaceMatch | undefined> => {
+  if (!query) return undefined;
+  const all = await loadSettlements();
+  const q = norm(query);
+  if (!q) return undefined;
+
+  const exact = all.filter((s) => norm(s.name) === q || norm(s.nameEn) === q);
+  let pool = exact;
+  if (pool.length === 0 && opts.exact) return undefined;
+  if (pool.length === 0) {
+    pool = all.filter((s) => {
+      const a = norm(s.name);
+      const b = norm(s.nameEn);
+      return a.includes(q) || q.includes(a) || b.includes(q) || q.includes(b);
+    });
+  }
+  if (pool.length === 0) {
+    const hit = fuzzyBestMatch(
+      query,
+      () => all.map((s) => ({ item: s, keys: [s.name, s.nameEn] })),
+      { threshold: 0.3, minLen: 4, cacheKey: "settlement" },
+    );
+    if (!hit) return undefined;
+    pool = [hit.item];
+  }
+
+  // towns before villages, then shortest name (so "Сливен" the town beats a
+  // same-named hamlet, and "Бяла" beats "Бяла черква" on a substring sweep)
+  const rank = (s: SettlementRow): number => (s.tvm === "гр." ? 0 : 1);
+  pool.sort((a, b) => rank(a) - rank(b) || a.name.length - b.name.length);
+  const best = pool[0];
+  const alternatives =
+    pool.length > 1 ? pool.filter((s) => s !== best).slice(0, 5) : undefined;
+  return {
+    ...best,
+    oblastName: oblastName(best.oblast),
+    ambiguous: alternatives,
+  };
+};
+
+// Place resolution for settlement-level tools (GRAO / census / procurement).
+// Order = EXACT before FUZZY: an exact município, then an exact settlement, then
+// a fuzzy município, then a fuzzy settlement. This is the key precedence fix:
+// "Баня" no longer substring-matches the município "Долна баня" (which would
+// pre-empt the 5 villages literally named "Баня") — the exact settlement wins;
+// yet a partial/typo'd município name ("Пловдв") still beats a fuzzy settlement.
+export const resolvePlaceForData = async (
+  query: string,
+): Promise<PlaceMatch | undefined> =>
+  (await resolveMunicipality(query, { exact: true })) ??
+  (await resolveSettlement(query, { exact: true })) ??
+  (await resolveMunicipality(query)) ??
+  (await resolveSettlement(query));
 
 // Resolve an oblast / МИР by free-text name or raw code.
 export const resolveOblast = (
@@ -178,7 +297,17 @@ export const resolveOblast = (
     if (norm(name.bg).startsWith(q) || norm(name.en).startsWith(q))
       return { code, name };
   }
-  return undefined;
+  // typo fallback over the bare oblast names (strip the "(област)/(province)/
+  // (МИР)" qualifier so only the place name is fuzzy-matched).
+  return fuzzyBestMatch(
+    query,
+    () =>
+      Object.entries(OBLASTS).map(([code, name]) => ({
+        item: { code, name },
+        keys: [oblastBase(name.bg), oblastBase(name.en)],
+      })),
+    { threshold: 0.3, minLen: 4, cacheKey: "oblast" },
+  )?.item;
 };
 
 // Find an oblast whose name appears *inside* a longer sentence (so a question

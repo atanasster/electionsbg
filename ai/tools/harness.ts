@@ -782,6 +782,123 @@ const run = async () => {
   printEnvelope(cand);
   assert(!!cand.facts.name, "candidateResult resolved a candidate");
 
+  // ---- typo tolerance across the resolvers (fuzzy fallback) -----------------
+  console.log("\n=== [fuzzy] typo-tolerant lookups ===");
+  // candidate: one dropped letter still resolves to the right person
+  const candTypo = (await runTool(
+    "candidateResult",
+    { name: "Божидар Божанв" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    /Божанов/.test(String(candTypo.facts.name ?? "")),
+    `candidate typo "Божидар Божанв" -> Божанов (got "${candTypo.facts.name}")`,
+  );
+  // candidate: reversed word order + a typo
+  const candRev = (await runTool(
+    "candidateResult",
+    { name: "Божанов Божидар" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    /Божанов/.test(String(candRev.facts.name ?? "")),
+    `candidate reversed "Божанов Божидар" -> Божанов`,
+  );
+  // candidate: a genuine non-name must still decline cleanly (no over-reach)
+  const candMiss = (await runTool(
+    "candidateResult",
+    { name: "Пешо Несъществуващ" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    candMiss.kind === "scalar" && candMiss.facts.търсене != null,
+    "candidate nonsense still declines (notFound), no fuzzy over-reach",
+  );
+  // party: a misspelt longer party name resolves via matchParty's fuzzy tier
+  const partyTypo = (await runTool(
+    "partyResult",
+    { party: "Възраждене" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    partyTypo.facts?.party != null,
+    `party typo "Възраждене" -> resolved (got "${partyTypo.facts?.party}")`,
+  );
+  // MP: a dropped letter in the surname still resolves
+  const mpTypo = (await runTool(
+    "mpVotingProfile",
+    { name: "Бойко Борисв" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    /Борисов/.test(String(mpTypo.facts.name ?? "")),
+    `MP typo "Бойко Борисв" -> Борисов (got "${mpTypo.facts.name}")`,
+  );
+  // agency: a misspelt pollster name still resolves to a profile
+  const agTypo = (await runTool(
+    "agencyProfile",
+    { agency: "Алфа Рисрч" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    agTypo.kind === "scalar" && agTypo.facts.grade != null,
+    `agency typo "Алфа Рисрч" -> resolved a profile (got "${agTypo.title}")`,
+  );
+  // ministry: a misspelt ministry name still resolves
+  const minTypo = (await runTool(
+    "ministryBudget",
+    { ministry: "транспрта" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    !!minTypo.facts.ministry &&
+      /транспорт/i.test(String(minTypo.facts.ministry)),
+    `ministry typo "транспрта" -> transport ministry (got "${minTypo.facts.ministry}")`,
+  );
+  // agency: a genuine non-agency must still decline cleanly (no over-reach)
+  const agMiss = (await runTool(
+    "agencyProfile",
+    { agency: "Несъществуваща Агенция" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    agMiss.kind === "scalar" && agMiss.facts.grade == null,
+    "agency nonsense still declines (no fuzzy over-reach)",
+  );
+  // settlement resolver: a town that is NOT a município (Калофер) resolves to
+  // its OWN ekatte for a settlement-keyed tool (GRAO), not a município.
+  const graoVillage = (await runTool(
+    "graoPopulation",
+    { place: "Калофер" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    !!graoVillage.facts.permanent &&
+      /Калофер/.test(String(graoVillage.facts.place ?? "")),
+    `graoPopulation "Калофер" -> village GRAO (got "${graoVillage.facts.place}")`,
+  );
+  // and its typo
+  const graoTypo = (await runTool(
+    "graoPopulation",
+    { place: "Калофре" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    /Калофер/.test(String(graoTypo.facts.place ?? "")),
+    `graoPopulation typo "Калофре" -> Калофер`,
+  );
+  // precedence: a village name shared as a sub-token of a município ("Баня" ⊂
+  // "Долна баня") must resolve to a Баня village, not the município.
+  const graoBanya = (await runTool(
+    "graoPopulation",
+    { place: "Баня" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    /^Баня$/.test(String(graoBanya.facts.place ?? "")),
+    `graoPopulation "Баня" -> a Баня village, not Долна баня (got "${graoBanya.facts.place}")`,
+  );
+
   const turn = (await runTool(
     "turnout",
     { election: "2023_04_02" },

@@ -7,6 +7,7 @@ import { fetchData } from "./dataClient";
 import { electionFullLabel, fmtInt } from "./format";
 import { partyResult } from "./national";
 import { OBLASTS } from "./place";
+import { fuzzyBestMatch } from "./resolve";
 import type { Envelope, ToolArgs, ToolContext } from "./types";
 
 type CandidateRow = {
@@ -70,7 +71,7 @@ export const candidateResult = async (
   const last = qt[qt.length - 1];
   // Latin query -> match the transliterated name; Cyrillic -> the BG name.
   const useEn = /[a-z]/i.test(query) && !/[Ѐ-ӿ]/.test(query);
-  const matches = list.filter((c) => {
+  let matches = list.filter((c) => {
     const toks = norm(useEn ? c.name_en : c.name)
       .split(" ")
       .filter(Boolean);
@@ -85,10 +86,39 @@ export const candidateResult = async (
     // query resolves to a party for this election, answer with the party's
     // result instead of a dead "candidate not found". partyResult declines
     // (no `party` fact) for a genuine non-candidate person name, so the
-    // candidate "not found" still surfaces in that case.
+    // candidate "not found" still surfaces in that case. Tried BEFORE the typo
+    // fallback so a real party name can't be mis-corrected to a lookalike person.
     const asParty = await partyResult({ party: query, election }, ctx);
     if (asParty.facts?.party != null) return asParty;
-    return notFound(query, lang, election);
+
+    // typo / reordered candidate name: fuzzy-match the full romanized name (BG
+    // and EN aliases). The same person recurs across районs, so each entry's item
+    // is ALL their rows. tokenSort handles "Василев Асен". The index (≈6k names)
+    // is built once per election via cacheKey, not on every miss; the thunk skips
+    // the row build entirely on a cache hit.
+    const hit = fuzzyBestMatch<CandidateRow[]>(
+      query,
+      () => {
+        const byName = new Map<string, CandidateRow[]>();
+        for (const c of list) {
+          const arr = byName.get(c.name);
+          if (arr) arr.push(c);
+          else byName.set(c.name, [c]);
+        }
+        return [...byName.values()].map((rows) => ({
+          item: rows,
+          keys: [rows[0].name, rows[0].name_en].filter(Boolean) as string[],
+        }));
+      },
+      {
+        threshold: 0.3,
+        minLen: 5,
+        tokenSort: true,
+        cacheKey: `candidate:${election}`,
+      },
+    );
+    if (hit) matches = hit.item;
+    if (!matches.length) return notFound(query, lang, election);
   }
 
   // the same person can appear across several районs; canonical BG name is stable

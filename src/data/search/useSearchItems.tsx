@@ -9,6 +9,8 @@ import { useElectionContext } from "../ElectionContext";
 import { useCandidates } from "../preferences/useCandidates";
 import { useMps } from "../parliament/useMps";
 import { dataUrl } from "@/data/dataUrl";
+import { transliterateName } from "@/data/candidates/transliterateName";
+import { SEARCH_FUSE_OPTIONS } from "./searchConfig";
 import type { SearchVoteIndexFile } from "../parliament/votes/types";
 
 // Slim municipal-officials roster for search — built by
@@ -253,10 +255,11 @@ export const useSearchItems = () => {
             type: "o",
             key: e.slug,
             name: e.name,
-            // No name_en — the cacbg roster doesn't carry transliterated
-            // names. The Fuse index includes name_en for other types
-            // (settlements, parties) so users can search in Latin script,
-            // but for municipal officials we lean on Cyrillic search.
+            // The cacbg roster is Cyrillic-only, so we romanize the name with
+            // the same Streamlined Romanization the candidate pages use. Without
+            // this, a Latin-script query ("Terziev") missed officials entirely
+            // while every other type was Latin-searchable via name_en.
+            name_en: transliterateName(e.name),
             parentName: e.municipality,
             parentName_en: e.municipality,
           });
@@ -279,16 +282,15 @@ export const useSearchItems = () => {
         }
       }
 
-      return new Fuse<SearchIndexType>(searchItems, {
-        includeScore: true,
-        includeMatches: true,
-        // Match anywhere in the string. Without this, Fuse anchors the
-        // search to position 0 and a query like "образование" misses
-        // "Министерството на образованието" because the match sits 19
-        // chars in. Per-type score limits in SearchContext keep noise out.
-        ignoreLocation: true,
-        keys: ["name", "name_en"],
-      });
+      // Options live in ./searchConfig (shared with the regression harness) so
+      // the live index and its test never drift. ignoreLocation lets a match sit
+      // anywhere; per-type score limits in SearchContext keep noise out.
+      return new Fuse<SearchIndexType>(
+        searchItems,
+        SEARCH_FUSE_OPTIONS as ConstructorParameters<
+          typeof Fuse<SearchIndexType>
+        >[1],
+      );
     }
     return undefined;
   }, [

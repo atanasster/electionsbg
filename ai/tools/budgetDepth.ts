@@ -4,6 +4,7 @@
 import { fetchData } from "./dataClient";
 import { fmtEurCompact } from "./format";
 import { resolveOblast } from "./place";
+import { fuzzyBestMatch } from "./resolve";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
 // ---- KFP monthly execution series -------------------------------------------
@@ -161,6 +162,19 @@ export const ministryBudget = async (
         match = m;
       }
     }
+  }
+  if (!match) {
+    // typo fallback on the ministry name ("транспрт", "правосъдито"). minLen 6 so
+    // a stray short word can't snap to a ministry; the word-overlap scorer above
+    // already handles whole-question phrasing, so this only rescues misspellings.
+    match = fuzzyBestMatch(
+      query,
+      all.map((m) => ({
+        item: m,
+        keys: [m.nameBg, m.nameEn].filter(Boolean) as string[],
+      })),
+      { threshold: 0.3, minLen: 6 },
+    )?.item;
   }
   if (!match) {
     return {

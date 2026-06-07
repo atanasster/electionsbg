@@ -2,7 +2,7 @@
 
 import { fetchData } from "./dataClient";
 import { fmtInt } from "./format";
-import { resolveMunicipality } from "./place";
+import { resolvePlaceForData } from "./place";
 import { muniLocator } from "./geo";
 import { round2 } from "./dataset";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
@@ -30,7 +30,10 @@ export const census = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
-  const place = await resolveMunicipality(String(args.place ?? ""));
+  // census is per-município; a named settlement maps to its parent obshtina
+  // (exact match wins before a fuzzy município substring).
+  const q = String(args.place ?? "");
+  const place = await resolvePlaceForData(q);
   if (!place) {
     return {
       tool: "census",

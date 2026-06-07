@@ -6,6 +6,7 @@
 import { fetchData } from "./dataClient";
 import { round2 } from "./dataset";
 import { matchParty } from "./matchParty";
+import { fuzzyBestMatch } from "./resolve";
 import { translitKey } from "./translit";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
@@ -50,7 +51,20 @@ const findMp = (
     if (allHit && (!best || name.length < best.name.length))
       best = { id: Number(id), name };
   }
-  return best ? { id: best.id, name: best.name } : undefined;
+  if (best) return { id: best.id, name: best.name };
+
+  // typo / reordered-name fallback (a token that's no longer a clean substring,
+  // e.g. "Борисв" for "Борисов"); tokenSort so word order doesn't matter. The
+  // current-НС roster is stable per session, so the index is built once.
+  return fuzzyBestMatch(
+    query,
+    () =>
+      Object.entries(mpNames).map(([id, name]) => ({
+        item: { id: Number(id), name },
+        keys: [name],
+      })),
+    { threshold: 0.3, minLen: 4, tokenSort: true, cacheKey: "mp" },
+  )?.item;
 };
 
 const titleCase = (name: string): string =>
