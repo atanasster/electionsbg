@@ -432,9 +432,46 @@ export const followUps = (env: Envelope): FollowUp[] => {
       });
       break;
     case "agencyProfile":
+      if (agency)
+        out.push({
+          bg: `История на проучванията на ${agency}`,
+          en: `${agency} poll history`,
+        });
       out.push({
         bg: "Коя социологическа агенция е най-точна?",
         en: "Which polling agency is most accurate?",
+      });
+      break;
+    case "agencyPolls":
+      if (agency)
+        out.push({
+          bg: `Как се променя точността на ${agency} през годините?`,
+          en: `How has ${agency}'s accuracy changed over time?`,
+        });
+      out.push({
+        bg: "Какво показват последните проучвания?",
+        en: "What do the latest polls show?",
+      });
+      break;
+    case "agencyAccuracyHistory":
+      if (agency)
+        out.push({
+          bg: `История на проучванията на ${agency}`,
+          en: `${agency} poll history`,
+        });
+      out.push({
+        bg: "Как се променя точността на агенциите през годините?",
+        en: "How has pollster accuracy changed over the years?",
+      });
+      break;
+    case "accuracyTrend":
+      out.push({
+        bg: "Коя социологическа агенция е най-точна?",
+        en: "Which polling agency is most accurate?",
+      });
+      out.push({
+        bg: "Какво показват последните проучвания?",
+        en: "What do the latest polls show?",
       });
       break;
     case "budgetOverview":

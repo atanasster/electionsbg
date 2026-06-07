@@ -399,6 +399,20 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Последно проучване (${f(env, "agency")}, ${f(env, "date")}): водач ${f(env, "leader")}.`
         : `Latest poll (${f(env, "agency")}, ${f(env, "date")}): leader ${f(env, "leader")}.`;
+    case "agencyPolls":
+      if (!env.facts.agency) return env.title;
+      return lang === "bg"
+        ? `${f(env, "agency")}: ${f(env, "polls")} проучвания (${f(env, "range")}); последно водач ${f(env, "latest_leader")}.`
+        : `${f(env, "agency")}: ${f(env, "polls")} polls (${f(env, "range")}); latest leader ${f(env, "latest_leader")}.`;
+    case "agencyAccuracyHistory":
+      if (!env.facts.agency) return env.title;
+      return lang === "bg"
+        ? `${f(env, "agency")} — точност по избори: ${f(env, "trend")} (по-ниско = по-точно); най-добре ${f(env, "best_election")}.`
+        : `${f(env, "agency")} — accuracy by election: ${f(env, "trend")} (lower = better); best ${f(env, "best_election")}.`;
+    case "accuracyTrend":
+      return lang === "bg"
+        ? `Точност на ${f(env, "agencies_shown")} агенции през ${f(env, "elections")} избора; най-точна ${f(env, "most_accurate")}.`
+        : `Accuracy of ${f(env, "agencies_shown")} agencies across ${f(env, "elections")} elections; most accurate ${f(env, "most_accurate")}.`;
     case "govDebt":
       return lang === "bg"
         ? `Последни ${f(env, "shown")} емисии на държавен дълг (общо ${f(env, "total_recent")}); най-нова на ${f(env, "latest")}.`

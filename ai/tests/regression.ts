@@ -898,6 +898,37 @@ const CASES: Case[] = [
     facts: { leader: /%/ },
   },
   { q: "Какво би станало ако изборите бяха сега?", tool: "latestPolls" },
+  // poll-history trend — the query that used to fall through to a candidate
+  // lookup ("Маркет Линкс not found"); now plots the agency's poll trajectory.
+  {
+    q: "история на проучванията на Маркет Линкс",
+    tool: "agencyPolls",
+    kind: "series",
+    facts: { agency: "Маркет" },
+  },
+  // per-agency accuracy trend (vs the single-snapshot agencyProfile).
+  {
+    q: "Как се променя точността на Алфа Рисърч през годините?",
+    tool: "agencyAccuracyHistory",
+    kind: "series",
+    facts: { agency: "Алфа" },
+  },
+  // comparative accuracy trend across agencies.
+  {
+    q: "Как се променя точността на агенциите през годините?",
+    tool: "accuracyTrend",
+    kind: "series",
+    facts: { most_accurate: "Алфа" },
+  },
+  // agency resolution fix: the 2-letter abbr "АР" (Алфа Рисърч) used to
+  // substring-hit inside "маркет" and steal this query — now resolves to ML
+  // (mean error 1.67 pp, not Alpha's 1.6 pp).
+  {
+    q: "Колко е точна Маркет Линкс?",
+    tool: "agencyProfile",
+    kind: "scalar",
+    facts: { mean_error: "1.67" },
+  },
   // ---- local elections -------------------------------------------------------
   {
     q: "Кой спечели общинските съвети?",

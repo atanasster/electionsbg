@@ -603,12 +603,53 @@ const run = async () => {
     "latestPolls returns per-party support",
   );
 
+  // poll-history + accuracy trends (registry-derived; resolves the agency that
+  // the 2-letter-abbr bug used to mis-route).
+  const aPolls = (await runTool(
+    "agencyPolls",
+    { agency: "Маркет Линкс" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(aPolls);
+  assert(
+    aPolls.kind === "series" &&
+      (aPolls.series?.length ?? 0) > 0 &&
+      String(aPolls.facts.agency).includes("Маркет"),
+    "agencyPolls resolves Маркет ЛИНКС + returns party lines",
+  );
+
+  const aAcc = (await runTool(
+    "agencyAccuracyHistory",
+    { agency: "Тренд" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(aAcc);
+  assert(
+    aAcc.kind === "series" &&
+      (aAcc.series?.length ?? 0) >= 1 &&
+      aAcc.facts.trend != null,
+    "agencyAccuracyHistory returns an MAE trajectory",
+  );
+
+  const accTrend = (await runTool("accuracyTrend", {}, ctxBg)) as Envelope;
+  printEnvelope(accTrend);
+  assert(
+    accTrend.kind === "series" && (accTrend.series?.length ?? 0) > 1,
+    "accuracyTrend compares multiple agencies",
+  );
+
   console.log("\n=== [router] polls questions ===");
   const cases9: [string, string | null][] = [
     ["Коя социологическа агенция е най-точна?", "pollAccuracy"],
     ["Колко е точна Алфа Рисърч?", "agencyProfile"],
     ["Какво показват последните проучвания?", "latestPolls"],
     ["Какво би станало ако изборите бяха сега?", "latestPolls"],
+    ["история на проучванията на Маркет Линкс", "agencyPolls"],
+    [
+      "Как се променя точността на Алфа Рисърч през годините?",
+      "agencyAccuracyHistory",
+    ],
+    ["Как се променя точността на агенциите през годините?", "accuracyTrend"],
   ];
   for (const [q, expected] of cases9) {
     const r = route(q, ctx);

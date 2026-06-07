@@ -91,7 +91,13 @@ import {
   seatsHistory,
 } from "./national";
 import { partyTimeline } from "./parties";
-import { agencyProfile, latestPolls } from "./pollsDepth";
+import {
+  accuracyTrend,
+  agencyAccuracyHistory,
+  agencyPolls,
+  agencyProfile,
+  latestPolls,
+} from "./pollsDepth";
 import { machineVoteSeries, turnoutSeries } from "./series";
 import {
   benfordAnomalies,
@@ -528,6 +534,68 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: latestPolls,
+  },
+  {
+    name: "agencyPolls",
+    domain: "elections",
+    description: {
+      bg: "История на проучванията на една агенция: подкрепата по партии през всичките ѝ проучвания (тренд).",
+      en: "One agency's poll history: party support across all its polls over time (trend).",
+    },
+    params: [
+      {
+        name: "agency",
+        type: "metric",
+        required: true,
+        description: { bg: "Агенция", en: "Agency" },
+      },
+    ],
+    examples: [
+      {
+        bg: "История на проучванията на Маркет Линкс",
+        en: "Market Links poll history",
+      },
+    ],
+    run: agencyPolls,
+  },
+  {
+    name: "agencyAccuracyHistory",
+    domain: "elections",
+    description: {
+      bg: "Точност на една агенция през годините: средна грешка спрямо резултата по избори (тренд).",
+      en: "One agency's accuracy over time: mean error vs the result by election (trend).",
+    },
+    params: [
+      {
+        name: "agency",
+        type: "metric",
+        required: true,
+        description: { bg: "Агенция", en: "Agency" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Как се променя точността на Алфа Рисърч през годините?",
+        en: "How has Alpha Research's accuracy changed over time?",
+      },
+    ],
+    run: agencyAccuracyHistory,
+  },
+  {
+    name: "accuracyTrend",
+    domain: "elections",
+    description: {
+      bg: "Сравнение на точността на социологическите агенции през изборите (тренд, по една линия на агенция).",
+      en: "Pollster accuracy compared across elections over time (trend, one line per agency).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Как се променя точността на агенциите през годините?",
+        en: "How has pollster accuracy changed over the years?",
+      },
+    ],
+    run: accuracyTrend,
   },
   {
     name: "regionBreakdown",

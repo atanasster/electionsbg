@@ -1325,6 +1325,52 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
   )
     return { tool: "financingOverview", args: {} };
+  // --- polling TRENDS (evolution over time) — must precede the snapshot/profile
+  // routes below, so "история на проучванията на X" plots a trend instead of
+  // falling through to a per-agency profile (or a candidate lookup). The "over
+  // time" cue (история/history/през годините/тренд/…) is what splits a trend
+  // from the single-period snapshots. ---
+  {
+    const pollCtx = has(
+      q,
+      "социолог",
+      "pollster",
+      "анкет",
+      "проучван",
+      " poll",
+      "polls",
+      "сондаж",
+    );
+    const accuracyCtx = has(
+      q,
+      "точн",
+      "accura",
+      "грешк",
+      "error",
+      "надежд",
+      "reliab",
+      "mae",
+      "класаци",
+      "ranking",
+    );
+    const agencyNamed = has(q, ...AGENCY_TOKENS);
+    const pollTrend = has(q, "история", "history") || overTimeCue(q);
+    // Require an explicit poll/accuracy context — a bare agency token alone is
+    // unsafe ("тренд"/"маркет" double as common words, so "тренд на резултатите
+    // през годините" must NOT resolve to the Тренд agency).
+    if (pollTrend && (pollCtx || accuracyCtx)) {
+      // accuracy/MAE evolution: per-agency when one is named, else comparative.
+      if (accuracyCtx)
+        return agencyNamed
+          ? { tool: "agencyAccuracyHistory", args: { agency: q } }
+          : { tool: "accuracyTrend", args: {} };
+      // poll-number evolution for a named agency.
+      if (agencyNamed) return { tool: "agencyPolls", args: { agency: q } };
+      // generic "история на проучванията" (no agency, no accuracy word): the
+      // comparative accuracy trend is the most useful historical overview.
+      return { tool: "accuracyTrend", args: {} };
+    }
+  }
   if (
     has(q, "социолог", "pollster", "анкет", "проучван", " poll", "polls") &&
     has(q, "точн", "accura", "надежд", "reliab", "грешк", "класаци", "ranking")

@@ -122,8 +122,6 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   municipalityResults: SECTION.regions,
   municipalityHistory: SECTION.regions,
   settlementWinners: SECTION.regions,
-  settlementResults: SECTION.regions,
-  settlementHistory: SECTION.regions,
   sectionWinners: SECTION.regions,
   parliamentSeats: SECTION.parliament,
   seatsHistory: SECTION.parliament,
@@ -153,6 +151,9 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   pollAccuracy: SECTION.polls,
   agencyProfile: SECTION.polls,
   latestPolls: SECTION.polls,
+  agencyPolls: SECTION.polls,
+  agencyAccuracyHistory: SECTION.polls,
+  accuracyTrend: SECTION.polls,
   governments: SECTION.governments,
   mpAssetsTop: SECTION.assets,
   mpAssetsByParty: SECTION.assets,
@@ -231,6 +232,35 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
         out.push({
           label: { bg: "Секция — пълни данни", en: "Section — full data" },
           href: url(`/section/${encodeURIComponent(sec)}`),
+        });
+      break;
+    }
+    // Single-settlement answers deep-link to that place's own dashboard
+    // (/sections/:ekatte). The EKATTE is read from the locator overlay these
+    // tools always attach, so it never enters facts (the model's narration
+    // input) as an opaque code.
+    case "settlementResults":
+    case "settlementHistory": {
+      const ekatte = env.geo?.focus?.[0] ?? env.geo?.areas?.[0]?.code;
+      if (ekatte)
+        out.push({
+          label: {
+            bg: "Населено място — пълни данни",
+            en: "Settlement — full data",
+          },
+          href: url(`/sections/${encodeURIComponent(ekatte)}`),
+        });
+      break;
+    }
+    // Per-agency poll/accuracy trends deep-link to that agency's own page
+    // (/polls/:agencyId), built from facts.agency_id.
+    case "agencyPolls":
+    case "agencyAccuracyHistory": {
+      const id = fact(env, "agency_id");
+      if (id)
+        out.push({
+          label: { bg: "Агенция — пълен профил", en: "Agency — full profile" },
+          href: url(`/polls/${encodeURIComponent(id)}`),
         });
       break;
     }

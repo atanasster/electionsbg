@@ -124,6 +124,13 @@ const SeriesChart = ({ env, lang }: { env: Envelope; lang: Lang }) => {
 
   const bands = env.bands ?? [];
 
+  // Show every label for the short election-history charts this view was built
+  // for (≤14 points), but thin labels on denser series (e.g. an agency's 30+
+  // polls) so they stay legible. `interval` only affects ticks/labels — every
+  // data point is still plotted, so the line shapes are unaffected.
+  const xInterval =
+    categories.length > 14 ? Math.ceil(categories.length / 12) - 1 : 0;
+
   if (env.viz === "bar") {
     const s0 = series[0];
     return (
@@ -134,7 +141,7 @@ const SeriesChart = ({ env, lang }: { env: Envelope; lang: Lang }) => {
             dataKey="x"
             tickLine={false}
             axisLine={false}
-            interval={0}
+            interval={xInterval}
             angle={-30}
             textAnchor="end"
             height={60}
@@ -186,7 +193,7 @@ const SeriesChart = ({ env, lang }: { env: Envelope; lang: Lang }) => {
           dataKey="x"
           tickLine={false}
           axisLine={false}
-          interval={0}
+          interval={xInterval}
           angle={-30}
           textAnchor="end"
           height={60}
