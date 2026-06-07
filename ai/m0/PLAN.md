@@ -1,25 +1,29 @@
 # M0 — execution plan to ship a Bulgarian in-browser model (research 2026-06-06)
 
-> Deep research + live checks (2026-06-06/07) settled it: **pinning a matched
-> wheel pair is unavailable on the platforms we use; the reliable unblock is
-> build-from-source.** The transformers.js/ONNX alternative (Path B, EuroLLM) was
-> tried and **removed** — it OOMs in the browser (see the retired section). So
-> there is one live path: **BgGPT-2.6B via MLC/web-llm.** Step-by-step: `colab.md`.
+> Deep research + live checks + a full Colab build attempt (2026-06-06/07) settled
+> it. **STATUS: PARKED.** The pip nightlies are an ABI-mismatched pair (and no
+> matched pair is pinnable on Colab/Linux); a from-source build *compiles* but can't
+> produce a clean `import mlc_llm` because the source tree is mid the tvm-ffi
+> packaging migration (full field report in `colab.md`). Path B (EuroLLM via
+> transformers.js) was tried and **removed** (OOMs). So **the live Bulgarian path
+> today is the cloud option** (Gemini/Gemma via the OpenRouter proxy). In-browser
+> BgGPT is deferred until MLC republishes a matched nightly pair — then it's a
+> ~5-min pip + convert (no source build); re-check the dev numbers per `colab.md`.
 
-## TL;DR — the live path is BgGPT-2.6B via MLC/web-llm
+## TL;DR — in-browser target (currently DEFERRED) is BgGPT-2.6B via MLC/web-llm
 
 | | **BgGPT-2.6B via MLC/web-llm** |
 |---|---|
 | BG quality | Best (Bulgarian-native, Gemma-2 base) |
 | Runtime | existing `@mlc-ai/web-llm` (streams q4f16 → WebGPU buffers, caches in IndexedDB) |
-| Toolchain | build mlc_llm + TVM from source (pip nightlies are ABI-broken), then `convert_weight`+`gen_config` only — **NO Emscripten/compile** |
+| No compile | reuses the prebuilt `gemma-2-2b-it-q4f16_1` wasm — only `convert_weight`+`gen_config` needed |
 | Model artifact | we build + host on a public HF repo (Gemma license) |
 | Download | ~1.6 GB |
-| Effort | one Colab source build (~30–45 min) + host + flip flags |
+| **Status** | **blocked on the MLC toolchain** — pip nightlies broken; source build compiles but the Python import walls (`colab.md`). Unblocks to a ~5-min pip+convert when a matched nightly pair ships. |
 
 **Path B (EuroLLM-1.7B via transformers.js/ONNX) was REMOVED** — see the retired
-section below. The rules engine stays the always-on default and a cloud option
-exists, so a failed model load never breaks the chat (`ai/llm/webllm.ts` fallback).
+section below. Today's working Bulgarian model is the **cloud** option; the rules
+engine stays the always-on default, so a failed model load never breaks the chat.
 
 ## Status of the blocker (corrected)
 
@@ -56,22 +60,32 @@ exists, so a failed model load never breaks the chat (`ai/llm/webllm.ts` fallbac
    aborts the kernel (C++ FFI error). Judge from the version strings in step 1;
    only if the devs clearly match should you try the pip path.
 
-## Path A — BgGPT-2.6B via MLC (best Bulgarian)
+## Path A — BgGPT-2.6B via MLC (deferred; field report)
 
-Same as the old "Part A", with the **toolchain fixed to build-from-source**.
-BgGPT-2.6B reuses the prebuilt `gemma-2-2b-it-q4f16_1_cs1k-webgpu.wasm` already
-in web-llm v0.2.84, so there is **NO Emscripten / no `compile` step** — you only
-need a working `mlc_llm` to run `convert_weight` + `gen_config`.
+BgGPT-2.6B reuses the prebuilt `gemma-2-2b-it-q4f16_1_cs1k-webgpu.wasm` in web-llm
+v0.2.84, so there is **NO Emscripten / no `compile`** — you only need a working
+`mlc_llm` to run `convert_weight` + `gen_config`. The blocker is getting that
+toolchain. What the Colab attempt (2026-06-07) established, so the next try resumes
+from here (full cells in `colab.md`):
 
-1. **Build a matched mlc_llm + TVM Unity from source** (Colab T4, ~30–60 min).
-   Follow the official from-source build (a single checkout keeps TVM ↔ mlc_llm
-   ABI matched): <https://github.com/mlc-ai/mlc-llm/blob/main/docs/install/tvm.rst>
-   and <https://llm.mlc.ai/docs/compilation/compile_models.html>. Export
-   `TVM_SOURCE_DIR=.../3rdparty/tvm` and `MLC_LLM_SOURCE_DIR=.../mlc-llm`. Verify
-   with `python -c "import mlc_llm, tvm; print('ok')"`. (Emscripten NOT needed for
-   2.6B — skip the wasm build env.)
-2. **Convert + config + host** (unchanged from `build-model.sh bggpt` / colab
-   Part A):
+1. **Source build — COMPILES.** Pin the checkout to the last good-nightly era
+   (`git checkout $(git rev-list -1 --before="2026-04-22" HEAD)` + recursive
+   submodules), install **LLVM 17** (Colab's apt llvm is 14; TVM needs ≥15) +
+   **Rust** (tokenizers-cpp) + ninja, `config.cmake` with `USE_LLVM
+   "llvm-config-17"` + `USE_CUDA OFF` (CPU is enough). This builds `libtvm.so`,
+   `libmlc_llm.so`, `libtvm_ffi.so` cleanly.
+2. **Python import — WALLS.** `import tvm` fails with `Cannot find object type
+   index for script.PrinterConfig`. Two causes: (a) the FFI registry is split
+   across three `libtvm_ffi.so` copies (build/lib vs the pip-wheel's
+   site-packages); (b) worse, `strings libtvm.so | grep script.PrinterConfig` = 0
+   — the compiled lib doesn't contain the type the Python layer registers, i.e. a
+   Python↔native skew because the 2026-04-20 commit is mid the tvm-ffi packaging
+   migration. Unifying the FFI libs would not fix the skew.
+   - **Untried resume option:** re-pin to a **pre**-tvm-ffi-refactor commit (late
+     2025) with the classic `python/setup.py` layout; q4f16_1 output still loads in
+     web-llm 0.2.84. If that stalls too, wait for Path 1 (matched nightly).
+3. **Convert + config + host** (works once `import mlc_llm` succeeds — unchanged
+   from `build-model.sh bggpt` / colab):
    ```bash
    MLC_ID=BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC
    hf download INSAIT-Institute/BgGPT-Gemma-2-2.6B-IT-v1.0 --local-dir bggpt
@@ -81,7 +95,7 @@ need a working `mlc_llm` to run `convert_weight` + `gen_config`.
      --context-window-size 4096 -o dist/$MLC_ID
    hf upload atanasster/$MLC_ID dist/$MLC_ID . --repo-type model
    ```
-3. **Enable** in `ai/llm/models.ts`: on the BgGPT-2.6B entry set `ready:true`,
+4. **Enable** in `ai/llm/models.ts`: on the BgGPT-2.6B entry set `ready:true`,
    uncomment the (already pre-filled) `appConfig` (weights = your HF repo,
    `model_lib` = the pinned prebuilt Gemma-2 wasm), set `sizeNote` to `~1.6 GB`.
    Then `npm run build:ai && npm run deploy:ai`. Smoke test in a WebGPU browser:

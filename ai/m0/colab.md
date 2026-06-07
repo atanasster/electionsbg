@@ -1,101 +1,136 @@
 # M0 via Google Colab — build BgGPT-2.6B for the in-browser chat
 
-Produces the MLC artifacts WebLLM needs (quantized weights + `mlc-chat-config.json`)
-and hosts them on HuggingFace so the chat's model picker can run **BgGPT-2.6B**
-(Bulgarian-native) in the browser. BgGPT-2.6B is a `google/gemma-2-2b` fine-tune,
-so it **reuses WebLLM's prebuilt Gemma-2 WebGPU library** — there is **NO compile**
-(no Emscripten). You only `convert_weight` + `gen_config` + `hf upload`.
+Goal: produce the MLC artifacts WebLLM needs (q4f16_1 weights + `mlc-chat-config.json`)
+for **BgGPT-2.6B** and host them on HuggingFace, so the chat can run a Bulgarian
+model in-browser. BgGPT-2.6B is a `google/gemma-2-2b` fine-tune, so it **reuses
+WebLLM's prebuilt Gemma-2 WebGPU wasm** — no Emscripten/compile, just
+`convert_weight` + `gen_config` + `hf upload`. The only hard part is getting a
+working `mlc_llm` toolchain.
 
-> ## ⛔ Do NOT use the pip nightly path — it crashes the Colab kernel
-> The unpinned install grabs `mlc-llm-nightly` (`0.20.dev162`, 2026-04-21) +
-> `mlc-ai-nightly` (`0.20.dev1070`, 2026-05-28). These two halves are
-> **ABI-incompatible** and `import mlc_llm, tvm` aborts the process:
-> ```
-> terminate called after throwing an instance of 'tvm::ffi::Error'
->   what():  TypeAttr `__ffi_repr__` is already registered for type index 130 ...
-> ```
-> It's a C++ `terminate()` (hard SIGABRT), so a Python `try/except` can NOT catch
-> it — the whole kernel dies ("Session crashed"). **Confirmed on Colab T4,
-> 2026-06-07.** Pinning a matched pair is *not possible* here either: Colab/Linux
-> publishes only the broken pair on every CUDA/CPU tag (the retained older wheels
-> are Intel-mac-only).
+> ## ⏸ STATUS: PARKED (2026-06-07) — upstream MLC is mid-refactor
+> A full Colab attempt got the C++ toolchain to **compile** but could not get a
+> clean `import mlc_llm` (details in "Field report" below). Root cause is upstream:
+> the published nightlies are an ABI-mismatched pair, and the source tree is mid the
+> tvm-ffi packaging migration. **The live Bulgarian path today is the cloud option**
+> (Gemini/Gemma via the OpenRouter proxy) — it routes + narrates Bulgarian now, zero
+> build. In-browser BgGPT only adds privacy/no-backend.
 >
-> **The fix is to build mlc_llm + TVM from one matched source checkout** (Cell 2
-> below). A `git clone --recursive` is internally consistent by construction (the
-> pinned TVM submodule matches mlc_llm), so it sidesteps the dev162/dev1070 break.
->
-> Optional re-check (the nightlies are a moving target): compare the published
-> dev numbers WITHOUT importing — if `mlc-llm`'s dev has caught up to `mlc-ai`'s,
-> upstream may have republished a matched pair and the pip path could work again:
+> **Cheapest unblock = wait for a matched nightly pair, then use the short pip
+> recipe below (no source build).** Re-check periodically (compare dev numbers —
+> do NOT test by importing, that crashes the kernel):
 > ```bash
 > for p in mlc_llm mlc_ai; do
 >   echo -n "$p: "; curl -sL https://mlc.ai/wheels \
 >     | grep -oE "${p}_nightly_cu124-0\.[0-9]+\.dev[0-9]+" | sort -uV | tr '\n' ' '; echo
 > done
 > ```
+> When `mlc_llm`'s newest dev ≈ `mlc_ai`'s newest dev (currently dev162 vs dev1070
+> — far apart), they've likely republished a matched pair and Path 1 works.
 
-The chat ships fully functional without BgGPT (rules engine + Qwen test model +
-the cloud option), so this is an enhancement, not a blocker.
+---
 
-Open https://colab.research.google.com → New notebook. Runtime type: **CPU is
-fine** — we don't compile and `convert_weight`/`gen_config` don't need a GPU.
+## Path 1 (preferred, once nightlies are fixed) — plain pip, no source build
 
-## Part A — BgGPT 2.6B (Gemma 2), no compile
-
-### Cell 1 — log in to HuggingFace (paste a WRITE token)
-
-First **accept the Gemma license** on the source page while logged in
-(https://huggingface.co/INSAIT-Institute/BgGPT-Gemma-2-2.6B-IT-v1.0 → "Agree and
-access"), or the download 401s. Create a **write** token at
-https://huggingface.co/settings/tokens, then:
+Open https://colab.research.google.com → New notebook (CPU is fine).
 
 ```python
 !pip install -q -U huggingface_hub
-from huggingface_hub import login
-login()   # paste the WRITE token
+from huggingface_hub import login; login()    # paste a WRITE token
+
+# only run this once the recheck above shows a MATCHED dev pair:
+!pip install -q --pre -U -f https://mlc.ai/wheels mlc-llm-nightly-cu124 mlc-ai-nightly-cu124
+import mlc_llm, tvm; print("toolchain OK", tvm.__version__)   # if this aborts the kernel, the pair is still broken -> Path 2
 ```
 
-### Cell 2 — build mlc_llm + TVM from source (~30–45 min)
+Then the **convert → upload → enable** steps (same as Path 2's Cells 3–4 below).
 
-Do NOT run a `pip install ... mlc-llm-nightly` cell — it crashes the kernel (see
-the warning above). Build from source instead. CPU-only is enough. Keep the tab
-active (Colab disconnects idle tabs).
+---
 
+## Path 2 (source build) — FIELD REPORT, currently walls
+
+This is the from-source route for when the nightlies are still broken. As of
+2026-06-07 it **compiles** but the Python import walls (see the end). Documented so
+a future attempt resumes here instead of rediscovering it.
+
+### Cell 1 — HuggingFace login
+Accept the Gemma license first (https://huggingface.co/INSAIT-Institute/BgGPT-Gemma-2-2.6B-IT-v1.0
+→ "Agree and access"), or the download 401s.
+```python
+!pip install -q -U huggingface_hub
+from huggingface_hub import login; login()    # WRITE token
+```
+
+### Cell 2 — build mlc_llm + TVM from source (~40 min) — WORKS
+Lessons baked in: **LLVM 17** (Colab's apt llvm is 14; TVM needs ≥15), **Rust**
+(tokenizers-cpp), **date-pin to the last good nightly era** (HEAD's `3rdparty/tvm`
+has no installable `python/setup.py` — it's mid tvm-ffi migration), CPU-only
+(convert needs no GPU). This cell compiled `libtvm.so`, `libmlc_llm.so`,
+`libtvm_ffi.so` cleanly.
 ```python
 import os
-# remove any broken nightlies if a previous cell installed them
 !pip -q uninstall -y mlc-llm-nightly-cu124 mlc-ai-nightly-cu124 mlc-llm-nightly mlc-ai-nightly tvm 2>/dev/null
-# build deps: LLVM (TVM codegen) + Rust/cargo (tokenizers-cpp) + ninja
-!apt-get -qq update && apt-get -qq install -y llvm-dev cmake ninja-build >/dev/null
+!wget -q https://apt.llvm.org/llvm.sh && chmod +x llvm.sh && ./llvm.sh 17 >/dev/null 2>&1   # LLVM 17
+!apt-get -qq install -y ninja-build cmake >/dev/null
 !curl -sSf https://sh.rustup.rs | sh -s -- -y
 os.environ["PATH"] = os.path.expanduser("~/.cargo/bin") + ":" + os.environ["PATH"]
 
 %cd /content
 !rm -rf mlc-llm
-!git clone --recursive https://github.com/mlc-ai/mlc-llm.git
-os.makedirs("/content/mlc-llm/build", exist_ok=True)
-with open("/content/mlc-llm/build/config.cmake", "w") as f:
+!git clone https://github.com/mlc-ai/mlc-llm.git
+%cd /content/mlc-llm
+!git checkout $(git rev-list -1 --before="2026-04-22 00:00" HEAD)   # last good-nightly era
+!git submodule update --init --recursive
+os.makedirs("build", exist_ok=True)
+with open("build/config.cmake", "w") as f:
     f.write(
         "set(CMAKE_BUILD_TYPE RelWithDebInfo)\n"
         "set(USE_CUDA OFF)\nset(USE_METAL OFF)\nset(USE_VULKAN OFF)\nset(USE_OPENCL OFF)\n"
-        'set(USE_LLVM "llvm-config --link-static")\n'
+        'set(USE_LLVM "llvm-config-17 --link-static")\n'
         "set(HIDE_PRIVATE_SYMBOLS ON)\n"
     )
-!cd /content/mlc-llm/build && cmake .. -G Ninja && ninja
-
-os.environ["MLC_LLM_SOURCE_DIR"] = "/content/mlc-llm"
-os.environ["TVM_SOURCE_DIR"] = "/content/mlc-llm/3rdparty/tvm"
-!cd /content/mlc-llm/3rdparty/tvm/python && pip install -q -e .
-!cd /content/mlc-llm/python && pip install -q -e .
-import mlc_llm, tvm
-print("✅ SOURCE BUILD OK — tvm", tvm.__version__)
+!cd build && cmake .. -G Ninja && cmake --build . --parallel
+print("build done — libs in /content/mlc-llm/build")
 ```
 
-### Cell 3 — download + convert + gen_config (BgGPT, q4f16_1)
+### Cell 2b — wire up the Python packages — ⛔ WALLS HERE
+HEAD/this-checkout has no installable `tvm` setup.py, so we wire `tvm`+`mlc_llm`
+via PYTHONPATH and pip-install only `tvm_ffi` (for its compiled `core`). This is
+where it currently fails:
+```python
+import os, sys
+ROOT = "/content/mlc-llm"
+# tvm_ffi needs its compiled core; install from the submodule
+!pip install -q "$ROOT/3rdparty/tvm/3rdparty/tvm-ffi"
+sys.path = [p for p in sys.path if "tvm-ffi" not in p]   # don't shadow the built core with source
+roots = [f"{ROOT}/3rdparty/tvm/python", f"{ROOT}/python"]
+os.environ["TVM_LIBRARY_PATH"]   = f"{ROOT}/build/tvm"
+os.environ["MLC_LLM_SOURCE_DIR"] = ROOT
+os.environ["TVM_SOURCE_DIR"]     = f"{ROOT}/3rdparty/tvm"
+os.environ["PYTHONPATH"] = ":".join(roots)
+for p in roots:
+    if p not in sys.path: sys.path.insert(0, p)
+import tvm_ffi   # ✅ works (site-packages, has core)
+import tvm       # ⛔ FAILS: ValueError: Cannot find object type index for script.PrinterConfig
+import mlc_llm
+```
 
-`prefill-chunk-size 1024` matches the prebuilt `gemma-2-2b-it ... cs1k` wasm the
-app reuses, so the lib stays compatible.
+**Why it walls (diagnosed):**
+1. **FFI registry split** — three `libtvm_ffi.so` exist (mlc-llm `build/lib/`, the
+   tvm-ffi sub-build, and the pip wheel's `site-packages/tvm_ffi/lib/`). The wheel's
+   `core` links the site-packages copy; our `libtvm.so` links `build/lib`. Separate
+   instances ⇒ separate type registries.
+2. **Python↔native skew** — worse, `strings build/tvm/libtvm.so | grep script.PrinterConfig`
+   returns **0**: the compiled `libtvm.so` doesn't even contain the type the Python
+   `tvm` tries to register. The 2026-04-20 commit is mid the tvm-ffi packaging
+   migration, so the Python and C++ layers don't line up. Unifying the FFI libs
+   would not fix this skew.
 
+**Untried next step if resuming:** re-pin to a **pre**-tvm-ffi-refactor commit
+(late 2025) where TVM's Python is the classic `python/setup.py` (no split). The
+q4f16_1 output is still compatible with web-llm 0.2.84, so an older toolchain is
+fine. If that also stalls, wait for Path 1.
+
+### Cell 3 — convert + gen_config  (runs once Cell 2b prints a working `mlc_llm`)
 ```python
 MLC_ID = "BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC"
 !hf download INSAIT-Institute/BgGPT-Gemma-2-2.6B-IT-v1.0 --local-dir bggpt
@@ -103,57 +138,21 @@ MLC_ID = "BgGPT-Gemma-2-2.6B-IT-q4f16_1-MLC"
 !python -m mlc_llm gen_config bggpt --quantization q4f16_1 \
     --conv-template gemma_instruction --prefill-chunk-size 1024 \
     --context-window-size 4096 -o dist/$MLC_ID
-!ls -la dist/$MLC_ID   # ~1.6 GB params + mlc-chat-config.json + tokenizer files
+!ls -la dist/$MLC_ID   # ~1.6 GB params + mlc-chat-config.json + tokenizer
 ```
 
-### Cell 4 — upload the weights to your HF account (public repo)
-
+### Cell 4 — upload to your HF account (public repo)
 ```python
 !hf upload atanasster/$MLC_ID dist/$MLC_ID . --repo-type model
-print("done -> https://huggingface.co/atanasster/" + MLC_ID)
 ```
 
 ### Then enable it (back in this repo)
-
-In `ai/llm/models.ts`, on the **BgGPT 2.6B (Gemma 2)** entry: set `ready: true`,
-uncomment its `appConfig` block (pre-filled with `atanasster/...` + the prebuilt
-Gemma-2 `model_lib` URL pinned to web-llm 0.2.84), and set its `sizeNote` to
-`~1.6 GB сваляне` / `~1.6 GB download`. Then:
-
-```bash
-npm run build:ai && npm run deploy:ai     # ships it to ai.electionsbg.com
-```
-
-Smoke test in a WebGPU browser: pick "BgGPT 2.6B (Gemma 2)", ask
-"Колко гласа взе ДПС на последните избори?" → should route to `partyResult`.
+On the **BgGPT 2.6B** entry in `ai/llm/models.ts`: set `ready: true`, uncomment its
+pre-filled `appConfig` (`atanasster/...` weights + the prebuilt Gemma-2 wasm pinned
+to web-llm 0.2.84), set `sizeNote` to `~1.6 GB`. Then `npm run build:ai &&
+npm run deploy:ai`. Smoke test (WebGPU browser): "Колко гласа взе ДПС на последните
+избори?" → should route to `partyResult`.
 
 ## Part B — BgGPT 4B (Gemma 3) — DEPRIORITIZED
-
-Not recommended (see `ai/m0/PLAN.md`): the 4B is a **multimodal** image-text model,
-it has **no prebuilt gemma3-4b wasm** so it needs a WebGPU **compile** (Emscripten),
-and Gemma-3 is broken on the easy ONNX/WebGPU runtimes. If you still want it: after
-Cell 2 (source build), additionally install Emscripten, then convert with
-`--conv-template gemma3_instruction` and run `python -m mlc_llm compile
-dist/<id>/mlc-chat-config.json --device webgpu -o dist/<id>/<id>-webgpu.wasm`
-(needs `emcc` on PATH and the wasm runtime from the source build), and upload the
-weights **and** the `.wasm` together. Prefer BgGPT-2.6B.
-
----
-
-Notes
-- **Why source build, not pip:** the published nightlies are a mismatched pair
-  (dev162 vs dev1070) and importing them aborts the kernel. A single recursive
-  checkout is matched by construction. Re-check the dev numbers (snippet at top)
-  before building — if upstream republished a matched pair, plain
-  `pip install --pre -f https://mlc.ai/wheels mlc-llm-nightly-cu124 mlc-ai-nightly-cu124`
-  may work again and you can skip Cell 2.
-- **Build cell is the fragile part:** ~30–45 min on free Colab (2 vCPU). It pulls
-  LLVM + Rust + ninja. If `cmake`/`ninja` errors, it's usually a missing apt dep or
-  an LLVM version mismatch — paste the output and adjust `config.cmake`.
-- **convert is cheap:** ~5 GB source download + a few minutes to quantize on CPU.
-  Output in `dist/<MLC_ID>` is ~1.6 GB q4f16_1 — that's what gets uploaded.
-- **`hf` vs `huggingface-cli`:** recent `huggingface_hub` ships the `hf` CLI used
-  above; on older versions use `huggingface-cli download/upload` instead.
-- **Local build** is also possible once `cmake`/`rustc`/`llvm` are installed on the
-  machine (the macOS pip wheels remain ABI-broken): same source-build recipe, then
-  `ai/m0/build-model.sh bggpt atanasster` for the convert + host steps.
+Multimodal, needs a WebGPU compile (no prebuilt gemma3-4b wasm), and Gemma-3 is
+broken on ONNX/WebGPU. Prefer BgGPT-2.6B. See `ai/m0/PLAN.md`.

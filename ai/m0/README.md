@@ -29,14 +29,21 @@ a compile — see PLAN.md). Build `bggpt` (2.6B) first; it needs no compile.
 > aborts the kernel ("Session crashed"), uncatchable by `try/except`. **Do not run
 > the pip-nightly cell.**
 >
-> **The fix is NOT "wait for upstream".** Pinning an older matched pair is
-> unavailable on the platforms we build on (arm64-mac and Colab/Linux only publish
-> the broken pair; the retained older wheels are Intel-mac-only). The reliable
-> unblock is **build mlc_llm + TVM Unity from one matched source checkout** — see
-> the step-by-step Colab notebook in **[`ai/m0/colab.md`](./colab.md)** and the
-> ranked plan in **[`ai/m0/PLAN.md`](./PLAN.md)**. The chat app ships fully
-> functional without BgGPT (rules engine + Qwen test model + the cloud option);
-> BgGPT is the in-browser enhancement.
+> **STATUS: PARKED (2026-06-07).** Pinning an older matched pair is unavailable on
+> the platforms we build on (arm64-mac and Colab/Linux only publish the broken
+> pair; the retained older wheels are Intel-mac-only). A full from-source Colab
+> build was attempted: it **compiles** (`libtvm.so`/`libmlc_llm.so` build with LLVM
+> 17 + a date-pinned checkout) but can't produce a clean `import mlc_llm` — the
+> source tree is mid the **tvm-ffi packaging migration** (FFI registry split +
+> Python↔native type skew). Full field report + resume notes in
+> **[`ai/m0/colab.md`](./colab.md)** and **[`ai/m0/PLAN.md`](./PLAN.md)**.
+>
+> **What to do now:** the live in-browser/no-backend Bulgarian path is deferred.
+> The chat ships a working Bulgarian model via the **cloud** option (Gemini/Gemma
+> through the OpenRouter proxy) plus the always-on rules engine + Qwen test model.
+> When MLC republishes a **matched** nightly pair, BgGPT becomes a ~5-min
+> `pip install` + `convert_weight` + `gen_config` (no source build) — re-check the
+> dev numbers per `colab.md` before trying.
 
 ## 0. One-time setup (already done on this machine)
 
