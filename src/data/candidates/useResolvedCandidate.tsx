@@ -203,6 +203,33 @@ const buildResolvedFromMp = (
   };
 };
 
+/** All resolved (name, partyNum) candidate buckets for the current election —
+ * the exact grouping the candidate page uses (one bucket per distinct person,
+ * each with its unambiguous `slug`). Exposed for the header search so a dropdown
+ * entry can link straight to a person's slug (no namesake chooser) and show
+ * their party. Returns null while the candidate roster is still loading. */
+export const useCikGroups = (): ResolvedCandidate[] | null => {
+  const { candidates } = useCandidates();
+  const { mps } = useMps();
+  const { findParty } = usePartyInfo();
+  const mpsByName = useMemo(() => buildMpsByName(mps), [mps]);
+  const hintsFor = useMemo(() => {
+    return (partyNum: number): string[] => {
+      const party = findParty(partyNum);
+      if (!party) return [];
+      return partyHintTokens(
+        party.nickName ?? party.name ?? null,
+        party.commonName,
+        party.name,
+      );
+    };
+  }, [findParty]);
+  return useMemo(
+    () => (candidates ? buildGroups(candidates, mpsByName, hintsFor) : null),
+    [candidates, mpsByName, hintsFor],
+  );
+};
+
 export type ResolveResult = {
   isLoading: boolean;
   matches: ResolvedCandidate[];

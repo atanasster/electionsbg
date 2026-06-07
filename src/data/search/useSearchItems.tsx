@@ -6,8 +6,9 @@ import { useRegions } from "../regions/useRegions";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { SectionIndex } from "../dataTypes";
 import { useElectionContext } from "../ElectionContext";
-import { useCandidates } from "../preferences/useCandidates";
-import { useMps } from "../parliament/useMps";
+import { useCikGroups } from "@/data/candidates/useResolvedCandidate";
+import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { dataUrl } from "@/data/dataUrl";
 import { transliterateName } from "@/data/candidates/transliterateName";
 import { SEARCH_FUSE_OPTIONS } from "./searchConfig";
@@ -128,6 +129,10 @@ export type SearchIndexType = {
   parentName?: string;
   parentName_en?: string;
   photoUrl?: string;
+  // candidate (type "a") only: the party label + colour, so namesakes are
+  // told apart in the dropdown (display-only — not a Fuse search key).
+  party?: string;
+  partyColor?: string;
 };
 export const useSearchItems = () => {
   const { selected } = useElectionContext();
@@ -137,14 +142,18 @@ export const useSearchItems = () => {
   });
   const { settlements } = useSettlementsInfo();
   const { municipalities } = useMunicipalities();
-  const { candidates } = useCandidates();
+  // Resolved (name, partyNum) buckets — one per distinct person, each with an
+  // unambiguous slug so a dropdown pick lands on the right candidate page (no
+  // namesake chooser). Plus party lookups for the dropdown badge.
+  const cikGroups = useCikGroups();
+  const { findParty } = usePartyInfo();
+  const { displayNameFor } = useCanonicalParties();
   const { regions } = useRegions();
-  const { findMpByName } = useMps();
   const { data: adminFlow } = useBudgetMinistriesForSearch();
   const { data: voteIndex } = useSearchVoteIndex();
   const { data: municipalOfficials } = useMunicipalSearchIndex();
   const fuse = useMemo(() => {
-    if (settlements && municipalities && sections && candidates) {
+    if (settlements && municipalities && sections) {
       const regionByCode = new Map(regions.map((r) => [r.oblast, r]));
       const muniByCode = new Map(municipalities.map((m) => [m.obshtina, m]));
       const searchItems: SearchIndexType[] = settlements.map((s) => {
@@ -190,36 +199,33 @@ export const useSearchItems = () => {
           name_en: r.name_en,
         });
       });
-      const candidateOblasts = new Map<
-        string,
-        { en: string; oblasts: Set<string> }
-      >();
-      candidates?.forEach((r) => {
-        if (!candidateOblasts.has(r.name)) {
-          candidateOblasts.set(r.name, { en: r.name_en, oblasts: new Set() });
-        }
-        candidateOblasts.get(r.name)!.oblasts.add(r.oblast);
-      });
-      const candidateEntries = Array.from(candidateOblasts.entries())
-        .map(([name, v]) => ({
-          name,
-          name_en: v.en,
-          oblastCount: v.oblasts.size,
-        }))
-        .sort((a, b) => b.oblastCount - a.oblastCount);
-      candidateEntries.forEach((c) => {
-        const mp = findMpByName(c.name);
-        // Prefer the MP's name_en (parliament.bg EN API) when matched, since
-        // it carries the canonical Wikipedia spelling for well-known
-        // politicians; fall back to the candidate's transliterated name_en.
-        searchItems.push({
-          type: "a",
-          key: c.name,
-          name: c.name,
-          name_en: mp?.name_en ?? c.name_en,
-          photoUrl: mp?.photoUrl,
-        });
-      });
+      // Candidates / MPs — one entry per DISTINCT PERSON (a (name, partyNum)
+      // bucket), keyed by its unambiguous slug (mp-… / c-…) so picking from the
+      // dropdown lands straight on that candidate's page rather than a bare-name
+      // URL that re-opens the namesake chooser. The party label + colour tell
+      // namesakes apart inline. name_en already prefers the matched MP's
+      // canonical (parliament.bg) spelling. Most-районs-first so a prominent
+      // candidate wins a score tie. Optional — appears once the roster loads.
+      if (cikGroups) {
+        [...cikGroups]
+          .sort((a, b) => b.oblasts.length - a.oblasts.length)
+          .forEach((g) => {
+            const party =
+              g.partyNum != null ? findParty(g.partyNum) : undefined;
+            const partyLabel = party
+              ? (displayNameFor(party.nickName) ?? party.nickName ?? party.name)
+              : undefined;
+            searchItems.push({
+              type: "a",
+              key: g.slug,
+              name: g.name,
+              name_en: g.name_en,
+              photoUrl: g.mpEntry?.photoUrl ?? undefined,
+              party: partyLabel,
+              partyColor: party?.color,
+            });
+          });
+      }
 
       // Budget spending units (ministries / agencies). Dedupe across years —
       // the same nodeId appears in every year's ministries[]; we want one
@@ -295,8 +301,9 @@ export const useSearchItems = () => {
     return undefined;
   }, [
     adminFlow,
-    candidates,
-    findMpByName,
+    cikGroups,
+    displayNameFor,
+    findParty,
     municipalities,
     municipalOfficials,
     regions,

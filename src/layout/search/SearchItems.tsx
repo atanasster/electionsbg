@@ -151,22 +151,38 @@ export const SearchItems: FC<{
                     )
                   )}
                   <div className="min-w-0 flex-1">
-                    <div className="truncate text-sm">
-                      {r.item.type === "c" ? (
-                        <>
-                          <Highlight
-                            text={r.item.name}
-                            match={sectionNameMatch}
-                          />{" "}
-                          <span className="text-muted-foreground">
+                    <div className="flex items-center gap-1.5 text-sm">
+                      <span className="truncate">
+                        {r.item.type === "c" ? (
+                          <>
                             <Highlight
-                              text={r.item.name_en || ""}
-                              match={sectionSettlementMatch}
-                            />
-                          </span>
-                        </>
-                      ) : (
-                        <Highlight text={displayName} match={match} />
+                              text={r.item.name}
+                              match={sectionNameMatch}
+                            />{" "}
+                            <span className="text-muted-foreground">
+                              <Highlight
+                                text={r.item.name_en || ""}
+                                match={sectionSettlementMatch}
+                              />
+                            </span>
+                          </>
+                        ) : (
+                          <Highlight text={displayName} match={match} />
+                        )}
+                      </span>
+                      {/* Party badge tells same-name candidates apart inline,
+                          mirroring the namesake chooser. */}
+                      {r.item.type === "a" && r.item.party && (
+                        <span
+                          className="shrink-0 rounded px-1.5 py-0.5 text-[10px] leading-none text-white"
+                          style={{
+                            backgroundColor:
+                              r.item.partyColor ??
+                              "hsl(var(--muted-foreground))",
+                          }}
+                        >
+                          {r.item.party}
+                        </span>
                       )}
                     </div>
                     {parent && r.item.type !== "c" && (
