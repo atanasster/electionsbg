@@ -415,12 +415,16 @@ const DataTable = ({ env }: { env: Envelope }) => {
 
 const Scalar = ({ env }: { env: Envelope }) => (
   <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
-    {Object.entries(env.facts).map(([k, v]) => (
-      <div key={k} className="contents">
-        <dt className="text-muted-foreground">{k}</dt>
-        <dd className="font-medium">{String(v)}</dd>
-      </div>
-    ))}
+    {Object.entries(env.facts)
+      // keys ending in _id are internal deep-link ids (see ai/render/links.ts),
+      // not facts to show the reader
+      .filter(([k]) => !k.endsWith("_id"))
+      .map(([k, v]) => (
+        <div key={k} className="contents">
+          <dt className="text-muted-foreground">{k}</dt>
+          <dd className="font-medium">{String(v)}</dd>
+        </div>
+      ))}
   </dl>
 );
 

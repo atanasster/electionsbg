@@ -116,11 +116,7 @@ const localSection = (): SiteLink => ({
 const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   nationalResults: SECTION.results,
   regionWinners: SECTION.regions,
-  regionResults: SECTION.regions,
-  regionResultsTrend: SECTION.regions,
   municipalityWinners: SECTION.regions,
-  municipalityResults: SECTION.regions,
-  municipalityHistory: SECTION.regions,
   settlementWinners: SECTION.regions,
   sectionWinners: SECTION.regions,
   parliamentSeats: SECTION.parliament,
@@ -163,8 +159,6 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   mpLoyalty: SECTION.votes,
   mpAttendance: SECTION.votes,
   factionCohesion: SECTION.votes,
-  mpVotingProfile: SECTION.votes,
-  mpSimilarity: SECTION.votes,
   voteSearch: SECTION.votes,
   partyMps: SECTION.parliament,
   financingOverview: SECTION.financing,
@@ -252,8 +246,9 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
         });
       break;
     }
-    // Per-agency poll/accuracy trends deep-link to that agency's own page
-    // (/polls/:agencyId), built from facts.agency_id.
+    // Per-agency profile / poll / accuracy answers deep-link to that agency's
+    // own page (/polls/:agencyId), built from facts.agency_id.
+    case "agencyProfile":
     case "agencyPolls":
     case "agencyAccuracyHistory": {
       const id = fact(env, "agency_id");
@@ -264,13 +259,108 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
         });
       break;
     }
+    // Single-candidate answers deep-link to that person's own page, built from
+    // facts.candidate_id (the unambiguous c-{partyNum}-{slug} form the tool
+    // emits). The _id fact is hidden from the scalar UI (see AnswerView).
+    case "candidateResult": {
+      const id = fact(env, "candidate_id");
+      if (id)
+        out.push({
+          label: { bg: "Кандидат — профил", en: "Candidate — profile" },
+          href: url(`/candidate/${encodeURIComponent(id)}`),
+        });
+      break;
+    }
+    // Single-MP answers deep-link to that MP's own page — the voting profile to
+    // the full MP dashboard, "who votes like X" to the similarity ranking. Both
+    // read facts.mp_id (hidden from the scalar UI).
+    case "mpVotingProfile": {
+      const id = fact(env, "mp_id");
+      if (id)
+        out.push({
+          label: { bg: "Депутат — профил", en: "MP — profile" },
+          href: url(`/candidate/mp-${encodeURIComponent(id)}`),
+        });
+      break;
+    }
+    case "mpSimilarity": {
+      const id = fact(env, "mp_id");
+      if (id)
+        out.push({
+          label: { bg: "Кой гласува като…", en: "Voting peers" },
+          href: url(`/parliament/similarity/${encodeURIComponent(id)}`),
+        });
+      break;
+    }
+    // Single-region / single-municipality answers deep-link to that place's own
+    // dashboard, read from the locator overlay (no facts pollution). Sofia-city
+    // is summed from 3 МИР and has no single page, so it keeps the regions
+    // overview: its region locator then carries 3 focus codes (not 1) and its
+    // municipality locator falls back to the oblast level — both detected here.
+    case "regionResults":
+    case "regionResultsTrend": {
+      const g = env.geo;
+      if (g && g.focus?.length === 1)
+        out.push({
+          label: { bg: "Област — пълни данни", en: "Region — full data" },
+          href: url(`/municipality/${encodeURIComponent(g.focus[0])}`),
+        });
+      else out.push(SECTION.regions);
+      break;
+    }
+    case "municipalityResults":
+    case "municipalityHistory": {
+      const g = env.geo;
+      const ob = g?.level === "municipality" ? g.areas?.[0]?.code : undefined;
+      if (ob)
+        out.push({
+          label: {
+            bg: "Община — пълни данни",
+            en: "Municipality — full data",
+          },
+          href: url(`/settlement/${encodeURIComponent(ob)}`),
+        });
+      else out.push(SECTION.regions);
+      break;
+    }
+    // Single-município LOCAL answers deep-link to that município's local page
+    // (overview / mayor race / council). The município code comes from the
+    // locator overlay; the cycle from the provenance prefix
+    // ("<cycle>/municipalities/<ob>.json"), so a historical or chmi answer
+    // links to ITS cycle, not the latest. Sofia (oblast-level locator) and any
+    // tool without a muni locator fall through to the cycle landing below.
+    case "localMunicipality":
+    case "localMayorRace":
+    case "localCouncil": {
+      const g = env.geo;
+      const ob = g?.level === "municipality" ? g.areas?.[0]?.code : undefined;
+      const cycle = env.provenance?.[0]?.split("/")[0];
+      if (ob && cycle) {
+        const suffix =
+          env.tool === "localMayorRace"
+            ? "/mayor"
+            : env.tool === "localCouncil"
+              ? "/council"
+              : "";
+        out.push({
+          label: {
+            bg: "Община — местни избори",
+            en: "Municipality — local elections",
+          },
+          href: url(`/local/${cycle}/${encodeURIComponent(ob)}${suffix}`),
+        });
+      }
+      break;
+    }
   }
 
   // Local-ELECTION tools (domain "local") link to the local-elections page.
   // NB: branch on domain, not a "local" name prefix — `localTaxes` is an
   // indicators tool and must follow its TOOL_SECTION mapping instead.
   if (env.domain === "local") {
-    out.push(localSection());
+    // a single-município deep link (pushed above) already covers it; otherwise
+    // fall back to the cycle landing.
+    if (out.length === 0) out.push(localSection());
   } else {
     const section = TOOL_SECTION[env.tool];
     if (section) out.push(section);

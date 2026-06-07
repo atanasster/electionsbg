@@ -355,6 +355,8 @@ export const mpVotingProfile = async (
   const facts: Record<string, string | number> = {
     name: titleCase(mp.name),
     ns: idx.ns,
+    // deep-link key (hidden from the UI; consumed by ai/render/links.ts)
+    mp_id: mp.id,
   };
   if (l) {
     facts.party = l.partyShort;
@@ -457,6 +459,8 @@ export const mpSimilarity = async (
       mp: titleCase(mp.name),
       ns: idx.ns,
       closest: rows[0] ? `${rows[0].mp} (${rows[0].score}%)` : "—",
+      // deep-link key (hidden from the UI; consumed by ai/render/links.ts)
+      mp_id: mp.id,
     },
     provenance: ["parliament/votes/derived/similarity.json"],
   };

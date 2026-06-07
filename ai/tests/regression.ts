@@ -13,6 +13,7 @@ import { join } from "node:path";
 import { STARTERS } from "../app/starters";
 import { SUGGESTIONS } from "../app/suggestions";
 import { route } from "../orchestrator/router";
+import { siteLinks } from "../render/links";
 import { setFetcher } from "../tools/dataClient";
 import { runTool } from "../tools/registry";
 import type {
@@ -30,6 +31,7 @@ setFetcher(async (path: string) => {
 });
 
 const LATEST = "2026_04_19";
+const SITE = "https://electionsbg.com";
 
 type FactExp = string | RegExp | { num: number };
 // Expected map overlay on a response. `false` asserts there is NO map. The deep
@@ -53,6 +55,12 @@ type Case = {
   // assert the tool returned an ask-the-user disambiguation chooser (a name
   // matched several entities) with at least this many options.
   clarify?: { minOptions: number };
+  // EXACT set of "Виж в сайта" links siteLinks() must emit for this answer,
+  // as path portions (origin stripped). Order-independent. Catches a missing
+  // deep link, a wrong entity code, AND an extra/duplicate link. Single-entity
+  // tools should deep-link to that entity's own page (see ai/render/links.ts);
+  // aggregates keep the generic section page.
+  links?: string[];
 };
 
 // stripped-digits compare so "51 881" / "51 881" / 51 all equal 51881
@@ -250,6 +258,9 @@ const CASES: Case[] = [
     q: "резултатите за Божидар Божанов",
     tool: "candidateResult",
     facts: { name: "Божанов" },
+    // single candidate -> their own /candidate page (c-{partyNum}-{slug}), not
+    // the homepage it used to fall back to
+    links: ["/candidate/c-7-bozhidar-plamenov-bozhanov"],
   },
   // ---- party name mistaken for a candidate (candidateResult -> partyResult) --
   // A party/coalition whose name isn't a hardcoded router token ("Синя
@@ -543,6 +554,8 @@ const CASES: Case[] = [
     },
     // a single section is a located point -> a settlement-level locator
     geo: { level: "settlement", mode: "locator", joinKey: "ekatte" },
+    // single station -> its own /section/{id} page
+    links: ["/section/050900092"],
   },
   {
     q: "How did section 050900092 vote?",
@@ -602,6 +615,9 @@ const CASES: Case[] = [
       leading_party: /\S/,
     },
     geo: { level: "settlement", mode: "locator", joinKey: "ekatte" },
+    // single settlement -> its own /sections/{ekatte} dashboard (the reported
+    // bug: it used to point at the /regions overview)
+    links: ["/sections/32754"],
   },
   {
     q: "Results in the village of Inovo",
@@ -648,6 +664,8 @@ const CASES: Case[] = [
     tool: "settlementWinners",
     kind: "table",
     minRows: 20,
+    // an aggregate (many settlements) keeps the generic overview, NOT a deep link
+    links: ["/regions"],
   },
   // -- disambiguation: a genuinely ambiguous name pops the ask-the-user chooser -
   // "Баня" names a town + several villages across different общини; "Бяла" names
@@ -703,6 +721,8 @@ const CASES: Case[] = [
       leading_party: /\S/,
     },
     geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+    // single município -> its own /settlement/{obshtina} dashboard, not /regions
+    links: ["/settlement/PDV22"],
   },
   {
     q: "Results in Plovdiv municipality",
@@ -712,6 +732,8 @@ const CASES: Case[] = [
     minRows: 2,
     facts: { municipality: "Plovdiv" },
     geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+    // same deep link in EN — the code comes from the locator, not language
+    links: ["/settlement/PDV22"],
   },
   {
     q: "резултатите в община Пловдив за последните 5 години",
@@ -723,6 +745,7 @@ const CASES: Case[] = [
       elections_count: { num: 7 },
     },
     geo: { level: "municipality", mode: "locator", joinKey: "nuts4" },
+    links: ["/settlement/PDV22"],
   },
   {
     q: "резултатите в област Варна",
@@ -735,6 +758,9 @@ const CASES: Case[] = [
       leading_party: /\S/,
     },
     geo: { level: "oblast", mode: "locator", joinKey: "nuts3" },
+    // single oblast -> its own region dashboard (lives at /municipality/{code}),
+    // not the /regions overview
+    links: ["/municipality/VAR"],
   },
   {
     q: "Results in Varna region",
@@ -744,6 +770,7 @@ const CASES: Case[] = [
     minRows: 2,
     facts: { region: "Varna" },
     geo: { level: "oblast", mode: "locator", joinKey: "nuts3" },
+    links: ["/municipality/VAR"],
   },
   {
     q: "резултатите в област Варна за последните 5 години",
@@ -754,6 +781,7 @@ const CASES: Case[] = [
       window_years: { num: 5 },
       elections_count: { num: 7 },
     },
+    links: ["/municipality/VAR"],
   },
   {
     // Sofia city = the three city МИР summed (618206 in 2026), NOT one МИР nor
@@ -764,6 +792,9 @@ const CASES: Case[] = [
     minRows: 2,
     facts: { region: "София", total_votes: { num: 618206 } },
     geo: { level: "oblast", mode: "locator", joinKey: "nuts3" },
+    // Sofia-city = 3 МИР summed, no single page -> the deep-link guard keeps the
+    // /regions overview (must NOT link to /municipality/S23)
+    links: ["/regions"],
   },
   {
     q: "Results in Sofia",
@@ -890,6 +921,9 @@ const CASES: Case[] = [
     tool: "agencyProfile",
     kind: "scalar",
     facts: { grade: "A+" },
+    // single agency -> its own /polls/{agencyId} page (+ the polls overview),
+    // matching its agencyPolls / agencyAccuracyHistory siblings
+    links: ["/polls/AR", "/polls"],
   },
   {
     q: "Какво показват последните проучвания?",
@@ -954,12 +988,16 @@ const CASES: Case[] = [
     tool: "localMunicipality",
     kind: "scalar",
     facts: { mayor: "Костадин" },
+    // single município local answer -> /local/{cycle}/{obshtina} (cycle parsed
+    // from provenance), not the cycle landing it used to fall back to
+    links: ["/local/2023_10_29_mi/PDV22"],
   },
   {
     q: "Кои бяха кандидатите за кмет на Варна?",
     tool: "localMayorRace",
     kind: "table",
     facts: { winner: "Коцев" },
+    links: ["/local/2023_10_29_mi/VAR06/mayor"],
   },
   {
     // per-município council -> hemicycle (kind table + viz hemicycle); 51 seats
@@ -968,6 +1006,7 @@ const CASES: Case[] = [
     tool: "localCouncil",
     kind: "table",
     facts: { total_seats: { num: 51 }, majority: { num: 26 } },
+    links: ["/local/2023_10_29_mi/BGS04/council"],
   },
   {
     q: "Има ли частични местни избори?",
@@ -1698,6 +1737,8 @@ const CASES: Case[] = [
     tool: "mpVotingProfile",
     kind: "scalar",
     facts: { name: "Борисов" },
+    // single MP -> their own /candidate/mp-{id} page, not the /votes overview
+    links: ["/candidate/mp-5186"],
   },
   {
     q: "Кой гласува като Асен Василев?",
@@ -1705,6 +1746,8 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 1,
     facts: { mp: "Василев" },
+    // single MP -> their similarity ranking page, not the /votes overview
+    links: ["/parliament/similarity/3606"],
   },
   {
     // EN-spelled MP name resolves against the Cyrillic roster via romanization
@@ -1714,6 +1757,7 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 1,
     facts: { mp: "Василев" },
+    links: ["/parliament/similarity/3606"],
   },
   {
     q: "How does Boyko Borisov vote in parliament?",
@@ -1721,6 +1765,7 @@ const CASES: Case[] = [
     tool: "mpVotingProfile",
     kind: "scalar",
     facts: { name: "Борисов" },
+    links: ["/candidate/mp-5186"],
   },
   {
     q: "Как гласува парламентът за бюджета?",
@@ -2270,6 +2315,17 @@ const run = async () => {
             `geo ${g.areas?.length ?? 0} areas, expected >= ${c.geo.minAreas}`,
           );
       }
+    }
+    if (c.links) {
+      const got = siteLinks(env)
+        .map((l) => l.href.replace(SITE, ""))
+        .sort();
+      const want = [...c.links].sort();
+      if (got.length !== want.length || got.some((h, i) => h !== want[i]))
+        fail(
+          c.q,
+          `site links ${JSON.stringify(got)} did not match ${JSON.stringify(want)}`,
+        );
     }
   }
 

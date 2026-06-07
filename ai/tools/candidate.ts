@@ -3,6 +3,7 @@
 // preferential vote counts from candidates/<name>/preferences_stats.json.
 // Numbers are computed from the official files, never generated.
 
+import { cikSlug } from "../../src/data/candidates/candidateSlug";
 import { clarifyEnvelope } from "./clarify";
 import { fetchData, fetchNationalSummary } from "./dataClient";
 import { electionFullLabel, fmtInt } from "./format";
@@ -237,6 +238,8 @@ export const candidateResult = async (
         top_region: rows[0]
           ? `${rows[0].oblast}: ${fmtInt(rows[0].votes, lang)}`
           : "",
+        // deep-link key (hidden from the UI; consumed by ai/render/links.ts)
+        candidate_id: cikSlug(cand.partyNum, cand.name),
       },
       provenance: [
         `${election}/candidates/${cand.name}/preferences_stats.json`,
@@ -257,6 +260,8 @@ export const candidateResult = async (
       [lang === "bg" ? "преф. №" : "ballot #"]: [
         ...new Set(matches.map((m) => m.pref)),
       ].join(", "),
+      // deep-link key (hidden from the UI; consumed by ai/render/links.ts)
+      candidate_id: cikSlug(cand.partyNum, cand.name),
     },
     provenance: [`${election}/candidates.json`],
   };

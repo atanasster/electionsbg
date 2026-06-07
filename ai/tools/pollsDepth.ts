@@ -183,6 +183,8 @@ export const agencyProfile = async (
       : undefined,
     viz: "none",
     facts: {
+      // deep-link key (hidden from the UI; consumed by ai/render/links.ts)
+      agency_id: prof.agencyId,
       grade: prof.grade ?? "—",
       polls: prof.totalPolls,
       mean_error: `${prof.overallMAE} pp`,
