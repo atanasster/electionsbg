@@ -170,11 +170,13 @@ export const SearchItems: FC<{
                           <Highlight text={displayName} match={match} />
                         )}
                       </span>
-                      {/* Party badge tells same-name candidates apart inline,
-                          mirroring the namesake chooser. */}
-                      {r.item.type === "a" && r.item.party && (
+                    </div>
+                    {/* Party badge sits under the name, mirroring how the
+                        municipal official's location is shown below. */}
+                    {r.item.type === "a" && r.item.party && (
+                      <div>
                         <span
-                          className="shrink-0 rounded px-1.5 py-0.5 text-[10px] leading-none text-white"
+                          className="inline-block rounded px-1.5 py-0.5 text-[10px] leading-none text-white"
                           style={{
                             backgroundColor:
                               r.item.partyColor ??
@@ -183,8 +185,8 @@ export const SearchItems: FC<{
                         >
                           {r.item.party}
                         </span>
-                      )}
-                    </div>
+                      </div>
+                    )}
                     {parent && r.item.type !== "c" && (
                       <div className="truncate text-xs text-muted-foreground">
                         {parent}
