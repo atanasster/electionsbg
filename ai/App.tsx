@@ -95,7 +95,7 @@ export const App = () => {
       </header>
 
       <main className="flex-1 overflow-y-auto">
-        <div className="container mx-auto px-2 py-6 sm:px-4">
+        <div className="container mx-auto flex min-h-full flex-col px-2 py-6 sm:px-4">
           {view === "chat" ? (
             <Chat
               engine={engine}

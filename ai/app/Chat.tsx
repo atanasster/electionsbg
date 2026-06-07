@@ -47,6 +47,7 @@ import {
   type ChatMsg,
 } from "./export";
 import { followUps } from "./followups";
+import { EmptyHero } from "./hero/EmptyHero";
 import { ModelPicker } from "./ModelPicker";
 import { matchSuggestions } from "./suggestions";
 import { useSpeech } from "./useSpeech";
@@ -771,7 +772,7 @@ export const Chat = ({
   }, [askedKey]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-1 flex-col gap-4">
       {/* Conversation actions live in the fixed header (portaled into actionSlot)
           so they stay reachable however far the messages scroll — they used to
           sit atop the scroll area and scrolled out of reach in a long chat.
@@ -840,22 +841,7 @@ export const Chat = ({
           actionSlot,
         )}
 
-      {!hasChat && (
-        <div className="space-y-1 pt-2 text-sm text-muted-foreground">
-          <p>
-            {t(
-              "Питайте за резултати, активност, партии, бюджет, депутати, местни избори…",
-              "Ask about results, turnout, parties, budget, MPs, local elections…",
-            )}
-          </p>
-          <p className="text-[13px]">
-            {t(
-              "По подразбиране отговарям за последните избори; посочете година (напр. 2021), за да попитате за друг вот.",
-              "I answer for the latest election by default; name a year (e.g. 2021) to ask about another.",
-            )}
-          </p>
-        </div>
-      )}
+      {!hasChat && <EmptyHero lang={lang} onPick={send} />}
 
       <div className="flex flex-col gap-4">
         {messages.map((m, i) =>
