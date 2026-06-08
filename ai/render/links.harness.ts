@@ -153,7 +153,7 @@ for (const tool of ["settlementResults", "settlementHistory"]) {
     ["/sections/32754"],
   );
 }
-for (const tool of ["sectionResults", "sectionHistory"]) {
+for (const tool of ["sectionResults", "sectionHistory", "sectionRiskHistory"]) {
   expect(
     tool,
     mk({ tool, domain: "elections", facts: { section: "050900092" } }),

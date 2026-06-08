@@ -250,7 +250,8 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
     // Single-section answers deep-link to that station's own page (/section/:id),
     // built from facts.section — the id the section tools always expose.
     case "sectionResults":
-    case "sectionHistory": {
+    case "sectionHistory":
+    case "sectionRiskHistory": {
       const sec = fact(env, "section");
       if (sec)
         out.push({
