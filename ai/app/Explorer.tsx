@@ -124,7 +124,7 @@ export const Explorer = ({
           </h1>
           <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
             {t(
-              "Това са детерминистичните инструменти, които асистентът използва, за да отговаря само с реални данни. Изберете инструмент, за да видите какво прави, какви параметри приема и какво връща.",
+              "Това са детерминистичните инструменти, които асистентът използва, за да отговаря само с реални данни. Изберете инструмент, за да видите неговата функционалност, очакваните параметри и върнатия резултат.",
               "These are the deterministic tools the assistant uses to answer with real data only. Pick a tool to see what it does, the parameters it takes, and what it returns.",
             )}
           </p>

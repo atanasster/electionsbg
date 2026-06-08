@@ -153,7 +153,7 @@ export const TOOLS: ToolDef[] = [
     name: "nationalResults",
     domain: "elections",
     description: {
-      bg: "Национални резултати за един избор: гласове, %, мандати по партия.",
+      bg: "Национални резултати за един избор: брой гласове, % и разпределение на мандатите по партии.",
       en: "National results for one election: votes, %, seats per party.",
     },
     params: [
@@ -168,8 +168,12 @@ export const TOOLS: ToolDef[] = [
     ],
     examples: [
       {
-        bg: "Какви са резултатите от последните избори?",
-        en: "Results of the latest election?",
+        bg: "Какви са резултатите от последните парламентарни избори?",
+        en: "What were the results of the latest parliamentary election?",
+      },
+      {
+        bg: "Колко мандата спечелиха партиите на последния вот?",
+        en: "How many seats did each party win in the latest vote?",
       },
     ],
     run: nationalResults,
