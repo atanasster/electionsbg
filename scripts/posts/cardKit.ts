@@ -152,3 +152,97 @@ export const renderStatCard = (spec: StatCardSpec): Buffer => {
 
   return canvas.toBuffer("image/png");
 };
+
+const wrapText = (
+  ctx: Ctx,
+  text: string,
+  weight: number,
+  fontPx: number,
+  maxW: number,
+): string[] => {
+  ctx.font = `${weight} ${fontPx}px ${FONT}`;
+  const lines: string[] = [];
+  let cur = "";
+  for (const word of text.split(/\s+/)) {
+    const test = cur ? `${cur} ${word}` : word;
+    if (cur && ctx.measureText(test).width > maxW) {
+      lines.push(cur);
+      cur = word;
+    } else {
+      cur = test;
+    }
+  }
+  if (cur) lines.push(cur);
+  return lines;
+};
+
+export type AnnounceCardSpec = {
+  eyebrow?: string; // e.g. "НОВА ФУНКЦИЯ" / "НОВИ ДАННИ"
+  title: string; // the feature / dataset name
+  subtitle: string; // one line on what it does / what's new (use \n)
+  cta?: string; // default "виж"
+  theme?: Theme; // default "dark"
+};
+
+/** 1080×1080 announcement card (feature launch / new data). PNG buffer. */
+export const renderAnnounceCard = (spec: AnnounceCardSpec): Buffer => {
+  const S = 1080;
+  const pal = THEME[spec.theme ?? "dark"];
+  const canvas = createCanvas(S, S);
+  const ctx = canvas.getContext("2d") as unknown as Ctx;
+
+  const g = ctx.createLinearGradient(0, 0, 0, S);
+  g.addColorStop(0, pal.bg2);
+  g.addColorStop(1, pal.bg);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, S, S);
+
+  drawWordmark(ctx, 80, 150, 60, pal);
+
+  ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
+
+  if (spec.eyebrow) {
+    ctx.fillStyle = pal.accent;
+    ctx.font = `700 34px ${FONT}`;
+    ctx.fillText(spec.eyebrow.toUpperCase(), 80, 380);
+  }
+
+  // title — wrapped, auto-shrunk to fit up to 3 lines
+  let titleSize = 100;
+  let lines = wrapText(ctx, spec.title, 800, titleSize, S - 160);
+  while (lines.length > 3 && titleSize > 56) {
+    titleSize -= 6;
+    lines = wrapText(ctx, spec.title, 800, titleSize, S - 160);
+  }
+  ctx.fillStyle = pal.text;
+  let ty = 470;
+  for (const line of lines) {
+    ctx.font = `800 ${titleSize}px ${FONT}`;
+    ctx.fillText(line, 80, ty);
+    ty += titleSize * 1.15;
+  }
+
+  // subtitle
+  ctx.fillStyle = pal.muted;
+  ctx.font = `500 44px ${FONT}`;
+  let sy = ty + 24;
+  for (const line of spec.subtitle.split("\n")) {
+    ctx.fillText(line, 80, sy);
+    sy += 58;
+  }
+
+  // footer CTA (right) + triangle
+  ctx.fillStyle = pal.accent;
+  ctx.textAlign = "right";
+  ctx.font = `600 36px ${FONT}`;
+  ctx.fillText(spec.cta ?? "виж", S - 120, 990);
+  ctx.beginPath();
+  ctx.moveTo(S - 104, 970);
+  ctx.lineTo(S - 80, 985);
+  ctx.lineTo(S - 104, 1000);
+  ctx.closePath();
+  ctx.fill();
+
+  return canvas.toBuffer("image/png");
+};

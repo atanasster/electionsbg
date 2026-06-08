@@ -1,6 +1,6 @@
 ---
 name: naiasno-post
-description: Draft a Наясно (electionsbg.com) social post — a number-led Facebook card plus BG/EN copy — grounded in the site's own data AND independently confirmed against a public source. Checks the post registry for duplicates first. Use when the user asks to "create/draft a post", "make a Facebook card", "post about <topic>", "пост за <тема>", "напиши пост", or to turn a data finding / today's watcher report into a shareable post. Saves a reviewable draft (never auto-publishes).
+description: Draft a Наясно social post and save a reviewable draft (never auto-publishes). Three kinds — DATA (a number-led card grounded in the site's own data AND confirmed against a public source), FEATURE (announce a new feature / product launch, e.g. a new tool or site), and DATASET (announce newly ingested data). Checks the registry for duplicates; feature/dataset launches default to pinned for ~2 weeks. Use when the user asks to "create/draft a post", "make a Facebook card", "announce a new feature / launch", "post that we added new data", "post about <topic>", "пост за <тема>", "напиши пост", or to turn a data finding / today's watcher report into a shareable post.
 allowed-tools:
   - Read
   - Grep
@@ -18,7 +18,32 @@ brand: a native 1080×1080 card (navy + coral, the site theme) plus BG (and
 optional EN) copy, with the deep link and sources. Output is a **draft** for the
 operator to review and post by hand — this skill never publishes to Facebook.
 
+## Post kinds
+
+Pass `kind` in the spec (default `data`):
+
+- **`data`** — a number-led stat card. Must follow rules 1–2 below (grounded in
+  our data + independently confirmed). Native image; link in the first comment.
+  Steps 1–7 below are written for this kind.
+- **`feature`** — announce a new feature / product launch (e.g. the AI chat at
+  ai.electionsbg.com). No external stat to confirm, so **skip rules 1–2**; instead
+  describe the feature ACCURATELY and without hype (verify what it does + its live
+  URL) and add an honest "ранна версия" caveat where apt. If the target site has an
+  `og:image`, post the **link in the body** and let Facebook pull the preview
+  (`image: null`, omit `card`); otherwise render an announcement card.
+- **`dataset`** — announce newly ingested data (e.g. "добавихме поръчките за
+  2024"). Lead with what's now available + ONE sample figure FROM our data + the
+  deep link (rules 3–4 apply to that figure if it's a strong claim).
+
+**Pinning.** `feature`/`dataset` posts default to **pinned for 14 days**. After
+publishing, pin the post (Group: post ⋯ → *Pin to Featured*; Page: post ⋯ →
+*Feature*). Run `tsx scripts/posts/post_tool.ts pins` anytime to see which
+launches are still in-window and which are **EXPIRED — unpin now**.
+
 ## Non-negotiable rules
+
+_(Rules 1–2 apply to **data** posts; feature/dataset posts skip the
+data/confirmation gate — see Post kinds. Rules 3–5 always apply.)_
 
 1. **Grounded in our data.** Every headline number must come from a real file
    under `data/` (or `public/`) and link to the matching on-site page. Never
@@ -152,6 +177,29 @@ Spec shape:
 ```
 `save` re-runs the dup guard, renders `brand/posts/<slug>.png`, writes
 `brand/posts/drafts/<slug>.md`, and appends to `brand/posts/index.json`.
+
+**Extra spec fields (optional):** `kind` (`data`|`feature`|`dataset`, default
+`data`), `pin`/`pinUntil` (override the 14-day default), `image` (reference an
+existing file e.g. `ai/assets/og.png`, or `null` for link auto-preview).
+
+**Feature-launch example** (link auto-preview — no rendered card):
+```json
+{
+  "slug": "2026-06-09-naiasno-ai-launch",
+  "date": "2026-06-09",
+  "kind": "feature",
+  "title": "Наясно AI вече е онлайн",
+  "keyFact": "Наясно AI — AI асистент за изборите и данните, вече онлайн",
+  "link": "https://ai.electionsbg.com",
+  "sources": ["ai/ app; og:image = ai/assets/og.png"],
+  "image": null,
+  "bg": "…", "en": "…"
+}
+```
+For a feature/dataset WITHOUT a good og:image, omit `image` and pass an announce
+card: `"card": { "eyebrow": "Нова функция", "title": "…", "subtitle": "…\\n…", "cta": "пробвай" }`.
+The draft's `## Публикуване` note adapts per kind (native-image vs link-preview)
+and reminds you to pin feature/dataset launches.
 
 ## Step 7 — Review
 

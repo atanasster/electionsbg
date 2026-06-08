@@ -24,25 +24,25 @@
     "image": "brand/posts/2026-06-01-cpi-2025.png"
   },
   {
-    "slug": "2026-06-07-naiasno-ai-release",
-    "date": "2026-06-07",
-    "title": "Наясно AI — отворен чат за изборите, с 104 типизирани инструмента",
+    "slug": "2026-06-09-naiasno-ai-launch",
+    "date": "2026-06-09",
+    "kind": "feature",
+    "title": "Наясно AI вече е онлайн",
     "tags": [
-      "release",
+      "feature",
       "ai",
-      "open-source"
+      "launch"
     ],
     "entities": [
-      "Наясно AI",
-      "electionsbg.com"
+      "Наясно AI"
     ],
-    "keyFact": "Наясно AI (ai.electionsbg.com) пусната: отворен AI чат с 104 типизирани инструмента; Gemini 3.1 Flash-Lite избира верния инструмент в ~96–97% и на български, и на английски, без влошаване на български.",
+    "keyFact": "Наясно AI — AI асистент за изборите, парите и властта, отговаря с числа от официалните данни — вече онлайн",
     "link": "https://ai.electionsbg.com",
     "sources": [
-      "data/ai/evals/fc_eval.json",
-      "https://ai.electionsbg.com/evals",
-      "https://github.com/atanasster/electionsbg"
+      "ai/ app (ai.electionsbg.com); og:image = ai/assets/og.png"
     ],
-    "image": "brand/posts/2026-06-07-naiasno-ai-release.png"
+    "image": null,
+    "pin": true,
+    "pinUntil": "2026-06-23"
   }
 ]
