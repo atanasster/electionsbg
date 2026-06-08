@@ -229,6 +229,7 @@ export const governanceMenu: MenuItem[] = [
       { title: "menu_header_indicators_context" },
       { title: "governments_title", link: "/governments" },
       { title: "indicators_page_title", link: "/indicators" },
+      { title: "prices_page_title", link: "/prices" },
       { title: "eu_compare_menu_label", link: "/indicators/compare" },
       { title: "demographics_title", link: "/demographics" },
     ],

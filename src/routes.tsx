@@ -71,6 +71,11 @@ const DataScreen = lazy(() =>
     default: m.DataScreen,
   })),
 );
+const PricesScreen = lazy(() =>
+  import("./screens/PricesScreen").then((m) => ({
+    default: m.PricesScreen,
+  })),
+);
 // Local-elections stub — step 1 placeholder. Hosts both the cycle
 // overview (/local/:cycle) and the per-município full results
 // (/local/:cycle/:obshtinaCode) until step 3 ships dedicated screens.
@@ -1151,6 +1156,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <DataScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="prices"
+            element={
+              <LayoutScreen>
+                <PricesScreen />
               </LayoutScreen>
             }
           />

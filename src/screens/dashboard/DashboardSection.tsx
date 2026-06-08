@@ -18,6 +18,7 @@ type Props = {
     | "articles"
     | "macro"
     | "prices"
+    | "map"
     | "governments"
     | "budget-execution"
     | "budget-composition"
