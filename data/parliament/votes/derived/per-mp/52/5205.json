@@ -3,29 +3,239 @@
   "ns": "52",
   "partyShort": "ПБ",
   "loyalty": {
-    "votesCast": 63,
-    "withParty": 61,
-    "loyaltyPct": 0.9682539682539683,
+    "votesCast": 176,
+    "withParty": 153,
+    "loyaltyPct": 0.8693181818181818,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-05-28",
-    "totalVoteItems": 178
+    "windowTo": "2026-06-05",
+    "totalVoteItems": 369
   },
   "attendance": {
-    "totalItems": 178,
-    "presentCount": 63,
-    "absentCount": 115,
-    "presentPct": 0.3539325842696629
+    "totalItems": 369,
+    "presentCount": 176,
+    "absentCount": 193,
+    "presentPct": 0.47696476964769646
   },
   "cohort": {
     "size": 265,
-    "votesCastMedian": 136,
-    "loyaltyPctMedian": 0.9862068965517241,
-    "presentPctMedian": 0.7752808988764045
+    "votesCastMedian": 274,
+    "loyaltyPctMedian": 0.9776785714285714,
+    "presentPctMedian": 0.7344173441734417
   },
   "dissents": {
-    "totalCast": 63,
-    "dissentCount": 2,
+    "totalCast": 176,
+    "dissentCount": 23,
     "recent": [
+      {
+        "date": "2026-06-04",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - параграф 1",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 118
+      },
+      {
+        "date": "2026-06-03",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-7-i-8-predl",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 7 и 8 - предложение от Константин Проданов - за допустимост",
+        "topic": "zid",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 112
+      },
+      {
+        "date": "2026-06-03",
+        "item": 44,
+        "slug": "44-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-6-nov-predl",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 6 - нов - предложение от Богдан Богданов за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 78
+      },
+      {
+        "date": "2026-06-03",
+        "item": 39,
+        "slug": "39-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-5-t-7-predl",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 5, т.7 - предложение от Катя Панева и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
+      {
+        "date": "2026-06-03",
+        "item": 38,
+        "slug": "38-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-5-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 5 - предложение от Катя Панева и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-06-03",
+        "item": 37,
+        "slug": "37-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-5-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 5 - предложение от Петър Петров",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 115
+      },
+      {
+        "date": "2026-06-03",
+        "item": 36,
+        "slug": "36-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-5-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 5 - предложение от Богдан Богданов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
+      {
+        "date": "2026-06-03",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-4-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 4 - предложение от Катя Панева и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 113
+      },
+      {
+        "date": "2026-06-03",
+        "item": 30,
+        "slug": "30-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-4-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 4 - предложение от Богдан Богданов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 113
+      },
+      {
+        "date": "2026-06-03",
+        "item": 28,
+        "slug": "28-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-3-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 3 - предложение от Богдан Богданов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 122
+      },
+      {
+        "date": "2026-06-03",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Петър Петров",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-06-03",
+        "item": 25,
+        "slug": "25-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Катя Панева и група н.п. в чл.198д",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 122
+      },
+      {
+        "date": "2026-06-03",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Петър Петров в чл.198в",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 120
+      },
+      {
+        "date": "2026-06-03",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Катя Панева и група н.п. - ОТМЕНЕНО",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 121
+      },
+      {
+        "date": "2026-06-03",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Петър Петров в чл.198в - ОТМЕНЕНО",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 121
+      },
+      {
+        "date": "2026-06-03",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1 - предложение от Петър Петров",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 121
+      },
+      {
+        "date": "2026-06-03",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1 - предложение от Богдан Богданов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 122
+      },
+      {
+        "date": "2026-06-03",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2b-predlozh",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2б - предложение от Богдан Богданов и група н.п.- процедура за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 114
+      },
+      {
+        "date": "2026-06-03",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2a-predlozh",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2а - предложение от Богдан Богданов и група н.п.- процедура за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
+      {
+        "date": "2026-06-03",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1b-predlozh",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1б - предложение от Богдан Богданов и група н.п.- процедура за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-06-03",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1a-predlozh",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1а - предложение от Богдан Богданов и група н.п.- процедура за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
       {
         "date": "2026-05-07",
         "item": 10,
@@ -51,206 +261,206 @@
   "similarity": {
     "topK": [
       {
-        "mpId": 5240,
-        "score": 0.8911327886790068,
-        "overlap": 63
-      },
-      {
         "mpId": 5087,
-        "score": 0.8295613557843402,
-        "overlap": 55
+        "score": 0.8828025134636726,
+        "overlap": 165
       },
       {
-        "mpId": 5088,
-        "score": 0.8295613557843402,
-        "overlap": 55
+        "mpId": 5240,
+        "score": 0.8794080883518106,
+        "overlap": 172
       },
       {
         "mpId": 5252,
-        "score": 0.7461240050607105,
-        "overlap": 63
+        "score": 0.8348693508784741,
+        "overlap": 170
       },
       {
-        "mpId": 4007,
-        "score": 0.684353203432982,
-        "overlap": 35
+        "mpId": 5088,
+        "score": 0.7401956568297402,
+        "overlap": 167
       },
       {
-        "mpId": 4017,
-        "score": 0.6708203932499369,
-        "overlap": 34
-      },
-      {
-        "mpId": 5226,
-        "score": 0.6599120175960899,
-        "overlap": 63
+        "mpId": 5122,
+        "score": 0.7291666666666666,
+        "overlap": 174
       },
       {
         "mpId": 5189,
-        "score": 0.6520712004019966,
-        "overlap": 63
+        "score": 0.7173502907845761,
+        "overlap": 172
       },
       {
-        "mpId": 5069,
-        "score": 0.6425304545837554,
-        "overlap": 63
+        "mpId": 5102,
+        "score": 0.7142994928124328,
+        "overlap": 164
       },
       {
-        "mpId": 5268,
-        "score": 0.6335525936249404,
-        "overlap": 60
-      },
-      {
-        "mpId": 5174,
-        "score": 0.6324555320336759,
-        "overlap": 63
+        "mpId": 5275,
+        "score": 0.7123235568202011,
+        "overlap": 165
       },
       {
         "mpId": 5251,
-        "score": 0.627757664824853,
-        "overlap": 63
+        "score": 0.7064393843590439,
+        "overlap": 176
       },
       {
-        "mpId": 5085,
-        "score": 0.6255432421712244,
-        "overlap": 63
+        "mpId": 5288,
+        "score": 0.699935321049415,
+        "overlap": 164
+      },
+      {
+        "mpId": 5203,
+        "score": 0.6937412031640219,
+        "overlap": 165
+      },
+      {
+        "mpId": 5127,
+        "score": 0.6935898555942883,
+        "overlap": 169
+      },
+      {
+        "mpId": 5174,
+        "score": 0.6935131106218151,
+        "overlap": 172
+      },
+      {
+        "mpId": 5132,
+        "score": 0.6897241654896773,
+        "overlap": 175
+      },
+      {
+        "mpId": 5212,
+        "score": 0.6894542930624351,
+        "overlap": 163
+      },
+      {
+        "mpId": 5260,
+        "score": 0.686406472983644,
+        "overlap": 156
+      },
+      {
+        "mpId": 5295,
+        "score": 0.6851488350226079,
+        "overlap": 164
       },
       {
         "mpId": 5219,
-        "score": 0.6230552940084285,
-        "overlap": 63
+        "score": 0.6848150343017257,
+        "overlap": 175
       },
       {
-        "mpId": 5068,
-        "score": 0.6182595250055655,
-        "overlap": 61
+        "mpId": 5226,
+        "score": 0.6750198628051756,
+        "overlap": 173
       },
       {
-        "mpId": 5177,
-        "score": 0.6159131805828746,
-        "overlap": 60
-      },
-      {
-        "mpId": 5128,
-        "score": 0.6158402871356008,
-        "overlap": 47
-      },
-      {
-        "mpId": 5269,
-        "score": 0.6076436202502,
-        "overlap": 43
-      },
-      {
-        "mpId": 5129,
-        "score": 0.6073925116857339,
-        "overlap": 62
-      },
-      {
-        "mpId": 5199,
-        "score": 0.6060915267313265,
-        "overlap": 63
+        "mpId": 5162,
+        "score": 0.6744077404483492,
+        "overlap": 171
       }
     ],
     "bottomK": [
       {
         "mpId": 5074,
-        "score": -0.04600437062282361,
+        "score": -0.02519763153394848,
         "overlap": 58
-      },
-      {
-        "mpId": 5060,
-        "score": -0.03594425773447947,
-        "overlap": 59
-      },
-      {
-        "mpId": 5101,
-        "score": -0.033671751485073696,
-        "overlap": 59
       },
       {
         "mpId": 5171,
-        "score": -0.022148516472836513,
+        "score": -0.011965969310295635,
         "overlap": 58
-      },
-      {
-        "mpId": 5247,
-        "score": -0.014111125222243389,
-        "overlap": 55
       },
       {
         "mpId": 5194,
-        "score": -0.01280158954404281,
+        "score": -0.007483554251115622,
         "overlap": 58
       },
       {
-        "mpId": 5159,
-        "score": 0,
-        "overlap": 56
-      },
-      {
-        "mpId": 5234,
-        "score": 0,
-        "overlap": 56
-      },
-      {
-        "mpId": 5273,
-        "score": 0,
-        "overlap": 56
-      },
-      {
-        "mpId": 5185,
-        "score": 0.036369648372665396,
-        "overlap": 53
-      },
-      {
-        "mpId": 5148,
-        "score": 0.0601929265428846,
-        "overlap": 47
-      },
-      {
-        "mpId": 5258,
-        "score": 0.09825105745776053,
-        "overlap": 44
-      },
-      {
         "mpId": 5184,
-        "score": 0.19127301391900148,
-        "overlap": 21
+        "score": 0.10416666666666667,
+        "overlap": 60
       },
       {
-        "mpId": 5153,
-        "score": 0.1932503014547343,
-        "overlap": 36
+        "mpId": 5247,
+        "score": 0.10660035817780521,
+        "overlap": 129
       },
       {
-        "mpId": 5331,
-        "score": 0.21572631316094962,
-        "overlap": 19
-      },
-      {
-        "mpId": 5291,
-        "score": 0.22176638128637183,
-        "overlap": 45
-      },
-      {
-        "mpId": 5333,
-        "score": 0.22260769037354272,
-        "overlap": 18
-      },
-      {
-        "mpId": 5220,
-        "score": 0.23461856610173248,
-        "overlap": 41
+        "mpId": 5060,
+        "score": 0.11514154661795958,
+        "overlap": 142
       },
       {
         "mpId": 4099,
-        "score": 0.24343224778007377,
+        "score": 0.14907119849998599,
         "overlap": 5
       },
       {
         "mpId": 4100,
-        "score": 0.24343224778007377,
+        "score": 0.14907119849998599,
         "overlap": 5
+      },
+      {
+        "mpId": 4105,
+        "score": 0.14907119849998599,
+        "overlap": 5
+      },
+      {
+        "mpId": 4109,
+        "score": 0.14907119849998599,
+        "overlap": 5
+      },
+      {
+        "mpId": 4110,
+        "score": 0.14907119849998599,
+        "overlap": 5
+      },
+      {
+        "mpId": 4111,
+        "score": 0.14907119849998599,
+        "overlap": 5
+      },
+      {
+        "mpId": 5100,
+        "score": 0.14907119849998599,
+        "overlap": 20
+      },
+      {
+        "mpId": 5153,
+        "score": 0.1659784324809704,
+        "overlap": 83
+      },
+      {
+        "mpId": 5101,
+        "score": 0.16993204077281904,
+        "overlap": 156
+      },
+      {
+        "mpId": 5248,
+        "score": 0.18711379979593723,
+        "overlap": 25
+      },
+      {
+        "mpId": 5169,
+        "score": 0.18844459036110225,
+        "overlap": 23
+      },
+      {
+        "mpId": 5166,
+        "score": 0.18861613758858026,
+        "overlap": 80
+      },
+      {
+        "mpId": 5159,
+        "score": 0.1904889694913581,
+        "overlap": 140
+      },
+      {
+        "mpId": 5273,
+        "score": 0.20399668712070154,
+        "overlap": 156
       }
     ]
   }

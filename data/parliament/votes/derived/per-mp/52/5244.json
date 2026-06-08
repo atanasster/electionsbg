@@ -3,29 +3,289 @@
   "ns": "52",
   "partyShort": "ДБ",
   "loyalty": {
-    "votesCast": 108,
-    "withParty": 94,
-    "loyaltyPct": 0.8703703703703703,
+    "votesCast": 198,
+    "withParty": 158,
+    "loyaltyPct": 0.797979797979798,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-05-28",
-    "totalVoteItems": 178
+    "windowTo": "2026-06-05",
+    "totalVoteItems": 369
   },
   "attendance": {
-    "totalItems": 178,
-    "presentCount": 108,
-    "absentCount": 70,
-    "presentPct": 0.6067415730337079
+    "totalItems": 369,
+    "presentCount": 198,
+    "absentCount": 171,
+    "presentPct": 0.5365853658536586
   },
   "cohort": {
     "size": 265,
-    "votesCastMedian": 136,
-    "loyaltyPctMedian": 0.9862068965517241,
-    "presentPctMedian": 0.7752808988764045
+    "votesCastMedian": 274,
+    "loyaltyPctMedian": 0.9776785714285714,
+    "presentPctMedian": 0.7344173441734417
   },
   "dissents": {
-    "totalCast": 108,
-    "dissentCount": 14,
+    "totalCast": 198,
+    "dissentCount": 40,
     "recent": [
+      {
+        "date": "2026-06-04",
+        "item": 68,
+        "slug": "68-reshenie-za-izbirane-na-komisiya-po-preventsiya-i-protivodey",
+        "title": "Решение за избиране на Комисия по превенция и противодействие на корупцията - състав и ръководство",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2026-06-04",
+        "item": 54,
+        "slug": "54-reshenie-za-izbirane-na-komisiya-po-okolnata-sreda-i-vodite-",
+        "title": "Решение за избиране на Комисия по околната среда и водите - състав и ръководство",
+        "topic": "personnel",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 10
+      },
+      {
+        "date": "2026-06-04",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - параграф 72 до параграф 91 и 92- нови, параграф 92 и 93",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2026-06-04",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - параграф 3 - предложение от Петър Петров",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 11
+      },
+      {
+        "date": "2026-06-04",
+        "item": 11,
+        "slug": "11-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - параграф 2 - нов, параграф 2",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2026-06-04",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 2",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2026-06-04",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход - второ гласуване - параграф 1",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2026-06-03",
+        "item": 29,
+        "slug": "29-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-3",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 3",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2026-06-03",
+        "item": 27,
+        "slug": "27-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2026-06-03",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Петър Петров",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2026-06-03",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Петър Петров в чл.198в",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2026-06-03",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Петър Петров в чл.198в - ОТМЕНЕНО",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 17
+      },
+      {
+        "date": "2026-06-03",
+        "item": 21,
+        "slug": "21-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2026-06-03",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1 - предложение от Петър Петров",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2026-06-03",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-ra",
+        "title": "ЗИД на Закона за събирането на приходи и извършването на разходи през 2026 г. до приемането на Закона за държавния бюджет на Република България за 2026 г., Закона за бюджета на държавното обществено осигуряване за 2026 г. и Закона за бюджета на Националната здравноосигурителна каса за 2026 г. - второ гласуване - параграф 3 - предложение от Константин Проданов за редакция - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 20
+      },
+      {
+        "date": "2026-06-03",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-ra",
+        "title": "ЗИД на Закона за събирането на приходи и извършването на разходи през 2026 г. до приемането на Закона за държавния бюджет на Република България за 2026 г., Закона за бюджета на държавното обществено осигуряване за 2026 г. и Закона за бюджета на Националната здравноосигурителна каса за 2026 г. - второ гласуване - Заключителна разпоредба",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 20
+      },
+      {
+        "date": "2026-06-03",
+        "item": 6,
+        "slug": "6-zid-na-zakona-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-ra",
+        "title": "ЗИД на Закона за събирането на приходи и извършването на разходи през 2026 г. до приемането на Закона за държавния бюджет на Република България за 2026 г., Закона за бюджета на държавното обществено осигуряване за 2026 г. и Закона за бюджета на Националната здравноосигурителна каса за 2026 г. - второ гласуване - параграф 1 - нов",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2026-06-03",
+        "item": 5,
+        "slug": "5-zid-na-zakona-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-ra",
+        "title": "ЗИД на Закона за събирането на приходи и извършването на разходи през 2026 г. до приемането на Закона за държавния бюджет на Република България за 2026 г., Закона за бюджета на държавното обществено осигуряване за 2026 г. и Закона за бюджета на Националната здравноосигурителна каса за 2026 г. - второ гласуване - параграф 1 - нов - предложение от Константин Проданов за редакция",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 20
+      },
+      {
+        "date": "2026-06-03",
+        "item": 2,
+        "slug": "2-programa-za-rabotata-na-narodnoto-sabranie-za-3-5-yuni-2026-",
+        "title": "Програма за работата на Народното събрание за 3 - 5 юни 2026 г",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2026-05-29",
+        "item": 41,
+        "slug": "41-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 58 - 60",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2026-05-29",
+        "item": 39,
+        "slug": "39-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 57",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 9
+      },
+      {
+        "date": "2026-05-29",
+        "item": 38,
+        "slug": "38-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 57 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 13
+      },
+      {
+        "date": "2026-05-29",
+        "item": 35,
+        "slug": "35-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 55",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 14
+      },
+      {
+        "date": "2026-05-29",
+        "item": 33,
+        "slug": "33-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 54",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 15
+      },
+      {
+        "date": "2026-05-29",
+        "item": 31,
+        "slug": "31-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 53",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2026-05-29",
+        "item": 30,
+        "slug": "30-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 53 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
       {
         "date": "2026-05-28",
         "item": 89,
@@ -171,206 +431,206 @@
   "similarity": {
     "topK": [
       {
-        "mpId": 5139,
-        "score": 0.8260009854911463,
-        "overlap": 107
-      },
-      {
-        "mpId": 5193,
-        "score": 0.7828370998502333,
-        "overlap": 96
+        "mpId": 5256,
+        "score": 0.7076923076923077,
+        "overlap": 177
       },
       {
         "mpId": 5147,
-        "score": 0.7722409222883411,
-        "overlap": 107
+        "score": 0.7032762583279263,
+        "overlap": 183
       },
       {
-        "mpId": 5266,
-        "score": 0.767571598917257,
-        "overlap": 105
-      },
-      {
-        "mpId": 5255,
-        "score": 0.7640681369645826,
-        "overlap": 105
-      },
-      {
-        "mpId": 5233,
-        "score": 0.7605717623923104,
-        "overlap": 100
-      },
-      {
-        "mpId": 5256,
-        "score": 0.7479160837744295,
-        "overlap": 100
+        "mpId": 5139,
+        "score": 0.6940896970375684,
+        "overlap": 178
       },
       {
         "mpId": 5123,
-        "score": 0.7439952961536866,
-        "overlap": 108
+        "score": 0.6916406084867399,
+        "overlap": 193
+      },
+      {
+        "mpId": 5255,
+        "score": 0.690904162088604,
+        "overlap": 183
       },
       {
         "mpId": 5170,
-        "score": 0.7354943728919658,
-        "overlap": 106
+        "score": 0.690305242725442,
+        "overlap": 189
       },
       {
-        "mpId": 5202,
-        "score": 0.7326819807846544,
-        "overlap": 103
-      },
-      {
-        "mpId": 5245,
-        "score": 0.729984974172483,
-        "overlap": 103
-      },
-      {
-        "mpId": 5181,
-        "score": 0.7268965439955325,
-        "overlap": 101
-      },
-      {
-        "mpId": 5180,
-        "score": 0.7219481974731521,
-        "overlap": 107
-      },
-      {
-        "mpId": 5082,
-        "score": 0.718657120562226,
-        "overlap": 96
+        "mpId": 5266,
+        "score": 0.6887201539683876,
+        "overlap": 185
       },
       {
         "mpId": 5229,
-        "score": 0.7040680615781949,
-        "overlap": 77
+        "score": 0.6810514451125512,
+        "overlap": 157
+      },
+      {
+        "mpId": 5193,
+        "score": 0.6754468189018107,
+        "overlap": 142
+      },
+      {
+        "mpId": 5180,
+        "score": 0.670873707010661,
+        "overlap": 188
       },
       {
         "mpId": 5215,
-        "score": 0.7004632694087519,
-        "overlap": 97
+        "score": 0.6653549923925467,
+        "overlap": 166
       },
       {
-        "mpId": 5111,
-        "score": 0.6872763136430136,
-        "overlap": 78
+        "mpId": 5245,
+        "score": 0.6626660590319776,
+        "overlap": 180
+      },
+      {
+        "mpId": 5231,
+        "score": 0.6362909554980817,
+        "overlap": 133
+      },
+      {
+        "mpId": 5206,
+        "score": 0.6316511701147547,
+        "overlap": 121
+      },
+      {
+        "mpId": 5233,
+        "score": 0.629820833898734,
+        "overlap": 171
       },
       {
         "mpId": 5096,
-        "score": 0.6572842391044658,
-        "overlap": 78
+        "score": 0.6162909310783384,
+        "overlap": 149
       },
       {
-        "mpId": 5072,
-        "score": 0.6478944642601163,
-        "overlap": 81
+        "mpId": 5121,
+        "score": 0.6009502526928737,
+        "overlap": 129
       },
       {
-        "mpId": 5232,
-        "score": 0.6460786553020826,
-        "overlap": 95
+        "mpId": 5111,
+        "score": 0.5956767321549241,
+        "overlap": 118
+      },
+      {
+        "mpId": 5300,
+        "score": 0.5892098237461639,
+        "overlap": 149
+      },
+      {
+        "mpId": 5291,
+        "score": 0.5825359995314109,
+        "overlap": 165
       }
     ],
     "bottomK": [
       {
-        "mpId": 5331,
-        "score": 0.1086874484188786,
-        "overlap": 67
-      },
-      {
-        "mpId": 5329,
-        "score": 0.1292815248699843,
-        "overlap": 79
+        "mpId": 5168,
+        "score": 0.08226248261185996,
+        "overlap": 119
       },
       {
         "mpId": 4100,
-        "score": 0.13031167282892078,
+        "score": 0.09607689228305229,
         "overlap": 5
       },
       {
         "mpId": 4109,
-        "score": 0.13031167282892078,
+        "score": 0.09607689228305229,
         "overlap": 5
       },
       {
         "mpId": 4111,
-        "score": 0.13031167282892078,
+        "score": 0.09607689228305229,
         "overlap": 5
       },
       {
-        "mpId": 5333,
-        "score": 0.1308468359548103,
-        "overlap": 61
-      },
-      {
-        "mpId": 5322,
-        "score": 0.13190413525359881,
-        "overlap": 78
-      },
-      {
-        "mpId": 5326,
-        "score": 0.137360563948689,
-        "overlap": 80
-      },
-      {
-        "mpId": 5103,
-        "score": 0.13821640128763898,
-        "overlap": 34
-      },
-      {
-        "mpId": 5324,
-        "score": 0.14127794361560206,
-        "overlap": 80
+        "mpId": 5201,
+        "score": 0.10645922927558259,
+        "overlap": 99
       },
       {
         "mpId": 3945,
-        "score": 0.14569287935358963,
+        "score": 0.10741723110591493,
         "overlap": 18
       },
       {
         "mpId": 3995,
-        "score": 0.14569287935358963,
+        "score": 0.10741723110591493,
         "overlap": 18
       },
       {
-        "mpId": 5328,
-        "score": 0.14768656253944357,
-        "overlap": 80
-      },
-      {
-        "mpId": 5247,
-        "score": 0.15107647815586014,
-        "overlap": 62
+        "mpId": 5264,
+        "score": 0.11253233734905374,
+        "overlap": 125
       },
       {
         "mpId": 4023,
-        "score": 0.15453063444227513,
+        "score": 0.11393317879691248,
         "overlap": 34
       },
       {
-        "mpId": 5325,
-        "score": 0.15637400739470497,
-        "overlap": 80
-      },
-      {
-        "mpId": 5327,
-        "score": 0.1589376865675523,
-        "overlap": 80
-      },
-      {
         "mpId": 4017,
-        "score": 0.15959855297967945,
+        "score": 0.11766968108291041,
         "overlap": 33
       },
       {
-        "mpId": 5323,
-        "score": 0.16248220838460647,
-        "overlap": 80
+        "mpId": 4057,
+        "score": 0.1265924208854583,
+        "overlap": 8
       },
       {
-        "mpId": 5332,
-        "score": 0.16566307331251642,
-        "overlap": 13
+        "mpId": 4007,
+        "score": 0.1286180282377182,
+        "overlap": 34
+      },
+      {
+        "mpId": 3972,
+        "score": 0.13903017140231755,
+        "overlap": 16
+      },
+      {
+        "mpId": 5169,
+        "score": 0.1403458930534474,
+        "overlap": 23
+      },
+      {
+        "mpId": 5223,
+        "score": 0.14064216928154863,
+        "overlap": 27
+      },
+      {
+        "mpId": 5125,
+        "score": 0.14617633655117154,
+        "overlap": 35
+      },
+      {
+        "mpId": 5144,
+        "score": 0.14928658829372513,
+        "overlap": 151
+      },
+      {
+        "mpId": 3996,
+        "score": 0.15311180047019057,
+        "overlap": 16
+      },
+      {
+        "mpId": 4006,
+        "score": 0.15311180047019057,
+        "overlap": 16
+      },
+      {
+        "mpId": 4055,
+        "score": 0.15311180047019057,
+        "overlap": 16
       }
     ]
   }

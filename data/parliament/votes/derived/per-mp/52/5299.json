@@ -3,29 +3,69 @@
   "ns": "52",
   "partyShort": "ПБ",
   "loyalty": {
-    "votesCast": 157,
-    "withParty": 156,
-    "loyaltyPct": 0.9936305732484076,
+    "votesCast": 334,
+    "withParty": 329,
+    "loyaltyPct": 0.9850299401197605,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-05-28",
-    "totalVoteItems": 178
+    "windowTo": "2026-06-05",
+    "totalVoteItems": 369
   },
   "attendance": {
-    "totalItems": 178,
-    "presentCount": 157,
-    "absentCount": 21,
-    "presentPct": 0.8820224719101124
+    "totalItems": 369,
+    "presentCount": 334,
+    "absentCount": 35,
+    "presentPct": 0.9051490514905149
   },
   "cohort": {
     "size": 265,
-    "votesCastMedian": 136,
-    "loyaltyPctMedian": 0.9862068965517241,
-    "presentPctMedian": 0.7752808988764045
+    "votesCastMedian": 274,
+    "loyaltyPctMedian": 0.9776785714285714,
+    "presentPctMedian": 0.7344173441734417
   },
   "dissents": {
-    "totalCast": 157,
-    "dissentCount": 1,
+    "totalCast": 334,
+    "dissentCount": 5,
     "recent": [
+      {
+        "date": "2026-06-03",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-4-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 4 - предложение от Катя Панева и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 113
+      },
+      {
+        "date": "2026-06-03",
+        "item": 30,
+        "slug": "30-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-4-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 4 - предложение от Богдан Богданов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 113
+      },
+      {
+        "date": "2026-06-03",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1a-predlozh",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1а - предложение от Богдан Богданов и група н.п.- процедура за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
+      {
+        "date": "2026-05-29",
+        "item": 18,
+        "slug": "18-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 15 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
       {
         "date": "2026-05-28",
         "item": 61,
@@ -41,206 +81,206 @@
   "similarity": {
     "topK": [
       {
-        "mpId": 5178,
-        "score": 0.9672041516493515,
-        "overlap": 157
-      },
-      {
         "mpId": 5265,
-        "score": 0.9672041516493515,
-        "overlap": 157
+        "score": 0.9502043157468115,
+        "overlap": 333
       },
       {
-        "mpId": 5065,
-        "score": 0.966791393412913,
-        "overlap": 157
+        "mpId": 5263,
+        "score": 0.9497133319109357,
+        "overlap": 334
       },
       {
         "mpId": 5071,
-        "score": 0.966791393412913,
-        "overlap": 157
-      },
-      {
-        "mpId": 5243,
-        "score": 0.964099154385678,
-        "overlap": 157
-      },
-      {
-        "mpId": 5066,
-        "score": 0.9636473480349708,
-        "overlap": 156
+        "score": 0.9488169220975832,
+        "overlap": 328
       },
       {
         "mpId": 5094,
-        "score": 0.9636473480349708,
-        "overlap": 156
+        "score": 0.9482990149208314,
+        "overlap": 331
+      },
+      {
+        "mpId": 5178,
+        "score": 0.9463956107219464,
+        "overlap": 328
+      },
+      {
+        "mpId": 5282,
+        "score": 0.9459285838218447,
+        "overlap": 326
       },
       {
         "mpId": 5179,
-        "score": 0.9636473480349708,
-        "overlap": 156
+        "score": 0.9449777887861565,
+        "overlap": 329
       },
       {
-        "mpId": 5290,
-        "score": 0.9636473480349708,
-        "overlap": 156
-      },
-      {
-        "mpId": 5297,
-        "score": 0.9636473480349708,
-        "overlap": 155
-      },
-      {
-        "mpId": 5239,
-        "score": 0.9610238701410553,
-        "overlap": 157
-      },
-      {
-        "mpId": 5135,
-        "score": 0.9605337781897008,
-        "overlap": 157
-      },
-      {
-        "mpId": 5271,
-        "score": 0.9605337781897008,
-        "overlap": 157
-      },
-      {
-        "mpId": 5164,
-        "score": 0.96007756429199,
-        "overlap": 155
-      },
-      {
-        "mpId": 5214,
-        "score": 0.96007756429199,
-        "overlap": 156
-      },
-      {
-        "mpId": 5296,
-        "score": 0.9596566334248271,
-        "overlap": 156
-      },
-      {
-        "mpId": 5093,
-        "score": 0.9579778280249192,
-        "overlap": 157
+        "mpId": 5154,
+        "score": 0.9447324726440178,
+        "overlap": 328
       },
       {
         "mpId": 5064,
-        "score": 0.9564946589855463,
-        "overlap": 155
+        "score": 0.9444942712699922,
+        "overlap": 326
       },
       {
-        "mpId": 5116,
-        "score": 0.9564946589855463,
-        "overlap": 154
+        "mpId": 5214,
+        "score": 0.9444942712699922,
+        "overlap": 326
       },
       {
-        "mpId": 5190,
-        "score": 0.9564946589855463,
-        "overlap": 155
+        "mpId": 5239,
+        "score": 0.9438266256283586,
+        "overlap": 330
+      },
+      {
+        "mpId": 5278,
+        "score": 0.9428271786289862,
+        "overlap": 329
+      },
+      {
+        "mpId": 5279,
+        "score": 0.9425951717887465,
+        "overlap": 321
+      },
+      {
+        "mpId": 5093,
+        "score": 0.9410383577170995,
+        "overlap": 331
+      },
+      {
+        "mpId": 5243,
+        "score": 0.9404804616273154,
+        "overlap": 320
+      },
+      {
+        "mpId": 5290,
+        "score": 0.9390922283682019,
+        "overlap": 331
+      },
+      {
+        "mpId": 5109,
+        "score": 0.9385577506005929,
+        "overlap": 330
+      },
+      {
+        "mpId": 5271,
+        "score": 0.9380510627004296,
+        "overlap": 328
+      },
+      {
+        "mpId": 5150,
+        "score": 0.9375732507716866,
+        "overlap": 333
+      },
+      {
+        "mpId": 5218,
+        "score": 0.9366243682432692,
+        "overlap": 332
       }
     ],
     "bottomK": [
       {
-        "mpId": 5273,
-        "score": -0.08996593650821831,
-        "overlap": 144
-      },
-      {
-        "mpId": 5101,
-        "score": -0.07534423309056036,
-        "overlap": 149
-      },
-      {
         "mpId": 5171,
-        "score": -0.07433959836389506,
-        "overlap": 152
-      },
-      {
-        "mpId": 5060,
-        "score": -0.07311746800347169,
-        "overlap": 130
+        "score": -0.06058245282239582,
+        "overlap": 219
       },
       {
         "mpId": 5074,
-        "score": -0.06316761657092368,
-        "overlap": 144
-      },
-      {
-        "mpId": 5159,
-        "score": -0.041814131150437105,
-        "overlap": 144
-      },
-      {
-        "mpId": 5185,
-        "score": -0.029593117441231685,
-        "overlap": 129
-      },
-      {
-        "mpId": 5234,
-        "score": -0.02858966759567453,
-        "overlap": 139
-      },
-      {
-        "mpId": 5258,
-        "score": -0.0256964616980712,
-        "overlap": 95
-      },
-      {
-        "mpId": 5247,
-        "score": -0.01722283021480741,
-        "overlap": 95
+        "score": -0.0552816232231331,
+        "overlap": 199
       },
       {
         "mpId": 5194,
-        "score": 0,
-        "overlap": 115
+        "score": -0.03536255664418553,
+        "overlap": 136
       },
       {
-        "mpId": 5148,
-        "score": 0.024488775998915042,
-        "overlap": 45
+        "mpId": 5247,
+        "score": 0.01199347732202292,
+        "overlap": 229
+      },
+      {
+        "mpId": 5060,
+        "score": 0.022207604741790184,
+        "overlap": 253
+      },
+      {
+        "mpId": 5273,
+        "score": 0.04475526987915612,
+        "overlap": 296
+      },
+      {
+        "mpId": 5101,
+        "score": 0.05398263050912936,
+        "overlap": 308
+      },
+      {
+        "mpId": 5184,
+        "score": 0.0703179938078765,
+        "overlap": 88
       },
       {
         "mpId": 4099,
-        "score": 0.11141720290623111,
+        "score": 0.07547319081399415,
         "overlap": 5
       },
       {
         "mpId": 4105,
-        "score": 0.11141720290623111,
+        "score": 0.07547319081399415,
         "overlap": 5
       },
       {
         "mpId": 4110,
-        "score": 0.11141720290623111,
+        "score": 0.07547319081399415,
         "overlap": 5
       },
       {
+        "mpId": 5159,
+        "score": 0.07993438704641595,
+        "overlap": 295
+      },
+      {
+        "mpId": 5258,
+        "score": 0.08641006746943788,
+        "overlap": 182
+      },
+      {
+        "mpId": 5185,
+        "score": 0.09437790677343996,
+        "overlap": 292
+      },
+      {
+        "mpId": 5234,
+        "score": 0.09549045490275664,
+        "overlap": 265
+      },
+      {
         "mpId": 5100,
-        "score": 0.16712580435934665,
+        "score": 0.1132097862209912,
         "overlap": 20
       },
       {
-        "mpId": 5184,
-        "score": 0.16860382495583925,
-        "overlap": 43
-      },
-      {
         "mpId": 4100,
-        "score": 0.18569533817705183,
+        "score": 0.1257886513566569,
         "overlap": 5
       },
       {
         "mpId": 4109,
-        "score": 0.18569533817705183,
+        "score": 0.1257886513566569,
         "overlap": 5
       },
       {
         "mpId": 4111,
-        "score": 0.18569533817705183,
+        "score": 0.1257886513566569,
         "overlap": 5
+      },
+      {
+        "mpId": 5153,
+        "score": 0.14152951038240513,
+        "overlap": 107
       }
     ]
   }

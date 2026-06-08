@@ -3,29 +3,199 @@
   "ns": "52",
   "partyShort": "ПБ",
   "loyalty": {
-    "votesCast": 138,
-    "withParty": 131,
-    "loyaltyPct": 0.9492753623188406,
+    "votesCast": 274,
+    "withParty": 250,
+    "loyaltyPct": 0.9124087591240876,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-05-28",
-    "totalVoteItems": 178
+    "windowTo": "2026-06-05",
+    "totalVoteItems": 369
   },
   "attendance": {
-    "totalItems": 178,
-    "presentCount": 138,
-    "absentCount": 40,
-    "presentPct": 0.7752808988764045
+    "totalItems": 369,
+    "presentCount": 274,
+    "absentCount": 95,
+    "presentPct": 0.7425474254742548
   },
   "cohort": {
     "size": 265,
-    "votesCastMedian": 136,
-    "loyaltyPctMedian": 0.9862068965517241,
-    "presentPctMedian": 0.7752808988764045
+    "votesCastMedian": 274,
+    "loyaltyPctMedian": 0.9776785714285714,
+    "presentPctMedian": 0.7344173441734417
   },
   "dissents": {
-    "totalCast": 138,
-    "dissentCount": 7,
+    "totalCast": 274,
+    "dissentCount": 24,
     "recent": [
+      {
+        "date": "2026-06-04",
+        "item": 43,
+        "slug": "43-reshenie-za-izbirane-na-komisiya-po-zemedelieto-hranite-i-go",
+        "title": "Решение за избиране на Комисия по земеделието, храните и горите - състав и ръководство",
+        "topic": "personnel",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 113
+      },
+      {
+        "date": "2026-06-04",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - параграф 3 - предложение от Петър Петров",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 120
+      },
+      {
+        "date": "2026-05-29",
+        "item": 68,
+        "slug": "68-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - параграф 17 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 110
+      },
+      {
+        "date": "2026-05-29",
+        "item": 62,
+        "slug": "62-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 108 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 114
+      },
+      {
+        "date": "2026-05-29",
+        "item": 58,
+        "slug": "58-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 105 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 113
+      },
+      {
+        "date": "2026-05-29",
+        "item": 55,
+        "slug": "55-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 104 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
+      {
+        "date": "2026-05-29",
+        "item": 51,
+        "slug": "51-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 102 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 115
+      },
+      {
+        "date": "2026-05-29",
+        "item": 44,
+        "slug": "44-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 63 - предложение от Петър Петров, т.17",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 110
+      },
+      {
+        "date": "2026-05-29",
+        "item": 40,
+        "slug": "40-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 57а - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-05-29",
+        "item": 37,
+        "slug": "37-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 56",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-05-29",
+        "item": 32,
+        "slug": "32-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 53а - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-05-29",
+        "item": 30,
+        "slug": "30-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 53 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 118
+      },
+      {
+        "date": "2026-05-29",
+        "item": 25,
+        "slug": "25-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 28а - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 105
+      },
+      {
+        "date": "2026-05-29",
+        "item": 22,
+        "slug": "22-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 26 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 102
+      },
+      {
+        "date": "2026-05-29",
+        "item": 18,
+        "slug": "18-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 15 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-05-29",
+        "item": 16,
+        "slug": "16-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 13 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 118
+      },
+      {
+        "date": "2026-05-29",
+        "item": 13,
+        "slug": "13-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 8 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 117
+      },
       {
         "date": "2026-05-28",
         "item": 83,
@@ -101,206 +271,206 @@
   "similarity": {
     "topK": [
       {
-        "mpId": 5261,
-        "score": 0.9004810903416658,
-        "overlap": 137
+        "mpId": 5076,
+        "score": 0.8689341204031692,
+        "overlap": 268
       },
       {
-        "mpId": 5150,
-        "score": 0.8974542545830426,
-        "overlap": 138
+        "mpId": 5261,
+        "score": 0.8686691541919281,
+        "overlap": 271
       },
       {
         "mpId": 5065,
-        "score": 0.892964512685153,
-        "overlap": 138
+        "score": 0.865574997056597,
+        "overlap": 270
       },
       {
-        "mpId": 5099,
-        "score": 0.8916422069901826,
-        "overlap": 138
+        "mpId": 5140,
+        "score": 0.856186141477642,
+        "overlap": 253
       },
       {
-        "mpId": 5213,
-        "score": 0.8914910373512228,
-        "overlap": 138
-      },
-      {
-        "mpId": 5290,
-        "score": 0.8900605553600227,
-        "overlap": 138
-      },
-      {
-        "mpId": 5297,
-        "score": 0.8900605553600227,
-        "overlap": 137
-      },
-      {
-        "mpId": 5116,
-        "score": 0.8885536618621456,
-        "overlap": 137
-      },
-      {
-        "mpId": 5135,
-        "score": 0.8871847463710973,
-        "overlap": 138
-      },
-      {
-        "mpId": 5178,
-        "score": 0.8871847463710973,
-        "overlap": 138
-      },
-      {
-        "mpId": 5265,
-        "score": 0.8871847463710973,
-        "overlap": 138
-      },
-      {
-        "mpId": 5298,
-        "score": 0.8871847463710973,
-        "overlap": 138
-      },
-      {
-        "mpId": 5071,
-        "score": 0.8856451314336354,
-        "overlap": 137
-      },
-      {
-        "mpId": 5164,
-        "score": 0.8856451314336354,
-        "overlap": 137
-      },
-      {
-        "mpId": 5243,
-        "score": 0.8843366338964376,
-        "overlap": 138
+        "mpId": 5196,
+        "score": 0.8528374752260485,
+        "overlap": 258
       },
       {
         "mpId": 5296,
-        "score": 0.884123342827659,
-        "overlap": 137
+        "score": 0.8506822892467375,
+        "overlap": 269
+      },
+      {
+        "mpId": 5135,
+        "score": 0.8493135316598079,
+        "overlap": 269
+      },
+      {
+        "mpId": 5150,
+        "score": 0.8463853896020797,
+        "overlap": 273
+      },
+      {
+        "mpId": 5071,
+        "score": 0.8460487686698839,
+        "overlap": 273
       },
       {
         "mpId": 5097,
-        "score": 0.8831013016361868,
-        "overlap": 138
+        "score": 0.8421519210665189,
+        "overlap": 269
       },
       {
-        "mpId": 5066,
-        "score": 0.8827649770373995,
-        "overlap": 137
+        "mpId": 5219,
+        "score": 0.8421519210665189,
+        "overlap": 274
       },
       {
-        "mpId": 5094,
-        "score": 0.8827649770373995,
-        "overlap": 137
+        "mpId": 5253,
+        "score": 0.8379912286910034,
+        "overlap": 265
+      },
+      {
+        "mpId": 5130,
+        "score": 0.8374300861654123,
+        "overlap": 264
+      },
+      {
+        "mpId": 5263,
+        "score": 0.8358856518642223,
+        "overlap": 274
+      },
+      {
+        "mpId": 5199,
+        "score": 0.8351256172626669,
+        "overlap": 260
+      },
+      {
+        "mpId": 5132,
+        "score": 0.8327673127766988,
+        "overlap": 273
+      },
+      {
+        "mpId": 5287,
+        "score": 0.8313979615881407,
+        "overlap": 269
+      },
+      {
+        "mpId": 5265,
+        "score": 0.8309395394951424,
+        "overlap": 274
+      },
+      {
+        "mpId": 5271,
+        "score": 0.8305604609530414,
+        "overlap": 269
       },
       {
         "mpId": 5179,
-        "score": 0.8827649770373995,
-        "overlap": 137
+        "score": 0.8301012858093467,
+        "overlap": 270
       }
     ],
     "bottomK": [
       {
-        "mpId": 5273,
-        "score": -0.07544645503543211,
-        "overlap": 129
-      },
-      {
-        "mpId": 5060,
-        "score": -0.06376982372640155,
-        "overlap": 113
+        "mpId": 5194,
+        "score": -0.03463639827277923,
+        "overlap": 119
       },
       {
         "mpId": 5074,
-        "score": -0.06121333677828399,
-        "overlap": 126
-      },
-      {
-        "mpId": 5101,
-        "score": -0.059738099827350476,
-        "overlap": 133
+        "score": -0.009718590614997252,
+        "overlap": 183
       },
       {
         "mpId": 5171,
-        "score": -0.0589415561885106,
-        "overlap": 134
+        "score": -0.004615209841516451,
+        "overlap": 203
       },
       {
         "mpId": 5247,
-        "score": -0.05632871717548379,
-        "overlap": 81
-      },
-      {
-        "mpId": 5258,
-        "score": -0.05602829520848644,
-        "overlap": 82
-      },
-      {
-        "mpId": 5234,
-        "score": -0.038960381851015365,
-        "overlap": 123
-      },
-      {
-        "mpId": 5159,
-        "score": -0.030390364135345918,
-        "overlap": 127
-      },
-      {
-        "mpId": 5194,
-        "score": -0.01703377312737497,
-        "overlap": 98
-      },
-      {
-        "mpId": 5185,
-        "score": 0.024196695924791362,
-        "overlap": 116
-      },
-      {
-        "mpId": 5148,
-        "score": 0.0667438374922596,
-        "overlap": 36
+        "score": 0.07309365929157907,
+        "overlap": 183
       },
       {
         "mpId": 4099,
-        "score": 0.12146644952683738,
+        "score": 0.08624393618641034,
         "overlap": 5
       },
       {
         "mpId": 4105,
-        "score": 0.12146644952683738,
+        "score": 0.08624393618641034,
         "overlap": 5
       },
       {
         "mpId": 4110,
-        "score": 0.12146644952683738,
+        "score": 0.08624393618641034,
         "overlap": 5
       },
       {
+        "mpId": 5060,
+        "score": 0.08881894735621768,
+        "overlap": 199
+      },
+      {
+        "mpId": 5258,
+        "score": 0.09354468280500483,
+        "overlap": 167
+      },
+      {
+        "mpId": 5273,
+        "score": 0.11015259115837849,
+        "overlap": 244
+      },
+      {
+        "mpId": 5101,
+        "score": 0.12337293522617761,
+        "overlap": 255
+      },
+      {
+        "mpId": 5169,
+        "score": 0.12598224148286072,
+        "overlap": 35
+      },
+      {
         "mpId": 5100,
-        "score": 0.18219967429025608,
+        "score": 0.1293659042796155,
         "overlap": 18
       },
       {
         "mpId": 4100,
-        "score": 0.20244408254472898,
+        "score": 0.14373989364401724,
         "overlap": 5
       },
       {
         "mpId": 4109,
-        "score": 0.20244408254472898,
+        "score": 0.14373989364401724,
         "overlap": 5
       },
       {
         "mpId": 4111,
-        "score": 0.20244408254472898,
+        "score": 0.14373989364401724,
         "overlap": 5
       },
       {
+        "mpId": 5159,
+        "score": 0.15488390095354762,
+        "overlap": 252
+      },
+      {
+        "mpId": 5234,
+        "score": 0.1576146795863736,
+        "overlap": 213
+      },
+      {
         "mpId": 5184,
-        "score": 0.21208962067277395,
-        "overlap": 45
+        "score": 0.16070608663330627,
+        "overlap": 66
+      },
+      {
+        "mpId": 4057,
+        "score": 0.18181818181818182,
+        "overlap": 8
       }
     ]
   }
