@@ -22,15 +22,16 @@ export type RiskHistoryEntry = {
   signalsTotal?: number;
 };
 
-// Sections are partitioned by 2-digit oblast prefix. Fetch only the
-// bucket the section belongs to — matching useRiskScoreForSection.
-type RiskHistoryBucket = Record<string, RiskHistoryEntry[]>;
-
+// One file per section (sections/risk_history/<sectionId>.json holding the
+// chronological array) — the rap-sheet tile renders a single section, so it
+// fetches ~1–2 KB instead of the whole oblast's ~1.6 MB bucket the earlier
+// 2-digit-prefix layout forced. Sections with <2 elections have no file and
+// 404 → null, which the tile reads as "nothing to show".
 const queryFn = async ({
   queryKey,
-}: QueryFunctionContext<
-  [string, string | null | undefined]
->): Promise<RiskHistoryBucket | null> => {
+}: QueryFunctionContext<[string, string | null | undefined]>): Promise<
+  RiskHistoryEntry[] | null
+> => {
   if (!queryKey[1]) return null;
   const response = await fetch(
     dataUrl(`/sections/risk_history/${queryKey[1]}.json`),
@@ -43,12 +44,14 @@ const queryFn = async ({
 };
 
 export const useRiskHistory = (sectionId?: string) => {
-  const prefix = sectionId ? sectionId.slice(0, 2) : undefined;
   const q = useQuery({
-    queryKey: ["risk_history", prefix] as [string, string | null | undefined],
+    queryKey: ["risk_history", sectionId] as [
+      string,
+      string | null | undefined,
+    ],
     queryFn,
-    enabled: !!prefix,
+    enabled: !!sectionId,
+    retry: false,
   });
-  const history = sectionId ? q.data?.[sectionId] : undefined;
-  return { ...q, history };
+  return { ...q, history: q.data ?? undefined };
 };

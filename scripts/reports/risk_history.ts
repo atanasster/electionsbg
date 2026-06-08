@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import { ElectionInfo, PartyInfo } from "@/data/dataTypes";
 import { cikPartiesFileName } from "scripts/consts";
-import { savePartitioned } from "scripts/dataReaders";
 import {
   loadSectionStats,
   type RiskBand,
@@ -121,20 +120,27 @@ export const generateRiskHistory = ({
 
   // A single-election section has no "history" to show — drop it so the
   // SPA's useRiskHistory hook 404s and the rap-sheet tile hides itself.
-  const withHistory: Record<string, RiskHistoryEntry[]> = {};
+  //
+  // One file per section (sections/risk_history/<sectionId>.json holding the
+  // chronological array) — matching the per-section <sectionId>_stats.json
+  // convention. The rap-sheet tile renders exactly one section, so it now
+  // fetches ~1–2 KB instead of the whole oblast's ~1.6 MB prefix bucket the
+  // earlier layout forced.
+  const folder = `${publicFolder}/sections/risk_history`;
+  // Rebuild the folder from scratch so stale per-section files AND the
+  // legacy 2-digit oblast buckets (the prior layout) don't linger on the
+  // data bucket. generateRiskHistory always rebuilds every section, so a
+  // clean slate is correct here.
+  fs.rmSync(folder, { recursive: true, force: true });
+  fs.mkdirSync(folder, { recursive: true });
   let kept = 0;
   for (const [section, entries] of Object.entries(bySection)) {
     if (entries.length < 2) continue;
     entries.sort((a, b) => a.election.localeCompare(b.election));
-    withHistory[section] = entries;
+    fs.writeFileSync(`${folder}/${section}.json`, stringify(entries), "utf8");
     kept += 1;
   }
-
-  savePartitioned(
-    withHistory,
-    stringify,
-    `${publicFolder}/sections/risk_history`,
-    (key) => key.slice(0, 2),
+  console.log(
+    `Risk history: ${kept} per-section files in ${folder} (≥2 elections each)`,
   );
-  console.log(`Risk history: ${kept} sections with ≥2 elections`);
 };

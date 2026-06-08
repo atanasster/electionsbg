@@ -23,7 +23,7 @@ import {
 import { CommandInput, CommandList } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useSearchItems } from "@/data/search/useSearchItems";
+import { useAreaSearchItems } from "@/data/search/useAreaSearchItems";
 import { useNearestSettlement } from "@/data/area/useNearestSettlement";
 import { useAreaAnchor, useSetAreaAnchor } from "@/data/area/areaAnchor";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
@@ -52,7 +52,7 @@ export const AreaSniperButton: FC = () => {
   const navigate = useNavigate();
   const anchor = useAreaAnchor();
   const setAnchor = useSetAreaAnchor();
-  const { search } = useSearchItems();
+  const { search } = useAreaSearchItems();
   const nearest = useNearestSettlement();
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();

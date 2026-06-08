@@ -71,3 +71,33 @@ export const useClusterPersistence = () => {
     queryFn,
   });
 };
+
+// Slim section→locus membership for the section detail page — it only needs
+// "is THIS section in a persistent locus, and its id + election count" to
+// render one badge, not the full report (every locus's section list,
+// appearances and centroid). See the reverse-index emitted by
+// scripts/reports/cluster_persistence.ts.
+export type ClusterMembership = { id: string; electionCount: number };
+
+const membershipQueryFn = async (): Promise<Record<
+  string,
+  ClusterMembership
+> | null> => {
+  const response = await fetch(dataUrl(`/cluster_persistence_membership.json`));
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
+  return response.json();
+};
+
+export const useClusterMembership = (
+  sectionCode?: string,
+): ClusterMembership | undefined => {
+  const { data } = useQuery({
+    queryKey: ["cluster_persistence_membership"],
+    queryFn: membershipQueryFn,
+    retry: false,
+  });
+  return sectionCode ? (data?.[sectionCode] ?? undefined) : undefined;
+};

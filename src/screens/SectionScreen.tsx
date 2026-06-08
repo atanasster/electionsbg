@@ -13,8 +13,8 @@ import { countVideoUrl, protocolScanUrl } from "@/data/sections/auditLinks";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
-import { useProblemSections } from "@/data/reports/useProblemSections";
-import { useClusterPersistence } from "@/data/riskScore/useClusterPersistence";
+import { useProblemSectionMembership } from "@/data/reports/useProblemSections";
+import { useClusterMembership } from "@/data/riskScore/useClusterPersistence";
 import { useElectionContext } from "@/data/ElectionContext";
 import { SEO } from "@/ux/SEO";
 import { Link } from "@/ux/Link";
@@ -48,22 +48,18 @@ export const SectionScreen = () => {
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
   const { findRegion } = useRegions();
-  const { data: problemSections } = useProblemSections();
-  const { data: clusterPersistence } = useClusterPersistence();
+  // Slim section→membership reverse-indexes — the section page only needs to
+  // know whether THIS section sits in a problem neighborhood / persistent
+  // locus to render a badge, not the full national reports.
+  const problemNeighborhood = useProblemSectionMembership(sectionCode);
+  // The persistent locus (if any) this section is a member of — clustered
+  // with adjacent same-party sections in two or more elections.
+  const persistentLocus = useClusterMembership(sectionCode);
 
   if (!sectionCode) return null;
 
   const videoUrl = countVideoUrl(selected, sectionCode);
   const scanUrl = protocolScanUrl(selected, sectionCode);
-
-  const problemNeighborhood = problemSections?.neighborhoods.find((n) =>
-    n.sections.some((s) => s.section === sectionCode),
-  );
-  // The persistent locus (if any) this section is a member of — clustered
-  // with adjacent same-party sections in two or more elections.
-  const persistentLocus = clusterPersistence?.loci.find((l) =>
-    l.sections.includes(sectionCode),
-  );
 
   const settlement = section ? findSettlement(section.ekatte) : undefined;
   const region = section ? findRegion(section.oblast) : undefined;

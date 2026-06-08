@@ -326,6 +326,26 @@ export const generateClusterPersistence = ({
   };
   const outFile = `${publicFolder}/cluster_persistence.json`;
   fs.writeFileSync(outFile, stringify(report), "utf8");
+
+  // Slim section→locus membership reverse-index. The section detail page
+  // only needs to answer "is THIS section part of a persistent locus, and if
+  // so its id + how many elections" to render one badge — not the full
+  // report (every locus's section list, appearances and centroid). This
+  // sidecar is ~the 344 member sections × {id, electionCount}. A section can
+  // sit in at most one locus (loci are built from disjoint clusters), so a
+  // flat map is unambiguous.
+  const membership: Record<string, { id: string; electionCount: number }> = {};
+  for (const l of loci) {
+    for (const section of l.sections) {
+      membership[section] = { id: l.id, electionCount: l.electionCount };
+    }
+  }
+  fs.writeFileSync(
+    `${publicFolder}/cluster_persistence_membership.json`,
+    stringify(membership),
+    "utf8",
+  );
+
   const withProblem = loci.filter((l) => l.problemSectionCount > 0).length;
   console.log(
     "Successfully added file ",

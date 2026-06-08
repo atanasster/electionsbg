@@ -22,7 +22,7 @@ import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { useAreaAnchor, useSetAreaAnchor } from "@/data/area/areaAnchor";
 import { useNearestSettlement } from "@/data/area/useNearestSettlement";
-import { useSearchItems } from "@/data/search/useSearchItems";
+import { useAreaSearchItems } from "@/data/search/useAreaSearchItems";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import type { SettlementInfo } from "@/data/dataTypes";
 import { AmbiguitySettlementChooser } from "@/layout/header/AmbiguitySettlementChooser";
@@ -44,7 +44,7 @@ export const MyAreaEntryScreen: FC = () => {
   const navigate = useNavigate();
   const anchor = useAreaAnchor();
   const setAnchor = useSetAreaAnchor();
-  const { search } = useSearchItems();
+  const { search } = useAreaSearchItems();
   const nearest = useNearestSettlement();
   const { findSettlement } = useSettlementsInfo();
 

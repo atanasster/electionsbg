@@ -192,6 +192,31 @@ export const generateProblemSections = ({
   };
   const outFile = `${publicFolder}/${year}/problem_sections.json`;
   fs.writeFileSync(outFile, stringify(report), "utf8");
+
+  // Slim section→neighborhood membership reverse-index. The section detail
+  // page only needs to answer "is THIS section in a problem neighborhood,
+  // and if so which one" to render one badge — it has no use for the full
+  // ~800 KB report (every section's results across 8 neighborhoods). This
+  // sidecar is ~the 138 flagged sections × {id, name} ≈ a few KB.
+  const membership: Record<
+    string,
+    { id: string; name_bg: string; name_en: string }
+  > = {};
+  for (const n of report.neighborhoods) {
+    for (const s of n.sections) {
+      membership[s.section] = {
+        id: n.id,
+        name_bg: n.name_bg,
+        name_en: n.name_en,
+      };
+    }
+  }
+  fs.writeFileSync(
+    `${publicFolder}/${year}/problem_membership.json`,
+    stringify(membership),
+    "utf8",
+  );
+
   const total = report.neighborhoods.reduce((a, n) => a + n.sections.length, 0);
   const withGps = report.neighborhoods.reduce(
     (a, n) =>
