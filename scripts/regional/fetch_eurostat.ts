@@ -24,55 +24,12 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import { EUROSTAT_NUTS3_TO_OBLAST } from "./oblast_map";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const OUT_FILE = path.resolve(__dirname, "../../data/regional.json");
-
-// Eurostat NUTS3 → app oblast code(s). The app's data/municipalities.json
-// uses its own internal NUTS3-like codes (BG416/417/418 for Sofia МИР,
-// BG421-1 for Plovdiv-without-city) that do not align with the real
-// Eurostat NUTS3 codes, so we hand-maintain this table rather than derive
-// it from the file.
-//
-// Special cases:
-// - BG411 (Eurostat: Sofia stolitsa as one NUTS3) → fans out to S23/S24/S25.
-//   All three МИР in Sofia city share the same value with a footnote in
-//   the UI noting "обл. София-град".
-// - BG421 (Plovdiv) → both PDV (rural МИР 17) and PDV-00 (Plovdiv-city
-//   МИР 16). Eurostat publishes a single Plovdiv NUTS3 value, which is
-//   the right answer for both МИР; without PDV-00 in the table the city
-//   МИР would render gray on the regional choropleth.
-const EUROSTAT_NUTS3_TO_OBLAST: Record<string, string[]> = {
-  BG311: ["VID"],
-  BG312: ["MON"],
-  BG313: ["VRC"],
-  BG314: ["PVN"],
-  BG315: ["LOV"],
-  BG321: ["VTR"],
-  BG322: ["GAB"],
-  BG323: ["RSE"],
-  BG324: ["RAZ"],
-  BG325: ["SLS"],
-  BG331: ["VAR"],
-  BG332: ["DOB"],
-  BG333: ["SHU"],
-  BG334: ["TGV"],
-  BG341: ["BGS"],
-  BG342: ["SLV"],
-  BG343: ["JAM"],
-  BG344: ["SZR"],
-  BG411: ["S23", "S24", "S25"],
-  BG412: ["SFO"],
-  BG413: ["BLG"],
-  BG414: ["PER"],
-  BG415: ["KNL"],
-  BG421: ["PDV", "PDV-00"],
-  BG422: ["HKV"],
-  BG423: ["PAZ"],
-  BG424: ["SML"],
-  BG425: ["KRZ"],
-};
 
 const EUROSTAT_BASE =
   "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data";
@@ -98,6 +55,10 @@ type RegionalIndicator = {
   unitLabelEn: string;
   unitLabelBg: string;
   sourceUrl: string;
+  // Per-indicator floor override. Defaults to MIN_POINTS_PER_OBLAST. Crime
+  // and other patchy series legitimately have fewer years in small oblasts,
+  // so they relax this rather than weakening the floor for everything.
+  minPointsPerOblast?: number;
   // Some series legitimately publish 0 or negative values (e.g. net
   // migration). Default validation rejects only undefined / non-finite.
 };
@@ -135,6 +96,24 @@ const INDICATORS: RegionalIndicator[] = [
     unitLabelBg: "на 1000 души",
     sourceUrl:
       "https://ec.europa.eu/eurostat/databrowser/view/demo_r_gind3/default/table",
+  },
+  {
+    // RP "Сигурност и правосъдие" proxy. crim_gen_reg has no "total" ICCS
+    // category — only specific offence types — so we pick theft (ICCS0502),
+    // the most common and regionally-discriminating recorded offence, as the
+    // headline safety indicator. Per 100k inhabitants, fresh through 2024.
+    key: "theftRate",
+    dataset: "crim_gen_reg",
+    query: { unit: "P_HTHAB", iccs: "ICCS0502", freq: "A" },
+    titleEn: "Theft (recorded, per 100k)",
+    titleBg: "Кражби (регистрирани, на 100 000 души)",
+    unitLabelEn: "per 100 000 inhabitants",
+    unitLabelBg: "на 100 000 души",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/crim_gen_reg/default/table",
+    // Recorded-crime series are patchy in small oblasts (Видин ≈ 8 years);
+    // relax the historical-depth floor — latest-value + sparkline still work.
+    minPointsPerOblast: 5,
   },
 ];
 
@@ -294,11 +273,12 @@ const main = async () => {
         !acc || s.length < acc.n ? { code, n: s.length } : acc,
       null,
     );
-    if (!weakest || weakest.n < MIN_POINTS_PER_OBLAST) {
+    const floor = ind.minPointsPerOblast ?? MIN_POINTS_PER_OBLAST;
+    if (!weakest || weakest.n < floor) {
       throw new Error(
         `safety check: ${ind.key} weakest oblast ${weakest?.code} has ${
           weakest?.n ?? 0
-        } points (floor ${MIN_POINTS_PER_OBLAST}). Upstream likely changed.`,
+        } points (floor ${floor}). Upstream likely changed.`,
       );
     }
 
@@ -332,6 +312,82 @@ const main = async () => {
     const oblastCount = Object.keys(byOblast).length;
     const totalN = totalPoints(byOblast);
     console.log(`${oblastCount} oblasts, ${totalN} points`);
+  }
+
+  // Derived: active enterprises per 1000 inhabitants — RP "Бизнес среда"
+  // proxy. bd_size_r3 publishes the raw count of active enterprises (a
+  // size-dominated absolute that just mirrors population on a choropleth),
+  // so we normalise it against the population series fetched above. The
+  // population indicator is in thousands, so count / population(ths) is
+  // already the per-1000 density. NUTS3 business demography froze at 2020,
+  // so this indicator ends earlier than the others (latest-available, per
+  // RP convention).
+  // bd_size_r3 is a discontinued/frozen NUTS3 dataset. If Eurostat ever
+  // retires it (or narrows it below the floor) we degrade gracefully — skip
+  // this one supplementary indicator rather than abort the whole regional
+  // refresh, since GDP/population/migration/theft must still update. The
+  // skipped key simply won't appear in regional.json (consumers iterate the
+  // payload's keys, so nothing breaks); the warning surfaces in the run log.
+  try {
+    process.stdout.write(`Deriving enterpriseDensity (bd_size_r3 V11910)... `);
+    const entCountNuts3 = await fetchEurostat({
+      key: "enterpriseDensity",
+      dataset: "bd_size_r3",
+      query: {
+        indic_sb: "V11910",
+        sizeclas: "TOTAL",
+        nace_r2: "B-S_X_K642",
+        freq: "A",
+      },
+      titleEn: "Active enterprises per 1000 inhabitants",
+      titleBg: "Активни предприятия на 1000 души",
+      unitLabelEn: "per 1000 inhabitants",
+      unitLabelBg: "на 1000 души",
+      sourceUrl:
+        "https://ec.europa.eu/eurostat/databrowser/view/bd_size_r3/default/table",
+    });
+    const entByOblast = projectToOblasts(entCountNuts3);
+    const density: Record<string, RegionalPoint[]> = {};
+    for (const [oblast, entSeries] of Object.entries(entByOblast)) {
+      const popByYear = new Map(
+        (series.population?.[oblast] ?? []).map((p) => [p.year, p.value]),
+      );
+      const pts: RegionalPoint[] = [];
+      for (const e of entSeries) {
+        const popThs = popByYear.get(e.year);
+        if (popThs && popThs > 0) {
+          pts.push({ year: e.year, value: round(e.value / popThs, 1) });
+        }
+      }
+      if (pts.length > 0) density[oblast] = pts;
+    }
+    const weakestDensity = Object.values(density).reduce(
+      (min, s) => Math.min(min, s.length),
+      Infinity,
+    );
+    if (
+      Object.keys(density).length < 20 ||
+      weakestDensity < MIN_POINTS_PER_OBLAST
+    ) {
+      throw new Error(
+        `enterpriseDensity covered ${Object.keys(density).length} oblasts, weakest ${weakestDensity} points (floor ${MIN_POINTS_PER_OBLAST})`,
+      );
+    }
+    series.enterpriseDensity = density;
+    indicatorsMeta.enterpriseDensity = {
+      titleEn: "Active enterprises per 1000 inhabitants",
+      titleBg: "Активни предприятия на 1000 души",
+      unitLabelEn: "per 1000 inhabitants",
+      unitLabelBg: "на 1000 души",
+      sourceUrl:
+        "https://ec.europa.eu/eurostat/databrowser/view/bd_size_r3/default/table",
+      datasetCode: "bd_size_r3",
+    };
+    console.log(`${Object.keys(density).length} oblasts`);
+  } catch (err) {
+    console.warn(
+      `\n  ! enterpriseDensity skipped — ${err instanceof Error ? err.message : String(err)}`,
+    );
   }
 
   const payload: RegionalPayload = {

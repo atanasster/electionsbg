@@ -397,6 +397,10 @@ export const DataSources = () => {
                 label={t("indicators_nsi_landuse_source")}
               />
               <SourceItem
+                href="https://data.egov.bg/organisation/13b6e23a-1888-4ad6-8f86-fceb71ca123c"
+                label={t("indicators_nsi_opendata_source")}
+              />
+              <SourceItem
                 href="https://www.grao.bg/tables.html"
                 label={t("indicators_grao_source")}
               />

@@ -17,6 +17,7 @@ import { ministryExecutionReports } from "./ministry_execution_reports";
 import { iisdaDoklad } from "./iisda_doklad";
 import { eurostat } from "./eurostat";
 import { eurostatRegional } from "./eurostat_regional";
+import { nsiRegional } from "./nsi_regional";
 import { ecBudgetPerMs } from "./ec_budget_per_ms";
 import { bnbAuctions } from "./bnb_auctions";
 import { minfinMreports } from "./minfin_mreports";
@@ -80,6 +81,7 @@ export const SOURCES: WatchSource[] = [
   ipop,
   eurostat,
   eurostatRegional,
+  nsiRegional,
   ecBudgetPerMs,
   bnbAuctions,
   minfinMreports,

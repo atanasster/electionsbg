@@ -21,6 +21,14 @@ const DATASETS: { code: string; query: string }[] = [
   { code: "nama_10r_3gdp", query: "geo=BG311&unit=EUR_HAB&freq=A" },
   { code: "nama_10r_3popgdp", query: "geo=BG311&unit=THS&freq=A" },
   { code: "demo_r_gind3", query: "geo=BG311&indic_de=CNMIGRATRT&freq=A" },
+  {
+    code: "crim_gen_reg",
+    query: "geo=BG311&unit=P_HTHAB&iccs=ICCS0502&freq=A",
+  },
+  {
+    code: "bd_size_r3",
+    query: "geo=BG311&indic_sb=V11910&sizeclas=TOTAL&nace_r2=B-S_X_K642&freq=A",
+  },
 ];
 
 const buildUrl = (code: string, query: string): string =>
@@ -37,7 +45,7 @@ const fetchUpdated = async (code: string, query: string): Promise<string> => {
 
 export const eurostatRegional: WatchSource = {
   id: "eurostat_regional",
-  label: "Eurostat regional (BG): 3 NUTS3 datasets",
+  label: "Eurostat regional (BG): 5 NUTS3 datasets",
   url: "https://ec.europa.eu/eurostat/databrowser/view/nama_10r_3gdp/default/table",
   // Annual releases — daily is excessive but the existing infra runs all
   // sources together, so we accept the small extra cost. The fingerprint

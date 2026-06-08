@@ -5,7 +5,12 @@ export type RegionalIndicatorKey =
   | "gdpPerCapita"
   | "population"
   | "netMigration"
-  | "ltUnemployment";
+  | "ltUnemployment"
+  | "theftRate"
+  | "enterpriseDensity"
+  | "fdiPerCapita"
+  | "museumVisitsPer1000"
+  | "hospitalBedsPer1000";
 
 export type RegionalPoint = { year: number; value: number };
 
@@ -52,9 +57,15 @@ export const formatRegionalValue = (
     const sign = value > 0 ? "+" : "";
     return `${sign}${value.toFixed(1)}`;
   }
-  // Long-term unemployment is an already-normalised share (%); show one
-  // decimal, unsigned.
-  if (key === "ltUnemployment") return value.toFixed(1);
+  // Already-normalised one-decimal rates (share %, density, beds per 1000).
+  if (
+    key === "ltUnemployment" ||
+    key === "enterpriseDensity" ||
+    key === "hospitalBedsPer1000"
+  )
+    return value.toFixed(1);
+  // theftRate / fdiPerCapita / museumVisitsPer1000 are large per-100k / per-
+  // capita counts — round to a whole number with thousand separators.
   return Math.round(value).toLocaleString(locale);
 };
 
@@ -78,6 +89,11 @@ const DELTA_KIND: Record<RegionalIndicatorKey, RegionalDeltaKind> = {
   population: "percent",
   netMigration: "absolute",
   ltUnemployment: "absolute",
+  theftRate: "percent",
+  enterpriseDensity: "percent",
+  fdiPerCapita: "percent",
+  museumVisitsPer1000: "percent",
+  hospitalBedsPer1000: "absolute",
 };
 
 // Compute the latest value + YoY delta for each indicator at the given oblast.
