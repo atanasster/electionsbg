@@ -1,16 +1,16 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-06-07T14:46:16.572Z",
+  "generatedAt": "2026-06-08T12:45:31.159Z",
   "harness": "ai/llm/fcEval.ts (suite derived from ai/tools/registry.ts)",
   "method": {
-    "toolCount": 104,
-    "caseCount": 106,
-    "relevantCases": 104,
+    "toolCount": 107,
+    "caseCount": 109,
+    "relevantCases": 107,
     "irrelevanceCases": 2,
     "promptStrategy": {
       "cloud": "JSON-mode + a tool-listing system prompt (mirrors the production router)",
       "gemini": "Gemma on the Gemini API: tool list + query in one user turn (no system role / tools), JSON reply parsed",
-      "webllm": "FunctionGemma native function-declaration tokens"
+      "webllm": "FunctionGemma native declaration tokens. The 270M rows are an ablation LADDER on the SAME untuned model: candidate set k=8 vs k=3, full vs compact declarations, and free vs grammar-constrained (XGrammar, name∈candidates) decoding — isolating how much infra alone (no fine-tune) recovers."
     },
     "scoring": "tool SELECTION accuracy — exact registry tool name (normalized); irrelevance = no call. Registry examples carry no annotated args, so argument accuracy is not scored (n/a).",
     "coverageNote": "Cases are every registry tool's first bilingual example (EN+BG). Cloud models see the FULL tool set in context (route among all tools); small in-browser models see a retrieved candidate set (the realistic two-stage architecture)."
@@ -136,6 +136,28 @@
       "name": "latestPolls",
       "domain": "elections",
       "description": "The latest poll by party (incl. \"if elections were now\").",
+      "params": []
+    },
+    {
+      "name": "agencyPolls",
+      "domain": "elections",
+      "description": "One agency's poll history: party support across all its polls over time (trend).",
+      "params": [
+        "agency"
+      ]
+    },
+    {
+      "name": "agencyAccuracyHistory",
+      "domain": "elections",
+      "description": "One agency's accuracy over time: mean error vs the result by election (trend).",
+      "params": [
+        "agency"
+      ]
+    },
+    {
+      "name": "accuracyTrend",
+      "domain": "elections",
+      "description": "Pollster accuracy compared across elections over time (trend, one line per agency).",
       "params": []
     },
     {
@@ -959,6 +981,27 @@
       "expectedTool": "latestPolls"
     },
     {
+      "id": "agencyPolls",
+      "domain": "elections",
+      "en": "Market Links poll history",
+      "bg": "История на проучванията на Маркет Линкс",
+      "expectedTool": "agencyPolls"
+    },
+    {
+      "id": "agencyAccuracyHistory",
+      "domain": "elections",
+      "en": "How has Alpha Research's accuracy changed over time?",
+      "bg": "Как се променя точността на Алфа Рисърч през годините?",
+      "expectedTool": "agencyAccuracyHistory"
+    },
+    {
+      "id": "accuracyTrend",
+      "domain": "elections",
+      "en": "How has pollster accuracy changed over the years?",
+      "bg": "Как се променя точността на агенциите през годините?",
+      "expectedTool": "accuracyTrend"
+    },
+    {
       "id": "regionBreakdown",
       "domain": "elections",
       "en": "Where is GERB strongest?",
@@ -1601,7 +1644,7 @@
       "runtime": "cloud",
       "params": "—",
       "via": "OpenRouter proxy (production router)",
-      "toolMode": "full registry (104 tools)",
+      "toolMode": "full registry (107 tools)",
       "note": "Production cloud router for the Наясно chat.",
       "status": "measured",
       "perLang": {
@@ -3007,7 +3050,7 @@
       "runtime": "cloud",
       "params": "31B",
       "via": "Gemini API (generateContent)",
-      "toolMode": "full registry (104 tools)",
+      "toolMode": "full registry (107 tools)",
       "note": "Open model (the BgGPT base family). Gemma on the Gemini API has no system role / function-calling tools, so the ~104-tool list goes in one user turn and the JSON reply is parsed; measured sequentially with a per-call timeout to ride out the API's throughput limit on big prompts.",
       "status": "measured",
       "perLang": {
@@ -4409,24 +4452,25 @@
     },
     {
       "id": "functiongemma-270m-it-q4f32_1-MLC",
-      "label": "FunctionGemma 270M (in-browser, untuned)",
+      "label": "FunctionGemma 270M — baseline (k=8, free)",
       "runtime": "webllm",
       "params": "270M",
       "via": "in-browser (web-llm / WebGPU)",
-      "toolMode": "retrieved (k=8)",
-      "reason": "Off-domain community build (no fine-tune on our tools, no grammar). Can't hold the full registry, so it's tested with a small retrieved candidate set (k=8). Even so it got 0/104 tools right in both languages (the ~2% is the irrelevance cases), barely emits valid JSON, and the wasm intermittently traps — an untuned 270M needs fine-tuning + constrained decoding before it can route at all.",
+      "toolMode": "retrieved (k=8) · full decl · free decode",
+      "note": "Baseline: the published config — k=8 full JSON tool declarations, native FunctionGemma tokens, free (unconstrained) decoding.",
+      "reason": "0/214 in both languages — but raw output (see the capture's failureBreakdown) shows WHY: ~68% (146/214) trap with a wasm 'RuntimeError: unreachable' BEFORE emitting a token — the k=8 tool-declaration prompt (~2–3k chars, ~700–900 tokens) overflows this build's 512-token sliding-window KV cache at prefill ('KV cache is full'). The other ~32% run but emit degenerate output (empty {}, repeated tokens, hallucinated names); none is a coherent tool selection. So the 0/N is a context-window/runtime limit (can't process the prompt), NOT wrong-tool routing.",
       "status": "measured",
       "perLang": {
         "en": {
-          "toolAcc": 0.018867924528301886,
+          "toolAcc": 0.01834862385321101,
           "argAcc": null,
-          "jsonValidRate": 0.009615384615384616,
+          "jsonValidRate": 0.037383177570093455,
           "irrelevanceAcc": 1
         },
         "bg": {
-          "toolAcc": 0.018867924528301886,
+          "toolAcc": 0.01834862385321101,
           "argAcc": null,
-          "jsonValidRate": 0,
+          "jsonValidRate": 0.028037383177570093,
           "irrelevanceAcc": 1
         }
       },
@@ -4434,7 +4478,5763 @@
         "toolAcc": 0,
         "argAcc": null
       },
-      "perCase": []
+      "perCase": [
+        {
+          "id": "nationalResults",
+          "domain": "elections",
+          "expectedTool": "nationalResults",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "regionWinners",
+          "domain": "elections",
+          "expectedTool": "regionWinners",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "parliamentSeats",
+          "domain": "elections",
+          "expectedTool": "parliamentSeats",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "seatsHistory",
+          "domain": "elections",
+          "expectedTool": "seatsHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "partyResult",
+          "domain": "elections",
+          "expectedTool": "partyResult",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpResources."
+          }
+        },
+        {
+          "id": "candidateResult",
+          "domain": "elections",
+          "expectedTool": "candidateResult",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "machineVoteShare",
+          "domain": "elections",
+          "expectedTool": "machineVoteShare",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "turnout",
+          "domain": "elections",
+          "expectedTool": "turnout",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "compareElections",
+          "domain": "elections",
+          "expectedTool": "compareElections",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "machineVoteSeries",
+          "domain": "elections",
+          "expectedTool": "machineVoteSeries",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "turnoutSeries",
+          "domain": "elections",
+          "expectedTool": "turnoutSeries",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "partyTimeline",
+          "domain": "elections",
+          "expectedTool": "partyTimeline",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "pollAccuracy",
+          "domain": "elections",
+          "expectedTool": "pollAccuracy",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "agencyProfile",
+          "domain": "elections",
+          "expectedTool": "agencyProfile",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "latestPolls",
+          "domain": "elections",
+          "expectedTool": "latestPolls",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "agencyPolls",
+          "domain": "elections",
+          "expectedTool": "agencyPolls",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "agencyAccuracyHistory",
+          "domain": "elections",
+          "expectedTool": "agencyAccuracyHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "accuracyTrend",
+          "domain": "elections",
+          "expectedTool": "accuracyTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "regionBreakdown",
+          "domain": "elections",
+          "expectedTool": "regionBreakdown",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "municipalityBreakdown",
+          "domain": "elections",
+          "expectedTool": "municipalityBreakdown",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "municipalityWinners",
+          "domain": "elections",
+          "expectedTool": "municipalityWinners",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "settlementWinners",
+          "domain": "elections",
+          "expectedTool": "settlementWinners",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "sectionWinners",
+          "domain": "elections",
+          "expectedTool": "sectionWinners",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "sectionResults",
+          "domain": "elections",
+          "expectedTool": "sectionResults",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "sectionHistory",
+          "domain": "elections",
+          "expectedTool": "sectionHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "settlementResults",
+          "domain": "elections",
+          "expectedTool": "settlementResults",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "settlementHistory",
+          "domain": "elections",
+          "expectedTool": "settlementHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "municipalityResults",
+          "domain": "elections",
+          "expectedTool": "municipalityResults",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "municipalityHistory",
+          "domain": "elections",
+          "expectedTool": "municipalityHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "regionResults",
+          "domain": "elections",
+          "expectedTool": "regionResults",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "regionResultsTrend",
+          "domain": "elections",
+          "expectedTool": "regionResultsTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "settlementBreakdown",
+          "domain": "elections",
+          "expectedTool": "settlementBreakdown",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "electionAnomalies",
+          "domain": "elections",
+          "expectedTool": "electionAnomalies",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "flashMemoryByParty",
+          "domain": "elections",
+          "expectedTool": "flashMemoryByParty",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "machineVoteByParty",
+          "domain": "elections",
+          "expectedTool": "machineVoteByParty",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "wastedVotesByParty",
+          "domain": "elections",
+          "expectedTool": "wastedVotesByParty",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "recountByParty",
+          "domain": "elections",
+          "expectedTool": "recountByParty",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "regionHistory",
+          "domain": "elections",
+          "expectedTool": "regionHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "voteTransitions",
+          "domain": "elections",
+          "expectedTool": "voteTransitions",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localCouncilVoteShare",
+          "domain": "local",
+          "expectedTool": "localCouncilVoteShare",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localMayorsWon",
+          "domain": "local",
+          "expectedTool": "localMayorsWon",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localCouncilTrend",
+          "domain": "local",
+          "expectedTool": "localCouncilTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localMayorsTrend",
+          "domain": "local",
+          "expectedTool": "localMayorsTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localOblastMayors",
+          "domain": "local",
+          "expectedTool": "localOblastMayors",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localMunicipality",
+          "domain": "local",
+          "expectedTool": "localMunicipality",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localMayorRace",
+          "domain": "local",
+          "expectedTool": "localMayorRace",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localMayorHistory",
+          "domain": "local",
+          "expectedTool": "localMayorHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localSubMayors",
+          "domain": "local",
+          "expectedTool": "localSubMayors",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localCouncil",
+          "domain": "local",
+          "expectedTool": "localCouncil",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "chmiEvents",
+          "domain": "local",
+          "expectedTool": "chmiEvents",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "budgetOverview",
+          "domain": "fiscal",
+          "expectedTool": "budgetOverview",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "budgetTrend",
+          "domain": "fiscal",
+          "expectedTool": "budgetTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "government_finance_ministry_ministry."
+          }
+        },
+        {
+          "id": "budgetByFunction",
+          "domain": "fiscal",
+          "expectedTool": "budgetByFunction",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "budgetFunction",
+          "domain": "fiscal",
+          "expectedTool": "budgetFunction",
+          "en": {
+            "toolOk": false,
+            "got": "budget_function_budget."
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "procurementTotals",
+          "domain": "fiscal",
+          "expectedTool": "procurementTotals",
+          "en": {
+            "toolOk": false,
+            "got": "coherence"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "fundsOverview",
+          "domain": "fiscal",
+          "expectedTool": "fundsOverview",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "govDebt",
+          "domain": "fiscal",
+          "expectedTool": "govDebt",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "noiFunds",
+          "domain": "fiscal",
+          "expectedTool": "noiFunds",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "budgetExecution",
+          "domain": "fiscal",
+          "expectedTool": "budgetExecution",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "ministryBudget",
+          "domain": "fiscal",
+          "expectedTool": "ministryBudget",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "investmentProjects",
+          "domain": "fiscal",
+          "expectedTool": "investmentProjects",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "governments",
+          "domain": "people",
+          "expectedTool": "governments",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpAssetsTop",
+          "domain": "people",
+          "expectedTool": "mpAssetsTop",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpConnectionsTop",
+          "domain": "people",
+          "expectedTool": "mpConnectionsTop",
+          "en": {
+            "toolOk": false,
+            "got": "finance_funds."
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpAssetsByParty",
+          "domain": "people",
+          "expectedTool": "mpAssetsByParty",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpConnectionsByParty",
+          "domain": "people",
+          "expectedTool": "mpConnectionsByParty",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "officialsAssetsTop",
+          "domain": "people",
+          "expectedTool": "officialsAssetsTop",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpAssets."
+          }
+        },
+        {
+          "id": "financingOverview",
+          "domain": "people",
+          "expectedTool": "financingOverview",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "macroIndicator",
+          "domain": "indicators",
+          "expectedTool": "macroIndicator",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "macroOverview",
+          "domain": "indicators",
+          "expectedTool": "macroOverview",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "macroByCategory",
+          "domain": "indicators",
+          "expectedTool": "macroByCategory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "subnationalIndicator",
+          "domain": "indicators",
+          "expectedTool": "subnationalIndicator",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "rankPlaces",
+          "domain": "indicators",
+          "expectedTool": "rankPlaces",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "regionIndicator",
+          "domain": "indicators",
+          "expectedTool": "regionIndicator",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "transparencyScore",
+          "domain": "indicators",
+          "expectedTool": "transparencyScore",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localTaxes",
+          "domain": "indicators",
+          "expectedTool": "localTaxes",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "landUse",
+          "domain": "indicators",
+          "expectedTool": "landUse",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "governanceProfile",
+          "domain": "place",
+          "expectedTool": "governanceProfile",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "comparePlaces",
+          "domain": "place",
+          "expectedTool": "comparePlaces",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "census",
+          "domain": "place",
+          "expectedTool": "census",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "procurementBySettlement",
+          "domain": "place",
+          "expectedTool": "procurementBySettlement",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "airQuality",
+          "domain": "place",
+          "expectedTool": "airQuality",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "graoPopulation",
+          "domain": "place",
+          "expectedTool": "graoPopulation",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "councilResolutions",
+          "domain": "place",
+          "expectedTool": "councilResolutions",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "problemSections",
+          "domain": "elections",
+          "expectedTool": "problemSections",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "romaVoteTrend",
+          "domain": "elections",
+          "expectedTool": "romaVoteTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "riskIndex",
+          "domain": "elections",
+          "expectedTool": "riskIndex",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "riskScore",
+          "domain": "elections",
+          "expectedTool": "riskScore",
+          "en": {
+            "toolOk": false,
+            "got": "budgeting"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "riskClusters",
+          "domain": "elections",
+          "expectedTool": "riskClusters",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "clusterPersistence",
+          "domain": "elections",
+          "expectedTool": "clusterPersistence",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "benfordAnomalies",
+          "domain": "elections",
+          "expectedTool": "benfordAnomalies",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "wastedVotes",
+          "domain": "elections",
+          "expectedTool": "wastedVotes",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "wastedVotesTrend",
+          "domain": "elections",
+          "expectedTool": "wastedVotesTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "suspiciousSettlements",
+          "domain": "elections",
+          "expectedTool": "suspiciousSettlements",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "diasporaVote",
+          "domain": "elections",
+          "expectedTool": "diasporaVote",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "diasporaVoteTrend",
+          "domain": "elections",
+          "expectedTool": "diasporaVoteTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "voterPersistence",
+          "domain": "elections",
+          "expectedTool": "voterPersistence",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "partyDemographics",
+          "domain": "elections",
+          "expectedTool": "partyDemographics",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "demographicCleavages",
+          "domain": "elections",
+          "expectedTool": "demographicCleavages",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpLoyalty",
+          "domain": "people",
+          "expectedTool": "mpLoyalty",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpAttendance",
+          "domain": "people",
+          "expectedTool": "mpAttendance",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "factionCohesion",
+          "domain": "people",
+          "expectedTool": "factionCohesion",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpVotingProfile",
+          "domain": "people",
+          "expectedTool": "mpVotingProfile",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpSimilarity",
+          "domain": "people",
+          "expectedTool": "mpSimilarity",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "voteSearch",
+          "domain": "people",
+          "expectedTool": "voteSearch",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "partyMps",
+          "domain": "people",
+          "expectedTool": "partyMps",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "schoolScores",
+          "domain": "indicators",
+          "expectedTool": "schoolScores",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "irrelevant_weather",
+          "domain": null,
+          "expectedTool": null,
+          "en": {
+            "toolOk": true,
+            "got": null
+          },
+          "bg": {
+            "toolOk": true,
+            "got": null
+          }
+        },
+        {
+          "id": "irrelevant_recipe",
+          "domain": null,
+          "expectedTool": null,
+          "en": {
+            "toolOk": true,
+            "got": null
+          },
+          "bg": {
+            "toolOk": true,
+            "got": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "functiongemma-270m-it-q4f32_1-MLC.k3-free",
+      "label": "FunctionGemma 270M — fit prompt (k=3, free)",
+      "runtime": "webllm",
+      "params": "270M",
+      "via": "in-browser (web-llm / WebGPU)",
+      "toolMode": "retrieved (k=3) · full decl · free decode",
+      "note": "Lever 1 — shrink the candidate set to k=3 so the prompt (~700–1200 chars) fits the 512-token window.",
+      "reason": "Fitting the prompt ELIMINATES the traps (0 engine-errors, vs 68% at k=8) — the model now runs on every case. But free decoding still yields ~1% correct: it hallucinates plausible-but-fake tool names (machine_comparison, election_results) and malformed JSON. Fitting the window is necessary but not sufficient.",
+      "status": "measured",
+      "perLang": {
+        "en": {
+          "toolAcc": 0.027522935779816515,
+          "argAcc": null,
+          "jsonValidRate": 0.1308411214953271,
+          "irrelevanceAcc": 1
+        },
+        "bg": {
+          "toolAcc": 0.027522935779816515,
+          "argAcc": null,
+          "jsonValidRate": 0.1308411214953271,
+          "irrelevanceAcc": 1
+        }
+      },
+      "degradation": {
+        "toolAcc": 0,
+        "argAcc": null
+      },
+      "perCase": [
+        {
+          "id": "nationalResults",
+          "domain": "elections",
+          "expectedTool": "nationalResults",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "regionWinners",
+          "domain": "elections",
+          "expectedTool": "regionWinners",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "parliamentSeats",
+          "domain": "elections",
+          "expectedTool": "parliamentSeats",
+          "en": {
+            "toolOk": false,
+            "got": "power to be elected."
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "seatsHistory",
+          "domain": "elections",
+          "expectedTool": "seatsHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "partyResult",
+          "domain": "elections",
+          "expectedTool": "partyResult",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "partyResult"
+          }
+        },
+        {
+          "id": "candidateResult",
+          "domain": "elections",
+          "expectedTool": "candidateResult",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "machineVoteShare",
+          "domain": "elections",
+          "expectedTool": "machineVoteShare",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "turnout",
+          "domain": "elections",
+          "expectedTool": "turnout",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "compareElections",
+          "domain": "elections",
+          "expectedTool": "compareElections",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "machineVoteSeries",
+          "domain": "elections",
+          "expectedTool": "machineVoteSeries",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "turnoutSeries",
+          "domain": "elections",
+          "expectedTool": "turnoutSeries",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "partyTimeline",
+          "domain": "elections",
+          "expectedTool": "partyTimeline",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "pollAccuracy",
+          "domain": "elections",
+          "expectedTool": "pollAccuracy",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "agencyProfile",
+          "domain": "elections",
+          "expectedTool": "agencyProfile",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "latestPolls",
+          "domain": "elections",
+          "expectedTool": "latestPolls",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "agencyPolls",
+          "domain": "elections",
+          "expectedTool": "agencyPolls",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "agencyAccuracyHistory",
+          "domain": "elections",
+          "expectedTool": "agencyAccuracyHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "accuracyTrend",
+          "domain": "elections",
+          "expectedTool": "accuracyTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "regionBreakdown",
+          "domain": "elections",
+          "expectedTool": "regionBreakdown",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "municipalityBreakdown",
+          "domain": "elections",
+          "expectedTool": "municipalityBreakdown",
+          "en": {
+            "toolOk": false,
+            "got": "budget"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "municipalityWinners",
+          "domain": "elections",
+          "expectedTool": "municipalityWinners",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "settlementWinners",
+          "domain": "elections",
+          "expectedTool": "settlementWinners",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "sectionWinners",
+          "domain": "elections",
+          "expectedTool": "sectionWinners",
+          "en": {
+            "toolOk": false,
+            "got": "budgeting"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budget"
+          }
+        },
+        {
+          "id": "sectionResults",
+          "domain": "elections",
+          "expectedTool": "sectionResults",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "sectionHistory",
+          "domain": "elections",
+          "expectedTool": "sectionHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "settlementResults",
+          "domain": "elections",
+          "expectedTool": "settlementResults",
+          "en": {
+            "toolOk": false,
+            "got": "settlement"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "settlementHistory",
+          "domain": "elections",
+          "expectedTool": "settlementHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "municipalityResults",
+          "domain": "elections",
+          "expectedTool": "municipalityResults",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "municipalityHistory",
+          "domain": "elections",
+          "expectedTool": "municipalityHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "regionResults",
+          "domain": "elections",
+          "expectedTool": "regionResults",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "regionResultsTrend",
+          "domain": "elections",
+          "expectedTool": "regionResultsTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "settlementBreakdown",
+          "domain": "elections",
+          "expectedTool": "settlementBreakdown",
+          "en": {
+            "toolOk": false,
+            "got": "settlementResults"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "electionAnomalies",
+          "domain": "elections",
+          "expectedTool": "electionAnomalies",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "flashMemoryByParty",
+          "domain": "elections",
+          "expectedTool": "flashMemoryByParty",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "transparency-loss"
+          }
+        },
+        {
+          "id": "machineVoteByParty",
+          "domain": "elections",
+          "expectedTool": "machineVoteByParty",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "wastedVotesByParty",
+          "domain": "elections",
+          "expectedTool": "wastedVotesByParty",
+          "en": {
+            "toolOk": true,
+            "got": "wastedVotesByParty"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "recountByParty",
+          "domain": "elections",
+          "expectedTool": "recountByParty",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "regionHistory",
+          "domain": "elections",
+          "expectedTool": "regionHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementResults"
+          }
+        },
+        {
+          "id": "voteTransitions",
+          "domain": "elections",
+          "expectedTool": "voteTransitions",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localCouncilVoteShare",
+          "domain": "local",
+          "expectedTool": "localCouncilVoteShare",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localMayorsWon",
+          "domain": "local",
+          "expectedTool": "localMayorsWon",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localCouncilTrend",
+          "domain": "local",
+          "expectedTool": "localCouncilTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localMayorsTrend",
+          "domain": "local",
+          "expectedTool": "localMayorsTrend",
+          "en": {
+            "toolOk": false,
+            "got": "election"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localOblastMayors",
+          "domain": "local",
+          "expectedTool": "localOblastMayors",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "election"
+          }
+        },
+        {
+          "id": "localMunicipality",
+          "domain": "local",
+          "expectedTool": "localMunicipality",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localMayorRace",
+          "domain": "local",
+          "expectedTool": "localMayorRace",
+          "en": {
+            "toolOk": false,
+            "got": "mpAssets.org."
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localMayorHistory",
+          "domain": "local",
+          "expectedTool": "localMayorHistory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localSubMayors",
+          "domain": "local",
+          "expectedTool": "localSubMayors",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "election3"
+          }
+        },
+        {
+          "id": "localCouncil",
+          "domain": "local",
+          "expectedTool": "localCouncil",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "chmiEvents",
+          "domain": "local",
+          "expectedTool": "chmiEvents",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "budgetOverview",
+          "domain": "fiscal",
+          "expectedTool": "budgetOverview",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "budgetTrend",
+          "domain": "fiscal",
+          "expectedTool": "budgetTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "budgetByFunction",
+          "domain": "fiscal",
+          "expectedTool": "budgetByFunction",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "budgetFunction",
+          "domain": "fiscal",
+          "expectedTool": "budgetFunction",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "procurementTotals",
+          "domain": "fiscal",
+          "expectedTool": "procurementTotals",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "fundsOverview",
+          "domain": "fiscal",
+          "expectedTool": "fundsOverview",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "govDebt",
+          "domain": "fiscal",
+          "expectedTool": "govDebt",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "noiFunds",
+          "domain": "fiscal",
+          "expectedTool": "noiFunds",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "budgetExecution",
+          "domain": "fiscal",
+          "expectedTool": "budgetExecution",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "ministryBudget",
+          "domain": "fiscal",
+          "expectedTool": "ministryBudget",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "investmentProjects",
+          "domain": "fiscal",
+          "expectedTool": "investmentProjects",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "governments",
+          "domain": "people",
+          "expectedTool": "governments",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpAssetsTop",
+          "domain": "people",
+          "expectedTool": "mpAssetsTop",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "Finance - Government Finance."
+          }
+        },
+        {
+          "id": "mpConnectionsTop",
+          "domain": "people",
+          "expectedTool": "mpConnectionsTop",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "government"
+          }
+        },
+        {
+          "id": "mpAssetsByParty",
+          "domain": "people",
+          "expectedTool": "mpAssetsByParty",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpConnectionsByParty",
+          "domain": "people",
+          "expectedTool": "mpConnectionsByParty",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "officialsAssetsTop",
+          "domain": "people",
+          "expectedTool": "officialsAssetsTop",
+          "en": {
+            "toolOk": false,
+            "got": "people"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "people"
+          }
+        },
+        {
+          "id": "financingOverview",
+          "domain": "people",
+          "expectedTool": "financingOverview",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "macroIndicator",
+          "domain": "indicators",
+          "expectedTool": "macroIndicator",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "macroOverview",
+          "domain": "indicators",
+          "expectedTool": "macroOverview",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "macroByCategory",
+          "domain": "indicators",
+          "expectedTool": "macroByCategory",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "gov-secrete"
+          }
+        },
+        {
+          "id": "subnationalIndicator",
+          "domain": "indicators",
+          "expectedTool": "subnationalIndicator",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "rankPlaces",
+          "domain": "indicators",
+          "expectedTool": "rankPlaces",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "regionIndicator",
+          "domain": "indicators",
+          "expectedTool": "regionIndicator",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "transparencyScore",
+          "domain": "indicators",
+          "expectedTool": "transparencyScore",
+          "en": {
+            "toolOk": false,
+            "got": "transparency"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "localTaxes",
+          "domain": "indicators",
+          "expectedTool": "localTaxes",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "landUse",
+          "domain": "indicators",
+          "expectedTool": "landUse",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "governanceProfile",
+          "domain": "place",
+          "expectedTool": "governanceProfile",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "comparePlaces",
+          "domain": "place",
+          "expectedTool": "comparePlaces",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "census",
+          "domain": "place",
+          "expectedTool": "census",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "procurementBySettlement",
+          "domain": "place",
+          "expectedTool": "procurementBySettlement",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "airQuality",
+          "domain": "place",
+          "expectedTool": "airQuality",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "graoPopulation",
+          "domain": "place",
+          "expectedTool": "graoPopulation",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "councilResolutions",
+          "domain": "place",
+          "expectedTool": "councilResolutions",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "councilofresults."
+          }
+        },
+        {
+          "id": "problemSections",
+          "domain": "elections",
+          "expectedTool": "problemSections",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "romaVoteTrend",
+          "domain": "elections",
+          "expectedTool": "romaVoteTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "riskIndex",
+          "domain": "elections",
+          "expectedTool": "riskIndex",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "riskScore",
+          "domain": "elections",
+          "expectedTool": "riskScore",
+          "en": {
+            "toolOk": false,
+            "got": "budget_summary"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "riskClusters",
+          "domain": "elections",
+          "expectedTool": "riskClusters",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "clusterPersistence",
+          "domain": "elections",
+          "expectedTool": "clusterPersistence",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "election"
+          }
+        },
+        {
+          "id": "benfordAnomalies",
+          "domain": "elections",
+          "expectedTool": "benfordAnomalies",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "wastedVotes",
+          "domain": "elections",
+          "expectedTool": "wastedVotes",
+          "en": {
+            "toolOk": false,
+            "got": "budget_report"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "wastedVotesTrend",
+          "domain": "elections",
+          "expectedTool": "wastedVotesTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "suspiciousSettlements",
+          "domain": "elections",
+          "expectedTool": "suspiciousSettlements",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "election.election"
+          }
+        },
+        {
+          "id": "diasporaVote",
+          "domain": "elections",
+          "expectedTool": "diasporaVote",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "diasporaVoteTrend",
+          "domain": "elections",
+          "expectedTool": "diasporaVoteTrend",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "voterPersistence",
+          "domain": "elections",
+          "expectedTool": "voterPersistence",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "partyDemographics",
+          "domain": "elections",
+          "expectedTool": "partyDemographics",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "demographicCleavages",
+          "domain": "elections",
+          "expectedTool": "demographicCleavages",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpLoyalty",
+          "domain": "people",
+          "expectedTool": "mpLoyalty",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpAttendance",
+          "domain": "people",
+          "expectedTool": "mpAttendance",
+          "en": {
+            "toolOk": false,
+            "got": "government.tr.gov.tr.gov.tr."
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "factionCohesion",
+          "domain": "people",
+          "expectedTool": "factionCohesion",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpVotingProfile",
+          "domain": "people",
+          "expectedTool": "mpVotingProfile",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "mpSimilarity",
+          "domain": "people",
+          "expectedTool": "mpSimilarity",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "voteSearch",
+          "domain": "people",
+          "expectedTool": "voteSearch",
+          "en": {
+            "toolOk": false,
+            "got": "votes"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "partyMps",
+          "domain": "people",
+          "expectedTool": "partyMps",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "airQuality"
+          }
+        },
+        {
+          "id": "schoolScores",
+          "domain": "indicators",
+          "expectedTool": "schoolScores",
+          "en": {
+            "toolOk": false,
+            "got": null
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "irrelevant_weather",
+          "expectedTool": null,
+          "en": {
+            "toolOk": true,
+            "got": null
+          },
+          "bg": {
+            "toolOk": true,
+            "got": null
+          }
+        },
+        {
+          "id": "irrelevant_recipe",
+          "expectedTool": null,
+          "en": {
+            "toolOk": true,
+            "got": null
+          },
+          "bg": {
+            "toolOk": true,
+            "got": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "functiongemma-270m-it-q4f32_1-MLC.k3-grammar",
+      "label": "FunctionGemma 270M — fit + grammar (k=3)",
+      "runtime": "webllm",
+      "params": "270M",
+      "via": "in-browser (web-llm / WebGPU)",
+      "toolMode": "retrieved (k=3) · grammar (name∈candidates)",
+      "note": "Lever 2 — constrain decoding (XGrammar / response_format) so the output MUST be {\"name\": <one of the k candidates>}.",
+      "reason": "Grammar is the decisive lever: forcing a real candidate name lifts routing to 37% (80/214) — well above the ~33% chance for k=3 — with 100% valid JSON and 0 garbage. Errors are semantically adjacent (nationalResults→machineVoteSeries). NOTE: hard-constraining to the candidate enum means the model can no longer abstain, so off-topic ('call nothing') detection drops to 0 — production would add a 'no_tool' sentinel to the enum.",
+      "status": "measured",
+      "perLang": {
+        "en": {
+          "toolAcc": 0.3577981651376147,
+          "argAcc": null,
+          "jsonValidRate": 1,
+          "irrelevanceAcc": 0
+        },
+        "bg": {
+          "toolAcc": 0.3761467889908257,
+          "argAcc": null,
+          "jsonValidRate": 1,
+          "irrelevanceAcc": 0
+        }
+      },
+      "degradation": {
+        "toolAcc": -0.01834862385321101,
+        "argAcc": null
+      },
+      "perCase": [
+        {
+          "id": "nationalResults",
+          "domain": "elections",
+          "expectedTool": "nationalResults",
+          "en": {
+            "toolOk": false,
+            "got": "machineVoteSeries"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "machineVoteSeries"
+          }
+        },
+        {
+          "id": "regionWinners",
+          "domain": "elections",
+          "expectedTool": "regionWinners",
+          "en": {
+            "toolOk": false,
+            "got": "turnoutSeries"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "turnoutSeries"
+          }
+        },
+        {
+          "id": "parliamentSeats",
+          "domain": "elections",
+          "expectedTool": "parliamentSeats",
+          "en": {
+            "toolOk": false,
+            "got": "governanceProfile"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "governanceProfile"
+          }
+        },
+        {
+          "id": "seatsHistory",
+          "domain": "elections",
+          "expectedTool": "seatsHistory",
+          "en": {
+            "toolOk": true,
+            "got": "seatsHistory"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "seatsHistory"
+          }
+        },
+        {
+          "id": "partyResult",
+          "domain": "elections",
+          "expectedTool": "partyResult",
+          "en": {
+            "toolOk": true,
+            "got": "partyResult"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "partyResult"
+          }
+        },
+        {
+          "id": "candidateResult",
+          "domain": "elections",
+          "expectedTool": "candidateResult",
+          "en": {
+            "toolOk": true,
+            "got": "candidateResult"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "candidateResult"
+          }
+        },
+        {
+          "id": "machineVoteShare",
+          "domain": "elections",
+          "expectedTool": "machineVoteShare",
+          "en": {
+            "toolOk": false,
+            "got": "procurementBySettlement"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "procurementBySettlement"
+          }
+        },
+        {
+          "id": "turnout",
+          "domain": "elections",
+          "expectedTool": "turnout",
+          "en": {
+            "toolOk": true,
+            "got": "turnout"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "turnout"
+          }
+        },
+        {
+          "id": "compareElections",
+          "domain": "elections",
+          "expectedTool": "compareElections",
+          "en": {
+            "toolOk": false,
+            "got": "partyMps"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyMps"
+          }
+        },
+        {
+          "id": "machineVoteSeries",
+          "domain": "elections",
+          "expectedTool": "machineVoteSeries",
+          "en": {
+            "toolOk": false,
+            "got": "regionBreakdown"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "regionBreakdown"
+          }
+        },
+        {
+          "id": "turnoutSeries",
+          "domain": "elections",
+          "expectedTool": "turnoutSeries",
+          "en": {
+            "toolOk": true,
+            "got": "turnoutSeries"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "turnoutSeries"
+          }
+        },
+        {
+          "id": "partyTimeline",
+          "domain": "elections",
+          "expectedTool": "partyTimeline",
+          "en": {
+            "toolOk": true,
+            "got": "partyTimeline"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "partyTimeline"
+          }
+        },
+        {
+          "id": "pollAccuracy",
+          "domain": "elections",
+          "expectedTool": "pollAccuracy",
+          "en": {
+            "toolOk": false,
+            "got": "rankPlaces"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "rankPlaces"
+          }
+        },
+        {
+          "id": "agencyProfile",
+          "domain": "elections",
+          "expectedTool": "agencyProfile",
+          "en": {
+            "toolOk": true,
+            "got": "agencyProfile"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "agencyProfile"
+          }
+        },
+        {
+          "id": "latestPolls",
+          "domain": "elections",
+          "expectedTool": "latestPolls",
+          "en": {
+            "toolOk": false,
+            "got": "govDebt"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "fundsOverview"
+          }
+        },
+        {
+          "id": "agencyPolls",
+          "domain": "elections",
+          "expectedTool": "agencyPolls",
+          "en": {
+            "toolOk": true,
+            "got": "agencyPolls"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "agencyPolls"
+          }
+        },
+        {
+          "id": "agencyAccuracyHistory",
+          "domain": "elections",
+          "expectedTool": "agencyAccuracyHistory",
+          "en": {
+            "toolOk": true,
+            "got": "agencyAccuracyHistory"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpConnectionsTop"
+          }
+        },
+        {
+          "id": "accuracyTrend",
+          "domain": "elections",
+          "expectedTool": "accuracyTrend",
+          "en": {
+            "toolOk": false,
+            "got": "procurementTotals"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "procurementTotals"
+          }
+        },
+        {
+          "id": "regionBreakdown",
+          "domain": "elections",
+          "expectedTool": "regionBreakdown",
+          "en": {
+            "toolOk": false,
+            "got": "diasporaVoteTrend"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "voterPersistence"
+          }
+        },
+        {
+          "id": "municipalityBreakdown",
+          "domain": "elections",
+          "expectedTool": "municipalityBreakdown",
+          "en": {
+            "toolOk": false,
+            "got": "govDebt"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "govDebt"
+          }
+        },
+        {
+          "id": "municipalityWinners",
+          "domain": "elections",
+          "expectedTool": "municipalityWinners",
+          "en": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          }
+        },
+        {
+          "id": "settlementWinners",
+          "domain": "elections",
+          "expectedTool": "settlementWinners",
+          "en": {
+            "toolOk": false,
+            "got": "partyDemographics"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyDemographics"
+          }
+        },
+        {
+          "id": "sectionWinners",
+          "domain": "elections",
+          "expectedTool": "sectionWinners",
+          "en": {
+            "toolOk": false,
+            "got": "investmentProjects"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "investmentProjects"
+          }
+        },
+        {
+          "id": "sectionResults",
+          "domain": "elections",
+          "expectedTool": "sectionResults",
+          "en": {
+            "toolOk": false,
+            "got": "turnoutSeries"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "sectionResults"
+          }
+        },
+        {
+          "id": "sectionHistory",
+          "domain": "elections",
+          "expectedTool": "sectionHistory",
+          "en": {
+            "toolOk": true,
+            "got": "sectionHistory"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "sectionHistory"
+          }
+        },
+        {
+          "id": "settlementResults",
+          "domain": "elections",
+          "expectedTool": "settlementResults",
+          "en": {
+            "toolOk": true,
+            "got": "settlementResults"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "settlementResults"
+          }
+        },
+        {
+          "id": "settlementHistory",
+          "domain": "elections",
+          "expectedTool": "settlementHistory",
+          "en": {
+            "toolOk": true,
+            "got": "settlementHistory"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "settlementHistory"
+          }
+        },
+        {
+          "id": "municipalityResults",
+          "domain": "elections",
+          "expectedTool": "municipalityResults",
+          "en": {
+            "toolOk": false,
+            "got": "agencyPolls"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "agencyPolls"
+          }
+        },
+        {
+          "id": "municipalityHistory",
+          "domain": "elections",
+          "expectedTool": "municipalityHistory",
+          "en": {
+            "toolOk": false,
+            "got": "agencyProfile"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "municipalityHistory"
+          }
+        },
+        {
+          "id": "regionResults",
+          "domain": "elections",
+          "expectedTool": "regionResults",
+          "en": {
+            "toolOk": true,
+            "got": "regionResults"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "regionResults"
+          }
+        },
+        {
+          "id": "regionResultsTrend",
+          "domain": "elections",
+          "expectedTool": "regionResultsTrend",
+          "en": {
+            "toolOk": false,
+            "got": "voterPersistence"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "voterPersistence"
+          }
+        },
+        {
+          "id": "settlementBreakdown",
+          "domain": "elections",
+          "expectedTool": "settlementBreakdown",
+          "en": {
+            "toolOk": false,
+            "got": "settlementResults"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementResults"
+          }
+        },
+        {
+          "id": "electionAnomalies",
+          "domain": "elections",
+          "expectedTool": "electionAnomalies",
+          "en": {
+            "toolOk": true,
+            "got": "electionAnomalies"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "electionAnomalies"
+          }
+        },
+        {
+          "id": "flashMemoryByParty",
+          "domain": "elections",
+          "expectedTool": "flashMemoryByParty",
+          "en": {
+            "toolOk": true,
+            "got": "flashMemoryByParty"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "flashMemoryByParty"
+          }
+        },
+        {
+          "id": "machineVoteByParty",
+          "domain": "elections",
+          "expectedTool": "machineVoteByParty",
+          "en": {
+            "toolOk": true,
+            "got": "machineVoteByParty"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "machineVoteByParty"
+          }
+        },
+        {
+          "id": "wastedVotesByParty",
+          "domain": "elections",
+          "expectedTool": "wastedVotesByParty",
+          "en": {
+            "toolOk": true,
+            "got": "wastedVotesByParty"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "wastedVotesByParty"
+          }
+        },
+        {
+          "id": "recountByParty",
+          "domain": "elections",
+          "expectedTool": "recountByParty",
+          "en": {
+            "toolOk": false,
+            "got": "mpConnectionsTop"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpConnectionsTop"
+          }
+        },
+        {
+          "id": "regionHistory",
+          "domain": "elections",
+          "expectedTool": "regionHistory",
+          "en": {
+            "toolOk": false,
+            "got": "settlementResults"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementResults"
+          }
+        },
+        {
+          "id": "voteTransitions",
+          "domain": "elections",
+          "expectedTool": "voteTransitions",
+          "en": {
+            "toolOk": false,
+            "got": "sectionResults"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "sectionResults"
+          }
+        },
+        {
+          "id": "localCouncilVoteShare",
+          "domain": "local",
+          "expectedTool": "localCouncilVoteShare",
+          "en": {
+            "toolOk": false,
+            "got": "electionAnomalies"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "electionAnomalies"
+          }
+        },
+        {
+          "id": "localMayorsWon",
+          "domain": "local",
+          "expectedTool": "localMayorsWon",
+          "en": {
+            "toolOk": false,
+            "got": "diasporaVote"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "diasporaVote"
+          }
+        },
+        {
+          "id": "localCouncilTrend",
+          "domain": "local",
+          "expectedTool": "localCouncilTrend",
+          "en": {
+            "toolOk": true,
+            "got": "localCouncilTrend"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "localMayorRace"
+          }
+        },
+        {
+          "id": "localMayorsTrend",
+          "domain": "local",
+          "expectedTool": "localMayorsTrend",
+          "en": {
+            "toolOk": false,
+            "got": "agencyPolls"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "latestPolls"
+          }
+        },
+        {
+          "id": "localOblastMayors",
+          "domain": "local",
+          "expectedTool": "localOblastMayors",
+          "en": {
+            "toolOk": false,
+            "got": "agencyPolls"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localOblastMayors"
+          }
+        },
+        {
+          "id": "localMunicipality",
+          "domain": "local",
+          "expectedTool": "localMunicipality",
+          "en": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          }
+        },
+        {
+          "id": "localMayorRace",
+          "domain": "local",
+          "expectedTool": "localMayorRace",
+          "en": {
+            "toolOk": false,
+            "got": "mpAssetsTop"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpAssetsTop"
+          }
+        },
+        {
+          "id": "localMayorHistory",
+          "domain": "local",
+          "expectedTool": "localMayorHistory",
+          "en": {
+            "toolOk": false,
+            "got": "governments"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "governments"
+          }
+        },
+        {
+          "id": "localSubMayors",
+          "domain": "local",
+          "expectedTool": "localSubMayors",
+          "en": {
+            "toolOk": true,
+            "got": "localSubMayors"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localSubMayors"
+          }
+        },
+        {
+          "id": "localCouncil",
+          "domain": "local",
+          "expectedTool": "localCouncil",
+          "en": {
+            "toolOk": true,
+            "got": "localCouncil"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localCouncil"
+          }
+        },
+        {
+          "id": "chmiEvents",
+          "domain": "local",
+          "expectedTool": "chmiEvents",
+          "en": {
+            "toolOk": false,
+            "got": "mpAttendance"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpAttendance"
+          }
+        },
+        {
+          "id": "budgetOverview",
+          "domain": "fiscal",
+          "expectedTool": "budgetOverview",
+          "en": {
+            "toolOk": true,
+            "got": "budgetOverview"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "budgetOverview"
+          }
+        },
+        {
+          "id": "budgetTrend",
+          "domain": "fiscal",
+          "expectedTool": "budgetTrend",
+          "en": {
+            "toolOk": true,
+            "got": "budgetTrend"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "budgetTrend"
+          }
+        },
+        {
+          "id": "budgetByFunction",
+          "domain": "fiscal",
+          "expectedTool": "budgetByFunction",
+          "en": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          }
+        },
+        {
+          "id": "budgetFunction",
+          "domain": "fiscal",
+          "expectedTool": "budgetFunction",
+          "en": {
+            "toolOk": true,
+            "got": "budgetFunction"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "budgetFunction"
+          }
+        },
+        {
+          "id": "procurementTotals",
+          "domain": "fiscal",
+          "expectedTool": "procurementTotals",
+          "en": {
+            "toolOk": false,
+            "got": "mpLoyalty"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpLoyalty"
+          }
+        },
+        {
+          "id": "fundsOverview",
+          "domain": "fiscal",
+          "expectedTool": "fundsOverview",
+          "en": {
+            "toolOk": false,
+            "got": "procurementBySettlement"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "procurementBySettlement"
+          }
+        },
+        {
+          "id": "govDebt",
+          "domain": "fiscal",
+          "expectedTool": "govDebt",
+          "en": {
+            "toolOk": false,
+            "got": "officialsAssetsTop"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "officialsAssetsTop"
+          }
+        },
+        {
+          "id": "noiFunds",
+          "domain": "fiscal",
+          "expectedTool": "noiFunds",
+          "en": {
+            "toolOk": false,
+            "got": "procurementBySettlement"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "procurementBySettlement"
+          }
+        },
+        {
+          "id": "budgetExecution",
+          "domain": "fiscal",
+          "expectedTool": "budgetExecution",
+          "en": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          }
+        },
+        {
+          "id": "ministryBudget",
+          "domain": "fiscal",
+          "expectedTool": "ministryBudget",
+          "en": {
+            "toolOk": false,
+            "got": "partyResult"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyResult"
+          }
+        },
+        {
+          "id": "investmentProjects",
+          "domain": "fiscal",
+          "expectedTool": "investmentProjects",
+          "en": {
+            "toolOk": false,
+            "got": "mpConnectionsByParty"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "investmentProjects"
+          }
+        },
+        {
+          "id": "governments",
+          "domain": "people",
+          "expectedTool": "governments",
+          "en": {
+            "toolOk": true,
+            "got": "governments"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "governments"
+          }
+        },
+        {
+          "id": "mpAssetsTop",
+          "domain": "people",
+          "expectedTool": "mpAssetsTop",
+          "en": {
+            "toolOk": true,
+            "got": "mpAssetsTop"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "govDebt"
+          }
+        },
+        {
+          "id": "mpConnectionsTop",
+          "domain": "people",
+          "expectedTool": "mpConnectionsTop",
+          "en": {
+            "toolOk": false,
+            "got": "governments"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "governments"
+          }
+        },
+        {
+          "id": "mpAssetsByParty",
+          "domain": "people",
+          "expectedTool": "mpAssetsByParty",
+          "en": {
+            "toolOk": true,
+            "got": "mpAssetsByParty"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "mpAssetsByParty"
+          }
+        },
+        {
+          "id": "mpConnectionsByParty",
+          "domain": "people",
+          "expectedTool": "mpConnectionsByParty",
+          "en": {
+            "toolOk": false,
+            "got": "transparencyScore"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "transparencyScore"
+          }
+        },
+        {
+          "id": "officialsAssetsTop",
+          "domain": "people",
+          "expectedTool": "officialsAssetsTop",
+          "en": {
+            "toolOk": true,
+            "got": "officialsAssetsTop"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "officialsAssetsTop"
+          }
+        },
+        {
+          "id": "financingOverview",
+          "domain": "people",
+          "expectedTool": "financingOverview",
+          "en": {
+            "toolOk": true,
+            "got": "financingOverview"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "financingOverview"
+          }
+        },
+        {
+          "id": "macroIndicator",
+          "domain": "indicators",
+          "expectedTool": "macroIndicator",
+          "en": {
+            "toolOk": false,
+            "got": "diasporaVote"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "diasporaVote"
+          }
+        },
+        {
+          "id": "macroOverview",
+          "domain": "indicators",
+          "expectedTool": "macroOverview",
+          "en": {
+            "toolOk": false,
+            "got": "recountByParty"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "recountByParty"
+          }
+        },
+        {
+          "id": "macroByCategory",
+          "domain": "indicators",
+          "expectedTool": "macroByCategory",
+          "en": {
+            "toolOk": false,
+            "got": "govDebt"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "govDebt"
+          }
+        },
+        {
+          "id": "subnationalIndicator",
+          "domain": "indicators",
+          "expectedTool": "subnationalIndicator",
+          "en": {
+            "toolOk": false,
+            "got": "chmiEvents"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "localCouncil"
+          }
+        },
+        {
+          "id": "rankPlaces",
+          "domain": "indicators",
+          "expectedTool": "rankPlaces",
+          "en": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          }
+        },
+        {
+          "id": "regionIndicator",
+          "domain": "indicators",
+          "expectedTool": "regionIndicator",
+          "en": {
+            "toolOk": false,
+            "got": "macroIndicator"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "regionIndicator"
+          }
+        },
+        {
+          "id": "transparencyScore",
+          "domain": "indicators",
+          "expectedTool": "transparencyScore",
+          "en": {
+            "toolOk": true,
+            "got": "transparencyScore"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "transparencyScore"
+          }
+        },
+        {
+          "id": "localTaxes",
+          "domain": "indicators",
+          "expectedTool": "localTaxes",
+          "en": {
+            "toolOk": true,
+            "got": "localTaxes"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localTaxes"
+          }
+        },
+        {
+          "id": "landUse",
+          "domain": "indicators",
+          "expectedTool": "landUse",
+          "en": {
+            "toolOk": false,
+            "got": "investmentProjects"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "ministryBudget"
+          }
+        },
+        {
+          "id": "governanceProfile",
+          "domain": "place",
+          "expectedTool": "governanceProfile",
+          "en": {
+            "toolOk": true,
+            "got": "governanceProfile"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "governanceProfile"
+          }
+        },
+        {
+          "id": "comparePlaces",
+          "domain": "place",
+          "expectedTool": "comparePlaces",
+          "en": {
+            "toolOk": false,
+            "got": "govDebt"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "govDebt"
+          }
+        },
+        {
+          "id": "census",
+          "domain": "place",
+          "expectedTool": "census",
+          "en": {
+            "toolOk": false,
+            "got": "seatsHistory"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "seatsHistory"
+          }
+        },
+        {
+          "id": "procurementBySettlement",
+          "domain": "place",
+          "expectedTool": "procurementBySettlement",
+          "en": {
+            "toolOk": true,
+            "got": "procurementBySettlement"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "procurementBySettlement"
+          }
+        },
+        {
+          "id": "airQuality",
+          "domain": "place",
+          "expectedTool": "airQuality",
+          "en": {
+            "toolOk": true,
+            "got": "airQuality"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "airQuality"
+          }
+        },
+        {
+          "id": "graoPopulation",
+          "domain": "place",
+          "expectedTool": "graoPopulation",
+          "en": {
+            "toolOk": false,
+            "got": "budgetTrend"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetTrend"
+          }
+        },
+        {
+          "id": "councilResolutions",
+          "domain": "place",
+          "expectedTool": "councilResolutions",
+          "en": {
+            "toolOk": true,
+            "got": "councilResolutions"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "councilResolutions"
+          }
+        },
+        {
+          "id": "problemSections",
+          "domain": "elections",
+          "expectedTool": "problemSections",
+          "en": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          }
+        },
+        {
+          "id": "romaVoteTrend",
+          "domain": "elections",
+          "expectedTool": "romaVoteTrend",
+          "en": {
+            "toolOk": false,
+            "got": "governanceProfile"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "governanceProfile"
+          }
+        },
+        {
+          "id": "riskIndex",
+          "domain": "elections",
+          "expectedTool": "riskIndex",
+          "en": {
+            "toolOk": false,
+            "got": "benfordAnomalies"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "benfordAnomalies"
+          }
+        },
+        {
+          "id": "riskScore",
+          "domain": "elections",
+          "expectedTool": "riskScore",
+          "en": {
+            "toolOk": false,
+            "got": "procurementTotals"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "procurementTotals"
+          }
+        },
+        {
+          "id": "riskClusters",
+          "domain": "elections",
+          "expectedTool": "riskClusters",
+          "en": {
+            "toolOk": false,
+            "got": "agencyProfile"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "agencyProfile"
+          }
+        },
+        {
+          "id": "clusterPersistence",
+          "domain": "elections",
+          "expectedTool": "clusterPersistence",
+          "en": {
+            "toolOk": false,
+            "got": "census"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "census"
+          }
+        },
+        {
+          "id": "benfordAnomalies",
+          "domain": "elections",
+          "expectedTool": "benfordAnomalies",
+          "en": {
+            "toolOk": false,
+            "got": "machineVoteSeries"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "machineVoteSeries"
+          }
+        },
+        {
+          "id": "wastedVotes",
+          "domain": "elections",
+          "expectedTool": "wastedVotes",
+          "en": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          }
+        },
+        {
+          "id": "wastedVotesTrend",
+          "domain": "elections",
+          "expectedTool": "wastedVotesTrend",
+          "en": {
+            "toolOk": false,
+            "got": "voteSearch"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyMps"
+          }
+        },
+        {
+          "id": "suspiciousSettlements",
+          "domain": "elections",
+          "expectedTool": "suspiciousSettlements",
+          "en": {
+            "toolOk": false,
+            "got": "localMunicipality"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "localMayorRace"
+          }
+        },
+        {
+          "id": "diasporaVote",
+          "domain": "elections",
+          "expectedTool": "diasporaVote",
+          "en": {
+            "toolOk": false,
+            "got": "transparencyScore"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "transparencyScore"
+          }
+        },
+        {
+          "id": "diasporaVoteTrend",
+          "domain": "elections",
+          "expectedTool": "diasporaVoteTrend",
+          "en": {
+            "toolOk": false,
+            "got": "regionHistory"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "voteTransitions"
+          }
+        },
+        {
+          "id": "voterPersistence",
+          "domain": "elections",
+          "expectedTool": "voterPersistence",
+          "en": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          }
+        },
+        {
+          "id": "partyDemographics",
+          "domain": "elections",
+          "expectedTool": "partyDemographics",
+          "en": {
+            "toolOk": true,
+            "got": "partyDemographics"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "partyDemographics"
+          }
+        },
+        {
+          "id": "demographicCleavages",
+          "domain": "elections",
+          "expectedTool": "demographicCleavages",
+          "en": {
+            "toolOk": true,
+            "got": "demographicCleavages"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "demographicCleavages"
+          }
+        },
+        {
+          "id": "mpLoyalty",
+          "domain": "people",
+          "expectedTool": "mpLoyalty",
+          "en": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          }
+        },
+        {
+          "id": "mpAttendance",
+          "domain": "people",
+          "expectedTool": "mpAttendance",
+          "en": {
+            "toolOk": false,
+            "got": "govDebt"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "govDebt"
+          }
+        },
+        {
+          "id": "factionCohesion",
+          "domain": "people",
+          "expectedTool": "factionCohesion",
+          "en": {
+            "toolOk": false,
+            "got": "regionIndicator"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "regionIndicator"
+          }
+        },
+        {
+          "id": "mpVotingProfile",
+          "domain": "people",
+          "expectedTool": "mpVotingProfile",
+          "en": {
+            "toolOk": true,
+            "got": "mpVotingProfile"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "mpVotingProfile"
+          }
+        },
+        {
+          "id": "mpSimilarity",
+          "domain": "people",
+          "expectedTool": "mpSimilarity",
+          "en": {
+            "toolOk": false,
+            "got": "recountByParty"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "recountByParty"
+          }
+        },
+        {
+          "id": "voteSearch",
+          "domain": "people",
+          "expectedTool": "voteSearch",
+          "en": {
+            "toolOk": false,
+            "got": "seatsHistory"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "voteSearch"
+          }
+        },
+        {
+          "id": "partyMps",
+          "domain": "people",
+          "expectedTool": "partyMps",
+          "en": {
+            "toolOk": true,
+            "got": "partyMps"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "airQuality"
+          }
+        },
+        {
+          "id": "schoolScores",
+          "domain": "indicators",
+          "expectedTool": "schoolScores",
+          "en": {
+            "toolOk": true,
+            "got": "schoolScores"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "schoolScores"
+          }
+        },
+        {
+          "id": "irrelevant_weather",
+          "expectedTool": null,
+          "en": {
+            "toolOk": false,
+            "got": "agencyProfile"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "latestPolls"
+          }
+        },
+        {
+          "id": "irrelevant_recipe",
+          "expectedTool": null,
+          "en": {
+            "toolOk": false,
+            "got": "machineVoteShare"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "machineVoteShare"
+          }
+        }
+      ]
+    },
+    {
+      "id": "functiongemma-270m-it-q4f32_1-MLC.k8-compact-grammar",
+      "label": "FunctionGemma 270M — route-among-8 (k=8 compact + grammar)",
+      "runtime": "webllm",
+      "params": "270M",
+      "via": "in-browser (web-llm / WebGPU)",
+      "toolMode": "retrieved (k=8) · compact decl · grammar",
+      "note": "Lever 3 — compact {name, description} declarations let k=8 fit the window (~1.2k chars), with grammar. The realistic 'route among many' test.",
+      "reason": "At k=8 (chance ~12.5%) the model still beats chance at 18% (39/214) with no traps — but a real EN>BG gap opens (EN ~23% vs BG ~13%), the bilingual degradation this eval was built to surface. Untuned, routing-among-many is above chance but far from usable; this is the gap a domain fine-tune must close.",
+      "status": "measured",
+      "perLang": {
+        "en": {
+          "toolAcc": 0.22935779816513763,
+          "argAcc": null,
+          "jsonValidRate": 1,
+          "irrelevanceAcc": 0
+        },
+        "bg": {
+          "toolAcc": 0.12844036697247707,
+          "argAcc": null,
+          "jsonValidRate": 0.9906542056074766,
+          "irrelevanceAcc": 0
+        }
+      },
+      "degradation": {
+        "toolAcc": 0.10091743119266056,
+        "argAcc": null
+      },
+      "perCase": [
+        {
+          "id": "nationalResults",
+          "domain": "elections",
+          "expectedTool": "nationalResults",
+          "en": {
+            "toolOk": false,
+            "got": "partyTimeline"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyTimeline"
+          }
+        },
+        {
+          "id": "regionWinners",
+          "domain": "elections",
+          "expectedTool": "regionWinners",
+          "en": {
+            "toolOk": false,
+            "got": "partyTimeline"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyTimeline"
+          }
+        },
+        {
+          "id": "parliamentSeats",
+          "domain": "elections",
+          "expectedTool": "parliamentSeats",
+          "en": {
+            "toolOk": true,
+            "got": "parliamentSeats"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "comparePlaces"
+          }
+        },
+        {
+          "id": "seatsHistory",
+          "domain": "elections",
+          "expectedTool": "seatsHistory",
+          "en": {
+            "toolOk": false,
+            "got": "localMayorsTrend"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "localMayorsTrend"
+          }
+        },
+        {
+          "id": "partyResult",
+          "domain": "elections",
+          "expectedTool": "partyResult",
+          "en": {
+            "toolOk": true,
+            "got": "partyResult"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpAssetsTop"
+          }
+        },
+        {
+          "id": "candidateResult",
+          "domain": "elections",
+          "expectedTool": "candidateResult",
+          "en": {
+            "toolOk": false,
+            "got": "procurementBySettlement"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "procurementBySettlement"
+          }
+        },
+        {
+          "id": "machineVoteShare",
+          "domain": "elections",
+          "expectedTool": "machineVoteShare",
+          "en": {
+            "toolOk": false,
+            "got": "airQuality"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "procurementBySettlement"
+          }
+        },
+        {
+          "id": "turnout",
+          "domain": "elections",
+          "expectedTool": "turnout",
+          "en": {
+            "toolOk": false,
+            "got": "localCouncilVoteShare"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "localCouncilVoteShare"
+          }
+        },
+        {
+          "id": "compareElections",
+          "domain": "elections",
+          "expectedTool": "compareElections",
+          "en": {
+            "toolOk": false,
+            "got": "partyMps"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyMps"
+          }
+        },
+        {
+          "id": "machineVoteSeries",
+          "domain": "elections",
+          "expectedTool": "machineVoteSeries",
+          "en": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          }
+        },
+        {
+          "id": "turnoutSeries",
+          "domain": "elections",
+          "expectedTool": "turnoutSeries",
+          "en": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          }
+        },
+        {
+          "id": "partyTimeline",
+          "domain": "elections",
+          "expectedTool": "partyTimeline",
+          "en": {
+            "toolOk": true,
+            "got": "partyTimeline"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "partyTimeline"
+          }
+        },
+        {
+          "id": "pollAccuracy",
+          "domain": "elections",
+          "expectedTool": "pollAccuracy",
+          "en": {
+            "toolOk": true,
+            "got": "pollAccuracy"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "pollAccuracy"
+          }
+        },
+        {
+          "id": "agencyProfile",
+          "domain": "elections",
+          "expectedTool": "agencyProfile",
+          "en": {
+            "toolOk": true,
+            "got": "agencyProfile"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "romaVoteTrend"
+          }
+        },
+        {
+          "id": "latestPolls",
+          "domain": "elections",
+          "expectedTool": "latestPolls",
+          "en": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          }
+        },
+        {
+          "id": "agencyPolls",
+          "domain": "elections",
+          "expectedTool": "agencyPolls",
+          "en": {
+            "toolOk": false,
+            "got": "partyDemographics"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "diasporaVote"
+          }
+        },
+        {
+          "id": "agencyAccuracyHistory",
+          "domain": "elections",
+          "expectedTool": "agencyAccuracyHistory",
+          "en": {
+            "toolOk": false,
+            "got": "mpConnectionsByParty"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpAssetsTop"
+          }
+        },
+        {
+          "id": "accuracyTrend",
+          "domain": "elections",
+          "expectedTool": "accuracyTrend",
+          "en": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          }
+        },
+        {
+          "id": "regionBreakdown",
+          "domain": "elections",
+          "expectedTool": "regionBreakdown",
+          "en": {
+            "toolOk": false,
+            "got": "partyDemographics"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyDemographics"
+          }
+        },
+        {
+          "id": "municipalityBreakdown",
+          "domain": "elections",
+          "expectedTool": "municipalityBreakdown",
+          "en": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          }
+        },
+        {
+          "id": "municipalityWinners",
+          "domain": "elections",
+          "expectedTool": "municipalityWinners",
+          "en": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          }
+        },
+        {
+          "id": "settlementWinners",
+          "domain": "elections",
+          "expectedTool": "settlementWinners",
+          "en": {
+            "toolOk": false,
+            "got": "partyDemographics"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpLoyalty"
+          }
+        },
+        {
+          "id": "sectionWinners",
+          "domain": "elections",
+          "expectedTool": "sectionWinners",
+          "en": {
+            "toolOk": false,
+            "got": "ministryBudget"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "ministryBudget"
+          }
+        },
+        {
+          "id": "sectionResults",
+          "domain": "elections",
+          "expectedTool": "sectionResults",
+          "en": {
+            "toolOk": false,
+            "got": "partyTimeline"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyTimeline"
+          }
+        },
+        {
+          "id": "sectionHistory",
+          "domain": "elections",
+          "expectedTool": "sectionHistory",
+          "en": {
+            "toolOk": false,
+            "got": "riskIndex"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "riskIndex"
+          }
+        },
+        {
+          "id": "settlementResults",
+          "domain": "elections",
+          "expectedTool": "settlementResults",
+          "en": {
+            "toolOk": true,
+            "got": "settlementResults"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "settlementResults"
+          }
+        },
+        {
+          "id": "settlementHistory",
+          "domain": "elections",
+          "expectedTool": "settlementHistory",
+          "en": {
+            "toolOk": true,
+            "got": "settlementHistory"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "settlementHistory"
+          }
+        },
+        {
+          "id": "municipalityResults",
+          "domain": "elections",
+          "expectedTool": "municipalityResults",
+          "en": {
+            "toolOk": false,
+            "got": "accuracyTrend"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "agencyPolls"
+          }
+        },
+        {
+          "id": "municipalityHistory",
+          "domain": "elections",
+          "expectedTool": "municipalityHistory",
+          "en": {
+            "toolOk": false,
+            "got": "latestPolls"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "latestPolls"
+          }
+        },
+        {
+          "id": "regionResults",
+          "domain": "elections",
+          "expectedTool": "regionResults",
+          "en": {
+            "toolOk": false,
+            "got": "electionAnomalies"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "electionAnomalies"
+          }
+        },
+        {
+          "id": "regionResultsTrend",
+          "domain": "elections",
+          "expectedTool": "regionResultsTrend",
+          "en": {
+            "toolOk": true,
+            "got": "regionResultsTrend"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyDemographics"
+          }
+        },
+        {
+          "id": "settlementBreakdown",
+          "domain": "elections",
+          "expectedTool": "settlementBreakdown",
+          "en": {
+            "toolOk": true,
+            "got": "settlementBreakdown"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementResults"
+          }
+        },
+        {
+          "id": "electionAnomalies",
+          "domain": "elections",
+          "expectedTool": "electionAnomalies",
+          "en": {
+            "toolOk": false,
+            "got": "diasporaVote"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "benfordAnomalies"
+          }
+        },
+        {
+          "id": "flashMemoryByParty",
+          "domain": "elections",
+          "expectedTool": "flashMemoryByParty",
+          "en": {
+            "toolOk": true,
+            "got": "flashMemoryByParty"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "governanceProfile"
+          }
+        },
+        {
+          "id": "machineVoteByParty",
+          "domain": "elections",
+          "expectedTool": "machineVoteByParty",
+          "en": {
+            "toolOk": false,
+            "got": "partyMps"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyMps"
+          }
+        },
+        {
+          "id": "wastedVotesByParty",
+          "domain": "elections",
+          "expectedTool": "wastedVotesByParty",
+          "en": {
+            "toolOk": false,
+            "got": "wastedVotes"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "riskClusters"
+          }
+        },
+        {
+          "id": "recountByParty",
+          "domain": "elections",
+          "expectedTool": "recountByParty",
+          "en": {
+            "toolOk": true,
+            "got": "recountByParty"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpConnectionsTop"
+          }
+        },
+        {
+          "id": "regionHistory",
+          "domain": "elections",
+          "expectedTool": "regionHistory",
+          "en": {
+            "toolOk": false,
+            "got": "settlementResults"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementResults"
+          }
+        },
+        {
+          "id": "voteTransitions",
+          "domain": "elections",
+          "expectedTool": "voteTransitions",
+          "en": {
+            "toolOk": false,
+            "got": "settlementResults"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementResults"
+          }
+        },
+        {
+          "id": "localCouncilVoteShare",
+          "domain": "local",
+          "expectedTool": "localCouncilVoteShare",
+          "en": {
+            "toolOk": false,
+            "got": "electionAnomalies"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "electionAnomalies"
+          }
+        },
+        {
+          "id": "localMayorsWon",
+          "domain": "local",
+          "expectedTool": "localMayorsWon",
+          "en": {
+            "toolOk": false,
+            "got": "partyDemographics"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyDemographics"
+          }
+        },
+        {
+          "id": "localCouncilTrend",
+          "domain": "local",
+          "expectedTool": "localCouncilTrend",
+          "en": {
+            "toolOk": false,
+            "got": "localMayorRace"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          }
+        },
+        {
+          "id": "localMayorsTrend",
+          "domain": "local",
+          "expectedTool": "localMayorsTrend",
+          "en": {
+            "toolOk": false,
+            "got": "accuracyTrend"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "latestPolls"
+          }
+        },
+        {
+          "id": "localOblastMayors",
+          "domain": "local",
+          "expectedTool": "localOblastMayors",
+          "en": {
+            "toolOk": false,
+            "got": "accuracyTrend"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "accuracyTrend"
+          }
+        },
+        {
+          "id": "localMunicipality",
+          "domain": "local",
+          "expectedTool": "localMunicipality",
+          "en": {
+            "toolOk": false,
+            "got": "settlementResults"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          }
+        },
+        {
+          "id": "localMayorRace",
+          "domain": "local",
+          "expectedTool": "localMayorRace",
+          "en": {
+            "toolOk": false,
+            "got": "mpAssetsTop"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpAssetsByParty"
+          }
+        },
+        {
+          "id": "localMayorHistory",
+          "domain": "local",
+          "expectedTool": "localMayorHistory",
+          "en": {
+            "toolOk": false,
+            "got": "mpAssetsByParty"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpAssetsByParty"
+          }
+        },
+        {
+          "id": "localSubMayors",
+          "domain": "local",
+          "expectedTool": "localSubMayors",
+          "en": {
+            "toolOk": false,
+            "got": "turnout"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyTimeline"
+          }
+        },
+        {
+          "id": "localCouncil",
+          "domain": "local",
+          "expectedTool": "localCouncil",
+          "en": {
+            "toolOk": true,
+            "got": "localCouncil"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "localCouncil"
+          }
+        },
+        {
+          "id": "chmiEvents",
+          "domain": "local",
+          "expectedTool": "chmiEvents",
+          "en": {
+            "toolOk": false,
+            "got": "partyMps"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyMps"
+          }
+        },
+        {
+          "id": "budgetOverview",
+          "domain": "fiscal",
+          "expectedTool": "budgetOverview",
+          "en": {
+            "toolOk": true,
+            "got": "budgetOverview"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "riskIndex"
+          }
+        },
+        {
+          "id": "budgetTrend",
+          "domain": "fiscal",
+          "expectedTool": "budgetTrend",
+          "en": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          }
+        },
+        {
+          "id": "budgetByFunction",
+          "domain": "fiscal",
+          "expectedTool": "budgetByFunction",
+          "en": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          }
+        },
+        {
+          "id": "budgetFunction",
+          "domain": "fiscal",
+          "expectedTool": "budgetFunction",
+          "en": {
+            "toolOk": true,
+            "got": "budgetFunction"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "budgetFunction"
+          }
+        },
+        {
+          "id": "procurementTotals",
+          "domain": "fiscal",
+          "expectedTool": "procurementTotals",
+          "en": {
+            "toolOk": false,
+            "got": "partyMps"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyMps"
+          }
+        },
+        {
+          "id": "fundsOverview",
+          "domain": "fiscal",
+          "expectedTool": "fundsOverview",
+          "en": {
+            "toolOk": true,
+            "got": "fundsOverview"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "procurementBySettlement"
+          }
+        },
+        {
+          "id": "govDebt",
+          "domain": "fiscal",
+          "expectedTool": "govDebt",
+          "en": {
+            "toolOk": false,
+            "got": "officialsAssetsTop"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "officialsAssetsTop"
+          }
+        },
+        {
+          "id": "noiFunds",
+          "domain": "fiscal",
+          "expectedTool": "noiFunds",
+          "en": {
+            "toolOk": false,
+            "got": "councilResolutions"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "procurementBySettlement"
+          }
+        },
+        {
+          "id": "budgetExecution",
+          "domain": "fiscal",
+          "expectedTool": "budgetExecution",
+          "en": {
+            "toolOk": false,
+            "got": "budgetTrend"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          }
+        },
+        {
+          "id": "ministryBudget",
+          "domain": "fiscal",
+          "expectedTool": "ministryBudget",
+          "en": {
+            "toolOk": true,
+            "got": "ministryBudget"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "ministryBudget"
+          }
+        },
+        {
+          "id": "investmentProjects",
+          "domain": "fiscal",
+          "expectedTool": "investmentProjects",
+          "en": {
+            "toolOk": true,
+            "got": "investmentProjects"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "investmentProjects"
+          }
+        },
+        {
+          "id": "governments",
+          "domain": "people",
+          "expectedTool": "governments",
+          "en": {
+            "toolOk": false,
+            "got": "localCouncilVoteShare"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "localCouncilVoteShare"
+          }
+        },
+        {
+          "id": "mpAssetsTop",
+          "domain": "people",
+          "expectedTool": "mpAssetsTop",
+          "en": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          }
+        },
+        {
+          "id": "mpConnectionsTop",
+          "domain": "people",
+          "expectedTool": "mpConnectionsTop",
+          "en": {
+            "toolOk": true,
+            "got": "mpConnectionsTop"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpConnectionsByParty"
+          }
+        },
+        {
+          "id": "mpAssetsByParty",
+          "domain": "people",
+          "expectedTool": "mpAssetsByParty",
+          "en": {
+            "toolOk": true,
+            "got": "mpAssetsByParty"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementWinners"
+          }
+        },
+        {
+          "id": "mpConnectionsByParty",
+          "domain": "people",
+          "expectedTool": "mpConnectionsByParty",
+          "en": {
+            "toolOk": false,
+            "got": "governanceProfile"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "governanceProfile"
+          }
+        },
+        {
+          "id": "officialsAssetsTop",
+          "domain": "people",
+          "expectedTool": "officialsAssetsTop",
+          "en": {
+            "toolOk": false,
+            "got": "mpAssetsTop"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpAssetsTop"
+          }
+        },
+        {
+          "id": "financingOverview",
+          "domain": "people",
+          "expectedTool": "financingOverview",
+          "en": {
+            "toolOk": false,
+            "got": "partyTimeline"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyTimeline"
+          }
+        },
+        {
+          "id": "macroIndicator",
+          "domain": "indicators",
+          "expectedTool": "macroIndicator",
+          "en": {
+            "toolOk": false,
+            "got": "diasporaVote"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "diasporaVote"
+          }
+        },
+        {
+          "id": "macroOverview",
+          "domain": "indicators",
+          "expectedTool": "macroOverview",
+          "en": {
+            "toolOk": false,
+            "got": "localCouncilTrend"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "localCouncilTrend"
+          }
+        },
+        {
+          "id": "macroByCategory",
+          "domain": "indicators",
+          "expectedTool": "macroByCategory",
+          "en": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          }
+        },
+        {
+          "id": "subnationalIndicator",
+          "domain": "indicators",
+          "expectedTool": "subnationalIndicator",
+          "en": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          }
+        },
+        {
+          "id": "rankPlaces",
+          "domain": "indicators",
+          "expectedTool": "rankPlaces",
+          "en": {
+            "toolOk": false,
+            "got": "settlementResults"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementResults"
+          }
+        },
+        {
+          "id": "regionIndicator",
+          "domain": "indicators",
+          "expectedTool": "regionIndicator",
+          "en": {
+            "toolOk": false,
+            "got": "transparencyScore"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "regionIndicator"
+          }
+        },
+        {
+          "id": "transparencyScore",
+          "domain": "indicators",
+          "expectedTool": "transparencyScore",
+          "en": {
+            "toolOk": false,
+            "got": "mpConnectionsTop"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "mpConnectionsTop"
+          }
+        },
+        {
+          "id": "localTaxes",
+          "domain": "indicators",
+          "expectedTool": "localTaxes",
+          "en": {
+            "toolOk": false,
+            "got": "partyResult"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyResult"
+          }
+        },
+        {
+          "id": "landUse",
+          "domain": "indicators",
+          "expectedTool": "landUse",
+          "en": {
+            "toolOk": false,
+            "got": "ministryBudget"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "governments"
+          }
+        },
+        {
+          "id": "governanceProfile",
+          "domain": "place",
+          "expectedTool": "governanceProfile",
+          "en": {
+            "toolOk": false,
+            "got": "pollAccuracy"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "pollAccuracy"
+          }
+        },
+        {
+          "id": "comparePlaces",
+          "domain": "place",
+          "expectedTool": "comparePlaces",
+          "en": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          }
+        },
+        {
+          "id": "census",
+          "domain": "place",
+          "expectedTool": "census",
+          "en": {
+            "toolOk": false,
+            "got": "partyResult"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyResult"
+          }
+        },
+        {
+          "id": "procurementBySettlement",
+          "domain": "place",
+          "expectedTool": "procurementBySettlement",
+          "en": {
+            "toolOk": false,
+            "got": "riskClusters"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "riskClusters"
+          }
+        },
+        {
+          "id": "airQuality",
+          "domain": "place",
+          "expectedTool": "airQuality",
+          "en": {
+            "toolOk": false,
+            "got": "pollAccuracy"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "pollAccuracy"
+          }
+        },
+        {
+          "id": "graoPopulation",
+          "domain": "place",
+          "expectedTool": "graoPopulation",
+          "en": {
+            "toolOk": false,
+            "got": "budgetByFunction"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetByFunction"
+          }
+        },
+        {
+          "id": "councilResolutions",
+          "domain": "place",
+          "expectedTool": "councilResolutions",
+          "en": {
+            "toolOk": true,
+            "got": "councilResolutions"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": null
+          }
+        },
+        {
+          "id": "problemSections",
+          "domain": "elections",
+          "expectedTool": "problemSections",
+          "en": {
+            "toolOk": false,
+            "got": "budgetTrend"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          }
+        },
+        {
+          "id": "romaVoteTrend",
+          "domain": "elections",
+          "expectedTool": "romaVoteTrend",
+          "en": {
+            "toolOk": true,
+            "got": "romaVoteTrend"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "romaVoteTrend"
+          }
+        },
+        {
+          "id": "riskIndex",
+          "domain": "elections",
+          "expectedTool": "riskIndex",
+          "en": {
+            "toolOk": false,
+            "got": "diasporaVote"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "diasporaVote"
+          }
+        },
+        {
+          "id": "riskScore",
+          "domain": "elections",
+          "expectedTool": "riskScore",
+          "en": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "procurementTotals"
+          }
+        },
+        {
+          "id": "riskClusters",
+          "domain": "elections",
+          "expectedTool": "riskClusters",
+          "en": {
+            "toolOk": false,
+            "got": "latestPolls"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "latestPolls"
+          }
+        },
+        {
+          "id": "clusterPersistence",
+          "domain": "elections",
+          "expectedTool": "clusterPersistence",
+          "en": {
+            "toolOk": false,
+            "got": "graoPopulation"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "comparePlaces"
+          }
+        },
+        {
+          "id": "benfordAnomalies",
+          "domain": "elections",
+          "expectedTool": "benfordAnomalies",
+          "en": {
+            "toolOk": false,
+            "got": "pollAccuracy"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyTimeline"
+          }
+        },
+        {
+          "id": "wastedVotes",
+          "domain": "elections",
+          "expectedTool": "wastedVotes",
+          "en": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetOverview"
+          }
+        },
+        {
+          "id": "wastedVotesTrend",
+          "domain": "elections",
+          "expectedTool": "wastedVotesTrend",
+          "en": {
+            "toolOk": false,
+            "got": "partyMps"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "partyMps"
+          }
+        },
+        {
+          "id": "suspiciousSettlements",
+          "domain": "elections",
+          "expectedTool": "suspiciousSettlements",
+          "en": {
+            "toolOk": false,
+            "got": "localMunicipality"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "localMayorRace"
+          }
+        },
+        {
+          "id": "diasporaVote",
+          "domain": "elections",
+          "expectedTool": "diasporaVote",
+          "en": {
+            "toolOk": false,
+            "got": "governanceProfile"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "governanceProfile"
+          }
+        },
+        {
+          "id": "diasporaVoteTrend",
+          "domain": "elections",
+          "expectedTool": "diasporaVoteTrend",
+          "en": {
+            "toolOk": false,
+            "got": "localCouncilVoteShare"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "localCouncilVoteShare"
+          }
+        },
+        {
+          "id": "voterPersistence",
+          "domain": "elections",
+          "expectedTool": "voterPersistence",
+          "en": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          }
+        },
+        {
+          "id": "partyDemographics",
+          "domain": "elections",
+          "expectedTool": "partyDemographics",
+          "en": {
+            "toolOk": true,
+            "got": "partyDemographics"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "partyDemographics"
+          }
+        },
+        {
+          "id": "demographicCleavages",
+          "domain": "elections",
+          "expectedTool": "demographicCleavages",
+          "en": {
+            "toolOk": false,
+            "got": "governanceProfile"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "comparePlaces"
+          }
+        },
+        {
+          "id": "mpLoyalty",
+          "domain": "people",
+          "expectedTool": "mpLoyalty",
+          "en": {
+            "toolOk": false,
+            "got": "settlementResults"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "settlementResults"
+          }
+        },
+        {
+          "id": "mpAttendance",
+          "domain": "people",
+          "expectedTool": "mpAttendance",
+          "en": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "budgetExecution"
+          }
+        },
+        {
+          "id": "factionCohesion",
+          "domain": "people",
+          "expectedTool": "factionCohesion",
+          "en": {
+            "toolOk": false,
+            "got": "governanceProfile"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "comparePlaces"
+          }
+        },
+        {
+          "id": "mpVotingProfile",
+          "domain": "people",
+          "expectedTool": "mpVotingProfile",
+          "en": {
+            "toolOk": false,
+            "got": "electionAnomalies"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "electionAnomalies"
+          }
+        },
+        {
+          "id": "mpSimilarity",
+          "domain": "people",
+          "expectedTool": "mpSimilarity",
+          "en": {
+            "toolOk": true,
+            "got": "mpSimilarity"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "mpSimilarity"
+          }
+        },
+        {
+          "id": "voteSearch",
+          "domain": "people",
+          "expectedTool": "voteSearch",
+          "en": {
+            "toolOk": true,
+            "got": "voteSearch"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "voteSearch"
+          }
+        },
+        {
+          "id": "partyMps",
+          "domain": "people",
+          "expectedTool": "partyMps",
+          "en": {
+            "toolOk": true,
+            "got": "partyMps"
+          },
+          "bg": {
+            "toolOk": true,
+            "got": "partyMps"
+          }
+        },
+        {
+          "id": "schoolScores",
+          "domain": "indicators",
+          "expectedTool": "schoolScores",
+          "en": {
+            "toolOk": false,
+            "got": "benfordAnomalies"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "riskIndex"
+          }
+        },
+        {
+          "id": "irrelevant_weather",
+          "expectedTool": null,
+          "en": {
+            "toolOk": false,
+            "got": "latestPolls"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "latestPolls"
+          }
+        },
+        {
+          "id": "irrelevant_recipe",
+          "expectedTool": null,
+          "en": {
+            "toolOk": false,
+            "got": "machineVoteShare"
+          },
+          "bg": {
+            "toolOk": false,
+            "got": "turnout"
+          }
+        }
+      ]
     }
   ]
 }

@@ -262,8 +262,14 @@ export const EvalsScreen = () => {
               </h2>
               <p className="text-muted-foreground">
                 {t(
-                  "Способен облачен модел се справя с избора измежду всичките 104 инструмента: Gemini 3.1 Flash-Lite (с JSON-режим) познава верния инструмент в ~96–97% и на двата езика, без влошаване на български. Отворен 31B модел (Gemma 4), подканен само със списъка от инструменти през Gemini API (без вграден tool-режим и без JSON-режим), пада до ~55% — и валиден JSON само в около половината случаи; тоест начинът на извикване (ограничено декодиране / вграден tool-режим) тежи колкото размера на модела. Малък модел без дообучение (FunctionGemma 270M) не познава нито един инструмент дори с извличане на кандидати. Изводът: маршрутизирането измежду много инструменти е по силите на способен модел с ограничено декодиране; иначе са нужни дообучение + XGrammar + извличане на кандидати.",
-                  "A capable cloud model handles selection among all 104 tools: Gemini 3.1 Flash-Lite (with JSON mode) picks the right tool ~96–97% in both languages, with no Bulgarian degradation. An open 31B model (Gemma 4), prompted with just the tool list via the Gemini API (no native tool mode, no JSON mode), drops to ~55% — with valid JSON only about half the time; i.e. the calling method (constrained decoding / native tools) matters as much as model size. A small untuned model (FunctionGemma 270M) gets none right even with candidate retrieval. Takeaway: routing among many tools is within reach for a capable model with constrained decoding; otherwise it needs fine-tuning + XGrammar + candidate retrieval.",
+                  "Способен облачен модел се справя с избора измежду всичките инструменти: Gemini 3.1 Flash-Lite (с JSON-режим) познава верния инструмент в ~96–97% и на двата езика, без влошаване на български. Отворен 31B модел (Gemma 4), подканен само със списъка от инструменти през Gemini API (без вграден tool-режим и без JSON-режим), пада до ~55% — валиден JSON само в около половината случаи; тоест начинът на извикване тежи колкото размера на модела.",
+                  "A capable cloud model handles selection among all the tools: Gemini 3.1 Flash-Lite (with JSON mode) picks the right tool ~96–97% in both languages, with no Bulgarian degradation. An open 31B model (Gemma 4), prompted with just the tool list via the Gemini API (no native tool mode, no JSON mode), drops to ~55% — with valid JSON only about half the time; i.e. the calling method matters as much as model size.",
+                )}
+              </p>
+              <p className="mt-3 text-muted-foreground">
+                {t(
+                  "Малкият FunctionGemma 270M (в браузъра, без дообучение) е показан като ЛЕСТНИЦА от варианти на ЕДИН и същ модел. Базовият ред е 0% — но не защото моделът не може да маршрутизира: при k=8 пълни декларации в ~68% от случаите wasm-средата прекъсва („KV cache is full“ — подканата надхвърля контекстовия прозорец от 512 токена), преди моделът да върне дори един токен. Свиването до k=3 маха прекъсванията; добавянето на ограничено декодиране (XGrammar — изходът ТРЯБВА да е един от кандидатите) вдига маршрутизирането до 37% при k=3 (срещу ~33% на случаен принцип) и 18% при k=8 (срещу ~12.5%). Тоест публикуваната „0%“ беше артефакт на инфраструктурата; с побираща се подкана + ограничено декодиране дообучен модел вече надхвърля случайния принцип — а доменно дообучение е пътят към използваемост.",
+                  "The small FunctionGemma 270M (in-browser, untuned) is shown as a LADDER of variants of the SAME model. The baseline row is 0% — but not because it can't route: at k=8 with full declarations the wasm traps ~68% of the time ('KV cache is full' — the prompt overflows the 512-token context window) before the model emits a single token. Shrinking to k=3 removes the traps; adding constrained decoding (XGrammar — the output MUST be one of the candidates) lifts routing to 37% at k=3 (vs ~33% chance) and 18% at k=8 (vs ~12.5%). So the published '0%' was an infrastructure artifact; with a fitting prompt + constrained decoding the untuned model already beats chance — and a domain fine-tune is the path to usable.",
                 )}
               </p>
             </section>
@@ -281,6 +287,12 @@ export const EvalsScreen = () => {
                       {m.label}
                     </summary>
                     <div className="overflow-x-auto px-3 pb-3">
+                      {(m.note || m.reason) && (
+                        <p className="mb-2 mt-1 text-xs text-muted-foreground">
+                          {m.note ? <span>{m.note} </span> : null}
+                          {m.reason}
+                        </p>
+                      )}
                       <table className="w-full border-collapse text-xs">
                         <thead>
                           <tr className="border-b text-left text-muted-foreground">

@@ -47,6 +47,14 @@ export type ModelOption = {
   // with routes:false narrates only and routing stays deterministic (small generic
   // models mis-route, e.g. "compare elections" -> a machine-voting series).
   routes?: boolean;
+  // EXPERIMENTAL — small constrained tool-router (off by default). When set, a gap
+  // the rules decline is routed by: retrieve top-k candidate tools (ai/llm/retrieve.ts)
+  // → compact declarations that fit the 512-tok window → grammar-constrain the output
+  // to {"name": <one of the k>}. The fc-eval ladder (/evals) shows an UNTUNED FG-270M
+  // reaches ~37% this way (k=3, vs ~33% chance) — proof-of-mechanism, NOT yet usable,
+  // so activation ALSO requires the runtime flag localStorage["naiasno:fg-router"]="1".
+  // Intended to light up once a domain fine-tune lands. See [[project_inbrowser_bg_model]].
+  constrainedRouter?: boolean;
 };
 
 export const MODELS: ModelOption[] = [
@@ -107,6 +115,10 @@ export const MODELS: ModelOption[] = [
     ready: true,
     runtime: "webllm",
     routes: false,
+    // Declares the constrained-router capability; stays inert until the operator
+    // sets localStorage["naiasno:fg-router"]="1" (untuned accuracy ~37% is not
+    // production-grade — see /evals ladder). Default UX: narration-only.
+    constrainedRouter: true,
     appConfig: {
       model_list: [
         {

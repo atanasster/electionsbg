@@ -20,10 +20,11 @@ import {
   buildNarrationPrompt,
   buildToolSystemPrompt,
 } from "../orchestrator/prompts";
-import { resolveFollowOn, route } from "../orchestrator/router";
+import { resolveFollowOn, route, type Route } from "../orchestrator/router";
 import { parseToolCall, toolSelectionSchema } from "../orchestrator/toolSchema";
 import { runTool } from "../tools/registry";
 import type { Lang, ToolArgs, ToolContext } from "../tools/types";
+import { retrieveTools } from "./retrieve";
 import { buildAppConfig } from "./cache";
 import { clarify, matchesLang, stripControl } from "./lang";
 import type {
@@ -154,7 +155,16 @@ export class WebLLMProvider implements LLMProvider {
     // (model.routes — a Bulgarian-capable model like BgGPT) is consulted, and
     // only to fill gaps the rules decline. Models with routes:false narrate only.
     const ruleRoute = route(question, ctx);
-    if (ruleRoute || !this.engine || !this.model.routes) return ruleRoute;
+    if (ruleRoute || !this.engine) return ruleRoute;
+    // EXPERIMENTAL constrained small-model router (off unless the model declares
+    // constrainedRouter AND the runtime flag is set). Retrieve a few candidates,
+    // hand the model a window-fitting compact prompt, and grammar-constrain the
+    // pick. See the fc-eval ladder on /evals for why this is gated.
+    if (this.constrainedRouterOn()) {
+      const r = await this.constrainedRoute(question, ctx, usage);
+      return r ?? ruleRoute;
+    }
+    if (!this.model.routes) return ruleRoute;
     const userContent = routingCtx
       ? `${routingCtx}\n\n${ctx.lang === "bg" ? "Текущ въпрос" : "Current question"}: ${question}`
       : question;
@@ -174,6 +184,68 @@ export class WebLLMProvider implements LLMProvider {
       return parseToolCall(content) ?? ruleRoute;
     } catch {
       return ruleRoute;
+    }
+  }
+
+  // Is the experimental constrained router active? Capability on the model AND an
+  // explicit runtime opt-in (untuned accuracy isn't production-grade — /evals).
+  private constrainedRouterOn(): boolean {
+    if (!this.model.constrainedRouter) return false;
+    try {
+      return (
+        typeof localStorage !== "undefined" &&
+        localStorage.getItem("naiasno:fg-router") === "1"
+      );
+    } catch {
+      return false;
+    }
+  }
+
+  // Constrained small-model routing: retrieve top-k candidate tools, give the
+  // model compact declarations that fit the 512-token window, and grammar-force
+  // the output to {"name": <one of the k>}. Returns the selected tool (args left
+  // empty — the rules path fills args for matched intents; a future fine-tune can
+  // emit args too). Any failure → null so the caller falls back to the rules.
+  private async constrainedRoute(
+    question: string,
+    ctx: ToolContext,
+    usage: Usage,
+  ): Promise<Route> {
+    if (!this.engine) return null;
+    const picked = retrieveTools(question, 5);
+    if (!picked.length) return null;
+    const names = picked.map((t) => t.name);
+    const decls = picked
+      .map(
+        (t) =>
+          `<start_function_declaration>${JSON.stringify({
+            name: t.name,
+            description: t.description[ctx.lang] ?? t.description.en,
+          })}<end_function_declaration>`,
+      )
+      .join("\n");
+    try {
+      const res = await this.engine.chat.completions.create({
+        messages: [{ role: "user", content: `${decls}\n${question}` }],
+        temperature: 0,
+        max_tokens: 64,
+        response_format: {
+          type: "json_object",
+          schema: JSON.stringify({
+            type: "object",
+            properties: { name: { type: "string", enum: names } },
+            required: ["name"],
+            additionalProperties: false,
+          }),
+        },
+      });
+      addUsage(usage, res);
+      const content = res.choices?.[0]?.message?.content ?? "";
+      const m = content.match(/"name"\s*:\s*"([^"]+)"/);
+      const name = m?.[1];
+      return name && names.includes(name) ? { tool: name, args: {} } : null;
+    } catch {
+      return null;
     }
   }
 

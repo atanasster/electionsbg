@@ -49,6 +49,7 @@ type ModelSpec = {
   source: "cloud-live" | "gemini-api" | "capture" | "unavailable";
   via?: string; // measurement channel, shown on the page
   retrievedK?: number; // if set, model sees a retrieved candidate set, not the full registry
+  modeNote?: string; // appended to the toolMode column (e.g. "grammar", "compact decl")
   captureFile?: string; // basename under CAPTURES (capture source only)
   note?: string;
   reason?: string;
@@ -98,17 +99,67 @@ const SPECS: ModelSpec[] = [
     concurrency: 1,
     note: "Open model (the BgGPT base family). Gemma on the Gemini API has no system role / function-calling tools, so the ~104-tool list goes in one user turn and the JSON reply is parsed; measured sequentially with a per-call timeout to ride out the API's throughput limit on big prompts.",
   },
+  // ---- FunctionGemma-270M in-browser, an ablation LADDER (untuned community
+  // build) showing how far the SAME model can be pushed with infra alone — no
+  // fine-tune. Each row is a separate in-browser run captured 2026-06-08
+  // (web-llm 0.2.84 / WebGPU, raw output preserved; harness ai/llm/fcEval.browser.ts).
+  // The progression is the point: baseline 0% → fit the prompt → constrain
+  // decoding → 37% at k=3 (vs ~33% chance), 18% at k=8 (vs ~12.5% chance).
   {
     id: "functiongemma-270m-it-q4f32_1-MLC",
-    label: "FunctionGemma 270M (in-browser, untuned)",
+    label: "FunctionGemma 270M — baseline (k=8, free)",
     runtime: "webllm",
     params: "270M",
     source: "capture",
     via: "in-browser (web-llm / WebGPU)",
     retrievedK: 8,
+    modeNote: "full decl · free decode",
     captureFile: "functiongemma-270m-it-q4f32_1-MLC.json",
+    note: "Baseline: the published config — k=8 full JSON tool declarations, native FunctionGemma tokens, free (unconstrained) decoding.",
     reason:
-      "Off-domain community build (no fine-tune on our tools, no grammar). Can't hold the full registry, so it's tested with a small retrieved candidate set (k=8). Even so it got 0/104 tools right in both languages (the ~2% is the irrelevance cases), barely emits valid JSON, and the wasm intermittently traps — an untuned 270M needs fine-tuning + constrained decoding before it can route at all.",
+      "0/214 in both languages — but raw output (see the capture's failureBreakdown) shows WHY: ~68% (146/214) trap with a wasm 'RuntimeError: unreachable' BEFORE emitting a token — the k=8 tool-declaration prompt (~2–3k chars, ~700–900 tokens) overflows this build's 512-token sliding-window KV cache at prefill ('KV cache is full'). The other ~32% run but emit degenerate output (empty {}, repeated tokens, hallucinated names); none is a coherent tool selection. So the 0/N is a context-window/runtime limit (can't process the prompt), NOT wrong-tool routing.",
+  },
+  {
+    id: "functiongemma-270m-it-q4f32_1-MLC.k3-free",
+    label: "FunctionGemma 270M — fit prompt (k=3, free)",
+    runtime: "webllm",
+    params: "270M",
+    source: "capture",
+    via: "in-browser (web-llm / WebGPU)",
+    retrievedK: 3,
+    modeNote: "full decl · free decode",
+    captureFile: "functiongemma-270m-it-q4f32_1-MLC.k3-free.json",
+    note: "Lever 1 — shrink the candidate set to k=3 so the prompt (~700–1200 chars) fits the 512-token window.",
+    reason:
+      "Fitting the prompt ELIMINATES the traps (0 engine-errors, vs 68% at k=8) — the model now runs on every case. But free decoding still yields ~1% correct: it hallucinates plausible-but-fake tool names (machine_comparison, election_results) and malformed JSON. Fitting the window is necessary but not sufficient.",
+  },
+  {
+    id: "functiongemma-270m-it-q4f32_1-MLC.k3-grammar",
+    label: "FunctionGemma 270M — fit + grammar (k=3)",
+    runtime: "webllm",
+    params: "270M",
+    source: "capture",
+    via: "in-browser (web-llm / WebGPU)",
+    retrievedK: 3,
+    modeNote: "grammar (name∈candidates)",
+    captureFile: "functiongemma-270m-it-q4f32_1-MLC.k3-grammar.json",
+    note: 'Lever 2 — constrain decoding (XGrammar / response_format) so the output MUST be {"name": <one of the k candidates>}.',
+    reason:
+      "Grammar is the decisive lever: forcing a real candidate name lifts routing to 37% (80/214) — well above the ~33% chance for k=3 — with 100% valid JSON and 0 garbage. Errors are semantically adjacent (nationalResults→machineVoteSeries). NOTE: hard-constraining to the candidate enum means the model can no longer abstain, so off-topic ('call nothing') detection drops to 0 — production would add a 'no_tool' sentinel to the enum.",
+  },
+  {
+    id: "functiongemma-270m-it-q4f32_1-MLC.k8-compact-grammar",
+    label: "FunctionGemma 270M — route-among-8 (k=8 compact + grammar)",
+    runtime: "webllm",
+    params: "270M",
+    source: "capture",
+    via: "in-browser (web-llm / WebGPU)",
+    retrievedK: 8,
+    modeNote: "compact decl · grammar",
+    captureFile: "functiongemma-270m-it-q4f32_1-MLC.k8-compact-grammar.json",
+    note: "Lever 3 — compact {name, description} declarations let k=8 fit the window (~1.2k chars), with grammar. The realistic 'route among many' test.",
+    reason:
+      "At k=8 (chance ~12.5%) the model still beats chance at 18% (39/214) with no traps — but a real EN>BG gap opens (EN ~23% vs BG ~13%), the bilingual degradation this eval was built to surface. Untuned, routing-among-many is above chance but far from usable; this is the gap a domain fine-tune must close.",
   },
 ];
 
@@ -180,7 +231,8 @@ const main = async () => {
 
   const models = [];
   for (const spec of SPECS) {
-    const toolMode = modeLabel(spec.retrievedK);
+    const toolMode =
+      modeLabel(spec.retrievedK) + (spec.modeNote ? ` · ${spec.modeNote}` : "");
     if (spec.source === "cloud-live" || spec.source === "gemini-api") {
       const cached = readCachedReport(spec.id);
       if (cached) {
@@ -259,7 +311,8 @@ const main = async () => {
           "JSON-mode + a tool-listing system prompt (mirrors the production router)",
         gemini:
           "Gemma on the Gemini API: tool list + query in one user turn (no system role / tools), JSON reply parsed",
-        webllm: "FunctionGemma native function-declaration tokens",
+        webllm:
+          "FunctionGemma native declaration tokens. The 270M rows are an ablation LADDER on the SAME untuned model: candidate set k=8 vs k=3, full vs compact declarations, and free vs grammar-constrained (XGrammar, name∈candidates) decoding — isolating how much infra alone (no fine-tune) recovers.",
       },
       scoring:
         "tool SELECTION accuracy — exact registry tool name (normalized); irrelevance = no call. Registry examples carry no annotated args, so argument accuracy is not scored (n/a).",
