@@ -1,7 +1,7 @@
 import { Anchor } from "@/ux/Anchor";
 import { Link } from "@/ux/Link";
 import { useTranslation } from "react-i18next";
-import { GROUP_URL, PAGE_URL } from "@/lib/community";
+import { GROUP_URL } from "@/lib/community";
 
 export const Footer = () => {
   const { t } = useTranslation();
@@ -32,10 +32,10 @@ export const Footer = () => {
         <li>
           <Anchor
             href="https://github.com/atanasster/electionsbg"
-            aria-label={`${t("open_source")} — GitHub`}
+            aria-label="GitHub"
             className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
           >
-            {t("open_source")}
+            GitHub
           </Anchor>
         </li>
         <li>
@@ -43,15 +43,7 @@ export const Footer = () => {
             href={GROUP_URL}
             className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
           >
-            {t("facebook_group")}
-          </Anchor>
-        </li>
-        <li>
-          <Anchor
-            href={PAGE_URL}
-            className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
-          >
-            {t("facebook_page")}
+            {t("community")}
           </Anchor>
         </li>
       </ul>
