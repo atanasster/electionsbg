@@ -5,7 +5,6 @@
 // matching App.tsx (no i18next in this app).
 
 import { useContext, useEffect, useMemo, useState } from "react";
-import { ArrowLeft } from "lucide-react";
 import { Logo } from "@/layout/header/Logo";
 import { Button } from "@/components/ui/button";
 import { ThemeContext } from "@/theme/ThemeContext";
@@ -139,12 +138,6 @@ export const EvalsScreen = () => {
           </span>
         </a>
         <div className="flex flex-wrap items-center justify-end gap-2 text-sm">
-          <a href="/">
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="mr-1 size-4" />
-              {t("Към чата", "Back to chat")}
-            </Button>
-          </a>
           <Button
             variant="outline"
             size="sm"
@@ -455,6 +448,7 @@ export const EvalsScreen = () => {
             </details>
           </>
         )}
+        </div>
       </main>
 
       <footer className="border-t bg-muted px-4 py-4 text-center text-xs text-muted-foreground">

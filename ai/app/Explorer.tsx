@@ -6,7 +6,6 @@
 // contract the chat's narration reads from, so docs never drift from output.
 
 import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -80,13 +79,7 @@ const KIND_LABELS: Record<EnvelopeKind, { bg: string; en: string }> = {
   series: { bg: "времеви ред", en: "time series" },
 };
 
-export const Explorer = ({
-  lang,
-  onClose,
-}: {
-  lang: Lang;
-  onClose?: () => void;
-}) => {
+export const Explorer = ({ lang }: { lang: Lang }) => {
   const [toolName, setToolName] = useState(TOOLS[0].name);
   const [args, setArgs] = useState<ToolArgs>({});
   const [env, setEnv] = useState<Envelope | null>(null);
@@ -117,24 +110,16 @@ export const Explorer = ({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <h1 className="font-title text-2xl text-popover-foreground">
-            {t("Инструменти и данни", "Tools & data")}
-          </h1>
-          <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-            {t(
-              "Това са детерминистичните инструменти, които асистентът използва, за да отговаря само с реални данни. Изберете инструмент, за да видите неговата функционалност, очакваните параметри и върнатия резултат.",
-              "These are the deterministic tools the assistant uses to answer with real data only. Pick a tool to see what it does, the parameters it takes, and what it returns.",
-            )}
-          </p>
-        </div>
-        {onClose && (
-          <Button variant="outline" size="sm" onClick={onClose}>
-            <ArrowLeft />
-            {t("Към чата", "Back to chat")}
-          </Button>
-        )}
+      <div>
+        <h1 className="font-title text-2xl text-popover-foreground">
+          {t("Инструменти и данни", "Tools & data")}
+        </h1>
+        <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+          {t(
+            "Това са детерминистичните инструменти, които асистентът използва, за да отговаря само с реални данни. Изберете инструмент, за да видите неговата функционалност, очакваните параметри и върнатия резултат.",
+            "These are the deterministic tools the assistant uses to answer with real data only. Pick a tool to see what it does, the parameters it takes, and what it returns.",
+          )}
+        </p>
       </div>
 
       <div className="flex flex-wrap items-end gap-3 rounded-xl border border-border bg-card p-4">

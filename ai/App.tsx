@@ -73,9 +73,13 @@ export const App = ({
       <header className="flex w-full shrink-0 flex-wrap items-center justify-between gap-2 border-b-2 bg-muted px-2 py-2.5 shadow-sm sm:px-4">
         <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <a
-            href="https://electionsbg.com"
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("chat");
+            }}
             className="flex shrink-0 items-center gap-2 text-xl text-primary"
-            aria-label="electionsbg.com"
+            aria-label="Наясно AI"
           >
             <Logo className="size-7" />
             {/* Wordmark drops below sm so the toolbar (with the chat's New
@@ -170,7 +174,7 @@ export const App = ({
               actionSlot={actionSlot}
             />
           ) : (
-            <Explorer lang={lang} onClose={() => navigate("chat")} />
+            <Explorer lang={lang} />
           )}
         </div>
       </main>
