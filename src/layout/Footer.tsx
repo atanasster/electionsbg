@@ -31,6 +31,14 @@ export const Footer = () => {
         </li>
         <li>
           <Anchor
+            href="https://ai.electionsbg.com"
+            className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
+          >
+            Наясно AI
+          </Anchor>
+        </li>
+        <li>
+          <Anchor
             href="https://github.com/atanasster/electionsbg"
             aria-label="GitHub"
             className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
