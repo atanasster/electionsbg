@@ -160,6 +160,27 @@ for (const tool of ["sectionResults", "sectionHistory", "sectionRiskHistory"]) {
     ["/section/050900092"],
   );
 }
+// sectionWinners is settlement/município-scoped (results BY section in a place):
+// it deep-links to that place's own page via the hidden _id fact, plus the
+// /regions overview from its TOOL_SECTION mapping.
+expect(
+  "sectionWinners (settlement-scoped -> /sections/:ekatte)",
+  mk({
+    tool: "sectionWinners",
+    domain: "elections",
+    facts: { place: "Банско", ekatte_id: "02676" },
+  }),
+  ["/sections/02676", "/regions"],
+);
+expect(
+  "sectionWinners (município-scoped -> /settlement/:obshtina)",
+  mk({
+    tool: "sectionWinners",
+    domain: "elections",
+    facts: { place: "Пловдив", obshtina_id: "PDV22" },
+  }),
+  ["/settlement/PDV22", "/regions"],
+);
 
 // ---- local single-município (obshtina + cycle from hidden _id facts, NOT geo,
 // so the synthetic Sofia "SOF" bundle resolves where a muniLocator can't) ------

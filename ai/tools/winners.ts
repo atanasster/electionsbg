@@ -447,6 +447,13 @@ export const sectionWinners = async (
   rankedParties.slice(0, 5).forEach(([name, n]) => {
     if (!(name in facts)) facts[name] = n;
   });
+  // Hidden deep-link id (the _id suffix keeps it out of the narration/UI) so
+  // the "Виж в сайта" link targets THIS place's own page: the settlement's
+  // section breakdown (/sections/:ekatte) when scoped to one settlement, else
+  // the município page (/settlement/:obshtina). Without it the link fell back
+  // to the national /regions overview.
+  if (scopedToSettlement) facts.ekatte_id = scope[0].ekatte;
+  else facts.obshtina_id = place.obshtina;
 
   const subtitle = truncated
     ? bg

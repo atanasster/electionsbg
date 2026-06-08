@@ -260,6 +260,28 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
         });
       break;
     }
+    // "Results by section in a place" is settlement- or município-scoped, so it
+    // deep-links to that place's own page (where the per-section breakdown
+    // lives), read from the hidden _id facts the tool exposes. The TOOL_SECTION
+    // mapping still adds the /regions overview as the secondary category link.
+    case "sectionWinners": {
+      const ekatte = fact(env, "ekatte_id");
+      const ob = fact(env, "obshtina_id");
+      if (ekatte)
+        out.push({
+          label: {
+            bg: "Населено място — по секции",
+            en: "Settlement — by section",
+          },
+          href: url(`/sections/${encodeURIComponent(ekatte)}`),
+        });
+      else if (ob)
+        out.push({
+          label: { bg: "Община — пълни данни", en: "Municipality — full data" },
+          href: url(`/settlement/${encodeURIComponent(ob)}`),
+        });
+      break;
+    }
     // Single-settlement answers deep-link to that place's own dashboard
     // (/sections/:ekatte). The EKATTE is read from the locator overlay these
     // tools always attach, so it never enters facts (the model's narration
