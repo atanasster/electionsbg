@@ -32,12 +32,15 @@ export type LoadState = {
 
 const IDLE: LoadState = { phase: "idle", pct: 0, note: "", fromCache: false };
 
-// The smallest on-device model is ~1.1 GB. If the origin's storage holds less
-// than this floor, no model weights can be present — so refresh() can answer
-// "nothing downloaded" from the cheap Storage API alone and skip importing the
-// ~6 MB web-llm module just to render cache badges. Conservative: well under one
-// model, well over incidental app/IndexedDB usage.
-const MIN_CACHED_MODEL_BYTES = 300 * 1024 * 1024;
+// If the origin's storage holds less than this floor, no model weights can be
+// present — so refresh() can answer "nothing downloaded" from the cheap Storage
+// API alone and skip importing the ~6 MB web-llm module just to render cache
+// badges. MUST stay safely under the SMALLEST on-device model's footprint:
+// FunctionGemma is only ~157 MB (the old 300 MB floor predated it and wrongly
+// reported it as not-cached — its weights land below 300 MB). The app keeps no
+// service worker and React Query is in-memory, so a visitor who has downloaded
+// nothing sits well under this — the optimization still fires for them.
+const MIN_CACHED_MODEL_BYTES = 100 * 1024 * 1024;
 
 // Remembers the last engine the user picked. Restored on the next visit so the
 // composer pill doesn't silently snap back to the Basic engine. Only the
@@ -218,10 +221,13 @@ export const useModelEngine = (): ModelEngine => {
   // the rules engine — so we keep it off the page-load critical path and let the
   // picker call refresh() the first time its panel opens.
 
-  // Restore the remembered engine once on mount. Only cloud models are
-  // auto-selected (no download, no WebGPU, no web-llm import) — an on-device
-  // model is intentionally left alone so the user re-confirms it in the picker
-  // before we load gigabytes of weights. "rules" is already the default.
+  // Restore the remembered engine once on mount so a refresh doesn't snap the
+  // composer pill back to Basic. Cloud models restore immediately (no download,
+  // no WebGPU, no web-llm import). An on-device model restores ONLY if its
+  // weights are already on the device — gating on isCached() means a refresh
+  // re-loads a cached model fast (no network) but never kicks off a surprise
+  // multi-GB download for a model the user removed since last visit. "rules" is
+  // already the default.
   const restored = useRef(false);
   useEffect(() => {
     if (restored.current) return;
@@ -234,7 +240,20 @@ export const useModelEngine = (): ModelEngine => {
     }
     if (!saved || saved === "rules") return;
     const m = modelById(saved);
-    if (m?.ready && m.runtime === "cloud") void select(saved);
+    if (!m?.ready) return;
+    if (m.runtime === "cloud") {
+      void select(saved);
+      return;
+    }
+    // On-device: the isCached probe pulls in web-llm, but only for a visitor who
+    // previously downloaded a model — they already opted into that cost. Skip if
+    // the user picked another engine while the probe was in flight.
+    if (m.runtime === "webllm" && HAS_WEBGPU) {
+      const seq = switchSeq.current;
+      void isCached(m).then((present) => {
+        if (present && switchSeq.current === seq) void select(saved);
+      });
+    }
   }, [select]);
 
   return {
