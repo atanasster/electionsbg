@@ -33,6 +33,7 @@ import { MyAreaLocalTaxesTile } from "./MyAreaLocalTaxesTile";
 import { MyAreaPricesTile } from "./MyAreaPricesTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
 import { MyAreaQualityStrip } from "./MyAreaQualityStrip";
+import { MyAreaCommunityTile } from "./MyAreaCommunityTile";
 import { MyAreaProjectsMapTile } from "./MyAreaProjectsMapTile";
 import { MyAreaPropertyStockTile } from "./MyAreaPropertyStockTile";
 import { MyAreaAlertsTile } from "./MyAreaAlertsTile";
@@ -95,10 +96,15 @@ export const MyAreaScreen: FC = () => {
     );
   }
 
-  const seoTitle =
+  const areaName =
     area.kind === "settlement"
-      ? `${t("my_area_dashboard")} — ${lang === "bg" ? area.settlement.name : area.settlement.name_en}`
-      : `${t("my_area_dashboard")} — ${lang === "bg" ? area.municipality.name : area.municipality.name_en}`;
+      ? lang === "bg"
+        ? area.settlement.name
+        : area.settlement.name_en
+      : lang === "bg"
+        ? area.municipality.name
+        : area.municipality.name_en;
+  const seoTitle = `${t("my_area_dashboard")} — ${areaName}`;
 
   // Sofia city aggregate — no município row, so its header needs an explicit
   // fallback name and its МИР oblast suppressed from the breadcrumb.
@@ -310,6 +316,11 @@ export const MyAreaScreen: FC = () => {
             have data. The full per-tile detail still ships on the
             canonical /settlement and /municipality routes. */}
         <MyAreaQualityStrip obshtina={area.obshtina} />
+
+        {/* Community funnel — the dashboard's final tile invites the user
+            into the Наясно Facebook group for discussion and alerts about
+            this place. */}
+        <MyAreaCommunityTile area={areaName} />
       </section>
     </>
   );

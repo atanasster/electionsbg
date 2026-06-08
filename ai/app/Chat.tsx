@@ -15,6 +15,7 @@ import {
   FileText,
   ImageDown,
   Loader2,
+  MessageCircle,
   Mic,
   Plus,
   Share2,
@@ -41,6 +42,7 @@ import type {
   ToolArgs,
 } from "../tools/types";
 import { ClarifyDialog } from "./ClarifyDialog";
+import { GROUP_URL } from "./community";
 import {
   conversationToMarkdown,
   downloadAnswerImage,
@@ -272,12 +274,32 @@ const AssistantMessage = ({
   onClarify: (req: ClarifyRequest) => void;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
+  // Subtle answer-control link styling, matching AnswerControls' `btn`.
+  const discussLink =
+    "inline-flex items-center gap-1 rounded-full border border-input px-2.5 py-1 text-[11px] text-muted-foreground hover:bg-muted hover:text-foreground";
   return (
     <div data-msg="" className="w-full max-w-[95%] space-y-2 self-start">
       {!msg.env && (msg.text || streaming) && (
         <div className="rounded-2xl rounded-bl-sm bg-muted px-4 py-2 text-sm text-foreground">
           {msg.text || "…"}
         </div>
+      )}
+      {/* No-answer settled turn (clarify/fallback/error, not mid-stream):
+          offer the group as the place to ask. */}
+      {!msg.env && !streaming && msg.text && (
+        <a
+          href={GROUP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground"
+        >
+          <MessageCircle className="size-3" />
+          {t(
+            "Не намери отговор? Питай в групата →",
+            "No answer? Ask the group →",
+          )}
+        </a>
       )}
       {msg.env && (
         <div data-answer-card="" ref={cardRef}>
@@ -289,12 +311,28 @@ const AssistantMessage = ({
             onClarify={onClarify}
             controls={<AnswerControls msg={msg} lang={lang} speech={speech} />}
             actions={
-              <AnswerExportMenu
-                cardRef={cardRef}
-                msg={msg}
-                question={question}
-                lang={lang}
-              />
+              <div className="flex items-center gap-1.5">
+                {/* `data-export-omit` keeps the discuss link out of the
+                    PNG/PDF capture, like the read-aloud control. */}
+                <a
+                  data-export-omit=""
+                  href={GROUP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={discussLink}
+                >
+                  <MessageCircle className="size-3.5" />
+                  <span className="hidden sm:inline">
+                    {t("Обсъди в групата", "Discuss in the group")}
+                  </span>
+                </a>
+                <AnswerExportMenu
+                  cardRef={cardRef}
+                  msg={msg}
+                  question={question}
+                  lang={lang}
+                />
+              </div>
             }
           />
         </div>

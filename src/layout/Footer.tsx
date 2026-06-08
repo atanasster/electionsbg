@@ -1,6 +1,7 @@
 import { Anchor } from "@/ux/Anchor";
 import { Link } from "@/ux/Link";
 import { useTranslation } from "react-i18next";
+import { GROUP_URL, PAGE_URL } from "@/lib/community";
 
 export const Footer = () => {
   const { t } = useTranslation();
@@ -35,6 +36,22 @@ export const Footer = () => {
             className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
           >
             {t("open_source")}
+          </Anchor>
+        </li>
+        <li>
+          <Anchor
+            href={GROUP_URL}
+            className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
+          >
+            {t("facebook_group")}
+          </Anchor>
+        </li>
+        <li>
+          <Anchor
+            href={PAGE_URL}
+            className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
+          >
+            {t("facebook_page")}
           </Anchor>
         </li>
       </ul>

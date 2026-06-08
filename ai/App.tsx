@@ -17,6 +17,7 @@ import { Explorer } from "./app/Explorer";
 import { useModelEngine } from "./llm/useModelEngine";
 import { latestElection } from "./tools/dataset";
 import type { Lang } from "./tools/types";
+import { GROUP_URL } from "./app/community";
 
 export const App = ({
   initialView = "chat",
@@ -191,6 +192,7 @@ export const App = ({
               "https://github.com/atanasster/electionsbg",
               t("отворен код", "open source"),
             ],
+            [GROUP_URL, t("общност", "community")],
           ].map(([href, label]) => (
             <li key={href}>
               <a

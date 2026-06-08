@@ -7,6 +7,9 @@ import { useArticles, useArticleBody } from "@/data/articles/useArticles";
 import { usePreserveParams } from "@/ux/usePreserveParams";
 import { ArticleLayout } from "@/components/article/ArticleLayout";
 import { proseClasses } from "@/components/article/proseClasses";
+import { Anchor } from "@/ux/Anchor";
+import { ShareButton } from "@/ux/ShareButton";
+import { GROUP_URL } from "@/lib/community";
 
 export const ArticleScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -137,6 +140,12 @@ export const ArticleScreen: FC = () => {
           >
             {bodyWithoutH1}
           </Markdown>
+          <div className="mt-8 flex flex-wrap items-center gap-3 border-t pt-6 text-sm text-muted-foreground">
+            <ShareButton />
+            <Anchor href={GROUP_URL} className="font-medium">
+              {t("discuss_in_group")}
+            </Anchor>
+          </div>
         </div>
       )}
     </ArticleLayout>
